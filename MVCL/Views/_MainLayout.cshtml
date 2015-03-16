@@ -1,0 +1,106 @@
+﻿@* Generator: MvcView *@
+
+@using LCore;
+@using MVCL;
+@using MVCL.Models;
+@using MVCL.Controllers;
+@using MVCL.Context;
+@using MVCL.Routes;
+@using System.Linq;
+@using System.Linq.Expressions;
+@using System.Collections;
+@using System.Collections.Generic;
+@using System.ComponentModel;
+@using System.ComponentModel.DataAnnotations;
+@using System.ComponentModel.Design;
+@using System.Web;
+@using System.Web.Optimization;
+@using System.Web.Mvc;
+
+@{
+    ViewBag.Title = ViewBag.Title ?? "Home";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - MVCL</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+
+    @Scripts.Render(BundleConfig.Script_jQuery)
+    @Scripts.Render(BundleConfig.Script_jQueryUI)
+    @Scripts.Render(BundleConfig.Script_jQueryVal)
+    @Scripts.Render(BundleConfig.Script_Bootstrap)
+    @Scripts.Render(BundleConfig.Script_Modernizr)
+
+    @Scripts.Render(ControllerHelper.Script_Singularity)
+
+    @Scripts.Render(ControllerHelper.Script_MVCL)
+    @Scripts.Render(ControllerHelper.Script_MVCL_Chance)
+    @Scripts.Render(ControllerHelper.Script_MVCL_jQueryCookie)
+    @Scripts.Render(ControllerHelper.Script_MVCL_jQueryMousewheel)
+    @Scripts.Render(ControllerHelper.Script_MVCL_jQueryTimepicker)
+    @Scripts.Render(ControllerHelper.Script_MVCL_qTip)
+
+    @Styles.Render(BundleConfig.Style_Bootstrap)
+    @Styles.Render(BundleConfig.Style_jQueryUI)
+
+    @Styles.Render(ControllerHelper.Style_MVCL)
+
+</head>
+<body class="@(ViewBag.ContextProvider != null ? StringExt.ToUrlSlug(ViewBag.ContextProvider.GetContext(Session).ContextName) : "")">
+    <script type="text/javascript">
+
+        $().ready(function () {
+            MNCL_Init();
+        })
+    </script>
+    <header>
+        @*Html.Partial("_Menu") *@
+
+        @if (TempData.Peek(ControllerHelper.StatusMessage) != null)
+        {
+            String Message = (String)TempData[ControllerHelper.StatusMessage];
+            String Icon = (String)(TempData[ControllerHelper.StatusMessageIcon] ?? "");
+
+            <div class="status-message close-dialog">
+                @if (!String.IsNullOrEmpty(Icon))
+                {
+                    <glyph>@Icon</glyph>
+                }
+                @Message
+            </div>
+        }
+
+        <div class="key-bind-tip">
+            <div class="border-bottom">
+                <glyph>&#xe047;</glyph>
+                Key Shortcuts
+            </div>
+            <span id="key-bind-page-tip">
+            </span>
+        </div>
+    </header>
+    <div id="body">
+
+        @RenderSection("featured", required: false)
+
+        <section class="content-wrapper main-content clear-fix">
+            @RenderBody()
+        </section>
+    </div>
+    <footer>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p>&copy; @DateTime.Now.Year - smartschoolsplus</p>
+            </div>
+        </div>
+    </footer>
+    @Scripts.Render(BundleConfig.Script_jQuery)
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

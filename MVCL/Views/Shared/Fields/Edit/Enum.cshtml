@@ -1,0 +1,79 @@
+﻿@* Generator: MvcView *@
+
+@using LCore;
+@using MVCL;
+@using MVCL.Models;
+@using MVCL.Controllers;
+@using MVCL.Context;
+@using System.Collections;
+@using System.Collections.Generic;
+@using System.ComponentModel;
+@using System.ComponentModel.Design;
+@using System.Web;
+@using System.Web.Mvc;
+@using System.Linq;
+@using System.Linq.Expressions;
+@using System.ComponentModel.DataAnnotations;
+@using System.ComponentModel.DataAnnotations.Schema;
+
+@{
+    Type EnumType = Model.Meta.ModelType.IsEnum ? Model.Meta.ModelType : Model.Meta.ModelType.GetGenericArguments()[0];
+
+    Array Values = Enum.GetValues(EnumType);
+
+    IEnumerable<Enum> Enums = Values.Cast<Enum>();
+
+}
+
+@model IViewField
+
+@if (EnumType.HasAttribute<FlagsAttribute>())
+    {
+    <span class="enum-checks">
+
+        <input name="@Model.Meta.PropertyName" type="hidden" value="" />
+
+        @foreach (Enum e in Enums)
+            {
+            <span class="enum-check">
+                <input type="checkbox"
+                       id="@(Model.Meta.PropertyName)_@(e.ToString())"
+                       name="@Model.Meta.PropertyName"
+                       value="@e.ToString()"
+                       @((Model.PropertyData ?? "").ToString().Contains(e.ToString()) ? Html.Raw("checked=\"true\"") : Html.Raw(""))>
+                <label for="@(Model.Meta.PropertyName)_@(e.ToString())">
+                    @e.GetFriendlyName()
+                </label>
+            </span>
+            }
+    </span>
+    }
+else
+    {
+    List<SelectListItem> Items = new List<SelectListItem>();
+
+    foreach (Enum e in Enums)
+        {
+        Items.Add(new SelectListItem()
+        {
+            Text = e.GetFriendlyName(),
+            Value = e.ToString(),
+            Selected = (Model.PropertyData ?? "").ToString() == e.ToString(),
+        });
+        }
+
+    Items.Sort((Func<SelectListItem, IComparable>
+        )((i) => { return (IComparable)i.Text; }));
+
+    <select name="@Model.Meta.PropertyName" id="@Model.Meta.PropertyName">
+        @foreach (SelectListItem Item in Items)
+            {
+            <option value="@Item.Value" selected="@Item.Selected">
+                @Item.Text
+            </option>
+            }
+    </select>
+    /*
+                @Html.DropDownList(Model.Meta.PropertyName, Items, new { @class = "select-list" })
+                */
+    }

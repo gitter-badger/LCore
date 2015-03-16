@@ -1,0 +1,36 @@
+﻿@* Generator: MvcView *@
+
+@using LCore;
+@using MVCL;
+@using MVCL.Models;
+@using MVCL.Controllers;
+@using MVCL.Context;
+@using System.Collections;
+@using System.Collections.Generic;
+@using System.ComponentModel;
+@using System.ComponentModel.Design;
+@using System.Web;
+@using System.Web.Mvc;
+@using System.Linq;
+@using System.Linq.Expressions;
+@using System.ComponentModel.DataAnnotations;
+@using System.ComponentModel.DataAnnotations.Schema;
+
+@{
+}
+
+@model IViewField
+
+@if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell) &&
+    Model.PropertyData.ToString().Length > ManageController.DefaultTableTextLength)
+    {
+    <span class="abbreviated" title="@Model.PropertyData">
+        @Model.PropertyData.ToString().Substring(0, ManageController.DefaultTableTextLength) ...
+    </span>
+    }
+else
+    {
+    <span>
+        @Model.PropertyData
+    </span>
+    }

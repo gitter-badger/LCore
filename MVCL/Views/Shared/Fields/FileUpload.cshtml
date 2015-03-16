@@ -1,0 +1,210 @@
+﻿@* Generator: MvcView *@
+
+@using LCore;
+@using MVCL;
+@using MVCL.Models;
+@using MVCL.Controllers;
+@using MVCL.Context;
+@using System.Collections;
+@using System.Collections.Generic;
+@using System.ComponentModel;
+@using System.ComponentModel.Design;
+@using System.Web;
+@using System.Web.Mvc;
+@using System.Linq;
+@using System.Linq.Expressions;
+@using System.ComponentModel.DataAnnotations;
+@using System.ComponentModel.DataAnnotations.Schema;
+
+@{
+    ModelContext Context = ContextProviderFactory.GetCurrent().GetContext(Session);
+
+    List<MVCL.Models.FileUpload> CurrentFiles = new List<MVCL.Models.FileUpload>();
+
+    IFileUpload Attr = Model.Meta.GetAttribute<IFileUpload>();
+
+    if (Context.ContextTypes.Has(typeof(MVCL.Models.FileUpload)))
+    {
+        String ModelTypeName = Model.ModelData.TrueModelType().Name;
+        String PropertyName = Model.PropertyName;
+        int RelationID = Convert.ToInt32(Model.ModelData.GetID());
+
+        CurrentFiles = Context.GetDBSet<MVCL.Models.FileUpload>().Where(
+            f => f.Active == true &&
+            f.RelationType == ModelTypeName &&
+            f.RelationProperty == PropertyName &&
+            f.RelationID == RelationID
+            ).List();
+    }
+}
+
+@model IViewField
+
+@if (Model.ViewTypes.Has(ControllerHelper.ViewType.Edit))
+{
+    if (CurrentFiles.Count > 0 &&
+        !Attr.AllowMultipleUploads)
+    {
+    }
+    else
+    {
+        <div id="upload-file-@Model.PropertyName">
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#file-upload-button-@Model.PropertyName').click(function () {
+
+                        $('.file-upload-error-no-file-@Model.PropertyName').hide();
+
+                        var fileName = $('#file-upload-@Model.PropertyName').val()
+
+                        if (!fileName) {
+                            $('.file-upload-error-no-file-@Model.PropertyName').show();
+                            return;
+                        }
+
+                        var size = null;
+
+                        var restrictFileType = @(Attr.AllowFileTypes == null || Attr.AllowFileTypes.Length == 0 ? "false" : "true");
+
+                        $('.file-upload-error-incorrect-type-@(Model.PropertyName)').hide();
+
+                        if (restrictFileType)
+                        {
+                            var fileTypes = @Html.Raw("['" + Attr.AllowFileTypes.JoinLines("','").ToLower().ReplaceAll(".","") + "']");
+
+                            var typeFound = false;
+                            for (var i = 0 ; i < fileTypes.length; i++)
+                            {
+                                if (fileName.toLowerCase().indexOf(fileTypes[i]) == fileName.length - fileTypes[i].length)
+                                {
+                                    typeFound = true;
+                                    break;
+                                }
+                            }
+                            if (!typeFound)
+                            {
+                                $('.file-upload-error-incorrect-type-@(Model.PropertyName)').show();
+                                return;
+                            }
+                        }
+
+                        if ($('#file-upload-@(Model.PropertyName)')[0].files && $('#file-upload-@(Model.PropertyName)')[0].files[0])
+                            size = $('#file-upload-@(Model.PropertyName)')[0].files[0].size;
+
+                        $('.file-upload-error-too-small-@(Model.PropertyName)').hide();
+                        $('.file-upload-error-too-large-@(Model.PropertyName)').hide();
+
+                        if (size != null) {
+
+                            if (size < @(Attr.SizeMinimum) )
+                            {
+                            $('.file-upload-error-too-small-@(Model.PropertyName)').show();
+                            return;
+                        }
+
+                        if (size > @(Attr.SizeMaximum) )
+                        {
+                        $('.file-upload-error-too-large-@(Model.PropertyName)').show();
+                        return;
+                    }
+                    }
+
+
+
+                        $.ajax({
+                url: '/@(Html.ControllerName())/UploadFile?ReturnURL=@Request.Url.AbsoluteUri&RelationType=@Model.ModelData.TrueModelType().Name&RelationProperty=@Model.PropertyName&RelationID=@Model.ModelData.GetID()',
+                type: 'POST',
+                data: new FormData($('form.edit-form')[0]),
+                processData: false,
+                contentType: false,
+
+                success: function (data) {
+                    location.reload();
+                },
+                error: function (e) {
+                    $('.file-upload-error-@Model.PropertyName').show();
+                }
+                });
+                });
+                });
+            </script>
+
+            <input type="file" class="file-upload" id="file-upload-@Model.PropertyName" name="UploadFile@(Model.PropertyName)" />
+
+            <div class="file-upload-error-incorrect-type-@Model.PropertyName error" style="display:none;">
+                File types allowed: @(Attr.AllowFileTypes.JoinLines(", ").ToUpper().ReplaceAll(".", ""))
+            </div>
+
+            <div class="file-upload-error-too-large-@Model.PropertyName error" style="display:none;">
+                Upload can not be larger than <b>@Attr.SizeMaximum.FormatFileSize(2)</b>
+            </div>
+
+            <div class="file-upload-error-too-small-@Model.PropertyName error" style="display:none;">
+                Upload must be at least <b>@Attr.SizeMinimum.FormatFileSize(2)</b>
+            </div>
+
+            <div class="file-upload-error-no-file-@Model.PropertyName error" style="display:none;">
+                Please select a file to upload.
+            </div>
+
+            <div class="file-upload-error-@Model.PropertyName error" style="display:none;">
+                An error occured while uploading this file.
+            </div>
+
+            <div class="btn btn-default" id="file-upload-button-@Model.PropertyName">
+                <glyph>&#xE027;</glyph>
+                Upload
+            </div>
+        </div>
+    }
+}
+else if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell))
+{
+}
+else if (Model.ViewTypes.Has(ControllerHelper.ViewType.Display))
+{
+}
+
+@if (Model.ViewTypes.Has(ControllerHelper.ViewType.Edit) ||
+    Model.ViewTypes.Has(ControllerHelper.ViewType.Display))
+{
+    foreach (MVCL.Models.FileUpload File in CurrentFiles)
+    {
+        String Ext = System.IO.Path.GetExtension(File.FilePath);
+
+        if (Ext.StartsWith("."))
+        {
+            Ext = Ext.Substring(1);
+        }
+
+        <div class="display-file border-round">
+
+            <div class="file-icon">
+                <a href="@Url.Action("DownloadFile", Html.ControllerName(), new { FileID = File.FileUploadID })">
+                    <img src="/Content/icons/32px/@(Ext).png" alt="Image not found" error-src="/Content/icons/32px/_blank.png" />
+                </a>
+            </div>
+            <div>
+                <a href="@Url.Action("DownloadFile", Html.ControllerName(), new { FileID = File.FileUploadID })">
+                    Name:
+                    @(System.IO.Path.GetFileName(File.FilePath))
+                </a>
+            </div>
+
+            <div>
+                Size:
+                @File.FileSize.FormatFileSize(1)
+            </div>
+
+            @if (Attr.AllowDeactivate)
+            {
+                <a class="btn btn-default" id="file-upload-button-@Model.PropertyName"
+                   href="@Url.Action("DeleteFile", Html.ControllerName(), new { id = File.FileUploadID, ReturnURL = Request.Url.AbsoluteUri })">
+                    <glyph>&#xe014;</glyph>
+                    Remove
+                </a>
+            }
+        </div>
+    }
+}

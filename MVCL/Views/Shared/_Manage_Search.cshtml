@@ -1,0 +1,113 @@
+﻿@* Generator: MvcView *@
+
+@using LCore;
+@using System.Linq.Expressions;
+@using MVCL;
+@using MVCL.Models;
+
+@model ManageViewModel
+
+@{
+
+}
+
+<span class="manage-global-search">
+    @if (Model.FieldSearchTerms.Keys.Count > 0)
+    {
+        foreach (SearchOperation o in Model.FieldSearchTerms.Values)
+        {
+            if (o.Operator == Expression.Equal || o.OperatorStr == "~")
+            {
+                String Column = o.Property.ToUrlSlug();
+
+                <script type="text/javascript">
+                    $().ready(function () {
+                        $('.manage-@Model.ModelTypeCSSClass .manage-table tbody td.@Column span').each(function () {
+                            var html = $(this).html();
+                            $(this).html(html.replace(new RegExp("(" + preg_quote('@o.Search') + ")", 'ig'), '<strong>$1</strong>'));
+                        });
+                    });
+                </script>
+            }
+        }
+    }
+
+    @if (!String.IsNullOrEmpty(Model.GlobalSearchTerm))
+    {
+        <script type="text/javascript">
+            $().ready(function () {
+                $('.manage-@Model.ModelTypeCSSClass .manage-table tbody td span').each(function () {
+                    var html = $(this).html();
+                    $(this).html(html.replace(new RegExp('(' + preg_quote('@Model.GlobalSearchTerm') + ')', 'ig'), '<strong>$1</strong>'));
+                });
+            });
+        </script>
+    }
+    else
+    {
+        <script type="text/javascript">
+            $().ready(function () {
+                $('#GlobalSearchTerm').val('');
+            });
+        </script>
+    }
+
+    @if (!String.IsNullOrEmpty(Model.GlobalSearchTerm) ||
+            Model.FieldSearchTerms.Keys.Count > 0)
+    {
+        using (Html.BeginForm(Model.Controller.ManageActionName, Model.Controller.Name, Model.Route_ClearSearch(), FormMethod.Get, new { @class = "clear-form" }))
+        {
+            <input type="submit" value="Clear" />
+        }
+    }
+
+    @if (Model.FieldSearchTerms != null &&
+            Model.FieldSearchTerms.Keys.Count > 0)
+    {
+        <script type="text/javascript">
+            $().ready(function () {
+                $('.filter-area span[search-text]').click(function () {
+                    $('#GlobalSearchTerm').val($(this).attr('search-text'));
+                })
+            });
+        </script>
+        <div class="filter-area">
+            @foreach (SearchOperation o in Model.FieldSearchTerms.Values)
+            {
+                <span>
+                    <span search-text="@(o.Property + o.OperatorStr + o.Search)">
+                        @o.Property
+                        @o.OperatorStr
+                        @o.Search
+                    </span>
+                    @Html.ActionLink("X", Model.Controller.ManageActionName, Model.Controller.Name, Model.Route_RemoveFilter(o.Property), new { })
+                </span>
+            }
+        </div>
+    }
+
+    <script type="text/javascript">
+        $().ready(function () {
+            var availableTags = [
+                @Html.Raw(Model.GetSearchSuggestions())
+            ];
+            $("#GlobalSearchTerm").bind("keydown", function (event) {
+                if (event.keyCode === $.ui.keyCode.TAB &&
+                    $(this).autocomplete("instance").menu.active) {
+                    event.preventDefault();
+                }
+            }).autocomplete({
+                source: availableTags
+            });
+        });
+    </script>
+
+    @using (Html.BeginForm("Search", Model.Controller.Name, Model.Route_Search(), FormMethod.Post))
+    {
+        @Html.TextBox("GlobalSearchTerm", Model.GlobalSearchTerm);
+        @Html.Hidden("FieldSearchTerms", Model.GetGlobalSearchCombined());
+
+        <input type="submit" class="glyphicon" value="&#xe003; Search" />
+    }
+
+</span>
