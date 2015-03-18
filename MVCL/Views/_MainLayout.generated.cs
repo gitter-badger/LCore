@@ -297,6 +297,16 @@ WriteLiteral("\r\n\r\n    ");
 
             
             #line 48 "..\..\Views\_MainLayout.cshtml"
+Write(Scripts.Render(ControllerHelper.Style_Singularity));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n\r\n    ");
+
+
+            
+            #line 50 "..\..\Views\_MainLayout.cshtml"
 Write(Styles.Render(BundleConfig.Style_Bootstrap));
 
             
@@ -306,7 +316,7 @@ WriteLiteral("\r\n    ");
 
 
             
-            #line 49 "..\..\Views\_MainLayout.cshtml"
+            #line 51 "..\..\Views\_MainLayout.cshtml"
 Write(Styles.Render(BundleConfig.Style_jQueryUI));
 
             
@@ -316,7 +326,7 @@ WriteLiteral("\r\n\r\n    ");
 
 
             
-            #line 51 "..\..\Views\_MainLayout.cshtml"
+            #line 53 "..\..\Views\_MainLayout.cshtml"
 Write(Styles.Render(ControllerHelper.Style_MVCL));
 
             
@@ -326,7 +336,7 @@ WriteLiteral("\r\n\r\n</head>\r\n<body class=\"");
 
 
             
-            #line 54 "..\..\Views\_MainLayout.cshtml"
+            #line 56 "..\..\Views\_MainLayout.cshtml"
          Write(ViewBag.ContextProvider != null ? StringExt.ToUrlSlug(ViewBag.ContextProvider.GetContext(Session).ContextName) : "");
 
             
@@ -341,7 +351,7 @@ WriteLiteral("\r\n\r\n");
 
 
             
-            #line 64 "..\..\Views\_MainLayout.cshtml"
+            #line 66 "..\..\Views\_MainLayout.cshtml"
          if (TempData.Peek(ControllerHelper.StatusMessage) != null)
         {
             String Message = (String)TempData[ControllerHelper.StatusMessage];
@@ -355,7 +365,7 @@ WriteLiteral("            <div class=\"status-message close-dialog\">\r\n");
 
 
             
-            #line 70 "..\..\Views\_MainLayout.cshtml"
+            #line 72 "..\..\Views\_MainLayout.cshtml"
                  if (!String.IsNullOrEmpty(Icon))
                 {
 
@@ -366,7 +376,7 @@ WriteLiteral("                    <glyph>");
 
 
             
-            #line 72 "..\..\Views\_MainLayout.cshtml"
+            #line 74 "..\..\Views\_MainLayout.cshtml"
                       Write(Icon);
 
             
@@ -376,7 +386,7 @@ WriteLiteral("</glyph>\r\n");
 
 
             
-            #line 73 "..\..\Views\_MainLayout.cshtml"
+            #line 75 "..\..\Views\_MainLayout.cshtml"
                 }
 
             
@@ -386,7 +396,7 @@ WriteLiteral("                ");
 
 
             
-            #line 74 "..\..\Views\_MainLayout.cshtml"
+            #line 76 "..\..\Views\_MainLayout.cshtml"
            Write(Message);
 
             
@@ -396,7 +406,7 @@ WriteLiteral("\r\n            </div>\r\n");
 
 
             
-            #line 76 "..\..\Views\_MainLayout.cshtml"
+            #line 78 "..\..\Views\_MainLayout.cshtml"
         }
 
             
@@ -418,7 +428,7 @@ WriteLiteral(@"
 
 
             
-            #line 89 "..\..\Views\_MainLayout.cshtml"
+            #line 91 "..\..\Views\_MainLayout.cshtml"
    Write(RenderSection("featured", required: false));
 
             
@@ -429,7 +439,7 @@ WriteLiteral("\r\n\r\n        <section class=\"content-wrapper main-content clea
 
 
             
-            #line 92 "..\..\Views\_MainLayout.cshtml"
+            #line 94 "..\..\Views\_MainLayout.cshtml"
        Write(RenderBody());
 
             
@@ -440,7 +450,7 @@ WriteLiteral("\r\n        </section>\r\n    </div>\r\n    <footer>\r\n        <d
 
 
             
-            #line 98 "..\..\Views\_MainLayout.cshtml"
+            #line 100 "..\..\Views\_MainLayout.cshtml"
                      Write(DateTime.Now.Year);
 
             
@@ -450,7 +460,7 @@ WriteLiteral(" - smartschoolsplus</p>\r\n            </div>\r\n        </div>\r\
 
 
             
-            #line 102 "..\..\Views\_MainLayout.cshtml"
+            #line 104 "..\..\Views\_MainLayout.cshtml"
 Write(Scripts.Render(BundleConfig.Script_jQuery));
 
             
@@ -460,7 +470,7 @@ WriteLiteral("\r\n\r\n    ");
 
 
             
-            #line 104 "..\..\Views\_MainLayout.cshtml"
+            #line 106 "..\..\Views\_MainLayout.cshtml"
 Write(RenderSection("scripts", required: false));
 
             

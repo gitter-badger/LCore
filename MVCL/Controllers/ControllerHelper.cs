@@ -265,6 +265,7 @@ namespace MVCL.Controllers
 
 
         public const String Script_Singularity = "~/Scripts/singularity";
+        public const String Style_Singularity = "~/Content/singularity";
 
         public const String Script_MVCL = "~/Scripts/mvcl";
         public const String Style_MVCL = "~/Content/mvcl";
@@ -298,6 +299,9 @@ namespace MVCL.Controllers
                         Root + "Scripts/singularity-js-date.js",
                         Root + "Scripts/singularity-jquery.js",
                         Root + "Scripts/singularity-html.js"));
+
+            bundles.Add(new StyleBundle(Style_Singularity).Include(
+                Root + "Content/singularity.css"));
             #endregion
 
             bundles.Add(new ScriptBundle(Script_MVCL_Chance).Include(
