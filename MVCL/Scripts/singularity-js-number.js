@@ -8,6 +8,11 @@ function InitSingularityJS_Number() {
         summary: "\
         toStr is a standardized way of converting Objects to Strings.",
         parameters: [
+            {
+                name: 'includeMarkup',
+                types: [Boolean],
+                defaultValue: false,
+            }
         ],
         returns: 'A string representation of the Number toStr is called on.',
         returnType: String,

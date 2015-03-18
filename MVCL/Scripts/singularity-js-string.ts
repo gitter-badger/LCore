@@ -16,10 +16,14 @@ interface String {
     lines?: () => string[];
     surround?: (str: string) => string;
     truncate?: (length: number) => string;
-    toStr?: () => string;
 
     hasMatch?: (pattern: RegExp) => boolean;
     matchCount?: (pattern: RegExp) => number;
+
+    numericValueOf?: () => number;
+    toStr?: (includeMarkup?: boolean) => string;
+    // log?: () => void;
+
     /*
     parse
     first
@@ -698,6 +702,20 @@ function InitSingularityJS_String() {
         var thisStr = <string>this;
 
         return thisStr.hasMatch(/^\{?[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}‌​\}?$/);
+    }
+    sing.addStringExt('numericValueOf', StringNumericValueOf,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+
+    function StringNumericValueOf(): string {
+        return this.valueOf();
     }
 
     sing.addStringExt('isDate', null,

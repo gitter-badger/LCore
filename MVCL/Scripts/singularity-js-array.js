@@ -422,7 +422,29 @@ function InitSingularityJS_Array() {
         tests: function (ext) {
         },
     });
-    sing.addArrayExt('sort', null, {
+    function SplitAt() {
+        var indexes = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            indexes[_i - 0] = arguments[_i];
+        }
+        indexes.sort();
+        var out = [];
+        var section = [];
+        var indexI = 0;
+        for (var i = 0; i < this.length; i++) {
+            if (indexes.length > indexI) {
+                if (i < indexes[indexI])
+                    section.push(this[i]);
+                if (i == indexes[indexI]) {
+                    out.push(section);
+                    section = [];
+                    indexI++;
+                }
+            }
+        }
+        return out;
+    }
+    sing.addArrayExt('sortBy', null, {
         summary: null,
         parameters: null,
         returns: '',
@@ -432,6 +454,18 @@ function InitSingularityJS_Array() {
         tests: function (ext) {
         },
     });
+    function ArraySortBy(arg) {
+        if (arg == null) {
+            arg = function (item) {
+                if (item.numericValueOf)
+                    return item.numericValueOf();
+                else
+                    return $.toStr(item).numericValueOf();
+            };
+        }
+        var indexes = this.collect(arg);
+        return [];
+    }
     sing.addArrayExt('exfiltrate', null, {
         summary: null,
         parameters: null,
