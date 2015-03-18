@@ -411,7 +411,7 @@ class Singularity {
 
         return sing.listTests() + '\r\n' +
             displayStr + '\r\n' +
-            (result || 'All ' + testCount + ' tests succeeded.');
+            (result || '\r\n\r\nAll ' + testCount + ' tests succeeded.');
     };
 
     listTests = function () {
@@ -599,7 +599,7 @@ class Singularity {
                     }
                     if (methodTestsFound > 0) {
                         if (methodTestsFound == methodTestsPassed) {
-                            out += '----' + 'All Test Cases Passed\r\n\r\n';
+                            out += '----' + '\r\nAll Test Cases Passed\r\n\r\n';
                         }
                         else {
                             out += '----' + methodTestsPassed + ' / ' + methodTestsFound + ' (' + ((methodTestsPassed / methodTestsFound) * 100).round(1) + '%) Test Cases Passed\r\n\r\n';
@@ -708,35 +708,39 @@ class Singularity {
 
     };
 
-    getSummary = function (funcName?: string) {
-        funcName = funcName || 'all';
+    getSummary = function (funcName: string = 'all', includeFunctions: boolean = true) {
 
         var out = sing.getDocs(funcName, false, false);
 
         out += '\r\n';
 
-        $.objEach(sing.extensions, function (key, ext, i) {
+        if (funcName != '' && funcName != 'all') {
+            out += 'Search: ' + funcName;
+        }
 
-            if (funcName &&
-                funcName.lower() != '' &&
-                funcName.lower() != 'all' &&
-                !ext.name.lower().contains(funcName.lower()))
-                return;
+        if (includeFunctions) {
+            $.objEach(sing.extensions, function (key, ext, i) {
 
-            out += '\r\n' + (ext.name + ' ').pad(30);
+                if (funcName &&
+                    funcName.lower() != '' &&
+                    funcName.lower() != 'all' &&
+                    !ext.name.lower().contains(funcName.lower()))
+                    return;
 
-            out += ((ext.details.returnTypeName || '') + ' function(').pad(20, Direction.r);
+                out += '\r\n' + (ext.name + ' ').pad(30);
 
-            out += ((ext.details && ext.details.parameters) ? ext.details.parameters.collect(function (item, i) {
-                var TypeNames = item.types.collect(function (a) { return a.name }).join(', ');
-                return (i > 0 ? ''.pad(50) : '') +
-                    '[' + TypeNames + '] ' + item.name;
-            }).join(', \r\n') : '') +
-            ') ' +
-            (ext.details && ext.details.parameters && ext.details.parameters.length > 1 ? '\r\n' + ''.pad(50) : '') +
-            '{ ... } ';
-        });
+                out += ((ext.details.returnTypeName || '') + ' function(').pad(20, Direction.r);
 
+                out += ((ext.details && ext.details.parameters) ? ext.details.parameters.collect(function (item, i) {
+                    var TypeNames = item.types.collect(function (a) { return a.name }).join(', ');
+                    return (i > 0 ? ''.pad(50) : '') +
+                        '[' + TypeNames + '] ' + item.name;
+                }).join(', \r\n') : '') +
+                ') ' +
+                (ext.details && ext.details.parameters && ext.details.parameters.length > 1 ? '\r\n' + ''.pad(50) : '') +
+                '{ ... } ';
+            });
+        }
         return out;
     };
 
