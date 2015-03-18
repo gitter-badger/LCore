@@ -20,19 +20,31 @@
     Layout = Layouts.MainLayout;
 }
 
+<div class="mvcl-test singularity-test">
+
+    <div>
+        <script type="text/javascript">
+            $().ready(function () {
+                $('#singularity-output').html(sing.getSummary().replaceAll('\r\n', '<br />'));
+            });
+        </script>
+        <div id="singularity-output"></div>
+    </div>
+</div>
+
 <div class="mvcl-test">
-    <h4>Test *[show-if]</h4>
+    <h4>*[show-if]</h4>
     <div>
         Show Hide
         <input type="checkbox" name="a" id="a" />
     </div>
     <div show-if="a" class="example">
-        Test *[show-if]
+        *[show-if]
     </div>
 </div>
 
 <div class="mvcl-test">
-    <h4>Test *[show-if-value]</h4>
+    <h4>*[show-if-value]</h4>
     <div>
         Radio Select
         <input type="radio" name="r1" value="1">1
@@ -63,7 +75,7 @@
 </div>
 
 <div class="mvcl-test">
-    <h4>Test *[show-if-value] Operators (!, =, &gt;, &lt;, &lt;=, &gt;=, &lt;&gt;, &gt;&lt;, list)</h4>
+    <h4>*[show-if-value] Operators (!, =, &gt;, &lt;, &lt;=, &gt;=, &lt;&gt;, &gt;&lt;, list)</h4>
     <div>
         Radio Select Ranges
         <input type="radio" name="r2" value="0">0
@@ -107,9 +119,9 @@
 </div>
 
 <div class="mvcl-test">
-    <h4>Test *[click-show]</h4>
-    <h4>Test *[click-hide]</h4>
-    <h4>Test *[click-toggle]</h4>
+    <h4>*[click-show]</h4>
+    <h4>*[click-hide]</h4>
+    <h4>*[click-toggle]</h4>
     <div>
         Toggle
         <input type="button" click-show="#d" value="show" />
@@ -122,9 +134,9 @@
 </div>
 
 <div class="mvcl-test">
-    <h4>Test *[click-fade-in]</h4>
-    <h4>Test *[click-fade-out]</h4>
-    <h4>Test *[click-fade-toggle]</h4>
+    <h4>*[click-fade-in]</h4>
+    <h4>*[click-fade-out]</h4>
+    <h4>*[click-fade-toggle]</h4>
     <div>
         Fade Toggle
         <input type="button" click-fade-in="#e" value="show" />
@@ -137,7 +149,7 @@
 </div>
 
 <div class="mvcl-test">
-    <h4>Test *[enabled-if]</h4>
+    <h4>*[enabled-if]</h4>
     <div>
         Enable Buttons
         <input type="checkbox" value="show" name="f" />
@@ -155,7 +167,7 @@
 </div>
 
 <div class="mvcl-test">
-    <h4>Test *[enabled-if-value]</h4>
+    <h4>*[enabled-if-value]</h4>
     <div>
         <input type="radio" value="apples" name="n0" /> Apples
         <input type="radio" value="oranges" name="n0" /> Oranges
@@ -167,7 +179,7 @@
 </div>
 
 <div class="mvcl-test">
-    <h4>Test *[disabled-if]</h4>
+    <h4>*[disabled-if]</h4>
     <div>
         Disable Buttons
         <input type="checkbox" value="show" name="f3" />
@@ -186,9 +198,9 @@
 
 <div class="mvcl-test">
     <error>Fails</error>
-    <h4>Test *[click-fade-in-if]</h4>
-    <h4>Test *[click-fade-out-if]</h4>
-    <h4>Test *[click-fade-toggle-if]</h4>
+    <h4>*[click-fade-in-if]</h4>
+    <h4>*[click-fade-out-if]</h4>
+    <h4>*[click-fade-toggle-if]</h4>
     <div>
         Enable Buttons
         <input type="checkbox" value="show" name="f2" />
@@ -207,8 +219,8 @@
 
 <div class="mvcl-test">
     <error>Fails</error>
-    <h4>Test *[checked-if]</h4>
-    <h4>Test *[checked-if] Operations (=, !, &lt;, &gt;)</h4>
+    <h4>*[checked-if]</h4>
+    <h4>*[checked-if] Operations (=, !, &lt;, &gt;)</h4>
     <div>
         Checked Test
         <input type="radio" name="r3" value="0">0
@@ -277,7 +289,7 @@
 </div>
 
 <div class="mvcl-test">
-    <h4>Test *[readonly-if]</h4>
+    <h4>*[readonly-if]</h4>
     <div>
         <input type="checkbox" name="l" value="yes">Readonly
 
@@ -286,9 +298,9 @@
 </div>
 
 <div class="mvcl-test">
-    <h4>Test *[click-add-class]</h4>
-    <h4>Test *[click-remove-class]</h4>
-    <h4>Test *[click-toggle-class]</h4>
+    <h4>*[click-add-class]</h4>
+    <h4>*[click-remove-class]</h4>
+    <h4>*[click-toggle-class]</h4>
     <div>
         <input type="button" click-add-class="error" value="add" />
         <input type="button" click-remove-class="error" class="error" value="remove" />
@@ -297,9 +309,9 @@
 </div>
 
 <div class="mvcl-test">
-    <h4>Test *[click-add-class-target]</h4>
-    <h4>Test *[click-remove-class-target]</h4>
-    <h4>Test *[click-toggle-class-target]</h4>
+    <h4>*[click-add-class-target]</h4>
+    <h4>*[click-remove-class-target]</h4>
+    <h4>*[click-toggle-class-target]</h4>
     <div>
         <input type="button" click-add-class="error" click-add-class-target="m3" value="add" />
         <input type="button" click-remove-class="error" click-remove-class-target="m3" value="remove" />
@@ -311,7 +323,7 @@
 </div>
 
 <div class="mvcl-test">
-    <h4>Test *[click-animate]</h4>
+    <h4>*[click-animate]</h4>
     <div>
         <input type="button" value="left" click-animate="{'left':'-=5'}" />
         <input type="button" value="right" click-animate="{'left':'+=5'}" />
@@ -321,7 +333,7 @@
 </div>
 
 <div class="mvcl-test">
-    <h4>Test *[click-animate-target]</h4>
+    <h4>*[click-animate-target]</h4>
     <div>
         <input type="button" value="left" click-animate="{'left':'-=5'}" click-animate-target="m5" />
         <input type="button" value="right" click-animate="{'left':'+=5'}" click-animate-target="m5" />

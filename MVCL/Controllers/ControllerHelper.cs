@@ -289,9 +289,13 @@ namespace MVCL.Controllers
 
             #region Singularity
             bundles.Add(new ScriptBundle(Script_Singularity).Include(
-                        Root + "Scripts/singularity-classes.js",
-                        Root + "Scripts/singularity.js",
-                        Root + "Scripts/singularity-js.js",
+                        Root + "Scripts/singularity-core.js",
+                        Root + "Scripts/singularity-js-function.js",
+                        Root + "Scripts/singularity-js-array.js",
+                        Root + "Scripts/singularity-js-string.js",
+                        Root + "Scripts/singularity-js-number.js",
+                        Root + "Scripts/singularity-js-boolean.js",
+                        Root + "Scripts/singularity-js-date.js",
                         Root + "Scripts/singularity-jquery.js",
                         Root + "Scripts/singularity-html.js"));
             #endregion

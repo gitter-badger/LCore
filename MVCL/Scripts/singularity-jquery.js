@@ -1,15 +1,13 @@
-﻿/*
+/// <reference path="singularity-core.ts"/>
+/*
 //////////////////////////////////////////////////////
 //
 // jQuery Extensions
 //
 //
 */
-
 function InitSingularityJS_jQuery() {
-
-    sing.addjQueryFnExt('checked', Checked,
-    {
+    sing.addjQueryFnExt('checked', Checked, {
         summary: null,
         parameters: null,
         returns: '',
@@ -18,20 +16,15 @@ function InitSingularityJS_jQuery() {
         tests: function (ext) {
         },
     });
-
     function Checked() {
         var anyChecked = false;
-
         this.each(function () {
-            if ($(this)[0].checked)
+            if ($(this)[0]['checked'])
                 anyChecked = true;
         });
-
         return anyChecked;
     }
-
-    sing.addjQueryFnExt('allVisible', AllVisible,
-    {
+    sing.addjQueryFnExt('allVisible', AllVisible, {
         summary: null,
         parameters: null,
         returns: '',
@@ -40,28 +33,20 @@ function InitSingularityJS_jQuery() {
         tests: function (ext) {
         },
     });
-
     function AllVisible() {
-
         var allVisible = true;
-
         this.each(function () {
             var opacity = $(this).attr('opacity');
-
-            if (opacity == 0 || opacity == '0') {
+            if (opacity == '0') {
                 allVisible = false;
             }
-
             if ($(this).css('display') == 'none') {
                 allVisible = false;
             }
         });
-
         return allVisible;
     }
-
-    sing.addjQueryFnExt('findIDNameSelector', FindIDNameSelector,
-    {
+    sing.addjQueryFnExt('findIDNameSelector', FindIDNameSelector, {
         summary: null,
         parameters: null,
         returns: '',
@@ -70,30 +55,28 @@ function InitSingularityJS_jQuery() {
         tests: function (ext) {
         },
     });
-
     function FindIDNameSelector(name) {
-
         var target = $();
-
         try {
             target = $(this).find('#' + name);
-        } catch (ex) { }
-
+        }
+        catch (ex) {
+        }
         if (target.length == 0)
             try {
                 target = $(this).find('[name=' + name + ']');
-            } catch (ex) { }
-
+            }
+            catch (ex) {
+            }
         if (target.length == 0)
             try {
                 target = $(this).find(name);
-            } catch (ex) { }
-
+            }
+            catch (ex) {
+            }
         return target || $();
     }
-
-    sing.addjQueryFnExt('actionIf', ActionIf,
-    {
+    sing.addjQueryFnExt('actionIf', ActionIf, {
         summary: null,
         parameters: null,
         returns: '',
@@ -102,25 +85,17 @@ function InitSingularityJS_jQuery() {
         tests: function (ext) {
         },
     });
-
     function ActionIf(name) {
-
         var target = $(this);
-
         var ifTargetName = target.attr(name + '-if');
-
         // If there's no target, there's no condition to match. Always true.
         if (!ifTargetName)
             return true;
-
         var ifTarget = $('body').findIDNameSelector(ifTargetName);
-
-        var targetValue = target.attr(name + '-if-value') || '';
-
+        var targetValue = (target.attr(name + '-if-value') || '');
         var operation = function (a, b) {
             return a == b;
         };
-
         if (targetValue.indexOf('!=') == 0) {
             operation = function (a, b) {
                 return a != b;
@@ -179,162 +154,170 @@ function InitSingularityJS_jQuery() {
         }
         else if (targetValue.indexOf('>') == 0) {
             operation = function (a, b) {
-
                 return parseFloat(a) > parseFloat(b);
             };
             targetValue = parseFloat(targetValue.substr(1));
         }
-
         if (ifTarget.length == 0) {
             return false;
         }
         else {
             var val = ifTarget.val();
-
             if (!targetValue) {
                 if (ifTarget.attr('type') == 'checkbox')
                     return ifTarget.checked();
-
                 if (ifTarget.attr('type') == 'radio')
                     return ifTarget.filter(':checked').length > 0;
-
                 return val != null && val != '';
             }
             else {
                 // Radio values can be combined with the use of custom numeric operators
                 if (ifTarget.attr('type') == 'radio')
                     return operation(ifTarget.filter(':checked').val(), targetValue);
-
                 return operation(val, targetValue);
             }
         }
-    };
-
+    }
+    ;
     //
     //////////////////////////////////////////////////////
     // MOVE to object extensions
     //
-
-    sing.addjQueryExt('isFunction', IsFunction,
-    {
+    sing.addjQueryExt('toStr', ToStr, {
         summary: null,
         parameters: null,
         returns: '',
         returnType: '',
         examples: null,
         tests: function (ext) {
+            ext.addTest(undefined, [null], '');
+            ext.addTest(undefined, [null, false], '');
+            ext.addTest(undefined, [null, true], 'null');
+            ext.addTest(undefined, [undefined], '');
+            ext.addTest(undefined, [undefined, false], '');
+            ext.addTest(undefined, [undefined, true], 'undefined');
+            ext.addTest(undefined, [[]], '');
+            ext.addTest(undefined, [[], false], '');
+            ext.addTest(undefined, [[], true], '[]');
+            ext.addTest(undefined, [{}], '');
+            ext.addTest(undefined, [{}, false], '');
+            ext.addTest(undefined, [{}, true], '{}');
+            ext.addTest(undefined, [NaN], '');
+            ext.addTest(undefined, [NaN, false], '');
+            ext.addTest(undefined, [NaN, true], 'NaN');
+            ext.addTest(undefined, [{ a: 'b', b: 5, c: false, d: [], e: { f: {} } }], 'a: b\r\nb: 5\r\nc: No\r\nd: \r\ne: f: \r\n\r\n');
+            ext.addTest(undefined, [{ a: 'b', b: 5, c: false, d: [], e: { f: {} } }, true], '{a: \'b\', b: 5, c: false, d: [], e: {f: {}}}');
+            ext.addTest(undefined, [['a']], 'a');
+            ext.addTest(undefined, [['a'], false], 'a');
+            ext.addTest(undefined, [['a'], true], '[\'a\']');
+            ext.addTest(undefined, [[true]], 'Yes');
+            ext.addTest(undefined, [[true], false], 'Yes');
+            ext.addTest(undefined, [[true], true], '[true]');
+            ext.addTest(undefined, [[false]], 'No');
+            ext.addTest(undefined, [[false], false], 'No');
+            ext.addTest(undefined, [[false], true], '[false]');
+            ext.addTest(undefined, [[5]], '5');
+            ext.addTest(undefined, [[5], false], '5');
+            ext.addTest(undefined, [[5], true], '[5]');
+            ext.addTest(undefined, [[false, false, false, false]], 'No\r\nNo\r\nNo\r\nNo');
+            ext.addTest(undefined, [[false, false, false, false], false], 'No\r\nNo\r\nNo\r\nNo');
+            ext.addTest(undefined, [[false, false, false, false], true], '[false, false, false, false]');
         },
     });
-
-    function IsFunction(obj) {
-        return !!(obj && obj.constructor && obj.call && obj.apply);
+    function ToStr(obj, includeMarkup) {
+        if (includeMarkup === void 0) { includeMarkup = false; }
+        if (obj === undefined)
+            return includeMarkup ? 'undefined' : '';
+        if (obj === null)
+            return includeMarkup ? 'null' : '';
+        if (obj.toStr)
+            return obj.toStr(includeMarkup);
+        if (typeof obj == 'object') {
+            var out = includeMarkup ? '{' : '';
+            var keyCount = Object.keys(obj).length;
+            $.objEach(obj, function (key, item, index) {
+                if (includeMarkup) {
+                    out += key + ': ' + $.toStr(item, true);
+                    if (index < keyCount - 1)
+                        out += ', ';
+                }
+                else {
+                    out += key + ': ' + $.toStr(item) + '\r\n';
+                }
+            });
+            out += includeMarkup ? '}' : '';
+            return out;
+        }
+        return obj;
     }
-
-    sing.addjQueryExt('toStr', ToStr,
-    {
+    sing.addjQueryExt('isString', IsString, {
         summary: null,
         parameters: null,
         returns: '',
         returnType: '',
         examples: null,
         tests: function (ext) {
+            ext.addTest(undefined, [], false);
+            ext.addTest(undefined, [], false);
+            ext.addTest(undefined, [], false);
+            ext.addTest(undefined, [5], false);
+            ext.addTest(undefined, [''], true);
+            ext.addTest(undefined, ['a'], true);
         },
     });
-
-    function ToStr(str, includeMarkup) {
-        if (str === undefined)
-            return 'undefined';
-        if (str === null)
-            return 'null';
-
-        if (str.toStr)
-            return str.toStr(includeMarkup);
-
-        return str;
-    }
-
-    sing.addjQueryExt('isString', IsString,
-    {
-        summary: null,
-        parameters: null,
-        returns: '',
-        returnType: '',
-        examples: null,
-        tests: function (ext) {
-        },
-    });
-
     function IsString(str) {
         return typeof str == 'string';
     }
-
-    sing.addjQueryExt('objectEach', ObjectEach,
-    {
+    sing.addjQueryExt('objEach', ObjectEach, {
         summary: null,
         parameters: null,
         returns: '',
         returnType: '',
         examples: null,
         tests: function (ext) {
+            ext.addCustomTest(undefined, function () {
+                var test = { a: 1, b: 2 };
+                var test2 = [];
+                $.objEach(test, function (key, item, index) {
+                    test2.push({ key: key, item: item, index: index });
+                });
+                if ($.toStr(test2) != $.toStr([{ key: 'a', item: 1, index: 0 }, { key: 'b', item: 2, index: 1 }]))
+                    return $.toStr(test2) + '\r\n' + $.toStr([{ key: 'a', item: 1, index: 0 }, { key: 'b', item: 2, index: 1 }]);
+            }, 'Executes for every element');
         },
     });
-
     function ObjectEach(src, eachFunc) {
-
         var keys = Object.keys(src);
-
         keys.each(function (key, i) {
             eachFunc(key, src[key], i);
         });
     }
-
-    sing.addjQueryExt('objProperties', ObjectProperties,
-    {
+    sing.addjQueryExt('objProperties', ObjectProperties, {
         summary: null,
         parameters: null,
         returns: '',
         returnType: '',
         examples: null,
         tests: function (ext) {
+            ext.addTest(undefined, [null], []);
+            ext.addTest(undefined, [undefined], []);
+            ext.addTest(undefined, ['a'], [{ 0: { key: '0', value: 'a' } }]);
+            ext.addTest(undefined, [5], []);
+            ext.addTest(undefined, [[]], []);
+            ext.addTest(undefined, [{}], []);
+            ext.addTest(undefined, [{ a: 1, b: 2 }], [{ key: 'a', value: 1 }, { key: 'b', value: 2 }]);
         },
     });
-
     function ObjectProperties(src) {
-
+        if (src == null || !(typeof src == 'object'))
+            return [];
         var keys = Object.keys(src);
-
-        var values = keys.collect(function (item, i) { return src[item]; });
-
-        return {
-            keys: keys,
-            values: values
-        };
-    }
-
-    sing.addjQueryExt('objValues', ObjectValues,
-    {
-        summary: null,
-        parameters: null,
-        validateInput: false,
-        returns: '',
-        returnType: '',
-        examples: null,
-        tests: function (ext) {
-        },
-    });
-
-    function ObjectValues(src) {
-
-        var keys = Object.keys(src);
-
-        var values = keys.collect(function (item, i) { return src[item]; });
-
+        var values = keys.collect(function (item, i) {
+            return { key: item, value: src[item] };
+        });
         return values;
     }
-
-
-    sing.addjQueryExt('objKeys', ObjectKeys,
-    {
+    sing.addjQueryExt('objValues', ObjectValues, {
         summary: null,
         parameters: null,
         validateInput: false,
@@ -342,18 +325,50 @@ function InitSingularityJS_jQuery() {
         returnType: '',
         examples: null,
         tests: function (ext) {
+            ext.addTest(undefined, [null], []);
+            ext.addTest(undefined, [undefined], []);
+            ext.addTest(undefined, ['a'], []);
+            ext.addTest(undefined, ['a', 'b'], []);
+            ext.addTest(undefined, [5], []);
+            ext.addTest(undefined, [[]], []);
+            ext.addTest(undefined, [{}], []);
+            ext.addTest(undefined, [{ a: 1, b: 2 }], [1, 2]);
         },
     });
-
-    function ObjectKeys(src) {
-
+    function ObjectValues(src) {
+        if (src == null || !(typeof src == 'object'))
+            return [];
         var keys = Object.keys(src);
-
+        var values = keys.collect(function (item, i) {
+            return src[item];
+        });
+        return values;
+    }
+    sing.addjQueryExt('objKeys', ObjectKeys, {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        tests: function (ext) {
+            ext.addTest(undefined, [null], []);
+            ext.addTest(undefined, [undefined], []);
+            ext.addTest(undefined, ['a'], []);
+            ext.addTest(undefined, ['a', 'b'], []);
+            ext.addTest(undefined, [5], []);
+            ext.addTest(undefined, [[]], []);
+            ext.addTest(undefined, [{}], []);
+            ext.addTest(undefined, [{ a: 1, b: 2 }], ['a', 'b']);
+        },
+    });
+    function ObjectKeys(src) {
+        if (src == null || !(typeof src == 'object'))
+            return [];
+        var keys = Object.keys(src);
         return keys;
     }
-
-    sing.addjQueryExt('resolve', ObjectResolve,
-    {
+    sing.addjQueryExt('resolve', ObjectResolve, {
         summary: null,
         parameters: null,
         validateInput: false,
@@ -361,22 +376,27 @@ function InitSingularityJS_jQuery() {
         returnType: '',
         examples: null,
         tests: function (ext) {
+            ext.addTest(undefined, [5], 5);
+            ext.addTest(undefined, ['aa'], 'aa');
+            ext.addTest(undefined, [['aa', 'bb']], ['aa', 'bb']);
+            ext.addTest(undefined, [function () {
+                return 5;
+            }], 5);
+            ext.addTest(undefined, [function () {
+                return 'aa';
+            }], 'aa');
+            ext.addTest(undefined, [function () {
+                return ['aa', 'bb'];
+            }], ['aa', 'bb']);
         },
     });
-
     function ObjectResolve(src, args) {
-
         if ($.isFunction(src))
             return src.apply(null, args);
-
         if ($.isArray(src) && src.length == 1)
             return src[0];
-
         return src;
     }
-
-
-    // $.resolve()
     // $.isArray()
     // $.isHash()
     // $.isInt()
@@ -386,3 +406,4 @@ function InitSingularityJS_jQuery() {
     // $.wait();
     // $.sleep();
 }
+//# sourceMappingURL=singularity-jquery.js.map
