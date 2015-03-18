@@ -12,6 +12,7 @@ interface JQueryStatic {
     objKeys? (obj?): string[];
     resolve? (obj?: Object | Function): Object;
     
+    // numericValueOf
     // $.isArray()
     // $.isHash()
     // $.isInt()

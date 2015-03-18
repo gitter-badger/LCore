@@ -12,8 +12,6 @@ interface Array<T> {
     select?: (condition: (item: T, index: number) => boolean) => T[];
     range?: (start: number, finish: number) => T[];
     flatten?: () => T[];
-    log?: () => void;
-    toStr?: () => string;
 
     remove?: (item: T | T[]| ((a: T, b: number) => boolean)) => T[];
 
@@ -22,9 +20,12 @@ interface Array<T> {
     first?: (item: T | T[]|  ((arg: T, index: number) => boolean)) => T;
     last?: (item: T | T[]| ((arg: T, index: number) => boolean)) => T;
 
+    toStr?: (includeMarkup?: boolean) => string;
+    log?: () => void;
+    splitAt?: (...indexes: number[]) => any[];
+
     /*
-     splitAt
-    sort
+    sortBy
     exfiltrate
     removeAt
     unique
@@ -587,7 +588,32 @@ function InitSingularityJS_Array() {
             tests: function (ext) {
             },
         });
-    sing.addArrayExt('sort', null,
+
+    function SplitAt(...indexes: number[]): any[] {
+
+        indexes.sort();
+
+        var out = [];
+        var section = [];
+        var indexI = 0;
+
+        for (var i = 0; i < this.length; i++) {
+            if (indexes.length > indexI) {
+                if (i < indexes[indexI])
+                    section.push(this[i]);
+
+                if (i == indexes[indexI]) {
+                    out.push(section);
+                    section = [];
+                    indexI++;
+                }
+            }
+        }
+
+        return out;
+    }
+
+    sing.addArrayExt('sortBy', null,
         {
             summary: null,
             parameters: null,
@@ -598,6 +624,24 @@ function InitSingularityJS_Array() {
             tests: function (ext) {
             },
         });
+
+    function ArraySortBy<T>(arg?: (item: T) => number): T[] {
+
+        if (arg == null) {
+            arg = function (item: any) {
+                if (item.numericValueOf)
+                    return item.numericValueOf();
+                else
+                    return $.toStr(item).numericValueOf();
+            }
+        }
+
+        var indexes = this.collect(arg);
+
+        return [];
+    }
+
+
     sing.addArrayExt('exfiltrate', null,
         {
             summary: null,

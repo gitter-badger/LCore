@@ -7,7 +7,10 @@ interface Date {
     isBefore
     isAfter
     equals
-    toStr
+
+    log?: () => void;
+    toStr?: (includeMarkup?: boolean) => string;
+    numericValueOf?: () => number;
     */
 }
 /// <reference path="singularity-core.ts"/>

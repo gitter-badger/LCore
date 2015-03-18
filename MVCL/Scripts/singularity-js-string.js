@@ -498,6 +498,18 @@ function InitSingularityJS_String() {
         var thisStr = this;
         return thisStr.hasMatch(/^\{?[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}‌​\}?$/);
     }
+    sing.addStringExt('numericValueOf', StringNumericValueOf, {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: null,
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+    function StringNumericValueOf() {
+        return this.valueOf();
+    }
     sing.addStringExt('isDate', null, {
         summary: null,
         parameters: null,

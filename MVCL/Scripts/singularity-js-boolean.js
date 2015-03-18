@@ -273,9 +273,6 @@ function InitSingularityJS_Boolean() {
         }
         return !this.OR.apply(this, b);
     }
-    //
-    //////////////////////////////////////////////////////
-    //
     sing.addBooleanExt('toStr', BooleanToStr, {
         summary: 'Converts the calling Boolean to string.',
         parameters: [
@@ -327,7 +324,14 @@ function InitSingularityJS_Boolean() {
     function BooleanToYesNo() {
         return this == false ? "No" : "Yes";
     }
-    //
-    //
+    sing.addBooleanExt('numericValueOf', BooleanToNumericValue);
+    function BooleanToNumericValue() {
+        if (this === undefined || this === null)
+            return -1;
+        if (this === false)
+            return 0;
+        if (this === true)
+            return 1;
+    }
 }
 //# sourceMappingURL=singularity-js-boolean.js.map

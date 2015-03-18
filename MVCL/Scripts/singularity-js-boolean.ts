@@ -2,13 +2,16 @@
 interface Boolean {
     XOR?: (b: boolean) => boolean;
     toYesNo?: () => string;
-    toStr?: () => string;
 
     XNOR?: (b: boolean) => boolean;
     OR?: (...b: boolean[]) => boolean;
     AND?: (...b: boolean[]) => boolean;
     NAND?: (...b: boolean[]) => boolean;
     NOR?: (...b: boolean[]) => boolean;
+
+    numericValueOf?: () => number;
+    toStr?: (includeMarkup?: boolean) => string;
+    // log?: () => void;
 }
 
 /// <reference path="singularity-core.ts"/>
@@ -306,10 +309,6 @@ function InitSingularityJS_Boolean() {
         return !this.OR.apply(this, b);
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
     sing.addBooleanExt('toStr', BooleanToStr,
         {
             summary: 'Converts the calling Boolean to string.',
@@ -367,6 +366,19 @@ function InitSingularityJS_Boolean() {
         return this == false ? "No" : "Yes";
     }
 
-    //
-    //
+    sing.addBooleanExt('numericValueOf', BooleanToNumericValue);
+
+    function BooleanToNumericValue(): number {
+
+        if (this === undefined ||
+            this === null)
+            return -1;
+
+        if (this === false)
+            return 0;
+
+        if (this === true)
+            return 1;
+    }
+
 }

@@ -2,7 +2,6 @@
 interface Number {
     pow?: (power: number) => number;
     round?: (decimalPlaces?: number) => number;
-    toStr?: () => string;
     max?: (...items: number[]) => number
     timesDo?: (executeFunc: (any) => void, args?: any[], caller?: any) => any[];
     ceil?: (decimalPlaces?: number) => number;
@@ -10,6 +9,10 @@ interface Number {
     formatFileSize?: (decimalPlaces: number, useLongUnit: boolean) => string;
     percentOf?: (value: number, asPercent?: boolean) => number | string;
     abs?: () => number;
+
+    toStr?: (includeMarkup?: boolean) => string;
+    // log?: () => void;
+    // numericValueOf?: () => number;
 }
 
 /// <reference path="singularity-core.ts"/>
@@ -24,13 +27,12 @@ function InitSingularityJS_Number() {
         {
             summary: "\
         toStr is a standardized way of converting Objects to Strings.",
-            parameters: [/*
+            parameters: [
                 {
                     name: 'includeMarkup',
                     types: [Boolean],
                     defaultValue: false,
                 }
-                */
             ],
             returns: 'A string representation of the Number toStr is called on.',
             returnType: String,
