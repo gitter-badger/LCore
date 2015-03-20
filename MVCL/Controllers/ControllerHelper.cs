@@ -343,6 +343,7 @@ namespace MVCL.Controllers
                         Root + "Scripts/singularity/singularity-text-bbcode.js",
                         Root + "Scripts/singularity/singularity-enumerable.js",
                         Root + "Scripts/singularity/singularity-js-function.js",
+                        Root + "Scripts/singularity/singularity-js-object.js",
                         Root + "Scripts/singularity/singularity-js-array.js",
                         Root + "Scripts/singularity/singularity-js-boolean.js",
                         Root + "Scripts/singularity/singularity-js-number.js",
@@ -353,7 +354,8 @@ namespace MVCL.Controllers
                         Root + "Scripts/singularity/singularity-object.js",
                         Root + "Scripts/singularity/singularity-jquery.js",
                         Root + "Scripts/singularity/singularity-html.js",
-                        Root + "Scripts/singularity/singularity-doc.js"));
+                        Root + "Scripts/singularity/singularity-doc.js",
+                        Root + "Scripts/singularity/singularity-log.js"));
 
             bundles.Add(new StyleBundle(Style_Singularity).Include(
                 Root + "Content/singularity.css"));

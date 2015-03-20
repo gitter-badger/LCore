@@ -273,36 +273,6 @@ function BooleanNOR() {
     }
     return !this.OR.apply(this, b);
 }
-singBoolean.addExt('toStr', BooleanToStr, {
-    summary: 'Converts the calling Boolean to string.',
-    parameters: [
-        {
-            name: 'includeMarkup',
-            types: [Boolean],
-            description: 'Set includeMarkup to true to retrieve the actual string representaion of true and false.',
-            defaultValue: false,
-        }
-    ],
-    returns: 'A String representation of the boolean value',
-    returnType: String,
-    examples: ['\
-            If you specify a true value for includeMarkup, Booleans will be returned as \'true\' or \'false\' \r\n\
-            Otherwise, \'Yes\' or \'No\' will be returned.'],
-    tests: function (ext) {
-        ext.addTest(true, [], 'Yes');
-        ext.addTest(true, [false], 'Yes');
-        ext.addTest(true, [true], 'true');
-        ext.addTest(false, [], 'No');
-        ext.addTest(false, [false], 'No');
-        ext.addTest(false, [true], 'false');
-    }
-});
-function BooleanToStr(includeMarkup) {
-    if (includeMarkup === void 0) { includeMarkup = false; }
-    if (includeMarkup == false)
-        return this.toYesNo();
-    return this == false ? "false" : "true";
-}
 singBoolean.addExt('toYesNo', BooleanToYesNo, {
     summary: "\
         toYesNo converts a Boolean to a string of 'Yes' or 'No'",
@@ -323,42 +293,5 @@ singBoolean.addExt('toYesNo', BooleanToYesNo, {
 });
 function BooleanToYesNo() {
     return this == false ? "No" : "Yes";
-}
-singBoolean.addExt('numericValueOf', BooleanToNumericValue, {
-    summary: 'Common funciton - Convert all common objects to numeric values',
-    parameters: [],
-    returns: 'Returns the numeric value of the calling Boolean',
-    returnType: Number,
-    examples: ['\
-            (true).numericValueOf()   //  == (1)  \r\n\
-            (false).numericValueOf()   //  == (0)  \r\n'],
-    tests: function (ext) {
-        ext.addTest(true, [], 1);
-        ext.addTest(false, [], 0);
-    }
-});
-function BooleanToNumericValue() {
-    if (this === undefined || this === null)
-        return -1;
-    if (this.valueOf() === false)
-        return 0;
-    if (this.valueOf() === true)
-        return 1;
-}
-singBoolean.addExt('log', BooleanLog, {
-    summary: 'Common funciton - Logs the calling Boolean to the console.',
-    parameters: [],
-    returns: 'Nothing.',
-    returnType: null,
-    examples: ['\
-            (true).log()   //  logs true  \r\n\
-            (false).log()   //  logs false  \r\n'],
-    tests: function (ext) {
-        ext.addTest(true, []);
-        ext.addTest(false, []);
-    }
-});
-function BooleanLog() {
-    log(this);
 }
 //# sourceMappingURL=singularity-js-boolean.js.map

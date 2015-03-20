@@ -4,15 +4,6 @@ singTemplates.requiredDocumentation = false;
 sing.templatePattern = /.*\{\{(.+)\}\}.*/;
 sing.templateStart = '{{';
 sing.templateEnd = '}}';
-singTemplates.addExt('extract', StringExtract, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-    },
-});
 function StringExtract(template, obj) {
     var matches = this.match(/\[()\]/);
     /*
@@ -115,4 +106,204 @@ function StringTemplateExtract(template) {
     }
     return out;
 }
+////////////////////////////////////////////////////////////////////////////////////////////////
+singTemplates.addExt('getTemplate', ObjectGetTemplate, {
+    summary: null,
+    parameters: null,
+    validateInput: false,
+    returns: '',
+    returnType: '',
+    examples: null,
+    tests: function (ext) {
+    },
+}, $);
+function ObjectGetTemplate(name, data) {
+    var template = $('*[sing-template=' + name + ']').clone();
+    if (!template || template.length == 0)
+        throw 'Template ' + name + ' not found.';
+    if (data != null)
+        return template.fillTemplate(data).attr('sing-template-data', 'true');
+    return template;
+}
+singTemplates.addExt('fillTemplate', ObjectFillTemplate, {
+    summary: null,
+    parameters: null,
+    validateInput: false,
+    returns: '',
+    returnType: '',
+    examples: null,
+    tests: function (ext) {
+    },
+}, $.fn.prototype);
+function ObjectFillTemplate(data, itemKey, itemData) {
+    if (itemKey === void 0) { itemKey = ''; }
+    var template = (this.clone());
+    var loops = template.find('*[sing-loop]');
+    log('loops', loops);
+    for (var i = 0; i < loops.length; i++) {
+        var loop = $(loops[i]);
+        var loopKey = loop.attr('sing-loop');
+        if (loopKey.startsWith(sing.templateStart))
+            loopKey = loopKey.substr(sing.templateStart.length);
+        if (loopKey.endsWith(sing.templateEnd))
+            loopKey = loopKey.substr(0, loopKey.length - sing.templateEnd.length);
+        var itemKey = 'item';
+        var loopDataKey = itemKey;
+        if (loopKey.contains(' in ')) {
+            itemKey = loopKey.split(' in ')[0];
+            loopKey = loopKey.split(' in ')[1];
+        }
+        var loopData = [data].arrayValues(loopKey);
+        log('loop', loop, loopKey, itemKey, loopData);
+        if (loopData == null || loopData.length == 0) {
+        }
+        else {
+            if ($.isArray(loopData)) {
+                for (var i = 0; i < loopData.length; i++) {
+                    var loopClone = loop.clone().removeAttr('sing-loop');
+                    loopClone = loopClone.fillTemplate(data, itemKey, loopData[i]);
+                    loop.before(loopClone);
+                }
+            }
+        }
+        loop.remove();
+    }
+    // template attrs
+    /*
+    var attrs = template.getAttributes() || [];
+    for (var attr in attrs) {
+        if (attr.value.contains(sing.templateStart) && attr.value.contains(sing.templateEnd)) {
+            template.attr(attr.name, attr.value.templateInject(data, itemKey, itemData))
+        }
+    }
+    */
+    // template contents
+    var html = template.html();
+    var templateReplace = html.templateInject(data, itemKey, itemData);
+    log(data, itemKey, itemData, html, templateReplace);
+    template.html(templateReplace);
+    // template children
+    return template;
+}
+// #region Examples 
+/*
+// These Work
+
+<div sing-template="ListTest">
+    <ul>
+        <li sing-loop="{{person in items}}">
+            <a>{{person.name}}</a>
+            <a>{{person.age}}</a>
+        </li>
+    </ul>
+</div>
+
+<div sing-template="ListTest">
+    <ul>
+        <li sing-loop="{{items}}">
+            <a>{{item.name}}</a>
+            <a>{{item.age}}</a>
+        </li>
+    </ul>
+</div>
+ 
+<div sing-template="Test">
+    <a>{{name}}</a>
+    <a>{{age}}</a>
+</div>
+ 
+// These should work
+
+// IF
+<div sing-if="{{item.isAlive}}">
+    <a>{{item.name}}</a>
+    <a>{{item.age}}</a>
+</div>
+
+// IF Operators
+<div sing-if="{{item.age > 50}}">
+    <a>{{item.name}}</a>
+    <a>{{item.age}}</a>
+</div>
+
+// IF Operators OR
+<div sing-if="{{item.age > 50 || item.age < 5 }}">
+    <a>{{item.name}}</a>
+    <a>{{item.age}}</a>
+</div>
+
+// IF Operators AND
+<div sing-if="{{item.age > 50 && item.age != 67 }}">
+    <a>{{item.name}}</a>
+    <a>{{item.age}}</a>
+</div>
+ 
+// FILTERS
+<div sing-if="{{item.age : even}}">
+    <a>{{item.name}}</a>
+    <a>{{item.age}}</a>
+</div>
+ 
+// FILTERS With Variables
+<div sing-if="{{item.age : even}}">
+    <a>{{item.name}}</a>
+    <a>{{item.age}}</a>
+</div>
+ 
+ 
+// NESTED LOOPS
+<div sing-template="ListTest">
+    <ul>
+        <li sing-loop="{{person in items}}">
+            <a>{{person.name}}</a>
+            <a>{{person.age}}</a>
+
+            <ul sing-if="{{person.friends}}">
+                <li sing-loop={{friend in person.friends}}">
+                    <a>{{friend.name}}</a>
+                    <a>{{friend.age}}</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+// INDEX (others)
+<div sing-template="ListTest">
+    <ul>
+        <li sing-loop="{{person in items}}">
+            {{index}}
+
+            <a>{{person.name}}</a>
+            <a>{{person.age}}</a>
+        </li>
+    </ul>
+</div>
+ 
+// Method Calls
+<div sing-template="ListTest">
+    <ul>
+        <li sing-loop="{{person in items.getPeople()}}">
+            {{index}}
+
+            <a>{{person.name}}</a>
+            <a>{{person.age}}</a>
+        </li>
+    </ul>
+</div>
+
+// Method Calls with arguments
+
+<div sing-template="ListTest">
+    <ul>
+        <li sing-loop="{{person in items.getPeople('fred')}}">
+            {{index}}
+
+            <a>{{person.name}}</a>
+            <a>{{person.age}}</a>
+        </li>
+    </ul>
+</div>
+*/
+// #endregion Examples 
 //# sourceMappingURL=singularity-templates.js.map

@@ -271,11 +271,3 @@ function SingularityResolveTests() {
         }
     });
 };
-
-
-var LOGGING_ENABLED = true;
-
-function log(...message: any[]) {
-    if (LOGGING_ENABLED)
-        console.log(message);
-}

@@ -11,7 +11,22 @@ interface Number {
     abs?: () => number;
 
     toStr?: (includeMarkup?: boolean) => string;
-    log?: () => void;
+
+    numericValueOf?: () => number;
+}
+
+interface JQueryStatic {
+    isInt?: (num: any) => boolean;
+    isFloat?: (num: any) => boolean;
+    isNumber?: (num: any) => boolean;
+}
+
+interface String {
+
+    numericValueOf?: () => number;
+}
+
+interface Boolean {
     numericValueOf?: () => number;
 }
 
@@ -440,6 +455,58 @@ function NumberToStr(includeMarkup: boolean = false) {
     return this.toString();
 }
 
+
+
+singNumber.addExt('isInt', NumberIsInt,
+    {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        tests: function (ext) {
+        },
+    }, $);
+
+function NumberIsInt(num: any) {
+    return $.isNumber(num) && num.round().valueOf() == num.valueOf();
+}
+
+singNumber.addExt('isFloat', NumberIsFloat,
+    {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        tests: function (ext) {
+        },
+    }, $);
+
+function NumberIsFloat(num: any) {
+    return $.isNumber(num) && num.round().valueOf() != num.valueOf();
+}
+
+singNumber.addExt('isNumber', NumberIsNumber,
+    {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        tests: function (ext) {
+        },
+    }, $);
+
+function NumberIsNumber(num: any) {
+    return typeof num == 'number';
+}
+
+
+
 singNumber.addExt('numericValueOf', NumberNumericValueOf,
     {
         summary: 'Common funciton - Used for sorting, returns the calling number.',
@@ -463,21 +530,45 @@ function NumberNumericValueOf(): number {
     return (<number>this);
 }
 
-singNumber.addExt('log', NumberLog,
+singNumber.addExt('numericValueOf', StringNumericValueOf,
     {
-        summary: 'Common funciton - Logs the calling Number to the console.',
-        parameters: [],
-        returns: 'Nothing.',
+        summary: null,
+        parameters: null,
+        returns: '',
         returnType: null,
-        examples: ['\
-            (1).log()   //  logs 1  \r\n\
-            (5).log()   //  logs 5  \r\n'],
+        examples: null,
         tests: function (ext) {
-            ext.addTest(true, []);
-            ext.addTest(false, []);
-        }
-    });
+        },
+    }, String.prototype, "String");
 
-function NumberLog(): void {
-    log(this);
+function StringNumericValueOf(): string {
+    return this.valueOf();
+}
+
+singNumber.addExt('numericValueOf', BooleanToNumericValue,
+    {
+        summary: 'Common funciton - Convert all common objects to numeric values',
+        parameters: [],
+        returns: 'Returns the numeric value of the calling Boolean',
+        returnType: Number,
+        examples: ['\
+            (true).numericValueOf()   //  == (1)  \r\n\
+            (false).numericValueOf()   //  == (0)  \r\n'],
+        tests: function (ext) {
+            ext.addTest(true, [], 1);
+            ext.addTest(false, [], 0);
+        }
+    }, Boolean.prototype, "Boolean");
+
+function BooleanToNumericValue(): number {
+
+    if (this === undefined ||
+        this === null)
+        return -1;
+
+    if (this.valueOf() === false)
+        return 0;
+
+    if (this.valueOf() === true)
+        return 1;
 }

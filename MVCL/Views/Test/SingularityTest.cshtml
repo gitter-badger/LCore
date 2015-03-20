@@ -34,8 +34,11 @@
                 $('#singularity-bbcode-module').html(sing.getSummary('Singularity.BBCode.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
                 $('#singularity-regexp-module').html(sing.getSummary('Singularity.RegExp.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
                 $('#singularity-templates-module').html(sing.getSummary('Singularity.Templates.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
-                
+                $('#singularity-logging-module').html(sing.getSummary('Singularity.Logging.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
+                $('#singularity-html-module').html(sing.getSummary('Singularity.html.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
 
+
+                $('#singularity-output-object').html(sing.getSummary('object.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
                 $('#singularity-output-boolean').html(sing.getSummary('Boolean.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
                 $('#singularity-output-number').html(sing.getSummary('Number.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
                 $('#singularity-output-string').html(sing.getSummary('String.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
@@ -53,12 +56,12 @@
         <h1>Singularity</h1>
         <div id="singularity-output"></div>
         <h2>Modules</h2>
+        <h3>- Logging</h3>
+        <div id="singularity-logging-module"></div>
         <h3>- Tests</h3>
         <div id="singularity-tests-module"></div>
         <h3>- Documentation</h3>
         <div id="singularity-docs-module"></div>
-        <h3>- BBCode</h3>
-        <div id="singularity-bbcode-module"></div>
     </div>
 </div>
 
@@ -89,20 +92,33 @@
 <div class="mvcl-test singularity-test">
 
     <div>
-        <h3>String</h3>
-        <div id="singularity-output-string"></div>
-        <h3>- RegExp</h3>
-        <div id="singularity-regexp-module"></div>
-        <h3>- Templates</h3>
-        <div id="singularity-templates-module"></div>
+        <h3>Date</h3>
+        <div id="singularity-output-date"></div>
+    </div>
+</div>
+
+
+<div class="mvcl-test singularity-test">
+
+    <div>
+        <h3>Object</h3>
+        <div id="singularity-output-object"></div>
     </div>
 </div>
 
 <div class="mvcl-test singularity-test">
 
     <div>
-        <h3>Date</h3>
-        <div id="singularity-output-date"></div>
+        <h3>String</h3>
+        <div id="singularity-output-string"></div>
+        <h3>- RegExp</h3>
+        <div id="singularity-regexp-module"></div>
+        <h3>- Templates</h3>
+        <div id="singularity-templates-module"></div>
+        <h3>- HTML</h3>
+        <div id="singularity-html-module"></div>
+        <h3>- BBCode</h3>
+        <div id="singularity-bbcode-module"></div>
     </div>
 </div>
 

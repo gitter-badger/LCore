@@ -11,43 +11,33 @@ singArray.requiredDocumentation = false;
 //
 // Mapping Functions
 //
-singArray.addExt('log', ArrayLog, {
+singArray.addExt('toArray', ObjToArray, {
     summary: null,
     parameters: null,
+    validateInput: false,
     returns: '',
-    returnType: null,
+    returnType: '',
     examples: null,
     tests: function (ext) {
     },
-});
-function ArrayLog(itemOrItemsOrFunction) {
-    log(this);
+}, $);
+function ObjToArray(obj) {
+    if ($.isArray(obj))
+        return obj;
+    else
+        return [obj];
 }
-singArray.addExt('toStr', ArrayToStr, {
+singArray.addExt('clone', ArrayClone, {
     summary: null,
     parameters: null,
-    returns: null,
-    returnType: String,
+    validateInput: false,
+    returns: '',
+    returnType: '',
     examples: null,
     tests: function (ext) {
     },
 });
-function ArrayToStr(includeMarkup) {
-    if (includeMarkup === void 0) { includeMarkup = false; }
-    var out = includeMarkup ? '[' : '';
-    var src = this;
-    this.each(function (item, i) {
-        if (item === null)
-            out += 'null';
-        else if (item === undefined)
-            out += 'undefined';
-        else if (item.toStr)
-            out += item.toStr(includeMarkup); // includeMarkup is passed to child elements
-        if (i < src.length - 1)
-            out += includeMarkup ? ', ' : '\r\n';
-    });
-    out += includeMarkup ? ']' : '';
-    return out;
+function ArrayClone() {
+    return this.collect();
 }
-//
 //# sourceMappingURL=singularity-js-array.js.map

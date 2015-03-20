@@ -4,7 +4,7 @@
 /// <reference path="../definitions/jquery.timepicker.d.ts" />
 /// <reference path="../definitions/chance.d.ts" />
 
-/// #region Comments
+// #region Comments
 //////////////////////////////////////////////////////
 //
 // HTML Extensions
@@ -211,7 +211,102 @@
 //.spinner-decimal
 //
 //////////////////////////////////////////////////////
-/// #endregion Comments
+// #endregion Comments
+
+
+var singHTML = sing.addModule(new sing.Module('Singularity.HTML', String));
+
+singHTML.requiredDocumentation = false;
+
+singHTML.addExt('textToHTML', StringTextToHTML,
+    {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: null,
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+
+function StringTextToHTML(): string {
+
+    return this.replaceAll('\r\n', '\n')
+        .replaceAll('\r\n', '<br/>')
+        .replaceAll(' ', '&nbsp;');
+}
+
+
+singHTML.addExt('stripHTML', StringStripHTML,
+    {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: null,
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+
+function StringStripHTML() {
+
+    var out = <string>this;
+
+    var pattern = /.*\<(.+)\>.*/
+
+    out.replaceRegExp(pattern, / /);
+
+    return out;
+}
+
+
+singHTML.addExt('getAttributes', GetAttributes,
+    {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        tests: function (ext) {
+        },
+    }, $.fn.prototype);
+
+function GetAttributes(): IKeyValue<string, string>[]| IKeyValue<string, string>[][] {
+
+    var out = [];
+    this.each(function (item) {
+        var attrOut = [];
+        var props = $.objProperties(this.attributes);
+        for (var i = 0; i < props.length; i++) {
+            if (props[i].key != 'length')
+                attrOut.push(props[i].value);
+        }
+        if (attrOut.length > 0)
+            out.push(attrOut);
+    });
+
+    if (out.length == 1)
+        return out.collect(function (item) {
+
+            return item.collect(function (item) {
+                return {
+                    name: item.nodeName,
+                    value: item.nodeValue,
+                };
+            });
+        });
+
+    return out.collect(function (item) {
+        return {
+            name: item.nodeName,
+            value: item.nodeValue,
+        }
+    })
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function InitHTMLExtensions() {
 

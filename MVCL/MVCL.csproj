@@ -595,6 +595,7 @@
     <TypeScriptCompile Include="Scripts\definitions\jquery.cookie.d.ts" />
     <TypeScriptCompile Include="Scripts\mvcl.ts" />
     <TypeScriptCompile Include="Scripts\singularity\singularity-enumerable.ts" />
+    <TypeScriptCompile Include="Scripts\singularity\singularity-log.ts" />
     <TypeScriptCompile Include="Scripts\singularity\singularity-templates.ts" />
     <TypeScriptCompile Include="Scripts\singularity\singularity-regexp.ts" />
     <TypeScriptCompile Include="Scripts\singularity\singularity-text-bbcode.ts" />

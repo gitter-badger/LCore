@@ -176,13 +176,4 @@ function SingularityResolveTests() {
     });
 }
 ;
-var LOGGING_ENABLED = true;
-function log() {
-    var message = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        message[_i - 0] = arguments[_i];
-    }
-    if (LOGGING_ENABLED)
-        console.log(message);
-}
 //# sourceMappingURL=singularity-tests.js.map

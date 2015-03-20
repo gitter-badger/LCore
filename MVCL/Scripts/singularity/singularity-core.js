@@ -22,6 +22,7 @@ var Direction = (function () {
     Direction.c = 'c';
     return Direction;
 })();
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var Singularity = (function () {
     function Singularity() {
         this.Module = SingularityModule;
@@ -70,9 +71,10 @@ var Singularity = (function () {
             $: {}
         };
         this.autoDefault = new SingularityAutoDefinition();
-        this.addExt = function (moduleName, name, extendPrototype, method, details, performAdd) {
+        this.addExt = function (moduleName, name, extendPrototype, method, details, performAdd, prefix) {
             if (performAdd === void 0) { performAdd = true; }
-            if (sing.extensions[moduleName + '.' + name])
+            var fullName = moduleName + '.' + (!!prefix ? prefix + '.' : '') + name;
+            if (sing.extensions[fullName])
                 throw moduleName + '.' + name + ' already exists.';
             var methods = [
                 {
@@ -92,7 +94,7 @@ var Singularity = (function () {
                 }
             }
             for (var i = 0; i < methods.length; i++) {
-                var ext = new SingularityExtension(details, extendPrototype, moduleName, methods[i].name, methods[i].method);
+                var ext = new SingularityExtension(details, extendPrototype, moduleName, methods[i].name, methods[i].method, prefix);
                 if (!methods[i].target)
                     throw 'could not find target ' + moduleName + ' ' + name;
                 if (performAdd && methods[i].target && (sing.defaultPolyfill || details.override || !methods[i].target[methods[i].name]) && ext.method) {
@@ -109,9 +111,9 @@ var Singularity = (function () {
                         methods[i].target[methods[i].name] = ext.method;
                     }
                 }
-                sing.extensions[moduleName + '.' + methods[i].name] = ext;
+                sing.extensions[moduleName + '.' + (!!prefix ? prefix + '.' : '') + methods[i].name] = ext;
                 if (i > 0)
-                    sing.extensions[moduleName + '.' + methods[i].name].isAlias = true;
+                    sing.extensions[moduleName + '.' + (!!prefix ? prefix + '.' : '') + methods[i].name].isAlias = true;
             }
             return method;
         };
@@ -134,13 +136,14 @@ var SingularityModule = (function () {
         this.objectClass = objectClass;
         this.objectPrototype = objectPrototype;
         this.uninitializedMethods = [];
-        this.addExt = function (extName, method, details, extendPrototype) {
+        this.addExt = function (extName, method, details, extendPrototype, prefix) {
             if (extendPrototype === void 0) { extendPrototype = this.objectPrototype; }
             this.uninitializedMethods.push({
                 extName: extName,
                 method: method,
                 details: details,
                 extendPrototype: extendPrototype,
+                prefix: prefix,
             });
             //    sing.addExt(this.name, extName, extendPrototype, method, details);
         };
@@ -154,7 +157,7 @@ var SingularityModule = (function () {
         this.init = function () {
             for (var i = 0; i < this.uninitializedMethods.length; i++) {
                 var method = this.uninitializedMethods[i];
-                sing.addExt(this.name, method.extName, method.extendPrototype, method.method, method.details);
+                sing.addExt(this.name, method.extName, method.extendPrototype, method.method, method.details, true, method.prefix);
             }
         };
     }
@@ -190,7 +193,7 @@ var SingularityAutoDefinition = (function () {
     return SingularityAutoDefinition;
 })();
 var SingularityExtension = (function () {
-    function SingularityExtension(details, target, moduleName, name, method) {
+    function SingularityExtension(details, target, moduleName, name, method, prefix) {
         if (details === void 0) { details = {}; }
         this.isAlias = false;
         this.auto = new SingularityAutoDefinition();
@@ -442,13 +445,14 @@ var SingularityExtension = (function () {
             sing.addFailsTest(this, caller, args, expectedError, requirement);
         };
         var ext = this;
-        this.name = moduleName + '.' + name;
+        this.name = moduleName + '.' + (prefix ? prefix + '.' : '') + name;
         this.shortName = name;
         this.moduleName = moduleName;
         this.target = target;
         this.targetType = target;
         this.details = details;
         this.method = method;
+        this.prefix = prefix;
         if (this.details.returnType && !this.details.returnType.name)
             throw name;
         if (details.returnType)

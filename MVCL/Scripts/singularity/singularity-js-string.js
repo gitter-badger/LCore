@@ -266,20 +266,6 @@ function StringTruncate(length) {
         return this.substr(0, length).toString();
     return this;
 }
-singString.addExt('toStr', StringToStr, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-    },
-});
-function StringToStr(includeMarkup) {
-    if (includeMarkup)
-        return "'" + this.replaceAll('\r\n', '\\r\\n') + "'";
-    return this;
-}
 singString.addExt('isValidEmail', StringIsValidEmail, {
     summary: null,
     parameters: null,
@@ -344,47 +330,6 @@ singString.addExt('isGuid', StringIsGuid, {
 function StringIsGuid() {
     var thisStr = this;
     return thisStr.hasMatch(/^\{?[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}‌​\}?$/);
-}
-singString.addExt('numericValueOf', StringNumericValueOf, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-    },
-});
-function StringNumericValueOf() {
-    return this.valueOf();
-}
-singString.addExt('textToHTML', StringTextToHTML, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-    },
-});
-function StringTextToHTML() {
-    return this.replaceAll('\r\n', '\n').replaceAll('\r\n', '<br/>').replaceAll(' ', '&nbsp;');
-}
-singString.addExt('log', StringLog, {
-    summary: 'Common funciton - Logs the calling Boolean to the console.',
-    parameters: [],
-    returns: 'Nothing.',
-    returnType: null,
-    examples: ['\
-            (\'a\').log()   //  logs a  \r\n\
-            (\'hello\').log()   //  logs hello  \r\n'],
-    tests: function (ext) {
-        ext.addTest('', []);
-        ext.addTest('a', []);
-        ext.addTest('hello', []);
-    }
-});
-function StringLog() {
-    log(this);
 }
 singString.addExt('tryToNumber', null, {
     summary: null,
@@ -476,7 +421,130 @@ function StringPad(length, align, whitespace) {
 //
 //////////////////////////////////////////////////////
 //
-singString.addExt('stripHTML', StringStripHTML, {
+singString.addExt('toStr', BooleanToStr, {
+    summary: 'Converts the calling Boolean to string.',
+    parameters: [
+        {
+            name: 'includeMarkup',
+            types: [Boolean],
+            description: 'Set includeMarkup to true to retrieve the actual string representaion of true and false.',
+            defaultValue: false,
+        }
+    ],
+    returns: 'A String representation of the boolean value',
+    returnType: String,
+    examples: ['\
+            If you specify a true value for includeMarkup, Booleans will be returned as \'true\' or \'false\' \r\n\
+            Otherwise, \'Yes\' or \'No\' will be returned.'],
+    tests: function (ext) {
+        ext.addTest(true, [], 'Yes');
+        ext.addTest(true, [false], 'Yes');
+        ext.addTest(true, [true], 'true');
+        ext.addTest(false, [], 'No');
+        ext.addTest(false, [false], 'No');
+        ext.addTest(false, [true], 'false');
+    }
+}, Boolean.prototype, "Boolean");
+function BooleanToStr(includeMarkup) {
+    if (includeMarkup === void 0) { includeMarkup = false; }
+    if (includeMarkup == false)
+        return this.toYesNo();
+    return this == false ? "false" : "true";
+}
+singString.addExt('toStr', ToStr, {
+    summary: null,
+    parameters: null,
+    returns: '',
+    returnType: '',
+    examples: null,
+    tests: function (ext) {
+        ext.addTest(undefined, [null], '');
+        ext.addTest(undefined, [null, false], '');
+        ext.addTest(undefined, [null, true], 'null');
+        ext.addTest(undefined, [undefined], '');
+        ext.addTest(undefined, [undefined, false], '');
+        ext.addTest(undefined, [undefined, true], 'undefined');
+        ext.addTest(undefined, [[]], '');
+        ext.addTest(undefined, [[], false], '');
+        ext.addTest(undefined, [[], true], '[]');
+        ext.addTest(undefined, [{}], '');
+        ext.addTest(undefined, [{}, false], '');
+        ext.addTest(undefined, [{}, true], '{}');
+        ext.addTest(undefined, [NaN], '');
+        ext.addTest(undefined, [NaN, false], '');
+        ext.addTest(undefined, [NaN, true], 'NaN');
+        ext.addTest(undefined, [{ a: 'b', b: 5, c: false, d: [], e: { f: {} } }], 'a: b\r\nb: 5\r\nc: No\r\nd: \r\ne: f: \r\n\r\n');
+        ext.addTest(undefined, [{ a: 'b', b: 5, c: false, d: [], e: { f: {} } }, true], '{a: \'b\', b: 5, c: false, d: [], e: {f: {}}}');
+        ext.addTest(undefined, [['a']], 'a');
+        ext.addTest(undefined, [['a'], false], 'a');
+        ext.addTest(undefined, [['a'], true], '[\'a\']');
+        ext.addTest(undefined, [[true]], 'Yes');
+        ext.addTest(undefined, [[true], false], 'Yes');
+        ext.addTest(undefined, [[true], true], '[true]');
+        ext.addTest(undefined, [[false]], 'No');
+        ext.addTest(undefined, [[false], false], 'No');
+        ext.addTest(undefined, [[false], true], '[false]');
+        ext.addTest(undefined, [[5]], '5');
+        ext.addTest(undefined, [[5], false], '5');
+        ext.addTest(undefined, [[5], true], '[5]');
+        ext.addTest(undefined, [[false, false, false, false]], 'No\r\nNo\r\nNo\r\nNo');
+        ext.addTest(undefined, [[false, false, false, false], false], 'No\r\nNo\r\nNo\r\nNo');
+        ext.addTest(undefined, [[false, false, false, false], true], '[false, false, false, false]');
+    },
+}, $, 'jQuery');
+function ToStr(obj, includeMarkup) {
+    if (includeMarkup === void 0) { includeMarkup = false; }
+    if (obj === undefined)
+        return includeMarkup ? 'undefined' : '';
+    if (obj === null)
+        return includeMarkup ? 'null' : '';
+    if (obj.toStr)
+        return obj.toStr(includeMarkup);
+    if (typeof obj == 'object') {
+        var out = includeMarkup ? '{' : '';
+        var keyCount = Object.keys(obj).length;
+        $.objEach(obj, function (key, item, index) {
+            if (includeMarkup) {
+                out += key + ': ' + $.toStr(item, true);
+                if (index < keyCount - 1)
+                    out += ', ';
+            }
+            else {
+                out += key + ': ' + $.toStr(item) + '\r\n';
+            }
+        });
+        out += includeMarkup ? '}' : '';
+        return out;
+    }
+    return obj;
+}
+singString.addExt('toStr', ArrayToStr, {
+    summary: null,
+    parameters: null,
+    returns: null,
+    returnType: String,
+    examples: null,
+    tests: function (ext) {
+    },
+}, Array.prototype, "Array");
+function ArrayToStr(includeMarkup) {
+    if (includeMarkup === void 0) { includeMarkup = false; }
+    var out = includeMarkup ? '[' : '';
+    var src = this;
+    this.each(function (item, i) {
+        if (item === null)
+            out += 'null';
+        else if (item === undefined)
+            out += 'undefined';
+        else if (item.toStr)
+            out += item.toStr(includeMarkup); // includeMarkup is passed to child elements
+        if (i < src.length - 1)
+            out += includeMarkup ? ', ' : '\r\n';
+    });
+    out += includeMarkup ? ']' : '';
+    return out;
+}
+singString.addExt('toStr', StringToStr, {
     summary: null,
     parameters: null,
     returns: '',
@@ -485,11 +553,28 @@ singString.addExt('stripHTML', StringStripHTML, {
     tests: function (ext) {
     },
 });
-function StringStripHTML() {
-    var out = this;
-    var pattern = /.*\<(.+)\>.*/;
-    out.replaceRegExp(pattern, / /);
-    return out;
+function StringToStr(includeMarkup) {
+    if (includeMarkup)
+        return "'" + this.replaceAll('\r\n', '\\r\\n') + "'";
+    return this;
+}
+singString.addExt('isString', IsString, {
+    summary: null,
+    parameters: null,
+    returns: '',
+    returnType: '',
+    examples: null,
+    tests: function (ext) {
+        ext.addTest(undefined, [], false);
+        ext.addTest(undefined, [], false);
+        ext.addTest(undefined, [], false);
+        ext.addTest(undefined, [5], false);
+        ext.addTest(undefined, [''], true);
+        ext.addTest(undefined, ['a'], true);
+    },
+}, $);
+function IsString(str) {
+    return typeof str == 'string';
 }
 singString.addExt('isDate', null, {
     summary: null,

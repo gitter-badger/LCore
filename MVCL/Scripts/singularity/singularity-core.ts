@@ -210,6 +210,8 @@ class Direction {
 interface ISingularity {
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 class Singularity implements ISingularity {
 
     Module = SingularityModule;
@@ -283,9 +285,11 @@ class Singularity implements ISingularity {
 
     autoDefault = new SingularityAutoDefinition();
 
-    addExt = function (moduleName: string, name: string, extendPrototype: any, method: Function, details: SingularityExtensionDetails, performAdd: boolean = true) {
+    addExt = function (moduleName: string, name: string, extendPrototype: any, method: Function, details: SingularityExtensionDetails, performAdd: boolean = true, prefix?: string) {
 
-        if (sing.extensions[moduleName + '.' + name])
+        var fullName = moduleName + '.' + (!!prefix ? prefix + '.' : '') + name;
+
+        if (sing.extensions[fullName])
             throw moduleName + '.' + name + ' already exists.';
 
         var methods = [
@@ -309,7 +313,7 @@ class Singularity implements ISingularity {
 
         for (var i = 0; i < methods.length; i++) {
 
-            var ext = new SingularityExtension(details, extendPrototype, moduleName, methods[i].name, methods[i].method);
+            var ext = new SingularityExtension(details, extendPrototype, moduleName, methods[i].name, methods[i].method, prefix);
 
             if (!methods[i].target)
                 throw 'could not find target ' + moduleName + ' ' + name;
@@ -334,10 +338,10 @@ class Singularity implements ISingularity {
                 }
             }
 
-            sing.extensions[moduleName + '.' + methods[i].name] = ext;
+            sing.extensions[moduleName + '.' + (!!prefix ? prefix + '.' : '') + methods[i].name] = ext;
 
             if (i > 0)
-                sing.extensions[moduleName + '.' + methods[i].name].isAlias = true;
+                sing.extensions[moduleName + '.' + (!!prefix ? prefix + '.' : '') + methods[i].name].isAlias = true;
         }
 
         return method;
@@ -372,6 +376,7 @@ class Singularity implements ISingularity {
     getDocs: (funcName?: string, includeCode?: boolean, includeDocumentation?: boolean) => string;
     getSummary: (funcName?: string, includeFunctions?: boolean) => string;
     getMissing: (funcName?: string) => string;
+
     BBCodes: BBCode[];
 
     // From Singularity.Templates
@@ -383,14 +388,16 @@ class Singularity implements ISingularity {
 
 class SingularityModule {
 
-    uninitializedMethods: { extName: string; method?: Function; details?: SingularityExtensionDetails; extendPrototype: any }[] = [];
+    uninitializedMethods: { extName: string; method?: Function; details?: SingularityExtensionDetails; extendPrototype: any; prefix: string }[] = [];
 
-    addExt = function (extName: string, method?: Function, details?: SingularityExtensionDetails, extendPrototype: any = this.objectPrototype) {
+    addExt = function (extName: string, method?: Function, details?: SingularityExtensionDetails, extendPrototype: any = this.objectPrototype, prefix?: string) {
+
         this.uninitializedMethods.push({
             extName: extName,
             method: method,
             details: details,
             extendPrototype: extendPrototype,
+            prefix: prefix,
         });
         //    sing.addExt(this.name, extName, extendPrototype, method, details);
     };
@@ -408,7 +415,7 @@ class SingularityModule {
     init = function () {
         for (var i = 0; i < this.uninitializedMethods.length; i++) {
             var method = this.uninitializedMethods[i];
-            sing.addExt(this.name, method.extName, method.extendPrototype, method.method, method.details);
+            sing.addExt(this.name, method.extName, method.extendPrototype, method.method, method.details, true, method.prefix);
         }
     };
 
@@ -467,6 +474,8 @@ class SingularityExtension {
     targetType: INamed;
     methodCall: string;
 
+    prefix: string;
+
     method: Function;
 
     data: Object;
@@ -481,16 +490,19 @@ class SingularityExtension {
         target?: any,
         moduleName?: string,
         name?: string,
-        method?: Function) {
+        method?: Function,
+        prefix?: string) {
         var ext = this;
 
-        this.name = moduleName + '.' + name;
+        this.name = moduleName + '.' + (prefix ? prefix + '.' : '') + name;
         this.shortName = name;
         this.moduleName = moduleName;
         this.target = target;
         this.targetType = target;
         this.details = details;
         this.method = method;
+        this.prefix = prefix;
+
 
         if (this.details.returnType && !this.details.returnType.name)
             throw name;

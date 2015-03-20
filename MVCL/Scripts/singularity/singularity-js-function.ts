@@ -11,8 +11,7 @@ interface Function {
 
     fn_cache?: <T>(uniqueCacheID: string, expiresAfter?: Date) => (...items: any[]) => T;
 
-    fn_if?: <T>(ifFunc: (...items: any[]) => boolean) => (...items: any[]) => T;
-    //fn_ifElse
+    fn_if?: (ifFunc: (...items: any[]) => boolean) => (...items: any[]) => any;
     fn_unless?: <T>(unlessFunc: (...items: any[]) => boolean) => (...items: any[]) => T;
     fn_then?: <T>(thenFunc: (...items: any[]) => any) => (...items: any[]) => T;
     fn_repeat?: <T>(times: number) => (...items: any[]) => T;
@@ -28,10 +27,12 @@ interface Function {
     fn_onExecute?: <T>(eventHandler: (...items: any[]) => void) => (...items: any[]) => T;
     fn_onExecuted?: <T>(eventHandler: (...items: any[]) => void) => (...items: any[]) => T;
 
-    fn_supply?: <T, U>(parameter: U) => (param: U, ...items: any[]) => T;
 
     fn_or?: (orFunc: (...items: any[]) => boolean) => (...items: any[]) => boolean;
     fn_and?: (orFunc: (...items: any[]) => boolean) => (...items: any[]) => boolean;
+
+    // fn_ifElse
+    // fn_supply?: <T, U>(parameter: U) => (param: U, ...items: any[]) => T;
 }
 
 var singFunction = sing.addModule(new sing.Module("Function", Function));
@@ -60,10 +61,6 @@ function FunctionTry(logFailure) {
     return source.fn_catch();
 }
 
-//
-//////////////////////////////////////////////////////
-//
-
 singFunction.addExt('fn_catch', FunctionCatch,
     {
         summary: null,
@@ -82,7 +79,7 @@ function FunctionCatch(catchFunction, logFailure) {
         var result;
 
         try {
-            result = source.apply(this.prototype, arguments);
+            result = source.apply(this, arguments);
         }
         catch (ex) {
             if (logFailure) {
@@ -91,17 +88,12 @@ function FunctionCatch(catchFunction, logFailure) {
             }
 
             if (catchFunction)
-                return catchFunction.apply(this.prototype, [ex].concat(arguments));
+                return catchFunction.apply(this, [ex].concat(arguments));
         }
 
         return result;
     };
 }
-
-
-//
-//////////////////////////////////////////////////////
-//
 
 singFunction.addExt('fn_log', FunctionLog,
     {
@@ -128,7 +120,7 @@ function FunctionLog(logAttempt, logSuccess, logFailure) {
                 log(['Attempting: ', source.name, arguments, result]);
             }
 
-            var result = source.apply(this.prototype, arguments);
+            var result = source.apply(this, arguments);
 
             if (logSuccess) {
                 log(['Completed: ' + source.name, arguments, result]);
@@ -148,10 +140,6 @@ function FunctionLog(logAttempt, logSuccess, logFailure) {
     };
 }
 
-//
-//////////////////////////////////////////////////////
-//
-
 singFunction.addExt('fn_count', FunctionCount,
     {
         summary: null,
@@ -169,7 +157,7 @@ function FunctionCount(logFailure) {
 
     return function () {
         try {
-            var result = source.apply(this.prototype, arguments);
+            var result = source.apply(this, arguments);
 
             log([source.name, 'count:' + functionCallCount]);
             log([arguments, result]);
@@ -186,9 +174,6 @@ function FunctionCount(logFailure) {
         }
     }
 }
-//
-//////////////////////////////////////////////////////
-//
 
 singFunction.addExt('fn_cache', FunctionCache,
     {
@@ -244,7 +229,7 @@ function FunctionCache(uniqueCacheID, expiresAfter) {
             thisCache[argStr] = {};
         }
 
-        var result = thisCache[argStr].value = source.apply(this.prototype, arguments);
+        var result = thisCache[argStr].value = source.apply(this, arguments);
 
         if (expiresAfter > 0) {
             thisCache[argStr].expires = (new Date()).valueOf() + expiresAfter;
@@ -252,25 +237,6 @@ function FunctionCache(uniqueCacheID, expiresAfter) {
 
         return result;
     }
-}
-
-//
-//////////////////////////////////////////////////////
-//
-
-
-singFunction.addExt('fn_trace', null,
-    {
-        summary: null,
-        parameters: null,
-        returns: '',
-        returnType: Function,
-        examples: null,
-        tests: function (ext) {
-        },
-    });
-
-function FunctionTrace() {
 }
 
 singFunction.addExt('fn_or', FunctionOR,
@@ -297,7 +263,8 @@ function FunctionOR(orFunc: (...items: any[]) => boolean): (...items: any[]) => 
     }
 
 }
-singFunction.addExt('fn_if', null,
+
+singFunction.addExt('fn_if', FunctionIf,
     {
         summary: null,
         parameters: null,
@@ -308,7 +275,432 @@ singFunction.addExt('fn_if', null,
         },
     });
 
-singFunction.addExt('fn_unless', null,
+function FunctionIf<T>(ifFunc: (...items: any[]) => boolean): (...items: any[]) => any {
+
+    var srcThis = this;
+
+    return function (...items: any[]): any {
+
+        if (ifFunc.apply(this, items) == true) {
+            return srcThis.apply(this, items);
+        }
+    };
+}
+
+singFunction.addExt('fn_unless', FunctionUnless,
+    {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: Function,
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+
+function FunctionUnless(ifFunc: (...items: any[]) => boolean): (...items: any[]) => any {
+
+    var srcThis = this;
+
+    return function (...items: any[]): any {
+
+        if (ifFunc.apply(this, items) != true) {
+            return srcThis.apply(this, items);
+        }
+    };
+}
+
+singFunction.addExt('fn_then', FunctionThen,
+    {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: Function,
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+
+function FunctionThen(ifFunc: (...items: any[]) => boolean): (...items: any[]) => any {
+
+    var srcThis = this;
+
+    return function (...items: any[]): any {
+
+        if (ifFunc.apply(this, items) != true) {
+            return srcThis.apply(this, items);
+        }
+    };
+}
+
+singFunction.addExt('fn_repeat', FunctionRepeat,
+    {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: Function,
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+
+function FunctionRepeat(repeatOver: number | any[]| ((...items: any[]) => boolean)): (...items: any[]) => any {
+
+    var srcThis = this;
+
+    if ($.isFunction(repeatOver)) {
+        return function (...items: any[]) {
+
+            var out = [];
+
+            var result = (<(...items: any[]) => boolean>repeatOver).apply(this, items);
+
+            while (result != null && result != undefined) {
+                out.push(result);
+                result = (<(...items: any[]) => boolean>repeatOver).apply(this, items);
+            }
+
+            return out;
+        };
+    }
+
+    if ($.isNumber(repeatOver)) {
+        return function (...items: any[]) {
+            return (<number>repeatOver).timesDo(srcThis);
+        };
+    }
+
+    repeatOver = $.toArray(repeatOver);
+
+    return function (...items: any[]) {
+
+        var out = [];
+
+        for (var repeat in <any[]>repeatOver) {
+
+            var args = items;
+            args.push(repeat);
+
+            var result = srcThis.apply(this, items);
+
+            if (result != null &&
+                result != undefined)
+                out.push(result);
+
+        }
+
+        return out;
+    };
+
+}
+
+singFunction.addExt('fn_while', FunctionWhile,
+    {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: Function,
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+
+function FunctionWhile(condition: ((...items: any[]) => boolean)): (...items: any[]) => any {
+    return function (...items: any[]) {
+        return this.fn_repeat(condition).apply(this, items);
+    }
+}
+
+singFunction.addExt('fn_retry', FunctionRetry,
+    {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: Function,
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+
+function FunctionRetry(times: number = 1): (...items: any[]) => any {
+
+    var srcThis = this;
+
+    return function (...items: any[]) {
+
+        var exception = null;
+        var attempts = 0;
+
+        while (attempts < times) {
+            try {
+                var result = srcThis.apply(this, items);
+                return result;
+            }
+            catch (ex) {
+                exception = ex;
+                attempts++;
+            }
+        }
+        throw 'Failed ' + times + ' times with ' + exception;
+    }
+}
+
+singFunction.addExt('fn_time', FunctionTime,
+    {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: Function,
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+
+function FunctionTime() {
+
+    var srcThis = this;
+
+    return function (...items: any[]) {
+
+        var start = new Date().valueOf();
+
+        var result = srcThis.apply(this, items);
+
+        var end = new Date().valueOf();
+
+        var length = (end - start).max(0);
+
+        log('Completed: ' + srcThis.name + ' in ' + length + ' milliseconds');
+
+        return result;
+    };
+}
+
+singFunction.addExt('fn_defer', FunctionDefer,
+    {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: Function,
+        examples: null,
+        aliases: ['async'],
+        tests: function (ext) {
+        },
+    });
+
+function FunctionDefer(callback?: Function) {
+
+    var srcThis = this;
+
+    return function (...items: any[]) {
+        setTimeout(function () {
+            var result = srcThis.apply(this, items);
+            if (callback)
+                callback(result)
+        }, 1);
+    };
+}
+
+singFunction.addExt('fn_delay', FunctionDelay,
+    {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: Function,
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+
+function FunctionDelay(delayMS, number, callback?: Function) {
+
+    var srcThis = this;
+
+    delayMS = delayMS.max(1);
+
+    return function (...items: any[]) {
+        setTimeout(function () {
+            var result = srcThis.apply(this, items);
+            if (callback)
+                callback(result)
+        }, delayMS);
+    };
+}
+
+singFunction.addExt('fn_before', FunctionBefore,
+    {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: Function,
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+
+function FunctionBefore(triggerFunc?: Function) {
+
+    var srcThis = this;
+
+    return function (...items: any[]) {
+
+        triggerFunc.apply(this, items);
+
+        var result = srcThis.apply(this, items);
+
+        return result;
+
+    }
+}
+
+singFunction.addExt('fn_after', FunctionAfter,
+    {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: Function,
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+
+function FunctionAfter(triggerFunc?: Function) {
+
+    var srcThis = this;
+
+    return function (...items: any[]) {
+
+        var result = srcThis.apply(this, items);
+
+        items.push(result);
+
+        triggerFunc.apply(this, items);
+
+        return result;
+
+    }
+}
+
+singFunction.addExt('fn_wrap', FunctionWrap,
+    {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: Function,
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+
+function FunctionWrap(triggerFunc?: Function) {
+
+    var srcThis = this;
+
+    return function (...items: any[]) {
+
+        triggerFunc.apply(this, items);
+
+        var result = srcThis.apply(this, items);
+
+        items.push(result);
+
+        triggerFunc.apply(this, items);
+
+        return result;
+
+    }
+}
+
+singFunction.addExt('fn_trace', FunctionTrace,
+    {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: Function,
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+
+function FunctionTrace(traceStr?: string) {
+
+    var srcThis = this;
+
+    return function (...items: any[]) {
+
+        if (traceStr != null && traceStr.length > 0)
+            console.log(traceStr);
+
+        console.trace();
+
+        var result = srcThis.apply(this, items);
+
+        return result;
+    }
+}
+
+singFunction.addExt('fn_recurring', FunctionRecurring,
+    {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: Function,
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+
+function FunctionRecurring(intervalMS: number) {
+
+    var srcThis = this;
+
+    var minimum = 100;
+
+    intervalMS = intervalMS.max(minimum);
+
+    var setTimer = function (src, items) {
+        setTimeout(function () {
+            setTimer(src, items);
+        }, intervalMS);
+        srcThis.apply(src, items);
+    }
+
+    return function (...items: any[]) {
+
+        var src = this;
+
+        setTimer(src, items);
+    };
+}
+
+singFunction.addExt('executeAll', ArrayExecuteAll,
+    {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: Function,
+        examples: null,
+        tests: function (ext) {
+        },
+    }, Array.prototype);
+
+function ArrayExecuteAll(...items: Function[]): any[] {
+    if (!items.every($.isFunction))
+        throw 'Not all items were functions';
+
+    var srcThis = this;
+
+    var out = [];
+
+    out = items.collect(function (item) {
+        return item.apply(srcThis, items);
+    });
+
+    return out;
+}
+
+/*
+singFunction.addExt('fn_supply', null,
     {
         summary: null,
         parameters: null,
@@ -329,142 +721,5 @@ singFunction.addExt('fn_ifElse', null,
         tests: function (ext) {
         },
     });
+*/
 
-singFunction.addExt('fn_then', null,
-    {
-        summary: null,
-        parameters: null,
-        returns: '',
-        returnType: Function,
-        examples: null,
-        tests: function (ext) {
-        },
-    });
-
-singFunction.addExt('fn_repeat', null,
-    {
-        summary: null,
-        parameters: null,
-        returns: '',
-        returnType: Function,
-        examples: null,
-        tests: function (ext) {
-        },
-    });
-
-singFunction.addExt('fn_while', null,
-    {
-        summary: null,
-        parameters: null,
-        returns: '',
-        returnType: Function,
-        examples: null,
-        tests: function (ext) {
-        },
-    });
-
-singFunction.addExt('fn_repeatEvery', null,
-    {
-        summary: null,
-        parameters: null,
-        returns: '',
-        returnType: Function,
-        examples: null,
-        tests: function (ext) {
-        },
-    });
-
-singFunction.addExt('fn_retry', null,
-    {
-        summary: null,
-        parameters: null,
-        returns: '',
-        returnType: Function,
-        examples: null,
-        tests: function (ext) {
-        },
-    });
-
-singFunction.addExt('fn_time', null,
-    {
-        summary: null,
-        parameters: null,
-        returns: '',
-        returnType: Function,
-        examples: null,
-        tests: function (ext) {
-        },
-    });
-singFunction.addExt('fn_defer', null,
-    {
-        summary: null,
-        parameters: null,
-        returns: '',
-        returnType: Function,
-        examples: null,
-        tests: function (ext) {
-        },
-    });
-singFunction.addExt('fn_delay', null,
-    {
-        summary: null,
-        parameters: null,
-        returns: '',
-        returnType: Function,
-        examples: null,
-        tests: function (ext) {
-        },
-    });
-singFunction.addExt('fn_async', null,
-    {
-        summary: null,
-        parameters: null,
-        returns: '',
-        returnType: Function,
-        examples: null,
-        tests: function (ext) {
-        },
-    });
-
-singFunction.addExt('fn_wrap', null,
-    {
-        summary: null,
-        parameters: null,
-        returns: '',
-        returnType: Function,
-        examples: null,
-        tests: function (ext) {
-        },
-    });
-
-singFunction.addExt('fn_onExecute', null,
-    {
-        summary: null,
-        parameters: null,
-        returns: '',
-        returnType: Function,
-        examples: null,
-        tests: function (ext) {
-        },
-    });
-singFunction.addExt('fn_onExecuted', null,
-    {
-        summary: null,
-        parameters: null,
-        returns: '',
-        returnType: Function,
-        examples: null,
-        tests: function (ext) {
-        },
-    });
-
-singFunction.addExt('fn_supply', null,
-    {
-        summary: null,
-        parameters: null,
-        returns: '',
-        returnType: Function,
-        examples: null,
-        tests: function (ext) {
-        },
-    });

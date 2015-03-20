@@ -171,12 +171,13 @@ WriteLiteral("\r\n\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <me
             
             #line default
             #line hidden
-WriteLiteral(" - MVCL</title>\r\n    <link href=\"~/favicon.ico\" rel=\"shortcut icon\" type=\"image/x" +
-"-icon\" />\r\n    <meta name=\"viewport\" content=\"width=device-width\" />\r\n\r\n    ");
+WriteLiteral(" - MVCL</title>\r\n    <meta name=\"description\" content=\"\" />\r\n    <link href=\"~/fa" +
+"vicon.ico\" rel=\"shortcut icon\" type=\"image/x-icon\" />\r\n    <meta name=\"viewport\"" +
+" content=\"width=device-width\" />\r\n\r\n    ");
 
 
             
-            #line 33 "..\..\Views\_MainLayout.cshtml"
+            #line 34 "..\..\Views\_MainLayout.cshtml"
 Write(Scripts.Render(BundleConfig.Script_jQuery));
 
             
@@ -186,7 +187,7 @@ WriteLiteral("\r\n    ");
 
 
             
-            #line 34 "..\..\Views\_MainLayout.cshtml"
+            #line 35 "..\..\Views\_MainLayout.cshtml"
 Write(Scripts.Render(BundleConfig.Script_jQueryUI));
 
             
@@ -196,7 +197,7 @@ WriteLiteral("\r\n    ");
 
 
             
-            #line 35 "..\..\Views\_MainLayout.cshtml"
+            #line 36 "..\..\Views\_MainLayout.cshtml"
 Write(Scripts.Render(BundleConfig.Script_jQueryVal));
 
             
@@ -206,7 +207,7 @@ WriteLiteral("\r\n    ");
 
 
             
-            #line 36 "..\..\Views\_MainLayout.cshtml"
+            #line 37 "..\..\Views\_MainLayout.cshtml"
 Write(Scripts.Render(BundleConfig.Script_Bootstrap));
 
             
@@ -216,7 +217,7 @@ WriteLiteral("\r\n    ");
 
 
             
-            #line 37 "..\..\Views\_MainLayout.cshtml"
+            #line 38 "..\..\Views\_MainLayout.cshtml"
 Write(Scripts.Render(BundleConfig.Script_Modernizr));
 
             
@@ -226,7 +227,7 @@ WriteLiteral("\r\n\r\n    ");
 
 
             
-            #line 39 "..\..\Views\_MainLayout.cshtml"
+            #line 40 "..\..\Views\_MainLayout.cshtml"
 Write(Scripts.Render(ControllerHelper.Script_Singularity));
 
             
@@ -236,7 +237,7 @@ WriteLiteral("\r\n\r\n    ");
 
 
             
-            #line 41 "..\..\Views\_MainLayout.cshtml"
+            #line 42 "..\..\Views\_MainLayout.cshtml"
 Write(Scripts.Render(ControllerHelper.Script_MVCL));
 
             
@@ -246,7 +247,7 @@ WriteLiteral("\r\n    ");
 
 
             
-            #line 42 "..\..\Views\_MainLayout.cshtml"
+            #line 43 "..\..\Views\_MainLayout.cshtml"
 Write(Scripts.Render(ControllerHelper.Script_MVCL_Chance));
 
             
@@ -256,7 +257,7 @@ WriteLiteral("\r\n    ");
 
 
             
-            #line 43 "..\..\Views\_MainLayout.cshtml"
+            #line 44 "..\..\Views\_MainLayout.cshtml"
 Write(Scripts.Render(ControllerHelper.Script_MVCL_jQueryCookie));
 
             
@@ -266,7 +267,7 @@ WriteLiteral("\r\n    ");
 
 
             
-            #line 44 "..\..\Views\_MainLayout.cshtml"
+            #line 45 "..\..\Views\_MainLayout.cshtml"
 Write(Scripts.Render(ControllerHelper.Script_MVCL_jQueryMousewheel));
 
             
@@ -276,7 +277,7 @@ WriteLiteral("\r\n    ");
 
 
             
-            #line 45 "..\..\Views\_MainLayout.cshtml"
+            #line 46 "..\..\Views\_MainLayout.cshtml"
 Write(Scripts.Render(ControllerHelper.Script_MVCL_jQueryTimepicker));
 
             
@@ -286,7 +287,7 @@ WriteLiteral("\r\n    ");
 
 
             
-            #line 46 "..\..\Views\_MainLayout.cshtml"
+            #line 47 "..\..\Views\_MainLayout.cshtml"
 Write(Scripts.Render(ControllerHelper.Script_MVCL_qTip));
 
             
@@ -296,7 +297,7 @@ WriteLiteral("\r\n\r\n    ");
 
 
             
-            #line 48 "..\..\Views\_MainLayout.cshtml"
+            #line 49 "..\..\Views\_MainLayout.cshtml"
 Write(Styles.Render(ControllerHelper.Style_Singularity));
 
             
@@ -306,7 +307,7 @@ WriteLiteral("\r\n\r\n    ");
 
 
             
-            #line 50 "..\..\Views\_MainLayout.cshtml"
+            #line 51 "..\..\Views\_MainLayout.cshtml"
 Write(Styles.Render(BundleConfig.Style_Bootstrap));
 
             
@@ -316,7 +317,7 @@ WriteLiteral("\r\n    ");
 
 
             
-            #line 51 "..\..\Views\_MainLayout.cshtml"
+            #line 52 "..\..\Views\_MainLayout.cshtml"
 Write(Styles.Render(BundleConfig.Style_jQueryUI));
 
             
@@ -326,7 +327,7 @@ WriteLiteral("\r\n\r\n    ");
 
 
             
-            #line 53 "..\..\Views\_MainLayout.cshtml"
+            #line 54 "..\..\Views\_MainLayout.cshtml"
 Write(Styles.Render(ControllerHelper.Style_MVCL));
 
             
@@ -336,7 +337,7 @@ WriteLiteral("\r\n\r\n</head>\r\n<body singularity class=\"");
 
 
             
-            #line 56 "..\..\Views\_MainLayout.cshtml"
+            #line 57 "..\..\Views\_MainLayout.cshtml"
                      Write(ViewBag.ContextProvider != null ? StringExt.ToUrlSlug(ViewBag.ContextProvider.GetContext(Session).ContextName) : "");
 
             
@@ -351,7 +352,7 @@ WriteLiteral("\r\n\r\n");
 
 
             
-            #line 67 "..\..\Views\_MainLayout.cshtml"
+            #line 68 "..\..\Views\_MainLayout.cshtml"
          if (TempData.Peek(ControllerHelper.StatusMessage) != null)
         {
             String Message = (String)TempData[ControllerHelper.StatusMessage];
@@ -365,7 +366,7 @@ WriteLiteral("            <div class=\"status-message close-dialog\">\r\n");
 
 
             
-            #line 73 "..\..\Views\_MainLayout.cshtml"
+            #line 74 "..\..\Views\_MainLayout.cshtml"
                  if (!String.IsNullOrEmpty(Icon))
                 {
 
@@ -376,7 +377,7 @@ WriteLiteral("                    <glyph>");
 
 
             
-            #line 75 "..\..\Views\_MainLayout.cshtml"
+            #line 76 "..\..\Views\_MainLayout.cshtml"
                       Write(Icon);
 
             
@@ -386,7 +387,7 @@ WriteLiteral("</glyph>\r\n");
 
 
             
-            #line 76 "..\..\Views\_MainLayout.cshtml"
+            #line 77 "..\..\Views\_MainLayout.cshtml"
                 }
 
             
@@ -396,7 +397,7 @@ WriteLiteral("                ");
 
 
             
-            #line 77 "..\..\Views\_MainLayout.cshtml"
+            #line 78 "..\..\Views\_MainLayout.cshtml"
            Write(Message);
 
             
@@ -406,7 +407,7 @@ WriteLiteral("\r\n            </div>\r\n");
 
 
             
-            #line 79 "..\..\Views\_MainLayout.cshtml"
+            #line 80 "..\..\Views\_MainLayout.cshtml"
         }
 
             
@@ -428,7 +429,7 @@ WriteLiteral(@"
 
 
             
-            #line 92 "..\..\Views\_MainLayout.cshtml"
+            #line 93 "..\..\Views\_MainLayout.cshtml"
    Write(RenderSection("featured", required: false));
 
             
@@ -439,7 +440,7 @@ WriteLiteral("\r\n\r\n        <section class=\"content-wrapper main-content clea
 
 
             
-            #line 95 "..\..\Views\_MainLayout.cshtml"
+            #line 96 "..\..\Views\_MainLayout.cshtml"
        Write(RenderBody());
 
             
@@ -450,7 +451,7 @@ WriteLiteral("\r\n        </section>\r\n    </div>\r\n    <footer>\r\n        <d
 
 
             
-            #line 101 "..\..\Views\_MainLayout.cshtml"
+            #line 102 "..\..\Views\_MainLayout.cshtml"
                      Write(DateTime.Now.Year);
 
             
@@ -460,7 +461,7 @@ WriteLiteral("</p>\r\n            </div>\r\n        </div>\r\n    </footer>\r\n 
 
 
             
-            #line 105 "..\..\Views\_MainLayout.cshtml"
+            #line 106 "..\..\Views\_MainLayout.cshtml"
 Write(Scripts.Render(BundleConfig.Script_jQuery));
 
             
@@ -470,7 +471,7 @@ WriteLiteral("\r\n\r\n    ");
 
 
             
-            #line 107 "..\..\Views\_MainLayout.cshtml"
+            #line 108 "..\..\Views\_MainLayout.cshtml"
 Write(RenderSection("scripts", required: false));
 
             

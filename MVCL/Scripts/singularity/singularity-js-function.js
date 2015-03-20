@@ -19,9 +19,6 @@ function FunctionTry(logFailure) {
     // Redirects to catch with no catchFunction
     return source.fn_catch();
 }
-//
-//////////////////////////////////////////////////////
-//
 singFunction.addExt('fn_catch', FunctionCatch, {
     summary: null,
     parameters: null,
@@ -36,7 +33,7 @@ function FunctionCatch(catchFunction, logFailure) {
     return function () {
         var result;
         try {
-            result = source.apply(this.prototype, arguments);
+            result = source.apply(this, arguments);
         }
         catch (ex) {
             if (logFailure) {
@@ -44,14 +41,11 @@ function FunctionCatch(catchFunction, logFailure) {
                 log([arguments]);
             }
             if (catchFunction)
-                return catchFunction.apply(this.prototype, [ex].concat(arguments));
+                return catchFunction.apply(this, [ex].concat(arguments));
         }
         return result;
     };
 }
-//
-//////////////////////////////////////////////////////
-//
 singFunction.addExt('fn_log', FunctionLog, {
     summary: null,
     parameters: null,
@@ -71,7 +65,7 @@ function FunctionLog(logAttempt, logSuccess, logFailure) {
             if (logAttempt) {
                 log(['Attempting: ', source.name, arguments, result]);
             }
-            var result = source.apply(this.prototype, arguments);
+            var result = source.apply(this, arguments);
             if (logSuccess) {
                 log(['Completed: ' + source.name, arguments, result]);
             }
@@ -86,9 +80,6 @@ function FunctionLog(logAttempt, logSuccess, logFailure) {
         }
     };
 }
-//
-//////////////////////////////////////////////////////
-//
 singFunction.addExt('fn_count', FunctionCount, {
     summary: null,
     parameters: null,
@@ -103,7 +94,7 @@ function FunctionCount(logFailure) {
     var functionCallCount = 0;
     return function () {
         try {
-            var result = source.apply(this.prototype, arguments);
+            var result = source.apply(this, arguments);
             log([source.name, 'count:' + functionCallCount]);
             log([arguments, result]);
             return result;
@@ -117,9 +108,6 @@ function FunctionCount(logFailure) {
         }
     };
 }
-//
-//////////////////////////////////////////////////////
-//
 singFunction.addExt('fn_cache', FunctionCache, {
     summary: null,
     parameters: null,
@@ -157,26 +145,12 @@ function FunctionCache(uniqueCacheID, expiresAfter) {
         else {
             thisCache[argStr] = {};
         }
-        var result = thisCache[argStr].value = source.apply(this.prototype, arguments);
+        var result = thisCache[argStr].value = source.apply(this, arguments);
         if (expiresAfter > 0) {
             thisCache[argStr].expires = (new Date()).valueOf() + expiresAfter;
         }
         return result;
     };
-}
-//
-//////////////////////////////////////////////////////
-//
-singFunction.addExt('fn_trace', null, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: Function,
-    examples: null,
-    tests: function (ext) {
-    },
-});
-function FunctionTrace() {
 }
 singFunction.addExt('fn_or', FunctionOR, {
     summary: null,
@@ -195,7 +169,7 @@ function FunctionOR(orFunc) {
         return result1 || result2;
     };
 }
-singFunction.addExt('fn_if', null, {
+singFunction.addExt('fn_if', FunctionIf, {
     summary: null,
     parameters: null,
     returns: '',
@@ -204,7 +178,19 @@ singFunction.addExt('fn_if', null, {
     tests: function (ext) {
     },
 });
-singFunction.addExt('fn_unless', null, {
+function FunctionIf(ifFunc) {
+    var srcThis = this;
+    return function () {
+        var items = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            items[_i - 0] = arguments[_i];
+        }
+        if (ifFunc.apply(this, items) == true) {
+            return srcThis.apply(this, items);
+        }
+    };
+}
+singFunction.addExt('fn_unless', FunctionUnless, {
     summary: null,
     parameters: null,
     returns: '',
@@ -213,7 +199,19 @@ singFunction.addExt('fn_unless', null, {
     tests: function (ext) {
     },
 });
-singFunction.addExt('fn_ifElse', null, {
+function FunctionUnless(ifFunc) {
+    var srcThis = this;
+    return function () {
+        var items = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            items[_i - 0] = arguments[_i];
+        }
+        if (ifFunc.apply(this, items) != true) {
+            return srcThis.apply(this, items);
+        }
+    };
+}
+singFunction.addExt('fn_then', FunctionThen, {
     summary: null,
     parameters: null,
     returns: '',
@@ -222,7 +220,19 @@ singFunction.addExt('fn_ifElse', null, {
     tests: function (ext) {
     },
 });
-singFunction.addExt('fn_then', null, {
+function FunctionThen(ifFunc) {
+    var srcThis = this;
+    return function () {
+        var items = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            items[_i - 0] = arguments[_i];
+        }
+        if (ifFunc.apply(this, items) != true) {
+            return srcThis.apply(this, items);
+        }
+    };
+}
+singFunction.addExt('fn_repeat', FunctionRepeat, {
     summary: null,
     parameters: null,
     returns: '',
@@ -231,7 +241,50 @@ singFunction.addExt('fn_then', null, {
     tests: function (ext) {
     },
 });
-singFunction.addExt('fn_repeat', null, {
+function FunctionRepeat(repeatOver) {
+    var srcThis = this;
+    if ($.isFunction(repeatOver)) {
+        return function () {
+            var items = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                items[_i - 0] = arguments[_i];
+            }
+            var out = [];
+            var result = repeatOver.apply(this, items);
+            while (result != null && result != undefined) {
+                out.push(result);
+                result = repeatOver.apply(this, items);
+            }
+            return out;
+        };
+    }
+    if ($.isNumber(repeatOver)) {
+        return function () {
+            var items = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                items[_i - 0] = arguments[_i];
+            }
+            return repeatOver.timesDo(srcThis);
+        };
+    }
+    repeatOver = $.toArray(repeatOver);
+    return function () {
+        var items = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            items[_i - 0] = arguments[_i];
+        }
+        var out = [];
+        for (var repeat in repeatOver) {
+            var args = items;
+            args.push(repeat);
+            var result = srcThis.apply(this, items);
+            if (result != null && result != undefined)
+                out.push(result);
+        }
+        return out;
+    };
+}
+singFunction.addExt('fn_while', FunctionWhile, {
     summary: null,
     parameters: null,
     returns: '',
@@ -240,7 +293,16 @@ singFunction.addExt('fn_repeat', null, {
     tests: function (ext) {
     },
 });
-singFunction.addExt('fn_while', null, {
+function FunctionWhile(condition) {
+    return function () {
+        var items = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            items[_i - 0] = arguments[_i];
+        }
+        return this.fn_repeat(condition).apply(this, items);
+    };
+}
+singFunction.addExt('fn_retry', FunctionRetry, {
     summary: null,
     parameters: null,
     returns: '',
@@ -249,7 +311,30 @@ singFunction.addExt('fn_while', null, {
     tests: function (ext) {
     },
 });
-singFunction.addExt('fn_repeatEvery', null, {
+function FunctionRetry(times) {
+    if (times === void 0) { times = 1; }
+    var srcThis = this;
+    return function () {
+        var items = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            items[_i - 0] = arguments[_i];
+        }
+        var exception = null;
+        var attempts = 0;
+        while (attempts < times) {
+            try {
+                var result = srcThis.apply(this, items);
+                return result;
+            }
+            catch (ex) {
+                exception = ex;
+                attempts++;
+            }
+        }
+        throw 'Failed ' + times + ' times with ' + exception;
+    };
+}
+singFunction.addExt('fn_time', FunctionTime, {
     summary: null,
     parameters: null,
     returns: '',
@@ -258,7 +343,46 @@ singFunction.addExt('fn_repeatEvery', null, {
     tests: function (ext) {
     },
 });
-singFunction.addExt('fn_retry', null, {
+function FunctionTime() {
+    var srcThis = this;
+    return function () {
+        var items = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            items[_i - 0] = arguments[_i];
+        }
+        var start = new Date().valueOf();
+        var result = srcThis.apply(this, items);
+        var end = new Date().valueOf();
+        var length = (end - start).max(0);
+        log('Completed: ' + srcThis.name + ' in ' + length + ' milliseconds');
+        return result;
+    };
+}
+singFunction.addExt('fn_defer', FunctionDefer, {
+    summary: null,
+    parameters: null,
+    returns: '',
+    returnType: Function,
+    examples: null,
+    aliases: ['async'],
+    tests: function (ext) {
+    },
+});
+function FunctionDefer(callback) {
+    var srcThis = this;
+    return function () {
+        var items = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            items[_i - 0] = arguments[_i];
+        }
+        setTimeout(function () {
+            var result = srcThis.apply(this, items);
+            if (callback)
+                callback(result);
+        }, 1);
+    };
+}
+singFunction.addExt('fn_delay', FunctionDelay, {
     summary: null,
     parameters: null,
     returns: '',
@@ -267,7 +391,22 @@ singFunction.addExt('fn_retry', null, {
     tests: function (ext) {
     },
 });
-singFunction.addExt('fn_time', null, {
+function FunctionDelay(delayMS, number, callback) {
+    var srcThis = this;
+    delayMS = delayMS.max(1);
+    return function () {
+        var items = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            items[_i - 0] = arguments[_i];
+        }
+        setTimeout(function () {
+            var result = srcThis.apply(this, items);
+            if (callback)
+                callback(result);
+        }, delayMS);
+    };
+}
+singFunction.addExt('fn_before', FunctionBefore, {
     summary: null,
     parameters: null,
     returns: '',
@@ -276,7 +415,19 @@ singFunction.addExt('fn_time', null, {
     tests: function (ext) {
     },
 });
-singFunction.addExt('fn_defer', null, {
+function FunctionBefore(triggerFunc) {
+    var srcThis = this;
+    return function () {
+        var items = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            items[_i - 0] = arguments[_i];
+        }
+        triggerFunc.apply(this, items);
+        var result = srcThis.apply(this, items);
+        return result;
+    };
+}
+singFunction.addExt('fn_after', FunctionAfter, {
     summary: null,
     parameters: null,
     returns: '',
@@ -285,7 +436,20 @@ singFunction.addExt('fn_defer', null, {
     tests: function (ext) {
     },
 });
-singFunction.addExt('fn_delay', null, {
+function FunctionAfter(triggerFunc) {
+    var srcThis = this;
+    return function () {
+        var items = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            items[_i - 0] = arguments[_i];
+        }
+        var result = srcThis.apply(this, items);
+        items.push(result);
+        triggerFunc.apply(this, items);
+        return result;
+    };
+}
+singFunction.addExt('fn_wrap', FunctionWrap, {
     summary: null,
     parameters: null,
     returns: '',
@@ -294,7 +458,21 @@ singFunction.addExt('fn_delay', null, {
     tests: function (ext) {
     },
 });
-singFunction.addExt('fn_async', null, {
+function FunctionWrap(triggerFunc) {
+    var srcThis = this;
+    return function () {
+        var items = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            items[_i - 0] = arguments[_i];
+        }
+        triggerFunc.apply(this, items);
+        var result = srcThis.apply(this, items);
+        items.push(result);
+        triggerFunc.apply(this, items);
+        return result;
+    };
+}
+singFunction.addExt('fn_trace', FunctionTrace, {
     summary: null,
     parameters: null,
     returns: '',
@@ -303,7 +481,21 @@ singFunction.addExt('fn_async', null, {
     tests: function (ext) {
     },
 });
-singFunction.addExt('fn_wrap', null, {
+function FunctionTrace(traceStr) {
+    var srcThis = this;
+    return function () {
+        var items = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            items[_i - 0] = arguments[_i];
+        }
+        if (traceStr != null && traceStr.length > 0)
+            console.log(traceStr);
+        console.trace();
+        var result = srcThis.apply(this, items);
+        return result;
+    };
+}
+singFunction.addExt('fn_recurring', FunctionRecurring, {
     summary: null,
     parameters: null,
     returns: '',
@@ -312,7 +504,26 @@ singFunction.addExt('fn_wrap', null, {
     tests: function (ext) {
     },
 });
-singFunction.addExt('fn_onExecute', null, {
+function FunctionRecurring(intervalMS) {
+    var srcThis = this;
+    var minimum = 100;
+    intervalMS = intervalMS.max(minimum);
+    var setTimer = function (src, items) {
+        setTimeout(function () {
+            setTimer(src, items);
+        }, intervalMS);
+        srcThis.apply(src, items);
+    };
+    return function () {
+        var items = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            items[_i - 0] = arguments[_i];
+        }
+        var src = this;
+        setTimer(src, items);
+    };
+}
+singFunction.addExt('executeAll', ArrayExecuteAll, {
     summary: null,
     parameters: null,
     returns: '',
@@ -320,23 +531,42 @@ singFunction.addExt('fn_onExecute', null, {
     examples: null,
     tests: function (ext) {
     },
-});
-singFunction.addExt('fn_onExecuted', null, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: Function,
-    examples: null,
-    tests: function (ext) {
-    },
-});
-singFunction.addExt('fn_supply', null, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: Function,
-    examples: null,
-    tests: function (ext) {
-    },
-});
+}, Array.prototype);
+function ArrayExecuteAll() {
+    var items = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        items[_i - 0] = arguments[_i];
+    }
+    if (!items.every($.isFunction))
+        throw 'Not all items were functions';
+    var srcThis = this;
+    var out = [];
+    out = items.collect(function (item) {
+        return item.apply(srcThis, items);
+    });
+    return out;
+}
+/*
+singFunction.addExt('fn_supply', null,
+    {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: Function,
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+
+singFunction.addExt('fn_ifElse', null,
+    {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: Function,
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+*/
 //# sourceMappingURL=singularity-js-function.js.map
