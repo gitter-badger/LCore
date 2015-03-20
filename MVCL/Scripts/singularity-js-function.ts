@@ -1,4 +1,5 @@
-﻿
+﻿/// <reference path="singularity-core.ts"/>
+
 interface Function {
     fn_try?: <T>(logFailure?: boolean) => (...items: any[]) => T;
     fn_catch?: <T>(catchFunction?: Function, logFailure?: boolean) => (...items: any[]) => T;
@@ -29,21 +30,23 @@ interface Function {
 
     fn_supply?: <T, U>(parameter: U) => (param: U, ...items: any[]) => T;
 
-    test?: (<T>(p1: T) => void) |
-    (<T, T2>(p1: T, p2: T2) => void) |
-    (<T, U>(p1: T) => U) |
-    (<T, T2, U>(p1: T, p2: T2) => U);
+    fn_or?: (orFunc: (...items: any[]) => boolean) => (...items: any[]) => boolean;
+    fn_and?: (orFunc: (...items: any[]) => boolean) => (...items: any[]) => boolean;
 }
 
-/// <reference path="singularity-core.ts"/>
+var singFunction = sing.addModule(new sing.Module("Function", Function));
+
+singFunction.requiredDocumentation = false;
+singFunction.requiredUnitTests = false;
 
 function InitSingularityJS_Function() {
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Function Extensions
     //
 
-    sing.addFunctionExt('fn_try', FunctionTry,
+    singFunction.addExt('fn_try', FunctionTry,
         {
             summary: null,
             parameters: null,
@@ -64,7 +67,7 @@ function InitSingularityJS_Function() {
     //////////////////////////////////////////////////////
     //
 
-    sing.addFunctionExt('fn_catch', FunctionCatch,
+    singFunction.addExt('fn_catch', FunctionCatch,
         {
             summary: null,
             parameters: null,
@@ -103,7 +106,7 @@ function InitSingularityJS_Function() {
     //////////////////////////////////////////////////////
     //
 
-    sing.addFunctionExt('fn_log', FunctionLog,
+    singFunction.addExt('fn_log', FunctionLog,
         {
             summary: null,
             parameters: null,
@@ -152,7 +155,7 @@ function InitSingularityJS_Function() {
     //////////////////////////////////////////////////////
     //
 
-    sing.addFunctionExt('fn_count', FunctionCount,
+    singFunction.addExt('fn_count', FunctionCount,
         {
             summary: null,
             parameters: null,
@@ -190,7 +193,7 @@ function InitSingularityJS_Function() {
     //////////////////////////////////////////////////////
     //
 
-    sing.addFunctionExt('fn_cache', FunctionCache,
+    singFunction.addExt('fn_cache', FunctionCache,
         {
             summary: null,
             parameters: null,
@@ -259,7 +262,7 @@ function InitSingularityJS_Function() {
     //
 
 
-    sing.addFunctionExt('fn_trace', null,
+    singFunction.addExt('fn_trace', null,
         {
             summary: null,
             parameters: null,
@@ -273,7 +276,7 @@ function InitSingularityJS_Function() {
     function FunctionTrace() {
     }
 
-    sing.addFunctionExt('fn_if', null,
+    singFunction.addExt('fn_or', FunctionOR,
         {
             summary: null,
             parameters: null,
@@ -284,7 +287,20 @@ function InitSingularityJS_Function() {
             },
         });
 
-    sing.addFunctionExt('fn_unless', null,
+    function FunctionOR(orFunc: (...items: any[]) => boolean): (...items: any[]) => boolean {
+
+        var source = this;
+
+        return function () {
+
+            var result1 = source.apply(this, arguments);
+            var result2 = orFunc.apply(this, arguments);
+
+            return result1 || result2;
+        }
+
+    }
+    singFunction.addExt('fn_if', null,
         {
             summary: null,
             parameters: null,
@@ -295,7 +311,7 @@ function InitSingularityJS_Function() {
             },
         });
 
-    sing.addFunctionExt('fn_ifElse', null,
+    singFunction.addExt('fn_unless', null,
         {
             summary: null,
             parameters: null,
@@ -306,7 +322,7 @@ function InitSingularityJS_Function() {
             },
         });
 
-    sing.addFunctionExt('fn_then', null,
+    singFunction.addExt('fn_ifElse', null,
         {
             summary: null,
             parameters: null,
@@ -317,7 +333,7 @@ function InitSingularityJS_Function() {
             },
         });
 
-    sing.addFunctionExt('fn_repeat', null,
+    singFunction.addExt('fn_then', null,
         {
             summary: null,
             parameters: null,
@@ -328,7 +344,7 @@ function InitSingularityJS_Function() {
             },
         });
 
-    sing.addFunctionExt('fn_while', null,
+    singFunction.addExt('fn_repeat', null,
         {
             summary: null,
             parameters: null,
@@ -339,7 +355,7 @@ function InitSingularityJS_Function() {
             },
         });
 
-    sing.addFunctionExt('fn_repeatEvery', null,
+    singFunction.addExt('fn_while', null,
         {
             summary: null,
             parameters: null,
@@ -350,7 +366,7 @@ function InitSingularityJS_Function() {
             },
         });
 
-    sing.addFunctionExt('fn_retry', null,
+    singFunction.addExt('fn_repeatEvery', null,
         {
             summary: null,
             parameters: null,
@@ -361,37 +377,7 @@ function InitSingularityJS_Function() {
             },
         });
 
-    sing.addFunctionExt('fn_time', null,
-        {
-            summary: null,
-            parameters: null,
-            returns: '',
-            returnType: Function,
-            examples: null,
-            tests: function (ext) {
-            },
-        });
-    sing.addFunctionExt('fn_defer', null,
-        {
-            summary: null,
-            parameters: null,
-            returns: '',
-            returnType: Function,
-            examples: null,
-            tests: function (ext) {
-            },
-        });
-    sing.addFunctionExt('fn_delay', null,
-        {
-            summary: null,
-            parameters: null,
-            returns: '',
-            returnType: Function,
-            examples: null,
-            tests: function (ext) {
-            },
-        });
-    sing.addFunctionExt('fn_async', null,
+    singFunction.addExt('fn_retry', null,
         {
             summary: null,
             parameters: null,
@@ -402,7 +388,37 @@ function InitSingularityJS_Function() {
             },
         });
 
-    sing.addFunctionExt('fn_wrap', null,
+    singFunction.addExt('fn_time', null,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: Function,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+    singFunction.addExt('fn_defer', null,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: Function,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+    singFunction.addExt('fn_delay', null,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: Function,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+    singFunction.addExt('fn_async', null,
         {
             summary: null,
             parameters: null,
@@ -413,17 +429,7 @@ function InitSingularityJS_Function() {
             },
         });
 
-    sing.addFunctionExt('fn_onExecute', null,
-        {
-            summary: null,
-            parameters: null,
-            returns: '',
-            returnType: Function,
-            examples: null,
-            tests: function (ext) {
-            },
-        });
-    sing.addFunctionExt('fn_onExecuted', null,
+    singFunction.addExt('fn_wrap', null,
         {
             summary: null,
             parameters: null,
@@ -434,7 +440,28 @@ function InitSingularityJS_Function() {
             },
         });
 
-    sing.addFunctionExt('fn_supply', null,
+    singFunction.addExt('fn_onExecute', null,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: Function,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+    singFunction.addExt('fn_onExecuted', null,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: Function,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+
+    singFunction.addExt('fn_supply', null,
         {
             summary: null,
             parameters: null,

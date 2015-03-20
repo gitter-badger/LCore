@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
@@ -264,61 +263,6 @@ namespace MVCL.Controllers
         }
 
 
-        public const String Script_Singularity = "~/Scripts/singularity";
-        public const String Style_Singularity = "~/Content/singularity";
-
-        public const String Script_MVCL = "~/Scripts/mvcl";
-        public const String Style_MVCL = "~/Content/mvcl";
-
-        public const String Script_MVCL_Chance = "~/Scripts/mvcl/chance";
-        public const String Script_MVCL_qTip = "~/Scripts/mvcl/qTip";
-        public const String Script_MVCL_jQueryCookie = "~/Scripts/mvcl/jquery.cookie";
-        public const String Script_MVCL_jQueryMousewheel = "~/Scripts/mvcl/jquery.mousewheel";
-        public const String Script_MVCL_jQueryTimepicker = "~/bundles/mvcl/jquery.timepicker";
-
-        public static void RegisterBundles(System.Web.Optimization.BundleCollection bundles, Boolean IncludedLib)
-        {
-
-            String Root = IncludedLib ? "~/bin/" : "~/";
-
-
-            bundles.Add(new StyleBundle(Style_MVCL).Include(
-                Root + "Content/mvcl.css"));
-
-            bundles.Add(new ScriptBundle(Script_MVCL).Include(
-                        Root + "Scripts/mvcl.js"));
-
-            #region Singularity
-            bundles.Add(new ScriptBundle(Script_Singularity).Include(
-                        Root + "Scripts/singularity-core.js",
-                        Root + "Scripts/singularity-js-function.js",
-                        Root + "Scripts/singularity-js-array.js",
-                        Root + "Scripts/singularity-js-string.js",
-                        Root + "Scripts/singularity-js-number.js",
-                        Root + "Scripts/singularity-js-boolean.js",
-                        Root + "Scripts/singularity-js-date.js",
-                        Root + "Scripts/singularity-jquery.js",
-                        Root + "Scripts/singularity-html.js"));
-
-            bundles.Add(new StyleBundle(Style_Singularity).Include(
-                Root + "Content/singularity.css"));
-            #endregion
-
-            bundles.Add(new ScriptBundle(Script_MVCL_Chance).Include(
-                        Root + "Scripts/chance.js"));
-
-            bundles.Add(new ScriptBundle(Script_MVCL_qTip).Include(
-                        Root + "Scripts/qTip.js"));
-
-            bundles.Add(new ScriptBundle(Script_MVCL_jQueryCookie).Include(
-                        Root + "Scripts/jquery.cookie.js"));
-
-            bundles.Add(new ScriptBundle(Script_MVCL_jQueryMousewheel).Include(
-                        Root + "Scripts/jquery.mousewheel.js"));
-
-            bundles.Add(new ScriptBundle(Script_MVCL_jQueryTimepicker).Include(
-                      "~/Scripts/jquery.timepicker.js"));
-        }
 
         public static void WriteCSV(this HttpResponseBase Response, String[] CSVData, String FileName)
         {
@@ -366,6 +310,65 @@ namespace MVCL.Controllers
             Response.ContentType = "application/pdf";
             Response.BinaryWrite(PDF_Bytes);
             Response.End();
+        }
+
+
+        public const String Script_Singularity = "~/Scripts/singularity";
+        public const String Style_Singularity = "~/Content/singularity";
+
+        public const String Script_MVCL = "~/Scripts/mvcl";
+        public const String Style_MVCL = "~/Content/mvcl";
+
+        public const String Script_MVCL_Chance = "~/Scripts/mvcl/chance";
+        public const String Script_MVCL_qTip = "~/Scripts/mvcl/qTip";
+        public const String Script_MVCL_jQueryCookie = "~/Scripts/mvcl/jquery.cookie";
+        public const String Script_MVCL_jQueryMousewheel = "~/Scripts/mvcl/jquery.mousewheel";
+        public const String Script_MVCL_jQueryTimepicker = "~/bundles/mvcl/jquery.timepicker";
+
+        public static void RegisterBundles(System.Web.Optimization.BundleCollection bundles, Boolean IncludedLib)
+        {
+
+            String Root = IncludedLib ? "~/bin/" : "~/";
+
+
+            bundles.Add(new StyleBundle(Style_MVCL).Include(
+                Root + "Content/mvcl.css"));
+
+            bundles.Add(new ScriptBundle(Script_MVCL).Include(
+                        Root + "Scripts/mvcl.js"));
+
+            #region Singularity
+            bundles.Add(new ScriptBundle(Script_Singularity).Include(
+                        Root + "Scripts/singularity-core.js",
+                        Root + "Scripts/singularity-tests.js",
+                        Root + "Scripts/singularity-doc.js",
+                        Root + "Scripts/singularity-js-function.js",
+                        Root + "Scripts/singularity-js-array.js",
+                        Root + "Scripts/singularity-js-string.js",
+                        Root + "Scripts/singularity-js-number.js",
+                        Root + "Scripts/singularity-js-boolean.js",
+                        Root + "Scripts/singularity-js-date.js",
+                        Root + "Scripts/singularity-jquery.js",
+                        Root + "Scripts/singularity-html.js"));
+
+            bundles.Add(new StyleBundle(Style_Singularity).Include(
+                Root + "Content/singularity.css"));
+            #endregion
+
+            bundles.Add(new ScriptBundle(Script_MVCL_Chance).Include(
+                        Root + "Scripts/chance.js"));
+
+            bundles.Add(new ScriptBundle(Script_MVCL_qTip).Include(
+                        Root + "Scripts/qTip.js"));
+
+            bundles.Add(new ScriptBundle(Script_MVCL_jQueryCookie).Include(
+                        Root + "Scripts/jquery.cookie.js"));
+
+            bundles.Add(new ScriptBundle(Script_MVCL_jQueryMousewheel).Include(
+                        Root + "Scripts/jquery.mousewheel.js"));
+
+            bundles.Add(new ScriptBundle(Script_MVCL_jQueryTimepicker).Include(
+                      "~/Scripts/jquery.timepicker.js"));
         }
 
     }

@@ -1,0 +1,132 @@
+﻿@* Generator: MvcView *@
+
+@using LCore;
+@using MVCL;
+@using MVCL.Models;
+@using MVCL.Controllers;
+@using MVCL.Context;
+@using MVCL.Routes;
+@using System.Linq;
+@using System.Linq.Expressions;
+@using System.Collections;
+@using System.Collections.Generic;
+@using System.ComponentModel;
+@using System.ComponentModel.DataAnnotations;
+@using System.ComponentModel.Design;
+@using System.Web;
+@using System.Web.Mvc;
+
+@{
+    /// <reference path="singularity-core.ts" />
+    Layout = Layouts.MainLayout;
+}
+
+<div class="mvcl-test singularity-test">
+
+    <div>
+        <script type="text/javascript">
+            $().ready(function () {
+                $('#singularity-output').html(sing.getSummary('', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
+
+                $('#singularity-tests-module').html(sing.getSummary('Singularity.Tests.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
+                $('#singularity-output-boolean').html(sing.getSummary('Boolean.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
+                $('#singularity-output-number').html(sing.getSummary('Number.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
+                $('#singularity-output-string').html(sing.getSummary('String.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
+                $('#singularity-output-date').html(sing.getSummary('Date.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
+                $('#singularity-output-array').html(sing.getSummary('Array.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
+                $('#singularity-output-jquery').html(sing.getSummary('jQuery.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
+                $('#singularity-output-function').html(sing.getSummary('Function.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
+
+                $('#singularity-output-test-results').html(sing.runTests().textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
+
+                $('#singularity-output-bbcode-source').html(sing.BBCodes.findValues('test').joinLines().textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
+                $('#singularity-output-bbcode-results').html(sing.BBCodes.findValues('test').joinLines().bbCodesToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
+            });
+        </script>
+        <div id="singularity-output"></div>
+    </div>
+</div>
+
+<div class="mvcl-test singularity-test">
+
+    <div>
+        <h3>Singularity - Tests</h3>
+        <div id="singularity-tests-module"></div>
+    </div>
+</div>
+
+<div class="mvcl-test singularity-test">
+
+    <div>
+        <h3>Boolean</h3>
+        <div id="singularity-output-boolean"></div>
+    </div>
+</div>
+
+<div class="mvcl-test singularity-test">
+
+    <div>
+        <h3>Number</h3>
+        <div id="singularity-output-number"></div>
+    </div>
+</div>
+
+<div class="mvcl-test singularity-test">
+
+    <div>
+        <h3>String</h3>
+        <div id="singularity-output-string"></div>
+    </div>
+</div>
+
+<div class="mvcl-test singularity-test">
+
+    <div>
+        <h3>Date</h3>
+        <div id="singularity-output-date"></div>
+    </div>
+</div>
+
+<div class="mvcl-test singularity-test">
+
+    <div>
+        <h3>Array</h3>
+        <div id="singularity-output-array"></div>
+    </div>
+</div>
+
+<div class="mvcl-test singularity-test">
+
+    <div>
+        <h3>jQuery</h3>
+        <div id="singularity-output-jquery"></div>
+    </div>
+</div>
+
+<div class="mvcl-test singularity-test">
+
+    <div>
+        <h3>Function</h3>
+        <div id="singularity-output-function"></div>
+    </div>
+</div>
+
+
+<div class="mvcl-test singularity-test">
+
+    <div>
+        <h3>BBCode Support</h3>
+        <div id="singularity-output-bbcode-source"></div>
+        <hr />
+        <div id="singularity-output-bbcode-results"></div>
+    </div>
+</div>
+
+
+<div class="mvcl-test singularity-test">
+
+    <div>
+        <h3>Test Results</h3>
+        <div id="singularity-output-test-results"></div>
+    </div>
+</div>

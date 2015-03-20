@@ -267,6 +267,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Index.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Test\SingularityTest1.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SingularityTest.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\_MainLayout.generated.cs">
       <DependentUpon>_MainLayout.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -581,10 +586,16 @@
     <Content Include="Scripts\jquery.mousewheel.js" />
     <Content Include="Scripts\knockout-3.3.0.debug.js" />
     <Content Include="Scripts\knockout-3.3.0.js" />
+    <Content Include="Views\Test\SingularityTest.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>SingularityTest1.generated.cs</LastGenOutput>
+    </Content>
     <TypeScriptCompile Include="Scripts\definitions\chance.d.ts" />
     <TypeScriptCompile Include="Scripts\definitions\jquery.timepicker.d.ts" />
     <TypeScriptCompile Include="Scripts\definitions\jquery.cookie.d.ts" />
     <TypeScriptCompile Include="Scripts\mvcl.ts" />
+    <TypeScriptCompile Include="Scripts\singularity-doc.ts" />
+    <TypeScriptCompile Include="Scripts\singularity-tests.ts" />
     <TypeScriptCompile Include="Scripts\singularity-html.ts" />
     <TypeScriptCompile Include="Scripts\singularity-jquery.ts" />
     <TypeScriptCompile Include="Scripts\singularity-js-boolean.ts" />

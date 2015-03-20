@@ -1,1 +1,1 @@
-﻿a{display:none}.singularity-test{font-size:.92em;font-family:monospace}
+﻿*[singularity] .singularity-test{font-size:.92em;font-family:monospace}*[singularity] .singularity-test h3{margin-top:0}*[singularity] *[sing-template]:not(*[sing-template-data=true]){display:none}

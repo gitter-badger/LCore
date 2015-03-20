@@ -45,7 +45,7 @@
     @Scripts.Render(ControllerHelper.Script_MVCL_jQueryTimepicker)
     @Scripts.Render(ControllerHelper.Script_MVCL_qTip)
 
-    @Scripts.Render(ControllerHelper.Style_Singularity)
+    @Styles.Render(ControllerHelper.Style_Singularity)
 
     @Styles.Render(BundleConfig.Style_Bootstrap)
     @Styles.Render(BundleConfig.Style_jQueryUI)
@@ -53,7 +53,8 @@
     @Styles.Render(ControllerHelper.Style_MVCL)
 
 </head>
-<body class="@(ViewBag.ContextProvider != null ? StringExt.ToUrlSlug(ViewBag.ContextProvider.GetContext(Session).ContextName) : "")">
+<body singularity class="@(ViewBag.ContextProvider != null ? StringExt.ToUrlSlug(ViewBag.ContextProvider.GetContext(Session).ContextName) : "")">
+
     <script type="text/javascript">
 
         $().ready(function () {
@@ -97,7 +98,7 @@
     <footer>
         <div class="content-wrapper">
             <div class="float-left">
-                <p>&copy; @DateTime.Now.Year - smartschoolsplus</p>
+                <p>&copy; @DateTime.Now.Year</p>
             </div>
         </div>
     </footer>

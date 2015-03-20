@@ -3,11 +3,11 @@ interface String {
     pad?: (length: number, align?: Direction) => string;
     lower?: () => string;
     upper?: () => string;
+    replaceRegExp?: (pattern: RegExp, replace?: RegExp) => string;
     replaceAll?: (find: string, replace?: string) => string;
     removeAll?: (find: string) => string;
     contains?: (search: string) => boolean;
     collapseSpaces? (): string;
-    log?: () => void;
     startsWith?: (search: string) => boolean;
     endsWith?: (search: string) => boolean;
     reverse?: () => string;
@@ -20,10 +20,20 @@ interface String {
     hasMatch?: (pattern: RegExp) => boolean;
     matchCount?: (pattern: RegExp) => number;
 
+    bbCodesToHTML?: () => string;
+    bbCodesToText?: () => string;
+
     numericValueOf?: () => number;
     toStr?: (includeMarkup?: boolean) => string;
-    // log?: () => void;
+    log?: () => void;
 
+    textToHTML?: () => string;
+    escapeRegExp?: () => string;
+
+    templateInject?: (obj: Object, itemKey?: string, itemObj?: Object) => string;
+    templateExtract?: (template: string) => Object;
+
+    tryToNumber?: (defaultValue?: any) => string | number;
     /*
     parse
     first
@@ -47,13 +57,18 @@ interface String {
     toUrlSlug
     similarity
     like
-    isJSON
+    isJSON    
+    
     */
 }
 
 interface Array<T> {
     joinLines?: () => string;
 }
+
+var singString = sing.addModule(new sing.Module("String", String, String.prototype));
+
+singString.requiredDocumentation = false;
 
 /// <reference path="singularity-core.ts"/>
 
@@ -64,7 +79,7 @@ function InitSingularityJS_String() {
     // String Extensions
     //
 
-    sing.addStringExt('contains', StringContains,
+    singString.addExt('contains', StringContains,
         {
             summary: null,
             parameters: null,
@@ -83,11 +98,7 @@ function InitSingularityJS_String() {
             this.indexOf(str) >= 0;
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addStringExt('replaceAll', StringReplaceAll,
+    singString.addExt('replaceAll', StringReplaceAll,
         {
             summary: null,
             parameters: null,
@@ -161,13 +172,8 @@ function InitSingularityJS_String() {
             return out.toString();
         }
     }
-    
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addStringExt('upper', StringUpper,
+    singString.addExt('upper', StringUpper,
         {
             summary: null,
             parameters: null,
@@ -182,11 +188,7 @@ function InitSingularityJS_String() {
         return this.toUpperCase();
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addStringExt('lower', StringLower,
+    singString.addExt('lower', StringLower,
         {
             summary: null,
             parameters: null,
@@ -201,11 +203,7 @@ function InitSingularityJS_String() {
         return this.toLowerCase();
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addStringExt('collapseSpaces', StringCollapseSpaces,
+    singString.addExt('collapseSpaces', StringCollapseSpaces,
         {
             summary: null,
             parameters: null,
@@ -220,11 +218,7 @@ function InitSingularityJS_String() {
         return this.replaceAll('  ', ' ');
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addStringExt('startsWith', StringStartsWith,
+    singString.addExt('startsWith', StringStartsWith,
         {
             summary: null,
             parameters: null,
@@ -250,30 +244,7 @@ function InitSingularityJS_String() {
         return this.indexOf(stringOrStrings) == 0;
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addStringExt('log', StringLog,
-        {
-            summary: null,
-            parameters: null,
-            returns: '',
-            returnType: null,
-            examples: null,
-            tests: function (ext) {
-            },
-        });
-
-    function StringLog() {
-        log(this);
-    }
-
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addStringExt('endsWith', StringEndsWith,
+    singString.addExt('endsWith', StringEndsWith,
         {
             summary: null,
             parameters: null,
@@ -299,11 +270,7 @@ function InitSingularityJS_String() {
         return this.indexOf(stringOrStrings) == this.length - stringOrStrings.length;
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addStringExt('removeAll', StringRemoveAll,
+    singString.addExt('removeAll', StringRemoveAll,
         {
             summary: null,
             parameters: null,
@@ -326,11 +293,7 @@ function InitSingularityJS_String() {
         return this.replaceAll(stringOrStrings, '');
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addStringExt('reverse', StringReverse,
+    singString.addExt('reverse', StringReverse,
         {
             summary: null,
             parameters: null,
@@ -353,11 +316,7 @@ function InitSingularityJS_String() {
         return out;
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addStringExt('repeat', StringRepeat,
+    singString.addExt('repeat', StringRepeat,
         {
             summary: null,
             parameters: null,
@@ -380,11 +339,7 @@ function InitSingularityJS_String() {
         return out;
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addStringExt('words', StringWords,
+    singString.addExt('words', StringWords,
         {
             summary: null,
             parameters: null,
@@ -402,11 +357,7 @@ function InitSingularityJS_String() {
         return this.collapseSpaces().split(' ');
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addStringExt('lines', StringLines,
+    singString.addExt('lines', StringLines,
         {
             summary: null,
             parameters: null,
@@ -424,11 +375,7 @@ function InitSingularityJS_String() {
         return this.collapseSpaces().split('\r\n');
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addStringExt('surround', StringSurround,
+    singString.addExt('surround', StringSurround,
         {
             summary: null,
             parameters: null,
@@ -446,11 +393,7 @@ function InitSingularityJS_String() {
         return str + this + str;
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addStringExt('truncate', StringTruncate,
+    singString.addExt('truncate', StringTruncate,
         {
             summary: null,
             parameters: null,
@@ -471,11 +414,7 @@ function InitSingularityJS_String() {
         return this;
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addStringExt('toStr', StringToStr,
+    singString.addExt('toStr', StringToStr,
         {
             summary: null,
             parameters: null,
@@ -493,12 +432,7 @@ function InitSingularityJS_String() {
         return this;
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-    // String Array functions
-    
-    sing.addArrayExt('joinLines', StringJoinLines,
+    singString.addExt('matchCount', StringMatchCount,
         {
             summary: null,
             parameters: null,
@@ -509,18 +443,484 @@ function InitSingularityJS_String() {
             },
         });
 
-    function StringJoinLines() {
+    function StringMatchCount(pattern: string) {
+
+        var match = this.match(pattern);
+
+        if (!match)
+            return 0;
+
+        return match.length;
+    }
+
+    singString.addExt('hasMatch', StringHasMatch,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+
+    function StringHasMatch(pattern: string): boolean {
+
+        var match = this.match(pattern);
+
+        if (!match || match.length == 0)
+            return false
+
+        return true;
+    }
+
+    singString.addExt('isValidEmail', StringIsValidEmail,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+
+    function StringIsValidEmail(): boolean {
+        var thisStr = <string>this;
+
+        return thisStr.hasMatch(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/);
+    }
+
+    singString.addExt('isHex', StringIsHex,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+
+    function StringIsHex(): boolean {
+        var thisStr = <string>this;
+
+        return thisStr.hasMatch(/^#?([a-f0-9]{6}|[a-f0-9]{3})$/);
+    }
+
+    singString.addExt('isValidURL', null,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+
+    function StringIsValidURL(): boolean {
+        var thisStr = <string>this;
+        return thisStr.hasMatch(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/);
+    }
+
+    singString.addExt('isIPAddress', StringIsIPAddress,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+
+    function StringIsIPAddress(): boolean {
+        var thisStr = <string>this;
+        return thisStr.hasMatch(/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/);
+    }
+
+    singString.addExt('isGuid', StringIsGuid,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+
+    function StringIsGuid(): boolean {
+        var thisStr = <string>this;
+
+        return thisStr.hasMatch(/^\{?[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}‌​\}?$/);
+    }
+
+    singString.addExt('numericValueOf', StringNumericValueOf,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+
+    function StringNumericValueOf(): string {
+        return this.valueOf();
+    }
+
+    singString.addExt('textToHTML', StringTextToHTML,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+
+    function StringTextToHTML(): string {
+
+        return this.replaceAll('\r\n', '\n')
+            .replaceAll('\r\n', '<br/>')
+            .replaceAll(' ', '&nbsp;');
+    }
+
+    singString.addExt('replaceRegExp', StringReplaceRegExp,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+
+    function StringReplaceRegExp(pattern: RegExp, replace?: RegExp): string {
+
+        var out = this;
+
+        var match = out.match(pattern);
+
+        var outBefore = '';
+        var count = 0;
+
+        if (match && match.length > 1 && outBefore != out && count < 10) {
+            outBefore = out;
+            out = out.replace(pattern, replace);
+
+            match = out.match(pattern);
+            count++;
+        }
+
+        return out;
+    }
+
+    singString.addExt('extract', StringExtract,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+
+    function StringExtract(template: string, obj: any): any {
+
+        var matches = this.match(/\[()\]/);
+        /*
+        $.objEach(function (key: string, item: any, index: number):any {
+
+            if (template.contains('{' + key + '}')) {
+            }
+            return null;
+        });
+        */
+    }
+
+    singString.addExt('bbCodesToHTML', StringBBCodesToHTML,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+
+    function StringBBCodesToHTML(): string {
+        var out = this;
+
+        sing.BBCodes.each(function (item, index) {
+            out = out.replaceRegExp(item.matchStr, item.htmlStr);
+        });
+
+        return (<string>out);
+    }
+
+    singString.addExt('bbCodesToText', StringBBCodesToText,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+
+    function StringBBCodesToText(): string {
+        var out = this;
+
+        sing.BBCodes.each(function (item, index) {
+            out = out.replaceRegExp(item.matchStr, item.textStr);
+        });
+        return out;
+    }
+
+    singString.addExt('escapeRegExp', StringEscapeRegExp,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+
+    function StringEscapeRegExp(): string {
+
+        var out = <string>this;
+
+        return out;
+        out = out.replaceRegExp(/(^|.+)\$/, /\\\$/);
+        out = out.replaceRegExp(/(^|.+)\[/, /\\\[/);
+        out = out.replaceRegExp(/(^|.+)\]/, /\\\]/);
+        out = out.replaceRegExp(/(^|.+)\./, /\\\./);
+        out = out.replaceRegExp(/(^|.+)\^/, /\\\^/);
+        out = out.replaceRegExp(/(^|.+)\!/, /\\\!/);
+        out = out.replaceRegExp(/(^|.+)\?/, /\\\?/);
+        out = out.replaceRegExp(/(^|.+)\\/, /\\\\/);
+        out = out.replaceRegExp(/(^|.+)\>/, /\\\>/);
+        out = out.replaceRegExp(/(^|.+)\</, /\\\</);
+
+        return out;
+    }
+
+    singString.addExt('templateInject', StringTemplateInject,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+
+    function StringTemplateInject(obj: Object, itemKey?: string, itemObj?: Object): string {
+
+        var out = this.toString();
+
+        var match = out.match(sing.templatePattern);
+
+        log(out.toString(), match, sing.templatePattern);
+
+        while (match != null && match.length > 0) {
+
+            var key = match[1];
+
+            var values = [obj].findValues(key);
+
+
+            if (itemKey != null && itemKey.length > 0 && key.startsWith(itemKey + '.')) {
+                values = [itemObj].findValues(key.substr(itemKey.length + 1));
+
+                if (!$.isArray(values))
+                    values = [values];
+            }
+
+            log(key, values, itemKey, itemObj,(itemKey != null && itemKey.length > 0 && key.startsWith(itemKey + '.')), key.substr(itemKey.length + 1),(values != null && values != undefined));
+
+            if ($.isArray(values) && values.length > 0)
+                values = values[0];
+
+            if (values != null && values != undefined) {
+                out = out.replace(sing.templateStart + key + sing.templateEnd, values.toString());
+            }
+            // Remove template if no data is found
+            else {
+                out = out.replace(sing.templateStart + key + sing.templateEnd, '');
+            }
+
+            match = out.match(sing.templatePattern);
+        }
+
+        log(out);
+        return out;
+    }
+
+    singString.addExt('templateExtract', StringTemplateExtract,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+
+    function StringTemplateExtract(template: string): any {
+        var src = <string>this;
+
+        var templateValues = <string[]>[];
+
+        var templateKeys = <string[]>[];
+
+        while (src.length > 0) {
+
+            if (template.length > 1 && template[0] == '{' && template[1] == '{') {
+                var templateValue = '';
+                var templateKey = '';
+
+                while (template.length > 0) {
+
+                    if (template[0] == '}' && template.length > 1 && template[1] != '}') {
+                        template = template.substr(1);
+                        break;
+                    }
+                    else if (template[0] != '{' && template[0] != '}') {
+                        templateKey += template[0];
+                    }
+
+                    template = template.substr(1);
+                }
+
+                while (src.length > 1 && src[0] != template[0] && src[1] != template[1]) {
+                    templateValue += src[0];
+                    src = src.substr(1);
+                }
+
+
+                templateValues.push(templateValue);
+                templateKeys.push(templateKey);
+            }
+
+            src = src.substr(1);
+            template = template.substr(1);
+        }
+
+        if (templateKeys.length != templateValues.length) {
+            throw 'Template did not match.';
+        }
+
+        var out = {};
+
+        for (var i = 0; i < templateKeys.length; i++) {
+            var key = templateKeys[i];
+
+            if (key.contains('.')) {
+                var keyParts = key.split('.');
+
+                var cursor = out;
+
+                for (var j = 0; j < keyParts.length; j++) {
+                    if (cursor[keyParts[j]] === undefined) {
+                        cursor[keyParts[j]] = j == keyParts.length - 1 ? templateValues[i].tryToNumber() : {};
+                    }
+                    cursor = cursor[keyParts[j]];
+                }
+            }
+        }
+
+        return out;
+    }
+
+    singString.addExt('log', StringLog,
+        {
+            summary: 'Common funciton - Logs the calling Boolean to the console.',
+            parameters: [],
+            returns: 'Nothing.',
+            returnType: null,
+            examples: ['\
+            (\'a\').log()   //  logs a  \r\n\
+            (\'hello\').log()   //  logs hello  \r\n'],
+            tests: function (ext) {
+                ext.addTest('', []);
+                ext.addTest('a', []);
+                ext.addTest('hello', []);
+            }
+        });
+
+    function StringLog(): void {
+        log(this);
+    }
+
+
+    singString.addExt('tryToNumber', null,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+
+    function StringTryToNumber(defaultValue: any = this) {
+
+        var str = this;
+        var retValue = defaultValue;
+
+        if (str !== null) {
+            if (str.length > 0) {
+                if (!isNaN(str)) {
+                    retValue = parseInt(str);
+                }
+            }
+        }
+        return retValue;
+    }
+
+    //
+    //////////////////////////////////////////////////////
+    //
+    // String Array functions
+    
+    singString.addExt('joinLines', StringJoinLines,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        }, Array.prototype);
+
+    function StringJoinLines(asHTML: boolean = true) {
         if (!this)
             return '';
 
-        return this.join('\r\n');
+        return this.join(asHTML ? '<br/>' : '\r\n');
     }
 
     //
     //////////////////////////////////////////////////////
     //
 
-    sing.addStringExt('pad', StringPad,
+    singString.addExt('pad', StringPad,
         {
             summary: null,
             parameters: null,
@@ -579,7 +979,28 @@ function InitSingularityJS_String() {
     //
     //////////////////////////////////////////////////////
     //
-    sing.addStringExt('matchCount', StringMatchCount,
+
+    singString.addExt('isDate', null,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+    singString.addExt('isBoolean', null,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+    singString.addExt('isNumeric', null,
         {
             summary: null,
             parameters: null,
@@ -590,17 +1011,27 @@ function InitSingularityJS_String() {
             },
         });
 
-    function StringMatchCount(pattern: string) {
-
-        var match = this.match(pattern);
-
-        if (!match)
-            return 0;
-
-        return match.length;
-    }
-
-    sing.addStringExt('hasMatch', StringHasMatch,
+    singString.addExt('toNumber', null,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+    singString.addExt('toBoolean', null,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+    singString.addExt('toUrlSlug', null,
         {
             summary: null,
             parameters: null,
@@ -611,17 +1042,7 @@ function InitSingularityJS_String() {
             },
         });
 
-    function StringHasMatch(pattern: string): boolean {
-
-        var match = this.match(pattern);
-
-        if (!match || match.length == 0)
-            return false
-
-        return true;
-    }
-
-    sing.addStringExt('isValidEmail', StringIsValidEmail,
+    singString.addExt('parse', null,
         {
             summary: null,
             parameters: null,
@@ -631,14 +1052,7 @@ function InitSingularityJS_String() {
             tests: function (ext) {
             },
         });
-
-    function StringIsValidEmail(): boolean {
-        var thisStr = <string>this;
-
-        return thisStr.hasMatch(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/);
-    }
-
-    sing.addStringExt('isHex', StringIsHex,
+    singString.addExt('first', null,
         {
             summary: null,
             parameters: null,
@@ -648,14 +1062,7 @@ function InitSingularityJS_String() {
             tests: function (ext) {
             },
         });
-
-    function StringIsHex(): boolean {
-        var thisStr = <string>this;
-
-        return thisStr.hasMatch(/^#?([a-f0-9]{6}|[a-f0-9]{3})$/);
-    }
-
-    sing.addStringExt('isValidURL', null,
+    singString.addExt('last', null,
         {
             summary: null,
             parameters: null,
@@ -665,13 +1072,7 @@ function InitSingularityJS_String() {
             tests: function (ext) {
             },
         });
-
-    function StringIsValidURL(): boolean {
-        var thisStr = <string>this;
-        return thisStr.hasMatch(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/);
-    }
-
-    sing.addStringExt('isIPAddress', StringIsIPAddress,
+    singString.addExt('containsAny', null,
         {
             summary: null,
             parameters: null,
@@ -681,13 +1082,7 @@ function InitSingularityJS_String() {
             tests: function (ext) {
             },
         });
-
-    function StringIsIPAddress(): boolean {
-        var thisStr = <string>this;
-        return thisStr.hasMatch(/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/);
-    }
-
-    sing.addStringExt('isGuid', StringIsGuid,
+    singString.addExt('containsAll', null,
         {
             summary: null,
             parameters: null,
@@ -697,13 +1092,7 @@ function InitSingularityJS_String() {
             tests: function (ext) {
             },
         });
-
-    function StringIsGuid(): boolean {
-        var thisStr = <string>this;
-
-        return thisStr.hasMatch(/^\{?[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}‌​\}?$/);
-    }
-    sing.addStringExt('numericValueOf', StringNumericValueOf,
+    singString.addExt('parseJSON', null,
         {
             summary: null,
             parameters: null,
@@ -713,12 +1102,7 @@ function InitSingularityJS_String() {
             tests: function (ext) {
             },
         });
-
-    function StringNumericValueOf(): string {
-        return this.valueOf();
-    }
-
-    sing.addStringExt('isDate', null,
+    singString.addExt('lastIndexOf', null,
         {
             summary: null,
             parameters: null,
@@ -728,7 +1112,7 @@ function InitSingularityJS_String() {
             tests: function (ext) {
             },
         });
-    sing.addStringExt('isBoolean', null,
+    singString.addExt('capitalize', null,
         {
             summary: null,
             parameters: null,
@@ -738,7 +1122,7 @@ function InitSingularityJS_String() {
             tests: function (ext) {
             },
         });
-    sing.addStringExt('isNumeric', null,
+    singString.addExt('camelize', null,
         {
             summary: null,
             parameters: null,
@@ -748,8 +1132,7 @@ function InitSingularityJS_String() {
             tests: function (ext) {
             },
         });
-
-    sing.addStringExt('toNumber', null,
+    singString.addExt('stripTags', null,
         {
             summary: null,
             parameters: null,
@@ -759,7 +1142,7 @@ function InitSingularityJS_String() {
             tests: function (ext) {
             },
         });
-    sing.addStringExt('toBoolean', null,
+    singString.addExt('pluralize', null,
         {
             summary: null,
             parameters: null,
@@ -769,7 +1152,7 @@ function InitSingularityJS_String() {
             tests: function (ext) {
             },
         });
-    sing.addStringExt('toUrlSlug', null,
+    singString.addExt('fill', null,
         {
             summary: null,
             parameters: null,
@@ -779,8 +1162,7 @@ function InitSingularityJS_String() {
             tests: function (ext) {
             },
         });
-
-    sing.addStringExt('parse', null,
+    singString.addExt('similarity', null,
         {
             summary: null,
             parameters: null,
@@ -790,7 +1172,7 @@ function InitSingularityJS_String() {
             tests: function (ext) {
             },
         });
-    sing.addStringExt('first', null,
+    singString.addExt('like', null,
         {
             summary: null,
             parameters: null,
@@ -800,7 +1182,7 @@ function InitSingularityJS_String() {
             tests: function (ext) {
             },
         });
-    sing.addStringExt('last', null,
+    singString.addExt('isJSON', null,
         {
             summary: null,
             parameters: null,
@@ -810,126 +1192,4 @@ function InitSingularityJS_String() {
             tests: function (ext) {
             },
         });
-    sing.addStringExt('containsAny', null,
-        {
-            summary: null,
-            parameters: null,
-            returns: '',
-            returnType: null,
-            examples: null,
-            tests: function (ext) {
-            },
-        });
-    sing.addStringExt('containsAll', null,
-        {
-            summary: null,
-            parameters: null,
-            returns: '',
-            returnType: null,
-            examples: null,
-            tests: function (ext) {
-            },
-        });
-    sing.addStringExt('parseJSON', null,
-        {
-            summary: null,
-            parameters: null,
-            returns: '',
-            returnType: null,
-            examples: null,
-            tests: function (ext) {
-            },
-        });
-    sing.addStringExt('lastIndexOf', null,
-        {
-            summary: null,
-            parameters: null,
-            returns: '',
-            returnType: null,
-            examples: null,
-            tests: function (ext) {
-            },
-        });
-    sing.addStringExt('capitalize', null,
-        {
-            summary: null,
-            parameters: null,
-            returns: '',
-            returnType: null,
-            examples: null,
-            tests: function (ext) {
-            },
-        });
-    sing.addStringExt('camelize', null,
-        {
-            summary: null,
-            parameters: null,
-            returns: '',
-            returnType: null,
-            examples: null,
-            tests: function (ext) {
-            },
-        });
-    sing.addStringExt('stripTags', null,
-        {
-            summary: null,
-            parameters: null,
-            returns: '',
-            returnType: null,
-            examples: null,
-            tests: function (ext) {
-            },
-        });
-    sing.addStringExt('pluralize', null,
-        {
-            summary: null,
-            parameters: null,
-            returns: '',
-            returnType: null,
-            examples: null,
-            tests: function (ext) {
-            },
-        });
-    sing.addStringExt('fill', null,
-        {
-            summary: null,
-            parameters: null,
-            returns: '',
-            returnType: null,
-            examples: null,
-            tests: function (ext) {
-            },
-        });
-    sing.addStringExt('similarity', null,
-        {
-            summary: null,
-            parameters: null,
-            returns: '',
-            returnType: null,
-            examples: null,
-            tests: function (ext) {
-            },
-        });
-    sing.addStringExt('like', null,
-        {
-            summary: null,
-            parameters: null,
-            returns: '',
-            returnType: null,
-            examples: null,
-            tests: function (ext) {
-            },
-        });
-    sing.addStringExt('isJSON', null,
-        {
-            summary: null,
-            parameters: null,
-            returns: '',
-            returnType: null,
-            examples: null,
-            tests: function (ext) {
-            },
-        });
-
-    //
 }

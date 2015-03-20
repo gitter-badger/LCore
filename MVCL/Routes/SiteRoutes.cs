@@ -26,6 +26,7 @@ namespace MVCL.Routes
             public static class Actions
             {
                 public const String JavascriptTest = "JavascriptTest";
+                public const String SingularityTest = "SingularityTest";
 
             }
         }
@@ -39,7 +40,6 @@ namespace MVCL.Routes
                 public const String Delete = "Delete";
                 public const String Edit = "Edit";
                 public const String Manage = "Manage";
-                public const String JavascriptTest = "JavascriptTest";
 
             }
         }

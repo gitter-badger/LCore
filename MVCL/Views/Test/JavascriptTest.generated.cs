@@ -153,195 +153,164 @@ WriteLiteral("\r\n");
             
             #line default
             #line hidden
-WriteLiteral("\r\n<div class=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\n        <script type=\"te" +
-"xt/javascript\">\r\n            $().ready(function () {\r\n                $(\'#singul" +
-"arity-output\').html(sing.getSummary(\'\', false, false).replaceAll(\'\\r\\n\', \'<br/>\'" +
-").replaceAll(\' \', \'&nbsp;\'));\r\n                $(\'#singularity-output-boolean\')." +
-"html(sing.getSummary(\'Boolean.\', false, false).replaceAll(\'\\r\\n\', \'<br/>\').repla" +
-"ceAll(\' \', \'&nbsp;\'));\r\n                $(\'#singularity-output-number\').html(sin" +
-"g.getSummary(\'Number.\', false, false).replaceAll(\'\\r\\n\', \'<br/>\').replaceAll(\' \'" +
-", \'&nbsp;\'));\r\n                $(\'#singularity-output-string\').html(sing.getSumm" +
-"ary(\'String.\', false, false).replaceAll(\'\\r\\n\', \'<br/>\').replaceAll(\' \', \'&nbsp;" +
-"\'));\r\n                $(\'#singularity-output-date\').html(sing.getSummary(\'Date.\'" +
-", false, false).replaceAll(\'\\r\\n\', \'<br/>\').replaceAll(\' \', \'&nbsp;\'));\r\n       " +
-"         $(\'#singularity-output-array\').html(sing.getSummary(\'Array.\', false, fa" +
-"lse).replaceAll(\'\\r\\n\', \'<br/>\').replaceAll(\' \', \'&nbsp;\'));\r\n                $(" +
-"\'#singularity-output-jquery\').html(sing.getSummary(\'jQuery.\', false, false).repl" +
-"aceAll(\'\\r\\n\', \'<br/>\').replaceAll(\' \', \'&nbsp;\'));\r\n\r\n                $(\'#singu" +
-"larity-output-test-results\').html(sing.runTests().replaceAll(\'\\r\\n\', \'<br/>\').re" +
-"placeAll(\' \', \'&nbsp;\'));\r\n            });\r\n        </script>\r\n        <div id=\"" +
-"singularity-output\"></div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test singular" +
-"ity-test\">\r\n\r\n    <div>\r\n        <h3>Boolean</h3>\r\n        <div id=\"singularity-" +
-"output-boolean\"></div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test singularity-" +
-"test\">\r\n\r\n    <div>\r\n        <h3>Number</h3>\r\n        <div id=\"singularity-outpu" +
-"t-number\"></div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test singularity-test\">" +
-"\r\n\r\n    <div>\r\n        <h3>String</h3>\r\n        <div id=\"singularity-output-stri" +
-"ng\"></div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test singularity-test\">\r\n\r\n  " +
-"  <div>\r\n        <h3>Date</h3>\r\n        <div id=\"singularity-output-date\"></div>" +
-"\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\n " +
-"       <h3>Array</h3>\r\n        <div id=\"singularity-output-array\"></div>\r\n    </" +
-"div>\r\n</div>\r\n\r\n<div class=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\n        <" +
-"h3>jQuery</h3>\r\n        <div id=\"singularity-output-jquery\"></div>\r\n    </div>\r\n" +
-"</div>\r\n\r\n<div class=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\n        <h3>Tes" +
-"t Results</h3>\r\n        <div id=\"singularity-output-test-results\"></div>\r\n    </" +
-"div>\r\n</div>\r\n\r\n<div class=\"mvcl-test\">\r\n    <h4>*[show-if]</h4>\r\n    <div>\r\n   " +
-"     Show Hide\r\n        <input type=\"checkbox\" name=\"a\" id=\"a\" />\r\n    </div>\r\n " +
-"   <div show-if=\"a\" class=\"example\">\r\n        *[show-if]\r\n    </div>\r\n</div>\r\n\r\n" +
-"<div class=\"mvcl-test\">\r\n    <h4>*[show-if-value]</h4>\r\n    <div>\r\n        Radio" +
-" Select\r\n        <input type=\"radio\" name=\"r1\" value=\"1\">1\r\n        <input type=" +
-"\"radio\" name=\"r1\" value=\"2\">2\r\n        <input type=\"radio\" name=\"r1\" value=\"3\">3" +
-"\r\n        <input type=\"radio\" name=\"r1\" value=\"4\">4\r\n        <input type=\"radio\"" +
-" name=\"r1\" value=\"5\">5\r\n        <input type=\"radio\" name=\"r1\" value=\"6\">6\r\n    <" +
-"/div>\r\n    <div show-if=\"r1\" show-if-value=\"1\" class=\"example\">\r\n        <h1>1</" +
-"h1>\r\n    </div>\r\n    <div show-if=\"r1\" show-if-value=\"2\" class=\"example\">\r\n     " +
-"   <h2>2</h2>\r\n    </div>\r\n    <div show-if=\"r1\" show-if-value=\"3\" class=\"exampl" +
-"e\">\r\n        <h3>3</h3>\r\n    </div>\r\n    <div show-if=\"r1\" show-if-value=\"4\" cla" +
-"ss=\"example\">\r\n        <h4>4</h4>\r\n    </div>\r\n    <div show-if=\"r1\" show-if-val" +
-"ue=\"5\" class=\"example\">\r\n        <h5>5</h5>\r\n    </div>\r\n    <div show-if=\"r1\" s" +
-"how-if-value=\"6\" class=\"example\">\r\n        <h6>6</h6>\r\n    </div>\r\n</div>\r\n\r\n<di" +
-"v class=\"mvcl-test\">\r\n    <h4>*[show-if-value] Operators (!, =, &gt;, &lt;, &lt;" +
-"=, &gt;=, &lt;&gt;, &gt;&lt;, list)</h4>\r\n    <div>\r\n        Radio Select Ranges" +
-"\r\n        <input type=\"radio\" name=\"r2\" value=\"0\">0\r\n        <input type=\"radio\"" +
-" name=\"r2\" value=\"1\">1\r\n        <input type=\"radio\" name=\"r2\" value=\"2\">2\r\n     " +
-"   <input type=\"radio\" name=\"r2\" value=\"3\">3\r\n        <input type=\"radio\" name=\"" +
-"r2\" value=\"4\">4\r\n        <input type=\"radio\" name=\"r2\" value=\"5\">5\r\n        <inp" +
-"ut type=\"radio\" name=\"r2\" value=\"6\">6\r\n        <input type=\"radio\" name=\"r2\" val" +
-"ue=\"7\">7\r\n        <input type=\"radio\" name=\"r2\" value=\"8\">8\r\n        <input type" +
-"=\"radio\" name=\"r2\" value=\"9\">9\r\n    </div>\r\n    <div show-if=\"r2\" show-if-value=" +
-"\"!0\" class=\"example\">\r\n        Not 0\r\n    </div>\r\n    <div show-if=\"r2\" show-if-" +
-"value=\"3\" class=\"example\">\r\n        Exactly 3\r\n    </div>\r\n    <div show-if=\"r2\"" +
-" show-if-value=\">5\" class=\"example\">\r\n        More than 5\r\n    </div>\r\n    <div " +
-"show-if=\"r2\" show-if-value=\"><7,9\" class=\"example\">\r\n        Between 7 and 9\r\n  " +
-"  </div>\r\n    <div show-if=\"r2\" show-if-value=\"<>7,9\" class=\"example\">\r\n        " +
-"Outside 7 and 9\r\n    </div>\r\n    <div show-if=\"r2\" show-if-value=\"0,2,4,6,8\" cla" +
-"ss=\"example\">\r\n        Evens: 0, 2, 4, 6, or 8\r\n    </div>\r\n    <div show-if=\"r2" +
-"\" show-if-value=\"1,3,5,7,9\" class=\"example\">\r\n        Odds: 1, 3, 5, 7, or 9\r\n  " +
-"  </div>\r\n    <div hide-if=\"r2\" class=\"example\">\r\n        Nothing selected\r\n    " +
-"</div>\r\n    <div hide-if=\"r2\" hide-if-value=\"0\" class=\"example\">\r\n        Also N" +
-"ot 0\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test\">\r\n    <h4>*[click-show]</h4>\r" +
-"\n    <h4>*[click-hide]</h4>\r\n    <h4>*[click-toggle]</h4>\r\n    <div>\r\n        To" +
-"ggle\r\n        <input type=\"button\" click-show=\"#d\" value=\"show\" />\r\n        <inp" +
-"ut type=\"button\" click-hide=\"d\" value=\"hide\" />\r\n        <input type=\"button\" cl" +
-"ick-toggle=\"d\" value=\"toggle\" />\r\n    </div>\r\n    <div id=\"d\" class=\"example\">\r\n" +
-"        Text\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test\">\r\n    <h4>*[click-fad" +
-"e-in]</h4>\r\n    <h4>*[click-fade-out]</h4>\r\n    <h4>*[click-fade-toggle]</h4>\r\n " +
-"   <div>\r\n        Fade Toggle\r\n        <input type=\"button\" click-fade-in=\"#e\" v" +
-"alue=\"show\" />\r\n        <input type=\"button\" click-fade-out=\"e\" value=\"hide\" />\r" +
-"\n        <input type=\"button\" click-fade-toggle=\"e\" value=\"toggle\" />\r\n    </div" +
-">\r\n    <div id=\"e\" class=\"example\">\r\n        Text\r\n    </div>\r\n</div>\r\n\r\n<div cl" +
-"ass=\"mvcl-test\">\r\n    <h4>*[enabled-if]</h4>\r\n    <div>\r\n        Enable Buttons\r" +
-"\n        <input type=\"checkbox\" value=\"show\" name=\"f\" />\r\n\r\n        <div>\r\n     " +
-"       Enabled\r\n            <input type=\"button\" click-fade-in=\"g\" enabled-if=\"f" +
-"\" value=\"show\" />\r\n            <input type=\"button\" click-fade-out=\"g\" enabled-i" +
-"f=\"f\" value=\"hide\" />\r\n            <input type=\"button\" click-fade-toggle=\"g\" en" +
-"abled-if=\"f\" value=\"toggle\" />\r\n        </div>\r\n    </div>\r\n    <div id=\"g\" clas" +
-"s=\"example\">\r\n        Text\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test\">\r\n    <" +
-"h4>*[enabled-if-value]</h4>\r\n    <div>\r\n        <input type=\"radio\" value=\"apple" +
-"s\" name=\"n0\" /> Apples\r\n        <input type=\"radio\" value=\"oranges\" name=\"n0\" />" +
-" Oranges\r\n        <input type=\"radio\" value=\"pears\" name=\"n0\" /> Pears\r\n        " +
-"<input type=\"radio\" value=\"other\" name=\"n0\" /> Other:\r\n        <input type=\"text" +
-"\" name=\"n4\" enabled-if=\"n0\" enabled-if-value=\"other\" />\r\n\r\n    </div>\r\n</div>\r\n\r" +
-"\n<div class=\"mvcl-test\">\r\n    <h4>*[disabled-if]</h4>\r\n    <div>\r\n        Disabl" +
-"e Buttons\r\n        <input type=\"checkbox\" value=\"show\" name=\"f3\" />\r\n\r\n        <" +
-"div>\r\n            Disabled\r\n            <input type=\"button\" click-fade-in=\"g3\" " +
-"disabled-if=\"f3\" value=\"show\" />\r\n            <input type=\"button\" click-fade-ou" +
-"t=\"g3\" disabled-if=\"f3\" value=\"hide\" />\r\n            <input type=\"button\" click-" +
-"fade-toggle=\"g3\" disabled-if=\"f3\" value=\"toggle\" />\r\n        </div>\r\n    </div>\r" +
-"\n    <div id=\"g3\" class=\"example\">\r\n        Text\r\n    </div>\r\n</div>\r\n\r\n<div cla" +
-"ss=\"mvcl-test\">\r\n    <error>Fails</error>\r\n    <h4>*[click-fade-in-if]</h4>\r\n   " +
-" <h4>*[click-fade-out-if]</h4>\r\n    <h4>*[click-fade-toggle-if]</h4>\r\n    <div>\r" +
-"\n        Enable Buttons\r\n        <input type=\"checkbox\" value=\"show\" name=\"f2\" /" +
-">\r\n\r\n        <div>\r\n            Action Conditions\r\n            <input type=\"butt" +
-"on\" click-fade-in=\"g\" click-fade-in-if=\"f2\" value=\"show\" />\r\n            <input " +
-"type=\"button\" click-fade-out=\"g\" click-fade-out-if=\"f2\" value=\"hide\" />\r\n       " +
-"     <input type=\"button\" click-fade-toggle=\"g\" click-fade-toggle-if=\"f2\" value=" +
-"\"toggle\" />\r\n        </div>\r\n    </div>\r\n    <div id=\"g\" class=\"example\">\r\n     " +
-"   Text\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test\">\r\n    <error>Fails</error>" +
-"\r\n    <h4>*[checked-if]</h4>\r\n    <h4>*[checked-if] Operations (=, !, &lt;, &gt;" +
-")</h4>\r\n    <div>\r\n        Checked Test\r\n        <input type=\"radio\" name=\"r3\" v" +
-"alue=\"0\">0\r\n        <input type=\"radio\" name=\"r3\" value=\"1\">1\r\n        <input ty" +
-"pe=\"radio\" name=\"r3\" value=\"2\">2\r\n        <input type=\"radio\" name=\"r3\" value=\"3" +
-"\">3\r\n        <input type=\"radio\" name=\"r3\" value=\"4\">4\r\n        <input type=\"rad" +
-"io\" name=\"r3\" value=\"5\">5\r\n        <input type=\"radio\" name=\"r3\" value=\"6\">6\r\n  " +
-"      <input type=\"radio\" name=\"r3\" value=\"7\">7\r\n        <input type=\"radio\" nam" +
-"e=\"r3\" value=\"8\">8\r\n        <input type=\"radio\" name=\"r3\" value=\"9\">9\r\n    </div" +
-">\r\n    <div>\r\n        Equal\r\n        <input type=\"checkbox\" value=\"show\" name=\"h" +
-"0\" checked-if=\"r3\" checked-if-value=\"0\" />\r\n        <input type=\"checkbox\" value" +
-"=\"show\" name=\"h1\" checked-if=\"r3\" checked-if-value=\"1\" />\r\n        <input type=\"" +
-"checkbox\" value=\"show\" name=\"h2\" checked-if=\"r3\" checked-if-value=\"2\" />\r\n      " +
-"  <input type=\"checkbox\" value=\"show\" name=\"h3\" checked-if=\"r3\" checked-if-value" +
-"=\"3\" />\r\n        <input type=\"checkbox\" value=\"show\" name=\"h4\" checked-if=\"r3\" c" +
-"hecked-if-value=\"4\" />\r\n        <input type=\"checkbox\" value=\"show\" name=\"h5\" ch" +
-"ecked-if=\"r3\" checked-if-value=\"5\" />\r\n        <input type=\"checkbox\" value=\"sho" +
-"w\" name=\"h6\" checked-if=\"r3\" checked-if-value=\"6\" />\r\n        <input type=\"check" +
-"box\" value=\"show\" name=\"h7\" checked-if=\"r3\" checked-if-value=\"7\" />\r\n        <in" +
-"put type=\"checkbox\" value=\"show\" name=\"h8\" checked-if=\"r3\" checked-if-value=\"8\" " +
-"/>\r\n        <input type=\"checkbox\" value=\"show\" name=\"h9\" checked-if=\"r3\" checke" +
-"d-if-value=\"9\" />\r\n    </div>\r\n    <div>\r\n        Greater Than\r\n        <input t" +
-"ype=\"checkbox\" value=\"show\" name=\"i0\" checked-if=\"r3\" checked-if-value=\">0\" />\r\n" +
-"        <input type=\"checkbox\" value=\"show\" name=\"i1\" checked-if=\"r3\" checked-if" +
-"-value=\">1\" />\r\n        <input type=\"checkbox\" value=\"show\" name=\"i2\" checked-if" +
-"=\"r3\" checked-if-value=\">2\" />\r\n        <input type=\"checkbox\" value=\"show\" name" +
-"=\"i3\" checked-if=\"r3\" checked-if-value=\">3\" />\r\n        <input type=\"checkbox\" v" +
-"alue=\"show\" name=\"i4\" checked-if=\"r3\" checked-if-value=\">4\" />\r\n        <input t" +
-"ype=\"checkbox\" value=\"show\" name=\"i5\" checked-if=\"r3\" checked-if-value=\">5\" />\r\n" +
-"        <input type=\"checkbox\" value=\"show\" name=\"i6\" checked-if=\"r3\" checked-if" +
-"-value=\">6\" />\r\n        <input type=\"checkbox\" value=\"show\" name=\"i7\" checked-if" +
-"=\"r3\" checked-if-value=\">7\" />\r\n        <input type=\"checkbox\" value=\"show\" name" +
-"=\"i8\" checked-if=\"r3\" checked-if-value=\">8\" />\r\n        <input type=\"checkbox\" v" +
-"alue=\"show\" name=\"i9\" checked-if=\"r3\" checked-if-value=\">9\" />\r\n    </div>\r\n    " +
-"<div>\r\n        Less Than\r\n        <input type=\"checkbox\" value=\"show\" name=\"j0\" " +
-"checked-if=\"r3\" checked-if-value=\"<0\" />\r\n        <input type=\"checkbox\" value=\"" +
-"show\" name=\"j1\" checked-if=\"r3\" checked-if-value=\"<1\" />\r\n        <input type=\"c" +
-"heckbox\" value=\"show\" name=\"j2\" checked-if=\"r3\" checked-if-value=\"<2\" />\r\n      " +
-"  <input type=\"checkbox\" value=\"show\" name=\"j3\" checked-if=\"r3\" checked-if-value" +
-"=\"<3\" />\r\n        <input type=\"checkbox\" value=\"show\" name=\"j4\" checked-if=\"r3\" " +
-"checked-if-value=\"<4\" />\r\n        <input type=\"checkbox\" value=\"show\" name=\"j5\" " +
-"checked-if=\"r3\" checked-if-value=\"<5\" />\r\n        <input type=\"checkbox\" value=\"" +
-"show\" name=\"j6\" checked-if=\"r3\" checked-if-value=\"<6\" />\r\n        <input type=\"c" +
-"heckbox\" value=\"show\" name=\"j7\" checked-if=\"r3\" checked-if-value=\"<7\" />\r\n      " +
-"  <input type=\"checkbox\" value=\"show\" name=\"j8\" checked-if=\"r3\" checked-if-value" +
-"=\"<8\" />\r\n        <input type=\"checkbox\" value=\"show\" name=\"j9\" checked-if=\"r3\" " +
-"checked-if-value=\"<9\" />\r\n    </div>\r\n    <div>\r\n        Not Equal\r\n        <inp" +
-"ut type=\"checkbox\" value=\"show\" name=\"k0\" checked-if=\"r3\" checked-if-value=\"!0\" " +
-"/>\r\n        <input type=\"checkbox\" value=\"show\" name=\"k1\" checked-if=\"r3\" checke" +
-"d-if-value=\"!1\" />\r\n        <input type=\"checkbox\" value=\"show\" name=\"k2\" checke" +
-"d-if=\"r3\" checked-if-value=\"!2\" />\r\n        <input type=\"checkbox\" value=\"show\" " +
-"name=\"k3\" checked-if=\"r3\" checked-if-value=\"!3\" />\r\n        <input type=\"checkbo" +
-"x\" value=\"show\" name=\"k4\" checked-if=\"r3\" checked-if-value=\"!4\" />\r\n        <inp" +
-"ut type=\"checkbox\" value=\"show\" name=\"k5\" checked-if=\"r3\" checked-if-value=\"!5\" " +
-"/>\r\n        <input type=\"checkbox\" value=\"show\" name=\"k6\" checked-if=\"r3\" checke" +
-"d-if-value=\"!6\" />\r\n        <input type=\"checkbox\" value=\"show\" name=\"k7\" checke" +
-"d-if=\"r3\" checked-if-value=\"!7\" />\r\n        <input type=\"checkbox\" value=\"show\" " +
-"name=\"k8\" checked-if=\"r3\" checked-if-value=\"!8\" />\r\n        <input type=\"checkbo" +
-"x\" value=\"show\" name=\"k9\" checked-if=\"r3\" checked-if-value=\"!9\" />\r\n    </div>\r\n" +
-"</div>\r\n\r\n<div class=\"mvcl-test\">\r\n    <h4>*[readonly-if]</h4>\r\n    <div>\r\n     " +
-"   <input type=\"checkbox\" name=\"l\" value=\"yes\">Readonly\r\n\r\n        <input type=\"" +
-"text\" name=\"m\" readonly-if=\"l\" disabled-if=\"l2\">\r\n    </div>\r\n</div>\r\n\r\n<div cla" +
-"ss=\"mvcl-test\">\r\n    <h4>*[click-add-class]</h4>\r\n    <h4>*[click-remove-class]<" +
-"/h4>\r\n    <h4>*[click-toggle-class]</h4>\r\n    <div>\r\n        <input type=\"button" +
-"\" click-add-class=\"error\" value=\"add\" />\r\n        <input type=\"button\" click-rem" +
-"ove-class=\"error\" class=\"error\" value=\"remove\" />\r\n        <input type=\"button\" " +
-"click-toggle-class=\"error\" value=\"toggle\" />\r\n    </div>\r\n</div>\r\n\r\n<div class=\"" +
-"mvcl-test\">\r\n    <h4>*[click-add-class-target]</h4>\r\n    <h4>*[click-remove-clas" +
-"s-target]</h4>\r\n    <h4>*[click-toggle-class-target]</h4>\r\n    <div>\r\n        <i" +
-"nput type=\"button\" click-add-class=\"error\" click-add-class-target=\"m3\" value=\"ad" +
-"d\" />\r\n        <input type=\"button\" click-remove-class=\"error\" click-remove-clas" +
-"s-target=\"m3\" value=\"remove\" />\r\n        <input type=\"button\" click-toggle-class" +
-"=\"error\" click-toggle-class-target=\"m3\" value=\"toggle\" />\r\n    </div>\r\n    <div " +
-"id=\"m3\" class=\"example\">\r\n        Text\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-t" +
-"est\">\r\n    <h4>*[click-animate]</h4>\r\n    <div>\r\n        <input type=\"button\" va" +
-"lue=\"left\" click-animate=\"{\'left\':\'-=5\'}\" />\r\n        <input type=\"button\" value" +
-"=\"right\" click-animate=\"{\'left\':\'+=5\'}\" />\r\n        <input type=\"button\" value=\"" +
-"up\" click-animate=\"{\'top\':\'-=5\'}\" />\r\n        <input type=\"button\" value=\"down\" " +
-"click-animate=\"{\'top\':\'+=5\'}\" />\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test\">\r" +
-"\n    <h4>*[click-animate-target]</h4>\r\n    <div>\r\n        <input type=\"button\" v" +
-"alue=\"left\" click-animate=\"{\'left\':\'-=5\'}\" click-animate-target=\"m5\" />\r\n       " +
-" <input type=\"button\" value=\"right\" click-animate=\"{\'left\':\'+=5\'}\" click-animate" +
-"-target=\"m5\" />\r\n        <input type=\"button\" value=\"up\" click-animate=\"{\'top\':\'" +
-"-=5\'}\" click-animate-target=\"m5\" />\r\n        <input type=\"button\" value=\"down\" c" +
-"lick-animate=\"{\'top\':\'+=5\'}\" click-animate-target=\"m5\" />\r\n    </div>\r\n    <div " +
-"id=\"m5\" class=\"example\">\r\n        Text\r\n    </div>\r\n</div>\r\n");
+WriteLiteral("\r\n<div class=\"mvcl-test\">\r\n    <h4>*[show-if]</h4>\r\n    <div>\r\n        Show Hide\r" +
+"\n        <input type=\"checkbox\" name=\"a\" id=\"a\" />\r\n    </div>\r\n    <div show-if" +
+"=\"a\" class=\"example\">\r\n        *[show-if]\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvc" +
+"l-test\">\r\n    <h4>*[show-if-value]</h4>\r\n    <div>\r\n        Radio Select\r\n      " +
+"  <input type=\"radio\" name=\"r1\" value=\"1\">1\r\n        <input type=\"radio\" name=\"r" +
+"1\" value=\"2\">2\r\n        <input type=\"radio\" name=\"r1\" value=\"3\">3\r\n        <inpu" +
+"t type=\"radio\" name=\"r1\" value=\"4\">4\r\n        <input type=\"radio\" name=\"r1\" valu" +
+"e=\"5\">5\r\n        <input type=\"radio\" name=\"r1\" value=\"6\">6\r\n    </div>\r\n    <div" +
+" show-if=\"r1\" show-if-value=\"1\" class=\"example\">\r\n        <h1>1</h1>\r\n    </div>" +
+"\r\n    <div show-if=\"r1\" show-if-value=\"2\" class=\"example\">\r\n        <h2>2</h2>\r\n" +
+"    </div>\r\n    <div show-if=\"r1\" show-if-value=\"3\" class=\"example\">\r\n        <h" +
+"3>3</h3>\r\n    </div>\r\n    <div show-if=\"r1\" show-if-value=\"4\" class=\"example\">\r\n" +
+"        <h4>4</h4>\r\n    </div>\r\n    <div show-if=\"r1\" show-if-value=\"5\" class=\"e" +
+"xample\">\r\n        <h5>5</h5>\r\n    </div>\r\n    <div show-if=\"r1\" show-if-value=\"6" +
+"\" class=\"example\">\r\n        <h6>6</h6>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-t" +
+"est\">\r\n    <h4>*[show-if-value] Operators (!, =, &gt;, &lt;, &lt;=, &gt;=, &lt;&" +
+"gt;, &gt;&lt;, list)</h4>\r\n    <div>\r\n        Radio Select Ranges\r\n        <inpu" +
+"t type=\"radio\" name=\"r2\" value=\"0\">0\r\n        <input type=\"radio\" name=\"r2\" valu" +
+"e=\"1\">1\r\n        <input type=\"radio\" name=\"r2\" value=\"2\">2\r\n        <input type=" +
+"\"radio\" name=\"r2\" value=\"3\">3\r\n        <input type=\"radio\" name=\"r2\" value=\"4\">4" +
+"\r\n        <input type=\"radio\" name=\"r2\" value=\"5\">5\r\n        <input type=\"radio\"" +
+" name=\"r2\" value=\"6\">6\r\n        <input type=\"radio\" name=\"r2\" value=\"7\">7\r\n     " +
+"   <input type=\"radio\" name=\"r2\" value=\"8\">8\r\n        <input type=\"radio\" name=\"" +
+"r2\" value=\"9\">9\r\n    </div>\r\n    <div show-if=\"r2\" show-if-value=\"!0\" class=\"exa" +
+"mple\">\r\n        Not 0\r\n    </div>\r\n    <div show-if=\"r2\" show-if-value=\"3\" class" +
+"=\"example\">\r\n        Exactly 3\r\n    </div>\r\n    <div show-if=\"r2\" show-if-value=" +
+"\">5\" class=\"example\">\r\n        More than 5\r\n    </div>\r\n    <div show-if=\"r2\" sh" +
+"ow-if-value=\"><7,9\" class=\"example\">\r\n        Between 7 and 9\r\n    </div>\r\n    <" +
+"div show-if=\"r2\" show-if-value=\"<>7,9\" class=\"example\">\r\n        Outside 7 and 9" +
+"\r\n    </div>\r\n    <div show-if=\"r2\" show-if-value=\"0,2,4,6,8\" class=\"example\">\r\n" +
+"        Evens: 0, 2, 4, 6, or 8\r\n    </div>\r\n    <div show-if=\"r2\" show-if-value" +
+"=\"1,3,5,7,9\" class=\"example\">\r\n        Odds: 1, 3, 5, 7, or 9\r\n    </div>\r\n    <" +
+"div hide-if=\"r2\" class=\"example\">\r\n        Nothing selected\r\n    </div>\r\n    <di" +
+"v hide-if=\"r2\" hide-if-value=\"0\" class=\"example\">\r\n        Also Not 0\r\n    </div" +
+">\r\n</div>\r\n\r\n<div class=\"mvcl-test\">\r\n    <h4>*[click-show]</h4>\r\n    <h4>*[clic" +
+"k-hide]</h4>\r\n    <h4>*[click-toggle]</h4>\r\n    <div>\r\n        Toggle\r\n        <" +
+"input type=\"button\" click-show=\"#d\" value=\"show\" />\r\n        <input type=\"button" +
+"\" click-hide=\"d\" value=\"hide\" />\r\n        <input type=\"button\" click-toggle=\"d\" " +
+"value=\"toggle\" />\r\n    </div>\r\n    <div id=\"d\" class=\"example\">\r\n        Text\r\n " +
+"   </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test\">\r\n    <h4>*[click-fade-in]</h4>\r\n   " +
+" <h4>*[click-fade-out]</h4>\r\n    <h4>*[click-fade-toggle]</h4>\r\n    <div>\r\n     " +
+"   Fade Toggle\r\n        <input type=\"button\" click-fade-in=\"#e\" value=\"show\" />\r" +
+"\n        <input type=\"button\" click-fade-out=\"e\" value=\"hide\" />\r\n        <input" +
+" type=\"button\" click-fade-toggle=\"e\" value=\"toggle\" />\r\n    </div>\r\n    <div id=" +
+"\"e\" class=\"example\">\r\n        Text\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test\"" +
+">\r\n    <h4>*[enabled-if]</h4>\r\n    <div>\r\n        Enable Buttons\r\n        <input" +
+" type=\"checkbox\" value=\"show\" name=\"f\" />\r\n\r\n        <div>\r\n            Enabled\r" +
+"\n            <input type=\"button\" click-fade-in=\"g\" enabled-if=\"f\" value=\"show\" " +
+"/>\r\n            <input type=\"button\" click-fade-out=\"g\" enabled-if=\"f\" value=\"hi" +
+"de\" />\r\n            <input type=\"button\" click-fade-toggle=\"g\" enabled-if=\"f\" va" +
+"lue=\"toggle\" />\r\n        </div>\r\n    </div>\r\n    <div id=\"g\" class=\"example\">\r\n " +
+"       Text\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test\">\r\n    <h4>*[enabled-if" +
+"-value]</h4>\r\n    <div>\r\n        <input type=\"radio\" value=\"apples\" name=\"n0\" />" +
+" Apples\r\n        <input type=\"radio\" value=\"oranges\" name=\"n0\" /> Oranges\r\n     " +
+"   <input type=\"radio\" value=\"pears\" name=\"n0\" /> Pears\r\n        <input type=\"ra" +
+"dio\" value=\"other\" name=\"n0\" /> Other:\r\n        <input type=\"text\" name=\"n4\" ena" +
+"bled-if=\"n0\" enabled-if-value=\"other\" />\r\n\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mv" +
+"cl-test\">\r\n    <h4>*[disabled-if]</h4>\r\n    <div>\r\n        Disable Buttons\r\n    " +
+"    <input type=\"checkbox\" value=\"show\" name=\"f3\" />\r\n\r\n        <div>\r\n         " +
+"   Disabled\r\n            <input type=\"button\" click-fade-in=\"g3\" disabled-if=\"f3" +
+"\" value=\"show\" />\r\n            <input type=\"button\" click-fade-out=\"g3\" disabled" +
+"-if=\"f3\" value=\"hide\" />\r\n            <input type=\"button\" click-fade-toggle=\"g3" +
+"\" disabled-if=\"f3\" value=\"toggle\" />\r\n        </div>\r\n    </div>\r\n    <div id=\"g" +
+"3\" class=\"example\">\r\n        Text\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test\">" +
+"\r\n    <error>Fails</error>\r\n    <h4>*[click-fade-in-if]</h4>\r\n    <h4>*[click-fa" +
+"de-out-if]</h4>\r\n    <h4>*[click-fade-toggle-if]</h4>\r\n    <div>\r\n        Enable" +
+" Buttons\r\n        <input type=\"checkbox\" value=\"show\" name=\"f2\" />\r\n\r\n        <d" +
+"iv>\r\n            Action Conditions\r\n            <input type=\"button\" click-fade-" +
+"in=\"g\" click-fade-in-if=\"f2\" value=\"show\" />\r\n            <input type=\"button\" c" +
+"lick-fade-out=\"g\" click-fade-out-if=\"f2\" value=\"hide\" />\r\n            <input typ" +
+"e=\"button\" click-fade-toggle=\"g\" click-fade-toggle-if=\"f2\" value=\"toggle\" />\r\n  " +
+"      </div>\r\n    </div>\r\n    <div id=\"g\" class=\"example\">\r\n        Text\r\n    </" +
+"div>\r\n</div>\r\n\r\n<div class=\"mvcl-test\">\r\n    <error>Fails</error>\r\n    <h4>*[che" +
+"cked-if]</h4>\r\n    <h4>*[checked-if] Operations (=, !, &lt;, &gt;)</h4>\r\n    <di" +
+"v>\r\n        Checked Test\r\n        <input type=\"radio\" name=\"r3\" value=\"0\">0\r\n   " +
+"     <input type=\"radio\" name=\"r3\" value=\"1\">1\r\n        <input type=\"radio\" name" +
+"=\"r3\" value=\"2\">2\r\n        <input type=\"radio\" name=\"r3\" value=\"3\">3\r\n        <i" +
+"nput type=\"radio\" name=\"r3\" value=\"4\">4\r\n        <input type=\"radio\" name=\"r3\" v" +
+"alue=\"5\">5\r\n        <input type=\"radio\" name=\"r3\" value=\"6\">6\r\n        <input ty" +
+"pe=\"radio\" name=\"r3\" value=\"7\">7\r\n        <input type=\"radio\" name=\"r3\" value=\"8" +
+"\">8\r\n        <input type=\"radio\" name=\"r3\" value=\"9\">9\r\n    </div>\r\n    <div>\r\n " +
+"       Equal\r\n        <input type=\"checkbox\" value=\"show\" name=\"h0\" checked-if=\"" +
+"r3\" checked-if-value=\"0\" />\r\n        <input type=\"checkbox\" value=\"show\" name=\"h" +
+"1\" checked-if=\"r3\" checked-if-value=\"1\" />\r\n        <input type=\"checkbox\" value" +
+"=\"show\" name=\"h2\" checked-if=\"r3\" checked-if-value=\"2\" />\r\n        <input type=\"" +
+"checkbox\" value=\"show\" name=\"h3\" checked-if=\"r3\" checked-if-value=\"3\" />\r\n      " +
+"  <input type=\"checkbox\" value=\"show\" name=\"h4\" checked-if=\"r3\" checked-if-value" +
+"=\"4\" />\r\n        <input type=\"checkbox\" value=\"show\" name=\"h5\" checked-if=\"r3\" c" +
+"hecked-if-value=\"5\" />\r\n        <input type=\"checkbox\" value=\"show\" name=\"h6\" ch" +
+"ecked-if=\"r3\" checked-if-value=\"6\" />\r\n        <input type=\"checkbox\" value=\"sho" +
+"w\" name=\"h7\" checked-if=\"r3\" checked-if-value=\"7\" />\r\n        <input type=\"check" +
+"box\" value=\"show\" name=\"h8\" checked-if=\"r3\" checked-if-value=\"8\" />\r\n        <in" +
+"put type=\"checkbox\" value=\"show\" name=\"h9\" checked-if=\"r3\" checked-if-value=\"9\" " +
+"/>\r\n    </div>\r\n    <div>\r\n        Greater Than\r\n        <input type=\"checkbox\" " +
+"value=\"show\" name=\"i0\" checked-if=\"r3\" checked-if-value=\">0\" />\r\n        <input " +
+"type=\"checkbox\" value=\"show\" name=\"i1\" checked-if=\"r3\" checked-if-value=\">1\" />\r" +
+"\n        <input type=\"checkbox\" value=\"show\" name=\"i2\" checked-if=\"r3\" checked-i" +
+"f-value=\">2\" />\r\n        <input type=\"checkbox\" value=\"show\" name=\"i3\" checked-i" +
+"f=\"r3\" checked-if-value=\">3\" />\r\n        <input type=\"checkbox\" value=\"show\" nam" +
+"e=\"i4\" checked-if=\"r3\" checked-if-value=\">4\" />\r\n        <input type=\"checkbox\" " +
+"value=\"show\" name=\"i5\" checked-if=\"r3\" checked-if-value=\">5\" />\r\n        <input " +
+"type=\"checkbox\" value=\"show\" name=\"i6\" checked-if=\"r3\" checked-if-value=\">6\" />\r" +
+"\n        <input type=\"checkbox\" value=\"show\" name=\"i7\" checked-if=\"r3\" checked-i" +
+"f-value=\">7\" />\r\n        <input type=\"checkbox\" value=\"show\" name=\"i8\" checked-i" +
+"f=\"r3\" checked-if-value=\">8\" />\r\n        <input type=\"checkbox\" value=\"show\" nam" +
+"e=\"i9\" checked-if=\"r3\" checked-if-value=\">9\" />\r\n    </div>\r\n    <div>\r\n        " +
+"Less Than\r\n        <input type=\"checkbox\" value=\"show\" name=\"j0\" checked-if=\"r3\"" +
+" checked-if-value=\"<0\" />\r\n        <input type=\"checkbox\" value=\"show\" name=\"j1\"" +
+" checked-if=\"r3\" checked-if-value=\"<1\" />\r\n        <input type=\"checkbox\" value=" +
+"\"show\" name=\"j2\" checked-if=\"r3\" checked-if-value=\"<2\" />\r\n        <input type=\"" +
+"checkbox\" value=\"show\" name=\"j3\" checked-if=\"r3\" checked-if-value=\"<3\" />\r\n     " +
+"   <input type=\"checkbox\" value=\"show\" name=\"j4\" checked-if=\"r3\" checked-if-valu" +
+"e=\"<4\" />\r\n        <input type=\"checkbox\" value=\"show\" name=\"j5\" checked-if=\"r3\"" +
+" checked-if-value=\"<5\" />\r\n        <input type=\"checkbox\" value=\"show\" name=\"j6\"" +
+" checked-if=\"r3\" checked-if-value=\"<6\" />\r\n        <input type=\"checkbox\" value=" +
+"\"show\" name=\"j7\" checked-if=\"r3\" checked-if-value=\"<7\" />\r\n        <input type=\"" +
+"checkbox\" value=\"show\" name=\"j8\" checked-if=\"r3\" checked-if-value=\"<8\" />\r\n     " +
+"   <input type=\"checkbox\" value=\"show\" name=\"j9\" checked-if=\"r3\" checked-if-valu" +
+"e=\"<9\" />\r\n    </div>\r\n    <div>\r\n        Not Equal\r\n        <input type=\"checkb" +
+"ox\" value=\"show\" name=\"k0\" checked-if=\"r3\" checked-if-value=\"!0\" />\r\n        <in" +
+"put type=\"checkbox\" value=\"show\" name=\"k1\" checked-if=\"r3\" checked-if-value=\"!1\"" +
+" />\r\n        <input type=\"checkbox\" value=\"show\" name=\"k2\" checked-if=\"r3\" check" +
+"ed-if-value=\"!2\" />\r\n        <input type=\"checkbox\" value=\"show\" name=\"k3\" check" +
+"ed-if=\"r3\" checked-if-value=\"!3\" />\r\n        <input type=\"checkbox\" value=\"show\"" +
+" name=\"k4\" checked-if=\"r3\" checked-if-value=\"!4\" />\r\n        <input type=\"checkb" +
+"ox\" value=\"show\" name=\"k5\" checked-if=\"r3\" checked-if-value=\"!5\" />\r\n        <in" +
+"put type=\"checkbox\" value=\"show\" name=\"k6\" checked-if=\"r3\" checked-if-value=\"!6\"" +
+" />\r\n        <input type=\"checkbox\" value=\"show\" name=\"k7\" checked-if=\"r3\" check" +
+"ed-if-value=\"!7\" />\r\n        <input type=\"checkbox\" value=\"show\" name=\"k8\" check" +
+"ed-if=\"r3\" checked-if-value=\"!8\" />\r\n        <input type=\"checkbox\" value=\"show\"" +
+" name=\"k9\" checked-if=\"r3\" checked-if-value=\"!9\" />\r\n    </div>\r\n</div>\r\n\r\n<div " +
+"class=\"mvcl-test\">\r\n    <h4>*[readonly-if]</h4>\r\n    <div>\r\n        <input type=" +
+"\"checkbox\" name=\"l\" value=\"yes\">Readonly\r\n\r\n        <input type=\"text\" name=\"m\" " +
+"readonly-if=\"l\" disabled-if=\"l2\">\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test\">" +
+"\r\n    <h4>*[click-add-class]</h4>\r\n    <h4>*[click-remove-class]</h4>\r\n    <h4>*" +
+"[click-toggle-class]</h4>\r\n    <div>\r\n        <input type=\"button\" click-add-cla" +
+"ss=\"error\" value=\"add\" />\r\n        <input type=\"button\" click-remove-class=\"erro" +
+"r\" class=\"error\" value=\"remove\" />\r\n        <input type=\"button\" click-toggle-cl" +
+"ass=\"error\" value=\"toggle\" />\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test\">\r\n  " +
+"  <h4>*[click-add-class-target]</h4>\r\n    <h4>*[click-remove-class-target]</h4>\r" +
+"\n    <h4>*[click-toggle-class-target]</h4>\r\n    <div>\r\n        <input type=\"butt" +
+"on\" click-add-class=\"error\" click-add-class-target=\"m3\" value=\"add\" />\r\n        " +
+"<input type=\"button\" click-remove-class=\"error\" click-remove-class-target=\"m3\" v" +
+"alue=\"remove\" />\r\n        <input type=\"button\" click-toggle-class=\"error\" click-" +
+"toggle-class-target=\"m3\" value=\"toggle\" />\r\n    </div>\r\n    <div id=\"m3\" class=\"" +
+"example\">\r\n        Text\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test\">\r\n    <h4>" +
+"*[click-animate]</h4>\r\n    <div>\r\n        <input type=\"button\" value=\"left\" clic" +
+"k-animate=\"{\'left\':\'-=5\'}\" />\r\n        <input type=\"button\" value=\"right\" click-" +
+"animate=\"{\'left\':\'+=5\'}\" />\r\n        <input type=\"button\" value=\"up\" click-anima" +
+"te=\"{\'top\':\'-=5\'}\" />\r\n        <input type=\"button\" value=\"down\" click-animate=\"" +
+"{\'top\':\'+=5\'}\" />\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test\">\r\n    <h4>*[clic" +
+"k-animate-target]</h4>\r\n    <div>\r\n        <input type=\"button\" value=\"left\" cli" +
+"ck-animate=\"{\'left\':\'-=5\'}\" click-animate-target=\"m5\" />\r\n        <input type=\"b" +
+"utton\" value=\"right\" click-animate=\"{\'left\':\'+=5\'}\" click-animate-target=\"m5\" />" +
+"\r\n        <input type=\"button\" value=\"up\" click-animate=\"{\'top\':\'-=5\'}\" click-an" +
+"imate-target=\"m5\" />\r\n        <input type=\"button\" value=\"down\" click-animate=\"{" +
+"\'top\':\'+=5\'}\" click-animate-target=\"m5\" />\r\n    </div>\r\n    <div id=\"m5\" class=\"" +
+"example\">\r\n        Text\r\n    </div>\r\n</div>\r\n");
 
 
         }

@@ -1,46 +1,11 @@
 /// <reference path="singularity-core.ts"/>
+var singNumber = sing.addModule(new sing.Module("Number", Number));
 function InitSingularityJS_Number() {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Number Extensions
     //
-    sing.addNumberExt('toStr', NumberToStr, {
-        summary: "\
-        toStr is a standardized way of converting Objects to Strings.",
-        parameters: [
-            {
-                name: 'includeMarkup',
-                types: [Boolean],
-                defaultValue: false,
-            }
-        ],
-        returns: 'A string representation of the Number toStr is called on.',
-        returnType: String,
-        examples: ["\
-        var test = 1; \r\n\
-        var test2 = 2.5; \r\n\
-                             \r\n\
-        var out = test.toStr()       // out == '1' \r\n\
-        var out2 = test2.toStr()     // out == '2.5' \r\n\
-        "],
-        tests: function (ext) {
-            ext.addTest(0, [], '0');
-            ext.addTest(5, [], '5');
-            ext.addTest(-100.105, [], '-100.105', 'Decimal numbers are supported.');
-            ext.addTest(-100.100, [], '-100.1', 'Trailing 0s are not included.');
-            ext.addTest(5.5, [], '5.5');
-            ext.addTest(NaN, [], '');
-            ext.addTest(NaN, [false], '');
-            ext.addTest(NaN, [true], 'NaN');
-        },
-    });
-    function NumberToStr(includeMarkup) {
-        if (includeMarkup === void 0) { includeMarkup = false; }
-        if (isNaN(this))
-            return includeMarkup ? 'NaN' : '';
-        return this.toString();
-    }
-    sing.addNumberExt('max', NumberMax, {
+    singNumber.addExt('max', NumberMax, {
         summary: 'Compares multiple Numbers to find the largest.',
         parameters: [
             {
@@ -75,7 +40,7 @@ function InitSingularityJS_Number() {
         numbers = numbers.collect();
         return Math.max.apply(null, numbers);
     }
-    sing.addNumberExt('round', NumberRound, {
+    singNumber.addExt('round', NumberRound, {
         summary: 'Rounds the calling Number to the nearest whole Number. If a number of decimal places is supplied they will be included',
         parameters: [
             {
@@ -109,7 +74,7 @@ function InitSingularityJS_Number() {
             return Math.round(this * ((10).pow(decimalPlaces))) / ((10).pow(decimalPlaces));
         return Math.round(this);
     }
-    sing.addNumberExt('pow', NumberPower, {
+    singNumber.addExt('pow', NumberPower, {
         summary: 'Returns the calling number raised to the power passed. \r\n\
             Decimal numbers are supported and can be used for calculating fractional powers and roots.',
         parameters: [
@@ -140,7 +105,7 @@ function InitSingularityJS_Number() {
     function NumberPower(power) {
         return Math.pow(this, power);
     }
-    sing.addNumberExt('timesDo', NumberTimesDo, {
+    singNumber.addExt('timesDo', NumberTimesDo, {
         summary: "Repeats a function a number of times",
         parameters: [
             {
@@ -197,7 +162,7 @@ function InitSingularityJS_Number() {
         }
         return out;
     }
-    sing.addNumberExt('ceil', NumberCeiling, {
+    singNumber.addExt('ceil', NumberCeiling, {
         summary: 'Extension of the Math.ceil function',
         parameters: [
             {
@@ -226,7 +191,7 @@ function InitSingularityJS_Number() {
             return Math.ceil(this * ((10).pow(decimalPlaces))) / ((10).pow(decimalPlaces));
         return Math.ceil(this);
     }
-    sing.addNumberExt('floor', NumberFloor, {
+    singNumber.addExt('floor', NumberFloor, {
         summary: 'Extension of the Math.floor function',
         parameters: [
             {
@@ -256,7 +221,7 @@ function InitSingularityJS_Number() {
             return Math.floor(this * ((10).pow(decimalPlaces))) / ((10).pow(decimalPlaces));
         return Math.floor(this);
     }
-    sing.addNumberExt('formatFileSize', NumberFormatFileSize, {
+    singNumber.addExt('formatFileSize', NumberFormatFileSize, {
         summary: 'Takes a number (of Bytes) and returns a formatted string of the proper unit (B, KB, MB, etc)',
         parameters: [
             {
@@ -328,7 +293,7 @@ function InitSingularityJS_Number() {
         }
         return out;
     }
-    sing.addNumberExt('abs', NumberAbsoluteValue, {
+    singNumber.addExt('abs', NumberAbsoluteValue, {
         summary: 'Extension of Math.abs',
         parameters: [],
         returns: 'The calling number as a positive value',
@@ -349,7 +314,7 @@ function InitSingularityJS_Number() {
     function NumberAbsoluteValue() {
         return Math.abs(this);
     }
-    sing.addNumberExt('percentOf', NumberPercentOf, {
+    singNumber.addExt('percentOf', NumberPercentOf, {
         summary: 'Takes the source number and returns the percent it is of the argument number',
         parameters: [
             {
@@ -415,6 +380,77 @@ function InitSingularityJS_Number() {
                 return ((this / of) * 100).round(decimalPlaces);
             }
         }
+    }
+    singNumber.addExt('toStr', NumberToStr, {
+        summary: "\
+        Common funciton - toStr is a standardized way of converting Objects to Strings.",
+        parameters: [
+            {
+                name: 'includeMarkup',
+                types: [Boolean],
+                defaultValue: false,
+            }
+        ],
+        returns: 'A string representation of the Number toStr is called on.',
+        returnType: String,
+        examples: ["\
+        var test = 1; \r\n\
+        var test2 = 2.5; \r\n\
+                             \r\n\
+        var out = test.toStr()       // out == '1' \r\n\
+        var out2 = test2.toStr()     // out == '2.5' \r\n\
+        "],
+        tests: function (ext) {
+            ext.addTest(0, [], '0');
+            ext.addTest(5, [], '5');
+            ext.addTest(-100.105, [], '-100.105', 'Decimal numbers are supported.');
+            ext.addTest(-100.100, [], '-100.1', 'Trailing 0s are not included.');
+            ext.addTest(5.5, [], '5.5');
+            ext.addTest(NaN, [], '');
+            ext.addTest(NaN, [false], '');
+            ext.addTest(NaN, [true], 'NaN');
+        },
+    });
+    function NumberToStr(includeMarkup) {
+        if (includeMarkup === void 0) { includeMarkup = false; }
+        if (isNaN(this))
+            return includeMarkup ? 'NaN' : '';
+        return this.toString();
+    }
+    singNumber.addExt('numericValueOf', NumberNumericValueOf, {
+        summary: 'Common funciton - Used for sorting, returns the calling number.',
+        parameters: [],
+        returns: 'Returnst the calling number.',
+        returnType: Number,
+        examples: ['\
+            (1.6).numericValueOf();                     //  == 1.6  \r\n\
+            (1.6555).numericValueOf(2);                 //  == 1.6555  \r\n\
+            (1.644999999999999).numericValueOf(2);      //  == 1.644999999999999  '],
+        tests: function (ext) {
+            ext.addTest(1, [], 1);
+            ext.addTest(0, [], 0);
+            ext.addTest(Infinity, [], Infinity);
+            ext.addTest(-Infinity, [], -Infinity);
+        },
+    });
+    function NumberNumericValueOf() {
+        return this;
+    }
+    singNumber.addExt('log', NumberLog, {
+        summary: 'Common funciton - Logs the calling Number to the console.',
+        parameters: [],
+        returns: 'Nothing.',
+        returnType: null,
+        examples: ['\
+            (1).log()   //  logs 1  \r\n\
+            (5).log()   //  logs 5  \r\n'],
+        tests: function (ext) {
+            ext.addTest(true, []);
+            ext.addTest(false, []);
+        }
+    });
+    function NumberLog() {
+        log(this);
     }
 }
 //# sourceMappingURL=singularity-js-number.js.map

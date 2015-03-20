@@ -16,7 +16,7 @@ namespace MVCL
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = MVCL.Routes.Controllers.Test.Name, action = MVCL.Routes.Controllers.Test.Actions.JavascriptTest, id = UrlParameter.Optional }
+                defaults: new { controller = MVCL.Routes.Controllers.Test.Name, action = MVCL.Routes.Controllers.Test.Actions.SingularityTest, id = UrlParameter.Optional }
             );
         }
     }

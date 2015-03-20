@@ -1,11 +1,14 @@
 /// <reference path="singularity-core.ts"/>
+var singDate = sing.addModule(new sing.Module("Date", Date));
+singDate.requiredDocumentation = false;
+singDate.requiredUnitTests = false;
 function InitSingularityJS_Date() {
     //////////////////////////////////////////////////////
     //
     //
     // Date Extensions
     //
-    sing.addDateExt('add', null, {
+    singDate.addExt('add', null, {
         summary: null,
         parameters: null,
         returns: '',
@@ -14,7 +17,7 @@ function InitSingularityJS_Date() {
         tests: function (ext) {
         },
     });
-    sing.addDateExt('subtract', null, {
+    singDate.addExt('subtract', null, {
         summary: null,
         parameters: null,
         returns: '',
@@ -23,7 +26,7 @@ function InitSingularityJS_Date() {
         tests: function (ext) {
         },
     });
-    sing.addDateExt('compare', null, {
+    singDate.addExt('compare', null, {
         summary: null,
         parameters: null,
         returns: '',
@@ -32,7 +35,7 @@ function InitSingularityJS_Date() {
         tests: function (ext) {
         },
     });
-    sing.addDateExt('isBefore', null, {
+    singDate.addExt('isBefore', null, {
         summary: null,
         parameters: null,
         returns: '',
@@ -41,7 +44,7 @@ function InitSingularityJS_Date() {
         tests: function (ext) {
         },
     });
-    sing.addDateExt('isAfter', null, {
+    singDate.addExt('isAfter', null, {
         summary: null,
         parameters: null,
         returns: '',
@@ -50,7 +53,7 @@ function InitSingularityJS_Date() {
         tests: function (ext) {
         },
     });
-    sing.addDateExt('equals', null, {
+    singDate.addExt('equals', null, {
         summary: null,
         parameters: null,
         returns: '',

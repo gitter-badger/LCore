@@ -297,7 +297,7 @@ WriteLiteral("\r\n\r\n    ");
 
             
             #line 48 "..\..\Views\_MainLayout.cshtml"
-Write(Scripts.Render(ControllerHelper.Style_Singularity));
+Write(Styles.Render(ControllerHelper.Style_Singularity));
 
             
             #line default
@@ -332,18 +332,18 @@ Write(Styles.Render(ControllerHelper.Style_MVCL));
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n</head>\r\n<body class=\"");
+WriteLiteral("\r\n\r\n</head>\r\n<body singularity class=\"");
 
 
             
             #line 56 "..\..\Views\_MainLayout.cshtml"
-         Write(ViewBag.ContextProvider != null ? StringExt.ToUrlSlug(ViewBag.ContextProvider.GetContext(Session).ContextName) : "");
+                     Write(ViewBag.ContextProvider != null ? StringExt.ToUrlSlug(ViewBag.ContextProvider.GetContext(Session).ContextName) : "");
 
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n    <script type=\"text/javascript\">\r\n\r\n        $().ready(function () {\r\n     " +
-"       MNCL_Init();\r\n        })\r\n    </script>\r\n    <header>\r\n        ");
+WriteLiteral("\">\r\n\r\n    <script type=\"text/javascript\">\r\n\r\n        $().ready(function () {\r\n   " +
+"         MNCL_Init();\r\n        })\r\n    </script>\r\n    <header>\r\n        ");
 
 
 
@@ -351,7 +351,7 @@ WriteLiteral("\r\n\r\n");
 
 
             
-            #line 66 "..\..\Views\_MainLayout.cshtml"
+            #line 67 "..\..\Views\_MainLayout.cshtml"
          if (TempData.Peek(ControllerHelper.StatusMessage) != null)
         {
             String Message = (String)TempData[ControllerHelper.StatusMessage];
@@ -365,7 +365,7 @@ WriteLiteral("            <div class=\"status-message close-dialog\">\r\n");
 
 
             
-            #line 72 "..\..\Views\_MainLayout.cshtml"
+            #line 73 "..\..\Views\_MainLayout.cshtml"
                  if (!String.IsNullOrEmpty(Icon))
                 {
 
@@ -376,7 +376,7 @@ WriteLiteral("                    <glyph>");
 
 
             
-            #line 74 "..\..\Views\_MainLayout.cshtml"
+            #line 75 "..\..\Views\_MainLayout.cshtml"
                       Write(Icon);
 
             
@@ -386,7 +386,7 @@ WriteLiteral("</glyph>\r\n");
 
 
             
-            #line 75 "..\..\Views\_MainLayout.cshtml"
+            #line 76 "..\..\Views\_MainLayout.cshtml"
                 }
 
             
@@ -396,7 +396,7 @@ WriteLiteral("                ");
 
 
             
-            #line 76 "..\..\Views\_MainLayout.cshtml"
+            #line 77 "..\..\Views\_MainLayout.cshtml"
            Write(Message);
 
             
@@ -406,7 +406,7 @@ WriteLiteral("\r\n            </div>\r\n");
 
 
             
-            #line 78 "..\..\Views\_MainLayout.cshtml"
+            #line 79 "..\..\Views\_MainLayout.cshtml"
         }
 
             
@@ -428,7 +428,7 @@ WriteLiteral(@"
 
 
             
-            #line 91 "..\..\Views\_MainLayout.cshtml"
+            #line 92 "..\..\Views\_MainLayout.cshtml"
    Write(RenderSection("featured", required: false));
 
             
@@ -439,7 +439,7 @@ WriteLiteral("\r\n\r\n        <section class=\"content-wrapper main-content clea
 
 
             
-            #line 94 "..\..\Views\_MainLayout.cshtml"
+            #line 95 "..\..\Views\_MainLayout.cshtml"
        Write(RenderBody());
 
             
@@ -450,17 +450,17 @@ WriteLiteral("\r\n        </section>\r\n    </div>\r\n    <footer>\r\n        <d
 
 
             
-            #line 100 "..\..\Views\_MainLayout.cshtml"
+            #line 101 "..\..\Views\_MainLayout.cshtml"
                      Write(DateTime.Now.Year);
 
             
             #line default
             #line hidden
-WriteLiteral(" - smartschoolsplus</p>\r\n            </div>\r\n        </div>\r\n    </footer>\r\n    ");
+WriteLiteral("</p>\r\n            </div>\r\n        </div>\r\n    </footer>\r\n    ");
 
 
             
-            #line 104 "..\..\Views\_MainLayout.cshtml"
+            #line 105 "..\..\Views\_MainLayout.cshtml"
 Write(Scripts.Render(BundleConfig.Script_jQuery));
 
             
@@ -470,7 +470,7 @@ WriteLiteral("\r\n\r\n    ");
 
 
             
-            #line 106 "..\..\Views\_MainLayout.cshtml"
+            #line 107 "..\..\Views\_MainLayout.cshtml"
 Write(RenderSection("scripts", required: false));
 
             

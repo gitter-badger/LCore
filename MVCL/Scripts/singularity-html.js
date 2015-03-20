@@ -492,7 +492,7 @@ function InitKeyBindClick() {
                 }
             }
             else {
-                var key1 = TryParseInt(keyCode, null);
+                var key1 = keyCode.tryToNumber(null);
                 if (!key1)
                     key1 = keyCharToCode[keyCode];
                 if (e.keyCode == key1) {
@@ -516,8 +516,8 @@ function InitKeyBindClick() {
         if (!commandName)
             return;
         if (keyCode.indexOf('+') > 0 && keyCode.indexOf('+') < keyCode.length - 1) {
-            var key1 = TryParseInt(keyCode.substr(0, keyCode.indexOf('+')), null);
-            var key2 = TryParseInt(keyCode.substr(keyCode.indexOf('+') + 1), null);
+            var key1 = keyCode.substr(0, keyCode.indexOf('+')).tryToNumber(null);
+            var key2 = keyCode.substr(keyCode.indexOf('+') + 1).tryToNumber(null);
             if (!key1)
                 key1 = keyCharToCode[keyCode.substr(0, keyCode.indexOf('+'))];
             if (!key2)
@@ -530,7 +530,7 @@ function InitKeyBindClick() {
             KeyBindTip += "<br>";
         }
         else {
-            var key1 = TryParseInt(keyCode, null);
+            var key1 = keyCode.tryToNumber(null);
             if (!key1)
                 key1 = keyCharToCode[keyCode];
             if (href)
@@ -688,16 +688,5 @@ function RandomFields() {
             $(this).find('input').val(Object).change();
         }
     });
-}
-function TryParseInt(str, defaultValue) {
-    var retValue = defaultValue;
-    if (str !== null) {
-        if (str.length > 0) {
-            if (!isNaN(str)) {
-                retValue = parseInt(str);
-            }
-        }
-    }
-    return retValue;
 }
 //# sourceMappingURL=singularity-html.js.map

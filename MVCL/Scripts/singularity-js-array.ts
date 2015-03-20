@@ -1,6 +1,5 @@
-﻿
-
-/// <reference path="singularity-core.ts"/>
+﻿/// <reference path="singularity-core.ts"/>
+/// <reference path="singularity-tests.ts"/>
 
 
 interface Array<T> {
@@ -10,6 +9,7 @@ interface Array<T> {
     collect?: (collectFunc?: (item: T, index: number) => any) => any[];
 
     select?: (condition: (item: T, index: number) => boolean) => T[];
+    where?: (condition: (item: T, index: number) => boolean) => T[];
     range?: (start: number, finish: number) => T[];
     flatten?: () => T[];
 
@@ -20,13 +20,16 @@ interface Array<T> {
     first?: (item: T | T[]|  ((arg: T, index: number) => boolean)) => T;
     last?: (item: T | T[]| ((arg: T, index: number) => boolean)) => T;
 
-    toStr?: (includeMarkup?: boolean) => string;
-    log?: () => void;
     splitAt?: (...indexes: number[]) => any[];
 
+    toStr?: (includeMarkup?: boolean) => string;
+    log?: () => void;
+
+    findValues?: (...names: string[]) => any[];
     /*
     sortBy
-    exfiltrate
+    orderBy
+    quickSort
     removeAt
     unique
     random
@@ -38,6 +41,12 @@ interface Array<T> {
 
 }
 
+var singArray = sing.addModule(new sing.Module("Array", Array));
+
+singArray.requiredDocumentation = false;
+singArray.requiredUnitTests = false;
+
+
 function InitSingularityJS_Array() {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -45,8 +54,9 @@ function InitSingularityJS_Array() {
     //
     //
     // Iteration Functions
+    //
 
-    sing.addArrayExt('each', ArrayEach,
+    singArray.addExt('each', ArrayEach,
         {
             summary: null,
             parameters: null,
@@ -69,11 +79,7 @@ function InitSingularityJS_Array() {
         });
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addArrayExt('while', ArrayWhile,
+    singArray.addExt('while', ArrayWhile,
         {
             summary: null,
             parameters: null,
@@ -103,11 +109,8 @@ function InitSingularityJS_Array() {
         return !exit;
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
 
-    sing.addArrayExt('until', ArrayUntil,
+    singArray.addExt('until', ArrayUntil,
         {
             summary: null,
             parameters: null,
@@ -134,7 +137,7 @@ function InitSingularityJS_Array() {
     //
     // Lookup Functions
 
-    sing.addArrayExt('count', ArrayCount,
+    singArray.addExt('count', ArrayCount,
         {
             summary: null,
             parameters: null,
@@ -162,11 +165,7 @@ function InitSingularityJS_Array() {
         return out;
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addArrayExt('contains', ArrayContains,
+    singArray.addExt('contains', ArrayContains,
         {
             summary: null,
             parameters: null,
@@ -201,11 +200,7 @@ function InitSingularityJS_Array() {
         return this.indexOf(itemOrItemsOrFunction) >= 0;
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addArrayExt('select', ArraySelect,
+    singArray.addExt('select', ArraySelect,
         {
             summary: null,
             parameters: null,
@@ -232,11 +227,7 @@ function InitSingularityJS_Array() {
         return out;
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addArrayExt('every', ArrayEvery,
+    singArray.addExt('every', ArrayEvery,
         {
             summary: null,
             parameters: null,
@@ -270,8 +261,9 @@ function InitSingularityJS_Array() {
     //////////////////////////////////////////////////////
     //
     // Mapping Functions
+    //
 
-    sing.addArrayExt('collect', ArrayCollect,
+    singArray.addExt('collect', ArrayCollect,
         {
             summary: null,
             parameters: null,
@@ -301,11 +293,7 @@ function InitSingularityJS_Array() {
         return out;
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addArrayExt('first', ArrayFirst,
+    singArray.addExt('first', ArrayFirst,
         {
             summary: null,
             parameters: null,
@@ -342,11 +330,7 @@ function InitSingularityJS_Array() {
         return out;
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addArrayExt('last', ArrayLast,
+    singArray.addExt('last', ArrayLast,
         {
             summary: null,
             parameters: null,
@@ -370,11 +354,7 @@ function InitSingularityJS_Array() {
         return this.reverse.first(action);
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addArrayExt('range', ArrayRange,
+    singArray.addExt('range', ArrayRange,
         {
             summary: null,
             parameters: null,
@@ -396,11 +376,7 @@ function InitSingularityJS_Array() {
         return out;
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addArrayExt('flatten', ArrayFlatten,
+    singArray.addExt('flatten', ArrayFlatten,
         {
             summary: null,
             parameters: null,
@@ -427,11 +403,7 @@ function InitSingularityJS_Array() {
         return out;
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addArrayExt('indices', ArrayIndices,
+    singArray.addExt('indices', ArrayIndices,
         {
             summary: null,
             parameters: null,
@@ -482,11 +454,7 @@ function InitSingularityJS_Array() {
             return [];
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addArrayExt('log', ArrayLog,
+    singArray.addExt('log', ArrayLog,
         {
             summary: null,
             parameters: null,
@@ -501,11 +469,7 @@ function InitSingularityJS_Array() {
         log(this);
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addArrayExt('toStr', ArrayToStr,
+    singArray.addExt('toStr', ArrayToStr,
         {
             summary: null,
             parameters: null,
@@ -537,11 +501,7 @@ function InitSingularityJS_Array() {
         return out;
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addArrayExt('remove', ArrayRemove,
+    singArray.addExt('remove', ArrayRemove,
         {
             summary: null,
             parameters: null,
@@ -574,11 +534,7 @@ function InitSingularityJS_Array() {
         });
     }
 
-    //
-    //////////////////////////////////////////////////////
-    //
-
-    sing.addArrayExt('splitAt', null,
+    singArray.addExt('splitAt', null,
         {
             summary: null,
             parameters: null,
@@ -613,7 +569,7 @@ function InitSingularityJS_Array() {
         return out;
     }
 
-    sing.addArrayExt('sortBy', null,
+    singArray.addExt('sortBy', ArraySortBy,
         {
             summary: null,
             parameters: null,
@@ -625,24 +581,235 @@ function InitSingularityJS_Array() {
             },
         });
 
-    function ArraySortBy<T>(arg?: (item: T) => number): T[] {
+    function ArraySortBy<T>(arg?: string | string[]| ((item: T) => number)): void {
+
+        var defaultValueFunc = function (item: any) {
+            if (item && item.numericValueOf)
+                return item.numericValueOf();
+            else
+                return $.toStr(item).numericValueOf();
+        };
 
         if (arg == null) {
-            arg = function (item: any) {
-                if (item.numericValueOf)
-                    return item.numericValueOf();
-                else
-                    return $.toStr(item).numericValueOf();
+            arg = defaultValueFunc;
+        }
+
+        var indexes = this;
+
+        if ($.isString(arg) && (<string>arg).contains('.')) {
+            arg = (<string>arg).split('.');
+        }
+
+        if ($.isString(arg)) {
+            indexes = indexes.collect(function (item) {
+                return $.objHasKey(item, <string>arg) && item != null ?
+                    defaultValueFunc(item[<string>arg]) : -1;
+            });
+        }
+        else if ($.isArray(arg)) {
+
+            for (var i = 0; i < arg.length; i++) {
+
+                indexes = indexes.collect(function (item) {
+                    if (!$.objHasKey(item, <string>arg[i])) {
+                        return -1;
+                    }
+                    return item[arg[i]] == null ? -1 : item[arg[i]];
+                });
+
+            }
+
+        }
+        else {
+            indexes = indexes.collect(arg);
+        }
+
+        if (!indexes.every($.isNumeric.fn_or($.isString))) {
+            indexes = indexes.collect($.toStr)
+                .collect(sing.extensions['String.numericValueOf'].method);
+        }
+
+        var items = this;
+
+        var out = indexes.quickSort(undefined, undefined, [items]);
+
+        return out[1];
+    }
+
+    singArray.addExt('quickSort', ArrayQuickSort,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+
+    function ArrayQuickSort(left: number = 0, right: number = (this.length - 1), sortWith?: any[][]): any[]| any[][] {
+
+        var items = this;
+
+        if (sortWith && left == 0 && right == this.length - 1) {
+            for (var i = 0; i < sortWith.length; i++) {
+                if (sortWith[i] && sortWith[i].length != items.length) {
+                    console.log(this, sortWith);
+                    throw 'Lengths did not match ' + items.length + ', ' + sortWith[i].length;
+                }
             }
         }
 
-        var indexes = this.collect(arg);
+        var index: number;
+
+        if (items.length > 1) {
+
+            var partitionResult = ArrayQuickSortPartition(items, left, right, sortWith);
+
+            var index = partitionResult.index;
+            items = partitionResult.items;
+            sortWith = partitionResult.sortWith;
+
+            if (left < index - 1) {
+                if (sortWith != null) {
+                    var sorted = items.quickSort(left, index - 1, sortWith);
+                    items = sorted[0];
+                    for (var i = 1; i < sorted.length; i++) {
+                        sortWith[i - 1] = sorted[i];
+                    }
+
+                }
+                else {
+                    items = items.quickSort(left, index - 1);
+                }
+            }
+
+            if (index < right) {
+                if (sortWith != null) {
+                    var sorted = items.quickSort(index, right, sortWith);
+
+                    items = sorted[0];
+                    for (var i = 1; i < sorted.length; i++) {
+                        sortWith[i - 1] = sorted[i];
+                    }
+
+                }
+                else {
+                    items = items.quickSort(index, right);
+                }
+            }
+
+        }
+
+        if (sortWith != null) {
+            var out = [];
+            out.push(items);
+            out = out.concat(sortWith);
+            return out;
+        }
+        else {
+            return items;
+        }
+    }
+
+    function ArrayQuickSortPartition(items: any[], left?: number, right?: number, sortWith?: any[][])
+        : {
+            items: any[];
+            sortWith: any[][];
+            index: number;
+        } {
+
+        var pivot = items[Math.floor((right + left) / 2)],
+            i = left,
+            j = right;
+
+
+        while (i <= j) {
+
+            while (items[i] < pivot) {
+                i++;
+            }
+
+            while (items[j] > pivot) {
+                j--;
+            }
+
+            if (i <= j) {
+                var swapResult = ArrayQuickSortSwap(items, i, j, sortWith);
+                items = swapResult.items;
+                sortWith = swapResult.sortWith;
+
+                i++;
+                j--;
+            }
+        }
+
+        return {
+            items: items,
+            sortWith: sortWith,
+            index: i,
+        };
+    }
+
+    function ArrayQuickSortSwap(items: any[], firstIndex: number, secondIndex: number, sortWith?: any[][]) {
+
+        var temp = items[firstIndex];
+        items[firstIndex] = items[secondIndex];
+        items[secondIndex] = temp;
+
+        if (sortWith != null) {
+            for (var i = 0; i < sortWith.length; i++) {
+
+                temp = sortWith[i][firstIndex];
+                sortWith[i][firstIndex] = sortWith[i][secondIndex];
+                sortWith[i][secondIndex] = temp;
+            }
+        }
+
+        return {
+            items: items,
+            sortWith: sortWith,
+        };
+    }
+
+    singArray.addExt('findValues', ArrayFindValues,
+        {
+            summary: null,
+            parameters: null,
+            returns: '',
+            returnType: null,
+            examples: null,
+            tests: function (ext) {
+            },
+        });
+
+    function ArrayFindValues(...names: string[]): any[] {
+
+        if (names.length == 1 && names[0].contains('.')) {
+            names = names[0].split('.');
+        }
+        if (names.length > 0) {
+            var name = names.shift();
+
+            var out = this.collect(function (item) {
+                if (!item || !item[name])
+                    return null;
+                else
+                    return item[name];
+            });
+
+            if (names.length > 0) {
+                return out.findValues.apply(out, names);
+            }
+            else {
+                return out;
+            }
+        }
 
         return [];
     }
 
-
-    sing.addArrayExt('exfiltrate', null,
+    singArray.addExt('removeAt', null,
         {
             summary: null,
             parameters: null,
@@ -652,7 +819,7 @@ function InitSingularityJS_Array() {
             tests: function (ext) {
             },
         });
-    sing.addArrayExt('removeAt', null,
+    singArray.addExt('unique', null,
         {
             summary: null,
             parameters: null,
@@ -662,7 +829,7 @@ function InitSingularityJS_Array() {
             tests: function (ext) {
             },
         });
-    sing.addArrayExt('unique', null,
+    singArray.addExt('random', null,
         {
             summary: null,
             parameters: null,
@@ -672,7 +839,7 @@ function InitSingularityJS_Array() {
             tests: function (ext) {
             },
         });
-    sing.addArrayExt('random', null,
+    singArray.addExt('shuffle', null,
         {
             summary: null,
             parameters: null,
@@ -682,7 +849,7 @@ function InitSingularityJS_Array() {
             tests: function (ext) {
             },
         });
-    sing.addArrayExt('shuffle', null,
+    singArray.addExt('fill', null,
         {
             summary: null,
             parameters: null,
@@ -692,7 +859,7 @@ function InitSingularityJS_Array() {
             tests: function (ext) {
             },
         });
-    sing.addArrayExt('fill', null,
+    singArray.addExt('index', null,
         {
             summary: null,
             parameters: null,
@@ -702,17 +869,7 @@ function InitSingularityJS_Array() {
             tests: function (ext) {
             },
         });
-    sing.addArrayExt('index', null,
-        {
-            summary: null,
-            parameters: null,
-            returns: '',
-            returnType: null,
-            examples: null,
-            tests: function (ext) {
-            },
-        });
-    sing.addArrayExt('group', null,
+    singArray.addExt('group', null,
         {
             summary: null,
             parameters: null,

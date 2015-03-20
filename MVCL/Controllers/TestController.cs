@@ -21,5 +21,10 @@ namespace MVCL.Controllers
         {
             return View();
         }
+
+        public ActionResult SingularityTest()
+        {
+            return View();
+        }
     }
 }

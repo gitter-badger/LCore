@@ -1,4 +1,5 @@
-﻿
+﻿/// <reference path="singularity-core.ts"/>
+
 interface Boolean {
     XOR?: (b: boolean) => boolean;
     toYesNo?: () => string;
@@ -11,10 +12,10 @@ interface Boolean {
 
     numericValueOf?: () => number;
     toStr?: (includeMarkup?: boolean) => string;
-    // log?: () => void;
+    log?: () => void;
 }
 
-/// <reference path="singularity-core.ts"/>
+var singBoolean = sing.addModule(new sing.Module("Boolean", Boolean));
 
 function InitSingularityJS_Boolean() {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -23,7 +24,7 @@ function InitSingularityJS_Boolean() {
     //
     //
 
-    sing.addBooleanExt('XOR', BooleanXOR,
+    singBoolean.addExt('XOR', BooleanXOR,
         {
             summary: "\
         XOR acts on a boolean to perform the binary XOR function on the passed Boolean",
@@ -71,7 +72,7 @@ function InitSingularityJS_Boolean() {
             (a == false && b == true);
     }
 
-    sing.addBooleanExt('XNOR', BooleanXNOR,
+    singBoolean.addExt('XNOR', BooleanXNOR,
         {
             summary: "\
         XNOR acts on a boolean to perform the binary XNOR function on the passed Boolean, the inverse of the XOR function",
@@ -116,7 +117,7 @@ function InitSingularityJS_Boolean() {
         return !this.XOR(b);
     }
 
-    sing.addBooleanExt('OR', BooleanOR,
+    singBoolean.addExt('OR', BooleanOR,
         {
             summary: "\
         OR acts on a boolean to perform the binary OR function on the passed Booleans",
@@ -164,7 +165,7 @@ function InitSingularityJS_Boolean() {
         return this == true || b.contains(true);
     }
 
-    sing.addBooleanExt('AND', BooleanAND,
+    singBoolean.addExt('AND', BooleanAND,
         {
             summary: "\
         AND acts on a boolean to perform the binary AND function on the passed Booleans",
@@ -212,7 +213,7 @@ function InitSingularityJS_Boolean() {
         return this == true && !b.contains(false);
     }
 
-    sing.addBooleanExt('NAND', BooleanNAND,
+    singBoolean.addExt('NAND', BooleanNAND,
         {
             summary: "\
         NAND acts on a boolean to perform the binary NAND function on the passed Booleans",
@@ -261,7 +262,7 @@ function InitSingularityJS_Boolean() {
         return !this.AND.apply(this, b);
     }
 
-    sing.addBooleanExt('NOR', BooleanNOR,
+    singBoolean.addExt('NOR', BooleanNOR,
         {
             summary: "\
         NOR acts on a boolean to perform the binary NOR function on the passed Booleans",
@@ -309,7 +310,7 @@ function InitSingularityJS_Boolean() {
         return !this.OR.apply(this, b);
     }
 
-    sing.addBooleanExt('toStr', BooleanToStr,
+    singBoolean.addExt('toStr', BooleanToStr,
         {
             summary: 'Converts the calling Boolean to string.',
             parameters: [
@@ -342,7 +343,7 @@ function InitSingularityJS_Boolean() {
         return this == false ? "false" : "true";
     }
 
-    sing.addBooleanExt('toYesNo', BooleanToYesNo,
+    singBoolean.addExt('toYesNo', BooleanToYesNo,
         {
             summary: "\
         toYesNo converts a Boolean to a string of 'Yes' or 'No'",
@@ -366,7 +367,20 @@ function InitSingularityJS_Boolean() {
         return this == false ? "No" : "Yes";
     }
 
-    sing.addBooleanExt('numericValueOf', BooleanToNumericValue);
+    singBoolean.addExt('numericValueOf', BooleanToNumericValue,
+        {
+            summary: 'Common funciton - Convert all common objects to numeric values',
+            parameters: [],
+            returns: 'Returns the numeric value of the calling Boolean',
+            returnType: Number,
+            examples: ['\
+            (true).numericValueOf()   //  == (1)  \r\n\
+            (false).numericValueOf()   //  == (0)  \r\n'],
+            tests: function (ext) {
+                ext.addTest(true, [], 1);
+                ext.addTest(false, [], 0);
+            }
+        });
 
     function BooleanToNumericValue(): number {
 
@@ -374,11 +388,29 @@ function InitSingularityJS_Boolean() {
             this === null)
             return -1;
 
-        if (this === false)
+        if (this.valueOf() === false)
             return 0;
 
-        if (this === true)
+        if (this.valueOf() === true)
             return 1;
     }
 
+    singBoolean.addExt('log', BooleanLog,
+        {
+            summary: 'Common funciton - Logs the calling Boolean to the console.',
+            parameters: [],
+            returns: 'Nothing.',
+            returnType: null,
+            examples: ['\
+            (true).log()   //  logs true  \r\n\
+            (false).log()   //  logs false  \r\n'],
+            tests: function (ext) {
+                ext.addTest(true, []);
+                ext.addTest(false, []);
+            }
+        });
+
+    function BooleanLog(): void {
+        log(this);
+    }
 }

@@ -1,4 +1,6 @@
 /// <reference path="singularity-core.ts"/>
+var singJQuery = sing.addModule(new sing.Module("jQuery", $, $));
+singJQuery.requiredDocumentation = false;
 /*
 //////////////////////////////////////////////////////
 //
@@ -7,7 +9,7 @@
 //
 */
 function InitSingularityJS_jQuery() {
-    sing.addjQueryFnExt('checked', Checked, {
+    singJQuery.addExt('checked', Checked, {
         summary: null,
         parameters: null,
         returns: '',
@@ -15,7 +17,7 @@ function InitSingularityJS_jQuery() {
         examples: null,
         tests: function (ext) {
         },
-    });
+    }, $.fn.prototype);
     function Checked() {
         var anyChecked = false;
         this.each(function () {
@@ -24,7 +26,7 @@ function InitSingularityJS_jQuery() {
         });
         return anyChecked;
     }
-    sing.addjQueryFnExt('allVisible', AllVisible, {
+    singJQuery.addExt('allVisible', AllVisible, {
         summary: null,
         parameters: null,
         returns: '',
@@ -32,7 +34,7 @@ function InitSingularityJS_jQuery() {
         examples: null,
         tests: function (ext) {
         },
-    });
+    }, $.fn.prototype);
     function AllVisible() {
         var allVisible = true;
         this.each(function () {
@@ -46,7 +48,7 @@ function InitSingularityJS_jQuery() {
         });
         return allVisible;
     }
-    sing.addjQueryFnExt('findIDNameSelector', FindIDNameSelector, {
+    singJQuery.addExt('findIDNameSelector', FindIDNameSelector, {
         summary: null,
         parameters: null,
         returns: '',
@@ -54,7 +56,7 @@ function InitSingularityJS_jQuery() {
         examples: null,
         tests: function (ext) {
         },
-    });
+    }, $.fn.prototype);
     function FindIDNameSelector(name) {
         var target = $();
         try {
@@ -76,7 +78,7 @@ function InitSingularityJS_jQuery() {
             }
         return target || $();
     }
-    sing.addjQueryFnExt('actionIf', ActionIf, {
+    singJQuery.addExt('actionIf', ActionIf, {
         summary: null,
         parameters: null,
         returns: '',
@@ -84,7 +86,7 @@ function InitSingularityJS_jQuery() {
         examples: null,
         tests: function (ext) {
         },
-    });
+    }, $.fn.prototype);
     function ActionIf(name) {
         var target = $(this);
         var ifTargetName = target.attr(name + '-if');
@@ -179,11 +181,7 @@ function InitSingularityJS_jQuery() {
         }
     }
     ;
-    //
-    //////////////////////////////////////////////////////
-    // MOVE to object extensions
-    //
-    sing.addjQueryExt('toStr', ToStr, {
+    singJQuery.addExt('toStr', ToStr, {
         summary: null,
         parameters: null,
         returns: '',
@@ -223,7 +221,7 @@ function InitSingularityJS_jQuery() {
             ext.addTest(undefined, [[false, false, false, false], false], 'No\r\nNo\r\nNo\r\nNo');
             ext.addTest(undefined, [[false, false, false, false], true], '[false, false, false, false]');
         },
-    });
+    }, $.fn.prototype);
     function ToStr(obj, includeMarkup) {
         if (includeMarkup === void 0) { includeMarkup = false; }
         if (obj === undefined)
@@ -250,7 +248,7 @@ function InitSingularityJS_jQuery() {
         }
         return obj;
     }
-    sing.addjQueryExt('isString', IsString, {
+    singJQuery.addExt('isString', IsString, {
         summary: null,
         parameters: null,
         returns: '',
@@ -268,7 +266,7 @@ function InitSingularityJS_jQuery() {
     function IsString(str) {
         return typeof str == 'string';
     }
-    sing.addjQueryExt('objEach', ObjectEach, {
+    singJQuery.addExt('objEach', ObjectEach, {
         summary: null,
         parameters: null,
         returns: '',
@@ -286,13 +284,13 @@ function InitSingularityJS_jQuery() {
             }, 'Executes for every element');
         },
     });
-    function ObjectEach(src, eachFunc) {
-        var keys = Object.keys(src);
+    function ObjectEach(obj, eachFunc) {
+        var keys = Object.keys(obj);
         keys.each(function (key, i) {
-            eachFunc(key, src[key], i);
+            eachFunc(key, obj[key], i);
         });
     }
-    sing.addjQueryExt('objProperties', ObjectProperties, {
+    singJQuery.addExt('objProperties', ObjectProperties, {
         summary: null,
         parameters: null,
         returns: '',
@@ -308,16 +306,16 @@ function InitSingularityJS_jQuery() {
             ext.addTest(undefined, [{ a: 1, b: 2 }], [{ key: 'a', value: 1 }, { key: 'b', value: 2 }]);
         },
     });
-    function ObjectProperties(src) {
-        if (src == null || !(typeof src == 'object'))
+    function ObjectProperties(obj) {
+        if (obj == null || !(typeof obj == 'object'))
             return [];
-        var keys = Object.keys(src);
+        var keys = Object.keys(obj);
         var values = keys.collect(function (item, i) {
-            return { key: item, value: src[item] };
+            return { key: item, value: obj[item] };
         });
         return values;
     }
-    sing.addjQueryExt('objValues', ObjectValues, {
+    singJQuery.addExt('objValues', ObjectValues, {
         summary: null,
         parameters: null,
         validateInput: false,
@@ -335,16 +333,16 @@ function InitSingularityJS_jQuery() {
             ext.addTest(undefined, [{ a: 1, b: 2 }], [1, 2]);
         },
     });
-    function ObjectValues(src) {
-        if (src == null || !(typeof src == 'object'))
+    function ObjectValues(obj) {
+        if (obj == null || !(typeof obj == 'object'))
             return [];
-        var keys = Object.keys(src);
+        var keys = Object.keys(obj);
         var values = keys.collect(function (item, i) {
-            return src[item];
+            return obj[item];
         });
         return values;
     }
-    sing.addjQueryExt('objKeys', ObjectKeys, {
+    singJQuery.addExt('objKeys', ObjectKeys, {
         summary: null,
         parameters: null,
         validateInput: false,
@@ -362,13 +360,29 @@ function InitSingularityJS_jQuery() {
             ext.addTest(undefined, [{ a: 1, b: 2 }], ['a', 'b']);
         },
     });
-    function ObjectKeys(src) {
-        if (src == null || !(typeof src == 'object'))
+    function ObjectKeys(obj) {
+        if (obj == null || !(typeof obj == 'object'))
             return [];
-        var keys = Object.keys(src);
+        var keys = Object.keys(obj);
         return keys;
     }
-    sing.addjQueryExt('resolve', ObjectResolve, {
+    singJQuery.addExt('objHasKey', ObjectHasKey, {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+    function ObjectHasKey(obj, key) {
+        if (obj == null || !(typeof obj == 'object'))
+            return false;
+        var keys = Object.keys(obj);
+        return keys.contains(key);
+    }
+    singJQuery.addExt('resolve', ObjectResolve, {
         summary: null,
         parameters: null,
         validateInput: false,
@@ -390,20 +404,331 @@ function InitSingularityJS_jQuery() {
             }], ['aa', 'bb']);
         },
     });
-    function ObjectResolve(src, args) {
-        if ($.isFunction(src))
-            return src.apply(null, args);
-        if ($.isArray(src) && src.length == 1)
-            return src[0];
-        return src;
+    function ObjectResolve(obj, args) {
+        if ($.isFunction(obj))
+            return obj.apply(null, args);
+        if ($.isArray(obj) && obj.length == 1)
+            return obj[0];
+        return obj;
     }
-    // $.isArray()
-    // $.isHash()
-    // $.isInt()
-    // $.isFloat()
-    // $.isNumber()
-    // $.toArray()
-    // $.wait();
-    // $.sleep();
+    /*
+    
+    // These Work
+
+    <div sing-template="ListTest">
+        <ul>
+            <li sing-loop="{{person in items}}">
+                <a>{{person.name}}</a>
+                <a>{{person.age}}</a>
+            </li>
+        </ul>
+    </div>
+
+    <div sing-template="ListTest">
+        <ul>
+            <li sing-loop="{{items}}">
+                <a>{{item.name}}</a>
+                <a>{{item.age}}</a>
+            </li>
+        </ul>
+    </div>
+    
+    <div sing-template="Test">
+        <a>{{name}}</a>
+        <a>{{age}}</a>
+    </div>
+    
+    // These should work
+
+    // IF
+    <div sing-if="{{item.isAlive}}">
+        <a>{{item.name}}</a>
+        <a>{{item.age}}</a>
+    </div>
+
+    // IF Operators
+    <div sing-if="{{item.age > 50}}">
+        <a>{{item.name}}</a>
+        <a>{{item.age}}</a>
+    </div>
+
+    // IF Operators OR
+    <div sing-if="{{item.age > 50 || item.age < 5 }}">
+        <a>{{item.name}}</a>
+        <a>{{item.age}}</a>
+    </div>
+
+    // IF Operators AND
+    <div sing-if="{{item.age > 50 && item.age != 67 }}">
+        <a>{{item.name}}</a>
+        <a>{{item.age}}</a>
+    </div>
+    
+    // FILTERS
+    <div sing-if="{{item.age : even}}">
+        <a>{{item.name}}</a>
+        <a>{{item.age}}</a>
+    </div>
+    
+    // FILTERS With Variables
+    <div sing-if="{{item.age : even}}">
+        <a>{{item.name}}</a>
+        <a>{{item.age}}</a>
+    </div>
+    
+    
+    // NESTED LOOPS
+    <div sing-template="ListTest">
+        <ul>
+            <li sing-loop="{{person in items}}">
+                <a>{{person.name}}</a>
+                <a>{{person.age}}</a>
+
+                <ul sing-if="{{person.friends}}">
+                    <li sing-loop={{friend in person.friends}}">
+                        <a>{{friend.name}}</a>
+                        <a>{{friend.age}}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    // INDEX (others)
+    <div sing-template="ListTest">
+        <ul>
+            <li sing-loop="{{person in items}}">
+                {{index}}
+
+                <a>{{person.name}}</a>
+                <a>{{person.age}}</a>
+            </li>
+        </ul>
+    </div>
+    
+    // Method Calls
+    <div sing-template="ListTest">
+        <ul>
+            <li sing-loop="{{person in items.getPeople()}}">
+                {{index}}
+
+                <a>{{person.name}}</a>
+                <a>{{person.age}}</a>
+            </li>
+        </ul>
+    </div>
+
+    // Method Calls with arguments
+
+    <div sing-template="ListTest">
+        <ul>
+            <li sing-loop="{{person in items.getPeople('fred')}}">
+                {{index}}
+
+                <a>{{person.name}}</a>
+                <a>{{person.age}}</a>
+            </li>
+        </ul>
+    </div>
+
+
+     */
+    singJQuery.addExt('getTemplate', ObjectGetTemplate, {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+    function ObjectGetTemplate(name, data) {
+        var template = $('*[sing-template=' + name + ']').clone();
+        if (!template || template.length == 0)
+            throw 'Template ' + name + ' not found.';
+        if (data != null)
+            return template.fillTemplate(data).attr('sing-template-data', 'true');
+        return template;
+    }
+    singJQuery.addExt('fillTemplate', ObjectFillTemplate, {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        tests: function (ext) {
+        },
+    }, $.fn.prototype);
+    function ObjectFillTemplate(data, itemKey, itemData) {
+        if (itemKey === void 0) { itemKey = ''; }
+        var template = (this.clone());
+        var loops = template.find('*[sing-loop]');
+        log('loops', loops);
+        for (var i = 0; i < loops.length; i++) {
+            var loop = $(loops[i]);
+            var loopKey = loop.attr('sing-loop');
+            if (loopKey.startsWith(sing.templateStart))
+                loopKey = loopKey.substr(sing.templateStart.length);
+            if (loopKey.endsWith(sing.templateEnd))
+                loopKey = loopKey.substr(0, loopKey.length - sing.templateEnd.length);
+            var itemKey = 'item';
+            var loopDataKey = itemKey;
+            if (loopKey.contains(' in ')) {
+                itemKey = loopKey.split(' in ')[0];
+                loopKey = loopKey.split(' in ')[1];
+            }
+            var loopData = [data].findValues(loopKey);
+            log('loop', loop, loopKey, itemKey, loopData);
+            if (loopData == null || loopData.length == 0) {
+            }
+            else {
+                if ($.isArray(loopData)) {
+                    for (var i = 0; i < loopData.length; i++) {
+                        var loopClone = loop.clone().removeAttr('sing-loop');
+                        loopClone = loopClone.fillTemplate(data, itemKey, loopData[i]);
+                        loop.before(loopClone);
+                    }
+                }
+            }
+            loop.remove();
+        }
+        // template attrs
+        /*
+        var attrs = template.getAttributes() || [];
+        for (var attr in attrs) {
+            if (attr.value.contains(sing.templateStart) && attr.value.contains(sing.templateEnd)) {
+                template.attr(attr.name, attr.value.templateInject(data, itemKey, itemData))
+            }
+        }
+        */
+        // template contents
+        var html = template.html();
+        var templateReplace = html.templateInject(data, itemKey, itemData);
+        log(data, itemKey, itemData, html, templateReplace);
+        template.html(templateReplace);
+        // template children
+        return template;
+    }
+    singJQuery.addExt('getAttributes', GetAttributes, {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        tests: function (ext) {
+        },
+    }, $.fn.prototype);
+    function GetAttributes() {
+        var out = [];
+        this.each(function (item) {
+            var attrOut = [];
+            var props = $.objProperties(this.attributes);
+            for (var i = 0; i < props.length; i++) {
+                if (props[i].key != 'length')
+                    attrOut.push(props[i].value);
+            }
+            if (attrOut.length > 0)
+                out.push(attrOut);
+        });
+        if (out.length == 1)
+            return out.collect(function (item) {
+                return item.collect(function (item) {
+                    return {
+                        name: item.nodeName,
+                        value: item.nodeValue,
+                    };
+                });
+            });
+        return out.collect(function (item) {
+            return {
+                name: item.nodeName,
+                value: item.nodeValue,
+            };
+        });
+    }
+    singJQuery.addExt('isArray', null, {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+    singJQuery.addExt('isHash', null, {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+    singJQuery.addExt('isInt', null, {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+    singJQuery.addExt('isFloat', null, {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+    singJQuery.addExt('isNumber', null, {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+    singJQuery.addExt('toArray', null, {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+    singJQuery.addExt('sleep', null, {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        aliases: ['wait'],
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+    singJQuery.addExt('isDefined', null, {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        tests: function (ext) {
+        },
+    });
 }
 //# sourceMappingURL=singularity-jquery.js.map
