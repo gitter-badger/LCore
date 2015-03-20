@@ -3,7 +3,7 @@ var singDocs = sing.addModule(new sing.Module('Singularity.Documentation', sing,
 singDocs.requiredDocumentation = false;
 singDocs.requiredUnitTests = false;
 function InitSingularityDocs() {
-    singTests.addExt('getDocs', SingularityGetDocs);
+    singDocs.addExt('getDocs', SingularityGetDocs);
     function SingularityGetDocs(funcName, includeCode, includeDocumentation) {
         if (includeCode === void 0) { includeCode = false; }
         if (includeDocumentation === void 0) { includeDocumentation = true; }
@@ -146,7 +146,7 @@ function InitSingularityDocs() {
         return header + out;
     }
     ;
-    singTests.addExt('getMissing', SingularityGetMissing);
+    singDocs.addExt('getMissing', SingularityGetMissing);
     function SingularityGetMissing(funcName) {
         this.resolveTests();
         var featuresCount = 0;
@@ -195,7 +195,7 @@ function InitSingularityDocs() {
         return header + out;
     }
     ;
-    singTests.addExt('getSummary', SingularityGetSummary);
+    singDocs.addExt('getSummary', SingularityGetSummary);
     function SingularityGetSummary(funcName, includeFunctions) {
         if (funcName === void 0) { funcName = 'all'; }
         if (includeFunctions === void 0) { includeFunctions = true; }

@@ -594,16 +594,21 @@
     <TypeScriptCompile Include="Scripts\definitions\jquery.timepicker.d.ts" />
     <TypeScriptCompile Include="Scripts\definitions\jquery.cookie.d.ts" />
     <TypeScriptCompile Include="Scripts\mvcl.ts" />
-    <TypeScriptCompile Include="Scripts\singularity-doc.ts" />
-    <TypeScriptCompile Include="Scripts\singularity-tests.ts" />
-    <TypeScriptCompile Include="Scripts\singularity-html.ts" />
-    <TypeScriptCompile Include="Scripts\singularity-jquery.ts" />
-    <TypeScriptCompile Include="Scripts\singularity-js-boolean.ts" />
-    <TypeScriptCompile Include="Scripts\singularity-js-number.ts" />
-    <TypeScriptCompile Include="Scripts\singularity-js-string.ts" />
-    <TypeScriptCompile Include="Scripts\singularity-js-date.ts" />
-    <TypeScriptCompile Include="Scripts\singularity-js-function.ts" />
-    <TypeScriptCompile Include="Scripts\singularity-js-array.ts" />
+    <TypeScriptCompile Include="Scripts\singularity\singularity-enumerable.ts" />
+    <TypeScriptCompile Include="Scripts\singularity\singularity-templates.ts" />
+    <TypeScriptCompile Include="Scripts\singularity\singularity-regexp.ts" />
+    <TypeScriptCompile Include="Scripts\singularity\singularity-text-bbcode.ts" />
+    <TypeScriptCompile Include="Scripts\singularity\singularity-doc.ts" />
+    <TypeScriptCompile Include="Scripts\singularity\singularity-object.ts" />
+    <TypeScriptCompile Include="Scripts\singularity\singularity-tests.ts" />
+    <TypeScriptCompile Include="Scripts\singularity\singularity-html.ts" />
+    <TypeScriptCompile Include="Scripts\singularity\singularity-jquery.ts" />
+    <TypeScriptCompile Include="Scripts\singularity\singularity-js-boolean.ts" />
+    <TypeScriptCompile Include="Scripts\singularity\singularity-js-number.ts" />
+    <TypeScriptCompile Include="Scripts\singularity\singularity-js-string.ts" />
+    <TypeScriptCompile Include="Scripts\singularity\singularity-js-date.ts" />
+    <TypeScriptCompile Include="Scripts\singularity\singularity-js-function.ts" />
+    <TypeScriptCompile Include="Scripts\singularity\singularity-js-array.ts" />
     <Content Include="Scripts\qTip.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -835,7 +840,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\definitions\jqueryui.d.ts" />
     <TypeScriptCompile Include="Scripts\definitions\jquery.d.ts" />
-    <TypeScriptCompile Include="Scripts\singularity-core.ts" />
+    <TypeScriptCompile Include="Scripts\singularity\singularity-core.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

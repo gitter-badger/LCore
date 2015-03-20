@@ -160,48 +160,65 @@ WriteLiteral("\r\n<div class=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\
 "100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n\r\n                $(\'#singularity-tests-" +
 "module\').html(sing.getSummary(\'Singularity.Tests.\', false, false).textToHTML().r" +
 "eplaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n                $(\'#singular" +
-"ity-output-boolean\').html(sing.getSummary(\'Boolean.\', false, false).textToHTML()" +
-".replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n                $(\'#singul" +
-"arity-output-number\').html(sing.getSummary(\'Number.\', false, false).textToHTML()" +
-".replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n                $(\'#singul" +
-"arity-output-string\').html(sing.getSummary(\'String.\', false, false).textToHTML()" +
-".replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n                $(\'#singul" +
-"arity-output-date\').html(sing.getSummary(\'Date.\', false, false).textToHTML().rep" +
-"laceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n                $(\'#singularit" +
-"y-output-array\').html(sing.getSummary(\'Array.\', false, false).textToHTML().repla" +
-"ceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n                $(\'#singularity-" +
-"output-jquery\').html(sing.getSummary(\'jQuery.\', false, false).textToHTML().repla" +
-"ceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n                $(\'#singularity-" +
-"output-function\').html(sing.getSummary(\'Function.\', false, false).textToHTML().r" +
-"eplaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n\r\n                $(\'#singul" +
-"arity-output-test-results\').html(sing.runTests().textToHTML().replaceAll(\'(100%)" +
-"\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n\r\n                $(\'#singularity-output-bbco" +
-"de-source\').html(sing.BBCodes.findValues(\'test\').joinLines().textToHTML().replac" +
-"eAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n                $(\'#singularity-o" +
-"utput-bbcode-results\').html(sing.BBCodes.findValues(\'test\').joinLines().bbCodesT" +
-"oHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n            });\r\n  " +
-"      </script>\r\n        <div id=\"singularity-output\"></div>\r\n    </div>\r\n</div>" +
-"\r\n\r\n<div class=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\n        <h3>Singulari" +
-"ty - Tests</h3>\r\n        <div id=\"singularity-tests-module\"></div>\r\n    </div>\r\n" +
-"</div>\r\n\r\n<div class=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\n        <h3>Boo" +
-"lean</h3>\r\n        <div id=\"singularity-output-boolean\"></div>\r\n    </div>\r\n</di" +
-"v>\r\n\r\n<div class=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\n        <h3>Number<" +
-"/h3>\r\n        <div id=\"singularity-output-number\"></div>\r\n    </div>\r\n</div>\r\n\r\n" +
-"<div class=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\n        <h3>String</h3>\r\n" +
-"        <div id=\"singularity-output-string\"></div>\r\n    </div>\r\n</div>\r\n\r\n<div c" +
-"lass=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\n        <h3>Date</h3>\r\n        " +
-"<div id=\"singularity-output-date\"></div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl" +
-"-test singularity-test\">\r\n\r\n    <div>\r\n        <h3>Array</h3>\r\n        <div id=\"" +
-"singularity-output-array\"></div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test si" +
-"ngularity-test\">\r\n\r\n    <div>\r\n        <h3>jQuery</h3>\r\n        <div id=\"singula" +
-"rity-output-jquery\"></div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test singular" +
-"ity-test\">\r\n\r\n    <div>\r\n        <h3>Function</h3>\r\n        <div id=\"singularity" +
-"-output-function\"></div>\r\n    </div>\r\n</div>\r\n\r\n\r\n<div class=\"mvcl-test singular" +
-"ity-test\">\r\n\r\n    <div>\r\n        <h3>BBCode Support</h3>\r\n        <div id=\"singu" +
-"larity-output-bbcode-source\"></div>\r\n        <hr />\r\n        <div id=\"singularit" +
-"y-output-bbcode-results\"></div>\r\n    </div>\r\n</div>\r\n\r\n\r\n<div class=\"mvcl-test s" +
-"ingularity-test\">\r\n\r\n    <div>\r\n        <h3>Test Results</h3>\r\n        <div id=\"" +
-"singularity-output-test-results\"></div>\r\n    </div>\r\n</div>\r\n");
+"ity-docs-module\').html(sing.getSummary(\'Singularity.Documentation.\', false, fals" +
+"e).textToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n           " +
+"     $(\'#singularity-enumerable-module\').html(sing.getSummary(\'Singularity.Enume" +
+"rable.\', false, false).textToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)<" +
+"/b>\'));\r\n                $(\'#singularity-bbcode-module\').html(sing.getSummary(\'S" +
+"ingularity.BBCode.\', false, false).textToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;" +
+"100%&nbsp;)</b>\'));\r\n                $(\'#singularity-regexp-module\').html(sing.g" +
+"etSummary(\'Singularity.RegExp.\', false, false).textToHTML().replaceAll(\'(100%)\'," +
+" \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n                $(\'#singularity-templates-modul" +
+"e\').html(sing.getSummary(\'Singularity.Templates.\', false, false).textToHTML().re" +
+"placeAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n                \r\n\r\n         " +
+"       $(\'#singularity-output-boolean\').html(sing.getSummary(\'Boolean.\', false, " +
+"false).textToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n       " +
+"         $(\'#singularity-output-number\').html(sing.getSummary(\'Number.\', false, " +
+"false).textToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n       " +
+"         $(\'#singularity-output-string\').html(sing.getSummary(\'String.\', false, " +
+"false).textToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n       " +
+"         $(\'#singularity-output-date\').html(sing.getSummary(\'Date.\', false, fals" +
+"e).textToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n           " +
+"     $(\'#singularity-output-array\').html(sing.getSummary(\'Array.\', false, false)" +
+".textToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n             " +
+"   $(\'#singularity-output-jquery\').html(sing.getSummary(\'jQuery.\', false, false)" +
+".textToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n             " +
+"   $(\'#singularity-output-function\').html(sing.getSummary(\'Function.\', false, fa" +
+"lse).textToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n\r\n       " +
+"         $(\'#singularity-output-test-results\').html(sing.runTests().textToHTML()" +
+".replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n\r\n                $(\'#sing" +
+"ularity-output-bbcode-source\').html(sing.BBCodes.arrayValues(\'test\').joinLines()" +
+".textToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n             " +
+"   $(\'#singularity-output-bbcode-results\').html(sing.BBCodes.arrayValues(\'test\')" +
+".joinLines().bbCodesToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));" +
+"\r\n            });\r\n        </script>\r\n        <h1>Singularity</h1>\r\n        <div" +
+" id=\"singularity-output\"></div>\r\n        <h2>Modules</h2>\r\n        <h3>- Tests</" +
+"h3>\r\n        <div id=\"singularity-tests-module\"></div>\r\n        <h3>- Documentat" +
+"ion</h3>\r\n        <div id=\"singularity-docs-module\"></div>\r\n        <h3>- BBCode" +
+"</h3>\r\n        <div id=\"singularity-bbcode-module\"></div>\r\n    </div>\r\n</div>\r\n\r" +
+"\n<div class=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\n        <h3>Enumerable</" +
+"h3>\r\n        <div id=\"singularity-enumerable-module\"></div>\r\n    </div>\r\n</div>\r" +
+"\n\r\n<div class=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\n        <h3>Boolean</h" +
+"3>\r\n        <div id=\"singularity-output-boolean\"></div>\r\n    </div>\r\n</div>\r\n\r\n<" +
+"div class=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\n        <h3>Number</h3>\r\n " +
+"       <div id=\"singularity-output-number\"></div>\r\n    </div>\r\n</div>\r\n\r\n<div cl" +
+"ass=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\n        <h3>String</h3>\r\n       " +
+" <div id=\"singularity-output-string\"></div>\r\n        <h3>- RegExp</h3>\r\n        " +
+"<div id=\"singularity-regexp-module\"></div>\r\n        <h3>- Templates</h3>\r\n      " +
+"  <div id=\"singularity-templates-module\"></div>\r\n    </div>\r\n</div>\r\n\r\n<div clas" +
+"s=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\n        <h3>Date</h3>\r\n        <di" +
+"v id=\"singularity-output-date\"></div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-te" +
+"st singularity-test\">\r\n\r\n    <div>\r\n        <h3>Array</h3>\r\n        <div id=\"sin" +
+"gularity-output-array\"></div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test singu" +
+"larity-test\">\r\n\r\n    <div>\r\n        <h3>jQuery</h3>\r\n        <div id=\"singularit" +
+"y-output-jquery\"></div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test singularity" +
+"-test\">\r\n\r\n    <div>\r\n        <h3>Function</h3>\r\n        <div id=\"singularity-ou" +
+"tput-function\"></div>\r\n    </div>\r\n</div>\r\n\r\n\r\n<div class=\"mvcl-test singularity" +
+"-test\">\r\n\r\n    <div>\r\n        <h3>BBCode Support</h3>\r\n        <div id=\"singular" +
+"ity-output-bbcode-source\"></div>\r\n        <hr />\r\n        <div id=\"singularity-o" +
+"utput-bbcode-results\"></div>\r\n    </div>\r\n</div>\r\n\r\n\r\n<div class=\"mvcl-test sing" +
+"ularity-test\">\r\n\r\n    <div>\r\n        <h3>Test Results</h3>\r\n        <div id=\"sin" +
+"gularity-output-test-results\"></div>\r\n    </div>\r\n</div>\r\n");
 
 
         }

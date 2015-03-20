@@ -513,9 +513,9 @@ function InitSingularityJS_String() {
         log(out.toString(), match, sing.templatePattern);
         while (match != null && match.length > 0) {
             var key = match[1];
-            var values = [obj].findValues(key);
+            var values = [obj].arrayValues(key);
             if (itemKey != null && itemKey.length > 0 && key.startsWith(itemKey + '.')) {
-                values = [itemObj].findValues(key.substr(itemKey.length + 1));
+                values = [itemObj].arrayValues(key.substr(itemKey.length + 1));
                 if (!$.isArray(values))
                     values = [values];
             }

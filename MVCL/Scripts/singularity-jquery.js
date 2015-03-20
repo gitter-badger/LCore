@@ -333,14 +333,58 @@ function InitSingularityJS_jQuery() {
             ext.addTest(undefined, [{ a: 1, b: 2 }], [1, 2]);
         },
     });
-    function ObjectValues(obj) {
+    function ObjectValues(obj, findKeys) {
         if (obj == null || !(typeof obj == 'object'))
             return [];
-        var keys = Object.keys(obj);
-        var values = keys.collect(function (item, i) {
-            return obj[item];
-        });
-        return values;
+        if (findKeys != null && findKeys.length > 0) {
+            if ($.isArray(obj)) {
+                return obj.arrayValues.apply(obj, findKeys);
+            }
+            else {
+                return [obj].arrayValues.apply(obj, findKeys);
+            }
+        }
+        else {
+            var keys = Object.keys(obj);
+            var values = keys.collect(function (item, i) {
+                return obj[item];
+            });
+            return values;
+        }
+    }
+    singJQuery.addExt('arrayValues', ArrayFindValues, {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: null,
+        examples: null,
+        tests: function (ext) {
+        },
+    }, Array.prototype);
+    function ArrayFindValues() {
+        var names = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            names[_i - 0] = arguments[_i];
+        }
+        if (names.length == 1 && names[0].contains('.')) {
+            names = names[0].split('.');
+        }
+        if (names.length > 0) {
+            var name = names.shift();
+            var out = this.collect(function (item) {
+                if (!item || !item[name])
+                    return null;
+                else
+                    return item[name];
+            });
+            if (names.length > 0) {
+                return out.findValues.apply(out, names);
+            }
+            else {
+                return out;
+            }
+        }
+        return [];
     }
     singJQuery.addExt('objKeys', ObjectKeys, {
         summary: null,
@@ -579,7 +623,7 @@ function InitSingularityJS_jQuery() {
                 itemKey = loopKey.split(' in ')[0];
                 loopKey = loopKey.split(' in ')[1];
             }
-            var loopData = [data].findValues(loopKey);
+            var loopData = [data].arrayValues(loopKey);
             log('loop', loop, loopKey, itemKey, loopData);
             if (loopData == null || loopData.length == 0) {
             }

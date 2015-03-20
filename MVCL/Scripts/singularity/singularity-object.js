@@ -1,0 +1,1 @@
+//# sourceMappingURL=singularity-object.js.map

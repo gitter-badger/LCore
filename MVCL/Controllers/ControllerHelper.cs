@@ -225,6 +225,7 @@ namespace MVCL.Controllers
                 ContextProviderFactory.GetCurrent().GetModelPermissions(Session, t).Export == true;
         }
 
+
         public static void HandleError(HttpContextBase HttpContext, Exception Ex)
         {
             ModelContext Context = ContextProviderFactory.GetCurrent().GetContext(HttpContext.Session);
@@ -261,8 +262,6 @@ namespace MVCL.Controllers
                 }
             }
         }
-
-
 
         public static void WriteCSV(this HttpResponseBase Response, String[] CSVData, String FileName)
         {
@@ -339,17 +338,22 @@ namespace MVCL.Controllers
 
             #region Singularity
             bundles.Add(new ScriptBundle(Script_Singularity).Include(
-                        Root + "Scripts/singularity-core.js",
-                        Root + "Scripts/singularity-tests.js",
-                        Root + "Scripts/singularity-doc.js",
-                        Root + "Scripts/singularity-js-function.js",
-                        Root + "Scripts/singularity-js-array.js",
-                        Root + "Scripts/singularity-js-string.js",
-                        Root + "Scripts/singularity-js-number.js",
-                        Root + "Scripts/singularity-js-boolean.js",
-                        Root + "Scripts/singularity-js-date.js",
-                        Root + "Scripts/singularity-jquery.js",
-                        Root + "Scripts/singularity-html.js"));
+                        Root + "Scripts/singularity/singularity-core.js",
+                        Root + "Scripts/singularity/singularity-tests.js",
+                        Root + "Scripts/singularity/singularity-text-bbcode.js",
+                        Root + "Scripts/singularity/singularity-enumerable.js",
+                        Root + "Scripts/singularity/singularity-js-function.js",
+                        Root + "Scripts/singularity/singularity-js-array.js",
+                        Root + "Scripts/singularity/singularity-js-boolean.js",
+                        Root + "Scripts/singularity/singularity-js-number.js",
+                        Root + "Scripts/singularity/singularity-js-date.js",
+                        Root + "Scripts/singularity/singularity-js-string.js",
+                        Root + "Scripts/singularity/singularity-regexp.js",
+                        Root + "Scripts/singularity/singularity-templates.js",
+                        Root + "Scripts/singularity/singularity-object.js",
+                        Root + "Scripts/singularity/singularity-jquery.js",
+                        Root + "Scripts/singularity/singularity-html.js",
+                        Root + "Scripts/singularity/singularity-doc.js"));
 
             bundles.Add(new StyleBundle(Style_Singularity).Include(
                 Root + "Content/singularity.css"));

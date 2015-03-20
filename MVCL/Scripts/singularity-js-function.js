@@ -1,7 +1,6 @@
 /// <reference path="singularity-core.ts"/>
 var singFunction = sing.addModule(new sing.Module("Function", Function));
 singFunction.requiredDocumentation = false;
-singFunction.requiredUnitTests = false;
 function InitSingularityJS_Function() {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //

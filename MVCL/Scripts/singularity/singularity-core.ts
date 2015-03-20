@@ -1,6 +1,7 @@
-﻿/// <reference path="definitions/jquery.d.ts" />
-/// <reference path="definitions/jqueryui.d.ts" />
-/// <reference path="definitions/jquery.cookie.d.ts" />
+﻿/// <reference path="../definitions/jquery.d.ts" />
+/// <reference path="../definitions/jqueryui.d.ts" />
+/// <reference path="../definitions/jquery.cookie.d.ts" />
+/// <reference path="singularity-enumerable.ts"/>
 /// <reference path="singularity-js-number.ts"/>
 /// <reference path="singularity-js-string.ts"/>
 /// <reference path="singularity-js-array.ts"/>
@@ -217,9 +218,6 @@ class Singularity implements ISingularity {
 
     enableTests: boolean = true;
 
-    templatePattern = /.*\{\{(.+)\}\}.*/;
-    templateStart = '{{';
-    templateEnd = '}}';
 
     // Defaults to polyfill behavior, methods won't replace existing ones.
     // Set this to true or 'override: true' in the extension details to enable method overriding
@@ -348,18 +346,10 @@ class Singularity implements ISingularity {
     init = function () {
         $.noConflict();
 
-        InitSingularityTests();
-        InitSingularityDocs();
-
-
-        InitSingularityJS_Function();
-        InitSingularityJS_Array();
-        InitSingularityJS_Boolean();
-        InitSingularityJS_Number();
-        InitSingularityJS_String();
-        InitSingularityJS_Date();
-
-        InitSingularityJS_jQuery();
+        for (var mod in this.modules) {
+            if (this.modules[mod].init)
+                this.modules[mod].init();
+        }
 
         InitHTMLExtensions();
 
@@ -383,6 +373,12 @@ class Singularity implements ISingularity {
     getSummary: (funcName?: string, includeFunctions?: boolean) => string;
     getMissing: (funcName?: string) => string;
     BBCodes: BBCode[];
+
+    // From Singularity.Templates
+
+    templatePattern: RegExp;
+    templateStart: string;
+    templateEnd: string;
 }
 
 class SingularityModule {
@@ -396,7 +392,7 @@ class SingularityModule {
             details: details,
             extendPrototype: extendPrototype,
         });
-        sing.addExt(this.name, extName, extendPrototype, method, details);
+        //    sing.addExt(this.name, extName, extendPrototype, method, details);
     };
 
     getExtensions = function (extName?: string) {
@@ -895,6 +891,8 @@ class SingularityExtension {
 
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 interface SingularityExtensionDetails {
 
     summary?: string;
@@ -930,10 +928,11 @@ interface SingularityParameter {
     description?: string;
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 var sing = new Singularity();
 
 var singModule = sing.addModule(new SingularityModule('Singularity', Singularity));
-
 
 $().init(function () {
     sing.init();

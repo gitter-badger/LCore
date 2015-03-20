@@ -1,6 +1,7 @@
-/// <reference path="definitions/jquery.d.ts" />
-/// <reference path="definitions/jqueryui.d.ts" />
-/// <reference path="definitions/jquery.cookie.d.ts" />
+/// <reference path="../definitions/jquery.d.ts" />
+/// <reference path="../definitions/jqueryui.d.ts" />
+/// <reference path="../definitions/jquery.cookie.d.ts" />
+/// <reference path="singularity-enumerable.ts"/>
 /// <reference path="singularity-js-number.ts"/>
 /// <reference path="singularity-js-string.ts"/>
 /// <reference path="singularity-js-array.ts"/>
@@ -27,9 +28,6 @@ var Singularity = (function () {
         this.Extension = SingularityExtension;
         this.AutoDefinition = SingularityAutoDefinition;
         this.enableTests = true;
-        this.templatePattern = /.*\{\{(.+)\}\}.*/;
-        this.templateStart = '{{';
-        this.templateEnd = '}}';
         // Defaults to polyfill behavior, methods won't replace existing ones.
         // Set this to true or 'override: true' in the extension details to enable method overriding
         this.defaultPolyfill = true;
@@ -119,15 +117,10 @@ var Singularity = (function () {
         };
         this.init = function () {
             $.noConflict();
-            InitSingularityTests();
-            InitSingularityDocs();
-            InitSingularityJS_Function();
-            InitSingularityJS_Array();
-            InitSingularityJS_Boolean();
-            InitSingularityJS_Number();
-            InitSingularityJS_String();
-            InitSingularityJS_Date();
-            InitSingularityJS_jQuery();
+            for (var mod in this.modules) {
+                if (this.modules[mod].init)
+                    this.modules[mod].init();
+            }
             InitHTMLExtensions();
             InitFields();
         };
@@ -149,7 +142,7 @@ var SingularityModule = (function () {
                 details: details,
                 extendPrototype: extendPrototype,
             });
-            sing.addExt(this.name, extName, extendPrototype, method, details);
+            //    sing.addExt(this.name, extName, extendPrototype, method, details);
         };
         this.getExtensions = function (extName) {
             return $.objValues(sing.extensions).where(function (ext) {

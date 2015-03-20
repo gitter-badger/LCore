@@ -2,7 +2,6 @@
 /// <reference path="singularity-tests.ts"/>
 var singArray = sing.addModule(new sing.Module("Array", Array));
 singArray.requiredDocumentation = false;
-singArray.requiredUnitTests = false;
 function InitSingularityJS_Array() {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -557,40 +556,6 @@ function InitSingularityJS_Array() {
             items: items,
             sortWith: sortWith,
         };
-    }
-    singArray.addExt('findValues', ArrayFindValues, {
-        summary: null,
-        parameters: null,
-        returns: '',
-        returnType: null,
-        examples: null,
-        tests: function (ext) {
-        },
-    });
-    function ArrayFindValues() {
-        var names = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            names[_i - 0] = arguments[_i];
-        }
-        if (names.length == 1 && names[0].contains('.')) {
-            names = names[0].split('.');
-        }
-        if (names.length > 0) {
-            var name = names.shift();
-            var out = this.collect(function (item) {
-                if (!item || !item[name])
-                    return null;
-                else
-                    return item[name];
-            });
-            if (names.length > 0) {
-                return out.findValues.apply(out, names);
-            }
-            else {
-                return out;
-            }
-        }
-        return [];
     }
     singArray.addExt('removeAt', null, {
         summary: null,
