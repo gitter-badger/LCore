@@ -267,6 +267,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Index.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Templates\Templates2.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Templates.html</DependentUpon>
+    </Compile>
     <Compile Include="Views\Test\SingularityTest1.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -590,6 +595,10 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>SingularityTest1.generated.cs</LastGenOutput>
     </Content>
+    <Content Include="Templates\Templates.html">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Templates2.generated.cs</LastGenOutput>
+    </Content>
     <TypeScriptCompile Include="Scripts\definitions\chance.d.ts" />
     <TypeScriptCompile Include="Scripts\definitions\jquery.timepicker.d.ts" />
     <TypeScriptCompile Include="Scripts\definitions\jquery.cookie.d.ts" />
@@ -848,6 +857,10 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />

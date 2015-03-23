@@ -7,12 +7,12 @@ interface ISingularityDocs {
     getMissing?: (funcName?: string) => string;
 }
 
-var singDocs = sing.addModule(new sing.Module('Singularity.Documentation', sing, sing));
+var singDocs = singModule.addModule(new sing.Module('Documentation', sing, sing));
 
 singDocs.requiredDocumentation = false;
 singDocs.requiredUnitTests = false;
 
-singDocs.addExt('getDocs', SingularityGetDocs);
+singDocs.method('getDocs', SingularityGetDocs);
 
 function SingularityGetDocs(funcName?: string, includeCode: boolean = false, includeDocumentation: boolean = true) {
 
@@ -38,15 +38,20 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
 
     var out = '';
 
-    $.objEach(sing.extensions, function (key, ext: SingularityExtension, index) {
+    $.objEach(sing.methods, function (key, ext: SingularityMethod, index) {
 
         var mod = sing.modules[ext.moduleName];
 
         if (funcName &&
             funcName.lower() != '' &&
             funcName.lower() != 'all' &&
-            !ext.name.lower().contains(funcName.lower()))
+            !ext.name.lower().startsWith(funcName.lower()))
             return;
+
+        if (ext.isAlias) {
+            return;
+        }
+
 
         featuresCount += 1; // method
 
@@ -80,9 +85,11 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
 
         if (ext.details) {
 
+
             // Don't display details for alias functions, aliases are listed under the main function
-            if (ext.isAlias && includeDocumentation == true)
+            if (ext.isAlias && includeDocumentation == true) {
                 return;
+            }
 
             out += '\r\n';
 
@@ -138,12 +145,12 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
                 var methodTestsFound = 0;
                 var methodTestsPassed = 0;
 
-                for (var i = 0; i < sing.extensions[ext.name].details.unitTests.length; i++) {
+                for (var i = 0; i < sing.methods[ext.name].details.unitTests.length; i++) {
 
                     methodTestsFound++;
                     testsFound++;
 
-                    var test = sing.extensions[ext.name].details.unitTests[i];
+                    var test = sing.methods[ext.name].details.unitTests[i];
 
                     if (!test) {
                         continue;
@@ -220,7 +227,7 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
     return header + out;
 };
 
-singDocs.addExt('getMissing', SingularityGetMissing);
+singDocs.method('getMissing', SingularityGetMissing);
 
 function SingularityGetMissing(funcName?: string) {
 
@@ -235,7 +242,7 @@ function SingularityGetMissing(funcName?: string) {
     var header = 'Singularity.TS TypeScript, JavaScript, jQuery, HTML, Extension Method Engine & Library\r\n';
     var out = '';
 
-    $.objEach(sing.extensions, function (key: string, ext: SingularityExtension, i: number) {
+    $.objEach(sing.methods, function (key: string, ext: SingularityMethod, i: number) {
 
         if (funcName &&
             funcName.lower() != '' &&
@@ -293,7 +300,7 @@ function SingularityGetMissing(funcName?: string) {
 
 };
 
-singDocs.addExt('getSummary', SingularityGetSummary);
+singDocs.method('getSummary', SingularityGetSummary);
 
 function SingularityGetSummary(funcName: string = 'all', includeFunctions: boolean = true) {
 
@@ -302,7 +309,7 @@ function SingularityGetSummary(funcName: string = 'all', includeFunctions: boole
     out += '\r\n';
 
     if (includeFunctions) {
-        $.objEach(sing.extensions, function (key, ext, i) {
+        $.objEach(sing.methods, function (key, ext, i) {
 
             if (funcName &&
                 funcName.lower() != '' &&

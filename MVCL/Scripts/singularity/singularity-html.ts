@@ -214,11 +214,11 @@
 // #endregion Comments
 
 
-var singHTML = sing.addModule(new sing.Module('Singularity.HTML', String));
+var singHTML = singModule.addModule(new sing.Module('HTML', String));
 
 singHTML.requiredDocumentation = false;
 
-singHTML.addExt('textToHTML', StringTextToHTML,
+singHTML.method('textToHTML', StringTextToHTML,
     {
         summary: null,
         parameters: null,
@@ -237,7 +237,7 @@ function StringTextToHTML(): string {
 }
 
 
-singHTML.addExt('stripHTML', StringStripHTML,
+singHTML.method('stripHTML', StringStripHTML,
     {
         summary: null,
         parameters: null,
@@ -260,7 +260,7 @@ function StringStripHTML() {
 }
 
 
-singHTML.addExt('getAttributes', GetAttributes,
+singHTML.method('getAttributes', GetAttributes,
     {
         summary: null,
         parameters: null,
@@ -270,7 +270,7 @@ singHTML.addExt('getAttributes', GetAttributes,
         examples: null,
         tests: function (ext) {
         },
-    }, $.fn.prototype);
+    }, $.fn);
 
 function GetAttributes(): IKeyValue<string, string>[]| IKeyValue<string, string>[][] {
 

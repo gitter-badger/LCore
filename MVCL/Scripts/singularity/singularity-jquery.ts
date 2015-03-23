@@ -16,13 +16,13 @@ interface JQuery {
     allVisible?: () => boolean;
     actionIf?: (name: string) => boolean;
 
-    fillTemplate?: (data: Object, itemKey?: string, itemData?: Object) => JQuery;
+    hasAttr?: (name: string) => boolean;
 
     getAttributes?: () => IKeyValue<string, string>[]| IKeyValue<string, string>[][];
 }
 
 
-var singJQuery = sing.addModule(new sing.Module("jQuery", $, $));
+var singJQuery = singModule.addModule(new sing.Module("jQuery", $, $));
 
 singJQuery.requiredDocumentation = false;
 
@@ -34,7 +34,7 @@ singJQuery.requiredDocumentation = false;
 //
 */
 
-singJQuery.addExt('checked', Checked,
+singJQuery.method('checked', Checked,
     {
         summary: null,
         parameters: null,
@@ -43,7 +43,7 @@ singJQuery.addExt('checked', Checked,
         examples: null,
         tests: function (ext) {
         },
-    }, $.fn.prototype);
+    }, $.fn);
 
 function Checked() {
     var anyChecked = false;
@@ -56,7 +56,7 @@ function Checked() {
     return anyChecked;
 }
 
-singJQuery.addExt('allVisible', AllVisible,
+singJQuery.method('allVisible', AllVisible,
     {
         summary: null,
         parameters: null,
@@ -65,7 +65,7 @@ singJQuery.addExt('allVisible', AllVisible,
         examples: null,
         tests: function (ext) {
         },
-    }, $.fn.prototype);
+    }, $.fn);
 
 function AllVisible() {
 
@@ -86,7 +86,7 @@ function AllVisible() {
     return allVisible;
 }
 
-singJQuery.addExt('findIDNameSelector', FindIDNameSelector,
+singJQuery.method('findIDNameSelector', FindIDNameSelector,
     {
         summary: null,
         parameters: null,
@@ -95,7 +95,7 @@ singJQuery.addExt('findIDNameSelector', FindIDNameSelector,
         examples: null,
         tests: function (ext) {
         },
-    }, $.fn.prototype);
+    }, $.fn);
 
 function FindIDNameSelector(name) {
 
@@ -118,7 +118,7 @@ function FindIDNameSelector(name) {
     return target || $();
 }
 
-singJQuery.addExt('actionIf', ActionIf,
+singJQuery.method('actionIf', ActionIf,
     {
         summary: null,
         parameters: null,
@@ -127,7 +127,7 @@ singJQuery.addExt('actionIf', ActionIf,
         examples: null,
         tests: function (ext) {
         },
-    }, $.fn.prototype);
+    }, $.fn);
 
 function ActionIf(name) {
 
@@ -236,7 +236,7 @@ function ActionIf(name) {
     }
 };
 
-singJQuery.addExt('defer', Defer,
+singJQuery.method('defer', Defer,
     {
         summary: null,
         parameters: null,
@@ -253,3 +253,44 @@ function Defer(deferFunc: Function): void {
     if (deferFunc)
         setTimeout(deferFunc, 0);
 }
+
+singJQuery.method('hasAttr', JQueryHasAttr,
+    {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        tests: function (ext) {
+        },
+    }, $.fn);
+
+function JQueryHasAttr(name: string): boolean {
+
+    return $(this).attr(name) !== undefined;
+}
+
+
+singJQuery.method('outerHtml', JQueryOuterHtml,
+    {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        tests: function (ext) {
+        },
+    }, $.fn);
+
+function JQueryOuterHtml(): string {
+
+    if (!this || this.length == 0) {
+        return '';
+    }
+    else {
+        return this[0].outerHTML;
+    }
+}
+

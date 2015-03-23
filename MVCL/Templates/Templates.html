@@ -1,0 +1,112 @@
+﻿
+
+
+<div sing-template="Singularity">
+    <h1>&#8226; Singularity</h1>
+
+    <p sing-if="{{sing.summary}}">{{sing.summary}}</p>
+    <p sing-else>No Summary</p>
+
+    <div sing-loop="{{ module in sing.modules }}">
+        <div sing-fill="{{ Module with module }}"></div>
+        <hr />
+    </div>
+</div>
+
+<div sing-template="Module">
+    <h2>{{module.name}}</h2>
+
+    <div>
+        Methods Implemented:
+        <span sing-if="{{module.methods}}" class="right">
+            {{module.implementedMethodCount()}}
+            /
+            {{module.methods.length}}
+
+            ({{module.implementedMethodCount().percentOf(module.methods.length, 2)}}%)
+        </span>
+    </div>
+
+    <div sing-if="{{module.requiredUnitTests}}">
+        <div>
+            Unit Tests Implemented:
+            <span sing-if="{{module.methods}}" class="right">
+                {{module.implementedMethodTests()}}
+                /
+                {{module.methods.length}}
+
+                ({{module.implementedMethodTests().percentOf(module.implementedMethodCount(), 2) }}%)
+            </span>
+        </div>
+        <div>
+            Unit Tests Passed:
+            <span sing-if="{{module.methods}}" class="right">
+                {{module.passedMethodTests()}}
+                /
+                {{module.methods.length}}
+
+                ({{module.passedMethodTests().percentOf(module.implementedTestsCount()) }}%)
+            </span>
+        </div>
+
+    </div>
+
+    <div sing-if="{{module.requiredDocumentation}}">
+        <div>
+            Documentation:
+            <span sing-if="{{module.methods}}" class="right">
+                {{module.implementedDocumentation()}}
+                /
+                {{module.totalDocumentation()}}
+
+                ({{module.implementedDocumentation().percentOf(module.totalDocumentation(), 2) }}%)
+            </span>
+        </div>
+    </div>
+    <div>
+        Total:
+        <span sing-if="{{module.methods}}" class="right">
+            {{module.implementedItems()}}
+            /
+            {{module.totalItems()}}
+
+            ({{module.implementedItems().percentOf(module.totalItems(), 2) }}%)
+        </span>
+    </div>
+
+
+    <div sing-loop="{{ method in module.methods }}">
+        <div sing-fill="{{ Method with method }}"></></div>
+    </div>
+
+</div>
+
+<div sing-template="Method">
+    <div sing-if="{{method.details.summary}}">
+        <h3>{{method.shortName}}</h3>
+
+        <p sing-if="{{method.details.summary}}">
+            Summary: {{method.details.summary}}
+        </p>
+
+        <p sing-if="{{method.details.parameters}}">
+            Parameters:
+            <ul>
+                <li sing-loop="{{param in method.details.parameters}}">
+                    <div sing-fill="{{Parameter with param}}"></div>
+                </li>
+            </ul>
+        </p>
+
+        <p sing-if="{{method.details.returnType}}">
+            Returns: {{sing.getTypeName(method.details.returnType)}}
+        </p>
+        <p sing-else>Returns: Nothing.</p>
+    </div>
+</div>
+
+<div sing-template="Parameter">
+    <div>{{param.name}}</div>
+    <div>Type: {{sing.getTypeName(param.types)}}</div>
+    <div sing-if="{{param.description}}">{{param.description}}</div>
+</div>

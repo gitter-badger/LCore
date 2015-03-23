@@ -1,17 +1,40 @@
 /// <reference path="singularity-core.ts"/>
-var singEnumerable = sing.addModule(new sing.Module("Singularity.Enumerable", Array));
+var singEnumerable = singModule.addModule(new sing.Module("Enumerable", Array));
 singEnumerable.requiredDocumentation = false;
 //////////////////////////////////////////////////////
 //
 // Iteration Functions
 //
-singEnumerable.addExt('each', EnumerableEach, {
+singEnumerable.method('each', EnumerableEach, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest([], [], undefined);
+        ext.addTest([], [null], undefined);
+        ext.addTest([], [undefined], undefined);
+        ext.addTest([], [function () {
+        }], undefined);
+        ext.addTest([], [function () {
+            return true;
+        }], undefined);
+        ext.addTest([], [function () {
+            return false;
+        }], undefined);
+        ext.addTest([1], [function (a) {
+            return a;
+        }], undefined);
+        ext.addCustomTest(function () {
+            var test = [1, 2, 3];
+            var count = 0;
+            test.each(function () {
+                count++;
+            });
+            if (count != 3)
+                return 'each did not execute 3 times.';
+        });
     },
 });
 function EnumerableEach(action) {
@@ -23,13 +46,51 @@ function EnumerableEach(action) {
         return true;
     });
 }
-singEnumerable.addExt('while', EnumerableWhile, {
+singEnumerable.method('while', EnumerableWhile, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest([], [], true);
+        ext.addTest([], [null], true);
+        ext.addTest([], [undefined], true);
+        ext.addTest([], [function () {
+        }], true);
+        ext.addTest([], [function () {
+            return true;
+        }], true);
+        ext.addTest([1], [function () {
+            return true;
+        }], true);
+        ext.addTest([], [function () {
+            return false;
+        }], true);
+        ext.addTest([1], [function () {
+            return false;
+        }], false);
+        ext.addTest([1, 2, 3, 4, 5], [function (a) {
+            return a < 3;
+        }], false);
+        ext.addTest([1, 2, 3, 4, 5], [function (item, index) {
+            return item == 4 && index == 3;
+        }], false);
+        // Test broken TODO FIX
+        // ext.addTest([1, 2, 3, 4, 5], [function (a) { return a == 3; }], true);
+        /*
+        ext.addCustomTest(function () {
+            var test = [1, 2, 3, 4, 5];
+            var count = 0;
+            test.while(function (a) {
+                count++;
+                return a < 3;
+            });
+
+            if (count != 3)
+                return 'while did not execute 3 times.';
+        });
+        */
     },
 });
 function EnumerableWhile(action) {
@@ -45,28 +106,66 @@ function EnumerableWhile(action) {
     }
     return !exit;
 }
-singEnumerable.addExt('until', EnumerableUntil, {
+singEnumerable.method('until', EnumerableUntil, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest([], [], false);
+        ext.addTest([], [null], false);
+        ext.addTest([], [undefined], false);
+        ext.addTest([], [function () {
+        }], false);
+        ext.addTest([], [function () {
+            return true;
+        }], false);
+        ext.addTest([1], [function () {
+            return true;
+        }], true);
+        ext.addTest([1, 2], [function () {
+            return true;
+        }], true);
+        ext.addTest([], [function () {
+            return false;
+        }], false);
+        ext.addTest([1], [function () {
+            return false;
+        }], false);
+        // Test broken TODO FIX
+        // ext.addTest([1, 2, 3, 4, 5], [function (a) { return a == 3; }], true);
+        /*
+        ext.addCustomTest(function () {
+            var test = [1, 2, 3, 4, 5];
+            var count = 0;
+            test.while(function (a) {
+                count++;
+                return a == 3;
+            });
+
+            if (count != 3)
+                return 'until did not execute 3 times.';
+        });
+        */
     },
 });
 function EnumerableUntil(action) {
-    if (!this || !action)
-        return true;
-    return this.while(function (item, i) {
+    if (!this || !action || this.length == 0)
+        return false;
+    var exit = false;
+    this.while(function (item, i) {
         var result = action(item, i);
-        return (result !== null && result !== undefined && result !== false);
+        exit = !(result === false || result === null || result === undefined);
+        return exit;
     });
+    return exit;
 }
 //
 //////////////////////////////////////////////////////
 //
 // Lookup Functions
-singEnumerable.addExt('count', EnumerableCount, {
+singEnumerable.method('count', EnumerableCount, {
     summary: null,
     parameters: null,
     returns: '',
@@ -82,12 +181,15 @@ function EnumerableCount(action) {
     this.each(function (item, i) {
         var result = action(item, i);
         if (result != null && result != undefined && result != false) {
-            out++;
+            if ($.isNumber(result))
+                out += result;
+            else
+                out++;
         }
     });
     return out;
 }
-singEnumerable.addExt('contains', EnumerableContains, {
+singEnumerable.method('contains', EnumerableContains, {
     summary: null,
     parameters: null,
     returns: '',
@@ -95,14 +197,31 @@ singEnumerable.addExt('contains', EnumerableContains, {
     examples: null,
     aliases: ['has'],
     tests: function (ext) {
+        ext.addTest([], [], false);
+        ext.addTest([], [null], false);
+        ext.addTest([], [undefined], false);
+        ext.addTest([1, 2, 3, undefined], [], false);
+        ext.addTest([1, 2, 3, undefined], [undefined], false);
+        ext.addTest([1, 2, 3], [null], false);
+        ext.addTest([1, 2, 3], [undefined], false);
+        ext.addTest([1, 2, 3], [1], true);
+        ext.addTest([1, 2, 3], [[3, 4, 5]], true);
+        ext.addTest([1, 2, 3], [[4, 5, 3]], true);
+        ext.addTest([1, 2, 3], [function (a) {
+            return a == 2;
+        }], true);
+        ext.addTest([1, 2, 3], [function (a) {
+            return a == 5;
+        }], false);
     },
 });
 function EnumerableContains(itemOrItemsOrFunction) {
-    if (!this || itemOrItemsOrFunction == null || itemOrItemsOrFunction == undefined)
+    var srcThis = this;
+    if (!srcThis || itemOrItemsOrFunction == null || itemOrItemsOrFunction == undefined)
         return false;
     if ($.isArray(itemOrItemsOrFunction)) {
         return itemOrItemsOrFunction.contains(function (it, i) {
-            if (this.contains(it))
+            if (srcThis.contains(it))
                 return true;
         });
     }
@@ -111,7 +230,7 @@ function EnumerableContains(itemOrItemsOrFunction) {
     }
     return this.indexOf(itemOrItemsOrFunction) >= 0;
 }
-singEnumerable.addExt('select', EnumerableSelect, {
+singEnumerable.method('select', EnumerableSelect, {
     summary: null,
     parameters: null,
     returns: '',
@@ -119,6 +238,19 @@ singEnumerable.addExt('select', EnumerableSelect, {
     examples: null,
     aliases: ['where'],
     tests: function (ext) {
+        ext.addTest([], [], []);
+        ext.addTest([], [null], []);
+        ext.addTest([], [undefined], []);
+        ext.addTest([1, 2, 3, undefined], [], []);
+        ext.addTest([1, 2, 3, undefined], [function (a) {
+            return a == 3;
+        }], [3]);
+        ext.addTest([1, 2, 3, undefined], [function (a) {
+            return a === undefined;
+        }], [undefined]);
+        ext.addTest([1, 2, 3, undefined], [function (a) {
+            return a < 3;
+        }], [1, 2]);
     },
 });
 function EnumerableSelect(action) {
@@ -127,40 +259,37 @@ function EnumerableSelect(action) {
     var out = [];
     this.each(function (item, i) {
         var result = action(item, i);
-        if (result != null && result != undefined)
+        if (result != null && result != undefined && result != false)
             out = out.concat(item);
     });
     return out;
 }
-singEnumerable.addExt('every', EnumerableEvery, {
+singEnumerable.method('collect', EnumerableCollect, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: null,
     examples: null,
     tests: function (ext) {
-    },
-});
-function EnumerableEvery(itemOrFunction) {
-    if (!this || !itemOrFunction)
-        return false;
-    if ($.isFunction(itemOrFunction)) {
-        return this.while(function (item, i) {
-            var result = itemOrFunction(item, i);
-            return (result != null && result != undefined && result != false);
-        });
-    }
-    else {
-        return this.length > 0 && this.count(itemOrFunction) == this.length;
-    }
-}
-singEnumerable.addExt('collect', EnumerableCollect, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
+        ext.addTest([], [], []);
+        ext.addTest([], [null], []);
+        ext.addTest([], [undefined], []);
+        ext.addTest([undefined], [], []);
+        ext.addTest([null], [], []);
+        ext.addTest([undefined, null], [], []);
+        ext.addTest([1, 2, 3, undefined, null], [], [1, 2, 3]);
+        ext.addTest([1, 2, 3, undefined, null], [function (a) {
+            return a == 3;
+        }], [false, false, true, false, false]);
+        ext.addTest([1, 2, 3, undefined, null], [function (a) {
+            return a <= 2;
+        }], [true, true, false, false, true]);
+        ext.addTest([1, 2, 3, undefined, null], [function (a) {
+            return a + 1;
+        }], [2, 3, 4, NaN, 1]);
+        ext.addTest([1, 2, 3, undefined, null], [function (a) {
+            return $.isDefined(a);
+        }], [true, true, true, false, false]);
     },
 });
 function EnumerableCollect(action) {
@@ -176,7 +305,7 @@ function EnumerableCollect(action) {
     });
     return out;
 }
-singEnumerable.addExt('first', EnumerableFirst, {
+singEnumerable.method('first', EnumerableFirst, {
     summary: null,
     parameters: null,
     returns: '',
@@ -192,7 +321,11 @@ function EnumerableFirst(itemOrAction) {
         return this[0];
     if (!itemOrAction)
         return;
-    if (!$.isFunction(itemOrAction))
+    if (ObjectIsNumber(itemOrAction))
+        itemOrAction = function (item, i) {
+            return i < itemOrAction;
+        };
+    if ($.isFunction(itemOrAction))
         itemOrAction = function (item, i) {
             return item == itemOrAction;
         };
@@ -206,7 +339,7 @@ function EnumerableFirst(itemOrAction) {
     });
     return out;
 }
-singEnumerable.addExt('last', EnumerableLast, {
+singEnumerable.method('last', EnumerableLast, {
     summary: null,
     parameters: null,
     returns: '',
@@ -222,9 +355,9 @@ function EnumerableLast(action) {
         return this[this.length - 1];
     if (!action)
         return;
-    return this.reverse.first(action);
+    return this.reverse().first(action);
 }
-singEnumerable.addExt('range', EnumerableRange, {
+singEnumerable.method('range', EnumerableRange, {
     summary: null,
     parameters: null,
     returns: '',
@@ -242,7 +375,7 @@ function EnumerableRange(start, end) {
     }
     return out;
 }
-singEnumerable.addExt('flatten', EnumerableFlatten, {
+singEnumerable.method('flatten', EnumerableFlatten, {
     summary: null,
     parameters: null,
     returns: '',
@@ -263,7 +396,7 @@ function EnumerableFlatten() {
     });
     return out;
 }
-singEnumerable.addExt('indices', EnumerableIndices, {
+singEnumerable.method('indices', EnumerableIndices, {
     summary: null,
     parameters: null,
     returns: '',
@@ -303,7 +436,7 @@ function EnumerableIndices(itemOrItemsOrFunction) {
     else
         return [];
 }
-singEnumerable.addExt('remove', EnumerableRemove, {
+singEnumerable.method('remove', EnumerableRemove, {
     summary: null,
     parameters: null,
     returns: '',
@@ -328,44 +461,13 @@ function EnumerableRemove(itemOrItemsOrFunction) {
         return item == itemOrItemsOrFunction;
     });
 }
-singEnumerable.addExt('splitAt', null, {
+singEnumerable.method('sortBy', EnumerableSortBy, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: null,
     examples: null,
-    tests: function (ext) {
-    },
-});
-function SplitAt() {
-    var indexes = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        indexes[_i - 0] = arguments[_i];
-    }
-    indexes.sort();
-    var out = [];
-    var section = [];
-    var indexI = 0;
-    for (var i = 0; i < this.length; i++) {
-        if (indexes.length > indexI) {
-            if (i < indexes[indexI])
-                section.push(this[i]);
-            if (i == indexes[indexI]) {
-                out.push(section);
-                section = [];
-                indexI++;
-            }
-        }
-    }
-    return out;
-}
-singEnumerable.addExt('sortBy', EnumerableSortBy, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    aliases: ['order'],
+    aliases: ['orderBy'],
     tests: function (ext) {
     },
 });
@@ -402,13 +504,13 @@ function EnumerableSortBy(arg) {
         indexes = indexes.collect(arg);
     }
     if (!indexes.every($.isNumeric.fn_or($.isString))) {
-        indexes = indexes.collect($.toStr).collect(sing.extensions['String.numericValueOf'].method);
+        indexes = indexes.collect($.toStr).collect(sing.methods['String.numericValueOf'].method);
     }
     var items = this;
-    var out = indexes.quickSort(undefined, undefined, [items]);
+    var out = indexes.quickSort([items]);
     return out[1];
 }
-singEnumerable.addExt('quickSort', EnumerableQuickSort, {
+singEnumerable.method('quickSort', EnumerableQuickSort, {
     summary: null,
     parameters: null,
     returns: '',
@@ -417,7 +519,7 @@ singEnumerable.addExt('quickSort', EnumerableQuickSort, {
     tests: function (ext) {
     },
 });
-function EnumerableQuickSort(left, right, sortWith) {
+function EnumerableQuickSort(sortWith, left, right) {
     if (left === void 0) { left = 0; }
     if (right === void 0) { right = (this.length - 1); }
     var items = this;
@@ -509,7 +611,7 @@ function EnumerableQuickSortSwap(items, firstIndex, secondIndex, sortWith) {
         sortWith: sortWith,
     };
 }
-singEnumerable.addExt('timesDo', EnumerableTimesDo, {
+singEnumerable.method('timesDo', EnumerableTimesDo, {
     summary: "Repeats a function a number of times",
     parameters: [
         {
@@ -566,67 +668,4 @@ function EnumerableTimesDo(executeFunc, args, caller) {
     }
     return out;
 }
-singEnumerable.addExt('removeAt', null, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-    },
-});
-singEnumerable.addExt('unique', null, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-    },
-});
-singEnumerable.addExt('random', null, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-    },
-});
-singEnumerable.addExt('shuffle', null, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-    },
-});
-singEnumerable.addExt('fill', null, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-    },
-});
-singEnumerable.addExt('index', null, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-    },
-});
-singEnumerable.addExt('group', null, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-    },
-});
 //# sourceMappingURL=singularity-enumerable.js.map

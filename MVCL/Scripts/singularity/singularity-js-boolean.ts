@@ -9,9 +9,16 @@ interface Boolean {
     AND?: (...b: boolean[]) => boolean;
     NAND?: (...b: boolean[]) => boolean;
     NOR?: (...b: boolean[]) => boolean;
+
+    unary?: (obj?: any, obj2?: any) => any
 }
 
-var singBoolean = sing.addModule(new sing.Module("Boolean", Boolean));
+interface String {
+    isBoolean?: () => boolean;
+    toBoolean?: () => boolean;
+}
+
+var singBoolean = singModule.addModule(new sing.Module("Boolean", Boolean));
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -19,7 +26,7 @@ var singBoolean = sing.addModule(new sing.Module("Boolean", Boolean));
 //
 //
 
-singBoolean.addExt('XOR', BooleanXOR,
+singBoolean.method('XOR', BooleanXOR,
     {
         summary: "\
         XOR acts on a boolean to perform the binary XOR function on the passed Boolean",
@@ -52,11 +59,11 @@ singBoolean.addExt('XOR', BooleanXOR,
             ext.addTest(true, [false], true);
             ext.addTest(true, [true], false);
 
-            ext.addFailsTest(true, [null], 'Boolean.XOR Missing Parameter: Boolean b');
-            ext.addFailsTest(true, [undefined], 'Boolean.XOR Missing Parameter: Boolean b');
-            ext.addFailsTest(false, [null], 'Boolean.XOR Missing Parameter: Boolean b');
-            ext.addFailsTest(false, [undefined], 'Boolean.XOR Missing Parameter: Boolean b');
-            ext.addFailsTest(false, ['a'], 'Boolean.XOR  Parameter: b: \'a\' string did not match input type [\'boolean\'].');
+            ext.addFailsTest(true, [null], 'Singularity.Boolean.XOR Missing Parameter: boolean b');
+            ext.addFailsTest(true, [undefined], 'Singularity.Boolean.XOR Missing Parameter: boolean b');
+            ext.addFailsTest(false, [null], 'Singularity.Boolean.XOR Missing Parameter: boolean b');
+            ext.addFailsTest(false, [undefined], 'Singularity.Boolean.XOR Missing Parameter: boolean b');
+            ext.addFailsTest(false, ['a'], 'Singularity.Boolean.XOR  Parameter: b: \'a\' string did not match input type [\'boolean\'].');
         }
     });
 
@@ -67,7 +74,7 @@ function BooleanXOR(b: boolean): boolean {
         (a == false && b == true);
 }
 
-singBoolean.addExt('XNOR', BooleanXNOR,
+singBoolean.method('XNOR', BooleanXNOR,
     {
         summary: "\
         XNOR acts on a boolean to perform the binary XNOR function on the passed Boolean, the inverse of the XOR function",
@@ -100,10 +107,10 @@ singBoolean.addExt('XNOR', BooleanXNOR,
             ext.addTest(true, [false], false);
             ext.addTest(true, [true], true);
 
-            ext.addFailsTest(true, [null], 'Boolean.XNOR Missing Parameter: Boolean b');
-            ext.addFailsTest(true, [undefined], 'Boolean.XNOR Missing Parameter: Boolean b');
-            ext.addFailsTest(false, [null], 'Boolean.XNOR Missing Parameter: Boolean b');
-            ext.addFailsTest(false, [undefined], 'Boolean.XNOR Missing Parameter: Boolean b');
+            ext.addFailsTest(true, [null], 'Singularity.Boolean.XNOR Missing Parameter: boolean b');
+            ext.addFailsTest(true, [undefined], 'Singularity.Boolean.XNOR Missing Parameter: boolean b');
+            ext.addFailsTest(false, [null], 'Singularity.Boolean.XNOR Missing Parameter: boolean b');
+            ext.addFailsTest(false, [undefined], 'Singularity.Boolean.XNOR Missing Parameter: boolean b');
             ext.addFailsTest(false, ['a']);
         }
     });
@@ -112,7 +119,7 @@ function BooleanXNOR(b: boolean): boolean {
     return !this.XOR(b);
 }
 
-singBoolean.addExt('OR', BooleanOR,
+singBoolean.method('OR', BooleanOR,
     {
         summary: "\
         OR acts on a boolean to perform the binary OR function on the passed Booleans",
@@ -160,7 +167,7 @@ function BooleanOR(...b: boolean[]): boolean {
     return this == true || b.contains(true);
 }
 
-singBoolean.addExt('AND', BooleanAND,
+singBoolean.method('AND', BooleanAND,
     {
         summary: "\
         AND acts on a boolean to perform the binary AND function on the passed Booleans",
@@ -208,7 +215,7 @@ function BooleanAND(...b: boolean[]): boolean {
     return this == true && !b.contains(false);
 }
 
-singBoolean.addExt('NAND', BooleanNAND,
+singBoolean.method('NAND', BooleanNAND,
     {
         summary: "\
         NAND acts on a boolean to perform the binary NAND function on the passed Booleans",
@@ -257,7 +264,7 @@ function BooleanNAND(...b: boolean[]): boolean {
     return !this.AND.apply(this, b);
 }
 
-singBoolean.addExt('NOR', BooleanNOR,
+singBoolean.method('NOR', BooleanNOR,
     {
         summary: "\
         NOR acts on a boolean to perform the binary NOR function on the passed Booleans",
@@ -305,7 +312,7 @@ function BooleanNOR(...b: boolean[]): boolean {
     return !this.OR.apply(this, b);
 }
 
-singBoolean.addExt('toYesNo', BooleanToYesNo,
+singBoolean.method('toYesNo', BooleanToYesNo,
     {
         summary: "\
         toYesNo converts a Boolean to a string of 'Yes' or 'No'",
@@ -327,4 +334,140 @@ singBoolean.addExt('toYesNo', BooleanToYesNo,
 
 function BooleanToYesNo(): string {
     return this == false ? "No" : "Yes";
+}
+
+
+singBoolean.method('unary', BooleanUnary,
+    {
+        summary: 'Performs the unary operation using the calling boolean.',
+        parameters: [
+            {
+                name: 'obj',
+                types: [Object],
+                description: 'The first object, returned if the caller is true',
+            },
+            {
+                name: 'obj2',
+                types: [Object],
+                description: 'The second object, returned if the caller is false',
+            }
+        ],
+        returns: 'Returns the first argument if the calling boolean is true, otherwise the second argument is returned.',
+        returnType: Object,
+        examples: ['(true).unary(1,2)   // == 1'],
+        tests: function (ext) {
+            ext.addTest(true, ['a', 'b'], 'a');
+            ext.addTest(false, ['a', 'b'], 'b');
+        },
+    }, String.prototype);
+
+function BooleanUnary(obj?: any, obj2?: any): any {
+
+    return this.valueOf() ? obj : obj2;
+}
+
+
+singBoolean.method('isBoolean', StringIsBoolean,
+    {
+        summary: 'Determines if the calling string is a Boolean format.',
+        parameters: [],
+        returns: 'true if the calling String is a form of a Boolean. isBoolean is Case Insensitive. \r\n\
+            All valid boolean strings: y, n, yes, no, t, f, true, false, 0, 1',
+        returnType: Boolean,
+        examples: ['\
+        \'no\'.isBoolean()  // == true \r\n\
+        \'hi\'.isBoolean()  // == false \r\n\''],
+        tests: function (ext) {
+            ext.addTest('', [], false);
+            ext.addTest('n', [], true);
+            ext.addTest('N', [], true);
+            ext.addTest('no', [], true);
+            ext.addTest('No', [], true);
+            ext.addTest('NO', [], true);
+            ext.addTest('f', [], true);
+            ext.addTest('false', [], true);
+            ext.addTest('False', [], true);
+            ext.addTest('False', [], true);
+            ext.addTest('y', [], true);
+            ext.addTest('Y', [], true);
+            ext.addTest('yes', [], true);
+            ext.addTest('Yes', [], true);
+            ext.addTest('YES', [], true);
+            ext.addTest('t', [], true);
+            ext.addTest('true', [], true);
+            ext.addTest('True', [], true);
+            ext.addTest('TRUE', [], true);
+            ext.addTest('   TRUE    ', [], true, 'Handles whitespace');
+            ext.addTest('   FALSE    ', [], true, 'Handles whitespace');
+            ext.addTest('0', [], true);
+            ext.addTest('1', [], true);
+            ext.addTest('Anything else', [], false);
+        },
+    }, String.prototype);
+
+function StringIsBoolean() {
+
+    if (!this)
+        return false;
+
+    var lower = this.lower().trim();
+    if (lower == 'y' || lower == 'yes' || lower == 'true' || lower == '1' || lower == 't')
+        return true;
+    if (lower == 'n' || lower == 'no' || lower == 'false' || lower == '0' || lower == 'f')
+        return true;
+
+    return false;
+
+}
+
+singBoolean.method('toBoolean', StringToBoolean,
+    {
+        summary: 'Converts the calling string to a Boolean format. ',
+        parameters: [],
+        returns: 'true if the calling String is a form of a Boolean. isBoolean is Case Insensitive. \r\n\
+            All valid boolean strings: y, n, yes, no, t, f, true, false, 0, 1 \r\n\
+            If the calling string is not in a boolean format, undefined is returned.',
+        returnType: Boolean,
+        examples: ['\
+        \'no\'.toBoolean()  // == false \r\n\
+        \'hi\'.toBoolean()  // == undefined \r\n\''],
+        tests: function (ext) {
+            ext.addTest('', [], undefined);
+            ext.addTest('n', [], false);
+            ext.addTest('N', [], false);
+            ext.addTest('no', [], false);
+            ext.addTest('No', [], false);
+            ext.addTest('NO', [], false);
+            ext.addTest('false', [], false);
+            ext.addTest('False', [], false);
+            ext.addTest('False', [], false);
+            ext.addTest('0', [], false);
+            ext.addTest('y', [], true);
+            ext.addTest('Y', [], true);
+            ext.addTest('yes', [], true);
+            ext.addTest('Yes', [], true);
+            ext.addTest('YES', [], true);
+            ext.addTest('true', [], true);
+            ext.addTest('True', [], true);
+            ext.addTest('TRUE', [], true);
+            ext.addTest('1', [], true);
+            ext.addTest('   TRUE    ', [], true, 'Handles whitespace');
+            ext.addTest('   FALSE    ', [], false, 'Handles whitespace');
+            ext.addTest('Anything else', [], undefined);
+
+        },
+    }, String.prototype);
+
+function StringToBoolean() {
+
+    if (!this)
+        return;
+
+    var lower = this.lower().trim();
+
+    if (lower == 'y' || lower == 'yes' || lower == 'true' || lower == '1' || lower == 't')
+        return true;
+    if (lower == 'n' || lower == 'no' || lower == 'false' || lower == '0' || lower == 'f')
+        return false;
+
 }

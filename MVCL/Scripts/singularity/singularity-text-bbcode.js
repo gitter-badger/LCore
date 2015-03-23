@@ -1,8 +1,8 @@
 /// <reference path="singularity-core.ts"/>
-var singBBCode = sing.addModule(new sing.Module('Singularity.BBCode', String));
+var singBBCode = singModule.addModule(new sing.Module('BBCode', String));
 singBBCode.requiredDocumentation = false;
 singBBCode.requiredUnitTests = false;
-singBBCode.addExt('bbCodesToHTML', StringBBCodesToHTML, {
+singBBCode.method('bbCodesToHTML', StringBBCodesToHTML, {
     summary: null,
     parameters: null,
     returns: '',
@@ -18,7 +18,7 @@ function StringBBCodesToHTML() {
     });
     return out;
 }
-singBBCode.addExt('bbCodesToText', StringBBCodesToText, {
+singBBCode.method('bbCodesToText', StringBBCodesToText, {
     summary: null,
     parameters: null,
     returns: '',

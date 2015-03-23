@@ -3,72 +3,86 @@
 interface ISingularityTests {
     addTest?: (name: string, testFunc: () => any, requirement?: string) => void;
     addCustomTest?: (name: string, testFunc: () => any, requirement?: string) => void;
-    addMethodTest?: (ext: SingularityExtension, target?: any, args?: any[], compare?: any, requirement?: string) => void;
+    addMethodTest?: (ext: SingularityMethod, target?: any, args?: any[], compare?: any, requirement?: string) => void;
     addAssertTest?: (name: string, result: any, compare: any, requirement?: string) => void;
-    addFailsTest?: (ext: SingularityExtension, target: any, args: any[], expectedError?: string, requirement?: string) => void;
+    addFailsTest?: (ext: SingularityMethod, target: any, args: any[], expectedError?: string, requirement?: string) => void;
     runTests?: (display: boolean) => string;
     listTests?: () => string;
     listMissingTests?: () => string;
+    resolveTests?: () => void;
 }
 
 class SingularityTest {
 
+    testResult: any;
+
     constructor(public name: string,
         public testFunc: Function,
         public requirement?: string) {
+
+        this.testFunc = function () {
+
+            this.testResult = testFunc();
+
+            if (this.testResult == null)
+                this.testResult = true;
+
+            return this.testResult;
+        }
     }
 }
 
-var singTests = sing.addModule(new sing.Module('Singularity.Tests', sing, sing));
+var singTests = singModule.addModule(new sing.Module('Tests', sing, sing));
+
 singTests.requiredDocumentation = false;
 singTests.requiredUnitTests = false;
 
-singTests.addExt('addTest', SingularityAddTest, {}, sing);
+singTests.method('addTest', SingularityAddTest, {}, sing);
 
 function SingularityAddTest(name: string, testFunc: () => any, requirement?: string) {
 
-    if (!sing.extensions[name])
+    if (!sing.methods[name])
         throw name + ' not found';
 
-    if (!sing.extensions[name].details.tests)
+    if (!sing.methods[name].details.tests)
         throw name + ' tests not found';
 
-    if ($.isFunction(sing.extensions[name].details.tests))
-        sing.extensions[name].details.unitTests = sing.extensions[name].details.unitTests || [];
+    if ($.isFunction(sing.methods[name].details.tests))
+        sing.methods[name].details.unitTests = sing.methods[name].details.unitTests || [];
 
-    sing.extensions[name].details.unitTests = sing.extensions[name].details.unitTests.concat(new SingularityTest(name, testFunc, requirement));
+    sing.methods[name].details.unitTests = sing.methods[name].details.unitTests.concat(new SingularityTest(name, testFunc, requirement));
 };
 
-singTests.addExt('addCustomTest', SingularityAddCustomTest, {}, sing);
+singTests.method('addCustomTest', SingularityAddCustomTest, {}, sing);
 
 function SingularityAddCustomTest(name: string, testFunc: Function, requirement?: string) {
     if (!$.isString(name))
         throw name + ' was not a string';
 
-    if (!sing.extensions[name])
+    if (!sing.methods[name])
         throw name + ' not found';
 
-    if (!sing.extensions[name].details.tests)
+    if (!sing.methods[name].details.tests)
         throw name + ' tests not found';
 
     requirement = requirement || '';
 
     requirement += '\r\n' + testFunc.toString() + '\r\n';
 
-    sing.extensions[name].details.unitTests = sing.extensions[name].details.unitTests || [];
+    sing.methods[name].details.unitTests = sing.methods[name].details.unitTests || [];
 
-    sing.extensions[name].details.unitTests = sing.extensions[name].details.unitTests.concat(new SingularityTest(name, testFunc, requirement));
+    sing.methods[name].details.unitTests = sing.methods[name].details.unitTests.concat(new SingularityTest(name, testFunc, requirement));
 };
 
-singTests.addExt('addMethodTest', SingularityAddMethodTest, {}, sing);
+singTests.method('addMethodTest', SingularityAddMethodTest, {}, sing);
 
-function SingularityAddMethodTest(ext: SingularityExtension, target?: any, args?: any[], compare?: any, requirement?: string) {
+function SingularityAddMethodTest(ext: SingularityMethod, target?: any, args?: any[], compare?: any, requirement?: string) {
 
     if (!ext.method)
         throw ext.name + ' method not found';
 
     requirement = (requirement ? (requirement + '\r\n') : '') +
-    '(' + $.toStr(target, true) + ').' + ext.shortName;
+    (!!target ? '(' + $.toStr(target, true) + ').' : '') + ext.shortName;
 
     requirement += '(';
     for (var i = 0; i < args.length; i++) {
@@ -96,7 +110,7 @@ function SingularityAddMethodTest(ext: SingularityExtension, target?: any, args?
 
 };
 
-singTests.addExt('addAssertTest', SingularityAddAssertTest, {}, sing);
+singTests.method('addAssertTest', SingularityAddAssertTest, {}, sing);
 
 function SingularityAddAssertTest(name: string, result: any, compare: any, requirement?: string) {
 
@@ -113,9 +127,9 @@ function SingularityAddAssertTest(name: string, result: any, compare: any, requi
     }, requirement);
 };
 
-singTests.addExt('addFailsTest', SingularityAddFailsTest, {}, sing);
+singTests.method('addFailsTest', SingularityAddFailsTest, {}, sing);
 
-function SingularityAddFailsTest(ext: SingularityExtension, target: any, args: any[], expectedError?: string, requirement?: string) {
+function SingularityAddFailsTest(ext: SingularityMethod, target: any, args: any[], expectedError?: string, requirement?: string) {
 
     if (target == null || target == undefined)
         throw 'no target';
@@ -161,7 +175,7 @@ function SingularityAddFailsTest(ext: SingularityExtension, target: any, args: a
     }, requirement);
 };
 
-singTests.addExt('runTests', SingularityRunTests, {}, sing);
+singTests.method('runTests', SingularityRunTests, {}, sing);
 
 function SingularityRunTests(display: boolean = false) {
 
@@ -172,11 +186,11 @@ function SingularityRunTests(display: boolean = false) {
 
     var displayStr = '';
 
-    for (var i = 0; i < Object.keys(sing.extensions).length; i++) {
+    for (var i = 0; i < Object.keys(sing.methods).length; i++) {
 
-        var name = Object.keys(sing.extensions)[i];
+        var name = Object.keys(sing.methods)[i];
 
-        var ext = sing.extensions[name];
+        var ext = sing.methods[name];
         var tests = ext.details.unitTests;
 
         if (tests) {
@@ -208,7 +222,7 @@ function SingularityRunTests(display: boolean = false) {
         (result || '\r\n\r\nAll ' + testCount + ' tests succeeded.');
 };
 
-singTests.addExt('listTests', SingularityListTests, {}, sing);
+singTests.method('listTests', SingularityListTests, {}, sing);
 
 function SingularityListTests() {
 
@@ -216,15 +230,15 @@ function SingularityListTests() {
 
     var out = '\r\n';
 
-    for (var i = 0; i < Object.keys(sing.extensions).length; i++) {
+    for (var i = 0; i < Object.keys(sing.methods).length; i++) {
 
-        var name = Object.keys(sing.extensions)[i];
+        var name = Object.keys(sing.methods)[i];
 
-        var item = sing.extensions[name];
+        var item = sing.methods[name];
         var tests = item.details.unitTests;
 
         if (tests && tests.length > 0)
-            out += ('Extension: ' + name).pad(30) + '      Tests: ' + tests.length + '\r\n';
+            out += ('Extension: ' + name).pad(50) + '      Tests: ' + tests.length + '\r\n';
         else
             ; // out += 'Function: ' + name + '      Tests: 0\r\n';
     }
@@ -232,7 +246,7 @@ function SingularityListTests() {
     return out;
 };
 
-singTests.addExt('listMissingTests', SingularityListMissingTests, {}, sing);
+singTests.method('listMissingTests', SingularityListMissingTests, {}, sing);
 
 function SingularityListMissingTests() {
 
@@ -240,11 +254,11 @@ function SingularityListMissingTests() {
 
     var out = '';
 
-    for (var i = 0; i < Object.keys(sing.extensions).length; i++) {
+    for (var i = 0; i < Object.keys(sing.methods).length; i++) {
 
-        var name = Object.keys(sing.extensions)[i];
+        var name = Object.keys(sing.methods)[i];
 
-        var item = sing.extensions[name];
+        var item = sing.methods[name];
         var tests = item.details.unitTests;
 
         if (!tests || tests.length == 0) {
@@ -255,11 +269,11 @@ function SingularityListMissingTests() {
     return out;
 };
 
-singTests.addExt('resolveTests', SingularityResolveTests, {}, sing);
+singTests.method('resolveTests', SingularityResolveTests, {}, sing);
 
 function SingularityResolveTests() {
 
-    $.objEach(sing.extensions, function (key, ext, i) {
+    $.objEach(sing.methods, function (key, ext, i) {
 
         if (ext && ext.details.tests && $.isFunction(ext.details.tests)) {
 
@@ -271,3 +285,4 @@ function SingularityResolveTests() {
         }
     });
 };
+

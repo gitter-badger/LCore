@@ -10,18 +10,24 @@ interface JQueryStatic {
 
     isDefined?: (obj?: any) => boolean;
     isHash?: (obj?: any) => boolean;
+
+    isEmpty?: (obj?: any) => boolean;
 }
 
 interface JQuery {
 }
 
+interface Array<T> {
 
-var singObject = sing.addModule(new sing.Module("Object", $, $));
+    clone?: () => T[];
 
-singObject.requiredDocumentation = false;
+}
 
 
-singObject.addExt('objEach', ObjectEach,
+var singObject = singModule.addModule(new sing.Module("Object", $, $));
+
+
+singObject.method('objEach', ObjectEach,
     {
         summary: null,
         parameters: null,
@@ -30,7 +36,7 @@ singObject.addExt('objEach', ObjectEach,
         examples: null,
         tests: function (ext) {
 
-            ext.addCustomTest(undefined, function () {
+            ext.addCustomTest(function () {
 
                 var test = { a: 1, b: 2 };
                 var test2 = [];
@@ -57,7 +63,7 @@ function ObjectEach(obj: Object, eachFunc: (key: string, item: any, index: numbe
     });
 }
 
-singObject.addExt('objProperties', ObjectProperties,
+singObject.method('objProperties', ObjectProperties,
     {
         summary: null,
         parameters: null,
@@ -88,7 +94,7 @@ function ObjectProperties(obj?: Object): { key: string; value: any }[] {
     return values;
 }
 
-singObject.addExt('objValues', ObjectValues,
+singObject.method('objValues', ObjectValues,
     {
         summary: null,
         parameters: null,
@@ -105,19 +111,24 @@ singObject.addExt('objValues', ObjectValues,
             ext.addTest(undefined, [[]], []);
             ext.addTest(undefined, [{}], []);
             ext.addTest(undefined, [{ a: 1, b: 2 }], [1, 2]);
+
+
+            ext.addTest(undefined, [{ a: 'b', c: 'd' }, ['a']], 'b');
+            ext.addTest(undefined, [{ a: 'b', c: 'd' }, ['b']], null);
+            ext.addTest(undefined, [{ a: 'b', c: 'd' }, ['c']], 'd');
         },
     });
 
 function ObjectValues(obj?: Object, findKeys?: string[]): any[] {
     if (obj == null || !(typeof obj == 'object'))
-        return [];
+        return null;
 
     if (findKeys != null && findKeys.length > 0) {
         if ($.isArray(obj)) {
             return (<Array<any>>obj).arrayValues.apply(obj, findKeys);
         }
         else {
-            return [obj].arrayValues.apply(obj, findKeys)
+            return [obj].arrayValues.apply([obj], findKeys)
         }
     }
     else {
@@ -129,7 +140,7 @@ function ObjectValues(obj?: Object, findKeys?: string[]): any[] {
     }
 }
 
-singObject.addExt('arrayValues', ArrayFindValues,
+singObject.method('arrayValues', ArrayFindValues,
     {
         summary: null,
         parameters: null,
@@ -137,10 +148,32 @@ singObject.addExt('arrayValues', ArrayFindValues,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            ext.addTest([], [null], []);
+            ext.addTest([], [undefined], []);
+            ext.addTest([1], [null], []);
+            ext.addTest([1], [undefined], []);
+            ext.addTest([{ a: 'b', c: 'd' }, { a: 'b2', c: 'd2' }], ['a'], ['b', 'b2']);
+            ext.addTest([{ a: 'b', c: 'd' }, { a: 'b2', c: 'd2' }], ['b'], []);
+            ext.addTest([{ a: 'b', c: 'd' }, { a: 'b2', c: 'd2' }], ['c'], ['d', 'd2']);
+            ext.addTest([{ a: { name: 'a' }, b: { name: 'b' }, c: { name: 'c' } },
+                { a: { name: 'a2' }, b: { name: 'b2' }, c: { name: 'c2' } }], ['a.name'], ['a', 'a2']);
+            ext.addTest([{ a: { name: 'a' }, b: { name: 'b' }, c: { name: 'c' } },
+                { a: { name: 'a2' }, b: { name: 'b2' }, c: { name: 'c2' } }], ['b.name'], ['b', 'b2']);
+            ext.addTest([{ a: { name: 'a' }, b: { name: 'b' }, c: { name: 'c' } },
+                { a: { name: 'a2' }, b: { name: 'b2' }, c: { name: 'c2' } }], ['c.name'], ['c', 'c2']);
+            ext.addTest([{ a: { name: 'a' }, b: { name: 'b' }, c: { name: 'c' } },
+                { a: { name: 'a2' }, b: { name: 'b2' }, c: { name: 'c2' } }], ['a', 'name'], ['a', 'a2']);
+            ext.addTest([{ a: { name: 'a' }, b: { name: 'b' }, c: { name: 'c' } },
+                { a: { name: 'a2' }, b: { name: 'b2' }, c: { name: 'c2' } }], ['b', 'name'], ['b', 'b2']);
+            ext.addTest([{ a: { name: 'a' }, b: { name: 'b' }, c: { name: 'c' } },
+                { a: { name: 'a2' }, b: { name: 'b2' }, c: { name: 'c2' } }], ['c', 'name'], ['c', 'c2']);
         },
     }, Array.prototype);
 
 function ArrayFindValues(...names: string[]): any[] {
+
+    if (!names || names.length == 0 || names[0] == null)
+        return;
 
     if (names.length == 1 && names[0].contains('.')) {
         names = names[0].split('.');
@@ -156,7 +189,7 @@ function ArrayFindValues(...names: string[]): any[] {
         });
 
         if (names.length > 0) {
-            return out.findValues.apply(out, names);
+            return out.arrayValues.apply(out, names);
         }
         else {
             return out;
@@ -166,7 +199,7 @@ function ArrayFindValues(...names: string[]): any[] {
     return [];
 }
 
-singObject.addExt('objKeys', ObjectKeys,
+singObject.method('objKeys', ObjectKeys,
     {
         summary: null,
         parameters: null,
@@ -195,7 +228,7 @@ function ObjectKeys(obj?: Object): string[] {
     return keys;
 }
 
-singObject.addExt('objHasKey', ObjectHasKey,
+singObject.method('objHasKey', ObjectHasKey,
     {
         summary: null,
         parameters: null,
@@ -204,6 +237,10 @@ singObject.addExt('objHasKey', ObjectHasKey,
         returnType: '',
         examples: null,
         tests: function (ext) {
+            ext.addTest(null, [], false);
+            ext.addTest(null, [null, 'a'], false);
+            ext.addTest(null, [{ b: 'a' }, 'a'], false);
+            ext.addTest(null, [{ a: 'b' }, 'a'], true);
         },
     });
 
@@ -216,7 +253,7 @@ function ObjectHasKey(obj: Object, key: string): boolean {
     return keys.contains(key);
 }
 
-singObject.addExt('resolve', ObjectResolve,
+singObject.method('resolve', ObjectResolve,
     {
         summary: null,
         parameters: null,
@@ -245,7 +282,7 @@ function ObjectResolve(obj: any, args: any[]): any {
     return obj;
 }
 
-singObject.addExt('isDefined', ObjectDefined,
+singObject.method('isDefined', ObjectDefined,
     {
         summary: null,
         parameters: null,
@@ -254,16 +291,25 @@ singObject.addExt('isDefined', ObjectDefined,
         returnType: '',
         examples: null,
         tests: function (ext) {
+
+            ext.addTest(null, [undefined], false);
+            ext.addTest(null, [null], false);
+            ext.addTest(null, [0], true);
+            ext.addTest(null, ['a'], true);
+            ext.addTest(null, [['a']], true);
+            ext.addTest(null, [{}], true);
+            ext.addTest(null, [{ name: 'a' }], true);
         },
     });
 
 function ObjectDefined(obj?: any) {
-    if (obj === undefined)
+    if (obj !== undefined && obj !== null)
         return true;
+
     return false;
 }
 
-singObject.addExt('isHash', ObjectIsHash,
+singObject.method('isHash', ObjectIsHash,
     {
         summary: null,
         parameters: null,
@@ -272,6 +318,14 @@ singObject.addExt('isHash', ObjectIsHash,
         returnType: '',
         examples: null,
         tests: function (ext) {
+
+            ext.addTest(null, [undefined], false);
+            ext.addTest(null, [null], false);
+            ext.addTest(null, [0], false);
+            ext.addTest(null, ['a'], false);
+            ext.addTest(null, [['a']], false);
+            ext.addTest(null, [{}], true);
+            ext.addTest(null, [{ a: 'a' }], true);
         },
     });
 
@@ -280,8 +334,96 @@ function ObjectIsHash(obj?: any) {
     if (!$.isDefined(obj))
         return false;
 
+    if ($.isArray(obj))
+        return false;
+
     if (typeof obj == 'object')
         return true;
 
     return false;
 }
+
+
+
+singObject.method('clone', ArrayClone,
+    {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        tests: function (ext) {
+            ext.addTest([], [], []);
+            ext.addTest([undefined], [], []);
+            ext.addTest([[]], [], []);
+            ext.addTest(['a'], [], ['a']);
+
+            ext.addCustomTest(function () {
+
+                var ary = [1, 2, 3];
+                var ary2 = ary.clone();
+
+                ary.push(4);
+
+                if (ary2.length == 4)
+                    return 'Same array was returned';
+
+            }, 'Arrays must be clones, not the source array');
+        },
+    }, Array.prototype, "Array");
+
+function ArrayClone() {
+    return this.collect();
+}
+
+singObject.method('clone', NumberClone, {}, Number.prototype, "Number");
+
+function NumberClone() {
+    return this.valueOf();
+}
+
+singObject.method('clone', NumberClone, {}, Boolean.prototype, "Boolean");
+
+function BooleanClone() {
+    return this.valueOf();
+}
+
+singObject.method('clone', StringClone, {}, String.prototype, "String");
+
+function StringClone() {
+    return this.valueOf();
+}
+
+singObject.method('clone', DateClone, {}, Date.prototype, "Date");
+
+function DateClone() {
+    return this.valueOf();
+}
+
+singObject.method('clone', ObjectClone, {}, $, "jQuery");
+
+function ObjectClone() {
+
+    if (this.clone !== ObjectClone && $.isFunction(this.clone))
+        return this.clone();
+
+    // can't clone
+    return this;
+}
+
+
+singObject.method('isEmpty', ObjectIsEmpty, {}, $);
+
+function ObjectIsEmpty(obj): boolean {
+
+    return (obj === undefined ||
+        obj === null ||
+        obj === 0 ||
+        obj === '' ||
+        ($.isArray(obj) && obj.length == 0) ||
+        ($.isString(obj) && obj.trim().length == 0));
+
+}
+
+

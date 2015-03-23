@@ -21,17 +21,21 @@ var LOGGING_INFO_ENABLED = false;
 var LOGGING_ERROR_ENABLED = true;
 var LOGGING_WARNING_ENABLED = true;
 
-var singLog = sing.addModule(new sing.Module('Singularity.Logging', sing, sing));
+var singLog = singModule.addModule(new sing.Module('Logging', sing, sing));
 
 singLog.requiredDocumentation = false;
 
 
 function log(...message: any[]) {
-    if (LOGGING_INFO_ENABLED)
-        console.log('%c' + $.toStr($.resolve(message), true), 'background: #eee; color: #555');
+    if (LOGGING_INFO_ENABLED) {
+        if (false && $.toStr && $.resolve)
+            console.log('%c' + $.toStr($.resolve(message), true), 'background: #eee; color: #555');
+        else
+            console.log('%c' + message, 'background: #eee; color: #555');
+    }
 }
 
-singLog.addExt('log', ArrayLog,
+singLog.method('log', ArrayLog,
     {
         summary: null,
         parameters: null,
@@ -46,7 +50,7 @@ function ArrayLog() {
     log(this);
 }
 
-singLog.addExt('log', NumberLog,
+singLog.method('log', NumberLog,
     {
         summary: 'Common funciton - Logs the calling Number to the console.',
         parameters: [],
@@ -65,7 +69,7 @@ function NumberLog(): void {
     log(this);
 }
 
-singLog.addExt('log', StringLog,
+singLog.method('log', StringLog,
     {
         summary: 'Common funciton - Logs the calling Boolean to the console.',
         parameters: [],
@@ -85,7 +89,7 @@ function StringLog(): void {
     log(this);
 }
 
-singLog.addExt('log', BooleanLog,
+singLog.method('log', BooleanLog,
     {
         summary: 'Common funciton - Logs the calling Boolean to the console.',
         parameters: [],
@@ -106,29 +110,34 @@ function BooleanLog(): void {
 
 
 function warn(...message: any[]) {
-    if (LOGGING_ERROR_ENABLED)
-        console.log('%c Warning: ' + $.toStr($.resolve(message), true), 'background: #aaa; color: #F7DAA3');
+    if (LOGGING_ERROR_ENABLED) {
+        if ($.toStr && $.resolve)
+            console.log('%c' + $.toStr($.resolve(message), true), 'background: #555; color: #F7DAA3');
+        else
+            console.log('%c' + message, 'background: #555; color: #F7DAA3');
+        //console.trace();
+    }
 }
 
-singLog.addExt('warn', ArrayWarn, {}, Array.prototype, "Array");
+singLog.method('warn', ArrayWarn, {}, Array.prototype, "Array");
 
 function ArrayWarn() {
     warn(this);
 }
 
-singLog.addExt('warn', NumberWarn, {}, Number.prototype, "Number");
+singLog.method('warn', NumberWarn, {}, Number.prototype, "Number");
 
 function NumberWarn() {
     warn(this);
 }
 
-singLog.addExt('warn', StringWarn, {}, String.prototype, "String");
+singLog.method('warn', StringWarn, {}, String.prototype, "String");
 
 function StringWarn() {
     warn(this);
 }
 
-singLog.addExt('warn', BooleanWarn, {}, Boolean.prototype, "Boolean");
+singLog.method('warn', BooleanWarn, {}, Boolean.prototype, "Boolean");
 
 function BooleanWarn() {
     warn(this);
@@ -136,29 +145,34 @@ function BooleanWarn() {
 
 
 function error(...message: any[]) {
-    if (LOGGING_ERROR_ENABLED)
-        console.log('%c Error: ' + $.toStr($.resolve(message), true), 'background: #eee; color: #FF0000');
+    if (LOGGING_ERROR_ENABLED) {
+        if ($.toStr && $.resolve)
+            console.log('%c ' + $.toStr($.resolve(message), true), 'background: #eee; color: #FF0000');
+        else
+            console.log('%c ' + message, 'background: #eee; color: #FF0000');
+        //console.trace();
+    }
 }
 
-singLog.addExt('error', ArrayError, {}, Array.prototype, "Array");
+singLog.method('error', ArrayError, {}, Array.prototype, "Array");
 
 function ArrayError() {
     error(this);
 }
 
-singLog.addExt('error', NumberError, {}, Number.prototype, "Number");
+singLog.method('error', NumberError, {}, Number.prototype, "Number");
 
 function NumberError() {
     error(this);
 }
 
-singLog.addExt('error', StringError, {}, String.prototype, "String");
+singLog.method('error', StringError, {}, String.prototype, "String");
 
 function StringError() {
     error(this);
 }
 
-singLog.addExt('error', BooleanError, {}, Boolean.prototype, "Boolean");
+singLog.method('error', BooleanError, {}, Boolean.prototype, "Boolean");
 
 function BooleanError() {
     error(this);

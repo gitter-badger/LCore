@@ -1,5 +1,5 @@
 /// <reference path="singularity-core.ts"/>
-var singJQuery = sing.addModule(new sing.Module("jQuery", $, $));
+var singJQuery = singModule.addModule(new sing.Module("jQuery", $, $));
 singJQuery.requiredDocumentation = false;
 /*
 //////////////////////////////////////////////////////
@@ -8,7 +8,7 @@ singJQuery.requiredDocumentation = false;
 //
 //
 */
-singJQuery.addExt('checked', Checked, {
+singJQuery.method('checked', Checked, {
     summary: null,
     parameters: null,
     returns: '',
@@ -16,7 +16,7 @@ singJQuery.addExt('checked', Checked, {
     examples: null,
     tests: function (ext) {
     },
-}, $.fn.prototype);
+}, $.fn);
 function Checked() {
     var anyChecked = false;
     this.each(function () {
@@ -25,7 +25,7 @@ function Checked() {
     });
     return anyChecked;
 }
-singJQuery.addExt('allVisible', AllVisible, {
+singJQuery.method('allVisible', AllVisible, {
     summary: null,
     parameters: null,
     returns: '',
@@ -33,7 +33,7 @@ singJQuery.addExt('allVisible', AllVisible, {
     examples: null,
     tests: function (ext) {
     },
-}, $.fn.prototype);
+}, $.fn);
 function AllVisible() {
     var allVisible = true;
     this.each(function () {
@@ -47,7 +47,7 @@ function AllVisible() {
     });
     return allVisible;
 }
-singJQuery.addExt('findIDNameSelector', FindIDNameSelector, {
+singJQuery.method('findIDNameSelector', FindIDNameSelector, {
     summary: null,
     parameters: null,
     returns: '',
@@ -55,7 +55,7 @@ singJQuery.addExt('findIDNameSelector', FindIDNameSelector, {
     examples: null,
     tests: function (ext) {
     },
-}, $.fn.prototype);
+}, $.fn);
 function FindIDNameSelector(name) {
     var target = $();
     try {
@@ -77,7 +77,7 @@ function FindIDNameSelector(name) {
         }
     return target || $();
 }
-singJQuery.addExt('actionIf', ActionIf, {
+singJQuery.method('actionIf', ActionIf, {
     summary: null,
     parameters: null,
     returns: '',
@@ -85,7 +85,7 @@ singJQuery.addExt('actionIf', ActionIf, {
     examples: null,
     tests: function (ext) {
     },
-}, $.fn.prototype);
+}, $.fn);
 function ActionIf(name) {
     var target = $(this);
     var ifTargetName = target.attr(name + '-if');
@@ -180,7 +180,7 @@ function ActionIf(name) {
     }
 }
 ;
-singJQuery.addExt('defer', Defer, {
+singJQuery.method('defer', Defer, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -194,5 +194,36 @@ singJQuery.addExt('defer', Defer, {
 function Defer(deferFunc) {
     if (deferFunc)
         setTimeout(deferFunc, 0);
+}
+singJQuery.method('hasAttr', JQueryHasAttr, {
+    summary: null,
+    parameters: null,
+    validateInput: false,
+    returns: '',
+    returnType: '',
+    examples: null,
+    tests: function (ext) {
+    },
+}, $.fn);
+function JQueryHasAttr(name) {
+    return $(this).attr(name) !== undefined;
+}
+singJQuery.method('outerHtml', JQueryOuterHtml, {
+    summary: null,
+    parameters: null,
+    validateInput: false,
+    returns: '',
+    returnType: '',
+    examples: null,
+    tests: function (ext) {
+    },
+}, $.fn);
+function JQueryOuterHtml() {
+    if (!this || this.length == 0) {
+        return '';
+    }
+    else {
+        return this[0].outerHTML;
+    }
 }
 //# sourceMappingURL=singularity-jquery.js.map

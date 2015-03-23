@@ -1,8 +1,8 @@
 /// <reference path="singularity-core.ts"/>
-var singDocs = sing.addModule(new sing.Module('Singularity.Documentation', sing, sing));
+var singDocs = singModule.addModule(new sing.Module('Documentation', sing, sing));
 singDocs.requiredDocumentation = false;
 singDocs.requiredUnitTests = false;
-singDocs.addExt('getDocs', SingularityGetDocs);
+singDocs.method('getDocs', SingularityGetDocs);
 function SingularityGetDocs(funcName, includeCode, includeDocumentation) {
     if (includeCode === void 0) { includeCode = false; }
     if (includeDocumentation === void 0) { includeDocumentation = true; }
@@ -19,10 +19,13 @@ function SingularityGetDocs(funcName, includeCode, includeDocumentation) {
     if (!funcName || funcName == '' || funcName == 'all')
         header = 'Singularity TypeScript, JavaScript, and jQuery language Extensions\r\n\r\n';
     var out = '';
-    $.objEach(sing.extensions, function (key, ext, index) {
+    $.objEach(sing.methods, function (key, ext, index) {
         var mod = sing.modules[ext.moduleName];
-        if (funcName && funcName.lower() != '' && funcName.lower() != 'all' && !ext.name.lower().contains(funcName.lower()))
+        if (funcName && funcName.lower() != '' && funcName.lower() != 'all' && !ext.name.lower().startsWith(funcName.lower()))
             return;
+        if (ext.isAlias) {
+            return;
+        }
         featuresCount += 1; // method
         if (mod.requiredUnitTests)
             featuresNeedTests++;
@@ -48,8 +51,9 @@ function SingularityGetDocs(funcName, includeCode, includeDocumentation) {
         var line = '------------------------------------------------------------------------------------';
         if (ext.details) {
             // Don't display details for alias functions, aliases are listed under the main function
-            if (ext.isAlias && includeDocumentation == true)
+            if (ext.isAlias && includeDocumentation == true) {
                 return;
+            }
             out += '\r\n';
             var functionDef = '';
             /*
@@ -84,10 +88,10 @@ function SingularityGetDocs(funcName, includeCode, includeDocumentation) {
                 out += '    Test Requirements: \r\n';
                 var methodTestsFound = 0;
                 var methodTestsPassed = 0;
-                for (var i = 0; i < sing.extensions[ext.name].details.unitTests.length; i++) {
+                for (var i = 0; i < sing.methods[ext.name].details.unitTests.length; i++) {
                     methodTestsFound++;
                     testsFound++;
-                    var test = sing.extensions[ext.name].details.unitTests[i];
+                    var test = sing.methods[ext.name].details.unitTests[i];
                     if (!test) {
                         continue;
                     }
@@ -145,7 +149,7 @@ function SingularityGetDocs(funcName, includeCode, includeDocumentation) {
     return header + out;
 }
 ;
-singDocs.addExt('getMissing', SingularityGetMissing);
+singDocs.method('getMissing', SingularityGetMissing);
 function SingularityGetMissing(funcName) {
     this.resolveTests();
     var featuresCount = 0;
@@ -154,7 +158,7 @@ function SingularityGetMissing(funcName) {
     var documentaionFound = 0;
     var header = 'Singularity.TS TypeScript, JavaScript, jQuery, HTML, Extension Method Engine & Library\r\n';
     var out = '';
-    $.objEach(sing.extensions, function (key, ext, i) {
+    $.objEach(sing.methods, function (key, ext, i) {
         if (funcName && funcName.lower() != '' && funcName.lower() != 'all' && !ext.name.lower().contains(funcName.lower()))
             return;
         featuresCount += 1; // method
@@ -194,14 +198,14 @@ function SingularityGetMissing(funcName) {
     return header + out;
 }
 ;
-singDocs.addExt('getSummary', SingularityGetSummary);
+singDocs.method('getSummary', SingularityGetSummary);
 function SingularityGetSummary(funcName, includeFunctions) {
     if (funcName === void 0) { funcName = 'all'; }
     if (includeFunctions === void 0) { includeFunctions = true; }
     var out = sing.getDocs(funcName, false, false);
     out += '\r\n';
     if (includeFunctions) {
-        $.objEach(sing.extensions, function (key, ext, i) {
+        $.objEach(sing.methods, function (key, ext, i) {
             if (funcName && funcName.lower() != '' && funcName.lower() != 'all' && !ext.name.lower().contains(funcName.lower()))
                 return;
             out += '\r\n' + (ext.name + ' ').pad(30);

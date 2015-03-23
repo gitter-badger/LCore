@@ -211,9 +211,9 @@
 //
 //////////////////////////////////////////////////////
 // #endregion Comments
-var singHTML = sing.addModule(new sing.Module('Singularity.HTML', String));
+var singHTML = singModule.addModule(new sing.Module('HTML', String));
 singHTML.requiredDocumentation = false;
-singHTML.addExt('textToHTML', StringTextToHTML, {
+singHTML.method('textToHTML', StringTextToHTML, {
     summary: null,
     parameters: null,
     returns: '',
@@ -225,7 +225,7 @@ singHTML.addExt('textToHTML', StringTextToHTML, {
 function StringTextToHTML() {
     return this.replaceAll('\r\n', '\n').replaceAll('\r\n', '<br/>').replaceAll(' ', '&nbsp;');
 }
-singHTML.addExt('stripHTML', StringStripHTML, {
+singHTML.method('stripHTML', StringStripHTML, {
     summary: null,
     parameters: null,
     returns: '',
@@ -240,7 +240,7 @@ function StringStripHTML() {
     out.replaceRegExp(pattern, / /);
     return out;
 }
-singHTML.addExt('getAttributes', GetAttributes, {
+singHTML.method('getAttributes', GetAttributes, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -249,7 +249,7 @@ singHTML.addExt('getAttributes', GetAttributes, {
     examples: null,
     tests: function (ext) {
     },
-}, $.fn.prototype);
+}, $.fn);
 function GetAttributes() {
     var out = [];
     this.each(function (item) {

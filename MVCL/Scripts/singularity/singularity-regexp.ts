@@ -10,11 +10,11 @@ interface String {
     escapeRegExp?: () => string;
 }
 
-var singRegExp = sing.addModule(new sing.Module('Singularity.RegExp', String));
+var singRegExp = singModule.addModule(new sing.Module('RegExp', String));
 
 singRegExp.requiredDocumentation = false;
 
-singRegExp.addExt('matchCount', StringMatchCount,
+singRegExp.method('matchCount', StringMatchCount,
     {
         summary: null,
         parameters: null,
@@ -35,7 +35,7 @@ function StringMatchCount(pattern: string) {
     return match.length;
 }
 
-singRegExp.addExt('hasMatch', StringHasMatch,
+singRegExp.method('hasMatch', StringHasMatch,
     {
         summary: null,
         parameters: null,
@@ -56,7 +56,7 @@ function StringHasMatch(pattern: string): boolean {
     return true;
 }
 
-singRegExp.addExt('replaceRegExp', StringReplaceRegExp,
+singRegExp.method('replaceRegExp', StringReplaceRegExp,
     {
         summary: null,
         parameters: null,
@@ -87,7 +87,7 @@ function StringReplaceRegExp(pattern: RegExp, replace?: RegExp): string {
     return out;
 }
 
-singRegExp.addExt('escapeRegExp', StringEscapeRegExp,
+singRegExp.method('escapeRegExp', StringEscapeRegExp,
     {
         summary: null,
         parameters: null,

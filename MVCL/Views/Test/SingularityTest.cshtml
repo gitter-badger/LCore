@@ -21,11 +21,22 @@
     Layout = Layouts.MainLayout;
 }
 
+
+<div class="mvcl-test singularity-test" sing-fill="{{ Singularity with sing }}"></div>
+
+
 <div class="mvcl-test singularity-test">
 
     <div>
         <script type="text/javascript">
+            $().init(function () {
+                sing.loadTemplate('/Templates/Templates.html', function () {
+                    sing.initTemplates();
+                });
+            });
+
             $().ready(function () {
+
                 $('#singularity-output').html(sing.getSummary('', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
 
                 $('#singularity-tests-module').html(sing.getSummary('Singularity.Tests.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
@@ -38,14 +49,14 @@
                 $('#singularity-html-module').html(sing.getSummary('Singularity.html.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
 
 
-                $('#singularity-output-object').html(sing.getSummary('object.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
-                $('#singularity-output-boolean').html(sing.getSummary('Boolean.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
-                $('#singularity-output-number').html(sing.getSummary('Number.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
-                $('#singularity-output-string').html(sing.getSummary('String.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
-                $('#singularity-output-date').html(sing.getSummary('Date.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
-                $('#singularity-output-array').html(sing.getSummary('Array.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
-                $('#singularity-output-jquery').html(sing.getSummary('jQuery.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
-                $('#singularity-output-function').html(sing.getSummary('Function.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
+                $('#singularity-output-object').html(sing.getSummary('Singularity.object.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
+                $('#singularity-output-boolean').html(sing.getSummary('Singularity.Boolean.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
+                $('#singularity-output-number').html(sing.getSummary('Singularity.Number.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
+                $('#singularity-output-string').html(sing.getSummary('Singularity.String.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
+                $('#singularity-output-date').html(sing.getSummary('Singularity.Date.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
+                $('#singularity-output-array').html(sing.getSummary('Singularity.Array.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
+                $('#singularity-output-jquery').html(sing.getSummary('Singularity.jQuery.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
+                $('#singularity-output-function').html(sing.getSummary('Singularity.Function.', false, false).textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
 
                 $('#singularity-output-test-results').html(sing.runTests().textToHTML().replaceAll('(100%)', '<b>(&nbsp;100%&nbsp;)</b>'));
 

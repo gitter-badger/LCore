@@ -1,4 +1,4 @@
-var singString = sing.addModule(new sing.Module("String", String));
+var singString = singModule.addModule(new sing.Module("String", String));
 singString.requiredDocumentation = false;
 /// <reference path="singularity-core.ts"/>
 //////////////////////////////////////////////////////
@@ -6,7 +6,7 @@ singString.requiredDocumentation = false;
 //
 // String Extensions
 //
-singString.addExt('contains', StringContains, {
+singString.method('contains', StringContains, {
     summary: null,
     parameters: null,
     returns: '',
@@ -20,7 +20,7 @@ function StringContains(str) {
         return false;
     return this == str || this.indexOf(str) >= 0;
 }
-singString.addExt('replaceAll', StringReplaceAll, {
+singString.method('replaceAll', StringReplaceAll, {
     summary: null,
     parameters: null,
     returns: '',
@@ -76,7 +76,7 @@ function StringReplaceAll(searchOrSearches, replaceOrReplacements) {
         return out.toString();
     }
 }
-singString.addExt('upper', StringUpper, {
+singString.method('upper', StringUpper, {
     summary: null,
     parameters: null,
     returns: '',
@@ -88,7 +88,7 @@ singString.addExt('upper', StringUpper, {
 function StringUpper() {
     return this.toUpperCase();
 }
-singString.addExt('lower', StringLower, {
+singString.method('lower', StringLower, {
     summary: null,
     parameters: null,
     returns: '',
@@ -100,7 +100,7 @@ singString.addExt('lower', StringLower, {
 function StringLower() {
     return this.toLowerCase();
 }
-singString.addExt('collapseSpaces', StringCollapseSpaces, {
+singString.method('collapseSpaces', StringCollapseSpaces, {
     summary: null,
     parameters: null,
     returns: '',
@@ -112,7 +112,7 @@ singString.addExt('collapseSpaces', StringCollapseSpaces, {
 function StringCollapseSpaces() {
     return this.replaceAll('  ', ' ');
 }
-singString.addExt('startsWith', StringStartsWith, {
+singString.method('startsWith', StringStartsWith, {
     summary: null,
     parameters: null,
     returns: '',
@@ -132,7 +132,7 @@ function StringStartsWith(stringOrStrings) {
     }
     return this.indexOf(stringOrStrings) == 0;
 }
-singString.addExt('endsWith', StringEndsWith, {
+singString.method('endsWith', StringEndsWith, {
     summary: null,
     parameters: null,
     returns: '',
@@ -153,7 +153,7 @@ function StringEndsWith(stringOrStrings) {
     }
     return this.indexOf(stringOrStrings) == this.length - stringOrStrings.length;
 }
-singString.addExt('removeAll', StringRemoveAll, {
+singString.method('removeAll', StringRemoveAll, {
     summary: null,
     parameters: null,
     returns: '',
@@ -172,7 +172,7 @@ function StringRemoveAll(stringOrStrings) {
     }
     return this.replaceAll(stringOrStrings, '');
 }
-singString.addExt('reverse', StringReverse, {
+singString.method('reverse', StringReverse, {
     summary: null,
     parameters: null,
     returns: '',
@@ -190,7 +190,7 @@ function StringReverse() {
     }
     return out;
 }
-singString.addExt('repeat', StringRepeat, {
+singString.method('repeat', StringRepeat, {
     summary: null,
     parameters: null,
     returns: '',
@@ -208,7 +208,7 @@ function StringRepeat(times) {
     }
     return out;
 }
-singString.addExt('words', StringWords, {
+singString.method('words', StringWords, {
     summary: null,
     parameters: null,
     returns: '',
@@ -222,7 +222,7 @@ function StringWords() {
         return [];
     return this.collapseSpaces().split(' ');
 }
-singString.addExt('lines', StringLines, {
+singString.method('lines', StringLines, {
     summary: null,
     parameters: null,
     returns: '',
@@ -236,7 +236,7 @@ function StringLines() {
         return [];
     return this.collapseSpaces().split('\r\n');
 }
-singString.addExt('surround', StringSurround, {
+singString.method('surround', StringSurround, {
     summary: null,
     parameters: null,
     returns: '',
@@ -250,7 +250,7 @@ function StringSurround(str) {
         return '';
     return str + this + str;
 }
-singString.addExt('truncate', StringTruncate, {
+singString.method('truncate', StringTruncate, {
     summary: null,
     parameters: null,
     returns: '',
@@ -266,7 +266,7 @@ function StringTruncate(length) {
         return this.substr(0, length).toString();
     return this;
 }
-singString.addExt('isValidEmail', StringIsValidEmail, {
+singString.method('isValidEmail', StringIsValidEmail, {
     summary: null,
     parameters: null,
     returns: '',
@@ -279,7 +279,7 @@ function StringIsValidEmail() {
     var thisStr = this;
     return thisStr.hasMatch(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/);
 }
-singString.addExt('isHex', StringIsHex, {
+singString.method('isHex', StringIsHex, {
     summary: null,
     parameters: null,
     returns: '',
@@ -292,7 +292,7 @@ function StringIsHex() {
     var thisStr = this;
     return thisStr.hasMatch(/^#?([a-f0-9]{6}|[a-f0-9]{3})$/);
 }
-singString.addExt('isValidURL', null, {
+singString.method('isValidURL', null, {
     summary: null,
     parameters: null,
     returns: '',
@@ -305,7 +305,7 @@ function StringIsValidURL() {
     var thisStr = this;
     return thisStr.hasMatch(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/);
 }
-singString.addExt('isIPAddress', StringIsIPAddress, {
+singString.method('isIPAddress', StringIsIPAddress, {
     summary: null,
     parameters: null,
     returns: '',
@@ -318,7 +318,7 @@ function StringIsIPAddress() {
     var thisStr = this;
     return thisStr.hasMatch(/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/);
 }
-singString.addExt('isGuid', StringIsGuid, {
+singString.method('isGuid', StringIsGuid, {
     summary: null,
     parameters: null,
     returns: '',
@@ -331,7 +331,7 @@ function StringIsGuid() {
     var thisStr = this;
     return thisStr.hasMatch(/^\{?[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}‌​\}?$/);
 }
-singString.addExt('tryToNumber', null, {
+singString.method('tryToNumber', null, {
     summary: null,
     parameters: null,
     returns: '',
@@ -357,7 +357,7 @@ function StringTryToNumber(defaultValue) {
 //////////////////////////////////////////////////////
 //
 // String Array functions
-singString.addExt('joinLines', StringJoinLines, {
+singString.method('joinLines', StringJoinLines, {
     summary: null,
     parameters: null,
     returns: '',
@@ -375,7 +375,7 @@ function StringJoinLines(asHTML) {
 //
 //////////////////////////////////////////////////////
 //
-singString.addExt('pad', StringPad, {
+singString.method('pad', StringPad, {
     summary: null,
     parameters: null,
     returns: '',
@@ -421,7 +421,7 @@ function StringPad(length, align, whitespace) {
 //
 //////////////////////////////////////////////////////
 //
-singString.addExt('toStr', BooleanToStr, {
+singString.method('toStr', BooleanToStr, {
     summary: 'Converts the calling Boolean to string.',
     parameters: [
         {
@@ -451,7 +451,7 @@ function BooleanToStr(includeMarkup) {
         return this.toYesNo();
     return this == false ? "false" : "true";
 }
-singString.addExt('toStr', ToStr, {
+singString.method('toStr', ToStr, {
     summary: null,
     parameters: null,
     returns: '',
@@ -518,7 +518,7 @@ function ToStr(obj, includeMarkup) {
     }
     return obj;
 }
-singString.addExt('toStr', ArrayToStr, {
+singString.method('toStr', ArrayToStr, {
     summary: null,
     parameters: null,
     returns: null,
@@ -544,7 +544,7 @@ function ArrayToStr(includeMarkup) {
     out += includeMarkup ? ']' : '';
     return out;
 }
-singString.addExt('toStr', StringToStr, {
+singString.method('toStr', StringToStr, {
     summary: null,
     parameters: null,
     returns: '',
@@ -558,7 +558,7 @@ function StringToStr(includeMarkup) {
         return "'" + this.replaceAll('\r\n', '\\r\\n') + "'";
     return this;
 }
-singString.addExt('isString', IsString, {
+singString.method('isString', IsString, {
     summary: null,
     parameters: null,
     returns: '',
@@ -576,7 +576,7 @@ singString.addExt('isString', IsString, {
 function IsString(str) {
     return typeof str == 'string';
 }
-singString.addExt('isDate', null, {
+singString.method('first', StringFirst, {
     summary: null,
     parameters: null,
     returns: '',
@@ -585,7 +585,14 @@ singString.addExt('isDate', null, {
     tests: function (ext) {
     },
 });
-singString.addExt('isBoolean', null, {
+function StringFirst(count) {
+    if (count <= 0)
+        return '';
+    if (count >= this.length)
+        return this;
+    return this.substr(0, count);
+}
+singString.method('last', StringLast, {
     summary: null,
     parameters: null,
     returns: '',
@@ -594,7 +601,14 @@ singString.addExt('isBoolean', null, {
     tests: function (ext) {
     },
 });
-singString.addExt('isNumeric', null, {
+function StringLast(count) {
+    if (count <= 0)
+        return '';
+    if (count >= this.length)
+        return this;
+    return this.substr(this.length - count, count);
+}
+singString.method('containsAny', null, {
     summary: null,
     parameters: null,
     returns: '',
@@ -603,7 +617,20 @@ singString.addExt('isNumeric', null, {
     tests: function (ext) {
     },
 });
-singString.addExt('toNumber', null, {
+function StringContainsAny() {
+    var items = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        items[_i - 0] = arguments[_i];
+    }
+    if (!this)
+        return false;
+    if (!items || item.length == 0)
+        return false;
+    return items.has(function (item) {
+        return this.contains(item);
+    });
+}
+singString.method('isDate', null, {
     summary: null,
     parameters: null,
     returns: '',
@@ -612,7 +639,7 @@ singString.addExt('toNumber', null, {
     tests: function (ext) {
     },
 });
-singString.addExt('toBoolean', null, {
+singString.method('toUrlSlug', null, {
     summary: null,
     parameters: null,
     returns: '',
@@ -621,7 +648,7 @@ singString.addExt('toBoolean', null, {
     tests: function (ext) {
     },
 });
-singString.addExt('toUrlSlug', null, {
+singString.method('containsAll', null, {
     summary: null,
     parameters: null,
     returns: '',
@@ -630,7 +657,7 @@ singString.addExt('toUrlSlug', null, {
     tests: function (ext) {
     },
 });
-singString.addExt('first', null, {
+singString.method('parseJSON', null, {
     summary: null,
     parameters: null,
     returns: '',
@@ -639,7 +666,7 @@ singString.addExt('first', null, {
     tests: function (ext) {
     },
 });
-singString.addExt('last', null, {
+singString.method('lastIndexOf', null, {
     summary: null,
     parameters: null,
     returns: '',
@@ -648,7 +675,7 @@ singString.addExt('last', null, {
     tests: function (ext) {
     },
 });
-singString.addExt('containsAny', null, {
+singString.method('capitalize', null, {
     summary: null,
     parameters: null,
     returns: '',
@@ -657,7 +684,7 @@ singString.addExt('containsAny', null, {
     tests: function (ext) {
     },
 });
-singString.addExt('containsAll', null, {
+singString.method('camelize', null, {
     summary: null,
     parameters: null,
     returns: '',
@@ -666,7 +693,7 @@ singString.addExt('containsAll', null, {
     tests: function (ext) {
     },
 });
-singString.addExt('parseJSON', null, {
+singString.method('pluralize', null, {
     summary: null,
     parameters: null,
     returns: '',
@@ -675,7 +702,7 @@ singString.addExt('parseJSON', null, {
     tests: function (ext) {
     },
 });
-singString.addExt('lastIndexOf', null, {
+singString.method('fill', null, {
     summary: null,
     parameters: null,
     returns: '',
@@ -684,7 +711,7 @@ singString.addExt('lastIndexOf', null, {
     tests: function (ext) {
     },
 });
-singString.addExt('capitalize', null, {
+singString.method('similarity', null, {
     summary: null,
     parameters: null,
     returns: '',
@@ -693,7 +720,7 @@ singString.addExt('capitalize', null, {
     tests: function (ext) {
     },
 });
-singString.addExt('camelize', null, {
+singString.method('like', null, {
     summary: null,
     parameters: null,
     returns: '',
@@ -702,43 +729,7 @@ singString.addExt('camelize', null, {
     tests: function (ext) {
     },
 });
-singString.addExt('pluralize', null, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-    },
-});
-singString.addExt('fill', null, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-    },
-});
-singString.addExt('similarity', null, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-    },
-});
-singString.addExt('like', null, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-    },
-});
-singString.addExt('isJSON', null, {
+singString.method('isJSON', null, {
     summary: null,
     parameters: null,
     returns: '',

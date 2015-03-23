@@ -4,42 +4,48 @@ var SingularityTest = (function () {
         this.name = name;
         this.testFunc = testFunc;
         this.requirement = requirement;
+        this.testFunc = function () {
+            this.testResult = testFunc();
+            if (this.testResult == null)
+                this.testResult = true;
+            return this.testResult;
+        };
     }
     return SingularityTest;
 })();
-var singTests = sing.addModule(new sing.Module('Singularity.Tests', sing, sing));
+var singTests = singModule.addModule(new sing.Module('Tests', sing, sing));
 singTests.requiredDocumentation = false;
 singTests.requiredUnitTests = false;
-singTests.addExt('addTest', SingularityAddTest, {}, sing);
+singTests.method('addTest', SingularityAddTest, {}, sing);
 function SingularityAddTest(name, testFunc, requirement) {
-    if (!sing.extensions[name])
+    if (!sing.methods[name])
         throw name + ' not found';
-    if (!sing.extensions[name].details.tests)
+    if (!sing.methods[name].details.tests)
         throw name + ' tests not found';
-    if ($.isFunction(sing.extensions[name].details.tests))
-        sing.extensions[name].details.unitTests = sing.extensions[name].details.unitTests || [];
-    sing.extensions[name].details.unitTests = sing.extensions[name].details.unitTests.concat(new SingularityTest(name, testFunc, requirement));
+    if ($.isFunction(sing.methods[name].details.tests))
+        sing.methods[name].details.unitTests = sing.methods[name].details.unitTests || [];
+    sing.methods[name].details.unitTests = sing.methods[name].details.unitTests.concat(new SingularityTest(name, testFunc, requirement));
 }
 ;
-singTests.addExt('addCustomTest', SingularityAddCustomTest, {}, sing);
+singTests.method('addCustomTest', SingularityAddCustomTest, {}, sing);
 function SingularityAddCustomTest(name, testFunc, requirement) {
     if (!$.isString(name))
         throw name + ' was not a string';
-    if (!sing.extensions[name])
+    if (!sing.methods[name])
         throw name + ' not found';
-    if (!sing.extensions[name].details.tests)
+    if (!sing.methods[name].details.tests)
         throw name + ' tests not found';
     requirement = requirement || '';
     requirement += '\r\n' + testFunc.toString() + '\r\n';
-    sing.extensions[name].details.unitTests = sing.extensions[name].details.unitTests || [];
-    sing.extensions[name].details.unitTests = sing.extensions[name].details.unitTests.concat(new SingularityTest(name, testFunc, requirement));
+    sing.methods[name].details.unitTests = sing.methods[name].details.unitTests || [];
+    sing.methods[name].details.unitTests = sing.methods[name].details.unitTests.concat(new SingularityTest(name, testFunc, requirement));
 }
 ;
-singTests.addExt('addMethodTest', SingularityAddMethodTest, {}, sing);
+singTests.method('addMethodTest', SingularityAddMethodTest, {}, sing);
 function SingularityAddMethodTest(ext, target, args, compare, requirement) {
     if (!ext.method)
         throw ext.name + ' method not found';
-    requirement = (requirement ? (requirement + '\r\n') : '') + '(' + $.toStr(target, true) + ').' + ext.shortName;
+    requirement = (requirement ? (requirement + '\r\n') : '') + (!!target ? '(' + $.toStr(target, true) + ').' : '') + ext.shortName;
     requirement += '(';
     for (var i = 0; i < args.length; i++) {
         requirement += $.toStr(args[i], true);
@@ -60,7 +66,7 @@ function SingularityAddMethodTest(ext, target, args, compare, requirement) {
     }, requirement);
 }
 ;
-singTests.addExt('addAssertTest', SingularityAddAssertTest, {}, sing);
+singTests.method('addAssertTest', SingularityAddAssertTest, {}, sing);
 function SingularityAddAssertTest(name, result, compare, requirement) {
     requirement = requirement || $.toStr(compare, true) + ' is expected to match result: ' + $.toStr(result, true);
     this.addTest(name, function () {
@@ -73,7 +79,7 @@ function SingularityAddAssertTest(name, result, compare, requirement) {
     }, requirement);
 }
 ;
-singTests.addExt('addFailsTest', SingularityAddFailsTest, {}, sing);
+singTests.method('addFailsTest', SingularityAddFailsTest, {}, sing);
 function SingularityAddFailsTest(ext, target, args, expectedError, requirement) {
     if (target == null || target == undefined)
         throw 'no target';
@@ -101,16 +107,16 @@ function SingularityAddFailsTest(ext, target, args, expectedError, requirement) 
     }, requirement);
 }
 ;
-singTests.addExt('runTests', SingularityRunTests, {}, sing);
+singTests.method('runTests', SingularityRunTests, {}, sing);
 function SingularityRunTests(display) {
     if (display === void 0) { display = false; }
     this.resolveTests();
     var result;
     var testCount = 0;
     var displayStr = '';
-    for (var i = 0; i < Object.keys(sing.extensions).length; i++) {
-        var name = Object.keys(sing.extensions)[i];
-        var ext = sing.extensions[name];
+    for (var i = 0; i < Object.keys(sing.methods).length; i++) {
+        var name = Object.keys(sing.methods)[i];
+        var ext = sing.methods[name];
         var tests = ext.details.unitTests;
         if (tests) {
             for (var j = 0; j < tests.length; j++) {
@@ -133,29 +139,29 @@ function SingularityRunTests(display) {
     return sing.listTests() + '\r\n' + displayStr + '\r\n' + (result || '\r\n\r\nAll ' + testCount + ' tests succeeded.');
 }
 ;
-singTests.addExt('listTests', SingularityListTests, {}, sing);
+singTests.method('listTests', SingularityListTests, {}, sing);
 function SingularityListTests() {
     this.resolveTests();
     var out = '\r\n';
-    for (var i = 0; i < Object.keys(sing.extensions).length; i++) {
-        var name = Object.keys(sing.extensions)[i];
-        var item = sing.extensions[name];
+    for (var i = 0; i < Object.keys(sing.methods).length; i++) {
+        var name = Object.keys(sing.methods)[i];
+        var item = sing.methods[name];
         var tests = item.details.unitTests;
         if (tests && tests.length > 0)
-            out += ('Extension: ' + name).pad(30) + '      Tests: ' + tests.length + '\r\n';
+            out += ('Extension: ' + name).pad(50) + '      Tests: ' + tests.length + '\r\n';
         else
             ; // out += 'Function: ' + name + '      Tests: 0\r\n';
     }
     return out;
 }
 ;
-singTests.addExt('listMissingTests', SingularityListMissingTests, {}, sing);
+singTests.method('listMissingTests', SingularityListMissingTests, {}, sing);
 function SingularityListMissingTests() {
     this.resolveTests();
     var out = '';
-    for (var i = 0; i < Object.keys(sing.extensions).length; i++) {
-        var name = Object.keys(sing.extensions)[i];
-        var item = sing.extensions[name];
+    for (var i = 0; i < Object.keys(sing.methods).length; i++) {
+        var name = Object.keys(sing.methods)[i];
+        var item = sing.methods[name];
         var tests = item.details.unitTests;
         if (!tests || tests.length == 0) {
             out += 'Extension: ' + name + '      Tests: 0\r\n';
@@ -164,9 +170,9 @@ function SingularityListMissingTests() {
     return out;
 }
 ;
-singTests.addExt('resolveTests', SingularityResolveTests, {}, sing);
+singTests.method('resolveTests', SingularityResolveTests, {}, sing);
 function SingularityResolveTests() {
-    $.objEach(sing.extensions, function (key, ext, i) {
+    $.objEach(sing.methods, function (key, ext, i) {
         if (ext && ext.details.tests && $.isFunction(ext.details.tests)) {
             ext.details.tests(ext);
             // Clear it if it's still a function (no tests)
