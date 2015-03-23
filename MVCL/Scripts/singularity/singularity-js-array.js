@@ -1,6 +1,6 @@
 /// <reference path="singularity-core.ts"/>
 /// <reference path="singularity-tests.ts"/>
-var singArray = singModule.addModule(new sing.Module("Array", Array));
+var singArray = singExt.addModule(new sing.Module("Array", Array));
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Array Extensions

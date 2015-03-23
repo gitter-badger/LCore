@@ -24,7 +24,7 @@ interface Array<T> {
 }
 
 
-var singObject = singModule.addModule(new sing.Module("Object", $, $));
+var singObject = singExt.addModule(new sing.Module("Object", $, $));
 
 
 singObject.method('objEach', ObjectEach,
@@ -419,8 +419,8 @@ function ObjectIsEmpty(obj): boolean {
 
     return (obj === undefined ||
         obj === null ||
-        isNaN(obj) ||
         obj === '' ||
+        ($.isNumber(obj) && isNaN(obj)) ||
         ($.isArray(obj) && obj.length == 0) ||
         ($.isString(obj) && obj.trim().length == 0));
 

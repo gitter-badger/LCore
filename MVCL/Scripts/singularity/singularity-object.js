@@ -1,4 +1,4 @@
-var singObject = singModule.addModule(new sing.Module("Object", $, $));
+var singObject = singExt.addModule(new sing.Module("Object", $, $));
 singObject.method('objEach', ObjectEach, {
     summary: null,
     parameters: null,
@@ -307,6 +307,6 @@ function ObjectClone() {
 }
 singObject.method('isEmpty', ObjectIsEmpty, {}, $);
 function ObjectIsEmpty(obj) {
-    return (obj === undefined || obj === null || isNaN(obj) || obj === '' || ($.isArray(obj) && obj.length == 0) || ($.isString(obj) && obj.trim().length == 0));
+    return (obj === undefined || obj === null || obj === '' || ($.isNumber(obj) && isNaN(obj)) || ($.isArray(obj) && obj.length == 0) || ($.isString(obj) && obj.trim().length == 0));
 }
 //# sourceMappingURL=singularity-object.js.map

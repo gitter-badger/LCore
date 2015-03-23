@@ -1,5 +1,5 @@
 /// <reference path="singularity-core.ts"/>
-var singFunction = singModule.addModule(new sing.Module("Function", Function));
+var singFunction = singExt.addModule(new sing.Module("Function", Function));
 singFunction.requiredDocumentation = false;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

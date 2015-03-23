@@ -6,6 +6,16 @@
 
     <p>{{sing.summary}}</p>
 
+    <div sing-if="{{sing.testErrors}}">
+        <h2><error>Errors</error></h2>
+        <ol>
+            <li sing-loop="{{ error in sing.testErrors}}">
+                <error>{{error.textToHTML()}}</error>
+                <hr />
+            </li>
+        </ol>
+    </div>
+
     <div sing-fill="{{ Module with sing.modules.Singularity as module }}"></div>
     <hr />
 </div>
@@ -61,20 +71,27 @@
         </div>
     </div>
     <div>
-        Total:
-        <span class="right">
-            {{module.implementedItems()}}
-            /
-            {{module.totalItems()}}
+        <b>
+            <br />
+            Total:
+            <span class="right">
+                {{module.implementedItems()}}
+                /
+                {{module.totalItems()}}
 
-            ({{module.implementedItems().percentOf(module.totalItems()) }}%)
-        </span>
+                ({{module.implementedItems().percentOf(module.totalItems()) }}%)
+            </span>
+            <br /><br />
+        </b>
     </div>
 
-    <div class="tabs">
+    <div class="tabs" sing-if="{{module.subModules}}">
+        <h3 sing-if="{{module.parentModule}}">Sub-Modules:</h3>
+        <h3 sing-else>Modules:</h3>
+
         <ul>
             <li sing-loop="{{ sub in module.subModules }}">
-                <a href="#tabs-{{sub.name}}-{{sub$index}}">{{sub.name}}</a>
+                <a href="#tabs-{{sub.name}}-{{sub$index}}">{{sub.name}} ({{sub.totalMethods()}})</a>
             </li>
         </ul>
         <div sing-loop="{{ sub in module.subModules }}" sing-loop-inner="true">
@@ -85,67 +102,69 @@
     </div>
 
     <div sing-loop="{{ method in module.methods }}">
-        <div sing-fill="{{ Method with method }}"></></div>
+        <div sing-fill="{{ Method with method }}"></div>
     </div>
 
 </div>
 
 <div sing-template="Method">
-    <div sing-if="{{method.details.summary}}">
+    <div sing-if="{{method.details}}">
+        <hr />
+        <div class="btn-info btn left " click-fade-toggle=".show-{{method.name.toSlug()}}" style="position:relative; width:40px; height: 36px; padding: 0px;">
+            <glyph class="show-{{method.name.toSlug()}}" style="position:absolute; width:40px; height: 36px; margin-top: 10px">&#x2b;</glyph>
+            <glyph class="show-{{method.name.toSlug()}}" style="position:absolute; width:40px; height: 36px; margin-top: 10px; display: none;">&#x2212;</glyph>
+        </div>
+
         <h3>{{method.shortName}}</h3>
 
-        <p sing-if="{{method.details.summary}}">
-            Summary: {{method.details.summary}}
-        </p>
 
-        <p sing-if="{{method.details.parameters}}">
-            Parameters:
-            <ul>
-                <li sing-loop="{{param in method.details.parameters}}">
-                    <div sing-fill="{{Parameter with param}}"></div>
-                </li>
-            </ul>
-        </p>
+        <div style="display:none;" class="show-{{method.name.toSlug()}}">
+            <h4>{{method.methodCall}}</h4>
 
-        <p sing-if="{{method.details.returnType}}">
-            Returns: {{sing.getTypeName(method.details.returnType)}}
-        </p>
-        <p sing-else>Returns: Nothing.</p>
+            <p sing-if="{{method.details.summary}}">
+                <b>Summary: </b>{{method.details.summary}}
+            </p>
+
+            <div sing-if="{{method.details.parameters}}">
+                <b>Parameters:</b>
+
+                <ol>
+                    <li sing-loop="{{ param in method.details.parameters }}">
+                        <div sing-fill="{{ Parameter with param }}"></div>
+                    </li>
+                </ol>
+            </div>
+
+            <p sing-if="{{method.details.returnType}}">
+                <b>Returns:</b>
+                {{sing.getTypeName(method.details.returnType)}}
+            </p>
+            <p sing-else><b>Returns:</b> Nothing.</p>
+
+            <div sing-if="{{$.isDefined(method.methodOriginal)}}" style="display: block;margin-bottom: 40px;width: 100%; height: 32px;">
+                <div class="btn-info btn" click-fade-toggle=".code-{{method.name.toSlug()}}" style="width: 100%;">
+                    <span class="code-{{method.name.toSlug()}}" style="position:absolute;">View Code...</span>
+                    <span style="display: none;position:absolute;" class="code-{{method.name.toSlug()}}">Hide Code...</span>
+                </div>
+                <div style="display: none; width: 100%;" class="code-{{method.name.toSlug()}}">
+                    <b style="margin-top: 40px;">Source Code:</b>
+                    <pre>{{method.methodOriginal.toString().textToHTML()}}</pre>
+                </div>
+            </div>
+            <div sing-else>
+                <error>Method is not implemented.</error>
+            </div>
+
+            <div sing-if="{{ method.details.examples}}">
+                <b>Examples:</b>
+                <pre sing-loop="{{ example in method.details.examples}}">{{example}}</pre>
+            </div>
+        </div>
     </div>
 </div>
 
 <div sing-template="Parameter">
-    <div>{{param.name}}</div>
+    <div>Name: {{param.name}}</div>
     <div>Type: {{sing.getTypeName(param.types)}}</div>
-    <div sing-if="{{param.description}}">{{param.description}}</div>
-</div>
-
-
-
-
-<div sing-template="List">
-    <ul>
-        <li sing-repeat="{{ $data }}">
-            {{ $item }}
-        </li>
-    </ul>
-</div>
-
-<div sing-template="Table">
-    <table>
-        <thead>
-            <tr>
-                <td sing-repeat="{{ column in $.objKeys($data) }}">
-                    {{column}}
-                </td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr sing-repeat="{{ row in $.objValues($data) }}">
-                <td sing-repeat="{{ column in $.objKeys($data) }}">
-                    {{ $data[column] }}
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div sing-if="{{param.description}}">Description: {{param.description}}</div>
 </div>

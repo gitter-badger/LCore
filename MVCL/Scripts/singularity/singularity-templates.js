@@ -213,7 +213,7 @@ function ElementPerformSingIf(data, _context) {
     else {
         var sourceData = sing.resolveKey(condition, data, _context);
         if (!$.isDefined(sourceData))
-            throw 'could not resolve condition ' + condition;
+            sourceData = false;
     }
     srcThis.removeAttr(mode);
     var next = srcThis.next();
@@ -412,7 +412,9 @@ $().init(function () {
 sing.initTemplates = function () {
     $('*[sing-if]').each(function () {
         try {
+            $(this).hide();
             $(this).singIf();
+            $(this).fadeIn('fast');
         }
         catch (ex) {
             console.log(ex);
@@ -420,7 +422,9 @@ sing.initTemplates = function () {
     });
     $('*[sing-loop]').each(function () {
         try {
+            $(this).hide();
             $(this).singLoop();
+            $(this).fadeIn('fast');
         }
         catch (ex) {
             console.log(ex);
@@ -429,6 +433,7 @@ sing.initTemplates = function () {
     $('*[sing-fill]').each(function () {
         try {
             $(this).singFill();
+            $(this).fadeIn('fast');
         }
         catch (ex) {
             console.log(ex);

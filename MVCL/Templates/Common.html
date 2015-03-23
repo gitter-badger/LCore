@@ -1,0 +1,66 @@
+﻿
+
+<div sing-template="List">
+    <ul>
+        <li sing-loop="{{ $data }}">
+            {{ $item }}
+        </li>
+    </ul>
+</div>
+
+<div sing-template="OrderedList">
+    <ol>
+        <li sing-loop="{{ $data }}">
+            {{ $item }}
+        </li>
+    </ol>
+</div>
+
+<div sing-template="ObjectTable">
+    <table>
+        <tbody>
+            <tr sing-loop="{{ key in $.objKeys($data) }}">
+                <td sing-if="{{key}}">
+                    {{ key }}:
+                </td>
+                <td>
+                    {{ $.toStr($data[key]) }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div sing-template="MultiObjectTable">
+    <table sing-loop="{{ $item in $data }}">
+        <tbody>
+            <tr sing-loop="{{ item in $item }}">
+                <td sing-if="{{item$key}}">
+                    {{ item$key }}:
+                </td>
+                <td>
+                    {{ $.toStr(item) }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div sing-template="Table">
+    <table>
+        <thead>
+            <tr>
+                <td sing-loop="{{ column in $.objKeys($data) }}">
+                    {{column}}
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr sing-loop="{{ row in $.objValues($data) }}">
+                <td sing-loop="{{ column in $.objKeys($data) }}">
+                    {{ $data[column] }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

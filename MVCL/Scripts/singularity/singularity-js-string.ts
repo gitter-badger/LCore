@@ -26,6 +26,8 @@ interface String {
     before?: (search: string) => string;
     after?: (search: string) => string;
 
+    toSlug?: () => string;
+
     /*
     parse
     first
@@ -42,7 +44,6 @@ interface String {
     stripTags
     pluralize
     fill
-    toUrlSlug
     similarity
     like
     isJSON    
@@ -64,7 +65,7 @@ interface JQueryStatic {
 }
 
 
-var singString = singModule.addModule(new sing.Module("String", String));
+var singString = singExt.addModule(new sing.Module("String", String));
 
 singString.requiredDocumentation = false;
 
@@ -913,7 +914,7 @@ function StringAfter(search: string) {
     return this.substr(index + search.length);
 }
 
-singString.method('isDate', null,
+singString.method('toSlug', StringToSlug,
     {
         summary: null,
         parameters: null,
@@ -924,7 +925,19 @@ singString.method('isDate', null,
         },
     });
 
-singString.method('toUrlSlug', null,
+function StringToSlug() {
+
+    var Text = this || '';
+    Text = Text.toLowerCase();
+    Text = Text.replace(/\./g, '_');
+    Text = Text.replace(/\s/g, '-');
+
+    return Text;
+}
+
+
+
+singString.method('isDate', null,
     {
         summary: null,
         parameters: null,

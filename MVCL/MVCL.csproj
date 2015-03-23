@@ -267,11 +267,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Index.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Templates\Templates2.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Templates.html</DependentUpon>
-    </Compile>
     <Compile Include="Views\Test\SingularityTest1.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -591,12 +586,14 @@
     <Content Include="Scripts\jquery.mousewheel.js" />
     <Content Include="Scripts\knockout-3.3.0.debug.js" />
     <Content Include="Scripts\knockout-3.3.0.js" />
+    <Content Include="Templates\Common.html">
+      <LastGenOutput>Common1.generated.cs</LastGenOutput>
+    </Content>
     <Content Include="Views\Test\SingularityTest.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>SingularityTest1.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Templates\Templates.html">
-      <Generator>RazorGenerator</Generator>
       <LastGenOutput>Templates2.generated.cs</LastGenOutput>
     </Content>
     <TypeScriptCompile Include="Scripts\definitions\chance.d.ts" />

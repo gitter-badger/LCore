@@ -572,10 +572,13 @@ function InitClickActions() {
             if (!actionIf)
                 return;
 
-            if (target.allVisible())
-                target.fadeOut('fast');
-            else
-                target.fadeIn('fast');
+            target.each(function () {
+
+                if ($(this).allVisible())
+                    $(this).fadeOut('fast');
+                else
+                    $(this).fadeIn('fast');
+            });
         });
     });
 

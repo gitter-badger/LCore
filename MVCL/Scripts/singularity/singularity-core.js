@@ -110,6 +110,8 @@ var Singularity = (function () {
                 if (this.modules[mod].init)
                     this.modules[mod].init();
             }
+        };
+        this.ready = function () {
             InitHTMLExtensions();
             InitFields();
         };
@@ -134,7 +136,7 @@ var Singularity = (function () {
             try {
                 key = key || '';
                 key = key.trim();
-                if (key == 'sub$index') {
+                if (key == '$data') {
                     key = key + '';
                 }
                 // fill template, don't resolve;
@@ -263,7 +265,7 @@ var Singularity = (function () {
                 }
                 var keyPart = key.before(' ');
                 if ($.isDefined(data))
-                    if ($.isDefined(data[keyPart])) {
+                    if (data[keyPart] !== undefined) {
                         out = data[keyPart];
                     }
                 if (out == undefined && context && context[keyPart] !== undefined) {
@@ -404,16 +406,16 @@ var Singularity = (function () {
                 // !()
                 // ? :
                 // current data
-                if (keyPart === '$data') {
+                if (keyPart == '$data') {
                     return data;
                 }
             }
             catch (ex) {
                 error(ex);
-                if (key.contains('||'))
-                    out = sing.resolveKey(key.after('||'), data, context);
             }
             if (out === undefined) {
+                if (key.contains('||'))
+                    out = sing.resolveKey(key.after('||'), data, context);
                 return '<error>could not resolve ' + key + '</error>';
             }
             return out;
@@ -470,7 +472,7 @@ var SingularityModule = (function () {
             var out = (this.methods || []).count(function (m) {
                 if (m.isAlias)
                     return false;
-                return m.methodCall != null;
+                return $.isDefined(m.method);
             });
             out += this.subModules.count(function (sub) {
                 return sub.implementedMethodCount();
@@ -492,26 +494,26 @@ var SingularityModule = (function () {
             return out;
         };
         this.implementedDocumentation = function () {
-            if (!this.requiredDocumentation)
-                return 0;
-            var out = (this.methods || []).count(function (m) {
-                if (m.isAlias)
-                    return false;
-                return m.documentationPresent();
-            });
+            var out = 0;
+            if (this.requiredDocumentation)
+                (this.methods || []).each(function (m) {
+                    if (m.isAlias)
+                        return;
+                    out += m.documentationPresent();
+                });
             out += this.subModules.count(function (sub) {
                 return sub.implementedDocumentation();
             });
             return out;
         };
         this.totalDocumentation = function () {
-            if (!this.requiredDocumentation)
-                return 0;
-            var out = (this.methods || []).count(function (m) {
-                if (m.isAlias)
-                    return false;
-                return m.documentationTotal();
-            });
+            var out = 0;
+            if (this.requiredDocumentation)
+                (this.methods || []).each(function (m) {
+                    if (m.isAlias)
+                        return;
+                    out += m.documentationTotal();
+                });
             out += this.subModules.count(function (sub) {
                 return sub.totalDocumentation();
             });
@@ -550,10 +552,10 @@ var SingularityModule = (function () {
             return out;
         };
         this.implementedItems = function () {
-            return 0;
+            return this.implementedMethodCount() + this.implementedMethodTests() + this.passedMethodTests() + this.implementedDocumentation();
         };
         this.totalItems = function () {
-            return 0;
+            return this.totalMethods() + this.implementedMethodCount() + this.implementedMethodTestsTotal() + this.totalDocumentation();
         };
         this.uninitializedMethods = [];
         this.method = function (extName, method, details, extendPrototype, prefix) {
@@ -700,6 +702,7 @@ var SingularityMethod = (function () {
                 out++;
             if (this.details.parameters != undefined && this.details.parameters != null)
                 out++;
+            return out;
         };
         this.documentationTotal = function () {
             return 1 + 1 + 1 + 1 + 1; //parameters 
@@ -959,6 +962,7 @@ var SingularityMethod = (function () {
         this.targetType = target;
         this.details = details;
         this.method = method;
+        this.methodOriginal = method;
         this.prefix = prefix;
         if (this.details.returnType && !this.details.returnType.name) {
             this.details.returnTypeName = sing.getTypeName(this.details.returnType);
@@ -996,6 +1000,7 @@ var sing = new Singularity();
 sing.globalResolve['sing'] = sing;
 var singModule = sing.addModule(new SingularityModule('Singularity', Singularity));
 var singCore = singModule.addModule(new SingularityModule('Core', Singularity));
+var singExt = singModule.addModule(new SingularityModule('Extensions', Singularity));
 $().init(function () {
     sing.init();
 });

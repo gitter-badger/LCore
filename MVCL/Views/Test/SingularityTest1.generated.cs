@@ -155,88 +155,49 @@ WriteLiteral("\r\n");
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n<div class=\"mvcl-test singularity-test sing\" sing-fill=\"{{ Singularity with s" +
-"ing }}\"></div>\r\n\r\n\r\n<div class=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\n     " +
-"   <script type=\"text/javascript\">\r\n            $().init(function () {\r\n        " +
-"        sing.loadTemplate(\'/Templates/Templates.html\', function () {\r\n          " +
-"          sing.initTemplates();\r\n\r\n                    $(\".sing .tabs\").tabs({\r\n" +
-"                        collapsible: true\r\n                    });\r\n\r\n          " +
-"      });\r\n            });\r\n\r\n            $().ready(function () {\r\n\r\n\r\n         " +
-"       $(\'#singularity-output\').html(sing.getSummary(\'\', false, false).textToHTM" +
-"L().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n\r\n                $(\'#s" +
-"ingularity-tests-module\').html(sing.getSummary(\'Singularity.Tests.\', false, fals" +
-"e).textToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n           " +
-"     $(\'#singularity-docs-module\').html(sing.getSummary(\'Singularity.Documentati" +
-"on.\', false, false).textToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>" +
-"\'));\r\n                $(\'#singularity-enumerable-module\').html(sing.getSummary(\'" +
-"Singularity.Enumerable.\', false, false).textToHTML().replaceAll(\'(100%)\', \'<b>(&" +
-"nbsp;100%&nbsp;)</b>\'));\r\n                $(\'#singularity-bbcode-module\').html(s" +
-"ing.getSummary(\'Singularity.BBCode.\', false, false).textToHTML().replaceAll(\'(10" +
-"0%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n                $(\'#singularity-regexp-mod" +
-"ule\').html(sing.getSummary(\'Singularity.RegExp.\', false, false).textToHTML().rep" +
-"laceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n                $(\'#singularit" +
-"y-templates-module\').html(sing.getSummary(\'Singularity.Templates.\', false, false" +
-").textToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n            " +
-"    $(\'#singularity-logging-module\').html(sing.getSummary(\'Singularity.Logging.\'" +
-", false, false).textToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));" +
-"\r\n                $(\'#singularity-html-module\').html(sing.getSummary(\'Singularit" +
-"y.html.\', false, false).textToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)" +
-"</b>\'));\r\n\r\n\r\n                $(\'#singularity-output-object\').html(sing.getSumma" +
-"ry(\'Singularity.object.\', false, false).textToHTML().replaceAll(\'(100%)\', \'<b>(&" +
-"nbsp;100%&nbsp;)</b>\'));\r\n                $(\'#singularity-output-boolean\').html(" +
-"sing.getSummary(\'Singularity.Boolean.\', false, false).textToHTML().replaceAll(\'(" +
-"100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n                $(\'#singularity-output-n" +
-"umber\').html(sing.getSummary(\'Singularity.Number.\', false, false).textToHTML().r" +
-"eplaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n                $(\'#singular" +
-"ity-output-string\').html(sing.getSummary(\'Singularity.String.\', false, false).te" +
-"xtToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n                " +
-"$(\'#singularity-output-date\').html(sing.getSummary(\'Singularity.Date.\', false, f" +
-"alse).textToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n        " +
-"        $(\'#singularity-output-array\').html(sing.getSummary(\'Singularity.Array.\'" +
-", false, false).textToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));" +
-"\r\n                $(\'#singularity-output-jquery\').html(sing.getSummary(\'Singular" +
-"ity.jQuery.\', false, false).textToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nb" +
-"sp;)</b>\'));\r\n                $(\'#singularity-output-function\').html(sing.getSum" +
-"mary(\'Singularity.Function.\', false, false).textToHTML().replaceAll(\'(100%)\', \'<" +
-"b>(&nbsp;100%&nbsp;)</b>\'));\r\n\r\n                $(\'#singularity-output-test-resu" +
-"lts\').html(sing.runTests().textToHTML().replaceAll(\'(100%)\', \'<b>(&nbsp;100%&nbs" +
-"p;)</b>\'));\r\n\r\n                $(\'#singularity-output-bbcode-source\').html(sing." +
-"BBCodes.arrayValues(\'test\').joinLines().textToHTML().replaceAll(\'(100%)\', \'<b>(&" +
-"nbsp;100%&nbsp;)</b>\'));\r\n                $(\'#singularity-output-bbcode-results\'" +
-").html(sing.BBCodes.arrayValues(\'test\').joinLines().bbCodesToHTML().replaceAll(\'" +
-"(100%)\', \'<b>(&nbsp;100%&nbsp;)</b>\'));\r\n            });\r\n        </script>\r\n   " +
-"     <h1>Singularity</h1>\r\n        <div id=\"singularity-output\"></div>\r\n        " +
-"<h2>Modules</h2>\r\n        <h3>- Logging</h3>\r\n        <div id=\"singularity-loggi" +
-"ng-module\"></div>\r\n        <h3>- Tests</h3>\r\n        <div id=\"singularity-tests-" +
-"module\"></div>\r\n        <h3>- Documentation</h3>\r\n        <div id=\"singularity-d" +
-"ocs-module\"></div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test singularity-test" +
-"\">\r\n\r\n    <div>\r\n        <h3>Enumerable</h3>\r\n        <div id=\"singularity-enume" +
-"rable-module\"></div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test singularity-te" +
-"st\">\r\n\r\n    <div>\r\n        <h3>Boolean</h3>\r\n        <div id=\"singularity-output" +
-"-boolean\"></div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test singularity-test\">" +
-"\r\n\r\n    <div>\r\n        <h3>Number</h3>\r\n        <div id=\"singularity-output-numb" +
-"er\"></div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test singularity-test\">\r\n\r\n  " +
-"  <div>\r\n        <h3>Date</h3>\r\n        <div id=\"singularity-output-date\"></div>" +
-"\r\n    </div>\r\n</div>\r\n\r\n\r\n<div class=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r" +
-"\n        <h3>Object</h3>\r\n        <div id=\"singularity-output-object\"></div>\r\n  " +
-"  </div>\r\n</div>\r\n\r\n<div class=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\n     " +
-"   <h3>String</h3>\r\n        <div id=\"singularity-output-string\"></div>\r\n        " +
-"<h3>- RegExp</h3>\r\n        <div id=\"singularity-regexp-module\"></div>\r\n        <" +
-"h3>- Templates</h3>\r\n        <div id=\"singularity-templates-module\"></div>\r\n    " +
-"    <h3>- HTML</h3>\r\n        <div id=\"singularity-html-module\"></div>\r\n        <" +
-"h3>- BBCode</h3>\r\n        <div id=\"singularity-bbcode-module\"></div>\r\n    </div>" +
-"\r\n</div>\r\n\r\n<div class=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\n        <h3>A" +
-"rray</h3>\r\n        <div id=\"singularity-output-array\"></div>\r\n    </div>\r\n</div>" +
-"\r\n\r\n<div class=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\n        <h3>jQuery</h" +
-"3>\r\n        <div id=\"singularity-output-jquery\"></div>\r\n    </div>\r\n</div>\r\n\r\n<d" +
-"iv class=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\n        <h3>Function</h3>\r\n" +
-"        <div id=\"singularity-output-function\"></div>\r\n    </div>\r\n</div>\r\n\r\n\r\n<d" +
-"iv class=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\n        <h3>BBCode Support<" +
-"/h3>\r\n        <div id=\"singularity-output-bbcode-source\"></div>\r\n        <hr />\r" +
-"\n        <div id=\"singularity-output-bbcode-results\"></div>\r\n    </div>\r\n</div>\r" +
-"\n\r\n\r\n<div class=\"mvcl-test singularity-test\">\r\n\r\n    <div>\r\n        <h3>Test Res" +
-"ults</h3>\r\n        <div id=\"singularity-output-test-results\"></div>\r\n    </div>\r" +
-"\n</div>\r\n");
+WriteLiteral(@"
+<script type=""text/javascript"">
+    $().init(function () {
+        sing.loadTemplate('/Templates/Templates.html', function () {
+
+            sing.initTemplates();
+
+            $("".sing .tabs"").tabs({
+                collapsible: true
+            });
+
+            sing.ready();
+
+        });
+    });
+
+    $().ready(function () {
+
+    });
+</script>
+
+<div class=""mvcl-test singularity-test sing"" sing-fill=""{{ Singularity with sing }}"">
+
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div style=""text-align:center"">
+        <span class=""glyphicon spin"" style=""position: relative; font-size: 36px;"">&#xe201;</span>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+</div>
+
+");
 
 
         }

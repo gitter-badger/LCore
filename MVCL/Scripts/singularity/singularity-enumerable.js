@@ -1,5 +1,5 @@
 /// <reference path="singularity-core.ts"/>
-var singEnumerable = singModule.addModule(new sing.Module("Enumerable", Array));
+var singEnumerable = singExt.addModule(new sing.Module("Enumerable", Array));
 singEnumerable.requiredDocumentation = false;
 //////////////////////////////////////////////////////
 //
@@ -47,7 +47,7 @@ function EnumerableEach(action) {
     });
 }
 singEnumerable.method('while', EnumerableWhile, {
-    summary: null,
+    summary: '',
     parameters: null,
     returns: '',
     returnType: null,
@@ -180,7 +180,7 @@ function EnumerableCount(action) {
     var out = 0;
     this.each(function (item, i) {
         var result = action(item, i);
-        if (result != null && result != undefined && result != false) {
+        if (result !== null && result !== undefined && result !== false) {
             if ($.isNumber(result))
                 out += result;
             else
@@ -205,7 +205,9 @@ singEnumerable.method('contains', EnumerableContains, {
         ext.addTest([1, 2, 3], [null], false);
         ext.addTest([1, 2, 3], [undefined], false);
         ext.addTest([1, 2, 3], [1], true);
+        ext.addTest([1, 2, 3], [3, 4, 5], true);
         ext.addTest([1, 2, 3], [[3, 4, 5]], true);
+        ext.addTest([1, 2, 3], [4, 5, 3], true);
         ext.addTest([1, 2, 3], [[4, 5, 3]], true);
         ext.addTest([1, 2, 3], [function (a) {
             return a == 2;
@@ -215,20 +217,27 @@ singEnumerable.method('contains', EnumerableContains, {
         }], false);
     },
 });
-function EnumerableContains(itemOrItemsOrFunction) {
+function EnumerableContains() {
+    var items = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        items[_i - 0] = arguments[_i];
+    }
     var srcThis = this;
-    if (!srcThis || itemOrItemsOrFunction == null || itemOrItemsOrFunction == undefined)
+    if (!srcThis || items == null || items == undefined)
         return false;
-    if ($.isArray(itemOrItemsOrFunction)) {
-        return itemOrItemsOrFunction.contains(function (it, i) {
+    if ($.isArray(items) && items.length > 1) {
+        if (items.length == 1 && $.isArray(items[0]))
+            items = items[0];
+        return items.first(function (it, i) {
             if (srcThis.contains(it))
                 return true;
+            return false;
         });
     }
-    if ($.isFunction(itemOrItemsOrFunction)) {
-        return !!this.first(itemOrItemsOrFunction);
+    if ($.isFunction(items[0])) {
+        return !!this.first(items[0]);
     }
-    return this.indexOf(itemOrItemsOrFunction) >= 0;
+    return this.indexOf(items[0]) >= 0;
 }
 singEnumerable.method('select', EnumerableSelect, {
     summary: null,

@@ -30,6 +30,12 @@
     <meta name="description" content="" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
+    @Styles.Render(ControllerHelper.Style_Singularity)
+
+    @Styles.Render(BundleConfig.Style_Bootstrap)
+    @Styles.Render(BundleConfig.Style_jQueryUI)
+
+    @Styles.Render(ControllerHelper.Style_MVCL)
 
     @Scripts.Render(BundleConfig.Script_jQuery)
     @Scripts.Render(BundleConfig.Script_jQueryUI)
@@ -45,13 +51,6 @@
     @Scripts.Render(ControllerHelper.Script_MVCL_jQueryMousewheel)
     @Scripts.Render(ControllerHelper.Script_MVCL_jQueryTimepicker)
     @Scripts.Render(ControllerHelper.Script_MVCL_qTip)
-
-    @Styles.Render(ControllerHelper.Style_Singularity)
-
-    @Styles.Render(BundleConfig.Style_Bootstrap)
-    @Styles.Render(BundleConfig.Style_jQueryUI)
-
-    @Styles.Render(ControllerHelper.Style_MVCL)
 
 </head>
 <body singularity class="@(ViewBag.ContextProvider != null ? StringExt.ToUrlSlug(ViewBag.ContextProvider.GetContext(Session).ContextName) : "")">
@@ -79,7 +78,7 @@
             </div>
         }
 
-        <div class="key-bind-tip">
+        <div class="key-bind-tip" style="display:none">
             <div class="border-bottom">
                 <glyph>&#xe047;</glyph>
                 Key Shortcuts

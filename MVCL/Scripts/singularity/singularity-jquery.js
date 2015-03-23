@@ -1,5 +1,5 @@
 /// <reference path="singularity-core.ts"/>
-var singJQuery = singModule.addModule(new sing.Module("jQuery", $, $));
+var singJQuery = singExt.addModule(new sing.Module("jQuery", $, $));
 singJQuery.requiredDocumentation = false;
 /*
 //////////////////////////////////////////////////////

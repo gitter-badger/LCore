@@ -318,6 +318,10 @@ class Singularity implements ISingularity {
                 this.modules[mod].init();
         }
 
+    };
+
+    ready = function () {
+
         InitHTMLExtensions();
 
         InitFields();
@@ -353,7 +357,7 @@ class Singularity implements ISingularity {
 
             key = key.trim();
 
-            if (key == 'sub$index') {
+            if (key == '$data') {
                 key = key + '';
             }
             // fill template, don't resolve;
@@ -553,7 +557,7 @@ class Singularity implements ISingularity {
             var keyPart = key.before(' ');
 
             if ($.isDefined(data))
-                if ($.isDefined(data[keyPart])) {
+                if (data[keyPart] !== undefined) {
 
                     out = data[keyPart];
 
@@ -759,7 +763,7 @@ class Singularity implements ISingularity {
             
 
             // current data
-            if (keyPart === '$data') {
+            if (keyPart == '$data') {
                 return data;
             }
 
@@ -768,11 +772,12 @@ class Singularity implements ISingularity {
         }
         catch (ex) {
             error(ex);
+        }
+        if (out === undefined) {
 
             if (key.contains('||'))
                 out = sing.resolveKey(key.after('||'), data, context);
-        }
-        if (out === undefined) {
+
             return '<error>could not resolve ' + key + '</error>';
         }
 
@@ -809,6 +814,7 @@ class Singularity implements ISingularity {
     listTests: () => string;
     listMissingTests: () => string;
     resolveTests: () => void;
+    testErrors: string[];
     
     // From ISingularityDocs
 
@@ -876,7 +882,7 @@ class SingularityModule {
             if (m.isAlias)
                 return false;
 
-            return m.methodCall != null;
+            return $.isDefined(m.method);
         });
         out += this.subModules.count(function (sub) {
             return sub.implementedMethodCount();
@@ -896,6 +902,7 @@ class SingularityModule {
                 return (m.details.unitTests.length > 0);
             return false;
         });
+
         out += this.subModules.count(function (sub) {
             return sub.implementedMethodTests();
         });
@@ -905,14 +912,15 @@ class SingularityModule {
     };
 
     implementedDocumentation = function () {
-        if (!this.requiredDocumentation)
-            return 0;
-        var out = (this.methods || []).count(function (m) {
-            if (m.isAlias)
-                return false;
+        var out = 0;
 
-            return m.documentationPresent();
-        });
+        if (this.requiredDocumentation)
+            (this.methods || []).each(function (m) {
+                if (m.isAlias)
+                    return;
+
+                out += m.documentationPresent();
+            });
 
         out += this.subModules.count(function (sub) {
             return sub.implementedDocumentation();
@@ -925,11 +933,11 @@ class SingularityModule {
         var out = 0;
 
         if (this.requiredDocumentation)
-            out += (this.methods || []).count(function (m) {
+            (this.methods || []).each(function (m) {
                 if (m.isAlias)
-                    return false;
+                    return;
 
-                return m.documentationTotal();
+                out += m.documentationTotal();
             });
 
         out += this.subModules.count(function (sub) {
@@ -983,11 +991,19 @@ class SingularityModule {
         return out;
     };
 
+
     implementedItems = function () {
-        return 0;
+        return this.implementedMethodCount() +
+            this.implementedMethodTests() +
+            this.passedMethodTests() +
+            this.implementedDocumentation();
     };
+
     totalItems = function () {
-        return 0;
+        return this.totalMethods() +
+            this.implementedMethodCount() +
+            this.implementedMethodTestsTotal() +
+            this.totalDocumentation();
     };
 
 
@@ -1173,6 +1189,7 @@ class SingularityMethod {
     prefix: string;
 
     method: Function;
+    methodOriginal: Function;
 
     data: Object;
 
@@ -1195,6 +1212,8 @@ class SingularityMethod {
             out++;
         if (this.details.parameters != undefined && this.details.parameters != null)
             out++;
+
+        return out;
     };
 
     documentationTotal = function () {
@@ -1225,6 +1244,7 @@ class SingularityMethod {
         this.targetType = target;
         this.details = details;
         this.method = method;
+        this.methodOriginal = method;
         this.prefix = prefix;
 
 
@@ -1677,6 +1697,7 @@ sing.globalResolve['sing'] = sing;
 
 var singModule = sing.addModule(new SingularityModule('Singularity', Singularity));
 var singCore = singModule.addModule(new SingularityModule('Core', Singularity));
+var singExt = singModule.addModule(new SingularityModule('Extensions', Singularity));
 
 $().init(function () {
     sing.init();

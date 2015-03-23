@@ -27,6 +27,15 @@ class SingularityTest {
             if (this.testResult == null)
                 this.testResult = true;
 
+            if (this.testResult !== true &&
+                this.testResult !== undefined &&
+                this.testResult !== null) {
+
+                this.testResult = name + ' ' + this.testResult;
+
+                if (!sing.testErrors.contains(this.testResult))
+                    sing.testErrors.push(this.testResult);
+            }
             return this.testResult;
         }
     }
@@ -36,6 +45,8 @@ var singTests = singCore.addModule(new sing.Module('Tests', sing, sing));
 
 singTests.requiredDocumentation = false;
 singTests.requiredUnitTests = false;
+
+sing.testErrors = [];
 
 singTests.method('addTest', SingularityAddTest, {}, sing);
 

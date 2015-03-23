@@ -1,5 +1,5 @@
 /// <reference path="singularity-core.ts"/>
-var singDate = singModule.addModule(new sing.Module("Date", Date));
+var singDate = singExt.addModule(new sing.Module("Date", Date));
 singDate.requiredDocumentation = false;
 //////////////////////////////////////////////////////
 //

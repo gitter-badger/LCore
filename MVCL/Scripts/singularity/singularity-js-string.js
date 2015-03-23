@@ -1,4 +1,4 @@
-var singString = singModule.addModule(new sing.Module("String", String));
+var singString = singExt.addModule(new sing.Module("String", String));
 singString.requiredDocumentation = false;
 /// <reference path="singularity-core.ts"/>
 //////////////////////////////////////////////////////
@@ -664,7 +664,7 @@ function StringAfter(search) {
         return this;
     return this.substr(index + search.length);
 }
-singString.method('isDate', null, {
+singString.method('toSlug', StringToSlug, {
     summary: null,
     parameters: null,
     returns: '',
@@ -673,7 +673,14 @@ singString.method('isDate', null, {
     tests: function (ext) {
     },
 });
-singString.method('toUrlSlug', null, {
+function StringToSlug() {
+    var Text = this || '';
+    Text = Text.toLowerCase();
+    Text = Text.replace(/\./g, '_');
+    Text = Text.replace(/\s/g, '-');
+    return Text;
+}
+singString.method('isDate', null, {
     summary: null,
     parameters: null,
     returns: '',

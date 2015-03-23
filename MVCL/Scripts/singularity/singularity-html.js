@@ -445,10 +445,12 @@ function InitClickActions() {
             var actionIf = $(this).actionIf('click-fade-toggle');
             if (!actionIf)
                 return;
-            if (target.allVisible())
-                target.fadeOut('fast');
-            else
-                target.fadeIn('fast');
+            target.each(function () {
+                if ($(this).allVisible())
+                    $(this).fadeOut('fast');
+                else
+                    $(this).fadeIn('fast');
+            });
         });
     });
     $('*[click-toggle-class]').each(function () {
