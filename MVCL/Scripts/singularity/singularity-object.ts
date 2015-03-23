@@ -419,7 +419,7 @@ function ObjectIsEmpty(obj): boolean {
 
     return (obj === undefined ||
         obj === null ||
-        obj === 0 ||
+        isNaN(obj) ||
         obj === '' ||
         ($.isArray(obj) && obj.length == 0) ||
         ($.isString(obj) && obj.trim().length == 0));

@@ -472,7 +472,6 @@ function NumberToStr(includeMarkup: boolean = false) {
 }
 
 
-
 singNumber.method('isInt', NumberIsInt,
     {
         summary: null,

@@ -1,5 +1,5 @@
 /// <reference path="singularity-core.ts"/>
-var singDocs = singModule.addModule(new sing.Module('Documentation', sing, sing));
+var singDocs = singCore.addModule(new sing.Module('Documentation', sing, sing));
 singDocs.requiredDocumentation = false;
 singDocs.requiredUnitTests = false;
 singDocs.method('getDocs', SingularityGetDocs);

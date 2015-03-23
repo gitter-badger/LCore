@@ -340,7 +340,6 @@ namespace MVCL.Controllers
             bundles.Add(new ScriptBundle(Script_Singularity).Include(
                         Root + "Scripts/singularity/singularity-core.js",
                         Root + "Scripts/singularity/singularity-tests.js",
-                        Root + "Scripts/singularity/singularity-text-bbcode.js",
                         Root + "Scripts/singularity/singularity-enumerable.js",
                         Root + "Scripts/singularity/singularity-js-function.js",
                         Root + "Scripts/singularity/singularity-js-object.js",
@@ -349,6 +348,7 @@ namespace MVCL.Controllers
                         Root + "Scripts/singularity/singularity-js-number.js",
                         Root + "Scripts/singularity/singularity-js-date.js",
                         Root + "Scripts/singularity/singularity-js-string.js",
+                        Root + "Scripts/singularity/singularity-text-bbcode.js",
                         Root + "Scripts/singularity/singularity-regexp.js",
                         Root + "Scripts/singularity/singularity-templates.js",
                         Root + "Scripts/singularity/singularity-object.js",

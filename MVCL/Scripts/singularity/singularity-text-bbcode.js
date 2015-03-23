@@ -1,5 +1,5 @@
 /// <reference path="singularity-core.ts"/>
-var singBBCode = singModule.addModule(new sing.Module('BBCode', String));
+var singBBCode = singString.addModule(new sing.Module('BBCode', String));
 singBBCode.requiredDocumentation = false;
 singBBCode.requiredUnitTests = false;
 singBBCode.method('bbCodesToHTML', StringBBCodesToHTML, {

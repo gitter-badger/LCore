@@ -32,7 +32,7 @@ class SingularityTest {
     }
 }
 
-var singTests = singModule.addModule(new sing.Module('Tests', sing, sing));
+var singTests = singCore.addModule(new sing.Module('Tests', sing, sing));
 
 singTests.requiredDocumentation = false;
 singTests.requiredUnitTests = false;

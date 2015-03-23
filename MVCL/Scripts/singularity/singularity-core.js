@@ -131,148 +131,288 @@ var Singularity = (function () {
         };
         this.resolveKey = function (key, data, context) {
             var out = undefined;
-            key = key || '';
-            key = key.trim();
-            if (key == 'module.implementedMethodTests().percentOf(module.implementedMethodCount(), 2)') {
-                key = key + '';
-            }
-            // fill template, don't resolve;
-            if (key.contains(' with '))
-                return key;
-            var commaSubstitute = '{{;;}}';
-            // function notation, no arguments
-            if (key.hasMatch(/^([^\.\',\[\]\(\)]+)\(\)\.?(.*)/)) {
-                var methodName = key.match(/^([^\.\',\[\]\(\)]+)\(\)\.?(.*)/)[1];
-                var theRest = key.match(/^([^\.\',\[\]\(\)]+)\(\)\.?(.*)/)[2];
-                out = sing.resolveKey(methodName, data, context);
-                if (out == null || !out.apply)
-                    throw 'could not resolve ' + key;
-                var result = out.apply(data, []);
-                if (theRest == null || theRest == '')
-                    return result;
-                return sing.resolveKey(theRest, result, context);
-            }
-            // function notation, some arguments
-            if (key.hasMatch(/^([^\.\',\[\]\(\)]+)\((.+)\)\.?(.*)$/)) {
-                var match = key.match(/^([^\.\',\[\]\(\)]+)\((.+)\)\.?(.*)$/);
-                var methodName = match[1];
-                var argsStr = match[2];
-                var theRest = match[3];
-                if (argsStr.lastIndexOf('(') > argsStr.lastIndexOf(')')) {
-                    theRest = argsStr.substr(argsStr.lastIndexOf('(')) + theRest;
-                    argsStr = argsStr.substr(0, argsStr.lastIndexOf('('));
-                    if (theRest[0] == '(' && theRest[theRest.length - 1] == ')')
-                        theRest = theRest.substr(1, theRest.length - 2);
+            try {
+                key = key || '';
+                key = key.trim();
+                if (key == 'sub$index') {
+                    key = key + '';
                 }
-                out = sing.resolveKey(methodName, data, context);
-                var args = sing.resolveKey(argsStr, data, context);
-                if (!$.isArray(args))
-                    args = [args];
-                if (out == null || !out.apply)
-                    throw 'could not resolve ' + key;
-                var result = out.apply(data, args);
-                if (theRest == null || theRest == '')
-                    return result;
-                return sing.resolveKey(theRest, out, context);
-            }
-            // Array notation
-            if (out === undefined && key.hasMatch(/^[^\.\',\[\]\(\)]+\[(\d+)\]\.?(.*)$/)) {
-                var match = key.match(/^([^\.\',\[\]\(\)]+)\[(.+)\]\.?(.*)$/);
-                var property = match[1];
-                var arrayIndex = match[2];
-                var theRest = match[3];
-                arrayIndex = sing.resolveKey(arrayIndex, data, context);
-                var propData = sing.resolveKey(property, data, context);
-                if (!$.isDefined(propData)) {
-                    throw 'could not resolve ' + property;
+                // fill template, don't resolve;
+                if (key.contains(' with '))
+                    return key;
+                var commaSubstitute = '{{;;}}';
+                // Empty Array
+                if (key == '[]') {
+                    return [];
                 }
-                if (!$.isArray(propData)) {
-                    throw property + ' was not an array';
+                // Empty Object
+                if (key == '{}') {
+                    return {};
                 }
-                out = propData[arrayIndex];
-                if (theRest == null || theRest == '')
+                // Numbers
+                if (key.isNumeric())
+                    return key.toNumber();
+                // Booleans
+                if (key.isBoolean())
+                    return key.toBoolean();
+                // function notation, no arguments
+                if (key.hasMatch(/^([^\.\'\",\[\]\(\)]+)\(\)\.?(.*)/)) {
+                    var methodName = key.match(/^([^\.\'\",\[\]\(\)]+)\(\)\.?(.*)/)[1];
+                    var theRest = key.match(/^([^\.\'\",\[\]\(\)]+)\(\)\.?(.*)/)[2];
+                    out = sing.resolveKey(methodName, data, context);
+                    if (out == null || !out.apply) {
+                        throw 'could not resolve ' + key;
+                    }
+                    var result = out.apply(data, []);
+                    if (theRest == null || theRest == '')
+                        return result;
+                    return sing.resolveKey(theRest, result, context);
+                }
+                // function notation, some arguments
+                if (key.hasMatch(/^([^\.\'\",\[\]\(\)]+)\((.+)\)\.?(.*)$/)) {
+                    var match = key.match(/^([^\.\'\",\[\]\(\)]+)\((.+)\)\.?(.*)$/);
+                    var methodName = match[1];
+                    var argsStr = match[2];
+                    var theRest = match[3];
+                    if (argsStr.lastIndexOf('(') > argsStr.lastIndexOf(')')) {
+                        theRest = argsStr.substr(argsStr.lastIndexOf('(')) + theRest;
+                        argsStr = argsStr.substr(0, argsStr.lastIndexOf('('));
+                        if (theRest[0] == '(' && theRest[theRest.length - 1] == ')')
+                            theRest = theRest.substr(1, theRest.length - 2);
+                    }
+                    out = sing.resolveKey(methodName, data, context);
+                    var args = sing.resolveKey(argsStr, data, context);
+                    if (!$.isArray(args))
+                        args = [args];
+                    if (out == null || !out.apply) {
+                        throw 'could not resolve ' + key;
+                    }
+                    var result = out.apply(data, args);
+                    if (theRest == null || theRest == '')
+                        return result;
+                    return sing.resolveKey(theRest, out, context);
+                }
+                // Array navigation
+                if (out === undefined && key.hasMatch(/^([^\.\'\",\[\]\(\)]+)\[(.+)\]\.?(.*)$/)) {
+                    var match = key.match(/^([^\.\'\",\[\]\(\)]+)\[(.+)\]\.?(.*)$/);
+                    var property = match[1];
+                    var arrayIndex = match[2];
+                    var theRest = match[3];
+                    arrayIndex = sing.resolveKey(arrayIndex, data, context);
+                    var propData = sing.resolveKey(property, data, context);
+                    if (!$.isDefined(propData)) {
+                        throw 'could not resolve ' + key;
+                    }
+                    if (!$.isArray(propData)) {
+                        throw property + ' was not an array';
+                    }
+                    out = propData[arrayIndex];
+                    if (theRest == null || theRest == '')
+                        return out;
+                    return sing.resolveKey(theRest, out, context);
+                }
+                // Dot notation
+                if (key.hasMatch(/([^\.\'\",\[\]\(\)]+)\.(.*)$/)) {
+                    var keyParts = key.split('.');
+                    var resolveFirst = sing.resolveKey(keyParts.shift(), data, context);
+                    if (!$.isDefined(resolveFirst) || resolveFirst == '') {
+                        throw 'could not resolve ' + key;
+                    }
+                    data = resolveFirst;
+                    out = sing.resolveKey(keyParts.join('.'), data, context);
+                    //console.log('RESOLVE ' + key);
                     return out;
-                return sing.resolveKey(theRest, out, context);
-            }
-            // Dot notation
-            if (key.hasMatch(/([^\.\',\[\]\(\)]+)\.(.*)$/)) {
-                var keyParts = key.split('.');
-                var resolveFirst = sing.resolveKey(keyParts.shift(), data, context);
-                if (!$.isDefined(resolveFirst) || resolveFirst == '')
-                    throw 'could not resolve ' + key;
-                data = resolveFirst;
-                out = sing.resolveKey(keyParts.join('.'), data, context);
-                //console.log('RESOLVE ' + key);
-                return out;
-            }
-            // Array creation
-            if (out === undefined && key.hasMatch(/^\[(.+)\]\.(.*)$/)) {
-                var match = key.match(/^\[(.+)\]$/);
-                var arrayContents = match[1];
-                var theRest = match[2];
-                arrayContents = sing.resolveKey(arrayContents, data, context);
-                if (!$.isArray(arrayContents))
-                    arrayContents = [arrayContents];
-                if (theRest == null || theRest == '')
-                    return arrayContents;
-                out = sing.resolveKey(theRest, arrayContents, context);
-                return out;
-            }
-            if (key == '[]') {
-                return [];
-            }
-            if (key == '{}') {
-                return {};
-            }
-            // Non-escaped commas
-            if (key.contains(',,')) {
-                key = key.replaceAll(',,', commaSubstitute);
-            }
-            // Comma notation
-            if (key.hasMatch(/([^\.\',\[\]\(\)]*),(.*)$/)) {
-                var match = key.match(/([^\.\',\[\]\(\)]*),(.*)$/);
-                var item = match[1];
-                var theRest = match[2];
-                if (!item || item == '')
-                    item = data;
-                else
-                    item = sing.resolveKey(item, data, context);
-                var items = [item];
-                items = items.concat(sing.resolveKey(theRest, data, context));
-                return items;
-            }
-            // Numbers
-            if (key.length > 1 && key[0] == '\'' && key[key.length - 1] == '\'') {
-                if (key.length == 2)
-                    return '';
-                else {
-                    return key.substr(1, key.length - 2);
+                }
+                // Array creation
+                if (out === undefined && key.hasMatch(/^\[(.+)\](.*)$/)) {
+                    var match = key.match(/^\[(.+)\](.*)$/);
+                    var arrayContents = match[1];
+                    var theRest = match[2];
+                    arrayContents = sing.resolveKey(arrayContents, data, context);
+                    if (!$.isArray(arrayContents))
+                        arrayContents = [arrayContents];
+                    if (theRest == null || theRest == '')
+                        return arrayContents;
+                    out = sing.resolveKey(theRest, arrayContents, context);
+                    return out;
+                }
+                // Non-escaped commas
+                if (key.contains(',,')) {
+                    key = key.replaceAll(',,', commaSubstitute);
+                }
+                // Comma notation
+                if (key.hasMatch(/([^\.\'\",\[\]\(\)]*),(.*)$/)) {
+                    var match = key.match(/([^\.\'\",\[\]\(\)]*),(.*)$/);
+                    var item = match[1];
+                    var theRest = match[2];
+                    if (!item || item == '')
+                        item = data;
+                    else
+                        item = sing.resolveKey(item, data, context);
+                    var items = [item];
+                    items = items.concat(sing.resolveKey(theRest, data, context));
+                    return items;
+                }
+                // Strings
+                if ((key.length > 1 && key[0] == '\'' && key[key.length - 1] == '\'') || (key.length > 1 && key[0] == '"' && key[key.length - 1] == '"')) {
+                    if (key.length == 2)
+                        return '';
+                    else {
+                        return key.substr(1, key.length - 2);
+                    }
+                }
+                var keyPart = key.before(' ');
+                if ($.isDefined(data))
+                    if ($.isDefined(data[keyPart])) {
+                        out = data[keyPart];
+                    }
+                if (out == undefined && context && context[keyPart] !== undefined) {
+                    out = context[keyPart];
+                }
+                if (out === undefined && sing.globalResolve[keyPart] !== undefined) {
+                    return sing.globalResolve[keyPart];
+                }
+                // available context of any object
+                if (out === undefined && keyPart.endsWith('$context')) {
+                    var itemContext = sing.resolveKey(keyPart.substr(0, keyPart.indexOf('$context')));
+                    var itemKeys = $.objKeys(data);
+                    return itemKeys.join(', ');
+                }
+                // OR operation
+                if (keyPart == '||') {
+                    var theRest = key.substr(2);
+                    var left = data;
+                    if ($.isEmpty(left) || left == false)
+                        return sing.resolveKey(theRest, data, context);
+                    else
+                        return left;
+                }
+                // AND operation
+                if (keyPart == '&&') {
+                    var theRest = key.substr(2);
+                    var left = data;
+                    if ($.isEmpty(left) || left == false) {
+                        return false;
+                    }
+                    else {
+                        var right = sing.resolveKey(theRest, data, context);
+                        return true && !($.isEmpty(left) || left == false);
+                    }
+                }
+                else if (keyPart == '+') {
+                    var theRest = key.substr(1);
+                    var resolved = sing.resolveKey(theRest, data, context);
+                    return (data + resolved);
+                }
+                else if (keyPart == '-') {
+                    var theRest = key.substr(1);
+                    var resolved = sing.resolveKey(theRest, data, context);
+                    return (data - resolved);
+                }
+                else if (keyPart == '*') {
+                    var theRest = key.substr(1);
+                    var resolved = sing.resolveKey(theRest, data, context);
+                    return (data * resolved);
+                }
+                else if (keyPart == '/') {
+                    var theRest = key.substr(1);
+                    var resolved = sing.resolveKey(theRest, data, context);
+                    return (data / resolved);
+                }
+                else if (keyPart == '%') {
+                    var theRest = key.substr(1);
+                    var resolved = sing.resolveKey(theRest, data, context);
+                    return (data % resolved);
+                }
+                else if (keyPart == '<<') {
+                    var theRest = key.substr(1);
+                    var resolved = sing.resolveKey(theRest, data, context);
+                    return (data << resolved);
+                }
+                else if (keyPart == '>>') {
+                    var theRest = key.substr(1);
+                    var resolved = sing.resolveKey(theRest, data, context);
+                    return (data >> resolved);
+                }
+                else if (keyPart == '^') {
+                    var theRest = key.substr(1);
+                    var resolved = sing.resolveKey(theRest, data, context);
+                    return (data ^ resolved);
+                }
+                else if (keyPart == '&') {
+                    var theRest = key.substr(1);
+                    var resolved = sing.resolveKey(theRest, data, context);
+                    return (data & resolved);
+                }
+                else if (keyPart == '|') {
+                    var theRest = key.substr(1);
+                    var resolved = sing.resolveKey(theRest, data, context);
+                    return (data | resolved);
+                }
+                else if (keyPart == '===') {
+                    var theRest = key.substr(3);
+                    var resolved = sing.resolveKey(theRest, data, context);
+                    return (data === resolved);
+                }
+                else if (keyPart == '!==') {
+                    var theRest = key.substr(3);
+                    var resolved = sing.resolveKey(theRest, data, context);
+                    return (data !== resolved);
+                }
+                else if (keyPart == '==') {
+                    var theRest = key.substr(2);
+                    var resolved = sing.resolveKey(theRest, data, context);
+                    return (data == resolved);
+                }
+                else if (keyPart == '!=') {
+                    var theRest = key.substr(2);
+                    var resolved = sing.resolveKey(theRest, data, context);
+                    return (data != resolved);
+                }
+                else if (keyPart == '>=') {
+                    var theRest = key.substr(2);
+                    var resolved = sing.resolveKey(theRest, data, context);
+                    return (data >= resolved);
+                }
+                else if (keyPart == '<=') {
+                    var theRest = key.substr(2);
+                    var resolved = sing.resolveKey(theRest, data, context);
+                    return (data <= resolved);
+                }
+                else if (keyPart == '>') {
+                    var theRest = key.substr(1);
+                    var resolved = sing.resolveKey(theRest, data, context);
+                    return (data > resolved);
+                }
+                else if (keyPart == '<') {
+                    var theRest = key.substr(1);
+                    var resolved = sing.resolveKey(theRest, data, context);
+                    return (data < resolved);
+                }
+                else if (keyPart == '=') {
+                    var theRest = key.substr(1);
+                }
+                // +=
+                // -=
+                // *=
+                // /=
+                // %=
+                // ++
+                // --
+                // ()
+                // !
+                // !()
+                // ? :
+                // current data
+                if (keyPart === '$data') {
+                    return data;
                 }
             }
-            if (key.length > 1 && key[0] == '\'' && key[key.length - 1] == '\'') {
-                if (key.length == 2)
-                    return '';
-                else {
-                    return key.substr(1, key.length - 2);
-                }
+            catch (ex) {
+                error(ex);
+                if (key.contains('||'))
+                    out = sing.resolveKey(key.after('||'), data, context);
             }
-            // Numbers
-            if (key.isNumeric())
-                return key.toNumber();
-            // Booleans
-            if (key.isBoolean())
-                return key.toBoolean();
-            if ($.isDefined(data))
-                if ($.isDefined(data[key])) {
-                    out = data[key];
-                }
-            if (out === undefined && sing.globalResolve[key]) {
-                return sing.globalResolve[key];
-            }
-            if (out == undefined && context && context[key] !== undefined) {
-                out = context[key];
-            }
-            //console.log('RESOLVE ' + key);
             if (out === undefined) {
                 return '<error>could not resolve ' + key + '</error>';
             }
@@ -285,6 +425,9 @@ var Singularity = (function () {
             }
             context['$context'] = function () {
                 return $.objKeys(context);
+            };
+            context['$global'] = function () {
+                return $.objKeys(sing.globalResolve);
             };
             return context;
         };
@@ -312,30 +455,73 @@ var SingularityModule = (function () {
             this.subModules.push(mod);
             return sing.addModule(mod);
         };
-        this.implementedMethodCount = function () {
+        this.totalMethods = function () {
             var out = (this.methods || []).count(function (m) {
-                return m.methodCall != null;
+                if (m.isAlias)
+                    return false;
+                return true;
+            });
+            out += this.subModules.count(function (sub) {
+                return sub.totalMethods();
             });
             return out;
         };
-        this.implementedDocumentation = function () {
-            return 0;
-        };
-        this.totalDocumentation = function () {
-            return 0;
+        this.implementedMethodCount = function () {
+            var out = (this.methods || []).count(function (m) {
+                if (m.isAlias)
+                    return false;
+                return m.methodCall != null;
+            });
+            out += this.subModules.count(function (sub) {
+                return sub.implementedMethodCount();
+            });
+            return out;
         };
         this.implementedMethodTests = function () {
             sing.resolveTests();
             var out = (this.methods || []).count(function (m) {
+                if (m.isAlias)
+                    return false;
                 if (m.details.unitTests)
-                    return m.details.unitTests.length;
+                    return (m.details.unitTests.length > 0);
+                return false;
+            });
+            out += this.subModules.count(function (sub) {
+                return sub.implementedMethodTests();
+            });
+            return out;
+        };
+        this.implementedDocumentation = function () {
+            if (!this.requiredDocumentation)
                 return 0;
+            var out = (this.methods || []).count(function (m) {
+                if (m.isAlias)
+                    return false;
+                return m.documentationPresent();
+            });
+            out += this.subModules.count(function (sub) {
+                return sub.implementedDocumentation();
+            });
+            return out;
+        };
+        this.totalDocumentation = function () {
+            if (!this.requiredDocumentation)
+                return 0;
+            var out = (this.methods || []).count(function (m) {
+                if (m.isAlias)
+                    return false;
+                return m.documentationTotal();
+            });
+            out += this.subModules.count(function (sub) {
+                return sub.totalDocumentation();
             });
             return out;
         };
         this.passedMethodTests = function () {
             sing.resolveTests();
             var out = (this.methods || []).count(function (m) {
+                if (m.isAlias)
+                    return false;
                 if (m.details.unitTests)
                     return m.details.unitTests.count(function (test) {
                         if (test.testResult === undefined)
@@ -343,6 +529,23 @@ var SingularityModule = (function () {
                         return test.testResult == true;
                     });
                 return 0;
+            });
+            out += this.subModules.count(function (sub) {
+                return sub.passedMethodTests();
+            });
+            return out;
+        };
+        this.implementedMethodTestsTotal = function () {
+            sing.resolveTests();
+            var out = (this.methods || []).count(function (m) {
+                if (m.isAlias)
+                    return false;
+                if (m.details.unitTests)
+                    return m.details.unitTests.length;
+                return 0;
+            });
+            out += this.subModules.count(function (sub) {
+                return sub.implementedMethodTestsTotal();
             });
             return out;
         };
@@ -442,6 +645,8 @@ var SingularityModule = (function () {
             });
             return out;
         };
+        this.methods = this.methods || [];
+        this.subModules = this.subModules || [];
     }
     return SingularityModule;
 })();
@@ -482,6 +687,22 @@ var SingularityMethod = (function () {
         this.auto = new SingularityAutoDefinition();
         this.toString = function () {
             return this.name;
+        };
+        this.documentationPresent = function () {
+            var out = 0;
+            if (!$.isEmpty(this.details.summary))
+                out++;
+            if (!$.isEmpty(this.details.returns))
+                out++;
+            if (!$.isEmpty(this.details.returnTypeName))
+                out++;
+            if (!$.isEmpty(this.details.examples))
+                out++;
+            if (this.details.parameters != undefined && this.details.parameters != null)
+                out++;
+        };
+        this.documentationTotal = function () {
+            return 1 + 1 + 1 + 1 + 1; //parameters 
         };
         this.loadAutoIgnoreErrors = function (ext, methods) {
             if (ext.auto.ignoreErrors) {
@@ -772,7 +993,9 @@ var SingularityMethod = (function () {
 })();
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var sing = new Singularity();
+sing.globalResolve['sing'] = sing;
 var singModule = sing.addModule(new SingularityModule('Singularity', Singularity));
+var singCore = singModule.addModule(new SingularityModule('Core', Singularity));
 $().init(function () {
     sing.init();
 });

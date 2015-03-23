@@ -7,7 +7,7 @@ interface ISingularityDocs {
     getMissing?: (funcName?: string) => string;
 }
 
-var singDocs = singModule.addModule(new sing.Module('Documentation', sing, sing));
+var singDocs = singCore.addModule(new sing.Module('Documentation', sing, sing));
 
 singDocs.requiredDocumentation = false;
 singDocs.requiredUnitTests = false;

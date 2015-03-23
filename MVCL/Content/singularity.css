@@ -8,4 +8,9 @@
 *[singularity] *[sing-template]:not(*[sing-template-data=true]) {
   display: none;
 }
+.sing {
+  width: 60% !important;
+  margin-left: 20% !important;
+  margin-right: 20% !important;
+}
 /*# sourceMappingURL=singularity.css.map */

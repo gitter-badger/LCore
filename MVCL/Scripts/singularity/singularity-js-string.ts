@@ -23,6 +23,9 @@ interface String {
 
     tryToNumber?: (defaultValue?: any) => string | number;
 
+    before?: (search: string) => string;
+    after?: (search: string) => string;
+
     /*
     parse
     first
@@ -851,6 +854,7 @@ singString.method('containsAny', null,
         tests: function (ext) {
         },
     });
+
 function StringContainsAny(...items: string[]) {
     if (!this)
         return false;
@@ -862,6 +866,52 @@ function StringContainsAny(...items: string[]) {
     });
 }
 
+
+singString.method('before', StringBefore,
+    {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: null,
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+
+function StringBefore(search: string) {
+    if (!this || !search == null || search == '')
+        return this;
+
+    var index = this.indexOf(search);
+
+    if (index < 0)
+        return this;
+
+    return this.substr(0, index);
+}
+
+singString.method('after', StringAfter,
+    {
+        summary: null,
+        parameters: null,
+        returns: '',
+        returnType: null,
+        examples: null,
+        tests: function (ext) {
+        },
+    });
+
+function StringAfter(search: string) {
+    if (!this || !search == null || search == '')
+        return this;
+
+    var index = this.indexOf(search);
+
+    if (index < 0)
+        return this;
+
+    return this.substr(index + search.length);
+}
 
 singString.method('isDate', null,
     {

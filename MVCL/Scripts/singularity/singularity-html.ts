@@ -214,7 +214,7 @@
 // #endregion Comments
 
 
-var singHTML = singModule.addModule(new sing.Module('HTML', String));
+var singHTML = singString.addModule(new sing.Module('HTML', String));
 
 singHTML.requiredDocumentation = false;
 

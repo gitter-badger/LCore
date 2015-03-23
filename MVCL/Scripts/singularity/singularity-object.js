@@ -307,6 +307,6 @@ function ObjectClone() {
 }
 singObject.method('isEmpty', ObjectIsEmpty, {}, $);
 function ObjectIsEmpty(obj) {
-    return (obj === undefined || obj === null || obj === 0 || obj === '' || ($.isArray(obj) && obj.length == 0) || ($.isString(obj) && obj.trim().length == 0));
+    return (obj === undefined || obj === null || isNaN(obj) || obj === '' || ($.isArray(obj) && obj.length == 0) || ($.isString(obj) && obj.trim().length == 0));
 }
 //# sourceMappingURL=singularity-object.js.map

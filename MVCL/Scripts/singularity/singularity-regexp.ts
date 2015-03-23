@@ -10,7 +10,7 @@ interface String {
     escapeRegExp?: () => string;
 }
 
-var singRegExp = singModule.addModule(new sing.Module('RegExp', String));
+var singRegExp = singString.addModule(new sing.Module('RegExp', String));
 
 singRegExp.requiredDocumentation = false;
 

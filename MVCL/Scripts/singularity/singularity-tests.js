@@ -13,7 +13,7 @@ var SingularityTest = (function () {
     }
     return SingularityTest;
 })();
-var singTests = singModule.addModule(new sing.Module('Tests', sing, sing));
+var singTests = singCore.addModule(new sing.Module('Tests', sing, sing));
 singTests.requiredDocumentation = false;
 singTests.requiredUnitTests = false;
 singTests.method('addTest', SingularityAddTest, {}, sing);

@@ -630,6 +630,40 @@ function StringContainsAny() {
         return this.contains(item);
     });
 }
+singString.method('before', StringBefore, {
+    summary: null,
+    parameters: null,
+    returns: '',
+    returnType: null,
+    examples: null,
+    tests: function (ext) {
+    },
+});
+function StringBefore(search) {
+    if (!this || !search == null || search == '')
+        return this;
+    var index = this.indexOf(search);
+    if (index < 0)
+        return this;
+    return this.substr(0, index);
+}
+singString.method('after', StringAfter, {
+    summary: null,
+    parameters: null,
+    returns: '',
+    returnType: null,
+    examples: null,
+    tests: function (ext) {
+    },
+});
+function StringAfter(search) {
+    if (!this || !search == null || search == '')
+        return this;
+    var index = this.indexOf(search);
+    if (index < 0)
+        return this;
+    return this.substr(index + search.length);
+}
 singString.method('isDate', null, {
     summary: null,
     parameters: null,

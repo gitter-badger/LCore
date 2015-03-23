@@ -21,7 +21,7 @@ var LOGGING_INFO_ENABLED = false;
 var LOGGING_ERROR_ENABLED = true;
 var LOGGING_WARNING_ENABLED = true;
 
-var singLog = singModule.addModule(new sing.Module('Logging', sing, sing));
+var singLog = singCore.addModule(new sing.Module('Logging', sing, sing));
 
 singLog.requiredDocumentation = false;
 

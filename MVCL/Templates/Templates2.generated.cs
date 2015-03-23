@@ -52,63 +52,49 @@ WriteLiteral("\r\n\r\n\r\n<div");
 
 WriteLiteral(" sing-template=\"Singularity\"");
 
-WriteLiteral(">\r\n    <h1>&#8226; Singularity</h1>\r\n\r\n    <p");
+WriteLiteral(">\r\n    <h1>&#8226; Singularity</h1>\r\n\r\n    <p>{{sing.summary}}</p>\r\n\r\n    <div");
 
-WriteLiteral(" sing-if=\"{{sing.summary}}\"");
+WriteLiteral(" sing-fill=\"{{ Module with sing.modules.Singularity as module }}\"");
 
-WriteLiteral(">{{sing.summary}}</p>\r\n    <p sing-else>No Summary</p>\r\n\r\n    <div");
-
-WriteLiteral(" sing-loop=\"{{ module in sing.modules }}\"");
-
-WriteLiteral(">\r\n        <div");
-
-WriteLiteral(" sing-fill=\"{{ Module with module }}\"");
-
-WriteLiteral("></div>\r\n        <hr />\r\n    </div>\r\n</div>\r\n\r\n<div");
+WriteLiteral("></div>\r\n    <hr />\r\n</div>\r\n\r\n<div");
 
 WriteLiteral(" sing-template=\"Module\"");
 
 WriteLiteral(">\r\n    <h2>{{module.name}}</h2>\r\n\r\n    <div>\r\n        Methods Implemented:\r\n     " +
 "   <span");
 
-WriteLiteral(" sing-if=\"{{module.methods}}\"");
-
 WriteLiteral(" class=\"right\"");
 
 WriteLiteral(">\r\n            {{module.implementedMethodCount()}}\r\n            /\r\n            {{" +
-"module.methods.length}}\r\n\r\n            ({{module.implementedMethodCount().percen" +
-"tOf(module.methods.length, 2)}}%)\r\n        </span>\r\n    </div>\r\n\r\n    <div");
+"module.totalMethods()}}\r\n\r\n            ({{module.implementedMethodCount().percen" +
+"tOf(module.totalMethods())}}%)\r\n        </span>\r\n    </div>\r\n\r\n    <div");
 
 WriteLiteral(" sing-if=\"{{module.requiredUnitTests}}\"");
 
 WriteLiteral(">\r\n        <div>\r\n            Unit Tests Implemented:\r\n            <span");
-
-WriteLiteral(" sing-if=\"{{module.methods}}\"");
 
 WriteLiteral(" class=\"right\"");
 
 WriteLiteral(@">
                 {{module.implementedMethodTests()}}
                 /
-                {{module.methods.length}}
+                {{module.totalMethods()}}
 
-                ({{module.implementedMethodTests().percentOf(module.implementedMethodCount(), 2) }}%)
+                ({{module.implementedMethodTests().percentOf(module.implementedMethodCount()) }}%)
             </span>
         </div>
         <div>
             Unit Tests Passed:
             <span");
 
-WriteLiteral(" sing-if=\"{{module.methods}}\"");
-
 WriteLiteral(" class=\"right\"");
 
 WriteLiteral(@">
                 {{module.passedMethodTests()}}
                 /
-                {{module.methods.length}}
+                {{module.implementedMethodTestsTotal()}}
 
-                ({{module.passedMethodTests().percentOf(module.implementedTestsCount()) }}%)
+                ({{module.passedMethodTests().percentOf(module.implementedMethodTestsTotal()) }}%)
             </span>
         </div>
 
@@ -120,8 +106,6 @@ WriteLiteral(" sing-if=\"{{module.requiredDocumentation}}\"");
 
 WriteLiteral(">\r\n        <div>\r\n            Documentation:\r\n            <span");
 
-WriteLiteral(" sing-if=\"{{module.methods}}\"");
-
 WriteLiteral(" class=\"right\"");
 
 WriteLiteral(@">
@@ -129,7 +113,7 @@ WriteLiteral(@">
                 /
                 {{module.totalDocumentation()}}
 
-                ({{module.implementedDocumentation().percentOf(module.totalDocumentation(), 2) }}%)
+                ({{module.implementedDocumentation().percentOf(module.totalDocumentation()) }}%)
             </span>
         </div>
     </div>
@@ -137,13 +121,37 @@ WriteLiteral(@">
         Total:
         <span");
 
-WriteLiteral(" sing-if=\"{{module.methods}}\"");
-
 WriteLiteral(" class=\"right\"");
 
 WriteLiteral(">\r\n            {{module.implementedItems()}}\r\n            /\r\n            {{module" +
 ".totalItems()}}\r\n\r\n            ({{module.implementedItems().percentOf(module.tot" +
-"alItems(), 2) }}%)\r\n        </span>\r\n    </div>\r\n\r\n\r\n    <div");
+"alItems()) }}%)\r\n        </span>\r\n    </div>\r\n\r\n    <div");
+
+WriteLiteral(" class=\"tabs\"");
+
+WriteLiteral(">\r\n        <ul>\r\n            <li");
+
+WriteLiteral(" sing-loop=\"{{ sub in module.subModules }}\"");
+
+WriteLiteral(">\r\n                <a");
+
+WriteLiteral(" href=\"#tabs-{{sub.name}}-{{sub$index}}\"");
+
+WriteLiteral(">{{sub.name}}</a>\r\n            </li>\r\n        </ul>\r\n        <div");
+
+WriteLiteral(" sing-loop=\"{{ sub in module.subModules }}\"");
+
+WriteLiteral(" sing-loop-inner=\"true\"");
+
+WriteLiteral(">\r\n            <div");
+
+WriteLiteral(" id=\"tabs-{{sub.name}}-{{sub$index}}\"");
+
+WriteLiteral(">\r\n                <div");
+
+WriteLiteral(" sing-fill=\"{{ Module with sub as module }}\"");
+
+WriteLiteral("></div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div");
 
 WriteLiteral(" sing-loop=\"{{ method in module.methods }}\"");
 
@@ -189,7 +197,33 @@ WriteLiteral(">\r\n    <div>{{param.name}}</div>\r\n    <div>Type: {{sing.getTyp
 
 WriteLiteral(" sing-if=\"{{param.description}}\"");
 
-WriteLiteral(">{{param.description}}</div>\r\n</div>");
+WriteLiteral(">{{param.description}}</div>\r\n</div>\r\n\r\n\r\n\r\n\r\n<div");
+
+WriteLiteral(" sing-template=\"List\"");
+
+WriteLiteral(">\r\n    <ul>\r\n        <li");
+
+WriteLiteral(" sing-repeat=\"{{ $data }}\"");
+
+WriteLiteral(">\r\n            {{ $item }}\r\n        </li>\r\n    </ul>\r\n</div>\r\n\r\n<div");
+
+WriteLiteral(" sing-template=\"Table\"");
+
+WriteLiteral(">\r\n    <table>\r\n        <thead>\r\n            <tr>\r\n                <td");
+
+WriteLiteral(" sing-repeat=\"{{ column in $.objKeys($data) }}\"");
+
+WriteLiteral(">\r\n                    {{column}}\r\n                </td>\r\n            </tr>\r\n    " +
+"    </thead>\r\n        <tbody>\r\n            <tr");
+
+WriteLiteral(" sing-repeat=\"{{ row in $.objValues($data) }}\"");
+
+WriteLiteral(">\r\n                <td");
+
+WriteLiteral(" sing-repeat=\"{{ column in $.objKeys($data) }}\"");
+
+WriteLiteral(">\r\n                    {{ $data[column] }}\r\n                </td>\r\n            </" +
+"tr>\r\n        </tbody>\r\n    </table>\r\n</div>");
 
         }
     }

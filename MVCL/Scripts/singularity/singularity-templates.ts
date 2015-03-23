@@ -3,7 +3,7 @@
 
 interface String {
 
-    templateInject?: (obj: Object, context?: Object) => string;
+    templateInject?: (obj: Object, _context?: Object) => string;
     templateExtract?: (template: string) => Object;
 
 }
@@ -14,11 +14,11 @@ interface JQueryStatic {
 
 }
 interface JQuery {
-    singIf?: (data?: any, context?: Object) => JQuery;
-    singFill?: (data?: any, context?: Object) => JQuery;
-    singLoop?: (data?: any, context?: Object) => JQuery;
+    singIf?: (data?: any, _context?: Object) => JQuery;
+    singFill?: (data?: any, _context?: Object) => JQuery;
+    singLoop?: (data?: any, _context?: Object) => JQuery;
 
-    fillTemplate?: (data: Object, context?: Object) => JQuery;
+    fillTemplate?: (data: Object, _context?: Object) => JQuery;
 }
 
 interface ITemplateContext {
@@ -28,11 +28,11 @@ interface ITemplateContext {
 
 }
 
-var singTemplates = singModule.addModule(new sing.Module('Templates', String));
+var singTemplates = singString.addModule(new sing.Module('Templates', String));
 
 singTemplates.requiredDocumentation = false;
 
-sing.templatePatternGlobal = /.*\{\{(.+)\}\}.*/g;
+sing.templatePatternGlobal = /^.*{\{\{(.+)\}\}}+.*/g;
 sing.templatePattern = /.*\{\{(.+)\}\}.*/;
 sing.templateStart = '{{';
 sing.templateEnd = '}}';
@@ -61,41 +61,36 @@ singTemplates.method('templateInject', StringTemplateInject,
         },
     });
 
-function StringTemplateInject(obj: Object, context?: Object): string {
+function StringTemplateInject(obj: Object, _context?: Object): string {
 
     var out = this.toString();
 
-    var matches = out.match(sing.templatePatternGlobal) || [];
+    var matches = out.match(sing.templatePattern) || [];
 
+    while (matches.length > 0) {
 
-    for (var i = 0; i < matches.length; i++) {
-        var match = matches[i].match(sing.templatePattern);
-
-        var key = match[1];
+        var key = matches[1];
 
         if (key.contains(' with ')) {
             // sing-fill template. ignore.
             continue;
         }
 
-        var values = null
+        var value = null
 
-        values = [sing.resolveKey(key, obj, context)];
+        value = sing.resolveKey(key, obj, _context);
 
-        if (values == null)
-            throw 'could not find key' + key;
+        if (value == null)
+            throw 'could not find key ' + key;
 
-        if ($.isArray(values) && values.length > 0)
-            values = values[0];
-
-        if (values != null && values != undefined) {
-            out = out.replace(sing.templateStart + key + sing.templateEnd, values.toString());
+        if (value != null && value != undefined) {
+            out = out.replace(sing.templateStart + key + sing.templateEnd, value.toString());
         }
         // Remove template if no data is found
         else {
             out = out.replace(sing.templateStart + key + sing.templateEnd, '');
         }
-
+        matches = out.match(sing.templatePattern) || [];
     }
 
     return out;
@@ -225,9 +220,9 @@ singTemplates.method('fillTemplate', ObjectFillTemplate,
         },
     }, $.fn);
 
-function ObjectFillTemplate(data: any, context?: Object): JQuery {
+function ObjectFillTemplate(data: any, _context?: Object): JQuery {
 
-    context = sing.loadContext(context);
+    _context = sing.loadContext(_context);
 
     var template = <JQuery>(this);
 
@@ -235,24 +230,23 @@ function ObjectFillTemplate(data: any, context?: Object): JQuery {
     var ifs = template.find('*[sing-if]');
 
     ifs.each(function () {
-        $(this).singIf(data, context);
+        $(this).singIf(data, _context);
     });
 
-
     var loops = template.find('*[sing-loop]');
-
     loops.each(function () {
-        $(this).singLoop(data, context);
+        $(this).before($(this).singLoop(data, _context));
+        $(this).remove();
     });
 
     var fills = template.find('*[sing-fill]');
 
     fills.each(function () {
-        $(this).html($(this).singFill(data, context)[0].outerHTML);
+        $(this).html($(this).singFill(data, _context)[0].outerHTML);
     });
 
     if (template.attr('sing-fill') && template.attr('sing-fill').length > 0)
-        template = $(template.singFill(data, context)[0].outerHTML);
+        template = $(template.singFill(data, _context)[0].outerHTML);
 
     
     // template attrs
@@ -266,13 +260,12 @@ function ObjectFillTemplate(data: any, context?: Object): JQuery {
     */
     // template contents
     
-    var html = template[0].innerHTML;
-    var templateReplace = html.templateInject(data, context);
+    var html = template[0].outerHTML;
+    var templateReplace = html.templateInject(data, _context);
 
-    template.html(templateReplace);
     // template children
 
-    return template;
+    return $(templateReplace);
 }
 
 singTemplates.method('singIf', ElementPerformSingIf,
@@ -287,9 +280,9 @@ singTemplates.method('singIf', ElementPerformSingIf,
         },
     }, $.fn);
 
-function ElementPerformSingIf(data?: any, context?: Object) {
+function ElementPerformSingIf(data?: any, _context?: Object) {
 
-    context = sing.loadContext(context);
+    _context = sing.loadContext(_context);
 
     var srcThis = <JQuery>this;
     
@@ -325,7 +318,7 @@ function ElementPerformSingIf(data?: any, context?: Object) {
         sourceData = true;
     }
     else {
-        var sourceData = sing.resolveKey(condition, data, context);
+        var sourceData = sing.resolveKey(condition, data, _context);
 
         if (!$.isDefined(sourceData))
             throw 'could not resolve condition ' + condition;
@@ -347,7 +340,7 @@ function ElementPerformSingIf(data?: any, context?: Object) {
         
         // Evaluate all subsequent else-if and else tags if the result is false.
         if (next && next.length == 1 && (next.hasAttr('sing-else-if') || next.hasAttr('sing-else'))) {
-            next.singIf(data, context);
+            next.singIf(data, _context);
         }
 
         return $();
@@ -378,9 +371,9 @@ singTemplates.method('singFill', ElementPerformSingFill,
         },
     }, $.fn);
 
-function ElementPerformSingFill(data?: any, context?: Object) {
+function ElementPerformSingFill(data?: any, _context?: Object) {
 
-    context = sing.loadContext(context);
+    _context = sing.loadContext(_context);
 
     var srcThis = <JQuery>this;
 
@@ -426,7 +419,23 @@ function ElementPerformSingFill(data?: any, context?: Object) {
     if (!template || template.length == 0)
         throw 'could not find template ' + fill;
 
-    var sourceData = sing.resolveKey(source, data, context);
+    var sourceData;
+
+    if (source.contains(' as ')) {
+        var after = source.after(' as ');
+        var sourceData = sing.resolveKey(source.before(' as '), data, _context);
+
+        // Copy context because a key is duplicated
+        if (_context['after'] !== undefined) {
+            _context = $.extend(true, {}, _context);
+        }
+
+        _context[after] = sourceData;
+    }
+    else {
+        var sourceData = sing.resolveKey(source, data, _context);
+    }
+
 
     if (!$.isDefined(sourceData))
         throw 'could not find data ' + source;
@@ -436,7 +445,7 @@ function ElementPerformSingFill(data?: any, context?: Object) {
 
     try {
 
-        var filledTemplate = template.fillTemplate(sourceData, context);
+        var filledTemplate = template.fillTemplate(sourceData, _context);
 
         srcThis.html(filledTemplate[0].innerHTML);
 
@@ -462,9 +471,9 @@ singTemplates.method('singLoop', ElementPerformSingLoop,
         },
     }, $.fn);
 
-function ElementPerformSingLoop(data: any, context?: Object) {
+function ElementPerformSingLoop(data: any, _context?: Object): JQuery {
 
-    context = sing.loadContext(context);
+    _context = sing.loadContext(_context);
 
     var loop = <JQuery>this;
 
@@ -477,61 +486,80 @@ function ElementPerformSingLoop(data: any, context?: Object) {
         loopKey = loopKey.substr(0, loopKey.length - sing.templateEnd.length);
 
     var loopDataKey = itemKey;
-    var itemKey = 'item';
+    var itemKey = '$item';
     if (loopKey.contains(' in ')) {
         itemKey = loopKey.split(' in ')[0].trim();
         loopKey = loopKey.split(' in ')[1].trim();
     }
     else {
         var tempNumber = 0;
-        while (context[itemKey + (tempNumber == 0 ? '' : tempNumber)] !== undefined) {
+        while (_context[itemKey + (tempNumber == 0 ? '' : tempNumber)] !== undefined) {
             tempNumber++;
         }
         //itemKey.push(itemKey.trim());
     }
 
     var itemDataIndex = itemKey.length - 1;
-    var loopData = sing.resolveKey(loopKey, data, context);
+    var loopData = sing.resolveKey(loopKey, data, _context);
 
     //console.log('SING-LOOP ' + itemKey + ' IN ' + loopKey);
+
+    var out = '';
 
     if (loopData == null || loopData.length == 0) {
     }
     else {
+        var loopKeys = [];
 
-        if ($.isHash(loopData))
+        if ($.isHash(loopData)) {
             loopData = $.objValues(loopData);
-
+            loopKeys = $.objKeys(loopData);
+        }
         if ($.isArray(loopData)) {
 
             for (var i = 0; i < loopData.length; i++) {
 
                 //console.log('SING-LOOP ' + (i) + ' ' + itemKey + ' IN ' + loopKey);
 
-                var loopClone = $(loop[0].outerHTML).removeAttr('sing-loop');
+                var loopClone;
+                if (loop.attr('sing-loop-inner') == 'true') {
+                    loopClone = $(loop[0].innerHTML).removeAttr('sing-loop');
+                }
+                else {
+                    loopClone = $(loop[0].outerHTML).removeAttr('sing-loop');
+                }
 
-                context[itemKey] = loopData[i];
+                // Copy context because a key is duplicated
+                if (_context[itemKey] !== undefined) {
+                    _context = $.extend(true, {}, _context);
+                }
 
-                context['$i'] = i;
-                context['$index'] = i;
-                context['$isFirst'] = i == 0;
-                context['$isLast'] = i == loopData.length - 1;
-                context['$isEven'] = i % 2 == 0;
-                context['$isOdd'] = i % 2 == 1;
+                _context[itemKey] = loopData[i];
+
+                _context[itemKey + '$i'] = i;
+                _context[itemKey + '$index'] = i;
+                _context[itemKey + '$isFirst'] = i == 0;
+                _context[itemKey + '$isLast'] = i == loopData.length - 1;
+                _context[itemKey + '$isEven'] = i % 2 == 0;
+                _context[itemKey + '$isOdd'] = i % 2 == 1;
+
+                if (loopKeys && loopKeys.length > 0)
+                    _context[itemKey + '$key'] = loopKeys[i];
 
                 try {
-                    loopClone = loopClone.fillTemplate(data, context);
+                    loopClone = loopClone.fillTemplate(data, _context);
 
                 } catch (ex) {
                     loopClone = $('<error>' + ex + ' ' + ex.stack + '</error>');
                     console.trace();
                 }
 
-                loop.before(loopClone);
+                out += loopClone.outerHtml();
+
             }
         }
     }
-    loop.remove();
+    return $(out);
 }
 
 sing.loadTemplate = function (url, callback: Function) {

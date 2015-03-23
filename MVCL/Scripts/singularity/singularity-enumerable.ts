@@ -567,10 +567,7 @@ singEnumerable.method('sortBy', EnumerableSortBy,
 function EnumerableSortBy<T>(arg?: string | string[]| ((item: T) => number)): T[] {
 
     var defaultValueFunc = function (item: any) {
-        if (item && item.numericValueOf)
-            return item.numericValueOf();
-        else
-            return $.toStr(item).numericValueOf();
+        return item;
     };
 
     if (arg == null) {
@@ -606,17 +603,18 @@ function EnumerableSortBy<T>(arg?: string | string[]| ((item: T) => number)): T[
     else {
         indexes = indexes.collect(arg);
     }
-
+    /*
     if (!indexes.every($.isNumeric.fn_or($.isString))) {
         indexes = indexes.collect($.toStr)
-            .collect(sing.methods['String.numericValueOf'].method);
+            .collect(sing.methods['Singularity.Number.String.numericValueOf'].method);
     }
+    */
 
     var items = this;
 
     var out = indexes.quickSort([items]);
 
-    return out[1];
+    return out;
 }
 
 singEnumerable.method('quickSort', EnumerableQuickSort,
