@@ -115,6 +115,7 @@ function ArrayFindValues() {
     for (var _i = 0; _i < arguments.length; _i++) {
         names[_i - 0] = arguments[_i];
     }
+    var thisArray = this;
     if (!names || names.length == 0 || names[0] == null)
         return;
     if (names.length == 1 && names[0].contains('.')) {
@@ -122,7 +123,7 @@ function ArrayFindValues() {
     }
     if (names.length > 0) {
         var name = names.shift();
-        var out = this.collect(function (item) {
+        var out = thisArray.collect(function (item) {
             if (!item || !item[name])
                 return null;
             else
@@ -308,5 +309,15 @@ function ObjectClone() {
 singObject.method('isEmpty', ObjectIsEmpty, {}, $);
 function ObjectIsEmpty(obj) {
     return (obj === undefined || obj === null || obj === '' || ($.isNumber(obj) && isNaN(obj)) || ($.isArray(obj) && obj.length == 0) || ($.isString(obj) && obj.trim().length == 0));
+}
+singObject.method('typeName', ObjectTypeName, {}, $);
+function ObjectTypeName(obj) {
+    if (typeof obj === "undefined")
+        return "undefined";
+    if (obj === null)
+        return "null";
+    if (obj.__proto__ && obj.__proto__.constructor && obj.__proto__.constructor.name)
+        return obj.__proto__.constructor.name;
+    return Object.prototype.toString.call(obj).match(/^\[object\s(.*)\]$/)[1];
 }
 //# sourceMappingURL=singularity-object.js.map

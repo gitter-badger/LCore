@@ -1,10 +1,17 @@
 ﻿
 interface JQueryStatic {
-    objEach?: (obj: any, eachFunc: (key: string, item: any, i: number) => any) => any[];
 
-    objProperties?: (obj?) => [{ key: string; value: any; }];
-    objValues?: (obj?) => any[];
-    objKeys?: (obj?) => string[];
+    objEach<T>(objHash: Hash<T>, eachFunc: (key: string, item: T, i: number) => any): any[];
+    objEach(obj: any, eachFunc: (key: string, item: any, i: number) => any): any[];
+
+    objProperties<T>(objHash?: Hash<T>): [{ key: string; value: T; }];
+    objProperties(obj?: any): [{ key: string; value: any; }];
+
+    objValues<T>(objHash?: Hash<T>): T[];
+    objValues(obj?: any): any[];
+
+    objKeys?: (obj?: any) => string[];
+
     objHasKey?: (obj: Object, key: string) => boolean;
     resolve?: (obj?: Object | any[]| Function) => Object;
 
@@ -12,6 +19,8 @@ interface JQueryStatic {
     isHash?: (obj?: any) => boolean;
 
     isEmpty?: (obj?: any) => boolean;
+
+    typeName?: (obj?: any) => string;
 }
 
 interface JQuery {
@@ -39,7 +48,7 @@ singObject.method('objEach', ObjectEach,
             ext.addCustomTest(function () {
 
                 var test = { a: 1, b: 2 };
-                var test2 = [];
+                var test2: any[] = [];
 
                 $.objEach(test, function (key, item, index) {
                     test2.push({ key: key, item: item, index: index });
@@ -54,7 +63,7 @@ singObject.method('objEach', ObjectEach,
         },
     });
 
-function ObjectEach(obj: Object, eachFunc: (key: string, item: any, index: number) => void): void {
+function ObjectEach(obj: Hash<any>, eachFunc: (key: string, item: any, index: number) => void): void {
 
     var keys = Object.keys(obj);
 
@@ -81,7 +90,7 @@ singObject.method('objProperties', ObjectProperties,
         },
     });
 
-function ObjectProperties(obj?: Object): { key: string; value: any }[] {
+function ObjectProperties(obj?: Hash<any>): { key: string; value: any }[] {
     if (obj == null || !(typeof obj == 'object'))
         return [];
 
@@ -119,13 +128,13 @@ singObject.method('objValues', ObjectValues,
         },
     });
 
-function ObjectValues(obj?: Object, findKeys?: string[]): any[] {
+function ObjectValues(obj?: Hash<any> | any[], findKeys?: string[]): any[] {
     if (obj == null || !(typeof obj == 'object'))
         return null;
 
     if (findKeys != null && findKeys.length > 0) {
         if ($.isArray(obj)) {
-            return (<Array<any>>obj).arrayValues.apply(obj, findKeys);
+            return (<any[]>obj).arrayValues.apply(obj, findKeys);
         }
         else {
             return [obj].arrayValues.apply([obj], findKeys)
@@ -134,7 +143,7 @@ function ObjectValues(obj?: Object, findKeys?: string[]): any[] {
     else {
         var keys = Object.keys(obj);
 
-        var values = keys.collect(function (item, i) { return obj[item]; });
+        var values = keys.collect(function (item, i) { return (<any>obj)[item]; });
 
         return values;
     }
@@ -170,7 +179,9 @@ singObject.method('arrayValues', ArrayFindValues,
         },
     }, Array.prototype);
 
-function ArrayFindValues(...names: string[]): any[] {
+function ArrayFindValues<T>(...names: string[]): any[] {
+
+    var thisArray = <Hash<any>[]>this;
 
     if (!names || names.length == 0 || names[0] == null)
         return;
@@ -181,7 +192,8 @@ function ArrayFindValues(...names: string[]): any[] {
     if (names.length > 0) {
         var name = names.shift();
 
-        var out = this.collect(function (item) {
+        var out = thisArray.collect(function (item) {
+
             if (!item || !item[name])
                 return null;
             else
@@ -415,7 +427,7 @@ function ObjectClone() {
 
 singObject.method('isEmpty', ObjectIsEmpty, {}, $);
 
-function ObjectIsEmpty(obj): boolean {
+function ObjectIsEmpty(obj?: any): boolean {
 
     return (obj === undefined ||
         obj === null ||
@@ -427,3 +439,15 @@ function ObjectIsEmpty(obj): boolean {
 }
 
 
+singObject.method('typeName', ObjectTypeName, {}, $);
+
+function ObjectTypeName(obj?: any) {
+    if (typeof obj === "undefined")
+        return "undefined";
+    if (obj === null)
+        return "null";
+    if (obj.__proto__ && obj.__proto__.constructor && obj.__proto__.constructor.name)
+        return obj.__proto__.constructor.name;
+    return Object.prototype.toString.call(obj)
+        .match(/^\[object\s(.*)\]$/)[1];
+}

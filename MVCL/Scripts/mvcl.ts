@@ -6,7 +6,7 @@ function MNCL_Init() {
 
 }
 
-function preg_quote(str) {
+function preg_quote(str: string) {
 
     return (str + '').replace(/([\\\.\+\*\?\[\^\]\$\(\)\{\}\=\!\<\>\|\:])/g, "\\$1");
 }

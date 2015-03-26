@@ -7,16 +7,15 @@ interface ISingularityDocs {
     getMissing?: (funcName?: string) => string;
 }
 
-var singDocs = singCore.addModule(new sing.Module('Documentation', sing, sing));
+var singDocs = singCore.addModule(new sing.Module('Documentation', Singularity));
 
-singDocs.requiredDocumentation = false;
-singDocs.requiredUnitTests = false;
+singDocs.ignoreUnknown('ALL');
 
 singDocs.method('getDocs', SingularityGetDocs);
 
 function SingularityGetDocs(funcName?: string, includeCode: boolean = false, includeDocumentation: boolean = true) {
 
-    this.resolveTests();
+    sing.tests.resolveTests();
 
     var featuresCount = 0;
     var featuresFound = 0;
@@ -34,11 +33,11 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
     if (!funcName ||
         funcName == '' ||
         funcName == 'all')
-        header = 'Singularity TypeScript, JavaScript, and jQuery language Extensions\r\n\r\n';
+        header = sing.summary + '\r\n\r\n';
 
     var out = '';
 
-    $.objEach(sing.methods, function (key, ext: SingularityMethod, index) {
+    $.objEach(sing.methods, function (key:string, ext: SingularityMethod, index:number) {
 
         var mod = sing.modules[ext.moduleName];
 
@@ -231,7 +230,7 @@ singDocs.method('getMissing', SingularityGetMissing);
 
 function SingularityGetMissing(funcName?: string) {
 
-    this.resolveTests();
+    sing.tests.resolveTests();
 
     var featuresCount = 0;
     var featuresFound = 0;

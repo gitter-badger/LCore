@@ -67,8 +67,6 @@ interface JQueryStatic {
 
 var singString = singExt.addModule(new sing.Module("String", String));
 
-singString.requiredDocumentation = false;
-
 /// <reference path="singularity-core.ts"/>
 
 //////////////////////////////////////////////////////
@@ -88,7 +86,7 @@ singString.method('contains', StringContains,
         },
     });
 
-function StringContains(str) {
+function StringContains(str?: string) {
     if (!this || !str || str == '')
         return false;
 
@@ -132,7 +130,7 @@ singString.method('replaceAll', StringReplaceAll,
 
 var StringReplaceAll_ErrorReplacementContinsSearch = 'Replace All Error: replacement must not contain search term';
 
-function StringReplaceAll(searchOrSearches, replaceOrReplacements) {
+function StringReplaceAll(searchOrSearches: string | string[], replaceOrReplacements: string | string[]) {
     //if replace is null, return original string otherwise it will
     //replace search string with 'undefined'.
     if (replaceOrReplacements == undefined || replaceOrReplacements == null)
@@ -144,8 +142,9 @@ function StringReplaceAll(searchOrSearches, replaceOrReplacements) {
     var out = this;
 
     if ($.isArray(searchOrSearches)) {
+        var searchArray = <string[]>searchOrSearches;
 
-        searchOrSearches.each(function (item, i) {
+        searchArray.each(function (item, i) {
 
             var replacestr = $.isArray(replaceOrReplacements) ? replaceOrReplacements[i] : replaceOrReplacements;
 
@@ -227,15 +226,19 @@ singString.method('startsWith', StringStartsWith,
         },
     });
 
-function StringStartsWith(stringOrStrings) {
+function StringStartsWith(stringOrStrings: string|string[]) {
+
+    var thisString = <string>this;
+
     if (!stringOrStrings)
         return false;
 
     if ($.isArray(stringOrStrings)) {
 
-        return stringOrStrings.contains(function (s, i) {
-            if (this.startsWith(s))
+        return (<string[]>stringOrStrings).contains(function (s, i) {
+            if (thisString.startsWith(s))
                 return true;
+            return false;
         });
     }
 
@@ -253,12 +256,12 @@ singString.method('endsWith', StringEndsWith,
         },
     });
 
-function StringEndsWith(stringOrStrings) {
+function StringEndsWith(stringOrStrings: string|string[]) {
     if (!stringOrStrings)
         return false;
 
     if ($.isArray(stringOrStrings)) {
-        for (var s in stringOrStrings) {
+        for (var s in <string[]>stringOrStrings) {
             if (this.endsWith(s))
                 return true;
         }
@@ -279,10 +282,10 @@ singString.method('removeAll', StringRemoveAll,
         },
     });
 
-function StringRemoveAll(stringOrStrings) {
+function StringRemoveAll(stringOrStrings: string|string[]) {
     if ($.isArray(stringOrStrings)) {
         var out = this;
-        for (var s in stringOrStrings) {
+        for (var s in <string[]>stringOrStrings) {
             out = out.removeAll(s);
         }
         return out;
@@ -325,7 +328,7 @@ singString.method('repeat', StringRepeat,
         },
     });
 
-function StringRepeat(times) {
+function StringRepeat(times: number = 0) {
     if (times <= 0)
         return '';
 
@@ -384,9 +387,9 @@ singString.method('surround', StringSurround,
         },
     });
 
-function StringSurround(str) {
+function StringSurround(str: string) {
     if (!this || !str)
-        return '';
+        return this;
 
     return str + this + str;
 }
@@ -402,9 +405,9 @@ singString.method('truncate', StringTruncate,
         },
     });
 
-function StringTruncate(length) {
-    if (!this)
-        return ''
+function StringTruncate(length: number) {
+    if (!this || this.length < 0)
+        return '';
 
     if (this.length > length)
         return this.substr(0, length).toString();
@@ -739,17 +742,20 @@ singString.method('toStr', ArrayToStr,
         },
     }, Array.prototype, "Array");
 
-function ArrayToStr(includeMarkup: boolean = false) {
+function ArrayToStr<T>(includeMarkup: boolean = false) {
+
+    var thisArray = <Hash<any>[]>this;
+
     var out = includeMarkup ? '[' : '';
     var src = this;
 
-    this.each(function (item, i) {
+    thisArray.each(function (item, i) {
         if (item === null)
             out += 'null';
         else if (item === undefined)
             out += 'undefined';
-        else if (item.toStr)
-            out += item.toStr(includeMarkup);  // includeMarkup is passed to child elements
+        else if (item['toStr'])
+            out += item['toStr'](includeMarkup);  // includeMarkup is passed to child elements
 
         if (i < src.length - 1)
             out += includeMarkup ? ', ' : '\r\n';
@@ -771,7 +777,7 @@ singString.method('toStr', StringToStr,
         },
     });
 
-function StringToStr(includeMarkup) {
+function StringToStr(includeMarkup: boolean = false) {
     if (includeMarkup)
         return "'" + this.replaceAll('\r\n', '\\r\\n') + "'";
 
@@ -796,7 +802,7 @@ singString.method('isString', IsString,
         },
     }, $);
 
-function IsString(str) {
+function IsString(str?: any) {
     return typeof str == 'string';
 }
 

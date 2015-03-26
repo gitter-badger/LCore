@@ -1,5 +1,4 @@
 var singString = singExt.addModule(new sing.Module("String", String));
-singString.requiredDocumentation = false;
 /// <reference path="singularity-core.ts"/>
 //////////////////////////////////////////////////////
 //
@@ -58,7 +57,8 @@ function StringReplaceAll(searchOrSearches, replaceOrReplacements) {
         return this;
     var out = this;
     if ($.isArray(searchOrSearches)) {
-        searchOrSearches.each(function (item, i) {
+        var searchArray = searchOrSearches;
+        searchArray.each(function (item, i) {
             var replacestr = $.isArray(replaceOrReplacements) ? replaceOrReplacements[i] : replaceOrReplacements;
             if (replacestr.toString().contains(item.toString()))
                 throw StringReplaceAll_ErrorReplacementContinsSearch;
@@ -122,12 +122,14 @@ singString.method('startsWith', StringStartsWith, {
     },
 });
 function StringStartsWith(stringOrStrings) {
+    var thisString = this;
     if (!stringOrStrings)
         return false;
     if ($.isArray(stringOrStrings)) {
         return stringOrStrings.contains(function (s, i) {
-            if (this.startsWith(s))
+            if (thisString.startsWith(s))
                 return true;
+            return false;
         });
     }
     return this.indexOf(stringOrStrings) == 0;
@@ -200,6 +202,7 @@ singString.method('repeat', StringRepeat, {
     },
 });
 function StringRepeat(times) {
+    if (times === void 0) { times = 0; }
     if (times <= 0)
         return '';
     var out = '';
@@ -247,7 +250,7 @@ singString.method('surround', StringSurround, {
 });
 function StringSurround(str) {
     if (!this || !str)
-        return '';
+        return this;
     return str + this + str;
 }
 singString.method('truncate', StringTruncate, {
@@ -260,7 +263,7 @@ singString.method('truncate', StringTruncate, {
     },
 });
 function StringTruncate(length) {
-    if (!this)
+    if (!this || this.length < 0)
         return '';
     if (this.length > length)
         return this.substr(0, length).toString();
@@ -529,15 +532,16 @@ singString.method('toStr', ArrayToStr, {
 }, Array.prototype, "Array");
 function ArrayToStr(includeMarkup) {
     if (includeMarkup === void 0) { includeMarkup = false; }
+    var thisArray = this;
     var out = includeMarkup ? '[' : '';
     var src = this;
-    this.each(function (item, i) {
+    thisArray.each(function (item, i) {
         if (item === null)
             out += 'null';
         else if (item === undefined)
             out += 'undefined';
-        else if (item.toStr)
-            out += item.toStr(includeMarkup); // includeMarkup is passed to child elements
+        else if (item['toStr'])
+            out += item['toStr'](includeMarkup); // includeMarkup is passed to child elements
         if (i < src.length - 1)
             out += includeMarkup ? ', ' : '\r\n';
     });
@@ -554,6 +558,7 @@ singString.method('toStr', StringToStr, {
     },
 });
 function StringToStr(includeMarkup) {
+    if (includeMarkup === void 0) { includeMarkup = false; }
     if (includeMarkup)
         return "'" + this.replaceAll('\r\n', '\\r\\n') + "'";
     return this;

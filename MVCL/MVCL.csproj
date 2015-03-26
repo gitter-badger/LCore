@@ -514,6 +514,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\sing-logo-light.ico" />
+    <Content Include="Content\Images\sing-logo-light.png" />
+    <Content Include="Content\Images\sing-logo.ico" />
     <Content Include="Content\jquery.timepicker.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -527,6 +530,7 @@
     <Content Include="Content\mvcl.min.css">
       <DependentUpon>mvcl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Images\sing-logo.png" />
     <Content Include="Content\singularity.css">
       <DependentUpon>singularity.less</DependentUpon>
     </Content>
@@ -853,10 +857,14 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Content\Images\sing-logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptNoImplicitAny>True</TypeScriptNoImplicitAny>
     <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptOutFile>Scripts/singularity/singularity.js</TypeScriptOutFile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

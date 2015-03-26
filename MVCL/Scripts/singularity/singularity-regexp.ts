@@ -12,8 +12,6 @@ interface String {
 
 var singRegExp = singString.addModule(new sing.Module('RegExp', String));
 
-singRegExp.requiredDocumentation = false;
-
 singRegExp.method('matchCount', StringMatchCount,
     {
         summary: null,

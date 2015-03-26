@@ -1,36 +1,51 @@
 ﻿/// <reference path="singularity-core.ts"/>
 
 interface Array<T> {
-    each?: (action: (item: T, index: number) => void) => void;
-    'while'?: (action: (item: T, index: number) => boolean) => void;
+    each?: (action: (item?: T, index?: number) => void) => void;
+    'while'?: (action: (item?: T, index?: number) => boolean) => void;
     indices?: (item: T | T[]) => T[];
-    collect?: (collectFunc?: (item: T, index: number) => any) => any[];
 
-    select?: (condition: (item: T, index: number) => boolean) => T[];
-    where?: (condition: (item: T, index: number) => boolean) => T[];
+
+    collect(): T[];
+    collect<U>(convertFunc?: (item?: T, index?: number) => U): U[];
+    collect(collectFunc?: (item?: T, index?: number) => any): any[];
+
+    select(condition: (...items: any[]) => boolean): T[];
+    select(condition: (item?: T) => boolean): T[];
+    select(condition: (item?: T, index?: number) => boolean): T[];
+
+    where?: (condition: (item?: T, index?: number) => boolean) => T[];
+
     range?: (start: number, finish: number) => T[];
     flatten?: () => T[];
 
     remove?: (item: T | T[]| ((a: T, b: number) => boolean)) => T[];
 
-    count?: (item: T | T[]| ((arg: T, index: number) => boolean)) => number;
+    count?: (item: T | T[]| ((arg: T, index: number) => boolean | number)) => number;
+
     contains?: (item: T | T[]| ((arg: T, index: number) => boolean)) => boolean;
     has?: (item: T | T[]| ((arg: T, index: number) => boolean)) => boolean;
 
     shuffle?: () => T[];
 
 
-    first?: (item: T | T[]|  ((arg: T, index: number) => boolean)) => T;
-    last?: (item: T | T[]| ((arg: T, index: number) => boolean)) => T;
+    first<T>(count: number): T[];
+    first<T>(item: T): T;
+    first<T>(condition: Function): T;
+    first<T>(condition: ((item: T, index: number) => boolean)): T;
+    first<T>(itemOrCountOrAction: number | T | ((item: T, index: number) => boolean)): T | T[];
+
+    last<T>(count: number): T[];
+    last<T>(item: T): T;
+    last<T>(condition: ((item: T, index: number) => boolean)): T;
+    last<T>(itemOrCountOrAction: number | T | ((item: T, index: number) => boolean)): T | T[];
 }
 
 interface Number {
-    timesDo?: (executeFunc: (any) => void, args?: any[], caller?: any) => any[];
+    timesDo?: (executeFunc: () => void, args?: any[], caller?: any) => any[];
 }
 
 var singEnumerable = singExt.addModule(new sing.Module("Enumerable", Array));
-
-singEnumerable.requiredDocumentation = false;
 
 //////////////////////////////////////////////////////
 //
@@ -52,7 +67,7 @@ singEnumerable.method('each', EnumerableEach,
             ext.addTest([], [function () { }], undefined);
             ext.addTest([], [function () { return true; }], undefined);
             ext.addTest([], [function () { return false; }], undefined);
-            ext.addTest([1], [function (a) { return a; }], undefined);
+            ext.addTest([1], [function (a: any) { return a; }], undefined);
 
             ext.addCustomTest(function () {
                 var test = [1, 2, 3];
@@ -72,7 +87,9 @@ function EnumerableEach<T>(action: (item: T, i: number) => void) {
     if (!this)
         return;
 
-    <Array<T>>this.while(function (item, i) {
+    var thisArray = <Array<T>>this;
+
+    thisArray.while(function (item: T, i: number) {
         action(item, i);
 
         // each always continues until the end
@@ -97,8 +114,8 @@ singEnumerable.method('while', EnumerableWhile,
             ext.addTest([1], [function () { return true; }], true);
             ext.addTest([], [function () { return false; }], true);
             ext.addTest([1], [function () { return false; }], false);
-            ext.addTest([1, 2, 3, 4, 5], [function (a) { return a < 3; }], false);
-            ext.addTest([1, 2, 3, 4, 5], [function (item, index) { return item == 4 && index == 3; }], false);
+            ext.addTest([1, 2, 3, 4, 5], [function (a: any) { return a < 3; }], false);
+            ext.addTest([1, 2, 3, 4, 5], [function (item: any, index: number) { return item == 4 && index == 3; }], false);
             
             // Test broken TODO FIX
             // ext.addTest([1, 2, 3, 4, 5], [function (a) { return a == 3; }], true);
@@ -118,7 +135,7 @@ singEnumerable.method('while', EnumerableWhile,
         },
     });
 
-function EnumerableWhile(action) {
+function EnumerableWhile<T>(action: (item: T, index: number) => any) {
     if (!this || !action)
         return true;
 
@@ -174,13 +191,15 @@ singEnumerable.method('until', EnumerableUntil,
         },
     });
 
-function EnumerableUntil(action) {
+function EnumerableUntil<T>(action: (item: T, index: number) => any) {
     if (!this || !action || this.length == 0)
         return false;
 
+    var thisArray = <Array<T>>this;
+
     var exit = false;
 
-    this.while(function (item, i) {
+    thisArray.while(function (item, i) {
         var result = action(item, i);
 
         exit = !(result === false || result === null || result === undefined);
@@ -207,12 +226,15 @@ singEnumerable.method('count', EnumerableCount,
         },
     });
 
-function EnumerableCount(action) {
+function EnumerableCount<T>(action: (item: T, index: number) => any) {
     if (!this || !action)
         return 0;
 
+    var thisArray = <Array<T>>this;
+
     var out = 0;
-    this.each(function (item, i) {
+
+    thisArray.each(function (item, i) {
         var result = action(item, i);
 
         if (result !== null &&
@@ -250,39 +272,41 @@ singEnumerable.method('contains', EnumerableContains,
             ext.addTest([1, 2, 3], [4, 5, 3], true);
             ext.addTest([1, 2, 3], [[4, 5, 3]], true);
 
-            ext.addTest([1, 2, 3], [function (a) { return a == 2; }], true);
-            ext.addTest([1, 2, 3], [function (a) { return a == 5; }], false);
+            ext.addTest([1, 2, 3], [function (a: any) { return a == 2; }], true);
+            ext.addTest([1, 2, 3], [function (a: any) { return a == 5; }], false);
         },
     });
 
-function EnumerableContains(...items: any[]) {
+function EnumerableContains<T>(...items: T[]) {
 
-    var srcThis = <any[]>this;
+    var srcThis = <T[]>this;
 
     if (!srcThis ||
         items == null ||
         items == undefined)
         return false;
 
-    if ($.isArray(items) && items.length > 1) {
+    if (items.length == 1) {
 
-        if (items.length == 1 && $.isArray(items[0]))
-            items = items[0];
+        if ($.isFunction(items[0])) {
+            return !!this.first(items[0]);
+        }
 
-        return items.first(function (it, i) {
+        return this.indexOf(items[0]) >= 0;
+    }
+
+    if (items.length > 1) {
+
+        var result = items.first(function (it: T, i: number) {
             if (srcThis.contains(it))
                 return true;
             return false;
         });
 
+        return result !== undefined;
     }
 
-
-    if ($.isFunction(items[0])) {
-        return !!this.first(items[0]);
-    }
-
-    return this.indexOf(items[0]) >= 0;
+    return false;
 }
 
 singEnumerable.method('select', EnumerableSelect,
@@ -298,18 +322,21 @@ singEnumerable.method('select', EnumerableSelect,
             ext.addTest([], [null], []);
             ext.addTest([], [undefined], []);
             ext.addTest([1, 2, 3, undefined], [], []);
-            ext.addTest([1, 2, 3, undefined], [function (a) { return a == 3; }], [3]);
-            ext.addTest([1, 2, 3, undefined], [function (a) { return a === undefined; }], [undefined]);
-            ext.addTest([1, 2, 3, undefined], [function (a) { return a < 3; }], [1, 2]);
+            ext.addTest([1, 2, 3, undefined], [function (a: any) { return a == 3; }], [3]);
+            ext.addTest([1, 2, 3, undefined], [function (a: any) { return a === undefined; }], [undefined]);
+            ext.addTest([1, 2, 3, undefined], [function (a: any) { return a < 3; }], [1, 2]);
         },
     });
 
-function EnumerableSelect(action) {
+function EnumerableSelect<T>(action: (item: T, index: number) => boolean): T[] {
     if (!this || !action)
         return [];
 
-    var out = [];
-    this.each(function (item, i) {
+    var thisArray = <T[]>this;
+
+    var out: T[] = [];
+
+    thisArray.each(function (item, i) {
         var result = action(item, i);
 
         if (result != null &&
@@ -317,6 +344,7 @@ function EnumerableSelect(action) {
             result != false)
             out = out.concat(item);
     });
+
     return out;
 }
 
@@ -335,23 +363,25 @@ singEnumerable.method('collect', EnumerableCollect,
             ext.addTest([null], [], []);
             ext.addTest([undefined, null], [], []);
             ext.addTest([1, 2, 3, undefined, null], [], [1, 2, 3]);
-            ext.addTest([1, 2, 3, undefined, null], [function (a) { return a == 3; }], [false, false, true, false, false]);
-            ext.addTest([1, 2, 3, undefined, null], [function (a) { return a <= 2; }], [true, true, false, false, true]);
-            ext.addTest([1, 2, 3, undefined, null], [function (a) { return a + 1; }], [2, 3, 4, NaN, 1]);
-            ext.addTest([1, 2, 3, undefined, null], [function (a) { return $.isDefined(a); }], [true, true, true, false, false]);
+            ext.addTest([1, 2, 3, undefined, null], [function (a: any) { return a == 3; }], [false, false, true, false, false]);
+            ext.addTest([1, 2, 3, undefined, null], [function (a: any) { return a <= 2; }], [true, true, false, false, true]);
+            ext.addTest([1, 2, 3, undefined, null], [function (a: any) { return a + 1; }], [2, 3, 4, NaN, 1]);
+            ext.addTest([1, 2, 3, undefined, null], [function (a: any) { return $.isDefined(a); }], [true, true, true, false, false]);
         },
     });
 
-function EnumerableCollect(action) {
+function EnumerableCollect<T>(action: (item: T, index: number) => any) {
     if (!this)
         return [];
+
+    var thisArray = <T[]>this;
 
     if (action == null ||
         action == undefined)
         action = sing.func.identity;
 
-    var out = [];
-    this.each(function (item, i) {
+    var out: T[] = [];
+    thisArray.each(function (item, i) {
         var result = action(item, i);
 
         if (result !== null &&
@@ -372,9 +402,11 @@ singEnumerable.method('first', EnumerableFirst,
         },
     });
 
-function EnumerableFirst(itemOrAction) {
+function EnumerableFirst<T>(itemOrAction: number | T | ((item: T, index: number) => boolean)): T | T[] {
     if (!this)
         return;
+
+    var thisArray = <T[]>this;
 
     if (!itemOrAction && this.length > 0)
         return this[0];
@@ -383,18 +415,19 @@ function EnumerableFirst(itemOrAction) {
         return;
 
     if (ObjectIsNumber(itemOrAction))
-        itemOrAction = function (item, i) { return i < itemOrAction; };
+        itemOrAction = function (item, i) { return i < <number>itemOrAction; };
 
-    if ($.isFunction(itemOrAction))
+    if ($.isFunction(itemOrAction)) {
         itemOrAction = function (item, i) { return item == itemOrAction; };
+        return thisArray.select(<(item: T, index: number) => boolean>itemOrAction);
+    }
+    var out: any = undefined;
 
-    var out = undefined;
-
-    this.while(function (item, i) {
-        var result = itemOrAction(item, i);
+    thisArray.while(function (item, i) {
+        var result = (<(item: T, index: number) => boolean>itemOrAction)(item, i);
 
         if (result == true) {
-            out = result;
+            out = item;
             return false;
         }
     });
@@ -412,17 +445,21 @@ singEnumerable.method('last', EnumerableLast,
         },
     });
 
-function EnumerableLast(action) {
+function EnumerableLast<T>(itemOrAction: number | T | ((item: T, index: number) => boolean)): T | T[] {
     if (!this)
         return;
 
-    if (!action && this.length > 0)
-        return this[this.length - 1];
+    var thisArray = <T[]> this;
 
-    if (!action)
+    if (!itemOrAction && thisArray.length > 0)
+        return thisArray[thisArray.length - 1];
+
+    if (!itemOrAction)
         return;
 
-    return this.reverse().first(action);
+    var out = <any>thisArray.reverse().first(<number | T | ((item: T, index: number) => boolean) >itemOrAction);
+
+    return <T | T[]>out;
 }
 
 singEnumerable.method('range', EnumerableRange,
@@ -436,11 +473,11 @@ singEnumerable.method('range', EnumerableRange,
         },
     });
 
-function EnumerableRange(start, end) {
+function EnumerableRange<T>(start: number = 0, end: number = this.length - 1): T[] {
     if (!this || start > end)
         return [];
 
-    var out = [];
+    var out: T[] = [];
     for (var i = start; i < end; i++) {
         out = out.concat(this[i]);
     }
@@ -458,13 +495,15 @@ singEnumerable.method('flatten', EnumerableFlatten,
         },
     });
 
-function EnumerableFlatten() {
+function EnumerableFlatten(): any[] {
     if (!this)
         return [];
 
-    var out = [];
+    var thisArray = <any[]>this;
 
-    this.each(function (item, i) {
+    var out: any[] = [];
+
+    thisArray.each(function (item, i) {
         if ($.isArray(item))
             out.concat(item.flatten());
         else
@@ -483,41 +522,49 @@ singEnumerable.method('indices', EnumerableIndices,
         examples: null,
         aliases: ['indexes'],
         tests: function (ext) {
-            sing.addAssertTest(ext.name, ['a'].indices('a'), [0]);
-            sing.addAssertTest(ext.name, ['a'].indices(['b']), []);
-            sing.addAssertTest(ext.name, ['a'].indices(['']), []);
-            sing.addAssertTest(ext.name, ['a'].indices([undefined]), []);
-            sing.addAssertTest(ext.name, ['a'].indices([null]), []);
-            sing.addAssertTest(ext.name, ['a'].indices(null), []);
-            sing.addAssertTest(ext.name, ['a', 'b'].indices(['a', 'b']), [0, 1]);
 
-            sing.addAssertTest(ext.name, ['a', 'a', 'a', 'b', 'b', 'b'].indices(['a', 'b']), [0, 1, 2, 3, 4, 5]);
+            ext.addTest(['a'], ['a'], [0]);
+            ext.addTest(['a'], ['b'], []);
+            ext.addTest(['a'], [[undefined]], []);
+            ext.addTest(['a'], [[null]], []);
+            ext.addTest(['a'], [null], []);
+            ext.addTest(['a', 'b'], ['a', 'b'], [0, 1]);
+
+            ext.addTest(['a', 'a', 'a', 'b', 'b', 'b'], ['a', 'b'], [0, 1, 2, 3, 4, 5]);
         },
     });
 
-function EnumerableIndices(itemOrItemsOrFunction) {
+function EnumerableIndices<T>(itemOrItemsOrFunction: T | T[]|((item: T, index: number) => boolean)): number[] {
     if (!this ||
         itemOrItemsOrFunction == null ||
         itemOrItemsOrFunction == undefined)
         return [];
 
-    var src = this;
+    var thisArray = <T[]>this;
 
     if ($.isArray(itemOrItemsOrFunction)) {
-        return src.collect(function (item, i) {
-            if (itemOrItemsOrFunction.contains(item))
+
+        var itemArray = <T[]>itemOrItemsOrFunction;
+
+        return thisArray.collect(function (item, i) {
+            if (itemArray.contains(item))
                 return i;
         });
     }
 
     if ($.isFunction(itemOrItemsOrFunction)) {
-        return src.collect(function (item, i) {
-            if (!!itemOrItemsOrFunction(item, i))
+
+        var itemFunction = <(item: T, index: number) => boolean>itemOrItemsOrFunction;
+
+        return thisArray.collect(function (item, i) {
+            if (!!itemFunction(item, i))
                 return i;
         });
     }
 
-    var index = src.indexOf(itemOrItemsOrFunction);
+    var item = <T>itemOrItemsOrFunction;
+
+    var index = thisArray.indexOf(item);
 
     if (index >= 0)
         return [index];
@@ -536,24 +583,30 @@ singEnumerable.method('remove', EnumerableRemove,
         },
     });
 
-function EnumerableRemove(itemOrItemsOrFunction) {
+function EnumerableRemove<T>(itemOrItemsOrFunction: T | T[]|((item: T, index: number) => boolean)): T[] {
 
-    var src = this;
+    var thisArray = <T[]>this;
 
     if (!itemOrItemsOrFunction)
-        return src;
+        return thisArray;
 
     if ($.isArray(itemOrItemsOrFunction)) {
-        return src.select(function (item, i) {
-            return !itemOrItemsOrFunction.contains(item);
+
+        var itemArray = <T[]>itemOrItemsOrFunction;
+
+        return thisArray.select(function (item, i) {
+            return !itemArray.contains(item);
         });
     }
 
     if ($.isFunction(itemOrItemsOrFunction)) {
-        return src.select(itemOrItemsOrFunction.not());
+
+        var itemFunction = <(item: T, index: number) => boolean>itemOrItemsOrFunction;
+
+        return thisArray.select(itemFunction.fn_not());
     }
 
-    return src.select(function (item, i) {
+    return thisArray.select(function (item, i) {
         return item == itemOrItemsOrFunction;
     });
 }
@@ -570,9 +623,9 @@ singEnumerable.method('sortBy', EnumerableSortBy,
         },
     });
 
-function EnumerableSortBy<T>(arg?: string | string[]| ((item: T) => number)): T[] {
+function EnumerableSortBy<T>(arg?: string | string[]| ((item: T) => any)): T[] {
 
-    var defaultValueFunc = function (item: any) {
+    var defaultValueFunc = function (item: T): any {
         return item;
     };
 
@@ -580,7 +633,7 @@ function EnumerableSortBy<T>(arg?: string | string[]| ((item: T) => number)): T[
         arg = defaultValueFunc;
     }
 
-    var indexes = this;
+    var indexes = <any[]>this;
 
     if ($.isString(arg) && (<string>arg).contains('.')) {
         arg = (<string>arg).split('.');
@@ -594,20 +647,24 @@ function EnumerableSortBy<T>(arg?: string | string[]| ((item: T) => number)): T[
     }
     else if ($.isArray(arg)) {
 
+        var argArray = <string[]>arg;
+
         for (var i = 0; i < arg.length; i++) {
 
             indexes = indexes.collect(function (item) {
-                if (!$.objHasKey(item, <string>arg[i])) {
+                if (!$.objHasKey(item, argArray[i])) {
                     return -1;
                 }
-                return item[arg[i]] == null ? -1 : item[arg[i]];
+                return item[argArray[i]] == null ? -1 : item[argArray[i]];
             });
 
         }
 
     }
     else {
-        indexes = indexes.collect(arg);
+        var argFunction = <(item: T) => number>arg;
+
+        indexes = indexes.collect(argFunction);
     }
     /*
     if (!indexes.every($.isNumeric.fn_or($.isString))) {
@@ -618,9 +675,7 @@ function EnumerableSortBy<T>(arg?: string | string[]| ((item: T) => number)): T[
 
     var items = this;
 
-    var out = indexes.quickSort([items]);
-
-    return out;
+    return <T[]>indexes.quickSort([items]);
 }
 
 singEnumerable.method('quickSort', EnumerableQuickSort,
@@ -689,7 +744,7 @@ function EnumerableQuickSort(sortWith?: any[][], left: number = 0, right: number
     }
 
     if (sortWith != null) {
-        var out = [];
+        var out: any[] = [];
         out.push(items);
         out = out.concat(sortWith);
         return out;
@@ -811,7 +866,7 @@ function EnumerableTimesDo(executeFunc: (...args: any[]) => any, args: any[], ca
 
     caller = caller || this;
 
-    var out = [];
+    var out: any[] = [];
 
     for (var i = 0; i < this; i++) {
         if (!this)

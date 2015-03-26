@@ -154,7 +154,7 @@ WriteLiteral("\r\n");
             
             #line 20 "..\..\Views\_MainLayout.cshtml"
   
-    ViewBag.Title = ViewBag.Title ?? "Home";
+    ViewBag.Title = ViewBag.Title ?? "";
 
 
             
@@ -171,9 +171,9 @@ WriteLiteral("\r\n\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <me
             
             #line default
             #line hidden
-WriteLiteral(" - MVCL</title>\r\n    <meta name=\"description\" content=\"\" />\r\n    <link href=\"~/fa" +
-"vicon.ico\" rel=\"shortcut icon\" type=\"image/x-icon\" />\r\n    <meta name=\"viewport\"" +
-" content=\"width=device-width\" />\r\n    ");
+WriteLiteral(" - Singularity</title>\r\n    <meta name=\"description\" content=\"\" />\r\n    <link hre" +
+"f=\"~/favicon.ico\" rel=\"shortcut icon\" type=\"image/x-icon\" />\r\n    <meta name=\"vi" +
+"ewport\" content=\"width=device-width\" />\r\n    ");
 
 
             

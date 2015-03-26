@@ -25,13 +25,14 @@ function SplitAt() {
         indexes[_i - 0] = arguments[_i];
     }
     indexes.sort();
+    var thisArray = this;
     var out = [];
     var section = [];
     var indexI = 0;
-    for (var i = 0; i < this.length; i++) {
+    for (var i = 0; i < thisArray.length; i++) {
         if (indexes.length > indexI) {
             if (i < indexes[indexI])
-                section.push(this[i]);
+                section.push(thisArray[i]);
             if (i == indexes[indexI]) {
                 out.push(section);
                 section = [];
@@ -55,7 +56,8 @@ function ArrayRemoveAt() {
     for (var _i = 0; _i < arguments.length; _i++) {
         indexes[_i - 0] = arguments[_i];
     }
-    return this.collect(function (item, index) {
+    var thisArray = this;
+    return thisArray.select(function (item, index) {
         return !indexes.contains(index);
     });
 }
@@ -74,8 +76,9 @@ function ArrayUnique() {
     for (var _i = 0; _i < arguments.length; _i++) {
         indexes[_i - 0] = arguments[_i];
     }
+    var thisArray = this;
     var out = [];
-    return this.each(function (item, index) {
+    thisArray.each(function (item, index) {
         if (!out.contains(item))
             out.push(item);
     });
@@ -92,15 +95,15 @@ singArray.method('random', ArrayRandom, {
 });
 function ArrayRandom(count) {
     if (count === void 0) { count = 1; }
-    var src = this;
+    var thisArray = this;
     var out = [];
     // Don't return more random items than we have;
-    count = count.min(src.length);
-    if (count == src.length)
-        return src.shuffle();
-    src = src.shuffle();
+    count = count.min(thisArray.length);
+    if (count == thisArray.length)
+        return thisArray.shuffle();
+    thisArray = thisArray.shuffle();
     while (out.length < count) {
-        out.push((src).shift());
+        out.push((thisArray).shift());
     }
     return out;
 }
@@ -114,24 +117,25 @@ singArray.method('shuffle', ArrayShuffle, {
     },
 });
 function ArrayShuffle() {
-    var src = this;
+    var thisArray = this;
     var out = [];
-    while (src.length > 0) {
-        var rand = $.random(0, src.length).floor();
-        out.push(src[rand]);
-        src = src.remove(src[rand]);
+    while (thisArray.length > 0) {
+        var rand = $.random(0, thisArray.length).floor();
+        out.push(thisArray[rand]);
+        thisArray = thisArray.remove(thisArray[rand]);
     }
     return out;
 }
 singArray.method('group', ArrayGroup, {});
 function ArrayGroup(keyFunc) {
+    var thisArray = this;
     var out = {};
-    this.each(function (item, index) {
+    thisArray.each(function (item, index) {
         var key = keyFunc(item, index);
         if (key && key.length > 0) {
             if ($.isArray(out[key]))
                 out[key].push(item);
-            else if ($.isDefined(out[key]))
+            else
                 out[key] = [item];
         }
     });

@@ -13,6 +13,32 @@
   margin-left: 10% !important;
   margin-right: 10% !important;
 }
+.sing .test-errors error {
+  font-size: 12px;
+  width: 100%;
+  display: block;
+}
+.sing [sing-template-name=method] .method-show-hide {
+  position: relative;
+  width: 40px;
+  height: 36px;
+  padding: 0px;
+  margin-right: 5px;
+  margin-top: -8px;
+}
+.sing [sing-template-name=method] .method-show-hide glyph {
+  position: absolute;
+  left: 12px;
+  top: 7px;
+}
+.sing [sing-template-name=method] .method-view-code .method-code-show-hide {
+  text-align: left;
+  width: 100%;
+  height: 35px;
+}
+.sing [sing-template-name=method] .method-view-code .method-code {
+  width: 100%;
+}
 .spin {
   -webkit-animation: spin 1000ms infinite linear;
   animation: spin 1000ms infinite linear;

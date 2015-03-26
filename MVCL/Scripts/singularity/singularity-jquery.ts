@@ -16,15 +16,18 @@ interface JQuery {
     allVisible?: () => boolean;
     actionIf?: (name: string) => boolean;
 
+    outerHtml?: () => string;
+    innerHtml?: () => string;
+
     hasAttr?: (name: string) => boolean;
 
     getAttributes?: () => IKeyValue<string, string>[]| IKeyValue<string, string>[][];
+
+    isOnScreen?: (x?: number, y?: number) => boolean;
 }
 
 
-var singJQuery = singExt.addModule(new sing.Module("jQuery", $, $));
-
-singJQuery.requiredDocumentation = false;
+var singJQuery = singExt.addModule(new sing.Module("jQuery", [$, $.fn], $));
 
 /*
 //////////////////////////////////////////////////////
@@ -48,8 +51,10 @@ singJQuery.method('checked', Checked,
 function Checked() {
     var anyChecked = false;
 
+
     this.each(function () {
-        if ($(this)[0]['checked'])
+        var thisJQuery = $(this);
+        if (thisJQuery && thisJQuery[0] && (<any > thisJQuery[0]).checked['checked'])
             anyChecked = true;
     });
 
@@ -97,7 +102,7 @@ singJQuery.method('findIDNameSelector', FindIDNameSelector,
         },
     }, $.fn);
 
-function FindIDNameSelector(name) {
+function FindIDNameSelector(name: string) {
 
     var target = $();
 
@@ -129,7 +134,7 @@ singJQuery.method('actionIf', ActionIf,
         },
     }, $.fn);
 
-function ActionIf(name) {
+function ActionIf(name: string) {
 
     var target = $(this);
 
@@ -143,7 +148,7 @@ function ActionIf(name) {
 
     var targetValue = <any>(target.attr(name + '-if-value') || '');
 
-    var operation = function (a, b) {
+    var operation = function (a: any, b: any) {
         return a == b;
     };
 
@@ -271,7 +276,6 @@ function JQueryHasAttr(name: string): boolean {
     return $(this).attr(name) !== undefined;
 }
 
-
 singJQuery.method('outerHtml', JQueryOuterHtml,
     {
         summary: null,
@@ -294,3 +298,79 @@ function JQueryOuterHtml(): string {
     }
 }
 
+singJQuery.method('innerHtml', JQueryInnerHtml,
+    {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        tests: function (ext) {
+        },
+    }, $.fn);
+
+function JQueryInnerHtml(): string {
+
+    if (!this || this.length == 0) {
+        return '';
+    }
+    else {
+        return this[0].innerHTML;
+    }
+}
+
+// https://github.com/moagrius/isOnScreen
+
+singJQuery.method('isOnScreen', JQueryIsOnScreen,
+    {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        tests: function (ext) {
+        },
+    }, $.fn);
+
+function JQueryIsOnScreen(x: number = 1, y: number = 1): boolean {
+
+    var win = $(window);
+
+    var viewport = {
+        top: win.scrollTop(),
+        left: win.scrollLeft(),
+        right: 0,
+        bottom: 0,
+    };
+
+    viewport.right = viewport.left + win.width();
+    viewport.bottom = viewport.top + win.height();
+
+    var height = this.outerHeight();
+    var width = this.outerWidth();
+
+    if (!width || !height) {
+        return false;
+    }
+
+    var bounds = this.offset();
+    bounds.right = bounds.left + width;
+    bounds.bottom = bounds.top + height;
+
+    var visible = (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
+
+    if (!visible) {
+        return false;
+    }
+
+    var deltas = {
+        top: Math.min(1,(bounds.bottom - viewport.top) / height),
+        bottom: Math.min(1,(viewport.bottom - bounds.top) / height),
+        left: Math.min(1,(bounds.right - viewport.left) / width),
+        right: Math.min(1,(viewport.right - bounds.left) / width)
+    };
+
+    return (deltas.left * deltas.right) >= x && (deltas.top * deltas.bottom) >= y;
+};

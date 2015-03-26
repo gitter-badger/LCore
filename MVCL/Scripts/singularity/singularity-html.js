@@ -212,7 +212,6 @@
 //////////////////////////////////////////////////////
 // #endregion Comments
 var singHTML = singString.addModule(new sing.Module('HTML', String));
-singHTML.requiredDocumentation = false;
 singHTML.method('textToHTML', StringTextToHTML, {
     summary: null,
     parameters: null,
@@ -251,32 +250,38 @@ singHTML.method('getAttributes', GetAttributes, {
     },
 }, $.fn);
 function GetAttributes() {
-    var out = [];
-    this.each(function (item) {
+    var thisJQuery = this;
+    var attrs = [];
+    var a = thisJQuery[0];
+    thisJQuery.each(function (item) {
+        var thisHtml = this;
         var attrOut = [];
-        var props = $.objProperties(this.attributes);
+        var props = $.objProperties(thisHtml.attributes);
         for (var i = 0; i < props.length; i++) {
             if (props[i].key != 'length')
-                attrOut.push(props[i].value);
+                attrOut.push({ key: props[i].key, value: (props[i].value) });
         }
         if (attrOut.length > 0)
-            out.push(attrOut);
+            attrs.push(attrOut);
     });
-    if (out.length == 1)
-        return out.collect(function (item) {
-            return item.collect(function (item) {
+    if (attrs.length > 1)
+        return attrs.collect(function (item) {
+            return item.collect(function (item2) {
                 return {
-                    name: item.nodeName,
-                    value: item.nodeValue,
+                    name: item2.value.nodeName,
+                    value: item2.value.nodeValue,
                 };
             });
         });
-    return out.collect(function (item) {
-        return {
-            name: item.nodeName,
-            value: item.nodeValue,
-        };
-    });
+    if (attrs.length == 1)
+        return attrs[0].collect(function (item) {
+            return {
+                name: item.value.nodeName,
+                value: item.value.nodeValue,
+            };
+        });
+    if (attrs.length == 0)
+        return [];
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 function InitHTMLExtensions() {

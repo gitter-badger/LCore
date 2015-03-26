@@ -21,7 +21,7 @@ interface JQueryStatic {
     isFloat?: (num: any) => boolean;
     isNumber?: (num: any) => boolean;
 
-    random?: (minimum: number, maximum: number, count?: number) => number| number[];
+    random(minimum: number, maximum: number, count?: number): number| number[];
 }
 
 interface String {
@@ -122,7 +122,7 @@ singNumber.method('round', NumberRound,
         },
     });
 
-function NumberRound(decimalPlaces) {
+function NumberRound(decimalPlaces: number) {
     if (!this)
         return null;
 
@@ -160,12 +160,12 @@ singNumber.method('pow', NumberPower,
             ext.addTest(2, [1 / 2], 1.4142135623730951)
 
 
-            ext.addFailsTest(2, [null], 'Singularity.Number.pow Missing Parameter: number power')
-            ext.addFailsTest(2, [undefined], 'Singularity.Number.pow Missing Parameter: number power')
+            ext.addFailsTest(2, [null], 'Singularity.Extensions.Number.pow Missing Parameter: number power')
+            ext.addFailsTest(2, [undefined], 'Singularity.Extensions.Number.pow Missing Parameter: number power')
         },
     });
 
-function NumberPower(power) {
+function NumberPower(power: number) {
     return Math.pow(this, power);
 }
 
@@ -193,7 +193,7 @@ singNumber.method('ceil', NumberCeiling,
         },
     });
 
-function NumberCeiling(decimalPlaces) {
+function NumberCeiling(decimalPlaces: number) {
     if (!this)
         return null;
 
@@ -228,7 +228,7 @@ singNumber.method('floor', NumberFloor,
         },
     });
 
-function NumberFloor(decimalPlaces) {
+function NumberFloor(decimalPlaces: number) {
     if (!this)
         return null;
 
@@ -680,13 +680,16 @@ function NumberRandom(minimum: number, maximum: number, count: number = 1): numb
 
         return rand;
     }
+
     if (count > 1) {
-        var out = [];
-        for (var i = 0; i < count; i++) {
-            out.push($.random(minimum, maximum, 1));
+        var out: number[] = [];
+
+        while (count > 0) {
+            out.push(<number>$.random(minimum, maximum, 1));
+            count--;
         }
-        return out;
     }
+    return out;
 }
 
 

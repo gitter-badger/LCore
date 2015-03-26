@@ -3,7 +3,7 @@ var LOGGING_INFO_ENABLED = false;
 var LOGGING_ERROR_ENABLED = true;
 var LOGGING_WARNING_ENABLED = true;
 var singLog = singCore.addModule(new sing.Module('Logging', sing, sing));
-singLog.requiredDocumentation = false;
+singLog.ignoreUnknown('ALL');
 function log() {
     var message = [];
     for (var _i = 0; _i < arguments.length; _i++) {

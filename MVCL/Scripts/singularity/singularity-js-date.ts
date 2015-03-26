@@ -17,8 +17,6 @@ interface Date {
 
 var singDate = singExt.addModule(new sing.Module("Date", Date));
 
-singDate.requiredDocumentation = false;
-
 //////////////////////////////////////////////////////
 //
 //

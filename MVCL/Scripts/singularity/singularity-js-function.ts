@@ -22,9 +22,9 @@ interface Function {
 
     fn_recurring?: (intervalMS: number, breakCondition?: number|((...items: any[]) => boolean)) => ((...items: any[]) => void);
 
-    fn_defer?: <T>() => () => T;
+    fn_defer?: <T>(callback?: (...items: any[]) => void) => () => T;
     fn_delay?: <T>(delayMS: number) => (...items: any[]) => T;
-    fn_async?: <T>(callback: (...items: any[]) => void) => (...items: any[]) => T;
+    fn_async?: <T>(callback?: (...items: any[]) => void) => (...items: any[]) => T;
     fn_wrap?: <T>(wrapper: (fn: (...items: any[]) => T, ...items: any[]) => T) => (...items: any[]) => T;
     fn_onExecute?: <T>(eventHandler: (...items: any[]) => void) => (...items: any[]) => T;
     fn_onExecuted?: <T>(eventHandler: (...items: any[]) => void) => (...items: any[]) => T;
@@ -33,13 +33,14 @@ interface Function {
     fn_or?: (orFunc: (...items: any[]) => boolean) => (...items: any[]) => boolean;
     fn_and?: (orFunc: (...items: any[]) => boolean) => (...items: any[]) => boolean;
 
+    fn_not(): () => boolean;
+    fn_not(): Function;
+
     // fn_ifElse
     // fn_supply?: <T, U>(parameter: U) => (param: U, ...items: any[]) => T;
 }
 
 var singFunction = singExt.addModule(new sing.Module("Function", Function));
-
-singFunction.requiredDocumentation = false;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -57,7 +58,7 @@ singFunction.method('fn_try', FunctionTry,
         },
     });
 
-function FunctionTry(logFailure) {
+function FunctionTry() {
     var source = this;
     // Redirects to catch with no catchFunction
     return source.fn_catch();
@@ -74,11 +75,11 @@ singFunction.method('fn_catch', FunctionCatch,
         },
     });
 
-function FunctionCatch(catchFunction, logFailure) {
+function FunctionCatch(catchFunction: Function, logFailure: boolean = false): Function {
     var source = this;
 
     return function () {
-        var result;
+        var result: any;
 
         try {
             result = source.apply(this, arguments);
@@ -108,31 +109,28 @@ singFunction.method('fn_log', FunctionLog,
         },
     });
 
-function FunctionLog(logAttempt, logSuccess, logFailure) {
-    logAttempt = logAttempt != false ? true : false;
-    logSuccess = logSuccess != false ? true : false;
-    logFailure = logFailure != false ? true : false;
+function FunctionLog(logAttempt: boolean = true, logSuccess: boolean = true, logFailure: boolean = true) {
 
-    var source = this;
+    var thisFunction = <Function>this;
 
     return function () {
 
         try {
             if (logAttempt) {
-                log(['Attempting: ', source.name, arguments, result]);
+                log(['Attempting: ', thisFunction.name, arguments, result]);
             }
 
-            var result = source.apply(this, arguments);
+            var result = thisFunction.apply(this, arguments);
 
             if (logSuccess) {
-                log(['Completed: ' + source.name, arguments, result]);
+                log(['Completed: ' + thisFunction.name, arguments, result]);
             }
 
             return result;
         }
         catch (ex) {
             if (logFailure) {
-                log(['FAILED', source.name, ex]);
+                log(['FAILED', thisFunction.name, ex]);
                 log([arguments]);
             }
 
@@ -153,7 +151,7 @@ singFunction.method('fn_count', FunctionCount,
         },
     });
 
-function FunctionCount(logFailure) {
+function FunctionCount(logFailure: boolean = false) {
     var source = this;
     var functionCallCount = 0;
 
@@ -188,7 +186,7 @@ singFunction.method('fn_cache', FunctionCache,
         },
     });
 
-function FunctionCache(uniqueCacheID, expiresAfter) {
+function FunctionCache(uniqueCacheID: string, expiresAfter: number = 0) {
     var source = this;
 
     uniqueCacheID = uniqueCacheID || this.name;
@@ -214,7 +212,7 @@ function FunctionCache(uniqueCacheID, expiresAfter) {
 
         var thisCache = cache[uniqueCacheID];
 
-        var argStr = $.toStr($.objValues(arguments));
+        var argStr = $.toStr(source) + $.toStr($.objValues(arguments));
 
         if (thisCache[argStr] != undefined &&
             thisCache[argStr] != null) {
@@ -353,7 +351,7 @@ function FunctionRepeat(repeatOver: number | any[]| ((...items: any[]) => boolea
     if ($.isFunction(repeatOver)) {
         return function (...items: any[]) {
 
-            var out = [];
+            var out: any[] = [];
 
             var result = (<(...items: any[]) => boolean>repeatOver).apply(this, items);
 
@@ -376,7 +374,7 @@ function FunctionRepeat(repeatOver: number | any[]| ((...items: any[]) => boolea
 
     return function (...items: any[]) {
 
-        var out = [];
+        var out: any[] = [];
 
         for (var repeat in <any[]>repeatOver) {
 
@@ -430,7 +428,7 @@ function FunctionRetry(times: number = 1): (...items: any[]) => any {
 
     return function (...items: any[]) {
 
-        var exception = null;
+        var exception: any = null;
         var attempts = 0;
 
         while (attempts < times) {
@@ -514,7 +512,7 @@ singFunction.method('fn_delay', FunctionDelay,
         },
     });
 
-function FunctionDelay(delayMS, number, callback?: Function) {
+function FunctionDelay(delayMS: number, callback?: Function) {
 
     var srcThis = this;
 
@@ -654,7 +652,7 @@ singFunction.method('fn_recurring', FunctionRecurring,
 
 function FunctionRecurring(intervalMS: number, breakCondition?: number|((...items: any[]) => boolean)) {
 
-    var srcThis = this;
+    var srcThis = <Function>this;
 
     var minimum = 10;
 
@@ -662,7 +660,7 @@ function FunctionRecurring(intervalMS: number, breakCondition?: number|((...item
 
     intervalMS = intervalMS.max(minimum);
 
-    var setTimer = function (src, items) {
+    var setTimer = function (src: Function, items: any[]) {
         if ($.isNumber(breakCondition) && breakCondition > 0 && runs >= breakCondition)
             return;
         else if ($.isFunction(breakCondition) && (<((...items: any[]) => boolean) >breakCondition)(items) == true)
@@ -702,7 +700,7 @@ function ArrayExecuteAll(...items: Function[]): any[] {
 
     var srcThis = this;
 
-    var out = [];
+    var out: any[] = [];
 
     out = items.collect(function (item) {
         return item.apply(srcThis, items);
@@ -710,6 +708,23 @@ function ArrayExecuteAll(...items: Function[]): any[] {
 
     return out;
 }
+
+singFunction.method('fn_not', FunctionNot,
+    {
+    });
+
+function FunctionNot(): Function {
+
+    var srcThis = this;
+
+    return function (...items: any[]) {
+
+        var result = srcThis.apply(this, items);
+
+        return !result;
+    }
+}
+
 
 /*
 singFunction.method('fn_supply', null,

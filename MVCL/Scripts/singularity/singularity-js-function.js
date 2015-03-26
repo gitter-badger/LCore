@@ -1,6 +1,5 @@
 /// <reference path="singularity-core.ts"/>
 var singFunction = singExt.addModule(new sing.Module("Function", Function));
-singFunction.requiredDocumentation = false;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Function Extensions
@@ -14,7 +13,7 @@ singFunction.method('fn_try', FunctionTry, {
     tests: function (ext) {
     },
 });
-function FunctionTry(logFailure) {
+function FunctionTry() {
     var source = this;
     // Redirects to catch with no catchFunction
     return source.fn_catch();
@@ -29,6 +28,7 @@ singFunction.method('fn_catch', FunctionCatch, {
     },
 });
 function FunctionCatch(catchFunction, logFailure) {
+    if (logFailure === void 0) { logFailure = false; }
     var source = this;
     return function () {
         var result;
@@ -56,24 +56,24 @@ singFunction.method('fn_log', FunctionLog, {
     },
 });
 function FunctionLog(logAttempt, logSuccess, logFailure) {
-    logAttempt = logAttempt != false ? true : false;
-    logSuccess = logSuccess != false ? true : false;
-    logFailure = logFailure != false ? true : false;
-    var source = this;
+    if (logAttempt === void 0) { logAttempt = true; }
+    if (logSuccess === void 0) { logSuccess = true; }
+    if (logFailure === void 0) { logFailure = true; }
+    var thisFunction = this;
     return function () {
         try {
             if (logAttempt) {
-                log(['Attempting: ', source.name, arguments, result]);
+                log(['Attempting: ', thisFunction.name, arguments, result]);
             }
-            var result = source.apply(this, arguments);
+            var result = thisFunction.apply(this, arguments);
             if (logSuccess) {
-                log(['Completed: ' + source.name, arguments, result]);
+                log(['Completed: ' + thisFunction.name, arguments, result]);
             }
             return result;
         }
         catch (ex) {
             if (logFailure) {
-                log(['FAILED', source.name, ex]);
+                log(['FAILED', thisFunction.name, ex]);
                 log([arguments]);
             }
             throw ex;
@@ -90,6 +90,7 @@ singFunction.method('fn_count', FunctionCount, {
     },
 });
 function FunctionCount(logFailure) {
+    if (logFailure === void 0) { logFailure = false; }
     var source = this;
     var functionCallCount = 0;
     return function () {
@@ -118,6 +119,7 @@ singFunction.method('fn_cache', FunctionCache, {
     },
 });
 function FunctionCache(uniqueCacheID, expiresAfter) {
+    if (expiresAfter === void 0) { expiresAfter = 0; }
     var source = this;
     uniqueCacheID = uniqueCacheID || this.name;
     if (!uniqueCacheID)
@@ -132,7 +134,7 @@ function FunctionCache(uniqueCacheID, expiresAfter) {
         if (!cache[uniqueCacheID])
             cache[uniqueCacheID] = {};
         var thisCache = cache[uniqueCacheID];
-        var argStr = $.toStr($.objValues(arguments));
+        var argStr = $.toStr(source) + $.toStr($.objValues(arguments));
         if (thisCache[argStr] != undefined && thisCache[argStr] != null) {
             if (thisCache[argStr].expires < (new Date()).valueOf()) {
                 // Expired
@@ -391,7 +393,7 @@ singFunction.method('fn_delay', FunctionDelay, {
     tests: function (ext) {
     },
 });
-function FunctionDelay(delayMS, number, callback) {
+function FunctionDelay(delayMS, callback) {
     var srcThis = this;
     delayMS = delayMS.max(1);
     return function () {
@@ -551,6 +553,18 @@ function ArrayExecuteAll() {
         return item.apply(srcThis, items);
     });
     return out;
+}
+singFunction.method('fn_not', FunctionNot, {});
+function FunctionNot() {
+    var srcThis = this;
+    return function () {
+        var items = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            items[_i - 0] = arguments[_i];
+        }
+        var result = srcThis.apply(this, items);
+        return !result;
+    };
 }
 /*
 singFunction.method('fn_supply', null,

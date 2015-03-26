@@ -35,11 +35,11 @@ singBoolean.method('XOR', BooleanXOR, {
         ext.addTest(false, [true], true);
         ext.addTest(true, [false], true);
         ext.addTest(true, [true], false);
-        ext.addFailsTest(true, [null], 'Singularity.Boolean.XOR Missing Parameter: boolean b');
-        ext.addFailsTest(true, [undefined], 'Singularity.Boolean.XOR Missing Parameter: boolean b');
-        ext.addFailsTest(false, [null], 'Singularity.Boolean.XOR Missing Parameter: boolean b');
-        ext.addFailsTest(false, [undefined], 'Singularity.Boolean.XOR Missing Parameter: boolean b');
-        ext.addFailsTest(false, ['a'], 'Singularity.Boolean.XOR  Parameter: b: \'a\' string did not match input type [\'boolean\'].');
+        ext.addFailsTest(true, [null], 'Singularity.Extensions.Boolean.XOR Missing Parameter: boolean b');
+        ext.addFailsTest(true, [undefined], 'Singularity.Extensions.Boolean.XOR Missing Parameter: boolean b');
+        ext.addFailsTest(false, [null], 'Singularity.Extensions.Boolean.XOR Missing Parameter: boolean b');
+        ext.addFailsTest(false, [undefined], 'Singularity.Extensions.Boolean.XOR Missing Parameter: boolean b');
+        ext.addFailsTest(false, ['a'], 'Singularity.Extensions.Boolean.XOR  Parameter: b: \'a\' string did not match input type [\'boolean\'].');
     }
 });
 function BooleanXOR(b) {
@@ -76,10 +76,10 @@ singBoolean.method('XNOR', BooleanXNOR, {
         ext.addTest(false, [true], false);
         ext.addTest(true, [false], false);
         ext.addTest(true, [true], true);
-        ext.addFailsTest(true, [null], 'Singularity.Boolean.XNOR Missing Parameter: boolean b');
-        ext.addFailsTest(true, [undefined], 'Singularity.Boolean.XNOR Missing Parameter: boolean b');
-        ext.addFailsTest(false, [null], 'Singularity.Boolean.XNOR Missing Parameter: boolean b');
-        ext.addFailsTest(false, [undefined], 'Singularity.Boolean.XNOR Missing Parameter: boolean b');
+        ext.addFailsTest(true, [null], 'Singularity.Extensions.Boolean.XNOR Missing Parameter: boolean b');
+        ext.addFailsTest(true, [undefined], 'Singularity.Extensions.Boolean.XNOR Missing Parameter: boolean b');
+        ext.addFailsTest(false, [null], 'Singularity.Extensions.Boolean.XNOR Missing Parameter: boolean b');
+        ext.addFailsTest(false, [undefined], 'Singularity.Extensions.Boolean.XNOR Missing Parameter: boolean b');
         ext.addFailsTest(false, ['a']);
     }
 });

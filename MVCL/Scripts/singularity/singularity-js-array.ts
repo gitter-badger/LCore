@@ -12,11 +12,13 @@ interface Array<T> {
     orderBy?: (arg?: string | string[]| ((item: T) => number)) => T[];
 
     quickSort?: (sortWith?: any[][], left?: number, right?: number) => any[]| any[][]
+
     removeAt?: (...indexes: number[]) => T[];
     unique?: (...indexes: number[]) => T[];
 
-    random?: (count) => T | T[];
-    group?: (keyFunc: (item: any, index: number) => string) => Object;
+    random?: (count?: number) => T | T[];
+
+    group?: (keyFunc: (item: any, index: number) => string) => Hash<T>;
 
 }
 
@@ -49,18 +51,20 @@ singArray.method('splitAt', SplitAt,
         },
     });
 
-function SplitAt(...indexes: number[]): any[] {
+function SplitAt<T>(...indexes: number[]): T[][] {
 
     indexes.sort();
 
-    var out = [];
-    var section = [];
+    var thisArray = <T[]>this;
+
+    var out: T[][] = [];
+    var section: T[] = [];
     var indexI = 0;
 
-    for (var i = 0; i < this.length; i++) {
+    for (var i = 0; i < thisArray.length; i++) {
         if (indexes.length > indexI) {
             if (i < indexes[indexI])
-                section.push(this[i]);
+                section.push(thisArray[i]);
 
             if (i == indexes[indexI]) {
                 out.push(section);
@@ -84,9 +88,11 @@ singArray.method('removeAt', ArrayRemoveAt,
         },
     });
 
-function ArrayRemoveAt(...indexes: number[]): any[] {
+function ArrayRemoveAt<T>(...indexes: number[]): T[] {
 
-    return this.collect(function (item, index) {
+    var thisArray = <T[]>this;
+
+    return thisArray.select(function (item, index) {
         return !indexes.contains(index);
     });
 }
@@ -103,11 +109,13 @@ singArray.method('unique', ArrayUnique,
         },
     });
 
-function ArrayUnique(...indexes: number[]) {
+function ArrayUnique<T>(...indexes: number[]): T[] {
 
-    var out = [];
+    var thisArray = <T[]>this;
 
-    return this.each(function (item, index) {
+    var out: T[] = [];
+
+    thisArray.each(function (item, index) {
         if (!out.contains(item))
             out.push(item);
     });
@@ -126,21 +134,22 @@ singArray.method('random', ArrayRandom,
         },
     });
 
-function ArrayRandom(count: number = 1): any[] {
+function ArrayRandom<T>(count: number = 1): T[] {
 
-    var src = <any[]>this;
-    var out = [];
+    var thisArray = <T[]>this;
+
+    var out: T[] = [];
 
     // Don't return more random items than we have;
-    count = count.min(src.length);
+    count = count.min(thisArray.length);
 
-    if (count == src.length)
-        return src.shuffle();
+    if (count == thisArray.length)
+        return thisArray.shuffle();
 
-    src = src.shuffle();
+    thisArray = thisArray.shuffle();
 
     while (out.length < count) {
-        out.push((src).shift());
+        out.push((thisArray).shift());
     }
 
     return out;
@@ -157,18 +166,18 @@ singArray.method('shuffle', ArrayShuffle,
         },
     });
 
-function ArrayShuffle(): any[] {
+function ArrayShuffle<T>(): T[] {
 
-    var src = <any[]>this;
+    var thisArray = <T[]>this;
 
-    var out = [];
+    var out: T[] = [];
 
-    while (src.length > 0) {
-        var rand = (<number>$.random(0, src.length)).floor();
+    while (thisArray.length > 0) {
+        var rand = (<number>$.random(0, thisArray.length)).floor();
 
-        out.push(src[rand]);
+        out.push(thisArray[rand]);
 
-        src = src.remove(src[rand]);
+        thisArray = thisArray.remove(thisArray[rand]);
     }
 
     return out;
@@ -179,11 +188,13 @@ singArray.method('group', ArrayGroup,
     {
     });
 
-function ArrayGroup(keyFunc: (item: any, index: number) => string): Object {
+function ArrayGroup<T>(keyFunc: (item: T, index: number) => string): Hash<T[]> {
 
-    var out = {};
+    var thisArray = <T[]>this;
 
-    this.each(function (item, index) {
+    var out: Hash<T[]> = {};
+
+    thisArray.each(function (item, index) {
 
         var key = keyFunc(item, index);
 
@@ -191,14 +202,13 @@ function ArrayGroup(keyFunc: (item: any, index: number) => string): Object {
 
             if ($.isArray(out[key]))
                 out[key].push(item);
-            else if ($.isDefined(out[key]))
+            else
                 out[key] = [item];
         }
 
     });
 
     return out;
-
 }
 
 

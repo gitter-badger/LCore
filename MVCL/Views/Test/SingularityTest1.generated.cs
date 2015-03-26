@@ -157,21 +157,29 @@ WriteLiteral("\r\n");
             #line hidden
 WriteLiteral(@"
 <script type=""text/javascript"">
+
+    sing.templateShown(function (element) {
+
+    })
+
     $().init(function () {
-        sing.loadTemplate('/Templates/Templates.html', function () {
-
-            sing.initTemplates();
-
-            $("".sing .tabs"").tabs({
-                collapsible: true
-            });
-
-            sing.ready();
-
-        });
     });
 
     $().ready(function () {
+        sing.tests.runTests();
+
+        sing.loadTemplate('/Templates/Templates.html', function () {
+
+
+            sing.initTemplates();
+
+            sing.ready();
+
+            $("".tabs"").tabs({
+                collapsible: true
+            });
+
+        });
 
     });
 </script>
@@ -185,7 +193,7 @@ WriteLiteral(@"
     <br />
     <br />
     <div style=""text-align:center"">
-        <span class=""glyphicon spin"" style=""position: relative; font-size: 36px;"">&#xe201;</span>
+        <span class=""glyphicon spin"" style=""font-size: 36px;"">&#xe201;</span>
     </div>
     <br />
     <br />

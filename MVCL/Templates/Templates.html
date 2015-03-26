@@ -6,10 +6,10 @@
 
     <p>{{sing.summary}}</p>
 
-    <div sing-if="{{sing.testErrors}}">
+    <div sing-if="{{sing.tests.testErrors}}" class="test-errors">
         <h2><error>Errors</error></h2>
         <ol>
-            <li sing-loop="{{ error in sing.testErrors}}">
+            <li sing-loop="{{ error in sing.tests.testErrors}}">
                 <error>{{error.textToHTML()}}</error>
                 <hr />
             </li>
@@ -95,28 +95,40 @@
             </li>
         </ul>
         <div sing-loop="{{ sub in module.subModules }}" sing-loop-inner="true">
-            <div id="tabs-{{sub.name}}-{{sub$index}}">
+            <div id="tabs-{{sub.name}}-{{sub$index}}" style="display:none;">
                 <div sing-fill="{{ Module with sub as module }}"></div>
             </div>
         </div>
     </div>
 
-    <div sing-loop="{{ method in module.methods }}">
-        <div sing-fill="{{ Method with method }}"></div>
+    <div>
+        <h4>Methods:</h4>
+        <div sing-loop="{{ method in module.methods }}" class="sing-method-list">
+            <div sing-fill="{{ Method with method }}"></div>
+        </div>
     </div>
 
+    <div sing-if="{{module.getUnknownMethods()}}">
+        <b>Unknown Methods:</b>
+        <error sing-loop="{{ methodName in module.getUnknownMethods()}}">{{methodName}}</error>
+    </div>
+
+    <div sing-if="{{module.getUnknownProperties()}}">
+        <b>Unknown Properties:</b>
+        <error sing-loop="{{ property in module.getUnknownProperties()}}">{{property}}</error>
+    </div>
 </div>
 
 <div sing-template="Method">
     <div sing-if="{{method.details}}">
         <hr />
-        <div class="btn-info btn left " click-fade-toggle=".show-{{method.name.toSlug()}}" style="position:relative; width:40px; height: 36px; padding: 0px;">
-            <glyph class="show-{{method.name.toSlug()}}" style="position:absolute; width:40px; height: 36px; margin-top: 10px">&#x2b;</glyph>
-            <glyph class="show-{{method.name.toSlug()}}" style="position:absolute; width:40px; height: 36px; margin-top: 10px; display: none;">&#x2212;</glyph>
+        <div class="btn-info btn left method-show-hide" click-fade-toggle=".show-{{method.name.toSlug()}}">
+            <glyph class="show-{{method.name.toSlug()}}">&#x2b;</glyph>
+            <glyph class="show-{{method.name.toSlug()}}" style=" display: none;">&#x2212;</glyph>
         </div>
 
-        <h3>{{method.shortName}}</h3>
-
+        <h3 sing-if="{{$.isDefined(method.methodOriginal)}}">{{method.shortName}}</h3>
+        <h3 sing-else><error>{{method.shortName}}</error></h3>
 
         <div style="display:none;" class="show-{{method.name.toSlug()}}">
             <h4>{{method.methodCall}}</h4>
@@ -141,12 +153,12 @@
             </p>
             <p sing-else><b>Returns:</b> Nothing.</p>
 
-            <div sing-if="{{$.isDefined(method.methodOriginal)}}" style="display: block;margin-bottom: 40px;width: 100%; height: 32px;">
-                <div class="btn-info btn" click-fade-toggle=".code-{{method.name.toSlug()}}" style="width: 100%;">
+            <div sing-if="{{$.isDefined(method.methodOriginal)}}" class="method-view-code">
+                <div class="btn-default btn method-code-show-hide" click-fade-toggle=".code-{{method.name.toSlug()}}">
                     <span class="code-{{method.name.toSlug()}}" style="position:absolute;">View Code...</span>
                     <span style="display: none;position:absolute;" class="code-{{method.name.toSlug()}}">Hide Code...</span>
                 </div>
-                <div style="display: none; width: 100%;" class="code-{{method.name.toSlug()}}">
+                <div style="display: none;" class="method-code code-{{method.name.toSlug()}}">
                     <b style="margin-top: 40px;">Source Code:</b>
                     <pre>{{method.methodOriginal.toString().textToHTML()}}</pre>
                 </div>

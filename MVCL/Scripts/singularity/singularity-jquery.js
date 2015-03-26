@@ -1,6 +1,5 @@
 /// <reference path="singularity-core.ts"/>
-var singJQuery = singExt.addModule(new sing.Module("jQuery", $, $));
-singJQuery.requiredDocumentation = false;
+var singJQuery = singExt.addModule(new sing.Module("jQuery", [$, $.fn], $));
 /*
 //////////////////////////////////////////////////////
 //
@@ -20,7 +19,8 @@ singJQuery.method('checked', Checked, {
 function Checked() {
     var anyChecked = false;
     this.each(function () {
-        if ($(this)[0]['checked'])
+        var thisJQuery = $(this);
+        if (thisJQuery && thisJQuery[0] && thisJQuery[0].checked['checked'])
             anyChecked = true;
     });
     return anyChecked;
@@ -226,4 +226,66 @@ function JQueryOuterHtml() {
         return this[0].outerHTML;
     }
 }
+singJQuery.method('innerHtml', JQueryInnerHtml, {
+    summary: null,
+    parameters: null,
+    validateInput: false,
+    returns: '',
+    returnType: '',
+    examples: null,
+    tests: function (ext) {
+    },
+}, $.fn);
+function JQueryInnerHtml() {
+    if (!this || this.length == 0) {
+        return '';
+    }
+    else {
+        return this[0].innerHTML;
+    }
+}
+// https://github.com/moagrius/isOnScreen
+singJQuery.method('isOnScreen', JQueryIsOnScreen, {
+    summary: null,
+    parameters: null,
+    validateInput: false,
+    returns: '',
+    returnType: '',
+    examples: null,
+    tests: function (ext) {
+    },
+}, $.fn);
+function JQueryIsOnScreen(x, y) {
+    if (x === void 0) { x = 1; }
+    if (y === void 0) { y = 1; }
+    var win = $(window);
+    var viewport = {
+        top: win.scrollTop(),
+        left: win.scrollLeft(),
+        right: 0,
+        bottom: 0,
+    };
+    viewport.right = viewport.left + win.width();
+    viewport.bottom = viewport.top + win.height();
+    var height = this.outerHeight();
+    var width = this.outerWidth();
+    if (!width || !height) {
+        return false;
+    }
+    var bounds = this.offset();
+    bounds.right = bounds.left + width;
+    bounds.bottom = bounds.top + height;
+    var visible = (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
+    if (!visible) {
+        return false;
+    }
+    var deltas = {
+        top: Math.min(1, (bounds.bottom - viewport.top) / height),
+        bottom: Math.min(1, (viewport.bottom - bounds.top) / height),
+        left: Math.min(1, (bounds.right - viewport.left) / width),
+        right: Math.min(1, (viewport.right - bounds.left) / width)
+    };
+    return (deltas.left * deltas.right) >= x && (deltas.top * deltas.bottom) >= y;
+}
+;
 //# sourceMappingURL=singularity-jquery.js.map

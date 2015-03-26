@@ -1,12 +1,11 @@
 /// <reference path="singularity-core.ts"/>
-var singDocs = singCore.addModule(new sing.Module('Documentation', sing, sing));
-singDocs.requiredDocumentation = false;
-singDocs.requiredUnitTests = false;
+var singDocs = singCore.addModule(new sing.Module('Documentation', Singularity));
+singDocs.ignoreUnknown('ALL');
 singDocs.method('getDocs', SingularityGetDocs);
 function SingularityGetDocs(funcName, includeCode, includeDocumentation) {
     if (includeCode === void 0) { includeCode = false; }
     if (includeDocumentation === void 0) { includeDocumentation = true; }
-    this.resolveTests();
+    sing.tests.resolveTests();
     var featuresCount = 0;
     var featuresFound = 0;
     var featuresHaveTests = 0;
@@ -17,7 +16,7 @@ function SingularityGetDocs(funcName, includeCode, includeDocumentation) {
     var testsPassed = 0;
     var header = '';
     if (!funcName || funcName == '' || funcName == 'all')
-        header = 'Singularity TypeScript, JavaScript, and jQuery language Extensions\r\n\r\n';
+        header = sing.summary + '\r\n\r\n';
     var out = '';
     $.objEach(sing.methods, function (key, ext, index) {
         var mod = sing.modules[ext.moduleName];
@@ -151,7 +150,7 @@ function SingularityGetDocs(funcName, includeCode, includeDocumentation) {
 ;
 singDocs.method('getMissing', SingularityGetMissing);
 function SingularityGetMissing(funcName) {
-    this.resolveTests();
+    sing.tests.resolveTests();
     var featuresCount = 0;
     var featuresFound = 0;
     var documentaionCount = 0;

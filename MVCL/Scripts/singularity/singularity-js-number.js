@@ -97,8 +97,8 @@ singNumber.method('pow', NumberPower, {
         ext.addTest(4, [2], 16);
         ext.addTest(4, [1 / 2], 2);
         ext.addTest(2, [1 / 2], 1.4142135623730951);
-        ext.addFailsTest(2, [null], 'Singularity.Number.pow Missing Parameter: number power');
-        ext.addFailsTest(2, [undefined], 'Singularity.Number.pow Missing Parameter: number power');
+        ext.addFailsTest(2, [null], 'Singularity.Extensions.Number.pow Missing Parameter: number power');
+        ext.addFailsTest(2, [undefined], 'Singularity.Extensions.Number.pow Missing Parameter: number power');
     },
 });
 function NumberPower(power) {
@@ -521,11 +521,12 @@ function NumberRandom(minimum, maximum, count) {
     }
     if (count > 1) {
         var out = [];
-        for (var i = 0; i < count; i++) {
+        while (count > 0) {
             out.push($.random(minimum, maximum, 1));
+            count--;
         }
-        return out;
     }
+    return out;
 }
 singNumber.method('isNumeric', StringIsNumeric, {
     summary: null,

@@ -1,6 +1,5 @@
 /// <reference path="singularity-core.ts"/>
 var singEnumerable = singExt.addModule(new sing.Module("Enumerable", Array));
-singEnumerable.requiredDocumentation = false;
 //////////////////////////////////////////////////////
 //
 // Iteration Functions
@@ -40,7 +39,8 @@ singEnumerable.method('each', EnumerableEach, {
 function EnumerableEach(action) {
     if (!this)
         return;
-    this.while(function (item, i) {
+    var thisArray = this;
+    thisArray.while(function (item, i) {
         action(item, i);
         // each always continues until the end
         return true;
@@ -153,8 +153,9 @@ singEnumerable.method('until', EnumerableUntil, {
 function EnumerableUntil(action) {
     if (!this || !action || this.length == 0)
         return false;
+    var thisArray = this;
     var exit = false;
-    this.while(function (item, i) {
+    thisArray.while(function (item, i) {
         var result = action(item, i);
         exit = !(result === false || result === null || result === undefined);
         return exit;
@@ -177,8 +178,9 @@ singEnumerable.method('count', EnumerableCount, {
 function EnumerableCount(action) {
     if (!this || !action)
         return 0;
+    var thisArray = this;
     var out = 0;
-    this.each(function (item, i) {
+    thisArray.each(function (item, i) {
         var result = action(item, i);
         if (result !== null && result !== undefined && result !== false) {
             if ($.isNumber(result))
@@ -225,19 +227,21 @@ function EnumerableContains() {
     var srcThis = this;
     if (!srcThis || items == null || items == undefined)
         return false;
-    if ($.isArray(items) && items.length > 1) {
-        if (items.length == 1 && $.isArray(items[0]))
-            items = items[0];
-        return items.first(function (it, i) {
+    if (items.length == 1) {
+        if ($.isFunction(items[0])) {
+            return !!this.first(items[0]);
+        }
+        return this.indexOf(items[0]) >= 0;
+    }
+    if (items.length > 1) {
+        var result = items.first(function (it, i) {
             if (srcThis.contains(it))
                 return true;
             return false;
         });
+        return result !== undefined;
     }
-    if ($.isFunction(items[0])) {
-        return !!this.first(items[0]);
-    }
-    return this.indexOf(items[0]) >= 0;
+    return false;
 }
 singEnumerable.method('select', EnumerableSelect, {
     summary: null,
@@ -265,8 +269,9 @@ singEnumerable.method('select', EnumerableSelect, {
 function EnumerableSelect(action) {
     if (!this || !action)
         return [];
+    var thisArray = this;
     var out = [];
-    this.each(function (item, i) {
+    thisArray.each(function (item, i) {
         var result = action(item, i);
         if (result != null && result != undefined && result != false)
             out = out.concat(item);
@@ -304,10 +309,11 @@ singEnumerable.method('collect', EnumerableCollect, {
 function EnumerableCollect(action) {
     if (!this)
         return [];
+    var thisArray = this;
     if (action == null || action == undefined)
         action = sing.func.identity;
     var out = [];
-    this.each(function (item, i) {
+    thisArray.each(function (item, i) {
         var result = action(item, i);
         if (result !== null && result !== undefined)
             out = out.concat(result);
@@ -326,6 +332,7 @@ singEnumerable.method('first', EnumerableFirst, {
 function EnumerableFirst(itemOrAction) {
     if (!this)
         return;
+    var thisArray = this;
     if (!itemOrAction && this.length > 0)
         return this[0];
     if (!itemOrAction)
@@ -334,15 +341,17 @@ function EnumerableFirst(itemOrAction) {
         itemOrAction = function (item, i) {
             return i < itemOrAction;
         };
-    if ($.isFunction(itemOrAction))
+    if ($.isFunction(itemOrAction)) {
         itemOrAction = function (item, i) {
             return item == itemOrAction;
         };
+        return thisArray.select(itemOrAction);
+    }
     var out = undefined;
-    this.while(function (item, i) {
+    thisArray.while(function (item, i) {
         var result = itemOrAction(item, i);
         if (result == true) {
-            out = result;
+            out = item;
             return false;
         }
     });
@@ -357,14 +366,16 @@ singEnumerable.method('last', EnumerableLast, {
     tests: function (ext) {
     },
 });
-function EnumerableLast(action) {
+function EnumerableLast(itemOrAction) {
     if (!this)
         return;
-    if (!action && this.length > 0)
-        return this[this.length - 1];
-    if (!action)
+    var thisArray = this;
+    if (!itemOrAction && thisArray.length > 0)
+        return thisArray[thisArray.length - 1];
+    if (!itemOrAction)
         return;
-    return this.reverse().first(action);
+    var out = thisArray.reverse().first(itemOrAction);
+    return out;
 }
 singEnumerable.method('range', EnumerableRange, {
     summary: null,
@@ -376,6 +387,8 @@ singEnumerable.method('range', EnumerableRange, {
     },
 });
 function EnumerableRange(start, end) {
+    if (start === void 0) { start = 0; }
+    if (end === void 0) { end = this.length - 1; }
     if (!this || start > end)
         return [];
     var out = [];
@@ -396,8 +409,9 @@ singEnumerable.method('flatten', EnumerableFlatten, {
 function EnumerableFlatten() {
     if (!this)
         return [];
+    var thisArray = this;
     var out = [];
-    this.each(function (item, i) {
+    thisArray.each(function (item, i) {
         if ($.isArray(item))
             out.concat(item.flatten());
         else
@@ -413,33 +427,35 @@ singEnumerable.method('indices', EnumerableIndices, {
     examples: null,
     aliases: ['indexes'],
     tests: function (ext) {
-        sing.addAssertTest(ext.name, ['a'].indices('a'), [0]);
-        sing.addAssertTest(ext.name, ['a'].indices(['b']), []);
-        sing.addAssertTest(ext.name, ['a'].indices(['']), []);
-        sing.addAssertTest(ext.name, ['a'].indices([undefined]), []);
-        sing.addAssertTest(ext.name, ['a'].indices([null]), []);
-        sing.addAssertTest(ext.name, ['a'].indices(null), []);
-        sing.addAssertTest(ext.name, ['a', 'b'].indices(['a', 'b']), [0, 1]);
-        sing.addAssertTest(ext.name, ['a', 'a', 'a', 'b', 'b', 'b'].indices(['a', 'b']), [0, 1, 2, 3, 4, 5]);
+        ext.addTest(['a'], ['a'], [0]);
+        ext.addTest(['a'], ['b'], []);
+        ext.addTest(['a'], [[undefined]], []);
+        ext.addTest(['a'], [[null]], []);
+        ext.addTest(['a'], [null], []);
+        ext.addTest(['a', 'b'], ['a', 'b'], [0, 1]);
+        ext.addTest(['a', 'a', 'a', 'b', 'b', 'b'], ['a', 'b'], [0, 1, 2, 3, 4, 5]);
     },
 });
 function EnumerableIndices(itemOrItemsOrFunction) {
     if (!this || itemOrItemsOrFunction == null || itemOrItemsOrFunction == undefined)
         return [];
-    var src = this;
+    var thisArray = this;
     if ($.isArray(itemOrItemsOrFunction)) {
-        return src.collect(function (item, i) {
-            if (itemOrItemsOrFunction.contains(item))
+        var itemArray = itemOrItemsOrFunction;
+        return thisArray.collect(function (item, i) {
+            if (itemArray.contains(item))
                 return i;
         });
     }
     if ($.isFunction(itemOrItemsOrFunction)) {
-        return src.collect(function (item, i) {
-            if (!!itemOrItemsOrFunction(item, i))
+        var itemFunction = itemOrItemsOrFunction;
+        return thisArray.collect(function (item, i) {
+            if (!!itemFunction(item, i))
                 return i;
         });
     }
-    var index = src.indexOf(itemOrItemsOrFunction);
+    var item = itemOrItemsOrFunction;
+    var index = thisArray.indexOf(item);
     if (index >= 0)
         return [index];
     else
@@ -455,18 +471,20 @@ singEnumerable.method('remove', EnumerableRemove, {
     },
 });
 function EnumerableRemove(itemOrItemsOrFunction) {
-    var src = this;
+    var thisArray = this;
     if (!itemOrItemsOrFunction)
-        return src;
+        return thisArray;
     if ($.isArray(itemOrItemsOrFunction)) {
-        return src.select(function (item, i) {
-            return !itemOrItemsOrFunction.contains(item);
+        var itemArray = itemOrItemsOrFunction;
+        return thisArray.select(function (item, i) {
+            return !itemArray.contains(item);
         });
     }
     if ($.isFunction(itemOrItemsOrFunction)) {
-        return src.select(itemOrItemsOrFunction.not());
+        var itemFunction = itemOrItemsOrFunction;
+        return thisArray.select(itemFunction.fn_not());
     }
-    return src.select(function (item, i) {
+    return thisArray.select(function (item, i) {
         return item == itemOrItemsOrFunction;
     });
 }
@@ -497,17 +515,19 @@ function EnumerableSortBy(arg) {
         });
     }
     else if ($.isArray(arg)) {
+        var argArray = arg;
         for (var i = 0; i < arg.length; i++) {
             indexes = indexes.collect(function (item) {
-                if (!$.objHasKey(item, arg[i])) {
+                if (!$.objHasKey(item, argArray[i])) {
                     return -1;
                 }
-                return item[arg[i]] == null ? -1 : item[arg[i]];
+                return item[argArray[i]] == null ? -1 : item[argArray[i]];
             });
         }
     }
     else {
-        indexes = indexes.collect(arg);
+        var argFunction = arg;
+        indexes = indexes.collect(argFunction);
     }
     /*
     if (!indexes.every($.isNumeric.fn_or($.isString))) {
@@ -516,8 +536,7 @@ function EnumerableSortBy(arg) {
     }
     */
     var items = this;
-    var out = indexes.quickSort([items]);
-    return out;
+    return indexes.quickSort([items]);
 }
 singEnumerable.method('quickSort', EnumerableQuickSort, {
     summary: null,
