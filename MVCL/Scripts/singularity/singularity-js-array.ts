@@ -93,7 +93,7 @@ function ArrayRemoveAt<T>(...indexes: number[]): T[] {
     var thisArray = <T[]>this;
 
     return thisArray.select(function (item, index) {
-        return !indexes.contains(index);
+        return !indexes.has(index);
     });
 }
 
@@ -116,7 +116,7 @@ function ArrayUnique<T>(...indexes: number[]): T[] {
     var out: T[] = [];
 
     thisArray.each(function (item, index) {
-        if (!out.contains(item))
+        if (!out.has(item))
             out.push(item);
     });
 

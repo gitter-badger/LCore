@@ -1,4 +1,5 @@
 var singObject = singExt.addModule(new sing.Module("Object", $, $));
+singObject.ignoreUnknown('ALL');
 singObject.method('objEach', ObjectEach, {
     summary: null,
     parameters: null,
@@ -180,7 +181,7 @@ function ObjectHasKey(obj, key) {
     if (obj == null || !(typeof obj == 'object'))
         return false;
     var keys = Object.keys(obj);
-    return keys.contains(key);
+    return keys.has(key);
 }
 singObject.method('resolve', ObjectResolve, {
     summary: null,

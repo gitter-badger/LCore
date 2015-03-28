@@ -39,6 +39,14 @@ function StringTemplateInject(obj, _context) {
         value = sing.resolveKey(key, obj, _context);
         if (value == null)
             throw 'could not find key ' + key;
+        var valueTemplate = sing.getTemplateName(value);
+        if (valueTemplate != null) {
+            var valueTemplateHtml = $.getTemplate(valueTemplate);
+            if (valueTemplateHtml) {
+                var valueTemplateStr = valueTemplateHtml.outerHtml().templateInject(value, _context);
+                return valueTemplateStr;
+            }
+        }
         if (value != null && value != undefined) {
             out = out.replace(sing.templateStart + key + sing.templateEnd, value.toString());
         }
@@ -119,7 +127,7 @@ singTemplates.method('getTemplate', ObjectGetTemplate, {
 function ObjectGetTemplate(name, data) {
     var template = sing.templates[name];
     if (!template || template.length == 0)
-        throw 'Template ' + name + ' not found.';
+        return null;
     template = $(template);
     if ($.isDefined(data)) {
         try {
@@ -134,7 +142,7 @@ function ObjectGetTemplate(name, data) {
 singTemplates.method('getTemplateFor', ObjectGetTemplateFor, {}, sing);
 function ObjectGetTemplateFor(obj) {
 }
-singTemplates.method('fillTemplate', ObjectFillTemplate, {
+singTemplates.method('fillTemplate', JQueryFillTemplate, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -146,7 +154,7 @@ singTemplates.method('fillTemplate', ObjectFillTemplate, {
 }, $.fn);
 var deferred = 0;
 var deferredDone = 0;
-function ObjectFillTemplate(data, _context, forceFill) {
+function JQueryFillTemplate(data, _context, forceFill) {
     if (forceFill === void 0) { forceFill = false; }
     _context = sing.loadContext(_context);
     var template = (this);
@@ -198,7 +206,7 @@ function ObjectFillTemplate(data, _context, forceFill) {
         });
     }
 }
-singTemplates.method('singIf', ElementPerformSingIf, {
+singTemplates.method('singIf', JQueryPerformSingIf, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -208,7 +216,7 @@ singTemplates.method('singIf', ElementPerformSingIf, {
     tests: function (ext) {
     },
 }, $.fn);
-function ElementPerformSingIf(data, _context, forceFill) {
+function JQueryPerformSingIf(data, _context, forceFill) {
     if (forceFill === void 0) { forceFill = false; }
     _context = sing.loadContext(_context);
     var srcThis = this;
@@ -264,7 +272,7 @@ function ElementPerformSingIf(data, _context, forceFill) {
         return srcThis;
     }
 }
-singTemplates.method('singFill', ElementPerformSingFill, {
+singTemplates.method('singFill', JQueryPerformSingFill, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -274,7 +282,7 @@ singTemplates.method('singFill', ElementPerformSingFill, {
     tests: function (ext) {
     },
 }, $.fn);
-function ElementPerformSingFill(data, _context, forceFill) {
+function JQueryPerformSingFill(data, _context, forceFill) {
     if (forceFill === void 0) { forceFill = false; }
     _context = sing.loadContext(_context);
     var srcThis = this;
@@ -325,6 +333,8 @@ function ElementPerformSingFill(data, _context, forceFill) {
     if (fill)
         srcThis.attr('sing-template-name', fill.toSlug());
     try {
+        // Clear data so that sub-templates will have access to their own data sets.
+        _context['$data'] = undefined;
         srcThis.fillTemplate(sourceData, _context, forceFill);
     }
     catch (ex) {
@@ -333,7 +343,7 @@ function ElementPerformSingFill(data, _context, forceFill) {
     }
     return srcThis;
 }
-singTemplates.method('singLoop', ElementPerformSingLoop, {
+singTemplates.method('singLoop', JQueryPerformSingLoop, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -343,7 +353,7 @@ singTemplates.method('singLoop', ElementPerformSingLoop, {
     tests: function (ext) {
     },
 }, $.fn);
-function ElementPerformSingLoop(data, _context, forceFill) {
+function JQueryPerformSingLoop(data, _context, forceFill) {
     if (forceFill === void 0) { forceFill = false; }
     _context = sing.loadContext(_context);
     var loop = this;
@@ -444,6 +454,8 @@ sing.initTemplates = function () {
         try {
             $(this).hide();
             $(this).singIf();
+            if ($(this).enhanceWithin)
+                $(this).enhanceWithin();
             $(this).fadeIn('fast');
         }
         catch (ex) {
@@ -454,6 +466,8 @@ sing.initTemplates = function () {
         try {
             $(this).hide();
             $(this).singLoop();
+            if ($(this).enhanceWithin)
+                $(this).enhanceWithin();
             $(this).fadeIn('fast');
         }
         catch (ex) {
@@ -463,6 +477,8 @@ sing.initTemplates = function () {
     $('*[sing-fill]').each(function () {
         try {
             $(this).singFill();
+            if ($(this).enhanceWithin)
+                $(this).enhanceWithin();
             $(this).hide().fadeIn('fast');
         }
         catch (ex) {

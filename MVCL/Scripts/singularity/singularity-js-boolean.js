@@ -130,7 +130,7 @@ function BooleanOR() {
     for (var _i = 0; _i < arguments.length; _i++) {
         b[_i - 0] = arguments[_i];
     }
-    return this == true || b.contains(true);
+    return this == true || b.has(true);
 }
 singBoolean.method('AND', BooleanAND, {
     summary: "\
@@ -177,7 +177,7 @@ function BooleanAND() {
     for (var _i = 0; _i < arguments.length; _i++) {
         b[_i - 0] = arguments[_i];
     }
-    return this == true && !b.contains(false);
+    return this == true && !b.has(false);
 }
 singBoolean.method('NAND', BooleanNAND, {
     summary: "\

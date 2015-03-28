@@ -111,10 +111,12 @@ function error() {
         message[_i - 0] = arguments[_i];
     }
     if (LOGGING_ERROR_ENABLED) {
-        if ($.toStr && $.resolve)
-            console.log('%c ' + $.toStr($.resolve(message), true), 'background: #eee; color: #FF0000');
-        else
-            console.log('%c ' + message, 'background: #eee; color: #FF0000');
+        console.log(message);
+        //if ($.toStr && $.resolve)
+        //    console.log('%c ' + $.toStr($.resolve(message), true), 'background: #eee; color: #FF0000');
+        //else
+        //    console.log('%c ' + message, 'background: #eee; color: #FF0000');
+        console.trace();
     }
 }
 singLog.method('error', ArrayError, {}, Array.prototype, "Array");

@@ -1,6 +1,6 @@
 ﻿
 
-function MNCL_Init() {
+function MVCL_Init() {
 
     tooltip.init();
 

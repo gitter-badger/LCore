@@ -3,6 +3,7 @@
 interface Array<T> {
     each?: (action: (item?: T, index?: number) => void) => void;
     'while'?: (action: (item?: T, index?: number) => boolean) => void;
+
     indices?: (item: T | T[]) => T[];
 
 
@@ -23,7 +24,7 @@ interface Array<T> {
 
     count?: (item: T | T[]| ((arg: T, index: number) => boolean | number)) => number;
 
-    contains?: (item: T | T[]| ((arg: T, index: number) => boolean)) => boolean;
+    //  contains?: (item: T | T[]| ((arg: T, index: number) => boolean)) => boolean;
     has?: (item: T | T[]| ((arg: T, index: number) => boolean)) => boolean;
 
     shuffle?: () => T[];
@@ -250,14 +251,14 @@ function EnumerableCount<T>(action: (item: T, index: number) => any) {
     return out;
 }
 
-singEnumerable.method('contains', EnumerableContains,
+singEnumerable.method('has', EnumerableContains,
     {
         summary: null,
         parameters: null,
         returns: '',
         returnType: null,
         examples: null,
-        aliases: ['has'],
+        aliases: ['contains'],
         tests: function (ext) {
             ext.addTest([], [], false);
             ext.addTest([], [null], false);
@@ -289,21 +290,29 @@ function EnumerableContains<T>(...items: T[]) {
     if (items.length == 1) {
 
         if ($.isFunction(items[0])) {
-            return !!this.first(items[0]);
+            var result = this.first(items[0]);
+            return result !== undefined &&
+                (!$.isArray(result) || result.length > 0);
         }
 
-        return this.indexOf(items[0]) >= 0;
+        if ($.isArray(items[0])) {
+            return srcThis.has.apply(srcThis, items[0]);
+        }
+
+        return items[0] !== undefined && this.indexOf(items[0]) >= 0;
     }
 
     if (items.length > 1) {
+        var result2 = items.first(function (it: T, i: number) {
+            if (it === undefined)
+                return false;
 
-        var result = items.first(function (it: T, i: number) {
-            if (srcThis.contains(it))
+            if (srcThis.has(it))
                 return true;
             return false;
         });
 
-        return result !== undefined;
+        return !!result2;
     }
 
     return false;
@@ -417,7 +426,7 @@ function EnumerableFirst<T>(itemOrAction: number | T | ((item: T, index: number)
     if (ObjectIsNumber(itemOrAction))
         itemOrAction = function (item, i) { return i < <number>itemOrAction; };
 
-    if ($.isFunction(itemOrAction)) {
+    if (!$.isFunction(itemOrAction)) {
         itemOrAction = function (item, i) { return item == itemOrAction; };
         return thisArray.select(<(item: T, index: number) => boolean>itemOrAction);
     }
@@ -529,40 +538,44 @@ singEnumerable.method('indices', EnumerableIndices,
             ext.addTest(['a'], [[null]], []);
             ext.addTest(['a'], [null], []);
             ext.addTest(['a', 'b'], ['a', 'b'], [0, 1]);
+            ext.addTest(['a', 'b'], [['a', 'b']], [0, 1]);
 
             ext.addTest(['a', 'a', 'a', 'b', 'b', 'b'], ['a', 'b'], [0, 1, 2, 3, 4, 5]);
         },
     });
 
-function EnumerableIndices<T>(itemOrItemsOrFunction: T | T[]|((item: T, index: number) => boolean)): number[] {
-    if (!this ||
-        itemOrItemsOrFunction == null ||
-        itemOrItemsOrFunction == undefined)
-        return [];
+function EnumerableIndices<T>(...items: any[]): number[] {
 
     var thisArray = <T[]>this;
 
-    if ($.isArray(itemOrItemsOrFunction)) {
+    var item: any = items;
 
-        var itemArray = <T[]>itemOrItemsOrFunction;
+    if (items.length == 1) {
+        item = items[0]
+    }
+    else {
+        item = items;
+    }
 
-        return thisArray.collect(function (item, i) {
-            if (itemArray.contains(item))
+    if ($.isArray(item)) {
+
+        var itemArray = <T[]>item;
+
+        return thisArray.collect(function (arrayItem, i) {
+            if (itemArray.has(arrayItem))
                 return i;
         });
     }
 
-    if ($.isFunction(itemOrItemsOrFunction)) {
+    if ($.isFunction(item)) {
 
-        var itemFunction = <(item: T, index: number) => boolean>itemOrItemsOrFunction;
+        var itemFunction = <(item: T, index: number) => boolean>item;
 
         return thisArray.collect(function (item, i) {
             if (!!itemFunction(item, i))
                 return i;
         });
     }
-
-    var item = <T>itemOrItemsOrFunction;
 
     var index = thisArray.indexOf(item);
 
@@ -595,7 +608,7 @@ function EnumerableRemove<T>(itemOrItemsOrFunction: T | T[]|((item: T, index: nu
         var itemArray = <T[]>itemOrItemsOrFunction;
 
         return thisArray.select(function (item, i) {
-            return !itemArray.contains(item);
+            return !itemArray.has(item);
         });
     }
 

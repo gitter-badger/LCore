@@ -216,6 +216,7 @@
 
 var singHTML = singString.addModule(new sing.Module('HTML', String));
 
+
 singHTML.method('textToHTML', StringTextToHTML,
     {
         summary: null,

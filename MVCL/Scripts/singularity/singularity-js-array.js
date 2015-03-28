@@ -58,7 +58,7 @@ function ArrayRemoveAt() {
     }
     var thisArray = this;
     return thisArray.select(function (item, index) {
-        return !indexes.contains(index);
+        return !indexes.has(index);
     });
 }
 singArray.method('unique', ArrayUnique, {
@@ -79,7 +79,7 @@ function ArrayUnique() {
     var thisArray = this;
     var out = [];
     thisArray.each(function (item, index) {
-        if (!out.contains(item))
+        if (!out.has(item))
             out.push(item);
     });
     return out;

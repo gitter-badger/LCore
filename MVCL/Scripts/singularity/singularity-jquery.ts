@@ -29,6 +29,8 @@ interface JQuery {
 
 var singJQuery = singExt.addModule(new sing.Module("jQuery", [$, $.fn], $));
 
+singJQuery.ignoreUnknown('ALL');
+
 /*
 //////////////////////////////////////////////////////
 //

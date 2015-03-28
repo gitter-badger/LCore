@@ -52,7 +52,7 @@ class SingularityTest {
 
                 this.testResult = name + ' ' + this.testResult;
 
-                if (!sing.tests.testErrors.contains(this.testResult))
+                if (!sing.tests.testErrors.has(this.testResult))
                     sing.tests.testErrors.push(this.testResult);
             }
             return this.testResult;
@@ -67,7 +67,6 @@ var singTests = singCore.addModule(new sing.Module('Tests', SingularityTests));
 
 
 singTests.method('resolveTests', sing.tests.resolveTests, {});
-
 
 singTests.method('addTest', SingularityAddTest, {});
 

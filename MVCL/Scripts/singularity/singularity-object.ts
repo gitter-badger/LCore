@@ -35,6 +35,7 @@ interface Array<T> {
 
 var singObject = singExt.addModule(new sing.Module("Object", $, $));
 
+singObject.ignoreUnknown('ALL');
 
 singObject.method('objEach', ObjectEach,
     {
@@ -262,7 +263,7 @@ function ObjectHasKey(obj: Object, key: string): boolean {
 
     var keys = Object.keys(obj);
 
-    return keys.contains(key);
+    return keys.has(key);
 }
 
 singObject.method('resolve', ObjectResolve,

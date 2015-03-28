@@ -164,7 +164,7 @@ singBoolean.method('OR', BooleanOR,
     });
 
 function BooleanOR(...b: boolean[]): boolean {
-    return this == true || b.contains(true);
+    return this == true || b.has(true);
 }
 
 singBoolean.method('AND', BooleanAND,
@@ -212,7 +212,7 @@ singBoolean.method('AND', BooleanAND,
     });
 
 function BooleanAND(...b: boolean[]): boolean {
-    return this == true && !b.contains(false);
+    return this == true && !b.has(false);
 }
 
 singBoolean.method('NAND', BooleanNAND,

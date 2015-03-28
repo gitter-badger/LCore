@@ -86,8 +86,22 @@ function StringTemplateInject(obj: Object, _context?: Hash<any>): string {
         if (value == null)
             throw 'could not find key ' + key;
 
+        var valueTemplate = sing.getTemplateName(value);
+
+        if (valueTemplate != null) {
+            var valueTemplateHtml = $.getTemplate(valueTemplate);
+
+            if (valueTemplateHtml) {
+
+                var valueTemplateStr = valueTemplateHtml.outerHtml().templateInject(value, _context);
+
+                return valueTemplateStr;
+            }
+        }
         if (value != null && value != undefined) {
+
             out = out.replace(sing.templateStart + key + sing.templateEnd, value.toString());
+
         }
         // Remove template if no data is found
         else {
@@ -195,7 +209,7 @@ function ObjectGetTemplate(name: string, data?: Object): JQuery {
     var template = <any>sing.templates[name];
 
     if (!template || template.length == 0)
-        throw 'Template ' + name + ' not found.';
+        return null;
 
     template = $(template);
 
@@ -219,7 +233,7 @@ function ObjectGetTemplateFor(obj?: Object) {
 
 }
 
-singTemplates.method('fillTemplate', ObjectFillTemplate,
+singTemplates.method('fillTemplate', JQueryFillTemplate,
     {
         summary: null,
         parameters: null,
@@ -234,7 +248,7 @@ singTemplates.method('fillTemplate', ObjectFillTemplate,
 var deferred = 0;
 var deferredDone = 0;
 
-function ObjectFillTemplate(data: any, _context?: Hash<any>, forceFill: boolean = false): void {
+function JQueryFillTemplate(data: any, _context?: Hash<any>, forceFill: boolean = false): void {
 
     _context = sing.loadContext(_context);
 
@@ -309,7 +323,7 @@ function ObjectFillTemplate(data: any, _context?: Hash<any>, forceFill: boolean 
     }
 }
 
-singTemplates.method('singIf', ElementPerformSingIf,
+singTemplates.method('singIf', JQueryPerformSingIf,
     {
         summary: null,
         parameters: null,
@@ -321,7 +335,7 @@ singTemplates.method('singIf', ElementPerformSingIf,
         },
     }, $.fn);
 
-function ElementPerformSingIf(data?: any, _context?: Hash<any>, forceFill: boolean = false) {
+function JQueryPerformSingIf(data?: any, _context?: Hash<any>, forceFill: boolean = false) {
 
     _context = sing.loadContext(_context);
 
@@ -403,7 +417,7 @@ function ElementPerformSingIf(data?: any, _context?: Hash<any>, forceFill: boole
 
 }
 
-singTemplates.method('singFill', ElementPerformSingFill,
+singTemplates.method('singFill', JQueryPerformSingFill,
     {
         summary: null,
         parameters: null,
@@ -415,7 +429,7 @@ singTemplates.method('singFill', ElementPerformSingFill,
         },
     }, $.fn);
 
-function ElementPerformSingFill(data?: any, _context?: Hash<any>, forceFill: boolean = false) {
+function JQueryPerformSingFill(data?: any, _context?: Hash<any>, forceFill: boolean = false) {
 
     _context = sing.loadContext(_context);
 
@@ -489,7 +503,8 @@ function ElementPerformSingFill(data?: any, _context?: Hash<any>, forceFill: boo
         srcThis.attr('sing-template-name', fill.toSlug());
 
     try {
-
+        // Clear data so that sub-templates will have access to their own data sets.
+        _context['$data'] = undefined;
         srcThis.fillTemplate(sourceData, _context, forceFill);
 
     } catch (ex) {
@@ -502,7 +517,7 @@ function ElementPerformSingFill(data?: any, _context?: Hash<any>, forceFill: boo
     return srcThis;
 }
 
-singTemplates.method('singLoop', ElementPerformSingLoop,
+singTemplates.method('singLoop', JQueryPerformSingLoop,
     {
         summary: null,
         parameters: null,
@@ -514,7 +529,7 @@ singTemplates.method('singLoop', ElementPerformSingLoop,
         },
     }, $.fn);
 
-function ElementPerformSingLoop(data: any, _context?: Hash<any>, forceFill: boolean = false): void {
+function JQueryPerformSingLoop(data: any, _context?: Hash<any>, forceFill: boolean = false): void {
 
     _context = sing.loadContext(_context);
 
@@ -653,6 +668,8 @@ sing.initTemplates = function () {
         try {
             $(this).hide();
             $(this).singIf();
+            if ($(this).enhanceWithin)
+                $(this).enhanceWithin();
             $(this).fadeIn('fast');
         }
         catch (ex) {
@@ -665,6 +682,8 @@ sing.initTemplates = function () {
         try {
             $(this).hide();
             $(this).singLoop();
+            if ($(this).enhanceWithin)
+                $(this).enhanceWithin();
             $(this).fadeIn('fast');
         }
         catch (ex) {
@@ -676,6 +695,8 @@ sing.initTemplates = function () {
 
         try {
             $(this).singFill();
+            if ($(this).enhanceWithin)
+                $(this).enhanceWithin();
             $(this).hide().fadeIn('fast');
         }
         catch (ex) {

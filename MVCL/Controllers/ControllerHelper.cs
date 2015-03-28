@@ -318,6 +318,9 @@ namespace MVCL.Controllers
         public const String Script_MVCL = "~/Scripts/mvcl";
         public const String Style_MVCL = "~/Content/mvcl";
 
+        public const String Style_JQuery_Mobile = "~/Content/jquery-mobile";
+        public const String Script_JQuery_Mobile = "~/Scripts/jquery-mobile";
+
         public const String Script_MVCL_Chance = "~/Scripts/mvcl/chance";
         public const String Script_MVCL_qTip = "~/Scripts/mvcl/qTip";
         public const String Script_MVCL_jQueryCookie = "~/Scripts/mvcl/jquery.cookie";
@@ -360,6 +363,12 @@ namespace MVCL.Controllers
             bundles.Add(new StyleBundle(Style_Singularity).Include(
                 Root + "Content/singularity.css"));
             #endregion
+
+            bundles.Add(new ScriptBundle(Script_JQuery_Mobile).Include(
+                        Root + "Scripts/jquery-mobile/jquery.mobile.custom.js"));
+
+            bundles.Add(new ScriptBundle(Style_JQuery_Mobile).Include(
+                        Root + "Scripts/jquery-mobile/jquery.mobile.custom.theme.css"));
 
             bundles.Add(new ScriptBundle(Script_MVCL_Chance).Include(
                         Root + "Scripts/chance.js"));

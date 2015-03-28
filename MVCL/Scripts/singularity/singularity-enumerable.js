@@ -191,13 +191,13 @@ function EnumerableCount(action) {
     });
     return out;
 }
-singEnumerable.method('contains', EnumerableContains, {
+singEnumerable.method('has', EnumerableContains, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: null,
     examples: null,
-    aliases: ['has'],
+    aliases: ['contains'],
     tests: function (ext) {
         ext.addTest([], [], false);
         ext.addTest([], [null], false);
@@ -229,17 +229,23 @@ function EnumerableContains() {
         return false;
     if (items.length == 1) {
         if ($.isFunction(items[0])) {
-            return !!this.first(items[0]);
+            var result = this.first(items[0]);
+            return result !== undefined && (!$.isArray(result) || result.length > 0);
         }
-        return this.indexOf(items[0]) >= 0;
+        if ($.isArray(items[0])) {
+            return srcThis.has.apply(srcThis, items[0]);
+        }
+        return items[0] !== undefined && this.indexOf(items[0]) >= 0;
     }
     if (items.length > 1) {
-        var result = items.first(function (it, i) {
-            if (srcThis.contains(it))
+        var result2 = items.first(function (it, i) {
+            if (it === undefined)
+                return false;
+            if (srcThis.has(it))
                 return true;
             return false;
         });
-        return result !== undefined;
+        return !!result2;
     }
     return false;
 }
@@ -341,7 +347,7 @@ function EnumerableFirst(itemOrAction) {
         itemOrAction = function (item, i) {
             return i < itemOrAction;
         };
-    if ($.isFunction(itemOrAction)) {
+    if (!$.isFunction(itemOrAction)) {
         itemOrAction = function (item, i) {
             return item == itemOrAction;
         };
@@ -433,28 +439,37 @@ singEnumerable.method('indices', EnumerableIndices, {
         ext.addTest(['a'], [[null]], []);
         ext.addTest(['a'], [null], []);
         ext.addTest(['a', 'b'], ['a', 'b'], [0, 1]);
+        ext.addTest(['a', 'b'], [['a', 'b']], [0, 1]);
         ext.addTest(['a', 'a', 'a', 'b', 'b', 'b'], ['a', 'b'], [0, 1, 2, 3, 4, 5]);
     },
 });
-function EnumerableIndices(itemOrItemsOrFunction) {
-    if (!this || itemOrItemsOrFunction == null || itemOrItemsOrFunction == undefined)
-        return [];
+function EnumerableIndices() {
+    var items = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        items[_i - 0] = arguments[_i];
+    }
     var thisArray = this;
-    if ($.isArray(itemOrItemsOrFunction)) {
-        var itemArray = itemOrItemsOrFunction;
-        return thisArray.collect(function (item, i) {
-            if (itemArray.contains(item))
+    var item = items;
+    if (items.length == 1) {
+        item = items[0];
+    }
+    else {
+        item = items;
+    }
+    if ($.isArray(item)) {
+        var itemArray = item;
+        return thisArray.collect(function (arrayItem, i) {
+            if (itemArray.has(arrayItem))
                 return i;
         });
     }
-    if ($.isFunction(itemOrItemsOrFunction)) {
-        var itemFunction = itemOrItemsOrFunction;
+    if ($.isFunction(item)) {
+        var itemFunction = item;
         return thisArray.collect(function (item, i) {
             if (!!itemFunction(item, i))
                 return i;
         });
     }
-    var item = itemOrItemsOrFunction;
     var index = thisArray.indexOf(item);
     if (index >= 0)
         return [index];
@@ -477,7 +492,7 @@ function EnumerableRemove(itemOrItemsOrFunction) {
     if ($.isArray(itemOrItemsOrFunction)) {
         var itemArray = itemOrItemsOrFunction;
         return thisArray.select(function (item, i) {
-            return !itemArray.contains(item);
+            return !itemArray.has(item);
         });
     }
     if ($.isFunction(itemOrItemsOrFunction)) {

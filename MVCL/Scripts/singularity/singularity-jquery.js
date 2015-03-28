@@ -1,5 +1,6 @@
 /// <reference path="singularity-core.ts"/>
 var singJQuery = singExt.addModule(new sing.Module("jQuery", [$, $.fn], $));
+singJQuery.ignoreUnknown('ALL');
 /*
 //////////////////////////////////////////////////////
 //

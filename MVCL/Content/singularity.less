@@ -16,6 +16,11 @@
     }
 }
 
+.round-border() {
+    border: 1px solid;
+    border-radius: 5px;
+}
+
 .sing {
     width: 80% !important;
     margin-left: 10% !important;
@@ -29,6 +34,68 @@
             font-size: 12px;
             width: 100%;
             display: block;
+        }
+    }
+
+    .wide .sing-progress-slider {
+        min-width: 400px;
+    }
+
+    .no-text .sing-progress-slider {
+        b {
+            display: none;
+        }
+    }
+
+    .ui-tabs {
+        margin-left: -10px;
+        margin-right: -10px;
+
+        .ui-tabs-nav {
+
+            .sing-progress-slider {
+                width: 100%;
+                min-width: 50px;
+                height: 5px;
+                border: none;
+                display: block;
+
+                .sing-progress-complete {
+                    height: 5px;
+                    border: none;
+                }
+            }
+        }
+    }
+
+    .sing-progress-slider {
+        box-shadow: black 1px 1px 3px;
+        .round-border();
+        display: inline-block;
+        position: relative;
+        color: #ffffff;
+        background-color: #890000;
+        margin-top: 2px;
+        min-width: 200px;
+        text-align: center;
+
+        .sing-progress-complete {
+            .round-border();
+            background-color: #21762d;
+            height: 100%;
+            display: inline-block;
+            float: left;
+            position: absolute;
+            left: 0px;
+            z-index: 0;
+        }
+
+        b {
+            font-weight: normal;
+            display: inline-block;
+            min-width: 65%;
+            z-index: 1;
+            position: relative;
         }
     }
 

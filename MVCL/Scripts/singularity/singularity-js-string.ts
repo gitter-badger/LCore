@@ -235,7 +235,7 @@ function StringStartsWith(stringOrStrings: string|string[]) {
 
     if ($.isArray(stringOrStrings)) {
 
-        return (<string[]>stringOrStrings).contains(function (s, i) {
+        return (<string[]>stringOrStrings).has(function (s, i) {
             if (thisString.startsWith(s))
                 return true;
             return false;
@@ -268,7 +268,9 @@ function StringEndsWith(stringOrStrings: string|string[]) {
         return false;
     }
 
-    return this.indexOf(stringOrStrings) == this.length - stringOrStrings.length;
+    var index = this.indexOf(stringOrStrings);
+
+    return index >= 0 && index == this.length - stringOrStrings.length;
 }
 
 singString.method('removeAll', StringRemoveAll,

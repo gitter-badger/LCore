@@ -1,4 +1,4 @@
-function MNCL_Init() {
+function MVCL_Init() {
     tooltip.init();
 }
 function preg_quote(str) {

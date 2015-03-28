@@ -26,7 +26,7 @@ var SingularityTest = (function () {
                 this.testResult = true;
             if (this.testResult !== true && this.testResult !== undefined && this.testResult !== null) {
                 this.testResult = name + ' ' + this.testResult;
-                if (!sing.tests.testErrors.contains(this.testResult))
+                if (!sing.tests.testErrors.has(this.testResult))
                     sing.tests.testErrors.push(this.testResult);
             }
             return this.testResult;

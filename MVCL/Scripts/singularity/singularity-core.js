@@ -192,6 +192,12 @@ var Singularity = (function () {
         this.defaultPolyfill = true;
         this.modules = {};
         this.addModule = function (mod) {
+            if (mod.requiredDocumentation == null)
+                mod.requiredDocumentation = this.defaultSettings.requiredDocumentation;
+            if (mod.requiredJSFiddle == null)
+                mod.requiredJSFiddle = this.defaultSettings.requiredJSFiddle;
+            if (mod.requiredUnitTests == null)
+                mod.requiredUnitTests = this.defaultSettings.requiredUnitTests;
             if (this.modules[mod.fullName()] === undefined)
                 this.modules[mod.fullName()] = mod;
             return mod;
@@ -223,44 +229,70 @@ var Singularity = (function () {
                 typeClass: Object,
                 protoType: Object.prototype,
                 name: 'Object',
+                autoDefault: this.autoDefaults,
+                templateName: 'ObjectTable',
+                typeOfName: 'object',
             },
             Boolean: {
                 typeClass: Boolean,
                 protoType: Boolean.prototype,
                 name: 'Boolean',
+                autoDefault: this.autoDefaults,
+                templateName: 'Boolean',
+                typeOfName: 'boolean',
             },
             Number: {
                 typeClass: Number,
                 protoType: Number.prototype,
                 name: 'Number',
+                autoDefault: this.autoDefaults,
+                templateName: null,
+                typeOfName: 'number',
             },
             String: {
                 typeClass: String,
                 protoType: String.prototype,
                 name: 'String',
+                autoDefault: this.autoDefaults,
+                templateName: null,
+                typeOfName: 'string',
             },
             Array: {
                 typeClass: Array,
                 protoType: Array.prototype,
                 name: 'Array',
+                autoDefault: this.autoDefaults,
+                templateName: 'List',
             },
             Function: {
                 typeClass: Function,
                 protoType: Function.prototype,
                 name: 'Function',
+                autoDefault: this.autoDefaults,
+                templateName: null,
+                typeOfName: 'function',
             },
             Date: {
                 typeClass: Date,
                 protoType: Date.prototype,
                 name: 'Date',
+                autoDefault: this.autoDefaults,
+                templateName: null,
+                typeOfName: 'date',
             },
             $: {
                 typeClass: $,
                 protoType: $,
                 name: 'jQuery',
+                autoDefault: this.autoDefaults,
             }
         };
         this.autoDefault = new SingularityAutoDefinition();
+        this.defaultSettings = {
+            requiredDocumentation: true,
+            requiredUnitTests: true,
+            requiredJSFiddle: false,
+        };
         this.init = function () {
             $.noConflict();
             for (var mod in this.modules) {
@@ -284,6 +316,18 @@ var Singularity = (function () {
                 throw 'could not find ' + protoType;
             }
         };
+        this.getTemplateName = function (protoType) {
+            if (protoType.prototype)
+                protoType = protoType.prototype;
+            for (var t in sing.types) {
+                if ((typeof protoType) == sing.types[t].typeOfName || sing.types[t].protoType == protoType || sing.types[t].typeClass == protoType) {
+                    if (sing.types[t].templateName === null)
+                        return null;
+                    return sing.types[t].templateName || sing.types[t].name;
+                }
+            }
+            throw 'could not find ' + protoType;
+        };
         this.globalResolve = {
             sing: sing,
             '$': $,
@@ -303,9 +347,19 @@ var SingularityModule = (function () {
         this.objectPrototype = objectPrototype;
         this.subModules = [];
         this.methods = [];
+        this.properties = [];
         this.ignoreUnknownMembers = [];
         this.addModule = function (mod) {
             mod.parentModule = this;
+            if (mod.requiredDocumentation == null) {
+                mod.requiredDocumentation = this.requiredDocumentation;
+            }
+            if (mod.requiredJSFiddle == null) {
+                mod.requiredJSFiddle = this.requiredJSFiddle;
+            }
+            if (mod.requiredUnitTests == null) {
+                mod.requiredUnitTests = this.requiredUnitTests;
+            }
             this.subModules.push(mod);
             return sing.addModule(mod);
         };
@@ -316,6 +370,7 @@ var SingularityModule = (function () {
                     return false;
                 return true;
             });
+            out += thisModule.getUnknownMethods().length;
             out += thisModule.subModules.count(function (sub) {
                 return sub.totalMethods();
             });
@@ -357,9 +412,31 @@ var SingularityModule = (function () {
                         return;
                     out += m.documentationPresent();
                 });
+            out += thisModule.properties.count(function (prop) {
+                return !$.isEmpty(prop.description);
+            });
             out += thisModule.subModules.count(function (sub) {
                 return sub.implementedDocumentation();
             });
+            return out;
+        };
+        this.implementedProperties = function () {
+            var thisModule = this;
+            var out = 0;
+            out += thisModule.subModules.count(function (sub) {
+                return sub.implementedProperties();
+            });
+            out += thisModule.properties.length;
+            return out;
+        };
+        this.totalProperties = function () {
+            var thisModule = this;
+            var out = 0;
+            out += thisModule.subModules.count(function (sub) {
+                return sub.totalProperties();
+            });
+            out += thisModule.properties.length;
+            out += thisModule.getUnknownProperties().length;
             return out;
         };
         this.totalDocumentation = function () {
@@ -371,6 +448,8 @@ var SingularityModule = (function () {
                         return;
                     out += m.documentationTotal();
                 });
+            out += thisModule.properties.length;
+            out += thisModule.getUnknownProperties().length;
             out += thisModule.subModules.count(function (sub) {
                 return sub.totalDocumentation();
             });
@@ -410,15 +489,37 @@ var SingularityModule = (function () {
             });
             return out;
         };
+        this.implementedJSFiddle = function () {
+            var thisModule = this;
+            var out = 0;
+            if (thisModule.requiredJSFiddle) {
+                out += thisModule.methods.count(function (m) {
+                    return m.details && !$.isEmpty(m.details.jsFiddleLinks);
+                });
+                out += thisModule.subModules.count(function (sub) {
+                    return sub.implementedJSFiddle();
+                });
+            }
+            return out;
+        };
+        this.totalJSFiddle = function () {
+            var thisModule = this;
+            var out = 0;
+            if (thisModule.requiredJSFiddle) {
+                out += thisModule.methods.length;
+                out += thisModule.subModules.count(function (sub) {
+                    return sub.totalJSFiddle();
+                });
+            }
+            return out;
+        };
         this.implementedItems = function () {
-            return this.implementedMethodCount() + this.implementedMethodTests() + this.passedMethodTests() + this.implementedDocumentation();
+            return this.implementedMethodCount() + this.implementedMethodTests() + this.implementedProperties() + this.passedMethodTests() + this.implementedJSFiddle() + this.implementedDocumentation();
         };
         this.totalItems = function () {
-            return this.totalMethods() + this.implementedMethodCount() + this.implementedMethodTestsTotal() + this.totalDocumentation();
+            return this.totalMethods() + this.implementedMethodCount() + this.totalProperties() + this.implementedMethodTestsTotal() + this.totalJSFiddle() + this.totalDocumentation();
         };
         this.uninitializedMethods = [];
-        this.requiredDocumentation = true;
-        this.requiredUnitTests = true;
         this.method = function (extName, method, details, extendPrototype, prefix) {
             if (extendPrototype === void 0) { extendPrototype = this.objectPrototype; }
             this.uninitializedMethods.push({
@@ -429,6 +530,12 @@ var SingularityModule = (function () {
                 prefix: prefix,
             });
             //    sing.method(this.name, extName, extendPrototype, method, details);
+        };
+        this.property = function (name, param) {
+            if (param === void 0) { param = {}; }
+            var thisModule = this;
+            param.name = name;
+            thisModule.properties.push(param);
         };
         this.ignoreUnknown = function () {
             var items = [];
@@ -739,9 +846,9 @@ var SingularityMethod = (function () {
                         if (!param.types || param.types.length == 0 || param.types.indexOf(Object) >= 0) {
                         }
                         else if (ext.auto.validateInput == true) {
-                            if ((typeof testArg).lower() == 'object' && typeNamesArray.contains('array') && testArg != null && testArg.length != null && testArg.concat != null) {
+                            if ((typeof testArg).lower() == 'object' && typeNamesArray.has('array') && testArg != null && testArg.length != null && testArg.concat != null) {
                             }
-                            else if (!typeNamesArray.contains(typeof testArg)) {
+                            else if (!typeNamesArray.has(typeof testArg)) {
                                 if (param.required == true) {
                                     throw ext.moduleName + '.' + ext.shortName + '  Parameter: ' + param.name + ': ' + $.toStr(testArg, true) + ' ' + (typeof testArg).lower() + ' did not match input type ' + $.toStr(typeNamesArray, true) + '.';
                                 }
@@ -857,6 +964,7 @@ var SingularityAutoDefinition = (function () {
 var sing = new Singularity();
 sing.globalResolve['sing'] = sing;
 var singRoot = sing.addModule(new SingularityModule('Singularity', [Singularity, sing]));
+singRoot.requiredJSFiddle = true;
 singRoot.method('addModule', sing.addModule);
 singRoot.method('totalCodeLines', SingularityTotalCodeLines);
 function SingularityTotalCodeLines() {
@@ -882,18 +990,15 @@ function SingularityLoadContext(context) {
     return context;
 }
 singRoot.method('resolveKey', SingularityResolveKey);
-function SingularityResolveKey(key, data, context) {
+function SingularityResolveKey(key, data, context, rootKey) {
+    if (context === void 0) { context = {}; }
+    if (rootKey === void 0) { rootKey = key; }
     var out = undefined;
     try {
         key = key || '';
         key = key.trim();
-        if (key == 'sing.tests.testErrors') {
-            key = key + '';
-            key = key + '';
-            key = key + '';
-            key = key + ' ';
-            key = key + '';
-        }
+        if (context['$data'] === undefined)
+            context['$data'] = data;
         // fill template, don't resolve;
         if (key.contains(' with '))
             return key;
@@ -913,21 +1018,21 @@ function SingularityResolveKey(key, data, context) {
         if (key.isBoolean())
             return key.toBoolean();
         // function notation, no arguments
-        if (key.hasMatch(/^([^\.\'\",\[\]\(\)]+)\(\)\.?(.*)/)) {
-            var methodName = key.match(/^([^\.\'\",\[\]\(\)]+)\(\)\.?(.*)/)[1];
-            var theRest = key.match(/^([^\.\'\",\[\]\(\)]+)\(\)\.?(.*)/)[2];
-            out = sing.resolveKey(methodName, data, context);
+        if (key.hasMatch(/^\.?([^\.\'\",\[\]\(\)]+)\(\)\.?(.*)/)) {
+            var methodName = key.match(/^\.?([^\.\'\",\[\]\(\)]+)\(\)\.?(.*)/)[1];
+            var theRest = key.match(/^\.?([^\.\'\",\[\]\(\)]+)\(\)\.?(.*)/)[2];
+            out = sing.resolveKey(methodName, data, context, rootKey);
             if (out == null || !out.apply) {
                 throw 'could not resolve ' + key;
             }
             var result = out.apply(data, []);
             if (theRest == null || theRest == '')
                 return result;
-            return sing.resolveKey(theRest, result, context);
+            return sing.resolveKey(theRest, result, context, rootKey);
         }
         // function notation, some arguments
-        if (key.hasMatch(/^([^\.\'\",\[\]\(\)]+)\((.+)\)\.?(.*)$/)) {
-            var match = key.match(/^([^\.\'\",\[\]\(\)]+)\((.+)\)\.?(.*)$/);
+        if (key.hasMatch(/^\.?([^\.\'\",\[\]\(\)]+)\((.+)\)\.?(.*)$/)) {
+            var match = key.match(/^\.?([^\.\'\",\[\]\(\)]+)\((.+)\)\.?(.*)$/);
             var methodName = match[1];
             var argsStr = match[2];
             var theRest = match[3];
@@ -937,8 +1042,8 @@ function SingularityResolveKey(key, data, context) {
                 if (theRest[0] == '(' && theRest[theRest.length - 1] == ')')
                     theRest = theRest.substr(1, theRest.length - 2);
             }
-            out = sing.resolveKey(methodName, data, context);
-            var args = sing.resolveKey(argsStr, data, context);
+            out = sing.resolveKey(methodName, data, context, rootKey);
+            var args = sing.resolveKey(argsStr, data, context, rootKey);
             if (!$.isArray(args))
                 args = [args];
             if (out == null || !out.apply) {
@@ -947,16 +1052,27 @@ function SingularityResolveKey(key, data, context) {
             var result = out.apply(data, args);
             if (theRest == null || theRest == '')
                 return result;
-            return sing.resolveKey(theRest, out, context);
+            return sing.resolveKey(theRest, out, context, rootKey);
         }
         // Array navigation
-        if (out === undefined && key.hasMatch(/^([^\.\'\",\[\]\(\)]+)\[(.+)\]\.?(.*)$/)) {
-            var match = key.match(/^([^\.\'\",\[\]\(\)]+)\[(.+)\]\.?(.*)$/);
+        if (out === undefined && key.hasMatch(/^\.?([^\.\'\",\[\]\(\)]+)\[(.+)\]\.?(.*)$/)) {
+            var match = key.match(/^\.?([^\.\'\",\[\]\(\)]+)\[(.+)\]\.?(.*)$/);
             var property = match[1];
-            var arrayIndex = match[2];
-            var theRest = match[3];
-            arrayIndex = sing.resolveKey(arrayIndex, data, context);
-            var propData = sing.resolveKey(property, data, context);
+            var theRest = key.after(property);
+            var arrayIndex = '';
+            var openBraceCount = 0;
+            var closeBraceCount = 0;
+            do {
+                arrayIndex += theRest[0];
+                if (theRest[0] == '[')
+                    openBraceCount++;
+                if (theRest[0] == ']')
+                    closeBraceCount++;
+                theRest = theRest.substr(1);
+            } while (openBraceCount != closeBraceCount && theRest.length > 0);
+            arrayIndex = arrayIndex.substr(1, arrayIndex.length - 2);
+            arrayIndex = sing.resolveKey(arrayIndex, data, context, rootKey);
+            var propData = sing.resolveKey(property, data, context, rootKey);
             if (!$.isDefined(propData)) {
                 throw 'could not resolve ' + key;
             }
@@ -966,17 +1082,17 @@ function SingularityResolveKey(key, data, context) {
             out = propData[arrayIndex];
             if (theRest == null || theRest == '')
                 return out;
-            return sing.resolveKey(theRest, out, context);
+            return sing.resolveKey(theRest, out, context, rootKey);
         }
         // Dot notation
-        if (key.hasMatch(/([^\.\'\",\[\]\(\)]+)\.(.*)$/)) {
+        if (key.hasMatch(/^\.?([^\.\'\",\[\]\(\)]+)\.(.*)$/)) {
             var keyParts = key.split('.');
-            var resolveFirst = sing.resolveKey(keyParts.shift(), data, context);
+            var resolveFirst = sing.resolveKey(keyParts.shift(), data, context, rootKey);
             if (!$.isDefined(resolveFirst) || resolveFirst == '') {
                 throw 'could not resolve ' + key;
             }
             data = resolveFirst;
-            out = sing.resolveKey(keyParts.join('.'), data, context);
+            out = sing.resolveKey(keyParts.join('.'), data, context, rootKey);
             //console.log('RESOLVE ' + key);
             return out;
         }
@@ -985,12 +1101,12 @@ function SingularityResolveKey(key, data, context) {
             var match = key.match(/^\[(.+)\](.*)$/);
             var arrayContents = match[1];
             var theRest = match[2];
-            arrayContents = sing.resolveKey(arrayContents, data, context);
+            arrayContents = sing.resolveKey(arrayContents, data, context, rootKey);
             if (!$.isArray(arrayContents))
                 arrayContents = [arrayContents];
             if (theRest == null || theRest == '')
                 return arrayContents;
-            out = sing.resolveKey(theRest, arrayContents, context);
+            out = sing.resolveKey(theRest, arrayContents, context, rootKey);
             return out;
         }
         // Non-escaped commas
@@ -1005,9 +1121,9 @@ function SingularityResolveKey(key, data, context) {
             if (!item || item == '')
                 item = data;
             else
-                item = sing.resolveKey(item, data, context);
+                item = sing.resolveKey(item, data, context, rootKey);
             var items = [item];
-            items = items.concat(sing.resolveKey(theRest, data, context));
+            items = items.concat(sing.resolveKey(theRest, data, context, rootKey));
             return items;
         }
         // Strings
@@ -1019,6 +1135,10 @@ function SingularityResolveKey(key, data, context) {
             }
         }
         var keyPart = key.before(' ');
+        // current data
+        if (keyPart == '$data') {
+            return context['$data'];
+        }
         if ($.isDefined(data))
             if (data[keyPart] !== undefined) {
                 out = data[keyPart];
@@ -1031,7 +1151,7 @@ function SingularityResolveKey(key, data, context) {
         }
         // available context of any object
         if (out === undefined && keyPart.endsWith('$context')) {
-            var itemContext = sing.resolveKey(keyPart.substr(0, keyPart.indexOf('$context')));
+            var itemContext = sing.resolveKey(keyPart.before('$context'), data, context, rootKey);
             var itemKeys = $.objKeys(data);
             return itemKeys.join(', ');
         }
@@ -1040,7 +1160,7 @@ function SingularityResolveKey(key, data, context) {
             var theRest = key.substr(2);
             var left = data;
             if ($.isEmpty(left) || left == false)
-                return sing.resolveKey(theRest, data, context);
+                return sing.resolveKey(theRest, data, context, rootKey);
             else
                 return left;
         }
@@ -1052,132 +1172,131 @@ function SingularityResolveKey(key, data, context) {
                 return false;
             }
             else {
-                var right = sing.resolveKey(theRest, data, context);
+                var right = sing.resolveKey(theRest, data, context, rootKey);
                 return true && !($.isEmpty(left) || left == false);
             }
         }
         else if (keyPart == '+') {
             var theRest = key.substr(1);
-            var resolved = sing.resolveKey(theRest, data, context);
+            var resolved = sing.resolveKey(theRest, data, context, rootKey);
             return (data + resolved);
         }
         else if (keyPart == '-') {
             var theRest = key.substr(1);
-            var resolved = sing.resolveKey(theRest, data, context);
+            var resolved = sing.resolveKey(theRest, data, context, rootKey);
             return (data - resolved);
         }
         else if (keyPart == '*') {
             var theRest = key.substr(1);
-            var resolved = sing.resolveKey(theRest, data, context);
+            var resolved = sing.resolveKey(theRest, data, context, rootKey);
             return (data * resolved);
         }
         else if (keyPart == '/') {
             var theRest = key.substr(1);
-            var resolved = sing.resolveKey(theRest, data, context);
+            var resolved = sing.resolveKey(theRest, data, context, rootKey);
             return (data / resolved);
         }
         else if (keyPart == '%') {
             var theRest = key.substr(1);
-            var resolved = sing.resolveKey(theRest, data, context);
+            var resolved = sing.resolveKey(theRest, data, context, rootKey);
             return (data % resolved);
         }
         else if (keyPart == '<<') {
             var theRest = key.substr(1);
-            var resolved = sing.resolveKey(theRest, data, context);
+            var resolved = sing.resolveKey(theRest, data, context, rootKey);
             return (data << resolved);
         }
         else if (keyPart == '>>') {
             var theRest = key.substr(1);
-            var resolved = sing.resolveKey(theRest, data, context);
+            var resolved = sing.resolveKey(theRest, data, context, rootKey);
             return (data >> resolved);
         }
         else if (keyPart == '^') {
             var theRest = key.substr(1);
-            var resolved = sing.resolveKey(theRest, data, context);
+            var resolved = sing.resolveKey(theRest, data, context, rootKey);
             return (data ^ resolved);
         }
         else if (keyPart == '&') {
             var theRest = key.substr(1);
-            var resolved = sing.resolveKey(theRest, data, context);
+            var resolved = sing.resolveKey(theRest, data, context, rootKey);
             return (data & resolved);
         }
         else if (keyPart == '|') {
             var theRest = key.substr(1);
-            var resolved = sing.resolveKey(theRest, data, context);
+            var resolved = sing.resolveKey(theRest, data, context, rootKey);
             return (data | resolved);
         }
         else if (keyPart == '===') {
             var theRest = key.substr(3);
-            var resolved = sing.resolveKey(theRest, data, context);
+            var resolved = sing.resolveKey(theRest, data, context, rootKey);
             return (data === resolved);
         }
         else if (keyPart == '!==') {
             var theRest = key.substr(3);
-            var resolved = sing.resolveKey(theRest, data, context);
+            var resolved = sing.resolveKey(theRest, data, context, rootKey);
             return (data !== resolved);
         }
         else if (keyPart == '==') {
             var theRest = key.substr(2);
-            var resolved = sing.resolveKey(theRest, data, context);
+            var resolved = sing.resolveKey(theRest, data, context, rootKey);
             return (data == resolved);
         }
         else if (keyPart == '!=') {
             var theRest = key.substr(2);
-            var resolved = sing.resolveKey(theRest, data, context);
+            var resolved = sing.resolveKey(theRest, data, context, rootKey);
             return (data != resolved);
         }
         else if (keyPart == '>=') {
             var theRest = key.substr(2);
-            var resolved = sing.resolveKey(theRest, data, context);
+            var resolved = sing.resolveKey(theRest, data, context, rootKey);
             return (data >= resolved);
         }
         else if (keyPart == '<=') {
             var theRest = key.substr(2);
-            var resolved = sing.resolveKey(theRest, data, context);
+            var resolved = sing.resolveKey(theRest, data, context, rootKey);
             return (data <= resolved);
         }
         else if (keyPart == '>') {
             var theRest = key.substr(1);
-            var resolved = sing.resolveKey(theRest, data, context);
+            var resolved = sing.resolveKey(theRest, data, context, rootKey);
             return (data > resolved);
         }
         else if (keyPart == '<') {
             var theRest = key.substr(1);
-            var resolved = sing.resolveKey(theRest, data, context);
+            var resolved = sing.resolveKey(theRest, data, context, rootKey);
             return (data < resolved);
         }
         else if (keyPart == '=') {
             var theRest = key.substr(1);
         }
-        // +=
-        // -=
-        // *=
-        // /=
-        // %=
-        // ++
-        // --
-        // ()
-        // !
-        // !()
-        // ? :
-        // current data
-        if (keyPart == '$data') {
-            return data;
-        }
     }
     catch (ex) {
-        throw ex;
+        if (key != rootKey)
+            throw ex;
+        else
+            error(ex);
     }
     if (out === undefined) {
         if (key.contains('||'))
-            out = sing.resolveKey(key.after('||'), data, context);
-        return '<error>could not resolve ' + key + '</error>';
+            out = sing.resolveKey(key.after('||'), data, context, rootKey);
+        return '<error>could not resolve ' + rootKey + '</error>';
     }
     return out;
 }
 singRoot.method('init', null);
 singRoot.method('ready', null);
-singRoot.ignoreUnknown('Module', 'Extension', 'AutoDefinition', 'getDocs', 'getMissing', 'getSummary');
+singRoot.property('summary', {});
+singRoot.property('defaultPolyfill', {});
+singRoot.property('modules', {});
+singRoot.property('methods', {});
+singRoot.property('templates', {});
+singRoot.property('func', {});
+singRoot.property('autoDefaults', {});
+singRoot.property('autoDefault', {});
+singRoot.property('types', {});
+singRoot.property('globalResolve', {});
+singRoot.property('templateShownFunctions', {});
+singRoot.ignoreUnknown('Module', 'Extension', 'AutoDefinition');
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var singCore = singRoot.addModule(new SingularityModule('Core', Singularity));
 singCore.ignoreUnknown('ALL');
@@ -1213,6 +1332,7 @@ function ModuleGetUnknownProperties() {
     if (thisModule.ignoreUnknownMembers.length == 1 && thisModule.ignoreUnknownMembers[0] == 'ALL')
         return [];
     var methods = (thisModule.methods || []).arrayValues('shortName');
+    var properties = (thisModule.properties || []).arrayValues('name');
     var keys = [];
     thisModule.trackObjects.collect(function (obj) {
         if (obj)
@@ -1225,7 +1345,7 @@ function ModuleGetUnknownProperties() {
             }));
     });
     return keys.select(function (name) {
-        return !methods.contains(name) && !thisModule.ignoreUnknownMembers.contains(name);
+        return !properties.has(name) && !methods.has(name) && !thisModule.ignoreUnknownMembers.has(name);
     });
 }
 singModule.method('getUnknownMethods', ModuleGetUnknownMethods);
@@ -1247,15 +1367,17 @@ function ModuleGetUnknownMethods() {
             }));
     });
     return keys.select(function (name) {
-        return !methods.contains(name) && !thisModule.ignoreUnknownMembers.contains(name);
+        return !methods.has(name) && !$.objValues(sing.methods).has(function (m) {
+            return m.shortName == name && m.methodModule.name != thisModule.name;
+        }) && !thisModule.ignoreUnknownMembers.has(name);
     });
 }
-singModule.method('property', null);
+singModule.method('property', singRoot.property);
 singModule.method('ignoreUnknown', singCore.ignoreUnknown);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var singMethod = singCore.addModule(new SingularityModule('Methods', [SingularityMethod, new SingularityMethod(null)]));
 var singExt = singRoot.addModule(new SingularityModule('Extensions', Singularity));
-$().init(function () {
+$(document).init(function () {
     sing.init();
 });
 var Direction = (function () {

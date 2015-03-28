@@ -18,6 +18,57 @@
   width: 100%;
   display: block;
 }
+.sing .wide .sing-progress-slider {
+  min-width: 400px;
+}
+.sing .no-text .sing-progress-slider b {
+  display: none;
+}
+.sing .ui-tabs {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+.sing .ui-tabs .ui-tabs-nav .sing-progress-slider {
+  width: 100%;
+  min-width: 50px;
+  height: 5px;
+  border: none;
+  display: block;
+}
+.sing .ui-tabs .ui-tabs-nav .sing-progress-slider .sing-progress-complete {
+  height: 5px;
+  border: none;
+}
+.sing .sing-progress-slider {
+  box-shadow: black 1px 1px 3px;
+  border: 1px solid;
+  border-radius: 5px;
+  display: inline-block;
+  position: relative;
+  color: #ffffff;
+  background-color: #890000;
+  margin-top: 2px;
+  min-width: 200px;
+  text-align: center;
+}
+.sing .sing-progress-slider .sing-progress-complete {
+  border: 1px solid;
+  border-radius: 5px;
+  background-color: #21762d;
+  height: 100%;
+  display: inline-block;
+  float: left;
+  position: absolute;
+  left: 0px;
+  z-index: 0;
+}
+.sing .sing-progress-slider b {
+  font-weight: normal;
+  display: inline-block;
+  min-width: 65%;
+  z-index: 1;
+  position: relative;
+}
 .sing [sing-template-name=method] .method-show-hide {
   position: relative;
   width: 40px;
