@@ -33,6 +33,7 @@ interface Array<T> {
 }
 declare var singNumber: SingularityModule;
 declare function NumberMax(...numbers: number[]): number;
+declare function NumberMin(...numbers: number[]): number;
 declare function NumberRound(decimalPlaces: number): number;
 declare function NumberPower(power: number): number;
 declare function NumberCeiling(decimalPlaces: number): number;

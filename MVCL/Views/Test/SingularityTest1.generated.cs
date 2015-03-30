@@ -247,47 +247,47 @@ WriteLiteral("\r\n<script type=\"text/javascript\">\r\n\r\n    sing.templateShow
 "op-inner=\"true\">\r\n            <div id=\"tabs-{{sub.name}}-{{sub$index}}\" style=\"d" +
 "isplay:none;\">\r\n                <div sing-fill=\"{{ Module with sub as module }}\"" +
 "></div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div sing-tem" +
-"plate=\"Method\">\r\n    <div sing-if=\"{{method.details}}\">\r\n        <hr />\r\n       " +
-" <div class=\"btn-info btn left method-show-hide\" click-fade-toggle=\".show-{{meth" +
-"od.name.toSlug()}}\">\r\n            <glyph class=\"show-{{method.name.toSlug()}}\">&" +
-"#x2b;</glyph>\r\n            <glyph class=\"show-{{method.name.toSlug()}}\" style=\" " +
-"display: none;\">&#x2212;</glyph>\r\n        </div>\r\n\r\n        <h3 sing-if=\"{{$.isD" +
-"efined(method.methodOriginal)}}\">{{method.shortName}}</h3>\r\n        <h3 sing-els" +
-"e><error>{{method.shortName}}</error></h3>\r\n\r\n        <div style=\"display:none;\"" +
-" class=\"show-{{method.name.toSlug()}}\">\r\n            <h4>{{method.methodCall}}</" +
-"h4>\r\n\r\n            <p sing-if=\"{{method.details.summary}}\">\r\n                <b>" +
-"Summary: </b>{{method.details.summary}}\r\n            </p>\r\n\r\n            <div si" +
-"ng-if=\"{{method.details.parameters}}\">\r\n                <b>Parameters:</b>\r\n\r\n  " +
-"              <ol>\r\n                    <li sing-loop=\"{{ param in method.detail" +
-"s.parameters }}\">\r\n                        <div sing-fill=\"{{ Parameter with par" +
-"am }}\"></div>\r\n                    </li>\r\n                </ol>\r\n            </d" +
-"iv>\r\n\r\n            <p sing-if=\"{{method.details.returns}}\">\r\n                <b>" +
-"Returns:</b>\r\n                {{method.returns}}\r\n            </p>\r\n            " +
-"<p sing-if=\"{{method.details.returnType}}\">\r\n                <b>Return Type:</b>" +
-"\r\n                {{sing.getTypeName(method.details.returnType)}}\r\n            <" +
-"/p>\r\n            <p sing-else><b>Returns:</b> Nothing.</p>\r\n\r\n            <div s" +
-"ing-if=\"{{$.isDefined(method.methodOriginal)}}\" class=\"method-view-code\">\r\n     " +
-"           <div class=\"btn-default btn method-code-show-hide\" click-fade-toggle=" +
-"\".code-{{method.name.toSlug()}}\">\r\n                    <span class=\"code-{{metho" +
-"d.name.toSlug()}}\" style=\"position:absolute;\">View Code...</span>\r\n             " +
-"       <span style=\"display: none;position:absolute;\" class=\"code-{{method.name." +
-"toSlug()}}\">Hide Code...</span>\r\n                </div>\r\n                <div st" +
-"yle=\"display: none;\" class=\"method-code code-{{method.name.toSlug()}}\">\r\n       " +
-"             <b style=\"margin-top: 40px;\">Source Code:</b>\r\n                    " +
-"<pre>{{method.methodOriginal.toString().textToHTML()}}</pre>\r\n                </" +
-"div>\r\n            </div>\r\n            <div sing-else>\r\n                <error>Me" +
-"thod is not implemented.</error>\r\n            </div>\r\n\r\n            <div sing-if" +
-"=\"{{ method.details.examples}}\">\r\n                <b>Examples:</b>\r\n            " +
-"    <pre sing-loop=\"{{ example in method.details.examples}}\">{{example}}</pre>\r\n" +
-"            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div sing-template=\"Pa" +
-"rameter\">\r\n    {{param$context}}\r\n    <div>Name: {{param.name}}</div>\r\n    <div " +
-"sing-if=\"{{param.types}}\">\r\n        Type:{{sing.getTypeName(param.types)}}\r\n    " +
-"</div>\r\n    <div sing-if=\"{{param.description}}\">\r\n        Description: {{param." +
-"description}}\r\n    </div>\r\n</div>\r\n\r\n<span sing-template=\"PercentSlider\">\r\n    <" +
-"span class=\"sing-progress-slider\">\r\n        <span class=\"sing-progress-complete\"" +
-" style=\"width: {{$data[0].percentOf($data[1])}}%;\">\r\n\r\n        </span>\r\n        " +
-"<b>\r\n            ({{ $data[0] }} / {{$data[1]}}) ({{ $data[0].percentOf($data[1]" +
-") }}%)\r\n        </b>\r\n    </span>\r\n</span>\r\n");
+"plate=\"Method\">\r\n    <div sing-if=\"{{ !method.isAlias }}\">\r\n        <hr />\r\n    " +
+"    <div class=\"btn-info btn left method-show-hide\" click-fade-toggle=\".show-{{m" +
+"ethod.name.toSlug()}}\">\r\n            <glyph class=\"show-{{method.name.toSlug()}}" +
+"\">&#x2b;</glyph>\r\n            <glyph class=\"show-{{method.name.toSlug()}}\" style" +
+"=\" display: none;\">&#x2212;</glyph>\r\n        </div>\r\n\r\n        <h3 sing-if=\"{{$." +
+"isDefined(method.methodOriginal)}}\">{{method.shortName}}</h3>\r\n        <h3 sing-" +
+"else><error>{{method.shortName}}</error></h3>\r\n\r\n        <div style=\"display:non" +
+"e;\" class=\"show-{{method.name.toSlug()}}\">\r\n            <h4>{{method.methodCall}" +
+"}</h4>\r\n\r\n            <p sing-if=\"{{method.details.summary}}\">\r\n                " +
+"<b>Summary: </b>{{method.details.summary}}\r\n            </p>\r\n\r\n            <div" +
+" sing-if=\"{{method.details.parameters}}\">\r\n                <b>Parameters:</b>\r\n\r" +
+"\n                <ol>\r\n                    <li sing-loop=\"{{ param in method.det" +
+"ails.parameters }}\">\r\n                        <div sing-fill=\"{{ Parameter with " +
+"param }}\"></div>\r\n                    </li>\r\n                </ol>\r\n            " +
+"</div>\r\n\r\n            <p sing-if=\"{{method.details.returns}}\">\r\n                " +
+"<b>Returns:</b>\r\n                {{method.returns}}\r\n            </p>\r\n         " +
+"   <p sing-if=\"{{method.details.returnType}}\">\r\n                <b>Return Type:<" +
+"/b>\r\n                {{sing.getTypeName(method.details.returnType)}}\r\n          " +
+"  </p>\r\n            <p sing-else><b>Returns:</b> Nothing.</p>\r\n\r\n            <di" +
+"v sing-if=\"{{$.isDefined(method.methodOriginal)}}\" class=\"method-view-code\">\r\n  " +
+"              <div class=\"btn-default btn method-code-show-hide\" click-fade-togg" +
+"le=\".code-{{method.name.toSlug()}}\">\r\n                    <span class=\"code-{{me" +
+"thod.name.toSlug()}}\" style=\"position:absolute;\">View Code...</span>\r\n          " +
+"          <span style=\"display: none;position:absolute;\" class=\"code-{{method.na" +
+"me.toSlug()}}\">Hide Code...</span>\r\n                </div>\r\n                <div" +
+" style=\"display: none;\" class=\"method-code code-{{method.name.toSlug()}}\">\r\n    " +
+"                <b style=\"margin-top: 40px;\">Source Code:</b>\r\n                 " +
+"   <pre>{{method.methodOriginal.toString().textToHTML()}}</pre>\r\n               " +
+" </div>\r\n            </div>\r\n            <div sing-else>\r\n                <error" +
+">Method is not implemented.</error>\r\n            </div>\r\n\r\n            <div sing" +
+"-if=\"{{ method.details.examples}}\">\r\n                <b>Examples:</b>\r\n         " +
+"       <pre sing-loop=\"{{ example in method.details.examples}}\">{{example}}</pre" +
+">\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div sing-template=" +
+"\"Parameter\">\r\n    {{param$context}}\r\n    <div>Name: {{param.name}}</div>\r\n    <d" +
+"iv sing-if=\"{{param.types}}\">\r\n        Type:{{sing.getTypeName(param.types)}}\r\n " +
+"   </div>\r\n    <div sing-if=\"{{param.description}}\">\r\n        Description: {{par" +
+"am.description}}\r\n    </div>\r\n</div>\r\n\r\n<span sing-template=\"PercentSlider\">\r\n  " +
+"  <span class=\"sing-progress-slider\">\r\n        <span class=\"sing-progress-comple" +
+"te\" style=\"width: {{$data[0].percentOf($data[1])}}%;\">\r\n\r\n        </span>\r\n     " +
+"   <b>\r\n            ({{ $data[0] }} / {{$data[1]}}) ({{ $data[0].percentOf($data" +
+"[1]) }}%)\r\n        </b>\r\n    </span>\r\n</span>\r\n");
 
 
         }

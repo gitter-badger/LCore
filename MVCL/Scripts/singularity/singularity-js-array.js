@@ -69,13 +69,14 @@ singArray.method('unique', ArrayUnique, {
     examples: null,
     aliases: ['removeDuplicates'],
     tests: function (ext) {
+        ext.addTest([], [], []);
+        ext.addTest([null, undefined], [], []);
+        ext.addTest([1, 2, 3], [], [1, 2, 3]);
+        ext.addTest([1, 2, 3, 1, 2, 3], [], [1, 2, 3]);
+        ext.addTest([1, 2, 3, 'a', 'b', 'c', 1, 2, 3, 'a', 'b', 'c'], [], [1, 2, 3, 'a', 'b', 'c']);
     },
 });
 function ArrayUnique() {
-    var indexes = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        indexes[_i - 0] = arguments[_i];
-    }
     var thisArray = this;
     var out = [];
     thisArray.each(function (item, index) {
@@ -91,6 +92,17 @@ singArray.method('random', ArrayRandom, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addCustomTest(function () {
+            var test = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+            var test2 = test.random();
+            var test3 = test.random(5);
+            if (!test.has(test2))
+                return 'failed';
+            if (test3.has(function (a) {
+                return !test.has(a);
+            }))
+                return 'failed';
+        });
     },
 });
 function ArrayRandom(count) {
@@ -114,6 +126,16 @@ singArray.method('shuffle', ArrayShuffle, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addCustomTest(function () {
+            var test = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+            var test2 = test.shuffle();
+            if (test == test2 || test2.length != test.length)
+                return 'failed';
+            if (test2.has(function (a) {
+                return !test.has(a);
+            }))
+                return 'failed';
+        });
     },
 });
 function ArrayShuffle() {
@@ -126,7 +148,20 @@ function ArrayShuffle() {
     }
     return out;
 }
-singArray.method('group', ArrayGroup, {});
+singArray.method('group', ArrayGroup, {
+    tests: function (ext) {
+        ext.addTest([], [], []);
+        ext.addTest([], [null], []);
+        ext.addTest([1, 2, 3], [function (a) {
+        }], { '': [1, 2, 3] });
+        ext.addTest([1, 2, 3], [function (a) {
+            return 'group' + a;
+        }], { group1: [1], group2: [2], group3: [3] });
+        ext.addTest([1, 2, 2, 3], [function (a) {
+            return 'group' + a;
+        }], { group1: [1], group2: [2, 2], group3: [3] });
+    },
+});
 function ArrayGroup(keyFunc) {
     var thisArray = this;
     var out = {};

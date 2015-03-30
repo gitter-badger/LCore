@@ -25,9 +25,9 @@ var SingularityTest = (function () {
             if (this.testResult == null)
                 this.testResult = true;
             if (this.testResult !== true && this.testResult !== undefined && this.testResult !== null) {
-                this.testResult = name + ' ' + this.testResult;
-                if (!sing.tests.testErrors.has(name + ' ' + this.testResult))
-                    sing.tests.testErrors.push(name + ' ' + this.testResult);
+                this.testResult = name + ' ' + this.testResult + ' ' + this.requirement;
+                if (!sing.tests.testErrors.has(this.testResult))
+                    sing.tests.testErrors.push(this.testResult);
             }
             return this.testResult;
         };

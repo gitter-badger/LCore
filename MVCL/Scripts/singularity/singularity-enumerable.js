@@ -461,6 +461,16 @@ singEnumerable.method('range', EnumerableRange, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest([], [], []);
+        ext.addTest([], [0, 1], []);
+        ext.addTest([], [null], []);
+        ext.addTest([], [undefined], []);
+        ext.addTest([1, 2, 3, 4, 5], [0, 1], [1, 2]);
+        ext.addTest([1, 2, 3, 4, 5], [0, 1, null], [1, 2]);
+        ext.addTest([1, 2, 3, 4, 5], [0, 1, undefined], [1, 2]);
+        ext.addTest([1, 2, 3, 4, 5], [0, 4], [1, 2, 3, 4, 5]);
+        ext.addTest([1, 2, 3, 4, 5], [3, 4], [4, 5]);
+        ext.addTest([1, 2, 3, 4, 5], [4, 3], []);
     },
 });
 function EnumerableRange(start, end) {
@@ -469,8 +479,8 @@ function EnumerableRange(start, end) {
     if (!this || start > end)
         return [];
     var out = [];
-    for (var i = start; i < end; i++) {
-        out = out.concat(this[i]);
+    for (var i = start; i <= end && i >= 0 && i < this.length; i++) {
+        out.push(this[i]);
     }
     return out;
 }
@@ -481,6 +491,12 @@ singEnumerable.method('flatten', EnumerableFlatten, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest([], [], []);
+        ext.addTest([1], [], [1]);
+        ext.addTest([1, 2, 3], [], [1, 2, 3]);
+        ext.addTest([1, 2, [3, 4, 5]], [], [1, 2, 3, 4, 5]);
+        ext.addTest([1, 2, [3, 4, [5, 6, 7, 8]]], [], [1, 2, 3, 4, 5, 6, 7, 8]);
+        ext.addTest([[[1, 2, 3], 4], 5, 6, 7, 8], [], [1, 2, 3, 4, 5, 6, 7, 8]);
     },
 });
 function EnumerableFlatten() {
@@ -490,9 +506,9 @@ function EnumerableFlatten() {
     var out = [];
     thisArray.each(function (item, i) {
         if ($.isArray(item))
-            out.concat(item.flatten());
+            out = out.concat(item.flatten());
         else
-            out.concat(item);
+            out.push(item);
     });
     return out;
 }
@@ -554,12 +570,24 @@ singEnumerable.method('remove', EnumerableRemove, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest([], [], []);
+        ext.addTest([], [null], []);
+        ext.addTest([null, undefined], [null], []);
+        ext.addTest([], [undefined], []);
+        ext.addTest([null, undefined], [undefined], []);
+        ext.addTest([null, undefined], [], []);
+        ext.addTest([], [1], []);
+        ext.addTest([1], [1], []);
+        ext.addTest([1, 2], [1], [2]);
+        ext.addTest([1, 2], [[1, 2]], []);
+        ext.addTest([1, 2], [[1, 2, null]], []);
+        ext.addTest([1, 2], [[1, 2, undefined]], []);
     },
 });
 function EnumerableRemove(itemOrItemsOrFunction) {
     var thisArray = this;
     if (!itemOrItemsOrFunction)
-        return thisArray;
+        return thisArray.collect();
     if ($.isArray(itemOrItemsOrFunction)) {
         var itemArray = itemOrItemsOrFunction;
         return thisArray.select(function (item, i) {
@@ -571,7 +599,7 @@ function EnumerableRemove(itemOrItemsOrFunction) {
         return thisArray.select(itemFunction.fn_not());
     }
     return thisArray.select(function (item, i) {
-        return item == itemOrItemsOrFunction;
+        return item != itemOrItemsOrFunction;
     });
 }
 singEnumerable.method('sortBy', EnumerableSortBy, {
@@ -582,6 +610,20 @@ singEnumerable.method('sortBy', EnumerableSortBy, {
     examples: null,
     aliases: ['orderBy'],
     tests: function (ext) {
+        ext.addTest([], [], []);
+        ext.addTest(['a', 'b', 'c', 'd', 'e'], [], ['a', 'b', 'c', 'd', 'e']);
+        ext.addTest(['e', 'd', 'c', 'b', 'a'], [], ['a', 'b', 'c', 'd', 'e']);
+        ext.addTest(['d', 'a', 'c', 'e', 'b'], [], ['a', 'b', 'c', 'd', 'e']);
+        ext.addTest(['bananas', 'apples', 'apple pie', 'apple', 'pears', 'grapefruit', 'eggs'], [], ['apple', 'apples', 'apple pie', 'bananas', 'eggs', 'pears', 'grapefruit']);
+        ext.addTest(['bananas', 'apples', 'apple pie', 'apple', 'pears', 'grapefruit', 'eggs'], ['length'], ['eggs', 'apple', 'pears', 'apples', 'apple pie', 'bananas', 'grapefruit']);
+        ext.addTest([{ name: 'frank', age: 111 }, { name: 'steve', age: 12 }, { name: 'bob', age: 52 }], ['name'], [{ name: 'bob', age: 52 }, { name: 'frank', age: 111 }, { name: 'steve', age: 12 }]);
+        ext.addTest([{ name: 'frank', age: 111 }, { name: 'steve', age: 12 }, { name: 'bob', age: 52 }], ['age'], [{ name: 'steve', age: 12 }, { name: 'bob', age: 52 }, { name: 'frank', age: 111 }]);
+        ext.addTest([{ name: 'frank', age: 111 }, { name: 'steve', age: 12 }, { name: 'bob', age: 52 }], [function (a) {
+            return a.name;
+        }], [{ name: 'bob', age: 52 }, { name: 'frank', age: 111 }, { name: 'steve', age: 12 }]);
+        ext.addTest([{ name: 'frank', age: 111 }, { name: 'steve', age: 12 }, { name: 'bob', age: 52 }], [function (a) {
+            return a.age;
+        }], [{ name: 'steve', age: 12 }, { name: 'bob', age: 52 }, { name: 'frank', age: 111 }]);
     },
 });
 function EnumerableSortBy(arg) {
@@ -631,6 +673,18 @@ singEnumerable.method('quickSort', EnumerableQuickSort, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest([], [], []);
+        ext.addTest(['a', 'b', 'c', 'd', 'e'], [], ['a', 'b', 'c', 'd', 'e']);
+        ext.addTest(['e', 'd', 'c', 'b', 'a'], [], ['a', 'b', 'c', 'd', 'e']);
+        ext.addTest(['d', 'a', 'c', 'e', 'b'], [], ['a', 'b', 'c', 'd', 'e']);
+        ext.addTest(['bananas', 'apples', 'apple pie', 'apple', 'pears', 'grapefruit', 'eggs'], [], ['apple', 'apples', 'apple pie', 'bananas', 'eggs', 'pears', 'grapefruit']);
+        ext.addTest([5, 4, 3, 2, 1], [], [1, 2, 3, 4, 5]);
+        ext.addCustomTest(function () {
+            var test = [1, 2, 3, 4, 5];
+            ['d', 'a', 'c', 'e', 'b'].quickSort([test]);
+            if (test != [1, 2, 3, 4, 5])
+                return 'test failed.';
+        });
     },
 });
 function EnumerableQuickSort(sortWith, left, right) {
@@ -751,20 +805,16 @@ singEnumerable.method('timesDo', EnumerableTimesDo, {
     examples: ['\
             (5).timesDo(function() { alert(\'hi\'); });'],
     tests: function (ext) {
-        /* TODO: FIX timesDo is causing a stack overflow
-
         ext.addCustomTest(function () {
             var test = 0;
-            (5).timesDo(function () { test++; });
-
+            (5).timesDo(function () {
+                test++;
+            });
             if (test != 5)
                 return false;
         }, 'Must execute the function the correct number of times.');
-        
-        ext.addTest(1, [null], undefined, 'Passing a null function does nothing.');
-        ext.addTest(1, [undefined], undefined, 'Passing an undefined function does nothing.');
-
-        */
+        ext.addFailsTest(1, [null], undefined, 'Singularity.Extensions.Enumerable.timesDo Missing Parameter: function executeFunc');
+        ext.addFailsTest(1, [undefined], undefined, 'Singularity.Extensions.Enumerable.timesDo Missing Parameter: function executeFunc');
         ext.addTest(5, [sing.func.increment, [5]], [6, 6, 6, 6, 6]);
     },
 }, Number.prototype);

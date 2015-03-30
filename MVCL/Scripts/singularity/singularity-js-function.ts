@@ -2,7 +2,9 @@
 
 interface Function {
     fn_try?: <T>(logFailure?: boolean) => (...items: any[]) => T;
-    fn_catch?: <T>(catchFunction?: Function, logFailure?: boolean) => (...items: any[]) => T;
+
+    fn_catch(catchFunction?: (ex: any) => void, logFailure?: boolean): Function;
+    fn_catch<T>(catchFunction?: (ex: any) => void, logFailure?: boolean): (...items: any[]) => T;
 
     fn_log?: <T>(logAttempt?: boolean, logSuccess?: boolean, logFailure?: boolean) => (...items: any[]) => T;
     fn_time?: <T>() => (...items: any[]) => T;
@@ -55,11 +57,17 @@ singFunction.method('fn_try', FunctionTry,
         returnType: Function,
         examples: null,
         tests: function (ext) {
+
+            ext.addCustomTest(function () {
+                (function () {
+                    throw 'fail';
+                }).fn_try()();
+            });
         },
     });
 
 function FunctionTry() {
-    var source = this;
+    var source = <Function>this;
     // Redirects to catch with no catchFunction
     return source.fn_catch();
 }
@@ -72,6 +80,19 @@ singFunction.method('fn_catch', FunctionCatch,
         returnType: Function,
         examples: null,
         tests: function (ext) {
+            ext.addCustomTest(function () {
+
+                var test = '';
+
+                (function () {
+                    throw 'fail';
+                }).fn_catch(function (ex) {
+                    test = ex;
+                })();
+
+                if (test != 'fail')
+                    return 'failed';
+            });
         },
     });
 
@@ -105,8 +126,7 @@ singFunction.method('fn_log', FunctionLog,
         returns: '',
         returnType: Function,
         examples: null,
-        tests: function (ext) {
-        },
+        manuallyTested: true,
     });
 
 function FunctionLog(logAttempt: boolean = true, logSuccess: boolean = true, logFailure: boolean = true) {
@@ -147,8 +167,7 @@ singFunction.method('fn_count', FunctionCount,
         returns: '',
         returnType: Function,
         examples: null,
-        tests: function (ext) {
-        },
+        manuallyTested: false,
     });
 
 function FunctionCount(logFailure: boolean = false) {
@@ -182,8 +201,7 @@ singFunction.method('fn_cache', FunctionCache,
         returns: '',
         returnType: Function,
         examples: null,
-        tests: function (ext) {
-        },
+        manuallyTested: true,
     });
 
 function FunctionCache(uniqueCacheID: string, expiresAfter: number = 0) {
@@ -247,6 +265,17 @@ singFunction.method('fn_or', FunctionOR,
         returnType: Function,
         examples: null,
         tests: function (ext) {
+            ext.addCustomTest(function () {
+
+                var fn_test = (function (a: number) {
+                    return a > 5;
+                }).fn_or((function (a: number) {
+                    return a < 0;
+                }));
+
+                if (!fn_test(-50) || !fn_test(50) || fn_test(2))
+                    return 'failed';
+            });
         },
     });
 
@@ -272,6 +301,28 @@ singFunction.method('fn_if', FunctionIf,
         returnType: Function,
         examples: null,
         tests: function (ext) {
+            ext.addCustomTest(function () {
+
+                var a = 0;
+
+                var fn_test = (function () {
+                    a++;
+                }).fn_if((function (a: any) {
+                    return a == 'GO';
+                }));
+
+                fn_test('NO')
+
+                if (a != 0)
+                    return 'failed';
+
+                fn_test('GO')
+                fn_test('GO')
+                fn_test('GO')
+
+                if (a != 3)
+                    return 'failed';
+            });
         },
     });
 
@@ -295,6 +346,28 @@ singFunction.method('fn_unless', FunctionUnless,
         returnType: Function,
         examples: null,
         tests: function (ext) {
+            ext.addCustomTest(function () {
+
+                var a = 0;
+
+                var fn_test = (function () {
+                    a++;
+                }).fn_unless((function (a: any) {
+                    return a == 'NO';
+                }));
+
+                fn_test('NO')
+
+                if (a != 0)
+                    return 'failed';
+
+                fn_test('GO')
+                fn_test('GO')
+                fn_test('GO')
+
+                if (a != 3)
+                    return 'failed';
+            });
         },
     });
 
@@ -318,6 +391,39 @@ singFunction.method('fn_then', FunctionThen,
         returnType: Function,
         examples: null,
         tests: function (ext) {
+
+            ext.addCustomTest(function () {
+
+                var test: any = 0;
+
+                var fn_test = (function () {
+                    test++;
+                }).fn_then((function () {
+                    test += 'test';
+                }));
+
+                fn_test();
+
+                if (test != '1test')
+                    return 'failed';
+            });
+
+            ext.addCustomTest(function () {
+
+                var test: any = 0;
+
+                var fn_test = (function (test: any) {
+                    return ++test;
+                }).fn_then((function (test: any) {
+                    test += 'test';
+                }));
+
+                fn_test(test);
+
+                if (test != '1test')
+                    return 'failed';
+            });
+
         },
     });
 

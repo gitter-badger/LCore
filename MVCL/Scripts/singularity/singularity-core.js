@@ -396,6 +396,8 @@ var SingularityModule = (function () {
             var out = (thisModule.methods || []).count(function (m) {
                 if (m.isAlias)
                     return false;
+                if (m.details.manuallyTested !== undefined)
+                    return true;
                 if (m.details.unitTests)
                     return (m.details.unitTests.length > 0);
                 return false;
@@ -469,6 +471,8 @@ var SingularityModule = (function () {
             var out = (thisModule.methods || []).count(function (m) {
                 if (m.isAlias)
                     return false;
+                if (m.details.manuallyTested == true)
+                    return true;
                 if (m.details.unitTests)
                     return m.details.unitTests.count(function (test) {
                         if (test.testResult === undefined)
@@ -488,6 +492,8 @@ var SingularityModule = (function () {
             var out = (thisModule.methods || []).count(function (m) {
                 if (m.isAlias)
                     return false;
+                if (m.details.manuallyTested !== undefined)
+                    return true;
                 if (m.details.unitTests)
                     return m.details.unitTests.length;
                 return 0;
@@ -1032,6 +1038,11 @@ function SingularityResolveKey(key, data, context, rootKey) {
         if (key == '{}') {
             return {};
         }
+        var negateOutput = false;
+        if (key.length > 2 && key[0] == '!' && key[1] != '!') {
+            negateOutput = true;
+            key = key.substr(1);
+        }
         // Numbers
         if (key.isNumeric())
             return key.toNumber();
@@ -1098,6 +1109,8 @@ function SingularityResolveKey(key, data, context, rootKey) {
             var result = out.apply(data, []);
             if (theRest == null || theRest == '')
                 return result;
+            if (negateOutput)
+                result = !result;
             return sing.resolveKey(theRest, result, context, rootKey);
         }
         // function notation, some arguments
@@ -1120,6 +1133,8 @@ function SingularityResolveKey(key, data, context, rootKey) {
                 throw 'could not resolve ' + rootKey;
             }
             var result = out.apply(data, args);
+            if (negateOutput)
+                result = !result;
             if (theRest == null || theRest == '')
                 return result;
             return sing.resolveKey(theRest, out, context, rootKey);
@@ -1150,6 +1165,8 @@ function SingularityResolveKey(key, data, context, rootKey) {
                 throw property + ' was not an array';
             }
             out = propData[arrayIndex];
+            if (negateOutput)
+                out = !out;
             if (theRest == null || theRest == '')
                 return out;
             return sing.resolveKey(theRest, out, context, rootKey);
@@ -1164,6 +1181,8 @@ function SingularityResolveKey(key, data, context, rootKey) {
             data = resolveFirst;
             out = sing.resolveKey(keyParts.join('.'), data, context, rootKey);
             //console.log('RESOLVE ' + key);
+            if (negateOutput)
+                out = !out;
             return out;
         }
         // Array creation

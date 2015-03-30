@@ -156,6 +156,7 @@ interface SingularityMethodDetails {
     override?: boolean;
     auto?: SingularityAutoDefinition;
     parameters?: SingularityParameter[];
+    manuallyTested?: boolean;
     tests?: (ext: SingularityMethod) => void;
     unitTests?: SingularityTest[];
     jsFiddleLinks?: Hash<String>;

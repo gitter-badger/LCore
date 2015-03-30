@@ -11,6 +11,11 @@ singFunction.method('fn_try', FunctionTry, {
     returnType: Function,
     examples: null,
     tests: function (ext) {
+        ext.addCustomTest(function () {
+            (function () {
+                throw 'fail';
+            }).fn_try()();
+        });
     },
 });
 function FunctionTry() {
@@ -25,6 +30,16 @@ singFunction.method('fn_catch', FunctionCatch, {
     returnType: Function,
     examples: null,
     tests: function (ext) {
+        ext.addCustomTest(function () {
+            var test = '';
+            (function () {
+                throw 'fail';
+            }).fn_catch(function (ex) {
+                test = ex;
+            })();
+            if (test != 'fail')
+                return 'failed';
+        });
     },
 });
 function FunctionCatch(catchFunction, logFailure) {
@@ -52,8 +67,7 @@ singFunction.method('fn_log', FunctionLog, {
     returns: '',
     returnType: Function,
     examples: null,
-    tests: function (ext) {
-    },
+    manuallyTested: true,
 });
 function FunctionLog(logAttempt, logSuccess, logFailure) {
     if (logAttempt === void 0) { logAttempt = true; }
@@ -86,8 +100,7 @@ singFunction.method('fn_count', FunctionCount, {
     returns: '',
     returnType: Function,
     examples: null,
-    tests: function (ext) {
-    },
+    manuallyTested: false,
 });
 function FunctionCount(logFailure) {
     if (logFailure === void 0) { logFailure = false; }
@@ -115,8 +128,7 @@ singFunction.method('fn_cache', FunctionCache, {
     returns: '',
     returnType: Function,
     examples: null,
-    tests: function (ext) {
-    },
+    manuallyTested: true,
 });
 function FunctionCache(uniqueCacheID, expiresAfter) {
     if (expiresAfter === void 0) { expiresAfter = 0; }
@@ -161,6 +173,15 @@ singFunction.method('fn_or', FunctionOR, {
     returnType: Function,
     examples: null,
     tests: function (ext) {
+        ext.addCustomTest(function () {
+            var fn_test = (function (a) {
+                return a > 5;
+            }).fn_or((function (a) {
+                return a < 0;
+            }));
+            if (!fn_test(-50) || !fn_test(50) || fn_test(2))
+                return 'failed';
+        });
     },
 });
 function FunctionOR(orFunc) {
@@ -178,6 +199,22 @@ singFunction.method('fn_if', FunctionIf, {
     returnType: Function,
     examples: null,
     tests: function (ext) {
+        ext.addCustomTest(function () {
+            var a = 0;
+            var fn_test = (function () {
+                a++;
+            }).fn_if((function (a) {
+                return a == 'GO';
+            }));
+            fn_test('NO');
+            if (a != 0)
+                return 'failed';
+            fn_test('GO');
+            fn_test('GO');
+            fn_test('GO');
+            if (a != 3)
+                return 'failed';
+        });
     },
 });
 function FunctionIf(ifFunc) {
@@ -199,6 +236,22 @@ singFunction.method('fn_unless', FunctionUnless, {
     returnType: Function,
     examples: null,
     tests: function (ext) {
+        ext.addCustomTest(function () {
+            var a = 0;
+            var fn_test = (function () {
+                a++;
+            }).fn_unless((function (a) {
+                return a == 'NO';
+            }));
+            fn_test('NO');
+            if (a != 0)
+                return 'failed';
+            fn_test('GO');
+            fn_test('GO');
+            fn_test('GO');
+            if (a != 3)
+                return 'failed';
+        });
     },
 });
 function FunctionUnless(ifFunc) {
@@ -220,6 +273,28 @@ singFunction.method('fn_then', FunctionThen, {
     returnType: Function,
     examples: null,
     tests: function (ext) {
+        ext.addCustomTest(function () {
+            var test = 0;
+            var fn_test = (function () {
+                test++;
+            }).fn_then((function () {
+                test += 'test';
+            }));
+            fn_test();
+            if (test != '1test')
+                return 'failed';
+        });
+        ext.addCustomTest(function () {
+            var test = 0;
+            var fn_test = (function (test) {
+                return ++test;
+            }).fn_then((function (test) {
+                test += 'test';
+            }));
+            fn_test(test);
+            if (test != '1test')
+                return 'failed';
+        });
     },
 });
 function FunctionThen(ifFunc) {

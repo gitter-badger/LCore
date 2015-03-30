@@ -1,7 +1,8 @@
 /// <reference path="singularity-core.d.ts" />
 interface Function {
     fn_try?: <T>(logFailure?: boolean) => (...items: any[]) => T;
-    fn_catch?: <T>(catchFunction?: Function, logFailure?: boolean) => (...items: any[]) => T;
+    fn_catch(catchFunction?: (ex: any) => void, logFailure?: boolean): Function;
+    fn_catch<T>(catchFunction?: (ex: any) => void, logFailure?: boolean): (...items: any[]) => T;
     fn_log?: <T>(logAttempt?: boolean, logSuccess?: boolean, logFailure?: boolean) => (...items: any[]) => T;
     fn_time?: <T>() => (...items: any[]) => T;
     fn_count?: <T>(logFailure?: boolean) => (...items: any[]) => T;
@@ -28,7 +29,7 @@ interface Function {
     fn_not(): Function;
 }
 declare var singFunction: SingularityModule;
-declare function FunctionTry(): any;
+declare function FunctionTry(): Function;
 declare function FunctionCatch(catchFunction: Function, logFailure?: boolean): Function;
 declare function FunctionLog(logAttempt?: boolean, logSuccess?: boolean, logFailure?: boolean): () => any;
 declare function FunctionCount(logFailure?: boolean): () => any;

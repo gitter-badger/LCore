@@ -106,10 +106,15 @@ singArray.method('unique', ArrayUnique,
         examples: null,
         aliases: ['removeDuplicates'],
         tests: function (ext) {
+            ext.addTest([], [], []);
+            ext.addTest([null, undefined], [], []);
+            ext.addTest([1, 2, 3], [], [1, 2, 3]);
+            ext.addTest([1, 2, 3, 1, 2, 3], [], [1, 2, 3]);
+            ext.addTest([1, 2, 3, 'a', 'b', 'c', 1, 2, 3, 'a', 'b', 'c'], [], [1, 2, 3, 'a', 'b', 'c']);
         },
     });
 
-function ArrayUnique<T>(...indexes: number[]): T[] {
+function ArrayUnique<T>(): T[] {
 
     var thisArray = <T[]>this;
 
@@ -131,6 +136,20 @@ singArray.method('random', ArrayRandom,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            ext.addCustomTest(function () {
+
+                var test = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+
+                var test2 = test.random();
+
+                var test3 = test.random(5);
+
+                if (!test.has(test2))
+                    return 'failed';
+
+                if ((<number[]>test3).has(function (a) { return !test.has(a); }))
+                    return 'failed';
+            })
         },
     });
 
@@ -163,6 +182,18 @@ singArray.method('shuffle', ArrayShuffle,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            ext.addCustomTest(function () {
+
+                var test = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+
+                var test2 = test.shuffle();
+
+                if (test == test2 || test2.length != test.length)
+                    return 'failed';
+
+                if (test2.has(function (a) { return !test.has(a); }))
+                    return 'failed';
+            });
         },
     });
 
@@ -186,6 +217,14 @@ function ArrayShuffle<T>(): T[] {
 
 singArray.method('group', ArrayGroup,
     {
+        tests: function (ext) {
+            ext.addTest([], [], []);
+            ext.addTest([], [null], []);
+
+            ext.addTest([1, 2, 3], [function (a: any) { }], { '': [1, 2, 3] });
+            ext.addTest([1, 2, 3], [function (a: any) { return 'group' + a; }], { group1: [1], group2: [2], group3: [3] });
+            ext.addTest([1, 2, 2, 3], [function (a: any) { return 'group' + a; }], { group1: [1], group2: [2, 2], group3: [3] });
+        },
     });
 
 function ArrayGroup<T>(keyFunc: (item: T, index: number) => string): Hash<T[]> {

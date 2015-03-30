@@ -17,7 +17,7 @@ interface JQueryStatic {
 declare var singArray: SingularityModule;
 declare function SplitAt<T>(...indexes: number[]): T[][];
 declare function ArrayRemoveAt<T>(...indexes: number[]): T[];
-declare function ArrayUnique<T>(...indexes: number[]): T[];
+declare function ArrayUnique<T>(): T[];
 declare function ArrayRandom<T>(count?: number): T[];
 declare function ArrayShuffle<T>(): T[];
 declare function ArrayGroup<T>(keyFunc: (item: T, index: number) => string): Hash<T[]>;

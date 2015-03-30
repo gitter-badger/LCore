@@ -49,7 +49,7 @@ var singNumber = singExt.addModule(new sing.Module("Number", Number));
 singNumber.summaryShort = 'Extensions on Number.prototype and others';
 singNumber.summaryLong = '&nbsp;';
 
-singNumber.features = ['Math object extensions: max, round, pow, ceil, floor, abs',
+singNumber.features = ['Math object extensions: max, min, round, pow, ceil, floor, abs',
     'Friendly file sizes: formatFileSize',
     'String extensions: isNumeric, isInteger, toNumber, toInteger',
     'Number array extensions: total, average',
@@ -98,6 +98,45 @@ function NumberMax(...numbers: number[]): number {
     numbers = numbers.collect();
 
     return Math.max.apply(null, numbers);
+}
+
+singNumber.method('min', NumberMin,
+    {
+        summary: 'Compares multiple Numbers to find the smallest.',
+        parameters: [
+            {
+                name: 'Arguments',
+                types: [Object],
+                description: 'pass multiple arguments to compare them all to find the smallest'
+            }
+        ],
+        returns: 'The smallest Number of all arguments and the calling Number',
+        returnType: Number,
+        examples: ['\
+            (1).min(2);              // = 1 \r\n\
+            (1).min(2,3,4,5);        // = 1 \r\n\
+            (1.00025).min(1.00026);  // = 1.00025 \r\n\
+            '],
+        tests: function (ext) {
+
+            ext.addTest(100, [200], 200);
+            ext.addTest(0, [1, 2, 3, 4, 5], 5);
+            ext.addTest(10, [1, 2, 3, 4, 5], 10);
+            ext.addTest(4.26354, [4.26355], 4.26355);
+
+            ext.addTest(100, [], 100);
+            ext.addTest(100, [null], 100);
+            ext.addTest(100, [undefined], 100);
+        },
+    });
+
+function NumberMin(...numbers: number[]): number {
+
+    numbers.push(this)
+
+    numbers = numbers.collect();
+
+    return Math.min.apply(null, numbers);
 }
 
 singNumber.method('round', NumberRound,

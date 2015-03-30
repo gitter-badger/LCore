@@ -491,6 +491,8 @@ class SingularityModule {
         var out = (thisModule.methods || []).count(function (m) {
             if (m.isAlias)
                 return false;
+            if (m.details.manuallyTested !== undefined)
+                return true;
             if (m.details.unitTests)
                 return (m.details.unitTests.length > 0);
             return false;
@@ -599,6 +601,8 @@ class SingularityModule {
         var out = (thisModule.methods || []).count(function (m) {
             if (m.isAlias)
                 return false;
+            if (m.details.manuallyTested == true)
+                return true;
             if (m.details.unitTests)
                 return m.details.unitTests.count(function (test) {
                     if (test.testResult === undefined)
@@ -625,6 +629,8 @@ class SingularityModule {
         var out = (thisModule.methods || []).count(function (m) {
             if (m.isAlias)
                 return false;
+            if (m.details.manuallyTested !== undefined)
+                return true;
             if (m.details.unitTests)
                 return m.details.unitTests.length;
             return 0;
@@ -1348,6 +1354,9 @@ interface SingularityMethodDetails {
 
     parameters?: SingularityParameter[];
 
+
+    manuallyTested?: boolean;
+
     tests?: (ext: SingularityMethod) => void;
 
     unitTests?: SingularityTest[];
@@ -1509,6 +1518,12 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
             return {};
         }
 
+        var negateOutput = false;
+        if (key.length > 2 && key[0] == '!' && key[1] != '!') {
+            negateOutput = true;
+            key = key.substr(1);
+        }
+
         // Numbers
         if (key.isNumeric())
             return key.toNumber();
@@ -1594,6 +1609,9 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
             if (theRest == null || theRest == '')
                 return result;
 
+            if (negateOutput)
+                result = !result;
+
             return sing.resolveKey(theRest, result, context, rootKey);
         }
 
@@ -1627,6 +1645,9 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
             }
 
             var result = out.apply(data, args);
+
+            if (negateOutput)
+                result = !result;
 
             if (theRest == null || theRest == '')
                 return result;
@@ -1678,6 +1699,9 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
 
             out = propData[arrayIndex];
 
+            if (negateOutput)
+                out = !out;
+
             if (theRest == null || theRest == '')
                 return out;
 
@@ -1701,6 +1725,9 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
             out = sing.resolveKey(keyParts.join('.'), data, context, rootKey);
 
             //console.log('RESOLVE ' + key);
+
+            if (negateOutput)
+                out = !out;
 
             return out;
 

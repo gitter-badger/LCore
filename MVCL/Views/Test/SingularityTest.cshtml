@@ -241,7 +241,7 @@
 </div>
 
 <div sing-template="Method">
-    <div sing-if="{{method.details}}">
+    <div sing-if="{{ !method.isAlias }}">
         <hr />
         <div class="btn-info btn left method-show-hide" click-fade-toggle=".show-{{method.name.toSlug()}}">
             <glyph class="show-{{method.name.toSlug()}}">&#x2b;</glyph>
