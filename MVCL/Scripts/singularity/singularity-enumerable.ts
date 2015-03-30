@@ -48,6 +48,9 @@ interface Number {
 
 var singEnumerable = singExt.addModule(new sing.Module("Enumerable", Array));
 
+singEnumerable.summaryShort = '&nbsp;';
+singEnumerable.summaryLong = '&nbsp;';
+
 //////////////////////////////////////////////////////
 //
 // Iteration Functions
@@ -224,19 +227,36 @@ singEnumerable.method('count', EnumerableCount,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            ext.addTest([], [], 0);
+            ext.addTest([null], [null], 1);
+            ext.addTest(['a'], ['a'], 1);
+            ext.addTest(['a'], [], 0);
+            ext.addTest(['a', 'a'], ['a'], 2);
+            ext.addTest(['a', 'a'], [function (a: any) { return a == 'a'; }], 2);
+            ext.addTest(['a', 'a'], [function (a: any) { return a == 'b'; }], 0);
+
+            ext.addTest([5, 6, 7], [function (a: any) { return a; }], 18);
         },
     });
 
-function EnumerableCount<T>(action: (item: T, index: number) => any) {
-    if (!this || !action)
+function EnumerableCount<T>(itemOrAction: T| ((item: T, index: number) => any)) {
+    if (!this || itemOrAction === undefined)
         return 0;
 
     var thisArray = <Array<T>>this;
 
     var out = 0;
 
+    if (!$.isFunction(itemOrAction)) {
+        var itemValue = <T>itemOrAction;
+
+        itemOrAction = function (item, index) {
+            return item == itemValue;
+        };
+    }
+
     thisArray.each(function (item, i) {
-        var result = action(item, i);
+        var result = (<(item: T, index: number) => any>itemOrAction)(item, i);
 
         if (result !== null &&
             result !== undefined &&
@@ -408,12 +428,28 @@ singEnumerable.method('first', EnumerableFirst,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            ext.addTest([], [], []);
+            ext.addTest([], [null], []);
+            ext.addTest([], [undefined], []);
+            ext.addTest([], [5], []);
+            ext.addTest([1, 2, 3, 4, 5], [0], []);
+            ext.addTest([1, 2, 3, 4, 5], [2], [1, 2]);
+            ext.addTest([1, 2, 3, 4, 5], [5], [1, 2, 3, 4, 5]);
+            ext.addTest([1, 2, 3, 4, 5], [8], [1, 2, 3, 4, 5]);
+
+            ext.addTest([1, 2, 3, 'a', 5], ['a'], ['a']);
+
+            ext.addTest([1, 2, 3, 4, 5], [function (a: number) { return a == 3; }], [3]);
+            ext.addTest([1, 2, 3, 4, 5], [function (a: number) { return a != 3; }], [1]);
         },
     });
 
 function EnumerableFirst<T>(itemOrAction: number | T | ((item: T, index: number) => boolean)): T | T[] {
     if (!this)
         return;
+
+    if (itemOrAction <= 0)
+        return [];
 
     var thisArray = <T[]>this;
 
@@ -423,13 +459,28 @@ function EnumerableFirst<T>(itemOrAction: number | T | ((item: T, index: number)
     if (!itemOrAction)
         return;
 
-    if (ObjectIsNumber(itemOrAction))
-        itemOrAction = function (item, i) { return i < <number>itemOrAction; };
+    if (ObjectIsNumber(itemOrAction)) {
+        var itemNumber = <number>itemOrAction;
 
+        var outArray: any[] = [];
+
+        thisArray.while(function (item, i) {
+            var result = true;
+
+            if (result == true) {
+                outArray.push(item);
+                if (outArray.length == itemNumber)
+                    return false;
+            }
+        });
+        return outArray;
+    }
     if (!$.isFunction(itemOrAction)) {
-        itemOrAction = function (item, i) { return item == itemOrAction; };
+        var itemValue = <any>itemOrAction;
+        itemOrAction = function (item, i) { return item == itemValue; };
         return thisArray.select(<(item: T, index: number) => boolean>itemOrAction);
     }
+
     var out: any = undefined;
 
     thisArray.while(function (item, i) {
@@ -451,12 +502,29 @@ singEnumerable.method('last', EnumerableLast,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            ext.addTest([], [], []);
+            ext.addTest([], [null], []);
+            ext.addTest([], [undefined], []);
+            ext.addTest([], [5], []);
+            ext.addTest([1, 2, 3, 4, 5], [0], []);
+            ext.addTest([1, 2, 3, 4, 5], [2], [4, 5]);
+            ext.addTest([1, 2, 3, 4, 5], [5], [1, 2, 3, 4, 5]);
+            ext.addTest([1, 2, 3, 4, 5], [8], [1, 2, 3, 4, 5]);
+
+            ext.addTest([1, 2, 3, 'a', 5], ['a'], ['a']);
+
+            ext.addTest([1, 2, 3, 4, 5], [function (a: number) { return a > 3; }], [5]);
+            ext.addTest([1, 2, 3, 4, 5], [function (a: number) { return a < 3; }], [2]);
+            ext.addTest([1, 2, 3, 4, 5], [function (a: number) { return a != 3; }], [5]);
         },
     });
 
 function EnumerableLast<T>(itemOrAction: number | T | ((item: T, index: number) => boolean)): T | T[] {
     if (!this)
         return;
+
+    if (itemOrAction <= 0)
+        return [];
 
     var thisArray = <T[]> this;
 
@@ -467,6 +535,9 @@ function EnumerableLast<T>(itemOrAction: number | T | ((item: T, index: number) 
         return;
 
     var out = <any>thisArray.reverse().first(<number | T | ((item: T, index: number) => boolean) >itemOrAction);
+
+    if ($.isArray(out))
+        out = out.reverse();
 
     return <T | T[]>out;
 }

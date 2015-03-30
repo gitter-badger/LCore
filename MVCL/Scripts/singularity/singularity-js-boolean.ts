@@ -1,9 +1,9 @@
 ﻿/// <reference path="singularity-core.ts"/>
 
 interface Boolean {
-    XOR?: (b: boolean) => boolean;
     toYesNo?: () => string;
 
+    XOR?: (b: boolean) => boolean;
     XNOR?: (b: boolean) => boolean;
     OR?: (...b: boolean[]) => boolean;
     AND?: (...b: boolean[]) => boolean;
@@ -19,6 +19,14 @@ interface String {
 }
 
 var singBoolean = singExt.addModule(new sing.Module("Boolean", Boolean));
+
+singBoolean.summaryShort = 'Extensions on Boolean.prototype';
+singBoolean.summaryLong = 'Perform boolean operations using extension methods instead of operators.';
+
+singBoolean.features = ['Multi-variable operations',
+    'Unary operation',
+    'toYesNo'];
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

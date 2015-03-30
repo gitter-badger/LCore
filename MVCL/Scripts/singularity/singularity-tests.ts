@@ -52,8 +52,8 @@ class SingularityTest {
 
                 this.testResult = name + ' ' + this.testResult;
 
-                if (!sing.tests.testErrors.has(this.testResult))
-                    sing.tests.testErrors.push(this.testResult);
+                if (!sing.tests.testErrors.has(name + ' ' + this.testResult))
+                    sing.tests.testErrors.push(name + ' ' + this.testResult);
             }
             return this.testResult;
         }
@@ -125,7 +125,12 @@ function SingularityAddMethodTest(ext: SingularityMethod, target?: any, args?: a
 
     requirement = requirement.pad(50);
 
-    requirement += ' == (' + $.toStr(compare, true) + ')';
+    requirement += '// == (' + $.toStr(compare, true) + ')';
+
+    ext.details = ext.details || {};
+    ext.details.examples = ext.details.examples || [];
+
+    ext.details.examples.push(requirement);
 
     this.addTest(ext.name, function (): any {
         var result = ext.method.apply(target, args);
@@ -323,5 +328,8 @@ SingularityMethod.prototype.addTest = MethodAddSimpleTest;
 singTests.method('addTest', MethodAddSimpleTest, {}, SingularityMethod);
 
 function MethodAddSimpleTest(caller: any, args: any[], result?: any, requirement?: string): void {
+
+    var thisSingularityMethod = <SingularityMethod>this;
+
     sing.tests.addMethodTest(this, caller, args, result, requirement);
 }

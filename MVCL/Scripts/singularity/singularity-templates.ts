@@ -30,7 +30,7 @@ interface ITemplateContext {
 
 }
 
-var singTemplates = singString.addModule(new sing.Module('Templates', String));
+var singTemplates = singCore.addModule(new sing.Module('Templates', String));
 
 sing.templatePatternGlobal = /^.*{\{\{(.+)\}\}}+.*/g;
 sing.templatePattern = /.*\{\{(.+)\}\}.*/;
@@ -620,6 +620,11 @@ function JQueryPerformSingLoop(data: any, _context?: Hash<any>, forceFill: boole
     }
     loop.remove();
 }
+
+singTemplates.property('templatePatternGlobal');
+singTemplates.property('templatePattern');
+singTemplates.property('templateStart');
+singTemplates.property('templateEnd');
 
 sing.loadTemplate = function (url: string, callback: Function) {
 

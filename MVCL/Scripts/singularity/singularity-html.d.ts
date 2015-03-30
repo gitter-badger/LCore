@@ -3,6 +3,9 @@
 /// <reference path="../definitions/jquery.cookie.d.ts" />
 /// <reference path="../definitions/jquery.timepicker.d.ts" />
 /// <reference path="../definitions/chance.d.ts" />
+interface String {
+    textToHTML?: () => string;
+}
 declare var singHTML: SingularityModule;
 declare function StringTextToHTML(): string;
 declare function StringStripHTML(): string;

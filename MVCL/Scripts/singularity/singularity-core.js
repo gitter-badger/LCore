@@ -345,6 +345,8 @@ var SingularityModule = (function () {
         this.name = name;
         this.objectClass = objectClass;
         this.objectPrototype = objectPrototype;
+        this.features = [];
+        this.resources = {};
         this.subModules = [];
         this.methods = [];
         this.properties = [];
@@ -412,6 +414,10 @@ var SingularityModule = (function () {
                         return;
                     out += m.documentationPresent();
                 });
+            if (!$.isEmpty(thisModule.summaryShort))
+                out++;
+            if (!$.isEmpty(thisModule.summaryLong))
+                out++;
             out += thisModule.properties.count(function (prop) {
                 return !$.isEmpty(prop.description);
             });
@@ -448,6 +454,8 @@ var SingularityModule = (function () {
                         return;
                     out += m.documentationTotal();
                 });
+            out += 1; // Module shortSummary
+            out += 1; // Module longSummary
             out += thisModule.properties.length;
             out += thisModule.getUnknownProperties().length;
             out += thisModule.subModules.count(function (sub) {
@@ -862,7 +870,7 @@ var SingularityMethod = (function () {
             }
         };
         this.loadMethodCall = function (ext) {
-            ext.methodCall = ext.moduleName + '.' + ext.name;
+            ext.methodCall = ext.moduleName + '.' + ext.shortName;
             // Configure type-specific defaults or use the global defaults
             var autoDefault = sing.autoDefault;
             if (sing.types[ext.moduleName] && sing.types[ext.moduleName].autoDefault !== undefined)
@@ -964,7 +972,19 @@ var SingularityAutoDefinition = (function () {
 var sing = new Singularity();
 sing.globalResolve['sing'] = sing;
 var singRoot = sing.addModule(new SingularityModule('Singularity', [Singularity, sing]));
-singRoot.requiredJSFiddle = true;
+singRoot.summaryShort = '&nbsp;';
+singRoot.summaryLong = 'Singularity is a TypeScript (and JavaScript) library of extension methods and more. \r\n\r\n\
+    Unlike other Javascript frameworks, singularity can be dropped in and used right away.      \r\n\r\n\
+    You don\'t have to go all in all at once, use singularity for any of its features separately:';
+singRoot.features = [
+    'Language Extensions (Enumerable, String, Number, Boolean, Function)',
+    'Code documentation & Unit Testing engine',
+    'Templating Engine'
+];
+singRoot.resources = {
+    'http://www.typescriptlang.org/': 'TypeScript',
+};
+//singRoot.requiredJSFiddle = true;
 singRoot.method('addModule', sing.addModule);
 singRoot.method('totalCodeLines', SingularityTotalCodeLines);
 function SingularityTotalCodeLines() {
@@ -992,7 +1012,8 @@ function SingularityLoadContext(context) {
 singRoot.method('resolveKey', SingularityResolveKey);
 function SingularityResolveKey(key, data, context, rootKey) {
     if (context === void 0) { context = {}; }
-    if (rootKey === void 0) { rootKey = key; }
+    if (!rootKey)
+        rootKey = key;
     var out = undefined;
     try {
         key = key || '';
@@ -1017,13 +1038,62 @@ function SingularityResolveKey(key, data, context, rootKey) {
         // Booleans
         if (key.isBoolean())
             return key.toBoolean();
+        // Assignment notation
+        if (key.hasMatch(/^([^ ><]+)[\s]?(=|\+=|\-=|\*=|\/=|\+\+|--|%\/)([^><]+)?$/)) {
+            var matches = key.match(/^([^ ><]+)[\s]?(=|\+=|\-=|\*=|\/=|\+\+|--|%\/)([^><]+)?$/);
+            var assign = matches[1].trim();
+            var operator = matches[2];
+            var theRest = matches[3];
+            var setObj = null;
+            if (assign.endsWith(']')) {
+                var firstPart = assign.substr(0, assign.lastIndexOf('['));
+                var arrayIndex = assign.substr(assign.lastIndexOf('[') + 1);
+                setObj = sing.resolveKey(firstPart, data, context, rootKey);
+                assign = sing.resolveKey(arrayIndex, data, context, rootKey);
+            }
+            else if (assign.contains('.')) {
+                var firstPart = assign.substr(0, assign.lastIndexOf('.'));
+                var lastPart = assign.substr(assign.lastIndexOf('.') + 1);
+                setObj = sing.resolveKey(firstPart, data, context, rootKey);
+                assign = lastPart;
+            }
+            else {
+                if (sing.globalResolve[assign] !== undefined) {
+                    setObj = sing.globalResolve;
+                }
+                else {
+                    setObj = context;
+                }
+            }
+            var value = sing.resolveKey(theRest, data, context, rootKey);
+            if (operator == '=')
+                setObj[assign] = value;
+            else if (operator == '+=')
+                setObj[assign] += value;
+            else if (operator == '-=')
+                setObj[assign] -= value;
+            else if (operator == '*=')
+                setObj[assign] *= value;
+            else if (operator == '/=')
+                setObj[assign] /= value;
+            else if (operator == '%=')
+                setObj[assign] %= value;
+            else if (operator == '++')
+                setObj[assign]++;
+            else if (operator == '--')
+                setObj[assign]--;
+            else
+                throw 'unknonw operator ' + operator;
+            return '';
+        }
         // function notation, no arguments
         if (key.hasMatch(/^\.?([^\.\'\",\[\]\(\)]+)\(\)\.?(.*)/)) {
-            var methodName = key.match(/^\.?([^\.\'\",\[\]\(\)]+)\(\)\.?(.*)/)[1];
-            var theRest = key.match(/^\.?([^\.\'\",\[\]\(\)]+)\(\)\.?(.*)/)[2];
+            var matches = key.match(/^\.?([^\.\'\",\[\]\(\)]+)\(\)\.?(.*)/);
+            var methodName = matches[1];
+            var theRest = matches[2];
             out = sing.resolveKey(methodName, data, context, rootKey);
             if (out == null || !out.apply) {
-                throw 'could not resolve ' + key;
+                throw 'could not resolve ' + rootKey;
             }
             var result = out.apply(data, []);
             if (theRest == null || theRest == '')
@@ -1047,7 +1117,7 @@ function SingularityResolveKey(key, data, context, rootKey) {
             if (!$.isArray(args))
                 args = [args];
             if (out == null || !out.apply) {
-                throw 'could not resolve ' + key;
+                throw 'could not resolve ' + rootKey;
             }
             var result = out.apply(data, args);
             if (theRest == null || theRest == '')
@@ -1074,7 +1144,7 @@ function SingularityResolveKey(key, data, context, rootKey) {
             arrayIndex = sing.resolveKey(arrayIndex, data, context, rootKey);
             var propData = sing.resolveKey(property, data, context, rootKey);
             if (!$.isDefined(propData)) {
-                throw 'could not resolve ' + key;
+                throw 'could not resolve ' + rootKey;
             }
             if (!$.isArray(propData)) {
                 throw property + ' was not an array';
@@ -1089,7 +1159,7 @@ function SingularityResolveKey(key, data, context, rootKey) {
             var keyParts = key.split('.');
             var resolveFirst = sing.resolveKey(keyParts.shift(), data, context, rootKey);
             if (!$.isDefined(resolveFirst) || resolveFirst == '') {
-                throw 'could not resolve ' + key;
+                throw 'could not resolve ' + rootKey;
             }
             data = resolveFirst;
             out = sing.resolveKey(keyParts.join('.'), data, context, rootKey);
@@ -1266,9 +1336,6 @@ function SingularityResolveKey(key, data, context, rootKey) {
             var resolved = sing.resolveKey(theRest, data, context, rootKey);
             return (data < resolved);
         }
-        else if (keyPart == '=') {
-            var theRest = key.substr(1);
-        }
     }
     catch (ex) {
         if (key != rootKey)
@@ -1300,8 +1367,12 @@ singRoot.ignoreUnknown('Module', 'Extension', 'AutoDefinition');
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var singCore = singRoot.addModule(new SingularityModule('Core', Singularity));
 singCore.ignoreUnknown('ALL');
+singCore.summaryShort = '&nbsp;';
+singCore.summaryLong = '&nbsp;';
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var singModule = singCore.addModule(new SingularityModule('Modules', [SingularityModule, new SingularityModule('', null)]));
+singModule.summaryShort = '&nbsp;';
+singModule.summaryLong = '&nbsp;';
 singModule.method('addModule', singRoot.addModule);
 singModule.method('method', singRoot.method);
 singModule.method('totalCodeLines', ModuleTotalCodeLines);
@@ -1344,6 +1415,13 @@ function ModuleGetUnknownProperties() {
                 return !$.isFunction(obj.prototype[key]);
             }));
     });
+    thisModule.subModules.each(function (sub) {
+        if (sub.properties.has(function (prop) {
+            if (keys.has(prop.name))
+                keys = keys.remove(prop.name);
+        }))
+            ;
+    });
     return keys.select(function (name) {
         return !properties.has(name) && !methods.has(name) && !thisModule.ignoreUnknownMembers.has(name);
     });
@@ -1376,7 +1454,11 @@ singModule.method('property', singRoot.property);
 singModule.method('ignoreUnknown', singCore.ignoreUnknown);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var singMethod = singCore.addModule(new SingularityModule('Methods', [SingularityMethod, new SingularityMethod(null)]));
+singMethod.summaryShort = '&nbsp;';
+singMethod.summaryLong = '&nbsp;';
 var singExt = singRoot.addModule(new SingularityModule('Extensions', Singularity));
+singExt.summaryShort = '&nbsp;';
+singExt.summaryLong = '&nbsp;';
 $(document).init(function () {
     sing.init();
 });

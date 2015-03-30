@@ -64,6 +64,10 @@ declare class SingularityModule {
     name: string;
     objectClass: any | any[];
     objectPrototype: any;
+    summaryShort: string;
+    summaryLong: string;
+    features: string[];
+    resources: Hash<string>;
     parentModule: SingularityModule;
     subModules: SingularityModule[];
     methods: SingularityMethod[];

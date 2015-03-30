@@ -15,7 +15,6 @@ interface String {
     surround?: (str: string) => string;
     truncate?: (length: number) => string;
     toStr?: (includeMarkup?: boolean) => string;
-    textToHTML?: () => string;
     tryToNumber?: (defaultValue?: any) => string | number;
     before?: (search: string) => string;
     after?: (search: string) => string;

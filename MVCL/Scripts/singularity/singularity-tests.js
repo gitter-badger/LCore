@@ -26,8 +26,8 @@ var SingularityTest = (function () {
                 this.testResult = true;
             if (this.testResult !== true && this.testResult !== undefined && this.testResult !== null) {
                 this.testResult = name + ' ' + this.testResult;
-                if (!sing.tests.testErrors.has(this.testResult))
-                    sing.tests.testErrors.push(this.testResult);
+                if (!sing.tests.testErrors.has(name + ' ' + this.testResult))
+                    sing.tests.testErrors.push(name + ' ' + this.testResult);
             }
             return this.testResult;
         };
@@ -75,7 +75,10 @@ function SingularityAddMethodTest(ext, target, args, compare, requirement) {
     }
     requirement += ')';
     requirement = requirement.pad(50);
-    requirement += ' == (' + $.toStr(compare, true) + ')';
+    requirement += '// == (' + $.toStr(compare, true) + ')';
+    ext.details = ext.details || {};
+    ext.details.examples = ext.details.examples || [];
+    ext.details.examples.push(requirement);
     this.addTest(ext.name, function () {
         var result = ext.method.apply(target, args);
         if (compare == result)
@@ -205,6 +208,7 @@ function MethodAddCustomTest(testFunc, requirement) {
 SingularityMethod.prototype.addTest = MethodAddSimpleTest;
 singTests.method('addTest', MethodAddSimpleTest, {}, SingularityMethod);
 function MethodAddSimpleTest(caller, args, result, requirement) {
+    var thisSingularityMethod = this;
     sing.tests.addMethodTest(this, caller, args, result, requirement);
 }
 //# sourceMappingURL=singularity-tests.js.map

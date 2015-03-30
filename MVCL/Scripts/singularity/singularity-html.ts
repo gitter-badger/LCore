@@ -213,6 +213,13 @@
 //////////////////////////////////////////////////////
 // #endregion Comments
 
+interface String {
+
+    textToHTML?: () => string;
+
+    //stripHTML
+    //getAttributes
+}
 
 var singHTML = singString.addModule(new sing.Module('HTML', String));
 
@@ -232,7 +239,7 @@ function StringTextToHTML(): string {
 
     return this.replaceAll('\r\n', '\n')
         .replaceAll('\r\n', '<br/>')
-        .replaceAll(' ', '&nbsp;');
+        .replaceAll('  ', '&nbsp;&nbsp;');
 }
 
 

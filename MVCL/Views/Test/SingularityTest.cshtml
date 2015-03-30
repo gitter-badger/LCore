@@ -17,7 +17,7 @@
 @using System.Web.Mvc;
 
 @{
-    /// <reference path="singularity-core.ts" />
+    /// <reference path="singularity-core.margin:-10px 8px 17px;font-size:13px;ts" />
     Layout = Layouts.MainLayout;
 
 }
@@ -98,56 +98,127 @@
 </div>
 
 <div sing-template="Module">
-    <h2>{{module.name}}</h2>
-
-    <div>
-        Methods Implemented:
-
-        <div class="right" sing-fill="{{PercentSlider with [module.implementedMethodCount(), module.totalMethods()]}}"></div>
-    </div>
-
-    <div sing-if="{{module.requiredUnitTests}}">
-        <div>
-            Unit Tests Implemented:
-            <div class="right" sing-fill="{{PercentSlider with [module.implementedMethodTests(), module.totalMethods()]}}"></div>
-        </div>
-        <div>
-            Unit Tests Passed:
-            <div class="right" sing-fill="{{PercentSlider with [module.passedMethodTests(), module.implementedMethodTestsTotal()]}}"></div>
+    <div class="sing-module-totals">
+        <div class="sing-module-total">
+            <div class="right" sing-fill="{{PercentSlider with [module.implementedMethodCount(), module.totalMethods()]}}"></div>
+            <p style="float:right;">Methods Implemented:</p>
         </div>
 
-    </div>
+        <div sing-if="{{module.requiredUnitTests}}" class="sing-module-total">
+            <div>
+                <div class="right" sing-fill="{{PercentSlider with [module.implementedMethodTests(), module.totalMethods()]}}"></div>
+                <p style="float:right;">Unit Tests Implemented:</p>
+            </div>
+            <div>
+                <div class="right" sing-fill="{{PercentSlider with [module.passedMethodTests(), module.implementedMethodTestsTotal()]}}"></div>
+                <p style="float:right;">Unit Tests Passed:</p>
+            </div>
+
+        </div>
 
 
-    <div sing-if="{{module.totalProperties() > 0}}">
-        <div>
-            Properties:
-            <div class="right" sing-fill="{{PercentSlider with [module.implementedProperties(), module.totalProperties()]}}"></div>
+        <div sing-if="{{module.totalProperties() > 0}}" class="sing-module-total">
+            <div>
+                <div class="right" sing-fill="{{PercentSlider with [module.implementedProperties(), module.totalProperties()]}}"></div>
+                <p style="float:right;">Properties:</p>
+            </div>
+        </div>
+
+        <div sing-if="{{module.requiredDocumentation}}" class="sing-module-total">
+            <div>
+                <div class="right" sing-fill="{{PercentSlider with [module.implementedDocumentation(), module.totalDocumentation()]}}"></div>
+                <p style="float:right;">Documentation:</p>
+            </div>
+        </div>
+
+        <div sing-if="{{module.totalJSFiddle() > 0}}" class="sing-module-total">
+            <div style="display: block;height: 15px;">
+                <div class="right" sing-fill="{{PercentSlider with [module.implementedJSFiddle(), module.totalJSFiddle()]}}"></div>
+                <p style="float:right;">JSFiddle:</p>
+            </div>
+        </div>
+
+        <div class="sing-module-total">
+            <strong>
+                <br />
+                <div class="right wide" sing-fill="{{PercentSlider with [module.implementedItems(), module.totalItems()]}}"></div>
+                <p style="float:right;">Total:</p>
+                <br /><br />
+            </strong>
         </div>
     </div>
 
-    <div sing-if="{{module.requiredDocumentation}}">
-        <div>
-            Documentation:
-            <div class="right" sing-fill="{{PercentSlider with [module.implementedDocumentation(), module.totalDocumentation()]}}"></div>
+    <h2 sing-if="{{module.parentModule}}">{{module.name}}</h2>
+
+    <p sing-if="{{module.summaryShort}}" class="sing-module-summary">
+        <strong>{{module.summaryShort.textToHTML()}}</strong>
+    </p>
+    <p sing-else>
+        <strong>[Summary]</strong>
+    </p>
+
+    <p sing-if="{{module.summaryLong}}" class="sing-module-summary">
+        <strong>{{module.summaryLong.textToHTML()}}</strong>
+    </p>
+    <p sing-else>
+        <strong>[Long Summary]</strong>
+    </p>
+
+
+    <div sing-if="{{module.features}}" class="sing-module-features">
+        Features:
+        <ul>
+            <li sing-loop="{{feature in module.features}}">
+                {{feature}}
+            </li>
+        </ul>
+    </div>
+
+    <div sing-if="{{module.resources}}" class="sing-module-resources">
+        Resources:
+        <ul>
+            <li sing-loop="{{resource in module.resources}}">
+                <a href="{{resource$key}}">{{resource}}</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="sing-module-methods">
+        <div class="btn-info btn left method-show-hide" click-fade-toggle=".methods-{{module.name.toSlug()}}">
+            <glyph class="methods-{{module.name.toSlug()}}">&#x2b;</glyph>
+            <glyph class="methods-{{module.name.toSlug()}}" style=" display: none;">&#x2212;</glyph>
+        </div>
+        <h4>Methods</h4>
+        <div class="methods-{{module.name.toSlug()}}" style="display:none;">
+            <div sing-loop="{{ method in module.methods }}" class="sing-method-list">
+                <div sing-fill="{{ Method with method }}"></div>
+            </div>
+
+            <div sing-if="{{module.getUnknownMethods()}}">
+                <b>Unknown Methods:</b>
+                <error sing-loop="{{ methodName in module.getUnknownMethods()}}">{{methodName}}</error>
+            </div>
         </div>
     </div>
 
-    <div sing-if="{{module.totalJSFiddle() > 0}}">
-        <div>
-            JSFiddle:
-            <div class="right" sing-fill="{{PercentSlider with [module.implementedJSFiddle(), module.totalJSFiddle()]}}"></div>
+    <div class="sing-module-properties">
+        <div class="btn-info btn left method-show-hide" click-fade-toggle=".properties-{{module.name.toSlug()}}">
+            <glyph class="properties-{{module.name.toSlug()}}">&#x2b;</glyph>
+            <glyph class="properties-{{module.name.toSlug()}}" style=" display: none;">&#x2212;</glyph>
+        </div>
+        <h4>Properites</h4>
+        <div class="sing-method-list properties-{{module.name.toSlug()}}" style=" display: none;">
+            <div sing-loop="{{ prop in module.properties }}">
+                <div sing-fill="{{ Parameter with prop as param }}"></div>
+            </div>
+
+            <div sing-if="{{module.getUnknownProperties()}}">
+                <b>Unknown Properties:</b>
+                <error sing-loop="{{ prop in module.getUnknownProperties()}}">{{prop}}</error>
+            </div>
         </div>
     </div>
 
-    <div>
-        <strong>
-            <br />
-            Total:
-            <div class="right wide" sing-fill="{{PercentSlider with [module.implementedItems(), module.totalItems()]}}"></div>
-            <br /><br />
-        </strong>
-    </div>
 
     <div class="tabs" sing-if="{{module.subModules}}">
         <h3 sing-if="{{module.parentModule}}">Sub-Modules:</h3>
@@ -166,30 +237,6 @@
                 <div sing-fill="{{ Module with sub as module }}"></div>
             </div>
         </div>
-    </div>
-
-    <div>
-        <h4>Methods:</h4>
-        <div sing-loop="{{ method in module.methods }}" class="sing-method-list">
-            <div sing-fill="{{ Method with method }}"></div>
-        </div>
-    </div>
-
-    <div>
-        <h4>Properites:</h4>
-        <div sing-loop="{{ prop in module.properties }}" class="sing-method-list">
-            <div sing-fill="{{ Parameter with prop as param }}"></div>
-        </div>
-    </div>
-
-    <div sing-if="{{module.getUnknownMethods()}}">
-        <b>Unknown Methods:</b>
-        <error sing-loop="{{ methodName in module.getUnknownMethods()}}">{{methodName}}</error>
-    </div>
-
-    <div sing-if="{{module.getUnknownProperties()}}">
-        <b>Unknown Properties:</b>
-        <error sing-loop="{{ prop in module.getUnknownProperties()}}">{{prop}}</error>
     </div>
 </div>
 
@@ -221,8 +268,12 @@
                 </ol>
             </div>
 
-            <p sing-if="{{method.details.returnType}}">
+            <p sing-if="{{method.details.returns}}">
                 <b>Returns:</b>
+                {{method.returns}}
+            </p>
+            <p sing-if="{{method.details.returnType}}">
+                <b>Return Type:</b>
                 {{sing.getTypeName(method.details.returnType)}}
             </p>
             <p sing-else><b>Returns:</b> Nothing.</p>

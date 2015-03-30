@@ -1,5 +1,7 @@
 /// <reference path="singularity-core.ts"/>
 var singEnumerable = singExt.addModule(new sing.Module("Enumerable", Array));
+singEnumerable.summaryShort = '&nbsp;';
+singEnumerable.summaryLong = '&nbsp;';
 //////////////////////////////////////////////////////
 //
 // Iteration Functions
@@ -173,15 +175,35 @@ singEnumerable.method('count', EnumerableCount, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest([], [], 0);
+        ext.addTest([null], [null], 1);
+        ext.addTest(['a'], ['a'], 1);
+        ext.addTest(['a'], [], 0);
+        ext.addTest(['a', 'a'], ['a'], 2);
+        ext.addTest(['a', 'a'], [function (a) {
+            return a == 'a';
+        }], 2);
+        ext.addTest(['a', 'a'], [function (a) {
+            return a == 'b';
+        }], 0);
+        ext.addTest([5, 6, 7], [function (a) {
+            return a;
+        }], 18);
     },
 });
-function EnumerableCount(action) {
-    if (!this || !action)
+function EnumerableCount(itemOrAction) {
+    if (!this || itemOrAction === undefined)
         return 0;
     var thisArray = this;
     var out = 0;
+    if (!$.isFunction(itemOrAction)) {
+        var itemValue = itemOrAction;
+        itemOrAction = function (item, index) {
+            return item == itemValue;
+        };
+    }
     thisArray.each(function (item, i) {
-        var result = action(item, i);
+        var result = itemOrAction(item, i);
         if (result !== null && result !== undefined && result !== false) {
             if ($.isNumber(result))
                 out += result;
@@ -333,23 +355,50 @@ singEnumerable.method('first', EnumerableFirst, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest([], [], []);
+        ext.addTest([], [null], []);
+        ext.addTest([], [undefined], []);
+        ext.addTest([], [5], []);
+        ext.addTest([1, 2, 3, 4, 5], [0], []);
+        ext.addTest([1, 2, 3, 4, 5], [2], [1, 2]);
+        ext.addTest([1, 2, 3, 4, 5], [5], [1, 2, 3, 4, 5]);
+        ext.addTest([1, 2, 3, 4, 5], [8], [1, 2, 3, 4, 5]);
+        ext.addTest([1, 2, 3, 'a', 5], ['a'], ['a']);
+        ext.addTest([1, 2, 3, 4, 5], [function (a) {
+            return a == 3;
+        }], [3]);
+        ext.addTest([1, 2, 3, 4, 5], [function (a) {
+            return a != 3;
+        }], [1]);
     },
 });
 function EnumerableFirst(itemOrAction) {
     if (!this)
         return;
+    if (itemOrAction <= 0)
+        return [];
     var thisArray = this;
     if (!itemOrAction && this.length > 0)
         return this[0];
     if (!itemOrAction)
         return;
-    if (ObjectIsNumber(itemOrAction))
-        itemOrAction = function (item, i) {
-            return i < itemOrAction;
-        };
+    if (ObjectIsNumber(itemOrAction)) {
+        var itemNumber = itemOrAction;
+        var outArray = [];
+        thisArray.while(function (item, i) {
+            var result = true;
+            if (result == true) {
+                outArray.push(item);
+                if (outArray.length == itemNumber)
+                    return false;
+            }
+        });
+        return outArray;
+    }
     if (!$.isFunction(itemOrAction)) {
+        var itemValue = itemOrAction;
         itemOrAction = function (item, i) {
-            return item == itemOrAction;
+            return item == itemValue;
         };
         return thisArray.select(itemOrAction);
     }
@@ -370,17 +419,39 @@ singEnumerable.method('last', EnumerableLast, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest([], [], []);
+        ext.addTest([], [null], []);
+        ext.addTest([], [undefined], []);
+        ext.addTest([], [5], []);
+        ext.addTest([1, 2, 3, 4, 5], [0], []);
+        ext.addTest([1, 2, 3, 4, 5], [2], [4, 5]);
+        ext.addTest([1, 2, 3, 4, 5], [5], [1, 2, 3, 4, 5]);
+        ext.addTest([1, 2, 3, 4, 5], [8], [1, 2, 3, 4, 5]);
+        ext.addTest([1, 2, 3, 'a', 5], ['a'], ['a']);
+        ext.addTest([1, 2, 3, 4, 5], [function (a) {
+            return a > 3;
+        }], [5]);
+        ext.addTest([1, 2, 3, 4, 5], [function (a) {
+            return a < 3;
+        }], [2]);
+        ext.addTest([1, 2, 3, 4, 5], [function (a) {
+            return a != 3;
+        }], [5]);
     },
 });
 function EnumerableLast(itemOrAction) {
     if (!this)
         return;
+    if (itemOrAction <= 0)
+        return [];
     var thisArray = this;
     if (!itemOrAction && thisArray.length > 0)
         return thisArray[thisArray.length - 1];
     if (!itemOrAction)
         return;
     var out = thisArray.reverse().first(itemOrAction);
+    if ($.isArray(out))
+        out = out.reverse();
     return out;
 }
 singEnumerable.method('range', EnumerableRange, {

@@ -1,7 +1,7 @@
 /// <reference path="singularity-core.d.ts" />
 interface Boolean {
-    XOR?: (b: boolean) => boolean;
     toYesNo?: () => string;
+    XOR?: (b: boolean) => boolean;
     XNOR?: (b: boolean) => boolean;
     OR?: (...b: boolean[]) => boolean;
     AND?: (...b: boolean[]) => boolean;

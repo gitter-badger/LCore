@@ -18,8 +18,6 @@ interface String {
 
     toStr?: (includeMarkup?: boolean) => string;
 
-    textToHTML?: () => string;
-
 
     tryToNumber?: (defaultValue?: any) => string | number;
 

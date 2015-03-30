@@ -33,7 +33,7 @@ declare var singEnumerable: SingularityModule;
 declare function EnumerableEach<T>(action: (item: T, i: number) => void): void;
 declare function EnumerableWhile<T>(action: (item: T, index: number) => any): boolean;
 declare function EnumerableUntil<T>(action: (item: T, index: number) => any): boolean;
-declare function EnumerableCount<T>(action: (item: T, index: number) => any): number;
+declare function EnumerableCount<T>(itemOrAction: T | ((item: T, index: number) => any)): number;
 declare function EnumerableContains<T>(...items: T[]): any;
 declare function EnumerableSelect<T>(action: (item: T, index: number) => boolean): T[];
 declare function EnumerableCollect<T>(action: (item: T, index: number) => any): T[];

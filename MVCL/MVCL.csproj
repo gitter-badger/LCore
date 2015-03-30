@@ -797,23 +797,6 @@
     <Content Include="Scripts\jquery.mousewheel.js" />
     <Content Include="Scripts\knockout-3.3.0.debug.js" />
     <Content Include="Scripts\knockout-3.3.0.js" />
-    <Content Include="Scripts\singularity\singularity-core.js" />
-    <Content Include="Scripts\singularity\singularity-doc.js" />
-    <Content Include="Scripts\singularity\singularity-enumerable.js" />
-    <Content Include="Scripts\singularity\singularity-html.js" />
-    <Content Include="Scripts\singularity\singularity-jquery.js" />
-    <Content Include="Scripts\singularity\singularity-js-array.js" />
-    <Content Include="Scripts\singularity\singularity-js-boolean.js" />
-    <Content Include="Scripts\singularity\singularity-js-date.js" />
-    <Content Include="Scripts\singularity\singularity-js-function.js" />
-    <Content Include="Scripts\singularity\singularity-js-number.js" />
-    <Content Include="Scripts\singularity\singularity-js-string.js" />
-    <Content Include="Scripts\singularity\singularity-log.js" />
-    <Content Include="Scripts\singularity\singularity-object.js" />
-    <Content Include="Scripts\singularity\singularity-regexp.js" />
-    <Content Include="Scripts\singularity\singularity-templates.js" />
-    <Content Include="Scripts\singularity\singularity-tests.js" />
-    <Content Include="Scripts\singularity\singularity-text-bbcode.js" />
     <Content Include="Templates\Common.html">
       <LastGenOutput>Common1.generated.cs</LastGenOutput>
     </Content>
@@ -825,27 +808,10 @@
       <LastGenOutput>Templates2.generated.cs</LastGenOutput>
     </Content>
     <None Include="Properties\PublishProfiles\mvcl.pubxml" />
-    <Content Include="Scripts\singularity\singularity-core.js.map" />
-    <Content Include="Scripts\singularity\singularity-doc.js.map" />
-    <Content Include="Scripts\singularity\singularity-enumerable.js.map" />
-    <Content Include="Scripts\singularity\singularity-html.js.map" />
-    <Content Include="Scripts\singularity\singularity-jquery.js.map" />
-    <Content Include="Scripts\singularity\singularity-js-array.js.map" />
-    <Content Include="Scripts\singularity\singularity-js-boolean.js.map" />
-    <Content Include="Scripts\singularity\singularity-js-date.js.map" />
-    <Content Include="Scripts\singularity\singularity-js-function.js.map" />
-    <Content Include="Scripts\singularity\singularity-js-number.js.map" />
-    <Content Include="Scripts\singularity\singularity-js-string.js.map" />
-    <Content Include="Scripts\singularity\singularity-log.js.map" />
-    <Content Include="Scripts\singularity\singularity-object.js.map" />
-    <Content Include="Scripts\singularity\singularity-regexp.js.map" />
-    <Content Include="Scripts\singularity\singularity-templates.js.map" />
-    <Content Include="Scripts\singularity\singularity-tests.js.map" />
-    <Content Include="Scripts\singularity\singularity-text-bbcode.js.map" />
     <TypeScriptCompile Include="Scripts\definitions\chance.d.ts" />
     <TypeScriptCompile Include="Scripts\definitions\jquery.timepicker.d.ts" />
     <TypeScriptCompile Include="Scripts\definitions\jquery.cookie.d.ts" />
-    <TypeScriptCompile Include="Scripts\mvcl.ts" />
+    <Content Include="Scripts\mvcl.js" />
     <TypeScriptCompile Include="Scripts\singularity\singularity-enumerable.ts" />
     <TypeScriptCompile Include="Scripts\singularity\singularity-log.ts" />
     <TypeScriptCompile Include="Scripts\singularity\singularity-templates.ts" />

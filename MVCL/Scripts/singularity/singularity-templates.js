@@ -1,5 +1,5 @@
 /// <reference path="singularity-core.ts"/>
-var singTemplates = singString.addModule(new sing.Module('Templates', String));
+var singTemplates = singCore.addModule(new sing.Module('Templates', String));
 sing.templatePatternGlobal = /^.*{\{\{(.+)\}\}}+.*/g;
 sing.templatePattern = /.*\{\{(.+)\}\}.*/;
 sing.templateStart = '{{';
@@ -422,6 +422,10 @@ function JQueryPerformSingLoop(data, _context, forceFill) {
     }
     loop.remove();
 }
+singTemplates.property('templatePatternGlobal');
+singTemplates.property('templatePattern');
+singTemplates.property('templateStart');
+singTemplates.property('templateEnd');
 sing.loadTemplate = function (url, callback) {
     var data = $.ajax(url, {
         complete: function (data) {
