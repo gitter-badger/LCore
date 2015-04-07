@@ -392,6 +392,7 @@ singEnumerable.method('collect', EnumerableCollect,
             ext.addTest([null], [], []);
             ext.addTest([undefined, null], [], []);
             ext.addTest([1, 2, 3, undefined, null], [], [1, 2, 3]);
+            ext.addTest([1, 2, 3, [4, 5, 6]], [], [1, 2, 3, [4, 5, 6]]);
             ext.addTest([1, 2, 3, undefined, null], [function (a: any) { return a == 3; }], [false, false, true, false, false]);
             ext.addTest([1, 2, 3, undefined, null], [function (a: any) { return a <= 2; }], [true, true, false, false, true]);
             ext.addTest([1, 2, 3, undefined, null], [function (a: any) { return a + 1; }], [2, 3, 4, NaN, 1]);
@@ -415,7 +416,7 @@ function EnumerableCollect<T>(action: (item: T, index: number) => any) {
 
         if (result !== null &&
             result !== undefined)
-            out = out.concat(result);
+            out.push(result);
     });
     return out;
 }
@@ -534,7 +535,7 @@ function EnumerableLast<T>(itemOrAction: number | T | ((item: T, index: number) 
     if (!itemOrAction)
         return;
 
-    var out = <any>thisArray.reverse().first(<number | T | ((item: T, index: number) => boolean) >itemOrAction);
+    var out = <any>thisArray.clone().reverse().first(<number | T | ((item: T, index: number) => boolean) >itemOrAction);
 
     if ($.isArray(out))
         out = out.reverse();
@@ -738,9 +739,9 @@ singEnumerable.method('sortBy', EnumerableSortBy,
             ext.addTest(['a', 'b', 'c', 'd', 'e'], [], ['a', 'b', 'c', 'd', 'e'])
             ext.addTest(['e', 'd', 'c', 'b', 'a'], [], ['a', 'b', 'c', 'd', 'e'])
             ext.addTest(['d', 'a', 'c', 'e', 'b'], [], ['a', 'b', 'c', 'd', 'e'])
-            ext.addTest(['bananas', 'apples', 'apple pie', 'apple', 'pears', 'grapefruit', 'eggs'], [], ['apple', 'apples', 'apple pie', 'bananas', 'eggs', 'pears', 'grapefruit'])
+            ext.addTest(['bananas', 'apples', 'apple pie', 'apple', 'pears', 'grapefruit', 'eggs'], [], ['apple', 'apple pie', 'apples', 'bananas', 'eggs', 'grapefruit', 'pears'])
 
-            ext.addTest(['bananas', 'apples', 'apple pie', 'apple', 'pears', 'grapefruit', 'eggs'], ['length'], ['eggs', 'apple', 'pears', 'apples', 'apple pie', 'bananas', 'grapefruit'])
+            ext.addTest(['bananas', 'apples', 'apple pie', 'apple', 'pears', 'grapefruit', 'eggs'], ['length'], ['eggs', 'apple', 'pears', 'apples', 'bananas', 'apple pie', 'grapefruit'])
 
             ext.addTest([{ name: 'frank', age: 111 }, { name: 'steve', age: 12 }, { name: 'bob', age: 52 }], ['name'], [{ name: 'bob', age: 52 }, { name: 'frank', age: 111 }, { name: 'steve', age: 12 }]);
             ext.addTest([{ name: 'frank', age: 111 }, { name: 'steve', age: 12 }, { name: 'bob', age: 52 }], ['age'], [{ name: 'steve', age: 12 }, { name: 'bob', age: 52 }, { name: 'frank', age: 111 }]);
@@ -760,13 +761,16 @@ function EnumerableSortBy<T>(arg?: string | string[]| ((item: T) => any)): T[] {
         arg = defaultValueFunc;
     }
 
-    var indexes = <any[]>this;
+    var customIndex = false;
+
+    var indexes = <any[]>this.clone();
 
     if ($.isString(arg) && (<string>arg).contains('.')) {
         arg = (<string>arg).split('.');
     }
 
     if ($.isString(arg)) {
+        customIndex = true;
         indexes = indexes.collect(function (item) {
             return $.objHasKey(item, <string>arg) && item != null ?
                 defaultValueFunc(item[<string>arg]) : -1;
@@ -777,6 +781,8 @@ function EnumerableSortBy<T>(arg?: string | string[]| ((item: T) => any)): T[] {
         var argArray = <string[]>arg;
 
         for (var i = 0; i < arg.length; i++) {
+
+            customIndex = true;
 
             indexes = indexes.collect(function (item) {
                 if (!$.objHasKey(item, argArray[i])) {
@@ -791,6 +797,8 @@ function EnumerableSortBy<T>(arg?: string | string[]| ((item: T) => any)): T[] {
     else {
         var argFunction = <(item: T) => number>arg;
 
+        customIndex = true;
+
         indexes = indexes.collect(argFunction);
     }
     /*
@@ -800,9 +808,18 @@ function EnumerableSortBy<T>(arg?: string | string[]| ((item: T) => any)): T[] {
     }
     */
 
-    var items = this;
+    var items = this.clone();
 
-    return <T[]>indexes.quickSort([items]);
+    if (customIndex) {
+        var out = (<QuickSortResult>indexes.quickSort([items]));
+
+        if (out.sortWith)
+            return <T[]>out.sortWith[0];
+        else
+            return out.items;
+    }
+    else
+        return <T[]>indexes.quickSort([items]);
 }
 
 singEnumerable.method('quickSort', EnumerableQuickSort,
@@ -813,18 +830,20 @@ singEnumerable.method('quickSort', EnumerableQuickSort,
         returnType: null,
         examples: null,
         tests: function (ext) {
-            ext.addTest([], [], [])
-            ext.addTest(['a', 'b', 'c', 'd', 'e'], [], ['a', 'b', 'c', 'd', 'e'])
-            ext.addTest(['e', 'd', 'c', 'b', 'a'], [], ['a', 'b', 'c', 'd', 'e'])
-            ext.addTest(['d', 'a', 'c', 'e', 'b'], [], ['a', 'b', 'c', 'd', 'e'])
-            ext.addTest(['bananas', 'apples', 'apple pie', 'apple', 'pears', 'grapefruit', 'eggs'], [], ['apple', 'apples', 'apple pie', 'bananas', 'eggs', 'pears', 'grapefruit'])
+            ext.addTest([], [], []);
+            ext.addTest(['a', 'b', 'c', 'd', 'e'], [], ['a', 'b', 'c', 'd', 'e']);
+            ext.addTest(['e', 'd', 'c', 'b', 'a'], [], ['a', 'b', 'c', 'd', 'e']);
+            ext.addTest(['d', 'a', 'c', 'e', 'b'], [], ['a', 'b', 'c', 'd', 'e']);
+            ext.addTest(['bananas', 'apples', 'apple pie', 'apple', 'pears', 'grapefruit', 'eggs'], [], ['apple', 'apple pie', 'apples', 'bananas', 'eggs', 'grapefruit', 'pears']);
 
-            ext.addTest([5, 4, 3, 2, 1], [], [1, 2, 3, 4, 5])
+            ext.addTest([5, 4, 3, 2, 1], [], [1, 2, 3, 4, 5]);
 
             ext.addCustomTest(function () {
                 var test = [1, 2, 3, 4, 5];
 
-                ['d', 'a', 'c', 'e', 'b'].quickSort([test]);
+                var result = ['d', 'a', 'c', 'e', 'b'].quickSort([test]);
+
+                test = (<QuickSortResult>result).sortWith[0];
 
                 if (test != [1, 2, 3, 4, 5])
                     return 'test failed.';
@@ -832,69 +851,82 @@ singEnumerable.method('quickSort', EnumerableQuickSort,
         },
     });
 
-function EnumerableQuickSort(sortWith?: any[][], left: number = 0, right: number = (this.length - 1)): any[]| any[][] {
+function EnumerableQuickSort(sortWith?: any[][], left: number = 0, right: number = (this.length - 1)): any[]| QuickSortResult {
 
-    var items = this;
+    var thisArray = <any[]>this;
 
     if (sortWith && left == 0 && right == this.length - 1) {
         for (var i = 0; i < sortWith.length; i++) {
-            if (sortWith[i] && sortWith[i].length != items.length) {
+            if (sortWith[i] && sortWith[i].length != thisArray.length) {
                 console.log(this, sortWith);
-                throw 'Lengths did not match ' + items.length + ', ' + sortWith[i].length;
+                throw 'Lengths did not match ' + thisArray.length + ', ' + sortWith[i].length;
             }
         }
     }
 
     var index: number;
 
-    if (items.length > 1) {
+    if (thisArray.length > 1) {
 
-        var partitionResult = EnumerableQuickSortPartition(items, left, right, sortWith);
+        var partitionResult = EnumerableQuickSortPartition(thisArray, left, right, sortWith);
 
         var index = partitionResult.index;
-        items = partitionResult.items;
+        thisArray = partitionResult.items;
         sortWith = partitionResult.sortWith;
 
         if (left < index - 1) {
-            if (sortWith != null) {
-                var sorted = items.quickSort(left, index - 1, sortWith);
-                items = sorted[0];
-                for (var i = 1; i < sorted.length; i++) {
-                    sortWith[i - 1] = sorted[i];
+            if (!$.isEmpty(sortWith)) {
+
+                var sorted = thisArray.quickSort(sortWith, left, index - 1);
+
+                if ($.isHash(sorted)) {
+                    thisArray = (<QuickSortResult>sorted).items;
+                    sortWith = (<QuickSortResult>sorted).sortWith;
+                }
+                else {
+                    thisArray = <any[]>sorted;
                 }
 
             }
             else {
-                items = items.quickSort(left, index - 1);
+                thisArray = <any[]>thisArray.quickSort(sortWith, left, index - 1);
             }
         }
 
         if (index < right) {
-            if (sortWith != null) {
-                var sorted = items.quickSort(index, right, sortWith);
+            if (!$.isEmpty(sortWith)) {
+                var sorted = thisArray.quickSort(sortWith, index, right);
 
-                items = sorted[0];
-                for (var i = 1; i < sorted.length; i++) {
-                    sortWith[i - 1] = sorted[i];
+                if ($.isHash(sorted)) {
+                    thisArray = (<QuickSortResult>sorted).items;
+                    sortWith = (<QuickSortResult>sorted).sortWith;
                 }
-
+                else {
+                    thisArray = <any[]>sorted;
+                }
             }
             else {
-                items = items.quickSort(index, right);
+                thisArray = <any[]> thisArray.quickSort(sortWith, index, right);
             }
         }
 
     }
 
-    if (sortWith != null) {
-        var out: any[] = [];
-        out.push(items);
-        out = out.concat(sortWith);
-        return out;
+    if (sortWith != null && !$.isEmpty(sortWith)) {
+
+        return {
+            items: thisArray,
+            sortWith: sortWith
+        };
     }
     else {
-        return items;
+        return thisArray;
     }
+}
+
+interface QuickSortResult {
+    items: any[];
+    sortWith: any[][];
 }
 
 function EnumerableQuickSortPartition(items: any[], left?: number, right?: number, sortWith?: any[][])
@@ -922,6 +954,10 @@ function EnumerableQuickSortPartition(items: any[], left?: number, right?: numbe
         if (i <= j) {
             var swapResult = EnumerableQuickSortSwap(items, i, j, sortWith);
             items = swapResult.items;
+
+            if ($.toStr(swapResult.sortWith) == '0')
+                swapResult.sortWith = swapResult.sortWith;
+
             sortWith = swapResult.sortWith;
 
             i++;
@@ -984,7 +1020,7 @@ singEnumerable.method('timesDo', EnumerableTimesDo,
         examples: ['\
             (5).timesDo(function() { alert(\'hi\'); });'],
         tests: function (ext) {
-
+            /*
             ext.addCustomTest(function () {
                 var test = 0;
                 (5).timesDo(function () { test++; });
@@ -995,15 +1031,17 @@ singEnumerable.method('timesDo', EnumerableTimesDo,
 
             ext.addFailsTest(1, [null], undefined, 'Singularity.Extensions.Enumerable.timesDo Missing Parameter: function executeFunc');
             ext.addFailsTest(1, [undefined], undefined, 'Singularity.Extensions.Enumerable.timesDo Missing Parameter: function executeFunc');
-
+            */
             ext.addTest(5, [sing.func.increment, [5]], [6, 6, 6, 6, 6]);
         },
     }, Number.prototype);
 
 function EnumerableTimesDo(executeFunc: (...args: any[]) => any, args: any[], caller: any): any[] {
 
-    if (!this || this <= 0 || !executeFunc)
-        return;
+    if (!$.isDefined(this) ||
+        this <= 0 ||
+        !$.isDefined(executeFunc))
+        return [];
 
     caller = caller || this;
 

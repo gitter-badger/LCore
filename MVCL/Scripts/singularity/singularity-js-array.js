@@ -17,6 +17,14 @@ singArray.method('splitAt', SplitAt, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest([], [], []);
+        ext.addTest([], [null], []);
+        ext.addTest([], [undefined], []);
+        ext.addTest([], [0], []);
+        ext.addTest([1], [0], [[1]]);
+        ext.addTest([1, 2], [0], [[1, 2]]);
+        ext.addTest([1, 2], [1], [[1], [2]]);
+        ext.addTest([1, 2, 3, 4, 5, 6], [1, 3], [[1], [2, 3], [4, 5, 6]]);
     },
 });
 function SplitAt() {
@@ -24,22 +32,25 @@ function SplitAt() {
     for (var _i = 0; _i < arguments.length; _i++) {
         indexes[_i - 0] = arguments[_i];
     }
+    indexes = indexes.unique();
     indexes.sort();
     var thisArray = this;
     var out = [];
     var section = [];
     var indexI = 0;
     for (var i = 0; i < thisArray.length; i++) {
-        if (indexes.length > indexI) {
-            if (i < indexes[indexI])
-                section.push(thisArray[i]);
+        if (indexes.length >= indexI) {
             if (i == indexes[indexI]) {
-                out.push(section);
+                if (section.length > 0)
+                    out.push(section);
                 section = [];
                 indexI++;
             }
+            section.push(thisArray[i]);
         }
     }
+    if (!$.isEmpty(section))
+        out.push(section);
     return out;
 }
 singArray.method('removeAt', ArrayRemoveAt, {
@@ -49,6 +60,16 @@ singArray.method('removeAt', ArrayRemoveAt, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest([], [], []);
+        ext.addTest([], [null], []);
+        ext.addTest([], [undefined], []);
+        ext.addTest([], [0], []);
+        ext.addTest([1], [0], []);
+        ext.addTest([1, 2], [0], [2]);
+        ext.addTest([1, 2], [1], [1]);
+        ext.addTest([1, 2], [0, 1], []);
+        ext.addTest([1, 2, 3, 4, 5, 6], [0, 1], [3, 4, 5, 6]);
+        ext.addTest([1, 2, 3, 4, 5, 6], [0, 5], [2, 3, 4, 5]);
     },
 });
 function ArrayRemoveAt() {
@@ -80,7 +101,7 @@ function ArrayUnique() {
     var thisArray = this;
     var out = [];
     thisArray.each(function (item, index) {
-        if (!out.has(item))
+        if (!out.has(item) && $.isDefined(item))
             out.push(item);
     });
     return out;
@@ -167,12 +188,11 @@ function ArrayGroup(keyFunc) {
     var out = {};
     thisArray.each(function (item, index) {
         var key = keyFunc(item, index);
-        if (key && key.length > 0) {
-            if ($.isArray(out[key]))
-                out[key].push(item);
-            else
-                out[key] = [item];
-        }
+        key = key || '';
+        if ($.isArray(out[key]))
+            out[key].push(item);
+        else
+            out[key] = [item];
     });
     return out;
 }

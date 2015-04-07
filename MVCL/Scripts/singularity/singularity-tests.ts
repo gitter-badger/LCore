@@ -12,10 +12,40 @@ class SingularityTests {
     runTests: (display: boolean) => string;
     listTests: () => string;
     listMissingTests: () => string;
+
     resolveTests = function () {
+        
+        // Resolve module feature tests
+        $.objEach(sing.modules, function (key, mod, i) {
+            if (!$.isEmpty(mod.features)) {
+
+                mod.features.each(function (item) {
+                    if ($.isFunction(item.tests))
+                        item.tests(null);
+
+                    if ($.isFunction(item.tests))
+                        item.tests = null;
+                });
+            }
+        });
 
         $.objEach(sing.methods, function (key, ext, i) {
 
+            if (ext.isAlias)
+                return;
+
+            // Resolve method feature tests
+            if (ext && ext.details.features) {
+                ext.details.features.each(function (item) {
+                    if ($.isFunction(item.tests))
+                        item.tests(ext);
+
+                    if ($.isFunction(item.tests))
+                        item.tests = null;
+                });
+            }
+            
+            // Resolve method details tests
             if (ext && ext.details.tests && $.isFunction(ext.details.tests)) {
 
                 ext.details.tests(ext);
@@ -50,16 +80,25 @@ class SingularityTest {
                 this.testResult !== undefined &&
                 this.testResult !== null) {
 
-                this.testResult = name + ' ' + this.testResult + ' ' + this.requirement;
+                this.testResult = name + ' ' + this.testResult + (this.requirement ? ' ' + this.requirement : '');
 
                 if (!sing.tests.testErrors.has(this.testResult))
                     sing.tests.testErrors.push(this.testResult);
+                else {
+                    sing.tests = sing.tests;
+                }
             }
             return this.testResult;
         }
     }
 }
 
+sing.addType('SingularityTests', {
+    typeClass: SingularityTests,
+    protoType: SingularityTests.prototype,
+    name: 'SingularityTests',
+    autoDefault: this.autoDefaults,
+});
 
 sing.tests = new SingularityTests();
 
@@ -127,10 +166,10 @@ function SingularityAddMethodTest(ext: SingularityMethod, target?: any, args?: a
 
     requirement += '// == (' + $.toStr(compare, true) + ')';
 
-    ext.details = ext.details || {};
-    ext.details.examples = ext.details.examples || [];
+    // ext.details = ext.details || {};
+    // ext.details.examples = ext.details.examples || [];
 
-    ext.details.examples.push(requirement);
+    // ext.details.examples.push(requirement);
 
     this.addTest(ext.name, function (): any {
         var result = ext.method.apply(target, args);
@@ -140,7 +179,7 @@ function SingularityAddMethodTest(ext: SingularityMethod, target?: any, args?: a
         else if ($.toStr(compare) == $.toStr(result))
             return true;
         else
-            return requirement + '\r\n' +
+            return requirement + '\r\n \r\n' +
                 $.toStr(compare, true) + ' expected, result: ' + $.toStr(result, true);
     }, requirement);
 
@@ -217,23 +256,52 @@ function SingularityRunTests(display: boolean = false) {
 
     sing.tests.resolveTests();
 
-    var result: string;
+    var result: string = '';
     var testCount = 0;
 
     var displayStr = '';
 
-    for (var i = 0; i < Object.keys(sing.methods).length; i++) {
+    var testGroups: Hash<SingularityTest[]> = {};
 
-        var name = Object.keys(sing.methods)[i];
+    $.objValues(sing.modules).each(function (mod) {
+        if (mod.features)
+            mod.features.each(function (feature) {
+                if (feature.unitTests) {
+                    if (testGroups[mod.fullName()])
+                        testGroups[mod.fullName()] = testGroups[mod.fullName()].concat(feature.unitTests);
+                    else
+                        testGroups[mod.fullName()] = feature.unitTests;
+                }
+            });
+    });
 
-        var ext = sing.methods[name];
-        var tests = ext.details.unitTests;
+    $.objValues(sing.methods).each(function (method) {
 
+        if (method.details.features)
+            method.details.features.each(function (feature) {
+                if (feature.unitTests) {
+                    if (testGroups[method + ' ' + feature.name])
+                        testGroups[method + ' ' + feature.name] = testGroups[method + ' ' + feature.name].concat(feature.unitTests);
+                    else
+                        testGroups[method + ' ' + feature.name] = feature.unitTests;
+                }
+            });
+
+        if (method.details) {
+            testGroups[method.name] = method.details.unitTests;
+            if (testGroups[method.name])
+                testGroups[method.name] = testGroups[method.name].concat(method.details.unitTests);
+            else
+                testGroups[method.name] = method.details.unitTests;
+        }
+    });
+
+    $.objProperties(testGroups).each(function (testGroup) {
+
+        var name = testGroup.key;
+        var tests = testGroup.value;
         if (tests) {
-            for (var j = 0; j < tests.length; j++) {
-                var test = tests[j];
-
-                // log('running test ' + name + ' ' + (j + 1));
+            tests.each(function (test, i) {
 
                 if (display)
                     displayStr += test.requirement + '\r\n';
@@ -244,14 +312,13 @@ function SingularityRunTests(display: boolean = false) {
 
                 if (testResult != true && testResult !== undefined && testResult !== null) {
                     testResult = testResult || '';
-                    result = 'Error testing \'' + name + '\' Test ' + (j + 1) + '\r\n' + testResult;
-                    break;
+                    result += 'Error testing \'' + name + '\' Test ' + (i + 1) + '\r\n' + testResult;
                 }
 
                 testCount++;
-            }
-        };
-    }
+            });
+        }
+    });
 
     return sing.tests.listTests() + '\r\n' +
         displayStr + '\r\n' +
@@ -304,6 +371,7 @@ function SingularityListMissingTests() {
 
     return out;
 };
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 SingularityMethod.prototype.addFailsTest = MethodAddFailsTest;

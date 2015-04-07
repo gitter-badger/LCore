@@ -238,7 +238,7 @@ singHTML.method('textToHTML', StringTextToHTML,
 function StringTextToHTML(): string {
 
     return this.replaceAll('\r\n', '\n')
-        .replaceAll('\r\n', '<br/>')
+        .replaceAll('\n', '<br/>')
         .replaceAll('  ', '&nbsp;&nbsp;');
 }
 

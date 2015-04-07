@@ -59,7 +59,7 @@ interface Array<T> {
 }
 
 interface JQueryStatic {
-    toStr?: (obj: any, includeMarkup?: boolean) => string;
+    toStr?: (obj: any, includeMarkup?: boolean, stack?: any[]) => string;
 }
 
 
@@ -645,7 +645,7 @@ function BooleanToStr(includeMarkup: boolean = false): string {
     return this == false ? "false" : "true";
 }
 
-singString.method('toStr', ToStr,
+singString.method('toStr', ObjectToStr,
     {
         summary: null,
         parameters: null,
@@ -654,73 +654,97 @@ singString.method('toStr', ToStr,
         examples: null,
         tests: function (ext) {
 
-            ext.addTest(undefined, [null], '');
-            ext.addTest(undefined, [null, false], '');
-            ext.addTest(undefined, [null, true], 'null');
-            ext.addTest(undefined, [undefined], '');
-            ext.addTest(undefined, [undefined, false], '');
-            ext.addTest(undefined, [undefined, true], 'undefined');
+            ext.addTest($, [null], '');
+            ext.addTest($, [null, false], '');
+            ext.addTest($, [null, true], 'null');
+            ext.addTest($, [undefined], '');
+            ext.addTest($, [undefined, false], '');
+            ext.addTest($, [undefined, true], 'undefined');
 
-            ext.addTest(undefined, [[]], '');
-            ext.addTest(undefined, [[], false], '');
-            ext.addTest(undefined, [[], true], '[]');
+            ext.addTest($, [[]], '');
+            ext.addTest($, [[], false], '');
+            ext.addTest($, [[], true], '[]');
 
-            ext.addTest(undefined, [{}], '');
-            ext.addTest(undefined, [{}, false], '');
-            ext.addTest(undefined, [{}, true], '{}');
+            ext.addTest($, [[[]]], '');
+            ext.addTest($, [[[]], false], '');
+            ext.addTest($, [[[]], true], '[[]]');
 
-            ext.addTest(undefined, [NaN], '');
-            ext.addTest(undefined, [NaN, false], '');
-            ext.addTest(undefined, [NaN, true], 'NaN');
+            ext.addTest($, [[{}]], '');
+            ext.addTest($, [[{}], false], '');
+            ext.addTest($, [[{}], true], '[{}]');
+
+            ext.addTest($, [{}], '');
+            ext.addTest($, [{}, false], '');
+            ext.addTest($, [{}, true], '{}');
+
+            ext.addTest($, [NaN], '');
+            ext.addTest($, [NaN, false], '');
+            ext.addTest($, [NaN, true], 'NaN');
 
 
-            ext.addTest(undefined, [{ a: 'b', b: 5, c: false, d: [], e: { f: {} } }], 'a: b\r\nb: 5\r\nc: No\r\nd: \r\ne: f: \r\n\r\n');
-            ext.addTest(undefined, [{ a: 'b', b: 5, c: false, d: [], e: { f: {} } }, true], '{a: \'b\', b: 5, c: false, d: [], e: {f: {}}}');
+            ext.addTest($, [{ a: 'b', b: 5, c: false, d: [], e: { f: {} } }], 'a: b\r\nb: 5\r\nc: No\r\nd: \r\ne: f: \r\n\r\n');
+            ext.addTest($, [{ a: 'b', b: 5, c: false, d: [], e: { f: {} } }, true], '{a: \'b\', b: 5, c: false, d: [], e: {f: {}}}');
 
-            ext.addTest(undefined, [['a']], 'a');
-            ext.addTest(undefined, [['a'], false], 'a');
-            ext.addTest(undefined, [['a'], true], '[\'a\']');
+            ext.addTest($, [['a']], 'a');
+            ext.addTest($, [['a'], false], 'a');
+            ext.addTest($, [['a'], true], '[\'a\']');
 
-            ext.addTest(undefined, [[true]], 'Yes');
-            ext.addTest(undefined, [[true], false], 'Yes');
-            ext.addTest(undefined, [[true], true], '[true]');
-            ext.addTest(undefined, [[false]], 'No');
-            ext.addTest(undefined, [[false], false], 'No');
-            ext.addTest(undefined, [[false], true], '[false]');
+            ext.addTest($, [[true]], 'Yes');
+            ext.addTest($, [[true], false], 'Yes');
+            ext.addTest($, [[true], true], '[true]');
+            ext.addTest($, [[false]], 'No');
+            ext.addTest($, [[false], false], 'No');
+            ext.addTest($, [[false], true], '[false]');
 
-            ext.addTest(undefined, [[5]], '5');
-            ext.addTest(undefined, [[5], false], '5');
-            ext.addTest(undefined, [[5], true], '[5]');
+            ext.addTest($, [[5]], '5');
+            ext.addTest($, [[5], false], '5');
+            ext.addTest($, [[5], true], '[5]');
 
-            ext.addTest(undefined, [[false, false, false, false]], 'No\r\nNo\r\nNo\r\nNo');
-            ext.addTest(undefined, [[false, false, false, false], false], 'No\r\nNo\r\nNo\r\nNo');
-            ext.addTest(undefined, [[false, false, false, false], true], '[false, false, false, false]');
+            ext.addTest($, [[false, false, false, false]], 'No\r\nNo\r\nNo\r\nNo');
+            ext.addTest($, [[false, false, false, false], false], 'No\r\nNo\r\nNo\r\nNo');
+            ext.addTest($, [[false, false, false, false], true], '[false, false, false, false]');
+
+            ext.addTest($, [$], '$');
+
+            ext.addTest($, [sing], 'sing');
         },
     }, $, 'jQuery');
 
-function ToStr(obj: any, includeMarkup: boolean = false) {
+function ObjectToStr(obj: any, includeMarkup: boolean = false, stack: any[] = []) {
 
     if (obj === undefined)
         return includeMarkup ? 'undefined' : '';
     if (obj === null)
         return includeMarkup ? 'null' : '';
+    if (obj === $)
+        return '$';
+    if (obj === sing)
+        return 'sing';
 
-    if (obj.toStr)
+    if (obj.toStr && obj.toStr != ObjectToStr)
         return obj.toStr(includeMarkup);
 
     if (typeof obj == 'object') {
+        // Prevents infinite recursion
+        if (stack.has(function (item: any) { return item === obj; })) {
+            return '';
+        }
+
+        stack = stack.clone();
+        stack.push(obj);
+
         var out = includeMarkup ? '{' : '';
 
         var keyCount = Object.keys(obj).length;
 
         $.objEach(obj, function (key, item, index) {
             if (includeMarkup) {
-                out += key + ': ' + $.toStr(item, true);
+                out += (key || '\'\'') + ': ' + $.toStr(item, true, stack);
                 if (index < keyCount - 1)
                     out += ', ';
             }
             else {
-                out += key + ': ' + $.toStr(item) + '\r\n';
+                out += key + ': ' + $.toStr(item, false, stack) + '\r\n';
             }
         });
 
@@ -742,9 +766,9 @@ singString.method('toStr', ArrayToStr,
         },
     }, Array.prototype, "Array");
 
-function ArrayToStr<T>(includeMarkup: boolean = false) {
+function ArrayToStr(includeMarkup: boolean = false) {
 
-    var thisArray = <Hash<any>[]>this;
+    var thisArray = <any[]>this;
 
     var out = includeMarkup ? '[' : '';
     var src = this;
@@ -754,8 +778,10 @@ function ArrayToStr<T>(includeMarkup: boolean = false) {
             out += 'null';
         else if (item === undefined)
             out += 'undefined';
-        else if (item['toStr'])
-            out += item['toStr'](includeMarkup);  // includeMarkup is passed to child elements
+        else if (item.toStr)
+            out += item.toStr(includeMarkup);  // includeMarkup is passed to child elements
+        else if ($.isHash(item))
+            out += $.toStr(item, includeMarkup);
 
         if (i < src.length - 1)
             out += includeMarkup ? ', ' : '\r\n';
@@ -793,12 +819,12 @@ singString.method('isString', IsString,
         returnType: '',
         examples: null,
         tests: function (ext) {
-            ext.addTest(undefined, [], false);
-            ext.addTest(undefined, [], false);
-            ext.addTest(undefined, [], false);
-            ext.addTest(undefined, [5], false);
-            ext.addTest(undefined, [''], true);
-            ext.addTest(undefined, ['a'], true);
+            ext.addTest($, [], false);
+            ext.addTest($, [], false);
+            ext.addTest($, [], false);
+            ext.addTest($, [5], false);
+            ext.addTest($, [''], true);
+            ext.addTest($, ['a'], true);
         },
     }, $);
 
@@ -953,7 +979,6 @@ singString.method('isDate', null,
         tests: function (ext) {
         },
     });
-
 singString.method('containsAll', null,
     {
         summary: null,
@@ -1024,7 +1049,6 @@ singString.method('fill', null,
         tests: function (ext) {
         },
     });
-
 singString.method('similarity', null,
     {
         summary: null,
@@ -1045,7 +1069,6 @@ singString.method('like', null,
         tests: function (ext) {
         },
     });
-
 singString.method('isJSON', null,
     {
         summary: null,

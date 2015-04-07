@@ -316,6 +316,27 @@ singFunction.method('fn_repeat', FunctionRepeat, {
     returnType: Function,
     examples: null,
     tests: function (ext) {
+        ext.addCustomTest(function () {
+            var test = 0;
+            var test_fn = function () {
+                test++;
+            };
+            test_fn = test_fn.fn_repeat(5);
+            test_fn();
+            if (test != 5)
+                return 'failed';
+        });
+        ext.addCustomTest(function () {
+            var test = [1, 2, 3, 4, 5];
+            var test2 = '';
+            var test_fn = function (a) {
+                test2 += a;
+            };
+            test_fn = test_fn.fn_repeat(test);
+            test_fn();
+            if (test2 != '12345')
+                return 'failed';
+        });
     },
 });
 function FunctionRepeat(repeatOver) {

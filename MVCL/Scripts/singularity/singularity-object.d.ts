@@ -18,11 +18,25 @@ interface JQueryStatic {
     isHash?: (obj?: any) => boolean;
     isEmpty?: (obj?: any) => boolean;
     typeName?: (obj?: any) => string;
+    clone(obj: any, deepClone?: boolean): any;
+    clone<T>(obj: T, deepClone?: boolean): T;
 }
 interface JQuery {
 }
 interface Array<T> {
-    clone?: () => T[];
+    clone?: (deepClone?: boolean) => T[];
+}
+interface String {
+    clone?: () => string;
+}
+interface Number {
+    clone?: () => number;
+}
+interface Boolean {
+    clone?: () => boolean;
+}
+interface Date {
+    clone?: () => Date;
 }
 declare var singObject: SingularityModule;
 declare function ObjectEach(obj: Hash<any>, eachFunc: (key: string, item: any, index: number) => void): void;
@@ -33,15 +47,15 @@ declare function ObjectProperties(obj?: Hash<any>): {
 declare function ObjectValues(obj?: Hash<any> | any[], findKeys?: string[]): any[];
 declare function ArrayFindValues<T>(...names: string[]): any[];
 declare function ObjectKeys(obj?: Object): string[];
-declare function ObjectHasKey(obj: Object, key: string): boolean;
+declare function ObjectHasKey(obj: any, key: string): boolean;
 declare function ObjectResolve(obj: any, args: any[]): any;
 declare function ObjectDefined(obj?: any): boolean;
 declare function ObjectIsHash(obj?: any): boolean;
-declare function ArrayClone(): any;
+declare function ArrayClone<T>(deepClone?: boolean): any[];
 declare function NumberClone(): any;
 declare function BooleanClone(): any;
 declare function StringClone(): any;
-declare function DateClone(): any;
-declare function ObjectClone(): any;
+declare function DateClone(): Date;
+declare function ObjectClone(obj: any, deepClone?: boolean): any;
 declare function ObjectIsEmpty(obj?: any): boolean;
 declare function ObjectTypeName(obj?: any): any;

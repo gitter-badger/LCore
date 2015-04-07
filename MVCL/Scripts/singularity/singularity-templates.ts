@@ -81,7 +81,7 @@ function StringTemplateInject(obj: Object, _context?: Hash<any>): string {
 
         var value: any = null;
 
-        value = sing.resolveKey(key, obj, _context);
+        value = sing.resolve(key, obj, _context);
 
         if (value == null)
             throw 'could not find key ' + key;
@@ -219,7 +219,7 @@ function ObjectGetTemplate(name: string, data?: Object): JQuery {
 
 
         } catch (ex) {
-            return $('<error>' + ex + ' ' + ex.stack + '</error>');
+            return $('<error>' + ex + '</error>');
         }
     }
     return template;
@@ -374,7 +374,7 @@ function JQueryPerformSingIf(data?: any, _context?: Hash<any>, forceFill: boolea
         sourceData = true;
     }
     else {
-        var sourceData = sing.resolveKey(condition, data, _context);
+        var sourceData = sing.resolve(condition, data, _context);
 
         if (!$.isDefined(sourceData))
             sourceData = false;
@@ -479,7 +479,7 @@ function JQueryPerformSingFill(data?: any, _context?: Hash<any>, forceFill: bool
 
     if (source.contains(' as ')) {
         var after = source.after(' as ');
-        var sourceData = sing.resolveKey(source.before(' as '), data, _context);
+        var sourceData = sing.resolve(source.before(' as '), data, _context);
 
         // Copy context because a key is duplicated
         if (_context['after'] !== undefined) {
@@ -489,7 +489,7 @@ function JQueryPerformSingFill(data?: any, _context?: Hash<any>, forceFill: bool
         _context[after] = sourceData;
     }
     else {
-        sourceData = sing.resolveKey(source, data, _context);
+        sourceData = sing.resolve(source, data, _context);
     }
 
 
@@ -510,7 +510,7 @@ function JQueryPerformSingFill(data?: any, _context?: Hash<any>, forceFill: bool
     } catch (ex) {
 
         console.trace();
-        srcThis.html('<error>' + ex + ' ' + ex.stack + '</error>');
+        srcThis.html('<error>' + ex + '</error>');
 
     }
 
@@ -558,7 +558,7 @@ function JQueryPerformSingLoop(data: any, _context?: Hash<any>, forceFill: boole
     }
 
     var itemDataIndex = itemKey.length - 1;
-    var loopData = sing.resolveKey(loopKey, data, _context);
+    var loopData = sing.resolve(loopKey, data, _context);
 
     //console.log('SING-LOOP ' + itemKey + ' IN ' + loopKey);
 
@@ -611,7 +611,7 @@ function JQueryPerformSingLoop(data: any, _context?: Hash<any>, forceFill: boole
                     loopClone.fillTemplate(data, _context, forceFill);
 
                 } catch (ex) {
-                    loopClone = $('<error>' + ex + ' ' + ex.stack + '</error>');
+                    loopClone = $('<error>' + ex + '</error>');
                     console.trace();
                 }
 

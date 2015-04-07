@@ -36,7 +36,7 @@ function StringTemplateInject(obj, _context) {
             continue;
         }
         var value = null;
-        value = sing.resolveKey(key, obj, _context);
+        value = sing.resolve(key, obj, _context);
         if (value == null)
             throw 'could not find key ' + key;
         var valueTemplate = sing.getTemplateName(value);
@@ -134,7 +134,7 @@ function ObjectGetTemplate(name, data) {
             return template.attr('sing-template-data', 'true').fillTemplate(data);
         }
         catch (ex) {
-            return $('<error>' + ex + ' ' + ex.stack + '</error>');
+            return $('<error>' + ex + '</error>');
         }
     }
     return template;
@@ -246,7 +246,7 @@ function JQueryPerformSingIf(data, _context, forceFill) {
         sourceData = true;
     }
     else {
-        var sourceData = sing.resolveKey(condition, data, _context);
+        var sourceData = sing.resolve(condition, data, _context);
         if (!$.isDefined(sourceData))
             sourceData = false;
     }
@@ -315,7 +315,7 @@ function JQueryPerformSingFill(data, _context, forceFill) {
     var sourceData;
     if (source.contains(' as ')) {
         var after = source.after(' as ');
-        var sourceData = sing.resolveKey(source.before(' as '), data, _context);
+        var sourceData = sing.resolve(source.before(' as '), data, _context);
         // Copy context because a key is duplicated
         if (_context['after'] !== undefined) {
             _context = $.extend(true, {}, _context);
@@ -323,7 +323,7 @@ function JQueryPerformSingFill(data, _context, forceFill) {
         _context[after] = sourceData;
     }
     else {
-        sourceData = sing.resolveKey(source, data, _context);
+        sourceData = sing.resolve(source, data, _context);
     }
     if (!$.isDefined(sourceData))
         throw 'could not find data ' + source;
@@ -339,7 +339,7 @@ function JQueryPerformSingFill(data, _context, forceFill) {
     }
     catch (ex) {
         console.trace();
-        srcThis.html('<error>' + ex + ' ' + ex.stack + '</error>');
+        srcThis.html('<error>' + ex + '</error>');
     }
     return srcThis;
 }
@@ -375,7 +375,7 @@ function JQueryPerformSingLoop(data, _context, forceFill) {
         }
     }
     var itemDataIndex = itemKey.length - 1;
-    var loopData = sing.resolveKey(loopKey, data, _context);
+    var loopData = sing.resolve(loopKey, data, _context);
     //console.log('SING-LOOP ' + itemKey + ' IN ' + loopKey);
     var out = '';
     if (loopData == null || loopData.length == 0) {
@@ -414,7 +414,7 @@ function JQueryPerformSingLoop(data, _context, forceFill) {
                     loopClone.fillTemplate(data, _context, forceFill);
                 }
                 catch (ex) {
-                    loopClone = $('<error>' + ex + ' ' + ex.stack + '</error>');
+                    loopClone = $('<error>' + ex + '</error>');
                     console.trace();
                 }
             }

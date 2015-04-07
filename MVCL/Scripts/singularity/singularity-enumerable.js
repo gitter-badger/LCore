@@ -320,6 +320,7 @@ singEnumerable.method('collect', EnumerableCollect, {
         ext.addTest([null], [], []);
         ext.addTest([undefined, null], [], []);
         ext.addTest([1, 2, 3, undefined, null], [], [1, 2, 3]);
+        ext.addTest([1, 2, 3, [4, 5, 6]], [], [1, 2, 3, [4, 5, 6]]);
         ext.addTest([1, 2, 3, undefined, null], [function (a) {
             return a == 3;
         }], [false, false, true, false, false]);
@@ -344,7 +345,7 @@ function EnumerableCollect(action) {
     thisArray.each(function (item, i) {
         var result = action(item, i);
         if (result !== null && result !== undefined)
-            out = out.concat(result);
+            out.push(result);
     });
     return out;
 }
@@ -449,7 +450,7 @@ function EnumerableLast(itemOrAction) {
         return thisArray[thisArray.length - 1];
     if (!itemOrAction)
         return;
-    var out = thisArray.reverse().first(itemOrAction);
+    var out = thisArray.clone().reverse().first(itemOrAction);
     if ($.isArray(out))
         out = out.reverse();
     return out;
@@ -614,8 +615,8 @@ singEnumerable.method('sortBy', EnumerableSortBy, {
         ext.addTest(['a', 'b', 'c', 'd', 'e'], [], ['a', 'b', 'c', 'd', 'e']);
         ext.addTest(['e', 'd', 'c', 'b', 'a'], [], ['a', 'b', 'c', 'd', 'e']);
         ext.addTest(['d', 'a', 'c', 'e', 'b'], [], ['a', 'b', 'c', 'd', 'e']);
-        ext.addTest(['bananas', 'apples', 'apple pie', 'apple', 'pears', 'grapefruit', 'eggs'], [], ['apple', 'apples', 'apple pie', 'bananas', 'eggs', 'pears', 'grapefruit']);
-        ext.addTest(['bananas', 'apples', 'apple pie', 'apple', 'pears', 'grapefruit', 'eggs'], ['length'], ['eggs', 'apple', 'pears', 'apples', 'apple pie', 'bananas', 'grapefruit']);
+        ext.addTest(['bananas', 'apples', 'apple pie', 'apple', 'pears', 'grapefruit', 'eggs'], [], ['apple', 'apple pie', 'apples', 'bananas', 'eggs', 'grapefruit', 'pears']);
+        ext.addTest(['bananas', 'apples', 'apple pie', 'apple', 'pears', 'grapefruit', 'eggs'], ['length'], ['eggs', 'apple', 'pears', 'apples', 'bananas', 'apple pie', 'grapefruit']);
         ext.addTest([{ name: 'frank', age: 111 }, { name: 'steve', age: 12 }, { name: 'bob', age: 52 }], ['name'], [{ name: 'bob', age: 52 }, { name: 'frank', age: 111 }, { name: 'steve', age: 12 }]);
         ext.addTest([{ name: 'frank', age: 111 }, { name: 'steve', age: 12 }, { name: 'bob', age: 52 }], ['age'], [{ name: 'steve', age: 12 }, { name: 'bob', age: 52 }, { name: 'frank', age: 111 }]);
         ext.addTest([{ name: 'frank', age: 111 }, { name: 'steve', age: 12 }, { name: 'bob', age: 52 }], [function (a) {
@@ -633,11 +634,13 @@ function EnumerableSortBy(arg) {
     if (arg == null) {
         arg = defaultValueFunc;
     }
-    var indexes = this;
+    var customIndex = false;
+    var indexes = this.clone();
     if ($.isString(arg) && arg.contains('.')) {
         arg = arg.split('.');
     }
     if ($.isString(arg)) {
+        customIndex = true;
         indexes = indexes.collect(function (item) {
             return $.objHasKey(item, arg) && item != null ? defaultValueFunc(item[arg]) : -1;
         });
@@ -645,6 +648,7 @@ function EnumerableSortBy(arg) {
     else if ($.isArray(arg)) {
         var argArray = arg;
         for (var i = 0; i < arg.length; i++) {
+            customIndex = true;
             indexes = indexes.collect(function (item) {
                 if (!$.objHasKey(item, argArray[i])) {
                     return -1;
@@ -655,6 +659,7 @@ function EnumerableSortBy(arg) {
     }
     else {
         var argFunction = arg;
+        customIndex = true;
         indexes = indexes.collect(argFunction);
     }
     /*
@@ -663,8 +668,16 @@ function EnumerableSortBy(arg) {
             .collect(sing.methods['Singularity.Number.String.numericValueOf'].method);
     }
     */
-    var items = this;
-    return indexes.quickSort([items]);
+    var items = this.clone();
+    if (customIndex) {
+        var out = indexes.quickSort([items]);
+        if (out.sortWith)
+            return out.sortWith[0];
+        else
+            return out.items;
+    }
+    else
+        return indexes.quickSort([items]);
 }
 singEnumerable.method('quickSort', EnumerableQuickSort, {
     summary: null,
@@ -677,11 +690,12 @@ singEnumerable.method('quickSort', EnumerableQuickSort, {
         ext.addTest(['a', 'b', 'c', 'd', 'e'], [], ['a', 'b', 'c', 'd', 'e']);
         ext.addTest(['e', 'd', 'c', 'b', 'a'], [], ['a', 'b', 'c', 'd', 'e']);
         ext.addTest(['d', 'a', 'c', 'e', 'b'], [], ['a', 'b', 'c', 'd', 'e']);
-        ext.addTest(['bananas', 'apples', 'apple pie', 'apple', 'pears', 'grapefruit', 'eggs'], [], ['apple', 'apples', 'apple pie', 'bananas', 'eggs', 'pears', 'grapefruit']);
+        ext.addTest(['bananas', 'apples', 'apple pie', 'apple', 'pears', 'grapefruit', 'eggs'], [], ['apple', 'apple pie', 'apples', 'bananas', 'eggs', 'grapefruit', 'pears']);
         ext.addTest([5, 4, 3, 2, 1], [], [1, 2, 3, 4, 5]);
         ext.addCustomTest(function () {
             var test = [1, 2, 3, 4, 5];
-            ['d', 'a', 'c', 'e', 'b'].quickSort([test]);
+            var result = ['d', 'a', 'c', 'e', 'b'].quickSort([test]);
+            test = result.sortWith[0];
             if (test != [1, 2, 3, 4, 5])
                 return 'test failed.';
         });
@@ -690,54 +704,60 @@ singEnumerable.method('quickSort', EnumerableQuickSort, {
 function EnumerableQuickSort(sortWith, left, right) {
     if (left === void 0) { left = 0; }
     if (right === void 0) { right = (this.length - 1); }
-    var items = this;
+    var thisArray = this;
     if (sortWith && left == 0 && right == this.length - 1) {
         for (var i = 0; i < sortWith.length; i++) {
-            if (sortWith[i] && sortWith[i].length != items.length) {
+            if (sortWith[i] && sortWith[i].length != thisArray.length) {
                 console.log(this, sortWith);
-                throw 'Lengths did not match ' + items.length + ', ' + sortWith[i].length;
+                throw 'Lengths did not match ' + thisArray.length + ', ' + sortWith[i].length;
             }
         }
     }
     var index;
-    if (items.length > 1) {
-        var partitionResult = EnumerableQuickSortPartition(items, left, right, sortWith);
+    if (thisArray.length > 1) {
+        var partitionResult = EnumerableQuickSortPartition(thisArray, left, right, sortWith);
         var index = partitionResult.index;
-        items = partitionResult.items;
+        thisArray = partitionResult.items;
         sortWith = partitionResult.sortWith;
         if (left < index - 1) {
-            if (sortWith != null) {
-                var sorted = items.quickSort(left, index - 1, sortWith);
-                items = sorted[0];
-                for (var i = 1; i < sorted.length; i++) {
-                    sortWith[i - 1] = sorted[i];
+            if (!$.isEmpty(sortWith)) {
+                var sorted = thisArray.quickSort(sortWith, left, index - 1);
+                if ($.isHash(sorted)) {
+                    thisArray = sorted.items;
+                    sortWith = sorted.sortWith;
+                }
+                else {
+                    thisArray = sorted;
                 }
             }
             else {
-                items = items.quickSort(left, index - 1);
+                thisArray = thisArray.quickSort(sortWith, left, index - 1);
             }
         }
         if (index < right) {
-            if (sortWith != null) {
-                var sorted = items.quickSort(index, right, sortWith);
-                items = sorted[0];
-                for (var i = 1; i < sorted.length; i++) {
-                    sortWith[i - 1] = sorted[i];
+            if (!$.isEmpty(sortWith)) {
+                var sorted = thisArray.quickSort(sortWith, index, right);
+                if ($.isHash(sorted)) {
+                    thisArray = sorted.items;
+                    sortWith = sorted.sortWith;
+                }
+                else {
+                    thisArray = sorted;
                 }
             }
             else {
-                items = items.quickSort(index, right);
+                thisArray = thisArray.quickSort(sortWith, index, right);
             }
         }
     }
-    if (sortWith != null) {
-        var out = [];
-        out.push(items);
-        out = out.concat(sortWith);
-        return out;
+    if (sortWith != null && !$.isEmpty(sortWith)) {
+        return {
+            items: thisArray,
+            sortWith: sortWith
+        };
     }
     else {
-        return items;
+        return thisArray;
     }
 }
 function EnumerableQuickSortPartition(items, left, right, sortWith) {
@@ -752,6 +772,8 @@ function EnumerableQuickSortPartition(items, left, right, sortWith) {
         if (i <= j) {
             var swapResult = EnumerableQuickSortSwap(items, i, j, sortWith);
             items = swapResult.items;
+            if ($.toStr(swapResult.sortWith) == '0')
+                swapResult.sortWith = swapResult.sortWith;
             sortWith = swapResult.sortWith;
             i++;
             j--;
@@ -805,22 +827,24 @@ singEnumerable.method('timesDo', EnumerableTimesDo, {
     examples: ['\
             (5).timesDo(function() { alert(\'hi\'); });'],
     tests: function (ext) {
+        /*
         ext.addCustomTest(function () {
             var test = 0;
-            (5).timesDo(function () {
-                test++;
-            });
+            (5).timesDo(function () { test++; });
+
             if (test != 5)
                 return false;
         }, 'Must execute the function the correct number of times.');
+
         ext.addFailsTest(1, [null], undefined, 'Singularity.Extensions.Enumerable.timesDo Missing Parameter: function executeFunc');
         ext.addFailsTest(1, [undefined], undefined, 'Singularity.Extensions.Enumerable.timesDo Missing Parameter: function executeFunc');
+        */
         ext.addTest(5, [sing.func.increment, [5]], [6, 6, 6, 6, 6]);
     },
 }, Number.prototype);
 function EnumerableTimesDo(executeFunc, args, caller) {
-    if (!this || this <= 0 || !executeFunc)
-        return;
+    if (!$.isDefined(this) || this <= 0 || !$.isDefined(executeFunc))
+        return [];
     caller = caller || this;
     var out = [];
     for (var i = 0; i < this; i++) {

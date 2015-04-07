@@ -16,7 +16,11 @@ interface Function {
     fn_if?: (ifFunc: (...items: any[]) => boolean) => (...items: any[]) => any;
     fn_unless?: <T>(unlessFunc: (...items: any[]) => boolean) => (...items: any[]) => T;
     fn_then?: <T>(thenFunc: (...items: any[]) => any) => (...items: any[]) => T;
-    fn_repeat?: <T>(times: number) => (...items: any[]) => T;
+
+    fn_repeat<T>(times: number): (...items: any[]) => T;
+    fn_repeat<T>(list: any[]): (...items: any[]) => T;
+    fn_repeat<T>(repeat_fn: (...items: any[]) => T): (...items: any[]) => T;
+
     fn_while?: <T>(whileFunc: (...items: any[]) => boolean) => (...items: any[]) => T;
     fn_until?: <T>(untilFunc: (...items: any[]) => boolean) => (...items: any[]) => T;
     fn_repeatEvery?: <T>(periodMS: number) => (...items: any[]) => T;
@@ -447,6 +451,35 @@ singFunction.method('fn_repeat', FunctionRepeat,
         returnType: Function,
         examples: null,
         tests: function (ext) {
+            ext.addCustomTest(function () {
+
+                var test = 0;
+
+                var test_fn = function () {
+                    test++;
+                };
+                test_fn = test_fn.fn_repeat(5);
+
+                test_fn();
+
+                if (test != 5)
+                    return 'failed';
+            });
+            ext.addCustomTest(function () {
+
+                var test = [1, 2, 3, 4, 5];
+                var test2 = '';
+
+                var test_fn = function (a?: any) {
+                    test2 += a;
+                };
+                test_fn = test_fn.fn_repeat(test);
+
+                test_fn();
+
+                if (test2 != '12345')
+                    return 'failed';
+            });
         },
     });
 

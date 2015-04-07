@@ -12,34 +12,10 @@
 /// <reference path="singularity-tests.ts"/>
 /// <reference path="singularity-doc.ts"/>
 
-
-
 // #region Comments
 //////////////////////////////////////////////////////
 //
 // Singularity.TS TypeScript, JavaScript, jQuery, HTML, Extension Method Engine & Library
-//
-// Unit Tested and Self-Documented -- execute:
-//
-/*
-
-   // Summary
-   sing.getSummary();
-   
-   // String Summary
-   sing.getSummary('String.');
-
-   // All documentation
-   sing.getDocs('all');
-
-   // Get documentation for XOR including code.
-   sing.getDocs('xor', true);
-
-   // Get documentation for all Array functions
-   sing.getDocs('Array.');
-
-
-*/
 //
 //////////////////////////////////////////////////////
 //
@@ -185,7 +161,6 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
 class Singularity {
 
     summary = 'TypeScript, JavaScript, jQuery, HTML Language Extensions';
@@ -303,7 +278,30 @@ class Singularity {
             protoType: $,
             name: 'jQuery',
             autoDefault: this.autoDefaults,
+        },
+        Singularity: {
+            typeClass: Singularity,
+            protoType: Singularity.prototype,
+            name: 'Singularity',
+            autoDefault: this.autoDefaults,
+        },
+        SingularityModule: {
+            typeClass: SingularityModule,
+            protoType: SingularityModule.prototype,
+            name: 'SingularityModule',
+            autoDefault: this.autoDefaults,
+        },
+        SingularityMethod: {
+            typeClass: SingularityMethod,
+            protoType: SingularityMethod.prototype,
+            name: 'SingularityMethod',
+            autoDefault: this.autoDefaults,
         }
+    };
+
+    addType = function (name: string, addType: SingularityType) {
+
+        this.types[name] = addType;
     };
 
     autoDefault = new SingularityAutoDefinition();
@@ -333,17 +331,20 @@ class Singularity {
 
     getTypeName = function (protoType: any | any[]) {
 
-        if ($.isArray(protoType)) {
+        if ($.isArray(protoType) && protoType.lenth > 0) {
             return protoType.collect(sing.getTypeName).join(', ');
         }
         else {
             for (var t in sing.types) {
 
-                if (sing.types[t].protoType == protoType || sing.types[t].typeClass == protoType)
+                if (sing.types[t].protoType == protoType || sing.types[t].typeClass == protoType ||
+                    sing.types[t].protoType == protoType.protoType || sing.types[t].typeClass == protoType.protoType)
                     return sing.types[t].name;
             }
 
-            throw 'could not find ' + protoType;
+            return this.types.Object.name;
+
+            //throw 'could not find ' + protoType;
         }
     }
 
@@ -372,7 +373,7 @@ class Singularity {
         '$': $,
     };
 
-    resolveKey: (key: string, data?: any, context?: Object, rootKey?: string) => any;
+    resolve: (key: string, data?: any, context?: Object, rootKey?: string) => any;
 
     loadContext: (context: Hash<any>) => Hash<any>;
 
@@ -413,7 +414,10 @@ class SingularityModule {
     summaryShort: string;
     summaryLong: string;
 
-    features: string[] = [];
+    srcLink: string;
+
+    features: SingularityFeature[] = [];
+
     resources: Hash<string> = {};
 
     parentModule: SingularityModule;
@@ -805,7 +809,7 @@ class SingularityModule {
                     // Defines an Array extension method without corrupting 'for-in'
                     if (methods[j].target === Array.prototype) {
                         if (!Array.prototype[name] && method) {
-                            Object.defineProperty(Array.prototype, name, {
+                            Object.defineProperty(Array.prototype, methods[j].name, {
                                 enumerable: false,
                                 value: method,
                             });
@@ -884,18 +888,51 @@ class SingularityMethod {
         return this.name;
     };
 
+    passedTests = function () {
+        var thisMethod = <SingularityMethod>this;
+
+        if (thisMethod.details && thisMethod.details.manuallyTested)
+            return 1;
+
+        if (thisMethod.details && thisMethod.details.unitTests) {
+            return thisMethod.details.unitTests.count(function (a) {
+                return a.testResult == true;
+            });
+        }
+
+        return 0;
+    }
+
+    passesAllTests = function () {
+        var thisMethod = <SingularityMethod>this;
+
+        if (thisMethod.details && thisMethod.details.manuallyTested)
+            return true;
+
+        if (thisMethod.details && thisMethod.details.unitTests) {
+            return thisMethod.details.unitTests.every(function (a) {
+                return a.testResult == true;
+            });
+        }
+
+        return false;
+    };
+
     documentationPresent = function () {
+
+        var thisMethod = <SingularityMethod>this;
+
         var out = 0;
 
-        if (!$.isEmpty(this.details.summary))
+        if (!$.isEmpty(thisMethod.details.summary))
             out++;
-        if (!$.isEmpty(this.details.returns))
+        if (!$.isEmpty(thisMethod.details.returns))
             out++;
-        if (!$.isEmpty(this.details.returnTypeName))
+        if (!$.isEmpty(thisMethod.details.returnTypeName))
             out++;
-        if (!$.isEmpty(this.details.examples))
+        if (!$.isEmpty(thisMethod.details.examples) || !$.isEmpty(thisMethod.details.unitTests))
             out++;
-        if (this.details.parameters != undefined && this.details.parameters != null)
+        if (thisMethod.details.parameters != undefined && thisMethod.details.parameters != null)
             out++;
 
         return out;
@@ -926,8 +963,12 @@ class SingularityMethod {
             this.codeLines = method.toString().split('\r\n').length;
 
         this.moduleName = moduleName;
-        this.target = target;
-        this.targetType = target;
+
+        if (target !== undefined) {
+            this.target = sing.getTypeName(target);
+            this.targetType = target;
+        }
+
         this.details = details;
         this.method = method;
         this.methodModule = methodModule;
@@ -1328,6 +1369,16 @@ class SingularityMethod {
         ext.methodCall += ');';
     }
 
+    isTested = function () {
+
+        var thisMethod = <SingularityMethod>this;
+
+        if (thisMethod.details && thisMethod.details.unitTests && thisMethod.details.unitTests.length > 0)
+            return true;
+        if (thisMethod.details && thisMethod.details.manuallyTested)
+            return true;
+    }
+
     addTest: (caller: any, args: any[], result?: any, requirement?: string) => void;
 
     addCustomTest: (testFunc: () => any, requirement?: string) => void;
@@ -1354,6 +1405,7 @@ interface SingularityMethodDetails {
 
     parameters?: SingularityParameter[];
 
+    features?: SingularityFeature[];
 
     manuallyTested?: boolean;
 
@@ -1363,6 +1415,8 @@ interface SingularityMethodDetails {
 
     jsFiddleLinks?: Hash<String>;
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 interface SingularityParameter {
 
@@ -1386,6 +1440,15 @@ interface SingularityType {
     templateName?: string;
 
     autoDefault: SingularityAutoDefinition;
+}
+
+interface SingularityFeature {
+    name: string;
+
+    description?: string;
+
+    tests?: (ext?: SingularityMethod) => void;
+    unitTests?: SingularityTest[];
 }
 
 class SingularityAutoDefinition {
@@ -1485,9 +1548,9 @@ function SingularityLoadContext(context: Hash<any>): Object {
     return context;
 }
 
-singRoot.method('resolveKey', SingularityResolveKey);
+singRoot.method('resolve', SingularityResolve);
 
-function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {}, rootKey?: string): any {
+function SingularityResolve(key: string, data?: any, context: Hash<any> = {}, rootKey?: string): any {
 
     if (!rootKey)
         rootKey = key;
@@ -1547,14 +1610,14 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
                 var firstPart = assign.substr(0, assign.lastIndexOf('['));
                 var arrayIndex = assign.substr(assign.lastIndexOf('[') + 1);
 
-                setObj = sing.resolveKey(firstPart, data, context, rootKey);
-                assign = sing.resolveKey(arrayIndex, data, context, rootKey);
+                setObj = sing.resolve(firstPart, data, context, rootKey);
+                assign = sing.resolve(arrayIndex, data, context, rootKey);
             }
             else if (assign.contains('.')) {
                 var firstPart = assign.substr(0, assign.lastIndexOf('.'));
                 var lastPart = assign.substr(assign.lastIndexOf('.') + 1);
 
-                setObj = sing.resolveKey(firstPart, data, context, rootKey);
+                setObj = sing.resolve(firstPart, data, context, rootKey);
                 assign = lastPart;
             }
             else {
@@ -1566,7 +1629,7 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
                 }
             }
 
-            var value = sing.resolveKey(theRest, data, context, rootKey);
+            var value = sing.resolve(theRest, data, context, rootKey);
 
             if (operator == '=')
                 setObj[assign] = value
@@ -1585,7 +1648,7 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
             else if (operator == '--')
                 setObj[assign]--;
             else
-                throw 'unknonw operator ' + operator;
+                throw 'unknown operator ' + operator;
 
             return '';
         }
@@ -1597,7 +1660,7 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
             var methodName = matches[1];
             var theRest = matches[2];
 
-            out = sing.resolveKey(methodName, data, context, rootKey);
+            out = sing.resolve(methodName, data, context, rootKey);
 
             if (out == null || !out.apply) {
 
@@ -1612,7 +1675,7 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
             if (negateOutput)
                 result = !result;
 
-            return sing.resolveKey(theRest, result, context, rootKey);
+            return sing.resolve(theRest, result, context, rootKey);
         }
 
         // function notation, some arguments
@@ -1632,9 +1695,9 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
                     theRest = theRest.substr(1, theRest.length - 2);
             }
 
-            out = sing.resolveKey(methodName, data, context, rootKey);
+            out = sing.resolve(methodName, data, context, rootKey);
 
-            var args = sing.resolveKey(argsStr, data, context, rootKey);
+            var args = sing.resolve(argsStr, data, context, rootKey);
 
             if (!$.isArray(args))
                 args = [args];
@@ -1652,10 +1715,10 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
             if (theRest == null || theRest == '')
                 return result;
 
-            return sing.resolveKey(theRest, out, context, rootKey);
+            return sing.resolve(theRest, out, context, rootKey);
         }
 
-
+        /*
         // Array navigation
         if (out === undefined && key.hasMatch(/^\.?([^\.\'\",\[\]\(\)]+)\[(.+)\]\.?(.*)$/)) {
 
@@ -1684,9 +1747,9 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
 
             arrayIndex = arrayIndex.substr(1, arrayIndex.length - 2);
 
-            arrayIndex = sing.resolveKey(arrayIndex, data, context, rootKey);
+            arrayIndex = sing.resolve(arrayIndex, data, context, rootKey);
 
-            var propData = sing.resolveKey(property, data, context, rootKey);
+            var propData = sing.resolve(property, data, context, rootKey);
 
             if (!$.isDefined(propData)) {
 
@@ -1705,15 +1768,146 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
             if (theRest == null || theRest == '')
                 return out;
 
-            return sing.resolveKey(theRest, out, context, rootKey);
+            return sing.resolve(theRest, out, context, rootKey);
 
+        }
+    */
+        // Array 'super-navigation'
+        // sing.resolve('sing.methods[].details.unitTests[].requirement')
+        // Works for arrays and hash tables.
+
+        if (key == '$data[0]') {
+            key = key + '';
+        }
+        if (out === undefined && key.hasMatch(/^\.?([^\.\'\",\[\]\(\)]+)(\[[^\[\]]*\])\.?(.*)$/)) {
+
+            var match = key.match(/^\.?([^\.\'\",\[\]\(\)]+)(\[[^\[\]]*\])\.?(.*)$/);
+
+            var property = match[1];
+            var arrayIndex = match[2];
+            var theRest = match[3];
+
+            var openBraceCount = 0;
+            var closeBraceCount = 0;
+
+            /*
+            do {
+
+                if (theRest[0] == '[')
+                    openBraceCount++;
+                if (theRest[0] == ']')
+                    closeBraceCount++;
+
+                theRest = theRest.substr(1);
+
+            } while (openBraceCount != closeBraceCount && theRest.length > 0)
+            */
+
+            arrayIndex = arrayIndex.substr(1, arrayIndex.length - 2);
+
+            var arrayProperty = sing.resolve(property, data, context, rootKey);
+
+            var conditionFunc: (item: any, index: number) => boolean;
+
+            // Array super-navigation, condition
+            if (arrayIndex.contains('$it') ||
+                arrayIndex.contains('$i')) {
+                conditionFunc = function (item: any, index: number) {
+                    context['$it'] = item;
+                    context['$i'] = index;
+
+                    var result = sing.resolve(arrayIndex, data, context, rootKey);
+
+                    if ($.isDefined(result) &&
+                        !$.isEmpty(result))
+                        return true;
+                    else
+                        return false;
+                };
+            }
+            // Array navigation, index
+            else if (!$.isEmpty(arrayIndex)) {
+
+                var resultIndex = sing.resolve(arrayIndex, data, context, rootKey);
+
+                if (theRest == null || theRest == '')
+                    return arrayProperty[resultIndex];
+
+                out = sing.resolve(theRest, arrayProperty[resultIndex], context, rootKey);
+
+                return out;
+            }
+            // Array super-navigation, all elements
+            else {
+                conditionFunc = function (item: any, index: number) {
+                    return true;
+                };
+            }
+
+            if (!$.isDefined(arrayProperty))
+                return null;
+
+            if ($.isHash(arrayProperty))
+                arrayProperty = $.objValues(arrayProperty);
+
+            if (!$.isArray(arrayProperty))
+                throw property + ' was not an array.';
+
+            var outArray: any[] = [];
+
+            // Recursive array handling allows for multiple levels of super-navigation
+            outArray = arrayProperty.collect(function (item: any, index: number) {
+                try {
+                    var condition = conditionFunc(item, index);
+
+                    if (condition == true)
+                        return sing.resolve(theRest, item, context, rootKey);
+                    else
+                        return undefined;
+                }
+                catch (ex) {
+                    return undefined;
+                }
+            });
+
+            return outArray;
+        }
+
+        // Hash 'super-navigation'. Similar to Array 'super-navigation' but key values are kept.
+        // sing.resolve('sing.methods{}.details.unitTests[].requirement')
+        if (out === undefined && key.hasMatch(/^\.?([^\.\'\",\[\]\(\)\{\}]+)\{\}\.(.*)$/)) {
+            var match = key.match(/^\.?([^\.\'\",\[\]\(\)\{\}]+)\{\}\.(.*)$/);
+
+            var property = match[1];
+            var theRest = match[2];
+
+            var hashProperty = sing.resolve(property, data, context, rootKey);
+
+            if (!$.isDefined(hashProperty))
+                return null;
+
+            if (!$.isHash(hashProperty))
+                throw property + ' was not a hash object.';
+
+            var outHash: Hash<any> = {};
+
+            // Recursive hash handling allows for multiple levels of super-navigation
+            $.objProperties(hashProperty).each(function (item) {
+                try {
+                    outHash[item.key] = sing.resolve(theRest, item.value, context, rootKey);
+                }
+                catch (ex) {
+                }
+            });
+
+            return outHash;
         }
 
         // Dot notation
         if (key.hasMatch(/^\.?([^\.\'\",\[\]\(\)]+)\.(.*)$/)) {
             var keyParts = key.split('.');
 
-            var resolveFirst = sing.resolveKey(keyParts.shift(), data, context, rootKey);
+            var resolveFirst = sing.resolve(keyParts.shift(), data, context, rootKey);
 
             if (!$.isDefined(resolveFirst) || resolveFirst == '') {
 
@@ -1722,7 +1916,7 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
 
             data = resolveFirst;
 
-            out = sing.resolveKey(keyParts.join('.'), data, context, rootKey);
+            out = sing.resolve(keyParts.join('.'), data, context, rootKey);
 
             //console.log('RESOLVE ' + key);
 
@@ -1742,7 +1936,7 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
             var theRest = match[2];
 
 
-            arrayContents = sing.resolveKey(arrayContents, data, context, rootKey);
+            arrayContents = sing.resolve(arrayContents, data, context, rootKey);
 
             if (!$.isArray(arrayContents))
                 arrayContents = [arrayContents];
@@ -1750,7 +1944,7 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
             if (theRest == null || theRest == '')
                 return arrayContents;
 
-            out = sing.resolveKey(theRest, arrayContents, context, rootKey);
+            out = sing.resolve(theRest, arrayContents, context, rootKey);
 
             return out;
         }
@@ -1772,11 +1966,11 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
             if (!item || item == '')
                 item = data;
             else
-                item = sing.resolveKey(item, data, context, rootKey)
+                item = sing.resolve(item, data, context, rootKey)
 
             var items = [item];
 
-            items = items.concat(sing.resolveKey(theRest, data, context, rootKey))
+            items = items.concat(sing.resolve(theRest, data, context, rootKey))
 
             return items;
         }
@@ -1797,7 +1991,17 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
 
         // current data
         if (keyPart == '$data') {
-            return context['$data'];
+
+            out = context['$data'];
+
+            var theRest = key.after('$data');
+
+            if (!$.isEmpty(theRest)) {
+                return sing.resolve(theRest, out, context, rootKey);
+            }
+            else {
+                return out;
+            }
         }
 
         if ($.isDefined(data))
@@ -1805,25 +2009,79 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
 
                 out = data[keyPart];
 
+                var theRest = key.after(keyPart);
+
+                if (!$.isEmpty(theRest)) {
+                    return sing.resolve(theRest, out, context, rootKey);
+                }
+                else {
+                    return out;
+                }
             }
 
         if (out == undefined && context && context[keyPart] !== undefined) {
 
             out = context[keyPart];
+
+            var theRest = key.after(keyPart);
+
+            if (!$.isEmpty(theRest)) {
+                return sing.resolve(theRest, out, context, rootKey);
+            }
+            else {
+                return out;
+            }
         }
 
         if (out === undefined && sing.globalResolve[keyPart] !== undefined) {
-            return sing.globalResolve[keyPart]
+            out = sing.globalResolve[keyPart];
+
+            var theRest = key.after(keyPart);
+
+            if (!$.isEmpty(theRest)) {
+                return sing.resolve(theRest, out, context, rootKey);
+            }
+            else {
+                return out;
+            }
         }
 
         // available context of any object
         if (out === undefined && keyPart.endsWith('$context')) {
 
-            var itemContext = sing.resolveKey(keyPart.before('$context'), data, context, rootKey);
+            var itemContext = sing.resolve(keyPart.before('$context'), data, context, rootKey);
 
             var itemKeys = $.objKeys(data);
 
             return itemKeys.join(', ');
+        }
+
+        // Numbers
+        if (keyPart.isNumeric()) {
+            out = keyPart.toNumber();
+
+            var theRest = key.after(keyPart);
+
+            if (!$.isEmpty(theRest)) {
+                return sing.resolve(theRest, out, context, rootKey);
+            }
+            else {
+                return out;
+            }
+        }
+
+        // Booleans
+        if (keyPart.isBoolean()) {
+            out = keyPart.toBoolean();
+
+            var theRest = key.after(keyPart);
+
+            if (!$.isEmpty(theRest)) {
+                return sing.resolve(theRest, out, context, rootKey);
+            }
+            else {
+                return out;
+            }
         }
 
         // OR operation
@@ -1834,7 +2092,7 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
             var left = data;
 
             if ($.isEmpty(left) || left == false)
-                return sing.resolveKey(theRest, data, context, rootKey);
+                return sing.resolve(theRest, data, context, rootKey);
             else
                 return left;
         }
@@ -1850,7 +2108,7 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
                 return false;
             }
             else {
-                var right = sing.resolveKey(theRest, data, context, rootKey);
+                var right = sing.resolve(theRest, data, context, rootKey);
 
                 return true && !($.isEmpty(left) || left == false);
             }
@@ -1860,70 +2118,70 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
         else if (keyPart == '+') {
             var theRest = key.substr(1);
 
-            var resolved = sing.resolveKey(theRest, data, context, rootKey);
+            var resolved = sing.resolve(theRest, data, context, rootKey);
 
             return (data + resolved);
         }
         else if (keyPart == '-') {
             var theRest = key.substr(1);
 
-            var resolved = sing.resolveKey(theRest, data, context, rootKey);
+            var resolved = sing.resolve(theRest, data, context, rootKey);
 
             return (data - resolved);
         }
         else if (keyPart == '*') {
             var theRest = key.substr(1);
 
-            var resolved = sing.resolveKey(theRest, data, context, rootKey);
+            var resolved = sing.resolve(theRest, data, context, rootKey);
 
             return (data * resolved);
         }
         else if (keyPart == '/') {
             var theRest = key.substr(1);
 
-            var resolved = sing.resolveKey(theRest, data, context, rootKey);
+            var resolved = sing.resolve(theRest, data, context, rootKey);
 
             return (data / resolved);
         }
         else if (keyPart == '%') {
             var theRest = key.substr(1);
 
-            var resolved = sing.resolveKey(theRest, data, context, rootKey);
+            var resolved = sing.resolve(theRest, data, context, rootKey);
 
             return (data % resolved);
         }
         else if (keyPart == '<<') {
             var theRest = key.substr(1);
 
-            var resolved = sing.resolveKey(theRest, data, context, rootKey);
+            var resolved = sing.resolve(theRest, data, context, rootKey);
 
             return (data << resolved);
         }
         else if (keyPart == '>>') {
             var theRest = key.substr(1);
 
-            var resolved = sing.resolveKey(theRest, data, context, rootKey);
+            var resolved = sing.resolve(theRest, data, context, rootKey);
 
             return (data >> resolved);
         }
         else if (keyPart == '^') {
             var theRest = key.substr(1);
 
-            var resolved = sing.resolveKey(theRest, data, context, rootKey);
+            var resolved = sing.resolve(theRest, data, context, rootKey);
 
             return (data ^ resolved);
         }
         else if (keyPart == '&') {
             var theRest = key.substr(1);
 
-            var resolved = sing.resolveKey(theRest, data, context, rootKey);
+            var resolved = sing.resolve(theRest, data, context, rootKey);
 
             return (data & resolved);
         }
         else if (keyPart == '|') {
             var theRest = key.substr(1);
 
-            var resolved = sing.resolveKey(theRest, data, context, rootKey);
+            var resolved = sing.resolve(theRest, data, context, rootKey);
 
             return (data | resolved);
         }
@@ -1933,56 +2191,56 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
         else if (keyPart == '===') {
             var theRest = key.substr(3);
 
-            var resolved = sing.resolveKey(theRest, data, context, rootKey);
+            var resolved = sing.resolve(theRest, data, context, rootKey);
 
             return (data === resolved);
         }
         else if (keyPart == '!==') {
             var theRest = key.substr(3);
 
-            var resolved = sing.resolveKey(theRest, data, context, rootKey);
+            var resolved = sing.resolve(theRest, data, context, rootKey);
 
             return (data !== resolved);
         }
         else if (keyPart == '==') {
             var theRest = key.substr(2);
 
-            var resolved = sing.resolveKey(theRest, data, context, rootKey);
+            var resolved = sing.resolve(theRest, data, context, rootKey);
 
             return (data == resolved);
         }
         else if (keyPart == '!=') {
             var theRest = key.substr(2);
 
-            var resolved = sing.resolveKey(theRest, data, context, rootKey);
+            var resolved = sing.resolve(theRest, data, context, rootKey);
 
             return (data != resolved);
         }
         else if (keyPart == '>=') {
             var theRest = key.substr(2);
 
-            var resolved = sing.resolveKey(theRest, data, context, rootKey);
+            var resolved = sing.resolve(theRest, data, context, rootKey);
 
             return (data >= resolved);
         }
         else if (keyPart == '<=') {
             var theRest = key.substr(2);
 
-            var resolved = sing.resolveKey(theRest, data, context, rootKey);
+            var resolved = sing.resolve(theRest, data, context, rootKey);
 
             return (data <= resolved);
         }
         else if (keyPart == '>') {
             var theRest = key.substr(1);
 
-            var resolved = sing.resolveKey(theRest, data, context, rootKey);
+            var resolved = sing.resolve(theRest, data, context, rootKey);
 
             return (data > resolved);
         }
         else if (keyPart == '<') {
             var theRest = key.substr(1);
 
-            var resolved = sing.resolveKey(theRest, data, context, rootKey);
+            var resolved = sing.resolve(theRest, data, context, rootKey);
 
             return (data < resolved);
         }
@@ -2006,7 +2264,7 @@ function SingularityResolveKey(key: string, data?: any, context: Hash<any> = {},
     if (out === undefined) {
 
         if (key.contains('||'))
-            out = sing.resolveKey(key.after('||'), data, context, rootKey);
+            out = sing.resolve(key.after('||'), data, context, rootKey);
 
         return '<error>could not resolve ' + rootKey + '</error>';
     }
@@ -2028,7 +2286,6 @@ singRoot.property('autoDefault', {});
 singRoot.property('types', {});
 singRoot.property('globalResolve', {});
 singRoot.property('templateShownFunctions', {});
-
 
 singRoot.ignoreUnknown('Module', 'Extension', 'AutoDefinition');
 

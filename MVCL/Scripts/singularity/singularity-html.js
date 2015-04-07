@@ -14,7 +14,7 @@ singHTML.method('textToHTML', StringTextToHTML, {
     },
 });
 function StringTextToHTML() {
-    return this.replaceAll('\r\n', '\n').replaceAll('\r\n', '<br/>').replaceAll('  ', '&nbsp;&nbsp;');
+    return this.replaceAll('\r\n', '\n').replaceAll('\n', '<br/>').replaceAll('  ', '&nbsp;&nbsp;');
 }
 singHTML.method('stripHTML', StringStripHTML, {
     summary: null,

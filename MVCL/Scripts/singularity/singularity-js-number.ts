@@ -43,7 +43,6 @@ interface Array<T> {
     average?: () => number;
 }
 
-
 var singNumber = singExt.addModule(new sing.Module("Number", Number));
 
 singNumber.summaryShort = 'Extensions on Number.prototype and others';
@@ -54,7 +53,6 @@ singNumber.features = ['Math object extensions: max, min, round, pow, ceil, floo
     'String extensions: isNumeric, isInteger, toNumber, toInteger',
     'Number array extensions: total, average',
     'JQuery $ extensions: isInt, isFloat, isNumber'];
-
 
 ////////////////////////////////////////////////////////////////////////////////////
 //
@@ -119,10 +117,10 @@ singNumber.method('min', NumberMin,
             '],
         tests: function (ext) {
 
-            ext.addTest(100, [200], 200);
-            ext.addTest(0, [1, 2, 3, 4, 5], 5);
-            ext.addTest(10, [1, 2, 3, 4, 5], 10);
-            ext.addTest(4.26354, [4.26355], 4.26355);
+            ext.addTest(100, [200], 100);
+            ext.addTest(0, [1, 2, 3, 4, 5], 0);
+            ext.addTest(10, [1, 2, 3, 4, 5], 1);
+            ext.addTest(4.26354, [4.26355], 4.26354);
 
             ext.addTest(100, [], 100);
             ext.addTest(100, [null], 100);
@@ -385,7 +383,6 @@ function NumberPercentOf(of: number, decimalPlaces: number = 0, asString: boolea
     }
 }
 
-
 singNumber.method('formatFileSize', NumberFormatFileSize,
     {
         summary: 'Takes a number (of Bytes) and returns a formatted string of the proper unit (B, KB, MB, etc)',
@@ -521,7 +518,6 @@ function NumberToStr(includeMarkup: boolean = false) {
     return this.toString();
 }
 
-
 singNumber.method('numericValueOf', NumberNumericValueOf,
     {
         summary: 'Common funciton - Used for sorting, returns the calling number.',
@@ -603,7 +599,6 @@ function BooleanToNumericValue(): number {
     if (this.valueOf() === true)
         return 1;
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////////
 
@@ -796,6 +791,7 @@ singNumber.method('isNumeric', StringIsNumeric,
             ext.addTest('-123', [], true);
             ext.addTest('123.456', [], true);
             ext.addTest('123.999', [], true);
+            ext.addTest('2 > 5', [], false);
         },
     }, String.prototype);
 
@@ -805,6 +801,10 @@ function StringIsNumeric() {
         return false;
 
     var src = this.trim();
+
+    // Any non-digit, non-space, non-dot characters.
+    if (src.hasMatch(/^.*([^\.\d\s-]).*$/))
+        return false;
 
     try {
         var out = parseFloat(src);

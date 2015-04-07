@@ -32,6 +32,7 @@ declare class Singularity {
     };
     autoDefaults: SingularityAutoDefinition;
     types: Hash<SingularityType>;
+    addType: (name: string, addType: SingularityType) => void;
     autoDefault: SingularityAutoDefinition;
     defaultSettings: {
         requiredDocumentation: boolean;
@@ -43,7 +44,7 @@ declare class Singularity {
     getTypeName: (protoType: any) => any;
     getTemplateName: (protoType: any) => string;
     globalResolve: Hash<any>;
-    resolveKey: (key: string, data?: any, context?: Object, rootKey?: string) => any;
+    resolve: (key: string, data?: any, context?: Object, rootKey?: string) => any;
     loadContext: (context: Hash<any>) => Hash<any>;
     loadTemplate: (url: string, callback: Function) => void;
     initTemplates: () => void;
@@ -66,7 +67,8 @@ declare class SingularityModule {
     objectPrototype: any;
     summaryShort: string;
     summaryLong: string;
-    features: string[];
+    srcLink: string;
+    features: SingularityFeature[];
     resources: Hash<string>;
     parentModule: SingularityModule;
     subModules: SingularityModule[];
@@ -127,6 +129,8 @@ declare class SingularityMethod {
     methodModule: SingularityModule;
     auto: SingularityAutoDefinition;
     toString: () => any;
+    passedTests: () => number;
+    passesAllTests: () => boolean;
     documentationPresent: () => number;
     documentationTotal: () => number;
     constructor(methodModule: SingularityModule, details?: SingularityMethodDetails, target?: any, moduleName?: string, name?: string, method?: Function, prefix?: string);
@@ -142,6 +146,7 @@ declare class SingularityMethod {
     private loadAutoRetry;
     private loadInputValidation;
     private loadMethodCall;
+    isTested: () => boolean;
     addTest: (caller: any, args: any[], result?: any, requirement?: string) => void;
     addCustomTest: (testFunc: () => any, requirement?: string) => void;
     addFailsTest: (caller: any, args: any[], expectedError?: string, requirement?: string) => void;
@@ -156,6 +161,7 @@ interface SingularityMethodDetails {
     override?: boolean;
     auto?: SingularityAutoDefinition;
     parameters?: SingularityParameter[];
+    features?: SingularityFeature[];
     manuallyTested?: boolean;
     tests?: (ext: SingularityMethod) => void;
     unitTests?: SingularityTest[];
@@ -177,6 +183,12 @@ interface SingularityType {
     templateName?: string;
     autoDefault: SingularityAutoDefinition;
 }
+interface SingularityFeature {
+    name: string;
+    description?: string;
+    tests?: (ext?: SingularityMethod) => void;
+    unitTests?: SingularityTest[];
+}
 declare class SingularityAutoDefinition {
     validateInput: boolean;
     injectDefaultInputValue: boolean;
@@ -196,7 +208,7 @@ declare var sing: Singularity;
 declare var singRoot: SingularityModule;
 declare function SingularityTotalCodeLines(): number;
 declare function SingularityLoadContext(context: Hash<any>): Object;
-declare function SingularityResolveKey(key: string, data?: any, context?: Hash<any>, rootKey?: string): any;
+declare function SingularityResolve(key: string, data?: any, context?: Hash<any>, rootKey?: string): any;
 declare var singCore: SingularityModule;
 declare var singModule: SingularityModule;
 declare function ModuleTotalCodeLines(): number;

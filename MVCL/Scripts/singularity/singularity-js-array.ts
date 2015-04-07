@@ -11,7 +11,7 @@ interface Array<T> {
     sortBy?: (arg?: string | string[]| ((item: T) => number)) => T[];
     orderBy?: (arg?: string | string[]| ((item: T) => number)) => T[];
 
-    quickSort?: (sortWith?: any[][], left?: number, right?: number) => any[]| any[][]
+    quickSort?: (sortWith?: any[][], left?: number, right?: number) => any[]| QuickSortResult;
 
     removeAt?: (...indexes: number[]) => T[];
     unique?: (...indexes: number[]) => T[];
@@ -48,10 +48,20 @@ singArray.method('splitAt', SplitAt,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            ext.addTest([], [], []);
+            ext.addTest([], [null], []);
+            ext.addTest([], [undefined], []);
+            ext.addTest([], [0], []);
+            ext.addTest([1], [0], [[1]]);
+            ext.addTest([1, 2], [0], [[1, 2]]);
+            ext.addTest([1, 2], [1], [[1], [2]]);
+            ext.addTest([1, 2, 3, 4, 5, 6], [1, 3], [[1], [2, 3], [4, 5, 6]]);
         },
     });
 
 function SplitAt<T>(...indexes: number[]): T[][] {
+
+    indexes = indexes.unique();
 
     indexes.sort();
 
@@ -62,17 +72,24 @@ function SplitAt<T>(...indexes: number[]): T[][] {
     var indexI = 0;
 
     for (var i = 0; i < thisArray.length; i++) {
-        if (indexes.length > indexI) {
-            if (i < indexes[indexI])
-                section.push(thisArray[i]);
+        if (indexes.length >= indexI) {
 
             if (i == indexes[indexI]) {
-                out.push(section);
+
+                if (section.length > 0)
+                    out.push(section);
+
                 section = [];
                 indexI++;
             }
+
+            section.push(thisArray[i]);
+
         }
     }
+
+    if (!$.isEmpty(section))
+        out.push(section);
 
     return out;
 }
@@ -85,6 +102,16 @@ singArray.method('removeAt', ArrayRemoveAt,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            ext.addTest([], [], []);
+            ext.addTest([], [null], []);
+            ext.addTest([], [undefined], []);
+            ext.addTest([], [0], []);
+            ext.addTest([1], [0], []);
+            ext.addTest([1, 2], [0], [2]);
+            ext.addTest([1, 2], [1], [1]);
+            ext.addTest([1, 2], [0, 1], []);
+            ext.addTest([1, 2, 3, 4, 5, 6], [0, 1], [3, 4, 5, 6]);
+            ext.addTest([1, 2, 3, 4, 5, 6], [0, 5], [2, 3, 4, 5]);
         },
     });
 
@@ -121,7 +148,7 @@ function ArrayUnique<T>(): T[] {
     var out: T[] = [];
 
     thisArray.each(function (item, index) {
-        if (!out.has(item))
+        if (!out.has(item) && $.isDefined(item))
             out.push(item);
     });
 
@@ -237,13 +264,12 @@ function ArrayGroup<T>(keyFunc: (item: T, index: number) => string): Hash<T[]> {
 
         var key = keyFunc(item, index);
 
-        if (key && key.length > 0) {
+        key = key || '';
 
-            if ($.isArray(out[key]))
-                out[key].push(item);
-            else
-                out[key] = [item];
-        }
+        if ($.isArray(out[key]))
+            out[key].push(item);
+        else
+            out[key] = [item];
 
     });
 

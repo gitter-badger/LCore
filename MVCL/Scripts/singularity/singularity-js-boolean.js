@@ -2,7 +2,7 @@
 var singBoolean = singExt.addModule(new sing.Module("Boolean", Boolean));
 singBoolean.summaryShort = 'Extensions on Boolean.prototype';
 singBoolean.summaryLong = 'Perform boolean operations using extension methods instead of operators.';
-singBoolean.features = ['Multi-variable operations', 'Unary operation', 'toYesNo'];
+singBoolean.features = ['Multi-variable operations', 'Ternary operation', 'toYesNo'];
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Boolean Extensions
@@ -297,8 +297,8 @@ singBoolean.method('toYesNo', BooleanToYesNo, {
 function BooleanToYesNo() {
     return this == false ? "No" : "Yes";
 }
-singBoolean.method('unary', BooleanUnary, {
-    summary: 'Performs the unary operation using the calling boolean.',
+singBoolean.method('ternary', BooleanTernary, {
+    summary: 'Performs the ternary operation using the calling boolean.',
     parameters: [
         {
             name: 'obj',
@@ -313,13 +313,13 @@ singBoolean.method('unary', BooleanUnary, {
     ],
     returns: 'Returns the first argument if the calling boolean is true, otherwise the second argument is returned.',
     returnType: Object,
-    examples: ['(true).unary(1,2)   // == 1'],
+    examples: ['(true).ternary(1,2)   // == 1'],
     tests: function (ext) {
         ext.addTest(true, ['a', 'b'], 'a');
         ext.addTest(false, ['a', 'b'], 'b');
     },
 }, String.prototype);
-function BooleanUnary(obj, obj2) {
+function BooleanTernary(obj, obj2) {
     return this.valueOf() ? obj : obj2;
 }
 singBoolean.method('isBoolean', StringIsBoolean, {

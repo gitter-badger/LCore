@@ -10,7 +10,7 @@ interface Boolean {
     NAND?: (...b: boolean[]) => boolean;
     NOR?: (...b: boolean[]) => boolean;
 
-    unary?: (obj?: any, obj2?: any) => any
+    ternary?: (obj?: any, obj2?: any) => any
 }
 
 interface String {
@@ -24,7 +24,7 @@ singBoolean.summaryShort = 'Extensions on Boolean.prototype';
 singBoolean.summaryLong = 'Perform boolean operations using extension methods instead of operators.';
 
 singBoolean.features = ['Multi-variable operations',
-    'Unary operation',
+    'Ternary operation',
     'toYesNo'];
 
 
@@ -345,9 +345,9 @@ function BooleanToYesNo(): string {
 }
 
 
-singBoolean.method('unary', BooleanUnary,
+singBoolean.method('ternary', BooleanTernary,
     {
-        summary: 'Performs the unary operation using the calling boolean.',
+        summary: 'Performs the ternary operation using the calling boolean.',
         parameters: [
             {
                 name: 'obj',
@@ -362,14 +362,14 @@ singBoolean.method('unary', BooleanUnary,
         ],
         returns: 'Returns the first argument if the calling boolean is true, otherwise the second argument is returned.',
         returnType: Object,
-        examples: ['(true).unary(1,2)   // == 1'],
+        examples: ['(true).ternary(1,2)   // == 1'],
         tests: function (ext) {
             ext.addTest(true, ['a', 'b'], 'a');
             ext.addTest(false, ['a', 'b'], 'b');
         },
     }, String.prototype);
 
-function BooleanUnary(obj?: any, obj2?: any): any {
+function BooleanTernary(obj?: any, obj2?: any): any {
 
     return this.valueOf() ? obj : obj2;
 }

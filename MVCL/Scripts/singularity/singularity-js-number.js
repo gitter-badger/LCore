@@ -59,10 +59,10 @@ singNumber.method('min', NumberMin, {
             (1.00025).min(1.00026);  // = 1.00025 \r\n\
             '],
     tests: function (ext) {
-        ext.addTest(100, [200], 200);
-        ext.addTest(0, [1, 2, 3, 4, 5], 5);
-        ext.addTest(10, [1, 2, 3, 4, 5], 10);
-        ext.addTest(4.26354, [4.26355], 4.26355);
+        ext.addTest(100, [200], 100);
+        ext.addTest(0, [1, 2, 3, 4, 5], 0);
+        ext.addTest(10, [1, 2, 3, 4, 5], 1);
+        ext.addTest(4.26354, [4.26355], 4.26354);
         ext.addTest(100, [], 100);
         ext.addTest(100, [null], 100);
         ext.addTest(100, [undefined], 100);
@@ -621,12 +621,16 @@ singNumber.method('isNumeric', StringIsNumeric, {
         ext.addTest('-123', [], true);
         ext.addTest('123.456', [], true);
         ext.addTest('123.999', [], true);
+        ext.addTest('2 > 5', [], false);
     },
 }, String.prototype);
 function StringIsNumeric() {
     if (this.length == 0)
         return false;
     var src = this.trim();
+    // Any non-digit, non-space, non-dot characters.
+    if (src.hasMatch(/^.*([^\.\d\s-]).*$/))
+        return false;
     try {
         var out = parseFloat(src);
         if (!isNaN(out))

@@ -1,4 +1,5 @@
 var singObject = singExt.addModule(new sing.Module("Object", $, $));
+singObject.srcLink = '/Scripts/singularity/singularity-object.ts';
 singObject.ignoreUnknown('ALL');
 singObject.method('objEach', ObjectEach, {
     summary: null,
@@ -31,13 +32,13 @@ singObject.method('objProperties', ObjectProperties, {
     returnType: '',
     examples: null,
     tests: function (ext) {
-        ext.addTest(undefined, [null], []);
-        ext.addTest(undefined, [undefined], []);
-        ext.addTest(undefined, ['a'], [{ 0: { key: '0', value: 'a' } }]);
-        ext.addTest(undefined, [5], []);
-        ext.addTest(undefined, [[]], []);
-        ext.addTest(undefined, [{}], []);
-        ext.addTest(undefined, [{ a: 1, b: 2 }], [{ key: 'a', value: 1 }, { key: 'b', value: 2 }]);
+        ext.addTest($, [null], []);
+        ext.addTest($, [undefined], []);
+        ext.addTest($, [['a']], [{ key: '0', value: 'a' }]);
+        ext.addTest($, [5], []);
+        ext.addTest($, [[]], []);
+        ext.addTest($, [{}], []);
+        ext.addTest($, [{ a: 1, b: 2 }], [{ key: 'a', value: 1 }, { key: 'b', value: 2 }]);
     },
 });
 function ObjectProperties(obj) {
@@ -57,17 +58,17 @@ singObject.method('objValues', ObjectValues, {
     returnType: '',
     examples: null,
     tests: function (ext) {
-        ext.addTest(undefined, [null], []);
-        ext.addTest(undefined, [undefined], []);
-        ext.addTest(undefined, ['a'], []);
-        ext.addTest(undefined, ['a', 'b'], []);
-        ext.addTest(undefined, [5], []);
-        ext.addTest(undefined, [[]], []);
-        ext.addTest(undefined, [{}], []);
-        ext.addTest(undefined, [{ a: 1, b: 2 }], [1, 2]);
-        ext.addTest(undefined, [{ a: 'b', c: 'd' }, ['a']], 'b');
-        ext.addTest(undefined, [{ a: 'b', c: 'd' }, ['b']], null);
-        ext.addTest(undefined, [{ a: 'b', c: 'd' }, ['c']], 'd');
+        ext.addTest($, [null], []);
+        ext.addTest($, [undefined], []);
+        ext.addTest($, ['a'], []);
+        ext.addTest($, ['a', 'b'], []);
+        ext.addTest($, [5], []);
+        ext.addTest($, [[]], []);
+        ext.addTest($, [{}], []);
+        ext.addTest($, [{ a: 1, b: 2 }], [1, 2]);
+        ext.addTest($, [{ a: 'b', c: 'd' }, ['a']], 'b');
+        ext.addTest($, [{ a: 'b', c: 'd' }, ['b']], null);
+        ext.addTest($, [{ a: 'b', c: 'd' }, ['c']], 'd');
     },
 });
 function ObjectValues(obj, findKeys) {
@@ -147,14 +148,14 @@ singObject.method('objKeys', ObjectKeys, {
     returnType: '',
     examples: null,
     tests: function (ext) {
-        ext.addTest(undefined, [null], []);
-        ext.addTest(undefined, [undefined], []);
-        ext.addTest(undefined, ['a'], []);
-        ext.addTest(undefined, ['a', 'b'], []);
-        ext.addTest(undefined, [5], []);
-        ext.addTest(undefined, [[]], []);
-        ext.addTest(undefined, [{}], []);
-        ext.addTest(undefined, [{ a: 1, b: 2 }], ['a', 'b']);
+        ext.addTest($, [null], []);
+        ext.addTest($, [undefined], []);
+        ext.addTest($, ['a'], []);
+        ext.addTest($, ['a', 'b'], []);
+        ext.addTest($, [5], []);
+        ext.addTest($, [[]], []);
+        ext.addTest($, [{}], []);
+        ext.addTest($, [{ a: 1, b: 2 }], ['a', 'b']);
     },
 });
 function ObjectKeys(obj) {
@@ -178,10 +179,9 @@ singObject.method('objHasKey', ObjectHasKey, {
     },
 });
 function ObjectHasKey(obj, key) {
-    if (obj == null || !(typeof obj == 'object'))
+    if (!$.isDefined(obj))
         return false;
-    var keys = Object.keys(obj);
-    return keys.has(key);
+    return $.isDefined(obj[key]) || Object.keys(obj).has(key);
 }
 singObject.method('resolve', ObjectResolve, {
     summary: null,
@@ -191,16 +191,16 @@ singObject.method('resolve', ObjectResolve, {
     returnType: '',
     examples: null,
     tests: function (ext) {
-        ext.addTest(undefined, [5], 5);
-        ext.addTest(undefined, ['aa'], 'aa');
-        ext.addTest(undefined, [['aa', 'bb']], ['aa', 'bb']);
-        ext.addTest(undefined, [function () {
+        ext.addTest($, [5], 5);
+        ext.addTest($, ['aa'], 'aa');
+        ext.addTest($, [['aa', 'bb']], ['aa', 'bb']);
+        ext.addTest($, [function () {
             return 5;
         }], 5);
-        ext.addTest(undefined, [function () {
+        ext.addTest($, [function () {
             return 'aa';
         }], 'aa');
-        ext.addTest(undefined, [function () {
+        ext.addTest($, [function () {
             return ['aa', 'bb'];
         }], ['aa', 'bb']);
     },
@@ -281,42 +281,157 @@ singObject.method('clone', ArrayClone, {
         }, 'Arrays must be clones, not the source array');
     },
 }, Array.prototype, "Array");
-function ArrayClone() {
-    return this.collect();
+function ArrayClone(deepClone) {
+    if (deepClone === void 0) { deepClone = false; }
+    var thisArray = this;
+    if (deepClone) {
+        return thisArray.collect(function (item) {
+            return $.clone(item, true);
+        });
+    }
+    else {
+        return thisArray.collect();
+    }
 }
-singObject.method('clone', NumberClone, {}, Number.prototype, "Number");
+singObject.method('clone', NumberClone, {
+    tests: function (ext) {
+        ext.addTest(0, [], 0);
+        ext.addTest(1, [], 1);
+        ext.addTest(NaN, [], NaN);
+        ext.addTest(Infinity, [], Infinity);
+        ext.addTest(-Infinity, [], -Infinity);
+        ext.addCustomTest(function () {
+            var src = 1;
+            var src2 = src.clone();
+            src2 = 2;
+            if (src == 2)
+                return 'Same number was returned';
+        }, 'Numbers must be clones, not the source number');
+    },
+}, Number.prototype, "Number");
 function NumberClone() {
     return this.valueOf();
 }
-singObject.method('clone', NumberClone, {}, Boolean.prototype, "Boolean");
+singObject.method('clone', BooleanClone, {
+    tests: function (ext) {
+        ext.addTest(false, [], false);
+        ext.addTest(true, [], true);
+        ext.addCustomTest(function () {
+            var src = false;
+            var src2 = src.clone();
+            src2 = true;
+            if (src == true)
+                return 'Same boolean was returned';
+        }, 'Booleans must be clones, not the source boolean');
+    },
+}, Boolean.prototype, "Boolean");
 function BooleanClone() {
     return this.valueOf();
 }
-singObject.method('clone', StringClone, {}, String.prototype, "String");
+singObject.method('clone', StringClone, {
+    tests: function (ext) {
+        ext.addTest('', [], '');
+        ext.addTest('a', [], 'a');
+        ext.addCustomTest(function () {
+            var src = 'a';
+            var src2 = src.clone();
+            src2 = 'b';
+            if (src == 'b')
+                return 'Same string was returned';
+        }, 'Strings must be clones, not the source string');
+    },
+}, String.prototype, "String");
 function StringClone() {
     return this.valueOf();
 }
-singObject.method('clone', DateClone, {}, Date.prototype, "Date");
+singObject.method('clone', DateClone, {
+    tests: function (ext) {
+        var testDate = new Date();
+        ext.addTest(testDate, [], testDate);
+        ext.addCustomTest(function () {
+            var src = new Date();
+            var src2 = src.clone();
+            src2.setMinutes(0);
+            src2.setSeconds(0);
+            src2.setMilliseconds(777);
+            // This has 1/360,000 probability of failing
+            if (src.getMinutes() == 0 && src.getSeconds() == 0 && src.getMilliseconds() == 777)
+                return 'Same date was returned';
+        }, 'Dates must be clones, not the source date');
+    },
+}, Date.prototype, "Date");
 function DateClone() {
-    return this.valueOf();
+    return new Date(this.valueOf());
 }
 singObject.method('clone', ObjectClone, {}, $, "jQuery");
-function ObjectClone() {
-    if (this.clone !== ObjectClone && $.isFunction(this.clone))
-        return this.clone();
-    // can't clone
-    return this;
+function ObjectClone(obj, deepClone) {
+    if (deepClone === void 0) { deepClone = false; }
+    if (obj.clone !== ObjectClone && $.isFunction(obj.clone))
+        return obj.clone(deepClone);
+    var out = {};
+    if (deepClone) {
+        for (var key in $.objKeys(obj)) {
+            out[key] = obj[key];
+        }
+    }
+    else {
+        for (var key in $.objKeys(obj)) {
+            out[key] = $.clone(obj[key]);
+        }
+    }
+    return out;
 }
-singObject.method('isEmpty', ObjectIsEmpty, {}, $);
+singObject.method('isEmpty', ObjectIsEmpty, {
+    tests: function (ext) {
+        ext.addTest($, [0], false);
+        ext.addTest($, [1], false);
+        ext.addTest($, [NaN], true);
+        ext.addTest($, [Infinity], false);
+        ext.addTest($, [-Infinity], false);
+        ext.addTest($, [''], true);
+        ext.addTest($, ['  '], true);
+        ext.addTest($, ['a'], false);
+        ext.addTest($, [null], true);
+        ext.addTest($, [undefined], true);
+        ext.addTest($, [], true);
+        ext.addTest($, [[]], true);
+        ext.addTest($, [{}], true);
+        ext.addTest($, [[{}]], true);
+        ext.addTest($, [[1]], false);
+        ext.addTest($, [[[1]]], false);
+        ext.addTest($, [[[], [1]]], false);
+    },
+}, $);
 function ObjectIsEmpty(obj) {
-    return (obj === undefined || obj === null || obj === '' || ($.isNumber(obj) && isNaN(obj)) || ($.isArray(obj) && obj.length == 0) || ($.isString(obj) && obj.trim().length == 0));
+    return (obj === undefined || obj === null || obj === '' || (typeof obj == 'number' && isNaN(obj)) || ($.isString(obj) && obj.trim().length == 0) || ($.isHash(obj) && $.objKeys(obj).length == 0)) || ($.isArray(obj) && (obj.length == 0 || !obj.has(function (item) {
+        return !$.isEmpty(item);
+    }))) || ($.isHash(obj) && !$.objValues(obj).has(function (item) {
+        return !$.isEmpty(item);
+    }));
 }
-singObject.method('typeName', ObjectTypeName, {}, $);
+singObject.method('typeName', ObjectTypeName, {
+    tests: function (ext) {
+        ext.addTest($, [0], 'Number');
+        ext.addTest($, [1], 'Number');
+        ext.addTest($, [NaN], 'Number');
+        ext.addTest($, [Infinity], 'Number');
+        ext.addTest($, [-Infinity], 'Number');
+        ext.addTest($, [''], 'String');
+        ext.addTest($, ['a'], 'String');
+        ext.addTest($, [true], 'Boolean');
+        ext.addTest($, [false], 'Boolean');
+        ext.addTest($, [null], 'Null');
+        ext.addTest($, [undefined], 'Undefined');
+        ext.addTest($, [[]], 'Array');
+        ext.addTest($, [{}], 'Object');
+        ext.addTest($, [sing], 'Singularity');
+    },
+}, $);
 function ObjectTypeName(obj) {
     if (typeof obj === "undefined")
-        return "undefined";
+        return "Undefined";
     if (obj === null)
-        return "null";
+        return "Null";
     if (obj.__proto__ && obj.__proto__.constructor && obj.__proto__.constructor.name)
         return obj.__proto__.constructor.name;
     return Object.prototype.toString.call(obj).match(/^\[object\s(.*)\]$/)[1];

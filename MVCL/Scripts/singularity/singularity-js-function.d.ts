@@ -11,7 +11,9 @@ interface Function {
     fn_if?: (ifFunc: (...items: any[]) => boolean) => (...items: any[]) => any;
     fn_unless?: <T>(unlessFunc: (...items: any[]) => boolean) => (...items: any[]) => T;
     fn_then?: <T>(thenFunc: (...items: any[]) => any) => (...items: any[]) => T;
-    fn_repeat?: <T>(times: number) => (...items: any[]) => T;
+    fn_repeat<T>(times: number): (...items: any[]) => T;
+    fn_repeat<T>(list: any[]): (...items: any[]) => T;
+    fn_repeat<T>(repeat_fn: (...items: any[]) => T): (...items: any[]) => T;
     fn_while?: <T>(whileFunc: (...items: any[]) => boolean) => (...items: any[]) => T;
     fn_until?: <T>(untilFunc: (...items: any[]) => boolean) => (...items: any[]) => T;
     fn_repeatEvery?: <T>(periodMS: number) => (...items: any[]) => T;

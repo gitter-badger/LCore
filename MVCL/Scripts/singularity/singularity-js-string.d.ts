@@ -28,7 +28,7 @@ interface Array<T> {
     toStr?: (includeMarkup?: boolean) => string;
 }
 interface JQueryStatic {
-    toStr?: (obj: any, includeMarkup?: boolean) => string;
+    toStr?: (obj: any, includeMarkup?: boolean, stack?: any[]) => string;
 }
 declare var singString: SingularityModule;
 declare function StringContains(str?: string): boolean;
@@ -55,8 +55,8 @@ declare function StringTryToNumber(defaultValue?: any): any;
 declare function StringJoinLines(asHTML?: boolean): any;
 declare function StringPad(length: number, align?: Direction, whitespace?: string): any;
 declare function BooleanToStr(includeMarkup?: boolean): string;
-declare function ToStr(obj: any, includeMarkup?: boolean): any;
-declare function ArrayToStr<T>(includeMarkup?: boolean): string;
+declare function ObjectToStr(obj: any, includeMarkup?: boolean, stack?: any[]): any;
+declare function ArrayToStr(includeMarkup?: boolean): string;
 declare function StringToStr(includeMarkup?: boolean): any;
 declare function IsString(str?: any): boolean;
 declare function StringFirst(count: number): any;

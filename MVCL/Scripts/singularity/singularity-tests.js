@@ -3,7 +3,30 @@ var SingularityTests = (function () {
     function SingularityTests() {
         this.testErrors = [];
         this.resolveTests = function () {
+            // Resolve module feature tests
+            $.objEach(sing.modules, function (key, mod, i) {
+                if (!$.isEmpty(mod.features)) {
+                    mod.features.each(function (item) {
+                        if ($.isFunction(item.tests))
+                            item.tests(null);
+                        if ($.isFunction(item.tests))
+                            item.tests = null;
+                    });
+                }
+            });
             $.objEach(sing.methods, function (key, ext, i) {
+                if (ext.isAlias)
+                    return;
+                // Resolve method feature tests
+                if (ext && ext.details.features) {
+                    ext.details.features.each(function (item) {
+                        if ($.isFunction(item.tests))
+                            item.tests(ext);
+                        if ($.isFunction(item.tests))
+                            item.tests = null;
+                    });
+                }
+                // Resolve method details tests
                 if (ext && ext.details.tests && $.isFunction(ext.details.tests)) {
                     ext.details.tests(ext);
                     // Clear it if it's still a function (no tests)
@@ -25,15 +48,24 @@ var SingularityTest = (function () {
             if (this.testResult == null)
                 this.testResult = true;
             if (this.testResult !== true && this.testResult !== undefined && this.testResult !== null) {
-                this.testResult = name + ' ' + this.testResult + ' ' + this.requirement;
+                this.testResult = name + ' ' + this.testResult + (this.requirement ? ' ' + this.requirement : '');
                 if (!sing.tests.testErrors.has(this.testResult))
                     sing.tests.testErrors.push(this.testResult);
+                else {
+                    sing.tests = sing.tests;
+                }
             }
             return this.testResult;
         };
     }
     return SingularityTest;
 })();
+sing.addType('SingularityTests', {
+    typeClass: SingularityTests,
+    protoType: SingularityTests.prototype,
+    name: 'SingularityTests',
+    autoDefault: this.autoDefaults,
+});
 sing.tests = new SingularityTests();
 var singTests = singCore.addModule(new sing.Module('Tests', SingularityTests));
 singTests.method('resolveTests', sing.tests.resolveTests, {});
@@ -76,9 +108,9 @@ function SingularityAddMethodTest(ext, target, args, compare, requirement) {
     requirement += ')';
     requirement = requirement.pad(50);
     requirement += '// == (' + $.toStr(compare, true) + ')';
-    ext.details = ext.details || {};
-    ext.details.examples = ext.details.examples || [];
-    ext.details.examples.push(requirement);
+    // ext.details = ext.details || {};
+    // ext.details.examples = ext.details.examples || [];
+    // ext.details.examples.push(requirement);
     this.addTest(ext.name, function () {
         var result = ext.method.apply(target, args);
         if (compare == result)
@@ -86,7 +118,7 @@ function SingularityAddMethodTest(ext, target, args, compare, requirement) {
         else if ($.toStr(compare) == $.toStr(result))
             return true;
         else
-            return requirement + '\r\n' + $.toStr(compare, true) + ' expected, result: ' + $.toStr(result, true);
+            return requirement + '\r\n \r\n' + $.toStr(compare, true) + ' expected, result: ' + $.toStr(result, true);
     }, requirement);
 }
 ;
@@ -135,31 +167,56 @@ singTests.method('runTests', SingularityRunTests, {});
 function SingularityRunTests(display) {
     if (display === void 0) { display = false; }
     sing.tests.resolveTests();
-    var result;
+    var result = '';
     var testCount = 0;
     var displayStr = '';
-    for (var i = 0; i < Object.keys(sing.methods).length; i++) {
-        var name = Object.keys(sing.methods)[i];
-        var ext = sing.methods[name];
-        var tests = ext.details.unitTests;
+    var testGroups = {};
+    $.objValues(sing.modules).each(function (mod) {
+        if (mod.features)
+            mod.features.each(function (feature) {
+                if (feature.unitTests) {
+                    if (testGroups[mod.fullName()])
+                        testGroups[mod.fullName()] = testGroups[mod.fullName()].concat(feature.unitTests);
+                    else
+                        testGroups[mod.fullName()] = feature.unitTests;
+                }
+            });
+    });
+    $.objValues(sing.methods).each(function (method) {
+        if (method.details.features)
+            method.details.features.each(function (feature) {
+                if (feature.unitTests) {
+                    if (testGroups[method + ' ' + feature.name])
+                        testGroups[method + ' ' + feature.name] = testGroups[method + ' ' + feature.name].concat(feature.unitTests);
+                    else
+                        testGroups[method + ' ' + feature.name] = feature.unitTests;
+                }
+            });
+        if (method.details) {
+            testGroups[method.name] = method.details.unitTests;
+            if (testGroups[method.name])
+                testGroups[method.name] = testGroups[method.name].concat(method.details.unitTests);
+            else
+                testGroups[method.name] = method.details.unitTests;
+        }
+    });
+    $.objProperties(testGroups).each(function (testGroup) {
+        var name = testGroup.key;
+        var tests = testGroup.value;
         if (tests) {
-            for (var j = 0; j < tests.length; j++) {
-                var test = tests[j];
-                // log('running test ' + name + ' ' + (j + 1));
+            tests.each(function (test, i) {
                 if (display)
                     displayStr += test.requirement + '\r\n';
                 var testFunc = test.testFunc;
                 var testResult = testFunc();
                 if (testResult != true && testResult !== undefined && testResult !== null) {
                     testResult = testResult || '';
-                    result = 'Error testing \'' + name + '\' Test ' + (j + 1) + '\r\n' + testResult;
-                    break;
+                    result += 'Error testing \'' + name + '\' Test ' + (i + 1) + '\r\n' + testResult;
                 }
                 testCount++;
-            }
+            });
         }
-        ;
-    }
+    });
     return sing.tests.listTests() + '\r\n' + displayStr + '\r\n' + (result || '\r\n\r\nAll ' + testCount + ' tests succeeded.');
 }
 ;

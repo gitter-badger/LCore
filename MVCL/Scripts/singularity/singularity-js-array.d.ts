@@ -5,7 +5,7 @@ interface Array<T> {
     splitAt?: (...indexes: number[]) => T[];
     sortBy?: (arg?: string | string[] | ((item: T) => number)) => T[];
     orderBy?: (arg?: string | string[] | ((item: T) => number)) => T[];
-    quickSort?: (sortWith?: any[][], left?: number, right?: number) => any[] | any[][];
+    quickSort?: (sortWith?: any[][], left?: number, right?: number) => any[] | QuickSortResult;
     removeAt?: (...indexes: number[]) => T[];
     unique?: (...indexes: number[]) => T[];
     random?: (count?: number) => T | T[];

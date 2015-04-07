@@ -44,7 +44,11 @@ declare function EnumerableFlatten(): any[];
 declare function EnumerableIndices<T>(...items: any[]): number[];
 declare function EnumerableRemove<T>(itemOrItemsOrFunction: T | T[] | ((item: T, index: number) => boolean)): T[];
 declare function EnumerableSortBy<T>(arg?: string | string[] | ((item: T) => any)): T[];
-declare function EnumerableQuickSort(sortWith?: any[][], left?: number, right?: number): any[] | any[][];
+declare function EnumerableQuickSort(sortWith?: any[][], left?: number, right?: number): any[] | QuickSortResult;
+interface QuickSortResult {
+    items: any[];
+    sortWith: any[][];
+}
 declare function EnumerableQuickSortPartition(items: any[], left?: number, right?: number, sortWith?: any[][]): {
     items: any[];
     sortWith: any[][];

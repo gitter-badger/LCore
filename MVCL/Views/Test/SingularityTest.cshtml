@@ -116,6 +116,9 @@
 
         </div>
 
+        <div sing-if="{{module.srcLink}}">
+            <a href="{{module.srcLink}}" target="_blank">View Source...</a>
+        </div>
 
         <div sing-if="{{module.totalProperties() > 0}}" class="sing-module-total">
             <div>
@@ -183,6 +186,12 @@
         </ul>
     </div>
 
+    <div sing-if="{{module.features}}">
+        <b>Features:</b>
+
+        <div sing-fill="{{ Feature with feature in module.features}}"></div>
+    </div>
+
     <div class="sing-module-methods">
         <div class="btn-info btn left method-show-hide" click-fade-toggle=".methods-{{module.name.toSlug()}}">
             <glyph class="methods-{{module.name.toSlug()}}">&#x2b;</glyph>
@@ -248,8 +257,21 @@
             <glyph class="show-{{method.name.toSlug()}}" style=" display: none;">&#x2212;</glyph>
         </div>
 
-        <h3 sing-if="{{$.isDefined(method.methodOriginal)}}">{{method.shortName}}</h3>
-        <h3 sing-else><error>{{method.shortName}}</error></h3>
+        <h3 class="sing-method-header">
+            <span class="sing-bubble success" sing-if="{{method.details.manuallyTested}}">Manually Tested</span>
+            <span class="sing-bubble success" sing-else-if="{{method.passesAllTests()}}">Tests: {{ method.details.unitTests.length}}</span>
+            <span class="sing-bubble error" sing-else-if="{{method.isTested()}}">Tests: {{method.passedTests()}} / {{ method.details.unitTests.length}}</span>
+            <span sing-else class="sing-bubble error">Untested</span>
+
+            <span class="sing-bubble info wide">Extends: <b>{{method.target}}</b></span>
+
+            <span sing-if="{{$.isDefined(method.methodOriginal)}}">
+                {{method.shortName}}
+            </span>
+            <span sing-else>
+                <error>{{method.shortName}}</error>
+            </span>
+        </h3>
 
         <div style="display:none;" class="show-{{method.name.toSlug()}}">
             <h4>{{method.methodCall}}</h4>
@@ -262,15 +284,13 @@
                 <b>Parameters:</b>
 
                 <ol>
-                    <li sing-loop="{{ param in method.details.parameters }}">
-                        <div sing-fill="{{ Parameter with param }}"></div>
-                    </li>
+                    <li sing-fill="{{ Parameter with param in method.details.parameters }}"></li>
                 </ol>
             </div>
 
             <p sing-if="{{method.details.returns}}">
                 <b>Returns:</b>
-                {{method.returns}}
+                {{method.details.returns}}
             </p>
             <p sing-if="{{method.details.returnType}}">
                 <b>Return Type:</b>
@@ -292,23 +312,65 @@
                 <error>Method is not implemented.</error>
             </div>
 
+            <div sing-if="{{method.details.features}}">
+                <b>Features:</b>
+
+                <div sing-fill="{{ Feature with feature in method.details.features}}"></div>
+            </div>
+
             <div sing-if="{{ method.details.examples}}">
                 <b>Examples:</b>
                 <pre sing-loop="{{ example in method.details.examples}}">{{example}}</pre>
+            </div>
+
+            <div sing-if="{{ method.details.examples}}">
+                <b>Unit Tests:</b>
+                <pre sing-loop="{{ test in method.details.unitTests}}">
+                    {{test.requirement}}
+                    
+                <span sing-if="{{test.testResult == true}}">
+                        PASSED
+                </span>
+                <span sing-else>
+                <error>
+                        {{test.testResult}}
+                    </error>
+                </span>
+                </pre>
             </div>
         </div>
     </div>
 </div>
 
 <div sing-template="Parameter">
-    {{param$context}}
-    <div>Name: {{param.name}}</div>
-    <div sing-if="{{param.types}}">
-        Type:{{sing.getTypeName(param.types)}}
-    </div>
-    <div sing-if="{{param.description}}">
-        Description: {{param.description}}
-    </div>
+    <table>
+        <tr>
+            <td>
+                <b>Name:</b>
+            </td>
+            <td>
+                {{param.name}}
+            </td>
+        </tr>
+        <tr sing-if="{{param.types}}">
+            <td><b>Type:</b></td>
+            <td>{{sing.getTypeName(param.types)}}</td>
+
+        </tr>
+        <tr sing-if="{{param.description}}">
+            <td><b>Description:</b></td>
+            <td>{{param.description}}</td>
+        </tr>
+        <tr>
+            <td><b>Required:</b></td>
+            <td sing-if="{{param.required}}">Yes</td>
+            <td sing-else>No</td>
+        </tr>
+    </table>
+</div>
+
+<div sing-template="Feature">
+    {{feature$context}}
 </div>
 
 <span sing-template="PercentSlider">
