@@ -39,16 +39,17 @@ var SingularityTests = (function () {
     return SingularityTests;
 })();
 var SingularityTest = (function () {
-    function SingularityTest(name, testFunc, requirement) {
+    function SingularityTest(name, testFunc, index, requirement) {
         this.name = name;
         this.testFunc = testFunc;
+        this.index = index;
         this.requirement = requirement;
         this.testFunc = function () {
             this.testResult = testFunc();
             if (this.testResult == null)
                 this.testResult = true;
             if (this.testResult !== true && this.testResult !== undefined && this.testResult !== null) {
-                this.testResult = name + ' ' + this.testResult + (this.requirement ? ' ' + this.requirement : '');
+                this.testResult = '#' + index + ': ' + name + ' ' + this.testResult + (this.requirement ? ' ' + this.requirement : '');
                 if (!sing.tests.testErrors.has(this.testResult))
                     sing.tests.testErrors.push(this.testResult);
                 else {
@@ -77,7 +78,7 @@ function SingularityAddTest(name, testFunc, requirement) {
         throw name + ' tests not found';
     if ($.isFunction(sing.methods[name].details.tests))
         sing.methods[name].details.unitTests = sing.methods[name].details.unitTests || [];
-    sing.methods[name].details.unitTests = sing.methods[name].details.unitTests.concat(new SingularityTest(name, testFunc, requirement));
+    sing.methods[name].details.unitTests = sing.methods[name].details.unitTests.concat(new SingularityTest(name, testFunc, sing.methods[name].details.unitTests.length + 1, requirement));
 }
 ;
 singTests.method('addCustomTest', SingularityAddCustomTest, {});
@@ -91,7 +92,7 @@ function SingularityAddCustomTest(name, testFunc, requirement) {
     requirement = requirement || '';
     requirement += '\r\n' + testFunc.toString() + '\r\n';
     sing.methods[name].details.unitTests = sing.methods[name].details.unitTests || [];
-    sing.methods[name].details.unitTests = sing.methods[name].details.unitTests.concat(new SingularityTest(name, testFunc, requirement));
+    sing.methods[name].details.unitTests = sing.methods[name].details.unitTests.concat(new SingularityTest(name, testFunc, sing.methods[name].details.unitTests.length + 1, requirement));
 }
 ;
 singTests.method('addMethodTest', SingularityAddMethodTest, {});

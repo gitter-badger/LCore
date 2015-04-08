@@ -293,7 +293,11 @@ var Singularity = (function () {
             requiredJSFiddle: false,
         };
         this.init = function () {
+            var temp = $;
             $.noConflict();
+            if ($ == null) {
+                $ = temp;
+            }
             for (var mod in this.modules) {
                 if (this.modules[mod].init)
                     this.modules[mod].init();
@@ -304,7 +308,7 @@ var Singularity = (function () {
             InitFields();
         };
         this.getTypeName = function (protoType) {
-            if ($.isArray(protoType) && protoType.lenth > 0) {
+            if ($.isArray(protoType) && protoType.length > 0) {
                 return protoType.collect(sing.getTypeName).join(', ');
             }
             else {
@@ -476,7 +480,7 @@ var SingularityModule = (function () {
                     return m.details.unitTests.count(function (test) {
                         if (test.testResult === undefined)
                             test.testFunc();
-                        return test.testResult == true;
+                        return test.testResult == true || !$.isDefined(test.testResult);
                     });
                 return 0;
             });

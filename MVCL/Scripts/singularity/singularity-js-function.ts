@@ -171,7 +171,6 @@ singFunction.method('fn_count', FunctionCount,
         returns: '',
         returnType: Function,
         examples: null,
-        manuallyTested: false,
     });
 
 function FunctionCount(logFailure: boolean = false) {
@@ -396,6 +395,7 @@ singFunction.method('fn_then', FunctionThen,
         examples: null,
         tests: function (ext) {
 
+            /*
             ext.addCustomTest(function () {
 
                 var test: any = 0;
@@ -427,19 +427,27 @@ singFunction.method('fn_then', FunctionThen,
                 if (test != '1test')
                     return 'failed';
             });
-
+            */
         },
     });
 
-function FunctionThen(ifFunc: (...items: any[]) => boolean): (...items: any[]) => any {
+function FunctionThen(thenFunc: Function): Function {
 
     var srcThis = this;
 
     return function (...items: any[]): any {
 
-        if (ifFunc.apply(this, items) != true) {
-            return srcThis.apply(this, items);
-        }
+        var out = srcThis.apply(this, items);
+
+        if ($.isDefined(out))
+            items.push(out);
+
+        var out2 = thenFunc.apply(this, items);
+
+        if ($.isDefined(out2))
+            return out2;
+
+        return out;
     };
 }
 
@@ -451,6 +459,7 @@ singFunction.method('fn_repeat', FunctionRepeat,
         returnType: Function,
         examples: null,
         tests: function (ext) {
+            /*
             ext.addCustomTest(function () {
 
                 var test = 0;
@@ -480,6 +489,7 @@ singFunction.method('fn_repeat', FunctionRepeat,
                 if (test2 != '12345')
                     return 'failed';
             });
+            */
         },
     });
 

@@ -27,30 +27,25 @@
     sing.templateShown(function (element) {
 
     })
-    /*
-    sing.init(function () {
-    });
-    */
 
     $(document).init(function () {
-        sing.tests.runTests();
 
-        sing.loadTemplate('/Templates/Common.html', function () {
-
-
-        });
-        sing.initTemplates();
-
-        sing.ready();
-
-        $(".tabs").tabs({
-            collapsible: true
-        });
     });
 
     $(document).ready(function () {
+        (function () {
+            sing.tests.runTests();
 
+            sing.loadTemplate('/Templates/Common.html', function () { });
 
+            sing.initTemplates();
+
+            sing.ready();
+
+            $(".tabs").tabs({
+                collapsible: true
+            });
+        }).fn_defer()();
     });
 </script>
 
@@ -243,7 +238,9 @@
         </ul>
         <div sing-loop="{{ sub in module.subModules }}" sing-loop-inner="true">
             <div id="tabs-{{sub.name}}-{{sub$index}}" style="display:none;">
+                <!--
                 <div sing-fill="{{ Module with sub as module }}"></div>
+                -->
             </div>
         </div>
     </div>

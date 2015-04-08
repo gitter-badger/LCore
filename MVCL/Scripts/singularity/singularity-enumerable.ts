@@ -845,7 +845,7 @@ singEnumerable.method('quickSort', EnumerableQuickSort,
 
                 test = (<QuickSortResult>result).sortWith[0];
 
-                if (test != [1, 2, 3, 4, 5])
+                if ($.toStr(test) != $.toStr([2, 5, 3, 1, 4]))
                     return 'test failed.';
             });
         },

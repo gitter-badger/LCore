@@ -313,8 +313,14 @@ class Singularity {
     };
 
     init = function () {
+
+        var temp = $;
+
         $.noConflict();
 
+        if ($ == null) {
+            $ = temp;
+        }
         for (var mod in this.modules) {
             if (this.modules[mod].init)
                 this.modules[mod].init();
@@ -331,7 +337,7 @@ class Singularity {
 
     getTypeName = function (protoType: any | any[]) {
 
-        if ($.isArray(protoType) && protoType.lenth > 0) {
+        if ($.isArray(protoType) && protoType.length > 0) {
             return protoType.collect(sing.getTypeName).join(', ');
         }
         else {
@@ -612,7 +618,7 @@ class SingularityModule {
                     if (test.testResult === undefined)
                         test.testFunc();
 
-                    return test.testResult == true;
+                    return test.testResult == true || !$.isDefined(test.testResult);
                 });
             return 0;
         });

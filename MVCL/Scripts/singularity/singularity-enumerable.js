@@ -696,7 +696,7 @@ singEnumerable.method('quickSort', EnumerableQuickSort, {
             var test = [1, 2, 3, 4, 5];
             var result = ['d', 'a', 'c', 'e', 'b'].quickSort([test]);
             test = result.sortWith[0];
-            if (test != [1, 2, 3, 4, 5])
+            if ($.toStr(test) != $.toStr([2, 5, 3, 1, 4]))
                 return 'test failed.';
         });
     },

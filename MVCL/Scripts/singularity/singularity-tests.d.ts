@@ -15,9 +15,10 @@ declare class SingularityTests {
 declare class SingularityTest {
     name: string;
     testFunc: Function;
+    index: number;
     requirement: string;
     testResult: any;
-    constructor(name: string, testFunc: Function, requirement?: string);
+    constructor(name: string, testFunc: Function, index: number, requirement?: string);
 }
 declare var singTests: SingularityModule;
 declare function SingularityAddTest(name: string, testFunc: () => any, requirement?: string): void;

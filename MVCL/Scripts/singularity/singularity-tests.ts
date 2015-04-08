@@ -67,6 +67,7 @@ class SingularityTest {
 
     constructor(public name: string,
         public testFunc: Function,
+        public index: number,
         public requirement?: string) {
 
         this.testFunc = function () {
@@ -80,7 +81,7 @@ class SingularityTest {
                 this.testResult !== undefined &&
                 this.testResult !== null) {
 
-                this.testResult = name + ' ' + this.testResult + (this.requirement ? ' ' + this.requirement : '');
+                this.testResult = '#' + index + ': ' + name + ' ' + this.testResult + (this.requirement ? ' ' + this.requirement : '');
 
                 if (!sing.tests.testErrors.has(this.testResult))
                     sing.tests.testErrors.push(this.testResult);
@@ -120,7 +121,7 @@ function SingularityAddTest(name: string, testFunc: () => any, requirement?: str
     if ($.isFunction(sing.methods[name].details.tests))
         sing.methods[name].details.unitTests = sing.methods[name].details.unitTests || [];
 
-    sing.methods[name].details.unitTests = sing.methods[name].details.unitTests.concat(new SingularityTest(name, testFunc, requirement));
+    sing.methods[name].details.unitTests = sing.methods[name].details.unitTests.concat(new SingularityTest(name, testFunc, sing.methods[name].details.unitTests.length + 1, requirement));
 };
 
 singTests.method('addCustomTest', SingularityAddCustomTest, {});
@@ -141,7 +142,7 @@ function SingularityAddCustomTest(name: string, testFunc: Function, requirement?
 
     sing.methods[name].details.unitTests = sing.methods[name].details.unitTests || [];
 
-    sing.methods[name].details.unitTests = sing.methods[name].details.unitTests.concat(new SingularityTest(name, testFunc, requirement));
+    sing.methods[name].details.unitTests = sing.methods[name].details.unitTests.concat(new SingularityTest(name, testFunc, sing.methods[name].details.unitTests.length + 1, requirement));
 };
 
 singTests.method('addMethodTest', SingularityAddMethodTest, {});

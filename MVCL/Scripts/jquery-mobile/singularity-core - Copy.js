@@ -1,0 +1,1 @@
+//# sourceMappingURL=singularity-core - Copy.js.map

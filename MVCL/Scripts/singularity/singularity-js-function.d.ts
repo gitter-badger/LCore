@@ -39,7 +39,7 @@ declare function FunctionCache(uniqueCacheID: string, expiresAfter?: number): ()
 declare function FunctionOR(orFunc: (...items: any[]) => boolean): (...items: any[]) => boolean;
 declare function FunctionIf<T>(ifFunc: (...items: any[]) => boolean): (...items: any[]) => any;
 declare function FunctionUnless(ifFunc: (...items: any[]) => boolean): (...items: any[]) => any;
-declare function FunctionThen(ifFunc: (...items: any[]) => boolean): (...items: any[]) => any;
+declare function FunctionThen(thenFunc: Function): Function;
 declare function FunctionRepeat(repeatOver: number | any[] | ((...items: any[]) => boolean)): (...items: any[]) => any;
 declare function FunctionWhile(condition: ((...items: any[]) => boolean)): (...items: any[]) => any;
 declare function FunctionRetry(times?: number): (...items: any[]) => any;

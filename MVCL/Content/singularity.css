@@ -9,9 +9,9 @@
   display: none;
 }
 .sing {
-  width: 80% !important;
-  margin-left: 10% !important;
-  margin-right: 10% !important;
+  width: 90% !important;
+  margin-left: 5% !important;
+  margin-right: 5% !important;
 }
 .sing .sing-bubble {
   margin-top: -8px;
@@ -110,7 +110,7 @@
 .sing .sing-module-totals {
   display: block;
   height: 140px;
-  width: 500px;
+  width: 480px;
   float: right;
 }
 .sing .sing-module-totals .sing-module-total {

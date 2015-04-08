@@ -173,52 +173,51 @@ WriteLiteral("\r\n\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <me
             #line hidden
 WriteLiteral(" - Singularity</title>\r\n    <meta name=\"description\" content=\"\" />\r\n    <link hre" +
 "f=\"~/favicon.ico\" rel=\"shortcut icon\" type=\"image/x-icon\" />\r\n    <meta name=\"vi" +
-"ewport\" content=\"width=device-width, initial-scale=1\">\r\n\r\n    <link href=\"/Conte" +
-"nt/singularity.css\" rel=\"stylesheet\">\r\n    <link href=\"/Content/bootstrap.css\" r" +
-"el=\"stylesheet\">\r\n    <link href=\"/Content/jquery-ui/base/accordion.css\" rel=\"st" +
-"ylesheet\">\r\n    <link href=\"/Content/jquery-ui/base/all.css\" rel=\"stylesheet\">\r\n" +
-"    <link href=\"/Content/jquery-ui/base/autocomplete.css\" rel=\"stylesheet\">\r\n   " +
-" <link href=\"/Content/jquery-ui/base/base.css\" rel=\"stylesheet\">\r\n    <link href" +
-"=\"/Content/jquery-ui/base/button.css\" rel=\"stylesheet\">\r\n    <link href=\"/Conten" +
-"t/jquery-ui/base/core.css\" rel=\"stylesheet\">\r\n    <link href=\"/Content/jquery-ui" +
-"/base/datepicker.css\" rel=\"stylesheet\">\r\n    <link href=\"/Content/jquery-ui/base" +
-"/dialog.css\" rel=\"stylesheet\">\r\n    <link href=\"/Content/jquery-ui/base/draggabl" +
-"e.css\" rel=\"stylesheet\">\r\n    <link href=\"/Content/jquery-ui/base/menu.css\" rel=" +
-"\"stylesheet\">\r\n    <link href=\"/Content/jquery-ui/base/progressbar.css\" rel=\"sty" +
-"lesheet\">\r\n    <link href=\"/Content/jquery-ui/base/resizable.css\" rel=\"styleshee" +
-"t\">\r\n    <link href=\"/Content/jquery-ui/base/selectable.css\" rel=\"stylesheet\">\r\n" +
-"    <link href=\"/Content/jquery-ui/base/selectmenu.css\" rel=\"stylesheet\">\r\n    <" +
-"link href=\"/Content/jquery-ui/base/slider.css\" rel=\"stylesheet\">\r\n    <link href" +
-"=\"/Content/jquery-ui/base/sortable.css\" rel=\"stylesheet\">\r\n    <link href=\"/Cont" +
-"ent/jquery-ui/base/spinner.css\" rel=\"stylesheet\">\r\n    <link href=\"/Content/jque" +
-"ry-ui/base/tabs.css\" rel=\"stylesheet\">\r\n    <link href=\"/Content/jquery-ui/base/" +
-"theme.css\" rel=\"stylesheet\">\r\n    <link href=\"/Content/jquery-ui/base/tooltip.cs" +
-"s\" rel=\"stylesheet\">\r\n    <link href=\"/Content/mvcl.css\" rel=\"stylesheet\">\r\n    " +
-"<link rel=\"stylesheet\" href=\"http://code.jquery.com/mobile/1.4.5/jquery.mobile-1" +
-".4.5.min.css\">\r\n    <script src=\"http://code.jquery.com/jquery-1.11.1.min.js\"></" +
-"script>\r\n    <style type=\"text/css\"></style>\r\n    <script src=\"http://code.jquer" +
-"y.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js\"></script>\r\n    <script src=\"/Scri" +
-"pts/jquery-ui-1.11.4.js\"></script>\r\n    <script src=\"/Scripts/bootstrap.js\"></sc" +
-"ript>\r\n    <script src=\"/Scripts/singularity/singularity-core.js\"></script>\r\n   " +
-" <script src=\"/Scripts/singularity/singularity-tests.js\"></script>\r\n    <script " +
-"src=\"/Scripts/singularity/singularity-enumerable.js\"></script>\r\n    <script src=" +
-"\"/Scripts/singularity/singularity-js-function.js\"></script>\r\n    <script src=\"/S" +
-"cripts/singularity/singularity-js-array.js\"></script>\r\n    <script src=\"/Scripts" +
-"/singularity/singularity-js-boolean.js\"></script>\r\n    <script src=\"/Scripts/sin" +
-"gularity/singularity-js-number.js\"></script>\r\n    <script src=\"/Scripts/singular" +
-"ity/singularity-js-date.js\"></script>\r\n    <script src=\"/Scripts/singularity/sin" +
-"gularity-js-string.js\"></script>\r\n    <script src=\"/Scripts/singularity/singular" +
-"ity-text-bbcode.js\"></script>\r\n    <script src=\"/Scripts/singularity/singularity" +
-"-regexp.js\"></script>\r\n    <script src=\"/Scripts/singularity/singularity-templat" +
-"es.js\"></script>\r\n    <script src=\"/Scripts/singularity/singularity-object.js\"><" +
-"/script>\r\n    <script src=\"/Scripts/singularity/singularity-jquery.js\"></script>" +
-"\r\n    <script src=\"/Scripts/singularity/singularity-html.js\"></script>\r\n    <scr" +
-"ipt src=\"/Scripts/singularity/singularity-doc.js\"></script>\r\n    <script src=\"/S" +
-"cripts/singularity/singularity-log.js\"></script>\r\n    <script src=\"/Scripts/mvcl" +
-".js\"></script>\r\n    <script src=\"/Scripts/chance.js\"></script>\r\n    <script src=" +
-"\"/Scripts/jquery.cookie.js\"></script>\r\n    <script src=\"/Scripts/jquery.mousewhe" +
-"el.js\"></script>\r\n    <script src=\"/Scripts/jquery.timepicker.js\"></script>\r\n   " +
-" <script src=\"/Scripts/qTip.js\"></script>\r\n\r\n\r\n    ");
+"ewport\" content=\"width=device-width, initial-scale=1\">\r\n\r\n\r\n    <link href=\"/Con" +
+"tent/singularity.css\" rel=\"stylesheet\">\r\n    <link href=\"/Content/bootstrap.css\"" +
+" rel=\"stylesheet\">\r\n    <link href=\"/Content/jquery-ui/base/accordion.css\" rel=\"" +
+"stylesheet\">\r\n    <link href=\"/Content/jquery-ui/base/all.css\" rel=\"stylesheet\">" +
+"\r\n    <link href=\"/Content/jquery-ui/base/autocomplete.css\" rel=\"stylesheet\">\r\n " +
+"   <link href=\"/Content/jquery-ui/base/base.css\" rel=\"stylesheet\">\r\n    <link hr" +
+"ef=\"/Content/jquery-ui/base/button.css\" rel=\"stylesheet\">\r\n    <link href=\"/Cont" +
+"ent/jquery-ui/base/core.css\" rel=\"stylesheet\">\r\n    <link href=\"/Content/jquery-" +
+"ui/base/datepicker.css\" rel=\"stylesheet\">\r\n    <link href=\"/Content/jquery-ui/ba" +
+"se/dialog.css\" rel=\"stylesheet\">\r\n    <link href=\"/Content/jquery-ui/base/dragga" +
+"ble.css\" rel=\"stylesheet\">\r\n    <link href=\"/Content/jquery-ui/base/menu.css\" re" +
+"l=\"stylesheet\">\r\n    <link href=\"/Content/jquery-ui/base/progressbar.css\" rel=\"s" +
+"tylesheet\">\r\n    <link href=\"/Content/jquery-ui/base/resizable.css\" rel=\"stylesh" +
+"eet\">\r\n    <link href=\"/Content/jquery-ui/base/selectable.css\" rel=\"stylesheet\">" +
+"\r\n    <link href=\"/Content/jquery-ui/base/selectmenu.css\" rel=\"stylesheet\">\r\n   " +
+" <link href=\"/Content/jquery-ui/base/slider.css\" rel=\"stylesheet\">\r\n    <link hr" +
+"ef=\"/Content/jquery-ui/base/sortable.css\" rel=\"stylesheet\">\r\n    <link href=\"/Co" +
+"ntent/jquery-ui/base/spinner.css\" rel=\"stylesheet\">\r\n    <link href=\"/Content/jq" +
+"uery-ui/base/tabs.css\" rel=\"stylesheet\">\r\n    <link href=\"/Content/jquery-ui/bas" +
+"e/theme.css\" rel=\"stylesheet\">\r\n    <link href=\"/Content/jquery-ui/base/tooltip." +
+"css\" rel=\"stylesheet\">\r\n    <link href=\"/Content/mvcl.css\" rel=\"stylesheet\">\r\n\r\n" +
+"\r\n    <link rel=\"stylesheet\" href=\"/Scripts/jquery-mobile/jquery-mobile-1.4.5.mi" +
+"n.css\">\r\n    <script src=\"/Scripts/jquery-mobile/jquery-1.11.1.min.js\"></script>" +
+"\r\n    <script src=\"/Scripts/jquery-mobile/jquery-mobile-1.4.5.min.js\"></script>\r" +
+"\n\r\n    <script src=\"/Scripts/jquery-ui-1.11.4.js\"></script>\r\n    <script src=\"/S" +
+"cripts/bootstrap.js\"></script>\r\n\r\n    <script src=\"/Scripts/singularity/singular" +
+"ity-core.js\"></script>\r\n    <script src=\"/Scripts/singularity/singularity-object" +
+".js\"></script>\r\n    <script src=\"/Scripts/singularity/singularity-tests.js\"></sc" +
+"ript>\r\n    <script src=\"/Scripts/singularity/singularity-enumerable.js\"></script" +
+">\r\n    <script src=\"/Scripts/singularity/singularity-js-function.js\"></script>\r\n" +
+"    <script src=\"/Scripts/singularity/singularity-js-array.js\"></script>\r\n    <s" +
+"cript src=\"/Scripts/singularity/singularity-js-boolean.js\"></script>\r\n    <scrip" +
+"t src=\"/Scripts/singularity/singularity-js-number.js\"></script>\r\n    <script src" +
+"=\"/Scripts/singularity/singularity-js-date.js\"></script>\r\n    <script src=\"/Scri" +
+"pts/singularity/singularity-js-string.js\"></script>\r\n    <script src=\"/Scripts/s" +
+"ingularity/singularity-text-bbcode.js\"></script>\r\n    <script src=\"/Scripts/sing" +
+"ularity/singularity-regexp.js\"></script>\r\n    <script src=\"/Scripts/singularity/" +
+"singularity-templates.js\"></script>\r\n    <script src=\"/Scripts/singularity/singu" +
+"larity-jquery.js\"></script>\r\n    <script src=\"/Scripts/singularity/singularity-h" +
+"tml.js\"></script>\r\n    <script src=\"/Scripts/singularity/singularity-doc.js\"></s" +
+"cript>\r\n    <script src=\"/Scripts/singularity/singularity-log.js\"></script>\r\n\r\n " +
+"   <script src=\"/Scripts/mvcl.js\"></script>\r\n    <script src=\"/Scripts/chance.js" +
+"\"></script>\r\n    <script src=\"/Scripts/jquery.cookie.js\"></script>\r\n    <script " +
+"src=\"/Scripts/jquery.mousewheel.js\"></script>\r\n    <script src=\"/Scripts/jquery." +
+"timepicker.js\"></script>\r\n    <script src=\"/Scripts/qTip.js\"></script>\r\n\r\n    ");
 
 
 
@@ -226,7 +225,7 @@ WriteLiteral("\r\n</head>\r\n<body singularity class=\"");
 
 
             
-            #line 122 "..\..\Views\_MainLayout.cshtml"
+            #line 143 "..\..\Views\_MainLayout.cshtml"
                      Write(ViewBag.ContextProvider != null ? StringExt.ToUrlSlug(ViewBag.ContextProvider.GetContext(Session).ContextName) : "");
 
             
@@ -241,7 +240,7 @@ WriteLiteral("\r\n\r\n");
 
 
             
-            #line 133 "..\..\Views\_MainLayout.cshtml"
+            #line 154 "..\..\Views\_MainLayout.cshtml"
          if (TempData.Peek(ControllerHelper.StatusMessage) != null)
         {
             String Message = (String)TempData[ControllerHelper.StatusMessage];
@@ -255,7 +254,7 @@ WriteLiteral("            <div class=\"status-message close-dialog\">\r\n");
 
 
             
-            #line 139 "..\..\Views\_MainLayout.cshtml"
+            #line 160 "..\..\Views\_MainLayout.cshtml"
                  if (!String.IsNullOrEmpty(Icon))
                 {
 
@@ -266,7 +265,7 @@ WriteLiteral("                    <glyph>");
 
 
             
-            #line 141 "..\..\Views\_MainLayout.cshtml"
+            #line 162 "..\..\Views\_MainLayout.cshtml"
                       Write(Icon);
 
             
@@ -276,7 +275,7 @@ WriteLiteral("</glyph>\r\n");
 
 
             
-            #line 142 "..\..\Views\_MainLayout.cshtml"
+            #line 163 "..\..\Views\_MainLayout.cshtml"
                 }
 
             
@@ -286,7 +285,7 @@ WriteLiteral("                ");
 
 
             
-            #line 143 "..\..\Views\_MainLayout.cshtml"
+            #line 164 "..\..\Views\_MainLayout.cshtml"
            Write(Message);
 
             
@@ -296,7 +295,7 @@ WriteLiteral("\r\n            </div>\r\n");
 
 
             
-            #line 145 "..\..\Views\_MainLayout.cshtml"
+            #line 166 "..\..\Views\_MainLayout.cshtml"
         }
 
             
@@ -318,7 +317,7 @@ WriteLiteral(@"
 
 
             
-            #line 158 "..\..\Views\_MainLayout.cshtml"
+            #line 179 "..\..\Views\_MainLayout.cshtml"
    Write(RenderSection("featured", required: false));
 
             
@@ -329,7 +328,7 @@ WriteLiteral("\r\n\r\n        <section class=\"content-wrapper main-content clea
 
 
             
-            #line 161 "..\..\Views\_MainLayout.cshtml"
+            #line 182 "..\..\Views\_MainLayout.cshtml"
        Write(RenderBody());
 
             
@@ -340,18 +339,18 @@ WriteLiteral("\r\n        </section>\r\n    </div>\r\n    <footer>\r\n        <d
 
 
             
-            #line 167 "..\..\Views\_MainLayout.cshtml"
+            #line 188 "..\..\Views\_MainLayout.cshtml"
                      Write(DateTime.Now.Year);
 
             
             #line default
             #line hidden
-WriteLiteral("</p>\r\n            </div>\r\n        </div>\r\n    </footer>\r\n\r\n    <script src=\"http:" +
-"//code.jquery.com/jquery-1.11.1.min.js\"></script>\r\n\r\n    ");
+WriteLiteral("</p>\r\n            </div>\r\n        </div>\r\n    </footer>\r\n\r\n    <script src=\"/Scri" +
+"pts/jquery-mobile/jquery-1.11.1.min.js\"></script>\r\n\r\n    ");
 
 
             
-            #line 174 "..\..\Views\_MainLayout.cshtml"
+            #line 195 "..\..\Views\_MainLayout.cshtml"
 Write(RenderSection("scripts", required: false));
 
             

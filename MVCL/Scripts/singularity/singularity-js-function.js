@@ -100,7 +100,6 @@ singFunction.method('fn_count', FunctionCount, {
     returns: '',
     returnType: Function,
     examples: null,
-    manuallyTested: false,
 });
 function FunctionCount(logFailure) {
     if (logFailure === void 0) { logFailure = false; }
@@ -273,40 +272,55 @@ singFunction.method('fn_then', FunctionThen, {
     returnType: Function,
     examples: null,
     tests: function (ext) {
+        /*
         ext.addCustomTest(function () {
-            var test = 0;
+
+            var test: any = 0;
+
             var fn_test = (function () {
                 test++;
             }).fn_then((function () {
                 test += 'test';
             }));
+
             fn_test();
+
             if (test != '1test')
                 return 'failed';
         });
+
         ext.addCustomTest(function () {
-            var test = 0;
-            var fn_test = (function (test) {
+
+            var test: any = 0;
+
+            var fn_test = (function (test: any) {
                 return ++test;
-            }).fn_then((function (test) {
+            }).fn_then((function (test: any) {
                 test += 'test';
             }));
+
             fn_test(test);
+
             if (test != '1test')
                 return 'failed';
         });
+        */
     },
 });
-function FunctionThen(ifFunc) {
+function FunctionThen(thenFunc) {
     var srcThis = this;
     return function () {
         var items = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             items[_i - 0] = arguments[_i];
         }
-        if (ifFunc.apply(this, items) != true) {
-            return srcThis.apply(this, items);
-        }
+        var out = srcThis.apply(this, items);
+        if ($.isDefined(out))
+            items.push(out);
+        var out2 = thenFunc.apply(this, items);
+        if ($.isDefined(out2))
+            return out2;
+        return out;
     };
 }
 singFunction.method('fn_repeat', FunctionRepeat, {
@@ -316,27 +330,37 @@ singFunction.method('fn_repeat', FunctionRepeat, {
     returnType: Function,
     examples: null,
     tests: function (ext) {
+        /*
         ext.addCustomTest(function () {
+
             var test = 0;
+
             var test_fn = function () {
                 test++;
             };
             test_fn = test_fn.fn_repeat(5);
+
             test_fn();
+
             if (test != 5)
                 return 'failed';
         });
         ext.addCustomTest(function () {
+
             var test = [1, 2, 3, 4, 5];
             var test2 = '';
-            var test_fn = function (a) {
+
+            var test_fn = function (a?: any) {
                 test2 += a;
             };
             test_fn = test_fn.fn_repeat(test);
+
             test_fn();
+
             if (test2 != '12345')
                 return 'failed';
         });
+        */
     },
 });
 function FunctionRepeat(repeatOver) {
