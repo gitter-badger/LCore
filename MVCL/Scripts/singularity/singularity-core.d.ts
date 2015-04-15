@@ -18,6 +18,9 @@ declare class Singularity {
     AutoDefinition: typeof SingularityAutoDefinition;
     enableTests: boolean;
     defaultPolyfill: boolean;
+    totalExecutions: number;
+    totalExecutionTime: number;
+    topLevelMethod: boolean;
     modules: Hash<SingularityModule>;
     addModule: (mod: SingularityModule) => SingularityModule;
     methods: Hash<SingularityMethod>;
@@ -33,7 +36,6 @@ declare class Singularity {
     autoDefaults: SingularityAutoDefinition;
     types: Hash<SingularityType>;
     addType: (name: string, addType: SingularityType) => void;
-    autoDefault: SingularityAutoDefinition;
     defaultSettings: {
         requiredDocumentation: boolean;
         requiredUnitTests: boolean;

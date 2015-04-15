@@ -158,7 +158,7 @@
     <p sing-if="{{module.summaryLong}}" class="sing-module-summary">
         <strong>{{module.summaryLong.textToHTML()}}</strong>
     </p>
-    <p sing-else>
+    <p sing-else class="sing-module-summary">
         <strong>[Long Summary]</strong>
     </p>
 
@@ -238,9 +238,7 @@
         </ul>
         <div sing-loop="{{ sub in module.subModules }}" sing-loop-inner="true">
             <div id="tabs-{{sub.name}}-{{sub$index}}" style="display:none;">
-                <!--
                 <div sing-fill="{{ Module with sub as module }}"></div>
-                -->
             </div>
         </div>
     </div>

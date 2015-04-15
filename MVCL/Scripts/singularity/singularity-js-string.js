@@ -483,6 +483,9 @@ singString.method('toStr', ObjectToStr, {
         ext.addTest($, [NaN], '');
         ext.addTest($, [NaN, false], '');
         ext.addTest($, [NaN, true], 'NaN');
+        ext.addTest($, [/$^/], '/$^/');
+        ext.addTest($, [/$^/, false], '/$^/');
+        ext.addTest($, [/$^/, true], '/$^/');
         ext.addTest($, [{ a: 'b', b: 5, c: false, d: [], e: { f: {} } }], 'a: b\r\nb: 5\r\nc: No\r\nd: \r\ne: f: \r\n\r\n');
         ext.addTest($, [{ a: 'b', b: 5, c: false, d: [], e: { f: {} } }, true], '{a: \'b\', b: 5, c: false, d: [], e: {f: {}}}');
         ext.addTest($, [['a']], 'a');
@@ -518,6 +521,8 @@ function ObjectToStr(obj, includeMarkup, stack) {
     if (obj.toStr && obj.toStr != ObjectToStr)
         return obj.toStr(includeMarkup);
     if (typeof obj == 'object') {
+        if (obj.toString && obj.toString !== ({}).toString)
+            return obj.toString();
         // Prevents infinite recursion
         if (stack.has(function (item) {
             return item === obj;

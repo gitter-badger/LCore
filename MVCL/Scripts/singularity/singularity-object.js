@@ -355,7 +355,10 @@ singObject.method('clone', DateClone, {
             src2.setSeconds(0);
             src2.setMilliseconds(777);
             // This has 1/360,000 probability of failing
-            if (src.getMinutes() == 0 && src.getSeconds() == 0 && src.getMilliseconds() == 777)
+            //if (src.getMinutes() == 0 && src.getSeconds() == 0 && src.getMilliseconds() == 777)
+            //    return 'Same date was returned';
+            // This has 1/60 probability of failing
+            if (src.getSeconds() == 0)
                 return 'Same date was returned';
         }, 'Dates must be clones, not the source date');
     },

@@ -175,6 +175,10 @@ class Singularity {
     // Set this to true or 'override: true' in the extension details to enable method overriding
     defaultPolyfill = true;
 
+    totalExecutions: number;
+    totalExecutionTime: number;
+    topLevelMethod: boolean = true;
+
     modules: Hash<SingularityModule> = {
 
     };
@@ -214,7 +218,7 @@ class Singularity {
         toString: function (obj: any) { return obj.toString(); },
     };
 
-    autoDefaults: SingularityAutoDefinition = new SingularityAutoDefinition();
+    autoDefaults = new SingularityAutoDefinition();
 
     types: Hash<SingularityType> = {
         Object: {
@@ -304,7 +308,6 @@ class Singularity {
         this.types[name] = addType;
     };
 
-    autoDefault = new SingularityAutoDefinition();
 
     defaultSettings = {
         requiredDocumentation: true,
@@ -325,6 +328,8 @@ class Singularity {
             if (this.modules[mod].init)
                 this.modules[mod].init();
         }
+
+        (<any>String.prototype)['match'] = String.prototype['match'].fn_cache('regexMatch');
 
     };
 
@@ -884,7 +889,7 @@ class SingularityMethod {
     method: Function;
     methodOriginal: Function;
 
-    data: Hash<any>;
+    data: Hash<any> = {};
 
     methodModule: SingularityModule;
 
@@ -998,42 +1003,43 @@ class SingularityMethod {
 
         this.loadMethodCall(this);
 
-        var methods = [this.method];
+        if (this.method) {
+            var methods = [this.method];
 
-        // Validates input fields based on parameter options set in the details
-        // Checks that non-optional fields are included and that the inputs passed match one of the parameter types given
+            // Validates input fields based on parameter options set in the details
+            // Checks that non-optional fields are included and that the inputs passed match one of the parameter types given
 
-        var auto = this.auto;
+            var auto = this.auto;
 
-        this.loadInputValidation(this, methods);
+            this.loadInputValidation(this, methods);
 
-        if (this.auto.ignoreErrors && this.auto.logErrors)
-            throw 'Unable to Ignore as well as Log errors.';
+            if (this.auto.ignoreErrors && this.auto.logErrors)
+                throw 'Unable to Ignore as well as Log errors.';
 
-        if (this.auto.defaultResult !== undefined &&
-            this.auto.overrideResult !== undefined)
-            throw 'Unable to set both Default and Override Result.';
+            if (this.auto.defaultResult !== undefined &&
+                this.auto.overrideResult !== undefined)
+                throw 'Unable to set both Default and Override Result.';
 
-        this.loadAutoRetry(this, methods);
+            this.loadAutoRetry(this, methods);
 
-        this.loadAutoIgnoreErrors(this, methods);
+            this.loadAutoIgnoreErrors(this, methods);
 
-        this.loadAutoLogErrors(this, methods);
+            this.loadAutoLogErrors(this, methods);
 
-        this.loadAutoLogExecution(this, methods);
+            this.loadAutoLogExecution(this, methods);
 
-        this.loadAutoTimeExecution(this, methods);
+            this.loadAutoTimeExecution(this, methods);
 
-        this.loadAutoDefaultResult(this, methods);
+            this.loadAutoDefaultResult(this, methods);
 
-        this.loadAutoOverrideResult(this, methods);
-        this.loadAutoCacheResults(this, methods);
-        this.loadAutoResultAsArray(this, methods);
-        this.loadAutoMakeAsync(this, methods);
+            this.loadAutoOverrideResult(this, methods);
+            this.loadAutoCacheResults(this, methods);
+            this.loadAutoResultAsArray(this, methods);
+            this.loadAutoMakeAsync(this, methods);
 
 
-        this.method = methods[methods.length - 1];
-
+            this.method = methods[methods.length - 1];
+        }
 
     }
 
@@ -1114,15 +1120,47 @@ class SingularityMethod {
 
                 var timeBefore = new Date().valueOf();
 
+                sing.totalExecutions = sing.totalExecutions || 0;
+                sing.totalExecutionTime = sing.totalExecutionTime || 0;
+
+                sing.totalExecutions = sing.totalExecutions + 1;
+
+                var subExecutions = sing.totalExecutions;
+
+                var executionTimeBefore = sing.totalExecutionTime;
+
+
                 var result = lastMethod_timeExecution.apply(this, arguments);
 
+
+                var executionTimeAfter = sing.totalExecutionTime;
+
+                var subExecutionTime = executionTimeAfter - executionTimeBefore;
+
+                subExecutions -= sing.totalExecutions;
+
                 var timeAfter = new Date().valueOf();
-                var time = timeBefore - timeAfter;
+
+                var time = timeAfter - timeBefore - subExecutionTime;
 
                 if (time < 0)
                     time = 0;
 
-                log('Completed: ' + ext.name + ' in ' + time + ' MS');
+                sing.totalExecutionTime += time;
+
+                ext.data['executions'] = ext.data['executions'] || [];
+
+                ext.data['executionTotal'] = ext.data['executionTotal'] || 0;
+
+                ext.data['executions'].push(
+                    {
+                        duration: time,
+                        //args: ObjectToStr(arguments),
+                        //result: ObjectToStr(result),
+                        subMethods: subExecutions
+                    });
+
+                ext.data['executionTotal'] = ext.data['executionTotal'] + time;
 
                 return result;
             });
@@ -1343,12 +1381,12 @@ class SingularityMethod {
         ext.methodCall = ext.moduleName + '.' + ext.shortName;
 
         // Configure type-specific defaults or use the global defaults
-        var autoDefault = sing.autoDefault;
+        var autoDefaults = sing.autoDefaults;
 
         if (sing.types[ext.moduleName] && sing.types[ext.moduleName].autoDefault !== undefined)
-            autoDefault = $.extend(true, {}, sing.types[ext.moduleName].autoDefault);
+            autoDefaults = $.extend(true, {}, sing.types[ext.moduleName].autoDefault);
 
-        ext.auto = new SingularityAutoDefinition(autoDefault);
+        ext.auto = new SingularityAutoDefinition(autoDefaults);
 
         // Inherits auto values passed using details
         if (ext.details && ext.details.auto) {
@@ -1498,6 +1536,8 @@ class SingularityAutoDefinition {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 var sing = new Singularity();
+
+sing.autoDefaults.timeExecution = true;
 
 sing.globalResolve['sing'] = sing;
 
@@ -1724,67 +1764,9 @@ function SingularityResolve(key: string, data?: any, context: Hash<any> = {}, ro
             return sing.resolve(theRest, out, context, rootKey);
         }
 
-        /*
-        // Array navigation
-        if (out === undefined && key.hasMatch(/^\.?([^\.\'\",\[\]\(\)]+)\[(.+)\]\.?(.*)$/)) {
-
-            var match = key.match(/^\.?([^\.\'\",\[\]\(\)]+)\[(.+)\]\.?(.*)$/);
-
-            var property = match[1];
-
-            var theRest = key.after(property);
-
-            var arrayIndex = '';
-
-            var openBraceCount = 0;
-            var closeBraceCount = 0;
-
-            do {
-                arrayIndex += theRest[0];
-
-                if (theRest[0] == '[')
-                    openBraceCount++;
-                if (theRest[0] == ']')
-                    closeBraceCount++;
-
-                theRest = theRest.substr(1);
-
-            } while (openBraceCount != closeBraceCount && theRest.length > 0)
-
-            arrayIndex = arrayIndex.substr(1, arrayIndex.length - 2);
-
-            arrayIndex = sing.resolve(arrayIndex, data, context, rootKey);
-
-            var propData = sing.resolve(property, data, context, rootKey);
-
-            if (!$.isDefined(propData)) {
-
-                throw 'could not resolve ' + rootKey;
-            }
-            if (!$.isArray(propData)) {
-
-                throw property + ' was not an array';
-            }
-
-            out = propData[arrayIndex];
-
-            if (negateOutput)
-                out = !out;
-
-            if (theRest == null || theRest == '')
-                return out;
-
-            return sing.resolve(theRest, out, context, rootKey);
-
-        }
-    */
         // Array 'super-navigation'
         // sing.resolve('sing.methods[].details.unitTests[].requirement')
         // Works for arrays and hash tables.
-
-        if (key == '$data[0]') {
-            key = key + '';
-        }
         if (out === undefined && key.hasMatch(/^\.?([^\.\'\",\[\]\(\)]+)(\[[^\[\]]*\])\.?(.*)$/)) {
 
             var match = key.match(/^\.?([^\.\'\",\[\]\(\)]+)(\[[^\[\]]*\])\.?(.*)$/);
@@ -1900,7 +1882,10 @@ function SingularityResolve(key: string, data?: any, context: Hash<any> = {}, ro
             // Recursive hash handling allows for multiple levels of super-navigation
             $.objProperties(hashProperty).each(function (item) {
                 try {
-                    outHash[item.key] = sing.resolve(theRest, item.value, context, rootKey);
+                    var result = sing.resolve(theRest, item.value, context, rootKey);
+
+                    if (result !== undefined)
+                        outHash[item.key] = result;
                 }
                 catch (ex) {
                 }
@@ -2261,19 +2246,16 @@ function SingularityResolve(key: string, data?: any, context: Hash<any> = {}, ro
 
     }
     catch (ex) {
-        if (key != rootKey)
+        if (key != rootKey) {
             throw ex;
-        else
-            error(ex);
+        }
+        else {
+            return '<error>could not resolve ' + rootKey + '</error>';
+        }
     }
 
-    if (out === undefined) {
-
-        if (key.contains('||'))
-            out = sing.resolve(key.after('||'), data, context, rootKey);
-
-        return '<error>could not resolve ' + rootKey + '</error>';
-    }
+    if (out === undefined && key.contains('||'))
+        out = sing.resolve(key.after('||'), data, context, rootKey);
 
     return out;
 }

@@ -11,7 +11,10 @@ interface Function {
     fn_count?: <T>(logFailure?: boolean) => (...items: any[]) => T;
     fn_trace?: <T>() => (...items: any[]) => T;
 
-    fn_cache?: <T>(uniqueCacheID: string, expiresAfter?: Date) => (...items: any[]) => T;
+    fn_cache<T>(uniqueCacheID: string, expiresAfter?: Date): (var1: T) => void;
+    fn_cache<T, U>(uniqueCacheID: string, expiresAfter?: Date): (var1: T) => U;
+    fn_cache<T, T2, U>(uniqueCacheID: string, expiresAfter?: Date): (var1: T, var2?: T2) => U;
+    fn_cache<T>(uniqueCacheID: string, expiresAfter?: Date): (...items: any[]) => T;
 
     fn_if?: (ifFunc: (...items: any[]) => boolean) => (...items: any[]) => any;
     fn_unless?: <T>(unlessFunc: (...items: any[]) => boolean) => (...items: any[]) => T;
@@ -210,12 +213,15 @@ singFunction.method('fn_cache', FunctionCache,
 function FunctionCache(uniqueCacheID: string, expiresAfter: number = 0) {
     var source = this;
 
+    var cacheKeyLimit = 300;
+
+
     uniqueCacheID = uniqueCacheID || this.name;
 
     if (!uniqueCacheID)
         throw 'Unique ID not found'
 
-    var ext = sing.methods['Function.fn_cache'];
+    var ext = sing.methods['Singularity.Extensions.Function.fn_cache'];
     if (!ext.data)
         ext.data = {
         };
@@ -224,39 +230,46 @@ function FunctionCache(uniqueCacheID: string, expiresAfter: number = 0) {
         ext.data['cache'] = {
         };
 
-    return function () {
+    return function (...items: any[]) {
 
-        var cache = sing.methods['Function.fn_cache'].data['cache'];
+        var thisCaller = this;
+
+        var cache = ext.data['cache'];
 
         if (!cache[uniqueCacheID])
             cache[uniqueCacheID] = {};
 
         var thisCache = cache[uniqueCacheID];
 
-        var argStr = $.toStr(source) + $.toStr($.objValues(arguments));
+        var argStr = $.toStr(thisCaller) + '|||||||' + $.toStr(items);
 
-        if (thisCache[argStr] != undefined &&
-            thisCache[argStr] != null) {
-
-            if (thisCache[argStr].expires < (new Date()).valueOf()) {
-                // Expired
-                thisCache[argStr] = {};
-            }
-            else {
-                return thisCache[argStr].value;
-            }
+        if (argStr.length > cacheKeyLimit) {
+            return source.apply(thisCaller, items);
         }
         else {
-            thisCache[argStr] = {};
+            if (thisCache[argStr] != undefined &&
+                thisCache[argStr] != null) {
+
+                if (thisCache[argStr].expires < (new Date()).valueOf()) {
+                    // Expired
+                    thisCache[argStr] = {};
+                }
+                else {
+                    return thisCache[argStr].value;
+                }
+            }
+            else {
+                thisCache[argStr] = {};
+            }
+
+            var result = thisCache[argStr].value = source.apply(thisCaller, items);
+
+            if (expiresAfter > 0) {
+                thisCache[argStr].expires = (new Date()).valueOf() + expiresAfter;
+            }
+
+            return result;
         }
-
-        var result = thisCache[argStr].value = source.apply(this, arguments);
-
-        if (expiresAfter > 0) {
-            thisCache[argStr].expires = (new Date()).valueOf() + expiresAfter;
-        }
-
-        return result;
     }
 }
 

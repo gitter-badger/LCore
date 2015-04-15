@@ -208,114 +208,114 @@ WriteLiteral("\r\n<script type=\"text/javascript\">\r\n\r\n    sing.templateShow
 "ummary\">\r\n        <strong>{{module.summaryShort.textToHTML()}}</strong>\r\n    </p" +
 ">\r\n    <p sing-else>\r\n        <strong>[Summary]</strong>\r\n    </p>\r\n\r\n    <p sin" +
 "g-if=\"{{module.summaryLong}}\" class=\"sing-module-summary\">\r\n        <strong>{{mo" +
-"dule.summaryLong.textToHTML()}}</strong>\r\n    </p>\r\n    <p sing-else>\r\n        <" +
-"strong>[Long Summary]</strong>\r\n    </p>\r\n\r\n\r\n    <div sing-if=\"{{module.feature" +
-"s}}\" class=\"sing-module-features\">\r\n        Features:\r\n        <ul>\r\n           " +
-" <li sing-loop=\"{{feature in module.features}}\">\r\n                {{feature}}\r\n " +
-"           </li>\r\n        </ul>\r\n    </div>\r\n\r\n    <div sing-if=\"{{module.resour" +
-"ces}}\" class=\"sing-module-resources\">\r\n        Resources:\r\n        <ul>\r\n       " +
-"     <li sing-loop=\"{{resource in module.resources}}\">\r\n                <a href=" +
-"\"{{resource$key}}\">{{resource}}</a>\r\n            </li>\r\n        </ul>\r\n    </div" +
-">\r\n\r\n    <div sing-if=\"{{module.features}}\">\r\n        <b>Features:</b>\r\n\r\n      " +
-"  <div sing-fill=\"{{ Feature with feature in module.features}}\"></div>\r\n    </di" +
-"v>\r\n\r\n    <div class=\"sing-module-methods\">\r\n        <div class=\"btn-info btn le" +
-"ft method-show-hide\" click-fade-toggle=\".methods-{{module.name.toSlug()}}\">\r\n   " +
-"         <glyph class=\"methods-{{module.name.toSlug()}}\">&#x2b;</glyph>\r\n       " +
-"     <glyph class=\"methods-{{module.name.toSlug()}}\" style=\" display: none;\">&#x" +
-"2212;</glyph>\r\n        </div>\r\n        <h4>Methods</h4>\r\n        <div class=\"met" +
-"hods-{{module.name.toSlug()}}\" style=\"display:none;\">\r\n            <div sing-loo" +
-"p=\"{{ method in module.methods }}\" class=\"sing-method-list\">\r\n                <d" +
-"iv sing-fill=\"{{ Method with method }}\"></div>\r\n            </div>\r\n\r\n          " +
-"  <div sing-if=\"{{module.getUnknownMethods()}}\">\r\n                <b>Unknown Met" +
-"hods:</b>\r\n                <error sing-loop=\"{{ methodName in module.getUnknownM" +
-"ethods()}}\">{{methodName}}</error>\r\n            </div>\r\n        </div>\r\n    </di" +
-"v>\r\n\r\n    <div class=\"sing-module-properties\">\r\n        <div class=\"btn-info btn" +
-" left method-show-hide\" click-fade-toggle=\".properties-{{module.name.toSlug()}}\"" +
-">\r\n            <glyph class=\"properties-{{module.name.toSlug()}}\">&#x2b;</glyph>" +
-"\r\n            <glyph class=\"properties-{{module.name.toSlug()}}\" style=\" display" +
-": none;\">&#x2212;</glyph>\r\n        </div>\r\n        <h4>Properites</h4>\r\n        " +
-"<div class=\"sing-method-list properties-{{module.name.toSlug()}}\" style=\" displa" +
-"y: none;\">\r\n            <div sing-loop=\"{{ prop in module.properties }}\">\r\n     " +
-"           <div sing-fill=\"{{ Parameter with prop as param }}\"></div>\r\n         " +
-"   </div>\r\n\r\n            <div sing-if=\"{{module.getUnknownProperties()}}\">\r\n    " +
-"            <b>Unknown Properties:</b>\r\n                <error sing-loop=\"{{ pro" +
-"p in module.getUnknownProperties()}}\">{{prop}}</error>\r\n            </div>\r\n    " +
-"    </div>\r\n    </div>\r\n\r\n\r\n    <div class=\"tabs\" sing-if=\"{{module.subModules}}" +
-"\">\r\n        <h3 sing-if=\"{{module.parentModule}}\">Sub-Modules:</h3>\r\n        <h3" +
-" sing-else>Modules:</h3>\r\n\r\n        <ul>\r\n            <li sing-loop=\"{{ sub in m" +
-"odule.subModules }}\">\r\n                <a href=\"#tabs-{{sub.name}}-{{sub$index}}" +
-"\">\r\n                    {{sub.name}} ({{sub.totalMethods()}})\r\n                 " +
-"   <div class=\"no-text\" sing-fill=\"{{PercentSlider with [sub.implementedItems()," +
-" sub.totalItems()]}}\"></div>\r\n                </a>\r\n            </li>\r\n        <" +
-"/ul>\r\n        <div sing-loop=\"{{ sub in module.subModules }}\" sing-loop-inner=\"t" +
-"rue\">\r\n            <div id=\"tabs-{{sub.name}}-{{sub$index}}\" style=\"display:none" +
-";\">\r\n                <!--\r\n                <div sing-fill=\"{{ Module with sub as" +
-" module }}\"></div>\r\n                -->\r\n            </div>\r\n        </div>\r\n   " +
-" </div>\r\n</div>\r\n\r\n<div sing-template=\"Method\">\r\n    <div sing-if=\"{{ !method.is" +
-"Alias }}\">\r\n        <hr />\r\n        <div class=\"btn-info btn left method-show-hi" +
-"de\" click-fade-toggle=\".show-{{method.name.toSlug()}}\">\r\n            <glyph clas" +
-"s=\"show-{{method.name.toSlug()}}\">&#x2b;</glyph>\r\n            <glyph class=\"show" +
-"-{{method.name.toSlug()}}\" style=\" display: none;\">&#x2212;</glyph>\r\n        </d" +
-"iv>\r\n\r\n        <h3 class=\"sing-method-header\">\r\n            <span class=\"sing-bu" +
-"bble success\" sing-if=\"{{method.details.manuallyTested}}\">Manually Tested</span>" +
-"\r\n            <span class=\"sing-bubble success\" sing-else-if=\"{{method.passesAll" +
-"Tests()}}\">Tests: {{ method.details.unitTests.length}}</span>\r\n            <span" +
-" class=\"sing-bubble error\" sing-else-if=\"{{method.isTested()}}\">Tests: {{method." +
-"passedTests()}} / {{ method.details.unitTests.length}}</span>\r\n            <span" +
-" sing-else class=\"sing-bubble error\">Untested</span>\r\n\r\n            <span class=" +
-"\"sing-bubble info wide\">Extends: <b>{{method.target}}</b></span>\r\n\r\n            " +
-"<span sing-if=\"{{$.isDefined(method.methodOriginal)}}\">\r\n                {{metho" +
-"d.shortName}}\r\n            </span>\r\n            <span sing-else>\r\n              " +
-"  <error>{{method.shortName}}</error>\r\n            </span>\r\n        </h3>\r\n\r\n   " +
-"     <div style=\"display:none;\" class=\"show-{{method.name.toSlug()}}\">\r\n        " +
-"    <h4>{{method.methodCall}}</h4>\r\n\r\n            <p sing-if=\"{{method.details.s" +
-"ummary}}\">\r\n                <b>Summary: </b>{{method.details.summary}}\r\n        " +
-"    </p>\r\n\r\n            <div sing-if=\"{{method.details.parameters}}\">\r\n         " +
-"       <b>Parameters:</b>\r\n\r\n                <ol>\r\n                    <li sing-" +
-"fill=\"{{ Parameter with param in method.details.parameters }}\"></li>\r\n          " +
-"      </ol>\r\n            </div>\r\n\r\n            <p sing-if=\"{{method.details.retu" +
-"rns}}\">\r\n                <b>Returns:</b>\r\n                {{method.details.retur" +
-"ns}}\r\n            </p>\r\n            <p sing-if=\"{{method.details.returnType}}\">\r" +
-"\n                <b>Return Type:</b>\r\n                {{sing.getTypeName(method." +
-"details.returnType)}}\r\n            </p>\r\n            <p sing-else><b>Returns:</b" +
-"> Nothing.</p>\r\n\r\n            <div sing-if=\"{{$.isDefined(method.methodOriginal)" +
-"}}\" class=\"method-view-code\">\r\n                <div class=\"btn-default btn metho" +
-"d-code-show-hide\" click-fade-toggle=\".code-{{method.name.toSlug()}}\">\r\n         " +
-"           <span class=\"code-{{method.name.toSlug()}}\" style=\"position:absolute;" +
-"\">View Code...</span>\r\n                    <span style=\"display: none;position:a" +
-"bsolute;\" class=\"code-{{method.name.toSlug()}}\">Hide Code...</span>\r\n           " +
-"     </div>\r\n                <div style=\"display: none;\" class=\"method-code code" +
-"-{{method.name.toSlug()}}\">\r\n                    <b style=\"margin-top: 40px;\">So" +
-"urce Code:</b>\r\n                    <pre>{{method.methodOriginal.toString().text" +
-"ToHTML()}}</pre>\r\n                </div>\r\n            </div>\r\n            <div s" +
-"ing-else>\r\n                <error>Method is not implemented.</error>\r\n          " +
-"  </div>\r\n\r\n            <div sing-if=\"{{method.details.features}}\">\r\n           " +
-"     <b>Features:</b>\r\n\r\n                <div sing-fill=\"{{ Feature with feature" +
-" in method.details.features}}\"></div>\r\n            </div>\r\n\r\n            <div si" +
-"ng-if=\"{{ method.details.examples}}\">\r\n                <b>Examples:</b>\r\n       " +
-"         <pre sing-loop=\"{{ example in method.details.examples}}\">{{example}}</p" +
-"re>\r\n            </div>\r\n\r\n            <div sing-if=\"{{ method.details.examples}" +
-"}\">\r\n                <b>Unit Tests:</b>\r\n                <pre sing-loop=\"{{ test" +
-" in method.details.unitTests}}\">\r\n                    {{test.requirement}}\r\n    " +
-"                \r\n                <span sing-if=\"{{test.testResult == true}}\">\r\n" +
-"                        PASSED\r\n                </span>\r\n                <span s" +
-"ing-else>\r\n                <error>\r\n                        {{test.testResult}}\r" +
-"\n                    </error>\r\n                </span>\r\n                </pre>\r\n" +
-"            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div sing-template=\"Pa" +
-"rameter\">\r\n    <table>\r\n        <tr>\r\n            <td>\r\n                <b>Name:" +
-"</b>\r\n            </td>\r\n            <td>\r\n                {{param.name}}\r\n     " +
-"       </td>\r\n        </tr>\r\n        <tr sing-if=\"{{param.types}}\">\r\n           " +
-" <td><b>Type:</b></td>\r\n            <td>{{sing.getTypeName(param.types)}}</td>\r\n" +
-"\r\n        </tr>\r\n        <tr sing-if=\"{{param.description}}\">\r\n            <td><" +
-"b>Description:</b></td>\r\n            <td>{{param.description}}</td>\r\n        </t" +
-"r>\r\n        <tr>\r\n            <td><b>Required:</b></td>\r\n            <td sing-if" +
-"=\"{{param.required}}\">Yes</td>\r\n            <td sing-else>No</td>\r\n        </tr>" +
-"\r\n    </table>\r\n</div>\r\n\r\n<div sing-template=\"Feature\">\r\n    {{feature$context}}" +
-"\r\n</div>\r\n\r\n<span sing-template=\"PercentSlider\">\r\n    <span class=\"sing-progress" +
-"-slider\">\r\n        <span class=\"sing-progress-complete\" style=\"width: {{$data[0]" +
-".percentOf($data[1])}}%;\">\r\n\r\n        </span>\r\n        <b>\r\n            ({{ $dat" +
-"a[0] }} / {{$data[1]}}) ({{ $data[0].percentOf($data[1]) }}%)\r\n        </b>\r\n   " +
-" </span>\r\n</span>\r\n");
+"dule.summaryLong.textToHTML()}}</strong>\r\n    </p>\r\n    <p sing-else class=\"sing" +
+"-module-summary\">\r\n        <strong>[Long Summary]</strong>\r\n    </p>\r\n\r\n\r\n    <d" +
+"iv sing-if=\"{{module.features}}\" class=\"sing-module-features\">\r\n        Features" +
+":\r\n        <ul>\r\n            <li sing-loop=\"{{feature in module.features}}\">\r\n  " +
+"              {{feature}}\r\n            </li>\r\n        </ul>\r\n    </div>\r\n\r\n    <" +
+"div sing-if=\"{{module.resources}}\" class=\"sing-module-resources\">\r\n        Resou" +
+"rces:\r\n        <ul>\r\n            <li sing-loop=\"{{resource in module.resources}}" +
+"\">\r\n                <a href=\"{{resource$key}}\">{{resource}}</a>\r\n            </l" +
+"i>\r\n        </ul>\r\n    </div>\r\n\r\n    <div sing-if=\"{{module.features}}\">\r\n      " +
+"  <b>Features:</b>\r\n\r\n        <div sing-fill=\"{{ Feature with feature in module." +
+"features}}\"></div>\r\n    </div>\r\n\r\n    <div class=\"sing-module-methods\">\r\n       " +
+" <div class=\"btn-info btn left method-show-hide\" click-fade-toggle=\".methods-{{m" +
+"odule.name.toSlug()}}\">\r\n            <glyph class=\"methods-{{module.name.toSlug(" +
+")}}\">&#x2b;</glyph>\r\n            <glyph class=\"methods-{{module.name.toSlug()}}\"" +
+" style=\" display: none;\">&#x2212;</glyph>\r\n        </div>\r\n        <h4>Methods</" +
+"h4>\r\n        <div class=\"methods-{{module.name.toSlug()}}\" style=\"display:none;\"" +
+">\r\n            <div sing-loop=\"{{ method in module.methods }}\" class=\"sing-metho" +
+"d-list\">\r\n                <div sing-fill=\"{{ Method with method }}\"></div>\r\n    " +
+"        </div>\r\n\r\n            <div sing-if=\"{{module.getUnknownMethods()}}\">\r\n  " +
+"              <b>Unknown Methods:</b>\r\n                <error sing-loop=\"{{ meth" +
+"odName in module.getUnknownMethods()}}\">{{methodName}}</error>\r\n            </di" +
+"v>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"sing-module-properties\">\r\n    " +
+"    <div class=\"btn-info btn left method-show-hide\" click-fade-toggle=\".properti" +
+"es-{{module.name.toSlug()}}\">\r\n            <glyph class=\"properties-{{module.nam" +
+"e.toSlug()}}\">&#x2b;</glyph>\r\n            <glyph class=\"properties-{{module.name" +
+".toSlug()}}\" style=\" display: none;\">&#x2212;</glyph>\r\n        </div>\r\n        <" +
+"h4>Properites</h4>\r\n        <div class=\"sing-method-list properties-{{module.nam" +
+"e.toSlug()}}\" style=\" display: none;\">\r\n            <div sing-loop=\"{{ prop in m" +
+"odule.properties }}\">\r\n                <div sing-fill=\"{{ Parameter with prop as" +
+" param }}\"></div>\r\n            </div>\r\n\r\n            <div sing-if=\"{{module.getU" +
+"nknownProperties()}}\">\r\n                <b>Unknown Properties:</b>\r\n            " +
+"    <error sing-loop=\"{{ prop in module.getUnknownProperties()}}\">{{prop}}</erro" +
+"r>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n\r\n    <div class=\"tabs\" si" +
+"ng-if=\"{{module.subModules}}\">\r\n        <h3 sing-if=\"{{module.parentModule}}\">Su" +
+"b-Modules:</h3>\r\n        <h3 sing-else>Modules:</h3>\r\n\r\n        <ul>\r\n          " +
+"  <li sing-loop=\"{{ sub in module.subModules }}\">\r\n                <a href=\"#tab" +
+"s-{{sub.name}}-{{sub$index}}\">\r\n                    {{sub.name}} ({{sub.totalMet" +
+"hods()}})\r\n                    <div class=\"no-text\" sing-fill=\"{{PercentSlider w" +
+"ith [sub.implementedItems(), sub.totalItems()]}}\"></div>\r\n                </a>\r\n" +
+"            </li>\r\n        </ul>\r\n        <div sing-loop=\"{{ sub in module.subMo" +
+"dules }}\" sing-loop-inner=\"true\">\r\n            <div id=\"tabs-{{sub.name}}-{{sub$" +
+"index}}\" style=\"display:none;\">\r\n                <div sing-fill=\"{{ Module with " +
+"sub as module }}\"></div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>" +
+"\r\n\r\n<div sing-template=\"Method\">\r\n    <div sing-if=\"{{ !method.isAlias }}\">\r\n   " +
+"     <hr />\r\n        <div class=\"btn-info btn left method-show-hide\" click-fade-" +
+"toggle=\".show-{{method.name.toSlug()}}\">\r\n            <glyph class=\"show-{{metho" +
+"d.name.toSlug()}}\">&#x2b;</glyph>\r\n            <glyph class=\"show-{{method.name." +
+"toSlug()}}\" style=\" display: none;\">&#x2212;</glyph>\r\n        </div>\r\n\r\n        " +
+"<h3 class=\"sing-method-header\">\r\n            <span class=\"sing-bubble success\" s" +
+"ing-if=\"{{method.details.manuallyTested}}\">Manually Tested</span>\r\n            <" +
+"span class=\"sing-bubble success\" sing-else-if=\"{{method.passesAllTests()}}\">Test" +
+"s: {{ method.details.unitTests.length}}</span>\r\n            <span class=\"sing-bu" +
+"bble error\" sing-else-if=\"{{method.isTested()}}\">Tests: {{method.passedTests()}}" +
+" / {{ method.details.unitTests.length}}</span>\r\n            <span sing-else clas" +
+"s=\"sing-bubble error\">Untested</span>\r\n\r\n            <span class=\"sing-bubble in" +
+"fo wide\">Extends: <b>{{method.target}}</b></span>\r\n\r\n            <span sing-if=\"" +
+"{{$.isDefined(method.methodOriginal)}}\">\r\n                {{method.shortName}}\r\n" +
+"            </span>\r\n            <span sing-else>\r\n                <error>{{meth" +
+"od.shortName}}</error>\r\n            </span>\r\n        </h3>\r\n\r\n        <div style" +
+"=\"display:none;\" class=\"show-{{method.name.toSlug()}}\">\r\n            <h4>{{metho" +
+"d.methodCall}}</h4>\r\n\r\n            <p sing-if=\"{{method.details.summary}}\">\r\n   " +
+"             <b>Summary: </b>{{method.details.summary}}\r\n            </p>\r\n\r\n   " +
+"         <div sing-if=\"{{method.details.parameters}}\">\r\n                <b>Param" +
+"eters:</b>\r\n\r\n                <ol>\r\n                    <li sing-fill=\"{{ Parame" +
+"ter with param in method.details.parameters }}\"></li>\r\n                </ol>\r\n  " +
+"          </div>\r\n\r\n            <p sing-if=\"{{method.details.returns}}\">\r\n      " +
+"          <b>Returns:</b>\r\n                {{method.details.returns}}\r\n         " +
+"   </p>\r\n            <p sing-if=\"{{method.details.returnType}}\">\r\n              " +
+"  <b>Return Type:</b>\r\n                {{sing.getTypeName(method.details.returnT" +
+"ype)}}\r\n            </p>\r\n            <p sing-else><b>Returns:</b> Nothing.</p>\r" +
+"\n\r\n            <div sing-if=\"{{$.isDefined(method.methodOriginal)}}\" class=\"meth" +
+"od-view-code\">\r\n                <div class=\"btn-default btn method-code-show-hid" +
+"e\" click-fade-toggle=\".code-{{method.name.toSlug()}}\">\r\n                    <spa" +
+"n class=\"code-{{method.name.toSlug()}}\" style=\"position:absolute;\">View Code...<" +
+"/span>\r\n                    <span style=\"display: none;position:absolute;\" class" +
+"=\"code-{{method.name.toSlug()}}\">Hide Code...</span>\r\n                </div>\r\n  " +
+"              <div style=\"display: none;\" class=\"method-code code-{{method.name." +
+"toSlug()}}\">\r\n                    <b style=\"margin-top: 40px;\">Source Code:</b>\r" +
+"\n                    <pre>{{method.methodOriginal.toString().textToHTML()}}</pre" +
+">\r\n                </div>\r\n            </div>\r\n            <div sing-else>\r\n    " +
+"            <error>Method is not implemented.</error>\r\n            </div>\r\n\r\n   " +
+"         <div sing-if=\"{{method.details.features}}\">\r\n                <b>Feature" +
+"s:</b>\r\n\r\n                <div sing-fill=\"{{ Feature with feature in method.deta" +
+"ils.features}}\"></div>\r\n            </div>\r\n\r\n            <div sing-if=\"{{ metho" +
+"d.details.examples}}\">\r\n                <b>Examples:</b>\r\n                <pre s" +
+"ing-loop=\"{{ example in method.details.examples}}\">{{example}}</pre>\r\n          " +
+"  </div>\r\n\r\n            <div sing-if=\"{{ method.details.examples}}\">\r\n          " +
+"      <b>Unit Tests:</b>\r\n                <pre sing-loop=\"{{ test in method.deta" +
+"ils.unitTests}}\">\r\n                    {{test.requirement}}\r\n                   " +
+" \r\n                <span sing-if=\"{{test.testResult == true}}\">\r\n               " +
+"         PASSED\r\n                </span>\r\n                <span sing-else>\r\n    " +
+"            <error>\r\n                        {{test.testResult}}\r\n              " +
+"      </error>\r\n                </span>\r\n                </pre>\r\n            </d" +
+"iv>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div sing-template=\"Parameter\">\r\n    " +
+"<table>\r\n        <tr>\r\n            <td>\r\n                <b>Name:</b>\r\n         " +
+"   </td>\r\n            <td>\r\n                {{param.name}}\r\n            </td>\r\n " +
+"       </tr>\r\n        <tr sing-if=\"{{param.types}}\">\r\n            <td><b>Type:</" +
+"b></td>\r\n            <td>{{sing.getTypeName(param.types)}}</td>\r\n\r\n        </tr>" +
+"\r\n        <tr sing-if=\"{{param.description}}\">\r\n            <td><b>Description:<" +
+"/b></td>\r\n            <td>{{param.description}}</td>\r\n        </tr>\r\n        <tr" +
+">\r\n            <td><b>Required:</b></td>\r\n            <td sing-if=\"{{param.requi" +
+"red}}\">Yes</td>\r\n            <td sing-else>No</td>\r\n        </tr>\r\n    </table>\r" +
+"\n</div>\r\n\r\n<div sing-template=\"Feature\">\r\n    {{feature$context}}\r\n</div>\r\n\r\n<sp" +
+"an sing-template=\"PercentSlider\">\r\n    <span class=\"sing-progress-slider\">\r\n    " +
+"    <span class=\"sing-progress-complete\" style=\"width: {{$data[0].percentOf($dat" +
+"a[1])}}%;\">\r\n\r\n        </span>\r\n        <b>\r\n            ({{ $data[0] }} / {{$da" +
+"ta[1]}}) ({{ $data[0].percentOf($data[1]) }}%)\r\n        </b>\r\n    </span>\r\n</spa" +
+"n>\r\n");
 
 
         }

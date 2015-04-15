@@ -39,6 +39,9 @@
   min-width: 80px;
   text-align: right;
 }
+.sing .sing-module-summary {
+  min-height: 50px;
+}
 .sing .sing-module-methods {
   width: 100%;
   min-height: 47px;

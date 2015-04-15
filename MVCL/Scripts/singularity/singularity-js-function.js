@@ -132,37 +132,48 @@ singFunction.method('fn_cache', FunctionCache, {
 function FunctionCache(uniqueCacheID, expiresAfter) {
     if (expiresAfter === void 0) { expiresAfter = 0; }
     var source = this;
+    var cacheKeyLimit = 300;
     uniqueCacheID = uniqueCacheID || this.name;
     if (!uniqueCacheID)
         throw 'Unique ID not found';
-    var ext = sing.methods['Function.fn_cache'];
+    var ext = sing.methods['Singularity.Extensions.Function.fn_cache'];
     if (!ext.data)
         ext.data = {};
     if (!ext.data['cache'])
         ext.data['cache'] = {};
     return function () {
-        var cache = sing.methods['Function.fn_cache'].data['cache'];
+        var items = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            items[_i - 0] = arguments[_i];
+        }
+        var thisCaller = this;
+        var cache = ext.data['cache'];
         if (!cache[uniqueCacheID])
             cache[uniqueCacheID] = {};
         var thisCache = cache[uniqueCacheID];
-        var argStr = $.toStr(source) + $.toStr($.objValues(arguments));
-        if (thisCache[argStr] != undefined && thisCache[argStr] != null) {
-            if (thisCache[argStr].expires < (new Date()).valueOf()) {
-                // Expired
-                thisCache[argStr] = {};
-            }
-            else {
-                return thisCache[argStr].value;
-            }
+        var argStr = $.toStr(thisCaller) + '|||||||' + $.toStr(items);
+        if (argStr.length > cacheKeyLimit) {
+            return source.apply(thisCaller, items);
         }
         else {
-            thisCache[argStr] = {};
+            if (thisCache[argStr] != undefined && thisCache[argStr] != null) {
+                if (thisCache[argStr].expires < (new Date()).valueOf()) {
+                    // Expired
+                    thisCache[argStr] = {};
+                }
+                else {
+                    return thisCache[argStr].value;
+                }
+            }
+            else {
+                thisCache[argStr] = {};
+            }
+            var result = thisCache[argStr].value = source.apply(thisCaller, items);
+            if (expiresAfter > 0) {
+                thisCache[argStr].expires = (new Date()).valueOf() + expiresAfter;
+            }
+            return result;
         }
-        var result = thisCache[argStr].value = source.apply(this, arguments);
-        if (expiresAfter > 0) {
-            thisCache[argStr].expires = (new Date()).valueOf() + expiresAfter;
-        }
-        return result;
     };
 }
 singFunction.method('fn_or', FunctionOR, {
