@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCL", "MVCL\MVCL.csproj", "{838E5C49-0D76-474E-BD5F-C98ADC929C58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Singularity", "MVCL\Singularity.csproj", "{838E5C49-0D76-474E-BD5F-C98ADC929C58}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L", "L\L.csproj", "{CD24BCEC-5A94-4524-B1D3-0537C66B0761}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L Tests", "L Tests\L Tests.csproj", "{6E8ABAEB-988F-4F7A-98FD-FBA532DE0592}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCL_Test", "MVCL_Test\MVCL_Test.csproj", "{5711F9C0-58E2-4387-AD7C-6DA00BE97BE1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Singularity_Test", "MVCL_Test\Singularity_Test.csproj", "{5711F9C0-58E2-4387-AD7C-6DA00BE97BE1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B2E650EA-6E57-4294-BD7B-5C6B36662506}"
 	ProjectSection(SolutionItems) = preProject

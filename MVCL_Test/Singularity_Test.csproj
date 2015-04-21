@@ -63,9 +63,9 @@
       <Project>{cd24bcec-5a94-4524-b1d3-0537c66b0761}</Project>
       <Name>L</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MVCL\MVCL.csproj">
+    <ProjectReference Include="..\MVCL\Singularity.csproj">
       <Project>{838e5c49-0d76-474e-bd5f-c98adc929c58}</Project>
-      <Name>MVCL</Name>
+      <Name>Singularity</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
