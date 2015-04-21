@@ -39,10 +39,10 @@ namespace MVCL.Controllers
 
         public static class PartialViews
         {
-            public const String Manage_Pagination = "Manage_Pagination";
-            public const String Manage_Search = "Manage_Search";
-            public const String Manage_HeaderRow = "Manage_HeaderRow";
-            public const String Manage_Row = "Manage_Row";
+            public const String Manage_Pagination = "_Manage_Pagination";
+            public const String Manage_Search = "_Manage_Search";
+            public const String Manage_HeaderRow = "_Manage_HeaderRow";
+            public const String Manage_Row = "_Manage_Row";
 
             public const String MVCL_JS_Test = "Test/JavascriptTest";
 
