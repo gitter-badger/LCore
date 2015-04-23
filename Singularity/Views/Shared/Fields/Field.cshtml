@@ -1,0 +1,161 @@
+﻿@* Generator: MvcView *@
+
+@using LCore;
+@using Singularity;
+@using Singularity.Models;
+@using Singularity.Controllers;
+@using Singularity.Context;
+@using System.Collections;
+@using System.Collections.Generic;
+@using System.ComponentModel;
+@using System.ComponentModel.Design;
+@using System.Web;
+@using System.Web.Mvc;
+@using System.Linq;
+@using System.Linq.Expressions;
+@using System.ComponentModel.DataAnnotations;
+@using System.ComponentModel.DataAnnotations.Schema;
+
+@{
+
+}
+
+@model IViewField
+
+@try
+{
+
+    if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell))
+    {
+        @Html.Raw("<td class=\"" + Model.ColumnClass + "\">")
+    }
+
+    if (Html.ViewExists(ControllerHelper.PartialViews.Field_PropertyName_Before(Model.PropertyName)))
+    {
+        // Display the Before view, if it exists.
+        @Html.Partial(ControllerHelper.PartialViews.Field_PropertyName_Before(Model.PropertyName), Model)
+    }
+
+    if (Html.ViewExists(ControllerHelper.PartialViews.Field_PropertyType_Before(Model.FieldType)))
+    {
+        // Display the Before view, if it exists.
+        @Html.Partial(ControllerHelper.PartialViews.Field_PropertyType_Before(Model.FieldType), Model)
+    }
+
+    foreach (ControllerHelper.ViewType Type in Model.ViewTypes)
+    {
+        if (Html.ViewExists(ControllerHelper.PartialViews.Field_ViewType_Before(Type)))
+        {
+            // Display the After view, if it exists.
+            @Html.Partial(ControllerHelper.PartialViews.Field_ViewType_Before(Type), Model)
+        }
+    }
+
+    Boolean ShowView = true;
+
+
+    if (Html.ViewExists(ControllerHelper.PartialViews.Field_PropertyName(Model.PropertyName)))
+    {
+        // Override both View and Edit views for the property.
+        @Html.Partial(ControllerHelper.PartialViews.Field_PropertyName(Model.PropertyName), Model)
+    }
+    else
+    {
+        Boolean OverridenView = false;
+
+        foreach (ControllerHelper.ViewType Type in Model.ViewTypes)
+        {
+            // Change this field override. It doesnt make sense.
+
+            if (Html.ViewExists("Fields/" + Model.FieldType.Name + "_" + Type.ToString()))
+            {
+                // Display the custom Type view
+                @Html.Partial("Fields/" + Model.FieldType.Name + "_" + Type.ToString())
+                OverridenView = true;
+            }
+        }
+
+        List<IFieldPartial> PartialAttributes = Model.Meta.GetAttributes<IFieldPartial>() ?? new List<IFieldPartial>();
+
+        if (PartialAttributes != null)
+        {
+            foreach (IFieldPartial FieldBefore in PartialAttributes)
+            {
+                if (FieldBefore.IsActive(Html, Model, Model.ViewTypes))
+                {
+                    FieldBefore.RenderPartial_Before(Html, Model, Model.ViewTypes);
+                }
+            }
+        }
+
+        if (OverridenView)
+        {
+        }
+        else if (Model.ViewTypes.HasAny(new[] { ControllerHelper.ViewType.Display,
+            ControllerHelper.ViewType.TableCell}) ||
+            Model.Meta.IsReadOnly)
+        {
+            @Html.Partial(ControllerHelper.PartialViews.Field_View, Model)
+        }
+        else if (Model.ViewTypes.HasAny(new[] { ControllerHelper.ViewType.Edit,
+            ControllerHelper.ViewType.Create}))
+        {
+            @Html.Partial(ControllerHelper.PartialViews.Field_Edit, Model)
+        }
+
+        if (PartialAttributes != null)
+        {
+            PartialAttributes.Reverse();
+
+            foreach (IFieldPartial FieldAfter in PartialAttributes)
+            {
+                if (FieldAfter.IsActive(Html, Model, Model.ViewTypes))
+                {
+                    FieldAfter.RenderPartial_After(Html, Model, Model.ViewTypes);
+                }
+            }
+        }
+    }
+
+    if (Html.ViewExists(ControllerHelper.PartialViews.Field_PropertyType_After(Model.FieldType)))
+    {
+        // Display the Before view, if it exists.
+        @Html.Partial(ControllerHelper.PartialViews.Field_PropertyType_After(Model.FieldType), Model)
+    }
+
+    foreach (ControllerHelper.ViewType Type in Model.ViewTypes)
+    {
+        if (Html.ViewExists(ControllerHelper.PartialViews.Field_ViewType_After(Type)))
+        {
+            // Display the After view, if it exists.
+            @Html.Partial(ControllerHelper.PartialViews.Field_ViewType_After(Type), Model)
+        }
+    }
+
+    if (Html.ViewExists(ControllerHelper.PartialViews.Field_PropertyName_After(Model.PropertyName)))
+    {
+        // Display the After view, if it exists.
+        @Html.Partial(ControllerHelper.PartialViews.Field_PropertyName_After(Model.PropertyName), Model)
+    }
+
+    if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell))
+    {
+        @Html.Raw("</td>")
+    }
+}
+catch (Exception e)
+{
+    ControllerHelper.HandleError(Context, e);
+
+    if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell))
+    {
+        @Html.Raw("<td>")
+    }
+
+    @Html.Partial(ControllerHelper.PartialViews.Field_Error, e)
+
+    if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell))
+    {
+        @Html.Raw("</td>")
+    }
+}

@@ -1,24 +1,24 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MVCL.Controllers;
+using Singularity.Controllers;
 using System.Web.Mvc;
 
-namespace MVCL_Test
-{
-    [TestClass]
-    public class MVCLTest
+namespace Singularity_Test
     {
+    [TestClass]
+    public class SingularityTest
+        {
         [TestMethod]
         public void TestController()
-        {
+            {
             TestController Test = new TestController();
-        }
+            }
 
         public void TestController_JavascriptTest()
-        {
+            {
             TestController Test = new TestController();
 
             Assert.AreEqual(Test.JavascriptTest() is ActionResult, true);
+            }
         }
     }
-}

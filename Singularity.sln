@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Singularity", "MVCL\Singularity.csproj", "{838E5C49-0D76-474E-BD5F-C98ADC929C58}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L", "L\L.csproj", "{CD24BCEC-5A94-4524-B1D3-0537C66B0761}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L Tests", "L Tests\L Tests.csproj", "{6E8ABAEB-988F-4F7A-98FD-FBA532DE0592}"
@@ -15,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		WebEssentials-Settings.json = WebEssentials-Settings.json
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Singularity", "Singularity\Singularity.csproj", "{838E5C49-0D76-474E-BD5F-C98ADC929C58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,26 +32,6 @@ Global
 		Rosie|x86 = Rosie|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Debug-DeployLive|Any CPU.ActiveCfg = Debug|Any CPU
-		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Debug-DeployLive|Any CPU.Build.0 = Debug|Any CPU
-		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Debug-DeployLive|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Debug-DeployLive|Mixed Platforms.Build.0 = Debug|Any CPU
-		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Debug-DeployLive|x86.ActiveCfg = Debug|Any CPU
-		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Release|Any CPU.Build.0 = Release|Any CPU
-		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Release|x86.ActiveCfg = Release|Any CPU
-		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Rosie|Any CPU.ActiveCfg = Release|Any CPU
-		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Rosie|Any CPU.Build.0 = Release|Any CPU
-		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Rosie|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Rosie|Mixed Platforms.Build.0 = Release|Any CPU
-		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Rosie|x86.ActiveCfg = Release|Any CPU
 		{CD24BCEC-5A94-4524-B1D3-0537C66B0761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD24BCEC-5A94-4524-B1D3-0537C66B0761}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD24BCEC-5A94-4524-B1D3-0537C66B0761}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -112,6 +92,26 @@ Global
 		{5711F9C0-58E2-4387-AD7C-6DA00BE97BE1}.Rosie|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{5711F9C0-58E2-4387-AD7C-6DA00BE97BE1}.Rosie|Mixed Platforms.Build.0 = Release|Any CPU
 		{5711F9C0-58E2-4387-AD7C-6DA00BE97BE1}.Rosie|x86.ActiveCfg = Release|Any CPU
+		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Debug-DeployLive|Any CPU.ActiveCfg = Debug|Any CPU
+		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Debug-DeployLive|Any CPU.Build.0 = Debug|Any CPU
+		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Debug-DeployLive|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Debug-DeployLive|Mixed Platforms.Build.0 = Debug|Any CPU
+		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Debug-DeployLive|x86.ActiveCfg = Debug|Any CPU
+		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Release|x86.ActiveCfg = Release|Any CPU
+		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Rosie|Any CPU.ActiveCfg = Release|Any CPU
+		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Rosie|Any CPU.Build.0 = Release|Any CPU
+		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Rosie|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Rosie|Mixed Platforms.Build.0 = Release|Any CPU
+		{838E5C49-0D76-474E-BD5F-C98ADC929C58}.Rosie|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

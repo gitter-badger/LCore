@@ -1,0 +1,128 @@
+﻿@* Generator: MvcView *@
+
+@using LCore;
+@using Singularity;
+@using Singularity.Models;
+@using Singularity.Controllers;
+@using Singularity.Context;
+@using System.Linq;
+@using System.Linq.Expressions;
+@using System.Collections;
+@using System.Collections.Generic;
+@using System.ComponentModel;
+@using System.ComponentModel.DataAnnotations;
+@using System.ComponentModel.Design;
+@using System.Web;
+@using System.Web.Mvc;
+
+@model ManageViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+
+    ViewBag.PaginationCount = 0;
+
+    // So ManageRow can view ManageModel data
+    ViewBag.ManageModel = Model;
+    
+}
+
+<h1>
+    @Model.Title
+</h1>
+
+<div class="manage manage-@Model.ModelTypeCSSClass" remember-page>
+
+    @if (ViewContext.Controller is ManageController &&
+        ((ManageController)ViewContext.Controller).OverridePermissions.Create == true)
+        {
+        <div>
+            <a href="@Url.Action(Model.Controller.CreateActionName,
+                    Model.Controller.Name,
+                    Model.Route_Create(Request))"
+               key-bind-click="Numpad +"
+               key-bind-click-name="New @Model.FriendlyModelTypeName">
+                <glyph>&#x2a;</glyph>
+                New @Model.FriendlyModelTypeName
+            </a>
+        </div>
+
+        }
+
+    @Html.Partial(ControllerHelper.PartialViews.Manage_Pagination, Model)
+    @Html.Partial(ControllerHelper.PartialViews.Manage_Search, Model)
+
+    @if (!ViewData.ModelState.IsValid)
+        {
+        <span class="errors">
+            @Html.ValidationSummary(true)
+        </span>
+        }
+
+    <table class="manage-table">
+
+        @Html.Partial(ControllerHelper.PartialViews.Manage_HeaderRow, Model)
+
+        <tbody>
+            @if (Model.Models != null)
+                {
+                if (Model.Models.Count == 0)
+                    {
+                    <tr>
+                        <td colspan="@(Model.GetVisibleColumns().Count + 3)" class="no-results center">
+                            No results found
+                        </td>
+                    </tr>
+                    }
+                else
+                    {
+                    foreach (IModel m in Model.Models)
+                        {
+                        if (Model.InlineEditID == m.GetID())
+                            {
+                            ViewBag.InlineEdit = true;
+                            ViewBag.InlineEditID = Model.InlineEditID;
+                            }
+
+                        @Html.Partial(ControllerHelper.PartialViews.Manage_Row, m)
+                
+                        if (Model.InlineEditID == m.GetID())
+                            {
+                            ViewBag.InlineEdit = false;
+                            ViewBag.InlineEditID = null;
+                            }
+                        }
+                    }
+                }
+        </tbody>
+    </table>
+    @{
+        ViewBag.PaginationCount = 1;
+    }
+    @Html.Partial(ControllerHelper.PartialViews.Manage_Pagination, Model)
+
+    @if (Model.ModelType.Meta().Properties.Has(m => m.PropertyName == ControllerHelper.AutomaticFields.Active) &&
+        ViewContext.Controller is ManageController &&
+        ((ManageController)ViewContext.Controller).OverridePermissions.ViewInactive == true &&
+        ControllerHelper.AllowViewInactive(Session, Model.ModelType))
+        {
+        <div class="show-hide-inactive">
+            <a href="@Url.Action(Model.Controller.ManageActionName, Model.Controller.Name, Model.Route_ToggleInactive())">
+                @(Model.ShowInactiveRecords ? "Show Active" : "Show Inactive")
+            </a>
+        </div>
+        }
+
+    @if (ViewContext.Controller is ManageController &&
+        ((ManageController)ViewContext.Controller).OverridePermissions.Export == true &&
+        ControllerHelper.AllowExport(Session, Model.ModelType))
+        {
+        <span class="manage-export">
+            @Html.ActionLink("Export CSV", "Export", Model.Controller.Name, Model.Route_Export(), new
+       {
+           @key_bind_click = "Ctrl+X",
+           @key_bind_click_name = "Export",
+       })
+        </span>
+        }
+</div>

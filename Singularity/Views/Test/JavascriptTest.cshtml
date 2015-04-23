@@ -1,0 +1,334 @@
+﻿@* Generator: MvcView *@
+
+@using LCore;
+@using Singularity;
+@using Singularity.Models;
+@using Singularity.Controllers;
+@using Singularity.Context;
+@using Singularity.Routes;
+@using System.Linq;
+@using System.Linq.Expressions;
+@using System.Collections;
+@using System.Collections.Generic;
+@using System.ComponentModel;
+@using System.ComponentModel.DataAnnotations;
+@using System.ComponentModel.Design;
+@using System.Web;
+@using System.Web.Mvc;
+
+@{
+    Layout = Layouts.MainLayout;
+}
+
+<div class="mvcl-test">
+    <h4>*[show-if]</h4>
+    <div>
+        Show Hide
+        <input type="checkbox" name="a" id="a" />
+    </div>
+    <div show-if="a" class="example">
+        *[show-if]
+    </div>
+</div>
+
+<div class="mvcl-test">
+    <h4>*[show-if-value]</h4>
+    <div>
+        Radio Select
+        <input type="radio" name="r1" value="1">1
+        <input type="radio" name="r1" value="2">2
+        <input type="radio" name="r1" value="3">3
+        <input type="radio" name="r1" value="4">4
+        <input type="radio" name="r1" value="5">5
+        <input type="radio" name="r1" value="6">6
+    </div>
+    <div show-if="r1" show-if-value="1" class="example">
+        <h1>1</h1>
+    </div>
+    <div show-if="r1" show-if-value="2" class="example">
+        <h2>2</h2>
+    </div>
+    <div show-if="r1" show-if-value="3" class="example">
+        <h3>3</h3>
+    </div>
+    <div show-if="r1" show-if-value="4" class="example">
+        <h4>4</h4>
+    </div>
+    <div show-if="r1" show-if-value="5" class="example">
+        <h5>5</h5>
+    </div>
+    <div show-if="r1" show-if-value="6" class="example">
+        <h6>6</h6>
+    </div>
+</div>
+
+<div class="mvcl-test">
+    <h4>*[show-if-value] Operators (!, =, &gt;, &lt;, &lt;=, &gt;=, &lt;&gt;, &gt;&lt;, list)</h4>
+    <div>
+        Radio Select Ranges
+        <input type="radio" name="r2" value="0">0
+        <input type="radio" name="r2" value="1">1
+        <input type="radio" name="r2" value="2">2
+        <input type="radio" name="r2" value="3">3
+        <input type="radio" name="r2" value="4">4
+        <input type="radio" name="r2" value="5">5
+        <input type="radio" name="r2" value="6">6
+        <input type="radio" name="r2" value="7">7
+        <input type="radio" name="r2" value="8">8
+        <input type="radio" name="r2" value="9">9
+    </div>
+    <div show-if="r2" show-if-value="!0" class="example">
+        Not 0
+    </div>
+    <div show-if="r2" show-if-value="3" class="example">
+        Exactly 3
+    </div>
+    <div show-if="r2" show-if-value=">5" class="example">
+        More than 5
+    </div>
+    <div show-if="r2" show-if-value="><7,9" class="example">
+        Between 7 and 9
+    </div>
+    <div show-if="r2" show-if-value="<>7,9" class="example">
+        Outside 7 and 9
+    </div>
+    <div show-if="r2" show-if-value="0,2,4,6,8" class="example">
+        Evens: 0, 2, 4, 6, or 8
+    </div>
+    <div show-if="r2" show-if-value="1,3,5,7,9" class="example">
+        Odds: 1, 3, 5, 7, or 9
+    </div>
+    <div hide-if="r2" class="example">
+        Nothing selected
+    </div>
+    <div hide-if="r2" hide-if-value="0" class="example">
+        Also Not 0
+    </div>
+</div>
+
+<div class="mvcl-test">
+    <h4>*[click-show]</h4>
+    <h4>*[click-hide]</h4>
+    <h4>*[click-toggle]</h4>
+    <div>
+        Toggle
+        <input type="button" click-show="#d" value="show" />
+        <input type="button" click-hide="d" value="hide" />
+        <input type="button" click-toggle="d" value="toggle" />
+    </div>
+    <div id="d" class="example">
+        Text
+    </div>
+</div>
+
+<div class="mvcl-test">
+    <h4>*[click-fade-in]</h4>
+    <h4>*[click-fade-out]</h4>
+    <h4>*[click-fade-toggle]</h4>
+    <div>
+        Fade Toggle
+        <input type="button" click-fade-in="#e" value="show" />
+        <input type="button" click-fade-out="e" value="hide" />
+        <input type="button" click-fade-toggle="e" value="toggle" />
+    </div>
+    <div id="e" class="example">
+        Text
+    </div>
+</div>
+
+<div class="mvcl-test">
+    <h4>*[enabled-if]</h4>
+    <div>
+        Enable Buttons
+        <input type="checkbox" value="show" name="f" />
+
+        <div>
+            Enabled
+            <input type="button" click-fade-in="g" enabled-if="f" value="show" />
+            <input type="button" click-fade-out="g" enabled-if="f" value="hide" />
+            <input type="button" click-fade-toggle="g" enabled-if="f" value="toggle" />
+        </div>
+    </div>
+    <div id="g" class="example">
+        Text
+    </div>
+</div>
+
+<div class="mvcl-test">
+    <h4>*[enabled-if-value]</h4>
+    <div>
+        <input type="radio" value="apples" name="n0" /> Apples
+        <input type="radio" value="oranges" name="n0" /> Oranges
+        <input type="radio" value="pears" name="n0" /> Pears
+        <input type="radio" value="other" name="n0" /> Other:
+        <input type="text" name="n4" enabled-if="n0" enabled-if-value="other" />
+
+    </div>
+</div>
+
+<div class="mvcl-test">
+    <h4>*[disabled-if]</h4>
+    <div>
+        Disable Buttons
+        <input type="checkbox" value="show" name="f3" />
+
+        <div>
+            Disabled
+            <input type="button" click-fade-in="g3" disabled-if="f3" value="show" />
+            <input type="button" click-fade-out="g3" disabled-if="f3" value="hide" />
+            <input type="button" click-fade-toggle="g3" disabled-if="f3" value="toggle" />
+        </div>
+    </div>
+    <div id="g3" class="example">
+        Text
+    </div>
+</div>
+
+<div class="mvcl-test">
+    <error>Fails</error>
+    <h4>*[click-fade-in-if]</h4>
+    <h4>*[click-fade-out-if]</h4>
+    <h4>*[click-fade-toggle-if]</h4>
+    <div>
+        Enable Buttons
+        <input type="checkbox" value="show" name="f2" />
+
+        <div>
+            Action Conditions
+            <input type="button" click-fade-in="g" click-fade-in-if="f2" value="show" />
+            <input type="button" click-fade-out="g" click-fade-out-if="f2" value="hide" />
+            <input type="button" click-fade-toggle="g" click-fade-toggle-if="f2" value="toggle" />
+        </div>
+    </div>
+    <div id="g" class="example">
+        Text
+    </div>
+</div>
+
+<div class="mvcl-test">
+    <error>Fails</error>
+    <h4>*[checked-if]</h4>
+    <h4>*[checked-if] Operations (=, !, &lt;, &gt;)</h4>
+    <div>
+        Checked Test
+        <input type="radio" name="r3" value="0">0
+        <input type="radio" name="r3" value="1">1
+        <input type="radio" name="r3" value="2">2
+        <input type="radio" name="r3" value="3">3
+        <input type="radio" name="r3" value="4">4
+        <input type="radio" name="r3" value="5">5
+        <input type="radio" name="r3" value="6">6
+        <input type="radio" name="r3" value="7">7
+        <input type="radio" name="r3" value="8">8
+        <input type="radio" name="r3" value="9">9
+    </div>
+    <div>
+        Equal
+        <input type="checkbox" value="show" name="h0" checked-if="r3" checked-if-value="0" />
+        <input type="checkbox" value="show" name="h1" checked-if="r3" checked-if-value="1" />
+        <input type="checkbox" value="show" name="h2" checked-if="r3" checked-if-value="2" />
+        <input type="checkbox" value="show" name="h3" checked-if="r3" checked-if-value="3" />
+        <input type="checkbox" value="show" name="h4" checked-if="r3" checked-if-value="4" />
+        <input type="checkbox" value="show" name="h5" checked-if="r3" checked-if-value="5" />
+        <input type="checkbox" value="show" name="h6" checked-if="r3" checked-if-value="6" />
+        <input type="checkbox" value="show" name="h7" checked-if="r3" checked-if-value="7" />
+        <input type="checkbox" value="show" name="h8" checked-if="r3" checked-if-value="8" />
+        <input type="checkbox" value="show" name="h9" checked-if="r3" checked-if-value="9" />
+    </div>
+    <div>
+        Greater Than
+        <input type="checkbox" value="show" name="i0" checked-if="r3" checked-if-value=">0" />
+        <input type="checkbox" value="show" name="i1" checked-if="r3" checked-if-value=">1" />
+        <input type="checkbox" value="show" name="i2" checked-if="r3" checked-if-value=">2" />
+        <input type="checkbox" value="show" name="i3" checked-if="r3" checked-if-value=">3" />
+        <input type="checkbox" value="show" name="i4" checked-if="r3" checked-if-value=">4" />
+        <input type="checkbox" value="show" name="i5" checked-if="r3" checked-if-value=">5" />
+        <input type="checkbox" value="show" name="i6" checked-if="r3" checked-if-value=">6" />
+        <input type="checkbox" value="show" name="i7" checked-if="r3" checked-if-value=">7" />
+        <input type="checkbox" value="show" name="i8" checked-if="r3" checked-if-value=">8" />
+        <input type="checkbox" value="show" name="i9" checked-if="r3" checked-if-value=">9" />
+    </div>
+    <div>
+        Less Than
+        <input type="checkbox" value="show" name="j0" checked-if="r3" checked-if-value="<0" />
+        <input type="checkbox" value="show" name="j1" checked-if="r3" checked-if-value="<1" />
+        <input type="checkbox" value="show" name="j2" checked-if="r3" checked-if-value="<2" />
+        <input type="checkbox" value="show" name="j3" checked-if="r3" checked-if-value="<3" />
+        <input type="checkbox" value="show" name="j4" checked-if="r3" checked-if-value="<4" />
+        <input type="checkbox" value="show" name="j5" checked-if="r3" checked-if-value="<5" />
+        <input type="checkbox" value="show" name="j6" checked-if="r3" checked-if-value="<6" />
+        <input type="checkbox" value="show" name="j7" checked-if="r3" checked-if-value="<7" />
+        <input type="checkbox" value="show" name="j8" checked-if="r3" checked-if-value="<8" />
+        <input type="checkbox" value="show" name="j9" checked-if="r3" checked-if-value="<9" />
+    </div>
+    <div>
+        Not Equal
+        <input type="checkbox" value="show" name="k0" checked-if="r3" checked-if-value="!0" />
+        <input type="checkbox" value="show" name="k1" checked-if="r3" checked-if-value="!1" />
+        <input type="checkbox" value="show" name="k2" checked-if="r3" checked-if-value="!2" />
+        <input type="checkbox" value="show" name="k3" checked-if="r3" checked-if-value="!3" />
+        <input type="checkbox" value="show" name="k4" checked-if="r3" checked-if-value="!4" />
+        <input type="checkbox" value="show" name="k5" checked-if="r3" checked-if-value="!5" />
+        <input type="checkbox" value="show" name="k6" checked-if="r3" checked-if-value="!6" />
+        <input type="checkbox" value="show" name="k7" checked-if="r3" checked-if-value="!7" />
+        <input type="checkbox" value="show" name="k8" checked-if="r3" checked-if-value="!8" />
+        <input type="checkbox" value="show" name="k9" checked-if="r3" checked-if-value="!9" />
+    </div>
+</div>
+
+<div class="mvcl-test">
+    <h4>*[readonly-if]</h4>
+    <div>
+        <input type="checkbox" name="l" value="yes">Readonly
+
+        <input type="text" name="m" readonly-if="l" disabled-if="l2">
+    </div>
+</div>
+
+<div class="mvcl-test">
+    <h4>*[click-add-class]</h4>
+    <h4>*[click-remove-class]</h4>
+    <h4>*[click-toggle-class]</h4>
+    <div>
+        <input type="button" click-add-class="error" value="add" />
+        <input type="button" click-remove-class="error" class="error" value="remove" />
+        <input type="button" click-toggle-class="error" value="toggle" />
+    </div>
+</div>
+
+<div class="mvcl-test">
+    <h4>*[click-add-class-target]</h4>
+    <h4>*[click-remove-class-target]</h4>
+    <h4>*[click-toggle-class-target]</h4>
+    <div>
+        <input type="button" click-add-class="error" click-add-class-target="m3" value="add" />
+        <input type="button" click-remove-class="error" click-remove-class-target="m3" value="remove" />
+        <input type="button" click-toggle-class="error" click-toggle-class-target="m3" value="toggle" />
+    </div>
+    <div id="m3" class="example">
+        Text
+    </div>
+</div>
+
+<div class="mvcl-test">
+    <h4>*[click-animate]</h4>
+    <div>
+        <input type="button" value="left" click-animate="{'left':'-=5'}" />
+        <input type="button" value="right" click-animate="{'left':'+=5'}" />
+        <input type="button" value="up" click-animate="{'top':'-=5'}" />
+        <input type="button" value="down" click-animate="{'top':'+=5'}" />
+    </div>
+</div>
+
+<div class="mvcl-test">
+    <h4>*[click-animate-target]</h4>
+    <div>
+        <input type="button" value="left" click-animate="{'left':'-=5'}" click-animate-target="m5" />
+        <input type="button" value="right" click-animate="{'left':'+=5'}" click-animate-target="m5" />
+        <input type="button" value="up" click-animate="{'top':'-=5'}" click-animate-target="m5" />
+        <input type="button" value="down" click-animate="{'top':'+=5'}" click-animate-target="m5" />
+    </div>
+    <div id="m5" class="example">
+        Text
+    </div>
+</div>

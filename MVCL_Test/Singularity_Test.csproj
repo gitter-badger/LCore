@@ -39,7 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\MVCL\bin\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\Singularity\bin\System.Web.Mvc.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Choose>
@@ -63,7 +63,7 @@
       <Project>{cd24bcec-5a94-4524-b1d3-0537c66b0761}</Project>
       <Name>L</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MVCL\Singularity.csproj">
+    <ProjectReference Include="..\Singularity\Singularity.csproj">
       <Project>{838e5c49-0d76-474e-bd5f-c98adc929c58}</Project>
       <Name>Singularity</Name>
     </ProjectReference>

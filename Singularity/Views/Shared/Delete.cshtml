@@ -1,0 +1,66 @@
+﻿@* Generator: MvcView *@
+
+@using LCore;
+@using Singularity;
+@using Singularity.Models;
+@using Singularity.Controllers;
+@using System.Linq;
+@using System.Linq.Expressions;
+@using System.Collections;
+@using System.Collections.Generic;
+@using System.ComponentModel;
+@using System.ComponentModel.DataAnnotations;
+@using System.ComponentModel.Design;
+@using System.Web;
+@using System.Web.Mvc;
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.RestoreMode = Model.HasProperty("Active") && (Model.GetProperty("Active") as Boolean?) != true;
+
+    ViewBag.Title = (ViewBag.RestoreMode ? "Restore" : "Delete") + " " + Model.GetFriendlyTypeName() + ": " + @Model.ToString();
+}
+
+@model IModel
+
+
+<div class="delete wide-form">
+    <h1>
+        @(ViewBag.RestoreMode ? "Restore" : "Delete") @Model.GetFriendlyTypeName()
+    </h1>
+
+    <h2>
+        @Model.ToString()
+    </h2>
+
+    <center>
+        <h3>
+            Are you sure you want to @(ViewBag.RestoreMode ? "restore" : "delete") this @Model.GetFriendlyTypeName()?
+        </h3>
+
+        @using (Html.BeginForm("DeleteConfirm", (String)ViewBag.ControllerName, new { id = Model.GetID(), ReturnURL = ViewBag.ReturnURL, Restore = ViewBag.RestoreMode }))
+        {
+            <a href="@ViewBag.ReturnURL"
+               key-bind-click="N"
+               class="btn-default btn-danger btn-lg pointer"
+               key-bind-click-name="No">
+                <span>
+                    <glyph>&#xe091;</glyph>
+                    No
+                </span>
+            </a>
+            <a class="btn-default btn-lg btn-success pointer"
+               key-bind-click="Y"
+               key-bind-click-name="Yes"
+               onclick="$('form').submit();">
+                <span>
+                    <glyph>@Html.Raw(ViewBag.RestoreMode ? "&#xe133;" : "&#xe020;")</glyph>
+                    Yes
+                </span>
+            </a>
+        }
+    </center>
+
+</div>
