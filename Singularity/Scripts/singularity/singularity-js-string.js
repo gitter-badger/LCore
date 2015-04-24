@@ -1,10 +1,4 @@
 var singString = singExt.addModule(new sing.Module("String", String));
-/// <reference path="singularity-core.ts"/>
-//////////////////////////////////////////////////////
-//
-//
-// String Extensions
-//
 singString.method('contains', StringContains, {
     summary: null,
     parameters: null,
@@ -12,6 +6,14 @@ singString.method('contains', StringContains, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest('', [], false);
+        ext.addTest('', [''], false);
+        ext.addTest('', [' '], false);
+        ext.addTest(' ', [''], false);
+        ext.addTest(' ', [' '], true);
+        ext.addTest('abc', ['a'], true);
+        ext.addTest('abc', ['d'], false);
+        ext.addTest('abc', ['abc'], true);
     },
 });
 function StringContains(str) {
@@ -39,18 +41,10 @@ singString.method('replaceAll', StringReplaceAll, {
         ext.addTest('a', ['a', undefined], '');
         ext.addTest('b', [null, 'a'], 'b');
         ext.addTest('b', [undefined, 'a'], 'b');
-        // Array tests not quite working
-        // sing.addAssertTest(ext.name, 'ababababaab'.replaceAll(['a', 'b'], ''), '');
-        // sing.addAssertTest(ext.name, 'ababababaab'.replaceAll(['a', 'b'], null), '');
-        // sing.addAssertTest(ext.name, 'ababababaab'.replaceAll(['a', 'b'], undefined), '');
-        // sing.addAssertTest(ext.name, 'ababababaab'.replaceAll(['a', 'c'], 'b'), 'bbbbbbbbbbb');
-        // sing.addAssertTest(ext.name, 'ababababaab'.replaceAll(['a', 'b'], ['d', 'e']), 'dededededde');
     },
 });
 var StringReplaceAll_ErrorReplacementContinsSearch = 'Replace All Error: replacement must not contain search term';
 function StringReplaceAll(searchOrSearches, replaceOrReplacements) {
-    //if replace is null, return original string otherwise it will
-    //replace search string with 'undefined'.
     if (replaceOrReplacements == undefined || replaceOrReplacements == null)
         replaceOrReplacements = '';
     if (searchOrSearches == undefined || searchOrSearches == null || searchOrSearches == '')
@@ -83,6 +77,10 @@ singString.method('upper', StringUpper, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest('', [], '');
+        ext.addTest('apple', [], 'APPLE');
+        ext.addTest('Apple', [], 'APPLE');
+        ext.addTest('APPLE', [], 'APPLE');
     },
 });
 function StringUpper() {
@@ -95,6 +93,10 @@ singString.method('lower', StringLower, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest('', [], '');
+        ext.addTest('apple', [], 'apple');
+        ext.addTest('Apple', [], 'apple');
+        ext.addTest('APPLE', [], 'apple');
     },
 });
 function StringLower() {
@@ -107,6 +109,10 @@ singString.method('collapseSpaces', StringCollapseSpaces, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest('', [], '');
+        ext.addTest('           ', [], ' ');
+        ext.addTest('apple pie', [], 'apple pie');
+        ext.addTest('apple       pie', [], 'apple pie');
     },
 });
 function StringCollapseSpaces() {
@@ -119,6 +125,13 @@ singString.method('startsWith', StringStartsWith, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest('', [], false);
+        ext.addTest('', [''], false);
+        ext.addTest('apple pie', [], false);
+        ext.addTest('apple pie', [''], false);
+        ext.addTest('apple pie', ['apple'], true);
+        ext.addTest('apple pie', ['apples'], false);
+        ext.addTest('apple pie', ['apple pie'], true);
     },
 });
 function StringStartsWith(stringOrStrings) {
@@ -141,6 +154,13 @@ singString.method('endsWith', StringEndsWith, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest('', [], false);
+        ext.addTest('', [''], false);
+        ext.addTest('apple pie', [], false);
+        ext.addTest('apple pie', [''], false);
+        ext.addTest('apple pie', ['apple'], false);
+        ext.addTest('apple pie', ['pie'], true);
+        ext.addTest('apple pie', ['pies'], false);
     },
 });
 function StringEndsWith(stringOrStrings) {
@@ -163,6 +183,17 @@ singString.method('removeAll', StringRemoveAll, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest('', [], '');
+        ext.addTest('', [''], '');
+        ext.addTest('apple pie', [], 'apple pie');
+        ext.addTest('apple pie', [null], 'apple pie');
+        ext.addTest('apple pie', [undefined], 'apple pie');
+        ext.addTest('apple pie', [''], 'apple pie');
+        ext.addTest('apple pie', [' '], 'applepie');
+        ext.addTest('apple pie', ['p'], 'ale ie');
+        ext.addTest('apple pie', ['apple'], ' pie');
+        ext.addTest('apple pie', ['pie'], 'apple ');
+        ext.addTest('apple pie', ['pies'], 'apple pie');
     },
 });
 function StringRemoveAll(stringOrStrings) {
@@ -182,13 +213,15 @@ singString.method('reverse', StringReverse, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest('', [], '');
+        ext.addTest('apple pie', [], 'eip elppa');
     },
 });
 function StringReverse() {
     if (!this)
         return '';
     var out = '';
-    for (var i = 0; i < this.length; i++) {
+    for (var i = this.length - 1; i >= 0; i--) {
         out += this[i];
     }
     return out;
@@ -200,15 +233,27 @@ singString.method('repeat', StringRepeat, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest('', [], '');
+        ext.addTest('', [0], '');
+        ext.addTest('', [5], '');
+        ext.addTest(' ', [5], '     ');
+        ext.addTest('apple', [-1], '');
+        ext.addTest('apple', [0], '');
+        ext.addTest('apple', [1], 'apple');
+        ext.addTest('apple', [2], 'appleapple');
+        ext.addTest('apple', [3, ' '], 'apple apple apple');
     },
 });
-function StringRepeat(times) {
+function StringRepeat(times, separator) {
     if (times === void 0) { times = 0; }
+    if (separator === void 0) { separator = ''; }
     if (times <= 0)
         return '';
     var out = '';
     for (var i = 0; i < times; i++) {
         out += this;
+        if (separator.length > 0 && i < times - 1)
+            out += separator;
     }
     return out;
 }
@@ -219,6 +264,9 @@ singString.method('words', StringWords, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest('', [], '');
+        ext.addTest('apple', [], ['apple']);
+        ext.addTest('apple pie', [], ['apple', 'pie']);
     },
 });
 function StringWords() {
@@ -233,12 +281,16 @@ singString.method('lines', StringLines, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest('', [], []);
+        ext.addTest('apple pie', [], ['apple pie']);
+        ext.addTest('\r\napple pie\r\n', [], ['', 'apple pie', '']);
+        ext.addTest('apple pie\r\napple pie', [], ['apple pie', 'apple pie']);
     },
 });
 function StringLines() {
     if (!this)
         return [];
-    return this.collapseSpaces().split('\r\n');
+    return this.split('\r\n');
 }
 singString.method('surround', StringSurround, {
     summary: null,
@@ -247,6 +299,10 @@ singString.method('surround', StringSurround, {
     returnType: null,
     examples: null,
     tests: function (ext) {
+        ext.addTest('', [], '');
+        ext.addTest('', [null], '');
+        ext.addTest('', [undefined], '');
+        ext.addTest('pie', ['---'], '---pie---');
     },
 });
 function StringSurround(str) {
@@ -357,10 +413,6 @@ function StringTryToNumber(defaultValue) {
     }
     return retValue;
 }
-//
-//////////////////////////////////////////////////////
-//
-// String Array functions
 singString.method('joinLines', StringJoinLines, {
     summary: null,
     parameters: null,
@@ -376,9 +428,6 @@ function StringJoinLines(asHTML) {
         return '';
     return this.join(asHTML ? '<br/>' : '\r\n');
 }
-//
-//////////////////////////////////////////////////////
-//
 singString.method('pad', StringPad, {
     summary: null,
     parameters: null,
@@ -394,8 +443,6 @@ singString.method('pad', StringPad, {
         ext.addTest('a', [5, 'left', '-'], 'a----');
         ext.addTest('a', [5, 'l', '-'], 'a----');
         ext.addTest('a', [5, 'wrong'], 'a');
-        // Test pad > length
-        // Test Nulls
     },
 });
 function StringPad(length, align, whitespace) {
@@ -422,9 +469,6 @@ function StringPad(length, align, whitespace) {
     }
     return out;
 }
-//
-//////////////////////////////////////////////////////
-//
 singString.method('toStr', BooleanToStr, {
     summary: 'Converts the calling Boolean to string.',
     parameters: [
@@ -523,7 +567,6 @@ function ObjectToStr(obj, includeMarkup, stack) {
     if (typeof obj == 'object') {
         if (obj.toString && obj.toString !== ({}).toString)
             return obj.toString();
-        // Prevents infinite recursion
         if (stack.has(function (item) {
             return item === obj;
         })) {
@@ -568,7 +611,7 @@ function ArrayToStr(includeMarkup) {
         else if (item === undefined)
             out += 'undefined';
         else if (item.toStr)
-            out += item.toStr(includeMarkup); // includeMarkup is passed to child elements
+            out += item.toStr(includeMarkup);
         else if ($.isHash(item))
             out += $.toStr(item, includeMarkup);
         if (i < src.length - 1)
@@ -813,10 +856,4 @@ singString.method('isJSON', null, {
     tests: function (ext) {
     },
 });
-// Research
-/*
- 
-//parse
-
- */
 //# sourceMappingURL=singularity-js-string.js.map

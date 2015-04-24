@@ -522,7 +522,30 @@ function DateClone() {
 }
 
 singObject.method('clone', ObjectClone, {
+    tests: function (ext) {
 
+        ext.addTest($, [0], 0);
+        ext.addTest($, [1], 1);
+        ext.addTest($, [NaN], NaN);
+        ext.addTest($, [Infinity], Infinity);
+        ext.addTest($, [-Infinity], -Infinity);
+
+        ext.addTest($, [false], false);
+        ext.addTest($, [true], true);
+
+        ext.addTest($, [''], '');
+        ext.addTest($, ['a'], 'a');
+
+        var testDate = new Date();
+
+        ext.addTest($, [testDate], testDate);
+
+        ext.addTest($, [{}], {});
+        ext.addTest($, [[]], []);
+        ext.addTest($, [[[]]], [[]]);
+        ext.addTest($, [['a']], ['a']);
+        ext.addTest($, [[['a']]], [['a']]);
+    },
 }, $, "jQuery");
 
 function ObjectClone(obj: any, deepClone: boolean = false) {

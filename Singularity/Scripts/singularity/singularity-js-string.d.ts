@@ -9,7 +9,7 @@ interface String {
     startsWith?: (search: string) => boolean;
     endsWith?: (search: string) => boolean;
     reverse?: () => string;
-    repeat?: (times: number) => string;
+    repeat?: (times: number, separator?: string) => string;
     words?: () => string[];
     lines?: () => string[];
     surround?: (str: string) => string;
@@ -41,7 +41,7 @@ declare function StringStartsWith(stringOrStrings: string | string[]): boolean;
 declare function StringEndsWith(stringOrStrings: string | string[]): boolean;
 declare function StringRemoveAll(stringOrStrings: string | string[]): any;
 declare function StringReverse(): string;
-declare function StringRepeat(times?: number): string;
+declare function StringRepeat(times?: number, separator?: string): string;
 declare function StringWords(): any;
 declare function StringLines(): any;
 declare function StringSurround(str: string): any;

@@ -10,7 +10,7 @@ interface String {
     startsWith?: (search: string) => boolean;
     endsWith?: (search: string) => boolean;
     reverse?: () => string;
-    repeat?: (times: number) => string;
+    repeat?: (times: number, separator?: string) => string;
     words?: () => string[];
     lines?: () => string[];
     surround?: (str: string) => string;
@@ -80,6 +80,15 @@ singString.method('contains', StringContains,
         returnType: null,
         examples: null,
         tests: function (ext) {
+
+            ext.addTest('', [], false);
+            ext.addTest('', [''], false);
+            ext.addTest('', [' '], false);
+            ext.addTest(' ', [''], false);
+            ext.addTest(' ', [' '], true);
+            ext.addTest('abc', ['a'], true);
+            ext.addTest('abc', ['d'], false);
+            ext.addTest('abc', ['abc'], true);
         },
     });
 
@@ -175,6 +184,10 @@ singString.method('upper', StringUpper,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            ext.addTest('', [], '');
+            ext.addTest('apple', [], 'APPLE');
+            ext.addTest('Apple', [], 'APPLE');
+            ext.addTest('APPLE', [], 'APPLE');
         },
     });
 
@@ -190,6 +203,10 @@ singString.method('lower', StringLower,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            ext.addTest('', [], '');
+            ext.addTest('apple', [], 'apple');
+            ext.addTest('Apple', [], 'apple');
+            ext.addTest('APPLE', [], 'apple');
         },
     });
 
@@ -205,6 +222,10 @@ singString.method('collapseSpaces', StringCollapseSpaces,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            ext.addTest('', [], '');
+            ext.addTest('           ', [], ' ');
+            ext.addTest('apple pie', [], 'apple pie');
+            ext.addTest('apple       pie', [], 'apple pie');
         },
     });
 
@@ -220,6 +241,13 @@ singString.method('startsWith', StringStartsWith,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            ext.addTest('', [], false);
+            ext.addTest('', [''], false);
+            ext.addTest('apple pie', [], false);
+            ext.addTest('apple pie', [''], false);
+            ext.addTest('apple pie', ['apple'], true);
+            ext.addTest('apple pie', ['apples'], false);
+            ext.addTest('apple pie', ['apple pie'], true);
         },
     });
 
@@ -250,6 +278,13 @@ singString.method('endsWith', StringEndsWith,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            ext.addTest('', [], false);
+            ext.addTest('', [''], false);
+            ext.addTest('apple pie', [], false);
+            ext.addTest('apple pie', [''], false);
+            ext.addTest('apple pie', ['apple'], false);
+            ext.addTest('apple pie', ['pie'], true);
+            ext.addTest('apple pie', ['pies'], false);
         },
     });
 
@@ -278,6 +313,17 @@ singString.method('removeAll', StringRemoveAll,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            ext.addTest('', [], '');
+            ext.addTest('', [''], '');
+            ext.addTest('apple pie', [], 'apple pie');
+            ext.addTest('apple pie', [null], 'apple pie');
+            ext.addTest('apple pie', [undefined], 'apple pie');
+            ext.addTest('apple pie', [''], 'apple pie');
+            ext.addTest('apple pie', [' '], 'applepie');
+            ext.addTest('apple pie', ['p'], 'ale ie');
+            ext.addTest('apple pie', ['apple'], ' pie');
+            ext.addTest('apple pie', ['pie'], 'apple ');
+            ext.addTest('apple pie', ['pies'], 'apple pie');
         },
     });
 
@@ -301,6 +347,8 @@ singString.method('reverse', StringReverse,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            ext.addTest('', [], '');
+            ext.addTest('apple pie', [], 'eip elppa');
         },
     });
 
@@ -310,7 +358,7 @@ function StringReverse() {
 
     var out = '';
 
-    for (var i = 0; i < this.length; i++) {
+    for (var i = this.length - 1; i >= 0; i--) {
         out += this[i];
     }
     return out;
@@ -324,10 +372,19 @@ singString.method('repeat', StringRepeat,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            ext.addTest('', [], '');
+            ext.addTest('', [0], '');
+            ext.addTest('', [5], '');
+            ext.addTest(' ', [5], '     ');
+            ext.addTest('apple', [-1], '');
+            ext.addTest('apple', [0], '');
+            ext.addTest('apple', [1], 'apple');
+            ext.addTest('apple', [2], 'appleapple');
+            ext.addTest('apple', [3, ' '], 'apple apple apple');
         },
     });
 
-function StringRepeat(times: number = 0) {
+function StringRepeat(times: number = 0, separator: string = '') {
     if (times <= 0)
         return '';
 
@@ -335,7 +392,11 @@ function StringRepeat(times: number = 0) {
 
     for (var i = 0; i < times; i++) {
         out += this;
+
+        if (separator.length > 0 && i < times - 1)
+            out += separator;
     }
+
     return out;
 }
 
@@ -347,6 +408,9 @@ singString.method('words', StringWords,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            ext.addTest('', [], '');
+            ext.addTest('apple', [], ['apple']);
+            ext.addTest('apple pie', [], ['apple', 'pie']);
         },
     })
 
@@ -365,6 +429,10 @@ singString.method('lines', StringLines,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            ext.addTest('', [], []);
+            ext.addTest('apple pie', [], ['apple pie']);
+            ext.addTest('\r\napple pie\r\n', [], ['', 'apple pie', '']);
+            ext.addTest('apple pie\r\napple pie', [], ['apple pie', 'apple pie']);
         },
     });
 
@@ -372,7 +440,7 @@ function StringLines() {
     if (!this)
         return [];
 
-    return this.collapseSpaces().split('\r\n');
+    return this.split('\r\n');
 }
 
 singString.method('surround', StringSurround,
@@ -383,6 +451,10 @@ singString.method('surround', StringSurround,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            ext.addTest('', [], '');
+            ext.addTest('', [null], '');
+            ext.addTest('', [undefined], '');
+            ext.addTest('pie', ['---'], '---pie---');
         },
     });
 

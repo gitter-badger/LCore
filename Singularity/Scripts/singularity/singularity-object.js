@@ -354,10 +354,6 @@ singObject.method('clone', DateClone, {
             src2.setMinutes(0);
             src2.setSeconds(0);
             src2.setMilliseconds(777);
-            // This has 1/360,000 probability of failing
-            //if (src.getMinutes() == 0 && src.getSeconds() == 0 && src.getMilliseconds() == 777)
-            //    return 'Same date was returned';
-            // This has 1/60 probability of failing
             if (src.getSeconds() == 0)
                 return 'Same date was returned';
         }, 'Dates must be clones, not the source date');
@@ -366,7 +362,26 @@ singObject.method('clone', DateClone, {
 function DateClone() {
     return new Date(this.valueOf());
 }
-singObject.method('clone', ObjectClone, {}, $, "jQuery");
+singObject.method('clone', ObjectClone, {
+    tests: function (ext) {
+        ext.addTest($, [0], 0);
+        ext.addTest($, [1], 1);
+        ext.addTest($, [NaN], NaN);
+        ext.addTest($, [Infinity], Infinity);
+        ext.addTest($, [-Infinity], -Infinity);
+        ext.addTest($, [false], false);
+        ext.addTest($, [true], true);
+        ext.addTest($, [''], '');
+        ext.addTest($, ['a'], 'a');
+        var testDate = new Date();
+        ext.addTest($, [testDate], testDate);
+        ext.addTest($, [{}], {});
+        ext.addTest($, [[]], []);
+        ext.addTest($, [[[]]], [[]]);
+        ext.addTest($, [['a']], ['a']);
+        ext.addTest($, [[['a']]], [['a']]);
+    },
+}, $, "jQuery");
 function ObjectClone(obj, deepClone) {
     if (deepClone === void 0) { deepClone = false; }
     if (obj.clone !== ObjectClone && $.isFunction(obj.clone))
