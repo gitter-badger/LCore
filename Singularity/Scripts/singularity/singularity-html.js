@@ -1,8 +1,3 @@
-/// <reference path="../definitions/jquery.d.ts" />
-/// <reference path="../definitions/jqueryui.d.ts" />
-/// <reference path="../definitions/jquery.cookie.d.ts" />
-/// <reference path="../definitions/jquery.timepicker.d.ts" />
-/// <reference path="../definitions/chance.d.ts" />
 var singHTML = singString.addModule(new sing.Module('HTML', String));
 singHTML.method('textToHTML', StringTextToHTML, {
     summary: null,
@@ -75,7 +70,6 @@ function GetAttributes() {
     if (attrs.length == 0)
         return [];
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////
 function InitHTMLExtensions() {
     InitKeyBindClick();
     InitRememberPage();
@@ -109,7 +103,6 @@ function InitHTMLExtensions() {
             if (!actionIf)
                 return;
             try {
-                // parseJSON can't handle double quotes
                 animation = animation.replaceAll('\'', '"');
                 var animationObject = $.parseJSON(animation);
                 target.animate(animationObject, duration, easing);
@@ -146,7 +139,6 @@ function PropertyIf(propertyName, changeTrue, changeFalse) {
                 if (valueTarget.attr('type') == 'radio')
                     events = 'change';
                 valueTarget.on(events, changeFunction);
-                // Sets the value initially
                 changeFunction();
             });
         }
@@ -416,7 +408,6 @@ function InitKeyBindClick() {
         $("#key-bind-page-tip").parent().hide();
 }
 function InitFields() {
-    // Adds the tab id to all href in the tab container
     $('.tab-container *[href]').each(function () {
         var href = $(this).attr('href');
         if (href.indexOf('#') < 0) {
@@ -467,8 +458,6 @@ function InitFields() {
                 }
             });
         }
-        //                $('#' + $(this).attr('target')).val($(this).slider("value"));
-        //                $('#' + $(this).attr('text-target')).val($(this).slider("value"));
     });
     $(".spinner-decimal").spinner({
         step: 0.01,

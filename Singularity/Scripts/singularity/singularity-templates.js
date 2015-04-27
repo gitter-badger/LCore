@@ -1,4 +1,3 @@
-/// <reference path="singularity-core.ts"/>
 var singTemplates = singCore.addModule(new sing.Module('Templates', String));
 sing.templatePatternGlobal = /^.*{\{\{(.+)\}\}}+.*/g;
 sing.templatePattern = /.*\{\{(.+)\}\}.*/;
@@ -6,14 +5,6 @@ sing.templateStart = '{{';
 sing.templateEnd = '}}';
 function StringExtract(template, obj) {
     var matches = this.match(/\[()\]/);
-    /*
-    $.objEach(function (key: string, item: any, index: number):any {
-
-        if (template.contains('{' + key + '}')) {
-        }
-        return null;
-    });
-    */
 }
 singTemplates.method('templateInject', StringTemplateInject, {
     summary: null,
@@ -30,7 +21,6 @@ function StringTemplateInject(obj, _context) {
     while (matches.length > 0) {
         var key = matches[1];
         if (key.contains(' with ')) {
-            // sing-fill template. ignore.
             out = out.replace(sing.templateStart + key + sing.templateEnd, '<<' + key + '>>');
             matches = out.match(sing.templatePattern) || [];
             continue;
@@ -113,7 +103,6 @@ function StringTemplateExtract(template) {
     }
     return out;
 }
-////////////////////////////////////////////////////////////////////////////////////////////////
 singTemplates.method('getTemplate', ObjectGetTemplate, {
     summary: null,
     parameters: null,
@@ -160,7 +149,6 @@ function JQueryFillTemplate(data, _context, forceFill) {
     var template = (this);
     var visible = template.isOnScreen(0.01, 0.01);
     if (!forceFill && !visible && template.attr('sing-deferred') != 'true') {
-        // Mark element as deferred to avoid inifinite loop.
         template.attr('sing-deferred', 'true');
         var tempHtml = template.outerHtml();
         var thisDeferredID = deferred;
@@ -220,7 +208,6 @@ function JQueryPerformSingIf(data, _context, forceFill) {
     if (forceFill === void 0) { forceFill = false; }
     _context = sing.loadContext(_context);
     var srcThis = this;
-    // Don't perform if for elements within templates
     var parent = srcThis.parent('*[sing-template]');
     if (parent.length != 0 && parent.attr('sing-template-data') != 'true')
         return;
@@ -257,7 +244,6 @@ function JQueryPerformSingIf(data, _context, forceFill) {
     }
     if ($.isEmpty(sourceData) || sourceData === false || sourceData === 0 || sourceData == [] || ($.isString(sourceData) && sourceData && sourceData.startsWith('<error>could not resolve'))) {
         srcThis.remove();
-        // Evaluate all subsequent else-if and else tags if the result is false.
         if (next && next.length == 1 && (next.hasAttr('sing-else-if') || next.hasAttr('sing-else'))) {
             next.singIf(data, _context);
         }
@@ -286,7 +272,6 @@ function JQueryPerformSingFill(data, _context, forceFill) {
     if (forceFill === void 0) { forceFill = false; }
     _context = sing.loadContext(_context);
     var srcThis = this;
-    // Don't perform fill for elements within templates
     var parent = srcThis.parent('*[sing-template]');
     if (parent.length != 0 && parent.attr('sing-template-data') != 'true')
         return;
@@ -295,7 +280,6 @@ function JQueryPerformSingFill(data, _context, forceFill) {
         fillWith = fillWith.substr(sing.templateStart.length);
     if (fillWith.endsWith(sing.templateEnd) || fillWith.endsWith('>>'))
         fillWith = fillWith.substr(0, fillWith.length - sing.templateEnd.length);
-    // No template - target self.
     var template = null;
     var source = '';
     if (!fillWith.contains(' with ')) {
@@ -305,7 +289,6 @@ function JQueryPerformSingFill(data, _context, forceFill) {
     else {
         var fill = fillWith.split(' with ')[0].trim();
         source = fillWith.split(' with ')[1].trim();
-        //        console.log('SING-FILL ' + fill + ' WITH ' + source);
         template = $.getTemplate(fill);
         srcThis.html('');
         srcThis.prepend(template);
@@ -316,7 +299,6 @@ function JQueryPerformSingFill(data, _context, forceFill) {
     if (source.contains(' as ')) {
         var after = source.after(' as ');
         var sourceData = sing.resolve(source.before(' as '), data, _context);
-        // Copy context because a key is duplicated
         if (_context['after'] !== undefined) {
             _context = $.extend(true, {}, _context);
         }
@@ -333,7 +315,6 @@ function JQueryPerformSingFill(data, _context, forceFill) {
     if (fill)
         srcThis.attr('sing-template-name', fill.toSlug());
     try {
-        // Clear data so that sub-templates will have access to their own data sets.
         _context['$data'] = undefined;
         srcThis.fillTemplate(sourceData, _context, forceFill);
     }
@@ -376,7 +357,6 @@ function JQueryPerformSingLoop(data, _context, forceFill) {
     }
     var itemDataIndex = itemKey.length - 1;
     var loopData = sing.resolve(loopKey, data, _context);
-    //console.log('SING-LOOP ' + itemKey + ' IN ' + loopKey);
     var out = '';
     if (loopData == null || loopData.length == 0) {
     }
@@ -388,7 +368,6 @@ function JQueryPerformSingLoop(data, _context, forceFill) {
         }
         if ($.isArray(loopData)) {
             for (var i = 0; i < loopData.length; i++) {
-                //console.log('SING-LOOP ' + (i) + ' ' + itemKey + ' IN ' + loopKey);
                 var loopClone;
                 if (loop.attr('sing-loop-inner') == 'true') {
                     loopClone = $(loop[0].innerHTML).removeAttr('sing-loop');
@@ -397,7 +376,6 @@ function JQueryPerformSingLoop(data, _context, forceFill) {
                     loopClone = $(loop[0].outerHTML).removeAttr('sing-loop');
                 }
                 loop.before(loopClone);
-                // Copy context because a key is duplicated
                 if (_context[itemKey] !== undefined) {
                     _context = $.extend(true, {}, _context);
                 }
@@ -429,7 +407,6 @@ singTemplates.property('templateEnd');
 sing.loadTemplate = function (url, callback) {
     var data = $.ajax(url, {
         complete: function (data) {
-            //console.log(data);
             var templates = $('<div>' + data.responseText + '</div>');
             templates.find('*[sing-template]').each(function () {
                 if ($(this).attr('sing-template-data') == 'true')
@@ -490,146 +467,4 @@ sing.initTemplates = function () {
         }
     });
 };
-// #region Examples 
-/*
-// These Work
-
-<div sing-template="ListTest">
-    <ul>
-        <li sing-loop="{{person in items}}">
-            <a>{{person.name}}</a>
-            <a>{{person.age}}</a>
-        </li>
-    </ul>
-</div>
-
-<div sing-template="ListTest">
-    <ul>
-        <li sing-loop="{{items}}">
-            <a>{{item.name}}</a>
-            <a>{{item.age}}</a>
-        </li>
-    </ul>
-</div>
- 
-<div sing-template="Test">
-    <a>{{name}}</a>
-    <a>{{age}}</a>
-</div>
- 
-// NESTED LOOPS
-<div sing-template="ListTest">
-    <ul>
-        <li sing-loop="{{person in items}}">
-            <a>{{person.name}}</a>
-            <a>{{person.age}}</a>
-
-            <ul sing-if="{{person.friends}}">
-                <li sing-loop={{friend in person.friends}}">
-                    <a>{{friend.name}}</a>
-                    <a>{{friend.age}}</a>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</div>
-
-// IF Conditions
-<div sing-if="{{item}}">
-    <a>{{item.name}}</a>
-    <a>{{item.age}}</a>
-</div>
-
-// ELSE-IF Conditions
-<div sing-if="{{item}}">
-    <a>{{item.name}}</a>
-    <a>{{item.age}}</a>
-</div>
-<div sing-else-if="{{item2}}">
-    <a>{{item2.name}}</a>
-    <a>{{item2.age}}</a>
-</div>
-
-// ELSE Conditions
-<div sing-if="{{item}}">
-    <a>{{item.name}}</a>
-    <a>{{item.age}}</a>
-</div>
-<div sing-else>
-    Item Not Found
-</div>
- 
-// Method Calls
-<div sing-template="ListTest">
-    <ul>
-        <li sing-loop="{{person in items.getPeople()}}">
-            {{index}}
-
-            <a>{{person.name}}</a>
-            <a>{{person.age}}</a>
-        </li>
-    </ul>
-</div>
-
-
-// These should work
-
-
-// IF Operators
-<div sing-if="{{item.age}}">
-    <a>{{item.name}}</a>
-    <a>{{item.age}}</a>
-</div>
-
-// IF Operators OR
-<div sing-if="{{item.age > 50 || item.age < 5 }}">
-    <a>{{item.name}}</a>
-    <a>{{item.age}}</a>
-</div>
-
-// IF Operators AND
-<div sing-if="{{item.age > 50 && item.age != 67 }}">
-    <a>{{item.name}}</a>
-    <a>{{item.age}}</a>
-</div>
- 
-// FILTERS
-<div sing-if="{{item.age : even}}">
-    <a>{{item.name}}</a>
-    <a>{{item.age}}</a>
-</div>
- 
-// FILTERS With Variables
-<div sing-if="{{item.age : even}}">
-    <a>{{item.name}}</a>
-    <a>{{item.age}}</a>
-</div>
- 
- 
-// INDEX (others)
-<div sing-template="ListTest">
-    <ul>
-        <li sing-loop="{{person in items}}">
-            {{index}}
-
-            <a>{{person.name}}</a>
-            <a>{{person.age}}</a>
-        </li>
-    </ul>
-</div>
-
-// Method Calls with arguments
-
-<div sing-template="ListTest">
-    <ul>
-        <li sing-loop="{{person in items.getPeople('fred')}}">
-            {{index}}
-
-            <a>{{person.name}}</a>
-            <a>{{person.age}}</a>
-        </li>
-    </ul>
-</div>
-*/
-// #endregion Examples
 //# sourceMappingURL=singularity-templates.js.map

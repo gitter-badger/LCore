@@ -1,4 +1,3 @@
-/// <reference path="singularity-core.ts"/>
 var LOGGING_INFO_ENABLED = false;
 var LOGGING_ERROR_ENABLED = true;
 var LOGGING_WARNING_ENABLED = true;
@@ -112,10 +111,6 @@ function error() {
     }
     if (LOGGING_ERROR_ENABLED) {
         console.log(message);
-        //if ($.toStr && $.resolve)
-        //    console.log('%c ' + $.toStr($.resolve(message), true), 'background: #eee; color: #FF0000');
-        //else
-        //    console.log('%c ' + message, 'background: #eee; color: #FF0000');
         console.trace();
     }
 }

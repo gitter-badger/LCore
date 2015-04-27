@@ -1,11 +1,6 @@
-/// <reference path="singularity-core.ts"/>
 var singEnumerable = singExt.addModule(new sing.Module("Enumerable", Array));
 singEnumerable.summaryShort = '&nbsp;';
 singEnumerable.summaryLong = '&nbsp;';
-//////////////////////////////////////////////////////
-//
-// Iteration Functions
-//
 singEnumerable.method('each', EnumerableEach, {
     summary: null,
     parameters: null,
@@ -44,7 +39,6 @@ function EnumerableEach(action) {
     var thisArray = this;
     thisArray.while(function (item, i) {
         action(item, i);
-        // each always continues until the end
         return true;
     });
 }
@@ -78,21 +72,6 @@ singEnumerable.method('while', EnumerableWhile, {
         ext.addTest([1, 2, 3, 4, 5], [function (item, index) {
             return item == 4 && index == 3;
         }], false);
-        // Test broken TODO FIX
-        // ext.addTest([1, 2, 3, 4, 5], [function (a) { return a == 3; }], true);
-        /*
-        ext.addCustomTest(function () {
-            var test = [1, 2, 3, 4, 5];
-            var count = 0;
-            test.while(function (a) {
-                count++;
-                return a < 3;
-            });
-
-            if (count != 3)
-                return 'while did not execute 3 times.';
-        });
-        */
     },
 });
 function EnumerableWhile(action) {
@@ -135,21 +114,6 @@ singEnumerable.method('until', EnumerableUntil, {
         ext.addTest([1], [function () {
             return false;
         }], false);
-        // Test broken TODO FIX
-        // ext.addTest([1, 2, 3, 4, 5], [function (a) { return a == 3; }], true);
-        /*
-        ext.addCustomTest(function () {
-            var test = [1, 2, 3, 4, 5];
-            var count = 0;
-            test.while(function (a) {
-                count++;
-                return a == 3;
-            });
-
-            if (count != 3)
-                return 'until did not execute 3 times.';
-        });
-        */
     },
 });
 function EnumerableUntil(action) {
@@ -164,10 +128,6 @@ function EnumerableUntil(action) {
     });
     return exit;
 }
-//
-//////////////////////////////////////////////////////
-//
-// Lookup Functions
 singEnumerable.method('count', EnumerableCount, {
     summary: null,
     parameters: null,
@@ -662,12 +622,6 @@ function EnumerableSortBy(arg) {
         customIndex = true;
         indexes = indexes.collect(argFunction);
     }
-    /*
-    if (!indexes.every($.isNumeric.fn_or($.isString))) {
-        indexes = indexes.collect($.toStr)
-            .collect(sing.methods['Singularity.Number.String.numericValueOf'].method);
-    }
-    */
     var items = this.clone();
     if (customIndex) {
         var out = indexes.quickSort([items]);
@@ -827,18 +781,6 @@ singEnumerable.method('timesDo', EnumerableTimesDo, {
     examples: ['\
             (5).timesDo(function() { alert(\'hi\'); });'],
     tests: function (ext) {
-        /*
-        ext.addCustomTest(function () {
-            var test = 0;
-            (5).timesDo(function () { test++; });
-
-            if (test != 5)
-                return false;
-        }, 'Must execute the function the correct number of times.');
-
-        ext.addFailsTest(1, [null], undefined, 'Singularity.Extensions.Enumerable.timesDo Missing Parameter: function executeFunc');
-        ext.addFailsTest(1, [undefined], undefined, 'Singularity.Extensions.Enumerable.timesDo Missing Parameter: function executeFunc');
-        */
         ext.addTest(5, [sing.func.increment, [5]], [6, 6, 6, 6, 6]);
     },
 }, Number.prototype);

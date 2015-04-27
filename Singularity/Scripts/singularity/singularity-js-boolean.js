@@ -1,13 +1,7 @@
-/// <reference path="singularity-core.ts"/>
 var singBoolean = singExt.addModule(new sing.Module("Boolean", Boolean));
 singBoolean.summaryShort = 'Extensions on Boolean.prototype';
 singBoolean.summaryLong = 'Perform boolean operations using extension methods instead of operators.';
 singBoolean.features = ['Multi-variable operations', 'Ternary operation', 'toYesNo'];
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// Boolean Extensions
-//
-//
 singBoolean.method('XOR', BooleanXOR, {
     summary: "\
         XOR acts on a boolean to perform the binary XOR function on the passed Boolean",

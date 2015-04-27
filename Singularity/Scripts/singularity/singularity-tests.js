@@ -1,9 +1,7 @@
-/// <reference path="singularity-core.ts"/>
 var SingularityTests = (function () {
     function SingularityTests() {
         this.testErrors = [];
         this.resolveTests = function () {
-            // Resolve module feature tests
             $.objEach(sing.modules, function (key, mod, i) {
                 if (!$.isEmpty(mod.features)) {
                     mod.features.each(function (item) {
@@ -17,7 +15,6 @@ var SingularityTests = (function () {
             $.objEach(sing.methods, function (key, ext, i) {
                 if (ext.isAlias)
                     return;
-                // Resolve method feature tests
                 if (ext && ext.details.features) {
                     ext.details.features.each(function (item) {
                         if ($.isFunction(item.tests))
@@ -26,10 +23,8 @@ var SingularityTests = (function () {
                             item.tests = null;
                     });
                 }
-                // Resolve method details tests
                 if (ext && ext.details.tests && $.isFunction(ext.details.tests)) {
                     ext.details.tests(ext);
-                    // Clear it if it's still a function (no tests)
                     if ($.isFunction(ext.details.tests))
                         ext.details.tests = null;
                 }
@@ -109,9 +104,6 @@ function SingularityAddMethodTest(ext, target, args, compare, requirement) {
     requirement += ')';
     requirement = requirement.pad(50);
     requirement += '// == (' + $.toStr(compare, true) + ')';
-    // ext.details = ext.details || {};
-    // ext.details.examples = ext.details.examples || [];
-    // ext.details.examples.push(requirement);
     this.addTest(ext.name, function () {
         var result = ext.method.apply(target, args);
         if (compare == result)
@@ -232,7 +224,7 @@ function SingularityListTests() {
         if (tests && tests.length > 0)
             out += ('Extension: ' + name).pad(50) + '      Tests: ' + tests.length + '\r\n';
         else
-            ; // out += 'Function: ' + name + '      Tests: 0\r\n';
+            ;
     }
     return out;
 }
@@ -252,7 +244,6 @@ function SingularityListMissingTests() {
     return out;
 }
 ;
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 SingularityMethod.prototype.addFailsTest = MethodAddFailsTest;
 singTests.method('addFailsTest', MethodAddFailsTest, {}, SingularityMethod);
 function MethodAddFailsTest(caller, args, expectedError, requirement) {

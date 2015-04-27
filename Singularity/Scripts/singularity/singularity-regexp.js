@@ -1,4 +1,3 @@
-/// <reference path="singularity-core.ts"/>
 var singRegExp = singString.addModule(new sing.Module('RegExp', String));
 singRegExp.method('matchCount', StringMatchCount, {
     summary: null,

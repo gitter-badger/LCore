@@ -1,13 +1,5 @@
-/// <reference path="singularity-core.ts"/>
 var singJQuery = singExt.addModule(new sing.Module("jQuery", [$, $.fn], $));
 singJQuery.ignoreUnknown('ALL');
-/*
-//////////////////////////////////////////////////////
-//
-// jQuery Extensions
-//
-//
-*/
 singJQuery.method('checked', Checked, {
     summary: null,
     parameters: null,
@@ -90,7 +82,6 @@ singJQuery.method('actionIf', ActionIf, {
 function ActionIf(name) {
     var target = $(this);
     var ifTargetName = target.attr(name + '-if');
-    // If there's no target, there's no condition to match. Always true.
     if (!ifTargetName)
         return true;
     var ifTarget = $('body').findIDNameSelector(ifTargetName);
@@ -173,7 +164,6 @@ function ActionIf(name) {
             return val != null && val != '';
         }
         else {
-            // Radio values can be combined with the use of custom numeric operators
             if (ifTarget.attr('type') == 'radio')
                 return operation(ifTarget.filter(':checked').val(), targetValue);
             return operation(val, targetValue);
@@ -245,7 +235,6 @@ function JQueryInnerHtml() {
         return this[0].innerHTML;
     }
 }
-// https://github.com/moagrius/isOnScreen
 singJQuery.method('isOnScreen', JQueryIsOnScreen, {
     summary: null,
     parameters: null,
