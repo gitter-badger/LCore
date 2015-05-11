@@ -1,9 +1,4 @@
-/// <reference path="singularity-core.ts"/>
 var singFunction = singExt.addModule(new sing.Module("Function", Function));
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// Function Extensions
-//
 singFunction.method('fn_try', FunctionTry, {
     summary: null,
     parameters: null,
@@ -20,7 +15,6 @@ singFunction.method('fn_try', FunctionTry, {
 });
 function FunctionTry() {
     var source = this;
-    // Redirects to catch with no catchFunction
     return source.fn_catch();
 }
 singFunction.method('fn_catch', FunctionCatch, {
@@ -158,7 +152,6 @@ function FunctionCache(uniqueCacheID, expiresAfter) {
         else {
             if (thisCache[argStr] != undefined && thisCache[argStr] != null) {
                 if (thisCache[argStr].expires < (new Date()).valueOf()) {
-                    // Expired
                     thisCache[argStr] = {};
                 }
                 else {
@@ -283,39 +276,6 @@ singFunction.method('fn_then', FunctionThen, {
     returnType: Function,
     examples: null,
     tests: function (ext) {
-        /*
-        ext.addCustomTest(function () {
-
-            var test: any = 0;
-
-            var fn_test = (function () {
-                test++;
-            }).fn_then((function () {
-                test += 'test';
-            }));
-
-            fn_test();
-
-            if (test != '1test')
-                return 'failed';
-        });
-
-        ext.addCustomTest(function () {
-
-            var test: any = 0;
-
-            var fn_test = (function (test: any) {
-                return ++test;
-            }).fn_then((function (test: any) {
-                test += 'test';
-            }));
-
-            fn_test(test);
-
-            if (test != '1test')
-                return 'failed';
-        });
-        */
     },
 });
 function FunctionThen(thenFunc) {
@@ -341,37 +301,6 @@ singFunction.method('fn_repeat', FunctionRepeat, {
     returnType: Function,
     examples: null,
     tests: function (ext) {
-        /*
-        ext.addCustomTest(function () {
-
-            var test = 0;
-
-            var test_fn = function () {
-                test++;
-            };
-            test_fn = test_fn.fn_repeat(5);
-
-            test_fn();
-
-            if (test != 5)
-                return 'failed';
-        });
-        ext.addCustomTest(function () {
-
-            var test = [1, 2, 3, 4, 5];
-            var test2 = '';
-
-            var test_fn = function (a?: any) {
-                test2 += a;
-            };
-            test_fn = test_fn.fn_repeat(test);
-
-            test_fn();
-
-            if (test2 != '12345')
-                return 'failed';
-        });
-        */
     },
 });
 function FunctionRepeat(repeatOver) {
@@ -697,27 +626,4 @@ function FunctionNot() {
         return !result;
     };
 }
-/*
-singFunction.method('fn_supply', null,
-    {
-        summary: null,
-        parameters: null,
-        returns: '',
-        returnType: Function,
-        examples: null,
-        tests: function (ext) {
-        },
-    });
-
-singFunction.method('fn_ifElse', null,
-    {
-        summary: null,
-        parameters: null,
-        returns: '',
-        returnType: Function,
-        examples: null,
-        tests: function (ext) {
-        },
-    });
-*/
 //# sourceMappingURL=singularity-js-function.js.map

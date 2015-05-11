@@ -79,8 +79,12 @@
     <p>{{sing.summary}}</p>
 
     <div sing-if="{{sing.tests.testErrors}}" class="test-errors">
+        <div class="btn-info btn left method-show-hide" click-fade-toggle=".test-errors-content">
+            <glyph class="test-errors-content">&#x2b;</glyph>
+            <glyph class="test-errors-content" style=" display: none;">&#x2212;</glyph>
+        </div>
         <h2><error>Errors</error></h2>
-        <ol>
+        <ol class="test-errors-content" style="display: none;">
             <li sing-loop="{{ error in sing.tests.testErrors}}">
                 <error>{{error.textToHTML()}}</error>
                 <hr />

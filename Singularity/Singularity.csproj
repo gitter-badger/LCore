@@ -646,22 +646,54 @@
     <TypeScriptCompile Include="Scripts\definitions\jquery.cookie.d.ts" />
     <Content Include="Scripts\mvcl.js" />
     <Content Include="Scripts\jquery-mobile\jquery-mobile-1.4.5.min.css" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-enumerable.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-log.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-templates.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-regexp.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-text-bbcode.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-doc.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-object.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-tests.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-html.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-jquery.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-js-boolean.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-js-number.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-js-string.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-js-date.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-js-function.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-js-array.ts" />
+    <TypeScriptCompile Include="Scripts\singularity\singularity-enumerable.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-log.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-templates.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-regexp.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-text-bbcode.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-doc.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-object.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-tests.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-html.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-jquery.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-js-boolean.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-js-number.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-js-string.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-js-date.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-js-function.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-js-array.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
     <Content Include="Scripts\qTip.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -892,7 +924,7 @@
     <TypeScriptCompile Include="Scripts\definitions\jqueryui.d.ts" />
     <TypeScriptCompile Include="Scripts\definitions\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\singularity\singularity-core.ts">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </TypeScriptCompile>
   </ItemGroup>
   <PropertyGroup>

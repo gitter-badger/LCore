@@ -118,12 +118,15 @@ singString.method('replaceAll', StringReplaceAll,
             ext.addTest('a', ['', ''], 'a');
             ext.addTest('a', ['a', ''], '');
 
+
             ext.addTest('a', [null, null], 'a');
             ext.addTest('a', [undefined, undefined], 'a');
             ext.addTest('a', ['a', null], '');
             ext.addTest('a', ['a', undefined], '');
             ext.addTest('b', [null, 'a'], 'b');
             ext.addTest('b', [undefined, 'a'], 'b');
+
+            ext.addTest('a     b', ['  ', ' '], 'a b');
 
             // Array tests not quite working
             // sing.addAssertTest(ext.name, 'ababababaab'.replaceAll(['a', 'b'], ''), '');
@@ -230,7 +233,9 @@ singString.method('collapseSpaces', StringCollapseSpaces,
     });
 
 function StringCollapseSpaces() {
-    return this.replaceAll('  ', ' ');
+    var out = <string>this;
+    out = out.replaceAll('  ', ' ');
+    return out;
 }
 
 singString.method('startsWith', StringStartsWith,
@@ -473,11 +478,19 @@ singString.method('truncate', StringTruncate,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            ext.addTest('', [], '');
+            ext.addTest('', [null], '');
+            ext.addTest('', [undefined], '');
+            ext.addTest('apple', [], 'apple');
+            ext.addTest('apple', [0], '');
+            ext.addTest('apple', [-1], '');
+            ext.addTest('apple pie', [5], 'apple');
         },
     });
 
 function StringTruncate(length: number) {
-    if (!this || this.length < 0)
+
+    if (!this || this.length <= 0 || length <= 0)
         return '';
 
     if (this.length > length)
@@ -494,13 +507,45 @@ singString.method('isValidEmail', StringIsValidEmail,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            // Test cases sourced from http://blogs.msdn.com/b/testing123/archive/2009/02/05/email-address-test-cases.aspx
+            ext.addTest('email@domain.com', [], true);
+            ext.addTest('firstname.lastname@domain.com', [], true);
+            ext.addTest('email@subdomain.domain.com', [], true);
+            ext.addTest('firstname+lastname@domain.com', [], true);
+            ext.addTest('email@123.123.123.123', [], true);
+            ext.addTest('email@[123.123.123.123]', [], true);
+            ext.addTest('"email"@domain.com', [], true);
+            ext.addTest('1234567890@domain.com', [], true);
+            ext.addTest('email@domain - one.com', [], true);
+            ext.addTest('_______@domain.com', [], true);
+            ext.addTest('email@domain.name.name', [], true);
+            ext.addTest('email@domain.co.jp', [], true);
+            ext.addTest('firstname-lastname@domain.com', [], true);
+
+            ext.addTest('plainaddress', [], false);
+            ext.addTest('#@%^%#$@#$@#.com', [], false);
+            ext.addTest('@domain.com', [], false);
+            ext.addTest('Joe Smith <email@domain.com>', [], false);
+            ext.addTest('email.domain.com', [], false);
+            ext.addTest('email@domain@domain.com', [], false);
+            ext.addTest('.email@domain.com', [], false);
+            ext.addTest('email.@domain.com', [], false);
+            ext.addTest('email..email@domain.com', [], false);
+            ext.addTest('あいうえお@domain.com', [], false);
+            ext.addTest('email@domain.com(Joe Smith)', [], false);
+            ext.addTest('email@domain', [], false);
+            ext.addTest('email@-domain.com', [], false);
+            ext.addTest('email@domain.web', [], false);
+            ext.addTest('email@111.222.333.44444', [], false);
+            ext.addTest('email@domain..com', [], false);
         },
     });
 
 function StringIsValidEmail(): boolean {
     var thisStr = <string>this;
 
-    return thisStr.hasMatch(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/);
+    return thisStr.hasMatch(/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/);
+    //return thisStr.hasMatch(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/);
 }
 
 singString.method('isHex', StringIsHex,

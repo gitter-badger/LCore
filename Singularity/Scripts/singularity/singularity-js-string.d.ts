@@ -36,7 +36,7 @@ declare var StringReplaceAll_ErrorReplacementContinsSearch: string;
 declare function StringReplaceAll(searchOrSearches: string | string[], replaceOrReplacements: string | string[]): any;
 declare function StringUpper(): any;
 declare function StringLower(): any;
-declare function StringCollapseSpaces(): any;
+declare function StringCollapseSpaces(): string;
 declare function StringStartsWith(stringOrStrings: string | string[]): boolean;
 declare function StringEndsWith(stringOrStrings: string | string[]): boolean;
 declare function StringRemoveAll(stringOrStrings: string | string[]): any;

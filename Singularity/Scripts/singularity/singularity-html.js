@@ -1,8 +1,3 @@
-/// <reference path="../definitions/jquery.d.ts" />
-/// <reference path="../definitions/jqueryui.d.ts" />
-/// <reference path="../definitions/jquery.cookie.d.ts" />
-/// <reference path="../definitions/jquery.timepicker.d.ts" />
-/// <reference path="../definitions/chance.d.ts" />
 var singHTML = singString.addModule(new sing.Module('HTML', String));
 singHTML.method('textToHTML', StringTextToHTML, {
     summary: null,
@@ -75,7 +70,6 @@ function GetAttributes() {
     if (attrs.length == 0)
         return [];
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////
 function InitHTMLExtensions() {
     InitKeyBindClick();
     InitRememberPage();
@@ -109,7 +103,6 @@ function InitHTMLExtensions() {
             if (!actionIf)
                 return;
             try {
-                // parseJSON can't handle double quotes
                 animation = animation.replaceAll('\'', '"');
                 var animationObject = $.parseJSON(animation);
                 target.animate(animationObject, duration, easing);
@@ -146,7 +139,6 @@ function PropertyIf(propertyName, changeTrue, changeFalse) {
                 if (valueTarget.attr('type') == 'radio')
                     events = 'change';
                 valueTarget.on(events, changeFunction);
-                // Sets the value initially
                 changeFunction();
             });
         }
@@ -385,8 +377,9 @@ function InitKeyBindClick() {
         if (!commandName)
             return;
         if (keyCode.indexOf('+') > 0 && keyCode.indexOf('+') < keyCode.length - 1) {
-            var key1 = keyCode.substr(0, keyCode.indexOf('+')).tryToNumber(null);
-            var key2 = keyCode.substr(keyCode.indexOf('+') + 1).tryToNumber(null);
+            console.log(keyCode);
+            var key1 = StringTryToNumber(keyCode.substr(0, keyCode.indexOf('+')));
+            var key2 = StringTryToNumber(keyCode.substr(keyCode.indexOf('+') + 1));
             if (!key1)
                 key1 = keyCharToCode[keyCode.substr(0, keyCode.indexOf('+'))];
             if (!key2)
@@ -399,7 +392,7 @@ function InitKeyBindClick() {
             KeyBindTip += "<br>";
         }
         else {
-            var key1 = keyCode.tryToNumber(null);
+            var key1 = StringTryToNumber(keyCode);
             if (!key1)
                 key1 = keyCharToCode[keyCode];
             if (href)
@@ -416,7 +409,6 @@ function InitKeyBindClick() {
         $("#key-bind-page-tip").parent().hide();
 }
 function InitFields() {
-    // Adds the tab id to all href in the tab container
     $('.tab-container *[href]').each(function () {
         var href = $(this).attr('href');
         if (href.indexOf('#') < 0) {
@@ -467,8 +459,6 @@ function InitFields() {
                 }
             });
         }
-        //                $('#' + $(this).attr('target')).val($(this).slider("value"));
-        //                $('#' + $(this).attr('text-target')).val($(this).slider("value"));
     });
     $(".spinner-decimal").spinner({
         step: 0.01,

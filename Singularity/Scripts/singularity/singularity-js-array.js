@@ -1,15 +1,4 @@
-/// <reference path="singularity-core.ts"/>
-/// <reference path="singularity-tests.ts"/>
 var singArray = singExt.addModule(new sing.Module("Array", Array));
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// Array Extensions
-//
-//
-//////////////////////////////////////////////////////
-//
-// Mapping Functions
-//
 singArray.method('splitAt', SplitAt, {
     summary: null,
     parameters: null,
@@ -130,7 +119,6 @@ function ArrayRandom(count) {
     if (count === void 0) { count = 1; }
     var thisArray = this;
     var out = [];
-    // Don't return more random items than we have;
     count = count.min(thisArray.length);
     if (count == thisArray.length)
         return thisArray.shuffle();
@@ -219,17 +207,4 @@ function ObjToArray(obj) {
     else
         return [obj];
 }
-/*
-singEnumerable.method('fill', null,
-    {
-        summary: null,
-        parameters: null,
-        returns: '',
-        returnType: null,
-        examples: null,
-        tests: function (ext) {
-        },
-    });
-
-*/
 //# sourceMappingURL=singularity-js-array.js.map

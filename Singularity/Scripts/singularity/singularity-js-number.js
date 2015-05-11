@@ -1,12 +1,7 @@
-/// <reference path="singularity-core.ts"/>
 var singNumber = singExt.addModule(new sing.Module("Number", Number));
 singNumber.summaryShort = 'Extensions on Number.prototype and others';
 singNumber.summaryLong = '&nbsp;';
 singNumber.features = ['Math object extensions: max, min, round, pow, ceil, floor, abs', 'Friendly file sizes: formatFileSize', 'String extensions: isNumeric, isInteger, toNumber, toInteger', 'Number array extensions: total, average', 'JQuery $ extensions: isInt, isFloat, isNumber'];
-////////////////////////////////////////////////////////////////////////////////////
-//
-// Number Extensions
-//
 singNumber.method('max', NumberMax, {
     summary: 'Compares multiple Numbers to find the largest.',
     parameters: [
@@ -461,7 +456,6 @@ function BooleanToNumericValue() {
     if (this.valueOf() === true)
         return 1;
 }
-////////////////////////////////////////////////////////////////////////////////////
 singNumber.method('isInt', NumberIsInt, {
     summary: 'Determine whether an object is an Integer.',
     parameters: [{
@@ -607,7 +601,6 @@ function NumberRandom(minimum, maximum, count) {
     }
     return out;
 }
-////////////////////////////////////////////////////////////////////////////////////
 singNumber.method('isNumeric', StringIsNumeric, {
     summary: 'Call isNumeric on a String to determine if the string is in Numeric form. If the string is not a number false will be returned.',
     parameters: [],
@@ -628,7 +621,6 @@ function StringIsNumeric() {
     if (this.length == 0)
         return false;
     var src = this.trim();
-    // Any non-digit, non-space, non-dot characters.
     if (src.hasMatch(/^.*([^\.\d\s-]).*$/))
         return false;
     try {
@@ -722,7 +714,6 @@ function StringToInteger() {
     }
     return NaN;
 }
-////////////////////////////////////////////////////////////////////////////////////
 singNumber.method('total', ArrayTotal, {
     summary: 'Call total on an array of numbers to get the total.',
     parameters: [],

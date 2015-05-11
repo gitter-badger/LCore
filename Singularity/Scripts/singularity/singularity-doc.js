@@ -1,4 +1,3 @@
-/// <reference path="singularity-core.ts"/>
 var singDocs = singCore.addModule(new sing.Module('Documentation', Singularity));
 singDocs.ignoreUnknown('ALL');
 singDocs.method('getDocs', SingularityGetDocs);
@@ -25,11 +24,11 @@ function SingularityGetDocs(funcName, includeCode, includeDocumentation) {
         if (ext.isAlias) {
             return;
         }
-        featuresCount += 1; // method
+        featuresCount += 1;
         if (mod.requiredUnitTests)
             featuresNeedTests++;
         if (mod.requiredDocumentation)
-            documentaionCount += 5; // documentation
+            documentaionCount += 5;
         if (ext.method)
             featuresFound++;
         if (ext.details) {
@@ -49,20 +48,11 @@ function SingularityGetDocs(funcName, includeCode, includeDocumentation) {
         }
         var line = '------------------------------------------------------------------------------------';
         if (ext.details) {
-            // Don't display details for alias functions, aliases are listed under the main function
             if (ext.isAlias && includeDocumentation == true) {
                 return;
             }
             out += '\r\n';
             var functionDef = '';
-            /*
-            ((ext.details.returnTypeName || '') + ' function(').pad(20, 'r') +
-         ((ext.details && ext.details.parameters) ? ext.details.parameters.collect(function (item, i) {
-             var TypeNames = item.types.collect(function (t) { return t.name; }).join(', ');
-             return '[' + TypeNames + '] ' + item.name;
-         }).join(', ') : '') + ')' +
-            ' { ... } ';
-            */
             out += [
                 line,
                 ext.methodCall.pad(40) + (!ext.method ? ' -- NOT IMPLEMENTED' : functionDef).pad(40, Direction.r),
@@ -160,8 +150,8 @@ function SingularityGetMissing(funcName) {
     $.objEach(sing.methods, function (key, ext, i) {
         if (funcName && funcName.lower() != '' && funcName.lower() != 'all' && !ext.name.lower().contains(funcName.lower()))
             return;
-        featuresCount += 1; // method
-        documentaionCount += 5 + 1; // test cases
+        featuresCount += 1;
+        documentaionCount += 5 + 1;
         if (ext.method)
             featuresFound++;
         else
