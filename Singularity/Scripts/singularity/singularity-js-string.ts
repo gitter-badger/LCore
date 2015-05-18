@@ -169,7 +169,7 @@ function StringReplaceAll(searchOrSearches: string | string[], replaceOrReplacem
         if (replaceOrReplacements.toString().contains(searchOrSearches.toString()))
             throw StringReplaceAll_ErrorReplacementContinsSearch;
 
-        while (out.indexOf(searchOrSearches) > 0)
+        while (out.indexOf(searchOrSearches) >= 0)
             out = out.replace(searchOrSearches, replaceOrReplacements);
 
         return out.toString();
@@ -412,7 +412,7 @@ singString.method('words', StringWords,
             ext.addTest('apple', [], ['apple']);
             ext.addTest('apple pie', [], ['apple', 'pie']);
         },
-    })
+    });
 
 function StringWords() {
     if (!this)
@@ -473,12 +473,23 @@ singString.method('truncate', StringTruncate,
         returnType: null,
         examples: null,
         tests: function (ext) {
+            ext.addTest(['abc'], [], '');
+            ext.addTest(['abc'], [null], '');
+            ext.addTest(['abc'], [undefined], '');
+            ext.addTest(['abc'], [NaN], '');
+            ext.addTest(['abc'], [-1], '');
+            ext.addTest(['abc'], [1], 'a');
+            ext.addTest(['abc'], [3], 'abc');
+            ext.addTest(['abc'], [5], 'abc');
         },
     });
 
 function StringTruncate(length: number) {
-    if (!this || this.length < 0)
+    if (!this || this.length < 0 || isNaN(length))
         return '';
+
+    if (length < 0)
+        length = 0;
 
     if (this.length > length)
         return this.substr(0, length).toString();
@@ -570,7 +581,7 @@ function StringIsGuid(): boolean {
 }
 
 
-singString.method('tryToNumber', null,
+singString.method('tryToNumber', StringTryToNumber,
     {
         summary: null,
         parameters: null,
@@ -888,7 +899,6 @@ function StringToStr(includeMarkup: boolean = false) {
     return this;
 }
 
-
 singString.method('isString', IsString,
     {
         summary: null,
@@ -909,7 +919,6 @@ singString.method('isString', IsString,
 function IsString(str?: any) {
     return typeof str == 'string';
 }
-
 
 singString.method('first', StringFirst,
     {
@@ -977,7 +986,6 @@ function StringContainsAny(...items: string[]) {
     });
 }
 
-
 singString.method('before', StringBefore,
     {
         summary: null,
@@ -1044,8 +1052,6 @@ function StringToSlug() {
 
     return Text;
 }
-
-
 
 singString.method('isDate', null,
     {

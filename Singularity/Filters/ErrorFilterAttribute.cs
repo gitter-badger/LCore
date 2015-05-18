@@ -29,6 +29,7 @@ namespace Singularity.Filters
                 filterContext.HttpContext.Response.Redirect(Url.Action(Singularity.Routes.Controllers.Error.Name, Singularity.Routes.Controllers.Error.Actions.Index));
                 }
             }
+
         public override void OnActionExecuting(ActionExecutingContext filterContext)
             {
             try

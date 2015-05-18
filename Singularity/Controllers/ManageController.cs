@@ -13,12 +13,14 @@ using Singularity.Models;
 using Singularity.Context;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Singularity.Filters;
 
 namespace Singularity.Controllers
-{
-    [Authorize]
-    public abstract class ManageController : Controller
     {
+    [Authorize]
+    [ErrorFilter]
+    public abstract class ManageController : Controller
+        {
         public const String DefaultManageActionName = "Manage";
         public const String DefaultEditActionName = "Edit";
         public const String DefaultDetailViewActionName = "Details";
@@ -37,152 +39,152 @@ namespace Singularity.Controllers
 
 
         public virtual String Name
-        {
-            get
             {
+            get
+                {
                 String Out = this.GetType().Name;
 
                 Out = Out.Substring(0, Out.IndexOf("Controller"));
 
                 return Out;
+                }
             }
-        }
 
         public virtual String MenuText
-        {
-            get
             {
+            get
+                {
                 return this.ModelType.GetFriendlyTypeName().Pluralize();
+                }
             }
-        }
 
         public virtual String ManageTitle
-        {
-            get
             {
+            get
+                {
                 return null;
+                }
             }
-        }
 
         public virtual String ManageActionName
-        {
-            get
             {
+            get
+                {
                 return DefaultManageActionName;
+                }
             }
-        }
 
         public virtual String DetailViewActionName
-        {
-            get
             {
+            get
+                {
                 return DefaultDetailViewActionName;
+                }
             }
-        }
 
         public virtual String EditActionName
-        {
-            get
             {
+            get
+                {
                 return DefaultEditActionName;
+                }
             }
-        }
 
         public virtual String DeleteActionName
-        {
-            get
             {
+            get
+                {
                 return DefaultDeleteActionName;
+                }
             }
-        }
         public virtual String DeleteConfirmActionName
-        {
-            get
             {
+            get
+                {
                 return DefaultConfirmActionName;
+                }
             }
-        }
 
         public virtual String DeleteFileActionName
-        {
-            get
             {
+            get
+                {
                 return DefaultDeleteFileActionName;
+                }
             }
-        }
 
         public virtual String CreateActionName
-        {
-            get
             {
+            get
+                {
                 return DefaultCreateActionName;
+                }
             }
-        }
 
 
         public virtual int RowsPerPage
-        {
-            get
             {
+            get
+                {
                 return DefaultRowsPerPage;
+                }
             }
-        }
 
         public virtual String PageGroup
-        {
-            get
             {
+            get
+                {
                 return null;
+                }
             }
-        }
 
         public virtual ModelPermissions OverridePermissions
-        {
-            get
             {
+            get
+                {
                 return ModelPermissions.AllowAll;
+                }
             }
-        }
 
 
         public abstract Boolean AllowAdminRandomize { get; }
 
         private ModelContext _DBContext = null;
         public ModelContext DBContext
-        {
-            get
             {
+            get
+                {
                 return L.Cache(ref _DBContext, () =>
             {
                 return ContextProviderFactory.GetCurrent().GetContext(Session);
             });
+                }
             }
         }
-    }
 
     public abstract class ReadOnlyManageController<T> : ManageController<T>
         where T : class, IModel
-    {
-        public override ModelPermissions OverridePermissions
         {
-            get
+        public override ModelPermissions OverridePermissions
             {
+            get
+                {
                 return new ModelPermissions()
                 {
                     View = true,
                     ViewInactive = true,
                     Export = true,
                 };
+                }
             }
         }
-    }
     public abstract class ManageController<T> : ManageController
         where T : class, IModel
-    {
-        public override Type ModelType
         {
+        public override Type ModelType
+            {
             get { return typeof(T); }
-        }
+            }
 
         #region Manage
         public virtual ActionResult Manage(
@@ -193,11 +195,11 @@ namespace Singularity.Controllers
             String FieldSearchTerms = null,
             Boolean ShowInactiveRecords = false,
             String InlineEdit = null)
-        {
+            {
             ManageViewModel m = new ManageViewModel(this);
 
             try
-            {
+                {
                 if (SortDirection != "ASC" && SortDirection != "DESC")
                     throw new ArgumentException("Invalid SortType");
 
@@ -215,29 +217,29 @@ namespace Singularity.Controllers
 
                 if (Session == null ||
                     ContextProviderFactory.GetCurrent().GetModelPermissions(Session, m.ModelType).View != true)
-                {
+                    {
                     return new HttpUnauthorizedResult();
-                }
+                    }
 
                 if (Session == null ||
                     (ContextProviderFactory.GetCurrent().GetModelPermissions(Session, m.ModelType).ViewInactive != true &&
                     ShowInactiveRecords))
-                {
+                    {
                     return new HttpUnauthorizedResult();
-                }
+                    }
 
                 m.FieldSearchTerms = ExtractSearchTerms(ref FieldSearchTerms, m.ModelType);
                 m.GlobalSearchTerm = GlobalSearchTerm;
 
                 if (String.IsNullOrEmpty(SortTerm))
-                {
+                    {
                     SetDefaultSort(m);
-                }
+                    }
                 else
-                {
+                    {
                     m.OverrideSort = SortTerm;
                     m.OverrideSortDirection = SortDirection;
-                }
+                    }
 
                 int TotalItems = 0;
 
@@ -246,15 +248,15 @@ namespace Singularity.Controllers
 
                 m.TotalItems = TotalItems;
                 m.TotalPages = (int)Math.Ceiling((double)TotalItems / (double)RowsPerPage);
-            }
+                }
             catch (Exception e)
-            {
+                {
                 throw new Exception("", e);
                 ModelState.AddModelError(string.Empty, "An unexpected error has occured");
-            }
+                }
 
             return View(m);
-        }
+            }
         #endregion
 
         #region Search
@@ -267,11 +269,11 @@ namespace Singularity.Controllers
             String GlobalSearchTerm = null,
             String FieldSearchTerms = null,
             Boolean ShowInactiveRecords = false)
-        {
+            {
             ManageViewModel m = new ManageViewModel(this);
 
             try
-            {
+                {
                 m.Page = (Page - 1);
                 m.TypeName = typeof(T).Name;
                 m.ModelType = typeof(T);
@@ -282,10 +284,10 @@ namespace Singularity.Controllers
 
                 if (!String.IsNullOrEmpty(FieldSearchTerms) &&
                     !String.IsNullOrEmpty(GlobalSearchTerm))
-                {
+                    {
                     GlobalSearchTerm = FieldSearchTerms + "|" + GlobalSearchTerm;
                     FieldSearchTerms = "";
-                }
+                    }
 
                 m.FieldSearchTerms = ExtractSearchTerms(ref GlobalSearchTerm, m.ModelType);
                 m.GlobalSearchTerm = GlobalSearchTerm;
@@ -300,17 +302,17 @@ namespace Singularity.Controllers
                     FieldSearchTerms = m.GetGlobalSearchCombined("Global"),
                     ShowInactiveRecords = m.ShowInactiveRecords,
                 });
-            }
+                }
             catch (Exception e)
-            {
+                {
                 ModelState.AddModelError(string.Empty, "An unexpected error has occured");
-            }
+                }
 
             return RedirectToAction(this.ManageActionName, this.Name, new
             {
                 TypeName = m.TypeName
             });
-        }
+            }
         #endregion
 
         #region Export
@@ -321,7 +323,7 @@ namespace Singularity.Controllers
             String GlobalSearchTerm = null,
             String FieldSearchTerms = null,
             Boolean ShowInactiveRecords = false)
-        {
+            {
             if (SortDirection != "ASC" && SortDirection != "DESC")
                 throw new ArgumentException("Invalid SortType");
 
@@ -340,26 +342,26 @@ namespace Singularity.Controllers
 
             if (Session == null ||
                 ContextProviderFactory.GetCurrent().GetModelPermissions(Session, m.ModelType).Export != true)
-            {
+                {
                 return;
-            }
+                }
 
             if (Session == null ||
                 (ContextProviderFactory.GetCurrent().GetModelPermissions(Session, m.ModelType).ViewInactive != true &&
                 ShowInactiveRecords))
-            {
+                {
                 return;
-            }
+                }
 
             if (String.IsNullOrEmpty(SortTerm))
-            {
+                {
                 SetDefaultSort(m);
-            }
+                }
             else
-            {
+                {
                 m.OverrideSort = SortTerm;
                 m.OverrideSortDirection = SortDirection;
-            }
+                }
 
             m.FieldSearchTerms = ExtractSearchTerms(ref FieldSearchTerms, m.ModelType);
             m.GlobalSearchTerm = GlobalSearchTerm;
@@ -377,23 +379,23 @@ namespace Singularity.Controllers
             List<Func<Object, Object>> Functions = new List<Func<Object, Object>>();
 
             foreach (System.Web.ModelBinding.ModelMetadata Meta in m.ModelType.Meta().Properties)
-            {
-                if (!Meta.HasAttribute<ExportDisabledAttribute>())
                 {
+                if (!Meta.HasAttribute<ExportDisabledAttribute>())
+                    {
                     Columns.Add(Meta);
                     ColumnNames.Add(Meta.DisplayName ?? Meta.PropertyName);
                     // Members.Add(Meta.GetMember());
                     //  Accessors.Add(Meta.GetDelegate());
                     Functions.Add(Meta.GetFunc());
+                    }
                 }
-            }
 
             if (m.FieldSearchTerms != null)
-            {
-                foreach (SearchOperation Op in m.FieldSearchTerms.Values)
                 {
-                    if (Op.Property.Contains("."))
+                foreach (SearchOperation Op in m.FieldSearchTerms.Values)
                     {
+                    if (Op.Property.Contains("."))
+                        {
                         System.Web.ModelBinding.ModelMetadata Meta = null;
                         String[] FullProperty = null;
 
@@ -419,9 +421,9 @@ namespace Singularity.Controllers
                         // Members.Add(Meta.GetMember());
                         //  Accessors.Add(Meta.GetDelegate());
                         Functions.Add(F);
-                    }
+                        }
                     else if (!Columns.Has(c => { return (c.DisplayName ?? c.PropertyName) == Op.Property; }))
-                    {
+                        {
                         System.Web.ModelBinding.ModelMetadata Meta = m.ModelType.Meta(Op.Property);
 
                         Columns.Add(Meta);
@@ -429,20 +431,20 @@ namespace Singularity.Controllers
                         // Members.Add(Meta.GetMember());
                         //  Accessors.Add(Meta.GetDelegate());
                         Functions.Add(Meta.GetFunc());
+                        }
                     }
                 }
-            }
 
             StringWriter sw = new StringWriter();
 
             // CSV Column Headers
             for (int i = 0; i < ColumnNames.Count; i++)
-            {
+                {
                 sw.Write("\"" + ColumnNames[i] + "\"");
 
                 if (i < ColumnNames.Count - 1)
                     sw.Write(",");
-            }
+                }
 
             sw.Write("\r\n");
 
@@ -451,35 +453,35 @@ namespace Singularity.Controllers
 
             // CSV Body
             foreach (IModel Model in Models)
-            {
-                for (int i = 0; i < Functions.Count; i++)
                 {
+                for (int i = 0; i < Functions.Count; i++)
+                    {
                     sw.Write("\"" + (Functions[i](Model) ?? "").ToString().ReplaceAll("\"", "'") + "\"");
                     //sw.Write("\"" + (((delegate)(Accessors[i]))(Model) ?? "").ToString() + "\"");
                     //sw.Write("\"" + (Members[i].GetValue(Model) ?? "").ToString() + "\"");
                     if (i < Columns.Count - 1)
                         sw.Write(",");
-                }
+                    }
                 sw.Write("\r\n");
                 Progress++;
-            }
+                }
 
             DateTime End = DateTime.Now;
             TimeSpan TimeLen = End.Subtract(Start);
             double Time = TimeLen.TotalMilliseconds;
 
             Response.WriteCSV(sw, FileName);
-        }
+            }
         #endregion
 
         #region Details
         public virtual ActionResult Details(int id, String ReturnURL)
-        {
+            {
             if (Session == null ||
                 ContextProviderFactory.GetCurrent().GetModelPermissions(Session, typeof(T)).View != true)
-            {
+                {
                 return new HttpUnauthorizedResult();
-            }
+                }
 
 #warning Restrict access by Role Scope
             IModel Model = (IModel)GetModelQuery().Find(id);
@@ -488,35 +490,35 @@ namespace Singularity.Controllers
             ViewBag.ManageController = this;
 
             return View(Model);
-        }
+            }
         #endregion
 
         #region Edit
         public virtual ActionResult Edit(int id, String ReturnURL, Boolean Create = false)
-        {
+            {
             if (Session == null ||
                  ContextProviderFactory.GetCurrent().GetModelPermissions(Session, typeof(T)).Edit != true)
-            {
+                {
                 return new HttpUnauthorizedResult();
-            }
+                }
 
             if (Create)
-            {
+                {
                 IModel Model = typeof(T).New<T>();
 
                 return Edit(Model, ReturnURL, Create);
-            }
+                }
             else
-            {
+                {
 #warning Restrict access by Role Scope
                 IModel Model = (IModel)GetModelQuery().Find(id);
 
                 return Edit(Model, ReturnURL);
+                }
             }
-        }
 
         protected virtual ActionResult Edit(IModel Model, String ReturnURL, Boolean Create = false)
-        {
+            {
             ViewBag.ReturnURL = ReturnURL;
             ViewBag.EditActionName = this.EditActionName;
             ViewBag.DeleteActionName = this.DeleteActionName;
@@ -533,17 +535,17 @@ namespace Singularity.Controllers
             };
 
             return View(Model);
-        }
+            }
 
         [HttpPost]
         [Route("Manage/{id}/{ReturnURL}")]
         public virtual ActionResult Edit(int id, String ReturnURL, FormCollection Form, Boolean Create = false)
-        {
+            {
             if (Session == null ||
                  ContextProviderFactory.GetCurrent().GetModelPermissions(Session, typeof(T)).Edit != true)
-            {
+                {
                 return new HttpUnauthorizedResult();
-            }
+                }
 
             ViewBag.DeleteActionName = this.DeleteActionName;
             ViewBag.ControllerName = this.Name;
@@ -565,51 +567,51 @@ namespace Singularity.Controllers
             Errors = Errors || this.ModelBindingAfter(Form, DBContext, Model, Errors);
 
             if (!Errors)
-            {
-                try
                 {
+                try
+                    {
                     if (Create)
                         DBContext.GetDBSet<T>().Add(Model);
 
                     DBContext.SaveChanges();
-                }
+                    }
                 catch (Exception e)
-                {
+                    {
                     Errors = true;
 
                     String Message = "An error occurred while saving data";
 
                     if (ContextProviderFactory.GetCurrent().CurrentUser(Session).IsAdmin == true)
-                    {
+                        {
                         Message += " - " + e.Message + " " + e.ToString();
-                    }
+                        }
 
                     ModelState.AddModelError("", Message);
+                    }
                 }
-            }
 
             if (!Errors)
-            {
+                {
                 TempData.Add(ControllerHelper.StatusMessage, "Successfully " + (Create ? "Created" : "Updated") + " - " + Model.GetFriendlyTypeName());
 
                 return Redirect(ReturnURL);
-            }
+                }
             else
-            {
+                {
                 return Edit(Model, ReturnURL, Create);
+                }
             }
-        }
 
         #endregion
 
         #region Create
         public virtual ActionResult Create(String ReturnURL)
-        {
+            {
             if (Session == null ||
                 ContextProviderFactory.GetCurrent().GetModelPermissions(Session, typeof(T)).Edit != true)
-            {
+                {
                 return new HttpUnauthorizedResult();
-            }
+                }
 
 #warning Restrict access by Role Scope
             IModel Model = typeof(T).New<T>();
@@ -618,39 +620,39 @@ namespace Singularity.Controllers
                 Model.SetProperty(ControllerHelper.AutomaticFields.Active, true);
 
             return Edit(Model, ReturnURL, Create: true);
-        }
+            }
 
         [HttpPost]
         public virtual ActionResult Create(String ReturnURL, FormCollection Form)
-        {
+            {
             return Edit(0, ReturnURL, Form, true);
-        }
+            }
         #endregion
 
         #region Delete
         public virtual ActionResult Delete(int id, String ReturnURL)
-        {
+            {
             if (Session == null ||
                 ContextProviderFactory.GetCurrent().GetModelPermissions(Session, typeof(T)).Deactivate != true)
-            {
+                {
                 return new HttpUnauthorizedResult();
-            }
+                }
 #warning Restrict access by Role Scope
             IModel Model = (IModel)GetModelQuery().Find(id);
 
             ViewBag.ReturnURL = ReturnURL;
 
             return View(Model);
-        }
+            }
 
         [IgnoreValidation]
         public virtual ActionResult DeleteConfirm(int id, String ReturnURL, FormCollection collection, Boolean Restore = false)
-        {
+            {
             if (Session == null ||
                 ContextProviderFactory.GetCurrent().GetModelPermissions(Session, typeof(T)).Deactivate != true)
-            {
+                {
                 return new HttpUnauthorizedResult();
-            }
+                }
 
 #warning Restrict access by Role Scope
             DbSet DBSet = GetModelQuery();
@@ -660,7 +662,7 @@ namespace Singularity.Controllers
             T Model = (T)DBSet.Find(id);
 
             if (typeof(T).HasProperty(ControllerHelper.AutomaticFields.Active))
-            {
+                {
                 Boolean Val = Restore;
 
                 if (Model.Meta(ControllerHelper.AutomaticFields.Active).ModelType == typeof(Nullable<Boolean>))
@@ -669,21 +671,21 @@ namespace Singularity.Controllers
                     Model.SetProperty(ControllerHelper.AutomaticFields.Active, Val);
 
                 foreach (var Value in ModelState.Values)
-                {
+                    {
                     Value.Errors.Clear();
-                }
+                    }
 
                 DBContext.SaveChanges();
-            }
+                }
             else
-            {
+                {
                 DBSet.Remove(Model);
                 DBContext.SaveChanges();
-            }
+                }
             // TODO: Add delete logic here
 
             return Redirect(ReturnURL);
-        }
+            }
         #endregion
 
         #region UploadFile
@@ -694,51 +696,51 @@ namespace Singularity.Controllers
             String RelationType,
             String RelationProperty,
             int RelationID)
-        {
+            {
 #warning Restrict access by Role Scope
             List<HttpPostedFileBase> UploadFiles = new List<HttpPostedFileBase>();
 
             foreach (String name in Request.Files)
-            {
+                {
                 if (name != "UploadFile" + RelationProperty)
                     continue;
 
                 HttpPostedFileBase file = Request.Files[name];
                 if (file.ContentLength > 0)
                     UploadFiles.Add(file);
-            }
-
-            if (!UploadFiles.IsEmpty())
-            {
-                foreach (HttpPostedFileBase File in UploadFiles)
-                {
-                    UploadSingleFile(Form, RelationType, RelationProperty, RelationID, File);
                 }
 
+            if (!UploadFiles.IsEmpty())
+                {
+                foreach (HttpPostedFileBase File in UploadFiles)
+                    {
+                    UploadSingleFile(Form, RelationType, RelationProperty, RelationID, File);
+                    }
+
                 DBContext.SaveChanges();
-            }
+                }
 
             return Redirect(ReturnURL);
-        }
+            }
 
         protected virtual void UploadSingleFile(FormCollection Form, String RelationType, String RelationProperty, int RelationID, HttpPostedFileBase File)
-        {
+            {
             FileUpload FileUp = GetFileUpload(File, Form, RelationType, RelationProperty, RelationID);
 
             DBContext.GetDBSet<FileUpload>().Add(FileUp);
-        }
+            }
 
         protected virtual FileUpload GetFileUpload(HttpPostedFileBase UploadFile, FormCollection Form, String RelationType, String RelationProperty, int RelationID)
-        {
+            {
             String RootPath = ContextProviderFactory.GetCurrent().GetFileUploadRootPath(Session, UploadFile, RelationType, RelationProperty, RelationID);
             String FilePath = ContextProviderFactory.GetCurrent().GetFileUploadFilePath(Session, UploadFile, RelationType, RelationProperty, RelationID);
 
             String FullPath = L.CombinePaths(RootPath, FilePath);
 
             if (!System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(FullPath)))
-            {
+                {
                 System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(FullPath));
-            }
+                }
 
             FileUpload FileUp = new FileUpload(UploadFile, FullPath);
 
@@ -747,72 +749,72 @@ namespace Singularity.Controllers
             FileUp.RelationID = RelationID;
 
             return FileUp;
-        }
+            }
         #endregion
 
         #region DownloadFile
         public void DownloadFile(int FileID)
-        {
+            {
 #warning Restrict access by Role Scope
             FileUpload FileUp = FindFileUpload(FileID);
 
             if (FileUp == null)
-            {
+                {
                 throw new ArgumentException("FileID");
-            }
+                }
 
             Response.WriteFile(FileUp.FilePath);
-        }
+            }
         #endregion
 
         #region DeleteFile
         public void DeleteFile(int id, String ReturnURL)
-        {
+            {
 #warning Restrict access by Role Scope
 
             FileUpload File = FindFileUpload(id);
 
             if (File == null)
-            {
+                {
                 throw new ArgumentException("FileID");
-            }
+                }
 
             File.Active = false;
             DBContext.SaveChanges();
 
             Response.Redirect(ReturnURL);
-        }
+            }
         #endregion
 
         private void SetDefaultSort(ManageViewModel Model)
-        {
+            {
             DisplayColumnAttribute attr = Model.ModelType.MemberGetAttribute<DisplayColumnAttribute>(false);
 
             if (attr != null)
-            {
-                if (!String.IsNullOrEmpty(attr.SortColumn))
                 {
+                if (!String.IsNullOrEmpty(attr.SortColumn))
+                    {
                     Model.OverrideSort = attr.SortColumn;
                     Model.OverrideSortDirection = attr.SortDescending ? "DESC" : "ASC";
+                    }
+                }
+
+            return;
+            }
+
+        public override bool AllowAdminRandomize
+            {
+            get
+                {
+                return false;
                 }
             }
 
-            return;
-        }
-
-        public override bool AllowAdminRandomize
-        {
-            get
-            {
-                return false;
-            }
-        }
-
         protected virtual T GetModel(int id, Boolean Create, T Model)
-        {
+            {
 
             if (Create)
-            {
+                {
                 Model = typeof(T).New<T>();
 
                 if (Model.HasProperty(ControllerHelper.AutomaticFields.Active))
@@ -820,34 +822,34 @@ namespace Singularity.Controllers
 
                 if (Model.HasProperty(ControllerHelper.AutomaticFields.Created))
                     Model.SetProperty(ControllerHelper.AutomaticFields.Created, DateTime.Now);
-            }
+                }
             else
-            {
+                {
 #warning Restrict access by Role Scope
                 Model = (T)GetModelQuery().Find(id);
 
                 if (Model.HasProperty(ControllerHelper.AutomaticFields.Updated))
                     Model.SetProperty(ControllerHelper.AutomaticFields.Updated, DateTime.Now);
-            }
+                }
             return Model;
-        }
+            }
 
         protected virtual bool ModelBindingBefore(FormCollection Form, ModelContext Context, T Model)
-        {
+            {
             return false;
-        }
+            }
 
         protected virtual bool ModelBindingAfter(FormCollection Form, ModelContext Context, T Model, bool Errors)
-        {
+            {
             return false;
-        }
+            }
 
         protected virtual Boolean SetModelField(FormCollection Form, T Model, string Key)
-        {
+            {
             Boolean Errors = false;
 
             try
-            {
+                {
                 String Value = Form[Key];
 
                 System.Web.ModelBinding.ModelMetadata Meta = Model.Meta(Key);
@@ -856,9 +858,9 @@ namespace Singularity.Controllers
                 if (Value == "true,false" &&
                     (Meta.ModelType == typeof(Boolean) ||
                     Meta.ModelType == typeof(Boolean?)))
-                {
+                    {
                     Value = "true";
-                }
+                    }
 
                 if (Meta.HasAttribute<KeyAttribute>())
                     return false;
@@ -869,87 +871,87 @@ namespace Singularity.Controllers
                 StringConverter Convert = null;
 
                 if (Meta.ModelType.HasInterface(typeof(IModel), false))
-                {
+                    {
                     Convert = new StringConverter(DBContext.GetDBSet<T>());
-                }
+                    }
                 else
-                {
+                    {
                     Convert = new StringConverter();
-                }
+                    }
 
                 LambdaExpression Lambda = Meta.GetExpression();
 
                 PropertyInfo p = Model.TrueModelType().GetProperty(Key);
 
                 if (!Meta.IsRequired && (Value ?? "").Trim() == "")
-                {
+                    {
                     try
-                    {
+                        {
                         p.SetValue(Model, null);
-                    }
+                        }
                     catch
-                    {
-                    }
+                        {
+                        }
 
                     return false;
-                }
+                    }
 
                 Object Obj = Convert.PerformAction(Value, Meta.ModelType);
 
 
                 if (p != null)
-                {
+                    {
                     p.SetValue(Model, Obj);
-                }
+                    }
 
                 if (!ModelState.IsValidField(Key))
-                {
+                    {
                     throw new ValidationException(ListExt.List<ModelError>(ModelState[Key].Errors).CollectStr<ModelError>((i, e) => { return e.ErrorMessage; }));
+                    }
                 }
-            }
             catch (ValidationException e)
-            {
+                {
                 ModelState.AddModelError(Key, e.Message);
-            }
+                }
             catch (Exception e)
-            {
+                {
                 Errors = true;
 
                 String Message = "An error occurred while saving this field";
 
                 if (ContextProviderFactory.GetCurrent().CurrentUser(Session).IsAdmin == true)
-                {
+                    {
                     Message += " - " + e.Message;
-                }
+                    }
 
                 ModelState.AddModelError(Key, Message);
-            }
+                }
 
             return Errors;
-        }
+            }
 
         protected virtual DbSet<T> GetModelQuery()
-        {
+            {
             return DBContext.GetDBSet<T>();
-        }
+            }
 
         public virtual IQueryable<T> RestrictScope(IQueryable<T> Query)
-        {
+            {
             return Query;
-        }
+            }
 
         protected virtual FileUpload FindFileUpload(int FileID)
-        {
+            {
             FileUpload File = DBContext.GetDBSet<FileUpload>().Where(
                 f => f.Active == true &&
                     f.RelationType == typeof(T).Name &&
                     f.FileUploadID == FileID).FirstOrDefault();
 
             return File;
-        }
+            }
 
         private Dictionary<string, SearchOperation> ExtractSearchTerms(ref string GlobalSearchTerm, Type ModelType)
-        {
+            {
             Dictionary<string, SearchOperation> Out = new Dictionary<string, SearchOperation>();
 
             String[] Split = null;
@@ -964,13 +966,13 @@ namespace Singularity.Controllers
             List<String> Keys = QueryExt.BinaryOps.Keys.List();
 
             foreach (String SearchTerm in Split)
-            {
+                {
                 Boolean KeyFound = false;
 
                 foreach (String Key in Keys)
-                {
-                    if (SearchTerm.Contains(Key))
                     {
+                    if (SearchTerm.Contains(Key))
+                        {
                         String[] Split2 = SearchTerm.Split(Key);
 
                         String Property = Split2[0].RemoveAll(" ");
@@ -979,9 +981,9 @@ namespace Singularity.Controllers
                             continue;
 
                         if (!ModelType.Meta().Properties.Has(p => p.PropertyName == Property))
-                        {
-                            if (Property.Contains("."))
                             {
+                            if (Property.Contains("."))
+                                {
                                 // Corrects abbreviated properties so they display completely
                                 String[] FullProperties = null;
                                 System.Web.ModelBinding.ModelMetadata Meta = null;
@@ -989,12 +991,12 @@ namespace Singularity.Controllers
                                 var Accessor = ModelType.FindSubProperty(out Meta, out FullProperties, Property.Split("."));
 
                                 Property = FullProperties.JoinLines(".");
-                            }
+                                }
                             else
-                            {
+                                {
                                 Property = ModelType.SearchForProperty(Property);
+                                }
                             }
-                        }
 
                         String OperatorStr = Key;
                         Func<Expression, Expression, Expression> Operator = QueryExt.BinaryOps[Key];
@@ -1013,25 +1015,25 @@ namespace Singularity.Controllers
                             continue;
 
                         if (Out.ContainsKey(Property))
-                        {
+                            {
                             Out[Property] = Op;
-                        }
+                            }
                         else
-                        {
+                            {
                             Out.Add(Property, Op);
-                        }
+                            }
 
                         KeyFound = true;
                         break;
+                        }
                     }
-                }
 
                 if (!KeyFound)
                     GlobalSearchTerm = SearchTerm;
-            }
+                }
 
             return Out;
-        }
+            }
 
         private IEnumerable<T> GetModels(out int TotalItems,
             int Page,
@@ -1041,7 +1043,7 @@ namespace Singularity.Controllers
             Dictionary<String, SearchOperation> FieldSearchOperations,
             Boolean ShowInactiveRecords,
             Boolean ReturnAll)
-        {
+            {
             IQueryable<T> Set = (IQueryable<T>)GetModelQuery().AsQueryable();
 
             Set = RestrictScope(Set);
@@ -1049,47 +1051,47 @@ namespace Singularity.Controllers
             IEnumerable<T> Out = null;
 
             if (!String.IsNullOrEmpty(GlobalSearchTerm))
-            {
+                {
                 if (ManageController<T>.GlobalSearchAssumeStars && !GlobalSearchTerm.Contains("*"))
                     GlobalSearchTerm = "*" + GlobalSearchTerm + "*";
 
                 Set = Set.GlobalSearch(GlobalSearchTerm);
-            }
+                }
 
             if (typeof(T).HasProperty(ControllerHelper.AutomaticFields.Active) &&
                 typeof(T).Meta(ControllerHelper.AutomaticFields.Active).ModelType == typeof(Boolean))
-            {
-                if (ShowInactiveRecords)
                 {
+                if (ShowInactiveRecords)
+                    {
                     Expression<Func<T, Boolean>> Exp = typeof(T).GetExpression<T, Boolean>(ControllerHelper.AutomaticFields.Active);
                     Expression Equal = Expression.NotEqual(Exp.Body, Expression.Constant(true));
                     Expression Lambda = Expression.Lambda(Equal, Exp.Parameters[0]);
 
                     Set = Set.Where((Expression<Func<T, Boolean>>)Lambda);
-                }
+                    }
                 else
-                {
+                    {
                     Expression<Func<T, Boolean>> Exp = typeof(T).GetExpression<T, Boolean>(ControllerHelper.AutomaticFields.Active);
                     Expression Equal = Expression.Equal(Exp.Body, Expression.Constant(true));
                     Expression Lambda = Expression.Lambda(Equal, Exp.Parameters[0]);
 
                     Set = Set.Where((Expression<Func<T, Boolean>>)Lambda);
+                    }
                 }
-            }
 
             if (FieldSearchOperations != null &&
                 FieldSearchOperations.Keys.Count > 0)
-            {
-                foreach (String Property in FieldSearchOperations.Keys)
                 {
+                foreach (String Property in FieldSearchOperations.Keys)
+                    {
                     Set = Set.FilterBy(FieldSearchOperations[Property]);
+                    }
                 }
-            }
 
             if (!String.IsNullOrEmpty(SortTerm))
-            {
-                if (typeof(T).Meta(SortTerm).ModelType.HasInterface(typeof(IModel), false))
                 {
+                if (typeof(T).Meta(SortTerm).ModelType.HasInterface(typeof(IModel), false))
+                    {
                     Type t = typeof(T).Meta(SortTerm).ModelType;
                     DisplayColumnAttribute display = t.GetAttribute<DisplayColumnAttribute>();
 
@@ -1097,21 +1099,21 @@ namespace Singularity.Controllers
                         SortTerm = SortTerm + "." + display.SortColumn;
                     else
                         SortTerm = SortTerm + "." + System.Linq.Enumerable.First(t.Meta().Properties).PropertyName;
-                }
+                    }
 
                 if (SortDirection == "ASC")
-                {
+                    {
                     Out = Set.OrderBy(SortTerm);
-                }
+                    }
                 else
-                {
+                    {
                     Out = Set.OrderByDescending(SortTerm);
+                    }
                 }
-            }
             else
-            {
+                {
                 Out = Set;
-            }
+                }
 
             TotalItems = Out.Count();
 
@@ -1121,6 +1123,6 @@ namespace Singularity.Controllers
             //         Out = Out.Take(10000);
 
             return System.Linq.Enumerable.ToList(Out);
+            }
         }
     }
-}

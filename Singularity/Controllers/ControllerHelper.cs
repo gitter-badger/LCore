@@ -15,12 +15,12 @@ using WebMatrix.WebData;
 
 
 namespace Singularity.Controllers
-{
-    public static class ControllerHelper
     {
+    public static class ControllerHelper
+        {
         [Flags]
         public enum ViewType
-        {
+            {
             Create = 1,
             Edit = 2,
             Display = 4,
@@ -29,7 +29,7 @@ namespace Singularity.Controllers
             Export = 32,
 
             All = ViewType.Create | ViewType.Display | ViewType.Edit | ViewType.Export | ViewType.FieldHeader | ViewType.TableCell
-        }
+            }
 
         public const string Menu_Admin = "Admin";
         public const string Menu_Directory = "Directory";
@@ -38,7 +38,7 @@ namespace Singularity.Controllers
         public const string Menu_Invoicing = "Invoicing";
 
         public static class PartialViews
-        {
+            {
             public const String Manage_Pagination = "_Manage_Pagination";
             public const String Manage_Search = "_Manage_Search";
             public const String Manage_HeaderRow = "_Manage_HeaderRow";
@@ -52,53 +52,53 @@ namespace Singularity.Controllers
             public const String Field = "Fields/Field";
 
             public static String Field_PropertyName(String PropertyName)
-            {
+                {
                 return "Fields/" + PropertyName;
-            }
+                }
 
             public static String Field_PropertyName_Before(String PropertyName)
-            {
+                {
                 return "Fields/" + PropertyName + "_Before";
-            }
+                }
             public static String Field_PropertyName_After(String PropertyName)
-            {
+                {
                 return "Fields/" + PropertyName + "_After";
-            }
+                }
 
             public static String Field_PropertyType_Before(Type PropertyType)
-            {
+                {
                 return "Fields/" + PropertyType.Name + "_Before";
-            }
+                }
             public static String Field_PropertyType_After(Type PropertyType)
-            {
+                {
                 return "Fields/" + PropertyType.Name + "_After";
-            }
+                }
 
             public static String Field_ViewType_Before(ControllerHelper.ViewType ViewType)
-            {
+                {
                 return "Fields/" + ViewType.ToString() + "_Before";
-            }
+                }
             public static String Field_ViewType_After(ControllerHelper.ViewType ViewType)
-            {
+                {
                 return "Fields/" + ViewType.ToString() + "_After";
-            }
+                }
 
             public const String Field_Error = "Fields/Error";
 
             public const String Field_View = "Fields/View";
 
             public static String Field_View_PropertyName(String PropertyName)
-            {
+                {
                 return "Fields/View/" + PropertyName;
-            }
+                }
             public static String Field_View_PropertyType(Type PropertyType)
-            {
+                {
                 return "Fields/View/" + PropertyType.Name;
-            }
+                }
             public static String Field_View_DataTypeName(String DataType)
-            {
+                {
                 return "Fields/View/" + DataType;
-            }
+                }
 
             public const String Field_View_Boolean = "Fields/View/Boolean";
             // public const String Field_View_ComplexType = "Fields/View/ComplexType";
@@ -121,17 +121,17 @@ namespace Singularity.Controllers
             public const String Field_Edit = "Fields/Edit";
 
             public static String Field_Edit_PropertyName(String PropertyName)
-            {
+                {
                 return "Fields/Edit/" + PropertyName;
-            }
+                }
             public static String Field_Edit_PropertyType(Type PropertyType)
-            {
+                {
                 return "Fields/Edit/" + PropertyType.Name;
-            }
+                }
             public static String Field_Edit_DataTypeName(String DataType)
-            {
+                {
                 return "Fields/Edit/" + DataType;
-            }
+                }
 
             public const String Field_Edit_Boolean = "Fields/Edit/Boolean";
             public const String Field_Edit_ComplexType = "Fields/Edit/ComplexType";
@@ -151,19 +151,20 @@ namespace Singularity.Controllers
             public const String Field_Edit_IntRange = "Fields/Edit/IntRange";
             public const String Field_Edit_String = "Fields/Edit/String";
             public const String Field_Edit_StringMultiLine = "Fields/Edit/StringMultiLine";
+            public const String Field_Edit_HTMLContent = "Fields/Edit/HTMLContent";
             public const String Field_Edit_Unknown = "Fields/Edit/Unknown";
 
             public const String Field_FileUpload = "Fields/FileUpload";
 
             public const String Field_Information = "Fields/Information";
-        }
+            }
 
         public static class AutomaticFields
-        {
+            {
             public const String Active = "Active";
             public const String Created = "Created";
             public const String Updated = "Updated";
-        }
+            }
 
         public const Boolean AllowRegister = false;
         public const Boolean AllowExternalLogin = false;
@@ -177,66 +178,66 @@ namespace Singularity.Controllers
 
 
         public static Boolean IsLoggedIn(HttpSessionStateBase Session)
-        {
+            {
             return WebSecurity.HasUserId &&
                 ContextProviderFactory.GetCurrent().CurrentUser(Session) != null &&
                 ContextProviderFactory.GetCurrent().CurrentRole(Session) != null;
-        }
+            }
 
         public static Boolean AllowEdit(HttpSessionStateBase Session, Type t)
-        {
+            {
             return Session != null &&
                 ContextProviderFactory.GetCurrent().CurrentRole(Session) != null &&
                 ContextProviderFactory.GetCurrent().GetModelPermissions(Session, t).Edit == true;
-        }
+            }
 
         public static Boolean AllowDeactivate(HttpSessionStateBase Session, Type t)
-        {
+            {
             return Session != null &&
                 ContextProviderFactory.GetCurrent().CurrentRole(Session) != null &&
                 ContextProviderFactory.GetCurrent().GetModelPermissions(Session, t).Deactivate == true;
-        }
+            }
 
         public static Boolean AllowCreate(HttpSessionStateBase Session, Type t)
-        {
+            {
             return Session != null &&
                 ContextProviderFactory.GetCurrent().CurrentRole(Session) != null &&
                 ContextProviderFactory.GetCurrent().GetModelPermissions(Session, t).Create == true;
-        }
+            }
 
         public static Boolean AllowView(HttpSessionStateBase Session, Type t)
-        {
+            {
             return Session != null &&
                 ContextProviderFactory.GetCurrent().CurrentRole(Session) != null &&
                 ContextProviderFactory.GetCurrent().GetModelPermissions(Session, t).View == true;
-        }
+            }
 
         public static Boolean AllowViewInactive(HttpSessionStateBase Session, Type t)
-        {
+            {
             return Session != null &&
                 ContextProviderFactory.GetCurrent().CurrentRole(Session) != null &&
                 ContextProviderFactory.GetCurrent().GetModelPermissions(Session, t).ViewInactive == true;
-        }
+            }
 
         public static Boolean AllowExport(HttpSessionStateBase Session, Type t)
-        {
+            {
             return Session != null &&
                 ContextProviderFactory.GetCurrent().CurrentRole(Session) != null &&
                 ContextProviderFactory.GetCurrent().GetModelPermissions(Session, t).Export == true;
-        }
+            }
 
 
         public static void HandleError(HttpContextBase HttpContext, Exception Ex)
-        {
+            {
             ModelContext Context = ContextProviderFactory.GetCurrent().GetContext(HttpContext.Session);
 
             if (Context.ContextTypes.Has(typeof(Singularity.Models.Error)))
-            {
-            DbSet<Singularity.Models.Error> ErrorsTable = Context.GetDBSet<Singularity.Models.Error>();
+                {
+                DbSet<Singularity.Models.Error> ErrorsTable = Context.GetDBSet<Singularity.Models.Error>();
 
                 try
-                {
-                Singularity.Models.Error Error = new Error();
+                    {
+                    Singularity.Models.Error Error = new Error();
                     Error.Message = Ex.Message;
                     Error.FullDetails = Ex.ToString();
                     Error.Created = DateTime.Now;
@@ -248,46 +249,46 @@ namespace Singularity.Controllers
                             e.URL == Error.URL &&
                                 //                            e.Created.Date == Error.Created.Date &&
                             e.Active == true).Count() > 0)
-                    {
+                        {
                         // Don't duplicate errors more than once per day.
                         return;
-                    }
+                        }
 
                     ErrorsTable.Add(Error);
                     Context.SaveChanges();
-                }
+                    }
                 catch
-                {
+                    {
 
+                    }
                 }
             }
-        }
 
         public static void WriteCSV(this HttpResponseBase Response, String[] CSVData, String FileName)
-        {
+            {
             Response.WriteCSV(CSVData.JoinLines(), FileName);
-        }
+            }
 
         public static void WriteCSV(this HttpResponseBase Response, String CSVData, String FileName)
-        {
+            {
             Response.Clear();
             Response.AddHeader("Content-Disposition", "attachment; filename=" + FileName + ".csv");
             Response.ContentType = "text/csv";
             Response.Write(CSVData);
             Response.End();
-        }
+            }
 
         public static void WriteCSV(this HttpResponseBase Response, StringWriter sw, String FileName)
-        {
+            {
             Response.Clear();
             Response.AddHeader("Content-Disposition", "attachment; filename=" + FileName + ".csv");
             Response.ContentType = "text/csv";
             Response.Write(sw);
             Response.End();
-        }
+            }
 
         public static void WriteFile(this HttpResponseBase Response, String FilePath)
-        {
+            {
             String FileName = Path.GetFileName(FilePath);
 
             if (!File.Exists(FilePath))
@@ -298,10 +299,10 @@ namespace Singularity.Controllers
             Response.AddHeader("Content-Length", new FileInfo(FilePath).Length.ToString());
             Response.WriteFile(FilePath);
             Response.End();
-        }
+            }
 
         public static void WritePDF(this HttpResponseBase Response, Byte[] PDF_Bytes, String FileName)
-        {
+            {
             Response.Clear();
             Response.AddHeader("Content-Disposition", "attachment; filename=" + FileName + "");
             Response.AddHeader("Content-Length", PDF_Bytes.Length.ToString());
@@ -309,7 +310,7 @@ namespace Singularity.Controllers
             Response.ContentType = "application/pdf";
             Response.BinaryWrite(PDF_Bytes);
             Response.End();
-        }
+            }
 
 
         public const String Script_Singularity = "~/Scripts/singularity";
@@ -328,11 +329,9 @@ namespace Singularity.Controllers
         public const String Script_MVCL_jQueryTimepicker = "~/bundles/mvcl/jquery.timepicker";
 
         public static void RegisterBundles(System.Web.Optimization.BundleCollection bundles, Boolean IncludedLib)
-        {
-
+            {
             String Root = IncludedLib ? "~/bin/" : "~/";
-
-
+            
             bundles.Add(new StyleBundle(Style_MVCL).Include(
                 Root + "Content/mvcl.css"));
 
@@ -384,7 +383,6 @@ namespace Singularity.Controllers
 
             bundles.Add(new ScriptBundle(Script_MVCL_jQueryTimepicker).Include(
                       "~/Scripts/jquery.timepicker.js"));
+            }
         }
-
     }
-}

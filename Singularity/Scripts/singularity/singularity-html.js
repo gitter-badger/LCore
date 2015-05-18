@@ -422,13 +422,17 @@ function InitFields() {
     $('.spinner-int').spinner();
     $('.select-list').selectmenu();
     $('.tab-container').tabs();
-    $('.spinner-money').spinner({
-        min: 0,
-        max: 1000000,
-        step: 1,
-        start: 1000,
-        numberFormat: "C"
-    });
+    try {
+        $('.spinner-money').spinner({
+            min: 0,
+            max: 1000000,
+            step: 1,
+            start: 1000,
+            numberFormat: "C"
+        });
+    }
+    catch (ex) {
+    }
     $("img[error-src]").error(function () {
         $(this).attr('src', $(this).attr('error-src'));
     });
