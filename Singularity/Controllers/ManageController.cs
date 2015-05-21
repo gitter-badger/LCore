@@ -504,7 +504,7 @@ namespace Singularity.Controllers
 
             if (Create)
                 {
-                IModel Model = typeof(T).New<T>();
+                IModel Model = GetModel(0, true, null);
 
                 return Edit(Model, ReturnURL, Create);
                 }
@@ -614,10 +614,7 @@ namespace Singularity.Controllers
                 }
 
 #warning Restrict access by Role Scope
-            IModel Model = typeof(T).New<T>();
-
-            if (Model.HasProperty(ControllerHelper.AutomaticFields.Active))
-                Model.SetProperty(ControllerHelper.AutomaticFields.Active, true);
+            IModel Model = GetModel(0, true, null);
 
             return Edit(Model, ReturnURL, Create: true);
             }

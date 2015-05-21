@@ -377,8 +377,9 @@ function InitKeyBindClick() {
         if (!commandName)
             return;
         if (keyCode.indexOf('+') > 0 && keyCode.indexOf('+') < keyCode.length - 1) {
-            var key1 = keyCode.substr(0, keyCode.indexOf('+')).tryToNumber(null);
-            var key2 = keyCode.substr(keyCode.indexOf('+') + 1).tryToNumber(null);
+            console.log(keyCode);
+            var key1 = StringTryToNumber(keyCode.substr(0, keyCode.indexOf('+')));
+            var key2 = StringTryToNumber(keyCode.substr(keyCode.indexOf('+') + 1));
             if (!key1)
                 key1 = keyCharToCode[keyCode.substr(0, keyCode.indexOf('+'))];
             if (!key2)
@@ -391,7 +392,7 @@ function InitKeyBindClick() {
             KeyBindTip += "<br>";
         }
         else {
-            var key1 = keyCode.tryToNumber(null);
+            var key1 = StringTryToNumber(keyCode);
             if (!key1)
                 key1 = keyCharToCode[keyCode];
             if (href)

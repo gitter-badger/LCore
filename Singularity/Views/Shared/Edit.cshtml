@@ -27,13 +27,13 @@
     IEnumerable<System.Web.ModelBinding.ModelMetadata> Fields = null;
 
     if (Model is IFieldGroups)
-    {
+        {
         Fields = ((IFieldGroups)Model).GetFieldGroup(Context, ViewType);
-    }
+        }
     else
-    {
+        {
         Fields = FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ViewType);
-    }
+        }
 }
 
 @model IModel
@@ -42,12 +42,12 @@
      focus-first="input[type=text]">
 
     @if (!String.IsNullOrEmpty(ViewBag.ReturnURL))
-    {
+        {
         <a class="btn btn-default right btn-warning" href="@ViewBag.ReturnURL">
             <glyph>&#xe091;</glyph>
             Cancel
         </a>
-    }
+        }
 
     <h1>
         @(ViewBag.Create ? "Create" : "Edit") @Model.GetFriendlyTypeName()
@@ -58,7 +58,7 @@
     </h2>
 
     @using (Html.BeginForm(ViewBag.Create ? (String)ViewBag.CreateActionName : (String)ViewBag.EditActionName, (String)ViewBag.ControllerName, (Object)ViewBag.Route_Edit, FormMethod.Post, new { @class = "edit-form" }))
-    {
+        {
         Boolean RequiredFields = false;
 
         Dictionary<String, List<System.Web.ModelBinding.ModelMetadata>> TabGroups = Fields.Group((m) =>
@@ -76,18 +76,18 @@
             @Html.ValidationSummary(true)
 
 
-            @if (TabGroups.Keys.Count > 0)
-            {
+            @if (IsTabView)
+                {
                 <div class="tab-container">
                     <ul>
                         @for (int i = 0; i < TabGroups.Keys.Count; i++)
-                        {
+                            {
                             <li>
                                 <a href="#tab-@(i+1)">
                                     @TabGroups.Keys.List()[i]
                                 </a>
                             </li>
-                        }
+                            }
                     </ul>
 
                     @{
@@ -95,41 +95,41 @@
                     }
 
                     @foreach (String s in TabGroups.Keys)
-                    {
+                        {
                         List<System.Web.ModelBinding.ModelMetadata> TabFields = TabGroups[s];
 
                         <div id="tab-@(j+1)">
 
                             @foreach (System.Web.ModelBinding.ModelMetadata Meta in TabFields)
-                            {
+                                {
                                 ViewField Field = new ViewField(Context, Model.TrueModelType(), Meta.PropertyName, Model, ViewType);
 
                                 if (Meta.IsRequired)
-                                {
+                                    {
                                     RequiredFields = true;
-                                }
+                                    }
 
                                 @Html.Partial(ControllerHelper.PartialViews.Field, Field)
-                            }
+                                }
                         </div>
                             j++;
-                    }
+                        }
                 </div>
-            }
+                }
             else
-            {
-                foreach (System.Web.ModelBinding.ModelMetadata Meta in Fields)
                 {
+                foreach (System.Web.ModelBinding.ModelMetadata Meta in Fields)
+                    {
                     ViewField Field = new ViewField(Context, Model.TrueModelType(), Meta.PropertyName, Model, ViewType);
 
                     if (Meta.IsRequired)
-                    {
+                        {
                         RequiredFields = true;
-                    }
+                        }
 
                     @Html.Partial(ControllerHelper.PartialViews.Field, Field)
+                    }
                 }
-            }
 
 
         </div>
@@ -137,7 +137,7 @@
         if (ViewBag.Create &&
             ViewBag.AllowAdminRandomize &&
             ContextProviderFactory.GetCurrent().CurrentUser(Session).IsAdmin == true)
-        {
+            {
             <div id="randomize-fields" class="btn btn-default left"
                  key-bind-click="Ctrl+R"
                  key-bind-click-name="Randomize">
@@ -146,13 +146,13 @@
                 </span>
                 Randomize
             </div>
-        }
+            }
 
 
         if (ViewContext.Controller is ManageController &&
             ((ManageController)ViewContext.Controller).OverridePermissions.Deactivate == true &&
             ControllerHelper.AllowDeactivate(Session, Model.TrueModelType()) && !ViewBag.Create)
-        {
+            {
             <div class="left">
                 <a href="@Url.Action((String)ViewBag.DeleteActionName,
                     (String)ViewBag.ControllerName, new { id = Model.GetID(), ReturnURL = ViewBag.ReturnURL })"
@@ -165,10 +165,10 @@
                     </span>
                 </a>
             </div>
-        }
+            }
 
         if (!String.IsNullOrEmpty(ViewBag.ReturnURL))
-        {
+            {
             <span class="right">
 
                 <a class="btn btn-default btn-warning"
@@ -188,13 +188,13 @@
                     Save
                 </a>
             </span>
-        }
+            }
 
         if (RequiredFields)
-        {
+            {
             <div class="required-fields">
                 * Some fields are required
             </div>
+            }
         }
-    }
 </div>

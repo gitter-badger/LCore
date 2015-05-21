@@ -5,6 +5,7 @@
 @using Singularity.Models;
 @using Singularity.Controllers;
 @using Singularity.Context;
+@using Singularity.Routes;
 @using System.Linq;
 @using System.Linq.Expressions;
 @using System.Collections;
@@ -28,7 +29,7 @@
         </p>
         @if (ControllerHelper.IsLoggedIn(Session))
             {
-            <a href="@Url.Action("SwitchContext", "Main") " class="context-switch" title="Switch Sites"></a>
+            <a href="@Url.Action("SwitchContext", "Main")" class="context-switch" title="Switch Sites"></a>
             }
     </div>
     <div class="float-right">
@@ -51,7 +52,7 @@
                             }))
                                 {
                             <li>
-                                <span>@Group.Key</span>
+                                @Html.Partial(PartialViews.TextContent, new TextContentViewModel("Menu_PageGroup_" + Group.Key, Group.Key))
                                 <ul>
                                     @foreach (ManageController Manage in Group)
                                         {
@@ -59,11 +60,23 @@
                                             ControllerHelper.AllowView(Session, Manage.ModelType))
                                             {
                                             <li>
-                                                @Html.ActionLink(Manage.MenuText, Manage.ManageActionName, Manage.Name)
+                                                @Html.Partial(PartialViews.TextContent,
+                                                new TextContentViewModel("Menu_PageLink_" + Group.Key,
+                                                    Html.ActionLink((String)TextContent.GetText(ViewBag.ContextProvider.GetContext(Session),
+                                                            "Menu_Page_" + Manage.MenuText,
+                                                            Manage.MenuText),
+                                                        Manage.ManageActionName,
+                                                        Manage.Name)))
                                             </li>
                                             }
                                         }
                                 </ul>
+
+
+
+
+
+
                             </li>
                                 }
                             }

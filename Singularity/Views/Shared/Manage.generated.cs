@@ -13,44 +13,44 @@ namespace ASP
 {
     using System;
     
-    #line 10 "..\..\Views\Shared\Manage.cshtml"
+    #line 11 "..\..\Views\Shared\Manage.cshtml"
     using System.Collections;
     
     #line default
     #line hidden
     
-    #line 11 "..\..\Views\Shared\Manage.cshtml"
+    #line 12 "..\..\Views\Shared\Manage.cshtml"
     using System.Collections.Generic;
     
     #line default
     #line hidden
     
-    #line 12 "..\..\Views\Shared\Manage.cshtml"
+    #line 13 "..\..\Views\Shared\Manage.cshtml"
     using System.ComponentModel;
     
     #line default
     #line hidden
     
-    #line 13 "..\..\Views\Shared\Manage.cshtml"
+    #line 14 "..\..\Views\Shared\Manage.cshtml"
     using System.ComponentModel.DataAnnotations;
     
     #line default
     #line hidden
     
-    #line 14 "..\..\Views\Shared\Manage.cshtml"
+    #line 15 "..\..\Views\Shared\Manage.cshtml"
     using System.ComponentModel.Design;
     
     #line default
     #line hidden
     using System.IO;
     
-    #line 8 "..\..\Views\Shared\Manage.cshtml"
+    #line 9 "..\..\Views\Shared\Manage.cshtml"
     using System.Linq;
     
     #line default
     #line hidden
     
-    #line 9 "..\..\Views\Shared\Manage.cshtml"
+    #line 10 "..\..\Views\Shared\Manage.cshtml"
     using System.Linq.Expressions;
     
     #line default
@@ -58,14 +58,14 @@ namespace ASP
     using System.Net;
     using System.Text;
     
-    #line 15 "..\..\Views\Shared\Manage.cshtml"
+    #line 16 "..\..\Views\Shared\Manage.cshtml"
     using System.Web;
     
     #line default
     #line hidden
     using System.Web.Helpers;
     
-    #line 16 "..\..\Views\Shared\Manage.cshtml"
+    #line 17 "..\..\Views\Shared\Manage.cshtml"
     using System.Web.Mvc;
     
     #line default
@@ -107,6 +107,12 @@ namespace ASP
     #line default
     #line hidden
     
+    #line 8 "..\..\Views\Shared\Manage.cshtml"
+    using Singularity.Routes;
+    
+    #line default
+    #line hidden
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/Manage.cshtml")]
     public partial class _Views_Shared_Manage_cshtml : System.Web.Mvc.WebViewPage<ManageViewModel>
@@ -134,6 +140,7 @@ WriteLiteral("\r\n\r\n");
 
 
 
+
 WriteLiteral("\r\n");
 
 
@@ -141,7 +148,7 @@ WriteLiteral("\r\n");
 
 
             
-            #line 20 "..\..\Views\Shared\Manage.cshtml"
+            #line 21 "..\..\Views\Shared\Manage.cshtml"
   
     ViewBag.Title = Model.Title;
 
@@ -149,7 +156,7 @@ WriteLiteral("\r\n");
 
     // So ManageRow can view ManageModel data
     ViewBag.ManageModel = Model;
-    
+
 
 
             
@@ -159,8 +166,8 @@ WriteLiteral("\r\n<h1>\r\n    ");
 
 
             
-            #line 31 "..\..\Views\Shared\Manage.cshtml"
-Write(Model.Title);
+            #line 32 "..\..\Views\Shared\Manage.cshtml"
+Write(Html.Partial(PartialViews.TextContent, new TextContentViewModel("Manage_Header_" + Model.FriendlyModelTypeName, Model.Title)));
 
             
             #line default
@@ -169,7 +176,7 @@ WriteLiteral("\r\n</h1>\r\n\r\n<div class=\"manage manage-");
 
 
             
-            #line 34 "..\..\Views\Shared\Manage.cshtml"
+            #line 35 "..\..\Views\Shared\Manage.cshtml"
                      Write(Model.ModelTypeCSSClass);
 
             
@@ -179,7 +186,7 @@ WriteLiteral("\" remember-page>\r\n\r\n");
 
 
             
-            #line 36 "..\..\Views\Shared\Manage.cshtml"
+            #line 37 "..\..\Views\Shared\Manage.cshtml"
      if (ViewContext.Controller is ManageController &&
         ((ManageController)ViewContext.Controller).OverridePermissions.Create == true)
         {
@@ -191,7 +198,7 @@ WriteLiteral("        <div>\r\n            <a href=\"");
 
 
             
-            #line 40 "..\..\Views\Shared\Manage.cshtml"
+            #line 41 "..\..\Views\Shared\Manage.cshtml"
                 Write(Url.Action(Model.Controller.CreateActionName,
                     Model.Controller.Name,
                     Model.Route_Create(Request)));
@@ -204,18 +211,18 @@ WriteLiteral("\"\r\n               key-bind-click=\"Numpad +\"\r\n              
 
 
             
-            #line 44 "..\..\Views\Shared\Manage.cshtml"
+            #line 45 "..\..\Views\Shared\Manage.cshtml"
                                    Write(Model.FriendlyModelTypeName);
 
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                <glyph>&#x2a;</glyph>\r\n                New ");
+WriteLiteral("\">\r\n                <glyph>&#x2a;</glyph>\r\n                ");
 
 
             
-            #line 46 "..\..\Views\Shared\Manage.cshtml"
-               Write(Model.FriendlyModelTypeName);
+            #line 47 "..\..\Views\Shared\Manage.cshtml"
+           Write(Html.Partial(PartialViews.TextContent, new TextContentViewModel("Manage_CreateNew_" + Model.FriendlyModelTypeName, "New " + Model.FriendlyModelTypeName)));
 
             
             #line default
@@ -224,8 +231,7 @@ WriteLiteral("\r\n            </a>\r\n        </div>\r\n");
 
 
             
-            #line 49 "..\..\Views\Shared\Manage.cshtml"
-
+            #line 50 "..\..\Views\Shared\Manage.cshtml"
         }
 
             
@@ -315,8 +321,17 @@ WriteLiteral("                    <tr>\r\n                        <td colspan=\"
             
             #line default
             #line hidden
-WriteLiteral("\" class=\"no-results center\">\r\n                            No results found\r\n     " +
-"                   </td>\r\n                    </tr>\r\n");
+WriteLiteral("\" class=\"no-results center\">\r\n                            ");
+
+
+            
+            #line 73 "..\..\Views\Shared\Manage.cshtml"
+                       Write(Html.Partial(PartialViews.TextContent, new TextContentViewModel("Manage_NoResults_" + Model.FriendlyModelTypeName, "No results found" + Model.FriendlyModelTypeName)));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                        </td>\r\n                    </tr>\r\n");
 
 
             
@@ -346,7 +361,7 @@ WriteLiteral("\" class=\"no-results center\">\r\n                            No 
             
             #line 87 "..\..\Views\Shared\Manage.cshtml"
                                                                                   
-                
+
                         if (Model.InlineEditID == m.GetID())
                             {
                             ViewBag.InlineEdit = false;

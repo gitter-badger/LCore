@@ -157,13 +157,13 @@ WriteLiteral("\r\n");
     IEnumerable<System.Web.ModelBinding.ModelMetadata> Fields = null;
 
     if (Model is IFieldGroups)
-    {
+        {
         Fields = ((IFieldGroups)Model).GetFieldGroup(Context, ViewType);
-    }
+        }
     else
-    {
+        {
         Fields = FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ViewType);
-    }
+        }
 
 
             
@@ -188,7 +188,7 @@ WriteLiteral(" wide-form\"\r\n     focus-first=\"input[type=text]\">\r\n\r\n");
             
             #line 44 "..\..\Views\Shared\Edit.cshtml"
      if (!String.IsNullOrEmpty(ViewBag.ReturnURL))
-    {
+        {
 
             
             #line default
@@ -208,7 +208,7 @@ WriteLiteral("\">\r\n            <glyph>&#xe091;</glyph>\r\n            Cancel\r
 
             
             #line 50 "..\..\Views\Shared\Edit.cshtml"
-    }
+        }
 
             
             #line default
@@ -249,7 +249,7 @@ WriteLiteral("\r\n    </h2>\r\n\r\n");
             
             #line 60 "..\..\Views\Shared\Edit.cshtml"
      using (Html.BeginForm(ViewBag.Create ? (String)ViewBag.CreateActionName : (String)ViewBag.EditActionName, (String)ViewBag.ControllerName, (Object)ViewBag.Route_Edit, FormMethod.Post, new { @class = "edit-form" }))
-    {
+        {
         Boolean RequiredFields = false;
 
         Dictionary<String, List<System.Web.ModelBinding.ModelMetadata>> TabGroups = Fields.Group((m) =>
@@ -301,8 +301,8 @@ WriteLiteral("\r\n\r\n\r\n");
 
             
             #line 79 "..\..\Views\Shared\Edit.cshtml"
-             if (TabGroups.Keys.Count > 0)
-            {
+             if (IsTabView)
+                {
 
             
             #line default
@@ -313,7 +313,7 @@ WriteLiteral("                <div class=\"tab-container\">\r\n                 
             
             #line 83 "..\..\Views\Shared\Edit.cshtml"
                          for (int i = 0; i < TabGroups.Keys.Count; i++)
-                        {
+                            {
 
             
             #line default
@@ -343,7 +343,7 @@ WriteLiteral("\r\n                                </a>\r\n                      
 
             
             #line 90 "..\..\Views\Shared\Edit.cshtml"
-                        }
+                            }
 
             
             #line default
@@ -366,7 +366,7 @@ WriteLiteral("\r\n");
             
             #line 97 "..\..\Views\Shared\Edit.cshtml"
                      foreach (String s in TabGroups.Keys)
-                    {
+                        {
                         List<System.Web.ModelBinding.ModelMetadata> TabFields = TabGroups[s];
 
 
@@ -389,13 +389,13 @@ WriteLiteral("\">\r\n\r\n");
             
             #line 103 "..\..\Views\Shared\Edit.cshtml"
                              foreach (System.Web.ModelBinding.ModelMetadata Meta in TabFields)
-                            {
+                                {
                                 ViewField Field = new ViewField(Context, Model.TrueModelType(), Meta.PropertyName, Model, ViewType);
 
                                 if (Meta.IsRequired)
-                                {
+                                    {
                                     RequiredFields = true;
-                                }
+                                    }
 
                                 
             
@@ -411,7 +411,7 @@ WriteLiteral("\">\r\n\r\n");
             
             #line 112 "..\..\Views\Shared\Edit.cshtml"
                                                                                          
-                            }
+                                }
 
             
             #line default
@@ -422,7 +422,7 @@ WriteLiteral("                        </div>\r\n");
             
             #line 115 "..\..\Views\Shared\Edit.cshtml"
                             j++;
-                    }
+                        }
 
             
             #line default
@@ -432,17 +432,17 @@ WriteLiteral("                </div>\r\n");
 
             
             #line 118 "..\..\Views\Shared\Edit.cshtml"
-            }
+                }
             else
-            {
-                foreach (System.Web.ModelBinding.ModelMetadata Meta in Fields)
                 {
+                foreach (System.Web.ModelBinding.ModelMetadata Meta in Fields)
+                    {
                     ViewField Field = new ViewField(Context, Model.TrueModelType(), Meta.PropertyName, Model, ViewType);
 
                     if (Meta.IsRequired)
-                    {
+                        {
                         RequiredFields = true;
-                    }
+                        }
 
                     
             
@@ -458,8 +458,8 @@ WriteLiteral("                </div>\r\n");
             
             #line 130 "..\..\Views\Shared\Edit.cshtml"
                                                                              
+                    }
                 }
-            }
 
             
             #line default
@@ -473,7 +473,7 @@ WriteLiteral("\r\n\r\n        </div>\r\n");
         if (ViewBag.Create &&
             ViewBag.AllowAdminRandomize &&
             ContextProviderFactory.GetCurrent().CurrentUser(Session).IsAdmin == true)
-        {
+            {
 
             
             #line default
@@ -491,13 +491,13 @@ WriteLiteral(@"            <div id=""randomize-fields"" class=""btn btn-default 
 
             
             #line 149 "..\..\Views\Shared\Edit.cshtml"
-        }
+            }
 
 
         if (ViewContext.Controller is ManageController &&
             ((ManageController)ViewContext.Controller).OverridePermissions.Deactivate == true &&
             ControllerHelper.AllowDeactivate(Session, Model.TrueModelType()) && !ViewBag.Create)
-        {
+            {
 
             
             #line default
@@ -528,10 +528,10 @@ WriteLiteral(@"""
 
             
             #line 168 "..\..\Views\Shared\Edit.cshtml"
-        }
+            }
 
         if (!String.IsNullOrEmpty(ViewBag.ReturnURL))
-        {
+            {
 
             
             #line default
@@ -568,10 +568,10 @@ WriteLiteral(@"""
 
             
             #line 191 "..\..\Views\Shared\Edit.cshtml"
-        }
+            }
 
         if (RequiredFields)
-        {
+            {
 
             
             #line default
@@ -582,8 +582,8 @@ WriteLiteral("            <div class=\"required-fields\">\r\n                * S
 
             
             #line 198 "..\..\Views\Shared\Edit.cshtml"
+            }
         }
-    }
 
             
             #line default

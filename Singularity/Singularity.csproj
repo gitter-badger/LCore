@@ -23,6 +23,8 @@
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkProfile />
     <TypeScriptToolsVersion>1.4</TypeScriptToolsVersion>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">C:\Users\Ben\documents\visual studio 2013\Projects\MvcApplication1\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -253,6 +255,7 @@
     <Compile Include="Context\ContextProviderFactory.cs" />
     <Compile Include="Controllers\ControllerHelper.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\TextContentController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -270,6 +273,8 @@
     <Compile Include="Interfaces\IFileUpload.cs" />
     <Compile Include="Interfaces\IModel.cs" />
     <Compile Include="Interfaces\IViewField.cs" />
+    <Compile Include="Models\TextContentViewModel.cs" />
+    <Compile Include="Models\TextContent.cs" />
     <Compile Include="Models\Error.cs" />
     <Compile Include="Models\FileUpload.cs" />
     <Compile Include="Models\ManageViewModel.cs" />
@@ -290,6 +295,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HTMLContent.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\_TextContent1.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_TextContent.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Test\SingularityTest1.generated.cs">
       <AutoGen>True</AutoGen>
@@ -614,6 +624,10 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>HTMLContent1.generated.cs</LastGenOutput>
     </Content>
+    <Content Include="Views\Shared\_TextContent.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_TextContent1.generated.cs</LastGenOutput>
+    </Content>
     <TypeScriptCompile Include="Scripts\definitions\jquery.mobile.custom.d.ts" />
     <Content Include="Scripts\jquery-mobile\images\ajax-loader.gif" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -698,22 +712,54 @@
     <TypeScriptCompile Include="Scripts\definitions\jquery.cookie.d.ts" />
     <Content Include="Scripts\mvcl.js" />
     <Content Include="Scripts\jquery-mobile\jquery-mobile-1.4.5.min.css" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-enumerable.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-log.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-templates.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-regexp.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-text-bbcode.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-doc.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-object.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-tests.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-html.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-jquery.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-js-boolean.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-js-number.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-js-string.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-js-date.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-js-function.ts" />
-    <TypeScriptCompile Include="Scripts\singularity\singularity-js-array.ts" />
+    <TypeScriptCompile Include="Scripts\singularity\singularity-enumerable.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-log.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-templates.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-regexp.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-text-bbcode.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-doc.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-object.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-tests.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-html.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-jquery.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-js-boolean.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-js-number.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-js-string.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-js-date.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-js-function.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\singularity\singularity-js-array.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </TypeScriptCompile>
     <Content Include="Scripts\qTip.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -944,7 +990,7 @@
     <TypeScriptCompile Include="Scripts\definitions\jqueryui.d.ts" />
     <TypeScriptCompile Include="Scripts\definitions\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\singularity\singularity-core.ts">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </TypeScriptCompile>
   </ItemGroup>
   <PropertyGroup>
@@ -976,6 +1022,13 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

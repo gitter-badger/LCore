@@ -1,0 +1,72 @@
+﻿@* Generator: MvcView *@
+
+@using LCore;
+@using Singularity;
+@using Singularity.Models;
+@using Singularity.Controllers;
+@using Singularity.Context;
+@using System.Linq;
+@using System.Linq.Expressions;
+@using System.Collections;
+@using System.Collections.Generic;
+@using System.ComponentModel;
+@using System.ComponentModel.DataAnnotations;
+@using System.ComponentModel.Design;
+@using System.Web;
+@using System.Web.Mvc;
+
+@{
+    String Token = Model.Token ?? "";
+
+    Token = Token.ReplaceAll(" ", "");
+
+    ContextProvider ContextProvider = ContextProviderFactory.GetCurrent();
+    ModelContext Context = ContextProvider.GetContext(Session);
+
+    TextContent Content = Context.GetDBSet<TextContent>().Where(t => t.Token == Token && t.Active == true).FirstOrDefault();
+
+    ModelPermissions Permissions = ContextProvider.GetModelPermissions(Session, typeof(TextContent));
+
+    // TODO implement ContextData
+
+    String Display = Content != null ? Content.Text : Model.DefaultText;
+    Display = Display ?? "";
+
+    for (int i = 0; i < Model.ContextData.Length; i++)
+        {
+        Display = Display.ReplaceAll("[" + i + "]", (Model.ContextData[i] ?? "").ToString());
+        }
+        
+    Display = Display.ReplaceAll("\r\n", "<br>");
+}
+
+@model TextContentViewModel
+
+@if (Content != null)
+    {
+    <span class="text-content-custom">
+        @Html.Raw(Display)
+        @if (Permissions.Edit == true)
+            {
+            <span class="text-content-edit">
+                <a href="@Url.Action("Edit", "TextContent", new { id = Content.GetID(), ReturnURL = Request.Url, Token = Token, DefaultText = Model.DefaultText })" class="btn btn-default">
+                    <glyph>&#xe065;</glyph>
+                </a>
+            </span>
+            }
+    </span>
+    }
+else
+    {
+    <span class="text-content-default">
+        @Html.Raw(Display)
+        @if (Permissions.Create == true)
+            {
+            <span class="text-content-create">
+                <a href="@Url.Action("Create", "TextContent", new { ReturnURL = Request.Url, Token = Token, DefaultText = Model.DefaultText })" class="btn btn-default">
+                    <glyph>&#xe065;</glyph>
+                </a>
+            </span>
+            }
+    </span>
+    }

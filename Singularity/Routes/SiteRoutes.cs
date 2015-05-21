@@ -57,5 +57,7 @@ namespace Singularity.Routes
         public const String Manage_Pagination = "_Manage_Pagination";
         public const String Manage_Row = "_Manage_Row";
         public const String Manage_Search = "_Manage_Search";
+
+        public const String TextContent = "_TextContent";
     }
 }

@@ -4,6 +4,7 @@
 @using Singularity;
 @using Singularity.Models;
 @using Singularity.Controllers;
+@using Singularity.Routes;
 @using System.Linq;
 @using System.Linq.Expressions;
 @using System.Collections;
@@ -19,18 +20,17 @@
 
 @{
     ViewBag.PaginationCount = (ViewBag.PaginationCount == null ? 0 : (int)ViewBag.PaginationCount) + 1;
+
+    String ShowingStart = ((Model.Page * Model.Controller.RowsPerPage) + 1).ToString("N0");
+    String ShowingEnd = (((Model.Page * Model.Controller.RowsPerPage) + Model.Models.Count).ToString("N0"));
+    String ShowingTotal = Model.TotalItems.ToString("N0");
 }
 
 <div class="manage-pagination">
     @if (Model.TotalItems > 0)
         {
         <div class="pagination-visible-items">
-            Showing results
-            @(((Model.Page * Model.Controller.RowsPerPage) + 1).ToString("N0"))
-            -
-            @(((Model.Page * Model.Controller.RowsPerPage) + Model.Models.Count).ToString("N0"))
-            of
-            @Model.TotalItems.ToString("N0")
+            @Html.Partial(PartialViews.TextContent, new TextContentViewModel("Manage_Pagination_Results_" + Model.FriendlyModelTypeName, "Showing results [0] - [1] of [2]", new Object[] { ShowingStart, ShowingEnd, ShowingTotal }))
         </div>
         }
 
@@ -44,13 +44,13 @@
             </span>
         </a>
 
-    <a href="@Url.Action(Model.Controller.ManageActionName, Model.Controller.Name, Model.Route_Page(Model.Page))"
-       key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+Left" : null)"
-       key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "Previous Page" : null)">
-        <span class="page-previous">
-            @Model.PreviousPageText
-        </span>
-    </a>
+        <a href="@Url.Action(Model.Controller.ManageActionName, Model.Controller.Name, Model.Route_Page(Model.Page))"
+           key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+Left" : null)"
+           key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "Previous Page" : null)">
+            <span class="page-previous">
+                @Model.PreviousPageText
+            </span>
+        </a>
         }
     else if (Model.AlwaysShowPaginationFirstLast)
         {
@@ -91,28 +91,28 @@
             }
         else
             {
-            <span>No Results</span>
+            @Html.Partial(PartialViews.TextContent, new TextContentViewModel("Manage_Pagination_NoResults_" + Model.FriendlyModelTypeName, "No Results"))
             }
     </span>
 
     @if (Model.Page + 1 != Model.TotalPages)
-    {
-    <a href="@Url.Action(Model.Controller.ManageActionName, Model.Controller.Name, Model.Route_Page(Model.Page + 2))"
-       key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+Right" : null)"
-       key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "Next Page" : null)">
-        <span class="page-next">
-            @Model.NextPageText
-        </span>
-    </a>
+        {
+        <a href="@Url.Action(Model.Controller.ManageActionName, Model.Controller.Name, Model.Route_Page(Model.Page + 2))"
+           key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+Right" : null)"
+           key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "Next Page" : null)">
+            <span class="page-next">
+                @Model.NextPageText
+            </span>
+        </a>
 
-    <a href="@Url.Action(Model.Controller.ManageActionName, Model.Controller.Name, Model.Route_Page(Model.TotalPages))"
-       key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+End" : null)"
-       key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "Last Page" : null)">
-        <span class="page-last">
-            @Model.LastPageText
-        </span>
-    </a>
-    }
+        <a href="@Url.Action(Model.Controller.ManageActionName, Model.Controller.Name, Model.Route_Page(Model.TotalPages))"
+           key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+End" : null)"
+           key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "Last Page" : null)">
+            <span class="page-last">
+                @Model.LastPageText
+            </span>
+        </a>
+        }
     else if (Model.AlwaysShowPaginationFirstLast)
         {
         <span class="page-next">

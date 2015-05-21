@@ -5,6 +5,7 @@
 @using Singularity.Models;
 @using Singularity.Controllers;
 @using Singularity.Context;
+@using Singularity.Routes;
 @using System.Linq;
 @using System.Linq.Expressions;
 @using System.Collections;
@@ -24,11 +25,11 @@
 
     // So ManageRow can view ManageModel data
     ViewBag.ManageModel = Model;
-    
+
 }
 
 <h1>
-    @Model.Title
+    @Html.Partial(PartialViews.TextContent, new TextContentViewModel("Manage_Header_" + Model.FriendlyModelTypeName, Model.Title))
 </h1>
 
 <div class="manage manage-@Model.ModelTypeCSSClass" remember-page>
@@ -43,10 +44,9 @@
                key-bind-click="Numpad +"
                key-bind-click-name="New @Model.FriendlyModelTypeName">
                 <glyph>&#x2a;</glyph>
-                New @Model.FriendlyModelTypeName
+                @Html.Partial(PartialViews.TextContent, new TextContentViewModel("Manage_CreateNew_" + Model.FriendlyModelTypeName, "New " + Model.FriendlyModelTypeName))
             </a>
         </div>
-
         }
 
     @Html.Partial(ControllerHelper.PartialViews.Manage_Pagination, Model)
@@ -70,7 +70,7 @@
                     {
                     <tr>
                         <td colspan="@(Model.GetVisibleColumns().Count + 3)" class="no-results center">
-                            No results found
+                            @Html.Partial(PartialViews.TextContent, new TextContentViewModel("Manage_NoResults_" + Model.FriendlyModelTypeName, "No results found" + Model.FriendlyModelTypeName))
                         </td>
                     </tr>
                     }
@@ -85,7 +85,7 @@
                             }
 
                         @Html.Partial(ControllerHelper.PartialViews.Manage_Row, m)
-                
+
                         if (Model.InlineEditID == m.GetID())
                             {
                             ViewBag.InlineEdit = false;

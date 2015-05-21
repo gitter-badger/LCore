@@ -13,44 +13,44 @@ namespace ASP
 {
     using System;
     
-    #line 10 "..\..\Views\Shared\_Menu.cshtml"
+    #line 11 "..\..\Views\Shared\_Menu.cshtml"
     using System.Collections;
     
     #line default
     #line hidden
     
-    #line 11 "..\..\Views\Shared\_Menu.cshtml"
+    #line 12 "..\..\Views\Shared\_Menu.cshtml"
     using System.Collections.Generic;
     
     #line default
     #line hidden
     
-    #line 12 "..\..\Views\Shared\_Menu.cshtml"
+    #line 13 "..\..\Views\Shared\_Menu.cshtml"
     using System.ComponentModel;
     
     #line default
     #line hidden
     
-    #line 13 "..\..\Views\Shared\_Menu.cshtml"
+    #line 14 "..\..\Views\Shared\_Menu.cshtml"
     using System.ComponentModel.DataAnnotations;
     
     #line default
     #line hidden
     
-    #line 14 "..\..\Views\Shared\_Menu.cshtml"
+    #line 15 "..\..\Views\Shared\_Menu.cshtml"
     using System.ComponentModel.Design;
     
     #line default
     #line hidden
     using System.IO;
     
-    #line 8 "..\..\Views\Shared\_Menu.cshtml"
+    #line 9 "..\..\Views\Shared\_Menu.cshtml"
     using System.Linq;
     
     #line default
     #line hidden
     
-    #line 9 "..\..\Views\Shared\_Menu.cshtml"
+    #line 10 "..\..\Views\Shared\_Menu.cshtml"
     using System.Linq.Expressions;
     
     #line default
@@ -58,14 +58,14 @@ namespace ASP
     using System.Net;
     using System.Text;
     
-    #line 15 "..\..\Views\Shared\_Menu.cshtml"
+    #line 16 "..\..\Views\Shared\_Menu.cshtml"
     using System.Web;
     
     #line default
     #line hidden
     using System.Web.Helpers;
     
-    #line 16 "..\..\Views\Shared\_Menu.cshtml"
+    #line 17 "..\..\Views\Shared\_Menu.cshtml"
     using System.Web.Mvc;
     
     #line default
@@ -107,6 +107,12 @@ namespace ASP
     #line default
     #line hidden
     
+    #line 8 "..\..\Views\Shared\_Menu.cshtml"
+    using Singularity.Routes;
+    
+    #line default
+    #line hidden
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/_Menu.cshtml")]
     public partial class _Views_Shared__Menu_cshtml : System.Web.Mvc.WebViewPage<dynamic>
@@ -134,11 +140,12 @@ WriteLiteral("\r\n\r\n");
 
 
 
+
 WriteLiteral("\r\n");
 
 
             
-            #line 18 "..\..\Views\Shared\_Menu.cshtml"
+            #line 19 "..\..\Views\Shared\_Menu.cshtml"
   
 
 
@@ -151,7 +158,7 @@ WriteLiteral("\r\n<div class=\"content-wrapper\">\r\n    <div class=\"float-left
 
 
             
-            #line 25 "..\..\Views\Shared\_Menu.cshtml"
+            #line 26 "..\..\Views\Shared\_Menu.cshtml"
                 Write(Url.Action("Index", "Home"));
 
             
@@ -161,7 +168,7 @@ WriteLiteral(")\">\r\n                <img id=\"logo\" src=\"");
 
 
             
-            #line 26 "..\..\Views\Shared\_Menu.cshtml"
+            #line 27 "..\..\Views\Shared\_Menu.cshtml"
                                Write(ViewBag.ContextProvider.GetContext(Session).GetLogoURL());
 
             
@@ -171,7 +178,7 @@ WriteLiteral("\" />\r\n            </a>\r\n        </p>\r\n");
 
 
             
-            #line 29 "..\..\Views\Shared\_Menu.cshtml"
+            #line 30 "..\..\Views\Shared\_Menu.cshtml"
          if (ControllerHelper.IsLoggedIn(Session))
             {
 
@@ -182,17 +189,17 @@ WriteLiteral("            <a href=\"");
 
 
             
-            #line 31 "..\..\Views\Shared\_Menu.cshtml"
+            #line 32 "..\..\Views\Shared\_Menu.cshtml"
                 Write(Url.Action("SwitchContext", "Main"));
 
             
             #line default
             #line hidden
-WriteLiteral(" \" class=\"context-switch\" title=\"Switch Sites\"></a>\r\n");
+WriteLiteral("\" class=\"context-switch\" title=\"Switch Sites\"></a>\r\n");
 
 
             
-            #line 32 "..\..\Views\Shared\_Menu.cshtml"
+            #line 33 "..\..\Views\Shared\_Menu.cshtml"
             }
 
             
@@ -203,7 +210,7 @@ WriteLiteral("    </div>\r\n    <div class=\"float-right\">\r\n        <section 
 
 
             
-            #line 36 "..\..\Views\Shared\_Menu.cshtml"
+            #line 37 "..\..\Views\Shared\_Menu.cshtml"
        Write(Html.Partial(ControllerHelper.PartialViews.Login));
 
             
@@ -214,7 +221,7 @@ WriteLiteral("\r\n        </section>\r\n        <nav>\r\n            <ul id=\"me
 
 
             
-            #line 41 "..\..\Views\Shared\_Menu.cshtml"
+            #line 42 "..\..\Views\Shared\_Menu.cshtml"
                Write(Html.ActionLink("Home", "Index", "Home"));
 
             
@@ -224,7 +231,7 @@ WriteLiteral("\r\n\r\n");
 
 
             
-            #line 43 "..\..\Views\Shared\_Menu.cshtml"
+            #line 44 "..\..\Views\Shared\_Menu.cshtml"
                      if (ControllerHelper.IsLoggedIn(Session))
                         {
                         foreach (IGrouping<String, ManageController> Group in ContextProviderFactory.GetCurrent().AllManageControllers(Session).GroupBy(m => m.PageGroup))
@@ -239,21 +246,21 @@ WriteLiteral("\r\n\r\n");
             
             #line default
             #line hidden
-WriteLiteral("                            <li>\r\n                                <span>");
+WriteLiteral("                            <li>\r\n                                ");
 
 
             
-            #line 54 "..\..\Views\Shared\_Menu.cshtml"
-                                 Write(Group.Key);
+            #line 55 "..\..\Views\Shared\_Menu.cshtml"
+                           Write(Html.Partial(PartialViews.TextContent, new TextContentViewModel("Menu_PageGroup_" + Group.Key, Group.Key)));
 
             
             #line default
             #line hidden
-WriteLiteral("</span>\r\n                                <ul>\r\n");
+WriteLiteral("\r\n                                <ul>\r\n");
 
 
             
-            #line 56 "..\..\Views\Shared\_Menu.cshtml"
+            #line 57 "..\..\Views\Shared\_Menu.cshtml"
                                      foreach (ManageController Manage in Group)
                                         {
                                         if (Manage.OverridePermissions.View == true &&
@@ -268,8 +275,14 @@ WriteLiteral("                                            <li>\r\n              
 
 
             
-            #line 62 "..\..\Views\Shared\_Menu.cshtml"
-                                           Write(Html.ActionLink(Manage.MenuText, Manage.ManageActionName, Manage.Name));
+            #line 63 "..\..\Views\Shared\_Menu.cshtml"
+                                           Write(Html.Partial(PartialViews.TextContent,
+                                                new TextContentViewModel("Menu_PageLink_" + Group.Key,
+                                                    Html.ActionLink((String)TextContent.GetText(ViewBag.ContextProvider.GetContext(Session),
+                                                            "Menu_Page_" + Manage.MenuText,
+                                                            Manage.MenuText),
+                                                        Manage.ManageActionName,
+                                                        Manage.Name))));
 
             
             #line default
@@ -278,18 +291,19 @@ WriteLiteral("\r\n                                            </li>\r\n");
 
 
             
-            #line 64 "..\..\Views\Shared\_Menu.cshtml"
+            #line 71 "..\..\Views\Shared\_Menu.cshtml"
                                             }
                                         }
 
             
             #line default
             #line hidden
-WriteLiteral("                                </ul>\r\n                            </li>\r\n");
+WriteLiteral("                                </ul>\r\n\r\n\r\n\r\n\r\n\r\n\r\n                            </" +
+"li>\r\n");
 
 
             
-            #line 68 "..\..\Views\Shared\_Menu.cshtml"
+            #line 81 "..\..\Views\Shared\_Menu.cshtml"
                                 }
                             }
                         }
