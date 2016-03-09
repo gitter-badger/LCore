@@ -6,7 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Owin;
 using Singularity.Models;
 
-namespace Singularity
+namespace Singularity.Config
 {
     public partial class Startup
     {

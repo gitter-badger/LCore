@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.ModelBinding;
+using System.Web.Mvc;
 
-namespace Singularity
+namespace Singularity.Annotations
     {
     public abstract class AdditionalValueAttribute : Attribute, IMetadataAware
         {

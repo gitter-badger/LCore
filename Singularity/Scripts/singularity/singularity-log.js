@@ -1,7 +1,9 @@
+/// <reference path="singularity-core.ts"/>
 var LOGGING_INFO_ENABLED = false;
 var LOGGING_ERROR_ENABLED = true;
 var LOGGING_WARNING_ENABLED = true;
 var singLog = singCore.addModule(new sing.Module('Logging', sing, sing));
+singLog.glyphIcon = '&#xe105;';
 singLog.ignoreUnknown('ALL');
 function log() {
     var message = [];
@@ -81,7 +83,7 @@ function warn() {
     for (var _i = 0; _i < arguments.length; _i++) {
         message[_i - 0] = arguments[_i];
     }
-    if (LOGGING_ERROR_ENABLED) {
+    if (LOGGING_WARNING_ENABLED) {
         if ($.toStr && $.resolve)
             console.log('%c' + $.toStr($.resolve(message), true), 'background: #555; color: #F7DAA3');
         else
@@ -111,7 +113,6 @@ function error() {
     }
     if (LOGGING_ERROR_ENABLED) {
         console.log(message);
-        console.trace();
     }
 }
 singLog.method('error', ArrayError, {}, Array.prototype, "Array");

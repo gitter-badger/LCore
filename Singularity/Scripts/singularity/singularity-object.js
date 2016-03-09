@@ -1,4 +1,6 @@
+/// <reference path="singularity-core.ts"/>
 var singObject = singExt.addModule(new sing.Module("Object", $, $));
+singObject.glyphIcon = '&#xe165;';
 singObject.srcLink = '/Scripts/singularity/singularity-object.ts';
 singObject.ignoreUnknown('ALL');
 singObject.method('objEach', ObjectEach, {
@@ -7,6 +9,7 @@ singObject.method('objEach', ObjectEach, {
     returns: '',
     returnType: '',
     examples: null,
+    glyphIcon: '&#xe153;',
     tests: function (ext) {
         ext.addCustomTest(function () {
             var test = { a: 1, b: 2 };
@@ -31,6 +34,7 @@ singObject.method('objProperties', ObjectProperties, {
     returns: '',
     returnType: '',
     examples: null,
+    glyphIcon: '&#xe056;',
     tests: function (ext) {
         ext.addTest($, [null], []);
         ext.addTest($, [undefined], []);
@@ -57,6 +61,7 @@ singObject.method('objValues', ObjectValues, {
     returns: '',
     returnType: '',
     examples: null,
+    glyphIcon: '&#xe055;',
     tests: function (ext) {
         ext.addTest($, [null], []);
         ext.addTest($, [undefined], []);
@@ -96,6 +101,7 @@ singObject.method('arrayValues', ArrayFindValues, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe055;',
     tests: function (ext) {
         ext.addTest([], [null], []);
         ext.addTest([], [undefined], []);
@@ -147,6 +153,7 @@ singObject.method('objKeys', ObjectKeys, {
     returns: '',
     returnType: '',
     examples: null,
+    glyphIcon: 'icon-keys',
     tests: function (ext) {
         ext.addTest($, [null], []);
         ext.addTest($, [undefined], []);
@@ -157,7 +164,7 @@ singObject.method('objKeys', ObjectKeys, {
         ext.addTest($, [{}], []);
         ext.addTest($, [{ a: 1, b: 2 }], ['a', 'b']);
     },
-});
+}, $);
 function ObjectKeys(obj) {
     if (obj == null || !(typeof obj == 'object'))
         return [];
@@ -171,6 +178,7 @@ singObject.method('objHasKey', ObjectHasKey, {
     returns: '',
     returnType: '',
     examples: null,
+    glyphIcon: '&#xe003;',
     tests: function (ext) {
         ext.addTest(null, [], false);
         ext.addTest(null, [null, 'a'], false);
@@ -190,6 +198,7 @@ singObject.method('resolve', ObjectResolve, {
     returns: '',
     returnType: '',
     examples: null,
+    glyphIcon: '&#xe162;',
     tests: function (ext) {
         ext.addTest($, [5], 5);
         ext.addTest($, ['aa'], 'aa');
@@ -219,6 +228,7 @@ singObject.method('isDefined', ObjectDefined, {
     returns: '',
     returnType: '',
     examples: null,
+    glyphIcon: '&#xe003;',
     tests: function (ext) {
         ext.addTest(null, [undefined], false);
         ext.addTest(null, [null], false);
@@ -241,6 +251,7 @@ singObject.method('isHash', ObjectIsHash, {
     returns: '',
     returnType: '',
     examples: null,
+    glyphIcon: 'icon-show-thumbnails',
     tests: function (ext) {
         ext.addTest(null, [undefined], false);
         ext.addTest(null, [null], false);
@@ -267,6 +278,7 @@ singObject.method('clone', ArrayClone, {
     returns: '',
     returnType: '',
     examples: null,
+    glyphIcon: '&#xe224;',
     tests: function (ext) {
         ext.addTest([], [], []);
         ext.addTest([undefined], [], []);
@@ -294,6 +306,7 @@ function ArrayClone(deepClone) {
     }
 }
 singObject.method('clone', NumberClone, {
+    glyphIcon: '&#xe224;',
     tests: function (ext) {
         ext.addTest(0, [], 0);
         ext.addTest(1, [], 1);
@@ -313,6 +326,7 @@ function NumberClone() {
     return this.valueOf();
 }
 singObject.method('clone', BooleanClone, {
+    glyphIcon: '&#xe224;',
     tests: function (ext) {
         ext.addTest(false, [], false);
         ext.addTest(true, [], true);
@@ -329,6 +343,7 @@ function BooleanClone() {
     return this.valueOf();
 }
 singObject.method('clone', StringClone, {
+    glyphIcon: '&#xe224;',
     tests: function (ext) {
         ext.addTest('', [], '');
         ext.addTest('a', [], 'a');
@@ -345,6 +360,7 @@ function StringClone() {
     return this.valueOf();
 }
 singObject.method('clone', DateClone, {
+    glyphIcon: '&#xe224;',
     tests: function (ext) {
         var testDate = new Date();
         ext.addTest(testDate, [], testDate);
@@ -354,6 +370,10 @@ singObject.method('clone', DateClone, {
             src2.setMinutes(0);
             src2.setSeconds(0);
             src2.setMilliseconds(777);
+            // This has 1/360,000 probability of failing
+            // if (src.getMinutes() == 0 && src.getSeconds() == 0 && src.getMilliseconds() == 777)
+            //    return 'Same date was returned';
+            // This has 1/60 probability of failing
             if (src.getSeconds() == 0)
                 return 'Same date was returned';
         }, 'Dates must be clones, not the source date');
@@ -363,6 +383,7 @@ function DateClone() {
     return new Date(this.valueOf());
 }
 singObject.method('clone', ObjectClone, {
+    glyphIcon: '&#xe224;',
     tests: function (ext) {
         ext.addTest($, [0], 0);
         ext.addTest($, [1], 1);
@@ -387,19 +408,21 @@ function ObjectClone(obj, deepClone) {
     if (obj.clone !== ObjectClone && $.isFunction(obj.clone))
         return obj.clone(deepClone);
     var out = {};
+    var key;
     if (deepClone) {
-        for (var key in $.objKeys(obj)) {
+        for (key in $.objKeys(obj)) {
             out[key] = obj[key];
         }
     }
     else {
-        for (var key in $.objKeys(obj)) {
+        for (key in $.objKeys(obj)) {
             out[key] = $.clone(obj[key]);
         }
     }
     return out;
 }
 singObject.method('isEmpty', ObjectIsEmpty, {
+    glyphIcon: '&#xe118;',
     tests: function (ext) {
         ext.addTest($, [0], false);
         ext.addTest($, [1], false);
@@ -428,6 +451,7 @@ function ObjectIsEmpty(obj) {
     }));
 }
 singObject.method('typeName', ObjectTypeName, {
+    glyphIcon: '&#xe041;',
     tests: function (ext) {
         ext.addTest($, [0], 'Number');
         ext.addTest($, [1], 'Number');

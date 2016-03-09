@@ -161,47 +161,37 @@ WriteLiteral("\r\n");
 
             
             #line 25 "..\..\Views\Shared\Fields\View\DisplayColumn.cshtml"
- if (Model.PropertyData.ToString().Length > ManageController.DefaultTableTextLength)
+ if (Model.PropertyData.ToString().Length > ControllerHelper.DefaultTableTextLength)
     {
 
             
             #line default
             #line hidden
-WriteLiteral("    <a title=\"");
+WriteLiteral("    <span title=\"");
 
 
             
             #line 27 "..\..\Views\Shared\Fields\View\DisplayColumn.cshtml"
-         Write(Model.PropertyData.ToString());
+            Write(Model.PropertyData.ToString());
 
             
             #line default
             #line hidden
-WriteLiteral("\" href=\"");
+WriteLiteral("\">\r\n        ");
 
 
             
-            #line 27 "..\..\Views\Shared\Fields\View\DisplayColumn.cshtml"
-                                               Write(Model.Route_FieldRelation(ViewBag.ControllerName));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\">\r\n        <span>\r\n            ");
-
-
-            
-            #line 29 "..\..\Views\Shared\Fields\View\DisplayColumn.cshtml"
-       Write(Model.PropertyData.ToString().Substring(0, ManageController.DefaultTableTextLength));
+            #line 28 "..\..\Views\Shared\Fields\View\DisplayColumn.cshtml"
+   Write(Model.PropertyData.ToString().Substring(0, ControllerHelper.DefaultTableTextLength));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n        </span>\r\n    </a>\r\n");
+WriteLiteral("\r\n    </span>\r\n");
 
 
             
-            #line 32 "..\..\Views\Shared\Fields\View\DisplayColumn.cshtml"
+            #line 30 "..\..\Views\Shared\Fields\View\DisplayColumn.cshtml"
     }
 else
     {
@@ -209,31 +199,21 @@ else
             
             #line default
             #line hidden
-WriteLiteral("    <a href=\"");
+WriteLiteral("    <span>\r\n        ");
 
 
             
-            #line 35 "..\..\Views\Shared\Fields\View\DisplayColumn.cshtml"
-        Write(Model.Route_FieldRelation(ViewBag.ControllerName));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\">\r\n        <span>\r\n            ");
-
-
-            
-            #line 37 "..\..\Views\Shared\Fields\View\DisplayColumn.cshtml"
-       Write(Model.PropertyData.ToString());
+            #line 34 "..\..\Views\Shared\Fields\View\DisplayColumn.cshtml"
+   Write(Model.PropertyData.ToString());
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n        </span>\r\n    </a>\r\n");
+WriteLiteral("\r\n    </span>\r\n");
 
 
             
-            #line 40 "..\..\Views\Shared\Fields\View\DisplayColumn.cshtml"
+            #line 36 "..\..\Views\Shared\Fields\View\DisplayColumn.cshtml"
     }
             
             #line default

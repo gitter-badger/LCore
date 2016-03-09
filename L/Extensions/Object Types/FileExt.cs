@@ -1113,20 +1113,20 @@ namespace LCore
 
             return Contents;
             }
-		public static Byte[] GetFileHash(this String FullPath)
+        public static Byte[] GetFileHash(this String FullPath)
             {
             if (FullPath == null)
                 throw new ArgumentNullException("FullPath");
             if (!File.Exists(FullPath))
                 throw new FileNotFoundException(FullPath);
 
-			return GetStreamHash(GetStringStream(FullPath));
+            return GetStreamHash(GetStringStream(FullPath));
             }
 
-		public static Byte[] GetStringHash(this String In)
-			{
-			return GetStreamHash(GetStringStream(In));
-			}
+        public static Byte[] GetStringHash(this String In)
+            {
+            return GetStreamHash(GetStringStream(In));
+            }
         public static Byte[] GetStreamHash(this Stream InputStream)
             {
             if (InputStream == null)
@@ -1140,6 +1140,21 @@ namespace LCore
         public static Stream GetStringStream(this String In)
             {
             return new MemoryStream(In.ToByteArray());
+            }
+
+        public static Byte[] ReadAllBytes(this Stream input)
+            {
+            byte[] buffer = new byte[16 * 1024];
+
+            using (MemoryStream ms = new MemoryStream())
+                {
+                int read;
+                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+                    {
+                    ms.Write(buffer, 0, read);
+                    }
+                return ms.ToArray();
+                }
             }
         }
     }

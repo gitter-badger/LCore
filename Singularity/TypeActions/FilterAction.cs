@@ -1,43 +1,42 @@
 ﻿using LCore;
+using Singularity.Extensions;
+using Singularity.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
-namespace Singularity
+namespace Singularity.Utilities
     {
-    public class FilterAction<T> : TypeAction<IQueryable<T>>
+    public class FilterExpression<T> : TypeAction<Expression<Func<T, Boolean>>>
         {
-        IQueryable<T> Query { get; set; }
         SearchOperation Operation { get; set; }
         LambdaExpression Accessor { get; set; }
-        System.Web.ModelBinding.ModelMetadata Meta { get; set; }
+        ModelMetadata Meta { get; set; }
 
-        public FilterAction(IQueryable<T> Query, SearchOperation Operation, LambdaExpression Accessor, System.Web.ModelBinding.ModelMetadata Meta)
+        public FilterExpression(SearchOperation Operation, LambdaExpression Accessor, ModelMetadata Meta)
             {
-            this.Query = Query;
             this.Operation = Operation;
             this.Accessor = Accessor;
             this.Meta = Meta;
             }
 
-        protected override IQueryable<T> PerformAction_Boolean()
+        protected override Expression<Func<T, Boolean>> PerformAction_Boolean()
             {
             String SearchLower = Operation.Search.ToLower();
 
             if (SearchLower == "y" || SearchLower == "yes" || SearchLower == "true")
-                Query = Query.Where(Accessor.GetOperatorExpression<T>(Operation.Operator, true));
+                return Accessor.GetOperatorExpression<T>(Operation.Operator, true);
             else if (SearchLower == "n" || SearchLower == "no" || SearchLower == "false")
-                Query = Query.Where(Accessor.GetOperatorExpression<T>(Operation.Operator, false));
+                return Accessor.GetOperatorExpression<T>(Operation.Operator, false);
             else
                 throw new Exception("Invalid value: " + SearchLower);
-
-            return Query;
             }
 
-        protected override IQueryable<T> PerformAction_Int()
+        protected override Expression<Func<T, Boolean>> PerformAction_Int()
             {
             if (Operation.OperatorStr == "<>" ||
                 Operation.OperatorStr == "><")
@@ -55,9 +54,9 @@ namespace Singularity
                         ObjectExt.Swap(ref Min, ref Max);
 
                     if (Operation.OperatorStr == "<>")
-                        Query = Query.Where(Accessor.ExpressionWithout<T, int?>(Min, Max));
+                        return Accessor.ExpressionWithout<T, int?>(Min, Max);
                     else if (Operation.OperatorStr == "><")
-                        Query = Query.Where(Accessor.ExpressionWithin<T, int?>(Min, Max));
+                        return Accessor.ExpressionWithin<T, int?>(Min, Max);
                     }
                 else
                     {
@@ -70,21 +69,23 @@ namespace Singularity
                         ObjectExt.Swap(ref Min, ref Max);
 
                     if (Operation.OperatorStr == "<>")
-                        Query = Query.Where(Accessor.ExpressionWithout<T, int>(Min, Max));
+                        return Accessor.ExpressionWithout<T, int>(Min, Max);
                     else if (Operation.OperatorStr == "><")
-                        Query = Query.Where(Accessor.ExpressionWithin<T, int>(Min, Max));
+                        return Accessor.ExpressionWithin<T, int>(Min, Max);
                     }
                 }
             else
                 {
-                int SearchInt = Convert.ToInt32(Operation.Search);
+                int SearchInt;
 
-                Query = Query.Where(Accessor.GetOperatorExpression<T>(Operation.Operator, SearchInt));
+                if (Int32.TryParse(Operation.Search, out SearchInt))
+                    {
+                    return Accessor.GetOperatorExpression<T>(Operation.Operator, SearchInt);
+                    }
                 }
-
-            return Query;
+            return null;
             }
-        protected override IQueryable<T> PerformAction_UInt()
+        protected override Expression<Func<T, Boolean>> PerformAction_UInt()
             {
             if (Operation.OperatorStr == "<>" ||
                 Operation.OperatorStr == "><")
@@ -102,9 +103,9 @@ namespace Singularity
                         ObjectExt.Swap(ref Min, ref Max);
 
                     if (Operation.OperatorStr == "<>")
-                        Query = Query.Where(Accessor.ExpressionWithout<T, uint?>(Min, Max));
+                        return Accessor.ExpressionWithout<T, uint?>(Min, Max);
                     else if (Operation.OperatorStr == "><")
-                        Query = Query.Where(Accessor.ExpressionWithin<T, uint?>(Min, Max));
+                        return Accessor.ExpressionWithin<T, uint?>(Min, Max);
                     }
                 else
                     {
@@ -117,21 +118,20 @@ namespace Singularity
                         ObjectExt.Swap(ref Min, ref Max);
 
                     if (Operation.OperatorStr == "<>")
-                        Query = Query.Where(Accessor.ExpressionWithout<T, uint>(Min, Max));
+                        return Accessor.ExpressionWithout<T, uint>(Min, Max);
                     else if (Operation.OperatorStr == "><")
-                        Query = Query.Where(Accessor.ExpressionWithin<T, uint>(Min, Max));
+                        return Accessor.ExpressionWithin<T, uint>(Min, Max);
                     }
                 }
             else
                 {
                 uint SearchUInt = Convert.ToUInt32(Operation.Search);
 
-                Query = Query.Where(Accessor.GetOperatorExpression<T>(Operation.Operator, SearchUInt));
+                return Accessor.GetOperatorExpression<T>(Operation.Operator, SearchUInt);
                 }
-
-            return Query;
+            return null;
             }
-        protected override IQueryable<T> PerformAction_Long()
+        protected override Expression<Func<T, Boolean>> PerformAction_Long()
             {
             if (Operation.OperatorStr == "<>" ||
                 Operation.OperatorStr == "><")
@@ -149,9 +149,9 @@ namespace Singularity
                         ObjectExt.Swap(ref Min, ref Max);
 
                     if (Operation.OperatorStr == "<>")
-                        Query = Query.Where(Accessor.ExpressionWithout<T, long?>(Min, Max));
+                        return Accessor.ExpressionWithout<T, long?>(Min, Max);
                     else if (Operation.OperatorStr == "><")
-                        Query = Query.Where(Accessor.ExpressionWithin<T, long?>(Min, Max));
+                        return Accessor.ExpressionWithin<T, long?>(Min, Max);
                     }
                 else
                     {
@@ -164,21 +164,20 @@ namespace Singularity
                         ObjectExt.Swap(ref Min, ref Max);
 
                     if (Operation.OperatorStr == "<>")
-                        Query = Query.Where(Accessor.ExpressionWithout<T, long>(Min, Max));
+                        return Accessor.ExpressionWithout<T, long>(Min, Max);
                     else if (Operation.OperatorStr == "><")
-                        Query = Query.Where(Accessor.ExpressionWithin<T, long>(Min, Max));
+                        return Accessor.ExpressionWithin<T, long>(Min, Max);
                     }
                 }
             else
                 {
                 long SearchLong = Convert.ToInt64(Operation.Search);
 
-                Query = Query.Where(Accessor.GetOperatorExpression<T>(Operation.Operator, SearchLong));
+                return Accessor.GetOperatorExpression<T>(Operation.Operator, SearchLong);
                 }
-
-            return Query;
+            return null;
             }
-        protected override IQueryable<T> PerformAction_ULong()
+        protected override Expression<Func<T, Boolean>> PerformAction_ULong()
             {
             if (Operation.OperatorStr == "<>" ||
                 Operation.OperatorStr == "><")
@@ -196,9 +195,9 @@ namespace Singularity
                         ObjectExt.Swap(ref Min, ref Max);
 
                     if (Operation.OperatorStr == "<>")
-                        Query = Query.Where(Accessor.ExpressionWithout<T, ulong?>(Min, Max));
+                        return Accessor.ExpressionWithout<T, ulong?>(Min, Max);
                     else if (Operation.OperatorStr == "><")
-                        Query = Query.Where(Accessor.ExpressionWithin<T, ulong?>(Min, Max));
+                        return Accessor.ExpressionWithin<T, ulong?>(Min, Max);
                     }
                 else
                     {
@@ -211,9 +210,9 @@ namespace Singularity
                         ObjectExt.Swap(ref Min, ref Max);
 
                     if (Operation.OperatorStr == "<>")
-                        Query = Query.Where(Accessor.ExpressionWithout<T, ulong>(Min, Max));
+                        return Accessor.ExpressionWithout<T, ulong>(Min, Max);
                     else if (Operation.OperatorStr == "><")
-                        Query = Query.Where(Accessor.ExpressionWithin<T, ulong>(Min, Max));
+                        return Accessor.ExpressionWithin<T, ulong>(Min, Max);
                     }
 
                 }
@@ -221,12 +220,11 @@ namespace Singularity
                 {
                 ulong SearchULong = Convert.ToUInt64(Operation.Search);
 
-                Query = Query.Where(Accessor.GetOperatorExpression<T>(Operation.Operator, SearchULong));
+                return Accessor.GetOperatorExpression<T>(Operation.Operator, SearchULong);
                 }
-
-            return Query;
+            return null;
             }
-        protected override IQueryable<T> PerformAction_Short()
+        protected override Expression<Func<T, Boolean>> PerformAction_Short()
             {
             if (Operation.OperatorStr == "<>" ||
                 Operation.OperatorStr == "><")
@@ -244,9 +242,9 @@ namespace Singularity
                         ObjectExt.Swap(ref Min, ref Max);
 
                     if (Operation.OperatorStr == "<>")
-                        Query = Query.Where(Accessor.ExpressionWithout<T, short?>(Min, Max));
+                        return Accessor.ExpressionWithout<T, short?>(Min, Max);
                     else if (Operation.OperatorStr == "><")
-                        Query = Query.Where(Accessor.ExpressionWithin<T, short?>(Min, Max));
+                        return Accessor.ExpressionWithin<T, short?>(Min, Max);
                     }
                 else
                     {
@@ -259,9 +257,9 @@ namespace Singularity
                         ObjectExt.Swap(ref Min, ref Max);
 
                     if (Operation.OperatorStr == "<>")
-                        Query = Query.Where(Accessor.ExpressionWithout<T, short>(Min, Max));
+                        return Accessor.ExpressionWithout<T, short>(Min, Max);
                     else if (Operation.OperatorStr == "><")
-                        Query = Query.Where(Accessor.ExpressionWithin<T, short>(Min, Max));
+                        return Accessor.ExpressionWithin<T, short>(Min, Max);
 
                     }
                 }
@@ -269,12 +267,11 @@ namespace Singularity
                 {
                 short SearchShort = Convert.ToInt16(Operation.Search);
 
-                Query = Query.Where(Accessor.GetOperatorExpression<T>(Operation.Operator, SearchShort));
+                Accessor.GetOperatorExpression<T>(Operation.Operator, SearchShort);
                 }
-
-            return Query;
+            return null;
             }
-        protected override IQueryable<T> PerformAction_UShort()
+        protected override Expression<Func<T, Boolean>> PerformAction_UShort()
             {
             if (Operation.OperatorStr == "<>" ||
                 Operation.OperatorStr == "><")
@@ -292,9 +289,9 @@ namespace Singularity
                         ObjectExt.Swap(ref Min, ref Max);
 
                     if (Operation.OperatorStr == "<>")
-                        Query = Query.Where(Accessor.ExpressionWithout<T, ushort?>(Min, Max));
+                        return Accessor.ExpressionWithout<T, ushort?>(Min, Max);
                     else if (Operation.OperatorStr == "><")
-                        Query = Query.Where(Accessor.ExpressionWithin<T, ushort?>(Min, Max));
+                        return Accessor.ExpressionWithin<T, ushort?>(Min, Max);
                     }
                 else
                     {
@@ -307,21 +304,20 @@ namespace Singularity
                         ObjectExt.Swap(ref Min, ref Max);
 
                     if (Operation.OperatorStr == "<>")
-                        Query = Query.Where(Accessor.ExpressionWithout<T, ushort>(Min, Max));
+                        return Accessor.ExpressionWithout<T, ushort>(Min, Max);
                     else if (Operation.OperatorStr == "><")
-                        Query = Query.Where(Accessor.ExpressionWithin<T, ushort>(Min, Max));
+                        return Accessor.ExpressionWithin<T, ushort>(Min, Max);
                     }
                 }
             else
                 {
                 ushort SearchUShort = Convert.ToUInt16(Operation.Search);
 
-                Query = Query.Where(Accessor.GetOperatorExpression<T>(Operation.Operator, SearchUShort));
+                return Accessor.GetOperatorExpression<T>(Operation.Operator, SearchUShort);
                 }
-
-            return Query;
+            return null;
             }
-        protected override IQueryable<T> PerformAction_Decimal()
+        protected override Expression<Func<T, Boolean>> PerformAction_Decimal()
             {
             if (Operation.OperatorStr == "<>" ||
                 Operation.OperatorStr == "><")
@@ -339,9 +335,9 @@ namespace Singularity
                         ObjectExt.Swap(ref Min, ref Max);
 
                     if (Operation.OperatorStr == "<>")
-                        Query = Query.Where(Accessor.ExpressionWithout<T, decimal?>(Min, Max));
+                        return Accessor.ExpressionWithout<T, decimal?>(Min, Max);
                     else if (Operation.OperatorStr == "><")
-                        Query = Query.Where(Accessor.ExpressionWithin<T, decimal?>(Min, Max));
+                        return Accessor.ExpressionWithin<T, decimal?>(Min, Max);
                     }
                 else
                     {
@@ -354,21 +350,20 @@ namespace Singularity
                         ObjectExt.Swap(ref Min, ref Max);
 
                     if (Operation.OperatorStr == "<>")
-                        Query = Query.Where(Accessor.ExpressionWithout<T, decimal>(Min, Max));
+                        return Accessor.ExpressionWithout<T, decimal>(Min, Max);
                     else if (Operation.OperatorStr == "><")
-                        Query = Query.Where(Accessor.ExpressionWithin<T, decimal>(Min, Max));
+                        return Accessor.ExpressionWithin<T, decimal>(Min, Max);
                     }
                 }
             else
                 {
                 decimal SearchDecimal = Convert.ToDecimal(Operation.Search);
 
-                Query = Query.Where(Accessor.GetOperatorExpression<T>(Operation.Operator, SearchDecimal));
+                return Accessor.GetOperatorExpression<T>(Operation.Operator, SearchDecimal);
                 }
-
-            return Query;
+            return null;
             }
-        protected override IQueryable<T> PerformAction_Double()
+        protected override Expression<Func<T, Boolean>> PerformAction_Double()
             {
             if (Operation.OperatorStr == "<>" ||
                 Operation.OperatorStr == "><")
@@ -386,9 +381,9 @@ namespace Singularity
                         ObjectExt.Swap(ref Min, ref Max);
 
                     if (Operation.OperatorStr == "<>")
-                        Query = Query.Where(Accessor.ExpressionWithout<T, double?>(Min, Max));
+                        return Accessor.ExpressionWithout<T, double?>(Min, Max);
                     else if (Operation.OperatorStr == "><")
-                        Query = Query.Where(Accessor.ExpressionWithin<T, double?>(Min, Max));
+                        return Accessor.ExpressionWithin<T, double?>(Min, Max);
                     }
                 else
                     {
@@ -401,21 +396,20 @@ namespace Singularity
                         ObjectExt.Swap(ref Min, ref Max);
 
                     if (Operation.OperatorStr == "<>")
-                        Query = Query.Where(Accessor.ExpressionWithout<T, double>(Min, Max));
+                        return Accessor.ExpressionWithout<T, double>(Min, Max);
                     else if (Operation.OperatorStr == "><")
-                        Query = Query.Where(Accessor.ExpressionWithin<T, double>(Min, Max));
+                        return Accessor.ExpressionWithin<T, double>(Min, Max);
                     }
                 }
             else
                 {
                 double SearchDouble = Convert.ToDouble(Operation.Search);
 
-                Query = Query.Where(Accessor.GetOperatorExpression<T>(Operation.Operator, SearchDouble));
+                return Accessor.GetOperatorExpression<T>(Operation.Operator, SearchDouble);
                 }
-
-            return Query;
+            return null;
             }
-        protected override IQueryable<T> PerformAction_Float()
+        protected override Expression<Func<T, Boolean>> PerformAction_Float()
             {
             if (Operation.OperatorStr == "<>" ||
                 Operation.OperatorStr == "><")
@@ -433,9 +427,9 @@ namespace Singularity
                         ObjectExt.Swap(ref Min, ref Max);
 
                     if (Operation.OperatorStr == "<>")
-                        Query = Query.Where(Accessor.ExpressionWithout<T, float?>(Min, Max));
+                        return Accessor.ExpressionWithout<T, float?>(Min, Max);
                     else if (Operation.OperatorStr == "><")
-                        Query = Query.Where(Accessor.ExpressionWithin<T, float?>(Min, Max));
+                        return Accessor.ExpressionWithin<T, float?>(Min, Max);
                     }
                 else
                     {
@@ -448,39 +442,36 @@ namespace Singularity
                         ObjectExt.Swap(ref Min, ref Max);
 
                     if (Operation.OperatorStr == "<>")
-                        Query = Query.Where(Accessor.ExpressionWithout<T, float>(Min, Max));
+                        return Accessor.ExpressionWithout<T, float>(Min, Max);
                     else if (Operation.OperatorStr == "><")
-                        Query = Query.Where(Accessor.ExpressionWithin<T, float>(Min, Max));
+                        return Accessor.ExpressionWithin<T, float>(Min, Max);
                     }
                 }
             else
                 {
                 float SearchFloat = Convert.ToSingle(Operation.Search);
 
-                Query = Query.Where(Accessor.GetOperatorExpression<T>(Operation.Operator, SearchFloat));
+                return Accessor.GetOperatorExpression<T>(Operation.Operator, SearchFloat);
                 }
-
-            return Query;
+            return null;
             }
 
-        protected override IQueryable<T> PerformAction_String()
+        protected override Expression<Func<T, Boolean>> PerformAction_String()
             {
             if (Operation.OperatorStr == "~")
                 {
-                Query = Query.Where(
+                return
                     QueryExt.WhereFilter<T>(
                     (Expression<Func<T, String>>)Accessor,
                     "*" + Operation.Search.RemoveAll("*") + "*",
-                    Operation.Property));
+                    Operation.Property);
                 }
             else
                 {
-                Query = Query.Where(Accessor.GetOperatorExpression<T>(Operation.Operator, Operation.Search));
+                return Accessor.GetOperatorExpression<T>(Operation.Operator, Operation.Search);
                 }
-
-            return Query;
             }
-        protected override IQueryable<T> PerformAction_Enum(Type EmumType)
+        protected override Expression<Func<T, Boolean>> PerformAction_Enum(Type EmumType)
             {
             if (Operation.OperatorStr == "~")
                 {
@@ -519,16 +510,16 @@ namespace Singularity
 
                 Expression CombinedOrs = Ors.Or();
 
-                Query = Query.Where(
+                return
                     (Expression<Func<T, Boolean>>)Expression.Lambda(
                     Expression.Equal(
                         Expression.Convert(Accessor.Body, typeof(int?)),
                         CombinedOrs),
-                    Accessor.Parameters[0]));
+                    Accessor.Parameters[0]);
 
                 /*
                 Expression.Enum
-                Query = Query.Where(
+                return 
                     QueryExt.WhereFilter<T>(
                     (Expression<Func<T, String>>)Accessor,
                     "*" + Operation.Search.RemoveAll("*") + "*",
@@ -537,20 +528,16 @@ namespace Singularity
                 }
             else
                 {
-                Query = Query.Where(Accessor.GetOperatorExpression<T>(Operation.Operator, Operation.Search));
+                return Accessor.GetOperatorExpression<T>(Operation.Operator, Operation.Search);
                 }
-
-            return Query;
             }
-        protected override IQueryable<T> PerformAction_TimeSpan()
+        protected override Expression<Func<T, Boolean>> PerformAction_TimeSpan()
             {
             TimeSpan SearchTime = TimeSpan.Parse(Operation.Search);
 
-            Query = Query.Where(Accessor.GetOperatorExpression<T>(Operation.Operator, SearchTime));
-
-            return Query;
+            return Accessor.GetOperatorExpression<T>(Operation.Operator, SearchTime);
             }
-        protected override IQueryable<T> PerformAction_DateTime()
+        protected override Expression<Func<T, Boolean>> PerformAction_DateTime()
             {
             if (Operation.OperatorStr == "<>" ||
                 Operation.OperatorStr == "><")
@@ -568,9 +555,9 @@ namespace Singularity
                         ObjectExt.Swap(ref Min, ref Max);
 
                     if (Operation.OperatorStr == "<>")
-                        Query = Query.Where(Accessor.ExpressionWithout<T, DateTime?>(Min, Max));
+                        return Accessor.ExpressionWithout<T, DateTime?>(Min, Max);
                     else if (Operation.OperatorStr == "><")
-                        Query = Query.Where(Accessor.ExpressionWithin<T, DateTime?>(Min, Max));
+                        return Accessor.ExpressionWithin<T, DateTime?>(Min, Max);
                     }
                 else
                     {
@@ -583,32 +570,42 @@ namespace Singularity
                         ObjectExt.Swap(ref Min, ref Max);
 
                     if (Operation.OperatorStr == "<>")
-                        Query = Query.Where(Accessor.ExpressionWithout<T, DateTime>(Min, Max));
+                        return Accessor.ExpressionWithout<T, DateTime>(Min, Max);
                     else if (Operation.OperatorStr == "><")
-                        Query = Query.Where(Accessor.ExpressionWithin<T, DateTime>(Min, Max));
+                        return Accessor.ExpressionWithin<T, DateTime>(Min, Max);
                     }
                 }
             else
                 {
                 DateTime SearchDate = Convert.ToDateTime(Operation.Search);
 
-                Query = Query.Where(Accessor.GetOperatorExpression<T>(Operation.Operator, SearchDate));
+                return Accessor.GetOperatorExpression<T>(Operation.Operator, SearchDate);
                 }
-
-            return Query;
+            return null;
             }
 
-        protected override IQueryable<T> PerformAction_IModel(Type t)
+        protected override Expression<Func<T, Boolean>> PerformAction_IModel(Type t)
             {
-            return Query;
+            /*
+            if (Operation.OperatorStr == "~")
+                {
+             */
+            return QueryExt.GlobalSearchRecursive<T>(Operation.Search);
+            /*
+                }
+            else
+                {
+                return Accessor.GetOperatorExpression<T>(Operation.Operator, Operation.Search);
+                }
+             */
             }
 
-        protected override IQueryable<T> PerformAction_Object(Type t)
+        protected override Expression<Func<T, Boolean>> PerformAction_Object(Type t)
             {
-            if (t.PreferGeneric().HasInterface(typeof(IModel), true))
+            if (t.PreferGeneric().HasInterface<IModel>())
                 {
                 // Covers one-to-many fields
-                return Query;
+                return null;
                 }
 
             throw new Exception("Type not supported: " + t.Name);

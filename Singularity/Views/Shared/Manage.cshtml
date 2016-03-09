@@ -6,6 +6,8 @@
 @using Singularity.Controllers;
 @using Singularity.Context;
 @using Singularity.Routes;
+@using Singularity.Annotations;
+@using Singularity.Extensions;
 @using System.Linq;
 @using System.Linq.Expressions;
 @using System.Collections;
@@ -28,8 +30,13 @@
 
 }
 
+@if (Html.ViewExists(ControllerHelper.PartialViews.Manage_Before))
+    {
+    @Html.Partial(ControllerHelper.PartialViews.Manage_Before, Model)
+    }
+
 <h1>
-    @Html.Partial(PartialViews.TextContent, new TextContentViewModel("Manage_Header_" + Model.FriendlyModelTypeName, Model.Title))
+    @Html.TextContent("Manage_Header_" + Model.FriendlyModelTypeName, Model.Title)
 </h1>
 
 <div class="manage manage-@Model.ModelTypeCSSClass" remember-page>
@@ -38,13 +45,11 @@
         ((ManageController)ViewContext.Controller).OverridePermissions.Create == true)
         {
         <div>
-            <a href="@Url.Action(Model.Controller.CreateActionName,
-                    Model.Controller.Name,
-                    Model.Route_Create(Request))"
+            <a href="@(Url.Controller<ManageController>().Action(((ManageController)ViewContext.Controller).CreateAction, Request.Url.AbsoluteUri))"
                key-bind-click="Numpad +"
                key-bind-click-name="New @Model.FriendlyModelTypeName">
                 <glyph>&#x2a;</glyph>
-                @Html.Partial(PartialViews.TextContent, new TextContentViewModel("Manage_CreateNew_" + Model.FriendlyModelTypeName, "New " + Model.FriendlyModelTypeName))
+                @Html.TextContent("Manage_CreateNew_" + Model.FriendlyModelTypeName, "New " + Model.FriendlyModelTypeName)
             </a>
         </div>
         }
@@ -66,11 +71,11 @@
         <tbody>
             @if (Model.Models != null)
                 {
-                if (Model.Models.Count == 0)
+                if (Model.TotalItems == 0)
                     {
                     <tr>
                         <td colspan="@(Model.GetVisibleColumns().Count + 3)" class="no-results center">
-                            @Html.Partial(PartialViews.TextContent, new TextContentViewModel("Manage_NoResults_" + Model.FriendlyModelTypeName, "No results found" + Model.FriendlyModelTypeName))
+                            @Html.TextContent("Manage_NoResults_" + Model.FriendlyModelTypeName, "No results found")
                         </td>
                     </tr>
                     }
@@ -102,27 +107,39 @@
     @Html.Partial(ControllerHelper.PartialViews.Manage_Pagination, Model)
 
     @if (Model.ModelType.Meta().Properties.Has(m => m.PropertyName == ControllerHelper.AutomaticFields.Active) &&
-        ViewContext.Controller is ManageController &&
-        ((ManageController)ViewContext.Controller).OverridePermissions.ViewInactive == true &&
-        ControllerHelper.AllowViewInactive(Session, Model.ModelType))
+        ViewContext.AllowViewInactive(Model.ModelType))
         {
         <div class="show-hide-inactive">
-            <a href="@Url.Action(Model.Controller.ManageActionName, Model.Controller.Name, Model.Route_ToggleInactive())">
-                @(Model.ShowInactiveRecords ? "Show Active" : "Show Inactive")
+            <a href="@(Url.Controller<ManageController>()
+                .QS(Singularity.Routes.Controllers.Manage.Actions.Route_ToggleInactive(Model))
+                .Lambda<int, String, SortDirection, String, String, ControllerHelper.ManageViewType, String, Boolean>(c => c.Manage))">
+                @{
+        String ShowInactiveStr = Model.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive) ? "Show Active" : "Show Inactive";
+                }
+                @Html.TextContent("Manage_" + ShowInactiveStr + "_" + Model.ModelType.GetFriendlyTypeName(), ShowInactiveStr)
+            </a>
+
+        </div>
+        }
+
+    @if (Model.Controller.ArchiveActive)
+        {
+        String ShowArchiveStr = Model.ViewType.HasFlag(ControllerHelper.ManageViewType.Archive) ? "Show Archived" : "Show Current";
+
+        <div class="show-hide-archive">
+            <a href="@(Url.Controller<ManageController>()
+                .QS(Singularity.Routes.Controllers.Manage.Actions.Route_ToggleArchive(Model))
+                .Lambda<int, String, SortDirection, String, String, ControllerHelper.ManageViewType, String, Boolean>(c => c.Manage))">
+                @Html.TextContent("Manage_" + ShowArchiveStr + "_" + Model.ModelType.GetFriendlyTypeName(), ShowArchiveStr)
             </a>
         </div>
         }
 
-    @if (ViewContext.Controller is ManageController &&
-        ((ManageController)ViewContext.Controller).OverridePermissions.Export == true &&
-        ControllerHelper.AllowExport(Session, Model.ModelType))
-        {
-        <span class="manage-export">
-            @Html.ActionLink("Export CSV", "Export", Model.Controller.Name, Model.Route_Export(), new
-       {
-           @key_bind_click = "Ctrl+X",
-           @key_bind_click_name = "Export",
-       })
-        </span>
-        }
+    @Html.Partial(ControllerHelper.PartialViews.Manage_CustomExport, Model)
+
 </div>
+
+@if (Html.ViewExists(ControllerHelper.PartialViews.Manage_After))
+    {
+    @Html.Partial(ControllerHelper.PartialViews.Manage_After, Model)
+    }

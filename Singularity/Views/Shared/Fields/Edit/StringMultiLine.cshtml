@@ -5,6 +5,9 @@
 @using Singularity.Models;
 @using Singularity.Controllers;
 @using Singularity.Context;
+@using Singularity.Routes;
+@using Singularity.Annotations;
+@using Singularity.Extensions;
 @using System.Collections;
 @using System.Collections.Generic;
 @using System.ComponentModel;
@@ -17,8 +20,37 @@
 @using System.ComponentModel.DataAnnotations.Schema;
 
 @{
+    Boolean IsSortableList = Model.Meta.HasAttribute<FieldType_SortableListAttribute>();
 }
 
 @model IViewField
 
-<textarea id="@Model.Meta.PropertyName" name="@Model.Meta.PropertyName">@Model.PropertyData</textarea>
+@if (IsSortableList)
+    {
+    String[] Lines;
+    if (Model.PropertyData is String[])
+        {
+        Lines = (String[])Model.PropertyData;
+        }
+    else if (Model.PropertyData is String)
+        {
+        Lines = ((String)Model.PropertyData).Lines();
+        }
+    else
+        {
+        Lines = (Model.PropertyData ?? "").ToString().Lines();
+        }
+
+    <select class="sortable" id="@Model.Meta.PropertyName" name="@Model.Meta.PropertyName">
+        @foreach (String Line in Lines)
+            {
+            <option value="@Line">
+                @Line
+            </option>
+            }
+    </select>
+    }
+else
+    {
+    <textarea id="@Model.Meta.PropertyName" name="@Model.Meta.PropertyName">@Model.PropertyData</textarea>
+    }

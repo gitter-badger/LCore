@@ -23,16 +23,23 @@
 
 @model IViewField
 
+<input type="radio"
+       id="@(Model.Meta.PropertyName)-false"
+       name="@Model.Meta.PropertyName"
+       @Html.Raw(Check == false ? "checked=\"checked\"" : "")
+       checked=""
+       value="false" />
+
+<label for="@(Model.Meta.PropertyName)-false">
+    <span>No</span>
+</label>
 
 <input type="radio"
-       id="@Model.Meta.PropertyName"
+       id="@(Model.Meta.PropertyName)-true"
        name="@Model.Meta.PropertyName"
-       checked="@(Check == false)"
-       value="false" />
-<span>No</span>
-<input type="radio"
-       id="@Model.Meta.PropertyName"
-       name="@Model.Meta.PropertyName"
-       checked="@(Check == true)"
+       @Html.Raw(Check == true ? "checked=\"checked\"" : "")
        value="true" />
-<span>Yes</span>
+
+<label for="@(Model.Meta.PropertyName)-true">
+    <span>Yes</span>
+</label>

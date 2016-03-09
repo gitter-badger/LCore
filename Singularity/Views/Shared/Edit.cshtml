@@ -5,6 +5,9 @@
 @using Singularity.Models;
 @using Singularity.Controllers;
 @using Singularity.Context;
+@using Singularity.Routes;
+@using Singularity.Extensions;
+@using Singularity.Annotations;
 @using System.Linq;
 @using System.Linq.Expressions;
 @using System.Collections;
@@ -17,14 +20,16 @@
 @using System.Web.Mvc;
 
 @{
-    ViewBag.Create = !Model.HasID();
-
-    ViewBag.Title = (ViewBag.Create ? "Create" : "Edit") + " " + Model.GetFriendlyTypeName() + ": " + Model.ToString();
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    ControllerHelper.ViewType ViewType = ViewBag.Create ? ControllerHelper.ViewType.Create : ControllerHelper.ViewType.Edit;
+    if (ViewBag.Create == null)
+        {
+        ViewBag.Create = false;
+        }
 
-    IEnumerable<System.Web.ModelBinding.ModelMetadata> Fields = null;
+    ControllerHelper.ViewType ViewType = ViewBag.Create == true ? ControllerHelper.ViewType.Create : ControllerHelper.ViewType.Edit;
+
+    IEnumerable<ModelMetadata> Fields = null;
 
     if (Model is IFieldGroups)
         {
@@ -41,6 +46,12 @@
 <div class="@(ViewBag.Create ? "create" : "edit") wide-form"
      focus-first="input[type=text]">
 
+    <div class="view-updating-shade" style="display:none;">
+        <div class="view-updating-icon spin">
+            <glyph>&#xe031;</glyph>
+        </div>
+    </div>
+
     @if (!String.IsNullOrEmpty(ViewBag.ReturnURL))
         {
         <a class="btn btn-default right btn-warning" href="@ViewBag.ReturnURL">
@@ -50,23 +61,36 @@
         }
 
     <h1>
-        @(ViewBag.Create ? "Create" : "Edit") @Model.GetFriendlyTypeName()
+        @Html.TextContent("Manage_" + (ViewBag.Create ? "Create" : "Edit") + "_Header_" + Model.GetFriendlyTypeName(),
+            (ViewBag.Create ? "Create" : "Edit") + " " + Model.GetFriendlyTypeName())
     </h1>
 
     <h2>
-        @Model.ToString()
+        @Html.TextContent("Manage_" + (ViewBag.Create ? "Create" : "Edit") + "_ModelHeader_" + Model.GetFriendlyTypeName(), "[0]", new Object[] { Model.ToString() })
     </h2>
 
-    @using (Html.BeginForm(ViewBag.Create ? (String)ViewBag.CreateActionName : (String)ViewBag.EditActionName, (String)ViewBag.ControllerName, (Object)ViewBag.Route_Edit, FormMethod.Post, new { @class = "edit-form" }))
+    @using (Html.BeginForm(ViewBag.Create ?
+            Singularity.Routes.Controllers.Manage.Actions.Create :
+            Singularity.Routes.Controllers.Manage.Actions.Edit,
+        (String)ViewBag.ControllerName,
+        (Object)ViewBag.Route_Edit, FormMethod.Post, new { @class = "edit-form" }))
         {
+
         Boolean RequiredFields = false;
 
-        Dictionary<String, List<System.Web.ModelBinding.ModelMetadata>> TabGroups = Fields.Group((m) =>
+        String LastTab = "";
+
+        Dictionary<String, List<ModelMetadata>> TabGroups = Fields.Group((m) =>
         {
             if (m.AdditionalValues.ContainsKey(FieldTabAttribute.Key))
-                return (String)m.AdditionalValues[FieldTabAttribute.Key];
+                {
+                LastTab = (String)m.AdditionalValues[FieldTabAttribute.Key];
+                return LastTab;
+                }
             else
-                return "";
+                {
+                return LastTab;
+                }
         });
 
         Boolean IsTabView = TabGroups.Keys.Count > 1;
@@ -75,16 +99,17 @@
 
             @Html.ValidationSummary(true)
 
-
             @if (IsTabView)
                 {
                 <div class="tab-container">
                     <ul>
                         @for (int i = 0; i < TabGroups.Keys.Count; i++)
                             {
+                            String Key = TabGroups.Keys.List()[i];
+
                             <li>
-                                <a href="#tab-@(i+1)">
-                                    @TabGroups.Keys.List()[i]
+                                <a href="#tab-@(i + 1)">
+                                    @Html.TextContent("Manage_" + (ViewBag.Create ? "Create" : "Edit") + "_Tab_" + Model.GetFriendlyTypeName() + "_" + Key, Key)
                                 </a>
                             </li>
                             }
@@ -96,20 +121,20 @@
 
                     @foreach (String s in TabGroups.Keys)
                         {
-                        List<System.Web.ModelBinding.ModelMetadata> TabFields = TabGroups[s];
+                        List<ModelMetadata> TabFields = TabGroups[s];
 
-                        <div id="tab-@(j+1)">
+                        <div id="tab-@(j + 1)">
 
-                            @foreach (System.Web.ModelBinding.ModelMetadata Meta in TabFields)
+                            @foreach (ModelMetadata Meta in TabFields)
                                 {
-                                ViewField Field = new ViewField(Context, Model.TrueModelType(), Meta.PropertyName, Model, ViewType);
+                                ViewField Field = new ViewField(ViewContext, Model.TrueModelType(), Meta.PropertyName, Model, ViewType);
 
                                 if (Meta.IsRequired)
                                     {
                                     RequiredFields = true;
                                     }
 
-                                @Html.Partial(ControllerHelper.PartialViews.Field, Field)
+                                @Html.ViewField(Field)
                                 }
                         </div>
                             j++;
@@ -118,16 +143,16 @@
                 }
             else
                 {
-                foreach (System.Web.ModelBinding.ModelMetadata Meta in Fields)
+                foreach (ModelMetadata Meta in Fields)
                     {
-                    ViewField Field = new ViewField(Context, Model.TrueModelType(), Meta.PropertyName, Model, ViewType);
+                    ViewField Field = new ViewField(ViewContext, Model.TrueModelType(), Meta.PropertyName, Model, ViewType);
 
                     if (Meta.IsRequired)
                         {
                         RequiredFields = true;
                         }
 
-                    @Html.Partial(ControllerHelper.PartialViews.Field, Field)
+                    @Html.ViewField(Field)
                     }
                 }
 
@@ -148,14 +173,12 @@
             </div>
             }
 
-
-        if (ViewContext.Controller is ManageController &&
-            ((ManageController)ViewContext.Controller).OverridePermissions.Deactivate == true &&
-            ControllerHelper.AllowDeactivate(Session, Model.TrueModelType()) && !ViewBag.Create)
+        if (ViewContext.AllowDeactivate(Model.TrueModelType()) && !ViewBag.Create)
             {
             <div class="left">
-                <a href="@Url.Action((String)ViewBag.DeleteActionName,
-                    (String)ViewBag.ControllerName, new { id = Model.GetID(), ReturnURL = ViewBag.ReturnURL })"
+                <a href="@(Url.Controller<ManageController>()
+                    .Action((Expression<Func<ManageController, Func<int, String, ActionResult>>>)(c => c.Delete),
+                    Model.GetID<int>(), ViewBag.ReturnURL))"
                    id="DeleteButton"
                    key-bind-click="Ctrl+Delete"
                    key-bind-click-name="Delete"
@@ -179,9 +202,23 @@
                     <glyph>&#xe091;</glyph>
                     Cancel
                 </a>
+                @if (!ViewBag.Create)
+                    {
+                    <button class="btn btn-default btn-success pointer"
+                            onclick="$('form').submit();"
+                            id="UpdateButton"
+                            name="UpdateButton"
+                            value="Update"
+                            key-bind-click="Ctrl+U"
+                            key-bind-click-name="Update">
+                        <glyph>&#xe031;</glyph>
+                        Update
+                    </button>
+                    }
                 <a class="btn btn-default btn-success pointer"
                    onclick="$('form').submit();"
                    id="SaveButton"
+                   name="SaveButton"
                    key-bind-click="Ctrl+S"
                    key-bind-click-name="Save">
                     <glyph>&#xe173;</glyph>

@@ -35,10 +35,10 @@
                 @for (int j = 0; j < TableData[i].Length; j++)
                     {
                     <td>
-                        @if (TableData[i][j].ToString().Length > ManageController.DefaultTableTextLength)
+                        @if (TableData[i][j].ToString().Length > ControllerHelper.DefaultTableTextLength)
                             {
                             <span class="abbreviated" title="@Model.PropertyData">
-                                @TableData[i][j].Substring(0, ManageController.DefaultTableTextLength) ...
+                                @TableData[i][j].Substring(0, ControllerHelper.DefaultTableTextLength) ...
                             </span>
                             }
                         else

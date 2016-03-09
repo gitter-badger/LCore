@@ -180,7 +180,7 @@ WriteLiteral("\"\r\n       value=\"");
 
             
             #line 27 "..\..\Views\Shared\Fields\Edit\Hidden.cshtml"
-         Write(Model.PropertyData.ToString());
+          Write((Model.PropertyData ?? "").ToString());
 
             
             #line default

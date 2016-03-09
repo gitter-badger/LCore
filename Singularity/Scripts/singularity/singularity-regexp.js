@@ -1,4 +1,7 @@
+/// <reference path="singularity-core.ts"/>
+/// <reference path="singularity-string.ts"/>
 var singRegExp = singString.addModule(new sing.Module('RegExp', String));
+singRegExp.glyphIcon = '&#xe051;';
 singRegExp.method('matchCount', StringMatchCount, {
     summary: null,
     parameters: null,
@@ -61,18 +64,7 @@ singRegExp.method('escapeRegExp', StringEscapeRegExp, {
     },
 });
 function StringEscapeRegExp() {
-    var out = this;
-    return out;
-    out = out.replaceRegExp(/(^|.+)\$/, /\\\$/);
-    out = out.replaceRegExp(/(^|.+)\[/, /\\\[/);
-    out = out.replaceRegExp(/(^|.+)\]/, /\\\]/);
-    out = out.replaceRegExp(/(^|.+)\./, /\\\./);
-    out = out.replaceRegExp(/(^|.+)\^/, /\\\^/);
-    out = out.replaceRegExp(/(^|.+)\!/, /\\\!/);
-    out = out.replaceRegExp(/(^|.+)\?/, /\\\?/);
-    out = out.replaceRegExp(/(^|.+)\\/, /\\\\/);
-    out = out.replaceRegExp(/(^|.+)\>/, /\\\>/);
-    out = out.replaceRegExp(/(^|.+)\</, /\\\</);
-    return out;
+    var out = (this || '');
+    return out.replace(/([\\\.\+\*\?\[\^\]\$\(\)\{\}\=\!\<\>\|\:])/g, "\\$1");
 }
 //# sourceMappingURL=singularity-regexp.js.map

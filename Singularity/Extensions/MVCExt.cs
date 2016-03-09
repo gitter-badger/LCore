@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using LCore;
 using System.IO;
 
-namespace Singularity
+namespace Singularity.Extensions
 {
     public static class MVCExt
     {

@@ -6,10 +6,9 @@ using System.Web;
 using System.Web.Routing;
 using LCore;
 using System.ComponentModel.DataAnnotations;
-using System.Web.ModelBinding;
 using System.Web.Mvc;
 
-namespace Singularity
+namespace Singularity.Annotations
     {
     public interface IFileUpload
         {

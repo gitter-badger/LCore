@@ -1,4 +1,6 @@
 ﻿using LCore;
+using Singularity.Context;
+using Singularity.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -6,20 +8,23 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
+using Singularity.Extensions;
 
-namespace Singularity
+namespace Singularity.Utilities
     {
     public class StringConverter : TypeResultAction<String>
         {
+        public HttpSessionStateBase Session { get; set; }
+
         public StringConverter()
             {
             }
 
-        DbSet Query { get; set; }
-
-        public StringConverter(DbSet Query)
+        public StringConverter(HttpSessionStateBase Session)
             {
-            this.Query = Query;
+            this.Session = Session;
             }
 
         protected U PerformAction_IConvertible<U>(String In)
@@ -110,16 +115,14 @@ namespace Singularity
 
         protected override IModel PerformAction_IModel(Type t, string In)
             {
-            if (Query != null)
+            if (Session != null)
                 {
-                int ID_Int;
-                Guid ID_Guid = Guid.Empty;
+                DbSet Query = ContextProviderFactory.GetCurrent().GetDBSet(Session, t);
 
-                if (int.TryParse(In, out ID_Int))
-                    return (IModel)Query.Find(ID_Int);
-
-                if (Guid.TryParse(In, out ID_Guid))
-                    return (IModel)Query.Find(ID_Guid);
+                if (Query != null)
+                    {
+                    return (IModel)Query.FindByID(In);
+                    }
                 }
             return null;
             }
@@ -127,6 +130,14 @@ namespace Singularity
         protected override object PerformAction_Object(string In)
             {
             return In;
+            }
+
+        public static Boolean IsTypeSupported(ModelMetadata Meta)
+            {
+            return Meta != null &&
+                !Meta.IsReadOnly &&
+                (Meta.ModelType.HasInterface<IConvertible>() ||
+                Meta.ModelType.HasInterface<IModel>());
             }
         }
     }

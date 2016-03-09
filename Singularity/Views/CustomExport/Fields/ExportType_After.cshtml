@@ -1,0 +1,116 @@
+﻿@* Generator: MvcView *@
+
+@using LCore;
+@using Singularity;
+@using Singularity.Models;
+@using Singularity.Controllers;
+@using Singularity.Context;
+@using Singularity.Routes;
+@using Singularity.Annotations;
+@using Singularity.Extensions;
+@using System.Linq;
+@using System.Linq.Expressions;
+@using System.Collections;
+@using System.Collections.Generic;
+@using System.ComponentModel;
+@using System.ComponentModel.DataAnnotations;
+@using System.ComponentModel.Design;
+@using System.Web;
+@using System.Web.Mvc;
+
+@{
+    CustomExport Export = (CustomExport)Model.ModelData;
+
+    Type ModelExportType = null;
+
+    if (Export.ExportType != null)
+        {
+        try
+            {
+            ModelExportType = TypeExt.FindType(Export.ExportType);
+            }
+        catch
+            {
+
+            }
+        }
+
+    Dictionary<String, ModelMetadata> AllMeta;
+    Dictionary<String, List<ModelMetadata>> BasedMeta = new Dictionary<string, List<ModelMetadata>>();
+
+    if (ModelExportType == null)
+        {
+        AllMeta = new Dictionary<string, ModelMetadata>();
+        }
+    else
+        {
+        AllMeta = ModelExportType.GetMeta();
+        }
+
+    AllMeta.Keys.Each((k) =>
+    {
+        String BaseKey = "";
+
+        if (k.Contains("."))
+            {
+            BaseKey = k.Substring(0, k.LastIndexOf('.'));
+            }
+
+        if (!BasedMeta.ContainsKey(BaseKey))
+            {
+            BasedMeta[BaseKey] = new List<ModelMetadata>();
+            }
+
+        BasedMeta[BaseKey].Add(AllMeta[k]);
+    });
+}
+
+@model IViewField
+
+@if (!Model.ViewTypes.HasAny(ControllerHelper.ViewType.TableCell))
+    {
+    if (ModelExportType != null)
+        {
+        <div class="field-list-add" target="#Fields" position="end">
+            <h3>@Html.TextContent("Singularity_CustomExport_Fields", "Fields")</h3>
+
+            @foreach (String BaseKey in BasedMeta.Keys)
+                {
+                <span class="btn-info btn left method-show-hide" click-fade-toggle=".field-group-@BaseKey.ReplaceAll(".", "")">
+                    <glyph class="field-group-@BaseKey.ReplaceAll(".", "")">&#x2b;</glyph>
+                    <glyph class="field-group-@BaseKey.ReplaceAll(".", "")" style=" display: none;">&#x2212;</glyph>
+                </span>
+
+                if (String.IsNullOrEmpty(BaseKey))
+                    {
+                    <h4>@ModelExportType.GetFriendlyTypeName()</h4>
+                    }
+                else
+                    {
+                    <h4>@BaseKey.ReplaceAll(".", " ")</h4>
+                    }
+
+                    <div class="field-group-@BaseKey.ReplaceAll(".", "")" style="display:none;">
+                        @foreach (ModelMetadata Meta in BasedMeta[BaseKey])
+                            {
+                            String Key = Meta.PropertyName;
+
+                            if (!String.IsNullOrEmpty(BaseKey))
+                                {
+                                Key = BaseKey + "." + Key;
+                                }
+
+                            <div class="field-list-row" data-field-name="@Key" title="@Key">
+                                <div class="add-button">
+                                    <glyph>&#x2b;</glyph>
+                                </div>
+                                <div class="field-name">
+                                    @Meta.GetDisplayName().Humanize()
+                                </div>
+                            </div>
+                            }
+                    </div>
+                }
+        </div>
+        }
+    }

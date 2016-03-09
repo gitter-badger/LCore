@@ -1,0 +1,169 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using LCore;
+
+namespace LCore.Statistics
+    {
+    public static class StatsExt
+        {
+        public static int GetOptimumClassCount(long SampleSize)
+            {
+            return (int)SampleSize.SquareRoot().Round();
+            }
+        public static int GetOptimumClassCount(int SampleSize)
+            {
+            return (int)SampleSize.SquareRoot().Round();
+            }
+
+        /// <summary>
+        /// Returns the ratio (between 0 and 1) of data that exists within StandardDeviations of the mean.
+        /// As per Chebyshev's Inequality.
+        /// </summary>
+        /// <param name="StandardDeviations">Must be postive</param>
+        /// <returns>Returns the ratio (between 0 and 1) of data that exists within StandardDeviations of the mean</returns>
+        public static float GetRatioWithin(double StandardDeviations)
+            {
+            if (StandardDeviations < 0)
+                throw new ArgumentException("StandardDeviations");
+
+            return (float)(1 - 1 / Math.Pow(StandardDeviations, 2));
+            }
+
+        /// <summary>
+        /// Returns the ratio (between 0 and 1) of data that exists outside of StandardDeviations of the mean.
+        /// Derived from Chebyshev's Inequality.
+        /// </summary>
+        /// <param name="StandardDeviations">Must be postive</param>
+        /// <returns>Returns the ratio (between 0 and 1) of data that exists outside of StandardDeviations of the mean</returns>
+        public static float GetRatioWithout(double StandardDeviations)
+            {
+            if (StandardDeviations < 0)
+                throw new ArgumentException("StandardDeviations");
+
+            return 1 - GetRatioWithin(StandardDeviations);
+            }
+
+        /// <summary>
+        /// Returns the ratio (between 0 and 1) of data that exists greater than StandardDeviations of the mean.
+        /// Derived from Chebyshev's Inequality.
+        /// </summary>
+        /// <param name="StandardDeviations">May be positive or negative</param>
+        /// <returns>Returns the ratio (between 0 and 1) of data that exists greater than StandardDeviations of the mean</returns>
+        public static float GetRatioGreaterThan(double StandardDeviations)
+            {
+            if (StandardDeviations < 0)
+                {
+                return 1 - GetRatioLessThan(StandardDeviations);
+                }
+            else if (StandardDeviations == 0)
+                {
+                return 0.5f;
+                }
+            else
+                {
+                return GetRatioWithout(StandardDeviations) / 2;
+                }
+
+            }
+
+        /// <summary>
+        /// Returns the ratio (between 0 and 1) of data that exists less than StandardDeviations of the mean.
+        /// Derived from Chebyshev's Inequality.
+        /// </summary>
+        /// <param name="StandardDeviations">May be positive or negative</param>
+        /// <returns>Returns the ratio (between 0 and 1) of data that exists less than StandardDeviations of the mean</returns>
+        public static float GetRatioLessThan(double StandardDeviations)
+            {
+            if (StandardDeviations < 0)
+                {
+                return GetRatioWithout(StandardDeviations.AbsoluteValue()) / 2;
+                }
+            else if (StandardDeviations == 0)
+                {
+                return 0.5f;
+                }
+            else
+                {
+                return 1 - GetRatioGreaterThan(StandardDeviations);
+                }
+            }
+
+        /// <summary>
+        /// Returns the ratio (between 0 and 1) of data that exists between the two values of Standard Deviation.
+        /// Derived from Chebyshev's Inequality.
+        /// </summary>
+        /// <param name="MinimumStandardDeviations">Positive or negative, must be less than MaximumStandardDeviations</param>
+        /// <param name="MaximumStandardDeviations">Positive or negative, must be more than MaximumStandardDeviations</param>
+        /// <returns></returns>
+        public static float GetRatioWithinRange(double MinimumStandardDeviations, double MaximumStandardDeviations)
+            {
+            if (MaximumStandardDeviations <= MinimumStandardDeviations)
+                throw new ArgumentException("Maximum must be greater than minimum.");
+
+            float Side = GetRatioGreaterThan(MinimumStandardDeviations);
+            float Side2 = GetRatioLessThan(MinimumStandardDeviations);
+
+            float Intersection = (Side + Side2) - 1f;
+
+            return Intersection;
+            }
+
+        /// <summary>
+        /// Returns the ratio (between 0 and 1) of data that exists outside of two values of Standard Deviation.
+        /// Derived from Chebyshev's Inequality.
+        /// </summary>
+        /// <param name="MinimumStandardDeviations">Positive or negative, must be less than MaximumStandardDeviations</param>
+        /// <param name="MaximumStandardDeviations">Positive or negative, must be more than MaximumStandardDeviations</param>
+        /// <returns></returns>
+        public static float GetRatioWithoutRange(double MinimumStandardDeviations, double MaximumStandardDeviations)
+            {
+            return 1 - GetRatioWithinRange(MinimumStandardDeviations, MaximumStandardDeviations);
+            }
+
+
+        /// <summary>
+        /// Returns the number of Standard Deviations from the mean must be included to contain the passed Ratio (between 0 and 1) of data.
+        /// Derived from Chebyshev's Inequality.
+        /// </summary>
+        /// <param name="Ratio">Must be between 0 and 1</param>
+        /// <returns>Returns the number of Standard Deviations from the mean must be included to contain the passed Ratio (between 0 and 1) of data.</returns>
+        public static double GetStandardDeviationRange(float Ratio)
+            {
+            if (Ratio < 0 || Ratio > 1)
+                throw new ArgumentException("Ratio");
+
+            return Math.Sqrt(1 - 1 / Ratio);
+            }
+
+        /// <summary>
+        /// Returns the number of Standard Deviations a line must be drawn so that the Ratio greater is equal to the passed Ratio.
+        /// Derived from Chebyshev's Inequality.
+        /// </summary>
+        /// <param name="Ratio">Must be between 0 and 1</param>
+        /// <returns>Returns the number of Standard Deviations the line must be drawn so that the Ratio greater is equal to the passed Ratio.</returns>
+        public static double GetStandardDeviationLowerRatio(float Ratio)
+            {
+            if (Ratio < 0 || Ratio > 1)
+                throw new ArgumentException("Ratio");
+
+            return (Math.Sqrt(1 - 1 / Ratio) / 2) + 0.5f;
+            }
+
+        /// <summary>
+        /// Returns the number of Standard Deviations a line must be drawn so that the Ratio less then the line is equal to the passed Ratio.
+        /// Derived from Chebyshev's Inequality.
+        /// </summary>
+        /// <param name="Ratio">Must be between 0 and 1</param>
+        /// <returns>Returns the number of Standard Deviations a line must be drawn so that the Ratio less then the line is equal to the passed Ratio.</returns>
+        public static double GetStandardDeviationUpperRatio(float Ratio)
+            {
+            if (Ratio < 0 || Ratio > 1)
+                throw new ArgumentException("Ratio");
+
+            return -(GetStandardDeviationLowerRatio(1 - Ratio));
+            }
+        }
+    }

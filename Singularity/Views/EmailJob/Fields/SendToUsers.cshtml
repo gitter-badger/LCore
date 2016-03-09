@@ -1,0 +1,100 @@
+﻿@* Generator: MvcView *@
+
+@using LCore;
+@using Singularity;
+@using Singularity.Models;
+@using Singularity.Controllers;
+@using Singularity.Context;
+@using Singularity.Routes;
+@using Singularity.Annotations;
+@using Singularity.Extensions;
+@using System.Linq;
+@using System.Linq.Expressions;
+@using System.Collections;
+@using System.Collections.Generic;
+@using System.ComponentModel;
+@using System.ComponentModel.DataAnnotations;
+@using System.ComponentModel.Design;
+@using System.Web;
+@using System.Web.Mvc;
+
+@{
+    EmailJob ModelData = (EmailJob)Model.ModelData;
+}
+
+@model IViewField
+
+@if (Model.ViewTypes.Has(ControllerHelper.ViewType.Display) &&
+    ViewBag.Create != true &&
+    ModelData.SavedSearch != null &&
+    ModelData.EmailTemplate != null)
+    {
+    ManageController Controller = ContextProviderFactory.GetCurrent().GetManageController(Session, ModelData.SavedSearch.ControllerName);
+
+    if (Controller != null)
+        {
+        String Search = ModelData.SavedSearch.FieldSearch ?? "";
+
+        Dictionary<String, SearchOperation> Ops = Controller.Helper.ExtractSearchTerms(ref Search, Controller.ModelType);
+
+        int TotalItems = 0;
+        IEnumerable<IModel> Models = Controller.Helper.GetModels(out TotalItems, 0, 500,
+            ModelData.SavedSearch.OverrideSort,
+            ModelData.SavedSearch.OverrideSortDirection == null ?
+                SortDirection.Ascending :
+                (SortDirection)ModelData.SavedSearch.OverrideSortDirection,
+            ModelData.SavedSearch.GlobalSearch,
+            Ops,
+            ControllerHelper.ManageViewType.Normal);
+
+        List<IEmailable> Emailables = Models.ToList().Filter<IEmailable>();
+
+        Emailables.OrderBy(e => e.ToString());
+
+        using (
+            Html.BeginForm(MetaExt.Type<EmailTemplateController>().Name<int, String, FormCollection, ActionResult>(c => c.EmailSavedSearchTemplate),
+            Url.Controller<EmailTemplateController>().ControllerName,
+            FormMethod.Post, new { id = "email-form" }))
+            {
+            @Html.Hidden("EmailJobID", ModelData.EmailJobID.ToString())
+            @Html.Hidden("ReturnURL", (String)ViewBag.ReturnURL)
+
+            <table class="send-to-users">
+                <thead>
+                    <tr>
+                        <td>Send</td>
+                        <td>Name</td>
+                        <td>Email</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (IEmailable Emailable in Emailables)
+                        {
+                        String ID = Emailable.GetID();
+
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="EmailUsers_@ID" name="EmailUsers[]" value="@ID" checked />
+                            </td>
+                            <td>
+                                <label for="EmailUsers_@ID">
+                                    @Emailable.ToString()
+                                </label>
+                            </td>
+                            <td>
+                                <label for="EmailUsers_@ID">
+                                    @Emailable.GetEmails(ModelData.EmailToField).JoinLines(",")
+                                </label>
+                            </td>
+                        </tr>
+                        }
+                </tbody>
+            </table>
+
+            <a onclick="if (confirm('Are you sure you want to send this Email Job?')) { $('form#email-form').submit(); }" class="btn btn-default">
+                <glyph>&#xe171;</glyph>
+                Send
+            </a>
+            }
+        }
+    }

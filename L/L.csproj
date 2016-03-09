@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,6 +45,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.WindowsAzure.StorageClient">
+      <HintPath>C:\Program Files\Microsoft SDKs\Azure\.NET SDK\v2.7\bin\Microsoft.WindowsAzure.StorageClient.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
@@ -71,6 +74,18 @@
     <Compile Include="Dynamic Code\CodeExplode\Logic_Extension_Explode_bak.cs" />
     <Compile Include="Dynamic Code\CodeExplode\Logic_Extension_Explode.cs" />
     <Compile Include="Dynamic Code\CodeExplode\LX_Explode.cs" />
+    <Compile Include="Extensions\AzureCloudExt.cs" />
+    <Compile Include="Interfaces\IGrouped.cs" />
+    <Compile Include="NeuralNet\NeuralNet.cs" />
+    <Compile Include="NeuralNet\Neuron.cs" />
+    <Compile Include="Numbers\Number.cs" />
+    <Compile Include="Statistics\IQuantitativeSampleSet.cs" />
+    <Compile Include="Statistics\IQualitativeSampleSet.cs" />
+    <Compile Include="Statistics\QuantitativeSampleSet.cs" />
+    <Compile Include="Statistics\QualitativeSampleSet.cs" />
+    <Compile Include="Statistics\SampleSet.cs" />
+    <Compile Include="Statistics\ISampleSet.cs" />
+    <Compile Include="Statistics\StatsExt.cs" />
     <Compile Include="Tools\ExceptionList.cs" />
     <Compile Include="Extensions\Testing\TestResultAttribute.cs" />
     <Compile Include="Extensions\Testing\TestSourceAttribute.cs" />
@@ -127,6 +142,7 @@
     <Compile Include="Tools\DateTimeConverter.cs" />
     <Compile Include="Tools\MatrixComparer.cs" />
     <Compile Include="Tools\MatrixSwapper.cs" />
+    <Compile Include="Tools\ProgressUpdater.cs" />
     <Compile Include="Tools\Schedule.cs" />
     <Compile Include="Tools\SharpZip\BZip2\BZip2.cs" />
     <Compile Include="Tools\SharpZip\BZip2\BZip2Constants.cs" />

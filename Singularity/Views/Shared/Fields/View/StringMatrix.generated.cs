@@ -201,7 +201,7 @@ WriteLiteral("                    <td>\r\n");
 
             
             #line 38 "..\..\Views\Shared\Fields\View\StringMatrix.cshtml"
-                         if (TableData[i, j].ToString().Length > ManageController.DefaultTableTextLength)
+                         if (TableData[i, j].ToString().Length > ControllerHelper.DefaultTableTextLength)
                             {
 
             
@@ -222,7 +222,7 @@ WriteLiteral("\">\r\n                                ");
 
             
             #line 41 "..\..\Views\Shared\Fields\View\StringMatrix.cshtml"
-                           Write(TableData[i, j].Substring(0, ManageController.DefaultTableTextLength));
+                           Write(TableData[i, j].Substring(0, ControllerHelper.DefaultTableTextLength));
 
             
             #line default

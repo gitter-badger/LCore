@@ -15,7 +15,7 @@ class SingularityTests {
 
 
     resolveTests = function () {
-        
+
         // Resolve module feature tests
         $.objEach(sing.modules, function (key, mod, i) {
             if (!$.isEmpty(mod.features)) {
@@ -45,7 +45,7 @@ class SingularityTests {
                         item.tests = null;
                 });
             }
-            
+
             // Resolve method details tests
             if (ext && ext.details.tests && $.isFunction(ext.details.tests)) {
 
@@ -91,7 +91,7 @@ class SingularityTest {
                 }
             }
             return this.testResult;
-        }
+        };
     }
 }
 
@@ -100,16 +100,25 @@ sing.addType('SingularityTests', {
     protoType: SingularityTests.prototype,
     name: 'SingularityTests',
     autoDefault: this.autoDefaults,
+    glyphIcon: '&#xe067;',
 });
 
 sing.tests = new SingularityTests();
 
 var singTests = singCore.addModule(new sing.Module('Tests', SingularityTests));
 
+singTests.glyphIcon = '&#xe067;';
 
-singTests.method('resolveTests', sing.tests.resolveTests, {});
 
-singTests.method('addTest', SingularityAddTest, {});
+singTests.method('resolveTests', sing.tests.resolveTests,
+    {
+        manuallyTested: true,
+    });
+
+singTests.method('addTest', SingularityAddTest,
+    {
+        manuallyTested: true,
+    });
 
 function SingularityAddTest(name: string, testFunc: () => any, requirement?: string) {
 
@@ -122,10 +131,14 @@ function SingularityAddTest(name: string, testFunc: () => any, requirement?: str
     if ($.isFunction(sing.methods[name].details.tests))
         sing.methods[name].details.unitTests = sing.methods[name].details.unitTests || [];
 
-    sing.methods[name].details.unitTests = sing.methods[name].details.unitTests.concat(new SingularityTest(name, testFunc, sing.methods[name].details.unitTests.length + 1, requirement));
+    sing.methods[name].details.unitTests = sing.methods[name].details.unitTests.concat(
+        new SingularityTest(name, testFunc, sing.methods[name].details.unitTests.length + 1, requirement));
 };
 
-singTests.method('addCustomTest', SingularityAddCustomTest, {});
+singTests.method('addCustomTest', SingularityAddCustomTest,
+    {
+        manuallyTested: true,
+    });
 
 function SingularityAddCustomTest(name: string, testFunc: Function, requirement?: string) {
     if (!$.isString(name))
@@ -143,10 +156,14 @@ function SingularityAddCustomTest(name: string, testFunc: Function, requirement?
 
     sing.methods[name].details.unitTests = sing.methods[name].details.unitTests || [];
 
-    sing.methods[name].details.unitTests = sing.methods[name].details.unitTests.concat(new SingularityTest(name, testFunc, sing.methods[name].details.unitTests.length + 1, requirement));
+    sing.methods[name].details.unitTests = sing.methods[name].details.unitTests.concat(
+        new SingularityTest(name, testFunc, sing.methods[name].details.unitTests.length + 1, requirement));
 };
 
-singTests.method('addMethodTest', SingularityAddMethodTest, {});
+singTests.method('addMethodTest', SingularityAddMethodTest,
+    {
+        manuallyTested: true,
+    });
 
 function SingularityAddMethodTest(ext: SingularityMethod, target?: any, args?: any[], compare?: any, requirement?: string) {
 
@@ -187,11 +204,14 @@ function SingularityAddMethodTest(ext: SingularityMethod, target?: any, args?: a
 
 };
 
-singTests.method('addAssertTest', SingularityAddAssertTest, {});
+singTests.method('addAssertTest', SingularityAddAssertTest,
+    {
+        manuallyTested: true,
+    });
 
 function SingularityAddAssertTest(name: string, result: any, compare: any, requirement?: string) {
 
-    requirement = requirement || $.toStr(compare, true) + ' is expected to match result: ' + $.toStr(result, true)
+    requirement = requirement || $.toStr(compare, true) + ' is expected to match result: ' + $.toStr(result, true);
 
     this.addTest(name, function (): any {
         if (compare == result)
@@ -204,7 +224,10 @@ function SingularityAddAssertTest(name: string, result: any, compare: any, requi
     }, requirement);
 };
 
-singTests.method('addFailsTest', SingularityAddFailsTest, {});
+singTests.method('addFailsTest', SingularityAddFailsTest,
+    {
+        manuallyTested: true,
+    });
 
 function SingularityAddFailsTest(ext: SingularityMethod, target: any, args: any[], expectedError?: string, requirement?: string) {
 
@@ -230,7 +253,7 @@ function SingularityAddFailsTest(ext: SingularityMethod, target: any, args: any[
 
         try {
 
-            var result = ext.method.apply(target, args);
+            ext.method.apply(target, args);
 
             return name + ' was expected to fail but it did not. \r\n\r\n' +
                 requirement;
@@ -252,7 +275,10 @@ function SingularityAddFailsTest(ext: SingularityMethod, target: any, args: any[
     }, requirement);
 };
 
-singTests.method('runTests', SingularityRunTests, {});
+singTests.method('runTests', SingularityRunTests,
+    {
+        manuallyTested: true,
+    });
 
 function SingularityRunTests(display: boolean = false) {
 
@@ -327,7 +353,10 @@ function SingularityRunTests(display: boolean = false) {
         (result || '\r\n\r\nAll ' + testCount + ' tests succeeded.');
 };
 
-singTests.method('listTests', SingularityListTests, {});
+singTests.method('listTests', SingularityListTests,
+    {
+        manuallyTested: true,
+    });
 
 function SingularityListTests() {
 
@@ -351,7 +380,10 @@ function SingularityListTests() {
     return out;
 };
 
-singTests.method('listMissingTests', SingularityListMissingTests, {});
+singTests.method('listMissingTests', SingularityListMissingTests,
+    {
+        manuallyTested: true,
+    });
 
 function SingularityListMissingTests() {
 
@@ -378,7 +410,10 @@ function SingularityListMissingTests() {
 
 SingularityMethod.prototype.addFailsTest = MethodAddFailsTest;
 
-singTests.method('addFailsTest', MethodAddFailsTest, {}, SingularityMethod);
+singTests.method('addFailsTest', MethodAddFailsTest,
+    {
+        manuallyTested: true,
+    }, SingularityMethod);
 
 function MethodAddFailsTest(caller: any, args: any[], expectedError?: string, requirement?: string): void {
 
@@ -387,7 +422,10 @@ function MethodAddFailsTest(caller: any, args: any[], expectedError?: string, re
 
 SingularityMethod.prototype.addCustomTest = MethodAddCustomTest;
 
-singTests.method('addCustomTest', MethodAddCustomTest, {}, SingularityMethod);
+singTests.method('addCustomTest', MethodAddCustomTest,
+    {
+        manuallyTested: true,
+    }, SingularityMethod);
 
 function MethodAddCustomTest(testFunc: () => any, requirement?: string): void {
     sing.tests.addCustomTest(this.name, testFunc, requirement);
@@ -395,11 +433,14 @@ function MethodAddCustomTest(testFunc: () => any, requirement?: string): void {
 
 SingularityMethod.prototype.addTest = MethodAddSimpleTest;
 
-singTests.method('addTest', MethodAddSimpleTest, {}, SingularityMethod);
+singTests.method('addTest', MethodAddSimpleTest,
+    {
+        manuallyTested: true,
+    }, SingularityMethod);
 
 function MethodAddSimpleTest(caller: any, args: any[], result?: any, requirement?: string): void {
 
     var thisSingularityMethod = <SingularityMethod>this;
 
-    sing.tests.addMethodTest(this, caller, args, result, requirement);
+    sing.tests.addMethodTest(thisSingularityMethod, caller, args, result, requirement);
 }

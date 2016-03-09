@@ -160,9 +160,7 @@ WriteLiteral("\r\n");
 
             
             #line 24 "..\..\Views\Shared\Fields\Edit\Int.cshtml"
-Write(Html.TextBox(Model.Meta.PropertyName,
-                             Model.ModelData.GetProperty(Model.Meta.PropertyName),
-                            new { @class = "spinner-int" }));
+Write(Html.TextBox(Model.Meta.PropertyName, Model.ModelData.GetProperty(Model.Meta.PropertyName), new { @class = "spinner-int" }));
 
             
             #line default

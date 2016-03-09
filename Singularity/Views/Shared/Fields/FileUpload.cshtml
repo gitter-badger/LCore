@@ -5,6 +5,9 @@
 @using Singularity.Models;
 @using Singularity.Controllers;
 @using Singularity.Context;
+@using Singularity.Routes;
+@using Singularity.Annotations;
+@using Singularity.Extensions;
 @using System.Collections;
 @using System.Collections.Generic;
 @using System.ComponentModel;
@@ -25,16 +28,7 @@
 
     if (Context.ContextTypes.Has(typeof(Singularity.Models.FileUpload)))
         {
-        String ModelTypeName = Model.ModelData.TrueModelType().Name;
-        String PropertyName = Model.PropertyName;
-        int RelationID = Convert.ToInt32(Model.ModelData.GetID());
-
-        CurrentFiles = Context.GetDBSet<Singularity.Models.FileUpload>().Where(
-            f => f.Active == true &&
-            f.RelationType == ModelTypeName &&
-            f.RelationProperty == PropertyName &&
-            f.RelationID == RelationID
-            ).List();
+        CurrentFiles = Singularity.Models.FileUpload.GetFileUploads(Context, Model.ModelData, Model.PropertyName).List();
         }
 }
 
@@ -62,6 +56,9 @@
                             $('.file-upload-error-no-file-@Model.PropertyName').show();
                             return;
                         }
+
+                        $('#file-upload-button-@Model.PropertyName').attr('disabled', 'true');
+                        $('#file-upload-button-@Model.PropertyName span').html('Uploading');
 
                         var size = null;
 
@@ -110,21 +107,22 @@
                     }
                     }
 
+                    var ParentForm = $('#file-upload-button-@Model.PropertyName').parents('form')[0];
 
+                $.ajax({
+                    url: '/@(Html.ControllerName())/UploadFile?ReturnURL=@Request.Url.AbsoluteUri&RelationType=@Model.ModelData.TrueModelType().FullName&RelationProperty=@Model.PropertyName&RelationID=@Model.ModelData.GetID()',
+                    type: 'POST',
+                    data: new FormData(ParentForm),
+                    processData: false,
+                    contentType: false,
 
-                        $.ajax({
-                url: '/@(Html.ControllerName())/UploadFile?ReturnURL=@Request.Url.AbsoluteUri&RelationType=@Model.ModelData.TrueModelType().Name&RelationProperty=@Model.PropertyName&RelationID=@Model.ModelData.GetID()',
-                type: 'POST',
-                data: new FormData($('form.edit-form')[0]),
-                processData: false,
-                contentType: false,
-
-                success: function (data) {
-                    location.reload();
-                },
-                error: function (e) {
-                    $('.file-upload-error-@Model.PropertyName').show();
-                }
+                    success: function (data) {
+                        location.reload();
+                    },
+                    error: function (e) {
+                        console.log(e);
+                        $('.file-upload-error-@Model.PropertyName').show();
+                    }
                 });
                 });
                 });
@@ -154,7 +152,7 @@
 
             <div class="btn btn-default" id="file-upload-button-@Model.PropertyName">
                 <glyph>&#xE027;</glyph>
-                Upload
+                <span>Upload</span>
             </div>
         </div>
         }
@@ -181,12 +179,12 @@ else if (Model.ViewTypes.Has(ControllerHelper.ViewType.Display))
         <div class="display-file border-round">
 
             <div class="file-icon">
-                <a href="@Url.Action("DownloadFile", Html.ControllerName(), new { FileID = File.FileUploadID })">
+                <a href="@(Url.Controller<ManageController>().Action(c => c.DownloadFile, File.FileUploadID))">
                     <img src="/Content/icons/32px/@(Ext).png" alt="Image not found" error-src="/Content/icons/32px/_blank.png" />
                 </a>
             </div>
             <div>
-                <a href="@Url.Action("DownloadFile", Html.ControllerName(), new { FileID = File.FileUploadID })">
+                <a href="@(Url.Controller<ManageController>().Action(c => c.DownloadFile, File.FileUploadID))">
                     Name:
                     @(System.IO.Path.GetFileName(File.FilePath))
                 </a>
@@ -200,7 +198,7 @@ else if (Model.ViewTypes.Has(ControllerHelper.ViewType.Display))
             @if (Attr.AllowDeactivate)
                 {
                 <a class="btn btn-default" id="file-upload-button-@Model.PropertyName"
-                   href="@Url.Action("DeleteFile", Html.ControllerName(), new { id = File.FileUploadID, ReturnURL = Request.Url.AbsoluteUri })">
+                   href="@(Url.Controller<ManageController>().Action(c => c.DeleteFile, File.FileUploadID, Request.Url.AbsoluteUri))">
                     <glyph>&#xe014;</glyph>
                     Remove
                 </a>

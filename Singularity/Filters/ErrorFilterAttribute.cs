@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Singularity.Routes;
+using Singularity.Controllers;
+using Singularity.Extensions;
 
 namespace Singularity.Filters
     {
@@ -26,7 +28,7 @@ namespace Singularity.Filters
                 LogError(e);
 
                 UrlHelper Url = new UrlHelper(filterContext.RequestContext);
-                filterContext.HttpContext.Response.Redirect(Url.Action(Singularity.Routes.Controllers.Error.Name, Singularity.Routes.Controllers.Error.Actions.Index));
+                filterContext.HttpContext.Response.Redirect(Url.Controller<ErrorController>().Action(c=>c.Index));
                 }
             }
 
@@ -41,7 +43,7 @@ namespace Singularity.Filters
                 LogError(e);
 
                 UrlHelper Url = new UrlHelper(filterContext.RequestContext);
-                filterContext.HttpContext.Response.Redirect(Url.Action(Singularity.Routes.Controllers.Error.Name, Singularity.Routes.Controllers.Error.Actions.Index));
+                filterContext.HttpContext.Response.Redirect(Url.Controller<ErrorController>().Action(c => c.Index));
                 }
             }
 

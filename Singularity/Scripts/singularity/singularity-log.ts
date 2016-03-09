@@ -24,6 +24,8 @@ var LOGGING_WARNING_ENABLED = true;
 
 var singLog = singCore.addModule(new sing.Module('Logging', sing, sing));
 
+singLog.glyphIcon = '&#xe105;';
+
 singLog.ignoreUnknown('ALL');
 
 
@@ -111,12 +113,12 @@ function BooleanLog(): void {
 
 
 function warn(...message: any[]) {
-    if (LOGGING_ERROR_ENABLED) {
+    if (LOGGING_WARNING_ENABLED) {
         if ($.toStr && $.resolve)
             console.log('%c' + $.toStr($.resolve(message), true), 'background: #555; color: #F7DAA3');
         else
             console.log('%c' + message, 'background: #555; color: #F7DAA3');
-        //console.trace();
+        // console.trace();
     }
 }
 
@@ -148,11 +150,11 @@ function BooleanWarn() {
 function error(...message: any[]) {
     if (LOGGING_ERROR_ENABLED) {
         console.log(message);
-        //if ($.toStr && $.resolve)
+        // if ($.toStr && $.resolve)
         //    console.log('%c ' + $.toStr($.resolve(message), true), 'background: #eee; color: #FF0000');
-        //else
+        // else
         //    console.log('%c ' + message, 'background: #eee; color: #FF0000');
-        console.trace();
+        // console.trace();
     }
 }
 

@@ -31,11 +31,11 @@ namespace LCore
         }
     public static class DictionaryExt
         {
-        public static void Merge<TKey, TValue>(this Dictionary<TKey, TValue> In, Dictionary<TKey, TValue> Add)
+        public static void Merge<TKey, TValue>(this IDictionary<TKey, TValue> In, IDictionary<TKey, TValue> Add)
             {
             In.Merge(Add, L.F<KeyValuePair<TKey, TValue>, KeyValuePair<TKey, TValue>>());
             }
-        public static void Merge<TKey, TValue>(this Dictionary<TKey, TValue> In, Dictionary<TKey, TValue> Add, Func<KeyValuePair<TKey, TValue>, KeyValuePair<TKey, TValue>> Conflict)
+        public static void Merge<TKey, TValue>(this IDictionary<TKey, TValue> In, IDictionary<TKey, TValue> Add, Func<KeyValuePair<TKey, TValue>, KeyValuePair<TKey, TValue>> Conflict)
             {
             if (Add == null)
                 return;
@@ -51,13 +51,13 @@ namespace LCore
                     }
             });
             }
-        public static void AddRange<TKey, TValue>(this Dictionary<TKey, TValue> In, Dictionary<TKey, TValue> Add)
+        public static void AddRange<TKey, TValue>(this IDictionary<TKey, TValue> In, IDictionary<TKey, TValue> Add)
             {
             if (Add == null)
                 return;
             Add.Keys.Each((o) => { In.SafeAdd(o, Add[o]); });
             }
-        public static void SafeSet<TKey, TValue>(this Dictionary<TKey, TValue> In, TKey Key, TValue Val)
+        public static void SafeSet<TKey, TValue>(this IDictionary<TKey, TValue> In, TKey Key, TValue Val)
             {
             if (In != null)
                 {
@@ -67,7 +67,7 @@ namespace LCore
                     In[Key] = Val;
                 }
             }
-        public static void SafeAdd<TKey, TValue>(this Dictionary<TKey, TValue> In, TKey Key, TValue Val)
+        public static void SafeAdd<TKey, TValue>(this IDictionary<TKey, TValue> In, TKey Key, TValue Val)
             {
             if (In != null && !In.ContainsKey(Key))
                 In.Add(Key, Val);

@@ -21,13 +21,20 @@ interface JQuery {
 
     hasAttr?: (name: string) => boolean;
 
+    swapClass?: (class1: string, class2: string) => JQuery;
+
     getAttributes?: () => IKeyValue<string, string>[]| IKeyValue<string, string>[][];
 
     isOnScreen?: (x?: number, y?: number) => boolean;
+
+    superFadeIn?: (speed?: string|number) => JQuery;
+    superFadeOut?: (speed?: string|number) => JQuery;
 }
 
 
 var singJQuery = singExt.addModule(new sing.Module("jQuery", [$, $.fn], $));
+
+singJQuery.glyphIcon = '&#xe148;';
 
 singJQuery.ignoreUnknown('ALL');
 
@@ -46,6 +53,7 @@ singJQuery.method('checked', Checked,
         returns: '',
         returnType: '',
         examples: null,
+        glyphIcon: '&#xe013;',
         tests: function (ext) {
         },
     }, $.fn);
@@ -70,6 +78,7 @@ singJQuery.method('allVisible', AllVisible,
         returns: '',
         returnType: '',
         examples: null,
+        glyphIcon: '&#xe105;',
         tests: function (ext) {
         },
     }, $.fn);
@@ -100,6 +109,7 @@ singJQuery.method('findIDNameSelector', FindIDNameSelector,
         returns: '',
         returnType: '',
         examples: null,
+        glyphIcon: '&#xe003;',
         tests: function (ext) {
         },
     }, $.fn);
@@ -132,6 +142,7 @@ singJQuery.method('actionIf', ActionIf,
         returns: '',
         returnType: '',
         examples: null,
+        glyphIcon: '&#xe162;',
         tests: function (ext) {
         },
     }, $.fn);
@@ -252,6 +263,7 @@ singJQuery.method('defer', Defer,
         returnType: '',
         aliases: ['wait'],
         examples: null,
+        glyphIcon: '&#xe095;',
         tests: function (ext) {
         },
     });
@@ -269,6 +281,7 @@ singJQuery.method('hasAttr', JQueryHasAttr,
         returns: '',
         returnType: '',
         examples: null,
+        glyphIcon: '&#xe042;',
         tests: function (ext) {
         },
     }, $.fn);
@@ -286,6 +299,7 @@ singJQuery.method('outerHtml', JQueryOuterHtml,
         returns: '',
         returnType: '',
         examples: null,
+        glyphIcon: '&#xe140;',
         tests: function (ext) {
         },
     }, $.fn);
@@ -308,6 +322,7 @@ singJQuery.method('innerHtml', JQueryInnerHtml,
         returns: '',
         returnType: '',
         examples: null,
+        glyphIcon: '&#xe087;',
         tests: function (ext) {
         },
     }, $.fn);
@@ -332,6 +347,7 @@ singJQuery.method('isOnScreen', JQueryIsOnScreen,
         returns: '',
         returnType: '',
         examples: null,
+        glyphIcon: '&#xe106;',
         tests: function (ext) {
         },
     }, $.fn);
@@ -361,7 +377,10 @@ function JQueryIsOnScreen(x: number = 1, y: number = 1): boolean {
     bounds.right = bounds.left + width;
     bounds.bottom = bounds.top + height;
 
-    var visible = (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
+    var visible = (!(viewport.right < bounds.left ||
+        viewport.left > bounds.right ||
+        viewport.bottom < bounds.top ||
+        viewport.top > bounds.bottom));
 
     if (!visible) {
         return false;
@@ -375,4 +394,231 @@ function JQueryIsOnScreen(x: number = 1, y: number = 1): boolean {
     };
 
     return (deltas.left * deltas.right) >= x && (deltas.top * deltas.bottom) >= y;
+};
+
+singJQuery.method('swapClasses', JQuerySwapClass,
+    {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        glyphIcon: '&#xe110;',
+        tests: function (ext) {
+        },
+    }, $.fn);
+
+function JQuerySwapClass(class1: string, class2: string): JQuery {
+
+    var thisJQuery = <JQuery>this;
+
+    if (thisJQuery) {
+        if (thisJQuery.hasClass(class1)) {
+            thisJQuery.removeClass(class1);
+            thisJQuery.addClass(class2);
+        }
+        else if (thisJQuery.hasClass(class2)) {
+            thisJQuery.removeClass(class2);
+            thisJQuery.addClass(class1);
+        }
+        else {
+            thisJQuery.addClass(class1);
+        }
+    }
+
+    return thisJQuery;
+};
+
+singJQuery.method('fadeClasses', JQueryFadeClass,
+    {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        glyphIcon: '',
+        tests: function (ext) {
+        },
+    }, $.fn);
+
+function JQueryFadeClass(class1: string, class2: string, speed: string|number = 'fast', callback?: Function): JQuery {
+
+    var thisJQuery = <JQuery>this;
+
+    if (thisJQuery) {
+        if (thisJQuery.hasClass(class1)) {
+
+            thisJQuery.fadeOut(speed, function () {
+                thisJQuery.removeClass(class1);
+                thisJQuery.addClass(class2);
+
+                thisJQuery.fadeIn(speed, function () {
+                    if (callback)
+                        callback();
+                });
+            });
+        }
+        else if (thisJQuery.hasClass(class2)) {
+            thisJQuery.fadeOut(speed, function () {
+                thisJQuery.removeClass(class2);
+                thisJQuery.addClass(class1);
+
+                thisJQuery.fadeIn(speed, function () {
+                    if (callback)
+                        callback();
+                });
+            });
+        }
+        else {
+            thisJQuery.fadeOut(speed, function () {
+                thisJQuery.addClass(class1);
+
+                thisJQuery.fadeIn(speed, function () {
+                    if (callback)
+                        callback();
+                });
+            });
+        }
+    }
+
+    return thisJQuery;
+};
+
+singJQuery.method('superFadeOut', JQuerySuperFadeOut,
+    {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        glyphIcon: '',
+        tests: function (ext) {
+        },
+    }, $.fn);
+
+function JQuerySuperFadeOut(speed: string|number = 'fast'): JQuery {
+
+    var thisJQuery = <JQuery>this;
+
+    thisJQuery.each(function () {
+
+        var jElement = $(this);
+
+        jElement.data('old-opacity', jElement.css('opacity'));
+
+        jElement.data('old-height', jElement.css('height'));
+
+        jElement.data('old-margin-top', jElement.css('margin-top'));
+        jElement.data('old-margin-bottom', jElement.css('margin-bottom'));
+        jElement.data('old-margin-left', jElement.css('margin-left'));
+        jElement.data('old-margin-right', jElement.css('margin-right'));
+
+        jElement.data('old-padding-top', jElement.css('padding-top'));
+        jElement.data('old-padding-bottom', jElement.css('padding-bottom'));
+        jElement.data('old-padding-left', jElement.css('padding-left'));
+        jElement.data('old-padding-right', jElement.css('padding-right'));
+
+        jElement.animate(
+            {
+                opacity: 0,
+                height: 0,
+                padding: 0,
+                margin: 0,
+            }, speed);
+    });
+
+    return thisJQuery;
+};
+
+singJQuery.method('superFadeIn', JQuerySuperFadeIn,
+    {
+        summary: null,
+        parameters: null,
+        validateInput: false,
+        returns: '',
+        returnType: '',
+        examples: null,
+        glyphIcon: '',
+        tests: function (ext) {
+        },
+    }, $.fn);
+
+function JQuerySuperFadeIn(speed: string|number = 'fast'): JQuery {
+
+    var thisJQuery = <JQuery>this;
+
+    thisJQuery.each(function () {
+
+        var jElement = $(this);
+
+        var opacity: any = jElement.data('old-opacity');
+        opacity = (opacity == '') ? jElement.css('opacity') : opacity;
+
+        var height: any = jElement.data('old-height');
+        height = (height == '') ? 'auto' : height;
+
+        var marginTop: any = jElement.data('old-margin-top');
+        marginTop = (marginTop == '') ? jElement.css('margin-top') : marginTop;
+
+        var marginBottom: any = jElement.data('old-margin-bottom');
+        marginBottom = (marginBottom == '') ? jElement.css('margin-bottom') : marginBottom;
+
+        var marginLeft: any = jElement.data('old-margin-left');
+        marginLeft = (marginLeft == '') ? jElement.css('margin-left') : marginLeft;
+
+        var marginRight: any = jElement.data('old-margin-right');
+        marginRight = (marginRight == '') ? jElement.css('margin-right') : marginRight;
+
+        var paddingTop: any = jElement.data('old-padding-top');
+        paddingTop = (paddingTop == '') ? jElement.css('padding-top') : paddingTop;
+
+        var paddingBottom: any = jElement.data('old-padding-bottom');
+        paddingBottom = (paddingBottom == '') ? jElement.css('padding-bottom') : paddingBottom;
+
+        var paddingLeft: any = jElement.data('old-padding-left');
+        paddingLeft = (paddingLeft == '') ? jElement.css('padding-left') : paddingLeft;
+
+        var paddingRight: any = jElement.data('old-padding-right');
+        paddingRight = (paddingRight == '') ? jElement.css('padding-right') : paddingRight;
+
+        jElement.data('old-opacity', '');
+        jElement.data('old-height', '');
+        jElement.data('old-margin-top', '');
+        jElement.data('old-margin-bottom', '');
+        jElement.data('old-margin-left', '');
+        jElement.data('old-margin-right', '');
+        jElement.data('old-padding-top', '');
+        jElement.data('old-padding-bottom', '');
+        jElement.data('old-padding-left', '');
+        jElement.data('old-padding-right', '');
+
+        jElement.animate(
+            {
+                opacity: opacity,
+                height: height,
+                'padding-top': paddingTop,
+                'padding-bottom': paddingBottom,
+                'padding-left': paddingLeft,
+                'padding-right': paddingRight,
+                'margin-top': marginTop,
+                'margin-bottom': marginBottom,
+                'margin-left': marginLeft,
+                'margin-right': marginRight,
+            }, speed, function () {
+                jElement.css('height', '');
+                jElement.css('padding-top', '');
+                jElement.css('padding-bottom', '');
+                jElement.css('padding-left', '');
+                jElement.css('padding-right', '');
+                jElement.css('margin-top', '');
+                jElement.css('margin-bottom', '');
+                jElement.css('margin-left', '');
+                jElement.css('margin-right', '');
+            });
+    });
+
+    return thisJQuery;
 };

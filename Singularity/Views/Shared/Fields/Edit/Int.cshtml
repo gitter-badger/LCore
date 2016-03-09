@@ -21,6 +21,4 @@
 
 @model IViewField
 
-@Html.TextBox(Model.Meta.PropertyName,
-                             Model.ModelData.GetProperty(Model.Meta.PropertyName),
-                            new { @class = "spinner-int" })
+@Html.TextBox(Model.Meta.PropertyName, Model.ModelData.GetProperty(Model.Meta.PropertyName), new { @class = "spinner-int" })

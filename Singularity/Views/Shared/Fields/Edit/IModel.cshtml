@@ -5,6 +5,9 @@
 @using Singularity.Models;
 @using Singularity.Controllers;
 @using Singularity.Context;
+@using Singularity.Routes;
+@using Singularity.Annotations;
+@using Singularity.Extensions;
 @using System.Collections;
 @using System.Collections.Generic;
 @using System.ComponentModel;
@@ -18,17 +21,22 @@
 
 @{
     IModel SubModel = (IModel)Model.PropertyData;
+
+    List<SelectListItem> Items = Model.GetRelationItems(Model.Meta.ModelType, SubModel);
+
+    if (SubModel != null)
+        {
+        String ID = SubModel.GetID();
+        
+        SelectListItem Selected = Items.Where(s => s.Value == ID).FirstOrDefault();
+
+        if (Selected != null)
+            {
+            Selected.Selected = true;
+            }
+        }
 }
 
 @model IViewField
 
-
-@if (SubModel != null)
-    {
-    }
-else
-    {
-    List<SelectListItem> Items = Model.GetRelationItems(Model.Meta.ModelType, SubModel);
-
-    @Html.DropDownList(Model.Meta.PropertyName, Items, new { @class = "select-list" })
-    }
+@Html.DropDownList(Model.Meta.PropertyName, Items, new { @class = "select-list" })

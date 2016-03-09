@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(Singularity.Startup))]
-namespace Singularity
+[assembly: OwinStartupAttribute(typeof(Singularity.Config.Startup))]
+namespace Singularity.Config
     {
     public partial class Startup
         {

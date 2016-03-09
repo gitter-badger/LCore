@@ -1,4 +1,5 @@
 ﻿/// <reference path="singularity-core.ts"/>
+/// <reference path="singularity-string.ts"/>
 
 
 interface String {
@@ -11,6 +12,8 @@ interface String {
 }
 
 var singRegExp = singString.addModule(new sing.Module('RegExp', String));
+
+singRegExp.glyphIcon = '&#xe051;';
 
 singRegExp.method('matchCount', StringMatchCount,
     {
@@ -49,7 +52,7 @@ function StringHasMatch(pattern: string): boolean {
     var match = this.match(pattern);
 
     if (!match || match.length == 0)
-        return false
+        return false;
 
     return true;
 }
@@ -64,7 +67,6 @@ singRegExp.method('replaceRegExp', StringReplaceRegExp,
         tests: function (ext) {
         },
     });
-
 
 function StringReplaceRegExp(pattern: RegExp, replace?: RegExp): string {
 
@@ -99,19 +101,7 @@ singRegExp.method('escapeRegExp', StringEscapeRegExp,
 
 function StringEscapeRegExp(): string {
 
-    var out = <string>this;
+    var out = <string>(this || '');
 
-    return out;
-    out = out.replaceRegExp(/(^|.+)\$/, /\\\$/);
-    out = out.replaceRegExp(/(^|.+)\[/, /\\\[/);
-    out = out.replaceRegExp(/(^|.+)\]/, /\\\]/);
-    out = out.replaceRegExp(/(^|.+)\./, /\\\./);
-    out = out.replaceRegExp(/(^|.+)\^/, /\\\^/);
-    out = out.replaceRegExp(/(^|.+)\!/, /\\\!/);
-    out = out.replaceRegExp(/(^|.+)\?/, /\\\?/);
-    out = out.replaceRegExp(/(^|.+)\\/, /\\\\/);
-    out = out.replaceRegExp(/(^|.+)\>/, /\\\>/);
-    out = out.replaceRegExp(/(^|.+)\</, /\\\</);
-
-    return out;
+    return out.replace(/([\\\.\+\*\?\[\^\]\$\(\)\{\}\=\!\<\>\|\:])/g, "\\$1");
 }

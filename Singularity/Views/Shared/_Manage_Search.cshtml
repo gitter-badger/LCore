@@ -1,69 +1,86 @@
 ﻿@* Generator: MvcView *@
 
-@using LCore;
+@using System.Linq;
 @using System.Linq.Expressions;
+
+@using LCore;
 @using Singularity;
 @using Singularity.Models;
+@using Singularity.Controllers;
+@using Singularity.Context;
+@using Singularity.Routes;
+@using Singularity.Extensions;
+@using Singularity.Annotations;
 
 @model ManageViewModel
 
 @{
+    String ControllerTypeName = ViewContext.Controller.GetType().FullName;
 
+    List<SavedSearch> SavedSearches = SavedSearch.Find(Context, Model.ModelType.FullName, ControllerTypeName).List();
+
+    Dictionary<String, List<SavedSearch>> SavedSearchGroups = SavedSearches.Group();
+
+    Boolean SearchEmpty = Model.FieldSearchTerms.Keys.Count == 0 && String.IsNullOrEmpty(Model.GlobalSearchTerm);
 }
 
-<span class="manage-global-search">
+
+<div class="manage-global-search">
     @if (Model.FieldSearchTerms.Keys.Count > 0)
-    {
-        foreach (SearchOperation o in Model.FieldSearchTerms.Values)
         {
-            if (o.Operator == Expression.Equal || o.OperatorStr == "~")
+        foreach (SearchOperation o in Model.FieldSearchTerms.Values)
             {
+            if (o.Operator == Expression.Equal || o.OperatorStr == "~")
+                {
                 String Column = o.Property.ToUrlSlug();
 
                 <script type="text/javascript">
                     $().ready(function () {
                         $('.manage-@Model.ModelTypeCSSClass .manage-table tbody td.@Column span').each(function () {
                             var html = $(this).html();
-                            $(this).html(html.replace(new RegExp("(" + preg_quote('@o.Search') + ")", 'ig'), '<strong>$1</strong>'));
+                            $(this).html(html.replace(new RegExp("(" + ('@o.Search').escapeRegExp() + ")", 'ig'), '<strong>$1</strong>'));
                         });
                     });
                 </script>
+                }
             }
         }
-    }
 
     @if (!String.IsNullOrEmpty(Model.GlobalSearchTerm))
-    {
+        {
         <script type="text/javascript">
             $().ready(function () {
                 $('.manage-@Model.ModelTypeCSSClass .manage-table tbody td span').each(function () {
                     var html = $(this).html();
-                    $(this).html(html.replace(new RegExp('(' + preg_quote('@Model.GlobalSearchTerm') + ')', 'ig'), '<strong>$1</strong>'));
+                    $(this).html(html.replace(new RegExp('(' + ('@Model.GlobalSearchTerm').escapeRegExp() + ')', 'ig'), '<strong>$1</strong>'));
                 });
             });
         </script>
-    }
+        }
     else
-    {
+        {
         <script type="text/javascript">
             $().ready(function () {
                 $('#GlobalSearchTerm').val('');
             });
         </script>
-    }
-
-    @if (!String.IsNullOrEmpty(Model.GlobalSearchTerm) ||
-            Model.FieldSearchTerms.Keys.Count > 0)
-    {
-        using (Html.BeginForm(Model.Controller.ManageActionName, Model.Controller.Name, Model.Route_ClearSearch(), FormMethod.Get, new { @class = "clear-form" }))
-        {
-            <input type="submit" value="Clear" />
         }
-    }
+
+    @if (!SearchEmpty)
+        {
+        using (Html.BeginForm(Singularity.Routes.Controllers.Manage.Actions.Manage,
+            Model.Controller.Name,
+            Singularity.Routes.Controllers.Manage.Actions.Route_ClearSearch(Model),
+            FormMethod.Get,
+            new { @class = "clear-form" }))
+            {
+            <input type="submit" value="Clear" />
+            }
+        }
 
     @if (Model.FieldSearchTerms != null &&
             Model.FieldSearchTerms.Keys.Count > 0)
-    {
+        {
         <script type="text/javascript">
             $().ready(function () {
                 $('.filter-area span[search-text]').click(function () {
@@ -73,18 +90,20 @@
         </script>
         <div class="filter-area">
             @foreach (SearchOperation o in Model.FieldSearchTerms.Values)
-            {
+                {
                 <span>
                     <span search-text="@(o.Property + o.OperatorStr + o.Search)">
                         @o.Property
                         @o.OperatorStr
                         @o.Search
                     </span>
-                    @Html.ActionLink("X", Model.Controller.ManageActionName, Model.Controller.Name, Model.Route_RemoveFilter(o.Property), new { })
+                    @Html.ActionLink("X", Singularity.Routes.Controllers.Manage.Actions.Manage,
+                        Model.Controller.Name,
+                        Singularity.Routes.Controllers.Manage.Actions.Route_RemoveFilter(Model, o.Property), new { })
                 </span>
-            }
+                }
         </div>
-    }
+        }
 
     <script type="text/javascript">
         $().ready(function () {
@@ -102,12 +121,85 @@
         });
     </script>
 
-    @using (Html.BeginForm("Search", Model.Controller.Name, Model.Route_Search(), FormMethod.Post))
-    {
+    @if (!SearchEmpty &&
+        ViewContext.AllowCreate(typeof(SavedSearch)) &&
+        ViewContext.GetManageController().ViewSavedSearches)
+        {
+        <a href="@(Url.Controller<SavedSearchController>()
+                    .QS(Singularity.Routes.Controllers.SavedSearch.Actions.Route_CreateSavedSearch(Model, ViewContext))
+                    .Lambda<String>(c => c.Create))">
+            <div class="btn btn-default" title="Save Search">
+                <glyph>&#xe172;</glyph>
+            </div>
+        </a>
+        }
+
+    @if (SavedSearches.Count > 0 &&
+        ViewContext.GetManageController().ViewSavedSearches)
+        {
+        <div class="manage-saved-searches">
+            <h2>Searches</h2>
+
+            <span class="btn-info btn right method-show-hide relative" click-fade-toggle=".manage-saved-searches-full">
+                <glyph class="manage-saved-searches-full absolute">&#x2b;</glyph>
+                <glyph class="manage-saved-searches-full absolute" style=" display: none;">&#x2212;</glyph>
+            </span>
+
+            <div class="manage-saved-searches-full" style="display:none">
+                @foreach (String GroupName in SavedSearchGroups.Keys)
+                    {
+                    List<SavedSearch> Group = SavedSearchGroups[GroupName];
+
+                    <h3>@GroupName</h3>
+
+                    foreach (SavedSearch Search in Group)
+                        {
+                        <div class="manage-saved-search">
+                            <a class="saved-search btn btn-default"
+                               href="@(Url.Controller<ManageController>()
+                                .QS(Singularity.Routes.Controllers.SavedSearch.Actions.Route_ViewSavedSearch(Model, Search))
+                                .Lambda<int,String,SortDirection,String ,String , ControllerHelper.ManageViewType , String , Boolean>(c=> c.Manage))">
+                                <glyph>&#xe003;</glyph>
+                                <h4>@Search.Name</h4>
+                            </a>
+                            @if (Model.ModelType.HasInterface<IEmailable>() &&
+                                ViewContext.AllowCreate(typeof(EmailJob)))
+                                {
+                                <a class="email-saved-search btn btn-default"
+                                   href="@(Url.Controller<EmailJobController>()
+                                       .QS(new Dictionary<String, Object> { {"SavedSearchID", Search.SavedSearchID} })
+                                       .Action(c => c.Create, Request.Url.AbsoluteUri))">
+                                    <glyph>&#x2709;</glyph>
+                                </a>
+                                }
+                            <a class="edit-saved-search btn btn-default"
+                               href="@(Url.Controller<SavedSearchController>()
+                                    .QS(Singularity.Routes.Controllers.Manage.Actions.Route_Edit(Search, Request))
+                                    .Lambda<int, String, Boolean>(c => c.Edit))">
+                                <glyph>&#xe065;</glyph>
+                            </a>
+                        </div>
+                        }
+                    }
+            </div>
+        </div>
+        }
+
+    @using (Html.BeginForm(Singularity.Routes.Controllers.Manage.Actions.Search,
+        Model.Controller.Name,
+        Singularity.Routes.Controllers.Manage.Actions.Route_Search(Model),
+        FormMethod.Post, new { id = "SearchForm" }))
+        {
+
         @Html.TextBox("GlobalSearchTerm", Model.GlobalSearchTerm);
         @Html.Hidden("FieldSearchTerms", Model.GetGlobalSearchCombined());
 
-        <input type="submit" class="glyphicon" value="&#xe003; Search" />
-    }
+        <a onclick="$('#SearchForm').submit();" class="btn btn-default">
+            <glyph>&#xe003;</glyph>
+            <span>
+                Search
+            </span>
+        </a>
+        }
 
-</span>
+</div>

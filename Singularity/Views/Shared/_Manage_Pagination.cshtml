@@ -1,12 +1,5 @@
 ﻿@* Generator: MvcView *@
 
-@using LCore;
-@using Singularity;
-@using Singularity.Models;
-@using Singularity.Controllers;
-@using Singularity.Routes;
-@using System.Linq;
-@using System.Linq.Expressions;
 @using System.Collections;
 @using System.Collections.Generic;
 @using System.ComponentModel;
@@ -16,27 +9,47 @@
 @using System.Web;
 @using System.Web.Mvc;
 
+@using LCore;
+@using Singularity;
+@using Singularity.Models;
+@using Singularity.Controllers;
+@using Singularity.Context;
+@using Singularity.Routes;
+@using Singularity.Extensions;
+@using Singularity.Annotations;
+
 @model ManageViewModel
 
 @{
     ViewBag.PaginationCount = (ViewBag.PaginationCount == null ? 0 : (int)ViewBag.PaginationCount) + 1;
 
-    String ShowingStart = ((Model.Page * Model.Controller.RowsPerPage) + 1).ToString("N0");
-    String ShowingEnd = (((Model.Page * Model.Controller.RowsPerPage) + Model.Models.Count).ToString("N0"));
-    String ShowingTotal = Model.TotalItems.ToString("N0");
+    int ShowingStart = (Model.Page * Model.Controller.RowsPerPage) + 1;
+    int ShowingEnd = ((Model.Page * Model.Controller.RowsPerPage) + Model.Controller.RowsPerPage);
+    int ShowingTotal = Model.TotalItems;
+
+    String ShowingStartStr = ShowingStart.ToString("N0");
+    String ShowingEndStr = ShowingEnd.ToString("N0");
+    String ShowingTotalStr = ShowingTotal.ToString("N0");
+    
+    if (ShowingEnd > ShowingTotal)
+        {
+        ShowingEnd = ShowingTotal;
+        }
 }
 
 <div class="manage-pagination">
     @if (Model.TotalItems > 0)
         {
         <div class="pagination-visible-items">
-            @Html.Partial(PartialViews.TextContent, new TextContentViewModel("Manage_Pagination_Results_" + Model.FriendlyModelTypeName, "Showing results [0] - [1] of [2]", new Object[] { ShowingStart, ShowingEnd, ShowingTotal }))
+            @Html.TextContent("Manage_Pagination_Results_" + Model.FriendlyModelTypeName, "Showing results [0] - [1] of [2]", new Object[] { ShowingStartStr, ShowingEndStr, ShowingTotalStr })
         </div>
         }
 
     @if (Model.Page != 0)
         {
-        <a href="@Url.Action(Model.Controller.ManageActionName, Model.Controller.Name, Model.Route_Page(1))"
+        <a href="@(Url.Controller<ManageController>()
+            .QS(Singularity.Routes.Controllers.Manage.Actions.Route_Page(Model, 1) )
+            .Lambda<int,String,SortDirection,String ,String , ControllerHelper.ManageViewType , String , Boolean>(c=> c.Manage))"
            key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+Home" : null)"
            key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "First Page" : null)">
             <span class="page-previous">
@@ -44,7 +57,9 @@
             </span>
         </a>
 
-        <a href="@Url.Action(Model.Controller.ManageActionName, Model.Controller.Name, Model.Route_Page(Model.Page))"
+        <a href="@(Url.Controller<ManageController>()
+            .QS(Singularity.Routes.Controllers.Manage.Actions.Route_Page(Model, Model.Page))
+            .Lambda<int,String,SortDirection,String ,String , ControllerHelper.ManageViewType , String , Boolean>(c=> c.Manage))"
            key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+Left" : null)"
            key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "Previous Page" : null)">
             <span class="page-previous">
@@ -77,7 +92,9 @@
                 else if (i >= Model.Page - Model.ShowSurroundingPages &&
                     i <= Model.Page + Model.ShowSurroundingPages)
                     {
-                    <a href="@Url.Action(Model.Controller.ManageActionName, Model.Controller.Name, Model.Route_Page(i + 1))">
+                    <a href="@(Url.Controller<ManageController>()
+                        .QS(Singularity.Routes.Controllers.Manage.Actions.Route_Page(Model, i + 1))
+                        .Lambda<int,String,SortDirection,String ,String , ControllerHelper.ManageViewType , String , Boolean>(c=> c.Manage))">
                         <span class="page">
                             @(i + 1)
                         </span>
@@ -91,13 +108,15 @@
             }
         else
             {
-            @Html.Partial(PartialViews.TextContent, new TextContentViewModel("Manage_Pagination_NoResults_" + Model.FriendlyModelTypeName, "No Results"))
+            @Html.TextContent("Manage_Pagination_NoResults_" + Model.FriendlyModelTypeName, "No Results")
             }
     </span>
 
     @if (Model.Page + 1 != Model.TotalPages)
         {
-        <a href="@Url.Action(Model.Controller.ManageActionName, Model.Controller.Name, Model.Route_Page(Model.Page + 2))"
+        <a href="@(Url.Controller<ManageController>()
+                .QS(Singularity.Routes.Controllers.Manage.Actions.Route_Page(Model, Model.Page + 2))
+                .Lambda<int,String,SortDirection,String ,String , ControllerHelper.ManageViewType , String , Boolean>(c=> c.Manage))"
            key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+Right" : null)"
            key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "Next Page" : null)">
             <span class="page-next">
@@ -105,7 +124,9 @@
             </span>
         </a>
 
-        <a href="@Url.Action(Model.Controller.ManageActionName, Model.Controller.Name, Model.Route_Page(Model.TotalPages))"
+        <a href="@(Url.Controller<ManageController>()
+                .QS(Singularity.Routes.Controllers.Manage.Actions.Route_Page(Model, Model.TotalPages))
+                .Lambda<int,String,SortDirection,String ,String , ControllerHelper.ManageViewType , String , Boolean>(c=> c.Manage))"
            key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+End" : null)"
            key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "Last Page" : null)">
             <span class="page-last">

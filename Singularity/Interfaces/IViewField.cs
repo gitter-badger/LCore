@@ -4,17 +4,19 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Singularity
+namespace Singularity.Models
     {
     public interface IViewField
         {
-        string ColumnClass { get; }
+        String[] ModelFieldClasses { get; }
+        String[] ModelFieldHtmlAttributes { get; }
+
+        String ColumnClass { get; }
         Type FieldType { get; set; }
-        System.Web.ModelBinding.ModelMetadata Meta { get; }
-        string PropertyName { get; set; }
+        ModelMetadata Meta { get; }
+        String PropertyName { get; set; }
 
-
-        HttpContextBase Context { get; set; }
+        ViewContext Context { get; set; }
 
         Object PropertyData { get; }
 
@@ -24,8 +26,8 @@ namespace Singularity
         T GetModelData<T>()
             where T : IModel;
 
-        List<SelectListItem> GetRelationItems(Type t, object CurrentValue);
-        string Route_FieldManyRelation(string ControllerName);
-        string Route_FieldRelation(string ControllerName);
+        List<SelectListItem> GetRelationItems(Type t, Object CurrentValue);
+        String Route_FieldManyRelation(String ControllerName);
+        String Route_FieldRelation(String ControllerName);
         }
     }

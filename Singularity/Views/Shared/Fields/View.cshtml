@@ -5,6 +5,9 @@
 @using Singularity.Models;
 @using Singularity.Controllers;
 @using Singularity.Context;
+@using Singularity.Routes;
+@using Singularity.Annotations;
+@using Singularity.Extensions;
 @using System.Collections;
 @using System.Collections.Generic;
 @using System.ComponentModel;
@@ -20,13 +23,13 @@
     Boolean ShowLabel = Model.ViewTypes.HasAny(new[] {ControllerHelper.ViewType.Create,
         ControllerHelper.ViewType.Edit,
         ControllerHelper.ViewType.Display});
-
 }
 
 @model IViewField
 
 
-<div class="field @Model.ViewTypes.CollectStr((i,t) => { return t.ToString().ToLower() + "-field ";}) field-@Model.ColumnClass"
+<div class="field @Model.ViewTypes.CollectStr((i,t) => { return t.ToString().ToLower() + "-field ";}) field-@Model.ColumnClass @Model.ModelFieldClasses.Combine(" ")"
+     @Html.Raw(Model.ModelFieldHtmlAttributes.Combine(" "))
      data-object-type="@Model.Meta.ModelType"
      data-type-name="@Model.Meta.DataTypeName">
 
@@ -37,9 +40,41 @@
         }
     else
         {
+        if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell) &&
+            !Model.Meta.HasAttribute<NotMappedAttribute>() &&
+            (Model.Meta.ModelType.PreferGeneric().HasInterface<IConvertible>() ||
+            Model.Meta.ModelType.HasInterface<IModel>()))
+            {
+            String Data = (Model.PropertyData ?? "").ToString();
+
+            if (Model.PropertyData is DateTime)
+                {
+                Data = ((DateTime)Model.PropertyData).ToShortDateString();
+                }
+            Data = Data.RemoveAll(" 12:00:00 AM");
+
+            if (Model.PropertyData is IModel)
+                {
+                Data = ((IModel)Model.PropertyData).ToString();
+                }
+
+            if (!String.IsNullOrEmpty(Data))
+                {
+                <span class="manage-view-show-similar"
+                      data-field-name="@Model.Meta.PropertyName"
+                      data-field-value="@Data"
+                      title="View Similar">
+                    <glyph>&#xe003;</glyph>
+                </span>
+                }
+            }
+
         if (ShowLabel)
             {
-            @Html.Label(Model.Meta.PropertyName, Model.Meta.DisplayName ?? Model.Meta.PropertyName.Humanize())
+            String Label = Model.Meta.DisplayName ?? Model.Meta.PropertyName.Humanize();
+
+            @Html.TextContent("Manage_Edit_Field_Label_" + Model.ModelData.GetFriendlyTypeName() + "_" + Label,
+                Html.Label(Model.Meta.PropertyName, Label))
             }
 
         if (Model.PropertyData == null)
@@ -54,7 +89,7 @@
 
                 @Html.Partial(ControllerHelper.PartialViews.Field_View_PropertyName(Model.PropertyName));
                 }
-            else if (Model.Meta.AdditionalValues.ContainsKey(StringFormatAttribute.Key) &&
+            else if (Model.Meta.AdditionalValues.ContainsKey(FieldStringFormatAttribute.Key) &&
                 Model.PropertyData is IFormattable)
                 {
                 @Html.Partial(ControllerHelper.PartialViews.Field_View_FormatString, Model)
@@ -80,19 +115,27 @@
                 {
                 @Html.Partial(ControllerHelper.PartialViews.Field_View_DisplayColumn, Model)
                 }
-            else if (Model.Meta.ModelType.HasInterface(typeof(IModel), false))
+            else if (Model.Meta.ModelType.HasInterface<IModel>(false))
                 {
                 @Html.Partial(ControllerHelper.PartialViews.Field_View_IModel, Model)
                 }
-            else if (Model.Meta.ModelType.HasInterface(typeof(IEnumerable), true) &&
+            else if (Model.Meta.ModelType.HasInterface<IEnumerable>() &&
                 Model.Meta.ModelType.IsGenericType &&
-                Model.Meta.ModelType.GetGenericArguments()[0].HasInterface(typeof(IModel), true))
+                Model.Meta.ModelType.GetGenericArguments()[0].HasInterface<IModel>())
                 {
                 @Html.Partial(ControllerHelper.PartialViews.Field_View_IModelCollection, Model)
                 }
             else if (Model.Meta.ModelType.PreferGeneric().IsEnum)
                 {
                 @Html.Partial(ControllerHelper.PartialViews.Field_View_Enum, Model)
+                }
+            else if (Html.ViewExists(ControllerHelper.PartialViews.Field_View_PropertyType(Model.Meta.ModelType)))
+                {
+                @Html.Partial(ControllerHelper.PartialViews.Field_View_PropertyType(Model.Meta.ModelType), Model)
+                }
+            else if (Html.ViewExists(ControllerHelper.PartialViews.Field_View_DataTypeName(Model.Meta.DataTypeName)))
+                {
+                @Html.Partial(ControllerHelper.PartialViews.Field_View_DataTypeName(Model.Meta.DataTypeName), Model)
                 }
             else if (Model.Meta.ModelType == typeof(String))
                 {
@@ -105,14 +148,6 @@
             else if (Model.Meta.ModelType == typeof(String[][]))
                 {
                 @Html.Partial(ControllerHelper.PartialViews.Field_View_StringMultiArray, Model)
-                }
-            else if (Html.ViewExists(ControllerHelper.PartialViews.Field_View_PropertyType(Model.Meta.ModelType)))
-                {
-                @Html.Partial(ControllerHelper.PartialViews.Field_View_PropertyType(Model.Meta.ModelType), Model)
-                }
-            else if (Html.ViewExists(ControllerHelper.PartialViews.Field_View_DataTypeName(Model.Meta.DataTypeName)))
-                {
-                @Html.Partial(ControllerHelper.PartialViews.Field_View_DataTypeName(Model.Meta.DataTypeName), Model)
                 }
             else
                 {

@@ -1,4 +1,6 @@
 ﻿using LCore;
+using Singularity.Models;
+using Singularity.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +8,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Singularity
+namespace Singularity.Utilities
     {
     public abstract class TypeResultAction<T>
         {
@@ -81,7 +83,7 @@ namespace Singularity
                 {
                 return PerformAction_Enum(t, In);
                 }
-            else if (t.HasInterface(typeof(IModel), false))
+            else if (t.HasInterface<IModel>(false))
                 {
                 return PerformAction_IModel(t, In);
                 }
@@ -185,7 +187,7 @@ namespace Singularity
                 {
                 return PerformAction_Enum((Enum)In);
                 }
-            else if (t.HasInterface(typeof(IModel), false))
+            else if (t.HasInterface<IModel>(false))
                 {
                 return PerformAction_IModel((IModel)In);
                 }
@@ -218,6 +220,7 @@ namespace Singularity
 
     public abstract class TypeAction<T>
         {
+        [System.Diagnostics.DebuggerStepThrough]
         public T PerformAction(Type t)
             {
             Boolean Nullable = t.IsNullable();
@@ -284,7 +287,7 @@ namespace Singularity
                 {
                 return PerformAction_Enum(t);
                 }
-            else if (t.HasInterface(typeof(IModel), false))
+            else if (t.HasInterface<IModel>(false))
                 {
                 return PerformAction_IModel(t);
                 }

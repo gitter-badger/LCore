@@ -5,21 +5,23 @@ using LCore;
 using Singularity;
 using Singularity.Models;
 using Singularity.Controllers;
+using Singularity.Extensions;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
+using System.Web.Mvc;
 
-namespace Singularity
+namespace Singularity.Annotations
     {
     public interface IFieldGroups : IModel
         {
-        IEnumerable<System.Web.ModelBinding.ModelMetadata> GetFieldGroup(HttpContextBase Context, String CustomType);
-        IEnumerable<System.Web.ModelBinding.ModelMetadata> GetFieldGroup(HttpContextBase Context, ControllerHelper.ViewType ViewType);
+        IEnumerable<ModelMetadata> GetFieldGroup(HttpContextBase Context, String CustomType);
+        IEnumerable<ModelMetadata> GetFieldGroup(HttpContextBase Context, ControllerHelper.ViewType ViewType);
         }
 
     public static class FieldGroups
         {
-        public static IEnumerable<System.Web.ModelBinding.ModelMetadata> GetFieldGroup(HttpContextBase Context, Type t, ControllerHelper.ViewType ViewType)
+        public static IEnumerable<ModelMetadata> GetFieldGroup(HttpContextBase Context, Type t, ControllerHelper.ViewType ViewType)
             {
             return ListExt.Select(t.Meta().Properties, (m) =>
             {
@@ -56,12 +58,12 @@ namespace Singularity
     public class FieldGroups<T> : IFieldGroups
         where T : FieldGroups<T>
         {
-        public virtual IEnumerable<System.Web.ModelBinding.ModelMetadata> GetFieldGroup(HttpContextBase Context, String CustomType)
+        public virtual IEnumerable<ModelMetadata> GetFieldGroup(HttpContextBase Context, String CustomType)
             {
-            return new System.Web.ModelBinding.ModelMetadata[] { };
+            return new ModelMetadata[] { };
             }
 
-        public virtual IEnumerable<System.Web.ModelBinding.ModelMetadata> GetFieldGroup(HttpContextBase Context, ControllerHelper.ViewType ViewType)
+        public virtual IEnumerable<ModelMetadata> GetFieldGroup(HttpContextBase Context, ControllerHelper.ViewType ViewType)
             {
             return FieldGroups.GetFieldGroup(Context, typeof(T), ViewType);
             }

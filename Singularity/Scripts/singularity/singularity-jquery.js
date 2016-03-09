@@ -1,11 +1,21 @@
+/// <reference path="singularity-core.ts"/>
 var singJQuery = singExt.addModule(new sing.Module("jQuery", [$, $.fn], $));
+singJQuery.glyphIcon = '&#xe148;';
 singJQuery.ignoreUnknown('ALL');
+/*
+//////////////////////////////////////////////////////
+//
+// jQuery Extensions
+//
+//
+*/
 singJQuery.method('checked', Checked, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: '',
     examples: null,
+    glyphIcon: '&#xe013;',
     tests: function (ext) {
     },
 }, $.fn);
@@ -24,6 +34,7 @@ singJQuery.method('allVisible', AllVisible, {
     returns: '',
     returnType: '',
     examples: null,
+    glyphIcon: '&#xe105;',
     tests: function (ext) {
     },
 }, $.fn);
@@ -46,6 +57,7 @@ singJQuery.method('findIDNameSelector', FindIDNameSelector, {
     returns: '',
     returnType: '',
     examples: null,
+    glyphIcon: '&#xe003;',
     tests: function (ext) {
     },
 }, $.fn);
@@ -76,12 +88,14 @@ singJQuery.method('actionIf', ActionIf, {
     returns: '',
     returnType: '',
     examples: null,
+    glyphIcon: '&#xe162;',
     tests: function (ext) {
     },
 }, $.fn);
 function ActionIf(name) {
     var target = $(this);
     var ifTargetName = target.attr(name + '-if');
+    // If there's no target, there's no condition to match. Always true.
     if (!ifTargetName)
         return true;
     var ifTarget = $('body').findIDNameSelector(ifTargetName);
@@ -164,6 +178,7 @@ function ActionIf(name) {
             return val != null && val != '';
         }
         else {
+            // Radio values can be combined with the use of custom numeric operators
             if (ifTarget.attr('type') == 'radio')
                 return operation(ifTarget.filter(':checked').val(), targetValue);
             return operation(val, targetValue);
@@ -179,6 +194,7 @@ singJQuery.method('defer', Defer, {
     returnType: '',
     aliases: ['wait'],
     examples: null,
+    glyphIcon: '&#xe095;',
     tests: function (ext) {
     },
 });
@@ -193,6 +209,7 @@ singJQuery.method('hasAttr', JQueryHasAttr, {
     returns: '',
     returnType: '',
     examples: null,
+    glyphIcon: '&#xe042;',
     tests: function (ext) {
     },
 }, $.fn);
@@ -206,6 +223,7 @@ singJQuery.method('outerHtml', JQueryOuterHtml, {
     returns: '',
     returnType: '',
     examples: null,
+    glyphIcon: '&#xe140;',
     tests: function (ext) {
     },
 }, $.fn);
@@ -224,6 +242,7 @@ singJQuery.method('innerHtml', JQueryInnerHtml, {
     returns: '',
     returnType: '',
     examples: null,
+    glyphIcon: '&#xe087;',
     tests: function (ext) {
     },
 }, $.fn);
@@ -235,6 +254,7 @@ function JQueryInnerHtml() {
         return this[0].innerHTML;
     }
 }
+// https://github.com/moagrius/isOnScreen
 singJQuery.method('isOnScreen', JQueryIsOnScreen, {
     summary: null,
     parameters: null,
@@ -242,6 +262,7 @@ singJQuery.method('isOnScreen', JQueryIsOnScreen, {
     returns: '',
     returnType: '',
     examples: null,
+    glyphIcon: '&#xe106;',
     tests: function (ext) {
     },
 }, $.fn);
@@ -276,6 +297,191 @@ function JQueryIsOnScreen(x, y) {
         right: Math.min(1, (viewport.right - bounds.left) / width)
     };
     return (deltas.left * deltas.right) >= x && (deltas.top * deltas.bottom) >= y;
+}
+;
+singJQuery.method('swapClasses', JQuerySwapClass, {
+    summary: null,
+    parameters: null,
+    validateInput: false,
+    returns: '',
+    returnType: '',
+    examples: null,
+    glyphIcon: '&#xe110;',
+    tests: function (ext) {
+    },
+}, $.fn);
+function JQuerySwapClass(class1, class2) {
+    var thisJQuery = this;
+    if (thisJQuery) {
+        if (thisJQuery.hasClass(class1)) {
+            thisJQuery.removeClass(class1);
+            thisJQuery.addClass(class2);
+        }
+        else if (thisJQuery.hasClass(class2)) {
+            thisJQuery.removeClass(class2);
+            thisJQuery.addClass(class1);
+        }
+        else {
+            thisJQuery.addClass(class1);
+        }
+    }
+    return thisJQuery;
+}
+;
+singJQuery.method('fadeClasses', JQueryFadeClass, {
+    summary: null,
+    parameters: null,
+    validateInput: false,
+    returns: '',
+    returnType: '',
+    examples: null,
+    glyphIcon: '',
+    tests: function (ext) {
+    },
+}, $.fn);
+function JQueryFadeClass(class1, class2, speed, callback) {
+    if (speed === void 0) { speed = 'fast'; }
+    var thisJQuery = this;
+    if (thisJQuery) {
+        if (thisJQuery.hasClass(class1)) {
+            thisJQuery.fadeOut(speed, function () {
+                thisJQuery.removeClass(class1);
+                thisJQuery.addClass(class2);
+                thisJQuery.fadeIn(speed, function () {
+                    if (callback)
+                        callback();
+                });
+            });
+        }
+        else if (thisJQuery.hasClass(class2)) {
+            thisJQuery.fadeOut(speed, function () {
+                thisJQuery.removeClass(class2);
+                thisJQuery.addClass(class1);
+                thisJQuery.fadeIn(speed, function () {
+                    if (callback)
+                        callback();
+                });
+            });
+        }
+        else {
+            thisJQuery.fadeOut(speed, function () {
+                thisJQuery.addClass(class1);
+                thisJQuery.fadeIn(speed, function () {
+                    if (callback)
+                        callback();
+                });
+            });
+        }
+    }
+    return thisJQuery;
+}
+;
+singJQuery.method('superFadeOut', JQuerySuperFadeOut, {
+    summary: null,
+    parameters: null,
+    validateInput: false,
+    returns: '',
+    returnType: '',
+    examples: null,
+    glyphIcon: '',
+    tests: function (ext) {
+    },
+}, $.fn);
+function JQuerySuperFadeOut(speed) {
+    if (speed === void 0) { speed = 'fast'; }
+    var thisJQuery = this;
+    thisJQuery.each(function () {
+        var jElement = $(this);
+        jElement.data('old-opacity', jElement.css('opacity'));
+        jElement.data('old-height', jElement.css('height'));
+        jElement.data('old-margin-top', jElement.css('margin-top'));
+        jElement.data('old-margin-bottom', jElement.css('margin-bottom'));
+        jElement.data('old-margin-left', jElement.css('margin-left'));
+        jElement.data('old-margin-right', jElement.css('margin-right'));
+        jElement.data('old-padding-top', jElement.css('padding-top'));
+        jElement.data('old-padding-bottom', jElement.css('padding-bottom'));
+        jElement.data('old-padding-left', jElement.css('padding-left'));
+        jElement.data('old-padding-right', jElement.css('padding-right'));
+        jElement.animate({
+            opacity: 0,
+            height: 0,
+            padding: 0,
+            margin: 0,
+        }, speed);
+    });
+    return thisJQuery;
+}
+;
+singJQuery.method('superFadeIn', JQuerySuperFadeIn, {
+    summary: null,
+    parameters: null,
+    validateInput: false,
+    returns: '',
+    returnType: '',
+    examples: null,
+    glyphIcon: '',
+    tests: function (ext) {
+    },
+}, $.fn);
+function JQuerySuperFadeIn(speed) {
+    if (speed === void 0) { speed = 'fast'; }
+    var thisJQuery = this;
+    thisJQuery.each(function () {
+        var jElement = $(this);
+        var opacity = jElement.data('old-opacity');
+        opacity = (opacity == '') ? jElement.css('opacity') : opacity;
+        var height = jElement.data('old-height');
+        height = (height == '') ? 'auto' : height;
+        var marginTop = jElement.data('old-margin-top');
+        marginTop = (marginTop == '') ? jElement.css('margin-top') : marginTop;
+        var marginBottom = jElement.data('old-margin-bottom');
+        marginBottom = (marginBottom == '') ? jElement.css('margin-bottom') : marginBottom;
+        var marginLeft = jElement.data('old-margin-left');
+        marginLeft = (marginLeft == '') ? jElement.css('margin-left') : marginLeft;
+        var marginRight = jElement.data('old-margin-right');
+        marginRight = (marginRight == '') ? jElement.css('margin-right') : marginRight;
+        var paddingTop = jElement.data('old-padding-top');
+        paddingTop = (paddingTop == '') ? jElement.css('padding-top') : paddingTop;
+        var paddingBottom = jElement.data('old-padding-bottom');
+        paddingBottom = (paddingBottom == '') ? jElement.css('padding-bottom') : paddingBottom;
+        var paddingLeft = jElement.data('old-padding-left');
+        paddingLeft = (paddingLeft == '') ? jElement.css('padding-left') : paddingLeft;
+        var paddingRight = jElement.data('old-padding-right');
+        paddingRight = (paddingRight == '') ? jElement.css('padding-right') : paddingRight;
+        jElement.data('old-opacity', '');
+        jElement.data('old-height', '');
+        jElement.data('old-margin-top', '');
+        jElement.data('old-margin-bottom', '');
+        jElement.data('old-margin-left', '');
+        jElement.data('old-margin-right', '');
+        jElement.data('old-padding-top', '');
+        jElement.data('old-padding-bottom', '');
+        jElement.data('old-padding-left', '');
+        jElement.data('old-padding-right', '');
+        jElement.animate({
+            opacity: opacity,
+            height: height,
+            'padding-top': paddingTop,
+            'padding-bottom': paddingBottom,
+            'padding-left': paddingLeft,
+            'padding-right': paddingRight,
+            'margin-top': marginTop,
+            'margin-bottom': marginBottom,
+            'margin-left': marginLeft,
+            'margin-right': marginRight,
+        }, speed, function () {
+            jElement.css('height', '');
+            jElement.css('padding-top', '');
+            jElement.css('padding-bottom', '');
+            jElement.css('padding-left', '');
+            jElement.css('padding-right', '');
+            jElement.css('margin-top', '');
+            jElement.css('margin-bottom', '');
+            jElement.css('margin-left', '');
+            jElement.css('margin-right', '');
+        });
+    });
+    return thisJQuery;
 }
 ;
 //# sourceMappingURL=singularity-jquery.js.map

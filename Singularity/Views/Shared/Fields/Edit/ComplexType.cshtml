@@ -5,6 +5,9 @@
 @using Singularity.Models;
 @using Singularity.Controllers;
 @using Singularity.Context;
+@using Singularity.Routes;
+@using Singularity.Extensions;
+@using Singularity.Annotations;
 @using System.Collections;
 @using System.Collections.Generic;
 @using System.ComponentModel;
@@ -24,10 +27,10 @@
 
 @if (Model.PropertyData != null)
     {
-    foreach (System.Web.ModelBinding.ModelMetadata SubMeta in Model.Meta.ModelType.Meta().Properties)
+    foreach (ModelMetadata SubMeta in Model.Meta.ModelType.Meta().Properties)
         {
-        ViewField Field = new ViewField(Context, SubMeta.ModelType, Model.PropertyName + "." + SubMeta.PropertyName, (IModel)Model.PropertyData, Model.ViewTypes);
+        ViewField Field = new ViewField(ViewContext, SubMeta.ModelType, Model.PropertyName + "." + SubMeta.PropertyName, (IModel)Model.PropertyData, Model.ViewTypes);
 
-        @Html.Partial(ControllerHelper.PartialViews.Field, Field)
+        @Html.ViewField(Field)
         }
     }

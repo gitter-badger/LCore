@@ -4,6 +4,11 @@
 @using Singularity;
 @using Singularity.Models;
 @using Singularity.Controllers;
+@using Singularity.Context;
+@using Singularity.Routes;
+@using Singularity.Extensions;
+@using Singularity.Annotations;
+
 @using System.Linq;
 @using System.Linq.Expressions;
 @using System.Collections;
@@ -18,9 +23,9 @@
 @model ManageViewModel
 
 @{
-    IEnumerable<System.Web.ModelBinding.ModelMetadata> Fields = null;
+    IEnumerable<ModelMetadata> Fields = null;
 
-    if (Model.ModelType.HasInterface(typeof(IFieldGroups), true))
+    if (Model.ModelType.HasInterface<IFieldGroups>())
         {
         Fields = (Model.ModelType.New() as IFieldGroups).GetFieldGroup(Context, ControllerHelper.ViewType.TableCell);
         }
@@ -32,51 +37,55 @@
 
 <thead>
     <tr>
-        @if (ViewContext.Controller is ManageController &&
-            ((ManageController)ViewContext.Controller).OverridePermissions.View == true &&
-            ControllerHelper.AllowView(Session, Model.ModelType))
+        @if (ViewContext.AllowView(Model.ModelType))
             {
             <td class="view-cell center">
                 <div>
-                    View
+                    @Html.TextContent("Manage_ColumnHeader_" + Model.ModelType.GetFriendlyTypeName() + "_View", "View")
                 </div>
             </td>
             }
 
-        @foreach (System.Web.ModelBinding.ModelMetadata Meta in Fields)
+        @foreach (ModelMetadata Meta in Fields)
             {
             String ColumnTitle = Meta.DisplayName ?? Meta.PropertyName.Humanize();
             String ColumnClass = Meta.PropertyName.ToUrlSlug();
 
             <td class="@(Model.OverrideSort == Meta.PropertyName ? "sort-column" : "") @ColumnClass">
-                @if (false && Meta.ModelType.HasInterface(typeof(IModel), true))
-                    {
-                    // No sorting relational fields for now.
+                @*
+    @if (false && Meta.ModelType.HasInterface<IModel>())
+        {
+        // No sorting relational fields for now.
 
-                    @ColumnTitle
-                    }
-                else if (Meta.HasAttribute<NotMappedAttribute>())
+        @Html.TextContent("Manage_ColumnHeader_" + Model.ModelType.GetFriendlyTypeName() + "_" + ColumnTitle, ColumnTitle)
+        }
+    else
+                *@
+                @if (Meta.HasAttribute<NotMappedAttribute>())
                     {
                     // No DB column: no sorting
 
-                    @ColumnTitle
+                    @Html.TextContent("Manage_ColumnHeader_" + Model.ModelType.GetFriendlyTypeName() + "_" + ColumnTitle, ColumnTitle)
                     }
                 else if (Meta.PropertyName.Contains("."))
                     {
                     foreach (String s in Meta.PropertyName.Split("."))
                         {
                         @s.Humanize()
-                        @( new HtmlString("&nbsp;"))
+                        @(new HtmlString("&nbsp;"))
                         }
                     }
                 else
                     {
-                    <a href="@Url.Action(Model.Controller.ManageActionName, Model.Controller.Name, Model.Route_SortColumn(Meta.PropertyName))">
-                        @ColumnTitle
+                    <a href="@(Url.Controller<ManageController>()
+                        .QS(Singularity.Routes.Controllers.Manage.Actions.Route_SortColumn(Model, Meta.PropertyName))
+                        .Lambda<int,String,SortDirection,String ,String , ControllerHelper.ManageViewType , String , Boolean>(c=> c.Manage))">
+
+                        @Html.TextContent("Manage_ColumnHeader_" + Model.ModelType.GetFriendlyTypeName() + "_" + ColumnTitle, ColumnTitle)
 
                         @if (Model.OverrideSort == Meta.PropertyName)
                             {
-                            if (Model.OverrideSortDirection == "ASC")
+                            if (Model.OverrideSortDirection == SortDirection.Ascending)
                                 {
                                 <span class="glyphicons glyphicons-up-arrow">&#xe093;</span>
                                 }
@@ -90,24 +99,23 @@
             </td>
             }
 
-        @if (ViewContext.Controller is ManageController &&
-            ((ManageController)ViewContext.Controller).OverridePermissions.Edit == true &&
-            ControllerHelper.AllowEdit(Session, Model.ModelType))
+        @if (ViewContext.AllowEdit(Model.ModelType))
             {
             <td class="edit-cell">
                 <div>
-                    Edit
+                    @Html.TextContent("Manage_ColumnHeader_" + Model.ModelType.GetFriendlyTypeName() + "_Edit", "Edit")
                 </div>
             </td>
             }
 
-        @if (ViewContext.Controller is ManageController &&
-            ((ManageController)ViewContext.Controller).OverridePermissions.Deactivate == true &&
-            ControllerHelper.AllowDeactivate(Session, Model.ModelType))
+        @if (ViewContext.AllowDeactivate(Model.ModelType))
             {
             <td class="deactivate-cell">
                 <div>
-                    @(Model.ShowInactiveRecords ? "Restore" : "Delete")
+                    @{
+            String DeleteResotreStr = Model.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive) ? "Restore" : "Delete";
+                    }
+                    @Html.TextContent("Manage_ColumnHeader_" + Model.ModelType.GetFriendlyTypeName() + "_" + DeleteResotreStr, DeleteResotreStr)
                 </div>
             </td>
             }

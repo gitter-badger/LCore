@@ -1,4 +1,5 @@
 var singNumber = singExt.addModule(new sing.Module("Number", Number));
+singNumber.glyphIcon = 'icon-calculator';
 singNumber.summaryShort = 'Extensions on Number.prototype and others';
 singNumber.summaryLong = '&nbsp;';
 singNumber.features = ['Math object extensions: max, min, round, pow, ceil, floor, abs', 'Friendly file sizes: formatFileSize', 'String extensions: isNumeric, isInteger, toNumber, toInteger', 'Number array extensions: total, average', 'JQuery $ extensions: isInt, isFloat, isNumber'];
@@ -18,6 +19,7 @@ singNumber.method('max', NumberMax, {
             (1).max(2,3,4,5);        // = 5 \r\n\
             (1.00025).max(1.00026);  // = 1.00026 \r\n\
             '],
+    glyphIcon: '&#xe244;',
     tests: function (ext) {
         ext.addTest(100, [200], 200);
         ext.addTest(0, [1, 2, 3, 4, 5], 5);
@@ -53,6 +55,7 @@ singNumber.method('min', NumberMin, {
             (1).min(2,3,4,5);        // = 1 \r\n\
             (1.00025).min(1.00026);  // = 1.00025 \r\n\
             '],
+    glyphIcon: '&#xe245;',
     tests: function (ext) {
         ext.addTest(100, [200], 100);
         ext.addTest(0, [1, 2, 3, 4, 5], 0);
@@ -88,6 +91,7 @@ singNumber.method('round', NumberRound, {
             (1.6).round();                     //  == 2  \r\n\
             (1.6555).round(2);                 //  == 1.66  \r\n\
             (1.644999999999999).round(2);      //  == 1.64  '],
+    glyphIcon: '&#xe165;',
     tests: function (ext) {
         ext.addTest(1.6, [], 2);
         ext.addTest(1.5, [], 2);
@@ -106,37 +110,6 @@ function NumberRound(decimalPlaces) {
         return Math.round(this * ((10).pow(decimalPlaces))) / ((10).pow(decimalPlaces));
     return Math.round(this);
 }
-singNumber.method('pow', NumberPower, {
-    summary: 'Returns the calling number raised to the power passed. \r\n\
-            Decimal numbers are supported and can be used for calculating fractional powers and roots.',
-    parameters: [
-        {
-            name: 'power',
-            types: [Number],
-            required: true,
-            description: 'The power to raise the calling number to',
-        }
-    ],
-    returns: 'Returns the calling number raised to the power passed.',
-    returnType: Number,
-    examples: ['\r\n\
-            (2).pow(2);   // == 4 \r\n\
-            (4).pow(2);   // == 16 \r\n\
-            (4).pow(1/2);   // == 2 \r\n\
-            (2).pow(1/2);   // == 1.4142135623730951 \r\n\
-            '],
-    tests: function (ext) {
-        ext.addTest(2, [2], 4);
-        ext.addTest(4, [2], 16);
-        ext.addTest(4, [1 / 2], 2);
-        ext.addTest(2, [1 / 2], 1.4142135623730951);
-        ext.addFailsTest(2, [null], 'Singularity.Extensions.Number.pow Missing Parameter: number power');
-        ext.addFailsTest(2, [undefined], 'Singularity.Extensions.Number.pow Missing Parameter: number power');
-    },
-});
-function NumberPower(power) {
-    return Math.pow(this, power);
-}
 singNumber.method('ceil', NumberCeiling, {
     summary: 'Extension of the Math.ceil function',
     parameters: [
@@ -152,6 +125,7 @@ singNumber.method('ceil', NumberCeiling, {
     examples: ['\
             (5.5).ceil();   // == (6) \r\n\
             (5.1).ceil();   // == (6) '],
+    glyphIcon: '&#xe133;',
     tests: function (ext) {
         ext.addTest(5.5, [], 6);
         ext.addTest(5.1, [], 6);
@@ -181,6 +155,7 @@ singNumber.method('floor', NumberFloor, {
     examples: ['\
             (5.5).floor();   // == (5) \r\n\
             (5.1).floor();   // == (5) '],
+    glyphIcon: '&#xe134;',
     tests: function (ext) {
         ext.addTest(5.5, [], 5);
         ext.addTest(5.1, [], 5);
@@ -196,6 +171,38 @@ function NumberFloor(decimalPlaces) {
         return Math.floor(this * ((10).pow(decimalPlaces))) / ((10).pow(decimalPlaces));
     return Math.floor(this);
 }
+singNumber.method('pow', NumberPower, {
+    summary: 'Returns the calling number raised to the power passed. \r\n\
+            Decimal numbers are supported and can be used for calculating fractional powers and roots.',
+    parameters: [
+        {
+            name: 'power',
+            types: [Number],
+            required: true,
+            description: 'The power to raise the calling number to',
+        }
+    ],
+    returns: 'Returns the calling number raised to the power passed.',
+    returnType: Number,
+    examples: ['\r\n\
+            (2).pow(2);   // == 4 \r\n\
+            (4).pow(2);   // == 16 \r\n\
+            (4).pow(1/2);   // == 2 \r\n\
+            (2).pow(1/2);   // == 1.4142135623730951 \r\n\
+            '],
+    glyphIcon: '&#xe255;',
+    tests: function (ext) {
+        ext.addTest(2, [2], 4);
+        ext.addTest(4, [2], 16);
+        ext.addTest(4, [1 / 2], 2);
+        ext.addTest(2, [1 / 2], 1.4142135623730951);
+        ext.addFailsTest(2, [null], 'Singularity.Extensions.Number.pow Missing Parameter: number power');
+        ext.addFailsTest(2, [undefined], 'Singularity.Extensions.Number.pow Missing Parameter: number power');
+    },
+});
+function NumberPower(power) {
+    return Math.pow(this, power);
+}
 singNumber.method('abs', NumberAbsoluteValue, {
     summary: 'Extension of Math.abs',
     parameters: [],
@@ -203,6 +210,7 @@ singNumber.method('abs', NumberAbsoluteValue, {
     returnType: Number,
     examples: ['\
             (-5).abs()  // == (5) '],
+    glyphIcon: '&#xe081;',
     tests: function (ext) {
         ext.addTest(-5, [], 5);
         ext.addTest(-1, [], 1);
@@ -236,6 +244,7 @@ singNumber.method('percentOf', NumberPercentOf, {
     returns: 'A number rounded to the supplied number of decimal places',
     returnType: Number,
     examples: [],
+    glyphIcon: 'icon-divide',
     tests: function (ext) {
         ext.addTest(1, [100], 1);
         ext.addTest(1, [100, 0, false], 1);
@@ -308,6 +317,7 @@ singNumber.method('formatFileSize', NumberFormatFileSize, {
     examples: ['\
             (1024).formatFileSize()    //  == \'1 KB\' \r\n\
             '],
+    glyphIcon: '&#xe022;',
     tests: function (ext) {
         ext.addTest(0, [], '0 B');
         ext.addTest(0, [1], '0 B');
@@ -378,6 +388,7 @@ singNumber.method('toStr', NumberToStr, {
         var out = test.toStr()       // out == '1' \r\n\
         var out2 = test2.toStr()     // out == '2.5' \r\n\
         "],
+    glyphIcon: '&#xe047;',
     tests: function (ext) {
         ext.addTest(0, [], '0');
         ext.addTest(5, [], '5');
@@ -404,6 +415,7 @@ singNumber.method('numericValueOf', NumberNumericValueOf, {
             (1.6).numericValueOf();                     //  == 1.6  \r\n\
             (1.6555).numericValueOf(2);                 //  == 1.6555  \r\n\
             (1.644999999999999).numericValueOf(2);      //  == 1.644999999999999  '],
+    glyphIcon: '&#xe141;',
     tests: function (ext) {
         ext.addTest(1, [], 1);
         ext.addTest(0, [], 0);
@@ -420,6 +432,7 @@ singNumber.method('numericValueOf', StringNumericValueOf, {
     returns: 'Returns the numeric value of the calling String',
     returnType: Number,
     examples: [],
+    glyphIcon: '&#xe141;',
     tests: function (ext) {
         ext.addTest('hi', [], 26729);
         ext.addTest('hello', [], 448378203247);
@@ -443,6 +456,7 @@ singNumber.method('numericValueOf', BooleanToNumericValue, {
     returns: 'Returns the numeric value of the calling Boolean',
     returnType: Number,
     examples: [],
+    glyphIcon: '&#xe141;',
     tests: function (ext) {
         ext.addTest(true, [], 1);
         ext.addTest(false, [], 0);
@@ -466,6 +480,7 @@ singNumber.method('isInt', NumberIsInt, {
     returns: 'Returns whether the calling Object is an Integer. Returns false for Floats and non-numbers.',
     returnType: Boolean,
     examples: [],
+    glyphIcon: '&#xe063;',
     tests: function (ext) {
         ext.addTest(null, [null], false);
         ext.addTest(null, [undefined], false);
@@ -493,6 +508,7 @@ singNumber.method('isFloat', NumberIsFloat, {
     returns: 'Returns whether the calling Object is a Float. Returns false for Integers and non-numbers.',
     returnType: Boolean,
     examples: [],
+    glyphIcon: '&#xe063;',
     tests: function (ext) {
         ext.addTest(null, [null], false);
         ext.addTest(null, [undefined], false);
@@ -520,6 +536,7 @@ singNumber.method('isNumber', ObjectIsNumber, {
     returns: 'Returns whether the calling Object is a Number',
     returnType: Boolean,
     examples: [],
+    glyphIcon: '&#xe063;',
     tests: function (ext) {
         ext.addTest(null, [null], false);
         ext.addTest(null, [undefined], false);
@@ -561,6 +578,7 @@ singNumber.method('random', NumberRandom, {
     returns: 'An array containing [count] of random numbers between [minimum] and [maximum]',
     returnType: Array,
     examples: ['$.random(1,10, 5)  // Returns an array of 5 numbers from 1 to 10.'],
+    glyphIcon: '&#xe110;',
     tests: function (ext) {
         ext.addFailsTest($, [10, 0], 'maximum must be greater than minimum', 'Maxmimum must me greater than minimum');
         ext.addCustomTest(function () {
@@ -607,6 +625,7 @@ singNumber.method('isNumeric', StringIsNumeric, {
     returns: 'A true value if the string represents a valid Number, otherwise false is returned.',
     returnType: Boolean,
     examples: [],
+    glyphIcon: '&#xe063;',
     tests: function (ext) {
         ext.addTest('', [], false);
         ext.addTest('abc', [], false);
@@ -638,6 +657,7 @@ singNumber.method('isInteger', StringIsInteger, {
     returns: 'A true value if the string represents a valid Integer, otherwise false is returned.',
     returnType: Boolean,
     examples: [],
+    glyphIcon: '&#xe063;',
     tests: function (ext) {
         ext.addTest('', [], false);
         ext.addTest('abc', [], false);
@@ -668,6 +688,7 @@ singNumber.method('toNumber', StringToNumber, {
     returns: 'A number value if the string represents a valid Number, otherwise NaN is returned.',
     returnType: Number,
     examples: [],
+    glyphIcon: '&#xe141;',
     tests: function (ext) {
         ext.addTest('', [], NaN);
         ext.addTest('abc', [], NaN);
@@ -694,6 +715,7 @@ singNumber.method('toInteger', StringToInteger, {
     returns: 'A number value if the string represents a valid Number, otherwise NaN is returned.',
     returnType: Number,
     examples: [],
+    glyphIcon: '&#xe141;',
     tests: function (ext) {
         ext.addTest('', [], NaN);
         ext.addTest('abc', [], NaN);
@@ -720,6 +742,7 @@ singNumber.method('total', ArrayTotal, {
     returns: 'The total of all the numbers in the array.',
     returnType: Number,
     examples: [],
+    glyphIcon: '&#xe081;',
     tests: function (ext) {
         ext.addTest([], [], 0);
         ext.addTest([null], [], 0);
@@ -754,6 +777,7 @@ singNumber.method('average', ArrayAverage, {
     returns: 'The average of all the numbers in the array.',
     returnType: Number,
     examples: [],
+    glyphIcon: '&#xe052;',
     tests: function (ext) {
         ext.addTest([], [], undefined);
         ext.addTest(['a'], [], undefined);

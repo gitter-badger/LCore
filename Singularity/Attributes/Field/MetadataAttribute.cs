@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.ModelBinding;
 
-namespace Singularity
+namespace Singularity.Annotations
     {
     public class MetadataAttribute : AdditionalValueAttribute
         {
         public const String AdditionalData_RelationForeignKey = "RelationForeignKey";
 
-        public MetadataAttribute(String ValueKey, String ValueData)
+        public MetadataAttribute(String ValueKey, Object ValueData)
             {
             _ValueKey = ValueKey;
             _ValueData = ValueData;
@@ -26,8 +25,8 @@ namespace Singularity
                 }
             }
 
-        protected string _ValueData;
-        public override object ValueData
+        protected Object _ValueData;
+        public override Object ValueData
             {
             get
                 {

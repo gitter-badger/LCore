@@ -8,6 +8,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Singularity;
 using Singularity.Context;
+using System.Web.Mvc;
+using Singularity.Annotations;
+using LCore;
 
 namespace Singularity.Models
     {
@@ -18,11 +21,22 @@ namespace Singularity.Models
         public int TextContentID { get; set; }
 
         [Required]
+        [FieldLoadFromQueryString]
+        [FieldFocus]
         public String Token { get; set; }
 
         [DataType(DataType.MultilineText)]
+        [AllowHtml]
+        [FieldLoadFromQueryString]
+        [FieldFocus]
         public String Text { get; set; }
 
+        public Boolean? GlobalToken { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        public String Description { get; set; }
+
+        [HideManageViewColumn]
         public Boolean Active { get; set; }
 
         public TextContent()
@@ -34,16 +48,35 @@ namespace Singularity.Models
             return (Token ?? "").ToString();
             }
 
-        public static String GetText(ModelContext Context, String Token, String DefaultText = "")
+        public static String GetText(ModelContext DbContext, String Token, String DefaultText = "")
             {
             String Out = DefaultText;
 
-            TextContent Content = Context.GetDBSet<TextContent>().Where(t => t.Token == Token && t.Active == true).FirstOrDefault();
+            TextContent Content = FindByToken(DbContext, Token);
 
             if (Content != null)
                 Out = Content.Text;
 
             return Out;
+            }
+
+        public static IQueryable<TextContent> FindGlobalTokens(ModelContext DbContext)
+            {
+            return DbContext.GetDBSet<TextContent>().Where(
+                t => t.Active == true &&
+                    t.GlobalToken == true);
+            }
+
+        public static TextContent FindByToken(ModelContext DbContext, String Token)
+            {
+            Func<String, TextContent> Func = (s) =>
+            {
+                return DbContext.GetDBSet<TextContent>().Where(
+                t => t.Token == Token &&
+                    t.Active == true).FirstOrDefault();
+            };
+
+            return Func.Cache("TextContentTokenCache")(Token);
             }
         }
     }

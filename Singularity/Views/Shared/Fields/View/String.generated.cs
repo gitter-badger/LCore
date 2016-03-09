@@ -161,7 +161,7 @@ WriteLiteral("\r\n");
             
             #line 24 "..\..\Views\Shared\Fields\View\String.cshtml"
  if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell) &&
-    Model.PropertyData.ToString().Length > ManageController.DefaultTableTextLength)
+    Model.PropertyData.ToString().Length > ControllerHelper.DefaultTableTextLength)
     {
 
             
@@ -182,7 +182,7 @@ WriteLiteral("\">\r\n        ");
 
             
             #line 28 "..\..\Views\Shared\Fields\View\String.cshtml"
-   Write(Model.PropertyData.ToString().Substring(0, ManageController.DefaultTableTextLength));
+   Write(Model.PropertyData.ToString().Substring(0, ControllerHelper.DefaultTableTextLength));
 
             
             #line default

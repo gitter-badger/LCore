@@ -1,10 +1,12 @@
 var singFunction = singExt.addModule(new sing.Module("Function", Function));
+singFunction.glyphIcon = '&#xe019;';
 singFunction.method('fn_try', FunctionTry, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: Function,
     examples: null,
+    glyphIcon: '&#xe029;',
     tests: function (ext) {
         ext.addCustomTest(function () {
             (function () {
@@ -23,6 +25,7 @@ singFunction.method('fn_catch', FunctionCatch, {
     returns: '',
     returnType: Function,
     examples: null,
+    glyphIcon: '&#xe029;',
     tests: function (ext) {
         ext.addCustomTest(function () {
             var test = '';
@@ -62,6 +65,7 @@ singFunction.method('fn_log', FunctionLog, {
     returnType: Function,
     examples: null,
     manuallyTested: true,
+    glyphIcon: '&#xe105;',
 });
 function FunctionLog(logAttempt, logSuccess, logFailure) {
     if (logAttempt === void 0) { logAttempt = true; }
@@ -93,6 +97,7 @@ singFunction.method('fn_count', FunctionCount, {
     parameters: null,
     returns: '',
     returnType: Function,
+    glyphIcon: '&#xe141;',
     examples: null,
 });
 function FunctionCount(logFailure) {
@@ -121,6 +126,7 @@ singFunction.method('fn_cache', FunctionCache, {
     returns: '',
     returnType: Function,
     examples: null,
+    glyphIcon: '&#xe121;',
     manuallyTested: true,
 });
 function FunctionCache(uniqueCacheID, expiresAfter) {
@@ -175,6 +181,7 @@ singFunction.method('fn_or', FunctionOR, {
     returns: '',
     returnType: Function,
     examples: null,
+    glyphIcon: '&#xe110;',
     tests: function (ext) {
         ext.addCustomTest(function () {
             var fn_test = (function (a) {
@@ -201,6 +208,7 @@ singFunction.method('fn_if', FunctionIf, {
     returns: '',
     returnType: Function,
     examples: null,
+    glyphIcon: '&#xe063;',
     tests: function (ext) {
         ext.addCustomTest(function () {
             var a = 0;
@@ -238,6 +246,7 @@ singFunction.method('fn_unless', FunctionUnless, {
     returns: '',
     returnType: Function,
     examples: null,
+    glyphIcon: '&#xe063;',
     tests: function (ext) {
         ext.addCustomTest(function () {
             var a = 0;
@@ -275,6 +284,7 @@ singFunction.method('fn_then', FunctionThen, {
     returns: '',
     returnType: Function,
     examples: null,
+    glyphIcon: '&#xe095;',
     tests: function (ext) {
     },
 });
@@ -300,6 +310,7 @@ singFunction.method('fn_repeat', FunctionRepeat, {
     returns: '',
     returnType: Function,
     examples: null,
+    glyphIcon: '&#xe115;',
     tests: function (ext) {
     },
 });
@@ -352,6 +363,7 @@ singFunction.method('fn_while', FunctionWhile, {
     returns: '',
     returnType: Function,
     examples: null,
+    glyphIcon: '&#xe030;',
     tests: function (ext) {
     },
 });
@@ -370,6 +382,7 @@ singFunction.method('fn_retry', FunctionRetry, {
     returns: '',
     returnType: Function,
     examples: null,
+    glyphIcon: '&#xe031;',
     tests: function (ext) {
     },
 });
@@ -402,6 +415,7 @@ singFunction.method('fn_time', FunctionTime, {
     returns: '',
     returnType: Function,
     examples: null,
+    glyphIcon: '&#x231b;',
     tests: function (ext) {
     },
 });
@@ -426,6 +440,7 @@ singFunction.method('fn_defer', FunctionDefer, {
     returns: '',
     returnType: Function,
     examples: null,
+    glyphIcon: '&#xe234;',
     aliases: ['async'],
     tests: function (ext) {
     },
@@ -450,6 +465,7 @@ singFunction.method('fn_delay', FunctionDelay, {
     returns: '',
     returnType: Function,
     examples: null,
+    glyphIcon: '&#xe234;',
     tests: function (ext) {
     },
 });
@@ -474,6 +490,7 @@ singFunction.method('fn_before', FunctionBefore, {
     returns: '',
     returnType: Function,
     examples: null,
+    glyphIcon: '&#xe070;',
     tests: function (ext) {
     },
 });
@@ -495,6 +512,7 @@ singFunction.method('fn_after', FunctionAfter, {
     returns: '',
     returnType: Function,
     examples: null,
+    glyphIcon: '&#xe076;',
     tests: function (ext) {
     },
 });
@@ -517,6 +535,7 @@ singFunction.method('fn_wrap', FunctionWrap, {
     returns: '',
     returnType: Function,
     examples: null,
+    glyphIcon: '&#xe102;',
     tests: function (ext) {
     },
 });
@@ -540,6 +559,7 @@ singFunction.method('fn_trace', FunctionTrace, {
     returns: '',
     returnType: Function,
     examples: null,
+    glyphIcon: '&#xe105;',
     tests: function (ext) {
     },
 });
@@ -563,6 +583,7 @@ singFunction.method('fn_recurring', FunctionRecurring, {
     returns: '',
     returnType: Function,
     examples: null,
+    glyphIcon: '&#xe031;',
     tests: function (ext) {
     },
 });
@@ -597,6 +618,7 @@ singFunction.method('executeAll', ArrayExecuteAll, {
     returns: '',
     returnType: Function,
     examples: null,
+    glyphIcon: '&#xe162;',
     tests: function (ext) {
     },
 }, Array.prototype);
@@ -614,7 +636,9 @@ function ArrayExecuteAll() {
     });
     return out;
 }
-singFunction.method('fn_not', FunctionNot, {});
+singFunction.method('fn_not', FunctionNot, {
+    glyphIcon: '&#xe126;',
+});
 function FunctionNot() {
     var srcThis = this;
     return function () {

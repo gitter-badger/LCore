@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Singularity;
 using System.Web.Mvc;
+using System.Web;
 
 namespace Singularity.Models
     {
@@ -17,13 +18,22 @@ namespace Singularity.Models
 
         public Object[] ContextData { get; set; }
 
-        public TextContentViewModel(String Token, MvcHtmlString DefaultText, Object[] ContextData = null)
-            : this(Token, DefaultText.ToHtmlString(), ContextData) { }
+        public Boolean ShowText { get; set; }
 
-        public TextContentViewModel(String Token, String DefaultText = "", Object[] ContextData = null)
+        public Boolean AutoCreate { get; set; }
+
+        public TextContentViewModel(String Token, MvcHtmlString DefaultText, Object[] ContextData = null, Boolean ShowText = true, Boolean AutoCreate = false)
+            : this(Token, DefaultText.ToHtmlString(), ContextData, ShowText, AutoCreate)
             {
+            }
+
+        public TextContentViewModel(String Token, String DefaultText = "", Object[] ContextData = null, Boolean ShowText = true, Boolean AutoCreate = false)
+            {
+            this.ShowText = ShowText;
+
             this.Token = Token;
             this.DefaultText = DefaultText;
+            this.AutoCreate = AutoCreate;
             this.ContextData = ContextData ?? new Object[] { };
             }
         }

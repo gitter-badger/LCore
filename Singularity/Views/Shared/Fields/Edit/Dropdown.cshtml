@@ -1,0 +1,86 @@
+﻿@* Generator: MvcView *@
+
+@using LCore;
+@using Singularity;
+@using Singularity.Models;
+@using Singularity.Controllers;
+@using Singularity.Context;
+@using Singularity.Routes;
+@using Singularity.Extensions;
+@using Singularity.Annotations;
+@using System.Collections;
+@using System.Collections.Generic;
+@using System.ComponentModel;
+@using System.ComponentModel.Design;
+@using System.Web;
+@using System.Web.Mvc;
+@using System.Linq;
+@using System.Linq.Expressions;
+@using System.ComponentModel.DataAnnotations;
+@using System.ComponentModel.DataAnnotations.Schema;
+
+@{
+    FieldType_Dropdown FieldAttr = Model.Meta.GetAttribute<FieldType_Dropdown>();
+
+    List<SelectListItem> Items = new List<SelectListItem>();
+
+    Boolean Required = Model.Meta.IsRequired;
+
+    String EmptyValue = FieldAttr.EmptyValue;
+    String EmptyKey = FieldAttr.EmptyKey;
+
+    if (FieldAttr != null)
+        {
+        foreach (KeyValuePair<String, String> KeyValue in FieldAttr.KeyValues(this.ViewContext))
+            {
+            Items.Add(new SelectListItem()
+            {
+                Text = KeyValue.Key,
+                Value = KeyValue.Value,
+                Selected = (Model.PropertyData ?? "").ToString() == KeyValue.Value,
+            });
+            }
+        }
+}
+
+@model IViewField
+
+@if (FieldAttr != null && FieldAttr.MultiSelect)
+    {
+    <div class="option-checks">
+
+        <input name="@Model.Meta.PropertyName" type="hidden" value="" />
+
+        @foreach (SelectListItem i in Items)
+            {
+            <div class="list-check">
+                <input type="checkbox"
+                       id="@(Model.Meta.PropertyName)_@(i.Value)"
+                       name="@Model.Meta.PropertyName"
+                       value="@i.Value"
+                       @((Model.PropertyData ?? "").ToString().Contains(i.Value) ? Html.Raw("checked=\"true\"") : Html.Raw(""))>
+                <label for="@(Model.Meta.PropertyName)_@(i.Value)">
+                    @i.Text
+                </label>
+            </div>
+            }
+    </div>
+    }
+else
+    {
+    <select name="@Model.Meta.PropertyName" id="@Model.Meta.PropertyName">
+        @if (!Required)
+            {
+            <option value="@EmptyValue" @((String)Model.PropertyData == EmptyValue ? "selected" : "")>
+                @EmptyKey
+            </option>
+
+            }
+        @foreach (SelectListItem Item in Items)
+            {
+            <option value="@Item.Value" @(Item.Selected ? "selected" : "")>
+                @Item.Text
+            </option>
+            }
+    </select>
+    }

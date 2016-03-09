@@ -22,19 +22,15 @@
 
 @model IViewField
 
-@if (Model.PropertyData.ToString().Length > ManageController.DefaultTableTextLength)
+@if (Model.PropertyData.ToString().Length > ControllerHelper.DefaultTableTextLength)
     {
-    <a title="@Model.PropertyData.ToString()" href="@Model.Route_FieldRelation(ViewBag.ControllerName)">
-        <span>
-            @Model.PropertyData.ToString().Substring(0, ManageController.DefaultTableTextLength)
-        </span>
-    </a>
+    <span title="@Model.PropertyData.ToString()">
+        @Model.PropertyData.ToString().Substring(0, ControllerHelper.DefaultTableTextLength)
+    </span>
     }
 else
     {
-    <a href="@Model.Route_FieldRelation(ViewBag.ControllerName)">
-        <span>
-            @Model.PropertyData.ToString()
-        </span>
-    </a>
+    <span>
+        @Model.PropertyData.ToString()
+    </span>
     }

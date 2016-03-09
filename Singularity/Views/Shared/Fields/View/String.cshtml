@@ -22,10 +22,10 @@
 @model IViewField
 
 @if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell) &&
-    Model.PropertyData.ToString().Length > ManageController.DefaultTableTextLength)
+    Model.PropertyData.ToString().Length > ControllerHelper.DefaultTableTextLength)
     {
     <span class="abbreviated" title="@Model.PropertyData">
-        @Model.PropertyData.ToString().Substring(0, ManageController.DefaultTableTextLength) ...
+        @Model.PropertyData.ToString().Substring(0, ControllerHelper.DefaultTableTextLength) ...
     </span>
     }
 else

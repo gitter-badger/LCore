@@ -1,0 +1,154 @@
+﻿@* Generator: MvcView *@
+
+@using System.Linq;
+@using System.Dynamic;
+@using System.Linq.Expressions;
+@using System.Collections;
+@using System.Collections.Generic;
+@using System.ComponentModel;
+@using System.ComponentModel.DataAnnotations;
+@using System.ComponentModel.Design;
+@using System.Web;
+@using System.Web.Mvc;
+@using LCore;
+@using Singularity;
+@using Singularity.Models;
+@using Singularity.Controllers;
+@using Singularity.Context;
+@using Singularity.Routes;
+@using Singularity.Extensions;
+@using Singularity.Annotations;
+
+@model ManageViewModel
+
+@{
+    String ControllerTypeName = ViewContext.Controller.GetType().FullName;
+
+    List<CustomExport> Exports = CustomExport.Find(Context, Model.ModelType, ControllerTypeName).List();
+
+    Dictionary<String, List<CustomExport>> ExportGroups = Exports.Group();
+}
+
+@if (ViewContext.AllowExport(Model.ModelType))
+    {
+    CustomExport DefaultExport = null;
+
+    <div class="manage-export">
+        <span class="btn-info btn right method-show-hide relative" click-fade-toggle=".manage-export-full">
+            <glyph class="manage-export-full absolute">&#x2b;</glyph>
+            <glyph class="manage-export-full absolute" style=" display: none;">&#x2212;</glyph>
+        </span>
+
+        <h2>Exports</h2>
+
+        <div class="manage-export-full" style="display:none">
+            @Html.TextContent("Manage_ExportCSV_" + Model.ModelType.GetFriendlyTypeName(), "Export", ShowText: false)
+
+            @if (Exports != null && Exports.Count > 0)
+                {
+                foreach (CustomExport Export in Exports)
+                    {
+                    if (Export.Name == CustomExport.DefaultName)
+                        {
+                        DefaultExport = Export;
+                        }
+                    }
+
+                if (DefaultExport != null)
+                    {
+                    <div class="export-row">
+                        @Html.ActionLink("Default Export",
+                            Singularity.Routes.Controllers.Manage.Actions.Export,
+                            Singularity.Routes.Controllers.Manage.Actions.Route_Export(Model, DefaultExport))
+                        <a href="@(Url.Controller<CustomExportController>().Action(m => m.Edit, DefaultExport.CustomExportID, Request.Url.AbsoluteUri, false))">
+                            <div class="btn btn-default">
+                                <glyph>&#xe065;</glyph>
+                            </div>
+                        </a>
+                    </div>
+                    }
+                else
+                    {
+                    <div class="export-row">
+                        @Html.ActionLink("Default Export",
+                            Singularity.Routes.Controllers.Manage.Actions.Export,
+                            Singularity.Routes.Controllers.Manage.Actions.Route_Export(Model))
+                        <a href="@(Url.Controller<CustomExportController>().QS(new Dictionary<String, Object>() {
+                                {"ExportType", Model.ModelType.FullName},
+                                {"Name", CustomExport.DefaultName},
+                                {"ManagementPage", ViewContext.GetManageController().GetType().FullName},
+                            })
+                            .Action(c => c.Create, Request.Url.AbsoluteUri))">
+                            <div class="btn btn-default">
+                                <glyph>&#xe065;</glyph>
+                            </div>
+                        </a>
+                    </div>
+                    }
+                foreach (String Group in ExportGroups.Keys)
+                    {
+                    Boolean IsGroup = !String.IsNullOrEmpty(Group);
+                    if (IsGroup)
+                        {
+                        <span class="btn-info btn right method-show-hide relative" click-fade-toggle=".manage-export-group-@Group.RemoveAll(" ")">
+                            <glyph class="manage-export-group-@Group.RemoveAll(" ") absolute">&#x2b;</glyph>
+                            <glyph class="manage-export-group-@Group.RemoveAll(" ") absolute" style=" display: none;">&#x2212;</glyph>
+                        </span>
+
+                        <h3>
+                            @Group
+                        </h3>
+                        }
+
+                        <div class="manage-export-group-@Group.RemoveAll(" ")" style="@(IsGroup ? "display:none;" : "")">
+                            @foreach (CustomExport Export in ExportGroups[Group])
+                                {
+                                <div class="export-row">
+                                    @Html.ActionLink(Export.Name,
+                                        Singularity.Routes.Controllers.Manage.Actions.Export,
+                                        Singularity.Routes.Controllers.Manage.Actions.Route_Export(Model, Export))
+                                    <a href="@(Url.Controller<CustomExportController>().Action(c => c.Edit, Export.CustomExportID, Request.Url.AbsoluteUri, false))">
+                                        <div class="btn btn-default">
+                                            <glyph>&#xe065;</glyph>
+                                        </div>
+                                    </a>
+                                </div>
+                                }
+                        </div>
+                    }
+                }
+            else
+                {
+                <div class="export-row">
+                    @Html.ActionLink("Export",
+                        Singularity.Routes.Controllers.Manage.Actions.Export,
+                        Singularity.Routes.Controllers.Manage.Actions.Route_Export(Model))
+                    <a href="@(Url.Controller<CustomExportController>().QS(new Dictionary<String, Object>
+                        {
+                            {"ExportType", Model.ModelType.FullName},
+                            {"Name", CustomExport.DefaultName},
+                            {"ManagementPage", ViewContext.GetManageController().GetType().FullName},
+                        }).Action(c => c.Create, Request.Url.AbsoluteUri))">
+                        <div class="btn btn-default">
+                            <glyph>&#xe065;</glyph>
+                        </div>
+                    </a>
+                </div>
+
+                }
+
+            @if (ViewContext.AllowCreate(typeof(CustomExport)))
+                {
+                <a href="@(Url.Controller<CustomExportController>().QS(new Dictionary<String, Object>
+                    {
+                    {"ExportType", Model.ModelType.FullName},
+                    {"ManagementPage", ViewContext.Controller.GetType().FullName},
+                    }).Action(c => c.Create, Request.Url.AbsoluteUri))">
+                    <div class="btn btn-default">
+                        <glyph>&#x2b;</glyph>
+                    </div>
+                </a>
+                }
+        </div>
+    </div>
+    }

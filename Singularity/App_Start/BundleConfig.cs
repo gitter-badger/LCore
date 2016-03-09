@@ -3,7 +3,7 @@ using System;
 using System.Web;
 using System.Web.Optimization;
 
-namespace Singularity
+namespace Singularity.Config
 {
     public class BundleConfig
     {
@@ -70,7 +70,8 @@ namespace Singularity
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle(Style_Bootstrap).Include(
-                      "~/Content/bootstrap.css"));
+                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap.icon.css"));
             #endregion
 
             #region Modernizr

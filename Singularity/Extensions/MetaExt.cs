@@ -4,10 +4,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Web;
-using System.Web.ModelBinding;
 using LCore;
+using System.Web.Mvc;
+using Singularity.Models;
 
-namespace Singularity
+namespace Singularity.Extensions
     {
     public static class MetaExt
         {
@@ -26,7 +27,7 @@ namespace Singularity
             //    return t.Name == "Nullable" || t.Name == "Nullable`1";
             }
 
-        public static System.Web.ModelBinding.ModelMetadata Meta(this Type t, String PropertyName = null)
+        public static ModelMetadata Meta(this Type t, String PropertyName = null)
             {
             t = t.WithoutDynamicType();
 
@@ -34,65 +35,65 @@ namespace Singularity
                 {
                 if (PropertyName.Contains("."))
                     {
-                    return System.Web.ModelBinding.ModelMetadataProviders.Current.GetMetadataForProperty(null, t, PropertyName.Split(".")[1]);
+                    return ModelMetadataProviders.Current.GetMetadataForProperty(null, t, PropertyName.Split(".")[1]);
                     }
                 else
                     {
-                    return System.Web.ModelBinding.ModelMetadataProviders.Current.GetMetadataForProperty(null, t, PropertyName);
+                    return ModelMetadataProviders.Current.GetMetadataForProperty(null, t, PropertyName);
 
                     }
                 }
             else
-                return System.Web.ModelBinding.ModelMetadataProviders.Current.GetMetadataForType(null, t);
+                return ModelMetadataProviders.Current.GetMetadataForType(null, t);
             }
 
-        public static System.Web.ModelBinding.ModelMetadata Meta(this TypeInfo t, String PropertyName = null)
+        public static ModelMetadata Meta(this TypeInfo t, String PropertyName = null)
             {
             if (!String.IsNullOrEmpty(PropertyName))
                 {
                 if (PropertyName.Contains("."))
                     {
-                    return System.Web.ModelBinding.ModelMetadataProviders.Current.GetMetadataForProperty(null, t, PropertyName.Split(".")[1]);
+                    return ModelMetadataProviders.Current.GetMetadataForProperty(null, t, PropertyName.Split(".")[1]);
                     }
                 else
                     {
-                    return System.Web.ModelBinding.ModelMetadataProviders.Current.GetMetadataForProperty(null, t, PropertyName);
+                    return ModelMetadataProviders.Current.GetMetadataForProperty(null, t, PropertyName);
 
                     }
                 }
             else
-                return System.Web.ModelBinding.ModelMetadataProviders.Current.GetMetadataForType(null, t);
+                return ModelMetadataProviders.Current.GetMetadataForType(null, t);
             }
 
-        public static System.Web.ModelBinding.ModelMetadata Meta<T>(this T Model, Expression<Func<T, Object>> Expression)
+        public static ModelMetadata Meta<T>(this T Model, Expression<Func<T, Object>> Expression)
             where T : IModel
             {
             return Model.Meta((Expression.Body as MemberExpression).Member.Name);
             }
-        public static System.Web.ModelBinding.ModelMetadata Meta<T>(this T Model, String PropertyName = null)
+        public static ModelMetadata Meta<T>(this T Model, String PropertyName = null)
             where T : IModel
             {
             if (String.IsNullOrEmpty(PropertyName))
-                return System.Web.ModelBinding.ModelMetadataProviders.Current.GetMetadataForType(null, Model.TrueModelType());
+                return ModelMetadataProviders.Current.GetMetadataForType(null, Model.TrueModelType());
             else
                 return Model.Property(PropertyName);
             }
 
-        public static IEnumerable<System.Web.ModelBinding.ModelMetadata> Properties<T>(this T Model)
+        public static IEnumerable<ModelMetadata> Properties<T>(this T Model)
             where T : IModel
             {
             return Model.Meta().Properties;
             }
 
-        public static System.Web.ModelBinding.ModelMetadata Property<T>(this T Model, Expression<Func<T, Object>> Expression)
+        public static ModelMetadata Property<T>(this T Model, Expression<Func<T, Object>> Expression)
             where T : IModel
             {
             return Model.Meta((Expression.Body as MemberExpression).Member.Name);
             }
-        public static System.Web.ModelBinding.ModelMetadata Property<T>(this T Model, String PropertyName)
+        public static ModelMetadata Property<T>(this T Model, String PropertyName)
             where T : IModel
             {
-            return System.Web.ModelBinding.ModelMetadataProviders.Current.GetMetadataForProperty(null, Model.TrueModelType(), PropertyName);
+            return ModelMetadataProviders.Current.GetMetadataForProperty(null, Model.TrueModelType(), PropertyName);
             }
 
         public static Expression GetPropertyExpression(this ModelMetadata Meta)
@@ -185,6 +186,15 @@ namespace Singularity
             return t.GetProperty(PropertyName) != null;
             }
 
+        public static LambdaExpression GetExpression(this Type t, String PropertyName)
+            {
+            ParameterExpression param = Expression.Parameter(t, string.Empty);
+            MemberExpression property = Expression.PropertyOrField(param, PropertyName);
+            LambdaExpression Expr = Expression.Lambda(property, param);
+
+            return Expr;
+            }
+
         public static Expression<Func<T, U>> GetExpression<T, U>(this Type t, String PropertyName)
             {
             ParameterExpression param = Expression.Parameter(t, string.Empty);
@@ -253,6 +263,57 @@ namespace Singularity
             return Meta.GetMember().MemberGetAttributes<T>(false);
             }
 
+
+        public static Dictionary<String, ModelMetadata> GetMeta(this Type t,
+            Func<ModelMetadata, Boolean> Selector = null,
+            int Levels = 0)
+            {
+            Dictionary<String, ModelMetadata> Out = new Dictionary<string, ModelMetadata>();
+
+            Out = GetMeta(t, Out, Selector, Levels, 0);
+
+            return Out;
+            }
+        private static Dictionary<String, ModelMetadata> GetMeta(this Type t,
+            Dictionary<String, ModelMetadata> In,
+            Func<ModelMetadata, Boolean> Selector = null,
+            int Levels = 0,
+            int CurrentLevel = 0,
+            String PathString = "")
+            {
+            if (In == null)
+                In = new Dictionary<string, ModelMetadata>();
+
+            if (Levels != 0 && Levels < CurrentLevel)
+                return In;
+
+            if (Selector == null)
+                Selector = (m) => { return true; };
+
+            ModelMetadata[] TypeMeta = t.Meta().Properties.Array();
+
+            TypeMeta.Each((meta) =>
+            {
+                String KeyString = String.IsNullOrEmpty(PathString) ? meta.PropertyName : PathString + "." + meta.PropertyName;
+
+                if (!In.ContainsKey(KeyString))
+                    In[KeyString] = meta;
+
+                if (!Selector(meta))
+                    return;
+
+                if (KeyString.Contains("." + meta.PropertyName + "."))
+                    {
+                    // Avoids recursive lookups
+                    }
+                else if (meta.ModelType.HasInterface<IModel>())
+                    {
+                    In = meta.ModelType.GetMeta(In, Selector, Levels, CurrentLevel + 1, KeyString);
+                    }
+            });
+
+            return In;
+            }
 
         public static Expression<Func<T, Boolean>> ExpressionWithin<T, U>(this ModelMetadata Meta, U Min, U Max)
             {
@@ -330,13 +391,208 @@ namespace Singularity
             return condition;
             }
 
-        public static String Name<TIn, TOut>(this Expression<Func<TIn, TOut>> Expression)
+        public static MemberHelper<T> Type<T>()
             {
-            if (Expression.Body == null || !(Expression.Body is MemberExpression))
-                return null;
-
-            return (Expression.Body as MemberExpression).Member.Name;
+            return new MemberHelper<T>();
             }
+
+        public static String Name<T>(Expression<Func<T, Object>> Expression)
+            {
+            return MetaExt.Type<T>().Name(Expression);
+            }
+
+        public class MemberHelper<T>
+            {
+            public MemberHelper()
+                {
+                }
+
+            public String Name(Expression<Func<T, Action>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1>(Expression<Func<T, Action<A1>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2>(Expression<Func<T, Action<A1, A2>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3>(Expression<Func<T, Action<A1, A2, A3>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4>(Expression<Func<T, Action<A1, A2, A3, A4>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5>(Expression<Func<T, Action<A1, A2, A3, A4, A5>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6>(Expression<Func<T, Action<A1, A2, A3, A4, A5, A6>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6, A7>(Expression<Func<T, Action<A1, A2, A3, A4, A5, A6, A7>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6, A7, A8>(Expression<Func<T, Action<A1, A2, A3, A4, A5, A6, A7, A8>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6, A7, A8, A9>(Expression<Func<T, Action<A1, A2, A3, A4, A5, A6, A7, A8, A9>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10>(Expression<Func<T, Action<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11>(Expression<Func<T, Action<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12>(Expression<Func<T, Action<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13>(Expression<Func<T, Action<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14>(Expression<Func<T, Action<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>(Expression<Func<T, Action<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16>(Expression<Func<T, Action<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+
+            public String Name<U>(Expression<Func<T, Func<U>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, U>(Expression<Func<T, Func<A1, U>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, U>(Expression<Func<T, Func<A1, A2, U>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, U>(Expression<Func<T, Func<A1, A2, A3, U>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, U>(Expression<Func<T, Func<A1, A2, A3, A4, U>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, U>(Expression<Func<T, Func<A1, A2, A3, A4, A5, U>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6, U>(Expression<Func<T, Func<A1, A2, A3, A4, A5, A6, U>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6, A7, U>(Expression<Func<T, Func<A1, A2, A3, A4, A5, A6, A7, U>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6, A7, A8, U>(Expression<Func<T, Func<A1, A2, A3, A4, A5, A6, A7, A8, U>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6, A7, A8, A9, U>(Expression<Func<T, Func<A1, A2, A3, A4, A5, A6, A7, A8, A9, U>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, U>(Expression<Func<T, Func<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, U>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, U>(Expression<Func<T, Func<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, U>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, U>(Expression<Func<T, Func<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, U>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, U>(Expression<Func<T, Func<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, U>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, U>(Expression<Func<T, Func<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, U>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, U>(Expression<Func<T, Func<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, U>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+            public String Name<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, U>(Expression<Func<T, Func<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, U>>> Expression)
+                {
+                return Name((LambdaExpression)Expression);
+                }
+
+            public String Name(LambdaExpression Expression)
+                {
+                if (Expression.Body == null || !(Expression.Body is MemberExpression))
+                    return null;
+
+                if (Expression.Body is MemberExpression)
+                    {
+                    return (Expression.Body as MemberExpression).Member.Name;
+                    }
+                else if (Expression.Body is MethodCallExpression)
+                    {
+                    return (Expression.Body as MethodCallExpression).Method.Name;
+                    }
+                else
+                    {
+                    return "";
+                    }
+                }
+            }
+
+
+        public static LambdaExpression GetTokenExpression(this Type ModelType, String Token, out ModelMetadata Meta)
+            {
+            Token = Token ?? "";
+
+            if (Token.StartsWith("["))
+                Token = Token.Substring(1);
+
+            if (Token.EndsWith("]"))
+                Token = Token.Substring(0, Token.Length - 1);
+
+            String[] FullProperty;
+
+            LambdaExpression Lambda = ModelType.FindSubProperty(out Meta, out FullProperty, Token.Split('.'));
+
+            ParameterExpression Param = Lambda.Parameters[0];
+            Expression AsObject = Expression.TypeAs(Lambda.Body, typeof(Object));
+            LambdaExpression Lambda2 = Expression.Lambda(AsObject, Param);
+
+            ParameterExpression Param2 = Expression.Parameter(typeof(Object), "b");
+            Expression AsT = Expression.TypeAs(Param2, ModelType);
+
+            InvocationExpression Invoke = Expression.Invoke(Lambda2, AsT);
+            LambdaExpression Lambda3 = Expression.Lambda(Invoke, Param2);
+
+            return Lambda3;
+            }
+
         }
     public static class ExprExt
         {

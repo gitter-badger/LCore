@@ -1,10 +1,12 @@
 var singString = singExt.addModule(new sing.Module("String", String));
+singString.glyphIcon = '&#xe241;';
 singString.method('contains', StringContains, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe003;',
     tests: function (ext) {
         ext.addTest('', [], false);
         ext.addTest('', [''], false);
@@ -27,6 +29,7 @@ singString.method('replaceAll', StringReplaceAll, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe015;',
     tests: function (ext) {
         ext.addTest('apples', ['s', ' pie'], 'apple pie');
         ext.addTest('apples apples', ['s', ' pie'], 'apple pie apple pie');
@@ -70,12 +73,44 @@ function StringReplaceAll(searchOrSearches, replaceOrReplacements) {
         return out.toString();
     }
 }
+singString.method('removeAll', StringRemoveAll, {
+    summary: null,
+    parameters: null,
+    returns: '',
+    returnType: null,
+    examples: null,
+    glyphIcon: '&#xe016;',
+    tests: function (ext) {
+        ext.addTest('', [], '');
+        ext.addTest('', [''], '');
+        ext.addTest('apple pie', [], 'apple pie');
+        ext.addTest('apple pie', [null], 'apple pie');
+        ext.addTest('apple pie', [undefined], 'apple pie');
+        ext.addTest('apple pie', [''], 'apple pie');
+        ext.addTest('apple pie', [' '], 'applepie');
+        ext.addTest('apple pie', ['p'], 'ale ie');
+        ext.addTest('apple pie', ['apple'], ' pie');
+        ext.addTest('apple pie', ['pie'], 'apple ');
+        ext.addTest('apple pie', ['pies'], 'apple pie');
+    },
+});
+function StringRemoveAll(stringOrStrings) {
+    if ($.isArray(stringOrStrings)) {
+        var out = this;
+        for (var s in stringOrStrings) {
+            out = out.removeAll(s);
+        }
+        return out;
+    }
+    return this.replaceAll(stringOrStrings, '');
+}
 singString.method('upper', StringUpper, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe260;',
     tests: function (ext) {
         ext.addTest('', [], '');
         ext.addTest('apple', [], 'APPLE');
@@ -92,6 +127,7 @@ singString.method('lower', StringLower, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe259;',
     tests: function (ext) {
         ext.addTest('', [], '');
         ext.addTest('apple', [], 'apple');
@@ -108,6 +144,7 @@ singString.method('collapseSpaces', StringCollapseSpaces, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: 'icon-resize-small',
     tests: function (ext) {
         ext.addTest('', [], '');
         ext.addTest('           ', [], ' ');
@@ -124,6 +161,7 @@ singString.method('startsWith', StringStartsWith, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe079;',
     tests: function (ext) {
         ext.addTest('', [], false);
         ext.addTest('', [''], false);
@@ -153,6 +191,7 @@ singString.method('endsWith', StringEndsWith, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe080;',
     tests: function (ext) {
         ext.addTest('', [], false);
         ext.addTest('', [''], false);
@@ -176,42 +215,13 @@ function StringEndsWith(stringOrStrings) {
     var index = this.indexOf(stringOrStrings);
     return index >= 0 && index == this.length - stringOrStrings.length;
 }
-singString.method('removeAll', StringRemoveAll, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-        ext.addTest('', [], '');
-        ext.addTest('', [''], '');
-        ext.addTest('apple pie', [], 'apple pie');
-        ext.addTest('apple pie', [null], 'apple pie');
-        ext.addTest('apple pie', [undefined], 'apple pie');
-        ext.addTest('apple pie', [''], 'apple pie');
-        ext.addTest('apple pie', [' '], 'applepie');
-        ext.addTest('apple pie', ['p'], 'ale ie');
-        ext.addTest('apple pie', ['apple'], ' pie');
-        ext.addTest('apple pie', ['pie'], 'apple ');
-        ext.addTest('apple pie', ['pies'], 'apple pie');
-    },
-});
-function StringRemoveAll(stringOrStrings) {
-    if ($.isArray(stringOrStrings)) {
-        var out = this;
-        for (var s in stringOrStrings) {
-            out = out.removeAll(s);
-        }
-        return out;
-    }
-    return this.replaceAll(stringOrStrings, '');
-}
 singString.method('reverse', StringReverse, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe178;',
     tests: function (ext) {
         ext.addTest('', [], '');
         ext.addTest('apple pie', [], 'eip elppa');
@@ -232,6 +242,7 @@ singString.method('repeat', StringRepeat, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe031;',
     tests: function (ext) {
         ext.addTest('', [], '');
         ext.addTest('', [0], '');
@@ -263,6 +274,7 @@ singString.method('words', StringWords, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe111;',
     tests: function (ext) {
         ext.addTest('', [], '');
         ext.addTest('apple', [], ['apple']);
@@ -280,6 +292,7 @@ singString.method('lines', StringLines, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe056;',
     tests: function (ext) {
         ext.addTest('', [], []);
         ext.addTest('apple pie', [], ['apple pie']);
@@ -298,6 +311,7 @@ singString.method('surround', StringSurround, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe065;',
     tests: function (ext) {
         ext.addTest('', [], '');
         ext.addTest('', [null], '');
@@ -316,25 +330,27 @@ singString.method('truncate', StringTruncate, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe226;',
     tests: function (ext) {
-        ext.addTest(['abc'], [], '');
-        ext.addTest(['abc'], [null], '');
-        ext.addTest(['abc'], [undefined], '');
-        ext.addTest(['abc'], [NaN], '');
-        ext.addTest(['abc'], [-1], '');
-        ext.addTest(['abc'], [1], 'a');
-        ext.addTest(['abc'], [3], 'abc');
-        ext.addTest(['abc'], [5], 'abc');
+        ext.addTest('abc', [], '');
+        ext.addTest('abc', [null], '');
+        ext.addTest('abc', [undefined], '');
+        ext.addTest('abc', [NaN], '');
+        ext.addTest('abc', [-1], '');
+        ext.addTest('abc', [1], 'a');
+        ext.addTest('abc', [3], 'abc');
+        ext.addTest('abc', [5], 'abc');
     },
 });
 function StringTruncate(length) {
     if (!this || this.length < 0 || isNaN(length))
         return '';
+    var thisStr = this;
     if (length < 0)
         length = 0;
-    if (this.length > length)
-        return this.substr(0, length).toString();
-    return this;
+    if (thisStr.length > length)
+        return thisStr.substr(0, length).toString();
+    return thisStr;
 }
 singString.method('isValidEmail', StringIsValidEmail, {
     summary: null,
@@ -342,6 +358,7 @@ singString.method('isValidEmail', StringIsValidEmail, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#x2709;',
     tests: function (ext) {
     },
 });
@@ -355,6 +372,7 @@ singString.method('isHex', StringIsHex, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe180;',
     tests: function (ext) {
     },
 });
@@ -362,12 +380,13 @@ function StringIsHex() {
     var thisStr = this;
     return thisStr.hasMatch(/^#?([a-f0-9]{6}|[a-f0-9]{3})$/);
 }
-singString.method('isValidURL', null, {
+singString.method('isValidURL', StringIsValidURL, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe135;',
     tests: function (ext) {
     },
 });
@@ -381,6 +400,7 @@ singString.method('isIPAddress', StringIsIPAddress, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe135;',
     tests: function (ext) {
     },
 });
@@ -394,6 +414,7 @@ singString.method('isGuid', StringIsGuid, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe041;',
     tests: function (ext) {
     },
 });
@@ -407,6 +428,7 @@ singString.method('tryToNumber', StringTryToNumber, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe141;',
     tests: function (ext) {
     },
 });
@@ -429,6 +451,7 @@ singString.method('joinLines', StringJoinLines, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe058;',
     tests: function (ext) {
     },
 }, Array.prototype);
@@ -444,6 +467,7 @@ singString.method('pad', StringPad, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe051;',
     tests: function (ext) {
         ext.addTest('a', [5], 'a    ');
         ext.addTest('a', [5, 'left'], 'a    ');
@@ -494,6 +518,7 @@ singString.method('toStr', BooleanToStr, {
     examples: ['\
             If you specify a true value for includeMarkup, Booleans will be returned as \'true\' or \'false\' \r\n\
             Otherwise, \'Yes\' or \'No\' will be returned.'],
+    glyphIcon: '&#xe241;',
     tests: function (ext) {
         ext.addTest(true, [], 'Yes');
         ext.addTest(true, [false], 'Yes');
@@ -515,6 +540,7 @@ singString.method('toStr', ObjectToStr, {
     returns: '',
     returnType: '',
     examples: null,
+    glyphIcon: '&#xe241;',
     tests: function (ext) {
         ext.addTest($, [null], '');
         ext.addTest($, [null, false], '');
@@ -607,6 +633,7 @@ singString.method('toStr', ArrayToStr, {
     returns: null,
     returnType: String,
     examples: null,
+    glyphIcon: '&#xe241;',
     tests: function (ext) {
     },
 }, Array.prototype, "Array");
@@ -636,6 +663,7 @@ singString.method('toStr', StringToStr, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe241;',
     tests: function (ext) {
     },
 });
@@ -651,6 +679,7 @@ singString.method('isString', IsString, {
     returns: '',
     returnType: '',
     examples: null,
+    glyphIcon: '&#xe241;',
     tests: function (ext) {
         ext.addTest($, [], false);
         ext.addTest($, [], false);
@@ -669,6 +698,7 @@ singString.method('first', StringFirst, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe070;',
     tests: function (ext) {
     },
 });
@@ -685,6 +715,7 @@ singString.method('last', StringLast, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe076;',
     tests: function (ext) {
     },
 });
@@ -695,12 +726,13 @@ function StringLast(count) {
         return this;
     return this.substr(this.length - count, count);
 }
-singString.method('containsAny', null, {
+singString.method('containsAny', StringContainsAny, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe003;',
     tests: function (ext) {
     },
 });
@@ -723,6 +755,7 @@ singString.method('before', StringBefore, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe071;',
     tests: function (ext) {
     },
 });
@@ -740,6 +773,7 @@ singString.method('after', StringAfter, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe075;',
     tests: function (ext) {
     },
 });
@@ -757,6 +791,7 @@ singString.method('toSlug', StringToSlug, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe135;',
     tests: function (ext) {
     },
 });
@@ -767,103 +802,107 @@ function StringToSlug() {
     Text = Text.replace(/\s/g, '-');
     return Text;
 }
-singString.method('isDate', null, {
+singString.method('containsAll', StringContainsAll, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe015;',
     tests: function (ext) {
     },
 });
-singString.method('containsAll', null, {
+function StringContainsAll() {
+    var items = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        items[_i - 0] = arguments[_i];
+    }
+    if (!this || items.length == 0)
+        return false;
+    var thisStr = this;
+    for (var i = 0; i < items.length; i++) {
+        if (!thisStr.contains(items[i]))
+            return false;
+    }
+    return true;
+}
+singString.method('pluralize', StringPluralize, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe256;',
     tests: function (ext) {
     },
 });
-singString.method('parseJSON', null, {
+function StringPluralize(count) {
+    if (!this)
+        return '';
+    var thisStr = this;
+    if (count === undefined || count === null)
+        return thisStr;
+    if (count == 0 || count > 1)
+        return thisStr + 's';
+    return thisStr;
+}
+singString.method('isJSON', StringIsJSON, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe105;',
     tests: function (ext) {
     },
 });
-singString.method('lastIndexOf', null, {
+function StringIsJSON() {
+    try {
+        var thisStr = this;
+        var jsonObject = jQuery.parseJSON(thisStr);
+        return true;
+    }
+    catch (e) {
+        return false;
+    }
+}
+singString.method('parseJSON', StringParseJSON, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe105;',
     tests: function (ext) {
     },
 });
-singString.method('capitalize', null, {
+function StringParseJSON() {
+    var thisStr = this;
+    var jsonObject = jQuery.parseJSON(thisStr);
+    return jsonObject;
+}
+singString.method('fill', StringFill, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe025;',
     tests: function (ext) {
     },
 });
-singString.method('camelize', null, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-    },
-});
-singString.method('pluralize', null, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-    },
-});
-singString.method('fill', null, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-    },
-});
-singString.method('similarity', null, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-    },
-});
-singString.method('like', null, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-    },
-});
-singString.method('isJSON', null, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
-    tests: function (ext) {
-    },
-});
+function StringFill(fillWith) {
+    if (!this || this.length == 0)
+        return '';
+    var thisStr = this;
+    if (!fillWith || fillWith.length == 0)
+        return this;
+    var out = '';
+    while (out.length < this.length) {
+        out += fillWith;
+    }
+    if (out.length > thisStr.length)
+        out = out.substr(0, thisStr.length);
+    return out;
+}
 //# sourceMappingURL=singularity-js-string.js.map

@@ -1,0 +1,40 @@
+﻿@* Generator: MvcView *@
+
+@using LCore;
+@using Singularity;
+@using Singularity.Models;
+@using Singularity.Controllers;
+@using Singularity.Context;
+@using System.Collections;
+@using System.Collections.Generic;
+@using System.ComponentModel;
+@using System.ComponentModel.Design;
+@using System.Web;
+@using System.Web.Mvc;
+@using System.Linq;
+@using System.Linq.Expressions;
+@using System.ComponentModel.DataAnnotations;
+@using System.ComponentModel.DataAnnotations.Schema;
+
+@{
+}
+
+@model IViewField
+
+@if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell) &&
+    Model.PropertyData.ToString().Length > ControllerHelper.DefaultTableTextLength)
+    {
+    <a href="mailto:@Model.PropertyData">
+        <span class="abbreviated" title="@Model.PropertyData">
+            @Model.PropertyData.ToString().Substring(0, ControllerHelper.DefaultTableTextLength) ...
+        </span>
+    </a>
+    }
+else
+    {
+    <a href="mailto:@Model.PropertyData">
+        <span>
+            @Model.PropertyData
+        </span>
+    </a>
+    }

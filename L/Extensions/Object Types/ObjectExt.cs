@@ -588,5 +588,34 @@ namespace LCore.ObjectExtensions
             return L.IsNull<T>()(In);
             }
         #endregion
+
+        public static void InitProperties<T>(this Object In, T InitValue = default(T))
+            {
+            if (In != null)
+                {
+                Type ObjType = In.GetType();
+                MemberInfo[] Members = ObjType.GetMembers();
+
+                if (InitValue == null)
+                    InitValue = typeof(T).New<T>();
+
+                foreach (MemberInfo Member in Members)
+                    {
+                    if (Member.ReflectedType != typeof(T))
+                        {
+                        continue;
+                        }
+
+                    if (Member is PropertyInfo && ((PropertyInfo)Member).CanWrite)
+                        {
+                        ((PropertyInfo)Member).SetValue(In, InitValue);
+                        }
+                    if (Member is FieldInfo)
+                        {
+                        ((FieldInfo)Member).SetValue(In, InitValue);
+                        }
+                    }
+                }
+            }
         }
     }

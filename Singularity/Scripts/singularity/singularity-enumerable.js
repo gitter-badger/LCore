@@ -1,12 +1,24 @@
+/// <reference path="singularity-core.ts"/>
 var singEnumerable = singExt.addModule(new sing.Module("Enumerable", Array));
+singEnumerable.glyphIcon = '&#xe012;';
 singEnumerable.summaryShort = '&nbsp;';
 singEnumerable.summaryLong = '&nbsp;';
+//////////////////////////////////////////////////////
+//
+// Iteration Functions
+//
 singEnumerable.method('each', EnumerableEach, {
-    summary: null,
-    parameters: null,
-    returns: '',
+    summary: 'Call each on an array to enumerate the contents of the array.',
+    parameters: [
+        {
+            name: 'action',
+            description: 'The function to call on each item of the array. The object and the index are passed as parameters ' + 'to this function',
+            types: [Function],
+        }
+    ],
+    returns: 'Nothing.',
     returnType: null,
-    examples: null,
+    glyphIcon: '&#xe153;',
     tests: function (ext) {
         ext.addTest([], [], undefined);
         ext.addTest([], [null], undefined);
@@ -25,8 +37,9 @@ singEnumerable.method('each', EnumerableEach, {
         ext.addCustomTest(function () {
             var test = [1, 2, 3];
             var count = 0;
-            test.each(function () {
-                count++;
+            test.each(function (a, i) {
+                if (a == test[i])
+                    count++;
             });
             if (count != 3)
                 return 'each did not execute 3 times.';
@@ -39,15 +52,22 @@ function EnumerableEach(action) {
     var thisArray = this;
     thisArray.while(function (item, i) {
         action(item, i);
+        // each always continues until the end
         return true;
     });
 }
 singEnumerable.method('while', EnumerableWhile, {
-    summary: '',
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
+    summary: 'Call each on an array to enumerate the contents of the array. Return any non-null value to continue enumeration otherwise ' + 'returning false will stop the enumeration.',
+    parameters: [
+        {
+            name: 'action',
+            description: 'The function to call on each item of the array. The object and the index are passed as parameters ' + 'to this function',
+            types: [Function],
+        }
+    ],
+    returns: 'True if the function was able to complete or False if it was aborted prematurely.',
+    returnType: Boolean,
+    glyphIcon: '&#xe156;',
     tests: function (ext) {
         ext.addTest([], [], true);
         ext.addTest([], [null], true);
@@ -72,6 +92,21 @@ singEnumerable.method('while', EnumerableWhile, {
         ext.addTest([1, 2, 3, 4, 5], [function (item, index) {
             return item == 4 && index == 3;
         }], false);
+        // Test broken TODO FIX
+        // ext.addTest([1, 2, 3, 4, 5], [function (a) { return a == 3; }], true);
+        /*
+        ext.addCustomTest(function () {
+            var test = [1, 2, 3, 4, 5];
+            var count = 0;
+            test.while(function (a) {
+                count++;
+                return a < 3;
+            });
+
+            if (count != 3)
+                return 'while did not execute 3 times.';
+        });
+        */
     },
 });
 function EnumerableWhile(action) {
@@ -88,11 +123,17 @@ function EnumerableWhile(action) {
     return !exit;
 }
 singEnumerable.method('until', EnumerableUntil, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
+    summary: 'Call each on an array to enumerate the contents of the array. Return any non-null value to stop enumeration otherwise ' + 'it will continue until the end of the array.',
+    parameters: [
+        {
+            name: 'action',
+            description: 'The function to call on each item of the array. The object and the index are passed as parameters ' + 'to this function',
+            types: [Function],
+        }
+    ],
+    returns: 'True if the function was able to complete or False if it was aborted prematurely.',
+    returnType: Boolean,
+    glyphIcon: '&#xe155;',
     tests: function (ext) {
         ext.addTest([], [], false);
         ext.addTest([], [null], false);
@@ -114,6 +155,21 @@ singEnumerable.method('until', EnumerableUntil, {
         ext.addTest([1], [function () {
             return false;
         }], false);
+        // Test broken TODO FIX
+        // ext.addTest([1, 2, 3, 4, 5], [function (a) { return a == 3; }], true);
+        /*
+        ext.addCustomTest(function () {
+            var test = [1, 2, 3, 4, 5];
+            var count = 0;
+            test.while(function (a) {
+                count++;
+                return a == 3;
+            });
+
+            if (count != 3)
+                return 'until did not execute 3 times.';
+        });
+        */
     },
 });
 function EnumerableUntil(action) {
@@ -128,12 +184,22 @@ function EnumerableUntil(action) {
     });
     return exit;
 }
+//
+//////////////////////////////////////////////////////
+//
+// Lookup Functions
 singEnumerable.method('count', EnumerableCount, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
+    summary: 'count enumerates through an array counting how many objects match or satisfy a custom condition.',
+    parameters: [
+        {
+            name: 'itemOrAction',
+            description: 'Object or function to be evaluated. If a function is passed it will be evaluated, any non-null ' + 'value will be added to the result. If anything other than a function is passed the number of occurences of ' + 'the object will be counted. If this function returns a number, it will be added to the total result.',
+            types: [Function, Object],
+        }
+    ],
+    returns: 'The number of items that match the passed value or satisfy the given condition.',
+    returnType: Number,
+    glyphIcon: '&#xe141;',
     tests: function (ext) {
         ext.addTest([], [], 0);
         ext.addTest([null], [null], 1);
@@ -173,12 +239,19 @@ function EnumerableCount(itemOrAction) {
     });
     return out;
 }
-singEnumerable.method('has', EnumerableContains, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
+singEnumerable.method('has', EnumerableHas, {
+    summary: 'has enumerates through an array and returns whether it contains an item, or items, or matches the passed condition.',
+    parameters: [
+        {
+            name: 'itemOrItemsOrAction',
+            description: 'An item, array of items, or condition function to determine whether a match has been found.',
+            types: [Object, Array, Function],
+        }
+    ],
+    returns: 'Whether a match was found.',
+    returnType: Boolean,
     examples: null,
+    glyphIcon: '&#xe003;',
     aliases: ['contains'],
     tests: function (ext) {
         ext.addTest([], [], false);
@@ -201,7 +274,7 @@ singEnumerable.method('has', EnumerableContains, {
         }], false);
     },
 });
-function EnumerableContains() {
+function EnumerableHas() {
     var items = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         items[_i - 0] = arguments[_i];
@@ -232,11 +305,17 @@ function EnumerableContains() {
     return false;
 }
 singEnumerable.method('select', EnumerableSelect, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
+    summary: 'select enumerates a list and filters its contents based on the filter function you provide.',
+    parameters: [
+        {
+            name: 'filter',
+            description: 'A function that takes the item and index as parameters. ' + 'Any return value that isn\'t undefined, null, or false will cause the item to be included in the final result.',
+            types: [Function],
+        }
+    ],
+    returns: 'A filtered array.',
+    returnType: Array,
+    glyphIcon: '&#xe057;',
     aliases: ['where'],
     tests: function (ext) {
         ext.addTest([], [], []);
@@ -254,24 +333,31 @@ singEnumerable.method('select', EnumerableSelect, {
         }], [1, 2]);
     },
 });
-function EnumerableSelect(action) {
-    if (!this || !action)
+function EnumerableSelect(filter) {
+    if (!this || !filter)
         return [];
     var thisArray = this;
     var out = [];
     thisArray.each(function (item, i) {
-        var result = action(item, i);
+        var result = filter(item, i);
         if (result != null && result != undefined && result != false)
             out = out.concat(item);
     });
     return out;
 }
 singEnumerable.method('collect', EnumerableCollect, {
-    summary: null,
-    parameters: null,
-    returns: '',
+    summary: 'collect acts on an array and passes its values to the collection function you provide.',
+    parameters: [
+        {
+            name: 'collector',
+            description: 'This function is passed the item and index. Its return values will be included in the ' + 'final result. If the return value is undefined or null, it will not be included.',
+            types: [Function],
+        }
+    ],
+    returns: 'A filtered array of the values you return from the collection function.',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe058;',
     tests: function (ext) {
         ext.addTest([], [], []);
         ext.addTest([], [null], []);
@@ -295,15 +381,15 @@ singEnumerable.method('collect', EnumerableCollect, {
         }], [true, true, true, false, false]);
     },
 });
-function EnumerableCollect(action) {
+function EnumerableCollect(collector) {
     if (!this)
         return [];
     var thisArray = this;
-    if (action == null || action == undefined)
-        action = sing.func.identity;
+    if (collector == null || collector == undefined)
+        collector = sing.func.identity;
     var out = [];
     thisArray.each(function (item, i) {
-        var result = action(item, i);
+        var result = collector(item, i);
         if (result !== null && result !== undefined)
             out.push(result);
     });
@@ -315,6 +401,7 @@ singEnumerable.method('first', EnumerableFirst, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe070;',
     tests: function (ext) {
         ext.addTest([], [], []);
         ext.addTest([], [null], []);
@@ -379,6 +466,7 @@ singEnumerable.method('last', EnumerableLast, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe076;',
     tests: function (ext) {
         ext.addTest([], [], []);
         ext.addTest([], [null], []);
@@ -416,11 +504,21 @@ function EnumerableLast(itemOrAction) {
     return out;
 }
 singEnumerable.method('range', EnumerableRange, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
+    summary: 'Retrieves a range of items from an array.',
+    parameters: [
+        {
+            name: 'start',
+            description: '',
+        },
+        {
+            name: 'end',
+            description: '',
+        }
+    ],
+    returns: 'A range of items as an array.',
+    returnType: Array,
     examples: null,
+    glyphIcon: '&#xe120;',
     tests: function (ext) {
         ext.addTest([], [], []);
         ext.addTest([], [0, 1], []);
@@ -439,6 +537,10 @@ function EnumerableRange(start, end) {
     if (end === void 0) { end = this.length - 1; }
     if (!this || start > end)
         return [];
+    if (start < 0)
+        start = 0;
+    if (end < 0)
+        end = 0;
     var out = [];
     for (var i = start; i <= end && i >= 0 && i < this.length; i++) {
         out.push(this[i]);
@@ -446,11 +548,11 @@ function EnumerableRange(start, end) {
     return out;
 }
 singEnumerable.method('flatten', EnumerableFlatten, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
+    summary: 'Traverses an array of possibly nested items.',
+    parameters: [],
+    returns: 'A \'flattened\' single-level array of all items.',
+    returnType: Array,
+    glyphIcon: '&#xe245;',
     tests: function (ext) {
         ext.addTest([], [], []);
         ext.addTest([1], [], [1]);
@@ -479,6 +581,7 @@ singEnumerable.method('indices', EnumerableIndices, {
     returns: '',
     returnType: null,
     examples: null,
+    glyphIcon: '&#xe056;',
     aliases: ['indexes'],
     tests: function (ext) {
         ext.addTest(['a'], ['a'], [0]);
@@ -525,11 +628,17 @@ function EnumerableIndices() {
         return [];
 }
 singEnumerable.method('remove', EnumerableRemove, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
+    summary: 'Enumerates an array removing items that match the provided values.',
+    parameters: [
+        {
+            name: 'itemOrItemsOrFunction',
+            description: 'Passing a single item or array of items will exclude the items from the result. ' + 'Passing a function will evaluate each item, a true value will cause the item to be excluded from the result.',
+            types: [Function],
+        }
+    ],
+    returns: 'A filtered array with matching item(s) excluded.',
+    returnType: Array,
+    glyphIcon: '&#xe163;',
     tests: function (ext) {
         ext.addTest([], [], []);
         ext.addTest([], [null], []);
@@ -564,11 +673,17 @@ function EnumerableRemove(itemOrItemsOrFunction) {
     });
 }
 singEnumerable.method('sortBy', EnumerableSortBy, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
+    summary: 'Sorts the source array by a custom property or function accessor.',
+    parameters: [
+        {
+            name: 'arg',
+            description: 'An optional argument ',
+            types: [Array],
+        }
+    ],
+    returns: 'A sorted array.',
+    returnType: Array,
+    glyphIcon: '&#xe150;',
     aliases: ['orderBy'],
     tests: function (ext) {
         ext.addTest([], [], []);
@@ -622,6 +737,12 @@ function EnumerableSortBy(arg) {
         customIndex = true;
         indexes = indexes.collect(argFunction);
     }
+    /*
+    if (!indexes.every($.isNumeric.fn_or($.isString))) {
+        indexes = indexes.collect($.toStr)
+            .collect(sing.methods['Singularity.Number.String.numericValueOf'].method);
+    }
+    */
     var items = this.clone();
     if (customIndex) {
         var out = indexes.quickSort([items]);
@@ -634,11 +755,17 @@ function EnumerableSortBy(arg) {
         return indexes.quickSort([items]);
 }
 singEnumerable.method('quickSort', EnumerableQuickSort, {
-    summary: null,
-    parameters: null,
-    returns: '',
-    returnType: null,
-    examples: null,
+    summary: 'Performs the built-in JavaScript comparison to sort the items in the source array.',
+    parameters: [
+        {
+            name: 'sortWith',
+            description: 'Optional companion array(s) which will be reordered along with the source array.',
+            types: [Array],
+        }
+    ],
+    returns: 'A sorted array.',
+    returnType: Array,
+    glyphIcon: '&#xe150;',
     tests: function (ext) {
         ext.addTest([], [], []);
         ext.addTest(['a', 'b', 'c', 'd', 'e'], [], ['a', 'b', 'c', 'd', 'e']);
@@ -780,7 +907,21 @@ singEnumerable.method('timesDo', EnumerableTimesDo, {
     returnType: Object,
     examples: ['\
             (5).timesDo(function() { alert(\'hi\'); });'],
+    glyphIcon: '&#xe137;',
     tests: function (ext) {
+        /*
+        ext.addCustomTest(function () {
+            var test = 0;
+            (5).timesDo(function () { test++; });
+
+            if (test != 5)
+                return false;
+        }, 'Must execute the function the correct number of times.');
+
+        ext.addFailsTest(1, [null], undefined, 'Singularity.Extensions.Enumerable.timesDo Missing Parameter: function executeFunc');
+        ext.addFailsTest(1, [undefined], undefined,
+        'Singularity.Extensions.Enumerable.timesDo Missing Parameter: function executeFunc');
+        */
         ext.addTest(5, [sing.func.increment, [5]], [6, 6, 6, 6, 6]);
     },
 }, Number.prototype);

@@ -9,6 +9,9 @@ interface ISingularityDocs {
 
 var singDocs = singCore.addModule(new sing.Module('Documentation', Singularity));
 
+
+singDocs.glyphIcon = '&#xe086;';
+
 singDocs.ignoreUnknown('ALL');
 
 singDocs.method('getDocs', SingularityGetDocs);
@@ -113,14 +116,15 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
 
                 (ext.details.parameters && ext.details.parameters.length == 0 ? '\r\n    Parameters: None\r\n' : ''),
 
-                (ext.details.parameters && ext.details.parameters.length > 0 ? ('\r\n    Parameters:\r\n' + ext.details.parameters.collect(function (item, j) {
-                    return (' #' + (j + 1)).pad(10) + 'Name:    ' + item.name + '\r\n' +
-                        (item.required != true ? '              :    OPTIONAL \r\n' : '') +
-                        (item.isMulti == true ? '              :    Multi-parameter \r\n' : '') +
-                        (item.defaultValue != undefined ? ' Default Value:    ' + $.toStr(item.defaultValue, true) + '\r\n' : '') +
-                        '         Types:    [' + item.types.collect(function (a) { return a.name; }).join(', ') + '] \r\n' +
-                        '   Description:    ' + item.description + '\r\n\r\n';
-                }).joinLines() + '\r\n') : ''),
+                (ext.details.parameters && ext.details.parameters.length > 0 ? ('\r\n    Parameters:\r\n' +
+                    ext.details.parameters.collect(function (item, j) {
+                        return (' #' + (j + 1)).pad(10) + 'Name:    ' + item.name + '\r\n' +
+                            (item.required != true ? '              :    OPTIONAL \r\n' : '') +
+                            (item.isMulti == true ? '              :    Multi-parameter \r\n' : '') +
+                            (item.defaultValue != undefined ? ' Default Value:    ' + $.toStr(item.defaultValue, true) + '\r\n' : '') +
+                            '         Types:    [' + item.types.collect(function (a) { return a.name; }).join(', ') + '] \r\n' +
+                            '   Description:    ' + item.description + '\r\n\r\n';
+                    }).joinLines() + '\r\n') : ''),
 
                 ext.details.returnTypeName ? ('\r\n    Return Type: ' + ext.details.returnTypeName + '\r\n') : '',
                 (ext.details.aliases && ext.details.aliases.length > 0 ? ('\r\n    Aliases: \r\n' +
@@ -207,21 +211,26 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
     header += '\r\n';
 
     if (featuresFound != 0 || featuresCount != 0)
-        header += 'Methods Implemented:      ' + (featuresFound + ' / ' + featuresCount).pad(leftSpace, Direction.r) + ' (' + featuresFound.percentOf(featuresCount, 0, true) + ')' + '\r\n';
+        header += 'Methods Implemented:      ' + (featuresFound + ' / ' + featuresCount).pad(leftSpace, Direction.r) +
+        ' (' + featuresFound.percentOf(featuresCount, 0, true) + ')' + '\r\n';
 
     if (featuresHaveTests != 0 || featuresNeedTests != 0)
-        header += 'Unit Tests Implemented:   ' + (featuresHaveTests + ' / ' + featuresNeedTests).pad(leftSpace, Direction.r) + ' (' + featuresHaveTests.percentOf(featuresNeedTests, 0, true) + ')' + '\r\n';
+        header += 'Unit Tests Implemented:   ' + (featuresHaveTests + ' / ' + featuresNeedTests).pad(leftSpace, Direction.r) +
+        ' (' + featuresHaveTests.percentOf(featuresNeedTests, 0, true) + ')' + '\r\n';
 
     if (testsPassed != 0 || testsFound != 0)
-        header += 'Unit Tests Passed:        ' + (testsPassed + ' / ' + testsFound).pad(leftSpace, Direction.r) + ' (' + testsPassed.percentOf(testsFound, 0, true) + ')' + '\r\n';
+        header += 'Unit Tests Passed:        ' + (testsPassed + ' / ' + testsFound).pad(leftSpace, Direction.r) +
+        ' (' + testsPassed.percentOf(testsFound, 0, true) + ')' + '\r\n';
 
     if (documentaionFound != 0 || documentaionCount != 0)
-        header += 'Documentation:            ' + (documentaionFound + ' / ' + documentaionCount).pad(leftSpace, Direction.r) + ' (' + documentaionFound.percentOf(documentaionCount, 0, true) + ')' + '\r\n';
+        header += 'Documentation:            ' + (documentaionFound + ' / ' + documentaionCount).pad(leftSpace, Direction.r) +
+        ' (' + documentaionFound.percentOf(documentaionCount, 0, true) + ')' + '\r\n';
 
     header += '\r\n';
 
     if (totalFound != 0 || totalCount != 0)
-        header += 'Total:                    ' + (totalFound + ' / ' + totalCount).pad(leftSpace, Direction.r) + ' (' + totalFound.percentOf(totalCount, 0, true) + ')' + '\r\n';
+        header += 'Total:                    ' + (totalFound + ' / ' + totalCount).pad(leftSpace, Direction.r) +
+        ' (' + totalFound.percentOf(totalCount, 0, true) + ')' + '\r\n';
 
     return header + out;
 };
@@ -292,8 +301,10 @@ function SingularityGetMissing(funcName?: string) {
     });
 
     header += '\r\n' +
-    'Methods Implemented:      ' + featuresFound + ' / ' + featuresCount + ' (' + Math.round((featuresFound / featuresCount) * 100) + '%) \r\n' +
-    'Documentation:            ' + documentaionFound + ' / ' + documentaionCount + ' (' + Math.round((documentaionFound / documentaionCount) * 100) + '%) \r\n';
+    'Methods Implemented:      ' + featuresFound + ' / ' + featuresCount +
+    ' (' + Math.round((featuresFound / featuresCount) * 100) + '%) \r\n' +
+    'Documentation:            ' + documentaionFound + ' / ' + documentaionCount +
+    ' (' + Math.round((documentaionFound / documentaionCount) * 100) + '%) \r\n';
 
     return header + out;
 
@@ -321,7 +332,7 @@ function SingularityGetSummary(funcName: string = 'all', includeFunctions: boole
             out += ((ext.details.returnTypeName || '') + ' function(').pad(20, Direction.r);
 
             out += ((ext.details && ext.details.parameters) ? ext.details.parameters.collect(function (item, i) {
-                var TypeNames = item.types.collect(function (a) { return a.name }).join(', ');
+                var TypeNames = item.types.collect(function (a) { return a.name; }).join(', ');
                 return (i > 0 ? ''.pad(50) : '') +
                     '[' + TypeNames + '] ' + item.name;
             }).join(', \r\n') : '') +

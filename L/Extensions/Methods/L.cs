@@ -4,6 +4,7 @@ using System.Text;
 using System.Collections;
 using System.Reflection;
 using LCore.Dynamic;
+using System.Linq.Expressions;
 
 namespace LCore
 	{
@@ -8681,5 +8682,14 @@ namespace LCore
 			};
 			}
 		#endregion
+
+        public static Expression<Func<T,Boolean>> Not<T>(this Expression<Func<T,Boolean>> In)
+            {
+            Func<T, Boolean> In2 = In.Compile();
+
+            Expression<Func<T, Boolean>> Out = o => !In2(o);
+
+            return Out;
+            }
 		}
 	}

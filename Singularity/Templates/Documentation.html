@@ -1,0 +1,372 @@
+﻿
+<html>
+<body>
+    <div sing-template="Singularity">
+        <h1>&#8226; Singularity</h1>
+
+        <p>{{sing.summary}}</p>
+
+        <div sing-if="{{sing.tests.testErrors}}" class="test-errors panel">
+            <div class="panel-heading">
+                <div class="btn-info btn left method-show-hide" click-fade-toggle=".test-errors-content">
+                    <glyph class="test-errors-content">&#x2b;</glyph>
+                    <glyph class="test-errors-content" style=" display: none;">&#x2212;</glyph>
+                </div>
+                <h2><error>Errors</error></h2>
+            </div>
+            <ol class="test-errors-content panel-body list-group" style="display: none;">
+                <li sing-loop="{{ error in sing.tests.testErrors}}" class="list-group-item">
+                    <error>{{error.textToHTML()}}</error>
+                    <hr />
+                </li>
+            </ol>
+        </div>
+
+        <div sing-fill="{{ Module with sing.modules.Singularity as module }}"></div>
+        <hr />
+    </div>
+
+    <div sing-template="Module">
+        <div class="sing-module-totals">
+            <div class="sing-module-total">
+                <div class="right" sing-fill="{{PercentSlider with [module.implementedMethodCount(), module.totalMethods()]}}"></div>
+                <p style="float:right;">Methods Implemented:</p>
+            </div>
+
+            <div sing-if="{{module.requiredUnitTests}}" class="sing-module-total">
+                <div>
+                    <div class="right" sing-fill="{{PercentSlider with [module.implementedMethodTests(), module.totalMethods()]}}"></div>
+                    <p style="float:right;">Unit Tests Implemented:</p>
+                </div>
+                <div>
+                    <div class="right" sing-fill="{{PercentSlider with [module.passedMethodTests(), module.implementedMethodTestsTotal()]}}"></div>
+                    <p style="float:right;">Unit Tests Passed:</p>
+                </div>
+
+            </div>
+
+            <div sing-if="{{module.srcLink}}">
+                <a href="{{module.srcLink}}" target="_blank">View Source...</a>
+            </div>
+
+            <div sing-if="{{module.totalProperties() > 0}}" class="sing-module-total">
+                <div>
+                    <div class="right" sing-fill="{{PercentSlider with [module.implementedProperties(), module.totalProperties()]}}"></div>
+                    <p style="float:right;">Properties:</p>
+                </div>
+            </div>
+
+            <div sing-if="{{module.requiredDocumentation}}" class="sing-module-total">
+                <div>
+                    <div class="right" sing-fill="{{PercentSlider with [module.implementedDocumentation(), module.totalDocumentation()]}}"></div>
+                    <p style="float:right;">Documentation:</p>
+                </div>
+            </div>
+
+            <div sing-if="{{module.totalJSFiddle() > 0}}" class="sing-module-total">
+                <div style="display: block;height: 15px;">
+                    <div class="right" sing-fill="{{PercentSlider with [module.implementedJSFiddle(), module.totalJSFiddle()]}}"></div>
+                    <p style="float:right;">JSFiddle:</p>
+                </div>
+            </div>
+
+            <div class="sing-module-total strong">
+                <br />
+                <div class="right wide" sing-fill="{{PercentSlider with [module.implementedItems(), module.totalItems()]}}"></div>
+                <p style="float:right;">Total:</p>
+                <br /><br />
+            </div>
+        </div>
+
+        <h2 sing-if="{{module.parentModule}}">
+            <span sing-fill="{{GlyphOrIdent with [module.glyphIcon, module.name]}}"></span>
+            {{module.name}}
+        </h2>
+
+        <p sing-if="{{module.summaryShort}}" class="sing-module-summary">
+            <strong>{{module.summaryShort.textToHTML()}}</strong>
+        </p>
+        <p sing-else>
+            <strong>[Summary]</strong>
+        </p>
+
+        <p sing-if="{{module.summaryLong}}" class="sing-module-summary">
+            <strong>{{module.summaryLong.textToHTML()}}</strong>
+        </p>
+        <p sing-else class="sing-module-summary">
+            <strong>[Long Summary]</strong>
+        </p>
+
+
+        <div sing-if="{{module.features}}" class="sing-module-features">
+            Features:
+            <ul>
+                <li sing-loop="{{feature in module.features}}">
+                    {{feature}}
+                </li>
+            </ul>
+        </div>
+
+        <div sing-if="{{module.jsFiddleLinks}}" class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">See it in action:</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item" sing-loop="{{ fiddle in module.jsFiddleLinks}}">
+                        <a sing-if="{{fiddle.contains('jsfiddle.net')}}" href="{{ fiddle }}" target="_blank">
+                            <img src="../Content/Images/jsfiddle.png" />
+                            {{fiddle$key}}
+                        </a>
+                        <a sing-else href="{{sing.constants.IncludeURLs.jsFiddleRoot + fiddle}}" target="_blank">
+                            <img src="../Content/Images/jsfiddle.png" />
+                            {{fiddle$key}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div sing-if="{{module.resources}}" class="sing-module-resources">
+            Resources:
+            <ul>
+                <li sing-loop="{{resource in module.resources}}">
+                    <a href="{{resource$key}}">{{resource}}</a>
+                </li>
+            </ul>
+        </div>
+
+        <div sing-if="{{module.features}}">
+            <b>Features:</b>
+
+            <div sing-loop="{{ feature in module.features}}">
+                <div sing-fill="{{Feature with feature}}"></div>
+            </div>
+        </div>
+
+        <div class="sing-module-methods">
+            <div class="btn-info btn left method-show-hide" click-fade-toggle=".methods-{{module.name.toSlug()}}">
+                <glyph class="methods-{{module.name.toSlug()}}">&#x2b;</glyph>
+                <glyph class="methods-{{module.name.toSlug()}}" style=" display: none;">&#x2212;</glyph>
+            </div>
+            <h4>Methods</h4>
+            <div class="methods-{{module.name.toSlug()}}" style="display:none;">
+                <div sing-loop="{{ method in module.methods }}" class="sing-method-list">
+                    <div sing-fill="{{ Method with method }}"></div>
+                </div>
+
+                <div sing-if="{{module.getUnknownMethods()}}">
+                    <b>Unknown Methods:</b>
+                    <error sing-loop="{{ methodName in module.getUnknownMethods()}}">{{methodName}}</error>
+                </div>
+            </div>
+        </div>
+
+        <div class="sing-module-properties">
+            <div class="btn-info btn left method-show-hide" click-fade-toggle=".properties-{{module.name.toSlug()}}">
+                <glyph class="properties-{{module.name.toSlug()}}">&#x2b;</glyph>
+                <glyph class="properties-{{module.name.toSlug()}}" style=" display: none;">&#x2212;</glyph>
+            </div>
+            <h4>Properites</h4>
+            <div class="sing-method-list properties-{{module.name.toSlug()}}" style=" display: none;">
+                <div sing-loop="{{ prop in module.properties }}">
+                    <div sing-fill="{{ Parameter with prop as param }}"></div>
+                </div>
+
+                <div sing-if="{{module.getUnknownProperties()}}">
+                    <b>Unknown Properties:</b>
+                    <error sing-loop="{{ prop in module.getUnknownProperties()}}">{{prop}}</error>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="tabs" sing-if="{{ module.subModules }}">
+            <h3 sing-if="{{module.parentModule}}">Sub-Modules:</h3>
+            <h3 sing-else>Modules:</h3>
+
+            <ul>
+                <li sing-loop="{{ sub in module.subModules }}">
+                    <a href="#tabs-{{sub.name}}-{{sub$index}}">
+                        <span sing-fill="{{GlyphOrIdent with [sub.glyphIcon,sub.name]}}"></span>
+                        {{sub.name}} ({{sub.totalMethods()}})
+                        <div class="no-text" sing-fill="{{PercentSlider with [sub.implementedItems(), sub.totalItems()]}}"></div>
+                    </a>
+                </li>
+            </ul>
+            <div sing-loop="{{ sub in module.subModules }}" sing-loop-inner="true">
+                <div id="tabs-{{sub.name}}-{{sub$index}}" style="display:none;">
+                    <div sing-fill="{{ Module with sub as module }}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div sing-template="Method">
+        <div sing-if="{{ !method.isAlias }}">
+            <hr />
+            <div class="btn-info btn left method-show-hide" click-fade-toggle=".show-{{method.name.toSlug()}}">
+                <glyph class="show-{{method.name.toSlug()}}">&#x2b;</glyph>
+                <glyph class="show-{{method.name.toSlug()}}" style=" display: none;">&#x2212;</glyph>
+            </div>
+
+            <h3 class="sing-method-header">
+                <span class="sing-bubble success" sing-if="{{method.documentationComplete()}}">
+                    <glyph>&#xe032;</glyph>
+                    Docs: {{method.documentationPresent()}} / {{method.documentationTotal()}}
+                </span>
+                <span class="sing-bubble error" sing-else>
+                    <glyph>&#xe032;</glyph>
+                    Docs: {{method.documentationPresent()}} / {{method.documentationTotal()}}
+                </span>
+
+                <span class="sing-bubble success" sing-if="{{method.details.manuallyTested}}">
+                    <glyph>&#xe125;</glyph>
+                    Tested
+                </span>
+                <span class="sing-bubble success" sing-else-if="{{method.passesAllTests()}}">
+                    <glyph>&#xe067;</glyph>
+                    Tests: {{ method.details.unitTests.length || 0 }}
+                </span>
+                <span class="sing-bubble error" sing-else-if="{{method.isTested()}}">
+                    <glyph>&#xe157;</glyph>
+                    Tests: {{method.passedTests()}} / {{ method.details.unitTests.length || 0 }}
+                </span>
+                <span sing-else class="sing-bubble error">
+                    <glyph>&#xe157;</glyph>
+                    Untested
+                </span>
+
+                <span class="sing-bubble info wide">
+                    <glyph>&#xe144;</glyph>
+                    Extends: <b>{{method.target}}</b>
+                </span>
+
+                <span sing-if="{{$.isDefined(method.methodOriginal)}}">
+                    <span sing-fill="{{GlyphOrIdent with [method.details.glyphIcon,method.name]}}"></span>
+
+                    {{method.shortName}}
+                </span>
+                <span sing-else>
+                    <error>
+                        <span sing-fill="{{GlyphOrIdent with [method.details.glyphIcon,method.name]}}"></span>
+                        {{method.shortName}}
+                    </error>
+                </span>
+            </h3>
+
+            <div style="display:none;" class="show-{{method.name.toSlug()}}">
+                <h4>
+                    {{method.methodCall}}
+                </h4>
+
+                <p sing-if="{{method.details.summary}}">
+                    <b>Summary: </b>{{method.details.summary}}
+                </p>
+
+                <div sing-if="{{method.details.parameters}}">
+                    <b>Parameters:</b>
+
+                    <ol>
+                        <li sing-loop="{{ param in method.details.parameters }}">
+                            <div sing-fill="{{ Parameter with param }}"></div>
+                        </li>
+                    </ol>
+                </div>
+
+                <p sing-if="{{method.details.returns}}">
+                    <b>Returns:</b>
+                    {{method.details.returns}}
+                </p>
+                <p sing-if="{{method.details.returnType}}">
+                    <b>Return Type:</b>
+                    {{sing.getTypeName(method.details.returnType)}}
+                </p>
+                <p sing-else><b>Returns:</b> Nothing.</p>
+
+                <div sing-if="{{$.isDefined(method.methodOriginal)}}" class="method-view-code">
+                    <div class="btn-default btn method-code-show-hide" click-fade-toggle=".code-{{method.name.toSlug()}}">
+                        <span class="code-{{method.name.toSlug()}}" style="position:absolute;">View Code...</span>
+                        <span style="display: none;position:absolute;" class="code-{{method.name.toSlug()}}">Hide Code...</span>
+                    </div>
+                    <div style="display: none;" class="method-code code-{{method.name.toSlug()}}">
+                        <b style="margin-top: 40px;">Source Code:</b>
+                        <pre>{{method.methodOriginal.toString().textToHTML()}}</pre>
+                    </div>
+                </div>
+                <div sing-else>
+                    <error>Method is not implemented.</error>
+                </div>
+
+                <div sing-if="{{method.details.features}}">
+                    <b>Features:</b>
+
+                    <div sing-loop="{{feature in method.details.features}}">
+                        <div sing-fill="{{Feature with feature}}"></div>
+                    </div>
+                </div>
+
+                <div sing-if="{{ method.details.examples}}">
+                    <b>Examples:</b>
+                    <pre sing-loop="{{ example in method.details.examples}}">{{example}}</pre>
+                </div>
+
+                <div sing-if="{{ method.details.examples}}">
+                    <b>Unit Tests:</b>
+                    <pre sing-loop="{{ test in method.details.unitTests}}">
+                        <sing if="{{$.isDefined(test.testResult)}}">
+                            {{test.requirement}}
+                    
+                            <sing if="{{test.testResult == true}}">
+                                PASSED
+                            </sing>
+                            <sing else-if="{{test.testResult}}">
+                                <error>
+                                    {{test.testResult}}
+                                </error>
+                            </sing>
+                        </sing>
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div sing-template="Parameter">
+        <table>
+            <tr>
+                <td>
+                    <b>Name:</b>
+                </td>
+                <td>
+                    {{param.name}}
+                </td>
+            </tr>
+            <tr sing-if="{{param.types}}">
+                <td><b>Type:</b></td>
+                <td>
+                    <div sing-loop="{{type in param.types}}">
+                        <span sing-if="{{sing.getType(type).glyphIcon}}" sing-fill="{{Glyph with sing.getType(type).glyphIcon}}"></span>
+                        {{sing.getTypeName(type)}}
+                    </div>
+                </td>
+            </tr>
+            <tr sing-if="{{param.description}}">
+                <td><b>Description:</b></td>
+                <td>
+                    {{param.description}}
+                </td>
+            </tr>
+            <tr>
+                <td><b>Required:</b></td>
+                <td sing-if="{{param.required}}">Yes</td>
+                <td sing-else>No</td>
+            </tr>
+        </table>
+    </div>
+
+    <div sing-template="Feature">
+        {{feature$context}}
+    </div>
+</body>
+</html>

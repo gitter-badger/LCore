@@ -5,56 +5,19 @@ using System.Web;
 using System.Collections.Generic;
 using Singularity.Controllers;
 using Singularity.Models;
+using Singularity.Extensions;
 using System.Linq;
+using Microsoft.WindowsAzure.StorageClient;
 
 namespace Singularity.Context
     {
-    public abstract class ModelContext : DbContext
-        {
-        public abstract String GetLogoURL();
-        public abstract String ContextName { get; }
-
-        public abstract Type[] ContextTypes { get; }
-
-        public virtual IQueryable GetDBSet(Type t)
-            {
-            return this.GetType()
-                .GetProperties().First((prop) =>
-                {
-                    if (prop.PropertyType.IsGenericType &&
-                        prop.PropertyType.GetGenericArguments()[0] == t)
-                        return (IQueryable)prop.GetValue(this);
-
-                    return null;
-                });
-            }
-
-        public virtual DbSet<T> GetDBSet<T>()
-            where T : class
-            {
-            return this.GetType()
-                .GetProperties().First((prop) =>
-                {
-                    if (prop.PropertyType.IsGenericType &&
-                        prop.PropertyType.GetGenericArguments()[0] == typeof(T))
-                        return (DbSet<T>)prop.GetValue(this);
-
-                    return (DbSet<T>)null;
-                });
-            }
-
-        public ModelContext(String Connection)
-            : base(Connection)
-            {
-
-            }
-        }
-
     public abstract class ContextProvider
         {
         public const string ContextSession = "RosieContext";
 
         public abstract ManageController[] AllManageControllers(HttpSessionStateBase Session);
+
+        public abstract IMenuController[] AllMenuControllers(HttpSessionStateBase Session);
 
         public abstract ModelContext GetContext(HttpSessionStateBase Session);
 
@@ -70,6 +33,24 @@ namespace Singularity.Context
 
         public abstract String GetFileUploadFilePath(HttpSessionStateBase Session, HttpPostedFileBase File, String RelationType, String RelationProperty, int RelationID);
 
+        public abstract CloudBlobDirectory GetFileUploadCloudContainer();
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+        public ManageController GetManageController(HttpSessionStateBase Session, String ControllerName)
+            {
+            return AllManageControllers(Session).Where((c) =>
+                {
+                    return c.GetType().FullName == ControllerName;
+                }).FirstOrDefault();
+            }
+        public ManageController GetManageController(HttpSessionStateBase Session, Type ModelType)
+            {
+            return AllManageControllers(Session).Where((c) =>
+            {
+                return c.ModelType == ModelType;
+            }).FirstOrDefault();
+            }
 
         public ModelPermissions GetModelPermissions(HttpSessionStateBase Session, Type RequestedType)
             {
@@ -83,7 +64,7 @@ namespace Singularity.Context
             RequestedType = RequestedType.WithoutDynamicType();
 
             String TypeName = RequestedType.Name;
-            
+
             IModelPermissions Attr = RequestedType.GetAttribute<IModelPermissions>();
 
             TypeName += "Permissions";
@@ -97,16 +78,20 @@ namespace Singularity.Context
                 }
 
             if (RoleType.HasProperty(TypeName))
-                return (ModelPermissions)RoleType.GetProperty(TypeName).GetValue(ProfileRole);
+                return (ModelPermissions)RoleType.GetProperty(TypeName).GetValue(ProfileRole) ?? new ModelPermissions();
 
             throw new Exception("Could not find permissions for " + RequestedType.Name);
-
-            return new ModelPermissions();
             }
 
-        public IQueryable GetDBSet(HttpSessionStateBase Session, Type t)
+        public DbSet GetDBSet(HttpSessionStateBase Session, Type t)
             {
             return this.GetContext(Session).GetDBSet(t);
+            }
+
+        public DbSet<T> GetDBSet<T>(HttpSessionStateBase Session)
+            where T : class, new()
+            {
+            return this.GetContext(Session).GetDBSet<T>();
             }
         }
     }

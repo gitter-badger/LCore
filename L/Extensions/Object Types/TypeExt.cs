@@ -658,7 +658,7 @@ public static Func<FieldInfo, TypedReference, Object> FieldInfo_GetValueDirect =
             return In != null &&
                 (In.TypeEquals(t) ||
                 In.IsSubclassOf(t) ||
-                (t.IsInterface && In.HasInterface(t, true)));
+                (t.IsInterface && In.HasInterface2(t, true)));
             }
         public static Boolean IsType<T>(this Type In)
             {
@@ -903,14 +903,26 @@ public static Func<FieldInfo, TypedReference, Object> FieldInfo_GetValueDirect =
                 return null;
                 }
             }
-        public static Boolean HasInterface(this Type In, Type Interface, Boolean IncludeBaseTypes)
+
+        public static Boolean HasInterface2(this Type In, Type Interface, Boolean IncludeBaseTypes = true)
             {
             if (IncludeBaseTypes && In.BaseType != null)
                 return In.GetInterfaces().Has(Interface) ||
-                    In.BaseType.HasInterface(Interface, IncludeBaseTypes);
+                    In.BaseType.HasInterface2(Interface, IncludeBaseTypes);
 
             return In.GetInterfaces().Has(Interface);
             }
+        public static Boolean HasInterface<T>(this Type In, Boolean IncludeBaseTypes = true)
+            {
+            Type Interface = typeof(T);
+
+            if (IncludeBaseTypes && In.BaseType != null)
+                return In.GetInterfaces().Has(Interface) ||
+                    In.BaseType.HasInterface<T>(IncludeBaseTypes);
+
+            return In.GetInterfaces().Has(Interface);
+            }
+
         public static String GetAttributeTypeName(this ICustomAttributeProvider p)
             {
             if (p is Type)
@@ -973,7 +985,7 @@ public static Func<FieldInfo, TypedReference, Object> FieldInfo_GetValueDirect =
                     }
                 }
 
-            if (typeof(T).HasInterface(typeof(IL_Attribute_ReverseOrder), true))
+            if (typeof(T).HasInterface<IL_Attribute_ReverseOrder>(true))
                 Out.Reverse();
             return Out;
             }
@@ -1195,5 +1207,24 @@ public static Func<FieldInfo, TypedReference, Object> FieldInfo_GetValueDirect =
                 return In.Name.Humanize();
                 }
             }
+
+        public static Type FindType(String TypeName)
+            {
+            var Out = System.Type.GetType(TypeName);
+
+            if (Out != null)
+                return Out;
+
+            foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
+                {
+                Out = a.GetType(TypeName);
+
+                if (Out != null)
+                    return Out;
+                }
+
+            return null;
+            }
+
         }
     }

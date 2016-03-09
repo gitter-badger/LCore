@@ -1,4 +1,7 @@
+/// <reference path="singularity-core.ts"/>
+/// <reference path="singularity-string.ts"/>
 var singBBCode = singString.addModule(new sing.Module('BBCode', String));
+singBBCode.glyphIcon = '&#xe242;';
 singBBCode.method('bbCodesToHTML', StringBBCodesToHTML, {
     summary: null,
     parameters: null,
@@ -31,6 +34,7 @@ function StringBBCodesToText() {
     });
     return out;
 }
+// Tests from http://en.wikipedia.org/wiki/BBCode
 sing.BBCodes = [
     {
         name: 'Bold',

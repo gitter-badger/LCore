@@ -4,13 +4,18 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Web;
-using System.Web.ModelBinding;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using LCore;
 using System.Collections;
+using System.Data.Entity;
+using Singularity.Controllers;
+using System.Web.Mvc;
+using Singularity.Models;
+using Singularity.Utilities;
+using Singularity.Annotations;
 
-namespace Singularity
+namespace Singularity.Extensions
     {
     public class SwapVisitor : ExpressionVisitor
         {
@@ -101,74 +106,11 @@ namespace Singularity
             return source.Where((Expression<Func<T, Boolean>>)condition);
             }
 
-        public static Expression<T> Or<T>(this IEnumerable<Expression<T>> Expressions)
+        public static Expression<Func<T, Boolean>> Or<T>(this IEnumerable<Expression<Func<T, Boolean>>> Expressions)
             {
-            Expression<T> Out = null;
-
-            foreach (Expression<T> Exp in Expressions)
-                {
-                if (Out == null)
-                    {
-                    Out = Exp;
-                    }
-                else
-                    {
-                    Out = (Expression<T>)(Object)Expression.OrElse(Out, Exp);
-                    }
-                }
-
-            if (Out.CanReduce)
-                Out.Reduce();
-
-            return Out;
-            }
-
-        public static IQueryable<T> GlobalSearch<T>(this IQueryable<T> data, String GlobalSearch)
-            {
-            List<Expression<Func<T, Boolean>>> FieldConditions = new List<Expression<Func<T, bool>>>();
-
-            ModelMetadata Meta = typeof(T).Meta();
-
-            foreach (ModelMetadata Prop in Meta.Properties)
-                {
-                if (Prop.HasAttribute<KeyAttribute>())
-                    continue;
-
-                if (!Prop.ModelType.HasInterface(typeof(IConvertible), true))
-                    continue;
-
-                if (Prop.AdditionalValues.ContainsKey(GlobalSearchDisabledAttribute.Key)
-                    && Prop.AdditionalValues[GlobalSearchDisabledAttribute.Key] as Boolean? == true)
-                    continue;
-
-                ParameterExpression param = Expression.Parameter(data.ElementType, string.Empty);
-                MemberExpression property = Expression.PropertyOrField(param, Prop.PropertyName);
-
-                Type t = null;
-                if (property.Member is PropertyInfo)
-                    {
-                    t = (property.Member as PropertyInfo).PropertyType;
-                    }
-                else if (property.Member is FieldInfo)
-                    {
-                    t = (property.Member as FieldInfo).FieldType;
-                    }
-
-                MethodCallExpression convertedExpression =
-                    Expression.Call(Expression.Convert(property, typeof(Object)),
-                     typeof(Object).GetMethod("ToString"));
-
-                LambdaExpression sort = Expression.Lambda(convertedExpression, param);
-
-                Expression<Func<T, Boolean>> Exp = WhereFilter((Expression<Func<T, String>>)sort, "*" + GlobalSearch + "*", Prop.PropertyName);
-
-                if (Exp != null)
-                    FieldConditions.Add(Exp);
-                }
-
             Expression<Func<T, Boolean>> Out = null;
 
-            foreach (Expression<Func<T, Boolean>> Exp in FieldConditions)
+            foreach (Expression<Func<T, Boolean>> Exp in Expressions)
                 {
                 if (Out == null)
                     {
@@ -184,32 +126,170 @@ namespace Singularity
                     }
                 }
 
-            if (Out.CanReduce)
-                Out = (Expression<Func<T, Boolean>>)Out.Reduce();
+            /*
+            Expression<T> Out = null;
 
-            return data.Where(Out);
+            foreach (Expression<T> Exp in Expressions)
+                {
+                if (Out == null)
+                    {
+                    Out = Exp;
+                    }
+                else
+                    {
+                    Out = (Expression<T>)(Object)Expression.OrElse(Out, Exp);
+                    }
+                }
+             */
+
+            if (Out != null)
+                {
+                if (Out.CanReduce)
+                    Out.Reduce();
+                }
+
+            return Out;
             }
 
-        /*
-        public static Expression<Func<T, Boolean>> LikeExpression<T>(IQueryable<T> data, string propertyOrFieldName, string value)
+        public static Expression<Func<T, Boolean>> And<T>(this IEnumerable<Expression<Func<T, Boolean>>> Expressions)
             {
-            var param = Expression.Parameter(typeof(T), "x");
-            var body = Expression.Call(
-                typeof(HttpApplication).GetMethod("Like",
-                    BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public),
-                    Expression.PropertyOrField(param, propertyOrFieldName),
-                    Expression.Constant(value, typeof(string)));
+            Expression<Func<T, Boolean>> Out = null;
 
-            var lambda = Expression.Lambda<Func<T, bool>>(body, param);
+            foreach (Expression<Func<T, Boolean>> Exp in Expressions)
+                {
+                if (Out == null)
+                    {
+                    Out = Exp;
+                    }
+                else
+                    {
+                    Out = Expression.Lambda<Func<T, Boolean>>(
+                        Expression.AndAlso(
+                            Out.Body,
+                            new ExpressionParameterReplacer(Exp.Parameters, Out.Parameters).Visit(Exp.Body)),
+                        Out.Parameters);
+                    }
+                }
+            /*
+            foreach (Expression<T> Exp in Expressions)
+                {
+                if (Out == null)
+                    {
+                    Out = Exp;
+                    }
+                else
+                    {
+                    Out = (Expression<T>)(Object)Expression.AndAlso(Out, Exp);
+                    }
+                }
+            */
 
-            return lambda;
+            if (Out != null && Out.CanReduce)
+                Out.Reduce();
+
+            return Out;
             }
 
-        public static IQueryable<T> WhereLike<T>(this IQueryable<T> data, string PropertyName, string value)
+        public static Expression<Func<T, Boolean>> GlobalSearchRecursive<T>(String GlobalSearch,
+            String[] ParentProperties = null, Type[] ParentTypes = null)
             {
-            return data.Where(LikeExpression(data, PropertyName, value));
+            ParentProperties = ParentProperties ?? new String[] { };
+            ParentTypes = ParentTypes ?? new Type[] { typeof(T) };
+
+            List<Expression<Func<T, Boolean>>> SearchPartConditions = new List<Expression<Func<T, bool>>>();
+
+            ModelMetadata Meta = ParentTypes.Last().Meta();
+
+            // TODO: Split by quotes
+            String[] GlobalSearchParts = GlobalSearch.SplitWithQuotes(' ').Array();
+
+            foreach (String GlobalSearchPart in GlobalSearchParts)
+                {
+                String GlobalSearchPartClean = GlobalSearchPart.RemoveAll("\"");
+
+                List<Expression<Func<T, Boolean>>> FieldConditions = new List<Expression<Func<T, bool>>>();
+
+                foreach (ModelMetadata Prop in Meta.Properties)
+                    {
+                    if (Prop.HasAttribute<KeyAttribute>())
+                        continue;
+
+                    if (Prop.HasAttribute<NotMappedAttribute>())
+                        continue;
+
+                    if (!Prop.HasAttribute<FieldGlobalSearchAttribute>()
+                        || Prop.HasAttribute<HideManageViewColumnAttribute>())
+                        continue;
+
+                    if (!Prop.ModelType.HasInterface<IConvertible>() &&
+                        // Don't skip IModel types for not being IConvertible
+                        !(Prop.ModelType.HasInterface<IModel>(false)))
+                        continue;
+
+                    if (Prop.AdditionalValues.ContainsKey(GlobalSearchDisabledAttribute.Key)
+                        && Prop.AdditionalValues[GlobalSearchDisabledAttribute.Key] as Boolean? == true)
+                        continue;
+
+                    String[] Properties = ParentProperties.Add(Prop.PropertyName);
+
+                    if (Prop.ModelType.HasInterface<IModel>(false))
+                        {
+                        Type[] Types = ParentTypes.Add(Prop.ModelType);
+
+                        Expression<Func<T, Boolean>> SubFieldConditions = GlobalSearchRecursive<T>("\"" + GlobalSearchPartClean + "\"", Properties, Types);
+
+                        if (SubFieldConditions != null)
+                            FieldConditions.Add(SubFieldConditions);
+                        }
+                    else
+                        {
+                        ModelMetadata Meta2;
+                        String[] FullProperties = null;
+
+                        LambdaExpression Accessor = ParentTypes[0].FindSubProperty(out Meta2, out FullProperties, Properties);
+
+                        SearchOperation Operation = new SearchOperation()
+                        {
+                            Property = Prop.PropertyName,
+                            OperatorStr = "~",
+                            Operator = QueryExt.BinaryOps["~"],
+                            Search = GlobalSearchPartClean
+                        };
+
+                        FilterExpression<T> Filter = new FilterExpression<T>(Operation, Accessor, Meta2);
+
+                        Expression<Func<T, Boolean>> Expr = Filter.PerformAction(Meta2.ModelType);
+
+                        if (Expr != null)
+                            FieldConditions.Add(Expr);
+                        }
+                    }
+
+                Expression<Func<T, Boolean>> FieldCondition = null;
+
+                FieldCondition = FieldConditions.Or();
+
+                if (FieldCondition != null)
+                    {
+                    if (FieldCondition != null && FieldCondition.CanReduce)
+                        FieldCondition = (Expression<Func<T, Boolean>>)FieldCondition.Reduce();
+                    }
+
+                SearchPartConditions.Add(FieldCondition);
+                }
+
+            if (SearchPartConditions != null)
+                {
+                var Out = SearchPartConditions.And();
+
+                if (Out != null && Out.CanReduce)
+                    Out.Reduce();
+
+                return Out;
+                }
+
+            return null;
             }
-         */
 
         private static IOrderedQueryable<T> OrderingHelper<T>(IQueryable<T> source, string PropertyName, bool descending, bool anotherLevel)
             {
@@ -227,14 +307,10 @@ namespace Singularity
 
             Type PropertyType = t.Meta(PropertyName).ModelType;
 
-            if (PropertyType.HasInterface(typeof(IEnumerable), true) &&
+            if (PropertyType.HasInterface<IEnumerable>() &&
                 PropertyType.IsGenericType &&
-                PropertyType.GetGenericArguments()[0].HasInterface(typeof(IModel), true))
+                PropertyType.GetGenericArguments()[0].HasInterface<IModel>())
                 {
-
-
-
-
                 // Sort ICollection<IModel> properties by Count
 
                 ParameterExpression param = Expression.Parameter(t, string.Empty);
@@ -251,7 +327,7 @@ namespace Singularity
 
                 LambdaExpression sort = Expression.Lambda(property2, param);
 
-                Expression<Func<T, bool>> ConditionGreaterThanZero = 
+                Expression<Func<T, bool>> ConditionGreaterThanZero =
                     (Expression<Func<T, bool>>)Expression.Lambda(
                         Expression.GreaterThan(property2, Expression.Constant((int)0)),
                         param);
@@ -310,92 +386,7 @@ namespace Singularity
             {
             return OrderingHelper(source, PropertyName, true, true);
             }
-
-
-        /// <summary>
-        /// Filters a sequence of values based on a filter with asterix characters: A*, *A, *A*, A*B
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="selector">Field to use for filtering. (E.g: item => item.Name)</param>
-        /// <param name="filter">Filter: A*, *A, *A*, A*B</param>
-        /// <param name="fieldName">Optional description of filter field used in error messages</param>
-        /// <returns>Filtered source</returns>
-        /*
-        public static IEnumerable<T> WhereFilter<T>(this IEnumerable<T> source, Func<T, string> selector, string filter, string fieldName)
-            {
-
-            if (filter == null)
-                return source;
-
-            if (selector == null)
-                return source;
-
-            int astrixCount = System.Linq.Enumerable.Count(filter, c => c.Equals('*'));
-            if (astrixCount > 2)
-                throw new ApplicationException(string.Format("Invalid filter used{0}. '*' can maximum occur 2 times.", fieldName == null ? "" : " for '" + fieldName + "'"));
-
-            if (filter.Contains("?"))
-                throw new ApplicationException(string.Format("Invalid filter used{0}. '?' is not supported, only '*' is supported.", fieldName == null ? "" : " for '" + fieldName + "'"));
-
-
-            // *XX*
-            if (astrixCount == 2 && filter.Length > 2 && filter.StartsWith("*") && filter.EndsWith("*"))
-                {
-                filter = filter.Replace("*", "");
-                return source.Where(item => selector.Invoke(item).Contains(filter));
-                }
-
-            // *XX
-            if (astrixCount == 1 && filter.Length > 1 && filter.StartsWith("*"))
-                {
-                filter = filter.Replace("*", "");
-                return source.Where(item => selector.Invoke(item).EndsWith(filter));
-                }
-
-            // XX*
-            if (astrixCount == 1 && filter.Length > 1 && filter.EndsWith("*"))
-                {
-                filter = filter.Replace("*", "");
-                return source.Where(item => selector.Invoke(item).StartsWith(filter));
-                }
-
-            // X*X
-            if (astrixCount == 1 && filter.Length > 2 && !filter.StartsWith("*") && !filter.EndsWith("*"))
-                {
-                string startsWith = filter.Substring(0, filter.IndexOf('*'));
-                string endsWith = filter.Substring(filter.IndexOf('*') + 1);
-
-                return source.Where(item => selector.Invoke(item).StartsWith(startsWith) && selector.Invoke(item).EndsWith(endsWith));
-                }
-
-            // XX
-            if (astrixCount == 0 && filter.Length > 0)
-                {
-                return source.Where(item => selector.Invoke(item).Equals(filter));
-                }
-
-            // *
-            if (astrixCount == 1 && filter.Length == 1)
-                return source;
-
-            // Invalid Filter
-            if (astrixCount > 0)
-                throw new ApplicationException(string.Format("Invalid filter used{0}.", fieldName == null ? "" : " for '" + fieldName + "'"));
-
-            // Empty string: all results
-            return source;
-
-
-            }
-        */
-        /// <summary>
-        /// Filters a sequence of values based on a filter with asterix characters: A*, *A, *A*, A*B
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="selector">Field to use for filtering. (E.g: item => item.Name)        </param>
-        /// <param name="filter">Filter: A*, *A, *A*, A*B</param>
-        /// <param name="fieldName">Optional description of filter field used in error messages</param>
-        /// <returns>Filtered source</returns>
+        
         public static Expression<Func<T, Boolean>> WhereFilter<T>(this Expression<Func<T, string>> selector, string filter, string fieldName)
             {
             if (filter == null)
@@ -486,7 +477,7 @@ namespace Singularity
 
             String Property = Operation.Property;
             Type MemberType = typeof(T);
-            System.Web.ModelBinding.ModelMetadata Meta = null;
+            ModelMetadata Meta = null;
 
             LambdaExpression Accessor = null;
 
@@ -505,18 +496,19 @@ namespace Singularity
                 Meta = MemberType.Meta(Property);
                 Accessor = Meta.GetExpression();
 
-                if (Meta.ModelType.HasInterface(typeof(IModel), false))
+                if (Meta.ModelType.HasInterface<IModel>(false) && Meta.ModelType.HasAttribute<SearchColumnsAttribute>())
                     {
                     // Relation fields drill into the sub-model to filter
                     // Use the default field since no field was given
 
-                    DisplayColumnAttribute Attr = Meta.ModelType.GetAttribute<DisplayColumnAttribute>();
+                    SearchColumnsAttribute Attr = Meta.ModelType.GetAttribute<SearchColumnsAttribute>();
 
                     String SearchColumn = null;
+
                     if (Attr != null)
                         {
-                        // Use the DisplayColumn
-                        SearchColumn = Attr.DisplayColumn;
+#warning only searching with first column - bandaid
+                        SearchColumn = Attr.SearchColumns[0];
                         }
                     else
                         {
@@ -532,9 +524,14 @@ namespace Singularity
                     }
                 }
 
-            FilterAction<T> Filter = new FilterAction<T>(Query, Operation, Accessor, Meta);
+            FilterExpression<T> Filter = new FilterExpression<T>(Operation, Accessor, Meta);
 
-            Query = Filter.PerformAction(Meta.ModelType);
+            Expression<Func<T, Boolean>> Expr = Filter.PerformAction(Meta.ModelType);
+
+            if (Expr != null)
+                {
+                Query = Query.Where(Expr);
+                }
 
             return Query;
             }
@@ -567,6 +564,77 @@ namespace Singularity
             LambdaExpression Lambda = Expression.Lambda(new SwapVisitor(Expr.Parameters[0], Cast).Visit(Expr.Body), Param);
 
             return (Expression<Func<T, V>>)Lambda;
+            }
+
+        public static Object FindByID(this DbSet Set, Object ID)
+            {
+            if (ID is String)
+                {
+                String StrID = (String)ID;
+
+                long IdLong = 0;
+                if (Int64.TryParse(StrID, out IdLong))
+                    return Set.Find(IdLong);
+
+                int IdInt = 0;
+                if (Int32.TryParse(StrID, out IdInt))
+                    return Set.Find(IdInt);
+
+                Guid g;
+                if (Guid.TryParse(StrID, out g))
+                    return Set.Find(g);
+                }
+
+            return Set.Find(ID);
+            }
+
+        public static T FindByID<T>(this DbSet<T> Set, Object ID)
+            where T : class
+            {
+            if (ID is String)
+                {
+                String StrID = (String)ID;
+
+                long IdLong = 0;
+                if (Int64.TryParse(StrID, out IdLong))
+                    return Set.Find(IdLong);
+
+                int IdInt = 0;
+                if (Int32.TryParse(StrID, out IdInt))
+                    return Set.Find(IdInt);
+
+                Guid g;
+                if (Guid.TryParse(StrID, out g))
+                    return Set.Find(g);
+                }
+
+            return Set.Find(ID);
+            }
+
+        internal static IQueryable<T> FilterSet_Active<T>(IQueryable<T> Set)
+            {
+            // Filter out inactive if there is an Active field
+            if (typeof(T).HasProperty(ControllerHelper.AutomaticFields.Active))
+                {
+                if (typeof(T).Meta(ControllerHelper.AutomaticFields.Active).ModelType == typeof(Boolean))
+                    {
+                    Expression<Func<T, Boolean>> Exp = typeof(T).GetExpression<T, Boolean>(ControllerHelper.AutomaticFields.Active);
+                    Expression Equal = Expression.Equal(Exp.Body, Expression.Constant(true));
+                    Expression Lambda = Expression.Lambda(Equal, Exp.Parameters[0]);
+
+                    Set = Set.Where((Expression<Func<T, Boolean>>)Lambda);
+                    }
+                else if (typeof(T).Meta(ControllerHelper.AutomaticFields.Active).ModelType == typeof(Boolean?))
+                    {
+                    Expression<Func<T, Boolean?>> Exp = typeof(T).GetExpression<T, Boolean?>(ControllerHelper.AutomaticFields.Active);
+                    Expression Equal = Expression.Equal(Exp.Body, Expression.Constant(true));
+                    Expression Lambda = Expression.Lambda(Equal, Exp.Parameters[0]);
+
+                    Set = Set.Where((Expression<Func<T, Boolean>>)Lambda);
+                    }
+                }
+
+            return Set;
             }
         }
     }

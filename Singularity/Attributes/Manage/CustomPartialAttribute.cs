@@ -1,14 +1,14 @@
 ﻿using Singularity.Controllers;
+using Singularity.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.ModelBinding;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
-namespace Singularity
+namespace Singularity.Annotations
     {
     public interface ICustomPartial
         {

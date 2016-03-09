@@ -1,5 +1,5 @@
 ﻿/// <reference path="singularity-core.ts"/>
-
+/// <reference path="singularity-string.ts"/>
 
 interface String {
 
@@ -21,6 +21,8 @@ interface BBCode {
 
 
 var singBBCode = singString.addModule(new sing.Module('BBCode', String));
+
+singBBCode.glyphIcon = '&#xe242;';
 
 singBBCode.method('bbCodesToHTML', StringBBCodesToHTML,
     {

@@ -12,9 +12,9 @@ using LCore.UnitTesting;
 using System.Text.RegularExpressions;
 
 namespace LCore
-{
-    public partial class L : Logic
     {
+    public partial class L : Logic
+        {
         #region Base Lambdas
         #region String
         public static Func<String> String_GetEmpty = () => { return String.Empty; };
@@ -214,26 +214,26 @@ namespace LCore
         #region ToS
         public static Func<Object, String> ToS =
             (o) =>
-            {
+                {
                 if (o == null)
                     return "";
                 else if (o is String)
-                {
+                    {
                     return (String)o;
-                }
+                    }
                 else if (o is IEnumerable)
-                {
+                    {
                     return o.GetType().FullName + " { " + ((IEnumerable)o).Array().Convert(L.ToS).Combine(", ") + " }";
-                }
+                    }
                 else
-                {
+                    {
                     return o.ToString();
-                }
-            };
+                    }
+                };
         #endregion
-    }
+        }
     public partial class Logic
-    {
+        {
         public const String NewLineString = "\r\n"; // System.Environment.NewLine 
         public const char NewLineChar = '\n';
 
@@ -293,7 +293,7 @@ namespace LCore
 
             // Walk through two the strings with two markers.
             while (marker1 < len1 && marker2 < len2)
-            {
+                {
                 char ch1 = s1[marker1];
                 char ch2 = s2[marker2];
 
@@ -307,34 +307,34 @@ namespace LCore
                 // characters in BOTH strings starting at the appropriate marker.
                 // Collect char arrays.
                 do
-                {
+                    {
                     space1[loc1++] = ch1;
                     marker1++;
 
                     if (marker1 < len1)
-                    {
+                        {
                         ch1 = s1[marker1];
-                    }
+                        }
                     else
-                    {
+                        {
                         break;
-                    }
-                } while (char.IsDigit(ch1) == char.IsDigit(space1[0]));
+                        }
+                    } while (char.IsDigit(ch1) == char.IsDigit(space1[0]));
 
                 do
-                {
+                    {
                     space2[loc2++] = ch2;
                     marker2++;
 
                     if (marker2 < len2)
-                    {
+                        {
                         ch2 = s2[marker2];
-                    }
+                        }
                     else
-                    {
+                        {
                         break;
-                    }
-                } while (char.IsDigit(ch2) == char.IsDigit(space2[0]));
+                        }
+                    } while (char.IsDigit(ch2) == char.IsDigit(space2[0]));
 
                 // If we have collected numbers, compare them numerically.
                 // Otherwise, if we have strings, compare them alphabetically.
@@ -344,27 +344,27 @@ namespace LCore
                 int result;
 
                 if (char.IsDigit(space1[0]) && char.IsDigit(space2[0]))
-                {
+                    {
                     int thisNumericChunk = int.Parse(str1);
                     int thatNumericChunk = int.Parse(str2);
                     result = thisNumericChunk.CompareTo(thatNumericChunk);
-                }
+                    }
                 else
-                {
+                    {
                     result = str1.CompareTo(str2);
-                }
+                    }
 
                 if (result != 0)
-                {
+                    {
                     return result;
+                    }
                 }
-            }
             return len1 - len2;
         };
         #endregion
-    }
+        }
     public static class StringExt
-    {
+        {
         public const char CRLFReplace = (char)222;
 
         #region Split
@@ -385,7 +385,7 @@ namespace LCore
         [TestResult(new Object[] { "babab", "a" }, new String[] { "b", "b", "b" })]
         [TestResult(new Object[] { "abababa", "a" }, new String[] { "b", "b", "b" })]
         public static String[] Split(this String In, String SplitStr)
-        {
+            {
             if (SplitStr == null || SplitStr.Length == 0)
                 throw new ArgumentNullException("SplitStr");
 
@@ -395,49 +395,49 @@ namespace LCore
             int i = In.IndexOf(SplitStr);
 
             if (i < 0)
-            {
+                {
                 if (!In.IsEmpty())
-                {
+                    {
                     return new String[] { In };
-                }
+                    }
                 else
-                {
+                    {
                     return new String[] { };
+                    }
                 }
-            }
 
             List<String> Out = new List<String>();
             In.Traverse((Cursor) =>
             {
                 int Index = Cursor.IndexOf(SplitStr);
                 if (Index < 0)
-                {
+                    {
                     if (Cursor.Length > 0)
-                    {
+                        {
                         Out.Add(Cursor);
-                    }
+                        }
                     return null;
-                }
+                    }
                 else if (Index == 0)
-                {
+                    {
                     if (Cursor.Length > SplitStr.Length)
-                    {
+                        {
                         return Cursor.Substring(SplitStr.Length);
-                    }
+                        }
                     else
-                    {
+                        {
                         return null;
+                        }
                     }
-                }
                 else if (Index > 0)
-                {
+                    {
                     Out.Add(Cursor.Substring(0, Index));
                     return Cursor.Substring(Index);
-                }
+                    }
                 else // Should never happen
-                {
+                    {
                     return null;
-                }
+                    }
             });
             /*
             while (Cursor.Length > 0)
@@ -471,7 +471,7 @@ namespace LCore
                 }*/
 
             return Out.ToArray();
-        }
+            }
         #endregion
         #region LeftAlign
         /// <summary>
@@ -489,9 +489,9 @@ namespace LCore
         [TestResult(new Object[] { "   abc   ", 5, ' ' }, "abc  ")]
         [TestResult(new Object[] { "abcdef", 5, ' ' }, "abcde")]
         public static String LeftAlign(this String In, int Length, char PadChar = ' ')
-        {
+            {
             return In.Pad(Length, L.Align.Left, PadChar);
-        }
+            }
         #endregion
         #region RightAlign
         /// <summary>
@@ -509,9 +509,9 @@ namespace LCore
         [TestResult(new Object[] { "   abc   ", 5, ' ' }, "  abc")]
         [TestResult(new Object[] { "abcdef", 5, ' ' }, "abcde")]
         public static String RightAlign(this String In, int Length, char PadChar = ' ')
-        {
+            {
             return In.Pad(Length, L.Align.Right, PadChar);
-        }
+            }
         #endregion
         #region CenterAlign
         /// <summary>
@@ -529,9 +529,9 @@ namespace LCore
         [TestResult(new Object[] { "   abc   ", 5, ' ' }, " abc ")]
         [TestResult(new Object[] { "abcdef", 5, ' ' }, "abcde")]
         public static String CenterAlign(this String In, int Length, char PadChar = ' ')
-        {
+            {
             return In.Pad(Length, L.Align.Center, PadChar);
-        }
+            }
         #endregion
         #region Pad
         /// <summary>
@@ -570,7 +570,7 @@ namespace LCore
         [TestResult(new Object[] { "abcdef", 5, L.Align.Center, '0' }, "abcde")]
         [TestResult(new Object[] { "   abc   ", 6, L.Align.Center, '0' }, "00abc0")]
         public static String Pad(this String In, int Length, L.Align Alignment = L.Align.Left, char PadChar = ' ')
-        {
+            {
             if (In.IsEmpty())
                 return PadChar.Fill(Length);
 
@@ -579,25 +579,25 @@ namespace LCore
             if (In.Length > Length)
                 return In.Substring(0, Length);
             else
-            {
-                while (In.Length < Length)
                 {
+                while (In.Length < Length)
+                    {
                     if (Alignment == L.Align.Left)
                         In += PadChar;
                     else if (Alignment == L.Align.Right)
                         In = PadChar + In;
                     else if (Alignment == L.Align.Center)
-                    {
+                        {
                         if (In.Length % 2 == 0)
                             In += PadChar;
                         else
                             In = PadChar + In;
+                        }
                     }
-                }
 
                 return In;
+                }
             }
-        }
         #endregion
         #region Pluralize
         /// <summary>
@@ -615,9 +615,9 @@ namespace LCore
         [TestResult(new Object[] { "person", 1 }, "person")]
         [TestResult(new Object[] { "Entry", 2 }, "Entries")]
         public static String Pluralize(this String In, int Count)
-        {
+            {
             return L.String_Pluralize(In, Count);
-        }
+            }
         [TestResult(new Object[] { null }, "")]
         [TestResult(new Object[] { "" }, "")]
         [TestResult(new Object[] { "blob" }, "blobs")]
@@ -625,9 +625,9 @@ namespace LCore
         [TestResult(new Object[] { "Entry" }, "Entries")]
         [TestResult(new Object[] { "Entries" }, "Entries")]
         public static String Pluralize(this String In)
-        {
+            {
             return L.String_Pluralize(In, 2);
-        }
+            }
         [TestResult(new Object[] { null }, "")]
         [TestResult(new Object[] { "" }, "")]
         [TestResult(new Object[] { "blobs" }, "blob")]
@@ -635,9 +635,9 @@ namespace LCore
         [TestResult(new Object[] { "Entries" }, "Entry")]
         [TestResult(new Object[] { "Entry" }, "Entry")]
         public static String Singularize(this String In)
-        {
+            {
             return L.String_Singularize(In);
-        }
+            }
         #endregion
         #region Fill
         /// <summary>
@@ -649,9 +649,9 @@ namespace LCore
         [TestResult(new Object[] { 'a', 3 }, "aaa")]
         [TestResult(new Object[] { 'z', 5 }, "zzzzz")]
         public static String Fill(this char In, int Count)
-        {
+            {
             return new String(new char[Count].Collect<char>((o) => In));
-        }
+            }
         #endregion
         #region IsEmpty
         /// <summary>
@@ -666,9 +666,9 @@ namespace LCore
         [TestResult(new Object[] { "     " }, true)]
         [TestResult(new Object[] { "a" }, false)]
         public static Boolean IsEmpty(this String In)
-        {
+            {
             return In == null || In.Trim() == "";
-        }
+            }
         #endregion
         #region FormatFileSize
         /// <summary>
@@ -687,9 +687,9 @@ namespace LCore
         [TestResult(new Object[] { (long)((long)1024 * (long)1024 * (long)1024 * (long)1024) }, "1 TB")]
         [TestResult(new Object[] { (long)35572226 }, "34 MB")]
         public static String FormatFileSize(this long Size)
-        {
+            {
             return FormatFileSize(Size, 0);
-        }
+            }
         [TestFails(new Object[] { (int)-1 })]
         [TestResult(new Object[] { (int)0 }, "0 B")]
         [TestResult(new Object[] { (int)1 }, "1 B")]
@@ -702,9 +702,9 @@ namespace LCore
         [TestResult(new Object[] { (int)((int)1024 * (int)1024 * (int)1024) }, "1 GB")]
         [TestResult(new Object[] { (int)35572226 }, "34 MB")]
         public static String FormatFileSize(this int Size)
-        {
+            {
             return FormatFileSize(Size, 0);
-        }
+            }
         #endregion
         #region FormatFileSize
         /// <summary>
@@ -722,53 +722,53 @@ namespace LCore
         [TestResult(new Object[] { (long)(((long)1024 * (long)1024 * (long)1024 * (long)1024) * (float)1.5), 5 }, "1.50000 TB")]
         [TestResult(new Object[] { (long)35572226, 5 }, "33.92432 MB")]
         public static String FormatFileSize(this long Size, int Decimals)
-        {
+            {
             if (Size < 0 || Decimals < 0)
                 throw new ArgumentException("Size cannot be negative");
 
             double temp = (double)Size;
             String Unit = "B";
             if (temp >= 1024)
-            {
+                {
                 temp = temp / 1024;
                 Unit = "KB";
                 if (temp >= 1024)
-                {
+                    {
                     temp = temp / 1024;
                     Unit = "MB";
                     if (temp >= 1024)
-                    {
+                        {
                         temp = temp / 1024;
                         Unit = "GB";
                         if (temp >= 1024)
-                        {
+                            {
                             temp = temp / 1024;
                             Unit = "TB";
+                            }
                         }
                     }
-                }
                 double Power = System.Math.Pow(10, (double)Decimals);
                 temp = Math.Round(temp * Power) / Power;
-            }
+                }
             String Out = temp.ToString();
 
             if (Decimals > 0 && Unit != "B")
-            {
+                {
                 if (!Out.Contains("."))
-                {
-                    Out += "." + '0'.Fill(Decimals);
-                }
-                else
-                {
-                    while (Out.Substring(Out.IndexOf(".") + 1).Length != Decimals)
                     {
+                    Out += "." + '0'.Fill(Decimals);
+                    }
+                else
+                    {
+                    while (Out.Substring(Out.IndexOf(".") + 1).Length != Decimals)
+                        {
                         Out += "0";
+                        }
                     }
                 }
-            }
 
             return Out + " " + Unit;
-        }
+            }
 
         /// <summary>
         /// Formats a file size int into a friendly string, up to TB.
@@ -784,53 +784,53 @@ namespace LCore
         [TestResult(new Object[] { (int)1024 + (int)512, 3 }, "1.500 KB")]
         [TestResult(new Object[] { (int)35572226, 5 }, "33.92432 MB")]
         public static String FormatFileSize(this int Size, int Decimals)
-        {
+            {
             if (Size < 0 || Decimals < 0)
                 throw new ArgumentException("Size cannot be negative");
 
             double temp = (double)Size;
             String Unit = "B";
             if (temp >= 1024)
-            {
+                {
                 temp = temp / 1024;
                 Unit = "KB";
                 if (temp >= 1024)
-                {
+                    {
                     temp = temp / 1024;
                     Unit = "MB";
                     if (temp >= 1024)
-                    {
+                        {
                         temp = temp / 1024;
                         Unit = "GB";
                         if (temp >= 1024)
-                        {
+                            {
                             temp = temp / 1024;
                             Unit = "TB";
+                            }
                         }
                     }
-                }
                 double Power = System.Math.Pow(10, (double)Decimals);
                 temp = Math.Round(temp * Power) / Power;
-            }
+                }
             String Out = temp.ToString();
 
             if (Decimals > 0 && Unit != "B")
-            {
+                {
                 if (!Out.Contains("."))
-                {
-                    Out += "." + '0'.Fill(Decimals);
-                }
-                else
-                {
-                    while (Out.Substring(Out.IndexOf(".") + 1).Length != Decimals)
                     {
+                    Out += "." + '0'.Fill(Decimals);
+                    }
+                else
+                    {
+                    while (Out.Substring(Out.IndexOf(".") + 1).Length != Decimals)
+                        {
                         Out += "0";
+                        }
                     }
                 }
-            }
 
             return Out + " " + Unit;
-        }
+            }
         #endregion
         #region ContainsAny
         /// <summary>
@@ -847,7 +847,7 @@ namespace LCore
         [TestResult(new Object[] { "BLAH", new String[] { "a" } }, false)]
         [TestResult(new Object[] { "BLAH", new String[] { "a", "A" } }, true)]
         public static Boolean ContainsAny(this String In, IEnumerable<String> Find)
-        {
+            {
             if (In.IsEmpty() || Find.IsEmpty())
                 return false;
 
@@ -855,7 +855,7 @@ namespace LCore
             {
                 return In.Contains(find);
             }) > 0;
-        }
+            }
         #endregion
         #region FirstCaps
         /// <summary>
@@ -869,7 +869,7 @@ namespace LCore
         [TestResult(new Object[] { "bLaH" }, "Blah")]
         [TestResult(new Object[] { "bLaH bLaH" }, "Blah Blah")]
         public static String FirstCaps(this String Value)
-        {
+            {
             if (Value.IsEmpty())
                 return "";
 
@@ -895,7 +895,7 @@ namespace LCore
             });
 
             return sb.ToString();
-        }
+            }
         #endregion
         #region IsNumber
         /// <summary>
@@ -906,9 +906,9 @@ namespace LCore
         [TestResult(new Object[] { '0' }, true)]
         [TestResult(new Object[] { '9' }, true)]
         public static Boolean IsNumber(this char In)
-        {
+            {
             return In >= '0' && In <= '9';
-        }
+            }
         #endregion
         #region Combine
         /// <summary>
@@ -925,7 +925,7 @@ namespace LCore
         [TestResult(new Object[] { new String[] { "b", "b", "b" }, "a" }, "babab")]
         [TestResult(new Object[] { new String[] { "b", "b", "b" }, "_a_" }, "b_a_b_a_b")]
         public static String Combine(this IEnumerable<String> In, String CombineStr)
-        {
+            {
             String Out = "";
             int Count = In.Count();
             In.EachI((i, o) =>
@@ -935,7 +935,7 @@ namespace LCore
                     Out += CombineStr;
             });
             return Out;
-        }
+            }
         #endregion
         #region Humanize
         /// <summary>
@@ -953,31 +953,31 @@ namespace LCore
         [TestResult(new Object[] { "Blah0Blah1Blah2" }, "Blah 0 Blah 1 Blah 2")]
         [TestResult(new Object[] { "VeryGoodExample" }, "Very Good Example")]
         public static String Humanize(this String FieldName)
-        {
+            {
             char last = ' ';
 
             String Out = (FieldName ?? "").Trim().CollectStr<char, String>(
                 (i, c) =>
-                {
+                    {
                     if (i == 0 ||
                         (last.IsNumber() && !c.IsNumber()) ||
                         (!last.IsNumber() && c.IsNumber()) ||
                         (!Char.IsUpper(last) && Char.IsUpper(c)))
-                    {
+                        {
                         last = c;
                         return (i != 0 ? " " : "") + c.ToString().ToUpper();
-                    }
+                        }
                     else
-                    {
+                        {
                         last = c;
                         return c.ToString();
-                    }
-                }).Trim();
+                        }
+                    }).Trim();
             Out = Out.Replace("_", " ");
             Out = Out.ReplaceAll("  ", " ");
 
             return Out.FirstCaps();
-        }
+            }
         #endregion
         #region ReplaceAll
         /// <summary>
@@ -998,20 +998,20 @@ namespace LCore
         [TestResult(new Object[] { "baba", "a", "r" }, "brbr")]
         [TestResult(new Object[] { "babamm", "bam", "" }, "")]
         public static String ReplaceAll(this String In, String Find, String Replace)
-        {
+            {
             String Out = In ?? "";
             while (Out.Contains(Find))
-            {
+                {
                 Out = Out.Replace(Find, Replace);
-            }
+                }
             return Out;
-        }
+            }
         #endregion
         #region RemoveAll
         public static String RemoveAll(this String In, String Find)
-        {
+            {
             return In.ReplaceAll(Find, "");
-        }
+            }
         #endregion
         #region ToUrlSlug
         /// <summary>
@@ -1028,7 +1028,7 @@ namespace LCore
         [TestResult(new Object[] { "  Blah Blah  " }, "blah-blah")]
         [TestResult(new Object[] { "  BLAH_BLAH  " }, "blah-blah")]
         public static String ToUrlSlug(this String In)
-        {
+            {
             string Out = (In ?? "").ToLower();
             Out = Out.ReplaceAll("_", "-");
             Out = Regex.Replace(Out, @"[^a-z0-9\s-]", "");
@@ -1036,7 +1036,7 @@ namespace LCore
             //	Out = Out.Substring(0, Out.Length <= 45 ? Out.Length : 45).Trim();
             Out = Regex.Replace(Out, @"\s", "-");
             return Out;
-        }
+            }
         #endregion
         #region Surround
         /// <summary>
@@ -1057,9 +1057,9 @@ namespace LCore
         [TestResult(new Object[] { "a", "b", "c" }, "bac")]
         [TestResult(new Object[] { "_a_", "_b", "c_" }, "_b_a_c_")]
         public static String Surround(this String In, String Before, String After)
-        {
+            {
             return L.String_Surround(In, Before, After);
-        }
+            }
         #endregion
         #region ToHexString
         /// <summary>
@@ -1073,7 +1073,7 @@ namespace LCore
         [TestResult(new Object[] { new Byte[] { 0, 0, 0, 0, 0, 0, 0, 0 } }, "0x0000000000000000")]
         [TestResult(new Object[] { new Byte[] { 10, 50, 80, 120, 150, 200, 250, 250 } }, "0x0A32507896C8FAFA")]
         public static String ToHexString(this byte[] Bytes)
-        {
+            {
             if (Bytes.IsEmpty())
                 return "";
 
@@ -1082,15 +1082,15 @@ namespace LCore
             c[0] = '0'; c[1] = 'x';
 
             for (int y = 0, x = 2; y < Bytes.Length; ++y, ++x)
-            {
+                {
                 b = ((byte)(Bytes[y] >> 4));
                 c[x] = (char)(b > 9 ? b + 0x37 : b + 0x30);
                 b = ((byte)(Bytes[y] & 0xF));
                 c[++x] = (char)(b > 9 ? b + 0x37 : b + 0x30);
-            }
+                }
 
             return new string(c);
-        }
+            }
         #endregion
         #region ByteArrayToString
         /// <summary>
@@ -1101,14 +1101,14 @@ namespace LCore
         [TestResult(new Object[] { new Byte[] { } }, "")]
         [TestResult(new Object[] { new Byte[] { 45, 69, 100, 68, 47, 87, 57, 54, 66 } }, "-EdD/W96B")]
         public static String ByteArrayToString(this byte[] In)
-        {
+            {
             if (In.IsEmpty())
                 return "";
 
             char[] Out = In.Convert(System.Convert.ToChar);
 
             return new String(Out);
-        }
+            }
         #endregion
         #region ToByteArray
         /// <summary>
@@ -1119,12 +1119,12 @@ namespace LCore
         [TestResult(new Object[] { "" }, new Byte[] { })]
         [TestResult(new Object[] { "-EdD/W96B" }, new Byte[] { 45, 69, 100, 68, 47, 87, 57, 54, 66 })]
         public static Byte[] ToByteArray(this String In)
-        {
+            {
             if (In.IsEmpty())
                 return new Byte[] { };
 
             return System.Text.Encoding.Unicode.GetBytes(In).EveryOtherByte();
-        }
+            }
         #endregion
         #region JoinLines
         /// <summary>
@@ -1140,9 +1140,9 @@ namespace LCore
         [TestResult(new Object[] { new String[] { "a", "a" }, L.NewLineString }, "a\r\na")]
         [TestResult(new Object[] { new String[] { "a", "a" }, "blah" }, "ablaha")]
         public static String JoinLines(this IEnumerable<String> In, String JoinStr = L.NewLineString)
-        {
+            {
             return L.String_JoinLines(In, JoinStr);
-        }
+            }
         #endregion
         #region Words
         /// <summary>
@@ -1156,9 +1156,9 @@ namespace LCore
         [TestResult(new Object[] { "a few words" }, new String[] { "a", "few", "words" })]
         [TestResult(new Object[] { "a couple lines\r\n to test" }, new String[] { "a", "couple", "lines", "to", "test" })]
         public static String[] Words(this String In)
-        {
+            {
             return In.ReplaceAll("\r\n", " ").Split(" ");
-        }
+            }
         #endregion
         #region Lines
         /// <summary>
@@ -1170,12 +1170,20 @@ namespace LCore
         [TestResult(new Object[] { " " }, new String[] { })]
         [TestResult(new Object[] { "a a" }, new String[] { "a a" })]
         [TestResult(new Object[] { "a few words" }, new String[] { "a few words" })]
+        [TestResult(new Object[] { "a couple lines\r to test  " }, new String[] { "a couple lines", "to test" })]
+        [TestResult(new Object[] { "a couple lines\n to test  " }, new String[] { "a couple lines", "to test" })]
         [TestResult(new Object[] { "a couple lines\r\n to test  " }, new String[] { "a couple lines", "to test" })]
         [TestResult(new Object[] { "a couple lines\r\n\r\n to test  " }, new String[] { "a couple lines", "to test" })]
+        [TestResult(new Object[] { "a couple lines\r\r to test  " }, new String[] { "a couple lines", "to test" })]
+        [TestResult(new Object[] { "a couple lines\n\n to test  " }, new String[] { "a couple lines", "to test" })]
         public static String[] Lines(this String In)
-        {
-            return In.Split("\r\n").Collect(L.String_Trim2);
-        }
+            {
+            String Out = (In ?? "").ReplaceAll("\r\n", "\r");
+
+            Out = Out.ReplaceAll("\n", "\r");
+
+            return Out.Split("\r").Collect(L.String_Trim2);
+            }
         #endregion
         #region Like
         /// <summary>
@@ -1191,7 +1199,7 @@ namespace LCore
         [TestResult(new Object[] { "  a  ", "b    " }, false)]
         [TestResult(new Object[] { "FuNkYcAsE", "funkyCASE" }, true)]
         public static Boolean Like(this String In, String Compare)
-        {
+            {
             if (In.IsEmpty())
                 return Compare.IsEmpty();
             if (Compare.IsEmpty())
@@ -1204,7 +1212,7 @@ namespace LCore
                 return false;
 
             return In.ToLower() == Compare.ToLower();
-        }
+            }
         #endregion
         #region Times
         /// <summary>
@@ -1223,7 +1231,7 @@ namespace LCore
         [TestResult(new Object[] { "ablah", 2 }, "ablahablah")]
         [TestResult(new Object[] { "ablah", 5 }, "ablahablahablahablahablah")]
         public static String Times(this String In, int Count)
-        {
+            {
             if (Count < 0)
                 throw new ArgumentException("Count was less than 0.");
             if (Count == 0)
@@ -1234,12 +1242,12 @@ namespace LCore
             String Out = "";
 
             for (int i = 0; i < Count; i++)
-            {
+                {
                 Out += In;
-            }
+                }
 
             return Out;
-        }
+            }
         #endregion
         #region Reverse
         /// <summary>
@@ -1251,40 +1259,40 @@ namespace LCore
         [TestResult(new Object[] { " " }, " ")]
         [TestResult(new Object[] { "blahblah " }, " halbhalb")]
         public static String Reverse(this String In)
-        {
+            {
             return new String((In ?? "").ToCharArray().Reverse());
-        }
+            }
         #endregion
 
         public static int Count(this String In, String Search)
-        {
+            {
             if (In.IsEmpty() || Search.IsEmpty())
                 return 0;
 
             int Count = 0;
 
             while (In.Length > 0)
-            {
+                {
                 int index = In.IndexOf(Search);
 
                 if (index > 0 && index + Search.Length < In.Length)
-                {
+                    {
                     Count++;
                     In = In.Substring(index + Search.Length);
-                }
+                    }
                 else
                     break;
-            }
+                }
 
             return Count;
-        }
+            }
 
         public static Boolean IsSymmetrical(this string In, string Compare, double Threshhold = 0.95)
-        {
+            {
             return In.Symmetry(Compare) >= Threshhold;
-        }
+            }
         public static double Symmetry(this string In, string Compare)
-        {
+            {
             In = In ?? "";
             Compare = Compare ?? "";
 
@@ -1295,25 +1303,25 @@ namespace LCore
             int union = pairs1.Count + pairs2.Count;
 
             for (int i = 0; i < pairs1.Count; i++)
-            {
-                for (int j = 0; j < pairs2.Count; j++)
                 {
-                    if (pairs1[i] == pairs2[j])
+                for (int j = 0; j < pairs2.Count; j++)
                     {
+                    if (pairs1[i] == pairs2[j])
+                        {
                         intersection++;
                         pairs2.RemoveAt(j);//Must remove the match to prevent "GGGG" from appearing to match "GG" with 100% success
 
                         break;
+                        }
                     }
                 }
-            }
 
             return (2.0 * intersection) / union;
-        }
+            }
 
 
         private static List<string> WordLetterPairs(string str)
-        {
+            {
             List<string> AllPairs = new List<string>();
 
             // Tokenize the string and put the tokens/words into an array
@@ -1321,56 +1329,83 @@ namespace LCore
 
             // For each word
             for (int w = 0; w < Words.Length; w++)
-            {
-                if (!string.IsNullOrEmpty(Words[w]))
                 {
+                if (!string.IsNullOrEmpty(Words[w]))
+                    {
                     // Find the pairs of characters
                     String[] PairsInWord = LetterPairs(Words[w]);
 
                     for (int p = 0; p < PairsInWord.Length; p++)
-                    {
+                        {
                         AllPairs.Add(PairsInWord[p]);
+                        }
                     }
                 }
-            }
             return AllPairs;
-        }
+            }
         private static string[] LetterPairs(string str)
-        {
+            {
             int numPairs = str.Length - 1;
 
             string[] pairs = new string[numPairs];
 
             for (int i = 0; i < numPairs; i++)
-            {
+                {
                 pairs[i] = str.Substring(i, 2);
-            }
+                }
 
             return pairs;
-        }
+            }
 
         public static Boolean HasMatch(this String In, params String[] Expressions)
-        {
+            {
             return Expressions.Count((s) =>
             {
                 Regex Reg = new Regex(s);
                 MatchCollection Matches = Reg.Matches(In);
                 return Matches.Count > 0;
             }) > 0;
-        }
+            }
         public static List<Match> Matches(this String In, String Expression)
-        {
+            {
             Regex Reg = new Regex(Expression);
             MatchCollection Matches = Reg.Matches(In);
             return Matches.List<Match>();
-        }
+            }
+
+
+        public static List<String> SplitWithQuotes(this String Line, Char SplitBy)
+            {
+            List<String> Out = new List<String>();
+
+            int fieldStart = 0;
+            for (int i = 0; i < Line.Length; i++)
+                {
+                if (Line[i] == SplitBy)
+                    {
+                    Out.Add(Line.Substring(fieldStart, i - fieldStart));
+                    fieldStart = i + 1;
+                    }
+
+                if (Line[i] == '"')
+                    for (i++; Line[i] != '"'; i++)
+                        {
+                        }
+                }
+
+            // Last column
+            if (Line.Length - fieldStart != 0)
+                Out.Add(Line.Substring(fieldStart, Line.Length - fieldStart));
+
+            return Out;
+            }
 
         /// <summary>
         /// Concatonates a given String [In] to length [MaxLength] minus the length of [ConcatonateString].
         /// You can specify a Concatonation String, which defaults to "..."
         /// </summary>
         public static String Concatenate(this String In, int MaxLength, String ConcatenateString = "...")
-        {
+            {
             ConcatenateString = ConcatenateString ?? "";
 
             if (MaxLength < 0)
@@ -1382,21 +1417,21 @@ namespace LCore
             In = In.Trim();
 
             if (In.Length > MaxLength)
-            {
+                {
                 return In.Substring(0, MaxLength - ConcatenateString.Length) + ConcatenateString;
-            }
+                }
             else
-            {
+                {
                 return In;
+                }
             }
-        }
 
         /// <summary>
         /// Takes a string with possibly corrupted line enders and normalizes them all to \r\n.
         /// Removes duplicate \r and duplicate \r\n
         /// </summary>
         public static String ReplaceLineEnders(this String In, params char[] Chars)
-        {
+            {
             if (!In.Contains("\n"))
                 return In;
 
@@ -1405,25 +1440,25 @@ namespace LCore
             Out = Out.Replace("\n", "\r\n");
 
             while (Out.Contains("\r\r"))
-            {
+                {
                 Out = Out.Replace("\r\r", "\r");
-            }
+                }
             Out = Out.Replace("\r\n", new String(Chars));
 
             return Out;
-        }
+            }
         public static String XMLClean(this String In)
-        {
+            {
             return (In ?? "").Replace("<", "&lt;").Replace(">", "&gt;");
-        }
+            }
         public static String UnCleanCRLF(this String In)
-        {
+            {
             return (In ?? "").Replace(new String(new char[] { CRLFReplace }), "\r\n");
-        }
+            }
         public static String URLClean(this string URLPart)
-        {
+            {
             String Out = URLPart.Replace("#", "%23");
             return Out;
+            }
         }
     }
-}

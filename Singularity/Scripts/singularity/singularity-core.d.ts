@@ -2,11 +2,11 @@
 /// <reference path="../definitions/jqueryui.d.ts" />
 /// <reference path="../definitions/jquery.cookie.d.ts" />
 /// <reference path="singularity-enumerable.d.ts" />
-/// <reference path="singularity-js-number.d.ts" />
-/// <reference path="singularity-js-string.d.ts" />
-/// <reference path="singularity-js-array.d.ts" />
-/// <reference path="singularity-js-function.d.ts" />
-/// <reference path="singularity-js-boolean.d.ts" />
+/// <reference path="singularity-number.d.ts" />
+/// <reference path="singularity-string.d.ts" />
+/// <reference path="singularity-array.d.ts" />
+/// <reference path="singularity-function.d.ts" />
+/// <reference path="singularity-boolean.d.ts" />
 /// <reference path="singularity-jquery.d.ts" />
 /// <reference path="singularity-html.d.ts" />
 /// <reference path="singularity-tests.d.ts" />
@@ -38,6 +38,7 @@ declare class Singularity {
     addType: (name: string, addType: SingularityType) => void;
     defaultSettings: {
         requiredDocumentation: boolean;
+        requiredGlyphIcons: boolean;
         requiredUnitTests: boolean;
         requiredJSFiddle: boolean;
     };
@@ -69,6 +70,7 @@ declare class SingularityModule {
     objectPrototype: any;
     summaryShort: string;
     summaryLong: string;
+    glyphIcon: string;
     srcLink: string;
     features: SingularityFeature[];
     resources: Hash<string>;
@@ -104,6 +106,7 @@ declare class SingularityModule {
     getUnknownProperties: () => string[];
     requiredJSFiddle: boolean;
     requiredDocumentation: boolean;
+    requiredGlyphIcons: boolean;
     requiredUnitTests: boolean;
     method: (extName: string, method?: Function, details?: SingularityMethodDetails, extendPrototype?: any, prefix?: string) => void;
     property: (name: string, param?: SingularityParameter) => void;
@@ -133,6 +136,7 @@ declare class SingularityMethod {
     toString: () => any;
     passedTests: () => number;
     passesAllTests: () => boolean;
+    documentationComplete: () => boolean;
     documentationPresent: () => number;
     documentationTotal: () => number;
     constructor(methodModule: SingularityModule, details?: SingularityMethodDetails, target?: any, moduleName?: string, name?: string, method?: Function, prefix?: string);
@@ -155,6 +159,7 @@ declare class SingularityMethod {
 }
 interface SingularityMethodDetails {
     summary?: string;
+    glyphIcon?: string;
     returns?: string;
     returnType?: INamed;
     returnTypeName?: string;
@@ -175,12 +180,14 @@ interface SingularityParameter {
     required?: boolean;
     isMulti?: boolean;
     types?: INamed[];
+    glyphIcon?: string;
     description?: string;
 }
 interface SingularityType {
     name: string;
     typeClass: any;
     protoType: any;
+    glyphIcon: string;
     typeOfName?: string;
     templateName?: string;
     autoDefault: SingularityAutoDefinition;

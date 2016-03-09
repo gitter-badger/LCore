@@ -7,7 +7,7 @@ using System.Web.Routing;
 using LCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace Singularity
+namespace Singularity.Extensions
     {
     public class SearchOperation
         {

@@ -6,11 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.ModelBinding;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
-namespace Singularity
+namespace Singularity.Annotations
     {
     public interface IViewTyped
         {
@@ -28,7 +27,9 @@ namespace Singularity
 
         public Boolean AffectsViewTypes(ControllerHelper.ViewType[] Types)
             {
-            return ViewTypes.Has(ControllerHelper.ViewType.All) ||
+            return ViewTypes == null ||
+                ViewTypes.Length == 0 ||
+                ViewTypes.Has(ControllerHelper.ViewType.All) ||
                 ViewTypes.HasAny(Types);
             }
         }

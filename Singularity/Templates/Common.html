@@ -2,15 +2,13 @@
 <body>
 
     <div sing-template="Boolean">
-        <span sing-if="{{data}}">Yes</span>
+        <span sing-if="{{$data}}">Yes</span>
         <span sing-else>No</span>
     </div>
 
     <div sing-template="JQuery">
-        {{ data.outerHtml() }}
+        {{ $data.outerHtml() }}
     </div>
-
-
 
 
     <div sing-template="List">
@@ -32,12 +30,12 @@
     <div sing-template="ObjectTable">
         <table>
             <tbody>
-                <tr sing-loop="{{ key in $.objKeys($data) }}">
-                    <td sing-if="{{key}}">
-                        {{ key }}:
+                <tr sing-loop="{{ $data }}">
+                    <td sing-if="{{$item$key}}">
+                        {{ $item$key }}:
                     </td>
                     <td>
-                        {{ $.toStr($data[key]) }}
+                        {{ $.toStr($item) }}
                     </td>
                 </tr>
             </tbody>
@@ -77,6 +75,42 @@
             </tbody>
         </table>
     </div>
+
+    <span sing-template="PercentSlider">
+        <span class="sing-progress-slider">
+            <span class="sing-progress-complete" style="width: {{$data[0].percentOf($data[1])}}%;">
+
+            </span>
+            <b>
+                ({{ $data[0] }} / {{$data[1]}}) ({{ $data[0].percentOf($data[1]) }}%)
+            </b>
+        </span>
+    </span>
+
+    <span sing-template="Glyph">
+        <span sing-if="{{$data}}">
+            <glyph sing-if="{{$data.startsWith('&')}}">
+                {{$data}}
+            </glyph>
+            <i sing-else class="icon-large {{$data}}"></i>
+        </span>
+    </span>
+
+
+    <span sing-template="Ident">
+        <span sing-if="{{$data}}">
+            <ident>{{$data}}</ident>
+        </span>
+    </span>
+
+    <span sing-template="GlyphOrIdent">
+        <span sing-if="{{$data[0]}}">
+            <span sing-fill="{{Glyph with $data[0]}}"></span>
+        </span>
+        <span sing-else>
+            <span sing-fill="{{Ident with $data[1]}}"></span>
+        </span>
+    </span>
 
 </body>
 </html>

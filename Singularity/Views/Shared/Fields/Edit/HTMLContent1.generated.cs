@@ -155,6 +155,141 @@ WriteLiteral("\r\n");
 WriteLiteral("\r\n");
 
 
+WriteLiteral("\r\n");
+
+
+            
+            #line 24 "..\..\Views\Shared\Fields\Edit\HTMLContent.cshtml"
+ if (!Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell))
+    {
+
+            
+            #line default
+            #line hidden
+WriteLiteral("    <script src=\"/Scripts/wysihtml5-0.3.0-parser-advanced.js\"></script>\r\n");
+
+
+
+WriteLiteral("    <script src=\"/Scripts/wysihtml5-0.3.0.js\"></script>\r\n");
+
+
+            
+            #line 28 "..\..\Views\Shared\Fields\Edit\HTMLContent.cshtml"
+
+
+            
+            #line default
+            #line hidden
+WriteLiteral("    <div class=\"wysihtml5\" data-property=\"");
+
+
+            
+            #line 29 "..\..\Views\Shared\Fields\Edit\HTMLContent.cshtml"
+                                     Write(Model.PropertyName);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\">\r\n        <div id=\"wysihtml5-toolbar-");
+
+
+            
+            #line 30 "..\..\Views\Shared\Fields\Edit\HTMLContent.cshtml"
+                              Write(Model.PropertyName);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\" class=\"wysihtml5-toolbar\" style=\"display: none;\">\r\n            <ul class=\"comma" +
+"nds\">\r\n                <li data-wysihtml5-command=\"bold\" title=\"Make text bold (" +
+"CTRL + B)\" class=\"command\" href=\"javascript:;\" unselectable=\"on\"></li>\r\n        " +
+"        <li data-wysihtml5-command=\"italic\" title=\"Make text italic (CTRL + I)\" " +
+"class=\"command\" href=\"javascript:;\" unselectable=\"on\"></li>\r\n                <li" +
+" data-wysihtml5-command=\"insertUnorderedList\" title=\"Insert an unordered list\" c" +
+"lass=\"command wysihtml5-command-active\" href=\"javascript:;\" unselectable=\"on\"></" +
+"li>\r\n                <li data-wysihtml5-command=\"insertOrderedList\" title=\"Inser" +
+"t an ordered list\" class=\"command\" href=\"javascript:;\" unselectable=\"on\"></li>\r\n" +
+"                <li data-wysihtml5-command=\"createLink\" title=\"Insert a link\" cl" +
+"ass=\"command\" href=\"javascript:;\" unselectable=\"on\"></li>\r\n                <li d" +
+"ata-wysihtml5-command=\"insertImage\" title=\"Insert an image\" class=\"command\" href" +
+"=\"javascript:;\" unselectable=\"on\"></li>\r\n                <li data-wysihtml5-comm" +
+"and=\"formatBlock\" data-wysihtml5-command-value=\"h1\" title=\"Insert headline 1\" cl" +
+"ass=\"command\" href=\"javascript:;\" unselectable=\"on\"></li>\r\n                <li d" +
+"ata-wysihtml5-command=\"formatBlock\" data-wysihtml5-command-value=\"h2\" title=\"Ins" +
+"ert headline 2\" class=\"command\" href=\"javascript:;\" unselectable=\"on\"></li>\r\n   " +
+"             <li data-wysihtml5-command-group=\"foreColor\" class=\"fore-color\" tit" +
+"le=\"Color the selected text\">\r\n                    <ul>\r\n                       " +
+" <li data-wysihtml5-command=\"foreColor\" data-wysihtml5-command-value=\"silver\" hr" +
+"ef=\"javascript:;\" unselectable=\"on\"></li>\r\n                        <li data-wysi" +
+"html5-command=\"foreColor\" data-wysihtml5-command-value=\"gray\" href=\"javascript:;" +
+"\" unselectable=\"on\"></li>\r\n                        <li data-wysihtml5-command=\"f" +
+"oreColor\" data-wysihtml5-command-value=\"maroon\" href=\"javascript:;\" unselectable" +
+"=\"on\"></li>\r\n                        <li data-wysihtml5-command=\"foreColor\" data" +
+"-wysihtml5-command-value=\"red\" href=\"javascript:;\" unselectable=\"on\"></li>\r\n    " +
+"                    <li data-wysihtml5-command=\"foreColor\" data-wysihtml5-comman" +
+"d-value=\"purple\" href=\"javascript:;\" unselectable=\"on\"></li>\r\n                  " +
+"      <li data-wysihtml5-command=\"foreColor\" data-wysihtml5-command-value=\"green" +
+"\" href=\"javascript:;\" unselectable=\"on\"></li>\r\n                        <li data-" +
+"wysihtml5-command=\"foreColor\" data-wysihtml5-command-value=\"olive\" href=\"javascr" +
+"ipt:;\" unselectable=\"on\"></li>\r\n                        <li data-wysihtml5-comma" +
+"nd=\"foreColor\" data-wysihtml5-command-value=\"navy\" href=\"javascript:;\" unselecta" +
+"ble=\"on\"></li>\r\n                        <li data-wysihtml5-command=\"foreColor\" d" +
+"ata-wysihtml5-command-value=\"blue\" href=\"javascript:;\" unselectable=\"on\"></li>\r\n" +
+"                    </ul>\r\n                </li>\r\n                <li data-wysih" +
+"tml5-command=\"insertSpeech\" title=\"Insert speech\" class=\"command\" href=\"javascri" +
+"pt:;\" unselectable=\"on\" style=\"display: none;\"></li>\r\n                <li data-w" +
+"ysihtml5-action=\"change_view\" title=\"Show HTML\" class=\"action\" href=\"javascript:" +
+";\" unselectable=\"on\"></li>\r\n            </ul>\r\n        </div>\r\n\r\n        <textar" +
+"ea id=\"");
+
+
+            
+            #line 58 "..\..\Views\Shared\Fields\Edit\HTMLContent.cshtml"
+                 Write(Model.PropertyName);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\" name=\"");
+
+
+            
+            #line 58 "..\..\Views\Shared\Fields\Edit\HTMLContent.cshtml"
+                                            Write(Model.PropertyName);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\" placeholder=\"\" autofocus>");
+
+
+            
+            #line 58 "..\..\Views\Shared\Fields\Edit\HTMLContent.cshtml"
+                                                                                          Write(Html.Raw(Model.PropertyData));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</textarea>\r\n    </div>\r\n");
+
+
+            
+            #line 60 "..\..\Views\Shared\Fields\Edit\HTMLContent.cshtml"
+    }
+else
+    {
+    
+            
+            #line default
+            #line hidden
+
+            
+            #line 65 "..\..\Views\Shared\Fields\Edit\HTMLContent.cshtml"
+      
+    }
+            
+            #line default
+            #line hidden
 
         }
     }
