@@ -12,208 +12,97 @@
 namespace ASP
 {
     using System;
-    
-    #line 14 "..\..\Views\Shared\_FieldHeader.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 15 "..\..\Views\Shared\_FieldHeader.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 16 "..\..\Views\Shared\_FieldHeader.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 17 "..\..\Views\Shared\_FieldHeader.cshtml"
     using System.ComponentModel.DataAnnotations;
-    
-    #line default
-    #line hidden
-    
-    #line 18 "..\..\Views\Shared\_FieldHeader.cshtml"
-    using System.ComponentModel.DataAnnotations.Schema;
-    
-    #line default
-    #line hidden
-    
-    #line 19 "..\..\Views\Shared\_FieldHeader.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
     using System.IO;
-    
-    #line 12 "..\..\Views\Shared\_FieldHeader.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
-    
-    #line 13 "..\..\Views\Shared\_FieldHeader.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 20 "..\..\Views\Shared\_FieldHeader.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 21 "..\..\Views\Shared\_FieldHeader.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
-    
-    #line 3 "..\..\Views\Shared\_FieldHeader.cshtml"
-    using LCore;
-    
-    #line default
-    #line hidden
-    
-    #line 4 "..\..\Views\Shared\_FieldHeader.cshtml"
+    using LCore.Extensions;
     using Singularity;
     
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\Shared\_FieldHeader.cshtml"
+    #line 3 "..\..\Views\Shared\FieldHeader.cshtml"
     using Singularity.Annotations;
     
     #line default
     #line hidden
-    
-    #line 7 "..\..\Views\Shared\_FieldHeader.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\Shared\_FieldHeader.cshtml"
     using Singularity.Controllers;
     
-    #line default
-    #line hidden
-    
-    #line 9 "..\..\Views\Shared\_FieldHeader.cshtml"
+    #line 2 "..\..\Views\Shared\FieldHeader.cshtml"
     using Singularity.Extensions;
     
     #line default
     #line hidden
-    
-    #line 5 "..\..\Views\Shared\_FieldHeader.cshtml"
     using Singularity.Models;
     
-    #line default
-    #line hidden
-    
-    #line 8 "..\..\Views\Shared\_FieldHeader.cshtml"
-    using Singularity.Routes;
-    
-    #line default
-    #line hidden
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
-    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/_FieldHeader.cshtml")]
-    public partial class _Views_Shared__FieldHeader_cshtml : System.Web.Mvc.WebViewPage<IViewField>
+    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/FieldHeader.cshtml")]
+    public partial class _Views_Shared_FieldHeader_cshtml : System.Web.Mvc.WebViewPage<IViewField>
     {
-        public _Views_Shared__FieldHeader_cshtml()
+        public _Views_Shared_FieldHeader_cshtml()
         {
         }
         public override void Execute()
         {
-
-
-WriteLiteral("\r\n\r\n");
-
-
-
-
-
-
-
-
-
 WriteLiteral("\r\n");
 
-
-
-
-
-
-
-
-
-
-
 WriteLiteral("\r\n");
-
-
-WriteLiteral("\r\n");
-
 
             
-            #line 25 "..\..\Views\Shared\_FieldHeader.cshtml"
+            #line 7 "..\..\Views\Shared\FieldHeader.cshtml"
   
     FieldHeaderAttribute Attr = Model.Meta.GetAttribute<FieldHeaderAttribute>();
 
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n\r\n\r\n");
+
+            
+            #line 12 "..\..\Views\Shared\FieldHeader.cshtml"
+Write(Html.Raw($"<h{Attr.HeaderType}>"));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n");
 
-
             
-            #line 29 "..\..\Views\Shared\_FieldHeader.cshtml"
-Write(Html.Raw("<h" + Attr.HeaderType + ">"));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
-
-            
-            #line 30 "..\..\Views\Shared\_FieldHeader.cshtml"
-Write(Html.TextContent("Manage_" + (ViewBag.Create == true ? "Create" : "Edit") + "_Field_Header_" + Model.ModelData.GetFriendlyTypeName() + "_" + Attr.HeaderTitle, Attr.HeaderTitle));
+            #line 13 "..\..\Views\Shared\FieldHeader.cshtml"
+Write(Html.TextContent($"Manage_{(ViewBag.Create == true ? "Create" : "Edit")}_Field_Header_{Model.ModelData.GetFriendlyTypeName()}_{Attr.HeaderTitle}", Attr.HeaderTitle));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n");
 
-
             
-            #line 31 "..\..\Views\Shared\_FieldHeader.cshtml"
-Write(Html.Raw("</h" + Attr.HeaderType + ">"));
+            #line 14 "..\..\Views\Shared\FieldHeader.cshtml"
+Write(Html.Raw($"</h{Attr.HeaderType}>"));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n\r\n");
 
-
             
-            #line 33 "..\..\Views\Shared\_FieldHeader.cshtml"
+            #line 16 "..\..\Views\Shared\FieldHeader.cshtml"
  if (Attr.HorizontalRule)
     {
 
@@ -222,14 +111,12 @@ WriteLiteral("\r\n\r\n");
             #line hidden
 WriteLiteral("    <hr />\r\n");
 
-
             
-            #line 36 "..\..\Views\Shared\_FieldHeader.cshtml"
+            #line 19 "..\..\Views\Shared\FieldHeader.cshtml"
     }
             
             #line default
             #line hidden
-
         }
     }
 }

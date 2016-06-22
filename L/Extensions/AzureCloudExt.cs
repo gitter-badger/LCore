@@ -1,39 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Web;
-using LCore;
 using System.IO;
 using Microsoft.WindowsAzure.StorageClient;
 
-namespace LCore
+namespace LCore.Extensions
     {
     public static class AzureCloudExt
         {
-        public static Boolean Exists(this CloudBlobDirectory Dir, String FileName)
+        public static bool Exists(this CloudBlobDirectory Dir, string FileName)
             {
             CloudBlockBlob BlockBlob = Dir.GetBlockBlobReference(FileName);
 
             try { BlockBlob.FetchAttributes(); }
             catch { }
 
-            if (BlockBlob.Properties == null ||
-                String.IsNullOrEmpty(BlockBlob.Properties.ContentType))
-                {
-                return false;
-                }
-
-            return true;
+            return !string.IsNullOrEmpty(BlockBlob.Properties?.ContentType);
             }
 
-        public static CloudBlockBlob UploadFile(this CloudBlobDirectory Dir, Stream Stream, String FileName)
-            {
-            return UploadFile(Dir, Stream, FileName, false);
-            }
-
-        public static CloudBlockBlob UploadFile(this CloudBlobDirectory Dir, Stream Stream, String FileName, Boolean Overwrite = false)
+        public static CloudBlockBlob UploadFile(this CloudBlobDirectory Dir, Stream Stream, string FileName, bool Overwrite = false)
             {
             if (Overwrite ||
                 !Dir.Exists(FileName))
@@ -48,19 +31,19 @@ namespace LCore
             return null;
             }
 
-        public static CloudBlockBlob GetBlob(this CloudBlobDirectory Dir, String FileName)
+        public static CloudBlockBlob GetBlob(this CloudBlobDirectory Dir, string FileName)
             {
             return Dir.GetBlockBlobReference(FileName);
             }
 
-        public static Byte[] DownloadFile(this CloudBlobDirectory Dir, String FileName)
+        public static byte[] DownloadFile(this CloudBlobDirectory Dir, string FileName)
             {
             CloudBlockBlob Blob = GetBlob(Dir, FileName);
 
             return Blob.DownloadByteArray();
             }
 
-        public static void DeleteFile(this CloudBlobDirectory Dir, String FileName)
+        public static void DeleteFile(this CloudBlobDirectory Dir, string FileName)
             {
             CloudBlockBlob Blob = GetBlob(Dir, FileName);
 
@@ -69,7 +52,7 @@ namespace LCore
 
         //////////////////////////////////////////////////////////////////////////////////////////
 
-        public static CloudQueue GetQueue(this CloudQueueClient Client, String QueueName)
+        public static CloudQueue GetQueue(this CloudQueueClient Client, string QueueName)
             {
             CloudQueue Queue = Client.GetQueueReference(QueueName);
             Queue.CreateIfNotExist();
@@ -77,7 +60,7 @@ namespace LCore
             return Queue;
             }
 
-        public static void AddMessage(this CloudQueue Queue, String Message, TimeSpan? TimeToLive = null, TimeSpan? InitialVisibilityDelay = null)
+        public static void AddMessage(this CloudQueue Queue, string Message, TimeSpan? TimeToLive = null, TimeSpan? InitialVisibilityDelay = null)
             {
             CloudQueueMessage CloudMessage = new CloudQueueMessage(Message);
 

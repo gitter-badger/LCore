@@ -12,124 +12,44 @@
 namespace ASP
 {
     using System;
-    
-    #line 11 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 12 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 13 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 19 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
     using System.ComponentModel.DataAnnotations;
-    
-    #line default
-    #line hidden
-    
-    #line 20 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
-    using System.ComponentModel.DataAnnotations.Schema;
-    
-    #line default
-    #line hidden
-    
-    #line 14 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
     using System.IO;
-    
-    #line 17 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
-    
-    #line 18 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 15 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 16 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
-    
-    #line 3 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
-    using LCore;
-    
-    #line default
-    #line hidden
-    
-    #line 4 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+    using LCore.Extensions;
     using Singularity;
     
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+    #line 3 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
     using Singularity.Annotations;
     
     #line default
     #line hidden
-    
-    #line 7 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
     using Singularity.Controllers;
     
-    #line default
-    #line hidden
-    
-    #line 9 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+    #line 2 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
     using Singularity.Extensions;
     
     #line default
     #line hidden
-    
-    #line 5 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
     using Singularity.Models;
-    
-    #line default
-    #line hidden
-    
-    #line 8 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
-    using Singularity.Routes;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/Fields/Edit/Dropdown.cshtml")]
@@ -140,171 +60,157 @@ namespace ASP
         }
         public override void Execute()
         {
-
-
-WriteLiteral("\r\n\r\n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+WriteLiteral("\r\n");
 
 WriteLiteral("\r\n");
 
-
             
-            #line 22 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+            #line 5 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
   
     FieldType_Dropdown FieldAttr = Model.Meta.GetAttribute<FieldType_Dropdown>();
 
-    List<SelectListItem> Items = new List<SelectListItem>();
+    bool Required = Model.Meta.IsRequired;
 
-    Boolean Required = Model.Meta.IsRequired;
+    string EmptyValue = FieldAttr.EmptyValue;
+    string EmptyKey = FieldAttr.EmptyKey;
 
-    String EmptyValue = FieldAttr.EmptyValue;
-    String EmptyKey = FieldAttr.EmptyKey;
-
-    if (FieldAttr != null)
+    List<SelectListItem> Items = FieldAttr.KeyValues(ViewContext).Select(KeyValue => new SelectListItem
         {
-        foreach (KeyValuePair<String, String> KeyValue in FieldAttr.KeyValues(this.ViewContext))
-            {
-            Items.Add(new SelectListItem()
-            {
-                Text = KeyValue.Key,
-                Value = KeyValue.Value,
-                Selected = (Model.PropertyData ?? "").ToString() == KeyValue.Value,
-            });
-            }
-        }
-
+        Text = KeyValue.Key,
+        Value = KeyValue.Value,
+        Selected = (Model.PropertyData ?? "").ToString() == KeyValue.Value
+        }).ToList();
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
-
-
-WriteLiteral("\r\n");
-
+WriteLiteral("\r\n\r\n");
 
             
-            #line 48 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
- if (FieldAttr != null && FieldAttr.MultiSelect)
+            #line 23 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+ if (FieldAttr.MultiSelect)
     {
 
             
             #line default
             #line hidden
-WriteLiteral("    <div class=\"option-checks\">\r\n\r\n        <input name=\"");
+WriteLiteral("    <div");
 
+WriteLiteral(" class=\"option-checks\"");
 
+WriteLiteral(">\r\n\r\n        <input");
+
+WriteAttribute("name", Tuple.Create(" name=\"", 708), Tuple.Create("\"", 739)
             
-            #line 52 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
-                Write(Model.Meta.PropertyName);
-
+            #line 27 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+, Tuple.Create(Tuple.Create("", 715), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-WriteLiteral("\" type=\"hidden\" value=\"\" />\r\n\r\n");
+, 715), false)
+);
 
+WriteLiteral(" type=\"hidden\"");
+
+WriteLiteral(" value=\"\"");
+
+WriteLiteral(" />\r\n\r\n");
 
             
-            #line 54 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+            #line 29 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+        
+            
+            #line default
+            #line hidden
+            
+            #line 29 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
          foreach (SelectListItem i in Items)
             {
 
             
             #line default
             #line hidden
-WriteLiteral("            <div class=\"list-check\">\r\n                <input type=\"checkbox\"\r\n   " +
-"                    id=\"");
+WriteLiteral("            <div");
 
+WriteLiteral(" class=\"list-check\"");
 
+WriteLiteral(">\r\n                <input");
+
+WriteLiteral(" type=\"checkbox\"");
+
+WriteAttribute("id", Tuple.Create("\r\n                       id=\"", 907), Tuple.Create("\"", 973)
             
-            #line 58 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
-                       Write(Model.Meta.PropertyName);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("_");
-
-
-            
-            #line 58 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
-                                                  Write(i.Value);
-
+            #line 33 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+, Tuple.Create(Tuple.Create("", 936), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-WriteLiteral("\"\r\n                       name=\"");
-
-
+, 936), false)
+, Tuple.Create(Tuple.Create("", 962), Tuple.Create("_", 962), true)
             
-            #line 59 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
-                        Write(Model.Meta.PropertyName);
-
+            #line 33 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+, Tuple.Create(Tuple.Create("", 963), Tuple.Create<System.Object, System.Int32>(i.Value
             
             #line default
             #line hidden
-WriteLiteral("\"\r\n                       value=\"");
+, 963), false)
+);
 
-
+WriteAttribute("name", Tuple.Create("\r\n                       name=\"", 974), Tuple.Create("\"", 1029)
             
-            #line 60 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
-                         Write(i.Value);
-
+            #line 34 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+, Tuple.Create(Tuple.Create("", 1005), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-WriteLiteral("\"\r\n                       ");
+, 1005), false)
+);
 
+WriteAttribute("value", Tuple.Create("\r\n                       value=\"", 1030), Tuple.Create("\"", 1070)
+            
+            #line 35 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+, Tuple.Create(Tuple.Create("", 1062), Tuple.Create<System.Object, System.Int32>(i.Value
+            
+            #line default
+            #line hidden
+, 1062), false)
+);
+
+WriteLiteral("\r\n                       ");
 
             
-            #line 61 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+            #line 36 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
                    Write((Model.PropertyData ?? "").ToString().Contains(i.Value) ? Html.Raw("checked=\"true\"") : Html.Raw(""));
 
             
             #line default
             #line hidden
-WriteLiteral(">\r\n                <label for=\"");
+WriteLiteral(">\r\n                <label");
 
-
+WriteAttribute("for", Tuple.Create(" for=\"", 1225), Tuple.Create("\"", 1268)
             
-            #line 62 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
-                        Write(Model.Meta.PropertyName);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("_");
-
-
-            
-            #line 62 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
-                                                   Write(i.Value);
-
+            #line 37 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+, Tuple.Create(Tuple.Create("", 1231), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                    ");
+, 1231), false)
+, Tuple.Create(Tuple.Create("", 1257), Tuple.Create("_", 1257), true)
+            
+            #line 37 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+, Tuple.Create(Tuple.Create("", 1258), Tuple.Create<System.Object, System.Int32>(i.Value
+            
+            #line default
+            #line hidden
+, 1258), false)
+);
 
+WriteLiteral(">\r\n");
+
+WriteLiteral("                    ");
 
             
-            #line 63 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+            #line 38 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
                Write(i.Text);
 
             
@@ -312,9 +218,8 @@ WriteLiteral("\">\r\n                    ");
             #line hidden
 WriteLiteral("\r\n                </label>\r\n            </div>\r\n");
 
-
             
-            #line 66 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+            #line 41 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
             }
 
             
@@ -322,9 +227,8 @@ WriteLiteral("\r\n                </label>\r\n            </div>\r\n");
             #line hidden
 WriteLiteral("    </div>\r\n");
 
-
             
-            #line 68 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+            #line 43 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
     }
 else
     {
@@ -332,62 +236,71 @@ else
             
             #line default
             #line hidden
-WriteLiteral("    <select name=\"");
+WriteLiteral("    <select");
 
-
+WriteAttribute("name", Tuple.Create(" name=\"", 1405), Tuple.Create("\"", 1436)
             
-            #line 71 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
-             Write(Model.Meta.PropertyName);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\" id=\"");
-
-
-            
-            #line 71 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
-                                           Write(Model.Meta.PropertyName);
-
+            #line 46 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+, Tuple.Create(Tuple.Create("", 1412), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n");
+, 1412), false)
+);
 
+WriteAttribute("id", Tuple.Create(" id=\"", 1437), Tuple.Create("\"", 1466)
+            
+            #line 46 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+, Tuple.Create(Tuple.Create("", 1442), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+            
+            #line default
+            #line hidden
+, 1442), false)
+);
+
+WriteLiteral(">\r\n");
 
             
-            #line 72 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+            #line 47 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+        
+            
+            #line default
+            #line hidden
+            
+            #line 47 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
          if (!Required)
             {
 
             
             #line default
             #line hidden
-WriteLiteral("            <option value=\"");
+WriteLiteral("            <option");
 
+WriteAttribute("value", Tuple.Create(" value=\"", 1529), Tuple.Create("\"", 1548)
+            
+            #line 49 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+, Tuple.Create(Tuple.Create("", 1537), Tuple.Create<System.Object, System.Int32>(EmptyValue
+            
+            #line default
+            #line hidden
+, 1537), false)
+);
+
+WriteLiteral(" ");
 
             
-            #line 74 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
-                      Write(EmptyValue);
+            #line 49 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+                                    Write((string)Model.PropertyData == EmptyValue ? "selected" : "");
 
             
             #line default
             #line hidden
-WriteLiteral("\" ");
+WriteLiteral(">\r\n");
 
-
-            
-            #line 74 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
-                                    Write((String)Model.PropertyData == EmptyValue ? "selected" : "");
+WriteLiteral("                ");
 
             
-            #line default
-            #line hidden
-WriteLiteral(">\r\n                ");
-
-
-            
-            #line 75 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+            #line 50 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
            Write(EmptyKey);
 
             
@@ -395,49 +308,51 @@ WriteLiteral(">\r\n                ");
             #line hidden
 WriteLiteral("\r\n            </option>\r\n");
 
-
             
-            #line 77 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+            #line 52 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
 
             }
 
             
             #line default
             #line hidden
+WriteLiteral("        ");
 
             
-            #line 79 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+            #line 54 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
          foreach (SelectListItem Item in Items)
             {
 
             
             #line default
             #line hidden
-WriteLiteral("            <option value=\"");
+WriteLiteral("            <option");
 
-
+WriteAttribute("value", Tuple.Create(" value=\"", 1764), Tuple.Create("\"", 1783)
             
-            #line 81 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
-                      Write(Item.Value);
-
+            #line 56 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+, Tuple.Create(Tuple.Create("", 1772), Tuple.Create<System.Object, System.Int32>(Item.Value
             
             #line default
             #line hidden
-WriteLiteral("\" ");
+, 1772), false)
+);
 
+WriteLiteral(" ");
 
             
-            #line 81 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+            #line 56 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
                                     Write(Item.Selected ? "selected" : "");
 
             
             #line default
             #line hidden
-WriteLiteral(">\r\n                ");
+WriteLiteral(">\r\n");
 
+WriteLiteral("                ");
 
             
-            #line 82 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+            #line 57 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
            Write(Item.Text);
 
             
@@ -445,9 +360,8 @@ WriteLiteral(">\r\n                ");
             #line hidden
 WriteLiteral("\r\n            </option>\r\n");
 
-
             
-            #line 84 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+            #line 59 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
             }
 
             
@@ -455,14 +369,12 @@ WriteLiteral("\r\n            </option>\r\n");
             #line hidden
 WriteLiteral("    </select>\r\n");
 
-
             
-            #line 86 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
+            #line 61 "..\..\Views\Shared\Fields\Edit\Dropdown.cshtml"
     }
             
             #line default
             #line hidden
-
         }
     }
 }

@@ -14,7 +14,7 @@ interface JQueryStatic {
     objKeys?: (obj?: any) => string[];
 
     objHasKey?: (obj: Object, key: string) => boolean;
-    resolve?: (obj?: Object | any[]| Function) => Object;
+    resolve?: (obj?: Object | any[] | Function) => Object;
 
     isDefined?: (obj?: any) => boolean;
     isHash?: (obj?: any) => boolean;
@@ -53,7 +53,7 @@ interface Date {
     clone?: () => Date;
 }
 
-var singObject = singExt.addModule(new sing.Module("Object", $, $));
+var singObject = singExt.addModule(new sing.Module('Object', $, $));
 
 singObject.glyphIcon = '&#xe165;';
 
@@ -69,14 +69,14 @@ singObject.method('objEach', ObjectEach,
         returnType: '',
         examples: null,
         glyphIcon: '&#xe153;',
-        tests: function (ext) {
+        tests(ext) {
 
-            ext.addCustomTest(function () {
+            ext.addCustomTest(() => {
 
                 var test = { a: 1, b: 2 };
                 var test2: any[] = [];
 
-                $.objEach(test, function (key, item, index) {
+                $.objEach(test, (key, item, index) => {
                     test2.push({ key: key, item: item, index: index });
                 });
 
@@ -86,14 +86,14 @@ singObject.method('objEach', ObjectEach,
                         { key: 'b', item: 2, index: 1 }]);
 
             }, 'Executes for every element');
-        },
+        }
     });
 
 function ObjectEach(obj: Hash<any>, eachFunc: (key: string, item: any, index: number) => void): void {
 
-    var keys = Object.keys(obj);
+    const keys = Object.keys(obj);
 
-    keys.each(function (key, i) {
+    keys.each((key, i) => {
         eachFunc(key, obj[key], i);
     });
 }
@@ -106,7 +106,7 @@ singObject.method('objProperties', ObjectProperties,
         returnType: '',
         examples: null,
         glyphIcon: '&#xe056;',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest($, [null], []);
             ext.addTest($, [undefined], []);
             ext.addTest($, [['a']], [{ key: '0', value: 'a' }]);
@@ -114,18 +114,16 @@ singObject.method('objProperties', ObjectProperties,
             ext.addTest($, [[]], []);
             ext.addTest($, [{}], []);
             ext.addTest($, [{ a: 1, b: 2 }], [{ key: 'a', value: 1 }, { key: 'b', value: 2 }]);
-        },
+        }
     });
 
 function ObjectProperties(obj?: Hash<any>): { key: string; value: any }[] {
     if (obj == null || !(typeof obj == 'object'))
         return [];
 
-    var keys = Object.keys(obj);
+    const keys = Object.keys(obj);
 
-    var values = <[{ key: string; value: any }]>keys.collect(function (item, i) {
-        return { key: item, value: obj[item] };
-    });
+    const values = keys.collect((item) => ({ key: item, value: obj[item] })) as [{ key: string; value: any }];
 
     return values;
 }
@@ -139,7 +137,7 @@ singObject.method('objValues', ObjectValues,
         returnType: '',
         examples: null,
         glyphIcon: '&#xe055;',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest($, [null], []);
             ext.addTest($, [undefined], []);
             ext.addTest($, ['a'], []);
@@ -153,7 +151,7 @@ singObject.method('objValues', ObjectValues,
             ext.addTest($, [{ a: 'b', c: 'd' }, ['a']], 'b');
             ext.addTest($, [{ a: 'b', c: 'd' }, ['b']], null);
             ext.addTest($, [{ a: 'b', c: 'd' }, ['c']], 'd');
-        },
+        }
     });
 
 function ObjectValues(obj?: Hash<any> | any[], findKeys?: string[]): any[] {
@@ -162,16 +160,16 @@ function ObjectValues(obj?: Hash<any> | any[], findKeys?: string[]): any[] {
 
     if (findKeys != null && findKeys.length > 0) {
         if ($.isArray(obj)) {
-            return (<any[]>obj).arrayValues.apply(obj, findKeys);
+            return (obj as any[]).arrayValues.apply(obj, findKeys);
         }
         else {
             return [obj].arrayValues.apply([obj], findKeys);
         }
     }
     else {
-        var keys = Object.keys(obj);
+        const keys = Object.keys(obj);
 
-        var values = keys.collect(function (item, i) { return (<any>obj)[item]; });
+        const values = keys.collect((item) => (obj as any)[item]);
 
         return values;
     }
@@ -185,7 +183,7 @@ singObject.method('arrayValues', ArrayFindValues,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe055;',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest([], [null], []);
             ext.addTest([], [undefined], []);
             ext.addTest([1], [null], []);
@@ -205,23 +203,20 @@ singObject.method('arrayValues', ArrayFindValues,
                 { a: { name: 'a2' }, b: { name: 'b2' }, c: { name: 'c2' } }], ['b', 'name'], ['b', 'b2']);
             ext.addTest([{ a: { name: 'a' }, b: { name: 'b' }, c: { name: 'c' } },
                 { a: { name: 'a2' }, b: { name: 'b2' }, c: { name: 'c2' } }], ['c', 'name'], ['c', 'c2']);
-        },
+        }
     }, Array.prototype);
 
 function ArrayFindValues<T>(...names: string[]): any[] {
-
-    var thisArray = <Hash<any>[]>this;
-
     if (!names || names.length == 0 || names[0] == null)
-        return;
+        return [];
 
     if (names.length == 1 && names[0].contains('.')) {
         names = names[0].split('.');
     }
     if (names.length > 0) {
         var name = names.shift();
-
-        var out = thisArray.collect(function (item) {
+        const thisArray = this as Hash<any>[];
+        const out = thisArray.collect(item => {
 
             if (!item || !item[name])
                 return null;
@@ -249,7 +244,7 @@ singObject.method('objKeys', ObjectKeys,
         returnType: '',
         examples: null,
         glyphIcon: 'icon-keys',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest($, [null], []);
             ext.addTest($, [undefined], []);
             ext.addTest($, ['a'], []);
@@ -258,14 +253,14 @@ singObject.method('objKeys', ObjectKeys,
             ext.addTest($, [[]], []);
             ext.addTest($, [{}], []);
             ext.addTest($, [{ a: 1, b: 2 }], ['a', 'b']);
-        },
+        }
     }, $);
 
 function ObjectKeys(obj?: Object): string[] {
     if (obj == null || !(typeof obj == 'object'))
         return [];
 
-    var keys = Object.keys(obj);
+    const keys = Object.keys(obj);
 
     return keys;
 }
@@ -279,12 +274,12 @@ singObject.method('objHasKey', ObjectHasKey,
         returnType: '',
         examples: null,
         glyphIcon: '&#xe003;',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest(null, [], false);
             ext.addTest(null, [null, 'a'], false);
             ext.addTest(null, [{ b: 'a' }, 'a'], false);
             ext.addTest(null, [{ a: 'b' }, 'a'], true);
-        },
+        }
     });
 
 function ObjectHasKey(obj: any, key: string): boolean {
@@ -303,14 +298,14 @@ singObject.method('resolve', ObjectResolve,
         returnType: '',
         examples: null,
         glyphIcon: '&#xe162;',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest($, [5], 5);
             ext.addTest($, ['aa'], 'aa');
             ext.addTest($, [['aa', 'bb']], ['aa', 'bb']);
-            ext.addTest($, [function () { return 5; }], 5);
-            ext.addTest($, [function () { return 'aa'; }], 'aa');
-            ext.addTest($, [function () { return ['aa', 'bb']; }], ['aa', 'bb']);
-        },
+            ext.addTest($, [() => 5], 5);
+            ext.addTest($, [() => 'aa'], 'aa');
+            ext.addTest($, [() => ['aa', 'bb']], ['aa', 'bb']);
+        }
     });
 
 function ObjectResolve(obj: any, args: any[]): any {
@@ -333,7 +328,7 @@ singObject.method('isDefined', ObjectDefined,
         returnType: '',
         examples: null,
         glyphIcon: '&#xe003;',
-        tests: function (ext) {
+        tests(ext) {
 
             ext.addTest(null, [undefined], false);
             ext.addTest(null, [null], false);
@@ -342,7 +337,7 @@ singObject.method('isDefined', ObjectDefined,
             ext.addTest(null, [['a']], true);
             ext.addTest(null, [{}], true);
             ext.addTest(null, [{ name: 'a' }], true);
-        },
+        }
     });
 
 function ObjectDefined(obj?: any) {
@@ -361,7 +356,7 @@ singObject.method('isHash', ObjectIsHash,
         returnType: '',
         examples: null,
         glyphIcon: 'icon-show-thumbnails',
-        tests: function (ext) {
+        tests(ext) {
 
             ext.addTest(null, [undefined], false);
             ext.addTest(null, [null], false);
@@ -370,12 +365,12 @@ singObject.method('isHash', ObjectIsHash,
             ext.addTest(null, [['a']], false);
             ext.addTest(null, [{}], true);
             ext.addTest(null, [{ a: 'a' }], true);
-        },
+        }
     });
 
 function ObjectIsHash(obj?: any) {
 
-    if (!$.isDefined(obj))
+    if (! ObjectDefined(obj))
         return false;
 
     if ($.isArray(obj))
@@ -396,13 +391,13 @@ singObject.method('clone', ArrayClone,
         returnType: '',
         examples: null,
         glyphIcon: '&#xe224;',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest([], [], []);
             ext.addTest([undefined], [], []);
             ext.addTest([[]], [], []);
             ext.addTest(['a'], [], ['a']);
 
-            ext.addCustomTest(function () {
+            ext.addCustomTest(() => {
 
                 var ary = [1, 2, 3];
                 var ary2 = ary.clone();
@@ -413,17 +408,15 @@ singObject.method('clone', ArrayClone,
                     return 'Same array was returned';
 
             }, 'Arrays must be clones, not the source array');
-        },
-    }, Array.prototype, "Array");
+        }
+    }, Array.prototype, 'Array');
 
-function ArrayClone<T>(deepClone: boolean = false) {
+function ArrayClone<T>(deepClone: boolean = false): any[] {
 
-    var thisArray = <T[]>this;
+    const thisArray = this as T[];
 
     if (deepClone) {
-        return thisArray.collect(function (item) {
-            return $.clone(item, true);
-        });
+        return thisArray.collect(item => $.clone(item, true));
     }
     else {
         return thisArray.collect();
@@ -432,26 +425,28 @@ function ArrayClone<T>(deepClone: boolean = false) {
 
 singObject.method('clone', NumberClone, {
     glyphIcon: '&#xe224;',
-    tests: function (ext) {
+    tests(ext) {
         ext.addTest(0, [], 0);
         ext.addTest(1, [], 1);
         ext.addTest(NaN, [], NaN);
         ext.addTest(Infinity, [], Infinity);
         ext.addTest(-Infinity, [], -Infinity);
 
-        ext.addCustomTest(function () {
+        ext.addCustomTest(() => {
 
             var src = 1;
-            var src2 = src.clone();
-
+            var src2: number;
+// ReSharper disable once AssignedValueIsNeverUsed
+            src2 = src.clone();
+// ReSharper disable once AssignedValueIsNeverUsed
             src2 = 2;
 
             if (src == 2)
                 return 'Same number was returned';
 
         }, 'Numbers must be clones, not the source number');
-    },
-}, Number.prototype, "Number");
+    }
+}, Number.prototype, 'Number');
 
 function NumberClone() {
     return this.valueOf();
@@ -459,23 +454,30 @@ function NumberClone() {
 
 singObject.method('clone', BooleanClone, {
     glyphIcon: '&#xe224;',
-    tests: function (ext) {
+    tests(ext) {
         ext.addTest(false, [], false);
         ext.addTest(true, [], true);
 
-        ext.addCustomTest(function () {
+        ext.addCustomTest(() => {
 
             var src = false;
+// ReSharper disable once AssignedValueIsNeverUsed
+// ReSharper disable once ExpressionIsAlwaysConst
             var src2 = src.clone();
 
+// ReSharper disable once AssignedValueIsNeverUsed
             src2 = true;
 
+// ReSharper disable once RedundantComparisonWithBoolean
+// ReSharper disable once ConditionIsAlwaysConst
+// ReSharper disable once ExpressionIsAlwaysConst
             if (src == true)
+// ReSharper disable once HeuristicallyUnreachableCode
                 return 'Same boolean was returned';
 
         }, 'Booleans must be clones, not the source boolean');
-    },
-}, Boolean.prototype, "Boolean");
+    }
+}, Boolean.prototype, 'Boolean');
 
 function BooleanClone() {
     return this.valueOf();
@@ -483,23 +485,25 @@ function BooleanClone() {
 
 singObject.method('clone', StringClone, {
     glyphIcon: '&#xe224;',
-    tests: function (ext) {
+    tests(ext) {
         ext.addTest('', [], '');
         ext.addTest('a', [], 'a');
 
-        ext.addCustomTest(function () {
+        ext.addCustomTest(() => {
 
             var src = 'a';
+// ReSharper disable once AssignedValueIsNeverUsed
             var src2 = src.clone();
 
+// ReSharper disable once AssignedValueIsNeverUsed
             src2 = 'b';
 
             if (src == 'b')
                 return 'Same string was returned';
 
         }, 'Strings must be clones, not the source string');
-    },
-}, String.prototype, "String");
+    }
+}, String.prototype, 'String');
 
 function StringClone() {
     return this.valueOf();
@@ -507,13 +511,13 @@ function StringClone() {
 
 singObject.method('clone', DateClone, {
     glyphIcon: '&#xe224;',
-    tests: function (ext) {
+    tests(ext) {
 
-        var testDate = new Date();
+        const testDate = new Date();
 
         ext.addTest(testDate, [], testDate);
 
-        ext.addCustomTest(function () {
+        ext.addCustomTest(() => {
 
             var src = new Date();
             var src2 = src.clone();
@@ -531,8 +535,8 @@ singObject.method('clone', DateClone, {
                 return 'Same date was returned';
 
         }, 'Dates must be clones, not the source date');
-    },
-}, Date.prototype, "Date");
+    }
+}, Date.prototype, 'Date');
 
 function DateClone() {
     return new Date(this.valueOf());
@@ -540,7 +544,7 @@ function DateClone() {
 
 singObject.method('clone', ObjectClone, {
     glyphIcon: '&#xe224;',
-    tests: function (ext) {
+    tests(ext) {
 
         ext.addTest($, [0], 0);
         ext.addTest($, [1], 1);
@@ -554,7 +558,7 @@ singObject.method('clone', ObjectClone, {
         ext.addTest($, [''], '');
         ext.addTest($, ['a'], 'a');
 
-        var testDate = new Date();
+        const testDate = new Date();
 
         ext.addTest($, [testDate], testDate);
 
@@ -563,26 +567,30 @@ singObject.method('clone', ObjectClone, {
         ext.addTest($, [[[]]], [[]]);
         ext.addTest($, [['a']], ['a']);
         ext.addTest($, [[['a']]], [['a']]);
-    },
-}, $, "jQuery");
+    }
+}, $, 'jQuery');
 
 function ObjectClone(obj: any, deepClone: boolean = false) {
 
     if (obj.clone !== ObjectClone && $.isFunction(obj.clone))
         return obj.clone(deepClone);
 
-    var out: Hash<any> = {};
+    const out: Hash<any> = {};
 
-    var key: any;
-
+    let key: any;
+    const objKeys = $.objKeys(obj);
     if (deepClone) {
-        for (key in $.objKeys(obj)) {
-            out[key] = obj[key];
+        for (key in objKeys) {
+            if (objKeys.hasOwnProperty(key)) {
+                out[key] = obj[key];
+            }
         }
     }
     else {
-        for (key in $.objKeys(obj)) {
-            out[key] = $.clone(obj[key]);
+        for (key in objKeys) {
+            if (objKeys.hasOwnProperty(key)) {
+                out[key] = $.clone(obj[key]);
+            }
         }
     }
     return out;
@@ -590,7 +598,7 @@ function ObjectClone(obj: any, deepClone: boolean = false) {
 
 singObject.method('isEmpty', ObjectIsEmpty, {
     glyphIcon: '&#xe118;',
-    tests: function (ext) {
+    tests(ext) {
         ext.addTest($, [0], false);
         ext.addTest($, [1], false);
         ext.addTest($, [NaN], true);
@@ -608,7 +616,7 @@ singObject.method('isEmpty', ObjectIsEmpty, {
         ext.addTest($, [[1]], false);
         ext.addTest($, [[[1]]], false);
         ext.addTest($, [[[], [1]]], false);
-    },
+    }
 }, $);
 
 function ObjectIsEmpty(obj?: any): boolean {
@@ -619,14 +627,14 @@ function ObjectIsEmpty(obj?: any): boolean {
         (typeof obj == 'number' && isNaN(obj)) ||
         ($.isString(obj) && obj.trim().length == 0) ||
         ($.isHash(obj) && $.objKeys(obj).length == 0)) ||
-        ($.isArray(obj) && (obj.length == 0 || !(<any[]>obj).has(function (item: any) { return !$.isEmpty(item); }))) ||
-        ($.isHash(obj) && !$.objValues(<any[]>obj).has(function (item: any) { return !$.isEmpty(item); }));
+        ($.isArray(obj) && (obj.length == 0 || !(obj as any[]).has((item: any) => (!$.isEmpty(item))))) ||
+        ($.isHash(obj) && !$.objValues(obj as any[]).has((item: any) => (!$.isEmpty(item))));
 }
 
 
 singObject.method('typeName', ObjectTypeName, {
     glyphIcon: '&#xe041;',
-    tests: function (ext) {
+    tests(ext) {
 
         ext.addTest($, [0], 'Number');
         ext.addTest($, [1], 'Number');
@@ -647,14 +655,14 @@ singObject.method('typeName', ObjectTypeName, {
         ext.addTest($, [{}], 'Object');
 
         ext.addTest($, [sing], 'Singularity');
-    },
+    }
 }, $);
 
 function ObjectTypeName(obj?: any) {
-    if (typeof obj === "undefined")
-        return "Undefined";
+    if (typeof obj === 'undefined')
+        return 'Undefined';
     if (obj === null)
-        return "Null";
+        return 'Null';
     if (obj.__proto__ && obj.__proto__.constructor && obj.__proto__.constructor.name)
         return obj.__proto__.constructor.name;
     return Object.prototype.toString.call(obj)

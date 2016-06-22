@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LCore;
+using LCore.Extensions;
+// ReSharper disable UnusedVariable
 
 namespace LCore.Statistics
     {
-    public abstract class QuantitativeSampleSet<T> : SampleSet
-        where T : struct, 
+    internal abstract class QuantitativeSampleSet<T> : SampleSet
+        where T : struct,
             IComparable,
             IComparable<T>,
             IConvertible,
@@ -31,10 +29,10 @@ namespace LCore.Statistics
         protected T[] _UpperOutliers { get; set; }
         protected T[] _Outliers { get; set; }
 
-        protected T _Total = default(T);
-        protected T _Minimum = default(T);
-        protected T _Maximum = default(T);
-        protected T _Range = default(T);
+        protected T _Total;
+        protected T _Minimum;
+        protected T _Maximum;
+        protected T _Range;
         protected double _MidRange = default(double);
         protected double _Mean = default(double);
         protected double _Median = default(double);
@@ -46,7 +44,7 @@ namespace LCore.Statistics
         protected double _LowerFence = default(double);
         protected double _UpperFence = default(double);
 
-        protected T[] _Mode = new T[] { };
+        protected T[] _Mode = { };
         protected long _ModeFrequency = default(long);
         protected double _StandardDeviation = default(double);
         protected double _ApproximateStandardDeviation = default(double);
@@ -67,26 +65,26 @@ namespace LCore.Statistics
             return (T)In.ConvertTo(typeof(T));
             }
 
-        public abstract Boolean Equals(T X1, T X2);
+        public abstract bool Equals(T X1, T X2);
 
         public abstract T Add(T X1, T X2);
         public abstract T Subtract(T X1, T X2);
         public abstract T Multiply(T X1, T X2);
         public abstract double Divide(T X1, T X2);
 
-        public virtual Boolean GreaterThan(T X1, T X2)
+        public virtual bool GreaterThan(T X1, T X2)
             {
             return X1.CompareTo(X2) > 0;
             }
-        public virtual Boolean GreaterThanOrEqual(T X1, T X2)
+        public virtual bool GreaterThanOrEqual(T X1, T X2)
             {
             return X1.CompareTo(X2) >= 0;
             }
-        public virtual Boolean LessThan(T X1, T X2)
+        public virtual bool LessThan(T X1, T X2)
             {
             return X1.CompareTo(X2) < 0;
             }
-        public virtual Boolean LessThanOrEqual(T X1, T X2)
+        public virtual bool LessThanOrEqual(T X1, T X2)
             {
             return X1.CompareTo(X2) <= 0;
             }
@@ -94,143 +92,143 @@ namespace LCore.Statistics
 
         public virtual T Total()
             {
-            ParseData();
-            return _Total;
+            this.ParseData();
+            return this._Total;
             }
         public virtual T Minimum()
             {
-            ParseData();
-            return _Minimum;
+            this.ParseData();
+            return this._Minimum;
             }
         public virtual T Maximum()
             {
-            ParseData();
-            return _Maximum;
+            this.ParseData();
+            return this._Maximum;
             }
         public virtual T Range()
             {
-            ParseData();
-            return _Range;
+            this.ParseData();
+            return this._Range;
             }
         public virtual double MidRange()
             {
-            ParseData();
-            return _MidRange;
+            this.ParseData();
+            return this._MidRange;
             }
         public virtual double Mean()
             {
-            ParseData();
-            return _Mean;
+            this.ParseData();
+            return this._Mean;
             }
         public virtual double GeometricMean()
             {
-            ParseData();
-            return _GeometricMean;
+            this.ParseData();
+            return this._GeometricMean;
             }
         public virtual double HarmonicMean()
             {
-            ParseData();
-            return _HarmonicMean;
+            this.ParseData();
+            return this._HarmonicMean;
             }
 
         public virtual double LowerFence()
             {
-            ParseData();
-            return _LowerFence;
+            this.ParseData();
+            return this._LowerFence;
             }
         public virtual double UpperFence()
             {
-            ParseData();
-            return _UpperFence;
+            this.ParseData();
+            return this._UpperFence;
             }
 
         public virtual T[] Mode()
             {
-            ParseDataFrequency();
-            return _Mode;
+            this.ParseDataFrequency();
+            return this._Mode;
             }
         public virtual long ModeFrequency()
             {
-            ParseDataFrequency();
-            return _ModeFrequency;
+            this.ParseDataFrequency();
+            return this._ModeFrequency;
             }
         public virtual double StandardDeviation()
             {
-            ParseDataComplex();
-            return _StandardDeviation;
+            this.ParseDataComplex();
+            return this._StandardDeviation;
             }
         public virtual double ApproximateStandardDeviation()
             {
-            ParseData();
-            return _ApproximateStandardDeviation;
+            this.ParseData();
+            return this._ApproximateStandardDeviation;
             }
         public virtual double[] DataDeviations()
             {
-            ParseDataComplex();
-            return _DataDeviation;
+            this.ParseDataComplex();
+            return this._DataDeviation;
             }
         public virtual double DataTotalDeviation()
             {
-            ParseDataComplex();
-            return _TotalDeviation;
+            this.ParseDataComplex();
+            return this._TotalDeviation;
             }
         public virtual double[] DataVariance()
             {
-            ParseDataComplex();
-            return _DataVariance;
+            this.ParseDataComplex();
+            return this._DataVariance;
             }
         public virtual double DataTotalVariance()
             {
-            ParseDataComplex();
-            return _TotalVariance;
+            this.ParseDataComplex();
+            return this._TotalVariance;
             }
         public virtual Dictionary<T, long> GetFrequency()
             {
-            ParseDataFrequency();
-            return _Frequency;
+            this.ParseDataFrequency();
+            return this._Frequency;
             }
         public virtual double Quartile1()
             {
-            ParseData();
-            return _Quartile1;
+            this.ParseData();
+            return this._Quartile1;
             }
         public virtual double Quartile3()
             {
-            ParseData();
-            return _Quartile3;
+            this.ParseData();
+            return this._Quartile3;
             }
         public virtual double InterQuartileRange()
             {
-            ParseData();
-            return _InterQuartileRange;
+            this.ParseData();
+            return this._InterQuartileRange;
             }
 
         public virtual T[] LowerOutliers()
             {
-            ParseData();
-            return _LowerOutliers;
+            this.ParseData();
+            return this._LowerOutliers;
             }
         public virtual T[] UpperOutliers()
             {
-            ParseData();
-            return _UpperOutliers;
+            this.ParseData();
+            return this._UpperOutliers;
             }
         public virtual T[] Outliers()
             {
-            ParseData();
-            return _Outliers;
+            this.ParseData();
+            return this._Outliers;
             }
 
         public virtual double[] GetBoxPlot()
             {
-            ParseData();
-            return new[] { _Minimum.ConvertTo<double>(), _Quartile1, _Median, _Quartile3, _Maximum.ConvertTo<double>() };
+            this.ParseData();
+            return new[] { this._Minimum.ConvertTo<double>(), this._Quartile1, this._Median, this._Quartile3, this._Maximum.ConvertTo<double>() };
             }
 
-        protected Boolean Parsed = false;
+        protected bool Parsed;
         protected virtual void ParseData()
             {
-            if (!Parsed)
+            if (!this.Parsed)
                 {
                 T Total = default(T);
                 T Minimum = default(T);
@@ -241,43 +239,43 @@ namespace LCore.Statistics
                 List<T> Outliers = new List<T>();
 
                 this._GeometricMean = 1;
-                double GeometricRatio = (1 / SampleSize);
+                double GeometricRatio = 1 / this.SampleSize;
 
                 this._HarmonicMean = 0;
 
-                DataSetSorted = DataSet.Array();
-                DataSetSorted.Sort();
+                this.DataSetSorted = this.DataSet.Array();
+                this.DataSetSorted.Sort();
 
                 #region Median
-                Boolean EvenSampleSize = this.SampleSize.IsEven();
+                bool EvenSampleSize = this.SampleSize.IsEven();
 
                 if (EvenSampleSize)
                     {
-                    T Median1 = DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2)) - (int)1];
-                    T Median2 = DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2))];
+                    T Median1 = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2)) - 1];
+                    T Median2 = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2))];
 
-                    _Median = Divide(Add(Median1, Median2), Convert(2));
+                    this._Median = this.Divide(this.Add(Median1, Median2), this.Convert(2));
                     }
                 else
                     {
-                    _Median = DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2)) - (int)1].ConvertTo<double>();
+                    this._Median = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2)) - 1].ConvertTo<double>();
                     }
                 #endregion
 
                 #region Quartiles
                 int Q1Index = (int)Math.Floor((double)(this.SampleSize / 4));
 
-                T Q1_1 = DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2)) - (int)1];
-                T Q1_2 = DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2))];
+                T Q1_1 = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2)) - 1];
+                T Q1_2 = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2))];
 
 
                 int Q3Index = (int)Math.Floor((double)(this.SampleSize * 3 / 4));
 
-                T Q3_1 = DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2)) - (int)1];
-                T Q3_2 = DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2))];
+                T Q3_1 = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2)) - 1];
+                T Q3_2 = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2))];
 
-                double QuartileRatio1 = 0;
-                double QuartileRatio2 = 0;
+                double QuartileRatio1;
+                double QuartileRatio2;
 
                 if (this.SampleSize % 4 == 1)
                     {
@@ -295,188 +293,191 @@ namespace LCore.Statistics
                     QuartileRatio2 = 0.50;
                     }
 
-                _Quartile1 = (Q1_1.ConvertTo<double>() * QuartileRatio1) + (Q1_1.ConvertTo<double>() * QuartileRatio2);
-                _Quartile3 = (Q3_1.ConvertTo<double>() * QuartileRatio2) + (Q3_1.ConvertTo<double>() * QuartileRatio1);
+                this._Quartile1 = Q1_1.ConvertTo<double>() * QuartileRatio1 + Q1_1.ConvertTo<double>() * QuartileRatio2;
+                this._Quartile3 = Q3_1.ConvertTo<double>() * QuartileRatio2 + Q3_1.ConvertTo<double>() * QuartileRatio1;
 
-                _InterQuartileRange = _Quartile3 - _Quartile1;
+                this._InterQuartileRange = this._Quartile3 - this._Quartile1;
 
-                _LowerFence = _Median - (1.5 * _InterQuartileRange);
-                _UpperFence = _Median + (1.5 * _InterQuartileRange);
+                this._LowerFence = this._Median - 1.5 * this._InterQuartileRange;
+                this._UpperFence = this._Median + 1.5 * this._InterQuartileRange;
                 #endregion
 
                 #region Basic Stats
-                DataSetSorted.EachI((i, x) =>
-                {
-                    if (i == 0)
-                        Minimum = x;
 
-                    Maximum = x;
+                this.DataSetSorted.EachI((i, x) =>
+            {
+                if (i == 0)
+                    Minimum = x;
 
-                    Total = Add(Total, x);
+                Maximum = x;
 
-                    this._GeometricMean *= Math.Pow(x.ConvertTo<double>(), GeometricRatio);
+                Total = this.Add(Total, x);
 
-                    this._HarmonicMean += (1 / x.ConvertTo<double>());
+                this._GeometricMean *= Math.Pow(x.ConvertTo<double>(), GeometricRatio);
 
-                    if (x.ConvertTo<double>() < _LowerFence)
-                        {
-                        LowerOutliers.Add(x);
-                        Outliers.Add(x);
-                        }
-                    else if (x.ConvertTo<double>() > _UpperFence)
-                        {
-                        UpperOutliers.Add(x);
-                        Outliers.Add(x);
-                        }
-                });
+                this._HarmonicMean += 1 / x.ConvertTo<double>();
+
+                if (x.ConvertTo<double>() < this._LowerFence)
+                    {
+                    LowerOutliers.Add(x);
+                    Outliers.Add(x);
+                    }
+                else if (x.ConvertTo<double>() > this._UpperFence)
+                    {
+                    UpperOutliers.Add(x);
+                    Outliers.Add(x);
+                    }
+            });
 
                 this._Total = Total;
                 this._Minimum = Minimum;
                 this._Maximum = Maximum;
-                this._Range = Subtract(Maximum, Minimum);
+                this._Range = this.Subtract(Maximum, Minimum);
 
-                this._MidRange = Divide(Add(Maximum, Minimum), Convert(2));
+                this._MidRange = this.Divide(this.Add(Maximum, Minimum), this.Convert(2));
 
-                this._Mean = Divide(Total, Convert(SampleSize));
+                this._Mean = this.Divide(Total, this.Convert(this.SampleSize));
 
-                this._HarmonicMean = SampleSize / this._HarmonicMean;
+                this._HarmonicMean = this.SampleSize / this._HarmonicMean;
 
-                this._ApproximateStandardDeviation = _Range.ConvertTo<double>() / 4;
+                this._ApproximateStandardDeviation = this._Range.ConvertTo<double>() / 4;
 
                 this._LowerOutliers = LowerOutliers.Array();
                 this._UpperOutliers = UpperOutliers.Array();
                 this._Outliers = Outliers.Array();
                 #endregion
 
-                Parsed = true;
+                this.Parsed = true;
 
                 }
             }
 
-        protected Boolean ParsedFrequency = false;
+        protected bool ParsedFrequency = false;
         protected virtual void ParseDataFrequency()
             {
-            ParseData();
+            this.ParseData();
 
-            if (!ParsedFrequency)
+            if (!this.ParsedFrequency)
                 {
                 List<T> MostFrequent = new List<T>();
                 long MostFrequentCount = 0;
 
-                DataSetSorted.EachI((i, x) =>
-                {
-                    #region Frequency
-                    if (!_Frequency.ContainsKey(x))
-                        {
-                        _Frequency.Add(x, 1);
-
-                        if (MostFrequentCount == 0 || MostFrequentCount == 1)
-                            {
-                            MostFrequentCount = 1;
-                            MostFrequent.Add(x);
-                            }
-                        }
-                    else
-                        {
-                        long Count = _Frequency[x] + 1;
-
-                        if (Count == MostFrequentCount)
-                            {
-                            MostFrequent.Add(x);
-                            }
-                        else if (Count > MostFrequentCount)
-                            {
-                            MostFrequent.Clear();
-                            MostFrequent.Add(x);
-                            MostFrequentCount = Count;
-                            }
-
-                        _Frequency[x]++;
-                        }
-                    #endregion
-
-                    #region RelativeFrequency
-                    _Frequency.Keys.Each((x2) =>
-                    {
-                        _RelativeFrequency[x2] = _Frequency[x2] / SampleSize;
-                    });
-                    #endregion
-
-                    #region FrequencyClasses
-                    _Frequency.Keys.Each((x2) =>
-                    {
-                        int ClassCount = StatsExt.GetOptimumClassCount(this.SampleSize);
-
-                        T[] Divisions = new T[ClassCount + 1];
-
-                        for (int j = 0; j < Divisions.Length; j++)
-                            {
-                            double Difference = Divide(_Range, Convert(ClassCount));
-                            T Value = Add(_Minimum, Convert(Difference * j));
-                            Divisions[j] = Value;
-                            }
-                    });
-                    #endregion
-                });
-
-                _Mode = MostFrequent.Array();
-                _ModeFrequency = MostFrequentCount;
-                }
-            }
-
-        protected Boolean ParsedComplex = false;
-        protected virtual void ParseDataComplex()
+                this.DataSetSorted.EachI((i, x) =>
             {
-            ParseData();
-
-            if (!ParsedComplex)
-                {
-                _DataDeviation = new double[DataSet.Length];
-                _DataVariance = new double[DataSet.Length];
-
-                _TotalDeviation = 0;
-                _TotalVariance = 0;
-
-                DataSet.EachI((i, x) =>
-                {
-                    double d = GetValueDeviation(x);
-                    double v = GetValueVariance(x);
-
-                    _DataDeviation[i] = d;
-                    _DataVariance[i] = v;
-
-                    _TotalDeviation += d;
-                    _TotalVariance += v;
-                });
-
-                if (IsSample)
+                #region Frequency
+                if (!this._Frequency.ContainsKey(x))
                     {
-                    _SampleVariance = _TotalVariance / (SampleSize - 1);
+                    this._Frequency.Add(x, 1);
+
+                    if (MostFrequentCount == 0 || MostFrequentCount == 1)
+                        {
+                        MostFrequentCount = 1;
+                        MostFrequent.Add(x);
+                        }
                     }
                 else
                     {
-                    _SampleVariance = _TotalVariance / SampleSize;
+                    long Count = this._Frequency[x] + 1;
+
+                    if (Count == MostFrequentCount)
+                        {
+                        MostFrequent.Add(x);
+                        }
+                    else if (Count > MostFrequentCount)
+                        {
+                        MostFrequent.Clear();
+                        MostFrequent.Add(x);
+                        MostFrequentCount = Count;
+                        }
+
+                    this._Frequency[x]++;
                     }
+                #endregion
 
-                _StandardDeviation = Math.Sqrt(_SampleVariance);
+                #region RelativeFrequency
 
-                ParsedComplex = true;
+                this._Frequency.Keys.Each(x2 =>
+            {
+                this._RelativeFrequency[x2] = this._Frequency[x2] / this.SampleSize;
+            });
+                #endregion
+
+                #region FrequencyClasses
+
+                this._Frequency.Keys.Each(x2 =>
+            {
+                int ClassCount = StatsExt.GetOptimumClassCount(this.SampleSize);
+
+                T[] Divisions = new T[ClassCount + 1];
+
+                for (int j = 0; j < Divisions.Length; j++)
+                    {
+                    double Difference = this.Divide(this._Range, this.Convert(ClassCount));
+                    T Value = this.Add(this._Minimum, this.Convert(Difference * j));
+                    Divisions[j] = Value;
+                    }
+            });
+                #endregion
+            });
+
+                this._Mode = MostFrequent.Array();
+                this._ModeFrequency = MostFrequentCount;
                 }
             }
 
-        public Double GetValueDeviation(T x)
+        protected bool ParsedComplex;
+        protected virtual void ParseDataComplex()
             {
-            return x.ConvertTo<double>() - Mean();
+            this.ParseData();
+
+            if (!this.ParsedComplex)
+                {
+                this._DataDeviation = new double[this.DataSet.Length];
+                this._DataVariance = new double[this.DataSet.Length];
+
+                this._TotalDeviation = 0;
+                this._TotalVariance = 0;
+
+                this.DataSet.EachI((i, x) =>
+            {
+                double d = this.GetValueDeviation(x);
+                double v = this.GetValueVariance(x);
+
+                this._DataDeviation[i] = d;
+                this._DataVariance[i] = v;
+
+                this._TotalDeviation += d;
+                this._TotalVariance += v;
+            });
+
+                if (this.IsSample)
+                    {
+                    this._SampleVariance = this._TotalVariance / (this.SampleSize - 1);
+                    }
+                else
+                    {
+                    this._SampleVariance = this._TotalVariance / this.SampleSize;
+                    }
+
+                this._StandardDeviation = Math.Sqrt(this._SampleVariance);
+
+                this.ParsedComplex = true;
+                }
             }
 
-        public Double GetValueVariance(T x)
+        public double GetValueDeviation(T x)
             {
-            return Math.Pow(x.ConvertTo<double>() - Mean(), 2);
+            return x.ConvertTo<double>() - this.Mean();
             }
 
-        public Double GetValueZScore(T x)
+        public double GetValueVariance(T x)
             {
-            return (x.ConvertTo<double>() - Mean()) / StandardDeviation();
+            return Math.Pow(x.ConvertTo<double>() - this.Mean(), 2);
+            }
+
+        public double GetValueZScore(T x)
+            {
+            return (x.ConvertTo<double>() - this.Mean()) / this.StandardDeviation();
             }
 
         /// <summary>
@@ -486,56 +487,54 @@ namespace LCore.Statistics
         /// <returns>Returns a positive or negative number representing the distance (in standard deviations) from the mean of the data.</returns>
         public double GetStandardDeviationLine(T DataPoint)
             {
-            double Distance = DataPoint.ConvertTo<double>() - _Mean;
+            double Distance = DataPoint.ConvertTo<double>() - this._Mean;
 
-            double Result = Distance / _StandardDeviation;
+            double Result = Distance / this._StandardDeviation;
 
             return Result;
             }
 
-        public QuantitativeSampleSet(IEnumerable<T> Data, long PopulationSize = 0)
+        protected QuantitativeSampleSet(IEnumerable<T> Data, long PopulationSize = 0)
             {
             Data = Data ?? new T[] { };
 
-            DataSet = Data.Array();
+            this.DataSet = Data.Array();
 
-            this.SampleSize = DataSet.Length;
-            this.PopulationSize = PopulationSize <= 0 ? DataSet.Length : PopulationSize;
+            this.SampleSize = this.DataSet.Length;
+            this.PopulationSize = PopulationSize <= 0 ? this.DataSet.Length : PopulationSize;
 
-            if (PopulationSize < SampleSize)
+            if (PopulationSize < this.SampleSize)
                 throw new Exception("Population size can not be smaller than the Sample size.");
             }
 
-        public QuantitativeSampleSet(IEnumerable Data, long PopulationSize = 0)
+        protected QuantitativeSampleSet(IEnumerable Data, long PopulationSize = 0)
             {
             Data = Data ?? new T[] { };
 
-            DataSet = Data.Array().Convert((x) =>
-                {
-                    if (x is T && x != null)
-                        {
-                        return (T)x;
-                        }
-                    else if (x is IConvertible)
-                        {
-                        return Convert((IConvertible)x);
-                        }
-                    else
-                        {
-                        throw new Exception("Could not convert to " + typeof(T).FullName + ": " + (x ?? "[null]").ToString());
-                        }
-                });
+            this.DataSet = Data.Array().Convert(x =>
+            {
+                if (x is T)
+                    {
+                    return (T)x;
+                    }
+                IConvertible @in = x as IConvertible;
+                if (@in != null)
+                    {
+                    return this.Convert(@in);
+                    }
+                throw new Exception($"Could not convert to {typeof(T).FullName}: {(x ?? "[null]").ToString()}");
+            });
 
-            this.SampleSize = DataSet.Length;
-            this.PopulationSize = PopulationSize <= 0 ? DataSet.Length : PopulationSize;
+            this.SampleSize = this.DataSet.Length;
+            this.PopulationSize = PopulationSize <= 0 ? this.DataSet.Length : PopulationSize;
 
-            if (PopulationSize < SampleSize)
+            if (PopulationSize < this.SampleSize)
                 throw new Exception("Population size can not be smaller than the Sample size.");
             }
         }
 
     #region Implementations
-    public class SampleSetInt : QuantitativeSampleSet<int>
+    internal class SampleSetInt : QuantitativeSampleSet<int>
         {
         public override bool Equals(int X1, int X2)
             {
@@ -553,10 +552,7 @@ namespace LCore.Statistics
             {
             return X1 * X2;
             }
-        public override double Divide(int X1, int X2)
-            {
-            return X1 / X2;
-            }
+        public override double Divide(int X1, int X2) => X1 / X2;
 
 
         public SampleSetInt(IEnumerable<int> Data, long PopulationSize = 0)
@@ -570,7 +566,7 @@ namespace LCore.Statistics
             }
         }
 
-    public class SampleSetByte : QuantitativeSampleSet<byte>
+    internal class SampleSetByte : QuantitativeSampleSet<byte>
         {
         public override bool Equals(byte X1, byte X2)
             {
@@ -588,10 +584,7 @@ namespace LCore.Statistics
             {
             return (byte)(X1 * X2);
             }
-        public override double Divide(byte X1, byte X2)
-            {
-            return (double)(X1 / X2);
-            }
+        public override double Divide(byte X1, byte X2) => X1 / X2;
 
 
         public SampleSetByte(IEnumerable<byte> Data, long PopulationSize = 0)
@@ -605,7 +598,7 @@ namespace LCore.Statistics
             }
         }
 
-    public class DecimalSampleSet : QuantitativeSampleSet<decimal>
+    internal class DecimalSampleSet : QuantitativeSampleSet<decimal>
         {
         public override bool Equals(decimal X1, decimal X2)
             {
@@ -640,7 +633,7 @@ namespace LCore.Statistics
             }
         }
 
-    public class DoubleSampleSet : QuantitativeSampleSet<double>
+    internal class DoubleSampleSet : QuantitativeSampleSet<double>
         {
         public override bool Equals(double X1, double X2)
             {
@@ -675,7 +668,7 @@ namespace LCore.Statistics
             }
         }
 
-    public class FloatSampleSet : QuantitativeSampleSet<float>
+    internal class FloatSampleSet : QuantitativeSampleSet<float>
         {
         public override bool Equals(float X1, float X2)
             {
@@ -695,7 +688,7 @@ namespace LCore.Statistics
             }
         public override double Divide(float X1, float X2)
             {
-            return (double)(X1 / X2);
+            return X1 / X2;
             }
 
 
@@ -710,7 +703,7 @@ namespace LCore.Statistics
             }
         }
 
-    public class LongSampleSet : QuantitativeSampleSet<long>
+    internal class LongSampleSet : QuantitativeSampleSet<long>
         {
         public override bool Equals(long X1, long X2)
             {
@@ -728,10 +721,7 @@ namespace LCore.Statistics
             {
             return X1 * X2;
             }
-        public override double Divide(long X1, long X2)
-            {
-            return (double)(X1 / X2);
-            }
+        public override double Divide(long X1, long X2) => X1 / X2;
 
 
         public LongSampleSet(IEnumerable<long> Data, long PopulationSize = 0)
@@ -744,7 +734,7 @@ namespace LCore.Statistics
             {
             }
         }
-    public class SByteSampleSet : QuantitativeSampleSet<sbyte>
+    internal class SByteSampleSet : QuantitativeSampleSet<sbyte>
         {
         public override bool Equals(sbyte X1, sbyte X2)
             {
@@ -762,10 +752,7 @@ namespace LCore.Statistics
             {
             return (sbyte)(X1 * X2);
             }
-        public override double Divide(sbyte X1, sbyte X2)
-            {
-            return (double)(X1 / X2);
-            }
+        public override double Divide(sbyte X1, sbyte X2) => X1 / X2;
 
 
         public SByteSampleSet(IEnumerable<sbyte> Data, long PopulationSize = 0)
@@ -779,7 +766,7 @@ namespace LCore.Statistics
             }
         }
 
-    public class ShortSampleSet : QuantitativeSampleSet<short>
+    internal class ShortSampleSet : QuantitativeSampleSet<short>
         {
         public override bool Equals(short X1, short X2)
             {
@@ -797,10 +784,7 @@ namespace LCore.Statistics
             {
             return (short)(X1 * X2);
             }
-        public override double Divide(short X1, short X2)
-            {
-            return (double)(X1 / X2);
-            }
+        public override double Divide(short X1, short X2) => X1 / X2;
 
 
         public ShortSampleSet(IEnumerable<short> Data, long PopulationSize = 0)
@@ -814,7 +798,7 @@ namespace LCore.Statistics
             }
         }
 
-    public class UIntSampleSet : QuantitativeSampleSet<uint>
+    internal class UIntSampleSet : QuantitativeSampleSet<uint>
         {
         public override bool Equals(uint X1, uint X2)
             {
@@ -832,10 +816,7 @@ namespace LCore.Statistics
             {
             return X1 * X2;
             }
-        public override double Divide(uint X1, uint X2)
-            {
-            return (double)(X1 / X2);
-            }
+        public override double Divide(uint X1, uint X2) => X1 / X2;
 
 
         public UIntSampleSet(IEnumerable<uint> Data, long PopulationSize = 0)
@@ -849,7 +830,7 @@ namespace LCore.Statistics
             }
         }
 
-    public class ULongSampleSet : QuantitativeSampleSet<ulong>
+    internal class ULongSampleSet : QuantitativeSampleSet<ulong>
         {
         public override bool Equals(ulong X1, ulong X2)
             {
@@ -867,10 +848,7 @@ namespace LCore.Statistics
             {
             return X1 * X2;
             }
-        public override double Divide(ulong X1, ulong X2)
-            {
-            return (double)(X1 / X2);
-            }
+        public override double Divide(ulong X1, ulong X2) => X1 / X2;
 
 
         public ULongSampleSet(IEnumerable<ulong> Data, long PopulationSize = 0)
@@ -885,7 +863,7 @@ namespace LCore.Statistics
         }
 
 
-    public class UShortSampleSet : QuantitativeSampleSet<ushort>
+    internal class UShortSampleSet : QuantitativeSampleSet<ushort>
         {
         public override bool Equals(ushort X1, ushort X2)
             {
@@ -903,10 +881,7 @@ namespace LCore.Statistics
             {
             return (ushort)(X1 * X2);
             }
-        public override double Divide(ushort X1, ushort X2)
-            {
-            return (double)(X1 / X2);
-            }
+        public override double Divide(ushort X1, ushort X2) => X1 / X2;
 
 
         public UShortSampleSet(IEnumerable<ushort> Data, long PopulationSize = 0)

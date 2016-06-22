@@ -12,163 +12,64 @@
 namespace ASP
 {
     using System;
-    
-    #line 14 "..\..\Views\Shared\_TextContent.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 15 "..\..\Views\Shared\_TextContent.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 16 "..\..\Views\Shared\_TextContent.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 17 "..\..\Views\Shared\_TextContent.cshtml"
     using System.ComponentModel.DataAnnotations;
-    
-    #line default
-    #line hidden
-    
-    #line 18 "..\..\Views\Shared\_TextContent.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
     using System.IO;
-    
-    #line 12 "..\..\Views\Shared\_TextContent.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
-    
-    #line 13 "..\..\Views\Shared\_TextContent.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 19 "..\..\Views\Shared\_TextContent.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 20 "..\..\Views\Shared\_TextContent.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 3 "..\..\Views\Shared\_TextContent.cshtml"
-    using LCore;
+    #line 4 "..\..\Views\Shared\TextContent.cshtml"
+    using LCore.Extensions;
     
     #line default
     #line hidden
-    
-    #line 4 "..\..\Views\Shared\_TextContent.cshtml"
     using Singularity;
-    
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\Shared\_TextContent.cshtml"
-    using Singularity.Annotations;
-    
-    #line default
-    #line hidden
-    
-    #line 7 "..\..\Views\Shared\_TextContent.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\Shared\_TextContent.cshtml"
     using Singularity.Controllers;
     
-    #line default
-    #line hidden
-    
-    #line 9 "..\..\Views\Shared\_TextContent.cshtml"
+    #line 5 "..\..\Views\Shared\TextContent.cshtml"
     using Singularity.Extensions;
     
     #line default
     #line hidden
-    
-    #line 5 "..\..\Views\Shared\_TextContent.cshtml"
     using Singularity.Models;
     
-    #line default
-    #line hidden
-    
-    #line 8 "..\..\Views\Shared\_TextContent.cshtml"
-    using Singularity.Routes;
-    
-    #line default
-    #line hidden
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
-    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/_TextContent.cshtml")]
-    public partial class _Views_Shared__TextContent_cshtml : System.Web.Mvc.WebViewPage<TextContentViewModel>
+    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/TextContent.cshtml")]
+    public partial class _Views_Shared_TextContent_cshtml : System.Web.Mvc.WebViewPage<TextContentViewModel>
     {
-        public _Views_Shared__TextContent_cshtml()
+        public _Views_Shared_TextContent_cshtml()
         {
         }
         public override void Execute()
         {
-
-
-WriteLiteral("\r\n\r\n");
-
-
-
-
-
-
-
-
+WriteLiteral("\r\n\r\n\r\n");
 
 WriteLiteral("\r\n");
-
-
-
-
-
-
-
-
-
-
-WriteLiteral("\r\n");
-
 
             
-            #line 22 "..\..\Views\Shared\_TextContent.cshtml"
+            #line 7 "..\..\Views\Shared\TextContent.cshtml"
   
-    ContextProvider ContextProvider = null;
-    ModelContext Context = null;
     TextContent Content = null;
     ModelPermissions Permissions = null;
-    String Display = null;
-    String Token = null;
+    string Display = null;
+    string Token = null;
 
     try
         {
@@ -177,18 +78,20 @@ WriteLiteral("\r\n");
 
         Token = Token.ReplaceAll(" ", "");
 
-        ContextProvider = ContextProviderFactory.GetCurrent();
-        Context = ContextProvider.GetContext(Session);
+        ContextProvider ContextProvider = ContextProviderFactory.GetCurrent();
+        ModelContext Context = ContextProvider.GetContext(Session);
 
         Content = TextContent.FindByToken(Context, Token);
 
         // Auto-create TextContent models so they exist before being filled in
         if (Content == null && Model.AutoCreate)
             {
-            Content = new TextContent();
-            Content.Active = true;
-            Content.Token = Model.Token;
-            Content.Text = Model.DefaultText;
+            Content = new TextContent
+                {
+                Active = true,
+                Token = Model.Token,
+                Text = Model.DefaultText
+                };
 
             Context.GetDBSet<TextContent>().Add(Content);
 
@@ -202,26 +105,23 @@ WriteLiteral("\r\n");
 
         for (int i = 0; i < Model.ContextData.Length; i++)
             {
-            Display = Display.ReplaceAll("[" + i + "]", (Model.ContextData[i] ?? "").ToString());
+            Display = Display.ReplaceAll($"[{i}]", (Model.ContextData[i] ?? "").ToString());
             }
 
         Display = Display.ReplaceAll("\r\n", "<br>");
         }
-    catch (Exception e)
+    catch
         {
 
         }
 
-
             
             #line default
             #line hidden
-
 WriteLiteral("\r\n");
 
-
             
-            #line 74 "..\..\Views\Shared\_TextContent.cshtml"
+            #line 59 "..\..\Views\Shared\TextContent.cshtml"
  try
     {
 
@@ -231,11 +131,20 @@ WriteLiteral("\r\n");
             
             #line default
             #line hidden
-WriteLiteral("        <span class=\"text-content-custom\">\r\n");
+WriteLiteral("        <span");
 
+WriteLiteral(" class=\"text-content-custom\"");
+
+WriteLiteral(">\r\n");
 
             
-            #line 80 "..\..\Views\Shared\_TextContent.cshtml"
+            #line 65 "..\..\Views\Shared\TextContent.cshtml"
+            
+            
+            #line default
+            #line hidden
+            
+            #line 65 "..\..\Views\Shared\TextContent.cshtml"
              if (Model.ShowText)
                 {
                 
@@ -243,14 +152,14 @@ WriteLiteral("        <span class=\"text-content-custom\">\r\n");
             #line default
             #line hidden
             
-            #line 82 "..\..\Views\Shared\_TextContent.cshtml"
+            #line 67 "..\..\Views\Shared\TextContent.cshtml"
            Write(Html.Raw(Display));
 
             
             #line default
             #line hidden
             
-            #line 82 "..\..\Views\Shared\_TextContent.cshtml"
+            #line 67 "..\..\Views\Shared\TextContent.cshtml"
                                   
                 }
             else
@@ -261,51 +170,63 @@ WriteLiteral("        <span class=\"text-content-custom\">\r\n");
             #line hidden
 WriteLiteral("                <span>...</span>\r\n");
 
-
             
-            #line 87 "..\..\Views\Shared\_TextContent.cshtml"
+            #line 72 "..\..\Views\Shared\TextContent.cshtml"
                 }
 
             
             #line default
             #line hidden
+WriteLiteral("            ");
 
             
-            #line 88 "..\..\Views\Shared\_TextContent.cshtml"
+            #line 73 "..\..\Views\Shared\TextContent.cshtml"
              if (Permissions != null && Permissions.Edit == true)
                 {
 
             
             #line default
             #line hidden
-WriteLiteral("                <span class=\"text-content-edit ");
+WriteLiteral("                <span");
 
-
+WriteAttribute("class", Tuple.Create(" class=\"", 1916), Tuple.Create("\"", 1977)
+, Tuple.Create(Tuple.Create("", 1924), Tuple.Create("text-content-edit", 1924), true)
             
-            #line 90 "..\..\Views\Shared\_TextContent.cshtml"
-                                           Write(Model.ShowText ? "" : "no-text" );
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\">\r\n\r\n                    <span onclick=\"window.location = \'");
-
-
-            
-            #line 92 "..\..\Views\Shared\_TextContent.cshtml"
-                                                  Write(Url.Controller<TextContentController>()
-                    .QS(new Dictionary<String, Object> { { "Token", Token }, { "DefaultText", HttpUtility.HtmlEncode(Model.DefaultText) } })
-                    .Action(c => c.Edit, Content.GetID<int>(), Request.Url.AbsoluteUri, false));
-
+            #line 75 "..\..\Views\Shared\TextContent.cshtml"
+, Tuple.Create(Tuple.Create(" ", 1941), Tuple.Create<System.Object, System.Int32>(Model.ShowText ? "" : "no-text" 
             
             #line default
             #line hidden
-WriteLiteral("\'; return false;\" class=\"btn btn-default\">\r\n                        <glyph>&#xe06" +
-"5;</glyph>\r\n                    </span>\r\n                </span>\r\n");
+, 1942), false)
+);
 
+WriteLiteral(">\r\n\r\n                    <span");
+
+WriteAttribute("onclick", Tuple.Create(" onclick=\"", 2008), Tuple.Create("\"", 2334)
+, Tuple.Create(Tuple.Create("", 2018), Tuple.Create("window.location", 2018), true)
+, Tuple.Create(Tuple.Create(" ", 2033), Tuple.Create("=", 2034), true)
+, Tuple.Create(Tuple.Create(" ", 2035), Tuple.Create("\'", 2036), true)
+            
+            #line 77 "..\..\Views\Shared\TextContent.cshtml"
+, Tuple.Create(Tuple.Create("", 2037), Tuple.Create<System.Object, System.Int32>(Url.Controller<TextContentController>()
+                    .QS(new Dictionary<string, object> { { "Token", Token }, { "DefaultText", HttpUtility.HtmlEncode(Model.DefaultText) } })
+                    .Action(c => c.Edit, Content.GetID<int>(), Request.Url?.AbsoluteUri, false)
+            
+            #line default
+            #line hidden
+, 2037), false)
+, Tuple.Create(Tuple.Create("", 2318), Tuple.Create("\';", 2318), true)
+, Tuple.Create(Tuple.Create(" ", 2320), Tuple.Create("return", 2321), true)
+, Tuple.Create(Tuple.Create(" ", 2327), Tuple.Create("false;", 2328), true)
+);
+
+WriteLiteral(" class=\"btn btn-default\"");
+
+WriteLiteral(">\r\n                        <glyph>&#xe065;</glyph>\r\n                    </span>\r\n" +
+"                </span>\r\n");
 
             
-            #line 98 "..\..\Views\Shared\_TextContent.cshtml"
+            #line 83 "..\..\Views\Shared\TextContent.cshtml"
                 }
 
             
@@ -313,9 +234,8 @@ WriteLiteral("\'; return false;\" class=\"btn btn-default\">\r\n                
             #line hidden
 WriteLiteral("        </span>\r\n");
 
-
             
-            #line 100 "..\..\Views\Shared\_TextContent.cshtml"
+            #line 85 "..\..\Views\Shared\TextContent.cshtml"
         }
     else
         {
@@ -323,11 +243,20 @@ WriteLiteral("        </span>\r\n");
             
             #line default
             #line hidden
-WriteLiteral("        <span class=\"text-content-default\">\r\n");
+WriteLiteral("        <span");
 
+WriteLiteral(" class=\"text-content-default\"");
+
+WriteLiteral(">\r\n");
 
             
-            #line 104 "..\..\Views\Shared\_TextContent.cshtml"
+            #line 89 "..\..\Views\Shared\TextContent.cshtml"
+            
+            
+            #line default
+            #line hidden
+            
+            #line 89 "..\..\Views\Shared\TextContent.cshtml"
              if (Model.ShowText)
                 {
                 
@@ -335,14 +264,14 @@ WriteLiteral("        <span class=\"text-content-default\">\r\n");
             #line default
             #line hidden
             
-            #line 106 "..\..\Views\Shared\_TextContent.cshtml"
+            #line 91 "..\..\Views\Shared\TextContent.cshtml"
            Write(Html.Raw(Display));
 
             
             #line default
             #line hidden
             
-            #line 106 "..\..\Views\Shared\_TextContent.cshtml"
+            #line 91 "..\..\Views\Shared\TextContent.cshtml"
                                   
                 }
             else
@@ -353,51 +282,63 @@ WriteLiteral("        <span class=\"text-content-default\">\r\n");
             #line hidden
 WriteLiteral("                <span>...</span>\r\n");
 
-
             
-            #line 111 "..\..\Views\Shared\_TextContent.cshtml"
+            #line 96 "..\..\Views\Shared\TextContent.cshtml"
                 }
 
             
             #line default
             #line hidden
+WriteLiteral("            ");
 
             
-            #line 112 "..\..\Views\Shared\_TextContent.cshtml"
+            #line 97 "..\..\Views\Shared\TextContent.cshtml"
              if (Permissions != null && Permissions.Create == true)
                 {
 
             
             #line default
             #line hidden
-WriteLiteral("                <span class=\"text-content-create ");
+WriteLiteral("                <span");
 
-
+WriteAttribute("class", Tuple.Create(" class=\"", 2885), Tuple.Create("\"", 2947)
+, Tuple.Create(Tuple.Create("", 2893), Tuple.Create("text-content-create", 2893), true)
             
-            #line 114 "..\..\Views\Shared\_TextContent.cshtml"
-                                             Write(Model.ShowText ? "" : "no-text");
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\">\r\n\r\n\r\n                    <span onclick=\"window.location = \'");
-
-
-            
-            #line 117 "..\..\Views\Shared\_TextContent.cshtml"
-                                                  Write(Url.Controller<TextContentController>()
-                    .QS(new Dictionary<String, Object> { { "Token", Token }, { "DefaultText", HttpUtility.HtmlEncode(Model.DefaultText) } })
-                    .Action(c => c.Create, Request.Url.AbsoluteUri));
-
+            #line 99 "..\..\Views\Shared\TextContent.cshtml"
+, Tuple.Create(Tuple.Create(" ", 2912), Tuple.Create<System.Object, System.Int32>(Model.ShowText ? "" : "no-text"
             
             #line default
             #line hidden
-WriteLiteral("\'; return false;\" class=\"btn btn-default\">\r\n                        <glyph>&#xe06" +
-"5;</glyph>\r\n                    </span>\r\n                </span>\r\n");
+, 2913), false)
+);
 
+WriteLiteral(">\r\n\r\n\r\n                    <span");
+
+WriteAttribute("onclick", Tuple.Create(" onclick=\"", 2980), Tuple.Create("\"", 3279)
+, Tuple.Create(Tuple.Create("", 2990), Tuple.Create("window.location", 2990), true)
+, Tuple.Create(Tuple.Create(" ", 3005), Tuple.Create("=", 3006), true)
+, Tuple.Create(Tuple.Create(" ", 3007), Tuple.Create("\'", 3008), true)
+            
+            #line 102 "..\..\Views\Shared\TextContent.cshtml"
+, Tuple.Create(Tuple.Create("", 3009), Tuple.Create<System.Object, System.Int32>(Url.Controller<TextContentController>()
+                    .QS(new Dictionary<string, object> { { "Token", Token }, { "DefaultText", HttpUtility.HtmlEncode(Model.DefaultText) } })
+                    .Action(c => c.Create, Request.Url?.AbsoluteUri)
+            
+            #line default
+            #line hidden
+, 3009), false)
+, Tuple.Create(Tuple.Create("", 3263), Tuple.Create("\';", 3263), true)
+, Tuple.Create(Tuple.Create(" ", 3265), Tuple.Create("return", 3266), true)
+, Tuple.Create(Tuple.Create(" ", 3272), Tuple.Create("false;", 3273), true)
+);
+
+WriteLiteral(" class=\"btn btn-default\"");
+
+WriteLiteral(">\r\n                        <glyph>&#xe065;</glyph>\r\n                    </span>\r\n" +
+"                </span>\r\n");
 
             
-            #line 123 "..\..\Views\Shared\_TextContent.cshtml"
+            #line 108 "..\..\Views\Shared\TextContent.cshtml"
                 }
 
             
@@ -405,18 +346,16 @@ WriteLiteral("\'; return false;\" class=\"btn btn-default\">\r\n                
             #line hidden
 WriteLiteral("        </span>\r\n");
 
-
             
-            #line 125 "..\..\Views\Shared\_TextContent.cshtml"
+            #line 110 "..\..\Views\Shared\TextContent.cshtml"
         }
     }
-catch (Exception e)
+catch
     {
     }
             
             #line default
             #line hidden
-
         }
     }
 }

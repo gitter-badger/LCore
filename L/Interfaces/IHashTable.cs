@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace LCore
+namespace LCore.Interfaces
     {
     public interface IHashTable<TKey, TValue>
         {

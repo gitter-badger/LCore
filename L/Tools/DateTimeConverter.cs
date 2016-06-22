@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace LCore
+namespace LCore.Tools
     {
     /// <summary>
     /// Provides methods for converting <see cref="DateTime"/> structures to and from the equivalent RFC 3339 string representation.
@@ -38,13 +38,8 @@ namespace LCore
         /// date-time format string for use in the <see cref="DateTime.ToString(String, IFormatProvider)"/> method.
         /// </para>
         /// </remarks>
-        public static string Rfc3339DateTimeFormat
-            {
-            get
-                {
-                return format;
-                }
-            }
+        public static string Rfc3339DateTimeFormat => format;
+
         #endregion
 
         #region Rfc3339DateTimePatterns
@@ -63,27 +58,24 @@ namespace LCore
                     {
                     return formats;
                     }
-                else
-                    {
-                    formats = new string[11];
+                formats = new string[11];
 
-                    // Rfc3339DateTimePatterns
-                    formats[0] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK";
-                    formats[1] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffffffK";
-                    formats[2] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffK";
-                    formats[3] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffffK";
-                    formats[4] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffK";
-                    formats[5] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffK";
-                    formats[6] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fK";
-                    formats[7] = "yyyy'-'MM'-'dd'T'HH':'mm':'ssK";
+                // Rfc3339DateTimePatterns
+                formats[0] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK";
+                formats[1] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffffffK";
+                formats[2] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffK";
+                formats[3] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffffK";
+                formats[4] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffK";
+                formats[5] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffK";
+                formats[6] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fK";
+                formats[7] = "yyyy'-'MM'-'dd'T'HH':'mm':'ssK";
 
-                    // Fall back patterns
-                    formats[8] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK"; // RoundtripDateTimePattern
-                    formats[9] = DateTimeFormatInfo.InvariantInfo.UniversalSortableDateTimePattern;
-                    formats[10] = DateTimeFormatInfo.InvariantInfo.SortableDateTimePattern;
+                // Fall back patterns
+                formats[8] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK"; // RoundtripDateTimePattern
+                formats[9] = DateTimeFormatInfo.InvariantInfo.UniversalSortableDateTimePattern;
+                formats[10] = DateTimeFormatInfo.InvariantInfo.SortableDateTimePattern;
 
-                    return formats;
-                    }
+                return formats;
                 }
             }
         #endregion
@@ -109,18 +101,15 @@ namespace LCore
             //------------------------------------------------------------
             if (s == null)
                 {
-                throw new ArgumentNullException("s");
+                throw new ArgumentNullException(nameof(s));
                 }
 
             DateTime result;
-            if (DateTimeConverter.TryParse(s, out result))
+            if (TryParse(s, out result))
                 {
                 return result;
                 }
-            else
-                {
-                throw new FormatException(String.Format(null, "{0} is not a valid RFC 3339 string representation of a date and time.", s));
-                }
+            throw new FormatException(string.Format(null, "{0} is not a valid RFC 3339 string representation of a date and time.", s));
             }
         #endregion
 
@@ -151,7 +140,7 @@ namespace LCore
                 throw new ArgumentException("utcDateTime");
                 }
 
-            return utcDateTime.ToString(DateTimeConverter.Rfc3339DateTimeFormat, DateTimeFormatInfo.InvariantInfo);
+            return utcDateTime.ToString(Rfc3339DateTimeFormat, DateTimeFormatInfo.InvariantInfo);
             }
         #endregion
 
@@ -180,10 +169,10 @@ namespace LCore
             bool wasConverted = false;
             result = DateTime.MinValue;
 
-            if (!String.IsNullOrEmpty(s))
+            if (!string.IsNullOrEmpty(s))
                 {
                 DateTime parseResult;
-                if (DateTime.TryParseExact(s, DateTimeConverter.Rfc3339DateTimePatterns, DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AdjustToUniversal, out parseResult))
+                if (DateTime.TryParseExact(s, Rfc3339DateTimePatterns, DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AdjustToUniversal, out parseResult))
                     {
                     result = DateTime.SpecifyKind(parseResult, DateTimeKind.Utc);
                     wasConverted = true;

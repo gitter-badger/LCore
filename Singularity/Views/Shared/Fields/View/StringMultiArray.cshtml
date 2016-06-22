@@ -1,23 +1,7 @@
 ﻿@* Generator: MvcView *@
 
-@using LCore;
-@using Singularity;
-@using Singularity.Models;
-@using Singularity.Controllers;
-@using Singularity.Context;
-@using System.Collections;
-@using System.Collections.Generic;
-@using System.ComponentModel;
-@using System.ComponentModel.Design;
-@using System.Web;
-@using System.Web.Mvc;
-@using System.Linq;
-@using System.Linq.Expressions;
-@using System.ComponentModel.DataAnnotations;
-@using System.ComponentModel.DataAnnotations.Schema;
-
 @{
-    String[][] TableData = (String[][])Model.PropertyData;
+    string[][] TableData = (string[][])Model.PropertyData;
 }
 
 @model IViewField
@@ -28,14 +12,14 @@
         {
         if (i == 0)
             {
-            @Html.Raw("<thead>");
+            @Html.Raw("<thead>")
             }
 
             <tr>
                 @for (int j = 0; j < TableData[i].Length; j++)
                     {
                     <td>
-                        @if (TableData[i][j].ToString().Length > ControllerHelper.DefaultTableTextLength)
+                        @if (TableData[i][j].Length > ControllerHelper.DefaultTableTextLength)
                             {
                             <span class="abbreviated" title="@Model.PropertyData">
                                 @TableData[i][j].Substring(0, ControllerHelper.DefaultTableTextLength) ...
@@ -54,7 +38,7 @@
 
         if (i == 0)
             {
-            @Html.Raw("</thead>");
+            @Html.Raw("</thead>")
             }
 
         if (TableData.Length == 1)

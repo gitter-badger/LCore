@@ -22,7 +22,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkProfile />
-    <TypeScriptToolsVersion>1.4</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">C:\Users\Ben\documents\visual studio 2013\Projects\MvcApplication1\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <NuGetPackageImportStamp>4da19ec1</NuGetPackageImportStamp>
@@ -104,16 +104,16 @@
     <Reference Include="Microsoft.WindowsAzure.StorageClient">
       <HintPath>C:\Program Files\Microsoft SDKs\Azure\.NET SDK\v2.7\bin\Microsoft.WindowsAzure.StorageClient.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>C:\Users\Ben\documents\visual studio 2013\Projects\MvcApplication1\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
-    <Reference Include="RazorGenerator.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
-      <HintPath>C:\Users\Ben\documents\visual studio 2013\Projects\MvcApplication1\packages\RazorGenerator.Mvc.2.3.6\lib\net40\RazorGenerator.Mvc.dll</HintPath>
+    <Reference Include="RazorGenerator.Mvc">
+      <HintPath>..\packages\RazorGenerator.Mvc.2.4.2\lib\net40\RazorGenerator.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System">
@@ -213,7 +213,8 @@
       <HintPath>..\packages\WebActivator.1.0.0.0\lib\WebActivator.dll</HintPath>
     </Reference>
     <Reference Include="WebActivatorEx">
-      <HintPath>..\packages\WebActivatorEx.2.0.6\lib\net40\WebActivatorEx.dll</HintPath>
+      <HintPath>..\packages\WebActivatorEx.2.1.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="WebMatrix.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>C:\Users\Ben\documents\visual studio 2013\Projects\MvcApplication1\packages\Microsoft.AspNet.WebPages.Data.3.2.3\lib\net45\WebMatrix.Data.dll</HintPath>
@@ -231,124 +232,125 @@
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Attributes\Abstract\AdditionalValueAttribute.cs" />
-    <Compile Include="Attributes\Abstract\SetFormField.cs" />
-    <Compile Include="Attributes\Field\Export\FieldDisableImportAttribute.cs" />
-    <Compile Include="Attributes\Field\Export\FieldExportHeaderAttribute.cs" />
-    <Compile Include="Attributes\Field\Export\FieldDisableExportAttribute.cs" />
-    <Compile Include="Attributes\Field\FieldHideLabelAttribute.cs" />
-    <Compile Include="Attributes\Field\FieldFocusAttribute.cs" />
-    <Compile Include="Attributes\Field\FieldDefaultValueAttribute.cs" />
-    <Compile Include="Attributes\Field\FieldHtmlAttribute.cs" />
-    <Compile Include="Attributes\Field\FieldFormKeyAttribute.cs" />
-    <Compile Include="Attributes\Field\FieldClassAttribute.cs" />
-    <Compile Include="Attributes\Field\FieldLoadFromQueryStringAttribute.cs" />
-    <Compile Include="Attributes\Field\FieldUpdateRefreshPageAttribute.cs" />
-    <Compile Include="Attributes\Field\FieldHeaderAttribute.cs" />
-    <Compile Include="Attributes\Field\FieldPartialAttribute.cs" />
-    <Compile Include="Attributes\Field\FieldTabAttribute.cs" />
-    <Compile Include="Attributes\Field\FieldGlobalSearchAttribute.cs" />
-    <Compile Include="Attributes\Field\FieldNoToken.cs" />
-    <Compile Include="Attributes\Field\Type\FieldType_SortableListAttribute.cs" />
-    <Compile Include="Attributes\Field\Type\FieldType_DropdownContextModelFields_ByType.cs" />
-    <Compile Include="Attributes\Field\Type\FieldType_DropdownContextModelFields_ByDataType.cs" />
-    <Compile Include="Attributes\Field\Type\FieldType_DropdownContextModelFields.cs" />
-    <Compile Include="Attributes\Field\Type\FieldType_DropdownContextManageControllers.cs" />
-    <Compile Include="Attributes\Field\Type\FieldType_Hidden.cs" />
-    <Compile Include="Attributes\Field\FieldDontClone.cs" />
-    <Compile Include="Azure\AzureBlobInterface.cs" />
-    <Compile Include="Azure\AzureCloudExt.cs" />
-    <Compile Include="Azure\AzureInterface.cs" />
-    <Compile Include="Azure\AzureQueueInterface.cs" />
-    <Compile Include="Controllers\Base\ManageController_T.cs" />
-    <Compile Include="Controllers\Base\ReadOnlyManageController_T.cs" />
-    <Compile Include="Controllers\Implementations\EmailJobController.cs" />
-    <Compile Include="Controllers\Implementations\EmailHistoryController.cs" />
-    <Compile Include="Controllers\Implementations\EmailTemplateController.cs" />
-    <Compile Include="Controllers\Implementations\SingularityController.cs" />
-    <Compile Include="Extensions\ContextExt.cs" />
-    <Compile Include="Extensions\ControllerActionLinkHelper.cs" />
-    <Compile Include="Extensions\SessionExt.cs" />
-    <Compile Include="Extensions\ResponseExt.cs" />
-    <Compile Include="Extensions\ControllerActionHelper.cs" />
-    <Compile Include="Extensions\UrlExt.cs" />
-    <Compile Include="Filters\SecurityFilterAttribute.cs" />
-    <Compile Include="Interfaces\IDontClone.cs" />
-    <Compile Include="Interfaces\IEmailable.cs" />
-    <Compile Include="Attributes\SearchColumnsAttribute.cs" />
-    <Compile Include="Attributes\Field\Type\FieldType_DropdownContextModelTypes.cs" />
-    <Compile Include="Attributes\Field\Type\FieldType_Dropdown.cs" />
-    <Compile Include="Attributes\Field\Type\FieldType_HTMLContentEditor.cs" />
-    <Compile Include="Attributes\Field\Type\FieldType_FileUploadAttribute.cs" />
-    <Compile Include="Attributes\IgnoreValidationAttribute.cs" />
-    <Compile Include="Attributes\Field\FieldInformationAttribute.cs" />
-    <Compile Include="Attributes\Field\MetadataAttribute.cs" />
-    <Compile Include="Attributes\Field\FieldStringFormatAttribute.cs" />
-    <Compile Include="Attributes\Field\FieldVisibilityAttribute.cs" />
-    <Compile Include="Attributes\FriendlyName.cs" />
-    <Compile Include="Attributes\Manage\CustomPartialAttribute.cs" />
-    <Compile Include="Attributes\Manage\GlobalSearchDisabledAttribute.cs" />
-    <Compile Include="Attributes\Manage\HiddenColumnAttribute.cs" />
-    <Compile Include="Attributes\Manage\ViewTypedAttribute.cs" />
-    <Compile Include="Attributes\Model\ModelPermissions.cs" />
-    <Compile Include="Context\ModelContext.cs" />
-    <Compile Include="Context\ContextProvider.cs" />
-    <Compile Include="Context\ContextProviderFactory.cs" />
-    <Compile Include="Controllers\Base\ControllerHelper.cs" />
-    <Compile Include="Controllers\Implementations\SavedSearchController.cs" />
-    <Compile Include="Controllers\Implementations\CustomExportController.cs" />
-    <Compile Include="Controllers\Implementations\ErrorController.cs" />
-    <Compile Include="Controllers\Implementations\TemplateController.cs" />
-    <Compile Include="Controllers\Implementations\TextContentController.cs" />
-    <Compile Include="Controllers\Implementations\ErrorsController.cs" />
-    <Compile Include="Controllers\Base\ManageController.cs" />
-    <Compile Include="Controllers\Implementations\TestController.cs" />
-    <Compile Include="Extensions\HtmlExt.cs" />
-    <Compile Include="Extensions\MetaExt.cs" />
-    <Compile Include="Extensions\ModelExt.cs" />
-    <Compile Include="Extensions\MVCExt.cs" />
-    <Compile Include="Extensions\QueryExt.cs" />
-    <Compile Include="Extensions\SearchOperation.cs" />
-    <Compile Include="Filters\ErrorFilterAttribute.cs" />
+    <Compile Include="Code\Attributes\Abstract\AdditionalValueAttribute.cs" />
+    <Compile Include="Code\Attributes\Abstract\SetFormField.cs" />
+    <Compile Include="Code\Attributes\Field\Export\FieldDisableImportAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\Export\FieldExportHeaderAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\Export\FieldDisableExportAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\FieldHideLabelAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\FieldFocusAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\FieldDefaultValueAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\FieldHtmlAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\FieldFormKeyAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\FieldClassAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\FieldLoadFromQueryStringAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\FieldUpdateRefreshPageAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\FieldHeaderAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\FieldPartialAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\FieldTabAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\FieldGlobalSearchAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\FieldNoToken.cs" />
+    <Compile Include="Code\Attributes\Field\Type\FieldType_SortableListAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\Type\FieldType_DropdownContextModelFields_ByType.cs" />
+    <Compile Include="Code\Attributes\Field\Type\FieldType_DropdownContextModelFields_ByDataType.cs" />
+    <Compile Include="Code\Attributes\Field\Type\FieldType_DropdownContextModelFields.cs" />
+    <Compile Include="Code\Attributes\Field\Type\FieldType_DropdownContextManageControllers.cs" />
+    <Compile Include="Code\Attributes\Field\Type\FieldType_Hidden.cs" />
+    <Compile Include="Code\Attributes\Field\FieldDontClone.cs" />
+    <Compile Include="Code\Azure\AzureBlobInterface.cs" />
+    <Compile Include="Code\Azure\AzureCloudExt.cs" />
+    <Compile Include="Code\Azure\AzureInterface.cs" />
+    <Compile Include="Code\Azure\AzureQueueInterface.cs" />
+    <Compile Include="Code\Controllers\Base\ManageController_T.cs" />
+    <Compile Include="Code\Controllers\Base\ReadOnlyManageController_T.cs" />
+    <Compile Include="Code\Controllers\Implementations\ExamplesController.cs" />
+    <Compile Include="Code\Controllers\Implementations\EmailJobController.cs" />
+    <Compile Include="Code\Controllers\Implementations\EmailHistoryController.cs" />
+    <Compile Include="Code\Controllers\Implementations\EmailTemplateController.cs" />
+    <Compile Include="Code\Controllers\Implementations\SingularityController.cs" />
+    <Compile Include="Code\Examples\Example.cs" />
+    <Compile Include="Code\Extensions\ContextExt.cs" />
+    <Compile Include="Code\Extensions\ControllerActionLinkHelper.cs" />
+    <Compile Include="Code\Extensions\DataExt.cs" />
+    <Compile Include="Code\Extensions\SessionExt.cs" />
+    <Compile Include="Code\Extensions\ResponseExt.cs" />
+    <Compile Include="Code\Extensions\ControllerActionHelper.cs" />
+    <Compile Include="Code\Extensions\UrlExt.cs" />
+    <Compile Include="Code\Filters\SecurityFilterAttribute.cs" />
+    <Compile Include="Code\Interfaces\IComplexType.cs" />
+    <Compile Include="Code\Interfaces\IDontClone.cs" />
+    <Compile Include="Code\Interfaces\IEmailable.cs" />
+    <Compile Include="Code\Attributes\SearchColumnsAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\Type\FieldType_DropdownContextModelTypes.cs" />
+    <Compile Include="Code\Attributes\Field\Type\FieldType_Dropdown.cs" />
+    <Compile Include="Code\Attributes\Field\Type\FieldType_HTMLContentEditor.cs" />
+    <Compile Include="Code\Attributes\Field\Type\FieldType_FileUploadAttribute.cs" />
+    <Compile Include="Code\Attributes\IgnoreValidationAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\FieldInformationAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\MetadataAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\FieldStringFormatAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\FieldVisibilityAttribute.cs" />
+    <Compile Include="Code\Attributes\FriendlyName.cs" />
+    <Compile Include="Code\Attributes\Manage\CustomPartialAttribute.cs" />
+    <Compile Include="Code\Attributes\Manage\GlobalSearchDisabledAttribute.cs" />
+    <Compile Include="Code\Attributes\Manage\HiddenColumnAttribute.cs" />
+    <Compile Include="Code\Attributes\Manage\ViewTypedAttribute.cs" />
+    <Compile Include="Code\Attributes\Model\ModelPermissions.cs" />
+    <Compile Include="Code\Context\ModelContext.cs" />
+    <Compile Include="Code\Context\ContextProvider.cs" />
+    <Compile Include="Code\Context\ContextProviderFactory.cs" />
+    <Compile Include="Code\Controllers\Base\ControllerHelper.cs" />
+    <Compile Include="Code\Controllers\Implementations\SavedSearchController.cs" />
+    <Compile Include="Code\Controllers\Implementations\CustomExportController.cs" />
+    <Compile Include="Code\Controllers\Implementations\ErrorController.cs" />
+    <Compile Include="Code\Controllers\Implementations\TemplateController.cs" />
+    <Compile Include="Code\Controllers\Implementations\TextContentController.cs" />
+    <Compile Include="Code\Controllers\Implementations\ErrorsController.cs" />
+    <Compile Include="Code\Controllers\Base\ManageController.cs" />
+    <Compile Include="Code\Controllers\Implementations\TestController.cs" />
+    <Compile Include="Code\Extensions\HtmlExt.cs" />
+    <Compile Include="Code\Extensions\MetaExt.cs" />
+    <Compile Include="Code\Extensions\ModelExt.cs" />
+    <Compile Include="Code\Extensions\MVCExt.cs" />
+    <Compile Include="Code\Extensions\QueryExt.cs" />
+    <Compile Include="Code\Extensions\SearchOperation.cs" />
+    <Compile Include="Code\Filters\ErrorFilterAttribute.cs" />
+    <Compile Include="Code\Interfaces\IModelRole.cs" />
+    <Compile Include="Code\Interfaces\IModelUser.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\IMenuItem.cs" />
-    <Compile Include="Interfaces\IMenuController.cs" />
-    <Compile Include="Interfaces\IFieldGroups.cs" />
-    <Compile Include="Interfaces\IFileUpload.cs" />
-    <Compile Include="Interfaces\IModel.cs" />
-    <Compile Include="Interfaces\IViewField.cs" />
-    <Compile Include="Models\SiteConfig.cs" />
-    <Compile Include="Models\EmailHistory.cs" />
-    <Compile Include="Models\EmailJob.cs" />
-    <Compile Include="Models\EmailTemplate.cs" />
-    <Compile Include="Models\SavedSearch.cs" />
-    <Compile Include="Models\CustomExport.cs" />
-    <Compile Include="Models\Template.cs" />
-    <Compile Include="Models\TemplateViewModel.cs" />
-    <Compile Include="Models\TextContentViewModel.cs" />
-    <Compile Include="Models\TextContent.cs" />
-    <Compile Include="Models\Error.cs" />
-    <Compile Include="Models\FileUpload.cs" />
-    <Compile Include="Models\ManageViewModel.cs" />
-    <Compile Include="Models\ModelPermissions.cs" />
-    <Compile Include="Models\ViewField.cs" />
+    <Compile Include="Code\Interfaces\IMenuItem.cs" />
+    <Compile Include="Code\Interfaces\IMenuController.cs" />
+    <Compile Include="Code\Interfaces\IFieldGroups.cs" />
+    <Compile Include="Code\Interfaces\IFileUpload.cs" />
+    <Compile Include="Code\Interfaces\IModel.cs" />
+    <Compile Include="Code\Interfaces\IViewField.cs" />
+    <Compile Include="Code\Models\SiteConfig.cs" />
+    <Compile Include="Code\Models\EmailHistory.cs" />
+    <Compile Include="Code\Models\EmailJob.cs" />
+    <Compile Include="Code\Models\EmailTemplate.cs" />
+    <Compile Include="Code\Models\SavedSearch.cs" />
+    <Compile Include="Code\Models\CustomExport.cs" />
+    <Compile Include="Code\Models\Template.cs" />
+    <Compile Include="Code\Models\TemplateViewModel.cs" />
+    <Compile Include="Code\Models\TextContentViewModel.cs" />
+    <Compile Include="Code\Models\TextContent.cs" />
+    <Compile Include="Code\Models\Error.cs" />
+    <Compile Include="Code\Models\FileUpload.cs" />
+    <Compile Include="Code\Models\ManageViewModel.cs" />
+    <Compile Include="Code\Models\ModelPermissions.cs" />
+    <Compile Include="Code\Models\ViewField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Routes\SiteRoutes.cs" />
+    <Compile Include="Code\Routes\SiteRoutes.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="TypeActions\FilterAction.cs" />
-    <Compile Include="TypeActions\StringConverter.cs" />
-    <Compile Include="TypeActions\TypeAction.cs" />
+    <Compile Include="Code\TypeActions\FilterAction.cs" />
+    <Compile Include="Code\TypeActions\StringConverter.cs" />
+    <Compile Include="Code\TypeActions\TypeAction.cs" />
     <Compile Include="Views\CustomExport\Fields\ExportType_After1.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ExportType_After.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\EmailJob\Fields\SendToUsers1.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SendToUsers.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\EmailTemplate\EmailSavedSearch1.generated.cs">
       <AutoGen>True</AutoGen>
@@ -360,65 +362,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Subject_After.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Edit\Dropdown.generated.cs">
+    <Compile Include="Views\Examples\Delete.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Dropdown.cshtml</DependentUpon>
+      <DependentUpon>Examples.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Edit\HTMLContent1.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HTMLContent.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Shared\Fields\View\EmailAddress.generated.cs">
-      <DependentUpon>EmailAddress.cshtml</DependentUpon>
+    <Compile Include="Views\Examples\Examples_JQueryUI.generated.cs">
+      <DependentUpon>Examples_JQueryUI.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Views\Shared\_FieldHeader1.generated.cs">
+    <Compile Include="Views\Examples\Examples_Singularity.generated.cs">
+      <DependentUpon>Examples_Singularity.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>_FieldHeader.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\_Manage_Exports1.generated.cs">
+    <Compile Include="Views\Examples\Examples_Bootstrap1.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>_Manage_Exports.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Shared\_Manage_Row.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>_Manage_Row.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Shared\_Manage_Search.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>_Manage_Search.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Shared\_Template1.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>_Template.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Shared\_TextContent1.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>_TextContent.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Template\Fields\Description_After1.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Description_After.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Test\SingularityTest1.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SingularityTest.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\_MainLayout.generated.cs">
-      <DependentUpon>_MainLayout.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
+      <DependentUpon>Examples_Bootstrap.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shared\Create.generated.cs">
       <AutoGen>True</AutoGen>
@@ -439,6 +401,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Edit.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\Nav.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Nav.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shared\Fields\Edit.generated.cs">
       <AutoGen>True</AutoGen>
@@ -470,6 +437,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Decimal.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Shared\Fields\Edit\Dropdown.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Dropdown.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Shared\Fields\Edit\Enum.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -479,6 +451,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Hidden.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\Fields\Edit\HTMLContent1.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HTMLContent.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shared\Fields\Edit\IModel.generated.cs">
       <AutoGen>True</AutoGen>
@@ -565,6 +542,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DisplayColumn.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Shared\Fields\View\EmailAddress.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmailAddress.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Shared\Fields\View\Empty.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -615,25 +597,75 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Unknown.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Shared\Helpers\DataTable.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataTable.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Shared\Manage.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Manage.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Shared\_FieldHeader1.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FieldHeader.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\_Manage_Exports1.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Manage_Exports.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Shared\_Manage_HeaderRow.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>_Manage_HeaderRow.cshtml</DependentUpon>
+      <DependentUpon>Manage_HeaderRow.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shared\_Manage_Pagination.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>_Manage_Pagination.cshtml</DependentUpon>
+      <DependentUpon>Manage_Pagination.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\_Manage_Row.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Manage_Row.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\_Manage_Search.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Manage_Search.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\_Template1.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_Template.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\_TextContent1.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TextContent.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Template\Fields\Description_After1.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Description_After.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Test\JavascriptTest.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>JavascriptTest.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Test\SingularityTest1.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SingularityTest.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\_MainLayout.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_MainLayout.cshtml</DependentUpon>
     </Compile>
     <Compile Include="_AppStart.generated.cs">
       <AutoGen>True</AutoGen>
@@ -642,16 +674,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.icon.css" />
+    <Content Include="Content\bootstrap\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap\bootstrap.css" />
+    <Content Include="Content\bootstrap\bootstrap.icon.css" />
+    <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\Images\jsfiddle.png" />
     <Content Include="Content\Images\sing-logo-light.ico" />
     <Content Include="Content\Images\sing-logo-light.png" />
     <Content Include="Content\Images\sing-logo.ico" />
-    <Content Include="Content\jquery.timepicker.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\singularity.css">
+      <DependentUpon>singularity.less</DependentUpon>
+    </Content>
+    <Content Include="Content\singularity.min.css">
+      <DependentUpon>singularity.css</DependentUpon>
+    </Content>
+    <Content Include="Content\timepicker\jquery.timepicker.css" />
     <Content Include="Content\singularity-forms.css">
       <DependentUpon>singularity-forms.less</DependentUpon>
     </Content>
@@ -659,15 +697,16 @@
       <DependentUpon>singularity-forms.css</DependentUpon>
     </Content>
     <Content Include="Content\Images\sing-logo.png" />
-    <Content Include="Content\singularity.css">
-      <DependentUpon>singularity.less</DependentUpon>
-    </Content>
     <Content Include="Content\singularity.less" />
     <Content Include="Content\singularity-forms.css.map">
       <DependentUpon>singularity-forms.css</DependentUpon>
     </Content>
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap\bootstrap.css.map" />
+    <Content Include="Content\bootstrap\bootstrap-theme.css.map" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="Content\singularity-forms.less" />
     <Content Include="Content\jquery-ui\base\accordion.css" />
     <Content Include="Content\jquery-ui\base\all.css" />
@@ -702,48 +741,44 @@
     <Content Include="Content\jquery-ui\base\tabs.css" />
     <Content Include="Content\jquery-ui\base\theme.css" />
     <Content Include="Content\jquery-ui\base\tooltip.css" />
-    <Content Include="Content\singularity.min.css">
-      <DependentUpon>singularity.css</DependentUpon>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons.png" />
     <Content Include="Global.asax" />
     <Content Include="app.config" />
-    <Content Include="Scripts\jsSHA.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\pnglib.js" />
-    <Content Include="Scripts\identicon.js" />
-    <Content Include="Scripts\jquery-2.1.3.js" />
-    <Content Include="Scripts\chance.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Scripts\include\jquery\jquery-3.0.0.intellisense.js" />
+    <Content Include="Scripts\include\bootstrap\bootstrap.js" />
+    <Content Include="Scripts\include\bootstrap\bootstrap.min.js" />
+    <Content Include="Scripts\include\jquery\jquery-3.0.0.js" />
+    <Content Include="Scripts\include\jquery\jquery-3.0.0.min.js" />
+    <Content Include="Scripts\include\jquery\jquery-3.0.0.slim.js" />
+    <Content Include="Scripts\include\jquery\jquery-3.0.0.slim.min.js" />
+    <Content Include="Scripts\include\jquery\jquery-3.0.0.slim.min.map" />
+    <Content Include="Scripts\include\jquery\jquery-3.0.0.min.map" />
+    <None Include="Scripts\include\jquery.validate\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\include\jquery.validate\jquery.validate.js" />
+    <Content Include="Scripts\include\jquery.validate\jquery.validate.min.js" />
+    <Content Include="Scripts\include\jsSHA\jsSHA.js" />
+    <Content Include="Scripts\include\knockout\knockout-3.4.0.debug.js" />
+    <Content Include="Scripts\include\knockout\knockout-3.4.0.js" />
+    <Content Include="Scripts\include\pnglib\pnglib.js" />
+    <Content Include="Scripts\include\identicon\identicon.js" />
+    <Content Include="Scripts\include\jquery\jquery-2.1.3.js" />
+    <Content Include="Scripts\include\chance\chance.js" />
     <None Include="Properties\PublishProfiles\sing.pubxml" />
-    <None Include="Scripts\jquery-2.1.4.intellisense.js" />
-    <Content Include="Scripts\jquery-2.1.4.js" />
-    <Content Include="Scripts\jquery-2.1.4.min.js" />
-    <Content Include="Scripts\jquery-2.1.4.min.map" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\singularity.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Scripts\singularity.min.js">
-      <DependentUpon>singularity.js</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Scripts\wysihtml5-0.3.0-parser-advanced.js" />
-    <Content Include="Scripts\wysihtml5-0.3.0.js" />
-    <Content Include="Scripts\wysihtml5-0.3.0.min.js" />
+    <Content Include="Scripts\include\wysihtml5\wysihtml5-0.3.0-parser-advanced.js" />
+    <Content Include="Scripts\include\wysihtml5\wysihtml5-0.3.0.js" />
+    <Content Include="Scripts\include\wysihtml5\wysihtml5-0.3.0.min.js" />
+    <Content Include="Scripts\singularity.js" />
     <Content Include="Views\Shared\Fields\Edit\HTMLContent.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>HTMLContent1.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\_TextContent.cshtml">
+    <Content Include="Views\Shared\TextContent.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_TextContent1.generated.cs</LastGenOutput>
     </Content>
@@ -755,7 +790,7 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_Template1.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\_FieldHeader.cshtml">
+    <Content Include="Views\Shared\FieldHeader.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_FieldHeader1.generated.cs</LastGenOutput>
     </Content>
@@ -763,11 +798,11 @@
       <LastGenOutput>ExportType_After1.generated.cs</LastGenOutput>
       <Generator>RazorGenerator</Generator>
     </Content>
-    <Content Include="Views\Shared\_Manage_Exports.cshtml">
+    <Content Include="Views\Shared\Manage_Exports.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_Manage_Exports1.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Scripts\jquery-ui-1.11.4.min.js.map">
+    <Content Include="Scripts\include\jquery-ui\jquery-ui-1.11.4.min.js.map">
       <DependentUpon>jquery-ui-1.11.4.min.js</DependentUpon>
     </Content>
     <Content Include="Views\EmailTemplate\Fields\Subject_After.cshtml">
@@ -778,10 +813,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>EmailSavedSearch1.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\EmailJob\Fields\SendToUsers.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>SendToUsers1.generated.cs</LastGenOutput>
-    </Content>
     <Content Include="Views\Shared\Fields\View\EmailAddress.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>EmailAddress.generated.cs</LastGenOutput>
@@ -790,23 +821,41 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Description_After1.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Scripts\singularity.js.map" />
-    <Content Include="Scripts\singularity.min.js.map">
-      <DependentUpon>singularity.min.js</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Views\Shared\Helpers\DataTable.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>DataTable.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Examples\Examples.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Delete.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\Nav.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Nav.generated.cs</LastGenOutput>
+    </Content>
+    <None Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Examples\Examples_Bootstrap.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Examples_Bootstrap1.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Examples\Examples_Singularity.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Examples_Singularity.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Examples\Examples_JQueryUI.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Examples_JQueryUI.generated.cs</LastGenOutput>
     </Content>
     <TypeScriptCompile Include="Scripts\definitions\jquery.mobile.custom.d.ts" />
-    <Content Include="Scripts\jquery-mobile\images\ajax-loader.gif" />
-    <None Include="Scripts\jquery-mobile\jquery-mobile-1.4.5.min.map" />
-    <Content Include="Scripts\jquery-mobile\jquery-mobile-1.4.5.min.js" />
-    <Content Include="Scripts\jquery-mobile\jquery-1.11.1.min.js" />
-    <Content Include="Scripts\jquery-ui-1.11.4.js" />
-    <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
-    <Content Include="Scripts\jquery.cookie.js" />
-    <Content Include="Scripts\jquery.timepicker.js" />
-    <Content Include="Scripts\jquery.mousewheel.js" />
-    <Content Include="Scripts\knockout-3.3.0.debug.js" />
-    <Content Include="Scripts\knockout-3.3.0.js" />
+    <Content Include="Scripts\include\jquery-mobile\images\ajax-loader.gif" />
+    <None Include="Scripts\include\jquery-mobile\jquery-mobile-1.4.5.min.map" />
+    <Content Include="Scripts\include\jquery-mobile\jquery-mobile-1.4.5.min.js" />
+    <Content Include="Scripts\include\jquery-mobile\jquery-1.11.1.min.js" />
+    <Content Include="Scripts\include\jquery-ui\jquery-ui-1.11.4.js" />
+    <Content Include="Scripts\include\jquery-ui\jquery-ui-1.11.4.min.js" />
+    <Content Include="Scripts\include\jquery.cookie\jquery.cookie.js" />
+    <Content Include="Scripts\include\jquery.timepicker\jquery.timepicker.js" />
+    <Content Include="Scripts\include\jquery.mousewheel\jquery.mousewheel.js" />
     <Content Include="Templates\Common.html">
       <LastGenOutput>Common1.generated.cs</LastGenOutput>
     </Content>
@@ -820,7 +869,7 @@
     <TypeScriptCompile Include="Scripts\definitions\chance.d.ts" />
     <TypeScriptCompile Include="Scripts\definitions\jquery.timepicker.d.ts" />
     <TypeScriptCompile Include="Scripts\definitions\jquery.cookie.d.ts" />
-    <Content Include="Scripts\jquery-mobile\jquery-mobile-1.4.5.min.css" />
+    <Content Include="Scripts\include\jquery-mobile\jquery-mobile-1.4.5.min.css" />
     <TypeScriptCompile Include="Scripts\singularity\singularity-enumerable.ts">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </TypeScriptCompile>
@@ -869,7 +918,7 @@
     <TypeScriptCompile Include="Scripts\singularity\singularity-array.ts">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </TypeScriptCompile>
-    <Content Include="Scripts\qTip.js" />
+    <Content Include="Scripts\include\qTip\qTip.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -883,7 +932,9 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_AppStart.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Test\JavascriptTest.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>JavascriptTest.generated.cs</LastGenOutput>
@@ -908,19 +959,19 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Manage.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\_Manage_HeaderRow.cshtml">
+    <Content Include="Views\Shared\Manage_HeaderRow.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_Manage_HeaderRow.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\_Manage_Pagination.cshtml">
+    <Content Include="Views\Shared\Manage_Pagination.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_Manage_Pagination.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\_Manage_Row.cshtml">
+    <Content Include="Views\Shared\Manage_Row.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_Manage_Row.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\_Manage_Search.cshtml">
+    <Content Include="Views\Shared\Manage_Search.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_Manage_Search.generated.cs</LastGenOutput>
     </Content>
@@ -1077,9 +1128,6 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Content\singularity.css.map">
-      <DependentUpon>singularity.css</DependentUpon>
-    </Content>
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
@@ -1110,12 +1158,27 @@
     <TypeScriptRemoveComments>True</TypeScriptRemoveComments>
     <TypeScriptSourceRoot>D:\Dev\mvcl\Singularity\Scripts\singularity</TypeScriptSourceRoot>
     <TypeScriptOutFile>Scripts/singularity.js</TypeScriptOutFile>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptModuleKind>
+    </TypeScriptModuleKind>
+    <TypeScriptOutDir />
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
     <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
+    <ItemGroup>
+      <RoslynFiles Include="$(CscToolPath)\*" />
+    </ItemGroup>
+    <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
+    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
   </Target>
   <ProjectExtensions>
     <VisualStudio>
@@ -1127,12 +1190,14 @@
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!--
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
+  -->
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

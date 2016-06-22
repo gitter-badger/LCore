@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LCore.Numbers
     {
@@ -32,19 +29,19 @@ namespace LCore.Numbers
 
         public override int Add(int Value2)
             {
-            return Value + Value2;
+            return this.Value + Value2;
             }
         public override int Subtract(int Value2)
             {
-            return Value - Value2;
+            return this.Value - Value2;
             }
         public override int Multiply(int Value2)
             {
-            return Value * Value2;
+            return this.Value * Value2;
             }
         public override double Divide(int Value2)
             {
-            return Value / Value2;
+            return this.Value / Value2;
             }
 
         public NumberInt(int Value)
@@ -67,19 +64,19 @@ namespace LCore.Numbers
 
         public override byte Add(byte Value2)
             {
-            return (byte)(Value + Value2);
+            return (byte)(this.Value + Value2);
             }
         public override byte Subtract(byte Value2)
             {
-            return (byte)(Value - Value2);
+            return (byte)(this.Value - Value2);
             }
         public override byte Multiply(byte Value2)
             {
-            return (byte)(Value * Value2);
+            return (byte)(this.Value * Value2);
             }
         public override double Divide(byte Value2)
             {
-            return (double)(Value / Value2);
+            return this.Value / Value2;
             }
 
         public NumberByte(byte Value)
@@ -102,19 +99,19 @@ namespace LCore.Numbers
 
         public override decimal Add(decimal Value2)
             {
-            return Value + Value2;
+            return this.Value + Value2;
             }
         public override decimal Subtract(decimal Value2)
             {
-            return Value - Value2;
+            return this.Value - Value2;
             }
         public override decimal Multiply(decimal Value2)
             {
-            return Value * Value2;
+            return this.Value * Value2;
             }
         public override double Divide(decimal Value2)
             {
-            return (double)(Value / Value2);
+            return (double)(this.Value / Value2);
             }
 
         public DecimalNumber(decimal Value)
@@ -137,19 +134,19 @@ namespace LCore.Numbers
 
         public override double Add(double Value2)
             {
-            return Value + Value2;
+            return this.Value + Value2;
             }
         public override double Subtract(double Value2)
             {
-            return Value - Value2;
+            return this.Value - Value2;
             }
         public override double Multiply(double Value2)
             {
-            return Value * Value2;
+            return this.Value * Value2;
             }
         public override double Divide(double Value2)
             {
-            return Value / Value2;
+            return this.Value / Value2;
             }
 
         public DoubleNumber(double Value)
@@ -172,19 +169,19 @@ namespace LCore.Numbers
 
         public override float Add(float Value2)
             {
-            return Value + Value2;
+            return this.Value + Value2;
             }
         public override float Subtract(float Value2)
             {
-            return Value - Value2;
+            return this.Value - Value2;
             }
         public override float Multiply(float Value2)
             {
-            return Value * Value2;
+            return this.Value * Value2;
             }
         public override double Divide(float Value2)
             {
-            return (double)(Value / Value2);
+            return this.Value / Value2;
             }
 
         public FloatNumber(float Value)
@@ -207,19 +204,19 @@ namespace LCore.Numbers
 
         public override long Add(long Value2)
             {
-            return Value + Value2;
+            return this.Value + Value2;
             }
         public override long Subtract(long Value2)
             {
-            return Value - Value2;
+            return this.Value - Value2;
             }
         public override long Multiply(long Value2)
             {
-            return Value * Value2;
+            return this.Value * Value2;
             }
         public override double Divide(long Value2)
             {
-            return (double)(Value / Value2);
+            return this.Value / Value2;
             }
 
         public LongNumber(long Value)
@@ -241,19 +238,19 @@ namespace LCore.Numbers
 
         public override sbyte Add(sbyte Value2)
             {
-            return (sbyte)(Value + Value2);
+            return (sbyte)(this.Value + Value2);
             }
         public override sbyte Subtract(sbyte Value2)
             {
-            return (sbyte)(Value - Value2);
+            return (sbyte)(this.Value - Value2);
             }
         public override sbyte Multiply(sbyte Value2)
             {
-            return (sbyte)(Value * Value2);
+            return (sbyte)(this.Value * Value2);
             }
         public override double Divide(sbyte Value2)
             {
-            return (double)(Value / Value2);
+            return this.Value / Value2;
             }
 
         public SByteNumber(sbyte Value)
@@ -276,19 +273,19 @@ namespace LCore.Numbers
 
         public override short Add(short Value2)
             {
-            return (short)(Value + Value2);
+            return (short)(this.Value + Value2);
             }
         public override short Subtract(short Value2)
             {
-            return (short)(Value - Value2);
+            return (short)(this.Value - Value2);
             }
         public override short Multiply(short Value2)
             {
-            return (short)(Value * Value2);
+            return (short)(this.Value * Value2);
             }
         public override double Divide(short Value2)
             {
-            return (double)(Value / Value2);
+            return this.Value / Value2;
             }
 
         public ShortNumber(short Value)
@@ -311,19 +308,19 @@ namespace LCore.Numbers
 
         public override uint Add(uint Value2)
             {
-            return Value + Value2;
+            return this.Value + Value2;
             }
         public override uint Subtract(uint Value2)
             {
-            return Value - Value2;
+            return this.Value - Value2;
             }
         public override uint Multiply(uint Value2)
             {
-            return Value * Value2;
+            return this.Value * Value2;
             }
         public override double Divide(uint Value2)
             {
-            return (double)(Value / Value2);
+            return this.Value / Value2;
             }
 
         public UIntNumber(uint Value)
@@ -346,19 +343,19 @@ namespace LCore.Numbers
 
         public override ulong Add(ulong Value2)
             {
-            return Value + Value2;
+            return this.Value + Value2;
             }
         public override ulong Subtract(ulong Value2)
             {
-            return Value - Value2;
+            return this.Value - Value2;
             }
         public override ulong Multiply(ulong Value2)
             {
-            return Value * Value2;
+            return this.Value * Value2;
             }
         public override double Divide(ulong Value2)
             {
-            return (double)(Value / Value2);
+            return this.Value / Value2;
             }
 
         public ULongNumber(ulong Value)
@@ -382,19 +379,19 @@ namespace LCore.Numbers
 
         public override ushort Add(ushort Value2)
             {
-            return (ushort)(Value + Value2);
+            return (ushort)(this.Value + Value2);
             }
         public override ushort Subtract(ushort Value2)
             {
-            return (ushort)(Value - Value2);
+            return (ushort)(this.Value - Value2);
             }
         public override ushort Multiply(ushort Value2)
             {
-            return (ushort)(Value * Value2);
+            return (ushort)(this.Value * Value2);
             }
         public override double Divide(ushort Value2)
             {
-            return (double)(Value / Value2);
+            return this.Value / Value2;
             }
 
         public UShortNumber(ushort Value)
@@ -420,7 +417,7 @@ namespace LCore.Numbers
 
         public T Value { get; set; }
 
-        public Number(T Value)
+        protected Number(T Value)
             {
             this.Value = Value;
             }

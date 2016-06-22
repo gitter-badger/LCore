@@ -1,4 +1,6 @@
-﻿<html>
+﻿<!-- ReSharper disable All -->
+
+<html>
 <body>
 
     <div sing-template="Boolean">
@@ -10,11 +12,13 @@
         {{ $data.outerHtml() }}
     </div>
 
-
     <div sing-template="List">
         <ul>
             <li sing-loop="{{ $data }}">
                 {{ $item }}
+            </li>
+            <li sing-loop="{{ block in content }}">
+                {{ block }}
             </li>
         </ul>
     </div>
@@ -24,14 +28,22 @@
             <li sing-loop="{{ $data }}">
                 {{ $item }}
             </li>
+            <li sing-loop="{{ block in content }}">
+                {{ block }}
+            </li>
         </ol>
     </div>
 
     <div sing-template="ObjectTable">
         <table>
+            <thead sing-if="{{content.HeaderCells}}">
+                <tr>
+                    {{content.HeaderCells}}
+                </tr>
+            </thead>
             <tbody>
                 <tr sing-loop="{{ $data }}">
-                    <td sing-if="{{$item$key}}">
+                    <td sing-if="{{ $item$key }}">
                         {{ $item$key }}:
                     </td>
                     <td>
@@ -39,14 +51,44 @@
                     </td>
                 </tr>
             </tbody>
+            <tfoot sing-if="{{content.FooterCells}}">
+                <tr>
+                    {{content.FooterCells}}
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div sing-template="ContentTable">
+        <table>
+            <thead sing-if="{{content.HeaderCells}}">
+                <tr>
+                    {{content.HeaderCells}}
+                </tr>
+            </thead>
+
+            <tbody>
+                {{content.BodyRows}}
+            </tbody>
+
+            <tfoot sing-if="{{content.FooterCells}}">
+                <tr>
+                    {{content.FooterCells}}
+                </tr>
+            </tfoot>
         </table>
     </div>
 
     <div sing-template="MultiObjectTable">
         <table sing-loop="{{ $item in $data }}">
+            <thead sing-if="{{content.HeaderCells}}">
+                <tr>
+                    {{content.HeaderCells}}
+                </tr>
+            </thead>
             <tbody>
                 <tr sing-loop="{{ item in $item }}">
-                    <td sing-if="{{item$key}}">
+                    <td sing-if="{{ item$key }}">
                         {{ item$key }}:
                     </td>
                     <td>
@@ -54,6 +96,12 @@
                     </td>
                 </tr>
             </tbody>
+
+            <tfoot sing-if="{{content.FooterCells}}">
+                <tr>
+                    {{content.FooterCells}}
+                </tr>
+            </tfoot>
         </table>
     </div>
 
@@ -78,7 +126,7 @@
 
     <span sing-template="PercentSlider">
         <span class="sing-progress-slider">
-            <span class="sing-progress-complete" style="width: {{$data[0].percentOf($data[1])}}%;">
+            <span class="sing-progress-complete" style="width: {{ $data[0].percentOf($data[1]) }}%;">
 
             </span>
             <b>
@@ -96,7 +144,6 @@
         </span>
     </span>
 
-
     <span sing-template="Ident">
         <span sing-if="{{$data}}">
             <ident>{{$data}}</ident>
@@ -112,5 +159,24 @@
         </span>
     </span>
 
+
+
+    <div sing-template="Panel">
+        <div class="panel panel-{{$data.panelType || 'default'}}">
+            <div class="panel-heading">{{content.heading}}</div>
+            <div class="panel-body">{{content.body}}</div>
+            <div class="panel-footer">{{content.footer}}</div>
+        </div>
+    </div>
+
+    <div sing-template="Tabs">
+        <ul class="nav nav-tabs">
+            <li sing-loop="{{tab in $data}}"><a data-toggle="tab" href="#{{tab.toPageSlug()}}">{{tab}}</a></li>
+        </ul>
+        <div class="tab-content container">
+            <div sing-loop="{{content.Tab}}" id="{{tab.toPageSlug()}}" class="tab-pane fade container"></div>
+        </div>
+    </div>
 </body>
 </html>
+<!-- ReSharper restore CssNotResolved -->

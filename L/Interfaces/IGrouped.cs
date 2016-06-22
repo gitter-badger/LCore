@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LCore
+﻿namespace LCore.Interfaces
     {
     public interface IGrouped
         {

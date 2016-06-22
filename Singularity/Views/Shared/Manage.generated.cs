@@ -12,114 +12,45 @@
 namespace ASP
 {
     using System;
-    
-    #line 13 "..\..\Views\Shared\Manage.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 14 "..\..\Views\Shared\Manage.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 15 "..\..\Views\Shared\Manage.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 16 "..\..\Views\Shared\Manage.cshtml"
     using System.ComponentModel.DataAnnotations;
-    
-    #line default
-    #line hidden
-    
-    #line 17 "..\..\Views\Shared\Manage.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
     using System.IO;
-    
-    #line 11 "..\..\Views\Shared\Manage.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
-    
-    #line 12 "..\..\Views\Shared\Manage.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 18 "..\..\Views\Shared\Manage.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 19 "..\..\Views\Shared\Manage.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 3 "..\..\Views\Shared\Manage.cshtml"
-    using LCore;
-    
-    #line default
-    #line hidden
-    
     #line 4 "..\..\Views\Shared\Manage.cshtml"
+    using LCore.Extensions;
+    
+    #line default
+    #line hidden
     using Singularity;
-    
-    #line default
-    #line hidden
-    
-    #line 9 "..\..\Views\Shared\Manage.cshtml"
-    using Singularity.Annotations;
-    
-    #line default
-    #line hidden
-    
-    #line 7 "..\..\Views\Shared\Manage.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\Shared\Manage.cshtml"
     using Singularity.Controllers;
     
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\Shared\Manage.cshtml"
+    #line 6 "..\..\Views\Shared\Manage.cshtml"
     using Singularity.Extensions;
     
     #line default
     #line hidden
-    
-    #line 5 "..\..\Views\Shared\Manage.cshtml"
     using Singularity.Models;
     
-    #line default
-    #line hidden
-    
-    #line 8 "..\..\Views\Shared\Manage.cshtml"
+    #line 5 "..\..\Views\Shared\Manage.cshtml"
     using Singularity.Routes;
     
     #line default
@@ -134,35 +65,12 @@ namespace ASP
         }
         public override void Execute()
         {
-
-
-WriteLiteral("\r\n\r\n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+WriteLiteral("\r\n\r\n\r\n");
 
 WriteLiteral("\r\n");
-
-
-WriteLiteral("\r\n");
-
 
             
-            #line 23 "..\..\Views\Shared\Manage.cshtml"
+            #line 10 "..\..\Views\Shared\Manage.cshtml"
   
     ViewBag.Title = Model.Title;
 
@@ -172,145 +80,187 @@ WriteLiteral("\r\n");
     ViewBag.ManageModel = Model;
 
 
-
             
             #line default
             #line hidden
+WriteLiteral("\r\n\r\n");
+
 WriteLiteral("\r\n");
 
-
             
-            #line 33 "..\..\Views\Shared\Manage.cshtml"
- if (Html.ViewExists(ControllerHelper.PartialViews.Manage_Before))
+            #line 21 "..\..\Views\Shared\Manage.cshtml"
+ if (Html.ViewExists(PartialViews.Manage_Before))
     {
     
             
             #line default
             #line hidden
             
-            #line 35 "..\..\Views\Shared\Manage.cshtml"
-Write(Html.Partial(ControllerHelper.PartialViews.Manage_Before, Model));
+            #line 23 "..\..\Views\Shared\Manage.cshtml"
+Write(Html.Partial(PartialViews.Manage_Before, Model));
 
             
             #line default
             #line hidden
             
-            #line 35 "..\..\Views\Shared\Manage.cshtml"
-                                                                     
+            #line 23 "..\..\Views\Shared\Manage.cshtml"
+                                                    
     }
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n<h1>\r\n    ");
+WriteLiteral("\r\n<h1>\r\n");
 
-
-            
-            #line 39 "..\..\Views\Shared\Manage.cshtml"
-Write(Html.TextContent("Manage_Header_" + Model.FriendlyModelTypeName, Model.Title));
+WriteLiteral("    ");
 
             
-            #line default
-            #line hidden
-WriteLiteral("\r\n</h1>\r\n\r\n<div class=\"manage manage-");
-
-
-            
-            #line 42 "..\..\Views\Shared\Manage.cshtml"
-                     Write(Model.ModelTypeCSSClass);
+            #line 27 "..\..\Views\Shared\Manage.cshtml"
+Write(Html.TextContent($"Manage_Header_{Model.FriendlyModelTypeName}", Model.Title));
 
             
             #line default
             #line hidden
-WriteLiteral("\" remember-page>\r\n\r\n");
+WriteLiteral("\r\n</h1>\r\n\r\n<div");
 
+WriteAttribute("class", Tuple.Create(" class=\"", 589), Tuple.Create("\"", 635)
+, Tuple.Create(Tuple.Create("", 597), Tuple.Create("manage", 597), true)
+, Tuple.Create(Tuple.Create(" ", 603), Tuple.Create("manage-", 604), true)
+            
+            #line 30 "..\..\Views\Shared\Manage.cshtml"
+, Tuple.Create(Tuple.Create("", 611), Tuple.Create<System.Object, System.Int32>(Model.ModelTypeCSSClass
+            
+            #line default
+            #line hidden
+, 611), false)
+);
+
+WriteLiteral(" remember-page>\r\n\r\n\r\n");
 
             
-            #line 44 "..\..\Views\Shared\Manage.cshtml"
-     if (ViewContext.Controller is ManageController &&
-        ((ManageController)ViewContext.Controller).OverridePermissions.Create == true)
+            #line 33 "..\..\Views\Shared\Manage.cshtml"
+    
+            
+            #line default
+            #line hidden
+            
+            #line 33 "..\..\Views\Shared\Manage.cshtml"
+      
+        ManageController controller = ViewContext.Controller as ManageController;
+    
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+            
+            #line 36 "..\..\Views\Shared\Manage.cshtml"
+    
+            
+            #line default
+            #line hidden
+            
+            #line 36 "..\..\Views\Shared\Manage.cshtml"
+     if (controller != null &&
+                controller.OverridePermissions.Create == true)
         {
 
             
             #line default
             #line hidden
-WriteLiteral("        <div>\r\n            <a href=\"");
+WriteLiteral("        <div>\r\n            <a");
 
-
+WriteAttribute("href", Tuple.Create(" href=\"", 891), Tuple.Create("\"", 993)
             
-            #line 48 "..\..\Views\Shared\Manage.cshtml"
-                 Write(Url.Controller<ManageController>().Action(((ManageController)ViewContext.Controller).CreateAction, Request.Url.AbsoluteUri));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\"\r\n               key-bind-click=\"Numpad +\"\r\n               key-bind-click-name=\"" +
-"New ");
-
-
-            
-            #line 50 "..\..\Views\Shared\Manage.cshtml"
-                                   Write(Model.FriendlyModelTypeName);
-
+            #line 40 "..\..\Views\Shared\Manage.cshtml"
+, Tuple.Create(Tuple.Create("", 898), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(controller.CreateAction, Request.Url?.AbsoluteUri)
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                <glyph>&#x2a;</glyph>\r\n                ");
+, 898), false)
+);
 
+WriteLiteral("\r\n               key-bind-click=\"Numpad +\"");
+
+WriteAttribute("key-bind-click-name", Tuple.Create("\r\n               key-bind-click-name=\"", 1036), Tuple.Create("\"", 1106)
+, Tuple.Create(Tuple.Create("", 1074), Tuple.Create("New", 1074), true)
+            
+            #line 42 "..\..\Views\Shared\Manage.cshtml"
+, Tuple.Create(Tuple.Create(" ", 1077), Tuple.Create<System.Object, System.Int32>(Model.FriendlyModelTypeName
+            
+            #line default
+            #line hidden
+, 1078), false)
+);
+
+WriteLiteral(">\r\n                <glyph>&#x2a;</glyph>\r\n");
+
+WriteLiteral("                ");
 
             
-            #line 52 "..\..\Views\Shared\Manage.cshtml"
-           Write(Html.TextContent("Manage_CreateNew_" + Model.FriendlyModelTypeName, "New " + Model.FriendlyModelTypeName));
+            #line 44 "..\..\Views\Shared\Manage.cshtml"
+           Write(Html.TextContent($"Manage_CreateNew_{Model.FriendlyModelTypeName}", $"New {Model.FriendlyModelTypeName}"));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n            </a>\r\n        </div>\r\n");
 
-
             
-            #line 55 "..\..\Views\Shared\Manage.cshtml"
+            #line 47 "..\..\Views\Shared\Manage.cshtml"
         }
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n    ");
+WriteLiteral("\r\n");
 
+WriteLiteral("    ");
 
             
-            #line 57 "..\..\Views\Shared\Manage.cshtml"
-Write(Html.Partial(ControllerHelper.PartialViews.Manage_Pagination, Model));
+            #line 49 "..\..\Views\Shared\Manage.cshtml"
+Write(Html.Partial(PartialViews.Manage_Pagination, Model));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n    ");
+WriteLiteral("\r\n");
 
+WriteLiteral("    ");
 
             
-            #line 58 "..\..\Views\Shared\Manage.cshtml"
-Write(Html.Partial(ControllerHelper.PartialViews.Manage_Search, Model));
+            #line 50 "..\..\Views\Shared\Manage.cshtml"
+Write(Html.Partial(PartialViews.Manage_Search, Model));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n\r\n");
 
-
             
-            #line 60 "..\..\Views\Shared\Manage.cshtml"
+            #line 52 "..\..\Views\Shared\Manage.cshtml"
+    
+            
+            #line default
+            #line hidden
+            
+            #line 52 "..\..\Views\Shared\Manage.cshtml"
      if (!ViewData.ModelState.IsValid)
         {
 
             
             #line default
             #line hidden
-WriteLiteral("        <span class=\"errors\">\r\n            ");
+WriteLiteral("        <span");
 
+WriteLiteral(" class=\"errors\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("            ");
 
             
-            #line 63 "..\..\Views\Shared\Manage.cshtml"
+            #line 55 "..\..\Views\Shared\Manage.cshtml"
        Write(Html.ValidationSummary(true));
 
             
@@ -318,29 +268,38 @@ WriteLiteral("        <span class=\"errors\">\r\n            ");
             #line hidden
 WriteLiteral("\r\n        </span>\r\n");
 
-
             
-            #line 65 "..\..\Views\Shared\Manage.cshtml"
+            #line 57 "..\..\Views\Shared\Manage.cshtml"
         }
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n    <table class=\"manage-table\">\r\n\r\n        ");
+WriteLiteral("\r\n    <table");
 
+WriteLiteral(" class=\"manage-table\"");
+
+WriteLiteral(">\r\n\r\n");
+
+WriteLiteral("        ");
 
             
-            #line 69 "..\..\Views\Shared\Manage.cshtml"
-   Write(Html.Partial(ControllerHelper.PartialViews.Manage_HeaderRow, Model));
+            #line 61 "..\..\Views\Shared\Manage.cshtml"
+   Write(Html.Partial(PartialViews.Manage_HeaderRow, Model));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n\r\n        <tbody>\r\n");
 
-
             
-            #line 72 "..\..\Views\Shared\Manage.cshtml"
+            #line 64 "..\..\Views\Shared\Manage.cshtml"
+            
+            
+            #line default
+            #line hidden
+            
+            #line 64 "..\..\Views\Shared\Manage.cshtml"
              if (Model.Models != null)
                 {
                 if (Model.TotalItems == 0)
@@ -349,31 +308,35 @@ WriteLiteral("\r\n\r\n        <tbody>\r\n");
             
             #line default
             #line hidden
-WriteLiteral("                    <tr>\r\n                        <td colspan=\"");
+WriteLiteral("                    <tr>\r\n                        <td");
 
-
+WriteAttribute("colspan", Tuple.Create(" colspan=\"", 1884), Tuple.Create("\"", 1932)
             
-            #line 77 "..\..\Views\Shared\Manage.cshtml"
-                                 Write(Model.GetVisibleColumns().Count + 3);
-
+            #line 69 "..\..\Views\Shared\Manage.cshtml"
+, Tuple.Create(Tuple.Create("", 1894), Tuple.Create<System.Object, System.Int32>(Model.GetVisibleColumns().Count + 3
             
             #line default
             #line hidden
-WriteLiteral("\" class=\"no-results center\">\r\n                            ");
+, 1894), false)
+);
 
+WriteLiteral(" class=\"no-results center\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                            ");
 
             
-            #line 78 "..\..\Views\Shared\Manage.cshtml"
-                       Write(Html.TextContent("Manage_NoResults_" + Model.FriendlyModelTypeName, "No results found"));
+            #line 70 "..\..\Views\Shared\Manage.cshtml"
+                       Write(Html.TextContent($"Manage_NoResults_{Model.FriendlyModelTypeName}", "No results found"));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n                        </td>\r\n                    </tr>\r\n");
 
-
             
-            #line 81 "..\..\Views\Shared\Manage.cshtml"
+            #line 73 "..\..\Views\Shared\Manage.cshtml"
                     }
                 else
                     {
@@ -390,15 +353,15 @@ WriteLiteral("\r\n                        </td>\r\n                    </tr>\r\n
             #line default
             #line hidden
             
-            #line 92 "..\..\Views\Shared\Manage.cshtml"
-                   Write(Html.Partial(ControllerHelper.PartialViews.Manage_Row, m));
+            #line 84 "..\..\Views\Shared\Manage.cshtml"
+                   Write(Html.Partial(PartialViews.Manage_Row, m));
 
             
             #line default
             #line hidden
             
-            #line 92 "..\..\Views\Shared\Manage.cshtml"
-                                                                                  
+            #line 84 "..\..\Views\Shared\Manage.cshtml"
+                                                                 
 
                         if (Model.InlineEditID == m.GetID())
                             {
@@ -414,77 +377,153 @@ WriteLiteral("\r\n                        </td>\r\n                    </tr>\r\n
             #line hidden
 WriteLiteral("        </tbody>\r\n    </table>\r\n");
 
-
             
-            #line 104 "..\..\Views\Shared\Manage.cshtml"
-      
-        ViewBag.PaginationCount = 1;
+            #line 96 "..\..\Views\Shared\Manage.cshtml"
     
-
             
             #line default
             #line hidden
+            
+            #line 96 "..\..\Views\Shared\Manage.cshtml"
+      
+        ViewBag.PaginationCount = 1;
+    
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
 WriteLiteral("    ");
 
-
             
-            #line 107 "..\..\Views\Shared\Manage.cshtml"
-Write(Html.Partial(ControllerHelper.PartialViews.Manage_Pagination, Model));
+            #line 99 "..\..\Views\Shared\Manage.cshtml"
+Write(Html.Partial(PartialViews.Manage_Pagination, Model));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n\r\n");
 
-
             
-            #line 109 "..\..\Views\Shared\Manage.cshtml"
+            #line 101 "..\..\Views\Shared\Manage.cshtml"
+    
+            
+            #line default
+            #line hidden
+            
+            #line 101 "..\..\Views\Shared\Manage.cshtml"
      if (Model.ModelType.Meta().Properties.Has(m => m.PropertyName == ControllerHelper.AutomaticFields.Active) &&
-        ViewContext.AllowViewInactive(Model.ModelType))
+                ViewContext.AllowViewInactive(Model.ModelType))
         {
 
             
             #line default
             #line hidden
-WriteLiteral("        <div class=\"show-hide-inactive\">\r\n            <a href=\"");
+WriteLiteral("        <div");
 
+WriteLiteral(" class=\"show-hide-inactive\"");
 
+WriteLiteral(">\r\n            <a");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 3312), Tuple.Create("\"", 3564)
             
-            #line 113 "..\..\Views\Shared\Manage.cshtml"
-                 Write(Url.Controller<ManageController>()
-                .QS(Singularity.Routes.Controllers.Manage.Actions.Route_ToggleInactive(Model))
-                .Lambda<int, String, SortDirection, String, String, ControllerHelper.ManageViewType, String, Boolean>(c => c.Manage));
-
+            #line 105 "..\..\Views\Shared\Manage.cshtml"
+, Tuple.Create(Tuple.Create("", 3319), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
+                .QS(Controllers.Manage.Actions.Route_ToggleInactive(Model))
+                .Lambda<int, string, SortDirection, string, string, ControllerHelper.ManageViewType, string, bool>(c => c.Manage)
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n");
+, 3319), false)
+);
 
+WriteLiteral(">\r\n");
 
             
-            #line 116 "..\..\Views\Shared\Manage.cshtml"
-                  
-        String ShowInactiveStr = Model.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive) ? "Show Active" : "Show Inactive";
+            #line 108 "..\..\Views\Shared\Manage.cshtml"
                 
-
             
             #line default
             #line hidden
+            
+            #line 108 "..\..\Views\Shared\Manage.cshtml"
+                  
+                    string ShowInactiveStr = Model.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive) ? "Show Active" : "Show Inactive";
+                
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n\r\n");
+
 WriteLiteral("                ");
 
-
             
-            #line 119 "..\..\Views\Shared\Manage.cshtml"
-           Write(Html.TextContent("Manage_" + ShowInactiveStr + "_" + Model.ModelType.GetFriendlyTypeName(), ShowInactiveStr));
+            #line 112 "..\..\Views\Shared\Manage.cshtml"
+           Write(Html.TextContent($"Manage_{ShowInactiveStr}_{Model.ModelType.GetFriendlyTypeName()}", ShowInactiveStr));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n            </a>\r\n\r\n        </div>\r\n");
 
+            
+            #line 116 "..\..\Views\Shared\Manage.cshtml"
+                        }
 
             
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+            
+            #line 118 "..\..\Views\Shared\Manage.cshtml"
+    
+            
+            #line default
+            #line hidden
+            
+            #line 118 "..\..\Views\Shared\Manage.cshtml"
+     if (Model.Controller.ArchiveActive)
+        {
+        string ShowArchiveStr = Model.ViewType.HasFlag(ControllerHelper.ManageViewType.Archive) ? "Show Archived" : "Show Current";
+
+
+            
+            #line default
+            #line hidden
+WriteLiteral("        <div");
+
+WriteLiteral(" class=\"show-hide-archive\"");
+
+WriteLiteral(">\r\n            <a");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 4184), Tuple.Create("\"", 4435)
+            
             #line 123 "..\..\Views\Shared\Manage.cshtml"
+, Tuple.Create(Tuple.Create("", 4191), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
+                .QS(Controllers.Manage.Actions.Route_ToggleArchive(Model))
+                .Lambda<int, string, SortDirection, string, string, ControllerHelper.ManageViewType, string, bool>(c => c.Manage)
+            
+            #line default
+            #line hidden
+, 4191), false)
+);
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                ");
+
+            
+            #line 126 "..\..\Views\Shared\Manage.cshtml"
+           Write(Html.TextContent($"Manage_{ShowArchiveStr}_{Model.ModelType.GetFriendlyTypeName()}", ShowArchiveStr));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n            </a>\r\n        </div>\r\n");
+
+            
+            #line 129 "..\..\Views\Shared\Manage.cshtml"
         }
 
             
@@ -492,85 +531,41 @@ WriteLiteral("\r\n            </a>\r\n\r\n        </div>\r\n");
             #line hidden
 WriteLiteral("\r\n");
 
+WriteLiteral("    ");
 
             
-            #line 125 "..\..\Views\Shared\Manage.cshtml"
-     if (Model.Controller.ArchiveActive)
-        {
-        String ShowArchiveStr = Model.ViewType.HasFlag(ControllerHelper.ManageViewType.Archive) ? "Show Archived" : "Show Current";
-
-
-            
-            #line default
-            #line hidden
-WriteLiteral("        <div class=\"show-hide-archive\">\r\n            <a href=\"");
-
-
-            
-            #line 130 "..\..\Views\Shared\Manage.cshtml"
-                 Write(Url.Controller<ManageController>()
-                .QS(Singularity.Routes.Controllers.Manage.Actions.Route_ToggleArchive(Model))
-                .Lambda<int, String, SortDirection, String, String, ControllerHelper.ManageViewType, String, Boolean>(c => c.Manage));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\">\r\n                ");
-
-
-            
-            #line 133 "..\..\Views\Shared\Manage.cshtml"
-           Write(Html.TextContent("Manage_" + ShowArchiveStr + "_" + Model.ModelType.GetFriendlyTypeName(), ShowArchiveStr));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n            </a>\r\n        </div>\r\n");
-
-
-            
-            #line 136 "..\..\Views\Shared\Manage.cshtml"
-        }
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n    ");
-
-
-            
-            #line 138 "..\..\Views\Shared\Manage.cshtml"
-Write(Html.Partial(ControllerHelper.PartialViews.Manage_CustomExport, Model));
+            #line 131 "..\..\Views\Shared\Manage.cshtml"
+Write(Html.Partial(PartialViews.Manage_CustomExport, Model));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n\r\n</div>\r\n\r\n");
 
+WriteLiteral("\r\n");
 
             
-            #line 142 "..\..\Views\Shared\Manage.cshtml"
- if (Html.ViewExists(ControllerHelper.PartialViews.Manage_After))
+            #line 136 "..\..\Views\Shared\Manage.cshtml"
+ if (Html.ViewExists(PartialViews.Manage_After))
     {
     
             
             #line default
             #line hidden
             
-            #line 144 "..\..\Views\Shared\Manage.cshtml"
-Write(Html.Partial(ControllerHelper.PartialViews.Manage_After, Model));
+            #line 138 "..\..\Views\Shared\Manage.cshtml"
+Write(Html.Partial(PartialViews.Manage_After, Model));
 
             
             #line default
             #line hidden
             
-            #line 144 "..\..\Views\Shared\Manage.cshtml"
-                                                                    
+            #line 138 "..\..\Views\Shared\Manage.cshtml"
+                                                   
     }
             
             #line default
             #line hidden
-
         }
     }
 }

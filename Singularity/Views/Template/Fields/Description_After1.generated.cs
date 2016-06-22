@@ -72,16 +72,13 @@ namespace ASP
     #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
-    
-    #line 3 "..\..\Views\Template\Fields\Description_After.cshtml"
     using LCore;
-    
-    #line default
-    #line hidden
     
     #line 4 "..\..\Views\Template\Fields\Description_After.cshtml"
     using Singularity;
@@ -134,54 +131,33 @@ namespace ASP
         }
         public override void Execute()
         {
-
-
-WriteLiteral("\r\n\r\n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+WriteLiteral("\r\n\r\n\r\n");
 
 WriteLiteral("\r\n");
-
 
             
             #line 21 "..\..\Views\Template\Fields\Description_After.cshtml"
   
     Template ModelData = (Template)Model.ModelData;
 
-
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
+WriteLiteral("\r\n\r\n");
 
+WriteLiteral("<a");
 
-WriteLiteral("\r\n<a href=\"");
-
-
+WriteAttribute("href", Tuple.Create(" href=\"", 599), Tuple.Create("\"", 691)
             
             #line 27 "..\..\Views\Template\Fields\Description_After.cshtml"
-     Write(Url.Controller<TemplateController>().Action(c=>c.PreviewPDF, ModelData.TemplateID));
-
+, Tuple.Create(Tuple.Create("", 606), Tuple.Create<System.Object, System.Int32>(Url.Controller<TemplateController>().Action(c=>c.PreviewPDF, ModelData.TemplateID)
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n    <glyph>&#xe175;</glyph>\r\n    View template PDF\r\n</a>");
+, 606), false)
+);
 
+WriteLiteral(">\r\n    <glyph>&#xe175;</glyph>\r\n    View template PDF\r\n</a>");
 
         }
     }

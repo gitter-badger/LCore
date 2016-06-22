@@ -78,13 +78,15 @@ namespace ASP
     #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 3 "..\..\Views\Shared\Fields\Edit\IntRange.cshtml"
-    using LCore;
+    #line 21 "..\..\Views\Shared\Fields\Edit\IntRange.cshtml"
+    using LCore.Extensions;
     
     #line default
     #line hidden
@@ -140,108 +142,96 @@ namespace ASP
         }
         public override void Execute()
         {
-
-
-WriteLiteral("\r\n\r\n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+WriteLiteral("\r\n\r\n\r\n");
 
 WriteLiteral("\r\n");
 
-
             
-            #line 22 "..\..\Views\Shared\Fields\Edit\IntRange.cshtml"
+            #line 23 "..\..\Views\Shared\Fields\Edit\IntRange.cshtml"
   
     RangeAttribute Attr = Model.Meta.GetAttribute<RangeAttribute>();
 
-
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
+WriteLiteral("\r\n\r\n");
 
+WriteLiteral("<div");
 
-WriteLiteral("\r\n<div class=\"int-range\"\r\n     target=\"");
+WriteLiteral(" class=\"int-range\"");
 
-
-            
-            #line 29 "..\..\Views\Shared\Fields\Edit\IntRange.cshtml"
-        Write(Model.Meta.PropertyName);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\"\r\n     text-target=\"");
-
-
+WriteAttribute("target", Tuple.Create("\r\n     target=\"", 716), Tuple.Create("\"", 755)
             
             #line 30 "..\..\Views\Shared\Fields\Edit\IntRange.cshtml"
-              Write(Model.Meta.PropertyName);
-
+, Tuple.Create(Tuple.Create("", 731), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-WriteLiteral("_Text\"\r\n     value=\"");
+, 731), false)
+);
 
-
+WriteAttribute("text-target", Tuple.Create("\r\n     text-target=\"", 756), Tuple.Create("\"", 807)
             
             #line 31 "..\..\Views\Shared\Fields\Edit\IntRange.cshtml"
-       Write(Model.ModelData.GetProperty(Model.Meta.PropertyName));
-
+, Tuple.Create(Tuple.Create("", 776), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-WriteLiteral("\"\r\n     maximum=\"");
+, 776), false)
+, Tuple.Create(Tuple.Create("", 802), Tuple.Create("_Text", 802), true)
+);
 
-
+WriteAttribute("value", Tuple.Create("\r\n     value=\"", 808), Tuple.Create("\"", 875)
             
             #line 32 "..\..\Views\Shared\Fields\Edit\IntRange.cshtml"
-         Write(Attr.Maximum);
-
+, Tuple.Create(Tuple.Create("", 822), Tuple.Create<System.Object, System.Int32>(Model.ModelData.GetProperty(Model.Meta.PropertyName)
             
             #line default
             #line hidden
-WriteLiteral("\"\r\n     minimum=\"");
+, 822), false)
+);
 
-
+WriteAttribute("maximum", Tuple.Create("\r\n     maximum=\"", 876), Tuple.Create("\"", 905)
             
             #line 33 "..\..\Views\Shared\Fields\Edit\IntRange.cshtml"
-         Write(Attr.Minimum);
-
+, Tuple.Create(Tuple.Create("", 892), Tuple.Create<System.Object, System.Int32>(Attr.Maximum
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n</div>\r\n\r\n<div id=\"");
+, 892), false)
+);
 
-
+WriteAttribute("minimum", Tuple.Create("\r\n     minimum=\"", 906), Tuple.Create("\"", 935)
             
-            #line 36 "..\..\Views\Shared\Fields\Edit\IntRange.cshtml"
-     Write(Model.Meta.PropertyName);
-
+            #line 34 "..\..\Views\Shared\Fields\Edit\IntRange.cshtml"
+, Tuple.Create(Tuple.Create("", 922), Tuple.Create<System.Object, System.Int32>(Attr.Minimum
             
             #line default
             #line hidden
-WriteLiteral("_Text\" class=\"int-range-display\">\r\n    ");
+, 922), false)
+);
 
+WriteLiteral(">\r\n</div>\r\n\r\n<div");
 
+WriteAttribute("id", Tuple.Create(" id=\"", 953), Tuple.Create("\"", 989)
             
             #line 37 "..\..\Views\Shared\Fields\Edit\IntRange.cshtml"
+, Tuple.Create(Tuple.Create("", 958), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+            
+            #line default
+            #line hidden
+, 958), false)
+, Tuple.Create(Tuple.Create("", 984), Tuple.Create("_Text", 984), true)
+);
+
+WriteLiteral(" class=\"int-range-display\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("    ");
+
+            
+            #line 38 "..\..\Views\Shared\Fields\Edit\IntRange.cshtml"
 Write(Model.ModelData.GetProperty(Model.Meta.PropertyName));
 
             
@@ -249,16 +239,14 @@ Write(Model.ModelData.GetProperty(Model.Meta.PropertyName));
             #line hidden
 WriteLiteral("\r\n</div>\r\n\r\n");
 
-
             
-            #line 40 "..\..\Views\Shared\Fields\Edit\IntRange.cshtml"
+            #line 41 "..\..\Views\Shared\Fields\Edit\IntRange.cshtml"
 Write(Html.Hidden(Model.Meta.PropertyName));
 
             
             #line default
             #line hidden
 WriteLiteral(";");
-
 
         }
     }

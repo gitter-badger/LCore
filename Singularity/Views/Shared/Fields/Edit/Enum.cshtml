@@ -1,23 +1,7 @@
 ﻿@* Generator: MvcView *@
-
-@using LCore;
-@using Singularity;
-@using Singularity.Models;
-@using Singularity.Controllers;
-@using Singularity.Context;
-@using Singularity.Routes;
-@using Singularity.Annotations;
 @using Singularity.Extensions;
-@using System.Collections;
-@using System.Collections.Generic;
-@using System.ComponentModel;
-@using System.ComponentModel.Design;
-@using System.Web;
-@using System.Web.Mvc;
 @using System.Linq;
-@using System.Linq.Expressions;
-@using System.ComponentModel.DataAnnotations;
-@using System.ComponentModel.DataAnnotations.Schema;
+@using LCore.Extensions;
 
 @{
     Type EnumType = Model.Meta.ModelType.IsEnum ? Model.Meta.ModelType : Model.Meta.ModelType.GetGenericArguments()[0];
@@ -53,20 +37,15 @@
     }
 else
     {
-    List<SelectListItem> Items = new List<SelectListItem>();
-
-    foreach (Enum e in Enums)
+    List<SelectListItem> Items = Enums.Select(e => new SelectListItem
         {
-        Items.Add(new SelectListItem()
-        {
-            Text = e.GetFriendlyName(),
-            Value = e.ToString(),
-            Selected = (Model.PropertyData ?? "").ToString() == e.ToString(),
-        });
-        }
+        Text = e.GetFriendlyName(),
+        Value = e.ToString(),
+        Selected = (Model.PropertyData ?? "").ToString() == e.ToString()
+        }).ToList();
 
     Items.Sort((Func<SelectListItem, IComparable>
-        )((i) => { return (IComparable)i.Text; }));
+        )(i => (IComparable)i.Text));
 
     <select name="@Model.Meta.PropertyName" id="@Model.Meta.PropertyName">
         @foreach (SelectListItem Item in Items)

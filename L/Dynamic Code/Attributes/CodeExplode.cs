@@ -1,44 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
+using LCore.Tools;
 
 namespace LCore.Dynamic
     {
-    public abstract class CodeExplode : Attribute
+    internal abstract class CodeExplode : Attribute
         {
-        public const String ExplodeSuffix = "_Explode";
-        public const String BackupSuffix = "_bak";
-        
-        public const String ExplodeFileType = ".cs";
-        public abstract String ExplodeCode(Lists<String, MemberInfo> Members);
+        public const string ExplodeSuffix = "_Explode";
+        public const string BackupSuffix = "_bak";
 
-        public String CodeFileName;
-        public String CodeNamespace;
-        public String CodeRegionTitle;
+        public const string ExplodeFileType = ".cs";
+        public abstract string ExplodeCode(Lists<string, MemberInfo> Members);
+
+        public readonly string CodeFileName;
+        public readonly string CodeNamespace;
+        public string CodeRegionTitle;
 
 
-        public abstract Boolean ExplodeMember(MemberInfo Member);
+        public abstract bool ExplodeMember(MemberInfo Member);
 
-        public Type OutputType
-            {
-            get
-                {
-                return Type.GetType(CodeNamespace + "." + ClassName); // L.SafeGetType
-                }
-            }
-        public virtual String ClassName
-            {
-            get
-                {
-                return CodeFileName;
-                }
-            }
+        public Type OutputType => Type.GetType($"{this.CodeNamespace}.{this.ClassName}");
 
-        public CodeExplode(Type T)
+        public virtual string ClassName => this.CodeFileName;
+
+        protected CodeExplode(Type T)
             : this(T.FullName, T.Name, T.Namespace)
             {
             }
-        public CodeExplode(String CodeRegionTitle, String CodeFileName, String CodeNamespace)
+
+        protected CodeExplode(string CodeRegionTitle, string CodeFileName, string CodeNamespace)
             {
             this.CodeRegionTitle = CodeRegionTitle;
             this.CodeNamespace = CodeNamespace;

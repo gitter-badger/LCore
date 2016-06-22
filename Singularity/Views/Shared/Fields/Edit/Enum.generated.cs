@@ -12,124 +12,48 @@
 namespace ASP
 {
     using System;
-    
-    #line 11 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 12 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 13 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 19 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
     using System.ComponentModel.DataAnnotations;
-    
-    #line default
-    #line hidden
-    
-    #line 20 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
-    using System.ComponentModel.DataAnnotations.Schema;
-    
-    #line default
-    #line hidden
-    
-    #line 14 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
     using System.IO;
     
-    #line 17 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+    #line 3 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
     using System.Linq;
     
     #line default
     #line hidden
-    
-    #line 18 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 15 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 16 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 3 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
-    using LCore;
-    
-    #line default
-    #line hidden
-    
     #line 4 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+    using LCore.Extensions;
+    
+    #line default
+    #line hidden
     using Singularity;
-    
-    #line default
-    #line hidden
-    
-    #line 9 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
-    using Singularity.Annotations;
-    
-    #line default
-    #line hidden
-    
-    #line 7 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
     using Singularity.Controllers;
     
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+    #line 2 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
     using Singularity.Extensions;
     
     #line default
     #line hidden
-    
-    #line 5 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
     using Singularity.Models;
-    
-    #line default
-    #line hidden
-    
-    #line 8 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
-    using Singularity.Routes;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/Fields/Edit/Enum.cshtml")]
@@ -140,33 +64,12 @@ namespace ASP
         }
         public override void Execute()
         {
-
-
-WriteLiteral("\r\n\r\n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+WriteLiteral("\r\n");
 
 WriteLiteral("\r\n");
 
-
             
-            #line 22 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+            #line 6 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
   
     Type EnumType = Model.Meta.ModelType.IsEnum ? Model.Meta.ModelType : Model.Meta.ModelType.GetGenericArguments()[0];
 
@@ -175,121 +78,136 @@ WriteLiteral("\r\n");
     IEnumerable<Enum> Enums = Values.Cast<Enum>();
 
 
-
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
-
-
-WriteLiteral("\r\n");
-
+WriteLiteral("\r\n\r\n");
 
             
-            #line 33 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+            #line 17 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
  if (EnumType.HasAttribute<FlagsAttribute>())
     {
 
             
             #line default
             #line hidden
-WriteLiteral("    <span class=\"enum-checks\">\r\n\r\n        <input name=\"");
+WriteLiteral("    <span");
 
+WriteLiteral(" class=\"enum-checks\"");
 
+WriteLiteral(">\r\n\r\n        <input");
+
+WriteAttribute("name", Tuple.Create(" name=\"", 464), Tuple.Create("\"", 495)
             
-            #line 37 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
-                Write(Model.Meta.PropertyName);
-
+            #line 21 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+, Tuple.Create(Tuple.Create("", 471), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-WriteLiteral("\" type=\"hidden\" value=\"\" />\r\n\r\n");
+, 471), false)
+);
 
+WriteLiteral(" type=\"hidden\"");
+
+WriteLiteral(" value=\"\"");
+
+WriteLiteral(" />\r\n\r\n");
 
             
-            #line 39 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+            #line 23 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+        
+            
+            #line default
+            #line hidden
+            
+            #line 23 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
          foreach (Enum e in Enums)
             {
 
             
             #line default
             #line hidden
-WriteLiteral("            <span class=\"enum-check\">\r\n                <input type=\"checkbox\"\r\n  " +
-"                     id=\"");
+WriteLiteral("            <span");
 
+WriteLiteral(" class=\"enum-check\"");
 
+WriteLiteral(">\r\n                <input");
+
+WriteLiteral(" type=\"checkbox\"");
+
+WriteAttribute("id", Tuple.Create("\r\n                       id=\"", 654), Tuple.Create("\"", 725)
             
-            #line 43 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
-                       Write(Model.Meta.PropertyName);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("_");
-
-
-            
-            #line 43 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
-                                                  Write(e.ToString());
-
+            #line 27 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+, Tuple.Create(Tuple.Create("", 683), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-WriteLiteral("\"\r\n                       name=\"");
-
-
+, 683), false)
+, Tuple.Create(Tuple.Create("", 709), Tuple.Create("_", 709), true)
             
-            #line 44 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
-                        Write(Model.Meta.PropertyName);
-
+            #line 27 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+, Tuple.Create(Tuple.Create("", 710), Tuple.Create<System.Object, System.Int32>(e.ToString()
             
             #line default
             #line hidden
-WriteLiteral("\"\r\n                       value=\"");
+, 710), false)
+);
 
-
+WriteAttribute("name", Tuple.Create("\r\n                       name=\"", 726), Tuple.Create("\"", 781)
             
-            #line 45 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
-                         Write(e.ToString());
-
+            #line 28 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+, Tuple.Create(Tuple.Create("", 757), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-WriteLiteral("\"\r\n                       ");
+, 757), false)
+);
 
+WriteAttribute("value", Tuple.Create("\r\n                       value=\"", 782), Tuple.Create("\"", 827)
+            
+            #line 29 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+, Tuple.Create(Tuple.Create("", 814), Tuple.Create<System.Object, System.Int32>(e.ToString()
+            
+            #line default
+            #line hidden
+, 814), false)
+);
+
+WriteLiteral("\r\n                       ");
 
             
-            #line 46 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+            #line 30 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
                    Write((Model.PropertyData ?? "").ToString().Contains(e.ToString()) ? Html.Raw("checked=\"true\"") : Html.Raw(""));
 
             
             #line default
             #line hidden
-WriteLiteral(">\r\n                <label for=\"");
+WriteLiteral(">\r\n                <label");
 
-
+WriteAttribute("for", Tuple.Create(" for=\"", 987), Tuple.Create("\"", 1035)
             
-            #line 47 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
-                        Write(Model.Meta.PropertyName);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("_");
-
-
-            
-            #line 47 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
-                                                   Write(e.ToString());
-
+            #line 31 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+, Tuple.Create(Tuple.Create("", 993), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                    ");
+, 993), false)
+, Tuple.Create(Tuple.Create("", 1019), Tuple.Create("_", 1019), true)
+            
+            #line 31 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+, Tuple.Create(Tuple.Create("", 1020), Tuple.Create<System.Object, System.Int32>(e.ToString()
+            
+            #line default
+            #line hidden
+, 1020), false)
+);
 
+WriteLiteral(">\r\n");
+
+WriteLiteral("                    ");
 
             
-            #line 48 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+            #line 32 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
                Write(e.GetFriendlyName());
 
             
@@ -297,9 +215,8 @@ WriteLiteral("\">\r\n                    ");
             #line hidden
 WriteLiteral("\r\n                </label>\r\n            </span>\r\n");
 
-
             
-            #line 51 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+            #line 35 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
             }
 
             
@@ -307,87 +224,91 @@ WriteLiteral("\r\n                </label>\r\n            </span>\r\n");
             #line hidden
 WriteLiteral("    </span>\r\n");
 
-
             
-            #line 53 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+            #line 37 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
     }
 else
     {
-    List<SelectListItem> Items = new List<SelectListItem>();
-
-    foreach (Enum e in Enums)
+    List<SelectListItem> Items = Enums.Select(e => new SelectListItem
         {
-        Items.Add(new SelectListItem()
-        {
-            Text = e.GetFriendlyName(),
-            Value = e.ToString(),
-            Selected = (Model.PropertyData ?? "").ToString() == e.ToString(),
-        });
-        }
+        Text = e.GetFriendlyName(),
+        Value = e.ToString(),
+        Selected = (Model.PropertyData ?? "").ToString() == e.ToString()
+        }).ToList();
 
     Items.Sort((Func<SelectListItem, IComparable>
-        )((i) => { return (IComparable)i.Text; }));
+        )(i => (IComparable)i.Text));
 
 
             
             #line default
             #line hidden
-WriteLiteral("    <select name=\"");
+WriteLiteral("    <select");
 
-
+WriteAttribute("name", Tuple.Create(" name=\"", 1527), Tuple.Create("\"", 1558)
             
-            #line 71 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
-             Write(Model.Meta.PropertyName);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\" id=\"");
-
-
-            
-            #line 71 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
-                                           Write(Model.Meta.PropertyName);
-
+            #line 50 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+, Tuple.Create(Tuple.Create("", 1534), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n");
+, 1534), false)
+);
 
+WriteAttribute("id", Tuple.Create(" id=\"", 1559), Tuple.Create("\"", 1588)
+            
+            #line 50 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+, Tuple.Create(Tuple.Create("", 1564), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+            
+            #line default
+            #line hidden
+, 1564), false)
+);
+
+WriteLiteral(">\r\n");
 
             
-            #line 72 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+            #line 51 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+        
+            
+            #line default
+            #line hidden
+            
+            #line 51 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
          foreach (SelectListItem Item in Items)
             {
 
             
             #line default
             #line hidden
-WriteLiteral("            <option value=\"");
+WriteLiteral("            <option");
 
-
+WriteAttribute("value", Tuple.Create(" value=\"", 1675), Tuple.Create("\"", 1694)
             
-            #line 74 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
-                      Write(Item.Value);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\" selected=\"");
-
-
-            
-            #line 74 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
-                                             Write(Item.Selected);
-
+            #line 53 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+, Tuple.Create(Tuple.Create("", 1683), Tuple.Create<System.Object, System.Int32>(Item.Value
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                ");
+, 1683), false)
+);
 
+WriteAttribute("selected", Tuple.Create(" selected=\"", 1695), Tuple.Create("\"", 1720)
+            
+            #line 53 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+, Tuple.Create(Tuple.Create("", 1706), Tuple.Create<System.Object, System.Int32>(Item.Selected
+            
+            #line default
+            #line hidden
+, 1706), false)
+);
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                ");
 
             
-            #line 75 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+            #line 54 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
            Write(Item.Text);
 
             
@@ -395,9 +316,8 @@ WriteLiteral("\">\r\n                ");
             #line hidden
 WriteLiteral("\r\n            </option>\r\n");
 
-
             
-            #line 77 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+            #line 56 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
             }
 
             
@@ -405,9 +325,8 @@ WriteLiteral("\r\n            </option>\r\n");
             #line hidden
 WriteLiteral("    </select>\r\n");
 
-
             
-            #line 79 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
+            #line 58 "..\..\Views\Shared\Fields\Edit\Enum.cshtml"
     /*
                 @Html.DropDownList(Model.Meta.PropertyName, Items, new { @class = "select-list" })
                 */
@@ -416,7 +335,6 @@ WriteLiteral("    </select>\r\n");
             
             #line default
             #line hidden
-
         }
     }
 }

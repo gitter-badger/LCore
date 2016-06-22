@@ -1,40 +1,25 @@
 ﻿@* Generator: MvcView *@
-
-@using LCore;
-@using Singularity;
-@using Singularity.Models;
-@using Singularity.Controllers;
-@using Singularity.Context;
-@using Singularity.Routes;
 @using Singularity.Annotations;
 @using Singularity.Extensions;
-@using System.Collections;
-@using System.Collections.Generic;
-@using System.ComponentModel;
-@using System.ComponentModel.Design;
-@using System.Web;
-@using System.Web.Mvc;
-@using System.Linq;
-@using System.Linq.Expressions;
-@using System.ComponentModel.DataAnnotations;
-@using System.ComponentModel.DataAnnotations.Schema;
+@using LCore.Extensions;
 
 @{
-    Boolean IsSortableList = Model.Meta.HasAttribute<FieldType_SortableListAttribute>();
+    bool IsSortableList = Model.Meta.HasAttribute<FieldType_SortableListAttribute>();
 }
 
 @model IViewField
 
 @if (IsSortableList)
     {
-    String[] Lines;
-    if (Model.PropertyData is String[])
+    string[] Lines;
+    string[] data = Model.PropertyData as string[];
+    if (data != null)
         {
-        Lines = (String[])Model.PropertyData;
+        Lines = data;
         }
-    else if (Model.PropertyData is String)
+    else if (Model.PropertyData is string)
         {
-        Lines = ((String)Model.PropertyData).Lines();
+        Lines = ((string)Model.PropertyData).Lines();
         }
     else
         {
@@ -42,7 +27,7 @@
         }
 
     <select class="sortable" id="@Model.Meta.PropertyName" name="@Model.Meta.PropertyName">
-        @foreach (String Line in Lines)
+        @foreach (string Line in Lines)
             {
             <option value="@Line">
                 @Line

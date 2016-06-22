@@ -1,24 +1,8 @@
 ﻿@* Generator: MvcView *@
 
-@using LCore;
-@using Singularity;
-@using Singularity.Models;
-@using Singularity.Controllers;
-@using Singularity.Context;
-@using System.Collections;
-@using System.Collections.Generic;
-@using System.ComponentModel;
-@using System.ComponentModel.Design;
-@using System.Web;
-@using System.Web.Mvc;
-@using System.Linq;
-@using System.Linq.Expressions;
-@using System.ComponentModel.DataAnnotations;
-@using System.ComponentModel.DataAnnotations.Schema;
-
 @{
-    Boolean Check = (Model.PropertyData is Boolean && (Boolean)Model.PropertyData == true) ||
-        (Model.PropertyData is Boolean? && (Boolean?)Model.PropertyData == (Boolean?)true);
+    bool Check = (Model.PropertyData is bool && (bool)Model.PropertyData) ||
+        (Model.PropertyData is bool? && (bool?)Model.PropertyData == true);
 }
 
 @model IViewField
@@ -37,7 +21,7 @@
 <input type="radio"
        id="@(Model.Meta.PropertyName)-true"
        name="@Model.Meta.PropertyName"
-       @Html.Raw(Check == true ? "checked=\"checked\"" : "")
+       @Html.Raw(Check ? "checked=\"checked\"" : "")
        value="true" />
 
 <label for="@(Model.Meta.PropertyName)-true">

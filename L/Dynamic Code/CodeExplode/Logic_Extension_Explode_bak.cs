@@ -2,89 +2,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace LCore
+
+namespace LCore.Extensions
 {
 public static class Logic_Extension_Explode
 {
 #region Method Extensions
-#region Supply2
-/// <summary>
-/// Returns a method with the second two parameters removed. When the method is called, Obj and Obj2 will be supplied.
-/// </summary>
-public static Action<T1,T4> Supply2<T1, T2, T3, T4>(this Action<T1,T2,T3,T4> In, T2 Obj, T3 Obj2)
-{
-return Logic.L_Supply2_A2<T1, T2, T3, T4>()(In, Obj, Obj2);
-}
-#endregion
-#region Supply3
-/// <summary>
-/// Returns a method with the third two parameters removed. When the method is called, Obj and Obj2 will be supplied.
-/// </summary>
-public static Action<T1,T2> Supply3<T1, T2, T3, T4>(this Action<T1,T2,T3,T4> In, T3 Obj, T4 Obj2)
-{
-return Logic.L_Supply2_A3<T1, T2, T3, T4>()(In, Obj, Obj2);
-}
-#endregion
 #region Supply
-/// <summary>
-/// Returns a method with the first two parameters removed. When the method is called, Obj and Obj2 will be supplied.
-/// </summary>
-public static Func<U> Supply<T1, T2, U>(this Func<T1,T2,U> In, T1 Obj, T2 Obj2)
-{
-return Logic.L_Supply2_F<T1, T2, U>()(In, Obj, Obj2);
-}
-/// <summary>
-/// Returns a method with the first two parameters removed. When the method is called, Obj and Obj2 will be supplied.
-/// </summary>
-public static Func<T3,U> Supply<T1, T2, T3, U>(this Func<T1,T2,T3,U> In, T1 Obj, T2 Obj2)
-{
-return Logic.L_Supply2_F<T1, T2, T3, U>()(In, Obj, Obj2);
-}
-#endregion
-#region Supply2
-/// <summary>
-/// Returns a method with the second two parameters removed. When the method is called, Obj and Obj2 will be supplied.
-/// </summary>
-public static Func<T1,U> Supply2<T1, T2, T3, U>(this Func<T1,T2,T3,U> In, T2 Obj, T3 Obj2)
-{
-return Logic.L_Supply2_F2<T1, T2, T3, U>()(In, Obj, Obj2);
-}
-#endregion
-#region Supply
-/// <summary>
-/// Returns a method with the first two parameters removed. When the method is called, Obj and Obj2 will be supplied.
-/// </summary>
-public static Func<T3,T4,U> Supply<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, T1 Obj, T2 Obj2)
-{
-return Logic.L_Supply2_F<T1, T2, T3, T4, U>()(In, Obj, Obj2);
-}
-#endregion
-#region Supply2
-/// <summary>
-/// Returns a method with the second two parameters removed. When the method is called, Obj and Obj2 will be supplied.
-/// </summary>
-public static Func<T1,T4,U> Supply2<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, T2 Obj, T3 Obj2)
-{
-return Logic.L_Supply2_F2<T1, T2, T3, T4, U>()(In, Obj, Obj2);
-}
-#endregion
-#region Supply3
-/// <summary>
-/// Returns a method with the third two parameters removed. When the method is called, Obj and Obj2 will be supplied.
-/// </summary>
-public static Func<T1,T2,U> Supply3<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, T3 Obj, T4 Obj2)
-{
-return Logic.L_Supply2_F3<T1, T2, T3, T4, U>()(In, Obj, Obj2);
-}
-#endregion
-#region Supply
-/// <summary>
-/// Returns a method with the first three parameters removed. When the method is called, Obj and Obj2 will be supplied.
-/// </summary>
-public static Action Supply<T1, T2, T3>(this Action<T1,T2,T3> In, T1 Obj, T2 Obj2, T3 Obj3)
-{
-return Logic.L_Supply3_A<T1, T2, T3>()(In, Obj, Obj2, Obj3);
-}
 /// <summary>
 /// Returns a method with the first three parameters removed. When the method is called, Obj and Obj2 will be supplied.
 /// </summary>
@@ -144,69 +68,6 @@ return Logic.L_Supply4_F<T1, T2, T3, T4, U>()(In, Obj, Obj2, Obj3, Obj4);
 }
 #endregion
 #region Merge
-/// <summary>
-/// Returns a function that Performs In, then Merge. Parameter lists are merged.
-/// </summary>
-public static Func<T1,T2,T3,U> Merge<T1, T2, T3, U>(this Func<T1,T2,T3,U> In, Action Merge)
-{
-return Logic.L_Merge_F3_A<T1, T2, T3, U>()(In, Merge);
-}
-/// <summary>
-/// Returns a function that Performs In, then Merge. Parameter lists are merged.
-/// </summary>
-public static Func<T1,T2,T3,T4,U> Merge<T1, T2, T3, T4, U>(this Func<T1,T2,T3,U> In, Action<T4> Merge)
-{
-return Logic.L_Merge_F3_A1<T1, T2, T3, T4, U>()(In, Merge);
-}
-/// <summary>
-/// Returns a function that Performs In, then Merge. Parameter lists are merged.
-/// </summary>
-public static Func<T1,T2,T3,T4,U> Merge<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, Action Merge)
-{
-return Logic.L_Merge_F3_A<T1, T2, T3, T4, U>()(In, Merge);
-}
-/// <summary>
-/// Returns a function that Performs In, then Merge. Parameter lists are merged.
-/// </summary>
-public static Func<U> Merge<U>(this Func<U> In, Func<U> Merge)
-{
-return Logic.L_Merge_F_F<U>()(In, Merge);
-}
-/// <summary>
-/// Returns a function that Performs In, then Merge. Parameter lists are merged.
-/// </summary>
-public static Func<T1,U> Merge<T1, U>(this Func<U> In, Func<T1,U> Merge)
-{
-return Logic.L_Merge_F_F1<T1, U>()(In, Merge);
-}
-/// <summary>
-/// Returns a function that Performs In, then Merge. Parameter lists are merged.
-/// </summary>
-public static Func<T1,T2,U> Merge<T1, T2, U>(this Func<U> In, Func<T1,T2,U> Merge)
-{
-return Logic.L_Merge_F_F2<T1, T2, U>()(In, Merge);
-}
-/// <summary>
-/// Returns a function that Performs In, then Merge. Parameter lists are merged.
-/// </summary>
-public static Func<T1,T2,T3,U> Merge<T1, T2, T3, U>(this Func<U> In, Func<T1,T2,T3,U> Merge)
-{
-return Logic.L_Merge_F_F3<T1, T2, T3, U>()(In, Merge);
-}
-/// <summary>
-/// Returns a function that Performs In, then Merge. Parameter lists are merged.
-/// </summary>
-public static Func<T1,T2,T3,T4,U> Merge<T1, T2, T3, T4, U>(this Func<U> In, Func<T1,T2,T3,T4,U> Merge)
-{
-return Logic.L_Merge_F_F4<T1, T2, T3, T4, U>()(In, Merge);
-}
-/// <summary>
-/// Returns a function that Performs In, then Merge. Parameter lists are merged.
-/// </summary>
-public static Func<T1,U> Merge<T1, U>(this Func<T1,U> In, Func<U> Merge)
-{
-return Logic.L_Merge_F1_F<T1, U>()(In, Merge);
-}
 /// <summary>
 /// Returns a function that Performs In, then Merge. Parameter lists are merged.
 /// </summary>
@@ -481,70 +342,86 @@ public static Action<T3,T4> Supply<T1, T2, T3, T4>(this Action<T1,T2,T3,T4> In, 
 return Logic.L_Supply2_A<T1, T2, T3, T4>()(In, Obj, Obj2);
 }
 #endregion
+#region Supply2
+/// <summary>
+/// Returns a method with the second two parameters removed. When the method is called, Obj and Obj2 will be supplied.
+/// </summary>
+public static Action<T1,T4> Supply2<T1, T2, T3, T4>(this Action<T1,T2,T3,T4> In, T2 Obj, T3 Obj2)
+{
+return Logic.L_Supply2_A2<T1, T2, T3, T4>()(In, Obj, Obj2);
+}
+#endregion
+#region Supply3
+/// <summary>
+/// Returns a method with the third two parameters removed. When the method is called, Obj and Obj2 will be supplied.
+/// </summary>
+public static Action<T1,T2> Supply3<T1, T2, T3, T4>(this Action<T1,T2,T3,T4> In, T3 Obj, T4 Obj2)
+{
+return Logic.L_Supply2_A3<T1, T2, T3, T4>()(In, Obj, Obj2);
+}
+#endregion
+#region Supply
+/// <summary>
+/// Returns a method with the first two parameters removed. When the method is called, Obj and Obj2 will be supplied.
+/// </summary>
+public static Func<U> Supply<T1, T2, U>(this Func<T1,T2,U> In, T1 Obj, T2 Obj2)
+{
+return Logic.L_Supply2_F<T1, T2, U>()(In, Obj, Obj2);
+}
+/// <summary>
+/// Returns a method with the first two parameters removed. When the method is called, Obj and Obj2 will be supplied.
+/// </summary>
+public static Func<T3,U> Supply<T1, T2, T3, U>(this Func<T1,T2,T3,U> In, T1 Obj, T2 Obj2)
+{
+return Logic.L_Supply2_F<T1, T2, T3, U>()(In, Obj, Obj2);
+}
+#endregion
+#region Supply2
+/// <summary>
+/// Returns a method with the second two parameters removed. When the method is called, Obj and Obj2 will be supplied.
+/// </summary>
+public static Func<T1,U> Supply2<T1, T2, T3, U>(this Func<T1,T2,T3,U> In, T2 Obj, T3 Obj2)
+{
+return Logic.L_Supply2_F2<T1, T2, T3, U>()(In, Obj, Obj2);
+}
+#endregion
+#region Supply
+/// <summary>
+/// Returns a method with the first two parameters removed. When the method is called, Obj and Obj2 will be supplied.
+/// </summary>
+public static Func<T3,T4,U> Supply<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, T1 Obj, T2 Obj2)
+{
+return Logic.L_Supply2_F<T1, T2, T3, T4, U>()(In, Obj, Obj2);
+}
+#endregion
+#region Supply2
+/// <summary>
+/// Returns a method with the second two parameters removed. When the method is called, Obj and Obj2 will be supplied.
+/// </summary>
+public static Func<T1,T4,U> Supply2<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, T2 Obj, T3 Obj2)
+{
+return Logic.L_Supply2_F2<T1, T2, T3, T4, U>()(In, Obj, Obj2);
+}
+#endregion
+#region Supply3
+/// <summary>
+/// Returns a method with the third two parameters removed. When the method is called, Obj and Obj2 will be supplied.
+/// </summary>
+public static Func<T1,T2,U> Supply3<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, T3 Obj, T4 Obj2)
+{
+return Logic.L_Supply2_F3<T1, T2, T3, T4, U>()(In, Obj, Obj2);
+}
+#endregion
+#region Supply
+/// <summary>
+/// Returns a method with the first three parameters removed. When the method is called, Obj and Obj2 will be supplied.
+/// </summary>
+public static Action Supply<T1, T2, T3>(this Action<T1,T2,T3> In, T1 Obj, T2 Obj2, T3 Obj3)
+{
+return Logic.L_Supply3_A<T1, T2, T3>()(In, Obj, Obj2, Obj3);
+}
+#endregion
 #region Then
-/// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
-/// </summary>
-public static Func<T1,T2,T3,U> Then<T1, T2, T3, U>(this Action<T1,T2,T3> In, params Func<T1,T2,U>[] Acts)
-{
-return Logic.L_ThenMissing_A_F<T1, T2, T3, U>()(In, Acts);
-}
-/// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
-/// </summary>
-public static Func<T1,T2,U> Then<T1, T2, U>(this Action<T1,T2> In, params Func<U>[] Acts)
-{
-return Logic.L_ThenMissing_A_F2<T1, T2, U>()(In, Acts);
-}
-/// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
-/// </summary>
-public static Func<T1,T2,T3,U> Then<T1, T2, T3, U>(this Action<T1,T2,T3> In, params Func<U>[] Acts)
-{
-return Logic.L_ThenMissing_A_F3<T1, T2, T3, U>()(In, Acts);
-}
-/// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
-/// </summary>
-public static Func<T1,T2,T3,U> Then<T1, T2, T3, U>(this Action<T1,T2,T3> In, params Func<T1,U>[] Acts)
-{
-return Logic.L_ThenMissing_A_F2<T1, T2, T3, U>()(In, Acts);
-}
-/// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
-/// </summary>
-public static Func<T1,T2,T3,T4,U> Then<T1, T2, T3, T4, U>(this Action<T1,T2,T3,T4> In, params Func<T1,T2,T3,U>[] Acts)
-{
-return Logic.L_ThenMissing_A_F<T1, T2, T3, T4, U>()(In, Acts);
-}
-/// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
-/// </summary>
-public static Func<T1,T2,T3,T4,U> Then<T1, T2, T3, T4, U>(this Action<T1,T2,T3,T4> In, params Func<T1,T2,U>[] Acts)
-{
-return Logic.L_ThenMissing_A_F2<T1, T2, T3, T4, U>()(In, Acts);
-}
-/// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
-/// </summary>
-public static Func<T1,T2,T3,T4,U> Then<T1, T2, T3, T4, U>(this Action<T1,T2,T3,T4> In, params Func<T1,U>[] Acts)
-{
-return Logic.L_ThenMissing_A_F3<T1, T2, T3, T4, U>()(In, Acts);
-}
-/// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
-/// </summary>
-public static Func<T1,T2,T3,T4,U> Then<T1, T2, T3, T4, U>(this Action<T1,T2,T3,T4> In, params Func<U>[] Acts)
-{
-return Logic.L_ThenMissing_A_F4<T1, T2, T3, T4, U>()(In, Acts);
-}
-/// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
-/// </summary>
-public static Func<T1,U> Then<T1, U>(this Func<T1,U> In, params Action[] Acts)
-{
-return Logic.L_ThenMissing_F_A<T1, U>()(In, Acts);
-}
 /// <summary>
 /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
 /// </summary>
@@ -1249,21 +1126,68 @@ public static Func<T1,T2,T3,T4,U> Merge<T1, T2, T3, T4, U>(this Func<T1,T2,U> In
 {
 return Logic.L_Merge_F2_A2<T1, T2, T3, T4, U>()(In, Merge);
 }
-#endregion
-#region Execute
 /// <summary>
-/// For a method Act that returns a method, Returns a method that executes the Method passed and its result. Parameters within Act and the result are joined in the result.
+/// Returns a function that Performs In, then Merge. Parameter lists are merged.
 /// </summary>
-public static Action<T1,T2,T3,T4> Execute<T1, T2, T3, T4>(this Func<T1,T2,T3,T4,Action> Act)
+public static Func<T1,T2,T3,U> Merge<T1, T2, T3, U>(this Func<T1,T2,T3,U> In, Action Merge)
 {
-return Logic.L_Execute5_A<T1, T2, T3, T4>()(Act);
+return Logic.L_Merge_F3_A<T1, T2, T3, U>()(In, Merge);
 }
 /// <summary>
-/// For a method Act that returns a method, Returns a method that executes the Method passed and its result. Parameters within Act and the result are joined in the result.
+/// Returns a function that Performs In, then Merge. Parameter lists are merged.
 /// </summary>
-public static Func<T1,T2,T3,T4,U> Execute<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,Func<U>> Act)
+public static Func<T1,T2,T3,T4,U> Merge<T1, T2, T3, T4, U>(this Func<T1,T2,T3,U> In, Action<T4> Merge)
 {
-return Logic.L_Execute5_F<T1, T2, T3, T4, U>()(Act);
+return Logic.L_Merge_F3_A1<T1, T2, T3, T4, U>()(In, Merge);
+}
+/// <summary>
+/// Returns a function that Performs In, then Merge. Parameter lists are merged.
+/// </summary>
+public static Func<T1,T2,T3,T4,U> Merge<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, Action Merge)
+{
+return Logic.L_Merge_F3_A<T1, T2, T3, T4, U>()(In, Merge);
+}
+/// <summary>
+/// Returns a function that Performs In, then Merge. Parameter lists are merged.
+/// </summary>
+public static Func<U> Merge<U>(this Func<U> In, Func<U> Merge)
+{
+return Logic.L_Merge_F_F<U>()(In, Merge);
+}
+/// <summary>
+/// Returns a function that Performs In, then Merge. Parameter lists are merged.
+/// </summary>
+public static Func<T1,U> Merge<T1, U>(this Func<U> In, Func<T1,U> Merge)
+{
+return Logic.L_Merge_F_F1<T1, U>()(In, Merge);
+}
+/// <summary>
+/// Returns a function that Performs In, then Merge. Parameter lists are merged.
+/// </summary>
+public static Func<T1,T2,U> Merge<T1, T2, U>(this Func<U> In, Func<T1,T2,U> Merge)
+{
+return Logic.L_Merge_F_F2<T1, T2, U>()(In, Merge);
+}
+/// <summary>
+/// Returns a function that Performs In, then Merge. Parameter lists are merged.
+/// </summary>
+public static Func<T1,T2,T3,U> Merge<T1, T2, T3, U>(this Func<U> In, Func<T1,T2,T3,U> Merge)
+{
+return Logic.L_Merge_F_F3<T1, T2, T3, U>()(In, Merge);
+}
+/// <summary>
+/// Returns a function that Performs In, then Merge. Parameter lists are merged.
+/// </summary>
+public static Func<T1,T2,T3,T4,U> Merge<T1, T2, T3, T4, U>(this Func<U> In, Func<T1,T2,T3,T4,U> Merge)
+{
+return Logic.L_Merge_F_F4<T1, T2, T3, T4, U>()(In, Merge);
+}
+/// <summary>
+/// Returns a function that Performs In, then Merge. Parameter lists are merged.
+/// </summary>
+public static Func<T1,U> Merge<T1, U>(this Func<T1,U> In, Func<U> Merge)
+{
+return Logic.L_Merge_F1_F<T1, U>()(In, Merge);
 }
 #endregion
 #region Then
@@ -1491,84 +1415,68 @@ public static Func<T1,T2,U> Then<T1, T2, U>(this Action<T1,T2> In, params Func<T
 {
 return Logic.L_ThenMissing_A_F<T1, T2, U>()(In, Acts);
 }
-#endregion
-#region Yield3
 /// <summary>
-/// Takes an Action and returns a Func that returns the third parameter after the action is performed.
+/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
-public static Func<T1,T2,U,U> Yield3<T1, T2, U>(this Action<T1,T2,U> In)
+public static Func<T1,T2,T3,U> Then<T1, T2, T3, U>(this Action<T1,T2,T3> In, params Func<T1,T2,U>[] Acts)
 {
-return Logic.L_Yield3_A<T1, T2, U>()(In);
-}
-#endregion
-#region Yield
-/// <summary>
-/// Takes an Action and returns a Func that returns the first parameter after the action is performed.
-/// </summary>
-public static Func<U,T1,T2,T3,U> Yield<T1, T2, T3, U>(this Action<U,T1,T2,T3> In)
-{
-return Logic.L_Yield_A<T1, T2, T3, U>()(In);
-}
-#endregion
-#region Yield2
-/// <summary>
-/// Takes an Action and returns a Func that returns the second parameter after the action is performed.
-/// </summary>
-public static Func<T1,U,T2,T3,U> Yield2<T1, T2, T3, U>(this Action<T1,U,T2,T3> In)
-{
-return Logic.L_Yield2_A<T1, T2, T3, U>()(In);
-}
-#endregion
-#region Yield3
-/// <summary>
-/// Takes an Action and returns a Func that returns the third parameter after the action is performed.
-/// </summary>
-public static Func<T1,T2,U,T3,U> Yield3<T1, T2, T3, U>(this Action<T1,T2,U,T3> In)
-{
-return Logic.L_Yield3_A<T1, T2, T3, U>()(In);
-}
-#endregion
-#region Yield4
-/// <summary>
-/// Takes an Action and returns a Func that returns the fourth parameter after the action is performed.
-/// </summary>
-public static Func<T1,T2,T3,U,U> Yield4<T1, T2, T3, U>(this Action<T1,T2,T3,U> In)
-{
-return Logic.L_Yield4_A<T1, T2, T3, U>()(In);
-}
-#endregion
-#region Yield
-/// <summary>
-/// Takes an Action and returns a Func that returns the first parameter after the action is performed.
-/// </summary>
-public static Func<U,U> Yield<U>(this Func<U,U> In)
-{
-return Logic.L_Yield_F<U>()(In);
+return Logic.L_ThenMissing_A_F<T1, T2, T3, U>()(In, Acts);
 }
 /// <summary>
-/// Takes an Action and returns a Func that returns the first parameter after the action is performed.
+/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
-public static Func<U,T1,U> Yield<T1, U>(this Func<U,T1,U> In)
+public static Func<T1,T2,U> Then<T1, T2, U>(this Action<T1,T2> In, params Func<U>[] Acts)
 {
-return Logic.L_Yield_F<T1, U>()(In);
+return Logic.L_ThenMissing_A_F2<T1, T2, U>()(In, Acts);
 }
-#endregion
-#region Yield2
 /// <summary>
-/// Takes an Action and returns a Func that returns the second parameter after the action is performed.
+/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
-public static Func<T1,U,U> Yield2<T1, U>(this Func<T1,U,U> In)
+public static Func<T1,T2,T3,U> Then<T1, T2, T3, U>(this Action<T1,T2,T3> In, params Func<U>[] Acts)
 {
-return Logic.L_Yield2_F<T1, U>()(In);
+return Logic.L_ThenMissing_A_F3<T1, T2, T3, U>()(In, Acts);
 }
-#endregion
-#region Yield
 /// <summary>
-/// Takes an Action and returns a Func that returns the first parameter after the action is performed.
+/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
-public static Func<U,T1,T2,U> Yield<T1, T2, U>(this Func<U,T1,T2,U> In)
+public static Func<T1,T2,T3,U> Then<T1, T2, T3, U>(this Action<T1,T2,T3> In, params Func<T1,U>[] Acts)
 {
-return Logic.L_Yield_F<T1, T2, U>()(In);
+return Logic.L_ThenMissing_A_F2<T1, T2, T3, U>()(In, Acts);
+}
+/// <summary>
+/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// </summary>
+public static Func<T1,T2,T3,T4,U> Then<T1, T2, T3, T4, U>(this Action<T1,T2,T3,T4> In, params Func<T1,T2,T3,U>[] Acts)
+{
+return Logic.L_ThenMissing_A_F<T1, T2, T3, T4, U>()(In, Acts);
+}
+/// <summary>
+/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// </summary>
+public static Func<T1,T2,T3,T4,U> Then<T1, T2, T3, T4, U>(this Action<T1,T2,T3,T4> In, params Func<T1,T2,U>[] Acts)
+{
+return Logic.L_ThenMissing_A_F2<T1, T2, T3, T4, U>()(In, Acts);
+}
+/// <summary>
+/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// </summary>
+public static Func<T1,T2,T3,T4,U> Then<T1, T2, T3, T4, U>(this Action<T1,T2,T3,T4> In, params Func<T1,U>[] Acts)
+{
+return Logic.L_ThenMissing_A_F3<T1, T2, T3, T4, U>()(In, Acts);
+}
+/// <summary>
+/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// </summary>
+public static Func<T1,T2,T3,T4,U> Then<T1, T2, T3, T4, U>(this Action<T1,T2,T3,T4> In, params Func<U>[] Acts)
+{
+return Logic.L_ThenMissing_A_F4<T1, T2, T3, T4, U>()(In, Acts);
+}
+/// <summary>
+/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+/// </summary>
+public static Func<T1,U> Then<T1, U>(this Func<T1,U> In, params Action[] Acts)
+{
+return Logic.L_ThenMissing_F_A<T1, U>()(In, Acts);
 }
 #endregion
 #region Yield2
@@ -1822,81 +1730,22 @@ public static Func<T1,T2,T3,T4,U> Execute<T1, T2, T3, T4, U>(this Func<T2,T3,T4,
 {
 return Logic.L_Execute4_F<T1, T2, T3, T4, U>()(Act);
 }
-#endregion
-#region Default3
 /// <summary>
-/// If the third argument passed is null or empty, the Default value is used instead.
+/// For a method Act that returns a method, Returns a method that executes the Method passed and its result. Parameters within Act and the result are joined in the result.
 /// </summary>
-public static Func<T1,T2,T3,U> Default3<T1, T2, T3, U>(this Func<T1,T2,T3,U> In, T3 Default3)
+public static Action<T1,T2,T3,T4> Execute<T1, T2, T3, T4>(this Func<T1,T2,T3,T4,Action> Act)
 {
-return Logic.L_Default3_F<T1, T2, T3, U>()(In, Default3);
+return Logic.L_Execute5_A<T1, T2, T3, T4>()(Act);
 }
-#endregion
-#region Default
 /// <summary>
-/// If the first argument passed is null or empty, the Default value is used instead.
+/// For a method Act that returns a method, Returns a method that executes the Method passed and its result. Parameters within Act and the result are joined in the result.
 /// </summary>
-public static Func<T1,T2,T3,T4,U> Default<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, T1 Default)
+public static Func<T1,T2,T3,T4,U> Execute<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,Func<U>> Act)
 {
-return Logic.L_Default_F<T1, T2, T3, T4, U>()(In, Default);
-}
-#endregion
-#region Default2
-/// <summary>
-/// If the second argument passed is null or empty, the Default value is used instead.
-/// </summary>
-public static Func<T1,T2,T3,T4,U> Default2<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, T2 Default2)
-{
-return Logic.L_Default2_F<T1, T2, T3, T4, U>()(In, Default2);
-}
-#endregion
-#region Default3
-/// <summary>
-/// If the third argument passed is null or empty, the Default value is used instead.
-/// </summary>
-public static Func<T1,T2,T3,T4,U> Default3<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, T3 Default3)
-{
-return Logic.L_Default3_F<T1, T2, T3, T4, U>()(In, Default3);
-}
-#endregion
-#region Default4
-/// <summary>
-/// If the fourth argument passed is null or empty, the Default value is used instead.
-/// </summary>
-public static Func<T1,T2,T3,T4,U> Default4<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, T4 Default4)
-{
-return Logic.L_Default4_F<T1, T2, T3, T4, U>()(In, Default4);
+return Logic.L_Execute5_F<T1, T2, T3, T4, U>()(Act);
 }
 #endregion
 #region Defaults
-/// <summary>
-/// If the arguments passed are null or empty, the Default values are used instead.
-/// </summary>
-public static Action<T1,T2> Defaults<T1, T2>(this Action<T1,T2> In, T1 Default, T2 Default2)
-{
-return Logic.L_Defaults_A<T1, T2>()(In, Default, Default2);
-}
-/// <summary>
-/// If the arguments passed are null or empty, the Default values are used instead.
-/// </summary>
-public static Action<T1,T2,T3> Defaults<T1, T2, T3>(this Action<T1,T2,T3> In, T1 Default, T2 Default2, T3 Default3)
-{
-return Logic.L_Defaults_A<T1, T2, T3>()(In, Default, Default2, Default3);
-}
-/// <summary>
-/// If the arguments passed are null or empty, the Default values are used instead.
-/// </summary>
-public static Action<T1,T2,T3,T4> Defaults<T1, T2, T3, T4>(this Action<T1,T2,T3,T4> In, T1 Default, T2 Default2, T3 Default3, T4 Default4)
-{
-return Logic.L_Defaults_A<T1, T2, T3, T4>()(In, Default, Default2, Default3, Default4);
-}
-/// <summary>
-/// If the arguments passed are null or empty, the Default values are used instead.
-/// </summary>
-public static Func<T1,T2,U> Defaults<T1, T2, U>(this Func<T1,T2,U> In, T1 Default, T2 Default2)
-{
-return Logic.L_Defaults_F<T1, T2, U>()(In, Default, Default2);
-}
 /// <summary>
 /// If the arguments passed are null or empty, the Default values are used instead.
 /// </summary>
@@ -2175,72 +2024,86 @@ public static Func<T1,U,T2,U> Yield2<T1, T2, U>(this Action<T1,U,T2> In)
 return Logic.L_Yield2_A<T1, T2, U>()(In);
 }
 #endregion
-#region Arg
+#region Yield3
 /// <summary>
-/// Returns a new function with added arguments of Types T2, T3
+/// Takes an Action and returns a Func that returns the third parameter after the action is performed.
 /// </summary>
-public static Func<T1,T2,T3,U> Arg<T1, T2, T3, U>(this Func<T1,U> In)
+public static Func<T1,T2,U,U> Yield3<T1, T2, U>(this Action<T1,T2,U> In)
 {
-return Logic.L_Arg_F1<T1, T2, T3, U>()(In);
+return Logic.L_Yield3_A<T1, T2, U>()(In);
+}
+#endregion
+#region Yield
+/// <summary>
+/// Takes an Action and returns a Func that returns the first parameter after the action is performed.
+/// </summary>
+public static Func<U,T1,T2,T3,U> Yield<T1, T2, T3, U>(this Action<U,T1,T2,T3> In)
+{
+return Logic.L_Yield_A<T1, T2, T3, U>()(In);
+}
+#endregion
+#region Yield2
+/// <summary>
+/// Takes an Action and returns a Func that returns the second parameter after the action is performed.
+/// </summary>
+public static Func<T1,U,T2,T3,U> Yield2<T1, T2, T3, U>(this Action<T1,U,T2,T3> In)
+{
+return Logic.L_Yield2_A<T1, T2, T3, U>()(In);
+}
+#endregion
+#region Yield3
+/// <summary>
+/// Takes an Action and returns a Func that returns the third parameter after the action is performed.
+/// </summary>
+public static Func<T1,T2,U,T3,U> Yield3<T1, T2, T3, U>(this Action<T1,T2,U,T3> In)
+{
+return Logic.L_Yield3_A<T1, T2, T3, U>()(In);
+}
+#endregion
+#region Yield4
+/// <summary>
+/// Takes an Action and returns a Func that returns the fourth parameter after the action is performed.
+/// </summary>
+public static Func<T1,T2,T3,U,U> Yield4<T1, T2, T3, U>(this Action<T1,T2,T3,U> In)
+{
+return Logic.L_Yield4_A<T1, T2, T3, U>()(In);
+}
+#endregion
+#region Yield
+/// <summary>
+/// Takes an Action and returns a Func that returns the first parameter after the action is performed.
+/// </summary>
+public static Func<U,U> Yield<U>(this Func<U,U> In)
+{
+return Logic.L_Yield_F<U>()(In);
 }
 /// <summary>
-/// Returns a new function with added arguments of Types T2, T3, T4
+/// Takes an Action and returns a Func that returns the first parameter after the action is performed.
 /// </summary>
-public static Func<T1,T2,T3,T4,U> Arg<T1, T2, T3, T4, U>(this Func<T1,U> o)
+public static Func<U,T1,U> Yield<T1, U>(this Func<U,T1,U> In)
 {
-return Logic.L_Arg_F1<T1, T2, T3, T4, U>()(o);
+return Logic.L_Yield_F<T1, U>()(In);
 }
+#endregion
+#region Yield2
 /// <summary>
-/// Returns a new function with an added argument of Type T3
+/// Takes an Action and returns a Func that returns the second parameter after the action is performed.
 /// </summary>
-public static Func<T1,T2,T3,U> Arg<T1, T2, T3, U>(this Func<T1,T2,U> In)
+public static Func<T1,U,U> Yield2<T1, U>(this Func<T1,U,U> In)
 {
-return Logic.L_Arg_F2<T1, T2, T3, U>()(In);
+return Logic.L_Yield2_F<T1, U>()(In);
 }
+#endregion
+#region Yield
 /// <summary>
-/// Returns a new function with added arguments of Types T3, T4
+/// Takes an Action and returns a Func that returns the first parameter after the action is performed.
 /// </summary>
-public static Func<T1,T2,T3,T4,U> Arg<T1, T2, T3, T4, U>(this Func<T1,T2,U> In)
+public static Func<U,T1,T2,U> Yield<T1, T2, U>(this Func<U,T1,T2,U> In)
 {
-return Logic.L_Arg_F2<T1, T2, T3, T4, U>()(In);
-}
-/// <summary>
-/// Returns a new function with an added argument of Type T4
-/// </summary>
-public static Func<T1,T2,T3,T4,U> Arg<T1, T2, T3, T4, U>(this Func<T1,T2,T3,U> In)
-{
-return Logic.L_Arg_F3<T1, T2, T3, T4, U>()(In);
+return Logic.L_Yield_F<T1, T2, U>()(In);
 }
 #endregion
 #region Return
-/// <summary>
-/// Returns a function that converts an action to a Func, returning the specified value.
-/// </summary>
-public static Func<U> Return<U>(this Action In, U Obj = default(U))
-{
-return Logic.L_Return_A<U>()(In, Obj);
-}
-/// <summary>
-/// Returns a function that converts an action to a Func, returning the specified value.
-/// </summary>
-public static Func<T1,U> Return<T1, U>(this Action<T1> In, U Obj = default(U))
-{
-return Logic.L_Return_A<T1, U>()(In, Obj);
-}
-/// <summary>
-/// Returns a function that converts an action to a Func, returning the specified value.
-/// </summary>
-public static Func<T1,T2,U> Return<T1, T2, U>(this Action<T1,T2> In, U Obj = default(U))
-{
-return Logic.L_Return_A<T1, T2, U>()(In, Obj);
-}
-/// <summary>
-/// Returns a function that converts an action to a Func, returning the specified value.
-/// </summary>
-public static Func<T1,T2,T3,U> Return<T1, T2, T3, U>(this Action<T1,T2,T3> In, U Obj = default(U))
-{
-return Logic.L_Return_A<T1, T2, T3, U>()(In, Obj);
-}
 /// <summary>
 /// Returns a function that converts an action to a Func, returning the specified value.
 /// </summary>
@@ -2466,6 +2329,81 @@ return Logic.L_Default_F<T1, T2, T3, U>()(In, Default);
 public static Func<T1,T2,T3,U> Default2<T1, T2, T3, U>(this Func<T1,T2,T3,U> In, T2 Default2)
 {
 return Logic.L_Default2_F<T1, T2, T3, U>()(In, Default2);
+}
+#endregion
+#region Default3
+/// <summary>
+/// If the third argument passed is null or empty, the Default value is used instead.
+/// </summary>
+public static Func<T1,T2,T3,U> Default3<T1, T2, T3, U>(this Func<T1,T2,T3,U> In, T3 Default3)
+{
+return Logic.L_Default3_F<T1, T2, T3, U>()(In, Default3);
+}
+#endregion
+#region Default
+/// <summary>
+/// If the first argument passed is null or empty, the Default value is used instead.
+/// </summary>
+public static Func<T1,T2,T3,T4,U> Default<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, T1 Default)
+{
+return Logic.L_Default_F<T1, T2, T3, T4, U>()(In, Default);
+}
+#endregion
+#region Default2
+/// <summary>
+/// If the second argument passed is null or empty, the Default value is used instead.
+/// </summary>
+public static Func<T1,T2,T3,T4,U> Default2<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, T2 Default2)
+{
+return Logic.L_Default2_F<T1, T2, T3, T4, U>()(In, Default2);
+}
+#endregion
+#region Default3
+/// <summary>
+/// If the third argument passed is null or empty, the Default value is used instead.
+/// </summary>
+public static Func<T1,T2,T3,T4,U> Default3<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, T3 Default3)
+{
+return Logic.L_Default3_F<T1, T2, T3, T4, U>()(In, Default3);
+}
+#endregion
+#region Default4
+/// <summary>
+/// If the fourth argument passed is null or empty, the Default value is used instead.
+/// </summary>
+public static Func<T1,T2,T3,T4,U> Default4<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, T4 Default4)
+{
+return Logic.L_Default4_F<T1, T2, T3, T4, U>()(In, Default4);
+}
+#endregion
+#region Defaults
+/// <summary>
+/// If the arguments passed are null or empty, the Default values are used instead.
+/// </summary>
+public static Action<T1,T2> Defaults<T1, T2>(this Action<T1,T2> In, T1 Default, T2 Default2)
+{
+return Logic.L_Defaults_A<T1, T2>()(In, Default, Default2);
+}
+/// <summary>
+/// If the arguments passed are null or empty, the Default values are used instead.
+/// </summary>
+public static Action<T1,T2,T3> Defaults<T1, T2, T3>(this Action<T1,T2,T3> In, T1 Default, T2 Default2, T3 Default3)
+{
+return Logic.L_Defaults_A<T1, T2, T3>()(In, Default, Default2, Default3);
+}
+/// <summary>
+/// If the arguments passed are null or empty, the Default values are used instead.
+/// </summary>
+public static Action<T1,T2,T3,T4> Defaults<T1, T2, T3, T4>(this Action<T1,T2,T3,T4> In, T1 Default, T2 Default2, T3 Default3, T4 Default4)
+{
+return Logic.L_Defaults_A<T1, T2, T3, T4>()(In, Default, Default2, Default3, Default4);
+}
+/// <summary>
+/// If the arguments passed are null or empty, the Default values are used instead.
+/// </summary>
+public static Func<T1,T2,U> Defaults<T1, T2, U>(this Func<T1,T2,U> In, T1 Default, T2 Default2)
+{
+return Logic.L_Defaults_F<T1, T2, U>()(In, Default, Default2);
 }
 #endregion
 #region Loop
@@ -4153,6 +4091,71 @@ public static Func<T1,T2,U> Arg<T1, T2, U>(this Func<T1,U> In)
 {
 return Logic.L_Arg_F1<T1, T2, U>()(In);
 }
+/// <summary>
+/// Returns a new function with added arguments of Types T2, T3
+/// </summary>
+public static Func<T1,T2,T3,U> Arg<T1, T2, T3, U>(this Func<T1,U> In)
+{
+return Logic.L_Arg_F1<T1, T2, T3, U>()(In);
+}
+/// <summary>
+/// Returns a new function with added arguments of Types T2, T3, T4
+/// </summary>
+public static Func<T1,T2,T3,T4,U> Arg<T1, T2, T3, T4, U>(this Func<T1,U> o)
+{
+return Logic.L_Arg_F1<T1, T2, T3, T4, U>()(o);
+}
+/// <summary>
+/// Returns a new function with an added argument of Type T3
+/// </summary>
+public static Func<T1,T2,T3,U> Arg<T1, T2, T3, U>(this Func<T1,T2,U> In)
+{
+return Logic.L_Arg_F2<T1, T2, T3, U>()(In);
+}
+/// <summary>
+/// Returns a new function with added arguments of Types T3, T4
+/// </summary>
+public static Func<T1,T2,T3,T4,U> Arg<T1, T2, T3, T4, U>(this Func<T1,T2,U> In)
+{
+return Logic.L_Arg_F2<T1, T2, T3, T4, U>()(In);
+}
+/// <summary>
+/// Returns a new function with an added argument of Type T4
+/// </summary>
+public static Func<T1,T2,T3,T4,U> Arg<T1, T2, T3, T4, U>(this Func<T1,T2,T3,U> In)
+{
+return Logic.L_Arg_F3<T1, T2, T3, T4, U>()(In);
+}
+#endregion
+#region Return
+/// <summary>
+/// Returns a function that converts an action to a Func, returning the specified value.
+/// </summary>
+public static Func<U> Return<U>(this Action In, U Obj = default(U))
+{
+return Logic.L_Return_A<U>()(In, Obj);
+}
+/// <summary>
+/// Returns a function that converts an action to a Func, returning the specified value.
+/// </summary>
+public static Func<T1,U> Return<T1, U>(this Action<T1> In, U Obj = default(U))
+{
+return Logic.L_Return_A<T1, U>()(In, Obj);
+}
+/// <summary>
+/// Returns a function that converts an action to a Func, returning the specified value.
+/// </summary>
+public static Func<T1,T2,U> Return<T1, T2, U>(this Action<T1,T2> In, U Obj = default(U))
+{
+return Logic.L_Return_A<T1, T2, U>()(In, Obj);
+}
+/// <summary>
+/// Returns a function that converts an action to a Func, returning the specified value.
+/// </summary>
+public static Func<T1,T2,T3,U> Return<T1, T2, T3, U>(this Action<T1,T2,T3> In, U Obj = default(U))
+{
+return Logic.L_Return_A<T1, T2, T3, U>()(In, Obj);
+}
 #endregion
 #region If
 /// <summary>
@@ -5431,4 +5434,5 @@ return LX_Explode.L_Merge1<T1>()(In, Merge);
 #endregion
 }
 }
+
 */

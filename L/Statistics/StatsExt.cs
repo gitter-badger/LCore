@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LCore;
+using LCore.Extensions;
 
 namespace LCore.Statistics
     {
-    public static class StatsExt
+    internal static class StatsExt
         {
         public static int GetOptimumClassCount(long SampleSize)
             {
@@ -53,21 +49,17 @@ namespace LCore.Statistics
         /// <param name="StandardDeviations">May be positive or negative</param>
         /// <returns>Returns the ratio (between 0 and 1) of data that exists greater than StandardDeviations of the mean</returns>
         public static float GetRatioGreaterThan(double StandardDeviations)
-            {
+        {
             if (StandardDeviations < 0)
                 {
                 return 1 - GetRatioLessThan(StandardDeviations);
                 }
-            else if (StandardDeviations == 0)
-                {
+            if (StandardDeviations == 0)
+            {
                 return 0.5f;
-                }
-            else
-                {
-                return GetRatioWithout(StandardDeviations) / 2;
-                }
-
             }
+            return GetRatioWithout(StandardDeviations) / 2;
+        }
 
         /// <summary>
         /// Returns the ratio (between 0 and 1) of data that exists less than StandardDeviations of the mean.
@@ -76,20 +68,17 @@ namespace LCore.Statistics
         /// <param name="StandardDeviations">May be positive or negative</param>
         /// <returns>Returns the ratio (between 0 and 1) of data that exists less than StandardDeviations of the mean</returns>
         public static float GetRatioLessThan(double StandardDeviations)
-            {
+        {
             if (StandardDeviations < 0)
                 {
                 return GetRatioWithout(StandardDeviations.AbsoluteValue()) / 2;
                 }
-            else if (StandardDeviations == 0)
-                {
+            if (StandardDeviations == 0)
+            {
                 return 0.5f;
-                }
-            else
-                {
-                return 1 - GetRatioGreaterThan(StandardDeviations);
-                }
             }
+            return 1 - GetRatioGreaterThan(StandardDeviations);
+        }
 
         /// <summary>
         /// Returns the ratio (between 0 and 1) of data that exists between the two values of Standard Deviation.
@@ -103,10 +92,10 @@ namespace LCore.Statistics
             if (MaximumStandardDeviations <= MinimumStandardDeviations)
                 throw new ArgumentException("Maximum must be greater than minimum.");
 
-            float Side = GetRatioGreaterThan(MinimumStandardDeviations);
+            float Side = GetRatioGreaterThan(MaximumStandardDeviations);
             float Side2 = GetRatioLessThan(MinimumStandardDeviations);
 
-            float Intersection = (Side + Side2) - 1f;
+            float Intersection = Side + Side2 - 1f;
 
             return Intersection;
             }
@@ -149,7 +138,7 @@ namespace LCore.Statistics
             if (Ratio < 0 || Ratio > 1)
                 throw new ArgumentException("Ratio");
 
-            return (Math.Sqrt(1 - 1 / Ratio) / 2) + 0.5f;
+            return Math.Sqrt(1 - 1 / Ratio) / 2 + 0.5f;
             }
 
         /// <summary>
@@ -163,7 +152,7 @@ namespace LCore.Statistics
             if (Ratio < 0 || Ratio > 1)
                 throw new ArgumentException("Ratio");
 
-            return -(GetStandardDeviationLowerRatio(1 - Ratio));
+            return -GetStandardDeviationLowerRatio(1 - Ratio);
             }
         }
     }

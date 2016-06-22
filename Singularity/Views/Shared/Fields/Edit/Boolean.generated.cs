@@ -12,106 +12,32 @@
 namespace ASP
 {
     using System;
-    
-    #line 8 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 9 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 16 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
     using System.ComponentModel.DataAnnotations;
-    
-    #line default
-    #line hidden
-    
-    #line 17 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
-    using System.ComponentModel.DataAnnotations.Schema;
-    
-    #line default
-    #line hidden
-    
-    #line 11 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
     using System.IO;
-    
-    #line 14 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
-    
-    #line 15 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 12 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 13 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
-    
-    #line 3 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
-    using LCore;
-    
-    #line default
-    #line hidden
-    
-    #line 4 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
+    using LCore.Extensions;
     using Singularity;
-    
-    #line default
-    #line hidden
-    
-    #line 7 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
     using Singularity.Controllers;
-    
-    #line default
-    #line hidden
-    
-    #line 5 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
     using Singularity.Models;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/Fields/Edit/Boolean.cshtml")]
@@ -122,123 +48,114 @@ namespace ASP
         }
         public override void Execute()
         {
-
-
 WriteLiteral("\r\n\r\n");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-WriteLiteral("\r\n");
-
-
             
-            #line 19 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
+            #line 3 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
   
-    Boolean Check = (Model.PropertyData is Boolean && (Boolean)Model.PropertyData == true) ||
-        (Model.PropertyData is Boolean? && (Boolean?)Model.PropertyData == (Boolean?)true);
-
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
-
-WriteLiteral("\r\n<input type=\"radio\"\r\n       id=\"");
-
-
-            
-            #line 27 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
-       Write(Model.Meta.PropertyName);
+    bool Check = (Model.PropertyData is bool && (bool)Model.PropertyData) ||
+        (Model.PropertyData is bool? && (bool?)Model.PropertyData == true);
 
             
             #line default
             #line hidden
-WriteLiteral("-false\"\r\n       name=\"");
+WriteLiteral("\r\n\r\n");
 
+WriteLiteral("<input");
 
+WriteLiteral(" type=\"radio\"");
+
+WriteAttribute("id", Tuple.Create("\r\n       id=\"", 232), Tuple.Create("\"", 277)
             
-            #line 28 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
-        Write(Model.Meta.PropertyName);
-
+            #line 11 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
+, Tuple.Create(Tuple.Create("", 245), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-WriteLiteral("\"\r\n       ");
+, 245), false)
+, Tuple.Create(Tuple.Create("", 271), Tuple.Create("-false", 271), true)
+);
 
+WriteAttribute("name", Tuple.Create("\r\n       name=\"", 278), Tuple.Create("\"", 317)
+            
+            #line 12 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
+, Tuple.Create(Tuple.Create("", 293), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+            
+            #line default
+            #line hidden
+, 293), false)
+);
+
+WriteLiteral("\r\n       ");
 
             
-            #line 29 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
+            #line 13 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
   Write(Html.Raw(Check == false ? "checked=\"checked\"" : ""));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n       checked=\"\"\r\n       value=\"false\" />\r\n\r\n<label for=\"");
+WriteLiteral("\r\n       checked=\"\"\r\n       value=\"false\" />\r\n\r\n<label");
 
+WriteAttribute("for", Tuple.Create(" for=\"", 435), Tuple.Create("\"", 473)
+            
+            #line 17 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
+, Tuple.Create(Tuple.Create("", 441), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+            
+            #line default
+            #line hidden
+, 441), false)
+, Tuple.Create(Tuple.Create("", 467), Tuple.Create("-false", 467), true)
+);
+
+WriteLiteral(">\r\n    <span>No</span>\r\n</label>\r\n\r\n<input");
+
+WriteLiteral(" type=\"radio\"");
+
+WriteAttribute("id", Tuple.Create("\r\n       id=\"", 529), Tuple.Create("\"", 573)
+            
+            #line 22 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
+, Tuple.Create(Tuple.Create("", 542), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+            
+            #line default
+            #line hidden
+, 542), false)
+, Tuple.Create(Tuple.Create("", 568), Tuple.Create("-true", 568), true)
+);
+
+WriteAttribute("name", Tuple.Create("\r\n       name=\"", 574), Tuple.Create("\"", 613)
+            
+            #line 23 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
+, Tuple.Create(Tuple.Create("", 589), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+            
+            #line default
+            #line hidden
+, 589), false)
+);
+
+WriteLiteral("\r\n       ");
 
             
-            #line 33 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
-        Write(Model.Meta.PropertyName);
+            #line 24 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
+  Write(Html.Raw(Check ? "checked=\"checked\"" : ""));
 
             
             #line default
             #line hidden
-WriteLiteral("-false\">\r\n    <span>No</span>\r\n</label>\r\n\r\n<input type=\"radio\"\r\n       id=\"");
+WriteLiteral("\r\n       value=\"true\" />\r\n\r\n<label");
 
-
+WriteAttribute("for", Tuple.Create(" for=\"", 702), Tuple.Create("\"", 739)
             
-            #line 38 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
-       Write(Model.Meta.PropertyName);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("-true\"\r\n       name=\"");
-
-
-            
-            #line 39 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
-        Write(Model.Meta.PropertyName);
-
+            #line 27 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
+, Tuple.Create(Tuple.Create("", 708), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-WriteLiteral("\"\r\n       ");
+, 708), false)
+, Tuple.Create(Tuple.Create("", 734), Tuple.Create("-true", 734), true)
+);
 
-
-            
-            #line 40 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
-  Write(Html.Raw(Check == true ? "checked=\"checked\"" : ""));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n       value=\"true\" />\r\n\r\n<label for=\"");
-
-
-            
-            #line 43 "..\..\Views\Shared\Fields\Edit\Boolean.cshtml"
-        Write(Model.Meta.PropertyName);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("-true\">\r\n    <span>Yes</span>\r\n</label>");
-
+WriteLiteral(">\r\n    <span>Yes</span>\r\n</label>");
 
         }
     }

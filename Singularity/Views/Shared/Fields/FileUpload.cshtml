@@ -1,34 +1,20 @@
 ﻿@* Generator: MvcView *@
 
-@using LCore;
-@using Singularity;
-@using Singularity.Models;
-@using Singularity.Controllers;
-@using Singularity.Context;
-@using Singularity.Routes;
+
+@using LCore.Extensions;
 @using Singularity.Annotations;
 @using Singularity.Extensions;
-@using System.Collections;
-@using System.Collections.Generic;
-@using System.ComponentModel;
-@using System.ComponentModel.Design;
-@using System.Web;
-@using System.Web.Mvc;
-@using System.Linq;
-@using System.Linq.Expressions;
-@using System.ComponentModel.DataAnnotations;
-@using System.ComponentModel.DataAnnotations.Schema;
 
 @{
     ModelContext Context = ContextProviderFactory.GetCurrent().GetContext(Session);
 
-    List<Singularity.Models.FileUpload> CurrentFiles = new List<Singularity.Models.FileUpload>();
+    List<FileUpload> CurrentFiles = new List<FileUpload>();
 
     IFileUpload Attr = Model.Meta.GetAttribute<IFileUpload>();
 
-    if (Context.ContextTypes.Has(typeof(Singularity.Models.FileUpload)))
+    if (Context.ContextTypes.Has(typeof(FileUpload)))
         {
-        CurrentFiles = Singularity.Models.FileUpload.GetFileUploads(Context, Model.ModelData, Model.PropertyName).List();
+        CurrentFiles = FileUpload.GetFileUploads(Context, Model.ModelData, Model.PropertyName).List();
         }
 }
 
@@ -50,8 +36,7 @@
 
                         $('.file-upload-error-no-file-@Model.PropertyName').hide();
 
-                        var fileName = $('#file-upload-@Model.PropertyName').val()
-
+                        var fileName = $('#file-upload-@Model.PropertyName').val();
                         if (!fileName) {
                             $('.file-upload-error-no-file-@Model.PropertyName').show();
                             return;
@@ -65,10 +50,9 @@
                         var restrictFileType = @(Attr.AllowFileTypes == null || Attr.AllowFileTypes.Length == 0 ? "false" : "true");
 
                         $('.file-upload-error-incorrect-type-@(Model.PropertyName)').hide();
-
-                        if (restrictFileType)
-                        {
-                            var fileTypes = @Html.Raw("['" + Attr.AllowFileTypes.JoinLines("','").ToLower().ReplaceAll(".","") + "']");
+                        if (restrictFileType) {
+                            var fileTypes =
+                                @Html.Raw($"[\'{Attr.AllowFileTypes.JoinLines("','").ToLower().ReplaceAll(".", "")}\']");
 
                             var typeFound = false;
                             for (var i = 0 ; i < fileTypes.length; i++)
@@ -110,13 +94,13 @@
                     var ParentForm = $('#file-upload-button-@Model.PropertyName').parents('form')[0];
 
                 $.ajax({
-                    url: '/@(Html.ControllerName())/UploadFile?ReturnURL=@Request.Url.AbsoluteUri&RelationType=@Model.ModelData.TrueModelType().FullName&RelationProperty=@Model.PropertyName&RelationID=@Model.ModelData.GetID()',
+                    url: '/@(Html.ControllerName())/UploadFile?ReturnURL=@Request.Url?.AbsoluteUri&RelationType=@Model.ModelData.TrueModelType().FullName&RelationProperty=@Model.PropertyName&RelationID=@Model.ModelData.GetID()',
                     type: 'POST',
                     data: new FormData(ParentForm),
                     processData: false,
                     contentType: false,
 
-                    success: function (data) {
+                    success: function () {
                         location.reload();
                     },
                     error: function (e) {
@@ -165,13 +149,13 @@ else if (Model.ViewTypes.Has(ControllerHelper.ViewType.Display))
     }
 
 @if (Model.ViewTypes.Has(ControllerHelper.ViewType.Edit) ||
-    Model.ViewTypes.Has(ControllerHelper.ViewType.Display))
+                Model.ViewTypes.Has(ControllerHelper.ViewType.Display))
     {
-    foreach (Singularity.Models.FileUpload File in CurrentFiles)
+    foreach (FileUpload File in CurrentFiles)
         {
-        String Ext = System.IO.Path.GetExtension(File.FilePath);
+        string Ext = Path.GetExtension(File.FilePath);
 
-        if (Ext.StartsWith("."))
+        if (Ext != null && Ext.StartsWith("."))
             {
             Ext = Ext.Substring(1);
             }
@@ -186,7 +170,7 @@ else if (Model.ViewTypes.Has(ControllerHelper.ViewType.Display))
             <div>
                 <a href="@(Url.Controller<ManageController>().Action(c => c.DownloadFile, File.FileUploadID))">
                     Name:
-                    @(System.IO.Path.GetFileName(File.FilePath))
+                    @Path.GetFileName(File.FilePath)
                 </a>
             </div>
 
@@ -198,7 +182,7 @@ else if (Model.ViewTypes.Has(ControllerHelper.ViewType.Display))
             @if (Attr.AllowDeactivate)
                 {
                 <a class="btn btn-default" id="file-upload-button-@Model.PropertyName"
-                   href="@(Url.Controller<ManageController>().Action(c => c.DeleteFile, File.FileUploadID, Request.Url.AbsoluteUri))">
+                   href="@(Url.Controller<ManageController>().Action(c => c.DeleteFile, File.FileUploadID, Request.Url?.AbsoluteUri))">
                     <glyph>&#xe014;</glyph>
                     Remove
                 </a>

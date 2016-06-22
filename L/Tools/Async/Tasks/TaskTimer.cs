@@ -1,82 +1,72 @@
 ﻿using System;
-using System.Collections.Generic;
-using LCore;
-using System.Text;
+using LCore.Extensions;
 using System.Timers;
 
 
 namespace LCore.Tasks
-	{
-	public class TaskTimer
-		{
-		public TaskTimer(Task t)
-			{
-			this._TimerTask = t;
+    {
+    public class TaskTimer
+        {
+        public TaskTimer(Task t)
+            {
+            this.TimerTask = t;
 
-			this.Timer_Reset();
-			}
+            this.Timer_Reset();
+            }
 
-		private static TimeSpan DefaultWait = new TimeSpan(0, 0, 10);
+        public static TimeSpan DefaultWait { get; } = new TimeSpan(0, 0, 10);
 
-		private Timer RunTaskTimer = null;
-		private Task _TimerTask = null;
-		public Task TimerTask
-			{
-			get
-				{
-				return _TimerTask;
-				}
-			}
+        private Timer RunTaskTimer;
+        public Task TimerTask { get; }
 
-		private void Timer_Reset(Object o, System.Timers.ElapsedEventArgs e)
-			{
-			Timer_Reset();
-			}
-		private void Timer_Elapsed(Object o, System.Timers.ElapsedEventArgs e)
-			{
-			if (this.TimerTask != null)
-				this.TimerTask.Run();
-			}
+        private void Timer_Reset(object o, ElapsedEventArgs e)
+            {
+            this.Timer_Reset();
+            }
+        private void Timer_Elapsed(object o, ElapsedEventArgs e)
+            {
+            this.TimerTask?.Run();
+            }
 
-		public void Timer_Reset()
-			{
-			long WaitTime = -1;
+        public void Timer_Reset()
+            {
+            if (this.TimerTask == null)
+                return;
 
-			if (this.TimerTask == null)
-				return;
+            long WaitTime = this.TimerTask.NextRun.Ticks - DateTime.Now.Ticks;
 
-			WaitTime = this.TimerTask.NextRun.Ticks - DateTime.Now.Ticks;
+            if (WaitTime < 0)
+                return;
 
-			if (WaitTime < 0)
-				return;
+            double d = (int)(WaitTime * DateExt.TicksToMilliseconds / 1000) * (double)1000;
 
-			Double d = (double)((int)((WaitTime * DateExt.TicksToMilliseconds) / 1000) * (double)1000);
+            if (d != 0)
+                {
+                if (this.RunTaskTimer?.Enabled == true)
+                    try
+                        {
+                        this.RunTaskTimer.Stop();
+                        }
+                    catch { }
 
-			if (d != 0)
-				{
-				if (RunTaskTimer != null && RunTaskTimer.Enabled)
-					try { RunTaskTimer.Stop(); }
-					catch { }
+                if (d > DateExt.MaxTimerInterval)
+                    {
+                    this.RunTaskTimer = new Timer(DateExt.MaxTimerInterval);
 
-				if (d > DateExt.MaxTimerInterval)
-					{
-					RunTaskTimer = new System.Timers.Timer(DateExt.MaxTimerInterval);
-
-					RunTaskTimer.Elapsed += new System.Timers.ElapsedEventHandler(Timer_Reset);
-					RunTaskTimer.AutoReset = false;
-					}
-				else
-					{
-					RunTaskTimer = new System.Timers.Timer(d);
-
-					RunTaskTimer.AutoReset = false;
-
-					RunTaskTimer.Elapsed += new System.Timers.ElapsedEventHandler(Timer_Elapsed);
-					}
+                    this.RunTaskTimer.Elapsed += this.Timer_Reset;
+                    this.RunTaskTimer.AutoReset = false;
+                    }
+                else
+                    {
+                        this.RunTaskTimer = new Timer(d) {AutoReset = false};
 
 
-				RunTaskTimer.Start();
-				}
-			}
-		}
-	}
+                        this.RunTaskTimer.Elapsed += this.Timer_Elapsed;
+                    }
+
+
+                this.RunTaskTimer.Start();
+                }
+            }
+        }
+    }

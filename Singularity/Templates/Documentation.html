@@ -1,4 +1,4 @@
-﻿
+﻿<!-- ReSharper disable All -->
 <html>
 <body>
     <div sing-template="Singularity">
@@ -78,69 +78,71 @@
             </div>
         </div>
 
-        <h2 sing-if="{{module.parentModule}}">
-            <span sing-fill="{{GlyphOrIdent with [module.glyphIcon, module.name]}}"></span>
-            {{module.name}}
-        </h2>
+        <div class="sing-module-top">
+            <h2 sing-if="{{module.parentModule}}">
+                <span sing-fill="{{GlyphOrIdent with [module.glyphIcon, module.name]}}"></span>
+                {{module.name}}
+            </h2>
 
-        <p sing-if="{{module.summaryShort}}" class="sing-module-summary">
-            <strong>{{module.summaryShort.textToHTML()}}</strong>
-        </p>
-        <p sing-else>
-            <strong>[Summary]</strong>
-        </p>
+            <p sing-if="{{module.summaryShort}}" class="sing-module-summary">
+                <strong>{{module.summaryShort.textToHTML()}}</strong>
+            </p>
+            <p sing-else>
+                <strong>[Summary]</strong>
+            </p>
 
-        <p sing-if="{{module.summaryLong}}" class="sing-module-summary">
-            <strong>{{module.summaryLong.textToHTML()}}</strong>
-        </p>
-        <p sing-else class="sing-module-summary">
-            <strong>[Long Summary]</strong>
-        </p>
+            <p sing-if="{{module.summaryLong}}" class="sing-module-summary">
+                <strong>{{module.summaryLong.textToHTML()}}</strong>
+            </p>
+            <p sing-else class="sing-module-summary">
+                <strong>[Long Summary]</strong>
+            </p>
 
 
-        <div sing-if="{{module.features}}" class="sing-module-features">
-            Features:
-            <ul>
-                <li sing-loop="{{feature in module.features}}">
-                    {{feature}}
-                </li>
-            </ul>
-        </div>
-
-        <div sing-if="{{module.jsFiddleLinks}}" class="panel">
-            <div class="panel-heading">
-                <h3 class="panel-title">See it in action:</h3>
-            </div>
-            <div class="panel-body">
-                <ul class="list-group">
-                    <li class="list-group-item" sing-loop="{{ fiddle in module.jsFiddleLinks}}">
-                        <a sing-if="{{fiddle.contains('jsfiddle.net')}}" href="{{ fiddle }}" target="_blank">
-                            <img src="../Content/Images/jsfiddle.png" />
-                            {{fiddle$key}}
-                        </a>
-                        <a sing-else href="{{sing.constants.IncludeURLs.jsFiddleRoot + fiddle}}" target="_blank">
-                            <img src="../Content/Images/jsfiddle.png" />
-                            {{fiddle$key}}
-                        </a>
+            <div sing-if="{{module.features}}" class="sing-module-features">
+                Features:
+                <ul>
+                    <li sing-loop="{{feature in module.features}}">
+                        {{feature}}
                     </li>
                 </ul>
             </div>
-        </div>
 
-        <div sing-if="{{module.resources}}" class="sing-module-resources">
-            Resources:
-            <ul>
-                <li sing-loop="{{resource in module.resources}}">
-                    <a href="{{resource$key}}">{{resource}}</a>
-                </li>
-            </ul>
-        </div>
+            <div sing-if="{{module.jsFiddleLinks}}" class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">See it in action:</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item" sing-loop="{{ fiddle in module.jsFiddleLinks}}">
+                            <a sing-if="{{fiddle.contains('jsfiddle.net')}}" href="{{ fiddle }}" target="_blank">
+                                <img src="../Content/Images/jsfiddle.png" />
+                                {{fiddle$key}}
+                            </a>
+                            <a sing-else href="{{sing.constants.IncludeURLs.jsFiddleRoot + fiddle}}" target="_blank">
+                                <img src="../Content/Images/jsfiddle.png" />
+                                {{fiddle$key}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-        <div sing-if="{{module.features}}">
-            <b>Features:</b>
+            <div sing-if="{{module.resources}}" class="sing-module-resources">
+                Resources:
+                <ul>
+                    <li sing-loop="{{resource in module.resources}}">
+                        <a href="{{resource$key}}">{{resource}}</a>
+                    </li>
+                </ul>
+            </div>
 
-            <div sing-loop="{{ feature in module.features}}">
-                <div sing-fill="{{Feature with feature}}"></div>
+            <div sing-if="{{module.features}}">
+                <b>Features:</b>
+
+                <div sing-loop="{{ feature in module.features}}">
+                    <div sing-fill="{{Feature with feature}}"></div>
+                </div>
             </div>
         </div>
 
@@ -314,14 +316,14 @@
                 <div sing-if="{{ method.details.examples}}">
                     <b>Unit Tests:</b>
                     <pre sing-loop="{{ test in method.details.unitTests}}">
-                        <sing if="{{$.isDefined(test.testResult)}}">
+                    <sing if="{{$.isDefined(test.testResult)}}">
                             {{test.requirement}}
                     
-                            <sing if="{{test.testResult == true}}">
+                    <sing if="{{test.testResult == true}}">
                                 PASSED
                             </sing>
-                            <sing else-if="{{test.testResult}}">
-                                <error>
+                    <sing else-if="{{test.testResult}}">
+                    <error>
                                     {{test.testResult}}
                                 </error>
                             </sing>

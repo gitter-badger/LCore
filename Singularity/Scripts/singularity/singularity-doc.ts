@@ -31,7 +31,7 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
     var testsFound = 0;
     var testsPassed = 0;
 
-    var header = '';
+    let header = '';
 
     if (!funcName ||
         funcName == '' ||
@@ -40,7 +40,7 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
 
     var out = '';
 
-    $.objEach(sing.methods, function (key: string, ext: SingularityMethod, index: number) {
+    $.objEach(sing.methods, (key: string, ext: SingularityMethod) => {
 
         var mod = sing.modules[ext.moduleName];
 
@@ -89,7 +89,7 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
 
 
             // Don't display details for alias functions, aliases are listed under the main function
-            if (ext.isAlias && includeDocumentation == true) {
+            if (ext.isAlias && includeDocumentation) {
                 return;
             }
 
@@ -107,38 +107,32 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
             */
 
             out +=
-            [
-                line,
-                ext.methodCall.pad(40) + (!ext.method ? ' -- NOT IMPLEMENTED' : functionDef).pad(40, Direction.r),
-                line,
+                [
+                    line,
+                    ext.methodCall.pad(40) + (!ext.method ? ' -- NOT IMPLEMENTED' : functionDef).pad(40, Direction.r),
+                    line,
 
-                (ext.details.summary ? ('\r\n    Summary: \r\n' + ext.details.summary) : ''),
+                    (ext.details.summary ? (`\r\n    Summary: \r\n${ext.details.summary}`) : ''),
 
-                (ext.details.parameters && ext.details.parameters.length == 0 ? '\r\n    Parameters: None\r\n' : ''),
+                    (ext.details.parameters && ext.details.parameters.length == 0 ? '\r\n    Parameters: None\r\n' : ''),
 
-                (ext.details.parameters && ext.details.parameters.length > 0 ? ('\r\n    Parameters:\r\n' +
-                    ext.details.parameters.collect(function (item, j) {
-                        return (' #' + (j + 1)).pad(10) + 'Name:    ' + item.name + '\r\n' +
-                            (item.required != true ? '              :    OPTIONAL \r\n' : '') +
-                            (item.isMulti == true ? '              :    Multi-parameter \r\n' : '') +
-                            (item.defaultValue != undefined ? ' Default Value:    ' + $.toStr(item.defaultValue, true) + '\r\n' : '') +
-                            '         Types:    [' + item.types.collect(function (a) { return a.name; }).join(', ') + '] \r\n' +
-                            '   Description:    ' + item.description + '\r\n\r\n';
-                    }).joinLines() + '\r\n') : ''),
+                    (ext.details.parameters && ext.details.parameters.length > 0 ? (`\r\n    Parameters:\r\n${ext.details.parameters.collect((item, j) => ((` #${j + 1}`).pad(10) + 'Name:    ' + item.name + '\r\n' +
+                        (!item.required ? '              :    OPTIONAL \r\n' : '') +
+                        (item.isMulti ? '              :    Multi-parameter \r\n' : '') +
+                        (item.defaultValue != undefined ? ` Default Value:    ${$.toStr(item.defaultValue, true)}\r\n` : '') +
+                        '         Types:    [' + item.types.collect(a => a.name).join(', ') + '] \r\n' +
+                        '   Description:    ' + item.description + '\r\n\r\n')).joinLines()}\r\n`) : ''),
 
-                ext.details.returnTypeName ? ('\r\n    Return Type: ' + ext.details.returnTypeName + '\r\n') : '',
-                (ext.details.aliases && ext.details.aliases.length > 0 ? ('\r\n    Aliases: \r\n' +
-                    ext.details.aliases.collect(function (alias, i) {
-                        return ''.pad(13) + ext.methodCall + '.' + alias;
-                    }).join(', ') + '\r\n\r\n') : ''),
+                    ext.details.returnTypeName ? (`\r\n    Return Type: ${ext.details.returnTypeName}\r\n`) : '',
+                    (ext.details.aliases && ext.details.aliases.length > 0 ? (`\r\n    Aliases: \r\n${ext.details.aliases.collect((alias) => (''.pad(13) + ext.methodCall + '.' + alias)).join(', ')}\r\n\r\n`) : ''),
 
-                ext.details.returns ? ('\r\n    Returns: \r\n' + ext.details.returns + '\r\n\r\n') : '',
+                    ext.details.returns ? (`\r\n    Returns: \r\n${ext.details.returns}\r\n\r\n`) : '',
 
-                (ext.details.examples ? ('\r\n    Examples: \r\n' + ext.details.examples.joinLines()) : ''),
+                    (ext.details.examples ? (`\r\n    Examples: \r\n${ext.details.examples.joinLines()}`) : ''),
 
-                (ext.method && includeCode ? ('\r\n    Method Code: \r\n\r\n' + ext.method.toString()) : '')]
-                .joinLines()
-                .replaceAll('\r\n\r\n\r\n', '\r\n\r\n');
+                    (ext.method && includeCode ? (`\r\n    Method Code: \r\n\r\n${ext.method.toString()}`) : '')]
+                    .joinLines()
+                    .replaceAll('\r\n\r\n\r\n', '\r\n\r\n');
 
             out += '\r\n';
 
@@ -159,7 +153,7 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
                         continue;
                     }
 
-                    out += '        ' + (test.requirement || '') + '\r\n';
+                    out += `        ${test.requirement || ''}\r\n`;
 
                     try {
                         var testPasses = test.testFunc();
@@ -169,13 +163,12 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
                             methodTestsPassed++;
                         }
                         else {
-                            out += '        ' + (testPasses ? "" : "").pad(50) +
-                            ' TEST CASE FAILS \r\n\r\n';
+                            out += `        ${('').pad(50)} TEST CASE FAILS \r\n\r\n`;
                         }
 
                     }
                     catch (ex) {
-                        out += '        ' + ext.name.pad(50) + 'TEST CASE FAILS \r\n\r\n';
+                        out += `        ${ext.name.pad(50)}TEST CASE FAILS \r\n\r\n`;
                     }
                 }
                 if (methodTestsFound > 0) {
@@ -183,8 +176,7 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
                         out += '----' + '\r\nAll Test Cases Passed\r\n\r\n';
                     }
                     else {
-                        out += '----' + methodTestsPassed + ' / ' + methodTestsFound +
-                        ' (' + methodTestsPassed.percentOf(methodTestsFound, 0, true) + ') Test Cases Passed\r\n\r\n';
+                        out += `----${methodTestsPassed} / ${methodTestsFound} (${methodTestsPassed.percentOf(methodTestsFound, 0, true)}) Test Cases Passed\r\n\r\n`;
                     }
                 }
             }
@@ -203,34 +195,29 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
         out = '';
     }
 
-    var totalFound = featuresFound + documentaionFound + testsPassed + featuresHaveTests;
-    var totalCount = featuresCount + documentaionCount + testsFound + featuresNeedTests;
+    const totalFound = featuresFound + documentaionFound + testsPassed + featuresHaveTests;
+    const totalCount = featuresCount + documentaionCount + testsFound + featuresNeedTests;
 
-    var leftSpace = 40;
+    const leftSpace = 40;
 
     header += '\r\n';
 
     if (featuresFound != 0 || featuresCount != 0)
-        header += 'Methods Implemented:      ' + (featuresFound + ' / ' + featuresCount).pad(leftSpace, Direction.r) +
-        ' (' + featuresFound.percentOf(featuresCount, 0, true) + ')' + '\r\n';
+        header += `Methods Implemented:      ${(featuresFound + ' / ' + featuresCount).pad(leftSpace, Direction.r)} (${featuresFound.percentOf(featuresCount, 0, true)})\r\n`;
 
     if (featuresHaveTests != 0 || featuresNeedTests != 0)
-        header += 'Unit Tests Implemented:   ' + (featuresHaveTests + ' / ' + featuresNeedTests).pad(leftSpace, Direction.r) +
-        ' (' + featuresHaveTests.percentOf(featuresNeedTests, 0, true) + ')' + '\r\n';
+        header += `Unit Tests Implemented:   ${(featuresHaveTests + ' / ' + featuresNeedTests).pad(leftSpace, Direction.r)} (${featuresHaveTests.percentOf(featuresNeedTests, 0, true)})\r\n`;
 
     if (testsPassed != 0 || testsFound != 0)
-        header += 'Unit Tests Passed:        ' + (testsPassed + ' / ' + testsFound).pad(leftSpace, Direction.r) +
-        ' (' + testsPassed.percentOf(testsFound, 0, true) + ')' + '\r\n';
+        header += `Unit Tests Passed:        ${(testsPassed + ' / ' + testsFound).pad(leftSpace, Direction.r)} (${testsPassed.percentOf(testsFound, 0, true)})\r\n`;
 
     if (documentaionFound != 0 || documentaionCount != 0)
-        header += 'Documentation:            ' + (documentaionFound + ' / ' + documentaionCount).pad(leftSpace, Direction.r) +
-        ' (' + documentaionFound.percentOf(documentaionCount, 0, true) + ')' + '\r\n';
+        header += `Documentation:            ${(documentaionFound + ' / ' + documentaionCount).pad(leftSpace, Direction.r)} (${documentaionFound.percentOf(documentaionCount, 0, true)})\r\n`;
 
     header += '\r\n';
 
     if (totalFound != 0 || totalCount != 0)
-        header += 'Total:                    ' + (totalFound + ' / ' + totalCount).pad(leftSpace, Direction.r) +
-        ' (' + totalFound.percentOf(totalCount, 0, true) + ')' + '\r\n';
+        header += `Total:                    ${(totalFound + ' / ' + totalCount).pad(leftSpace, Direction.r)} (${totalFound.percentOf(totalCount, 0, true)})\r\n`;
 
     return header + out;
 };
@@ -247,10 +234,10 @@ function SingularityGetMissing(funcName?: string) {
     var documentaionCount = 0;
     var documentaionFound = 0;
 
-    var header = 'Singularity.TS TypeScript, JavaScript, jQuery, HTML, Extension Method Engine & Library\r\n';
+    let header = 'Singularity.TS TypeScript, JavaScript, jQuery, HTML, Extension Method Engine & Library\r\n';
     var out = '';
 
-    $.objEach(sing.methods, function (key: string, ext: SingularityMethod, i: number) {
+    $.objEach(sing.methods, (key: string, ext: SingularityMethod) => {
 
         if (funcName &&
             funcName.lower() != '' &&
@@ -260,7 +247,7 @@ function SingularityGetMissing(funcName?: string) {
 
         featuresCount += 1; // method
         documentaionCount += 5 + // documentation
-        1;  // test cases
+            1;  // test cases
 
         if (ext.method)
             featuresFound++;
@@ -300,11 +287,7 @@ function SingularityGetMissing(funcName?: string) {
         }
     });
 
-    header += '\r\n' +
-    'Methods Implemented:      ' + featuresFound + ' / ' + featuresCount +
-    ' (' + Math.round((featuresFound / featuresCount) * 100) + '%) \r\n' +
-    'Documentation:            ' + documentaionFound + ' / ' + documentaionCount +
-    ' (' + Math.round((documentaionFound / documentaionCount) * 100) + '%) \r\n';
+    header += `\r\nMethods Implemented:      ${featuresFound} / ${featuresCount} (${Math.round((featuresFound / featuresCount) * 100)}%) \r\nDocumentation:            ${documentaionFound} / ${documentaionCount} (${Math.round((documentaionFound / documentaionCount) * 100)}%) \r\n`;
 
     return header + out;
 
@@ -319,7 +302,7 @@ function SingularityGetSummary(funcName: string = 'all', includeFunctions: boole
     out += '\r\n';
 
     if (includeFunctions) {
-        $.objEach(sing.methods, function (key, ext, i) {
+        $.objEach(sing.methods, (key, ext) => {
 
             if (funcName &&
                 funcName.lower() != '' &&
@@ -327,18 +310,18 @@ function SingularityGetSummary(funcName: string = 'all', includeFunctions: boole
                 !ext.name.lower().contains(funcName.lower()))
                 return;
 
-            out += '\r\n' + (ext.name + ' ').pad(30);
+            out += `\r\n${(ext.name + ' ').pad(30)}`;
 
             out += ((ext.details.returnTypeName || '') + ' function(').pad(20, Direction.r);
 
-            out += ((ext.details && ext.details.parameters) ? ext.details.parameters.collect(function (item, i) {
-                var TypeNames = item.types.collect(function (a) { return a.name; }).join(', ');
+            out += ((ext.details && ext.details.parameters) ? ext.details.parameters.collect((item, i) => {
+                var TypeNames = item.types.collect(a => a.name).join(', ');
                 return (i > 0 ? ''.pad(50) : '') +
                     '[' + TypeNames + '] ' + item.name;
             }).join(', \r\n') : '') +
-            ') ' +
-            (ext.details && ext.details.parameters && ext.details.parameters.length > 1 ? '\r\n' + ''.pad(50) : '') +
-            '{ ... } ';
+                ') ' +
+                (ext.details && ext.details.parameters && ext.details.parameters.length > 1 ? `\r\n${''.pad(50)}` : '') +
+                '{ ... } ';
         });
     }
     return out;

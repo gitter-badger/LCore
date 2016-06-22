@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using LCore;
+using LCore.Extensions;
 
 namespace LCore.Tools
 	{
@@ -10,16 +9,16 @@ namespace LCore.Tools
 
 		public StopWatch()
 			{
-			Start();
+		    this.Start();
 			}
 
 		public void Start()
 			{
-			StartTime = DateTime.Now;
+		    this.StartTime = DateTime.Now;
 			}
 		public double Stop()
 			{
-			return (DateTime.Now.Ticks - StartTime.Ticks) * DateExt.TicksToMilliseconds;
+			return (DateTime.Now.Ticks - this.StartTime.Ticks) * DateExt.TicksToMilliseconds;
 			}
 		}
 	}

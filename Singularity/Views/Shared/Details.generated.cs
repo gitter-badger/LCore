@@ -12,120 +12,51 @@
 namespace ASP
 {
     using System;
-    
-    #line 13 "..\..\Views\Shared\Details.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 14 "..\..\Views\Shared\Details.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 15 "..\..\Views\Shared\Details.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 16 "..\..\Views\Shared\Details.cshtml"
     using System.ComponentModel.DataAnnotations;
-    
-    #line default
-    #line hidden
-    
-    #line 17 "..\..\Views\Shared\Details.cshtml"
-    using System.ComponentModel.DataAnnotations.Schema;
-    
-    #line default
-    #line hidden
-    
-    #line 18 "..\..\Views\Shared\Details.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
     using System.IO;
-    
-    #line 11 "..\..\Views\Shared\Details.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
-    
-    #line 12 "..\..\Views\Shared\Details.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 19 "..\..\Views\Shared\Details.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 20 "..\..\Views\Shared\Details.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 3 "..\..\Views\Shared\Details.cshtml"
-    using LCore;
+    #line 4 "..\..\Views\Shared\Details.cshtml"
+    using LCore.Extensions;
     
     #line default
     #line hidden
-    
-    #line 4 "..\..\Views\Shared\Details.cshtml"
     using Singularity;
     
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\Shared\Details.cshtml"
+    #line 7 "..\..\Views\Shared\Details.cshtml"
     using Singularity.Annotations;
     
     #line default
     #line hidden
-    
-    #line 7 "..\..\Views\Shared\Details.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\Shared\Details.cshtml"
     using Singularity.Controllers;
     
-    #line default
-    #line hidden
-    
-    #line 9 "..\..\Views\Shared\Details.cshtml"
+    #line 6 "..\..\Views\Shared\Details.cshtml"
     using Singularity.Extensions;
     
     #line default
     #line hidden
-    
-    #line 5 "..\..\Views\Shared\Details.cshtml"
     using Singularity.Models;
     
-    #line default
-    #line hidden
-    
-    #line 8 "..\..\Views\Shared\Details.cshtml"
+    #line 5 "..\..\Views\Shared\Details.cshtml"
     using Singularity.Routes;
     
     #line default
@@ -140,63 +71,42 @@ namespace ASP
         }
         public override void Execute()
         {
-
-
-WriteLiteral("\r\n\r\n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+WriteLiteral("\r\n\r\n\r\n");
 
 WriteLiteral("\r\n");
 
-
             
-            #line 22 "..\..\Views\Shared\Details.cshtml"
+            #line 9 "..\..\Views\Shared\Details.cshtml"
   
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = Layouts.MainLayout;
 
-    ControllerHelper.ViewType ViewType = ControllerHelper.ViewType.Display;
+    const ControllerHelper.ViewType ViewType = ControllerHelper.ViewType.Display;
 
-    IEnumerable<ModelMetadata> Fields = null;
+    IFieldGroups model = Model as IFieldGroups;
 
-    if (Model is IFieldGroups)
-        {
-        Fields = ((IFieldGroups)Model).GetFieldGroup(Context, ViewType);
-        }
-    else
-        {
-        Fields = FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ViewType);
-        }
-
+    IEnumerable<ModelMetadata> Fields = model != null ? model.GetFieldGroup(Context, ViewType) : FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ViewType);
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
+WriteLiteral("\r\n\r\n");
 
+WriteLiteral("<div");
 
-WriteLiteral("\r\n<div class=\"details wide-form\">\r\n\r\n");
+WriteLiteral(" class=\"details wide-form\"");
 
+WriteLiteral(">\r\n\r\n");
 
             
-            #line 44 "..\..\Views\Shared\Details.cshtml"
-     if (!String.IsNullOrEmpty(ViewBag.ReturnURL))
+            #line 24 "..\..\Views\Shared\Details.cshtml"
+    
+            
+            #line default
+            #line hidden
+            
+            #line 24 "..\..\Views\Shared\Details.cshtml"
+     if (!string.IsNullOrEmpty(ViewBag.ReturnURL))
         {
         if (ViewContext.AllowEdit(Model.TrueModelType()))
             {
@@ -204,64 +114,72 @@ WriteLiteral("\r\n<div class=\"details wide-form\">\r\n\r\n");
             
             #line default
             #line hidden
-WriteLiteral("            <a class=\"btn-default right\"\r\n               href=\"");
+WriteLiteral("            <a");
 
+WriteLiteral(" class=\"btn-default right\"");
 
+WriteAttribute("href", Tuple.Create("\r\n               href=\"", 760), Tuple.Create("\"", 893)
             
-            #line 49 "..\..\Views\Shared\Details.cshtml"
-                 Write(Url.Controller<ManageController>().Action(c => c.Edit, Model.GetID<int>(), Request.Url.AbsoluteUri, false));
-
+            #line 29 "..\..\Views\Shared\Details.cshtml"
+, Tuple.Create(Tuple.Create("", 783), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(c => c.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false)
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                <glyph>&#xe065;</glyph>\r\n                Edit\r\n            </" +
-"a>\r\n");
+, 783), false)
+);
 
+WriteLiteral(">\r\n                <glyph>&#xe065;</glyph>\r\n                Edit\r\n            </a" +
+">\r\n");
 
             
-            #line 53 "..\..\Views\Shared\Details.cshtml"
+            #line 33 "..\..\Views\Shared\Details.cshtml"
             }
 
 
             
             #line default
             #line hidden
-WriteLiteral("            <a class=\"btn-default right\" href=\"");
+WriteLiteral("            <a");
 
+WriteLiteral(" class=\"btn-default right\"");
 
+WriteAttribute("href", Tuple.Create(" href=\"", 1035), Tuple.Create("\"", 1060)
             
-            #line 55 "..\..\Views\Shared\Details.cshtml"
-                                          Write(ViewBag.ReturnURL);
-
+            #line 35 "..\..\Views\Shared\Details.cshtml"
+, Tuple.Create(Tuple.Create("", 1042), Tuple.Create<System.Object, System.Int32>(ViewBag.ReturnURL
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                <glyph>&#xe091;</glyph>\r\n                Back\r\n            </" +
-"a>\r\n");
+, 1042), false)
+);
 
+WriteLiteral(">\r\n                <glyph>&#xe091;</glyph>\r\n                Back\r\n            </a" +
+">\r\n");
 
             
-            #line 59 "..\..\Views\Shared\Details.cshtml"
+            #line 39 "..\..\Views\Shared\Details.cshtml"
         }
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n    <h1>\r\n        ");
+WriteLiteral("\r\n    <h1>\r\n");
 
+WriteLiteral("        ");
 
             
-            #line 62 "..\..\Views\Shared\Details.cshtml"
+            #line 42 "..\..\Views\Shared\Details.cshtml"
    Write(Model.GetFriendlyTypeName());
 
             
             #line default
             #line hidden
-WriteLiteral(" Details\r\n    </h1>\r\n\r\n    <h2>\r\n        ");
+WriteLiteral(" Details\r\n    </h1>\r\n\r\n    <h2>\r\n");
 
+WriteLiteral("        ");
 
             
-            #line 66 "..\..\Views\Shared\Details.cshtml"
+            #line 46 "..\..\Views\Shared\Details.cshtml"
    Write(Model.ToString());
 
             
@@ -269,12 +187,17 @@ WriteLiteral(" Details\r\n    </h1>\r\n\r\n    <h2>\r\n        ");
             #line hidden
 WriteLiteral("\r\n    </h2>\r\n\r\n");
 
-
             
-            #line 69 "..\..\Views\Shared\Details.cshtml"
+            #line 49 "..\..\Views\Shared\Details.cshtml"
+    
+            
+            #line default
+            #line hidden
+            
+            #line 49 "..\..\Views\Shared\Details.cshtml"
      foreach (ModelMetadata Meta in Fields)
         {
-        String ColumnClass = Meta.PropertyName.ToUrlSlug();
+        Meta.PropertyName.ToUrlSlug();
 
         ViewField Field = new ViewField(ViewContext, Model.TrueModelType(), Meta.PropertyName, Model, ViewType);
 
@@ -283,14 +206,14 @@ WriteLiteral("\r\n    </h2>\r\n\r\n");
             #line default
             #line hidden
             
-            #line 75 "..\..\Views\Shared\Details.cshtml"
+            #line 55 "..\..\Views\Shared\Details.cshtml"
    Write(Html.ViewField(Field));
 
             
             #line default
             #line hidden
             
-            #line 75 "..\..\Views\Shared\Details.cshtml"
+            #line 55 "..\..\Views\Shared\Details.cshtml"
                               
         }
 
@@ -299,10 +222,15 @@ WriteLiteral("\r\n    </h2>\r\n\r\n");
             #line hidden
 WriteLiteral("\r\n");
 
-
             
-            #line 78 "..\..\Views\Shared\Details.cshtml"
-     if (!String.IsNullOrEmpty(ViewBag.ReturnURL))
+            #line 58 "..\..\Views\Shared\Details.cshtml"
+    
+            
+            #line default
+            #line hidden
+            
+            #line 58 "..\..\Views\Shared\Details.cshtml"
+     if (!string.IsNullOrEmpty(ViewBag.ReturnURL))
         {
         if (ViewContext.AllowEdit(Model.TrueModelType()))
             {
@@ -310,53 +238,64 @@ WriteLiteral("\r\n");
             
             #line default
             #line hidden
-WriteLiteral("            <a class=\"btn-default right\" \r\n               href=\"");
+WriteLiteral("            <a");
 
+WriteLiteral(" class=\"btn-default right\"");
 
+WriteAttribute("href", Tuple.Create(" \r\n               href=\"", 1713), Tuple.Create("\"", 1847)
             
-            #line 83 "..\..\Views\Shared\Details.cshtml"
-                 Write(Url.Controller<ManageController>().Action(c => c.Edit, Model.GetID<int>(), Request.Url.AbsoluteUri, false));
-
+            #line 63 "..\..\Views\Shared\Details.cshtml"
+, Tuple.Create(Tuple.Create("", 1737), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(c => c.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false)
             
             #line default
             #line hidden
-WriteLiteral("\"\r\n               key-bind-click=\"Ctrl+E\"\r\n               key-bind-click-name=\"Ed" +
-"it\">\r\n                <glyph>&#xe065;</glyph>\r\n                Edit\r\n           " +
-" </a>\r\n");
+, 1737), false)
+);
 
+WriteLiteral("\r\n               key-bind-click=\"Ctrl+E\"");
+
+WriteLiteral("\r\n               key-bind-click-name=\"Edit\"");
+
+WriteLiteral(">\r\n                <glyph>&#xe065;</glyph>\r\n                Edit\r\n            </a" +
+">\r\n");
 
             
-            #line 89 "..\..\Views\Shared\Details.cshtml"
+            #line 69 "..\..\Views\Shared\Details.cshtml"
             }
 
 
             
             #line default
             #line hidden
-WriteLiteral("            <a class=\"btn-default right\"\r\n               href=\"");
+WriteLiteral("            <a");
 
+WriteLiteral(" class=\"btn-default right\"");
 
+WriteAttribute("href", Tuple.Create("\r\n               href=\"", 2072), Tuple.Create("\"", 2113)
             
-            #line 92 "..\..\Views\Shared\Details.cshtml"
-                Write(ViewBag.ReturnURL);
-
+            #line 72 "..\..\Views\Shared\Details.cshtml"
+, Tuple.Create(Tuple.Create("", 2095), Tuple.Create<System.Object, System.Int32>(ViewBag.ReturnURL
             
             #line default
             #line hidden
-WriteLiteral("\"\r\n               key-bind-click=\"Esc\"\r\n               key-bind-click-name=\"Back\"" +
-">\r\n                <glyph>&#xe091;</glyph>\r\n                Back\r\n            </" +
-"a>\r\n");
+, 2095), false)
+);
 
+WriteLiteral("\r\n               key-bind-click=\"Esc\"");
+
+WriteLiteral("\r\n               key-bind-click-name=\"Back\"");
+
+WriteLiteral(">\r\n                <glyph>&#xe091;</glyph>\r\n                Back\r\n            </a" +
+">\r\n");
 
             
-            #line 98 "..\..\Views\Shared\Details.cshtml"
+            #line 78 "..\..\Views\Shared\Details.cshtml"
         }
 
             
             #line default
             #line hidden
 WriteLiteral("</div>");
-
 
         }
     }

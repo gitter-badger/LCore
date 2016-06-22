@@ -1,18 +1,5 @@
 ﻿@* Generator: MvcView *@
-
-@using LCore;
-@using Singularity;
-@using Singularity.Models;
-@using Singularity.Controllers;
-@using System.Linq;
-@using System.Linq.Expressions;
-@using System.Collections;
-@using System.Collections.Generic;
-@using System.ComponentModel;
-@using System.ComponentModel.DataAnnotations;
-@using System.ComponentModel.Design;
-@using System.Web;
-@using System.Web.Mvc;
+@using Singularity.Routes;
 
 @{
     Layout = null;
@@ -20,4 +7,4 @@
 
 @model IModel
 
-@Html.Partial(ControllerHelper.PartialViews.Edit, Model)
+@Html.Partial(PartialViews.Edit, Model)

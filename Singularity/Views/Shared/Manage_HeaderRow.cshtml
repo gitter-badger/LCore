@@ -1,0 +1,108 @@
+﻿@* Generator: MvcView *@
+
+
+@using LCore.Extensions;
+@using Singularity.Extensions;
+@using Singularity.Annotations;
+@using System.ComponentModel.DataAnnotations.Schema;
+
+@model ManageViewModel
+
+
+@{
+    IEnumerable<ModelMetadata> Fields = Model.ModelType.HasInterface<IFieldGroups>() ? (Model.ModelType.New() as IFieldGroups)?.GetFieldGroup(Context, ControllerHelper.ViewType.TableCell) : FieldGroups.GetFieldGroup(Context, Model.ModelType, ControllerHelper.ViewType.TableCell).ToList();
+
+    // ReSharper disable PossibleNullReferenceException
+}
+
+<thead>
+    <tr>
+        @if (ViewContext.AllowView(Model.ModelType))
+            {
+            <td class="view-cell center">
+                <div>
+                    @Html.TextContent($"Manage_ColumnHeader_{Model.ModelType.GetFriendlyTypeName()}_View", "View")
+                </div>
+            </td>
+            }
+
+        @foreach (ModelMetadata Meta in Fields)
+            {
+            string ColumnTitle = Meta.DisplayName ?? Meta.PropertyName.Humanize();
+            string ColumnClass = Meta.PropertyName.ToUrlSlug();
+
+            <td class="@(Model.OverrideSort == Meta.PropertyName ? "sort-column" : "") @ColumnClass">
+                @*
+                @if (false && Meta.ModelType.HasInterface<IModel>())
+                    {
+                    // No sorting relational fields for now.
+
+                    @Html.TextContent($"Manage_ColumnHeader_{Model.ModelType.GetFriendlyTypeName()}_{ColumnTitle}", ColumnTitle)
+                    }
+                else
+                *@
+                @if (Meta.HasAttribute<NotMappedAttribute>())
+                    {
+                    // No DB column: no sorting
+
+                    @Html.TextContent($"Manage_ColumnHeader_{Model.ModelType.GetFriendlyTypeName()}_{ColumnTitle}", ColumnTitle)
+                    }
+                else if (Meta.PropertyName.Contains("."))
+                    {
+                    foreach (string s in Meta.PropertyName.Split("."))
+                        {
+                        @s.Humanize()
+                        @(new HtmlString("&nbsp;"))
+                        }
+                    }
+                else
+                    {
+                    <a href="@(Url.Controller<ManageController>()
+                        .QS(Singularity.Routes.Controllers.Manage.Actions.Route_SortColumn(Model, Meta.PropertyName))
+                        .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage))">
+
+                        @Html.TextContent($"Manage_ColumnHeader_{Model.ModelType.GetFriendlyTypeName()}_{ColumnTitle}", ColumnTitle)
+
+                        @if (Model.OverrideSort == Meta.PropertyName)
+                        {
+                        if (Model.OverrideSortDirection == SortDirection.Ascending)
+                            {
+                                <span class="glyphicons glyphicons-up-arrow">&#xe093;</span>
+                                }
+                            else
+                                {
+                                <span class="glyphicons glyphicons-down-arrow">&#xe094;</span>
+                                }
+                            }
+                    </a>
+                    }
+            </td>
+            }
+
+        @if (ViewContext.AllowEdit(Model.ModelType))
+            {
+            <td class="edit-cell">
+                <div>
+                    @Html.TextContent($"Manage_ColumnHeader_{Model.ModelType.GetFriendlyTypeName()}_Edit", "Edit")
+                </div>
+            </td>
+            }
+
+        @if (ViewContext.AllowDeactivate(Model.ModelType))
+            {
+            <td class="deactivate-cell">
+                <div>
+                    @{
+                        string DeleteResotreStr = Model.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive) ? "Restore" : "Delete";
+                    }
+
+                    @Html.TextContent($"Manage_ColumnHeader_{Model.ModelType.GetFriendlyTypeName()}_{DeleteResotreStr}", DeleteResotreStr)
+                </div>
+            </td>
+                            }
+    </tr>
+</thead>
+
+@{
+    // ReSharper restore PossibleNullReferenceException
+}

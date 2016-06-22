@@ -12,180 +12,79 @@
 namespace ASP
 {
     using System;
-    
-    #line 6 "..\..\Views\Shared\_Manage_Exports.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 7 "..\..\Views\Shared\_Manage_Exports.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 8 "..\..\Views\Shared\_Manage_Exports.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 9 "..\..\Views\Shared\_Manage_Exports.cshtml"
     using System.ComponentModel.DataAnnotations;
-    
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\Shared\_Manage_Exports.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
-    
-    #line 4 "..\..\Views\Shared\_Manage_Exports.cshtml"
-    using System.Dynamic;
-    
-    #line default
-    #line hidden
     using System.IO;
-    
-    #line 3 "..\..\Views\Shared\_Manage_Exports.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
-    
-    #line 5 "..\..\Views\Shared\_Manage_Exports.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 11 "..\..\Views\Shared\_Manage_Exports.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 12 "..\..\Views\Shared\_Manage_Exports.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 13 "..\..\Views\Shared\_Manage_Exports.cshtml"
-    using LCore;
+    #line 3 "..\..\Views\Shared\Manage_Exports.cshtml"
+    using LCore.Extensions;
     
     #line default
     #line hidden
-    
-    #line 14 "..\..\Views\Shared\_Manage_Exports.cshtml"
     using Singularity;
-    
-    #line default
-    #line hidden
-    
-    #line 20 "..\..\Views\Shared\_Manage_Exports.cshtml"
-    using Singularity.Annotations;
-    
-    #line default
-    #line hidden
-    
-    #line 17 "..\..\Views\Shared\_Manage_Exports.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 16 "..\..\Views\Shared\_Manage_Exports.cshtml"
     using Singularity.Controllers;
     
-    #line default
-    #line hidden
-    
-    #line 19 "..\..\Views\Shared\_Manage_Exports.cshtml"
+    #line 4 "..\..\Views\Shared\Manage_Exports.cshtml"
     using Singularity.Extensions;
     
     #line default
     #line hidden
-    
-    #line 15 "..\..\Views\Shared\_Manage_Exports.cshtml"
     using Singularity.Models;
     
-    #line default
-    #line hidden
-    
-    #line 18 "..\..\Views\Shared\_Manage_Exports.cshtml"
+    #line 5 "..\..\Views\Shared\Manage_Exports.cshtml"
     using Singularity.Routes;
     
     #line default
     #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
-    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/_Manage_Exports.cshtml")]
-    public partial class _Views_Shared__Manage_Exports_cshtml : System.Web.Mvc.WebViewPage<ManageViewModel>
+    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/Manage_Exports.cshtml")]
+    public partial class _Views_Shared_Manage_Exports_cshtml : System.Web.Mvc.WebViewPage<ManageViewModel>
     {
-        public _Views_Shared__Manage_Exports_cshtml()
+        public _Views_Shared_Manage_Exports_cshtml()
         {
         }
         public override void Execute()
         {
-
-
 WriteLiteral("\r\n\r\n");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 WriteLiteral("\r\n");
-
-
-WriteLiteral("\r\n");
-
 
             
-            #line 24 "..\..\Views\Shared\_Manage_Exports.cshtml"
+            #line 9 "..\..\Views\Shared\Manage_Exports.cshtml"
   
-    String ControllerTypeName = ViewContext.Controller.GetType().FullName;
+    string ControllerTypeName = ViewContext.Controller.GetType().FullName;
 
     List<CustomExport> Exports = CustomExport.Find(Context, Model.ModelType, ControllerTypeName).List();
 
-    Dictionary<String, List<CustomExport>> ExportGroups = Exports.Group();
-
+    Dictionary<string, List<CustomExport>> ExportGroups = Exports.Group();
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
-
+WriteLiteral("\r\n\r\n");
 
             
-            #line 32 "..\..\Views\Shared\_Manage_Exports.cshtml"
+            #line 17 "..\..\Views\Shared\Manage_Exports.cshtml"
  if (ViewContext.AllowExport(Model.ModelType))
     {
     CustomExport DefaultExport = null;
@@ -194,30 +93,53 @@ WriteLiteral("\r\n");
             
             #line default
             #line hidden
-WriteLiteral(@"    <div class=""manage-export"">
-        <span class=""btn-info btn right method-show-hide relative"" click-fade-toggle="".manage-export-full"">
-            <glyph class=""manage-export-full absolute"">&#x2b;</glyph>
-            <glyph class=""manage-export-full absolute"" style="" display: none;"">&#x2212;</glyph>
-        </span>
+WriteLiteral("    <div");
 
-        <h2>Exports</h2>
+WriteLiteral(" class=\"manage-export\"");
 
-        <div class=""manage-export-full"" style=""display:none"">
-            ");
+WriteLiteral(">\r\n        <span");
 
+WriteLiteral(" class=\"btn-info btn right method-show-hide relative\"");
+
+WriteLiteral(" click-fade-toggle=\".manage-export-full\"");
+
+WriteLiteral(">\r\n            <glyph");
+
+WriteLiteral(" class=\"manage-export-full absolute\"");
+
+WriteLiteral(">&#x2b;</glyph>\r\n            <glyph");
+
+WriteLiteral(" class=\"manage-export-full absolute\"");
+
+WriteLiteral(" style=\" display: none;\"");
+
+WriteLiteral(">&#x2212;</glyph>\r\n        </span>\r\n\r\n        <h2>Exports</h2>\r\n\r\n        <div");
+
+WriteLiteral(" class=\"manage-export-full\"");
+
+WriteLiteral(" style=\"display:none\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("            ");
 
             
-            #line 45 "..\..\Views\Shared\_Manage_Exports.cshtml"
-       Write(Html.TextContent("Manage_ExportCSV_" + Model.ModelType.GetFriendlyTypeName(), "Export", ShowText: false));
+            #line 30 "..\..\Views\Shared\Manage_Exports.cshtml"
+       Write(Html.TextContent($"Manage_ExportCSV_{Model.ModelType.GetFriendlyTypeName()}", "Export", ShowText: false));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n\r\n");
 
-
             
-            #line 47 "..\..\Views\Shared\_Manage_Exports.cshtml"
+            #line 32 "..\..\Views\Shared\Manage_Exports.cshtml"
+            
+            
+            #line default
+            #line hidden
+            
+            #line 32 "..\..\Views\Shared\Manage_Exports.cshtml"
              if (Exports != null && Exports.Count > 0)
                 {
                 foreach (CustomExport Export in Exports)
@@ -234,35 +156,46 @@ WriteLiteral("\r\n\r\n");
             
             #line default
             #line hidden
-WriteLiteral("                    <div class=\"export-row\">\r\n                        ");
+WriteLiteral("                    <div");
 
+WriteLiteral(" class=\"export-row\"");
+
+WriteLiteral(">\r\n                        ");
+
+WriteLiteral("\r\n");
+
+WriteLiteral("                        ");
 
             
-            #line 60 "..\..\Views\Shared\_Manage_Exports.cshtml"
+            #line 46 "..\..\Views\Shared\Manage_Exports.cshtml"
                    Write(Html.ActionLink("Default Export",
-                            Singularity.Routes.Controllers.Manage.Actions.Export,
-                            Singularity.Routes.Controllers.Manage.Actions.Route_Export(Model, DefaultExport)));
+                           Controllers.Manage.Actions.Export,
+                           Controllers.Manage.Actions.Route_Export(Model, DefaultExport)));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n                        <a href=\"");
+WriteLiteral("\r\n                        <a");
 
-
+WriteAttribute("href", Tuple.Create(" href=\"", 1830), Tuple.Create("\"", 1963)
             
-            #line 63 "..\..\Views\Shared\_Manage_Exports.cshtml"
-                             Write(Url.Controller<CustomExportController>().Action(m => m.Edit, DefaultExport.CustomExportID, Request.Url.AbsoluteUri, false));
-
+            #line 49 "..\..\Views\Shared\Manage_Exports.cshtml"
+, Tuple.Create(Tuple.Create("", 1837), Tuple.Create<System.Object, System.Int32>(Url.Controller<CustomExportController>().Action(m => m.Edit, DefaultExport.CustomExportID, Request.Url?.AbsoluteUri, false)
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                            <div class=\"btn btn-default\">\r\n                  " +
-"              <glyph>&#xe065;</glyph>\r\n                            </div>\r\n     " +
-"                   </a>\r\n                    </div>\r\n");
+, 1837), false)
+);
 
+WriteLiteral(">\r\n                            <div");
+
+WriteLiteral(" class=\"btn btn-default\"");
+
+WriteLiteral(">\r\n                                <glyph>&#xe065;</glyph>\r\n                     " +
+"       </div>\r\n                        </a>\r\n                    </div>\r\n");
 
             
-            #line 69 "..\..\Views\Shared\_Manage_Exports.cshtml"
+            #line 55 "..\..\Views\Shared\Manage_Exports.cshtml"
                     }
                 else
                     {
@@ -270,98 +203,121 @@ WriteLiteral("\">\r\n                            <div class=\"btn btn-default\">
             
             #line default
             #line hidden
-WriteLiteral("                    <div class=\"export-row\">\r\n                        ");
+WriteLiteral("                    <div");
 
+WriteLiteral(" class=\"export-row\"");
+
+WriteLiteral(">\r\n                        ");
+
+WriteLiteral("\r\n");
+
+WriteLiteral("                        ");
 
             
-            #line 73 "..\..\Views\Shared\_Manage_Exports.cshtml"
+            #line 60 "..\..\Views\Shared\Manage_Exports.cshtml"
                    Write(Html.ActionLink("Default Export",
-                            Singularity.Routes.Controllers.Manage.Actions.Export,
-                            Singularity.Routes.Controllers.Manage.Actions.Route_Export(Model)));
+                            Controllers.Manage.Actions.Export,
+                            Controllers.Manage.Actions.Route_Export(Model)));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n                        <a href=\"");
+WriteLiteral("\r\n                        <a");
 
-
+WriteAttribute("href", Tuple.Create(" href=\"", 2594), Tuple.Create("\"", 3040)
             
-            #line 76 "..\..\Views\Shared\_Manage_Exports.cshtml"
-                             Write(Url.Controller<CustomExportController>().QS(new Dictionary<String, Object>() {
+            #line 63 "..\..\Views\Shared\Manage_Exports.cshtml"
+, Tuple.Create(Tuple.Create("", 2601), Tuple.Create<System.Object, System.Int32>(Url.Controller<CustomExportController>().QS(new Dictionary<string, object> {
                                 {"ExportType", Model.ModelType.FullName},
                                 {"Name", CustomExport.DefaultName},
-                                {"ManagementPage", ViewContext.GetManageController().GetType().FullName},
+                                {"ManagementPage", ViewContext.GetManageController().GetType().FullName}
                             })
-                            .Action(c => c.Create, Request.Url.AbsoluteUri));
-
+                            .Action(c => c.Create, Request.Url?.AbsoluteUri)
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                            <div class=\"btn btn-default\">\r\n                  " +
-"              <glyph>&#xe065;</glyph>\r\n                            </div>\r\n     " +
-"                   </a>\r\n                    </div>\r\n");
+, 2601), false)
+);
 
+WriteLiteral(">\r\n                            <div");
+
+WriteLiteral(" class=\"btn btn-default\"");
+
+WriteLiteral(">\r\n                                <glyph>&#xe065;</glyph>\r\n                     " +
+"       </div>\r\n                        </a>\r\n                    </div>\r\n");
 
             
-            #line 87 "..\..\Views\Shared\_Manage_Exports.cshtml"
+            #line 74 "..\..\Views\Shared\Manage_Exports.cshtml"
                     }
-                foreach (String Group in ExportGroups.Keys)
+                foreach (string Group in ExportGroups.Keys)
                     {
-                    Boolean IsGroup = !String.IsNullOrEmpty(Group);
+                    bool IsGroup = !string.IsNullOrEmpty(Group);
                     if (IsGroup)
                         {
 
             
             #line default
             #line hidden
-WriteLiteral("                        <span class=\"btn-info btn right method-show-hide relative" +
-"\" click-fade-toggle=\".manage-export-group-");
+WriteLiteral("                        <span");
 
+WriteLiteral(" class=\"btn-info btn right method-show-hide relative\"");
+
+WriteAttribute("click-fade-toggle", Tuple.Create(" click-fade-toggle=\"", 3570), Tuple.Create("\"", 3632)
+, Tuple.Create(Tuple.Create("", 3590), Tuple.Create(".manage-export-group-", 3590), true)
+            
+            #line 80 "..\..\Views\Shared\Manage_Exports.cshtml"
+                                           , Tuple.Create(Tuple.Create("", 3611), Tuple.Create<System.Object, System.Int32>(Group.RemoveAll(" ")
+            
+            #line default
+            #line hidden
+, 3611), false)
+);
+
+WriteLiteral(">\r\n                            <glyph");
+
+WriteAttribute("class", Tuple.Create(" class=\"", 3670), Tuple.Create("\"", 3728)
+, Tuple.Create(Tuple.Create("", 3678), Tuple.Create("manage-export-group-", 3678), true)
+            
+            #line 81 "..\..\Views\Shared\Manage_Exports.cshtml"
+, Tuple.Create(Tuple.Create("", 3698), Tuple.Create<System.Object, System.Int32>(Group.RemoveAll(" ")
+            
+            #line default
+            #line hidden
+, 3698), false)
+, Tuple.Create(Tuple.Create(" ", 3719), Tuple.Create("absolute", 3720), true)
+);
+
+WriteLiteral(">&#x2b;</glyph>\r\n                            <glyph");
+
+WriteAttribute("class", Tuple.Create(" class=\"", 3780), Tuple.Create("\"", 3838)
+, Tuple.Create(Tuple.Create("", 3788), Tuple.Create("manage-export-group-", 3788), true)
+            
+            #line 82 "..\..\Views\Shared\Manage_Exports.cshtml"
+, Tuple.Create(Tuple.Create("", 3808), Tuple.Create<System.Object, System.Int32>(Group.RemoveAll(" ")
+            
+            #line default
+            #line hidden
+, 3808), false)
+, Tuple.Create(Tuple.Create(" ", 3829), Tuple.Create("absolute", 3830), true)
+);
+
+WriteLiteral(" style=\" display: none;\"");
+
+WriteLiteral(">&#x2212;</glyph>\r\n                        </span>\r\n");
 
             
-            #line 93 "..\..\Views\Shared\_Manage_Exports.cshtml"
-                                                                                                                      Write(Group.RemoveAll(" "));
+            #line 84 "..\..\Views\Shared\Manage_Exports.cshtml"
+
 
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                            <glyph class=\"manage-export-group-");
+WriteLiteral("                        <h3>\r\n");
 
-
-            
-            #line 94 "..\..\Views\Shared\_Manage_Exports.cshtml"
-                                                         Write(Group.RemoveAll(" "));
+WriteLiteral("                            ");
 
             
-            #line default
-            #line hidden
-WriteLiteral(" absolute\">&#x2b;</glyph>\r\n                            <glyph class=\"manage-expor" +
-"t-group-");
-
-
-            
-            #line 95 "..\..\Views\Shared\_Manage_Exports.cshtml"
-                                                         Write(Group.RemoveAll(" "));
-
-            
-            #line default
-            #line hidden
-WriteLiteral(" absolute\" style=\" display: none;\">&#x2212;</glyph>\r\n                        </sp" +
-"an>\r\n");
-
-
-            
-            #line 97 "..\..\Views\Shared\_Manage_Exports.cshtml"
-
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                        <h3>\r\n                            ");
-
-
-            
-            #line 99 "..\..\Views\Shared\_Manage_Exports.cshtml"
+            #line 86 "..\..\Views\Shared\Manage_Exports.cshtml"
                        Write(Group);
 
             
@@ -369,80 +325,94 @@ WriteLiteral("                        <h3>\r\n                            ");
             #line hidden
 WriteLiteral("\r\n                        </h3>\r\n");
 
-
             
-            #line 101 "..\..\Views\Shared\_Manage_Exports.cshtml"
+            #line 88 "..\..\Views\Shared\Manage_Exports.cshtml"
                         }
 
 
             
             #line default
             #line hidden
-WriteLiteral("                        <div class=\"manage-export-group-");
+WriteLiteral("                        <div");
 
-
+WriteAttribute("class", Tuple.Create(" class=\"", 4071), Tuple.Create("\"", 4120)
+, Tuple.Create(Tuple.Create("", 4079), Tuple.Create("manage-export-group-", 4079), true)
             
-            #line 103 "..\..\Views\Shared\_Manage_Exports.cshtml"
-                                                   Write(Group.RemoveAll(" "));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\" style=\"");
-
-
-            
-            #line 103 "..\..\Views\Shared\_Manage_Exports.cshtml"
-                                                                                  Write(IsGroup ? "display:none;" : "");
-
+            #line 90 "..\..\Views\Shared\Manage_Exports.cshtml"
+, Tuple.Create(Tuple.Create("", 4099), Tuple.Create<System.Object, System.Int32>(Group.RemoveAll(" ")
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n");
+, 4099), false)
+);
 
+WriteAttribute("style", Tuple.Create(" style=\"", 4121), Tuple.Create("\"", 4162)
+            
+            #line 90 "..\..\Views\Shared\Manage_Exports.cshtml"
+       , Tuple.Create(Tuple.Create("", 4129), Tuple.Create<System.Object, System.Int32>(IsGroup ? "display:none;" : ""
+            
+            #line default
+            #line hidden
+, 4129), false)
+);
+
+WriteLiteral(">\r\n");
 
             
-            #line 104 "..\..\Views\Shared\_Manage_Exports.cshtml"
+            #line 91 "..\..\Views\Shared\Manage_Exports.cshtml"
+                            
+            
+            #line default
+            #line hidden
+            
+            #line 91 "..\..\Views\Shared\Manage_Exports.cshtml"
                              foreach (CustomExport Export in ExportGroups[Group])
                                 {
 
             
             #line default
             #line hidden
-WriteLiteral("                                <div class=\"export-row\">\r\n                       " +
-"             ");
+WriteLiteral("                                <div");
 
+WriteLiteral(" class=\"export-row\"");
+
+WriteLiteral(">\r\n                                    ");
+
+WriteLiteral("\r\n");
+
+WriteLiteral("                                    ");
 
             
-            #line 107 "..\..\Views\Shared\_Manage_Exports.cshtml"
+            #line 95 "..\..\Views\Shared\Manage_Exports.cshtml"
                                Write(Html.ActionLink(Export.Name,
-                                        Singularity.Routes.Controllers.Manage.Actions.Export,
-                                        Singularity.Routes.Controllers.Manage.Actions.Route_Export(Model, Export)));
+                                        Controllers.Manage.Actions.Export,
+                                        Controllers.Manage.Actions.Route_Export(Model, Export)));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n                                    <a href=\"");
+WriteLiteral("\r\n                                    <a");
 
-
+WriteAttribute("href", Tuple.Create(" href=\"", 4708), Tuple.Create("\"", 4834)
             
-            #line 110 "..\..\Views\Shared\_Manage_Exports.cshtml"
-                                         Write(Url.Controller<CustomExportController>().Action(c => c.Edit, Export.CustomExportID, Request.Url.AbsoluteUri, false));
-
+            #line 98 "..\..\Views\Shared\Manage_Exports.cshtml"
+, Tuple.Create(Tuple.Create("", 4715), Tuple.Create<System.Object, System.Int32>(Url.Controller<CustomExportController>().Action(c => c.Edit, Export.CustomExportID, Request.Url?.AbsoluteUri, false)
             
             #line default
             #line hidden
-WriteLiteral(@""">
-                                        <div class=""btn btn-default"">
-                                            <glyph>&#xe065;</glyph>
-                                        </div>
-                                    </a>
-                                </div>
-");
+, 4715), false)
+);
 
+WriteLiteral(">\r\n                                        <div");
+
+WriteLiteral(" class=\"btn btn-default\"");
+
+WriteLiteral(">\r\n                                            <glyph>&#xe065;</glyph>\r\n         " +
+"                               </div>\r\n                                    </a>\r" +
+"\n                                </div>\r\n");
 
             
-            #line 116 "..\..\Views\Shared\_Manage_Exports.cshtml"
+            #line 104 "..\..\Views\Shared\Manage_Exports.cshtml"
                                 }
 
             
@@ -450,9 +420,8 @@ WriteLiteral(@""">
             #line hidden
 WriteLiteral("                        </div>\r\n");
 
-
             
-            #line 118 "..\..\Views\Shared\_Manage_Exports.cshtml"
+            #line 106 "..\..\Views\Shared\Manage_Exports.cshtml"
                     }
                 }
             else
@@ -461,40 +430,51 @@ WriteLiteral("                        </div>\r\n");
             
             #line default
             #line hidden
-WriteLiteral("                <div class=\"export-row\">\r\n                    ");
+WriteLiteral("                <div");
 
+WriteLiteral(" class=\"export-row\"");
+
+WriteLiteral(">\r\n                    ");
+
+WriteLiteral("\r\n");
+
+WriteLiteral("                    ");
 
             
-            #line 123 "..\..\Views\Shared\_Manage_Exports.cshtml"
+            #line 112 "..\..\Views\Shared\Manage_Exports.cshtml"
                Write(Html.ActionLink("Export",
-                        Singularity.Routes.Controllers.Manage.Actions.Export,
-                        Singularity.Routes.Controllers.Manage.Actions.Route_Export(Model)));
+                        Controllers.Manage.Actions.Export,
+                        Controllers.Manage.Actions.Route_Export(Model)));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n                    <a href=\"");
+WriteLiteral("\r\n                    <a");
 
-
+WriteAttribute("href", Tuple.Create(" href=\"", 5571), Tuple.Create("\"", 5996)
             
-            #line 126 "..\..\Views\Shared\_Manage_Exports.cshtml"
-                         Write(Url.Controller<CustomExportController>().QS(new Dictionary<String, Object>
+            #line 115 "..\..\Views\Shared\Manage_Exports.cshtml"
+, Tuple.Create(Tuple.Create("", 5578), Tuple.Create<System.Object, System.Int32>(Url.Controller<CustomExportController>().QS(new Dictionary<string, object>
                         {
                             {"ExportType", Model.ModelType.FullName},
                             {"Name", CustomExport.DefaultName},
-                            {"ManagementPage", ViewContext.GetManageController().GetType().FullName},
-                        }).Action(c => c.Create, Request.Url.AbsoluteUri));
-
+                            {"ManagementPage", ViewContext.GetManageController().GetType().FullName}
+                        }).Action(c => c.Create, Request.Url?.AbsoluteUri)
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                        <div class=\"btn btn-default\">\r\n                      " +
-"      <glyph>&#xe065;</glyph>\r\n                        </div>\r\n                 " +
-"   </a>\r\n                </div>\r\n");
+, 5578), false)
+);
 
+WriteLiteral(">\r\n                        <div");
+
+WriteLiteral(" class=\"btn btn-default\"");
+
+WriteLiteral(">\r\n                            <glyph>&#xe065;</glyph>\r\n                        <" +
+"/div>\r\n                    </a>\r\n                </div>\r\n");
 
             
-            #line 137 "..\..\Views\Shared\_Manage_Exports.cshtml"
+            #line 126 "..\..\Views\Shared\Manage_Exports.cshtml"
 
                 }
 
@@ -503,35 +483,45 @@ WriteLiteral("\">\r\n                        <div class=\"btn btn-default\">\r\n
             #line hidden
 WriteLiteral("\r\n");
 
-
             
-            #line 140 "..\..\Views\Shared\_Manage_Exports.cshtml"
+            #line 129 "..\..\Views\Shared\Manage_Exports.cshtml"
+            
+            
+            #line default
+            #line hidden
+            
+            #line 129 "..\..\Views\Shared\Manage_Exports.cshtml"
              if (ViewContext.AllowCreate(typeof(CustomExport)))
                 {
 
             
             #line default
             #line hidden
-WriteLiteral("                <a href=\"");
+WriteLiteral("                <a");
 
-
+WriteAttribute("href", Tuple.Create(" href=\"", 6315), Tuple.Create("\"", 6640)
             
-            #line 142 "..\..\Views\Shared\_Manage_Exports.cshtml"
-                     Write(Url.Controller<CustomExportController>().QS(new Dictionary<String, Object>
+            #line 131 "..\..\Views\Shared\Manage_Exports.cshtml"
+, Tuple.Create(Tuple.Create("", 6322), Tuple.Create<System.Object, System.Int32>(Url.Controller<CustomExportController>().QS(new Dictionary<string, object>
                     {
                     {"ExportType", Model.ModelType.FullName},
-                    {"ManagementPage", ViewContext.Controller.GetType().FullName},
-                    }).Action(c => c.Create, Request.Url.AbsoluteUri));
-
+                    {"ManagementPage", ViewContext.Controller.GetType().FullName}
+                    }).Action(c => c.Create, Request.Url?.AbsoluteUri)
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                    <div class=\"btn btn-default\">\r\n                        <g" +
-"lyph>&#x2b;</glyph>\r\n                    </div>\r\n                </a>\r\n");
+, 6322), false)
+);
 
+WriteLiteral(">\r\n                    <div");
+
+WriteLiteral(" class=\"btn btn-default\"");
+
+WriteLiteral(">\r\n                        <glyph>&#x2b;</glyph>\r\n                    </div>\r\n   " +
+"             </a>\r\n");
 
             
-            #line 151 "..\..\Views\Shared\_Manage_Exports.cshtml"
+            #line 140 "..\..\Views\Shared\Manage_Exports.cshtml"
                 }
 
             
@@ -539,14 +529,12 @@ WriteLiteral("\">\r\n                    <div class=\"btn btn-default\">\r\n    
             #line hidden
 WriteLiteral("        </div>\r\n    </div>\r\n");
 
-
             
-            #line 154 "..\..\Views\Shared\_Manage_Exports.cshtml"
+            #line 143 "..\..\Views\Shared\Manage_Exports.cshtml"
     }
             
             #line default
             #line hidden
-
         }
     }
 }

@@ -13,50 +13,50 @@ namespace ASP
 {
     using System;
     
-    #line 11 "..\..\Views\Shared\Fields\Information.cshtml"
+    #line 12 "..\..\Views\Shared\Fields\Information.cshtml"
     using System.Collections;
     
     #line default
     #line hidden
     
-    #line 12 "..\..\Views\Shared\Fields\Information.cshtml"
+    #line 13 "..\..\Views\Shared\Fields\Information.cshtml"
     using System.Collections.Generic;
     
     #line default
     #line hidden
     
-    #line 13 "..\..\Views\Shared\Fields\Information.cshtml"
+    #line 14 "..\..\Views\Shared\Fields\Information.cshtml"
     using System.ComponentModel;
     
     #line default
     #line hidden
     
-    #line 19 "..\..\Views\Shared\Fields\Information.cshtml"
+    #line 20 "..\..\Views\Shared\Fields\Information.cshtml"
     using System.ComponentModel.DataAnnotations;
     
     #line default
     #line hidden
     
-    #line 20 "..\..\Views\Shared\Fields\Information.cshtml"
+    #line 21 "..\..\Views\Shared\Fields\Information.cshtml"
     using System.ComponentModel.DataAnnotations.Schema;
     
     #line default
     #line hidden
     
-    #line 14 "..\..\Views\Shared\Fields\Information.cshtml"
+    #line 15 "..\..\Views\Shared\Fields\Information.cshtml"
     using System.ComponentModel.Design;
     
     #line default
     #line hidden
     using System.IO;
     
-    #line 17 "..\..\Views\Shared\Fields\Information.cshtml"
+    #line 18 "..\..\Views\Shared\Fields\Information.cshtml"
     using System.Linq;
     
     #line default
     #line hidden
     
-    #line 18 "..\..\Views\Shared\Fields\Information.cshtml"
+    #line 19 "..\..\Views\Shared\Fields\Information.cshtml"
     using System.Linq.Expressions;
     
     #line default
@@ -64,68 +64,71 @@ namespace ASP
     using System.Net;
     using System.Text;
     
-    #line 15 "..\..\Views\Shared\Fields\Information.cshtml"
+    #line 16 "..\..\Views\Shared\Fields\Information.cshtml"
     using System.Web;
     
     #line default
     #line hidden
     using System.Web.Helpers;
     
-    #line 16 "..\..\Views\Shared\Fields\Information.cshtml"
+    #line 17 "..\..\Views\Shared\Fields\Information.cshtml"
     using System.Web.Mvc;
     
     #line default
     #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
-    
-    #line 3 "..\..\Views\Shared\Fields\Information.cshtml"
     using LCore;
     
-    #line default
-    #line hidden
-    
     #line 4 "..\..\Views\Shared\Fields\Information.cshtml"
-    using Singularity;
-    
-    #line default
-    #line hidden
-    
-    #line 9 "..\..\Views\Shared\Fields\Information.cshtml"
-    using Singularity.Annotations;
-    
-    #line default
-    #line hidden
-    
-    #line 7 "..\..\Views\Shared\Fields\Information.cshtml"
-    using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\Shared\Fields\Information.cshtml"
-    using Singularity.Controllers;
-    
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\Shared\Fields\Information.cshtml"
-    using Singularity.Extensions;
+    using LCore.Extensions;
     
     #line default
     #line hidden
     
     #line 5 "..\..\Views\Shared\Fields\Information.cshtml"
-    using Singularity.Models;
+    using Singularity;
+    
+    #line default
+    #line hidden
+    
+    #line 10 "..\..\Views\Shared\Fields\Information.cshtml"
+    using Singularity.Annotations;
     
     #line default
     #line hidden
     
     #line 8 "..\..\Views\Shared\Fields\Information.cshtml"
+    using Singularity.Context;
+    
+    #line default
+    #line hidden
+    
+    #line 7 "..\..\Views\Shared\Fields\Information.cshtml"
+    using Singularity.Controllers;
+    
+    #line default
+    #line hidden
+    
+    #line 11 "..\..\Views\Shared\Fields\Information.cshtml"
+    using Singularity.Extensions;
+    
+    #line default
+    #line hidden
+    
+    #line 6 "..\..\Views\Shared\Fields\Information.cshtml"
+    using Singularity.Models;
+    
+    #line default
+    #line hidden
+    
+    #line 9 "..\..\Views\Shared\Fields\Information.cshtml"
     using Singularity.Routes;
     
     #line default
@@ -140,60 +143,38 @@ namespace ASP
         }
         public override void Execute()
         {
-
-
-WriteLiteral("\r\n\r\n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+WriteLiteral("\r\n\r\n\r\n");
 
 WriteLiteral("\r\n");
 
-
             
-            #line 22 "..\..\Views\Shared\Fields\Information.cshtml"
+            #line 23 "..\..\Views\Shared\Fields\Information.cshtml"
   
-
 
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
-
-
-WriteLiteral("\r\n");
-
+WriteLiteral("\r\n\r\n");
 
             
-            #line 28 "..\..\Views\Shared\Fields\Information.cshtml"
+            #line 29 "..\..\Views\Shared\Fields\Information.cshtml"
  if (Model.Meta.AdditionalValues.ContainsKey(InformationAttribute.Key))
 {
 
             
             #line default
             #line hidden
-WriteLiteral("    <div class=\"field-information\">\r\n        <p>\r\n            <glyph>&#xE086;</gl" +
-"yph>\r\n            ");
+WriteLiteral("    <div");
 
+WriteLiteral(" class=\"field-information\"");
+
+WriteLiteral(">\r\n        <p>\r\n            <glyph>&#xE086;</glyph>\r\n");
+
+WriteLiteral("            ");
 
             
-            #line 33 "..\..\Views\Shared\Fields\Information.cshtml"
+            #line 34 "..\..\Views\Shared\Fields\Information.cshtml"
        Write(Model.Meta.AdditionalValues[InformationAttribute.Key]);
 
             
@@ -201,14 +182,12 @@ WriteLiteral("    <div class=\"field-information\">\r\n        <p>\r\n          
             #line hidden
 WriteLiteral("\r\n        </p>\r\n    </div>\r\n");
 
-
             
-            #line 36 "..\..\Views\Shared\Fields\Information.cshtml"
+            #line 37 "..\..\Views\Shared\Fields\Information.cshtml"
 }
             
             #line default
             #line hidden
-
         }
     }
 }

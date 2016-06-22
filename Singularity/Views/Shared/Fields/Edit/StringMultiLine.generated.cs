@@ -12,124 +12,49 @@
 namespace ASP
 {
     using System;
-    
-    #line 11 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 12 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 13 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 19 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
     using System.ComponentModel.DataAnnotations;
-    
-    #line default
-    #line hidden
-    
-    #line 20 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
-    using System.ComponentModel.DataAnnotations.Schema;
-    
-    #line default
-    #line hidden
-    
-    #line 14 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
     using System.IO;
-    
-    #line 17 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
-    
-    #line 18 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 15 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 16 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 3 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
-    using LCore;
+    #line 4 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
+    using LCore.Extensions;
     
     #line default
     #line hidden
-    
-    #line 4 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
     using Singularity;
     
-    #line default
-    #line hidden
-    
-    #line 9 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
+    #line 2 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
     using Singularity.Annotations;
     
     #line default
     #line hidden
-    
-    #line 7 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
     using Singularity.Controllers;
     
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
+    #line 3 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
     using Singularity.Extensions;
     
     #line default
     #line hidden
-    
-    #line 5 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
     using Singularity.Models;
-    
-    #line default
-    #line hidden
-    
-    #line 8 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
-    using Singularity.Routes;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/Fields/Edit/StringMultiLine.cshtml")]
@@ -140,58 +65,33 @@ namespace ASP
         }
         public override void Execute()
         {
-
-
-WriteLiteral("\r\n\r\n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+WriteLiteral("\r\n");
 
 WriteLiteral("\r\n");
 
-
             
-            #line 22 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
+            #line 6 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
   
-    Boolean IsSortableList = Model.Meta.HasAttribute<FieldType_SortableListAttribute>();
-
+    bool IsSortableList = Model.Meta.HasAttribute<FieldType_SortableListAttribute>();
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
-
-
-WriteLiteral("\r\n");
-
+WriteLiteral("\r\n\r\n");
 
             
-            #line 28 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
+            #line 12 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
  if (IsSortableList)
     {
-    String[] Lines;
-    if (Model.PropertyData is String[])
+    string[] Lines;
+    string[] data = Model.PropertyData as string[];
+    if (data != null)
         {
-        Lines = (String[])Model.PropertyData;
+        Lines = data;
         }
-    else if (Model.PropertyData is String)
+    else if (Model.PropertyData is string)
         {
-        Lines = ((String)Model.PropertyData).Lines();
+        Lines = ((string)Model.PropertyData).Lines();
         }
     else
         {
@@ -202,52 +102,64 @@ WriteLiteral("\r\n");
             
             #line default
             #line hidden
-WriteLiteral("    <select class=\"sortable\" id=\"");
+WriteLiteral("    <select");
 
+WriteLiteral(" class=\"sortable\"");
 
+WriteAttribute("id", Tuple.Create(" id=\"", 654), Tuple.Create("\"", 683)
             
-            #line 44 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
-                            Write(Model.Meta.PropertyName);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\" name=\"");
-
-
-            
-            #line 44 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
-                                                            Write(Model.Meta.PropertyName);
-
+            #line 29 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
+, Tuple.Create(Tuple.Create("", 659), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n");
+, 659), false)
+);
 
+WriteAttribute("name", Tuple.Create(" name=\"", 684), Tuple.Create("\"", 715)
+            
+            #line 29 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
+, Tuple.Create(Tuple.Create("", 691), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+            
+            #line default
+            #line hidden
+, 691), false)
+);
+
+WriteLiteral(">\r\n");
 
             
-            #line 45 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
-         foreach (String Line in Lines)
+            #line 30 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
+        
+            
+            #line default
+            #line hidden
+            
+            #line 30 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
+         foreach (string Line in Lines)
             {
 
             
             #line default
             #line hidden
-WriteLiteral("            <option value=\"");
+WriteLiteral("            <option");
 
-
+WriteAttribute("value", Tuple.Create(" value=\"", 794), Tuple.Create("\"", 807)
             
-            #line 47 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
-                      Write(Line);
-
+            #line 32 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
+, Tuple.Create(Tuple.Create("", 802), Tuple.Create<System.Object, System.Int32>(Line
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                ");
+, 802), false)
+);
 
+WriteLiteral(">\r\n");
+
+WriteLiteral("                ");
 
             
-            #line 48 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
+            #line 33 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
            Write(Line);
 
             
@@ -255,9 +167,8 @@ WriteLiteral("\">\r\n                ");
             #line hidden
 WriteLiteral("\r\n            </option>\r\n");
 
-
             
-            #line 50 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
+            #line 35 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
             }
 
             
@@ -265,9 +176,8 @@ WriteLiteral("\r\n            </option>\r\n");
             #line hidden
 WriteLiteral("    </select>\r\n");
 
-
             
-            #line 52 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
+            #line 37 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
     }
 else
     {
@@ -275,31 +185,32 @@ else
             
             #line default
             #line hidden
-WriteLiteral("    <textarea id=\"");
+WriteLiteral("    <textarea");
 
-
+WriteAttribute("id", Tuple.Create(" id=\"", 920), Tuple.Create("\"", 949)
             
-            #line 55 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
-             Write(Model.Meta.PropertyName);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\" name=\"");
-
-
-            
-            #line 55 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
-                                             Write(Model.Meta.PropertyName);
-
+            #line 40 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
+, Tuple.Create(Tuple.Create("", 925), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-WriteLiteral("\">");
+, 925), false)
+);
 
+WriteAttribute("name", Tuple.Create(" name=\"", 950), Tuple.Create("\"", 981)
+            
+            #line 40 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
+, Tuple.Create(Tuple.Create("", 957), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+            
+            #line default
+            #line hidden
+, 957), false)
+);
+
+WriteLiteral(">");
 
             
-            #line 55 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
+            #line 40 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
                                                                        Write(Model.PropertyData);
 
             
@@ -307,15 +218,13 @@ WriteLiteral("\">");
             #line hidden
 WriteLiteral("</textarea>\r\n");
 
-
             
-            #line 56 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
+            #line 41 "..\..\Views\Shared\Fields\Edit\StringMultiLine.cshtml"
     }
 
             
             #line default
             #line hidden
-
         }
     }
 }

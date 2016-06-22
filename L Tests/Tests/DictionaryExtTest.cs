@@ -1,31 +1,14 @@
-﻿using LCore;
+﻿
+using LCore.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;
 
 namespace L_Tests
-{
-    [TestClass()]
-    public class DictionaryExtTest
     {
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext
+    [TestClass]
+    public class DictionaryExtTest
         {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-
         #region Additional test attributes
         // 
         //You can use the following additional attributes as you write your tests:
@@ -56,11 +39,11 @@ namespace L_Tests
         //
         #endregion
 
-        [TestMethod()]
+        [TestMethod]
         public void DictionaryExtTests()
-        {
+            {
             Debug.Write("EnumExt Tests Running \r\n");
             typeof(DictionaryExt).RunTypeTests();
+            }
         }
     }
-}

@@ -12,108 +12,45 @@
 namespace ASP
 {
     using System;
-    
-    #line 11 "..\..\Views\Shared\Delete.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 12 "..\..\Views\Shared\Delete.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 13 "..\..\Views\Shared\Delete.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 14 "..\..\Views\Shared\Delete.cshtml"
     using System.ComponentModel.DataAnnotations;
-    
-    #line default
-    #line hidden
-    
-    #line 15 "..\..\Views\Shared\Delete.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
     using System.IO;
-    
-    #line 9 "..\..\Views\Shared\Delete.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\Shared\Delete.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 16 "..\..\Views\Shared\Delete.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 17 "..\..\Views\Shared\Delete.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 2 "..\..\Views\Shared\Delete.cshtml"
-    using LCore;
+    #line 4 "..\..\Views\Shared\Delete.cshtml"
+    using LCore.Extensions;
     
     #line default
     #line hidden
-    
-    #line 3 "..\..\Views\Shared\Delete.cshtml"
     using Singularity;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\Shared\Delete.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 5 "..\..\Views\Shared\Delete.cshtml"
     using Singularity.Controllers;
     
-    #line default
-    #line hidden
-    
-    #line 8 "..\..\Views\Shared\Delete.cshtml"
+    #line 6 "..\..\Views\Shared\Delete.cshtml"
     using Singularity.Extensions;
     
     #line default
     #line hidden
-    
-    #line 4 "..\..\Views\Shared\Delete.cshtml"
     using Singularity.Models;
     
-    #line default
-    #line hidden
-    
-    #line 7 "..\..\Views\Shared\Delete.cshtml"
+    #line 5 "..\..\Views\Shared\Delete.cshtml"
     using Singularity.Routes;
     
     #line default
@@ -128,51 +65,35 @@ namespace ASP
         }
         public override void Execute()
         {
-
-
-WriteLiteral("\r\n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+WriteLiteral("\r\n\r\n\r\n");
 
 WriteLiteral("\r\n");
-
 
             
-            #line 19 "..\..\Views\Shared\Delete.cshtml"
+            #line 8 "..\..\Views\Shared\Delete.cshtml"
   
 
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = Layouts.MainLayout;
 
-    ViewBag.RestoreMode = Model.HasProperty("Active") && (Model.GetProperty("Active") as Boolean?) != true;
+    ViewBag.RestoreMode = Model.HasProperty("Active") && Model.GetProperty("Active") as bool? != true;
 
-    ViewBag.Title = (ViewBag.RestoreMode ? "Restore" : "Delete") + " " + Model.GetFriendlyTypeName() + ": " + @Model.ToString();
-
+    ViewBag.Title = $"{(ViewBag.RestoreMode ? "Restore" : "Delete")} {Model.GetFriendlyTypeName()}: {Model}";
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
+WriteLiteral("\r\n\r\n");
 
+WriteLiteral("\r\n<div");
 
-WriteLiteral("\r\n\r\n<div class=\"delete wide-form\">\r\n    <h1>\r\n        ");
+WriteLiteral(" class=\"delete wide-form\"");
 
+WriteLiteral(">\r\n    <h1>\r\n");
+
+WriteLiteral("        ");
 
             
-            #line 33 "..\..\Views\Shared\Delete.cshtml"
+            #line 22 "..\..\Views\Shared\Delete.cshtml"
     Write(ViewBag.RestoreMode ? "Restore" : "Delete");
 
             
@@ -180,29 +101,32 @@ WriteLiteral("\r\n\r\n<div class=\"delete wide-form\">\r\n    <h1>\r\n        ")
             #line hidden
 WriteLiteral(" ");
 
-
             
-            #line 33 "..\..\Views\Shared\Delete.cshtml"
+            #line 22 "..\..\Views\Shared\Delete.cshtml"
                                                  Write(Model.GetFriendlyTypeName());
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n    </h1>\r\n\r\n    <h2>\r\n        ");
+WriteLiteral("\r\n    </h1>\r\n\r\n    <h2>\r\n");
 
+WriteLiteral("        ");
 
             
-            #line 37 "..\..\Views\Shared\Delete.cshtml"
+            #line 26 "..\..\Views\Shared\Delete.cshtml"
    Write(Model.ToString());
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n    </h2>\r\n\r\n    <center>\r\n        <h3>\r\n            Are you sure you want to ");
+WriteLiteral("\r\n    </h2>\r\n\r\n    <div");
 
+WriteLiteral(" style=\"text-align: center;\"");
+
+WriteLiteral(">\r\n        <h3>\r\n            Are you sure you want to ");
 
             
-            #line 42 "..\..\Views\Shared\Delete.cshtml"
+            #line 31 "..\..\Views\Shared\Delete.cshtml"
                                  Write(ViewBag.RestoreMode ? "restore" : "delete");
 
             
@@ -210,9 +134,8 @@ WriteLiteral("\r\n    </h2>\r\n\r\n    <center>\r\n        <h3>\r\n            A
             #line hidden
 WriteLiteral(" this ");
 
-
             
-            #line 42 "..\..\Views\Shared\Delete.cshtml"
+            #line 31 "..\..\Views\Shared\Delete.cshtml"
                                                                                    Write(Model.GetFriendlyTypeName());
 
             
@@ -220,45 +143,55 @@ WriteLiteral(" this ");
             #line hidden
 WriteLiteral("?\r\n        </h3>\r\n\r\n");
 
-
             
-            #line 45 "..\..\Views\Shared\Delete.cshtml"
-         using (Html.BeginForm("DeleteConfirm", (String)ViewBag.ControllerName, new { id = Model.GetID(), ReturnURL = ViewBag.ReturnURL, Restore = ViewBag.RestoreMode }))
-        {
+            #line 34 "..\..\Views\Shared\Delete.cshtml"
+        
+            
+            #line default
+            #line hidden
+            
+            #line 34 "..\..\Views\Shared\Delete.cshtml"
+         using (Html.BeginForm("DeleteConfirm", (string)ViewBag.ControllerName, new { id = Model.GetID(), ViewBag.ReturnURL, Restore = ViewBag.RestoreMode }))
+            {
 
             
             #line default
             #line hidden
-WriteLiteral("            <a href=\"");
+WriteLiteral("            <a");
 
-
+WriteAttribute("href", Tuple.Create(" href=\"", 968), Tuple.Create("\"", 993)
             
-            #line 47 "..\..\Views\Shared\Delete.cshtml"
-                Write(ViewBag.ReturnURL);
-
+            #line 36 "..\..\Views\Shared\Delete.cshtml"
+, Tuple.Create(Tuple.Create("", 975), Tuple.Create<System.Object, System.Int32>(ViewBag.ReturnURL
             
             #line default
             #line hidden
-WriteLiteral(@"""
-               key-bind-click=""N""
-               class=""btn-default btn-danger btn-lg pointer""
-               key-bind-click-name=""No"">
-                <span>
-                    <glyph>&#xe091;</glyph>
-                    No
-                </span>
-            </a>
-");
+, 975), false)
+);
 
+WriteLiteral("\r\n               key-bind-click=\"N\"");
 
+WriteLiteral("\r\n               class=\"btn-default btn-danger btn-lg pointer\"");
 
-WriteLiteral("            <a class=\"btn-default btn-lg btn-success pointer\"\r\n               key" +
-"-bind-click=\"Y\"\r\n               key-bind-click-name=\"Yes\"\r\n               onclic" +
-"k=\"$(\'form\').submit();\">\r\n                <span>\r\n                    <glyph>");
+WriteLiteral("\r\n               key-bind-click-name=\"No\"");
 
+WriteLiteral(">\r\n                <span>\r\n                    <glyph>&#xe091;</glyph>\r\n         " +
+"           No\r\n                </span>\r\n            </a>\r\n");
+
+WriteLiteral("            <a");
+
+WriteLiteral(" class=\"btn-default btn-lg btn-success pointer\"");
+
+WriteLiteral("\r\n               key-bind-click=\"Y\"");
+
+WriteLiteral("\r\n               key-bind-click-name=\"Yes\"");
+
+WriteLiteral("\r\n               onclick=\"$(\'form\').submit();\"");
+
+WriteLiteral(">\r\n                <span>\r\n                    <glyph>");
 
             
-            #line 61 "..\..\Views\Shared\Delete.cshtml"
+            #line 50 "..\..\Views\Shared\Delete.cshtml"
                       Write(Html.Raw(ViewBag.RestoreMode ? "&#xe133;" : "&#xe020;"));
 
             
@@ -266,16 +199,14 @@ WriteLiteral("            <a class=\"btn-default btn-lg btn-success pointer\"\r\
             #line hidden
 WriteLiteral("</glyph>\r\n                    Yes\r\n                </span>\r\n            </a>\r\n");
 
-
             
-            #line 65 "..\..\Views\Shared\Delete.cshtml"
-        }
+            #line 54 "..\..\Views\Shared\Delete.cshtml"
+            }
 
             
             #line default
             #line hidden
-WriteLiteral("    </center>\r\n\r\n</div>\r\n");
-
+WriteLiteral("    </div>\r\n\r\n</div>\r\n");
 
         }
     }

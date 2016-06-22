@@ -1,22 +1,21 @@
 ﻿using Singularity.Controllers;
 using System;
-using System.Web;
 using System.Web.Optimization;
 
 namespace Singularity.Config
 {
     public class BundleConfig
     {
-        public const String Script_jQuery = "~/bundles/jquery";
-        public const String Script_jQueryUI = "~/bundles/jquery-ui";
-        public const String Style_jQueryUI = "~/Content/jquery-ui/base/css";
+        public const string Script_jQuery = "~/bundles/jquery";
+        public const string Script_jQueryUI = "~/bundles/jquery-ui";
+        public const string Style_jQueryUI = "~/Content/jquery-ui/base/css";
 
-        public const String Script_jQueryVal = "~/bundles/jqueryval";
+        public const string Script_jQueryVal = "~/bundles/jqueryval";
 
-        public const String Script_Bootstrap = "~/bundles/bootstrap";
-        public const String Style_Bootstrap = "~/Content/bootstrap";
+        public const string Script_Bootstrap = "~/bundles/bootstrap";
+        public const string Style_Bootstrap = "~/Content/bootstrap";
 
-        public const String Script_Modernizr = "~/bundles/modernizr";
+        public const string Script_Modernizr = "~/bundles/modernizr";
 
 
 

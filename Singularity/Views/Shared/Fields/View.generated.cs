@@ -12,120 +12,57 @@
 namespace ASP
 {
     using System;
-    
-    #line 11 "..\..\Views\Shared\Fields\View.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 12 "..\..\Views\Shared\Fields\View.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 13 "..\..\Views\Shared\Fields\View.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 19 "..\..\Views\Shared\Fields\View.cshtml"
     using System.ComponentModel.DataAnnotations;
     
-    #line default
-    #line hidden
-    
-    #line 20 "..\..\Views\Shared\Fields\View.cshtml"
+    #line 8 "..\..\Views\Shared\Fields\View.cshtml"
     using System.ComponentModel.DataAnnotations.Schema;
     
     #line default
     #line hidden
-    
-    #line 14 "..\..\Views\Shared\Fields\View.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
     using System.IO;
-    
-    #line 17 "..\..\Views\Shared\Fields\View.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
-    
-    #line 18 "..\..\Views\Shared\Fields\View.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 15 "..\..\Views\Shared\Fields\View.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 16 "..\..\Views\Shared\Fields\View.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 3 "..\..\Views\Shared\Fields\View.cshtml"
-    using LCore;
+    #line 4 "..\..\Views\Shared\Fields\View.cshtml"
+    using LCore.Extensions;
     
     #line default
     #line hidden
-    
-    #line 4 "..\..\Views\Shared\Fields\View.cshtml"
     using Singularity;
     
-    #line default
-    #line hidden
-    
-    #line 9 "..\..\Views\Shared\Fields\View.cshtml"
+    #line 6 "..\..\Views\Shared\Fields\View.cshtml"
     using Singularity.Annotations;
     
     #line default
     #line hidden
-    
-    #line 7 "..\..\Views\Shared\Fields\View.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\Shared\Fields\View.cshtml"
     using Singularity.Controllers;
     
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\Shared\Fields\View.cshtml"
+    #line 7 "..\..\Views\Shared\Fields\View.cshtml"
     using Singularity.Extensions;
     
     #line default
     #line hidden
-    
-    #line 5 "..\..\Views\Shared\Fields\View.cshtml"
     using Singularity.Models;
     
-    #line default
-    #line hidden
-    
-    #line 8 "..\..\Views\Shared\Fields\View.cshtml"
+    #line 5 "..\..\Views\Shared\Fields\View.cshtml"
     using Singularity.Routes;
     
     #line default
@@ -140,80 +77,52 @@ namespace ASP
         }
         public override void Execute()
         {
+WriteLiteral("\r\n\r\n\r\n");
 
+WriteLiteral("\r\n");
 
+            
+            #line 10 "..\..\Views\Shared\Fields\View.cshtml"
+  
+    bool ShowLabel = Model.ViewTypes.HasAny(ControllerHelper.ViewType.Create, ControllerHelper.ViewType.Edit, ControllerHelper.ViewType.Display);
+
+            
+            #line default
+            #line hidden
 WriteLiteral("\r\n\r\n");
 
+WriteLiteral("\r\n<div");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-WriteLiteral("\r\n");
-
-
+WriteAttribute("class", Tuple.Create(" class=\"", 388), Tuple.Create("\"", 537)
+, Tuple.Create(Tuple.Create("", 396), Tuple.Create("field", 396), true)
             
-            #line 22 "..\..\Views\Shared\Fields\View.cshtml"
-  
-    Boolean ShowLabel = Model.ViewTypes.HasAny(new[] {ControllerHelper.ViewType.Create,
-        ControllerHelper.ViewType.Edit,
-        ControllerHelper.ViewType.Display});
-
-
+            #line 17 "..\..\Views\Shared\Fields\View.cshtml"
+, Tuple.Create(Tuple.Create(" ", 401), Tuple.Create<System.Object, System.Int32>(Model.ViewTypes.CollectStr((i,t) => $"{t.ToString().ToLower()}-field ")
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
-
-
-WriteLiteral("\r\n\r\n<div class=\"field ");
-
-
+, 402), false)
+, Tuple.Create(Tuple.Create(" ", 474), Tuple.Create("field-", 475), true)
             
-            #line 31 "..\..\Views\Shared\Fields\View.cshtml"
-             Write(Model.ViewTypes.CollectStr((i,t) => { return t.ToString().ToLower() + "-field ";}));
-
+            #line 17 "..\..\Views\Shared\Fields\View.cshtml"
+                  , Tuple.Create(Tuple.Create("", 481), Tuple.Create<System.Object, System.Int32>(Model.ColumnClass
             
             #line default
             #line hidden
-WriteLiteral(" field-");
-
-
+, 481), false)
             
-            #line 31 "..\..\Views\Shared\Fields\View.cshtml"
-                                                                                                       Write(Model.ColumnClass);
-
+            #line 17 "..\..\Views\Shared\Fields\View.cshtml"
+                                    , Tuple.Create(Tuple.Create(" ", 499), Tuple.Create<System.Object, System.Int32>(Model.ModelFieldClasses.Combine(" ")
             
             #line default
             #line hidden
-WriteLiteral(" ");
+, 500), false)
+);
 
-
-            
-            #line 31 "..\..\Views\Shared\Fields\View.cshtml"
-                                                                                                                          Write(Model.ModelFieldClasses.Combine(" "));
+WriteLiteral("\r\n     ");
 
             
-            #line default
-            #line hidden
-WriteLiteral("\"\r\n     ");
-
-
-            
-            #line 32 "..\..\Views\Shared\Fields\View.cshtml"
+            #line 18 "..\..\Views\Shared\Fields\View.cshtml"
 Write(Html.Raw(Model.ModelFieldHtmlAttributes.Combine(" ")));
 
             
@@ -221,9 +130,8 @@ Write(Html.Raw(Model.ModelFieldHtmlAttributes.Combine(" ")));
             #line hidden
 WriteLiteral("\r\n     data-object-type=\"");
 
-
             
-            #line 33 "..\..\Views\Shared\Fields\View.cshtml"
+            #line 19 "..\..\Views\Shared\Fields\View.cshtml"
                   Write(Model.Meta.ModelType);
 
             
@@ -231,9 +139,8 @@ WriteLiteral("\r\n     data-object-type=\"");
             #line hidden
 WriteLiteral("\"\r\n     data-type-name=\"");
 
-
             
-            #line 34 "..\..\Views\Shared\Fields\View.cshtml"
+            #line 20 "..\..\Views\Shared\Fields\View.cshtml"
                 Write(Model.Meta.DataTypeName);
 
             
@@ -241,9 +148,14 @@ WriteLiteral("\"\r\n     data-type-name=\"");
             #line hidden
 WriteLiteral("\">\r\n\r\n");
 
-
             
-            #line 36 "..\..\Views\Shared\Fields\View.cshtml"
+            #line 22 "..\..\Views\Shared\Fields\View.cshtml"
+    
+            
+            #line default
+            #line hidden
+            
+            #line 22 "..\..\Views\Shared\Fields\View.cshtml"
      if (Model.Meta.HasAttribute<ICustomPartial>() &&
         Model.Meta.GetAttribute<ICustomPartial>().IsActive(Html, Model, Model.ViewTypes))
         {
@@ -256,7 +168,7 @@ WriteLiteral("\">\r\n\r\n");
             (Model.Meta.ModelType.PreferGeneric().HasInterface<IConvertible>() ||
             Model.Meta.ModelType.HasInterface<IModel>()))
             {
-            String Data = (Model.PropertyData ?? "").ToString();
+            string Data = (Model.PropertyData ?? "").ToString();
 
             if (Model.PropertyData is DateTime)
                 {
@@ -264,65 +176,71 @@ WriteLiteral("\">\r\n\r\n");
                 }
             Data = Data.RemoveAll(" 12:00:00 AM");
 
-            if (Model.PropertyData is IModel)
+            IModel data = Model.PropertyData as IModel;
+            if (data != null)
                 {
-                Data = ((IModel)Model.PropertyData).ToString();
+                Data = data.ToString();
                 }
 
-            if (!String.IsNullOrEmpty(Data))
+            if (!string.IsNullOrEmpty(Data))
                 {
 
             
             #line default
             #line hidden
-WriteLiteral("                <span class=\"manage-view-show-similar\"\r\n                      dat" +
-"a-field-name=\"");
+WriteLiteral("                <span");
 
+WriteLiteral(" class=\"manage-view-show-similar\"");
+
+WriteLiteral("\r\n                      data-field-name=\"");
 
             
-            #line 64 "..\..\Views\Shared\Fields\View.cshtml"
+            #line 51 "..\..\Views\Shared\Fields\View.cshtml"
                                   Write(Model.Meta.PropertyName);
 
             
             #line default
             #line hidden
-WriteLiteral("\"\r\n                      data-field-value=\"");
+WriteLiteral("\"");
 
+WriteLiteral("\r\n                      data-field-value=\"");
 
             
-            #line 65 "..\..\Views\Shared\Fields\View.cshtml"
+            #line 52 "..\..\Views\Shared\Fields\View.cshtml"
                                    Write(Data);
 
             
             #line default
             #line hidden
-WriteLiteral("\"\r\n                      title=\"View Similar\">\r\n                    <glyph>&#xe00" +
-"3;</glyph>\r\n                </span>\r\n");
+WriteLiteral("\"");
 
+WriteLiteral("\r\n                      title=\"View Similar\"");
+
+WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n                </span>\r\n");
 
             
-            #line 69 "..\..\Views\Shared\Fields\View.cshtml"
+            #line 56 "..\..\Views\Shared\Fields\View.cshtml"
                 }
             }
 
         if (ShowLabel)
             {
-            String Label = Model.Meta.DisplayName ?? Model.Meta.PropertyName.Humanize();
+            string Label = Model.Meta.DisplayName ?? Model.Meta.PropertyName.Humanize();
 
             
             
             #line default
             #line hidden
             
-            #line 76 "..\..\Views\Shared\Fields\View.cshtml"
-       Write(Html.TextContent("Manage_Edit_Field_Label_" + Model.ModelData.GetFriendlyTypeName() + "_" + Label,
+            #line 63 "..\..\Views\Shared\Fields\View.cshtml"
+       Write(Html.TextContent($"Manage_Edit_Field_Label_{Model.ModelData.GetFriendlyTypeName()}_{Label}",
                 Html.Label(Model.Meta.PropertyName, Label)));
 
             
             #line default
             #line hidden
             
-            #line 77 "..\..\Views\Shared\Fields\View.cshtml"
+            #line 64 "..\..\Views\Shared\Fields\View.cshtml"
                                                            
             }
 
@@ -333,19 +251,19 @@ WriteLiteral("\"\r\n                      title=\"View Similar\">\r\n           
             #line default
             #line hidden
             
-            #line 82 "..\..\Views\Shared\Fields\View.cshtml"
-       Write(Html.Partial(ControllerHelper.PartialViews.Field_View_Empty, Model));
+            #line 69 "..\..\Views\Shared\Fields\View.cshtml"
+       Write(Html.Partial(PartialViews.Field_View_Empty, Model));
 
             
             #line default
             #line hidden
             
-            #line 82 "..\..\Views\Shared\Fields\View.cshtml"
-                                                                                
+            #line 69 "..\..\Views\Shared\Fields\View.cshtml"
+                                                               
             }
         else
             {
-            if (Html.ViewExists(ControllerHelper.PartialViews.Field_View_PropertyName(Model.PropertyName)))
+            if (Html.ViewExists(PartialViews.Field_View_PropertyName(Model.PropertyName)))
                 {
                 // Override the Edit view for the property.
 
@@ -354,15 +272,15 @@ WriteLiteral("\"\r\n                      title=\"View Similar\">\r\n           
             #line default
             #line hidden
             
-            #line 90 "..\..\Views\Shared\Fields\View.cshtml"
-           Write(Html.Partial(ControllerHelper.PartialViews.Field_View_PropertyName(Model.PropertyName)));
+            #line 77 "..\..\Views\Shared\Fields\View.cshtml"
+           Write(Html.Partial(PartialViews.Field_View_PropertyName(Model.PropertyName)));
 
             
             #line default
             #line hidden
             
-            #line 90 "..\..\Views\Shared\Fields\View.cshtml"
-                                                                                                        ;
+            #line 77 "..\..\Views\Shared\Fields\View.cshtml"
+                                                                                       
                 }
             else if (Model.Meta.AdditionalValues.ContainsKey(FieldStringFormatAttribute.Key) &&
                 Model.PropertyData is IFormattable)
@@ -372,32 +290,32 @@ WriteLiteral("\"\r\n                      title=\"View Similar\">\r\n           
             #line default
             #line hidden
             
-            #line 95 "..\..\Views\Shared\Fields\View.cshtml"
-           Write(Html.Partial(ControllerHelper.PartialViews.Field_View_FormatString, Model));
+            #line 82 "..\..\Views\Shared\Fields\View.cshtml"
+           Write(Html.Partial(PartialViews.Field_View_FormatString, Model));
 
             
             #line default
             #line hidden
             
-            #line 95 "..\..\Views\Shared\Fields\View.cshtml"
-                                                                                           
+            #line 82 "..\..\Views\Shared\Fields\View.cshtml"
+                                                                          
                 }
-            else if (Model.Meta.ModelType == typeof(Boolean) || Model.Meta.ModelType == typeof(Boolean?))
+            else if (Model.Meta.ModelType == typeof(bool) || Model.Meta.ModelType == typeof(bool?))
                 {
                 
             
             #line default
             #line hidden
             
-            #line 99 "..\..\Views\Shared\Fields\View.cshtml"
-           Write(Html.Partial(ControllerHelper.PartialViews.Field_View_Boolean, Model));
+            #line 86 "..\..\Views\Shared\Fields\View.cshtml"
+           Write(Html.Partial(PartialViews.Field_View_Boolean, Model));
 
             
             #line default
             #line hidden
             
-            #line 99 "..\..\Views\Shared\Fields\View.cshtml"
-                                                                                      
+            #line 86 "..\..\Views\Shared\Fields\View.cshtml"
+                                                                     
                 }
             else if (Model.Meta.DataTypeName == DataType.Currency.ToString())
                 {
@@ -406,15 +324,15 @@ WriteLiteral("\"\r\n                      title=\"View Similar\">\r\n           
             #line default
             #line hidden
             
-            #line 103 "..\..\Views\Shared\Fields\View.cshtml"
-           Write(Html.Partial(ControllerHelper.PartialViews.Field_View_Currency, Model));
+            #line 90 "..\..\Views\Shared\Fields\View.cshtml"
+           Write(Html.Partial(PartialViews.Field_View_Currency, Model));
 
             
             #line default
             #line hidden
             
-            #line 103 "..\..\Views\Shared\Fields\View.cshtml"
-                                                                                       
+            #line 90 "..\..\Views\Shared\Fields\View.cshtml"
+                                                                      
                 }
             else if (Model.Meta.ModelType == typeof(int) || Model.Meta.ModelType == typeof(int?))
                 {
@@ -423,15 +341,15 @@ WriteLiteral("\"\r\n                      title=\"View Similar\">\r\n           
             #line default
             #line hidden
             
-            #line 107 "..\..\Views\Shared\Fields\View.cshtml"
-           Write(Html.Partial(ControllerHelper.PartialViews.Field_View_Int, Model));
+            #line 94 "..\..\Views\Shared\Fields\View.cshtml"
+           Write(Html.Partial(PartialViews.Field_View_Int, Model));
 
             
             #line default
             #line hidden
             
-            #line 107 "..\..\Views\Shared\Fields\View.cshtml"
-                                                                                  
+            #line 94 "..\..\Views\Shared\Fields\View.cshtml"
+                                                                 
                 }
             else if (Model.Meta.ModelType == typeof(DateTime) || Model.Meta.ModelType == typeof(DateTime?))
                 {
@@ -440,15 +358,15 @@ WriteLiteral("\"\r\n                      title=\"View Similar\">\r\n           
             #line default
             #line hidden
             
-            #line 111 "..\..\Views\Shared\Fields\View.cshtml"
-           Write(Html.Partial(ControllerHelper.PartialViews.Field_View_DateTime, Model));
+            #line 98 "..\..\Views\Shared\Fields\View.cshtml"
+           Write(Html.Partial(PartialViews.Field_View_DateTime, Model));
 
             
             #line default
             #line hidden
             
-            #line 111 "..\..\Views\Shared\Fields\View.cshtml"
-                                                                                       
+            #line 98 "..\..\Views\Shared\Fields\View.cshtml"
+                                                                      
                 }
             else if (Model.ModelData.TrueModelType().MemberHasAttribute<DisplayColumnAttribute>(true) &&
                 Model.ModelData.TrueModelType().MemberGetAttribute<DisplayColumnAttribute>(true).DisplayColumn == Model.Meta.PropertyName)
@@ -458,15 +376,15 @@ WriteLiteral("\"\r\n                      title=\"View Similar\">\r\n           
             #line default
             #line hidden
             
-            #line 116 "..\..\Views\Shared\Fields\View.cshtml"
-           Write(Html.Partial(ControllerHelper.PartialViews.Field_View_DisplayColumn, Model));
+            #line 103 "..\..\Views\Shared\Fields\View.cshtml"
+           Write(Html.Partial(PartialViews.Field_View_DisplayColumn, Model));
 
             
             #line default
             #line hidden
             
-            #line 116 "..\..\Views\Shared\Fields\View.cshtml"
-                                                                                            
+            #line 103 "..\..\Views\Shared\Fields\View.cshtml"
+                                                                           
                 }
             else if (Model.Meta.ModelType.HasInterface<IModel>(false))
                 {
@@ -475,15 +393,15 @@ WriteLiteral("\"\r\n                      title=\"View Similar\">\r\n           
             #line default
             #line hidden
             
-            #line 120 "..\..\Views\Shared\Fields\View.cshtml"
-           Write(Html.Partial(ControllerHelper.PartialViews.Field_View_IModel, Model));
+            #line 107 "..\..\Views\Shared\Fields\View.cshtml"
+           Write(Html.Partial(PartialViews.Field_View_IModel, Model));
 
             
             #line default
             #line hidden
             
-            #line 120 "..\..\Views\Shared\Fields\View.cshtml"
-                                                                                     
+            #line 107 "..\..\Views\Shared\Fields\View.cshtml"
+                                                                    
                 }
             else if (Model.Meta.ModelType.HasInterface<IEnumerable>() &&
                 Model.Meta.ModelType.IsGenericType &&
@@ -494,15 +412,15 @@ WriteLiteral("\"\r\n                      title=\"View Similar\">\r\n           
             #line default
             #line hidden
             
-            #line 126 "..\..\Views\Shared\Fields\View.cshtml"
-           Write(Html.Partial(ControllerHelper.PartialViews.Field_View_IModelCollection, Model));
+            #line 113 "..\..\Views\Shared\Fields\View.cshtml"
+           Write(Html.Partial(PartialViews.Field_View_IModelCollection, Model));
 
             
             #line default
             #line hidden
             
-            #line 126 "..\..\Views\Shared\Fields\View.cshtml"
-                                                                                               
+            #line 113 "..\..\Views\Shared\Fields\View.cshtml"
+                                                                              
                 }
             else if (Model.Meta.ModelType.PreferGeneric().IsEnum)
                 {
@@ -511,100 +429,100 @@ WriteLiteral("\"\r\n                      title=\"View Similar\">\r\n           
             #line default
             #line hidden
             
-            #line 130 "..\..\Views\Shared\Fields\View.cshtml"
-           Write(Html.Partial(ControllerHelper.PartialViews.Field_View_Enum, Model));
+            #line 117 "..\..\Views\Shared\Fields\View.cshtml"
+           Write(Html.Partial(PartialViews.Field_View_Enum, Model));
 
             
             #line default
             #line hidden
             
-            #line 130 "..\..\Views\Shared\Fields\View.cshtml"
-                                                                                   
+            #line 117 "..\..\Views\Shared\Fields\View.cshtml"
+                                                                  
                 }
-            else if (Html.ViewExists(ControllerHelper.PartialViews.Field_View_PropertyType(Model.Meta.ModelType)))
+            else if (Html.ViewExists(PartialViews.Field_View_PropertyType(Model.Meta.ModelType)))
                 {
                 
             
             #line default
             #line hidden
             
-            #line 134 "..\..\Views\Shared\Fields\View.cshtml"
-           Write(Html.Partial(ControllerHelper.PartialViews.Field_View_PropertyType(Model.Meta.ModelType), Model));
+            #line 121 "..\..\Views\Shared\Fields\View.cshtml"
+           Write(Html.Partial(PartialViews.Field_View_PropertyType(Model.Meta.ModelType), Model));
 
             
             #line default
             #line hidden
             
-            #line 134 "..\..\Views\Shared\Fields\View.cshtml"
-                                                                                                                 
+            #line 121 "..\..\Views\Shared\Fields\View.cshtml"
+                                                                                                
                 }
-            else if (Html.ViewExists(ControllerHelper.PartialViews.Field_View_DataTypeName(Model.Meta.DataTypeName)))
+            else if (Html.ViewExists(PartialViews.Field_View_DataTypeName(Model.Meta.DataTypeName)))
                 {
                 
             
             #line default
             #line hidden
             
-            #line 138 "..\..\Views\Shared\Fields\View.cshtml"
-           Write(Html.Partial(ControllerHelper.PartialViews.Field_View_DataTypeName(Model.Meta.DataTypeName), Model));
+            #line 125 "..\..\Views\Shared\Fields\View.cshtml"
+           Write(Html.Partial(PartialViews.Field_View_DataTypeName(Model.Meta.DataTypeName), Model));
 
             
             #line default
             #line hidden
             
-            #line 138 "..\..\Views\Shared\Fields\View.cshtml"
-                                                                                                                    
+            #line 125 "..\..\Views\Shared\Fields\View.cshtml"
+                                                                                                   
                 }
-            else if (Model.Meta.ModelType == typeof(String))
+            else if (Model.Meta.ModelType == typeof(string))
                 {
                 
             
             #line default
             #line hidden
             
-            #line 142 "..\..\Views\Shared\Fields\View.cshtml"
-           Write(Html.Partial(ControllerHelper.PartialViews.Field_View_String, Model));
+            #line 129 "..\..\Views\Shared\Fields\View.cshtml"
+           Write(Html.Partial(PartialViews.Field_View_String, Model));
 
             
             #line default
             #line hidden
             
-            #line 142 "..\..\Views\Shared\Fields\View.cshtml"
-                                                                                     
+            #line 129 "..\..\Views\Shared\Fields\View.cshtml"
+                                                                    
                 }
-            else if (Model.Meta.ModelType == typeof(String[,]))
+            else if (Model.Meta.ModelType == typeof(string[,]))
                 {
                 
             
             #line default
             #line hidden
             
-            #line 146 "..\..\Views\Shared\Fields\View.cshtml"
-           Write(Html.Partial(ControllerHelper.PartialViews.Field_View_StringMatrix, Model));
+            #line 133 "..\..\Views\Shared\Fields\View.cshtml"
+           Write(Html.Partial(PartialViews.Field_View_StringMatrix, Model));
 
             
             #line default
             #line hidden
             
-            #line 146 "..\..\Views\Shared\Fields\View.cshtml"
-                                                                                           
+            #line 133 "..\..\Views\Shared\Fields\View.cshtml"
+                                                                          
                 }
-            else if (Model.Meta.ModelType == typeof(String[][]))
+            else if (Model.Meta.ModelType == typeof(string[][]))
                 {
                 
             
             #line default
             #line hidden
             
-            #line 150 "..\..\Views\Shared\Fields\View.cshtml"
-           Write(Html.Partial(ControllerHelper.PartialViews.Field_View_StringMultiArray, Model));
+            #line 137 "..\..\Views\Shared\Fields\View.cshtml"
+           Write(Html.Partial(PartialViews.Field_View_StringMultiArray, Model));
 
             
             #line default
             #line hidden
             
-            #line 150 "..\..\Views\Shared\Fields\View.cshtml"
-                                                                                               
+            #line 137 "..\..\Views\Shared\Fields\View.cshtml"
+                                                                              
                 }
             else
                 {
@@ -613,15 +531,15 @@ WriteLiteral("\"\r\n                      title=\"View Similar\">\r\n           
             #line default
             #line hidden
             
-            #line 154 "..\..\Views\Shared\Fields\View.cshtml"
-           Write(Html.Partial(ControllerHelper.PartialViews.Field_View_Unknown, Model));
+            #line 141 "..\..\Views\Shared\Fields\View.cshtml"
+           Write(Html.Partial(PartialViews.Field_View_Unknown, Model));
 
             
             #line default
             #line hidden
             
-            #line 154 "..\..\Views\Shared\Fields\View.cshtml"
-                                                                                      
+            #line 141 "..\..\Views\Shared\Fields\View.cshtml"
+                                                                     
                 }
             }
         }
@@ -630,7 +548,6 @@ WriteLiteral("\"\r\n                      title=\"View Similar\">\r\n           
             #line default
             #line hidden
 WriteLiteral("</div>\r\n");
-
 
         }
     }

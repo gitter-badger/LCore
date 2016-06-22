@@ -78,13 +78,15 @@ namespace ASP
     #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 3 "..\..\Views\Shared\Fields\View\Enum.cshtml"
-    using LCore;
+    #line 21 "..\..\Views\Shared\Fields\View\Enum.cshtml"
+    using LCore.Extensions;
     
     #line default
     #line hidden
@@ -140,53 +142,26 @@ namespace ASP
         }
         public override void Execute()
         {
-
-
-WriteLiteral("\r\n\r\n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+WriteLiteral("\r\n\r\n\r\n");
 
 WriteLiteral("\r\n");
 
-
             
-            #line 22 "..\..\Views\Shared\Fields\View\Enum.cshtml"
+            #line 23 "..\..\Views\Shared\Fields\View\Enum.cshtml"
   
-
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
-
-
-WriteLiteral("\r\n");
-
+WriteLiteral("\r\n\r\n");
 
             
-            #line 27 "..\..\Views\Shared\Fields\View\Enum.cshtml"
+            #line 28 "..\..\Views\Shared\Fields\View\Enum.cshtml"
 Write(Model.PropertyData);
 
             
             #line default
             #line hidden
-
         }
     }
 }

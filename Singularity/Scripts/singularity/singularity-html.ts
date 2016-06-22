@@ -122,7 +122,7 @@
 // change to the ID, Name or Selector target.
 // 
 //
-// TODO: Write
+// TODO: TS: Write
 // *[click-animate]
 // *[click-animate-target]          (optional, default is self)
 // *[click-animate-duration]        (optional)
@@ -130,18 +130,18 @@
 // *[click-animate-if]              (optional)
 // *[click-animate-if-value]        (optional)
 //
-// TODO: Write
+// TODO: TS: Write
 // *[click-scroll-to]
 // *[click-scroll-to-if]              (optional)
 // *[click-scroll-to-if-value]        (optional)
 //
-// TODO: Write
+// TODO: TS: Write
 // *[click-text]
 // *[click-text-target]             (optional, default is self)
 // *[click-text-if]                 (optional)
 // *[click-text-if-value]           (optional)
 // 
-// TODO: Write
+// TODO: TS: Write
 // *[click-html]
 // *[click-html-target]             (optional, default is self)
 // *[click-html-if]                 (optional)
@@ -151,13 +151,13 @@
 //
 // CSS Class Settings
 //
-// TODO: Write
+// TODO: TS: Write
 // *[class-if]
 // *[class-if-value]
 //
 // Attribute setting
 //
-// TODO: Write
+// TODO: TS: Write
 // *[attr]
 // *[attr-target]
 // *[attr-if]
@@ -178,15 +178,15 @@
 //
 // *[disabled-if]
 // *[disabled-if-value]
-// TODO test
+// TODO: TS: Test
 //
 // *[readonly-if]
 // *[readonly-if-value]
-// TODO test
+// TODO: TS: Test
 //
 // *[selected-if]
 // *[selected-if-value]
-// TODO test
+// TODO: TS: Test
 //
 // *[checked-if]
 // *[checked-if-value]
@@ -195,13 +195,13 @@
 // *[shift-href]
 // *[alt-href]
 // *[double-href]
-// TODO: test
+// TODO: TS: Test
 // *[key-bind-click]
 // #key-bind-page-tip
 //////////////////////////////////////////////////////
 //
 // Field Extensions
-// TODO: Test
+// TODO: TS: Test
 //
 // .tab-container *[href]
 // .datepicker
@@ -216,6 +216,9 @@
 //////////////////////////////////////////////////////
 // #endregion Comments
 
+interface TimePickerOptions {
+    step?: number;
+}
 interface String {
 
     textToHTML?: () => string;
@@ -235,8 +238,8 @@ singHTML.method('textToHTML', StringTextToHTML,
         returns: '',
         returnType: null,
         examples: null,
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringTextToHTML(): string {
@@ -254,15 +257,15 @@ singHTML.method('stripHTML', StringStripHTML,
         returns: '',
         returnType: null,
         examples: null,
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringStripHTML() {
 
-    var out = <string>this;
+    const out = this as string;
 
-    var pattern = /.*\<(.+)\>.*/;
+    const pattern = /.*\<(.+)\>.*/;
 
     out.replaceRegExp(pattern, / /);
 
@@ -278,27 +281,27 @@ singHTML.method('getAttributes', GetAttributes,
         returns: '',
         returnType: '',
         examples: null,
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     }, $.fn);
 
-function GetAttributes(): IKeyValue<string, string>[]| IKeyValue<string, string>[][] {
+function GetAttributes(): IKeyValue<string, string>[] | IKeyValue<string, string>[][] {
 
-    var thisJQuery = <JQuery>this;
+    const thisJQuery = this as JQuery;
 
     var attrs: IKeyValue<string, Attr>[][] = [];
 
-    thisJQuery.each(function (item) {
+    thisJQuery.each(function () {
 
-        var thisHtml = <HTMLElement>this;
+        const thisHtml = this as HTMLElement;
 
-        var attrOut: IKeyValue<string, Attr>[] = [];
+        const attrOut: IKeyValue<string, Attr>[] = [];
 
-        var props = $.objProperties(thisHtml.attributes);
+        const props = $.objProperties(thisHtml.attributes);
 
-        for (var i = 0; i < props.length; i++) {
+        for (let i = 0; i < props.length; i++) {
             if (props[i].key != 'length')
-                attrOut.push({ key: props[i].key, value: <Attr>(props[i].value) });
+                attrOut.push({ key: props[i].key, value: (props[i].value) as Attr });
         }
 
         if (attrOut.length > 0)
@@ -306,24 +309,16 @@ function GetAttributes(): IKeyValue<string, string>[]| IKeyValue<string, string>
     });
 
     if (attrs.length > 1)
-        return attrs.collect(function (item) {
-
-            return item.collect(function (item2) {
-
-                return <IKeyValue<string, string>>{
-                    name: <string>item2.value.nodeName,
-                    value: <string>item2.value.nodeValue,
-                };
-            });
-        });
+        return attrs.collect(item => item.collect(item2 => ({
+            name: item2.value.nodeName,
+            value: item2.value.nodeValue
+        } as IKeyValue<string, string>)));
 
     if (attrs.length == 1)
-        return attrs[0].collect(function (item) {
-            return <IKeyValue<string, string>>{
-                name: <string>item.value.nodeName,
-                value: <string>item.value.nodeValue,
-            };
-        });
+        return attrs[0].collect(item => ({
+            name: item.value.nodeName,
+            value: item.value.nodeValue
+        } as IKeyValue<string, string>));
 
     if (attrs.length == 0)
         return [];
@@ -336,7 +331,6 @@ function GetAttributes(): IKeyValue<string, string>[]| IKeyValue<string, string>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function InitHTMLExtensions() {
-
     InitKeyBindClick();
 
     InitRememberPage();
@@ -356,15 +350,13 @@ function InitHTMLExtensions() {
         }
     });
 
-    $('*[' + sing.constants.htmlAttr.FocusFirst + ']').each(function () {
-        var target = $(this).attr(sing.constants.htmlAttr.FocusFirst);
+    $(`*[${sing.constants.htmlAttr.FocusFirst}]`).each(function () {
+        const target = $(this).attr(sing.constants.htmlAttr.FocusFirst);
 
-        var targets = $(this).find(target);
+        const targets = $(this).find(target);
 
         // Prefer fields with no values
-        var emptyTargets = targets.select(function (t) {
-            return $(t).val() == '';
-        });
+        const emptyTargets = targets.select(t => ($(t).val() == ''));
 
         if (emptyTargets && emptyTargets.length > 0)
             emptyTargets[0].focus();
@@ -373,26 +365,26 @@ function InitHTMLExtensions() {
             targets[0].focus();
     });
 
-    $('*[' + sing.constants.htmlAttr.Click.Animate + ']').each(function () {
+    $(`*[${sing.constants.htmlAttr.Click.Animate}]`).each(function () {
         var element = $(this);
 
         var animation = element.attr(sing.constants.htmlAttr.Click.Animate);
 
-        var duration = <any>element.attr(sing.constants.htmlAttr.Click.AnimateDuration) || null;
+        var duration = (element.attr(sing.constants.htmlAttr.Click.AnimateDuration) as any) || null;
 
         if (duration)
             duration = parseFloat(duration);
 
         var easing = element.attr(sing.constants.htmlAttr.Click.AnimateEasing) || null;
 
-        var targetName = element.attr(sing.constants.htmlAttr.Click.AnimateTarget);
+        const targetName = element.attr(sing.constants.htmlAttr.Click.AnimateTarget);
 
         var target = $('body').findIDNameSelector(targetName);
 
         if (!target || target.length == 0 || !target.animate)
             target = element;
 
-        element.click(function () {
+        element.click(() => {
 
             var actionIf = element.actionIf(sing.constants.htmlAttr.Click.Animate);
 
@@ -403,7 +395,7 @@ function InitHTMLExtensions() {
                 // parseJSON can't handle double quotes
                 animation = animation.replaceAll('\'', '"');
 
-                var animationObject = $.parseJSON(animation);
+                const animationObject = $.parseJSON(animation);
 
                 target.animate(animationObject, duration, easing);
             }
@@ -451,7 +443,7 @@ function InitHTMLExtensions() {
             $(this).find('.field-name').hide();
             $(this).find('.field-token').show();
 
-            (<any>$(this).find('.field-token input')[0]).select();
+            ($(this).find('.field-token input')[0] as any).select();
         });
     });
 
@@ -461,17 +453,19 @@ function InitHTMLExtensions() {
         // end, beginning, or cursor
         var position = $(this).attr('position') || 'cursor';
 
+        // ReSharper disable once DoubleNegationOfBoolean
         var tokenBraces = !!($(this).attr('token-braces') == 'true');
 
 
         $(this).find('.field-list-row').mousedown(function (e) {
             e.stopPropagation();
 
-            var fieldName = $(this).data('field-name');
+            var fieldName: any = $(this).data('field-name');
 
             if (tokenBraces)
-                fieldName = '[' + fieldName + ']';
+                fieldName = `[${fieldName as string}]`;
 
+            // ReSharper disable once AssignedValueIsNeverUsed
             var target: JQuery = null;
 
             if (targetAttr == 'focused') {
@@ -483,7 +477,7 @@ function InitHTMLExtensions() {
 
             if (target.length > 0) {
 
-                if ((<any>target[0]).type == 'textarea') {
+                if ((target[0] as any).type == 'textarea') {
                     if (position == 'end') {
                         target.val(target.val() + '\r\n' + fieldName);
                     }
@@ -495,7 +489,7 @@ function InitHTMLExtensions() {
                         insertAtCaret(target.attr('id'), fieldName);
                     }
                 }
-                else if ((<any>target[0]).type == 'input') {
+                else if ((target[0] as any).type == 'input') {
                     if (position == 'end') {
                         target.val(target.val() + fieldName);
 
@@ -508,8 +502,8 @@ function InitHTMLExtensions() {
                         insertAtCaret(target.attr('id'), fieldName);
                     }
                 }
-                else if ((<any>target[0]).type == 'iframe') {
-                    var value = wysihtml5Editor.getValue();
+                else if ((target[0] as any).type == 'iframe') {
+                    const value = wysihtml5Editor.getValue();
                     wysihtml5Editor.setValue(value + fieldName, true);
                 }
             }
@@ -517,8 +511,8 @@ function InitHTMLExtensions() {
     });
 
     $('.manage-view-show-similar').click(function () {
-        var fieldName = $(this).data('field-name');
-        var fieldValue = $(this).data('field-value');
+        const fieldName = $(this).data('field-name');
+        const fieldValue = $(this).data('field-value');
 
         $('#GlobalSearchTerm').val(fieldName + ':' + fieldValue);
 
@@ -538,42 +532,43 @@ var jsSHA: any;
 function InitIdent() {
 
     if (Identicon && jsSHA) {
-        var ident = $('ident');
+        const ident = $('ident');
 
         ident.each(function () {
-            var thisJQuery = <JQuery>$(this);
+            const thisJQuery = $(this);
 
-            var hash = thisJQuery.html();
+            const hash = thisJQuery.html();
 
-            var size = (thisJQuery.attr('size') || '').tryToNumber() || 36;
+            const size = (thisJQuery.attr('size') || '').tryToNumber() || 36;
 
-            var icon = new Identicon(hash, size);
+            // ReSharper disable once UnusedLocals
+            const icon = new Identicon(hash, size);
 
-            var salt = 'SingularitySalt';
-            var shaObj = new jsSHA(hash + salt, "TEXT");
+            const salt = 'SingularitySalt';
+            const shaObj = new jsSHA(hash + salt, 'TEXT');
 
-            var hash2 = shaObj.getHash('SHA-256', 'HEX', 1);
+            const hash2 = shaObj.getHash('SHA-256', 'HEX', 1);
 
-            var data = new Identicon(hash2, size);
+            const data = new Identicon(hash2, size);
 
             // $("#show_identicon")[0].src = 'data:image/png;base64,' + data;
 
-            $(this).html('<img width="' + size + '" height="' + size + '" src="data:image/png;base64,' + data + '">');
+            $(this).html(`<img width="${size}" height="${size}" src="data:image/png;base64,${data}">`);
 
         });
     }
 }
 
 function InitHoverSrc() {
-    var animated = $('img[' + sing.constants.htmlAttr.HoverSrc + ']');
+    const animated = $(`img[${sing.constants.htmlAttr.HoverSrc}]`);
 
     animated.each(function () {
         var thisElement = $(this);
-        thisElement.on('mouseover', function (ev) {
+        thisElement.on('mouseover', () => {
             thisElement.attr(thisElement.attr(sing.constants.htmlAttr.StaticSrc, thisElement.attr('src')));
             thisElement.attr('src', thisElement.attr(sing.constants.htmlAttr.HoverSrc));
         });
-        thisElement.on('mouseout', function (ev) {
+        thisElement.on('mouseout', () => {
             if (thisElement.hasAttr(thisElement.attr(sing.constants.htmlAttr.StaticSrc))) {
                 thisElement.attr('src', thisElement.attr(thisElement.attr(sing.constants.htmlAttr.StaticSrc)));
                 thisElement.removeAttr('static-src');
@@ -584,21 +579,21 @@ function InitHoverSrc() {
 
 function PropertyIf(propertyName: string, changeTrue?: (propertyTarget: JQuery) => void, changeFalse?: (propertyTarget: JQuery) => void) {
 
-    $('*[' + propertyName + '-if]').each(function () {
+    $(`*[${propertyName}-if]`).each(function () {
         var propertyTarget = $(this);
 
-        var ifTargetName = propertyTarget.attr(propertyName + '-if');
+        const ifTargetName = propertyTarget.attr(propertyName + '-if');
 
-        var ifTarget = $('body').findIDNameSelector(ifTargetName);
+        const ifTarget = $('body').findIDNameSelector(ifTargetName);
 
         if (!ifTarget || ifTarget.length == 0) {
         }
         else {
             ifTarget.each(function () {
 
-                var valueTarget = $(this);
+                const valueTarget = $(this);
 
-                var changeFunction = function () {
+                const changeFunction = () => {
                     var visible = propertyTarget.actionIf(propertyName);
 
                     if (visible && changeTrue)
@@ -624,58 +619,58 @@ function PropertyIf(propertyName: string, changeTrue?: (propertyTarget: JQuery) 
 
 function InitPropertyIf() {
     PropertyIf('show',
-        function (target) {
+        target => {
             target.show('fast');
         },
-        function (target) {
+        target => {
             target.hide('fast');
         });
 
     PropertyIf('hide',
-        function (target) {
+        target => {
             target.hide('fast');
         },
-        function (target) {
+        target => {
             target.show('fast');
         });
 
     PropertyIf('enabled',
-        function (target) {
+        target => {
             target.removeAttr('disabled');
         },
-        function (target) {
+        target => {
             target.attr('disabled', 'disabled');
         });
 
     PropertyIf('disabled',
-        function (target) {
+        target => {
             target.attr('disabled', 'disabled');
         },
-        function (target) {
+        target => {
             target.removeAttr('disabled');
         });
 
     PropertyIf('readonly',
-        function (target) {
+        target => {
             target.attr('readonly', 'readonly');
         },
-        function (target) {
+        target => {
             target.removeAttr('readonly');
         });
 
     PropertyIf('selected',
-        function (target) {
+        target => {
             target.attr('selected', 'selected');
         },
-        function (target) {
+        target => {
             target.removeAttr('selected');
         });
 
     PropertyIf('checked',
-        function (target) {
+        target => {
             target.attr('checked', 'checked');
         },
-        function (target) {
+        target => {
             target.removeAttr('checked');
         });
 
@@ -683,13 +678,13 @@ function InitPropertyIf() {
 
 function InitClickActions() {
 
-    $('*[' + sing.constants.htmlAttr.Click.Show + ']').each(function () {
+    $(`*[${sing.constants.htmlAttr.Click.Show}]`).each(function () {
 
         var target = $(this).attr(sing.constants.htmlAttr.Click.Show);
 
         $(this).click(function () {
 
-            var actionIf = $(this).actionIf(sing.constants.htmlAttr.Click.Show);
+            const actionIf = $(this).actionIf(sing.constants.htmlAttr.Click.Show);
 
             if (!actionIf)
                 return;
@@ -698,12 +693,12 @@ function InitClickActions() {
         });
     });
 
-    $('*[' + sing.constants.htmlAttr.Click.Hide + ']').each(function () {
+    $(`*[${sing.constants.htmlAttr.Click.Hide}]`).each(function () {
 
         var target = $(this).attr(sing.constants.htmlAttr.Click.Hide);
 
         $(this).click(function () {
-            var actionIf = $(this).actionIf(sing.constants.htmlAttr.Click.Hide);
+            const actionIf = $(this).actionIf(sing.constants.htmlAttr.Click.Hide);
 
             if (!actionIf)
                 return;
@@ -712,12 +707,12 @@ function InitClickActions() {
         });
     });
 
-    $('*[' + sing.constants.htmlAttr.Click.Toggle + ']').each(function () {
+    $(`*[${sing.constants.htmlAttr.Click.Toggle}]`).each(function () {
 
         var target = $(this).attr(sing.constants.htmlAttr.Click.Toggle);
 
         $(this).click(function () {
-            var actionIf = $(this).actionIf(sing.constants.htmlAttr.Click.Toggle);
+            const actionIf = $(this).actionIf(sing.constants.htmlAttr.Click.Toggle);
 
             if (!actionIf)
                 return;
@@ -726,13 +721,13 @@ function InitClickActions() {
         });
     });
 
-    $('*[' + sing.constants.htmlAttr.Click.FadeIn + ']').each(function () {
+    $(`*[${sing.constants.htmlAttr.Click.FadeIn}]`).each(function () {
 
         var target = $(this).attr(sing.constants.htmlAttr.Click.FadeIn);
 
         $(this).click(function () {
 
-            var actionIf = $(this).actionIf(sing.constants.htmlAttr.Click.FadeIn);
+            const actionIf = $(this).actionIf(sing.constants.htmlAttr.Click.FadeIn);
 
             if (!actionIf)
                 return;
@@ -741,13 +736,13 @@ function InitClickActions() {
         });
     });
 
-    $('*[' + sing.constants.htmlAttr.Click.FadeOut + ']').each(function () {
+    $(`*[${sing.constants.htmlAttr.Click.FadeOut}]`).each(function () {
 
         var target = $(this).attr(sing.constants.htmlAttr.Click.FadeOut);
 
         $(this).click(function () {
 
-            var actionIf = $(this).actionIf(sing.constants.htmlAttr.Click.FadeOut);
+            const actionIf = $(this).actionIf(sing.constants.htmlAttr.Click.FadeOut);
 
             if (!actionIf)
                 return;
@@ -756,15 +751,15 @@ function InitClickActions() {
         });
     });
 
-    $('*[' + sing.constants.htmlAttr.Click.FadeToggle + ']').each(function () {
+    $(`*[${sing.constants.htmlAttr.Click.FadeToggle}]`).each(function () {
 
-        var target = <any>$(this).attr(sing.constants.htmlAttr.Click.FadeToggle);
+        var target = $(this).attr(sing.constants.htmlAttr.Click.FadeToggle) as any;
 
         target = $('body').findIDNameSelector(target);
 
         $(this).click(function () {
 
-            var actionIf = $(this).actionIf(sing.constants.htmlAttr.Click.FadeToggle);
+            const actionIf = $(this).actionIf(sing.constants.htmlAttr.Click.FadeToggle);
 
             if (!actionIf)
                 return;
@@ -779,20 +774,20 @@ function InitClickActions() {
         });
     });
 
-    $('*[' + sing.constants.htmlAttr.Click.ToggleClass + ']').each(function () {
+    $(`*[${sing.constants.htmlAttr.Click.ToggleClass}]`).each(function () {
 
         var element = $(this);
 
         var className = element.attr(sing.constants.htmlAttr.Click.ToggleClass);
 
-        var targetName = element.attr(sing.constants.htmlAttr.Click.ToggleClassTarget);
+        const targetName = element.attr(sing.constants.htmlAttr.Click.ToggleClassTarget);
 
         var target = $('body').findIDNameSelector(targetName);
 
         if (target && target.length == 0)
             target = element;
 
-        element.click(function () {
+        element.click(() => {
 
             var actionIf = element.actionIf(sing.constants.htmlAttr.Click.ToggleClass);
 
@@ -803,20 +798,20 @@ function InitClickActions() {
         });
     });
 
-    $('*[' + sing.constants.htmlAttr.Click.AddClass + ']').each(function () {
+    $(`*[${sing.constants.htmlAttr.Click.AddClass}]`).each(function () {
 
         var element = $(this);
 
         var className = element.attr(sing.constants.htmlAttr.Click.AddClass);
 
-        var targetName = element.attr(sing.constants.htmlAttr.Click.AddClassTarget);
+        const targetName = element.attr(sing.constants.htmlAttr.Click.AddClassTarget);
 
         var target = $('body').findIDNameSelector(targetName);
 
         if (!target || target.length == 0)
             target = element;
 
-        element.click(function () {
+        element.click(() => {
 
             var actionIf = element.actionIf(sing.constants.htmlAttr.Click.AddClass);
 
@@ -827,20 +822,20 @@ function InitClickActions() {
         });
     });
 
-    $('*[' + sing.constants.htmlAttr.Click.RemoveClass + ']').each(function () {
+    $(`*[${sing.constants.htmlAttr.Click.RemoveClass}]`).each(function () {
 
         var element = $(this);
 
         var className = element.attr(sing.constants.htmlAttr.Click.RemoveClass);
 
-        var targetName = element.attr(sing.constants.htmlAttr.Click.RemoveClassTarget);
+        const targetName = element.attr(sing.constants.htmlAttr.Click.RemoveClassTarget);
 
         var target = $('body').findIDNameSelector(targetName);
 
         if (!target || target.length == 0)
             target = element;
 
-        element.click(function () {
+        element.click(() => {
 
             var actionIf = element.actionIf(sing.constants.htmlAttr.Click.RemoveClassTarget);
 
@@ -853,7 +848,7 @@ function InitClickActions() {
 }
 
 function InitRememberPage() {
-    $('*[' + sing.constants.htmlAttr.GoToRememberPage + ']').each(function () {
+    $(`*[${sing.constants.htmlAttr.GoToRememberPage}]`).each(() => {
         if (!$.cookie)
             return;
 
@@ -867,29 +862,29 @@ function InitRememberPage() {
         }
     });
 
-    $('*[' + sing.constants.htmlAttr.EnableRememberPage + ']').each(function () {
+    $(`*[${sing.constants.htmlAttr.EnableRememberPage}]`).each(() => {
         $.cookie('enable-remember-page', true, { expires: 7, path: '/' });
     });
 
-    $('*[' + sing.constants.htmlAttr.RememberPage + ']').each(function () {
+    $(`*[${sing.constants.htmlAttr.RememberPage}]`).each(() => {
         $.cookie('enable-remember-page', false, { expires: 7, path: '/' });
         $.cookie('remember-page', document.URL, { expires: 7, path: '/' });
     });
 }
 
 var keyCodeToChar: IndexHash<string> = {
-    8: "Backspace", 9: "Tab", 13: "Enter", 16: "Shift", 17: "Ctrl", 18: "Alt", 19: "Pause/Break",
-    20: "Caps Lock", 27: "Esc", 32: "Space", 33: "Page Up", 34: "Page Down", 35: "End", 36: "Home",
-    37: "Left", 38: "Up", 39: "Right", 40: "Down", 45: "Insert", 46: "Delete", 48: "0", 49: "1",
-    50: "2", 51: "3", 52: "4", 53: "5", 54: "6", 55: "7", 56: "8", 57: "9", 65: "A", 66: "B", 67: "C",
-    68: "D", 69: "E", 70: "F", 71: "G", 72: "H", 73: "I", 74: "J", 75: "K", 76: "L", 77: "M", 78: "N",
-    79: "O", 80: "P", 81: "Q", 82: "R", 83: "S", 84: "T", 85: "U", 86: "V", 87: "W", 88: "X", 89: "Y",
-    90: "Z", 91: "Windows", 93: "Right Click", 96: "Numpad 0", 97: "Numpad 1", 98: "Numpad 2", 99: "Numpad 3",
-    100: "Numpad 4", 101: "Numpad 5", 102: "Numpad 6", 103: "Numpad 7", 104: "Numpad 8", 105: "Numpad 9",
-    106: "Numpad *", 107: "Numpad +", 109: "Numpad -", 110: "Numpad .", 111: "Numpad /", 112: "F1", 113: "F2",
-    114: "F3", 115: "F4", 116: "F5", 117: "F6", 118: "F7", 119: "F8", 120: "F9", 121: "F10", 122: "F11",
-    123: "F12", 144: "Num Lock", 145: "Scroll Lock", 182: "My Computer", 183: "My Calculator", 186: ";",
-    187: "=", 188: ",", 189: "-", 190: ".", 191: "/", 192: "`", 219: "[", 220: "\\", 221: "]", 222: "'"
+    8: 'Backspace', 9: 'Tab', 13: 'Enter', 16: 'Shift', 17: 'Ctrl', 18: 'Alt', 19: 'Pause/Break',
+    20: 'Caps Lock', 27: 'Esc', 32: 'Space', 33: 'Page Up', 34: 'Page Down', 35: 'End', 36: 'Home',
+    37: 'Left', 38: 'Up', 39: 'Right', 40: 'Down', 45: 'Insert', 46: 'Delete', 48: '0', 49: '1',
+    50: '2', 51: '3', 52: '4', 53: '5', 54: '6', 55: '7', 56: '8', 57: '9', 65: 'A', 66: 'B', 67: 'C',
+    68: 'D', 69: 'E', 70: 'F', 71: 'G', 72: 'H', 73: 'I', 74: 'J', 75: 'K', 76: 'L', 77: 'M', 78: 'N',
+    79: 'O', 80: 'P', 81: 'Q', 82: 'R', 83: 'S', 84: 'T', 85: 'U', 86: 'V', 87: 'W', 88: 'X', 89: 'Y',
+    90: 'Z', 91: 'Windows', 93: 'Right Click', 96: 'Numpad 0', 97: 'Numpad 1', 98: 'Numpad 2', 99: 'Numpad 3',
+    100: 'Numpad 4', 101: 'Numpad 5', 102: 'Numpad 6', 103: 'Numpad 7', 104: 'Numpad 8', 105: 'Numpad 9',
+    106: 'Numpad *', 107: 'Numpad +', 109: 'Numpad -', 110: 'Numpad .', 111: 'Numpad /', 112: 'F1', 113: 'F2',
+    114: 'F3', 115: 'F4', 116: 'F5', 117: 'F6', 118: 'F7', 119: 'F8', 120: 'F9', 121: 'F10', 122: 'F11',
+    123: 'F12', 144: 'Num Lock', 145: 'Scroll Lock', 182: 'My Computer', 183: 'My Calculator', 186: ';',
+    187: '=', 188: ',', 189: '-', 190: '.', 191: '/', 192: '`', 219: '[', 220: '\\', 221: ']', 222: "'"
 };
 var keyCharToCode: Hash<number> = {
     "Backspace": 8, "Tab": 9, "Enter": 13, "Shift": 16, "Ctrl": 17, "Alt": 18, "Pause/Break": 19, "Caps Lock": 20,
@@ -911,7 +906,7 @@ function InitKeyBindClick() {
 
     var down: boolean[] = [];
 
-    $('*[' + sing.constants.htmlAttr.Click.CtrlHref + ']').click(function (e) {
+    $(`*[${sing.constants.htmlAttr.Click.CtrlHref}]`).click(function (e) {
 
         if (down[keyCharToCode['Ctrl']]) {
             location.href = $(this).attr(sing.constants.htmlAttr.Click.CtrlHref);
@@ -920,7 +915,7 @@ function InitKeyBindClick() {
         }
     });
 
-    $('*[' + sing.constants.htmlAttr.Click.ShiftHref + ']').click(function (e) {
+    $(`*[${sing.constants.htmlAttr.Click.ShiftHref}]`).click(function (e) {
 
         if (down[keyCharToCode['Shift']]) {
             location.href = $(this).attr(sing.constants.htmlAttr.Click.ShiftHref);
@@ -929,7 +924,7 @@ function InitKeyBindClick() {
         }
     });
 
-    $('*[' + sing.constants.htmlAttr.Click.AltHref + ']').click(function (e) {
+    $(`*[${sing.constants.htmlAttr.Click.AltHref}]`).click(function (e) {
 
         if (down[keyCharToCode['Alt']]) {
             location.href = $(this).attr(sing.constants.htmlAttr.Click.AltHref);
@@ -938,7 +933,7 @@ function InitKeyBindClick() {
         }
     });
 
-    $('*[' + sing.constants.htmlAttr.Click.DoubleHref + ']').on('dblclick', function (e) {
+    $(`*[${sing.constants.htmlAttr.Click.DoubleHref}]`).on('dblclick', function (e) {
 
         if (down[keyCharToCode['Alt']]) {
             location.href = $(this).attr(sing.constants.htmlAttr.Click.DoubleHref);
@@ -947,14 +942,14 @@ function InitKeyBindClick() {
         }
     });
 
-    $(document).keydown(function (e) {
+    $(document).keydown(e => {
 
         down[e.keyCode] = true;
 
 
-        $('*[' + sing.constants.htmlAttr.Click.KeyBindClick + ']').each(function () {
+        $(`*[${sing.constants.htmlAttr.Click.KeyBindClick}]`).each(function () {
 
-            var keyCode = $(this).attr(sing.constants.htmlAttr.Click.KeyBindClick);
+            const keyCode = $(this).attr(sing.constants.htmlAttr.Click.KeyBindClick);
 
             var key1: number;
             var key2: number;
@@ -979,7 +974,7 @@ function InitKeyBindClick() {
             }
             else {
 
-                key1 = <number>keyCode.tryToNumber(null);
+                key1 = (keyCode.tryToNumber(null) as number);
 
                 if (!key1)
                     key1 = keyCharToCode[keyCode];
@@ -994,7 +989,7 @@ function InitKeyBindClick() {
             }
         });
 
-    }).keyup(function (e) {
+    }).keyup(e => {
 
         down[e.keyCode] = false;
 
@@ -1002,55 +997,57 @@ function InitKeyBindClick() {
 
     var KeyBindTip = '';
 
-    $('*[' + sing.constants.htmlAttr.Click.KeyBindClick + ']').each(function () {
-        var keyCode = $(this).attr(sing.constants.htmlAttr.Click.KeyBindClick);
+    $(`*[${sing.constants.htmlAttr.Click.KeyBindClick}]`).each(function () {
+        const keyCode = $(this).attr(sing.constants.htmlAttr.Click.KeyBindClick);
         var commandName = $(this).attr(sing.constants.htmlAttr.Click.KeyBindClickName);
-        var href = $(this).attr('href');
-        var id = $(this).attr('id');
+        const href = $(this).attr('href');
+        const id = $(this).attr('id');
 
         if (!commandName)
             return;
-
+        var key1: number;
         if (keyCode.indexOf('+') > 0 && keyCode.indexOf('+') < keyCode.length - 1) {
             console.log(keyCode);
-            var key1 = <number>StringTryToNumber(keyCode.substr(0, keyCode.indexOf('+')));
-            var key2 = <number>StringTryToNumber(keyCode.substr(keyCode.indexOf('+') + 1));
+            key1 = (StringTryToNumber(keyCode.substr(0, keyCode.indexOf('+'))) as number);
+            let key2 = StringTryToNumber(keyCode.substr(keyCode.indexOf('+') + 1)) as number;
 
             if (!key1)
+                // ReSharper disable once AssignedValueIsNeverUsed
                 key1 = keyCharToCode[keyCode.substr(0, keyCode.indexOf('+'))];
             if (!key2)
+                // ReSharper disable once AssignedValueIsNeverUsed
                 key2 = keyCharToCode[keyCode.substr(keyCode.indexOf('+') + 1)];
 
             if (href)
-                commandName = "<a style='cursor: pointer;' onclick='location.href = \"" + href + "\";'>" + commandName + "</a>";
+                commandName = `<a style='cursor: pointer;' onclick='location.href = "${href}";'>${commandName}</a>`;
             else if (id)
-                commandName = "<a style='cursor: pointer;' onclick='$(\"#" + id + "\").click();'>" + commandName + "</a>";
+                commandName = `<a style='cursor: pointer;' onclick='$("#${id}").click();'>${commandName}</a>`;
 
-            KeyBindTip += "<b>" + keyCode.substr(0, keyCode.indexOf('+')) + "+" + keyCode.substr(keyCode.indexOf('+') + 1) +
-            "</b> - " + commandName;
-            KeyBindTip += "<br>";
+            KeyBindTip += `<b>${keyCode.substr(0, keyCode.indexOf('+'))}+${keyCode.substr(keyCode.indexOf('+') + 1)}</b> - ${commandName}`;
+            KeyBindTip += '<br>';
         }
         else {
-            key1 = <number>StringTryToNumber(keyCode);
+            key1 = (StringTryToNumber(keyCode) as number);
 
             if (!key1)
+                // ReSharper disable once AssignedValueIsNeverUsed
                 key1 = keyCharToCode[keyCode];
 
             if (href)
-                commandName = "<a style='cursor: pointer;' onclick='location.href = \"" + href + "\";'>" + commandName + "</a>";
+                commandName = `<a style='cursor: pointer;' onclick='location.href = "${href}";'>${commandName}</a>`;
             else if (id)
-                commandName = "<a style='cursor: pointer;' onclick='$(\"#" + id + "\").click();'>" + commandName + "</a>";
+                commandName = `<a style='cursor: pointer;' onclick='$("#${id}").click();'>${commandName}</a>`;
 
 
-            KeyBindTip += "<b>" + keyCode + "</b> - " + commandName;
-            KeyBindTip += "<br>";
+            KeyBindTip += `<b>${keyCode}</b> - ${commandName}`;
+            KeyBindTip += '<br>';
         }
     });
 
     if (KeyBindTip)
-        $("#key-bind-page-tip").html(KeyBindTip);
+        $('#key-bind-page-tip').html(KeyBindTip);
     else
-        $("#key-bind-page-tip").parent().hide();
+        $('#key-bind-page-tip').parent().hide();
 
 }
 
@@ -1059,14 +1056,14 @@ function InitFields() {
     // Adds the tab id to all href in the tab container
     $('.tab-container *[href]').each(function () {
 
-        var href = $(this).attr('href');
+        const href = $(this).attr('href');
 
         if (href.indexOf('#') < 0) {
             $(this).attr('href', href + '#' + $(this).parent('.ui-tabs-panel').attr('id'));
         }
     });
 
-    $('#randomize-fields').click(function () {
+    $('#randomize-fields').click(() => {
         RandomFields();
     });
 
@@ -1076,7 +1073,7 @@ function InitFields() {
     }
 
     try {
-        $('.timepicker').timepicker({ 'step': 15 });
+        $('.timepicker').timepicker({ step: 15 });
     } catch (ex) {
     }
 
@@ -1098,22 +1095,21 @@ function InitFields() {
             min: 0,
             max: 1000000,
             step: 1,
-            start: 1000,
-            numberFormat: "C"
+            numberFormat: 'C'
         });
     }
     catch (ex) {
     }
 
-    $("img[error-src]").error(function () {
+    $('img[error-src]').error(function () {
         $(this).attr('src', $(this).attr(sing.constants.htmlAttr.ErrorSrc));
     });
 
     try {
         $('.int-range').each(function () {
             var val = parseInt($(this).attr('value'));
-            var minimum = parseInt($(this).attr('minimum'));
-            var maximum = parseInt($(this).attr('maximum'));
+            const minimum = parseInt($(this).attr('minimum'));
+            const maximum = parseInt($(this).attr('maximum'));
 
             if (val <= minimum || isNaN(val))
                 val = minimum;
@@ -1121,11 +1117,11 @@ function InitFields() {
                 val = maximum;
 
             if (val && !isNaN(val)) {
-                $('#' + $(this).attr('target')).val(val.toString());
-                $('#' + $(this).attr('text-target')).html(val.toString());
-
+                $(`#${$(this).attr('target')}`).val(val.toString());
+                $(`#${$(this).attr('text-target')}`).html(val.toString());
+                /*
                 $(this).slider({
-                    range: "min",
+                //    range: "min",
                     min: minimum,
                     max: maximum,
                     value: val,
@@ -1137,7 +1133,9 @@ function InitFields() {
                         $('#' + $(this).attr('target')).val(ui.value);
                         $('#' + $(this).attr('text-target')).html(ui.value);
                     }
-                });
+                })
+                    */
+                ;
             }
             //                $('#' + $(this).attr('target')).val($(this).slider("value"));
             //                $('#' + $(this).attr('text-target')).val($(this).slider("value"));
@@ -1147,9 +1145,9 @@ function InitFields() {
     }
 
     try {
-        $(".spinner-decimal").spinner({
+        $('.spinner-decimal').spinner({
             step: 0.01,
-            numberFormat: "n"
+            numberFormat: 'n'
         });
     }
     catch (ex) {
@@ -1203,12 +1201,12 @@ function RandomFields() {
             }
             else if (DataTypeName == 'Time') {
                 Object = chance.hour({ twentyfour: true }) + ':' +
-                chance.minute() + ":" + chance.second();
+                    chance.minute() + ':' + chance.second();
             }
             else if (DataTypeName == 'DateTime') {
-                Object = chance.date({ string: true }) + " " +
-                chance.hour({ twentyfour: true }) + ':' +
-                chance.minute() + ":" + chance.second();
+                Object = chance.date({ string: true }) + ' ' +
+                    chance.hour({ twentyfour: true }) + ':' +
+                    chance.minute() + ':' + chance.second();
             }
         }
 
@@ -1225,7 +1223,7 @@ function RandomFields() {
             Object = chance.postal();
         }
         if (DataTypeName == 'ImageUrl') {
-            Object = "https://placekitten.com/g/" + chance.integer({ min: 200, max: 500 }) + '/' + chance.integer({ min: 200, max: 500 });
+            Object = `https://placekitten.com/g/${chance.integer({ min: 200, max: 500 })}/${chance.integer({ min: 200, max: 500 })}`;
         }
         if (DataTypeName == 'Url') {
             Object = chance.domain();
@@ -1278,58 +1276,23 @@ function RandomFields() {
 }
 
 
-function insertAtCaret(areaId: string, text: string) {
-    var txtarea = <HTMLTextAreaElement>document.getElementById(areaId);
-    var scrollPos = txtarea.scrollTop;
-    var strPos = 0;
-    var range: TextRange;
-    var br = ((txtarea.selectionStart || txtarea.selectionStart == 0) ?
-        "ff" : (document.selection ? "ie" : false));
-    if (br == "ie") {
-        txtarea.focus();
-        range = document.selection.createRange();
-        range.moveStart('character', -txtarea.value.length);
-        strPos = range.text.length;
-    }
-    else if (br == "ff") strPos = txtarea.selectionStart;
-
-    var front = (txtarea.value).substring(0, strPos);
-    var back = (txtarea.value).substring(strPos, txtarea.value.length);
-    txtarea.value = front + text + back;
-    strPos = strPos + text.length;
-    if (br == "ie") {
-        txtarea.focus();
-        range = document.selection.createRange();
-        range.moveStart('character', -txtarea.value.length);
-        range.moveStart('character', strPos);
-        range.moveEnd('character', 0);
-        range.select();
-    }
-    else if (br == "ff") {
-        txtarea.selectionStart = strPos;
-        txtarea.selectionEnd = strPos;
-        txtarea.focus();
-    }
-    txtarea.scrollTop = scrollPos;
-}
-
-
-
 function ObjectToHtml(obj: any, parentKey: string = null, context: any = null) {
     if (!obj)
         return '';
 
-    var out = '';
-    var parentElement: string = null;
-
+    let out = '';
     if (parentKey) {
-        parentElement = parentKey.before('.').before('#');
-        var parentClasses = parentKey.afterFirst('.');
-        var parentID = parentKey.after('#');
+        // ReSharper disable once AssignedValueIsNeverUsed
+        // ReSharper disable once UnusedLocals
+        const parentElement = parentKey.before('.').before('#');
+        // ReSharper disable once UnusedLocals
+        const parentClasses = parentKey.afterFirst('.');
+        // ReSharper disable once UnusedLocals
+        const parentID = parentKey.after('#');
     }
 
     if ($.isFunction(obj)) {
-        out += (<Function>obj)(context);
+        out += (obj as Function)(context);
     }
     else if ($.isString(obj)) {
 
@@ -1338,18 +1301,18 @@ function ObjectToHtml(obj: any, parentKey: string = null, context: any = null) {
 
     }
     else if ($.isHash(obj)) {
+        const objKeys = $.objKeys(obj);
+        for (let key in objKeys) {
+            if (objKeys.hasOwnProperty(key)) {
 
-        for (var key in $.objKeys(obj)) {
+                // ReSharper disable once UnusedLocals
+                const objValue = obj[key];
 
-            var objValue = obj[key];
+                if ($.isNumber(key)) {
+                } else if ($.isString(key)) {
+                    if (key.startsWith('_')) {
 
-            if ($.isNumber(key)) {
-            }
-            else if ($.isString(key)) {
-                if (key.startsWith('_')) {
-
-                }
-                else {
+                    }
                 }
             }
         }
@@ -1371,23 +1334,22 @@ function HtmlToObject(html: string) {
 var testStructure = {
     html: {
         head: {
-            title: '',
-
+            title: ''
         },
         body: {
             ///////////////////////////////////
 
             // Attributes 
-            '_example-attr': "value",
-            
+            '_example-attr': 'value',
+
             // Attributes, function evaluation
-            '_example-attr2': function () { return 'evaluate'; },
-            
+            '_example-attr2'() { return 'evaluate'; },
+
             ///////////////////////////////////
 
             // Element with class longhand (string)
             'span': {
-                _class: 'example1',
+                _class: 'example1'
             },
             // <span class="example1"></span>
 
@@ -1408,10 +1370,10 @@ var testStructure = {
             // <div class="class1 class2"></div>
 
             ///////////////////////////////////
-            
+
             // Element with id longhand
             'div.example2': {
-                _id: 'example2',
+                _id: 'example2'
             },
             // <div class="example2" id="example2"></div>
 
@@ -1424,7 +1386,7 @@ var testStructure = {
 
             // Element with content longhand
             'div#example3': {
-                _content: { 
+                _content: {
                     // ...
                 }
             },
@@ -1434,14 +1396,14 @@ var testStructure = {
 
             // Element with indexed content
             'div#example4': {
-                0: { 
+                0: {
                     // ...
                 },
-                1: <any[]>[ 
+                1: [
                     // ...
-                ],
+                ] as any[],
                 2: '',
-                3: function () { return '' },
+                3() { return '' }
                 // ...
             },
             // <div id="example4">
@@ -1453,15 +1415,15 @@ var testStructure = {
             // <div id="example5">content</div>
 
             // Element with content as a function (string)
-            'div#example6': function () {
+            'div#example6'() {
                 return 'content';
             },
             // <div id="example6">content</div>
 
             // Element with content as a function (object)
-            'div#example7': function () {
+            'div#example7'() {
                 return { 'ul': { 'li': ['1', '2', '3'] } };
-            },            
+            },
             // <div id="example7">
             //   <ul>
             //     <li>1</li>
@@ -1474,7 +1436,7 @@ var testStructure = {
             'div#example9': [
                 'content1',
                 'content2'
-            ],        
+            ],
             // <div id="example9">
             //   <div>content1</div>
             //   <div>content2</div>
@@ -1484,7 +1446,7 @@ var testStructure = {
             'div.all-class#example10': [
                 'content1',
                 'content2'
-            ],   
+            ],
             // <div id="example10">
             //   <div class="all-class">content1</div>
             //   <div class="all-class">content2</div>
@@ -1492,24 +1454,24 @@ var testStructure = {
 
             // Multiple elements with classes (mixed types)
             'div.all-class#example11': [
-            // String
+                // String
                 'content1',
 
                 // Function
-                function () { return 'content2'; },
+                () => 'content2',
 
                 // Object
                 {
                     _class: 'special',
-                    _content: 'content3',
-                },
+                    _content: 'content3'
+                }
             ],
             // <div id="example11">
             //   <div class="all-class">content1</div>
             //   <div class="all-class">content2</div>
             //   <div class="all-class special">content3</div>
             // </div>
-            
+
             ///////////////////////////////////
 
             // List example, longhand
@@ -1517,28 +1479,28 @@ var testStructure = {
                 'li': [
                     {
                         _class: 'example',
-                        _content: '1',
+                        _content: '1'
                     },
                     {
                         _class: 'example',
-                        _content: '2',
-                    },
+                        _content: '2'
+                    }
                     // ...
-                ],
+                ]
             },
-            
+
             // List example, shorthand
             'ul.example13': {
                 'li.example': [
                     {
                         _class: 'active',
-                        _content: '1',
+                        _content: '1'
                     },
                     {
-                        _content: '2',
-                    },
+                        _content: '2'
+                    }
                     // ...
-                ],
+                ]
             },
 
             ///////////////////////////////////
@@ -1546,23 +1508,21 @@ var testStructure = {
 
             // Basic context passing
             'div#example14': {
-                _content: function (c: any) {
+                _content(c: any) {
                     return (c && c.name) ? c.name : '';
                 }
             },
 
             // Context Looping longhand
-            'div#example15': function (c: any) {
+            'div#example15'(c: any) {
                 if (c.items) {
-                    return c.items.collect(function (item: any) {
-                        return {
-                            span: {
-                                _value: item.value,
-                            }
-                        };
-                    });
+                    return c.items.collect((item: any) => ({
+                        span: {
+                            _value: item.value
+                        }
+                    }));
                 }
-            },
+            }
         }
     }
 };

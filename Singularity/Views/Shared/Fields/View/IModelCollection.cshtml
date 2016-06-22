@@ -1,20 +1,5 @@
 ﻿@* Generator: MvcView *@
-
-@using LCore;
-@using Singularity;
-@using Singularity.Models;
-@using Singularity.Controllers;
-@using Singularity.Context;
-@using System.Collections;
-@using System.Collections.Generic;
-@using System.ComponentModel;
-@using System.ComponentModel.Design;
-@using System.Web;
-@using System.Web.Mvc;
-@using System.Linq;
-@using System.Linq.Expressions;
-@using System.ComponentModel.DataAnnotations;
-@using System.ComponentModel.DataAnnotations.Schema;
+@using LCore.Extensions;
 
 @{
     Type RelationType = Model.Meta.ModelType.GetGenericArguments()[0];
@@ -29,27 +14,21 @@
     return;
     }
 
-@if (Model.PropertyData != null &&
-    Model.PropertyData is IEnumerable)
+@{
+    IEnumerable data = Model.PropertyData as IEnumerable;
+}
+@if (data != null)
     {
-    List<IModel> Models = (Model.PropertyData as IEnumerable).List().List<IModel>();
+    List<IModel> Models = data.List().List<IModel>();
 
-    String Title = Models.CollectStr((i, m) =>
-    {
-        return m.ToString() + "\r\n";
-    });
+    string Title = Models.CollectStr((i, m) => $"{m.ToString()}\r\n");
 
     if (Models.Count > 0)
         {
-        Type t = Models[0].GetType();
-
         <a title="@Title" href="@Model.Route_FieldManyRelation(ViewBag.ControllerName)">
             <span>
                 @Models.Count @RelationType.GetFriendlyTypeName().Pluralize()
             </span>
         </a>
-        }
-    else
-        {
         }
     }

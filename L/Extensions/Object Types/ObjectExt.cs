@@ -1,498 +1,403 @@
 ﻿using System;
-using LCore;
-using LCore.ObjectExtensions;
+using LCore.Extensions.ObjectExt;
 using System.Collections.Generic;
-
-using System.Text;
 using System.Collections;
 using System.Reflection;
-using System.Threading;
 
-namespace LCore
+namespace LCore.Extensions
     {
-    public partial class L : Logic
+    public static class ObjectExtensions
         {
-        #region Str
-        /// <summary>
-        /// Returns a function that converts an Object to a String. Shortcut for Logic.Object_ToString
-        /// </summary>
-        public static Func<Object, String> Str = Object_ToString;
+        #region Extensions
+        // TODO: L: Object: Untested
+        #region Objects To String
+        public static string Objects_ToString(this IEnumerable<object> In)
+            {
+            return Logic.Objects_ToString(In.Array());
+            }
         #endregion
-        #region Is
-        /// <summary>
-        /// Returns a function that safely Compares an object with another, returning whether they are equal. Shortcut for Logic.Object_SafeEquals
-        /// </summary>
-        public static Func<Object, Object, Boolean> Is = L.Object_SafeEquals;
+
+        // TODO: L: Object: Untested
+        #region HasProperty
+        public static bool HasProperty(this object In, string PropertyName)
+            {
+            return Logic.Def.ObjectExt.HasProperty()(In, PropertyName);
+            }
+        #endregion
+
+        // TODO: L: Object: Untested
+        #region GetProperty
+        public static object GetProperty(this object In, string PropertyName)
+            {
+            return Logic.Def.ObjectExt.GetProperty()(In, PropertyName);
+            }
+        #endregion
+
+        // TODO: L: Object: Untested
+        #region SetProperty
+        public static void SetProperty(this object In, string PropertyName, object PropertyValue)
+            {
+            Logic.Def.ObjectExt.SetProperty()(In, PropertyName, PropertyValue);
+            }
+        #endregion
         #endregion
         }
     public partial class Logic
         {
-        #region Base Lambdas
-        public static Func<Object, String> Object_ToString = (o) => { return o.ToString(); };
-        public static Func<Object, Object, Boolean> Object_Equals = (o, obj) => { return o.Equals(obj); };
-        public static Func<Object, Object, Boolean> Object_Equals2 = (objA, objB) => { return Object.Equals(objA, objB); };
-        public static Func<Object, Object, Boolean> Object_ReferenceEquals = (objA, objB) => { return Object.ReferenceEquals(objA, objB); };
-        public static Func<Object, Int32> Object_GetHashCode = (o) => { return o.GetHashCode(); };
-        public static Func<Object, Type> Object_GetType = (o) => { return o.GetType(); };
-        #endregion
-
-        #region Object
-        /// <summary>
-        /// Returns a function that safely compares an object with another, returning whether they are equal.
-        /// </summary>
-        public static Func<Object, Object, Boolean> Object_SafeEquals = (o1, o2) =>
-        {
-            // If both are null, or both are same instance, return true.
-            if (System.Object.ReferenceEquals(o1, o2))
-                {
-                return true;
-                }
-
-            // If one is null, but not both, return false.
-            if (System.Object.ReferenceEquals(o1, null) ||
-                System.Object.ReferenceEquals(o2, null))
-                {
-                return false;
-                }
-
-            // If objects are both IEnumerable, send to Enumerable equivalent
-            if (o1 is IEnumerable && o2 is IEnumerable)
-                {
-                return ((IEnumerable)o1).Equivalent((IEnumerable)o2);
-                }
-
-            return o1.Equals(o2);
-        };
-
-        /// <summary>
-        /// Returns a string representation of a set of objects.
-        /// </summary>
-        public static Func<Object[], String> Objects_ToString = (In) =>
-        {
-            if (In.IsEmpty())
-                return "";
-            return In.Convert((o) =>
-            {
-                if (o == null)
-                    return "NULL";
-                else
-                    return (o.GetType() + ":" + o.ToString());
-            }).Combine(", ");
-        };
-        #endregion
-
-        #region New
-        public static Func<U> New<U>()
-            {
-            return () => { return (U)typeof(U).GetConstructor(L.Array<Type>()()).Invoke(L.Array<object>()()); };
-            }
-        public static Func<T1, U> New<T1, U>()
-            {
-            ConstructorInfo Const = typeof(U).GetConstructor(new Type[] { typeof(T1) });
-            return (o1) => { return (U)Const.Invoke(new Object[] { o1 }); };
-            }
-        public static Func<T1, T2, U> New<T1, T2, U>()
-            {
-            ConstructorInfo Const = typeof(U).GetConstructor(new Type[] { typeof(T1), typeof(T2) });
-            return (o1, o2) => { return (U)Const.Invoke(new Object[] { o1, o2 }); };
-            }
-        public static Func<T1, T2, T3, U> New<T1, T2, T3, U>()
-            {
-            ConstructorInfo Const = typeof(U).GetConstructor(new Type[] { typeof(T1), typeof(T2), typeof(T3) });
-            return (o1, o2, o3) => { return (U)Const.Invoke(new Object[] { o1, o2, o3 }); };
-            }
-        public static Func<T1, T2, T3, T4, U> New<T1, T2, T3, T4, U>()
-            {
-            ConstructorInfo Const = typeof(U).GetConstructor(new Type[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-            return (o1, o2, o3, o4) => { return (U)Const.Invoke(new Object[] { o1, o2, o3, o4 }); };
-            }
-        public static Func<U> New<U>(params Object[] In)
-            {
-            ConstructorInfo Const = typeof(U).GetConstructor(In.GetTypes());
-            return () => { return (U)Const.Invoke(In); };
-            }
-        #endregion
-        #region IsNull
-        public static Func<T, Boolean> IsNull<T>()
-            {
-            Boolean ValueType = L.Language_IsValueType(typeof(T));
-            if (ValueType)
-                {
-                return (o) => { return false; };
-                }
-            else
-                {
-                return (o) => { return o.SafeEquals(default(T)); };
-                }
-            }
-        #endregion
-        #region IsA
-        public static Func<Object, Boolean> IsA<T>()
-            {
-            return (o) => { return o is T; };
-            }
-        #endregion
-
-        #region Method
-        private static Action<U> Method<U>(String MethodName)
-            {
-            MethodInfo Method = typeof(U).GetMethod(MethodName, new Type[] { });
-            if (Method != null)
-                {
-                return (o) => { Method.Invoke(o, new object[] { }); };
-                }
-            else
-                throw new Exception(typeof(U).FullName + " " + MethodName);
-            }
-        #endregion
-        #region Getter
-        public static Func<T, U> Getter<T, U>(String Field)
-            {
-            MemberInfo Member = typeof(T).GetMember(Field).First();
-            if (Member != null && Member is PropertyInfo)
-                {
-                PropertyInfo M2 = (PropertyInfo)Member;
-                return PropertyInfo_GetU<T, U>(M2);
-                }
-            else if (Member != null && Member is FieldInfo)
-                {
-                FieldInfo M3 = (FieldInfo)Member;
-                return FieldInfo_GetU<T, U>(M3);
-                }
-            else
-                throw new Exception(typeof(T).FullName + " " + Field);
-            }
-
-        private static Func<T, U> PropertyInfo_GetU<T, U>(PropertyInfo Field)
-            {
-            return L.PropertyInfo_GetValue.Supply3(null).Supply(Field).Cast<object, object, T, U>().Try();
-            }
-        private static Func<T, U> FieldInfo_GetU<T, U>(FieldInfo Field)
-            {
-            return L.FieldInfo_GetValue.Supply(Field).Cast<object, object, T, U>().Try();
-            }
-        #endregion
-        #region Setter
-        public static Action<T1, T2> Setter<T1, T2>(String Field)
-            {
-            MemberInfo Member = typeof(T1).GetMember(Field).First();
-            if (Member != null && Member is PropertyInfo)
-                {
-                PropertyInfo M2 = (PropertyInfo)Member;
-                return PropertyInfo_SetU<T1, T2>(M2);
-                }
-            else if (Member != null && Member is FieldInfo)
-                {
-                FieldInfo M3 = (FieldInfo)Member;
-                return FieldInfo_SetU<T1, T2>(M3);
-                }
-            else
-                throw new Exception(typeof(T1).FullName + " " + typeof(T2).FullName + " " + Field);
-            }
-
-        private static Action<T, U> PropertyInfo_SetU<T, U>(PropertyInfo Field)
-            {
-            return L.PropertyInfo_SetValue.Supply(Field).Supply3(null).Cast<object, object, T, U>().Try().Do();
-            }
-        private static Action<T, U> FieldInfo_SetU<T, U>(FieldInfo Field)
-            {
-            return L.FieldInfo_SetValue.Supply(Field).Cast<object, object, T, U>().Try().Do();
-            }
-        #endregion
-        }
-    public static class ObjectExt
-        {
-        //Instanciates a new object from parameters
-        #region New
-        public static T New<T>()
-            {
-            return L.New<T>()();
-            }
-        public static T New<T>(params Object[] In)
-            {
-            return L.New<T>(In)();
-            }
-        #endregion
-
-
-        #region Objects To String
-        public static String Objects_ToString(this IEnumerable<Object> In)
-            {
-            return L.Objects_ToString(In.Array());
-            }
-        #endregion
-
-        public static Boolean HasProperty(this Object In, String PropertyName)
-            {
-            MemberInfo Member = In.GetType().GetMember(PropertyName).First();
-
-            if (Member != null && Member is PropertyInfo)
-                return true;
-            else if (Member != null && Member is FieldInfo)
-                return true;
-            else
-                return false;
-            }
-        public static Object GetProperty(this Object In, String PropertyName)
-            {
-            MemberInfo Member = In.GetType().GetMember(PropertyName).First();
-
-            if (Member != null && Member is PropertyInfo)
-                {
-                PropertyInfo M2 = (PropertyInfo)Member;
-                return Member.GetValue(In);
-                }
-            else if (Member != null && Member is FieldInfo)
-                {
-                FieldInfo M3 = (FieldInfo)Member;
-                return Member.GetValue(In);
-                }
-            else
-                throw new Exception(In.GetType().FullName + " " + PropertyName);
-            }
-        public static void SetProperty(this Object In, String PropertyName, Object PropertyValue)
-            {
-            MemberInfo Member = In.GetType().GetMember(PropertyName).First();
-
-            if (Member != null && Member is PropertyInfo)
-                {
-                PropertyInfo M2 = (PropertyInfo)Member;
-                Member.SetValue(In, PropertyValue);
-                }
-            else if (Member != null && Member is FieldInfo)
-                {
-                FieldInfo M3 = (FieldInfo)Member;
-                Member.SetValue(In, PropertyValue);
-                }
-            else
-                throw new Exception(In.GetType().FullName + " " + PropertyName);
-            }
-
+        #region Static
+        // TODO: L: Object: Untested
+        #region Swap
         public static void Swap<T>(ref T Obj1, ref T Obj2)
             {
             T temp = Obj1;
             Obj1 = Obj2;
             Obj2 = temp;
             }
+        #endregion
+        // TODO: L: Object: Untested
+        #region SafeEquals
+        /// <summary>
+        /// Returns a function that safely compares an object with another, returning whether they are equal.
+        /// </summary>
+        public static Func<object, object, bool> Object_SafeEquals = (o1, o2) =>
+        {
+            // If both are null, or both are same instance, return true.
+            if (ReferenceEquals(o1, o2))
+                {
+                return true;
+                }
+
+            // If one is null, but not both, return false.
+            if (ReferenceEquals(o1, null) ||
+                        ReferenceEquals(o2, null))
+                {
+                return false;
+                }
+
+            // If objects are both IEnumerable, send to Enumerable equivalent
+            IEnumerable enumerable = o1 as IEnumerable;
+            if (enumerable != null && o2 is IEnumerable)
+                {
+                return enumerable.Equivalent((IEnumerable)o2);
+                }
+
+            return o1.Equals(o2);
+        };
+        #endregion
+        // TODO: L: Object: Untested
+        #region ToString
+        /// <summary>
+        /// Returns a string representation of a set of objects.
+        /// </summary>
+        public static Func<object[], string> Objects_ToString = In =>
+        {
+            return In.IsEmpty() ? "" : In.Convert(o => o == null ? "NULL" : $"{o.GetType()}:{o.ToString()}").Combine(", ");
+        };
+        #endregion
+        // TODO: L: Object: Untested
+        #region New
+        public static Func<U> New<U>(params object[] In)
+            {
+            ConstructorInfo Const = typeof(U).GetConstructor(In.GetTypes());
+            return () => (U)Const?.Invoke(In);
+            }
+
+        public static Func<U> New<U>()
+            {
+            return () => (U)typeof(U).GetConstructor(Def.ArrayExt.Array<Type>()())?.Invoke(Def.ArrayExt.Array<object>()());
+            }
+        public static Func<T1, U> New<T1, U>()
+            {
+            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1) });
+            return o1 => (U)Const?.Invoke(new object[] { o1 });
+            }
+        public static Func<T1, T2, U> New<T1, T2, U>()
+            {
+            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2) });
+            return (o1, o2) => (U)Const?.Invoke(new object[] { o1, o2 });
+            }
+        public static Func<T1, T2, T3, U> New<T1, T2, T3, U>()
+            {
+            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3) });
+            return (o1, o2, o3) => (U)Const?.Invoke(new object[] { o1, o2, o3 });
+            }
+        public static Func<T1, T2, T3, T4, U> New<T1, T2, T3, T4, U>()
+            {
+            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+            return (o1, o2, o3, o4) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4 });
+            }
+        public static Func<T1, T2, T3, T4, T5, U> New<T1, T2, T3, T4, T5, U>()
+            {
+            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+            return (o1, o2, o3, o4, o5) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5 });
+            }
+        public static Func<T1, T2, T3, T4, T5, T6, U> New<T1, T2, T3, T4, T5, T6, U>()
+            {
+            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+            return (o1, o2, o3, o4, o5, o6) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6 });
+            }
+        public static Func<T1, T2, T3, T4, T5, T6, T7, U> New<T1, T2, T3, T4, T5, T6, T7, U>()
+            {
+            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+            return (o1, o2, o3, o4, o5, o6, o7) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7 });
+            }
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, U> New<T1, T2, T3, T4, T5, T6, T7, T8, U>()
+            {
+            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+            return (o1, o2, o3, o4, o5, o6, o7, o8) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8 });
+            }
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>()
+            {
+            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9 });
+            }
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>()
+            {
+            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10 });
+            }
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>()
+            {
+            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11 });
+            }
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>()
+            {
+            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12 });
+            }
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>()
+            {
+            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13 });
+            }
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>()
+            {
+            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14 });
+            }
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>()
+            {
+            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15 });
+            }
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>()
+            {
+            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, o16) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, o16 });
+            }
+        #endregion
+        // TODO: L: Object: Untested
+        #region IsNull
+        public static Func<T, bool> IsNull<T>()
+            {
+            bool ValueType = typeof(T).IsValueType;
+
+            if (ValueType)
+                {
+                return o => false;
+                }
+            return o => o.SafeEquals(default(T));
+            }
+        #endregion
+        // TODO: L: Object: Untested
+        #region IsA
+        public static Func<object, bool> IsA<T>()
+            {
+            return o => o is T;
+            }
+        #endregion
+        // TODO: L: Object: Untested
+        #region Method
+        private static Action<U> Method<U>(string MethodName)
+            {
+            MethodInfo Method = typeof(U).GetMethod(MethodName, new Type[] { });
+            if (Method != null)
+                {
+                return o => { Method.Invoke(o, new object[] { }); };
+                }
+            throw new Exception($"{typeof(U).FullName} {MethodName}");
+            }
+        #endregion
+        #endregion
+
+        public partial class Def
+            {
+            public class ObjectExt
+                {
+                #region Lambdas
+                public static Func<object, string, bool> HasProperty()
+                    {
+                    return (In, PropertyName) =>
+                    {
+                        MemberInfo Member = In.GetType().GetMember(PropertyName).First();
+
+                        if (Member is PropertyInfo)
+                            return true;
+                        return Member is FieldInfo;
+                    };
+                    }
+
+                public static Func<object, string, object> GetProperty()
+                    {
+                    return (In, PropertyName) =>
+                    {
+                        MemberInfo Member = In.GetType().GetMember(PropertyName).First();
+
+                        PropertyInfo m2 = Member as PropertyInfo;
+                        if (m2 != null)
+                            {
+                            PropertyInfo M2 = m2;
+                            return M2.GetValue(In);
+                            }
+                        FieldInfo m3 = Member as FieldInfo;
+                        if (m3 != null)
+                            {
+                            FieldInfo M3 = m3;
+                            return M3.GetValue(In);
+                            }
+                        throw new Exception($"{In.GetType().FullName} {PropertyName}");
+                    };
+                    }
+
+                public static Action<object, string, object> SetProperty()
+                    {
+                    return (In, PropertyName, PropertyValue) =>
+                    {
+                        MemberInfo Member = In.GetType().GetMember(PropertyName).First();
+
+                        PropertyInfo m2 = Member as PropertyInfo;
+                        if (m2 != null)
+                            {
+                            PropertyInfo M2 = m2;
+                            M2.SetValue(In, PropertyValue);
+                            }
+                        else if (Member is FieldInfo)
+                            {
+                            FieldInfo M3 = (FieldInfo)Member;
+                            M3.SetValue(In, PropertyValue);
+                            }
+                        else
+                            throw new Exception($"{In.GetType().FullName} {PropertyName}");
+
+                    };
+                    }
+                #endregion
+                }
+            }
+        }
+    public partial class L
+        {
+        #region Extensions
+        // TODO: L: Object: Untested
+        #region Str
+        /// <summary>
+        /// Returns a function that converts an Object to a String. Shortcut for Logic.Object_ToString
+        /// </summary>
+        public static Func<object, string> Str = o => o.ToString();
+        #endregion
+        // TODO: L: Object: Untested
+        #region Is
+        /// <summary>
+        /// Returns a function that safely Compares an object with another, returning whether they are equal. Shortcut for Logic.Object_SafeEquals
+        /// </summary>
+        public static Func<object, object, bool> Is = Object_SafeEquals;
+        #endregion
+        #endregion
         }
     }
-namespace LCore.ObjectExtensions
+namespace LCore.Extensions.ObjectExt
     {
     public static class ObjectExt
         {
-        // Gets a function that returns the input parameter
-        #region Func
-        public static Func<T> Func<T>(this T In)
+        #region Extensions
+        // TODO: L: Object: Untested
+        #region Details
+        /// <summary>
+        /// Returns a JSON-formatted string detailing the object and its public properties.
+        /// Fields that return an error are hidden by defaults
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="In">Source object</param>
+        /// <param name="ShowErrorFields">Hide fields that throw errors? Default is true.</param>
+        /// <returns></returns>
+        public static string Details<T>(this T In, bool ShowErrorFields = false)
             {
-            return L.Return(In);
-            }
-        #endregion
-        // Acts as the inverse of the function 'Supply' command, supplying the object as the parameter.
-        #region Supply - T
-        #region Supply - T - Action_T
-        public static Action Supply<T>(T Obj, Action<T> In)
-            {
-            return () => { In(Obj); };
-            }
-        #endregion
-        #region Supply - T - Action_T_T
-        public static Action<T2> Supply<T1, T2>(T1 Obj, Action<T1, T2> In)
-            {
-            return (o) => { In(Obj, o); };
-            }
-        public static Action<T1> Supply2<T1, T2>(T2 Obj, Action<T1, T2> In)
-            {
-            return (o) => { In(o, Obj); };
-            }
-        #endregion
-        #region Supply - T - Action_T_T_T
-        public static Action<T2, T3> Supply<T1, T2, T3>(T1 Obj, Action<T1, T2, T3> In)
-            {
-            return (o1, o2) => { In(Obj, o1, o2); };
-            }
-        public static Action<T1, T3> Supply2<T1, T2, T3>(T2 Obj, Action<T1, T2, T3> In)
-            {
-            return (o1, o2) => { In(o1, Obj, o2); };
-            }
-        public static Action<T1, T2> Supply3<T1, T2, T3>(T3 Obj, Action<T1, T2, T3> In)
-            {
-            return (o1, o2) => { In(o1, o2, Obj); };
-            }
-        #endregion
-        #region Supply - T - Action_T_T_T
-        public static Action<T2, T3, T4> Supply<T1, T2, T3, T4>(T1 Obj, Action<T1, T2, T3, T4> In)
-            {
-            return (o1, o2, o3) => { In(Obj, o1, o2, o3); };
-            }
-        public static Action<T1, T3, T4> Supply2<T1, T2, T3, T4>(T2 Obj, Action<T1, T2, T3, T4> In)
-            {
-            return (o1, o2, o3) => { In(o1, Obj, o2, o3); };
-            }
-        public static Action<T1, T2, T4> Supply3<T1, T2, T3, T4>(T3 Obj, Action<T1, T2, T3, T4> In)
-            {
-            return (o1, o2, o3) => { In(o1, o2, Obj, o3); };
-            }
-        public static Action<T1, T2, T3> Supply4<T1, T2, T3, T4>(T4 Obj, Action<T1, T2, T3, T4> In)
-            {
-            return (o1, o2, o3) => { In(o1, o2, o3, Obj); };
-            }
-        #endregion
-        #region Supply - T - Func_T_T
-        public static Func<U> Supply<T1, U>(T1 Obj, Func<T1, U> In)
-            {
-            return () => { return In(Obj); };
-            }
-        #endregion
-        #region Supply - T - Func_T_T_T
-        public static Func<T2, U> Supply<T1, T2, U>(T1 Obj, Func<T1, T2, U> In)
-            {
-            return (o) => { return In(Obj, o); };
-            }
-        public static Func<T1, U> Supply2<T1, T2, U>(T2 Obj, Func<T1, T2, U> In)
-            {
-            return (o) => { return In(o, Obj); };
-            }
-        #endregion
-        #region Supply - T - Func_T_T_T_T
-        public static Func<T2, T3, U> Supply<T1, T2, T3, U>(T1 Obj, Func<T1, T2, T3, U> In)
-            {
-            return (o1, o2) => { return In(Obj, o1, o2); };
-            }
-        public static Func<T1, T3, U> Supply2<T1, T2, T3, U>(T2 Obj, Func<T1, T2, T3, U> In)
-            {
-            return (o1, o2) => { return In(o1, Obj, o2); };
-            }
-        public static Func<T1, T2, U> Supply3<T1, T2, T3, U>(T3 Obj, Func<T1, T2, T3, U> In)
-            {
-            return (o1, o2) => { return In(o1, o2, Obj); };
-            }
-        #endregion
-        #region Supply - T - Func_T_T_T_T
-        public static Func<T2, T3, T4, U> Supply<T1, T2, T3, T4, U>(T1 Obj, Func<T1, T2, T3, T4, U> In)
-            {
-            return (o1, o2, o3) => { return In(Obj, o1, o2, o3); };
-            }
-        public static Func<T1, T3, T4, U> Supply2<T1, T2, T3, T4, U>(T2 Obj, Func<T1, T2, T3, T4, U> In)
-            {
-            return (o1, o2, o3) => { return In(o1, Obj, o2, o3); };
-            }
-        public static Func<T1, T2, T4, U> Supply3<T1, T2, T3, T4, U>(T3 Obj, Func<T1, T2, T3, T4, U> In)
-            {
-            return (o1, o2, o3) => { return In(o1, o2, Obj, o3); };
-            }
-        public static Func<T1, T2, T3, U> Supply4<T1, T2, T3, T4, U>(T4 Obj, Func<T1, T2, T3, T4, U> In)
-            {
-            return (o1, o2, o3) => { return In(o1, o2, o3, Obj); };
-            }
-        #endregion
-        #endregion
-        public static void Traverse(this Object In, Func<Object, Object> Traverser)
-            {
-            Object Cursor = In;
-
-            while (Cursor != null)
-                {
-                Cursor = Traverser(Cursor);
-                }
-            }
-        public static void Traverse<T>(this T In, Func<T, T> Traverser)
-            {
-            T Cursor = In;
-
-            while (Cursor != null)
-                {
-                Cursor = Traverser(Cursor);
-                }
-            }
-
-        public static String Details<T>(this T In, Boolean ShowErrorFields = false)
-            {
-            String Out = typeof(T).FullName + " {\r\n";
+            string Out = $"{typeof(T).FullName} {{\r\n";
 
             Out += typeof(T).GetMembers().CollectStr((i, m) =>
-                {
-                    String Out2;
-                    if (m is FieldInfo)
+            {
+                string Out2;
+                FieldInfo fieldInfo = m as FieldInfo;
+                if (fieldInfo != null)
+                    {
+                    Out2 = fieldInfo.Name;
+                    if (In == null)
                         {
-                        Out2 = ((FieldInfo)m).Name;
-                        if (In == null)
-                            {
-                            Out2 += ", ";
-                            }
-                        else
-                            {
-                            try
-                                {
-                                Out2 += ": " + ((FieldInfo)m).GetValue(In) + "\r\n";
-                                }
-                            catch (Exception e)
-                                {
-                                if (!ShowErrorFields)
-                                    return "";
-
-                                Out2 += ": " + e.ToS() + "\r\n";
-                                }
-                            }
-                        return Out2;
+                        Out2 += ", ";
                         }
-                    else if (m is PropertyInfo)
+                    else
                         {
-                        Out2 = ((PropertyInfo)m).Name;
-                        if (In == null)
+                        try
                             {
-                            Out2 += ", ";
+                            Out2 += $": {fieldInfo.GetValue(In)}\r\n";
                             }
-                        else
+                        catch (Exception e)
                             {
-                            try
-                                {
-                                Out2 += ": " + ((PropertyInfo)m).GetValue(In) + "\r\n";
-                                }
-                            catch (Exception e)
-                                {
-                                if (!ShowErrorFields)
-                                    return "";
+                            if (!ShowErrorFields)
+                                return "";
 
-                                Out2 += ": " + e.ToS() + "\r\n";
-                                }
+                            Out2 += $": {e.ToS()}\r\n";
                             }
-                        return Out2;
                         }
-                    return "";
-                });
+                    return Out2;
+                    }
+                PropertyInfo info = m as PropertyInfo;
+                if (info != null)
+                    {
+                    Out2 = info.Name;
+                    if (In == null)
+                        {
+                        Out2 += ", ";
+                        }
+                    else
+                        {
+                        try
+                            {
+                            Out2 += $": {info.GetValue(In)}\r\n";
+                            }
+                        catch (Exception e)
+                            {
+                            if (!ShowErrorFields)
+                                return "";
+
+                            Out2 += $": {e.ToS()}\r\n";
+                            }
+                        }
+                    return Out2;
+                    }
+                return "";
+            });
 
             Out += "}";
 
             return Out;
             }
-
-
-        #region List
-        /// <summary>
-        /// Returns a function that creates a new List from parameters
-        /// </summary>
-        public static Func<List<T>> List<T>(this T In)
-            {
-            return () =>
-            {
-                List<T> Out = new List<T>();
-                Out.Add(In);
-                return Out;
-            };
-            }
         #endregion
-        #region Array
+
+        // TODO: L: Object: Untested
+        #region FN_CreateArray
         /// <summary>
         /// Returns a function that creates a new Array from parameters
         /// </summary>
-        public static Func<T[]> Array<T>(this T In)
+        public static Func<T[]> FN_CreateArray<T>(this T In)
             {
-            return () => { return new T[] { In }; };
+            return () => new[] { In };
             }
         /// <summary>
         /// Returns a function that creates a new Array containing [Count] instances of [In]
         /// </summary>
-        public static Func<T[]> Array<T>(this T In, int Count)
+        public static Func<T[]> FN_CreateArray<T>(this T In, int Count)
             {
             return () =>
             {
@@ -503,93 +408,62 @@ namespace LCore.ObjectExtensions
             }
         #endregion
 
-        public static String ToS(this Object In)
-            {
-            return L.ToS(In);
-            }
-
-        #region Safe Equals
-        public static Boolean SafeEquals(this Object In, Object Obj)
-            {
-            return L.Object_SafeEquals(In, Obj);
-            }
-        #endregion
-        // Returns a function returns true if the object supplied is not equal to the Input parameter
-        #region Unless
-        public static Func<T, Boolean> Unless<T>(T In)
-            {
-            return L.F<T, Boolean>(IsNull);
-            }
-        #endregion
-        #region Present
+        // TODO: L: Object: Untested
+        #region FN_CreateList
         /// <summary>
-        /// Returns a function that returns true if the object send is not a null value.
+        /// Returns a function that creates a new List from parameters
         /// </summary>
         /// <typeparam name="T"></typeparam>
+        /// <param name="In"></param>
         /// <returns></returns>
-        public static Func<T, Boolean> Present<T>()
+        public static Func<List<T>> FN_CreateList<T>(this T In)
             {
-            return ObjectExt.IsPresent<T>();
+            return () =>
+            {
+                List<T> Out = new List<T> { In };
+                return Out;
+            };
             }
         #endregion
-        #region IsPresent
-        public static Func<T, Boolean> IsPresent<T>()
-            {
-            return ObjectExt.Null<T>().Not();
-            }
-        #endregion
-        #region Default
+
+        // TODO: L: Object: Untested
+        #region FN_Func
         /// <summary>
-        /// Returns a function that returns true if the object send is a null value. 
+        /// Retrieves a function that returns the input parameter
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static Func<T, Boolean> Default<T>()
+        /// <param name="In">The parameter will be returned by the function</param>
+        /// <returns>A function that returns the input parameter [In]</returns>
+        public static Func<T> FN_Func<T>(this T In)
             {
-            return IsDefault<T>();
+            return Logic.Return(In);
             }
         #endregion
-        #region Null
+
+        // TODO: L: Object: Untested
+        #region FN_If
         /// <summary>
-        /// Returns a function that returns true if the object send is a null value. This statement is equivalent to Default[T]()
+        /// Returns a function that returns true if the object supplied is equal to the Input parameter
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static Func<T, Boolean> Null<T>()
+        /// <param name="In"></param>
+        /// <returns>A function that returns true if the object supplied is equal to the Input parameter</returns>
+        public static Func<T, bool> FN_If<T>(this T In)
             {
-            return IsDefault<T>();
+            return Logic.Object_SafeEquals.Supply2(In).Cast<object, bool, T, bool>();
             }
         #endregion
 
-        #region IsDefault
+        // TODO: L: Object: Untested
+        #region InitProperties
         /// <summary>
-        /// Returns a function that returns true if the object send is the Default value for its type.
+        /// Initializes an object's properties of type [T] to [InitValue] or their default values.
+        /// Only affects properties of type T.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static Func<T, Boolean> IsDefault<T>()
-            {
-            return default(T).If<T>();
-            }
-        #endregion
-
-        // Returns a function returns true if the object supplied is equal to the Input parameter
-        #region If
-        public static Func<T, Boolean> If<T>(this T In)
-            {
-            return L.Object_SafeEquals.Supply2(In).Cast<Object, Boolean, T, Boolean>();
-            }
-        #endregion
-
-        // Returns whether the object is null, or equivalent to the default of its type.
-        #region IsNull
-        public static Boolean IsNull<T>(this T In)
-            {
-            return L.IsNull<T>()(In);
-            }
-        #endregion
-
-        public static void InitProperties<T>(this Object In, T InitValue = default(T))
+        /// <param name="In"></param>
+        /// <param name="InitValue"></param>
+        public static void InitProperties<T>(this object In, T InitValue = default(T))
             {
             if (In != null)
                 {
@@ -606,16 +480,3321 @@ namespace LCore.ObjectExtensions
                         continue;
                         }
 
-                    if (Member is PropertyInfo && ((PropertyInfo)Member).CanWrite)
+                    PropertyInfo member = Member as PropertyInfo;
+                    if (member != null && member.CanWrite)
                         {
-                        ((PropertyInfo)Member).SetValue(In, InitValue);
+                        member.SetValue(In, InitValue);
                         }
-                    if (Member is FieldInfo)
+                    else
                         {
-                        ((FieldInfo)Member).SetValue(In, InitValue);
+                        FieldInfo info = Member as FieldInfo;
+                        info?.SetValue(In, InitValue);
                         }
                     }
                 }
             }
+        #endregion
+
+        // TODO: L: Object: Untested
+        #region IsNull
+        /// <summary>
+        /// Returns whether the supplied object is null, or equivalent to the default of its type.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="In"></param>
+        /// <returns></returns>
+        public static bool IsNull<T>(this T In)
+            {
+            return Logic.IsNull<T>()(In);
+            }
+        #endregion
+
+        // TODO: L: Object: Untested
+        #region SafeEquals
+        /// <summary>
+        /// Safely compare any two Objects whether either is null.
+        /// </summary>
+        /// <param name="In"></param>
+        /// <param name="Obj"></param>
+        /// <returns>True if the objects are equal otherwise false</returns>
+        public static bool SafeEquals(this object In, object Obj)
+            {
+            return Logic.Object_SafeEquals(In, Obj);
+            }
+        #endregion
+
+        // TODO: L: Object: Untested
+        #region SupplyTo - T
+        #region SupplyTo - T - Action_T1
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action SupplyTo<T>(T Obj, Action<T> In)
+            {
+            return () => { In(Obj); };
+            }
+        #endregion
+        #region SupplyTo - T - Action_T2
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T2> SupplyTo<T1, T2>(T1 Obj, Action<T1, T2> In)
+            {
+            return o => { In(Obj, o); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included.
+        /// Inserts the parameter #2 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1> SupplyTo2<T1, T2>(T2 Obj, Action<T1, T2> In)
+            {
+            return o => { In(o, Obj); };
+            }
+        #endregion
+        #region SupplyTo - T - Action_T3
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T2, T3> SupplyTo<T1, T2, T3>(T1 Obj, Action<T1, T2, T3> In)
+            {
+            return (o1, o2) => { In(Obj, o1, o2); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T3> SupplyTo2<T1, T2, T3>(T2 Obj, Action<T1, T2, T3> In)
+            {
+            return (o1, o2) => { In(o1, Obj, o2); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2> SupplyTo3<T1, T2, T3>(T3 Obj, Action<T1, T2, T3> In)
+            {
+            return (o1, o2) => { In(o1, o2, Obj); };
+            }
+        #endregion
+        #region SupplyTo - T - Action_T4
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T2, T3, T4> SupplyTo<T1, T2, T3, T4>(T1 Obj, Action<T1, T2, T3, T4> In)
+            {
+            return (o1, o2, o3) => { In(Obj, o1, o2, o3); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T3, T4> SupplyTo2<T1, T2, T3, T4>(T2 Obj, Action<T1, T2, T3, T4> In)
+            {
+            return (o1, o2, o3) => { In(o1, Obj, o2, o3); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T4> SupplyTo3<T1, T2, T3, T4>(T3 Obj, Action<T1, T2, T3, T4> In)
+            {
+            return (o1, o2, o3) => { In(o1, o2, Obj, o3); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3> SupplyTo4<T1, T2, T3, T4>(T4 Obj, Action<T1, T2, T3, T4> In)
+            {
+            return (o1, o2, o3) => { In(o1, o2, o3, Obj); };
+            }
+        #endregion
+        #region SupplyTo - T - Action_T5
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T2, T3, T4, T5> SupplyTo<T1, T2, T3, T4, T5>(T1 Obj, Action<T1, T2, T3, T4, T5> In)
+            {
+            return (o1, o2, o3, o4) => { In(Obj, o1, o2, o3, o4); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T3, T4, T5> SupplyTo2<T1, T2, T3, T4, T5>(T2 Obj, Action<T1, T2, T3, T4, T5> In)
+            {
+            return (o1, o2, o3, o4) => { In(o1, Obj, o2, o3, o4); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T4, T5> SupplyTo3<T1, T2, T3, T4, T5>(T3 Obj, Action<T1, T2, T3, T4, T5> In)
+            {
+            return (o1, o2, o3, o4) => { In(o1, o2, Obj, o3, o4); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T5> SupplyTo4<T1, T2, T3, T4, T5>(T4 Obj, Action<T1, T2, T3, T4, T5> In)
+            {
+            return (o1, o2, o3, o4) => { In(o1, o2, o3, Obj, o4); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4> SupplyTo5<T1, T2, T3, T4, T5>(T5 Obj, Action<T1, T2, T3, T4, T5> In)
+            {
+            return (o1, o2, o3, o4) => { In(o1, o2, o3, o4, Obj); };
+            }
+        #endregion
+        #region SupplyTo - T - Action_T6
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T2, T3, T4, T5, T6> SupplyTo<T1, T2, T3, T4, T5, T6>(T1 Obj, Action<T1, T2, T3, T4, T5, T6> In)
+            {
+            return (o1, o2, o3, o4, o5) => { In(Obj, o1, o2, o3, o4, o5); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T3, T4, T5, T6> SupplyTo2<T1, T2, T3, T4, T5, T6>(T2 Obj, Action<T1, T2, T3, T4, T5, T6> In)
+            {
+            return (o1, o2, o3, o4, o5) => { In(o1, Obj, o2, o3, o4, o5); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T4, T5, T6> SupplyTo3<T1, T2, T3, T4, T5, T6>(T3 Obj, Action<T1, T2, T3, T4, T5, T6> In)
+            {
+            return (o1, o2, o3, o4, o5) => { In(o1, o2, Obj, o3, o4, o5); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T5, T6> SupplyTo4<T1, T2, T3, T4, T5, T6>(T4 Obj, Action<T1, T2, T3, T4, T5, T6> In)
+            {
+            return (o1, o2, o3, o4, o5) => { In(o1, o2, o3, Obj, o4, o5); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T6> SupplyTo5<T1, T2, T3, T4, T5, T6>(T5 Obj, Action<T1, T2, T3, T4, T5, T6> In)
+            {
+            return (o1, o2, o3, o4, o5) => { In(o1, o2, o3, o4, Obj, o5); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5> SupplyTo6<T1, T2, T3, T4, T5, T6>(T6 Obj, Action<T1, T2, T3, T4, T5, T6> In)
+            {
+            return (o1, o2, o3, o4, o5) => { In(o1, o2, o3, o4, o5, Obj); };
+            }
+        #endregion
+        #region SupplyTo - T - Action_T7
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T2, T3, T4, T5, T6, T7> SupplyTo<T1, T2, T3, T4, T5, T6, T7>(T1 Obj, Action<T1, T2, T3, T4, T5, T6, T7> In)
+            {
+            return (o1, o2, o3, o4, o5, o6) => { In(Obj, o1, o2, o3, o4, o5, o6); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T3, T4, T5, T6, T7> SupplyTo2<T1, T2, T3, T4, T5, T6, T7>(T2 Obj, Action<T1, T2, T3, T4, T5, T6, T7> In)
+            {
+            return (o1, o2, o3, o4, o5, o6) => { In(o1, Obj, o2, o3, o4, o5, o6); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T4, T5, T6, T7> SupplyTo3<T1, T2, T3, T4, T5, T6, T7>(T3 Obj, Action<T1, T2, T3, T4, T5, T6, T7> In)
+            {
+            return (o1, o2, o3, o4, o5, o6) => { In(o1, o2, Obj, o3, o4, o5, o6); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T5, T6, T7> SupplyTo4<T1, T2, T3, T4, T5, T6, T7>(T4 Obj, Action<T1, T2, T3, T4, T5, T6, T7> In)
+            {
+            return (o1, o2, o3, o4, o5, o6) => { In(o1, o2, o3, Obj, o4, o5, o6); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T6, T7> SupplyTo5<T1, T2, T3, T4, T5, T6, T7>(T5 Obj, Action<T1, T2, T3, T4, T5, T6, T7> In)
+            {
+            return (o1, o2, o3, o4, o5, o6) => { In(o1, o2, o3, o4, Obj, o5, o6); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T7> SupplyTo6<T1, T2, T3, T4, T5, T6, T7>(T6 Obj, Action<T1, T2, T3, T4, T5, T6, T7> In)
+            {
+            return (o1, o2, o3, o4, o5, o6) => { In(o1, o2, o3, o4, o5, Obj, o6); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #7 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6> SupplyTo7<T1, T2, T3, T4, T5, T6, T7>(T7 Obj, Action<T1, T2, T3, T4, T5, T6, T7> In)
+            {
+            return (o1, o2, o3, o4, o5, o6) => { In(o1, o2, o3, o4, o5, o6, Obj); };
+            }
+        #endregion
+        #region SupplyTo - T - Action_T8
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T2, T3, T4, T5, T6, T7, T8> SupplyTo<T1, T2, T3, T4, T5, T6, T7, T8>(T1 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7) => { In(Obj, o1, o2, o3, o4, o5, o6, o7); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T3, T4, T5, T6, T7, T8> SupplyTo2<T1, T2, T3, T4, T5, T6, T7, T8>(T2 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7) => { In(o1, Obj, o2, o3, o4, o5, o6, o7); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T4, T5, T6, T7, T8> SupplyTo3<T1, T2, T3, T4, T5, T6, T7, T8>(T3 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7) => { In(o1, o2, Obj, o3, o4, o5, o6, o7); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T5, T6, T7, T8> SupplyTo4<T1, T2, T3, T4, T5, T6, T7, T8>(T4 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7) => { In(o1, o2, o3, Obj, o4, o5, o6, o7); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T6, T7, T8> SupplyTo5<T1, T2, T3, T4, T5, T6, T7, T8>(T5 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7) => { In(o1, o2, o3, o4, Obj, o5, o6, o7); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T7, T8> SupplyTo6<T1, T2, T3, T4, T5, T6, T7, T8>(T6 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7) => { In(o1, o2, o3, o4, o5, Obj, o6, o7); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #7 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T8> SupplyTo7<T1, T2, T3, T4, T5, T6, T7, T8>(T7 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7) => { In(o1, o2, o3, o4, o5, o6, Obj, o7); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #8 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7> SupplyTo8<T1, T2, T3, T4, T5, T6, T7, T8>(T8 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7) => { In(o1, o2, o3, o4, o5, o6, o7, Obj); };
+            }
+        #endregion
+        #region SupplyTo - T - Action_T9
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T2, T3, T4, T5, T6, T7, T8, T9> SupplyTo<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T1 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8) => { In(Obj, o1, o2, o3, o4, o5, o6, o7, o8); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T3, T4, T5, T6, T7, T8, T9> SupplyTo2<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T2 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8) => { In(o1, Obj, o2, o3, o4, o5, o6, o7, o8); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T4, T5, T6, T7, T8, T9> SupplyTo3<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T3 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8) => { In(o1, o2, Obj, o3, o4, o5, o6, o7, o8); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T5, T6, T7, T8, T9> SupplyTo4<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T4 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8) => { In(o1, o2, o3, Obj, o4, o5, o6, o7, o8); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T6, T7, T8, T9> SupplyTo5<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T5 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8) => { In(o1, o2, o3, o4, Obj, o5, o6, o7, o8); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T7, T8, T9> SupplyTo6<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T6 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8) => { In(o1, o2, o3, o4, o5, Obj, o6, o7, o8); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #7 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T8, T9> SupplyTo7<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T7 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8) => { In(o1, o2, o3, o4, o5, o6, Obj, o7, o8); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #8 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T9> SupplyTo8<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T8 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8) => { In(o1, o2, o3, o4, o5, o6, o7, Obj, o8); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #9 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8> SupplyTo9<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T9 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8) => { In(o1, o2, o3, o4, o5, o6, o7, o8, Obj); };
+            }
+        #endregion
+        #region SupplyTo - T - Action_T10
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T2, T3, T4, T5, T6, T7, T8, T9, T10> SupplyTo<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T1 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => { In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T3, T4, T5, T6, T7, T8, T9, T10> SupplyTo2<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T2 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => { In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T4, T5, T6, T7, T8, T9, T10> SupplyTo3<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T3 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => { In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T5, T6, T7, T8, T9, T10> SupplyTo4<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T4 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => { In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T6, T7, T8, T9, T10> SupplyTo5<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T5 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => { In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T7, T8, T9, T10> SupplyTo6<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T6 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => { In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #7 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T8, T9, T10> SupplyTo7<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T7 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => { In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #8 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T9, T10> SupplyTo8<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T8 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => { In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #8 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T10> SupplyTo9<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T9 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => { In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #10 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> SupplyTo10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T10 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj); };
+            }
+        #endregion
+        #region SupplyTo - T - Action_T11
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> SupplyTo<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T1 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => { In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T3, T4, T5, T6, T7, T8, T9, T10, T11> SupplyTo2<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T2 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => { In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T4, T5, T6, T7, T8, T9, T10, T11> SupplyTo3<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T3 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => { In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T5, T6, T7, T8, T9, T10, T11> SupplyTo4<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T4 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => { In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T6, T7, T8, T9, T10, T11> SupplyTo5<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T5 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => { In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T7, T8, T9, T10, T11> SupplyTo6<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T6 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => { In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #7 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T8, T9, T10, T11> SupplyTo7<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T7 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => { In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #8 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T9, T10, T11> SupplyTo8<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T8 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => { In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #9 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T10, T11> SupplyTo9<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T9 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => { In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #10 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T11> SupplyTo10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T10 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #11 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> SupplyTo11<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T11 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj); };
+            }
+
+        #endregion
+        #region SupplyTo - T - Action_T12
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> SupplyTo<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T1 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> SupplyTo2<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T2 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T4, T5, T6, T7, T8, T9, T10, T11, T12> SupplyTo3<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T3 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10, o11); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T5, T6, T7, T8, T9, T10, T11, T12> SupplyTo4<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T4 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10, o11); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T6, T7, T8, T9, T10, T11, T12> SupplyTo5<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T5 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10, o11); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T7, T8, T9, T10, T11, T12> SupplyTo6<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T6 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10, o11); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #7 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T8, T9, T10, T11, T12> SupplyTo7<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T7 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10, o11); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #8 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T9, T10, T11, T12> SupplyTo8<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T8 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10, o11); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #9 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T10, T11, T12> SupplyTo9<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T9 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10, o11); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #10 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T11, T12> SupplyTo10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T10 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10, o11); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #11 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T12> SupplyTo11<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T11 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj, o11); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #12 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> SupplyTo12<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T12 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, Obj); };
+            }
+        #endregion
+        #region SupplyTo - T - Action_T13
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> SupplyTo<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T1 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> SupplyTo2<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T2 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> SupplyTo3<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T3 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T5, T6, T7, T8, T9, T10, T11, T12, T13> SupplyTo4<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T4 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10, o11, o12); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T6, T7, T8, T9, T10, T11, T12, T13> SupplyTo5<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T5 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10, o11, o12); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T7, T8, T9, T10, T11, T12, T13> SupplyTo6<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T6 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10, o11, o12); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #7 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T8, T9, T10, T11, T12, T13> SupplyTo7<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T7 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10, o11, o12); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #8 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T9, T10, T11, T12, T13> SupplyTo8<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T8 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10, o11, o12); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #9 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T10, T11, T12, T13> SupplyTo9<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T9 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10, o11, o12); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #10 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T11, T12, T13> SupplyTo10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T10 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10, o11, o12); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #11 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T12, T13> SupplyTo11<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T11 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj, o11, o12); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #12 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T13> SupplyTo12<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T12 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, Obj, o12); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #13 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> SupplyTo13<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T13 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, Obj); };
+            }
+        #endregion
+        #region SupplyTo - T - Action_T14
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> SupplyTo<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T1 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> SupplyTo2<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T2 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> SupplyTo3<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T3 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> SupplyTo4<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T4 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T6, T7, T8, T9, T10, T11, T12, T13, T14> SupplyTo5<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T5 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10, o11, o12, o13); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T7, T8, T9, T10, T11, T12, T13, T14> SupplyTo6<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T6 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10, o11, o12, o13); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #7 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T8, T9, T10, T11, T12, T13, T14> SupplyTo7<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T7 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10, o11, o12, o13); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #8 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T9, T10, T11, T12, T13, T14> SupplyTo8<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T8 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10, o11, o12, o13); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #9 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T10, T11, T12, T13, T14> SupplyTo9<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T9 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10, o11, o12, o13); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #10 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T11, T12, T13, T14> SupplyTo10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T10 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10, o11, o12, o13); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #11 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T12, T13, T14> SupplyTo11<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T11 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj, o11, o12, o13); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #12 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T13, T14> SupplyTo12<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T12 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, Obj, o12, o13); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #13 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T14> SupplyTo13<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T13 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, Obj, o13); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #14 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> SupplyTo14<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T14 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, Obj); };
+            }
+        #endregion
+        #region SupplyTo - T - Action_T15
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> SupplyTo<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T1 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> SupplyTo2<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T2 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> SupplyTo3<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T3 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> SupplyTo4<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T4 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> SupplyTo5<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T5 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T7, T8, T9, T10, T11, T12, T13, T14, T15> SupplyTo6<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T6 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10, o11, o12, o13, o14); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #7 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T8, T9, T10, T11, T12, T13, T14, T15> SupplyTo7<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T7 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10, o11, o12, o13, o14); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #8 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T9, T10, T11, T12, T13, T14, T15> SupplyTo8<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T8 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10, o11, o12, o13, o14); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #9 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T10, T11, T12, T13, T14, T15> SupplyTo9<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T9 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10, o11, o12, o13, o14); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #10 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T11, T12, T13, T14, T15> SupplyTo10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T10 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10, o11, o12, o13, o14); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #11 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T12, T13, T14, T15> SupplyTo11<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T11 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj, o11, o12, o13, o14); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #12 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T13, T14, T15> SupplyTo12<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T12 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, Obj, o12, o13, o14); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #13 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T14, T15> SupplyTo13<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T13 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, Obj, o13, o14); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #14 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T15> SupplyTo14<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T14 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, Obj, o14); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #15 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> SupplyTo15<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T15 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, Obj); };
+            }
+        #endregion
+        #region SupplyTo - T - Action_T16
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> SupplyTo<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T1 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in action [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> SupplyTo2<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T2 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> SupplyTo3<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T3 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> SupplyTo4<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T4 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> SupplyTo5<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T5 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> SupplyTo6<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T6 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #7 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T8, T9, T10, T11, T12, T13, T14, T15, T16> SupplyTo7<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T7 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10, o11, o12, o13, o14, o15); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #8 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T9, T10, T11, T12, T13, T14, T15, T16> SupplyTo8<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T8 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10, o11, o12, o13, o14, o15); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #9 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T10, T11, T12, T13, T14, T15, T16> SupplyTo9<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T9 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10, o11, o12, o13, o14, o15); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #10 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T11, T12, T13, T14, T15, T16> SupplyTo10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T10 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10, o11, o12, o13, o14, o15); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #11 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T12, T13, T14, T15, T16> SupplyTo11<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T11 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj, o11, o12, o13, o14, o15); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #12 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T13, T14, T15, T16> SupplyTo12<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T12 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, Obj, o12, o13, o14, o15); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #13 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T14, T15, T16> SupplyTo13<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T13 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, Obj, o13, o14, o15); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #14 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T15, T16> SupplyTo14<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T14 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, Obj, o14, o15); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #15 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T16> SupplyTo15<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T15 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, Obj, o15); };
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #16 in action [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>An action with one less parameter input</returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> SupplyTo16<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T16 Obj, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, Obj); };
+            }
+        #endregion
+
+        #region SupplyTo - T - Func_T1
+
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in func [In].
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="U"></typeparam>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<U> SupplyTo<T, U>(T Obj, Func<T, U> In)
+            {
+            return () => In(Obj);
+            }
+        #endregion
+        #region SupplyTo - T - Func_T2
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in func [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T2, U> SupplyTo<T1, T2, U>(T1 Obj, Func<T1, T2, U> In)
+            {
+            return o => In(Obj, o);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in func [In].
+        /// </summary>
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, U> SupplyTo2<T1, T2, U>(T2 Obj, Func<T1, T2, U> In)
+            {
+            return o => In(o, Obj);
+            }
+        #endregion
+        #region SupplyTo - T - Func_T3
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T2, T3, U> SupplyTo<T1, T2, T3, U>(T1 Obj, Func<T1, T2, T3, U> In)
+            {
+            return (o1, o2) => In(Obj, o1, o2);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T3, U> SupplyTo2<T1, T2, T3, U>(T2 Obj, Func<T1, T2, T3, U> In)
+            {
+            return (o1, o2) => In(o1, Obj, o2);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, U> SupplyTo3<T1, T2, T3, U>(T3 Obj, Func<T1, T2, T3, U> In)
+            {
+            return (o1, o2) => In(o1, o2, Obj);
+            }
+        #endregion
+        #region SupplyTo - T - Func_T4
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T2, T3, T4, U> SupplyTo<T1, T2, T3, T4, U>(T1 Obj, Func<T1, T2, T3, T4, U> In)
+            {
+            return (o1, o2, o3) => In(Obj, o1, o2, o3);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T3, T4, U> SupplyTo2<T1, T2, T3, T4, U>(T2 Obj, Func<T1, T2, T3, T4, U> In)
+            {
+            return (o1, o2, o3) => In(o1, Obj, o2, o3);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T4, U> SupplyTo3<T1, T2, T3, T4, U>(T3 Obj, Func<T1, T2, T3, T4, U> In)
+            {
+            return (o1, o2, o3) => In(o1, o2, Obj, o3);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, U> SupplyTo4<T1, T2, T3, T4, U>(T4 Obj, Func<T1, T2, T3, T4, U> In)
+            {
+            return (o1, o2, o3) => In(o1, o2, o3, Obj);
+            }
+        #endregion
+        #region SupplyTo - T - Func_T5
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T2, T3, T4, T5, U> SupplyTo<T1, T2, T3, T4, T5, U>(T1 Obj, Func<T1, T2, T3, T4, T5, U> In)
+            {
+            return (o1, o2, o3, o4) => In(Obj, o1, o2, o3, o4);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T3, T4, T5, U> SupplyTo2<T1, T2, T3, T4, T5, U>(T2 Obj, Func<T1, T2, T3, T4, T5, U> In)
+            {
+            return (o1, o2, o3, o4) => In(o1, Obj, o2, o3, o4);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T4, T5, U> SupplyTo3<T1, T2, T3, T4, T5, U>(T3 Obj, Func<T1, T2, T3, T4, T5, U> In)
+            {
+            return (o1, o2, o3, o4) => In(o1, o2, Obj, o3, o4);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T5, U> SupplyTo4<T1, T2, T3, T4, T5, U>(T4 Obj, Func<T1, T2, T3, T4, T5, U> In)
+            {
+            return (o1, o2, o3, o4) => In(o1, o2, o3, Obj, o4);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, U> SupplyTo5<T1, T2, T3, T4, T5, U>(T5 Obj, Func<T1, T2, T3, T4, T5, U> In)
+            {
+            return (o1, o2, o3, o4) => In(o1, o2, o3, o4, Obj);
+            }
+        #endregion
+        #region SupplyTo - T - Func_T6
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T2, T3, T4, T5, T6, U> SupplyTo<T1, T2, T3, T4, T5, T6, U>(T1 Obj, Func<T1, T2, T3, T4, T5, T6, U> In)
+            {
+            return (o1, o2, o3, o4, o5) => In(Obj, o1, o2, o3, o4, o5);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T3, T4, T5, T6, U> SupplyTo2<T1, T2, T3, T4, T5, T6, U>(T2 Obj, Func<T1, T2, T3, T4, T5, T6, U> In)
+            {
+            return (o1, o2, o3, o4, o5) => In(o1, Obj, o2, o3, o4, o5);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T4, T5, T6, U> SupplyTo3<T1, T2, T3, T4, T5, T6, U>(T3 Obj, Func<T1, T2, T3, T4, T5, T6, U> In)
+            {
+            return (o1, o2, o3, o4, o5) => In(o1, o2, Obj, o3, o4, o5);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T5, T6, U> SupplyTo4<T1, T2, T3, T4, T5, T6, U>(T4 Obj, Func<T1, T2, T3, T4, T5, T6, U> In)
+            {
+            return (o1, o2, o3, o4, o5) => In(o1, o2, o3, Obj, o4, o5);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T6, U> SupplyTo5<T1, T2, T3, T4, T5, T6, U>(T5 Obj, Func<T1, T2, T3, T4, T5, T6, U> In)
+            {
+            return (o1, o2, o3, o4, o5) => In(o1, o2, o3, o4, Obj, o5);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, U> SupplyTo6<T1, T2, T3, T4, T5, T6, U>(T6 Obj, Func<T1, T2, T3, T4, T5, T6, U> In)
+            {
+            return (o1, o2, o3, o4, o5) => In(o1, o2, o3, o4, o5, Obj);
+            }
+        #endregion
+        #region SupplyTo - T - Func_T7
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T2, T3, T4, T5, T6, T7, U> SupplyTo<T1, T2, T3, T4, T5, T6, T7, U>(T1 Obj, Func<T1, T2, T3, T4, T5, T6, T7, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6) => In(Obj, o1, o2, o3, o4, o5, o6);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T3, T4, T5, T6, T7, U> SupplyTo2<T1, T2, T3, T4, T5, T6, T7, U>(T2 Obj, Func<T1, T2, T3, T4, T5, T6, T7, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6) => In(o1, Obj, o2, o3, o4, o5, o6);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T4, T5, T6, T7, U> SupplyTo3<T1, T2, T3, T4, T5, T6, T7, U>(T3 Obj, Func<T1, T2, T3, T4, T5, T6, T7, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6) => In(o1, o2, Obj, o3, o4, o5, o6);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T5, T6, T7, U> SupplyTo4<T1, T2, T3, T4, T5, T6, T7, U>(T4 Obj, Func<T1, T2, T3, T4, T5, T6, T7, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6) => In(o1, o2, o3, Obj, o4, o5, o6);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T6, T7, U> SupplyTo5<T1, T2, T3, T4, T5, T6, T7, U>(T5 Obj, Func<T1, T2, T3, T4, T5, T6, T7, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6) => In(o1, o2, o3, o4, Obj, o5, o6);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T7, U> SupplyTo6<T1, T2, T3, T4, T5, T6, T7, U>(T6 Obj, Func<T1, T2, T3, T4, T5, T6, T7, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6) => In(o1, o2, o3, o4, o5, Obj, o6);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #7 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, U> SupplyTo7<T1, T2, T3, T4, T5, T6, T7, U>(T7 Obj, Func<T1, T2, T3, T4, T5, T6, T7, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6) => In(o1, o2, o3, o4, o5, o6, Obj);
+            }
+        #endregion
+        #region SupplyTo - T - Func_T8
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T2, T3, T4, T5, T6, T7, T8, U> SupplyTo<T1, T2, T3, T4, T5, T6, T7, T8, U>(T1 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7) => In(Obj, o1, o2, o3, o4, o5, o6, o7);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T3, T4, T5, T6, T7, T8, U> SupplyTo2<T1, T2, T3, T4, T5, T6, T7, T8, U>(T2 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7) => In(o1, Obj, o2, o3, o4, o5, o6, o7);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T4, T5, T6, T7, T8, U> SupplyTo3<T1, T2, T3, T4, T5, T6, T7, T8, U>(T3 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7) => In(o1, o2, Obj, o3, o4, o5, o6, o7);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T5, T6, T7, T8, U> SupplyTo4<T1, T2, T3, T4, T5, T6, T7, T8, U>(T4 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7) => In(o1, o2, o3, Obj, o4, o5, o6, o7);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T6, T7, T8, U> SupplyTo5<T1, T2, T3, T4, T5, T6, T7, T8, U>(T5 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7) => In(o1, o2, o3, o4, Obj, o5, o6, o7);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T7, T8, U> SupplyTo6<T1, T2, T3, T4, T5, T6, T7, T8, U>(T6 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7) => In(o1, o2, o3, o4, o5, Obj, o6, o7);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #7 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T8, U> SupplyTo7<T1, T2, T3, T4, T5, T6, T7, T8, U>(T7 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7) => In(o1, o2, o3, o4, o5, o6, Obj, o7);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #8 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, U> SupplyTo8<T1, T2, T3, T4, T5, T6, T7, T8, U>(T8 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7) => In(o1, o2, o3, o4, o5, o6, o7, Obj);
+            }
+        #endregion
+        #region SupplyTo - T - Func_T9
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T2, T3, T4, T5, T6, T7, T8, T9, U> SupplyTo<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>(T1 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8) => In(Obj, o1, o2, o3, o4, o5, o6, o7, o8);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T3, T4, T5, T6, T7, T8, T9, U> SupplyTo2<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>(T2 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8) => In(o1, Obj, o2, o3, o4, o5, o6, o7, o8);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T4, T5, T6, T7, T8, T9, U> SupplyTo3<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>(T3 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8) => In(o1, o2, Obj, o3, o4, o5, o6, o7, o8);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T5, T6, T7, T8, T9, U> SupplyTo4<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>(T4 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8) => In(o1, o2, o3, Obj, o4, o5, o6, o7, o8);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T6, T7, T8, T9, U> SupplyTo5<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>(T5 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8) => In(o1, o2, o3, o4, Obj, o5, o6, o7, o8);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T7, T8, T9, U> SupplyTo6<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>(T6 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8) => In(o1, o2, o3, o4, o5, Obj, o6, o7, o8);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #7 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T8, T9, U> SupplyTo7<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>(T7 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8) => In(o1, o2, o3, o4, o5, o6, Obj, o7, o8);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #8 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T9, U> SupplyTo8<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>(T8 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8) => In(o1, o2, o3, o4, o5, o6, o7, Obj, o8);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #9 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, U> SupplyTo9<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>(T9 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8) => In(o1, o2, o3, o4, o5, o6, o7, o8, Obj);
+            }
+        #endregion
+        #region SupplyTo - T - Func_T10
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T2, T3, T4, T5, T6, T7, T8, T9, T10, U> SupplyTo<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>(T1 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T3, T4, T5, T6, T7, T8, T9, T10, U> SupplyTo2<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>(T2 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T4, T5, T6, T7, T8, T9, T10, U> SupplyTo3<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>(T3 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T5, T6, T7, T8, T9, T10, U> SupplyTo4<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>(T4 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T6, T7, T8, T9, T10, U> SupplyTo5<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>(T5 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T7, T8, T9, T10, U> SupplyTo6<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>(T6 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #7 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T8, T9, T10, U> SupplyTo7<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>(T7 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #8 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T9, T10, U> SupplyTo8<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>(T8 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #9 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T10, U> SupplyTo9<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>(T9 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #10 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U> SupplyTo10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>(T10 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj);
+            }
+        #endregion
+        #region SupplyTo - T - Func_T11
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> SupplyTo<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>(T1 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> SupplyTo2<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>(T2 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T4, T5, T6, T7, T8, T9, T10, T11, U> SupplyTo3<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>(T3 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T5, T6, T7, T8, T9, T10, T11, U> SupplyTo4<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>(T4 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T6, T7, T8, T9, T10, T11, U> SupplyTo5<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>(T5 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T7, T8, T9, T10, T11, U> SupplyTo6<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>(T6 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #7 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T8, T9, T10, T11, U> SupplyTo7<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>(T7 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #8 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T9, T10, T11, U> SupplyTo8<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>(T8 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #9 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T10, T11, U> SupplyTo9<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>(T9 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #10 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T11, U> SupplyTo10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>(T10 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #11 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U> SupplyTo11<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>(T11 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj);
+            }
+        #endregion
+        #region SupplyTo - T - Func_T12
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> SupplyTo<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>(T1 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> SupplyTo2<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>(T2 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> SupplyTo3<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>(T3 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10, o11);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T5, T6, T7, T8, T9, T10, T11, T12, U> SupplyTo4<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>(T4 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10, o11);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T6, T7, T8, T9, T10, T11, T12, U> SupplyTo5<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>(T5 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10, o11);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T7, T8, T9, T10, T11, T12, U> SupplyTo6<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>(T6 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10, o11);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #7 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T8, T9, T10, T11, T12, U> SupplyTo7<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>(T7 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10, o11);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #8 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T9, T10, T11, T12, U> SupplyTo8<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>(T8 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10, o11);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #9 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T10, T11, T12, U> SupplyTo9<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>(T9 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10, o11);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #10 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T11, T12, U> SupplyTo10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>(T10 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10, o11);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #11 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T12, U> SupplyTo11<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>(T11 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj, o11);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #12 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> SupplyTo12<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>(T12 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, Obj);
+            }
+        #endregion
+        #region SupplyTo - T - Func_T13
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> SupplyTo<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>(T1 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> SupplyTo2<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>(T2 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> SupplyTo3<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>(T3 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> SupplyTo4<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>(T4 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10, o11, o12);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T6, T7, T8, T9, T10, T11, T12, T13, U> SupplyTo5<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>(T5 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10, o11, o12);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T7, T8, T9, T10, T11, T12, T13, U> SupplyTo6<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>(T6 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10, o11, o12);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #7 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T8, T9, T10, T11, T12, T13, U> SupplyTo7<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>(T7 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10, o11, o12);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #8 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T9, T10, T11, T12, T13, U> SupplyTo8<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>(T8 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10, o11, o12);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #9 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T10, T11, T12, T13, U> SupplyTo9<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>(T9 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10, o11, o12);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #10 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T11, T12, T13, U> SupplyTo10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>(T10 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10, o11, o12);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #11 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T12, T13, U> SupplyTo11<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>(T11 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj, o11, o12);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #12 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T13, U> SupplyTo12<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>(T12 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, Obj, o12);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #13 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> SupplyTo13<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>(T13 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, Obj);
+            }
+        #endregion
+        #region SupplyTo - T - Func_T14
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> SupplyTo<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>(T1 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> SupplyTo2<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>(T2 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> SupplyTo3<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>(T3 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> SupplyTo4<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>(T4 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> SupplyTo5<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>(T5 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10, o11, o12, o13);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T7, T8, T9, T10, T11, T12, T13, T14, U> SupplyTo6<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>(T6 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10, o11, o12, o13);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #7 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T8, T9, T10, T11, T12, T13, T14, U> SupplyTo7<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>(T7 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10, o11, o12, o13);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #8 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T9, T10, T11, T12, T13, T14, U> SupplyTo8<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>(T8 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10, o11, o12, o13);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #9 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T10, T11, T12, T13, T14, U> SupplyTo9<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>(T9 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10, o11, o12, o13);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #10 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T11, T12, T13, T14, U> SupplyTo10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>(T10 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10, o11, o12, o13);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #11 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T12, T13, T14, U> SupplyTo11<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>(T11 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj, o11, o12, o13);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #12 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T13, T14, U> SupplyTo12<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>(T12 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, Obj, o12, o13);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #13 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T14, U> SupplyTo13<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>(T13 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, Obj, o13);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #14 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> SupplyTo14<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>(T14 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, Obj);
+            }
+        #endregion
+        #region SupplyTo - T - Func_T15
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> SupplyTo<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>(T1 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> SupplyTo2<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>(T2 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> SupplyTo3<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>(T3 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> SupplyTo4<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>(T4 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> SupplyTo5<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>(T5 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> SupplyTo6<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>(T6 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10, o11, o12, o13, o14);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #7 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T8, T9, T10, T11, T12, T13, T14, T15, U> SupplyTo7<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>(T7 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10, o11, o12, o13, o14);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #8 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T9, T10, T11, T12, T13, T14, T15, U> SupplyTo8<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>(T8 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10, o11, o12, o13, o14);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #9 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T10, T11, T12, T13, T14, T15, U> SupplyTo9<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>(T9 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10, o11, o12, o13, o14);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #10 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T11, T12, T13, T14, T15, U> SupplyTo10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>(T10 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10, o11, o12, o13, o14);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #11 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T12, T13, T14, T15, U> SupplyTo11<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>(T11 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj, o11, o12, o13, o14);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #12 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T13, T14, T15, U> SupplyTo12<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>(T12 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, Obj, o12, o13, o14);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #13 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T14, T15, U> SupplyTo13<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>(T13 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, Obj, o13, o14);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #14 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T15, U> SupplyTo14<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>(T14 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, Obj, o14);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #15 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> SupplyTo15<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>(T15 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, Obj);
+            }
+        #endregion
+        #region SupplyTo - T - Func_T16
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #1 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> SupplyTo<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>(T1 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #2 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> SupplyTo2<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>(T2 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #3 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> SupplyTo3<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>(T3 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #4 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> SupplyTo4<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>(T4 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #5 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> SupplyTo5<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>(T5 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #6 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> SupplyTo6<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>(T6 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #7 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> SupplyTo7<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>(T7 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10, o11, o12, o13, o14, o15);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #8 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T9, T10, T11, T12, T13, T14, T15, T16, U> SupplyTo8<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>(T8 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10, o11, o12, o13, o14, o15);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #9 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T10, T11, T12, T13, T14, T15, T16, U> SupplyTo9<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>(T9 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10, o11, o12, o13, o14, o15);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #10 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T11, T12, T13, T14, T15, T16, U> SupplyTo10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>(T10 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10, o11, o12, o13, o14, o15);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #11 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T12, T13, T14, T15, T16, U> SupplyTo11<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>(T11 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj, o11, o12, o13, o14, o15);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #12 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T13, T14, T15, T16, U> SupplyTo12<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>(T12 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, Obj, o12, o13, o14, o15);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #13 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T14, T15, T16, U> SupplyTo13<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>(T13 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, Obj, o13, o14, o15);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #14 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T15, T16, U> SupplyTo14<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>(T14 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, Obj, o14, o15);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #15 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T16, U> SupplyTo15<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>(T15 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, Obj, o15);
+            }
+        /// <summary>
+        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Inserts the parameter #16 in func [In].
+        /// </summary>
+
+        /// <param name="Obj">The parameter supplied</param>
+        /// <param name="In">The action</param>
+        /// <returns>A func with one less parameter input</returns>
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> SupplyTo16<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>(T16 Obj, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> In)
+            {
+            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, Obj);
+            }
+        #endregion
+        #endregion
+
+        // TODO: L: Object: Untested
+        #region ToS
+        /// <summary>
+        /// Shorthand function to convert any object to a string.
+        /// </summary>
+        /// <param name="In">Object to be converted</param>
+        /// <returns>A String representation of the object passed.</returns>
+        public static string ToS(this object In)
+            {
+            return L.FN_ToS(In);
+            }
+        #endregion
+
+        // TODO: L: Object: Untested
+        #region Traverse
+        /// <summary>
+        /// Traverses an object structure using a traverser function you supply [Traverser]
+        /// </summary>
+        /// <param name="In">Source object</param>
+        /// <param name="Traverser">Traversing function</param>
+        public static void Traverse(this object In, Func<object, object> Traverser)
+            {
+            object Cursor = In;
+
+            while (Cursor != null)
+                {
+                Cursor = Traverser(Cursor);
+                }
+            }
+
+        /// <summary>
+        /// Traverses an object structure using a traverser function you supply [Traverser]
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="In">Source object</param>
+        /// <param name="Traverser">Traversing function</param>
+        public static void Traverse<T>(this T In, Func<T, T> Traverser)
+            {
+            T Cursor = In;
+
+            while (Cursor != null)
+                {
+                Cursor = Traverser(Cursor);
+                }
+            }
+        #endregion
+        #endregion
         }
     }

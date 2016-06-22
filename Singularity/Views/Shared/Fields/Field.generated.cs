@@ -12,120 +12,51 @@
 namespace ASP
 {
     using System;
-    
-    #line 11 "..\..\Views\Shared\Fields\Field.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 12 "..\..\Views\Shared\Fields\Field.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 13 "..\..\Views\Shared\Fields\Field.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 19 "..\..\Views\Shared\Fields\Field.cshtml"
     using System.ComponentModel.DataAnnotations;
-    
-    #line default
-    #line hidden
-    
-    #line 20 "..\..\Views\Shared\Fields\Field.cshtml"
-    using System.ComponentModel.DataAnnotations.Schema;
-    
-    #line default
-    #line hidden
-    
-    #line 14 "..\..\Views\Shared\Fields\Field.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
     using System.IO;
-    
-    #line 17 "..\..\Views\Shared\Fields\Field.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
-    
-    #line 18 "..\..\Views\Shared\Fields\Field.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 15 "..\..\Views\Shared\Fields\Field.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 16 "..\..\Views\Shared\Fields\Field.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 3 "..\..\Views\Shared\Fields\Field.cshtml"
-    using LCore;
+    #line 4 "..\..\Views\Shared\Fields\Field.cshtml"
+    using LCore.Extensions;
     
     #line default
     #line hidden
-    
-    #line 4 "..\..\Views\Shared\Fields\Field.cshtml"
     using Singularity;
     
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\Shared\Fields\Field.cshtml"
+    #line 7 "..\..\Views\Shared\Fields\Field.cshtml"
     using Singularity.Annotations;
     
     #line default
     #line hidden
-    
-    #line 7 "..\..\Views\Shared\Fields\Field.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\Shared\Fields\Field.cshtml"
     using Singularity.Controllers;
     
-    #line default
-    #line hidden
-    
-    #line 9 "..\..\Views\Shared\Fields\Field.cshtml"
+    #line 6 "..\..\Views\Shared\Fields\Field.cshtml"
     using Singularity.Extensions;
     
     #line default
     #line hidden
-    
-    #line 5 "..\..\Views\Shared\Fields\Field.cshtml"
     using Singularity.Models;
     
-    #line default
-    #line hidden
-    
-    #line 8 "..\..\Views\Shared\Fields\Field.cshtml"
+    #line 5 "..\..\Views\Shared\Fields\Field.cshtml"
     using Singularity.Routes;
     
     #line default
@@ -140,48 +71,22 @@ namespace ASP
         }
         public override void Execute()
         {
-
-
-WriteLiteral("\r\n\r\n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+WriteLiteral("\r\n\r\n\r\n");
 
 WriteLiteral("\r\n");
 
-
             
-            #line 22 "..\..\Views\Shared\Fields\Field.cshtml"
+            #line 9 "..\..\Views\Shared\Fields\Field.cshtml"
   
-
 
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
-
-
-WriteLiteral("\r\n");
-
+WriteLiteral("\r\n\r\n");
 
             
-            #line 28 "..\..\Views\Shared\Fields\Field.cshtml"
+            #line 15 "..\..\Views\Shared\Fields\Field.cshtml"
  try
     {
 
@@ -192,18 +97,18 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 33 "..\..\Views\Shared\Fields\Field.cshtml"
-   Write(Html.Raw("<td class=\"" + Model.ColumnClass + "\">"));
+            #line 20 "..\..\Views\Shared\Fields\Field.cshtml"
+   Write(Html.Raw($"<td class=\"{Model.ColumnClass}\">"));
 
             
             #line default
             #line hidden
             
-            #line 33 "..\..\Views\Shared\Fields\Field.cshtml"
-                                                             
+            #line 20 "..\..\Views\Shared\Fields\Field.cshtml"
+                                                        
         }
 
-    if (Html.ViewExists(ControllerHelper.PartialViews.Field_PropertyName_Before(Model.PropertyName)))
+    if (Html.ViewExists(PartialViews.Field_PropertyName_Before(Model.PropertyName)))
         {
         // Display the Before view, if it exists.
         
@@ -211,18 +116,18 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 39 "..\..\Views\Shared\Fields\Field.cshtml"
-   Write(Html.Partial(ControllerHelper.PartialViews.Field_PropertyName_Before(Model.PropertyName), Model));
+            #line 26 "..\..\Views\Shared\Fields\Field.cshtml"
+   Write(Html.Partial(PartialViews.Field_PropertyName_Before(Model.PropertyName), Model));
 
             
             #line default
             #line hidden
             
-            #line 39 "..\..\Views\Shared\Fields\Field.cshtml"
-                                                                                                         
+            #line 26 "..\..\Views\Shared\Fields\Field.cshtml"
+                                                                                        
         }
 
-    if (Html.ViewExists(ControllerHelper.PartialViews.Field_PropertyType_Before(Model.FieldType)))
+    if (Html.ViewExists(PartialViews.Field_PropertyType_Before(Model.FieldType)))
         {
         // Display the Before view, if it exists.
         
@@ -230,20 +135,20 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 45 "..\..\Views\Shared\Fields\Field.cshtml"
-   Write(Html.Partial(ControllerHelper.PartialViews.Field_PropertyType_Before(Model.FieldType), Model));
+            #line 32 "..\..\Views\Shared\Fields\Field.cshtml"
+   Write(Html.Partial(PartialViews.Field_PropertyType_Before(Model.FieldType), Model));
 
             
             #line default
             #line hidden
             
-            #line 45 "..\..\Views\Shared\Fields\Field.cshtml"
-                                                                                                      
+            #line 32 "..\..\Views\Shared\Fields\Field.cshtml"
+                                                                                     
         }
 
     foreach (ControllerHelper.ViewType Type in Model.ViewTypes)
         {
-        if (Html.ViewExists(ControllerHelper.PartialViews.Field_ViewType_Before(Type)))
+        if (Html.ViewExists(PartialViews.Field_ViewType_Before(Type)))
             {
             // Display the After view, if it exists.
             
@@ -251,19 +156,19 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 53 "..\..\Views\Shared\Fields\Field.cshtml"
-       Write(Html.Partial(ControllerHelper.PartialViews.Field_ViewType_Before(Type), Model));
+            #line 40 "..\..\Views\Shared\Fields\Field.cshtml"
+       Write(Html.Partial(PartialViews.Field_ViewType_Before(Type), Model));
 
             
             #line default
             #line hidden
             
-            #line 53 "..\..\Views\Shared\Fields\Field.cshtml"
-                                                                                           
+            #line 40 "..\..\Views\Shared\Fields\Field.cshtml"
+                                                                          
             }
         }
 
-    if (Html.ViewExists(ControllerHelper.PartialViews.Field_PropertyName(Model.PropertyName)))
+    if (Html.ViewExists(PartialViews.Field_PropertyName(Model.PropertyName)))
         {
         // Override both View and Edit views for the property.
         
@@ -271,25 +176,25 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 60 "..\..\Views\Shared\Fields\Field.cshtml"
-   Write(Html.Partial(ControllerHelper.PartialViews.Field_PropertyName(Model.PropertyName), Model));
+            #line 47 "..\..\Views\Shared\Fields\Field.cshtml"
+   Write(Html.Partial(PartialViews.Field_PropertyName(Model.PropertyName), Model));
 
             
             #line default
             #line hidden
             
-            #line 60 "..\..\Views\Shared\Fields\Field.cshtml"
-                                                                                                  
+            #line 47 "..\..\Views\Shared\Fields\Field.cshtml"
+                                                                                 
         }
     else
         {
-        Boolean OverridenView = false;
+        bool OverridenView = false;
 
         foreach (ControllerHelper.ViewType Type in Model.ViewTypes)
             {
             // Change this field override. It doesnt make sense.
 
-            if (Html.ViewExists("Fields/" + Model.FieldType.Name + "_" + Type.ToString()))
+            if (Html.ViewExists($"Fields/{Model.FieldType.Name}_{Type}"))
                 {
                 // Display the custom Type view
                 
@@ -297,37 +202,33 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 73 "..\..\Views\Shared\Fields\Field.cshtml"
-           Write(Html.Partial("Fields/" + Model.FieldType.Name + "_" + Type.ToString()));
+            #line 60 "..\..\Views\Shared\Fields\Field.cshtml"
+           Write(Html.Partial($"Fields/{Model.FieldType.Name}_{Type}"));
 
             
             #line default
             #line hidden
             
-            #line 73 "..\..\Views\Shared\Fields\Field.cshtml"
-                                                                                       
+            #line 60 "..\..\Views\Shared\Fields\Field.cshtml"
+                                                                      
                 OverridenView = true;
                 }
             }
 
         List<IFieldPartial> PartialAttributes = Model.Meta.GetAttributes<IFieldPartial>() ?? new List<IFieldPartial>();
 
-        if (PartialAttributes != null)
+        foreach (IFieldPartial FieldBefore in PartialAttributes)
             {
-            foreach (IFieldPartial FieldBefore in PartialAttributes)
+            if (FieldBefore.IsActive(Html, Model, Model.ViewTypes))
                 {
-                if (FieldBefore.IsActive(Html, Model, Model.ViewTypes))
-                    {
-                    FieldBefore.RenderPartial_Before(Html, Model, Model.ViewTypes);
-                    }
+                FieldBefore.RenderPartial_Before(Html, Model, Model.ViewTypes);
                 }
             }
 
         if (OverridenView)
             {
             }
-        else if (Model.ViewTypes.HasAny(new[] { ControllerHelper.ViewType.Display,
-            ControllerHelper.ViewType.TableCell}) ||
+        else if (Model.ViewTypes.HasAny(ControllerHelper.ViewType.Display, ControllerHelper.ViewType.TableCell) ||
             Model.Meta.IsReadOnly)
             {
             
@@ -335,50 +236,46 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 98 "..\..\Views\Shared\Fields\Field.cshtml"
-       Write(Html.Partial(ControllerHelper.PartialViews.Field_View, Model));
+            #line 81 "..\..\Views\Shared\Fields\Field.cshtml"
+       Write(Html.Partial(PartialViews.Field_View, Model));
 
             
             #line default
             #line hidden
             
-            #line 98 "..\..\Views\Shared\Fields\Field.cshtml"
-                                                                          
+            #line 81 "..\..\Views\Shared\Fields\Field.cshtml"
+                                                         
             }
-        else if (Model.ViewTypes.HasAny(new[] { ControllerHelper.ViewType.Edit,
-            ControllerHelper.ViewType.Create}))
+        else if (Model.ViewTypes.HasAny(ControllerHelper.ViewType.Edit, ControllerHelper.ViewType.Create))
             {
             
             
             #line default
             #line hidden
             
-            #line 103 "..\..\Views\Shared\Fields\Field.cshtml"
-       Write(Html.Partial(ControllerHelper.PartialViews.Field_Edit, Model));
+            #line 85 "..\..\Views\Shared\Fields\Field.cshtml"
+       Write(Html.Partial(PartialViews.Field_Edit, Model));
 
             
             #line default
             #line hidden
             
-            #line 103 "..\..\Views\Shared\Fields\Field.cshtml"
-                                                                          
+            #line 85 "..\..\Views\Shared\Fields\Field.cshtml"
+                                                         
             }
 
-        if (PartialAttributes != null)
-            {
-            PartialAttributes.Reverse();
+        PartialAttributes.Reverse();
 
-            foreach (IFieldPartial FieldAfter in PartialAttributes)
+        foreach (IFieldPartial FieldAfter in PartialAttributes)
+            {
+            if (FieldAfter.IsActive(Html, Model, Model.ViewTypes))
                 {
-                if (FieldAfter.IsActive(Html, Model, Model.ViewTypes))
-                    {
-                    FieldAfter.RenderPartial_After(Html, Model, Model.ViewTypes);
-                    }
+                FieldAfter.RenderPartial_After(Html, Model, Model.ViewTypes);
                 }
             }
         }
 
-    if (Html.ViewExists(ControllerHelper.PartialViews.Field_PropertyType_After(Model.FieldType)))
+    if (Html.ViewExists(PartialViews.Field_PropertyType_After(Model.FieldType)))
         {
         // Display the Before view, if it exists.
         
@@ -386,20 +283,20 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 123 "..\..\Views\Shared\Fields\Field.cshtml"
-   Write(Html.Partial(ControllerHelper.PartialViews.Field_PropertyType_After(Model.FieldType), Model));
+            #line 102 "..\..\Views\Shared\Fields\Field.cshtml"
+   Write(Html.Partial(PartialViews.Field_PropertyType_After(Model.FieldType), Model));
 
             
             #line default
             #line hidden
             
-            #line 123 "..\..\Views\Shared\Fields\Field.cshtml"
-                                                                                                     
+            #line 102 "..\..\Views\Shared\Fields\Field.cshtml"
+                                                                                    
         }
 
     foreach (ControllerHelper.ViewType Type in Model.ViewTypes)
         {
-        if (Html.ViewExists(ControllerHelper.PartialViews.Field_ViewType_After(Type)))
+        if (Html.ViewExists(PartialViews.Field_ViewType_After(Type)))
             {
             // Display the After view, if it exists.
             
@@ -407,19 +304,19 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 131 "..\..\Views\Shared\Fields\Field.cshtml"
-       Write(Html.Partial(ControllerHelper.PartialViews.Field_ViewType_After(Type), Model));
+            #line 110 "..\..\Views\Shared\Fields\Field.cshtml"
+       Write(Html.Partial(PartialViews.Field_ViewType_After(Type), Model));
 
             
             #line default
             #line hidden
             
-            #line 131 "..\..\Views\Shared\Fields\Field.cshtml"
-                                                                                          
+            #line 110 "..\..\Views\Shared\Fields\Field.cshtml"
+                                                                         
             }
         }
 
-    if (Html.ViewExists(ControllerHelper.PartialViews.Field_PropertyName_After(Model.PropertyName)))
+    if (Html.ViewExists(PartialViews.Field_PropertyName_After(Model.PropertyName)))
         {
         // Display the After view, if it exists.
         
@@ -427,15 +324,15 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 138 "..\..\Views\Shared\Fields\Field.cshtml"
-   Write(Html.Partial(ControllerHelper.PartialViews.Field_PropertyName_After(Model.PropertyName), Model));
+            #line 117 "..\..\Views\Shared\Fields\Field.cshtml"
+   Write(Html.Partial(PartialViews.Field_PropertyName_After(Model.PropertyName), Model));
 
             
             #line default
             #line hidden
             
-            #line 138 "..\..\Views\Shared\Fields\Field.cshtml"
-                                                                                                        
+            #line 117 "..\..\Views\Shared\Fields\Field.cshtml"
+                                                                                       
         }
 
     if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell))
@@ -445,14 +342,14 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 143 "..\..\Views\Shared\Fields\Field.cshtml"
+            #line 122 "..\..\Views\Shared\Fields\Field.cshtml"
    Write(Html.Raw("</td>"));
 
             
             #line default
             #line hidden
             
-            #line 143 "..\..\Views\Shared\Fields\Field.cshtml"
+            #line 122 "..\..\Views\Shared\Fields\Field.cshtml"
                           
         }
     }
@@ -467,14 +364,14 @@ catch (Exception e)
             #line default
             #line hidden
             
-            #line 152 "..\..\Views\Shared\Fields\Field.cshtml"
+            #line 131 "..\..\Views\Shared\Fields\Field.cshtml"
    Write(Html.Raw("<td>"));
 
             
             #line default
             #line hidden
             
-            #line 152 "..\..\Views\Shared\Fields\Field.cshtml"
+            #line 131 "..\..\Views\Shared\Fields\Field.cshtml"
                          
         }
 
@@ -483,15 +380,15 @@ catch (Exception e)
             #line default
             #line hidden
             
-            #line 155 "..\..\Views\Shared\Fields\Field.cshtml"
-   Write(Html.Partial(ControllerHelper.PartialViews.Field_Error, e));
+            #line 134 "..\..\Views\Shared\Fields\Field.cshtml"
+   Write(Html.Partial(PartialViews.Field_Error, e));
 
             
             #line default
             #line hidden
             
-            #line 155 "..\..\Views\Shared\Fields\Field.cshtml"
-                                                                   
+            #line 134 "..\..\Views\Shared\Fields\Field.cshtml"
+                                                  
 
     if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell))
         {
@@ -500,14 +397,14 @@ catch (Exception e)
             #line default
             #line hidden
             
-            #line 159 "..\..\Views\Shared\Fields\Field.cshtml"
+            #line 138 "..\..\Views\Shared\Fields\Field.cshtml"
    Write(Html.Raw("</td>"));
 
             
             #line default
             #line hidden
             
-            #line 159 "..\..\Views\Shared\Fields\Field.cshtml"
+            #line 138 "..\..\Views\Shared\Fields\Field.cshtml"
                           
         }
     }
@@ -515,7 +412,6 @@ catch (Exception e)
             
             #line default
             #line hidden
-
         }
     }
 }

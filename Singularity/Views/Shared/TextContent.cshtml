@@ -1,0 +1,114 @@
+﻿@* Generator: MvcView *@
+
+
+@using LCore.Extensions;
+@using Singularity.Extensions;
+
+@{
+    TextContent Content = null;
+    ModelPermissions Permissions = null;
+    string Display = null;
+    string Token = null;
+
+    try
+        {
+
+        Token = Model.Token ?? "";
+
+        Token = Token.ReplaceAll(" ", "");
+
+        ContextProvider ContextProvider = ContextProviderFactory.GetCurrent();
+        ModelContext Context = ContextProvider.GetContext(Session);
+
+        Content = TextContent.FindByToken(Context, Token);
+
+        // Auto-create TextContent models so they exist before being filled in
+        if (Content == null && Model.AutoCreate)
+            {
+            Content = new TextContent
+                {
+                Active = true,
+                Token = Model.Token,
+                Text = Model.DefaultText
+                };
+
+            Context.GetDBSet<TextContent>().Add(Content);
+
+            Context.SaveChanges();
+            }
+
+        Permissions = ContextProvider.GetModelPermissions(Session, typeof(TextContent));
+
+        Display = Content != null ? Content.Text : Model.DefaultText;
+        Display = Display ?? "";
+
+        for (int i = 0; i < Model.ContextData.Length; i++)
+            {
+            Display = Display.ReplaceAll($"[{i}]", (Model.ContextData[i] ?? "").ToString());
+            }
+
+        Display = Display.ReplaceAll("\r\n", "<br>");
+        }
+    catch
+        {
+
+        }
+}
+@model TextContentViewModel
+
+@try
+    {
+
+    if (Content != null)
+        {
+        <span class="text-content-custom">
+            @if (Model.ShowText)
+                {
+                @Html.Raw(Display)
+                }
+            else
+                {
+                <span>...</span>
+                }
+            @if (Permissions != null && Permissions.Edit == true)
+                {
+                <span class="text-content-edit @(Model.ShowText ? "" : "no-text" )">
+
+                    <span onclick="window.location = '@(Url.Controller<TextContentController>()
+                    .QS(new Dictionary<string, object> { { "Token", Token }, { "DefaultText", HttpUtility.HtmlEncode(Model.DefaultText) } })
+                    .Action(c => c.Edit, Content.GetID<int>(), Request.Url?.AbsoluteUri, false))'; return false;" class="btn btn-default">
+                        <glyph>&#xe065;</glyph>
+                    </span>
+                </span>
+                }
+        </span>
+        }
+    else
+        {
+        <span class="text-content-default">
+            @if (Model.ShowText)
+                {
+                @Html.Raw(Display)
+                }
+            else
+                {
+                <span>...</span>
+                }
+            @if (Permissions != null && Permissions.Create == true)
+                {
+                <span class="text-content-create @(Model.ShowText ? "" : "no-text")">
+
+
+                    <span onclick="window.location = '@(Url.Controller<TextContentController>()
+                    .QS(new Dictionary<string, object> { { "Token", Token }, { "DefaultText", HttpUtility.HtmlEncode(Model.DefaultText) } })
+                    .Action(c => c.Create, Request.Url?.AbsoluteUri))'; return false;" class="btn btn-default">
+                        <glyph>&#xe065;</glyph>
+                    </span>
+                </span>
+                }
+        </span>
+        }
+    }
+catch
+    {
+    }

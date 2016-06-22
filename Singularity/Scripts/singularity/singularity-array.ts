@@ -27,7 +27,7 @@ interface JQueryStatic {
     toArray?: (obj: any) => any[];
 }
 
-var singArray = singExt.addModule(new sing.Module("Array", Array));
+var singArray = singExt.addModule(new sing.Module('Array', Array));
 
 singArray.summaryShort = 'Extensions on the Array prototype';
 singArray.summaryLong = 'Performs array manipulation functions on any type of Javascript Array.';
@@ -60,13 +60,13 @@ singArray.method('splitAt', SplitAt,
                 description: 'The indexes to split the source Array.',
                 isMulti: true,
                 types: [Number],
-                required: false,
+                required: false
             }
         ],
         returns: 'A split group of arrays',
         returnType: Array,
         glyphIcon: '&#xe226;',
-        tests: function (ext) {
+        tests: ext => {
             ext.addTest([], [], []);
             ext.addTest([], [null], []);
             ext.addTest([], [undefined], []);
@@ -75,7 +75,7 @@ singArray.method('splitAt', SplitAt,
             ext.addTest([1, 2], [0], [[1, 2]]);
             ext.addTest([1, 2], [1], [[1], [2]]);
             ext.addTest([1, 2, 3, 4, 5, 6], [1, 3], [[1], [2, 3], [4, 5, 6]]);
-        },
+        }
     });
 
 function SplitAt<T>(...indexes: number[]): T[][] {
@@ -84,13 +84,13 @@ function SplitAt<T>(...indexes: number[]): T[][] {
 
     indexes.sort();
 
-    var thisArray = <T[]>this;
+    const thisArray = this as T[];
 
-    var out: T[][] = [];
-    var section: T[] = [];
-    var indexI = 0;
+    const out: T[][] = [];
+    let section: T[] = [];
+    let indexI = 0;
 
-    for (var i = 0; i < thisArray.length; i++) {
+    for (let i = 0; i < thisArray.length; i++) {
         if (indexes.length >= indexI) {
 
             if (i == indexes[indexI]) {
@@ -122,13 +122,13 @@ singArray.method('removeAt', ArrayRemoveAt,
                 description: 'The indexes to remove from the source Array.',
                 isMulti: true,
                 types: [Number],
-                required: false,
+                required: false
             }
         ],
         returns: 'An array with the passed indexes removed',
         returnType: Array,
         glyphIcon: '&#xe163;',
-        tests: function (ext) {
+        tests: ext => {
             ext.addTest([], [], []);
             ext.addTest([], [null], []);
             ext.addTest([], [undefined], []);
@@ -139,16 +139,14 @@ singArray.method('removeAt', ArrayRemoveAt,
             ext.addTest([1, 2], [0, 1], []);
             ext.addTest([1, 2, 3, 4, 5, 6], [0, 1], [3, 4, 5, 6]);
             ext.addTest([1, 2, 3, 4, 5, 6], [0, 5], [2, 3, 4, 5]);
-        },
+        }
     });
 
 function ArrayRemoveAt<T>(...indexes: number[]): T[] {
 
-    var thisArray = <T[]>this;
+    const thisArray = this as T[];
 
-    return thisArray.select(function (item, index) {
-        return !indexes.has(index);
-    });
+    return thisArray.select((item, index) => (!indexes.has(index)));
 }
 
 singArray.method('unique', ArrayUnique,
@@ -159,22 +157,22 @@ singArray.method('unique', ArrayUnique,
         returnType: Array,
         glyphIcon: 'icon-snowflake',
         aliases: ['removeDuplicates'],
-        tests: function (ext) {
+        tests: ext => {
             ext.addTest([], [], []);
             ext.addTest([null, undefined], [], []);
             ext.addTest([1, 2, 3], [], [1, 2, 3]);
             ext.addTest([1, 2, 3, 1, 2, 3], [], [1, 2, 3]);
             ext.addTest([1, 2, 3, 'a', 'b', 'c', 1, 2, 3, 'a', 'b', 'c'], [], [1, 2, 3, 'a', 'b', 'c']);
-        },
+        }
     });
 
 function ArrayUnique<T>(): T[] {
 
-    var thisArray = <T[]>this;
+    const thisArray = this as T[];
 
     var out: T[] = [];
 
-    thisArray.each(function (item, index) {
+    thisArray.each((item) => {
         if (!out.has(item) && $.isDefined(item))
             out.push(item);
     });
@@ -189,14 +187,14 @@ singArray.method('random', ArrayRandom,
             {
                 name: 'count',
                 defaultValue: 1,
-                types: [Number],
+                types: [Number]
             }
         ],
         returns: 'A single item if no count is supplied or count is 1. Otherwise an array of items is returned.',
         returnType: Object,
         glyphIcon: 'icon-playing-dices',
-        tests: function (ext) {
-            ext.addCustomTest(function () {
+        tests: ext => {
+            ext.addCustomTest(() => {
 
                 var test = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
@@ -207,17 +205,17 @@ singArray.method('random', ArrayRandom,
                 if (!test.has(test2))
                     return 'failed';
 
-                if ((<number[]>test3).has(function (a) { return !test.has(a); }))
+                if ((test3 as number[]).has((a:number) => (!test.has(a))))
                     return 'failed';
             });
-        },
+        }
     });
 
 function ArrayRandom<T>(count: number = 1): T[] {
 
-    var thisArray = <T[]>this;
+    let thisArray = this as T[];
 
-    var out: T[] = [];
+    const out: T[] = [];
 
     // Don't return more random items than we have;
     count = count.min(thisArray.length);
@@ -241,8 +239,8 @@ singArray.method('shuffle', ArrayShuffle,
         returns: 'A new array with the original array values, shuffled',
         returnType: Array,
         glyphIcon: '&#xe110;',
-        tests: function (ext) {
-            ext.addCustomTest(function () {
+        tests: ext => {
+            ext.addCustomTest(() => {
 
                 var test = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
@@ -251,20 +249,20 @@ singArray.method('shuffle', ArrayShuffle,
                 if (test == test2 || test2.length != test.length)
                     return 'failed';
 
-                if (test2.has(function (a) { return !test.has(a); }))
+                if (test2.has((a:number) => (!test.has(a))))
                     return 'failed';
             });
-        },
+        }
     });
 
 function ArrayShuffle<T>(): T[] {
 
-    var thisArray = <T[]>this;
+    let thisArray = this as T[];
 
-    var out: T[] = [];
+    const out: T[] = [];
 
     while (thisArray.length > 0) {
-        var rand = (<number>$.random(0, thisArray.length)).floor();
+        const rand = ($.random(0, thisArray.length) as number).floor();
 
         out.push(thisArray[rand]);
 
@@ -283,27 +281,27 @@ singArray.method('group', ArrayGroup,
         parameters: [
             {
                 name: 'indexFunc',
-                types: [Function],
-            },
+                types: [Function]
+            }
         ],
         glyphIcon: '&#xe032;',
-        tests: function (ext) {
+        tests: ext => {
             ext.addTest([], [], []);
             ext.addTest([], [null], []);
 
-            ext.addTest([1, 2, 3], [function (a: any) { }], { '': [1, 2, 3] });
-            ext.addTest([1, 2, 3], [function (a: any) { return 'group' + a; }], { group1: [1], group2: [2], group3: [3] });
-            ext.addTest([1, 2, 2, 3], [function (a: any) { return 'group' + a; }], { group1: [1], group2: [2, 2], group3: [3] });
-        },
+            ext.addTest([1, 2, 3], [() => { }], { '': [1, 2, 3] });
+            ext.addTest([1, 2, 3], [(a: any) => (`group${a}`)], { group1: [1], group2: [2], group3: [3] });
+            ext.addTest([1, 2, 2, 3], [(a: any) => (`group${a}`)], { group1: [1], group2: [2, 2], group3: [3] });
+        }
     });
 
 function ArrayGroup<T>(indexFunc: (item: T, index: number) => string): Hash<T[]> {
 
-    var thisArray = <T[]>this;
+    const thisArray = this as T[];
 
     var out: Hash<T[]> = {};
 
-    thisArray.each(function (item, index) {
+    thisArray.each((item, index) => {
 
         var key = indexFunc(item, index);
 
@@ -326,20 +324,20 @@ singArray.method('toArray', ObjToArray,
         parameters: [
             {
                 name: 'obj',
-                types: [Object],
+                types: [Object]
             }
         ],
         validateInput: false,
         returns: 'An array',
         returnType: Array,
         glyphIcon: '&#xe055;',
-        tests: function (ext) {
+        tests: ext => {
             ext.addTest(null, [], []);
             ext.addTest(null, [null], []);
             ext.addTest(null, [undefined], []);
             ext.addTest(null, [0], [0]);
             ext.addTest(null, [[0, 1, 2]], [0, 1, 2]);
-        },
+        }
     }, $);
 
 function ObjToArray(obj: any) {

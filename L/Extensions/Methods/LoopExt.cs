@@ -1,71 +1,66 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Collections;
-using System.Reflection;
-using System.Threading;
-using LCore;
 using LCore.Dynamic;
 
-namespace LCore
-{
-    public partial class Logic
+namespace LCore.Extensions
     {
+    public partial class Logic
+        {
         #region Base Lambdas
         /// <summary>
         /// This is a simple function that takes an int and returns true, causing loops to continue until completion. Merge this with any function to turn it into a Loop, or use the Loop function.
         /// </summary>
-        public static readonly Func<int, Boolean> AlwaysLoop = L.True.Arg<int, Boolean>();
+        public static readonly Func<int, bool> AlwaysLoop = i => true;
         #endregion
 
         #region While
         /// <summary>
         /// Takes action In and returns an action that is performed for as long as Continue evaluates to true.
         /// </summary>
-        [CodeExplodeExtensionMethod("While", new String[] { "In", "Continue" }, L.Comments.While, false, true)]
-        [CodeExplodeGenerics("While", L.Comments.While)]
-        public static readonly Func<Action, Func<Boolean>, Action> L_While = (In, Continue) =>
+        [CodeExplodeExtensionMethod("While", new[] { "In", "Continue" }, Comments.While, false, true)]
+        [CodeExplodeGenerics("While", Comments.While)]
+        public static readonly Func<Action, Func<bool>, Action> L_While = (In, Continue) =>
         {
             return () =>
             {
                 while (Continue(/*A*/))
-                {
+                    {
                     In();
-                }
+                    }
             };
         };
-        public static Func<Action<T1>, Func<T1, Boolean>, Action<T1>> L_While_T<T1>()
-        {
+        public static Func<Action<T1>, Func<T1, bool>, Action<T1>> L_While_T<T1>()
+            {
             return (In, Continue) =>
             {
-                return (o1) =>
+                return o1 =>
                 {
                     while (Continue(o1))
-                    {
+                        {
                         In(o1);
-                    }
+                        }
                 };
             };
-        }
+            }
         /// <summary>
         /// Takes action In and returns an action that is performed for as long as Continue evaluates to true.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
         /// <returns></returns>
-        public static Func<Action<T1, T2>, Func<T1, T2, Boolean>, Action<T1, T2>> L_While_T<T1, T2>()
-        {
+        public static Func<Action<T1, T2>, Func<T1, T2, bool>, Action<T1, T2>> L_While_T<T1, T2>()
+            {
             return (In, Continue) =>
             {
                 return (o1, o2) =>
                 {
                     while (Continue(o1, o2))
-                    {
+                        {
                         In(o1, o2);
-                    }
+                        }
                 };
             };
-        }
+            }
         /// <summary>
         /// Takes action In and returns an action that is performed for as long as Continue evaluates to true.
         /// </summary>
@@ -73,19 +68,19 @@ namespace LCore
         /// <typeparam name="T2"></typeparam>
         /// <typeparam name="T3"></typeparam>
         /// <returns></returns>
-        public static Func<Action<T1, T2, T3>, Func<T1, T2, T3, Boolean>, Action<T1, T2, T3>> L_While_T<T1, T2, T3>()
-        {
+        public static Func<Action<T1, T2, T3>, Func<T1, T2, T3, bool>, Action<T1, T2, T3>> L_While_T<T1, T2, T3>()
+            {
             return (In, Continue) =>
             {
                 return (o1, o2, o3) =>
                 {
                     while (Continue(o1, o2, o3))
-                    {
+                        {
                         In(o1, o2, o3);
-                    }
+                        }
                 };
             };
-        }
+            }
         /// <summary>
         /// Takes action In and returns an action that is performed for as long as Continue evaluates to true.
         /// </summary>
@@ -94,40 +89,40 @@ namespace LCore
         /// <typeparam name="T3"></typeparam>
         /// <typeparam name="T4"></typeparam>
         /// <returns></returns>
-        public static Func<Action<T1, T2, T3, T4>, Func<T1, T2, T3, T4, Boolean>, Action<T1, T2, T3, T4>> L_While_T<T1, T2, T3, T4>()
-        {
+        public static Func<Action<T1, T2, T3, T4>, Func<T1, T2, T3, T4, bool>, Action<T1, T2, T3, T4>> L_While_T<T1, T2, T3, T4>()
+            {
             return (In, Continue) =>
             {
                 return (o1, o2, o3, o4) =>
                 {
                     while (Continue(o1, o2, o3, o4))
-                    {
+                        {
                         In(o1, o2, o3, o4);
-                    }
+                        }
                 };
             };
-        }
+            }
         #endregion
         #region DoWhile
         /// <summary>
         /// Takes action In and returns an action that is performed for as long as Continue evaluates to true.
         /// </summary>
-        [CodeExplodeExtensionMethod("DoWhile", new String[] { "In", "Continue" }, L.Comments.DoWhile, false, true)]
-        [CodeExplodeGenerics("DoWhile", L.Comments.DoWhile)]
-        public static Func<Action, Func<Boolean>, Action> L_DoWhile()
-        {
+        [CodeExplodeExtensionMethod("DoWhile", new[] { "In", "Continue" }, Comments.DoWhile, false, true)]
+        [CodeExplodeGenerics("DoWhile", Comments.DoWhile)]
+        public static Func<Action, Func<bool>, Action> L_DoWhile()
+            {
             return (In, Continue) =>
             {
                 return () =>
                 {
                     do
-                    {
+                        {
                         In();
-                    }
+                        }
                     while (Continue(/*A*/));
                 };
             };
-        }
+            }
         #endregion
         #region Until
         /// <summary>
@@ -135,23 +130,23 @@ namespace LCore
         /// </summary>
         /// <typeparam name="U"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("Until", new String[] { "In", "Break" }, L.Comments.Until, false, true)]
-        [CodeExplodeGenerics("Until", L.Comments.Until)]
-        public static Func<Func/*GF*/<U>, Func<Boolean>, Func/*GF*/<U>> L_Until/*MF*/<U>()
-        {
+        [CodeExplodeExtensionMethod("Until", new[] { "In", "Break" }, Comments.Until, false, true)]
+        [CodeExplodeGenerics("Until", Comments.Until)]
+        public static Func<Func/*GF*/<U>, Func<bool>, Func/*GF*/<U>> L_Until/*MF*/<U>()
+            {
             return (In, Break) =>
             {
                 return () =>
                 {
                     U Out = default(U);
                     while (!Break(/*A*/) && Out == null)
-                    {
+                        {
                         Out = In();
-                    }
+                        }
                     return Out;
                 };
             };
-        }
+            }
         #endregion
         #region DoUntil
         /// <summary>
@@ -159,56 +154,52 @@ namespace LCore
         /// </summary>
         /// <typeparam name="U"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("DoUntil", new String[] { "In", "Break" }, L.Comments.DoUntil, false, true)]
-        [CodeExplodeGenerics("DoUntil", L.Comments.DoUntil)]
-        public static Func<Func/*GF*/<U>, Func<Boolean>, Func/*GF*/<U>> L_DoUntil/*MF*/<U>()
-        {
+        [CodeExplodeExtensionMethod("DoUntil", new[] { "In", "Break" }, Comments.DoUntil, false, true)]
+        [CodeExplodeGenerics("DoUntil", Comments.DoUntil)]
+        public static Func<Func/*GF*/<U>, Func<bool>, Func/*GF*/<U>> L_DoUntil/*MF*/<U>()
+            {
             return (In, Break) =>
             {
                 return () =>
                 {
-                    U Out = default(U);
+                    U Out;
                     do
-                    {
+                        {
                         Out = In();
-                    }
+                        }
                     while (!Break(/*A*/) && Out == null);
                     return Out;
                 };
             };
-        }
+            }
         #endregion
         #region Repeat
         /// <summary>
         /// Returns an action that is repeated a number of times.
         /// </summary>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("Repeat", new String[] { "Act", "Times" }, L.Comments.Repeat, false, true)]
+        [CodeExplodeExtensionMethod("Repeat", new[] { "Act", "Times" }, Comments.Repeat, false, true)]
         //     [CodeExplodeGenerics("Repeat", L.Comments.Repeat)]
         public static Func<Action, uint, Action> L_Repeat()
-        {
-            return (Act, Times) =>
             {
-                return L_To/*IGA*/()(0, (int)Times, Act);
-            };
-        }
+            return (Act, Times) => L_To/*IGA*/()(0, (int)Times, Act);
+            }
         #endregion
-        // Explode
         #region WhileI
         /// <summary>
         /// Takes action In and returns an action that is performed for as long as Continue evaluates to true.
         /// </summary>
-        [CodeExplodeExtensionMethod("WhileI", new String[] { "In", "Continue" }, L.Comments.While)]
-        public static readonly Func<Action<int>, Func<int, Boolean>, Action> L_WhileI = (In, Continue) =>
+        [CodeExplodeExtensionMethod("WhileI", new[] { "In", "Continue" }, Comments.While)]
+        public static readonly Func<Action<int>, Func<int, bool>, Action> L_WhileI = (In, Continue) =>
         {
             return () =>
             {
                 int i = 0;
                 while (Continue(i))
-                {
+                    {
                     In(i);
                     i++;
-                }
+                    }
             };
         };
         /// <summary>
@@ -216,44 +207,44 @@ namespace LCore
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("WhileI", new String[] { "In", "Continue" }, L.Comments.While)]
-        public static Func<Action<int, T1>, Func<int, T1, Boolean>, Action<T1>> L_WhileI_T<T1>()
-        {
+        [CodeExplodeExtensionMethod("WhileI", new[] { "In", "Continue" }, Comments.While)]
+        public static Func<Action<int, T1>, Func<int, T1, bool>, Action<T1>> L_WhileI_T<T1>()
+            {
             return (In, Continue) =>
             {
                 int i = 0;
-                return (o1) =>
+                return o1 =>
                 {
                     while (Continue(i, o1))
-                    {
+                        {
                         In(i, o1);
                         i++;
-                    }
+                        }
                 };
             };
-        }
+            }
         /// <summary>
         /// Takes action In and returns an action that is performed for as long as Continue evaluates to true.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("WhileI", new String[] { "In", "Continue" }, L.Comments.While)]
-        public static Func<Action<int, T1, T2>, Func<int, T1, T2, Boolean>, Action<T1, T2>> L_WhileI_T<T1, T2>()
-        {
+        [CodeExplodeExtensionMethod("WhileI", new[] { "In", "Continue" }, Comments.While)]
+        public static Func<Action<int, T1, T2>, Func<int, T1, T2, bool>, Action<T1, T2>> L_WhileI_T<T1, T2>()
+            {
             return (In, Continue) =>
             {
                 int i = 0;
                 return (o1, o2) =>
                 {
                     while (Continue(i, o1, o2))
-                    {
+                        {
                         In(i, o1, o2);
                         i++;
-                    }
+                        }
                 };
             };
-        }
+            }
         /// <summary>
         /// Takes action In and returns an action that is performed for as long as Continue evaluates to true.
         /// </summary>
@@ -261,22 +252,22 @@ namespace LCore
         /// <typeparam name="T2"></typeparam>
         /// <typeparam name="T3"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("WhileI", new String[] { "In", "Continue" }, L.Comments.While)]
-        public static Func<Action<int, T1, T2, T3>, Func<int, T1, T2, T3, Boolean>, Action<T1, T2, T3>> L_WhileI_T<T1, T2, T3>()
-        {
+        [CodeExplodeExtensionMethod("WhileI", new[] { "In", "Continue" }, Comments.While)]
+        public static Func<Action<int, T1, T2, T3>, Func<int, T1, T2, T3, bool>, Action<T1, T2, T3>> L_WhileI_T<T1, T2, T3>()
+            {
             return (In, Continue) =>
             {
                 int i = 0;
                 return (o1, o2, o3) =>
                 {
                     while (Continue(i, o1, o2, o3))
-                    {
+                        {
                         In(i, o1, o2, o3);
                         i++;
-                    }
+                        }
                 };
             };
-        }
+            }
         #endregion
         #region UntilI
         /// <summary>
@@ -284,9 +275,9 @@ namespace LCore
         /// </summary>
         /// <typeparam name="U"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("UntilI", new String[] { "In", "Break" }, L.Comments.Until)]
-        public static Func<Func<int, U>, Func<int, Boolean>, Func<U>> L_UntilI<U>()
-        {
+        [CodeExplodeExtensionMethod("UntilI", new[] { "In", "Break" }, Comments.Until)]
+        public static Func<Func<int, U>, Func<int, bool>, Func<U>> L_UntilI<U>()
+            {
             return (In, Break) =>
             {
                 int i = 0;
@@ -294,38 +285,38 @@ namespace LCore
                 {
                     U Out = default(U);
                     while (!Break(i) && Out == null)
-                    {
+                        {
                         Out = In(i);
                         i++;
-                    }
+                        }
                     return Out;
                 };
             };
-        }
+            }
         /// <summary>
         /// Takes Func In and returns a Func that is performed until Break evaluates to true, or In returns a non-null value. This value will be the method's return value.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="U"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("UntilI", new String[] { "In", "Break" }, L.Comments.Until)]
-        public static Func<Func<int, T1, U>, Func<int, T1, Boolean>, Func<T1, U>> L_UntilI<T1, U>()
-        {
+        [CodeExplodeExtensionMethod("UntilI", new[] { "In", "Break" }, Comments.Until)]
+        public static Func<Func<int, T1, U>, Func<int, T1, bool>, Func<T1, U>> L_UntilI<T1, U>()
+            {
             return (In, Break) =>
             {
-                return (o1) =>
+                return o1 =>
                 {
                     int i = 0;
                     U Out = default(U);
                     while (!Break(i, o1) && Out == null)
-                    {
+                        {
                         Out = In(i, o1);
                         i++;
-                    }
+                        }
                     return Out;
                 };
             };
-        }
+            }
         /// <summary>
         /// Takes Func In and returns a Func that is performed until Break evaluates to true, or In returns a non-null value. This value will be the method's return value.
         /// </summary>
@@ -333,9 +324,9 @@ namespace LCore
         /// <typeparam name="T2"></typeparam>
         /// <typeparam name="U"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("UntilI", new String[] { "In", "Break" }, L.Comments.Until)]
-        public static Func<Func<int, T1, T2, U>, Func<int, T1, T2, Boolean>, Func<T1, T2, U>> L_UntilI<T1, T2, U>()
-        {
+        [CodeExplodeExtensionMethod("UntilI", new[] { "In", "Break" }, Comments.Until)]
+        public static Func<Func<int, T1, T2, U>, Func<int, T1, T2, bool>, Func<T1, T2, U>> L_UntilI<T1, T2, U>()
+            {
             return (In, Break) =>
             {
                 return (o1, o2) =>
@@ -343,14 +334,14 @@ namespace LCore
                     int i = 0;
                     U Out = default(U);
                     while (!Break(i, o1, o2) && Out == null)
-                    {
+                        {
                         Out = In(i, o1, o2);
                         i++;
-                    }
+                        }
                     return Out;
                 };
             };
-        }
+            }
         /// <summary>
         /// Takes Func In and returns a Func that is performed until Break evaluates to true, or In returns a non-null value. This value will be the method's return value.
         /// </summary>
@@ -359,9 +350,9 @@ namespace LCore
         /// <typeparam name="T3"></typeparam>
         /// <typeparam name="U"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("UntilI", new String[] { "In", "Break" }, L.Comments.Until)]
-        public static Func<Func<int, T1, T2, T3, U>, Func<int, T1, T2, T3, Boolean>, Func<T1, T2, T3, U>> L_UntilI<T1, T2, T3, U>()
-        {
+        [CodeExplodeExtensionMethod("UntilI", new[] { "In", "Break" }, Comments.Until)]
+        public static Func<Func<int, T1, T2, T3, U>, Func<int, T1, T2, T3, bool>, Func<T1, T2, T3, U>> L_UntilI<T1, T2, T3, U>()
+            {
             return (In, Break) =>
             {
                 return (o1, o2, o3) =>
@@ -369,81 +360,81 @@ namespace LCore
                     int i = 0;
                     U Out = default(U);
                     while (!Break(i, o1, o2, o3) && Out == null)
-                    {
+                        {
                         Out = In(i, o1, o2, o3);
                         i++;
-                    }
+                        }
                     return Out;
                 };
             };
-        }
+            }
         #endregion
         #region DoWhileI
         /// <summary>
         /// Takes action In and returns an action that is performed for as long as Continue evaluates to true.
         /// </summary>
-        [CodeExplodeExtensionMethod("DoWhileI", new String[] { "In", "Continue" }, L.Comments.DoWhile)]
-        public static Func<Action<int>, Func<int, Boolean>, Action> L_DoWhileI()
-        {
+        [CodeExplodeExtensionMethod("DoWhileI", new[] { "In", "Continue" }, Comments.DoWhile)]
+        public static Func<Action<int>, Func<int, bool>, Action> L_DoWhileI()
+            {
             return (In, Condition) =>
             {
                 return () =>
                 {
                     int i = 0;
                     do
-                    {
+                        {
                         In(i);
                         i++;
-                    }
+                        }
                     while (Condition(i));
                 };
             };
-        }
+            }
         /// <summary>
         /// Takes action In and returns an action that is performed for as long as Continue evaluates to true.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("DoWhileI", new String[] { "In", "Continue" }, L.Comments.DoWhile)]
-        public static Func<Action<int, T1>, Func<int, T1, Boolean>, Action<T1>> L_DoWhileI<T1>()
-        {
+        [CodeExplodeExtensionMethod("DoWhileI", new[] { "In", "Continue" }, Comments.DoWhile)]
+        public static Func<Action<int, T1>, Func<int, T1, bool>, Action<T1>> L_DoWhileI<T1>()
+            {
             return (In, Condition) =>
             {
-                return (o1) =>
+                return o1 =>
                 {
                     int i = 0;
                     do
-                    {
+                        {
                         In(i, o1);
                         i++;
-                    }
+                        }
                     while (Condition(i, o1));
                 };
             };
-        }
+            }
         /// <summary>
         /// Takes action In and returns an action that is performed for as long as Continue evaluates to true.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("DoWhileI", new String[] { "In", "Continue" }, L.Comments.DoWhile)]
-        public static Func<Action<int, T1, T2>, Func<int, T1, T2, Boolean>, Action<T1, T2>> L_DoWhileI<T1, T2>()
-        {
+        [CodeExplodeExtensionMethod("DoWhileI", new[] { "In", "Continue" }, Comments.DoWhile)]
+        public static Func<Action<int, T1, T2>, Func<int, T1, T2, bool>, Action<T1, T2>> L_DoWhileI<T1, T2>()
+            {
             return (In, Condition) =>
             {
                 return (o1, o2) =>
                 {
                     int i = 0;
                     do
-                    {
+                        {
                         In(i, o1, o2);
                         i++;
-                    }
+                        }
                     while (Condition(i, o1, o2));
                 };
             };
-        }
+            }
         /// <summary>
         /// Takes action In and returns an action that is performed for as long as Continue evaluates to true.
         /// </summary>
@@ -451,23 +442,23 @@ namespace LCore
         /// <typeparam name="T2"></typeparam>
         /// <typeparam name="T3"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("DoWhileI", new String[] { "In", "Continue" }, L.Comments.DoWhile)]
-        public static Func<Action<int, T1, T2, T3>, Func<int, T1, T2, T3, Boolean>, Action<T1, T2, T3>> L_DoWhileI<T1, T2, T3>()
-        {
+        [CodeExplodeExtensionMethod("DoWhileI", new[] { "In", "Continue" }, Comments.DoWhile)]
+        public static Func<Action<int, T1, T2, T3>, Func<int, T1, T2, T3, bool>, Action<T1, T2, T3>> L_DoWhileI<T1, T2, T3>()
+            {
             return (In, Condition) =>
             {
                 return (o1, o2, o3) =>
                 {
                     int i = 0;
                     do
-                    {
+                        {
                         In(i, o1, o2, o3);
                         i++;
-                    }
+                        }
                     while (Condition(i, o1, o2, o3));
                 };
             };
-        }
+            }
         #endregion
         #region DoUntilI
         /// <summary>
@@ -475,50 +466,50 @@ namespace LCore
         /// </summary>
         /// <typeparam name="U"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("DoUntilI", new String[] { "In", "Break" }, L.Comments.DoUntil)]
-        public static Func<Func<int, U>, Func<int, Boolean>, Func<U>> L_DoUntilI<U>()
-        {
+        [CodeExplodeExtensionMethod("DoUntilI", new[] { "In", "Break" }, Comments.DoUntil)]
+        public static Func<Func<int, U>, Func<int, bool>, Func<U>> L_DoUntilI<U>()
+            {
             return (In, Break) =>
             {
                 return () =>
                 {
                     int i = 0;
-                    U Out = default(U);
+                    U Out;
                     do
-                    {
+                        {
                         Out = In(i);
                         i++;
-                    }
+                        }
                     while (!Break(i) && Out == null);
                     return Out;
                 };
             };
-        }
+            }
         /// <summary>
         /// Takes Func In and returns a Func that is performed until Break evaluates to true, or In returns a non-null value. This value will be the method's return value.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="U"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("DoUntilI", new String[] { "In", "Break" }, L.Comments.DoUntil)]
-        public static Func<Func<int, T1, U>, Func<int, T1, Boolean>, Func<T1, U>> L_DoUntilI<T1, U>()
-        {
+        [CodeExplodeExtensionMethod("DoUntilI", new[] { "In", "Break" }, Comments.DoUntil)]
+        public static Func<Func<int, T1, U>, Func<int, T1, bool>, Func<T1, U>> L_DoUntilI<T1, U>()
+            {
             return (In, Break) =>
             {
-                return (o1) =>
+                return o1 =>
                 {
                     int i = 0;
-                    U Out = default(U);
+                    U Out;
                     do
-                    {
+                        {
                         Out = In(i, o1);
                         i++;
-                    }
+                        }
                     while (!Break(i, o1) && Out == null);
                     return Out;
                 };
             };
-        }
+            }
         /// <summary>
         /// Takes Func In and returns a Func that is performed until Break evaluates to true, or In returns a non-null value. This value will be the method's return value.
         /// </summary>
@@ -526,25 +517,25 @@ namespace LCore
         /// <typeparam name="T2"></typeparam>
         /// <typeparam name="U"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("DoUntilI", new String[] { "In", "Break" }, L.Comments.DoUntil)]
-        public static Func<Func<int, T1, T2, U>, Func<int, T1, T2, Boolean>, Func<T1, T2, U>> L_DoUntilI<T1, T2, U>()
-        {
+        [CodeExplodeExtensionMethod("DoUntilI", new[] { "In", "Break" }, Comments.DoUntil)]
+        public static Func<Func<int, T1, T2, U>, Func<int, T1, T2, bool>, Func<T1, T2, U>> L_DoUntilI<T1, T2, U>()
+            {
             return (In, Break) =>
             {
                 return (o1, o2) =>
                 {
                     int i = 0;
-                    U Out = default(U);
+                    U Out;
                     do
-                    {
+                        {
                         Out = In(i, o1, o2);
                         i++;
-                    }
+                        }
                     while (!Break(i, o1, o2) && Out == null);
                     return Out;
                 };
             };
-        }
+            }
         /// <summary>
         /// Takes Func In and returns a Func that is performed until Break evaluates to true, or In returns a non-null value. This value will be the method's return value.
         /// </summary>
@@ -553,25 +544,25 @@ namespace LCore
         /// <typeparam name="T3"></typeparam>
         /// <typeparam name="U"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("DoUntilI", new String[] { "In", "Break" }, L.Comments.DoUntil)]
-        public static Func<Func<int, T1, T2, T3, U>, Func<int, T1, T2, T3, Boolean>, Func<T1, T2, T3, U>> L_DoUntilI<T1, T2, T3, U>()
-        {
+        [CodeExplodeExtensionMethod("DoUntilI", new[] { "In", "Break" }, Comments.DoUntil)]
+        public static Func<Func<int, T1, T2, T3, U>, Func<int, T1, T2, T3, bool>, Func<T1, T2, T3, U>> L_DoUntilI<T1, T2, T3, U>()
+            {
             return (In, Break) =>
             {
                 return (o1, o2, o3) =>
                 {
                     int i = 0;
-                    U Out = default(U);
+                    U Out;
                     do
-                    {
+                        {
                         Out = In(i, o1, o2, o3);
                         i++;
-                    }
+                        }
                     while (!Break(i, o1, o2, o3) && Out == null);
                     return Out;
                 };
             };
-        }
+            }
         #endregion
         #region Collect
         /// <summary>
@@ -579,39 +570,39 @@ namespace LCore
         /// </summary>
         /// <typeparam name="U"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("Collect", new String[] { "Func", "Times" }, L.Comments.Collect)]
+        [CodeExplodeExtensionMethod("Collect", new[] { "Func", "Times" }, Comments.Collect)]
         //  [CodeExplodeGenerics("Collect", L.Comments.Collect)]
         public static Func<Func<U>, uint, Func<List<U>>> L_Collect<U>()
-        {
+            {
             return (Func, Times) =>
             {
                 return () =>
                 {
                     List<U> Out = new List<U>(/**/);
-                    0.To((int)Times - 1, L.IList_Add.Surround2(Func.Cast<U, Object>()).Supply(Out));
+                    0.To((int)Times - 1, () => Out.Add(Func()));
                     return Out;
                 };
             };
-        }
+            }
         /// <summary>
         /// Returns a Func that collects the result of In into a List[U]. The Func will be run [Count] times and there will be that many items in the resulting List[U].
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="U"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("Collect", new String[] { "Func", "Times" }, L.Comments.Collect)]
+        [CodeExplodeExtensionMethod("Collect", new[] { "Func", "Times" }, Comments.Collect)]
         public static Func<Func<T1, U>, uint, Func<T1, List<U>>> L_Collect<T1, U>()
-        {
+            {
             return (Func, Times) =>
             {
-                return (o1) =>
+                return o1 =>
                 {
                     List<U> Out = new List<U>();
-                    0.To((int)Times - 1, L.IList_Add.Surround2(Func.Supply(o1).Cast<U, Object>()).Supply(Out));
+                    0.To((int)Times - 1, () => Out.Add(Func(o1)));
                     return Out;
                 };
             };
-        }
+            }
         /// <summary>
         /// Returns a Func that collects the result of In into a List[U]. The Func will be run [Count] times and there will be that many items in the resulting List[U].
         /// </summary>
@@ -619,19 +610,19 @@ namespace LCore
         /// <typeparam name="T2"></typeparam>
         /// <typeparam name="U"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("Collect", new String[] { "Func", "Times" }, L.Comments.Collect)]
+        [CodeExplodeExtensionMethod("Collect", new[] { "Func", "Times" }, Comments.Collect)]
         public static Func<Func<T1, T2, U>, uint, Func<T1, T2, List<U>>> L_Collect<T1, T2, U>()
-        {
+            {
             return (Func, Times) =>
             {
                 return (o1, o2) =>
                 {
                     List<U> Out = new List<U>();
-                    0.To((int)Times - 1, L.IList_Add.Surround2(Func.Supply(o1, o2).Cast<U, Object>()).Supply(Out));
+                    0.To((int)Times - 1, () => Out.Add(Func(o1, o2)));
                     return Out;
                 };
             };
-        }
+            }
         /// <summary>
         /// Returns a Func that collects the result of In into a List[U]. The Func will be run [Count] times and there will be that many items in the resulting List[U].
         /// </summary>
@@ -640,19 +631,19 @@ namespace LCore
         /// <typeparam name="T3"></typeparam>
         /// <typeparam name="U"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("Collect", new String[] { "Func", "Times" }, L.Comments.Collect)]
+        [CodeExplodeExtensionMethod("Collect", new[] { "Func", "Times" }, Comments.Collect)]
         public static Func<Func<T1, T2, T3, U>, uint, Func<T1, T2, T3, List<U>>> L_Collect<T1, T2, T3, U>()
-        {
+            {
             return (Func, Times) =>
             {
                 return (o1, o2, o3) =>
                 {
                     List<U> Out = new List<U>();
-                    0.To((int)Times - 1, L.IList_Add.Surround2(Func.Supply(o1, o2, o3).Cast<U, Object>()).Supply(Out));
+                    0.To((int)Times - 1, () => Out.Add(Func(o1, o2, o3)));
                     return Out;
                 };
             };
-        }
+            }
         /// <summary>
         /// Returns a Func that collects the result of In into a List[U]. The Func will be run [Count] times and there will be that many items in the resulting List[U].
         /// </summary>
@@ -662,20 +653,21 @@ namespace LCore
         /// <typeparam name="T4"></typeparam>
         /// <typeparam name="U"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("Collect", new String[] { "Func", "Times" }, L.Comments.Collect)]
+        [CodeExplodeExtensionMethod("Collect", new[] { "Func", "Times" }, Comments.Collect)]
         public static Func<Func<T1, T2, T3, T4, U>, uint, Func<T1, T2, T3, T4, List<U>>> L_Collect<T1, T2, T3, T4, U>()
-        {
+            {
             return (Func, Times) =>
             {
                 return (o1, o2, o3, o4) =>
                 {
                     List<U> Out = new List<U>();
-                    0.To((int)Times - 1, L.IList_Add.Surround2(Func.Supply(o1, o2, o3, o4).Cast<U, Object>()).Supply(Out));
+                    0.To((int)Times - 1, () => Out.Add(Func(o1, o2, o3, o4)));
                     return Out;
                 };
             };
-        }
+            }
         #endregion
+
         /*
         #region Collect While
         /// <summary>
@@ -859,39 +851,40 @@ namespace LCore
             }
         #endregion
         */
+
         #region Loop
+
         /// <summary>
         /// Loop takes an action and returns a loop function, that takes an index and returns true to continue.
         /// </summary>
-        /// <param name="In"></param>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("Loop", new String[] { "In" }, L.Comments.MergeLoop, false, true)]
+        [CodeExplodeExtensionMethod("Loop", new[] { "In" }, Comments.MergeLoop, false, true)]
         //  [CodeExplodeGenerics("To", L.Comments.To)]
-        public static Func<Action, Func<int, /*GA,*/Boolean>> L_MergeLoop/*M*/()
-        {
-            return (In) => { return In.Merge(L.AlwaysLoop); };
-        }
+        public static Func<Action, Func<int, /*GA,*/bool>> L_MergeLoop/*M*/()
+            {
+            return In => In.Merge(AlwaysLoop);
+            }
         /// <summary>
         /// /Loop takes an action and returns a loop function, that takes an index and returns true to continue.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("Loop", new String[] { "In" }, L.Comments.MergeLoop)]
-        public static Func<Action<T1>, Func<int, T1, Boolean>> L_MergeLoop<T1>()
-        {
-            return (In) => { return In.Merge(L.AlwaysLoop).Rotate(); };
-        }
+        [CodeExplodeExtensionMethod("Loop", new[] { "In" }, Comments.MergeLoop)]
+        public static Func<Action<T1>, Func<int, T1, bool>> L_MergeLoop<T1>()
+            {
+            return In => In.Merge(AlwaysLoop).Rotate();
+            }
         /// <summary>
         /// Loop takes an action and returns a loop function, that takes an index and returns true to continue.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("Loop", new String[] { "In" }, L.Comments.MergeLoop)]
-        public static Func<Action<T1, T2>, Func<int, T1, T2, Boolean>> L_MergeLoop<T1, T2>()
-        {
-            return (In) => { return In.Merge(L.AlwaysLoop).Rotate(); };
-        }
+        [CodeExplodeExtensionMethod("Loop", new[] { "In" }, Comments.MergeLoop)]
+        public static Func<Action<T1, T2>, Func<int, T1, T2, bool>> L_MergeLoop<T1, T2>()
+            {
+            return In => In.Merge(AlwaysLoop).Rotate();
+            }
         /// <summary>
         /// Loop takes an action and returns a loop function, that takes an index and returns true to continue.
         /// </summary>
@@ -899,22 +892,24 @@ namespace LCore
         /// <typeparam name="T2"></typeparam>
         /// <typeparam name="T3"></typeparam>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("Loop", new String[] { "In" }, L.Comments.MergeLoop)]
-        public static Func<Action<T1, T2, T3>, Func<int, T1, T2, T3, Boolean>> L_MergeLoop<T1, T2, T3>()
-        {
-            return (In) => { return In.Merge(L.AlwaysLoop).Rotate(); };
-        }
+        [CodeExplodeExtensionMethod("Loop", new[] { "In" }, Comments.MergeLoop)]
+        public static Func<Action<T1, T2, T3>, Func<int, T1, T2, T3, bool>> L_MergeLoop<T1, T2, T3>()
+            {
+            return In => In.Merge(AlwaysLoop).Rotate();
+            }
         #endregion
+
+        // Explode
 
         #region To
         /// <summary>
         /// Loops an Action from a to b. a and b can be any integers.
         /// </summary>
         /// <returns></returns>
-        [CodeExplodeExtensionMethod("To", new String[] { "In", "To", "Act" }, L.Comments.To, false, true)]
-        [CodeExplodeGenerics("To", L.Comments.To)]
+        [CodeExplodeExtensionMethod("To", new[] { "In", "To", "Act" }, Comments.To, false, true)]
+        [CodeExplodeGenerics("To", Comments.To)]
         public static Func<int, int, Action, Action> L_To/*MA*/()
-        {
+            {
             return (In, To, Action) =>
             {
                 if (In == To)
@@ -922,19 +917,19 @@ namespace LCore
 
                 return () =>
                 {
-                    Boolean Positive = In < To;
+                    bool Positive = In < To;
                     int Increment = Positive ? 1 : -1;
                     for (int i = In; Positive ? i <= To : i >= To; i += Increment)
-                    {
+                        {
                         Action();
-                    }
+                        }
                 };
             };
-        }
-        [CodeExplodeExtensionMethod("To", new String[] { "In", "To", "Act" }, L.Comments.To, true, true)]
-        [CodeExplodeGenerics("To", L.Comments.To, CodeExplode_ExplodeLogic.ExplodeCount - 1)]
+            }
+        [CodeExplodeExtensionMethod("To", new[] { "In", "To", "Act" }, Comments.To, true, true)]
+        [CodeExplodeGenerics("To", Comments.To, CodeExplode_ExplodeLogic.ExplodeCount - 1)]
         public static Func<int, int, Action<int/*,GA*/>, Action> L_ToI/*MA*/()
-        {
+            {
             return (In, To, Action) =>
             {
                 if (In == To)
@@ -942,22 +937,22 @@ namespace LCore
 
                 return () =>
                 {
-                    Boolean Positive = In < To;
+                    bool Positive = In < To;
                     int Increment = Positive ? 1 : -1;
                     for (int i = In; Positive ? i <= To : i >= To; i += Increment)
-                    {
+                        {
                         Action(i/*,A*/);
-                    }
+                        }
                 };
             };
-        }
+            }
         /// <summary>
         /// Loops an Action that takes an index and returns false to break out of the loop. a and b can be any integers.
         /// </summary>
-        [CodeExplodeExtensionMethod("For", new String[] { "In", "To", "Loop" }, L.Comments.For, true, true)]
-        [CodeExplodeGenerics("For", L.Comments.For, CodeExplode_ExplodeLogic.ExplodeCount - 1)]
+        [CodeExplodeExtensionMethod("For", new[] { "In", "To", "Loop" }, Comments.For, true, true)]
+        [CodeExplodeGenerics("For", Comments.For, CodeExplode_ExplodeLogic.ExplodeCount - 1)]
         public static Func<int, int, Func<int, /*GA,*/bool>, Action> L_For/*MA*/()
-        {
+            {
             return (In, To, Loop) =>
             {
                 if (In == To)
@@ -965,32 +960,32 @@ namespace LCore
 
                 return () =>
                 {
-                    Boolean Positive = In < To;
+                    bool Positive = In < To;
                     int Increment = Positive ? 1 : -1;
                     for (int i = In; Positive ? i < To : i > To; i += Increment)
-                    {
+                        {
                         if (!Loop(i/*,A*/))
                             break;
-                    }
+                        }
                 };
             };
-        }
+            }
         #endregion
 
         public partial class Comments
-        {
-            public const String While = "Takes action In and returns an action that is performed for as long as Continue evaluates to true.";
-            public const String Until = "Takes Func In and returns a Func that is performed until Break evaluates to true, or In returns a non-null value. This value will be the method's return value.";
-            public const String DoWhile = "Takes action In and returns an action that is performed for as long as Continue evaluates to true.";
-            public const String DoUntil = "Takes Func In and returns a Func that is performed until Break evaluates to true, or In returns a non-null value. This value will be the method's return value.";
-            public const String Repeat = "Returns an action that is repeated a number of times.";
-            public const String Collect = "Returns a Func that collects the result of In into a List[U]. The Func will be run [Count] times and there will be that many items in the resulting List[U].";
-            public const String CollectWhile = "Returns a function that Executes Function In and adds the results to the resulting list. In is run for as long as Continue returns true.";
-            public const String CollectUntil = "Returns a function that Executes Function In and adds the results to the resulting list. In is run for as long as Break returns false.";
-            public const String MergeLoop = "Loop takes an action and returns a loop function, that takes an index and returns true to continue.";
-            public const String To = "Loops an Action from a to b. a and b can be any integers.";
-            public const String For = "Loops an Action that takes an index and returns false to break out of the loop. a and b can be any integers.";
-        }
+            {
+            public const string While = "Takes action In and returns an action that is performed for as long as Continue evaluates to true.";
+            public const string Until = "Takes Func In and returns a Func that is performed until Break evaluates to true, or In returns a non-null value. This value will be the method's return value.";
+            public const string DoWhile = "Takes action In and returns an action that is performed for as long as Continue evaluates to true.";
+            public const string DoUntil = "Takes Func In and returns a Func that is performed until Break evaluates to true, or In returns a non-null value. This value will be the method's return value.";
+            public const string Repeat = "Returns an action that is repeated a number of times.";
+            public const string Collect = "Returns a Func that collects the result of In into a List[U]. The Func will be run [Count] times and there will be that many items in the resulting List[U].";
+            public const string CollectWhile = "Returns a function that Executes Function In and adds the results to the resulting list. In is run for as long as Continue returns true.";
+            public const string CollectUntil = "Returns a function that Executes Function In and adds the results to the resulting list. In is run for as long as Break returns false.";
+            public const string MergeLoop = "Loop takes an action and returns a loop function, that takes an index and returns true to continue.";
+            public const string To = "Loops an Action from a to b. a and b can be any integers.";
+            public const string For = "Loops an Action that takes an index and returns false to break out of the loop. a and b can be any integers.";
+            }
 
 
         /*
@@ -1192,9 +1187,9 @@ namespace LCore
           };
           }
       */
-    }
+        }
     public static class LoopExt
-    {
+        {
         #region To
         /// <summary>
         /// Loops from In to To, performing Func. The results of Func are returned in a List[U].
@@ -1205,11 +1200,11 @@ namespace LCore
         /// <param name="Func"></param>
         /// <returns></returns>
         public static List<U> To<U>(this int In, int To, Func<U> Func)
-        {
+            {
             List<U> Out = new List<U>();
-            In.To(To, (i) => { Out.Add(Func()); });
+            In.To(To, i => { Out.Add(Func()); });
             return Out;
-        }
+            }
         /// <summary>
         /// Loops from In to To, performing Func. The results of Func are returned in a List[U].
         /// </summary>
@@ -1219,15 +1214,15 @@ namespace LCore
         /// <param name="Func"></param>
         /// <returns></returns>
         public static List<U> To<U>(this int In, int To, Func<int, U> Func)
-        {
+            {
             List<U> Out = new List<U>();
-            In.To(To, (i) =>
+            In.To(To, i =>
                 {
                     Out.Add(Func(i));
                 }
                 );
             return Out;
-        }
+            }
         #endregion
+        }
     }
-}

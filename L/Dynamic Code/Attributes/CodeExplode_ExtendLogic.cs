@@ -1,15 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Reflection;
+
+using LCore.Tools;
+using LCore.Extensions;
 
 namespace LCore.Dynamic
     {
-    public class CodeExplode_ExtendLogic : CodeExplode
+    internal class CodeExplode_ExtendLogic : CodeExplode
         {
-        public override String ExplodeCode(Lists<String, MemberInfo> t)
+        public override string ExplodeCode(Lists<string, MemberInfo> t)
             {
-            return L.LogicMemberInfo_ToExtensionStrings(t, "", null);
+            return Logic.LogicMemberInfo_ToExtensionStrings(t, "", null);
             }
 
         public override bool ExplodeMember(MemberInfo Member)
@@ -21,7 +22,7 @@ namespace LCore.Dynamic
             {
             this.CodeRegionTitle = T.FullName;
             }
-        public CodeExplode_ExtendLogic(String CodeRegionTitle, String CodeFileName, String CodeNamespace) :
+        public CodeExplode_ExtendLogic(string CodeRegionTitle, string CodeFileName, string CodeNamespace) :
             base(CodeRegionTitle, CodeFileName, CodeNamespace)
             {
             }

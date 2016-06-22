@@ -1,28 +1,17 @@
 ﻿@* Generator: MvcView *@
-@using LCore;
-@using Singularity;
-@using Singularity.Models;
-@using Singularity.Controllers;
-@using Singularity.Context;
+
+
+@using LCore.Extensions;
 @using Singularity.Routes;
 @using Singularity.Extensions;
-@using System.Linq;
-@using System.Linq.Expressions;
-@using System.Collections;
-@using System.Collections.Generic;
-@using System.ComponentModel;
-@using System.ComponentModel.DataAnnotations;
-@using System.ComponentModel.Design;
-@using System.Web;
-@using System.Web.Mvc;
 
 @{
 
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = Layouts.MainLayout;
 
-    ViewBag.RestoreMode = Model.HasProperty("Active") && (Model.GetProperty("Active") as Boolean?) != true;
+    ViewBag.RestoreMode = Model.HasProperty("Active") && Model.GetProperty("Active") as bool? != true;
 
-    ViewBag.Title = (ViewBag.RestoreMode ? "Restore" : "Delete") + " " + Model.GetFriendlyTypeName() + ": " + @Model.ToString();
+    ViewBag.Title = $"{(ViewBag.RestoreMode ? "Restore" : "Delete")} {Model.GetFriendlyTypeName()}: {Model}";
 }
 
 @model IModel
@@ -37,13 +26,13 @@
         @Model.ToString()
     </h2>
 
-    <center>
+    <div style="text-align: center;">
         <h3>
             Are you sure you want to @(ViewBag.RestoreMode ? "restore" : "delete") this @Model.GetFriendlyTypeName()?
         </h3>
 
-        @using (Html.BeginForm("DeleteConfirm", (String)ViewBag.ControllerName, new { id = Model.GetID(), ReturnURL = ViewBag.ReturnURL, Restore = ViewBag.RestoreMode }))
-        {
+        @using (Html.BeginForm("DeleteConfirm", (string)ViewBag.ControllerName, new { id = Model.GetID(), ViewBag.ReturnURL, Restore = ViewBag.RestoreMode }))
+            {
             <a href="@ViewBag.ReturnURL"
                key-bind-click="N"
                class="btn-default btn-danger btn-lg pointer"
@@ -62,7 +51,7 @@
                     Yes
                 </span>
             </a>
-        }
-    </center>
+            }
+    </div>
 
 </div>

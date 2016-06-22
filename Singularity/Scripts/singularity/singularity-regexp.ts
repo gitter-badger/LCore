@@ -22,13 +22,13 @@ singRegExp.method('matchCount', StringMatchCount,
         returns: '',
         returnType: null,
         examples: null,
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringMatchCount(pattern: string) {
 
-    var match = this.match(pattern);
+    const match = this.match(pattern);
 
     if (!match)
         return 0;
@@ -43,13 +43,13 @@ singRegExp.method('hasMatch', StringHasMatch,
         returns: '',
         returnType: null,
         examples: null,
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringHasMatch(pattern: string): boolean {
 
-    var match = this.match(pattern);
+    const match = this.match(pattern);
 
     if (!match || match.length == 0)
         return false;
@@ -64,23 +64,25 @@ singRegExp.method('replaceRegExp', StringReplaceRegExp,
         returns: '',
         returnType: null,
         examples: null,
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringReplaceRegExp(pattern: RegExp, replace?: RegExp): string {
 
-    var out = this;
+    let out = this;
 
-    var match = out.match(pattern);
+    let match = out.match(pattern);
 
-    var outBefore = '';
-    var count = 0;
+    let outBefore = '';
+    let count = 0;
 
     if (match && match.length > 1 && outBefore != out && count < 10) {
+        // ReSharper disable once AssignedValueIsNeverUsed
         outBefore = out;
         out = out.replace(pattern, replace);
 
+        // ReSharper disable once AssignedValueIsNeverUsed
         match = out.match(pattern);
         count++;
     }
@@ -95,13 +97,15 @@ singRegExp.method('escapeRegExp', StringEscapeRegExp,
         returns: '',
         returnType: null,
         examples: null,
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringEscapeRegExp(): string {
 
-    var out = <string>(this || '');
+    // ReSharper disable once ConditionIsAlwaysConst
+    // ReSharper disable once HeuristicallyUnreachableCode
+    const out = (this || '') as string;
 
-    return out.replace(/([\\\.\+\*\?\[\^\]\$\(\)\{\}\=\!\<\>\|\:])/g, "\\$1");
+    return out.replace(/([\\\.\+\*\?\[\^\]\$\(\)\{\}\=\!\<\>\|\:])/g, '\\$1');
 }

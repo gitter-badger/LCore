@@ -12,118 +12,43 @@
 namespace ASP
 {
     using System;
-    
-    #line 13 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 14 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 15 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 16 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
     using System.ComponentModel.DataAnnotations;
-    
-    #line default
-    #line hidden
-    
-    #line 17 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
     using System.IO;
-    
-    #line 11 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
-    
-    #line 12 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 18 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 19 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 3 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
-    using LCore;
-    
-    #line default
-    #line hidden
-    
     #line 4 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+    using LCore.Extensions;
+    
+    #line default
+    #line hidden
     using Singularity;
-    
-    #line default
-    #line hidden
-    
-    #line 9 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
-    using Singularity.Annotations;
-    
-    #line default
-    #line hidden
-    
-    #line 7 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
     using Singularity.Controllers;
     
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+    #line 5 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
     using Singularity.Extensions;
     
     #line default
     #line hidden
-    
-    #line 5 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
     using Singularity.Models;
-    
-    #line default
-    #line hidden
-    
-    #line 8 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
-    using Singularity.Routes;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CustomExport/Fields/ExportType_After.cshtml")]
@@ -134,32 +59,12 @@ namespace ASP
         }
         public override void Execute()
         {
-
-
-WriteLiteral("\r\n\r\n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+WriteLiteral("\r\n\r\n\r\n");
 
 WriteLiteral("\r\n");
 
-
             
-            #line 21 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+            #line 7 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
   
     CustomExport Export = (CustomExport)Model.ModelData;
 
@@ -177,21 +82,15 @@ WriteLiteral("\r\n");
             }
         }
 
-    Dictionary<String, ModelMetadata> AllMeta;
-    Dictionary<String, List<ModelMetadata>> BasedMeta = new Dictionary<string, List<ModelMetadata>>();
+    Dictionary<string, List<ModelMetadata>> BasedMeta = new Dictionary<string, List<ModelMetadata>>();
 
-    if (ModelExportType == null)
-        {
-        AllMeta = new Dictionary<string, ModelMetadata>();
-        }
-    else
-        {
-        AllMeta = ModelExportType.GetMeta();
-        }
+    Dictionary<string, ModelMetadata> AllMeta = ModelExportType == null ?
+        new Dictionary<string, ModelMetadata>() :
+        ModelExportType.GetMeta();
 
-    AllMeta.Keys.Each((k) =>
+    AllMeta.Keys.Each(k =>
     {
-        String BaseKey = "";
+        string BaseKey = "";
 
         if (k.Contains("."))
             {
@@ -206,18 +105,13 @@ WriteLiteral("\r\n");
         BasedMeta[BaseKey].Add(AllMeta[k]);
     });
 
-
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
-
-
-WriteLiteral("\r\n");
-
+WriteLiteral("\r\n\r\n");
 
             
-            #line 70 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+            #line 50 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
  if (!Model.ViewTypes.HasAny(ControllerHelper.ViewType.TableCell))
     {
     if (ModelExportType != null)
@@ -226,12 +120,18 @@ WriteLiteral("\r\n");
             
             #line default
             #line hidden
-WriteLiteral("        <div class=\"field-list-add\" target=\"#Fields\" position=\"end\">\r\n           " +
-" <h3>");
+WriteLiteral("        <div");
 
+WriteLiteral(" class=\"field-list-add\"");
+
+WriteLiteral(" target=\"#Fields\"");
+
+WriteLiteral(" position=\"end\"");
+
+WriteLiteral(">\r\n            <h3>");
 
             
-            #line 75 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+            #line 55 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
            Write(Html.TextContent("Singularity_CustomExport_Fields", "Fields"));
 
             
@@ -239,53 +139,69 @@ WriteLiteral("        <div class=\"field-list-add\" target=\"#Fields\" position=
             #line hidden
 WriteLiteral("</h3>\r\n\r\n");
 
-
             
-            #line 77 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
-             foreach (String BaseKey in BasedMeta.Keys)
+            #line 57 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+            
+            
+            #line default
+            #line hidden
+            
+            #line 57 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+             foreach (string BaseKey in BasedMeta.Keys)
                 {
 
             
             #line default
             #line hidden
-WriteLiteral("                <span class=\"btn-info btn left method-show-hide\" click-fade-toggl" +
-"e=\".field-group-");
+WriteLiteral("                <span");
 
+WriteLiteral(" class=\"btn-info btn left method-show-hide\"");
 
+WriteAttribute("click-fade-toggle", Tuple.Create(" click-fade-toggle=\"", 1502), Tuple.Create("\"", 1563)
+, Tuple.Create(Tuple.Create("", 1522), Tuple.Create(".field-group-", 1522), true)
             
-            #line 79 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
-                                                                                            Write(BaseKey.ReplaceAll(".", ""));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\">\r\n                    <glyph class=\"field-group-");
-
-
-            
-            #line 80 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
-                                         Write(BaseKey.ReplaceAll(".", ""));
-
+            #line 59 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+                 , Tuple.Create(Tuple.Create("", 1535), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "")
             
             #line default
             #line hidden
-WriteLiteral("\">&#x2b;</glyph>\r\n                    <glyph class=\"field-group-");
+, 1535), false)
+);
 
+WriteLiteral(">\r\n                    <glyph");
 
+WriteAttribute("class", Tuple.Create(" class=\"", 1593), Tuple.Create("\"", 1641)
+, Tuple.Create(Tuple.Create("", 1601), Tuple.Create("field-group-", 1601), true)
             
-            #line 81 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
-                                         Write(BaseKey.ReplaceAll(".", ""));
-
+            #line 60 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+, Tuple.Create(Tuple.Create("", 1613), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "")
             
             #line default
             #line hidden
-WriteLiteral("\" style=\" display: none;\">&#x2212;</glyph>\r\n                </span>\r\n");
+, 1613), false)
+);
 
+WriteLiteral(">&#x2b;</glyph>\r\n                    <glyph");
+
+WriteAttribute("class", Tuple.Create(" class=\"", 1685), Tuple.Create("\"", 1733)
+, Tuple.Create(Tuple.Create("", 1693), Tuple.Create("field-group-", 1693), true)
+            
+            #line 61 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+, Tuple.Create(Tuple.Create("", 1705), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "")
+            
+            #line default
+            #line hidden
+, 1705), false)
+);
+
+WriteLiteral(" style=\" display: none;\"");
+
+WriteLiteral(">&#x2212;</glyph>\r\n                </span>\r\n");
 
             
-            #line 83 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+            #line 63 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
 
-                if (String.IsNullOrEmpty(BaseKey))
+                if (string.IsNullOrEmpty(BaseKey))
                     {
 
             
@@ -293,9 +209,8 @@ WriteLiteral("\" style=\" display: none;\">&#x2212;</glyph>\r\n                <
             #line hidden
 WriteLiteral("                    <h4>");
 
-
             
-            #line 86 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+            #line 66 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
                    Write(ModelExportType.GetFriendlyTypeName());
 
             
@@ -303,93 +218,112 @@ WriteLiteral("                    <h4>");
             #line hidden
 WriteLiteral("</h4>\r\n");
 
-
             
-            #line 87 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+            #line 67 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+                    continue;
                     }
-                else
-                    {
 
             
             #line default
             #line hidden
-WriteLiteral("                    <h4>");
-
+WriteLiteral("                <h4>");
 
             
-            #line 90 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
-                   Write(BaseKey.ReplaceAll(".", " "));
+            #line 69 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+               Write(BaseKey.ReplaceAll(".", " "));
 
             
             #line default
             #line hidden
 WriteLiteral("</h4>\r\n");
 
-
             
-            #line 91 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
-                    }
+            #line 70 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
 
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                    <div class=\"field-group-");
-
-
-            
-            #line 93 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
-                                       Write(BaseKey.ReplaceAll(".", ""));
+                if (BasedMeta.ContainsKey(BaseKey))
+                    {
 
             
             #line default
             #line hidden
-WriteLiteral("\" style=\"display:none;\">\r\n");
+WriteLiteral("                    <div");
 
+WriteAttribute("class", Tuple.Create(" class=\"", 2160), Tuple.Create("\"", 2208)
+, Tuple.Create(Tuple.Create("", 2168), Tuple.Create("field-group-", 2168), true)
+            
+            #line 73 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+, Tuple.Create(Tuple.Create("", 2180), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "")
+            
+            #line default
+            #line hidden
+, 2180), false)
+);
+
+WriteLiteral(" style=\"display:none;\"");
+
+WriteLiteral(">\r\n");
 
             
-            #line 94 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+            #line 74 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+                        
+            
+            #line default
+            #line hidden
+            
+            #line 74 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
                          foreach (ModelMetadata Meta in BasedMeta[BaseKey])
                             {
-                            String Key = Meta.PropertyName;
+                            string Key = Meta.PropertyName;
 
-                            if (!String.IsNullOrEmpty(BaseKey))
+                            if (!string.IsNullOrEmpty(BaseKey))
                                 {
-                                Key = BaseKey + "." + Key;
+                                Key = $"{BaseKey}.{Key}";
                                 }
 
 
             
             #line default
             #line hidden
-WriteLiteral("                            <div class=\"field-list-row\" data-field-name=\"");
+WriteLiteral("                            <div");
 
+WriteLiteral(" class=\"field-list-row\"");
+
+WriteLiteral(" data-field-name=\"");
 
             
-            #line 103 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+            #line 83 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
                                                                     Write(Key);
 
             
             #line default
             #line hidden
-WriteLiteral("\" title=\"");
+WriteLiteral("\"");
 
-
+WriteAttribute("title", Tuple.Create(" title=\"", 2679), Tuple.Create("\"", 2691)
             
-            #line 103 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
-                                                                                 Write(Key);
-
+            #line 83 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+      , Tuple.Create(Tuple.Create("", 2687), Tuple.Create<System.Object, System.Int32>(Key
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                                <div class=\"add-button\">\r\n                   " +
-"                 <glyph>&#x2b;</glyph>\r\n                                </div>\r\n" +
-"                                <div class=\"field-name\">\r\n                      " +
-"              ");
+, 2687), false)
+);
 
+WriteLiteral(">\r\n                                <div");
+
+WriteLiteral(" class=\"add-button\"");
+
+WriteLiteral(">\r\n                                    <glyph>&#x2b;</glyph>\r\n                   " +
+"             </div>\r\n                                <div");
+
+WriteLiteral(" class=\"field-name\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                                    ");
 
             
-            #line 108 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+            #line 88 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
                                Write(Meta.GetDisplayName().Humanize());
 
             
@@ -397,9 +331,8 @@ WriteLiteral("\">\r\n                                <div class=\"add-button\">\
             #line hidden
 WriteLiteral("\r\n                                </div>\r\n                            </div>\r\n");
 
-
             
-            #line 111 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+            #line 91 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
                             }
 
             
@@ -407,9 +340,9 @@ WriteLiteral("\r\n                                </div>\r\n                    
             #line hidden
 WriteLiteral("                    </div>\r\n");
 
-
             
-            #line 113 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+            #line 93 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+                    }
                 }
 
             
@@ -417,15 +350,13 @@ WriteLiteral("                    </div>\r\n");
             #line hidden
 WriteLiteral("        </div>\r\n");
 
-
             
-            #line 115 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
+            #line 96 "..\..\Views\CustomExport\Fields\ExportType_After.cshtml"
         }
     }
             
             #line default
             #line hidden
-
         }
     }
 }

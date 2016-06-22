@@ -29,7 +29,7 @@ interface Function {
     fn_repeatEvery?: <T>(periodMS: number) => (...items: any[]) => T;
     fn_retry?: <T>(times: number) => (...items: any[]) => T;
 
-    fn_recurring?: (intervalMS: number, breakCondition?: number|((...items: any[]) => boolean)) => ((...items: any[]) => void);
+    fn_recurring?: (intervalMS: number, breakCondition?: number | ((...items: any[]) => boolean)) => ((...items: any[]) => void);
 
     fn_defer?: <T>(callback?: (...items: any[]) => void) => () => T;
     fn_delay?: <T>(delayMS: number) => (...items: any[]) => T;
@@ -49,7 +49,7 @@ interface Function {
     // fn_supply?: <T, U>(parameter: U) => (param: U, ...items: any[]) => T;
 }
 
-var singFunction = singExt.addModule(new sing.Module("Function", Function));
+var singFunction = singExt.addModule(new sing.Module('Function', Function));
 
 singFunction.glyphIcon = '&#xe019;';
 
@@ -67,18 +67,18 @@ singFunction.method('fn_try', FunctionTry,
         returnType: Function,
         examples: null,
         glyphIcon: '&#xe029;',
-        tests: function (ext) {
+        tests(ext) {
 
-            ext.addCustomTest(function () {
-                (function () {
+            ext.addCustomTest(() => {
+                (() => {
                     throw 'fail';
                 }).fn_try()();
             });
-        },
+        }
     });
 
 function FunctionTry() {
-    var source = <Function>this;
+    const source = this as Function;
     // Redirects to catch with no catchFunction
     return source.fn_catch();
 }
@@ -91,21 +91,21 @@ singFunction.method('fn_catch', FunctionCatch,
         returnType: Function,
         examples: null,
         glyphIcon: '&#xe029;',
-        tests: function (ext) {
-            ext.addCustomTest(function () {
+        tests(ext) {
+            ext.addCustomTest(() => {
 
                 var test = '';
 
-                (function () {
+                (() => {
                     throw 'fail';
-                }).fn_catch(function (ex) {
+                }).fn_catch(ex => {
                     test = ex;
                 })();
 
                 if (test != 'fail')
                     return 'failed';
             });
-        },
+        }
     });
 
 function FunctionCatch(catchFunction: Function, logFailure: boolean = false): Function {
@@ -127,6 +127,7 @@ function FunctionCatch(catchFunction: Function, logFailure: boolean = false): Fu
                 return catchFunction.apply(this, [ex].concat(arguments));
         }
 
+        // ReSharper disable once UsageOfPossiblyUnassignedValue
         return result;
     };
 }
@@ -139,24 +140,24 @@ singFunction.method('fn_log', FunctionLog,
         returnType: Function,
         examples: null,
         manuallyTested: true,
-        glyphIcon: '&#xe105;',
+        glyphIcon: '&#xe105;'
     });
 
 function FunctionLog(logAttempt: boolean = true, logSuccess: boolean = true, logFailure: boolean = true) {
 
-    var thisFunction = <Function>this;
+    var thisFunction = this as Function;
 
     return function () {
 
         try {
             if (logAttempt) {
-                log(['Attempting: ', thisFunction.name, arguments, result]);
+                log(['Attempting: ', thisFunction.name, arguments]);
             }
 
-            var result = thisFunction.apply(this, arguments);
+            const result = thisFunction.apply(this, arguments);
 
             if (logSuccess) {
-                log(['Completed: ' + thisFunction.name, arguments, result]);
+                log([`Completed: ${thisFunction.name}`, arguments, result]);
             }
 
             return result;
@@ -180,7 +181,7 @@ singFunction.method('fn_count', FunctionCount,
         returns: '',
         returnType: Function,
         glyphIcon: '&#xe141;',
-        examples: null,
+        examples: null
     });
 
 function FunctionCount(logFailure: boolean = false) {
@@ -189,16 +190,16 @@ function FunctionCount(logFailure: boolean = false) {
 
     return function () {
         try {
-            var result = source.apply(this, arguments);
+            const result = source.apply(this, arguments);
 
-            log([source.name, 'count:' + functionCallCount]);
+            log([source.name, `count:${functionCallCount}`]);
             log([arguments, result]);
 
             return result;
         }
         catch (ex) {
             if (logFailure) {
-                log(['FAILED', source.name, ex, 'count:' + functionCallCount]);
+                log(['FAILED', source.name, ex, `count:${functionCallCount}`]);
                 log([arguments]);
             }
 
@@ -215,7 +216,7 @@ singFunction.method('fn_cache', FunctionCache,
         returnType: Function,
         examples: null,
         glyphIcon: '&#xe121;',
-        manuallyTested: true,
+        manuallyTested: true
     });
 
 function FunctionCache(uniqueCacheID: string, expiresAfter: number = 0) {
@@ -240,16 +241,16 @@ function FunctionCache(uniqueCacheID: string, expiresAfter: number = 0) {
 
     return function (...items: any[]) {
 
-        var thisCaller = this;
+        const thisCaller = this;
 
-        var cache = ext.data['cache'];
+        const cache = ext.data['cache'];
 
         if (!cache[uniqueCacheID])
             cache[uniqueCacheID] = {};
 
-        var thisCache = cache[uniqueCacheID];
+        const thisCache = cache[uniqueCacheID];
 
-        var argStr = $.toStr(thisCaller) + '|||||||' + $.toStr(items);
+        const argStr = ObjectToStr(thisCaller) + '|||||||' + ObjectToStr(items);
 
         if (argStr.length > cacheKeyLimit) {
             return source.apply(thisCaller, items);
@@ -270,7 +271,7 @@ function FunctionCache(uniqueCacheID: string, expiresAfter: number = 0) {
                 thisCache[argStr] = {};
             }
 
-            var result = thisCache[argStr].value = source.apply(thisCaller, items);
+            const result = thisCache[argStr].value = source.apply(thisCaller, items);
 
             if (expiresAfter > 0) {
                 thisCache[argStr].expires = (new Date()).valueOf() + expiresAfter;
@@ -289,19 +290,15 @@ singFunction.method('fn_or', FunctionOR,
         returnType: Function,
         examples: null,
         glyphIcon: '&#xe110;',
-        tests: function (ext) {
-            ext.addCustomTest(function () {
+        tests(ext) {
+            ext.addCustomTest(() => {
 
-                var fn_test = (function (a: number) {
-                    return a > 5;
-                }).fn_or((function (a: number) {
-                    return a < 0;
-                }));
+                var fn_test = ((a: number) => (a > 5)).fn_or(((a: number) => (a < 0)));
 
                 if (!fn_test(-50) || !fn_test(50) || fn_test(2))
                     return 'failed';
             });
-        },
+        }
     });
 
 function FunctionOR(orFunc: (...items: any[]) => boolean): (...items: any[]) => boolean {
@@ -310,8 +307,8 @@ function FunctionOR(orFunc: (...items: any[]) => boolean): (...items: any[]) => 
 
     return function () {
 
-        var result1 = source.apply(this, arguments);
-        var result2 = orFunc.apply(this, arguments);
+        const result1 = source.apply(this, arguments);
+        const result2 = orFunc.apply(this, arguments);
 
         return result1 || result2;
     };
@@ -326,16 +323,14 @@ singFunction.method('fn_if', FunctionIf,
         returnType: Function,
         examples: null,
         glyphIcon: '&#xe063;',
-        tests: function (ext) {
-            ext.addCustomTest(function () {
+        tests(ext) {
+            ext.addCustomTest(() => {
 
                 var a = 0;
 
-                var fn_test = (function () {
+                var fn_test = (() => {
                     a++;
-                }).fn_if((function (a: any) {
-                    return a == 'GO';
-                }));
+                }).fn_if(((a: any) => (a == 'GO')));
 
                 fn_test('NO');
 
@@ -349,7 +344,7 @@ singFunction.method('fn_if', FunctionIf,
                 if (a != 3)
                     return 'failed';
             });
-        },
+        }
     });
 
 function FunctionIf<T>(ifFunc: (...items: any[]) => boolean): (...items: any[]) => any {
@@ -372,16 +367,14 @@ singFunction.method('fn_unless', FunctionUnless,
         returnType: Function,
         examples: null,
         glyphIcon: '&#xe063;',
-        tests: function (ext) {
-            ext.addCustomTest(function () {
+        tests(ext) {
+            ext.addCustomTest(() => {
 
                 var a = 0;
 
-                var fn_test = (function () {
+                var fn_test = (() => {
                     a++;
-                }).fn_unless((function (a: any) {
-                    return a == 'NO';
-                }));
+                }).fn_unless(((a: any) => (a == 'NO')));
 
                 fn_test('NO');
 
@@ -395,7 +388,7 @@ singFunction.method('fn_unless', FunctionUnless,
                 if (a != 3)
                     return 'failed';
             });
-        },
+        }
     });
 
 function FunctionUnless(ifFunc: (...items: any[]) => boolean): (...items: any[]) => any {
@@ -418,42 +411,42 @@ singFunction.method('fn_then', FunctionThen,
         returnType: Function,
         examples: null,
         glyphIcon: '&#xe095;',
-        tests: function (ext) {
+        tests(ext) {
 
             /*
             ext.addCustomTest(function () {
-
+    
                 var test: any = 0;
-
+    
                 var fn_test = (function () {
                     test++;
                 }).fn_then((function () {
                     test += 'test';
                 }));
-
+    
                 fn_test();
-
+    
                 if (test != '1test')
                     return 'failed';
             });
-
+    
             ext.addCustomTest(function () {
-
+    
                 var test: any = 0;
-
+    
                 var fn_test = (function (test: any) {
                     return ++test;
                 }).fn_then((function (test: any) {
                     test += 'test';
                 }));
-
+    
                 fn_test(test);
-
+    
                 if (test != '1test')
                     return 'failed';
             });
             */
-        },
+        }
     });
 
 function FunctionThen(thenFunc: Function): Function {
@@ -462,12 +455,12 @@ function FunctionThen(thenFunc: Function): Function {
 
     return function (...items: any[]): any {
 
-        var out = srcThis.apply(this, items);
+        const out = srcThis.apply(this, items);
 
         if ($.isDefined(out))
             items.push(out);
 
-        var out2 = thenFunc.apply(this, items);
+        const out2 = thenFunc.apply(this, items);
 
         if ($.isDefined(out2))
             return out2;
@@ -484,55 +477,55 @@ singFunction.method('fn_repeat', FunctionRepeat,
         returnType: Function,
         examples: null,
         glyphIcon: '&#xe115;',
-        tests: function (ext) {
+        tests(ext) {
             /*
             ext.addCustomTest(function () {
-
+    
                 var test = 0;
-
+    
                 var test_fn = function () {
                     test++;
                 };
                 test_fn = test_fn.fn_repeat(5);
-
+    
                 test_fn();
-
+    
                 if (test != 5)
                     return 'failed';
             });
             ext.addCustomTest(function () {
-
+    
                 var test = [1, 2, 3, 4, 5];
                 var test2 = '';
-
+    
                 var test_fn = function (a?: any) {
                     test2 += a;
                 };
                 test_fn = test_fn.fn_repeat(test);
-
+    
                 test_fn();
-
+    
                 if (test2 != '12345')
                     return 'failed';
             });
             */
-        },
+        }
     });
 
-function FunctionRepeat(repeatOver: number | any[]| ((...items: any[]) => boolean)): (...items: any[]) => any {
+function FunctionRepeat(repeatOver: number | any[] | ((...items: any[]) => boolean)): (...items: any[]) => any {
 
     var srcThis = this;
 
     if ($.isFunction(repeatOver)) {
         return function (...items: any[]) {
 
-            var out: any[] = [];
+            const out: any[] = [];
 
-            var result = (<(...items: any[]) => boolean>repeatOver).apply(this, items);
+            var result = (repeatOver as (...items: any[]) => boolean).apply(this, items);
 
-            while (result != null && result != undefined) {
+            while (result != null) {
                 out.push(result);
-                result = (<(...items: any[]) => boolean>repeatOver).apply(this, items);
+                result = (repeatOver as (...items: any[]) => boolean).apply(this, items);
             }
 
             return out;
@@ -540,28 +533,27 @@ function FunctionRepeat(repeatOver: number | any[]| ((...items: any[]) => boolea
     }
 
     if ($.isNumber(repeatOver)) {
-        return function (...items: any[]) {
-            return (<number>repeatOver).timesDo(srcThis);
-        };
+        return () => (repeatOver as number).timesDo(this);
     }
 
     repeatOver = $.toArray(repeatOver);
 
     return function (...items: any[]) {
 
-        var out: any[] = [];
+        const out: any[] = [];
+        const array = repeatOver as any[];
+        for (let repeat in array) {
+            if ((array).hasOwnProperty(repeat)) {
 
-        for (var repeat in <any[]>repeatOver) {
+                const args = items;
+                args.push(repeat);
 
-            var args = items;
-            args.push(repeat);
+                const result = srcThis.apply(this, items);
 
-            var result = srcThis.apply(this, items);
+                if (result != null)
+                    out.push(result);
 
-            if (result != null &&
-                result != undefined)
-                out.push(result);
-
+            }
         }
 
         return out;
@@ -577,8 +569,8 @@ singFunction.method('fn_while', FunctionWhile,
         returnType: Function,
         examples: null,
         glyphIcon: '&#xe030;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function FunctionWhile(condition: ((...items: any[]) => boolean)): (...items: any[]) => any {
@@ -595,8 +587,8 @@ singFunction.method('fn_retry', FunctionRetry,
         returnType: Function,
         examples: null,
         glyphIcon: '&#xe031;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function FunctionRetry(times: number = 1): (...items: any[]) => any {
@@ -610,15 +602,14 @@ function FunctionRetry(times: number = 1): (...items: any[]) => any {
 
         while (attempts < times) {
             try {
-                var result = srcThis.apply(this, items);
+                const result = srcThis.apply(this, items);
                 return result;
-            }
-            catch (ex) {
+            } catch (ex) {
                 exception = ex;
                 attempts++;
             }
         }
-        throw 'Failed ' + times + ' times with ' + exception;
+        throw `Failed ${times} times with ${exception}`;
     };
 }
 
@@ -630,8 +621,8 @@ singFunction.method('fn_time', FunctionTime,
         returnType: Function,
         examples: null,
         glyphIcon: '&#x231b;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function FunctionTime() {
@@ -640,15 +631,15 @@ function FunctionTime() {
 
     return function (...items: any[]) {
 
-        var start = new Date().valueOf();
+        const start = new Date().valueOf();
 
         srcThis.apply(this, items);
 
-        var end = new Date().valueOf();
+        const end = new Date().valueOf();
 
-        var length = (end - start).max(0);
+        const length = (end - start).max(0);
 
-        log('Completed: ' + srcThis.name + ' in ' + length + ' milliseconds');
+        log(`Completed: ${srcThis.name} in ${length} milliseconds`);
 
         return length;
     };
@@ -663,17 +654,15 @@ singFunction.method('fn_defer', FunctionDefer,
         examples: null,
         glyphIcon: '&#xe234;',
         aliases: ['async'],
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function FunctionDefer(callback?: Function) {
-
     var srcThis = this;
-
-    return function (...items: any[]) {
-        setTimeout(function () {
-            var result = srcThis.apply(this, items);
+    return (...items: any[]) => {
+        setTimeout(() => {
+            const result = srcThis.apply(srcThis, items);
             if (callback)
                 callback(result);
         }, 1);
@@ -688,19 +677,16 @@ singFunction.method('fn_delay', FunctionDelay,
         returnType: Function,
         examples: null,
         glyphIcon: '&#xe234;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function FunctionDelay(delayMS: number, callback?: Function) {
-
-    var srcThis = this;
-
     delayMS = delayMS.max(1);
 
-    return function (...items: any[]) {
+    return (...items: any[]) => {
         setTimeout(function () {
-            var result = srcThis.apply(this, items);
+            const result = this.apply(this, items);
             if (callback)
                 callback(result);
         }, delayMS);
@@ -715,8 +701,8 @@ singFunction.method('fn_before', FunctionBefore,
         returnType: Function,
         examples: null,
         glyphIcon: '&#xe070;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function FunctionBefore(triggerFunc?: Function) {
@@ -727,7 +713,7 @@ function FunctionBefore(triggerFunc?: Function) {
 
         triggerFunc.apply(this, items);
 
-        var result = srcThis.apply(this, items);
+        const result = srcThis.apply(this, items);
 
         return result;
 
@@ -742,8 +728,8 @@ singFunction.method('fn_after', FunctionAfter,
         returnType: Function,
         examples: null,
         glyphIcon: '&#xe076;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function FunctionAfter(triggerFunc?: Function) {
@@ -752,7 +738,7 @@ function FunctionAfter(triggerFunc?: Function) {
 
     return function (...items: any[]) {
 
-        var result = srcThis.apply(this, items);
+        const result = srcThis.apply(this, items);
 
         items.push(result);
 
@@ -771,8 +757,8 @@ singFunction.method('fn_wrap', FunctionWrap,
         returnType: Function,
         examples: null,
         glyphIcon: '&#xe102;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function FunctionWrap(triggerFunc?: Function) {
@@ -783,7 +769,7 @@ function FunctionWrap(triggerFunc?: Function) {
 
         triggerFunc.apply(this, items);
 
-        var result = srcThis.apply(this, items);
+        const result = srcThis.apply(this, items);
 
         items.push(result);
 
@@ -802,8 +788,8 @@ singFunction.method('fn_trace', FunctionTrace,
         returnType: Function,
         examples: null,
         glyphIcon: '&#xe105;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function FunctionTrace(traceStr?: string) {
@@ -817,7 +803,7 @@ function FunctionTrace(traceStr?: string) {
 
         console.trace();
 
-        var result = srcThis.apply(this, items);
+        const result = srcThis.apply(this, items);
 
         return result;
     };
@@ -831,27 +817,27 @@ singFunction.method('fn_recurring', FunctionRecurring,
         returnType: Function,
         examples: null,
         glyphIcon: '&#xe031;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
-function FunctionRecurring(intervalMS: number, breakCondition?: number|((...items: any[]) => boolean)) {
+function FunctionRecurring(intervalMS: number, breakCondition?: number | ((...items: any[]) => boolean)) {
 
-    var srcThis = <Function>this;
+    var srcThis = this as Function;
 
-    var minimum = 10;
+    const minimum = 10;
 
     var runs = 0;
 
     intervalMS = intervalMS.max(minimum);
 
-    var setTimer = function (src: Function, items: any[]) {
+    var setTimer = (src: Function, items: any[]) => {
         if ($.isNumber(breakCondition) && breakCondition > 0 && runs >= breakCondition)
             return;
-        else if ($.isFunction(breakCondition) && (<((...items: any[]) => boolean) >breakCondition)(items) == true)
+        else if ($.isFunction(breakCondition) && (breakCondition as ((...items: any[]) => boolean))(items))
             return;
 
-        setTimeout(function () {
+        setTimeout(() => {
             setTimer(src, items);
         }, intervalMS);
 
@@ -862,7 +848,7 @@ function FunctionRecurring(intervalMS: number, breakCondition?: number|((...item
 
     return function (...items: any[]) {
 
-        var src = this;
+        const src = this;
 
         setTimer(src, items);
     };
@@ -876,28 +862,21 @@ singFunction.method('executeAll', ArrayExecuteAll,
         returnType: Function,
         examples: null,
         glyphIcon: '&#xe162;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     }, Array.prototype);
 
 function ArrayExecuteAll(...items: Function[]): any[] {
     if (!items.every($.isFunction))
         throw 'Not all items were functions';
-
-    var srcThis = this;
-
-    var out: any[] = [];
-
-    out = items.collect(function (item) {
-        return item.apply(srcThis, items);
-    });
+    const out = items.collect(item => item.apply(this, items));
 
     return out;
 }
 
 singFunction.method('fn_not', FunctionNot,
     {
-        glyphIcon: '&#xe126;',
+        glyphIcon: '&#xe126;'
     });
 
 function FunctionNot(): Function {
@@ -906,7 +885,7 @@ function FunctionNot(): Function {
 
     return function (...items: any[]) {
 
-        var result = srcThis.apply(this, items);
+        const result = srcThis.apply(this, items);
 
         return !result;
     };

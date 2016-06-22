@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Collections;
-using System.Reflection;
-using System.Threading;
-using LCore;
-using LCore.Dynamic;
+using LCore.Extensions;
 
-namespace LCore
+namespace LCore.Tools
     {
     public class ExceptionList : Exception
         {
@@ -27,20 +22,8 @@ namespace LCore
             this.Exceptions = Exceptions.List();
             }
 
-        public override string Message
-            {
-            get
-                {
-                return Exceptions.Convert(L.Exception_GetMessage).JoinLines();
-                }
-            }
+        public override string Message => this.Exceptions.Convert(e => e.Message).JoinLines();
 
-        public override string StackTrace
-            {
-            get
-                {
-                return Exceptions.Convert(L.Exception_GetStackTrace).JoinLines();
-                }
-            }
+        public override string StackTrace => this.Exceptions.Convert(e => e.StackTrace).JoinLines();
         }
     }

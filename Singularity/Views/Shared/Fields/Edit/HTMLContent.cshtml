@@ -1,20 +1,5 @@
 ﻿@* Generator: MvcView *@
-
-@using LCore;
-@using Singularity;
-@using Singularity.Models;
-@using Singularity.Controllers;
-@using Singularity.Context;
-@using System.Collections;
-@using System.Collections.Generic;
-@using System.ComponentModel;
-@using System.ComponentModel.Design;
-@using System.Web;
-@using System.Web.Mvc;
-@using System.Linq;
-@using System.Linq.Expressions;
-@using System.ComponentModel.DataAnnotations;
-@using System.ComponentModel.DataAnnotations.Schema;
+@using LCore.Extensions;
 
 @{
 }
@@ -23,8 +8,8 @@
 
 @if (!Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell))
     {
-    <script src="/Scripts/wysihtml5-0.3.0-parser-advanced.js"></script>
-    <script src="/Scripts/wysihtml5-0.3.0.js"></script>
+    <script src="/Scripts/include/wysihtml5/wysihtml5-0.3.0-parser-advanced.js"></script>
+    <script src="/Scripts/include/wysihtml5/wysihtml5-0.3.0.js"></script>
 
     <div class="wysihtml5" data-property="@Model.PropertyName">
         <div id="wysihtml5-toolbar-@Model.PropertyName" class="wysihtml5-toolbar" style="display: none;">
@@ -57,10 +42,4 @@
 
         <textarea id="@Model.PropertyName" name="@Model.PropertyName" placeholder="" autofocus>@Html.Raw(Model.PropertyData)</textarea>
     </div>
-    }
-else
-    {
-    @*
-    @Html.Raw(Model.PropertyData)
-    *@
     }

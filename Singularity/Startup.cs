@@ -8,7 +8,7 @@ namespace Singularity.Config
         {
         public void Configuration(IAppBuilder app)
             {
-            ConfigureAuth(app);
+            this.ConfigureAuth(app);
             }
         }
     }

@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using LCore.Extensions;
 
 namespace LCore.Dynamic
     {
-    public class CodeExplodeGenerics_ReplaceArguments : CodeExplodeGenerics
+    internal class CodeExplodeGenerics_ReplaceArguments : CodeExplodeGenerics
         {
-        public int[] ArgIndexes = null;
-        public String[] ArgNames = null;
-        public String PreArgs = null;
-        public String PostArgs = null;
+        public int[] ArgIndexes;
+        public string[] ArgNames;
+        public string PreArgs;
+        public string PostArgs;
 
-        public CodeExplodeGenerics_ReplaceArguments(String Name, int[] ArgIndexes, String[] ArgNames,
-            String Comments = "", String PreArgs = "", String PostArgs = "", int MaximumGeneric = CodeExplode_ExplodeLogic.ExplodeCount)
+        public CodeExplodeGenerics_ReplaceArguments(string Name, int[] ArgIndexes, string[] ArgNames,
+            string Comments = "", string PreArgs = "", string PostArgs = "", int MaximumGeneric = CodeExplode_ExplodeLogic.ExplodeCount)
             : base(Name, Comments, MaximumGeneric)
             {
             this.PreArgs = PreArgs;
@@ -25,20 +25,20 @@ namespace LCore.Dynamic
             {
             get
                 {
-                List<List<String>> Out = base.Replacements;
-                Out.Add(CodeExplodeGenerics.CodeReplacements_Args(PreArgs + "(", ")" + PostArgs, ";").Collect((s) =>
+                List<List<string>> Out = base.Replacements;
+                Out.Add(CodeReplacements_Args($"{this.PreArgs}(", $"){this.PostArgs}", ";").Collect(s =>
                 {
-                    ArgIndexes.EachI((i, Index) =>
+                    this.ArgIndexes.EachI((i, Index) =>
                     {
-                        s = s.Replace("(o" + (Index + 1).ToString() + ", ", "(" + ArgNames[i] + ", ");
-                        s = s.Replace(", o" + (Index + 1).ToString() + ", ", ", " + ArgNames[i] + ", ");
-                        s = s.Replace(", o" + (Index + 1).ToString() + ")", ", " + ArgNames[i] + ")");
-                        s = s.Replace("(o" + (Index + 1).ToString() + ")", "(" + ArgNames[i] + ")");
+                        s = s.Replace($"(o{(Index + 1).ToString()}, ", $"({this.ArgNames[i]}, ");
+                        s = s.Replace($", o{(Index + 1).ToString()}, ", $", {this.ArgNames[i]}, ");
+                        s = s.Replace($", o{(Index + 1).ToString()})", $", {this.ArgNames[i]})");
+                        s = s.Replace($"(o{(Index + 1).ToString()})", $"({this.ArgNames[i]})");
                     });
                     return s;
                 }));
 
-                Out = Cutoff(Out);
+                Out = this.Cutoff(Out);
 
                 return Out;
                 }

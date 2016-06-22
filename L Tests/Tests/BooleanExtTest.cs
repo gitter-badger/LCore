@@ -1,30 +1,17 @@
-﻿using LCore;
+﻿
+using LCore.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;
 
 namespace L_Tests
-{
-    [TestClass()]
-    public class BooleanExtTest
     {
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext
+    [TestClass]
+    public class BooleanExtTest
         {
-            get
+        public BooleanExtTest(TestContext TestContext)
             {
-                return testContextInstance;
             }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
 
         #region Additional test attributes
         // 
@@ -56,9 +43,9 @@ namespace L_Tests
         //
         #endregion
 
-        [TestMethod()]
+        [TestMethod]
         public void BooleanExtTests()
-        {
+            {
 
             Func<DayOfWeek, int> DateTime_GetDayNumber = L.F<DayOfWeek, int>()
                     .Case(DayOfWeek.Sunday, 0)
@@ -68,12 +55,12 @@ namespace L_Tests
                     .Case(DayOfWeek.Thursday, 4)
                     .Case(DayOfWeek.Friday, 5)
                     .Case(DayOfWeek.Saturday, 6)
-                    .Else(L.Fail).Debug();
+                    .Else(Logic.Fail).Debug();
 
             DateTime_GetDayNumber(DayOfWeek.Sunday);
 
             Debug.Write("BooleanExt Tests Running \r\n");
             typeof(BooleanExt).RunTypeTests();
+            }
         }
     }
-}

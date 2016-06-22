@@ -12,124 +12,38 @@
 namespace ASP
 {
     using System;
-    
-    #line 11 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 12 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 13 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 19 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
     using System.ComponentModel.DataAnnotations;
-    
-    #line default
-    #line hidden
-    
-    #line 20 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
-    using System.ComponentModel.DataAnnotations.Schema;
-    
-    #line default
-    #line hidden
-    
-    #line 14 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
     using System.IO;
-    
-    #line 17 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
-    
-    #line 18 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 15 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 16 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
-    
-    #line 3 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
-    using LCore;
-    
-    #line default
-    #line hidden
-    
-    #line 4 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
+    using LCore.Extensions;
     using Singularity;
-    
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
-    using Singularity.Annotations;
-    
-    #line default
-    #line hidden
-    
-    #line 7 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
     using Singularity.Controllers;
     
-    #line default
-    #line hidden
-    
-    #line 9 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
+    #line 2 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
     using Singularity.Extensions;
     
     #line default
     #line hidden
-    
-    #line 5 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
     using Singularity.Models;
-    
-    #line default
-    #line hidden
-    
-    #line 8 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
-    using Singularity.Routes;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/Fields/Edit/ComplexType.cshtml")]
@@ -140,74 +54,47 @@ namespace ASP
         }
         public override void Execute()
         {
-
-
-WriteLiteral("\r\n\r\n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+WriteLiteral("\r\n");
 
 WriteLiteral("\r\n");
 
-
             
-            #line 22 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
+            #line 4 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
   
-
 
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
-
-
-WriteLiteral("\r\n");
-
+WriteLiteral("\r\n\r\n");
 
             
-            #line 28 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
+            #line 10 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
  if (Model.PropertyData != null)
     {
     foreach (ModelMetadata SubMeta in Model.Meta.ModelType.Meta().Properties)
         {
-        ViewField Field = new ViewField(ViewContext, SubMeta.ModelType, Model.PropertyName + "." + SubMeta.PropertyName, (IModel)Model.PropertyData, Model.ViewTypes);
+        ViewField Field = new ViewField(ViewContext, SubMeta.ModelType, $"{Model.PropertyName}.{SubMeta.PropertyName}", (IModel)Model.PropertyData, Model.ViewTypes);
 
         
             
             #line default
             #line hidden
             
-            #line 34 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
+            #line 16 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
    Write(Html.ViewField(Field));
 
             
             #line default
             #line hidden
             
-            #line 34 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
+            #line 16 "..\..\Views\Shared\Fields\Edit\ComplexType.cshtml"
                               
         }
     }
             
             #line default
             #line hidden
-
         }
     }
 }

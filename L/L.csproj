@@ -60,7 +60,7 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\FriendlyName.cs" />
+    <Compile Include="Naming\Attributes\FriendlyName.cs" />
     <Compile Include="Dynamic Code\Attributes\AttributeList.cs" />
     <Compile Include="Dynamic Code\Attributes\CodeExplode.cs" />
     <Compile Include="Dynamic Code\Attributes\CodeExplode_ExtendLogic.cs" />
@@ -75,9 +75,8 @@
     <Compile Include="Dynamic Code\CodeExplode\Logic_Extension_Explode.cs" />
     <Compile Include="Dynamic Code\CodeExplode\LX_Explode.cs" />
     <Compile Include="Extensions\AzureCloudExt.cs" />
+    <Compile Include="Extensions\Methods\ExpressionExt.cs" />
     <Compile Include="Interfaces\IGrouped.cs" />
-    <Compile Include="NeuralNet\NeuralNet.cs" />
-    <Compile Include="NeuralNet\Neuron.cs" />
     <Compile Include="Numbers\Number.cs" />
     <Compile Include="Statistics\IQuantitativeSampleSet.cs" />
     <Compile Include="Statistics\IQualitativeSampleSet.cs" />
@@ -86,22 +85,25 @@
     <Compile Include="Statistics\SampleSet.cs" />
     <Compile Include="Statistics\ISampleSet.cs" />
     <Compile Include="Statistics\StatsExt.cs" />
+    <Compile Include="Tools\MethodProfileData.cs" />
+    <Compile Include="Tools\DoubleDictionary.cs" />
+    <Compile Include="Tools\RegistryHandler.cs" />
     <Compile Include="Tools\ExceptionList.cs" />
-    <Compile Include="Extensions\Testing\TestResultAttribute.cs" />
-    <Compile Include="Extensions\Testing\TestSourceAttribute.cs" />
-    <Compile Include="Extensions\Testing\TestFailsAttribute.cs" />
-    <Compile Include="Extensions\Testing\TestSucceedesAttribute.cs" />
-    <Compile Include="Extensions\Testing\TestAttribute.cs" />
-    <Compile Include="Extensions\Testing\TestExt.cs" />
+    <Compile Include="Tests\TestResultAttribute.cs" />
+    <Compile Include="Tests\TestSourceAttribute.cs" />
+    <Compile Include="Tests\TestFailsAttribute.cs" />
+    <Compile Include="Tests\TestSucceedesAttribute.cs" />
+    <Compile Include="Tests\TestAttribute.cs" />
+    <Compile Include="Tests\TestExt.cs" />
     <Compile Include="Interfaces\IHashTable.cs" />
-    <Compile Include="Interfaces\INamed.cs" />
+    <Compile Include="Naming\INamed.cs" />
     <Compile Include="Tools\Async\Tasks\TaskTimer.cs" />
     <Compile Include="Tools\Lists.cs" />
     <Compile Include="Extensions\Language\LanguageExt.cs" />
-    <Compile Include="Extensions\Object Types\EnumExt.cs" />
+    <Compile Include="Extensions\Value Types\EnumExt.cs" />
     <Compile Include="Extensions\Methods\LoopExt.cs" />
-    <Compile Include="Extensions\Object Types\ThreadExt.cs" />
-    <Compile Include="Extensions\Object Types\ExceptionExt.cs" />
+    <Compile Include="Extensions\Methods\ThreadExt.cs" />
+    <Compile Include="Extensions\Methods\ExceptionExt.cs" />
     <Compile Include="Extensions\Object Types\InterfaceExt.cs" />
     <Compile Include="Extensions\Value Types\FloatExt.cs" />
     <Compile Include="Extensions\Value Types\IntExt.cs" />
@@ -109,102 +111,37 @@
     <Compile Include="Extensions\Methods\BooleanExt.cs" />
     <Compile Include="Extensions\Object Types\DictionaryExt.cs" />
     <Compile Include="Extensions\Language\LambdaExt.cs" />
-    <Compile Include="Extensions\Object Types\DateTimeExt.cs" />
+    <Compile Include="Extensions\Value Types\DateTimeExt.cs" />
     <Compile Include="Extensions\Object Types\FileExt.cs" />
     <Compile Include="Interfaces\IL_Attribute_ReverseOrder.cs" />
     <Compile Include="Extensions\Object Types\StringExt.cs" />
     <Compile Include="Extensions\Object Types\TypeExt.cs" />
-    <Compile Include="Interfaces\IL_FriendlyName.cs" />
+    <Compile Include="Naming\IL_FriendlyName.cs" />
     <Compile Include="Extensions\Methods\L.cs" />
     <Compile Include="Extensions\Object Types\ListExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sorting\ComparableComparer.cs" />
-    <Compile Include="Sorting\Comparers.cs" />
-    <Compile Include="Sorting\CustomComparer.cs" />
-    <Compile Include="Sorting\DefaultSwap.cs" />
-    <Compile Include="Sorting\ISorter.cs" />
-    <Compile Include="Sorting\ISwap.cs" />
-    <Compile Include="Sorting\MultiSwap.cs" />
-    <Compile Include="Sorting\NaturalCompare.cs" />
-    <Compile Include="Sorting\PostSorter.cs" />
-    <Compile Include="Sorting\QuickSorter.cs" />
-    <Compile Include="Sorting\SwapSorter.cs" />
     <Compile Include="Tools\Async\Tasks\Task.cs" />
     <Compile Include="Tools\Async\Tasks\TaskManager.cs" />
     <Compile Include="Tools\Async\Tasks\Tasks.cs" />
-    <Compile Include="Tools\Async\Web\ASyncProgress.cs" />
-    <Compile Include="Tools\Async\Web\FileProcessor.cs" />
-    <Compile Include="Tools\Async\Web\IAsyncProgress.cs" />
-    <Compile Include="Tools\Communication\HttpCommunicator.cs" />
-    <Compile Include="Tools\Communication\WebClientTimeOut.cs">
+    <Compile Include="Tools\Web\ASyncProgress.cs" />
+    <Compile Include="Tools\Web\FileProcessor.cs" />
+    <Compile Include="Tools\Web\IAsyncProgress.cs" />
+    <Compile Include="Tools\Web\Communication\HttpCommunicator.cs" />
+    <Compile Include="Tools\Web\Communication\WebClientTimeOut.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Tools\DateTimeConverter.cs" />
-    <Compile Include="Tools\MatrixComparer.cs" />
-    <Compile Include="Tools\MatrixSwapper.cs" />
     <Compile Include="Tools\ProgressUpdater.cs" />
     <Compile Include="Tools\Schedule.cs" />
-    <Compile Include="Tools\SharpZip\BZip2\BZip2.cs" />
-    <Compile Include="Tools\SharpZip\BZip2\BZip2Constants.cs" />
-    <Compile Include="Tools\SharpZip\BZip2\BZip2Exception.cs" />
-    <Compile Include="Tools\SharpZip\BZip2\BZip2InputStream.cs" />
-    <Compile Include="Tools\SharpZip\BZip2\BZip2OutputStream.cs" />
-    <Compile Include="Tools\SharpZip\Checksums\Adler32.cs" />
-    <Compile Include="Tools\SharpZip\Checksums\CRC32.cs" />
-    <Compile Include="Tools\SharpZip\Checksums\IChecksum.cs" />
-    <Compile Include="Tools\SharpZip\Checksums\StrangeCRC.cs" />
-    <Compile Include="Tools\SharpZip\Core\FileSystemScanner.cs" />
-    <Compile Include="Tools\SharpZip\Core\INameTransform.cs" />
-    <Compile Include="Tools\SharpZip\Core\IScanFilter.cs" />
-    <Compile Include="Tools\SharpZip\Core\NameFilter.cs" />
-    <Compile Include="Tools\SharpZip\Core\PathFilter.cs" />
-    <Compile Include="Tools\SharpZip\Core\StreamUtils.cs" />
-    <Compile Include="Tools\SharpZip\Core\WindowsPathUtils.cs" />
-    <Compile Include="Tools\SharpZip\Encryption\PkzipClassic.cs" />
-    <Compile Include="Tools\SharpZip\GZip\GZIPConstants.cs" />
-    <Compile Include="Tools\SharpZip\GZip\GZipException.cs" />
-    <Compile Include="Tools\SharpZip\GZip\GzipInputStream.cs" />
-    <Compile Include="Tools\SharpZip\GZip\GzipOutputStream.cs" />
-    <Compile Include="Tools\SharpZip\Main.cs" />
-    <Compile Include="Tools\SharpZip\SharpZipBaseException.cs" />
-    <Compile Include="Tools\SharpZip\Tar\InvalidHeaderException.cs" />
-    <Compile Include="Tools\SharpZip\Tar\TarArchive.cs" />
-    <Compile Include="Tools\SharpZip\Tar\TarBuffer.cs" />
-    <Compile Include="Tools\SharpZip\Tar\TarEntry.cs" />
-    <Compile Include="Tools\SharpZip\Tar\TarException.cs" />
-    <Compile Include="Tools\SharpZip\Tar\TarHeader.cs" />
-    <Compile Include="Tools\SharpZip\Tar\TarInputStream.cs" />
-    <Compile Include="Tools\SharpZip\Tar\TarOutputStream.cs" />
-    <Compile Include="Tools\SharpZip\Zip\Compression\Deflater.cs" />
-    <Compile Include="Tools\SharpZip\Zip\Compression\DeflaterConstants.cs" />
-    <Compile Include="Tools\SharpZip\Zip\Compression\DeflaterEngine.cs" />
-    <Compile Include="Tools\SharpZip\Zip\Compression\DeflaterHuffman.cs" />
-    <Compile Include="Tools\SharpZip\Zip\Compression\DeflaterPending.cs" />
-    <Compile Include="Tools\SharpZip\Zip\Compression\Inflater.cs" />
-    <Compile Include="Tools\SharpZip\Zip\Compression\InflaterDynHeader.cs" />
-    <Compile Include="Tools\SharpZip\Zip\Compression\InflaterHuffmanTree.cs" />
-    <Compile Include="Tools\SharpZip\Zip\Compression\PendingBuffer.cs" />
-    <Compile Include="Tools\SharpZip\Zip\Compression\Streams\DeflaterOutputStream.cs" />
-    <Compile Include="Tools\SharpZip\Zip\Compression\Streams\InflaterInputStream.cs" />
-    <Compile Include="Tools\SharpZip\Zip\Compression\Streams\OutputWindow.cs" />
-    <Compile Include="Tools\SharpZip\Zip\Compression\Streams\StreamManipulator.cs" />
-    <Compile Include="Tools\SharpZip\Zip\FastZip.cs" />
-    <Compile Include="Tools\SharpZip\Zip\IEntryFactory.cs" />
-    <Compile Include="Tools\SharpZip\Zip\WindowsNameTransform.cs" />
-    <Compile Include="Tools\SharpZip\Zip\ZipConstants.cs" />
-    <Compile Include="Tools\SharpZip\Zip\ZipEntry.cs" />
-    <Compile Include="Tools\SharpZip\Zip\ZipEntryFactory.cs" />
-    <Compile Include="Tools\SharpZip\Zip\ZipException.cs" />
-    <Compile Include="Tools\SharpZip\Zip\ZipExtraData.cs" />
-    <Compile Include="Tools\SharpZip\Zip\ZipFile.cs" />
-    <Compile Include="Tools\SharpZip\Zip\ZipHelperStream.cs" />
-    <Compile Include="Tools\SharpZip\Zip\ZipInputStream.cs" />
-    <Compile Include="Tools\SharpZip\Zip\ZipNameTransform.cs" />
-    <Compile Include="Tools\SharpZip\Zip\ZipOutputStream.cs" />
     <Compile Include="Tools\StatMonitor.cs" />
     <Compile Include="Tools\StopWatch.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\L Utilities\L Utilities.csproj">
+      <Project>{d586b389-6bf3-47f0-bfd6-49a0ce6acd67}</Project>
+      <Name>L Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

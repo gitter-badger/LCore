@@ -12,124 +12,49 @@
 namespace ASP
 {
     using System;
-    
-    #line 11 "..\..\Views\Shared\Fields\FileUpload.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 12 "..\..\Views\Shared\Fields\FileUpload.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 13 "..\..\Views\Shared\Fields\FileUpload.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 19 "..\..\Views\Shared\Fields\FileUpload.cshtml"
     using System.ComponentModel.DataAnnotations;
-    
-    #line default
-    #line hidden
-    
-    #line 20 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-    using System.ComponentModel.DataAnnotations.Schema;
-    
-    #line default
-    #line hidden
-    
-    #line 14 "..\..\Views\Shared\Fields\FileUpload.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
     using System.IO;
-    
-    #line 17 "..\..\Views\Shared\Fields\FileUpload.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
-    
-    #line 18 "..\..\Views\Shared\Fields\FileUpload.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 15 "..\..\Views\Shared\Fields\FileUpload.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 16 "..\..\Views\Shared\Fields\FileUpload.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 3 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-    using LCore;
+    #line 4 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+    using LCore.Extensions;
     
     #line default
     #line hidden
-    
-    #line 4 "..\..\Views\Shared\Fields\FileUpload.cshtml"
     using Singularity;
     
-    #line default
-    #line hidden
-    
-    #line 9 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+    #line 5 "..\..\Views\Shared\Fields\FileUpload.cshtml"
     using Singularity.Annotations;
     
     #line default
     #line hidden
-    
-    #line 7 "..\..\Views\Shared\Fields\FileUpload.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\Shared\Fields\FileUpload.cshtml"
     using Singularity.Controllers;
     
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+    #line 6 "..\..\Views\Shared\Fields\FileUpload.cshtml"
     using Singularity.Extensions;
     
     #line default
     #line hidden
-    
-    #line 5 "..\..\Views\Shared\Fields\FileUpload.cshtml"
     using Singularity.Models;
-    
-    #line default
-    #line hidden
-    
-    #line 8 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-    using Singularity.Routes;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/Fields/FileUpload.cshtml")]
@@ -140,57 +65,31 @@ namespace ASP
         }
         public override void Execute()
         {
-
-
-WriteLiteral("\r\n\r\n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+WriteLiteral("\r\n\r\n\r\n");
 
 WriteLiteral("\r\n");
 
-
             
-            #line 22 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 8 "..\..\Views\Shared\Fields\FileUpload.cshtml"
   
     ModelContext Context = ContextProviderFactory.GetCurrent().GetContext(Session);
 
-    List<Singularity.Models.FileUpload> CurrentFiles = new List<Singularity.Models.FileUpload>();
+    List<FileUpload> CurrentFiles = new List<FileUpload>();
 
     IFileUpload Attr = Model.Meta.GetAttribute<IFileUpload>();
 
-    if (Context.ContextTypes.Has(typeof(Singularity.Models.FileUpload)))
+    if (Context.ContextTypes.Has(typeof(FileUpload)))
         {
-        CurrentFiles = Singularity.Models.FileUpload.GetFileUploads(Context, Model.ModelData, Model.PropertyName).List();
+        CurrentFiles = FileUpload.GetFileUploads(Context, Model.ModelData, Model.PropertyName).List();
         }
-
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
-
-
-WriteLiteral("\r\n");
-
+WriteLiteral("\r\n\r\n");
 
             
-            #line 37 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 23 "..\..\Views\Shared\Fields\FileUpload.cshtml"
  if (Model.ViewTypes.Has(ControllerHelper.ViewType.Edit))
     {
     if (CurrentFiles.Count > 0 &&
@@ -203,22 +102,28 @@ WriteLiteral("\r\n");
             
             #line default
             #line hidden
-WriteLiteral("        <div id=\"upload-file-");
+WriteLiteral("        <div");
 
-
+WriteAttribute("id", Tuple.Create(" id=\"", 743), Tuple.Create("\"", 779)
+, Tuple.Create(Tuple.Create("", 748), Tuple.Create("upload-file-", 748), true)
             
-            #line 45 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-                        Write(Model.PropertyName);
-
+            #line 31 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+, Tuple.Create(Tuple.Create("", 760), Tuple.Create<System.Object, System.Int32>(Model.PropertyName
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n\r\n            <script type=\"text/javascript\">\r\n                $(document).re" +
-"ady(function () {\r\n                    $(\'#file-upload-button-");
+, 760), false)
+);
 
+WriteLiteral(">\r\n\r\n            <script");
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral(">\r\n                $(document).ready(function () {\r\n                    $(\'#file-" +
+"upload-button-");
 
             
-            #line 49 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 35 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                       Write(Model.PropertyName);
 
             
@@ -226,9 +131,8 @@ WriteLiteral("\">\r\n\r\n            <script type=\"text/javascript\">\r\n      
             #line hidden
 WriteLiteral("\').click(function () {\r\n\r\n                        $(\'.file-upload-error-no-file-");
 
-
             
-            #line 51 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 37 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                                  Write(Model.PropertyName);
 
             
@@ -236,20 +140,18 @@ WriteLiteral("\').click(function () {\r\n\r\n                        $(\'.file-u
             #line hidden
 WriteLiteral("\').hide();\r\n\r\n                        var fileName = $(\'#file-upload-");
 
-
             
-            #line 53 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 39 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                                   Write(Model.PropertyName);
 
             
             #line default
             #line hidden
-WriteLiteral("\').val()\r\n\r\n                        if (!fileName) {\r\n                           " +
-" $(\'.file-upload-error-no-file-");
-
+WriteLiteral("\').val();\r\n                        if (!fileName) {\r\n                            " +
+"$(\'.file-upload-error-no-file-");
 
             
-            #line 56 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 41 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                                      Write(Model.PropertyName);
 
             
@@ -258,9 +160,8 @@ WriteLiteral("\').val()\r\n\r\n                        if (!fileName) {\r\n     
 WriteLiteral("\').show();\r\n                            return;\r\n                        }\r\n\r\n   " +
 "                     $(\'#file-upload-button-");
 
-
             
-            #line 60 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 45 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                           Write(Model.PropertyName);
 
             
@@ -268,9 +169,8 @@ WriteLiteral("\').show();\r\n                            return;\r\n            
             #line hidden
 WriteLiteral("\').attr(\'disabled\', \'true\');\r\n                        $(\'#file-upload-button-");
 
-
             
-            #line 61 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 46 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                           Write(Model.PropertyName);
 
             
@@ -279,9 +179,8 @@ WriteLiteral("\').attr(\'disabled\', \'true\');\r\n                        $(\'#
 WriteLiteral(" span\').html(\'Uploading\');\r\n\r\n                        var size = null;\r\n\r\n       " +
 "                 var restrictFileType = ");
 
-
             
-            #line 65 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 50 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                            Write(Attr.AllowFileTypes == null || Attr.AllowFileTypes.Length == 0 ? "false" : "true");
 
             
@@ -289,21 +188,21 @@ WriteLiteral(" span\').html(\'Uploading\');\r\n\r\n                        var s
             #line hidden
 WriteLiteral(";\r\n\r\n                        $(\'.file-upload-error-incorrect-type-");
 
-
             
-            #line 67 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 52 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                                          Write(Model.PropertyName);
 
             
             #line default
             #line hidden
-WriteLiteral("\').hide();\r\n\r\n                        if (restrictFileType)\r\n                    " +
-"    {\r\n                            var fileTypes = ");
+WriteLiteral("\').hide();\r\n                        if (restrictFileType) {\r\n                    " +
+"        var fileTypes =\r\n");
 
+WriteLiteral("                                ");
 
             
-            #line 71 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-                                       Write(Html.Raw("['" + Attr.AllowFileTypes.JoinLines("','").ToLower().ReplaceAll(".","") + "']"));
+            #line 55 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+                           Write(Html.Raw($"[\'{Attr.AllowFileTypes.JoinLines("','").ToLower().ReplaceAll(".", "")}\']"));
 
             
             #line default
@@ -323,9 +222,8 @@ WriteLiteral(@";
                             {
                                 $('.file-upload-error-incorrect-type-");
 
-
             
-            #line 84 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 68 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                                                  Write(Model.PropertyName);
 
             
@@ -334,9 +232,8 @@ WriteLiteral(@";
 WriteLiteral("\').show();\r\n                                return;\r\n                            " +
 "}\r\n                        }\r\n\r\n                        if ($(\'#file-upload-");
 
-
             
-            #line 89 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 73 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                         Write(Model.PropertyName);
 
             
@@ -344,9 +241,8 @@ WriteLiteral("\').show();\r\n                                return;\r\n        
             #line hidden
 WriteLiteral("\')[0].files && $(\'#file-upload-");
 
-
             
-            #line 89 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 73 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                                                                             Write(Model.PropertyName);
 
             
@@ -354,9 +250,8 @@ WriteLiteral("\')[0].files && $(\'#file-upload-");
             #line hidden
 WriteLiteral("\')[0].files[0])\r\n                            size = $(\'#file-upload-");
 
-
             
-            #line 90 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 74 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                                Write(Model.PropertyName);
 
             
@@ -364,9 +259,8 @@ WriteLiteral("\')[0].files[0])\r\n                            size = $(\'#file-u
             #line hidden
 WriteLiteral("\')[0].files[0].size;\r\n\r\n                        $(\'.file-upload-error-too-small-");
 
-
             
-            #line 92 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 76 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                                     Write(Model.PropertyName);
 
             
@@ -374,9 +268,8 @@ WriteLiteral("\')[0].files[0].size;\r\n\r\n                        $(\'.file-upl
             #line hidden
 WriteLiteral("\').hide();\r\n                        $(\'.file-upload-error-too-large-");
 
-
             
-            #line 93 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 77 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                                     Write(Model.PropertyName);
 
             
@@ -385,9 +278,8 @@ WriteLiteral("\').hide();\r\n                        $(\'.file-upload-error-too-
 WriteLiteral("\').hide();\r\n\r\n                        if (size != null) {\r\n\r\n                    " +
 "        if (size < ");
 
-
             
-            #line 97 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 81 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                    Write(Attr.SizeMinimum);
 
             
@@ -396,9 +288,8 @@ WriteLiteral("\').hide();\r\n\r\n                        if (size != null) {\r\n
 WriteLiteral(" )\r\n                            {\r\n                            $(\'.file-upload-er" +
 "ror-too-small-");
 
-
             
-            #line 99 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 83 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                                         Write(Model.PropertyName);
 
             
@@ -407,9 +298,8 @@ WriteLiteral(" )\r\n                            {\r\n                           
 WriteLiteral("\').show();\r\n                            return;\r\n                        }\r\n\r\n   " +
 "                     if (size > ");
 
-
             
-            #line 103 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 87 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                Write(Attr.SizeMaximum);
 
             
@@ -418,9 +308,8 @@ WriteLiteral("\').show();\r\n                            return;\r\n            
 WriteLiteral(" )\r\n                        {\r\n                        $(\'.file-upload-error-too-" +
 "large-");
 
-
             
-            #line 105 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 89 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                                     Write(Model.PropertyName);
 
             
@@ -429,9 +318,8 @@ WriteLiteral(" )\r\n                        {\r\n                        $(\'.fi
 WriteLiteral("\').show();\r\n                        return;\r\n                    }\r\n             " +
 "       }\r\n\r\n                    var ParentForm = $(\'#file-upload-button-");
 
-
             
-            #line 110 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 94 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                                        Write(Model.PropertyName);
 
             
@@ -439,9 +327,8 @@ WriteLiteral("\').show();\r\n                        return;\r\n                
             #line hidden
 WriteLiteral("\').parents(\'form\')[0];\r\n\r\n                $.ajax({\r\n                    url: \'/");
 
-
             
-            #line 113 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 97 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                        Write(Html.ControllerName());
 
             
@@ -449,40 +336,36 @@ WriteLiteral("\').parents(\'form\')[0];\r\n\r\n                $.ajax({\r\n     
             #line hidden
 WriteLiteral("/UploadFile?ReturnURL=");
 
-
             
-            #line 113 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-                                                                    Write(Request.Url.AbsoluteUri);
+            #line 97 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+                                                                    Write(Request.Url);
 
             
             #line default
             #line hidden
-WriteLiteral("&RelationType=");
-
+WriteLiteral("?.AbsoluteUri&RelationType=");
 
             
-            #line 113 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-                                                                                                          Write(Model.ModelData.TrueModelType().FullName);
+            #line 97 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+                                                                                                           Write(Model.ModelData.TrueModelType().FullName);
 
             
             #line default
             #line hidden
 WriteLiteral("&RelationProperty=");
 
-
             
-            #line 113 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-                                                                                                                                                                     Write(Model.PropertyName);
+            #line 97 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+                                                                                                                                                                      Write(Model.PropertyName);
 
             
             #line default
             #line hidden
 WriteLiteral("&RelationID=");
 
-
             
-            #line 113 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-                                                                                                                                                                                                    Write(Model.ModelData.GetID());
+            #line 97 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+                                                                                                                                                                                                     Write(Model.ModelData.GetID());
 
             
             #line default
@@ -493,143 +376,178 @@ WriteLiteral(@"',
                     processData: false,
                     contentType: false,
 
-                    success: function (data) {
+                    success: function () {
                         location.reload();
                     },
                     error: function (e) {
                         console.log(e);
                         $('.file-upload-error-");
 
-
             
-            #line 124 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 108 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                          Write(Model.PropertyName);
 
             
             #line default
             #line hidden
 WriteLiteral("\').show();\r\n                    }\r\n                });\r\n                });\r\n    " +
-"            });\r\n            </script>\r\n\r\n            <input type=\"file\" class=\"" +
-"file-upload\" id=\"file-upload-");
+"            });\r\n            </script>\r\n\r\n            <input");
 
+WriteLiteral(" type=\"file\"");
 
+WriteLiteral(" class=\"file-upload\"");
+
+WriteAttribute("id", Tuple.Create(" id=\"", 4711), Tuple.Create("\"", 4747)
+, Tuple.Create(Tuple.Create("", 4716), Tuple.Create("file-upload-", 4716), true)
             
-            #line 131 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-                                                              Write(Model.PropertyName);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\" name=\"UploadFile");
-
-
-            
-            #line 131 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-                                                                                                    Write(Model.PropertyName);
-
+            #line 115 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+, Tuple.Create(Tuple.Create("", 4728), Tuple.Create<System.Object, System.Int32>(Model.PropertyName
             
             #line default
             #line hidden
-WriteLiteral("\" />\r\n\r\n            <div class=\"file-upload-error-incorrect-type-");
+, 4728), false)
+);
 
-
+WriteAttribute("name", Tuple.Create(" name=\"", 4748), Tuple.Create("\"", 4786)
+, Tuple.Create(Tuple.Create("", 4755), Tuple.Create("UploadFile", 4755), true)
             
-            #line 133 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-                                                    Write(Model.PropertyName);
-
+            #line 115 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+                         , Tuple.Create(Tuple.Create("", 4765), Tuple.Create<System.Object, System.Int32>(Model.PropertyName
             
             #line default
             #line hidden
-WriteLiteral(" error\" style=\"display:none;\">\r\n                File types allowed: ");
+, 4765), false)
+);
 
+WriteLiteral(" />\r\n\r\n            <div");
+
+WriteAttribute("class", Tuple.Create(" class=\"", 4810), Tuple.Create("\"", 4876)
+, Tuple.Create(Tuple.Create("", 4818), Tuple.Create("file-upload-error-incorrect-type-", 4818), true)
+            
+            #line 117 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+, Tuple.Create(Tuple.Create("", 4851), Tuple.Create<System.Object, System.Int32>(Model.PropertyName
+            
+            #line default
+            #line hidden
+, 4851), false)
+, Tuple.Create(Tuple.Create(" ", 4870), Tuple.Create("error", 4871), true)
+);
+
+WriteLiteral(" style=\"display:none;\"");
+
+WriteLiteral(">\r\n                File types allowed: ");
 
             
-            #line 134 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 118 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                 Write(Attr.AllowFileTypes.JoinLines(", ").ToUpper().ReplaceAll(".", ""));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n            </div>\r\n\r\n            <div class=\"file-upload-error-too-large-");
+WriteLiteral("\r\n            </div>\r\n\r\n            <div");
 
-
+WriteAttribute("class", Tuple.Create(" class=\"", 5046), Tuple.Create("\"", 5107)
+, Tuple.Create(Tuple.Create("", 5054), Tuple.Create("file-upload-error-too-large-", 5054), true)
             
-            #line 137 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-                                               Write(Model.PropertyName);
-
+            #line 121 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+, Tuple.Create(Tuple.Create("", 5082), Tuple.Create<System.Object, System.Int32>(Model.PropertyName
             
             #line default
             #line hidden
-WriteLiteral(" error\" style=\"display:none;\">\r\n                Upload can not be larger than <b>" +
-"");
+, 5082), false)
+, Tuple.Create(Tuple.Create(" ", 5101), Tuple.Create("error", 5102), true)
+);
 
+WriteLiteral(" style=\"display:none;\"");
+
+WriteLiteral(">\r\n                Upload can not be larger than <b>");
 
             
-            #line 138 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 122 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                             Write(Attr.SizeMaximum.FormatFileSize(2));
 
             
             #line default
             #line hidden
-WriteLiteral("</b>\r\n            </div>\r\n\r\n            <div class=\"file-upload-error-too-small-");
+WriteLiteral("</b>\r\n            </div>\r\n\r\n            <div");
 
-
+WriteAttribute("class", Tuple.Create(" class=\"", 5261), Tuple.Create("\"", 5322)
+, Tuple.Create(Tuple.Create("", 5269), Tuple.Create("file-upload-error-too-small-", 5269), true)
             
-            #line 141 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-                                               Write(Model.PropertyName);
-
+            #line 125 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+, Tuple.Create(Tuple.Create("", 5297), Tuple.Create<System.Object, System.Int32>(Model.PropertyName
             
             #line default
             #line hidden
-WriteLiteral(" error\" style=\"display:none;\">\r\n                Upload must be at least <b>");
+, 5297), false)
+, Tuple.Create(Tuple.Create(" ", 5316), Tuple.Create("error", 5317), true)
+);
 
+WriteLiteral(" style=\"display:none;\"");
+
+WriteLiteral(">\r\n                Upload must be at least <b>");
 
             
-            #line 142 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 126 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                                       Write(Attr.SizeMinimum.FormatFileSize(2));
 
             
             #line default
             #line hidden
-WriteLiteral("</b>\r\n            </div>\r\n\r\n            <div class=\"file-upload-error-no-file-");
+WriteLiteral("</b>\r\n            </div>\r\n\r\n            <div");
 
-
+WriteAttribute("class", Tuple.Create(" class=\"", 5470), Tuple.Create("\"", 5529)
+, Tuple.Create(Tuple.Create("", 5478), Tuple.Create("file-upload-error-no-file-", 5478), true)
             
-            #line 145 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-                                             Write(Model.PropertyName);
-
-            
-            #line default
-            #line hidden
-WriteLiteral(" error\" style=\"display:none;\">\r\n                Please select a file to upload.\r\n" +
-"            </div>\r\n\r\n            <div class=\"file-upload-error-");
-
-
-            
-            #line 149 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-                                     Write(Model.PropertyName);
-
+            #line 129 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+, Tuple.Create(Tuple.Create("", 5504), Tuple.Create<System.Object, System.Int32>(Model.PropertyName
             
             #line default
             #line hidden
-WriteLiteral(" error\" style=\"display:none;\">\r\n                An error occured while uploading " +
-"this file.\r\n            </div>\r\n\r\n            <div class=\"btn btn-default\" id=\"f" +
-"ile-upload-button-");
+, 5504), false)
+, Tuple.Create(Tuple.Create(" ", 5523), Tuple.Create("error", 5524), true)
+);
 
+WriteLiteral(" style=\"display:none;\"");
 
+WriteLiteral(">\r\n                Please select a file to upload.\r\n            </div>\r\n\r\n       " +
+"     <div");
+
+WriteAttribute("class", Tuple.Create(" class=\"", 5642), Tuple.Create("\"", 5693)
+, Tuple.Create(Tuple.Create("", 5650), Tuple.Create("file-upload-error-", 5650), true)
             
-            #line 153 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-                                                           Write(Model.PropertyName);
-
+            #line 133 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+, Tuple.Create(Tuple.Create("", 5668), Tuple.Create<System.Object, System.Int32>(Model.PropertyName
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                <glyph>&#xE027;</glyph>\r\n                <span>Upload</span>\r" +
-"\n            </div>\r\n        </div>\r\n");
+, 5668), false)
+, Tuple.Create(Tuple.Create(" ", 5687), Tuple.Create("error", 5688), true)
+);
 
+WriteLiteral(" style=\"display:none;\"");
+
+WriteLiteral(">\r\n                An error occured while uploading this file.\r\n            </div" +
+">\r\n\r\n            <div");
+
+WriteLiteral(" class=\"btn btn-default\"");
+
+WriteAttribute("id", Tuple.Create(" id=\"", 5842), Tuple.Create("\"", 5885)
+, Tuple.Create(Tuple.Create("", 5847), Tuple.Create("file-upload-button-", 5847), true)
+            
+            #line 137 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+, Tuple.Create(Tuple.Create("", 5866), Tuple.Create<System.Object, System.Int32>(Model.PropertyName
+            
+            #line default
+            #line hidden
+, 5866), false)
+);
+
+WriteLiteral(">\r\n                <glyph>&#xE027;</glyph>\r\n                <span>Upload</span>\r\n" +
+"            </div>\r\n        </div>\r\n");
 
             
-            #line 158 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 142 "..\..\Views\Shared\Fields\FileUpload.cshtml"
         }
     }
 else if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell))
@@ -644,17 +562,16 @@ else if (Model.ViewTypes.Has(ControllerHelper.ViewType.Display))
             #line hidden
 WriteLiteral("\r\n");
 
-
             
-            #line 167 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 151 "..\..\Views\Shared\Fields\FileUpload.cshtml"
  if (Model.ViewTypes.Has(ControllerHelper.ViewType.Edit) ||
-    Model.ViewTypes.Has(ControllerHelper.ViewType.Display))
+                Model.ViewTypes.Has(ControllerHelper.ViewType.Display))
     {
-    foreach (Singularity.Models.FileUpload File in CurrentFiles)
+    foreach (FileUpload File in CurrentFiles)
         {
-        String Ext = System.IO.Path.GetExtension(File.FilePath);
+        string Ext = Path.GetExtension(File.FilePath);
 
-        if (Ext.StartsWith("."))
+        if (Ext != null && Ext.StartsWith("."))
             {
             Ext = Ext.Substring(1);
             }
@@ -663,55 +580,75 @@ WriteLiteral("\r\n");
             
             #line default
             #line hidden
-WriteLiteral("        <div class=\"display-file border-round\">\r\n\r\n            <div class=\"file-i" +
-"con\">\r\n                <a href=\"");
+WriteLiteral("        <div");
 
+WriteLiteral(" class=\"display-file border-round\"");
 
+WriteLiteral(">\r\n\r\n            <div");
+
+WriteLiteral(" class=\"file-icon\"");
+
+WriteLiteral(">\r\n                <a");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 6666), Tuple.Create("\"", 6757)
             
-            #line 182 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-                     Write(Url.Controller<ManageController>().Action(c => c.DownloadFile, File.FileUploadID));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\">\r\n                    <img src=\"/Content/icons/32px/");
-
-
-            
-            #line 183 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-                                              Write(Ext);
-
+            #line 166 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+, Tuple.Create(Tuple.Create("", 6673), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(c => c.DownloadFile, File.FileUploadID)
             
             #line default
             #line hidden
-WriteLiteral(".png\" alt=\"Image not found\" error-src=\"/Content/icons/32px/_blank.png\" />\r\n      " +
-"          </a>\r\n            </div>\r\n            <div>\r\n                <a href=\"" +
-"");
+, 6673), false)
+);
 
+WriteLiteral(">\r\n                    <img");
 
+WriteAttribute("src", Tuple.Create(" src=\"", 6785), Tuple.Create("\"", 6821)
+, Tuple.Create(Tuple.Create("", 6791), Tuple.Create("/Content/icons/32px/", 6791), true)
             
-            #line 187 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-                     Write(Url.Controller<ManageController>().Action(c => c.DownloadFile, File.FileUploadID));
-
+            #line 167 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+, Tuple.Create(Tuple.Create("", 6811), Tuple.Create<System.Object, System.Int32>(Ext
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                    Name:\r\n                    ");
+, 6811), false)
+, Tuple.Create(Tuple.Create("", 6817), Tuple.Create(".png", 6817), true)
+);
 
+WriteLiteral(" alt=\"Image not found\"");
+
+WriteLiteral(" error-src=\"/Content/icons/32px/_blank.png\"");
+
+WriteLiteral(" />\r\n                </a>\r\n            </div>\r\n            <div>\r\n               " +
+" <a");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 6971), Tuple.Create("\"", 7062)
+            
+            #line 171 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+, Tuple.Create(Tuple.Create("", 6978), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(c => c.DownloadFile, File.FileUploadID)
+            
+            #line default
+            #line hidden
+, 6978), false)
+);
+
+WriteLiteral(">\r\n                    Name:\r\n");
+
+WriteLiteral("                    ");
 
             
-            #line 189 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-                Write(System.IO.Path.GetFileName(File.FilePath));
+            #line 173 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+               Write(Path.GetFileName(File.FilePath));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n                </a>\r\n            </div>\r\n\r\n            <div>\r\n                " +
-"Size:\r\n                ");
+"Size:\r\n");
 
+WriteLiteral("                ");
 
             
-            #line 195 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 179 "..\..\Views\Shared\Fields\FileUpload.cshtml"
            Write(File.FileSize.FormatFileSize(1));
 
             
@@ -719,41 +656,50 @@ WriteLiteral("\r\n                </a>\r\n            </div>\r\n\r\n            
             #line hidden
 WriteLiteral("\r\n            </div>\r\n\r\n");
 
-
             
-            #line 198 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 182 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            
+            
+            #line default
+            #line hidden
+            
+            #line 182 "..\..\Views\Shared\Fields\FileUpload.cshtml"
              if (Attr.AllowDeactivate)
                 {
 
             
             #line default
             #line hidden
-WriteLiteral("                <a class=\"btn btn-default\" id=\"file-upload-button-");
+WriteLiteral("                <a");
 
+WriteLiteral(" class=\"btn btn-default\"");
 
+WriteAttribute("id", Tuple.Create(" id=\"", 7406), Tuple.Create("\"", 7449)
+, Tuple.Create(Tuple.Create("", 7411), Tuple.Create("file-upload-button-", 7411), true)
             
-            #line 200 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-                                                             Write(Model.PropertyName);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\"\r\n                   href=\"");
-
-
-            
-            #line 201 "..\..\Views\Shared\Fields\FileUpload.cshtml"
-                     Write(Url.Controller<ManageController>().Action(c => c.DeleteFile, File.FileUploadID, Request.Url.AbsoluteUri));
-
+            #line 184 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+, Tuple.Create(Tuple.Create("", 7430), Tuple.Create<System.Object, System.Int32>(Model.PropertyName
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                    <glyph>&#xe014;</glyph>\r\n                    Remove\r\n    " +
-"            </a>\r\n");
+, 7430), false)
+);
 
+WriteAttribute("href", Tuple.Create("\r\n                   href=\"", 7450), Tuple.Create("\"", 7585)
+            
+            #line 185 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+, Tuple.Create(Tuple.Create("", 7477), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(c => c.DeleteFile, File.FileUploadID, Request.Url?.AbsoluteUri)
+            
+            #line default
+            #line hidden
+, 7477), false)
+);
+
+WriteLiteral(">\r\n                    <glyph>&#xe014;</glyph>\r\n                    Remove\r\n     " +
+"           </a>\r\n");
 
             
-            #line 205 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 189 "..\..\Views\Shared\Fields\FileUpload.cshtml"
                 }
 
             
@@ -761,16 +707,14 @@ WriteLiteral("\">\r\n                    <glyph>&#xe014;</glyph>\r\n            
             #line hidden
 WriteLiteral("        </div>\r\n");
 
-
             
-            #line 207 "..\..\Views\Shared\Fields\FileUpload.cshtml"
+            #line 191 "..\..\Views\Shared\Fields\FileUpload.cshtml"
         }
     }
 
             
             #line default
             #line hidden
-
         }
     }
 }

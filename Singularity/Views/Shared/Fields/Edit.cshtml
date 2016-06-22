@@ -1,22 +1,10 @@
 ﻿@* Generator: MvcView *@
 
-@using LCore;
-@using Singularity;
-@using Singularity.Models;
-@using Singularity.Controllers;
-@using Singularity.Context;
+
+@using LCore.Extensions;
 @using Singularity.Routes;
 @using Singularity.Extensions;
 @using Singularity.Annotations;
-@using System.Collections;
-@using System.Collections.Generic;
-@using System.ComponentModel;
-@using System.ComponentModel.Design;
-@using System.Web;
-@using System.Web.Mvc;
-@using System.Linq;
-@using System.Linq.Expressions;
-@using System.ComponentModel.DataAnnotations;
 @using System.ComponentModel.DataAnnotations.Schema;
 
 @{
@@ -24,17 +12,13 @@
 
     LambdaExpression Lambda = null;
 
-    Object ValueData = null;
-
-    Boolean ShowLabel = Model.ViewTypes.HasAny(new[] {ControllerHelper.ViewType.Create,
-        ControllerHelper.ViewType.Edit,
-        ControllerHelper.ViewType.Display}) &&
+    bool ShowLabel = Model.ViewTypes.HasAny(ControllerHelper.ViewType.Create, ControllerHelper.ViewType.Edit, ControllerHelper.ViewType.Display) &&
         (!Meta.AdditionalValues.ContainsKey(FieldHideLabelAttribute.HideLabel) ||
-        (Boolean)Meta.AdditionalValues[FieldHideLabelAttribute.HideLabel] != true);
+        (bool)Meta.AdditionalValues[FieldHideLabelAttribute.HideLabel] != true);
 
     if (Model.PropertyName.Contains("."))
         {
-        String[] FullProperties = null;
+        string[] FullProperties;
 
         Lambda = Model.ModelData.TrueModelType().FindSubProperty(out Meta, out FullProperties, Model.PropertyName.Split("."));
         }
@@ -45,12 +29,12 @@
 
     if (Lambda == null)
         {
-        ValueData = Model.ModelData.GetProperty(Meta.PropertyName);
+        Model.ModelData.GetProperty(Meta.PropertyName);
         }
     else
         {
         Delegate d = Lambda.Compile();
-        ValueData = d.DynamicInvoke(Model);
+        d.DynamicInvoke(Model);
         }
 
     RangeAttribute Attr = null;
@@ -69,12 +53,12 @@
     return;
     }
 
-<div class="field @Model.ViewTypes.CollectStr((i, t) => { return t.ToString().ToLower() + "-field "; }) field-@Model.ColumnClass @Model.ModelFieldClasses.Combine(" ")"
+<div class="field @Model.ViewTypes.CollectStr((i, t) => $"{t.ToString().ToLower()}-field ") field-@Model.ColumnClass @Model.ModelFieldClasses.Combine(" ")"
      data-object-type="@Meta.ModelType"
      data-type-name="@Meta.DataTypeName"
      @Html.Raw(Model.ModelFieldHtmlAttributes.Combine(" "))
-     maximum="@(Attr != null ? Attr.Maximum : null)"
-     minimum="@(Attr != null ? Attr.Minimum : null)">
+     maximum="@(Attr?.Maximum)"
+     minimum="@(Attr?.Minimum)">
 
     @if (Model.Meta.HasAttribute<HiddenInputAttribute>())
         {
@@ -86,8 +70,8 @@
 
         if (ShowLabel)
             {
-            String Label = Model.Meta.DisplayName ?? Model.Meta.PropertyName.Humanize();
-            @Html.TextContent("Manage_Edit_Field_Label_" + Model.ModelData.GetFriendlyTypeName() + "_" + Label,
+            string Label = Model.Meta.DisplayName ?? Model.Meta.PropertyName.Humanize();
+            @Html.TextContent($"Manage_Edit_Field_Label_{Model.ModelData.GetFriendlyTypeName()}_{Label}",
                 Html.Label(Model.Meta.PropertyName, Label))
             }
 
@@ -101,24 +85,24 @@
             {
             Meta.GetAttribute<ICustomPartial>().RenderPartial(Html, Model, Model.ViewTypes);
             }
-        else if (Html.ViewExists(ControllerHelper.PartialViews.Field_Edit_PropertyName(Model.PropertyName)))
+        else if (Html.ViewExists(PartialViews.Field_Edit_PropertyName(Model.PropertyName)))
             {
             // Override the Edit view for the property.
 
-            @Html.Partial(ControllerHelper.PartialViews.Field_Edit_PropertyName(Model.PropertyName), Model);
+            @Html.Partial(PartialViews.Field_Edit_PropertyName(Model.PropertyName), Model)
             }
         else if (Model.Meta.HasAttribute<KeyAttribute>())
             {
-            @Html.Partial(ControllerHelper.PartialViews.Field_Edit_Key, Model)
+            @Html.Partial(PartialViews.Field_Edit_Key, Model)
             }
-        else if (Model.Meta.ModelType == typeof(Boolean) ||
-            Model.Meta.ModelType == typeof(Boolean?))
+        else if (Model.Meta.ModelType == typeof(bool) ||
+            Model.Meta.ModelType == typeof(bool?))
             {
-            @Html.Partial(ControllerHelper.PartialViews.Field_Edit_Boolean, Model)
+            @Html.Partial(PartialViews.Field_Edit_Boolean, Model)
             }
         else if (Model.Meta.DataTypeName == DataType.Currency.ToString())
             {
-            @Html.Partial(ControllerHelper.PartialViews.Field_Edit_Currency, Model)
+            @Html.Partial(PartialViews.Field_Edit_Currency, Model)
             }
         else if (Model.Meta.ModelType == typeof(int) ||
             Model.Meta.ModelType == typeof(int?))
@@ -126,17 +110,17 @@
             if (Attr != null && (int)Attr.Maximum != int.MaxValue &&
                 (int)Attr.Minimum != int.MinValue)
                 {
-                @Html.Partial(ControllerHelper.PartialViews.Field_Edit_IntRange, Model)
+                @Html.Partial(PartialViews.Field_Edit_IntRange, Model)
                 }
             else
                 {
-                @Html.Partial(ControllerHelper.PartialViews.Field_Edit_Int, Model)
+                @Html.Partial(PartialViews.Field_Edit_Int, Model)
                 }
             }
         else if (Model.Meta.ModelType == typeof(long) ||
             Model.Meta.ModelType == typeof(long?))
             {
-            @Html.Partial(ControllerHelper.PartialViews.Field_Edit_Long, Model)
+            @Html.Partial(PartialViews.Field_Edit_Long, Model)
             }
         else if (Model.Meta.ModelType == typeof(double) ||
             Model.Meta.ModelType == typeof(double?) ||
@@ -145,47 +129,40 @@
             Model.Meta.ModelType == typeof(decimal) ||
             Model.Meta.ModelType == typeof(decimal?))
             {
-            @Html.Partial(ControllerHelper.PartialViews.Field_Edit_Decimal, Model)
+            @Html.Partial(PartialViews.Field_Edit_Decimal, Model)
             }
         else if (Model.Meta.ModelType == typeof(DateTime) ||
             Model.Meta.ModelType == typeof(DateTime?))
             {
-            @Html.Partial(ControllerHelper.PartialViews.Field_Edit_DateTime, Model)
+            @Html.Partial(PartialViews.Field_Edit_DateTime, Model)
             }
         else if (Model.Meta.ModelType.PreferGeneric().IsEnum)
             {
-            @Html.Partial(ControllerHelper.PartialViews.Field_Edit_Enum, Model)
+            @Html.Partial(PartialViews.Field_Edit_Enum, Model)
             }
         else if (Model.Meta.ModelType.MemberHasAttribute<ComplexTypeAttribute>(true))
             {
-            @Html.Partial(ControllerHelper.PartialViews.Field_Edit_ComplexType, Model)
+            @Html.Partial(PartialViews.Field_Edit_ComplexType, Model)
             }
         else if (Model.Meta.ModelType.HasInterface<IModel>())
             {
-            @Html.Partial(ControllerHelper.PartialViews.Field_Edit_IModel, Model)
+            @Html.Partial(PartialViews.Field_Edit_IModel, Model)
             }
-        else if (Model.Meta.ModelType == typeof(String))
+        else if (Model.Meta.ModelType == typeof(string))
             {
-            if (Model.Meta.DataTypeName == DataType.MultilineText.ToString())
-                {
-                @Html.Partial(ControllerHelper.PartialViews.Field_Edit_StringMultiLine, Model)
-                }
-            else
-                {
-                @Html.Partial(ControllerHelper.PartialViews.Field_Edit_String, Model)
-                }
+            @(Model.Meta.DataTypeName == DataType.MultilineText.ToString() ? Html.Partial(PartialViews.Field_Edit_StringMultiLine, Model) : Html.Partial(PartialViews.Field_Edit_String, Model))
             }
-        else if (Html.ViewExists(ControllerHelper.PartialViews.Field_Edit_PropertyType(Model.Meta.ModelType)))
+        else if (Html.ViewExists(PartialViews.Field_Edit_PropertyType(Model.Meta.ModelType)))
             {
-            @Html.Partial(ControllerHelper.PartialViews.Field_Edit_PropertyType(Model.Meta.ModelType), Model)
+            @Html.Partial(PartialViews.Field_Edit_PropertyType(Model.Meta.ModelType), Model)
             }
-        else if (Html.ViewExists(ControllerHelper.PartialViews.Field_Edit_DataTypeName(Model.Meta.DataTypeName)))
+        else if (Html.ViewExists(PartialViews.Field_Edit_DataTypeName(Model.Meta.DataTypeName)))
             {
-            @Html.Partial(ControllerHelper.PartialViews.Field_Edit_DataTypeName(Model.Meta.DataTypeName), Model)
+            @Html.Partial(PartialViews.Field_Edit_DataTypeName(Model.Meta.DataTypeName), Model)
             }
         else
             {
-            @Html.Partial(ControllerHelper.PartialViews.Field_Edit_Unknown, Model)
+            @Html.Partial(PartialViews.Field_Edit_Unknown, Model)
             }
         }
 </div>

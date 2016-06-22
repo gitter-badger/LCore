@@ -4,7 +4,7 @@
   width: 100%;
 }
 *[singularity] .singularity-test h3 {
-  margin-top: 0px;
+  margin-top: 0;
 }
 *[singularity] sing,
 *[singularity] sing-catch {
@@ -234,8 +234,8 @@ html {
 }
 @-webkit-keyframes spin {
   0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
   }
   100% {
     -webkit-transform: rotate(359deg);
@@ -244,8 +244,8 @@ html {
 }
 @keyframes spin {
   0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
   }
   100% {
     -webkit-transform: rotate(359deg);
@@ -258,8 +258,8 @@ html {
     transform: rotate(359deg);
   }
   100% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
   }
 }
 .spin-reverse {
@@ -276,8 +276,8 @@ html {
     transform: rotate(359deg);
   }
   100% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
   }
 }
 @-webkit-keyframes fade-out {
@@ -606,4 +606,3 @@ error,
   z-index: 1000;
   max-width: 600px;
 }
-/*# sourceMappingURL=singularity.css.map */

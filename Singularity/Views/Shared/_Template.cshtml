@@ -1,26 +1,11 @@
 ﻿@* Generator: MvcView *@
 
-@using LCore;
-@using Singularity;
-@using Singularity.Models;
-@using Singularity.Controllers;
-@using Singularity.Context;
-@using Singularity.Routes;
-@using Singularity.Extensions;
-@using Singularity.Annotations;
 
-@using System.Linq;
-@using System.Linq.Expressions;
-@using System.Collections;
-@using System.Collections.Generic;
-@using System.ComponentModel;
-@using System.ComponentModel.DataAnnotations;
-@using System.ComponentModel.Design;
-@using System.Web;
-@using System.Web.Mvc;
+@using LCore.Extensions;
+@using Singularity.Extensions;
 
 @{
-    String Token = Model.Token ?? "";
+    string Token = Model.Token ?? "";
 
     Token = Token.ReplaceAll(" ", "");
 
@@ -32,10 +17,12 @@
     // Auto-create Template models so they exist before being filled in
     if (Content == null && Model.AutoCreate)
         {
-        Content = new Template();
-        Content.Active = true;
-        Content.Token = Model.Token;
-        Content.TemplateHTML = Model.DefaultText;
+        Content = new Template
+            {
+            Active = true,
+            Token = Model.Token,
+            TemplateHTML = Model.DefaultText
+            };
 
         Context.GetDBSet<Template>().Add(Content);
 
@@ -44,12 +31,12 @@
 
     ModelPermissions Permissions = ContextProvider.GetModelPermissions(Session, typeof(Template));
 
-    String Display = Content != null ? Content.TemplateHTML : Model.DefaultText;
+    string Display = Content != null ? Content.TemplateHTML : Model.DefaultText;
     Display = Display ?? "";
 
     for (int i = 0; i < Model.ContextData.Length; i++)
         {
-        Display = Display.ReplaceAll("[" + i + "]", (Model.ContextData[i] ?? "").ToString());
+        Display = Display.ReplaceAll($"[{i}]", (Model.ContextData[i] ?? "").ToString());
         }
 
     Display = Display.ReplaceAll("\r\n", "<br>");
@@ -72,8 +59,8 @@
             {
             <span class="text-content-edit">
                 <span onclick="window.location = '@(Url.Controller<TemplateController>()
-                    .QS(new Dictionary<String, Object> { { "Token", Token }, { "DefaultText", HttpUtility.HtmlEncode(Model.DefaultText) } })
-                    .Action<int, String, Boolean>(c => c.Edit, Content.GetID<int>(), Request.Url.AbsoluteUri, false))'; return false;" class="btn btn-default">
+                    .QS(new Dictionary<string, object> { { "Token", Token }, { "DefaultText", HttpUtility.HtmlEncode(Model.DefaultText) } })
+                    .Action(c => c.Edit, Content.GetID<int>(), Request.Url?.AbsoluteUri, false))'; return false;" class="btn btn-default">
                     <glyph>&#xe065;</glyph>
                 </span>
             </span>
@@ -96,8 +83,8 @@ else
             <span class="text-content-create">
                 
                 <span onclick="window.location = '@(Url.Controller<TemplateController>()
-                    .QS(new Dictionary<String, Object> { { "Token", Token }, { "DefaultText", HttpUtility.HtmlEncode(Model.DefaultText) } })
-                    .Action(c => c.Create, Request.Url.AbsoluteUri))'; return false;" class="btn btn-default">
+                    .QS(new Dictionary<string, object> { { "Token", Token }, { "DefaultText", HttpUtility.HtmlEncode(Model.DefaultText) } })
+                    .Action(c => c.Create, Request.Url?.AbsoluteUri))'; return false;" class="btn btn-default">
                     <glyph>&#xe065;</glyph>
                 </span>
             </span>

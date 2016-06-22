@@ -10,7 +10,7 @@ interface Boolean {
     NAND?: (...b: boolean[]) => boolean;
     NOR?: (...b: boolean[]) => boolean;
 
-    ternary?: (obj?: any, obj2?: any) => any
+    ternary?: (obj?: any, obj2?: any) => any;
 }
 
 interface String {
@@ -18,7 +18,7 @@ interface String {
     toBoolean?: () => boolean;
 }
 
-var singBoolean = singExt.addModule(new sing.Module("Boolean", Boolean));
+var singBoolean = singExt.addModule(new sing.Module('Boolean', Boolean));
 
 singBoolean.glyphIcon = '&#xe063;';
 
@@ -38,8 +38,8 @@ singBoolean.features = ['Multi-variable operations',
 
 singBoolean.method('XOR', BooleanXOR,
     {
-        summary: "\
-        XOR acts on a boolean to perform the binary XOR function on the passed Boolean",
+        summary: '\
+        XOR acts on a boolean to perform the binary XOR function on the passed Boolean',
         parameters: [
             {
                 name: 'b',
@@ -63,7 +63,7 @@ singBoolean.method('XOR', BooleanXOR,
         var out2 = test2.XOR(test2)     // out == false \r\n\
         var out3 = (true).XOR(false)    // out == true'],
         glyphIcon: '&#xe083;',
-        tests: function (ext) {
+        tests: ext => {
 
             ext.addTest(false, [false], false);
             ext.addTest(false, [true], true);
@@ -80,16 +80,16 @@ singBoolean.method('XOR', BooleanXOR,
     });
 
 function BooleanXOR(b: boolean): boolean {
-    var a = this.valueOf();
+    const a = this.valueOf();
 
     return (a == true && b == false) ||
-        (a == false && b == true);
+        (a == false && b);
 }
 
 singBoolean.method('XNOR', BooleanXNOR,
     {
-        summary: "\
-        XNOR acts on a boolean to perform the binary XNOR function on the passed Boolean, the inverse of the XOR function",
+        summary: '\
+        XNOR acts on a boolean to perform the binary XNOR function on the passed Boolean, the inverse of the XOR function',
         parameters: [
             {
                 name: 'b',
@@ -113,7 +113,7 @@ singBoolean.method('XNOR', BooleanXNOR,
         var out2 = test2.XNOR(test2)     // out == true \r\n\
         var out3 = (true).XNOR(false)    // out == false'],
         glyphIcon: '&#xe088;',
-        tests: function (ext) {
+        tests: ext => {
 
             ext.addTest(false, [false], true);
             ext.addTest(false, [true], false);
@@ -134,8 +134,8 @@ function BooleanXNOR(b: boolean): boolean {
 
 singBoolean.method('OR', BooleanOR,
     {
-        summary: "\
-        OR acts on a boolean to perform the binary OR function on the passed Booleans",
+        summary: '\
+        OR acts on a boolean to perform the binary OR function on the passed Booleans',
         parameters: [
             {
                 name: 'b',
@@ -159,7 +159,7 @@ singBoolean.method('OR', BooleanOR,
         var out2 = test2.OR(test2)     // out == true \r\n\
         var out3 = (true).OR(false)    // out == true'],
         glyphIcon: '&#xe063;',
-        tests: function (ext) {
+        tests: ext => {
 
             ext.addTest(false, [false], false);
             ext.addTest(false, [true], true);
@@ -183,8 +183,8 @@ function BooleanOR(...b: boolean[]): boolean {
 
 singBoolean.method('NOR', BooleanNOR,
     {
-        summary: "\
-        NOR acts on a boolean to perform the binary NOR function on the passed Booleans",
+        summary: '\
+        NOR acts on a boolean to perform the binary NOR function on the passed Booleans',
         parameters: [
             {
                 name: 'b',
@@ -208,7 +208,7 @@ singBoolean.method('NOR', BooleanNOR,
         var out2 = test2.NOR(test2)     // out == false \r\n\
         var out3 = (true).NOR(false)    // out == false'],
         glyphIcon: '&#xe088;',
-        tests: function (ext) {
+        tests: ext => {
 
             ext.addTest(false, [], true);
             ext.addTest(false, [false], true);
@@ -232,8 +232,8 @@ function BooleanNOR(...b: boolean[]): boolean {
 
 singBoolean.method('AND', BooleanAND,
     {
-        summary: "\
-        AND acts on a boolean to perform the binary AND function on the passed Booleans",
+        summary: '\
+        AND acts on a boolean to perform the binary AND function on the passed Booleans',
         parameters: [
             {
                 name: 'b',
@@ -257,7 +257,7 @@ singBoolean.method('AND', BooleanAND,
         var out2 = test2.AND(test2)     // out == true \r\n\
         var out3 = (true).AND(false)    // out == false'],
         glyphIcon: '&#xe081;',
-        tests: function (ext) {
+        tests: ext => {
 
             ext.addTest(false, [], false);
             ext.addTest(false, [false], false);
@@ -281,8 +281,8 @@ function BooleanAND(...b: boolean[]): boolean {
 
 singBoolean.method('NAND', BooleanNAND,
     {
-        summary: "\
-        NAND acts on a boolean to perform the binary NAND function on the passed Booleans",
+        summary: '\
+        NAND acts on a boolean to perform the binary NAND function on the passed Booleans',
         parameters: [
             {
                 name: 'b',
@@ -306,7 +306,7 @@ singBoolean.method('NAND', BooleanNAND,
         var out2 = test2.NAND(test2)     // out == false \r\n\
         var out3 = (true).NAND(false)    // out == true'],
         glyphIcon: '&#x2b;',
-        tests: function (ext) {
+        tests: ext => {
 
             ext.addTest(false, [false], true);
             ext.addTest(false, [true], true);
@@ -344,14 +344,14 @@ singBoolean.method('toYesNo', BooleanToYesNo,
         var out = test.toYesNo()       // out == 'Yes' \r\n\
         var out2 = test2.toYesNo()     // out == 'No'"],
         glyphIcon: '&#xe150;',
-        tests: function (ext) {
+        tests: ext => {
             ext.addTest(true, [], 'Yes');
             ext.addTest(false, [], 'No');
         }
     });
 
 function BooleanToYesNo(): string {
-    return this == false ? "No" : "Yes";
+    return this == false ? 'No' : 'Yes';
 }
 
 singBoolean.method('ternary', BooleanTernary,
@@ -361,22 +361,22 @@ singBoolean.method('ternary', BooleanTernary,
             {
                 name: 'obj',
                 types: [Object],
-                description: 'The first object, returned if the caller is true',
+                description: 'The first object, returned if the caller is true'
             },
             {
                 name: 'obj2',
                 types: [Object],
-                description: 'The second object, returned if the caller is false',
+                description: 'The second object, returned if the caller is false'
             }
         ],
         returns: 'Returns the first argument if the calling boolean is true, otherwise the second argument is returned.',
         returnType: Object,
         examples: ['(true).ternary(1,2)   // == 1'],
         glyphIcon: 'icon-share',
-        tests: function (ext) {
+        tests: ext => {
             ext.addTest(true, ['a', 'b'], 'a');
             ext.addTest(false, ['a', 'b'], 'b');
-        },
+        }
     }, String.prototype);
 
 function BooleanTernary(obj?: any, obj2?: any): any {
@@ -396,7 +396,7 @@ singBoolean.method('isBoolean', StringIsBoolean,
         \'no\'.isBoolean()  // == true \r\n\
         \'hi\'.isBoolean()  // == false \r\n\''],
         glyphIcon: '&#xe003;',
-        tests: function (ext) {
+        tests: ext => {
             ext.addTest('', [], false);
             ext.addTest('n', [], true);
             ext.addTest('N', [], true);
@@ -421,15 +421,11 @@ singBoolean.method('isBoolean', StringIsBoolean,
             ext.addTest('0', [], true);
             ext.addTest('1', [], true);
             ext.addTest('Anything else', [], false);
-        },
+        }
     }, String.prototype);
 
 function StringIsBoolean() {
-
-    if (!this)
-        return false;
-
-    var lower = this.lower().trim();
+    const lower = this.lower().trim();
     if (lower == 'y' || lower == 'yes' || lower == 'true' || lower == '1' || lower == 't')
         return true;
     if (lower == 'n' || lower == 'no' || lower == 'false' || lower == '0' || lower == 'f')
@@ -451,7 +447,7 @@ singBoolean.method('toBoolean', StringToBoolean,
         \'no\'.toBoolean()  // == false \r\n\
         \'hi\'.toBoolean()  // == undefined \r\n\''],
         glyphIcon: '&#xe063;',
-        tests: function (ext) {
+        tests: ext => {
             ext.addTest('', [], undefined);
             ext.addTest('n', [], false);
             ext.addTest('N', [], false);
@@ -475,15 +471,12 @@ singBoolean.method('toBoolean', StringToBoolean,
             ext.addTest('   FALSE    ', [], false, 'Handles whitespace');
             ext.addTest('Anything else', [], undefined);
 
-        },
+        }
     }, String.prototype);
 
 function StringToBoolean() {
 
-    if (!this)
-        return;
-
-    var lower = this.lower().trim();
+    const lower = this.lower().trim();
 
     if (lower == 'y' || lower == 'yes' || lower == 'true' || lower == '1' || lower == 't')
         return true;

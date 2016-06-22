@@ -1,52 +1,32 @@
 ﻿@* Generator: MvcView *@
 
-@using LCore;
-@using Singularity;
-@using Singularity.Models;
-@using Singularity.Controllers;
-@using Singularity.Context;
+
+@using LCore.Extensions;
 @using Singularity.Routes;
 @using Singularity.Extensions;
 @using Singularity.Annotations;
-@using System.Linq;
-@using System.Linq.Expressions;
-@using System.Collections;
-@using System.Collections.Generic;
-@using System.ComponentModel;
-@using System.ComponentModel.DataAnnotations;
-@using System.ComponentModel.DataAnnotations.Schema;
-@using System.ComponentModel.Design;
-@using System.Web;
-@using System.Web.Mvc;
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = Layouts.MainLayout;
 
-    ControllerHelper.ViewType ViewType = ControllerHelper.ViewType.Display;
+    const ControllerHelper.ViewType ViewType = ControllerHelper.ViewType.Display;
 
-    IEnumerable<ModelMetadata> Fields = null;
+    IFieldGroups model = Model as IFieldGroups;
 
-    if (Model is IFieldGroups)
-        {
-        Fields = ((IFieldGroups)Model).GetFieldGroup(Context, ViewType);
-        }
-    else
-        {
-        Fields = FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ViewType);
-        }
+    IEnumerable<ModelMetadata> Fields = model != null ? model.GetFieldGroup(Context, ViewType) : FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ViewType);
 }
 
 @model IModel
 
 <div class="details wide-form">
 
-    @if (!String.IsNullOrEmpty(ViewBag.ReturnURL))
+    @if (!string.IsNullOrEmpty(ViewBag.ReturnURL))
         {
         if (ViewContext.AllowEdit(Model.TrueModelType()))
             {
             <a class="btn-default right"
-               href="@(Url.Controller<ManageController>().Action(c => c.Edit, Model.GetID<int>(), Request.Url.AbsoluteUri, false))">
+               href="@(Url.Controller<ManageController>().Action(c => c.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false))">
                 <glyph>&#xe065;</glyph>
                 Edit
             </a>
@@ -68,19 +48,19 @@
 
     @foreach (ModelMetadata Meta in Fields)
         {
-        String ColumnClass = Meta.PropertyName.ToUrlSlug();
+        Meta.PropertyName.ToUrlSlug();
 
         ViewField Field = new ViewField(ViewContext, Model.TrueModelType(), Meta.PropertyName, Model, ViewType);
 
         @Html.ViewField(Field)
         }
 
-    @if (!String.IsNullOrEmpty(ViewBag.ReturnURL))
+    @if (!string.IsNullOrEmpty(ViewBag.ReturnURL))
         {
         if (ViewContext.AllowEdit(Model.TrueModelType()))
             {
             <a class="btn-default right" 
-               href="@(Url.Controller<ManageController>().Action(c => c.Edit, Model.GetID<int>(), Request.Url.AbsoluteUri, false))"
+               href="@(Url.Controller<ManageController>().Action(c => c.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false))"
                key-bind-click="Ctrl+E"
                key-bind-click-name="Edit">
                 <glyph>&#xe065;</glyph>

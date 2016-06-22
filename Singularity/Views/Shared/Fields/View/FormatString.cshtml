@@ -1,23 +1,5 @@
 ﻿@* Generator: MvcView *@
-
-@using LCore;
-@using Singularity;
-@using Singularity.Models;
-@using Singularity.Controllers;
-@using Singularity.Context;
-@using Singularity.Routes;
 @using Singularity.Annotations;
-@using Singularity.Extensions;
-@using System.Collections;
-@using System.Collections.Generic;
-@using System.ComponentModel;
-@using System.ComponentModel.Design;
-@using System.Web;
-@using System.Web.Mvc;
-@using System.Linq;
-@using System.Linq.Expressions;
-@using System.ComponentModel.DataAnnotations;
-@using System.ComponentModel.DataAnnotations.Schema;
 
 @{
 }
@@ -25,5 +7,5 @@
 @model IViewField
 
 <span>
-    @(((IFormattable)Model.PropertyData).ToString((String)Model.Meta.AdditionalValues[FieldStringFormatAttribute.Key], null))
+    @(((IFormattable)Model.PropertyData).ToString((string)Model.Meta.AdditionalValues[FieldStringFormatAttribute.Key], null))
 </span>

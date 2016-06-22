@@ -1,21 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LCore.Dynamic
     {
-    public abstract class CodeExplodeMember : Attribute
+    internal abstract class CodeExplodeMember : Attribute
         {
-        public String MethodName = "";
-        public String Comments = "";
-        public Boolean ExecuteResult = false;
-        public String[] ParameterNames = new String[] {};
+        public string MethodName;
+        public string Comments;
+        public bool ExecuteResult;
+        public string[] ParameterNames;
 
-        public CodeExplodeMember(String MethodName, String Comments = "")
-            : this(MethodName, new String[] { }, Comments)
+        protected CodeExplodeMember(string MethodName, string Comments = "")
+            : this(MethodName, new string[] { }, Comments)
             {
             }
-        public CodeExplodeMember(String MethodName, String[] ParameterNames, String Comments = "", Boolean ExecuteResult = false)
+
+        protected CodeExplodeMember(string MethodName, string[] ParameterNames, string Comments = "", bool ExecuteResult = false)
             {
             this.MethodName = MethodName;
             this.Comments = Comments;

@@ -1,0 +1,79 @@
+﻿@* Generator: MvcView *@
+@using Singularity.Extensions;
+@using Singularity.Annotations;
+
+@{
+    bool InlineEdit = ViewBag.InlineEdit == true && ViewBag.InlineEditID == Model.GetID();
+
+    ControllerHelper.ViewType[] ViewTypes = InlineEdit ?
+        new[] { ControllerHelper.ViewType.Edit, ControllerHelper.ViewType.TableCell } :
+        new[] { ControllerHelper.ViewType.TableCell };
+
+    IFieldGroups model = Model as IFieldGroups;
+    IEnumerable<ModelMetadata> Fields = model != null ?
+        model.GetFieldGroup(Context, ControllerHelper.ViewType.TableCell) :
+        FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ControllerHelper.ViewType.TableCell);
+}
+
+@model IModel
+
+<tr>
+    @if (!InlineEdit &&
+                        ViewContext.AllowView(Model.TrueModelType()))
+        {
+        <td class="view-cell center">
+            <div>
+                <a href="@(Url.Controller<ManageController>().Action(c => c.Details, Model.GetID<int>(), Request.Url?.AbsoluteUri))">
+                    <span class="glyphicon pointer btn btn-default">
+                        &#xe003;
+                    </span>
+                </a>
+            </div>
+        </td>
+        }
+
+    @foreach (ModelMetadata Meta in Fields)
+        {
+        ViewField Field = new ViewField(ViewContext, Model.TrueModelType(), Meta.PropertyName, Model, ViewTypes);
+
+        @Html.ViewField(Field)
+        }
+
+    @if (ViewContext.AllowEdit(Model.TrueModelType()))
+        {
+        <td class="edit-cell center">
+            <div>
+                <a href="@(Url.Controller<ManageController>().Action(c => c.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false))"
+                   @*ctrl-href="@(Url.Controller<ManageController>()
+                   .QS(Singularity.Routes.Controllers.Manage.Actions.Route_InlineEdit(ViewBag.ManageModel, Model, Request))
+                   .Lambda<int, String, SortDirection, String, String, ControllerHelper.ManageViewType, String, Boolean>(
+                   (Expression<Func<ManageController, Func<int, String, SortDirection, String, String, ControllerHelper.ManageViewType, String, Boolean, ActionResult>>>)(c => c.Manage)
+                   ))"*@>
+                    <span class="glyphicon pointer btn btn-default">
+                        &#xe065;
+                    </span>
+                </a>
+            </div>
+        </td>
+        }
+
+    @if (ViewContext.AllowDeactivate(Model.TrueModelType()))
+        {
+        <td class="deactivate-cell center">
+            <div>
+                <a href="@(Url.Controller<ManageController>().Action(c => c.Delete, Model.GetID<int>(), Request.Url?.AbsoluteUri))"
+                   shift-href="@(Url.Controller<ManageController>()
+                   .Action<int,string,FormCollection, bool>(
+                   (Expression<Func<ManageController, Func<int,string,FormCollection, bool, ActionResult>>>)(c => c.DeleteConfirm),
+                   Model.GetID<int>(), Request.Url?.AbsoluteUri, null,
+                   ViewBag.ManageModel.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive)))">
+                    <span class="glyphicon pointer btn btn-default">
+
+                        @Html.Raw(ViewBag.ManageModel.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive) ? "&#xe133;" : "&#xe020;")
+
+                    </span>
+                </a>
+            </div>
+        </td>
+        }
+</tr>

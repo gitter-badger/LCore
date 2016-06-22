@@ -31,18 +31,18 @@ singBBCode.method('bbCodesToHTML', StringBBCodesToHTML,
         returns: '',
         returnType: null,
         examples: null,
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringBBCodesToHTML(): string {
     var out = this;
 
-    sing.BBCodes.each(function (item, index) {
+    sing.BBCodes.each((item) => {
         out = out.replaceRegExp(item.matchStr, item.htmlStr);
     });
 
-    return (<string>out);
+    return (out as string);
 }
 
 singBBCode.method('bbCodesToText', StringBBCodesToText,
@@ -52,14 +52,14 @@ singBBCode.method('bbCodesToText', StringBBCodesToText,
         returns: '',
         returnType: null,
         examples: null,
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringBBCodesToText(): string {
     var out = this;
 
-    sing.BBCodes.each(function (item, index) {
+    sing.BBCodes.each((item) => {
         out = out.replaceRegExp(item.matchStr, item.textStr);
     });
     return out;
@@ -67,7 +67,7 @@ function StringBBCodesToText(): string {
 
 
 // Tests from http://en.wikipedia.org/wiki/BBCode
-sing.BBCodes = <BBCode[]>[
+sing.BBCodes = ([
     {
         name: 'Bold',
         tag: '[b][/b]',
@@ -75,7 +75,7 @@ sing.BBCodes = <BBCode[]>[
         htmlStr: '\<b\>$1\</b\>',
         textStr: '$1',
 
-        test: '[b]bolded text[/b]',
+        test: '[b]bolded text[/b]'
     },
     {
         name: 'Italics',
@@ -84,7 +84,7 @@ sing.BBCodes = <BBCode[]>[
         htmlStr: '<i>$1</i>',
         textStr: '$1',
 
-        test: '[i]italicized text[/i]',
+        test: '[i]italicized text[/i]'
     },
     {
         name: 'Underline',
@@ -93,7 +93,7 @@ sing.BBCodes = <BBCode[]>[
         htmlStr: '<u>$1</u>',
         textStr: '$1',
 
-        test: '[u]underlined text[/u]',
+        test: '[u]underlined text[/u]'
     },
     {
         name: 'Strikethrough',
@@ -102,7 +102,7 @@ sing.BBCodes = <BBCode[]>[
         htmlStr: '<s>$1</s>',
         textStr: '$1',
 
-        test: '[s]strikethrough text[/s]',
+        test: '[s]strikethrough text[/s]'
     },
     {
         name: 'Center',
@@ -111,7 +111,7 @@ sing.BBCodes = <BBCode[]>[
         htmlStr: '<center>$1</center>',
         textStr: '$1',
 
-        test: '[center]centered text[/center]',
+        test: '[center]centered text[/center]'
     },
     {
         name: 'Font Style Size',
@@ -120,7 +120,7 @@ sing.BBCodes = <BBCode[]>[
         htmlStr: '<font size="$1">$2</font>',
         textStr: '$2',
 
-        test: '[style size="20px"]Large Text[/style]',
+        test: '[style size="20px"]Large Text[/style]'
     },
     {
         name: 'Font Size',
@@ -129,7 +129,7 @@ sing.BBCodes = <BBCode[]>[
         htmlStr: '<font size="$1">$2</font>',
         textStr: '$2',
 
-        test: '[size="28px"]Larger Text[/size]',
+        test: '[size="28px"]Larger Text[/size]'
     },
     {
         name: 'Font Color',
@@ -138,7 +138,7 @@ sing.BBCodes = <BBCode[]>[
         htmlStr: '<font style="color:$1;">$2</font>',
         textStr: '$2',
 
-        test: '[color="red"]Red Text[/style]\r\n[color=#FF0000]Red Text[/color]',
+        test: '[color="red"]Red Text[/style]\r\n[color=#FF0000]Red Text[/color]'
     },
     {
         name: 'Style Color',
@@ -147,7 +147,7 @@ sing.BBCodes = <BBCode[]>[
         htmlStr: '<font style="color:$1;">$2</font>',
         textStr: '$2',
 
-        test: '[style color="red"]Red Text[/style]\r\n[style color=#FF0000]Red Text[/style]',
+        test: '[style color="red"]Red Text[/style]\r\n[style color=#FF0000]Red Text[/style]'
     },
     {
         name: 'URL',
@@ -156,7 +156,7 @@ sing.BBCodes = <BBCode[]>[
         htmlStr: '<a href="$1">$1</a>',
         textStr: '$1',
 
-        test: '[url]http://example.org[/url]',
+        test: '[url]http://example.org[/url]'
     },
     {
         name: 'Named URL',
@@ -165,8 +165,8 @@ sing.BBCodes = <BBCode[]>[
         htmlStr: '<a href=$1>$2</a>',
         textStr: '$2',
 
-        test: '[url="http://example.com"]Example[/url]',
-    },
+        test: '[url="http://example.com"]Example[/url]'
+    }
     /*
         {
             name: 'Image',
@@ -446,5 +446,5 @@ textStr: '$3',
 test: '[:-)]',
 },
 */
-];
+] as BBCode[]);
 

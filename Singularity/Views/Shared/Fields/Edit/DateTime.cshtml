@@ -1,23 +1,8 @@
 ﻿@* Generator: MvcView *@
-
-@using LCore;
-@using Singularity;
-@using Singularity.Models;
-@using Singularity.Controllers;
-@using Singularity.Context;
-@using System.Collections;
-@using System.Collections.Generic;
-@using System.ComponentModel;
-@using System.ComponentModel.Design;
-@using System.Web;
-@using System.Web.Mvc;
-@using System.Linq;
-@using System.Linq.Expressions;
-@using System.ComponentModel.DataAnnotations;
-@using System.ComponentModel.DataAnnotations.Schema;
+@using LCore.Extensions;
 
 @{
-    DateTime? CurrentValue = (Model.ModelData.GetProperty(Model.Meta.PropertyName) as DateTime?);
+    DateTime? CurrentValue = Model.ModelData.GetProperty(Model.Meta.PropertyName) as DateTime?;
 
 }
 
@@ -32,14 +17,14 @@
 @if (Model.Meta.DataTypeName == DataType.Time.ToString())
     {
     @Html.TextBox(Model.Meta.PropertyName,
-                            CurrentValue == null ? "" : ((DateTime)CurrentValue).ToShortTimeString(),
-                            new { @class = "timepicker" })
+        CurrentValue?.ToShortTimeString() ?? "",
+        new { @class = "timepicker" })
     }
 @if (Model.Meta.DataTypeName == DataType.Date.ToString())
     {
     @Html.TextBox(Model.Meta.PropertyName,
-                            CurrentValue == null ? "" : ((DateTime)CurrentValue).ToShortDateString(),
-                            new { @class = "datepicker" })
+        CurrentValue?.ToShortDateString() ?? "",
+        new { @class = "datepicker" })
     }
 @if (Model.Meta.DataTypeName == DataType.DateTime.ToString())
     {

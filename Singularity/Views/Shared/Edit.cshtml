@@ -1,26 +1,13 @@
 ﻿@* Generator: MvcView *@
 
-@using LCore;
-@using Singularity;
-@using Singularity.Models;
-@using Singularity.Controllers;
-@using Singularity.Context;
+
+@using LCore.Extensions;
 @using Singularity.Routes;
 @using Singularity.Extensions;
 @using Singularity.Annotations;
-@using System.Linq;
-@using System.Linq.Expressions;
-@using System.Collections;
-@using System.Collections.Generic;
-@using System.ComponentModel;
-@using System.ComponentModel.DataAnnotations;
-@using System.ComponentModel.DataAnnotations.Schema;
-@using System.ComponentModel.Design;
-@using System.Web;
-@using System.Web.Mvc;
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = Layouts.MainLayout;
 
     if (ViewBag.Create == null)
         {
@@ -29,16 +16,8 @@
 
     ControllerHelper.ViewType ViewType = ViewBag.Create == true ? ControllerHelper.ViewType.Create : ControllerHelper.ViewType.Edit;
 
-    IEnumerable<ModelMetadata> Fields = null;
-
-    if (Model is IFieldGroups)
-        {
-        Fields = ((IFieldGroups)Model).GetFieldGroup(Context, ViewType);
-        }
-    else
-        {
-        Fields = FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ViewType);
-        }
+    IFieldGroups model = Model as IFieldGroups;
+    IEnumerable<ModelMetadata> Fields = model != null ? model.GetFieldGroup(Context, ViewType) : FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ViewType);
 }
 
 @model IModel
@@ -52,7 +31,7 @@
         </div>
     </div>
 
-    @if (!String.IsNullOrEmpty(ViewBag.ReturnURL))
+    @if (!string.IsNullOrEmpty(ViewBag.ReturnURL))
         {
         <a class="btn btn-default right btn-warning" href="@ViewBag.ReturnURL">
             <glyph>&#xe091;</glyph>
@@ -61,39 +40,36 @@
         }
 
     <h1>
-        @Html.TextContent("Manage_" + (ViewBag.Create ? "Create" : "Edit") + "_Header_" + Model.GetFriendlyTypeName(),
-            (ViewBag.Create ? "Create" : "Edit") + " " + Model.GetFriendlyTypeName())
+        @Html.TextContent($"Manage_{(ViewBag.Create ? "Create" : "Edit")}_Header_{Model.GetFriendlyTypeName()}",
+            $"{(ViewBag.Create ? "Create" : "Edit")} {Model.GetFriendlyTypeName()}")
     </h1>
 
     <h2>
-        @Html.TextContent("Manage_" + (ViewBag.Create ? "Create" : "Edit") + "_ModelHeader_" + Model.GetFriendlyTypeName(), "[0]", new Object[] { Model.ToString() })
+        @Html.TextContent($"Manage_{(ViewBag.Create ? "Create" : "Edit")}_ModelHeader_{Model.GetFriendlyTypeName()}", "[0]", new object[] { Model.ToString() })
     </h2>
 
     @using (Html.BeginForm(ViewBag.Create ?
-            Singularity.Routes.Controllers.Manage.Actions.Create :
-            Singularity.Routes.Controllers.Manage.Actions.Edit,
-        (String)ViewBag.ControllerName,
-        (Object)ViewBag.Route_Edit, FormMethod.Post, new { @class = "edit-form" }))
+                    Controllers.Manage.Actions.Create :
+                    Controllers.Manage.Actions.Edit,
+                (string)ViewBag.ControllerName,
+                (object)ViewBag.Route_Edit, FormMethod.Post, new { @class = "edit-form" }))
         {
 
-        Boolean RequiredFields = false;
+        bool RequiredFields = false;
 
-        String LastTab = "";
+        string LastTab = "";
 
-        Dictionary<String, List<ModelMetadata>> TabGroups = Fields.Group((m) =>
+        Dictionary<string, List<ModelMetadata>> TabGroups = Fields.Group(m =>
         {
             if (m.AdditionalValues.ContainsKey(FieldTabAttribute.Key))
                 {
-                LastTab = (String)m.AdditionalValues[FieldTabAttribute.Key];
+                LastTab = (string)m.AdditionalValues[FieldTabAttribute.Key];
                 return LastTab;
                 }
-            else
-                {
-                return LastTab;
-                }
+            return LastTab;
         });
 
-        Boolean IsTabView = TabGroups.Keys.Count > 1;
+        bool IsTabView = TabGroups.Keys.Count > 1;
 
         <div class="@(ViewBag.Create ? "create" : "edit")-fields @(IsTabView ? "tab-view" : "")">
 
@@ -105,21 +81,21 @@
                     <ul>
                         @for (int i = 0; i < TabGroups.Keys.Count; i++)
                             {
-                            String Key = TabGroups.Keys.List()[i];
+                            string Key = TabGroups.Keys.List()[i];
 
                             <li>
                                 <a href="#tab-@(i + 1)">
-                                    @Html.TextContent("Manage_" + (ViewBag.Create ? "Create" : "Edit") + "_Tab_" + Model.GetFriendlyTypeName() + "_" + Key, Key)
+                                    @Html.TextContent($"Manage_{(ViewBag.Create ? "Create" : "Edit")}_Tab_{Model.GetFriendlyTypeName()}_{Key}", Key)
                                 </a>
                             </li>
                             }
                     </ul>
 
                     @{
-                int j = 0;
+                        int j = 0;
                     }
 
-                    @foreach (String s in TabGroups.Keys)
+                    @foreach (string s in TabGroups.Keys)
                         {
                         List<ModelMetadata> TabFields = TabGroups[s];
 
@@ -137,101 +113,100 @@
                                 @Html.ViewField(Field)
                                 }
                         </div>
-                            j++;
+                        j++;
                         }
                 </div>
-                }
-            else
-                {
-                foreach (ModelMetadata Meta in Fields)
-                    {
-                    ViewField Field = new ViewField(ViewContext, Model.TrueModelType(), Meta.PropertyName, Model, ViewType);
+                            }
+                        else
+                            {
+                            foreach (ModelMetadata Meta in Fields)
+                                {
+                                ViewField Field = new ViewField(ViewContext, Model.TrueModelType(), Meta.PropertyName, Model, ViewType);
 
-                    if (Meta.IsRequired)
-                        {
-                        RequiredFields = true;
-                        }
+                                if (Meta.IsRequired)
+                                    {
+                                    RequiredFields = true;
+                                    }
 
-                    @Html.ViewField(Field)
-                    }
-                }
+                                @Html.ViewField(Field)
+                                }
+                            }
 
 
         </div>
 
-        if (ViewBag.Create &&
-            ViewBag.AllowAdminRandomize &&
-            ContextProviderFactory.GetCurrent().CurrentUser(Session).IsAdmin == true)
-            {
-            <div id="randomize-fields" class="btn btn-default left"
-                 key-bind-click="Ctrl+R"
-                 key-bind-click-name="Randomize">
-                <span class="glyphicon pointer">
-                    &#xe115;
-                </span>
-                Randomize
-            </div>
-            }
+                        if (ViewBag.Create &&
+                            ViewBag.AllowAdminRandomize &&
+                            ContextProviderFactory.GetCurrent().CurrentUser(Session).IsAdmin == true)
+                            {
+                            <div id="randomize-fields" class="btn btn-default left"
+                                 key-bind-click="Ctrl+R"
+                                 key-bind-click-name="Randomize">
+                                <span class="glyphicon pointer">
+                                    &#xe115;
+                                </span>
+                                Randomize
+                            </div>
+                            }
 
-        if (ViewContext.AllowDeactivate(Model.TrueModelType()) && !ViewBag.Create)
-            {
-            <div class="left">
-                <a href="@(Url.Controller<ManageController>()
-                    .Action((Expression<Func<ManageController, Func<int, String, ActionResult>>>)(c => c.Delete),
+                        if (ViewContext.AllowDeactivate(Model.TrueModelType()) && !ViewBag.Create)
+                            {
+                            <div class="left">
+                                <a href="@(Url.Controller<ManageController>()
+                    .Action((Expression<Func<ManageController, Func<int, string, ActionResult>>>)(c => c.Delete),
                     Model.GetID<int>(), ViewBag.ReturnURL))"
-                   id="DeleteButton"
-                   key-bind-click="Ctrl+Delete"
-                   key-bind-click-name="Delete"
-                   class="btn btn-default btn-danger">
-                    <span class="glyphicon pointer">
-                        &#xe020; Delete
-                    </span>
-                </a>
-            </div>
-            }
+                                   id="DeleteButton"
+                                   key-bind-click="Ctrl+Delete"
+                                   key-bind-click-name="Delete"
+                                   class="btn btn-default btn-danger">
+                                    <span class="glyphicon pointer">
+                                        &#xe020; Delete
+                                    </span>
+                                </a>
+                            </div>
+                            }
 
-        if (!String.IsNullOrEmpty(ViewBag.ReturnURL))
-            {
-            <span class="right">
+                        if (!string.IsNullOrEmpty(ViewBag.ReturnURL))
+                            {
+                            <span class="right">
 
-                <a class="btn btn-default btn-warning"
-                   href="@ViewBag.ReturnURL"
-                   id="CancelButton"
-                   key-bind-click="Esc"
-                   key-bind-click-name="Cancel">
-                    <glyph>&#xe091;</glyph>
-                    Cancel
-                </a>
-                @if (!ViewBag.Create)
-                    {
-                    <button class="btn btn-default btn-success pointer"
-                            onclick="$('form').submit();"
-                            id="UpdateButton"
-                            name="UpdateButton"
-                            value="Update"
-                            key-bind-click="Ctrl+U"
-                            key-bind-click-name="Update">
-                        <glyph>&#xe031;</glyph>
-                        Update
-                    </button>
-                    }
-                <a class="btn btn-default btn-success pointer"
-                   onclick="$('form').submit();"
-                   id="SaveButton"
-                   name="SaveButton"
-                   key-bind-click="Ctrl+S"
-                   key-bind-click-name="Save">
-                    <glyph>&#xe173;</glyph>
-                    Save
-                </a>
-            </span>
-            }
+                                <a class="btn btn-default btn-warning"
+                                   href="@ViewBag.ReturnURL"
+                                   id="CancelButton"
+                                   key-bind-click="Esc"
+                                   key-bind-click-name="Cancel">
+                                    <glyph>&#xe091;</glyph>
+                                    Cancel
+                                </a>
+                                @if (!ViewBag.Create)
+                                    {
+                                    <button class="btn btn-default btn-success pointer"
+                                            onclick="$('form').submit();"
+                                            id="UpdateButton"
+                                            name="UpdateButton"
+                                            value="Update"
+                                            key-bind-click="Ctrl+U"
+                                            key-bind-click-name="Update">
+                                        <glyph>&#xe031;</glyph>
+                                        Update
+                                    </button>
+                                    }
+                                <a class="btn btn-default btn-success pointer"
+                                   onclick="$('form').submit();"
+                                   id="SaveButton"
+                                   key-bind-click="Ctrl+S"
+                                   key-bind-click-name="Save">
+                                    <glyph>&#xe173;</glyph>
+                                    Save
+                                </a>
+                            </span>
+                            }
 
-        if (RequiredFields)
-            {
-            <div class="required-fields">
-                * Some fields are required
-            </div>
-            }
-        }
+                        if (RequiredFields)
+                            {
+                            <div class="required-fields">
+                                * Some fields are required
+                            </div>
+                                }
+                            }
 </div>

@@ -7,7 +7,7 @@ interface String {
     replaceAll?: (find: string, replace?: string) => string;
     removeAll?: (find: string) => string;
     contains?: (search: string) => boolean;
-    collapseSpaces? (): string;
+    collapseSpaces?(): string;
     startsWith?: (search: string) => boolean;
     endsWith?: (search: string) => boolean;
     reverse?: () => string;
@@ -66,7 +66,7 @@ interface JQueryStatic {
 }
 
 
-var singString = singExt.addModule(new sing.Module("String", String));
+var singString = singExt.addModule(new sing.Module('String', String));
 
 singString.glyphIcon = '&#xe241;';
 
@@ -86,7 +86,7 @@ singString.method('contains', StringContains,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe003;',
-        tests: function (ext) {
+        tests(ext) {
 
             ext.addTest('', [], false);
             ext.addTest('', [''], false);
@@ -96,11 +96,11 @@ singString.method('contains', StringContains,
             ext.addTest('abc', ['a'], true);
             ext.addTest('abc', ['d'], false);
             ext.addTest('abc', ['abc'], true);
-        },
+        }
     });
 
 function StringContains(str?: string) {
-    if (!this || !str || str == '')
+    if (!str || str == '')
         return false;
 
     return this == str ||
@@ -115,7 +115,7 @@ singString.method('replaceAll', StringReplaceAll,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe015;',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest('apples', ['s', ' pie'], 'apple pie');
             ext.addTest('apples apples', ['s', ' pie'], 'apple pie apple pie');
 
@@ -139,7 +139,7 @@ singString.method('replaceAll', StringReplaceAll,
             // sing.addAssertTest(ext.name, 'ababababaab'.replaceAll(['a', 'b'], undefined), '');
             // sing.addAssertTest(ext.name, 'ababababaab'.replaceAll(['a', 'c'], 'b'), 'bbbbbbbbbbb');
             // sing.addAssertTest(ext.name, 'ababababaab'.replaceAll(['a', 'b'], ['d', 'e']), 'dededededde');
-        },
+        }
     });
 
 var StringReplaceAll_ErrorReplacementContinsSearch = 'Replace All Error: replacement must not contain search term';
@@ -147,18 +147,18 @@ var StringReplaceAll_ErrorReplacementContinsSearch = 'Replace All Error: replace
 function StringReplaceAll(searchOrSearches: string | string[], replaceOrReplacements: string | string[]) {
     // if replace is null, return original string otherwise it will
     // replace search string with 'undefined'.
-    if (replaceOrReplacements == undefined || replaceOrReplacements == null)
+    if (replaceOrReplacements == undefined)
         replaceOrReplacements = '';
 
-    if (searchOrSearches == undefined || searchOrSearches == null || searchOrSearches == '')
+    if (searchOrSearches == undefined || searchOrSearches == '')
         return this;
 
     var out = this;
 
     if ($.isArray(searchOrSearches)) {
-        var searchArray = <string[]>searchOrSearches;
+        const searchArray = searchOrSearches as string[];
 
-        searchArray.each(function (item, i) {
+        searchArray.each((item, i) => {
 
             var replacestr = $.isArray(replaceOrReplacements) ? replaceOrReplacements[i] : replaceOrReplacements;
 
@@ -172,7 +172,7 @@ function StringReplaceAll(searchOrSearches: string | string[], replaceOrReplacem
     }
     else {
         if (this == searchOrSearches &&
-            (replaceOrReplacements == null || replaceOrReplacements == undefined || replaceOrReplacements == ''))
+            (replaceOrReplacements == ''))
             return '';
 
         if (replaceOrReplacements.toString().contains(searchOrSearches.toString()))
@@ -193,7 +193,7 @@ singString.method('removeAll', StringRemoveAll,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe016;',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest('', [], '');
             ext.addTest('', [''], '');
             ext.addTest('apple pie', [], 'apple pie');
@@ -205,14 +205,17 @@ singString.method('removeAll', StringRemoveAll,
             ext.addTest('apple pie', ['apple'], ' pie');
             ext.addTest('apple pie', ['pie'], 'apple ');
             ext.addTest('apple pie', ['pies'], 'apple pie');
-        },
+        }
     });
 
-function StringRemoveAll(stringOrStrings: string|string[]) {
+function StringRemoveAll(stringOrStrings: string | string[]) {
     if ($.isArray(stringOrStrings)) {
-        var out = this;
-        for (var s in <string[]>stringOrStrings) {
-            out = out.removeAll(s);
+        let out = this;
+        const array = stringOrStrings as string[];
+        for (let s in array) {
+            if ((array).hasOwnProperty(s)) {
+                out = out.removeAll(s);
+            }
         }
         return out;
     }
@@ -228,12 +231,12 @@ singString.method('upper', StringUpper,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe260;',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest('', [], '');
             ext.addTest('apple', [], 'APPLE');
             ext.addTest('Apple', [], 'APPLE');
             ext.addTest('APPLE', [], 'APPLE');
-        },
+        }
     });
 
 function StringUpper() {
@@ -248,12 +251,12 @@ singString.method('lower', StringLower,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe259;',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest('', [], '');
             ext.addTest('apple', [], 'apple');
             ext.addTest('Apple', [], 'apple');
             ext.addTest('APPLE', [], 'apple');
-        },
+        }
     });
 
 function StringLower() {
@@ -268,12 +271,12 @@ singString.method('collapseSpaces', StringCollapseSpaces,
         returnType: null,
         examples: null,
         glyphIcon: 'icon-resize-small',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest('', [], '');
             ext.addTest('           ', [], ' ');
             ext.addTest('apple pie', [], 'apple pie');
             ext.addTest('apple       pie', [], 'apple pie');
-        },
+        }
     });
 
 function StringCollapseSpaces() {
@@ -288,7 +291,7 @@ singString.method('startsWith', StringStartsWith,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe079;',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest('', [], false);
             ext.addTest('', [''], false);
             ext.addTest('apple pie', [], false);
@@ -296,19 +299,19 @@ singString.method('startsWith', StringStartsWith,
             ext.addTest('apple pie', ['apple'], true);
             ext.addTest('apple pie', ['apples'], false);
             ext.addTest('apple pie', ['apple pie'], true);
-        },
+        }
     });
 
-function StringStartsWith(stringOrStrings: string|string[]) {
+function StringStartsWith(stringOrStrings: string | string[]) {
 
-    var thisString = <string>this;
+    var thisString = this as string;
 
     if (!stringOrStrings)
         return false;
 
     if ($.isArray(stringOrStrings)) {
 
-        return (<string[]>stringOrStrings).has(function (s, i) {
+        return (stringOrStrings as string[]).has((s: string) => {
             if (thisString.startsWith(s))
                 return true;
             return false;
@@ -326,7 +329,7 @@ singString.method('endsWith', StringEndsWith,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe080;',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest('', [], false);
             ext.addTest('', [''], false);
             ext.addTest('apple pie', [], false);
@@ -334,22 +337,25 @@ singString.method('endsWith', StringEndsWith,
             ext.addTest('apple pie', ['apple'], false);
             ext.addTest('apple pie', ['pie'], true);
             ext.addTest('apple pie', ['pies'], false);
-        },
+        }
     });
 
-function StringEndsWith(stringOrStrings: string|string[]) {
+function StringEndsWith(stringOrStrings: string | string[]) {
     if (!stringOrStrings)
         return false;
 
     if ($.isArray(stringOrStrings)) {
-        for (var s in <string[]>stringOrStrings) {
-            if (this.endsWith(s))
-                return true;
+        const array = stringOrStrings as string[];
+        for (let s in array) {
+            if ((array).hasOwnProperty(s)) {
+                if (this.endsWith(s))
+                    return true;
+            }
         }
         return false;
     }
 
-    var index = this.indexOf(stringOrStrings);
+    const index = this.indexOf(stringOrStrings);
 
     return index >= 0 && index == this.length - stringOrStrings.length;
 }
@@ -363,19 +369,16 @@ singString.method('reverse', StringReverse,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe178;',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest('', [], '');
             ext.addTest('apple pie', [], 'eip elppa');
-        },
+        }
     });
 
 function StringReverse() {
-    if (!this)
-        return '';
+    let out = '';
 
-    var out = '';
-
-    for (var i = this.length - 1; i >= 0; i--) {
+    for (let i = this.length - 1; i >= 0; i--) {
         out += this[i];
     }
     return out;
@@ -389,7 +392,7 @@ singString.method('repeat', StringRepeat,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe031;',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest('', [], '');
             ext.addTest('', [0], '');
             ext.addTest('', [5], '');
@@ -399,16 +402,16 @@ singString.method('repeat', StringRepeat,
             ext.addTest('apple', [1], 'apple');
             ext.addTest('apple', [2], 'appleapple');
             ext.addTest('apple', [3, ' '], 'apple apple apple');
-        },
+        }
     });
 
 function StringRepeat(times: number = 0, separator: string = '') {
     if (times <= 0)
         return '';
 
-    var out = '';
+    let out = '';
 
-    for (var i = 0; i < times; i++) {
+    for (let i = 0; i < times; i++) {
         out += this;
 
         if (separator.length > 0 && i < times - 1)
@@ -426,17 +429,14 @@ singString.method('words', StringWords,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe111;',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest('', [], '');
             ext.addTest('apple', [], ['apple']);
             ext.addTest('apple pie', [], ['apple', 'pie']);
-        },
+        }
     });
 
 function StringWords() {
-    if (!this)
-        return [];
-
     return this.collapseSpaces().split(' ');
 }
 
@@ -448,18 +448,15 @@ singString.method('lines', StringLines,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe056;',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest('', [], []);
             ext.addTest('apple pie', [], ['apple pie']);
             ext.addTest('\r\napple pie\r\n', [], ['', 'apple pie', '']);
             ext.addTest('apple pie\r\napple pie', [], ['apple pie', 'apple pie']);
-        },
+        }
     });
 
 function StringLines() {
-    if (!this)
-        return [];
-
     return this.split('\r\n');
 }
 
@@ -471,16 +468,16 @@ singString.method('surround', StringSurround,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe065;',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest('', [], '');
             ext.addTest('', [null], '');
             ext.addTest('', [undefined], '');
             ext.addTest('pie', ['---'], '---pie---');
-        },
+        }
     });
 
 function StringSurround(str: string) {
-    if (!this || !str)
+    if (!str)
         return this;
 
     return str + this + str;
@@ -494,7 +491,7 @@ singString.method('truncate', StringTruncate,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe226;',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest('abc', [], '');
             ext.addTest('abc', [null], '');
             ext.addTest('abc', [undefined], '');
@@ -503,14 +500,14 @@ singString.method('truncate', StringTruncate,
             ext.addTest('abc', [1], 'a');
             ext.addTest('abc', [3], 'abc');
             ext.addTest('abc', [5], 'abc');
-        },
+        }
     });
 
 function StringTruncate(length: number): string {
-    if (!this || this.length < 0 || isNaN(length))
+    if (this.length < 0 || isNaN(length))
         return '';
 
-    var thisStr = <string>this;
+    const thisStr = this as string;
 
     if (length < 0)
         length = 0;
@@ -529,12 +526,12 @@ singString.method('isValidEmail', StringIsValidEmail,
         returnType: null,
         examples: null,
         glyphIcon: '&#x2709;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringIsValidEmail(): boolean {
-    var thisStr = <string>this;
+    const thisStr = this as string;
 
     return thisStr.hasMatch(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/);
 }
@@ -547,12 +544,12 @@ singString.method('isHex', StringIsHex,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe180;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringIsHex(): boolean {
-    var thisStr = <string>this;
+    const thisStr = this as string;
 
     return thisStr.hasMatch(/^#?([a-f0-9]{6}|[a-f0-9]{3})$/);
 }
@@ -565,12 +562,12 @@ singString.method('isValidURL', StringIsValidURL,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe135;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringIsValidURL(): boolean {
-    var thisStr = <string>this;
+    const thisStr = this as string;
     return thisStr.hasMatch(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/);
 }
 
@@ -582,12 +579,12 @@ singString.method('isIPAddress', StringIsIPAddress,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe135;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringIsIPAddress(): boolean {
-    var thisStr = <string>this;
+    const thisStr = this as string;
     return thisStr.hasMatch(/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/);
 }
 
@@ -599,12 +596,12 @@ singString.method('isGuid', StringIsGuid,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe041;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringIsGuid(): boolean {
-    var thisStr = <string>this;
+    const thisStr = this as string;
 
     return thisStr.hasMatch(/^\{?[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}‌​\}?$/);
 }
@@ -618,16 +615,15 @@ singString.method('tryToNumber', StringTryToNumber,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe141;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringTryToNumber(defaultValue: any = this) {
+    let retValue = defaultValue;
 
-    var str = this;
-    var retValue = defaultValue;
-
-    if (str !== null) {
+    if (true) {
+        const str = this;
         if (str.length > 0) {
             if (!isNaN(str)) {
                 retValue = parseInt(str);
@@ -650,14 +646,11 @@ singString.method('joinLines', StringJoinLines,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe058;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     }, Array.prototype);
 
 function StringJoinLines(asHTML: boolean = true) {
-    if (!this)
-        return '';
-
     return this.join(asHTML ? '<br/>' : '\r\n');
 }
 
@@ -673,7 +666,7 @@ singString.method('pad', StringPad,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe051;',
-        tests: function (ext) {
+        tests(ext) {
 
             ext.addTest('a', [5], 'a    ');
             ext.addTest('a', [5, 'left'], 'a    ');
@@ -686,7 +679,7 @@ singString.method('pad', StringPad,
 
             // Test pad > length
             // Test Nulls
-        },
+        }
     });
 
 function StringPad(length: number, align: Direction = Direction.left, whitespace: string = ' ') {
@@ -696,12 +689,8 @@ function StringPad(length: number, align: Direction = Direction.left, whitespace
         align != Direction.center && align != Direction.c) {
         return this;
     }
-
-    if (!this)
-        return whitespace.repeat(length);
-
-    var out = this;
-    var whitespaceIndex = 0;
+    let out = this;
+    let whitespaceIndex = 0;
 
     while (out.length < length) {
 
@@ -733,7 +722,7 @@ singString.method('toStr', BooleanToStr,
                 name: 'includeMarkup',
                 types: [Boolean],
                 description: 'Set includeMarkup to true to retrieve the actual string representaion of true and false.',
-                defaultValue: false,
+                defaultValue: false
             }
         ],
         returns: 'A String representation of the boolean value',
@@ -742,7 +731,7 @@ singString.method('toStr', BooleanToStr,
             If you specify a true value for includeMarkup, Booleans will be returned as \'true\' or \'false\' \r\n\
             Otherwise, \'Yes\' or \'No\' will be returned.'],
         glyphIcon: '&#xe241;',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest(true, [], 'Yes');
             ext.addTest(true, [false], 'Yes');
             ext.addTest(true, [true], 'true');
@@ -750,13 +739,13 @@ singString.method('toStr', BooleanToStr,
             ext.addTest(false, [false], 'No');
             ext.addTest(false, [true], 'false');
         }
-    }, Boolean.prototype, "Boolean");
+    }, Boolean.prototype, 'Boolean');
 
 function BooleanToStr(includeMarkup: boolean = false): string {
     if (includeMarkup == false)
         return this.toYesNo();
 
-    return this == false ? "false" : "true";
+    return this == false ? 'false' : 'true';
 }
 
 singString.method('toStr', ObjectToStr,
@@ -767,7 +756,7 @@ singString.method('toStr', ObjectToStr,
         returnType: '',
         examples: null,
         glyphIcon: '&#xe241;',
-        tests: function (ext) {
+        tests(ext) {
 
             ext.addTest($, [null], '');
             ext.addTest($, [null, false], '');
@@ -826,7 +815,7 @@ singString.method('toStr', ObjectToStr,
             ext.addTest($, [$], '$');
 
             ext.addTest($, [sing], 'sing');
-        },
+        }
     }, $, 'jQuery');
 
 function ObjectToStr(obj: any, includeMarkup: boolean = false, stack: any[] = []) {
@@ -848,7 +837,7 @@ function ObjectToStr(obj: any, includeMarkup: boolean = false, stack: any[] = []
             return obj.toString();
 
         // Prevents infinite recursion
-        if (stack.has(function (item: any) { return item === obj; })) {
+        if (stack.has((item: any) => (item === obj))) {
             return '';
         }
 
@@ -859,7 +848,7 @@ function ObjectToStr(obj: any, includeMarkup: boolean = false, stack: any[] = []
 
         var keyCount = Object.keys(obj).length;
 
-        $.objEach(obj, function (key, item, index) {
+        $.objEach(obj, (key, item, index) => {
             if (includeMarkup) {
                 out += (key || '\'\'') + ': ' + $.toStr(item, true, stack);
                 if (index < keyCount - 1)
@@ -885,28 +874,26 @@ singString.method('toStr', ArrayToStr,
         returnType: String,
         examples: null,
         glyphIcon: '&#xe241;',
-        tests: function (ext) {
-        },
-    }, Array.prototype, "Array");
+        tests(ext) {
+        }
+    }, Array.prototype, 'Array');
 
 function ArrayToStr(includeMarkup: boolean = false) {
 
-    var thisArray = <any[]>this;
+    const thisArray = this as any[];
 
     var out = includeMarkup ? '[' : '';
-    var src = this;
-
-    thisArray.each(function (item, i) {
+    thisArray.each((item, i) => {
         if (item === null)
             out += 'null';
         else if (item === undefined)
             out += 'undefined';
         else if (item.toStr)
             out += item.toStr(includeMarkup);  // includeMarkup is passed to child elements
-        else if ($.isHash(item))
-            out += $.toStr(item, includeMarkup);
+        else if (ObjectIsHash(item))
+            out += ObjectToStr(item, includeMarkup);
 
-        if (i < src.length - 1)
+        if (i < this.length - 1)
             out += includeMarkup ? ', ' : '\r\n';
     });
 
@@ -923,13 +910,13 @@ singString.method('toStr', StringToStr,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe241;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringToStr(includeMarkup: boolean = false) {
     if (includeMarkup)
-        return "'" + this.replaceAll('\r\n', '\\r\\n') + "'";
+        return `'${this.replaceAll('\r\n', '\\r\\n')}'`;
 
     return this;
 }
@@ -942,14 +929,14 @@ singString.method('isString', IsString,
         returnType: '',
         examples: null,
         glyphIcon: '&#xe241;',
-        tests: function (ext) {
+        tests(ext) {
             ext.addTest($, [], false);
             ext.addTest($, [], false);
             ext.addTest($, [], false);
             ext.addTest($, [5], false);
             ext.addTest($, [''], true);
             ext.addTest($, ['a'], true);
-        },
+        }
     }, $);
 
 function IsString(str?: any) {
@@ -964,8 +951,8 @@ singString.method('first', StringFirst,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe070;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringFirst(count: number) {
@@ -987,8 +974,8 @@ singString.method('last', StringLast,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe076;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringLast(count: number) {
@@ -1010,17 +997,15 @@ singString.method('containsAny', StringContainsAny,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe003;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringContainsAny(...items: string[]) {
-    if (!this)
-        return false;
-    if (!items || item.length == 0)
+    if (!items || items.length == 0)
         return false;
 
-    return items.has(function (item) {
+    return items.has(function (item: string) {
         return this.contains(item);
     });
 }
@@ -1033,15 +1018,15 @@ singString.method('before', StringBefore,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe071;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringBefore(search: string) {
-    if (!this || !search == null || search == '')
+    if (search == '')
         return this;
 
-    var index = this.indexOf(search);
+    const index = this.indexOf(search);
 
     if (index < 0)
         return this;
@@ -1057,15 +1042,15 @@ singString.method('after', StringAfter,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe075;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringAfter(search: string) {
-    if (!this || !search == null || search == '')
+    if (search == '')
         return this;
 
-    var index = this.indexOf(search);
+    const index = this.indexOf(search);
 
     if (index < 0)
         return this;
@@ -1082,15 +1067,15 @@ singString.method('beforeLast', StringBeforeLast,
         returnType: null,
         examples: null,
         glyphIcon: null,
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringBeforeLast(search: string) {
-    if (!this || !search == null || search == '')
+    if (search == '')
         return this;
 
-    var index = this.indexOf(search);
+    const index = this.indexOf(search);
 
     if (index < 0)
         return this;
@@ -1106,15 +1091,15 @@ singString.method('afterFirst', StringAfterFirst,
         returnType: null,
         examples: null,
         glyphIcon: null,
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringAfterFirst(search: string) {
-    if (!this || !search == null || search == '')
+    if (search == '')
         return this;
 
-    var index = this.indexOf(search);
+    const index = this.indexOf(search);
 
     if (index < 0)
         return this;
@@ -1130,13 +1115,15 @@ singString.method('toSlug', StringToSlug,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe135;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringToSlug() {
 
-    var Text = this || '';
+    // ReSharper disable once ConditionIsAlwaysConst
+// ReSharper disable once HeuristicallyUnreachableCode
+    let Text: string = this || '';
     Text = Text.toLowerCase();
     Text = Text.replace(/\./g, '_');
     Text = Text.replace(/\s/g, '-');
@@ -1152,18 +1139,18 @@ singString.method('containsAll', StringContainsAll,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe015;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringContainsAll(...items: string[]) {
 
-    if (!this || items.length == 0)
+    if (items.length == 0)
         return false;
 
-    var thisStr = <string>this;
+    const thisStr = this as string;
 
-    for (var i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length; i++) {
         if (!thisStr.contains(items[i]))
             return false;
     }
@@ -1179,15 +1166,12 @@ singString.method('pluralize', StringPluralize,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe256;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringPluralize(count: number) {
-    if (!this)
-        return '';
-
-    var thisStr = <string>this;
+    const thisStr = this as string;
 
     if (count === undefined || count === null)
         return thisStr;
@@ -1206,15 +1190,14 @@ singString.method('isJSON', StringIsJSON,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe105;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringIsJSON(): boolean {
-    try
-    {
-        var thisStr = <string>this;
-        var jsonObject = jQuery.parseJSON(thisStr);
+    try {
+        const thisStr = this as string;
+        const jsonObject = jQuery.parseJSON(thisStr);
 
         return $.isDefined(jsonObject);
     }
@@ -1231,13 +1214,13 @@ singString.method('parseJSON', StringParseJSON,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe105;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringParseJSON(): Object {
-    var thisStr = <string>this;
-    var jsonObject = jQuery.parseJSON(thisStr);
+    const thisStr = this as string;
+    const jsonObject = jQuery.parseJSON(thisStr);
     return jsonObject;
 }
 
@@ -1249,20 +1232,20 @@ singString.method('fill', StringFill,
         returnType: null,
         examples: null,
         glyphIcon: '&#xe025;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function StringFill(fillWith: string) {
-    if (!this || this.length == 0)
+    if (this.length == 0)
         return '';
 
-    var thisStr = <string>this;
+    const thisStr = this as string;
 
     if (!fillWith || fillWith.length == 0)
         return this;
 
-    var out = '';
+    let out = '';
 
     while (out.length < this.length) {
         out += fillWith;
@@ -1276,8 +1259,8 @@ function StringFill(fillWith: string) {
 
 
 function Test() {
-    var bracketStart = '{';
-    var bracketEnd = '}';
+    const bracketStart = '{';
+    const bracketEnd = '}';
 
     /*
     var bracketStart = '[';
@@ -1287,15 +1270,16 @@ function Test() {
     var bracketEnd = ')';
     */
 
-    var block = <string>this, /* code block */
-        startIndex: number /* index of first bracket */,
-        currPos = startIndex,
-        openBrackets = 0,
-        stillSearching = true,
-        waitForChar: string = null;
+    const block = this as string;
+    let startIndex: number;
+// ReSharper disable once UsageOfPossiblyUnassignedValue
+    let currPos = startIndex;
+    let openBrackets = 0;
+    let stillSearching = true;
+    let waitForChar: string = null;
 
     while (stillSearching && currPos <= block.length) {
-        var currChar = block.charAt(currPos);
+        const currChar = block.charAt(currPos);
 
         if (!waitForChar) {
             switch (currChar) {
@@ -1310,7 +1294,7 @@ function Test() {
                     waitForChar = currChar;
                     break;
                 case '/':
-                    var nextChar = block.charAt(currPos + 1);
+                    const nextChar = block.charAt(currPos + 1);
                     if (nextChar === '/') {
                         waitForChar = '\n';
                     } else if (nextChar === '*') {
@@ -1329,7 +1313,7 @@ function Test() {
             }
         }
 
-        currPos++
+        currPos++;
         if (openBrackets === 0) { stillSearching = false; }
     }
 

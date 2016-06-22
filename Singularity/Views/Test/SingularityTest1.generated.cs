@@ -12,102 +12,34 @@
 namespace ASP
 {
     using System;
-    
-    #line 11 "..\..\Views\Test\SingularityTest.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 12 "..\..\Views\Test\SingularityTest.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 13 "..\..\Views\Test\SingularityTest.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 14 "..\..\Views\Test\SingularityTest.cshtml"
     using System.ComponentModel.DataAnnotations;
-    
-    #line default
-    #line hidden
-    
-    #line 15 "..\..\Views\Test\SingularityTest.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
     using System.IO;
-    
-    #line 9 "..\..\Views\Test\SingularityTest.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\Test\SingularityTest.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 16 "..\..\Views\Test\SingularityTest.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 17 "..\..\Views\Test\SingularityTest.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
-    
-    #line 3 "..\..\Views\Test\SingularityTest.cshtml"
-    using LCore;
-    
-    #line default
-    #line hidden
-    
-    #line 4 "..\..\Views\Test\SingularityTest.cshtml"
+    using LCore.Extensions;
     using Singularity;
-    
-    #line default
-    #line hidden
-    
-    #line 7 "..\..\Views\Test\SingularityTest.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\Test\SingularityTest.cshtml"
     using Singularity.Controllers;
-    
-    #line default
-    #line hidden
-    
-    #line 5 "..\..\Views\Test\SingularityTest.cshtml"
     using Singularity.Models;
     
-    #line default
-    #line hidden
-    
-    #line 8 "..\..\Views\Test\SingularityTest.cshtml"
+    #line 3 "..\..\Views\Test\SingularityTest.cshtml"
     using Singularity.Routes;
     
     #line default
@@ -122,30 +54,12 @@ namespace ASP
         }
         public override void Execute()
         {
-
-
-WriteLiteral("\r\n\r\n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+WriteLiteral("\r\n<!-- ReSharper disable All -->\r\n");
 
 WriteLiteral("\r\n");
 
-
             
-            #line 19 "..\..\Views\Test\SingularityTest.cshtml"
+            #line 5 "..\..\Views\Test\SingularityTest.cshtml"
   
     /// <reference path="singularity-core.margin:-10px 8px 17px;font-size:13px;ts" />
     Layout = Layouts.MainLayout;
@@ -155,8 +69,11 @@ WriteLiteral("\r\n");
             
             #line default
             #line hidden
-WriteLiteral(@"
-<script type=""text/javascript"">
+WriteLiteral("\r\n\r\n<script");
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral(@">
 
     sing.templateShown(function (element) {
 
@@ -186,34 +103,35 @@ WriteLiteral(@"
     });
 </script>
 
-<div class=""container"">
-    <div class=""row"">
-        <div class=""mvcl-test singularity-test sing col-xs-12"" sing-fill=""{{ Singularity with sing }}"">
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <div style=""text-align:center"">
-                <span class=""glyphicon spin"" style=""font-size: 36px;"">&#xe201;</span>
-            </div>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-        </div>
+<div");
 
-    </div>
+WriteLiteral(" class=\"container\"");
 
-</div>
+WriteLiteral(">\r\n    <div");
 
+WriteLiteral(" class=\"row\"");
 
-");
+WriteLiteral(">\r\n        <div");
 
+WriteLiteral(" class=\"mvcl-test singularity-test sing col-xs-12\"");
+
+WriteLiteral(" sing-fill=\"{{ Singularity with sing }}\"");
+
+WriteLiteral(">\r\n            <br />\r\n            <br />\r\n            <br />\r\n            <br />" +
+"\r\n            <br />\r\n            <div");
+
+WriteLiteral(" style=\"text-align:center\"");
+
+WriteLiteral(">\r\n                <span");
+
+WriteLiteral(" class=\"glyphicon spin\"");
+
+WriteLiteral(" style=\"font-size: 36px;\"");
+
+WriteLiteral(">&#xe201;</span>\r\n            </div>\r\n            <br />\r\n            <br />\r\n   " +
+"         <br />\r\n            <br />\r\n            <br />\r\n            <br />\r\n   " +
+"         <br />\r\n            <br />\r\n        </div>\r\n\r\n    </div>\r\n\r\n</div>\r\n\r\n\r" +
+"\n");
 
         }
     }

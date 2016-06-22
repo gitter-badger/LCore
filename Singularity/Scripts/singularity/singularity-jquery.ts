@@ -32,7 +32,7 @@ interface JQuery {
 }
 
 
-var singJQuery = singExt.addModule(new sing.Module("jQuery", [$, $.fn], $));
+var singJQuery = singExt.addModule(new sing.Module('jQuery', [$, $.fn], $));
 
 singJQuery.glyphIcon = '&#xe148;';
 
@@ -54,8 +54,8 @@ singJQuery.method('checked', Checked,
         returnType: '',
         examples: null,
         glyphIcon: '&#xe013;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     }, $.fn);
 
 function Checked() {
@@ -63,8 +63,8 @@ function Checked() {
 
 
     this.each(function () {
-        var thisJQuery = $(this);
-        if (thisJQuery && thisJQuery[0] && (<any > thisJQuery[0]).checked['checked'])
+        const thisJQuery = $(this);
+        if (thisJQuery && thisJQuery[0] && (thisJQuery[0] as any).checked['checked'])
             anyChecked = true;
     });
 
@@ -79,8 +79,8 @@ singJQuery.method('allVisible', AllVisible,
         returnType: '',
         examples: null,
         glyphIcon: '&#xe105;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     }, $.fn);
 
 function AllVisible() {
@@ -88,7 +88,7 @@ function AllVisible() {
     var allVisible = true;
 
     this.each(function () {
-        var opacity = $(this).attr('opacity');
+        const opacity = $(this).attr('opacity');
 
         if (opacity == '0') {
             allVisible = false;
@@ -110,21 +110,21 @@ singJQuery.method('findIDNameSelector', FindIDNameSelector,
         returnType: '',
         examples: null,
         glyphIcon: '&#xe003;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     }, $.fn);
 
 function FindIDNameSelector(name: string) {
 
-    var target = $();
+    let target = $();
 
     try {
-        target = $(this).find('#' + name);
+        target = $(this).find(`#${name}`);
     } catch (ex) { }
 
     if (target.length == 0)
         try {
-            target = $(this).find('[name=' + name + ']');
+            target = $(this).find(`[name=${name}]`);
         } catch (ex) { }
 
     if (target.length == 0)
@@ -143,8 +143,8 @@ singJQuery.method('actionIf', ActionIf,
         returnType: '',
         examples: null,
         glyphIcon: '&#xe162;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     }, $.fn);
 
 function ActionIf(name: string) {
@@ -159,73 +159,52 @@ function ActionIf(name: string) {
 
     var ifTarget = $('body').findIDNameSelector(ifTargetName);
 
-    var targetValue = <any>(target.attr(name + '-if-value') || '');
+    var targetValue = (target.attr(name + '-if-value') || '') as any;
 
-    var operation = function (a: any, b: any) {
-        return a == b;
-    };
+    var operation = (a: any, b: any) => (a == b);
 
     if (targetValue.indexOf('!=') == 0) {
-        operation = function (a, b) {
-            return a != b;
-        };
+        operation = (a, b) => (a != b);
         targetValue = targetValue.substr(2);
     }
     else if (targetValue.indexOf('>=') == 0) {
-        operation = function (a, b) {
-            return parseFloat(a) >= parseFloat(b);
-        };
+        operation = (a, b) => (parseFloat(a) >= parseFloat(b));
         targetValue = parseFloat(targetValue.substr(2));
     }
     else if (targetValue.indexOf('<=') == 0) {
-        operation = function (a, b) {
-            return parseFloat(a) <= parseFloat(b);
-        };
+        operation = (a, b) => (parseFloat(a) <= parseFloat(b));
         targetValue = parseFloat(targetValue.substr(2));
     }
     else if (targetValue.indexOf('><') == 0) {
-        operation = function (a, b) {
-            return parseFloat(a) >= parseFloat(b[0]) && parseFloat(a) <= parseFloat(b[1]);
-        };
+        operation = (a, b) => (parseFloat(a) >= parseFloat(b[0]) && parseFloat(a) <= parseFloat(b[1]));
         targetValue = targetValue.substr(2);
         targetValue = [
             targetValue.split(',')[0],
-            targetValue.split(',')[1],
+            targetValue.split(',')[1]
         ];
     }
     else if (targetValue.indexOf('<>') == 0) {
-        operation = function (a, b) {
-            return parseFloat(a) <= parseFloat(b[0]) || parseFloat(a) >= parseFloat(b[1]);
-        };
+        operation = (a, b) => (parseFloat(a) <= parseFloat(b[0]) || parseFloat(a) >= parseFloat(b[1]));
         targetValue = targetValue.substr(2);
         targetValue = [
             targetValue.split(',')[0],
-            targetValue.split(',')[1],
+            targetValue.split(',')[1]
         ];
     }
     else if (targetValue.indexOf(',') > 0) {
-        operation = function (a, b) {
-            return b.indexOf(a) >= 0;
-        };
+        operation = (a, b) => (b.indexOf(a) >= 0);
         targetValue = targetValue.split(',');
     }
     else if (targetValue.indexOf('!') == 0) {
-        operation = function (a, b) {
-            return parseFloat(a) != parseFloat(b);
-        };
+        operation = (a, b) => (parseFloat(a) != parseFloat(b));
         targetValue = targetValue.substr(1);
     }
     else if (targetValue.indexOf('<') == 0) {
-        operation = function (a, b) {
-            return parseFloat(a) < parseFloat(b);
-        };
+        operation = (a, b) => (parseFloat(a) < parseFloat(b));
         targetValue = parseFloat(targetValue.substr(1));
     }
     else if (targetValue.indexOf('>') == 0) {
-        operation = function (a, b) {
-
-            return parseFloat(a) > parseFloat(b);
-        };
+        operation = (a, b) => (parseFloat(a) > parseFloat(b));
         targetValue = parseFloat(targetValue.substr(1));
     }
 
@@ -264,8 +243,8 @@ singJQuery.method('defer', Defer,
         aliases: ['wait'],
         examples: null,
         glyphIcon: '&#xe095;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     });
 
 function Defer(deferFunc: Function): void {
@@ -282,8 +261,8 @@ singJQuery.method('hasAttr', JQueryHasAttr,
         returnType: '',
         examples: null,
         glyphIcon: '&#xe042;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     }, $.fn);
 
 function JQueryHasAttr(name: string): boolean {
@@ -300,13 +279,13 @@ singJQuery.method('outerHtml', JQueryOuterHtml,
         returnType: '',
         examples: null,
         glyphIcon: '&#xe140;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     }, $.fn);
 
 function JQueryOuterHtml(): string {
 
-    if (!this || this.length == 0) {
+    if (this.length == 0) {
         return '';
     }
     else {
@@ -323,13 +302,13 @@ singJQuery.method('innerHtml', JQueryInnerHtml,
         returnType: '',
         examples: null,
         glyphIcon: '&#xe087;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     }, $.fn);
 
 function JQueryInnerHtml(): string {
 
-    if (!this || this.length == 0) {
+    if (this.length == 0) {
         return '';
     }
     else {
@@ -348,36 +327,36 @@ singJQuery.method('isOnScreen', JQueryIsOnScreen,
         returnType: '',
         examples: null,
         glyphIcon: '&#xe106;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     }, $.fn);
 
 function JQueryIsOnScreen(x: number = 1, y: number = 1): boolean {
 
-    var win = $(window);
+    const win = $(window);
 
-    var viewport = {
+    const viewport = {
         top: win.scrollTop(),
         left: win.scrollLeft(),
         right: 0,
-        bottom: 0,
+        bottom: 0
     };
 
     viewport.right = viewport.left + win.width();
     viewport.bottom = viewport.top + win.height();
 
-    var height = this.outerHeight();
-    var width = this.outerWidth();
+    const height = this.outerHeight();
+    const width = this.outerWidth();
 
     if (!width || !height) {
         return false;
     }
 
-    var bounds = this.offset();
+    const bounds = this.offset();
     bounds.right = bounds.left + width;
     bounds.bottom = bounds.top + height;
 
-    var visible = (!(viewport.right < bounds.left ||
+    const visible = (!(viewport.right < bounds.left ||
         viewport.left > bounds.right ||
         viewport.bottom < bounds.top ||
         viewport.top > bounds.bottom));
@@ -386,7 +365,7 @@ function JQueryIsOnScreen(x: number = 1, y: number = 1): boolean {
         return false;
     }
 
-    var deltas = {
+    const deltas = {
         top: Math.min(1,(bounds.bottom - viewport.top) / height),
         bottom: Math.min(1,(viewport.bottom - bounds.top) / height),
         left: Math.min(1,(bounds.right - viewport.left) / width),
@@ -405,15 +384,15 @@ singJQuery.method('swapClasses', JQuerySwapClass,
         returnType: '',
         examples: null,
         glyphIcon: '&#xe110;',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     }, $.fn);
 
 function JQuerySwapClass(class1: string, class2: string): JQuery {
 
-    var thisJQuery = <JQuery>this;
+    const thisJQuery = this as JQuery;
 
-    if (thisJQuery) {
+    if (true) {
         if (thisJQuery.hasClass(class1)) {
             thisJQuery.removeClass(class1);
             thisJQuery.addClass(class2);
@@ -439,43 +418,43 @@ singJQuery.method('fadeClasses', JQueryFadeClass,
         returnType: '',
         examples: null,
         glyphIcon: '',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     }, $.fn);
 
 function JQueryFadeClass(class1: string, class2: string, speed: string|number = 'fast', callback?: Function): JQuery {
 
-    var thisJQuery = <JQuery>this;
+    var thisJQuery = this as JQuery;
 
-    if (thisJQuery) {
+    if (true) {
         if (thisJQuery.hasClass(class1)) {
 
-            thisJQuery.fadeOut(speed, function () {
+            thisJQuery.fadeOut(speed, () => {
                 thisJQuery.removeClass(class1);
                 thisJQuery.addClass(class2);
 
-                thisJQuery.fadeIn(speed, function () {
+                thisJQuery.fadeIn(speed, () => {
                     if (callback)
                         callback();
                 });
             });
         }
         else if (thisJQuery.hasClass(class2)) {
-            thisJQuery.fadeOut(speed, function () {
+            thisJQuery.fadeOut(speed, () => {
                 thisJQuery.removeClass(class2);
                 thisJQuery.addClass(class1);
 
-                thisJQuery.fadeIn(speed, function () {
+                thisJQuery.fadeIn(speed, () => {
                     if (callback)
                         callback();
                 });
             });
         }
         else {
-            thisJQuery.fadeOut(speed, function () {
+            thisJQuery.fadeOut(speed, () => {
                 thisJQuery.addClass(class1);
 
-                thisJQuery.fadeIn(speed, function () {
+                thisJQuery.fadeIn(speed, () => {
                     if (callback)
                         callback();
                 });
@@ -495,17 +474,17 @@ singJQuery.method('superFadeOut', JQuerySuperFadeOut,
         returnType: '',
         examples: null,
         glyphIcon: '',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     }, $.fn);
 
 function JQuerySuperFadeOut(speed: string|number = 'fast'): JQuery {
 
-    var thisJQuery = <JQuery>this;
+    const thisJQuery = this as JQuery;
 
     thisJQuery.each(function () {
 
-        var jElement = $(this);
+        const jElement = $(this);
 
         jElement.data('old-opacity', jElement.css('opacity'));
 
@@ -526,7 +505,7 @@ function JQuerySuperFadeOut(speed: string|number = 'fast'): JQuery {
                 opacity: 0,
                 height: 0,
                 padding: 0,
-                margin: 0,
+                margin: 0
             }, speed);
     });
 
@@ -542,13 +521,13 @@ singJQuery.method('superFadeIn', JQuerySuperFadeIn,
         returnType: '',
         examples: null,
         glyphIcon: '',
-        tests: function (ext) {
-        },
+        tests(ext) {
+        }
     }, $.fn);
 
 function JQuerySuperFadeIn(speed: string|number = 'fast'): JQuery {
 
-    var thisJQuery = <JQuery>this;
+    const thisJQuery = this as JQuery;
 
     thisJQuery.each(function () {
 
@@ -606,18 +585,18 @@ function JQuerySuperFadeIn(speed: string|number = 'fast'): JQuery {
                 'margin-top': marginTop,
                 'margin-bottom': marginBottom,
                 'margin-left': marginLeft,
-                'margin-right': marginRight,
-            }, speed, function () {
-                jElement.css('height', '');
-                jElement.css('padding-top', '');
-                jElement.css('padding-bottom', '');
-                jElement.css('padding-left', '');
-                jElement.css('padding-right', '');
-                jElement.css('margin-top', '');
-                jElement.css('margin-bottom', '');
-                jElement.css('margin-left', '');
-                jElement.css('margin-right', '');
-            });
+                'margin-right': marginRight
+            }, speed, () => {
+            jElement.css('height', '');
+            jElement.css('padding-top', '');
+            jElement.css('padding-bottom', '');
+            jElement.css('padding-left', '');
+            jElement.css('padding-right', '');
+            jElement.css('margin-top', '');
+            jElement.css('margin-bottom', '');
+            jElement.css('margin-left', '');
+            jElement.css('margin-right', '');
+        });
     });
 
     return thisJQuery;

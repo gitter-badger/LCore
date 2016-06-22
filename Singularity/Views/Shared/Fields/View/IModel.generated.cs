@@ -12,124 +12,43 @@
 namespace ASP
 {
     using System;
-    
-    #line 11 "..\..\Views\Shared\Fields\View\IModel.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 12 "..\..\Views\Shared\Fields\View\IModel.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 13 "..\..\Views\Shared\Fields\View\IModel.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 19 "..\..\Views\Shared\Fields\View\IModel.cshtml"
     using System.ComponentModel.DataAnnotations;
-    
-    #line default
-    #line hidden
-    
-    #line 20 "..\..\Views\Shared\Fields\View\IModel.cshtml"
-    using System.ComponentModel.DataAnnotations.Schema;
-    
-    #line default
-    #line hidden
-    
-    #line 14 "..\..\Views\Shared\Fields\View\IModel.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
     using System.IO;
-    
-    #line 17 "..\..\Views\Shared\Fields\View\IModel.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
-    
-    #line 18 "..\..\Views\Shared\Fields\View\IModel.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 15 "..\..\Views\Shared\Fields\View\IModel.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 16 "..\..\Views\Shared\Fields\View\IModel.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
     
     #line 3 "..\..\Views\Shared\Fields\View\IModel.cshtml"
-    using LCore;
+    using LCore.Extensions;
     
     #line default
     #line hidden
-    
-    #line 4 "..\..\Views\Shared\Fields\View\IModel.cshtml"
     using Singularity;
-    
-    #line default
-    #line hidden
-    
-    #line 9 "..\..\Views\Shared\Fields\View\IModel.cshtml"
-    using Singularity.Annotations;
-    
-    #line default
-    #line hidden
-    
-    #line 7 "..\..\Views\Shared\Fields\View\IModel.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\Shared\Fields\View\IModel.cshtml"
     using Singularity.Controllers;
     
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\Shared\Fields\View\IModel.cshtml"
+    #line 2 "..\..\Views\Shared\Fields\View\IModel.cshtml"
     using Singularity.Extensions;
     
     #line default
     #line hidden
-    
-    #line 5 "..\..\Views\Shared\Fields\View\IModel.cshtml"
     using Singularity.Models;
-    
-    #line default
-    #line hidden
-    
-    #line 8 "..\..\Views\Shared\Fields\View\IModel.cshtml"
-    using Singularity.Routes;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/Fields/View/IModel.cshtml")]
@@ -140,47 +59,21 @@ namespace ASP
         }
         public override void Execute()
         {
-
-
-WriteLiteral("\r\n\r\n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+WriteLiteral("\r\n");
 
 WriteLiteral("\r\n");
 
-
             
-            #line 22 "..\..\Views\Shared\Fields\View\IModel.cshtml"
+            #line 5 "..\..\Views\Shared\Fields\View\IModel.cshtml"
   
-
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
-
-
-WriteLiteral("\r\n");
-
+WriteLiteral("\r\n\r\n");
 
             
-            #line 27 "..\..\Views\Shared\Fields\View\IModel.cshtml"
+            #line 10 "..\..\Views\Shared\Fields\View\IModel.cshtml"
  if (Model.PropertyData != null && 
     Model.PropertyData.ToString().Length > ControllerHelper.DefaultTableTextLength)
     {
@@ -188,31 +81,36 @@ WriteLiteral("\r\n");
             
             #line default
             #line hidden
-WriteLiteral("    <a class=\"btn btn-default\"\r\n       title=\"");
+WriteLiteral("    <a");
 
+WriteLiteral(" class=\"btn btn-default\"");
 
+WriteAttribute("title", Tuple.Create("\r\n       title=\"", 275), Tuple.Create("\"", 321)
             
-            #line 31 "..\..\Views\Shared\Fields\View\IModel.cshtml"
-         Write(Model.PropertyData.ToString());
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\"\r\n       href=\"");
-
-
-            
-            #line 32 "..\..\Views\Shared\Fields\View\IModel.cshtml"
-        Write(Model.Route_FieldRelation(ViewBag.ControllerName));
-
+            #line 14 "..\..\Views\Shared\Fields\View\IModel.cshtml"
+, Tuple.Create(Tuple.Create("", 291), Tuple.Create<System.Object, System.Int32>(Model.PropertyData.ToString()
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n        <span>\r\n            ");
+, 291), false)
+);
 
+WriteAttribute("href", Tuple.Create("\r\n       href=\"", 322), Tuple.Create("\"", 387)
+            
+            #line 15 "..\..\Views\Shared\Fields\View\IModel.cshtml"
+, Tuple.Create(Tuple.Create("", 337), Tuple.Create<System.Object, System.Int32>(Model.Route_FieldRelation(ViewBag.ControllerName)
+            
+            #line default
+            #line hidden
+, 337), false)
+);
+
+WriteLiteral(">\r\n        <span>\r\n");
+
+WriteLiteral("            ");
 
             
-            #line 34 "..\..\Views\Shared\Fields\View\IModel.cshtml"
+            #line 17 "..\..\Views\Shared\Fields\View\IModel.cshtml"
        Write(Model.PropertyData.ToString().Substring(0, ControllerHelper.DefaultTableTextLength));
 
             
@@ -220,9 +118,8 @@ WriteLiteral("\">\r\n        <span>\r\n            ");
             #line hidden
 WriteLiteral("\r\n        </span>\r\n    </a>\r\n");
 
-
             
-            #line 37 "..\..\Views\Shared\Fields\View\IModel.cshtml"
+            #line 20 "..\..\Views\Shared\Fields\View\IModel.cshtml"
     }
 else
     {
@@ -230,21 +127,26 @@ else
             
             #line default
             #line hidden
-WriteLiteral("    <a class=\"btn btn-default\"\r\n       href=\"");
+WriteLiteral("    <a");
 
+WriteLiteral(" class=\"btn btn-default\"");
 
+WriteAttribute("href", Tuple.Create("\r\n       href=\"", 582), Tuple.Create("\"", 647)
             
-            #line 41 "..\..\Views\Shared\Fields\View\IModel.cshtml"
-        Write(Model.Route_FieldRelation(ViewBag.ControllerName));
-
+            #line 24 "..\..\Views\Shared\Fields\View\IModel.cshtml"
+, Tuple.Create(Tuple.Create("", 597), Tuple.Create<System.Object, System.Int32>(Model.Route_FieldRelation(ViewBag.ControllerName)
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n        <span>\r\n            ");
+, 597), false)
+);
 
+WriteLiteral(">\r\n        <span>\r\n");
+
+WriteLiteral("            ");
 
             
-            #line 43 "..\..\Views\Shared\Fields\View\IModel.cshtml"
+            #line 26 "..\..\Views\Shared\Fields\View\IModel.cshtml"
        Write(Model.PropertyData.ToString());
 
             
@@ -252,9 +154,8 @@ WriteLiteral("\">\r\n        <span>\r\n            ");
             #line hidden
 WriteLiteral("\r\n        </span>\r\n    </a>\r\n");
 
-
             
-            #line 46 "..\..\Views\Shared\Fields\View\IModel.cshtml"
+            #line 29 "..\..\Views\Shared\Fields\View\IModel.cshtml"
     }
 
             
@@ -262,9 +163,8 @@ WriteLiteral("\r\n        </span>\r\n    </a>\r\n");
             #line hidden
 WriteLiteral("\r\n");
 
-
             
-            #line 48 "..\..\Views\Shared\Fields\View\IModel.cshtml"
+            #line 31 "..\..\Views\Shared\Fields\View\IModel.cshtml"
  if (Model.PropertyData != null && 
     ViewContext.AllowEdit(Model.FieldType) &&
     !Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell))
@@ -273,24 +173,27 @@ WriteLiteral("\r\n");
             
             #line default
             #line hidden
-WriteLiteral("    <a class=\"btn btn-default\"\r\n       href=\"");
+WriteLiteral("    <a");
 
+WriteLiteral(" class=\"btn btn-default\"");
 
+WriteAttribute("href", Tuple.Create("\r\n       href=\"", 932), Tuple.Create("\"", 1228)
             
-            #line 53 "..\..\Views\Shared\Fields\View\IModel.cshtml"
-        Write(Url.Action(Singularity.Routes.Controllers.Manage.Actions.Edit,
+            #line 36 "..\..\Views\Shared\Fields\View\IModel.cshtml"
+, Tuple.Create(Tuple.Create("", 947), Tuple.Create<System.Object, System.Int32>(Url.Action(Singularity.Routes.Controllers.Manage.Actions.Edit,
         ContextProviderFactory.GetCurrent().GetManageController(Session, Model.FieldType).Name,
-        Singularity.Routes.Controllers.Manage.Actions.Route_Edit((IModel)Model.PropertyData, Request.Url.AbsoluteUri)));
-
+        Singularity.Routes.Controllers.Manage.Actions.Route_Edit((IModel)Model.PropertyData, Request.Url?.AbsoluteUri))
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n        <span>\r\n            <glyph>&#xe065;</glyph>\r\n            Edit\r\n      " +
-"  </span>\r\n    </a>\r\n");
+, 947), false)
+);
 
+WriteLiteral(">\r\n        <span>\r\n            <glyph>&#xe065;</glyph>\r\n            Edit\r\n       " +
+" </span>\r\n    </a>\r\n");
 
             
-            #line 61 "..\..\Views\Shared\Fields\View\IModel.cshtml"
+            #line 44 "..\..\Views\Shared\Fields\View\IModel.cshtml"
     }
 
             
@@ -298,9 +201,8 @@ WriteLiteral("\">\r\n        <span>\r\n            <glyph>&#xe065;</glyph>\r\n  
             #line hidden
 WriteLiteral("\r\n");
 
-
             
-            #line 63 "..\..\Views\Shared\Fields\View\IModel.cshtml"
+            #line 46 "..\..\Views\Shared\Fields\View\IModel.cshtml"
  if (Model.PropertyData == null && 
     ViewContext.AllowCreate(Model.FieldType) &&
     !Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell))
@@ -309,29 +211,31 @@ WriteLiteral("\r\n");
             
             #line default
             #line hidden
-WriteLiteral("    <a class=\"btn btn-default\"\r\n       href=\"");
+WriteLiteral("    <a");
 
+WriteLiteral(" class=\"btn btn-default\"");
 
+WriteAttribute("href", Tuple.Create("\r\n       href=\"", 1526), Tuple.Create("\"", 1798)
             
-            #line 68 "..\..\Views\Shared\Fields\View\IModel.cshtml"
-        Write(Url.Action(Singularity.Routes.Controllers.Manage.Actions.Create,
+            #line 51 "..\..\Views\Shared\Fields\View\IModel.cshtml"
+, Tuple.Create(Tuple.Create("", 1541), Tuple.Create<System.Object, System.Int32>(Url.Action(Singularity.Routes.Controllers.Manage.Actions.Create,
         ContextProviderFactory.GetCurrent().GetManageController(Session, Model.FieldType).Name,
-        Singularity.Routes.Controllers.Manage.Actions.Route_Create(Request.Url.AbsoluteUri)));
-
+        Singularity.Routes.Controllers.Manage.Actions.Route_Create(Request.Url?.AbsoluteUri))
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n        <span>\r\n            <glyph>&#x2a;</glyph>\r\n            Create\r\n      " +
-"  </span>\r\n    </a>\r\n");
+, 1541), false)
+);
 
+WriteLiteral(">\r\n        <span>\r\n            <glyph>&#x2a;</glyph>\r\n            Create\r\n       " +
+" </span>\r\n    </a>\r\n");
 
             
-            #line 76 "..\..\Views\Shared\Fields\View\IModel.cshtml"
+            #line 59 "..\..\Views\Shared\Fields\View\IModel.cshtml"
     }
             
             #line default
             #line hidden
-
         }
     }
 }

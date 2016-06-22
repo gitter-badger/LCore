@@ -12,108 +12,34 @@
 namespace ASP
 {
     using System;
-    
-    #line 11 "..\..\Views\_MainLayout.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 12 "..\..\Views\_MainLayout.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 13 "..\..\Views\_MainLayout.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 14 "..\..\Views\_MainLayout.cshtml"
     using System.ComponentModel.DataAnnotations;
-    
-    #line default
-    #line hidden
-    
-    #line 15 "..\..\Views\_MainLayout.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
     using System.IO;
-    
-    #line 9 "..\..\Views\_MainLayout.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\_MainLayout.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 16 "..\..\Views\_MainLayout.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 18 "..\..\Views\_MainLayout.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
-    
-    #line 17 "..\..\Views\_MainLayout.cshtml"
+    using System.Web.Mvc.Routing;
     using System.Web.Optimization;
-    
-    #line default
-    #line hidden
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
-    
-    #line 3 "..\..\Views\_MainLayout.cshtml"
-    using LCore;
-    
-    #line default
-    #line hidden
-    
-    #line 4 "..\..\Views\_MainLayout.cshtml"
+    using LCore.Extensions;
     using Singularity;
-    
-    #line default
-    #line hidden
-    
-    #line 7 "..\..\Views\_MainLayout.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\_MainLayout.cshtml"
     using Singularity.Controllers;
-    
-    #line default
-    #line hidden
-    
-    #line 5 "..\..\Views\_MainLayout.cshtml"
     using Singularity.Models;
     
-    #line default
-    #line hidden
-    
-    #line 8 "..\..\Views\_MainLayout.cshtml"
+    #line 2 "..\..\Views\_MainLayout.cshtml"
     using Singularity.Routes;
     
     #line default
@@ -128,119 +54,430 @@ namespace ASP
         }
         public override void Execute()
         {
-
-
-WriteLiteral("\r\n\r\n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+WriteLiteral("\r\n");
 
 WriteLiteral("\r\n");
 
-
             
-            #line 20 "..\..\Views\_MainLayout.cshtml"
+            #line 4 "..\..\Views\_MainLayout.cshtml"
   
     ViewBag.Title = ViewBag.Title ?? "";
-
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"utf-8\" />\r\n    " +
-"<title>");
+WriteLiteral("\r\n\r\n\r\n<!DOCTYPE html>\r\n<html");
 
+WriteLiteral(" lang=\"en\"");
+
+WriteLiteral(">\r\n<head>\r\n    <meta");
+
+WriteLiteral(" charset=\"utf-8\"");
+
+WriteLiteral(" />\r\n    <title>");
 
             
-            #line 29 "..\..\Views\_MainLayout.cshtml"
+            #line 13 "..\..\Views\_MainLayout.cshtml"
       Write(ViewBag.Title);
 
             
             #line default
             #line hidden
-WriteLiteral(" - Singularity</title>\r\n    <meta name=\"description\" content=\"\" />\r\n    <link hre" +
-"f=\"~/favicon.ico\" rel=\"shortcut icon\" type=\"image/x-icon\" />\r\n    <meta name=\"vi" +
-"ewport\" content=\"width=device-width, initial-scale=1\">\r\n\r\n\r\n    <link href=\"~/Co" +
-"ntent/singularity.css\" rel=\"stylesheet\">\r\n    <link href=\"~/Content/bootstrap.cs" +
-"s\" rel=\"stylesheet\">\r\n    <link href=\"~/Content/bootstrap.icon.css\" rel=\"stylesh" +
-"eet\">\r\n    <link href=\"~/Content/jquery-ui/base/accordion.css\" rel=\"stylesheet\">" +
-"\r\n    <link href=\"~/Content/jquery-ui/base/all.css\" rel=\"stylesheet\">\r\n    <link" +
-" href=\"~/Content/jquery-ui/base/autocomplete.css\" rel=\"stylesheet\">\r\n    <link h" +
-"ref=\"~/Content/jquery-ui/base/base.css\" rel=\"stylesheet\">\r\n    <link href=\"~/Con" +
-"tent/jquery-ui/base/button.css\" rel=\"stylesheet\">\r\n    <link href=\"~/Content/jqu" +
-"ery-ui/base/core.css\" rel=\"stylesheet\">\r\n    <link href=\"~/Content/jquery-ui/bas" +
-"e/datepicker.css\" rel=\"stylesheet\">\r\n    <link href=\"~/Content/jquery-ui/base/di" +
-"alog.css\" rel=\"stylesheet\">\r\n    <link href=\"~/Content/jquery-ui/base/draggable." +
-"css\" rel=\"stylesheet\">\r\n    <link href=\"~/Content/jquery-ui/base/menu.css\" rel=\"" +
-"stylesheet\">\r\n    <link href=\"~/Content/jquery-ui/base/progressbar.css\" rel=\"sty" +
-"lesheet\">\r\n    <link href=\"~/Content/jquery-ui/base/resizable.css\" rel=\"styleshe" +
-"et\">\r\n    <link href=\"~/Content/jquery-ui/base/selectable.css\" rel=\"stylesheet\">" +
-"\r\n    <link href=\"~/Content/jquery-ui/base/selectmenu.css\" rel=\"stylesheet\">\r\n  " +
-"  <link href=\"~/Content/jquery-ui/base/slider.css\" rel=\"stylesheet\">\r\n    <link " +
-"href=\"~/Content/jquery-ui/base/sortable.css\" rel=\"stylesheet\">\r\n    <link href=\"" +
-"~/Content/jquery-ui/base/spinner.css\" rel=\"stylesheet\">\r\n    <link href=\"~/Conte" +
-"nt/jquery-ui/base/tabs.css\" rel=\"stylesheet\">\r\n    <link href=\"~/Content/jquery-" +
-"ui/base/theme.css\" rel=\"stylesheet\">\r\n    <link href=\"~/Content/jquery-ui/base/t" +
-"ooltip.css\" rel=\"stylesheet\">\r\n    <link href=\"~/Content/singularity-forms.css\" " +
-"rel=\"stylesheet\">\r\n\r\n\r\n    <link rel=\"stylesheet\" href=\"~/Scripts/jquery-mobile/" +
-"jquery-mobile-1.4.5.min.css\">\r\n    <script src=\"~/Scripts/jquery-mobile/jquery-1" +
-".11.1.min.js\"></script>\r\n    <script src=\"~/Scripts/jquery-mobile/jquery-mobile-" +
-"1.4.5.min.js\"></script>\r\n\r\n    <script src=\"~/Scripts/jquery-ui-1.11.4.js\"></scr" +
-"ipt>\r\n    <script src=\"~/Scripts/bootstrap.js\"></script>\r\n    <script src=\"~/Scr" +
-"ipts/pnglib.js\"></script>\r\n    <script src=\"~/Scripts/identicon.js\"></script>\r\n " +
-"   <script src=\"~/Scripts/jsSHA.js\"></script>\r\n\r\n    <script src=\"~/Scripts/sing" +
-"ularity.js\"></script>\r\n\r\n    <script src=\"~/Scripts/chance.js\"></script>\r\n    <s" +
-"cript src=\"~/Scripts/jquery.cookie.js\"></script>\r\n    <script src=\"~/Scripts/jqu" +
-"ery.mousewheel.js\"></script>\r\n    <script src=\"~/Scripts/jquery.timepicker.js\"><" +
-"/script>\r\n    <script src=\"~/Scripts/qTip.js\"></script>\r\n\r\n    ");
+WriteLiteral(" - Singularity</title>\r\n    <meta");
+
+WriteLiteral(" name=\"description\"");
+
+WriteLiteral(" content=\"\"");
+
+WriteLiteral(" />\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 284), Tuple.Create("\"", 304)
+, Tuple.Create(Tuple.Create("", 291), Tuple.Create<System.Object, System.Int32>(Href("~/favicon.ico")
+, 291), false)
+);
+
+WriteLiteral(" rel=\"shortcut icon\"");
+
+WriteLiteral(" type=\"image/x-icon\"");
+
+WriteLiteral(" />\r\n    <meta");
+
+WriteLiteral(" name=\"viewport\"");
+
+WriteLiteral(" content=\"width=device-width, initial-scale=1\"");
+
+WriteLiteral(">\r\n\r\n\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 437), Tuple.Create("\"", 469)
+, Tuple.Create(Tuple.Create("", 444), Tuple.Create<System.Object, System.Int32>(Href("~/Content/singularity.css")
+, 444), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 499), Tuple.Create("\"", 539)
+, Tuple.Create(Tuple.Create("", 506), Tuple.Create<System.Object, System.Int32>(Href("~/Content/bootstrap/bootstrap.css")
+, 506), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 569), Tuple.Create("\"", 614)
+, Tuple.Create(Tuple.Create("", 576), Tuple.Create<System.Object, System.Int32>(Href("~/Content/bootstrap/bootstrap.icon.css")
+, 576), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 646), Tuple.Create("\"", 691)
+, Tuple.Create(Tuple.Create("", 653), Tuple.Create<System.Object, System.Int32>(Href("~/Content/jquery-ui/base/accordion.css")
+, 653), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 721), Tuple.Create("\"", 760)
+, Tuple.Create(Tuple.Create("", 728), Tuple.Create<System.Object, System.Int32>(Href("~/Content/jquery-ui/base/all.css")
+, 728), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 790), Tuple.Create("\"", 838)
+, Tuple.Create(Tuple.Create("", 797), Tuple.Create<System.Object, System.Int32>(Href("~/Content/jquery-ui/base/autocomplete.css")
+, 797), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 868), Tuple.Create("\"", 908)
+, Tuple.Create(Tuple.Create("", 875), Tuple.Create<System.Object, System.Int32>(Href("~/Content/jquery-ui/base/base.css")
+, 875), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 938), Tuple.Create("\"", 980)
+, Tuple.Create(Tuple.Create("", 945), Tuple.Create<System.Object, System.Int32>(Href("~/Content/jquery-ui/base/button.css")
+, 945), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1010), Tuple.Create("\"", 1050)
+, Tuple.Create(Tuple.Create("", 1017), Tuple.Create<System.Object, System.Int32>(Href("~/Content/jquery-ui/base/core.css")
+, 1017), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1080), Tuple.Create("\"", 1126)
+, Tuple.Create(Tuple.Create("", 1087), Tuple.Create<System.Object, System.Int32>(Href("~/Content/jquery-ui/base/datepicker.css")
+, 1087), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1156), Tuple.Create("\"", 1198)
+, Tuple.Create(Tuple.Create("", 1163), Tuple.Create<System.Object, System.Int32>(Href("~/Content/jquery-ui/base/dialog.css")
+, 1163), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1228), Tuple.Create("\"", 1273)
+, Tuple.Create(Tuple.Create("", 1235), Tuple.Create<System.Object, System.Int32>(Href("~/Content/jquery-ui/base/draggable.css")
+, 1235), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1303), Tuple.Create("\"", 1343)
+, Tuple.Create(Tuple.Create("", 1310), Tuple.Create<System.Object, System.Int32>(Href("~/Content/jquery-ui/base/menu.css")
+, 1310), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1373), Tuple.Create("\"", 1420)
+, Tuple.Create(Tuple.Create("", 1380), Tuple.Create<System.Object, System.Int32>(Href("~/Content/jquery-ui/base/progressbar.css")
+, 1380), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1450), Tuple.Create("\"", 1495)
+, Tuple.Create(Tuple.Create("", 1457), Tuple.Create<System.Object, System.Int32>(Href("~/Content/jquery-ui/base/resizable.css")
+, 1457), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1525), Tuple.Create("\"", 1571)
+, Tuple.Create(Tuple.Create("", 1532), Tuple.Create<System.Object, System.Int32>(Href("~/Content/jquery-ui/base/selectable.css")
+, 1532), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1601), Tuple.Create("\"", 1647)
+, Tuple.Create(Tuple.Create("", 1608), Tuple.Create<System.Object, System.Int32>(Href("~/Content/jquery-ui/base/selectmenu.css")
+, 1608), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1677), Tuple.Create("\"", 1719)
+, Tuple.Create(Tuple.Create("", 1684), Tuple.Create<System.Object, System.Int32>(Href("~/Content/jquery-ui/base/slider.css")
+, 1684), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1749), Tuple.Create("\"", 1793)
+, Tuple.Create(Tuple.Create("", 1756), Tuple.Create<System.Object, System.Int32>(Href("~/Content/jquery-ui/base/sortable.css")
+, 1756), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1823), Tuple.Create("\"", 1866)
+, Tuple.Create(Tuple.Create("", 1830), Tuple.Create<System.Object, System.Int32>(Href("~/Content/jquery-ui/base/spinner.css")
+, 1830), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1896), Tuple.Create("\"", 1936)
+, Tuple.Create(Tuple.Create("", 1903), Tuple.Create<System.Object, System.Int32>(Href("~/Content/jquery-ui/base/tabs.css")
+, 1903), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 1966), Tuple.Create("\"", 2007)
+, Tuple.Create(Tuple.Create("", 1973), Tuple.Create<System.Object, System.Int32>(Href("~/Content/jquery-ui/base/theme.css")
+, 1973), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 2037), Tuple.Create("\"", 2080)
+, Tuple.Create(Tuple.Create("", 2044), Tuple.Create<System.Object, System.Int32>(Href("~/Content/jquery-ui/base/tooltip.css")
+, 2044), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 2110), Tuple.Create("\"", 2148)
+, Tuple.Create(Tuple.Create("", 2117), Tuple.Create<System.Object, System.Int32>(Href("~/Content/singularity-forms.css")
+, 2117), false)
+);
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(@">
+
+    <!--
+    <link rel=""stylesheet"" href=""~/Scripts/jquery-mobile/jquery-mobile-1.4.5.min.css"">
+    <script src=""~/Scripts/include/jquery-mobile/jquery-1.11.1.min.js""></script>
+    <script src=""~/Scripts/include/jquery-mobile/jquery-mobile-1.4.5.min.js""></script>
+    -->
 
 
+    <script");
 
-WriteLiteral("\r\n</head>\r\n<body singularity class=\"");
+WriteAttribute("src", Tuple.Create(" src=\"", 2463), Tuple.Create("\"", 2509)
+, Tuple.Create(Tuple.Create("", 2469), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/include/jquery/jquery-3.0.0.js")
+, 2469), false)
+);
 
+WriteLiteral("></script>\r\n\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 2535), Tuple.Create("\"", 2588)
+, Tuple.Create(Tuple.Create("", 2541), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/include/jquery-ui/jquery-ui-1.11.4.js")
+, 2541), false)
+);
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 2612), Tuple.Create("\"", 2658)
+, Tuple.Create(Tuple.Create("", 2618), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/include/bootstrap/bootstrap.js")
+, 2618), false)
+);
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 2682), Tuple.Create("\"", 2722)
+, Tuple.Create(Tuple.Create("", 2688), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/include/pnglib/pnglib.js")
+, 2688), false)
+);
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 2746), Tuple.Create("\"", 2792)
+, Tuple.Create(Tuple.Create("", 2752), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/include/identicon/identicon.js")
+, 2752), false)
+);
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 2816), Tuple.Create("\"", 2854)
+, Tuple.Create(Tuple.Create("", 2822), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/include/jsSHA/jsSHA.js")
+, 2822), false)
+);
+
+WriteLiteral("></script>\r\n\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 2880), Tuple.Create("\"", 2910)
+, Tuple.Create(Tuple.Create("", 2886), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/singularity.js")
+, 2886), false)
+);
+
+WriteLiteral("></script>\r\n\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 2936), Tuple.Create("\"", 2976)
+, Tuple.Create(Tuple.Create("", 2942), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/include/chance/chance.js")
+, 2942), false)
+);
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 3000), Tuple.Create("\"", 3054)
+, Tuple.Create(Tuple.Create("", 3006), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/include/jquery.cookie/jquery.cookie.js")
+, 3006), false)
+);
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 3078), Tuple.Create("\"", 3140)
+, Tuple.Create(Tuple.Create("", 3084), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/include/jquery.mousewheel/jquery.mousewheel.js")
+, 3084), false)
+);
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 3164), Tuple.Create("\"", 3226)
+, Tuple.Create(Tuple.Create("", 3170), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/include/jquery.timepicker/jquery.timepicker.js")
+, 3170), false)
+);
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 3250), Tuple.Create("\"", 3286)
+, Tuple.Create(Tuple.Create("", 3256), Tuple.Create<System.Object, System.Int32>(Href("~/Scripts/include/qTip/qTip.js")
+, 3256), false)
+);
+
+WriteLiteral("></script>\r\n\r\n    ");
+
+WriteLiteral("\r\n</head>\r\n<body singularity");
+
+WriteAttribute("class", Tuple.Create(" class=\"", 6156), Tuple.Create("\"", 6282)
+            
+            #line 119 "..\..\Views\_MainLayout.cshtml"
+, Tuple.Create(Tuple.Create("", 6164), Tuple.Create<System.Object, System.Int32>(ViewBag.ContextProvider != null ? StringExt.ToUrlSlug(ViewBag.ContextProvider.GetContext(Session).ContextName) : ""
+            
+            #line default
+            #line hidden
+, 6164), false)
+);
+
+WriteLiteral(">\r\n\r\n    <script");
+
+WriteLiteral(" src=\"/Scripts/include/jquery-mobile/jquery-1.11.1.min.js\"");
+
+WriteLiteral("></script>\r\n    <header>\r\n");
+
+WriteLiteral("        ");
 
             
-            #line 130 "..\..\Views\_MainLayout.cshtml"
-                     Write(ViewBag.ContextProvider != null ? StringExt.ToUrlSlug(ViewBag.ContextProvider.GetContext(Session).ContextName) : "");
+            #line 123 "..\..\Views\_MainLayout.cshtml"
+   Write(Html.Partial(PartialViews.Nav));
 
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n\r\n    <script type=\"text/javascript\">\r\n\r\n        $(document).ready(function (" +
-") {\r\n\r\n        })\r\n    </script>\r\n    <header>\r\n        Html.Partial(\"_Menu\")\r\n\r" +
-"\n");
-
+WriteLiteral("\r\n\r\n");
 
             
-            #line 141 "..\..\Views\_MainLayout.cshtml"
+            #line 125 "..\..\Views\_MainLayout.cshtml"
+        
+            
+            #line default
+            #line hidden
+            
+            #line 125 "..\..\Views\_MainLayout.cshtml"
          if (TempData.Peek(ControllerHelper.StatusMessage_Temporary) != null)
             {
-            String Message = (String)TempData[ControllerHelper.StatusMessage_Temporary];
-            String Icon = (String)(TempData[ControllerHelper.StatusMessage_TemporaryIcon] ?? "");
+            string Message = (string)TempData[ControllerHelper.StatusMessage_Temporary];
+            string Icon = (string)(TempData[ControllerHelper.StatusMessage_TemporaryIcon] ?? "");
 
 
             
             #line default
             #line hidden
-WriteLiteral("            <div class=\"status-message close-dialog\">\r\n");
+WriteLiteral("            <div");
 
+WriteLiteral(" class=\"status-message close-dialog\"");
+
+WriteLiteral(">\r\n");
 
             
-            #line 147 "..\..\Views\_MainLayout.cshtml"
-                 if (!String.IsNullOrEmpty(Icon))
+            #line 131 "..\..\Views\_MainLayout.cshtml"
+                
+            
+            #line default
+            #line hidden
+            
+            #line 131 "..\..\Views\_MainLayout.cshtml"
+                 if (!string.IsNullOrEmpty(Icon))
                     {
 
             
@@ -248,9 +485,8 @@ WriteLiteral("            <div class=\"status-message close-dialog\">\r\n");
             #line hidden
 WriteLiteral("                    <glyph>");
 
-
             
-            #line 149 "..\..\Views\_MainLayout.cshtml"
+            #line 133 "..\..\Views\_MainLayout.cshtml"
                       Write(Icon);
 
             
@@ -258,9 +494,8 @@ WriteLiteral("                    <glyph>");
             #line hidden
 WriteLiteral("</glyph>\r\n");
 
-
             
-            #line 150 "..\..\Views\_MainLayout.cshtml"
+            #line 134 "..\..\Views\_MainLayout.cshtml"
                     }
 
             
@@ -268,9 +503,8 @@ WriteLiteral("</glyph>\r\n");
             #line hidden
 WriteLiteral("                ");
 
-
             
-            #line 151 "..\..\Views\_MainLayout.cshtml"
+            #line 135 "..\..\Views\_MainLayout.cshtml"
            Write(Message);
 
             
@@ -278,71 +512,93 @@ WriteLiteral("                ");
             #line hidden
 WriteLiteral("\r\n            </div>\r\n");
 
-
             
-            #line 153 "..\..\Views\_MainLayout.cshtml"
+            #line 137 "..\..\Views\_MainLayout.cshtml"
             }
 
             
             #line default
             #line hidden
-WriteLiteral(@"
-        <div class=""key-bind-tip"" style=""display:none"">
-            <div class=""border-bottom"">
-                <glyph>&#xe047;</glyph>
-                Key Shortcuts
-            </div>
-            <span id=""key-bind-page-tip"">
-            </span>
-        </div>
-    </header>
-    <div id=""body"" data-role=""page"">
+WriteLiteral("\r\n        <div");
 
-        ");
+WriteLiteral(" class=\"key-bind-tip\"");
 
+WriteLiteral(" style=\"display: none\"");
+
+WriteLiteral(">\r\n            <div");
+
+WriteLiteral(" class=\"border-bottom\"");
+
+WriteLiteral(">\r\n                <glyph>&#xe047;</glyph>\r\n                Key Shortcuts\r\n      " +
+"      </div>\r\n            <span");
+
+WriteLiteral(" id=\"key-bind-page-tip\"");
+
+WriteLiteral(">\r\n            </span>\r\n        </div>\r\n    </header>\r\n    <div");
+
+WriteLiteral(" id=\"body\"");
+
+WriteLiteral(" data-role=\"page\"");
+
+WriteLiteral(">\r\n\r\n");
+
+WriteLiteral("        ");
 
             
-            #line 166 "..\..\Views\_MainLayout.cshtml"
-   Write(RenderSection("featured", required: false));
+            #line 150 "..\..\Views\_MainLayout.cshtml"
+   Write(RenderSection("featured", false));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n        <section class=\"content-wrapper main-content clear-fix\">\r\n           " +
-" ");
+WriteLiteral("\r\n\r\n        <section");
 
+WriteLiteral(" class=\"content-wrapper main-content clear-fix\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("            ");
 
             
-            #line 169 "..\..\Views\_MainLayout.cshtml"
+            #line 153 "..\..\Views\_MainLayout.cshtml"
        Write(RenderBody());
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n        </section>\r\n    </div>\r\n    <footer>\r\n        <div class=\"content-wrapp" +
-"er\">\r\n            <div class=\"left\">\r\n                <p>&copy; ");
+WriteLiteral("\r\n        </section>\r\n    </div>\r\n    <footer>\r\n        <div");
 
+WriteLiteral(" class=\"content-wrapper\"");
+
+WriteLiteral(">\r\n            <div");
+
+WriteLiteral(" class=\"left\"");
+
+WriteLiteral(">\r\n                <p>&copy; ");
 
             
-            #line 175 "..\..\Views\_MainLayout.cshtml"
+            #line 159 "..\..\Views\_MainLayout.cshtml"
                      Write(DateTime.Now.Year);
 
             
             #line default
             #line hidden
-WriteLiteral("</p>\r\n            </div>\r\n        </div>\r\n    </footer>\r\n\r\n    <script src=\"/Scri" +
-"pts/jquery-mobile/jquery-1.11.1.min.js\"></script>\r\n\r\n    ");
+WriteLiteral("</p>\r\n            </div>\r\n        </div>\r\n    </footer>\r\n\r\n    <script");
 
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral(">\r\n\r\n        $(document).ready(function () {\r\n\r\n        })\r\n    </script>\r\n\r\n");
+
+WriteLiteral("    ");
 
             
-            #line 182 "..\..\Views\_MainLayout.cshtml"
-Write(RenderSection("scripts", required: false));
+            #line 171 "..\..\Views\_MainLayout.cshtml"
+Write(RenderSection("scripts", false));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n</body>\r\n</html>");
-
 
         }
     }

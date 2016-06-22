@@ -1,28 +1,13 @@
 ﻿@* Generator: MvcView *@
 
-@using LCore;
-@using Singularity;
-@using Singularity.Models;
-@using Singularity.Controllers;
-@using Singularity.Context;
-@using Singularity.Routes;
+
+@using LCore.Extensions;
 @using Singularity.Annotations;
 @using Singularity.Extensions;
-@using System.Linq;
-@using System.Linq.Expressions;
-@using System.Collections;
-@using System.Collections.Generic;
-@using System.ComponentModel;
-@using System.ComponentModel.DataAnnotations;
-@using System.ComponentModel.Design;
-@using System.Web;
-@using System.Web.Mvc;
 
 @{
-    EmailTemplate Email = (EmailTemplate)Model.ModelData;
 
-    Dictionary<String, ModelMetadata> AllMeta;
-    Dictionary<String, List<ModelMetadata>> BasedMeta = new Dictionary<string, List<ModelMetadata>>();
+    Dictionary<string, List<ModelMetadata>> BasedMeta = new Dictionary<string, List<ModelMetadata>>();
 
     ModelContext DbContext = ContextProviderFactory.GetCurrent().GetContext(Session);
 
@@ -35,18 +20,11 @@
     // Inject the project's user type so the context matches
     ModelExportType = ModelExportType.MakeGenericType(ModelUserType);
 
-    if (ModelExportType == null)
-        {
-        AllMeta = new Dictionary<string, ModelMetadata>();
-        }
-    else
-        {
-        AllMeta = ModelExportType.GetMeta(m => !m.HasAttribute<FieldNoTokenAttribute>());
-        }
+    Dictionary<string, ModelMetadata> AllMeta = ModelExportType.GetMeta(m => !m.HasAttribute<FieldNoTokenAttribute>());
 
-    AllMeta.Keys.Each((k) =>
+    AllMeta.Keys.Each(k =>
     {
-        String BaseKey = "";
+        string BaseKey = "";
 
         if (AllMeta[k].HasAttribute<IFieldNoToken>())
             {
@@ -71,34 +49,72 @@
 
 @if (!Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell))
     {
-    if (ModelExportType != null)
-        {
-        <div class="field-list-add-drag" target="#Body" position="end" token-braces="true">
-            <h3>@Html.TextContent("Singularity_CustomExport_Fields", "Fields")</h3>
+    <div class="field-list-add-drag" target="#Body" position="end" token-braces="true">
+        <h3>@Html.TextContent("Singularity_CustomExport_Fields", "Fields")</h3>
 
-            @if (GlobalTokens.Count > 0)
-                {
-                String BaseKey = "global-tokens";
+        @if (GlobalTokens.Count > 0)
+            {
+            const string BaseKey = "global-tokens";
 
+            <span class="btn-info btn left method-show-hide" click-fade-toggle=".field-group-@BaseKey.ReplaceAll(".", "" )">
+                <glyph class="field-group-@BaseKey.ReplaceAll(".", "" )">&#x2b;</glyph>
+                <glyph class="field-group-@BaseKey.ReplaceAll(".", "" )" style=" display: none;">&#x2212;</glyph>
+            </span>
+
+
+            <h4>Global Tokens</h4>
+
+            <div class="field-group-@BaseKey.ReplaceAll(".", "")" style="display:none;">
+                @foreach (TextContent Text in GlobalTokens)
+                        {
+                        string Key = Text.Token;
+
+                    <div class="field-list-row" data-field-name="@Key" title="@Key">
+                        <div class="add-button">
+                            <glyph>&#x2b;</glyph>
+                        </div>
+                        <div class="field-name" title="@Html.Raw(Text.Description.Replace("\r\n", "<br>"))">
+                            @Text.Token.Humanize()
+                        </div>
+                        <div class="field-token">
+                            <input type="text" readonly value="[@Key]" />
+                        </div>
+                    </div>
+                    }
+            </div>
+            }
+
+        @foreach (string BaseKey in BasedMeta.Keys)
+            {
+            <div class="field-group-header-@BaseKey.ReplaceAll(".", "")">
                 <span class="btn-info btn left method-show-hide" click-fade-toggle=".field-group-@BaseKey.ReplaceAll(".", "" )">
                     <glyph class="field-group-@BaseKey.ReplaceAll(".", "" )">&#x2b;</glyph>
                     <glyph class="field-group-@BaseKey.ReplaceAll(".", "" )" style=" display: none;">&#x2212;</glyph>
                 </span>
 
-
-                <h4>Global Tokens</h4>
+                @if (string.IsNullOrEmpty(BaseKey))
+                    {
+                    <h4>@ModelExportType.GetFriendlyTypeName()</h4>
+                    continue;
+                    }
+                <h4>@BaseKey.ReplaceAll(".", " ")</h4>
 
                 <div class="field-group-@BaseKey.ReplaceAll(".", "")" style="display:none;">
-                    @foreach (TextContent Text in GlobalTokens)
+                    @foreach (ModelMetadata Meta in BasedMeta[BaseKey])
                         {
-                        String Key = Text.Token;
+                        string Key = Meta.PropertyName;
+
+                        if (!string.IsNullOrEmpty(BaseKey))
+                            {
+                            Key = $"{BaseKey}.{Key}";
+                            }
 
                         <div class="field-list-row" data-field-name="@Key" title="@Key">
                             <div class="add-button">
                                 <glyph>&#x2b;</glyph>
                             </div>
-                            <div class="field-name" title="@Html.Raw(Text.Description.Replace("\r\n", "<br>"))">
-                                @Text.Token.Humanize()
+                            <div class="field-name">
+                                @Meta.GetDisplayName().Humanize()
                             </div>
                             <div class="field-token">
                                 <input type="text" readonly value="[@Key]" />
@@ -106,50 +122,7 @@
                         </div>
                         }
                 </div>
-                }
-
-            @foreach (String BaseKey in BasedMeta.Keys)
-                {
-                <div class="field-group-header-@BaseKey.ReplaceAll(".", "")">
-                    <span class="btn-info btn left method-show-hide" click-fade-toggle=".field-group-@BaseKey.ReplaceAll(".", "" )">
-                        <glyph class="field-group-@BaseKey.ReplaceAll(".", "" )">&#x2b;</glyph>
-                        <glyph class="field-group-@BaseKey.ReplaceAll(".", "" )" style=" display: none;">&#x2212;</glyph>
-                    </span>
-
-                    @if (String.IsNullOrEmpty(BaseKey))
-                        {
-                        <h4>@ModelExportType.GetFriendlyTypeName()</h4>
-                        }
-                    else
-                        {
-                        <h4>@BaseKey.ReplaceAll(".", " ")</h4>
-                        }
-
-                    <div class="field-group-@BaseKey.ReplaceAll(".", "")" style="display:none;">
-                        @foreach (ModelMetadata Meta in BasedMeta[BaseKey])
-                            {
-                            String Key = Meta.PropertyName;
-
-                            if (!String.IsNullOrEmpty(BaseKey))
-                                {
-                                Key = BaseKey + "." + Key;
-                                }
-
-                            <div class="field-list-row" data-field-name="@Key" title="@Key">
-                                <div class="add-button">
-                                    <glyph>&#x2b;</glyph>
-                                </div>
-                                <div class="field-name">
-                                    @Meta.GetDisplayName().Humanize()
-                                </div>
-                                <div class="field-token">
-                                    <input type="text" readonly value="[@Key]" />
-                                </div>
-                            </div>
-                            }
-                    </div>
-                </div>
-                }
-        </div>
-        }
+            </div>
+            }
+    </div>
     }

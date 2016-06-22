@@ -1,51 +1,26 @@
 ﻿@* Generator: MvcView *@
-
-@using LCore;
-@using Singularity;
-@using Singularity.Models;
-@using Singularity.Controllers;
-@using Singularity.Context;
-@using Singularity.Routes;
 @using Singularity.Extensions;
 @using Singularity.Annotations;
-@using System.Collections;
-@using System.Collections.Generic;
-@using System.ComponentModel;
-@using System.ComponentModel.Design;
-@using System.Web;
-@using System.Web.Mvc;
-@using System.Linq;
-@using System.Linq.Expressions;
-@using System.ComponentModel.DataAnnotations;
-@using System.ComponentModel.DataAnnotations.Schema;
 
 @{
     FieldType_Dropdown FieldAttr = Model.Meta.GetAttribute<FieldType_Dropdown>();
 
-    List<SelectListItem> Items = new List<SelectListItem>();
+    bool Required = Model.Meta.IsRequired;
 
-    Boolean Required = Model.Meta.IsRequired;
+    string EmptyValue = FieldAttr.EmptyValue;
+    string EmptyKey = FieldAttr.EmptyKey;
 
-    String EmptyValue = FieldAttr.EmptyValue;
-    String EmptyKey = FieldAttr.EmptyKey;
-
-    if (FieldAttr != null)
+    List<SelectListItem> Items = FieldAttr.KeyValues(ViewContext).Select(KeyValue => new SelectListItem
         {
-        foreach (KeyValuePair<String, String> KeyValue in FieldAttr.KeyValues(this.ViewContext))
-            {
-            Items.Add(new SelectListItem()
-            {
-                Text = KeyValue.Key,
-                Value = KeyValue.Value,
-                Selected = (Model.PropertyData ?? "").ToString() == KeyValue.Value,
-            });
-            }
-        }
+        Text = KeyValue.Key,
+        Value = KeyValue.Value,
+        Selected = (Model.PropertyData ?? "").ToString() == KeyValue.Value
+        }).ToList();
 }
 
 @model IViewField
 
-@if (FieldAttr != null && FieldAttr.MultiSelect)
+@if (FieldAttr.MultiSelect)
     {
     <div class="option-checks">
 
@@ -71,7 +46,7 @@ else
     <select name="@Model.Meta.PropertyName" id="@Model.Meta.PropertyName">
         @if (!Required)
             {
-            <option value="@EmptyValue" @((String)Model.PropertyData == EmptyValue ? "selected" : "")>
+            <option value="@EmptyValue" @((string)Model.PropertyData == EmptyValue ? "selected" : "")>
                 @EmptyKey
             </option>
 

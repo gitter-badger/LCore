@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Content/singularity.css",
+    "inputFile": "Content/singularity.less"
+  },
+  {
+    "outputFile": "Content/singularity-forms.css",
+    "inputFile": "Content/singularity-forms.less"
+  }
+]

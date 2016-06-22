@@ -26,7 +26,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -133,12 +133,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\L Web\L Web.csproj">
-      <Project>{9A3F96FE-4B85-4E7F-93B8-7F6DB0367B1C}</Project>
-      <Name>L Web</Name>
-    </ProjectReference>
     <ProjectReference Include="..\L\L.csproj">
-      <Project>{CD24BCEC-5A94-4524-B1D3-0537C66B0761}</Project>
+      <Project>{cd24bcec-5a94-4524-b1d3-0537c66b0761}</Project>
       <Name>L</Name>
     </ProjectReference>
   </ItemGroup>

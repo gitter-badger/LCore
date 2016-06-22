@@ -1,24 +1,24 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Xml;
+using System.Linq;
+using LCore.Extensions;
 
-namespace LCore
+namespace LCore.Tools
     {
     public class Schedule
         {
-        public const String XML_NAME_STR = "Schedule";
-        public const String XML_MODE_STR = "Mode";
-        public const String XML_TIME_STR = "TimeOfDay";
-        public const String XML_DAY_STR = "DayOfWeek";
+        public const string XML_NAME_STR = "Schedule";
+        public const string XML_MODE_STR = "Mode";
+        public const string XML_TIME_STR = "TimeOfDay";
+        public const string XML_DAY_STR = "DayOfWeek";
         public const char SplitChar = '|';
         public const ScheduleMode DEFAULT_MODE = ScheduleMode.Daily;
         public static DateTime DEFAULT_TIME_OF_DAY = DateTime.MinValue;
 
-        public static DayOfWeek[] AllDays = new DayOfWeek[] { DayOfWeek.Sunday, DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday };
-        public static String[] AllDaysStr = Enum.GetNames(typeof(System.DayOfWeek));
+        public static DayOfWeek[] AllDays = { DayOfWeek.Sunday, DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday };
+        public static string[] AllDaysStr = Enum.GetNames(typeof(DayOfWeek));
 
-        public enum ScheduleMode { Monthly, Daily, One_Time, Manual };
+        public enum ScheduleMode { Monthly, Daily, One_Time, Manual }
 
         public ScheduleMode Mode = ScheduleMode.Manual;
         public List<DateTime> TimesOfDay = new List<DateTime>();
@@ -26,13 +26,11 @@ namespace LCore
         public List<int> DaysOfMonth = new List<int>();
         public DateTime OneTimeScheduleDate = DateTime.MinValue;
 
-        public override String ToString()
+        public override string ToString()
             {
-            String Out = "";
+            string Out = this.Mode.ToString();
 
-            Out = Mode.ToString();
-
-            if (Mode == ScheduleMode.Daily)
+            if (this.Mode == ScheduleMode.Daily)
                 {
                 Out += SplitChar;
                 for (int i = 0; i < this.DaysOfWeek.Count; i++)
@@ -50,7 +48,7 @@ namespace LCore
                         Out += ",";
                     }
                 }
-            else if (Mode == ScheduleMode.Monthly)
+            else if (this.Mode == ScheduleMode.Monthly)
                 {
                 Out += SplitChar;
 
@@ -61,55 +59,42 @@ namespace LCore
                         Out += ",";
                     }
                 }
-            else if (Mode == ScheduleMode.One_Time)
+            else if (this.Mode == ScheduleMode.One_Time)
                 {
-                Out += SplitChar +
-                    OneTimeScheduleDate.ToString();
+                Out += SplitChar + this.OneTimeScheduleDate.ToString();
                 }
-            else if (Mode == ScheduleMode.Manual)
+            else if (this.Mode == ScheduleMode.Manual)
                 {
                 }
             return Out;
             }
 
-        public static Schedule FromString(String In)
+        public static Schedule FromString(string In)
             {
             Schedule Out = new Schedule();
 
-            String[] split = In.Split(SplitChar);
+            string[] split = In.Split(SplitChar);
 
             ScheduleMode Mode = split[0].ParseEnum<ScheduleMode>();
             Out.Mode = Mode;
 
             if (Mode == ScheduleMode.Daily)
                 {
-                String[] days = split[1].Split(',');
-                List<DayOfWeek> DaysOfWeek = new List<DayOfWeek>();
-                for (int i = 0; i < days.Length; i++)
-                    {
-                    DaysOfWeek.Add(days[i].ParseEnum<DayOfWeek>());
-                    }
+                string[] days = split[1].Split(',');
+                List<DayOfWeek> DaysOfWeek = days.Select(t => t.ParseEnum<DayOfWeek>()).ToList();
 
                 Out.DaysOfWeek = DaysOfWeek;
 
-                String[] times = split[2].Split(',');
-                List<DateTime> TimesOfDay = new List<DateTime>();
-                for (int i = 0; i < times.Length; i++)
-                    {
-                    TimesOfDay.Add(Convert.ToDateTime(times[i]));
-                    }
+                string[] times = split[2].Split(',');
+                List<DateTime> TimesOfDay = times.Select(t => Convert.ToDateTime(t)).ToList();
                 TimesOfDay.Sort();
 
                 Out.TimesOfDay = TimesOfDay;
                 }
             else if (Mode == ScheduleMode.Monthly)
                 {
-                String[] days = split[1].Split(',');
-                List<int> DaysOfMonth = new List<int>();
-                for (int i = 0; i < days.Length; i++)
-                    {
-                    DaysOfMonth.Add(Convert.ToInt32(days[i]));
-                    }
+                string[] days = split[1].Split(',');
+                List<int> DaysOfMonth = days.Select(t => Convert.ToInt32(t)).ToList();
                 DaysOfMonth.Sort();
 
                 Out.DaysOfMonth = DaysOfMonth;

@@ -12,118 +12,49 @@
 namespace ASP
 {
     using System;
-    
-    #line 13 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 14 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 15 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 16 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
     using System.ComponentModel.DataAnnotations;
-    
-    #line default
-    #line hidden
-    
-    #line 17 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
     using System.IO;
-    
-    #line 11 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
-    
-    #line 12 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 18 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 19 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 3 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-    using LCore;
+    #line 4 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+    using LCore.Extensions;
     
     #line default
     #line hidden
-    
-    #line 4 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
     using Singularity;
     
-    #line default
-    #line hidden
-    
-    #line 9 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+    #line 5 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
     using Singularity.Annotations;
     
     #line default
     #line hidden
-    
-    #line 7 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
     using Singularity.Controllers;
     
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+    #line 6 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
     using Singularity.Extensions;
     
     #line default
     #line hidden
-    
-    #line 5 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
     using Singularity.Models;
-    
-    #line default
-    #line hidden
-    
-    #line 8 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-    using Singularity.Routes;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/EmailTemplate/Fields/Subject_After.cshtml")]
@@ -134,37 +65,15 @@ namespace ASP
         }
         public override void Execute()
         {
-
-
-WriteLiteral("\r\n\r\n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+WriteLiteral("\r\n\r\n\r\n");
 
 WriteLiteral("\r\n");
 
-
             
-            #line 21 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+            #line 8 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
   
-    EmailTemplate Email = (EmailTemplate)Model.ModelData;
 
-    Dictionary<String, ModelMetadata> AllMeta;
-    Dictionary<String, List<ModelMetadata>> BasedMeta = new Dictionary<string, List<ModelMetadata>>();
+    Dictionary<string, List<ModelMetadata>> BasedMeta = new Dictionary<string, List<ModelMetadata>>();
 
     ModelContext DbContext = ContextProviderFactory.GetCurrent().GetContext(Session);
 
@@ -177,18 +86,11 @@ WriteLiteral("\r\n");
     // Inject the project's user type so the context matches
     ModelExportType = ModelExportType.MakeGenericType(ModelUserType);
 
-    if (ModelExportType == null)
-        {
-        AllMeta = new Dictionary<string, ModelMetadata>();
-        }
-    else
-        {
-        AllMeta = ModelExportType.GetMeta(m => !m.HasAttribute<FieldNoTokenAttribute>());
-        }
+    Dictionary<string, ModelMetadata> AllMeta = ModelExportType.GetMeta(m => !m.HasAttribute<FieldNoTokenAttribute>());
 
-    AllMeta.Keys.Each((k) =>
+    AllMeta.Keys.Each(k =>
     {
-        String BaseKey = "";
+        string BaseKey = "";
 
         if (AllMeta[k].HasAttribute<IFieldNoToken>())
             {
@@ -208,409 +110,493 @@ WriteLiteral("\r\n");
         BasedMeta[BaseKey].Add(AllMeta[k]);
     });
 
-
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
-
-
-WriteLiteral("\r\n");
-
+WriteLiteral("\r\n\r\n");
 
             
-            #line 72 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+            #line 50 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
  if (!Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell))
     {
-    if (ModelExportType != null)
-        {
 
             
             #line default
             #line hidden
-WriteLiteral("        <div class=\"field-list-add-drag\" target=\"#Body\" position=\"end\" token-brac" +
-"es=\"true\">\r\n            <h3>");
+WriteLiteral("    <div");
 
+WriteLiteral(" class=\"field-list-add-drag\"");
+
+WriteLiteral(" target=\"#Body\"");
+
+WriteLiteral(" position=\"end\"");
+
+WriteLiteral(" token-braces=\"true\"");
+
+WriteLiteral(">\r\n        <h3>");
 
             
-            #line 77 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-           Write(Html.TextContent("Singularity_CustomExport_Fields", "Fields"));
+            #line 53 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+       Write(Html.TextContent("Singularity_CustomExport_Fields", "Fields"));
 
             
             #line default
             #line hidden
 WriteLiteral("</h3>\r\n\r\n");
 
-
             
-            #line 79 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-             if (GlobalTokens.Count > 0)
-                {
-                String BaseKey = "global-tokens";
+            #line 55 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+        
+            
+            #line default
+            #line hidden
+            
+            #line 55 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+         if (GlobalTokens.Count > 0)
+            {
+            const string BaseKey = "global-tokens";
 
 
             
             #line default
             #line hidden
-WriteLiteral("                <span class=\"btn-info btn left method-show-hide\" click-fade-toggl" +
-"e=\".field-group-");
+WriteLiteral("            <span");
 
+WriteLiteral(" class=\"btn-info btn left method-show-hide\"");
+
+WriteAttribute("click-fade-toggle", Tuple.Create(" click-fade-toggle=\"", 1716), Tuple.Create("\"", 1778)
+, Tuple.Create(Tuple.Create("", 1736), Tuple.Create(".field-group-", 1736), true)
+            
+            #line 59 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+             , Tuple.Create(Tuple.Create("", 1749), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "" )
+            
+            #line default
+            #line hidden
+, 1749), false)
+);
+
+WriteLiteral(">\r\n                <glyph");
+
+WriteAttribute("class", Tuple.Create(" class=\"", 1804), Tuple.Create("\"", 1853)
+, Tuple.Create(Tuple.Create("", 1812), Tuple.Create("field-group-", 1812), true)
+            
+            #line 60 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+, Tuple.Create(Tuple.Create("", 1824), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "" )
+            
+            #line default
+            #line hidden
+, 1824), false)
+);
+
+WriteLiteral(">&#x2b;</glyph>\r\n                <glyph");
+
+WriteAttribute("class", Tuple.Create(" class=\"", 1893), Tuple.Create("\"", 1942)
+, Tuple.Create(Tuple.Create("", 1901), Tuple.Create("field-group-", 1901), true)
+            
+            #line 61 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+, Tuple.Create(Tuple.Create("", 1913), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "" )
+            
+            #line default
+            #line hidden
+, 1913), false)
+);
+
+WriteLiteral(" style=\" display: none;\"");
+
+WriteLiteral(">&#x2212;</glyph>\r\n            </span>\r\n");
+
+            
+            #line 63 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+
+
+
+            
+            #line default
+            #line hidden
+WriteLiteral("            <h4>Global Tokens</h4>\r\n");
+
+            
+            #line 66 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+
+
+            
+            #line default
+            #line hidden
+WriteLiteral("            <div");
+
+WriteAttribute("class", Tuple.Create(" class=\"", 2065), Tuple.Create("\"", 2113)
+, Tuple.Create(Tuple.Create("", 2073), Tuple.Create("field-group-", 2073), true)
+            
+            #line 67 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+, Tuple.Create(Tuple.Create("", 2085), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "")
+            
+            #line default
+            #line hidden
+, 2085), false)
+);
+
+WriteLiteral(" style=\"display:none;\"");
+
+WriteLiteral(">\r\n");
+
+            
+            #line 68 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+                
+            
+            #line default
+            #line hidden
+            
+            #line 68 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+                 foreach (TextContent Text in GlobalTokens)
+                        {
+                        string Key = Text.Token;
+
+
+            
+            #line default
+            #line hidden
+WriteLiteral("                    <div");
+
+WriteLiteral(" class=\"field-list-row\"");
+
+WriteLiteral(" data-field-name=\"");
+
+            
+            #line 72 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+                                                            Write(Key);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\"");
+
+WriteAttribute("title", Tuple.Create(" title=\"", 2349), Tuple.Create("\"", 2361)
+            
+            #line 72 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+, Tuple.Create(Tuple.Create("", 2357), Tuple.Create<System.Object, System.Int32>(Key
+            
+            #line default
+            #line hidden
+, 2357), false)
+);
+
+WriteLiteral(">\r\n                        <div");
+
+WriteLiteral(" class=\"add-button\"");
+
+WriteLiteral(">\r\n                            <glyph>&#x2b;</glyph>\r\n                        </d" +
+"iv>\r\n                        <div");
+
+WriteLiteral(" class=\"field-name\"");
+
+WriteAttribute("title", Tuple.Create(" title=\"", 2545), Tuple.Create("\"", 2604)
+            
+            #line 76 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+, Tuple.Create(Tuple.Create("", 2553), Tuple.Create<System.Object, System.Int32>(Html.Raw(Text.Description.Replace("\r\n", "<br>"))
+            
+            #line default
+            #line hidden
+, 2553), false)
+);
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                            ");
+
+            
+            #line 77 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+                       Write(Text.Token.Humanize());
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                        </div>\r\n                        <div");
+
+WriteLiteral(" class=\"field-token\"");
+
+WriteLiteral(">\r\n                            <input");
+
+WriteLiteral(" type=\"text\"");
+
+WriteLiteral(" readonly");
+
+WriteAttribute("value", Tuple.Create(" value=\"", 2798), Tuple.Create("\"", 2812)
+, Tuple.Create(Tuple.Create("", 2806), Tuple.Create("[", 2806), true)
+            
+            #line 80 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+, Tuple.Create(Tuple.Create("", 2807), Tuple.Create<System.Object, System.Int32>(Key
+            
+            #line default
+            #line hidden
+, 2807), false)
+, Tuple.Create(Tuple.Create("", 2811), Tuple.Create("]", 2811), true)
+);
+
+WriteLiteral(" />\r\n                        </div>\r\n                    </div>\r\n");
 
             
             #line 83 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                                                                                            Write(BaseKey.ReplaceAll(".", "" ));
+                    }
 
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                    <glyph class=\"field-group-");
-
-
-            
-            #line 84 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                                         Write(BaseKey.ReplaceAll(".", "" ));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\">&#x2b;</glyph>\r\n                    <glyph class=\"field-group-");
-
+WriteLiteral("            </div>\r\n");
 
             
             #line 85 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                                         Write(BaseKey.ReplaceAll(".", "" ));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\" style=\" display: none;\">&#x2212;</glyph>\r\n                </span>\r\n");
-
-
-            
-            #line 87 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-
-
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                <h4>Global Tokens</h4>\r\n");
-
-
-            
-            #line 90 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                <div class=\"field-group-");
-
-
-            
-            #line 91 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                                   Write(BaseKey.ReplaceAll(".", ""));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\" style=\"display:none;\">\r\n");
-
-
-            
-            #line 92 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                     foreach (TextContent Text in GlobalTokens)
-                        {
-                        String Key = Text.Token;
-
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                        <div class=\"field-list-row\" data-field-name=\"");
-
-
-            
-            #line 96 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                                                                Write(Key);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\" title=\"");
-
-
-            
-            #line 96 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                                                                             Write(Key);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\">\r\n                            <div class=\"add-button\">\r\n                       " +
-"         <glyph>&#x2b;</glyph>\r\n                            </div>\r\n            " +
-"                <div class=\"field-name\" title=\"");
-
-
-            
-            #line 100 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                                                      Write(Html.Raw(Text.Description.Replace("\r\n", "<br>")));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\">\r\n                                ");
-
-
-            
-            #line 101 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                           Write(Text.Token.Humanize());
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                            </div>\r\n                            <div class=\"fie" +
-"ld-token\">\r\n                                <input type=\"text\" readonly value=\"[" +
-"");
-
-
-            
-            #line 104 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                                                               Write(Key);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("]\" />\r\n                            </div>\r\n                        </div>\r\n");
-
-
-            
-            #line 107 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                        }
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                </div>\r\n");
-
-
-            
-            #line 109 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                }
+            }
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n");
 
-
             
-            #line 111 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-             foreach (String BaseKey in BasedMeta.Keys)
-                {
+            #line 87 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+        
+            
+            #line default
+            #line hidden
+            
+            #line 87 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+         foreach (string BaseKey in BasedMeta.Keys)
+            {
 
             
             #line default
             #line hidden
-WriteLiteral("                <div class=\"field-group-header-");
+WriteLiteral("            <div");
 
+WriteAttribute("class", Tuple.Create(" class=\"", 3022), Tuple.Create("\"", 3077)
+, Tuple.Create(Tuple.Create("", 3030), Tuple.Create("field-group-header-", 3030), true)
+            
+            #line 89 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+, Tuple.Create(Tuple.Create("", 3049), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "")
+            
+            #line default
+            #line hidden
+, 3049), false)
+);
+
+WriteLiteral(">\r\n                <span");
+
+WriteLiteral(" class=\"btn-info btn left method-show-hide\"");
+
+WriteAttribute("click-fade-toggle", Tuple.Create(" click-fade-toggle=\"", 3145), Tuple.Create("\"", 3207)
+, Tuple.Create(Tuple.Create("", 3165), Tuple.Create(".field-group-", 3165), true)
+            
+            #line 90 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+                 , Tuple.Create(Tuple.Create("", 3178), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "" )
+            
+            #line default
+            #line hidden
+, 3178), false)
+);
+
+WriteLiteral(">\r\n                    <glyph");
+
+WriteAttribute("class", Tuple.Create(" class=\"", 3237), Tuple.Create("\"", 3286)
+, Tuple.Create(Tuple.Create("", 3245), Tuple.Create("field-group-", 3245), true)
+            
+            #line 91 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+, Tuple.Create(Tuple.Create("", 3257), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "" )
+            
+            #line default
+            #line hidden
+, 3257), false)
+);
+
+WriteLiteral(">&#x2b;</glyph>\r\n                    <glyph");
+
+WriteAttribute("class", Tuple.Create(" class=\"", 3330), Tuple.Create("\"", 3379)
+, Tuple.Create(Tuple.Create("", 3338), Tuple.Create("field-group-", 3338), true)
+            
+            #line 92 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+, Tuple.Create(Tuple.Create("", 3350), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "" )
+            
+            #line default
+            #line hidden
+, 3350), false)
+);
+
+WriteLiteral(" style=\" display: none;\"");
+
+WriteLiteral(">&#x2212;</glyph>\r\n                </span>\r\n\r\n");
 
             
-            #line 113 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                                          Write(BaseKey.ReplaceAll(".", ""));
+            #line 95 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+                
+            
+            #line default
+            #line hidden
+            
+            #line 95 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+                 if (string.IsNullOrEmpty(BaseKey))
+                    {
 
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n                    <span class=\"btn-info btn left method-show-hide\" click-fa" +
-"de-toggle=\".field-group-");
-
+WriteLiteral("                    <h4>");
 
             
-            #line 114 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                                                                                                Write(BaseKey.ReplaceAll(".", "" ));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\">\r\n                        <glyph class=\"field-group-");
-
-
-            
-            #line 115 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                                             Write(BaseKey.ReplaceAll(".", "" ));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\">&#x2b;</glyph>\r\n                        <glyph class=\"field-group-");
-
-
-            
-            #line 116 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                                             Write(BaseKey.ReplaceAll(".", "" ));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\" style=\" display: none;\">&#x2212;</glyph>\r\n                    </span>\r\n\r\n");
-
-
-            
-            #line 119 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                     if (String.IsNullOrEmpty(BaseKey))
-                        {
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                        <h4>");
-
-
-            
-            #line 121 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                       Write(ModelExportType.GetFriendlyTypeName());
+            #line 97 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+                   Write(ModelExportType.GetFriendlyTypeName());
 
             
             #line default
             #line hidden
 WriteLiteral("</h4>\r\n");
 
+            
+            #line 98 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+                    continue;
+                    }
 
             
-            #line 122 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+            #line default
+            #line hidden
+WriteLiteral("                <h4>");
+
+            
+            #line 100 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+               Write(BaseKey.ReplaceAll(".", " "));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</h4>\r\n\r\n                <div");
+
+WriteAttribute("class", Tuple.Create(" class=\"", 3727), Tuple.Create("\"", 3775)
+, Tuple.Create(Tuple.Create("", 3735), Tuple.Create("field-group-", 3735), true)
+            
+            #line 102 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+, Tuple.Create(Tuple.Create("", 3747), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "")
+            
+            #line default
+            #line hidden
+, 3747), false)
+);
+
+WriteLiteral(" style=\"display:none;\"");
+
+WriteLiteral(">\r\n");
+
+            
+            #line 103 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+                    
+            
+            #line default
+            #line hidden
+            
+            #line 103 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+                     foreach (ModelMetadata Meta in BasedMeta[BaseKey])
+                        {
+                        string Key = Meta.PropertyName;
+
+                        if (!string.IsNullOrEmpty(BaseKey))
+                            {
+                            Key = $"{BaseKey}.{Key}";
+                            }
+
+
+            
+            #line default
+            #line hidden
+WriteLiteral("                        <div");
+
+WriteLiteral(" class=\"field-list-row\"");
+
+WriteLiteral(" data-field-name=\"");
+
+            
+            #line 112 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+                                                                Write(Key);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\"");
+
+WriteAttribute("title", Tuple.Create(" title=\"", 4214), Tuple.Create("\"", 4226)
+            
+            #line 112 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+  , Tuple.Create(Tuple.Create("", 4222), Tuple.Create<System.Object, System.Int32>(Key
+            
+            #line default
+            #line hidden
+, 4222), false)
+);
+
+WriteLiteral(">\r\n                            <div");
+
+WriteLiteral(" class=\"add-button\"");
+
+WriteLiteral(">\r\n                                <glyph>&#x2b;</glyph>\r\n                       " +
+"     </div>\r\n                            <div");
+
+WriteLiteral(" class=\"field-name\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                                ");
+
+            
+            #line 117 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+                           Write(Meta.GetDisplayName().Humanize());
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                            </div>\r\n                            <div");
+
+WriteLiteral(" class=\"field-token\"");
+
+WriteLiteral(">\r\n                                <input");
+
+WriteLiteral(" type=\"text\"");
+
+WriteLiteral(" readonly");
+
+WriteAttribute("value", Tuple.Create(" value=\"", 4646), Tuple.Create("\"", 4660)
+, Tuple.Create(Tuple.Create("", 4654), Tuple.Create("[", 4654), true)
+            
+            #line 120 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
+, Tuple.Create(Tuple.Create("", 4655), Tuple.Create<System.Object, System.Int32>(Key
+            
+            #line default
+            #line hidden
+, 4655), false)
+, Tuple.Create(Tuple.Create("", 4659), Tuple.Create("]", 4659), true)
+);
+
+WriteLiteral(" />\r\n                            </div>\r\n                        </div>\r\n");
+
+            
+            #line 123 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
                         }
-                    else
-                        {
 
             
             #line default
             #line hidden
-WriteLiteral("                        <h4>");
-
-
-            
-            #line 125 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                       Write(BaseKey.ReplaceAll(".", " "));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</h4>\r\n");
-
+WriteLiteral("                </div>\r\n            </div>\r\n");
 
             
             #line 126 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                        }
+            }
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n                    <div class=\"field-group-");
-
+WriteLiteral("    </div>\r\n");
 
             
             #line 128 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                                       Write(BaseKey.ReplaceAll(".", ""));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\" style=\"display:none;\">\r\n");
-
-
-            
-            #line 129 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                         foreach (ModelMetadata Meta in BasedMeta[BaseKey])
-                            {
-                            String Key = Meta.PropertyName;
-
-                            if (!String.IsNullOrEmpty(BaseKey))
-                                {
-                                Key = BaseKey + "." + Key;
-                                }
-
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                            <div class=\"field-list-row\" data-field-name=\"");
-
-
-            
-            #line 138 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                                                                    Write(Key);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\" title=\"");
-
-
-            
-            #line 138 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                                                                                 Write(Key);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\">\r\n                                <div class=\"add-button\">\r\n                   " +
-"                 <glyph>&#x2b;</glyph>\r\n                                </div>\r\n" +
-"                                <div class=\"field-name\">\r\n                      " +
-"              ");
-
-
-            
-            #line 143 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                               Write(Meta.GetDisplayName().Humanize());
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                                </div>\r\n                                <div cl" +
-"ass=\"field-token\">\r\n                                    <input type=\"text\" reado" +
-"nly value=\"[");
-
-
-            
-            #line 146 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                                                                   Write(Key);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("]\" />\r\n                                </div>\r\n                            </div>" +
-"\r\n");
-
-
-            
-            #line 149 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                            }
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                    </div>\r\n                </div>\r\n");
-
-
-            
-            #line 152 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                }
-
-            
-            #line default
-            #line hidden
-WriteLiteral("        </div>\r\n");
-
-
-            
-            #line 154 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-        }
     }
             
             #line default
             #line hidden
-
         }
     }
 }

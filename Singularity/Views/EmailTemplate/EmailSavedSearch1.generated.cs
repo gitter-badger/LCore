@@ -12,118 +12,38 @@
 namespace ASP
 {
     using System;
-    
-    #line 13 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 14 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 15 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 16 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
     using System.ComponentModel.DataAnnotations;
-    
-    #line default
-    #line hidden
-    
-    #line 17 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
     using System.IO;
-    
-    #line 11 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
-    
-    #line 12 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 18 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 19 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
+    using System.Web.Mvc.Routing;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
-    
-    #line 3 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
-    using LCore;
-    
-    #line default
-    #line hidden
-    
-    #line 4 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
+    using LCore.Extensions;
     using Singularity;
-    
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
-    using Singularity.Annotations;
-    
-    #line default
-    #line hidden
-    
-    #line 7 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
     using Singularity.Controllers;
     
-    #line default
-    #line hidden
-    
-    #line 9 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
+    #line 2 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
     using Singularity.Extensions;
     
     #line default
     #line hidden
-    
-    #line 5 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
     using Singularity.Models;
-    
-    #line default
-    #line hidden
-    
-    #line 8 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
-    using Singularity.Routes;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/EmailTemplate/EmailSavedSearch.cshtml")]
@@ -134,64 +54,42 @@ namespace ASP
         }
         public override void Execute()
         {
-
-
-WriteLiteral("\r\n\r\n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+WriteLiteral("\r\n");
 
 WriteLiteral("\r\n");
 
-
             
-            #line 21 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
+            #line 4 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
   
     ViewField SavedSearchSelector = new ViewField(ViewContext, typeof(SavedSearch), "SavedSearch", Model, ControllerHelper.ViewType.Edit);
     ViewField TemplateSelector = new ViewField(ViewContext, typeof(EmailTemplate), "Template", Model, ControllerHelper.ViewType.Edit);
-
+ // ReSharper disable once ArrangeThisQualifier
+ // ReSharper disable once RedundantAssignment
+    EmailTemplateController c = this.ViewContext.Controller as EmailTemplateController;
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
-
-
-WriteLiteral("\r\n");
-
+WriteLiteral("\r\n\r\n");
 
             
-            #line 28 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
- using (Html.BeginForm(MetaExt.Type<EmailTemplateController>().Name<int,String,FormCollection,ActionResult>(c => c.EmailSavedSearchTemplate),
-    Url.Controller<EmailTemplateController>().ControllerName, FormMethod.Post, new { id = "logoutForm" }))
+            #line 14 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
+ using (Html.BeginForm(nameof(c.EmailSavedSearchTemplate),
+        Url.Controller<EmailTemplateController>().ControllerName, FormMethod.Post, new { id = "logoutForm" }))
     {
     
             
             #line default
             #line hidden
             
-            #line 31 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
+            #line 17 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
 Write(Html.ViewField(SavedSearchSelector));
 
             
             #line default
             #line hidden
             
-            #line 31 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
+            #line 17 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
                                         
 
     
@@ -199,30 +97,34 @@ Write(Html.ViewField(SavedSearchSelector));
             #line default
             #line hidden
             
-            #line 33 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
+            #line 19 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
 Write(Html.ViewField(TemplateSelector));
 
             
             #line default
             #line hidden
             
-            #line 33 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
+            #line 19 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
                                      
 
 
             
             #line default
             #line hidden
-WriteLiteral("    <input type=\"submit\" value=\"Next\" />\r\n");
+WriteLiteral("    <input");
 
+WriteLiteral(" type=\"submit\"");
+
+WriteLiteral(" value=\"Next\"");
+
+WriteLiteral(" />\r\n");
 
             
-            #line 36 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
+            #line 22 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
     }
             
             #line default
             #line hidden
-
         }
     }
 }

@@ -13,14 +13,13 @@ class SingularityTests {
     listTests: () => string;
     listMissingTests: () => string;
 
-
-    resolveTests = function () {
+    resolveTests() {
 
         // Resolve module feature tests
-        $.objEach(sing.modules, function (key, mod, i) {
+        $.objEach(sing.modules, (key, mod) => {
             if (!$.isEmpty(mod.features)) {
 
-                mod.features.each(function (item) {
+                mod.features.each(item => {
                     if ($.isFunction(item.tests))
                         item.tests(null);
 
@@ -30,14 +29,14 @@ class SingularityTests {
             }
         });
 
-        $.objEach(sing.methods, function (key, ext, i) {
+        $.objEach(sing.methods, (key, ext) => {
 
             if (ext.isAlias)
                 return;
 
             // Resolve method feature tests
             if (ext && ext.details.features) {
-                ext.details.features.each(function (item) {
+                ext.details.features.each(item => {
                     if ($.isFunction(item.tests))
                         item.tests(ext);
 
@@ -56,41 +55,40 @@ class SingularityTests {
                     ext.details.tests = null;
             }
         });
-    };
-
-    constructor() {
     }
 }
 
 class SingularityTest {
 
-    testResult: any;
+    testFunc: Function = null;
+    testResult: any = null;
 
     constructor(public name: string,
-        public testFunc: Function,
+        public tempFunc: Function,
         public index: number,
         public requirement?: string) {
 
-        this.testFunc = function () {
+        var thisTest = this;
 
-            this.testResult = testFunc();
+        this.testFunc = () => {
+            thisTest.testResult = tempFunc();
 
-            if (this.testResult == null)
-                this.testResult = true;
+            if (thisTest.testResult == null)
+                thisTest.testResult = true;
 
-            if (this.testResult !== true &&
-                this.testResult !== undefined &&
-                this.testResult !== null) {
+            if (thisTest.testResult !== true &&
+                thisTest.testResult !== undefined &&
+                thisTest.testResult !== null) {
 
-                this.testResult = '#' + index + ': ' + name + ' ' + this.testResult + (this.requirement ? ' ' + this.requirement : '');
+                thisTest.testResult = `#${index}: ${name} ${thisTest.testResult}${thisTest.requirement ? ` ${thisTest.requirement}` : ''}`;
 
-                if (!sing.tests.testErrors.has(this.testResult))
-                    sing.tests.testErrors.push(this.testResult);
+                if (!sing.tests.testErrors.has(thisTest.testResult))
+                    sing.tests.testErrors.push(thisTest.testResult);
                 else {
                     sing.tests = sing.tests;
                 }
             }
-            return this.testResult;
+            return thisTest.testResult;
         };
     }
 }
@@ -100,7 +98,7 @@ sing.addType('SingularityTests', {
     protoType: SingularityTests.prototype,
     name: 'SingularityTests',
     autoDefault: this.autoDefaults,
-    glyphIcon: '&#xe067;',
+    glyphIcon: '&#xe067;'
 });
 
 sing.tests = new SingularityTests();
@@ -112,12 +110,12 @@ singTests.glyphIcon = '&#xe067;';
 
 singTests.method('resolveTests', sing.tests.resolveTests,
     {
-        manuallyTested: true,
+        manuallyTested: true
     });
 
 singTests.method('addTest', SingularityAddTest,
     {
-        manuallyTested: true,
+        manuallyTested: true
     });
 
 function SingularityAddTest(name: string, testFunc: () => any, requirement?: string) {
@@ -137,7 +135,7 @@ function SingularityAddTest(name: string, testFunc: () => any, requirement?: str
 
 singTests.method('addCustomTest', SingularityAddCustomTest,
     {
-        manuallyTested: true,
+        manuallyTested: true
     });
 
 function SingularityAddCustomTest(name: string, testFunc: Function, requirement?: string) {
@@ -152,7 +150,7 @@ function SingularityAddCustomTest(name: string, testFunc: Function, requirement?
 
     requirement = requirement || '';
 
-    requirement += '\r\n' + testFunc.toString() + '\r\n';
+    requirement += `\r\n${testFunc.toString()}\r\n`;
 
     sing.methods[name].details.unitTests = sing.methods[name].details.unitTests || [];
 
@@ -162,7 +160,7 @@ function SingularityAddCustomTest(name: string, testFunc: Function, requirement?
 
 singTests.method('addMethodTest', SingularityAddMethodTest,
     {
-        manuallyTested: true,
+        manuallyTested: true
     });
 
 function SingularityAddMethodTest(ext: SingularityMethod, target?: any, args?: any[], compare?: any, requirement?: string) {
@@ -171,10 +169,11 @@ function SingularityAddMethodTest(ext: SingularityMethod, target?: any, args?: a
         throw ext.name + ' method not found';
 
     requirement = (requirement ? (requirement + '\r\n') : '') +
-    (!!target ? '(' + $.toStr(target, true) + ').' : '') + ext.shortName;
+        (!!target ? `(${$.toStr(target, true)}).` : '') + ext.shortName;
 
     requirement += '(';
-    for (var i = 0; i < args.length; i++) {
+    // ReSharper disable once QualifiedExpressionMaybeNull
+    for (let i = 0; i < args.length; i++) {
         requirement += $.toStr(args[i], true);
         if (i < args.length - 1)
             requirement += ', ';
@@ -183,14 +182,14 @@ function SingularityAddMethodTest(ext: SingularityMethod, target?: any, args?: a
 
     requirement = requirement.pad(50);
 
-    requirement += '// == (' + $.toStr(compare, true) + ')';
+    requirement += `// == (${$.toStr(compare, true)})`;
 
     // ext.details = ext.details || {};
     // ext.details.examples = ext.details.examples || [];
 
     // ext.details.examples.push(requirement);
 
-    this.addTest(ext.name, function (): any {
+    this.addTest(ext.name, (): any => {
         var result = ext.method.apply(target, args);
 
         if (compare == result)
@@ -206,14 +205,14 @@ function SingularityAddMethodTest(ext: SingularityMethod, target?: any, args?: a
 
 singTests.method('addAssertTest', SingularityAddAssertTest,
     {
-        manuallyTested: true,
+        manuallyTested: true
     });
 
 function SingularityAddAssertTest(name: string, result: any, compare: any, requirement?: string) {
 
     requirement = requirement || $.toStr(compare, true) + ' is expected to match result: ' + $.toStr(result, true);
 
-    this.addTest(name, function (): any {
+    this.addTest(name, (): any => {
         if (compare == result)
             return true;
         else if ($.toStr(compare) == $.toStr(result))
@@ -226,19 +225,19 @@ function SingularityAddAssertTest(name: string, result: any, compare: any, requi
 
 singTests.method('addFailsTest', SingularityAddFailsTest,
     {
-        manuallyTested: true,
+        manuallyTested: true
     });
 
 function SingularityAddFailsTest(ext: SingularityMethod, target: any, args: any[], expectedError?: string, requirement?: string) {
 
-    if (target == null || target == undefined)
+    if (target == null)
         throw 'no target';
 
     requirement = (requirement ? (requirement + '\r\n') : '') +
-    '(' + $.toStr(target, true) + ').' + ext.shortName;
+        '(' + $.toStr(target, true) + ').' + ext.shortName;
 
     requirement += '(';
-    for (var i = 0; i < args.length; i++) {
+    for (let i = 0; i < args.length; i++) {
         requirement += $.toStr(args[i], true);
         if (i < args.length - 1)
             requirement += ', ';
@@ -247,9 +246,9 @@ function SingularityAddFailsTest(ext: SingularityMethod, target: any, args: any[
 
     requirement = requirement.pad(50);
 
-    requirement += ' THROWS ' + (expectedError ? '\'' + expectedError + '\'' : 'AN ERROR ');
+    requirement += ` THROWS ${expectedError ? `'${expectedError}'` : 'AN ERROR '}`;
 
-    this.addTest(ext.name, function (): any {
+    this.addTest(ext.name, (): any => {
 
         try {
 
@@ -277,7 +276,7 @@ function SingularityAddFailsTest(ext: SingularityMethod, target: any, args: any[
 
 singTests.method('runTests', SingularityRunTests,
     {
-        manuallyTested: true,
+        manuallyTested: true
     });
 
 function SingularityRunTests(display: boolean = false) {
@@ -291,9 +290,9 @@ function SingularityRunTests(display: boolean = false) {
 
     var testGroups: Hash<SingularityTest[]> = {};
 
-    $.objValues(sing.modules).each(function (mod) {
+    $.objValues(sing.modules).each(mod => {
         if (mod.features)
-            mod.features.each(function (feature) {
+            mod.features.each(feature => {
                 if (feature.unitTests) {
                     if (testGroups[mod.fullName()])
                         testGroups[mod.fullName()] = testGroups[mod.fullName()].concat(feature.unitTests);
@@ -303,10 +302,10 @@ function SingularityRunTests(display: boolean = false) {
             });
     });
 
-    $.objValues(sing.methods).each(function (method) {
+    $.objValues(sing.methods).each(method => {
 
         if (method.details.features)
-            method.details.features.each(function (feature) {
+            method.details.features.each(feature => {
                 if (feature.unitTests) {
                     if (testGroups[method + ' ' + feature.name])
                         testGroups[method + ' ' + feature.name] = testGroups[method + ' ' + feature.name].concat(feature.unitTests);
@@ -324,26 +323,32 @@ function SingularityRunTests(display: boolean = false) {
         }
     });
 
-    $.objProperties(testGroups).each(function (testGroup) {
+    $.objProperties(testGroups).each(testGroup => {
 
         var name = testGroup.key;
         var tests = testGroup.value;
         if (tests) {
-            tests.each(function (test, i) {
+            tests.each((test, i) => {
 
                 if (display)
                     displayStr += test.requirement + '\r\n';
 
                 var testFunc = test.testFunc;
 
-                var testResult = testFunc();
+                if (test && test.testFunc) {
+                    let testResult = testFunc();
 
-                if (testResult != true && testResult !== undefined && testResult !== null) {
-                    testResult = testResult || '';
-                    result += 'Error testing \'' + name + '\' Test ' + (i + 1) + '\r\n' + testResult;
+                    log(testResult);
+
+                    if (testResult != true &&
+                        testResult !== undefined &&
+                        testResult !== null) {
+                        testResult = testResult || '';
+                        result += `Error testing '${name}' Test ${i + 1}\r\n${testResult}`;
+                    }
+                    testCount++;
                 }
 
-                testCount++;
             });
         }
     });
@@ -355,24 +360,24 @@ function SingularityRunTests(display: boolean = false) {
 
 singTests.method('listTests', SingularityListTests,
     {
-        manuallyTested: true,
+        manuallyTested: true
     });
 
 function SingularityListTests() {
 
     sing.tests.resolveTests();
 
-    var out = '\r\n';
+    let out = '\r\n';
 
-    for (var i = 0; i < Object.keys(sing.methods).length; i++) {
+    for (let i = 0; i < Object.keys(sing.methods).length; i++) {
 
-        var name = Object.keys(sing.methods)[i];
+        const name = Object.keys(sing.methods)[i];
 
-        var item = sing.methods[name];
-        var tests = item.details.unitTests;
+        const item = sing.methods[name];
+        const tests = item.details.unitTests;
 
         if (tests && tests.length > 0)
-            out += ('Extension: ' + name).pad(50) + '      Tests: ' + tests.length + '\r\n';
+            out += (`Extension: ${name}`).pad(50) + '      Tests: ' + tests.length + '\r\n';
         else
             ; // out += 'Function: ' + name + '      Tests: 0\r\n';
     }
@@ -382,24 +387,24 @@ function SingularityListTests() {
 
 singTests.method('listMissingTests', SingularityListMissingTests,
     {
-        manuallyTested: true,
+        manuallyTested: true
     });
 
 function SingularityListMissingTests() {
 
     sing.tests.resolveTests();
 
-    var out = '';
+    let out = '';
 
-    for (var i = 0; i < Object.keys(sing.methods).length; i++) {
+    for (let i = 0; i < Object.keys(sing.methods).length; i++) {
 
-        var name = Object.keys(sing.methods)[i];
+        const name = Object.keys(sing.methods)[i];
 
-        var item = sing.methods[name];
-        var tests = item.details.unitTests;
+        const item = sing.methods[name];
+        const tests = item.details.unitTests;
 
         if (!tests || tests.length == 0) {
-            out += 'Extension: ' + name + '      Tests: 0\r\n';
+            out += `Extension: ${name}      Tests: 0\r\n`;
         }
     }
 
@@ -412,7 +417,7 @@ SingularityMethod.prototype.addFailsTest = MethodAddFailsTest;
 
 singTests.method('addFailsTest', MethodAddFailsTest,
     {
-        manuallyTested: true,
+        manuallyTested: true
     }, SingularityMethod);
 
 function MethodAddFailsTest(caller: any, args: any[], expectedError?: string, requirement?: string): void {
@@ -424,7 +429,7 @@ SingularityMethod.prototype.addCustomTest = MethodAddCustomTest;
 
 singTests.method('addCustomTest', MethodAddCustomTest,
     {
-        manuallyTested: true,
+        manuallyTested: true
     }, SingularityMethod);
 
 function MethodAddCustomTest(testFunc: () => any, requirement?: string): void {
@@ -435,12 +440,12 @@ SingularityMethod.prototype.addTest = MethodAddSimpleTest;
 
 singTests.method('addTest', MethodAddSimpleTest,
     {
-        manuallyTested: true,
+        manuallyTested: true
     }, SingularityMethod);
 
 function MethodAddSimpleTest(caller: any, args: any[], result?: any, requirement?: string): void {
 
-    var thisSingularityMethod = <SingularityMethod>this;
+    const thisSingularityMethod = this as SingularityMethod;
 
     sing.tests.addMethodTest(thisSingularityMethod, caller, args, result, requirement);
 }

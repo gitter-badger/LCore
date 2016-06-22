@@ -1,129 +1,104 @@
 ﻿using System;
-using System.Collections.Generic;
-
-using System.Text;
 
 
 namespace LCore.Tasks
-	{
-	public abstract class Task
-		{
-		public virtual long RunIntervalSeconds { get { return 60 * 60; } } // Default: Every hour.
-		public virtual Boolean RunAsync { get { return false; } }
-		public virtual int ErrorRetries { get { return 0; } }
+    {
+    public abstract class Task
+        {
+        public virtual long RunIntervalSeconds => 60 * 60; // Default: Every hour.
+        public virtual bool RunAsync => false;
+        public virtual int ErrorRetries => 0;
 
-		public virtual DateTime NextRun
-			{
-			get
-				{
-				if (LastRun == DateTime.MinValue)
-					return DateTime.Now.AddSeconds(10);
+        public virtual DateTime NextRun => this.LastRun == DateTime.MinValue ? DateTime.Now.AddSeconds(10) : this.LastRun.AddSeconds(this.RunIntervalSeconds);
+        private DateTime _LastRun = DateTime.MinValue;
+        public DateTime LastRun
+            {
+            get
+                {
+                return this._LastRun;
+                }
+            set
+                {
+                this._LastRun = value;
+                this.NextRun_Changed?.Invoke(this, EventArgs.Empty);
+                }
+            }
 
-				return LastRun.AddSeconds(this.RunIntervalSeconds);
-				}
-			}
-		private DateTime _LastRun = DateTime.MinValue;
-		public DateTime LastRun
-			{
-			get
-				{
-				return _LastRun;
-				}
-			set
-				{
-				_LastRun = value;
-				if (this.NextRun_Changed != null)
-					NextRun_Changed(this, EventArgs.Empty);
-				}
-			}
+        public virtual System.Threading.ThreadPriority AsyncPriority => System.Threading.ThreadPriority.Normal;
 
-		public virtual System.Threading.ThreadPriority AsyncPriority { get { return System.Threading.ThreadPriority.Normal; } }
+        private System.Threading.Thread _TaskThread;
+        public System.Threading.Thread TaskThread
+            {
+            get
+                {
+                if (!this.RunAsync)
+                    return System.Threading.Thread.CurrentThread;
+                return this._TaskThread ?? (this._TaskThread = new System.Threading.Thread(this.RunTaskSafe)
+                    {
+                    Priority = this.AsyncPriority
+                    });
+                }
+            }
 
-		private System.Threading.Thread _TaskThread;
-		public System.Threading.Thread TaskThread
-			{
-			get
-				{
-				if (!this.RunAsync)
-					return System.Threading.Thread.CurrentThread;
-				else
-					{
-					if (_TaskThread == null)
-						{
-						_TaskThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(this.RunTaskSafe));
-						_TaskThread.Priority = this.AsyncPriority;
-						}
+        private bool _IsRunning;
+        public bool IsRunning => this._IsRunning;
 
-					return _TaskThread;
-					}
-				}
-			}
+        public void RunTask()
+            {
+            if (this.IsRunning)
+                return;
 
-		private Boolean _IsRunning = false;
-		public Boolean IsRunning
-			{
-			get
-				{
-				return _IsRunning;
-				}
-			}
+            if (this.RunAsync)
+                {
+                this.TaskThread.Start();
+                }
+            else
+                {
+                this.RunTaskSafe(null);
+                }
+            }
 
-		public void RunTask()
-			{
-			if (this.IsRunning)
-				return;
+        private void RunTaskSafe(object o)
+            {
+            int ErrorTries = this.ErrorRetries;
+            do
+                {
+                try
+                    {
+                    this.Task_Started(null, null);
 
-			if (RunAsync)
-				{
-				TaskThread.Start();
-				}
-			else
-				{
-				RunTaskSafe(null);
-				}
-			}
+                    this.Run();
 
-		private void RunTaskSafe(Object o)
-			{
-			int ErrorTries = this.ErrorRetries;
-			do
-				{
-				try
-					{
-					Task_Started(null, null);
+                    this.Task_Finished(null, null);
 
-					Run();
+                    ErrorTries = 0;
+                    }
+                catch
+                    {
+                    ErrorTries--;
 
-					Task_Finished(null, null);
+                    this.Task_Error(null, null);
+                    }
+                }
+            while (ErrorTries >= 0);
+            }
 
-					ErrorTries = 0;
-					}
-				catch
-					{
-					ErrorTries--;
+        public abstract void Run();
 
-					Task_Error(null, null);
-					}
-				}
-			while (ErrorRetries >= 0);
-			}
+        protected void Task_Started(object sender, EventArgs e)
+            {
+            this._IsRunning = true;
+            this.LastRun = DateTime.Now;
+            }
+        protected void Task_Error(object sender, EventArgs e)
+            {
+            this._IsRunning = false;
+            }
+        protected void Task_Finished(object sender, EventArgs e)
+            {
+            this._IsRunning = false;
+            }
 
-		public abstract void Run();
-
-		protected void Task_Started(Object sender, EventArgs e)
-			{
-			_IsRunning = true;
-			LastRun = DateTime.Now;
-			}
-		protected void Task_Error(Object sender, EventArgs e)
-			{
-			_IsRunning = false;
-			}
-		protected void Task_Finished(Object sender, EventArgs e)
-			{
-			_IsRunning = false;
-			}
-
-		public event EventHandler NextRun_Changed;
-		}
-	}
+        public event EventHandler NextRun_Changed;
+        }
+    }

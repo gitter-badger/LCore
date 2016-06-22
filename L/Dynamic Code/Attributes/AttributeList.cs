@@ -2,35 +2,38 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
-using LCore;
 
-namespace LCore
+using LCore.Extensions;
+
+namespace LCore.Dynamic
     {
-    public class AttributeList : ICustomAttributeProvider
+    internal class AttributeList : ICustomAttributeProvider
         {
-        public String TypeName;
-        private Attribute[] Attrs;
-        public AttributeList(String TypeName, List<Attribute> Attrs)
+        public string TypeName;
+        private readonly Attribute[] Attrs;
+
+        public AttributeList(string TypeName, List<Attribute> Attrs)
             : this(TypeName, Attrs.ToArray())
             {
             }
-        public AttributeList(String TypeName, Attribute[] Attrs)
+
+        public AttributeList(string TypeName, Attribute[] Attrs)
             {
             this.TypeName = TypeName;
             this.Attrs = Attrs;
             }
 
-        public object[] GetCustomAttributes(bool inherit)
-            {
-            return Attrs;
-            }
+        // ReSharper disable once CoVariantArrayConversion
+        public object[] GetCustomAttributes(bool inherit) => this.Attrs;
+
         public object[] GetCustomAttributes(Type attributeType, bool inherit)
             {
-            return Attrs.Select((a) => { return a.IsType(attributeType); }).ToArray();
+            return this.Attrs.Select(a => (object)a.IsType(attributeType)).ToArray();
             }
+
         public bool IsDefined(Type attributeType, bool inherit)
             {
-            return Attrs.Count((a) => { return a.IsType(attributeType); }) > 0;
+            return this.Attrs.Count(a => a.IsType(attributeType)) > 0;
             }
         }
     }

@@ -1,18 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
+
+using LCore.Extensions;
+using LCore.Tools;
 
 namespace LCore.Dynamic
     {
-    public class CodeExplode_ExplodeLogic : CodeExplode
+    internal class CodeExplode_ExplodeLogic : CodeExplode
         {
         // One for methods with 0 parameters, 16 for methods up to 16 parameters.
         public const int ExplodeCount = 17;
 
-        public override String ExplodeCode(Lists<String, MemberInfo> t)
+        public override string ExplodeCode(Lists<string, MemberInfo> t)
             {
             CodeExploder.DeclaredExtensionCache.Clear();
-            return L.LogicMemberInfo_Explode(t);
+
+            return Logic.LogicMemberInfo_Explode(t);
             }
         public override bool ExplodeMember(MemberInfo Member)
             {
@@ -26,11 +29,7 @@ namespace LCore.Dynamic
             {
             this.CodeRegionTitle = T.FullName;
             }
-        public CodeExplode_ExplodeLogic(String CodeRegionTitle, String CodeFileName, String CodeNamespace) :
-            this(CodeRegionTitle, CodeFileName, CodeNamespace, null)
-            {
-            }
-        public CodeExplode_ExplodeLogic(String CodeRegionTitle, String CodeFileName, String CodeNamespace, Type[] GenericOutputTypes) :
+        public CodeExplode_ExplodeLogic(string CodeRegionTitle, string CodeFileName, string CodeNamespace, Type[] GenericOutputTypes = null) :
             base(CodeRegionTitle, CodeFileName, CodeNamespace)
             {
             this.GenericOutputTypes = GenericOutputTypes;
