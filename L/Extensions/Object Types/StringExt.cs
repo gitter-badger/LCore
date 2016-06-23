@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Collections;
 using System.Globalization;
+using System.IO;
 using LCore.Tests;
 using System.Text.RegularExpressions;
 // ReSharper disable StringCompareIsCultureSpecific.1
@@ -1208,6 +1209,20 @@ namespace LCore.Extensions
         public static string XMLClean(this string In)
             {
             return (In ?? "").Replace("<", "&lt;").Replace(">", "&gt;");
+            }
+        #endregion
+
+        // TODO: L: String: Comment
+        // TODO: L: String: Untested
+        #region ToStream
+        public static Stream ToStream(this string str)
+            {
+            MemoryStream stream = new MemoryStream();
+            StreamWriter writer = new StreamWriter(stream);
+            writer.Write(str);
+            writer.Flush();
+            stream.Position = 0;
+            return stream;
             }
         #endregion
 

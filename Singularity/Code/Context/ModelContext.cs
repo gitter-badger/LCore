@@ -6,6 +6,7 @@ using System.Web;
 using Singularity.Models;
 using Singularity.Extensions;
 using System.Data.SqlClient;
+// ReSharper disable UnassignedGetOnlyAutoProperty
 
 namespace Singularity.Context
     {
@@ -19,6 +20,10 @@ namespace Singularity.Context
         public abstract Type UserAccountType { get; }
         public abstract Type UserInfoType { get; }
         public abstract Type UserRoleType { get; }
+
+        public DbSet<Role> Roles { get; }
+        public DbSet<UserAccount> UserAccounts { get; }
+        public DbSet<SecurityLog> SecurityLogs { get; }
 
         public SiteConfig GetSiteConfig(HttpContextBase Context)
             {
@@ -85,6 +90,16 @@ namespace Singularity.Context
         public static implicit operator ModelContext(HttpContextBase Context)
             {
             return Context.GetModelContext();
+            }
+
+        public virtual string GetHomeAction(UserAccount User)
+            {
+            return Routes.Controllers.Home.Actions.Index;
+            }
+
+        public virtual string GetHomeController(UserAccount User)
+            {
+            return Routes.Controllers.Home.Name;
             }
         }
     }

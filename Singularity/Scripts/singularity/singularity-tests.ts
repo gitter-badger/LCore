@@ -121,10 +121,10 @@ singTests.method('addTest', SingularityAddTest,
 function SingularityAddTest(name: string, testFunc: () => any, requirement?: string) {
 
     if (!sing.methods[name])
-        throw name + ' not found';
+        throw `${name} not found`;
 
     if (!sing.methods[name].details.tests)
-        throw name + ' tests not found';
+        throw `${name} tests not found`;
 
     if ($.isFunction(sing.methods[name].details.tests))
         sing.methods[name].details.unitTests = sing.methods[name].details.unitTests || [];
@@ -140,13 +140,13 @@ singTests.method('addCustomTest', SingularityAddCustomTest,
 
 function SingularityAddCustomTest(name: string, testFunc: Function, requirement?: string) {
     if (!$.isString(name))
-        throw name + ' was not a string';
+        throw `${name} was not a string`;
 
     if (!sing.methods[name])
-        throw name + ' not found';
+        throw `${name} not found`;
 
     if (!sing.methods[name].details.tests)
-        throw name + ' tests not found';
+        throw `${name} tests not found`;
 
     requirement = requirement || '';
 
@@ -166,9 +166,9 @@ singTests.method('addMethodTest', SingularityAddMethodTest,
 function SingularityAddMethodTest(ext: SingularityMethod, target?: any, args?: any[], compare?: any, requirement?: string) {
 
     if (!ext.method)
-        throw ext.name + ' method not found';
+        throw `${ext.name} method not found`;
 
-    requirement = (requirement ? (requirement + '\r\n') : '') +
+    requirement = (requirement ? (`${requirement}\r\n`) : '') +
         (!!target ? `(${$.toStr(target, true)}).` : '') + ext.shortName;
 
     requirement += '(';
@@ -197,8 +197,7 @@ function SingularityAddMethodTest(ext: SingularityMethod, target?: any, args?: a
         else if ($.toStr(compare) == $.toStr(result))
             return true;
         else
-            return requirement + '\r\n \r\n' +
-                $.toStr(compare, true) + ' expected, result: ' + $.toStr(result, true);
+            return `${requirement}\r\n \r\n${$.toStr(compare, true)} expected, result: ${$.toStr(result, true)}`;
     }, requirement);
 
 };
@@ -210,7 +209,7 @@ singTests.method('addAssertTest', SingularityAddAssertTest,
 
 function SingularityAddAssertTest(name: string, result: any, compare: any, requirement?: string) {
 
-    requirement = requirement || $.toStr(compare, true) + ' is expected to match result: ' + $.toStr(result, true);
+    requirement = requirement || `${$.toStr(compare, true)} is expected to match result: ${$.toStr(result, true)}`;
 
     this.addTest(name, (): any => {
         if (compare == result)
@@ -218,8 +217,7 @@ function SingularityAddAssertTest(name: string, result: any, compare: any, requi
         else if ($.toStr(compare) == $.toStr(result))
             return true;
         else
-            return requirement + '\r\n' +
-                ' TEST FAILED \r\n';
+            return `${requirement}\r\n TEST FAILED \r\n`;
     }, requirement);
 };
 
@@ -233,8 +231,7 @@ function SingularityAddFailsTest(ext: SingularityMethod, target: any, args: any[
     if (target == null)
         throw 'no target';
 
-    requirement = (requirement ? (requirement + '\r\n') : '') +
-        '(' + $.toStr(target, true) + ').' + ext.shortName;
+    requirement = `${requirement ? (`${requirement}\r\n`) : ''}(${$.toStr(target, true)}).${ext.shortName}`;
 
     requirement += '(';
     for (let i = 0; i < args.length; i++) {
@@ -254,19 +251,16 @@ function SingularityAddFailsTest(ext: SingularityMethod, target: any, args: any[
 
             ext.method.apply(target, args);
 
-            return name + ' was expected to fail but it did not. \r\n\r\n' +
-                requirement;
+            return `${name} was expected to fail but it did not. \r\n\r\n${requirement}`;
 
         }
         catch (ex) {
 
             if (expectedError && ex != expectedError &&
-                ex != 'Uncaught ' + expectedError &&
-                'Uncaught ' + ex != expectedError) {
+                ex != `Uncaught ${expectedError}`&&
+                `Uncaught ${ex}`!= expectedError) {
 
-                return name + ' was expected to fail with a message of \'' + expectedError + '\' \r\n' +
-                    'but instead failed with error \'' + ex + '\'' + '\r\n\r\n' +
-                    requirement;
+                return `${name} was expected to fail with a message of '${expectedError}' \r\nbut instead failed with error '${ex}'\r\n\r\n${requirement}`;
             }
 
             return true;
@@ -307,10 +301,10 @@ function SingularityRunTests(display: boolean = false) {
         if (method.details.features)
             method.details.features.each(feature => {
                 if (feature.unitTests) {
-                    if (testGroups[method + ' ' + feature.name])
-                        testGroups[method + ' ' + feature.name] = testGroups[method + ' ' + feature.name].concat(feature.unitTests);
+                    if (testGroups[`${method} ${feature.name}`])
+                        testGroups[`${method} ${feature.name}`] = testGroups[`${method} ${feature.name}`].concat(feature.unitTests);
                     else
-                        testGroups[method + ' ' + feature.name] = feature.unitTests;
+                        testGroups[`${method} ${feature.name}`] = feature.unitTests;
                 }
             });
 
@@ -331,7 +325,7 @@ function SingularityRunTests(display: boolean = false) {
             tests.each((test, i) => {
 
                 if (display)
-                    displayStr += test.requirement + '\r\n';
+                    displayStr += `${test.requirement}\r\n`;
 
                 var testFunc = test.testFunc;
 
@@ -353,9 +347,7 @@ function SingularityRunTests(display: boolean = false) {
         }
     });
 
-    return sing.tests.listTests() + '\r\n' +
-        displayStr + '\r\n' +
-        (result || '\r\n\r\nAll ' + testCount + ' tests succeeded.');
+    return `${sing.tests.listTests()}\r\n${displayStr}\r\n${result || (`\r\n\r\nAll ${testCount} tests succeeded.`)}`;
 };
 
 singTests.method('listTests', SingularityListTests,
@@ -377,9 +369,9 @@ function SingularityListTests() {
         const tests = item.details.unitTests;
 
         if (tests && tests.length > 0)
-            out += (`Extension: ${name}`).pad(50) + '      Tests: ' + tests.length + '\r\n';
+            out += `${(`Extension: ${name}`).pad(50)}      Tests: ${tests.length}\r\n`;
         else
-            ; // out += 'Function: ' + name + '      Tests: 0\r\n';
+            ; // out += `Function: ${name}      Tests: 0\r\n`;
     }
 
     return out;

@@ -250,7 +250,7 @@ function FunctionCache(uniqueCacheID: string, expiresAfter: number = 0) {
 
         const thisCache = cache[uniqueCacheID];
 
-        const argStr = ObjectToStr(thisCaller) + '|||||||' + ObjectToStr(items);
+        const argStr = `${ObjectToStr(thisCaller)}|||||||${ObjectToStr(items)}`;
 
         if (argStr.length > cacheKeyLimit) {
             return source.apply(thisCaller, items);

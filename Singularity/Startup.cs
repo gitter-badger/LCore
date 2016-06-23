@@ -1,14 +1,12 @@
-﻿using Microsoft.Owin;
-using Owin;
+﻿using Owin;
 
-[assembly: OwinStartupAttribute(typeof(Singularity.Config.Startup))]
 namespace Singularity.Config
     {
-    public partial class Startup
+    public class Startup
         {
+        // ReSharper disable once UnusedParameter.Global
         public void Configuration(IAppBuilder app)
             {
-            this.ConfigureAuth(app);
             }
         }
     }

@@ -151,7 +151,7 @@ function ActionIf(name: string) {
 
     var target = $(this);
 
-    var ifTargetName = target.attr(name + '-if');
+    var ifTargetName = target.attr(`${name}-if`);
 
     // If there's no target, there's no condition to match. Always true.
     if (!ifTargetName)
@@ -159,7 +159,7 @@ function ActionIf(name: string) {
 
     var ifTarget = $('body').findIDNameSelector(ifTargetName);
 
-    var targetValue = (target.attr(name + '-if-value') || '') as any;
+    var targetValue = (target.attr(`${name}-if-value`) || '') as any;
 
     var operation = (a: any, b: any) => (a == b);
 

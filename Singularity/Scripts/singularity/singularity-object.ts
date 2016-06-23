@@ -82,8 +82,8 @@ singObject.method('objEach', ObjectEach,
 
                 if ($.toStr(test2) != $.toStr([{ key: 'a', item: 1, index: 0 },
                     { key: 'b', item: 2, index: 1 }]))
-                    return $.toStr(test2) + '\r\n' + $.toStr([{ key: 'a', item: 1, index: 0 },
-                        { key: 'b', item: 2, index: 1 }]);
+                    return `${$.toStr(test2)}\r\n${$.toStr([{ key: 'a', item: 1, index: 0 },
+                    { key: 'b', item: 2, index: 1 }])}`;
 
             }, 'Executes for every element');
         }

@@ -36,7 +36,7 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
     if (!funcName ||
         funcName == '' ||
         funcName == 'all')
-        header = sing.summary + '\r\n\r\n';
+        header = `${sing.summary}\r\n\r\n`;
 
     var out = '';
 
@@ -95,15 +95,12 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
 
             out += '\r\n';
 
-
             var functionDef = '';
             /*
-            ((ext.details.returnTypeName || '') + ' function(').pad(20, 'r') +
-         ((ext.details && ext.details.parameters) ? ext.details.parameters.collect(function (item, i) {
-             var TypeNames = item.types.collect(function (t) { return t.name; }).join(', ');
-             return '[' + TypeNames + '] ' + item.name;
-         }).join(', ') : '') + ')' +
-            ' { ... } ';
+            `${(`${ext.details.returnTypeName || ''} function(`).pad(20, 'r')}${(ext.details && ext.details.parameters) ? ext.details.parameters.collect(function (item, i) {
+                var TypeNames = item.types.collect(function (t) { return t.name; }).join(', ');
+                return `[${TypeNames}] ${item.name}`;
+            }).join(', ') : ''}) { ... } `;
             */
 
             out +=
@@ -116,15 +113,10 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
 
                     (ext.details.parameters && ext.details.parameters.length == 0 ? '\r\n    Parameters: None\r\n' : ''),
 
-                    (ext.details.parameters && ext.details.parameters.length > 0 ? (`\r\n    Parameters:\r\n${ext.details.parameters.collect((item, j) => ((` #${j + 1}`).pad(10) + 'Name:    ' + item.name + '\r\n' +
-                        (!item.required ? '              :    OPTIONAL \r\n' : '') +
-                        (item.isMulti ? '              :    Multi-parameter \r\n' : '') +
-                        (item.defaultValue != undefined ? ` Default Value:    ${$.toStr(item.defaultValue, true)}\r\n` : '') +
-                        '         Types:    [' + item.types.collect(a => a.name).join(', ') + '] \r\n' +
-                        '   Description:    ' + item.description + '\r\n\r\n')).joinLines()}\r\n`) : ''),
+                    (ext.details.parameters && ext.details.parameters.length > 0 ? (`\r\n    Parameters:\r\n${ext.details.parameters.collect((item, j) => (`${(` #${j + 1}`).pad(10)}Name:    ${item.name}\r\n${!item.required ? '              :    OPTIONAL \r\n' : ''}${item.isMulti ? '              :    Multi-parameter \r\n' : ''}${item.defaultValue != undefined ? ` Default Value:    ${$.toStr(item.defaultValue, true)}\r\n` : ''}         Types:    [${item.types.collect(a => a.name).join(', ')}] \r\n   Description:    ${item.description}\r\n\r\n`)).joinLines()}\r\n`) : ''),
 
                     ext.details.returnTypeName ? (`\r\n    Return Type: ${ext.details.returnTypeName}\r\n`) : '',
-                    (ext.details.aliases && ext.details.aliases.length > 0 ? (`\r\n    Aliases: \r\n${ext.details.aliases.collect((alias) => (''.pad(13) + ext.methodCall + '.' + alias)).join(', ')}\r\n\r\n`) : ''),
+                    (ext.details.aliases && ext.details.aliases.length > 0 ? (`\r\n    Aliases: \r\n${ext.details.aliases.collect((alias) => (`${''.pad(13)}${ext.methodCall}.${alias}`)).join(', ')}\r\n\r\n`) : ''),
 
                     ext.details.returns ? (`\r\n    Returns: \r\n${ext.details.returns}\r\n\r\n`) : '',
 
@@ -173,7 +165,7 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
                 }
                 if (methodTestsFound > 0) {
                     if (methodTestsFound == methodTestsPassed) {
-                        out += '----' + '\r\nAll Test Cases Passed\r\n\r\n';
+                        out += '----\r\nAll Test Cases Passed\r\n\r\n';
                     }
                     else {
                         out += `----${methodTestsPassed} / ${methodTestsFound} (${methodTestsPassed.percentOf(methodTestsFound, 0, true)}) Test Cases Passed\r\n\r\n`;
@@ -183,9 +175,9 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
         }
         else {
             out += '\r\n';
-            out += line + '\r\n';
-            out += ext.name + '\r\n';
-            out += line + '\r\n';
+            out += `${line}\r\n`;
+            out += `${ext.name}\r\n`;
+            out += `${line}\r\n`;
             out += '\r\n';
         }
 
@@ -203,21 +195,21 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
     header += '\r\n';
 
     if (featuresFound != 0 || featuresCount != 0)
-        header += `Methods Implemented:      ${(featuresFound + ' / ' + featuresCount).pad(leftSpace, Direction.r)} (${featuresFound.percentOf(featuresCount, 0, true)})\r\n`;
+        header += `Methods Implemented:      ${(`${featuresFound} / ${featuresCount}`).pad(leftSpace, Direction.r)} (${featuresFound.percentOf(featuresCount, 0, true)})\r\n`;
 
     if (featuresHaveTests != 0 || featuresNeedTests != 0)
-        header += `Unit Tests Implemented:   ${(featuresHaveTests + ' / ' + featuresNeedTests).pad(leftSpace, Direction.r)} (${featuresHaveTests.percentOf(featuresNeedTests, 0, true)})\r\n`;
+        header += `Unit Tests Implemented:   ${(`${featuresHaveTests} / ${featuresNeedTests}`).pad(leftSpace, Direction.r)} (${featuresHaveTests.percentOf(featuresNeedTests, 0, true)})\r\n`;
 
     if (testsPassed != 0 || testsFound != 0)
-        header += `Unit Tests Passed:        ${(testsPassed + ' / ' + testsFound).pad(leftSpace, Direction.r)} (${testsPassed.percentOf(testsFound, 0, true)})\r\n`;
+        header += `Unit Tests Passed:        ${(`${testsPassed} / ${testsFound}`).pad(leftSpace, Direction.r)} (${testsPassed.percentOf(testsFound, 0, true)})\r\n`;
 
     if (documentaionFound != 0 || documentaionCount != 0)
-        header += `Documentation:            ${(documentaionFound + ' / ' + documentaionCount).pad(leftSpace, Direction.r)} (${documentaionFound.percentOf(documentaionCount, 0, true)})\r\n`;
+        header += `Documentation:            ${(`${documentaionFound} / ${documentaionCount}`).pad(leftSpace, Direction.r)} (${documentaionFound.percentOf(documentaionCount, 0, true)})\r\n`;
 
     header += '\r\n';
 
     if (totalFound != 0 || totalCount != 0)
-        header += `Total:                    ${(totalFound + ' / ' + totalCount).pad(leftSpace, Direction.r)} (${totalFound.percentOf(totalCount, 0, true)})\r\n`;
+        header += `Total:                    ${(`${totalFound} / ${totalCount}`).pad(leftSpace, Direction.r)} (${totalFound.percentOf(totalCount, 0, true)})\r\n`;
 
     return header + out;
 };
@@ -252,38 +244,38 @@ function SingularityGetMissing(funcName?: string) {
         if (ext.method)
             featuresFound++;
         else
-            out += ext.name + ' Method Implementation \r\n';
+            out += `${ext.name} Method Implementation \r\n`;
 
         if (ext.details) {
             if (ext.details.summary)
                 documentaionFound++;
             else
-                out += ext.name + ' Summary \r\n';
+                out += `${ext.name} Summary \r\n`;
 
             if (ext.details.parameters)
                 documentaionFound++;
             else
-                out += ext.name + ' Parameters \r\n';
+                out += `${ext.name} Parameters \r\n`;
 
             if (ext.details.returnTypeName)
                 documentaionFound++;
             else
-                out += ext.name + ' Return Type \r\n';
+                out += `${ext.name} Return Type \r\n`;
 
             if (ext.details.returns)
                 documentaionFound++;
             else
-                out += ext.name + ' Returns \r\n';
+                out += `${ext.name} Returns \r\n`;
 
             if (ext.details.examples)
                 documentaionFound++;
             else
-                out += ext.name + ' Examples \r\n';
+                out += `${ext.name} Examples \r\n`;
 
             if (ext.details.unitTests && ext.details.unitTests.length > 0)
                 documentaionFound++;
             else
-                out += ext.name + ' Tests \r\n';
+                out += `${ext.name} Tests \r\n`;
         }
     });
 
@@ -310,18 +302,14 @@ function SingularityGetSummary(funcName: string = 'all', includeFunctions: boole
                 !ext.name.lower().contains(funcName.lower()))
                 return;
 
-            out += `\r\n${(ext.name + ' ').pad(30)}`;
+            out += `\r\n${(`${ext.name} `).pad(30)}`;
 
-            out += ((ext.details.returnTypeName || '') + ' function(').pad(20, Direction.r);
+            out += (`${ext.details.returnTypeName || ''} function(`).pad(20, Direction.r);
 
-            out += ((ext.details && ext.details.parameters) ? ext.details.parameters.collect((item, i) => {
+            out += `${(ext.details && ext.details.parameters) ? ext.details.parameters.collect((item, i) => {
                 var TypeNames = item.types.collect(a => a.name).join(', ');
-                return (i > 0 ? ''.pad(50) : '') +
-                    '[' + TypeNames + '] ' + item.name;
-            }).join(', \r\n') : '') +
-                ') ' +
-                (ext.details && ext.details.parameters && ext.details.parameters.length > 1 ? `\r\n${''.pad(50)}` : '') +
-                '{ ... } ';
+                return `${i > 0 ? ''.pad(50) : ''}[${TypeNames}] ${item.name}`;
+            }).join(', \r\n') : ''}) ${ext.details && ext.details.parameters && ext.details.parameters.length > 1 ? `\r\n${''.pad(50)}` : ''}{ ... } `;
         });
     }
     return out;

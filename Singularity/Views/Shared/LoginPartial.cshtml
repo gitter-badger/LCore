@@ -1,0 +1,33 @@
+﻿@using Singularity.Account
+@using Singularity.Routes
+
+@{
+    AuthenticationService Auth = new AuthenticationService(Session);
+
+}
+
+@if (Auth.IsLoggedIn)
+    {
+    using (Html.BeginForm(Controllers.Account.Actions.LogOff, Controllers.Account.Name,
+        FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                Hello @Auth.UserName!
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
+        }
+    }
+else
+    {
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            @Html.ActionLink("Log in",
+           Controllers.Account.Actions.Login, Controllers.Account.Name,
+           null, htmlAttributes: new { id = "loginLink" })
+    </li>
+</ul>
+    }

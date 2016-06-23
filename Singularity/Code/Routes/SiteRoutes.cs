@@ -267,6 +267,27 @@ namespace Singularity.Routes
                 }
             }
 
+        public static class Account
+            {
+            public const string Name = "Account";
+
+            public static class Actions
+                {
+                public const string ForceResetPassword = "ForceResetPassword";
+                public const string Login = "Login";
+                public const string LogOff = "LogOff";
+                }
+            }
+
+        public static class Home
+            {
+            public const string Name = "Home";
+
+            public static class Actions
+                {
+                public const string Index = "Index";
+                }
+            }
         }
 
     public static class Layouts
@@ -277,6 +298,9 @@ namespace Singularity.Routes
     public static class PartialViews
         {
         public const string Nav = "Nav";
+
+        public const string LoginPartial = "LoginPartial";
+        public const string PasswordRequirements = "PasswordRequirements";
 
         public const string Manage_HeaderRow = "Manage_HeaderRow";
         public const string Manage_Pagination = "Manage_Pagination";

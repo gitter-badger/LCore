@@ -518,7 +518,7 @@ class Singularity {
 
             return 'Object'; // this.types.Object.name;
 
-            // throw 'could not find ' + protoType;
+            // throw `could not find ${protoType}`;
         }
     }
 
@@ -956,7 +956,7 @@ class SingularityModule {
             var fullName = this.fullName();
 
             if (sing.methods[fullName]) {
-                warn(fullName + '.' + name + ' already exists.');
+                warn(`${fullName}.${name} already exists.`);
                 return;
             }
 
@@ -1005,10 +1005,10 @@ class SingularityModule {
                     }
                 }
 
-                sing.methods[fullName + '.' + (!!prefix ? prefix + '.' : '') + methods[k].name] = ext;
+                sing.methods[`${fullName}.${!!prefix ? `${prefix}.` : ''}${methods[k].name}`] = ext;
 
                 if (k > 0)
-                    sing.methods[fullName + '.' + (!!prefix ? prefix + '.' : '') + methods[k].name].isAlias = true;
+                    sing.methods[`${fullName}.${!!prefix ? `${prefix}.` : ''}${methods[k].name}`].isAlias = true;
 
                 this.methods.push(ext);
 
@@ -1019,7 +1019,7 @@ class SingularityModule {
 
     fullName(): string {
         if (this.parentModule)
-            return this.parentModule.fullName() + '.' + this.name;
+            return `${this.parentModule.fullName()}.${this.name}`;
         return this.name;
     }
 
@@ -1159,7 +1159,7 @@ class SingularityMethod {
         method?: Function,
         prefix?: string) {
 
-        this.name = moduleName + '.' + (prefix ? prefix + '.' : '') + name;
+        this.name = `${moduleName}.${prefix ? `${prefix}.` : ''}${name}`;
 
         this.shortName = name;
 
@@ -1263,7 +1263,7 @@ class SingularityMethod {
                     return lastMethod_logErrors.apply(this, arguments);
                 }
                 catch (ex) {
-                    log(ext.name + ' Error: ' + ex);
+                    log(`${ext.name} Error: ${ex}`);
                 }
             });
         }
@@ -1536,7 +1536,7 @@ class SingularityMethod {
                                 args[i] = testArg = param.defaultValue;
                             }
                             else if (ext.auto.validateInput)
-                                throw ext.moduleName + '.' + ext.shortName + ' Missing Parameter: ' + typeNames + ' ' + param.name + '';
+                                throw `${ext.moduleName}.${ext.shortName} Missing Parameter: ${typeNames} ${param.name}`;
                         }
                     }
                     else if (testArg === null || testArg === undefined) {
@@ -1559,9 +1559,7 @@ class SingularityMethod {
                         }
                         else if (!typeNamesArray.has(typeof testArg)) {
                             if (param.required) {
-                                throw ext.moduleName + '.' + ext.shortName +
-                                '  Parameter: ' + param.name + ': ' + $.toStr(testArg, true) + ' ' +
-                                (typeof testArg).lower() + ' did not match input type ' + $.toStr(typeNamesArray, true) + '.';
+                                throw `${ext.moduleName}.${ext.shortName}  Parameter: ${param.name}: ${$.toStr(testArg, true)} ${(typeof testArg).lower()} did not match input type ${$.toStr(typeNamesArray, true)}.`;
                             }
                         }
                     }
@@ -1574,7 +1572,7 @@ class SingularityMethod {
 
     private loadMethodCall(ext: SingularityMethod) {
 
-        ext.methodCall = ext.moduleName + '.' + ext.shortName;
+        ext.methodCall = `${ext.moduleName}.${ext.shortName}`;
 
         // Configure type-specific defaults or use the global defaults
         let autoDefaults = sing.autoDefaults;
@@ -1601,7 +1599,7 @@ class SingularityMethod {
             for (let j = 0; j < ext.details.parameters.length; j++) {
 
                 // TODO: TS: FIX
-                // ext.methodCall += '[' + $.toStr(ext.details.parameters[j].types) + '] ';
+                // ext.methodCall += `[${$.toStr(ext.details.parameters[j].types)}] `;
 
                 ext.methodCall += ext.details.parameters[j].name;
                 if (j < ext.details.parameters.length - 1)
@@ -2075,7 +2073,7 @@ function SingularityResolve(key: string, data?: any, context: Hash<any> = {}, ro
                 arrayProperty = $.objValues(arrayProperty);
 
             if (!$.isArray(arrayProperty))
-                throw property + ' was not an array.';
+                throw `${property} was not an array.`;
 
             var outArray: any[] = [];
 
@@ -2111,7 +2109,7 @@ function SingularityResolve(key: string, data?: any, context: Hash<any> = {}, ro
                 return null;
 
             if (!$.isHash(hashProperty))
-                throw property + ' was not a hash object.';
+                throw `${property} was not a hash object.`;
 
             var outHash: Hash<any> = {};
 
@@ -2144,7 +2142,7 @@ function SingularityResolve(key: string, data?: any, context: Hash<any> = {}, ro
 
             out = sing.resolve(keyParts.join('.'), data, context, rootKey);
 
-            // console.log('RESOLVE ' + key);
+            //console.log(`RESOLVE ${key}`);
 
             if (negateOutput)
                 out = !out;

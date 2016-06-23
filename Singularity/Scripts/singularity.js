@@ -554,7 +554,7 @@ var SingularityModule = (function () {
             var method = methodDetails.method;
             var fullName = this.fullName();
             if (sing.methods[fullName]) {
-                warn(fullName + '.' + name + ' already exists.');
+                warn(fullName + "." + name + " already exists.");
                 return;
             }
             var methods = [
@@ -591,16 +591,16 @@ var SingularityModule = (function () {
                         methods[k].target[methods[k].name] = ext.method;
                     }
                 }
-                sing.methods[fullName + '.' + (!!prefix ? prefix + '.' : '') + methods[k].name] = ext;
+                sing.methods[(fullName + "." + (!!prefix ? prefix + "." : '') + methods[k].name)] = ext;
                 if (k > 0)
-                    sing.methods[fullName + '.' + (!!prefix ? prefix + '.' : '') + methods[k].name].isAlias = true;
+                    sing.methods[(fullName + "." + (!!prefix ? prefix + "." : '') + methods[k].name)].isAlias = true;
                 this.methods.push(ext);
             }
         }
     };
     SingularityModule.prototype.fullName = function () {
         if (this.parentModule)
-            return this.parentModule.fullName() + '.' + this.name;
+            return this.parentModule.fullName() + "." + this.name;
         return this.name;
     };
     return SingularityModule;
@@ -612,7 +612,7 @@ var SingularityMethod = (function () {
         this.codeLines = 0;
         this.data = {};
         this.auto = new SingularityAutoDefinition();
-        this.name = moduleName + '.' + (prefix ? prefix + '.' : '') + name;
+        this.name = moduleName + "." + (prefix ? prefix + "." : '') + name;
         this.shortName = name;
         if (method)
             this.codeLines = method.toString().split('\r\n').length;
@@ -732,7 +732,7 @@ var SingularityMethod = (function () {
                     return lastMethod_logErrors.apply(this, arguments);
                 }
                 catch (ex) {
-                    log(ext.name + ' Error: ' + ex);
+                    log(ext.name + " Error: " + ex);
                 }
             });
         }
@@ -898,7 +898,7 @@ var SingularityMethod = (function () {
                                 args[i] = testArg = param.defaultValue;
                             }
                             else if (ext.auto.validateInput)
-                                throw ext.moduleName + '.' + ext.shortName + ' Missing Parameter: ' + typeNames + ' ' + param.name + '';
+                                throw ext.moduleName + "." + ext.shortName + " Missing Parameter: " + typeNames + " " + param.name;
                         }
                     }
                     else if (testArg === null || testArg === undefined) {
@@ -916,9 +916,7 @@ var SingularityMethod = (function () {
                         }
                         else if (!typeNamesArray.has(typeof testArg)) {
                             if (param.required) {
-                                throw ext.moduleName + '.' + ext.shortName +
-                                    '  Parameter: ' + param.name + ': ' + $.toStr(testArg, true) + ' ' +
-                                    (typeof testArg).lower() + ' did not match input type ' + $.toStr(typeNamesArray, true) + '.';
+                                throw ext.moduleName + "." + ext.shortName + "  Parameter: " + param.name + ": " + $.toStr(testArg, true) + " " + (typeof testArg).lower() + " did not match input type " + $.toStr(typeNamesArray, true) + ".";
                             }
                         }
                     }
@@ -928,7 +926,7 @@ var SingularityMethod = (function () {
         }
     };
     SingularityMethod.prototype.loadMethodCall = function (ext) {
-        ext.methodCall = ext.moduleName + '.' + ext.shortName;
+        ext.methodCall = ext.moduleName + "." + ext.shortName;
         var autoDefaults = sing.autoDefaults;
         if (sing.types[ext.moduleName] && sing.types[ext.moduleName].autoDefault !== undefined)
             autoDefaults = $.extend(true, {}, sing.types[ext.moduleName].autoDefault);
@@ -1190,7 +1188,7 @@ function SingularityResolve(key, data, context, rootKey) {
             if ($.isHash(arrayProperty))
                 arrayProperty = $.objValues(arrayProperty);
             if (!$.isArray(arrayProperty))
-                throw property + ' was not an array.';
+                throw property + " was not an array.";
             var outArray = [];
             outArray = arrayProperty.collect(function (item, index) {
                 try {
@@ -1214,7 +1212,7 @@ function SingularityResolve(key, data, context, rootKey) {
             if (!$.isDefined(hashProperty))
                 return null;
             if (!$.isHash(hashProperty))
-                throw property + ' was not a hash object.';
+                throw property + " was not a hash object.";
             var outHash = {};
             $.objProperties(hashProperty).each(function (item) {
                 try {
@@ -1691,8 +1689,7 @@ singEnumerable.method('each', EnumerableEach, {
     parameters: [
         {
             name: 'action',
-            description: 'The function to call on each item of the array. The object and the index are passed as parameters ' +
-                'to this function',
+            description: 'The function to call on each item of the array. The object and the index are passed as parameters to this function',
             types: [Function]
         }
     ],
@@ -1727,13 +1724,11 @@ function EnumerableEach(action) {
     });
 }
 singEnumerable.method('while', EnumerableWhile, {
-    summary: 'Call each on an array to enumerate the contents of the array. Return any non-null value to continue enumeration otherwise ' +
-        'returning false will stop the enumeration.',
+    summary: 'Call each on an array to enumerate the contents of the array. Return any non-null value to continue enumeration otherwise returning false will stop the enumeration.',
     parameters: [
         {
             name: 'action',
-            description: 'The function to call on each item of the array. The object and the index are passed as parameters ' +
-                'to this function',
+            description: 'The function to call on each item of the array. The object and the index are passed as parameters to this function',
             types: [Function]
         }
     ],
@@ -1767,13 +1762,11 @@ function EnumerableWhile(action) {
     return !exit;
 }
 singEnumerable.method('until', EnumerableUntil, {
-    summary: 'Call each on an array to enumerate the contents of the array. Return any non-null value to stop enumeration otherwise ' +
-        'it will continue until the end of the array.',
+    summary: 'Call each on an array to enumerate the contents of the array. Return any non-null value to stop enumeration otherwise it will continue until the end of the array.',
     parameters: [
         {
             name: 'action',
-            description: 'The function to call on each item of the array. The object and the index are passed as parameters ' +
-                'to this function',
+            description: 'The function to call on each item of the array. The object and the index are passed as parameters to this function',
             types: [Function]
         }
     ],
@@ -1809,9 +1802,7 @@ singEnumerable.method('count', EnumerableCount, {
     parameters: [
         {
             name: 'itemOrAction',
-            description: 'Object or function to be evaluated. If a function is passed it will be evaluated, any non-null ' +
-                'value will be added to the result. If anything other than a function is passed the number of occurences of ' +
-                'the object will be counted. If this function returns a number, it will be added to the total result.',
+            description: 'Object or function to be evaluated. If a function is passed it will be evaluated, any non-null value will be added to the result. If anything other than a function is passed the number of occurences of the object will be counted. If this function returns a number, it will be added to the total result.',
             types: [Function, Object]
         }
     ],
@@ -1918,8 +1909,7 @@ singEnumerable.method('select', EnumerableSelect, {
     parameters: [
         {
             name: 'filter',
-            description: 'A function that takes the item and index as parameters. ' +
-                'Any return value that isn\'t undefined, null, or false will cause the item to be included in the final result.',
+            description: 'A function that takes the item and index as parameters. Any return value that isn\'t undefined, null, or false will cause the item to be included in the final result.',
             types: [Function]
         }
     ],
@@ -1955,8 +1945,7 @@ singEnumerable.method('collect', EnumerableCollect, {
     parameters: [
         {
             name: 'collector',
-            description: 'This function is passed the item and index. Its return values will be included in the ' +
-                'final result. If the return value is undefined or null, it will not be included.',
+            description: 'This function is passed the item and index. Its return values will be included in the final result. If the return value is undefined or null, it will not be included.',
             types: [Function]
         }
     ],
@@ -2212,8 +2201,7 @@ singEnumerable.method('remove', EnumerableRemove, {
     parameters: [
         {
             name: 'itemOrItemsOrFunction',
-            description: 'Passing a single item or array of items will exclude the items from the result. ' +
-                'Passing a function will evaluate each item, a true value will cause the item to be excluded from the result.',
+            description: 'Passing a single item or array of items will exclude the items from the result. Passing a function will evaluate each item, a true value will cause the item to be excluded from the result.',
             types: [Function]
         }
     ],
@@ -3236,12 +3224,12 @@ function ObjectToStr(obj, includeMarkup, stack) {
         var keyCount = Object.keys(obj).length;
         $.objEach(obj, function (key, item, index) {
             if (includeMarkup) {
-                out += (key || '\'\'') + ': ' + $.toStr(item, true, stack);
+                out += (key || '\'\'') + ": " + $.toStr(item, true, stack);
                 if (index < keyCount - 1)
                     out += ', ';
             }
             else {
-                out += key + ': ' + $.toStr(item, false, stack) + '\r\n';
+                out += key + ": " + $.toStr(item, false, stack) + "\r\n";
             }
         });
         out += includeMarkup ? '}' : '';
@@ -3497,7 +3485,7 @@ function StringPluralize(count) {
     if (count === undefined || count === null)
         return thisStr;
     if (count == 0 || count > 1)
-        return thisStr + 's';
+        return thisStr + "s";
     return thisStr;
 }
 singString.method('isJSON', StringIsJSON, {
@@ -3773,10 +3761,10 @@ function InitHTMLExtensions() {
             if (target.length > 0) {
                 if (target[0].type == 'textarea') {
                     if (position == 'end') {
-                        target.val(target.val() + '\r\n' + fieldName);
+                        target.val(target.val() + "\r\n" + fieldName);
                     }
                     else if (position == 'beginning') {
-                        target.val(fieldName + '\r\n' + target.val());
+                        target.val(fieldName + "\r\n" + target.val());
                     }
                     else if (position == 'cursor') {
                         insertAtCaret(target.attr('id'), fieldName);
@@ -3803,7 +3791,7 @@ function InitHTMLExtensions() {
     $('.manage-view-show-similar').click(function () {
         var fieldName = $(this).data('field-name');
         var fieldValue = $(this).data('field-value');
-        $('#GlobalSearchTerm').val(fieldName + ':' + fieldValue);
+        $('#GlobalSearchTerm').val(fieldName + ":" + fieldValue);
         $('.manage-global-search input[type=submit]').click();
     });
     try {
@@ -3849,7 +3837,7 @@ function InitHoverSrc() {
 function PropertyIf(propertyName, changeTrue, changeFalse) {
     $("*[" + propertyName + "-if]").each(function () {
         var propertyTarget = $(this);
-        var ifTargetName = propertyTarget.attr(propertyName + '-if');
+        var ifTargetName = propertyTarget.attr(propertyName + "-if");
         var ifTarget = $('body').findIDNameSelector(ifTargetName);
         if (!ifTarget || ifTarget.length == 0) {
         }
@@ -4169,7 +4157,7 @@ function InitFields() {
     $('.tab-container *[href]').each(function () {
         var href = $(this).attr('href');
         if (href.indexOf('#') < 0) {
-            $(this).attr('href', href + '#' + $(this).parent('.ui-tabs-panel').attr('id'));
+            $(this).attr('href', href + "#" + $(this).parent('.ui-tabs-panel').attr('id'));
         }
     });
     $('#randomize-fields').click(function () {
@@ -4271,13 +4259,10 @@ function RandomFields() {
                 Object = chance.date({ string: true });
             }
             else if (DataTypeName == 'Time') {
-                Object = chance.hour({ twentyfour: true }) + ':' +
-                    chance.minute() + ':' + chance.second();
+                Object = chance.hour({ twentyfour: true }) + ":" + chance.minute() + ":" + chance.second();
             }
             else if (DataTypeName == 'DateTime') {
-                Object = chance.date({ string: true }) + ' ' +
-                    chance.hour({ twentyfour: true }) + ':' +
-                    chance.minute() + ':' + chance.second();
+                Object = chance.date({ string: true }) + " " + chance.hour({ twentyfour: true }) + ":" + chance.minute() + ":" + chance.second();
             }
         }
         if (DataTypeName == 'PhoneNumber') {
@@ -4546,11 +4531,11 @@ singJQuery.method('actionIf', ActionIf, {
 }, $.fn);
 function ActionIf(name) {
     var target = $(this);
-    var ifTargetName = target.attr(name + '-if');
+    var ifTargetName = target.attr(name + "-if");
     if (!ifTargetName)
         return true;
     var ifTarget = $('body').findIDNameSelector(ifTargetName);
-    var targetValue = (target.attr(name + '-if-value') || '');
+    var targetValue = (target.attr(name + "-if-value") || '');
     var operation = function (a, b) { return (a == b); };
     if (targetValue.indexOf('!=') == 0) {
         operation = function (a, b) { return (a != b); };
@@ -5761,7 +5746,7 @@ function SingularityGetDocs(funcName, includeCode, includeDocumentation) {
     if (!funcName ||
         funcName == '' ||
         funcName == 'all')
-        header = sing.summary + '\r\n\r\n';
+        header = sing.summary + "\r\n\r\n";
     var out = '';
     $.objEach(sing.methods, function (key, ext) {
         var mod = sing.modules[ext.moduleName];
@@ -5809,14 +5794,9 @@ function SingularityGetDocs(funcName, includeCode, includeDocumentation) {
                     line,
                     (ext.details.summary ? ("\r\n    Summary: \r\n" + ext.details.summary) : ''),
                     (ext.details.parameters && ext.details.parameters.length == 0 ? '\r\n    Parameters: None\r\n' : ''),
-                    (ext.details.parameters && ext.details.parameters.length > 0 ? ("\r\n    Parameters:\r\n" + ext.details.parameters.collect(function (item, j) { return ((" #" + (j + 1)).pad(10) + 'Name:    ' + item.name + '\r\n' +
-                        (!item.required ? '              :    OPTIONAL \r\n' : '') +
-                        (item.isMulti ? '              :    Multi-parameter \r\n' : '') +
-                        (item.defaultValue != undefined ? " Default Value:    " + $.toStr(item.defaultValue, true) + "\r\n" : '') +
-                        '         Types:    [' + item.types.collect(function (a) { return a.name; }).join(', ') + '] \r\n' +
-                        '   Description:    ' + item.description + '\r\n\r\n'); }).joinLines() + "\r\n") : ''),
+                    (ext.details.parameters && ext.details.parameters.length > 0 ? ("\r\n    Parameters:\r\n" + ext.details.parameters.collect(function (item, j) { return ((" #" + (j + 1)).pad(10) + "Name:    " + item.name + "\r\n" + (!item.required ? '              :    OPTIONAL \r\n' : '') + (item.isMulti ? '              :    Multi-parameter \r\n' : '') + (item.defaultValue != undefined ? " Default Value:    " + $.toStr(item.defaultValue, true) + "\r\n" : '') + "         Types:    [" + item.types.collect(function (a) { return a.name; }).join(', ') + "] \r\n   Description:    " + item.description + "\r\n\r\n"); }).joinLines() + "\r\n") : ''),
                     ext.details.returnTypeName ? ("\r\n    Return Type: " + ext.details.returnTypeName + "\r\n") : '',
-                    (ext.details.aliases && ext.details.aliases.length > 0 ? ("\r\n    Aliases: \r\n" + ext.details.aliases.collect(function (alias) { return (''.pad(13) + ext.methodCall + '.' + alias); }).join(', ') + "\r\n\r\n") : ''),
+                    (ext.details.aliases && ext.details.aliases.length > 0 ? ("\r\n    Aliases: \r\n" + ext.details.aliases.collect(function (alias) { return ("" + ''.pad(13) + ext.methodCall + "." + alias); }).join(', ') + "\r\n\r\n") : ''),
                     ext.details.returns ? ("\r\n    Returns: \r\n" + ext.details.returns + "\r\n\r\n") : '',
                     (ext.details.examples ? ("\r\n    Examples: \r\n" + ext.details.examples.joinLines()) : ''),
                     (ext.method && includeCode ? ("\r\n    Method Code: \r\n\r\n" + ext.method.toString()) : '')]
@@ -5851,7 +5831,7 @@ function SingularityGetDocs(funcName, includeCode, includeDocumentation) {
                 }
                 if (methodTestsFound > 0) {
                     if (methodTestsFound == methodTestsPassed) {
-                        out += '----' + '\r\nAll Test Cases Passed\r\n\r\n';
+                        out += '----\r\nAll Test Cases Passed\r\n\r\n';
                     }
                     else {
                         out += "----" + methodTestsPassed + " / " + methodTestsFound + " (" + methodTestsPassed.percentOf(methodTestsFound, 0, true) + ") Test Cases Passed\r\n\r\n";
@@ -5861,9 +5841,9 @@ function SingularityGetDocs(funcName, includeCode, includeDocumentation) {
         }
         else {
             out += '\r\n';
-            out += line + '\r\n';
-            out += ext.name + '\r\n';
-            out += line + '\r\n';
+            out += line + "\r\n";
+            out += ext.name + "\r\n";
+            out += line + "\r\n";
             out += '\r\n';
         }
     });
@@ -5875,16 +5855,16 @@ function SingularityGetDocs(funcName, includeCode, includeDocumentation) {
     var leftSpace = 40;
     header += '\r\n';
     if (featuresFound != 0 || featuresCount != 0)
-        header += "Methods Implemented:      " + (featuresFound + ' / ' + featuresCount).pad(leftSpace, Direction.r) + " (" + featuresFound.percentOf(featuresCount, 0, true) + ")\r\n";
+        header += "Methods Implemented:      " + (featuresFound + " / " + featuresCount).pad(leftSpace, Direction.r) + " (" + featuresFound.percentOf(featuresCount, 0, true) + ")\r\n";
     if (featuresHaveTests != 0 || featuresNeedTests != 0)
-        header += "Unit Tests Implemented:   " + (featuresHaveTests + ' / ' + featuresNeedTests).pad(leftSpace, Direction.r) + " (" + featuresHaveTests.percentOf(featuresNeedTests, 0, true) + ")\r\n";
+        header += "Unit Tests Implemented:   " + (featuresHaveTests + " / " + featuresNeedTests).pad(leftSpace, Direction.r) + " (" + featuresHaveTests.percentOf(featuresNeedTests, 0, true) + ")\r\n";
     if (testsPassed != 0 || testsFound != 0)
-        header += "Unit Tests Passed:        " + (testsPassed + ' / ' + testsFound).pad(leftSpace, Direction.r) + " (" + testsPassed.percentOf(testsFound, 0, true) + ")\r\n";
+        header += "Unit Tests Passed:        " + (testsPassed + " / " + testsFound).pad(leftSpace, Direction.r) + " (" + testsPassed.percentOf(testsFound, 0, true) + ")\r\n";
     if (documentaionFound != 0 || documentaionCount != 0)
-        header += "Documentation:            " + (documentaionFound + ' / ' + documentaionCount).pad(leftSpace, Direction.r) + " (" + documentaionFound.percentOf(documentaionCount, 0, true) + ")\r\n";
+        header += "Documentation:            " + (documentaionFound + " / " + documentaionCount).pad(leftSpace, Direction.r) + " (" + documentaionFound.percentOf(documentaionCount, 0, true) + ")\r\n";
     header += '\r\n';
     if (totalFound != 0 || totalCount != 0)
-        header += "Total:                    " + (totalFound + ' / ' + totalCount).pad(leftSpace, Direction.r) + " (" + totalFound.percentOf(totalCount, 0, true) + ")\r\n";
+        header += "Total:                    " + (totalFound + " / " + totalCount).pad(leftSpace, Direction.r) + " (" + totalFound.percentOf(totalCount, 0, true) + ")\r\n";
     return header + out;
 }
 ;
@@ -5909,32 +5889,32 @@ function SingularityGetMissing(funcName) {
         if (ext.method)
             featuresFound++;
         else
-            out += ext.name + ' Method Implementation \r\n';
+            out += ext.name + " Method Implementation \r\n";
         if (ext.details) {
             if (ext.details.summary)
                 documentaionFound++;
             else
-                out += ext.name + ' Summary \r\n';
+                out += ext.name + " Summary \r\n";
             if (ext.details.parameters)
                 documentaionFound++;
             else
-                out += ext.name + ' Parameters \r\n';
+                out += ext.name + " Parameters \r\n";
             if (ext.details.returnTypeName)
                 documentaionFound++;
             else
-                out += ext.name + ' Return Type \r\n';
+                out += ext.name + " Return Type \r\n";
             if (ext.details.returns)
                 documentaionFound++;
             else
-                out += ext.name + ' Returns \r\n';
+                out += ext.name + " Returns \r\n";
             if (ext.details.examples)
                 documentaionFound++;
             else
-                out += ext.name + ' Examples \r\n';
+                out += ext.name + " Examples \r\n";
             if (ext.details.unitTests && ext.details.unitTests.length > 0)
                 documentaionFound++;
             else
-                out += ext.name + ' Tests \r\n';
+                out += ext.name + " Tests \r\n";
         }
     });
     header += "\r\nMethods Implemented:      " + featuresFound + " / " + featuresCount + " (" + Math.round((featuresFound / featuresCount) * 100) + "%) \r\nDocumentation:            " + documentaionFound + " / " + documentaionCount + " (" + Math.round((documentaionFound / documentaionCount) * 100) + "%) \r\n";
@@ -5954,16 +5934,12 @@ function SingularityGetSummary(funcName, includeFunctions) {
                 funcName.lower() != 'all' &&
                 !ext.name.lower().contains(funcName.lower()))
                 return;
-            out += "\r\n" + (ext.name + ' ').pad(30);
-            out += ((ext.details.returnTypeName || '') + ' function(').pad(20, Direction.r);
+            out += "\r\n" + (ext.name + " ").pad(30);
+            out += ((ext.details.returnTypeName || '') + " function(").pad(20, Direction.r);
             out += ((ext.details && ext.details.parameters) ? ext.details.parameters.collect(function (item, i) {
                 var TypeNames = item.types.collect(function (a) { return a.name; }).join(', ');
-                return (i > 0 ? ''.pad(50) : '') +
-                    '[' + TypeNames + '] ' + item.name;
-            }).join(', \r\n') : '') +
-                ') ' +
-                (ext.details && ext.details.parameters && ext.details.parameters.length > 1 ? "\r\n" + ''.pad(50) : '') +
-                '{ ... } ';
+                return (i > 0 ? ''.pad(50) : '') + "[" + TypeNames + "] " + item.name;
+            }).join(', \r\n') : '') + ") " + (ext.details && ext.details.parameters && ext.details.parameters.length > 1 ? "\r\n" + ''.pad(50) : '') + "{ ... } ";
         });
     }
     return out;
@@ -5989,7 +5965,7 @@ singObject.method('objEach', ObjectEach, {
             });
             if ($.toStr(test2) != $.toStr([{ key: 'a', item: 1, index: 0 },
                 { key: 'b', item: 2, index: 1 }]))
-                return $.toStr(test2) + '\r\n' + $.toStr([{ key: 'a', item: 1, index: 0 },
+                return $.toStr(test2) + "\r\n" + $.toStr([{ key: 'a', item: 1, index: 0 },
                     { key: 'b', item: 2, index: 1 }]);
         }, 'Executes for every element');
     }
@@ -6531,9 +6507,9 @@ singTests.method('addTest', SingularityAddTest, {
 });
 function SingularityAddTest(name, testFunc, requirement) {
     if (!sing.methods[name])
-        throw name + ' not found';
+        throw name + " not found";
     if (!sing.methods[name].details.tests)
-        throw name + ' tests not found';
+        throw name + " tests not found";
     if ($.isFunction(sing.methods[name].details.tests))
         sing.methods[name].details.unitTests = sing.methods[name].details.unitTests || [];
     sing.methods[name].details.unitTests = sing.methods[name].details.unitTests.concat(new SingularityTest(name, testFunc, sing.methods[name].details.unitTests.length + 1, requirement));
@@ -6544,11 +6520,11 @@ singTests.method('addCustomTest', SingularityAddCustomTest, {
 });
 function SingularityAddCustomTest(name, testFunc, requirement) {
     if (!$.isString(name))
-        throw name + ' was not a string';
+        throw name + " was not a string";
     if (!sing.methods[name])
-        throw name + ' not found';
+        throw name + " not found";
     if (!sing.methods[name].details.tests)
-        throw name + ' tests not found';
+        throw name + " tests not found";
     requirement = requirement || '';
     requirement += "\r\n" + testFunc.toString() + "\r\n";
     sing.methods[name].details.unitTests = sing.methods[name].details.unitTests || [];
@@ -6560,8 +6536,8 @@ singTests.method('addMethodTest', SingularityAddMethodTest, {
 });
 function SingularityAddMethodTest(ext, target, args, compare, requirement) {
     if (!ext.method)
-        throw ext.name + ' method not found';
-    requirement = (requirement ? (requirement + '\r\n') : '') +
+        throw ext.name + " method not found";
+    requirement = (requirement ? (requirement + "\r\n") : '') +
         (!!target ? "(" + $.toStr(target, true) + ")." : '') + ext.shortName;
     requirement += '(';
     for (var i = 0; i < args.length; i++) {
@@ -6579,8 +6555,7 @@ function SingularityAddMethodTest(ext, target, args, compare, requirement) {
         else if ($.toStr(compare) == $.toStr(result))
             return true;
         else
-            return requirement + '\r\n \r\n' +
-                $.toStr(compare, true) + ' expected, result: ' + $.toStr(result, true);
+            return requirement + "\r\n \r\n" + $.toStr(compare, true) + " expected, result: " + $.toStr(result, true);
     }, requirement);
 }
 ;
@@ -6588,15 +6563,14 @@ singTests.method('addAssertTest', SingularityAddAssertTest, {
     manuallyTested: true
 });
 function SingularityAddAssertTest(name, result, compare, requirement) {
-    requirement = requirement || $.toStr(compare, true) + ' is expected to match result: ' + $.toStr(result, true);
+    requirement = requirement || $.toStr(compare, true) + " is expected to match result: " + $.toStr(result, true);
     this.addTest(name, function () {
         if (compare == result)
             return true;
         else if ($.toStr(compare) == $.toStr(result))
             return true;
         else
-            return requirement + '\r\n' +
-                ' TEST FAILED \r\n';
+            return requirement + "\r\n TEST FAILED \r\n";
     }, requirement);
 }
 ;
@@ -6606,8 +6580,7 @@ singTests.method('addFailsTest', SingularityAddFailsTest, {
 function SingularityAddFailsTest(ext, target, args, expectedError, requirement) {
     if (target == null)
         throw 'no target';
-    requirement = (requirement ? (requirement + '\r\n') : '') +
-        '(' + $.toStr(target, true) + ').' + ext.shortName;
+    requirement = (requirement ? (requirement + "\r\n") : '') + "(" + $.toStr(target, true) + ")." + ext.shortName;
     requirement += '(';
     for (var i = 0; i < args.length; i++) {
         requirement += $.toStr(args[i], true);
@@ -6620,16 +6593,13 @@ function SingularityAddFailsTest(ext, target, args, expectedError, requirement) 
     this.addTest(ext.name, function () {
         try {
             ext.method.apply(target, args);
-            return name + ' was expected to fail but it did not. \r\n\r\n' +
-                requirement;
+            return name + " was expected to fail but it did not. \r\n\r\n" + requirement;
         }
         catch (ex) {
             if (expectedError && ex != expectedError &&
-                ex != 'Uncaught ' + expectedError &&
-                'Uncaught ' + ex != expectedError) {
-                return name + ' was expected to fail with a message of \'' + expectedError + '\' \r\n' +
-                    'but instead failed with error \'' + ex + '\'' + '\r\n\r\n' +
-                    requirement;
+                ex != "Uncaught " + expectedError &&
+                "Uncaught " + ex != expectedError) {
+                return name + " was expected to fail with a message of '" + expectedError + "' \r\nbut instead failed with error '" + ex + "'\r\n\r\n" + requirement;
             }
             return true;
         }
@@ -6661,10 +6631,10 @@ function SingularityRunTests(display) {
         if (method.details.features)
             method.details.features.each(function (feature) {
                 if (feature.unitTests) {
-                    if (testGroups[method + ' ' + feature.name])
-                        testGroups[method + ' ' + feature.name] = testGroups[method + ' ' + feature.name].concat(feature.unitTests);
+                    if (testGroups[(method + " " + feature.name)])
+                        testGroups[(method + " " + feature.name)] = testGroups[(method + " " + feature.name)].concat(feature.unitTests);
                     else
-                        testGroups[method + ' ' + feature.name] = feature.unitTests;
+                        testGroups[(method + " " + feature.name)] = feature.unitTests;
                 }
             });
         if (method.details) {
@@ -6681,7 +6651,7 @@ function SingularityRunTests(display) {
         if (tests) {
             tests.each(function (test, i) {
                 if (display)
-                    displayStr += test.requirement + '\r\n';
+                    displayStr += test.requirement + "\r\n";
                 var testFunc = test.testFunc;
                 if (test && test.testFunc) {
                     var testResult = testFunc();
@@ -6697,9 +6667,7 @@ function SingularityRunTests(display) {
             });
         }
     });
-    return sing.tests.listTests() + '\r\n' +
-        displayStr + '\r\n' +
-        (result || '\r\n\r\nAll ' + testCount + ' tests succeeded.');
+    return sing.tests.listTests() + "\r\n" + displayStr + "\r\n" + (result || ("\r\n\r\nAll " + testCount + " tests succeeded."));
 }
 ;
 singTests.method('listTests', SingularityListTests, {
@@ -6713,7 +6681,7 @@ function SingularityListTests() {
         var item = sing.methods[name_1];
         var tests = item.details.unitTests;
         if (tests && tests.length > 0)
-            out += ("Extension: " + name_1).pad(50) + '      Tests: ' + tests.length + '\r\n';
+            out += ("Extension: " + name_1).pad(50) + "      Tests: " + tests.length + "\r\n";
         else
             ;
     }
@@ -6801,8 +6769,7 @@ singBoolean.method('XOR', BooleanXOR, {
         ext.addFailsTest(true, [undefined], 'Singularity.Extensions.Boolean.XOR Missing Parameter: boolean b');
         ext.addFailsTest(false, [null], 'Singularity.Extensions.Boolean.XOR Missing Parameter: boolean b');
         ext.addFailsTest(false, [undefined], 'Singularity.Extensions.Boolean.XOR Missing Parameter: boolean b');
-        ext.addFailsTest(false, ['a'], 'Singularity.Extensions.Boolean.XOR  Parameter: b: \'a\' string did not ' +
-            'match input type [\'boolean\'].');
+        ext.addFailsTest(false, ['a'], 'Singularity.Extensions.Boolean.XOR  Parameter: b: \'a\' string did not match input type [\'boolean\'].');
     }
 });
 function BooleanXOR(b) {
@@ -7459,7 +7426,7 @@ function NumberPercentOf(of, decimalPlaces, asString) {
         if (of == 0)
             return '(?)%';
         else {
-            return ((this / of) * 100).floor(decimalPlaces) + '%';
+            return ((this / of) * 100).floor(decimalPlaces) + "%";
         }
     }
     else {
@@ -7540,7 +7507,7 @@ function NumberFormatFileSize(decimalPlaces, useLongUnit) {
         outNumber = outNumber / 1024;
         magnitude++;
     }
-    var out = outNumber.round(decimalPlaces) + ' ' + units[magnitude];
+    var out = outNumber.round(decimalPlaces) + " " + units[magnitude];
     if (useLongUnit &&
         (outNumber.floor() > 1 || outNumber.floor() == 0)) {
         out += 's';
@@ -7797,8 +7764,7 @@ function NumberRandom(minimum, maximum, count) {
     return out;
 }
 singNumber.method('isNumeric', StringIsNumeric, {
-    summary: 'Call isNumeric on a String to determine if the string is in Numeric form. If the ' +
-        'string is not a number false will be returned.',
+    summary: 'Call isNumeric on a String to determine if the string is in Numeric form. If the string is not a number false will be returned.',
     parameters: [],
     returns: 'A true value if the string represents a valid Number, otherwise false is returned.',
     returnType: Boolean,
@@ -7830,8 +7796,7 @@ function StringIsNumeric() {
     return false;
 }
 singNumber.method('isInteger', StringIsInteger, {
-    summary: 'Call isInteger on a String to determine if the string is in Integer form. If the string ' +
-        'is not a number or has a decimal value, false will be returned.',
+    summary: 'Call isInteger on a String to determine if the string is in Integer form. If the string is not a number or has a decimal value, false will be returned.',
     parameters: [],
     returns: 'A true value if the string represents a valid Integer, otherwise false is returned.',
     returnType: Boolean,
@@ -7905,8 +7870,7 @@ function NumberIsOdd() {
     return (thisNumber % 2).abs() == 1;
 }
 singNumber.method('toNumber', StringToNumber, {
-    summary: 'Call toNumber on a String to try to convert the string to number form. If any decimal values ' +
-        'are given they will be included in the result.',
+    summary: 'Call toNumber on a String to try to convert the string to number form. If any decimal values are given they will be included in the result.',
     parameters: [],
     returns: 'A number value if the string represents a valid Number, otherwise NaN is returned.',
     returnType: Number,
@@ -7933,8 +7897,7 @@ function StringToNumber() {
     return NaN;
 }
 singNumber.method('toInteger', StringToInteger, {
-    summary: 'Call toInteger on a String to try to convert the string to integer form. If any decimal ' +
-        'values are given they will be rounded down (floor).',
+    summary: 'Call toInteger on a String to try to convert the string to integer form. If any decimal values are given they will be rounded down (floor).',
     parameters: [],
     returns: 'A number value if the string represents a valid Number, otherwise NaN is returned.',
     returnType: Number,
@@ -8180,7 +8143,7 @@ function FunctionCache(uniqueCacheID, expiresAfter) {
         if (!cache[uniqueCacheID])
             cache[uniqueCacheID] = {};
         var thisCache = cache[uniqueCacheID];
-        var argStr = ObjectToStr(thisCaller) + '|||||||' + ObjectToStr(items);
+        var argStr = ObjectToStr(thisCaller) + "|||||||" + ObjectToStr(items);
         if (argStr.length > cacheKeyLimit) {
             return source.apply(thisCaller, items);
         }

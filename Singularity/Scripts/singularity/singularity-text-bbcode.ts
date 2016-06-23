@@ -329,9 +329,7 @@ name: 'YouTube',
 tag: '[youtube][/youtube]',
 matchStr: /[youtube](\w+)[\/youtube]/,
 htmlStr:
-'<object><param name="movie" value="http://www.youtube.com">' +
-'<embed src="$1" type="application/x-shockwave-flash" width="400" height="325" title="Adobe Flash Player">' +
-'</object>',
+'<object><param name="movie" value="http://www.youtube.com"><embed src="$1" type="application/x-shockwave-flash" width="400" height="325" title="Adobe Flash Player"></object>',
 textStr: '$1',
 
 test: '',
@@ -341,9 +339,7 @@ name: 'YouTube Width',
 tag: '[youtube width=][/youtube]',
 matchStr: /[youtube width\=(\d{1,5})](\w+)[\/youtube]/,
 htmlStr:
-'<object><param name="movie" value="http://www.youtube.com">' +
-'<embed src="$2" type="application/x-shockwave-flash" width="$1" height="325" title="Adobe Flash Player">' +
-'</object>',
+'<object><param name="movie" value="http://www.youtube.com"><embed src="$2" type="application/x-shockwave-flash" width="$1" height="325" title="Adobe Flash Player"></object>',
 textStr: '$2',
 
 test: '',
@@ -353,9 +349,7 @@ name: 'YouTube Height',
 tag: '[youtube height=][/youtube]',
 matchStr: /[youtube height\=(\d{1,5})](\w+)[\/youtube]/,
 htmlStr:
-'<object><param name="movie" value="http://www.youtube.com">' +
-'<embed src="$2" type="application/x-shockwave-flash" width="400" height="$1" title="Adobe Flash Player">' +
-'</object>',
+'<object><param name="movie" value="http://www.youtube.com"><embed src="$2" type="application/x-shockwave-flash" width="400" height="$1" title="Adobe Flash Player"></object>',
 textStr: '$2',
 
 test: '',
@@ -365,9 +359,7 @@ name: 'YouTube Width + Height',
 tag: '[youtube width= height=][/youtube]',
 matchStr: /[youtube width\=(\d{1,5}) height\=(\d{1,5})](\w+)[\/youtube]/,
 htmlStr:
-'<object><param name="movie" value="http://www.youtube.com">' +
-'<embed src="$3" type="application/x-shockwave-flash" width="$1" height="$2" title="Adobe Flash Player">' +
-'</object>',
+'<object><param name="movie" value="http://www.youtube.com"><embed src="$3" type="application/x-shockwave-flash" width="$1" height="$2" title="Adobe Flash Player"></object>',
 textStr: '$3',
 
 test: '',
@@ -377,9 +369,7 @@ name: 'YouTube Width x Height',
 tag: '[youtube={width}x{height}][/youtube]',
 matchStr: /[youtube\=(\d{1,5})x(\d{1,5})](\w+)[\/youtube]/,
 htmlStr:
-'<object><param name="movie" value="http://www.youtube.com">' +
-'<embed src="$3" type="application/x-shockwave-flash" width="$1" height="$2" title="Adobe Flash Player">' +
-'</object>',
+'<object><param name="movie" value="http://www.youtube.com"><embed src="$3" type="application/x-shockwave-flash" width="$1" height="$2" title="Adobe Flash Player"></object>',
 textStr: '$3',
 
 test: '',

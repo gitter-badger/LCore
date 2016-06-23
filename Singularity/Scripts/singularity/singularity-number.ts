@@ -372,7 +372,7 @@ function NumberPercentOf(of: number, decimalPlaces: number = 0, asString: boolea
         if (of == 0)
             return '(?)%';
         else {
-            return ((this / of) * 100).floor(decimalPlaces) + '%';
+            return `${((this / of) * 100).floor(decimalPlaces)}%`;
         }
     }
     else {
@@ -471,7 +471,7 @@ function NumberFormatFileSize(decimalPlaces: number, useLongUnit: boolean = fals
 
     }
 
-    let out = outNumber.round(decimalPlaces) + ' ' + units[magnitude];
+    let out = `${outNumber.round(decimalPlaces)} ${units[magnitude]}`;
 
     if (useLongUnit &&
         (outNumber.floor() > 1 || outNumber.floor() == 0)) {
@@ -788,8 +788,7 @@ function NumberRandom(minimum: number, maximum: number, count: number = 1): numb
 
 singNumber.method('isNumeric', StringIsNumeric,
     {
-        summary: 'Call isNumeric on a String to determine if the string is in Numeric form. If the ' +
-        'string is not a number false will be returned.',
+        summary: 'Call isNumeric on a String to determine if the string is in Numeric form. If the string is not a number false will be returned.',
         parameters: [],
         returns: 'A true value if the string represents a valid Number, otherwise false is returned.',
         returnType: Boolean,
@@ -829,8 +828,7 @@ function StringIsNumeric() {
 
 singNumber.method('isInteger', StringIsInteger,
     {
-        summary: 'Call isInteger on a String to determine if the string is in Integer form. If the string ' +
-        'is not a number or has a decimal value, false will be returned.',
+        summary: 'Call isInteger on a String to determine if the string is in Integer form. If the string is not a number or has a decimal value, false will be returned.',
         parameters: [],
         returns: 'A true value if the string represents a valid Integer, otherwise false is returned.',
         returnType: Boolean,
@@ -917,8 +915,7 @@ function NumberIsOdd() {
 
 singNumber.method('toNumber', StringToNumber,
     {
-        summary: 'Call toNumber on a String to try to convert the string to number form. If any decimal values ' +
-        'are given they will be included in the result.',
+        summary: 'Call toNumber on a String to try to convert the string to number form. If any decimal values are given they will be included in the result.',
         parameters: [],
         returns: 'A number value if the string represents a valid Number, otherwise NaN is returned.',
         returnType: Number,
@@ -952,8 +949,7 @@ function StringToNumber(): number {
 
 singNumber.method('toInteger', StringToInteger,
     {
-        summary: 'Call toInteger on a String to try to convert the string to integer form. If any decimal ' +
-        'values are given they will be rounded down (floor).',
+        summary: 'Call toInteger on a String to try to convert the string to integer form. If any decimal values are given they will be rounded down (floor).',
         parameters: [],
         returns: 'A number value if the string represents a valid Number, otherwise NaN is returned.',
         returnType: Number,

@@ -4,7 +4,7 @@ using LCore.Extensions;
 using LCore.Extensions.ObjectExt;
 using System.Collections;
 using System.Reflection;
-using LCore.Tests;
+// ReSharper disable UnusedMember.Global
 
 namespace LCore.Tests
     {
@@ -25,11 +25,6 @@ namespace LCore.Tests
         public static void MethodAssertSucceedes(this MethodInfo Method, object[] Params = null, params Func<object, bool>[] AdditionalChecks)
             {
             Method.MethodAssertSucceedes<object>(Params, AdditionalChecks);
-            }
-
-        public static void MethodAssertSucceedes<U>(this MethodInfo Method, object[] Params = null, params Func<bool>[] AdditionalResultChecks)
-            {
-            Method.MethodAssertSucceedes(Params, AdditionalResultChecks.Convert<Func<bool>, Func<object, bool>>(f => { return (o => f()); }));
             }
 
         public static void MethodAssertSucceedes<U>(this MethodInfo Method, object[] Params = null, params Func<U, bool>[] AdditionalResultChecks)

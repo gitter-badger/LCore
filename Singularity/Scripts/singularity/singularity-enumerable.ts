@@ -65,8 +65,7 @@ singEnumerable.method('each', EnumerableEach,
         parameters: [
             {
                 name: 'action',
-                description: 'The function to call on each item of the array. The object and the index are passed as parameters ' +
-                'to this function',
+                description: 'The function to call on each item of the array. The object and the index are passed as parameters to this function',
                 types: [Function]
             }
         ],
@@ -111,13 +110,11 @@ function EnumerableEach<T>(action: (item: T, i: number) => void) {
 
 singEnumerable.method('while', EnumerableWhile,
     {
-        summary: 'Call each on an array to enumerate the contents of the array. Return any non-null value to continue enumeration otherwise ' +
-        'returning false will stop the enumeration.',
+        summary: 'Call each on an array to enumerate the contents of the array. Return any non-null value to continue enumeration otherwise returning false will stop the enumeration.',
         parameters: [
             {
                 name: 'action',
-                description: 'The function to call on each item of the array. The object and the index are passed as parameters ' +
-                'to this function',
+                description: 'The function to call on each item of the array. The object and the index are passed as parameters to this function',
                 types: [Function]
             }
         ],
@@ -177,13 +174,11 @@ function EnumerableWhile<T>(action: (item: T, index: number) => any) {
 
 singEnumerable.method('until', EnumerableUntil,
     {
-        summary: 'Call each on an array to enumerate the contents of the array. Return any non-null value to stop enumeration otherwise ' +
-        'it will continue until the end of the array.',
+        summary: 'Call each on an array to enumerate the contents of the array. Return any non-null value to stop enumeration otherwise it will continue until the end of the array.',
         parameters: [
             {
                 name: 'action',
-                description: 'The function to call on each item of the array. The object and the index are passed as parameters ' +
-                'to this function',
+                description: 'The function to call on each item of the array. The object and the index are passed as parameters to this function',
                 types: [Function]
             }
         ],
@@ -249,9 +244,7 @@ singEnumerable.method('count', EnumerableCount,
         parameters: [
             {
                 name: 'itemOrAction',
-                description: 'Object or function to be evaluated. If a function is passed it will be evaluated, any non-null ' +
-                'value will be added to the result. If anything other than a function is passed the number of occurences of ' +
-                'the object will be counted. If this function returns a number, it will be added to the total result.',
+                description: 'Object or function to be evaluated. If a function is passed it will be evaluated, any non-null value will be added to the result. If anything other than a function is passed the number of occurences of the object will be counted. If this function returns a number, it will be added to the total result.',
                 types: [Function, Object]
             }
         ],
@@ -380,8 +373,7 @@ singEnumerable.method('select', EnumerableSelect,
         parameters: [
             {
                 name: 'filter',
-                description: 'A function that takes the item and index as parameters. ' +
-                'Any return value that isn\'t undefined, null, or false will cause the item to be included in the final result.',
+                description: 'A function that takes the item and index as parameters. Any return value that isn\'t undefined, null, or false will cause the item to be included in the final result.',
                 types: [Function]
             }
         ],
@@ -425,8 +417,7 @@ singEnumerable.method('collect', EnumerableCollect,
         parameters: [
             {
                 name: 'collector',
-                description: 'This function is passed the item and index. Its return values will be included in the ' +
-                'final result. If the return value is undefined or null, it will not be included.',
+                description: 'This function is passed the item and index. Its return values will be included in the final result. If the return value is undefined or null, it will not be included.',
                 types: [Function]
             }
         ],
@@ -740,8 +731,7 @@ singEnumerable.method('remove', EnumerableRemove,
         parameters: [
             {
                 name: 'itemOrItemsOrFunction',
-                description: 'Passing a single item or array of items will exclude the items from the result. ' +
-                'Passing a function will evaluate each item, a true value will cause the item to be excluded from the result.',
+                description: 'Passing a single item or array of items will exclude the items from the result. Passing a function will evaluate each item, a true value will cause the item to be excluded from the result.',
                 types: [Function]
             }
         ],

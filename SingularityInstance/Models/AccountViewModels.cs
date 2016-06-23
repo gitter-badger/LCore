@@ -2,29 +2,29 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace SingularityInstance.Models
-{
-    public class ExternalLoginConfirmationViewModel
     {
+    public class ExternalLoginConfirmationViewModel
+        {
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
-    }
+        }
 
     public class ExternalLoginListViewModel
-    {
+        {
         public string ReturnUrl { get; set; }
-    }
+        }
 
     public class SendCodeViewModel
-    {
+        {
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
         public string ReturnUrl { get; set; }
         public bool RememberMe { get; set; }
-    }
+        }
 
     public class VerifyCodeViewModel
-    {
+        {
         [Required]
         public string Provider { get; set; }
 
@@ -37,17 +37,17 @@ namespace SingularityInstance.Models
         public bool RememberBrowser { get; set; }
 
         public bool RememberMe { get; set; }
-    }
+        }
 
     public class ForgotViewModel
-    {
+        {
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
-    }
+        }
 
     public class LoginViewModel
-    {
+        {
         [Required]
         [Display(Name = "Email")]
         [EmailAddress]
@@ -60,10 +60,10 @@ namespace SingularityInstance.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
-    }
+        }
 
     public class RegisterViewModel
-    {
+        {
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -79,10 +79,10 @@ namespace SingularityInstance.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-    }
+        }
 
     public class ResetPasswordViewModel
-    {
+        {
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -100,13 +100,13 @@ namespace SingularityInstance.Models
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
-    }
+        }
 
     public class ForgotPasswordViewModel
-    {
+        {
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+        }
     }
-}

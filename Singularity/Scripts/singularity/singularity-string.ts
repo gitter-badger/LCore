@@ -850,12 +850,12 @@ function ObjectToStr(obj: any, includeMarkup: boolean = false, stack: any[] = []
 
         $.objEach(obj, (key, item, index) => {
             if (includeMarkup) {
-                out += (key || '\'\'') + ': ' + $.toStr(item, true, stack);
+                out += `${key || '\'\''}: ${$.toStr(item, true, stack)}`;
                 if (index < keyCount - 1)
                     out += ', ';
             }
             else {
-                out += key + ': ' + $.toStr(item, false, stack) + '\r\n';
+                out += `${key}: ${$.toStr(item, false, stack)}\r\n`;
             }
         });
 
@@ -1177,7 +1177,7 @@ function StringPluralize(count: number) {
         return thisStr;
 
     if (count == 0 || count > 1)
-        return thisStr + 's';
+        return `${thisStr}s`;
 
     return thisStr;
 }

@@ -479,10 +479,10 @@ function InitHTMLExtensions() {
 
                 if ((target[0] as any).type == 'textarea') {
                     if (position == 'end') {
-                        target.val(target.val() + '\r\n' + fieldName);
+                        target.val(`${target.val()}\r\n${fieldName}`);
                     }
                     else if (position == 'beginning') {
-                        target.val(fieldName + '\r\n' + target.val());
+                        target.val(`${fieldName}\r\n${target.val()}`);
                     }
                     else if (position == 'cursor') {
 
@@ -514,7 +514,7 @@ function InitHTMLExtensions() {
         const fieldName = $(this).data('field-name');
         const fieldValue = $(this).data('field-value');
 
-        $('#GlobalSearchTerm').val(fieldName + ':' + fieldValue);
+        $('#GlobalSearchTerm').val(`${fieldName}:${fieldValue}`);
 
         $('.manage-global-search input[type=submit]').click();
     });
@@ -551,7 +551,7 @@ function InitIdent() {
 
             const data = new Identicon(hash2, size);
 
-            // $("#show_identicon")[0].src = 'data:image/png;base64,' + data;
+            // $("#show_identicon")[0].src = `data:image/png;base64,${data}`;
 
             $(this).html(`<img width="${size}" height="${size}" src="data:image/png;base64,${data}">`);
 
@@ -582,7 +582,7 @@ function PropertyIf(propertyName: string, changeTrue?: (propertyTarget: JQuery) 
     $(`*[${propertyName}-if]`).each(function () {
         var propertyTarget = $(this);
 
-        const ifTargetName = propertyTarget.attr(propertyName + '-if');
+        const ifTargetName = propertyTarget.attr(`${propertyName}-if`);
 
         const ifTarget = $('body').findIDNameSelector(ifTargetName);
 
@@ -1059,7 +1059,7 @@ function InitFields() {
         const href = $(this).attr('href');
 
         if (href.indexOf('#') < 0) {
-            $(this).attr('href', href + '#' + $(this).parent('.ui-tabs-panel').attr('id'));
+            $(this).attr('href', `${href}#${$(this).parent('.ui-tabs-panel').attr('id')}`);
         }
     });
 
@@ -1126,19 +1126,19 @@ function InitFields() {
                     max: maximum,
                     value: val,
                     slide: function (event: any, ui: any) {
-                        $('#' + $(this).attr('target')).val(ui.value);
-                        $('#' + $(this).attr('text-target')).html(ui.value);
+                        $(`#${$(this).attr('target')}`).val(ui.value);
+                        $(`#${$(this).attr('text-target')}`).html(ui.value);
                     },
                     change: function (event: any, ui: any) {
-                        $('#' + $(this).attr('target')).val(ui.value);
-                        $('#' + $(this).attr('text-target')).html(ui.value);
+                        $(`#${$(this).attr('target')}`).val(ui.value);
+                        $(`#${$(this).attr('text-target')}`).html(ui.value);
                     }
                 })
                     */
                 ;
             }
-            //                $('#' + $(this).attr('target')).val($(this).slider("value"));
-            //                $('#' + $(this).attr('text-target')).val($(this).slider("value"));
+            //                $(`#${$(this).attr('target')}`).val($(this).slider("value"));
+            //                $(`#${$(this).attr('text-target')}`).val($(this).slider("value"));
         });
     }
     catch (ex) {
@@ -1200,13 +1200,10 @@ function RandomFields() {
                 Object = chance.date({ string: true });
             }
             else if (DataTypeName == 'Time') {
-                Object = chance.hour({ twentyfour: true }) + ':' +
-                    chance.minute() + ':' + chance.second();
+                Object = `${chance.hour({ twentyfour: true })}:${chance.minute()}:${chance.second()}`;
             }
             else if (DataTypeName == 'DateTime') {
-                Object = chance.date({ string: true }) + ' ' +
-                    chance.hour({ twentyfour: true }) + ':' +
-                    chance.minute() + ':' + chance.second();
+                Object = `${chance.date({ string: true })} ${chance.hour({ twentyfour: true })}:${chance.minute()}:${chance.second()}`;
             }
         }
 
@@ -1232,8 +1229,7 @@ function RandomFields() {
 
         if (ObjectType == 'System.Nullable`1[System.TimeSpan]' ||
             ObjectType == 'System.TimeSpan') {
-            //    Object = chance.hour({ twentyfour: true }) + ':' +
-            //            chance.minute() + ":" + chance.second() + ":" + chance.millisecond();
+            //    Object = `${chance.hour({ twentyfour: true })}:${chance.minute()}:${chance.second()}:${chance.millisecond()}`;
         }
 
         if (ObjectType == 'System.Nullable`1[System.Boolean]' ||

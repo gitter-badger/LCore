@@ -54,11 +54,11 @@ function StringTemplateInject(obj: Object, _context?: Hash<any>): string {
 
     // Causes injection of data into all EMPTY <sing> tags.
     /*
-    var tagIndex = out.indexOf('<' + sing.constants.htmlElement.Templates.Element + '>');
+    var tagIndex = out.indexOf(`<${sing.constants.htmlElement.Templates.Element}>`);
     while (tagIndex >= 0) {
-        var tagIndexClose = out.indexOf('</' + sing.constants.htmlElement.Templates.Element + '>');
-        var len = ('<' + sing.constants.htmlElement.Templates.Element + '>').length;
-        var len2 = ('</' + sing.constants.htmlElement.Templates.Element + '>').length;
+        var tagIndexClose = out.indexOf(`</${sing.constants.htmlElement.Templates.Element}>`);
+        var len = (`<${sing.constants.htmlElement.Templates.Element}>`).length;
+        var len2 = (`</${sing.constants.htmlElement.Templates.Element}>`).length;
 
         if (tagIndex > 0) {
             out = out.substr(0, tagIndex) + sing.constants.TemplatePatternStart +
@@ -72,7 +72,7 @@ function StringTemplateInject(obj: Object, _context?: Hash<any>): string {
             sing.constants.TemplatePatternEnd +
             + out.substr(tagIndexClose + len2);
         }
-        tagIndex = out.indexOf('<' + sing.constants.htmlElement.Templates.Element + '>');
+        tagIndex = out.indexOf(`<${sing.constants.htmlElement.Templates.Element}>`);
     }
     */
 
@@ -498,7 +498,7 @@ function JQueryPerformSingFill(data?: any, _context?: Hash<any>, forceFill: bool
         fill = fillWith.split(' with ')[0].trim();
         source = fillWith.split(' with ')[1].trim();
 
-        //        console.log('SING-FILL ' + fill + ' WITH ' + source);
+         //       console.log(`SING-FILL ${fill} WITH ${source}`);
 
         template = $.getTemplate(fill);
 
@@ -666,7 +666,7 @@ function JQueryPerformSingLoop(data: any, _context?: Hash<any>, forceFill: boole
         loopData = [];
     }
 
-    // console.log('SING-LOOP ' + itemKey + ' IN ' + loopKey);
+    //console.log(`SING-LOOP ${itemKey} IN ${loopKey}`);
 
     if (loopData == null || loopData.length == 0) {
     }
@@ -683,7 +683,7 @@ function JQueryPerformSingLoop(data: any, _context?: Hash<any>, forceFill: boole
 
             for (var i = 0; i < loopData.length; i++) {
 
-                // console.log('SING-LOOP ' + (i) + ' ' + itemKey + ' IN ' + loopKey);
+                //console.log(`SING-LOOP ${i} ${itemKey} IN ${loopKey}`);
 
                 var loopClone: JQuery;
 
@@ -819,7 +819,7 @@ sing.initTemplates = () => {
     FillTemplateTraverse($('body'), $('body'), null, {});
 
     /*
-    $('*[' + sing.constants.htmlAttr.Templates.If + ']').each(function () {
+    $(`*[${sing.constants.htmlAttr.Templates.If}]`).each(function () {
 
         try {
             $(this).hide();
@@ -833,7 +833,7 @@ sing.initTemplates = () => {
         }
     });
 
-    $('*[' + sing.constants.htmlAttr.Templates.Loop + ']').each(function () {
+    $(`*[${sing.constants.htmlAttr.Templates.Loop}]`).each(function () {
 
         try {
             $(this).hide();
@@ -847,7 +847,7 @@ sing.initTemplates = () => {
         }
     });
 
-    $('*[' + sing.constants.htmlAttr.Templates.Fill + ']').each(function () {
+    $(`*[${sing.constants.htmlAttr.Templates.Fill}]`).each(function () {
 
         try {
             $(this).singFill();
@@ -1163,7 +1163,7 @@ function FillTemplateTraverse(target: JQuery, root: JQuery, data: any = {}, _con
 <div sing-fill="{{ TestInnerSection2 with data }}">
     <div sing-content>
         <p>1</p>
-    </div>
+    </div> 
     <div sing-content>
         <p>2</p>
     </div>
