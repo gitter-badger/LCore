@@ -2,52 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 using LCore.Extensions;
 using System.Collections;
 using System.Data.Entity;
+using System.Reflection;
 using Singularity.Controllers;
 using System.Web.Mvc;
+using LCore.Interfaces;
 using Singularity.Models;
 using Singularity.Utilities;
 using Singularity.Annotations;
 
 namespace Singularity.Extensions
     {
-    public class SwapVisitor : ExpressionVisitor
-        {
-        private readonly Expression from, to;
-        public SwapVisitor(Expression from, Expression to)
-            {
-            this.from = from;
-            this.to = to;
-            }
-        public override Expression Visit(Expression node)
-            {
-            return node == this.from ? this.to : base.Visit(node);
-            }
-        }
-    public class ExpressionParameterReplacer : ExpressionVisitor
-        {
-        public ExpressionParameterReplacer(IList<ParameterExpression> fromParameters, IList<ParameterExpression> toParameters)
-            {
-            this.ParameterReplacements = new Dictionary<ParameterExpression, ParameterExpression>();
-            for (int i = 0; i != fromParameters.Count && i != toParameters.Count; i++)
-                this.ParameterReplacements.Add(fromParameters[i], toParameters[i]);
-            }
-        private IDictionary<ParameterExpression, ParameterExpression> ParameterReplacements { get; }
-        protected override Expression VisitParameter(ParameterExpression node)
-            {
-            ParameterExpression replacement;
-            if (this.ParameterReplacements.TryGetValue(node, out replacement))
-                node = replacement;
-            return base.VisitParameter(node);
-            }
-        }
-
+    [ExtensionProvider]
     public static class QueryExt
         {
         public static Dictionary<string, Func<Expression, Expression, Expression>> BinaryOps = new Dictionary<string, Func<Expression, Expression, Expression>>
@@ -69,17 +40,17 @@ namespace Singularity.Extensions
         public static IQueryable<T> IsNull<T>(this IQueryable<T> source, string Column)
             {
             // Use source type instead of T which can be [Object]
-            Type t = source.ElementType;
+            var t = source.ElementType;
 
-            ParameterExpression param = Expression.Parameter(t, string.Empty);
-            MemberExpression member = Expression.PropertyOrField(param, Column);
+            var param = Expression.Parameter(t, string.Empty);
+            var member = Expression.PropertyOrField(param, Column);
 
             // Non-nullable value types can't contain nulls. No results will be returned.
             if (member.Type.IsValueType && !member.Type.IsNullable())
                 return source.Where((Expression<Func<T, bool>>)Expression.Lambda(Expression.Constant(false), param));
 
-            BinaryExpression property = Expression.Equal(member, Expression.Constant(null));
-            LambdaExpression condition = Expression.Lambda(property, param);
+            var property = Expression.Equal(member, Expression.Constant(null));
+            var condition = Expression.Lambda(property, param);
 
             return source.Where((Expression<Func<T, bool>>)condition);
             }
@@ -87,17 +58,17 @@ namespace Singularity.Extensions
         public static IQueryable<T> IsNotNull<T>(this IQueryable<T> source, string Column)
             {
             // Use source type instead of T which can be [Object]
-            Type t = source.ElementType;
+            var t = source.ElementType;
 
-            ParameterExpression param = Expression.Parameter(t, string.Empty);
-            MemberExpression member = Expression.PropertyOrField(param, Column);
+            var param = Expression.Parameter(t, string.Empty);
+            var member = Expression.PropertyOrField(param, Column);
 
             // Non-nullable value types can't contain nulls. Nothing can be filtered.
             if (member.Type.IsValueType && !member.Type.IsNullable())
                 return source;
 
-            BinaryExpression property = Expression.NotEqual(member, Expression.Constant(null));
-            LambdaExpression condition = Expression.Lambda(property, param);
+            var property = Expression.NotEqual(member, Expression.Constant(null));
+            var condition = Expression.Lambda(property, param);
 
             return source.Where((Expression<Func<T, bool>>)condition);
             }
@@ -163,9 +134,9 @@ namespace Singularity.Extensions
             ParentProperties = ParentProperties ?? new string[] { };
             ParentTypes = ParentTypes ?? new[] { typeof(T) };
 
-            List<Expression<Func<T, bool>>> SearchPartConditions = new List<Expression<Func<T, bool>>>();
+            var SearchPartConditions = new List<Expression<Func<T, bool>>>();
 
-            ModelMetadata Meta = ParentTypes.Last().Meta();
+            var Meta = ParentTypes.Last().Meta();
 
             string[] GlobalSearchParts = GlobalSearch.SplitWithQuotes(' ').Array();
 
@@ -173,14 +144,14 @@ namespace Singularity.Extensions
                 {
                 string GlobalSearchPartClean = GlobalSearchPart.RemoveAll("\"");
 
-                List<Expression<Func<T, bool>>> FieldConditions = new List<Expression<Func<T, bool>>>();
+                var FieldConditions = new List<Expression<Func<T, bool>>>();
 
-                foreach (ModelMetadata Prop in Meta.Properties)
+                foreach (var Prop in Meta.Properties)
                     {
-                    if (Prop.HasAttribute<KeyAttribute>())
+                    if (Prop.HasAttribute<KeyAttribute>(true))
                         continue;
 
-                    if (Prop.HasAttribute<NotMappedAttribute>())
+                    if (Prop.HasAttribute<NotMappedAttribute>(true))
                         continue;
 
                     if (!Prop.HasAttribute<FieldGlobalSearchAttribute>()
@@ -213,9 +184,9 @@ namespace Singularity.Extensions
                         ModelMetadata Meta2;
                         string[] FullProperties;
 
-                        LambdaExpression Accessor = ParentTypes[0].FindSubProperty(out Meta2, out FullProperties, Properties);
+                        var Accessor = ParentTypes[0].FindSubProperty(out Meta2, out FullProperties, Properties);
 
-                        SearchOperation Operation = new SearchOperation
+                        var Operation = new SearchOperation
                             {
                             Property = Prop.PropertyName,
                             OperatorStr = "~",
@@ -223,7 +194,7 @@ namespace Singularity.Extensions
                             Search = GlobalSearchPartClean
                             };
 
-                        FilterExpression<T> Filter = new FilterExpression<T>(Operation, Accessor, Meta2);
+                        var Filter = new FilterExpression<T>(Operation, Accessor, Meta2);
 
                         Expression<Func<T, bool>> Expr = Filter.PerformAction(Meta2.ModelType);
 
@@ -265,9 +236,9 @@ namespace Singularity.Extensions
                 }
 
             // Use source type instead of T which can be [Object]
-            Type t = source.ElementType;
+            var t = source.ElementType;
 
-            Type PropertyType = t.Meta(PropertyName).ModelType;
+            var PropertyType = t.Meta(PropertyName).ModelType;
 
             if (PropertyType.HasInterface<IEnumerable>() &&
                 PropertyType.IsGenericType &&
@@ -275,28 +246,28 @@ namespace Singularity.Extensions
                 {
                 // Sort ICollection<IModel> properties by Count
 
-                ParameterExpression param = Expression.Parameter(t, string.Empty);
-                MemberExpression property = Expression.PropertyOrField(param, PropertyName);
+                var param = Expression.Parameter(t, string.Empty);
+                var property = Expression.PropertyOrField(param, PropertyName);
 
                 if (!string.IsNullOrEmpty(PropertyName2))
                     {
                     property = Expression.PropertyOrField(property, PropertyName2);
                     }
 
-                MemberExpression property2 = Expression.PropertyOrField(property, "Count");
+                var property2 = Expression.PropertyOrField(property, "Count");
 
                 // Expression property2 = Expression.Call(property, property.Type.GetMethod("get_Count"));
 
-                LambdaExpression sort = Expression.Lambda(property2, param);
+                var sort = Expression.Lambda(property2, param);
 
-                Expression<Func<T, bool>> ConditionGreaterThanZero =
+                var ConditionGreaterThanZero =
                     (Expression<Func<T, bool>>)Expression.Lambda(
                         Expression.GreaterThan(property2, Expression.Constant(0)),
                         param);
 
                 source = source.Where(ConditionGreaterThanZero);
 
-                MethodCallExpression call = Expression.Call(
+                var call = Expression.Call(
                     typeof(Queryable),
                     (!anotherLevel ? "OrderBy" : "ThenBy") + (descending ? "Descending" : string.Empty),
                     new[] { t, property2.Type },
@@ -309,17 +280,17 @@ namespace Singularity.Extensions
                 {
                 source = source.IsNotNull(PropertyName);
 
-                ParameterExpression param = Expression.Parameter(t, string.Empty);
-                MemberExpression property = Expression.PropertyOrField(param, PropertyName);
+                var param = Expression.Parameter(t, string.Empty);
+                var property = Expression.PropertyOrField(param, PropertyName);
 
                 if (!string.IsNullOrEmpty(PropertyName2))
                     {
                     property = Expression.PropertyOrField(property, PropertyName2);
                     }
 
-                LambdaExpression sort = Expression.Lambda(property, param);
+                var sort = Expression.Lambda(property, param);
 
-                MethodCallExpression call = Expression.Call(
+                var call = Expression.Call(
                     typeof(Queryable),
                     (!anotherLevel ? "OrderBy" : "ThenBy") + (descending ? "Descending" : string.Empty),
                     new[] { t, property.Type },
@@ -441,7 +412,7 @@ namespace Singularity.Extensions
                 }
 
             string Property = Operation.Property;
-            Type MemberType = typeof(T);
+            var MemberType = typeof(T);
             ModelMetadata Meta;
 
             LambdaExpression Accessor;
@@ -466,7 +437,7 @@ namespace Singularity.Extensions
                     // Relation fields drill into the sub-model to filter
                     // Use the default field since no field was given
 
-                    SearchColumnsAttribute Attr = Meta.ModelType.GetAttribute<SearchColumnsAttribute>();
+                    var Attr = Meta.ModelType.GetAttribute<SearchColumnsAttribute>();
 
                     string SearchColumn = Attr != null ?
                         Attr.SearchColumns[0] :
@@ -480,7 +451,7 @@ namespace Singularity.Extensions
                     }
                 }
 
-            FilterExpression<T> Filter = new FilterExpression<T>(Operation, Accessor, Meta);
+            var Filter = new FilterExpression<T>(Operation, Accessor, Meta);
 
             Expression<Func<T, bool>> Expr = Filter.PerformAction(MemberType);
 
@@ -514,10 +485,10 @@ namespace Singularity.Extensions
 
         public static Expression<Func<T, V>> CastInput<T, U, V>(this Expression<Func<U, V>> Expr)
             {
-            ParameterExpression Param = Expression.Parameter(typeof(T), string.Empty);
-            UnaryExpression Cast = Expression.TypeAs(Param, typeof(U));
+            var Param = Expression.Parameter(typeof(T), string.Empty);
+            var Cast = Expression.TypeAs(Param, typeof(U));
 
-            LambdaExpression Lambda = Expression.Lambda(new SwapVisitor(Expr.Parameters[0], Cast).Visit(Expr.Body), Param);
+            var Lambda = Expression.Lambda(new SwapVisitor(Expr.Parameters[0], Cast).Visit(Expr.Body), Param);
 
             return (Expression<Func<T, V>>)Lambda;
             }

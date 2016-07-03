@@ -1,8 +1,9 @@
 ﻿using System;
+using LCore.Extensions;
 
 namespace Singularity.Annotations
     {
-    public class FieldDisableExportAttribute : Attribute
+    public class FieldDisableExportAttribute : Attribute, ISubClassPersistentAttribute
         {
         }
     }

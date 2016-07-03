@@ -1,0 +1,168 @@
+﻿@* Generator: MvcView *@
+
+@* ReSharper disable once RedundantUsingDirective*@
+@using Singularity.Routes
+@using LCore.Extensions;
+@using Singularity.Extensions;
+@using Singularity.Annotations;
+@using System.ComponentModel.DataAnnotations.Schema;
+
+@{
+    var Meta = Model.Meta;
+
+    LambdaExpression Lambda = null;
+
+    bool ShowLabel = Model.ViewTypes.HasAny(ControllerHelper.ViewType.Create, ControllerHelper.ViewType.Edit, ControllerHelper.ViewType.Display) &&
+        (!Meta.AdditionalValues.ContainsKey(FieldHideLabelAttribute.HideLabel) ||
+        (bool)Meta.AdditionalValues[FieldHideLabelAttribute.HideLabel] != true);
+
+    if (Model.PropertyName.Contains("."))
+        {
+        string[] FullProperties;
+
+        Lambda = Model.ModelData.TrueModelType().FindSubProperty(out Meta, out FullProperties, Model.PropertyName.Split("."));
+        }
+    else
+        {
+        Meta = Model.ModelData.TrueModelType().Meta(Model.PropertyName);
+        }
+
+    if (Lambda == null)
+        {
+        Model.ModelData.GetProperty(Meta.PropertyName);
+        }
+    else
+        {
+        var d = Lambda.Compile();
+        d.DynamicInvoke(Model);
+        }
+
+    RangeAttribute Attr = null;
+
+    if (Model.Meta.HasAttribute<RangeAttribute>(true))
+        {
+        Attr = Model.Meta.GetAttribute<RangeAttribute>(true);
+        }
+}
+
+@model IViewField
+
+
+@if (Model.Meta.PropertyName == ControllerHelper.AutomaticFields.Active)
+    {
+    return;
+    }
+
+<div class="field @Model.ViewTypes.CollectStr((i, t) => $"{t.ToString().ToLower()}-field ") field-@Model.ColumnClass @Model.ModelFieldClasses.Combine(" ")"
+     data-object-type="@Meta.ModelType"
+     data-type-name="@Meta.DataTypeName"
+     @Html.Raw(Model.ModelFieldHtmlAttributes.Combine(" "))
+     maximum="@(Attr?.Maximum)"
+     minimum="@(Attr?.Minimum)">
+
+    @if (Model.Meta.HasAttribute<HiddenInputAttribute>(true))
+        {
+        @Html.ViewField(Model)
+        }
+    else
+        {
+        @Html.ValidationMessage(Model.Meta.PropertyName)
+
+        if (ShowLabel)
+            {
+            string Label = Model.Meta.DisplayName ?? Model.Meta.PropertyName.Humanize();
+            @Html.TextContent($"Manage_Edit_Field_Label_{Model.ModelData.GetFriendlyTypeName()}_{Label}",
+                Html.Label(Model.Meta.PropertyName, Label))
+            }
+
+        if (Model.Meta.IsRequired)
+            {
+            <span class="required-mark">*</span>
+            }
+
+        if (Meta.HasAttribute<ICustomPartial>() &&
+            Meta.GetAttribute<ICustomPartial>().IsActive(Html, Model, Model.ViewTypes))
+            {
+            Meta.GetAttribute<ICustomPartial>().RenderPartial(Html, Model, Model.ViewTypes);
+            }
+        else if (Html.ViewExists(PartialViews.Manage.Fields.Edit.PropertyName(Model.PropertyName)))
+            {
+            // Override the Edit view for the property.
+
+            @Html.Partial(PartialViews.Manage.Fields.Edit.PropertyName(Model.PropertyName), Model)
+            }
+        else if (Model.Meta.HasAttribute<KeyAttribute>(true))
+            {
+            @Html.Partial(PartialViews.Manage.Fields.Edit.Key, Model)
+            }
+        else if (Model.Meta.ModelType == typeof(bool) ||
+            Model.Meta.ModelType == typeof(bool?))
+            {
+            @Html.Partial(PartialViews.Manage.Fields.Edit.Boolean, Model)
+            }
+        else if (Model.Meta.DataTypeName == DataType.Currency.ToString())
+            {
+            @Html.Partial(PartialViews.Manage.Fields.Edit.Currency, Model)
+            }
+        else if (Model.Meta.ModelType == typeof(int) ||
+            Model.Meta.ModelType == typeof(int?))
+            {
+            if (Attr != null && (int)Attr.Maximum != int.MaxValue &&
+                (int)Attr.Minimum != int.MinValue)
+                {
+                @Html.Partial(PartialViews.Manage.Fields.Edit.IntRange, Model)
+                }
+            else
+                {
+                @Html.Partial(PartialViews.Manage.Fields.Edit.Int, Model)
+                }
+            }
+        else if (Model.Meta.ModelType == typeof(long) ||
+            Model.Meta.ModelType == typeof(long?))
+            {
+            @Html.Partial(PartialViews.Manage.Fields.Edit.Long, Model)
+            }
+        else if (Model.Meta.ModelType == typeof(double) ||
+            Model.Meta.ModelType == typeof(double?) ||
+            Model.Meta.ModelType == typeof(float) ||
+            Model.Meta.ModelType == typeof(float?) ||
+            Model.Meta.ModelType == typeof(decimal) ||
+            Model.Meta.ModelType == typeof(decimal?))
+            {
+            @Html.Partial(PartialViews.Manage.Fields.Edit.Decimal, Model)
+            }
+        else if (Model.Meta.ModelType == typeof(DateTime) ||
+            Model.Meta.ModelType == typeof(DateTime?))
+            {
+            @Html.Partial(PartialViews.Manage.Fields.Edit.DateTime, Model)
+            }
+        else if (Model.Meta.ModelType.PreferGeneric().IsEnum)
+            {
+            @Html.Partial(PartialViews.Manage.Fields.Edit.Enum, Model)
+            }
+        else if (Model.Meta.ModelType.HasAttribute<ComplexTypeAttribute>(true))
+            {
+            @Html.Partial(PartialViews.Manage.Fields.Edit.ComplexType, Model)
+            }
+        else if (Model.Meta.ModelType.HasInterface<IModel>())
+            {
+            @Html.Partial(PartialViews.Manage.Fields.Edit.IModel, Model)
+            }
+        else if (Model.Meta.ModelType == typeof(string))
+            {
+            @(Model.Meta.DataTypeName == DataType.MultilineText.ToString() ? Html.Partial(PartialViews.Manage.Fields.Edit.StringMultiLine, Model) : Html.Partial(PartialViews.Manage.Fields.Edit.String, Model))
+            }
+        else if (Html.ViewExists(PartialViews.Manage.Fields.Edit.PropertyType(Model.Meta.ModelType)))
+            {
+            @Html.Partial(PartialViews.Manage.Fields.Edit.PropertyType(Model.Meta.ModelType), Model)
+            }
+        else if (Html.ViewExists(PartialViews.Manage.Fields.Edit.DataTypeName(Model.Meta.DataTypeName)))
+            {
+            @Html.Partial(PartialViews.Manage.Fields.Edit.DataTypeName(Model.Meta.DataTypeName), Model)
+            }
+        else
+            {
+            @Html.Partial(PartialViews.Manage.Fields.Edit.Unknown, Model)
+            }
+        }
+</div>

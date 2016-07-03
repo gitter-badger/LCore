@@ -47,7 +47,7 @@ namespace Singularity.Utilities
                     int? Max = Convert.ToInt32(Split[1]);
 
                     if (Min > Max)
-                        Logic.Swap(ref Min, ref Max);
+                        L.Obj.Swap(ref Min, ref Max);
 
                     if (this.Operation.OperatorStr == "<>")
                         return this.Accessor.ExpressionWithout<T, int?>(Min, Max);
@@ -62,7 +62,7 @@ namespace Singularity.Utilities
                     int Max = Convert.ToInt32(Split[1]);
 
                     if (Min > Max)
-                        Logic.Swap(ref Min, ref Max);
+                        L.Obj.Swap(ref Min, ref Max);
 
                     if (this.Operation.OperatorStr == "<>")
                         return this.Accessor.ExpressionWithout<T, int>(Min, Max);
@@ -95,7 +95,7 @@ namespace Singularity.Utilities
                     uint? Max = Convert.ToUInt32(Split[1]);
 
                     if (Min > Max)
-                        Logic.Swap(ref Min, ref Max);
+                        L.Obj.Swap(ref Min, ref Max);
 
                     if (this.Operation.OperatorStr == "<>")
                         return this.Accessor.ExpressionWithout<T, uint?>(Min, Max);
@@ -110,7 +110,7 @@ namespace Singularity.Utilities
                     uint Max = Convert.ToUInt32(Split[1]);
 
                     if (Min > Max)
-                        Logic.Swap(ref Min, ref Max);
+                        L.Obj.Swap(ref Min, ref Max);
 
                     if (this.Operation.OperatorStr == "<>")
                         return this.Accessor.ExpressionWithout<T, uint>(Min, Max);
@@ -140,7 +140,7 @@ namespace Singularity.Utilities
                     long? Max = Convert.ToInt64(Split[1]);
 
                     if (Min > Max)
-                        Logic.Swap(ref Min, ref Max);
+                        L.Obj.Swap(ref Min, ref Max);
 
                     if (this.Operation.OperatorStr == "<>")
                         return this.Accessor.ExpressionWithout<T, long?>(Min, Max);
@@ -155,7 +155,7 @@ namespace Singularity.Utilities
                     long Max = Convert.ToInt64(Split[1]);
 
                     if (Min > Max)
-                        Logic.Swap(ref Min, ref Max);
+                        L.Obj.Swap(ref Min, ref Max);
 
                     if (this.Operation.OperatorStr == "<>")
                         return this.Accessor.ExpressionWithout<T, long>(Min, Max);
@@ -185,7 +185,7 @@ namespace Singularity.Utilities
                     ulong? Max = Convert.ToUInt64(Split[1]);
 
                     if (Min > Max)
-                        Logic.Swap(ref Min, ref Max);
+                        L.Obj.Swap(ref Min, ref Max);
 
                     if (this.Operation.OperatorStr == "<>")
                         return this.Accessor.ExpressionWithout<T, ulong?>(Min, Max);
@@ -200,7 +200,7 @@ namespace Singularity.Utilities
                     ulong Max = Convert.ToUInt64(Split[1]);
 
                     if (Min > Max)
-                        Logic.Swap(ref Min, ref Max);
+                        L.Obj.Swap(ref Min, ref Max);
 
                     if (this.Operation.OperatorStr == "<>")
                         return this.Accessor.ExpressionWithout<T, ulong>(Min, Max);
@@ -231,7 +231,7 @@ namespace Singularity.Utilities
                     short? Max = Convert.ToInt16(Split[1]);
 
                     if (Min > Max)
-                        Logic.Swap(ref Min, ref Max);
+                        L.Obj.Swap(ref Min, ref Max);
 
                     if (this.Operation.OperatorStr == "<>")
                         return this.Accessor.ExpressionWithout<T, short?>(Min, Max);
@@ -246,7 +246,7 @@ namespace Singularity.Utilities
                     short Max = Convert.ToInt16(Split[1]);
 
                     if (Min > Max)
-                        Logic.Swap(ref Min, ref Max);
+                        L.Obj.Swap(ref Min, ref Max);
 
                     if (this.Operation.OperatorStr == "<>")
                         return this.Accessor.ExpressionWithout<T, short>(Min, Max);
@@ -276,7 +276,7 @@ namespace Singularity.Utilities
                     ushort? Max = Convert.ToUInt16(Split[1]);
 
                     if (Min > Max)
-                        Logic.Swap(ref Min, ref Max);
+                        L.Obj.Swap(ref Min, ref Max);
 
                     if (this.Operation.OperatorStr == "<>")
                         return this.Accessor.ExpressionWithout<T, ushort?>(Min, Max);
@@ -291,7 +291,7 @@ namespace Singularity.Utilities
                     ushort Max = Convert.ToUInt16(Split[1]);
 
                     if (Min > Max)
-                        Logic.Swap(ref Min, ref Max);
+                        L.Obj.Swap(ref Min, ref Max);
 
                     if (this.Operation.OperatorStr == "<>")
                         return this.Accessor.ExpressionWithout<T, ushort>(Min, Max);
@@ -321,7 +321,7 @@ namespace Singularity.Utilities
                     decimal? Max = Convert.ToDecimal(Split[1]);
 
                     if (Min > Max)
-                        Logic.Swap(ref Min, ref Max);
+                        L.Obj.Swap(ref Min, ref Max);
 
                     if (this.Operation.OperatorStr == "<>")
                         return this.Accessor.ExpressionWithout<T, decimal?>(Min, Max);
@@ -336,7 +336,7 @@ namespace Singularity.Utilities
                     decimal Max = Convert.ToDecimal(Split[1]);
 
                     if (Min > Max)
-                        Logic.Swap(ref Min, ref Max);
+                        L.Obj.Swap(ref Min, ref Max);
 
                     if (this.Operation.OperatorStr == "<>")
                         return this.Accessor.ExpressionWithout<T, decimal>(Min, Max);
@@ -366,7 +366,7 @@ namespace Singularity.Utilities
                     double? Max = Convert.ToDouble(Split[1]);
 
                     if (Min > Max)
-                        Logic.Swap(ref Min, ref Max);
+                        L.Obj.Swap(ref Min, ref Max);
 
                     if (this.Operation.OperatorStr == "<>")
                         return this.Accessor.ExpressionWithout<T, double?>(Min, Max);
@@ -381,7 +381,7 @@ namespace Singularity.Utilities
                     double Max = Convert.ToDouble(Split[1]);
 
                     if (Min > Max)
-                        Logic.Swap(ref Min, ref Max);
+                        L.Obj.Swap(ref Min, ref Max);
 
                     if (this.Operation.OperatorStr == "<>")
                         return this.Accessor.ExpressionWithout<T, double>(Min, Max);
@@ -411,7 +411,7 @@ namespace Singularity.Utilities
                     float? Max = Convert.ToSingle(Split[1]);
 
                     if (Min > Max)
-                        Logic.Swap(ref Min, ref Max);
+                        L.Obj.Swap(ref Min, ref Max);
 
                     if (this.Operation.OperatorStr == "<>")
                         return this.Accessor.ExpressionWithout<T, float?>(Min, Max);
@@ -426,7 +426,7 @@ namespace Singularity.Utilities
                     float Max = Convert.ToSingle(Split[1]);
 
                     if (Min > Max)
-                        Logic.Swap(ref Min, ref Max);
+                        L.Obj.Swap(ref Min, ref Max);
 
                     if (this.Operation.OperatorStr == "<>")
                         return this.Accessor.ExpressionWithout<T, float>(Min, Max);
@@ -458,7 +458,7 @@ namespace Singularity.Utilities
             {
             if (this.Operation.OperatorStr == "~")
                 {
-                Type t = this.Meta.ModelType;
+                var t = this.Meta.ModelType;
                 if (this.Meta.ModelType.IsGenericType && this.Meta.ModelType.GetGenericArguments()[0].IsEnum)
                     {
                     t = this.Meta.ModelType.GetGenericArguments()[0];
@@ -470,7 +470,7 @@ namespace Singularity.Utilities
                 int?[] ValueInts = Values.Convert(o => (int?)Convert.ChangeType(o, ((Enum)o).GetTypeCode()));
 
 
-                List<object> SelectedValues = new List<object>();
+                var SelectedValues = new List<object>();
 
                 for (int i = 0; i < Names.Length; i++)
                     {
@@ -506,7 +506,7 @@ namespace Singularity.Utilities
 
         protected override Expression<Func<T, bool>> PerformAction_TimeSpan()
             {
-            TimeSpan SearchTime = TimeSpan.Parse(this.Operation.Search);
+            var SearchTime = TimeSpan.Parse(this.Operation.Search);
 
             return this.Accessor.GetOperatorExpression<T>(this.Operation.Operator, SearchTime);
             }
@@ -524,7 +524,7 @@ namespace Singularity.Utilities
                     DateTime? Max = Convert.ToDateTime(Split[1]);
 
                     if (((DateTime)Min).Ticks > ((DateTime)Max).Ticks)
-                        Logic.Swap(ref Min, ref Max);
+                        L.Obj.Swap(ref Min, ref Max);
 
                     if (this.Operation.OperatorStr == "<>")
                         return this.Accessor.ExpressionWithout<T, DateTime?>(Min, Max);
@@ -535,11 +535,11 @@ namespace Singularity.Utilities
                     {
                     string[] Split = this.Operation.Search.Split(" ");
 
-                    DateTime Min = Convert.ToDateTime(Split[0]);
-                    DateTime Max = Convert.ToDateTime(Split[1]);
+                    var Min = Convert.ToDateTime(Split[0]);
+                    var Max = Convert.ToDateTime(Split[1]);
 
                     if (Min.Ticks > Max.Ticks)
-                        Logic.Swap(ref Min, ref Max);
+                        L.Obj.Swap(ref Min, ref Max);
 
                     if (this.Operation.OperatorStr == "<>")
                         return this.Accessor.ExpressionWithout<T, DateTime>(Min, Max);
@@ -549,7 +549,7 @@ namespace Singularity.Utilities
                 }
             else
                 {
-                DateTime SearchDate = Convert.ToDateTime(this.Operation.Search);
+                var SearchDate = Convert.ToDateTime(this.Operation.Search);
 
                 return this.Accessor.GetOperatorExpression<T>(this.Operation.Operator, SearchDate);
                 }

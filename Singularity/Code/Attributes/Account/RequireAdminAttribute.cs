@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web;
-using Singularity.Account;
 
 namespace Singularity.Attributes
     {
@@ -12,9 +11,7 @@ namespace Singularity.Attributes
 
             if (BaseResult)
                 {
-                AuthenticationService Auth = new AuthenticationService(HttpContext.Session);
-
-                if (Auth.IsLoggedIn && Auth.LoggedInUser.IsAdmin)
+                if (this.Auth.IsLoggedIn && this.Auth.LoggedInUser.IsAdmin)
                     return true;
                 }
 

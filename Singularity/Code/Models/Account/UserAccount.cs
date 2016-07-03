@@ -28,7 +28,7 @@ namespace Singularity.Models
 
         [Required]
         public bool PasswordResetRequired { get; set; }
-        
+
         public DateTime Created { get; set; }
 
         [Required]
@@ -37,7 +37,10 @@ namespace Singularity.Models
         [Required]        public DateTime ExpiredDate { get; set; }
 
 
-        public virtual ICollection<Role> Roles { get; set; }        public void SetPassword(string Pass)
+        public virtual ICollection<AccountRole> Roles { get; set; }
+
+
+        public virtual string[] GetEmails()            {            var Out = new List<string>();            if (!string.IsNullOrEmpty(this.Email))                Out.Add(this.Email);            return Out.ToArray();            }        public void SetPassword(string Pass)
             {
             string PasswordString = this.UserName + Pass;
             // this.Password = Pass;
@@ -48,12 +51,12 @@ namespace Singularity.Models
             {
             public static IQueryable<UserAccount> GetAll(ModelContext Context)
                 {
-                return Context.UserAccounts.AsQueryable();
+                return Context.GetDBSet<UserAccount>().AsQueryable();
                 }
 
             public static UserAccount GetByID(ModelContext Context, int UserID)
                 {
-                return Context.UserAccounts.FirstOrDefault(r => r.UserAccountID == UserID);
+                return Context.GetDBSet<UserAccount>().FirstOrDefault(r => r.UserAccountID == UserID);
                 }
 
             public static UserAccount GetByCredentials(ModelContext Context, string UserName, string Password)
@@ -61,7 +64,7 @@ namespace Singularity.Models
                 string PasswordString = UserName + Password;
 
                 string Hash = Crypto.GetHash(PasswordString);
-                return Context.UserAccounts.FirstOrDefault(
+                return Context.GetDBSet<UserAccount>().FirstOrDefault(
                     r => r.UserName == UserName &&
                          //  (r.PasswordHash == null && r.Password == Password) ||
                          // Enabled users only!
@@ -69,7 +72,7 @@ namespace Singularity.Models
                 }
             public static UserAccount GetByHash(ModelContext Context, string UserName, string PasswordHash)
                 {
-                return Context.UserAccounts.FirstOrDefault(
+                return Context.GetDBSet<UserAccount>().FirstOrDefault(
                     r => r.UserName == UserName &&
                          // Enabled users only!
                          r.Enabled && r.PasswordHash != null && r.PasswordHash == PasswordHash);
@@ -116,7 +119,6 @@ namespace Singularity.Models
 
                 }
                 */
-            }
-        }
+            }        }
 
     }

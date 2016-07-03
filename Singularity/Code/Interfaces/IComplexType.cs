@@ -1,8 +1,8 @@
 ﻿using System;
 
 namespace Singularity.Models
-{
-    public interface IComplexType : IModel
     {
+    public interface IComplexType : IModel
+        {
+        }
     }
-}

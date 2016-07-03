@@ -186,7 +186,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// This constructor is used by the ZipFile class when reading from the central header
         /// It is not generally useful, use the constructor specifying the name only.
         /// </remarks>
-        internal ZipEntry(string name, int versionRequiredToExtract = 0, int madeByInfo = ZipConstants.VersionMadeBy,
+        public ZipEntry(string name, int versionRequiredToExtract = 0, int madeByInfo = ZipConstants.VersionMadeBy,
             CompressionMethod method = CompressionMethod.Deflated)
             {
             if (name == null)
@@ -221,7 +221,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         public ZipEntry(ZipEntry entry)
             {
             if (entry == null)
-                {
+                { 
                 throw new ArgumentNullException(nameof(entry));
                 }
 
@@ -847,7 +847,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// </param>
         internal void ProcessExtraData(bool localHeader)
             {
-            ZipExtraData extraData = new ZipExtraData(this.extra);
+            var extraData = new ZipExtraData(this.extra);
 
             if (extraData.Find(0x0001))
                 {
@@ -1026,7 +1026,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <returns>An <see cref="Object"/> that is a copy of the current instance.</returns>
         public object Clone()
             {
-            ZipEntry result = (ZipEntry)this.MemberwiseClone();
+            var result = (ZipEntry)this.MemberwiseClone();
 
             // Ensure extra data is unique if it exists.
             if (this.extra != null)

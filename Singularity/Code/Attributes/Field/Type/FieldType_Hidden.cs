@@ -7,7 +7,7 @@ namespace Singularity.Annotations
     public class FieldType_Hidden : CustomPartialAttribute, IMetadataAware
         {
         public FieldType_Hidden()
-            : base(PartialViews.Field_Edit_Hidden, ControllerHelper.ViewType.Create, ControllerHelper.ViewType.Edit)
+            : base(PartialViews.Manage.Fields.Edit.Hidden, ControllerHelper.ViewType.Create, ControllerHelper.ViewType.Edit)
             {
             }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.StorageClient;
 
 namespace Singularity.Azure
@@ -8,18 +7,18 @@ namespace Singularity.Azure
         {
         public static CloudBlobClient GetBlobClient()
             {
-            CloudStorageAccount StorageAccount = AzureInterface.GetStorageAccount();
+            var StorageAccount = AzureInterface.GetStorageAccount();
 
-            CloudBlobClient BlobClient = StorageAccount.CreateCloudBlobClient();
+            var BlobClient = StorageAccount.CreateCloudBlobClient();
 
             return BlobClient;
             }
 
         public static CloudBlobContainer GetContainer(string ContainerName)
             {
-            CloudBlobClient Client = GetBlobClient();
+            var Client = GetBlobClient();
 
-            CloudBlobContainer Container = Client.GetContainerReference(ContainerName);
+            var Container = Client.GetContainerReference(ContainerName);
             Container.CreateIfNotExist();
 
             return Container;
@@ -27,9 +26,9 @@ namespace Singularity.Azure
 
         public static CloudBlobDirectory GetContainerDirectory(string ContainerName, string DirName)
             {
-            CloudBlobContainer Container = GetContainer(ContainerName);
+            var Container = GetContainer(ContainerName);
 
-            CloudBlobDirectory FilesDir = Container.GetDirectoryReference(DirName);
+            var FilesDir = Container.GetDirectoryReference(DirName);
 
             return FilesDir;
             }

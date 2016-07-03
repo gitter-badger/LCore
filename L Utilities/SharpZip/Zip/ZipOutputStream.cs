@@ -262,7 +262,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                 throw new ZipException("Too many entries for Zip file");
                 }
 
-            CompressionMethod method = entry.CompressionMethod;
+            var method = entry.CompressionMethod;
             int compressionLevel = this.defaultCompressionLevel;
 
             // Clear flags that the library manages internally
@@ -397,7 +397,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                 throw new ZipException("Entry name too long.");
                 }
 
-            ZipExtraData ed = new ZipExtraData(entry.ExtraData);
+            var ed = new ZipExtraData(entry.ExtraData);
 
             if (entry.LocalHeaderRequiresZip64)
                 {
@@ -599,8 +599,8 @@ namespace ICSharpCode.SharpZipLib.Zip
 
             this.InitializePassword(this.Password);
 
-            byte[] cryptBuffer = new byte[ZipConstants.CryptoHeaderSize];
-            Random rnd = new Random();
+            var cryptBuffer = new byte[ZipConstants.CryptoHeaderSize];
+            var rnd = new Random();
             rnd.NextBytes(cryptBuffer);
             cryptBuffer[11] = (byte)(crcValue >> 24);
 
@@ -676,7 +676,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         private void CopyAndEncrypt(byte[] buffer, int offset, int count)
             {
             const int CopyBufferSize = 4096;
-            byte[] localBuffer = new byte[CopyBufferSize];
+            var localBuffer = new byte[CopyBufferSize];
             while (count > 0)
                 {
                 int bufferCount = count < CopyBufferSize ? count : CopyBufferSize;
@@ -755,7 +755,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                     throw new ZipException("Name too long.");
                     }
 
-                ZipExtraData ed = new ZipExtraData(entry.ExtraData);
+                var ed = new ZipExtraData(entry.ExtraData);
 
                 if (entry.CentralHeaderRequiresZip64)
                     {
@@ -839,7 +839,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                 sizeEntries += ZipConstants.CentralHeaderBaseSize + name.Length + extra.Length + entryComment.Length;
                 }
 
-            using (ZipHelperStream zhs = new ZipHelperStream(this.baseOutputStream_))
+            using (var zhs = new ZipHelperStream(this.baseOutputStream_))
                 {
                 zhs.WriteEndOfCentralDirectory(numEntries, sizeEntries, this.offset, this.zipComment);
                 }

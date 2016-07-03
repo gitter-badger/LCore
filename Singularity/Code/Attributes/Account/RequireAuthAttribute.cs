@@ -3,11 +3,16 @@ using System;
 using System.Web;
 using System.Web.Mvc;
 using Singularity.Account;
+using Singularity.Controllers;
+using Singularity.Extensions;
 
 namespace Singularity.Attributes
     {
     public class RequireAuthAttribute : AuthorizeAttribute
         {
+        public IAuthenticationService Auth { get; set; }
+        public UrlHelper Url { get; set; }
+
         public override void OnAuthorization(AuthorizationContext FilterContext)
             {
             base.OnAuthorization(FilterContext);
@@ -17,19 +22,15 @@ namespace Singularity.Attributes
             {
             if (HttpContext == null) throw new ArgumentNullException(nameof(HttpContext));
 
-            AuthenticationService Auth = new AuthenticationService(HttpContext.Session);
-
-            if (Auth.IsLoggedIn &&
-                Auth.LoggedInUser != null &&
-                Auth.LoggedInUser.Enabled)
+            if (this.Auth.IsLoggedIn &&
+                this.Auth.LoggedInUser != null &&
+                this.Auth.LoggedInUser.Enabled)
                 {
-                if (Auth.LoggedInUser.PasswordResetRequired &&
-                    !HttpContext.Request.Url?.AbsoluteUri.EndsWith(Routes.Controllers.Account.Actions.ForceResetPassword) == true &&
-                    !Auth.IsImpersonating)
+                if (this.Auth.LoggedInUser.PasswordResetRequired &&
+                    !HttpContext.Request.Url?.AbsoluteUri.EndsWith(nameof(AccountController.ForceResetPassword)) == true &&
+                    !this.Auth.IsImpersonating)
                     {
-                    HttpContext.Response.Redirect(
-                        new UrlHelper(HttpContext.Request.RequestContext)
-                            .Action(Routes.Controllers.Account.Actions.ForceResetPassword, Routes.Controllers.Account.Name));
+                    HttpContext.Response.Redirect(this.Url.Action(nameof(AccountController.ForceResetPassword), typeof(AccountController).CName()));
 
                     return true;
                     }

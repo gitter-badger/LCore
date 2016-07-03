@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
 using Singularity.Context;
-using Singularity.Models;
 
 namespace Singularity.Filters
     {
@@ -9,7 +8,7 @@ namespace Singularity.Filters
         {
         public void OnAuthorization(AuthorizationContext FilterContext)
             {
-            SiteConfig Config = ContextProviderFactory.GetCurrent().GetContext(FilterContext.HttpContext.Session).GetSiteConfig(FilterContext.HttpContext);
+            var Config = ContextProviderFactory.GetCurrent().GetContext(FilterContext.HttpContext.Session).GetSiteConfig(FilterContext.HttpContext);
 
             string URL = FilterContext.HttpContext.Request.Url?.AbsoluteUri ?? "";
             URL = URL.ToLower();

@@ -1,0 +1,14 @@
+﻿@using Singularity.Routes
+
+
+@{
+    Layout = Layouts.Main;
+
+    var c = ViewContext.Controller;
+
+    var ViewLayout = c as IDefaultViewLayout;
+    if (ViewLayout != null)
+        {
+        Layout = ViewLayout.DefaultLayout;
+        }
+}

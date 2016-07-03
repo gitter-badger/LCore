@@ -82,7 +82,7 @@ namespace ICSharpCode.SharpZipLib.Encryption
                 newKeys[2] = Crc32.ComputeCrc32(newKeys[2], (byte)(newKeys[1] >> 24));
                 }
 
-            byte[] result = new byte[12];
+            var result = new byte[12];
             result[0] = (byte)(newKeys[0] & 0xff);
             result[1] = (byte)((newKeys[0] >> 8) & 0xff);
             result[2] = (byte)((newKeys[0] >> 16) & 0xff);
@@ -191,7 +191,7 @@ namespace ICSharpCode.SharpZipLib.Encryption
         /// <returns>The computed transform.</returns>
         public byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount)
             {
-            byte[] result = new byte[inputCount];
+            var result = new byte[inputCount];
             this.TransformBlock(inputBuffer, inputOffset, inputCount, result, 0);
             return result;
             }
@@ -278,7 +278,7 @@ namespace ICSharpCode.SharpZipLib.Encryption
         /// <returns>The computed transform.</returns>
         public byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount)
             {
-            byte[] result = new byte[inputCount];
+            var result = new byte[inputCount];
             this.TransformBlock(inputBuffer, inputOffset, inputCount, result, 0);
             return result;
             }
@@ -372,7 +372,7 @@ namespace ICSharpCode.SharpZipLib.Encryption
             {
             get
                 {
-                KeySizes[] keySizes = new KeySizes[1];
+                var keySizes = new KeySizes[1];
                 keySizes[0] = new KeySizes(12 * 8, 12 * 8, 0);
                 return keySizes;
                 }
@@ -393,7 +393,7 @@ namespace ICSharpCode.SharpZipLib.Encryption
             {
             get
                 {
-                KeySizes[] keySizes = new KeySizes[1];
+                var keySizes = new KeySizes[1];
                 keySizes[0] = new KeySizes(1 * 8, 1 * 8, 0);
                 return keySizes;
                 }
@@ -436,7 +436,7 @@ namespace ICSharpCode.SharpZipLib.Encryption
         public override void GenerateKey()
             {
             this.key_ = new byte[12];
-            Random rnd = new Random();
+            var rnd = new Random();
             rnd.NextBytes(this.key_);
             }
 

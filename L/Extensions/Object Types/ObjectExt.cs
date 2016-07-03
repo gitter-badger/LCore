@@ -1,317 +1,461 @@
 ﻿using System;
-using LCore.Extensions.ObjectExt;
+using LCore.Extensions.Optional;
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 using System.Reflection;
+using LCore.Interfaces;
 
 namespace LCore.Extensions
     {
-    public static class ObjectExtensions
+    /// <summary>
+    /// Extenions to objects of all types.
+    /// </summary>
+    [ExtensionProvider]
+    public static class ObjectExt
         {
-        #region Extensions
-        // TODO: L: Object: Untested
-        #region Objects To String
-        public static string Objects_ToString(this IEnumerable<object> In)
-            {
-            return Logic.Objects_ToString(In.Array());
-            }
-        #endregion
+        #region Extensions +
 
-        // TODO: L: Object: Untested
         #region HasProperty
+        /// <summary>
+        /// Returns whether a given object has a property with a specific name
+        /// </summary>
+        /// <returns>Whether a given object has a property with a specific name</returns>
         public static bool HasProperty(this object In, string PropertyName)
             {
-            return Logic.Def.ObjectExt.HasProperty()(In, PropertyName);
+            return L.Obj.HasProperty()(In, PropertyName);
             }
         #endregion
 
-        // TODO: L: Object: Untested
-        #region GetProperty
-        public static object GetProperty(this object In, string PropertyName)
-            {
-            return Logic.Def.ObjectExt.GetProperty()(In, PropertyName);
-            }
-        #endregion
-
-        // TODO: L: Object: Untested
-        #region SetProperty
-        public static void SetProperty(this object In, string PropertyName, object PropertyValue)
-            {
-            Logic.Def.ObjectExt.SetProperty()(In, PropertyName, PropertyValue);
-            }
-        #endregion
-        #endregion
-        }
-    public partial class Logic
-        {
-        #region Static
-        // TODO: L: Object: Untested
-        #region Swap
-        public static void Swap<T>(ref T Obj1, ref T Obj2)
-            {
-            T temp = Obj1;
-            Obj1 = Obj2;
-            Obj2 = temp;
-            }
-        #endregion
-        // TODO: L: Object: Untested
-        #region SafeEquals
+        #region Is
         /// <summary>
-        /// Returns a function that safely compares an object with another, returning whether they are equal.
+        /// Returns a function that safely Compares an object with another, returning whether they are equal. Shortcut for Logic.Object_SafeEquals
         /// </summary>
-        public static Func<object, object, bool> Object_SafeEquals = (o1, o2) =>
-        {
-            // If both are null, or both are same instance, return true.
-            if (ReferenceEquals(o1, o2))
-                {
-                return true;
-                }
-
-            // If one is null, but not both, return false.
-            if (ReferenceEquals(o1, null) ||
-                        ReferenceEquals(o2, null))
-                {
-                return false;
-                }
-
-            // If objects are both IEnumerable, send to Enumerable equivalent
-            IEnumerable enumerable = o1 as IEnumerable;
-            if (enumerable != null && o2 is IEnumerable)
-                {
-                return enumerable.Equivalent((IEnumerable)o2);
-                }
-
-            return o1.Equals(o2);
-        };
+        public static Func<object, object, bool> Is = L.Obj.SafeEquals;
         #endregion
-        // TODO: L: Object: Untested
-        #region ToString
+
+        #region Objects To String
         /// <summary>
         /// Returns a string representation of a set of objects.
         /// </summary>
-        public static Func<object[], string> Objects_ToString = In =>
-        {
-            return In.IsEmpty() ? "" : In.Convert(o => o == null ? "NULL" : $"{o.GetType()}:{o.ToString()}").Combine(", ");
-        };
-        #endregion
-        // TODO: L: Object: Untested
-        #region New
-        public static Func<U> New<U>(params object[] In)
+        /// <param name="In">The set of objects</param>
+        /// <returns></returns>
+        public static string Objects_ToString(this IEnumerable<object> In)
             {
-            ConstructorInfo Const = typeof(U).GetConstructor(In.GetTypes());
-            return () => (U)Const?.Invoke(In);
-            }
-
-        public static Func<U> New<U>()
-            {
-            return () => (U)typeof(U).GetConstructor(Def.ArrayExt.Array<Type>()())?.Invoke(Def.ArrayExt.Array<object>()());
-            }
-        public static Func<T1, U> New<T1, U>()
-            {
-            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1) });
-            return o1 => (U)Const?.Invoke(new object[] { o1 });
-            }
-        public static Func<T1, T2, U> New<T1, T2, U>()
-            {
-            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2) });
-            return (o1, o2) => (U)Const?.Invoke(new object[] { o1, o2 });
-            }
-        public static Func<T1, T2, T3, U> New<T1, T2, T3, U>()
-            {
-            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3) });
-            return (o1, o2, o3) => (U)Const?.Invoke(new object[] { o1, o2, o3 });
-            }
-        public static Func<T1, T2, T3, T4, U> New<T1, T2, T3, T4, U>()
-            {
-            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-            return (o1, o2, o3, o4) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4 });
-            }
-        public static Func<T1, T2, T3, T4, T5, U> New<T1, T2, T3, T4, T5, U>()
-            {
-            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-            return (o1, o2, o3, o4, o5) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5 });
-            }
-        public static Func<T1, T2, T3, T4, T5, T6, U> New<T1, T2, T3, T4, T5, T6, U>()
-            {
-            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-            return (o1, o2, o3, o4, o5, o6) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6 });
-            }
-        public static Func<T1, T2, T3, T4, T5, T6, T7, U> New<T1, T2, T3, T4, T5, T6, T7, U>()
-            {
-            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-            return (o1, o2, o3, o4, o5, o6, o7) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7 });
-            }
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, U> New<T1, T2, T3, T4, T5, T6, T7, T8, U>()
-            {
-            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-            return (o1, o2, o3, o4, o5, o6, o7, o8) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8 });
-            }
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>()
-            {
-            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9 });
-            }
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>()
-            {
-            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10 });
-            }
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>()
-            {
-            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11 });
-            }
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>()
-            {
-            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12 });
-            }
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>()
-            {
-            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13 });
-            }
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>()
-            {
-            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14 });
-            }
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>()
-            {
-            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15 });
-            }
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>()
-            {
-            ConstructorInfo Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, o16) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, o16 });
+            return L.Obj.Objects_ToString(In.Array());
             }
         #endregion
-        // TODO: L: Object: Untested
-        #region IsNull
-        public static Func<T, bool> IsNull<T>()
-            {
-            bool ValueType = typeof(T).IsValueType;
 
-            if (ValueType)
-                {
-                return o => false;
-                }
-            return o => o.SafeEquals(default(T));
+        #region GetProperty
+        /// <summary>
+        /// Returns the value of a specific property, if it exists.
+        /// </summary>
+        /// <returns>The value of a specific property, if it exists.</returns>
+        public static object GetProperty(this object In, string PropertyName)
+            {
+            return L.Obj.GetProperty()(In, PropertyName);
             }
         #endregion
-        // TODO: L: Object: Untested
-        #region IsA
-        public static Func<object, bool> IsA<T>()
+
+        #region SetProperty
+        /// <summary>
+        /// Sets the value of a specific property, if it exists.
+        /// </summary>
+        public static void SetProperty(this object In, string PropertyName, object PropertyValue)
             {
-            return o => o is T;
+            L.Obj.SetProperty()(In, PropertyName, PropertyValue);
             }
         #endregion
-        // TODO: L: Object: Untested
-        #region Method
-        private static Action<U> Method<U>(string MethodName)
-            {
-            MethodInfo Method = typeof(U).GetMethod(MethodName, new Type[] { });
-            if (Method != null)
-                {
-                return o => { Method.Invoke(o, new object[] { }); };
-                }
-            throw new Exception($"{typeof(U).FullName} {MethodName}");
-            }
-        #endregion
-        #endregion
 
-        public partial class Def
-            {
-            public class ObjectExt
-                {
-                #region Lambdas
-                public static Func<object, string, bool> HasProperty()
-                    {
-                    return (In, PropertyName) =>
-                    {
-                        MemberInfo Member = In.GetType().GetMember(PropertyName).First();
-
-                        if (Member is PropertyInfo)
-                            return true;
-                        return Member is FieldInfo;
-                    };
-                    }
-
-                public static Func<object, string, object> GetProperty()
-                    {
-                    return (In, PropertyName) =>
-                    {
-                        MemberInfo Member = In.GetType().GetMember(PropertyName).First();
-
-                        PropertyInfo m2 = Member as PropertyInfo;
-                        if (m2 != null)
-                            {
-                            PropertyInfo M2 = m2;
-                            return M2.GetValue(In);
-                            }
-                        FieldInfo m3 = Member as FieldInfo;
-                        if (m3 != null)
-                            {
-                            FieldInfo M3 = m3;
-                            return M3.GetValue(In);
-                            }
-                        throw new Exception($"{In.GetType().FullName} {PropertyName}");
-                    };
-                    }
-
-                public static Action<object, string, object> SetProperty()
-                    {
-                    return (In, PropertyName, PropertyValue) =>
-                    {
-                        MemberInfo Member = In.GetType().GetMember(PropertyName).First();
-
-                        PropertyInfo m2 = Member as PropertyInfo;
-                        if (m2 != null)
-                            {
-                            PropertyInfo M2 = m2;
-                            M2.SetValue(In, PropertyValue);
-                            }
-                        else if (Member is FieldInfo)
-                            {
-                            FieldInfo M3 = (FieldInfo)Member;
-                            M3.SetValue(In, PropertyValue);
-                            }
-                        else
-                            throw new Exception($"{In.GetType().FullName} {PropertyName}");
-
-                    };
-                    }
-                #endregion
-                }
-            }
-        }
-    public partial class L
-        {
-        #region Extensions
-        // TODO: L: Object: Untested
         #region Str
         /// <summary>
         /// Returns a function that converts an Object to a String. Shortcut for Logic.Object_ToString
         /// </summary>
         public static Func<object, string> Str = o => o.ToString();
         #endregion
-        // TODO: L: Object: Untested
-        #region Is
-        /// <summary>
-        /// Returns a function that safely Compares an object with another, returning whether they are equal. Shortcut for Logic.Object_SafeEquals
-        /// </summary>
-        public static Func<object, object, bool> Is = Object_SafeEquals;
-        #endregion
+
         #endregion
         }
+
+    public static partial class L
+        {
+        /// <summary>
+        /// Contains System.Object static methods and lambdas.
+        /// </summary>
+        public static class Obj
+            {
+            #region Static Methods +
+
+            #region Swap
+            /// <summary>
+            /// Swaps two objects by reference
+            /// </summary>
+            public static void Swap<T>(ref T Obj1, ref T Obj2)
+                {
+                var temp = Obj1;
+                Obj1 = Obj2;
+                Obj2 = temp;
+                }
+            #endregion
+
+            #region SafeEquals
+            /// <summary>
+            /// Returns a function that safely compares an object with another, returning whether they are equal.
+            /// </summary>
+            public static readonly Func<object, object, bool> SafeEquals = (o1, o2) =>
+            {
+                // If both are null, or both are same instance, return true.
+                if (ReferenceEquals(o1, o2))
+                    {
+                    return true;
+                    }
+
+                // If one is null, but not both, return false.
+                if (ReferenceEquals(o1, null) ||
+                                ReferenceEquals(o2, null))
+                    {
+                    return false;
+                    }
+
+                // If objects are both IEnumerable, send to Enumerable equivalent
+                var enumerable = o1 as IEnumerable;
+                if (enumerable != null && o2 is IEnumerable)
+                    {
+                    return enumerable.Equivalent((IEnumerable)o2);
+                    }
+
+                return o1.Equals(o2);
+            };
+            #endregion
+
+            #region ToString
+            /// <summary>
+            /// Returns a string representation of a set of objects.
+            /// </summary>
+            public static readonly Func<object[], string> Objects_ToString = In =>
+            {
+                return In.IsEmpty() ? "" : In.Convert(o => o == null ? "NULL" : $"{o.GetType()}:{o.ToString()}").Combine(", ");
+            };
+            #endregion
+
+            #region New
+
+            /// <summary>
+            /// Retrieves a func that creates an object of type [U] with the supplied parameters.
+            /// </summary>
+            public static Func<U> New<U>(params object[] In)
+                {
+                var Const = typeof(U).GetConstructor(In.GetTypes());
+                return () => (U)Const?.Invoke(In);
+                }
+            /// <summary>
+            /// Retrieves a func that creates an object of type [U].
+            /// </summary>
+            public static Func<U> New<U>()
+                {
+                return () => (U)typeof(U).GetConstructor(IEn.Array<Type>()())?.Invoke(IEn.Array<object>()());
+                }
+            /// <summary>
+            /// Retrieves a func that creates an object of type [U].
+            /// </summary>
+            public static Func<T1, U> New<T1, U>()
+                {
+                var Const = typeof(U).GetConstructor(new[] { typeof(T1) });
+                return o1 => (U)Const?.Invoke(new object[] { o1 });
+                }
+            /// <summary>
+            /// Retrieves a func that creates an object of type [U].
+            /// </summary>
+            public static Func<T1, T2, U> New<T1, T2, U>()
+                {
+                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2) });
+                return (o1, o2) => (U)Const?.Invoke(new object[] { o1, o2 });
+                }
+            /// <summary>
+            /// Retrieves a func that creates an object of type [U].
+            /// </summary>
+            public static Func<T1, T2, T3, U> New<T1, T2, T3, U>()
+                {
+                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3) });
+                return (o1, o2, o3) => (U)Const?.Invoke(new object[] { o1, o2, o3 });
+                }
+            /// <summary>
+            /// Retrieves a func that creates an object of type [U].
+            /// </summary>
+            public static Func<T1, T2, T3, T4, U> New<T1, T2, T3, T4, U>()
+                {
+                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                return (o1, o2, o3, o4) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4 });
+                }
+            /// <summary>
+            /// Retrieves a func that creates an object of type [U].
+            /// </summary>
+            public static Func<T1, T2, T3, T4, T5, U> New<T1, T2, T3, T4, T5, U>()
+                {
+                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                return (o1, o2, o3, o4, o5) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5 });
+                }
+            /// <summary>
+            /// Retrieves a func that creates an object of type [U].
+            /// </summary>
+            public static Func<T1, T2, T3, T4, T5, T6, U> New<T1, T2, T3, T4, T5, T6, U>()
+                {
+                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                return (o1, o2, o3, o4, o5, o6) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6 });
+                }
+            /// <summary>
+            /// Retrieves a func that creates an object of type [U].
+            /// </summary>
+            public static Func<T1, T2, T3, T4, T5, T6, T7, U> New<T1, T2, T3, T4, T5, T6, T7, U>()
+                {
+                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                return (o1, o2, o3, o4, o5, o6, o7) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7 });
+                }
+            /// <summary>
+            /// Retrieves a func that creates an object of type [U].
+            /// </summary>
+            public static Func<T1, T2, T3, T4, T5, T6, T7, T8, U> New<T1, T2, T3, T4, T5, T6, T7, T8, U>()
+                {
+                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                return (o1, o2, o3, o4, o5, o6, o7, o8) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8 });
+                }
+            /// <summary>
+            /// Retrieves a func that creates an object of type [U].
+            /// </summary>
+            public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>()
+                {
+                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9 });
+                }
+            /// <summary>
+            /// Retrieves a func that creates an object of type [U].
+            /// </summary>
+            public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>()
+                {
+                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10 });
+                }
+            /// <summary>
+            /// Retrieves a func that creates an object of type [U].
+            /// </summary>
+            public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>()
+                {
+                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11 });
+                }
+            /// <summary>
+            /// Retrieves a func that creates an object of type [U].
+            /// </summary>
+            public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>()
+                {
+                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12 });
+                }
+            /// <summary>
+            /// Retrieves a func that creates an object of type [U].
+            /// </summary>
+            public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>()
+                {
+                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13 });
+                }
+            /// <summary>
+            /// Retrieves a func that creates an object of type [U].
+            /// </summary>
+            public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>()
+                {
+                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14 });
+                }
+            /// <summary>
+            /// Retrieves a func that creates an object of type [U].
+            /// </summary>
+            public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>()
+                {
+                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15 });
+                }
+            /// <summary>
+            /// Retrieves a func that creates an object of type [U].
+            /// </summary>
+            public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>()
+                {
+                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, o16) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, o16 });
+                }
+            #endregion
+
+            #region IsNull
+            /// <summary>
+            /// Retrieves a func that determines if a certain type of object is null.
+            /// </summary>
+            public static Func<T, bool> IsNull<T>()
+                {
+                bool ValueType = typeof(T).IsValueType;
+
+                if (ValueType)
+                    {
+                    return o => false;
+                    }
+                return o => o.SafeEquals(default(T));
+                }
+            #endregion
+
+            #region IsA
+            /// <summary>
+            /// Retrieves a func that determines if an object matches type [T].
+            /// </summary>
+            public static Func<object, bool> IsA<T>()
+                {
+                return o => o is T;
+                }
+            #endregion
+
+            #region Method
+            /// <summary>
+            /// Retrieves a func that retrieves a method executor on type [U] using the supplied parameters
+            /// </summary>
+            private static Action<U> Method<U>(string MethodName, params object[] Params)
+                {
+                Params = Params ?? new object[] { };
+
+                var Method = typeof(U).GetMethod(MethodName, Params.GetTypes());
+                if (Method != null)
+                    {
+                    return o => { Method.Invoke(o, Params); };
+                    }
+                throw new Exception($"{typeof(U).FullName} {MethodName}");
+                }
+            #endregion
+
+            #endregion
+
+            #region Lambdas +
+            /// <summary>
+            /// Determine if an object has a property by name.
+            /// </summary>
+            public static Func<object, string, bool> HasProperty()
+                {
+                return (In, PropertyName) =>
+                {
+                    var Member = In.GetType().GetMember(PropertyName).First();
+
+                    if (Member is PropertyInfo)
+                        return true;
+                    return Member is FieldInfo;
+                };
+                }
+
+            /// <summary>
+            /// Get a property value from an object.
+            /// </summary>
+            public static Func<object, string, object> GetProperty()
+                {
+                return (In, PropertyName) =>
+                {
+                    var Member = In.GetType().GetMember(PropertyName).First();
+
+                    var m2 = Member as PropertyInfo;
+                    if (m2 != null)
+                        {
+                        var M2 = m2;
+                        return M2.GetValue(In);
+                        }
+                    var m3 = Member as FieldInfo;
+                    if (m3 != null)
+                        {
+                        var M3 = m3;
+                        return M3.GetValue(In);
+                        }
+                    throw new Exception($"{In.GetType().FullName} {PropertyName}");
+                };
+                }
+
+            /// <summary>
+            /// Set a property value on an object.
+            /// </summary>
+            public static Action<object, string, object> SetProperty()
+                {
+                return (In, PropertyName, PropertyValue) =>
+                {
+                    var Member = In.GetType().GetMember(PropertyName).First();
+
+                    var m2 = Member as PropertyInfo;
+                    if (m2 != null)
+                        {
+                        var M2 = m2;
+                        M2.SetValue(In, PropertyValue);
+                        }
+                    else if (Member is FieldInfo)
+                        {
+                        var M3 = (FieldInfo)Member;
+                        M3.SetValue(In, PropertyValue);
+                        }
+                    else
+                        throw new Exception($"{In.GetType().FullName} {PropertyName}");
+
+                };
+                }
+            #endregion
+            }
+        }
     }
-namespace LCore.Extensions.ObjectExt
+namespace LCore.Extensions.Optional
     {
+    /// <summary>
+    /// An optional, additional extension method class for all object types
+    /// </summary>
+    [ExtensionProvider]
     public static class ObjectExt
         {
-        #region Extensions
-        // TODO: L: Object: Untested
+        #region Extensions +
+
+        #region CopyFieldsTo
+        /// <summary>
+        /// Copies all possible fields from [In] to [Obj].
+        /// Matching field names are transferred to [Obj] for fields and properties with public setters.
+        /// 
+        /// Optionally you can supply a CustomMapper dictionary to map fields to new field names.
+        /// </summary>
+        public static void CopyFieldsTo<T>(this T In, object Obj, Dictionary<string, string> CustomMapper = null)
+            {
+            In.CopyFieldsTo(Obj, CustomMapper == null ? (Func<string, string>)(s => s) : CustomMapper.SafeGet);
+            }
+
+        /// <summary>
+        /// Copies all possible fields from [In] to [Obj].
+        /// Matching field names are transferred to [Obj] for fields and properties with public setters.
+        /// 
+        /// Optionally you can supply a CustomMapper function to map fields to new field names.
+        /// </summary>
+        public static void CopyFieldsTo<T>(this T In, object Obj, Func<string, string> CustomMapper = null)
+            {
+            if (Obj != null)
+                {
+                foreach (var prop in typeof(T).GetMembers(BindingFlags.GetField | BindingFlags.GetProperty))
+                    {
+                    string Name = "";
+
+                    if (Obj.HasProperty(prop.Name))
+                        {
+                        Name = prop.Name;
+                        }
+                    else if (CustomMapper != null)
+                        {
+                        Name = CustomMapper(prop.Name);
+                        }
+
+                    var member = Obj.GetType().GetMember(Name).FirstOrDefault();
+
+                    if ((member is PropertyInfo && ((PropertyInfo)member).CanWrite) ||
+                        member is FieldInfo)
+                        Obj.SetProperty(Name, In.GetProperty(prop.Name));
+                    }
+                }
+            }
+
+        #endregion
+
         #region Details
         /// <summary>
         /// Returns a JSON-formatted string detailing the object and its public properties.
@@ -328,7 +472,7 @@ namespace LCore.Extensions.ObjectExt
             Out += typeof(T).GetMembers().CollectStr((i, m) =>
             {
                 string Out2;
-                FieldInfo fieldInfo = m as FieldInfo;
+                var fieldInfo = m as FieldInfo;
                 if (fieldInfo != null)
                     {
                     Out2 = fieldInfo.Name;
@@ -352,7 +496,7 @@ namespace LCore.Extensions.ObjectExt
                         }
                     return Out2;
                     }
-                PropertyInfo info = m as PropertyInfo;
+                var info = m as PropertyInfo;
                 if (info != null)
                     {
                     Out2 = info.Name;
@@ -385,7 +529,6 @@ namespace LCore.Extensions.ObjectExt
             }
         #endregion
 
-        // TODO: L: Object: Untested
         #region FN_CreateArray
         /// <summary>
         /// Returns a function that creates a new Array from parameters
@@ -401,14 +544,13 @@ namespace LCore.Extensions.ObjectExt
             {
             return () =>
             {
-                T[] Out = new T[Count];
+                var Out = new T[Count];
                 Out.Fill(In);
                 return Out;
             };
             }
         #endregion
 
-        // TODO: L: Object: Untested
         #region FN_CreateList
         /// <summary>
         /// Returns a function that creates a new List from parameters
@@ -420,13 +562,12 @@ namespace LCore.Extensions.ObjectExt
             {
             return () =>
             {
-                List<T> Out = new List<T> { In };
+                var Out = new List<T> { In };
                 return Out;
             };
             }
         #endregion
 
-        // TODO: L: Object: Untested
         #region FN_Func
         /// <summary>
         /// Retrieves a function that returns the input parameter
@@ -436,11 +577,10 @@ namespace LCore.Extensions.ObjectExt
         /// <returns>A function that returns the input parameter [In]</returns>
         public static Func<T> FN_Func<T>(this T In)
             {
-            return Logic.Return(In);
+            return L.Logic.Return(In);
             }
         #endregion
 
-        // TODO: L: Object: Untested
         #region FN_If
         /// <summary>
         /// Returns a function that returns true if the object supplied is equal to the Input parameter
@@ -450,11 +590,10 @@ namespace LCore.Extensions.ObjectExt
         /// <returns>A function that returns true if the object supplied is equal to the Input parameter</returns>
         public static Func<T, bool> FN_If<T>(this T In)
             {
-            return Logic.Object_SafeEquals.Supply2(In).Cast<object, bool, T, bool>();
+            return L.Obj.SafeEquals.Supply2(In).Cast<object, bool, T, bool>();
             }
         #endregion
 
-        // TODO: L: Object: Untested
         #region InitProperties
         /// <summary>
         /// Initializes an object's properties of type [T] to [InitValue] or their default values.
@@ -467,27 +606,27 @@ namespace LCore.Extensions.ObjectExt
             {
             if (In != null)
                 {
-                Type ObjType = In.GetType();
+                var ObjType = In.GetType();
                 MemberInfo[] Members = ObjType.GetMembers();
 
                 if (InitValue == null)
                     InitValue = typeof(T).New<T>();
 
-                foreach (MemberInfo Member in Members)
+                foreach (var Member in Members)
                     {
                     if (Member.ReflectedType != typeof(T))
                         {
                         continue;
                         }
 
-                    PropertyInfo member = Member as PropertyInfo;
+                    var member = Member as PropertyInfo;
                     if (member != null && member.CanWrite)
                         {
                         member.SetValue(In, InitValue);
                         }
                     else
                         {
-                        FieldInfo info = Member as FieldInfo;
+                        var info = Member as FieldInfo;
                         info?.SetValue(In, InitValue);
                         }
                     }
@@ -495,7 +634,6 @@ namespace LCore.Extensions.ObjectExt
             }
         #endregion
 
-        // TODO: L: Object: Untested
         #region IsNull
         /// <summary>
         /// Returns whether the supplied object is null, or equivalent to the default of its type.
@@ -505,11 +643,10 @@ namespace LCore.Extensions.ObjectExt
         /// <returns></returns>
         public static bool IsNull<T>(this T In)
             {
-            return Logic.IsNull<T>()(In);
+            return L.Obj.IsNull<T>()(In);
             }
         #endregion
 
-        // TODO: L: Object: Untested
         #region SafeEquals
         /// <summary>
         /// Safely compare any two Objects whether either is null.
@@ -519,11 +656,10 @@ namespace LCore.Extensions.ObjectExt
         /// <returns>True if the objects are equal otherwise false</returns>
         public static bool SafeEquals(this object In, object Obj)
             {
-            return Logic.Object_SafeEquals(In, Obj);
+            return L.Obj.SafeEquals(In, Obj);
             }
         #endregion
 
-        // TODO: L: Object: Untested
         #region SupplyTo - T
         #region SupplyTo - T - Action_T1
         /// <summary>
@@ -1553,6 +1689,7 @@ namespace LCore.Extensions.ObjectExt
             return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, Obj); };
             }
         #endregion
+
         #region SupplyTo - T - Action_T14
         /// <summary>
         /// Supplies a parameter [Obj] so it does not need to be included
@@ -3749,7 +3886,6 @@ namespace LCore.Extensions.ObjectExt
         #endregion
         #endregion
 
-        // TODO: L: Object: Untested
         #region ToS
         /// <summary>
         /// Shorthand function to convert any object to a string.
@@ -3758,11 +3894,10 @@ namespace LCore.Extensions.ObjectExt
         /// <returns>A String representation of the object passed.</returns>
         public static string ToS(this object In)
             {
-            return L.FN_ToS(In);
+            return L.Str.ToS(In);
             }
         #endregion
 
-        // TODO: L: Object: Untested
         #region Traverse
         /// <summary>
         /// Traverses an object structure using a traverser function you supply [Traverser]
@@ -3771,7 +3906,7 @@ namespace LCore.Extensions.ObjectExt
         /// <param name="Traverser">Traversing function</param>
         public static void Traverse(this object In, Func<object, object> Traverser)
             {
-            object Cursor = In;
+            var Cursor = In;
 
             while (Cursor != null)
                 {
@@ -3787,7 +3922,7 @@ namespace LCore.Extensions.ObjectExt
         /// <param name="Traverser">Traversing function</param>
         public static void Traverse<T>(this T In, Func<T, T> Traverser)
             {
-            T Cursor = In;
+            var Cursor = In;
 
             while (Cursor != null)
                 {
@@ -3795,6 +3930,7 @@ namespace LCore.Extensions.ObjectExt
                 }
             }
         #endregion
+
         #endregion
         }
     }

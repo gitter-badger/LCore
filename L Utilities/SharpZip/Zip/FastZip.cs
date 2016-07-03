@@ -96,11 +96,11 @@ namespace ICSharpCode.SharpZipLib.Zip
         public bool OnDirectoryFailure(string directory, Exception e)
             {
             bool result = false;
-            DirectoryFailureHandler handler = this.DirectoryFailure;
+            var handler = this.DirectoryFailure;
 
             if (handler != null)
                 {
-                ScanFailureEventArgs args = new ScanFailureEventArgs(directory, e);
+                var args = new ScanFailureEventArgs(directory, e);
                 handler(this, args);
                 result = args.ContinueRunning;
                 }
@@ -115,12 +115,12 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <returns>A boolean indicating if execution should continue or not.</returns>
         public bool OnFileFailure(string file, Exception e)
             {
-            FileFailureHandler handler = this.FileFailure;
+            var handler = this.FileFailure;
             bool result = handler != null;
 
             if (result)
                 {
-                ScanFailureEventArgs args = new ScanFailureEventArgs(file, e);
+                var args = new ScanFailureEventArgs(file, e);
                 handler(this, args);
                 result = args.ContinueRunning;
                 }
@@ -135,11 +135,11 @@ namespace ICSharpCode.SharpZipLib.Zip
         public bool OnProcessFile(string file)
             {
             bool result = true;
-            ProcessFileHandler handler = this.ProcessFile;
+            var handler = this.ProcessFile;
 
             if (handler != null)
                 {
-                ScanEventArgs args = new ScanEventArgs(file);
+                var args = new ScanEventArgs(file);
                 this.ProcessFile(this, args);
                 result = args.ContinueRunning;
                 }
@@ -154,10 +154,10 @@ namespace ICSharpCode.SharpZipLib.Zip
         public bool OnCompletedFile(string file)
             {
             bool result = true;
-            CompletedFileHandler handler = this.CompletedFile;
+            var handler = this.CompletedFile;
             if (handler != null)
                 {
-                ScanEventArgs args = new ScanEventArgs(file);
+                var args = new ScanEventArgs(file);
                 handler(this, args);
                 result = args.ContinueRunning;
                 }
@@ -173,10 +173,10 @@ namespace ICSharpCode.SharpZipLib.Zip
         public bool OnProcessDirectory(string directory, bool hasMatchingFiles)
             {
             bool result = true;
-            ProcessDirectoryHandler handler = this.ProcessDirectory;
+            var handler = this.ProcessDirectory;
             if (handler != null)
                 {
-                DirectoryEventArgs args = new DirectoryEventArgs(directory, hasMatchingFiles);
+                var args = new DirectoryEventArgs(directory, hasMatchingFiles);
                 handler(this, args);
                 result = args.ContinueRunning;
                 }
@@ -377,7 +377,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 #endif
 
                 this.outputStream_.UseZip64 = this.UseZip64;
-                FileSystemScanner scanner = new FileSystemScanner(fileFilter, directoryFilter);
+                var scanner = new FileSystemScanner(fileFilter, directoryFilter);
                 scanner.ProcessFile += this.ProcessFile;
                 if (this.CreateEmptyDirectories)
                     {
@@ -454,10 +454,10 @@ namespace ICSharpCode.SharpZipLib.Zip
                     }
 #endif
 
-                System.Collections.IEnumerator enumerator = this.zipFile_.GetEnumerator();
+                var enumerator = this.zipFile_.GetEnumerator();
                 while (this.continueRunning_ && enumerator.MoveNext())
                     {
-                    ZipEntry entry = (ZipEntry)enumerator.Current;
+                    var entry = (ZipEntry)enumerator.Current;
                     if (entry.IsFile)
                         {
                         if (this.directoryFilter_.IsMatch(Path.GetDirectoryName(entry.Name)) && this.fileFilter_.IsMatch(entry.Name))
@@ -489,7 +489,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                     {
                     if (e.Name != this.sourceDirectory_)
                         {
-                        ZipEntry entry = this.entryFactory_.MakeDirectoryEntry(e.Name);
+                        var entry = this.entryFactory_.MakeDirectoryEntry(e.Name);
                         this.outputStream_.PutNextEntry(entry);
                         }
                     }
@@ -502,9 +502,9 @@ namespace ICSharpCode.SharpZipLib.Zip
 
             if (e.ContinueRunning)
                 {
-                using (FileStream stream = File.OpenRead(e.Name))
+                using (var stream = File.OpenRead(e.Name))
                     {
-                    ZipEntry entry = this.entryFactory_.MakeFileEntry(e.Name);
+                    var entry = this.entryFactory_.MakeFileEntry(e.Name);
                     this.outputStream_.PutNextEntry(entry);
                     this.AddFileContents(e.Name, stream);
                     }
@@ -598,7 +598,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 
                         if (this.RestoreAttributesOnExtract && entry.IsDOSEntry && (entry.ExternalFileAttributes != -1))
                             {
-                            FileAttributes fileAttributes = (FileAttributes)entry.ExternalFileAttributes;
+                            var fileAttributes = (FileAttributes)entry.ExternalFileAttributes;
                             fileAttributes &= FileAttributes.Archive | FileAttributes.Normal | FileAttributes.ReadOnly | FileAttributes.Hidden;
                             File.SetAttributes(targetName, fileAttributes);
                             }

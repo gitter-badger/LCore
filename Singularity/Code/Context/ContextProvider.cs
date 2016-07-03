@@ -6,13 +6,17 @@ using Singularity.Controllers;
 using Singularity.Models;
 using Singularity.Extensions;
 using System.Linq;
+using LCore.Extensions;
 using Microsoft.WindowsAzure.StorageClient;
+// ReSharper disable MemberCanBeProtected.Global
+// ReSharper disable UnusedParameter.Global
+// ReSharper disable VirtualMemberNeverOverriden.Global
 
 namespace Singularity.Context
     {
     public abstract class ContextProvider
         {
-        public const string ContextSession = "RosieContext";
+        public const string ContextSession = "SingularityContext";
 
         public abstract ManageController[] AllManageControllers(HttpSessionStateBase Session);
 
@@ -22,17 +26,19 @@ namespace Singularity.Context
 
         public abstract Type[] GetContextTypes(HttpSessionStateBase Session);
 
-        public abstract IModelUser CurrentUser(HttpSessionStateBase Session);
+        public abstract UserAccount CurrentUser(HttpSessionStateBase Session);
 
-        public abstract IModelRole CurrentRole(HttpSessionStateBase Session);
+        public abstract AccountRole CurrentRole(HttpSessionStateBase Session);
 
-        public abstract IModelRole GetAnonymousRole();
+        public abstract AccountRole GetAnonymousRole();
 
         public abstract string GetFileUploadRootPath(HttpSessionStateBase Session, HttpPostedFileBase File, string RelationType, string RelationProperty, int RelationID);
 
         public abstract string GetFileUploadFilePath(HttpSessionStateBase Session, HttpPostedFileBase File, string RelationType, string RelationProperty, int RelationID);
 
         public abstract CloudBlobDirectory GetFileUploadCloudContainer();
+
+        public virtual string SiteTitle => Singularity.AppName;
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -52,13 +58,13 @@ namespace Singularity.Context
 
         private ModelPermissions GetModelPermissions(IModel ProfileRole, Type RequestedType)
             {
-            Type RoleType = ProfileRole.GetType();
+            var RoleType = ProfileRole.GetType();
 
             RequestedType = RequestedType.WithoutDynamicType();
 
             string TypeName = RequestedType.Name;
 
-            IModelPermissions Attr = RequestedType.GetAttribute<IModelPermissions>();
+            var Attr = RequestedType.GetAttribute<IModelPermissions>();
 
             TypeName += "Permissions";
 
@@ -85,6 +91,11 @@ namespace Singularity.Context
             where T : class, new()
             {
             return this.GetContext(Session).GetDBSet<T>();
+            }
+
+        public virtual string GetVersionNumber()
+            {
+            return "1.0";
             }
         }
     }

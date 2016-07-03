@@ -8,7 +8,7 @@ namespace Singularity.Account
     {
     public static class Crypto
         {
-        public const string Salt = "D47D1450-FC43-483F-92CF-B0FE70D1DFE0";
+        public const string Salt = "76032832-8D9A-48C1-88CF-0592BA9801EB";
 
         public static SHA256 GetSHA()
             {
@@ -17,7 +17,7 @@ namespace Singularity.Account
 
         public static string GetHash(string In)
             {
-            SHA256 SHA = GetSHA();
+            var SHA = GetSHA();
 
             // Add Salt
             In += Salt;

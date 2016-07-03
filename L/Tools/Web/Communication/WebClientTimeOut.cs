@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+#pragma warning disable 1591
 
 namespace LCore.Web
     {

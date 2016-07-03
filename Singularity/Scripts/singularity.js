@@ -3809,12 +3809,14 @@ function InitIdent() {
             var thisJQuery = $(this);
             var hash = thisJQuery.html();
             var size = (thisJQuery.attr('size') || '').tryToNumber() || 36;
+            var classes = (thisJQuery.attr('class') || '');
+            var styles = (thisJQuery.attr('style') || '');
             var icon = new Identicon(hash, size);
             var salt = 'SingularitySalt';
             var shaObj = new jsSHA(hash + salt, 'TEXT');
             var hash2 = shaObj.getHash('SHA-256', 'HEX', 1);
             var data = new Identicon(hash2, size);
-            $(this).html("<img width=\"" + size + "\" height=\"" + size + "\" src=\"data:image/png;base64," + data + "\">");
+            $(this).html("<img width=\"" + size + "\" height=\"" + size + "\" src=\"data:image/png;base64," + data + "\" class=\"" + classes + "\" style=\"" + styles + "\">");
         });
     }
 }
@@ -6655,7 +6657,6 @@ function SingularityRunTests(display) {
                 var testFunc = test.testFunc;
                 if (test && test.testFunc) {
                     var testResult = testFunc();
-                    log(testResult);
                     if (testResult != true &&
                         testResult !== undefined &&
                         testResult !== null) {

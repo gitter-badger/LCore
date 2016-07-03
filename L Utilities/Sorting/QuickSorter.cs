@@ -48,7 +48,7 @@ namespace NSort
 		{
 			// Pivot with first element
 			int left=lower+1;
-			object pivot=array[lower];
+			var pivot=array[lower];
 			int right=upper;
 
 			// Partition array elements

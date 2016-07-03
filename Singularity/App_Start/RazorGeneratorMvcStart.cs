@@ -11,7 +11,7 @@ namespace Singularity
         {
         public static void Start()
             {
-            PrecompiledMvcEngine engine = new PrecompiledMvcEngine(typeof(RazorGeneratorMvcStart).Assembly)
+            var engine = new PrecompiledMvcEngine(typeof(RazorGeneratorMvcStart).Assembly)
                 {
                 UsePhysicalViewsIfNewer = HttpContext.Current.Request.IsLocal
                 };
@@ -23,3 +23,4 @@ namespace Singularity
             }
         }
     }
+ 

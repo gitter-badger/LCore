@@ -81,21 +81,22 @@ namespace Singularity.Controllers
             public const string Created = "Created";
             public const string Updated = "Updated";
             public const string Archived = "Archived";
+
             }
 
         public static readonly bool AllowRegister = false;
         public static readonly bool AllowExternalLogin = false;
         public static readonly bool AllowLoginCookie = false;
 
-        public static readonly int DefaultTableTextLength = 50;
+        public const int DefaultTableTextLength = 50;
 
-        public static readonly bool GlobalSearchAssumeStars = false;
+        public const bool GlobalSearchAssumeStars = false;
 
-        public static readonly int DefaultRowsPerPage = 20;
+        public const int DefaultRowsPerPage = 20;
 
         public static void HandleError(HttpContextBase HttpContext, Exception Ex)
             {
-            ModelContext Context = ContextProviderFactory.GetCurrent().GetContext(HttpContext.Session);
+            var Context = ContextProviderFactory.GetCurrent().GetContext(HttpContext.Session);
 
             if (Context.ContextTypes.Has(typeof(Error)))
                 {
@@ -103,7 +104,7 @@ namespace Singularity.Controllers
 
                 try
                     {
-                    Error Error = new Error
+                    var Error = new Error
                         {
                         Message = Ex.Message,
                         FullDetails = Ex.ToString(),
@@ -174,7 +175,7 @@ namespace Singularity.Controllers
 
         public Dictionary<string, SearchOperation> ExtractSearchTerms(ref string GlobalSearchTerm, Type ModelType)
             {
-            Dictionary<string, SearchOperation> Out = new Dictionary<string, SearchOperation>();
+            var Out = new Dictionary<string, SearchOperation>();
 
             GlobalSearchTerm = GlobalSearchTerm ?? "";
 
@@ -224,7 +225,7 @@ namespace Singularity.Controllers
 
                         string Search = Split2[1].Trim();
 
-                        SearchOperation Op = new SearchOperation
+                        var Op = new SearchOperation
                             {
                             Property = Property,
                             OperatorStr = OperatorStr,
@@ -324,8 +325,12 @@ namespace Singularity.Controllers
             #region Global Search
             if (!string.IsNullOrEmpty(GlobalSearchTerm))
                 {
+#pragma warning disable 162
+                // ReSharper disable once ConditionIsAlwaysTrueOrFalse
                 if (GlobalSearchAssumeStars && !GlobalSearchTerm.Contains("*"))
+                    // ReSharper disable once HeuristicUnreachableCode
                     GlobalSearchTerm = $"*{GlobalSearchTerm}*";
+#pragma warning restore 162
 
                 Expression<Func<T, bool>> Search = QueryExt.GlobalSearchRecursive<T>(GlobalSearchTerm);
 
@@ -382,8 +387,8 @@ namespace Singularity.Controllers
                 {
                 if (typeof(T).Meta(SortTerm).ModelType.HasInterface<IModel>(false))
                     {
-                    Type t = typeof(T).Meta(SortTerm).ModelType;
-                    DisplayColumnAttribute display = t.GetAttribute<DisplayColumnAttribute>();
+                    var t = typeof(T).Meta(SortTerm).ModelType;
+                    var display = t.GetAttribute<DisplayColumnAttribute>(false);
 
                     SortTerm = display != null ? $"{SortTerm}.{display.SortColumn}" : $"{SortTerm}.{Enumerable.First(t.Meta().Properties).PropertyName}";
                     }

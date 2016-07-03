@@ -1,0 +1,200 @@
+﻿@* Generator: MvcView *@
+
+
+@using LCore.Extensions;
+@using Singularity.Extensions;
+@using Singularity.Annotations;
+@* ReSharper disable once RedundantUsingDirective*@
+@using Singularity.Routes;
+
+@model ManageViewModel
+
+@{
+    string ControllerTypeName = ViewContext.Controller.GetType().FullName;
+
+    List<SavedSearch> SavedSearches = SavedSearch.Find(Context, Model.ModelType.FullName, ControllerTypeName).List();
+
+    Dictionary<string, List<SavedSearch>> SavedSearchGroups = SavedSearches.Group();
+
+    bool SearchEmpty = Model.FieldSearchTerms.Keys.Count == 0 && string.IsNullOrEmpty(Model.GlobalSearchTerm);
+}
+
+
+<div class="manage-global-search">
+    @if (Model.FieldSearchTerms.Keys.Count > 0)
+        {
+        foreach (var o in Model.FieldSearchTerms.Values)
+            {
+            if (o.Operator == Expression.Equal || o.OperatorStr == "~")
+                {
+                string Column = o.Property.ToUrlSlug();
+
+                <script type="text/javascript">
+                    $().ready(function () {
+                        $('.manage-@Model.ModelTypeCSSClass .manage-table tbody td.@Column span').each(function () {
+                            const html = $(this).html();
+                            $(this).html(html.replace(new RegExp(`(${('@o.Search').escapeRegExp()})`, 'ig'), '<strong>$1</strong>'));
+                        });
+                    });
+                </script>
+                }
+            }
+        }
+
+    @if (!string.IsNullOrEmpty(Model.GlobalSearchTerm))
+        {
+        <script type="text/javascript">
+            $().ready(function () {
+                $('.manage-@Model.ModelTypeCSSClass .manage-table tbody td span').each(function () {
+                    const html = $(this).html();
+                    $(this).html(html.replace(new RegExp(`(${('@Model.GlobalSearchTerm').escapeRegExp()})`, 'ig'), '<strong>$1</strong>'));
+                });
+            });
+        </script>
+        }
+    else
+        {
+        <script type="text/javascript">
+            $().ready(function () {
+                $('#GlobalSearchTerm').val('');
+            });
+        </script>
+        }
+
+    @if (!SearchEmpty)
+        {
+        using (Html.BeginForm(nameof(ManageController.Manage),
+            Model.Controller.Name,
+            Controllers.Manage.Actions.Route_ClearSearch(Model),
+            FormMethod.Get,
+            new { @class = "clear-form" }))
+            {
+            <input type="submit" value="Clear" />
+            }
+        }
+
+    @if (Model.FieldSearchTerms != null &&
+                    Model.FieldSearchTerms.Keys.Count > 0)
+        {
+        <script type="text/javascript">
+            $().ready(function () {
+                $('.filter-area span[search-text]').click(function () {
+                    $('#GlobalSearchTerm').val($(this).attr('search-text'));
+                });
+            });
+        </script>
+        <div class="filter-area">
+            @foreach (var o in Model.FieldSearchTerms.Values)
+                {
+                <span>
+                    <span search-text="@(o.Property + o.OperatorStr + o.Search)">
+                        @o.Property
+                        @o.OperatorStr
+                        @o.Search
+                    </span>
+                    @Html.ActionLink("X", nameof(ManageController.Manage),
+                        Model.Controller.Name,
+                        Controllers.Manage.Actions.Route_RemoveFilter(Model, o.Property), new { })
+                </span>
+                }
+        </div>
+        }
+
+    <script type="text/javascript">
+        $().ready(function () {
+            const availableTags = [
+                @Html.Raw(Model.GetSearchSuggestions())
+            ];
+            $("#GlobalSearchTerm").bind("keydown", function (event) {
+                if (event.keyCode === $.ui.keyCode.TAB &&
+                    $(this).autocomplete("instance").menu.active) {
+                    event.preventDefault();
+                }
+            }).autocomplete({
+                source: availableTags
+            });
+        });
+    </script>
+
+    @if (!SearchEmpty &&
+                ViewContext.AllowCreate(typeof(SavedSearch)) &&
+                ViewContext.GetManageController().ViewSavedSearches)
+        {
+        <a href="@(Url.Controller<SavedSearchController>()
+                    .QS(Controllers.SavedSearch.Actions.Route_CreateSavedSearch(Model, ViewContext))
+                    .Lambda<string>(c => c.Create))">
+            <div class="btn btn-default" title="Save Search">
+                <glyph>&#xe172;</glyph>
+            </div>
+        </a>
+        }
+
+    @if (SavedSearches.Count > 0 &&
+                ViewContext.GetManageController().ViewSavedSearches)
+        {
+        <div class="manage-saved-searches">
+            <h2>Searches</h2>
+
+            <span class="btn-info btn right method-show-hide relative" click-fade-toggle=".manage-saved-searches-full">
+                <glyph class="manage-saved-searches-full absolute">&#x2b;</glyph>
+                <glyph class="manage-saved-searches-full absolute" style=" display: none;">&#x2212;</glyph>
+            </span>
+
+            <div class="manage-saved-searches-full" style="display:none">
+                @foreach (string GroupName in SavedSearchGroups.Keys)
+                    {
+                    List<SavedSearch> Group = SavedSearchGroups[GroupName];
+
+                    <h3>@GroupName</h3>
+
+                    foreach (var Search in Group)
+                        {
+                        <div class="manage-saved-search">
+                            <a class="saved-search btn btn-default"
+                               href="@(Url.Controller<ManageController>()
+                                .QS(Controllers.SavedSearch.Actions.Route_ViewSavedSearch(Model, Search))
+                                .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage))">
+                                <glyph>&#xe003;</glyph>
+                                <h4>@Search.Name</h4>
+                            </a>
+                            @if (Model.ModelType.HasInterface<IEmailable>() &&
+                            ViewContext.AllowCreate(typeof(EmailJob)))
+                                {
+                                <a class="email-saved-search btn btn-default"
+                                   href="@(Url.Controller<EmailJobController>()
+                                       .QS(new Dictionary<string, object> { {"SavedSearchID", Search.SavedSearchID} })
+                                       .Action(c => c.Create, Request.Url?.AbsoluteUri))">
+                                    <glyph>&#x2709;</glyph>
+                                </a>
+                                }
+                            <a class="edit-saved-search btn btn-default"
+                               href="@(Url.Controller<SavedSearchController>()
+                                    .QS(Controllers.Manage.Actions.Route_Edit(Search, Request))
+                                    .Lambda<int, string, bool>(c => c.Edit))">
+                                <glyph>&#xe065;</glyph>
+                            </a>
+                        </div>
+                        }
+                    }
+            </div>
+        </div>
+        }
+
+    @using (Html.BeginForm(nameof(ManageController.Search),
+                Model.Controller.Name,
+                Controllers.Manage.Actions.Route_Search(Model),
+                FormMethod.Post, new { id = "SearchForm" }))
+        {
+
+        @Html.TextBox("GlobalSearchTerm", Model.GlobalSearchTerm)
+        @Html.Hidden("FieldSearchTerms", Model.GetGlobalSearchCombined())
+
+        <a onclick="$('#SearchForm').submit();" class="btn btn-default">
+            <glyph>&#xe003;</glyph>
+            <span>
+                Search
+            </span>
+        </a>
+        }
+
+</div>

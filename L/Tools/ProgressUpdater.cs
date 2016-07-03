@@ -2,14 +2,23 @@
 
 namespace LCore.Tools
     {
+    /// <summary>
+    /// For assisting asyncronous actions or UI threads,
+    /// Progress keeps track of current progress and total size,
+    /// to allow progress for bar updating.
+    /// </summary>
     public class ProgressUpdater
         {
-        public IProgress<string> UpdateStatus { get; set; }
-        public IProgress<string> UpdateLog { get; set; }
-        public IProgress<int> UpdateProgress { get; set; }
-        public IProgress<int> UpdateMaximum { get; set; }
+        private IProgress<string> UpdateStatus { get; }
+        private IProgress<string> UpdateLog { get; }
+        private IProgress<int> UpdateProgress { get; }
+        private IProgress<int> UpdateMaximum { get; }
 
-        public ProgressUpdater(Action<string> UpdateStatus = null,
+        /// <summary>
+        /// Create a new ProgressUpdater
+        /// </summary>
+        public ProgressUpdater(
+            Action<string> UpdateStatus = null,
             Action<string> UpdateLog = null,
             Action<int> UpdateProgress = null,
             Action<int> UpdateMaximum = null)
@@ -20,26 +29,41 @@ namespace LCore.Tools
             this.UpdateMaximum = new Progress<int>(UpdateMaximum);
             }
 
+        /// <summary>
+        /// Send a message to any UpdateStatus actions.
+        /// </summary>
         public void Status(string Message)
             {
             this.UpdateStatus?.Report(Message);
             }
 
+        /// <summary>
+        /// Send a message to any UpdateLog actions.
+        /// </summary>
         public void Log(string Message)
             {
             this.UpdateLog?.Report(Message);
             }
 
+        /// <summary>
+        /// Send a message to any UpdateProgress actions.
+        /// </summary>
         public void Progress(int Progress)
             {
             this.UpdateProgress?.Report(Progress);
             }
 
+        /// <summary>
+        /// Send a message to any UpdateMaximum actions.
+        /// </summary>
         public void Maximum(int Maximum)
             {
             this.UpdateMaximum?.Report(Maximum);
             }
 
+        /// <summary>
+        /// Clears current data and resets the ProgressUpdater.
+        /// </summary>
         public void Clear()
             {
             this.Status("");

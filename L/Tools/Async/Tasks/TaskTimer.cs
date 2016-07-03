@@ -2,6 +2,7 @@
 using LCore.Extensions;
 using System.Timers;
 
+#pragma warning disable 1591
 
 namespace LCore.Tasks
     {
@@ -38,7 +39,7 @@ namespace LCore.Tasks
             if (WaitTime < 0)
                 return;
 
-            double d = (int)(WaitTime * DateExt.TicksToMilliseconds / 1000) * (double)1000;
+            double d = (int)(WaitTime * L.Date.TicksToMilliseconds / 1000) * (double)1000;
 
             if (d != 0)
                 {
@@ -49,9 +50,9 @@ namespace LCore.Tasks
                         }
                     catch { }
 
-                if (d > DateExt.MaxTimerInterval)
+                if (d > L.Date.MaxTimerInterval)
                     {
-                    this.RunTaskTimer = new Timer(DateExt.MaxTimerInterval);
+                    this.RunTaskTimer = new Timer(L.Date.MaxTimerInterval);
 
                     this.RunTaskTimer.Elapsed += this.Timer_Reset;
                     this.RunTaskTimer.AutoReset = false;

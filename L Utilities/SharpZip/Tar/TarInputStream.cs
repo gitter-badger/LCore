@@ -167,7 +167,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// <returns>A byte cast to an int; -1 if the at the end of the stream.</returns>
         public override int ReadByte()
             {
-            byte[] oneByteBuffer = new byte[1];
+            var oneByteBuffer = new byte[1];
             int num = this.Read(oneByteBuffer, 0, 1);
             if (num <= 0)
                 { // return -1 to indicate that no byte was read.
@@ -228,7 +228,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                 else
                     {
                     int newLen = this.readBuffer.Length - sz;
-                    byte[] newBuf = new byte[newLen];
+                    var newBuf = new byte[newLen];
                     Array.Copy(this.readBuffer, sz, newBuf, 0, newLen);
                     this.readBuffer = newBuf;
                     }
@@ -332,7 +332,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// </param>
         public void Skip(long skipCount)
             {
-            byte[] skipBuf = new byte[8 * 1024];
+            var skipBuf = new byte[8 * 1024];
 
             for (long num = skipCount; num > 0;)
                 {
@@ -415,7 +415,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                 {
                 try
                     {
-                    TarHeader header = new TarHeader();
+                    var header = new TarHeader();
                     header.ParseBuffer(headerBuf);
                     if (!header.IsChecksumValid)
                         {
@@ -429,7 +429,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                     if (header.TypeFlag == TarHeader.LF_GNU_LONGNAME)
                         {
 
-                        byte[] nameBuffer = new byte[TarBuffer.BlockSize];
+                        var nameBuffer = new byte[TarBuffer.BlockSize];
                         long numToRead = this.entrySize;
 
                         longName = new StringBuilder();
@@ -518,7 +518,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// </param>
         public void CopyEntryContents(Stream outputStream)
             {
-            byte[] tempBuffer = new byte[32 * 1024];
+            var tempBuffer = new byte[32 * 1024];
 
             while (true)
                 {

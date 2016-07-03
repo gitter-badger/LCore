@@ -446,7 +446,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
                 length = (int)count;
                 }
 
-            byte[] tmp = new byte[length];
+            var tmp = new byte[length];
             int readCount = 1;
             long toSkip = count;
 

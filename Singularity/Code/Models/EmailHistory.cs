@@ -46,10 +46,10 @@ namespace Singularity.Models
             {
             List<EmailHistory> Unsent = FindUnsent(DbContext).List();
 
-            foreach (EmailHistory Email in Unsent)
+            foreach (var Email in Unsent)
                 {
-                MailMessage Mail = new MailMessage();
-                SmtpClient Client = new SmtpClient
+                var Mail = new MailMessage();
+                var Client = new SmtpClient
                     {
                     Port = 587,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
@@ -75,23 +75,23 @@ namespace Singularity.Models
 
                 /////////////////////////////////////////////
 
-                Type ModelUserType = DbContext.UserInfoType;
+                var ModelUserType = DbContext.UserAccountType;
 
-                Type ModelContextType = typeof(EmailContext<>);
+                var ModelContextType = typeof(EmailContext<>);
 
                 // Inject the project's user type so the context matches
                 ModelContextType = ModelContextType.MakeGenericType(ModelUserType);
 
-                IModel EmailUser = (IModel)DbContext.GetDBSet(ModelUserType).Find(Email.UserID);
+                var EmailUser = (IModel)DbContext.GetDBSet(ModelUserType).Find(Email.UserID);
 
-                IModel EmailContext = (IModel)ModelContextType.New(new object[] { Email, EmailUser });
+                var EmailContext = (IModel)ModelContextType.New(new object[] { Email, EmailUser });
 
                 Mail.Body = EmailContext.TemplateTokenFill(Mail.Body);
                 Mail.Subject = EmailContext.TemplateTokenFill(Mail.Subject);
 
                 /////////////////////////////////////////////
 
-                List<FileUpload> Attachments = new List<FileUpload>();
+                var Attachments = new List<FileUpload>();
 
                 // Add attachements from EmailJob
                 Attachments.AddRange(FileUpload.GetFileUploads(DbContext, Email.EmailJob, nameof(Email.EmailJob.Attachments)));
@@ -99,7 +99,7 @@ namespace Singularity.Models
                 // Add attachements from EmailTemplate
                 Attachments.AddRange(FileUpload.GetFileUploads(DbContext, Email.EmailJob.EmailTemplate, nameof(Email.EmailJob.Attachments)));
 
-                foreach (FileUpload Attachment in Attachments)
+                foreach (var Attachment in Attachments)
                     {
                     byte[] Bytes = Attachment.GetCloudBytes();
 

@@ -5,7 +5,7 @@
 @using Singularity.Extensions;
 
 @{
-    CustomExport Export = (CustomExport)Model.ModelData;
+    var Export = (CustomExport)Model.ModelData;
 
     Type ModelExportType = null;
 
@@ -13,7 +13,7 @@
         {
         try
             {
-            ModelExportType = TypeExt.FindType(Export.ExportType);
+            ModelExportType = L.Ref.FindType(Export.ExportType);
             }
         catch
             {
@@ -21,7 +21,7 @@
             }
         }
 
-    Dictionary<string, List<ModelMetadata>> BasedMeta = new Dictionary<string, List<ModelMetadata>>();
+    var BasedMeta = new Dictionary<string, List<ModelMetadata>>();
 
     Dictionary<string, ModelMetadata> AllMeta = ModelExportType == null ?
         new Dictionary<string, ModelMetadata>() :
@@ -71,7 +71,7 @@
                 if (BasedMeta.ContainsKey(BaseKey))
                     {
                     <div class="field-group-@BaseKey.ReplaceAll(".", "")" style="display:none;">
-                        @foreach (ModelMetadata Meta in BasedMeta[BaseKey])
+                        @foreach (var Meta in BasedMeta[BaseKey])
                             {
                             string Key = Meta.PropertyName;
 

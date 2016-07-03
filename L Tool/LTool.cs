@@ -24,7 +24,7 @@ namespace L_Tool
             {
             this.SaveOptions();
 
-            CodeExploder Test = new CodeExploder(this.CodeRoot, this.CodeDynamicFolder);
+            var Test = new CodeExploder(this.CodeRoot, this.CodeDynamicFolder);
             Test.BackupAllExplodeFiles();
             string s = Test.ExplodeAllTypes();
             MessageBox.Show($"{s.Count('\n')} Lines Generated");
@@ -35,8 +35,39 @@ namespace L_Tool
             {
             this.SaveOptions();
 
-            CodeExploder Test = new CodeExploder(this.CodeRoot, this.CodeDynamicFolder);
+            var Test = new CodeExploder(this.CodeRoot, this.CodeDynamicFolder);
             Test.BackupAllExplodeFiles();
+            }
+
+        private void button3_Click(object sender, EventArgs e)
+            {
+            this.folderBrowserDialog1.ShowDialog();
+
+            if (Directory.Exists(this.folderBrowserDialog1.SelectedPath))
+                {
+                this.textBox1.Text = this.folderBrowserDialog1.SelectedPath;
+                }
+            }
+
+        private void button4_Click(object sender, EventArgs e)
+            {
+            this.folderBrowserDialog1.ShowDialog();
+
+            if (Directory.Exists(this.folderBrowserDialog1.SelectedPath))
+                {
+                this.textBox2.Text = this.folderBrowserDialog1.SelectedPath;
+                }
+            }
+
+        private void button5_Click(object sender, EventArgs e)
+            {
+            var Test = new CodeExploder(this.CodeRoot, null);
+
+            string s = !this.textBox4.Text.IsEmpty() ? 
+                Test.ExplodeAllTypes(m => m.Name.Contains(this.textBox4.Text)) : 
+                Test.ExplodeAllTypes();
+
+            this.textBox3.Text = s;
             }
 
 
@@ -75,26 +106,6 @@ namespace L_Tool
             {
             this.CodeRoot = this.textBox1.Text;
             this.CodeDynamicFolder = this.textBox2.Text;
-            }
-
-        private void button3_Click(object sender, EventArgs e)
-            {
-            this.folderBrowserDialog1.ShowDialog();
-
-            if (Directory.Exists(this.folderBrowserDialog1.SelectedPath))
-                {
-                this.textBox1.Text = this.folderBrowserDialog1.SelectedPath;
-                }
-            }
-
-        private void button4_Click(object sender, EventArgs e)
-            {
-            this.folderBrowserDialog1.ShowDialog();
-
-            if (Directory.Exists(this.folderBrowserDialog1.SelectedPath))
-                {
-                this.textBox2.Text = this.folderBrowserDialog1.SelectedPath;
-                }
             }
 
         private void LTool_Load(object sender, EventArgs e)

@@ -1,6 +1,8 @@
-﻿namespace Singularity.Annotations
+﻿using LCore.Extensions;
+
+namespace Singularity.Annotations
     {
-    public interface IDontClone
+    public interface IDontClone : ISubClassPersistentAttribute
         {
         }
     }

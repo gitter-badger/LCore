@@ -49,8 +49,8 @@ namespace LCore.Web
         /// <summary>
         /// Default file name
         /// </summary>
-        public string _currentFileName = $"{Guid.NewGuid()}.bin";
-        public string _fullPath => Logic.CombinePaths(this._currentFilePath, this._currentFileName);
+        private string _currentFileName = $"{Guid.NewGuid()}.bin";
+        private string _fullPath => L.File.CombinePaths(this._currentFilePath, this._currentFileName);
 
         /// <summary>
         /// FileStream object that is left open while a file is beting written to.  Each file will open and 
@@ -171,7 +171,7 @@ namespace LCore.Web
                     if (this._fileStream == null)
                         {
                         // create a new file stream to be used.
-                        this._fileStream = new FileStream(Logic.CombinePaths(this._currentFilePath, this._currentFileName), FileMode.OpenOrCreate);
+                        this._fileStream = new FileStream(L.File.CombinePaths(this._currentFilePath, this._currentFileName), FileMode.OpenOrCreate);
 
                         // this will create a time to live for the file so it will automaticly be removed
                         const int fileTimeToLive = 3600;
@@ -252,7 +252,7 @@ namespace LCore.Web
                 this._fileStream = null;
 
                 // add the file name to the finished list.
-                this._finishedFiles.Add(Logic.CombinePaths(this._currentFilePath, this._currentFileName));
+                this._finishedFiles.Add(L.File.CombinePaths(this._currentFilePath, this._currentFileName));
 
                 // Reset the filename.
                 this._currentFileName = $"{Guid.NewGuid()}.bin";
@@ -515,7 +515,7 @@ namespace LCore.Web
         /// <returns>new byte array of all the new bytes</returns>
         private static byte[] MergeArrays(ref byte[] arrayOne, ref byte[] arrayTwo)
             {
-            byte[] newArray = new byte[arrayOne.Length + arrayTwo.Length];
+            var newArray = new byte[arrayOne.Length + arrayTwo.Length];
             arrayOne.CopyTo(newArray, 0);
             arrayTwo.CopyTo(newArray, arrayOne.Length);
 

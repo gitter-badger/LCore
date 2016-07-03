@@ -14,30 +14,30 @@ namespace Singularity.Controllers
 
         public static List<string> GetStatusMessages_Success(this ControllerBase c)
             {
-            object Out = c.TempData[StatusMessage_Success];
+            var Out = c.TempData[StatusMessage_Success];
 
-            List<string> List = Out as List<string>;
+            var List = Out as List<string>;
             return List ?? new List<string>();
             }
         public static List<string> GetStatusMessages_Error(this ControllerBase c)
             {
-            object Out = c.TempData[StatusMessage_Error];
+            var Out = c.TempData[StatusMessage_Error];
 
-            List<string> List = Out as List<string>;
+            var List = Out as List<string>;
             return List ?? new List<string>();
             }
         public static List<string> GetStatusMessages_Warning(this ControllerBase c)
             {
-            object Out = c.TempData[StatusMessage_Warning];
+            var Out = c.TempData[StatusMessage_Warning];
 
-            List<string> List = Out as List<string>;
+            var List = Out as List<string>;
             return List ?? new List<string>();
             }
         public static List<string> GetStatusMessages_Information(this ControllerBase c)
             {
-            object Out = c.TempData[StatusMessage_Information];
+            var Out = c.TempData[StatusMessage_Information];
 
-            List<string> @out = Out as List<string>;
+            var @out = Out as List<string>;
             return @out ?? new List<string>();
             }
 

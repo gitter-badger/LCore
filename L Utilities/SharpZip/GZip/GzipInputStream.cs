@@ -164,7 +164,7 @@ namespace ICSharpCode.SharpZipLib.GZip
         private void ReadHeader()
             {
             // 1. Check the two magic bytes
-            Crc32 headCRC = new Crc32();
+            var headCRC = new Crc32();
             int magic = this.baseInputStream.ReadByte();
 
             if (magic < 0)
@@ -344,7 +344,7 @@ namespace ICSharpCode.SharpZipLib.GZip
 
         private void ReadFooter()
             {
-            byte[] footer = new byte[8];
+            var footer = new byte[8];
             int avail = this.inf.RemainingInput;
 
             if (avail > 8)

@@ -96,7 +96,7 @@ namespace Singularity.Controllers
         public abstract int GetTotalCount();
 
         public virtual IMenuItem[] GetMenuItems(ViewContext Context)
-        {
+            {
             if (Context.AllowView(this.ModelType))
                 {
                 return new IMenuItem[]
@@ -106,13 +106,13 @@ namespace Singularity.Controllers
                     MenuText= this.MenuText,
                     PageGroup= this.PageGroup,
                     ControllerName= this.Name,
-                    Action= Routes.Controllers.Manage.Actions.Manage,
-                    TotalCount= this.GetTotalCount()
+                    Action= nameof(this.Manage),
+                    TotalCount = this.GetTotalCount()
                     }
                 };
                 }
             return new IMenuItem[] { };
-        }
+            }
 
         public virtual int RowsPerPage => ControllerHelper.DefaultRowsPerPage;
 
@@ -131,7 +131,7 @@ namespace Singularity.Controllers
             {
             get
                 {
-                return Logic.Cache(ref this._DBContext, () => ContextProviderFactory.GetCurrent().GetContext(this.Session));
+                return L.Logic.Cache(ref this._DBContext, () => ContextProviderFactory.GetCurrent().GetContext(this.Session));
                 }
             }
 

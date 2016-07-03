@@ -63,8 +63,6 @@ WriteLiteral("\r\n");
             
             #line 6 "..\..\Views\Examples\Examples_Bootstrap.cshtml"
   
-    Layout = Layouts.MainLayout;
-
     ViewBag.Title = "Examples";
 
             

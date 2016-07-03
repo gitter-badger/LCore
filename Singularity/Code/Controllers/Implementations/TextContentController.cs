@@ -24,7 +24,7 @@ namespace Singularity.Controllers
 
         protected override TextContent GetModel(int id, bool Create, TextContent Model)
             {
-            TextContent Content = base.GetModel(id, Create, Model);
+            var Content = base.GetModel(id, Create, Model);
 
             Content.Text = HttpUtility.HtmlDecode(Content.Text);
 

@@ -586,7 +586,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
 
         private void SendMTFValues()
             {
-            char[][] len = new char[BZip2Constants.GroupCount][];
+            var len = new char[BZip2Constants.GroupCount][];
             for (int i = 0; i < BZip2Constants.GroupCount; ++i)
                 {
                 len[i] = new char[BZip2Constants.MaximumAlphaSize];
@@ -671,14 +671,14 @@ namespace ICSharpCode.SharpZipLib.BZip2
                 remF -= aFreq;
                 }
 
-            int[][] rfreq = new int[BZip2Constants.GroupCount][];
+            var rfreq = new int[BZip2Constants.GroupCount][];
             for (int i = 0; i < BZip2Constants.GroupCount; ++i)
                 {
                 rfreq[i] = new int[BZip2Constants.MaximumAlphaSize];
                 }
 
-            int[] fave = new int[BZip2Constants.GroupCount];
-            short[] cost = new short[BZip2Constants.GroupCount];
+            var fave = new int[BZip2Constants.GroupCount];
+            var cost = new short[BZip2Constants.GroupCount];
             /*---
 			Iterate up to N_ITERS times to improve the tables.
 			---*/
@@ -803,7 +803,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
                 }
 
             /*--- Compute MTF values for the selectors. ---*/
-            char[] pos = new char[BZip2Constants.GroupCount];
+            var pos = new char[BZip2Constants.GroupCount];
 
             for (int i = 0; i < nGroups; i++)
                 {
@@ -826,7 +826,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
                 this.selectorMtf[i] = (char)j;
                 }
 
-            int[][] code = new int[BZip2Constants.GroupCount][];
+            var code = new int[BZip2Constants.GroupCount][];
 
             for (int i = 0; i < BZip2Constants.GroupCount; ++i)
                 {
@@ -861,7 +861,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
                 }
 
             /*--- Transmit the mapping table. ---*/
-            bool[] inUse16 = new bool[16];
+            var inUse16 = new bool[16];
             for (int i = 0; i < 16; ++i)
                 {
                 inUse16[i] = false;
@@ -1057,7 +1057,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
 
         private void QSort3(int loSt, int hiSt, int dSt)
             {
-            StackElement[] stack = new StackElement[QSORT_STACK_SIZE];
+            var stack = new StackElement[QSORT_STACK_SIZE];
 
             int sp = 0;
 
@@ -1195,9 +1195,9 @@ namespace ICSharpCode.SharpZipLib.BZip2
         private void MainSort()
             {
             int i;
-            int[] runningOrder = new int[256];
-            int[] copy = new int[256];
-            bool[] bigDone = new bool[256];
+            var runningOrder = new int[256];
+            var copy = new int[256];
+            var bigDone = new bool[256];
 
             /*--
 			In the various block-sized structures, live data runs
@@ -1643,7 +1643,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
 
         private void GenerateMTFValues()
             {
-            char[] yy = new char[256];
+            var yy = new char[256];
             int i;
 
             this.MakeMaps();
@@ -1760,9 +1760,9 @@ namespace ICSharpCode.SharpZipLib.BZip2
 			for both the heap and nodes is a sentinel.
 			--*/
 
-            int[] heap = new int[BZip2Constants.MaximumAlphaSize + 2];
-            int[] weight = new int[BZip2Constants.MaximumAlphaSize * 2];
-            int[] parent = new int[BZip2Constants.MaximumAlphaSize * 2];
+            var heap = new int[BZip2Constants.MaximumAlphaSize + 2];
+            var weight = new int[BZip2Constants.MaximumAlphaSize * 2];
+            var parent = new int[BZip2Constants.MaximumAlphaSize * 2];
 
             for (int i = 0; i < alphaSize; ++i)
                 {

@@ -1,6 +1,8 @@
-﻿namespace Singularity.Annotations
+﻿using LCore.Extensions;
+
+namespace Singularity.Annotations
     {
-    public interface IFileUpload
+    public interface IFileUpload : ITopLevelAttribute
         {
         bool AllowDeactivate { get; set; }
         bool AllowMultipleUploads { get; set; }

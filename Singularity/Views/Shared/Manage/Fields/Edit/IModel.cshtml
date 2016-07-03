@@ -1,0 +1,28 @@
+﻿@* Generator: MvcView *@
+
+@using Singularity.Extensions;
+@using System.Linq;
+@* ReSharper disable once RedundantUsingDirective*@
+@using Singularity.Routes;
+
+@{
+    var SubModel = (IModel)Model.PropertyData;
+
+    List<SelectListItem> Items = Model.GetRelationItems(Model.Meta.ModelType, SubModel);
+
+    if (SubModel != null)
+        {
+        string ID = SubModel.GetID();
+
+        var Selected = Items.FirstOrDefault(s => s.Value == ID);
+
+        if (Selected != null)
+            {
+            Selected.Selected = true;
+            }
+        }
+}
+
+@model IViewField
+
+@Html.DropDownList(Model.Meta.PropertyName, Items, new { @class = "select-list" })

@@ -198,7 +198,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
             /// </summary>
             public void BuildCodes()
                 {
-                int[] nextCode = new int[this.maxLength];
+                var nextCode = new int[this.maxLength];
                 int code = 0;
 
                 this.codes = new short[this.freqs.Length];
@@ -251,7 +251,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
 				* The binary tree is encoded in an array:  0 is root node and
 				* the nodes 2*n+1, 2*n+2 are the child nodes of node n.
 				*/
-                int[] heap = new int[numSymbols];
+                var heap = new int[numSymbols];
                 int heapLen = 0;
                 int maxCode = 0;
                 for (int n = 0; n < numSymbols; n++)
@@ -287,8 +287,8 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
                 this.numCodes = Math.Max(maxCode + 1, this.minNumCodes);
 
                 int numLeafs = heapLen;
-                int[] childs = new int[4 * heapLen - 2];
-                int[] values = new int[2 * heapLen - 1];
+                var childs = new int[4 * heapLen - 2];
+                var values = new int[2 * heapLen - 1];
                 int numNodes = numLeafs;
                 for (int i = 0; i < heapLen; i++)
                     {
@@ -525,7 +525,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
                     }
 
                 // First calculate optimal bit lengths
-                int[] lengths = new int[numNodes];
+                var lengths = new int[numNodes];
                 lengths[numNodes - 1] = 0;
 
                 for (int i = numNodes - 1; i >= 0; i--)

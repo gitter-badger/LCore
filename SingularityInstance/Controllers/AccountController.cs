@@ -74,7 +74,7 @@ namespace SingularityInstance.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            SignInStatus result = await this.SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+            var result = await this.SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
             switch (result)
                 {
                 case SignInStatus.Success:
@@ -120,7 +120,7 @@ namespace SingularityInstance.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            SignInStatus result = await this.SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, model.RememberMe, model.RememberBrowser);
+            var result = await this.SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, model.RememberMe, model.RememberBrowser);
             switch (result)
                 {
                 case SignInStatus.Success:
@@ -152,8 +152,8 @@ namespace SingularityInstance.Controllers
             {
             if (this.ModelState.IsValid)
                 {
-                ApplicationUser user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                IdentityResult result = await this.UserManager.CreateAsync(user, model.Password);
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await this.UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                     {
                     await this.SignInManager.SignInAsync(user, false, false);
@@ -182,7 +182,7 @@ namespace SingularityInstance.Controllers
                 {
                 return this.View("Error");
                 }
-            IdentityResult result = await this.UserManager.ConfirmEmailAsync(userId, code);
+            var result = await this.UserManager.ConfirmEmailAsync(userId, code);
             return this.View(result.Succeeded ? "ConfirmEmail" : "Error");
             }
 
@@ -203,7 +203,7 @@ namespace SingularityInstance.Controllers
             {
             if (this.ModelState.IsValid)
                 {
-                ApplicationUser user = await this.UserManager.FindByNameAsync(model.Email);
+                var user = await this.UserManager.FindByNameAsync(model.Email);
                 if (user == null || !await this.UserManager.IsEmailConfirmedAsync(user.Id))
                     {
                     // Don't reveal that the user does not exist or is not confirmed
@@ -249,13 +249,13 @@ namespace SingularityInstance.Controllers
                 {
                 return this.View(model);
                 }
-            ApplicationUser user = await this.UserManager.FindByNameAsync(model.Email);
+            var user = await this.UserManager.FindByNameAsync(model.Email);
             if (user == null)
                 {
                 // Don't reveal that the user does not exist
                 return this.RedirectToAction("ResetPasswordConfirmation", "Account");
                 }
-            IdentityResult result = await this.UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            var result = await this.UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
                 {
                 return this.RedirectToAction("ResetPasswordConfirmation", "Account");
@@ -323,14 +323,14 @@ namespace SingularityInstance.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
             {
-            ExternalLoginInfo loginInfo = await this.AuthenticationManager.GetExternalLoginInfoAsync();
+            var loginInfo = await this.AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
                 {
                 return this.RedirectToAction("Login");
                 }
 
             // Sign in the user with this external login provider if the user already has a login
-            SignInStatus result = await this.SignInManager.ExternalSignInAsync(loginInfo, false);
+            var result = await this.SignInManager.ExternalSignInAsync(loginInfo, false);
             switch (result)
                 {
                 case SignInStatus.Success:
@@ -364,13 +364,13 @@ namespace SingularityInstance.Controllers
             if (this.ModelState.IsValid)
                 {
                 // Get the information about the user from the external login provider
-                ExternalLoginInfo info = await this.AuthenticationManager.GetExternalLoginInfoAsync();
+                var info = await this.AuthenticationManager.GetExternalLoginInfoAsync();
                 if (info == null)
                     {
                     return this.View("ExternalLoginFailure");
                     }
-                ApplicationUser user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                IdentityResult result = await this.UserManager.CreateAsync(user);
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await this.UserManager.CreateAsync(user);
                 if (result.Succeeded)
                     {
                     result = await this.UserManager.AddLoginAsync(user.Id, info.Login);
@@ -463,7 +463,7 @@ namespace SingularityInstance.Controllers
 
             public override void ExecuteResult(ControllerContext context)
                 {
-                AuthenticationProperties properties = new AuthenticationProperties { RedirectUri = this.RedirectUri };
+                var properties = new AuthenticationProperties { RedirectUri = this.RedirectUri };
                 if (this.UserId != null)
                     {
                     properties.Dictionary[XsrfKey] = this.UserId;

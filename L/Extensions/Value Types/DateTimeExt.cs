@@ -1,18 +1,22 @@
 ﻿using System;
 using LCore.Tests;
+using LCore.Interfaces;
 
 namespace LCore.Extensions
     {
+    /// <summary>
+    /// Provides extension methods for DateTime and TimeSpan.
+    /// </summary>
+    [ExtensionProvider]
     public static class DateExt
         {
-        #region Extensions
-        /* TODO: L: DateTime: Comment All Below */
-
-        public const double MaxTimerInterval = 2085732000;
-
-        public const double TicksToMilliseconds = 0.0001;
+        #region Extensions +
 
         #region DayOfWeekNumber
+        /// <summary>
+        /// Takes a DayOfWeek and returns the number of day of the week it is.
+        /// Values are from Sunday: 0 to Saturday: 6
+        /// </summary>
         [TestResult(new object[] { DayOfWeek.Monday }, 1)]
         [TestResult(new object[] { DayOfWeek.Tuesday }, 2)]
         [TestResult(new object[] { DayOfWeek.Wednesday }, 3)]
@@ -22,30 +26,35 @@ namespace LCore.Extensions
         [TestResult(new object[] { DayOfWeek.Sunday }, 0)]
         public static int DayOfWeekNumber(this DayOfWeek day)
             {
-            return Logic.Def.DateTimeExt.GetDayNumber(day);
+            return L.Date.GetDayNumber(day);
             }
         #endregion
 
-        // TODO: L: DateTime: Untested
         #region CleanDateString
+        /// <summary>
+        /// Returns a cleaned string, with replacements made.
+        /// These strings are safe to be used in a file name.
+        /// </summary>
         public static string CleanDateString(this DateTime In)
             {
             return In.ToString().Replace(":", ".").Replace("\\", "-").Replace("/", "-");
             }
         #endregion
 
-        // TODO: L: DateTime: Untested
-        #region ToPubDate
-        public static string ToPubDate(this DateTime d)
+        #region ToSpecification
+        /// <summary>
+        /// Converts a DateTime to string using Date and Time Specification of RFC 822
+        /// </summary>
+        public static string ToSpecification(this DateTime d)
             {
             try
                 {
                 string day = d.Day.ToString();
                 if (day.Length == 1) { day = $"0{day}"; }
                 int month = d.Month;
-                string Month = Logic.Def.DateTimeExt.Month_GetString(month);
+                string Month = L.Date.Month_GetString(month);
 
-                DateTime mDate = d.ToUniversalTime();
+                var mDate = d.ToUniversalTime();
                 string mTime = mDate.Hour.ToString().Length == 1 ? $"0{mDate.Hour}" : mDate.Hour.ToString();
 
                 mTime += ":";
@@ -81,17 +90,21 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: DateTime: Untested
         #region MonthString
         private static string MonthString(this DateTime d)
             {
-            return Logic.Def.DateTimeExt.GetMonthString(d);
+            return L.Date.GetMonthString(d);
             }
         #endregion
 
-        // TODO: L: DateTime: Untested
-        #region TimeSpanToString
-        public static string TimeSpanToString(this TimeSpan t)
+        #region ToTimeString
+        /// <summary>
+        /// Returns a friendly formatted string from a timespan.
+        /// Ex. 1 second
+        ///     5 minutes
+        ///     2 years
+        /// </summary>
+        public static string ToTimeString(this TimeSpan t)
             {
             float temp = (float)t.TotalSeconds;
             string unit = "second";
@@ -115,14 +128,21 @@ namespace LCore.Extensions
                 }
             int temp2 = (int)temp;
 
-            string Out = $"{temp2} {unit}{(temp2 == 1 ? "" : "s")}";
+            string Out = $"{temp2} {unit.Pluralize(temp2)}";
 
             return Out;
             }
         #endregion
 
-        // TODO: L: DateTime: Untested
         #region TimeDifference
+        /// <summary>
+        /// Returns a friendly formatted string representing the difference between the two DateTimes.
+        /// If Start is DateTime.MinValue then the output is "Never".
+        /// 
+        /// Ex. 5 hours ago
+        ///     2 days from now
+        ///     1 year ago
+        /// </summary>
         public static string TimeDifference(this DateTime Start, DateTime Current, bool IncludeAgo)
             {
             if (Start == DateTime.MinValue)
@@ -183,10 +203,7 @@ namespace LCore.Extensions
                 Post = "";
                 }
 
-            if (Amount > 1)
-                {
-                Unit += "s";
-                }
+            Unit = Unit.Pluralize(Amount);
 
             string Out = "";
 
@@ -203,16 +220,20 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: DateTime: Untested
         #region Past
+        /// <summary>
+        /// Returns whether or not the given datetime is in the past
+        /// </summary>
         public static bool Past(this DateTime In)
             {
             return In.Ticks < DateTime.Now.Ticks;
             }
         #endregion
 
-        // TODO: L: DateTime: Untested
         #region Future
+        /// <summary>
+        /// Returns whether or not the given datetime is in the future
+        /// </summary>
         public static bool Future(this DateTime In)
             {
             return In.Ticks > DateTime.Now.Ticks;
@@ -221,42 +242,66 @@ namespace LCore.Extensions
 
         #endregion
         }
-    public partial class Logic
+    public static partial class L
         {
-        public partial class Def
+        /// <summary>
+        /// Contains System.DateTime and System.TimeSpan static methods and lambdas.
+        /// </summary>
+        public static class Date
             {
-            public class DateTimeExt
-                {
-                #region Lambdas
-                public static Func<int, string> Month_GetString = L.F<int, string>()
-                        .Case(1, "January")
-                        .Case(2, "February")
-                        .Case(3, "March")
-                        .Case(4, "April")
-                        .Case(5, "May")
-                        .Case(6, "June")
-                        .Case(7, "July")
-                        .Case(8, "August")
-                        .Case(9, "September")
-                        .Case(10, "October")
-                        .Case(11, "November")
-                        .Case(12, "December")
-                        .Else(Fail).Debug();
+            #region Constants +
 
-                public static Func<DayOfWeek, int> GetDayNumber = L.F<DayOfWeek, int>()
-                        .Case(DayOfWeek.Sunday, 0)
-                        .Case(DayOfWeek.Monday, 1)
-                        .Case(DayOfWeek.Tuesday, 2)
-                        .Case(DayOfWeek.Wednesday, 3)
-                        .Case(DayOfWeek.Thursday, 4)
-                        .Case(DayOfWeek.Friday, 5)
-                        .Case(DayOfWeek.Saturday, 6)
-                        .Else(Fail).Debug();
+            /// <summary>
+            /// This is the maximum number of ticks that a System.Timing.Timer will still operate.
+            /// </summary>
+            public const double MaxTimerInterval = 2085732000;
 
-                public static Func<DateTime, string> GetMonthString = d => Month_GetString(d.Month);
-                #endregion
-                }
+            /// <summary>
+            /// Constant value for converting from Ticks to Milliseconds.
+            /// </summary>
+            public const double TicksToMilliseconds = 0.0001;
 
+            #endregion
+
+            #region Lambdas +
+            /// <summary>
+            /// Returns the name of the month by the number of the month.
+            /// Fails if the number is not between 1 and 12.
+            /// </summary>
+            public static readonly Func<int, string> Month_GetString = F<int, string>()
+                    .Case(1, "January")
+                    .Case(2, "February")
+                    .Case(3, "March")
+                    .Case(4, "April")
+                    .Case(5, "May")
+                    .Case(6, "June")
+                    .Case(7, "July")
+                    .Case(8, "August")
+                    .Case(9, "September")
+                    .Case(10, "October")
+                    .Case(11, "November")
+                    .Case(12, "December")
+                    .Else(Exc.Fail).Debug();
+
+            /// <summary>
+            /// Returns the number of the day of the week, from
+            /// Sunday: 0 to Saturday: 6.
+            /// </summary>
+            public static readonly Func<DayOfWeek, int> GetDayNumber = F<DayOfWeek, int>()
+                    .Case(DayOfWeek.Sunday, 0)
+                    .Case(DayOfWeek.Monday, 1)
+                    .Case(DayOfWeek.Tuesday, 2)
+                    .Case(DayOfWeek.Wednesday, 3)
+                    .Case(DayOfWeek.Thursday, 4)
+                    .Case(DayOfWeek.Friday, 5)
+                    .Case(DayOfWeek.Saturday, 6)
+                    .Else(Exc.Fail).Debug();
+
+            /// <summary>
+            /// Returns the name of the months from a datetime.
+            /// </summary>
+            public static Func<DateTime, string> GetMonthString = d => Month_GetString(d.Month);
+            #endregion
             }
         }
     }

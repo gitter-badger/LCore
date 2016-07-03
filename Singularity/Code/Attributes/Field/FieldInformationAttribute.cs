@@ -20,7 +20,7 @@ namespace Singularity.Annotations
             }
 
         public InformationAttribute(string Info, params ControllerHelper.ViewType[] Types)
-            : base(PartialViews.Field_Information, Types)
+            : base(PartialViews.Manage.Fields.Information, Types)
             {
             this.Info = Info;
             }

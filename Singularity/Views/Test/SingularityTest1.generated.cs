@@ -61,10 +61,6 @@ WriteLiteral("\r\n");
             
             #line 5 "..\..\Views\Test\SingularityTest.cshtml"
   
-    /// <reference path="singularity-core.margin:-10px 8px 17px;font-size:13px;ts" />
-    Layout = Layouts.MainLayout;
-
-
 
             
             #line default

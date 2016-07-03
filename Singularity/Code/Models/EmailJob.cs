@@ -4,7 +4,6 @@ using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Singularity.Context;
-using Singularity.Controllers;
 using Singularity.Annotations;
 
 
@@ -76,11 +75,11 @@ namespace Singularity.Models
                 {
                 if (Context.Controller.ViewBag.EditModel != null)
                     {
-                    EmailJob Job = (EmailJob)Context.Controller.ViewBag.EditModel;
+                    var Job = (EmailJob)Context.Controller.ViewBag.EditModel;
 
                     if (Job.SavedSearch != null)
                         {
-                        ManageController Controller = ContextProviderFactory.GetCurrent()
+                        var Controller = ContextProviderFactory.GetCurrent()
                             .GetManageController(Context.HttpContext.Session, Job.SavedSearch.ControllerName);
 
                         if (Controller != null)

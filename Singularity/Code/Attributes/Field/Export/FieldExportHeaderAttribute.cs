@@ -1,8 +1,9 @@
 ﻿using System;
+using LCore.Extensions;
 
 namespace Singularity.Annotations
     {
-    public class FieldExportHeaderAttribute : Attribute
+    public class FieldExportHeaderAttribute : Attribute, ISubClassPersistentAttribute
         {
         public string HeaderText { get; set; }
 

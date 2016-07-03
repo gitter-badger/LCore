@@ -541,6 +541,9 @@ function InitIdent() {
 
             const size = (thisJQuery.attr('size') || '').tryToNumber() || 36;
 
+            const classes = (thisJQuery.attr('class') || '');
+            const styles = (thisJQuery.attr('style') || '');
+
             // ReSharper disable once UnusedLocals
             const icon = new Identicon(hash, size);
 
@@ -553,7 +556,7 @@ function InitIdent() {
 
             // $("#show_identicon")[0].src = `data:image/png;base64,${data}`;
 
-            $(this).html(`<img width="${size}" height="${size}" src="data:image/png;base64,${data}">`);
+            $(this).html(`<img width="${size}" height="${size}" src="data:image/png;base64,${data}" class="${classes}" style="${styles}">`);
 
         });
     }

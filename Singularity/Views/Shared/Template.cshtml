@@ -1,0 +1,93 @@
+﻿@* Generator: MvcView *@
+
+
+@using LCore.Extensions;
+@using Singularity.Extensions;
+
+@{
+    string Token = Model.Token ?? "";
+
+    Token = Token.ReplaceAll(" ", "");
+
+    var ContextProvider = ContextProviderFactory.GetCurrent();
+    var Context = ContextProvider.GetContext(Session);
+
+    var Content = Template.FindByToken(Context, Token);
+
+    // Auto-create Template models so they exist before being filled in
+    if (Content == null && Model.AutoCreate)
+        {
+        Content = new Template
+            {
+            Active = true,
+            Token = Model.Token,
+            TemplateHTML = Model.DefaultText
+            };
+
+        Context.GetDBSet<Template>().Add(Content);
+
+        Context.SaveChanges();
+        }
+
+    var Permissions = ContextProvider.GetModelPermissions(Session, typeof(Template));
+
+    string Display = Content != null ? Content.TemplateHTML : Model.DefaultText;
+    Display = Display ?? "";
+
+    for (int i = 0; i < Model.ContextData.Length; i++)
+        {
+        Display = Display.ReplaceAll($"[{i}]", (Model.ContextData[i] ?? "").ToString());
+        }
+
+    Display = Display.ReplaceAll("\r\n", "<br>");
+}
+
+@model TemplateViewModel
+
+@if (Content != null)
+    {
+    <span class="text-content-custom">
+        @if (Model.ShowText)
+            {
+            @Html.Raw(Display)
+            }
+        else
+            {
+            <span>...</span>
+            }
+        @if (Permissions.Edit == true)
+            {
+            <span class="text-content-edit">
+                <span onclick="window.location = '@(Url.Controller<TemplateController>()
+                    .QS(new Dictionary<string, object> { { "Token", Token }, { "DefaultText", HttpUtility.HtmlEncode(Model.DefaultText) } })
+                    .Action(c => c.Edit, Content.GetID<int>(), Request.Url?.AbsoluteUri, false))'; return false;" class="btn btn-default">
+                    <glyph>&#xe065;</glyph>
+                </span>
+            </span>
+            }
+    </span>
+    }
+else
+    {
+    <span class="text-content-default">
+        @if (Model.ShowText)
+            {
+            @Html.Raw(Display)
+            }
+        else
+            {
+            <span>...</span>
+            }
+        @if (Permissions.Create == true)
+            {
+            <span class="text-content-create">
+                
+                <span onclick="window.location = '@(Url.Controller<TemplateController>()
+                    .QS(new Dictionary<string, object> { { "Token", Token }, { "DefaultText", HttpUtility.HtmlEncode(Model.DefaultText) } })
+                    .Action(c => c.Create, Request.Url?.AbsoluteUri))'; return false;" class="btn btn-default">
+                    <glyph>&#xe065;</glyph>
+                </span>
+            </span>
+            }
+    </span>
+    }

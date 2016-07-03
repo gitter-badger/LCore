@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Web;
-using Singularity.Context;
 using Singularity.Extensions;
 
 // ReSharper disable MemberCanBePrivate.Global
@@ -13,43 +12,46 @@ using Singularity.Extensions;
 
 namespace Singularity.Account
     {
-    public class AuthenticationService
+    public class AuthenticationService : IAuthenticationService
         {
-        public const string Session_UserName = "Session_UserName";
-        public const string Session_PasswordHash = "Session_PasswordHash";
-        public const string Session_FailedLoginAttempts = "Session_FailedLoginAttempts";
+        private static class Session
+            {
+            public static readonly string UserName = $"{nameof(Session)}_{nameof(UserName)}";
+            public static readonly string PasswordHash = $"{nameof(Session)}_{nameof(PasswordHash)}";
+            public static readonly string FailedLoginAttempts = $"{nameof(Session)}_{nameof(FailedLoginAttempts)}";
 
-        public const string Session_Start = "Session_SessionStart";
+            public static readonly string Start = $"{nameof(Session)}_{nameof(Start)}";
 
-        public const string Session_User = "Session_User";
-        public const string Session_Roles = "Session_Roles";
+            public static readonly string User = $"{nameof(Session)}_{nameof(User)}";
+            public static readonly string Roles = $"{nameof(Session)}_{nameof(Roles)}";
 
-        public const string Session_UserImpersonating = "Session_UserImpersonating";
-        public const string Session_IsImpersonating = "Session_IsImpersonating";
+            public static readonly string UserImpersonating = $"{nameof(Session)}_{nameof(UserImpersonating)}";
+            public static readonly string IsImpersonating = $"{nameof(Session)}_{nameof(IsImpersonating)}";
+            }
 
 
         /////////////////////////////////////////////////////////
 
-        private readonly HttpSessionStateBase Session;
+        private readonly HttpSessionStateBase SessionState;
 
         public AuthenticationService(HttpSessionStateBase Session)
             {
-            this.Session = Session;
+            this.SessionState = Session;
             }
 
         /////////////////////////////////////////////////////////
 
-        public bool IsLoggedIn => this.Session[Session_UserName] != null;
+        public bool IsLoggedIn => this.SessionState[Session.UserName] != null;
 
         public string UserName
             {
             get
                 {
-                return (string)this.Session[Session_UserName];
+                return (string)this.SessionState[Session.UserName];
                 }
             private set
                 {
-                this.Session[Session_UserName] = value;
+                this.SessionState[Session.UserName] = value;
                 }
             }
 
@@ -57,11 +59,11 @@ namespace Singularity.Account
             {
             get
                 {
-                return (int)(this.Session[Session_FailedLoginAttempts] ?? 0);
+                return (int)(this.SessionState[Session.FailedLoginAttempts] ?? 0);
                 }
             private set
                 {
-                this.Session[Session_FailedLoginAttempts] = value;
+                this.SessionState[Session.FailedLoginAttempts] = value;
                 }
             }
 
@@ -70,11 +72,11 @@ namespace Singularity.Account
             {
             get
                 {
-                return (string)this.Session[Session_PasswordHash];
+                return (string)this.SessionState[Session.PasswordHash];
                 }
             private set
                 {
-                this.Session[Session_PasswordHash] = value;
+                this.SessionState[Session.PasswordHash] = value;
                 }
             }
 
@@ -82,11 +84,11 @@ namespace Singularity.Account
             {
             get
                 {
-                return (DateTime)this.Session[Session_Start];
+                return (DateTime)this.SessionState[Session.Start];
                 }
             private set
                 {
-                this.Session[Session_Start] = value;
+                this.SessionState[Session.Start] = value;
                 }
             }
 
@@ -94,23 +96,23 @@ namespace Singularity.Account
             {
             get
                 {
-                return (UserAccount)this.Session[Session_User];
+                return (UserAccount)this.SessionState[Session.User];
                 }
             private set
                 {
-                this.Session[Session_User] = value;
+                this.SessionState[Session.User] = value;
                 }
             }
 
-        public List<Role> LoggedInRoles
+        public List<AccountRole> LoggedInRoles
             {
             get
                 {
-                return (List<Role>)this.Session[Session_Roles];
+                return (List<AccountRole>)this.SessionState[Session.Roles];
                 }
             private set
                 {
-                this.Session[Session_Roles] = value;
+                this.SessionState[Session.Roles] = value;
                 }
             }
 
@@ -118,22 +120,22 @@ namespace Singularity.Account
             {
             get
                 {
-                return (bool)(this.Session[Session_IsImpersonating] ?? false);
+                return (bool)(this.SessionState[Session.IsImpersonating] ?? false);
                 }
             set
                 {
-                this.Session[Session_IsImpersonating] = value;
+                this.SessionState[Session.IsImpersonating] = value;
                 }
             }
         public UserAccount LoggedInUserImpersonating
             {
             get
                 {
-                return (UserAccount)this.Session[Session_UserImpersonating];
+                return (UserAccount)this.SessionState[Session.UserImpersonating];
                 }
             private set
                 {
-                this.Session[Session_UserImpersonating] = value;
+                this.SessionState[Session.UserImpersonating] = value;
                 }
             }
 
@@ -146,7 +148,7 @@ namespace Singularity.Account
 
         public UserAccount AttemptLogInHash(HttpContextBase Context, string NewUserName, string NewPasswordHash)
             {
-            UserAccount Result = UserAccount.Data.GetByHash(Context.GetModelContext(), NewUserName, NewPasswordHash);
+            var Result = UserAccount.Data.GetByHash(Context.GetModelContext(), NewUserName, NewPasswordHash);
 
             if (Result == null)
                 {
@@ -169,9 +171,9 @@ namespace Singularity.Account
             {
             if (this.IsLoggedIn && this.LoggedInUser.IsAdmin)
                 {
-                ModelContext DbContext = Context.GetModelContext();
-                UserAccount u = UserAccount.Data.GetByID(DbContext, userID);
-                
+                var DbContext = Context.GetModelContext();
+                var u = UserAccount.Data.GetByID(DbContext, userID);
+
                 this.LoggedInUserImpersonating = this.LoggedInUser;
                 this.UserName = u.UserName;
                 this.PasswordHash = u.PasswordHash;
@@ -188,7 +190,7 @@ namespace Singularity.Account
 
         /////////////////////////////////////////////////////////
 
-        private UserAccount LogIn(UserAccount Result)
+        private void LogIn(UserAccount Result)
             {
             this.UserName = Result.UserName;
             this.PasswordHash = Result.PasswordHash;
@@ -198,8 +200,6 @@ namespace Singularity.Account
 
             this.IsImpersonating = false;
             this.LoggedInUserImpersonating = null;
-
-            return Result;
             }
 
         public void LogOut()
@@ -214,9 +214,9 @@ namespace Singularity.Account
 
         private void LogFailure(HttpContextBase Context, string User)
             {
-            ModelContext DbContext = Context.GetModelContext();
+            var DbContext = Context.GetModelContext();
 
-            SecurityLog Log = new SecurityLog
+            var Log = new SecurityLog
                 {
                 Description = $"Login failed for: \'{User}\'",
                 IPAddress = Context.Request.UserHostAddress,
@@ -224,15 +224,15 @@ namespace Singularity.Account
                 };
 
 
-            DbContext.SecurityLogs.Add(Log);
+            DbContext.GetDBSet<SecurityLog>().Add(Log);
             DbContext.SaveChanges();
             }
 
         private void LogSuccess(HttpContextBase Context, UserAccount Result)
             {
-            ModelContext DbContext = Context.GetModelContext();
+            var DbContext = Context.GetModelContext();
 
-            SecurityLog Log = new SecurityLog
+            var Log = new SecurityLog
                 {
                 Description = "Logged On",
                 IPAddress = Context.Request.UserHostAddress,
@@ -241,7 +241,7 @@ namespace Singularity.Account
                 };
 
 
-            DbContext.SecurityLogs.Add(Log);
+            DbContext.GetDBSet<SecurityLog>().Add(Log);
 
             DbContext.SaveChanges();
             }
@@ -250,4 +250,5 @@ namespace Singularity.Account
         // 1 second for every failed attempt in a session
         private int FailedLoginDelayMS => 1000 * this.FailedLoginAttempts;
         }
+
     }

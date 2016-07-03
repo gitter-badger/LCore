@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using LCore.Extensions;
 using System.Threading;
 using System.Diagnostics;
+#pragma warning disable 1591
 
 namespace LCore.Tasks
     {
@@ -36,7 +37,7 @@ namespace LCore.Tasks
 
         public static void AddPriorityTask(EmptyHandler RunTask, string StatusMessage)
             {
-            TaskInfo Task = new TaskInfo { Task = RunTask, StatusMessage = StatusMessage };
+            var Task = new TaskInfo { Task = RunTask, StatusMessage = StatusMessage };
 
             if (ToDoTasks.Count <= 1)
                 ToDoTasks.Add(Task);
@@ -44,7 +45,7 @@ namespace LCore.Tasks
                 ToDoTasks.Insert(1, Task);
             if (!Running)
                 {
-                Thread t = new Thread(RunTasks);
+                var t = new Thread(RunTasks);
                 t.Start();
                 }
 
@@ -52,11 +53,11 @@ namespace LCore.Tasks
             }
         public static void AddTask(EmptyHandler RunTask, string StatusMessage)
             {
-            TaskInfo Task = new TaskInfo { Task = RunTask, StatusMessage = StatusMessage };
+            var Task = new TaskInfo { Task = RunTask, StatusMessage = StatusMessage };
             ToDoTasks.Add(Task);
             if (!Running)
                 {
-                Thread t = new Thread(RunTasks)
+                var t = new Thread(RunTasks)
                     {
                     Priority = ThreadPriority.Lowest
                     };
@@ -79,11 +80,11 @@ namespace LCore.Tasks
                 RunTask(Sender, null);
             else
                 {
-                TaskInfo Task = new TaskInfo { Task = RunTask, Sender = Sender, StatusMessage = StatusMessage };
+                var Task = new TaskInfo { Task = RunTask, Sender = Sender, StatusMessage = StatusMessage };
                 ToDoTasks.Add(Task);
                 if (!Running)
                     {
-                    Thread t = new Thread(RunTasks);
+                    var t = new Thread(RunTasks);
                     t.Start();
                     }
 
@@ -102,7 +103,7 @@ namespace LCore.Tasks
                 if (TriggerStop)
                     break;
 
-                TaskInfo CurrentTask = ToDoTasks[0];
+                var CurrentTask = ToDoTasks[0];
 
                 UpdateTaskBar();
                 Progress_Updated?.Invoke(null, null);
@@ -111,7 +112,7 @@ namespace LCore.Tasks
                     {
                     CurrentTask.Status = TaskInfo.TaskStatus.InProgress;
 
-                    EventHandler task = CurrentTask.Task as EventHandler;
+                    var task = CurrentTask.Task as EventHandler;
                     if (task != null)
                         {
                         task(ToDoTasks[0].Sender, EventArgs.Empty);

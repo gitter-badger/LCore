@@ -1,8 +1,9 @@
 ﻿using System;
+using LCore.Extensions;
 
 namespace Singularity.Annotations
     {
-    public class FieldFormKeyAttribute : AdditionalValueAttribute
+    public class FieldFormKeyAttribute : AdditionalValueAttribute, ISubClassPersistentAttribute
         {
         public const string FieldFormKey = "FieldFormKey";
 

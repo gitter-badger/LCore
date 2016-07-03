@@ -113,7 +113,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// <returns>Returns a clone of this entry.</returns>
         public object Clone()
             {
-            TarEntry entry = new TarEntry
+            var entry = new TarEntry
                 {
                 file = this.file,
                 header = (TarHeader)this.header.Clone(),
@@ -131,7 +131,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// <returns>Returns the newly created <see cref="TarEntry"/></returns>
         public static TarEntry CreateTarEntry(string name)
             {
-            TarEntry entry = new TarEntry();
+            var entry = new TarEntry();
             NameTarHeader(entry.header, name);
             return entry;
             }
@@ -144,7 +144,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// <returns>Returns the newly created <see cref="TarEntry"/></returns>
         public static TarEntry CreateEntryFromFile(string fileName)
             {
-            TarEntry entry = new TarEntry();
+            var entry = new TarEntry();
             entry.GetFileTarHeader(entry.header, fileName);
             return entry;
             }
@@ -159,7 +159,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// </returns>
         public override bool Equals(object obj)
             {
-            TarEntry localEntry = obj as TarEntry;
+            var localEntry = obj as TarEntry;
 
             return localEntry != null && this.Name.Equals(localEntry.Name);
             }
@@ -474,7 +474,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                 }
 
             string[] list = Directory.GetFileSystemEntries(this.file);
-            TarEntry[] result = new TarEntry[list.Length];
+            var result = new TarEntry[list.Length];
 
             for (int i = 0; i < list.Length; ++i)
                 {

@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections;
-using System.Linq.Expressions;
+using LCore.Interfaces;
 
 namespace LCore.Extensions
     {
+    /// <summary>
+    /// Provides extensions for method exception handling
+    /// </summary>
+    [ExtensionProvider]
     public static class ExceptionExt
         {
-        #region Extensions
+        #region Extensions + 
         #region Try
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
@@ -1106,20 +1110,15 @@ namespace LCore.Extensions
         #endregion
 
 
-        /* TODO: L: Exception: Comment All Below */
-
-
         /* TODO: L: Exception: Refactor to 16 All Below */
 
 
-        // Retries the method a specified number of times
         #region Retry
 
-        public static Expression<Action> Retry(this Expression<Action> In, int Tries = 1)
-            {
-            return In;
-            }
-
+        /// <summary>
+        /// Retries the action a specified number of times.
+        /// The default number of [Tries] is 1.
+        /// </summary>
         public static Action Retry(this Action In, int Tries = 1)
             {
             if (Tries <= 0) throw new ArgumentOutOfRangeException(nameof(Tries));
@@ -1146,7 +1145,11 @@ namespace LCore.Extensions
             };
             }
 
-        public static Func<U> Retry<U>(this Func<U> In, int Tries)
+        /// <summary>
+        /// Retries the function a specified number of times.
+        /// The default number of [Tries] is 1.
+        /// </summary>
+        public static Func<U> Retry<U>(this Func<U> In, int Tries = 1)
             {
             return () =>
             {
@@ -1170,280 +1173,487 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // If an exception occurs, another exception is thrown that includes parameter data.
         #region Debug
+        /// <summary>
+        /// If an exception occurs while executing [In], an exception is rethrown that includes detailed parameter data
+        /// </summary>
         public static Action<T1> Debug<T1>(this Action<T1> In)
             {
-            return o1 => { In.Catch(L.Report.Supply(L.Objects_ToString(new object[] { o1 })))(o1); };
+            return o1 => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1 })))(o1); };
             }
+        /// <summary>
+        /// If an exception occurs while executing [In], an exception is rethrown that includes detailed parameter data
+        /// </summary>
         public static Action<T1, T2> Debug<T1, T2>(this Action<T1, T2> In)
             {
-            return (o1, o2) => { In.Catch(L.Report.Supply(L.Objects_ToString(new object[] { o1, o2 })))(o1, o2); };
+            return (o1, o2) => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2 })))(o1, o2); };
             }
+        /// <summary>
+        /// If an exception occurs while executing [In], an exception is rethrown that includes detailed parameter data
+        /// </summary>
         public static Action<T1, T2, T3> Debug<T1, T2, T3>(this Action<T1, T2, T3> In)
             {
-            return (o1, o2, o3) => { In.Catch(L.Report.Supply(L.Objects_ToString(new object[] { o1, o2, o3 })))(o1, o2, o3); };
+            return (o1, o2, o3) => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2, o3 })))(o1, o2, o3); };
             }
+        /// <summary>
+        /// If an exception occurs while executing [In], an exception is rethrown that includes detailed parameter data
+        /// </summary>
         public static Action<T1, T2, T3, T4> Debug<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In)
             {
-            return (o1, o2, o3, o4) => { In.Catch(L.Report.Supply(L.Objects_ToString(new object[] { o1, o2, o3, o4 })))(o1, o2, o3, o4); };
+            return (o1, o2, o3, o4) => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2, o3, o4 })))(o1, o2, o3, o4); };
             }
+        /// <summary>
+        /// If an exception occurs while executing [In], an exception is rethrown that includes detailed parameter data
+        /// </summary>
         public static Func<U> Debug<U>(this Func<U> In)
             {
-            return () => In.Catch(L.ReportEmpty)();
+            return () => In.Catch(L.Exc.ReportEmpty)();
             }
+        /// <summary>
+        /// If an exception occurs while executing [In], an exception is rethrown that includes detailed parameter data
+        /// </summary>
         public static Func<T1, U> Debug<T1, U>(this Func<T1, U> In)
             {
-            return o1 => In.Catch(L.Report.Supply(L.Objects_ToString(new object[] { o1 })))(o1);
+            return o1 => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1 })))(o1);
             }
+        /// <summary>
+        /// If an exception occurs while executing [In], an exception is rethrown that includes detailed parameter data
+        /// </summary>
         public static Func<T1, T2, U> Debug<T1, T2, U>(this Func<T1, T2, U> In)
             {
-            return (o1, o2) => In.Catch(L.Report.Supply(L.Objects_ToString(new object[] { o1, o2 })))(o1, o2);
+            return (o1, o2) => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2 })))(o1, o2);
             }
+        /// <summary>
+        /// If an exception occurs while executing [In], an exception is rethrown that includes detailed parameter data
+        /// </summary>
         public static Func<T1, T2, T3, U> Debug<T1, T2, T3, U>(this Func<T1, T2, T3, U> In)
             {
-            return (o1, o2, o3) => In.Catch(L.Report.Supply(L.Objects_ToString(new object[] { o1, o2, o3 })))(o1, o2, o3);
+            return (o1, o2, o3) => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2, o3 })))(o1, o2, o3);
             }
+        /// <summary>
+        /// If an exception occurs while executing [In], an exception is rethrown that includes detailed parameter data
+        /// </summary>
         public static Func<T1, T2, T3, T4, U> Debug<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In)
             {
-            return (o1, o2, o3, o4) => In.Catch(L.Report.Supply(L.Objects_ToString(new object[] { o1, o2, o3, o4 })))(o1, o2, o3, o4);
+            return (o1, o2, o3, o4) => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2, o3, o4 })))(o1, o2, o3, o4);
             }
         #endregion
 
-        // Appends an empty exception to the current method.
         #region Fail
+        /// <summary>
+        /// Appends an empty exception to the current method.
+        /// </summary>
         public static Action Fail(this Action In)
             {
-            return In.Merge(L.Fail);
+            return In.Merge(L.Exc.Fail);
             }
+        /// <summary>
+        /// Appends an empty exception to the current method.
+        /// </summary>
         public static Action<T> Fail<T>(this Action<T> In)
             {
-            return In.Merge(L.Fail);
+            return In.Merge(L.Exc.Fail);
             }
+        /// <summary>
+        /// Appends an empty exception to the current method.
+        /// </summary>
         public static Action<T1, T2> Fail<T1, T2>(this Action<T1, T2> In)
             {
-            return In.Merge(L.Fail);
+            return In.Merge(L.Exc.Fail);
             }
+        /// <summary>
+        /// Appends an empty exception to the current method.
+        /// </summary>
         public static Action<T1, T2, T3> Fail<T1, T2, T3>(this Action<T1, T2, T3> In)
             {
-            return In.Merge(L.Fail);
+            return In.Merge(L.Exc.Fail);
             }
+        /// <summary>
+        /// Appends an empty exception to the current method.
+        /// </summary>
         public static Action<T1, T2, T3, T4> Fail<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In)
             {
-            return In.Merge(L.Fail);
+            return In.Merge(L.Exc.Fail);
             }
+        /// <summary>
+        /// Appends an empty exception to the current method.
+        /// </summary>
         public static Func<U> Fail<U>(this Func<U> In)
             {
-            return In.Merge(L.Fail);
+            return In.Merge(L.Exc.Fail);
             }
+        /// <summary>
+        /// Appends an empty exception to the current method.
+        /// </summary>
         public static Func<T, U> Fail<T, U>(this Func<T, U> In)
             {
-            return In.Merge(L.Fail);
+            return In.Merge(L.Exc.Fail);
             }
+        /// <summary>
+        /// Appends an empty exception to the current method.
+        /// </summary>
         public static Func<T1, T2, U> Fail<T1, T2, U>(this Func<T1, T2, U> In)
             {
-            return In.Merge(L.Fail);
+            return In.Merge(L.Exc.Fail);
             }
+        /// <summary>
+        /// Appends an empty exception to the current method.
+        /// </summary>
         public static Func<T1, T2, T3, U> Fail<T1, T2, T3, U>(this Func<T1, T2, T3, U> In)
             {
-            return In.Merge(L.Fail);
+            return In.Merge(L.Exc.Fail);
             }
+        /// <summary>
+        /// Appends an empty exception to the current method.
+        /// </summary>
         public static Func<T1, T2, T3, T4, U> Fail<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In)
             {
-            return In.Merge(L.Fail);
+            return In.Merge(L.Exc.Fail);
             }
         #endregion
 
-        // Appends an exception to the current method, adding a message.
         #region Throw
+        /// <summary>
+        /// Appends an exception to the current method, with a message.
+        /// </summary>
         public static Action Throw(this Action In, string Message)
             {
-            return In.Merge(L.Throw.Supply(Message));
+            return In.Merge(L.Exc.Throw.Supply(Message));
             }
+        /// <summary>
+        /// Appends an exception to the current method, with a message.
+        /// </summary>
         public static Action<T> Throw<T>(this Action<T> In, string Message)
             {
-            return In.Merge(L.Throw.Supply(Message));
+            return In.Merge(L.Exc.Throw.Supply(Message));
             }
+        /// <summary>
+        /// Appends an exception to the current method, with a message.
+        /// </summary>
         public static Action<T1, T2> Throw<T1, T2>(this Action<T1, T2> In, string Message)
             {
-            return In.Merge(L.Throw.Supply(Message));
+            return In.Merge(L.Exc.Throw.Supply(Message));
             }
+        /// <summary>
+        /// Appends an exception to the current method, with a message.
+        /// </summary>
         public static Action<T1, T2, T3> Throw<T1, T2, T3>(this Action<T1, T2, T3> In, string Message)
             {
-            return In.Merge(L.Throw.Supply(Message));
+            return In.Merge(L.Exc.Throw.Supply(Message));
             }
+        /// <summary>
+        /// Appends an exception to the current method, with a message.
+        /// </summary>
         public static Action<T1, T2, T3, T4> Throw<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In, string Message)
             {
-            return In.Merge(L.Throw.Supply(Message));
+            return In.Merge(L.Exc.Throw.Supply(Message));
             }
+        /// <summary>
+        /// Appends an exception to the current method, with a message.
+        /// </summary>
         public static Func<U> Throw<U>(this Func<U> In, string Message)
             {
-            return In.Merge(L.Throw.Supply(Message));
+            return In.Merge(L.Exc.Throw.Supply(Message));
             }
+        /// <summary>
+        /// Appends an exception to the current method, with a message.
+        /// </summary>
         public static Func<T, U> Throw<T, U>(this Func<T, U> In, string Message)
             {
-            return In.Merge(L.Throw.Supply(Message));
+            return In.Merge(L.Exc.Throw.Supply(Message));
             }
+        /// <summary>
+        /// Appends an exception to the current method, with a message.
+        /// </summary>
         public static Func<T1, T2, U> Throw<T1, T2, U>(this Func<T1, T2, U> In, string Message)
             {
-            return In.Merge(L.Throw.Supply(Message));
+            return In.Merge(L.Exc.Throw.Supply(Message));
             }
+        /// <summary>
+        /// Appends an exception to the current method, with a message.
+        /// </summary>
         public static Func<T1, T2, T3, U> Throw<T1, T2, T3, U>(this Func<T1, T2, T3, U> In, string Message)
             {
-            return In.Merge(L.Throw.Supply(Message));
+            return In.Merge(L.Exc.Throw.Supply(Message));
             }
+        /// <summary>
+        /// Appends an exception to the current method, with a message.
+        /// </summary>
         public static Func<T1, T2, T3, T4, U> Throw<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In, string Message)
             {
-            return In.Merge(L.Throw.Supply(Message));
+            return In.Merge(L.Exc.Throw.Supply(Message));
             }
         #endregion
 
-        // Catches exceptions of any type and reports a new Exception with a message attached.
         #region Report
+        /// <summary>
+        /// Catches exceptions of any type and rethrows a new Exception with a message attached.
+        /// </summary>
         public static Action Report<E>(this Action In, string Message, E e) where E : Exception
             {
-            return In.Merge(() => L.Report(Message, e));
+            return In.Merge(() => L.Exc.Report(Message, e));
             }
+        /// <summary>
+        /// Catches exceptions of any type and rethrows a new Exception with a message attached.
+        /// </summary>
         public static Action<T> Report<T, E>(this Action<T> In, string Message, E e) where E : Exception
             {
-            return In.Merge(() => L.Report(Message, e));
+            return In.Merge(() => L.Exc.Report(Message, e));
             }
+        /// <summary>
+        /// Catches exceptions of any type and rethrows a new Exception with a message attached.
+        /// </summary>
         public static Action<T1, T2> Report<T1, T2, E>(this Action<T1, T2> In, string Message, E e) where E : Exception
             {
-            return In.Merge(() => L.Report(Message, e));
+            return In.Merge(() => L.Exc.Report(Message, e));
             }
+        /// <summary>
+        /// Catches exceptions of any type and rethrows a new Exception with a message attached.
+        /// </summary>
         public static Action<T1, T2, T3> Report<T1, T2, T3, E>(this Action<T1, T2, T3> In, string Message, E e) where E : Exception
             {
-            return In.Merge(() => L.Report(Message, e));
+            return In.Merge(() => L.Exc.Report(Message, e));
             }
+        /// <summary>
+        /// Catches exceptions of any type and rethrows a new Exception with a message attached.
+        /// </summary>
         public static Action<T1, T2, T3, T4> Report<T1, T2, T3, T4, E>(this Action<T1, T2, T3, T4> In, string Message, E e) where E : Exception
             {
-            return In.Merge(() => L.Report(Message, e));
+            return In.Merge(() => L.Exc.Report(Message, e));
             }
+        /// <summary>
+        /// Catches exceptions of any type and rethrows a new Exception with a message attached.
+        /// </summary>
         public static Func<U> Report<U, E>(this Func<U> In, string Message, E e) where E : Exception
             {
-            return In.Merge(() => L.Report(Message, e));
+            return In.Merge(() => L.Exc.Report(Message, e));
             }
+        /// <summary>
+        /// Catches exceptions of any type and rethrows a new Exception with a message attached.
+        /// </summary>
         public static Func<T, U> Report<T, U, E>(this Func<T, U> In, string Message, E e) where E : Exception
             {
-            return In.Merge(() => L.Report(Message, e));
+            return In.Merge(() => L.Exc.Report(Message, e));
             }
+        /// <summary>
+        /// Catches exceptions of any type and rethrows a new Exception with a message attached.
+        /// </summary>
         public static Func<T1, T2, U> Report<T1, T2, U, E>(this Func<T1, T2, U> In, string Message, E e) where E : Exception
             {
-            return In.Merge(() => L.Report(Message, e));
+            return In.Merge(() => L.Exc.Report(Message, e));
             }
+        /// <summary>
+        /// Catches exceptions of any type and rethrows a new Exception with a message attached.
+        /// </summary>
         public static Func<T1, T2, T3, U> Report<T1, T2, T3, U, E>(this Func<T1, T2, T3, U> In, string Message, E e) where E : Exception
             {
-            return In.Merge(() => L.Report(Message, e));
+            return In.Merge(() => L.Exc.Report(Message, e));
             }
+        /// <summary>
+        /// Catches exceptions of any type and rethrows a new Exception with a message attached.
+        /// </summary>
         public static Func<T1, T2, T3, T4, U> Report<T1, T2, T3, T4, U, E>(this Func<T1, T2, T3, T4, U> In, string Message, E e) where E : Exception
             {
-            return In.Merge(() => L.Report(Message, e));
+            return In.Merge(() => L.Exc.Report(Message, e));
             }
         #endregion
 
-        // Catches exceptions of any type and reports a new Exception with no message attached.
         #region Report Empty
+        /// <summary>
+        /// Catches exceptions of any type and rethrows a new empty Exception.
+        /// </summary>
         public static Action Report<E>(this Action In, E e) where E : Exception
             {
-            return In.Merge(L.ReportEmpty.Supply(e));
+            return In.Merge(L.Exc.ReportEmpty.Supply(e));
             }
+        /// <summary>
+        /// Catches exceptions of any type and rethrows a new empty Exception.
+        /// </summary>
         public static Action<T> Report<T, E>(this Action<T> In, E e) where E : Exception
             {
-            return In.Merge(L.ReportEmpty.Supply(e));
+            return In.Merge(L.Exc.ReportEmpty.Supply(e));
             }
+        /// <summary>
+        /// Catches exceptions of any type and rethrows a new empty Exception.
+        /// </summary>
         public static Action<T1, T2> Report<T1, T2, E>(this Action<T1, T2> In, E e) where E : Exception
             {
-            return In.Merge(L.ReportEmpty.Supply(e));
+            return In.Merge(L.Exc.ReportEmpty.Supply(e));
             }
+        /// <summary>
+        /// Catches exceptions of any type and rethrows a new empty Exception.
+        /// </summary>
         public static Action<T1, T2, T3> Report<T1, T2, T3, E>(this Action<T1, T2, T3> In, E e) where E : Exception
             {
-            return In.Merge(L.ReportEmpty.Supply(e));
+            return In.Merge(L.Exc.ReportEmpty.Supply(e));
             }
+        /// <summary>
+        /// Catches exceptions of any type and rethrows a new empty Exception.
+        /// </summary>
         public static Action<T1, T2, T3, T4> Report<T1, T2, T3, T4, E>(this Action<T1, T2, T3, T4> In, E e) where E : Exception
             {
-            return In.Merge(L.ReportEmpty.Supply(e));
+            return In.Merge(L.Exc.ReportEmpty.Supply(e));
             }
+        /// <summary>
+        /// Catches exceptions of any type and rethrows a new empty Exception.
+        /// </summary>
         public static Func<U> Report<U, E>(this Func<U> In, E e) where E : Exception
             {
-            return In.Merge(L.ReportEmpty.Supply(e));
+            return In.Merge(L.Exc.ReportEmpty.Supply(e));
             }
+        /// <summary>
+        /// Catches exceptions of any type and rethrows a new empty Exception.
+        /// </summary>
         public static Func<T, U> Report<T, U, E>(this Func<T, U> In, E e) where E : Exception
             {
-            return In.Merge(L.ReportEmpty.Supply(e));
+            return In.Merge(L.Exc.ReportEmpty.Supply(e));
             }
+        /// <summary>
+        /// Catches exceptions of any type and rethrows a new empty Exception.
+        /// </summary>
         public static Func<T1, T2, U> Report<T1, T2, U, E>(this Func<T1, T2, U> In, E e) where E : Exception
             {
-            return In.Merge(L.ReportEmpty.Supply(e));
+            return In.Merge(L.Exc.ReportEmpty.Supply(e));
             }
+        /// <summary>
+        /// Catches exceptions of any type and rethrows a new empty Exception.
+        /// </summary>
         public static Func<T1, T2, T3, U> Report<T1, T2, T3, U, E>(this Func<T1, T2, T3, U> In, E e) where E : Exception
             {
-            return In.Merge(L.ReportEmpty.Supply(e));
+            return In.Merge(L.Exc.ReportEmpty.Supply(e));
             }
+        /// <summary>
+        /// Catches exceptions of any type and rethrows a new empty Exception.
+        /// </summary>
         public static Func<T1, T2, T3, T4, U> Report<T1, T2, T3, T4, U, E>(this Func<T1, T2, T3, T4, U> In, E e) where E : Exception
             {
-            return In.Merge(L.ReportEmpty.Supply(e));
+            return In.Merge(L.Exc.ReportEmpty.Supply(e));
             }
         #endregion
 
-        // Handle catches all exceptions, directing them to the Default Exception Handler, which you can customize.
         #region Handle
+        /// <summary>
+        /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
+        /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
+        /// </summary>
         public static Action Handle(this Action In)
             {
-            return In.Catch(L.DefaultExceptionHandler);
+            return In.Catch(L.Exc.DefaultExceptionHandler);
             }
+        /// <summary>
+        /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
+        /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
+        /// </summary>
         public static Action<T1> Handle<T1>(this Action<T1> In)
             {
-            return In.Catch(L.DefaultExceptionHandler);
+            return In.Catch(L.Exc.DefaultExceptionHandler);
             }
+        /// <summary>
+        /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
+        /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
+        /// </summary>
         public static Action<T1, T2> Handle<T1, T2>(this Action<T1, T2> In)
             {
-            return In.Catch(L.DefaultExceptionHandler);
+            return In.Catch(L.Exc.DefaultExceptionHandler);
             }
+        /// <summary>
+        /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
+        /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
+        /// </summary>
         public static Action<T1, T2, T3> Handle<T1, T2, T3>(this Action<T1, T2, T3> In)
             {
-            return In.Catch(L.DefaultExceptionHandler);
+            return In.Catch(L.Exc.DefaultExceptionHandler);
             }
+        /// <summary>
+        /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
+        /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
+        /// </summary>
         public static Action<T1, T2, T3, T4> Handle<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In)
             {
-            return In.Catch(L.DefaultExceptionHandler);
+            return In.Catch(L.Exc.DefaultExceptionHandler);
             }
+        /// <summary>
+        /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
+        /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
+        /// </summary>
         public static Func<U> Handle<U>(this Func<U> In)
             {
-            return In.Catch(L.DefaultExceptionHandler);
+            return In.Catch(L.Exc.DefaultExceptionHandler);
             }
+        /// <summary>
+        /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
+        /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
+        /// </summary>
         public static Func<T1, U> Handle<T1, U>(this Func<T1, U> In)
             {
-            return In.Catch(L.DefaultExceptionHandler);
+            return In.Catch(L.Exc.DefaultExceptionHandler);
             }
+        /// <summary>
+        /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
+        /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
+        /// </summary>
         public static Func<T1, T2, U> Handle<T1, T2, U>(this Func<T1, T2, U> In)
             {
-            return In.Catch(L.DefaultExceptionHandler);
+            return In.Catch(L.Exc.DefaultExceptionHandler);
             }
+        /// <summary>
+        /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
+        /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
+        /// </summary>
         public static Func<T1, T2, T3, U> Handle<T1, T2, T3, U>(this Func<T1, T2, T3, U> In)
             {
-            return In.Catch(L.DefaultExceptionHandler);
+            return In.Catch(L.Exc.DefaultExceptionHandler);
             }
+        /// <summary>
+        /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
+        /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
+        /// </summary>
         public static Func<T1, T2, T3, T4, U> Handle<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In)
             {
-            return In.Catch(L.DefaultExceptionHandler);
+            return In.Catch(L.Exc.DefaultExceptionHandler);
             }
+        /// <summary>
+        /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
+        /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
+        /// </summary>
         public static Func<T1, T2, T3, T4, T5, U> Handle<T1, T2, T3, T4, T5, U>(this Func<T1, T2, T3, T4, T5, U> In)
             {
-            return In.Catch(L.DefaultExceptionHandler);
+            return In.Catch(L.Exc.DefaultExceptionHandler);
             }
         #endregion
         #endregion
         }
-    public partial class Logic
+    public static partial class L
         {
-        public static readonly Action<Exception> DefaultExceptionHandler = L.A<Exception>();
+        /// <summary>
+        /// Contains System.Exception static methods and lambdas.
+        /// </summary>
+        public static class Exc
+            {
+            #region Lambdas +
+            /// <summary>
+            /// The default exception handler used with [Method].Handle().
+            /// This should be set to your own exception handler action.
+            /// </summary>
+            public static Action<Exception> DefaultExceptionHandler = A<Exception>();
 
-        #region Exceptions
-        public static readonly Action Fail = () => { throw new Exception(); };
-        public static readonly Action<string> Throw = s => { throw new Exception(s); };
-        public static readonly Action<string, Exception> Report = (s, e) => { throw new Exception(s, e); };
-        public static readonly Action<Exception> ReportEmpty = e => { throw new Exception("", e); };
-        #endregion
+            /// <summary>
+            /// An action that throws an empty exception.
+            /// </summary>
+            public static readonly Action Fail = () => { throw new Exception(); };
+            /// <summary>
+            /// An action that throws an exception with a message.
+            /// </summary>
+            public static readonly Action<string> Throw = s => { throw new Exception(s); };
+            /// <summary>
+            /// Rethrows an exception, adding a message.
+            /// </summary>
+            public static readonly Action<string, Exception> Report = (s, e) => { throw new Exception(s, e); };
+            /// <summary>
+            /// Rethrows an exception and adds no message.
+            /// </summary>
+            public static readonly Action<Exception> ReportEmpty = e => { throw new Exception("", e); };
+            #endregion
+            }
         }
     }

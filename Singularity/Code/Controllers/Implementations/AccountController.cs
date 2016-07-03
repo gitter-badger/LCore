@@ -2,17 +2,16 @@
 using System.Web.Mvc;
 using Singularity.Account;
 using Singularity.Attributes;
-using Singularity.Context;
 using Singularity.Extensions;
 using Singularity.Models;
 
 namespace Singularity.Controllers
     {
-    public class AccountController : Controller
+    public class AccountController : SingularityController
         {
         public ActionResult Index()
             {
-            return this.RedirectToAction(Routes.Controllers.Account.Actions.Login);
+            return this.RedirectToAction(nameof(AccountController.Login));
             }
 
 
@@ -23,24 +22,23 @@ namespace Singularity.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginViewModel model)
+        public ActionResult Login(LoginViewModel model, IAuthenticationService Auth)
             {
             if (!this.ModelState.IsValid)
                 {
                 return this.View(model);
                 }
 
-            AuthenticationService Auth = new AuthenticationService(this.Session);
-            ModelContext DbContext = this.HttpContext.GetModelContext();
+            var DbContext = this.HttpContext.GetModelContext();
 
-            UserAccount Result = Auth.AttemptLogIn(this.HttpContext, model.Username, model.Password);
+            var Result = Auth.AttemptLogIn(this.HttpContext, model.Username, model.Password);
 
             if (Result != null)
                 {
                 this.AddStatusMessages_Success($"Logged in, welcome {Result.UserName}!");
 
                 return Result.PasswordResetRequired
-                    ? this.RedirectToAction(Routes.Controllers.Account.Actions.ForceResetPassword, Routes.Controllers.Account.Name)
+                    ? this.RedirectToAction(nameof(AccountController.ForceResetPassword), typeof(AccountController).CName())
                     : this.RedirectToAction(DbContext.GetHomeAction(Result), DbContext.GetHomeController(Result));
                 }
             this.AddStatusMessages_Error("Unable to login");
@@ -51,11 +49,9 @@ namespace Singularity.Controllers
         [HttpPost]
         [RequireAuth]
         [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
+        public ActionResult LogOff(IAuthenticationService Auth)
             {
-            ModelContext DbContext = this.HttpContext.GetModelContext();
-
-            AuthenticationService Auth = new AuthenticationService(this.Session);
+            var DbContext = this.HttpContext.GetModelContext();
 
             if (Auth.IsLoggedIn)
                 {
@@ -76,10 +72,8 @@ namespace Singularity.Controllers
         [HttpPost]
         [RequireAuth]
         [ValidateAntiForgeryToken]
-        public ActionResult ForceResetPassword(ForceResetPasswordViewModel model)
+        public ActionResult ForceResetPassword(ForceResetPasswordViewModel model, IAuthenticationService Auth)
             {
-            AuthenticationService Auth = new AuthenticationService(this.Session);
-
             bool Errors = false;
 
             if (model != null)
@@ -116,9 +110,9 @@ namespace Singularity.Controllers
 
             if (!Errors)
                 {
-                ModelContext DbContext = this.HttpContext.GetModelContext();
+                var DbContext = this.HttpContext.GetModelContext();
 
-                UserAccount LoggedIn = UserAccount.Data.GetByID(DbContext, Auth.LoggedInUser.UserAccountID);
+                var LoggedIn = UserAccount.Data.GetByID(DbContext, Auth.LoggedInUser.UserAccountID);
 
                 LoggedIn.SetPassword(model.Password);
                 LoggedIn.ExpiredDate = DateTime.Now.Add(Authentication.UserAccountPasswordExpire);
@@ -141,10 +135,9 @@ namespace Singularity.Controllers
         [HttpPost]
         [RequireAdmin]
         [ValidateAntiForgeryToken]
-        public ActionResult ImpersonateUser(ImpersonateUserViewModel model)
+        public ActionResult ImpersonateUser(ImpersonateUserViewModel model, IAuthenticationService Auth)
             {
-            ModelContext DbContext = this.HttpContext.GetModelContext();
-            AuthenticationService Auth = new AuthenticationService(this.Session);
+            var DbContext = this.HttpContext.GetModelContext();
 
             Auth.Impersonate(this.HttpContext, model.UserAccountID);
 

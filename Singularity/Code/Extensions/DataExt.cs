@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
+using LCore.Interfaces;
 
 namespace Singularity.Extensions
     {
+    [ExtensionProvider]
     public static class DataExt
         {
         public static DataTable GetSchema(this SqlConnection In)
             {
-            DataTable t = In.GetSchema("Tables");
+            var t = In.GetSchema("Tables");
             return t;
             /*
             SQLSchema Out = new SQLSchema();

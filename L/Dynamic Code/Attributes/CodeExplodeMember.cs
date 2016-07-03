@@ -1,13 +1,14 @@
 ﻿using System;
+using LCore.Extensions;
 
 namespace LCore.Dynamic
     {
-    internal abstract class CodeExplodeMember : Attribute
+    internal abstract class CodeExplodeMember : Attribute, ISubClassPersistentAttribute
         {
-        public string MethodName;
-        public string Comments;
-        public bool ExecuteResult;
-        public string[] ParameterNames;
+        public readonly string MethodName;
+        public readonly string Comments;
+        public readonly bool ExecuteResult;
+        public readonly string[] ParameterNames;
 
         protected CodeExplodeMember(string MethodName, string Comments = "")
             : this(MethodName, new string[] { }, Comments)

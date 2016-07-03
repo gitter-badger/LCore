@@ -61,11 +61,11 @@ WriteLiteral("\r\n");
             
             #line 4 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
   
-    ViewField SavedSearchSelector = new ViewField(ViewContext, typeof(SavedSearch), "SavedSearch", Model, ControllerHelper.ViewType.Edit);
-    ViewField TemplateSelector = new ViewField(ViewContext, typeof(EmailTemplate), "Template", Model, ControllerHelper.ViewType.Edit);
+    var SavedSearchSelector = new ViewField(ViewContext, typeof(SavedSearch), "SavedSearch", Model, ControllerHelper.ViewType.Edit);
+    var TemplateSelector = new ViewField(ViewContext, typeof(EmailTemplate), "Template", Model, ControllerHelper.ViewType.Edit);
  // ReSharper disable once ArrangeThisQualifier
  // ReSharper disable once RedundantAssignment
-    EmailTemplateController c = this.ViewContext.Controller as EmailTemplateController;
+    var c = this.ViewContext.Controller as EmailTemplateController;
 
             
             #line default

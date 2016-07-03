@@ -8,18 +8,20 @@ namespace LCore.Dynamic
     {
     internal class CodeExplode_ExplodeLogic : CodeExplode
         {
-        // One for methods with 0 parameters, 16 for methods up to 16 parameters.
+        /// <summary>
+        /// One for methods with 0 parameters, 16 for methods up to 16 parameters.
+        /// </summary>
         public const int ExplodeCount = 17;
 
         public override string ExplodeCode(Lists<string, MemberInfo> t)
             {
             CodeExploder.DeclaredExtensionCache.Clear();
 
-            return Logic.LogicMemberInfo_Explode(t);
+            return L.Exploder.LogicMemberInfo_Explode(t);
             }
         public override bool ExplodeMember(MemberInfo Member)
             {
-            return Member.MemberHasAttribute(typeof(CodeExplodeGenerics), true);
+            return Member.HasAttribute(typeof(CodeExplodeGenerics), true);
             }
 
         public Type[] GenericOutputTypes;

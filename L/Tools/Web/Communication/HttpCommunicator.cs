@@ -8,6 +8,7 @@ using System.Threading;
 // ReSharper disable NotAccessedField.Global
 // ReSharper disable ClassNeverInstantiated.Global
 // ReSharper disable UnassignedField.Global
+#pragma warning disable 1591
 
 namespace LCore.Web
     {
@@ -32,13 +33,13 @@ namespace LCore.Web
             {
             int tries = 0;
 
-            WebClientTimeOut Client = new WebClientTimeOut();
+            var Client = new WebClientTimeOut();
             System.IO.MemoryStream BodyStream = null;
 
             if (Data != null)
                 {
 
-                foreach (DataItem t in Data)
+                foreach (var t in Data)
                     {
                     try
                         {

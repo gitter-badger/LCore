@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Reflection;
+using LCore.Extensions;
 using LCore.Tools;
 
 namespace LCore.Dynamic
     {
-    internal abstract class CodeExplode : Attribute
+    internal abstract class CodeExplode : Attribute, ISubClassPersistentAttribute
         {
         public const string ExplodeSuffix = "_Explode";
         public const string BackupSuffix = "_bak";

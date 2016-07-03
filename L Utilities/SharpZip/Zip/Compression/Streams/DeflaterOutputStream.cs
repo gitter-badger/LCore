@@ -267,7 +267,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
 			}
 			
 #else
-            PkzipClassicManaged pkManaged = new PkzipClassicManaged();
+            var pkManaged = new PkzipClassicManaged();
             byte[] key = PkzipClassic.GenerateKeys(ZipConstants.ConvertToArray(password));
             this.cryptoTransform_ = pkManaged.CreateEncryptor(key, null);
 #endif
@@ -501,7 +501,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
         /// </param>
         public override void WriteByte(byte value)
             {
-            byte[] b = new byte[1];
+            var b = new byte[1];
             b[0] = value;
             this.Write(b, 0, 1);
             }

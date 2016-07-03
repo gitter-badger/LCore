@@ -1,0 +1,41 @@
+﻿@* Generator: MvcView *@
+@using Singularity.Annotations;
+@using Singularity.Extensions;
+@using LCore.Extensions;
+
+@{
+    bool IsSortableList = Model.Meta.HasAttribute<FieldType_SortableListAttribute>();
+}
+
+@model IViewField
+
+@if (IsSortableList)
+    {
+    string[] Lines;
+    var data = Model.PropertyData as string[];
+    if (data != null)
+        {
+        Lines = data;
+        }
+    else if (Model.PropertyData is string)
+        {
+        Lines = ((string)Model.PropertyData).Lines();
+        }
+    else
+        {
+        Lines = (Model.PropertyData ?? "").ToString().Lines();
+        }
+
+    <select class="sortable" id="@Model.Meta.PropertyName" name="@Model.Meta.PropertyName">
+        @foreach (string Line in Lines)
+            {
+            <option value="@Line">
+                @Line
+            </option>
+            }
+    </select>
+    }
+else
+    {
+    <textarea id="@Model.Meta.PropertyName" name="@Model.Meta.PropertyName">@Model.PropertyData</textarea>
+    }

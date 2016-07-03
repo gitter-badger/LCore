@@ -29,7 +29,7 @@ namespace NSort
                 this.Source[i, right] = (string)temp;
                 }
 
-            object temp2 = array[left];
+            var temp2 = array[left];
             array[left] = array[right];
             array[right] = temp2;
             }

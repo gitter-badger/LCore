@@ -154,12 +154,12 @@ namespace ICSharpCode.SharpZipLib.Core
             const char escape = '\\';
             char[] separators = { ';' };
 
-            ArrayList result = new ArrayList();
+            var result = new ArrayList();
 
             if (!string.IsNullOrEmpty(original))
                 {
                 int endIndex = -1;
-                StringBuilder b = new StringBuilder();
+                var b = new StringBuilder();
 
                 while (endIndex < original.Length)
                     {

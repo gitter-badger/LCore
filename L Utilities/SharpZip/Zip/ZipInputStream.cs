@@ -241,7 +241,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 
             bool isCrypted = (this.flags & 1) == 1;
 
-            byte[] buffer = new byte[nameLen];
+            var buffer = new byte[nameLen];
             this.inputBuffer.ReadRawBuffer(buffer);
 
             string name = ZipConstants.ConvertToStringExt(this.flags, buffer);
@@ -293,7 +293,7 @@ namespace ICSharpCode.SharpZipLib.Zip
             // Handle extra data if present.  This can set/alter some fields of the entry.
             if (extraLen > 0)
                 {
-                byte[] extra = new byte[extraLen];
+                var extra = new byte[extraLen];
                 this.inputBuffer.ReadRawBuffer(extra);
                 this.entry.ExtraData = extra;
                 }
@@ -409,7 +409,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                 if ((this.flags & 8) != 0)
                     {
                     // We don't know how much we must skip, read until end.
-                    byte[] tmp = new byte[4096];
+                    var tmp = new byte[4096];
 
                     // Read will close this entry
                     while (this.Read(tmp, 0, tmp.Length) > 0)
@@ -481,7 +481,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// </returns>
         public override int ReadByte()
             {
-            byte[] b = new byte[1];
+            var b = new byte[1];
             if (this.Read(b, 0, 1) <= 0)
                 {
                 return -1;
@@ -536,12 +536,12 @@ namespace ICSharpCode.SharpZipLib.Zip
                     }
 
                 // Generate and set crypto transform...
-                PkzipClassicManaged managed = new PkzipClassicManaged();
+                var managed = new PkzipClassicManaged();
                 byte[] key = PkzipClassic.GenerateKeys(ZipConstants.ConvertToArray(this.password));
 
                 this.inputBuffer.CryptoTransform = managed.CreateDecryptor(key, null);
 
-                byte[] cryptbuffer = new byte[ZipConstants.CryptoHeaderSize];
+                var cryptbuffer = new byte[ZipConstants.CryptoHeaderSize];
                 this.inputBuffer.ReadClearTextBuffer(cryptbuffer, 0, ZipConstants.CryptoHeaderSize);
 
                 if (cryptbuffer[ZipConstants.CryptoHeaderSize - 1] != this.entry.CryptoCheckValue)

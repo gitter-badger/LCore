@@ -1,0 +1,158 @@
+﻿@* Generator: MvcView *@
+
+@using Singularity.Extensions
+
+
+@{
+    ViewBag.Title = "";
+}
+
+{{3}}
+<div sing-fill="{{List}}">
+    <sing content>1</sing>
+    <sing content>2</sing>
+    <sing content>3</sing>
+</div>
+
+<header class="jumbotron hero-spacer">
+    <h1>&bull; @Singularity.AppName</h1>
+    <p>
+        Singularity is a collection of extension methods and tools designed to <strong>extend</strong> and <strong>connect</strong>:
+        <br />
+        <strong>
+            <a target="_blank" href="@Singularity.Reference.CSharp">C#</a>
+        </strong>,
+        <strong>
+            <a target="_blank" href="@Singularity.Reference.SQL">
+                <abbr title="Structured Query Language">SQL</abbr>
+            </a>
+        </strong>,
+        <strong>
+            <a target="_blank" href="@Singularity.Reference.TypeScript">TypeScript</a>
+        </strong>,
+        <strong>
+            <a target="_blank" href="@Singularity.Reference.JavaScript">JavaScript</a>
+        </strong>, and
+        <strong>
+            <a target="_blank" href="@Singularity.Reference.Html">
+                <abbr title="HyperText Markup Language">HTML</abbr>
+            </a>
+        </strong>
+    </p>
+    <p>
+        <a class="btn btn-default btn-large" href="@Url.Action(nameof(ExamplesController.Home), typeof(ExamplesController).CName())">Learn more</a>
+        <a class="btn btn-primary btn-large">Get Singularity!</a>
+    </p>
+</header>
+
+<hr>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h3>Modules</h3>
+    </div>
+</div>
+
+<div class="row text-center">
+
+    <div class="hero-feature">
+        <div class="thumbnail">
+            <div class="caption row">
+                <h2>C#</h2>
+                <div class="col-md-6 hero-feature align-left">
+                    <div class="thumbnail">
+                        <div>
+                            <h3>
+                                <strong>L</strong>: a C# Language Extension Library
+                            </h3>
+                            <p>
+                                No requirements.
+                            </p>
+                            <p>
+                                L is usable separately and extends many native C# types. <br />
+                                L also provides shorthand for many key method manipulation functions.
+                            </p>
+                            <p>
+                                <a href="#" class="btn btn-info">View Source</a>
+                                <a href="#" class="btn btn-info">Get L</a>
+                                <a href="#" class="btn btn-default">More Info</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 hero-feature align-left">
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <h3>
+                                <strong>Singularity MVC</strong>
+                            </h3>
+                            Includes:
+                            <ul>
+                                <li>L</li>
+                                <li>Singularity TypeScript</li>
+                            </ul>
+                            Requires:
+                            <ul>
+                                <li><a target="_blank" href="@Singularity.Reference.jQuery">jQuery (+ plugins)</a></li>
+                                <li><a target="_blank" href="@Singularity.Reference.jQueryUI">jQuery UI</a></li>
+                                <li><a target="_blank" href="@Singularity.Reference.Bootstrap">Bootstrap</a></li>
+                            </ul>
+                            <p>
+                                Singularity brings all its features together for a fully-contained
+                                role-based framework.
+                            </p>
+                            <p>
+                                <a href="#" class="btn btn-info">View Source</a>
+                                <a href="#" class="btn btn-default">More Info</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 hero-feature">
+        <div class="thumbnail">
+            <div class="caption">
+                <h3>Feature Label</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                <p>
+                    <a href="#" class="btn btn-primary">Buy Now!</a>
+                    <a href="#" class="btn btn-default">More Info</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 hero-feature">
+        <div class="thumbnail">
+            <div class="caption">
+                <h3>Feature Label</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                <p>
+                    <a href="#" class="btn btn-primary">Buy Now!</a>
+                    <a href="#" class="btn btn-default">More Info</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 hero-feature">
+        <div class="thumbnail">
+            <div class="caption">
+                <h3>Feature Label</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                <p>
+                    <a href="#" class="btn btn-primary">Buy Now!</a>
+                    <a href="#" class="btn btn-default">More Info</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<hr>

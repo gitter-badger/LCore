@@ -9,7 +9,6 @@ using System.Collections;
 using Singularity.Controllers;
 using Singularity.Context;
 using Singularity.Extensions;
-using System.Data.Entity;
 using Singularity.Annotations;
 
 namespace Singularity.Models
@@ -25,7 +24,7 @@ namespace Singularity.Models
             {
             get
                 {
-                return Logic.Cache(ref this._Meta, () =>
+                return L.Logic.Cache(ref this._Meta, () =>
                 {
                     ModelMetadata OutMeta;
 
@@ -50,7 +49,7 @@ namespace Singularity.Models
             {
             get
                 {
-                return Logic.Cache(ref this._PropertyData, () =>
+                return L.Logic.Cache(ref this._PropertyData, () =>
                 {
                     ModelMetadata MyMeta;
 
@@ -75,7 +74,7 @@ namespace Singularity.Models
                         }
                     else
                         {
-                        Delegate d = Lambda.Compile();
+                        var d = Lambda.Compile();
                         ValueData = d.DynamicInvoke(this.ModelData);
                         }
 
@@ -126,14 +125,14 @@ namespace Singularity.Models
 
         public List<SelectListItem> GetRelationItems(Type t, object CurrentValue)
             {
-            ContextProvider MyContext = ContextProviderFactory.GetCurrent();
+            var MyContext = ContextProviderFactory.GetCurrent();
 
             if (!MyContext.GetContextTypes(this.Context.HttpContext.Session).Has(t))
                 {
                 throw new Exception(t.Name);
                 }
 
-            DbSet Objects = MyContext.GetDBSet(this.Context.HttpContext.Session, t);
+            var Objects = MyContext.GetDBSet(this.Context.HttpContext.Session, t);
 
             List<IModel> Models;
 
@@ -163,36 +162,39 @@ namespace Singularity.Models
             {
             if (ContextProviderFactory.GetCurrent().GetModelPermissions(this.Context.HttpContext.Session, this.FieldType).View == true)
                 {
-                ManageController Manage = ContextProviderFactory.GetCurrent().AllManageControllers(this.Context.HttpContext.Session)
+                var Manage = ContextProviderFactory.GetCurrent().AllManageControllers(this.Context.HttpContext.Session)
                     .First(m => m.ModelType == this.Meta.ModelType);
 
                 if (Manage != null && this.Context.AllowView(this.Meta.ContainerType))
                     {
-                    if (this.ModelData.TrueModelType().MemberHasAttribute<DisplayColumnAttribute>(false) && this.ModelData.TrueModelType().MemberGetAttribute<DisplayColumnAttribute>(false).DisplayColumn == this.Meta.PropertyName)
+                    if (this.ModelData.TrueModelType().HasAttribute<DisplayColumnAttribute>(false) && 
+                        this.ModelData.TrueModelType().GetAttribute<DisplayColumnAttribute>(false).DisplayColumn == this.Meta.PropertyName)
                         {
-                        object ThisModel = this.ModelData.GetProperty(this.PropertyName);
+                        var ThisModel = this.ModelData.GetProperty(this.PropertyName);
 
                         if (ThisModel != null)
                             {
-                            return new UrlHelper(this.Context.HttpContext.Request.RequestContext).Action(Routes.Controllers.Manage.Actions.Details, Manage.Name, new
-                                {
-                                id = this.ModelData.GetID(),
-                                ReturnURL = this.Context.HttpContext.Request.Url
-                                });
+                            return new UrlHelper(this.Context.HttpContext.Request.RequestContext)
+                                .Action(nameof(ManageController.Details), Manage.Name, new
+                                    {
+                                    id = this.ModelData.GetID(),
+                                    ReturnURL = this.Context.HttpContext.Request.Url
+                                    });
                             }
                         }
                     else
                         {
-                        object RelatedModel = this.ModelData.GetProperty(this.PropertyName);
+                        var RelatedModel = this.ModelData.GetProperty(this.PropertyName);
 
-                        IModel Model = RelatedModel as IModel;
+                        var Model = RelatedModel as IModel;
                         if (Model != null)
                             {
-                            return new UrlHelper(this.Context.HttpContext.Request.RequestContext).Action(Routes.Controllers.Manage.Actions.Details, Manage.Name, new
-                                {
-                                id = Model.GetID(),
-                                ReturnURL = this.Context.HttpContext.Request.Url
-                                });
+                            return new UrlHelper(this.Context.HttpContext.Request.RequestContext)
+                                .Action(nameof(ManageController.Details), Manage.Name, new
+                                    {
+                                    id = Model.GetID(),
+                                    ReturnURL = this.Context.HttpContext.Request.Url
+                                    });
                             }
                         }
                     }
@@ -207,19 +209,20 @@ namespace Singularity.Models
                 .GetModelPermissions(this.Context.HttpContext.Session, this.Meta.ModelType.PreferGeneric()).View == true
                 && this.Meta.AdditionalValues.ContainsKey(MetadataAttribute.AdditionalData_RelationForeignKey))
                 {
-                ManageController Manage = ContextProviderFactory.GetCurrent().AllManageControllers(this.Context.HttpContext.Session).First(m => m.ModelType == this.Meta.ModelType.PreferGeneric());
+                var Manage = ContextProviderFactory.GetCurrent().AllManageControllers(this.Context.HttpContext.Session).First(m => m.ModelType == this.Meta.ModelType.PreferGeneric());
 
                 if (this.Context.AllowView(this.Meta.ModelType.PreferGeneric()))
                     {
-                    object RelatedModel = this.ModelData.GetProperty(this.PropertyName);
+                    var RelatedModel = this.ModelData.GetProperty(this.PropertyName);
 
                     if (RelatedModel is IEnumerable)
                         {
-                        return new UrlHelper(this.Context.HttpContext.Request.RequestContext).Action(Routes.Controllers.Manage.Actions.Manage, Manage.Name, new
-                            {
-                            FieldSearchTerms =
+                        return new UrlHelper(this.Context.HttpContext.Request.RequestContext)
+                            .Action(nameof(ManageController.Manage), Manage.Name, new
+                                {
+                                FieldSearchTerms =
                                 $"{(string)this.Meta.AdditionalValues[MetadataAttribute.AdditionalData_RelationForeignKey]}:{this.ModelData}"
-                            });
+                                });
                         }
                     }
                 }

@@ -1,14 +1,16 @@
 ﻿using System;
-using LCore.Extensions.ObjectExt;
 using System.Collections.Generic;
 // using System.Data.Entity.Design.PluralizationServices;
 using System.Linq;
 using System.Text;
 using System.Collections;
+using System.Data.Entity.Design.PluralizationServices;
 using System.Globalization;
 using System.IO;
 using LCore.Tests;
 using System.Text.RegularExpressions;
+using LCore.Extensions.Optional;
+using LCore.Interfaces;
 // ReSharper disable StringCompareIsCultureSpecific.1
 // ReSharper disable StringCompareToIsCultureSpecific
 // ReSharper disable StringIndexOfIsCultureSpecific.2
@@ -16,12 +18,17 @@ using System.Text.RegularExpressions;
 // ReSharper disable StringLastIndexOfIsCultureSpecific.1
 // ReSharper disable StringLastIndexOfIsCultureSpecific.2
 // ReSharper disable StringLastIndexOfIsCultureSpecific.3
+// ReSharper disable UnusedMember.Global
 
 namespace LCore.Extensions
     {
+    /// <summary>
+    /// Extends strings and char types.
+    /// </summary>
+    [ExtensionProvider]
     public static class StringExt
         {
-        #region Extensions
+        #region Extensions +
         #region AlignCenter
         /// <summary>
         /// Takes a string and returns a padded string aligned Left.
@@ -39,7 +46,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abcdef", 5, ' ' }, "abcde")]
         public static string AlignCenter(this string In, int Length, char PadChar = ' ')
             {
-            return In.Pad(Length, Logic.Align.Center, PadChar);
+            return In.Pad(Length, L.Align.Center, PadChar);
             }
         #endregion
 
@@ -60,7 +67,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abcdef", 5, ' ' }, "abcde")]
         public static string AlignLeft(this string In, int Length, char PadChar = ' ')
             {
-            return In.Pad(Length, Logic.Align.Left, PadChar);
+            return In.Pad(Length, L.Align.Left, PadChar);
             }
         #endregion
 
@@ -81,7 +88,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abcdef", 5, ' ' }, "abcde")]
         public static string AlignRight(this string In, int Length, char PadChar = ' ')
             {
-            return In.Pad(Length, Logic.Align.Right, PadChar);
+            return In.Pad(Length, L.Align.Right, PadChar);
             }
         #endregion
 
@@ -104,7 +111,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: String: Untested
         #region CleanCRLF
         internal const char CRLFReplace = (char)222;
 
@@ -161,7 +167,7 @@ namespace LCore.Extensions
             {
             string Out = "";
             int Count = In.Count();
-            In.EachI((i, o) =>
+            In.Each((i, o) =>
             {
                 Out += o;
                 if (i < Count - 1)
@@ -225,7 +231,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: String: Untested
         #region Count
         /// <summary>
         /// Returns the amount of times [Search] appears in [In]
@@ -294,11 +299,11 @@ namespace LCore.Extensions
             if (Value.IsEmpty())
                 return "";
 
-            StringBuilder sb = new StringBuilder(Value.Length);
+            var sb = new StringBuilder(Value.Length);
             // Upper the first char.
             sb.Append(char.ToUpper(Value[0]));
 
-            Value.EachI((i, ch) =>
+            Value.Each((i, ch) =>
             {
                 if (i == 0)
                     return;
@@ -459,7 +464,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: String: Untested
         #region HasMatch
         /// <summary>
         /// Returns true if any expressions return a Regex match.
@@ -471,8 +475,8 @@ namespace LCore.Extensions
             {
             return Expressions.Count(s =>
             {
-                Regex Reg = new Regex(s);
-                MatchCollection Matches = Reg.Matches(In);
+                var Reg = new Regex(s);
+                var Matches = Reg.Matches(In);
                 return Matches.Count > 0;
             }) > 0;
             }
@@ -550,7 +554,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: String: Untested
         #region IsSymmetrical
         /// <summary>
         /// Returns true if the source [In] is symmetrical to [Compare]. 
@@ -578,11 +581,11 @@ namespace LCore.Extensions
         [TestResult(new object[] { new[] { "" }, null }, "")]
         [TestResult(new object[] { new[] { "", "" }, null }, "")]
         [TestResult(new object[] { new[] { "a", "a" }, null }, "aa")]
-        [TestResult(new object[] { new[] { "a", "a" }, Logic.Def.StringExt.NewLineString }, "a\r\na")]
+        [TestResult(new object[] { new[] { "a", "a" }, L.Str.NewLineString }, "a\r\na")]
         [TestResult(new object[] { new[] { "a", "a" }, "blah" }, "ablaha")]
-        public static string JoinLines(this IEnumerable<string> In, string JoinStr = Logic.Def.StringExt.NewLineString)
+        public static string JoinLines(this IEnumerable<string> In, string JoinStr = L.Str.NewLineString)
             {
-            return Logic.Def.StringExt.JoinLines(In, JoinStr);
+            return L.Str.JoinLines(In, JoinStr);
             }
         #endregion
 
@@ -645,7 +648,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: String: Untested
         #region Matches
         /// <summary>
         /// Returns all matches for [In] nad Regex [Expression].
@@ -655,8 +657,8 @@ namespace LCore.Extensions
         /// <returns>All matches for [In] nad Regex [Expression].</returns>
         public static List<Match> Matches(this string In, string Expression)
             {
-            Regex Reg = new Regex(Expression);
-            MatchCollection Matches = Reg.Matches(In);
+            var Reg = new Regex(Expression);
+            var Matches = Reg.Matches(In);
             return Matches.List<Match>();
             }
         #endregion
@@ -668,36 +670,36 @@ namespace LCore.Extensions
         /// If [In] is longer than [Length], the result is [In] truncated to [Length].
         /// This method will only fail if [Length] is less than 0.
         /// </summary>
-        [TestFails(new object[] { null, -1, Logic.Align.Right, (char)0 })]
-        [TestFails(new object[] { "a", -1, Logic.Align.Right, ' ' })]
-        [TestResult(new object[] { null, 5, Logic.Align.Left, ' ' }, "     ")]
-        [TestResult(new object[] { " ", 5, Logic.Align.Left, ' ' }, "     ")]
-        [TestResult(new object[] { "a", 5, Logic.Align.Left, ' ' }, "a    ")]
-        [TestResult(new object[] { "a", 5, Logic.Align.Right, ' ' }, "    a")]
-        [TestResult(new object[] { "a", 5, Logic.Align.Center, ' ' }, "  a  ")]
-        [TestResult(new object[] { "abc", 5, Logic.Align.Left, ' ' }, "abc  ")]
-        [TestResult(new object[] { "abc", 5, Logic.Align.Right, ' ' }, "  abc")]
-        [TestResult(new object[] { "abc", 5, Logic.Align.Center, ' ' }, " abc ")]
-        [TestResult(new object[] { "   abc   ", 5, Logic.Align.Right, ' ' }, "  abc")]
-        [TestResult(new object[] { "abcdef", 5, Logic.Align.Left, ' ' }, "abcde")]
-        [TestResult(new object[] { "abcdef", 5, Logic.Align.Right, ' ' }, "abcde")]
-        [TestResult(new object[] { "abcdef", 5, Logic.Align.Center, ' ' }, "abcde")]
-        [TestResult(new object[] { null, 5, Logic.Align.Left, '0' }, "00000")]
-        [TestResult(new object[] { " ", 5, Logic.Align.Left, '0' }, "00000")]
-        [TestResult(new object[] { "a", 5, Logic.Align.Left, '0' }, "a0000")]
-        [TestResult(new object[] { "a", 5, Logic.Align.Right, '0' }, "0000a")]
-        [TestResult(new object[] { "a", 5, Logic.Align.Center, '0' }, "00a00")]
-        [TestResult(new object[] { "abc", 5, Logic.Align.Left, '0' }, "abc00")]
-        [TestResult(new object[] { "abc", 5, Logic.Align.Right, '0' }, "00abc")]
-        [TestResult(new object[] { "abc", 5, Logic.Align.Center, '0' }, "0abc0")]
-        [TestResult(new object[] { "   abc   ", 5, Logic.Align.Left, '0' }, "abc00")]
-        [TestResult(new object[] { "   abc   ", 5, Logic.Align.Right, '0' }, "00abc")]
-        [TestResult(new object[] { "   abc   ", 5, Logic.Align.Center, '0' }, "0abc0")]
-        [TestResult(new object[] { "abcdef", 5, Logic.Align.Left, '0' }, "abcde")]
-        [TestResult(new object[] { "abcdef", 5, Logic.Align.Right, '0' }, "abcde")]
-        [TestResult(new object[] { "abcdef", 5, Logic.Align.Center, '0' }, "abcde")]
-        [TestResult(new object[] { "   abc   ", 6, Logic.Align.Center, '0' }, "00abc0")]
-        public static string Pad(this string In, int Length, Logic.Align Alignment = Logic.Align.Left, char PadChar = ' ')
+        [TestFails(new object[] { null, -1, L.Align.Right, (char)0 })]
+        [TestFails(new object[] { "a", -1, L.Align.Right, ' ' })]
+        [TestResult(new object[] { null, 5, L.Align.Left, ' ' }, "     ")]
+        [TestResult(new object[] { " ", 5, L.Align.Left, ' ' }, "     ")]
+        [TestResult(new object[] { "a", 5, L.Align.Left, ' ' }, "a    ")]
+        [TestResult(new object[] { "a", 5, L.Align.Right, ' ' }, "    a")]
+        [TestResult(new object[] { "a", 5, L.Align.Center, ' ' }, "  a  ")]
+        [TestResult(new object[] { "abc", 5, L.Align.Left, ' ' }, "abc  ")]
+        [TestResult(new object[] { "abc", 5, L.Align.Right, ' ' }, "  abc")]
+        [TestResult(new object[] { "abc", 5, L.Align.Center, ' ' }, " abc ")]
+        [TestResult(new object[] { "   abc   ", 5, L.Align.Right, ' ' }, "  abc")]
+        [TestResult(new object[] { "abcdef", 5, L.Align.Left, ' ' }, "abcde")]
+        [TestResult(new object[] { "abcdef", 5, L.Align.Right, ' ' }, "abcde")]
+        [TestResult(new object[] { "abcdef", 5, L.Align.Center, ' ' }, "abcde")]
+        [TestResult(new object[] { null, 5, L.Align.Left, '0' }, "00000")]
+        [TestResult(new object[] { " ", 5, L.Align.Left, '0' }, "00000")]
+        [TestResult(new object[] { "a", 5, L.Align.Left, '0' }, "a0000")]
+        [TestResult(new object[] { "a", 5, L.Align.Right, '0' }, "0000a")]
+        [TestResult(new object[] { "a", 5, L.Align.Center, '0' }, "00a00")]
+        [TestResult(new object[] { "abc", 5, L.Align.Left, '0' }, "abc00")]
+        [TestResult(new object[] { "abc", 5, L.Align.Right, '0' }, "00abc")]
+        [TestResult(new object[] { "abc", 5, L.Align.Center, '0' }, "0abc0")]
+        [TestResult(new object[] { "   abc   ", 5, L.Align.Left, '0' }, "abc00")]
+        [TestResult(new object[] { "   abc   ", 5, L.Align.Right, '0' }, "00abc")]
+        [TestResult(new object[] { "   abc   ", 5, L.Align.Center, '0' }, "0abc0")]
+        [TestResult(new object[] { "abcdef", 5, L.Align.Left, '0' }, "abcde")]
+        [TestResult(new object[] { "abcdef", 5, L.Align.Right, '0' }, "abcde")]
+        [TestResult(new object[] { "abcdef", 5, L.Align.Center, '0' }, "abcde")]
+        [TestResult(new object[] { "   abc   ", 6, L.Align.Center, '0' }, "00abc0")]
+        public static string Pad(this string In, int Length, L.Align Alignment = L.Align.Left, char PadChar = ' ')
             {
             if (In.IsEmpty())
                 return PadChar.Fill(Length);
@@ -708,11 +710,11 @@ namespace LCore.Extensions
                 return In.Substring(0, Length);
             while (In.Length < Length)
                 {
-                if (Alignment == Logic.Align.Left)
+                if (Alignment == L.Align.Left)
                     In += PadChar;
-                else if (Alignment == Logic.Align.Right)
+                else if (Alignment == L.Align.Right)
                     In = PadChar + In;
-                else if (Alignment == Logic.Align.Center)
+                else if (Alignment == L.Align.Center)
                     {
                     if (In.Length % 2 == 0)
                         In += PadChar;
@@ -729,6 +731,9 @@ namespace LCore.Extensions
         /// <summary>
         /// Takes a string and returns a pluralized version of the word or phrase.
         /// This method will not fail. If the input is empty it will just return "".
+        /// 
+        /// [Count] is used as the number of things you're referring to. 
+        /// If you pass 1 (or -1), pluralization will not be applied
         /// </summary>
         [TestResult(new object[] { null, -1 }, "")]
         [TestResult(new object[] { "", -1 }, "")]
@@ -742,8 +747,12 @@ namespace LCore.Extensions
         [TestResult(new object[] { "Entry", 2 }, "Entries")]
         public static string Pluralize(this string In, int Count)
             {
-            return Logic.Def.StringExt.Pluralize(In, Count);
+            return L.Str.Pluralize(In, Count);
             }
+        /// <summary>
+        /// Takes a string and returns a pluralized version of the word or phrase.
+        /// This method will not fail. If the input is empty it will just return "".
+        /// </summary>
         [TestResult(new object[] { null }, "")]
         [TestResult(new object[] { "" }, "")]
         [TestResult(new object[] { "blob" }, "blobs")]
@@ -752,31 +761,24 @@ namespace LCore.Extensions
         [TestResult(new object[] { "Entries" }, "Entries")]
         public static string Pluralize(this string In)
             {
-            return Logic.Def.StringExt.Pluralize(In, 2);
-            }
-        [TestResult(new object[] { null }, "")]
-        [TestResult(new object[] { "" }, "")]
-        [TestResult(new object[] { "blobs" }, "blob")]
-        [TestResult(new object[] { "people" }, "person")]
-        [TestResult(new object[] { "Entries" }, "Entry")]
-        [TestResult(new object[] { "Entry" }, "Entry")]
-        public static string Singularize(this string In)
-            {
-            return Logic.Def.StringExt.Singularize(In);
+            return L.Str.Pluralize(In, 2);
             }
         #endregion
 
-        // TODO: L: String: Untested
         #region RemoveAll
         /// <summary>
-        /// Returns a String based on [In] with all instances of [Find] removed.
+        /// Returns a String based on [In] with all passed strings removed.
         /// </summary>
         /// <param name="In">The source string</param>
-        /// <param name="Find">The string to remove.</param>
-        /// <returns>A String based on [In] with all instances of [Find] removed.</returns>
-        public static string RemoveAll(this string In, string Find)
+        /// <param name="Find">The strings to remove.</param>
+        /// <returns>A String based on [In] with all passed strings removed.</returns>
+        public static string RemoveAll(this string In, params string[] Find)
             {
-            return In.ReplaceAll(Find, "");
+            string Out = In ?? "";
+
+            Find.Each(s => Out = Out.ReplaceAll(s, ""));
+
+            return Out;
             }
         #endregion
 
@@ -807,9 +809,32 @@ namespace LCore.Extensions
                 }
             return Out;
             }
+
+        /// <summary>
+        /// Takes a string and [Replacements] dictionary. 
+        /// All keys are replaced with the corresponding value.
+        /// </summary>
+        public static string ReplaceAll(this string In, IDictionary<string, string> Replacements)
+            {
+            string Out = In ?? "";
+
+            Replacements = Replacements ?? new Dictionary<string, string>();
+
+            while (In.ContainsAny(Replacements.Keys))
+                {
+                // ReSharper disable once LoopCanBeConvertedToQuery
+                foreach (string Key in Replacements.Keys)
+                    {
+                    string Replacement = Replacements.SafeGet(Key);
+
+                    Out = Out.ReplaceAll(Key, Replacement);
+                    }
+                }
+
+            return Out;
+            }
         #endregion
 
-        // TODO: L: String: Untested
         #region ReplaceLineEnders
 
 
@@ -851,6 +876,23 @@ namespace LCore.Extensions
             }
         #endregion
 
+        #region Singularize
+        /// <summary>
+        /// Takes a string and returns a singularized version of the word or phrase.
+        /// This method will not fail. If the input is empty it will just return "".
+        /// </summary>
+        [TestResult(new object[] { null }, "")]
+        [TestResult(new object[] { "" }, "")]
+        [TestResult(new object[] { "blobs" }, "blob")]
+        [TestResult(new object[] { "people" }, "person")]
+        [TestResult(new object[] { "Entries" }, "Entry")]
+        [TestResult(new object[] { "Entry" }, "Entry")]
+        public static string Singularize(this string In)
+            {
+            return L.Str.Singularize(In);
+            }
+        #endregion
+
         #region Split
         /// <summary>
         /// Takes a String and returns a String[] split by the [SplitStr]
@@ -883,7 +925,7 @@ namespace LCore.Extensions
                 return !In.IsEmpty() ? new[] { In } : new string[] { };
                 }
 
-            List<string> Out = new List<string>();
+            var Out = new List<string>();
             In.Traverse(Cursor =>
             {
                 int Index = Cursor.IndexOf(SplitStr);
@@ -941,7 +983,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: String: Untested
         #region SplitWithQuotes
         /// <summary>
         /// Returns a list of String segments from [Line], split by [SplitBy]
@@ -952,7 +993,7 @@ namespace LCore.Extensions
         /// <returns></returns>
         public static List<string> SplitWithQuotes(this string Line, char SplitBy)
             {
-            List<string> Out = new List<string>();
+            var Out = new List<string>();
 
             int fieldStart = 0;
             for (int i = 0; i < Line.Length; i++)
@@ -978,6 +1019,16 @@ namespace LCore.Extensions
 
         #endregion
 
+        #region Sub
+        /// <summary>
+        /// Alias for string.SubString
+        /// </summary>
+        public static string Sub(this string In, int Start, int? Length = null)
+            {
+            return Length == null ? In.Substring(Start) : In.Substring(Start, (int)Length);
+            }
+        #endregion
+
         #region Surround
         /// <summary>
         /// Surrounds the source String with Before and After
@@ -998,11 +1049,10 @@ namespace LCore.Extensions
         [TestResult(new object[] { "_a_", "_b", "c_" }, "_b_a_c_")]
         public static string Surround(this string In, string Before, string After)
             {
-            return Logic.Def.StringExt.Surround(In, Before, After);
+            return L.Str.Surround(In, Before, After);
             }
         #endregion
 
-        // TODO: L: String: Untested
         #region Symmetry
         /// <summary>
         /// Returns the Percent of 'symmetry' between two strings. 
@@ -1041,7 +1091,7 @@ namespace LCore.Extensions
 
         private static List<string> WordLetterPairs(string str)
             {
-            List<string> AllPairs = new List<string>();
+            var AllPairs = new List<string>();
 
             // Tokenize the string and put the tokens/words into an array
             string[] Words = Regex.Split(str, @"\s");
@@ -1063,7 +1113,7 @@ namespace LCore.Extensions
             {
             int numPairs = str.Length - 1;
 
-            string[] pairs = new string[numPairs];
+            var pairs = new string[numPairs];
 
             for (int i = 0; i < numPairs; i++)
                 {
@@ -1141,7 +1191,7 @@ namespace LCore.Extensions
             if (Bytes.IsEmpty())
                 return "";
 
-            char[] c = new char[Bytes.Length * 2 + 2];
+            var c = new char[Bytes.Length * 2 + 2];
             c[0] = '0'; c[1] = 'x';
 
             for (int y = 0, x = 2; y < Bytes.Length; ++y, ++x)
@@ -1153,6 +1203,21 @@ namespace LCore.Extensions
                 }
 
             return new string(c);
+            }
+        #endregion
+
+        #region ToStream
+        /// <summary>
+        /// Converts an input string into a memory stream.
+        /// </summary>
+        public static Stream ToStream(this string str)
+            {
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+            writer.Write(str);
+            writer.Flush();
+            stream.Position = 0;
+            return stream;
             }
         #endregion
 
@@ -1182,6 +1247,53 @@ namespace LCore.Extensions
             }
         #endregion
 
+        #region Trim
+        /// <summary>
+        /// Returns [In] with [TrimStr] removed from the start and 
+        /// end if it's present. Trims multiple occurrences.
+        /// </summary>
+        public static string Trim(this string In, string TrimStr)
+            {
+            return In.TrimEnd(TrimStr).TrimStart(TrimStr);
+            }
+        #endregion
+
+        #region TrimEnd
+        /// <summary>
+        /// Returns [In] with [TrimStr] removed from the end 
+        /// if it's present. Trims multiple occurrences.
+        /// </summary>
+        public static string TrimEnd(this string In, string TrimStr)
+            {
+            while (In.EndsWith(TrimStr))
+                {
+                In = In == TrimStr ?
+                    "" :
+                    In.Substring(0, In.Length - TrimStr.Length);
+                }
+
+            return In;
+            }
+        #endregion
+
+        #region TrimStart
+        /// <summary>
+        /// Returns [In] with [TrimStr] removed from the start 
+        /// if it's present. Trims multiple occurrences.
+        /// </summary>
+        public static string TrimStart(this string In, string TrimStr)
+            {
+            while (In.StartsWith(TrimStr))
+                {
+                In = In == TrimStr ?
+                    "" :
+                    In.Substring(TrimStr.Length);
+                }
+
+            return In;
+            }
+        #endregion
+
         #region Words
         /// <summary>
         /// Takes a String and returns its words in an array. Removes newlines.
@@ -1199,7 +1311,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: String: Untested
         #region XMLClean
         /// <summary>
         /// Returns a String with all HTML tags replaced with "&lt;" and "&gt;"
@@ -1212,67 +1323,57 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: String: Comment
-        // TODO: L: String: Untested
-        #region ToStream
-        public static Stream ToStream(this string str)
-            {
-            MemoryStream stream = new MemoryStream();
-            StreamWriter writer = new StreamWriter(stream);
-            writer.Write(str);
-            writer.Flush();
-            stream.Position = 0;
-            return stream;
-            }
-        #endregion
-
         #endregion
         }
 
-    public partial class Logic
+    public static partial class L
         {
-        public partial class Def
+        /// <summary>
+        /// Contains System.String static methods and lambdas.
+        /// </summary>
+        public static class Str
             {
-            public class StringExt
-                {
-                #region Constants
-                /// <summary>
-                /// New line string (C# "\r\n")
-                /// </summary>
-                public const string NewLineString = "\r\n"; // System.Environment.NewLine 
+            #region Constants +
+            /// <summary>
+            /// New line string (C# "\r\n")
+            /// </summary>
+            public const string NewLineString = "\r\n"; // System.Environment.NewLine 
 
-                #endregion
+            #endregion
 
-                #region Lambdas
-                public static readonly Func<string> Empty = () => "";
-                public static readonly Func<string, int, char> Char = (s, i) => s[i];
-                public static readonly Func<char[], char, char, char> Substitute = (chars, c, sub) => chars.Contains(c) ? sub : c;
-                public static readonly Func<string, char[], string> RemoveChars = (s, chars) => s.Collect(Substitute.Supply(chars).Supply2(' '))
-                    .ReplaceAll("  ", " ").Trim();
-                public static readonly Func<string, char, string> ReplaceDouble = (s, c) =>
-                {
-                    string s2 = c.ToString();
-                    return s.ReplaceAll(s2 + s2, s2);
-                };
-                public static readonly Func<string, int, string> Pluralize = (s, c) =>
-                {
-                    if (s.IsEmpty())
-                        return "";
+            #region Lambdas +
 
-                    if (c == 0 || Math.Abs(c) > 1)
-                        return System.Data.Entity.Design.PluralizationServices.PluralizationService.CreateService(CultureInfo.CurrentCulture).Pluralize(s);
-                    return s ?? "";
-                };
-                public static readonly Func<string, string> Singularize = s => s.IsEmpty() ? "" : System.Data.Entity.Design.PluralizationServices.PluralizationService.CreateService(CultureInfo.CurrentCulture).Singularize(s);
-                public static readonly Func<IEnumerable<string>, string, string> JoinLines = (l, s) => l.Combine(s);
-                public static readonly Func<string, string, string, string> Surround = (In, before, after) =>
-                {
-                    if (In.IsEmpty())
-                        return "";
+            #region Char
 
-                    return before + In + after;
-                };
-                public static readonly Func<string, string, int> NumericalCompare = (s1, s2) =>
+            /// <summary>
+            /// Character indexer returns the character at index [i]
+            /// </summary>
+            public static readonly Func<string, int, char> Char = (s, i) => s[i];
+
+            #endregion
+
+            #region Empty
+
+            /// <summary>
+            /// Func that returns an empty string.
+            /// </summary>
+            public static readonly Func<string> Empty = () => "";
+
+            #endregion
+
+            #region JoinLines
+            /// <summary>
+            /// Function that joins strings from an IEnumerable[string].
+            /// </summary>
+            public static readonly Func<IEnumerable<string>, string, string> JoinLines = (l, s) => l.Combine(s);
+            #endregion
+
+            #region NumericalCompare
+            /// <summary>
+            /// Compares a string numerically, begin mindful of strings with sequences of numbers.
+            /// Ex: File0005
+            /// </summary>
+            public static readonly Func<string, string, int> NumericalCompare = (s1, s2) =>
                 {
                     int len1 = s1.Length;
                     int len2 = s2.Length;
@@ -1286,9 +1387,9 @@ namespace LCore.Extensions
                         char ch2 = s2[marker2];
 
                         // Some buffers we can build up characters in for each chunk.
-                        char[] space1 = new char[len1];
+                        var space1 = new char[len1];
                         int loc1 = 0;
-                        char[] space2 = new char[len2];
+                        var space2 = new char[len2];
                         int loc2 = 0;
 
                         // Walk through all following characters that are digits or
@@ -1349,53 +1450,143 @@ namespace LCore.Extensions
                         }
                     return len1 - len2;
                 };
-                #endregion
-                }
 
-            public class CharExt
-                {
-                #region Constants
-                /// <summary>
-                /// New line character (C# '\n')
-                /// </summary>
-                public const char NewLineChar = '\n';
+            #endregion
 
-                /// <summary>
-                /// Array of lower case characters for passwords (char[])
-                /// </summary>
-                public static readonly char[] LowerCaseChars = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-                /// <summary>
-                /// Array of upper case characters for passwords (char[])
-                /// </summary>
-                public static readonly char[] UpperCaseChars = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-                /// <summary>
-                /// Array of number characters for passwords (char[])
-                /// </summary>
-                public static readonly char[] NumberChars = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-                /// <summary>
-                /// Array of special characters for passwords (char[])
-                /// </summary>
-                public static readonly char[] SpecialChars = { '!', '#', '$', '%', '&', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '{', '|', '}' };
-                #endregion
-                }
-            }
-        }
-    public partial class L
-        {
-        #region ToS
-        public static Func<object, string> FN_ToS =
-            o =>
+            #region Pluralize
+
+            /// <summary>
+            /// Takes a string and returns a pluralized version of the word or phrase.
+            /// This method will not fail. If the input is empty it will just return "".
+            /// 
+            /// [Count] is used as the number of things you're referring to. 
+            /// If you pass 1 (or -1), pluralization will not be applied
+            /// </summary>
+            public static readonly Func<string, int, string> Pluralize = (s, c) =>
             {
-                if (o == null)
+                if (s.IsEmpty())
                     return "";
-                string s = o as string;
-                if (s != null)
-                    {
-                    return s;
-                    }
-                IEnumerable enumerable = o as IEnumerable;
-                return enumerable != null ? $"{enumerable.GetType().FullName} {{ {enumerable.Array().Convert(FN_ToS).Combine(", ")} }}" : o.ToString();
+
+                if (c == 0 || Math.Abs(c) > 1)
+                    return
+                        PluralizationService.CreateService(
+                            CultureInfo.CurrentCulture).Pluralize(s);
+                return s ?? "";
             };
-        #endregion
+
+            #endregion
+
+            #region RemoveChars
+            /// <summary>
+            /// Function that removes any of the supplied characters from a string.
+            /// </summary>
+            public static readonly Func<string, char[], string> RemoveChars =
+                (s, chars) => s.Collect(Substitute.Supply(chars).Supply2(' '))
+                    .ReplaceAll("  ", " ").Trim();
+
+            #endregion
+
+            #region ReplaceDouble
+            /// <summary>
+            /// Function that replaces all double occurrences of a string with single occurrences.
+            /// </summary>
+            public static readonly Func<string, char, string> ReplaceDouble = (s, c) =>
+                {
+                    string s2 = c.ToString();
+                    return s.ReplaceAll(s2 + s2, s2);
+                };
+
+            #endregion
+
+            #region Singularize
+
+            /// <summary>
+            /// Takes a string and returns a singularized version of the word or phrase.
+            /// This method will not fail. If the input is empty it will just return "".
+            /// </summary>
+            public static readonly Func<string, string> Singularize =
+                s =>
+                    s.IsEmpty()
+                        ? ""
+                        : PluralizationService.CreateService(
+                            CultureInfo.CurrentCulture).Singularize(s);
+
+            #endregion
+
+            #region Substitute
+            internal static readonly Func<char[], char, char, char> Substitute =
+                (chars, c, sub) => chars.Contains(c) ? sub : c;
+
+            #endregion
+
+            #region Surround
+
+            /// <summary>
+            /// Surrounds a string with [Before] and [After]
+            /// </summary>
+            public static readonly Func<string, string, string, string> Surround = (In, Before, After) =>
+                {
+                    if (In.IsEmpty())
+                        return "";
+
+                    return Before + In + After;
+                };
+
+            #endregion
+
+            #region ToS
+            /// <summary>
+            /// Converts an object or IEnumerable to a detailed string.
+            /// Ex: "System.String[] { a, b, c, d, e }"
+            /// </summary>
+            public static readonly Func<object, string> ToS =
+                o =>
+                {
+                    if (o == null)
+                        return "";
+                    string s = o as string;
+                    if (s != null)
+                        {
+                        return s;
+                        }
+                    var enumerable = o as IEnumerable;
+                    return enumerable != null ?
+                        $"{enumerable.GetType().FullName} {{ {enumerable.Array().Convert(ToS).Combine(", ")} }}" :
+                        o.ToString();
+                };
+            #endregion
+
+            #endregion
+            }
+
+        /// <summary>
+        /// Contains System.Char static methods and lambdas.
+        /// </summary>
+        public static class Char
+            {
+            #region Constants +
+            /// <summary>
+            /// New line character (C# '\n')
+            /// </summary>
+            public const char NewLineChar = '\n';
+
+            /// <summary>
+            /// Array of lower case characters for passwords (char[])
+            /// </summary>
+            public static readonly char[] LowerCaseChars = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+            /// <summary>
+            /// Array of upper case characters for passwords (char[])
+            /// </summary>
+            public static readonly char[] UpperCaseChars = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+            /// <summary>
+            /// Array of number characters for passwords (char[])
+            /// </summary>
+            public static readonly char[] NumberChars = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+            /// <summary>
+            /// Array of special characters for passwords (char[])
+            /// </summary>
+            public static readonly char[] SpecialChars = { '!', '#', '$', '%', '&', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '{', '|', '}' };
+            #endregion
+            }
         }
     }

@@ -1,60 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Threading;
-using System.Linq;
+using LCore.Interfaces;
+// ReSharper disable UnusedMember.Global
 
 namespace LCore.Extensions
     {
+    /// <summary>
+    /// Provides extensions to more easily access the file system.
+    /// </summary>
+    [ExtensionProvider]
     public static class FileExt
         {
-        /* TODO: L: File: Comment All Below */
+        #region Extensions +
 
-        #region Extensions
-
-        #region BufferedMove
-        public static void BufferedMove(string s1, string s2, bool DeleteOriginal)
-            {
-            FileStream f1 = new FileStream(s1, FileMode.Open, FileAccess.Read, FileShare.Read);
-            FileStream f2 = new FileStream(s2, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
-
-            f2.Seek(0, SeekOrigin.Begin);
-            f2.SetLength(f1.Length);
-
-            const int BufferSize = 128 * 1024;
-
-            long TotalSize = f1.Length;
-            long Index = 0;
-
-            while (Index < TotalSize)
-                {
-                long ChunkSize = TotalSize - Index;
-
-                if (ChunkSize > BufferSize)
-                    ChunkSize = BufferSize;
-                byte[] Bytes = new byte[ChunkSize];
-                f1.Read(Bytes, 0, (int)ChunkSize);
-                f2.Write(Bytes, 0, (int)ChunkSize);
-                f2.Flush();
-                Index += ChunkSize;
-                BufferedMove_Progress?.Invoke(new[] { Index, TotalSize }, null);
-                }
-
-            f2.Close();
-            f1.Close();
-
-            if (DeleteOriginal)
-                File.Delete(s1);
-            }
-        #endregion
         #region ByteArrayToCharArray
+        /// <summary>
+        /// Safely converts a byte[] to a char[]
+        /// </summary>
         public static char[] ByteArrayToCharArray(byte[] In)
             {
             if (In == null)
                 {
                 return new char[0];
                 }
-            char[] Out = new char[In.Length];
+            var Out = new char[In.Length];
 
             for (int i = 0; i < In.Length; i++)
                 {
@@ -63,13 +35,21 @@ namespace LCore.Extensions
             return Out;
             }
         #endregion
+
         #region CleanFileName
+        /// <summary>
+        /// Removes non-supported characters from filenames.
+        /// </summary>
         public static string CleanFileName(this string In)
             {
-            return File_CleanFileName(In);
+            return L.File.CleanFileName(In);
             }
         #endregion
+
         #region EnsurePathExists
+        /// <summary>
+        /// Creates a directory path if it doesn't already exist.
+        /// </summary>
         public static void EnsurePathExists(this string Path)
             {
             string DirPath = Path;
@@ -81,10 +61,15 @@ namespace LCore.Extensions
                 Directory.CreateDirectory(DirPath);
             }
         #endregion
+
         #region EveryOtherByte
+        /// <summary>
+        /// Returns a byte[] with every other element skipped.
+        /// Useful for reading data that has been encoded in Unicode.
+        /// </summary>
         public static byte[] EveryOtherByte(this byte[] In)
             {
-            byte[] Out = new byte[In.Length / 2];
+            var Out = new byte[In.Length / 2];
             for (int i = 0; i < Out.Length; i++)
                 {
                 Out[i] = In[i * 2];
@@ -92,8 +77,12 @@ namespace LCore.Extensions
             return Out;
             }
         #endregion
-        #region GetFileContents
-        public static byte[] GetFileContents(FileStream F, int MaxSize, int PartNum)
+
+        #region GetFileBlock
+        /// <summary>
+        /// Reads a chunk of file [F] using [BlockSize] and [BlockNum] as index.
+        /// </summary>
+        public static byte[] GetFileBlock(FileStream F, int BlockSize, int BlockNum)
             {
             if (F == null)
                 throw new ArgumentNullException(nameof(F));
@@ -107,24 +96,24 @@ namespace LCore.Extensions
                 throw new IOException();
 
 
-            if (PartNum < 0)
+            if (BlockNum < 0)
                 {
-                PartNum = 0;
+                BlockNum = 0;
                 }
 
-            int StartPos = MaxSize * PartNum;
+            int StartPos = BlockSize * BlockNum;
 
-            if (MaxSize <= 0)
+            if (BlockSize <= 0)
                 {
-                MaxSize = (int)F.Length;
+                BlockSize = (int)F.Length;
                 }
-            else if ((PartNum + 1) * MaxSize > F.Length)
+            else if ((BlockNum + 1) * BlockSize > F.Length)
                 {
-                MaxSize = (int)F.Length - PartNum * MaxSize;
+                BlockSize = (int)F.Length - BlockNum * BlockSize;
                 }
 
-            if (StartPos > F.Length || MaxSize < 0)
-                throw new ArgumentException($"PartNum: {PartNum}");
+            if (StartPos > F.Length || BlockSize < 0)
+                throw new ArgumentException($"PartNum: {BlockNum}");
 
             int tries = 0;
             byte[] Contents = null;
@@ -132,16 +121,16 @@ namespace LCore.Extensions
                 {
                 try
                     {
-                    Contents = new byte[MaxSize];
+                    Contents = new byte[BlockSize];
                     F.Seek(StartPos, SeekOrigin.Begin);
 
-                    if (LOCKFILES)
-                        F.Lock(StartPos, MaxSize);
+                    if (L.File.LockFiles)
+                        F.Lock(StartPos, BlockSize);
 
                     F.Read(Contents, 0, Contents.Length);
 
-                    if (LOCKFILES)
-                        F.Unlock(StartPos, MaxSize);
+                    if (L.File.LockFiles)
+                        F.Unlock(StartPos, BlockSize);
 
                     break;
                     }
@@ -151,8 +140,8 @@ namespace LCore.Extensions
                         {
                         try
                             {
-                            if (LOCKFILES)
-                                F.Unlock(StartPos, MaxSize);
+                            if (L.File.LockFiles)
+                                F.Unlock(StartPos, BlockSize);
                             }
                         catch { }
 
@@ -177,14 +166,24 @@ namespace LCore.Extensions
             return Contents;
             }
         #endregion
+
         #region GetFileStream
+        /// <summary>
+        /// Returns a new FileStream using the default FileMode, FileAccess, and FileShare settings.
+        /// (Open | Read | ReadWrite, Delete)
+        /// </summary>
         public static FileStream GetFileStream(this string FullPath)
             {
-            try { return new FileStream(FullPath, DEFAULTFILEMODE, DEFAULTFILEACCESS, DEFAULTFILESHARE); }
+            try { return new FileStream(FullPath, L.File.DefaultFileMode, L.File.DefaultFileAccess, L.File.DefaultFileShare); }
             catch { return null; }
             }
         #endregion
+
         #region GetFileHash
+        /// <summary>
+        /// Returns the file's hash, determined by the file bytes and 
+        /// L.HashAlgorithm (default to SHA256)
+        /// </summary>
         public static byte[] GetFileHash(this string FullPath)
             {
             if (FullPath == null)
@@ -192,15 +191,19 @@ namespace LCore.Extensions
             if (!File.Exists(FullPath))
                 throw new FileNotFoundException(FullPath);
 
-            return GetStreamHash(GetStringStream(FullPath));
+            return GetStreamHash(FullPath.ToStream());
             }
         #endregion
+
         #region GetMemoryStream
+        /// <summary>
+        /// Reads the entirity of a Stream and returns it as a MemoryStream.
+        /// </summary>
         public static MemoryStream GetMemoryStream(this Stream In)
             {
-            MemoryStream memStream = new MemoryStream();
+            var memStream = new MemoryStream();
 
-            byte[] respBuffer = new byte[1024];
+            var respBuffer = new byte[1024];
             try
                 {
                 int bytesRead = In.Read(respBuffer, 0,
@@ -216,95 +219,42 @@ namespace LCore.Extensions
             return memStream;
             }
         #endregion
+
         #region GetStreamHash
+        /// <summary>
+        /// Returns the stream's hash, determined by the stream bytes and 
+        /// L.HashAlgorithm (default to SHA256)
+        /// </summary>
         public static byte[] GetStreamHash(this Stream InputStream)
             {
             if (InputStream == null)
                 throw new ArgumentNullException(nameof(InputStream));
 
-            byte[] Hash = HashAlgorithm.ComputeHash(InputStream);
+            byte[] Hash = L.File.HashAlgorithm.ComputeHash(InputStream);
             try { InputStream.Close(); }
             catch { }
             return Hash;
             }
         #endregion
+
         #region GetStringHash
+        /// <summary>
+        /// Returns the string's hash, determined by the string bytes and 
+        /// L.HashAlgorithm (default to SHA256)
+        /// </summary>
         public static byte[] GetStringHash(this string In)
             {
-            return GetStreamHash(GetStringStream(In));
+            return GetStreamHash(In.ToStream());
             }
         #endregion
-        #region GetStringStream
-        public static Stream GetStringStream(this string In)
-            {
-            return new MemoryStream(In.ToByteArray());
-            }
-        #endregion
-        #region MatchesFileFilters
-        public static bool MatchesFileFilters(string[] FileFilter, string[] FileFilterExceptions, string[] GlobalDirFilterExceptions, string FullName)
-            {
-            if (FullName == null)
-                throw new ArgumentNullException(nameof(FullName));
 
-            string FileName = FullName;
-
-            if (FileName.Contains("\\"))
-                FileName = FileName.Substring(FileName.LastIndexOf('\\') + 1);
-
-            return MatchesFileFilters(FileFilter, FileFilterExceptions, GlobalDirFilterExceptions, FullName, FileName);
-            }
-        private static bool MatchesFileFilters(string[] FileFilter, string[] FileFilterExceptions, string[] GlobalDirFilterExceptions, string FullName, string FileName)
-            {
-            if (FileFilter == null || FileFilter.Length == 0)
-                FileFilter = new[] { "*.*" };
-
-            bool Found = false;
-
-            foreach (string s in FileFilter)
-                {
-                string Test = s;
-                if (Test.IsEmpty())
-                    Test = "*.*";
-                if (MatchesWildCard(FileName, Test))
-                    {
-                    Found = true;
-                    break;
-                    }
-                }
-
-            if (Found && FileFilterExceptions != null)
-                {
-                foreach (string s in FileFilterExceptions)
-                    {
-                    string s2 = s;
-                    if (s2?.Trim() != "" && !s2?.StartsWith("*") == true)
-                        s2 = $"*{s2}";
-                    if (s2 != "" && MatchesWildCard(FileName, s2))
-                        {
-                        return false;
-                        }
-                    }
-                }
-            if (Found && GlobalDirFilterExceptions != null)
-                {
-                if (GlobalDirFilterExceptions.Any(s => s != "" && MatchesWildCard(FullName, s)))
-                    {
-                    return false;
-                    }
-                }
-            return Found;
-            }
-        #endregion
-        #region MatchesFolderFilters
-        public static bool MatchesFolderFilters(string[] DirFilterExceptions, string FolderName)
-            {
-            if (FolderName == null)
-                throw new ArgumentNullException(nameof(FolderName));
-
-            return DirFilterExceptions == null || Enumerable.All(DirFilterExceptions, s => s == "" || !MatchesWildCard(FolderName, s));
-            }
-        #endregion
         #region MatchesWildCard
+        /// <summary>
+        /// Returns whether a string matches a wildcard 
+        /// </summary>
+        /// <param name="In"></param>
+        /// <param name="WildCard"></param>
+        /// <returns></returns>
         public static bool MatchesWildCard(string In, string WildCard)
             {
             if (In == null)
@@ -315,16 +265,18 @@ namespace LCore.Extensions
             if (!WildCard.StartsWith("*"))
                 WildCard = $"*{WildCard}";
 
-            while (WildCard.Contains("**") || WildCard.Contains("*?") || WildCard.Contains("?*"))
+
+            WildCard = WildCard.ReplaceAll(new Dictionary<string, string>
                 {
-                WildCard = WildCard.Replace("**", "*");
-                WildCard = WildCard.Replace("*?", "*");
-                WildCard = WildCard.Replace("?*", "*");
-                }
+                {"**", "*"},
+                {"*?", "*"},
+                {"?*", "*"}
+                });
 
             return MatchesWildCardLowerCase(In.ToLower(), WildCard.ToLower());
             }
         #endregion
+
         #region MatchesWildCardLowerCase
         private static bool MatchesWildCardLowerCase(string In, string WildCard)
             {
@@ -370,12 +322,16 @@ namespace LCore.Extensions
             }
 
         #endregion
+
         #region ReadAllBytes
+        /// <summary>
+        /// Reads all bytes from the stream and returns a Byte[].
+        /// </summary>
         public static byte[] ReadAllBytes(this Stream input)
             {
-            byte[] buffer = new byte[16 * 1024];
+            var buffer = new byte[16 * 1024];
 
-            using (MemoryStream ms = new MemoryStream())
+            using (var ms = new MemoryStream())
                 {
                 int read;
                 while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
@@ -386,165 +342,290 @@ namespace LCore.Extensions
                 }
             }
         #endregion
-        #region SafeCopyFile
-        public static bool SafeCopyFile(string s1, string s2, int tries, bool OverwriteIfExists)
-            {
-            return SafeMoveFile(s1, s2, tries, OverwriteIfExists, false);
-            }
-        #endregion
-        #region SafeMoveFile
-        public static bool SafeMoveFile(string s1, string s2, int tries, bool OverwriteIfExists, bool DeleteOriginal = true)
-            {
-            try
-                {
-                EnsurePathExists(s2);
 
-                if (OverwriteIfExists && File.Exists(s2))
-                    File.Delete(s2);
-
-                s1 = s1.Replace("\\\\", "\\");
-                s2 = s2.Replace("\\\\", "\\");
-
-                if (s1.StartsWith("\\"))
-                    s1 = $"\\{s1}";
-                if (s2.StartsWith("\\"))
-                    s2 = $"\\{s2}";
-
-                string Dir = s2.Substring(0, s2.LastIndexOf('\\'));
-
-                if (!Directory.Exists(Dir))
-                    Directory.CreateDirectory(Dir);
-
-                try
-                    {
-                    if (Path.GetPathRoot(s1) == Path.GetPathRoot(s2))
-                        {
-                        File.Move(s1, s2);
-                        return true;
-                        }
-                    throw new Exception();
-                    }
-                catch
-                    {
-                    BufferedMove(s1, s2, DeleteOriginal);
-                    return true;
-                    }
-                }
-            catch (Exception e)
-                {
-                if (e.Message.Contains("The process cannot access the file because it is being used by another process."))
-                    return false;
-
-                if (tries >= 10)
-                    {
-                    throw new Exception($"Could not move file \'{s1}\' to destination \'{s2}\'", e);
-                    }
-
-                Thread.Sleep(1000);
-                return SafeMoveFile(s1, s2, tries + 1, OverwriteIfExists, DeleteOriginal);
-                }
-            }
-        #endregion
         #region WaitForFileUnlock
-        public static void WaitForFileUnlock(string FullPath, int MaxWait)
+        /// <summary>
+        /// Waits until a FileStream can be opened. Waits at most [MaxWaitMS] milliseconds.
+        /// </summary>
+        public static bool WaitForFileUnlock(string FullPath, int MaxWaitMS)
             {
             const int Wait = 100;
 
-            while (true)
+            while (MaxWaitMS > 0)
                 {
                 try
                     {
-                    FileStream fs = new FileStream(FullPath, FileMode.Open, FileAccess.ReadWrite);
+                    var fs = new FileStream(FullPath, FileMode.Open, FileAccess.ReadWrite);
                     fs.Close();
-                    return;
+                    return true;
                     }
-                catch (Exception e)
+                catch (Exception)
                     {
-                    if (MaxWait < Wait)
-                        throw new Exception(FullPath, e);
+                    if (MaxWaitMS < Wait)
+                        return false;
 
-                    MaxWait -= Wait;
+                    MaxWaitMS -= Wait;
                     Thread.Sleep(Wait);
                     }
                 }
+            return false;
             }
 
         #endregion
-        #endregion
 
-        #region Constants
-        public static event EventHandler BufferedMove_Progress;
-
-
-        public static Func<byte[], char[]> _ByteArrayToCharArray = L.F<byte[], char[]>().Case(null, new char[] { })
-            .Else(L.F<byte[], Func<byte, char>, char[]>(ListExt.Convert).Supply2(Convert.ToChar));
-
-
-        public static Func<string, string> File_CleanFileName = L.Def.StringExt.RemoveChars.Surround2(Path.GetInvalidFileNameChars);
-
-        public const FileMode DEFAULTFILEMODE = FileMode.Open;
-        public const FileAccess DEFAULTFILEACCESS = FileAccess.Read;
-        public const FileShare DEFAULTFILESHARE = FileShare.ReadWrite | FileShare.Delete;
-        public static bool LOCKFILES = false;
-
-        public static HashAlgorithm HashAlgorithm => new MD5CryptoServiceProvider();
 
         #endregion
         }
-    public partial class Logic
+    public static partial class L
         {
-        /* TODO: L: File: Comment All Below */
+        /// <summary>
+        /// Contains static methods and lambdas pertaining to file operations.
+        /// </summary>
+        public static class File
+            {
+            #region Static Variables +
+            // ReSharper disable ConvertToConstant.Global
+            // ReSharper disable FieldCanBeMadeReadOnly.Global
+            /// <summary>
+            /// During file operations, L will use the default file mode Open.
+            /// Change this value to manually override.
+            /// </summary>
+            public static FileMode DefaultFileMode = FileMode.Open;
+            /// <summary>
+            /// During file operations, L will use the default file access Read.
+            /// Change this value to manually override.
+            /// </summary>
+            public static FileAccess DefaultFileAccess = FileAccess.Read;
+            /// <summary>
+            /// During file operations, L will use the default file share ReadWrite + Delete.
+            /// Change this value to manually override.
+            /// </summary>
+            public static FileShare DefaultFileShare = FileShare.ReadWrite | FileShare.Delete;
+            /// <summary>
+            /// During file operations, L will lock files if this value is set to true. Default is false.
+            /// </summary>
+            public static bool LockFiles = false;
 
-        #region Constants
-        public const char COMBINEPATHSDEFAULTSEPARATOR = '\\';
-        public static string CombinePaths(params string[] Path)
-            {
-            if (Path == null)
-                {
-                throw new ArgumentNullException(nameof(Path));
-                }
-            return CombinePaths(COMBINEPATHSDEFAULTSEPARATOR, Path);
-            }
-        public static string CombinePaths(char Separator, params string[] Path)
-            {
-            if (Path == null)
-                {
-                throw new ArgumentNullException(nameof(Path));
-                }
+            /// <summary>
+            /// The default character to use to combine paths for L.
+            /// Change this value to manually override.
+            /// </summary>
+            public static char CombinePathsDefaultSeparator = '\\';
 
-            string Out = Path.CollectStr<string, string[]>((i, s) =>
-            {
-                if (!s.IsEmpty())
+            /// <summary>
+            /// The default hashing algorithm to use for L hashing functions.
+            /// Change this value to manually override.
+            /// </summary>
+            public static HashAlgorithm HashAlgorithm = new SHA256CryptoServiceProvider();
+
+            // ReSharper restore ConvertToConstant.Global
+            // ReSharper restore FieldCanBeMadeReadOnly.Global
+            #endregion
+
+            #region Static Methods +
+
+            #region BufferedMove
+            /// <summary>
+            /// Subscribe to this EventHandler to be notified of buffered move progress 
+            /// during the 
+            /// </summary>
+            // ReSharper disable once EventNeverSubscribedTo.Global
+            public static event EventHandler BufferedMove_Progress;
+
+            /// <summary>
+            /// Moves a file from [From] to [To] using a buffer.
+            /// The original file is deleted.
+            /// </summary>
+            public static void BufferedMove(string From, string To, bool DeleteOriginal, int ChunkSize = 128 * 1024)
+                {
+                var f1 = new FileStream(From, FileMode.Open, FileAccess.Read, FileShare.Read);
+                var f2 = new FileStream(To, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+
+                f2.Seek(0, SeekOrigin.Begin);
+                f2.SetLength(f1.Length);
+
+                int BufferSize = ChunkSize;
+
+                long TotalSize = f1.Length;
+                long Index = 0;
+
+                while (Index < TotalSize)
                     {
-                    string s2 = "";
-                    if (i != 0)
-                        {
-                        s2 += Separator;
-                        }
-                    s2 += Path[i];
-                    return s2;
+                    long CurrentChunkSize = TotalSize - Index;
+
+                    if (CurrentChunkSize > BufferSize)
+                        CurrentChunkSize = BufferSize;
+                    var Bytes = new byte[CurrentChunkSize];
+                    f1.Read(Bytes, 0, (int)CurrentChunkSize);
+                    f2.Write(Bytes, 0, (int)CurrentChunkSize);
+                    f2.Flush();
+                    Index += CurrentChunkSize;
+                    BufferedMove_Progress?.Invoke(new[] { Index, TotalSize }, null);
                     }
-                return null;
-            });
 
-            Out = Out.Replace($"{Separator}{Separator}", Separator.ToString());
-            Out = Out.Replace("http:/", "http://");
-            Out = Out.Replace("https:/", "https://");
+                f2.Close();
+                f1.Close();
 
-            // Fix for UNC paths
-            if (Out.StartsWith("\\") && !Out.StartsWith("\\\\"))
+                if (DeleteOriginal)
+                    System.IO.File.Delete(From);
+                }
+            #endregion
+
+            #region ByteArrayToCharArray
+            /// <summary>
+            /// Convert a byte[] to a char[]
+            /// </summary>
+            public static Func<byte[], char[]> ByteArrayToCharArray = F<byte[], char[]>().Case(null, new char[] {})
+                .Else(F<byte[], Func<byte, char>, char[]>(EnumerableExt.Convert).Supply2(Convert.ToChar));
+            #endregion
+
+            #region CleanFileName
+            /// <summary>
+            /// Removes non-supported characters from filenames.
+            /// </summary>
+            public static readonly Func<string, string> CleanFileName =
+                Str.RemoveChars.Surround2(Path.GetInvalidFileNameChars);
+            #endregion
+
+            #region CombinePaths
+            /// <summary>
+            /// Combines sections of a file path using the default Windows file path 
+            /// separator '\'
+            /// </summary>
+            public static string CombinePaths(params string[] Path)
                 {
-                Out = $"\\{Out}";
+                if (Path == null)
+                    {
+                    throw new ArgumentNullException(nameof(Path));
+                    }
+                return CombinePaths(CombinePathsDefaultSeparator, Path);
                 }
 
-            return Out;
-            }
+            /// <summary>
+            /// Combines sections of a file path using a character separator.
+            /// </summary>
+            public static string CombinePaths(char Separator, params string[] Path)
+                {
+                if (Path == null)
+                    {
+                    throw new ArgumentNullException(nameof(Path));
+                    }
 
-        public static Func<string, byte[]> GetFileContents = FileName =>
-        {
-            FileStream s = FileName.GetFileStream();
-            return FileExt.GetFileContents(s, (int)s.Length, 0);
-        };
-        #endregion
+                string Out = Path.CollectStr<string, string[]>((i, s) =>
+                    {
+                        if (!s.IsEmpty())
+                            {
+                            string s2 = "";
+                            if (i != 0)
+                                {
+                                s2 += Separator;
+                                }
+                            s2 += Path[i];
+                            return s2;
+                            }
+                        return null;
+                    });
+
+                Out = Out.Replace($"{Separator}{Separator}", Separator.ToString());
+                Out = Out.Replace("http:/", "http://");
+                Out = Out.Replace("https:/", "https://");
+
+                // Fix for UNC paths
+                if (Out.StartsWith("\\") && !Out.StartsWith("\\\\"))
+                    {
+                    Out = $"\\{Out}";
+                    }
+
+                return Out;
+                }
+
+            #endregion
+
+            #region GetFileContents
+            /// <summary>
+            /// A function that returns the bytes of a file from a string path.
+            /// </summary>
+            public static Func<string, byte[]> GetFileContents = FileName =>
+                {
+                    var s = FileName.GetFileStream();
+                    return FileExt.GetFileBlock(s, (int)s.Length, 0);
+                };
+
+            #endregion
+
+            #region SafeCopyFile
+            /// <summary>
+            /// Tries to copy a file from [PathSource] to [PathDestination].
+            /// Optionally, retry a number of times, default 0.
+            /// Optionally, overwrite the destination file if it exists. 
+            /// </summary>
+            public static bool SafeCopyFile(string PathSource, string PathDestination, int Tries = 0, bool OverwriteIfExists = false)
+                {
+                return SafeMoveFile(PathSource, PathDestination, Tries, OverwriteIfExists, false);
+                }
+            #endregion
+
+            #region SafeMoveFile
+            /// <summary>
+            /// Tries to move a file from [PathSource] to [PathDestination].
+            /// Optionally, retry a number of times, default 0.
+            /// Optionally, overwrite the destination file if it exists.
+            /// Optionally, delete the original.
+            /// </summary>
+            public static bool SafeMoveFile(string PathSource, string PathDestination, int Tries = 0, bool OverwriteIfExists = false, bool DeleteOriginal = true)
+                {
+                try
+                    {
+                    PathDestination.EnsurePathExists();
+
+                    if (OverwriteIfExists && System.IO.File.Exists(PathDestination))
+                        System.IO.File.Delete(PathDestination);
+
+                    PathSource = PathSource.Replace("\\\\", "\\");
+                    PathDestination = PathDestination.Replace("\\\\", "\\");
+
+                    if (PathSource.StartsWith("\\"))
+                        PathSource = $"\\{PathSource}";
+                    if (PathDestination.StartsWith("\\"))
+                        PathDestination = $"\\{PathDestination}";
+
+                    string Dir = PathDestination.Substring(0, PathDestination.LastIndexOf('\\'));
+
+                    if (!Directory.Exists(Dir))
+                        Directory.CreateDirectory(Dir);
+
+                    try
+                        {
+                        if (Path.GetPathRoot(PathSource) == Path.GetPathRoot(PathDestination))
+                            {
+                            System.IO.File.Move(PathSource, PathDestination);
+                            return true;
+                            }
+                        throw new Exception();
+                        }
+                    catch
+                        {
+                        BufferedMove(PathSource, PathDestination, DeleteOriginal);
+                        return true;
+                        }
+                    }
+                catch (Exception e)
+                    {
+                    if (e.Message.Contains("The process cannot access the file because it is being used by another process."))
+                        return false;
+
+                    if (Tries <= 0)
+                        {
+                        throw new Exception($"Could not move file \'{PathSource}\' to destination \'{PathDestination}\'", e);
+                        }
+
+                    System.Threading.Thread.Sleep(1000);
+                    return SafeMoveFile(PathSource, PathDestination, Tries - 1, OverwriteIfExists, DeleteOriginal);
+                    }
+                }
+            #endregion
+
+            #endregion
+            }
         }
     }

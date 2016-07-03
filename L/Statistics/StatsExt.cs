@@ -71,7 +71,7 @@ namespace LCore.Statistics
         {
             if (StandardDeviations < 0)
                 {
-                return GetRatioWithout(StandardDeviations.AbsoluteValue()) / 2;
+                return GetRatioWithout(StandardDeviations.Abs()) / 2;
                 }
             if (StandardDeviations == 0)
             {

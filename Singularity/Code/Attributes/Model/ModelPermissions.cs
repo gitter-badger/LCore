@@ -1,9 +1,10 @@
 ﻿using System;
+using LCore.Extensions;
 
 
 namespace Singularity.Models
     {
-    public interface IModelPermissions
+    public interface IModelPermissions : ISubClassPersistentAttribute
         {
         string PermissionFieldName { get; set; }
         }

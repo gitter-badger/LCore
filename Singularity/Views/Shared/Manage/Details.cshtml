@@ -1,0 +1,77 @@
+﻿@* Generator: MvcView *@
+
+
+@using LCore.Extensions;
+@using Singularity.Extensions;
+@using Singularity.Annotations;
+
+@{
+    ViewBag.Title = "Details";
+
+    const ControllerHelper.ViewType ViewType = ControllerHelper.ViewType.Display;
+
+    var model = Model as IFieldGroups;
+
+    IEnumerable<ModelMetadata> Fields = model != null ? model.GetFieldGroup(Context, ViewType) : FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ViewType);
+}
+
+@model IModel
+
+<div class="details wide-form">
+
+    @if (!string.IsNullOrEmpty(ViewBag.ReturnURL))
+        {
+        if (ViewContext.AllowEdit(Model.TrueModelType()))
+            {
+            <a class="btn-default right"
+               href="@(Url.Controller<ManageController>().Action(c => c.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false))">
+                <glyph>&#xe065;</glyph>
+                Edit
+            </a>
+            }
+
+            <a class="btn-default right" href="@ViewBag.ReturnURL">
+                <glyph>&#xe091;</glyph>
+                Back
+            </a>
+        }
+
+    <h1>
+        @Model.GetFriendlyTypeName() Details
+    </h1>
+
+    <h2>
+        @Model.ToString()
+    </h2>
+
+    @foreach (var Meta in Fields)
+        {
+        Meta.PropertyName.ToUrlSlug();
+
+        var Field = new ViewField(ViewContext, Model.TrueModelType(), Meta.PropertyName, Model, ViewType);
+
+        @Html.ViewField(Field)
+        }
+
+    @if (!string.IsNullOrEmpty(ViewBag.ReturnURL))
+        {
+        if (ViewContext.AllowEdit(Model.TrueModelType()))
+            {
+            <a class="btn-default right" 
+               href="@(Url.Controller<ManageController>().Action(c => c.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false))"
+               key-bind-click="Ctrl+E"
+               key-bind-click-name="Edit">
+                <glyph>&#xe065;</glyph>
+                Edit
+            </a>
+            }
+
+            <a class="btn-default right"
+               href="@ViewBag.ReturnURL"
+               key-bind-click="Esc"
+               key-bind-click-name="Back">
+                <glyph>&#xe091;</glyph>
+                Back
+            </a>
+        }
+</div>

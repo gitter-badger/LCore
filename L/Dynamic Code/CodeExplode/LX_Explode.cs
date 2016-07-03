@@ -1,15 +1,23 @@
 
 using System;
 using System.Collections.Generic;
+using LCore.Tools;
+
 // ReSharper disable All
 
 
 namespace LCore.Extensions
     {
+    /// <summary>
+    /// Logical function explosion static methods.
+    /// </summary>
     public static class LX_Explode
         {
         #region Method Explosions
         #region L_Merge_A_F
+        /// <summary>
+        /// Returns a function that Performs In, then Merge. Parameter lists are merged.
+        /// </summary>
         public static Func<Action, Func<U>, Func<U>> L_Merge_A_F<U>()
             {
             return (In, Merge) =>
@@ -2708,37 +2716,37 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, U>, String, Func<T1, U>> L_Cache<T1, U>()
             {
-            L.Cache(ref L.L_ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, L.CacheData>>(); });
+            L.Logic.Cache(ref L.Logic.L_ResultCacheData,
+                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
 
             return (In, CacheID) =>
             {
-                Dictionary<String, L.CacheData> CacheDict = null;
-                if (!L.L_ResultCacheData.ContainsKey(CacheID))
+                Dictionary<String, CacheData> CacheDict = null;
+                if (!L.Logic.L_ResultCacheData.ContainsKey(CacheID))
                     {
-                    CacheDict = new Dictionary<String, L.CacheData>();
-                    L.L_ResultCacheData.Add(CacheID, CacheDict);
+                    CacheDict = new Dictionary<String, CacheData>();
+                    L.Logic.L_ResultCacheData.Add(CacheID, CacheDict);
                     }
                 else
                     {
-                    CacheDict = L.L_ResultCacheData[CacheID];
+                    CacheDict = L.Logic.L_ResultCacheData[CacheID];
                     }
 
                 return (o1) =>
                 {
                     DateTime Start = DateTime.Now;
 
-                    String Key = L.Objects_ToString(L.Def.ArrayExt.Array<Object>(o1)());
+                    String Key = L.Obj.Objects_ToString(L.IEn.Array<Object>(o1)());
                     Boolean Exists = CacheDict.ContainsKey(Key);
                     if (Exists)
                         {
-                        L.CacheData CachedResult = CacheDict[Key];
+                        CacheData CachedResult = CacheDict[Key];
 
                         if (CachedResult.Data is U)
                             {
                             DateTime End = DateTime.Now;
 
-                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * DateExt.TicksToMilliseconds));
+                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * L.Date.TicksToMilliseconds));
 
                             return (U)CachedResult.Data;
                             }
@@ -2746,7 +2754,7 @@ namespace LCore.Extensions
                     U Out = In(o1);
                     DateTime End2 = DateTime.Now;
                     if (!Exists)
-                        CacheDict.Add(Key, new L.CacheData(Out, (long)((End2 - Start).Ticks * DateExt.TicksToMilliseconds)));
+                        CacheDict.Add(Key, new CacheData(Out, (long)((End2 - Start).Ticks * L.Date.TicksToMilliseconds)));
                     return Out;
                 };
             };
@@ -2756,37 +2764,37 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, U>, String, Func<T1, T2, U>> L_Cache2<T1, T2, U>()
             {
-            L.Cache(ref L.L_ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, L.CacheData>>(); });
+            L.Logic.Cache(ref L.Logic.L_ResultCacheData,
+                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
 
             return (In, CacheID) =>
             {
-                Dictionary<String, L.CacheData> CacheDict = null;
-                if (!L.L_ResultCacheData.ContainsKey(CacheID))
+                Dictionary<String, CacheData> CacheDict = null;
+                if (!L.Logic.L_ResultCacheData.ContainsKey(CacheID))
                     {
-                    CacheDict = new Dictionary<String, L.CacheData>();
-                    L.L_ResultCacheData.Add(CacheID, CacheDict);
+                    CacheDict = new Dictionary<String, CacheData>();
+                    L.Logic.L_ResultCacheData.Add(CacheID, CacheDict);
                     }
                 else
                     {
-                    CacheDict = L.L_ResultCacheData[CacheID];
+                    CacheDict = L.Logic.L_ResultCacheData[CacheID];
                     }
 
                 return (o1, o2) =>
                 {
                     DateTime Start = DateTime.Now;
 
-                    String Key = L.Objects_ToString(L.Def.ArrayExt.Array<Object>(o1, o2)());
+                    String Key = L.Obj.Objects_ToString(L.IEn.Array<Object>(o1, o2)());
                     Boolean Exists = CacheDict.ContainsKey(Key);
                     if (Exists)
                         {
-                        L.CacheData CachedResult = CacheDict[Key];
+                        CacheData CachedResult = CacheDict[Key];
 
                         if (CachedResult.Data is U)
                             {
                             DateTime End = DateTime.Now;
 
-                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * DateExt.TicksToMilliseconds));
+                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * L.Date.TicksToMilliseconds));
 
                             return (U)CachedResult.Data;
                             }
@@ -2794,7 +2802,7 @@ namespace LCore.Extensions
                     U Out = In(o1, o2);
                     DateTime End2 = DateTime.Now;
                     if (!Exists)
-                        CacheDict.Add(Key, new L.CacheData(Out, (long)((End2 - Start).Ticks * DateExt.TicksToMilliseconds)));
+                        CacheDict.Add(Key, new CacheData(Out, (long)((End2 - Start).Ticks * L.Date.TicksToMilliseconds)));
                     return Out;
                 };
             };
@@ -2804,37 +2812,37 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, U>, String, Func<T1, T2, T3, U>> L_Cache3<T1, T2, T3, U>()
             {
-            L.Cache(ref L.L_ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, L.CacheData>>(); });
+            L.Logic.Cache(ref L.Logic.L_ResultCacheData,
+                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
 
             return (In, CacheID) =>
             {
-                Dictionary<String, L.CacheData> CacheDict = null;
-                if (!L.L_ResultCacheData.ContainsKey(CacheID))
+                Dictionary<String, CacheData> CacheDict = null;
+                if (!L.Logic.L_ResultCacheData.ContainsKey(CacheID))
                     {
-                    CacheDict = new Dictionary<String, L.CacheData>();
-                    L.L_ResultCacheData.Add(CacheID, CacheDict);
+                    CacheDict = new Dictionary<String, CacheData>();
+                    L.Logic.L_ResultCacheData.Add(CacheID, CacheDict);
                     }
                 else
                     {
-                    CacheDict = L.L_ResultCacheData[CacheID];
+                    CacheDict = L.Logic.L_ResultCacheData[CacheID];
                     }
 
                 return (o1, o2, o3) =>
                 {
                     DateTime Start = DateTime.Now;
 
-                    String Key = L.Objects_ToString(L.Def.ArrayExt.Array<Object>(o1, o2, o3)());
+                    String Key = L.Obj.Objects_ToString(L.IEn.Array<Object>(o1, o2, o3)());
                     Boolean Exists = CacheDict.ContainsKey(Key);
                     if (Exists)
                         {
-                        L.CacheData CachedResult = CacheDict[Key];
+                        CacheData CachedResult = CacheDict[Key];
 
                         if (CachedResult.Data is U)
                             {
                             DateTime End = DateTime.Now;
 
-                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * DateExt.TicksToMilliseconds));
+                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * L.Date.TicksToMilliseconds));
 
                             return (U)CachedResult.Data;
                             }
@@ -2842,7 +2850,7 @@ namespace LCore.Extensions
                     U Out = In(o1, o2, o3);
                     DateTime End2 = DateTime.Now;
                     if (!Exists)
-                        CacheDict.Add(Key, new L.CacheData(Out, (long)((End2 - Start).Ticks * DateExt.TicksToMilliseconds)));
+                        CacheDict.Add(Key, new CacheData(Out, (long)((End2 - Start).Ticks * L.Date.TicksToMilliseconds)));
                     return Out;
                 };
             };
@@ -2852,37 +2860,37 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, U>, String, Func<T1, T2, T3, T4, U>> L_Cache4<T1, T2, T3, T4, U>()
             {
-            L.Cache(ref L.L_ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, L.CacheData>>(); });
+            L.Logic.Cache(ref L.Logic.L_ResultCacheData,
+                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
 
             return (In, CacheID) =>
             {
-                Dictionary<String, L.CacheData> CacheDict = null;
-                if (!L.L_ResultCacheData.ContainsKey(CacheID))
+                Dictionary<String, CacheData> CacheDict = null;
+                if (!L.Logic.L_ResultCacheData.ContainsKey(CacheID))
                     {
-                    CacheDict = new Dictionary<String, L.CacheData>();
-                    L.L_ResultCacheData.Add(CacheID, CacheDict);
+                    CacheDict = new Dictionary<String, CacheData>();
+                    L.Logic.L_ResultCacheData.Add(CacheID, CacheDict);
                     }
                 else
                     {
-                    CacheDict = L.L_ResultCacheData[CacheID];
+                    CacheDict = L.Logic.L_ResultCacheData[CacheID];
                     }
 
                 return (o1, o2, o3, o4) =>
                 {
                     DateTime Start = DateTime.Now;
 
-                    String Key = L.Objects_ToString(L.Def.ArrayExt.Array<Object>(o1, o2, o3, o4)());
+                    String Key = L.Obj.Objects_ToString(L.IEn.Array<Object>(o1, o2, o3, o4)());
                     Boolean Exists = CacheDict.ContainsKey(Key);
                     if (Exists)
                         {
-                        L.CacheData CachedResult = CacheDict[Key];
+                        CacheData CachedResult = CacheDict[Key];
 
                         if (CachedResult.Data is U)
                             {
                             DateTime End = DateTime.Now;
 
-                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * DateExt.TicksToMilliseconds));
+                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * L.Date.TicksToMilliseconds));
 
                             return (U)CachedResult.Data;
                             }
@@ -2890,7 +2898,7 @@ namespace LCore.Extensions
                     U Out = In(o1, o2, o3, o4);
                     DateTime End2 = DateTime.Now;
                     if (!Exists)
-                        CacheDict.Add(Key, new L.CacheData(Out, (long)((End2 - Start).Ticks * DateExt.TicksToMilliseconds)));
+                        CacheDict.Add(Key, new CacheData(Out, (long)((End2 - Start).Ticks * L.Date.TicksToMilliseconds)));
                     return Out;
                 };
             };
@@ -2900,37 +2908,37 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, U>, String, Func<T1, T2, T3, T4, T5, U>> L_Cache5<T1, T2, T3, T4, T5, U>()
             {
-            L.Cache(ref L.L_ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, L.CacheData>>(); });
+            L.Logic.Cache(ref L.Logic.L_ResultCacheData,
+                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
 
             return (In, CacheID) =>
             {
-                Dictionary<String, L.CacheData> CacheDict = null;
-                if (!L.L_ResultCacheData.ContainsKey(CacheID))
+                Dictionary<String, CacheData> CacheDict = null;
+                if (!L.Logic.L_ResultCacheData.ContainsKey(CacheID))
                     {
-                    CacheDict = new Dictionary<String, L.CacheData>();
-                    L.L_ResultCacheData.Add(CacheID, CacheDict);
+                    CacheDict = new Dictionary<String, CacheData>();
+                    L.Logic.L_ResultCacheData.Add(CacheID, CacheDict);
                     }
                 else
                     {
-                    CacheDict = L.L_ResultCacheData[CacheID];
+                    CacheDict = L.Logic.L_ResultCacheData[CacheID];
                     }
 
                 return (o1, o2, o3, o4, o5) =>
                 {
                     DateTime Start = DateTime.Now;
 
-                    String Key = L.Objects_ToString(L.Def.ArrayExt.Array<Object>(o1, o2, o3, o4, o5)());
+                    String Key = L.Obj.Objects_ToString(L.IEn.Array<Object>(o1, o2, o3, o4, o5)());
                     Boolean Exists = CacheDict.ContainsKey(Key);
                     if (Exists)
                         {
-                        L.CacheData CachedResult = CacheDict[Key];
+                        CacheData CachedResult = CacheDict[Key];
 
                         if (CachedResult.Data is U)
                             {
                             DateTime End = DateTime.Now;
 
-                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * DateExt.TicksToMilliseconds));
+                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * L.Date.TicksToMilliseconds));
 
                             return (U)CachedResult.Data;
                             }
@@ -2938,7 +2946,7 @@ namespace LCore.Extensions
                     U Out = In(o1, o2, o3, o4, o5);
                     DateTime End2 = DateTime.Now;
                     if (!Exists)
-                        CacheDict.Add(Key, new L.CacheData(Out, (long)((End2 - Start).Ticks * DateExt.TicksToMilliseconds)));
+                        CacheDict.Add(Key, new CacheData(Out, (long)((End2 - Start).Ticks * L.Date.TicksToMilliseconds)));
                     return Out;
                 };
             };
@@ -2948,37 +2956,37 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, U>, String, Func<T1, T2, T3, T4, T5, T6, U>> L_Cache6<T1, T2, T3, T4, T5, T6, U>()
             {
-            L.Cache(ref L.L_ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, L.CacheData>>(); });
+            L.Logic.Cache(ref L.Logic.L_ResultCacheData,
+                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
 
             return (In, CacheID) =>
             {
-                Dictionary<String, L.CacheData> CacheDict = null;
-                if (!L.L_ResultCacheData.ContainsKey(CacheID))
+                Dictionary<String, CacheData> CacheDict = null;
+                if (!L.Logic.L_ResultCacheData.ContainsKey(CacheID))
                     {
-                    CacheDict = new Dictionary<String, L.CacheData>();
-                    L.L_ResultCacheData.Add(CacheID, CacheDict);
+                    CacheDict = new Dictionary<String, CacheData>();
+                    L.Logic.L_ResultCacheData.Add(CacheID, CacheDict);
                     }
                 else
                     {
-                    CacheDict = L.L_ResultCacheData[CacheID];
+                    CacheDict = L.Logic.L_ResultCacheData[CacheID];
                     }
 
                 return (o1, o2, o3, o4, o5, o6) =>
                 {
                     DateTime Start = DateTime.Now;
 
-                    String Key = L.Objects_ToString(L.Def.ArrayExt.Array<Object>(o1, o2, o3, o4, o5, o6)());
+                    String Key = L.Obj.Objects_ToString(L.IEn.Array<Object>(o1, o2, o3, o4, o5, o6)());
                     Boolean Exists = CacheDict.ContainsKey(Key);
                     if (Exists)
                         {
-                        L.CacheData CachedResult = CacheDict[Key];
+                        CacheData CachedResult = CacheDict[Key];
 
                         if (CachedResult.Data is U)
                             {
                             DateTime End = DateTime.Now;
 
-                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * DateExt.TicksToMilliseconds));
+                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * L.Date.TicksToMilliseconds));
 
                             return (U)CachedResult.Data;
                             }
@@ -2986,7 +2994,7 @@ namespace LCore.Extensions
                     U Out = In(o1, o2, o3, o4, o5, o6);
                     DateTime End2 = DateTime.Now;
                     if (!Exists)
-                        CacheDict.Add(Key, new L.CacheData(Out, (long)((End2 - Start).Ticks * DateExt.TicksToMilliseconds)));
+                        CacheDict.Add(Key, new CacheData(Out, (long)((End2 - Start).Ticks * L.Date.TicksToMilliseconds)));
                     return Out;
                 };
             };
@@ -2996,37 +3004,37 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, T7, U>, String, Func<T1, T2, T3, T4, T5, T6, T7, U>> L_Cache7<T1, T2, T3, T4, T5, T6, T7, U>()
             {
-            L.Cache(ref L.L_ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, L.CacheData>>(); });
+            L.Logic.Cache(ref L.Logic.L_ResultCacheData,
+                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
 
             return (In, CacheID) =>
             {
-                Dictionary<String, L.CacheData> CacheDict = null;
-                if (!L.L_ResultCacheData.ContainsKey(CacheID))
+                Dictionary<String, CacheData> CacheDict = null;
+                if (!L.Logic.L_ResultCacheData.ContainsKey(CacheID))
                     {
-                    CacheDict = new Dictionary<String, L.CacheData>();
-                    L.L_ResultCacheData.Add(CacheID, CacheDict);
+                    CacheDict = new Dictionary<String, CacheData>();
+                    L.Logic.L_ResultCacheData.Add(CacheID, CacheDict);
                     }
                 else
                     {
-                    CacheDict = L.L_ResultCacheData[CacheID];
+                    CacheDict = L.Logic.L_ResultCacheData[CacheID];
                     }
 
                 return (o1, o2, o3, o4, o5, o6, o7) =>
                 {
                     DateTime Start = DateTime.Now;
 
-                    String Key = L.Objects_ToString(L.Def.ArrayExt.Array<Object>(o1, o2, o3, o4, o5, o6, o7)());
+                    String Key = L.Obj.Objects_ToString(L.IEn.Array<Object>(o1, o2, o3, o4, o5, o6, o7)());
                     Boolean Exists = CacheDict.ContainsKey(Key);
                     if (Exists)
                         {
-                        L.CacheData CachedResult = CacheDict[Key];
+                        CacheData CachedResult = CacheDict[Key];
 
                         if (CachedResult.Data is U)
                             {
                             DateTime End = DateTime.Now;
 
-                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * DateExt.TicksToMilliseconds));
+                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * L.Date.TicksToMilliseconds));
 
                             return (U)CachedResult.Data;
                             }
@@ -3034,7 +3042,7 @@ namespace LCore.Extensions
                     U Out = In(o1, o2, o3, o4, o5, o6, o7);
                     DateTime End2 = DateTime.Now;
                     if (!Exists)
-                        CacheDict.Add(Key, new L.CacheData(Out, (long)((End2 - Start).Ticks * DateExt.TicksToMilliseconds)));
+                        CacheDict.Add(Key, new CacheData(Out, (long)((End2 - Start).Ticks * L.Date.TicksToMilliseconds)));
                     return Out;
                 };
             };
@@ -3044,37 +3052,37 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, U>, String, Func<T1, T2, T3, T4, T5, T6, T7, T8, U>> L_Cache8<T1, T2, T3, T4, T5, T6, T7, T8, U>()
             {
-            L.Cache(ref L.L_ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, L.CacheData>>(); });
+            L.Logic.Cache(ref L.Logic.L_ResultCacheData,
+                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
 
             return (In, CacheID) =>
             {
-                Dictionary<String, L.CacheData> CacheDict = null;
-                if (!L.L_ResultCacheData.ContainsKey(CacheID))
+                Dictionary<String, CacheData> CacheDict = null;
+                if (!L.Logic.L_ResultCacheData.ContainsKey(CacheID))
                     {
-                    CacheDict = new Dictionary<String, L.CacheData>();
-                    L.L_ResultCacheData.Add(CacheID, CacheDict);
+                    CacheDict = new Dictionary<String, CacheData>();
+                    L.Logic.L_ResultCacheData.Add(CacheID, CacheDict);
                     }
                 else
                     {
-                    CacheDict = L.L_ResultCacheData[CacheID];
+                    CacheDict = L.Logic.L_ResultCacheData[CacheID];
                     }
 
                 return (o1, o2, o3, o4, o5, o6, o7, o8) =>
                 {
                     DateTime Start = DateTime.Now;
 
-                    String Key = L.Objects_ToString(L.Def.ArrayExt.Array<Object>(o1, o2, o3, o4, o5, o6, o7, o8)());
+                    String Key = L.Obj.Objects_ToString(L.IEn.Array<Object>(o1, o2, o3, o4, o5, o6, o7, o8)());
                     Boolean Exists = CacheDict.ContainsKey(Key);
                     if (Exists)
                         {
-                        L.CacheData CachedResult = CacheDict[Key];
+                        CacheData CachedResult = CacheDict[Key];
 
                         if (CachedResult.Data is U)
                             {
                             DateTime End = DateTime.Now;
 
-                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * DateExt.TicksToMilliseconds));
+                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * L.Date.TicksToMilliseconds));
 
                             return (U)CachedResult.Data;
                             }
@@ -3082,7 +3090,7 @@ namespace LCore.Extensions
                     U Out = In(o1, o2, o3, o4, o5, o6, o7, o8);
                     DateTime End2 = DateTime.Now;
                     if (!Exists)
-                        CacheDict.Add(Key, new L.CacheData(Out, (long)((End2 - Start).Ticks * DateExt.TicksToMilliseconds)));
+                        CacheDict.Add(Key, new CacheData(Out, (long)((End2 - Start).Ticks * L.Date.TicksToMilliseconds)));
                     return Out;
                 };
             };
@@ -3092,37 +3100,37 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>, String, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>> L_Cache9<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>()
             {
-            L.Cache(ref L.L_ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, L.CacheData>>(); });
+            L.Logic.Cache(ref L.Logic.L_ResultCacheData,
+                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
 
             return (In, CacheID) =>
             {
-                Dictionary<String, L.CacheData> CacheDict = null;
-                if (!L.L_ResultCacheData.ContainsKey(CacheID))
+                Dictionary<String, CacheData> CacheDict = null;
+                if (!L.Logic.L_ResultCacheData.ContainsKey(CacheID))
                     {
-                    CacheDict = new Dictionary<String, L.CacheData>();
-                    L.L_ResultCacheData.Add(CacheID, CacheDict);
+                    CacheDict = new Dictionary<String, CacheData>();
+                    L.Logic.L_ResultCacheData.Add(CacheID, CacheDict);
                     }
                 else
                     {
-                    CacheDict = L.L_ResultCacheData[CacheID];
+                    CacheDict = L.Logic.L_ResultCacheData[CacheID];
                     }
 
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9) =>
                 {
                     DateTime Start = DateTime.Now;
 
-                    String Key = L.Objects_ToString(L.Def.ArrayExt.Array<Object>(o1, o2, o3, o4, o5, o6, o7, o8, o9)());
+                    String Key = L.Obj.Objects_ToString(L.IEn.Array<Object>(o1, o2, o3, o4, o5, o6, o7, o8, o9)());
                     Boolean Exists = CacheDict.ContainsKey(Key);
                     if (Exists)
                         {
-                        L.CacheData CachedResult = CacheDict[Key];
+                        CacheData CachedResult = CacheDict[Key];
 
                         if (CachedResult.Data is U)
                             {
                             DateTime End = DateTime.Now;
 
-                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * DateExt.TicksToMilliseconds));
+                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * L.Date.TicksToMilliseconds));
 
                             return (U)CachedResult.Data;
                             }
@@ -3130,7 +3138,7 @@ namespace LCore.Extensions
                     U Out = In(o1, o2, o3, o4, o5, o6, o7, o8, o9);
                     DateTime End2 = DateTime.Now;
                     if (!Exists)
-                        CacheDict.Add(Key, new L.CacheData(Out, (long)((End2 - Start).Ticks * DateExt.TicksToMilliseconds)));
+                        CacheDict.Add(Key, new CacheData(Out, (long)((End2 - Start).Ticks * L.Date.TicksToMilliseconds)));
                     return Out;
                 };
             };
@@ -3140,37 +3148,37 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>, String, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>> L_Cache10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>()
             {
-            L.Cache(ref L.L_ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, L.CacheData>>(); });
+            L.Logic.Cache(ref L.Logic.L_ResultCacheData,
+                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
 
             return (In, CacheID) =>
             {
-                Dictionary<String, L.CacheData> CacheDict = null;
-                if (!L.L_ResultCacheData.ContainsKey(CacheID))
+                Dictionary<String, CacheData> CacheDict = null;
+                if (!L.Logic.L_ResultCacheData.ContainsKey(CacheID))
                     {
-                    CacheDict = new Dictionary<String, L.CacheData>();
-                    L.L_ResultCacheData.Add(CacheID, CacheDict);
+                    CacheDict = new Dictionary<String, CacheData>();
+                    L.Logic.L_ResultCacheData.Add(CacheID, CacheDict);
                     }
                 else
                     {
-                    CacheDict = L.L_ResultCacheData[CacheID];
+                    CacheDict = L.Logic.L_ResultCacheData[CacheID];
                     }
 
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) =>
                 {
                     DateTime Start = DateTime.Now;
 
-                    String Key = L.Objects_ToString(L.Def.ArrayExt.Array<Object>(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10)());
+                    String Key = L.Obj.Objects_ToString(L.IEn.Array<Object>(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10)());
                     Boolean Exists = CacheDict.ContainsKey(Key);
                     if (Exists)
                         {
-                        L.CacheData CachedResult = CacheDict[Key];
+                        CacheData CachedResult = CacheDict[Key];
 
                         if (CachedResult.Data is U)
                             {
                             DateTime End = DateTime.Now;
 
-                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * DateExt.TicksToMilliseconds));
+                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * L.Date.TicksToMilliseconds));
 
                             return (U)CachedResult.Data;
                             }
@@ -3178,7 +3186,7 @@ namespace LCore.Extensions
                     U Out = In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10);
                     DateTime End2 = DateTime.Now;
                     if (!Exists)
-                        CacheDict.Add(Key, new L.CacheData(Out, (long)((End2 - Start).Ticks * DateExt.TicksToMilliseconds)));
+                        CacheDict.Add(Key, new CacheData(Out, (long)((End2 - Start).Ticks * L.Date.TicksToMilliseconds)));
                     return Out;
                 };
             };
@@ -3188,37 +3196,37 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>, String, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>> L_Cache11<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>()
             {
-            L.Cache(ref L.L_ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, L.CacheData>>(); });
+            L.Logic.Cache(ref L.Logic.L_ResultCacheData,
+                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
 
             return (In, CacheID) =>
             {
-                Dictionary<String, L.CacheData> CacheDict = null;
-                if (!L.L_ResultCacheData.ContainsKey(CacheID))
+                Dictionary<String, CacheData> CacheDict = null;
+                if (!L.Logic.L_ResultCacheData.ContainsKey(CacheID))
                     {
-                    CacheDict = new Dictionary<String, L.CacheData>();
-                    L.L_ResultCacheData.Add(CacheID, CacheDict);
+                    CacheDict = new Dictionary<String, CacheData>();
+                    L.Logic.L_ResultCacheData.Add(CacheID, CacheDict);
                     }
                 else
                     {
-                    CacheDict = L.L_ResultCacheData[CacheID];
+                    CacheDict = L.Logic.L_ResultCacheData[CacheID];
                     }
 
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) =>
                 {
                     DateTime Start = DateTime.Now;
 
-                    String Key = L.Objects_ToString(L.Def.ArrayExt.Array<Object>(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11)());
+                    String Key = L.Obj.Objects_ToString(L.IEn.Array<Object>(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11)());
                     Boolean Exists = CacheDict.ContainsKey(Key);
                     if (Exists)
                         {
-                        L.CacheData CachedResult = CacheDict[Key];
+                        CacheData CachedResult = CacheDict[Key];
 
                         if (CachedResult.Data is U)
                             {
                             DateTime End = DateTime.Now;
 
-                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * DateExt.TicksToMilliseconds));
+                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * L.Date.TicksToMilliseconds));
 
                             return (U)CachedResult.Data;
                             }
@@ -3226,7 +3234,7 @@ namespace LCore.Extensions
                     U Out = In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11);
                     DateTime End2 = DateTime.Now;
                     if (!Exists)
-                        CacheDict.Add(Key, new L.CacheData(Out, (long)((End2 - Start).Ticks * DateExt.TicksToMilliseconds)));
+                        CacheDict.Add(Key, new CacheData(Out, (long)((End2 - Start).Ticks * L.Date.TicksToMilliseconds)));
                     return Out;
                 };
             };
@@ -3236,37 +3244,37 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>, String, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>> L_Cache12<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>()
             {
-            L.Cache(ref L.L_ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, L.CacheData>>(); });
+            L.Logic.Cache(ref L.Logic.L_ResultCacheData,
+                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
 
             return (In, CacheID) =>
             {
-                Dictionary<String, L.CacheData> CacheDict = null;
-                if (!L.L_ResultCacheData.ContainsKey(CacheID))
+                Dictionary<String, CacheData> CacheDict = null;
+                if (!L.Logic.L_ResultCacheData.ContainsKey(CacheID))
                     {
-                    CacheDict = new Dictionary<String, L.CacheData>();
-                    L.L_ResultCacheData.Add(CacheID, CacheDict);
+                    CacheDict = new Dictionary<String, CacheData>();
+                    L.Logic.L_ResultCacheData.Add(CacheID, CacheDict);
                     }
                 else
                     {
-                    CacheDict = L.L_ResultCacheData[CacheID];
+                    CacheDict = L.Logic.L_ResultCacheData[CacheID];
                     }
 
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) =>
                 {
                     DateTime Start = DateTime.Now;
 
-                    String Key = L.Objects_ToString(L.Def.ArrayExt.Array<Object>(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12)());
+                    String Key = L.Obj.Objects_ToString(L.IEn.Array<Object>(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12)());
                     Boolean Exists = CacheDict.ContainsKey(Key);
                     if (Exists)
                         {
-                        L.CacheData CachedResult = CacheDict[Key];
+                        CacheData CachedResult = CacheDict[Key];
 
                         if (CachedResult.Data is U)
                             {
                             DateTime End = DateTime.Now;
 
-                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * DateExt.TicksToMilliseconds));
+                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * L.Date.TicksToMilliseconds));
 
                             return (U)CachedResult.Data;
                             }
@@ -3274,7 +3282,7 @@ namespace LCore.Extensions
                     U Out = In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12);
                     DateTime End2 = DateTime.Now;
                     if (!Exists)
-                        CacheDict.Add(Key, new L.CacheData(Out, (long)((End2 - Start).Ticks * DateExt.TicksToMilliseconds)));
+                        CacheDict.Add(Key, new CacheData(Out, (long)((End2 - Start).Ticks * L.Date.TicksToMilliseconds)));
                     return Out;
                 };
             };
@@ -3284,37 +3292,37 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>, String, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>> L_Cache13<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>()
             {
-            L.Cache(ref L.L_ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, L.CacheData>>(); });
+            L.Logic.Cache(ref L.Logic.L_ResultCacheData,
+                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
 
             return (In, CacheID) =>
             {
-                Dictionary<String, L.CacheData> CacheDict = null;
-                if (!L.L_ResultCacheData.ContainsKey(CacheID))
+                Dictionary<String, CacheData> CacheDict = null;
+                if (!L.Logic.L_ResultCacheData.ContainsKey(CacheID))
                     {
-                    CacheDict = new Dictionary<String, L.CacheData>();
-                    L.L_ResultCacheData.Add(CacheID, CacheDict);
+                    CacheDict = new Dictionary<String, CacheData>();
+                    L.Logic.L_ResultCacheData.Add(CacheID, CacheDict);
                     }
                 else
                     {
-                    CacheDict = L.L_ResultCacheData[CacheID];
+                    CacheDict = L.Logic.L_ResultCacheData[CacheID];
                     }
 
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) =>
                 {
                     DateTime Start = DateTime.Now;
 
-                    String Key = L.Objects_ToString(L.Def.ArrayExt.Array<Object>(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13)());
+                    String Key = L.Obj.Objects_ToString(L.IEn.Array<Object>(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13)());
                     Boolean Exists = CacheDict.ContainsKey(Key);
                     if (Exists)
                         {
-                        L.CacheData CachedResult = CacheDict[Key];
+                        CacheData CachedResult = CacheDict[Key];
 
                         if (CachedResult.Data is U)
                             {
                             DateTime End = DateTime.Now;
 
-                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * DateExt.TicksToMilliseconds));
+                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * L.Date.TicksToMilliseconds));
 
                             return (U)CachedResult.Data;
                             }
@@ -3322,7 +3330,7 @@ namespace LCore.Extensions
                     U Out = In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13);
                     DateTime End2 = DateTime.Now;
                     if (!Exists)
-                        CacheDict.Add(Key, new L.CacheData(Out, (long)((End2 - Start).Ticks * DateExt.TicksToMilliseconds)));
+                        CacheDict.Add(Key, new CacheData(Out, (long)((End2 - Start).Ticks * L.Date.TicksToMilliseconds)));
                     return Out;
                 };
             };
@@ -3332,37 +3340,37 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>, String, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>> L_Cache14<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>()
             {
-            L.Cache(ref L.L_ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, L.CacheData>>(); });
+            L.Logic.Cache(ref L.Logic.L_ResultCacheData,
+                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
 
             return (In, CacheID) =>
             {
-                Dictionary<String, L.CacheData> CacheDict = null;
-                if (!L.L_ResultCacheData.ContainsKey(CacheID))
+                Dictionary<String, CacheData> CacheDict = null;
+                if (!L.Logic.L_ResultCacheData.ContainsKey(CacheID))
                     {
-                    CacheDict = new Dictionary<String, L.CacheData>();
-                    L.L_ResultCacheData.Add(CacheID, CacheDict);
+                    CacheDict = new Dictionary<String, CacheData>();
+                    L.Logic.L_ResultCacheData.Add(CacheID, CacheDict);
                     }
                 else
                     {
-                    CacheDict = L.L_ResultCacheData[CacheID];
+                    CacheDict = L.Logic.L_ResultCacheData[CacheID];
                     }
 
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) =>
                 {
                     DateTime Start = DateTime.Now;
 
-                    String Key = L.Objects_ToString(L.Def.ArrayExt.Array<Object>(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14)());
+                    String Key = L.Obj.Objects_ToString(L.IEn.Array<Object>(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14)());
                     Boolean Exists = CacheDict.ContainsKey(Key);
                     if (Exists)
                         {
-                        L.CacheData CachedResult = CacheDict[Key];
+                        CacheData CachedResult = CacheDict[Key];
 
                         if (CachedResult.Data is U)
                             {
                             DateTime End = DateTime.Now;
 
-                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * DateExt.TicksToMilliseconds));
+                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * L.Date.TicksToMilliseconds));
 
                             return (U)CachedResult.Data;
                             }
@@ -3370,7 +3378,7 @@ namespace LCore.Extensions
                     U Out = In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14);
                     DateTime End2 = DateTime.Now;
                     if (!Exists)
-                        CacheDict.Add(Key, new L.CacheData(Out, (long)((End2 - Start).Ticks * DateExt.TicksToMilliseconds)));
+                        CacheDict.Add(Key, new CacheData(Out, (long)((End2 - Start).Ticks * L.Date.TicksToMilliseconds)));
                     return Out;
                 };
             };
@@ -3380,37 +3388,37 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>, String, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>> L_Cache15<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>()
             {
-            L.Cache(ref L.L_ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, L.CacheData>>(); });
+            L.Logic.Cache(ref L.Logic.L_ResultCacheData,
+                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
 
             return (In, CacheID) =>
             {
-                Dictionary<String, L.CacheData> CacheDict = null;
-                if (!L.L_ResultCacheData.ContainsKey(CacheID))
+                Dictionary<String, CacheData> CacheDict = null;
+                if (!L.Logic.L_ResultCacheData.ContainsKey(CacheID))
                     {
-                    CacheDict = new Dictionary<String, L.CacheData>();
-                    L.L_ResultCacheData.Add(CacheID, CacheDict);
+                    CacheDict = new Dictionary<String, CacheData>();
+                    L.Logic.L_ResultCacheData.Add(CacheID, CacheDict);
                     }
                 else
                     {
-                    CacheDict = L.L_ResultCacheData[CacheID];
+                    CacheDict = L.Logic.L_ResultCacheData[CacheID];
                     }
 
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) =>
                 {
                     DateTime Start = DateTime.Now;
 
-                    String Key = L.Objects_ToString(L.Def.ArrayExt.Array<Object>(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15)());
+                    String Key = L.Obj.Objects_ToString(L.IEn.Array<Object>(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15)());
                     Boolean Exists = CacheDict.ContainsKey(Key);
                     if (Exists)
                         {
-                        L.CacheData CachedResult = CacheDict[Key];
+                        CacheData CachedResult = CacheDict[Key];
 
                         if (CachedResult.Data is U)
                             {
                             DateTime End = DateTime.Now;
 
-                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * DateExt.TicksToMilliseconds));
+                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * L.Date.TicksToMilliseconds));
 
                             return (U)CachedResult.Data;
                             }
@@ -3418,7 +3426,7 @@ namespace LCore.Extensions
                     U Out = In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15);
                     DateTime End2 = DateTime.Now;
                     if (!Exists)
-                        CacheDict.Add(Key, new L.CacheData(Out, (long)((End2 - Start).Ticks * DateExt.TicksToMilliseconds)));
+                        CacheDict.Add(Key, new CacheData(Out, (long)((End2 - Start).Ticks * L.Date.TicksToMilliseconds)));
                     return Out;
                 };
             };
@@ -3428,37 +3436,37 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>, String, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>> L_Cache16<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>()
             {
-            L.Cache(ref L.L_ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, L.CacheData>>(); });
+            L.Logic.Cache(ref L.Logic.L_ResultCacheData,
+                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
 
             return (In, CacheID) =>
             {
-                Dictionary<String, L.CacheData> CacheDict = null;
-                if (!L.L_ResultCacheData.ContainsKey(CacheID))
+                Dictionary<String, CacheData> CacheDict = null;
+                if (!L.Logic.L_ResultCacheData.ContainsKey(CacheID))
                     {
-                    CacheDict = new Dictionary<String, L.CacheData>();
-                    L.L_ResultCacheData.Add(CacheID, CacheDict);
+                    CacheDict = new Dictionary<String, CacheData>();
+                    L.Logic.L_ResultCacheData.Add(CacheID, CacheDict);
                     }
                 else
                     {
-                    CacheDict = L.L_ResultCacheData[CacheID];
+                    CacheDict = L.Logic.L_ResultCacheData[CacheID];
                     }
 
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, o16) =>
                 {
                     DateTime Start = DateTime.Now;
 
-                    String Key = L.Objects_ToString(L.Def.ArrayExt.Array<Object>(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, o16)());
+                    String Key = L.Obj.Objects_ToString(L.IEn.Array<Object>(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, o16)());
                     Boolean Exists = CacheDict.ContainsKey(Key);
                     if (Exists)
                         {
-                        L.CacheData CachedResult = CacheDict[Key];
+                        CacheData CachedResult = CacheDict[Key];
 
                         if (CachedResult.Data is U)
                             {
                             DateTime End = DateTime.Now;
 
-                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * DateExt.TicksToMilliseconds));
+                            CachedResult.AddTime((long)(CachedResult.OriginalTimeMS - (End - Start).Ticks * L.Date.TicksToMilliseconds));
 
                             return (U)CachedResult.Data;
                             }
@@ -3466,7 +3474,7 @@ namespace LCore.Extensions
                     U Out = In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, o16);
                     DateTime End2 = DateTime.Now;
                     if (!Exists)
-                        CacheDict.Add(Key, new L.CacheData(Out, (long)((End2 - Start).Ticks * DateExt.TicksToMilliseconds)));
+                        CacheDict.Add(Key, new CacheData(Out, (long)((End2 - Start).Ticks * L.Date.TicksToMilliseconds)));
                     return Out;
                 };
             };
@@ -6032,6 +6040,9 @@ namespace LCore.Extensions
         #endregion;
 
         #region L_Merge
+        /// <summary>
+        /// Returns a function that Performs In, then Merge. Parameter lists are merged.
+        /// </summary>
         public static Func<Action, Action, Action> L_Merge()
             {
             return (In, Merge) => { return () => { In(); Merge(); }; }

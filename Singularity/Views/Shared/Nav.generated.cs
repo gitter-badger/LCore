@@ -12,70 +12,19 @@
 namespace ASP
 {
     using System;
-    
-    #line 13 "..\..\Views\Shared\Nav.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 14 "..\..\Views\Shared\Nav.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 15 "..\..\Views\Shared\Nav.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 16 "..\..\Views\Shared\Nav.cshtml"
     using System.ComponentModel.DataAnnotations;
-    
-    #line default
-    #line hidden
-    
-    #line 17 "..\..\Views\Shared\Nav.cshtml"
-    using System.ComponentModel.DataAnnotations.Schema;
-    
-    #line default
-    #line hidden
-    
-    #line 18 "..\..\Views\Shared\Nav.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
     using System.IO;
-    
-    #line 11 "..\..\Views\Shared\Nav.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
-    
-    #line 12 "..\..\Views\Shared\Nav.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 19 "..\..\Views\Shared\Nav.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 20 "..\..\Views\Shared\Nav.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
     using System.Web.Mvc.Routing;
@@ -84,50 +33,14 @@ namespace ASP
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
-    
-    #line 3 "..\..\Views\Shared\Nav.cshtml"
     using LCore.Extensions;
-    
-    #line default
-    #line hidden
-    
-    #line 4 "..\..\Views\Shared\Nav.cshtml"
     using Singularity;
-    
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\Shared\Nav.cshtml"
-    using Singularity.Annotations;
-    
-    #line default
-    #line hidden
-    
-    #line 7 "..\..\Views\Shared\Nav.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\Shared\Nav.cshtml"
     using Singularity.Controllers;
-    
-    #line default
-    #line hidden
-    
-    #line 9 "..\..\Views\Shared\Nav.cshtml"
     using Singularity.Extensions;
-    
-    #line default
-    #line hidden
-    
-    #line 5 "..\..\Views\Shared\Nav.cshtml"
     using Singularity.Models;
     
-    #line default
-    #line hidden
-    
-    #line 8 "..\..\Views\Shared\Nav.cshtml"
+    #line 3 "..\..\Views\Shared\Nav.cshtml"
     using Singularity.Routes;
     
     #line default
@@ -142,18 +55,132 @@ namespace ASP
         }
         public override void Execute()
         {
-WriteLiteral("\r\n\r\n");
+WriteLiteral("\r\n");
+
+WriteLiteral("\r\n");
 
 WriteLiteral("\r\n");
 
             
-            #line 22 "..\..\Views\Shared\Nav.cshtml"
+            #line 5 "..\..\Views\Shared\Nav.cshtml"
   
+    var Context = ContextProviderFactory.GetCurrent();
+
+
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n<div>\r\n\r\n</div>");
+WriteLiteral("\r\n\r\n<nav");
+
+WriteLiteral(" class=\"navbar navbar-inverse navbar-fixed-top\"");
+
+WriteLiteral(" role=\"navigation\"");
+
+WriteLiteral(">\r\n    <div");
+
+WriteLiteral(" class=\"container\"");
+
+WriteLiteral(">\r\n\r\n");
+
+WriteLiteral("        ");
+
+            
+            #line 14 "..\..\Views\Shared\Nav.cshtml"
+   Write(Html.Partial(PartialViews.LoginPartial));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n\r\n        <div");
+
+WriteLiteral(" class=\"navbar-header\"");
+
+WriteLiteral(">\r\n            <button");
+
+WriteLiteral(" type=\"button\"");
+
+WriteLiteral(" class=\"navbar-toggle\"");
+
+WriteLiteral(" data-toggle=\"collapse\"");
+
+WriteLiteral(" data-target=\"#bs-example-navbar-collapse-1\"");
+
+WriteLiteral(">\r\n                <span");
+
+WriteLiteral(" class=\"sr-only\"");
+
+WriteLiteral(">Toggle navigation</span>\r\n                <span");
+
+WriteLiteral(" class=\"icon-bar\"");
+
+WriteLiteral("></span>\r\n                <span");
+
+WriteLiteral(" class=\"icon-bar\"");
+
+WriteLiteral("></span>\r\n                <span");
+
+WriteLiteral(" class=\"icon-bar\"");
+
+WriteLiteral("></span>\r\n            </button>\r\n            <a");
+
+WriteLiteral(" class=\"navbar-brand\"");
+
+WriteLiteral(" href=\"#\"");
+
+WriteLiteral(">");
+
+            
+            #line 23 "..\..\Views\Shared\Nav.cshtml"
+                                        Write(Context.SiteTitle);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</a>\r\n        </div>\r\n\r\n        <div");
+
+WriteLiteral(" class=\"collapse navbar-collapse\"");
+
+WriteLiteral(" id=\"bs-example-navbar-collapse-1\"");
+
+WriteLiteral(">\r\n            <ul");
+
+WriteLiteral(" class=\"nav navbar-nav\"");
+
+WriteLiteral(">\r\n                <li>\r\n                    <a");
+
+WriteLiteral(" href=\"#\"");
+
+WriteLiteral(">About</a>\r\n                </li>\r\n                <li>\r\n                    <a");
+
+WriteLiteral(" href=\"#\"");
+
+WriteLiteral(">Services</a>\r\n                </li>\r\n                <li>\r\n                    <" +
+"a");
+
+WriteLiteral(" href=\"#\"");
+
+WriteLiteral(">Contact</a>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n\r\n\r\n     " +
+"   <div");
+
+WriteLiteral(" class=\"key-bind-tip\"");
+
+WriteLiteral(" style=\"display: none\"");
+
+WriteLiteral(">\r\n            <div");
+
+WriteLiteral(" class=\"border-bottom\"");
+
+WriteLiteral(">\r\n                <glyph>&#xe047;</glyph>\r\n                Key Shortcuts\r\n      " +
+"      </div>\r\n            <span");
+
+WriteLiteral(" id=\"key-bind-page-tip\"");
+
+WriteLiteral(">\r\n            </span>\r\n        </div>\r\n\r\n    </div>\r\n\r\n</nav>\r\n\r\n<div");
+
+WriteLiteral(" class=\"nav-spacer\"");
+
+WriteLiteral(">&nbsp;</div>");
 
         }
     }

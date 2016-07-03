@@ -42,18 +42,18 @@ namespace Singularity.Annotations
                 {
                 return this.ModelType;
                 }
-            IModel Model = (IModel)Context.Controller.ViewBag.EditModel;
+            var Model = (IModel)Context.Controller.ViewBag.EditModel;
 
-            ModelMetadata Meta = Model?.Meta(this.FieldTypeField);
+            var Meta = Model?.Meta(this.FieldTypeField);
 
             if (Meta != null)
                 {
-                object Out = Model.GetProperty(this.FieldTypeField);
+                var Out = Model.GetProperty(this.FieldTypeField);
 
                 string s = Out as string;
                 if (s != null)
                     {
-                    return TypeExt.FindType(s);
+                    return L.Ref.FindType(s);
                     }
                 }
 
@@ -63,12 +63,12 @@ namespace Singularity.Annotations
 
         public override IEnumerable<KeyValuePair<string, string>> KeyValues(ViewContext Context)
             {
-            Type ContextModelType = this.GetModelType(Context);
+            var ContextModelType = this.GetModelType(Context);
 
             if (ContextModelType != null)
                 {
                 Dictionary<string, ModelMetadata> Properties = this.RecursiveFields ?
-                    ContextModelType.Meta().Properties.Map(p => p.PropertyName) :
+                    ContextModelType.Meta().Properties.Index(p => p.PropertyName) :
                     ContextModelType.GetMeta();
 
                 List<KeyValuePair<string, string>>[] Keys = { new List<KeyValuePair<string, string>>() };

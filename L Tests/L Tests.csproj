@@ -65,6 +65,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtensionTester.cs" />
     <Compile Include="Tests\StatsExtTest.cs" />
     <Compile Include="Tests\LogicExtTest.cs" />
     <Compile Include="Tests\BooleanExtTest.cs" />
@@ -73,14 +74,14 @@
     <Compile Include="Tests\ObjectExtTest.cs" />
     <Compile Include="Tests\InterfaceExtTest.cs" />
     <Compile Include="Tests\FileExtTest.cs" />
-    <Compile Include="Tests\DateTimeExtTest.cs" />
+    <Compile Include="Tests\DateExtTest.cs" />
     <Compile Include="Tests\ExceptionExtTest.cs" />
     <Compile Include="Tests\DictionaryExtTest.cs" />
     <Compile Include="Tests\EnumExtTest.cs" />
     <Compile Include="Tests\StringExtTest.cs" />
     <Compile Include="TestHelper.cs" />
-    <Compile Include="Tests\TypeExtTest.cs" />
-    <Compile Include="Tests\ListExtTest.cs" />
+    <Compile Include="Tests\ReflectionExtTest.cs" />
+    <Compile Include="Tests\EnumerableExtTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -199,14 +199,14 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
 
         public InflaterHuffmanTree BuildLitLenTree()
             {
-            byte[] litlenLens = new byte[this.lnum];
+            var litlenLens = new byte[this.lnum];
             Array.Copy(this.litdistLens, 0, litlenLens, 0, this.lnum);
             return new InflaterHuffmanTree(litlenLens);
             }
 
         public InflaterHuffmanTree BuildDistTree()
             {
-            byte[] distLens = new byte[this.dnum];
+            var distLens = new byte[this.dnum];
             Array.Copy(this.litdistLens, this.lnum, distLens, 0, this.dnum);
             return new InflaterHuffmanTree(distLens);
             }

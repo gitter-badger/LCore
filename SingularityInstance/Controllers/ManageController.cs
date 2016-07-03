@@ -65,7 +65,7 @@ namespace SingularityInstance.Controllers
                 : "";
 
             string userId = this.User.Identity.GetUserId();
-            IndexViewModel model = new IndexViewModel
+            var model = new IndexViewModel
             {
                 HasPassword = this.HasPassword(),
                 PhoneNumber = await this.UserManager.GetPhoneNumberAsync(userId),
@@ -83,10 +83,10 @@ namespace SingularityInstance.Controllers
         public async Task<ActionResult> RemoveLogin(string loginProvider, string providerKey)
         {
             ManageMessageId? message;
-            IdentityResult result = await this.UserManager.RemoveLoginAsync(this.User.Identity.GetUserId(), new UserLoginInfo(loginProvider, providerKey));
+            var result = await this.UserManager.RemoveLoginAsync(this.User.Identity.GetUserId(), new UserLoginInfo(loginProvider, providerKey));
             if (result.Succeeded)
             {
-                ApplicationUser user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
+                var user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
                 if (user != null)
                 {
                     await this.SignInManager.SignInAsync(user, false, false);
@@ -121,7 +121,7 @@ namespace SingularityInstance.Controllers
             string code = await this.UserManager.GenerateChangePhoneNumberTokenAsync(this.User.Identity.GetUserId(), model.Number);
             if (this.UserManager.SmsService != null)
             {
-                IdentityMessage message = new IdentityMessage
+                var message = new IdentityMessage
                 {
                     Destination = model.Number,
                     Body = $"Your security code is: {code}"
@@ -138,7 +138,7 @@ namespace SingularityInstance.Controllers
         public async Task<ActionResult> EnableTwoFactorAuthentication()
         {
             await this.UserManager.SetTwoFactorEnabledAsync(this.User.Identity.GetUserId(), true);
-            ApplicationUser user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
+            var user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
             if (user != null)
             {
                 await this.SignInManager.SignInAsync(user, false, false);
@@ -153,7 +153,7 @@ namespace SingularityInstance.Controllers
         public async Task<ActionResult> DisableTwoFactorAuthentication()
         {
             await this.UserManager.SetTwoFactorEnabledAsync(this.User.Identity.GetUserId(), false);
-            ApplicationUser user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
+            var user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
             if (user != null)
             {
                 await this.SignInManager.SignInAsync(user, false, false);
@@ -180,10 +180,10 @@ namespace SingularityInstance.Controllers
             {
                 return this.View(model);
             }
-            IdentityResult result = await this.UserManager.ChangePhoneNumberAsync(this.User.Identity.GetUserId(), model.PhoneNumber, model.Code);
+            var result = await this.UserManager.ChangePhoneNumberAsync(this.User.Identity.GetUserId(), model.PhoneNumber, model.Code);
             if (result.Succeeded)
             {
-                ApplicationUser user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
+                var user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
                 if (user != null)
                 {
                     await this.SignInManager.SignInAsync(user, false, false);
@@ -201,12 +201,12 @@ namespace SingularityInstance.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemovePhoneNumber()
         {
-            IdentityResult result = await this.UserManager.SetPhoneNumberAsync(this.User.Identity.GetUserId(), null);
+            var result = await this.UserManager.SetPhoneNumberAsync(this.User.Identity.GetUserId(), null);
             if (!result.Succeeded)
             {
                 return this.RedirectToAction("Index", new { Message = ManageMessageId.Error });
             }
-            ApplicationUser user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
+            var user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
             if (user != null)
             {
                 await this.SignInManager.SignInAsync(user, false, false);
@@ -231,10 +231,10 @@ namespace SingularityInstance.Controllers
             {
                 return this.View(model);
             }
-            IdentityResult result = await this.UserManager.ChangePasswordAsync(this.User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            var result = await this.UserManager.ChangePasswordAsync(this.User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {
-                ApplicationUser user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
+                var user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
                 if (user != null)
                 {
                     await this.SignInManager.SignInAsync(user, false, false);
@@ -260,10 +260,10 @@ namespace SingularityInstance.Controllers
         {
             if (this.ModelState.IsValid)
             {
-                IdentityResult result = await this.UserManager.AddPasswordAsync(this.User.Identity.GetUserId(), model.NewPassword);
+                var result = await this.UserManager.AddPasswordAsync(this.User.Identity.GetUserId(), model.NewPassword);
                 if (result.Succeeded)
                 {
-                    ApplicationUser user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
+                    var user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
                     if (user != null)
                     {
                         await this.SignInManager.SignInAsync(user, false, false);
@@ -285,7 +285,7 @@ namespace SingularityInstance.Controllers
                 message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
-            ApplicationUser user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
+            var user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
             if (user == null)
             {
                 return this.View("Error");
@@ -314,12 +314,12 @@ namespace SingularityInstance.Controllers
         // GET: /Manage/LinkLoginCallback
         public async Task<ActionResult> LinkLoginCallback()
         {
-            ExternalLoginInfo loginInfo = await this.AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, this.User.Identity.GetUserId());
+            var loginInfo = await this.AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, this.User.Identity.GetUserId());
             if (loginInfo == null)
             {
                 return this.RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
             }
-            IdentityResult result = await this.UserManager.AddLoginAsync(this.User.Identity.GetUserId(), loginInfo.Login);
+            var result = await this.UserManager.AddLoginAsync(this.User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded ? this.RedirectToAction("ManageLogins") : this.RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
 
@@ -350,13 +350,13 @@ namespace SingularityInstance.Controllers
 
         private bool HasPassword()
         {
-            ApplicationUser user = this.UserManager.FindById(this.User.Identity.GetUserId());
+            var user = this.UserManager.FindById(this.User.Identity.GetUserId());
             return user?.PasswordHash != null;
         }
 
         private bool HasPhoneNumber()
         {
-            ApplicationUser user = this.UserManager.FindById(this.User.Identity.GetUserId());
+            var user = this.UserManager.FindById(this.User.Identity.GetUserId());
             return user?.PhoneNumber != null;
         }
 

@@ -172,7 +172,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// </remarks>
         public override void Close()
             {
-            Stream toClose = this.stream_;
+            var toClose = this.stream_;
             this.stream_ = null;
             if (this.IsStreamOwner && (toClose != null))
                 {
@@ -185,7 +185,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         // Write the local file header
         private void WriteLocalHeader(ZipEntry entry, EntryPatchData patchData)
             {
-            CompressionMethod method = entry.CompressionMethod;
+            var method = entry.CompressionMethod;
             const bool headerInfoAvailable = true; // How to get this?
             const bool patchEntryHeader = false;
 
@@ -215,7 +215,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                 throw new ZipException("Entry name too long.");
                 }
 
-            ZipExtraData ed = new ZipExtraData(entry.ExtraData);
+            var ed = new ZipExtraData(entry.ExtraData);
 
             if (entry.LocalHeaderRequiresZip64 && (headerInfoAvailable || patchEntryHeader))
                 {

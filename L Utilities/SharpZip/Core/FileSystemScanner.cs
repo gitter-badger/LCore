@@ -332,11 +332,11 @@ namespace ICSharpCode.SharpZipLib.Core
         /// <param name="e">The exception detected.</param>
         private bool OnDirectoryFailure(string directory, Exception e)
             {
-            DirectoryFailureHandler handler = this.DirectoryFailure;
+            var handler = this.DirectoryFailure;
             bool result = handler != null;
             if (result)
                 {
-                ScanFailureEventArgs args = new ScanFailureEventArgs(directory, e);
+                var args = new ScanFailureEventArgs(directory, e);
                 handler(this, args);
                 this.alive_ = args.ContinueRunning;
                 }
@@ -350,13 +350,13 @@ namespace ICSharpCode.SharpZipLib.Core
         /// <param name="e">The exception detected.</param>
         private bool OnFileFailure(string file, Exception e)
             {
-            FileFailureHandler handler = this.FileFailure;
+            var handler = this.FileFailure;
 
             bool result = handler != null;
 
             if (result)
                 {
-                ScanFailureEventArgs args = new ScanFailureEventArgs(file, e);
+                var args = new ScanFailureEventArgs(file, e);
                 this.FileFailure(this, args);
                 this.alive_ = args.ContinueRunning;
                 }
@@ -369,11 +369,11 @@ namespace ICSharpCode.SharpZipLib.Core
         /// <param name="file">The file name.</param>
         private void OnProcessFile(string file)
             {
-            ProcessFileHandler handler = this.ProcessFile;
+            var handler = this.ProcessFile;
 
             if (handler != null)
                 {
-                ScanEventArgs args = new ScanEventArgs(file);
+                var args = new ScanEventArgs(file);
                 handler(this, args);
                 this.alive_ = args.ContinueRunning;
                 }
@@ -385,11 +385,11 @@ namespace ICSharpCode.SharpZipLib.Core
         /// <param name="file">The file name</param>
         private void OnCompleteFile(string file)
             {
-            CompletedFileHandler handler = this.CompletedFile;
+            var handler = this.CompletedFile;
 
             if (handler != null)
                 {
-                ScanEventArgs args = new ScanEventArgs(file);
+                var args = new ScanEventArgs(file);
                 handler(this, args);
                 this.alive_ = args.ContinueRunning;
                 }
@@ -402,11 +402,11 @@ namespace ICSharpCode.SharpZipLib.Core
         /// <param name="hasMatchingFiles">Flag indicating if the directory has matching files.</param>
         private void OnProcessDirectory(string directory, bool hasMatchingFiles)
             {
-            ProcessDirectoryHandler handler = this.ProcessDirectory;
+            var handler = this.ProcessDirectory;
 
             if (handler != null)
                 {
-                DirectoryEventArgs args = new DirectoryEventArgs(directory, hasMatchingFiles);
+                var args = new DirectoryEventArgs(directory, hasMatchingFiles);
                 handler(this, args);
                 this.alive_ = args.ContinueRunning;
                 }

@@ -13,7 +13,7 @@ namespace Singularity.Annotations
     public abstract class FieldType_Dropdown : CustomPartialAttribute, ISetFormField
         {
         protected FieldType_Dropdown()
-            : base(PartialViews.Field_Edit_Dropdown, ControllerHelper.ViewType.Create, ControllerHelper.ViewType.Edit)
+            : base(PartialViews.Manage.Fields.Edit.Dropdown, ControllerHelper.ViewType.Create, ControllerHelper.ViewType.Edit)
             {
             }
 
@@ -72,15 +72,15 @@ namespace Singularity.Annotations
 
         public IEnumerable GetSourceData(ViewContext Context)
             {
-            IModel Model = (IModel)Context.Controller.ViewBag.EditModel;
+            var Model = (IModel)Context.Controller.ViewBag.EditModel;
 
-            ModelMetadata Meta = Model?.Meta(this.SourceField);
+            var Meta = Model?.Meta(this.SourceField);
 
             if (Meta != null)
                 {
-                object Out = Model.GetProperty(this.SourceField);
+                var Out = Model.GetProperty(this.SourceField);
 
-                IEnumerable @out = Out as IEnumerable;
+                var @out = Out as IEnumerable;
                 if (@out != null)
                     {
                     return @out;

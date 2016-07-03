@@ -6,6 +6,8 @@ using System.Web;
 using Singularity.Models;
 using Singularity.Extensions;
 using System.Data.SqlClient;
+using Singularity.Controllers;
+
 // ReSharper disable UnassignedGetOnlyAutoProperty
 
 namespace Singularity.Context
@@ -18,18 +20,13 @@ namespace Singularity.Context
         public abstract Type[] ContextTypes { get; }
 
         public abstract Type UserAccountType { get; }
-        public abstract Type UserInfoType { get; }
         public abstract Type UserRoleType { get; }
-
-        public DbSet<Role> Roles { get; }
-        public DbSet<UserAccount> UserAccounts { get; }
-        public DbSet<SecurityLog> SecurityLogs { get; }
 
         public SiteConfig GetSiteConfig(HttpContextBase Context)
             {
             Func<string, SiteConfig> func = url =>
                 {
-                    SiteConfig Out = SiteConfig.FindCurrent(this, url);
+                    var Out = SiteConfig.FindCurrent(this, url);
                     if (Out == null)
                         throw new Exception($"Could not find Site Config for: {url}");
                     return Out;
@@ -77,7 +74,7 @@ namespace Singularity.Context
 
         public SqlConnection CreateConnection()
             {
-            SqlConnection Out = new SqlConnection(this.ConnectionStr);
+            var Out = new SqlConnection(this.ConnectionStr);
             return Out;
             }
 
@@ -94,12 +91,12 @@ namespace Singularity.Context
 
         public virtual string GetHomeAction(UserAccount User)
             {
-            return Routes.Controllers.Home.Actions.Index;
+            return nameof(HomeController.Index);
             }
 
         public virtual string GetHomeController(UserAccount User)
             {
-            return Routes.Controllers.Home.Name;
+            return typeof(HomeController).CName();
             }
         }
     }

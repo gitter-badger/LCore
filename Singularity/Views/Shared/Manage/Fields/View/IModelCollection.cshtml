@@ -1,0 +1,34 @@
+﻿@* Generator: MvcView *@
+@using LCore.Extensions;
+
+@{
+    var RelationType = Model.Meta.ModelType.GetGenericArguments()[0];
+
+}
+
+@model IViewField
+
+@if (Model.ViewTypes.Has(ControllerHelper.ViewType.Create))
+    {
+    // Can't link related models on create
+    return;
+    }
+
+@{
+    var data = Model.PropertyData as IEnumerable;
+}
+@if (data != null)
+    {
+    List<IModel> Models = data.List().List<IModel>();
+
+    string Title = Models.CollectStr((i, m) => $"{m.ToString()}\r\n");
+
+    if (Models.Count > 0)
+        {
+        <a title="@Title" href="@Model.Route_FieldManyRelation(ViewBag.ControllerName)">
+            <span>
+                @Models.Count @RelationType.GetFriendlyTypeName().Pluralize()
+            </span>
+        </a>
+        }
+    }

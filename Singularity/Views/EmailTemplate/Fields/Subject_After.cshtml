@@ -7,15 +7,15 @@
 
 @{
 
-    Dictionary<string, List<ModelMetadata>> BasedMeta = new Dictionary<string, List<ModelMetadata>>();
+    var BasedMeta = new Dictionary<string, List<ModelMetadata>>();
 
-    ModelContext DbContext = ContextProviderFactory.GetCurrent().GetContext(Session);
+    var DbContext = ContextProviderFactory.GetCurrent().GetContext(Session);
 
     List<TextContent> GlobalTokens = TextContent.FindGlobalTokens(DbContext).List();
 
-    Type ModelUserType = DbContext.UserInfoType;
+    var ModelUserType = DbContext.UserAccountType;
 
-    Type ModelExportType = typeof(EmailHistory.EmailContext<>);
+    var ModelExportType = typeof(EmailHistory.EmailContext<>);
 
     // Inject the project's user type so the context matches
     ModelExportType = ModelExportType.MakeGenericType(ModelUserType);
@@ -65,7 +65,7 @@
             <h4>Global Tokens</h4>
 
             <div class="field-group-@BaseKey.ReplaceAll(".", "")" style="display:none;">
-                @foreach (TextContent Text in GlobalTokens)
+                @foreach (var Text in GlobalTokens)
                         {
                         string Key = Text.Token;
 
@@ -100,7 +100,7 @@
                 <h4>@BaseKey.ReplaceAll(".", " ")</h4>
 
                 <div class="field-group-@BaseKey.ReplaceAll(".", "")" style="display:none;">
-                    @foreach (ModelMetadata Meta in BasedMeta[BaseKey])
+                    @foreach (var Meta in BasedMeta[BaseKey])
                         {
                         string Key = Meta.PropertyName;
 

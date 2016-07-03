@@ -1,0 +1,18 @@
+﻿@* Generator: MvcView *@
+@using Singularity.Extensions;
+
+@{
+
+}
+
+@model IViewField
+
+@if (Model.PropertyData != null)
+    {
+    foreach (var SubMeta in Model.Meta.ModelType.Meta().Properties)
+        {
+        var Field = new ViewField(ViewContext, SubMeta.ModelType, $"{Model.PropertyName}.{SubMeta.PropertyName}", (IModel)Model.PropertyData, Model.ViewTypes);
+
+        @Html.ViewField(Field)
+        }
+    }

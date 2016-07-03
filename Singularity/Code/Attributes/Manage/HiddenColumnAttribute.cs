@@ -1,8 +1,9 @@
 ﻿using System;
+using LCore.Extensions;
 
 namespace Singularity.Annotations
     {
-    public class HideManageViewColumnAttribute : AdditionalValueAttribute
+    public class HideManageViewColumnAttribute : AdditionalValueAttribute, ISubClassPersistentAttribute
         {
         public const string Key = "HiddenColumn";
 

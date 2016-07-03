@@ -6,36 +6,31 @@ using LCore.Extensions;
 using System.ComponentModel.DataAnnotations;
 using Singularity.Controllers;
 using System.Web.Mvc;
+using LCore.Interfaces;
 using Singularity.Models;
 using Singularity.Annotations;
 using Singularity.Utilities;
 
 namespace Singularity.Extensions
     {
+    [ExtensionProvider]
     public static class ModelExt
         {
         //////////////////////////////////////////////////////////////////////////////////////////////////
         // Attributes
         //
 
-        public static bool HasAttribute<TAttribute>(this Type t)
-            {
-            return t.MemberHasAttribute<TAttribute>(false);
-            }
-
-        public static TAttribute GetAttribute<TAttribute>(this Type t)
-            {
-            return t.MemberGetAttribute<TAttribute>(false);
-            }
 
         public static bool HasAttribute<TAttribute>(this IModel Model)
+            where TAttribute : IPersistAttribute
             {
-            return Model.TrueModelType().MemberHasAttribute<TAttribute>(false);
+            return Model.TrueModelType().HasAttribute<TAttribute>();
             }
 
         public static TAttribute GetAttribute<TAttribute>(this IModel Model)
+            where TAttribute : IPersistAttribute
             {
-            return Model.TrueModelType().MemberGetAttribute<TAttribute>(false);
+            return Model.TrueModelType().GetAttribute<TAttribute>();
             }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,7 +55,7 @@ namespace Singularity.Extensions
 
         public static string GetID(this IModel Model)
             {
-            ModelMetadata KeyProperty = Model.Properties().FirstOrDefault(m => m.HasAttribute<KeyAttribute>());
+            var KeyProperty = Model.Properties().FirstOrDefault(m => m.HasAttribute<KeyAttribute>(true));
 
             if (KeyProperty != null)
                 {
@@ -75,9 +70,9 @@ namespace Singularity.Extensions
 
         public static bool HasID(this IModel Model)
             {
-            string KeyField = Model.Properties().FirstOrDefault(m => m.HasAttribute<KeyAttribute>())?.PropertyName;
+            string KeyField = Model.Properties().FirstOrDefault(m => m.HasAttribute<KeyAttribute>(true))?.PropertyName;
 
-            object ID = Model.GetProperty(KeyField);
+            var ID = Model.GetProperty(KeyField);
 
             return ID != null &&
                 (!(ID is int) || ((int)ID != 0));
@@ -123,7 +118,7 @@ namespace Singularity.Extensions
         public static List<T> CSVToModels<T>(this string[][] CSVData)
             where T : IModel
             {
-            List<T> Out = new List<T>();
+            var Out = new List<T>();
 
             string[] CSVHeader = null;
 
@@ -157,7 +152,7 @@ namespace Singularity.Extensions
         public static T CSVToModel<T>(this string[] CSVLine, string[] CSVHeader = null)
             where T : IModel
             {
-            T Out = typeof(T).New<T>();
+            var Out = typeof(T).New<T>();
 
             if (CSVHeader == null)
                 CSVHeader = Out.CSVHeader();
@@ -174,14 +169,14 @@ namespace Singularity.Extensions
                 string HeaderTitle = CSVHeader[j];
                 string LineValue = CSVLine[j];
 
-                ModelMetadata Meta = Out.Meta(HeaderTitle);
+                var Meta = Out.Meta(HeaderTitle);
 
                 if (Meta == null)
                     {
                     // Only compute once per model if needed
                     ModelMeta = ModelMeta ?? typeof(T).Meta().Properties.Array();
 
-                    foreach (ModelMetadata FieldMeta in ModelMeta)
+                    foreach (var FieldMeta in ModelMeta)
                         {
                         if (FieldMeta.HasAttribute<FieldExportHeaderAttribute>() &&
                             FieldMeta.GetAttribute<FieldExportHeaderAttribute>().HeaderText == HeaderTitle)
@@ -199,14 +194,14 @@ namespace Singularity.Extensions
                     continue;
 
                 if (Meta.HasAttribute<FieldDisableImportAttribute>() ||
-                    Meta.HasAttribute<KeyAttribute>())
+                    Meta.HasAttribute<KeyAttribute>(true))
                     continue;
 
-                StringConverter Convert = new StringConverter();
+                var Convert = new StringConverter();
 
                 try
                     {
-                    object Value = Convert.PerformAction(LineValue, Meta.ModelType);
+                    var Value = Convert.PerformAction(LineValue, Meta.ModelType);
 
                     Out.SetProperty(HeaderTitle, Value);
                     }
@@ -262,13 +257,13 @@ namespace Singularity.Extensions
             // Default Value fields /////////////////////////////////////////////////
             ModelMetadata[] Properties = Model.Meta().Properties.Array();
 
-            foreach (ModelMetadata Meta in Properties)
+            foreach (var Meta in Properties)
                 {
-                FieldDefaultValueAttribute Attr = Meta.GetAttribute<FieldDefaultValueAttribute>();
+                var Attr = Meta.GetAttribute<FieldDefaultValueAttribute>();
 
                 if (Attr != null)
                     {
-                    object Value = Attr.GetValue(Model);
+                    var Value = Attr.GetValue(Model);
 
                     Model.SetProperty(Meta.PropertyName, Value);
                     }
@@ -277,7 +272,7 @@ namespace Singularity.Extensions
 
         public static string TemplateTokenFill<T>(this T Model, string Template) where T : IModel
             {
-            Type ModelType = Model.TrueModelType();
+            var ModelType = Model.TrueModelType();
             Dictionary<string, ModelMetadata> AllMeta = ModelType.GetMeta(m => !m.HasAttribute<FieldNoTokenAttribute>());
 
             string Out = Template ?? "";
@@ -286,7 +281,7 @@ namespace Singularity.Extensions
                 {
                 string KeyBraced = $"[{Key}]";
 
-                ModelMetadata Meta = AllMeta[Key];
+                var Meta = AllMeta[Key];
 
                 if (Meta.HasAttribute<FieldNoTokenAttribute>())
                     {
@@ -295,11 +290,11 @@ namespace Singularity.Extensions
 
                 if (Out.Contains(KeyBraced))
                     {
-                    LambdaExpression Lambda = ModelType.GetTokenExpression(Key, out Meta);
+                    var Lambda = ModelType.GetTokenExpression(Key, out Meta);
 
                     Func<object, object> Func = ((Expression<Func<object, object>>)Lambda).Compile();
 
-                    object Data = Func(Model) ?? "";
+                    var Data = Func(Model) ?? "";
 
                     if (StringConverter.IsTypeSupported(Meta))
                         {
@@ -327,7 +322,7 @@ namespace Singularity.Extensions
             where T : IModel
             where U : IModel
             {
-            U Out = typeof(U).New<U>();
+            var Out = typeof(U).New<U>();
 
             return CloneInto(Model, Out);
             }
@@ -339,23 +334,23 @@ namespace Singularity.Extensions
             List<ModelMetadata> ModelMetaT = typeof(T).Meta().Properties.List();
             List<ModelMetadata> ModelMetaU = Out.Properties().List();
 
-            foreach (ModelMetadata Meta in ModelMetaU)
+            foreach (var Meta in ModelMetaU)
                 {
                 if (Meta.IsReadOnly ||
                     Meta.HasAttribute<IDontClone>() ||
-                    Meta.HasAttribute<KeyAttribute>() ||
+                    Meta.HasAttribute<KeyAttribute>(true) ||
                     Meta.ModelType.HasInterface<IModel>())
                     continue;
 
-                ModelMetadata MetaT = ModelMetaT.First(m => m.PropertyName == Meta.PropertyName);
+                var MetaT = ModelMetaT.First(m => m.PropertyName == Meta.PropertyName);
 
                 if (MetaT == null ||
                     MetaT.IsReadOnly ||
                     MetaT.HasAttribute<IDontClone>() ||
-                    MetaT.HasAttribute<KeyAttribute>())
+                    MetaT.HasAttribute<KeyAttribute>(true))
                     continue;
 
-                object Value = Model.GetProperty(Meta.PropertyName);
+                var Value = Model.GetProperty(Meta.PropertyName);
 
                 Out.SetProperty(Meta.PropertyName, Value);
                 }

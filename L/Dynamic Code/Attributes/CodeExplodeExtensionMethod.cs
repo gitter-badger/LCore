@@ -7,7 +7,7 @@ namespace LCore.Dynamic
     /// </summary>
     internal class CodeExplodeExtensionMethod : CodeExplodeMember
         {
-        public bool ExtendExplosions;
+        public readonly bool ExtendExplosions;
 
         public CodeExplodeExtensionMethod(string MethodName, string Comments = "", bool ExtendExplosions = false)
             : base(MethodName, Comments)

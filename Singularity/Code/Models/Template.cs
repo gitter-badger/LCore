@@ -64,7 +64,7 @@ namespace Singularity.Models
 
         public static Template FindByToken(ModelContext Context, string Token)
             {
-            Template Content = Context.GetDBSet<Template>(
+            var Content = Context.GetDBSet<Template>(
                 ).FirstOrDefault(t => t.Token == Token &&
                     t.Active);
 
@@ -75,7 +75,7 @@ namespace Singularity.Models
             {
             string Out = "";
 
-            Template Content = FindByToken(Context, Token);
+            var Content = FindByToken(Context, Token);
 
             if (Content != null)
                 Out = Content.TemplateHTML;

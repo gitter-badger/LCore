@@ -37,13 +37,13 @@ namespace ASP
     using Singularity;
     using Singularity.Context;
     using Singularity.Controllers;
-    using Singularity.Models;
     
     #line 2 "..\..\Views\Account\Login.cshtml"
-    using Singularity.Routes;
+    using Singularity.Extensions;
     
     #line default
     #line hidden
+    using Singularity.Models;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Account/Login.cshtml")]
@@ -97,7 +97,7 @@ WriteLiteral(">\r\n");
             #line hidden
             
             #line 14 "..\..\Views\Account\Login.cshtml"
-             using (Html.BeginForm(Controllers.Account.Actions.Login, Controllers.Account.Name,
+             using (Html.BeginForm(nameof(AccountController.Login), typeof(AccountController).CName(),
                 new { ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
                 

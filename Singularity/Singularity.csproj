@@ -38,6 +38,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -53,6 +55,14 @@
     </Reference>
     <Reference Include="AttributeRouting.Web.Mvc">
       <HintPath>..\packages\AttributeRouting.3.5.6\lib\net40\AttributeRouting.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac, Version=3.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.4.0\lib\net40\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.3.3.4\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -195,6 +205,10 @@
       <HintPath>..\packages\WebActivatorEx.2.1.0\lib\net40\WebActivatorEx.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WebMatrix.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>C:\Users\Ben\documents\visual studio 2013\Projects\MvcApplication1\packages\Microsoft.AspNet.WebPages.Data.3.2.3\lib\net45\WebMatrix.Data.dll</HintPath>
       <Private>True</Private>
@@ -209,10 +223,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
+    <Compile Include="App_Start\DependencyConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Code\Account\Crypto.cs" />
     <Compile Include="Code\Account\Authentication.cs" />
     <Compile Include="Code\Account\AuthenticationService.cs" />
+    <Compile Include="Code\Account\IAuthenticationService.cs" />
     <Compile Include="Code\Attributes\Abstract\AdditionalValueAttribute.cs" />
     <Compile Include="Code\Attributes\Abstract\SetFormField.cs" />
     <Compile Include="Code\Attributes\Account\RequireAuthAttribute.cs" />
@@ -244,9 +260,12 @@
     <Compile Include="Code\Azure\AzureCloudExt.cs" />
     <Compile Include="Code\Azure\AzureInterface.cs" />
     <Compile Include="Code\Azure\AzureQueueInterface.cs" />
+    <Compile Include="Code\Context\SingularityContext.cs" />
+    <Compile Include="Code\Context\SingularityContextProvider.cs" />
     <Compile Include="Code\Controllers\Base\ManageController_T.cs" />
     <Compile Include="Code\Controllers\Base\ReadOnlyManageController_T.cs" />
     <Compile Include="Code\Controllers\Base\StatusMessages.cs" />
+    <Compile Include="Code\Controllers\Implementations\HomeController.cs" />
     <Compile Include="Code\Controllers\Implementations\AccountController.cs" />
     <Compile Include="Code\Controllers\Implementations\ExamplesController.cs" />
     <Compile Include="Code\Controllers\Implementations\EmailJobController.cs" />
@@ -255,13 +274,19 @@
     <Compile Include="Code\Controllers\Implementations\SingularityController.cs" />
     <Compile Include="Code\Examples\Example.cs" />
     <Compile Include="Code\Extensions\ContextExt.cs" />
-    <Compile Include="Code\Extensions\ControllerActionLinkHelper.cs" />
+    <Compile Include="Code\Helpers\ControllerActionHelper.cs" />
+    <Compile Include="Code\Helpers\ControllerActionLinkHelper.cs" />
+    <Compile Include="Code\Extensions\ControllerExt.cs" />
     <Compile Include="Code\Extensions\DataExt.cs" />
+    <Compile Include="Code\Helpers\ExpressionParameterReplacer.cs" />
+    <Compile Include="Code\Extensions\GlyphIconExt.cs" />
     <Compile Include="Code\Extensions\SessionExt.cs" />
     <Compile Include="Code\Extensions\ResponseExt.cs" />
-    <Compile Include="Code\Extensions\ControllerActionHelper.cs" />
+    <Compile Include="Code\Helpers\SwapVisitor.cs" />
     <Compile Include="Code\Extensions\UrlExt.cs" />
     <Compile Include="Code\Filters\SecurityFilterAttribute.cs" />
+    <Compile Include="Code\Extensions\FontAwesomeExt.cs" />
+    <Compile Include="Code\Interfaces\IDefaultViewLayout.cs" />
     <Compile Include="Code\Interfaces\IComplexType.cs" />
     <Compile Include="Code\Interfaces\IDontClone.cs" />
     <Compile Include="Code\Interfaces\IEmailable.cs" />
@@ -298,16 +323,22 @@
     <Compile Include="Code\Extensions\ModelExt.cs" />
     <Compile Include="Code\Extensions\MVCExt.cs" />
     <Compile Include="Code\Extensions\QueryExt.cs" />
-    <Compile Include="Code\Extensions\SearchOperation.cs" />
+    <Compile Include="Code\SingularityRazor.cs" />
+    <Compile Include="Code\SearchOperation.cs" />
     <Compile Include="Code\Filters\ErrorFilterAttribute.cs" />
-    <Compile Include="Code\Interfaces\IModelRole.cs" />
-    <Compile Include="Code\Interfaces\IModelUser.cs" />
-    <Compile Include="Code\ViewModels\LoginViewModel.cs" />
-    <Compile Include="Code\ViewModels\ForceResetPasswordViewModel.cs" />
-    <Compile Include="Code\ViewModels\ImpersonateUserViewModel.cs" />
-    <Compile Include="Code\Models\Account\Role.cs" />
+    <Compile Include="Code\Interfaces\IMenuAction.cs" />
+    <Compile Include="Code\Models\Event.cs" />
+    <Compile Include="Code\Models\GlobalSettings.cs" />
+    <Compile Include="Code\Models\TestModel.cs" />
+    <Compile Include="Code\Models\ViewModels\LoginViewModel.cs" />
+    <Compile Include="Code\Models\ViewModels\ForceResetPasswordViewModel.cs" />
+    <Compile Include="Code\Models\ViewModels\ImpersonateUserViewModel.cs" />
+    <Compile Include="Code\Models\Account\AccountRole.cs" />
     <Compile Include="Code\Models\Account\SecurityLog.cs" />
     <Compile Include="Code\Models\Account\UserAccount.cs" />
+    <Compile Include="Code\Routes\Controllers.cs" />
+    <Compile Include="Code\Routes\Layouts.cs" />
+    <Compile Include="Code\Singularity.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -324,16 +355,16 @@
     <Compile Include="Code\Models\SavedSearch.cs" />
     <Compile Include="Code\Models\CustomExport.cs" />
     <Compile Include="Code\Models\Template.cs" />
-    <Compile Include="Code\ViewModels\TemplateViewModel.cs" />
-    <Compile Include="Code\ViewModels\TextContentViewModel.cs" />
+    <Compile Include="Code\Models\ViewModels\TemplateViewModel.cs" />
+    <Compile Include="Code\Models\ViewModels\TextContentViewModel.cs" />
     <Compile Include="Code\Models\TextContent.cs" />
     <Compile Include="Code\Models\Error.cs" />
     <Compile Include="Code\Models\FileUpload.cs" />
-    <Compile Include="Code\ViewModels\ManageViewModel.cs" />
+    <Compile Include="Code\Models\ViewModels\ManageViewModel.cs" />
     <Compile Include="Code\Models\Account\ModelPermissions.cs" />
     <Compile Include="Code\ViewField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Code\Routes\SiteRoutes.cs" />
+    <Compile Include="Code\Routes\PartialViews.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Code\TypeActions\FilterAction.cs" />
     <Compile Include="Code\TypeActions\StringConverter.cs" />
@@ -363,11 +394,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Subject_After.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Examples\Delete.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Examples.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Examples\Examples_JQueryUI.generated.cs">
       <DependentUpon>Examples_JQueryUI.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -383,22 +409,52 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Examples_Bootstrap.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Create.generated.cs">
+    <Compile Include="Views\Examples\Home.generated.cs">
+      <DependentUpon>Home.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\Home\Index.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\Admin\Footer.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Footer.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\Admin\Header.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Header.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\Admin\ContentHeader.generated.cs">
+      <DependentUpon>ContentHeader.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\Shared\Admin\Sidebar.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Sidebar.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\Manage\Create.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Create.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Delete.generated.cs">
+    <Compile Include="Views\Shared\Manage\Delete.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Delete.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Details.generated.cs">
+    <Compile Include="Views\Shared\Manage\Details.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Details.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Edit.generated.cs">
+    <Compile Include="Views\Shared\Manage\Edit.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Edit.cshtml</DependentUpon>
@@ -408,197 +464,202 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LoginPartial.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Shared\Footer.generated.cs">
+      <DependentUpon>Footer.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Views\Shared\Nav.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Nav.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Edit.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\FieldEdit.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Edit.cshtml</DependentUpon>
+      <DependentUpon>FieldEdit.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Edit\Boolean.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\Edit\Boolean.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Boolean.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Edit\ComplexType.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\Edit\ComplexType.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ComplexType.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Edit\Currency.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\Edit\Currency.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Currency.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Edit\DateTime.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\Edit\DateTime.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DateTime.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Edit\Decimal.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\Edit\Decimal.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Decimal.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Edit\Dropdown.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\Edit\Dropdown.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Dropdown.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Edit\Enum.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\Edit\Enum.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Enum.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Edit\Hidden.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\Edit\Hidden.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Hidden.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Edit\HTMLContent1.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\Edit\HTMLContent1.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HTMLContent.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Edit\IModel.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\Edit\IModel.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>IModel.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Edit\Int.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\Edit\Int.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Int.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Edit\IntRange.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\Edit\IntRange.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>IntRange.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Edit\Key.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\Edit\Key.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Key.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Edit\Long.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\Edit\Long.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Long.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Edit\String.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\Edit\String.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>String.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Edit\StringMultiLine.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\Edit\StringMultiLine.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StringMultiLine.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Edit\Unknown.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\Edit\Unknown.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Unknown.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Error.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\Error.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Error.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Field.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\Field.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Field.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\FileUpload.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\FileUpload.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FileUpload.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\Information.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\Information.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Information.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\View.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\FieldView.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>View.cshtml</DependentUpon>
+      <DependentUpon>FieldView.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\View\Boolean.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\View\Boolean.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Boolean.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\View\Currency.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\View\Currency.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Currency.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\View\DateTime.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\View\DateTime.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DateTime.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\View\DisplayColumn.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\View\DisplayColumn.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DisplayColumn.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\View\EmailAddress.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\View\EmailAddress.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EmailAddress.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\View\Empty.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\View\Empty.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Empty.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\View\Enum.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\View\Enum.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Enum.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\View\FormatString.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\View\FormatString.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FormatString.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\View\IModel.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\View\IModel.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>IModel.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\View\IModelCollection.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\View\IModelCollection.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>IModelCollection.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\View\Int.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\View\Int.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Int.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\View\String.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\View\String.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>String.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\View\StringMatrix.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\View\StringMatrix.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StringMatrix.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\View\StringMultiArray.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\View\StringMultiArray.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StringMultiArray.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Fields\View\Unknown.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\View\Unknown.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Unknown.cshtml</DependentUpon>
@@ -608,7 +669,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataTable.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Manage.generated.cs">
+    <Compile Include="Views\Shared\Manage\Manage.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Manage.cshtml</DependentUpon>
@@ -618,40 +679,45 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PasswordRequirements.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\_FieldHeader1.generated.cs">
+    <Compile Include="Views\Shared\Manage\Fields\_FieldHeader1.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FieldHeader.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\_Manage_Exports1.generated.cs">
+    <Compile Include="Views\Shared\Manage\Exports.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Manage_Exports.cshtml</DependentUpon>
+      <DependentUpon>Exports.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\_Manage_HeaderRow.generated.cs">
+    <Compile Include="Views\Shared\Manage\HeaderRow.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Manage_HeaderRow.cshtml</DependentUpon>
+      <DependentUpon>HeaderRow.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\_Manage_Pagination.generated.cs">
+    <Compile Include="Views\Shared\Manage\Pagination.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Manage_Pagination.cshtml</DependentUpon>
+      <DependentUpon>Pagination.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\_Manage_Row.generated.cs">
+    <Compile Include="Views\Shared\Manage\Row.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Manage_Row.cshtml</DependentUpon>
+      <DependentUpon>Row.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\_Manage_Search.generated.cs">
+    <Compile Include="Views\Shared\Manage\Search.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Manage_Search.cshtml</DependentUpon>
+      <DependentUpon>Search.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\_Template1.generated.cs">
+    <Compile Include="Views\Shared\Template.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>_Template.cshtml</DependentUpon>
+      <DependentUpon>Template.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\_TextContent1.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TextContent.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Template\Fields\Description_After1.generated.cs">
       <AutoGen>True</AutoGen>
@@ -668,20 +734,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SingularityTest.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\_MainLayout.generated.cs">
+    <Compile Include="Views\_ViewStart.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>_MainLayout.cshtml</DependentUpon>
+      <DependentUpon>_ViewStart.cshtml</DependentUpon>
     </Compile>
     <Compile Include="_AppStart.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>_AppStart.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="_TextContent1.generated.cs">
-      <DependentUpon>TextContent.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -700,6 +761,8 @@
     <Content Include="Content\singularity.min.css">
       <DependentUpon>singularity.css</DependentUpon>
     </Content>
+    <Content Include="Content\theme-admin-skins.min.css" />
+    <Content Include="Content\theme-admin.min.css" />
     <Content Include="Content\timepicker\jquery.timepicker.css" />
     <Content Include="Content\singularity-forms.css">
       <DependentUpon>singularity-forms.less</DependentUpon>
@@ -762,6 +825,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Scripts\include\jquery\jquery-3.0.0.intellisense.js" />
+    <Content Include="Scripts\admin-app.js" />
     <Content Include="Scripts\include\bootstrap\bootstrap.js" />
     <Content Include="Scripts\include\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\include\jquery\jquery-3.0.0.js" />
@@ -785,7 +849,7 @@
     <Content Include="Scripts\include\wysihtml5\wysihtml5-0.3.0.js" />
     <Content Include="Scripts\include\wysihtml5\wysihtml5-0.3.0.min.js" />
     <Content Include="Scripts\singularity.js" />
-    <Content Include="Views\Shared\Fields\Edit\HTMLContent.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\Edit\HTMLContent.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>HTMLContent1.generated.cs</LastGenOutput>
     </Content>
@@ -793,15 +857,15 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_TextContent1.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\Edit\Dropdown.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\Edit\Dropdown.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Dropdown.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\_Template.cshtml">
+    <Content Include="Views\Shared\Template.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>_Template1.generated.cs</LastGenOutput>
+      <LastGenOutput>Template.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\FieldHeader.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\FieldHeader.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_FieldHeader1.generated.cs</LastGenOutput>
     </Content>
@@ -809,9 +873,9 @@
       <LastGenOutput>ExportType_After1.generated.cs</LastGenOutput>
       <Generator>RazorGenerator</Generator>
     </Content>
-    <Content Include="Views\Shared\Manage_Exports.cshtml">
+    <Content Include="Views\Shared\Manage\Exports.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>_Manage_Exports1.generated.cs</LastGenOutput>
+      <LastGenOutput>Exports.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\include\jquery-ui\jquery-ui-1.11.4.min.js.map">
       <DependentUpon>jquery-ui-1.11.4.min.js</DependentUpon>
@@ -824,7 +888,7 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>EmailSavedSearch1.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\View\EmailAddress.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\View\EmailAddress.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>EmailAddress.generated.cs</LastGenOutput>
     </Content>
@@ -835,10 +899,6 @@
     <Content Include="Views\Shared\Helpers\DataTable.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>DataTable.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Examples\Examples.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Delete.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Views\Shared\Nav.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -851,10 +911,6 @@
     <Content Include="Views\Account\ForceResetPassword.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ForceResetPassword.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="TextContent.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>_TextContent1.generated.cs</LastGenOutput>
     </Content>
     <None Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Examples\Examples_Bootstrap.cshtml">
@@ -877,6 +933,43 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>PasswordRequirements1.generated.cs</LastGenOutput>
     </Content>
+    <Content Include="Views\Examples\Home.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Home.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Home\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Index.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\Footer.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Footer.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\Admin\Footer.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Footer.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\Admin\Header.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Header.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\Admin\Sidebar.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Sidebar.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_ViewStart.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\Admin\_Admin.cshtml" />
+    <Content Include="Views\Shared\Admin\ContentHeader.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ContentHeader.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Examples\Singularity.cshtml" />
+    <Content Include="Views\Examples\SingularityExtensions.cshtml" />
+    <Content Include="Views\Examples\SingularityExtensionType.cshtml" />
+    <Content Include="Views\Examples\SingularityExtensionMethod.cshtml" />
     <TypeScriptCompile Include="Scripts\definitions\jquery.mobile.custom.d.ts" />
     <Content Include="Scripts\include\jquery-mobile\images\ajax-loader.gif" />
     <None Include="Scripts\include\jquery-mobile\jquery-mobile-1.4.5.min.map" />
@@ -970,186 +1063,183 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>JavascriptTest.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Create.cshtml">
+    <Content Include="Views\Shared\Manage\Create.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Create.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Delete.cshtml">
+    <Content Include="Views\Shared\Manage\Delete.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Delete.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Details.cshtml">
+    <Content Include="Views\Shared\Manage\Details.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Details.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Edit.cshtml">
+    <Content Include="Views\Shared\Manage\Edit.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Edit.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Manage.cshtml">
+    <Content Include="Views\Shared\Manage\Manage.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Manage.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Manage_HeaderRow.cshtml">
+    <Content Include="Views\Shared\Manage\HeaderRow.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>_Manage_HeaderRow.generated.cs</LastGenOutput>
+      <LastGenOutput>HeaderRow.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Manage_Pagination.cshtml">
+    <Content Include="Views\Shared\Manage\Pagination.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>_Manage_Pagination.generated.cs</LastGenOutput>
+      <LastGenOutput>Pagination.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Manage_Row.cshtml">
+    <Content Include="Views\Shared\Manage\Row.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>_Manage_Row.generated.cs</LastGenOutput>
+      <LastGenOutput>Row.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Manage_Search.cshtml">
+    <Content Include="Views\Shared\Manage\Search.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>_Manage_Search.generated.cs</LastGenOutput>
+      <LastGenOutput>Search.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\Edit.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\FieldEdit.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Edit.generated.cs</LastGenOutput>
+      <LastGenOutput>FieldEdit.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\Error.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\Error.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Error.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\Field.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\Field.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Field.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\FileUpload.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\FileUpload.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>FileUpload.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\Information.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\Information.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Information.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\View.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\FieldView.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>View.generated.cs</LastGenOutput>
+      <LastGenOutput>FieldView.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\View\Boolean.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\View\Boolean.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Boolean.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\View\Currency.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\View\Currency.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Currency.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\View\DateTime.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\View\DateTime.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>DateTime.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\View\DisplayColumn.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\View\DisplayColumn.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>DisplayColumn.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\View\Empty.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\View\Empty.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Empty.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\View\Enum.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\View\Enum.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Enum.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\View\FormatString.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\View\FormatString.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>FormatString.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\View\IModel.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\View\IModel.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>IModel.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\View\IModelCollection.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\View\IModelCollection.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>IModelCollection.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\View\Int.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\View\Int.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Int.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\View\String.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\View\String.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>String.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\View\StringMatrix.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\View\StringMatrix.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>StringMatrix.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\View\StringMultiArray.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\View\StringMultiArray.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>StringMultiArray.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\View\Unknown.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\View\Unknown.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Unknown.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\Edit\Boolean.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\Edit\Boolean.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Boolean.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\Edit\ComplexType.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\Edit\ComplexType.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ComplexType.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\Edit\Currency.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\Edit\Currency.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Currency.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\Edit\DateTime.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\Edit\DateTime.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>DateTime.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\Edit\Decimal.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\Edit\Decimal.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Decimal.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\Edit\Enum.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\Edit\Enum.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Enum.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\Edit\Hidden.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\Edit\Hidden.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Hidden.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\Edit\IModel.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\Edit\IModel.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>IModel.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\Edit\Int.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\Edit\Int.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Int.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\Edit\IntRange.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\Edit\IntRange.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>IntRange.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\Edit\Key.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\Edit\Key.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Key.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\Edit\Long.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\Edit\Long.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Long.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\Edit\String.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\Edit\String.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>String.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\Edit\StringMultiLine.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>StringMultiLine.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Fields\Edit\Unknown.cshtml">
+    <Content Include="Views\Shared\Manage\Fields\Edit\Unknown.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Unknown.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\_MainLayout.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>_MainLayout.generated.cs</LastGenOutput>
-    </Content>
+    <Content Include="Views\Shared\_Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1190,8 +1280,7 @@
     <TypeScriptOutFile>Scripts/singularity.js</TypeScriptOutFile>
     <TypeScriptTarget>ES5</TypeScriptTarget>
     <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
-    <TypeScriptModuleKind>
-    </TypeScriptModuleKind>
+    <TypeScriptModuleKind>System</TypeScriptModuleKind>
     <TypeScriptOutDir />
     <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
     <TypeScriptSourceMap>True</TypeScriptSourceMap>

@@ -43,7 +43,7 @@ namespace Singularity.Models
             {
             string Out = DefaultText;
 
-            TextContent Content = FindByToken(DbContext, Token);
+            var Content = FindByToken(DbContext, Token);
 
             if (Content != null)
                 Out = Content.Text;

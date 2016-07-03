@@ -37,13 +37,9 @@ namespace ASP
     using Singularity;
     using Singularity.Context;
     using Singularity.Controllers;
+    using Singularity.Extensions;
     using Singularity.Models;
-    
-    #line 2 "..\..\Views\Account\ForceResetPassword.cshtml"
     using Singularity.Routes;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Account/ForceResetPassword.cshtml")]
@@ -54,7 +50,7 @@ namespace ASP
         }
         public override void Execute()
         {
-WriteLiteral("\r\n");
+WriteLiteral("\r\n\r\n");
 
             
             #line 5 "..\..\Views\Account\ForceResetPassword.cshtml"
@@ -77,8 +73,8 @@ WriteLiteral(".</h2>\r\n\r\n");
 
             
             #line 11 "..\..\Views\Account\ForceResetPassword.cshtml"
- using (Html.BeginForm(Controllers.Account.Actions.ForceResetPassword, Controllers.Account.Name,
-                                        FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+ using (Html.BeginForm(nameof(AccountController.ForceResetPassword), typeof(AccountController).CName(),
+                FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
     
             

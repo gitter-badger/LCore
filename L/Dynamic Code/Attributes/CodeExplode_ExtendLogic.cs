@@ -10,12 +10,12 @@ namespace LCore.Dynamic
         {
         public override string ExplodeCode(Lists<string, MemberInfo> t)
             {
-            return Logic.LogicMemberInfo_ToExtensionStrings(t, "", null);
+            return L.Exploder.LogicMemberInfo_ToExtensionStrings(t, "", null);
             }
 
         public override bool ExplodeMember(MemberInfo Member)
             {
-            return Member.MemberHasAttribute(typeof(CodeExplodeExtensionMethod), true);
+            return Member.HasAttribute(typeof(CodeExplodeExtensionMethod), true);
             }
         public CodeExplode_ExtendLogic(Type T)
             : base(T)

@@ -191,8 +191,8 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <param name="count">The number of bytes available.</param>
         public void SetData(byte[] data, int index, int count)
             {
-            using (MemoryStream ms = new MemoryStream(data, index, count, false))
-            using (ZipHelperStream helperStream = new ZipHelperStream(ms))
+            using (var ms = new MemoryStream(data, index, count, false))
+            using (var helperStream = new ZipHelperStream(ms))
                 {
                 // bit 0           if set, modification time is present
                 // bit 1           if set, access time is present
@@ -231,26 +231,26 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <returns>The raw binary data representing this instance.</returns>
         public byte[] GetData()
             {
-            using (MemoryStream ms = new MemoryStream())
-            using (ZipHelperStream helperStream = new ZipHelperStream(ms))
+            using (var ms = new MemoryStream())
+            using (var helperStream = new ZipHelperStream(ms))
                 {
                 helperStream.IsStreamOwner = false;
                 helperStream.WriteByte((byte)this.flags_);     // Flags
                 if ((this.flags_ & Flags.ModificationTime) != 0)
                     {
-                    TimeSpan span = this.modificationTime_.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0).ToUniversalTime();
+                    var span = this.modificationTime_.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0).ToUniversalTime();
                     int seconds = (int)span.TotalSeconds;
                     helperStream.WriteLEInt(seconds);
                     }
                 if ((this.flags_ & Flags.AccessTime) != 0)
                     {
-                    TimeSpan span = this.lastAccessTime_.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0).ToUniversalTime();
+                    var span = this.lastAccessTime_.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0).ToUniversalTime();
                     int seconds = (int)span.TotalSeconds;
                     helperStream.WriteLEInt(seconds);
                     }
                 if ((this.flags_ & Flags.CreateTime) != 0)
                     {
-                    TimeSpan span = this.createTime_.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0).ToUniversalTime();
+                    var span = this.createTime_.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0).ToUniversalTime();
                     int seconds = (int)span.TotalSeconds;
                     helperStream.WriteLEInt(seconds);
                     }
@@ -373,8 +373,8 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <param name="count">The number of bytes available.</param>
         public void SetData(byte[] data, int index, int count)
             {
-            using (MemoryStream ms = new MemoryStream(data, index, count, false))
-            using (ZipHelperStream helperStream = new ZipHelperStream(ms))
+            using (var ms = new MemoryStream(data, index, count, false))
+            using (var helperStream = new ZipHelperStream(ms))
                 {
                 helperStream.ReadLEInt(); // Reserved
                 while (helperStream.Position < helperStream.Length)
@@ -408,8 +408,8 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <returns>The raw binary data representing this instance.</returns>
         public byte[] GetData()
             {
-            using (MemoryStream ms = new MemoryStream())
-            using (ZipHelperStream helperStream = new ZipHelperStream(ms))
+            using (var ms = new MemoryStream())
+            using (var helperStream = new ZipHelperStream(ms))
                 {
                 helperStream.IsStreamOwner = false;
                 helperStream.WriteLEInt(0);       // Reserved
@@ -752,7 +752,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 
             this.Delete(headerID);
 
-            byte[] newData = new byte[newLength];
+            var newData = new byte[newLength];
             this.data_.CopyTo(newData, 0);
             int index = this.data_.Length;
             this.data_ = newData;
@@ -864,7 +864,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                 result = true;
                 int trueStart = this.readValueStart_ - 4;
 
-                byte[] newData = new byte[this.data_.Length - (this.ValueLength + 4)];
+                var newData = new byte[this.data_.Length - (this.ValueLength + 4)];
                 Array.Copy(this.data_, 0, newData, 0, trueStart);
 
                 int trueEnd = trueStart + this.ValueLength + 4;

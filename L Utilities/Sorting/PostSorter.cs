@@ -47,10 +47,10 @@ namespace NSort
             }
         public void Sort(IList SortList, IList[] SwapLists)
             {
-            object[] SortListClone = new object[SortList.Count];
+            var SortListClone = new object[SortList.Count];
             SortList.CopyTo(SortListClone, 0);
 
-            object[][] clone = new object[SwapLists.Length][];
+            var clone = new object[SwapLists.Length][];
 
             for (int i = 0; i < SwapLists.Length; i++)
                 {
@@ -58,14 +58,14 @@ namespace NSort
                 SwapLists[i].CopyTo(clone[i], 0);
                 }
 
-            InternalSwapper swap = new InternalSwapper(SortList.Count);
+            var swap = new InternalSwapper(SortList.Count);
             ISorter Sorter = new QuickSorter(this.Comparer, swap);
 
             Sorter.Sort(SortListClone);
 
             for (int j = 0; j < SwapLists.Length; j++)
                 {
-                IList list = SwapLists[j];
+                var list = SwapLists[j];
                 for (int i = 0; i < list.Count; i++)
                     {
                     list[i] = clone[j][i];

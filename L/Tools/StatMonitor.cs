@@ -2,30 +2,33 @@
 
 namespace LCore.Tools
     {
-    [Serializable]
+    /// <summary>
+    /// A simple utility to monitor a series of number and compute the walking average over
+    /// a number of results.
+    /// </summary>
     public class StatMonitor
         {
-        public double CurrentAverageStat
+        /// <summary>
+        /// Computes the current walking average of the data.
+        /// </summary>
+        public double GetCurrentAverageStat()
             {
-            get
+            int Num = 0;
+            double Total = 0;
+
+            foreach (double t in this.WalkingStats)
                 {
-                int Num = 0;
-                double Total = 0;
-
-                foreach (double t in this.WalkingStats)
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
+                if (t != 0)
                     {
-                    // ReSharper disable once CompareOfFloatsByEqualityOperator
-                    if (t != 0)
-                        {
-                        Total += t;
-                        Num++;
-                        }
+                    Total += t;
+                    Num++;
                     }
-
-                if (Num == 0)
-                    return double.NaN;
-                return Total / Num;
                 }
+
+            if (Num == 0)
+                return double.NaN;
+            return Total / Num;
             }
 
         private readonly int WalkingAverageSize;
@@ -33,6 +36,11 @@ namespace LCore.Tools
 
         private int CurrentPos;
 
+        /// <summary>
+        /// Create a new StatMonitor using a particular walking average size.
+        /// [WalkingAverageSize] must be at least 1.
+        /// </summary>
+        /// <param name="WalkingAverageSize"></param>
         public StatMonitor(int WalkingAverageSize)
             {
             if (WalkingAverageSize < 1)
@@ -42,6 +50,9 @@ namespace LCore.Tools
             this.Clear();
             }
 
+        /// <summary>
+        /// Add a statistic to the data.
+        /// </summary>
         public void AddStat(double Stat)
             {
             this.WalkingStats[this.CurrentPos] = Stat;
@@ -50,6 +61,9 @@ namespace LCore.Tools
                 this.CurrentPos = 0;
             }
 
+        /// <summary>
+        /// Clears all statistics.
+        /// </summary>
         public void Clear()
             {
             this.WalkingStats = new double[this.WalkingAverageSize];

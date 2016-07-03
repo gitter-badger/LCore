@@ -3,7 +3,6 @@ using LCore.Extensions;
 using Singularity.Context;
 using Singularity.Models;
 using System;
-using System.Data.Entity;
 using System.Web;
 using System.Web.Mvc;
 using Singularity.Extensions;
@@ -52,7 +51,7 @@ namespace Singularity.Utilities
             if (string.IsNullOrEmpty(In))
                 return null;
 
-            if (EnumType.HasAttribute<FlagsAttribute>())
+            if (EnumType.HasAttribute<FlagsAttribute>(true))
                 {
                 if (In.StartsWith(","))
                     {
@@ -110,7 +109,7 @@ namespace Singularity.Utilities
             {
             if (this.Session != null)
                 {
-                DbSet Query = ContextProviderFactory.GetCurrent().GetDBSet(this.Session, t);
+                var Query = ContextProviderFactory.GetCurrent().GetDBSet(this.Session, t);
 
                 if (Query != null)
                     {

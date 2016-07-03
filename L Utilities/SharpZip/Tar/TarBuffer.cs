@@ -179,7 +179,7 @@ namespace ICSharpCode.SharpZipLib.Tar
 #endif
                 }
 
-            TarBuffer tarBuffer = new TarBuffer
+            var tarBuffer = new TarBuffer
                 {
                 inputStream = inputStream,
                 outputStream = null
@@ -226,7 +226,7 @@ namespace ICSharpCode.SharpZipLib.Tar
 #endif
                 }
 
-            TarBuffer tarBuffer = new TarBuffer
+            var tarBuffer = new TarBuffer
                 {
                 inputStream = null,
                 outputStream = outputStream
@@ -365,7 +365,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                     }
                 }
 
-            byte[] result = new byte[BlockSize];
+            var result = new byte[BlockSize];
 
             Array.Copy(this.recordBuffer, this.currentBlockIndex * BlockSize, result, 0, BlockSize);
             this.currentBlockIndex++;

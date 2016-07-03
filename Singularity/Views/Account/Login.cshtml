@@ -1,5 +1,5 @@
 ﻿
-@using Singularity.Routes
+@using Singularity.Extensions
 
 @model LoginViewModel
 
@@ -11,7 +11,7 @@
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
-            @using (Html.BeginForm(Controllers.Account.Actions.Login, Controllers.Account.Name,
+            @using (Html.BeginForm(nameof(AccountController.Login), typeof(AccountController).CName(),
                 new { ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
                 @Html.AntiForgeryToken()

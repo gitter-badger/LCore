@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Microsoft.Win32;
+#pragma warning disable 1591
 
 namespace LCore.Tools
     {
@@ -53,7 +54,7 @@ namespace LCore.Tools
                 this.Key = RootKey.OpenSubKey(RegistrySubKey, RegistryKeyPermissionCheck.ReadWriteSubTree);
                 try
                     {
-                    System.Security.AccessControl.RegistrySecurity r = RootKey.GetAccessControl();
+                    var r = RootKey.GetAccessControl();
                     r.AddAccessRule(new System.Security.AccessControl.RegistryAccessRule("Everyone", System.Security.AccessControl.RegistryRights.FullControl, System.Security.AccessControl.AccessControlType.Allow));
                     RootKey.SetAccessControl(r);
                     RootKey.Flush();
@@ -130,7 +131,7 @@ namespace LCore.Tools
                     {
                     int count = Convert.ToInt32(this.Key.GetValue($"{Name}Count"));
 
-                    ArrayList Item = new ArrayList(count);
+                    var Item = new ArrayList(count);
                     for (int i = 0; i < count; i++)
                         {
                         Item.Add(this.Key.GetValue(Name + i));
@@ -141,14 +142,14 @@ namespace LCore.Tools
                     {
                     int count = Convert.ToInt32(this.Key.GetValue($"{Name}Count"));
 
-                    string[] Item = new string[count];
+                    var Item = new string[count];
                     for (int i = 0; i < count; i++)
                         {
                         Item[i] = this.Key.GetValue(Name + i).ToString();
                         }
                     return Item;
                     }
-                object Value = this.Key.GetValue(Name);
+                var Value = this.Key.GetValue(Name);
                 if (Value != null)
                     {
                     if (ItemType == ObjType.Int)
@@ -184,7 +185,7 @@ namespace LCore.Tools
             {
             string[] Names = this.Key.GetValueNames();
 
-            object[] Out = new object[Names.Length];
+            var Out = new object[Names.Length];
 
             for (int i = 0; i < Names.Length; i++)
                 {
@@ -235,7 +236,7 @@ namespace LCore.Tools
             if (Item == null)
                 Item = "";
 
-            ArrayList list = Item as ArrayList;
+            var list = Item as ArrayList;
             if (list != null && Start > list.Count && Start != 0)
                 throw new IndexOutOfRangeException();
             if (Name == null)
@@ -251,7 +252,7 @@ namespace LCore.Tools
                         string Value = null;
                         byte[] Value2 = null;
 
-                        byte[] bytes = list[i] as byte[];
+                        var bytes = list[i] as byte[];
                         if (bytes != null)
                             Value2 = bytes;
                         else

@@ -77,15 +77,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AzureBlobInterface.cs" />
-    <Compile Include="Context\SingularityContextProvider.cs" />
-    <Compile Include="Context\SingularityContext.cs" />
-    <Compile Include="Models\GlobalSettings.cs" />
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\Event.cs" />
-    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Models\SingularityRole.cs" />
-    <Compile Include="Models\TestModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +98,9 @@
       <Project>{838e5c49-0d76-474e-bd5f-c98adc929c58}</Project>
       <Name>Singularity</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Context\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -3,10 +3,11 @@ using Singularity.Models;
 using System;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using LCore.Extensions;
 
 namespace Singularity.Annotations
     {
-    public interface IFieldPartial
+    public interface IFieldPartial : ISubClassPersistentAttribute
         {
         void RenderPartial_Before(HtmlHelper Html, IViewField Model, params ControllerHelper.ViewType[] Type);
         void RenderPartial_After(HtmlHelper Html, IViewField Model, params ControllerHelper.ViewType[] Type);

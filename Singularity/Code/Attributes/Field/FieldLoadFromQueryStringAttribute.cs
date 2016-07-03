@@ -1,8 +1,9 @@
 ﻿using System;
+using LCore.Extensions;
 
 namespace Singularity.Annotations
     {
-    public interface IFieldLoadFromQueryStringAttribute
+    public interface IFieldLoadFromQueryStringAttribute : ITopLevelAttribute
         {
 
         }

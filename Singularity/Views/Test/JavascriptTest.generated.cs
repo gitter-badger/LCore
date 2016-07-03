@@ -61,7 +61,6 @@ WriteLiteral("\r\n");
             
             #line 6 "..\..\Views\Test\JavascriptTest.cshtml"
   
-    Layout = Layouts.MainLayout;
 
             
             #line default

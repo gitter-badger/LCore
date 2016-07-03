@@ -1,5 +1,4 @@
-﻿using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.StorageClient;
+﻿using Microsoft.WindowsAzure.StorageClient;
 
 namespace Singularity.Azure
     {
@@ -7,9 +6,9 @@ namespace Singularity.Azure
         {
         public static CloudQueueClient GetQueueClient()
             {
-            CloudStorageAccount StorageAccount = AzureInterface.GetStorageAccount();
+            var StorageAccount = AzureInterface.GetStorageAccount();
 
-            CloudQueueClient BlobClient = StorageAccount.CreateCloudQueueClient();
+            var BlobClient = StorageAccount.CreateCloudQueueClient();
 
             return BlobClient;
             }

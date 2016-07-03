@@ -24,6 +24,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Debug\L.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -60,7 +61,14 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Naming\Attributes\FriendlyName.cs" />
+    <Compile Include="Extensions\Methods\L.cs" />
+    <Compile Include="Extensions\Object Types\ReflectionExt.cs" />
+    <Compile Include="Extensions\Value Types\NumberExt.cs" />
+    <Compile Include="Interfaces\IExtensionProvider.cs" />
+    <Compile Include="Interfaces\IPersistAttribute.cs" />
+    <Compile Include="Interfaces\ISubclassPersistentAttribute.cs" />
+    <Compile Include="Interfaces\ITopLevelAttribute.cs" />
+    <Compile Include="Naming\Attributes\FriendlyNameAttribute.cs" />
     <Compile Include="Dynamic Code\Attributes\AttributeList.cs" />
     <Compile Include="Dynamic Code\Attributes\CodeExplode.cs" />
     <Compile Include="Dynamic Code\Attributes\CodeExplode_ExtendLogic.cs" />
@@ -68,16 +76,27 @@
     <Compile Include="Dynamic Code\Attributes\CodeExplode_ExplodeLogic.cs" />
     <Compile Include="Dynamic Code\Attributes\CodeExplodeGenerics.cs" />
     <Compile Include="Dynamic Code\Attributes\CodeExplodeExtensionMethod.cs" />
-    <Compile Include="Dynamic Code\Attributes\CodeExplodeGenerics_Arguments.cs" />
+    <Compile Include="Dynamic Code\Attributes\CodeExplodeGenerics_ReplaceArguments.cs" />
     <Compile Include="Dynamic Code\CodeExploder.cs" />
     <Compile Include="Dynamic Code\CodeExplode\LX_Explode_bak.cs" />
     <Compile Include="Dynamic Code\CodeExplode\Logic_Extension_Explode_bak.cs" />
     <Compile Include="Dynamic Code\CodeExplode\Logic_Extension_Explode.cs" />
     <Compile Include="Dynamic Code\CodeExplode\LX_Explode.cs" />
     <Compile Include="Extensions\AzureCloudExt.cs" />
-    <Compile Include="Extensions\Methods\ExpressionExt.cs" />
     <Compile Include="Interfaces\IGrouped.cs" />
+    <Compile Include="Numbers\DecimalNumber.cs" />
+    <Compile Include="Numbers\DoubleNumber.cs" />
+    <Compile Include="Numbers\FloatNumber.cs" />
+    <Compile Include="Numbers\INumber.cs" />
+    <Compile Include="Numbers\LongNumber.cs" />
     <Compile Include="Numbers\Number.cs" />
+    <Compile Include="Numbers\NumberByte.cs" />
+    <Compile Include="Numbers\NumberInt.cs" />
+    <Compile Include="Numbers\SByteNumber.cs" />
+    <Compile Include="Numbers\ShortNumber.cs" />
+    <Compile Include="Numbers\UIntNumber.cs" />
+    <Compile Include="Numbers\ULongNumber.cs" />
+    <Compile Include="Numbers\UShortNumber.cs" />
     <Compile Include="Statistics\IQuantitativeSampleSet.cs" />
     <Compile Include="Statistics\IQualitativeSampleSet.cs" />
     <Compile Include="Statistics\QuantitativeSampleSet.cs" />
@@ -85,17 +104,21 @@
     <Compile Include="Statistics\SampleSet.cs" />
     <Compile Include="Statistics\ISampleSet.cs" />
     <Compile Include="Statistics\StatsExt.cs" />
+    <Compile Include="Tests\Attributes\ITestAttribute.cs" />
+    <Compile Include="Tests\Attributes\TestMethodGenerics.cs" />
+    <Compile Include="Tools\CacheData.cs" />
+    <Compile Include="Tools\CommentExt.cs" />
+    <Compile Include="Interfaces\IComment.cs" />
     <Compile Include="Tools\MethodProfileData.cs" />
     <Compile Include="Tools\DoubleDictionary.cs" />
     <Compile Include="Tools\RegistryHandler.cs" />
     <Compile Include="Tools\ExceptionList.cs" />
-    <Compile Include="Tests\TestResultAttribute.cs" />
-    <Compile Include="Tests\TestSourceAttribute.cs" />
-    <Compile Include="Tests\TestFailsAttribute.cs" />
-    <Compile Include="Tests\TestSucceedesAttribute.cs" />
-    <Compile Include="Tests\TestAttribute.cs" />
+    <Compile Include="Tests\Attributes\TestResultAttribute.cs" />
+    <Compile Include="Tests\Attributes\TestSourceAttribute.cs" />
+    <Compile Include="Tests\Attributes\TestFailsAttribute.cs" />
+    <Compile Include="Tests\Attributes\TestSucceedesAttribute.cs" />
+    <Compile Include="Tests\Attributes\TestAttribute.cs" />
     <Compile Include="Tests\TestExt.cs" />
-    <Compile Include="Interfaces\IHashTable.cs" />
     <Compile Include="Naming\INamed.cs" />
     <Compile Include="Tools\Async\Tasks\TaskTimer.cs" />
     <Compile Include="Tools\Lists.cs" />
@@ -105,8 +128,6 @@
     <Compile Include="Extensions\Methods\ThreadExt.cs" />
     <Compile Include="Extensions\Methods\ExceptionExt.cs" />
     <Compile Include="Extensions\Object Types\InterfaceExt.cs" />
-    <Compile Include="Extensions\Value Types\FloatExt.cs" />
-    <Compile Include="Extensions\Value Types\IntExt.cs" />
     <Compile Include="Extensions\Object Types\ObjectExt.cs" />
     <Compile Include="Extensions\Methods\BooleanExt.cs" />
     <Compile Include="Extensions\Object Types\DictionaryExt.cs" />
@@ -115,14 +136,14 @@
     <Compile Include="Extensions\Object Types\FileExt.cs" />
     <Compile Include="Interfaces\IL_Attribute_ReverseOrder.cs" />
     <Compile Include="Extensions\Object Types\StringExt.cs" />
-    <Compile Include="Extensions\Object Types\TypeExt.cs" />
     <Compile Include="Naming\IL_FriendlyName.cs" />
-    <Compile Include="Extensions\Methods\L.cs" />
+    <Compile Include="Extensions\Methods\LogicExt.cs" />
     <Compile Include="Extensions\Object Types\ListExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\Async\Tasks\Task.cs" />
     <Compile Include="Tools\Async\Tasks\TaskManager.cs" />
     <Compile Include="Tools\Async\Tasks\Tasks.cs" />
+    <Compile Include="Tools\Set.cs" />
     <Compile Include="Tools\Web\ASyncProgress.cs" />
     <Compile Include="Tools\Web\FileProcessor.cs" />
     <Compile Include="Tools\Web\IAsyncProgress.cs" />

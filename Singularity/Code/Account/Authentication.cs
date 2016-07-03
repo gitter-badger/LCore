@@ -57,7 +57,7 @@ namespace Singularity.Account
             if (Rules.LowerCaseMinimum + Rules.NumberMinimum + Rules.SpecialMinimum + Rules.UpperCaseMinimum > Length)
                 Length = Rules.LowerCaseMinimum + Rules.NumberMinimum + Rules.SpecialMinimum + Rules.UpperCaseMinimum;
 
-            List<char> Out = new List<char>();
+            var Out = new List<char>();
 
             if (Rules.LowerCaseMinimum > 0)
                 {

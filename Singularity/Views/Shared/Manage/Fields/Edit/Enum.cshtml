@@ -1,0 +1,60 @@
+﻿@* Generator: MvcView *@
+@using System.Linq;
+@using LCore.Extensions;
+
+@{
+    var EnumType = Model.Meta.ModelType.IsEnum ? Model.Meta.ModelType : Model.Meta.ModelType.GetGenericArguments()[0];
+
+    var Values = Enum.GetValues(EnumType);
+
+    IEnumerable<Enum> Enums = Values.Cast<Enum>();
+
+}
+
+@model IViewField
+
+@if (EnumType.HasAttribute<FlagsAttribute>(true))
+    {
+    <span class="enum-checks">
+
+        <input name="@Model.Meta.PropertyName" type="hidden" value="" />
+
+        @foreach (var e in Enums)
+            {
+            <span class="enum-check">
+                <input type="checkbox"
+                       id="@(Model.Meta.PropertyName)_@(e.ToString())"
+                       name="@Model.Meta.PropertyName"
+                       value="@e.ToString()"
+                       @((Model.PropertyData ?? "").ToString().Contains(e.ToString()) ? Html.Raw("checked=\"true\"") : Html.Raw(""))>
+                <label for="@(Model.Meta.PropertyName)_@(e.ToString())">
+                    @e.GetFriendlyName()
+                </label>
+            </span>
+            }
+    </span>
+    }
+else
+    {
+    List<SelectListItem> Items = Enums.Select(e => new SelectListItem
+        {
+        Text = e.GetFriendlyName(),
+        Value = e.ToString(),
+        Selected = (Model.PropertyData ?? "").ToString() == e.ToString()
+        }).ToList();
+
+    Items.Sort((Func<SelectListItem, IComparable>
+        )(i => (IComparable)i.Text));
+
+    <select name="@Model.Meta.PropertyName" id="@Model.Meta.PropertyName">
+        @foreach (var Item in Items)
+            {
+            <option value="@Item.Value" selected="@Item.Selected">
+                @Item.Text
+            </option>
+            }
+    </select>
+    /*
+                @Html.DropDownList(Model.Meta.PropertyName, Items, new { @class = "select-list" })
+                */
+    }

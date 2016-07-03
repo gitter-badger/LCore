@@ -33,11 +33,11 @@ namespace Singularity.Controllers
 
             Searches = Searches.Select(s =>
             {
-                Type t = TypeExt.FindType(s.SearchType);
+                var t = L.Ref.FindType(s.SearchType);
                 return t.HasInterface<IEmailable>();
             });
 
-            EmailTemplateSavedSearchViewModel Model = new EmailTemplateSavedSearchViewModel
+            var Model = new EmailTemplateSavedSearchViewModel
             {
                 Searches = Searches,
                 Templates = Templates
@@ -59,9 +59,9 @@ namespace Singularity.Controllers
         [HttpPost]
         public virtual ActionResult EmailSavedSearchTemplate(int EmailJobID, string ReturnURL, FormCollection Form)
             {
-            ModelContext DbContext = this.HttpContext.GetModelContext();
+            var DbContext = this.HttpContext.GetModelContext();
 
-            EmailJob Job = EmailJob.Find(DbContext, EmailJobID);
+            var Job = EmailJob.Find(DbContext, EmailJobID);
 
 
             string AllUserIDs = Form["EmailUsers[]"];
@@ -70,15 +70,15 @@ namespace Singularity.Controllers
 
             DbSet<EmailHistory> EmailHistorySet = DbContext.GetDBSet<EmailHistory>();
 
-            Type EmailModelType = ContextProviderFactory.GetCurrent().GetManageController(this.Session, Job.SavedSearch.ControllerName).ModelType;
+            var EmailModelType = ContextProviderFactory.GetCurrent().GetManageController(this.Session, Job.SavedSearch.ControllerName).ModelType;
 
-            DbSet EmailSet = DbContext.GetDBSet(EmailModelType);
+            var EmailSet = DbContext.GetDBSet(EmailModelType);
 
             int AddedCount = 0;
 
             foreach (int UserID in UserIDs)
                 {
-                EmailHistory SendEmail = new EmailHistory();
+                var SendEmail = new EmailHistory();
                 SendEmail.Initialize();
 
                 SendEmail.ReplyToAddress = this.Session.CurrentUser().GetEmails().FirstOrDefault();
@@ -94,11 +94,11 @@ namespace Singularity.Controllers
 
                 SendEmail.EmailTemplate = Job.EmailTemplate;
 
-                IEmailable EmailUser = (IEmailable)EmailSet.Find(UserID);
+                var EmailUser = (IEmailable)EmailSet.Find(UserID);
 
                 SendEmail.ToAddresses = EmailUser.GetEmails(Job.EmailToField).JoinLines(",");
 
-                EmailHistory Existing = EmailHistory.FindEmail(DbContext, SendEmail);
+                var Existing = EmailHistory.FindEmail(DbContext, SendEmail);
 
                 if (Existing == null)
                     {

@@ -135,7 +135,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                 throw new ArgumentNullException(nameof(inputStream));
                 }
 
-            TarInputStream tarStream = inputStream as TarInputStream;
+            var tarStream = inputStream as TarInputStream;
 
             return tarStream != null ?
                 new TarArchive(tarStream) :
@@ -174,7 +174,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                 {
                 throw new ArgumentNullException(nameof(outputStream));
                 }
-            TarOutputStream tarStream = outputStream as TarOutputStream;
+            var tarStream = outputStream as TarOutputStream;
 
             return tarStream != null ? 
                 new TarArchive(tarStream) : 
@@ -521,7 +521,7 @@ namespace ICSharpCode.SharpZipLib.Tar
 
             while (true)
                 {
-                TarEntry entry = this.tarIn.GetNextEntry();
+                var entry = this.tarIn.GetNextEntry();
 
                 if (entry == null)
                     {
@@ -546,7 +546,7 @@ namespace ICSharpCode.SharpZipLib.Tar
 
             while (true)
                 {
-                TarEntry entry = this.tarIn.GetNextEntry();
+                var entry = this.tarIn.GetNextEntry();
 
                 if (entry == null)
                     {
@@ -594,7 +594,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                 EnsureDirectoryExists(parentDirectory);
 
                 bool process = true;
-                FileInfo fileInfo = new FileInfo(destFile);
+                var fileInfo = new FileInfo(destFile);
                 if (fileInfo.Exists)
                     {
                     if (this.keepOldFiles)
@@ -625,7 +625,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                         outw = new StreamWriter(outputStream);
                         }
 
-                    byte[] rdbuf = new byte[32 * 1024];
+                    var rdbuf = new byte[32 * 1024];
 
                     while (true)
                         {
@@ -727,7 +727,7 @@ namespace ICSharpCode.SharpZipLib.Tar
             string tempFileName = null;
             string entryFilename = sourceEntry.File;
 
-            TarEntry entry = (TarEntry)sourceEntry.Clone();
+            var entry = (TarEntry)sourceEntry.Clone();
 
             if (this.applyUserInfoOverrides)
                 {
@@ -747,7 +747,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                     {
                     tempFileName = Path.GetTempFileName();
 
-                    using (StreamReader inStream = File.OpenText(entryFilename))
+                    using (var inStream = File.OpenText(entryFilename))
                         {
                         using (Stream outStream = File.Create(tempFileName))
                             {
@@ -800,7 +800,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                 if (recurse)
                     {
                     TarEntry[] list = entry.GetDirectoryEntries();
-                    foreach (TarEntry t in list)
+                    foreach (var t in list)
                         {
                         this.WriteEntryCore(t, true);
                         }
@@ -810,7 +810,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                 {
                 using (Stream inputStream = File.OpenRead(entryFilename))
                     {
-                    byte[] localBuffer = new byte[32 * 1024];
+                    var localBuffer = new byte[32 * 1024];
                     while (true)
                         {
                         int numRead = inputStream.Read(localBuffer, 0, localBuffer.Length);
@@ -903,10 +903,10 @@ namespace ICSharpCode.SharpZipLib.Tar
 
         private static bool IsBinary(string filename)
             {
-            using (FileStream fs = File.OpenRead(filename))
+            using (var fs = File.OpenRead(filename))
                 {
                 int sampleSize = Math.Min(4096, (int)fs.Length);
-                byte[] content = new byte[sampleSize];
+                var content = new byte[sampleSize];
 
                 int bytesRead = fs.Read(content, 0, sampleSize);
 

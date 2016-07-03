@@ -16,7 +16,7 @@ namespace Singularity.Annotations
 
         public FieldType_FileUploadAttribute(bool AllowDeactivate = true, bool AllowMultipleUploads = true,
             int SizeMinimum = 0, int SizeMaximum = int.MaxValue, string[] AllowFileTypes = null)
-            : base(PartialViews.Field_FileUpload, ControllerHelper.ViewType.All)
+            : base(PartialViews.Manage.Fields.FileUpload, ControllerHelper.ViewType.All)
             {
             this.AllowDeactivate = AllowDeactivate;
             this.AllowMultipleUploads = AllowMultipleUploads;

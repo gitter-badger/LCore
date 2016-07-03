@@ -1,14 +1,13 @@
-﻿@using Singularity.Account
-@using Singularity.Routes
+﻿@inherits SingularityRazor
+@using Singularity.Extensions
 
 @{
-    AuthenticationService Auth = new AuthenticationService(Session);
 
 }
 
 @if (Auth.IsLoggedIn)
     {
-    using (Html.BeginForm(Controllers.Account.Actions.LogOff, Controllers.Account.Name,
+    using (Html.BeginForm(nameof(AccountController.LogOff), typeof(AccountController).CName(),
         FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
         {
         @Html.AntiForgeryToken()
@@ -26,8 +25,8 @@ else
     <ul class="nav navbar-nav navbar-right">
         <li>
             @Html.ActionLink("Log in",
-           Controllers.Account.Actions.Login, Controllers.Account.Name,
-           null, htmlAttributes: new { id = "loginLink" })
-    </li>
-</ul>
+           nameof(AccountController.Login), typeof(AccountController).CName(),
+           null, new { id = "loginLink" })
+        </li>
+    </ul>
     }

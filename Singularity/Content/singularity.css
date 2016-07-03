@@ -1,4 +1,7 @@
-﻿*[singularity] .singularity-test {
+﻿
+/* ReSharper disable All */
+
+*[singularity] .singularity-test {
   font-size: 0.85em;
   font-family: Verdana;
   width: 100%;
@@ -12,6 +15,51 @@
 }
 *[singularity] *[sing-template]:not(*[sing-template-data=true]) {
   display: none;
+}
+*[singularity] .nav-spacer {
+  height: 100px;
+  display: block;
+}
+*[singularity] .content {
+  min-height: 650px;
+}
+*[singularity].sidebar-collapse .sidebar-menu li a span {
+  margin-left: -6px !important;
+}
+*[singularity] .fa.pull-right {
+  width: 15px;
+  height: 15px;
+}
+*[singularity].admin-skin header .logo {
+  width: 260px;
+}
+*[singularity].admin-skin header .navbar {
+  margin-left: 260px;
+}
+*[singularity].admin-skin .content-wrapper,
+*[singularity].admin-skin .right-side,
+*[singularity].admin-skin .main-footer {
+  margin-left: 260px;
+}
+*[singularity].admin-skin .main-sidebar {
+  width: 260px;
+}
+*[singularity].admin-skin .main-sidebar .sidebar .site-search-form input[type="text"] {
+  margin-top: 0px;
+}
+*[singularity].admin-skin .main-sidebar .sidebar .site-search-form button {
+  margin-right: 0px;
+}
+*[singularity].admin-skin .main-sidebar .sidebar .sidebar-menu li {
+  padding: 2px 0 2px 3px;
+  background-color: rgba(255, 255, 225, 0.05);
+}
+*[singularity].admin-skin .main-sidebar .sidebar .sidebar-menu .treeview-menu .treeview-menu {
+  padding-left: 3px;
+}
+*[singularity].admin-skin .main-sidebar .sidebar .sidebar-menu a {
+  padding: 5px 33px 5px 5px;
+  border-bottom: 1px solid #555;
 }
 html {
   margin: 0;
@@ -74,7 +122,7 @@ html {
   text-align: left;
 }
 .align-right {
-  text-align: left;
+  text-align: right;
 }
 .align-center {
   text-align: center;

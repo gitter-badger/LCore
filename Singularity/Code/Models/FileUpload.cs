@@ -72,7 +72,7 @@ namespace Singularity.Models
 
         public static FileUpload FindFileUpload(ModelContext DbContext, int FileID, Type t)
             {
-            FileUpload File = DbContext.GetDBSet<FileUpload>().FirstOrDefault(
+            var File = DbContext.GetDBSet<FileUpload>().FirstOrDefault(
                 f => f.Active &&
                     f.RelationType == t.FullName &&
                     f.FileUploadID == FileID);

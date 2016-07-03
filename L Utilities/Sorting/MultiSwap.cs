@@ -19,10 +19,10 @@ namespace NSort
             {
             if (First != Second)
                 {
-                foreach (IList list in this.Lists)
+                foreach (var list in this.Lists)
                     {
-                    object o = list[First];
-                    object o2 = list[Second];
+                    var o = list[First];
+                    var o2 = list[Second];
                     if (o is ICloneable)
                         o = ((ICloneable)o).Clone();
                     if (o2 is ICloneable)
@@ -37,9 +37,9 @@ namespace NSort
             {
             if (First != Second)
                 {
-                foreach (IList list in this.Lists)
+                foreach (var list in this.Lists)
                     {
-                    object o = list[Second];
+                    var o = list[Second];
                     if (o is ICloneable)
                         o = ((ICloneable)o).Clone();
                     list[First] = o;

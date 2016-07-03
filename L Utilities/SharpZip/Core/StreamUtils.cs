@@ -191,7 +191,7 @@ namespace ICSharpCode.SharpZipLib.Core
 
             bool copying = true;
 
-            DateTime marker = DateTime.Now;
+            var marker = DateTime.Now;
             long processed = 0;
             long target = 0;
 
@@ -205,7 +205,7 @@ namespace ICSharpCode.SharpZipLib.Core
                 }
 
             // Always fire 0% progress..
-            ProgressEventArgs args = new ProgressEventArgs(name, processed, target);
+            var args = new ProgressEventArgs(name, processed, target);
             progressHandler(sender, args);
 
             bool progressFired = true;

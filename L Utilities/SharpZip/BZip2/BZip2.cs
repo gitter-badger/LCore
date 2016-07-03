@@ -65,7 +65,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
 
             using (outStream)
                 {
-                using (BZip2InputStream bzis = new BZip2InputStream(inStream))
+                using (var bzis = new BZip2InputStream(inStream))
                     {
                     int ch = bzis.ReadByte();
                     while (ch != -1)
@@ -99,7 +99,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
 
             using (inStream)
                 {
-                using (BZip2OutputStream bzos = new BZip2OutputStream(outStream, blockSize))
+                using (var bzos = new BZip2OutputStream(outStream, blockSize))
                     {
                     int ch = inStream.ReadByte();
                     while (ch != -1)

@@ -1,0 +1,42 @@
+﻿@using Singularity.Extensions
+
+
+@{
+    IMenuAction[] Actions = ViewContext.GetActionTrace();
+}
+
+<section class="content-header">
+
+    <h1 class="breadcrumb-title">
+        Dashboard
+        <small>Control panel</small>
+    </h1>
+
+    <ol class="breadcrumb">
+        <li>
+            <a href="#">
+                <i class="fa fa-dashboard"></i>
+                Home
+            </a>
+        </li>
+        <li class="active">
+            Dashboard
+        </li>
+
+        @for (int i = 0; i < Actions.Length; i++)
+            {
+            var Item = Actions[i];
+            bool Last = i == Actions.Length - 1;
+
+            <li class="@(Last ? "active" : "")">
+
+                @Html.Raw(Last ? "" : "<a href=\"\">")
+
+                @Item.Icon
+                @(Item.MenuText ?? Item.MethodName.Humanize())
+
+                @Html.Raw(Last ? "" : "</a>")
+            </li>
+            }
+    </ol>
+</section>

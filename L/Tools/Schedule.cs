@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using LCore.Extensions;
+#pragma warning disable 1591
 
 namespace LCore.Tools
     {
@@ -71,11 +72,11 @@ namespace LCore.Tools
 
         public static Schedule FromString(string In)
             {
-            Schedule Out = new Schedule();
+            var Out = new Schedule();
 
             string[] split = In.Split(SplitChar);
 
-            ScheduleMode Mode = split[0].ParseEnum<ScheduleMode>();
+            var Mode = split[0].ParseEnum<ScheduleMode>();
             Out.Mode = Mode;
 
             if (Mode == ScheduleMode.Daily)

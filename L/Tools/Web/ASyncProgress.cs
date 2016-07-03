@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+#pragma warning disable 1591
 
 namespace LCore.Web
     {
@@ -9,13 +10,13 @@ namespace LCore.Web
         public static List<ASyncProgress> _Progress = new List<ASyncProgress>();
         public static ASyncProgress Progress(Guid UploadID)
             {
-            foreach (ASyncProgress t in _Progress)
+            foreach (var t in _Progress)
                 {
                 if (t.RequestID == UploadID)
                     return t;
                 }
 
-            ASyncProgress Out = new ASyncProgress { RequestID = UploadID };
+            var Out = new ASyncProgress { RequestID = UploadID };
 
             _Progress.Add(Out);
 

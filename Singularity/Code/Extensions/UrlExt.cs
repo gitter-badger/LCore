@@ -1,7 +1,10 @@
 ﻿using System.Web.Mvc;
+using LCore.Interfaces;
+using Singularity.Controllers;
 
 namespace Singularity.Extensions
     {
+    [ExtensionProvider]
     public static class UrlExt
         {
         public static string ModelAction/*<T>*/(this UrlHelper Url, string Action, string Controller = "")
@@ -19,15 +22,15 @@ namespace Singularity.Extensions
 
         public static string ModelCreate(this UrlHelper Url, string Controller = "")
             {
-            return Url.ModelAction(Routes.Controllers.Manage.Actions.Create, Controller);
+            return Url.ModelAction(nameof(ManageController.Create), Controller);
             }
         public static string ModelEdit(this UrlHelper Url, string Controller = "")
             {
-            return Url.ModelAction(Routes.Controllers.Manage.Actions.Edit, Controller);
+            return Url.ModelAction(nameof(ManageController.Edit), Controller);
             }
         public static string ModelDelete(this UrlHelper Url, string Controller = "")
             {
-            return Url.ModelAction(Routes.Controllers.Manage.Actions.Delete, Controller);
+            return Url.ModelAction(nameof(ManageController.Delete), Controller);
             }
 
         public static ControllerActionHelper<T> Controller<T>(this UrlHelper Url)

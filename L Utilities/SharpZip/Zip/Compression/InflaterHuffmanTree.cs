@@ -78,7 +78,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
             {
             try
                 {
-                byte[] codeLengths = new byte[288];
+                var codeLengths = new byte[288];
                 int i = 0;
                 while (i < 144)
                     {
@@ -127,8 +127,8 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
 
         private void BuildTree(IReadOnlyList<byte> codeLengths)
             {
-            int[] blCount = new int[MAX_BITLEN + 1];
-            int[] nextCode = new int[MAX_BITLEN + 1];
+            var blCount = new int[MAX_BITLEN + 1];
+            var nextCode = new int[MAX_BITLEN + 1];
 
             foreach (byte bits in codeLengths)
                 {

@@ -1,0 +1,131 @@
+﻿@* Generator: MvcView *@
+
+@using Singularity.Extensions;
+@* ReSharper disable once RedundantUsingDirective*@
+@using Singularity.Routes;
+
+@model ManageViewModel
+
+@{
+    ViewBag.PaginationCount = (ViewBag.PaginationCount == null ? 0 : (int)ViewBag.PaginationCount) + 1;
+
+    int ShowingStart = Model.Page * Model.Controller.RowsPerPage + 1;
+    int ShowingEnd = Model.Page * Model.Controller.RowsPerPage + Model.Controller.RowsPerPage;
+    int ShowingTotal = Model.TotalItems;
+
+    string ShowingStartStr = ShowingStart.ToString("N0");
+    string ShowingEndStr = ShowingEnd.ToString("N0");
+    string ShowingTotalStr = ShowingTotal.ToString("N0");
+    
+    if (ShowingEnd > ShowingTotal)
+        {
+/*
+        ShowingEnd = ShowingTotal;
+*/
+        }
+}
+
+<div class="manage-pagination">
+    @if (Model.TotalItems > 0)
+        {
+        <div class="pagination-visible-items">
+            @Html.TextContent($"Manage_Pagination_Results_{Model.FriendlyModelTypeName}", "Showing results [0] - [1] of [2]", new object[] { ShowingStartStr, ShowingEndStr, ShowingTotalStr })
+        </div>
+        }
+
+    @if (Model.Page != 0)
+        {
+        <a href="@(Url.Controller<ManageController>()
+            .QS(Controllers.Manage.Actions.Route_Page(Model, 1) )
+            .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage))"
+           key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+Home" : null)"
+           key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "First Page" : null)">
+            <span class="page-previous">
+                @Model.FirstPageText
+            </span>
+        </a>
+
+        <a href="@(Url.Controller<ManageController>()
+            .QS(Controllers.Manage.Actions.Route_Page(Model, Model.Page))
+            .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage))"
+           key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+Left" : null)"
+           key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "Previous Page" : null)">
+            <span class="page-previous">
+                @Model.PreviousPageText
+            </span>
+        </a>
+        }
+    else if (Model.AlwaysShowPaginationFirstLast)
+        {
+        <span class="page-previous">
+            @Model.FirstPageText
+        </span>
+
+        <span class="page-previous">
+            @Model.PreviousPageText
+        </span>
+        }
+
+    <span class="page-numbers">
+        @if (Model.TotalItems > 0)
+            {
+            for (int i = 0; i < Model.TotalPages; i++)
+                {
+                if (i == Model.Page)
+                    {
+                    <span class="page-current">
+                        @(i + 1)
+                    </span>
+                    }
+                else if (i >= Model.Page - Model.ShowSurroundingPages &&
+                    i <= Model.Page + Model.ShowSurroundingPages)
+                    {
+                    <a href="@(Url.Controller<ManageController>()
+                        .QS(Controllers.Manage.Actions.Route_Page(Model, i + 1))
+                        .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage))">
+                        <span class="page">
+                            @(i + 1)
+                        </span>
+                    </a>
+                    }
+                }
+            }
+        else
+            {
+            @Html.TextContent($"Manage_Pagination_NoResults_{Model.FriendlyModelTypeName}", "No Results")
+            }
+    </span>
+
+    @if (Model.Page + 1 != Model.TotalPages)
+        {
+        <a href="@(Url.Controller<ManageController>()
+                .QS(Controllers.Manage.Actions.Route_Page(Model, Model.Page + 2))
+                .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage))"
+           key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+Right" : null)"
+           key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "Next Page" : null)">
+            <span class="page-next">
+                @Model.NextPageText
+            </span>
+        </a>
+
+        <a href="@(Url.Controller<ManageController>()
+                .QS(Controllers.Manage.Actions.Route_Page(Model, Model.TotalPages))
+                .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage))"
+           key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+End" : null)"
+           key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "Last Page" : null)">
+            <span class="page-last">
+                @Model.LastPageText
+            </span>
+        </a>
+        }
+    else if (Model.AlwaysShowPaginationFirstLast)
+        {
+        <span class="page-next">
+            @Model.NextPageText
+        </span>
+
+        <span class="page-last">
+            @Model.LastPageText
+        </span>
+        }
+</div>

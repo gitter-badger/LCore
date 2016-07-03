@@ -224,7 +224,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <returns>Returns a new <see cref="ZipEntry"/> based on the <paramref name="fileName"/>.</returns>
         public ZipEntry MakeFileEntry(string fileName, bool useFileSystem)
             {
-            ZipEntry result = new ZipEntry(this.nameTransform_.TransformFile(fileName))
+            var result = new ZipEntry(this.nameTransform_.TransformFile(fileName))
                 {
                 IsUnicodeText = this.isUnicodeText_
                 };
@@ -327,7 +327,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         public ZipEntry MakeDirectoryEntry(string directoryName, bool useFileSystem)
             {
 
-            ZipEntry result = new ZipEntry(this.nameTransform_.TransformDirectory(directoryName)) { Size = 0 };
+            var result = new ZipEntry(this.nameTransform_.TransformDirectory(directoryName)) { Size = 0 };
 
             int externalAttributes = 0;
 

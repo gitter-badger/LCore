@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using LCore.Extensions;
 // ReSharper disable UnusedVariable
+// ReSharper disable VirtualMemberNeverOverriden.Global
 
 namespace LCore.Statistics
     {
@@ -230,13 +231,13 @@ namespace LCore.Statistics
             {
             if (!this.Parsed)
                 {
-                T Total = default(T);
-                T Minimum = default(T);
-                T Maximum = default(T);
+                var Total = default(T);
+                var Minimum = default(T);
+                var Maximum = default(T);
 
-                List<T> LowerOutliers = new List<T>();
-                List<T> UpperOutliers = new List<T>();
-                List<T> Outliers = new List<T>();
+                var LowerOutliers = new List<T>();
+                var UpperOutliers = new List<T>();
+                var Outliers = new List<T>();
 
                 this._GeometricMean = 1;
                 double GeometricRatio = 1 / this.SampleSize;
@@ -251,8 +252,8 @@ namespace LCore.Statistics
 
                 if (EvenSampleSize)
                     {
-                    T Median1 = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2)) - 1];
-                    T Median2 = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2))];
+                    var Median1 = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2)) - 1];
+                    var Median2 = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2))];
 
                     this._Median = this.Divide(this.Add(Median1, Median2), this.Convert(2));
                     }
@@ -265,14 +266,14 @@ namespace LCore.Statistics
                 #region Quartiles
                 int Q1Index = (int)Math.Floor((double)(this.SampleSize / 4));
 
-                T Q1_1 = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2)) - 1];
-                T Q1_2 = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2))];
+                var Q1_1 = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2)) - 1];
+                var Q1_2 = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2))];
 
 
                 int Q3Index = (int)Math.Floor((double)(this.SampleSize * 3 / 4));
 
-                T Q3_1 = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2)) - 1];
-                T Q3_2 = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2))];
+                var Q3_1 = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2)) - 1];
+                var Q3_2 = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2))];
 
                 double QuartileRatio1;
                 double QuartileRatio2;
@@ -304,7 +305,7 @@ namespace LCore.Statistics
 
                 #region Basic Stats
 
-                this.DataSetSorted.EachI((i, x) =>
+                this.DataSetSorted.Each((i, x) =>
             {
                 if (i == 0)
                     Minimum = x;
@@ -359,10 +360,10 @@ namespace LCore.Statistics
 
             if (!this.ParsedFrequency)
                 {
-                List<T> MostFrequent = new List<T>();
+                var MostFrequent = new List<T>();
                 long MostFrequentCount = 0;
 
-                this.DataSetSorted.EachI((i, x) =>
+                this.DataSetSorted.Each((i, x) =>
             {
                 #region Frequency
                 if (!this._Frequency.ContainsKey(x))
@@ -408,12 +409,12 @@ namespace LCore.Statistics
             {
                 int ClassCount = StatsExt.GetOptimumClassCount(this.SampleSize);
 
-                T[] Divisions = new T[ClassCount + 1];
+                var Divisions = new T[ClassCount + 1];
 
                 for (int j = 0; j < Divisions.Length; j++)
                     {
                     double Difference = this.Divide(this._Range, this.Convert(ClassCount));
-                    T Value = this.Add(this._Minimum, this.Convert(Difference * j));
+                    var Value = this.Add(this._Minimum, this.Convert(Difference * j));
                     Divisions[j] = Value;
                     }
             });
@@ -438,7 +439,7 @@ namespace LCore.Statistics
                 this._TotalDeviation = 0;
                 this._TotalVariance = 0;
 
-                this.DataSet.EachI((i, x) =>
+                this.DataSet.Each((i, x) =>
             {
                 double d = this.GetValueDeviation(x);
                 double v = this.GetValueVariance(x);
@@ -517,7 +518,7 @@ namespace LCore.Statistics
                     {
                     return (T)x;
                     }
-                IConvertible @in = x as IConvertible;
+                var @in = x as IConvertible;
                 if (@in != null)
                     {
                     return this.Convert(@in);

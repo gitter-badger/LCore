@@ -30,7 +30,7 @@ namespace Singularity.Controllers
 
         public void PreviewPDF(int id)
             {
-            Template Temp = this.DBContext.GetDBSet<Template>().Find(id);
+            var Temp = this.DBContext.GetDBSet<Template>().Find(id);
 
             byte[] PDFBytes = Temp.GetPdfBytes();
 
@@ -39,7 +39,7 @@ namespace Singularity.Controllers
 
         protected override Template GetModel(int id, bool Create, Template Model)
             {
-            Template Content = base.GetModel(id, Create, Model);
+            var Content = base.GetModel(id, Create, Model);
 
             Content.TemplateHTML = HttpUtility.HtmlDecode(Content.TemplateHTML);
 

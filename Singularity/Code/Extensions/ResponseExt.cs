@@ -4,9 +4,11 @@ using System.Web;
 
 using LCore.Extensions;
 using System.IO;
+using LCore.Interfaces;
 
 namespace Singularity.Extensions
     {
+    [ExtensionProvider]
     public static class ResponseExt
         {
         public static void WriteCSV(this HttpResponseBase Response, IEnumerable<string> CSVData, string FileName)

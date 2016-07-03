@@ -5,9 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 
 using System.IO;
+using LCore.Interfaces;
 
 namespace Singularity.Extensions
     {
+    [ExtensionProvider]
     public static class MVCExt
         {
 
@@ -41,7 +43,7 @@ namespace Singularity.Extensions
 
         public static string Capture(this ActionResult Result, ControllerContext ControllerContext)
             {
-            ResponseCapture Capture = new ResponseCapture(ControllerContext.RequestContext.HttpContext.Response);
+            var Capture = new ResponseCapture(ControllerContext.RequestContext.HttpContext.Response);
 
             Result.ExecuteResult(ControllerContext);
 
@@ -55,9 +57,9 @@ namespace Singularity.Extensions
         public static bool HasAttribute<TModel, TProperty, TAttribute>(this HtmlHelper<TModel> html, Expression<Func<TModel, TProperty>> ex)
             where TAttribute : Attribute
             {
-            MemberExpression me = ex.Body as MemberExpression;
+            var me = ex.Body as MemberExpression;
 
-            object required = me?.Member
+            var required = me?.Member
                 .GetCustomAttributes(typeof(TAttribute), false)
                 .FirstOrDefault();
 
@@ -67,9 +69,9 @@ namespace Singularity.Extensions
         public static TAttribute GetAttribute<TModel, TProperty, TAttribute>(this HtmlHelper<TModel> html, Expression<Func<TModel, TProperty>> ex)
             where TAttribute : Attribute
             {
-            MemberExpression me = ex.Body as MemberExpression;
+            var me = ex.Body as MemberExpression;
 
-            object required = me?.Member
+            var required = me?.Member
                 .GetCustomAttributes(typeof(TAttribute), false)
                 .FirstOrDefault();
 

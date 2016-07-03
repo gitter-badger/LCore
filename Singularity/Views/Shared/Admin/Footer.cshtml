@@ -1,0 +1,12 @@
+﻿@model ContextProvider
+
+<footer class="main-footer">
+    <div class="pull-right hidden-xs">
+        <b>Version</b> @Model.GetVersionNumber()
+    </div>
+    <strong>
+        Copyright &copy; @DateTime.Now.Year
+        <a href="@Singularity.Url.MainSite">Singularity</a>.
+    </strong>
+    All rights reserved.
+</footer>

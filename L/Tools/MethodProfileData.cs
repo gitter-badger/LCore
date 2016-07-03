@@ -4,10 +4,25 @@ using System.Collections.Generic;
 
 namespace LCore.Tools
     {
+    /// <summary>
+    /// Class used to provide structured Method Profile times 
+    /// for the Profile extension method.
+    /// </summary>
     public class MethodProfileData
         {
-        public List<TimeSpan> Times = new List<TimeSpan>();
+        /// <summary>
+        /// The collection of execution times for the method.
+        /// </summary>
+        public List<TimeSpan> Times { get; } = new List<TimeSpan>();
+
+        /// <summary>
+        /// The data cached.
+        /// </summary>
         public object Data;
+
+        /// <summary>
+        /// Computes the average millisecond execution time for the method
+        /// </summary>
         public double AverageMS
             {
             get
@@ -15,7 +30,7 @@ namespace LCore.Tools
                 double Out = 0;
                 this.Times.Each(t => { Out += t.Ticks; });
                 Out = Out / this.Times.Count;
-                Out = Out * DateExt.TicksToMilliseconds;
+                Out = Out * L.Date.TicksToMilliseconds;
                 return Out;
                 }
             }

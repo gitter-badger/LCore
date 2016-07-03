@@ -104,7 +104,7 @@ WriteLiteral(">\r\n                <p>\r\n");
             #line hidden
             
             #line 24 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
-                     foreach (AuthenticationDescription p in loginProviders)
+                     foreach (var p in loginProviders)
                         {
 
             
@@ -116,41 +116,41 @@ WriteLiteral(" type=\"submit\"");
 
 WriteLiteral(" class=\"btn btn-default\"");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 1063), Tuple.Create("\"", 1089)
+WriteAttribute("id", Tuple.Create(" id=\"", 1041), Tuple.Create("\"", 1067)
             
             #line 26 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
-, Tuple.Create(Tuple.Create("", 1068), Tuple.Create<System.Object, System.Int32>(p.AuthenticationType
+, Tuple.Create(Tuple.Create("", 1046), Tuple.Create<System.Object, System.Int32>(p.AuthenticationType
             
             #line default
             #line hidden
-, 1068), false)
+, 1046), false)
 );
 
 WriteLiteral(" name=\"provider\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 1106), Tuple.Create("\"", 1135)
+WriteAttribute("value", Tuple.Create(" value=\"", 1084), Tuple.Create("\"", 1113)
             
             #line 26 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
-                                        , Tuple.Create(Tuple.Create("", 1114), Tuple.Create<System.Object, System.Int32>(p.AuthenticationType
+                                        , Tuple.Create(Tuple.Create("", 1092), Tuple.Create<System.Object, System.Int32>(p.AuthenticationType
             
             #line default
             #line hidden
-, 1114), false)
+, 1092), false)
 );
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1136), Tuple.Create("\"", 1180)
-, Tuple.Create(Tuple.Create("", 1144), Tuple.Create("Log", 1144), true)
-, Tuple.Create(Tuple.Create(" ", 1147), Tuple.Create("in", 1148), true)
-, Tuple.Create(Tuple.Create(" ", 1150), Tuple.Create("using", 1151), true)
-, Tuple.Create(Tuple.Create(" ", 1156), Tuple.Create("your", 1157), true)
+WriteAttribute("title", Tuple.Create(" title=\"", 1114), Tuple.Create("\"", 1158)
+, Tuple.Create(Tuple.Create("", 1122), Tuple.Create("Log", 1122), true)
+, Tuple.Create(Tuple.Create(" ", 1125), Tuple.Create("in", 1126), true)
+, Tuple.Create(Tuple.Create(" ", 1128), Tuple.Create("using", 1129), true)
+, Tuple.Create(Tuple.Create(" ", 1134), Tuple.Create("your", 1135), true)
             
             #line 26 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
-                                                                                       , Tuple.Create(Tuple.Create(" ", 1161), Tuple.Create<System.Object, System.Int32>(p.Caption
+                                                                                       , Tuple.Create(Tuple.Create(" ", 1139), Tuple.Create<System.Object, System.Int32>(p.Caption
             
             #line default
             #line hidden
-, 1162), false)
-, Tuple.Create(Tuple.Create(" ", 1172), Tuple.Create("account", 1173), true)
+, 1140), false)
+, Tuple.Create(Tuple.Create(" ", 1150), Tuple.Create("account", 1151), true)
 );
 
 WriteLiteral(">");

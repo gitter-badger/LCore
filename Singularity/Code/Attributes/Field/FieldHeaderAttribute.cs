@@ -12,7 +12,10 @@ namespace Singularity.Annotations
         public bool HorizontalRule { get; set; }
 
         public FieldHeaderAttribute(string HeaderTitle, int HeaderType = 3, bool HorizontalRule = false) :
-            base(Routes.PartialViews.FieldHeader, ControllerHelper.ViewType.Create, ControllerHelper.ViewType.Edit, ControllerHelper.ViewType.Display)
+            base(Routes.PartialViews.Manage.Fields.FieldHeader,
+                ControllerHelper.ViewType.Create,
+                ControllerHelper.ViewType.Edit,
+                ControllerHelper.ViewType.Display)
             {
             this.HeaderType = HeaderType;
             this.HeaderTitle = HeaderTitle;

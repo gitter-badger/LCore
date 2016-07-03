@@ -39,7 +39,7 @@ namespace Singularity.Annotations
                     {
                     return false;
                     }
-                if (m.HasAttribute<KeyAttribute>())
+                if (m.HasAttribute<KeyAttribute>(true))
                     {
                     return false;
                     }

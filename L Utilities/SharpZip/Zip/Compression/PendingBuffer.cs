@@ -290,7 +290,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
         /// </returns>
         public byte[] ToByteArray()
             {
-            byte[] result = new byte[this.end - this.start];
+            var result = new byte[this.end - this.start];
             Array.Copy(this.buffer_, this.start, result, 0, result.Length);
             this.start = 0;
             this.end = 0;

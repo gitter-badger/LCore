@@ -332,7 +332,7 @@ function SingularityRunTests(display: boolean = false) {
                 if (test && test.testFunc) {
                     let testResult = testFunc();
 
-                    log(testResult);
+                    // log(testResult);
 
                     if (testResult != true &&
                         testResult !== undefined &&

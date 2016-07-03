@@ -35,25 +35,19 @@ namespace ASP
     using System.Web.WebPages;
     using LCore.Extensions;
     using Singularity;
-    
-    #line 1 "..\..\Views\Shared\LoginPartial.cshtml"
-    using Singularity.Account;
-    
-    #line default
-    #line hidden
     using Singularity.Context;
     using Singularity.Controllers;
-    using Singularity.Models;
     
     #line 2 "..\..\Views\Shared\LoginPartial.cshtml"
-    using Singularity.Routes;
+    using Singularity.Extensions;
     
     #line default
     #line hidden
+    using Singularity.Models;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/LoginPartial.cshtml")]
-    public partial class _Views_Shared_LoginPartial_cshtml : System.Web.Mvc.WebViewPage<dynamic>
+    public partial class _Views_Shared_LoginPartial_cshtml : SingularityRazor<dynamic>
     {
         public _Views_Shared_LoginPartial_cshtml()
         {
@@ -65,7 +59,6 @@ WriteLiteral("\r\n");
             
             #line 4 "..\..\Views\Shared\LoginPartial.cshtml"
   
-    AuthenticationService Auth = new AuthenticationService(Session);
 
 
             
@@ -74,10 +67,10 @@ WriteLiteral("\r\n");
 WriteLiteral("\r\n\r\n");
 
             
-            #line 9 "..\..\Views\Shared\LoginPartial.cshtml"
+            #line 8 "..\..\Views\Shared\LoginPartial.cshtml"
  if (Auth.IsLoggedIn)
     {
-    using (Html.BeginForm(Controllers.Account.Actions.LogOff, Controllers.Account.Name,
+    using (Html.BeginForm(nameof(AccountController.LogOff), typeof(AccountController).CName(),
         FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
         {
         
@@ -85,14 +78,14 @@ WriteLiteral("\r\n\r\n");
             #line default
             #line hidden
             
-            #line 14 "..\..\Views\Shared\LoginPartial.cshtml"
+            #line 13 "..\..\Views\Shared\LoginPartial.cshtml"
    Write(Html.AntiForgeryToken());
 
             
             #line default
             #line hidden
             
-            #line 14 "..\..\Views\Shared\LoginPartial.cshtml"
+            #line 13 "..\..\Views\Shared\LoginPartial.cshtml"
                                 
 
 
@@ -106,7 +99,7 @@ WriteLiteral(" class=\"nav navbar-nav navbar-right\"");
 WriteLiteral(">\r\n            <li>\r\n                Hello ");
 
             
-            #line 18 "..\..\Views\Shared\LoginPartial.cshtml"
+            #line 17 "..\..\Views\Shared\LoginPartial.cshtml"
                  Write(Auth.UserName);
 
             
@@ -119,7 +112,7 @@ WriteLiteral(" href=\"javascript:document.getElementById(\'logoutForm\').submit(
 WriteLiteral(">Log off</a></li>\r\n        </ul>\r\n");
 
             
-            #line 22 "..\..\Views\Shared\LoginPartial.cshtml"
+            #line 21 "..\..\Views\Shared\LoginPartial.cshtml"
         }
     }
 else
@@ -137,18 +130,18 @@ WriteLiteral(">\r\n        <li>\r\n");
 WriteLiteral("            ");
 
             
-            #line 28 "..\..\Views\Shared\LoginPartial.cshtml"
+            #line 27 "..\..\Views\Shared\LoginPartial.cshtml"
        Write(Html.ActionLink("Log in",
-           Controllers.Account.Actions.Login, Controllers.Account.Name,
-           null, htmlAttributes: new { id = "loginLink" }));
+           nameof(AccountController.Login), typeof(AccountController).CName(),
+           null, new { id = "loginLink" }));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n    </li>\r\n</ul>\r\n");
+WriteLiteral("\r\n        </li>\r\n    </ul>\r\n");
 
             
-            #line 33 "..\..\Views\Shared\LoginPartial.cshtml"
+            #line 32 "..\..\Views\Shared\LoginPartial.cshtml"
     }
 
             

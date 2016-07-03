@@ -17,7 +17,7 @@ namespace Singularity.Context
         public static void SetCurrent(ContextProvider Value)
             {
             if (CurrentProvider != null)
-                throw new Exception("ContenxtProvider is already set.");
+                throw new Exception("ContextProvider is already set.");
 
             CurrentProvider = Value;
             }
@@ -25,7 +25,7 @@ namespace Singularity.Context
         public static DbSet<T> GetDBSet<T>(this DbContext Context)
             where T : class
             {
-            Type Type = typeof(T);
+            var Type = typeof(T);
 
             return Context.GetType()
                 .GetProperties().First(prop =>

@@ -1,0 +1,18 @@
+﻿@* Generator: MvcView *@
+
+@{
+
+}
+
+@model IViewField
+
+@{
+    var data = Model.PropertyData as IFormattable;
+}
+
+@if (data != null)
+    {
+    <span>
+        @data.ToString("C", null)
+    </span>
+    }

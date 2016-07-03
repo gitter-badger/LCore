@@ -8,7 +8,7 @@ namespace Singularity.Azure
         {
         public static bool Exists(this CloudBlobDirectory Dir, string FileName)
             {
-            CloudBlockBlob BlockBlob = Dir.GetBlockBlobReference(FileName);
+            var BlockBlob = Dir.GetBlockBlobReference(FileName);
 
             try { BlockBlob.FetchAttributes(); }
             catch { }
@@ -21,7 +21,7 @@ namespace Singularity.Azure
             if (Overwrite ||
                 !Dir.Exists(FileName))
                 {
-                CloudBlockBlob BlockBlob = Dir.GetBlockBlobReference(FileName);
+                var BlockBlob = Dir.GetBlockBlobReference(FileName);
 
                 BlockBlob.UploadFromStream(Stream);
                 }
@@ -34,14 +34,14 @@ namespace Singularity.Azure
 
         public static byte[] DownloadFile(this CloudBlobDirectory Dir, string FileName)
             {
-            CloudBlockBlob Blob = GetBlob(Dir, FileName);
+            var Blob = GetBlob(Dir, FileName);
 
             return Blob.DownloadByteArray();
             }
 
         public static void DeleteFile(this CloudBlobDirectory Dir, string FileName)
             {
-            CloudBlockBlob Blob = GetBlob(Dir, FileName);
+            var Blob = GetBlob(Dir, FileName);
 
             Blob.DeleteIfExists();
             }
@@ -50,7 +50,7 @@ namespace Singularity.Azure
 
         public static CloudQueue GetQueue(this CloudQueueClient Client, string QueueName)
             {
-            CloudQueue Queue = Client.GetQueueReference(QueueName);
+            var Queue = Client.GetQueueReference(QueueName);
             Queue.CreateIfNotExist();
 
             return Queue;
@@ -58,7 +58,7 @@ namespace Singularity.Azure
 
         public static void AddMessage(this CloudQueue Queue, string Message, TimeSpan? TimeToLive = null, TimeSpan? InitialVisibilityDelay = null)
             {
-            CloudQueueMessage CloudMessage = new CloudQueueMessage(Message);
+            var CloudMessage = new CloudQueueMessage(Message);
 
             Queue.AddMessage(CloudMessage, TimeToLive, InitialVisibilityDelay);
             }

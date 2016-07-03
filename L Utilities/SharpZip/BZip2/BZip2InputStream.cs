@@ -409,13 +409,13 @@ namespace ICSharpCode.SharpZipLib.BZip2
 
         private void RecvDecodingTables()
             {
-            char[][] len = new char[BZip2Constants.GroupCount][];
+            var len = new char[BZip2Constants.GroupCount][];
             for (int i = 0; i < BZip2Constants.GroupCount; ++i)
                 {
                 len[i] = new char[BZip2Constants.MaximumAlphaSize];
                 }
 
-            bool[] inUse16 = new bool[16];
+            var inUse16 = new bool[16];
 
             //--- Receive the mapping table ---
             for (int i = 0; i < 16; i++)
@@ -459,7 +459,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
                 }
 
             //--- Undo the MTF values for the selectors. ---
-            byte[] pos = new byte[BZip2Constants.GroupCount];
+            var pos = new byte[BZip2Constants.GroupCount];
             for (int v = 0; v < nGroups; v++)
                 {
                 pos[v] = (byte)v;
@@ -516,7 +516,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
 
         private void GetAndMoveToFrontDecode()
             {
-            byte[] yy = new byte[256];
+            var yy = new byte[256];
 
             int limitLast = BZip2Constants.BaseBlockSize * this.blockSize100k;
             this.origPtr = this.BsGetIntVS(24);
@@ -689,7 +689,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
 
         private void SetupBlock()
             {
-            int[] cftab = new int[257];
+            var cftab = new int[257];
 
             cftab[0] = 0;
             Array.Copy(this.unzftab, 0, cftab, 1, 256);

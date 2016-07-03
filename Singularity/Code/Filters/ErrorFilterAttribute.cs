@@ -7,6 +7,8 @@ namespace Singularity.Filters
     {
     public class ErrorFilterAttribute : ActionFilterAttribute
         {
+        public UrlHelper Url { get; set; }
+
         public override void OnResultExecuting(ResultExecutingContext filterContext)
             {
             try
@@ -16,9 +18,8 @@ namespace Singularity.Filters
             catch (Exception e)
                 {
                 this.LogError(e);
-
-                UrlHelper Url = new UrlHelper(filterContext.RequestContext);
-                filterContext.HttpContext.Response.Redirect(Url.Controller<ErrorController>().Action(c => c.Index));
+                
+                filterContext.HttpContext.Response.Redirect(this.Url.Controller<ErrorController>().Action(c => c.Index));
                 }
             }
 
@@ -31,9 +32,8 @@ namespace Singularity.Filters
             catch (Exception e)
                 {
                 this.LogError(e);
-
-                UrlHelper Url = new UrlHelper(filterContext.RequestContext);
-                filterContext.HttpContext.Response.Redirect(Url.Controller<ErrorController>().Action(c => c.Index));
+                
+                filterContext.HttpContext.Response.Redirect(this.Url.Controller<ErrorController>().Action(c => c.Index));
                 }
             }
 

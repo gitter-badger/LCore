@@ -38,6 +38,9 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.button5 = new System.Windows.Forms.Button();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // button1
@@ -47,7 +50,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Location = new System.Drawing.Point(9, 145);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(589, 136);
+            this.button1.Size = new System.Drawing.Size(382, 163);
             this.button1.TabIndex = 0;
             this.button1.Text = "Backup and \r\nExplode";
             this.button1.UseVisualStyleBackColor = true;
@@ -59,7 +62,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.Location = new System.Drawing.Point(9, 72);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(589, 67);
+            this.button2.Size = new System.Drawing.Size(382, 67);
             this.button2.TabIndex = 1;
             this.button2.Text = "Backup";
             this.button2.UseVisualStyleBackColor = true;
@@ -89,7 +92,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Location = new System.Drawing.Point(103, 10);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(409, 20);
+            this.textBox1.Size = new System.Drawing.Size(784, 20);
             this.textBox1.TabIndex = 4;
             // 
             // textBox2
@@ -98,13 +101,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.Location = new System.Drawing.Point(103, 38);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(409, 20);
+            this.textBox2.Size = new System.Drawing.Size(784, 20);
             this.textBox2.TabIndex = 5;
             // 
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(518, 7);
+            this.button3.Location = new System.Drawing.Point(893, 7);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 6;
@@ -115,7 +118,7 @@
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(518, 36);
+            this.button4.Location = new System.Drawing.Point(893, 36);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 7;
@@ -123,11 +126,41 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(406, 77);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(132, 23);
+            this.button5.TabIndex = 8;
+            this.button5.Text = "Show Code --->";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(553, 79);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(402, 228);
+            this.textBox3.TabIndex = 9;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox4.Location = new System.Drawing.Point(406, 119);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(132, 20);
+            this.textBox4.TabIndex = 10;
+            // 
             // LTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(610, 293);
+            this.ClientSize = new System.Drawing.Size(985, 320);
+            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.textBox2);
@@ -156,6 +189,9 @@
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.Button button4;
 		private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox4;
         }
     }
 

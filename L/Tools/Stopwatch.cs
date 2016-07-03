@@ -2,23 +2,37 @@
 using LCore.Extensions;
 
 namespace LCore.Tools
-	{
-	public class StopWatch
-		{
-		private DateTime StartTime;
+    {
+    /// <summary>
+    /// Simple class to time actions.
+    /// </summary>
+    public class StopWatch
+        {
+        private DateTime StartTime;
 
-		public StopWatch()
-			{
-		    this.Start();
-			}
+        /// <summary>
+        /// Create a new StopWatch.
+        /// </summary>
+        public StopWatch()
+            {
+            this.Start();
+            }
 
-		public void Start()
-			{
-		    this.StartTime = DateTime.Now;
-			}
-		public double Stop()
-			{
-			return (DateTime.Now.Ticks - this.StartTime.Ticks) * DateExt.TicksToMilliseconds;
-			}
-		}
-	}
+        /// <summary>
+        /// Start the StopWatch timer.
+        /// </summary>
+        public void Start()
+            {
+            this.StartTime = DateTime.Now;
+            }
+
+        /// <summary>
+        /// Stops the timer and returns the duration in milliseconds.
+        /// </summary>
+        /// <returns>The duration in milliseconds</returns>
+        public double Stop()
+            {
+            return (DateTime.Now.Ticks - this.StartTime.Ticks) * L.Date.TicksToMilliseconds;
+            }
+        }
+    }

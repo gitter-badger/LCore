@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+#pragma warning disable 1591
 
 
 namespace LCore.Tasks
@@ -29,7 +30,7 @@ namespace LCore.Tasks
 
         public void ScheduleTask(Task t)
             {
-            foreach (TaskTimer t1 in this.AllTasks)
+            foreach (var t1 in this.AllTasks)
                 {
                 if (t1.TimerTask == t)
                     {

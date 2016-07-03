@@ -233,7 +233,7 @@ namespace ICSharpCode.SharpZipLib.Zip
             index = name.IndexOfAny(InvalidEntryChars);
             if (index >= 0)
                 {
-                StringBuilder builder = new StringBuilder(name);
+                var builder = new StringBuilder(name);
 
                 while (index >= 0)
                     {

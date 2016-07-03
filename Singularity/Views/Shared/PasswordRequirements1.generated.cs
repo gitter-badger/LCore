@@ -59,7 +59,7 @@ WriteLiteral("\r\n");
             
             #line 3 "..\..\Views\Shared\PasswordRequirements.cshtml"
   
-    Authentication.PasswordRequirementRules Rules = Authentication.PasswordDefaultRules;
+    var Rules = Authentication.PasswordDefaultRules;
 
             
             #line default

@@ -6,7 +6,7 @@ namespace Singularity.Annotations
     public class FieldType_HTMLContentEditor : CustomPartialAttribute
         {
         public FieldType_HTMLContentEditor()
-            : base(PartialViews.Field_Edit_HTMLContent, ControllerHelper.ViewType.All)
+            : base(PartialViews.Manage.Fields.Edit.HTMLContent, ControllerHelper.ViewType.All)
             {
             }
         }

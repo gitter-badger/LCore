@@ -79,7 +79,7 @@ WriteLiteral("\r\n\r\n<table>\r\n    <thead>\r\n        <tr>\r\n            <td>
             #line 17 "..\..\Views\Shared\Helpers\DataTable.cshtml"
              for (int i = 0; i < Model.Columns.Count; i++)
                 {
-                DataColumn Col = Model.Columns[i];
+                var Col = Model.Columns[i];
 
             
             #line default
@@ -143,7 +143,7 @@ WriteLiteral("\r\n                </td>\r\n");
             #line 34 "..\..\Views\Shared\Helpers\DataTable.cshtml"
                  for (int j = 0; j < Model.Columns.Count; j++)
                     {
-                    object FieldData = Model.Rows[i][j];
+                    var FieldData = Model.Rows[i][j];
 
             
             #line default

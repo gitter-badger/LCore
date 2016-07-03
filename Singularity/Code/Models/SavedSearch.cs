@@ -76,7 +76,7 @@ namespace Singularity.Models
 
         public static SavedSearch FindDefault(ModelContext DbContext, string TypeName, string ControllerName, bool Autocreate)
             {
-            SavedSearch Out = DbContext.GetDBSet<SavedSearch>(
+            var Out = DbContext.GetDBSet<SavedSearch>(
                 ).FirstOrDefault(e => e.Active &&
                     e.SearchType == TypeName &&
                     e.ControllerName == ControllerName &&

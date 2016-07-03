@@ -1,8 +1,12 @@
 ﻿
+using System.Web.Mvc;
+
 namespace Singularity.Controllers
     {
     public interface IMenuItem
         {
+        MvcHtmlString Icon { get; set; }
+
         string PageGroup { get; set; }
         string MenuText { get; set; }
 
@@ -13,6 +17,7 @@ namespace Singularity.Controllers
         }
     public class MenuItem : IMenuItem
         {
+        public MvcHtmlString Icon { get; set; }
         public string PageGroup { get; set; }
         public string MenuText { get; set; }
 

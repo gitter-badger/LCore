@@ -30,7 +30,7 @@ namespace SingularityInstanceClasses.Models
         public int RoleID { get; set; }
 
         [FieldGlobalSearch]
-        public virtual Role Role { get; set; }
+        public virtual AccountRole Role { get; set; }
 
         [HideManageViewColumn]
         public bool Active { get; set; }

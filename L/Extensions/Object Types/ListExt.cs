@@ -1,9 +1,8 @@
 ﻿using System;
-using LCore.Extensions.ObjectExt;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using System.Reflection;
+using LCore.Extensions.Optional;
 using LCore.Tests;
 using NSort;
 using LCore.Naming;
@@ -11,9 +10,15 @@ using LCore.Interfaces;
 
 namespace LCore.Extensions
     {
-    public static class ListExt
+    /// <summary>
+    /// Provides extensions for list types:
+    /// List[T], T[], IEnumerable[T]
+    /// </summary>
+    [ExtensionProvider]
+    public static class EnumerableExt
         {
-        #region Extensions
+        #region Extensions +
+
         #region Add
         /// <summary>
         /// Returns a new T[] with the supplied items appended to it.
@@ -38,11 +43,12 @@ namespace LCore.Extensions
             if (Count == 0)
                 return Objs.ToArray();
 
-            T[] Out = new T[CountTotal];
+            var Out = new T[CountTotal];
             In.CopyTo(Out, 0);
-            Objs.EachI((i, o) => { Out[Count + i] = o; });
+            Objs.Each((i, o) => { Out[Count + i] = o; });
             return Out;
             }
+
         /// <summary>
         /// Returns a new T[] with the supplied items appended to it.
         /// </summary>
@@ -67,11 +73,12 @@ namespace LCore.Extensions
             if (Count == 0)
                 return Objs;
 
-            T[] Out = new T[CountTotal];
+            var Out = new T[CountTotal];
             In.CopyTo(Out, 0);
             Objs.CopyTo(Out, Count);
             return Out;
             }
+
         /// <summary>
         /// Appends the supplied List[T] with the supplied items.
         /// </summary>
@@ -87,6 +94,10 @@ namespace LCore.Extensions
             {
             In.Add((IEnumerable<T>)Objs);
             }
+
+        /// <summary>
+        /// Appends the supplied List[T] with the supplied items.
+        /// </summary>
         [TestMethodGenerics(typeof(int))]
         [TestFails(new object[] { null, null }, typeof(ArgumentNullException))]
         [TestFails(new object[] { null, new int[] { } }, typeof(ArgumentNullException))]
@@ -102,11 +113,31 @@ namespace LCore.Extensions
             if (Objs.IsEmpty())
                 return;
 
-            In.AddRange(Objs);
+            foreach (var obj in Objs)
+                {
+                if (!In.Contains(obj))
+                    {
+                    In.Add(obj);
+                    }
+                }
             }
+
+
+        /// <summary>
+        /// Adds many T [Items] to an IList[T] [In] in one command.
+        /// </summary>
+        public static void Add<T>(this IList<T> In, params T[] Items)
+            {
+            Items = Items ?? new T[] { };
+
+            foreach (var Item in Items)
+                {
+                In.Add(Item);
+                }
+            }
+
         #endregion
 
-        // TODO: L: List: Untested
         #region AddString
         /// <summary>
         /// Adds a series of chars to the supplied string and returns it.
@@ -136,7 +167,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region AddTo
         /// <summary>
         /// Adds the item of the supplied collection to the second supplied collection.
@@ -144,9 +174,9 @@ namespace LCore.Extensions
         /// </summary>
         public static void AddTo<T>(this IEnumerable<T> In, ICollection Collection)
             {
-            Type CollectionType = Collection.GetType();
+            var CollectionType = Collection.GetType();
 
-            MethodInfo AddMethod = CollectionType.GetMethod("Add", new[] { typeof(T) }) ??
+            var AddMethod = CollectionType.GetMethod("Add", new[] { typeof(T) }) ??
                                    CollectionType.GetMethod("Add", new[] { typeof(object) });
 
             if (AddMethod == null)
@@ -156,7 +186,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region All
         /// <summary>
         /// Returns a Boolean indicating whether all items in the list satisfy the supplied condition.
@@ -203,14 +232,13 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
-        #region AllI
+        #region All I
         /// <summary>
         /// Returns a Boolean indicating whether all items in the list satisfy the supplied condition.
         /// The int passed to the Func is the 0-based index of the current item.
         /// Execution will halt once the Condition returns false.
         /// </summary>
-        public static bool AllI(this IEnumerable In, Func<int, bool> Condition)
+        public static bool All(this IEnumerable In, Func<int, bool> Condition)
             {
             return In.WhileI(Condition);
             }
@@ -219,7 +247,7 @@ namespace LCore.Extensions
         /// The int passed to the Func is the 0-based index of the current item.
         /// Execution will halt once the Condition returns false.
         /// </summary>
-        public static bool AllI<T>(this IEnumerable<T> In, Func<int, bool> Condition)
+        public static bool All<T>(this IEnumerable<T> In, Func<int, bool> Condition)
             {
             return In.WhileI(Condition);
             }
@@ -228,7 +256,7 @@ namespace LCore.Extensions
         /// The int passed to the Func is the 0-based index of the current item.
         /// Execution will halt once the Condition returns false.
         /// </summary>
-        public static bool AllI(this IEnumerable In, Func<int, object, bool> Condition)
+        public static bool All(this IEnumerable In, Func<int, object, bool> Condition)
             {
             return In.WhileI(Condition);
             }
@@ -237,7 +265,7 @@ namespace LCore.Extensions
         /// The int passed to the Func is the 0-based index of the current item.
         /// Execution will halt once the Condition returns false.
         /// </summary>
-        public static bool AllI<T>(this IEnumerable In, Func<int, T, bool> Condition)
+        public static bool All<T>(this IEnumerable In, Func<int, T, bool> Condition)
             {
             return In.List<T>().WhileI(Condition);
             }
@@ -246,14 +274,16 @@ namespace LCore.Extensions
         /// The int passed to the Func is the 0-based index of the current item.
         /// Execution will halt once the Condition returns false.
         /// </summary>
-        public static bool AllI<T>(this IEnumerable<T> In, Func<int, T, bool> Condition)
+        public static bool All<T>(this IEnumerable<T> In, Func<int, T, bool> Condition)
             {
             return In.WhileI(Condition);
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Append
+        /// <summary>
+        /// Returns a new T[] with [Obj] appended to [In].
+        /// </summary>
         public static T[] Append<T>(this T[] In, params T[] Obj)
             {
             if (In == null)
@@ -261,10 +291,46 @@ namespace LCore.Extensions
             if (Obj == null)
                 return In;
 
-            T[] Out = new T[In.Length + Obj.Length];
+            var Out = new T[In.Length + Obj.Length];
             In.CopyTo(Out, 0);
             Obj.CopyTo(Out, In.Length);
             return Out;
+            }
+        #endregion
+
+        #region Array
+        /// <summary>
+        /// Converts an IEnumerable to an object[].
+        /// </summary>
+        public static object[] Array(this IEnumerable In)
+            {
+            var Out = new object[In.Count()];
+            In.Each((i, o) => { Out[i] = o; });
+            return Out;
+            }
+        /// <summary>
+        /// Converts an IEnumerable to a T[].
+        /// </summary>
+        public static T[] Array<T>(this IEnumerable In)
+            {
+            return In.List<T>().ToArray();
+            }
+        /// <summary>
+        /// Converts an IEnumerable to a T[].
+        /// </summary>
+        public static T[] Array<T>(this IEnumerable<T> In)
+            {
+            var Out = new T[In.Count()];
+            In.Each((i, o) => { Out[i] = o; });
+            return Out;
+            }
+        /// <summary>
+        /// Converts an T[] to a T[] for types where U : T.
+        /// Filters out elements of [In] that are not of type [U].
+        /// </summary>
+        public static U[] Array<T, U>(this T[] In) where U : class, T
+            {
+            return In.Filter<T, U>();
             }
         #endregion
 
@@ -364,7 +430,7 @@ namespace LCore.Extensions
             }
         #endregion
 
-        #region CollectI
+        #region Collect I
         /// <summary>
         /// Runs a Func[Object,Object] [In.Count] times and returns a list with the results. 
         /// Values from the Input collection are used as the parameters. Null values are excluded.
@@ -376,16 +442,16 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.PassI_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.PassI_Name })]
         [TestResult(new object[] { new object[] { 1, 2, 3 }, Test.PassI_Name }, new object[] { 0, 1, 2 })]
-        public static List<object> CollectI(this IEnumerable In, Func<int, object, object> Func)
+        public static List<object> Collect(this IEnumerable In, Func<int, object, object> Func)
             {
             In = In ?? new object[] { };
 
-            List<object> Out = new List<object>();
+            var Out = new List<object>();
 
             int i = 0;
-            foreach (object o in In)
+            foreach (var o in In)
                 {
-                object obj = Func(i, o);
+                var obj = Func(i, o);
                 if (obj != null)
                     Out.Add(obj);
                 i++;
@@ -405,16 +471,16 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.PassIII_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.PassIII_Name })]
         [TestResult(new object[] { new object[] { 1, 2, 3 }, Test.PassIII_Name }, new[] { 0, 1, 2 })]
-        public static List<T> CollectI<T>(this IEnumerable In, Func<int, T, T> Func)
+        public static List<T> Collect<T>(this IEnumerable In, Func<int, T, T> Func)
             {
             In = In ?? new T[] { };
 
-            List<T> Out = new List<T>();
+            var Out = new List<T>();
 
             int i = 0;
             foreach (T o in In)
                 {
-                T obj = Func(i, o);
+                var obj = Func(i, o);
                 if (obj != null)
                     Out.Add(obj);
                 i++;
@@ -434,16 +500,16 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.PassIII_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.PassIII_Name })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, Test.PassIII_Name }, new[] { 0, 1, 2 })]
-        public static List<T> CollectI<T>(this IEnumerable<T> In, Func<int, T, T> Func)
+        public static List<T> Collect<T>(this IEnumerable<T> In, Func<int, T, T> Func)
             {
             In = In ?? new T[] { };
 
-            List<T> Out = new List<T>();
+            var Out = new List<T>();
 
             int i = 0;
-            foreach (T o in In)
+            foreach (var o in In)
                 {
-                T obj = Func(i, o);
+                var obj = Func(i, o);
                 if (obj != null)
                     Out.Add(obj);
                 i++;
@@ -464,9 +530,9 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.PassIII_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.PassIII_Name })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, Test.PassIII_Name }, new[] { 0, 1, 2 })]
-        public static T[] CollectI<T>(this T[] In, Func<int, T, T> Func)
+        public static T[] Collect<T>(this T[] In, Func<int, T, T> Func)
             {
-            return In.List().CollectI(Func).ToArray();
+            return In.List().Collect(Func).ToArray();
             }
         /// <summary>
         /// Iterates through a collection, executing the Func[int,T,T] on the input. 
@@ -481,16 +547,16 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.PassIII_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.PassIII_Name })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, Test.PassIII_Name }, new[] { 0, 1, 2 })]
-        public static List<T> CollectI<T>(this List<T> In, Func<int, T, T> Func)
+        public static List<T> Collect<T>(this List<T> In, Func<int, T, T> Func)
             {
             In = In ?? new List<T>();
 
             int Count = In.Count;
-            List<T> Out = new List<T>();
+            var Out = new List<T>();
             for (int i = 0; i < Count; i++)
                 {
-                T o = In[i];
-                T obj = Func(i, o);
+                var o = In[i];
+                var obj = Func(i, o);
                 if (obj != null)
                     Out.Add(obj);
                 }
@@ -498,7 +564,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region CollectFunc
         /// <summary>
         /// Runs a Func[T] [Count] times and returns a list with the results.
@@ -523,7 +588,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region CollectStr
         /// <summary>
         /// Iterates through a String, applying an action to each char.
@@ -558,39 +622,44 @@ namespace LCore.Extensions
         public static string CollectStr<T, U>(this U In, Func<int, T, string> Func) where U : IEnumerable<T>
             {
             string Out = "";
-            In.EachI((i, o) => { Out += Func(i, o) ?? ""; });
+            In.Each((i, o) => { Out += Func(i, o) ?? ""; });
             return Out;
             }
         #endregion
 
-        /* TODO: L: List: Comment All Below */
-
-        // Combines a list of items separating them with a string or char
-        // TODO: L: List: Untested
         #region Combine - String
+        /// <summary>
+        /// Combines a list of strings with no separator.
+        /// </summary>
         public static string Combine(this IEnumerable<string> List)
             {
             return List.Combine("");
             }
-        public static string Combine<T, U>(this T List, char SeparateChar)
-            where T : IEnumerable<U>
-            where U : IConvertible
+        /// <summary>
+        /// Convert a list of IConvertible to strings, then joins them with a separator character.
+        /// </summary>
+        public static string Combine<T>(this IEnumerable<T> List, char SeparateChar)
+            where T : IConvertible
             {
             return List.Convert(i => i.ToString()).Combine(SeparateChar);
             }
+        /// <summary>
+        /// Joins a list of strings with a separator character.
+        /// </summary>
         public static string Combine(this IEnumerable<string> List, char SeparateChar)
             {
             return List.Combine(SeparateChar.ToString());
             }
-        public static string Combine<T, U>(this T List, string SeparateStr)
-            where T : IEnumerable<U>
-            where U : IConvertible
+        /// <summary>
+        /// Convert a list of IConvertible to strings, then joins them with a separator string.
+        /// </summary>
+        public static string Combine<T>(this IEnumerable<T> List, string SeparateStr)
+            where T : IConvertible
             {
             return List.Convert(i => i.ToString()).Combine(SeparateStr);
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Convert
         /// <summary>
         /// Iterates through a collection, returning a List[Object] containing the results of the passed Func[Object,Object].
@@ -598,7 +667,7 @@ namespace LCore.Extensions
         /// </summary>
         public static List<object> Convert(this IEnumerable In, Func<object, object> Func)
             {
-            return In.ConvertI((i, o) => Func(o));
+            return In.Convert((i, o) => Func(o));
             }
         /// <summary>
         /// Iterates through a collection, returning a U[] containing the results of the passed Func[T,U].
@@ -606,7 +675,7 @@ namespace LCore.Extensions
         /// </summary>
         public static U[] Convert<T, U>(this T[] In, Func<T, U> Func)
             {
-            return In.ConvertI((i, o) => Func(o));
+            return In.Convert((i, o) => Func(o));
             }
         /// <summary>
         /// Iterates through a collection, returning a List[U] containing the results of the passed Func[T,U].
@@ -614,7 +683,7 @@ namespace LCore.Extensions
         /// </summary>
         public static List<U> Convert<T, U>(this List<T> In, Func<T, U> Func)
             {
-            return In.ConvertI((i, o) => Func(o));
+            return In.Convert((i, o) => Func(o));
             }
         /// <summary>
         /// Iterates through a collection, returning a List[U] containing the results of the passed Func[T,U].
@@ -622,17 +691,21 @@ namespace LCore.Extensions
         /// </summary>
         public static List<U> Convert<T, U>(this IEnumerable<T> In, Func<T, U> Func)
             {
-            return In.ConvertI((i, o) => Func(o));
+            return In.Convert((i, o) => Func(o));
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region ConvertAll
+        /// <summary>
+        /// Iterates over [In], passing each item to [Func].
+        /// Func can return multiple objects. 
+        /// They are all collected and returned in one list.
+        /// </summary>
         public static List<object> ConvertAll(this IEnumerable In, Func<object, IEnumerable<object>> Func)
             {
             In = In ?? new object[] { };
-            List<object> Out = new List<object>();
-            foreach (object o in In)
+            var Out = new List<object>();
+            foreach (var o in In)
                 {
                 IEnumerable<object> obj = Func(o);
                 if (obj != null)
@@ -640,11 +713,16 @@ namespace LCore.Extensions
                 }
             return Out;
             }
+        /// <summary>
+        /// Iterates over [In], passing each item to [Func].
+        /// Func can return multiple objects. 
+        /// They are all collected and returned in one list.
+        /// </summary>
         public static List<U> ConvertAll<T, U>(this IEnumerable In, Func<T, IEnumerable<U>> Func)
             {
             In = In.List<T>();
 
-            List<U> Out = new List<U>();
+            var Out = new List<U>();
             foreach (T o in In)
                 {
                 IEnumerable<U> obj = Func(o);
@@ -653,12 +731,17 @@ namespace LCore.Extensions
                 }
             return Out;
             }
+        /// <summary>
+        /// Iterates over [In], passing each item to [Func].
+        /// Func can return multiple objects. 
+        /// They are all collected and returned in one list.
+        /// </summary>
         public static List<U> ConvertAll<T, U>(this IEnumerable<T> In, Func<T, IEnumerable<U>> Func)
             {
             In = In ?? new T[] { };
 
-            List<U> Out = new List<U>();
-            foreach (T o in In)
+            var Out = new List<U>();
+            foreach (var o in In)
                 {
                 IEnumerable<U> obj = Func(o);
                 if (obj != null)
@@ -666,15 +749,25 @@ namespace LCore.Extensions
                 }
             return Out;
             }
+        /// <summary>
+        /// Iterates over [In], passing each item to [Func].
+        /// Func can return multiple objects. 
+        /// They are all collected and returned in one array.
+        /// </summary>
         public static U[] ConvertAll<T, U>(this T[] In, Func<T, IEnumerable<U>> Func)
             {
             return In.List().ConvertAll(Func).ToArray();
             }
+        /// <summary>
+        /// Iterates over [In], passing each item to [Func].
+        /// Func can return multiple objects. 
+        /// They are all collected and returned in one list.
+        /// </summary>
         public static List<U> ConvertAll<T, U>(this List<T> In, Func<T, IEnumerable<U>> Func)
             {
             In = In ?? new List<T>();
-            List<U> Out = new List<U>();
-            foreach (T o in In)
+            var Out = new List<U>();
+            foreach (var o in In)
                 {
                 IEnumerable<U> obj = Func(o);
                 if (obj != null)
@@ -684,19 +777,18 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
-        #region ConvertI
+        #region Convert I
         /// <summary>
         /// Iterates through a collection, returning a List[Object] containing the results of the passed Func[Object,Object].
         /// The int passed is the 0-based index of the current item.
         /// Null values are ignored.
         /// </summary>
-        public static List<object> ConvertI(this IEnumerable In, Func<int, object, object> Func)
+        public static List<object> Convert(this IEnumerable In, Func<int, object, object> Func)
             {
             List<object> Out = NewList<List<object>, object>();
-            In.EachI((i, o) =>
+            In.Each((i, o) =>
             {
-                object obj = Func(i, o);
+                var obj = Func(i, o);
                 if (obj != null)
                     Out.Add(obj);
             });
@@ -707,12 +799,12 @@ namespace LCore.Extensions
         /// The int passed is the 0-based index of the current item.
         /// Null values are ignored.
         /// </summary>
-        public static U[] ConvertI<T, U>(this T[] In, Func<int, T, U> Func)
+        public static U[] Convert<T, U>(this T[] In, Func<int, T, U> Func)
             {
             if (In == null)
                 return new U[] { };
-            U[] Out = new U[In.Length];
-            In.EachI((i, o) =>
+            var Out = new U[In.Length];
+            In.Each((i, o) =>
             {
                 Out[i] = Func(i, o);
             });
@@ -723,12 +815,12 @@ namespace LCore.Extensions
         /// The int passed is the 0-based index of the current item.
         /// Null values are ignored.
         /// </summary>
-        public static List<U> ConvertI<T, U>(this List<T> In, Func<int, T, U> Func)
+        public static List<U> Convert<T, U>(this List<T> In, Func<int, T, U> Func)
             {
             List<U> Out = NewList<List<U>, U>();
-            In.EachI((i, o) =>
+            In.Each((i, o) =>
             {
-                U obj = Func(i, o);
+                var obj = Func(i, o);
                 if (obj != null)
                     Out.Add(obj);
             });
@@ -739,12 +831,12 @@ namespace LCore.Extensions
         /// The int passed is the 0-based index of the current item.
         /// Null values are ignored.
         /// </summary>
-        public static List<U> ConvertI<T, U>(this IEnumerable<T> In, Func<int, T, U> Func)
+        public static List<U> Convert<T, U>(this IEnumerable<T> In, Func<int, T, U> Func)
             {
             List<U> Out = NewList<List<U>, U>();
-            In.EachI((i, o) =>
+            In.Each((i, o) =>
             {
-                U obj = Func(i, o);
+                var obj = Func(i, o);
                 if (obj != null)
                     Out.Add(obj);
             });
@@ -752,7 +844,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Count
         /// <summary>
         /// Returns the size of a collection
@@ -764,17 +855,17 @@ namespace LCore.Extensions
                 return 0;
                 }
 
-            Array o = In as Array;
+            var o = In as Array;
             if (o != null)
                 {
                 return o.Length;
                 }
-            IList list = In as IList;
+            var list = In as IList;
             if (list != null)
                 {
                 return list.Count;
                 }
-            ICollection collection = In as ICollection;
+            var collection = In as ICollection;
             if (collection != null)
                 {
                 try
@@ -801,7 +892,7 @@ namespace LCore.Extensions
 
             int Count = 0;
 
-            IEnumerator Enumerator = In.GetEnumerator();
+            var Enumerator = In.GetEnumerator();
 
             while (Enumerator.MoveNext())
                 {
@@ -812,19 +903,21 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Count Object
         /// <summary>
         /// Returns the number of items in the collection that are equivalent to Obj.
         /// </summary>
         public static int Count<T>(this IEnumerable<T> In, T Obj)
             {
-            return In.Count(Logic.Object_SafeEquals.Supply(Obj).Cast<object, bool, T, bool>());
+            return In.Count(L.Obj.SafeEquals.Supply(Obj).Cast<object, bool, T, bool>());
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Cycle
+        /// <summary>
+        /// Cycles through a list of objects indefinitely.
+        /// If [Continue] returns true at the end, the set of objects will be iterated again.
+        /// </summary>
         public static void Cycle(this IEnumerable In, Func<object, bool> Continue)
             {
             while (true)
@@ -834,6 +927,10 @@ namespace LCore.Extensions
                     break;
                 }
             }
+        /// <summary>
+        /// Cycles through a list of objects indefinitely.
+        /// If [Continue] returns true at the end, the set of objects will be iterated again.
+        /// </summary>
         public static void Cycle<T>(this IEnumerable<T> In, Func<T, bool> Continue)
             {
             while (true)
@@ -842,14 +939,6 @@ namespace LCore.Extensions
                 if (!KeepGoing)
                     break;
                 }
-            }
-        #endregion
-
-        // TODO: L: List: Untested
-        #region Do
-        public static void Do<T>(this Action<T> In, IEnumerable<T> Obj)
-            {
-            In.Each(Obj);
             }
         #endregion
 
@@ -869,7 +958,7 @@ namespace LCore.Extensions
             {
             if (!In.IsEmpty())
                 {
-                foreach (object o in In)
+                foreach (var o in In)
                     {
                     Func(o);
                     }
@@ -911,12 +1000,15 @@ namespace LCore.Extensions
             {
             if (!In.IsEmpty())
                 {
-                foreach (T o in In)
+                foreach (var o in In)
                     {
                     Func(o);
                     }
                 }
             }
+
+
+
         /// <summary>
         /// Iterates through every item in a collection, executing the passed Action[int, Object].
         /// The int passed to the Action is the 0-based index of the current item.
@@ -930,12 +1022,12 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.ReceiveObjectI_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.ReceiveObjectI_Name })]
         [TestSucceedes(new object[] { new[] { 1, 2, 3 }, Test.ReceiveObjectI_Name }, Test.HasReceivedObjectsI_Name)]
-        public static void EachI(this IEnumerable In, Action<int, object> Func)
+        public static void Each(this IEnumerable In, Action<int, object> Func)
             {
             if (!In.IsEmpty())
                 {
                 int i = 0;
-                foreach (object o in In)
+                foreach (var o in In)
                     {
                     Func(i, o);
                     i++;
@@ -956,10 +1048,10 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.ReceiveObjectI_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.ReceiveObjectI_Name })]
         [TestSucceedes(new object[] { new object[] { 1, 2, "", 3 }, Test.ReceiveObjectI_Name }, Test.HasReceivedObjectsI_Name)]
-        public static void EachI<T>(this IEnumerable In, Action<int, object> Func)
+        public static void Each<T>(this IEnumerable In, Action<int, object> Func)
             {
             List<T> List = In.Filter<T>();
-            List.EachI(Func);
+            List.Each(Func);
             }
         /// <summary>
         /// Iterates through every item in a collection, executing the passed Action[int, T].
@@ -975,12 +1067,12 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.ReceiveTI_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.ReceiveTI_Name })]
         [TestSucceedes(new object[] { new[] { 1, 2, 3 }, Test.ReceiveTI_Name }, Test.HasReceivedObjectsI_Name)]
-        public static void EachI<T>(this IEnumerable<T> In, Action<int, T> Func)
+        public static void Each<T>(this IEnumerable<T> In, Action<int, T> Func)
             {
             if (!In.IsEmpty())
                 {
                 int i = 0;
-                foreach (T o in In)
+                foreach (var o in In)
                     {
                     Func(i, o);
                     i++;
@@ -989,16 +1081,22 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Each Object
+        /// <summary>
+        /// Performs the supplied action on each T in [Obj]
+        /// </summary>
         public static void Each<T>(this Action<T> In, IEnumerable<T> Obj)
             {
             Obj.Each(In);
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Equivalent
+
+        /// <summary>
+        /// Compares the contents of two IEnumerable.
+        /// Returns true if their count and all contents are the same.
+        /// </summary>
         public static bool Equivalent(this IEnumerable In, IEnumerable Compare)
             {
             if (In == null && Compare == null)
@@ -1013,11 +1111,11 @@ namespace LCore.Extensions
             int Count1 = In.Count();
             int Count2 = Compare.Count();
 
-            return Count1 == Count2 && In.AllI((i, o) => Compare.GetAt(i).SafeEquals(o));
+            return Count1 == Count2 &&
+                In.All((i, o) => Compare.GetAt(i).SafeEquals(o));
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Fill
         /// <summary>
         /// Returns a new T[] containing [In.Count] entries containing the passed Obj.
@@ -1039,7 +1137,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Filter
         /// <summary>
         /// Returns a new List[T] from the supplied collection. 
@@ -1047,7 +1144,7 @@ namespace LCore.Extensions
         /// </summary>
         public static List<T> Filter<T>(this IEnumerable In)
             {
-            List<T> Out = new List<T>();
+            var Out = new List<T>();
             In.Each(o =>
             {
                 if (o is T)
@@ -1062,23 +1159,10 @@ namespace LCore.Extensions
         public static U[] Filter<T, U>(this T[] In)
             where U : class
             {
-            return In.Convert(Logic.Def.TypeExt.As<U>().Cast<object, U, T, U>());
+            return In.Convert(L.Ref.As<U>().Cast<object, U, T, U>());
             }
         #endregion
 
-        // TODO: L: List: Untested
-        #region Find
-        public static List<T> Find<T>(this IEnumerable<T> In, IEnumerable Obj)
-            {
-            return In.List().Select(Obj.Has);
-            }
-        public static List<string> Find(this string In, IEnumerable<string> Obj)
-            {
-            return Obj.List().Select(s => s.Contains(In));
-            }
-        #endregion
-
-        // TODO: L: List: Untested
         #region First
         /// <summary>
         /// Returns the first item in the T[].
@@ -1093,7 +1177,7 @@ namespace LCore.Extensions
         /// </summary>
         public static T[] First<T>(this T[] In, int Count)
             {
-            return In.First(t=>true, Count);
+            return In.First(t => true, Count);
             }
         /// <summary>
         /// Returns the first item in the List[T].
@@ -1143,7 +1227,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region First Func
         /// <summary>
         /// Returns the first item in the source collection that evokes a true result from the passed Func[T,Boolean].
@@ -1187,7 +1270,7 @@ namespace LCore.Extensions
             if (Count <= 0)
                 throw new ArgumentException("Count");
             int StartCount = Count;
-            T[] Out = new T[StartCount];
+            var Out = new T[StartCount];
 
             In.WhileI((i, o) =>
             {
@@ -1248,7 +1331,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region First Func U
         /// <summary>
         /// Returns the first item in the source collection that evokes a true result from the passed Func[T,Boolean].
@@ -1292,11 +1374,11 @@ namespace LCore.Extensions
             if (Count <= 0)
                 throw new ArgumentException("Count");
             int StartCount = Count;
-            U[] Out = new U[StartCount];
+            var Out = new U[StartCount];
 
             In.WhileI((i, o) =>
             {
-                U Result = Func(o);
+                var Result = Func(o);
                 if (Result != null)
                     {
                     Out[StartCount - Count] = Result;
@@ -1328,11 +1410,11 @@ namespace LCore.Extensions
             if (Count <= 0)
                 throw new ArgumentException("Count");
 
-            List<U> Out = new List<U>();
+            var Out = new List<U>();
 
             In.While(o =>
             {
-                U Result = Func(o);
+                var Result = Func(o);
                 if (Result != null)
                     {
                     Out.Add(Result);
@@ -1353,7 +1435,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region First Object
         /// <summary>
         /// Returns the first T in the source T[] that is equivalent to Obj.
@@ -1389,7 +1470,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Flatten
         /// <summary>
         /// Iterates through a collection and sub-collections and returns a flattened List[T]. 
@@ -1410,7 +1490,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region GetAt
         /// <summary>
         /// Returns the item at the specified index.
@@ -1420,7 +1499,7 @@ namespace LCore.Extensions
             if (In == null)
                 return null;
 
-            IList @in = In as IList;
+            var @in = In as IList;
             if (@in != null)
                 {
                 return @in[Index];
@@ -1449,13 +1528,13 @@ namespace LCore.Extensions
             if (In == null)
                 return default(T);
 
-            IList<T> @in = In as IList<T>;
+            var @in = In as IList<T>;
             if (@in != null)
                 {
                 return @in[Index];
                 }
             // ReSharper disable once SuspiciousTypeConversion.Global
-            Array array = In as Array;
+            var array = In as Array;
             if (array != null)
                 {
                 return (T)array.GetValue(Index);
@@ -1492,25 +1571,36 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Group
+
+        /// <summary>
+        /// Groups items implementing interface IGroup from an IEnumerable into a Dictionary[string,List[T]]
+        /// </summary>
         public static Dictionary<string, List<T>> Group<T>(this IEnumerable<T> In)
             where T : IGrouped
             {
             return In.Group(o => o.Group ?? "");
             }
 
-        public static Dictionary<U, List<object>> Group<U>(this IEnumerable In, Func<object, U> Indexer)
+        /// <summary>
+        /// Groups items into a dictionary using a custom indexer. 
+        /// The result of the indexer will be used as the Key for each element.
+        /// </summary>
+        public static Dictionary<U, List<object>> Group<U>(this IEnumerable In, Func<object, U> Grouper)
             {
-            return In.List().Group(Indexer);
+            return In.List().Group(Grouper);
             }
 
-        public static Dictionary<U, List<T>> Group<T, U>(this IEnumerable<T> In, Func<T, U> Indexer)
+        /// <summary>
+        /// Groups items into a dictionary using a custom indexer. 
+        /// The result of the indexer will be used as the Key for each element.
+        /// </summary>
+        public static Dictionary<U, List<T>> Group<T, U>(this IEnumerable<T> In, Func<T, U> Grouper)
             {
-            Dictionary<U, List<T>> Out = new Dictionary<U, List<T>>();
+            var Out = new Dictionary<U, List<T>>();
             In.Each(o =>
             {
-                U Index = Indexer(o);
+                var Index = Grouper(o);
                 List<T> L;
 
                 if (Out.ContainsKey(Index))
@@ -1527,21 +1617,27 @@ namespace LCore.Extensions
             });
             return Out;
             }
+        #endregion
 
-        public static Dictionary<U, Dictionary<V, List<T>>> Group<T, U, V>(this IEnumerable<T> In, Func<T, U> Indexer1, Func<T, V> Indexer2)
+        #region GroupDouble
+        /// <summary>
+        /// Groups items into a 2-level dictionary using 2 custom indexers. 
+        /// The result of the indexers will be used as the Keys for each element.
+        /// </summary>
+        public static Dictionary<U, Dictionary<V, List<T>>> GroupTwice<T, U, V>(this IEnumerable<T> In,
+            Func<T, U> Grouper1, Func<T, V> Grouper2)
             {
-            Dictionary<U, List<T>> First = In.Group(Indexer1);
-            Dictionary<U, Dictionary<V, List<T>>> Out = new Dictionary<U, Dictionary<V, List<T>>>();
+            Dictionary<U, List<T>> First = In.Group(Grouper1);
+            var Out = new Dictionary<U, Dictionary<V, List<T>>>();
             First.Each(kv =>
-            {
-                Dictionary<V, List<T>> Dict2 = kv.Value.Group(Indexer2);
-                Out.Add(kv.Key, Dict2);
-            });
+                {
+                    Dictionary<V, List<T>> Dict2 = kv.Value.Group(Grouper2);
+                    Out.Add(kv.Key, Dict2);
+                });
             return Out;
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Has
         /// <summary>
         /// Returns whether the collection contains an object equivalent to Obj.
@@ -1569,31 +1665,44 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region HasAny
+        /// <summary>
+        /// Returns whether or not the source IEnumerable [In] contains any of the elements from [Obj]
+        /// </summary>
         public static bool HasAny<T>(this IEnumerable In, IEnumerable<T> Obj)
             {
             return Obj.Has(In.Has);
             }
+        /// <summary>
+        /// Returns whether or not the source IEnumerable [In] contains any of the elements from [Obj]
+        /// </summary>
         public static bool HasAny(this IEnumerable In, IEnumerable Obj)
             {
             return Obj.Has(In.Has);
             }
+        /// <summary>
+        /// Returns whether or not the source T [In] contains any of the elements from [Obj]
+        /// </summary>
         public static bool HasAny<T>(this IEnumerable<T> In, IEnumerable<T> Obj)
             {
             return Obj.Has(In.Has);
             }
+        /// <summary>
+        /// Returns whether or not the source IEnumerable [In] contains any of the elements from [Obj]
+        /// </summary>
         public static bool HasAny(this IEnumerable In, params object[] Obj)
             {
             return In.HasAny((IEnumerable)Obj);
             }
+        /// <summary>
+        /// Returns whether or not the source T [In] contains any of the elements from [Obj]
+        /// </summary>
         public static bool HasAny<T>(this IEnumerable<T> In, params T[] Obj)
             {
             return In.HasAny((IEnumerable<T>)Obj);
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Has Func
         /// <summary>
         /// Returns whether the collection contains an object that receives a true value from the condition when passed to it.
@@ -1633,53 +1742,78 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region HasIndex
+        /// <summary>
+        /// Returns whether or not a given IEnumerable has an [Index].
+        /// </summary>
         public static bool HasIndex(this IEnumerable In, int Index)
             {
             int Count = In.Count();
 
-            return Index > 0 && Index < Count;
+            return Index >= 0 && Index < Count;
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Index
+        /// <summary>
+        /// Converts an IEnumerable to a Dictionary, using an indexer.
+        /// Keys map to values 1 to 1, duplicate key values will be ignored. 
+        /// </summary>
         public static Dictionary<U, object> Index<U>(this IEnumerable In, Func<object, U> Indexer)
             {
             return In.List().Index(Indexer);
             }
+        /// <summary>
+        /// Converts an IEnumerable to a Dictionary, using an indexer.
+        /// Keys map to values 1 to 1, duplicate key values will be ignored. 
+        /// </summary>
         public static Dictionary<U, T> Index<T, U>(this IEnumerable<T> In, Func<T, U> Indexer)
             {
-            Dictionary<U, T> Out = new Dictionary<U, T>();
+            var Out = new Dictionary<U, T>();
             In.Each(o =>
             {
-                U Index = Indexer(o);
+                var Index = Indexer(o);
 
                 if (!Out.ContainsKey(Index))
                     Out.Add(Index, o);
             });
             return Out;
             }
-        public static Dictionary<U, Dictionary<V, object>> Index<U, V>(this IEnumerable In, Func<object, U> Indexer1, Func<object, V> Indexer2)
-            {
-            return In.List().Index(Indexer1, Indexer2);
-            }
-        public static Dictionary<U, Dictionary<V, T>> Index<T, U, V>(this IEnumerable<T> In, Func<T, U> Indexer1, Func<T, V> Indexer2)
-            {
-            Dictionary<U, List<T>> First = In.Group(Indexer1);
-            Dictionary<U, Dictionary<V, T>> Out = new Dictionary<U, Dictionary<V, T>>();
-            First.Each(kv =>
-            {
-                Dictionary<V, T> Dict2 = kv.Value.Index(Indexer2);
-                Out.Add(kv.Key, Dict2);
-            });
-            return Out;
-            }
         #endregion
 
-        // TODO: L: List: Untested
+        #region IndexTwice
+        /// <summary>
+        /// Indexes an IEnumerable into a two-level Dictionary.
+        /// Using, two indexers, if keys are the same, duplicates will be ignored.
+        /// </summary>
+        public static Dictionary<U, Dictionary<V, object>> IndexTwice<U, V>(this IEnumerable In, Func<object, U> Indexer1, Func<object, V> Indexer2)
+            {
+            return In.List().IndexTwice(Indexer1, Indexer2);
+            }
+
+        /// <summary>
+        /// Indexes an IEnumerable into a two-level Dictionary.
+        /// Using, two indexers, if keys are the same, duplicates will be ignored.
+        /// </summary>
+        public static Dictionary<U, Dictionary<V, T>> IndexTwice<T, U, V>(this IEnumerable<T> In, Func<T, U> Indexer1,
+            Func<T, V> Indexer2)
+            {
+            Dictionary<U, List<T>> First = In.Group(Indexer1);
+            var Out = new Dictionary<U, Dictionary<V, T>>();
+            First.Each(kv =>
+                {
+                    Dictionary<V, T> Dict2 = kv.Value.Index(Indexer2);
+                    Out.Add(kv.Key, Dict2);
+                });
+            return Out;
+            }
+
+        #endregion
+
         #region IndexOf
+        /// <summary>
+        /// Iterates over [In] and returns the index of the first true result from [Func].
+        /// </summary>
         public static int IndexOf(this IEnumerable In, Func<object, bool> Func)
             {
             int Out = -1;
@@ -1696,6 +1830,9 @@ namespace LCore.Extensions
 
             return Out;
             }
+        /// <summary>
+        /// Iterates over [In] and returns the index of the first true result from [Func].
+        /// </summary>
         public static int IndexOf<T>(this IEnumerable<T> In, Func<T, bool> Func)
             {
             int Out = -1;
@@ -1714,8 +1851,10 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region IsEmpty
+        /// <summary>
+        /// Returns whether or not this supplied is null or empty.
+        /// </summary>
         public static bool IsEmpty(this IEnumerable In)
             {
             int Count = In.Count();
@@ -1723,7 +1862,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Last
         /// <summary>
         /// Returns the last item in the T[].
@@ -1789,7 +1927,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Last Func
         /// <summary>
         /// Returns the last item in the source collection that evokes a true result from the passed Func[T,Boolean].
@@ -1833,11 +1970,11 @@ namespace LCore.Extensions
             if (Count <= 0)
                 throw new ArgumentException("Count");
             int StartCount = Count;
-            T[] Out = new T[StartCount];
+            var Out = new T[StartCount];
 
             (In.Length - 1).To(0, i =>
             {
-                T o = In[i];
+                var o = In[i];
                 bool Result = Func(o);
                 if (Result)
                     {
@@ -1874,7 +2011,7 @@ namespace LCore.Extensions
 
             (In.Count - 1).To(0, i =>
             {
-                T o = In[i];
+                var o = In[i];
                 bool Result = Func(o);
                 if (Result)
                     {
@@ -1900,7 +2037,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Last Object
         /// <summary>
         /// Returns the last T in the source T[] that is equivalent to Obj.
@@ -1936,34 +2072,49 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
-        #region Map
-        public static Dictionary<U, object> Map<U>(this IEnumerable In, Func<object, U> Mapper)
+        #region List
+        /// <summary>
+        /// Returns a new List[Object] from the supplied collection.
+        /// </summary>
+        public static List<object> List(this IEnumerable In)
             {
-            return In.List().Map(Mapper);
+            return In.Cast<object>().ToList();
             }
-        public static Dictionary<U, T> Map<T, U>(this IEnumerable<T> In, Func<T, U> Mapper)
-            {
-            Dictionary<U, T> Out = new Dictionary<U, T>();
-            In.Each(o =>
-            {
-                U Key = Mapper(o);
 
-                if (Out.ContainsKey(Key))
-                    {
-                    // Ignore duplicate keys, only the first is kept.
-                    }
-                else
-                    {
-                    Out.Add(Key, o);
-                    }
-            });
+        /// <summary>
+        /// Creates a new List[T] from the supplied collection.
+        /// This method cannot fail.
+        /// </summary>
+        public static List<T> List<T>(this IEnumerable<T> In)
+            {
+            var Out = new List<T>();
+            if (!In.IsEmpty())
+                Out.AddRange(In);
             return Out;
+            }
+        /// <summary>
+        /// Returns a new List[T] from the supplied collection.
+        /// Nulls and values that are not of type T are not included.
+        /// </summary>
+        public static List<T> List<T>(this IEnumerable In)
+            {
+            return In.Filter<T>();
+            }
+        /// <summary>
+        /// Returns a new List[U] from the supplied collection[T].
+        /// Nulls and values that are not of type U are not included.
+        /// </summary>
+        public static List<U> List<T, U>(this IEnumerable<T> In)
+            {
+            return In.Filter<U>();
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Move
+
+        /// <summary>
+        /// Moves items in an array, recursively shifting items where needed.
+        /// </summary>
         public static void Move<T>(this T[] In, int Index1, int Index2)
             {
             if (!In.HasIndex(Index1))
@@ -1984,6 +2135,10 @@ namespace LCore.Extensions
                 In.Move(Index1 - 1, Index2);
                 }
             }
+
+        /// <summary>
+        /// Moves items in an IList, shifting items where needed.
+        /// </summary>
         public static void Move(this IList In, int Index1, int Index2)
             {
             if (!In.HasIndex(Index1))
@@ -1991,53 +2146,78 @@ namespace LCore.Extensions
             if (!In.HasIndex(Index2))
                 throw new Exception($"Invalid index 2: {Index2}");
 
-            object temp = In[Index1];
+            var temp = In[Index1];
+
+            In.RemoveAt(Index1);
+
             In.Insert(Index2, temp);
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Named
+        /// <summary>
+        /// Returns all items within [In] that have the given [Name]
+        /// </summary>
         public static List<INamed> Named(this IEnumerable In, string Name)
             {
             return In.List<INamed>().Select(o => o?.Name == Name);
             }
+        /// <summary>
+        /// Returns all items within [In] that have the given [Name]
+        /// </summary>
         public static T[] Named<T>(this T[] In, string Name)
             where T : INamed
             {
             return In.Select(o => o?.Name == Name);
             }
+        /// <summary>
+        /// Returns all items within [In] that have the given [Name]
+        /// </summary>
         public static List<T> Named<T>(this List<T> In, string Name)
             where T : INamed
             {
             return In.Select(o => o?.Name == Name);
             }
 
+        /// <summary>
+        /// Returns all items within [In] that have the given [Name]
+        /// </summary>
         public static IEnumerable<T> Named<T>(this IEnumerable<T> In, string Name)
             where T : INamed
             {
             return In.Where(o => o?.Name == Name);
             }
 
+        /// <summary>
+        /// Returns all items within [In] that have the given [Name]
+        /// </summary>
         public static List<object> Named(this IEnumerable In, string Name, Func<object, string> Namer)
             {
             return In.List<object>().Select(o => o != null && Namer(o) == Name);
             }
+        /// <summary>
+        /// Returns all items within [In] that have the given [Name]
+        /// </summary>
         public static List<T> Named<T>(this IEnumerable<T> In, string Name, Func<T, string> Namer)
             {
             return In.List().Select(o => o != null && Namer(o) == Name);
             }
+        /// <summary>
+        /// Returns all items within [In] that have the given [Name]
+        /// </summary>
         public static T[] Named<T>(this T[] In, string Name, Func<T, string> Namer)
             {
             return In.Select(o => o != null && Namer(o) == Name);
             }
+        /// <summary>
+        /// Returns all items within [In] that have the given [Name]
+        /// </summary>
         public static List<T> Named<T>(this List<T> In, string Name, Func<T, string> Namer)
             {
             return In.Select(o => o != null && Namer(o) == Name);
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region NewList
         /// <summary>
         /// Creates a new list of the specified type.
@@ -2065,7 +2245,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Random
         private static int RandomSeed = new Random().Next();
         /// <summary>
@@ -2086,9 +2265,9 @@ namespace LCore.Extensions
             if (Count > Count2)
                 throw new ArgumentException("Count");
 
-            List<int> RandomIndexes = new List<int>();
+            var RandomIndexes = new List<int>();
 
-            Random rand = new Random(RandomSeed);
+            var rand = new Random(RandomSeed);
             RandomSeed = rand.Next();
             while (RandomIndexes.Count < Count)
                 {
@@ -2109,9 +2288,9 @@ namespace LCore.Extensions
             if (Count > Count2)
                 throw new ArgumentException("Count");
 
-            List<int> RandomIndexes = new List<int>();
+            var RandomIndexes = new List<int>();
 
-            Random rand = new Random(RandomSeed);
+            var rand = new Random(RandomSeed);
             RandomSeed = rand.Next();
 
             while (RandomIndexes.Count < Count)
@@ -2133,7 +2312,7 @@ namespace LCore.Extensions
             if (Count < 1)
                 return default(T);
 
-            Random rand = new Random(RandomSeed);
+            var rand = new Random(RandomSeed);
             RandomSeed = rand.Next();
 
             int RandomIndex = rand.Next(Count);
@@ -2142,7 +2321,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Remove
         /// <summary>
         /// Returns a new List[T] that contains no instances of any object whose ToString value is within the Strings passed.
@@ -2177,7 +2355,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region RemoveAt
         /// <summary>
         /// Returns a new List[T], excluding any indexes passed.
@@ -2187,6 +2364,9 @@ namespace LCore.Extensions
             return Indexes.IsEmpty() ? In.List() : In.SelectI((i, o) => !Indexes.Contains(i));
             }
 
+        /// <summary>
+        /// Returns a new T[], excluding any indexes passed.
+        /// </summary>
         public static T[] RemoveAt<T>(this T[] In, params int[] Indexes)
             {
             if (Indexes.IsEmpty())
@@ -2196,8 +2376,11 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region RemoveAt_Checked
+        /// <summary>
+        /// Ensures items are removed from a list, checking the count afterwards and retrying
+        /// if the remove fails.
+        /// </summary>
         public static void RemoveAt_Checked<T>(this List<T> List, int Index)
             {
             int Count = List.Count;
@@ -2211,14 +2394,13 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region RemoveDuplicates
         /// <summary>
         /// Returns a new List[T] with duplicates removed (items with equivalent values).
         /// </summary>
         public static List<T> RemoveDuplicates<T>(this List<T> In)
             {
-            List<T> Out = new List<T>();
+            var Out = new List<T>();
             In.Each(i =>
                 {
                     if (!Out.Contains(i))
@@ -2242,7 +2424,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Reverse
         /// <summary>
         /// Returns a new array with the item orders reversed.
@@ -2250,7 +2431,7 @@ namespace LCore.Extensions
         public static T[] Reverse<T>(this T[] In)
             {
             int Count = In.Count();
-            return In.CollectI((i, o) => In[Count - (i + 1)]);
+            return In.Collect((i, o) => In[Count - (i + 1)]);
             }
         /// <summary>
         /// Reverses the order of the items a List[T].
@@ -2280,7 +2461,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Select
         /// <summary>
         /// Returns a new List[Object] containing items from In that evoke a true result from the passed Func[Object,Boolean].
@@ -2351,7 +2531,7 @@ namespace LCore.Extensions
             {
             List<object> Out = NewList<List<object>, object>();
 
-            In.EachI((i, Result) =>
+            In.Each((i, Result) =>
             {
                 bool Select = Func(i, Result);
                 if (Select)
@@ -2368,7 +2548,7 @@ namespace LCore.Extensions
             {
             T[] Out = NewList<T[], T>();
 
-            In.EachI((i, Result) =>
+            In.Each((i, Result) =>
             {
                 bool Select = Func(i, Result);
                 if (Select)
@@ -2384,7 +2564,7 @@ namespace LCore.Extensions
             {
             List<T> Out = NewList<List<T>, T>();
 
-            In.EachI((i, Result) =>
+            In.Each((i, Result) =>
             {
                 bool Select = Func(i, Result);
                 if (Select)
@@ -2400,7 +2580,7 @@ namespace LCore.Extensions
             {
             List<T> Out = NewList<List<T>, T>();
 
-            In.EachI((i, Result) =>
+            In.Each((i, Result) =>
             {
                 bool Select = Func(i, Result);
                 if (Select)
@@ -2410,7 +2590,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region SetAt
         /// <summary>
         /// Sets the item in the colection at [Index] to [Value].
@@ -2420,7 +2599,7 @@ namespace LCore.Extensions
             if (In == null)
                 return;
 
-            IList @in = In as IList;
+            var @in = In as IList;
             if (@in != null)
                 {
                 @in[Index] = Value;
@@ -2435,7 +2614,7 @@ namespace LCore.Extensions
             if (In == null)
                 return;
 
-            IList<T> @in = In as IList<T>;
+            var @in = In as IList<T>;
             if (@in != null)
                 {
                 @in[Index] = Value;
@@ -2443,7 +2622,7 @@ namespace LCore.Extensions
                 }
 
             // ReSharper disable once SuspiciousTypeConversion.Global
-            Array array = In as Array;
+            var array = In as Array;
             if (array != null)
                 {
                 array.SetValue(Value, Index);
@@ -2454,14 +2633,13 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Shuffle
         /// <summary>
         /// Returns a new List[T] with the item order randomized.
         /// </summary>
         public static List<T> Shuffle<T>(this List<T> In)
             {
-            List<T> Out = new List<T>();
+            var Out = new List<T>();
             if (!In.IsEmpty())
                 {
                 Out = In.Random(In.Count);
@@ -2487,13 +2665,19 @@ namespace LCore.Extensions
             {
             return In.List<T>().Shuffle();
             }
+        /// <summary>
+        /// Returns a new List[object] with the item order randomized.
+        /// </summary>
         public static List<object> Shuffle(this IEnumerable In)
             {
             return In.List().Shuffle();
             }
+        /// <summary>
+        /// Returns a new List[T] with the item order randomized.
+        /// </summary>
         public static List<T> Shuffle<T>(this IEnumerable<T> In)
             {
-            List<T> Out = new List<T>();
+            var Out = new List<T>();
             if (!In.IsEmpty())
                 {
                 Out = In.Random(In.Count());
@@ -2502,7 +2686,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Sort
         /// <summary>
         /// Sorts the collection using the default comparer which works for all types that support IComparable.
@@ -2510,7 +2693,7 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         public static void Sort(this IList In)
             {
-            QuickSorter Sorter = new QuickSorter(new ComparableComparer(), new DefaultSwap());
+            var Sorter = new QuickSorter(new ComparableComparer(), new DefaultSwap());
             Sorter.Sort(In);
             }
         /// <summary>
@@ -2519,7 +2702,7 @@ namespace LCore.Extensions
         /// </summary>
         public static void Sort<T>(this IList In, Func<T, T, int> Comparer)
             {
-            QuickSorter Sorter = new QuickSorter(new CustomComparer<T>(Comparer), new DefaultSwap());
+            var Sorter = new QuickSorter(new CustomComparer<T>(Comparer), new DefaultSwap());
             Sorter.Sort(In);
             }
         /// <summary>
@@ -2531,13 +2714,15 @@ namespace LCore.Extensions
         /// <param name="FieldRetriever"></param>
         public static void Sort<T>(this IList In, Func<T, IComparable> FieldRetriever)
             {
-            QuickSorter Sorter = new QuickSorter(new CustomComparer<T>(FieldRetriever), new DefaultSwap());
+            var Sorter = new QuickSorter(new CustomComparer<T>(FieldRetriever), new DefaultSwap());
             Sorter.Sort(In);
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region Swap
+        /// <summary>
+        /// Swaps two indexes in T[] [In].
+        /// </summary>
         public static void Swap<T>(this T[] In, int Index1, int Index2)
             {
             if (!In.HasIndex(Index1))
@@ -2545,10 +2730,13 @@ namespace LCore.Extensions
             if (!In.HasIndex(Index2))
                 throw new Exception($"Invalid index 2: {Index2}");
 
-            T temp = In[Index1];
+            var temp = In[Index1];
             In[Index1] = In[Index2];
             In[Index2] = temp;
             }
+        /// <summary>
+        /// Swaps two indexes in list [In].
+        /// </summary>
         public static void Swap(this IList In, int Index1, int Index2)
             {
             if (!In.HasIndex(Index1))
@@ -2556,81 +2744,21 @@ namespace LCore.Extensions
             if (!In.HasIndex(Index2))
                 throw new Exception($"Invalid index 2: {Index2}");
 
-            object temp = In[Index1];
+            var temp = In[Index1];
             In[Index1] = In[Index2];
             In[Index2] = temp;
             }
         #endregion
 
-        // TODO: L: List: Untested
-        #region ToArray
-        public static object[] Array(this IEnumerable In)
-            {
-            object[] Out = new object[In.Count()];
-            In.EachI((i, o) => { Out[i] = o; });
-            return Out;
-            }
-        public static T[] Array<T>(this IEnumerable In)
-            {
-            return In.List<T>().ToArray();
-            }
-        public static T[] Array<T>(this IEnumerable<T> In)
-            {
-            T[] Out = new T[In.Count()];
-            In.EachI((i, o) => { Out[i] = o; });
-            return Out;
-            }
-        public static U[] Array<T, U>(this T[] In) where U : class, T
-            {
-            return In.Filter<T, U>();
-            }
-        #endregion
-
-        // TODO: L: List: Untested
-        #region ToList
-        /// <summary>
-        /// Returns a new List[Object] from the supplied collection.
-        /// </summary>
-        public static List<object> List(this IEnumerable In)
-            {
-            return In.Cast<object>().ToList();
-            }
-
-        /// <summary>
-        /// Creates a new List[T] from the supplied collection.
-        /// This method cannot fail.
-        /// </summary>
-        public static List<T> List<T>(this IEnumerable<T> In)
-            {
-            List<T> Out = new List<T>();
-            if (!In.IsEmpty())
-                Out.AddRange(In);
-            return Out;
-            }
-        /// <summary>
-        /// Returns a new List[T] from the supplied collection.
-        /// Nulls and values that are not of type T are not included.
-        /// </summary>
-        public static List<T> List<T>(this IEnumerable In)
-            {
-            return In.Filter<T>();
-            }
-        /// <summary>
-        /// Returns a new List[U] from the supplied collection[T].
-        /// Nulls and values that are not of type U are not included.
-        /// </summary>
-        public static List<U> List<T, U>(this IEnumerable<T> In)
-            {
-            return In.Filter<U>();
-            }
-        #endregion
-
-        // TODO: L: List: Untested
         #region TotalCount
+        /// <summary>
+        /// Returns the total number of elements within the collection.
+        /// Counts contained IEnumerable objects for their contents also.
+        /// </summary>
         public static int TotalCount(this IEnumerable In)
             {
-            IEnumerable Collection = In;
-            IDictionary @in = In as IDictionary;
+            var Collection = In;
+            var @in = In as IDictionary;
             if (@in != null)
                 {
                 Collection = @in.Values;
@@ -2644,7 +2772,7 @@ namespace LCore.Extensions
 
             Collection.Each(v =>
                 {
-                    IEnumerable enumerable = v as IEnumerable;
+                    var enumerable = v as IEnumerable;
                     if (enumerable != null)
                         Out += enumerable.TotalCount();
                     else
@@ -2655,7 +2783,6 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region While
         /// <summary>
         /// Iterates through a collection. A false return value from the Func stops the iteration.
@@ -2670,7 +2797,7 @@ namespace LCore.Extensions
 
             // ReSharper disable once LoopCanBeConvertedToQuery
             // ReSharper disable once UnusedVariable
-            foreach (object o in In)
+            foreach (var o in In)
                 {
                 bool Continue = Func();
                 if (!Continue)
@@ -2691,7 +2818,7 @@ namespace LCore.Extensions
 
             // ReSharper disable once LoopCanBeConvertedToQuery
             // ReSharper disable once UnusedVariable
-            foreach (T o in In)
+            foreach (var o in In)
                 {
                 bool Continue = Func();
                 if (!Continue)
@@ -2711,7 +2838,7 @@ namespace LCore.Extensions
                 throw new ArgumentNullException(nameof(Func));
 
             // ReSharper disable once LoopCanBeConvertedToQuery
-            foreach (object o in In)
+            foreach (var o in In)
                 {
                 bool Continue = Func(o);
                 if (!Continue)
@@ -2731,7 +2858,7 @@ namespace LCore.Extensions
                 throw new ArgumentNullException(nameof(Func));
 
             // ReSharper disable once LoopCanBeConvertedToQuery
-            foreach (T o in In)
+            foreach (var o in In)
                 {
                 bool Continue = Func(o);
                 if (!Continue)
@@ -2795,8 +2922,11 @@ namespace LCore.Extensions
             }
         #endregion
 
-        // TODO: L: List: Untested
         #region While Object
+        /// <summary>
+        /// Executes Action [In] while [Condition] returns true. 
+        /// [In] is passed values from [Obj].
+        /// </summary>
         public static void While<T>(this Action<T> In, Func<bool> Condition, IEnumerable<T> Obj)
             {
             Obj.While(In.Merge(Condition));
@@ -2805,57 +2935,57 @@ namespace LCore.Extensions
 
         #endregion
 
-        public static class Test
+        internal static class Test
             {
-            #region Tests
+            #region Tests +
             #region Each
             private static readonly List<object> TestBox = new List<object>();
 
-            public const string ReceiveObjectI_Name = "ListExt.Test.ReceiveObjectI";
+            public const string ReceiveObjectI_Name = "EnumerableExt.Test.ReceiveObjectI";
             public static Action<int, object> ReceiveObjectI = (i, o) => { TestBox.Add(i); };
 
-            public const string ReceiveObject_Name = "ListExt.Test.ReceiveObject";
+            public const string ReceiveObject_Name = "EnumerableExt.Test.ReceiveObject";
             public static Action<object> ReceiveObject = o => { TestBox.Add(o); };
 
-            public const string ReceiveTI_Name = "ListExt.Test.ReceiveTI";
+            public const string ReceiveTI_Name = "EnumerableExt.Test.ReceiveTI";
             public static Action<int, int> ReceiveTI = (i, o) => { TestBox.Add(i); };
 
-            public const string ReceiveT_Name = "ListExt.Test.ReceiveT";
+            public const string ReceiveT_Name = "EnumerableExt.Test.ReceiveT";
             public static Action<int> ReceiveT = o => { TestBox.Add(o); };
 
-            public const string Fail_Name = "ListExt.Test.Fail";
+            public const string Fail_Name = "EnumerableExt.Test.Fail";
             public static Action<object> Fail = o => { throw new Exception(); };
 
-            public const string FailOO_Name = "ListExt.Test.FailOO";
+            public const string FailOO_Name = "EnumerableExt.Test.FailOO";
             public static Func<object, object> FailOO = o => { throw new Exception(); };
 
-            public const string FailITFunc_Name = "ListExt.Test.FailITFunc";
+            public const string FailITFunc_Name = "EnumerableExt.Test.FailITFunc";
             public static Func<int, int> FailITFunc = o => { throw new Exception(); };
 
-            public const string FailIOOFunc_Name = "ListExt.Test.FailIOOFunc";
+            public const string FailIOOFunc_Name = "EnumerableExt.Test.FailIOOFunc";
             public static Func<int, object, object> FailIOOFunc = (i, o) => { throw new Exception(); };
 
-            public const string FailOI_Name = "ListExt.Test.FailOI";
+            public const string FailOI_Name = "EnumerableExt.Test.FailOI";
             public static Action<int, object> FailOI = (i, o) => { throw new Exception(); };
 
-            public const string FailI_Name = "ListExt.Test.FailI";
+            public const string FailI_Name = "EnumerableExt.Test.FailI";
             public static Action<int> FailI = o => { throw new Exception(); };
 
-            public const string FailIT_Name = "ListExt.Test.FailIT";
+            public const string FailIT_Name = "EnumerableExt.Test.FailIT";
             public static Action<int, int> FailIT = (i, o) => { throw new Exception(); };
 
-            public const string FailITTFunc_Name = "ListExt.Test.FailITTFunc";
+            public const string FailITTFunc_Name = "EnumerableExt.Test.FailITTFunc";
             public static Func<int, int, int> FailITTFunc = (i, o) => { throw new Exception(); };
 
-            public const string HasReceivedObjectsButNoStrings_Name = "ListExt.Test.HasReceivedObjectsButNoStrings";
+            public const string HasReceivedObjectsButNoStrings_Name = "EnumerableExt.Test.HasReceivedObjectsButNoStrings";
             public static Func<bool> HasReceivedObjectsButNoStrings = () =>
             {
-                bool Out = TestBox.Count > 0 && !TestBox.Contains(Logic.IsA<string>());
+                bool Out = TestBox.Count > 0 && !TestBox.Contains(L.Obj.IsA<string>());
                 TestBox.Clear();
                 return Out;
             };
 
-            public const string HasReceivedObjects_Name = "ListExt.Test.HasReceivedObjects";
+            public const string HasReceivedObjects_Name = "EnumerableExt.Test.HasReceivedObjects";
             public static Func<bool> HasReceivedObjects = () =>
             {
                 bool Out = TestBox.Count > 0;
@@ -2863,7 +2993,7 @@ namespace LCore.Extensions
                 return Out;
             };
 
-            public const string HasReceivedObjectsI_Name = "ListExt.Test.HasReceivedObjectsI";
+            public const string HasReceivedObjectsI_Name = "EnumerableExt.Test.HasReceivedObjectsI";
             public static Func<bool> HasReceivedObjectsI = () =>
             {
                 bool Out = TestBox.Count > 0 && TestBox.Equivalent(new List<object> { 0, 1, 2 });
@@ -2872,71 +3002,70 @@ namespace LCore.Extensions
             };
             #endregion
 
-            public const string IncrementInt_Name = "ListExt.Test.IncrementInt";
+            public const string IncrementInt_Name = "EnumerableExt.Test.IncrementInt";
             public static readonly Func<int, int> IncrementInt = i => i + 1;
 
-            public const string IncrementObjectInt_Name = "ListExt.Test.IncrementObjectInt";
+            public const string IncrementObjectInt_Name = "EnumerableExt.Test.IncrementObjectInt";
             public static Func<object, object> IncrementObjectInt = o => (object)IncrementInt((int)o);
 
-            public const string PassI_Name = "ListExt.Test.PassI";
+            public const string PassI_Name = "EnumerableExt.Test.PassI";
             public static Func<int, object, object> PassI = (i, o) => i;
 
-            public const string PassIII_Name = "ListExt.Test.PassIII";
+            public const string PassIII_Name = "EnumerableExt.Test.PassIII";
             public static Func<int, int, int> PassIII = (i, i2) => i;
             #endregion
             }
         }
-    public partial class Logic
+    public static partial class L
         {
-        public partial class Def
+        /// <summary>
+        /// Contains System.Collections.IEnumerable static methods and lambdas.
+        /// </summary>
+        public static class IEn
             {
-            public class ArrayExt
+            #region Array +
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <typeparam name="T"></typeparam>
+            /// <returns>Returns a function that returns an empty T[]</returns>
+            public static Func<T[]> Array<T>()
                 {
-                // TODO: L: List: Untested
-                #region Array
-                /// <summary>
-                /// 
-                /// </summary>
-                /// <typeparam name="T"></typeparam>
-                /// <returns>Returns a function that returns an empty T[]</returns>
-                public static Func<T[]> Array<T>()
-                    {
-                    return () => new T[] { };
-                    }
-                /// <summary>
-                /// 
-                /// </summary>
-                /// <typeparam name="T"></typeparam>
-                /// <param name="In"></param>
-                /// <returns>Returns a function that returns a T[] filled with arguments</returns>
-                public static Func<T[]> Array<T>(params T[] In)
-                    {
-                    return () => In;
-                    }
-                #endregion
-                // TODO: L: List: Untested
-                #region List
-                /// <summary>
-                /// 
-                /// </summary>
-                /// <typeparam name="T"></typeparam>
-                /// <returns>Returns a function that returns an empty List[T]</returns>
-                public static Func<List<T>> List<T>()
-                    {
-                    return () => new List<T>();
-                    }
-                /// <summary>
-                /// 
-                /// </summary>
-                /// <typeparam name="T"></typeparam>
-                /// <param name="In"></param>
-                /// <returns>Returns a function that returns a List[T] filled with arguments</returns>
-                public static Func<List<T>> List<T>(params T[] In)
-                    {
-                    return () => { List<T> Out = new List<T>(); Out.AddRange(In); return Out; };
-                    }
-                #endregion
+                return () => new T[] { };
                 }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <typeparam name="T"></typeparam>
+            /// <param name="In"></param>
+            /// <returns>Returns a function that returns a T[] filled with arguments</returns>
+            public static Func<T[]> Array<T>(params T[] In)
+                {
+                return () => In;
+                }
+            #endregion
+
+            #region List +
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <typeparam name="T"></typeparam>
+            /// <returns>Returns a function that returns an empty List[T]</returns>
+            public static Func<List<T>> List<T>()
+                {
+                return () => new List<T>();
+                }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <typeparam name="T"></typeparam>
+            /// <param name="In"></param>
+            /// <returns>Returns a function that returns a List[T] filled with arguments</returns>
+            public static Func<List<T>> List<T>(params T[] In)
+                {
+                return () => { var Out = new List<T>(); Out.AddRange(In); return Out; };
+                }
+            #endregion
             }
         }
     }

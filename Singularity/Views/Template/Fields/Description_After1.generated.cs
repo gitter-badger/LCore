@@ -12,64 +12,19 @@
 namespace ASP
 {
     using System;
-    
-    #line 13 "..\..\Views\Template\Fields\Description_After.cshtml"
     using System.Collections;
-    
-    #line default
-    #line hidden
-    
-    #line 14 "..\..\Views\Template\Fields\Description_After.cshtml"
     using System.Collections.Generic;
-    
-    #line default
-    #line hidden
-    
-    #line 15 "..\..\Views\Template\Fields\Description_After.cshtml"
     using System.ComponentModel;
-    
-    #line default
-    #line hidden
-    
-    #line 16 "..\..\Views\Template\Fields\Description_After.cshtml"
     using System.ComponentModel.DataAnnotations;
-    
-    #line default
-    #line hidden
-    
-    #line 17 "..\..\Views\Template\Fields\Description_After.cshtml"
     using System.ComponentModel.Design;
-    
-    #line default
-    #line hidden
     using System.IO;
-    
-    #line 11 "..\..\Views\Template\Fields\Description_After.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
-    
-    #line 12 "..\..\Views\Template\Fields\Description_After.cshtml"
     using System.Linq.Expressions;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
-    
-    #line 18 "..\..\Views\Template\Fields\Description_After.cshtml"
     using System.Web;
-    
-    #line default
-    #line hidden
     using System.Web.Helpers;
-    
-    #line 19 "..\..\Views\Template\Fields\Description_After.cshtml"
     using System.Web.Mvc;
-    
-    #line default
-    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
     using System.Web.Mvc.Routing;
@@ -78,49 +33,17 @@ namespace ASP
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
-    using LCore;
-    
-    #line 4 "..\..\Views\Template\Fields\Description_After.cshtml"
+    using LCore.Extensions;
     using Singularity;
-    
-    #line default
-    #line hidden
-    
-    #line 10 "..\..\Views\Template\Fields\Description_After.cshtml"
-    using Singularity.Annotations;
-    
-    #line default
-    #line hidden
-    
-    #line 7 "..\..\Views\Template\Fields\Description_After.cshtml"
     using Singularity.Context;
-    
-    #line default
-    #line hidden
-    
-    #line 6 "..\..\Views\Template\Fields\Description_After.cshtml"
     using Singularity.Controllers;
     
-    #line default
-    #line hidden
-    
-    #line 9 "..\..\Views\Template\Fields\Description_After.cshtml"
+    #line 2 "..\..\Views\Template\Fields\Description_After.cshtml"
     using Singularity.Extensions;
     
     #line default
     #line hidden
-    
-    #line 5 "..\..\Views\Template\Fields\Description_After.cshtml"
     using Singularity.Models;
-    
-    #line default
-    #line hidden
-    
-    #line 8 "..\..\Views\Template\Fields\Description_After.cshtml"
-    using Singularity.Routes;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Template/Fields/Description_After.cshtml")]
@@ -131,14 +54,14 @@ namespace ASP
         }
         public override void Execute()
         {
-WriteLiteral("\r\n\r\n\r\n");
+WriteLiteral("\r\n");
 
 WriteLiteral("\r\n");
 
             
-            #line 21 "..\..\Views\Template\Fields\Description_After.cshtml"
+            #line 4 "..\..\Views\Template\Fields\Description_After.cshtml"
   
-    Template ModelData = (Template)Model.ModelData;
+    var ModelData = (Template)Model.ModelData;
 
             
             #line default
@@ -147,14 +70,14 @@ WriteLiteral("\r\n\r\n");
 
 WriteLiteral("<a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 599), Tuple.Create("\"", 691)
+WriteAttribute("href", Tuple.Create(" href=\"", 140), Tuple.Create("\"", 232)
             
-            #line 27 "..\..\Views\Template\Fields\Description_After.cshtml"
-, Tuple.Create(Tuple.Create("", 606), Tuple.Create<System.Object, System.Int32>(Url.Controller<TemplateController>().Action(c=>c.PreviewPDF, ModelData.TemplateID)
+            #line 10 "..\..\Views\Template\Fields\Description_After.cshtml"
+, Tuple.Create(Tuple.Create("", 147), Tuple.Create<System.Object, System.Int32>(Url.Controller<TemplateController>().Action(c=>c.PreviewPDF, ModelData.TemplateID)
             
             #line default
             #line hidden
-, 606), false)
+, 147), false)
 );
 
 WriteLiteral(">\r\n    <glyph>&#xe175;</glyph>\r\n    View template PDF\r\n</a>");

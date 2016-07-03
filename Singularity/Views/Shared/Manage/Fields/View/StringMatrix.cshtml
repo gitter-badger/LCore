@@ -1,0 +1,54 @@
+﻿@* Generator: MvcView *@
+
+@{
+    var TableData = (string[,])Model.PropertyData;
+}
+
+@model IViewField
+
+
+<table class="string-matrix">
+    @for (int i = 0; i < TableData.GetLength(0); i++)
+        {
+        if (i == 0)
+            {
+            @Html.Raw("<thead>")
+            }
+
+            <tr>
+                @for (int j = 0; j < TableData.GetLength(1); j++)
+                    {
+                    <td>
+                        @if (TableData[i, j].Length > ControllerHelper.DefaultTableTextLength)
+                            {
+                            <span class="abbreviated" title="@Model.PropertyData">
+                                @TableData[i, j].Substring(0, ControllerHelper.DefaultTableTextLength) ...
+                            </span>
+                            }
+                        else
+                            {
+                            <span>
+                                @TableData[i, j]
+                            </span>
+                            }
+                    </td>
+                    }
+
+            </tr>
+
+
+        if (i == 0)
+            {
+            @Html.Raw("</thead>")
+            }
+
+        if (TableData.GetLength(0) == 1)
+            {
+            <tr>
+                <td colspan="@TableData.GetLength(1)">
+                    &nbsp;
+                </td>
+            </tr>
+            }
+        }
+</table>
