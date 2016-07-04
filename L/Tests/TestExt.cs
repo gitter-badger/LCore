@@ -735,6 +735,10 @@ namespace LCore.Tests
                                     {
                                     m = m.MakeGenericMethod(Generics.GenericTypes);
                                     }
+                                else if (m.HasAttribute<TestedAttribute>())
+                                    {
+
+                                    }
                                 else
                                     {
                                     throw new Exception("Unable to find generics for Test Attribute");

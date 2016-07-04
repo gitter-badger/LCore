@@ -33,9 +33,12 @@ namespace LCore.Tests
             {
             Method.GetParameters().Each((i, p) =>
             {
-                var o = this.Parameters[i];
-                this.FixObject(Method, p.ParameterType, ref o);
-                this.Parameters[i] = o;
+                if (this.Parameters.HasIndex(i))
+                    {
+                    var o = this.Parameters[i];
+                    this.FixObject(Method, p.ParameterType, ref o);
+                    this.Parameters[i] = o;
+                    }
             });
             }
 

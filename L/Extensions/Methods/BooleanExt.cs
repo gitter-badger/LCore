@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using LCore.Dynamic;
 using LCore.Extensions.Optional;
 using LCore.Interfaces;
+using LCore.Tests;
 
 // ReSharper disable ClassNeverInstantiated.Global
 
@@ -17,12 +18,10 @@ namespace LCore.Extensions
         #region Extensions +
 
         #region Not
-
         /// <summary>
         /// Inverts the output on a method returning a Boolean.
         /// </summary>
-        /// <param name="Condition"></param>
-        /// <returns></returns>
+        [Tested]
         public static Func<bool> Not(this Func<bool> Condition)
             {
             return L.Bool.Not.Surround(Condition);
@@ -31,9 +30,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Inverts the output on a method returning a Boolean.
         /// </summary>
-        /// <typeparam name="T1"></typeparam>
-        /// <param name="Condition"></param>
-        /// <returns></returns>
+        [Tested]
         public static Func<T1, bool> Not<T1>(this Func<T1, bool> Condition)
             {
             return L.Bool.Not.Surround(Condition);
@@ -42,10 +39,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Inverts the output on a method returning a Boolean.
         /// </summary>
-        /// <typeparam name="T1"></typeparam>
-        /// <typeparam name="T2"></typeparam>
-        /// <param name="Condition"></param>
-        /// <returns></returns>
+        [Tested]
         public static Func<T1, T2, bool> Not<T1, T2>(this Func<T1, T2, bool> Condition)
             {
             return L.Bool.Not.Surround(Condition);
@@ -54,11 +48,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Inverts the output on a method returning a Boolean.
         /// </summary>
-        /// <typeparam name="T1"></typeparam>
-        /// <typeparam name="T2"></typeparam>
-        /// <typeparam name="T3"></typeparam>
-        /// <param name="Condition"></param>
-        /// <returns></returns>
+        [Tested]
         public static Func<T1, T2, T3, bool> Not<T1, T2, T3>(this Func<T1, T2, T3, bool> Condition)
             {
             return L.Bool.Not.Surround(Condition);
@@ -67,24 +57,24 @@ namespace LCore.Extensions
         /// <summary>
         /// Inverts the output on a method returning a Boolean.
         /// </summary>
-        /// <typeparam name="T1"></typeparam>
-        /// <typeparam name="T2"></typeparam>
-        /// <typeparam name="T3"></typeparam>
-        /// <typeparam name="T4"></typeparam>
-        /// <param name="Condition"></param>
-        /// <returns></returns>
+        [Tested]
         public static Func<T1, T2, T3, T4, bool> Not<T1, T2, T3, T4>(this Func<T1, T2, T3, T4, bool> Condition)
             {
             return L.Bool.Not.Surround(Condition);
             }
-
+        // TODO: Boolean: Not 5
+        // TODO: Boolean: Not 6
+        // TODO: Boolean: Not 7
+        // TODO: Boolean: Not 8
+        // TODO: Boolean: Not 9
+        // TODO: Boolean: Not 10
+        // TODO: Boolean: Not 11
+        // TODO: Boolean: Not 12
+        // TODO: Boolean: Not 13
+        // TODO: Boolean: Not 14
+        // TODO: Boolean: Not 15
+        // TODO: Boolean: Not 16
         #endregion
-
-        // Refactor
-        // Comment
-
-        // Surrounds the method in a conditional method
-
 
         #region If
 
@@ -93,6 +83,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Logical If Statement. If the [Condition] passed is true, the action passed is executed.
         /// </summary>
+        [Tested]
         public static Func<bool> If(this Action In, Func<bool> Condition)
             {
             return () =>
@@ -109,6 +100,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Logical If Statement. If the [Condition] passed is true, the action passed is executed.
         /// </summary>
+        [Tested]
         public static Func<T, bool> If<T>(this Action In, Func<T, bool> Condition)
             {
             return o =>
@@ -125,6 +117,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Logical If Statement. If the [Condition] passed is true, the action passed is executed.
         /// </summary>
+        [Tested]
         public static Func<T1, T2, bool> If<T1, T2>(this Action In, Func<T1, T2, bool> Condition)
             {
             return (o1, o2) =>
@@ -141,6 +134,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Logical If Statement. If the [Condition] passed is true, the action passed is executed.
         /// </summary>
+        [Tested]
         public static Func<T1, T2, T3, bool> If<T1, T2, T3>(this Action In, Func<T1, T2, T3, bool> Condition)
             {
             return (o1, o2, o3) =>
@@ -157,6 +151,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Logical If Statement. If the [Condition] passed is true, the action passed is executed.
         /// </summary>
+        [Tested]
         public static Func<T1, T2, T3, T4, bool> If<T1, T2, T3, T4>(this Action In, Func<T1, T2, T3, T4, bool> Condition)
             {
             return (o1, o2, o3, o4) =>
@@ -170,205 +165,25 @@ namespace LCore.Extensions
                 };
             }
 
+        // TODO: Boolean: If 5
+        // TODO: Boolean: If 6
+        // TODO: Boolean: If 7
+        // TODO: Boolean: If 8
+        // TODO: Boolean: If 9
+        // TODO: Boolean: If 10
+        // TODO: Boolean: If 11
+        // TODO: Boolean: If 12
+        // TODO: Boolean: If 13
+        // TODO: Boolean: If 14
+        // TODO: Boolean: If 15
+        // TODO: Boolean: If 16
         #endregion
-
-        #region If - Action_T
-
-        /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the action passed is executed.
-        /// </summary>
-        public static Func<T, bool> If<T>(this Action<T> In, Func<bool> Condition)
-            {
-            return o =>
-                {
-                    if (Condition())
-                        {
-                        In(o);
-                        return true;
-                        }
-                    return false;
-                };
-            }
-
-        /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the action passed is executed.
-        /// </summary>
-        public static Func<T1, bool> If<T1>(this Action<T1> In, Func<T1, bool> Condition)
-            {
-            return o1 =>
-                {
-                    if (Condition(o1))
-                        {
-                        In(o1);
-                        return true;
-                        }
-                    return false;
-                };
-            }
-
-        /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the action passed is executed.
-        /// </summary>
-        public static Func<T1, T2, bool> If<T1, T2>(this Action<T1> In, Func<T2, bool> Condition)
-            {
-            return (o1, o2) =>
-                {
-                    if (Condition(o2))
-                        {
-                        In(o1);
-                        return true;
-                        }
-                    return false;
-                };
-            }
-
-        /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the action passed is executed.
-        /// </summary>
-        public static Func<T1, T2, T3, bool> If<T1, T2, T3>(this Action<T1> In, Func<T2, T3, bool> Condition)
-            {
-            return (o1, o2, o3) =>
-                {
-                    if (Condition(o2, o3))
-                        {
-                        In(o1);
-                        return true;
-                        }
-                    return false;
-                };
-            }
-
-        /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the action passed is executed.
-        /// </summary>
-        public static Func<T1, T2, T3, T4, bool> If<T1, T2, T3, T4>(this Action<T1> In, Func<T2, T3, T4, bool> Condition)
-            {
-            return (o1, o2, o3, o4) =>
-                {
-                    if (Condition(o2, o3, o4))
-                        {
-                        In(o1);
-                        return true;
-                        }
-                    return false;
-                };
-            }
-
-        #endregion
-
-        #region If - Action_T_T
-
-        /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the action passed is executed.
-        /// </summary>
-        public static Func<T1, T2, bool> If<T1, T2>(this Action<T1, T2> In, Func<bool> Condition)
-            {
-            return (o1, o2) =>
-                {
-                    if (Condition())
-                        {
-                        In(o1, o2);
-                        return true;
-                        }
-                    return false;
-                };
-            }
-
-        /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the action passed is executed.
-        /// </summary>
-        public static Func<T1, T2, T3, bool> If<T1, T2, T3>(this Action<T1, T2> In, Func<T3, bool> Condition)
-            {
-            return (o1, o2, o3) =>
-                {
-                    if (Condition(o3))
-                        {
-                        In(o1, o2);
-                        return true;
-                        }
-                    return false;
-                };
-            }
-
-        /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the action passed is executed.
-        /// </summary>
-        public static Func<T1, T2, T3, T4, bool> If<T1, T2, T3, T4>(this Action<T1, T2> In, Func<T3, T4, bool> Condition)
-            {
-            return (o1, o2, o3, o4) =>
-                {
-                    if (Condition(o3, o4))
-                        {
-                        In(o1, o2);
-                        return true;
-                        }
-                    return false;
-                };
-            }
-
-        #endregion
-
-        #region If - Action_T_T_T
-
-        /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the action passed is executed.
-        /// </summary>
-        public static Func<T1, T2, T3, bool> If<T1, T2, T3>(this Action<T1, T2, T3> In, Func<bool> Condition)
-            {
-            return (o1, o2, o3) =>
-                {
-                    if (Condition())
-                        {
-                        In(o1, o2, o3);
-                        return true;
-                        }
-                    return false;
-                };
-            }
-
-        /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the action passed is executed.
-        /// </summary>
-        public static Func<T1, T2, T3, T4, bool> If<T1, T2, T3, T4>(this Action<T1, T2, T3> In, Func<T4, bool> Condition)
-            {
-            return (o1, o2, o3, o4) =>
-                {
-                    if (Condition(o4))
-                        {
-                        In(o1, o2, o3);
-                        return true;
-                        }
-                    return false;
-                };
-            }
-
-        #endregion
-
-        #region If - Action_T_T_T_T
-
-        /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the action passed is executed.
-        /// </summary>
-        public static Func<T1, T2, T3, T4, bool> If<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In, Func<bool> Condition)
-            {
-            return (o1, o2, o3, o4) =>
-                {
-                    if (Condition())
-                        {
-                        In(o1, o2, o3, o4);
-                        return true;
-                        }
-                    return false;
-                };
-            }
-
-        #endregion
-
         #region If - Func_T
 
         /// <summary>
         /// Logical If Statement. If the [Condition] passed is true, the function passed is executed.
         /// </summary>
+        [Tested]
         public static Func<T> If<T>(this Func<T> In, Func<bool> Condition)
             {
             return () => Condition() ? In() : default(T);
@@ -377,6 +192,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Logical If Statement. If the [Condition] passed is true, the function passed is executed.
         /// </summary>
+        [Tested]
         public static Func<T2, T1> If<T1, T2>(this Func<T1> In, Func<T2, bool> Condition)
             {
             return o => Condition(o) ? In() : default(T1);
@@ -385,6 +201,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Logical If Statement. If the [Condition] passed is true, the function passed is executed.
         /// </summary>
+        [Tested]
         public static Func<T2, T3, T1> If<T1, T2, T3>(this Func<T1> In, Func<T2, T3, bool> Condition)
             {
             return (o1, o2) => Condition(o1, o2) ? In() : default(T1);
@@ -393,6 +210,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Logical If Statement. If the [Condition] passed is true, the function passed is executed.
         /// </summary>
+        [Tested]
         public static Func<T2, T3, T4, T1> If<T1, T2, T3, T4>(this Func<T1> In, Func<T2, T3, T4, bool> Condition)
             {
             return (o1, o2, o3) => Condition(o1, o2, o3) ? In() : default(T1);
@@ -401,113 +219,362 @@ namespace LCore.Extensions
         /// <summary>
         /// Logical If Statement. If the [Condition] passed is true, the function passed is executed.
         /// </summary>
+        [Tested]
         public static Func<T2, T3, T4, T5, T1> If<T1, T2, T3, T4, T5>(this Func<T1> In,
             Func<T2, T3, T4, T5, bool> Condition)
             {
             return (o1, o2, o3, o4) => Condition(o1, o2, o3, o4) ? In() : default(T1);
             }
+        // TODO: Boolean: If Func 5
+        // TODO: Boolean: If Func 6
+        // TODO: Boolean: If Func 7
+        // TODO: Boolean: If Func 8
+        // TODO: Boolean: If Func 9
+        // TODO: Boolean: If Func 10
+        // TODO: Boolean: If Func 11
+        // TODO: Boolean: If Func 12
+        // TODO: Boolean: If Func 13
+        // TODO: Boolean: If Func 14
+        // TODO: Boolean: If Func 15
+        // TODO: Boolean: If Func 16
+        #endregion
 
         #endregion
 
-        #region If - Func_T_T
+        #region If - Multiple
+
+        #region If - Multiple - Action
 
         /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the function passed is executed.
+        /// Surrounds the method with multiple condition methods.
+        /// AND operation is applied if multiple conditions are passed.
         /// </summary>
-        public static Func<T1, U> If<T1, U>(this Func<T1, U> In, Func<bool> Condition)
+        [Tested]
+        public static Func<bool> If(this Action In, params Func<bool>[] Conditions)
             {
-            return o => Condition() ? In(o) : default(U);
+            return In.If(Conditions.And());
             }
 
         /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the function passed is executed.
+        /// Surrounds the method with multiple condition methods.
+        /// AND operation is applied if multiple conditions are passed.
         /// </summary>
-        public static Func<T1, T2, U> If<T1, T2, U>(this Func<T1, U> In, Func<T2, bool> Condition)
+        [Tested]
+        public static Func<T, bool> If<T>(this Action In, params Func<T, bool>[] Conditions)
             {
-            return (o1, o2) => Condition(o2) ? In(o1) : default(U);
+            return In.If(Conditions.And());
             }
 
         /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the function passed is executed.
-        /// </summary>
-        public static Func<T1, T2, T3, U> If<T1, T2, T3, U>(this Func<T1, U> In, Func<T2, T3, bool> Condition)
+        /// Surrounds the method with multiple condition methods.
+        /// AND operation is applied if multiple conditions are passed.
+        /// </summary> with multiple condit
+        [Tested]
+        public static Func<T1, T2, bool> If<T1, T2>(this Action In, params Func<T1, T2, bool>[] Conditions)
             {
-            return (o1, o2, o3) => Condition(o2, o3) ? In(o1) : default(U);
+            return In.If(Conditions.And());
             }
 
         /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the function passed is executed.
+        /// Surrounds the method with multiple condition methods.
+        /// AND operation is applied if multiple conditions are passed.
         /// </summary>
-        public static Func<T1, T2, T3, T4, U> If<T1, T2, T3, T4, U>(this Func<T1, U> In,
-            Func<T2, T3, T4, bool> Condition)
+        [Tested]
+        public static Func<T1, T2, T3, bool> If<T1, T2, T3>(this Action In, params Func<T1, T2, T3, bool>[] Conditions)
             {
-            return (o1, o2, o3, o4) => Condition(o2, o3, o4) ? In(o1) : default(U);
-            }
-
-        #endregion
-
-        #region If - Func_T_T_T
-
-        /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the function passed is executed.
-        /// </summary>
-        public static Func<T1, T2, U> If<T1, T2, U>(this Func<T1, T2, U> In, Func<bool> Condition)
-            {
-            return (o1, o2) => Condition() ? In(o1, o2) : default(U);
+            return In.If(Conditions.And());
             }
 
         /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the function passed is executed.
+        /// Surrounds the method with multiple condition methods.
+        /// AND operation is applied if multiple conditions are passed.
         /// </summary>
-        public static Func<T1, T2, T3, U> If<T1, T2, T3, U>(this Func<T1, T2, U> In, Func<T3, bool> Condition)
+        [Tested]
+        public static Func<T1, T2, T3, T4, bool> If<T1, T2, T3, T4>(this Action In,
+            params Func<T1, T2, T3, T4, bool>[] Conditions)
             {
-            return (o1, o2, o3) => Condition(o3) ? In(o1, o2) : default(U);
-            }
-
-        /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the function passed is executed.
-        /// </summary>
-        public static Func<T1, T2, T3, T4, U> If<T1, T2, T3, T4, U>(this Func<T1, T2, U> In,
-            Func<T3, T4, bool> Condition)
-            {
-            return (o1, o2, o3, o4) => Condition(o3, o4) ? In(o1, o2) : default(U);
+            return In.If(Conditions.And());
             }
 
         #endregion
+        /*
 
-        #region If - Func_T_T_T_T
+                #region If - Multiple - Action_T
+
+                /// <summary>
+                /// Surrounds the method with multiple condition methods.
+                /// AND operation is applied if multiple conditions are passed.
+                /// </summary>
+                public static Func<T, bool> If<T>(this Action<T> In, params Func<bool>[] Conditions)
+                    {
+                    return In.If(Conditions.And());
+                    }
+
+                /// <summary>
+                /// Surrounds the method with multiple condition methods.
+                /// AND operation is applied if multiple conditions are passed.
+                /// </summary>
+                public static Func<T1, T2, bool> If<T1, T2>(this Action<T1> In, params Func<T2, bool>[] Conditions)
+                    {
+                    return In.If(Conditions.And());
+                    }
+
+                /// <summary>
+                /// Surrounds the method with multiple condition methods.
+                /// AND operation is applied if multiple conditions are passed.
+                /// </summary>
+                public static Func<T1, T2, T3, bool> If<T1, T2, T3>(this Action<T1> In, params Func<T2, T3, bool>[] Conditions)
+                    {
+                    return In.If(Conditions.And());
+                    }
+
+                /// <summary>
+                /// Surrounds the method with multiple condition methods.
+                /// AND operation is applied if multiple conditions are passed.
+                /// </summary>
+                public static Func<T1, T2, T3, T4, bool> If<T1, T2, T3, T4>(this Action<T1> In,
+                    params Func<T2, T3, T4, bool>[] Conditions)
+                    {
+                    return In.If(Conditions.And());
+                    }
+
+                #endregion
+
+                #region If - Multiple - Action_T_T
+
+                /// <summary>
+                /// Surrounds the method with multiple condition methods.
+                /// AND operation is applied if multiple conditions are passed.
+                /// </summary>
+                public static Func<T1, T2, bool> If<T1, T2>(this Action<T1, T2> In, params Func<bool>[] Conditions)
+                    {
+                    return In.If(Conditions.And());
+                    }
+
+                /// <summary>
+                /// Surrounds the method with multiple condition methods.
+                /// AND operation is applied if multiple conditions are passed.
+                /// </summary>
+                public static Func<T1, T2, T3, bool> If<T1, T2, T3>(this Action<T1, T2> In, params Func<T3, bool>[] Conditions)
+                    {
+                    return In.If(Conditions.And());
+                    }
+
+                /// <summary>
+                /// Surrounds the method with multiple condition methods.
+                /// AND operation is applied if multiple conditions are passed.
+                /// </summary>
+                public static Func<T1, T2, T3, T4, bool> If<T1, T2, T3, T4>(this Action<T1, T2> In,
+                    params Func<T3, T4, bool>[] Conditions)
+                    {
+                    return In.If(Conditions.And());
+                    }
+
+                #endregion
+
+                #region If - Multiple - Action_T_T_T
+
+                /// <summary>
+                /// Surrounds the method with multiple condition methods.
+                /// AND operation is applied if multiple conditions are passed.
+                /// </summary>
+                public static Func<T1, T2, T3, bool> If<T1, T2, T3>(this Action<T1, T2, T3> In, params Func<bool>[] Conditions)
+                    {
+                    return In.If(Conditions.And());
+                    }
+
+                /// <summary>
+                /// Surrounds the method with multiple condition methods.
+                /// AND operation is applied if multiple conditions are passed.
+                /// </summary>
+                public static Func<T1, T2, T3, T4, bool> If<T1, T2, T3, T4>(this Action<T1, T2, T3> In,
+                    params Func<T4, bool>[] Conditions)
+                    {
+                    return In.If(Conditions.And());
+                    }
+
+                #endregion
+
+                #region If - Multiple - Action_T_T_T_T
+
+                /// <summary>
+                /// Surrounds the method with multiple condition methods.
+                /// AND operation is applied if multiple conditions are passed.
+                /// </summary>
+                public static Func<T1, T2, T3, T4, bool> If<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In,
+                    params Func<bool>[] Conditions)
+                    {
+                    return In.If(Conditions.And());
+                    }
+
+                #endregion
+        */
+
+        #region If - Multiple - Func_T
 
         /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the function passed is executed.
+        /// Surrounds the method with multiple condition methods.
+        /// AND operation is applied if multiple conditions are passed.
         /// </summary>
-        public static Func<T1, T2, T3, U> If<T1, T2, T3, U>(this Func<T1, T2, T3, U> In, Func<bool> Condition)
+        [Tested]
+        public static Func<T> If<T>(this Func<T> In, params Func<bool>[] Conditions)
             {
-            return (o1, o2, o3) => Condition() ? In(o1, o2, o3) : default(U);
+            return In.If(Conditions.And());
             }
 
         /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the function passed is executed.
+        /// Surrounds the method with multiple condition methods.
+        /// AND operation is applied if multiple conditions are passed.
         /// </summary>
-        public static Func<T1, T2, T3, T4, U> If<T1, T2, T3, T4, U>(this Func<T1, T2, T3, U> In,
-            Func<T4, bool> Condition)
+        [Tested]
+        public static Func<T2, T1> If<T1, T2>(this Func<T1> In, params Func<T2, bool>[] Conditions)
             {
-            return (o1, o2, o3, o4) => Condition(o4) ? In(o1, o2, o3) : default(U);
+            return In.If(Conditions.And());
+            }
+
+        /// <summary>
+        /// Surrounds the method with multiple condition methods.
+        /// AND operation is applied if multiple conditions are passed.
+        /// </summary>
+        [Tested]
+        public static Func<T2, T3, T1> If<T1, T2, T3>(this Func<T1> In, params Func<T2, T3, bool>[] Conditions)
+            {
+            return In.If(Conditions.And());
+            }
+
+        /// <summary>
+        /// Surrounds the method with multiple condition methods.
+        /// AND operation is applied if multiple conditions are passed.
+        /// </summary>
+        [Tested]
+        public static Func<T2, T3, T4, T1> If<T1, T2, T3, T4>(this Func<T1> In,
+            params Func<T2, T3, T4, bool>[] Conditions)
+            {
+            return In.If(Conditions.And());
+            }
+
+        /// <summary>
+        /// Surrounds the method with multiple condition methods.
+        /// AND operation is applied if multiple conditions are passed.
+        /// </summary>
+        [Tested]
+        public static Func<T2, T3, T4, T5, T1> If<T1, T2, T3, T4, T5>(this Func<T1> In,
+            params Func<T2, T3, T4, T5, bool>[] Conditions)
+            {
+            return In.If(Conditions.And());
             }
 
         #endregion
+        /*
+                #region If - Multiple - Func_T_T
 
-        #region If - Func_T_T_T_T_T
+                /// <summary>
+                /// Surrounds the method with multiple condition methods.
+                /// AND operation is applied if multiple conditions are passed.
+                /// </summary>
+                public static Func<T1, U> If<T1, U>(this Func<T1, U> In, params Func<bool>[] Conditions)
+                    {
+                    return In.If(Conditions.And());
+                    }
 
-        /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the function passed is executed.
-        /// </summary>
-        public static Func<T1, T2, T3, T4, U> If<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In,
-            Func<bool> Condition)
-            {
-            return (o1, o2, o3, o4) => Condition() ? In(o1, o2, o3, o4) : default(U);
-            }
+                /// <summary>
+                /// Surrounds the method with multiple condition methods.
+                /// AND operation is applied if multiple conditions are passed.
+                /// </summary>
+                public static Func<T1, T2, U> If<T1, T2, U>(this Func<T1, U> In, params Func<T2, bool>[] Conditions)
+                    {
+                    return In.If(Conditions.And());
+                    }
 
-        #endregion
+                /// <summary>
+                /// Surrounds the method with multiple condition methods.
+                /// AND operation is applied if multiple conditions are passed.
+                /// </summary>
+                public static Func<T1, T2, T3, U> If<T1, T2, T3, U>(this Func<T1, U> In, params Func<T2, T3, bool>[] Conditions)
+                    {
+                    return In.If(Conditions.And());
+                    }
+
+                /// <summary>
+                /// Surrounds the method with multiple condition methods.
+                /// AND operation is applied if multiple conditions are passed.
+                /// </summary>
+                public static Func<T1, T2, T3, T4, U> If<T1, T2, T3, T4, U>(this Func<T1, U> In,
+                    params Func<T2, T3, T4, bool>[] Conditions)
+                    {
+                    return In.If(Conditions.And());
+                    }
+
+                #endregion
+
+                #region If - Multiple - Func_T_T_T
+
+                /// <summary>
+                /// Surrounds the method with multiple condition methods.
+                /// AND operation is applied if multiple conditions are passed.
+                /// </summary>
+                public static Func<T1, T2, U> If<T1, T2, U>(this Func<T1, T2, U> In, params Func<bool>[] Conditions)
+                    {
+                    return In.If(Conditions.And());
+                    }
+
+                /// <summary>
+                /// Surrounds the method with multiple condition methods.
+                /// AND operation is applied if multiple conditions are passed.
+                /// </summary>
+                public static Func<T1, T2, T3, U> If<T1, T2, T3, U>(this Func<T1, T2, U> In, params Func<T3, bool>[] Conditions)
+                    {
+                    return In.If(Conditions.And());
+                    }
+
+                /// <summary>
+                /// Surrounds the method with multiple condition methods.
+                /// AND operation is applied if multiple conditions are passed.
+                /// </summary>
+                public static Func<T1, T2, T3, T4, U> If<T1, T2, T3, T4, U>(this Func<T1, T2, U> In,
+                    params Func<T3, T4, bool>[] Conditions)
+                    {
+                    return In.If(Conditions.And());
+                    }
+
+                #endregion
+
+                #region If - Multiple - Func_T_T_T_T
+
+                /// <summary>
+                /// Surrounds the method with multiple condition methods.
+                /// AND operation is applied if multiple conditions are passed.
+                /// </summary>
+                public static Func<T1, T2, T3, U> If<T1, T2, T3, U>(this Func<T1, T2, T3, U> In, params Func<bool>[] Conditions)
+                    {
+                    return In.If(Conditions.And());
+                    }
+
+                /// <summary>
+                /// Surrounds the method with multiple condition methods.
+                /// AND operation is applied if multiple conditions are passed.
+                /// </summary>
+                public static Func<T1, T2, T3, T4, U> If<T1, T2, T3, T4, U>(this Func<T1, T2, T3, U> In,
+                    params Func<T4, bool>[] Conditions)
+                    {
+                    return In.If(Conditions.And());
+                    }
+
+                #endregion
+
+                #region If - Multiple - Func_T_T_T_T_T
+
+                /// <summary>
+                /// Surrounds the method with multiple condition methods.
+                /// AND operation is applied if multiple conditions are passed.
+                /// </summary>
+                public static Func<T1, T2, T3, T4, U> If<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In,
+                    params Func<bool>[] Conditions)
+                    {
+                    return In.If(Conditions.And());
+                    }
+
+                #endregion*/
 
         #endregion
 
@@ -915,421 +982,6 @@ namespace LCore.Extensions
 
         #endregion
 
-        #region Case
-
-        /// <summary>
-        /// Chains a conditional method with a Case statement. 
-        /// [Act] is executed if the supplied argument is equivalent to [Obj]
-        /// </summary>
-        public static Func<T, U> Case<T, U>(this Func<T, U> In, T Obj, U Result)
-            {
-            return In.Case(Obj, o => Result);
-            }
-
-        /// <summary>
-        /// Chains a conditional method with a Case statement. 
-        /// [Act] is executed if the supplied argument is equivalent to [Obj]
-        /// </summary>
-        public static Func<T, bool> Case<T>(this Func<T, bool> In, T Obj, Action<T> Act)
-            {
-            return In.ElseIf(Obj.FN_If(), Act);
-            }
-
-        /// <summary>
-        /// Chains a conditional method with a Case statement. 
-        /// [Act] is executed if the supplied argument is equivalent to [Obj]
-        /// </summary>
-        public static Func<T1, T2, bool> Case<T1, T2>(this Func<T1, T2, bool> In, T1 Obj, Action<T1, T2> Act)
-            {
-            return In.ElseIf((o1, o2) => L.Obj.SafeEquals(o1, Obj), Act);
-            }
-
-        /// <summary>
-        /// Chains a conditional method with a Case statement. 
-        /// [Act] is executed if the supplied argument is equivalent to [Obj]
-        /// </summary>
-        public static Func<T1, T2, T3, bool> Case<T1, T2, T3>(this Func<T1, T2, T3, bool> In, T1 Obj,
-            Action<T1, T2, T3> Act)
-            {
-            return In.ElseIf((o1, o2, o3) => L.Obj.SafeEquals(o1, Obj), Act);
-            }
-
-        /// <summary>
-        /// Chains a conditional method with a Case statement. 
-        /// [Act] is executed if the supplied argument is equivalent to [Obj]
-        /// </summary>
-        public static Func<T1, T2, T3, T4, bool> Case<T1, T2, T3, T4>(this Func<T1, T2, T3, T4, bool> In, T1 Obj,
-            Action<T1, T2, T3, T4> Act)
-            {
-            return In.ElseIf((o1, o2, o3, o4) => L.Obj.SafeEquals(o1, Obj), Act);
-            }
-
-
-        /// <summary>
-        /// Chains a conditional method with a Case statement. 
-        /// [Act] is executed if the supplied argument is equivalent to [Obj]
-        /// </summary>
-        public static Func<T, U> Case<T, U>(this Func<T, U> In, T Obj, Func<T, U> Act)
-            {
-            return In.ElseIf(Obj.FN_If(), Act);
-            }
-
-        /// <summary>
-        /// Chains a conditional method with a Case statement. 
-        /// [Act] is executed if the supplied argument is equivalent to [Obj]
-        /// </summary>
-        public static Func<T1, T2, U> Case<T1, T2, U>(this Func<T1, T2, U> In, T1 Obj, Func<T1, T2, U> Act)
-            {
-            return In.ElseIf((o1, o2) => L.Obj.SafeEquals(o1, Obj), Act);
-            }
-
-        /// <summary>
-        /// Chains a conditional method with a Case statement. 
-        /// [Act] is executed if the supplied argument is equivalent to [Obj]
-        /// </summary>
-        public static Func<T1, T2, T3, U> Case<T1, T2, T3, U>(this Func<T1, T2, T3, U> In, T1 Obj,
-            Func<T1, T2, T3, U> Act)
-            {
-            return In.ElseIf((o1, o2, o3) => L.Obj.SafeEquals(o1, Obj), Act);
-            }
-
-        /// <summary>
-        /// Chains a conditional method with a Case statement. 
-        /// [Act] is executed if the supplied argument is equivalent to [Obj]
-        /// </summary>
-        public static Func<T1, T2, T3, T4, U> Case<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In, T1 Obj,
-            Func<T1, T2, T3, T4, U> Act)
-            {
-            return In.ElseIf((o1, o2, o3, o4) => L.Obj.SafeEquals(o1, Obj), Act);
-            }
-
-        #endregion
-
-        #region If - Multiple
-
-        #region If - Multiple - Action
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<bool> If(this Action In, params Func<bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T, bool> If<T>(this Action In, params Func<T, bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary> with multiple condit
-        public static Func<T1, T2, bool> If<T1, T2>(this Action In, params Func<T1, T2, bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T1, T2, T3, bool> If<T1, T2, T3>(this Action In, params Func<T1, T2, T3, bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T1, T2, T3, T4, bool> If<T1, T2, T3, T4>(this Action In,
-            params Func<T1, T2, T3, T4, bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        #endregion
-
-        #region If - Multiple - Action_T
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T, bool> If<T>(this Action<T> In, params Func<bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T1, T2, bool> If<T1, T2>(this Action<T1> In, params Func<T2, bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T1, T2, T3, bool> If<T1, T2, T3>(this Action<T1> In, params Func<T2, T3, bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T1, T2, T3, T4, bool> If<T1, T2, T3, T4>(this Action<T1> In,
-            params Func<T2, T3, T4, bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        #endregion
-
-        #region If - Multiple - Action_T_T
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T1, T2, bool> If<T1, T2>(this Action<T1, T2> In, params Func<bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T1, T2, T3, bool> If<T1, T2, T3>(this Action<T1, T2> In, params Func<T3, bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T1, T2, T3, T4, bool> If<T1, T2, T3, T4>(this Action<T1, T2> In,
-            params Func<T3, T4, bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        #endregion
-
-        #region If - Multiple - Action_T_T_T
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T1, T2, T3, bool> If<T1, T2, T3>(this Action<T1, T2, T3> In, params Func<bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T1, T2, T3, T4, bool> If<T1, T2, T3, T4>(this Action<T1, T2, T3> In,
-            params Func<T4, bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        #endregion
-
-        #region If - Multiple - Action_T_T_T_T
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T1, T2, T3, T4, bool> If<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In,
-            params Func<bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        #endregion
-
-        #region If - Multiple - Func_T
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T> If<T>(this Func<T> In, params Func<bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T2, T1> If<T1, T2>(this Func<T1> In, params Func<T2, bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T2, T3, T1> If<T1, T2, T3>(this Func<T1> In, params Func<T2, T3, bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T2, T3, T4, T1> If<T1, T2, T3, T4>(this Func<T1> In,
-            params Func<T2, T3, T4, bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T2, T3, T4, T5, T1> If<T1, T2, T3, T4, T5>(this Func<T1> In,
-            params Func<T2, T3, T4, T5, bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        #endregion
-
-        #region If - Multiple - Func_T_T
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T1, U> If<T1, U>(this Func<T1, U> In, params Func<bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T1, T2, U> If<T1, T2, U>(this Func<T1, U> In, params Func<T2, bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T1, T2, T3, U> If<T1, T2, T3, U>(this Func<T1, U> In, params Func<T2, T3, bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T1, T2, T3, T4, U> If<T1, T2, T3, T4, U>(this Func<T1, U> In,
-            params Func<T2, T3, T4, bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        #endregion
-
-        #region If - Multiple - Func_T_T_T
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T1, T2, U> If<T1, T2, U>(this Func<T1, T2, U> In, params Func<bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T1, T2, T3, U> If<T1, T2, T3, U>(this Func<T1, T2, U> In, params Func<T3, bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T1, T2, T3, T4, U> If<T1, T2, T3, T4, U>(this Func<T1, T2, U> In,
-            params Func<T3, T4, bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        #endregion
-
-        #region If - Multiple - Func_T_T_T_T
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T1, T2, T3, U> If<T1, T2, T3, U>(this Func<T1, T2, T3, U> In, params Func<bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T1, T2, T3, T4, U> If<T1, T2, T3, T4, U>(this Func<T1, T2, T3, U> In,
-            params Func<T4, bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        #endregion
-
-        #region If - Multiple - Func_T_T_T_T_T
-
-        /// <summary>
-        /// Surrounds the method with multiple condition methods.
-        /// AND operation is applied if multiple conditions are passed.
-        /// </summary>
-        public static Func<T1, T2, T3, T4, U> If<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In,
-            params Func<bool>[] Conditions)
-            {
-            return In.If(Conditions.And());
-            }
-
-        #endregion
-
-        #endregion
-
         #region Unless
 
         /// <summary>
@@ -1339,7 +991,7 @@ namespace LCore.Extensions
             {
             return In.If(Condition.Not());
             }
-
+/*
         /// <summary>
         /// Executes [In] if the result of [Condition] is false.
         /// </summary>
@@ -1412,13 +1064,13 @@ namespace LCore.Extensions
             Func<bool> Condition)
             {
             return In.If(Condition.Not());
-            }
+            }*/
 
         #endregion
 
         #region Unless- Multiple
 
-        #region Unless - Multiple - Action/// <summary>
+        #region Unless - Multiple - Action
 
         /// <summary>
         /// Surrounds the method with multiple condition methods.
@@ -1468,6 +1120,7 @@ namespace LCore.Extensions
             }
 
         #endregion
+/*
 
         #region Unless - Multiple - Action_T
 
@@ -1581,6 +1234,7 @@ namespace LCore.Extensions
             }
 
         #endregion
+*/
 
         #region Unless - Multiple - Func_T
 
@@ -1632,6 +1286,7 @@ namespace LCore.Extensions
             }
 
         #endregion
+/*
 
         #region Unless - Multiple - Func_T_T
 
@@ -1745,9 +1400,9 @@ namespace LCore.Extensions
             }
 
         #endregion
+*/
 
         #endregion
-
 
         #region And
 

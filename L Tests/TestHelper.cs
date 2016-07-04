@@ -21,21 +21,24 @@ namespace L_Tests
                 int TestCount = Tests.TotalCount();
 
                 int MethodsWithoutTests = Tests.Keys.List().Count(key => Tests[key].Count == 0);
+                /*
+                                Debug.Write("\r\n");
+                                Debug.Write($"{t.Name} {TestCount} Tests Defined \r\n");
+                                Debug.Write("\r\n");
+                                Debug.Write($"{t.Name} {MethodsWithoutTests} Tests Missing \r\n");
+                                Debug.Write("\r\n");
 
-                Debug.Write("\r\n");
-                Debug.Write($"{t.Name} {TestCount} Tests Defined \r\n");
-                Debug.Write("\r\n");
-                Debug.Write($"{t.Name} {MethodsWithoutTests} Tests Missing \r\n");
-                Debug.Write("\r\n");
+                */
+                List<string> Missing = Tests.Keys.List().Select(key => Tests[key].Count == 0).Convert(m => m.Name);
+                List<string> Missing2 = Missing.RemoveDuplicates();
 
-                Tests.Keys.List().Where(key => Tests[key].Count == 0).Each(
-                    key =>
-                {
-                    Debug.Write($"{key.Name}\r\n");
-                });
+                if (Missing.Count > 0)
+                    {
+                    Debug.Write($"\r\n\r\nMissing: \r\n\r\n");
+                    Missing2.Each(method => Debug.Write($"   {method.Pad(18)}   ({Missing.Count(method)})\r\n"));
+                    }
 
                 int Passed = t.RunUnitTests();
-
                 // Assert.AreNotEqual(Passed, 0);
                 Assert.AreEqual(TestCount, Passed);
                 }

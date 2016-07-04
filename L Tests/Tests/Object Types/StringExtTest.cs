@@ -4,10 +4,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace L_Tests
-{
+    {
     [TestClass]
-    public class ExceptionExtTest : ExtensionTester
+    public class StringExtTest : ExtensionTester
         {
-        public override Type TestType => typeof(ExceptionExt);
+        protected override Type TestType => typeof(StringExt);
         }
     }

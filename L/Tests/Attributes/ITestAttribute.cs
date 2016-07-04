@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using LCore.Extensions;
 
 namespace LCore.Tests
     {
@@ -6,7 +7,7 @@ namespace LCore.Tests
     /// Interface denotes a test attribute. 
     /// Used to determine which methods are tested and untested.
     /// </summary>
-    public interface ITestAttribute
+    public interface ITestAttribute : ITopLevelAttribute
         {
         /// <summary>
         /// Attempts to resolve parameter types for a method test.

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using LCore.Interfaces;
+using LCore.Numbers;
 
 namespace LCore.Extensions
     {
@@ -454,5 +455,33 @@ namespace LCore.Extensions
         #endregion
 
         #endregion
+
+        public static int PergentageOf(this int In, int Total)
+            {
+            return ((double)In / Total).AsPercent();
+            }
+
+        public static int[] To(this int From, int To)
+            {
+            int[] Out = new int[(From - To).Abs()];
+
+            int Direction = From < To ? 1 : -1;
+            int Index = 0;
+
+            for (int i = From; i != To; i += Direction)
+                {
+                Out[Index] = i;
+                Index++;
+                }
+
+            return Out;
+            }
+        }
+
+    public static partial class L
+        {
+        public static class Num
+            {
+            }
         }
     }

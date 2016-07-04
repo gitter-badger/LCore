@@ -340,7 +340,6 @@ namespace LCore.Extensions
         /// Values from the Input collection are used as the parameters. Null values are excluded.
         /// This method will fail if [Func] is null or if [Func] throws an exception.
         /// </summary>
-        [TestFails(new object[] { new[] { 1 }, null })]
         [TestFails(new object[] { new[] { 1 }, Test.FailOO_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.FailOO_Name })]
         [TestSucceedes(new object[] { new int[] { }, null })]
@@ -350,6 +349,7 @@ namespace LCore.Extensions
         public static List<object> Collect(this IEnumerable In, Func<object, object> Func)
             {
             In = In ?? new object[] { };
+            Func = Func ?? (o => null);
             return In.Cast<object>().Select(Func).Where(obj => obj != null).ToList();
             }
         /// <summary>
@@ -359,7 +359,6 @@ namespace LCore.Extensions
         /// This method will fail if [Func] is null or if [Func] throws an exception.
         /// </summary>
         [TestMethodGenerics(typeof(int))]
-        [TestFails(new object[] { new[] { 1 }, null })]
         [TestFails(new object[] { new[] { 1 }, Test.FailITFunc_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.FailITFunc_Name })]
         [TestSucceedes(new object[] { new int[] { }, null })]
@@ -370,6 +369,7 @@ namespace LCore.Extensions
         public static List<T> Collect<T>(this IEnumerable In, Func<T, T> Func)
             {
             In = In.List<T>();
+            Func = Func ?? (o => default(T));
 
             return In.Cast<T>().Select(Func).Where(obj => obj != null).ToList();
             }
@@ -380,7 +380,6 @@ namespace LCore.Extensions
         /// This method will fail if [Func] is null or if [Func] throws an exception.
         /// </summary>
         [TestMethodGenerics(typeof(int))]
-        [TestFails(new object[] { new[] { 1 }, null })]
         [TestFails(new object[] { new[] { 1 }, Test.FailITFunc_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.FailITFunc_Name })]
         [TestSucceedes(new object[] { new int[] { }, null })]
@@ -390,6 +389,7 @@ namespace LCore.Extensions
         public static List<T> Collect<T>(this IEnumerable<T> In, Func<T, T> Func)
             {
             In = In ?? new T[] { };
+            Func = Func ?? (o => default(T));
 
             return In.Select(Func).Where(obj => obj != null).ToList();
             }
@@ -399,7 +399,6 @@ namespace LCore.Extensions
         /// This method will fail if [Func] is null or if [Func] throws an exception.
         /// </summary>
         [TestMethodGenerics(typeof(int))]
-        [TestFails(new object[] { new[] { 1 }, null })]
         [TestFails(new object[] { new[] { 1 }, Test.FailITFunc_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.FailITFunc_Name })]
         [TestSucceedes(new object[] { new int[] { }, null })]
@@ -408,6 +407,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { new[] { 1, 2, 3 }, Test.IncrementInt_Name }, new[] { 2, 3, 4 })]
         public static T[] Collect<T>(this T[] In, Func<T, T> Func)
             {
+            Func = Func ?? (o => default(T));
             return In.List().Collect(Func).ToArray();
             }
         /// <summary>
@@ -416,7 +416,6 @@ namespace LCore.Extensions
         /// This method will fail if [Func] is null or if [Func] throws an exception.
         /// </summary>
         [TestMethodGenerics(typeof(int))]
-        [TestFails(new object[] { new[] { 1 }, null })]
         [TestFails(new object[] { new[] { 1 }, Test.FailITFunc_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.FailITFunc_Name })]
         [TestSucceedes(new object[] { new int[] { }, null })]
@@ -426,6 +425,8 @@ namespace LCore.Extensions
         public static List<T> Collect<T>(this List<T> In, Func<T, T> Func)
             {
             In = In ?? new List<T>();
+            Func = Func ?? (o => default(T));
+
             return In.Select(Func).Where(obj => obj != null).ToList();
             }
         #endregion

@@ -47,8 +47,20 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Moq, Version=4.5.10.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.5.10\lib\net45\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
@@ -67,21 +79,21 @@
   <ItemGroup>
     <Compile Include="ExtensionTester.cs" />
     <Compile Include="Tests\StatsExtTest.cs" />
-    <Compile Include="Tests\LogicExtTest.cs" />
-    <Compile Include="Tests\BooleanExtTest.cs" />
-    <Compile Include="Tests\LoopExtTest.cs" />
-    <Compile Include="Tests\ThreadExtTest.cs" />
-    <Compile Include="Tests\ObjectExtTest.cs" />
-    <Compile Include="Tests\InterfaceExtTest.cs" />
-    <Compile Include="Tests\FileExtTest.cs" />
-    <Compile Include="Tests\DateExtTest.cs" />
-    <Compile Include="Tests\ExceptionExtTest.cs" />
-    <Compile Include="Tests\DictionaryExtTest.cs" />
-    <Compile Include="Tests\EnumExtTest.cs" />
-    <Compile Include="Tests\StringExtTest.cs" />
+    <Compile Include="Tests\Methods\LogicExtTest.cs" />
+    <Compile Include="Tests\Methods\BooleanExtTest.cs" />
+    <Compile Include="Tests\Methods\LoopExtTest.cs" />
+    <Compile Include="Tests\Methods\ThreadExtTest.cs" />
+    <Compile Include="Tests\Object Types\ObjectExtTest.cs" />
+    <Compile Include="Tests\Object Types\InterfaceExtTest.cs" />
+    <Compile Include="Tests\Object Types\FileExtTest.cs" />
+    <Compile Include="Tests\Value Types\DateExtTest.cs" />
+    <Compile Include="Tests\Methods\ExceptionExtTest.cs" />
+    <Compile Include="Tests\Object Types\DictionaryExtTest.cs" />
+    <Compile Include="Tests\Value Types\EnumExtTest.cs" />
+    <Compile Include="Tests\Object Types\StringExtTest.cs" />
     <Compile Include="TestHelper.cs" />
-    <Compile Include="Tests\ReflectionExtTest.cs" />
-    <Compile Include="Tests\EnumerableExtTest.cs" />
+    <Compile Include="Tests\Object Types\ReflectionExtTest.cs" />
+    <Compile Include="Tests\Methods\EnumerableExtTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +102,13 @@
       <Name>L</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="OrderedTest1.orderedtest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

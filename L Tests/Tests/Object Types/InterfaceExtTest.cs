@@ -4,10 +4,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace L_Tests
-    {
+{
     [TestClass]
-    public class DictionaryExtTest : ExtensionTester
+    public class InterfaceExtTest : ExtensionTester
         {
-        public override Type TestType => typeof(DictionaryExt);
+        protected override Type TestType => typeof(InterfaceExt);
         }
     }

@@ -4,10 +4,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace L_Tests
-{
+    {
     [TestClass]
-    public class FileExtTest : ExtensionTester
+    public class ThreadExtTest : ExtensionTester
         {
-        public override Type TestType => typeof(FileExt);
+        protected override Type TestType => typeof(ThreadExt);
         }
     }

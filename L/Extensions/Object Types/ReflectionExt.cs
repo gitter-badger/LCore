@@ -844,6 +844,7 @@ namespace LCore.Extensions
             #endregion
 
             #region Lambdas +
+            /*
             internal static readonly Func<string, string> Language_CleanOperationFunctionName = F<string, string>()
                 .Case("op_Subtraction", "Subtract")
                 .Case("op_UnaryPlus", "ShiftLeft")
@@ -869,7 +870,7 @@ namespace LCore.Extensions
                 .Case("op_GreaterThan", " > ")
                 .Case("op_GreaterThanOrEqual", " >= ")
                 .Else(Logic.Pass<string>());
-
+*/
             #region MemberInfo - Get Attribute
             private static readonly Func<string, ICustomAttributeProvider, Type, bool, object> _GetAttribute = (DeclaringTypeName, Prop, Attr, IncludeBaseTypes) =>
             {

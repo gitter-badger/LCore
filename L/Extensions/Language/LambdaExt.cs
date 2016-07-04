@@ -221,8 +221,8 @@ namespace LCore.Extensions
 
                 if (MethodName.StartsWith("op_"))
                     {
-                    FunctionName = $"{DeclaringType}_{Ref.Language_CleanOperationFunctionName(MethodName)}";
-                    MethodAction = FunctionString.Replace(",", Ref.Language_CleanOperationFunctionAction(MethodName));
+                //    FunctionName = $"{DeclaringType}_{Ref.Language_CleanOperationFunctionName(MethodName)}";
+                //    MethodAction = FunctionString.Replace(",", Ref.Language_CleanOperationFunctionAction(MethodName));
                     }
                 else if (IsConstructor)
                     {

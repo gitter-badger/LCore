@@ -268,39 +268,48 @@ namespace LCore.Extensions
             /// Returns the name of the month by the number of the month.
             /// Fails if the number is not between 1 and 12.
             /// </summary>
-            public static readonly Func<int, string> Month_GetString = F<int, string>()
-                    .Case(1, "January")
-                    .Case(2, "February")
-                    .Case(3, "March")
-                    .Case(4, "April")
-                    .Case(5, "May")
-                    .Case(6, "June")
-                    .Case(7, "July")
-                    .Case(8, "August")
-                    .Case(9, "September")
-                    .Case(10, "October")
-                    .Case(11, "November")
-                    .Case(12, "December")
-                    .Else(Exc.Fail).Debug();
-
+            public static readonly Func<int, string> Month_GetString = (i) =>
+                {
+                    switch (i)
+                        {
+                        case 1: return "January";
+                        case 2: return "February";
+                        case 3: return "March";
+                        case 4: return "April";
+                        case 5: return "May";
+                        case 6: return "June";
+                        case 7: return "July";
+                        case 8: return "August";
+                        case 9: return "September";
+                        case 10: return "October";
+                        case 11: return "November";
+                        case 12: return "December";
+                        }
+                    throw new ArgumentException(nameof(i));
+                };
             /// <summary>
             /// Returns the number of the day of the week, from
             /// Sunday: 0 to Saturday: 6.
             /// </summary>
-            public static readonly Func<DayOfWeek, int> GetDayNumber = F<DayOfWeek, int>()
-                    .Case(DayOfWeek.Sunday, 0)
-                    .Case(DayOfWeek.Monday, 1)
-                    .Case(DayOfWeek.Tuesday, 2)
-                    .Case(DayOfWeek.Wednesday, 3)
-                    .Case(DayOfWeek.Thursday, 4)
-                    .Case(DayOfWeek.Friday, 5)
-                    .Case(DayOfWeek.Saturday, 6)
-                    .Else(Exc.Fail).Debug();
+            public static readonly Func<DayOfWeek, int> GetDayNumber = (d) =>
+                {
+                    switch (d)
+                        {
+                        case DayOfWeek.Sunday: return 0;
+                        case DayOfWeek.Monday: return 1;
+                        case DayOfWeek.Tuesday: return 2;
+                        case DayOfWeek.Wednesday: return 3;
+                        case DayOfWeek.Thursday: return 4;
+                        case DayOfWeek.Friday: return 5;
+                        case DayOfWeek.Saturday: return 6;
+                        }
+                    throw new ArgumentException(nameof(d));
+                };
 
             /// <summary>
             /// Returns the name of the months from a datetime.
             /// </summary>
-            public static Func<DateTime, string> GetMonthString = d => Month_GetString(d.Month);
+            public static readonly Func<DateTime, string> GetMonthString = d => Month_GetString(d.Month);
             #endregion
             }
         }

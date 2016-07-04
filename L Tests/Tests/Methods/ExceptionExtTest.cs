@@ -6,8 +6,8 @@ using System;
 namespace L_Tests
 {
     [TestClass]
-    public class InterfaceExtTest : ExtensionTester
+    public class ExceptionExtTest : ExtensionTester
         {
-        public override Type TestType => typeof(InterfaceExt);
+        protected override Type TestType => typeof(ExceptionExt);
         }
     }

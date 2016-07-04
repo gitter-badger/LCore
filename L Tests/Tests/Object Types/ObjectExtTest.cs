@@ -6,6 +6,6 @@ namespace L_Tests
     [TestClass]
     public class ObjectExtTest : ExtensionTester
         {
-        public override Type TestType => typeof(ObjectExtTest);
+        protected override Type TestType => typeof(ObjectExtTest);
         }
     }

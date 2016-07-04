@@ -471,14 +471,6 @@ namespace LCore.Extensions
                 }
             #endregion
 
-            #region ByteArrayToCharArray
-            /// <summary>
-            /// Convert a byte[] to a char[]
-            /// </summary>
-            public static Func<byte[], char[]> ByteArrayToCharArray = F<byte[], char[]>().Case(null, new char[] {})
-                .Else(F<byte[], Func<byte, char>, char[]>(EnumerableExt.Convert).Supply2(Convert.ToChar));
-            #endregion
-
             #region CleanFileName
             /// <summary>
             /// Removes non-supported characters from filenames.

@@ -6,8 +6,8 @@ using System;
 namespace L_Tests
     {
     [TestClass]
-    public class LogicExtTest : ExtensionTester
+    public class EnumerableExtTest : ExtensionTester
         {
-        public override Type TestType => typeof(LogicExt);
+        protected override Type TestType => typeof(EnumerableExt);
         }
     }

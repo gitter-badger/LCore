@@ -122,8 +122,8 @@ namespace LCore.Extensions
         /// <returns>A string with line enders replaced with a temporary character</returns>
         [TestResult(new object[] { null }, "")]
         [TestResult(new object[] { "abab" }, "abab")]
-        [TestResult(new object[] { "abab\r\n" }, "abab")]
-        [TestResult(new object[] { "abab▐" }, "abab")]
+        [TestResult(new object[] { "abab\r\n" }, "ababÞ")]
+        [TestResult(new object[] { "abab\n" }, "ababÞ")]
         public static string CleanCRLF(this string In)
             {
             return (In ?? "").ReplaceLineEnders(CRLFReplace);
@@ -137,8 +137,7 @@ namespace LCore.Extensions
         /// <returns>Astring with line enders returned from a temporary character. </returns>
         [TestResult(new object[] { null }, "")]
         [TestResult(new object[] { "abab" }, "abab")]
-        [TestResult(new object[] { "abab\r\n" }, "abab")]
-        [TestResult(new object[] { "abab▐" }, "abab")]
+        [TestResult(new object[] { "ababÞ" }, "abab\r\n")]
         public static string UnCleanCRLF(this string In)
             {
             return (In ?? "").Replace(new string(new[] { CRLFReplace }), "\r\n");
@@ -184,9 +183,10 @@ namespace LCore.Extensions
         /// You can specify a Concatonation String, which defaults to "..."
         /// </summary>
 
-        [TestResult(new object[] { null, 0 }, "")]
-        [TestResult(new object[] { "test string", 5 }, "te...")]
-        [TestResult(new object[] { "test string123456789", 15 }, "test string1...")]
+        [TestFails(new object[] { null, 0, "..." }, typeof(ArgumentException))]
+        [TestResult(new object[] { null, 5, "..." }, "")]
+        [TestResult(new object[] { "test string", 5, "..." }, "te...")]
+        [TestResult(new object[] { "test string123456789", 15, "..." }, "test string1...")]
         public static string Concatenate(this string In, int MaxLength, string ConcatenateString = "...")
             {
             ConcatenateString = ConcatenateString ?? "";
@@ -233,7 +233,8 @@ namespace LCore.Extensions
 
         #region Count
         /// <summary>
-        /// Returns the amount of times [Search] appears in [In]
+        /// Returns the amount of times [Search] appears in [In].
+        /// Overlapping sequences are counted multiple times.
         /// </summary>
         /// <param name="In">The source to search</param>
         /// <param name="Search">The search term</param>
@@ -242,7 +243,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "", "" }, 0)]
         [TestResult(new object[] { "aaabbbccc", "" }, 0)]
         [TestResult(new object[] { "aaabbbccc", "a" }, 3)]
-        [TestResult(new object[] { "aaabbbccc", "aa" }, 5)]
+        [TestResult(new object[] { "aaabbbccc", "aa" }, 2)]
         [TestResult(new object[] { "aaabbbccc", "aaa" }, 1)]
         public static int Count(this string In, string Search)
             {
@@ -251,20 +252,9 @@ namespace LCore.Extensions
 
             int Count = 0;
 
-            while (In.Length > 0)
-                {
-                int index = In.IndexOf(Search);
+            int[] nums = 0.To(In.Length - 1);
 
-                if (index > 0 && index + Search.Length < In.Length)
-                    {
-                    Count++;
-                    In = In.Substring(index + Search.Length);
-                    }
-                else
-                    break;
-                }
-
-            return Count;
+            return nums.Where(i => In.Sub(i).StartsWith(Search)).Count();
             }
         #endregion
 
@@ -395,18 +385,10 @@ namespace LCore.Extensions
 
         [TestFails(new object[] { -1, 1 })]
         [TestFails(new object[] { 1024 + 512, -1 })]
-        [TestFails(new object[] { (long)-1 })]
-        [TestResult(new object[] { (long)0 }, "0 B")]
-        [TestResult(new object[] { (long)1 }, "1 B")]
-        [TestResult(new object[] { (long)1024 }, "1 KB")]
-        [TestResult(new object[] { 1024 + (long)411 }, "1 KB")]
-        [TestResult(new object[] { 1024 + (long)512 }, "2 KB")]
-        [TestResult(new object[] { 1024 * 1024 + 512 }, "1 MB")]
-        [TestResult(new object[] { 1024 * 1024 }, "1 MB")]
-        [TestResult(new object[] { 1024 * 1024 * 5 }, "5 MB")]
-        [TestResult(new object[] { 1024 * 1024 * 1024 }, "1 GB")]
-        [TestResult(new object[] { (long)1024 * 1024 * 1024 * 1024 }, "1 TB")]
-        [TestResult(new object[] { (long)35572226 }, "34 MB")]
+        [TestResult(new object[] { 1024 * 1024 + 512, 0 }, "1 MB")]
+        [TestResult(new object[] { 1024 * 1024, 0 }, "1 MB")]
+        [TestResult(new object[] { 1024 * 1024 * 5, 0 }, "5 MB")]
+        [TestResult(new object[] { 1024 * 1024 * 1024, 0 }, "1 GB")]
         [TestResult(new object[] { 0, 3 }, "0 B")]
         [TestResult(new object[] { 450, 3 }, "450 B")]
         [TestResult(new object[] { 1024 + 412, 0 }, "1 KB")]
@@ -417,7 +399,8 @@ namespace LCore.Extensions
         // ReSharper disable once MethodOverloadWithOptionalParameter
         public static string FormatFileSize(this int Size, int Decimals = 0)
             {
-            if (Decimals <= 0) throw new ArgumentOutOfRangeException(nameof(Decimals));
+            if (Decimals < 0) throw new ArgumentOutOfRangeException(nameof(Decimals));
+            if (Size < 0) throw new ArgumentOutOfRangeException(nameof(Size));
 
             double temp = Size;
             string Unit = "B";

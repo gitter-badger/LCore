@@ -35,7 +35,7 @@ namespace Singularity.Config
                    .Where(t => t.Name.EndsWith("Service"))
                    .AsImplementedInterfaces();
 
-            builder.RegisterType<ModelContext>().As<SingularityContext>();
+           // builder.RegisterType<ModelContext>().As<SingularityContext>();
 
             // Set the dependency resolver to be Autofac.
             var container = builder.Build();
