@@ -66,7 +66,7 @@ WriteLiteral("\r\n\r\n");
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n{{3}}\r\n<div");
+WriteLiteral("\r\n\r\n<div");
 
 WriteLiteral(" sing-fill=\"{{List}}\"");
 
@@ -78,7 +78,7 @@ WriteLiteral(" class=\"jumbotron hero-spacer\"");
 WriteLiteral(">\r\n    <h1>&bull; ");
 
             
-            #line 18 "..\..\Views\Home\Index.cshtml"
+            #line 17 "..\..\Views\Home\Index.cshtml"
           Write(Singularity.AppName);
 
             
@@ -90,28 +90,28 @@ WriteLiteral("</h1>\r\n    <p>\r\n        Singularity is a collection of extensi
 
 WriteLiteral(" target=\"_blank\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 515), Tuple.Create("\"", 551)
+WriteAttribute("href", Tuple.Create(" href=\"", 508), Tuple.Create("\"", 544)
             
-            #line 23 "..\..\Views\Home\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 522), Tuple.Create<System.Object, System.Int32>(Singularity.Reference.CSharp
+            #line 22 "..\..\Views\Home\Index.cshtml"
+, Tuple.Create(Tuple.Create("", 515), Tuple.Create<System.Object, System.Int32>(Singularity.Reference.CSharp
             
             #line default
             #line hidden
-, 522), false)
+, 515), false)
 );
 
 WriteLiteral(">C#</a>\r\n        </strong>,\r\n        <strong>\r\n            <a");
 
 WriteLiteral(" target=\"_blank\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 629), Tuple.Create("\"", 662)
+WriteAttribute("href", Tuple.Create(" href=\"", 622), Tuple.Create("\"", 655)
             
-            #line 26 "..\..\Views\Home\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 636), Tuple.Create<System.Object, System.Int32>(Singularity.Reference.SQL
+            #line 25 "..\..\Views\Home\Index.cshtml"
+, Tuple.Create(Tuple.Create("", 629), Tuple.Create<System.Object, System.Int32>(Singularity.Reference.SQL
             
             #line default
             #line hidden
-, 636), false)
+, 629), false)
 );
 
 WriteLiteral(">\r\n                <abbr");
@@ -123,42 +123,42 @@ WriteLiteral(">SQL</abbr>\r\n            </a>\r\n        </strong>,\r\n        <
 
 WriteLiteral(" target=\"_blank\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 820), Tuple.Create("\"", 860)
+WriteAttribute("href", Tuple.Create(" href=\"", 813), Tuple.Create("\"", 853)
             
-            #line 31 "..\..\Views\Home\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 827), Tuple.Create<System.Object, System.Int32>(Singularity.Reference.TypeScript
+            #line 30 "..\..\Views\Home\Index.cshtml"
+, Tuple.Create(Tuple.Create("", 820), Tuple.Create<System.Object, System.Int32>(Singularity.Reference.TypeScript
             
             #line default
             #line hidden
-, 827), false)
+, 820), false)
 );
 
 WriteLiteral(">TypeScript</a>\r\n        </strong>,\r\n        <strong>\r\n            <a");
 
 WriteLiteral(" target=\"_blank\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 946), Tuple.Create("\"", 986)
+WriteAttribute("href", Tuple.Create(" href=\"", 939), Tuple.Create("\"", 979)
             
-            #line 34 "..\..\Views\Home\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 953), Tuple.Create<System.Object, System.Int32>(Singularity.Reference.JavaScript
+            #line 33 "..\..\Views\Home\Index.cshtml"
+, Tuple.Create(Tuple.Create("", 946), Tuple.Create<System.Object, System.Int32>(Singularity.Reference.JavaScript
             
             #line default
             #line hidden
-, 953), false)
+, 946), false)
 );
 
 WriteLiteral(">JavaScript</a>\r\n        </strong>, and\r\n        <strong>\r\n            <a");
 
 WriteLiteral(" target=\"_blank\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 1076), Tuple.Create("\"", 1110)
+WriteAttribute("href", Tuple.Create(" href=\"", 1069), Tuple.Create("\"", 1103)
             
-            #line 37 "..\..\Views\Home\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 1083), Tuple.Create<System.Object, System.Int32>(Singularity.Reference.Html
+            #line 36 "..\..\Views\Home\Index.cshtml"
+, Tuple.Create(Tuple.Create("", 1076), Tuple.Create<System.Object, System.Int32>(Singularity.Reference.Html
             
             #line default
             #line hidden
-, 1083), false)
+, 1076), false)
 );
 
 WriteLiteral(">\r\n                <abbr");
@@ -169,14 +169,14 @@ WriteLiteral(">HTML</abbr>\r\n            </a>\r\n        </strong>\r\n    </p>\
 
 WriteLiteral(" class=\"btn btn-default btn-large\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 1283), Tuple.Create("\"", 1370)
+WriteAttribute("href", Tuple.Create(" href=\"", 1276), Tuple.Create("\"", 1363)
             
-            #line 43 "..\..\Views\Home\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 1290), Tuple.Create<System.Object, System.Int32>(Url.Action(nameof(ExamplesController.Home), typeof(ExamplesController).CName())
+            #line 42 "..\..\Views\Home\Index.cshtml"
+, Tuple.Create(Tuple.Create("", 1283), Tuple.Create<System.Object, System.Int32>(Url.Action(nameof(ExamplesController.Home), typeof(ExamplesController).CName())
             
             #line default
             #line hidden
-, 1290), false)
+, 1283), false)
 );
 
 WriteLiteral(">Learn more</a>\r\n        <a");
@@ -274,42 +274,42 @@ WriteLiteral(@">
 
 WriteLiteral(" target=\"_blank\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 3455), Tuple.Create("\"", 3491)
+WriteAttribute("href", Tuple.Create(" href=\"", 3448), Tuple.Create("\"", 3484)
             
-            #line 97 "..\..\Views\Home\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 3462), Tuple.Create<System.Object, System.Int32>(Singularity.Reference.jQuery
+            #line 96 "..\..\Views\Home\Index.cshtml"
+, Tuple.Create(Tuple.Create("", 3455), Tuple.Create<System.Object, System.Int32>(Singularity.Reference.jQuery
             
             #line default
             #line hidden
-, 3462), false)
+, 3455), false)
 );
 
 WriteLiteral(">jQuery (+ plugins)</a></li>\r\n                                <li><a");
 
 WriteLiteral(" target=\"_blank\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 3576), Tuple.Create("\"", 3614)
+WriteAttribute("href", Tuple.Create(" href=\"", 3569), Tuple.Create("\"", 3607)
             
-            #line 98 "..\..\Views\Home\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 3583), Tuple.Create<System.Object, System.Int32>(Singularity.Reference.jQueryUI
+            #line 97 "..\..\Views\Home\Index.cshtml"
+, Tuple.Create(Tuple.Create("", 3576), Tuple.Create<System.Object, System.Int32>(Singularity.Reference.jQueryUI
             
             #line default
             #line hidden
-, 3583), false)
+, 3576), false)
 );
 
 WriteLiteral(">jQuery UI</a></li>\r\n                                <li><a");
 
 WriteLiteral(" target=\"_blank\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 3690), Tuple.Create("\"", 3729)
+WriteAttribute("href", Tuple.Create(" href=\"", 3683), Tuple.Create("\"", 3722)
             
-            #line 99 "..\..\Views\Home\Index.cshtml"
-, Tuple.Create(Tuple.Create("", 3697), Tuple.Create<System.Object, System.Int32>(Singularity.Reference.Bootstrap
+            #line 98 "..\..\Views\Home\Index.cshtml"
+, Tuple.Create(Tuple.Create("", 3690), Tuple.Create<System.Object, System.Int32>(Singularity.Reference.Bootstrap
             
             #line default
             #line hidden
-, 3697), false)
+, 3690), false)
 );
 
 WriteLiteral(@">Bootstrap</a></li>

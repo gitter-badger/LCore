@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using Singularity.Account;
 
 namespace Singularity.Controllers
     {
@@ -9,5 +10,7 @@ namespace Singularity.Controllers
             {
             return this.View();
             }
+
+        public HomeController(IAuthenticationService Auth) : base(Auth) { }
         }
     }

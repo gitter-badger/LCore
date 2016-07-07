@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LCore.Extensions;
 using System.Diagnostics;
-using System.Linq;
-using LCore.Tests;
-using LCore.Extensions;
+using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+// ReSharper disable ConvertToConstant.Global
+
 // ReSharper disable VirtualMemberNeverOverriden.Global
 // ReSharper disable RedundantCast
 
@@ -13,22 +13,29 @@ namespace L_Tests
     {
     public abstract class ExtensionTester
         {
-        protected abstract Type TestType { get; }
+        public static readonly int RequireCoveragePercent = 1;
+
+        protected abstract Type[] TestType { get; }
 
         [TestMethod]
         public virtual void RunTests()
             {
-            int MembersPresent = this.TestType.GetMembers().Length;
-            int TestsMissing = this.TestType.GetMembers().WithoutAttribute<ITestAttribute>().Count();
-            int TestsPresent = MembersPresent - TestsMissing;
+            foreach (var Test in this.TestType)
+                {
+                var TestData = Test.GetTestData();
 
-            int Coverage = ((double)TestsPresent / ((double)MembersPresent)).AsPercent();
+                Debug.Write("--------------------------------------------------------\r\n");
+                Debug.Write($"Testing {TestData.TestsPresent} {Test.FullName} methods. \r\n");
+                Debug.Write($"      Total attribute tests:  {TestData.TestAttributes.Count - TestData.UnitTestCount} (~{(TestData.TestAttributes.Count / ((double)TestData.TestsPresent - TestData.UnitTestCount)).Round(1)} per method) \r\n");
+                Debug.Write($"      Unit tests:             {TestData.UnitTestCount}. \r\n");
+                Debug.Write("\r\n");
+                Debug.Write($"Missing: {TestData.TestsMissing} methods                  {TestData.CoveragePercent}% Coverage\r\n");
 
-            Debug.Write($"Testing {TestsPresent} {this.TestType.FullName} methods. \r\n");
-            Debug.Write($"Missing: {TestsMissing} methods\r\n");
-            Debug.Write($"{ Coverage }% Coverage\r\n");
+                Test.RunTypeTests();
 
-            this.TestType.RunTypeTests();
+                if (RequireCoveragePercent > 0)
+                    TestData.CoveragePercent.Should().BeGreaterOrEqualTo(RequireCoveragePercent, $"{RequireCoveragePercent}% coverage required");
+                }
             }
         }
     }

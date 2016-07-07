@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 
 using LCore.Extensions;
-
+using Singularity.Account;
 using Singularity.Extensions;
 
 namespace Singularity.Controllers
@@ -45,5 +45,7 @@ namespace Singularity.Controllers
 
             return Content;
             }
+
+        public TemplateController(IAuthenticationService Auth) : base(Auth) { }
         }
     }

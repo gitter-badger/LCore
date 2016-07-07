@@ -23,13 +23,7 @@ namespace LCore.Tests
         /// Additional optional checks to perform when running the test.
         /// </summary>
         protected readonly string[] AdditionalChecks;
-
-        /// <summary>
-        /// Denotes that a particular method succeeds (does not throw an exception)
-        /// </summary>
-        public TestSucceedesAttribute()
-            {
-            }
+        
         /// <summary>
         /// Denotes that a particular method succeeds when passed particular parameters.
         /// </summary>

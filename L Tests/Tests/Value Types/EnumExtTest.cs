@@ -8,6 +8,6 @@ namespace L_Tests
     [TestClass]
     public class EnumExtTest : ExtensionTester
         {
-        protected override Type TestType => typeof(EnumExt);
+        protected override Type[] TestType => new[] { typeof(EnumExt) };
         }
     }

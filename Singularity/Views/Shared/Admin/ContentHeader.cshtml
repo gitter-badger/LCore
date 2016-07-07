@@ -1,42 +1,58 @@
-﻿@using Singularity.Extensions
+﻿@inherits SingularityRazor
+
+@using LCore.Tools
+@using Singularity.Extensions
 
 
 @{
-    IMenuAction[] Actions = ViewContext.GetActionTrace();
+    Set<string, string>[] Breadcrumbs = SingController.Breadcrumbs ?? new Set<string, string>[] { };
 }
 
 <section class="content-header">
 
     <h1 class="breadcrumb-title">
-        Dashboard
-        <small>Control panel</small>
+        @for (int i = 0; i < Breadcrumbs.Length; i++)
+            {
+            Set<string, string> Key = Breadcrumbs[i];
+            bool Last = i == Breadcrumbs.Length - 1;
+
+            if (Last)
+                {
+                @Key.Obj1
+                }
+            else
+                {
+                <a href="@Key.Obj2">
+                    @Key.Obj1
+                </a>
+                @Html.FontAwesome(FontAwesomeExt.Icon.arrow_right)
+                }
+            }
     </h1>
 
     <ol class="breadcrumb">
-        <li>
-            <a href="#">
-                <i class="fa fa-dashboard"></i>
-                Home
-            </a>
-        </li>
-        <li class="active">
-            Dashboard
-        </li>
-
-        @for (int i = 0; i < Actions.Length; i++)
+        @for (int i = 0; i < Breadcrumbs.Length; i++)
             {
-            var Item = Actions[i];
-            bool Last = i == Actions.Length - 1;
+            Set<string, string> Key = Breadcrumbs[i];
+            bool Last = i == Breadcrumbs.Length - 1;
 
-            <li class="@(Last ? "active" : "")">
-
-                @Html.Raw(Last ? "" : "<a href=\"\">")
-
-                @Item.Icon
-                @(Item.MenuText ?? Item.MethodName.Humanize())
-
-                @Html.Raw(Last ? "" : "</a>")
-            </li>
+            if (Last)
+                {
+                <li class="active">
+                    @Key.Obj1
+                </li>
+                }
+            else
+                {
+                <li class="active">
+                    <a href="@Key.Obj2">
+                        @Key.Obj1
+                    </a>
+                </li>
+                @Html.FontAwesome(FontAwesomeExt.Icon.arrow_right)
+                }
             }
     </ol>
 </section>
+
+<h1>@ViewBag.Title</h1>

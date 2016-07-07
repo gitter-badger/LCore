@@ -94,10 +94,10 @@
             <td class="deactivate-cell">
                 <div>
                     @{
-                        string DeleteResotreStr = Model.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive) ? "Restore" : "Delete";
+                        string DeleteRestoreStr = Model.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive) ? "Restore" : "Delete";
                     }
 
-                    @Html.TextContent($"Manage_ColumnHeader_{Model.ModelType.GetFriendlyTypeName()}_{DeleteResotreStr}", DeleteResotreStr)
+                    @Html.TextContent($"Manage_ColumnHeader_{Model.ModelType.GetFriendlyTypeName()}_{DeleteRestoreStr}", DeleteRestoreStr)
                 </div>
             </td>
                             }

@@ -1,0 +1,57 @@
+﻿@{
+    var c = ViewContext.Controller;
+
+    List<string> Success = c.GetStatusMessages_Success() ?? new List<string>();
+    List<string> Errors = c.GetStatusMessages_Error() ?? new List<string>();
+    List<string> Warnings = c.GetStatusMessages_Warning() ?? new List<string>();
+    List<string> Information = c.GetStatusMessages_Information() ?? new List<string>();
+}
+
+@if (TempData.Peek(ControllerHelper.StatusMessage_Temporary) != null)
+    {
+    string Message = (string)TempData[ControllerHelper.StatusMessage_Temporary];
+    string Icon = (string)(TempData[ControllerHelper.StatusMessage_TemporaryIcon] ?? "");
+
+    <div class="status-message close-dialog">
+        @if (!string.IsNullOrEmpty(Icon))
+            {
+            <glyph>@Icon</glyph>
+            }
+        @Message
+    </div>
+    }
+
+
+<div class="container">
+    @foreach (string Message in Errors)
+        {
+        <div class="alert alert-danger">
+            <a class="close" data-dismiss="alert">&times;</a>
+            <strong>Error!</strong>
+            @Message
+        </div>
+        }
+    @foreach (string Message in Warnings)
+        {
+        <div class="alert alert-warning">
+            <a class="close" data-dismiss="alert">&times;</a>
+            <strong>Warning!</strong>
+            @Message
+        </div>
+        }
+    @foreach (string Message in Information)
+        {
+        <div class="alert alert-info">
+            <a class="close" data-dismiss="alert">&times;</a>
+            @Message
+        </div>
+        }
+    @foreach (string Message in Success)
+        {
+        <div class="alert alert-success">
+            <a class="close" data-dismiss="alert">&times;</a>
+            <strong>Success!</strong>
+            @Message
+        </div>
+        }
+</div>

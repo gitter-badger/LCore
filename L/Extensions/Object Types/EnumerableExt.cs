@@ -1104,7 +1104,7 @@ namespace LCore.Extensions
                 return true;
             if (In == null || Compare == null)
                 return false;
-            // Strings are IEnumerables too - we have to test for this just in case.
+            // Strings are IEnumerable too - we have to test for this just in case.
             string s = In as string;
             if (s != null && Compare is string)
                 return s == (string)Compare;
@@ -2443,7 +2443,7 @@ namespace LCore.Extensions
             In.Reverse(0, Count);
             }
         /// <summary>
-        /// Returns a new List[T] with the order of the items revesed.
+        /// Returns a new List[T] with the order of the items reversed.
         /// </summary>
         public static List<T> Reverse<T>(this IEnumerable<T> In)
             {
@@ -2452,7 +2452,7 @@ namespace LCore.Extensions
             return Out;
             }
         /// <summary>
-        /// Returns a new List[Object] with the order of the items revesed.
+        /// Returns a new List[Object] with the order of the items reversed.
         /// </summary>
         public static List<object> Reverse(this IEnumerable In)
             {
@@ -2593,7 +2593,7 @@ namespace LCore.Extensions
 
         #region SetAt
         /// <summary>
-        /// Sets the item in the colection at [Index] to [Value].
+        /// Sets the item in the collection at [Index] to [Value].
         /// </summary>
         public static void SetAt(this IEnumerable In, int Index, object Value)
             {
@@ -2608,7 +2608,7 @@ namespace LCore.Extensions
             else throw new Exception(In.GetType().FullName);
             }
         /// <summary>
-        /// Sets the item in the colection at [Index] to [Value].
+        /// Sets the item in the collection at [Index] to [Value].
         /// </summary>
         public static void SetAt<T>(this IEnumerable<T> In, int Index, T Value)
             {

@@ -126,7 +126,7 @@ WriteLiteral("></span>\r\n            </button>\r\n            <a");
 
 WriteLiteral(" class=\"navbar-brand\"");
 
-WriteLiteral(" href=\"#\"");
+WriteLiteral(" href=\"/\"");
 
 WriteLiteral(">");
 

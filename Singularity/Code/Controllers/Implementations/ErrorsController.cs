@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Singularity.Account;
 
 namespace Singularity.Controllers
     {
@@ -15,5 +16,6 @@ namespace Singularity.Controllers
                 }
             }
          */
+        public ErrorsController(IAuthenticationService Auth) : base(Auth) {}
         }
     }

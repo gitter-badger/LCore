@@ -46,11 +46,17 @@ namespace ASP
     
     #line default
     #line hidden
+    
+    #line 5 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+    using LCore.Tools;
+    
+    #line default
+    #line hidden
     using Singularity;
     using Singularity.Context;
     using Singularity.Controllers;
     
-    #line 5 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+    #line 6 "..\..\Views\Shared\Admin\Sidebar.cshtml"
     using Singularity.Extensions;
     
     #line default
@@ -69,7 +75,7 @@ namespace ASP
 WriteLiteral("\r\n");
 
             
-            #line 7 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+            #line 8 "..\..\Views\Shared\Admin\Sidebar.cshtml"
   
     Type[] ExtensionClasses_Singularity = L.Ref.GetNamespaceTypes(typeof(Singularity),
         Singularity.Namespaces.Singularity.Extensions,
@@ -97,13 +103,13 @@ WriteLiteral(" class=\"user-panel\"");
 WriteLiteral(">\r\n\r\n");
 
             
-            #line 22 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+            #line 23 "..\..\Views\Shared\Admin\Sidebar.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 22 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+            #line 23 "..\..\Views\Shared\Admin\Sidebar.cshtml"
              if (Auth.IsLoggedIn)
                 {
 
@@ -121,7 +127,7 @@ WriteLiteral(" class=\"img-circle\"");
 WriteLiteral(">");
 
             
-            #line 25 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+            #line 26 "..\..\Views\Shared\Admin\Sidebar.cshtml"
                                          Write(User.GetHashCode());
 
             
@@ -144,7 +150,7 @@ WriteLiteral(" class=\"fa fa-circle text-success\"");
 WriteLiteral("></i> Online</a>\r\n                </div>\r\n");
 
             
-            #line 31 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+            #line 32 "..\..\Views\Shared\Admin\Sidebar.cshtml"
                 }
 
             
@@ -212,7 +218,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                    ");
 
             
-            #line 49 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+            #line 50 "..\..\Views\Shared\Admin\Sidebar.cshtml"
                Write(Html.FontAwesome(FontAwesomeExt.Icon.circle));
 
             
@@ -221,7 +227,7 @@ WriteLiteral("                    ");
 WriteLiteral("\r\n                    <span>");
 
             
-            #line 50 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+            #line 51 "..\..\Views\Shared\Admin\Sidebar.cshtml"
                      Write(Singularity.AppName);
 
             
@@ -235,16 +241,27 @@ WriteLiteral("></i>\r\n                </a>\r\n                <ul");
 
 WriteLiteral(" class=\"treeview-menu\"");
 
-WriteLiteral(">\r\n                    <li>\r\n                        <a");
+WriteLiteral(">\r\n                    <li ");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 1966), Tuple.Create("\"", 2059)
             
             #line 55 "..\..\Views\Shared\Admin\Sidebar.cshtml"
-, Tuple.Create(Tuple.Create("", 1973), Tuple.Create<System.Object, System.Int32>(Url.Action(nameof(ExamplesController.Singularity),typeof(ExamplesController).CName())
+                    Write(ViewBag.Breadcrumbs?.Contains(
+                        (Expression<Func<Set<string,string>,bool>>)(set=> set.Obj2.ToLower() == Url.Action(nameof(ExamplesController.L), typeof(ExamplesController).CName()))) == true ?
+                        "class=\"active\"" : "");
+
             
             #line default
             #line hidden
-, 1973), false)
+WriteLiteral(">\r\n                        <a");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 2254), Tuple.Create("\"", 2337)
+            
+            #line 58 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+, Tuple.Create(Tuple.Create("", 2261), Tuple.Create<System.Object, System.Int32>(Url.Action(nameof(ExamplesController.L),typeof(ExamplesController).CName())
+            
+            #line default
+            #line hidden
+, 2261), false)
 );
 
 WriteLiteral(">\r\n");
@@ -252,172 +269,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 56 "..\..\Views\Shared\Admin\Sidebar.cshtml"
-                       Write(Html.FontAwesome(FontAwesomeExt.Icon.dot_circle_o));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                            Singularity <small");
-
-WriteLiteral(" class=\"right\"");
-
-WriteLiteral(">(C#)</small><br />\r\n                            <small>MVC-based framework</smal" +
-"l>\r\n                            <i");
-
-WriteLiteral(" class=\"fa fa-angle-left pull-right\"");
-
-WriteLiteral("></i>\r\n                        </a>\r\n                        <ul");
-
-WriteLiteral(" class=\"treeview-menu\"");
-
-WriteLiteral(">\r\n                            <li>\r\n                                <a");
-
-WriteAttribute("href", Tuple.Create(" href=\"", 2512), Tuple.Create("\"", 2615)
-            
-            #line 63 "..\..\Views\Shared\Admin\Sidebar.cshtml"
-, Tuple.Create(Tuple.Create("", 2519), Tuple.Create<System.Object, System.Int32>(Url.Action(nameof(ExamplesController.SingularityExtensions),typeof(ExamplesController).CName())
-            
-            #line default
-            #line hidden
-, 2519), false)
-);
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("                                    ");
-
-            
-            #line 64 "..\..\Views\Shared\Admin\Sidebar.cshtml"
-                               Write(Html.FontAwesome(FontAwesomeExt.Icon.link));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                                    Extensions\r\n                               " +
-"     <small");
-
-WriteLiteral(" class=\"right\"");
-
-WriteLiteral(">(C#)</small>\r\n                                    <i");
-
-WriteLiteral(" class=\"fa fa-angle-left pull-right\"");
-
-WriteLiteral("></i>\r\n                                </a>\r\n                                <ul");
-
-WriteLiteral(" class=\"treeview-menu\"");
-
-WriteLiteral(">\r\n");
-
-            
-            #line 70 "..\..\Views\Shared\Admin\Sidebar.cshtml"
-                                    
-            
-            #line default
-            #line hidden
-            
-            #line 70 "..\..\Views\Shared\Admin\Sidebar.cshtml"
-                                     foreach (var Ext in ExtensionClasses_Singularity)
-                                        {
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                                        <li>\r\n                                   " +
-"         <a");
-
-WriteLiteral(" href=\"#\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("                                                ");
-
-            
-            #line 74 "..\..\Views\Shared\Admin\Sidebar.cshtml"
-                                           Write(Html.FontAwesome(FontAwesomeExt.Icon.question));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
-WriteLiteral("                                                ");
-
-            
-            #line 75 "..\..\Views\Shared\Admin\Sidebar.cshtml"
-                                           Write(Ext.Name.Trim("Ext").Humanize());
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                                                <small");
-
-WriteLiteral(" class=\"right\"");
-
-WriteLiteral("></small>\r\n                                            </a>\r\n\r\n\r\n                " +
-"                        </li>\r\n");
-
-            
-            #line 81 "..\..\Views\Shared\Admin\Sidebar.cshtml"
-                                        }
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                                </ul>\r\n                            </li>\r\n       " +
-"                     <li>\r\n                                <a");
-
-WriteLiteral(" href=\"#\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("                                    ");
-
-            
-            #line 86 "..\..\Views\Shared\Admin\Sidebar.cshtml"
-                               Write(Html.FontAwesome(FontAwesomeExt.Icon.wrench));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                                    Tools\r\n                                    " +
-"<small");
-
-WriteLiteral(" class=\"right\"");
-
-WriteLiteral(">(C#)</small>\r\n                                </a>\r\n                            " +
-"</li>\r\n                            <li>\r\n                                <a");
-
-WriteLiteral(" href=\"#\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("                                    ");
-
-            
-            #line 93 "..\..\Views\Shared\Admin\Sidebar.cshtml"
-                               Write(Html.FontAwesome(FontAwesomeExt.Icon.file_code_o));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                                    Views\r\n                                    " +
-"<small");
-
-WriteLiteral(" class=\"right\"");
-
-WriteLiteral(">(C#)</small>\r\n                                </a>\r\n                            " +
-"</li>\r\n                        </ul>\r\n                    </li>\r\n               " +
-"     <li>\r\n                        <a");
-
-WriteLiteral(" href=\"#\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("                            ");
-
-            
-            #line 102 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+            #line 59 "..\..\Views\Shared\Admin\Sidebar.cshtml"
                        Write(Html.FontAwesome(FontAwesomeExt.Icon.gbp));
 
             
@@ -436,16 +288,35 @@ WriteLiteral("></i>\r\n                        </a>\r\n                        <
 
 WriteLiteral(" class=\"treeview-menu\"");
 
-WriteLiteral(">\r\n                            <li>\r\n                                <a");
+WriteLiteral(">\r\n                            <li ");
 
-WriteLiteral(" href=\"#\"");
+            
+            #line 65 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+                            Write(ViewBag.Breadcrumbs?.Contains(
+                                (Expression<Func<Set<string,string>,bool>>)(set=> set.Obj2.ToLower() == Url.Action(nameof(ExamplesController.L_Extensions), typeof(ExamplesController).CName()))) == true ?
+                                "class=\"active\"" : "");
+
+            
+            #line default
+            #line hidden
+WriteLiteral(">\r\n                                <a");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 3076), Tuple.Create("\"", 3170)
+            
+            #line 68 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+, Tuple.Create(Tuple.Create("", 3083), Tuple.Create<System.Object, System.Int32>(Url.Action(nameof(ExamplesController.L_Extensions),typeof(ExamplesController).CName())
+            
+            #line default
+            #line hidden
+, 3083), false)
+);
 
 WriteLiteral(">\r\n");
 
 WriteLiteral("                                    ");
 
             
-            #line 110 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+            #line 69 "..\..\Views\Shared\Admin\Sidebar.cshtml"
                                Write(Html.FontAwesome(FontAwesomeExt.Icon.link));
 
             
@@ -468,14 +339,284 @@ WriteLiteral(" class=\"treeview-menu\"");
 WriteLiteral(">\r\n");
 
             
-            #line 117 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+            #line 76 "..\..\Views\Shared\Admin\Sidebar.cshtml"
                                     
             
             #line default
             #line hidden
             
-            #line 117 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+            #line 76 "..\..\Views\Shared\Admin\Sidebar.cshtml"
                                      foreach (var Ext in ExtensionClasses_L)
+                                        {
+
+            
+            #line default
+            #line hidden
+WriteLiteral("                                        <li ");
+
+            
+            #line 78 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+                                        Write(ViewBag.Breadcrumbs?.Contains( (Expression<Func<Set<string, string>, bool>>)(set => set.Obj2.ToLower() == Url.Action(nameof(ExamplesController.L_Extensions_Class), typeof(ExamplesController).CName(), new { ClassName = Ext.Name }))) == true ? "class=\"active\"" : "");
+
+            
+            #line default
+            #line hidden
+WriteLiteral(">\r\n                                            <a");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 4037), Tuple.Create("\"", 4221)
+            
+            #line 79 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+, Tuple.Create(Tuple.Create("", 4044), Tuple.Create<System.Object, System.Int32>(Url.Action(nameof(ExamplesController.L_Extensions_Class), typeof(ExamplesController).CName(),
+                                                    new { ClassName = Ext.Name })
+            
+            #line default
+            #line hidden
+, 4044), false)
+);
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                                                ");
+
+            
+            #line 81 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+                                           Write(Html.FontAwesome(Singularity.Icons.GetTypeIcon(Ext) ?? FontAwesomeExt.Icon.question));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+WriteLiteral("                                                ");
+
+            
+            #line 82 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+                                           Write(Ext.Name.Humanize().TrimEnd("Ext"));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                                                <small");
+
+WriteLiteral(" class=\"right\"");
+
+WriteLiteral(">(C#)</small>\r\n                                                <i");
+
+WriteLiteral(" class=\"fa fa-angle-left pull-right\"");
+
+WriteLiteral("></i>\r\n                                            </a>\r\n");
+
+            
+            #line 86 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+                                            
+            
+            #line default
+            #line hidden
+            
+            #line 86 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+                                              
+                                            MethodInfo[] ExtMethods = Ext.GetExtensionMethods();
+                                            
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                                            <ul");
+
+WriteLiteral(" class=\"treeview-menu\"");
+
+WriteLiteral(">\r\n");
+
+            
+            #line 90 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+                                                
+            
+            #line default
+            #line hidden
+            
+            #line 90 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+                                                 foreach (var Method in ExtMethods)
+                                                    {
+
+            
+            #line default
+            #line hidden
+WriteLiteral("                                                    <li>\r\n                       " +
+"                                 <a");
+
+WriteLiteral(" href=\"#\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                                                            ");
+
+            
+            #line 94 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+                                                       Write(Html.FontAwesome(FontAwesomeExt.Icon.question));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+WriteLiteral("                                                            ");
+
+            
+            #line 95 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+                                                       Write(Method.Name);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                                                            <small");
+
+WriteLiteral(" class=\"right\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                                                                ");
+
+            
+            #line 97 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+                                                           Write(Method.ToInvocationSignature());
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                                                            </small>\r\n         " +
+"                                                   <i");
+
+WriteLiteral(" class=\"fa fa-angle-left pull-right\"");
+
+WriteLiteral("></i>\r\n                                                        </a>\r\n            " +
+"                                        </li>\r\n");
+
+            
+            #line 102 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+                                                    }
+
+            
+            #line default
+            #line hidden
+WriteLiteral("                                            </ul>\r\n                              " +
+"          </li>\r\n");
+
+            
+            #line 105 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+                                        }
+
+            
+            #line default
+            #line hidden
+WriteLiteral("                                </ul>\r\n                            </li>\r\n       " +
+"                     <li>\r\n                                <a");
+
+WriteLiteral(" href=\"#\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                                    ");
+
+            
+            #line 110 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+                               Write(Html.FontAwesome(FontAwesomeExt.Icon.wrench));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                                    Tools\r\n                                    " +
+"<small");
+
+WriteLiteral(" class=\"right\"");
+
+WriteLiteral(">(C#)</small>\r\n                                    <i");
+
+WriteLiteral(" class=\"fa fa-angle-left pull-right\"");
+
+WriteLiteral("></i>\r\n                                </a>\r\n                            </li>\r\n " +
+"                       </ul>\r\n                    </li>\r\n                    <li" +
+">\r\n                        <a");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 6674), Tuple.Create("\"", 6767)
+            
+            #line 119 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+, Tuple.Create(Tuple.Create("", 6681), Tuple.Create<System.Object, System.Int32>(Url.Action(nameof(ExamplesController.Singularity),typeof(ExamplesController).CName())
+            
+            #line default
+            #line hidden
+, 6681), false)
+);
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                            ");
+
+            
+            #line 120 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+                       Write(Html.FontAwesome(FontAwesomeExt.Icon.dot_circle_o));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                            Singularity <small");
+
+WriteLiteral(" class=\"right\"");
+
+WriteLiteral(">(C#)</small><br />\r\n                            <small>MVC-based framework</smal" +
+"l>\r\n                            <i");
+
+WriteLiteral(" class=\"fa fa-angle-left pull-right\"");
+
+WriteLiteral("></i>\r\n                        </a>\r\n                        <ul");
+
+WriteLiteral(" class=\"treeview-menu\"");
+
+WriteLiteral(">\r\n                            <li>\r\n                                <a");
+
+WriteAttribute("href", Tuple.Create(" href=\"", 7220), Tuple.Create("\"", 7323)
+            
+            #line 127 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+, Tuple.Create(Tuple.Create("", 7227), Tuple.Create<System.Object, System.Int32>(Url.Action(nameof(ExamplesController.SingularityExtensions),typeof(ExamplesController).CName())
+            
+            #line default
+            #line hidden
+, 7227), false)
+);
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                                    ");
+
+            
+            #line 128 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+                               Write(Html.FontAwesome(FontAwesomeExt.Icon.link));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                                    Extensions\r\n                               " +
+"     <small");
+
+WriteLiteral(" class=\"right\"");
+
+WriteLiteral(">(C#)</small>\r\n                                    <i");
+
+WriteLiteral(" class=\"fa fa-angle-left pull-right\"");
+
+WriteLiteral("></i>\r\n                                </a>\r\n                                <ul");
+
+WriteLiteral(" class=\"treeview-menu\"");
+
+WriteLiteral(">\r\n");
+
+            
+            #line 134 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+                                    
+            
+            #line default
+            #line hidden
+            
+            #line 134 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+                                     foreach (var Ext in ExtensionClasses_Singularity)
                                         {
 
             
@@ -491,8 +632,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                                ");
 
             
-            #line 121 "..\..\Views\Shared\Admin\Sidebar.cshtml"
-                                           Write(Html.FontAwesome(FontAwesomeExt.Icon.question));
+            #line 138 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+                                           Write(Html.FontAwesome(Singularity.Icons.GetTypeIcon(Ext) ?? FontAwesomeExt.Icon.question));
 
             
             #line default
@@ -502,8 +643,8 @@ WriteLiteral("\r\n");
 WriteLiteral("                                                ");
 
             
-            #line 122 "..\..\Views\Shared\Admin\Sidebar.cshtml"
-                                           Write(Ext.Name.Humanize());
+            #line 139 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+                                           Write(Ext.Name.Trim("Ext").Humanize());
 
             
             #line default
@@ -512,100 +653,8 @@ WriteLiteral("\r\n                                                <small");
 
 WriteLiteral(" class=\"right\"");
 
-WriteLiteral(">(C#)</small>\r\n                                                <i");
-
-WriteLiteral(" class=\"fa fa-angle-left pull-right\"");
-
-WriteLiteral("></i>\r\n                                            </a>\r\n                        " +
-"                </li>\r\n");
-
-            
-            #line 127 "..\..\Views\Shared\Admin\Sidebar.cshtml"
-
-                                        MethodInfo[] ExtMethods = Ext.GetExtensionMethods();
-
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                                        <ul");
-
-WriteLiteral(" class=\"treeview-menu\"");
-
-WriteLiteral(">\r\n");
-
-            
-            #line 131 "..\..\Views\Shared\Admin\Sidebar.cshtml"
-                                            
-            
-            #line default
-            #line hidden
-            
-            #line 131 "..\..\Views\Shared\Admin\Sidebar.cshtml"
-                                             foreach (var Method in ExtMethods)
-                                                {
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                                                <li>\r\n                           " +
-"                         <a");
-
-WriteLiteral(" href=\"#\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("                                                        ");
-
-            
-            #line 135 "..\..\Views\Shared\Admin\Sidebar.cshtml"
-                                                   Write(Html.FontAwesome(FontAwesomeExt.Icon.question));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
-WriteLiteral("                                                        ");
-
-            
-            #line 136 "..\..\Views\Shared\Admin\Sidebar.cshtml"
-                                                   Write(Method.Name);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                                                        <small");
-
-WriteLiteral(" class=\"right\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("                                                            ");
-
-            
-            #line 138 "..\..\Views\Shared\Admin\Sidebar.cshtml"
-                                                       Write(Method.ToInvocationSignature());
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                                                        </small>\r\n             " +
-"                                           <i");
-
-WriteLiteral(" class=\"fa fa-angle-left pull-right\"");
-
-WriteLiteral("></i>\r\n                                                    </a>\r\n                " +
-"                                </li>\r\n");
-
-            
-            #line 143 "..\..\Views\Shared\Admin\Sidebar.cshtml"
-                                                }
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                                        </ul>\r\n");
+WriteLiteral("></small>\r\n                                            </a>\r\n\r\n\r\n                " +
+"                        </li>\r\n");
 
             
             #line 145 "..\..\Views\Shared\Admin\Sidebar.cshtml"
@@ -635,13 +684,30 @@ WriteLiteral("\r\n                                    Tools\r\n                 
 
 WriteLiteral(" class=\"right\"");
 
-WriteLiteral(">(C#)</small>\r\n                                    <i");
+WriteLiteral(">(C#)</small>\r\n                                </a>\r\n                            " +
+"</li>\r\n                            <li>\r\n                                <a");
 
-WriteLiteral(" class=\"fa fa-angle-left pull-right\"");
+WriteLiteral(" href=\"#\"");
 
-WriteLiteral("></i>\r\n                                </a>\r\n                            </li>\r\n " +
-"                       </ul>\r\n                    </li>\r\n                    <li" +
-">\r\n                        <a");
+WriteLiteral(">\r\n");
+
+WriteLiteral("                                    ");
+
+            
+            #line 157 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+                               Write(Html.FontAwesome(FontAwesomeExt.Icon.file_code_o));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                                    Views\r\n                                    " +
+"<small");
+
+WriteLiteral(" class=\"right\"");
+
+WriteLiteral(">(C#)</small>\r\n                                </a>\r\n                            " +
+"</li>\r\n                        </ul>\r\n                    </li>\r\n               " +
+"     <li>\r\n                        <a");
 
 WriteLiteral(" href=\"#\"");
 
@@ -650,7 +716,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 160 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+            #line 166 "..\..\Views\Shared\Admin\Sidebar.cshtml"
                        Write(Html.FontAwesome(FontAwesomeExt.Icon.link));
 
             
@@ -678,7 +744,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 168 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+            #line 174 "..\..\Views\Shared\Admin\Sidebar.cshtml"
                                Write(Html.FontAwesome(FontAwesomeExt.Icon.link));
 
             
@@ -703,7 +769,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 176 "..\..\Views\Shared\Admin\Sidebar.cshtml"
+            #line 182 "..\..\Views\Shared\Admin\Sidebar.cshtml"
                                Write(Html.FontAwesome(FontAwesomeExt.Icon.file_code_o));
 
             

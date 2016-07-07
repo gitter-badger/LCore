@@ -58,6 +58,7 @@ namespace Singularity.Context
 
         public DbSet<SiteConfig> SiteConfig { get; set; }
 
+        public DbSet<SecurityLog> SecurityLogs { get; set; }
 
         public override Type UserAccountType => typeof(UserAccount);
         public override Type UserRoleType => typeof(AccountRole);

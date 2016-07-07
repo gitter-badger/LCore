@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
-using Singularity.Context;
 
 namespace Singularity.Config
     {

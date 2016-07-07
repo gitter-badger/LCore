@@ -141,13 +141,13 @@ namespace LCore.Extensions
                 $"public {(Static ? "static " : "")}class {ClassName}\r\n{{\r\n", "}\r\n");
             #endregion
             #region Using
-            internal static readonly Func<string[], string, string> Using = (Usings, In) =>
+            internal static readonly Func<string[], string, string> Using = (Using, In) =>
             {
-                if (Usings.IsEmpty() || In.IsEmpty())
+                if (Using.IsEmpty() || In.IsEmpty())
                     return In;
 
                 string Out = "";
-                Usings.Each(str =>
+                Using.Each(str =>
                 {
                     Out += $"using {str};\r\n";
                 });

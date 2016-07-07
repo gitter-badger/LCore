@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using LCore.Extensions;
+using Singularity.Extensions;
 
 namespace Singularity
     {
@@ -30,6 +34,76 @@ namespace Singularity
             public const string Singularity = "";
             public const string L = "";
 
+            }
+
+        public static class Icons
+            {
+            public static readonly Dictionary<Type, FontAwesomeExt.Icon> TypeIcons_L = new Dictionary<Type, FontAwesomeExt.Icon>
+                {
+                [typeof(BooleanExt)] = FontAwesomeExt.Icon.adjust,
+                [typeof(ReflectionExt)] = FontAwesomeExt.Icon.shield,
+                [typeof(EnumerableExt)] = FontAwesomeExt.Icon.list,
+                [typeof(LoopExt)] = FontAwesomeExt.Icon.repeat,
+                [typeof(DateExt)] = FontAwesomeExt.Icon.calendar,
+                [typeof(DictionaryExt)] = FontAwesomeExt.Icon.book,
+                [typeof(FileExt)] = FontAwesomeExt.Icon.archive,
+                [typeof(StringExt)] = FontAwesomeExt.Icon.quote_left,
+                [typeof(ObjectExt)] = FontAwesomeExt.Icon.square_o,
+                [typeof(InterfaceExt)] = FontAwesomeExt.Icon.info_circle,
+                [typeof(ExceptionExt)] = FontAwesomeExt.Icon.warning,
+                [typeof(EnumExt)] = FontAwesomeExt.Icon.navicon,
+                [typeof(ThreadExt)] = FontAwesomeExt.Icon.random,
+                [typeof(NumberExt)] = FontAwesomeExt.Icon.sort_numeric_asc,
+                [typeof(L)] = FontAwesomeExt.Icon.gbp
+                };
+
+            public static readonly Dictionary<Type, FontAwesomeExt.Icon> TypeIcons_Singularity = new Dictionary<Type, FontAwesomeExt.Icon>
+                {
+                [typeof(MetaExt)] = FontAwesomeExt.Icon.info_circle
+                };
+
+            public static readonly Dictionary<Type, FontAwesomeExt.Icon> TypeIcons = new Dictionary<Type, FontAwesomeExt.Icon>
+                {
+                [typeof(bool)] = FontAwesomeExt.Icon.adjust,
+                [typeof(IEnumerable)] = FontAwesomeExt.Icon.list,
+                [typeof(Array)] = FontAwesomeExt.Icon.list,
+                [typeof(DateTime)] = FontAwesomeExt.Icon.calendar,
+                [typeof(TimeSpan)] = FontAwesomeExt.Icon.calendar,
+                [typeof(IDictionary)] = FontAwesomeExt.Icon.book,
+                [typeof(System.IO.File)] = FontAwesomeExt.Icon.archive,
+                [typeof(System.IO.FileInfo)] = FontAwesomeExt.Icon.archive,
+                [typeof(string)] = FontAwesomeExt.Icon.quote_left,
+                [typeof(object)] = FontAwesomeExt.Icon.square_o,
+                [typeof(Exception)] = FontAwesomeExt.Icon.warning,
+                [typeof(Enum)] = FontAwesomeExt.Icon.navicon,
+                [typeof(System.Threading.Thread)] = FontAwesomeExt.Icon.random,
+                [typeof(int)] = FontAwesomeExt.Icon.sort_numeric_asc,
+                [typeof(double)] = FontAwesomeExt.Icon.sort_numeric_asc,
+                [typeof(float)] = FontAwesomeExt.Icon.sort_numeric_asc,
+                [typeof(short)] = FontAwesomeExt.Icon.sort_numeric_asc,
+                [typeof(long)] = FontAwesomeExt.Icon.sort_numeric_asc,
+                [typeof(uint)] = FontAwesomeExt.Icon.sort_numeric_asc,
+                [typeof(ushort)] = FontAwesomeExt.Icon.sort_numeric_asc,
+                [typeof(ulong)] = FontAwesomeExt.Icon.sort_numeric_asc
+                };
+
+            public static FontAwesomeExt.Icon? GetTypeIcon(Type type)
+                {
+                if (type == null)
+                    return null;
+
+                if (TypeIcons.ContainsKey(type))
+                    return TypeIcons[type];
+
+                if (TypeIcons_L.ContainsKey(type))
+                    return TypeIcons_L[type];
+
+                // ReSharper disable once ConvertIfStatementToReturnStatement
+                if (TypeIcons_Singularity.ContainsKey(type))
+                    return TypeIcons_Singularity[type];
+
+                return FontAwesomeExt.Icon.question;
+                }
             }
 
         public static class Url

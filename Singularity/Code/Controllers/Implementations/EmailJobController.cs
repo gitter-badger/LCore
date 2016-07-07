@@ -1,5 +1,6 @@
 ﻿using Singularity.Models;
 using System.Web.Mvc;
+using Singularity.Account;
 
 namespace Singularity.Controllers
     {
@@ -9,5 +10,6 @@ namespace Singularity.Controllers
         public override ControllerHelper.ViewType? ActionAfterCreate => ControllerHelper.ViewType.Display;
 
         public override string PageGroup => ControllerHelper.Menu_Admin;
+        public EmailJobController(IAuthenticationService Auth) : base(Auth) {}
         }
     }

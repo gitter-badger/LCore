@@ -363,6 +363,7 @@
     <Compile Include="Code\Models\ViewModels\ManageViewModel.cs" />
     <Compile Include="Code\Models\Account\ModelPermissions.cs" />
     <Compile Include="Code\ViewField.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Code\Routes\PartialViews.cs" />
     <Compile Include="Startup.cs" />
@@ -393,26 +394,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Subject_After.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Examples\Examples_JQueryUI.generated.cs">
-      <DependentUpon>Examples_JQueryUI.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Examples\Examples_Singularity.generated.cs">
-      <DependentUpon>Examples_Singularity.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Examples\Examples_Bootstrap1.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Examples_Bootstrap.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Examples\Home.generated.cs">
-      <DependentUpon>Home.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Views\Home\Index.generated.cs">
       <AutoGen>True</AutoGen>
@@ -709,6 +690,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Search.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Shared\StatusMessages1.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StatusMessages.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Shared\Template.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -913,18 +899,9 @@
       <LastGenOutput>ForceResetPassword.generated.cs</LastGenOutput>
     </Content>
     <None Include="Views\Error\Index.cshtml" />
-    <Content Include="Views\Examples\Examples_Bootstrap.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Examples_Bootstrap1.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Examples\Examples_Singularity.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Examples_Singularity.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Examples\Examples_JQueryUI.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Examples_JQueryUI.generated.cs</LastGenOutput>
-    </Content>
+    <Content Include="Views\Examples\Examples_Bootstrap.cshtml" />
+    <Content Include="Views\Examples\Examples_Singularity.cshtml" />
+    <Content Include="Views\Examples\Examples_JQueryUI.cshtml" />
     <Content Include="Views\Shared\LoginPartial.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>LoginPartial1.generated.cs</LastGenOutput>
@@ -933,10 +910,7 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>PasswordRequirements1.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Examples\Home.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Home.generated.cs</LastGenOutput>
-    </Content>
+    <Content Include="Views\Examples\Home.cshtml" />
     <Content Include="Views\Home\Index.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Index.generated.cs</LastGenOutput>
@@ -970,6 +944,14 @@
     <Content Include="Views\Examples\SingularityExtensions.cshtml" />
     <Content Include="Views\Examples\SingularityExtensionType.cshtml" />
     <Content Include="Views\Examples\SingularityExtensionMethod.cshtml" />
+    <Content Include="Views\Examples\L.cshtml" />
+    <Content Include="Views\Examples\L_Extensions.cshtml" />
+    <Content Include="Views\Examples\L_Extensions_Class.cshtml" />
+    <Content Include="Views\Examples\Examples_Member.cshtml" />
+    <Content Include="Views\Shared\StatusMessages.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>StatusMessages1.generated.cs</LastGenOutput>
+    </Content>
     <TypeScriptCompile Include="Scripts\definitions\jquery.mobile.custom.d.ts" />
     <Content Include="Scripts\include\jquery-mobile\images\ajax-loader.gif" />
     <None Include="Scripts\include\jquery-mobile\jquery-mobile-1.4.5.min.map" />

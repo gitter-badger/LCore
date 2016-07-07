@@ -4,6 +4,8 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Threading;
 using LCore.Interfaces;
+using LCore.Tests;
+
 // ReSharper disable UnusedMember.Global
 
 namespace LCore.Extensions
@@ -50,6 +52,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Creates a directory path if it doesn't already exist.
         /// </summary>
+        [Tested]
         public static void EnsurePathExists(this string Path)
             {
             string DirPath = Path;
@@ -197,7 +200,7 @@ namespace LCore.Extensions
 
         #region GetMemoryStream
         /// <summary>
-        /// Reads the entirity of a Stream and returns it as a MemoryStream.
+        /// Reads the entirety of a Stream and returns it as a MemoryStream.
         /// </summary>
         public static MemoryStream GetMemoryStream(this Stream In)
             {

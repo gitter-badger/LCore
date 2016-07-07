@@ -8,6 +8,6 @@ namespace L_Tests
     [TestClass]
     public class ReflectionExtTest : ExtensionTester
         {
-        protected override Type TestType => typeof(ReflectionExt);
+        protected override Type[] TestType => new[] { typeof(ReflectionExt) };
         }
     }

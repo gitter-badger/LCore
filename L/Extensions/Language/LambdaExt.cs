@@ -4,15 +4,13 @@ using System.Collections.Generic;
 using LCore.Extensions.Optional;
 using System.Reflection;
 using System.Linq;
-using LCore.Interfaces;
 
 namespace LCore.Extensions
     {
     /// <summary>
     /// Provides internal methods to take a Type or MemberInfo and 
-    /// return a string representaion of methods, properties, etc.
+    /// return a string representation of methods, properties, etc.
     /// </summary>
-    [ExtensionProvider]
     internal static class LambdaExt
         {
         #region Extensions +

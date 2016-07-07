@@ -13,7 +13,6 @@ namespace Singularity.Config
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             DependencyConfig.RegisterDI();
-
             }
         }
     }

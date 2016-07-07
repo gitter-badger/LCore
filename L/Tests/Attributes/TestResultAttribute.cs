@@ -16,7 +16,8 @@ namespace LCore.Tests
         /// </summary>
         public override void RunTest(MethodInfo Method)
             {
-            Func<object, bool>[] Checks = this.AdditionalResultChecks.Convert(L.F<MethodInfo, string, Func<object, bool>>(this.GetCheckMethodArg).Supply(Method));
+            Func<object, bool>[] Checks = this.AdditionalResultChecks.Convert(
+                L.F<MethodInfo, string, Func<object, bool>>(this.GetCheckMethodArg).Supply(Method));
 
             //            Method.MethodAssertResult(Parameters, ExpectedResult, Checks);
 

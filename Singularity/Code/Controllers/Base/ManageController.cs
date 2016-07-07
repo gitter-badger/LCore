@@ -7,6 +7,7 @@ using Singularity.Context;
 using Singularity.Filters;
 using Singularity.Extensions;
 using System.Web.Helpers;
+using Singularity.Account;
 
 namespace Singularity.Controllers
     {
@@ -143,5 +144,7 @@ namespace Singularity.Controllers
             {
             this.TempData.Add(ControllerHelper.StatusMessage_Temporary, Message);
             }
+
+        protected ManageController(IAuthenticationService Auth) : base(Auth) { }
         }
     }

@@ -12,6 +12,7 @@ using Singularity.Models;
 using Singularity.Context;
 using Singularity.Extensions;
 using System.Web.Helpers;
+using Singularity.Account;
 using Singularity.Annotations;
 using Singularity.Utilities;
 // ReSharper disable VirtualMemberNeverOverriden.Global
@@ -1042,8 +1043,9 @@ namespace Singularity.Controllers
         public override ControllerHelper Helper => this.Helper_T;
         public ControllerHelper<T> Helper_T { get; }
 
-        protected ManageController()
+        protected ManageController(IAuthenticationService Auth) : base(Auth)
             {
+
             this.Helper_T = new ControllerHelper<T>(this);
             }
         }

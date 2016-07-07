@@ -22,7 +22,7 @@ namespace Singularity.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginViewModel model, IAuthenticationService Auth)
+        public ActionResult Login(LoginViewModel model)
             {
             if (!this.ModelState.IsValid)
                 {
@@ -31,7 +31,7 @@ namespace Singularity.Controllers
 
             var DbContext = this.HttpContext.GetModelContext();
 
-            var Result = Auth.AttemptLogIn(this.HttpContext, model.Username, model.Password);
+            var Result = this.Auth.AttemptLogIn(this.HttpContext, model.Username, model.Password);
 
             if (Result != null)
                 {
@@ -143,5 +143,7 @@ namespace Singularity.Controllers
 
             return this.RedirectToAction(DbContext.GetHomeAction(Auth.LoggedInUser), DbContext.GetHomeController(Auth.LoggedInUser));
             }
+
+        public AccountController(IAuthenticationService Auth) : base(Auth) { }
         }
     }

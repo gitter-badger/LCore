@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Threading;
 using LCore.Interfaces;
+using LCore.Tests;
 using LCore.Tools;
 
 namespace LCore.Extensions
     {
     /// <summary>
-    /// Provides extensions to methods to help with asyncronous actions and timing.
+    /// Provides extensions to methods to help with asynchronous actions and timing.
     /// </summary>
     [ExtensionProvider]
     public static class ThreadExt
@@ -17,11 +18,12 @@ namespace LCore.Extensions
 
         #region Async
         /// <summary>
-        /// Performs an action or function asyncronously. 
+        /// Performs an action or function asynchronously. 
         /// If a function is used, a callback can be supplied to retrieve the value. 
         /// If a time limit is supplied, the thread will be interrupted if it does not 
         /// complete within the time period.
         /// </summary>
+        [Tested]
         public static Action Async(this Action In, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
             {
             return () =>
@@ -54,7 +56,7 @@ namespace LCore.Extensions
             };
             }
         /// <summary>
-        /// Performs an action or function asyncronously. 
+        /// Performs an action or function asynchronously. 
         /// If a function is used, a callback can be supplied to retrieve the value. 
         /// If a time limit is supplied, the thread will be interrupted if it does not 
         /// complete within the time period.
@@ -66,7 +68,7 @@ namespace LCore.Extensions
 
 
         /// <summary>
-        /// Performs an action or function asyncronously. 
+        /// Performs an action or function asynchronously. 
         /// If a function is used, a callback can be supplied to retrieve the value. 
         /// If a time limit is supplied, the thread will be interrupted if it does not 
         /// complete within the time period.
@@ -77,7 +79,7 @@ namespace LCore.Extensions
             return SafeCallback.Async(TimeLimit, Priority);
             }
         /// <summary>
-        /// Performs an action or function asyncronously. 
+        /// Performs an action or function asynchronously. 
         /// If a function is used, a callback can be supplied to retrieve the value. 
         /// If a time limit is supplied, the thread will be interrupted if it does not 
         /// complete within the time period.
@@ -169,6 +171,23 @@ namespace LCore.Extensions
         #endregion
 
         #endregion
+
+        public static int CountExecutions(this Action In, int MS)
+            {
+            var Start = DateTime.Now;
+            int Elapsed = 0;
+
+            int Count = 0;
+            while (Elapsed < MS)
+                {
+                In();
+                Count++;
+
+                Elapsed = DateTime.Now.Subtract(Start).Milliseconds.Abs();
+                }
+
+            return Count;
+            }
         }
     public static partial class L
         {

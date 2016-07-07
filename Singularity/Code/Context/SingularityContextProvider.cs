@@ -5,6 +5,7 @@ using Singularity.Controllers;
 using Singularity.Models;
 using Microsoft.WindowsAzure.StorageClient;
 using LCore.Extensions;
+using Singularity.Account;
 
 namespace Singularity.Context
     {
@@ -48,13 +49,13 @@ namespace Singularity.Context
             if (Session?[ContextSession] == null || (string)Session[ContextSession] == SingularityContext.Name)
                 {
                 return new ManageController[]{
-                    new EmailJobController(),
-                    new EmailHistoryController(),
-                    new CustomExportController(),
-                    new SavedSearchController(),
-                    new TextContentController(),
-                    new TemplateController(),
-                    new ErrorsController()
+                    new EmailJobController(new AuthenticationService(Session)),
+                    new EmailHistoryController(new AuthenticationService(Session)),
+                    new CustomExportController(new AuthenticationService(Session)),
+                    new SavedSearchController(new AuthenticationService(Session)),
+                    new TextContentController(new AuthenticationService(Session)),
+                    new TemplateController(new AuthenticationService(Session)),
+                    new ErrorsController(new AuthenticationService(Session))
                 };
                 }
 

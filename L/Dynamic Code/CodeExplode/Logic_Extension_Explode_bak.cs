@@ -1,3 +1,4 @@
+// ReSharper disable CommentTypo
 /*
 using System;
 using System.Collections.Generic;
@@ -423,133 +424,133 @@ return Logic.L_Supply3_A<T1, T2, T3>()(In, Obj, Obj2, Obj3);
 #endregion
 #region Then
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
 /// </summary>
 public static Func<T1,T2,U> Then<T1, T2, U>(this Func<T1,T2,U> In, params Action<T1>[] Acts)
 {
 return Logic.L_ThenMissing_F_A<T1, T2, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
 /// </summary>
 public static Func<T1,T2,U> Then<T1, T2, U>(this Func<T1,T2,U> In, params Action[] Acts)
 {
 return Logic.L_ThenMissing_F_A2<T1, T2, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
 /// </summary>
 public static Func<T1,T2,T3,U> Then<T1, T2, T3, U>(this Func<T1,T2,T3,U> In, Action<T1,T2>[] Acts)
 {
 return Logic.L_ThenMissing_F_A<T1, T2, T3, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
 /// </summary>
 public static Func<T1,T2,T3,U> Then<T1, T2, T3, U>(this Func<T1,T2,T3,U> In, params Action<T1>[] Acts)
 {
 return Logic.L_ThenMissing_F_A2<T1, T2, T3, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
 /// </summary>
 public static Func<T1,T2,T3,U> Then<T1, T2, T3, U>(this Func<T1,T2,T3,U> In, params Action[] Acts)
 {
 return Logic.L_ThenMissing_F_A3<T1, T2, T3, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
 /// </summary>
 public static Func<T1,T2,T3,T4,U> Then<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, params Action<T1,T2,T3>[] Acts)
 {
 return Logic.L_ThenMissing_F_A<T1, T2, T3, T4, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
 /// </summary>
 public static Func<T1,T2,T3,T4,U> Then<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, Action<T1,T2>[] Acts)
 {
 return Logic.L_ThenMissing_F_A2<T1, T2, T3, T4, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
 /// </summary>
 public static Func<T1,T2,T3,T4,U> Then<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, params Action<T1>[] Acts)
 {
 return Logic.L_ThenMissing_F_A3<T1, T2, T3, T4, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
 /// </summary>
 public static Func<T1,T2,T3,T4,U> Then<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, params Action[] Acts)
 {
 return Logic.L_ThenMissing_F_A4<T1, T2, T3, T4, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
 public static Func<T1,U> Then<T1, U>(this Func<T1,U> In, params Func<U>[] Acts)
 {
 return Logic.L_ThenMissing_F_F<T1, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
 public static Func<T1,T2,U> Then<T1, T2, U>(this Func<T1,T2,U> In, params Func<T1,U>[] Acts)
 {
 return Logic.L_ThenMissing_F_F<T1, T2, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
 public static Func<T1,T2,U> Then<T1, T2, U>(this Func<T1,T2,U> In, params Func<U>[] Acts)
 {
 return Logic.L_ThenMissing_F_F2<T1, T2, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
 public static Func<T1,T2,T3,U> Then<T1, T2, T3, U>(this Func<T1,T2,T3,U> In, params Func<T1,U>[] Acts)
 {
 return Logic.L_ThenMissing_F_F2<T1, T2, T3, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
 public static Func<T1,T2,T3,U> Then<T1, T2, T3, U>(this Func<T1,T2,T3,U> In, params Func<U>[] Acts)
 {
 return Logic.L_ThenMissing_F_F3<T1, T2, T3, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
 public static Func<T1,T2,T3,U> Then<T1, T2, T3, U>(this Func<T1,T2,T3,U> In, params Func<T1,T2,U>[] Acts)
 {
 return Logic.L_ThenMissing_F_F<T1, T2, T3, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
 public static Func<T1,T2,T3,T4,U> Then<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, params Func<T1,T2,T3,U>[] Acts)
 {
 return Logic.L_ThenMissing_F_F<T1, T2, T3, T4, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
 public static Func<T1,T2,T3,T4,U> Then<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, params Func<T1,T2,U>[] Acts)
 {
 return Logic.L_ThenMissing_F_F2<T1, T2, T3, T4, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
 public static Func<T1,T2,T3,T4,U> Then<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, params Func<T1,U>[] Acts)
 {
 return Logic.L_ThenMissing_F_F3<T1, T2, T3, T4, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
 public static Func<T1,T2,T3,T4,U> Then<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,U> In, params Func<U>[] Acts)
 {
@@ -1332,147 +1333,147 @@ public static Func<T1,T2,T3,T4,U> Then<T1, T2, T3, T4, U>(this Func<T1,T2,T3,T4,
 return Logic.L_Then_F_F<T1, T2, T3, T4, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
 /// </summary>
 public static Action<T1> Then<T1>(this Action<T1> In, params Action[] Acts)
 {
 return Logic.L_ThenMissing_A<T1>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
 /// </summary>
 public static Action<T1,T2> Then<T1, T2>(this Action<T1,T2> In, params Action<T1>[] Acts)
 {
 return Logic.L_ThenMissing_A<T1, T2>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
 /// </summary>
 public static Action<T1,T2> Then<T1, T2>(this Action<T1,T2> In, params Action[] Acts)
 {
 return Logic.L_ThenMissing_A2<T1, T2>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
 /// </summary>
 public static Action<T1,T2,T3> Then<T1, T2, T3>(this Action<T1,T2,T3> In, params Action<T1,T2>[] Acts)
 {
 return Logic.L_ThenMissing_A<T1, T2, T3>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
 /// </summary>
 public static Action<T1,T2,T3> Then<T1, T2, T3>(this Action<T1,T2,T3> In, params Action<T1>[] Acts)
 {
 return Logic.L_ThenMissing_A2<T1, T2, T3>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
 /// </summary>
 public static Action<T1,T2,T3> Then<T1, T2, T3>(this Action<T1,T2,T3> In, params Action[] Acts)
 {
 return Logic.L_ThenMissing_A3<T1, T2, T3>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
 /// </summary>
 public static Action<T1,T2,T3,T4> Then<T1, T2, T3, T4>(this Action<T1,T2,T3,T4> In, params Action<T1,T2,T3>[] Acts)
 {
 return Logic.L_ThenMissing_A<T1, T2, T3, T4>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
 /// </summary>
 public static Action<T1,T2,T3,T4> Then<T1, T2, T3, T4>(this Action<T1,T2,T3,T4> In, params Action<T1,T2>[] Acts)
 {
 return Logic.L_ThenMissing_A2<T1, T2, T3, T4>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
 /// </summary>
 public static Action<T1,T2,T3,T4> Then<T1, T2, T3, T4>(this Action<T1,T2,T3,T4> In, params Action<T1>[] Acts)
 {
 return Logic.L_ThenMissing_A3<T1, T2, T3, T4>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
 /// </summary>
 public static Action<T1,T2,T3,T4> Then<T1, T2, T3, T4>(this Action<T1,T2,T3,T4> In, params Action[] Acts)
 {
 return Logic.L_ThenMissing_A4<T1, T2, T3, T4>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
 public static Func<T1,U> Then<T1, U>(this Action<T1> In, params Func<U>[] Acts)
 {
 return Logic.L_ThenMissing_A_F<T1, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
 public static Func<T1,T2,U> Then<T1, T2, U>(this Action<T1,T2> In, params Func<T1,U>[] Acts)
 {
 return Logic.L_ThenMissing_A_F<T1, T2, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
 public static Func<T1,T2,T3,U> Then<T1, T2, T3, U>(this Action<T1,T2,T3> In, params Func<T1,T2,U>[] Acts)
 {
 return Logic.L_ThenMissing_A_F<T1, T2, T3, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
 public static Func<T1,T2,U> Then<T1, T2, U>(this Action<T1,T2> In, params Func<U>[] Acts)
 {
 return Logic.L_ThenMissing_A_F2<T1, T2, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
 public static Func<T1,T2,T3,U> Then<T1, T2, T3, U>(this Action<T1,T2,T3> In, params Func<U>[] Acts)
 {
 return Logic.L_ThenMissing_A_F3<T1, T2, T3, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
 public static Func<T1,T2,T3,U> Then<T1, T2, T3, U>(this Action<T1,T2,T3> In, params Func<T1,U>[] Acts)
 {
 return Logic.L_ThenMissing_A_F2<T1, T2, T3, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
 public static Func<T1,T2,T3,T4,U> Then<T1, T2, T3, T4, U>(this Action<T1,T2,T3,T4> In, params Func<T1,T2,T3,U>[] Acts)
 {
 return Logic.L_ThenMissing_A_F<T1, T2, T3, T4, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
 public static Func<T1,T2,T3,T4,U> Then<T1, T2, T3, T4, U>(this Action<T1,T2,T3,T4> In, params Func<T1,T2,U>[] Acts)
 {
 return Logic.L_ThenMissing_A_F2<T1, T2, T3, T4, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
 public static Func<T1,T2,T3,T4,U> Then<T1, T2, T3, T4, U>(this Action<T1,T2,T3,T4> In, params Func<T1,U>[] Acts)
 {
 return Logic.L_ThenMissing_A_F3<T1, T2, T3, T4, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
 /// </summary>
 public static Func<T1,T2,T3,T4,U> Then<T1, T2, T3, T4, U>(this Action<T1,T2,T3,T4> In, params Func<U>[] Acts)
 {
 return Logic.L_ThenMissing_A_F4<T1, T2, T3, T4, U>()(In, Acts);
 }
 /// <summary>
-/// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+/// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
 /// </summary>
 public static Func<T1,U> Then<T1, U>(this Func<T1,U> In, params Action[] Acts)
 {
@@ -4231,35 +4232,35 @@ return Logic.L_If_F<T1, T2, T3, T4, U>()(Condition, Action);
 #endregion
 #region IfElse
 /// <summary>
-/// Logical If Else Statment. If the condition passed is true, the first action passed is executed. Otherwise, the second action is executed.
+/// Logical If Else Statement. If the condition passed is true, the first action passed is executed. Otherwise, the second action is executed.
 /// </summary>
 public static Action IfElse(this Func<Boolean> Condition, Action Action, Action Else)
 {
 return Logic.L_IfElse()(Condition, Action, Else);
 }
 /// <summary>
-/// Logical If Else Statment. If the condition passed is true, the first action passed is executed. Otherwise, the second action is executed.
+/// Logical If Else Statement. If the condition passed is true, the first action passed is executed. Otherwise, the second action is executed.
 /// </summary>
 public static Action<T1> IfElse<T1>(this Func<T1,Boolean> Condition, Action<T1> Action, Action<T1> Else)
 {
 return Logic.L_IfElse<T1>()(Condition, Action, Else);
 }
 /// <summary>
-/// Logical If Else Statment. If the condition passed is true, the first action passed is executed. Otherwise, the second action is executed.
+/// Logical If Else Statement. If the condition passed is true, the first action passed is executed. Otherwise, the second action is executed.
 /// </summary>
 public static Action<T1,T2> IfElse<T1, T2>(this Func<T1,T2,Boolean> Condition, Action<T1,T2> Action, Action<T1,T2> Else)
 {
 return Logic.L_IfElse<T1, T2>()(Condition, Action, Else);
 }
 /// <summary>
-/// Logical If Else Statment. If the condition passed is true, the first action passed is executed. Otherwise, the second action is executed.
+/// Logical If Else Statement. If the condition passed is true, the first action passed is executed. Otherwise, the second action is executed.
 /// </summary>
 public static Action<T1,T2,T3> IfElse<T1, T2, T3>(this Func<T1,T2,T3,Boolean> Condition, Action<T1,T2,T3> Action, Action<T1,T2,T3> Else)
 {
 return Logic.L_IfElse<T1, T2, T3>()(Condition, Action, Else);
 }
 /// <summary>
-/// Logical If Else Statment. If the condition passed is true, the first action passed is executed. Otherwise, the second action is executed.
+/// Logical If Else Statement. If the condition passed is true, the first action passed is executed. Otherwise, the second action is executed.
 /// </summary>
 public static Action<T1,T2,T3,T4> IfElse<T1, T2, T3, T4>(this Func<T1,T2,T3,T4,Boolean> Condition, Action<T1,T2,T3,T4> Action, Action<T1,T2,T3,T4> Else)
 {

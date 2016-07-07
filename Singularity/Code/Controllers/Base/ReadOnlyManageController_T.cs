@@ -1,4 +1,5 @@
-﻿using Singularity.Models;
+﻿using Singularity.Account;
+using Singularity.Models;
 
 namespace Singularity.Controllers
     {
@@ -11,5 +12,7 @@ namespace Singularity.Controllers
             ViewInactive = true,
             Export = true
             };
+
+        protected ReadOnlyManageController(IAuthenticationService Auth) : base(Auth) {}
         }
     }

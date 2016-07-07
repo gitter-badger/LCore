@@ -1,5 +1,6 @@
 ﻿using System;
 using LCore.Interfaces;
+using LCore.Tests;
 
 namespace LCore.Extensions
     {
@@ -16,6 +17,8 @@ namespace LCore.Extensions
         /// <summary>
         /// Converts an IConvertible to type [t], if it is capable.
         /// </summary>
+        /// <exception cref="System.FormatException">Throws a format exception if the format is not correct for the output type.</exception>
+        [Tested]
         public static object ConvertTo(this IConvertible In, Type t)
             {
             return In == null ? null : Convert.ChangeType(In, t);
@@ -24,6 +27,8 @@ namespace LCore.Extensions
         /// <summary>
         /// Converts an IConvertible to type [T], if it is capable.
         /// </summary>
+        /// <exception cref="System.FormatException">Throws a format exception if the format is not correct for the output type.</exception>
+        [Tested]
         public static T ConvertTo<T>(this IConvertible In) where T : IConvertible
             {
             if (In == null)

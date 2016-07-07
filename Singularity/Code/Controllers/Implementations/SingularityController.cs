@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using LCore.Tools;
+using Singularity.Account;
 using Singularity.Filters;
 using Singularity.Extensions;
+using Singularity.Routes;
 
 namespace Singularity.Controllers
     {
@@ -9,6 +13,8 @@ namespace Singularity.Controllers
     public abstract class SingularityController : Controller
         {
         public const string SessionLastError = "LastError";
+
+        public IAuthenticationService Auth { get; set; }
 
         protected override void OnException(ExceptionContext filterContext)
             {
@@ -28,5 +34,32 @@ namespace Singularity.Controllers
             filterContext.HttpContext.Response.Redirect(this.Url.Controller<ErrorController>().Action(c => c.Index));
             }
 
+        private Set<string, string>[] _Breadcrumbs { get; set; }
+
+        public Set<string, string>[] Breadcrumbs
+            {
+            get
+                {
+                return this._Breadcrumbs;
+                }
+            set
+                {
+                // Set the ViewBag Title automaticaly
+                if (value?.Length > 0)
+                    {
+                    this.ViewBag.Title = value[value.Length - 1].Obj1;
+                    }
+
+                this._Breadcrumbs = value;
+                }
+            }
+
+        public virtual string DefaultLayout => Layouts.Main;
+
+        protected SingularityController(IAuthenticationService Auth)
+            {
+            this.Auth = Auth;
+            }
         }
     }
+

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using LCore.Interfaces;
+using LCore.Tests;
 
 namespace LCore.Extensions
     {
@@ -15,6 +16,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
+        [Tested]
         public static Func<bool> Try(this Action In)
             {
             return () => { try { In(); return true; } catch { return false; } };
@@ -22,6 +24,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
+        [Tested]
         public static Func<T1, bool> Try<T1>(this Action<T1> In)
             {
             return o => { try { In(o); return true; } catch { return false; } };
@@ -29,6 +32,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
+        [Tested]
         public static Func<T1, T2, bool> Try<T1, T2>(this Action<T1, T2> In)
             {
             return (o1, o2) => { try { In(o1, o2); return true; } catch { return false; } };

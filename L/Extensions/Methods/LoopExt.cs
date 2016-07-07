@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using LCore.Dynamic;
 using LCore.Interfaces;
+using LCore.Tests;
+
 // ReSharper disable ClassNeverInstantiated.Global
 
 namespace LCore.Extensions
@@ -24,6 +26,7 @@ namespace LCore.Extensions
         /// <param name="To"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
+        [Tested]
         public static List<U> To<U>(this int In, int To, Func<U> Func)
             {
             var Out = new List<U>();
@@ -261,7 +264,16 @@ namespace LCore.Extensions
             //     [CodeExplodeGenerics("Repeat", L.Comments.Repeat)]
             public static Func<Action, uint, Action> L_Repeat()
                 {
-                return (Act, Times) => L_To /*IGA*/()(0, (int)Times, Act);
+                return (Act, Times) =>
+                    {
+                        if (Times == 0)
+                            return E;
+                        // ReSharper disable once ConvertIfStatementToReturnStatement
+                        if (Times == 1)
+                            return Act;
+
+                        return L_To /*IGA*/()(1, (int)Times, Act);
+                    };
                 }
 
             #endregion
@@ -839,11 +851,11 @@ namespace LCore.Extensions
             public static Func<int, int, Action, Action> L_To /*MA*/()
                 {
                 return (In, To, Action) =>
-                    {
-                        if (In == To)
-                            return () => { };
+                {
+                    if (In == To)
+                        return Action;
 
-                        return () =>
+                    return () =>
                             {
                                 bool Positive = In < To;
                                 int Increment = Positive ? 1 : -1;
@@ -852,7 +864,7 @@ namespace LCore.Extensions
                                     Action();
                                     }
                             };
-                    };
+                };
                 }
 
             /// <summary>
@@ -866,7 +878,7 @@ namespace LCore.Extensions
                 return (In, To, Action) =>
                     {
                         if (In == To)
-                            return () => { };
+                            return () => { Action(In); };
 
                         return () =>
                             {
@@ -888,11 +900,11 @@ namespace LCore.Extensions
             public static Func<int, int, Func<int, /*GA,*/ bool>, Action> L_For /*MA*/()
                 {
                 return (In, To, Loop) =>
-                    {
-                        if (In == To)
-                            return () => { };
+                {
+                    if (In == To)
+                        return () => { Loop(In); };
 
-                        return () =>
+                    return () =>
                             {
                                 bool Positive = In < To;
                                 int Increment = Positive ? 1 : -1;
@@ -902,7 +914,7 @@ namespace LCore.Extensions
                                         break;
                                     }
                             };
-                    };
+                };
                 }
 
             #endregion

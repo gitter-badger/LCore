@@ -16,7 +16,7 @@ namespace Singularity.Models
 
         public int? UserAccountID { get; set; }
 
-        [ForeignKey("UserID")]
+        [ForeignKey("UserAccountID")]
         public virtual UserAccount User { get; set; }
         
         public string Platform { get; set; }

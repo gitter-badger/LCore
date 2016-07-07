@@ -19,7 +19,7 @@ namespace LCore.Tests
         public override void RunTest(MethodInfo Method)
             {
             Func<bool>[] Checks = this.AdditionalChecks.Convert(L.F<MethodInfo, string, Func<bool>>(this.GetCheckMethod).Supply(Method));
-            Method.MethodAssertFails(this.Parameters, this.ExceptionType, Checks);
+            Method.MethodAssertFails(this.Parameters, Method.ReflectedType, this.ExceptionType, Checks);
             }
 
         /// <summary>

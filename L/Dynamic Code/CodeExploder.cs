@@ -43,11 +43,11 @@ namespace LCore.Extensions
             public static readonly Func<string, MemberInfo, string> MemberInfo_GetCodeFromPath = (Path, Member) =>
                 {
                     List<FileInfo> Files = Language_GetCodeFiles(Path);
-                    string Searchstr = $"{Lang.CleanGenericTypeName(Member.GetMemberType().ToString())} {Member.Name}";
-                    string Searchstr2 = Lang.ReplaceNativeTypes(Searchstr);
-                    string Searchstr3 = Member.Name + CodeExplodeGenerics.MethodActionToken;
-                    string Searchstr4 = Member.Name + CodeExplodeGenerics.MethodFuncToken;
-                    Searchstr = Searchstr.Replace(",", ", ");
+                    string SearchStr = $"{Lang.CleanGenericTypeName(Member.GetMemberType().ToString())} {Member.Name}";
+                    string SearchStr2 = Lang.ReplaceNativeTypes(SearchStr);
+                    string SearchStr3 = Member.Name + CodeExplodeGenerics.MethodActionToken;
+                    string SearchStr4 = Member.Name + CodeExplodeGenerics.MethodFuncToken;
+                    SearchStr = SearchStr.Replace(",", ", ");
                     string Code = "";
                     int Index = -1;
 
@@ -55,31 +55,31 @@ namespace LCore.Extensions
                     {
                         string FileContents = Language_GetCodeString(f.FullName);
 
-                        if (FileContents.Contains(Searchstr4))
+                        if (FileContents.Contains(SearchStr4))
                             {
-                            Searchstr = Searchstr4;
+                            SearchStr = SearchStr4;
                             Code = FileContents;
-                            Index = Code.IndexOf(Searchstr);
+                            Index = Code.IndexOf(SearchStr);
                             return true;
                             }
-                        if (FileContents.Contains(Searchstr3))
+                        if (FileContents.Contains(SearchStr3))
                             {
-                            Searchstr = Searchstr3;
+                            SearchStr = SearchStr3;
                             Code = FileContents;
-                            Index = Code.IndexOf(Searchstr);
+                            Index = Code.IndexOf(SearchStr);
                             return true;
                             }
-                        if (FileContents.Contains(Searchstr2))
+                        if (FileContents.Contains(SearchStr2))
                             {
-                            Searchstr = Searchstr2;
+                            SearchStr = SearchStr2;
                             Code = FileContents;
-                            Index = Code.IndexOf(Searchstr);
+                            Index = Code.IndexOf(SearchStr);
                             return true;
                             }
-                        if (FileContents.Contains(Searchstr))
+                        if (FileContents.Contains(SearchStr))
                             {
                             Code = FileContents;
-                            Index = Code.IndexOf(Searchstr);
+                            Index = Code.IndexOf(SearchStr);
                             return true;
                             }
                         return false;
@@ -216,8 +216,8 @@ namespace LCore.Extensions
                     if (s.Contains("> = (") || s.Contains($"{FunctionName} = (") || s.Contains("/ = ("))
                         {
                         s = s.Replace($"{FunctionName} = (", $"{FunctionName}()\r\n{{\r\nreturn (");
-                        s = s.Replace("> = (", ">()\r\n{\r\nreturn (");
-                        s = s.Replace("/ = (", "/()\r\n{\r\nreturn (");
+                        s = s.Replace("> = (", ">()\r\n{\r\n return (");
+                        s = s.Replace("/ = (", "/()\r\n{\r\n return (");
                         if (!s.EndsWith(";") && !s.EndsWith(";\r\n"))
                             s += ";";
                         s += "\r\n}\r\n";
@@ -538,8 +538,8 @@ namespace LCore.Dynamic
             {
             if (!CodeRootLocation.IsEmpty())
                 {
-                List<CodeExplode> attrs = t.GetAttributes<CodeExplode>(true);
-                attrs.Each(attr =>
+                List<CodeExplode> Attributes = t.GetAttributes<CodeExplode>(true);
+                Attributes.Each(attr =>
                 {
                     string FileName = L.File.CombinePaths(CodeExplodeLocation, attr.CodeFileName + CodeExplode.ExplodeFileType);
                     string Data = $"/*\r\n{L.File.GetFileContents(FileName).ByteArrayToString()}\r\n*/";
@@ -569,9 +569,9 @@ namespace LCore.Dynamic
 
             List<MemberInfo> Members = t.GetMembers().Select(m => m.HasAttribute(typeof(CodeExplodeMember), true)).List();
 
-            List<CodeExplode> attrs = t.GetAttributes<CodeExplode>(true);
+            List<CodeExplode> Attributes = t.GetAttributes<CodeExplode>(true);
 
-            return attrs.Convert(attr =>
+            return Attributes.Convert(attr =>
                 {
                     List<MemberInfo> temp = Members.Select(attr.ExplodeMember).Select(MethodSelector);
 

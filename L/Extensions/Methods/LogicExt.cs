@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using LCore.Dynamic;
+using LCore.Tests;
 using LCore.Tools;
 
 // ReSharper disable UnusedMember.Global
@@ -1770,6 +1771,7 @@ namespace LCore.Extensions
         /// <typeparam name="U1"></typeparam>
         /// <param name="In"></param>
         /// <returns></returns>
+        [Tested]
         public static Action<U1> Cast<T1, U1>(this Action<T1> In) where U1 : T1
             {
             return L.Logic.L_Cast_A<T1, U1>()(In);
@@ -1783,6 +1785,7 @@ namespace LCore.Extensions
         /// <typeparam name="U2"></typeparam>
         /// <param name="In"></param>
         /// <returns></returns>
+        [Tested]
         public static Action<U1, U2> Cast<T1, T2, U1, U2>(this Action<T1, T2> In)
             where U1 : T1
             where U2 : T2
@@ -5648,7 +5651,7 @@ namespace LCore.Extensions
             #region Then - Missing - Action - Action
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <returns></returns>
@@ -5670,7 +5673,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -5693,7 +5696,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -5716,7 +5719,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -5740,7 +5743,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -5764,7 +5767,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -5788,7 +5791,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -5814,7 +5817,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -5840,7 +5843,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -5866,7 +5869,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -5896,7 +5899,7 @@ namespace LCore.Extensions
             #region Then - Missing - Action - Func
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
@@ -5920,7 +5923,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -5945,7 +5948,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -5972,7 +5975,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -5997,7 +6000,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6023,7 +6026,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6050,7 +6053,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6078,7 +6081,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6106,7 +6109,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6134,7 +6137,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6166,7 +6169,7 @@ namespace LCore.Extensions
             #region Then - Missing - Func - Action
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
@@ -6190,7 +6193,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6215,7 +6218,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6240,7 +6243,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6267,7 +6270,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6294,7 +6297,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6320,7 +6323,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6348,7 +6351,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6376,7 +6379,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6404,7 +6407,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6436,7 +6439,7 @@ namespace LCore.Extensions
             #region Then - Missing - Func - Func
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+            /// Returns a method that Success In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
@@ -6459,7 +6462,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6483,7 +6486,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6507,7 +6510,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6533,7 +6536,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6558,7 +6561,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6584,7 +6587,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6611,7 +6614,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6638,7 +6641,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -6665,7 +6668,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
+            /// Returns a method that concatenates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -8428,7 +8431,7 @@ namespace LCore.Extensions
                             {
                                 List<Exception> Errors = new List<Exception>();
 
-                                bool Sucess = Tries.While(t =>
+                                bool Success = Tries.While(t =>
                                     {
                                         try
                                             {
@@ -8442,7 +8445,7 @@ namespace LCore.Extensions
                                             }
                                     });
 
-                                if (!Sucess && !Errors.IsEmpty())
+                                if (!Success && !Errors.IsEmpty())
                                     {
                                     throw new ExceptionList(Errors);
                                     }

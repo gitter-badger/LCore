@@ -49,6 +49,20 @@
         height: 15px;
     }
 
+    footer {
+        clear: both;
+        background-color: #e2e2e2;
+        font-size: .8em;
+        bottom: 0px;
+        margin: 0px;
+        display: block;
+        position: fixed;
+        height: 26px;
+        width: 98.5%;
+        margin-left: 0.5%;
+        padding-top: 5px;
+    }
+
     &.admin-skin {
 
         header {
@@ -63,6 +77,50 @@
 
         .content-wrapper, .right-side, .main-footer {
             margin-left: 260px;
+        }
+
+        .content-header {
+            border-bottom: 1px solid #777;
+            padding-bottom: 10px;
+            margin-left: -10px;
+            margin-right: -10px;
+            padding-right: 30px;
+            padding-left: 30px;
+            .gradient(#fff,#ddd);
+
+
+            .breadcrumb-title {
+                .fa-arrow-right:before {
+                    font-size: 11px;
+                    margin: 14px;
+                    color: #888;
+                    top: -3px;
+                    position: relative;
+                }
+            }
+
+            .breadcrumb {
+                .fa-arrow-right:before {
+                    font-size: 7px;
+                    margin: 10px;
+                    color: #888;
+                    top: -1px;
+                    position: relative;
+                }
+            }
+        }
+
+        .content {
+            .panel {
+                .panel-heading {
+                }
+            }
+        }
+
+
+        .large-icon {
+            font-size: 26px;
+            margin-right: 5px;
         }
 
         .main-sidebar {
@@ -103,9 +161,7 @@
         }
     }
 }
-
 ////// Native Elements ////////////////////////////////////////////////////////////////////////////////
-
 html {
     margin: 0;
     padding: 0;
@@ -117,13 +173,10 @@ body {
 
 form {
 }
-
-
 ////// Simplification Classes /////////////////////////////////////////////////////////////////////////
 //
 ////// Visibility /////////////////////////////////////////////////////////////////////////////////////
 //
-
 .block {
     display: block;
     visibility: visible;
@@ -152,11 +205,9 @@ form {
 .remove {
     display: none;
 }
-
 //
 ////// Positioning ////////////////////////////////////////////////////////////////////////////////////
 //
-
 .left,
 .float-left {
     float: left;
@@ -256,11 +307,9 @@ form {
 .no-margin {
     margin: 0;
 }
-
 //
 ////// Border ////////////////////////////////////////////////////////////////////////////////////
 //
-
 .border {
     border: 1px solid;
 }
@@ -293,11 +342,9 @@ form {
 .box-shadow {
     box-shadow: 1em 1em 1em rgba(0,0,0,0.5);
 }
-
 //
 ////// Text ////////////////////////////////////////////////////////////////////////////////////
 //
-
 .strikethrough {
     text-decoration: line-through;
 }
@@ -338,11 +385,9 @@ form {
     font-style: normal;
     text-shadow: none;
 }
-
 //
 ////// Paging /////////////////////////////////////////////////////////////////////////////////////////
 //
-
 .page-break-after {
     page-break-after: always;
 }
@@ -355,11 +400,9 @@ form {
 .avoid-page-break {
     page-break-inside: avoid;
 }
-
 //
 ////// Background /////////////////////////////////////////////////////////////////////////////////////////
 //
-
 .bg-darken {
     background: rgba(0,0,0,0.1);
 }
@@ -387,11 +430,9 @@ form {
 .no-bg {
     background: none;
 }
-
 //
 ////// Other /////////////////////////////////////////////////////////////////////////////////////////
 //
-
 .grayscale {
     -webkit-filter: grayscale(100%);
     filter: grayscale(100%);
@@ -410,16 +451,12 @@ form {
     .normal-text();
     cursor: default;
 }
-
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 ////// Animations ////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 ////// Spin /////////////////////////////////////////////////////////////////////////
 //
-
 .spin {
     -webkit-animation: spin 1000ms infinite linear;
     animation: spin 1000ms infinite linear;
@@ -466,11 +503,29 @@ form {
         transform: rotate(0);
     }
 }
+//
+////// Gradient /////////////////////////////////////////////////////////////////////////
+//
+.gradient (@startColor: #eee, @endColor: white) {
+    background-color: @startColor;
+    background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
+    background: -webkit-linear-gradient(top, @startColor, @endColor);
+    background: -moz-linear-gradient(top, @startColor, @endColor);
+    background: -ms-linear-gradient(top, @startColor, @endColor);
+    background: -o-linear-gradient(top, @startColor, @endColor);
+}
 
+.horizontal-gradient (@startColor: #eee, @endColor: white) {
+    background-color: @startColor;
+    background-image: -webkit-gradient(linear, left top, right top, from(@startColor), to(@endColor));
+    background-image: -webkit-linear-gradient(left, @startColor, @endColor);
+    background-image: -moz-linear-gradient(left, @startColor, @endColor);
+    background-image: -ms-linear-gradient(left, @startColor, @endColor);
+    background-image: -o-linear-gradient(left, @startColor, @endColor);
+}
 //
 ////// Spin Reverse /////////////////////////////////////////////////////////////////////////
 //
-
 .spin-reverse {
     -webkit-animation: spin-reverse 1000ms infinite linear;
     animation: spin-reverse 1000ms infinite linear;
@@ -571,14 +626,11 @@ form {
         transform: opacity(1);
     }
 }
-
 //
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 ////////// New Tags ///////////////////////////////////////////////////////////////////////////////////////////////
 //
-
 span.icon,
 span.glyphicons,
 glyph {
@@ -597,9 +649,7 @@ error,
     font-size: 16px;
     font-weight: bold;
 }
-
 ////////// Singularity templates ////////////////////////////////////////////////////////////////////////////////
-
 .sing {
 
     .panel {
@@ -889,9 +939,7 @@ error,
         }
     }
 }
-
 ////////// qTip /////////////////////////////////////////////////////////////////////////////////////////////////
-
 #qTip {
     padding: 3px;
     border: 1px solid #606060;

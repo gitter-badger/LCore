@@ -81,7 +81,7 @@
             .ready(function () {
                 sing.tests.runTests();
 
-                sing.loadTemplate(['/Templates/Common.html', '/Templates/Documentation.html'],
+                sing.loadTemplate(['/Templates/Common.html'],
                     function () {
 
                         sing.initTemplates();
@@ -97,25 +97,13 @@
 
     <div class="container">
 
-        @if (TempData.Peek(ControllerHelper.StatusMessage_Temporary) != null)
-            {
-            string Message = (string)TempData[ControllerHelper.StatusMessage_Temporary];
-            string Icon = (string)(TempData[ControllerHelper.StatusMessage_TemporaryIcon] ?? "");
-
-            <div class="status-message close-dialog">
-                @if (!string.IsNullOrEmpty(Icon))
-                    {
-                    <glyph>@Icon</glyph>
-                    }
-                @Message
-            </div>
-            }
+        @Html.Partial(PartialViews.StatusMessages)
 
         @RenderBody()
-
-        @Html.Partial(PartialViews.Footer)
-
-        @RenderSection("scripts", false)
     </div>
+
+    @Html.Partial(PartialViews.Footer)
+
+    @RenderSection("scripts", false)
 </body>
 </html>

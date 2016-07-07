@@ -335,15 +335,15 @@ namespace LCore.Extensions
             }
         /// <summary>
         /// Returns a list of object values from a list of members.
-        /// Optionally, set [Instanciate] to true to instanciate null members.
+        /// Optionally, set [Instantiate] to true to instantiate null members.
         /// </summary>
-        public static List<T> GetValues<T>(this List<MemberInfo> In, object Obj, bool Instanciate = false)
+        public static List<T> GetValues<T>(this List<MemberInfo> In, object Obj, bool Instantiate = false)
             {
             var Out = new List<T>();
             Out = In.Convert(o =>
             {
                 var o2 = o.GetValue(Obj);
-                if (Instanciate && o2 == null)
+                if (Instantiate && o2 == null)
                     {
                     o2 = o.MemberType().New();
                     o.SetValue(Obj, o2);
@@ -358,6 +358,16 @@ namespace LCore.Extensions
             });
 
             return Out;
+            }
+        #endregion
+
+        #region GetTestData
+        /// <summary>
+        /// Creates a new TypeTests object, detailing the test coverage of the provided type.
+        /// </summary>
+        public static TypeTests GetTestData(this Type In)
+            {
+            return new TypeTests(In);
             }
         #endregion
 
@@ -456,17 +466,17 @@ namespace LCore.Extensions
 
         #region InstanciateValues
         /// <summary>
-        /// Instanciates values of properties for an object.
+        /// Instantiates values of properties for an object.
         /// </summary>
-        public static List<T> InstanciateValues<T>(this Type In, object Obj, bool IncludeBaseClasses)
+        public static List<T> InstantiateValues<T>(this Type In, object Obj, bool IncludeBaseClasses)
             {
             List<MemberInfo> Members = In.Members(typeof(T), IncludeBaseClasses);
             return Members.GetValues<T>(Obj, true);
             }
         /// <summary>
-        /// Instanciates values of specific properties for an object.
+        /// Instantiates values of specific properties for an object.
         /// </summary>
-        public static List<T> InstanciateValues<T>(this List<MemberInfo> In, object Obj)
+        public static List<T> InstantiateValues<T>(this List<MemberInfo> In, object Obj)
             {
             return In.GetValues<T>(Obj, true);
             }
@@ -666,7 +676,7 @@ namespace LCore.Extensions
 
         #region ToInvocationSignature
         /// <summary>
-        /// Returns a friently invocation signature representing the MethodInfo.
+        /// Returns a friendly invocation signature representing the MethodInfo.
         /// Ex: MethodInfo.ToInvocationSignature() => string
         ///     string.Sub(int, int) => string
         /// </summary>
@@ -728,41 +738,55 @@ namespace LCore.Extensions
         #region WithAttribute
         /// <summary>
         /// Filters an IEnumerable[MemberInfo], including any members with given 
-        /// attribtute [T].
+        /// attribute [T].
         /// </summary>
-        public static IEnumerable<MemberInfo> WithAttribute<T>(this IEnumerable<MemberInfo> In)
+        public static IEnumerable<MemberInfo> WithAttribute<T>(this IEnumerable<MemberInfo> In, bool IncludeBaseTypes = true)
             {
-            return In.Where(m => m.HasAttribute<T>(true)).List();
+            return In.Where(m => m.HasAttribute<T>(IncludeBaseTypes)).List();
             }
         /// <summary>
         /// Filters an IEnumerable[MemberInfo], including any members with given [AttributeType].
         /// </summary>
-        public static List<MemberInfo> WithAttribute(this IEnumerable<MemberInfo> In, Type AttributeType)
+        public static List<MemberInfo> WithAttribute(this IEnumerable<MemberInfo> In, Type AttributeType, bool IncludeBaseTypes = true)
             {
-            return In.Where(m => m.HasAttribute(AttributeType, true)).List();
+            return In.Where(m => m.HasAttribute(AttributeType, IncludeBaseTypes)).List();
             }
         #endregion
 
         #region WithoutAttribute
         /// <summary>
         /// Filters an IEnumerable[MemberInfo], excluding any members with given 
-        /// attribtute [T].
+        /// attribute [T].
         /// </summary>
-        public static IEnumerable<MemberInfo> WithoutAttribute<T>(this IEnumerable<MemberInfo> In)
+        public static IEnumerable<MemberInfo> WithoutAttribute<T>(this IEnumerable<MemberInfo> In, bool IncludeBaseTypes = true)
             {
-            return In.Where(m => !m.HasAttribute<T>(true)).List();
+            return In.Where(m => !m.HasAttribute<T>(IncludeBaseTypes)).List();
             }
         /// <summary>
         /// Filters an IEnumerable[MemberInfo], excluding any members with given 
-        /// attribtute [T].
+        /// attribute [T].
         /// </summary>
-        public static List<MemberInfo> WithoutAttribute(this IEnumerable<MemberInfo> In, Type AttributeType)
+        public static List<MemberInfo> WithoutAttribute(this IEnumerable<MemberInfo> In, Type AttributeType, bool IncludeBaseTypes = true)
             {
-            return In.Where(m => !m.HasAttribute(AttributeType, true)).List();
+            return In.Where(m => !m.HasAttribute(AttributeType, IncludeBaseTypes)).List();
             }
         #endregion
 
         #endregion
+
+        public static string FullyQualifiedName(this MemberInfo In)
+            {
+            if (In is TypeInfo)
+                {
+                return ((TypeInfo)In).FullName;
+                }
+            if (In is PropertyInfo || In is FieldInfo || In is EventInfo)
+                {
+                return $"{In.ReflectedType?.FullName}.{In.Name}";
+                }
+            return "";
+            }
+
         }
 
     public static partial class L
@@ -777,7 +801,7 @@ namespace LCore.Extensions
             #region FindType
 
             /// <summary>
-            /// Finds a type by name in all current assembies.
+            /// Finds a type by name in all current assemblies.
             /// </summary>
             public static Type FindType(string TypeName)
                 {
@@ -844,6 +868,7 @@ namespace LCore.Extensions
             #endregion
 
             #region Lambdas +
+            // ReSharper disable CommentTypo
             /*
             internal static readonly Func<string, string> Language_CleanOperationFunctionName = F<string, string>()
                 .Case("op_Subtraction", "Subtract")
@@ -871,17 +896,18 @@ namespace LCore.Extensions
                 .Case("op_GreaterThanOrEqual", " >= ")
                 .Else(Logic.Pass<string>());
 */
+            // ReSharper restore CommentTypo
             #region MemberInfo - Get Attribute
             private static readonly Func<string, ICustomAttributeProvider, Type, bool, object> _GetAttribute = (DeclaringTypeName, Prop, Attr, IncludeBaseTypes) =>
             {
-                bool HasAttrib;
+                bool HasAttribute;
                 object[] Objs;
                 do
                     {
                     Objs = Prop.GetCustomAttributes(Attr, false);
-                    HasAttrib = Objs.Length != 0;
+                    HasAttribute = Objs.Length != 0;
 
-                    if (HasAttrib)
+                    if (HasAttribute)
                         return Objs[0];
 
                     var info = Prop as MemberInfo;
@@ -932,7 +958,7 @@ namespace LCore.Extensions
                         }
                     }
                 // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-                while (IncludeBaseTypes && !HasAttrib && Prop != null);
+                while (IncludeBaseTypes && !HasAttribute && Prop != null);
 
                 object Out2 = null;
 
@@ -941,7 +967,7 @@ namespace LCore.Extensions
 
                 return Out2;
             };
-            internal static Func<string, ICustomAttributeProvider, Type, bool, object> GetAttribute = _GetAttribute
+            internal static readonly Func<string, ICustomAttributeProvider, Type, bool, object> GetAttribute = _GetAttribute
                 .Cache("MemberAttributes").Require("Prop").Require2("Attr");
             #endregion
 

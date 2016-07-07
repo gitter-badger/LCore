@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web.Mvc;
 
 using LCore.Extensions;
+using Singularity.Account;
 using Singularity.Context;
 using Singularity.Annotations;
 using Singularity.Extensions;
@@ -122,6 +123,7 @@ namespace Singularity.Controllers
         public override string PageGroup => ControllerHelper.Menu_Admin;
 
         public override ControllerHelper.ViewType? ActionAfterCreate => ControllerHelper.ViewType.Edit;
+        public EmailTemplateController(IAuthenticationService Auth) : base(Auth) {}
         }
 
     public class EmailTemplateSavedSearchViewModel : IModel

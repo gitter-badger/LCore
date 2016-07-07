@@ -107,9 +107,10 @@
     <Compile Include="Tests\Attributes\ITestAttribute.cs" />
     <Compile Include="Tests\Attributes\TestMethodGenerics.cs" />
     <Compile Include="Tests\Attributes\Tested.cs" />
+    <Compile Include="Tests\TypeTests.cs" />
     <Compile Include="Tools\CacheData.cs" />
-    <Compile Include="Tools\CommentExt.cs" />
-    <Compile Include="Interfaces\IComment.cs" />
+    <Compile Include="Extensions\Language\CommentExt.cs" />
+    <Compile Include="Interfaces\ICodeComment.cs" />
     <Compile Include="Tools\MethodProfileData.cs" />
     <Compile Include="Tools\DoubleDictionary.cs" />
     <Compile Include="Tools\RegistryHandler.cs" />

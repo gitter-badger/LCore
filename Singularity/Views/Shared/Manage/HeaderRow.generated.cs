@@ -405,7 +405,7 @@ WriteLiteral(">\r\n                <div>\r\n");
             
             #line 96 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
                       
-                        string DeleteResotreStr = Model.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive) ? "Restore" : "Delete";
+                        string DeleteRestoreStr = Model.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive) ? "Restore" : "Delete";
                     
             
             #line default
@@ -416,7 +416,7 @@ WriteLiteral("                    ");
 
             
             #line 100 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
-               Write(Html.TextContent($"Manage_ColumnHeader_{Model.ModelType.GetFriendlyTypeName()}_{DeleteResotreStr}", DeleteResotreStr));
+               Write(Html.TextContent($"Manage_ColumnHeader_{Model.ModelType.GetFriendlyTypeName()}_{DeleteRestoreStr}", DeleteRestoreStr));
 
             
             #line default

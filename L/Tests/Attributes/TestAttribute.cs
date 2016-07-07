@@ -80,8 +80,8 @@ namespace LCore.Tests
                     // ReSharper disable HeuristicUnreachableCode
                         {
                         Type[] Types = ((object[])Obj).GetTypes();
-                        ConstructorInfo[] ObjectConstrutors = ObjectType.GetConstructors();
-                        var Const = ObjectConstrutors.First(c =>
+                        ConstructorInfo[] ObjectConstructors = ObjectType.GetConstructors();
+                        var Const = ObjectConstructors.First(c =>
                         {
                             ParameterInfo[] Params = c.GetParameters();
                             return Params.Length == Types.Length && Params.All((i2, p) => Types[i2].IsType(p.ParameterType));
@@ -93,6 +93,10 @@ namespace LCore.Tests
                             }
                         }
                     // ReSharper restore HeuristicUnreachableCode
+                    else if (Obj is IConvertible && ObjectType == typeof(decimal))
+                        {
+                        Obj = ((IConvertible)Obj).ConvertTo<decimal>();
+                        }
                     }
                 }
             }

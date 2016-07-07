@@ -9,12 +9,26 @@ namespace LCore.Extensions
     {
     /// <summary>
     /// L provides a shorthand to common functions and method manipulation functions.
+    /// -
+    /// -
+    /// <para>paragraph</para>
+    /// <see>some other function</see>
+    /// <seealso>another function too</seealso>
     /// </summary>
+    /// <example>
+    ///     <code>var This = "some code";</code>
+    ///     <c>var And = "some more code";</c>
+    /// </example>
+    /// <returns>some stuff</returns>
+    /// <remarks>Oh it's really awesome also</remarks>
+    /// <exception cref="System.Exception">Throws an exception</exception>
+    /// <exception cref="System.IO.FileNotFoundException">Throws a FileNotFoundException exception</exception>
     [ExtensionProvider]
     [CodeExplode_ExtendLogic("Method Extensions", "Logic_Extension", "LCore.Extensions")]
     [CodeExplode_ExplodeLogic("Method Explosions", "LX", "LCore", new[] { typeof(bool) })]
     public static partial class L
         {
+        
         /// <summary>
         /// Empty method. Takes no parameters and performs no actions.
         /// </summary>

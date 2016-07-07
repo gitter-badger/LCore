@@ -1,5 +1,6 @@
 ﻿using Singularity.Models;
 using System.Web.Mvc;
+using Singularity.Account;
 
 namespace Singularity.Controllers
     {
@@ -13,5 +14,7 @@ namespace Singularity.Controllers
             View = true,
             Export = true
             };
+
+        public EmailHistoryController(IAuthenticationService Auth) : base(Auth) {}
         }
     }

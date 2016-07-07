@@ -5491,7 +5491,6 @@ function FillTemplateTraverse(target, root, data, _context) {
     if (!ObjectDefined(target))
         return;
     try {
-        target.attr('test-filled', 'yup');
         if (target &&
             target.length > 0 &&
             target[0].attributes) {

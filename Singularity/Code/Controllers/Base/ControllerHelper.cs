@@ -25,13 +25,7 @@ namespace Singularity.Controllers
 
         public const string Style_JQuery_Mobile = "~/Content/jquery-mobile";
         public const string Script_JQuery_Mobile = "~/Scripts/jquery-mobile";
-
-        public const string Script_MVCL_Chance = "~/Scripts/mvcl/chance";
-        public const string Script_MVCL_qTip = "~/Scripts/mvcl/qTip";
-        public const string Script_MVCL_jQueryCookie = "~/Scripts/mvcl/jquery.cookie";
-        public const string Script_MVCL_jQueryMousewheel = "~/Scripts/mvcl/jquery.mousewheel";
-        public const string Script_MVCL_jQueryTimepicker = "~/bundles/mvcl/jquery.timepicker";
-
+        
         public const string ViewBag_ManageModel = "ManageModel";
         public const string ViewBag_EditModel = "EditModel";
 
@@ -156,21 +150,6 @@ namespace Singularity.Controllers
 
             bundles.Add(new ScriptBundle(Style_JQuery_Mobile).Include(
                 $"{Root}Scripts/jquery-mobile/jquery.mobile.custom.theme.css"));
-
-            bundles.Add(new ScriptBundle(Script_MVCL_Chance).Include(
-                $"{Root}Scripts/chance.js"));
-
-            bundles.Add(new ScriptBundle(Script_MVCL_qTip).Include(
-                $"{Root}Scripts/qTip.js"));
-
-            bundles.Add(new ScriptBundle(Script_MVCL_jQueryCookie).Include(
-                $"{Root}Scripts/jquery.cookie.js"));
-
-            bundles.Add(new ScriptBundle(Script_MVCL_jQueryMousewheel).Include(
-                $"{Root}Scripts/jquery.mousewheel.js"));
-
-            bundles.Add(new ScriptBundle(Script_MVCL_jQueryTimepicker).Include(
-                      "~/Scripts/jquery.timepicker.js"));
             }
 
         public Dictionary<string, SearchOperation> ExtractSearchTerms(ref string GlobalSearchTerm, Type ModelType)

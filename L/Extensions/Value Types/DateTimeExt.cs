@@ -268,7 +268,7 @@ namespace LCore.Extensions
             /// Returns the name of the month by the number of the month.
             /// Fails if the number is not between 1 and 12.
             /// </summary>
-            public static readonly Func<int, string> Month_GetString = (i) =>
+            public static readonly Func<int, string> Month_GetString = i =>
                 {
                     switch (i)
                         {
@@ -291,7 +291,7 @@ namespace LCore.Extensions
             /// Returns the number of the day of the week, from
             /// Sunday: 0 to Saturday: 6.
             /// </summary>
-            public static readonly Func<DayOfWeek, int> GetDayNumber = (d) =>
+            public static readonly Func<DayOfWeek, int> GetDayNumber = d =>
                 {
                     switch (d)
                         {

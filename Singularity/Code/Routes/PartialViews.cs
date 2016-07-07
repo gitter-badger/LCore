@@ -12,15 +12,20 @@ namespace Singularity.Routes
         public const string LoginPartial = nameof(LoginPartial);
         public const string PasswordRequirements = nameof(PasswordRequirements);
 
+        
+        public const string StatusMessages = nameof(StatusMessages);
 
         public const string TextContent = nameof(TextContent);
-
-        public const string Examples_Bootstrap = nameof(Examples_Bootstrap);
-        public const string Examples_JQueryUI = nameof(Examples_JQueryUI);
-        public const string Examples_Singularity = nameof(Examples_Singularity);
-
         public const string Singularity_JS_Test = "Test/JavascriptTest";
 
+        public static class Examples
+            {
+            public static readonly string Bootstrap = $"{nameof(Examples)}_{nameof(Bootstrap)}";
+            public static readonly string JQueryUI = $"{nameof(Examples)}_{nameof(JQueryUI)}";
+            public static readonly string Singularity = $"{nameof(Examples)}_{nameof(Singularity)}";
+
+            public static readonly string Member = $"{nameof(Examples)}_{nameof(Member)}";
+            }
 
         public static class Admin
             {

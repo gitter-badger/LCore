@@ -328,8 +328,8 @@ namespace Singularity.Extensions
             if (selector == null)
                 return null;
 
-            int astrixCount = filter.Count(c => c.Equals('*'));
-            if (astrixCount > 2)
+            int asterixCount = filter.Count(c => c.Equals('*'));
+            if (asterixCount > 2)
                 throw new ApplicationException(
                     $"Invalid filter used{(fieldName == null ? "" : $" for \'{fieldName}\'")}. '*' can maximum occur 2 times.");
 
@@ -338,7 +338,7 @@ namespace Singularity.Extensions
                     $"Invalid filter used{(fieldName == null ? "" : $" for \'{fieldName}\'")}. '?' is not supported, only '*' is supported.");
 
             // *XX*
-            if (astrixCount == 2 && filter.Length > 2 && filter.StartsWith("*") && filter.EndsWith("*"))
+            if (asterixCount == 2 && filter.Length > 2 && filter.StartsWith("*") && filter.EndsWith("*"))
                 {
                 filter = filter.Replace("*", "");
                 return Expression.Lambda<Func<T, bool>>(
@@ -347,7 +347,7 @@ namespace Singularity.Extensions
                 }
 
             // *XX
-            if (astrixCount == 1 && filter.Length > 1 && filter.StartsWith("*"))
+            if (asterixCount == 1 && filter.Length > 1 && filter.StartsWith("*"))
                 {
                 filter = filter.Replace("*", "");
                 return Expression.Lambda<Func<T, bool>>(
@@ -357,7 +357,7 @@ namespace Singularity.Extensions
                 }
 
             // XX*
-            if (astrixCount == 1 && filter.Length > 1 && filter.EndsWith("*"))
+            if (asterixCount == 1 && filter.Length > 1 && filter.EndsWith("*"))
                 {
                 filter = filter.Replace("*", "");
                 return Expression.Lambda<Func<T, bool>>(
@@ -367,7 +367,7 @@ namespace Singularity.Extensions
                 }
 
             // X*X
-            if (astrixCount == 1 && filter.Length > 2 && !filter.StartsWith("*") && !filter.EndsWith("*"))
+            if (asterixCount == 1 && filter.Length > 2 && !filter.StartsWith("*") && !filter.EndsWith("*"))
                 {
                 string startsWith = filter.Substring(0, filter.IndexOf('*'));
                 string endsWith = filter.Substring(filter.IndexOf('*') + 1);
@@ -381,7 +381,7 @@ namespace Singularity.Extensions
                 }
 
             // XX
-            if (astrixCount == 0 && filter.Length > 0)
+            if (asterixCount == 0 && filter.Length > 0)
                 {
                 return
                     Expression.Lambda<Func<T, bool>>(
@@ -391,11 +391,11 @@ namespace Singularity.Extensions
                 }
 
             // *
-            if (astrixCount == 1 && filter.Length == 1)
+            if (asterixCount == 1 && filter.Length == 1)
                 return null;
 
             // Invalid Filter
-            if (astrixCount > 0)
+            if (asterixCount > 0)
                 throw new ApplicationException(
                     $"Invalid filter used{(fieldName == null ? "" : $" for \'{fieldName}\'")}.");
 

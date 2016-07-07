@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using LCore.Interfaces;
+using LCore.Tests;
 
 namespace LCore.Extensions
     {
@@ -21,19 +22,25 @@ namespace LCore.Extensions
         /// [Conflict] is responsible for returning a KeyValuePair with a new name to try.
         /// To leave an item out, return a KeyValuePair with a null key.
         /// </summary>
+        [Tested]
         public static void Merge<TKey, TValue>(this IDictionary<TKey, TValue> In, IDictionary<TKey, TValue> Add,
-            Func<KeyValuePair<TKey, TValue>, KeyValuePair<TKey, TValue>> Conflict)
+            Func<KeyValuePair<TKey, TValue>, KeyValuePair<TKey, TValue>> Conflict = null)
             {
+            Conflict = o => new KeyValuePair<TKey, TValue>(default(TKey), default(TValue));
+
             Add?.Each(o =>
                 {
-                    while (In.ContainsKey(o.Key))
+                    var last = default(TKey);
+
+                    while (In.ContainsKey(o.Key) && !o.Key.Equals(last))
                         {
+                        last = o.Key;
                         o = Conflict(o);
                         }
 
                     if (o.Key != null)
                         {
-                        In.Add(o.Key, o.Value);
+                        In.SafeAdd(o.Key, o.Value);
                         }
                 });
             }
@@ -46,6 +53,7 @@ namespace LCore.Extensions
         /// Safely adds one dictionary to another.
         /// If keys from [Add] already exist in [In], they will not be added
         /// </summary>
+        [Tested]
         public static void AddRange<TKey, TValue>(this IDictionary<TKey, TValue> In, IDictionary<TKey, TValue> Add)
             {
             Add?.Keys.Each(o => { In.SafeAdd(o, Add[o]); });

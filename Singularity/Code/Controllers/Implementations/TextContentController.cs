@@ -2,6 +2,7 @@
 using Singularity.Models;
 using System.Web;
 using System.Web.Mvc;
+using Singularity.Account;
 
 namespace Singularity.Controllers
     {
@@ -30,5 +31,7 @@ namespace Singularity.Controllers
 
             return Content;
             }
+
+        public TextContentController(IAuthenticationService Auth) : base(Auth) { }
         }
     }
