@@ -1,0 +1,64 @@
+﻿using System;
+using System.Collections.Generic;
+using FluentAssertions;
+using LCore.Extensions;
+using LCore.Tests;
+using LCore.Tools;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+// ReSharper disable ObjectCreationAsStatement
+
+namespace L_Tests.Tests.Tools
+    {
+    [TestClass]
+    public class ListsTest
+        {
+        [TestMethod]
+        [TestCategory(L.Test.Categories.Tools)]
+        public void Test_Lists()
+            {
+            var Test = new Lists<string, int>();
+
+            Test.Add("a", 1);
+
+            Test.Count.Should().Be(1);
+            Test.GetAt(0).ShouldBeEquivalentTo(new Set<string, int>("a", 1));
+
+            Test.Set(0, "b", 2);
+
+            Test.GetAt(0).ShouldBeEquivalentTo(new Set<string, int>("b", 2));
+
+            Test.Set1(0, "c");
+
+            Test.GetAt(0).ShouldBeEquivalentTo(new Set<string, int>("c", 2));
+
+            Test.Set2(0, 3);
+
+            Test.GetAt(0).ShouldBeEquivalentTo(new Set<string, int>("c", 3));
+
+            var Rand = new Random();
+
+            L.A(() => Test.Add(Guid.NewGuid().ToString(), Rand.Next())).Repeat(100)();
+
+            Test.Count.Should().Be(101);
+
+            Test.RemoveAt(1);
+
+            Test.Count.Should().Be(100);
+            Test.List1.Count.Should().Be(100);
+            Test.List2.Count.Should().Be(100);
+
+            Test.GetAt(0).ShouldBeEquivalentTo(new Set<string, int>("c", 3));
+
+            }
+
+
+        [TestMethod]
+        [TestCategory(L.Test.Categories.Tools)]
+        public void Test_ListFailures()
+            {
+            L.A(() => new Lists<string, int>(null, new List<int>())).ShouldFail();
+            L.A(() => new Lists<string, int>(new List<string>(), null)).ShouldFail();
+            L.A(() => new Lists<string, int>(new List<string> { "a" }, new List<int>())).ShouldFail();
+            }
+        }
+    }

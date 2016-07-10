@@ -34,7 +34,7 @@ namespace Singularity.Models
         [FieldLoadFromQueryString]
         public string ExportType { get; set; }
 
-        [FieldType_DropdownContextModelFields("ExportType")]
+        [FieldTypeDropdownContextModelFields("ExportType")]
         public string OverrideSort { get; set; }
 
         public SortDirection? OverrideSortDirection { get; set; }

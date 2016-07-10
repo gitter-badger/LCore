@@ -74,11 +74,11 @@ WriteLiteral("\r\n");
     string EmptyValue = FieldAttr.EmptyValue;
     string EmptyKey = FieldAttr.EmptyKey;
 
-    List<SelectListItem> Items = FieldAttr.KeyValues(ViewContext).Select(KeyValue => new SelectListItem
+    List<SelectListItem> Items = FieldAttr.KeyValues(ViewContext).Select(keyValue => new SelectListItem
         {
-        Text = KeyValue.Key,
-        Value = KeyValue.Value,
-        Selected = (Model.PropertyData ?? "").ToString() == KeyValue.Value
+        Text = keyValue.Key,
+        Value = keyValue.Value,
+        Selected = (Model.PropertyData ?? "").ToString() == keyValue.Value
         }).ToList();
 
             
@@ -124,7 +124,7 @@ WriteLiteral(" />\r\n\r\n");
             #line hidden
             
             #line 29 "..\..\Views\Shared\Manage\Fields\Edit\Dropdown.cshtml"
-         foreach (var i in Items)
+         foreach (var Item in Items)
             {
 
             
@@ -138,71 +138,71 @@ WriteLiteral(">\r\n                <input");
 
 WriteLiteral(" type=\"checkbox\"");
 
-WriteAttribute("id", Tuple.Create("\r\n                       id=\"", 881), Tuple.Create("\"", 947)
+WriteAttribute("id", Tuple.Create("\r\n                       id=\"", 884), Tuple.Create("\"", 953)
             
             #line 33 "..\..\Views\Shared\Manage\Fields\Edit\Dropdown.cshtml"
-, Tuple.Create(Tuple.Create("", 910), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+, Tuple.Create(Tuple.Create("", 913), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-, 910), false)
-, Tuple.Create(Tuple.Create("", 936), Tuple.Create("_", 936), true)
+, 913), false)
+, Tuple.Create(Tuple.Create("", 939), Tuple.Create("_", 939), true)
             
             #line 33 "..\..\Views\Shared\Manage\Fields\Edit\Dropdown.cshtml"
-, Tuple.Create(Tuple.Create("", 937), Tuple.Create<System.Object, System.Int32>(i.Value
+, Tuple.Create(Tuple.Create("", 940), Tuple.Create<System.Object, System.Int32>(Item.Value
             
             #line default
             #line hidden
-, 937), false)
+, 940), false)
 );
 
-WriteAttribute("name", Tuple.Create("\r\n                       name=\"", 948), Tuple.Create("\"", 1003)
+WriteAttribute("name", Tuple.Create("\r\n                       name=\"", 954), Tuple.Create("\"", 1009)
             
             #line 34 "..\..\Views\Shared\Manage\Fields\Edit\Dropdown.cshtml"
-, Tuple.Create(Tuple.Create("", 979), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+, Tuple.Create(Tuple.Create("", 985), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-, 979), false)
+, 985), false)
 );
 
-WriteAttribute("value", Tuple.Create("\r\n                       value=\"", 1004), Tuple.Create("\"", 1044)
+WriteAttribute("value", Tuple.Create("\r\n                       value=\"", 1010), Tuple.Create("\"", 1053)
             
             #line 35 "..\..\Views\Shared\Manage\Fields\Edit\Dropdown.cshtml"
-, Tuple.Create(Tuple.Create("", 1036), Tuple.Create<System.Object, System.Int32>(i.Value
+, Tuple.Create(Tuple.Create("", 1042), Tuple.Create<System.Object, System.Int32>(Item.Value
             
             #line default
             #line hidden
-, 1036), false)
+, 1042), false)
 );
 
 WriteLiteral("\r\n                       ");
 
             
             #line 36 "..\..\Views\Shared\Manage\Fields\Edit\Dropdown.cshtml"
-                   Write((Model.PropertyData ?? "").ToString().Contains(i.Value) ? Html.Raw("checked=\"true\"") : Html.Raw(""));
+                   Write((Model.PropertyData ?? "").ToString().Contains(Item.Value) ? Html.Raw("checked=\"true\"") : Html.Raw(""));
 
             
             #line default
             #line hidden
 WriteLiteral(">\r\n                <label");
 
-WriteAttribute("for", Tuple.Create(" for=\"", 1199), Tuple.Create("\"", 1242)
+WriteAttribute("for", Tuple.Create(" for=\"", 1211), Tuple.Create("\"", 1257)
             
             #line 37 "..\..\Views\Shared\Manage\Fields\Edit\Dropdown.cshtml"
-, Tuple.Create(Tuple.Create("", 1205), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+, Tuple.Create(Tuple.Create("", 1217), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-, 1205), false)
-, Tuple.Create(Tuple.Create("", 1231), Tuple.Create("_", 1231), true)
+, 1217), false)
+, Tuple.Create(Tuple.Create("", 1243), Tuple.Create("_", 1243), true)
             
             #line 37 "..\..\Views\Shared\Manage\Fields\Edit\Dropdown.cshtml"
-, Tuple.Create(Tuple.Create("", 1232), Tuple.Create<System.Object, System.Int32>(i.Value
+, Tuple.Create(Tuple.Create("", 1244), Tuple.Create<System.Object, System.Int32>(Item.Value
             
             #line default
             #line hidden
-, 1232), false)
+, 1244), false)
 );
 
 WriteLiteral(">\r\n");
@@ -211,7 +211,7 @@ WriteLiteral("                    ");
 
             
             #line 38 "..\..\Views\Shared\Manage\Fields\Edit\Dropdown.cshtml"
-               Write(i.Text);
+               Write(Item.Text);
 
             
             #line default
@@ -238,24 +238,24 @@ else
             #line hidden
 WriteLiteral("    <select");
 
-WriteAttribute("name", Tuple.Create(" name=\"", 1379), Tuple.Create("\"", 1410)
+WriteAttribute("name", Tuple.Create(" name=\"", 1397), Tuple.Create("\"", 1428)
             
             #line 46 "..\..\Views\Shared\Manage\Fields\Edit\Dropdown.cshtml"
-, Tuple.Create(Tuple.Create("", 1386), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+, Tuple.Create(Tuple.Create("", 1404), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-, 1386), false)
+, 1404), false)
 );
 
-WriteAttribute("id", Tuple.Create(" id=\"", 1411), Tuple.Create("\"", 1440)
+WriteAttribute("id", Tuple.Create(" id=\"", 1429), Tuple.Create("\"", 1458)
             
             #line 46 "..\..\Views\Shared\Manage\Fields\Edit\Dropdown.cshtml"
-, Tuple.Create(Tuple.Create("", 1416), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+, Tuple.Create(Tuple.Create("", 1434), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-, 1416), false)
+, 1434), false)
 );
 
 WriteLiteral(">\r\n");
@@ -276,14 +276,14 @@ WriteLiteral(">\r\n");
             #line hidden
 WriteLiteral("            <option");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 1503), Tuple.Create("\"", 1522)
+WriteAttribute("value", Tuple.Create(" value=\"", 1521), Tuple.Create("\"", 1540)
             
             #line 49 "..\..\Views\Shared\Manage\Fields\Edit\Dropdown.cshtml"
-, Tuple.Create(Tuple.Create("", 1511), Tuple.Create<System.Object, System.Int32>(EmptyValue
+, Tuple.Create(Tuple.Create("", 1529), Tuple.Create<System.Object, System.Int32>(EmptyValue
             
             #line default
             #line hidden
-, 1511), false)
+, 1529), false)
 );
 
 WriteLiteral(" ");
@@ -328,14 +328,14 @@ WriteLiteral("        ");
             #line hidden
 WriteLiteral("            <option");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 1727), Tuple.Create("\"", 1746)
+WriteAttribute("value", Tuple.Create(" value=\"", 1745), Tuple.Create("\"", 1764)
             
             #line 56 "..\..\Views\Shared\Manage\Fields\Edit\Dropdown.cshtml"
-, Tuple.Create(Tuple.Create("", 1735), Tuple.Create<System.Object, System.Int32>(Item.Value
+, Tuple.Create(Tuple.Create("", 1753), Tuple.Create<System.Object, System.Int32>(Item.Value
             
             #line default
             #line hidden
-, 1735), false)
+, 1753), false)
 );
 
 WriteLiteral(" ");

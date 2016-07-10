@@ -49,8 +49,8 @@ WriteLiteral("\r\n<h4>Use another service to log in.</h4>\r\n<hr />\r\n");
             
             #line 6 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
   
-    IEnumerable<AuthenticationDescription> loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
-    if (!loginProviders.Any())
+    IEnumerable<AuthenticationDescription> LoginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+    if (!LoginProviders.Any())
         {
 
             
@@ -104,7 +104,7 @@ WriteLiteral(">\r\n                <p>\r\n");
             #line hidden
             
             #line 24 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
-                     foreach (var p in loginProviders)
+                     foreach (var Provider in LoginProviders)
                         {
 
             
@@ -116,48 +116,48 @@ WriteLiteral(" type=\"submit\"");
 
 WriteLiteral(" class=\"btn btn-default\"");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 1041), Tuple.Create("\"", 1067)
+WriteAttribute("id", Tuple.Create(" id=\"", 1048), Tuple.Create("\"", 1081)
             
             #line 26 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
-, Tuple.Create(Tuple.Create("", 1046), Tuple.Create<System.Object, System.Int32>(p.AuthenticationType
+, Tuple.Create(Tuple.Create("", 1053), Tuple.Create<System.Object, System.Int32>(Provider.AuthenticationType
             
             #line default
             #line hidden
-, 1046), false)
+, 1053), false)
 );
 
 WriteLiteral(" name=\"provider\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 1084), Tuple.Create("\"", 1113)
+WriteAttribute("value", Tuple.Create(" value=\"", 1098), Tuple.Create("\"", 1134)
             
             #line 26 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
-                                        , Tuple.Create(Tuple.Create("", 1092), Tuple.Create<System.Object, System.Int32>(p.AuthenticationType
+                                               , Tuple.Create(Tuple.Create("", 1106), Tuple.Create<System.Object, System.Int32>(Provider.AuthenticationType
             
             #line default
             #line hidden
-, 1092), false)
+, 1106), false)
 );
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1114), Tuple.Create("\"", 1158)
-, Tuple.Create(Tuple.Create("", 1122), Tuple.Create("Log", 1122), true)
-, Tuple.Create(Tuple.Create(" ", 1125), Tuple.Create("in", 1126), true)
-, Tuple.Create(Tuple.Create(" ", 1128), Tuple.Create("using", 1129), true)
-, Tuple.Create(Tuple.Create(" ", 1134), Tuple.Create("your", 1135), true)
+WriteAttribute("title", Tuple.Create(" title=\"", 1135), Tuple.Create("\"", 1186)
+, Tuple.Create(Tuple.Create("", 1143), Tuple.Create("Log", 1143), true)
+, Tuple.Create(Tuple.Create(" ", 1146), Tuple.Create("in", 1147), true)
+, Tuple.Create(Tuple.Create(" ", 1149), Tuple.Create("using", 1150), true)
+, Tuple.Create(Tuple.Create(" ", 1155), Tuple.Create("your", 1156), true)
             
             #line 26 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
-                                                                                       , Tuple.Create(Tuple.Create(" ", 1139), Tuple.Create<System.Object, System.Int32>(p.Caption
+                                                                                                     , Tuple.Create(Tuple.Create(" ", 1160), Tuple.Create<System.Object, System.Int32>(Provider.Caption
             
             #line default
             #line hidden
-, 1140), false)
-, Tuple.Create(Tuple.Create(" ", 1150), Tuple.Create("account", 1151), true)
+, 1161), false)
+, Tuple.Create(Tuple.Create(" ", 1178), Tuple.Create("account", 1179), true)
 );
 
 WriteLiteral(">");
 
             
             #line 26 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
-                                                                                                                                                                                       Write(p.AuthenticationType);
+                                                                                                                                                                                                            Write(Provider.AuthenticationType);
 
             
             #line default

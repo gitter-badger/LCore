@@ -12,23 +12,30 @@ namespace LCore.Tools
         /// <summary>
         /// Implicitally convert a List[Exception] to an ExceptionList
         /// </summary>
-        public static implicit operator List<Exception>(ExceptionList O)
+        public static implicit operator Exception[] (ExceptionList o)
             {
-            return O.Exceptions;
-            }
-        /// <summary>
-        /// Implicitally convert a ExceptionList to a List[Exception]
-        /// </summary>
-        public static implicit operator ExceptionList(List<Exception> E)
-            {
-            return new ExceptionList(E);
+            return o.Exceptions.Array();
             }
         /// <summary>
         /// Implicitally convert a ExceptionList to an Exception[]
         /// </summary>
-        public static implicit operator ExceptionList(Exception[] E)
+        public static implicit operator ExceptionList(Exception[] e)
             {
-            return new ExceptionList(E);
+            return new ExceptionList(e);
+            }
+        /// <summary>
+        /// Implicitally convert a List[Exception] to an ExceptionList
+        /// </summary>
+        public static implicit operator List<Exception>(ExceptionList o)
+            {
+            return o.Exceptions;
+            }
+        /// <summary>
+        /// Implicitally convert a ExceptionList to a List[Exception]
+        /// </summary>
+        public static implicit operator ExceptionList(List<Exception> e)
+            {
+            return new ExceptionList(e);
             }
 
 
@@ -40,9 +47,9 @@ namespace LCore.Tools
         /// <summary>
         /// Create a new ExceptionList
         /// </summary>
-        public ExceptionList(IEnumerable<Exception> Exceptions)
+        public ExceptionList(IEnumerable<Exception> exceptions)
             {
-            this.Exceptions = Exceptions.List();
+            this.Exceptions = exceptions.List();
             }
 
         /// <summary>Gets a message that describes the current exception.</summary>

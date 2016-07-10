@@ -63,21 +63,21 @@ namespace L_Tool
             {
             var Test = new CodeExploder(this.CodeRoot, null);
 
-            string s = !this.textBox4.Text.IsEmpty() ? 
-                Test.ExplodeAllTypes(m => m.Name.Contains(this.textBox4.Text)) : 
+            string s = !this.textBox4.Text.IsEmpty() ?
+                Test.ExplodeAllTypes(m => m.Name.Contains(this.textBox4.Text)) :
                 Test.ExplodeAllTypes();
 
             this.textBox3.Text = s;
             }
 
 
-        private readonly RegistryHandler Registry = new RegistryHandler("LTool", Microsoft.Win32.Registry.CurrentUser);
+        private readonly RegistryHelper Registry = new RegistryHelper("LTool", Microsoft.Win32.Registry.CurrentUser);
 
         private string CodeRoot
             {
             get
                 {
-                return (string)(this.Registry.Load("CodeRoot", RegistryHandler.ObjType.String) ?? Default_CodeRoot);
+                return this.Registry.LoadString("CodeRoot") ?? Default_CodeRoot;
                 }
             set
                 {
@@ -89,7 +89,7 @@ namespace L_Tool
             {
             get
                 {
-                return (string)(this.Registry.Load("CodeDynamicFolder", RegistryHandler.ObjType.String) ?? Default_CodeDynamicFolder);
+                return this.Registry.LoadString("CodeDynamicFolder") ?? Default_CodeDynamicFolder;
                 }
             set
                 {

@@ -79,8 +79,8 @@ WriteLiteral("\r\n");
 
     var ViewType = ViewBag.Create == true ? ControllerHelper.ViewType.Create : ControllerHelper.ViewType.Edit;
 
-    var model = Model as IFieldGroups;
-    IEnumerable<ModelMetadata> Fields = model != null ? model.GetFieldGroup(Context, ViewType) : FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ViewType);
+    var Groups = Model as IFieldGroups;
+    IEnumerable<ModelMetadata> Fields = Groups != null ? Groups.GetFieldGroup(Context, ViewType) : FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ViewType);
 
             
             #line default
@@ -89,15 +89,15 @@ WriteLiteral("\r\n\r\n");
 
 WriteLiteral("<div");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 564), Tuple.Create("\"", 619)
+WriteAttribute("class", Tuple.Create(" class=\"", 567), Tuple.Create("\"", 622)
             
             #line 22 "..\..\Views\Shared\Manage\Edit.cshtml"
-, Tuple.Create(Tuple.Create("", 572), Tuple.Create<System.Object, System.Int32>(ViewBag.Create ? "create" : "edit"
+, Tuple.Create(Tuple.Create("", 575), Tuple.Create<System.Object, System.Int32>(ViewBag.Create ? "create" : "edit"
             
             #line default
             #line hidden
-, 572), false)
-, Tuple.Create(Tuple.Create(" ", 609), Tuple.Create("wide-form", 610), true)
+, 575), false)
+, Tuple.Create(Tuple.Create(" ", 612), Tuple.Create("wide-form", 613), true)
 );
 
 WriteLiteral("\r\n     focus-first=\"input[type=text]\"");
@@ -132,14 +132,14 @@ WriteLiteral("        <a");
 
 WriteLiteral(" class=\"btn btn-default right btn-warning\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 952), Tuple.Create("\"", 977)
+WriteAttribute("href", Tuple.Create(" href=\"", 955), Tuple.Create("\"", 980)
             
             #line 33 "..\..\Views\Shared\Manage\Edit.cshtml"
-, Tuple.Create(Tuple.Create("", 959), Tuple.Create<System.Object, System.Int32>(ViewBag.ReturnURL
+, Tuple.Create(Tuple.Create("", 962), Tuple.Create<System.Object, System.Int32>(ViewBag.ReturnURL
             
             #line default
             #line hidden
-, 959), false)
+, 962), false)
 );
 
 WriteLiteral(">\r\n            <glyph>&#xe091;</glyph>\r\n            Cancel\r\n        </a>\r\n");
@@ -185,10 +185,10 @@ WriteLiteral("\r\n    </h2>\r\n\r\n");
             
             #line 48 "..\..\Views\Shared\Manage\Edit.cshtml"
      using (Html.BeginForm(ViewBag.Create ?
-                    nameof(ManageController.Create) :
-                    nameof(ManageController.Edit),
-                (string)ViewBag.ControllerName,
-                (object)ViewBag.Route_Edit, FormMethod.Post, new { @class = "edit-form" }))
+                            nameof(ManageController.Create) :
+                            nameof(ManageController.Edit),
+                        (string)ViewBag.ControllerName,
+                        (object)ViewBag.Route_Edit, FormMethod.Post, new { @class = "edit-form" }))
         {
 
         bool RequiredFields = false;
@@ -213,22 +213,22 @@ WriteLiteral("\r\n    </h2>\r\n\r\n");
             #line hidden
 WriteLiteral("        <div");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 2272), Tuple.Create("\"", 2355)
+WriteAttribute("class", Tuple.Create(" class=\"", 2307), Tuple.Create("\"", 2390)
             
             #line 71 "..\..\Views\Shared\Manage\Edit.cshtml"
-, Tuple.Create(Tuple.Create("", 2280), Tuple.Create<System.Object, System.Int32>(ViewBag.Create ? "create" : "edit"
+, Tuple.Create(Tuple.Create("", 2315), Tuple.Create<System.Object, System.Int32>(ViewBag.Create ? "create" : "edit"
             
             #line default
             #line hidden
-, 2280), false)
-, Tuple.Create(Tuple.Create("", 2317), Tuple.Create("-fields", 2317), true)
+, 2315), false)
+, Tuple.Create(Tuple.Create("", 2352), Tuple.Create("-fields", 2352), true)
             
             #line 71 "..\..\Views\Shared\Manage\Edit.cshtml"
-, Tuple.Create(Tuple.Create(" ", 2324), Tuple.Create<System.Object, System.Int32>(IsTabView ? "tab-view" : ""
+, Tuple.Create(Tuple.Create(" ", 2359), Tuple.Create<System.Object, System.Int32>(IsTabView ? "tab-view" : ""
             
             #line default
             #line hidden
-, 2325), false)
+, 2360), false)
 );
 
 WriteLiteral(">\r\n\r\n");
@@ -272,9 +272,9 @@ WriteLiteral(">\r\n                    <ul>\r\n");
             #line hidden
             
             #line 79 "..\..\Views\Shared\Manage\Edit.cshtml"
-                         for (int i = 0; i < TabGroups.Keys.Count; i++)
+                         for (int Index = 0; Index < TabGroups.Keys.Count; Index++)
                             {
-                            string Key = TabGroups.Keys.List()[i];
+                            string Key = TabGroups.Keys.List()[Index];
 
 
             
@@ -282,15 +282,15 @@ WriteLiteral(">\r\n                    <ul>\r\n");
             #line hidden
 WriteLiteral("                            <li>\r\n                                <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2767), Tuple.Create("\"", 2787)
-, Tuple.Create(Tuple.Create("", 2774), Tuple.Create("#tab-", 2774), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 2818), Tuple.Create("\"", 2842)
+, Tuple.Create(Tuple.Create("", 2825), Tuple.Create("#tab-", 2825), true)
             
             #line 84 "..\..\Views\Shared\Manage\Edit.cshtml"
-, Tuple.Create(Tuple.Create("", 2779), Tuple.Create<System.Object, System.Int32>(i + 1
+, Tuple.Create(Tuple.Create("", 2830), Tuple.Create<System.Object, System.Int32>(Index + 1
             
             #line default
             #line hidden
-, 2779), false)
+, 2830), false)
 );
 
 WriteLiteral(">\r\n");
@@ -324,7 +324,7 @@ WriteLiteral("                    </ul>\r\n\r\n");
             
             #line 91 "..\..\Views\Shared\Manage\Edit.cshtml"
                       
-                        int j = 0;
+                        int Index2 = 0;
                     
             
             #line default
@@ -339,9 +339,9 @@ WriteLiteral("\r\n\r\n");
             #line hidden
             
             #line 95 "..\..\Views\Shared\Manage\Edit.cshtml"
-                     foreach (string s in TabGroups.Keys)
+                     foreach (string Str in TabGroups.Keys)
                         {
-                        List<ModelMetadata> TabFields = TabGroups[s];
+                        List<ModelMetadata> TabFields = TabGroups[Str];
 
 
             
@@ -349,15 +349,15 @@ WriteLiteral("\r\n\r\n");
             #line hidden
 WriteLiteral("                        <div");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 3346), Tuple.Create("\"", 3363)
-, Tuple.Create(Tuple.Create("", 3351), Tuple.Create("tab-", 3351), true)
+WriteAttribute("id", Tuple.Create(" id=\"", 3410), Tuple.Create("\"", 3432)
+, Tuple.Create(Tuple.Create("", 3415), Tuple.Create("tab-", 3415), true)
             
             #line 99 "..\..\Views\Shared\Manage\Edit.cshtml"
-, Tuple.Create(Tuple.Create("", 3355), Tuple.Create<System.Object, System.Int32>(j + 1
+, Tuple.Create(Tuple.Create("", 3419), Tuple.Create<System.Object, System.Int32>(Index2 + 1
             
             #line default
             #line hidden
-, 3355), false)
+, 3419), false)
 );
 
 WriteLiteral(">\r\n\r\n");
@@ -402,7 +402,7 @@ WriteLiteral("                        </div>\r\n");
 
             
             #line 113 "..\..\Views\Shared\Manage\Edit.cshtml"
-                        j++;
+                        Index2++;
                         }
 
             
@@ -491,16 +491,16 @@ WriteLiteral(" class=\"left\"");
 
 WriteLiteral(">\r\n                                <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 5576), Tuple.Create("\"", 5795)
+WriteAttribute("href", Tuple.Create(" href=\"", 5650), Tuple.Create("\"", 5869)
             
             #line 152 "..\..\Views\Shared\Manage\Edit.cshtml"
-, Tuple.Create(Tuple.Create("", 5583), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
+, Tuple.Create(Tuple.Create("", 5657), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
                     .Action((Expression<Func<ManageController, Func<int, string, ActionResult>>>)(c => c.Delete),
                     Model.GetID<int>(), ViewBag.ReturnURL)
             
             #line default
             #line hidden
-, 5583), false)
+, 5657), false)
 );
 
 WriteLiteral("\r\n                                   id=\"DeleteButton\"");
@@ -537,14 +537,14 @@ WriteLiteral(">\r\n\r\n                                <a");
 
 WriteLiteral(" class=\"btn btn-default btn-warning\"");
 
-WriteAttribute("href", Tuple.Create("\r\n                                   href=\"", 6557), Tuple.Create("\"", 6618)
+WriteAttribute("href", Tuple.Create("\r\n                                   href=\"", 6631), Tuple.Create("\"", 6692)
             
             #line 171 "..\..\Views\Shared\Manage\Edit.cshtml"
-, Tuple.Create(Tuple.Create("", 6600), Tuple.Create<System.Object, System.Int32>(ViewBag.ReturnURL
+, Tuple.Create(Tuple.Create("", 6674), Tuple.Create<System.Object, System.Int32>(ViewBag.ReturnURL
             
             #line default
             #line hidden
-, 6600), false)
+, 6674), false)
 );
 
 WriteLiteral("\r\n                                   id=\"CancelButton\"");

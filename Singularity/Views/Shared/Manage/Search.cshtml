@@ -23,17 +23,17 @@
 <div class="manage-global-search">
     @if (Model.FieldSearchTerms.Keys.Count > 0)
         {
-        foreach (var o in Model.FieldSearchTerms.Values)
+        foreach (var Value in Model.FieldSearchTerms.Values)
             {
-            if (o.Operator == Expression.Equal || o.OperatorStr == "~")
+            if (Value.Operator == Expression.Equal || Value.OperatorStr == "~")
                 {
-                string Column = o.Property.ToUrlSlug();
+                string Column = Value.Property.ToUrlSlug();
 
                 <script type="text/javascript">
                     $().ready(function () {
-                        $('.manage-@Model.ModelTypeCSSClass .manage-table tbody td.@Column span').each(function () {
+                        $('.manage-@Model.ModelTypeCssClass .manage-table tbody td.@Column span').each(function () {
                             const html = $(this).html();
-                            $(this).html(html.replace(new RegExp(`(${('@o.Search').escapeRegExp()})`, 'ig'), '<strong>$1</strong>'));
+                            $(this).html(html.replace(new RegExp(`(${('@Value.Search').escapeRegExp()})`, 'ig'), '<strong>$1</strong>'));
                         });
                     });
                 </script>
@@ -45,7 +45,7 @@
         {
         <script type="text/javascript">
             $().ready(function () {
-                $('.manage-@Model.ModelTypeCSSClass .manage-table tbody td span').each(function () {
+                $('.manage-@Model.ModelTypeCssClass .manage-table tbody td span').each(function () {
                     const html = $(this).html();
                     $(this).html(html.replace(new RegExp(`(${('@Model.GlobalSearchTerm').escapeRegExp()})`, 'ig'), '<strong>$1</strong>'));
                 });
@@ -84,17 +84,17 @@
             });
         </script>
         <div class="filter-area">
-            @foreach (var o in Model.FieldSearchTerms.Values)
+            @foreach (var Value in Model.FieldSearchTerms.Values)
                 {
                 <span>
-                    <span search-text="@(o.Property + o.OperatorStr + o.Search)">
-                        @o.Property
-                        @o.OperatorStr
-                        @o.Search
+                    <span search-text="@(Value.Property + Value.OperatorStr + Value.Search)">
+                        @Value.Property
+                        @Value.OperatorStr
+                        @Value.Search
                     </span>
                     @Html.ActionLink("X", nameof(ManageController.Manage),
                         Model.Controller.Name,
-                        Controllers.Manage.Actions.Route_RemoveFilter(Model, o.Property), new { })
+                        Controllers.Manage.Actions.Route_RemoveFilter(Model, Value.Property), new { })
                 </span>
                 }
         </div>

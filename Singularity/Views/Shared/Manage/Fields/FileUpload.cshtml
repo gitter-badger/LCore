@@ -91,12 +91,12 @@
                     }
                     }
 
-                    const ParentForm = $('#file-upload-button-@Model.PropertyName').parents('form')[0];
+                    const parentForm = $('#file-upload-button-@Model.PropertyName').parents('form')[0];
 
                 $.ajax({
                     url: '/@(Html.ControllerName())/UploadFile?ReturnURL=@Request.Url?.AbsoluteUri&RelationType=@Model.ModelData.TrueModelType().FullName&RelationProperty=@Model.PropertyName&RelationID=@Model.ModelData.GetID()',
                     type: 'POST',
-                    data: new FormData(ParentForm),
+                    data: new FormData(parentForm),
                     processData: false,
                     contentType: false,
 

@@ -9,30 +9,30 @@ namespace LCore.Dynamic
     internal class AttributeList : ICustomAttributeProvider
         {
         public string TypeName;
-        private readonly Attribute[] Attrs;
+        private readonly Attribute[] Attributes;
 
-        public AttributeList(string TypeName, List<Attribute> Attrs)
-            : this(TypeName, Attrs.ToArray())
+        public AttributeList(string TypeName, List<Attribute> Attributes)
+            : this(TypeName, Attributes.ToArray())
             {
             }
 
-        public AttributeList(string TypeName, Attribute[] Attrs)
+        public AttributeList(string TypeName, Attribute[] Attributes)
             {
             this.TypeName = TypeName;
-            this.Attrs = Attrs;
+            this.Attributes = Attributes;
             }
 
         // ReSharper disable once CoVariantArrayConversion
-        public object[] GetCustomAttributes(bool inherit) => this.Attrs;
+        public object[] GetCustomAttributes(bool inherit) => this.Attributes;
 
         public object[] GetCustomAttributes(Type attributeType, bool inherit)
             {
-            return this.Attrs.Select(a => (object)a.IsType(attributeType)).ToArray();
+            return this.Attributes.Select(a => (object)a.IsType(attributeType)).ToArray();
             }
 
         public bool IsDefined(Type attributeType, bool inherit)
             {
-            return this.Attrs.Count(a => a.IsType(attributeType)) > 0;
+            return this.Attributes.Count(a => a.IsType(attributeType)) > 0;
             }
         }
     }

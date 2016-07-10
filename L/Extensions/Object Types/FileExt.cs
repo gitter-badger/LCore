@@ -433,7 +433,7 @@ namespace LCore.Extensions
             /// during the 
             /// </summary>
             // ReSharper disable once EventNeverSubscribedTo.Global
-            public static event EventHandler BufferedMove_Progress;
+            public static event EventHandler BufferedMoveProgress;
 
             /// <summary>
             /// Moves a file from [From] to [To] using a buffer.
@@ -463,7 +463,7 @@ namespace LCore.Extensions
                     f2.Write(Bytes, 0, (int)CurrentChunkSize);
                     f2.Flush();
                     Index += CurrentChunkSize;
-                    BufferedMove_Progress?.Invoke(new[] { Index, TotalSize }, null);
+                    BufferedMoveProgress?.Invoke(new[] { Index, TotalSize }, null);
                     }
 
                 f2.Close();

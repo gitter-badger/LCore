@@ -37,7 +37,7 @@ namespace Singularity.Controllers
             {
             var m = new ManageViewModel(this);
 
-            var DefaultSearch = SavedSearch.FindDefault(this.DBContext, this.ModelType.FullName, this.Name, true);
+            var DefaultSearch = SavedSearch.FindDefault(this.DbContext, this.ModelType.FullName, this.Name, true);
 
             if (DefaultManageSearch)
                 {
@@ -74,7 +74,7 @@ namespace Singularity.Controllers
                     return new HttpUnauthorizedResult();
                     }
 
-                m.FieldSearchTerms = this.Helper_T.ExtractSearchTerms(ref FieldSearchTerms, m.ModelType);
+                m.FieldSearchTerms = this.HelperT.ExtractSearchTerms(ref FieldSearchTerms, m.ModelType);
                 m.GlobalSearchTerm = GlobalSearchTerm;
 
                 if (string.IsNullOrEmpty(SortTerm))
@@ -89,7 +89,7 @@ namespace Singularity.Controllers
 
                 int TotalItems;
 
-                m.Models = this.Helper_T.GetModels(out TotalItems,
+                m.Models = this.HelperT.GetModels(out TotalItems,
                     Page, this.RowsPerPage,
                     m.OverrideSort, m.OverrideSortDirection,
                     m.GlobalSearchTerm, m.FieldSearchTerms,
@@ -138,7 +138,7 @@ namespace Singularity.Controllers
                     GlobalSearchTerm = $"{FieldSearchTerms}|{GlobalSearchTerm}";
                     }
 
-                m.FieldSearchTerms = this.Helper_T.ExtractSearchTerms(ref GlobalSearchTerm, m.ModelType);
+                m.FieldSearchTerms = this.HelperT.ExtractSearchTerms(ref GlobalSearchTerm, m.ModelType);
                 m.GlobalSearchTerm = GlobalSearchTerm;
 
                 return this.RedirectToAction(nameof(ManageController.Manage), this.Name, new
@@ -213,7 +213,7 @@ namespace Singularity.Controllers
                 m.OverrideSortDirection = SortDirection;
                 }
 
-            m.FieldSearchTerms = this.Helper_T.ExtractSearchTerms(ref FieldSearchTerms, m.ModelType);
+            m.FieldSearchTerms = this.HelperT.ExtractSearchTerms(ref FieldSearchTerms, m.ModelType);
             m.GlobalSearchTerm = GlobalSearchTerm;
 
             int TotalItems;
@@ -230,7 +230,7 @@ namespace Singularity.Controllers
 
             if (CustomExportID >= 0)
                 {
-                var Export = CustomExport.Find(this.DBContext, CustomExportID);
+                var Export = CustomExport.Find(this.DbContext, CustomExportID);
 
                 if (!string.IsNullOrEmpty(Export.OverrideSort))
                     {
@@ -346,7 +346,7 @@ namespace Singularity.Controllers
                     }
                 }
 
-            IEnumerable<T> Models = this.Helper_T.GetModels_T(out TotalItems,
+            IEnumerable<T> Models = this.HelperT.GetModels_T(out TotalItems,
                 Page,
                 -1, // All records
                 m.OverrideSort,
@@ -394,7 +394,7 @@ namespace Singularity.Controllers
         #endregion
 
         #region Details
-        public override ActionResult Details(int id, string ReturnURL)
+        public override ActionResult Details(int id, string ReturnUrl)
             {
             if (this.Session == null ||
                 ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, typeof(T)).View != true)
@@ -409,7 +409,7 @@ namespace Singularity.Controllers
                 return new HttpUnauthorizedResult();
                 }
 
-            this.ViewBag.ReturnURL = ReturnURL;
+            this.ViewBag.ReturnURL = ReturnUrl;
             this.ViewBag.ManageController = this;
 
             return this.View(Model);
@@ -417,7 +417,7 @@ namespace Singularity.Controllers
         #endregion
 
         #region Edit
-        public override ActionResult Edit(int id, string ReturnURL, bool Create = false)
+        public override ActionResult Edit(int id, string ReturnUrl, bool Create = false)
             {
 
             if (Create)
@@ -430,7 +430,7 @@ namespace Singularity.Controllers
 
                 IModel Model = this.GetModel(0, true, null);
 
-                return this.Edit(Model, ReturnURL, true);
+                return this.Edit(Model, ReturnUrl, true);
                 }
             else
                 {
@@ -442,13 +442,13 @@ namespace Singularity.Controllers
 
                 IModel Model = this.GetModelQuery().Find(id);
 
-                return !this.Session.CurrentRole().AllowAccess(Model) ? new HttpUnauthorizedResult() : this.Edit(Model, ReturnURL);
+                return !this.Session.CurrentRole().AllowAccess(Model) ? new HttpUnauthorizedResult() : this.Edit(Model, ReturnUrl);
                 }
             }
 
-        protected virtual ActionResult Edit(IModel Model, string ReturnURL, bool Create = false)
+        protected virtual ActionResult Edit(IModel Model, string ReturnUrl, bool Create = false)
             {
-            this.ViewBag.ReturnURL = ReturnURL;
+            this.ViewBag.ReturnURL = ReturnUrl;
 
             this.ViewBag.ControllerName = this.Name;
 
@@ -457,13 +457,13 @@ namespace Singularity.Controllers
             this.ViewBag.Route_Edit = new
                 {
                 id = Model == null ? "" : Model.GetID(),
-                ReturnURL,
+                ReturnURL = ReturnUrl,
                 Create
                 };
             this.ViewBag.Route_Update = new
                 {
                 id = Model == null ? "" : Model.GetID(),
-                ReturnURL,
+                ReturnURL = ReturnUrl,
                 Create
                 };
 
@@ -478,7 +478,7 @@ namespace Singularity.Controllers
 
         [HttpPost]
         [Route("Manage/{id}/{ReturnURL}")]
-        public override ActionResult Edit(int id, string ReturnURL, FormCollection Form, bool Create = false)
+        public override ActionResult Edit(int id, string ReturnUrl, FormCollection Form, bool Create = false)
             {
             bool UpdateMode = !string.IsNullOrEmpty(Form["UpdateButton"]);
 
@@ -494,14 +494,14 @@ namespace Singularity.Controllers
 
             bool Errors;
 
-            Errors = this.ModelBindingBefore(Form, this.DBContext, Model);
+            Errors = this.ModelBindingBefore(Form, this.DbContext, Model);
 
             Form.Keys.List<string>().Each(Key =>
             {
                 Errors = Errors || this.SetModelField(Form, Model, Key);
             });
 
-            Errors = Errors || this.ModelBindingAfter(Form, this.DBContext, Model, Errors);
+            Errors = Errors || this.ModelBindingAfter(Form, this.DbContext, Model, Errors);
 
             if (!Errors)
                 {
@@ -514,27 +514,27 @@ namespace Singularity.Controllers
                             {
                             if (Meta.ModelType.HasInterface<IModel>())
                                 {
-                                var Set = this.DBContext.GetDBSet(Meta.ModelType);
+                                var Set = this.DbContext.GetDBSet(Meta.ModelType);
 
                                 Set?.Attach(Model.GetProperty(Meta.PropertyName));
                                 }
                             }
 
-                        this.DBContext.GetDBSet<T>().Add(Model);
+                        this.DbContext.GetDBSet<T>().Add(Model);
                         }
 
                     if (UpdateMode)
                         {
-                        bool Before = this.DBContext.Configuration.ValidateOnSaveEnabled;
-                        this.DBContext.Configuration.ValidateOnSaveEnabled = false;
+                        bool Before = this.DbContext.Configuration.ValidateOnSaveEnabled;
+                        this.DbContext.Configuration.ValidateOnSaveEnabled = false;
 
-                        this.DBContext.SaveChanges();
+                        this.DbContext.SaveChanges();
 
-                        this.DBContext.Configuration.ValidateOnSaveEnabled = Before;
+                        this.DbContext.Configuration.ValidateOnSaveEnabled = Before;
                         }
                     else
                         {
-                        this.DBContext.SaveChanges();
+                        this.DbContext.SaveChanges();
                         }
                     }
                 catch (Exception e)
@@ -561,37 +561,37 @@ namespace Singularity.Controllers
                     if (Create && this.ActionAfterCreate == ControllerHelper.ViewType.Edit)
                         {
                         return this.RedirectToAction(nameof(ManageController.Edit),
-                            Routes.Controllers.Manage.Actions.Route_Edit(Model, ReturnURL));
+                            Routes.Controllers.Manage.Actions.Route_Edit(Model, ReturnUrl));
                         }
                     if (Create && this.ActionAfterCreate == ControllerHelper.ViewType.Display)
                         {
                         return this.RedirectToAction(nameof(ManageController.Details),
-                            Routes.Controllers.Manage.Actions.Route_DetailView(Model, ReturnURL));
+                            Routes.Controllers.Manage.Actions.Route_DetailView(Model, ReturnUrl));
                         }
-                    return this.Redirect(ReturnURL);
+                    return this.Redirect(ReturnUrl);
                     }
                 }
 
-            return this.Edit(Model, ReturnURL, Create);
+            return this.Edit(Model, ReturnUrl, Create);
             }
 
         [HttpPost]
         [Route("Manage/{id}/{ReturnURL}")]
-        public override ActionResult Update(int id, string ReturnURL, FormCollection Form, bool Create = false)
+        public override ActionResult Update(int id, string ReturnUrl, FormCollection Form, bool Create = false)
             {
-            this.Edit(id, ReturnURL, Form, Create);
+            this.Edit(id, ReturnUrl, Form, Create);
 
             return this.RedirectToAction(nameof(ManageController.Edit), new
                 {
                 id,
-                ReturnURL,
+                ReturnURL = ReturnUrl,
                 Create
                 });
             }
         #endregion
 
         #region Create
-        public override ActionResult Create(string ReturnURL)
+        public override ActionResult Create(string ReturnUrl)
             {
             if (this.Session == null ||
                 ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, typeof(T)).Create != true)
@@ -601,18 +601,18 @@ namespace Singularity.Controllers
 
             IModel Model = this.GetModel(0, true, null);
 
-            return this.Edit(Model, ReturnURL, true);
+            return this.Edit(Model, ReturnUrl, true);
             }
 
         [HttpPost]
-        public override ActionResult Create(string ReturnURL, FormCollection Form)
+        public override ActionResult Create(string ReturnUrl, FormCollection Form)
             {
-            return this.Edit(0, ReturnURL, Form, true);
+            return this.Edit(0, ReturnUrl, Form, true);
             }
         #endregion
 
         #region Delete
-        public override ActionResult Delete(int id, string ReturnURL)
+        public override ActionResult Delete(int id, string ReturnUrl)
             {
             if (this.Session == null ||
                 ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, typeof(T)).Deactivate != true)
@@ -627,13 +627,13 @@ namespace Singularity.Controllers
                 return new HttpUnauthorizedResult();
                 }
 
-            this.ViewBag.ReturnURL = ReturnURL;
+            this.ViewBag.ReturnURL = ReturnUrl;
 
             return this.View(Model);
             }
 
         [IgnoreValidation]
-        public override ActionResult DeleteConfirm(int id, string ReturnURL, FormCollection collection, bool Restore = false)
+        public override ActionResult DeleteConfirm(int id, string ReturnUrl, FormCollection collection, bool Restore = false)
             {
             if (this.Session == null ||
                 ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, typeof(T)).Deactivate != true)
@@ -641,18 +641,18 @@ namespace Singularity.Controllers
                 return new HttpUnauthorizedResult();
                 }
 
-            DbSet DBSet = this.GetModelQuery();
+            DbSet DbSet = this.GetModelQuery();
 
-            var Model = (T)DBSet.Find(id);
+            var Model = (T)DbSet.Find(id);
 
             if (!this.Session.CurrentRole().AllowAccess(Model))
                 {
                 return new HttpUnauthorizedResult();
                 }
 
-            bool Before = this.DBContext.Configuration.ValidateOnSaveEnabled;
+            bool Before = this.DbContext.Configuration.ValidateOnSaveEnabled;
 
-            this.DBContext.Configuration.ValidateOnSaveEnabled = false;
+            this.DbContext.Configuration.ValidateOnSaveEnabled = false;
 
             if (typeof(T).HasProperty(ControllerHelper.AutomaticFields.Active))
                 {
@@ -668,17 +668,17 @@ namespace Singularity.Controllers
                     Value.Errors.Clear();
                     }
 
-                this.DBContext.SaveChanges();
+                this.DbContext.SaveChanges();
                 }
             else
                 {
-                DBSet.Remove(Model);
-                this.DBContext.SaveChanges();
+                DbSet.Remove(Model);
+                this.DbContext.SaveChanges();
                 }
 
-            this.DBContext.Configuration.ValidateOnSaveEnabled = Before;
+            this.DbContext.Configuration.ValidateOnSaveEnabled = Before;
 
-            return this.Redirect(ReturnURL);
+            return this.Redirect(ReturnUrl);
             }
         #endregion
 
@@ -686,7 +686,7 @@ namespace Singularity.Controllers
         [HttpPost]
         public override ActionResult UploadFile(
             FormCollection Form,
-            string ReturnURL,
+            string ReturnUrl,
             string RelationType,
             string RelationProperty,
             int RelationID)
@@ -697,7 +697,7 @@ namespace Singularity.Controllers
                 {
                 var Result = this.UploadSingleFile(Form, RelationType, RelationProperty, RelationID, UploadFiles[0]);
 
-                this.DBContext.SaveChanges();
+                this.DbContext.SaveChanges();
 
                 if (Result != null)
                     return Result;
@@ -709,17 +709,17 @@ namespace Singularity.Controllers
                     this.UploadSingleFile(Form, RelationType, RelationProperty, RelationID, File);
                     }
 
-                this.DBContext.SaveChanges();
+                this.DbContext.SaveChanges();
                 }
 
-            return this.Redirect(ReturnURL);
+            return this.Redirect(ReturnUrl);
             }
 
         protected virtual ActionResult UploadSingleFile(FormCollection Form, string RelationType, string RelationProperty, int RelationID, HttpPostedFileBase File)
             {
             var FileUp = this.GetFileUpload(File, Form, RelationType, RelationProperty, RelationID);
 
-            this.DBContext.GetDBSet<FileUpload>().Add(FileUp);
+            this.DbContext.GetDBSet<FileUpload>().Add(FileUp);
 
             return null;
             }
@@ -753,7 +753,7 @@ namespace Singularity.Controllers
         #region DownloadFile
         public override void DownloadFile(int FileID)
             {
-            var FileUp = FileUpload.FindFileUpload(this.DBContext, FileID, typeof(T));
+            var FileUp = FileUpload.FindFileUpload(this.DbContext, FileID, typeof(T));
 
             if (!this.Session.CurrentRole().AllowAccess(FileUp))
                 {
@@ -778,9 +778,9 @@ namespace Singularity.Controllers
         #endregion}
 
         #region DeleteFile
-        public override void DeleteFile(int id, string ReturnURL)
+        public override void DeleteFile(int id, string ReturnUrl)
             {
-            var File = FileUpload.FindFileUpload(this.DBContext, id, typeof(T));
+            var File = FileUpload.FindFileUpload(this.DbContext, id, typeof(T));
 
             if (!this.Session.CurrentRole().AllowAccess(File))
                 {
@@ -793,9 +793,9 @@ namespace Singularity.Controllers
                 }
 
             File.Active = false;
-            this.DBContext.SaveChanges();
+            this.DbContext.SaveChanges();
 
-            this.Response.Redirect(ReturnURL);
+            this.Response.Redirect(ReturnUrl);
             }
         #endregion
 
@@ -855,7 +855,7 @@ namespace Singularity.Controllers
                         {
                         string QS = this.Request.QueryString[m.PropertyName];
 
-                        var Context = this.DBContext.GetDBSet(m.ModelType);
+                        var Context = this.DbContext.GetDBSet(m.ModelType);
                         var QSModel = (IModel)Context.Find(QS);
 
                         if (QSModel != null)
@@ -1030,7 +1030,7 @@ namespace Singularity.Controllers
         [NonAction]
         public virtual DbSet<T> GetModelQuery()
             {
-            return this.DBContext.GetDBSet<T>();
+            return this.DbContext.GetDBSet<T>();
             }
 
         [NonAction]
@@ -1040,13 +1040,13 @@ namespace Singularity.Controllers
             }
 
 
-        public override ControllerHelper Helper => this.Helper_T;
-        public ControllerHelper<T> Helper_T { get; }
+        public override ControllerHelper Helper => this.HelperT;
+        public ControllerHelper<T> HelperT { get; }
 
         protected ManageController(IAuthenticationService Auth) : base(Auth)
             {
 
-            this.Helper_T = new ControllerHelper<T>(this);
+            this.HelperT = new ControllerHelper<T>(this);
             }
         }
     }

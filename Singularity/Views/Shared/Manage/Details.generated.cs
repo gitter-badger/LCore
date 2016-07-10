@@ -76,9 +76,9 @@ WriteLiteral("\r\n");
 
     const ControllerHelper.ViewType ViewType = ControllerHelper.ViewType.Display;
 
-    var model = Model as IFieldGroups;
+    var Groups = Model as IFieldGroups;
 
-    IEnumerable<ModelMetadata> Fields = model != null ? model.GetFieldGroup(Context, ViewType) : FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ViewType);
+    IEnumerable<ModelMetadata> Fields = Groups != null ? Groups.GetFieldGroup(Context, ViewType) : FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ViewType);
 
             
             #line default
@@ -111,14 +111,14 @@ WriteLiteral("            <a");
 
 WriteLiteral(" class=\"btn-default right\"");
 
-WriteAttribute("href", Tuple.Create("\r\n               href=\"", 689), Tuple.Create("\"", 822)
+WriteAttribute("href", Tuple.Create("\r\n               href=\"", 692), Tuple.Create("\"", 825)
             
             #line 27 "..\..\Views\Shared\Manage\Details.cshtml"
-, Tuple.Create(Tuple.Create("", 712), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(c => c.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false)
+, Tuple.Create(Tuple.Create("", 715), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(c => c.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false)
             
             #line default
             #line hidden
-, 712), false)
+, 715), false)
 );
 
 WriteLiteral(">\r\n                <glyph>&#xe065;</glyph>\r\n                Edit\r\n            </a" +
@@ -132,22 +132,21 @@ WriteLiteral(">\r\n                <glyph>&#xe065;</glyph>\r\n                Ed
             
             #line default
             #line hidden
-WriteLiteral("            <a");
+WriteLiteral("        <a");
 
 WriteLiteral(" class=\"btn-default right\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 964), Tuple.Create("\"", 989)
+WriteAttribute("href", Tuple.Create(" href=\"", 963), Tuple.Create("\"", 988)
             
             #line 33 "..\..\Views\Shared\Manage\Details.cshtml"
-, Tuple.Create(Tuple.Create("", 971), Tuple.Create<System.Object, System.Int32>(ViewBag.ReturnURL
+, Tuple.Create(Tuple.Create("", 970), Tuple.Create<System.Object, System.Int32>(ViewBag.ReturnURL
             
             #line default
             #line hidden
-, 971), false)
+, 970), false)
 );
 
-WriteLiteral(">\r\n                <glyph>&#xe091;</glyph>\r\n                Back\r\n            </a" +
-">\r\n");
+WriteLiteral(">\r\n            <glyph>&#xe091;</glyph>\r\n            Back\r\n        </a>\r\n");
 
             
             #line 37 "..\..\Views\Shared\Manage\Details.cshtml"
@@ -235,14 +234,14 @@ WriteLiteral("            <a");
 
 WriteLiteral(" class=\"btn-default right\"");
 
-WriteAttribute("href", Tuple.Create(" \r\n               href=\"", 1626), Tuple.Create("\"", 1760)
+WriteAttribute("href", Tuple.Create("\r\n               href=\"", 1613), Tuple.Create("\"", 1746)
             
             #line 61 "..\..\Views\Shared\Manage\Details.cshtml"
-, Tuple.Create(Tuple.Create("", 1650), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(c => c.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false)
+, Tuple.Create(Tuple.Create("", 1636), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(c => c.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false)
             
             #line default
             #line hidden
-, 1650), false)
+, 1636), false)
 );
 
 WriteLiteral("\r\n               key-bind-click=\"Ctrl+E\"");
@@ -260,26 +259,25 @@ WriteLiteral(">\r\n                <glyph>&#xe065;</glyph>\r\n                Ed
             
             #line default
             #line hidden
-WriteLiteral("            <a");
+WriteLiteral("        <a");
 
 WriteLiteral(" class=\"btn-default right\"");
 
-WriteAttribute("href", Tuple.Create("\r\n               href=\"", 1985), Tuple.Create("\"", 2026)
+WriteAttribute("href", Tuple.Create("\r\n           href=\"", 1967), Tuple.Create("\"", 2004)
             
             #line 70 "..\..\Views\Shared\Manage\Details.cshtml"
-, Tuple.Create(Tuple.Create("", 2008), Tuple.Create<System.Object, System.Int32>(ViewBag.ReturnURL
+, Tuple.Create(Tuple.Create("", 1986), Tuple.Create<System.Object, System.Int32>(ViewBag.ReturnURL
             
             #line default
             #line hidden
-, 2008), false)
+, 1986), false)
 );
 
-WriteLiteral("\r\n               key-bind-click=\"Esc\"");
+WriteLiteral("\r\n           key-bind-click=\"Esc\"");
 
-WriteLiteral("\r\n               key-bind-click-name=\"Back\"");
+WriteLiteral("\r\n           key-bind-click-name=\"Back\"");
 
-WriteLiteral(">\r\n                <glyph>&#xe091;</glyph>\r\n                Back\r\n            </a" +
-">\r\n");
+WriteLiteral(">\r\n            <glyph>&#xe091;</glyph>\r\n            Back\r\n        </a>\r\n");
 
             
             #line 76 "..\..\Views\Shared\Manage\Details.cshtml"

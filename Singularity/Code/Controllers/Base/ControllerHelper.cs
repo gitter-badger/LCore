@@ -39,7 +39,7 @@ namespace Singularity.Controllers
         public const string StatusMessage_TemporaryIcon = "TempStatusMessageIcon";
 
         public const string Session_DuoSignRequest = "DuoSignRequest";
-        public const string Session_DuoSignRequest_ReturnURL = "DuoSignRequest_ReturnURL";
+        public const string Session_DuoSignRequest_ReturnUrl = "DuoSignRequest_ReturnURL";
 
         public const string Session_Role = "ProfileRoleSession";
         public const string Session_User = "ProfileUserSession";

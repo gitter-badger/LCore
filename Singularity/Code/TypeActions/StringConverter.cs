@@ -22,6 +22,7 @@ namespace Singularity.Utilities
             this.Session = Session;
             }
 
+        // ReSharper disable once InconsistentNaming
         protected U PerformAction_IConvertible<U>(string In)
             where U : IConvertible
             {

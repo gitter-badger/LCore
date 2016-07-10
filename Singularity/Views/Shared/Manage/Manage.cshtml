@@ -27,17 +27,17 @@
     @Html.TextContent($"Manage_Header_{Model.FriendlyModelTypeName}", Model.Title)
 </h1>
 
-<div class="manage manage-@Model.ModelTypeCSSClass" remember-page>
+<div class="manage manage-@Model.ModelTypeCssClass" remember-page>
 
 
     @{
-        var controller = ViewContext.Controller as ManageController;
+        var Controller = ViewContext.Controller as ManageController;
     }
-    @if (controller != null &&
-                controller.OverridePermissions.Create == true)
+    @if (Controller != null &&
+                                Controller.OverridePermissions.Create == true)
         {
         <div>
-            <a href="@(Url.Controller<ManageController>().Action(controller.CreateAction, Request.Url?.AbsoluteUri))"
+            <a href="@(Url.Controller<ManageController>().Action(Controller.CreateAction, Request.Url?.AbsoluteUri))"
                key-bind-click="Numpad +"
                key-bind-click-name="New @Model.FriendlyModelTypeName">
                 <glyph>&#x2a;</glyph>
@@ -73,17 +73,17 @@
                     }
                 else
                     {
-                    foreach (var m in Model.Models)
+                    foreach (var Item in Model.Models)
                         {
-                        if (Model.InlineEditID == m.GetID())
+                        if (Model.InlineEditID == Item.GetID())
                             {
                             ViewBag.InlineEdit = true;
                             ViewBag.InlineEditID = Model.InlineEditID;
                             }
 
-                        @Html.Partial(PartialViews.Manage.Row, m)
+                        @Html.Partial(PartialViews.Manage.Row, Item)
 
-                        if (Model.InlineEditID == m.GetID())
+                        if (Model.InlineEditID == Item.GetID())
                             {
                             ViewBag.InlineEdit = false;
                             ViewBag.InlineEditID = null;
@@ -99,7 +99,7 @@
     @Html.Partial(PartialViews.Manage.Pagination, Model)
 
     @if (Model.ModelType.Meta().Properties.Has(m => m.PropertyName == ControllerHelper.AutomaticFields.Active) &&
-                ViewContext.AllowViewInactive(Model.ModelType))
+                                ViewContext.AllowViewInactive(Model.ModelType))
         {
         <div class="show-hide-inactive">
             <a href="@(Url.Controller<ManageController>()

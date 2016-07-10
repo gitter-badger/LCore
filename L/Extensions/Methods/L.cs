@@ -24,11 +24,11 @@ namespace LCore.Extensions
     /// <exception cref="System.Exception">Throws an exception</exception>
     /// <exception cref="System.IO.FileNotFoundException">Throws a FileNotFoundException exception</exception>
     [ExtensionProvider]
-    [CodeExplode_ExtendLogic("Method Extensions", "Logic_Extension", "LCore.Extensions")]
-    [CodeExplode_ExplodeLogic("Method Explosions", "LX", "LCore", new[] { typeof(bool) })]
+    [CodeExplodeExtend("Method Extensions", "Logic_Extension", "LCore.Extensions")]
+    [CodeExplodeLogic("Method Explosions", "LX", "LCore", new[] { typeof(bool) })]
     public static partial class L
         {
-        
+
         /// <summary>
         /// Empty method. Takes no parameters and performs no actions.
         /// </summary>
@@ -40,7 +40,7 @@ namespace LCore.Extensions
         public static readonly Action E = Empty;
 
 
-        internal static Type[] L_Used_GenericOutputTypes = { typeof(bool) };
+        internal static Type[] LUsedGenericOutputTypes = { typeof(bool) };
 
         #region Method Creators - Shorthand
         /// <summary>
@@ -644,5 +644,30 @@ namespace LCore.Extensions
             return Logic.Function(In);
             }
         #endregion
+
+        /// <summary>
+        /// Contains strings and data for unit test purposes.
+        /// </summary>
+        public static class Test
+            {
+            /// <summary>
+            /// Unit test categories
+            /// </summary>
+            public static class Categories
+                {
+                /// <summary>
+                /// Attribute test category name
+                /// </summary>
+                public const string AttributeTests = nameof(AttributeTests);
+                /// <summary>
+                /// Tools test category name
+                /// </summary>
+                public const string Tools = nameof(Tools);
+                /// <summary>
+                /// Unit Tests category name
+                /// </summary>
+                public const string UnitTests = nameof(UnitTests);
+                }
+            }
         }
     }

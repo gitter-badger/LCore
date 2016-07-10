@@ -43,6 +43,7 @@ namespace ASP
     using Singularity;
     using Singularity.Context;
     using Singularity.Controllers;
+    using Singularity.Extensions;
     using Singularity.Models;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
@@ -77,9 +78,9 @@ WriteLiteral("\r\n\r\n<table>\r\n    <thead>\r\n        <tr>\r\n            <td>
             #line hidden
             
             #line 17 "..\..\Views\Shared\Helpers\DataTable.cshtml"
-             for (int i = 0; i < Model.Columns.Count; i++)
+             for (int Index = 0; Index < Model.Columns.Count; Index++)
                 {
-                var Col = Model.Columns[i];
+                var Col = Model.Columns[Index];
 
             
             #line default
@@ -114,7 +115,7 @@ WriteLiteral("\r\n        </tr>\r\n    </thead>\r\n    <tbody>\r\n");
             #line hidden
             
             #line 28 "..\..\Views\Shared\Helpers\DataTable.cshtml"
-         for (int i = 0; i < Model.Rows.Count; i++)
+         for (int Index = 0; Index < Model.Rows.Count; Index++)
             {
 
             
@@ -126,7 +127,7 @@ WriteLiteral("                    ");
 
             
             #line 32 "..\..\Views\Shared\Helpers\DataTable.cshtml"
-                Write(i + 1);
+                Write(Index + 1);
 
             
             #line default
@@ -141,9 +142,9 @@ WriteLiteral("\r\n                </td>\r\n");
             #line hidden
             
             #line 34 "..\..\Views\Shared\Helpers\DataTable.cshtml"
-                 for (int j = 0; j < Model.Columns.Count; j++)
+                 for (int Index2 = 0; Index2 < Model.Columns.Count; Index2++)
                     {
-                    var FieldData = Model.Rows[i][j];
+                    var FieldData = Model.Rows[Index][Index2];
 
             
             #line default

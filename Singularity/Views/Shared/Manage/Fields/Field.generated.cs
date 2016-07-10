@@ -335,9 +335,9 @@ WriteLiteral("\r\n");
                           
         }
     }
-catch (Exception e)
+catch (Exception Ex)
     {
-    ControllerHelper.HandleError(Context, e);
+    ControllerHelper.HandleError(Context, Ex);
 
     if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell))
         {
@@ -363,14 +363,14 @@ catch (Exception e)
             #line hidden
             
             #line 129 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
-   Write(Html.Partial(PartialViews.Manage.Fields.Error, e));
+   Write(Html.Partial(PartialViews.Manage.Fields.Error, Ex));
 
             
             #line default
             #line hidden
             
             #line 129 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
-                                                          
+                                                           
 
     if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell))
         {

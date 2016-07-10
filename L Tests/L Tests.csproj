@@ -84,7 +84,9 @@
       <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Moq, Version=4.5.10.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.5.10\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
@@ -133,25 +135,33 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExtensionTester.cs" />
-    <Compile Include="Tests\StatsExtTest.cs" />
-    <Compile Include="Tests\Methods\LogicExtTest.cs" />
-    <Compile Include="Tests\Methods\BooleanExtTest.cs" />
-    <Compile Include="Tests\Methods\LoopExtTest.cs" />
-    <Compile Include="Tests\Methods\ThreadExtTest.cs" />
-    <Compile Include="Tests\Object Types\ObjectExtTest.cs" />
-    <Compile Include="Tests\Object Types\InterfaceExtTest.cs" />
-    <Compile Include="Tests\Object Types\FileExtTest.cs" />
-    <Compile Include="Tests\Value Types\DateExtTest.cs" />
-    <Compile Include="Tests\Methods\ExceptionExtTest.cs" />
-    <Compile Include="Tests\Object Types\DictionaryExtTest.cs" />
-    <Compile Include="Tests\Value Types\NumberExtTest.cs" />
-    <Compile Include="Tests\Value Types\EnumExtTest.cs" />
-    <Compile Include="Tests\Object Types\StringExtTest.cs" />
-    <Compile Include="TestHelper.cs" />
-    <Compile Include="Tests\Object Types\ReflectionExtTest.cs" />
-    <Compile Include="Tests\Methods\EnumerableExtTest.cs" />
+    <Compile Include="Tests\Extensions\Language\CommentExtTest.cs" />
+    <Compile Include="Tests\Extensions\Object Types\StatsExtTest.cs" />
+    <Compile Include="Tests\Extensions\Methods\LogicExtTest.cs" />
+    <Compile Include="Tests\Extensions\Methods\BooleanExtTest.cs" />
+    <Compile Include="Tests\Extensions\Methods\LoopExtTest.cs" />
+    <Compile Include="Tests\Extensions\Methods\ThreadExtTest.cs" />
+    <Compile Include="Tests\Extensions\Object Types\ObjectExtTest.cs" />
+    <Compile Include="Tests\Extensions\Object Types\ConvertibleExtTest.cs" />
+    <Compile Include="Tests\Extensions\Object Types\FileExtTest.cs" />
+    <Compile Include="Tests\Extensions\Value Types\DateExtTest.cs" />
+    <Compile Include="Tests\Extensions\Methods\ExceptionExtTest.cs" />
+    <Compile Include="Tests\Extensions\Object Types\DictionaryExtTest.cs" />
+    <Compile Include="Tests\Extensions\Value Types\NumberExtTest.cs" />
+    <Compile Include="Tests\Extensions\Value Types\EnumExtTest.cs" />
+    <Compile Include="Tests\Extensions\Object Types\StringExtTest.cs" />
+    <Compile Include="Tests\Extensions\Object Types\ReflectionExtTest.cs" />
+    <Compile Include="Tests\Extensions\Methods\EnumerableExtTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\ExtensionTester.cs" />
+    <Compile Include="Tests\Tools\RegistryHelperTest.cs" />
+    <Compile Include="Tests\Tools\DateTimeConverterTest.cs" />
+    <Compile Include="Tests\Tools\ListsTest.cs" />
+    <Compile Include="Tests\Tools\ExceptionListTest.cs" />
+    <Compile Include="Tests\Tools\ScheduleTest.cs" />
+    <Compile Include="Tests\Tools\StopWatch.cs" />
+    <Compile Include="Tests\Tools\StatMonitorTest.cs" />
+    <Compile Include="Tests\Tools\SetTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\L\L.csproj">
@@ -166,7 +176,9 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="NewFolder1\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1956,7 +1956,7 @@ namespace LCore.Extensions
 
             #region Cache
 
-            internal static Dictionary<string, Dictionary<string, CacheData>> L_ResultCacheData;
+            internal static Dictionary<string, Dictionary<string, CacheData>> ResultCacheData;
 
             /// <summary>
             /// Caches the results of In using a Unique CacheID, combined with the string representation of all parameters.
@@ -1967,27 +1967,27 @@ namespace LCore.Extensions
             [CodeExplodeGenerics("Cache", Comments.Cache)]
             public static Func<Func<U>, string, Func<U>> L_Cache /*MF*/<U>()
                 {
-                Cache(ref L_ResultCacheData,
+                Cache(ref ResultCacheData,
                     ( /**/) => new Dictionary<string, Dictionary<string, CacheData>>( /**/));
 
                 return (In, CacheID) =>
                     {
                     Dictionary<string, CacheData> CacheDict;
-                    if (!L_ResultCacheData.ContainsKey(CacheID))
+                    if (!ResultCacheData.ContainsKey(CacheID))
                         {
                         CacheDict = new Dictionary<string, CacheData>( /**/);
-                        L_ResultCacheData.Add(CacheID, CacheDict);
+                        ResultCacheData.Add(CacheID, CacheDict);
                         }
                     else
                         {
-                        CacheDict = L_ResultCacheData[CacheID];
+                        CacheDict = ResultCacheData[CacheID];
                         }
 
                     return () =>
                         {
                         var Start = DateTime.Now;
 
-                        string Key = Obj.Objects_ToString(IEn.Array<object>( /*A*/)());
+                        string Key = Obj.Objects_ToString(Ary.Array<object>( /*A*/)());
 
                         bool Exists = CacheDict.ContainsKey(Key);
                         if (Exists)
@@ -2046,7 +2046,7 @@ namespace LCore.Extensions
             /// Returns a function that sets (overrides) the first parameter in Func with the result of In
             /// </summary>
             /// <returns></returns>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {0}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {0}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static Func<Action<T1>, Func<T1>, Action<T1>> L_SetFunc_A<T1>()
                 {
@@ -2060,7 +2060,7 @@ namespace LCore.Extensions
             /// Returns a function that sets (overrides) the first parameter in Func with the result of In
             /// </summary>
             /// <returns></returns>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {0}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {0}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static Func<Func<T1, U>, Func<T1>, Func<T1, U>> L_SetFunc_F /*MF*/<T1, U>()
                 {
@@ -2077,7 +2077,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the second parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {1}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {1}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static Func<Action<T1, T2>, Func<T2>, Action<T1, T2>> L_SetFunc_A2<T1, T2>()
                 {
@@ -2090,7 +2090,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the second parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {1}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {1}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static Func<Func<T1, T2, U>, Func<T2>, Func<T1, T2, U>> L_SetFunc_F2 /*MF*/<T1, T2, U>()
                 {
@@ -2107,7 +2107,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the third parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {2}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {2}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static Func<Action<T1, T2, T3>, Func<T3>, Action<T1, T2, T3>> L_SetFunc_A3<T1, T2, T3>()
                 {
@@ -2120,7 +2120,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the third parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {2}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {2}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static Func<Func<T1, T2, T3, U>, Func<T3>, Func<T1, T2, T3, U>> L_SetFunc_F3 /*MF*/<T1, T2, T3, U>()
                 {
@@ -2137,7 +2137,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the fourth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {3}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {3}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static Func<Action<T1, T2, T3, T4>, Func<T4>, Action<T1, T2, T3, T4>> L_SetFunc_A4<T1, T2, T3, T4>()
                 {
@@ -2150,7 +2150,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the fourth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {3}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {3}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<T4>, Func<T1, T2, T3, T4, U>> L_SetFunc_F4 /*MF*/
                 <T1, T2, T3, T4, U>()
@@ -2168,7 +2168,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the fifth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {4}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {4}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static Func<Action<T1, T2, T3, T4, T5>, Func<T5>, Action<T1, T2, T3, T4, T5>> L_SetFunc_A5
                 <T1, T2, T3, T4, T5>()
@@ -2182,7 +2182,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the fifth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {4}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {4}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static Func<Func<T1, T2, T3, T4, T5, U>, Func<T5>, Func<T1, T2, T3, T4, T5, U>> L_SetFunc_F5 /*MF*/
                 <T1, T2, T3, T4, T5, U>()
@@ -2200,7 +2200,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the sixth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {5}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {5}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static Func<Action<T1, T2, T3, T4, T5, T6>, Func<T6>, Action<T1, T2, T3, T4, T5, T6>> L_SetFunc_A6
                 <T1, T2, T3, T4, T5, T6>()
@@ -2214,7 +2214,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the sixth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {5}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {5}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static Func<Func<T1, T2, T3, T4, T5, T6, U>, Func<T6>, Func<T1, T2, T3, T4, T5, T6, U>> L_SetFunc_F6
                 /*MF*/<T1, T2, T3, T4, T5, T6, U>()
@@ -2232,7 +2232,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the seventh parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {6}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {6}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static Func<Action<T1, T2, T3, T4, T5, T6, T7>, Func<T7>, Action<T1, T2, T3, T4, T5, T6, T7>>
                 L_SetFunc_A7<T1, T2, T3, T4, T5, T6, T7>()
@@ -2246,7 +2246,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the seventh parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {6}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {6}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static Func<Func<T1, T2, T3, T4, T5, T6, T7, U>, Func<T7>, Func<T1, T2, T3, T4, T5, T6, T7, U>>
                 L_SetFunc_F7 /*MF*/<T1, T2, T3, T4, T5, T6, T7, U>()
@@ -2264,7 +2264,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the eighth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {7}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {7}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static Func<Action<T1, T2, T3, T4, T5, T6, T7, T8>, Func<T8>, Action<T1, T2, T3, T4, T5, T6, T7, T8>>
                 L_SetFunc_A8<T1, T2, T3, T4, T5, T6, T7, T8>()
@@ -2278,7 +2278,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the eighth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {7}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {7}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static
             Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, U>, Func<T8>, Func<T1, T2, T3, T4, T5, T6, T7, T8, U>>
@@ -2297,7 +2297,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the ninth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {8}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {8}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static
             Func<Action<T1, T2, T3, T4, T5, T6, T7, T8, T9>, Func<T9>, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9>>
@@ -2312,7 +2312,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the eighth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {8}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {8}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static
             Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>, Func<T9>, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>>
@@ -2331,7 +2331,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the tenth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {9}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {9}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static
             Func
@@ -2349,7 +2349,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the tenth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {9}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {9}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static
             Func
@@ -2370,7 +2370,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the eleventh parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {10}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {10}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static
             Func
@@ -2391,7 +2391,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the eleventh parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {10}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {10}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static
             Func
@@ -2414,7 +2414,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the twelfth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {11}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {11}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static
             Func
@@ -2435,7 +2435,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the twelfth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {11}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {11}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static
             Func
@@ -2458,7 +2458,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the thirteenth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {12}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {12}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static
             Func
@@ -2479,7 +2479,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the thirteenth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {12}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {12}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static
             Func
@@ -2502,7 +2502,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the fourteenth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {13}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {13}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static
             Func
@@ -2523,7 +2523,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the fourteenth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {13}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {13}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static
             Func
@@ -2546,7 +2546,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the fifteenth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {14}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {14}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static
             Func
@@ -2567,7 +2567,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the fifteenth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {14}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {14}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static
             Func
@@ -2590,7 +2590,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the sixteenth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {15}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {15}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static
             Func
@@ -2611,7 +2611,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the fifteenth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {15}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {15}, new[] {"In()"}, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, false, true)]
             public static
             Func
@@ -2642,7 +2642,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <returns></returns>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {0}, new[] {"Obj"}, Comments.Set)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {0}, new[] {"Obj"}, Comments.Set)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "Obj"}, Comments.Set, false, true)]
             public static Func<Action<T1>, T1, Action<T1>> L_Set_A<T1>()
                 {
@@ -2655,7 +2655,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the first parameter in Func with In
             /// </summary>
-            [CodeExplodeGenerics_ReplaceArguments("Set", new[] {0}, new[] {"Obj"}, Comments.Set)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {0}, new[] {"Obj"}, Comments.Set)]
             [CodeExplodeExtensionMethod("Set", new[] {"Func", "Obj"}, Comments.Set, false, true)]
             public static Func<Func<T1, U>, T1, Func<T1, U>> L_Set_F /*MF*/<T1, U>()
                 {
@@ -2675,7 +2675,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            [CodeExplodeGenerics_ReplaceArguments("Set2", new[] {1}, new[] {"Obj"}, Comments.Set2)]
+            [CodeExplodeGenericsReplaceArguments("Set2", new[] {1}, new[] {"Obj"}, Comments.Set2)]
             [CodeExplodeExtensionMethod("Set2", new[] {"Func", "Obj"}, Comments.Set2, false, true)]
             public static Func<Action<T1, T2>, T2, Action<T1, T2>> L_Set2_A<T1, T2>()
                 {
@@ -2689,7 +2689,7 @@ namespace LCore.Extensions
             /// Returns a function that sets (overrides) the second parameter in Func with In
             /// </summary>
             /// <returns></returns>
-            [CodeExplodeGenerics_ReplaceArguments("Set2", new[] {1}, new[] {"Obj"}, Comments.Set2)]
+            [CodeExplodeGenericsReplaceArguments("Set2", new[] {1}, new[] {"Obj"}, Comments.Set2)]
             [CodeExplodeExtensionMethod("Set2", new[] {"Func", "Obj"}, Comments.Set2, false, true)]
             public static Func<Func<T1, T2, U>, T2, Func<T1, T2, U>> L_Set2_F /*MF*/<T1, T2, U>()
                 {
@@ -2710,7 +2710,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeGenerics_ReplaceArguments("Set3", new[] {2}, new[] {"Obj"}, Comments.Set3)]
+            [CodeExplodeGenericsReplaceArguments("Set3", new[] {2}, new[] {"Obj"}, Comments.Set3)]
             [CodeExplodeExtensionMethod("Set3", new[] {"Func", "Obj"}, Comments.Set3, false, true)]
             public static Func<Action<T1, T2, T3>, T3, Action<T1, T2, T3>> L_Set3_A<T1, T2, T3>()
                 {
@@ -2728,7 +2728,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeGenerics_ReplaceArguments("Set3", new[] {2}, new[] {"Obj"}, Comments.Set3)]
+            [CodeExplodeGenericsReplaceArguments("Set3", new[] {2}, new[] {"Obj"}, Comments.Set3)]
             [CodeExplodeExtensionMethod("Set3", new[] {"Func", "Obj"}, Comments.Set3, false, true)]
             public static Func<Func<T1, T2, T3, U>, T3, Func<T1, T2, T3, U>> L_Set3_F /*MF*/<T1, T2, T3, U>()
                 {
@@ -2750,7 +2750,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeGenerics_ReplaceArguments("Set4", new[] {3}, new[] {"Obj"}, Comments.Set4)]
+            [CodeExplodeGenericsReplaceArguments("Set4", new[] {3}, new[] {"Obj"}, Comments.Set4)]
             [CodeExplodeExtensionMethod("Set4", new[] {"Func", "Obj"}, Comments.Set4, false, true)]
             public static Func<Action<T1, T2, T3, T4>, T4, Action<T1, T2, T3, T4>> L_Set4_A<T1, T2, T3, T4>()
                 {
@@ -2769,7 +2769,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeGenerics_ReplaceArguments("Set4", new[] {3}, new[] {"Obj"}, Comments.Set4)]
+            [CodeExplodeGenericsReplaceArguments("Set4", new[] {3}, new[] {"Obj"}, Comments.Set4)]
             [CodeExplodeExtensionMethod("Set4", new[] {"Func", "Obj"}, Comments.Set4, false, true)]
             public static Func<Func<T1, T2, T3, T4, U>, T4, Func<T1, T2, T3, T4, U>> L_Set4_F /*MF*/<T1, T2, T3, T4, U>()
                 {
@@ -2890,7 +2890,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Return", new[] {"In", "Obj = default(U)"}, Comments.Return_Func)]
+            [CodeExplodeExtensionMethod("Return", new[] {"In", "Obj = default(U)"}, Comments.ReturnFunc)]
             public static Func<Func<U>, U, Func<U>> L_Return_F<U>()
                 {
                 return (In, Obj) =>
@@ -5210,7 +5210,7 @@ namespace LCore.Extensions
             /// Joins two methods together, performing one then another.
             /// </summary>
             [CodeExplodeExtensionMethod("Then", new[] {"In", "Act"}, Comments.Then)] public static readonly
-                Func<Action, Action, Action> L_Then = (a, b) =>
+                Func<Action, Action, Action> Then = (a, b) =>
                     {
                     return () =>
                         {
@@ -5223,12 +5223,12 @@ namespace LCore.Extensions
             /// Joins multiple actions together, performing them in order.
             /// </summary>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Multiple)]
-            public static Func<Action, Action[], Action> L_Then_A()
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
+            public static Func<Action, Action[], Action> Then_A()
                 {
                 return (In, Acts) =>
                     {
-                    Acts.Each(a => { In = L_Then(In, a); });
+                    Acts.Each(a => { In = Then(In, a); });
                     return In;
                     };
                 }
@@ -5238,8 +5238,8 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Multiple)]
-            public static Func<Action<T1>, Action<T1>[], Action<T1>> L_Then_A<T1>()
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
+            public static Func<Action<T1>, Action<T1>[], Action<T1>> Then_A<T1>()
                 {
                 return (In, Acts) =>
                     {
@@ -5261,8 +5261,8 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Multiple)]
-            public static Func<Action<T1, T2>, Action<T1, T2>[], Action<T1, T2>> L_Then_A<T1, T2>()
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
+            public static Func<Action<T1, T2>, Action<T1, T2>[], Action<T1, T2>> Then_A<T1, T2>()
                 {
                 return (In, Acts) =>
                     {
@@ -5285,8 +5285,8 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Multiple)]
-            public static Func<Action<T1, T2, T3>, Action<T1, T2, T3>[], Action<T1, T2, T3>> L_Then_A<T1, T2, T3>()
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
+            public static Func<Action<T1, T2, T3>, Action<T1, T2, T3>[], Action<T1, T2, T3>> Then_A<T1, T2, T3>()
                 {
                 return (In, Acts) =>
                     {
@@ -5310,8 +5310,8 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Multiple)]
-            public static Func<Action<T1, T2, T3, T4>, Action<T1, T2, T3, T4>[], Action<T1, T2, T3, T4>> L_Then_A
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
+            public static Func<Action<T1, T2, T3, T4>, Action<T1, T2, T3, T4>[], Action<T1, T2, T3, T4>> Then_A
                 <T1, T2, T3, T4>()
                 {
                 return (In, Acts) =>
@@ -5333,8 +5333,8 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Multiple)]
-            public static Func<Action, Func<U>[], Func<U>> L_Then_A_F<U>()
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
+            public static Func<Action, Func<U>[], Func<U>> Then_A_F<U>()
                 {
                 return (In, Acts) => In.Return<U>().Then(Acts);
                 }
@@ -5345,8 +5345,8 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Multiple)]
-            public static Func<Action<T1>, Func<T1, U>[], Func<T1, U>> L_Then_A_F<T1, U>()
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
+            public static Func<Action<T1>, Func<T1, U>[], Func<T1, U>> Then_A_F<T1, U>()
                 {
                 return (In, Acts) => In.Return<T1, U>().Then(Acts);
                 }
@@ -5358,8 +5358,8 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Multiple)]
-            public static Func<Action<T1, T2>, Func<T1, T2, U>[], Func<T1, T2, U>> L_Then_A_F<T1, T2, U>()
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
+            public static Func<Action<T1, T2>, Func<T1, T2, U>[], Func<T1, T2, U>> Then_A_F<T1, T2, U>()
                 {
                 return (In, Acts) => In.Return<T1, T2, U>().Then(Acts);
                 }
@@ -5372,8 +5372,8 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Multiple)]
-            public static Func<Action<T1, T2, T3>, Func<T1, T2, T3, U>[], Func<T1, T2, T3, U>> L_Then_A_F<T1, T2, T3, U>
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
+            public static Func<Action<T1, T2, T3>, Func<T1, T2, T3, U>[], Func<T1, T2, T3, U>> Then_A_F<T1, T2, T3, U>
                 ()
                 {
                 return (In, Acts) => In.Return<T1, T2, T3, U>().Then(Acts);
@@ -5388,8 +5388,8 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Multiple)]
-            public static Func<Action<T1, T2, T3, T4>, Func<T1, T2, T3, T4, U>[], Func<T1, T2, T3, T4, U>> L_Then_A_F
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
+            public static Func<Action<T1, T2, T3, T4>, Func<T1, T2, T3, T4, U>[], Func<T1, T2, T3, T4, U>> Then_A_F
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Acts) => In.Return<T1, T2, T3, T4, U>().Then(Acts);
@@ -5400,8 +5400,8 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Multiple)]
-            public static Func<Func<U>, Action[], Func<U>> L_Then_F<U>()
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
+            public static Func<Func<U>, Action[], Func<U>> Then_F<U>()
                 {
                 return (In, Acts) =>
                     {
@@ -5424,8 +5424,8 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Multiple)]
-            public static Func<Func<T1, U>, Action<T1>[], Func<T1, U>> L_Then_F<T1, U>()
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
+            public static Func<Func<T1, U>, Action<T1>[], Func<T1, U>> Then_F<T1, U>()
                 {
                 return (In, Acts) =>
                     {
@@ -5449,8 +5449,8 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Multiple)]
-            public static Func<Func<T1, T2, U>, Action<T1, T2>[], Func<T1, T2, U>> L_Then_F<T1, T2, U>()
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
+            public static Func<Func<T1, T2, U>, Action<T1, T2>[], Func<T1, T2, U>> Then_F<T1, T2, U>()
                 {
                 return (In, Acts) =>
                     {
@@ -5475,8 +5475,8 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Multiple)]
-            public static Func<Func<T1, T2, T3, U>, Action<T1, T2, T3>[], Func<T1, T2, T3, U>> L_Then_F<T1, T2, T3, U>()
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
+            public static Func<Func<T1, T2, T3, U>, Action<T1, T2, T3>[], Func<T1, T2, T3, U>> Then_F<T1, T2, T3, U>()
                 {
                 return (In, Acts) =>
                     {
@@ -5502,8 +5502,8 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Multiple)]
-            public static Func<Func<T1, T2, T3, T4, U>, Action<T1, T2, T3, T4>[], Func<T1, T2, T3, T4, U>> L_Then_F
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
+            public static Func<Func<T1, T2, T3, T4, U>, Action<T1, T2, T3, T4>[], Func<T1, T2, T3, T4, U>> Then_F
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Acts) =>
@@ -5526,7 +5526,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Multiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Func<U>, Func<U>[], Func<U>> L_Then_F_F<U>()
                 {
                 return (In, Acts) =>
@@ -5549,7 +5549,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Multiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Func<T1, U>, Func<T1, U>[], Func<T1, U>> L_Then_F_F<T1, U>()
                 {
                 return (In, Acts) =>
@@ -5574,7 +5574,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Multiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Func<T1, T2, U>, Func<T1, T2, U>[], Func<T1, T2, U>> L_Then_F_F<T1, T2, U>()
                 {
                 return (In, Acts) =>
@@ -5599,7 +5599,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Multiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Func<T1, T2, T3, U>, Func<T1, T2, T3, U>[], Func<T1, T2, T3, U>> L_Then_F_F
                 <T1, T2, T3, U>()
                 {
@@ -5626,7 +5626,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Multiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<T1, T2, T3, T4, U>[], Func<T1, T2, T3, T4, U>> L_Then_F_F
                 <T1, T2, T3, T4, U>()
                 {
@@ -5655,7 +5655,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Action<T1>, Action[], Action<T1>> L_ThenMissing_A<T1>()
                 {
                 return (In, Acts) =>
@@ -5678,7 +5678,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Action<T1, T2>, Action<T1>[], Action<T1, T2>> L_ThenMissing_A<T1, T2>()
                 {
                 return (In, Acts) =>
@@ -5701,7 +5701,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Action<T1, T2>, Action[], Action<T1, T2>> L_ThenMissing_A2<T1, T2>()
                 {
                 return (In, Acts) =>
@@ -5725,7 +5725,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Action<T1, T2, T3>, Action<T1, T2>[], Action<T1, T2, T3>> L_ThenMissing_A<T1, T2, T3>()
                 {
                 return (In, Acts) =>
@@ -5749,7 +5749,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Action<T1, T2, T3>, Action<T1>[], Action<T1, T2, T3>> L_ThenMissing_A2<T1, T2, T3>()
                 {
                 return (In, Acts) =>
@@ -5773,7 +5773,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Action<T1, T2, T3>, Action[], Action<T1, T2, T3>> L_ThenMissing_A3<T1, T2, T3>()
                 {
                 return (In, Acts) =>
@@ -5798,7 +5798,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Action<T1, T2, T3, T4>, Action<T1, T2, T3>[], Action<T1, T2, T3, T4>> L_ThenMissing_A
                 <T1, T2, T3, T4>()
                 {
@@ -5824,7 +5824,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Action<T1, T2, T3, T4>, Action<T1, T2>[], Action<T1, T2, T3, T4>> L_ThenMissing_A2
                 <T1, T2, T3, T4>()
                 {
@@ -5850,7 +5850,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Action<T1, T2, T3, T4>, Action<T1>[], Action<T1, T2, T3, T4>> L_ThenMissing_A3
                 <T1, T2, T3, T4>()
                 {
@@ -5876,7 +5876,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Action<T1, T2, T3, T4>, Action[], Action<T1, T2, T3, T4>> L_ThenMissing_A4
                 <T1, T2, T3, T4>()
                 {
@@ -5904,7 +5904,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing_Func)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Action<T1>, Func<U>[], Func<T1, U>> L_ThenMissing_A_F<T1, U>()
                 {
                 return (In, Acts) =>
@@ -5929,7 +5929,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing_Func)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2>, Func<T1, U>[], Func<T1, T2, U>> L_ThenMissing_A_F<T1, T2, U>()
                 {
                 return (In, Acts) =>
@@ -5955,7 +5955,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing_Func)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2, T3>, Func<T1, T2, U>[], Func<T1, T2, T3, U>> L_ThenMissing_A_F
                 <T1, T2, T3, U>()
                 {
@@ -5981,7 +5981,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing_Func)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2>, Func<U>[], Func<T1, T2, U>> L_ThenMissing_A_F2<T1, T2, U>()
                 {
                 return (In, Acts) =>
@@ -6007,7 +6007,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing_Func)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2, T3>, Func<U>[], Func<T1, T2, T3, U>> L_ThenMissing_A_F3<T1, T2, T3, U>()
                 {
                 return (In, Acts) =>
@@ -6033,7 +6033,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing_Func)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2, T3>, Func<T1, U>[], Func<T1, T2, T3, U>> L_ThenMissing_A_F2<T1, T2, T3, U>
                 ()
                 {
@@ -6061,7 +6061,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing_Func)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2, T3, T4>, Func<T1, T2, T3, U>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_A_F
                 <T1, T2, T3, T4, U>()
                 {
@@ -6089,7 +6089,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing_Func)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2, T3, T4>, Func<T1, T2, U>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_A_F2
                 <T1, T2, T3, T4, U>()
                 {
@@ -6117,7 +6117,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing_Func)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2, T3, T4>, Func<T1, U>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_A_F3
                 <T1, T2, T3, T4, U>()
                 {
@@ -6145,7 +6145,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing_Func)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2, T3, T4>, Func<U>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_A_F4
                 <T1, T2, T3, T4, U>()
                 {
@@ -6174,7 +6174,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Func<T1, U>, Action[], Func<T1, U>> L_ThenMissing_F_A<T1, U>()
                 {
                 return (In, Acts) =>
@@ -6199,7 +6199,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Func<T1, T2, U>, Action<T1>[], Func<T1, T2, U>> L_ThenMissing_F_A<T1, T2, U>()
                 {
                 return (In, Acts) =>
@@ -6224,7 +6224,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Func<T1, T2, U>, Action[], Func<T1, T2, U>> L_ThenMissing_F_A2<T1, T2, U>()
                 {
                 return (In, Acts) =>
@@ -6250,7 +6250,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "Acts"}, Comments.Then_Missing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "Acts"}, Comments.ThenMissing)]
             public static Func<Func<T1, T2, T3, U>, Action<T1, T2>[], Func<T1, T2, T3, U>> L_ThenMissing_F_A
                 <T1, T2, T3, U>()
                 {
@@ -6277,7 +6277,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Func<T1, T2, T3, U>, Action<T1>[], Func<T1, T2, T3, U>> L_ThenMissing_F_A2<T1, T2, T3, U>
                 ()
                 {
@@ -6304,7 +6304,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Func<T1, T2, T3, U>, Action[], Func<T1, T2, T3, U>> L_ThenMissing_F_A3<T1, T2, T3, U>()
                 {
                 return (In, Acts) =>
@@ -6331,7 +6331,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Func<T1, T2, T3, T4, U>, Action<T1, T2, T3>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_F_A
                 <T1, T2, T3, T4, U>()
                 {
@@ -6359,7 +6359,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "Acts"}, Comments.Then_Missing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "Acts"}, Comments.ThenMissing)]
             public static Func<Func<T1, T2, T3, T4, U>, Action<T1, T2>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_F_A2
                 <T1, T2, T3, T4, U>()
                 {
@@ -6387,7 +6387,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Func<T1, T2, T3, T4, U>, Action<T1>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_F_A3
                 <T1, T2, T3, T4, U>()
                 {
@@ -6415,7 +6415,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Func<T1, T2, T3, T4, U>, Action[], Func<T1, T2, T3, T4, U>> L_ThenMissing_F_A4
                 <T1, T2, T3, T4, U>()
                 {
@@ -6444,7 +6444,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing_Func)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Func<T1, U>, Func<U>[], Func<T1, U>> L_ThenMissing_F_F<T1, U>()
                 {
                 return (In, Acts) =>
@@ -6468,7 +6468,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing_Func)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, U>, Func<T1, U>[], Func<T1, T2, U>> L_ThenMissing_F_F<T1, T2, U>()
                 {
                 return (In, Acts) =>
@@ -6492,7 +6492,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing_Func)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, U>, Func<U>[], Func<T1, T2, U>> L_ThenMissing_F_F2<T1, T2, U>()
                 {
                 return (In, Acts) =>
@@ -6517,7 +6517,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing_Func)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, T3, U>, Func<T1, U>[], Func<T1, T2, T3, U>> L_ThenMissing_F_F2
                 <T1, T2, T3, U>()
                 {
@@ -6543,7 +6543,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing_Func)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, T3, U>, Func<U>[], Func<T1, T2, T3, U>> L_ThenMissing_F_F3<T1, T2, T3, U>()
                 {
                 return (In, Acts) =>
@@ -6568,7 +6568,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing_Func)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, T3, U>, Func<T1, T2, U>[], Func<T1, T2, T3, U>> L_ThenMissing_F_F
                 <T1, T2, T3, U>()
                 {
@@ -6595,7 +6595,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing_Func)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<T1, T2, T3, U>[], Func<T1, T2, T3, T4, U>>
                 L_ThenMissing_F_F<T1, T2, T3, T4, U>()
                 {
@@ -6622,7 +6622,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing_Func)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<T1, T2, U>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_F_F2
                 <T1, T2, T3, T4, U>()
                 {
@@ -6649,7 +6649,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing_Func)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<T1, U>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_F_F3
                 <T1, T2, T3, T4, U>()
                 {
@@ -6676,7 +6676,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.Then_Missing_Func)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<U>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_F_F4
                 <T1, T2, T3, T4, U>()
                 {
@@ -8488,7 +8488,7 @@ namespace LCore.Extensions
                 {
                 #region Comments +
                 public const string Return = "Returns a function that converts an action to a Func, returning the specified value.";
-                public const string Return_Func = "Returns a function that Overrides the return value of In with the specified value.";
+                public const string ReturnFunc = "Returns a function that Overrides the return value of In with the specified value.";
                 public const string Rotate = "Returns a function that rotates the list of parameters to the right.";
                 public const string RotateBack = "Returns a function that rotates the list of parameters to the left.";
                 public const string Default = "If the first argument passed is null or empty, the Default value is used instead.";
@@ -8510,10 +8510,11 @@ namespace LCore.Extensions
                 public const string Execute = "For a method Act that returns a method, Returns a method that executes the Method passed and its result.";
                 public const string ExecuteMerge = "For a method Act that returns a method, Returns a method that executes the Method passed and its result. Parameters within Act and the result are joined in the result.";
                 public const string Then = "Joins two methods together, performing one then another.";
-                public const string Then_Multiple = "Joins multiple actions together, performing them in order.";
-                public const string Then_Missing = "Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.";
-                public const string Then_Missing_Func = "Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.";
+                public const string ThenMultiple = "Joins multiple actions together, performing them in order.";
+                public const string ThenMissing = "Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored.";
+                public const string ThenMissingFunc = "Returns a method that concatonates In with Acts. Parameters are shared. Any missing parameters in In that are missing from Acts are ignored. The last method in Acts will be the return value that is used.";
                 public const string Merge = "Returns a function that Performs In, then Merge. Parameter lists are merged.";
+                // ReSharper disable InconsistentNaming
                 public const string Supply = "Returns a method with the first parameter removed. When the method is called, Obj will be supplied.";
                 public const string Supply_2 = "Returns a method with the second parameter removed. When the method is called, Obj will be supplied.";
                 public const string Supply_3 = "Returns a method with the third parameter removed. When the method is called, Obj will be supplied.";
@@ -8524,6 +8525,7 @@ namespace LCore.Extensions
                 public const string Supply3 = "Returns a method with the first three parameters removed. When the method is called, Obj and Obj2 will be supplied.";
                 public const string Supply3_2 = "Returns a method with the second three parameters removed. When the method is called, Obj and Obj2 will be supplied.";
                 public const string Supply4 = "Returns a method with the first four parameters removed. When the method is called, Obj and Obj2 will be supplied.";
+                // ReSharper restore InconsistentNaming
                 public const string Cast = "Returns a function that takes a Casts the paramater of the Action to U1";
                 public const string Set = "Returns a function that sets (overrides) the first parameter in Func with In";
                 public const string Set2 = "Returns a function that sets (overrides) the second parameter in Func with In";

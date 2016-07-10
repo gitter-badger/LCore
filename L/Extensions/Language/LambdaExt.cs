@@ -2,10 +2,11 @@
 
 using System.Collections.Generic;
 using LCore.Extensions.Optional;
+using LCore.Extensions;
 using System.Reflection;
 using System.Linq;
 
-namespace LCore.Extensions
+namespace LCore.Dynamic
     {
     /// <summary>
     /// Provides internal methods to take a Type or MemberInfo and 
@@ -17,40 +18,44 @@ namespace LCore.Extensions
 
         internal static string GetLambdas(this Type In, Type[] Types)
             {
-            return L.Lam.Type_GetLambdas(In, Types);
+            return L.Lam.TypeGetLambdas(In, Types);
             }
 
         internal static string GetAllLambdas(this Type In)
             {
-            return L.Lam.Type_GetAllLambdas(In);
+            return L.Lam.TypeGetAllLambdas(In);
             }
 
         internal static string GetLambdas(this FieldInfo In)
             {
-            return L.Lam.FieldInfo_GetLambdaStrings(In).Keys.Combine('\n');
+            return L.Lam.FieldInfoGetLambdaStrings(In).Keys.Combine('\n');
             }
 
         internal static string GetLambdas(this PropertyInfo In)
             {
-            return L.Lam.PropertyInfo_GetLambdaStrings(In).Keys.Combine('\n');
+            return L.Lam.PropertyInfoGetLambdaStrings(In).Keys.Combine('\n');
             }
 
         internal static string GetLambdas(this MethodBase In)
             {
-            return L.Lam.MethodBase_GetLambdaString(In, In.DeclaringType).Keys.Combine('\n');
+            return L.Lam.MethodBaseGetLambdaString(In, In.DeclaringType).Keys.Combine('\n');
             }
 
         #endregion
         }
 
+    }
+
+namespace LCore.Extensions
+    {
     public static partial class L
         {
         internal static class Lam
             {
-            internal static readonly Type[] AllLambdaTypes = IEn.Array(typeof(FieldInfo), typeof(PropertyInfo), typeof(MethodInfo), typeof(ConstructorInfo))();
+            internal static readonly Type[] AllLambdaTypes = Ary.Array(typeof(FieldInfo), typeof(PropertyInfo), typeof(MethodInfo), typeof(ConstructorInfo))();
 
             #region GetLambdas
-            internal static readonly Func<Type, Type[], string> Type_GetLambdas = (t, FieldTypes) =>
+            internal static readonly Func<Type, Type[], string> TypeGetLambdas = (t, FieldTypes) =>
             {
                 var Out = new Dictionary<string, string>();
                 Func<KeyValuePair<string, string>, KeyValuePair<string, string>> IncrementFunctionNames = o =>
@@ -72,34 +77,34 @@ namespace LCore.Extensions
 
                 if (FieldTypes.Contains(typeof(FieldInfo)))
                     t.GetFields().List()
-                    .Convert(FieldInfo_GetLambdaStrings)
+                    .Convert(FieldInfoGetLambdaStrings)
                     .Each(d => { Out.Merge(d, IncrementFunctionNames); });
                 if (FieldTypes.Contains(typeof(PropertyInfo)))
                     t.GetProperties().List()
-                    .Convert(PropertyInfo_GetLambdaStrings)
+                    .Convert(PropertyInfoGetLambdaStrings)
                     .Each(d => { Out.Merge(d, IncrementFunctionNames); });
                 if (FieldTypes.Contains(typeof(MethodInfo)))
                     t.GetMethods()
-                    .Convert(MethodInfo_GetLambdaString.Supply2(t))
+                    .Convert(MethodInfoGetLambdaString.Supply2(t))
                     .Each(d => { Out.Merge(d, IncrementFunctionNames); });
                 if (FieldTypes.Contains(typeof(ConstructorInfo)))
                     t.GetConstructors().List<MethodBase>()
-                    .Convert(MethodBase_GetLambdaString.Supply2(t))
+                    .Convert(MethodBaseGetLambdaString.Supply2(t))
                     .Each(d => { Out.Merge(d, IncrementFunctionNames); });
 
                 string Out2 =
                     $"#region {t.Name}\npublic static class {t.Name}\n{{\n{Out.Values.Combine('\n').ReplaceAll("\n\n", "\n")}\n}}\n#endregion";
 
-            //                Type[] Interfaces = t.GetInterfaces();
-            //                Interfaces.Each((t2) => { Out2 += $"\n{t2.GetLambdas(AllLambdaTypes)}"; });
-            return Out2;
+                //                Type[] Interfaces = t.GetInterfaces();
+                //                Interfaces.Each((t2) => { Out2 += $"\n{t2.GetLambdas(AllLambdaTypes)}"; });
+                return Out2;
             };
             #endregion
             #region GetAllLambdas
-            internal static readonly Func<Type, string> Type_GetAllLambdas = Type_GetLambdas.Supply2(AllLambdaTypes);
+            internal static readonly Func<Type, string> TypeGetAllLambdas = TypeGetLambdas.Supply2(AllLambdaTypes);
             #endregion
             #region PropertyInfo
-            internal static readonly Func<PropertyInfo, Dictionary<string, string>> PropertyInfo_GetLambdaStrings = p =>
+            internal static readonly Func<PropertyInfo, Dictionary<string, string>> PropertyInfoGetLambdaStrings = p =>
             {
                 bool Index = false;
                 string MethodType = p.DeclaringType?.Name;
@@ -143,7 +148,7 @@ namespace LCore.Extensions
             };
             #endregion
             #region FieldInfo
-            internal static readonly Func<FieldInfo, Dictionary<string, string>> FieldInfo_GetLambdaStrings = f =>
+            internal static readonly Func<FieldInfo, Dictionary<string, string>> FieldInfoGetLambdaStrings = f =>
             {
                 string MethodType = f.DeclaringType?.Name;
                 string FieldType = f.FieldType.Name;
@@ -167,7 +172,7 @@ namespace LCore.Extensions
             };
             #endregion
             #region MethodInfo
-            internal static readonly Func<MethodBase, Type, Dictionary<string, string>> MethodBase_GetLambdaString = (m, t) =>
+            internal static readonly Func<MethodBase, Type, Dictionary<string, string>> MethodBaseGetLambdaString = (m, t) =>
             {
                 ParameterInfo[] Params = m.GetParameters();
                 bool IsConstructor = m is ConstructorInfo;
@@ -219,8 +224,8 @@ namespace LCore.Extensions
 
                 if (MethodName.StartsWith("op_"))
                     {
-                //    FunctionName = $"{DeclaringType}_{Ref.Language_CleanOperationFunctionName(MethodName)}";
-                //    MethodAction = FunctionString.Replace(",", Ref.Language_CleanOperationFunctionAction(MethodName));
+                    //    FunctionName = $"{DeclaringType}_{Ref.Language_CleanOperationFunctionName(MethodName)}";
+                    //    MethodAction = FunctionString.Replace(",", Ref.Language_CleanOperationFunctionAction(MethodName));
                     }
                 else if (IsConstructor)
                     {
@@ -253,7 +258,7 @@ namespace LCore.Extensions
                 Out2.Add(FunctionName, Out);
                 return Out2;
             };
-            internal static readonly Func<MethodInfo, Type, Dictionary<string, string>> MethodInfo_GetLambdaString = MethodBase_GetLambdaString;
+            internal static readonly Func<MethodInfo, Type, Dictionary<string, string>> MethodInfoGetLambdaString = MethodBaseGetLambdaString;
             #endregion
 
             internal const uint ParameterLimit = 4;

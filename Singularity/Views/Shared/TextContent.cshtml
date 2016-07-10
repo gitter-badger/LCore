@@ -42,9 +42,9 @@
         Display = Content != null ? Content.Text : Model.DefaultText;
         Display = Display ?? "";
 
-        for (int i = 0; i < Model.ContextData.Length; i++)
+        for (int Index = 0; Index < Model.ContextData.Length; Index++)
             {
-            Display = Display.ReplaceAll($"[{i}]", (Model.ContextData[i] ?? "").ToString());
+            Display = Display.ReplaceAll($"[{Index}]", (Model.ContextData[Index] ?? "").ToString());
             }
 
         Display = Display.ReplaceAll("\r\n", "<br>");

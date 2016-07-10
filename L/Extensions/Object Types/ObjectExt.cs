@@ -34,19 +34,17 @@ namespace LCore.Extensions
             }
         #endregion
 
-        #region Is
-        /// <summary>
-        /// Returns a function that safely Compares an object with another, returning whether they are equal. Shortcut for Logic.Object_SafeEquals
-        /// </summary>
-        public static Func<object, object, bool> Is = L.Obj.SafeEquals;
-        #endregion
-
         #region Objects To String
         /// <summary>
         /// Returns a string representation of a set of objects.
         /// </summary>
         /// <param name="In">The set of objects</param>
         /// <returns></returns>
+        [TestResult(new object[] { null }, "")]
+        [TestResult(new object[] { new object[] { } }, "")]
+        [TestResult(new object[] { new object[] { null } }, "NULL")]
+        [TestResult(new object[] { new object[] { "" } }, "System.String:")]
+        [TestResult(new object[] { new object[] { "a", 1, 2, 3.6f } }, "System.String:a, System.Int32:1, System.Int32:2, System.Single:3.6")]
         public static string Objects_ToString(this IEnumerable<object> In)
             {
             return L.Obj.Objects_ToString(In.Array());
@@ -58,6 +56,7 @@ namespace LCore.Extensions
         /// Returns the value of a specific property, if it exists.
         /// </summary>
         /// <returns>The value of a specific property, if it exists.</returns>
+        [Tested]
         public static object GetProperty(this object In, string PropertyName)
             {
             return L.Obj.GetProperty()(In, PropertyName);
@@ -68,18 +67,13 @@ namespace LCore.Extensions
         /// <summary>
         /// Sets the value of a specific property, if it exists.
         /// </summary>
+        [Tested]
         public static void SetProperty(this object In, string PropertyName, object PropertyValue)
             {
             L.Obj.SetProperty()(In, PropertyName, PropertyValue);
             }
         #endregion
 
-        #region Str
-        /// <summary>
-        /// Returns a function that converts an Object to a String. Shortcut for Logic.Object_ToString
-        /// </summary>
-        public static Func<object, string> Str = o => o.ToString();
-        #endregion
 
         #endregion
         }
@@ -92,6 +86,13 @@ namespace LCore.Extensions
         public static class Obj
             {
             #region Static Methods +
+
+            #region Str
+            /// <summary>
+            /// Returns a function that converts an Object to a String. Shortcut for Logic.Object_ToString
+            /// </summary>
+            public static Func<object, string> Str = o => o.ToString();
+            #endregion
 
             #region Swap
             /// <summary>
@@ -160,7 +161,7 @@ namespace LCore.Extensions
             /// </summary>
             public static Func<U> New<U>()
                 {
-                return () => (U)typeof(U).GetConstructor(IEn.Array<Type>()())?.Invoke(IEn.Array<object>()());
+                return () => (U)typeof(U).GetConstructor(Ary.Array<Type>()())?.Invoke(Ary.Array<object>()());
                 }
             /// <summary>
             /// Retrieves a func that creates an object of type [U].
@@ -334,10 +335,6 @@ namespace LCore.Extensions
                 throw new Exception($"{typeof(U).FullName} {MethodName}");
                 }
             #endregion
-
-            #endregion
-
-            #region Lambdas +
             /// <summary>
             /// Determine if an object has a property by name.
             /// </summary>
@@ -345,6 +342,9 @@ namespace LCore.Extensions
                 {
                 return (In, PropertyName) =>
                 {
+                    if (In == null)
+                        return false;
+                    PropertyName = PropertyName ?? "";
                     var Member = In.GetType().GetMember(PropertyName).First();
 
                     if (Member is PropertyInfo)
@@ -403,6 +403,16 @@ namespace LCore.Extensions
 
                 };
                 }
+
+            #endregion
+
+            #region Lambdas +
+            #region Is
+            /// <summary>
+            /// Returns a function that safely Compares an object with another, returning whether they are equal. Shortcut for Logic.Object_SafeEquals
+            /// </summary>
+            public static Func<object, object, bool> Is = SafeEquals;
+            #endregion
             #endregion
             }
         }

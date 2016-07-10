@@ -35,6 +35,7 @@ namespace LCore.Extensions
         /// This method will fail if the String is null, empty, 
         /// or does not match a value of the enum.
         /// </summary>
+        [Tested]
         public static Enum ParseEnum(this string s, Type t)
             {
             return (Enum)Enum.Parse(t, s);
@@ -48,7 +49,7 @@ namespace LCore.Extensions
         [TestFails(new object[] { Test.TestEnum.Top })]
         [TestResult(new object[] { Test.TestEnum.Left }, L.Align.Left)]
         [TestResult(new object[] { Test.TestEnum.Right }, L.Align.Right)]
-        [TestResult(new object[] { Test.TestEnum.Top }, L.Align_Vertical.Top, GenericTypes = new[] { typeof(L.Align_Vertical) })]
+        [TestResult(new object[] { Test.TestEnum.Top }, L.AlignVertical.Top, GenericTypes = new[] { typeof(L.AlignVertical) })]
         public static T ParseEnum<T>(this Enum e)
             {
             return e.ToString().ParseEnum<T>();
@@ -60,27 +61,17 @@ namespace LCore.Extensions
         /// Returns the friendly name of the value of an enum type.
         /// Add a friendly name by adding a [FriendlyName("")] attribute
         /// to the Enum element.
+        /// 
+        /// If the enum friendly name is not found, null will be returned.
         /// </summary> 
+        [Tested]
         public static Enum ParseEnum_FriendlyName(this string s, Type t)
             {
             var Out = Enum.GetValues(t).Array<Enum>().First(
                 e => e.ToString() == s ||
                     e.GetFriendlyName() == s);
 
-            if (Out == null)
-                throw new Exception($"Invalid Enum Friendly name: {t} {s}");
-
             return Out;
-            }
-        #endregion
-
-        #region Flag
-        /// <summary>
-        /// Determines whether a flaggable enum contains a particular flag
-        /// </summary>
-        public static bool Flag(this Enum In, Enum Flag)
-            {
-            return In.HasFlag(Flag);
             }
         #endregion
 
@@ -90,10 +81,14 @@ namespace LCore.Extensions
         /// Add a friendly name by adding a [FriendlyName("")] attribute
         /// to the Enum element.
         /// </summary> 
+        [Tested]
         public static string GetFriendlyName(this Enum In)
             {
-            var t = In.GetType();
-            MemberInfo[] Members = t.GetMembers();
+            if (In == null)
+                return "";
+
+            var Type = In.GetType();
+            MemberInfo[] Members = Type.GetMembers();
             var Member = Members.First(o => o.Name == In.ToString());
 
             var Attr = Member?.GetAttribute<IL_FriendlyName>();
@@ -129,10 +124,9 @@ namespace LCore.Extensions
         public enum Align
             {
             Left, Center, Right
-
             }
 
-        public enum Align_Vertical
+        public enum AlignVertical
             {
             Top, Middle, Bottom
             }

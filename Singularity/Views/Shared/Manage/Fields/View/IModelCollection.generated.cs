@@ -42,6 +42,7 @@ namespace ASP
     using Singularity;
     using Singularity.Context;
     using Singularity.Controllers;
+    using Singularity.Extensions;
     using Singularity.Models;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
@@ -84,7 +85,7 @@ WriteLiteral("\r\n");
             
             #line 17 "..\..\Views\Shared\Manage\Fields\View\IModelCollection.cshtml"
   
-    var data = Model.PropertyData as IEnumerable;
+    var Data = Model.PropertyData as IEnumerable;
 
             
             #line default
@@ -93,9 +94,9 @@ WriteLiteral("\r\n");
 
             
             #line 20 "..\..\Views\Shared\Manage\Fields\View\IModelCollection.cshtml"
- if (data != null)
+ if (Data != null)
     {
-    List<IModel> Models = data.List().List<IModel>();
+    List<IModel> Models = Data.List().List<IModel>();
 
     string Title = Models.CollectStr((i, m) => $"{m.ToString()}\r\n");
 

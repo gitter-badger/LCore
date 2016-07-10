@@ -30,7 +30,7 @@ namespace Singularity.Models
         [HideManageViewColumn]
         [NotMapped]
         [FriendlyName("Search Type")]
-        public string SearchType_ReadOnly => this.SearchType;
+        public string SearchTypeReadOnly => this.SearchType;
 
         [FieldLoadFromQueryString]
         [FieldType_Hidden]
@@ -39,10 +39,10 @@ namespace Singularity.Models
         [HideManageViewColumn]
         [NotMapped]
         [FriendlyName("Controller Name")]
-        public string ControllerName_ReadOnly => this.ControllerName;
+        public string ControllerNameReadOnly => this.ControllerName;
 
         [FieldLoadFromQueryString]
-        [FieldType_DropdownContextModelFields("SearchType")]
+        [FieldTypeDropdownContextModelFields("SearchType")]
         public string OverrideSort { get; set; }
 
         [FieldLoadFromQueryString]

@@ -10,7 +10,7 @@ namespace LCore.Naming
     public interface IL_FriendlyName : ISubClassPersistentAttribute
         {
         /// <summary>
-        /// Friendly name for the object descibed.
+        /// Friendly name for the object described.
         /// </summary>
         string FriendlyName { get; set; }
         }

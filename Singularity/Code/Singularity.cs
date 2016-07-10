@@ -25,15 +25,16 @@ namespace Singularity
 
             public const string Bootstrap = "http://www.w3schools.com/bootstrap/";
 
+            // ReSharper disable InconsistentNaming
             public const string jQuery = "https://api.jquery.com/";
             public const string jQueryUI = "http://jqueryui.com/";
+            // ReSharper restore InconsistentNaming
             }
 
         public static class Source
             {
             public const string Singularity = "";
             public const string L = "";
-
             }
 
         public static class Icons
@@ -49,7 +50,7 @@ namespace Singularity
                 [typeof(FileExt)] = FontAwesomeExt.Icon.archive,
                 [typeof(StringExt)] = FontAwesomeExt.Icon.quote_left,
                 [typeof(ObjectExt)] = FontAwesomeExt.Icon.square_o,
-                [typeof(InterfaceExt)] = FontAwesomeExt.Icon.info_circle,
+                [typeof(ConvertibleExt)] = FontAwesomeExt.Icon.info_circle,
                 [typeof(ExceptionExt)] = FontAwesomeExt.Icon.warning,
                 [typeof(EnumExt)] = FontAwesomeExt.Icon.navicon,
                 [typeof(ThreadExt)] = FontAwesomeExt.Icon.random,

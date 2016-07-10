@@ -22,14 +22,14 @@ namespace LCore.Web
         public const int RequestTimeOut = 20000; // 20 seconds
 
 
-        public const string HTTP_Header_Prefix = "Header_";
-        protected string BaseURL;
-        public HttpCommunicator(string BaseURL)
+        public const string Http_Header_Prefix = "Header_";
+        protected string BaseUrl;
+        public HttpCommunicator(string BaseUrl)
             {
-            this.BaseURL = BaseURL;
+            this.BaseUrl = BaseUrl;
             }
 
-        public ResponseData GetURLResponse(string URL, List<DataItem> Data = null)
+        public ResponseData GetUrlResponse(string Url, List<DataItem> Data = null)
             {
             int tries = 0;
 
@@ -54,11 +54,11 @@ namespace LCore.Web
                             BodyStream.Write(bytes, 0, bytes.Length);
 
 
-                            Client.Headers[$"{HTTP_Header_Prefix}{t.Name}_Length"] = bytes.Length.ToString();
+                            Client.Headers[$"{Http_Header_Prefix}{t.Name}_Length"] = bytes.Length.ToString();
                             }
                         else if (t.Type == DataItem.DataStorageType.Header)
                             {
-                            Client.Headers[HTTP_Header_Prefix + t.Name] = t.Value.CleanCRLF();
+                            Client.Headers[Http_Header_Prefix + t.Name] = t.Value.CleanCrlf();
                             }
                         else
                             {
@@ -83,12 +83,12 @@ namespace LCore.Web
                         {
                         byte[] RequestBytes = BodyStream.ToArray();
 
-                        OutBytes = Client.UploadData(URL, RequestBytes);
+                        OutBytes = Client.UploadData(Url, RequestBytes);
                         Out = OutBytes.ByteArrayToString();
                         }
                     else
                         {
-                        OutBytes = Client.DownloadData(URL);
+                        OutBytes = Client.DownloadData(Url);
                         Out = OutBytes.ByteArrayToString();
                         }
 
@@ -104,7 +104,7 @@ namespace LCore.Web
                 }
             while (tries < Tries);
 
-            throw new Exception(URL, FailReason);
+            throw new Exception(Url, FailReason);
             }
 
         public class DataItem

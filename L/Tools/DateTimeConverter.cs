@@ -61,6 +61,7 @@ namespace LCore.Tools
                 formats = new string[11];
 
                 // Rfc3339DateTimePatterns
+                // ReSharper disable StringLiteralTypo
                 formats[0] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK";
                 formats[1] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffffffK";
                 formats[2] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffK";
@@ -72,6 +73,7 @@ namespace LCore.Tools
 
                 // Fall back patterns
                 formats[8] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK"; // RoundtripDateTimePattern
+                // ReSharper restore StringLiteralTypo
                 formats[9] = DateTimeFormatInfo.InvariantInfo.UniversalSortableDateTimePattern;
                 formats[10] = DateTimeFormatInfo.InvariantInfo.SortableDateTimePattern;
 
@@ -137,7 +139,7 @@ namespace LCore.Tools
             {
             if (utcDateTime.Kind != DateTimeKind.Utc)
                 {
-                throw new ArgumentException("utcDateTime");
+                utcDateTime = utcDateTime.ToUniversalTime();
                 }
 
             return utcDateTime.ToString(Rfc3339DateTimeFormat, DateTimeFormatInfo.InvariantInfo);

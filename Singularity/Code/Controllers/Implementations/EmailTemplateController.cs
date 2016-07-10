@@ -58,7 +58,7 @@ namespace Singularity.Controllers
             }
 
         [HttpPost]
-        public virtual ActionResult EmailSavedSearchTemplate(int EmailJobID, string ReturnURL, FormCollection Form)
+        public virtual ActionResult EmailSavedSearchTemplate(int EmailJobID, string ReturnUrl, FormCollection Form)
             {
             var DbContext = this.HttpContext.GetModelContext();
 
@@ -116,7 +116,7 @@ namespace Singularity.Controllers
 
             DbContext.SaveChanges();
 
-            return this.Redirect(ReturnURL);
+            return this.Redirect(ReturnUrl);
             }
 
 

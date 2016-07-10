@@ -194,12 +194,12 @@ namespace Singularity.Routes
                         };
                     }
 
-                public static object Route_DetailView(IModel Model, string ReturnURL)
+                public static object Route_DetailView(IModel Model, string ReturnUrl)
                     {
                     return new
                         {
                         ID = Model.GetID(),
-                        ReturnURL
+                        ReturnURL = ReturnUrl
                         };
                     }
 
@@ -226,12 +226,12 @@ namespace Singularity.Routes
                         };
                     }
 
-                public static Dictionary<string, object> Route_Edit(IModel Model, string ReturnURL)
+                public static Dictionary<string, object> Route_Edit(IModel Model, string ReturnUrl)
                     {
                     return new Dictionary<string, object>
                         {
                         {"ID", Model.GetID()},
-                        {"ReturnURL", ReturnURL}
+                        {"ReturnURL", ReturnUrl}
                         };
                     }
 
@@ -243,11 +243,11 @@ namespace Singularity.Routes
                         };
                     }
 
-                public static object Route_Create(string ReturnURL)
+                public static object Route_Create(string ReturnUrl)
                     {
                     return new
                         {
-                        ReturnURL
+                        ReturnURL = ReturnUrl
                         };
                     }
 
@@ -260,12 +260,12 @@ namespace Singularity.Routes
                         };
                     }
 
-                public static object Route_Delete(IModel Model, string ReturnURL)
+                public static object Route_Delete(IModel Model, string ReturnUrl)
                     {
                     return new
                         {
                         ID = Model.GetID(),
-                        ReturnURL
+                        ReturnURL = ReturnUrl
                         };
                     }
                 }

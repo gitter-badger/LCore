@@ -178,10 +178,10 @@ WriteLiteral("\">\r\n\r\n");
                 }
             Data = Data.RemoveAll(" 12:00:00 AM");
 
-            var data = Model.PropertyData as IModel;
-            if (data != null)
+            var Data1 = Model.PropertyData as IModel;
+            if (Data1 != null)
                 {
-                Data = data.ToString();
+                Data = Data1.ToString();
                 }
 
             if (!string.IsNullOrEmpty(Data))

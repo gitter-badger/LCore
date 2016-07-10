@@ -17,24 +17,24 @@ namespace Singularity.Controllers
         public override string PageGroup => ControllerHelper.Menu_Admin;
 
         [HttpPost, ValidateInput(false)]
-        public override ActionResult Edit(int id, string ReturnURL, FormCollection Form, bool Create = false)
+        public override ActionResult Edit(int id, string ReturnUrl, FormCollection Form, bool Create = false)
             {
-            return base.Edit(id, ReturnURL, Form, Create);
+            return base.Edit(id, ReturnUrl, Form, Create);
             }
 
         [HttpPost, ValidateInput(false)]
-        public override ActionResult Create(string ReturnURL, FormCollection Form)
+        public override ActionResult Create(string ReturnUrl, FormCollection Form)
             {
-            return base.Create(ReturnURL, Form);
+            return base.Create(ReturnUrl, Form);
             }
 
-        public void PreviewPDF(int id)
+        public void PreviewPdf(int id)
             {
-            var Temp = this.DBContext.GetDBSet<Template>().Find(id);
+            var Temp = this.DbContext.GetDBSet<Template>().Find(id);
 
-            byte[] PDFBytes = Temp.GetPdfBytes();
+            byte[] PdfBytes = Temp.GetPdfBytes();
 
-            this.Response.WritePDF(PDFBytes, $"{Temp.Description.CleanFileName()}.pdf");
+            this.Response.WritePDF(PdfBytes, $"{Temp.Description.CleanFileName()}.pdf");
             }
 
         protected override Template GetModel(int id, bool Create, Template Model)

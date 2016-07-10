@@ -96,15 +96,15 @@ namespace LCore.Extensions
         /// </summary>
         public static TimeSpan Profile(this Action In, uint Repeat = L.Thread.DefaultProfileRepeat)
             {
-            return L.Thread.L_ProfileActionRepeat(In, Repeat);
+            return L.Thread.ProfileActionRepeat(In, Repeat);
             }
         /// <summary>
         /// Performs an action, reporting back the amount of time it took to complete
         /// </summary>
         public static TimeSpan[] Profile(this Action In, uint Repeat = L.Thread.DefaultProfileRepeat, params Action[] Acts)
             {
-            Action[] AllActs = L.IEn.Array(In)().Add(Acts);
-            return AllActs.Convert(L.Thread.L_ProfileActionRepeat.Supply2(Repeat));
+            Action[] AllActs = L.Ary.Array(In)().Add(Acts);
+            return AllActs.Convert(L.Thread.ProfileActionRepeat.Supply2(Repeat));
             }
         /// <summary>
         /// Performs a function, reporting back the amount of time it took to complete
@@ -123,7 +123,7 @@ namespace LCore.Extensions
         /// </summary>
         public static MethodProfileData[] Profile<U>(this Func<U> In, uint Repeat = L.Thread.DefaultProfileRepeat, params Func<U>[] Acts)
             {
-            Func<U>[] AllActs = L.IEn.Array(In)().Add(Acts);
+            Func<U>[] AllActs = L.Ary.Array(In)().Add(Acts);
             return AllActs.Convert(o => o.Profile(Repeat));
             }
         #endregion
@@ -135,7 +135,7 @@ namespace LCore.Extensions
         /// </summary>
         public static Action Profile(this Action In, string ProfileName)
             {
-            return L.Thread.L_ProfileAction(In, ProfileName);
+            return L.Thread.ProfileAction(In, ProfileName);
             }
         /// <summary>
         /// Surrounds the method with logic that logs all execution times.
@@ -172,13 +172,14 @@ namespace LCore.Extensions
 
         #endregion
 
-        public static int CountExecutions(this Action In, int MS)
+        // Does not work yet
+        internal static int CountExecutions(this Action In, int Milliseconds)
             {
             var Start = DateTime.Now;
             int Elapsed = 0;
 
             int Count = 0;
-            while (Elapsed < MS)
+            while (Elapsed < Milliseconds)
                 {
                 In();
                 Count++;
@@ -204,14 +205,14 @@ namespace LCore.Extensions
             public static readonly Dictionary<string, MethodProfileData> MethodProfileCache = new Dictionary<string, MethodProfileData>();
 
             #region Profile
-            internal static readonly Func<Action, uint, TimeSpan> L_ProfileActionRepeat = (In, Repeat) =>
+            internal static readonly Func<Action, uint, TimeSpan> ProfileActionRepeat = (In, Repeat) =>
             {
                 var Start = DateTime.Now;
                 In.Repeat(Repeat)();
                 var End = DateTime.Now;
                 return End - Start;
             };
-            internal static readonly Func<Action, string, Action> L_ProfileAction = (In, ProfileName) =>
+            internal static readonly Func<Action, string, Action> ProfileAction = (In, ProfileName) =>
                 {
                     return () =>
                         {
@@ -219,7 +220,7 @@ namespace LCore.Extensions
                             MethodProfileCache[ProfileName].Times.Add(In.Profile());
                         };
                 };
-            internal static Func<Action, TimeSpan> L_ProfileActionDefault = L_ProfileActionRepeat.Supply2(DefaultProfileRepeat);
+            internal static Func<Action, TimeSpan> ProfileActionDefault = ProfileActionRepeat.Supply2(DefaultProfileRepeat);
             #endregion
             }
         }

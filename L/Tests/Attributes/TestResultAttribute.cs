@@ -21,8 +21,9 @@ namespace LCore.Tests
 
             //            Method.MethodAssertResult(Parameters, ExpectedResult, Checks);
 
-            var m = typeof(TestExt).GetMethods().First(
-                method => method.Name == "MethodAssertResult" && method.ContainsGenericParameters);
+            var m = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>)(method =>
+                method.Name == nameof(TestExt.MethodAssertResult) &&
+                method.ContainsGenericParameters));
 
             m = m.MakeGenericMethod(this.ExpectedResult?.GetType() ?? Method.ReturnType);
 
@@ -38,15 +39,6 @@ namespace LCore.Tests
         /// </summary>
         protected readonly string[] AdditionalResultChecks;
 
-        /// <summary>
-        /// Denotes that a method returns a specific result when passed a 
-        /// certain set of input parameters.
-        /// </summary>
-        public TestResultAttribute(object[] Parameters, object ExpectedResult)
-            : base(Parameters)
-            {
-            this.ExpectedResult = ExpectedResult;
-            }
         /// <summary>
         /// Denotes that a method returns a specific result when passed a 
         /// certain set of input parameters.

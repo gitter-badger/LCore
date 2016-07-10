@@ -88,10 +88,10 @@ WriteLiteral(">\r\n");
             #line hidden
             
             #line 14 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
-         for (int i = 0; i < Breadcrumbs.Length; i++)
+         for (int Index = 0; Index < Breadcrumbs.Length; Index++)
             {
-            Set<string, string> Key = Breadcrumbs[i];
-            bool Last = i == Breadcrumbs.Length - 1;
+            Set<string, string> Key = Breadcrumbs[Index];
+            bool Last = Index == Breadcrumbs.Length - 1;
 
             if (Last)
                 {
@@ -118,14 +118,14 @@ WriteLiteral(">\r\n");
             #line hidden
 WriteLiteral("                <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 591), Tuple.Create("\"", 607)
+WriteAttribute("href", Tuple.Create(" href=\"", 611), Tuple.Create("\"", 627)
             
             #line 25 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
-, Tuple.Create(Tuple.Create("", 598), Tuple.Create<System.Object, System.Int32>(Key.Obj2
+, Tuple.Create(Tuple.Create("", 618), Tuple.Create<System.Object, System.Int32>(Key.Obj2
             
             #line default
             #line hidden
-, 598), false)
+, 618), false)
 );
 
 WriteLiteral(">\r\n");
@@ -177,10 +177,10 @@ WriteLiteral(">\r\n");
             #line hidden
             
             #line 34 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
-         for (int i = 0; i < Breadcrumbs.Length; i++)
+         for (int Index = 0; Index < Breadcrumbs.Length; Index++)
             {
-            Set<string, string> Key = Breadcrumbs[i];
-            bool Last = i == Breadcrumbs.Length - 1;
+            Set<string, string> Key = Breadcrumbs[Index];
+            bool Last = Index == Breadcrumbs.Length - 1;
 
             if (Last)
                 {
@@ -220,14 +220,14 @@ WriteLiteral(" class=\"active\"");
 
 WriteLiteral(">\r\n                    <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 1237), Tuple.Create("\"", 1253)
+WriteAttribute("href", Tuple.Create(" href=\"", 1277), Tuple.Create("\"", 1293)
             
             #line 48 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
-, Tuple.Create(Tuple.Create("", 1244), Tuple.Create<System.Object, System.Int32>(Key.Obj2
+, Tuple.Create(Tuple.Create("", 1284), Tuple.Create<System.Object, System.Int32>(Key.Obj2
             
             #line default
             #line hidden
-, 1244), false)
+, 1284), false)
 );
 
 WriteLiteral(">\r\n");

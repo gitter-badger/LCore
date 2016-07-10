@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using LCore.Extensions;
 // ReSharper disable UnusedVariable
 // ReSharper disable VirtualMemberNeverOverriden.Global
 
 namespace LCore.Statistics
     {
+    [ExcludeFromCodeCoverage]
     internal abstract class QuantitativeSampleSet<T> : SampleSet
         where T : struct,
             IComparable,
@@ -535,6 +537,7 @@ namespace LCore.Statistics
         }
 
     #region Implementations
+    [ExcludeFromCodeCoverage]
     internal class SampleSetInt : QuantitativeSampleSet<int>
         {
         public override bool Equals(int X1, int X2)
@@ -567,6 +570,7 @@ namespace LCore.Statistics
             }
         }
 
+    [ExcludeFromCodeCoverage]
     internal class SampleSetByte : QuantitativeSampleSet<byte>
         {
         public override bool Equals(byte X1, byte X2)
@@ -599,6 +603,7 @@ namespace LCore.Statistics
             }
         }
 
+    [ExcludeFromCodeCoverage]
     internal class DecimalSampleSet : QuantitativeSampleSet<decimal>
         {
         public override bool Equals(decimal X1, decimal X2)
@@ -634,6 +639,7 @@ namespace LCore.Statistics
             }
         }
 
+    [ExcludeFromCodeCoverage]
     internal class DoubleSampleSet : QuantitativeSampleSet<double>
         {
         public override bool Equals(double X1, double X2)
@@ -669,6 +675,7 @@ namespace LCore.Statistics
             }
         }
 
+    [ExcludeFromCodeCoverage]
     internal class FloatSampleSet : QuantitativeSampleSet<float>
         {
         public override bool Equals(float X1, float X2)
@@ -704,6 +711,7 @@ namespace LCore.Statistics
             }
         }
 
+    [ExcludeFromCodeCoverage]
     internal class LongSampleSet : QuantitativeSampleSet<long>
         {
         public override bool Equals(long X1, long X2)
@@ -735,6 +743,7 @@ namespace LCore.Statistics
             {
             }
         }
+    [ExcludeFromCodeCoverage]
     internal class SByteSampleSet : QuantitativeSampleSet<sbyte>
         {
         public override bool Equals(sbyte X1, sbyte X2)
@@ -767,6 +776,7 @@ namespace LCore.Statistics
             }
         }
 
+    [ExcludeFromCodeCoverage]
     internal class ShortSampleSet : QuantitativeSampleSet<short>
         {
         public override bool Equals(short X1, short X2)
@@ -799,6 +809,8 @@ namespace LCore.Statistics
             }
         }
 
+    [ExcludeFromCodeCoverage]
+    // ReSharper disable once InconsistentNaming
     internal class UIntSampleSet : QuantitativeSampleSet<uint>
         {
         public override bool Equals(uint X1, uint X2)
@@ -831,6 +843,8 @@ namespace LCore.Statistics
             }
         }
 
+    [ExcludeFromCodeCoverage]
+    // ReSharper disable once InconsistentNaming
     internal class ULongSampleSet : QuantitativeSampleSet<ulong>
         {
         public override bool Equals(ulong X1, ulong X2)
@@ -864,6 +878,8 @@ namespace LCore.Statistics
         }
 
 
+    [ExcludeFromCodeCoverage]
+    // ReSharper disable once InconsistentNaming
     internal class UShortSampleSet : QuantitativeSampleSet<ushort>
         {
         public override bool Equals(ushort X1, ushort X2)

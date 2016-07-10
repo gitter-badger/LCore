@@ -18,7 +18,7 @@ namespace Singularity.Models
             this.Title = Controller.ManageTitle;
             }
 
-        public ManageController Controller { get; set; }
+        public ManageController Controller { get; private set; }
 
         public IEnumerable<IModel> Models { get; set; }
         public int TotalItems { get; set; }
@@ -37,13 +37,13 @@ namespace Singularity.Models
         public int Page { get; set; }
         public int TotalPages { get; set; }
 
-        public int ShowSurroundingPages = 3;
+        public const int ShowSurroundingPages = 3;
 
-        public bool AlwaysShowPaginationFirstLast = true;
-        public string FirstPageText = "<<";
-        public string PreviousPageText = "<";
-        public string NextPageText = ">";
-        public string LastPageText = ">>";
+        public static readonly bool AlwaysShowPaginationFirstLast = true;
+        public const string FirstPageText = "<<";
+        public const string PreviousPageText = "<";
+        public const string NextPageText = ">";
+        public const string LastPageText = ">>";
 
         public ControllerHelper.ManageViewType ViewType { get; set; }
 
@@ -142,7 +142,7 @@ namespace Singularity.Models
 
         public string FriendlyModelTypeNamePlural => this.FriendlyModelTypeName.Pluralize();
 
-        public string ModelTypeCSSClass => this.ModelType.Name.Humanize().ToUrlSlug();
+        public string ModelTypeCssClass => this.ModelType.Name.Humanize().ToUrlSlug();
 
         private string _Title;
         public string Title

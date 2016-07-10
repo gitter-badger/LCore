@@ -41,7 +41,7 @@
            key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+Home" : null)"
            key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "First Page" : null)">
             <span class="page-previous">
-                @Model.FirstPageText
+                @ManageViewModel.FirstPageText
             </span>
         </a>
 
@@ -51,40 +51,40 @@
            key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+Left" : null)"
            key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "Previous Page" : null)">
             <span class="page-previous">
-                @Model.PreviousPageText
+                @ManageViewModel.PreviousPageText
             </span>
         </a>
         }
-    else if (Model.AlwaysShowPaginationFirstLast)
+    else if (ManageViewModel.AlwaysShowPaginationFirstLast)
         {
         <span class="page-previous">
-            @Model.FirstPageText
+            @ManageViewModel.FirstPageText
         </span>
 
         <span class="page-previous">
-            @Model.PreviousPageText
+            @ManageViewModel.PreviousPageText
         </span>
         }
 
     <span class="page-numbers">
         @if (Model.TotalItems > 0)
             {
-            for (int i = 0; i < Model.TotalPages; i++)
+            for (int Index = 0; Index < Model.TotalPages; Index++)
                 {
-                if (i == Model.Page)
+                if (Index == Model.Page)
                     {
                     <span class="page-current">
-                        @(i + 1)
+                        @(Index + 1)
                     </span>
                     }
-                else if (i >= Model.Page - Model.ShowSurroundingPages &&
-                    i <= Model.Page + Model.ShowSurroundingPages)
+                else if (Index >= Model.Page - ManageViewModel.ShowSurroundingPages &&
+                    Index <= Model.Page + ManageViewModel.ShowSurroundingPages)
                     {
                     <a href="@(Url.Controller<ManageController>()
-                        .QS(Controllers.Manage.Actions.Route_Page(Model, i + 1))
+                        .QS(Controllers.Manage.Actions.Route_Page(Model, Index + 1))
                         .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage))">
                         <span class="page">
-                            @(i + 1)
+                            @(Index + 1)
                         </span>
                     </a>
                     }
@@ -104,7 +104,7 @@
            key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+Right" : null)"
            key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "Next Page" : null)">
             <span class="page-next">
-                @Model.NextPageText
+                @ManageViewModel.NextPageText
             </span>
         </a>
 
@@ -114,18 +114,18 @@
            key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+End" : null)"
            key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "Last Page" : null)">
             <span class="page-last">
-                @Model.LastPageText
+                @ManageViewModel.LastPageText
             </span>
         </a>
         }
-    else if (Model.AlwaysShowPaginationFirstLast)
+    else if (ManageViewModel.AlwaysShowPaginationFirstLast)
         {
         <span class="page-next">
-            @Model.NextPageText
+            @ManageViewModel.NextPageText
         </span>
 
         <span class="page-last">
-            @Model.LastPageText
+            @ManageViewModel.LastPageText
         </span>
         }
 </div>

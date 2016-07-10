@@ -250,9 +250,9 @@
     <Compile Include="Code\Attributes\Field\FieldGlobalSearchAttribute.cs" />
     <Compile Include="Code\Attributes\Field\FieldNoToken.cs" />
     <Compile Include="Code\Attributes\Field\Type\FieldType_SortableListAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\Type\FieldType_DropdownContextModelFields_ByType.cs" />
-    <Compile Include="Code\Attributes\Field\Type\FieldType_DropdownContextModelFields_ByDataType.cs" />
-    <Compile Include="Code\Attributes\Field\Type\FieldType_DropdownContextModelFields.cs" />
+    <Compile Include="Code\Attributes\Field\Type\FieldTypeDropdownContextModelFieldsByType.cs" />
+    <Compile Include="Code\Attributes\Field\Type\FieldTypeDropdownContextModelFieldsByDataType.cs" />
+    <Compile Include="Code\Attributes\Field\Type\FieldTypeDropdownContextModelFields.cs" />
     <Compile Include="Code\Attributes\Field\Type\FieldType_DropdownContextManageControllers.cs" />
     <Compile Include="Code\Attributes\Field\Type\FieldType_Hidden.cs" />
     <Compile Include="Code\Attributes\Field\FieldDontClone.cs" />

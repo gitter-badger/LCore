@@ -15,16 +15,16 @@ namespace LCore.Extensions
             {
                 while (s.Has('.'))
                     {
-                    int index = s.IndexOf('.');
-                    string temp = s.Substring(0, index);
-                    int indexspace = temp.LastIndexOfAny(SeparatorChars);
-                    if (indexspace < 0)
+                    int Index = s.IndexOf('.');
+                    string Temp = s.Substring(0, Index);
+                    int IndexSpace = Temp.LastIndexOfAny(SeparatorChars);
+                    if (IndexSpace < 0)
                         {
-                        s = s.Substring(index + 1);
+                        s = s.Substring(Index + 1);
                         }
                     else
                         {
-                        s = s.Substring(0, indexspace + 1) + s.Substring(index + 1);
+                        s = s.Substring(0, IndexSpace + 1) + s.Substring(Index + 1);
                         }
                     }
                 return s;

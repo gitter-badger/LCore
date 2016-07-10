@@ -46,6 +46,15 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentAssertions, Version=4.10.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.10.0\lib\net45\FluentAssertions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentAssertions.Core, Version=4.10.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.10.0\lib\net45\FluentAssertions.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.WindowsAzure.StorageClient">
       <HintPath>C:\Program Files\Microsoft SDKs\Azure\.NET SDK\v2.7\bin\Microsoft.WindowsAzure.StorageClient.dll</HintPath>
     </Reference>
@@ -71,12 +80,12 @@
     <Compile Include="Naming\Attributes\FriendlyNameAttribute.cs" />
     <Compile Include="Dynamic Code\Attributes\AttributeList.cs" />
     <Compile Include="Dynamic Code\Attributes\CodeExplode.cs" />
-    <Compile Include="Dynamic Code\Attributes\CodeExplode_ExtendLogic.cs" />
+    <Compile Include="Dynamic Code\Attributes\CodeExplodeExtend.cs" />
     <Compile Include="Dynamic Code\Attributes\CodeExplodeMember.cs" />
-    <Compile Include="Dynamic Code\Attributes\CodeExplode_ExplodeLogic.cs" />
+    <Compile Include="Dynamic Code\Attributes\CodeExplodeLogic.cs" />
     <Compile Include="Dynamic Code\Attributes\CodeExplodeGenerics.cs" />
     <Compile Include="Dynamic Code\Attributes\CodeExplodeExtensionMethod.cs" />
-    <Compile Include="Dynamic Code\Attributes\CodeExplodeGenerics_ReplaceArguments.cs" />
+    <Compile Include="Dynamic Code\Attributes\CodeExplodeGenericsReplaceArguments.cs" />
     <Compile Include="Dynamic Code\CodeExploder.cs" />
     <Compile Include="Dynamic Code\CodeExplode\LX_Explode_bak.cs" />
     <Compile Include="Dynamic Code\CodeExplode\Logic_Extension_Explode_bak.cs" />
@@ -113,7 +122,7 @@
     <Compile Include="Interfaces\ICodeComment.cs" />
     <Compile Include="Tools\MethodProfileData.cs" />
     <Compile Include="Tools\DoubleDictionary.cs" />
-    <Compile Include="Tools\RegistryHandler.cs" />
+    <Compile Include="Tools\RegistryHelper.cs" />
     <Compile Include="Tools\ExceptionList.cs" />
     <Compile Include="Tests\Attributes\TestResultAttribute.cs" />
     <Compile Include="Tests\Attributes\TestSourceAttribute.cs" />
@@ -129,14 +138,14 @@
     <Compile Include="Extensions\Methods\LoopExt.cs" />
     <Compile Include="Extensions\Methods\ThreadExt.cs" />
     <Compile Include="Extensions\Methods\ExceptionExt.cs" />
-    <Compile Include="Extensions\Object Types\InterfaceExt.cs" />
+    <Compile Include="Extensions\Object Types\ConvertibleExt.cs" />
     <Compile Include="Extensions\Object Types\ObjectExt.cs" />
     <Compile Include="Extensions\Methods\BooleanExt.cs" />
     <Compile Include="Extensions\Object Types\DictionaryExt.cs" />
     <Compile Include="Extensions\Language\LambdaExt.cs" />
     <Compile Include="Extensions\Value Types\DateTimeExt.cs" />
     <Compile Include="Extensions\Object Types\FileExt.cs" />
-    <Compile Include="Interfaces\IL_Attribute_ReverseOrder.cs" />
+    <Compile Include="Interfaces\IReverseAttributeOrder.cs" />
     <Compile Include="Extensions\Object Types\StringExt.cs" />
     <Compile Include="Naming\IL_FriendlyName.cs" />
     <Compile Include="Extensions\Methods\LogicExt.cs" />
@@ -167,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="LCore.1.0.0.nupkg" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

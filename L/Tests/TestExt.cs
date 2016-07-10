@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using LCore.Extensions;
 using System.Collections;
+using System.Diagnostics;
 using System.Reflection;
+using FluentAssertions;
 using LCore.Extensions.Optional;
 
 // ReSharper disable UnusedMember.Global
@@ -867,7 +869,7 @@ namespace LCore.Tests
                                     }
                             });
                             s =
-                                $"Result did not pass additional checks.\n Params:\n {collectStr}\nExpected: \'{ExpectedResult.ToS()}\'\nActual: \'{(Error ?? (object)Actual).ToS()}\'";
+                                $"\nResult did not pass additional checks.\n\n Params:\n {collectStr}\nExpected: \'{ExpectedResult.ToS()}\'\nActual:   \'{(Error ?? (object)Actual).ToS()}\'\n\n";
                             }
                         catch
                             {
@@ -896,13 +898,15 @@ namespace LCore.Tests
                             return "null\n";
                             }
                     });
-                    s =
-                        $"Result did not match value. \nParams:\n {collectStr}\nExpected: \'{ExpectedResult.ToS()}\'\nActual: \'{(Error ?? (object)Actual).ToS()}\'";
+                    s = $"Result did not match value. \nParams:\n {collectStr}\nExpected: \'{ExpectedResult.ToS()}\'\n";
+                    s += $"Actual: \'{(Error ?? (object)Actual).ToS().Remove("System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. --->", "System.Exception: ")}\'";
                     }
                 catch
                     {
                     s = "Result did not match value.";
                     }
+
+
                 throw new Exception(s.ReplaceAll("\r", ""));
                 }
             }
@@ -1110,7 +1114,7 @@ namespace LCore.Tests
             {
             int TestsRan = 0;
 
-            Dictionary<MemberInfo, List<TestAttribute>> Tests = t.GetTestMembers();
+            Dictionary<MemberInfo, List<ITestAttribute>> Tests = t.GetTestMembers();
 
             Tests.Each(tests =>
             {
@@ -1120,8 +1124,10 @@ namespace LCore.Tests
                     var key = tests.Key as MethodInfo;
                     if (key != null)
                         {
+                        List<ITestAttribute> ValueList = tests.Value.List();
+                        ValueList.Reverse();
 
-                        tests.Value.Each(test =>
+                        ValueList.Each(test =>
                         {
                             var m = key;
 
@@ -1160,7 +1166,7 @@ namespace LCore.Tests
                     }
                 catch (Exception e)
                     {
-                    throw new Exception($"Testing for Member: {tests.Key.FullyQualifiedName()} Test #{CurrentTest} failed.\n{e.ToS()}", e);
+                    throw new Exception($"\nTesting for Member: {tests.Key.FullyQualifiedName()} \nTest #{CurrentTest} failed.\n{e.ToS()}\n", e);
                     }
             });
 
@@ -1170,9 +1176,9 @@ namespace LCore.Tests
         /// <summary>
         /// Retrieves TestAttributes for type [t]
         /// </summary>
-        public static Dictionary<MemberInfo, List<TestAttribute>> GetTestMembers(this Type t)
+        public static Dictionary<MemberInfo, List<ITestAttribute>> GetTestMembers(this Type t)
             {
-            var Tests = new Dictionary<MemberInfo, List<TestAttribute>>();
+            var Tests = new Dictionary<MemberInfo, List<ITestAttribute>>();
 
             t.GetMembers().Each(m =>
             {
@@ -1182,15 +1188,41 @@ namespace LCore.Tests
                     }
 
                 if (!Tests.ContainsKey(m))
-                    Tests.Add(m, new List<TestAttribute>());
+                    Tests.Add(m, new List<ITestAttribute>());
 
-                m.GetAttributes<TestAttribute>(false).Each(attr =>
+                m.GetAttributes<ITestAttribute>(false).Each(attr =>
                 {
                     Tests[m].Add(attr);
                 });
             });
 
             return Tests;
+            }
+
+        /// <summary>
+        /// Run all TestAttribute 
+        /// </summary>
+        /// <param name="t"></param>
+        public static void RunTypeTests(this Type t)
+            {
+            Dictionary<MemberInfo, List<ITestAttribute>> Tests = t.GetTestMembers();
+
+            int TestCount = Tests.TotalCount();
+
+            List<string> Missing = Tests.Keys.List().Select(key => Tests[key].Count == 0).Convert(m => m.Name);
+            List<string> Missing2 = Missing.RemoveDuplicates();
+
+            if (Missing.Count > 0)
+                {
+                Debug.Write("\r\n");
+                Missing2.Each(method =>
+                    Debug.Write($"   {method.Pad(18)}   ({Missing.Count(method)})\r\n"));
+                Debug.Write("\r\n");
+                }
+
+            int Passed = t.RunUnitTests();
+
+            TestCount.Should().Be(Passed);
             }
         }
     }

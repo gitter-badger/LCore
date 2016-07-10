@@ -13,8 +13,8 @@
 
     var ViewType = ViewBag.Create == true ? ControllerHelper.ViewType.Create : ControllerHelper.ViewType.Edit;
 
-    var model = Model as IFieldGroups;
-    IEnumerable<ModelMetadata> Fields = model != null ? model.GetFieldGroup(Context, ViewType) : FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ViewType);
+    var Groups = Model as IFieldGroups;
+    IEnumerable<ModelMetadata> Fields = Groups != null ? Groups.GetFieldGroup(Context, ViewType) : FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ViewType);
 }
 
 @model IModel
@@ -46,10 +46,10 @@
     </h2>
 
     @using (Html.BeginForm(ViewBag.Create ?
-                    nameof(ManageController.Create) :
-                    nameof(ManageController.Edit),
-                (string)ViewBag.ControllerName,
-                (object)ViewBag.Route_Edit, FormMethod.Post, new { @class = "edit-form" }))
+                            nameof(ManageController.Create) :
+                            nameof(ManageController.Edit),
+                        (string)ViewBag.ControllerName,
+                        (object)ViewBag.Route_Edit, FormMethod.Post, new { @class = "edit-form" }))
         {
 
         bool RequiredFields = false;
@@ -76,12 +76,12 @@
                 {
                 <div class="tab-container">
                     <ul>
-                        @for (int i = 0; i < TabGroups.Keys.Count; i++)
+                        @for (int Index = 0; Index < TabGroups.Keys.Count; Index++)
                             {
-                            string Key = TabGroups.Keys.List()[i];
+                            string Key = TabGroups.Keys.List()[Index];
 
                             <li>
-                                <a href="#tab-@(i + 1)">
+                                <a href="#tab-@(Index + 1)">
                                     @Html.TextContent($"Manage_{(ViewBag.Create ? "Create" : "Edit")}_Tab_{Model.GetFriendlyTypeName()}_{Key}", Key)
                                 </a>
                             </li>
@@ -89,14 +89,14 @@
                     </ul>
 
                     @{
-                        int j = 0;
+                        int Index2 = 0;
                     }
 
-                    @foreach (string s in TabGroups.Keys)
+                    @foreach (string Str in TabGroups.Keys)
                         {
-                        List<ModelMetadata> TabFields = TabGroups[s];
+                        List<ModelMetadata> TabFields = TabGroups[Str];
 
-                        <div id="tab-@(j + 1)">
+                        <div id="tab-@(Index2 + 1)">
 
                             @foreach (var Meta in TabFields)
                                 {
@@ -110,7 +110,7 @@
                                 @Html.ViewField(Field)
                                 }
                         </div>
-                        j++;
+                        Index2++;
                         }
                 </div>
                             }

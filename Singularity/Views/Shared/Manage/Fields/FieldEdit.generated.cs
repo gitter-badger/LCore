@@ -111,8 +111,8 @@ WriteLiteral("\r\n");
         }
     else
         {
-        var d = Lambda.Compile();
-        d.DynamicInvoke(Model);
+        var Func = Lambda.Compile();
+        Func.DynamicInvoke(Model);
         }
 
     RangeAttribute Attr = null;
@@ -141,30 +141,30 @@ WriteLiteral("\r\n");
             #line hidden
 WriteLiteral("\r\n<div");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 1498), Tuple.Create("\"", 1648)
-, Tuple.Create(Tuple.Create("", 1506), Tuple.Create("field", 1506), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 1504), Tuple.Create("\"", 1654)
+, Tuple.Create(Tuple.Create("", 1512), Tuple.Create("field", 1512), true)
             
             #line 56 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
-, Tuple.Create(Tuple.Create(" ", 1511), Tuple.Create<System.Object, System.Int32>(Model.ViewTypes.CollectStr((i, t) => $"{t.ToString().ToLower()}-field ")
+, Tuple.Create(Tuple.Create(" ", 1517), Tuple.Create<System.Object, System.Int32>(Model.ViewTypes.CollectStr((i, t) => $"{t.ToString().ToLower()}-field ")
             
             #line default
             #line hidden
-, 1512), false)
-, Tuple.Create(Tuple.Create(" ", 1585), Tuple.Create("field-", 1586), true)
+, 1518), false)
+, Tuple.Create(Tuple.Create(" ", 1591), Tuple.Create("field-", 1592), true)
             
             #line 56 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
-                  , Tuple.Create(Tuple.Create("", 1592), Tuple.Create<System.Object, System.Int32>(Model.ColumnClass
+                  , Tuple.Create(Tuple.Create("", 1598), Tuple.Create<System.Object, System.Int32>(Model.ColumnClass
             
             #line default
             #line hidden
-, 1592), false)
+, 1598), false)
             
             #line 56 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
-                                    , Tuple.Create(Tuple.Create(" ", 1610), Tuple.Create<System.Object, System.Int32>(Model.ModelFieldClasses.Combine(" ")
+                                    , Tuple.Create(Tuple.Create(" ", 1616), Tuple.Create<System.Object, System.Int32>(Model.ModelFieldClasses.Combine(" ")
             
             #line default
             #line hidden
-, 1611), false)
+, 1617), false)
 );
 
 WriteLiteral("\r\n     data-object-type=\"");

@@ -316,7 +316,7 @@ WriteLiteral(" )\r\n                        {\r\n                        $(\'.fi
             #line default
             #line hidden
 WriteLiteral("\').show();\r\n                        return;\r\n                    }\r\n             " +
-"       }\r\n\r\n                    const ParentForm = $(\'#file-upload-button-");
+"       }\r\n\r\n                    const parentForm = $(\'#file-upload-button-");
 
             
             #line 94 "..\..\Views\Shared\Manage\Fields\FileUpload.cshtml"
@@ -372,7 +372,7 @@ WriteLiteral("&RelationID=");
             #line hidden
 WriteLiteral(@"',
                     type: 'POST',
-                    data: new FormData(ParentForm),
+                    data: new FormData(parentForm),
                     processData: false,
                     contentType: false,
 

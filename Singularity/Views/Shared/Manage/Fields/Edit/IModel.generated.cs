@@ -80,9 +80,9 @@ WriteLiteral("\r\n");
 
     if (SubModel != null)
         {
-        string ID = SubModel.GetID();
+        string Id = SubModel.GetID();
 
-        var Selected = Items.FirstOrDefault(s => s.Value == ID);
+        var Selected = Items.FirstOrDefault(s => s.Value == Id);
 
         if (Selected != null)
             {

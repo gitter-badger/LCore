@@ -25,17 +25,17 @@ namespace Singularity.Controllers
                 }
             }
 
-        public abstract ActionResult Create(string ReturnURL);
-        public abstract ActionResult Create(string ReturnURL, FormCollection Form);
+        public abstract ActionResult Create(string ReturnUrl);
+        public abstract ActionResult Create(string ReturnUrl, FormCollection Form);
 
 
-        public abstract ActionResult Update(int id, string ReturnURL, FormCollection Form, bool Create = false);
+        public abstract ActionResult Update(int id, string ReturnUrl, FormCollection Form, bool Create = false);
 
-        public abstract ActionResult Edit(int id, string ReturnURL, bool Create = false);
+        public abstract ActionResult Edit(int id, string ReturnUrl, bool Create = false);
 
         public abstract ActionResult UploadFile(
             FormCollection Form,
-            string ReturnURL,
+            string ReturnUrl,
             string RelationType,
             string RelationProperty,
             int RelationID);
@@ -67,13 +67,13 @@ namespace Singularity.Controllers
             ControllerHelper.ManageViewType ViewType = ControllerHelper.ManageViewType.All,
             int CustomExportID = -1);
 
-        public abstract void DeleteFile(int id, string ReturnURL);
+        public abstract void DeleteFile(int id, string ReturnUrl);
         public abstract void DownloadFile(int FileID);
 
-        public abstract ActionResult Details(int id, string ReturnURL);
-        public abstract ActionResult Edit(int id, string ReturnURL, FormCollection Form, bool Create = false);
-        public abstract ActionResult Delete(int id, string ReturnURL);
-        public abstract ActionResult DeleteConfirm(int id, string ReturnURL, FormCollection collection, bool Restore = false);
+        public abstract ActionResult Details(int id, string ReturnUrl);
+        public abstract ActionResult Edit(int id, string ReturnUrl, FormCollection Form, bool Create = false);
+        public abstract ActionResult Delete(int id, string ReturnUrl);
+        public abstract ActionResult DeleteConfirm(int id, string ReturnUrl, FormCollection collection, bool Restore = false);
 
 
         public virtual string Name
@@ -127,12 +127,12 @@ namespace Singularity.Controllers
 
         public abstract bool AllowAdminRandomize { get; }
 
-        private ModelContext _DBContext;
-        public ModelContext DBContext
+        private ModelContext _DbContext;
+        public ModelContext DbContext
             {
             get
                 {
-                return L.Logic.Cache(ref this._DBContext, () => ContextProviderFactory.GetCurrent().GetContext(this.Session));
+                return L.Logic.Cache(ref this._DbContext, () => ContextProviderFactory.GetCurrent().GetContext(this.Session));
                 }
             }
 

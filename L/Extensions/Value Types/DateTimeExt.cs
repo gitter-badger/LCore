@@ -52,7 +52,7 @@ namespace LCore.Extensions
                 string day = d.Day.ToString();
                 if (day.Length == 1) { day = $"0{day}"; }
                 int month = d.Month;
-                string Month = L.Date.Month_GetString(month);
+                string Month = L.Date.MonthGetString(month);
 
                 var mDate = d.ToUniversalTime();
                 string mTime = mDate.Hour.ToString().Length == 1 ? $"0{mDate.Hour}" : mDate.Hour.ToString();
@@ -77,10 +77,10 @@ namespace LCore.Extensions
                     mTime += mDate.Second.ToString();
                     }
 
-                string RV = d.DayOfWeek.ToString().Substring(0, 3);
-                RV += $", {day} {Month.Substring(0, 3)}";
-                RV += $" {d.Year} {mTime} GMT";
-                return RV;
+                string Str = d.DayOfWeek.ToString().Substring(0, 3);
+                Str += $", {day} {Month.Substring(0, 3)}";
+                Str += $" {d.Year} {mTime} GMT";
+                return Str;
 
                 }
             catch (Exception)
@@ -268,7 +268,7 @@ namespace LCore.Extensions
             /// Returns the name of the month by the number of the month.
             /// Fails if the number is not between 1 and 12.
             /// </summary>
-            public static readonly Func<int, string> Month_GetString = i =>
+            public static readonly Func<int, string> MonthGetString = i =>
                 {
                     switch (i)
                         {
@@ -309,7 +309,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns the name of the months from a datetime.
             /// </summary>
-            public static readonly Func<DateTime, string> GetMonthString = d => Month_GetString(d.Month);
+            public static readonly Func<DateTime, string> GetMonthString = d => MonthGetString(d.Month);
             #endregion
             }
         }

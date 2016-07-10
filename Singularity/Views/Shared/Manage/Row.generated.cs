@@ -73,9 +73,9 @@ WriteLiteral("\r\n");
         new[] { ControllerHelper.ViewType.Edit, ControllerHelper.ViewType.TableCell } :
         new[] { ControllerHelper.ViewType.TableCell };
 
-    var model = Model as IFieldGroups;
-    IEnumerable<ModelMetadata> Fields = model != null ?
-        model.GetFieldGroup(Context, ControllerHelper.ViewType.TableCell) :
+    var Groups = Model as IFieldGroups;
+    IEnumerable<ModelMetadata> Fields = Groups != null ?
+        Groups.GetFieldGroup(Context, ControllerHelper.ViewType.TableCell) :
         FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ControllerHelper.ViewType.TableCell);
 
             
@@ -106,14 +106,14 @@ WriteLiteral(" class=\"view-cell center\"");
 
 WriteLiteral(">\r\n            <div>\r\n                <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 886), Tuple.Create("\"", 999)
+WriteAttribute("href", Tuple.Create(" href=\"", 889), Tuple.Create("\"", 1002)
             
             #line 26 "..\..\Views\Shared\Manage\Row.cshtml"
-, Tuple.Create(Tuple.Create("", 893), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(c => c.Details, Model.GetID<int>(), Request.Url?.AbsoluteUri)
+, Tuple.Create(Tuple.Create("", 896), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(c => c.Details, Model.GetID<int>(), Request.Url?.AbsoluteUri)
             
             #line default
             #line hidden
-, 893), false)
+, 896), false)
 );
 
 WriteLiteral(">\r\n                    <span");
@@ -185,14 +185,14 @@ WriteLiteral(" class=\"edit-cell center\"");
 
 WriteLiteral(">\r\n            <div>\r\n                <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 1551), Tuple.Create("\"", 1668)
+WriteAttribute("href", Tuple.Create(" href=\"", 1554), Tuple.Create("\"", 1671)
             
             #line 46 "..\..\Views\Shared\Manage\Row.cshtml"
-, Tuple.Create(Tuple.Create("", 1558), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(c => c.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false)
+, Tuple.Create(Tuple.Create("", 1561), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(c => c.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false)
             
             #line default
             #line hidden
-, 1558), false)
+, 1561), false)
 );
 
 WriteLiteral("\r\n                   ");
@@ -233,20 +233,20 @@ WriteLiteral(" class=\"deactivate-cell center\"");
 
 WriteLiteral(">\r\n            <div>\r\n                <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2560), Tuple.Create("\"", 2672)
+WriteAttribute("href", Tuple.Create(" href=\"", 2563), Tuple.Create("\"", 2675)
             
             #line 64 "..\..\Views\Shared\Manage\Row.cshtml"
-, Tuple.Create(Tuple.Create("", 2567), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(c => c.Delete, Model.GetID<int>(), Request.Url?.AbsoluteUri)
+, Tuple.Create(Tuple.Create("", 2570), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(c => c.Delete, Model.GetID<int>(), Request.Url?.AbsoluteUri)
             
             #line default
             #line hidden
-, 2567), false)
+, 2570), false)
 );
 
-WriteAttribute("shift-href", Tuple.Create("\r\n                   shift-href=\"", 2673), Tuple.Create("\"", 3110)
+WriteAttribute("shift-href", Tuple.Create("\r\n                   shift-href=\"", 2676), Tuple.Create("\"", 3113)
             
             #line 65 "..\..\Views\Shared\Manage\Row.cshtml"
-, Tuple.Create(Tuple.Create("", 2706), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
+, Tuple.Create(Tuple.Create("", 2709), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
                    .Action<int,string,FormCollection, bool>(
                    (Expression<Func<ManageController, Func<int,string,FormCollection, bool, ActionResult>>>)(c => c.DeleteConfirm),
                    Model.GetID<int>(), Request.Url?.AbsoluteUri, null,
@@ -254,7 +254,7 @@ WriteAttribute("shift-href", Tuple.Create("\r\n                   shift-href=\""
             
             #line default
             #line hidden
-, 2706), false)
+, 2709), false)
 );
 
 WriteLiteral(">\r\n                    <span");

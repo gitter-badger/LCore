@@ -73,7 +73,7 @@ WriteLiteral("<a");
 WriteAttribute("href", Tuple.Create(" href=\"", 140), Tuple.Create("\"", 232)
             
             #line 10 "..\..\Views\Template\Fields\Description_After.cshtml"
-, Tuple.Create(Tuple.Create("", 147), Tuple.Create<System.Object, System.Int32>(Url.Controller<TemplateController>().Action(c=>c.PreviewPDF, ModelData.TemplateID)
+, Tuple.Create(Tuple.Create("", 147), Tuple.Create<System.Object, System.Int32>(Url.Controller<TemplateController>().Action(c=>c.PreviewPdf, ModelData.TemplateID)
             
             #line default
             #line hidden

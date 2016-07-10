@@ -8,8 +8,8 @@
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 @{
-    IEnumerable<AuthenticationDescription> loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
-    if (!loginProviders.Any())
+    IEnumerable<AuthenticationDescription> LoginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+    if (!LoginProviders.Any())
         {
         <div>
             <p>
@@ -25,10 +25,10 @@
             <h4>Registered Logins</h4>
             <table class="table">
                 <tbody>
-                    @foreach (var account in Model.CurrentLogins)
+                    @foreach (var Account in Model.CurrentLogins)
                         {
                         <tr>
-                            <td>@account.LoginProvider</td>
+                            <td>@Account.LoginProvider</td>
                             <td>
                                 @if (ViewBag.ShowRemoveButton)
                                     {
@@ -36,9 +36,9 @@
                                         {
                                         @Html.AntiForgeryToken()
                                         <div>
-                                            @Html.Hidden("loginProvider", account.LoginProvider)
-                                            @Html.Hidden("providerKey", account.ProviderKey)
-                                            <input type="submit" class="btn btn-default" value="Remove" title="Remove this @account.LoginProvider login from your account" />
+                                            @Html.Hidden("loginProvider", Account.LoginProvider)
+                                            @Html.Hidden("providerKey", Account.ProviderKey)
+                                            <input type="submit" class="btn btn-default" value="Remove" title="Remove this @Account.LoginProvider login from your account" />
                                         </div>
                                         }
                                     }
@@ -59,9 +59,9 @@
                 @Html.AntiForgeryToken()
                 <div id="socialLoginList">
                     <p>
-                        @foreach (var p in Model.OtherLogins)
+                        @foreach (var Login in Model.OtherLogins)
                             {
-                            <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+                            <button type="submit" class="btn btn-default" id="@Login.AuthenticationType" name="provider" value="@Login.AuthenticationType" title="Log in using your @Login.Caption account">@Login.AuthenticationType</button>
                             }
                     </p>
                 </div>

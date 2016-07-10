@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LCore.Statistics
     {
+    [ExcludeFromCodeCoverage]
     internal abstract class SampleSet
         {
         /// <summary>

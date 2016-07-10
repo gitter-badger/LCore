@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections;
+using LCore.Extensions.Optional;
 using LCore.Interfaces;
 using LCore.Tests;
 
@@ -26,13 +27,13 @@ namespace LCore.Extensions
         public static void Merge<TKey, TValue>(this IDictionary<TKey, TValue> In, IDictionary<TKey, TValue> Add,
             Func<KeyValuePair<TKey, TValue>, KeyValuePair<TKey, TValue>> Conflict = null)
             {
-            Conflict = o => new KeyValuePair<TKey, TValue>(default(TKey), default(TValue));
+            Conflict = Conflict ?? (o => new KeyValuePair<TKey, TValue>(default(TKey), default(TValue)));
 
             Add?.Each(o =>
                 {
                     var last = default(TKey);
 
-                    while (In.ContainsKey(o.Key) && !o.Key.Equals(last))
+                    while (!o.IsNull() && o.Key != null && In.ContainsKey(o.Key) && o.Key?.Equals(last) != true)
                         {
                         last = o.Key;
                         o = Conflict(o);
@@ -65,16 +66,35 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns all values from a dictionary with IEnumerable values.
         /// </summary>
-        public static List<TValue> GetAllValues<TKey, TValue>(this Dictionary<TKey, IEnumerable<TValue>> In)
+        [Tested]
+        public static List<TValue> GetAllValues<TKey, TValue, TValueList>(this Dictionary<TKey, TValueList> In)
+            where TValueList : IEnumerable<TValue>
             {
             var Out = new List<TValue>();
 
-            foreach (IEnumerable<TValue> Value in In.Values)
+            if (In != null)
                 {
-                Out.Add(Value);
+                foreach (var Value in In.Values)
+                    {
+                    Out.AddRange(Value);
+                    }
                 }
 
             return Out;
+            }
+
+        #endregion
+
+        #region SafeAdd
+        /// <summary>
+        /// Safely adds an item to a dictionary.
+        /// If the dictionary is null or the item exists already, nothing is added.
+        /// </summary>
+        [Tested]
+        public static void SafeAdd<TKey, TValue>(this IDictionary<TKey, TValue> In, TKey Key, TValue Val)
+            {
+            if (In != null && Key != null && !In.ContainsKey(Key))
+                In.Add(Key, Val);
             }
 
         #endregion
@@ -86,9 +106,10 @@ namespace LCore.Extensions
         /// If the item doesn't exist it is added.
         /// If it does exist it gets updated.
         /// </summary>
+        [Tested]
         public static void SafeSet<TKey, TValue>(this IDictionary<TKey, TValue> In, TKey Key, TValue Val)
             {
-            if (In != null)
+            if (In != null && Key != null)
                 {
                 if (!In.ContainsKey(Key))
                     In.Add(Key, Val);
@@ -99,25 +120,12 @@ namespace LCore.Extensions
 
         #endregion
 
-        #region SafeAdd
-
-        /// <summary>
-        /// Safely adds an item to a dictionary.
-        /// If the dictionary is null or the item exists already, nothing is added.
-        /// </summary>
-        public static void SafeAdd<TKey, TValue>(this IDictionary<TKey, TValue> In, TKey Key, TValue Val)
-            {
-            if (In != null && !In.ContainsKey(Key))
-                In.Add(Key, Val);
-            }
-
-        #endregion
-
         #region SafeGet
 
         /// <summary>
         /// Safely gets an item from a dictionary if it exists.
         /// </summary>
+        [Tested]
         public static TValue SafeGet<TKey, TValue>(this IDictionary<TKey, TValue> In, TKey Key)
             {
             if (In != null && In.ContainsKey(Key))

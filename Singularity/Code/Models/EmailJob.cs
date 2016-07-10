@@ -31,7 +31,7 @@ namespace Singularity.Models
         [Column("EmailTemplateID")]
         public virtual EmailTemplate EmailTemplate { get; set; }
 
-        [FieldType_DropdownContextModelFields_SavedSearch_EmailType]
+        [FieldTypeDropdownContextModelFieldsSavedSearchEmailType]
         [Required]
         [HideManageViewColumn]
         public string EmailToField { get; set; }
@@ -64,9 +64,9 @@ namespace Singularity.Models
             return DbContext.GetDBSet<EmailJob>().FirstOrDefault(t => t.Active && t.EmailJobID == EmailJobID);
             }
 
-        public class FieldType_DropdownContextModelFields_SavedSearch_EmailType : FieldType_DropdownContextModelFields_ByDataType
+        public class FieldTypeDropdownContextModelFieldsSavedSearchEmailType : FieldTypeDropdownContextModelFieldsByDataType
             {
-            public FieldType_DropdownContextModelFields_SavedSearch_EmailType()
+            public FieldTypeDropdownContextModelFieldsSavedSearchEmailType()
                 : base(DataType.EmailAddress, (Type)null, false, true)
                 {
                 }

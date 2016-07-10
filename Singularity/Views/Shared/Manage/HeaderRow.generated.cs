@@ -206,7 +206,7 @@ WriteLiteral("\r\n");
                     }
                 else if (Meta.PropertyName.Contains("."))
                     {
-                    foreach (string s in Meta.PropertyName.Split("."))
+                    foreach (string Str in Meta.PropertyName.Split("."))
                         {
                         
             
@@ -214,14 +214,14 @@ WriteLiteral("\r\n");
             #line hidden
             
             #line 55 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
-                   Write(s.Humanize());
+                   Write(Str.Humanize());
 
             
             #line default
             #line hidden
             
             #line 55 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
-                                     
+                                       
                         
             
             #line default
@@ -246,16 +246,16 @@ WriteLiteral("\r\n");
             #line hidden
 WriteLiteral("                    <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2336), Tuple.Create("\"", 2618)
+WriteAttribute("href", Tuple.Create(" href=\"", 2340), Tuple.Create("\"", 2622)
             
             #line 61 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
-, Tuple.Create(Tuple.Create("", 2343), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
+, Tuple.Create(Tuple.Create("", 2347), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
                         .QS(Controllers.Manage.Actions.Route_SortColumn(Model, Meta.PropertyName))
                         .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage)
             
             #line default
             #line hidden
-, 2343), false)
+, 2347), false)
 );
 
 WriteLiteral(">\r\n\r\n");

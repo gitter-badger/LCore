@@ -50,9 +50,9 @@
                     }
                 else if (Meta.PropertyName.Contains("."))
                     {
-                    foreach (string s in Meta.PropertyName.Split("."))
+                    foreach (string Str in Meta.PropertyName.Split("."))
                         {
-                        @s.Humanize()
+                        @Str.Humanize()
                         @(new HtmlString("&nbsp;"))
                         }
                     }

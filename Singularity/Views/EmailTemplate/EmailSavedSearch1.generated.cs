@@ -65,7 +65,7 @@ WriteLiteral("\r\n");
     var TemplateSelector = new ViewField(ViewContext, typeof(EmailTemplate), "Template", Model, ControllerHelper.ViewType.Edit);
  // ReSharper disable once ArrangeThisQualifier
  // ReSharper disable once RedundantAssignment
-    var c = this.ViewContext.Controller as EmailTemplateController;
+    var Controller = this.ViewContext.Controller as EmailTemplateController;
 
             
             #line default
@@ -74,7 +74,7 @@ WriteLiteral("\r\n\r\n");
 
             
             #line 14 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
- using (Html.BeginForm(nameof(c.EmailSavedSearchTemplate),
+ using (Html.BeginForm(nameof(Controller.EmailSavedSearchTemplate),
         Url.Controller<EmailTemplateController>().ControllerName, FormMethod.Post, new { id = "logoutForm" }))
     {
     

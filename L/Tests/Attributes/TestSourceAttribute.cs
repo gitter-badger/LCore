@@ -7,7 +7,7 @@ namespace LCore.Tests
     /// <summary>
     /// Denotes that a method modifies the source when passed a 
     /// certain set of input parameters.
-    /// This is usefel for methods the manipulate the source object
+    /// This is useful for methods the manipulate the source object
     /// rather than returning data.
     /// </summary>
     public class TestSourceAttribute : TestAttribute
@@ -22,8 +22,8 @@ namespace LCore.Tests
 
             //    Method.MethodAssertSource(Parameters, ExpectedSource);
 
-            var m = typeof(TestExt).GetMethods().First(
-                method => method.Name == "MethodAssertSource" && method.ContainsGenericParameters);
+            var m = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>)(method =>
+                method.Name == nameof(TestExt.MethodAssertSource) && method.ContainsGenericParameters));
 
             if (this.ExpectedSource != null)
                 {
@@ -49,24 +49,12 @@ namespace LCore.Tests
         /// <summary>
         /// Additional optional source checks to perform.
         /// </summary>
-        protected string[] AdditionalSourceChecks;
-
-
+        protected readonly string[] AdditionalSourceChecks;
+        
         /// <summary>
         /// Denotes that a method modifies the source when passed a 
         /// certain set of input parameters.
-        /// This is usefel for methods the manipulate the source object
-        /// rather than returning data.
-        /// </summary>
-        public TestSourceAttribute(object[] Parameters, object ExpectedSource)
-            : base(Parameters)
-            {
-            this.ExpectedSource = ExpectedSource;
-            }
-        /// <summary>
-        /// Denotes that a method modifies the source when passed a 
-        /// certain set of input parameters.
-        /// This is usefel for methods the manipulate the source object
+        /// This is useful for methods the manipulate the source object
         /// rather than returning data.
         /// Optionally provide additional source checks to perform.
         /// </summary>

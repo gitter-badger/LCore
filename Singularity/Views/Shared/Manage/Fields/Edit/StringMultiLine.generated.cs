@@ -84,10 +84,10 @@ WriteLiteral("\r\n\r\n");
  if (IsSortableList)
     {
     string[] Lines;
-    var data = Model.PropertyData as string[];
-    if (data != null)
+    var Data = Model.PropertyData as string[];
+    if (Data != null)
         {
-        Lines = data;
+        Lines = Data;
         }
     else if (Model.PropertyData is string)
         {

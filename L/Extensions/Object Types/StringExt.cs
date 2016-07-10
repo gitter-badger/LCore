@@ -29,6 +29,113 @@ namespace LCore.Extensions
     public static class StringExt
         {
         #region Extensions +
+
+        #region Add
+        /// <summary>
+        /// Adds a series of chars to the supplied string and returns it.
+        /// </summary>
+        // ReSharper disable StringLiteralTypo
+        [TestResult(new object[] { null, null }, "")]
+        [TestResult(new object[] { null, new char[] { } }, "")]
+        [TestResult(new object[] { null, new[] { 'b', 'c', 'd', 'e', 'f', 'g' } }, "bcdefg")]
+        [TestResult(new object[] { "", new[] { 'b', 'c', 'd', 'e', 'f', 'g' } }, "bcdefg")]
+        [TestResult(new object[] { "a", new[] { 'b', 'c', 'd', 'e', 'f', 'g' } }, "abcdefg")]
+        [TestResult(new object[] { "abc", new[] { 'b', 'c', 'd', 'e', 'f', 'g' } }, "abcbcdefg")]
+        // ReSharper restore StringLiteralTypo
+        public static string Add(this string In, params char[] Chars)
+            {
+            return In.Add((IEnumerable<char>)Chars);
+            }
+        /// <summary>
+        /// Adds a collection of chars to the supplied string and returns it.
+        /// </summary>
+        [TestResult(new object[] { null, null }, "")]
+        [TestResult(new object[] { null, new char[] { } }, "")]
+        // ReSharper disable StringLiteralTypo
+        [TestResult(new object[] { null, new[] { 'b', 'c', 'd', 'e', 'f', 'g' } }, "bcdefg")]
+        [TestResult(new object[] { "", new[] { 'b', 'c', 'd', 'e', 'f', 'g' } }, "bcdefg")]
+        [TestResult(new object[] { "a", new[] { 'b', 'c', 'd', 'e', 'f', 'g' } }, "abcdefg")]
+        [TestResult(new object[] { "abc", new[] { 'b', 'c', 'd', 'e', 'f', 'g' } }, "abcbcdefg")]
+        [TestResult(new object[] { "abc", "abcbcdefg" }, "abcabcbcdefg")]
+        // ReSharper restore StringLiteralTypo
+        public static string Add(this string In, IEnumerable<char> Chars)
+            {
+            In = In ?? "";
+            Chars = Chars ?? new char[] { };
+
+            string Objs2;
+            if (Chars.GetType().TypeEquals(typeof(string)))
+                {
+                Objs2 = (string)Chars;
+                }
+            else
+                {
+                Objs2 = new string(Chars.ToArray());
+                }
+            return In + Objs2;
+            }
+        #endregion
+
+        #region After
+
+        /// <summary>
+        /// Returns the contents of [In] after the first occurrence of 
+        /// [Sequence].
+        /// </summary>
+        [TestResult(new object[] { null, null }, "")]
+        [TestResult(new object[] { null, "" }, "")]
+        [TestResult(new object[] { "", null }, "")]
+        [TestResult(new object[] { "", "" }, "")]
+        [TestResult(new object[] { "aa--bb--aa--bb--cc", "-" }, "-bb--aa--bb--cc")]
+        [TestResult(new object[] { "aa--bb--aa--bb--cc", "--" }, "bb--aa--bb--cc")]
+        [TestResult(new object[] { "aa--bb--aa--bb--cc", "bb--" }, "aa--bb--cc")]
+        [TestResult(new object[] { "aa--bb--aa--bb--cc", "cc" }, "")]
+        public static string After(this string In, string Sequence)
+            {
+            In = In ?? "";
+
+            if (string.IsNullOrEmpty(Sequence))
+                return In;
+
+            int Index = In.IndexOf(Sequence);
+
+            return Index < 0
+                ? In
+                : In.Sub(Index + Sequence.Length);
+            }
+
+        #endregion
+
+        #region AfterLast
+
+        /// <summary>
+        /// Returns the contents of [In] after the last occurrence of 
+        /// [Sequence].
+        /// </summary>
+        [TestResult(new object[] { null, null }, "")]
+        [TestResult(new object[] { null, "" }, "")]
+        [TestResult(new object[] { "", null }, "")]
+        [TestResult(new object[] { "", "" }, "")]
+        [TestResult(new object[] { "aa--bb--aa--bb--cc", "-" }, "cc")]
+        [TestResult(new object[] { "aa--bb--aa--bb--cc", "--" }, "cc")]
+        [TestResult(new object[] { "aa--bb--aa--bb--cc", "aa--" }, "bb--cc")]
+        [TestResult(new object[] { "aa--bb--aa--bb--cc", "cc" }, "")]
+        public static string AfterLast(this string In, string Sequence)
+            {
+            In = In ?? "";
+
+            if (string.IsNullOrEmpty(Sequence))
+                return In;
+
+            int Index = In.LastIndexOf(Sequence);
+
+            return Index < 0
+                ? In
+                : In.Sub(Index + Sequence.Length);
+            }
+
+        #endregion
+
         #region AlignCenter
         /// <summary>
         /// Takes a string and returns a padded string aligned Left.
@@ -92,6 +199,67 @@ namespace LCore.Extensions
             }
         #endregion
 
+        #region Before
+
+        /// <summary>
+        /// Returns the contents of [In] before the first occurrence of 
+        /// [Sequence].
+        /// </summary>
+        [TestResult(new object[] { null, null }, "")]
+        [TestResult(new object[] { null, "" }, "")]
+        [TestResult(new object[] { "", null }, "")]
+        [TestResult(new object[] { "", "" }, "")]
+        [TestResult(new object[] { "aa--bb--aa--bb--cc", "-" }, "aa")]
+        [TestResult(new object[] { "aa--bb--aa--bb--cc", "--" }, "aa")]
+        [TestResult(new object[] { "aa--bb--aa--bb--cc", "--cc" }, "aa--bb--aa--bb")]
+        [TestResult(new object[] { "aa--bb--aa--bb--cc", "aa" }, "")]
+        public static string Before(this string In, string Sequence)
+            {
+            In = In ?? "";
+
+            if (string.IsNullOrEmpty(Sequence))
+                return In;
+
+            int Index = In.IndexOf(Sequence);
+
+            return Index == 0 ? "" :
+                Index < 0 ? In :
+                In.Sub(0, Index);
+            }
+
+        #endregion
+
+        #region BeforeLast
+
+        /// <summary>
+        /// Returns the contents of [In] before the last occurrence of 
+        /// [Sequence].
+        /// </summary>
+        [TestResult(new object[] { null, null }, "")]
+        [TestResult(new object[] { null, "" }, "")]
+        [TestResult(new object[] { "", null }, "")]
+        [TestResult(new object[] { "", "" }, "")]
+        [TestResult(new object[] { "aa--bb--aa--bb--cc", "-" }, "aa--bb--aa--bb-")]
+        [TestResult(new object[] { "aa--bb--aa--bb--cc", "--" }, "aa--bb--aa--bb")]
+        [TestResult(new object[] { "aa--bb--aa--bb--cc", "aa--" }, "aa--bb--")]
+        [TestResult(new object[] { "aa--bb--aa--bb--cc", "aa--bb--a" }, "")]
+        public static string BeforeLast(this string In, string Sequence)
+            {
+            In = In ?? "";
+
+            if (string.IsNullOrEmpty(Sequence))
+                return In;
+
+            int Index = In.LastIndexOf(Sequence);
+
+            return Index == 0 ? "" : 
+                Index < 0
+                ? In
+                : In.Sub(0, Index);
+            }
+
+        #endregion
+
         #region ByteArrayToString
         /// <summary>
         /// Takes a Byte[] and returns a String representation of the byte array.
@@ -112,7 +280,7 @@ namespace LCore.Extensions
         #endregion
 
         #region CleanCRLF
-        internal const char CRLFReplace = (char)222;
+        internal const char CrlfReplace = (char)222;
 
         /// <summary>
         /// Returns a string with line-endings replaced with a temporary character. 
@@ -124,9 +292,9 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abab" }, "abab")]
         [TestResult(new object[] { "abab\r\n" }, "ababÞ")]
         [TestResult(new object[] { "abab\n" }, "ababÞ")]
-        public static string CleanCRLF(this string In)
+        public static string CleanCrlf(this string In)
             {
-            return (In ?? "").ReplaceLineEndings(CRLFReplace.ToString());
+            return (In ?? "").ReplaceLineEndings(CrlfReplace.ToString());
             }
 
         /// <summary>
@@ -138,9 +306,9 @@ namespace LCore.Extensions
         [TestResult(new object[] { null }, "")]
         [TestResult(new object[] { "abab" }, "abab")]
         [TestResult(new object[] { "ababÞ" }, "abab\r\n")]
-        public static string UnCleanCRLF(this string In)
+        public static string UnCleanCrlf(this string In)
             {
-            return (In ?? "").Replace(new string(new[] { CRLFReplace }), "\r\n");
+            return (In ?? "").Replace(new string(new[] { CrlfReplace }), "\r\n");
             }
 
         #endregion
@@ -435,16 +603,6 @@ namespace LCore.Extensions
                         {
                         temp = temp / 1024;
                         Unit = "GB";
-                        if (temp >= 1024)
-                            {
-                            temp = temp / 1024;
-                            Unit = "TB";
-                            if (temp >= 1024)
-                                {
-                                temp = temp / 1024;
-                                Unit = "PB";
-                                }
-                            }
                         }
                     }
                 double Power = Math.Pow(10, Decimals);
@@ -478,6 +636,11 @@ namespace LCore.Extensions
         /// <param name="In">String source</param>
         /// <param name="Expressions">Expressions to evaluate</param>
         /// <returns>true if any expressions return a Regex match.</returns>
+        [TestResult(new object[] { null, null }, false)]
+        [TestResult(new object[] { "", null }, false)]
+        [TestResult(new object[] { "123", null }, false)]
+        [TestResult(new object[] { "123", new string[] { } }, false)]
+        [TestResult(new object[] { "123", new[] { @"\d+" } }, true)]
         public static bool HasMatch(this string In, params string[] Expressions)
             {
             return Expressions.Count(s =>
@@ -671,8 +834,12 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Expression"></param>
         /// <returns>All matches for [In] nad Regex [Expression].</returns>
+        [Tested]
         public static List<Match> Matches(this string In, string Expression)
             {
+            if (string.IsNullOrEmpty(In) || string.IsNullOrEmpty(Expression))
+                return new List<Match>();
+
             var Reg = new Regex(Expression);
             var Matches = Reg.Matches(In);
             return Matches.List<Match>();
@@ -862,18 +1029,17 @@ namespace LCore.Extensions
             }
         #endregion
 
-        #region ReplaceLineEnders
-
-
+        #region ReplaceLineEndings
         /// <summary>
         /// Takes a string with possibly corrupted line-endings and normalizes them all to \r\n.
-        /// Removes duplicate \r and duplicate \r\n
+        /// Removes duplicate \r.
         /// </summary>
-        //        [TestResult(new object[] { null, null }, "")]
-        //        [TestResult(new object[] { "", null }, "")]
-        //        [TestResult(new object[] { null, "" }, "")]
-        //        [TestResult(new object[] { "", "" }, "")]
-        //        [TestResult(new object[] { "abc", "" }, "abc")]
+        [TestResult(new object[] { null, null }, "")]
+        [TestResult(new object[] { "", null }, "")]
+        [TestResult(new object[] { null, "" }, "")]
+        [TestResult(new object[] { "", "" }, "")]
+        [TestResult(new object[] { "abc", "" }, "abc")]
+        [TestResult(new object[] { "abc\r\r\r\r\n abc \r\n\n\r\n\r\n", "\r\n" }, "abc\r\n abc \r\n\r\n\r\n\r\n")]
         public static string ReplaceLineEndings(this string In, string Replacement)
             {
             In = In ?? "";
@@ -1029,7 +1195,7 @@ namespace LCore.Extensions
         /// <returns></returns>
         [TestResult(new object[] { null, default(char) }, new string[] { })]
         [TestResult(new object[] { "", default(char) }, new string[] { })]
-        [TestResult(new object[] { " ", default(char) }, new string[] { " " })]
+        [TestResult(new object[] { " ", default(char) }, new[] { " " })]
         [TestResult(new object[] { "text,\" more, and more\", even more", ',' }, new[] { "text", "\" more, and more\"", " even more" })]
         public static List<string> SplitWithQuotes(this string Line, char SplitBy)
             {
@@ -1435,7 +1601,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abc" }, "abc")]
         [TestResult(new object[] { "<abc>" }, "&lt;abc&gt;")]
         [TestResult(new object[] { "<abc></abc>" }, "&lt;abc&gt;&lt;/abc&gt;")]
-        public static string XMLClean(this string In)
+        public static string XmlClean(this string In)
             {
             return (In ?? "").ReplaceAll("<", "&lt;").ReplaceAll(">", "&gt;");
             }

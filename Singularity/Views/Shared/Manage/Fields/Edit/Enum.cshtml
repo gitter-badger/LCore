@@ -19,16 +19,16 @@
 
         <input name="@Model.Meta.PropertyName" type="hidden" value="" />
 
-        @foreach (var e in Enums)
+        @foreach (var Item in Enums)
             {
             <span class="enum-check">
                 <input type="checkbox"
-                       id="@(Model.Meta.PropertyName)_@(e.ToString())"
+                       id="@(Model.Meta.PropertyName)_@(Item.ToString())"
                        name="@Model.Meta.PropertyName"
-                       value="@e.ToString()"
-                       @((Model.PropertyData ?? "").ToString().Contains(e.ToString()) ? Html.Raw("checked=\"true\"") : Html.Raw(""))>
-                <label for="@(Model.Meta.PropertyName)_@(e.ToString())">
-                    @e.GetFriendlyName()
+                       value="@Item.ToString()"
+                       @((Model.PropertyData ?? "").ToString().Contains(Item.ToString()) ? Html.Raw("checked=\"true\"") : Html.Raw(""))>
+                <label for="@(Model.Meta.PropertyName)_@(Item.ToString())">
+                    @Item.GetFriendlyName()
                 </label>
             </span>
             }

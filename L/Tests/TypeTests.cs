@@ -9,20 +9,45 @@ using LCore.Extensions;
 
 namespace LCore.Tests
     {
+    /// <summary>
+    /// TypeTests contains data about a class and its unit test coverage.
+    /// </summary>
     public class TypeTests
         {
-        public List<ITestAttribute> TestAttributes { get; set; }
+        /// <summary>
+        /// All Attributes of type ITestAttribute declared on the Type
+        /// </summary>
+        public List<ITestAttribute> TestAttributes { get; protected set; }
 
-        public int CoveragePercent { get; set; }
+        /// <summary>
+        /// An int from 0 to 100, the percentage of test coverage for the Type.
+        /// </summary>
+        public int CoveragePercent { get; protected set; }
 
-        public int TestsPresent { get; set; }
+        /// <summary>
+        /// The total number of tests present
+        /// </summary>
+        public int TestsPresent { get; protected set; }
 
-        public int UnitTestCount { get; set; }
+        /// <summary>
+        /// The total number of unit tests (non-attribute tests)
+        /// </summary>
+        public int UnitTestCount { get; protected set; }
 
-        public int TestsMissing { get; set; }
+        /// <summary>
+        /// The number of members missing tests
+        /// </summary>
+        public int TestsMissing { get; protected set; }
 
-        public int MembersPresent { get; set; }
+        /// <summary>
+        /// The total number of testable members
+        /// </summary>
+        public int MembersPresent { get; protected set; }
 
+        /// <summary>
+        /// Creating a TypeTests object for a type will scan it and 
+        /// return information about the total unit test coverage.
+        /// </summary>
         public TypeTests(Type Test)
             {
             IEnumerable<MemberInfo> TestMembers = Test.GetMembers().Where(m => m.DeclaringType == Test);

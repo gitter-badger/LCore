@@ -3,7 +3,7 @@
 namespace LCore.Tools
     {
     /// <summary>
-    /// For assisting asyncronous actions or UI threads,
+    /// For assisting asynchronous actions or UI threads,
     /// Progress keeps track of current progress and total size,
     /// to allow progress for bar updating.
     /// </summary>

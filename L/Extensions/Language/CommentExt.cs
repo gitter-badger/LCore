@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security;
 using System.Xml;
 using LCore.Extensions;
 using LCore.Interfaces;
 using LCore.Tools;
+using LCore.Tests;
 
 namespace LCore.Extensions
     {
@@ -28,173 +30,204 @@ namespace LCore.Extensions
         /// </summary>
         /// <param name="In">The MemberInfo to read comments</param>
         /// <returns>An ICodeComment object if comments exist. Null otherwise.</returns>
+        [Tested]
         public static ICodeComment GetComments(this MemberInfo In)
             {
-            var a = Assembly.GetAssembly(In is Type ? (Type)In : In.DeclaringType);
+            var MemberNode = In.GetCommentNode();
 
-            string ProjectFolder = AppContext.BaseDirectory;
-
-#if DEBUG
-            string DocFile = L.File.CombinePaths(ProjectFolder, $"bin\\{a.GetName().Name}.xml");
-#else
-            String DocFile = L.File.CombinePaths(ProjectFolder, $"bin\\{a.GetName().Name}.xml");
-#endif
-
-            if (File.Exists(DocFile))
+            if (MemberNode != null)
                 {
-                var doc = new XmlDocument();
-                doc.Load(DocFile);
+                var SummaryNode = MemberNode.SelectSingleNode(L.Comment.XmlTags.Summary);
+                var RemarksNode = MemberNode.SelectSingleNode(L.Comment.XmlTags.Remarks);
+                var ValueNode = MemberNode.SelectSingleNode(L.Comment.XmlTags.Value);
+                string Returns = MemberNode.SelectSingleNode(L.Comment.XmlTags.Returns)?.InnerText;
 
-                var MemberNodes = doc.SelectNodes("//member");
+                var TypeParamNodes = MemberNode.SelectNodes(L.Comment.XmlTags.TypeParam);
+                var ExamplesParamNodes = MemberNode.SelectNodes(L.Comment.XmlTags.Example);
+                var ParamNodes = MemberNode.SelectNodes(L.Comment.XmlTags.Param);
+                var ExceptionNodes = MemberNode.SelectNodes(L.Comment.XmlTags.Exception);
+                var PermissionNodes = MemberNode.SelectNodes(L.Comment.XmlTags.Permission);
+                var IncludesNodes = MemberNode.SelectNodes(L.Comment.XmlTags.Include);
 
-                string CommentName = GetCommentName(In);
+                string Summary = SummaryNode?.InnerText ?? "";
+                //string Returns = ReturnsNode?.InnerText ?? "";
 
-                if (MemberNodes != null)
-                    foreach (XmlNode MemberNode in MemberNodes)
+                var TypeParameters = new List<Set<string, string>>();
+                var Params = new List<Set<string, string>>();
+                var Exceptions = new List<Set<string, string>>();
+                var Permissions = new List<Set<string, string>>();
+                var Includes = new List<Set<string, string>>();
+
+                if (TypeParamNodes != null)
+                    foreach (XmlNode Node in TypeParamNodes)
                         {
-                        if (!string.Equals(MemberNode.Attributes?["name"].Value, CommentName))
-                            continue;
-
-                        var SummaryNode = MemberNode.SelectSingleNode("summary");
-                        var RemarksNode = MemberNode.SelectSingleNode("remarks");
-                        var ValueNode = MemberNode.SelectSingleNode("value");
-                        string Returns = MemberNode.SelectSingleNode("returns")?.InnerText;
-
-                        var TypeParamNodes = MemberNode.SelectNodes("typeparam");
-                        var ExamplesParamNodes = MemberNode.SelectNodes("examples");
-                        var ParamNodes = MemberNode.SelectNodes("param");
-                        var ExceptionNodes = MemberNode.SelectNodes("exception");
-                        var PermissionNodes = MemberNode.SelectNodes("permission");
-                        var IncludesNodes = MemberNode.SelectNodes("include");
-
-                        string Summary = SummaryNode?.InnerText ?? "";
-                        //string Returns = ReturnsNode?.InnerText ?? "";
-
-                        var TypeParameters = new List<Set<string, string>>();
-                        var Params = new List<Set<string, string>>();
-                        var Exceptions = new List<Set<string, string>>();
-                        var Permissions = new List<Set<string, string>>();
-                        var Includes = new List<Set<string, string>>();
-
-                        if (TypeParamNodes != null)
-                            foreach (XmlNode Node in TypeParamNodes)
-                                {
-                                if (Node.Attributes?["name"] != null)
-                                    {
-                                    string TypeName = Node.Attributes?["name"].Value;
-                                    string TypeComments = Node.InnerText;
-
-                                    TypeParameters.Add(new Set<string, string>(TypeName, TypeComments));
-                                    }
-                                }
-
-                        if (IncludesNodes != null)
-                            foreach (XmlNode Node in IncludesNodes)
-                                {
-                                if (Node.Attributes?["file"] != null)
-                                    {
-                                    string TypeFile = Node.Attributes?["file"].Value;
-                                    string TypePath = Node.Attributes?["path"].Value;
-
-                                    Includes.Add(new Set<string, string>(TypeFile, TypePath));
-                                    }
-                                }
-
-                        var Examples = new List<string>();
-
-                        if (ExamplesParamNodes != null)
-                            Examples.AddRange(from XmlNode Node in ExamplesParamNodes select Node.InnerText);
-
-                        if (ExceptionNodes != null)
-                            foreach (XmlNode Node in ExceptionNodes)
-                                {
-                                if (Node.Attributes?["cref"] != null)
-                                    {
-                                    string ParamCref = Node.Attributes?["cref"].Value;
-                                    string ParamDescription = Node.InnerText;
-
-                                    Exceptions.Add(new Set<string, string>(ParamCref, ParamDescription));
-                                    }
-                                }
-
-                        if (ParamNodes != null)
-                            foreach (XmlNode Node in ParamNodes)
-                                {
-                                if (Node.Attributes?["name"] != null)
-                                    {
-                                    string ParamName = Node.Attributes?["name"].Value;
-                                    string ParamDescription = Node.InnerText;
-
-                                    Params.Add(new Set<string, string>(ParamName, ParamDescription));
-                                    }
-                                }
-
-                        if (PermissionNodes != null)
-                            foreach (XmlNode Node in PermissionNodes)
-                                {
-                                if (Node.Attributes?["cref"] != null)
-                                    {
-                                    string PermissionCref = Node.Attributes?["cref"].Value;
-                                    string PermissionDescription = Node.InnerText;
-
-                                    Permissions.Add(new Set<string, string>(PermissionCref, PermissionDescription));
-                                    }
-                                }
-
-                        var Out = new CodeComment
+                        if (Node.Attributes?[L.Comment.XmlTags.Name] != null)
                             {
-                            Summary = Summary,
-                            Returns = Returns,
-                            Examples = Examples.ToArray(),
-                            Parameters = Params.ToArray(),
-                            Exceptions = Exceptions.ToArray(),
-                            Permissions = Permissions.ToArray(),
-                            TypeParameters = TypeParameters.ToArray(),
-                            Includes = Includes.ToArray(),
-                            Remarks = RemarksNode?.InnerText,
-                            Value = ValueNode?.InnerText
-                            };
+                            string TypeName = Node.Attributes?[L.Comment.XmlTags.Name].Value;
+                            string TypeComments = Node.InnerText;
 
-                        return Out;
+                            TypeParameters.Add(new Set<string, string>(TypeName, TypeComments));
+                            }
                         }
+
+                if (IncludesNodes != null)
+                    foreach (XmlNode Node in IncludesNodes)
+                        {
+                        if (Node.Attributes?[L.Comment.XmlTags.File] != null)
+                            {
+                            string TypeFile = Node.Attributes?[L.Comment.XmlTags.File].Value;
+                            string TypePath = Node.Attributes?[L.Comment.XmlTags.Path].Value;
+
+                            Includes.Add(new Set<string, string>(TypeFile, TypePath));
+                            }
+                        }
+
+                var Examples = new List<string>();
+
+                if (ExamplesParamNodes != null)
+                    Examples.AddRange(from XmlNode Node in ExamplesParamNodes select Node.InnerText);
+
+                if (ExceptionNodes != null)
+                    foreach (XmlNode Node in ExceptionNodes)
+                        {
+                        if (Node.Attributes?["cref"] != null)
+                            {
+                            string ParamCref = Node.Attributes?["cref"].Value;
+                            string ParamDescription = Node.InnerText;
+
+                            Exceptions.Add(new Set<string, string>(ParamCref, ParamDescription));
+                            }
+                        }
+
+                if (ParamNodes != null)
+                    foreach (XmlNode Node in ParamNodes)
+                        {
+                        if (Node.Attributes?[L.Comment.XmlTags.Name] != null)
+                            {
+                            string ParamName = Node.Attributes?[L.Comment.XmlTags.Name].Value;
+                            string ParamDescription = Node.InnerText;
+
+                            Params.Add(new Set<string, string>(ParamName, ParamDescription));
+                            }
+                        }
+
+                if (PermissionNodes != null)
+                    foreach (XmlNode Node in PermissionNodes)
+                        {
+                        if (Node.Attributes?[L.Comment.XmlTags.CRef] != null)
+                            {
+                            string PermissionCref = Node.Attributes?[L.Comment.XmlTags.CRef].Value;
+                            string PermissionDescription = Node.InnerText;
+
+                            Permissions.Add(new Set<string, string>(PermissionCref, PermissionDescription));
+                            }
+                        }
+
+                var Out = new CodeComment
+                    {
+                    Summary = Summary,
+                    Returns = Returns,
+                    Examples = Examples.ToArray(),
+                    Parameters = Params.ToArray(),
+                    Exceptions = Exceptions.ToArray(),
+                    Permissions = Permissions.ToArray(),
+                    TypeParameters = TypeParameters.ToArray(),
+                    Includes = Includes.ToArray(),
+                    Remarks = RemarksNode?.InnerText,
+                    Value = ValueNode?.InnerText
+                    };
+
+                return Out;
+                }
+            return null;
+            }
+        // ReSharper restore LoopCanBeConvertedToQuery
+
+        private static XmlNode GetCommentNode(this MemberInfo In)
+            {
+            List<XmlNode> Nodes = In.GetCommentNodes();
+
+            string CommentName = GetCommentName(In);
+
+            if (MemberCommentNodes.ContainsKey(CommentName))
+                return MemberCommentNodes[CommentName];
+
+            while (Nodes.Count > 0)
+                {
+                var MemberNode = Nodes[0];
+
+                string TagName = MemberNode.Attributes?[L.Comment.XmlTags.Name].Value;
+
+                MemberCommentNodes.SafeAdd(TagName, MemberNode);
+                Nodes.RemoveAt(0);
+
+                if (string.Equals(MemberNode.Attributes?[L.Comment.XmlTags.Name].Value, CommentName))
+                    {
+                    return MemberNode;
+                    }
                 }
 
             return null;
             }
-        // ReSharper restore LoopCanBeConvertedToQuery
 
         private static string GetCommentName(this Type In)
             {
             const string Code = "T";
 
-            return GetCommentName(Code, In.Namespace, In.Name, null, In.GetGenericArguments().Length);
+            return GetCommentName(Code,
+                In.Namespace,
+                In.GetClassHierarchy(),
+                null,
+                In.GetGenericArguments().Length);
             }
 
-        private static string GetCommentName(this MethodInfo In)
+        private static string GetCommentName(this MethodBase In)
             {
-            return GetCommentName("M", In.DeclaringType?.Namespace, In.DeclaringType?.Name, In.Name, 0);
+            string Out = GetCommentName("M",
+                In.DeclaringType?.Namespace,
+                In.DeclaringType?.GetClassHierarchy(),
+                In.Name,
+                In.GetGenericArguments().Length);
+            string Parameters = In.GetParameters().Convert(p => p.ParameterType.FullName).JoinLines(",");
+            return $"{Out}({Parameters})";
             }
         private static string GetCommentName(this FieldInfo In)
             {
-            return GetCommentName("F", In.DeclaringType?.Namespace, In.DeclaringType?.Name, In.Name, 0);
+            return GetCommentName("F",
+                In.DeclaringType?.Namespace,
+                In.DeclaringType?.GetClassHierarchy(),
+                In.Name,
+                0);
             }
         private static string GetCommentName(this PropertyInfo In)
             {
-            return GetCommentName("P", In.DeclaringType?.Namespace, In.DeclaringType?.Name, In.Name, 0);
+            return GetCommentName("P",
+                In.DeclaringType?.Namespace,
+                In.DeclaringType?.GetClassHierarchy(),
+                In.Name,
+                0);
             }
 
         private static string GetCommentName(this MemberInfo In)
             {
-            if (In is PropertyInfo)
-                return ((PropertyInfo)In).GetCommentName();
-            if (In is FieldInfo)
-                return ((FieldInfo)In).GetCommentName();
-            if (In is MethodInfo)
-                return ((MethodInfo)In).GetCommentName();
-            if (In is Type)
-                return ((Type)In).GetCommentName();
+            var Type = In.GetType();
 
-            return "";
+            while (Type != null && (Type.Name.StartsWith("Runtime") || Type.Name == "RtFieldInfo"))
+                Type = Type.BaseType;
+
+            switch (Type?.Name)
+                {
+                case nameof(PropertyInfo):
+                    return ((PropertyInfo)In).GetCommentName();
+                case nameof(FieldInfo):
+                    return ((FieldInfo)In).GetCommentName();
+                case nameof(MethodInfo):
+                    return ((MethodInfo)In).GetCommentName();
+                case nameof(TypeInfo):
+                    return ((TypeInfo)In).GetCommentName();
+                default:
+                    return "";
+                }
             }
 
         private static string GetCommentName(string Code, string Namespace, string TypeName, string MemberName, int types)
@@ -208,6 +241,103 @@ namespace LCore.Extensions
                 Out += $"``{types}";
 
             return Out;
+            }
+
+        private static readonly Dictionary<string, XmlNode> MemberCommentNodes = new Dictionary<string, XmlNode>();
+
+        private static List<XmlNode> GetCommentNodes(this MemberInfo In)
+            {
+            return new Func<MemberInfo, List<XmlNode>>(member =>
+                {
+                    var Type = member is Type ? (Type)member : member.ReflectedType;
+
+                    if (Type != null)
+                        {
+                        var Assem = Assembly.GetAssembly(Type);
+
+                        string ProjectFolder = AppContext.BaseDirectory;
+                        string DocFile = ProjectFolder;
+
+                        DocFile = !DocFile.EndsWith("\\bin\\Debug") && !DocFile.EndsWith("\\bin\\Release")
+                            ? L.File.CombinePaths(ProjectFolder, $"bin\\{Assem.GetName().Name}.xml")
+                            : L.File.CombinePaths(ProjectFolder, $"\\{Assem.GetName().Name}.xml");
+
+                        if (File.Exists(DocFile))
+                            {
+                            var Doc = new XmlDocument();
+                            Doc.Load(DocFile);
+
+                            List<XmlNode> MemberNodes = Doc.SelectNodes("//member").List<XmlNode>();
+
+                            return MemberNodes;
+                            }
+                        }
+                    return new List<XmlNode>();
+                }).Cache(nameof(CommentExt) + nameof(GetCommentNodes))(In);
+            }
+        }
+
+    public static partial class L
+        {
+        /// <summary>
+        /// Contains values and test members for CommentExt
+        /// </summary>
+        public static class Comment
+            {
+            /// <summary>
+            /// Contains test members for CommentExt
+            /// </summary>
+            public static class Test
+                {
+                /// <summary>
+                /// Test class
+                /// </summary>
+                /// <remarks>Remark</remarks>
+                /// <returns>Returns</returns>
+                /// <param name="a">param1</param>
+                /// <param name="b">param2</param>
+                /// <example><code>some code</code></example>
+                /// <example><c>more code</c></example>
+                /// <exception cref="Exception">exception 1</exception>
+                /// <exception cref="ArgumentException">exception 2</exception>
+                /// <permission cref="PermissionSet">permission 1</permission>
+                /// <permission cref="CodeAccessPermission">permission 2</permission>
+                /// <typeparam name="T">Type</typeparam>
+                /// <value>value</value>
+                // ReSharper disable once UnusedTypeParameter
+                public static string TestMethod<T>(int a, string b)
+                    {
+                    return a + b;
+                    }
+
+                /// <summary>
+                /// TestProperty 
+                /// </summary>
+                public static string TestProperty { get; set; }
+
+                /// <summary>
+                /// TestField
+                /// </summary>
+                // ReSharper disable once UnassignedField.Global
+                public static string TestField;
+                }
+            internal static class XmlTags
+                {
+                internal static readonly string Summary = nameof(Summary).ToLower();
+                internal static readonly string Remarks = nameof(Remarks).ToLower();
+                internal static readonly string Name = nameof(Name).ToLower();
+                internal static readonly string CRef = nameof(CRef).ToLower();
+                internal static readonly string Value = nameof(Value).ToLower();
+                internal static readonly string TypeParam = nameof(TypeParam).ToLower();
+                internal static readonly string Returns = nameof(Returns).ToLower();
+                internal static readonly string Example = nameof(Example).ToLower();
+                internal static readonly string Param = nameof(Param).ToLower();
+                internal static readonly string Exception = nameof(Exception).ToLower();
+                internal static readonly string Permission = nameof(Permission).ToLower();
+                internal static readonly string Include = nameof(Include).ToLower();
+                internal static readonly string File = nameof(File).ToLower();
+                internal static readonly string Path = nameof(Path).ToLower();
+                }
             }
         }
     }

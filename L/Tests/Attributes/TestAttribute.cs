@@ -6,7 +6,6 @@ using LCore.Extensions.Optional;
 using System.Collections;
 using System.Reflection;
 using System.Linq;
-using LCore.Interfaces;
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable VirtualMemberNeverOverriden.Global
 
@@ -17,7 +16,7 @@ namespace LCore.Tests
     /// method.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
-    public abstract class TestAttribute : Attribute, IL_Attribute_ReverseOrder, ITestAttribute
+    public abstract class TestAttribute : Attribute, ITestAttribute
         {
         /// <summary>
         /// Implement this method to execute the test.
@@ -238,7 +237,7 @@ namespace LCore.Tests
         /// <summary>
         /// Generic types defined on the current method
         /// </summary>
-        public Type[] GenericTypes;
+        public Type[] GenericTypes { get; set; }
 
         /// <summary>
         /// Create a new Test Attribute with no parameters.

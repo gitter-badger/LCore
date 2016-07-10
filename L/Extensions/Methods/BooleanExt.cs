@@ -697,7 +697,7 @@ namespace LCore.Extensions
             return () =>
                 {
                     var Out = In();
-                    if (Out != null && (!(Out is bool) || (bool)(object)Out))
+                    if (Out != null && !Out.SafeEquals(default(U)) && (!(Out is bool) || (bool)(object)Out))
                         {
                         return Out;
                         }
@@ -714,7 +714,7 @@ namespace LCore.Extensions
             return o =>
                 {
                     var Out = In(o);
-                    if (Out != null && (!(Out is bool) || (bool)(object)Out))
+                    if (Out != null && !Out.SafeEquals(default(U)) && (!(Out is bool) || (bool)(object)Out))
                         {
                         return Out;
                         }
@@ -732,7 +732,7 @@ namespace LCore.Extensions
             return (o1, o2) =>
                 {
                     var Out = In(o1, o2);
-                    if (Out != null && (!(Out is bool) || (bool)(object)Out))
+                    if (Out != null && !Out.SafeEquals(default(U)) && (!(Out is bool) || (bool)(object)Out))
                         {
                         return Out;
                         }
@@ -750,7 +750,7 @@ namespace LCore.Extensions
             return (o1, o2, o3) =>
                 {
                     var Out = In(o1, o2, o3);
-                    if (Out != null && (!(Out is bool) || (bool)(object)Out))
+                    if (Out != null && !Out.SafeEquals(default(U)) && (!(Out is bool) || (bool)(object)Out))
                         {
                         return Out;
                         }
@@ -768,7 +768,7 @@ namespace LCore.Extensions
             return (o1, o2, o3, o4) =>
                 {
                     var Out = In(o1, o2, o3, o4);
-                    if (Out != null && (!(Out is bool) || (bool)(object)Out))
+                    if (Out != null && !Out.SafeEquals(default(U)) && (!(Out is bool) || (bool)(object)Out))
                         {
                         return Out;
                         }
@@ -785,42 +785,66 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes [Act] if the result of [In] is false.
         /// </summary>
+        [Tested]
         public static Action Else(this Func<bool> In, Action Act)
             {
-            return In.ElseIf(L.Bool.True, Act).Do();
+            return () =>
+            {
+                if (!In())
+                    Act();
+            };
             }
 
         /// <summary>
         /// Executes [Act] if the result of [In] is false.
         /// </summary>
+        [Tested]
         public static Action<T1> Else<T1>(this Func<T1, bool> In, Action<T1> Act)
             {
-            return In.ElseIf(o => true, Act).Do();
+            return o =>
+                {
+                    if (!In(o))
+                        Act(o);
+                };
             }
 
         /// <summary>
         /// Executes [Act] if the result of [In] is false.
         /// </summary>
+        [Tested]
         public static Action<T1, T2> Else<T1, T2>(this Func<T1, T2, bool> In, Action<T1, T2> Act)
             {
-            return In.ElseIf((o1, o2) => true, Act).Do();
+            return (o1, o2) =>
+            {
+                if (!In(o1, o2))
+                    Act(o1, o2);
+            };
             }
 
         /// <summary>
         /// Executes [Act] if the result of [In] is false.
         /// </summary>
+        [Tested]
         public static Action<T1, T2, T3> Else<T1, T2, T3>(this Func<T1, T2, T3, bool> In, Action<T1, T2, T3> Act)
             {
-            return In.ElseIf((o1, o2, o3) => true, Act).Do();
+            return (o1, o2, o3) =>
+            {
+                if (!In(o1, o2, o3))
+                    Act(o1, o2, o3);
+            };
             }
 
         /// <summary>
         /// Executes [Act] if the result of [In] is false.
         /// </summary>
-        public static Action<T1, T2, T3, T4> Else<T1, T2, T3, T4>(this Func<T1, T2, T3, T4, bool> In,
-            Action<T1, T2, T3, T4> Act)
+        [Tested]
+        public static Action<T1, T2, T3, T4> Else<T1, T2, T3, T4>(this Func<T1, T2, T3, T4, bool> In, Action<T1, T2, T3, T4> Act)
             {
-            return In.ElseIf((o1, o2, o3, o4) => true, Act).Do();
+            return (o1, o2, o3, o4) =>
+            {
+                if (!In(o1, o2, o3, o4))
+                    Act(o1, o2, o3, o4);
+            };
             }
 
         #endregion
@@ -830,6 +854,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes [Act] if the result of [In] is false.
         /// </summary>
+        [Tested]
         public static Func<U> Else<U>(this Func<U> In, Func<U> Act)
             {
             return In.ElseIf(L.Bool.True, Act);
@@ -838,6 +863,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes [Act] if the result of [In] is false.
         /// </summary>
+        [Tested]
         public static Func<T1, U> Else<T1, U>(this Func<T1, U> In, Func<T1, U> Act)
             {
             return In.ElseIf(o => true, Act);
@@ -846,6 +872,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes [Act] if the result of [In] is false.
         /// </summary>
+        [Tested]
         public static Func<T1, T2, U> Else<T1, T2, U>(this Func<T1, T2, U> In, Func<T1, T2, U> Act)
             {
             return In.ElseIf((o1, o2) => true, Act);
@@ -854,6 +881,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes [Act] if the result of [In] is false.
         /// </summary>
+        [Tested]
         public static Func<T1, T2, T3, U> Else<T1, T2, T3, U>(this Func<T1, T2, T3, U> In, Func<T1, T2, T3, U> Act)
             {
             return In.ElseIf((o1, o2, o3) => true, Act);
@@ -862,6 +890,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes [Act] if the result of [In] is false.
         /// </summary>
+        [Tested]
         public static Func<T1, T2, T3, T4, U> Else<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In,
             Func<T1, T2, T3, T4, U> Act)
             {
@@ -875,6 +904,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes [Act] if the result of [In] is false.
         /// </summary>
+        [Tested]
         public static Func<U> Else<U>(this Func<U> In, U Result)
             {
             return In.Else(Result.FN_Func());
@@ -883,6 +913,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes [Act] if the result of [In] is false.
         /// </summary>
+        [Tested]
         public static Func<T1, U> Else<T1, U>(this Func<T1, U> In, U Result)
             {
             return In.Else(o => Result);
@@ -891,6 +922,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes [Act] if the result of [In] is false.
         /// </summary>
+        [Tested]
         public static Func<T1, T2, U> Else<T1, T2, U>(this Func<T1, T2, U> In, U Result)
             {
             return In.Else((o1, o2) => Result);
@@ -899,6 +931,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes [Act] if the result of [In] is false.
         /// </summary>
+        [Tested]
         public static Func<T1, T2, T3, U> Else<T1, T2, T3, U>(this Func<T1, T2, T3, U> In, U Result)
             {
             return In.Else((o1, o2, o3) => Result);
@@ -907,6 +940,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes [Act] if the result of [In] is false.
         /// </summary>
+        [Tested]
         public static Func<T1, T2, T3, T4, U> Else<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In, U Result)
             {
             return In.Else((o1, o2, o3, o4) => Result);
@@ -915,94 +949,7 @@ namespace LCore.Extensions
         #endregion
 
         #endregion
-
-        #region Unless
-
-        /// <summary>
-        /// Executes [In] if the result of [Condition] is false.
-        /// </summary>
-       
-        public static Func<bool> Unless(this Action In, Func<bool> Condition )
-            {
-            return In.If(Condition.Not());
-            }
-        /*
-                /// <summary>
-                /// Executes [In] if the result of [Condition] is false.
-                /// </summary>
-                public static Func<T, bool> Unless<T>(this Action<T> In, Func<bool> Condition)
-                    {
-                    return In.If(Condition.Not());
-                    }
-
-                /// <summary>
-                /// Executes [In] if the result of [Condition] is false.
-                /// </summary>
-                public static Func<T1, T2, bool> Unless<T1, T2>(this Action<T1, T2> In, Func<bool> Condition)
-                    {
-                    return In.If(Condition.Not());
-                    }
-
-                /// <summary>
-                /// Executes [In] if the result of [Condition] is false.
-                /// </summary>
-                public static Func<T1, T2, T3, bool> Unless<T1, T2, T3>(this Action<T1, T2, T3> In, Func<bool> Condition)
-                    {
-                    return In.If(Condition.Not());
-                    }
-
-                /// <summary>
-                /// Executes [In] if the result of [Condition] is false.
-                /// </summary>
-                public static Func<T1, T2, T3, T4, bool> Unless<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In,
-                    Func<bool> Condition)
-                    {
-                    return In.If(Condition.Not());
-                    }
-
-                /// <summary>
-                /// Executes [In] if the result of [Condition] is false.
-                /// </summary>
-                public static Func<T> Unless<T>(this Func<T> In, Func<bool> Condition)
-                    {
-                    return In.If(Condition.Not());
-                    }
-
-                /// <summary>
-                /// Executes [In] if the result of [Condition] is false.
-                /// </summary>
-                public static Func<T1, T2> Unless<T1, T2>(this Func<T1, T2> In, Func<bool> Condition)
-                    {
-                    return In.If(Condition.Not());
-                    }
-
-                /// <summary>
-                /// Executes [In] if the result of [Condition] is false.
-                /// </summary>
-                public static Func<T1, T2, T3> Unless<T1, T2, T3>(this Func<T1, T2, T3> In, Func<bool> Condition)
-                    {
-                    return In.If(Condition.Not());
-                    }
-
-                /// <summary>
-                /// Executes [In] if the result of [Condition] is false.
-                /// </summary>
-                public static Func<T1, T2, T3, T4> Unless<T1, T2, T3, T4>(this Func<T1, T2, T3, T4> In, Func<bool> Condition)
-                    {
-                    return In.If(Condition.Not());
-                    }
-
-                /// <summary>
-                /// Executes [In] if the result of [Condition] is false.
-                /// </summary>
-                public static Func<T1, T2, T3, T4, T5> Unless<T1, T2, T3, T4, T5>(this Func<T1, T2, T3, T4, T5> In,
-                    Func<bool> Condition)
-                    {
-                    return In.If(Condition.Not());
-                    }*/
-
-        #endregion
-
+        
         #region Unless- Multiple
 
         #region Unless - Multiple - Action
@@ -1011,47 +958,52 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
+        [Tested]
         public static Func<bool> Unless(this Action In, params Func<bool>[] Conditions)
             {
-            return In.If(Conditions.And().Not());
+            return In.If(Conditions.Or().Not());
             }
 
         /// <summary>
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
+        [Tested]
         public static Func<T, bool> Unless<T>(this Action In, params Func<T, bool>[] Conditions)
             {
-            return In.If(Conditions.And().Not());
+            return In.If(Conditions.Or().Not());
             }
 
         /// <summary>
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
+        [Tested]
         public static Func<T1, T2, bool> Unless<T1, T2>(this Action In, params Func<T1, T2, bool>[] Conditions)
             {
-            return In.If(Conditions.And().Not());
+            return In.If(Conditions.Or().Not());
             }
 
         /// <summary>
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
+        [Tested]
         public static Func<T1, T2, T3, bool> Unless<T1, T2, T3>(this Action In,
             params Func<T1, T2, T3, bool>[] Conditions)
             {
-            return In.If(Conditions.And().Not());
+            return In.If(Conditions.Or().Not());
             }
 
         /// <summary>
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
+        [Tested]
         public static Func<T1, T2, T3, T4, bool> Unless<T1, T2, T3, T4>(this Action In,
             params Func<T1, T2, T3, T4, bool>[] Conditions)
             {
-            return In.If(Conditions.And().Not());
+            return In.If(Conditions.Or().Not());
             }
 
         #endregion
@@ -1177,47 +1129,52 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
+        [Tested]
         public static Func<T> Unless<T>(this Func<T> In, params Func<bool>[] Conditions)
             {
-            return In.If(Conditions.And().Not());
+            return In.If(Conditions.Or().Not());
             }
 
         /// <summary>
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
+        [Tested]
         public static Func<T2, T1> Unless<T1, T2>(this Func<T1> In, params Func<T2, bool>[] Conditions)
             {
-            return In.If(Conditions.And().Not());
+            return In.If(Conditions.Or().Not());
             }
 
         /// <summary>
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
+        [Tested]
         public static Func<T2, T3, T1> Unless<T1, T2, T3>(this Func<T1> In, params Func<T2, T3, bool>[] Conditions)
             {
-            return In.If(Conditions.And().Not());
+            return In.If(Conditions.Or().Not());
             }
 
         /// <summary>
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
+        [Tested]
         public static Func<T2, T3, T4, T1> Unless<T1, T2, T3, T4>(this Func<T1> In,
             params Func<T2, T3, T4, bool>[] Conditions)
             {
-            return In.If(Conditions.And().Not());
+            return In.If(Conditions.Or().Not());
             }
 
         /// <summary>
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
+        [Tested]
         public static Func<T2, T3, T4, T5, T1> Unless<T1, T2, T3, T4, T5>(this Func<T1> In,
             params Func<T2, T3, T4, T5, bool>[] Conditions)
             {
-            return In.If(Conditions.And().Not());
+            return In.If(Conditions.Or().Not());
             }
 
         #endregion
@@ -1344,6 +1301,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Combines the conditions using the AND operation.
         /// </summary>
+        [Tested]
         public static Func<bool> And(this IEnumerable<Func<bool>> Conditions)
             {
             return () =>
@@ -1361,6 +1319,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Combines the conditions using the AND operation.
         /// </summary>
+        [Tested]
         public static Func<T1, bool> And<T1>(this IEnumerable<Func<T1, bool>> Conditions)
             {
             return o1 =>
@@ -1378,6 +1337,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Combines the conditions using the AND operation.
         /// </summary>
+        [Tested]
         public static Func<T1, T2, bool> And<T1, T2>(this IEnumerable<Func<T1, T2, bool>> Conditions)
             {
             return (o1, o2) =>
@@ -1395,6 +1355,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Combines the conditions using the AND operation.
         /// </summary>
+        [Tested]
         public static Func<T1, T2, T3, bool> And<T1, T2, T3>(this IEnumerable<Func<T1, T2, T3, bool>> Conditions)
             {
             return (o1, o2, o3) =>
@@ -1412,6 +1373,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Combines the conditions using the AND operation.
         /// </summary>
+        [Tested]
         public static Func<T1, T2, T3, T4, bool> And<T1, T2, T3, T4>(
             this IEnumerable<Func<T1, T2, T3, T4, bool>> Conditions)
             {
@@ -1434,6 +1396,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Combines the conditions using the OR operation.
         /// </summary>
+        [Tested]
         public static Func<bool> Or(this IEnumerable<Func<bool>> Conditions)
             {
             return () =>
@@ -1451,6 +1414,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Combines the conditions using the OR operation.
         /// </summary>
+        [Tested]
         public static Func<T1, bool> Or<T1>(this IEnumerable<Func<T1, bool>> Conditions)
             {
             return o1 =>
@@ -1468,6 +1432,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Combines the conditions using the OR operation.
         /// </summary>
+        [Tested]
         public static Func<T1, T2, bool> Or<T1, T2>(this IEnumerable<Func<T1, T2, bool>> Conditions)
             {
             return (o1, o2) =>
@@ -1485,6 +1450,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Combines the conditions using the OR operation.
         /// </summary>
+        [Tested]
         public static Func<T1, T2, T3, bool> Or<T1, T2, T3>(this IEnumerable<Func<T1, T2, T3, bool>> Conditions)
             {
             return (o1, o2, o3) =>
@@ -1502,6 +1468,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Combines the conditions using the OR operation.
         /// </summary>
+        [Tested]
         public static Func<T1, T2, T3, T4, bool> Or<T1, T2, T3, T4>(
             this IEnumerable<Func<T1, T2, T3, T4, bool>> Conditions)
             {
@@ -1740,7 +1707,7 @@ namespace LCore.Extensions
                 internal const string If =
                     "Logical If Statement. If the condition passed is true, the action passed is executed.";
 
-                internal const string If_Func =
+                internal const string IfFunc =
                     "Logical If Statement for a Func. If the condition passed is true, the action passed is executed and its result returned. Otherwise, the result will be the default value for U.";
 
                 internal const string IfElse =

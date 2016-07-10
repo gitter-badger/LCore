@@ -5,7 +5,6 @@
 
 @{
     var Comments = Model.GetComments();
-    var MemberType = Model.MemberType;
     var ModelType = Model.MemberType.HasFlag(MemberTypes.TypeInfo) ? (Type)Model : Model.GetMemberType();
 }
 

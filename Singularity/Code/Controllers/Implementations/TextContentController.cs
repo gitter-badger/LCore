@@ -12,15 +12,15 @@ namespace Singularity.Controllers
         public override string PageGroup => ControllerHelper.Menu_Admin;
 
         [HttpPost, ValidateInput(false)]
-        public override ActionResult Edit(int id, string ReturnURL, FormCollection Form, bool Create = false)
+        public override ActionResult Edit(int id, string ReturnUrl, FormCollection Form, bool Create = false)
             {
-            return base.Edit(id, ReturnURL, Form, Create);
+            return base.Edit(id, ReturnUrl, Form, Create);
             }
 
         [HttpPost, ValidateInput(false)]
-        public override ActionResult Create(string ReturnURL, FormCollection Form)
+        public override ActionResult Create(string ReturnUrl, FormCollection Form)
             {
-            return base.Create(ReturnURL, Form);
+            return base.Create(ReturnUrl, Form);
             }
 
         protected override TextContent GetModel(int id, bool Create, TextContent Model)

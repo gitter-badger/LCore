@@ -192,8 +192,8 @@ namespace LCore.Extensions
             {
             In = In ?? new int[] { };
 
-            IEnumerable<int> enumerable = In as int[] ?? In.ToArray();
-            return enumerable.Sum() / (double)enumerable.Count();
+            IEnumerable<int> Enumerable = In as int[] ?? In.ToArray();
+            return Enumerable.Sum() / (double)Enumerable.Count();
             }
 
         /// <summary>
@@ -210,8 +210,8 @@ namespace LCore.Extensions
             {
             In = In ?? new long[] { };
 
-            IEnumerable<long> enumerable = In as long[] ?? In.ToArray();
-            return enumerable.Sum() / (double)enumerable.Count();
+            IEnumerable<long> Enumerable = In as long[] ?? In.ToArray();
+            return Enumerable.Sum() / (double)Enumerable.Count();
             }
 
         /// <summary>
@@ -228,8 +228,8 @@ namespace LCore.Extensions
             {
             In = In ?? new float[] { };
 
-            IEnumerable<float> enumerable = In as float[] ?? In.ToArray();
-            return enumerable.Sum() / (double)enumerable.Count();
+            IEnumerable<float> Enumerable = In as float[] ?? In.ToArray();
+            return Enumerable.Sum() / (double)Enumerable.Count();
             }
 
         /// <summary>
@@ -246,8 +246,8 @@ namespace LCore.Extensions
             {
             In = In ?? new double[] { };
 
-            IEnumerable<double> enumerable = In as double[] ?? In.ToArray();
-            return enumerable.Sum() / enumerable.Count();
+            IEnumerable<double> Enumerable = In as double[] ?? In.ToArray();
+            return Enumerable.Sum() / Enumerable.Count();
             }
 
         #endregion
@@ -473,6 +473,48 @@ namespace LCore.Extensions
             return In % 2 == 0;
             }
 
+        #endregion
+
+        #region Max
+        /// <summary>
+        /// Returns the largest of [In] and all items in [Others]
+        /// </summary>
+        [Tested]
+        public static T Max<T>(this T In, params T[] Others)
+            where T : IComparable
+            {
+            var Out = In;
+
+            foreach (var i in Others)
+                {
+                if (Out == null ||
+                    (i != null && i.CompareTo(Out) > 0))
+                    Out = i;
+                }
+
+            return Out;
+            }
+        #endregion
+
+        #region Min
+        /// <summary>
+        /// Returns the smallest of [In] and all items in [Others]
+        /// </summary>
+        [Tested]
+        public static T Min<T>(this T In, params T[] Others)
+            where T : IComparable
+            {
+            var Out = In;
+
+            foreach (var i in Others)
+                {
+                if (Out == null ||
+                    (i != null && i.CompareTo(Out) < 0))
+                    Out = i;
+                }
+
+            return Out;
+            }
         #endregion
 
         #region PercentageOf

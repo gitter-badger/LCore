@@ -138,35 +138,6 @@ namespace LCore.Extensions
 
         #endregion
 
-        #region AddString
-        /// <summary>
-        /// Adds a series of chars to the supplied string and returns it.
-        /// </summary>
-        public static string Add(this string In, params char[] Chars)
-            {
-            return In.Add((IEnumerable<char>)Chars);
-            }
-        /// <summary>
-        /// Adds a collection of chars to the supplied string and returns it.
-        /// </summary>
-        public static string Add(this string In, IEnumerable<char> Chars)
-            {
-            In = In ?? "";
-            Chars = Chars ?? new char[] { };
-
-            string Objs2;
-            if (Chars.GetType().TypeEquals(typeof(string)))
-                {
-                Objs2 = (string)Chars;
-                }
-            else
-                {
-                Objs2 = new string(Chars.ToArray());
-                }
-            return In + Objs2;
-            }
-        #endregion
-
         #region AddTo
         /// <summary>
         /// Adds the item of the supplied collection to the second supplied collection.
@@ -191,36 +162,10 @@ namespace LCore.Extensions
         /// Returns a Boolean indicating whether all items in the list satisfy the supplied condition.
         /// Execution will halt once the Condition returns false.
         /// </summary>
-        public static bool All(this IEnumerable In, Func<bool> Condition)
-            {
-            return In.While(Condition);
-            }
-        /// <summary>
-        /// Returns a Boolean indicating whether all items in the list satisfy the supplied condition.
-        /// Execution will halt once the Condition returns false.
-        /// </summary>
-        public static bool All<T>(this IEnumerable<T> In, Func<bool> Condition)
-            {
-            return In.While(Condition);
-            }
-        /// <summary>
-        /// Returns a Boolean indicating whether all items in the list satisfy the supplied condition.
-        /// Execution will halt once the Condition returns false.
-        /// </summary>
+        [Tested]
         public static bool All(this IEnumerable In, Func<object, bool> Condition)
             {
             return In.While(Condition);
-            }
-        /// <summary>
-        /// Returns a Boolean indicating whether all items in the list satisfy the supplied condition.
-        /// Execution will halt once the Condition returns false.
-        /// </summary>
-        public static bool All<T>(this IEnumerable In, Func<T, bool> Condition)
-            {
-            if (Condition == null)
-                throw new ArgumentNullException(nameof(Condition));
-
-            return !In.IsEmpty() && In.List<T>().While(Condition);
             }
         /// <summary>
         /// Returns a Boolean indicating whether all items in the list satisfy the supplied condition.
@@ -247,6 +192,7 @@ namespace LCore.Extensions
         /// The int passed to the Func is the 0-based index of the current item.
         /// Execution will halt once the Condition returns false.
         /// </summary>
+        [Tested]
         public static bool All<T>(this IEnumerable<T> In, Func<int, bool> Condition)
             {
             return In.WhileI(Condition);
@@ -256,6 +202,7 @@ namespace LCore.Extensions
         /// The int passed to the Func is the 0-based index of the current item.
         /// Execution will halt once the Condition returns false.
         /// </summary>
+        [Tested]
         public static bool All(this IEnumerable In, Func<int, object, bool> Condition)
             {
             return In.WhileI(Condition);
@@ -265,6 +212,7 @@ namespace LCore.Extensions
         /// The int passed to the Func is the 0-based index of the current item.
         /// Execution will halt once the Condition returns false.
         /// </summary>
+        [Tested]
         public static bool All<T>(this IEnumerable In, Func<int, T, bool> Condition)
             {
             return In.List<T>().WhileI(Condition);
@@ -274,6 +222,7 @@ namespace LCore.Extensions
         /// The int passed to the Func is the 0-based index of the current item.
         /// Execution will halt once the Condition returns false.
         /// </summary>
+        [Tested]
         public static bool All<T>(this IEnumerable<T> In, Func<int, T, bool> Condition)
             {
             return In.WhileI(Condition);
@@ -2247,7 +2196,7 @@ namespace LCore.Extensions
         #endregion
 
         #region Random
-        private static int RandomSeed = new Random().Next();
+        private static int _RandomSeed = new Random().Next();
         /// <summary>
         /// Returns a single random T from an IEnumerable[T].
         /// </summary>
@@ -2268,8 +2217,8 @@ namespace LCore.Extensions
 
             var RandomIndexes = new List<int>();
 
-            var rand = new Random(RandomSeed);
-            RandomSeed = rand.Next();
+            var rand = new Random(_RandomSeed);
+            _RandomSeed = rand.Next();
             while (RandomIndexes.Count < Count)
                 {
                 int r = rand.Next(Count2);
@@ -2291,8 +2240,8 @@ namespace LCore.Extensions
 
             var RandomIndexes = new List<int>();
 
-            var rand = new Random(RandomSeed);
-            RandomSeed = rand.Next();
+            var rand = new Random(_RandomSeed);
+            _RandomSeed = rand.Next();
 
             while (RandomIndexes.Count < Count)
                 {
@@ -2313,8 +2262,8 @@ namespace LCore.Extensions
             if (Count < 1)
                 return default(T);
 
-            var rand = new Random(RandomSeed);
-            RandomSeed = rand.Next();
+            var rand = new Random(_RandomSeed);
+            _RandomSeed = rand.Next();
 
             int RandomIndex = rand.Next(Count);
 
@@ -2938,6 +2887,7 @@ namespace LCore.Extensions
 
         internal static class Test
             {
+            // ReSharper disable InconsistentNaming
             #region Tests +
             #region Each
             private static readonly List<object> TestBox = new List<object>();
@@ -3015,14 +2965,15 @@ namespace LCore.Extensions
             public const string PassIII_Name = "EnumerableExt.Test.PassIII";
             public static Func<int, int, int> PassIII = (i, i2) => i;
             #endregion
+            // ReSharper restore InconsistentNaming
             }
         }
     public static partial class L
         {
         /// <summary>
-        /// Contains System.Collections.IEnumerable static methods and lambdas.
+        /// Contains Array static methods and lambdas.
         /// </summary>
-        public static class IEn
+        public static class Ary
             {
             #region Array +
             /// <summary>
@@ -3045,14 +2996,19 @@ namespace LCore.Extensions
                 return () => In;
                 }
             #endregion
-
+            }
+        /// <summary>
+        /// Contains List[T] static methods and lambdas.
+        /// </summary>
+        public static class List
+            {
             #region List +
             /// <summary>
             /// 
             /// </summary>
             /// <typeparam name="T"></typeparam>
             /// <returns>Returns a function that returns an empty List[T]</returns>
-            public static Func<List<T>> List<T>()
+            public static Func<List<T>> ToList<T>()
                 {
                 return () => new List<T>();
                 }
@@ -3062,7 +3018,7 @@ namespace LCore.Extensions
             /// <typeparam name="T"></typeparam>
             /// <param name="In"></param>
             /// <returns>Returns a function that returns a List[T] filled with arguments</returns>
-            public static Func<List<T>> List<T>(params T[] In)
+            public static Func<List<T>> ToList<T>(params T[] In)
                 {
                 return () => { var Out = new List<T>(); Out.AddRange(In); return Out; };
                 }

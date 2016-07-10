@@ -28,6 +28,7 @@ namespace LCore.Tools
 
             if (Num == 0)
                 return double.NaN;
+
             return Total / Num;
             }
 

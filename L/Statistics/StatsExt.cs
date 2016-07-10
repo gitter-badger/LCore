@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using LCore.Extensions;
 
 namespace LCore.Statistics
     {
+    [ExcludeFromCodeCoverage]
     internal static class StatsExt
         {
         public static int GetOptimumClassCount(long SampleSize)

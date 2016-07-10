@@ -8,18 +8,18 @@ namespace LCore.Tools
     {
     public class Schedule
         {
-        public const string XML_NAME_STR = "Schedule";
-        public const string XML_MODE_STR = "Mode";
-        public const string XML_TIME_STR = "TimeOfDay";
-        public const string XML_DAY_STR = "DayOfWeek";
+        public const string XmlNameStr = "Schedule";
+        public const string XmlModeStr = "Mode";
+        public const string XmlTimeStr = "TimeOfDay";
+        public const string XmlDayStr = "DayOfWeek";
         public const char SplitChar = '|';
-        public const ScheduleMode DEFAULT_MODE = ScheduleMode.Daily;
-        public static DateTime DEFAULT_TIME_OF_DAY = DateTime.MinValue;
+        public const ScheduleMode DefaultMode = ScheduleMode.Daily;
+        public static DateTime DefaultTimeOfDay = DateTime.MinValue;
 
         public static DayOfWeek[] AllDays = { DayOfWeek.Sunday, DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday };
         public static string[] AllDaysStr = Enum.GetNames(typeof(DayOfWeek));
 
-        public enum ScheduleMode { Monthly, Daily, One_Time, Manual }
+        public enum ScheduleMode { Monthly, Daily, OneTime, Manual }
 
         public ScheduleMode Mode = ScheduleMode.Manual;
         public List<DateTime> TimesOfDay = new List<DateTime>();
@@ -60,7 +60,7 @@ namespace LCore.Tools
                         Out += ",";
                     }
                 }
-            else if (this.Mode == ScheduleMode.One_Time)
+            else if (this.Mode == ScheduleMode.OneTime)
                 {
                 Out += SplitChar + this.OneTimeScheduleDate.ToString();
                 }
@@ -100,7 +100,7 @@ namespace LCore.Tools
 
                 Out.DaysOfMonth = DaysOfMonth;
                 }
-            else if (Mode == ScheduleMode.One_Time)
+            else if (Mode == ScheduleMode.OneTime)
                 {
                 Out.OneTimeScheduleDate = Convert.ToDateTime(split[1]);
                 }

@@ -20,67 +20,67 @@ namespace LCore.Web
         /// <summary>
         /// Default folder to where the files are to be uploaded.
         /// </summary>
-        private string _currentFilePath;
+        private string _CurrentFilePath;
 
         /// <summary>
-        /// Form post id is used in finding field seperators in the multi-part form post
+        /// Form post id is used in finding field separators in the multi-part form post
         /// </summary>
-        private string _formPostID = "";
+        private string _FormPostID = "";
         /// <summary>
         /// Used to find the start of a file
         /// </summary>
-        private string _fieldSeperator = "";
+        private string _FieldSeparator = "";
 
         /// <summary>
         /// Used to note what buffer index we are on in the collection
         /// </summary>
-        private long _currentBufferIndex;
+        private long _CurrentBufferIndex;
 
         /// <summary>
         /// Used to flag each byte process if we have already found the start of a file or not
         /// </summary>
-        private bool _startFound;
+        private bool _StartFound;
 
         /// <summary>
         /// Used to flag each byte process if we have already found the end of a file.
         /// </summary>
-        private bool _endFound;
+        private bool _EndFound;
 
         /// <summary>
         /// Default file name
         /// </summary>
-        private string _currentFileName = $"{Guid.NewGuid()}.bin";
-        private string _fullPath => L.File.CombinePaths(this._currentFilePath, this._currentFileName);
+        private string _CurrentFileName = $"{Guid.NewGuid()}.bin";
+        private string FullPath => L.File.CombinePaths(this._CurrentFilePath, this._CurrentFileName);
 
         /// <summary>
         /// FileStream object that is left open while a file is beting written to.  Each file will open and 
-        /// close its filestream automaticly
+        /// close its filestream automatically
         /// </summary>
-        private FileStream _fileStream;
+        private FileStream _FileStream;
 
         /// <summary>
         /// The following fields are used in the byte searching of buffer datas
         /// </summary>
-        private long _startIndexBufferID = -1;
-        private int _startLocationInBufferID = -1;
+        private long _StartIndexBufferID = -1;
+        private int _StartLocationInBufferID = -1;
 
-        private long _endIndexBufferID = -1;
-        private int _endLocationInBufferID = -1;
+        private long _EndIndexBufferID = -1;
+        private int _EndLocationInBufferID = -1;
 
 
         /// <summary>
         /// Dictionary array used to store byte chunks.
         /// Should store a max of 2 items.  2 history chunks are kept.
         /// </summary>
-        private Dictionary<long, byte[]> _bufferHistory = new Dictionary<long, byte[]>();
+        private Dictionary<long, byte[]> _BufferHistory = new Dictionary<long, byte[]>();
 
         /// <summary>
         /// Object to hold all the finished filenames.
         /// </summary>
-        private List<string> _finishedFiles = new List<string>();
+        private List<string> _FinishedFiles = new List<string>();
 
         // ReSharper disable once NotAccessedField.Local
-        private Timer _timer;
+        private Timer _Timer;
 
         #endregion
 
@@ -92,7 +92,7 @@ namespace LCore.Web
         public FileProcessor(string uploadLocation)
             {
             // This is the path where the files will be uploaded too.
-            this._currentFilePath = uploadLocation;
+            this._CurrentFilePath = uploadLocation;
             //	if (!File.Exists(_fullPath))
             //		{
             //		_fileStream = File.Create(_fullPath);
@@ -106,7 +106,7 @@ namespace LCore.Web
         /// <summary>
         /// Property used to get the finished files.
         /// </summary>
-        public List<string> FinishedFiles => this._finishedFiles;
+        public List<string> FinishedFiles => this._FinishedFiles;
 
         #endregion
 
@@ -122,24 +122,24 @@ namespace LCore.Web
             int byteLocation = -1;
 
             // If the start has not been found, search for it.
-            if (!this._startFound)
+            if (!this._StartFound)
                 {
                 // Search for start location
                 byteLocation = this.GetStartBytePosition(ref bufferData);
                 if (byteLocation != -1)
                     {
                     // Set the start position to this current index
-                    this._startIndexBufferID = this._currentBufferIndex + 1;
+                    this._StartIndexBufferID = this._CurrentBufferIndex + 1;
                     // Set the start location in the index
-                    this._startLocationInBufferID = byteLocation;
+                    this._StartLocationInBufferID = byteLocation;
 
-                    this._startFound = true;
+                    this._StartFound = true;
 
                     }
                 }
 
             // If the start was found, we can start to store the data into a file.
-            if (this._startFound)
+            if (this._StartFound)
                 {
                 // Save this data to a file
                 // Have to find the end point.  Makes sure the end is not in the same buffer
@@ -158,44 +158,44 @@ namespace LCore.Web
                     {
                     writeBytes = tempEndByte - startLocation;
                     // not that the end was found.
-                    this._endFound = true;
+                    this._EndFound = true;
                     // Set the current index the file was found
-                    this._endIndexBufferID = this._currentBufferIndex + 1;
-                    // Set the current byte location for the assoicated index the file was found
-                    this._endLocationInBufferID = tempEndByte;
+                    this._EndIndexBufferID = this._CurrentBufferIndex + 1;
+                    // Set the current byte location for the associated index the file was found
+                    this._EndLocationInBufferID = tempEndByte;
                     }
 
                 // Make sure we have something to write.
                 if (writeBytes > 0)
                     {
-                    if (this._fileStream == null)
+                    if (this._FileStream == null)
                         {
                         // create a new file stream to be used.
-                        this._fileStream = new FileStream(L.File.CombinePaths(this._currentFilePath, this._currentFileName), FileMode.OpenOrCreate);
+                        this._FileStream = new FileStream(L.File.CombinePaths(this._CurrentFilePath, this._CurrentFileName), FileMode.OpenOrCreate);
 
-                        // this will create a time to live for the file so it will automaticly be removed
-                        const int fileTimeToLive = 3600;
+                        // this will create a time to live for the file so it will automatically be removed
+                        const int FileTimeToLive = 3600;
 
 
                         // if the form were not to handle the file and remove it, this is an automatic removal of the file
                         // the timer object will execute in x number of seconds
-                        this._timer = new Timer(DeleteFile, this._currentFilePath + this._currentFileName, fileTimeToLive * 1000, 0);
+                        this._Timer = new Timer(DeleteFile, this._CurrentFilePath + this._CurrentFileName, FileTimeToLive * 1000, 0);
 
                         }
                     // Write the datat to the file and flush it.
-                    this._fileStream.Write(bufferData, startLocation, writeBytes);
-                    this._fileStream.Flush();
+                    this._FileStream.Write(bufferData, startLocation, writeBytes);
+                    this._FileStream.Flush();
                     }
                 }
 
             // If the end was found, then we need to close the stream now that we are done with it.
             // We will also re-process this buffer to make sure the start of another file 
             // is not located within it.
-            if (this._endFound)
+            if (this._EndFound)
                 {
                 this.CloseStreams();
-                this._startFound = false;
-                this._endFound = false;
+                this._StartFound = false;
+                this._EndFound = false;
 
                 // Research the current buffer for a new start location.  
                 this.ProcessBuffer(ref bufferData, false);
@@ -205,8 +205,8 @@ namespace LCore.Web
             if (addToBufferHistory)
                 {
                 // Add to history object.
-                this._bufferHistory.Add(this._currentBufferIndex, bufferData);
-                this._currentBufferIndex++;
+                this._BufferHistory.Add(this._CurrentBufferIndex, bufferData);
+                this._CurrentBufferIndex++;
                 // Cleanup old buffer references
                 this.RemoveOldBufferData();
                 }
@@ -218,17 +218,17 @@ namespace LCore.Web
         /// </summary>
         private void RemoveOldBufferData()
             {
-            for (long bufferIndex = this._currentBufferIndex; bufferIndex >= 0; bufferIndex--)
+            for (long bufferIndex = this._CurrentBufferIndex; bufferIndex >= 0; bufferIndex--)
                 {
-                if (bufferIndex > this._currentBufferIndex - 3)
+                if (bufferIndex > this._CurrentBufferIndex - 3)
                     {
                     // Dont touch. preserving the last 2 items.
                     }
                 else
                     {
-                    if (this._bufferHistory.ContainsKey(bufferIndex))
+                    if (this._BufferHistory.ContainsKey(bufferIndex))
                         {
-                        this._bufferHistory.Remove(bufferIndex);
+                        this._BufferHistory.Remove(bufferIndex);
                         }
                     else
                         {
@@ -245,17 +245,17 @@ namespace LCore.Web
         /// </summary>
         public void CloseStreams()
             {
-            if (this._fileStream != null)
+            if (this._FileStream != null)
                 {
-                this._fileStream.Dispose();
-                this._fileStream.Close();
-                this._fileStream = null;
+                this._FileStream.Dispose();
+                this._FileStream.Close();
+                this._FileStream = null;
 
                 // add the file name to the finished list.
-                this._finishedFiles.Add(L.File.CombinePaths(this._currentFilePath, this._currentFileName));
+                this._FinishedFiles.Add(L.File.CombinePaths(this._CurrentFilePath, this._CurrentFileName));
 
                 // Reset the filename.
-                this._currentFileName = $"{Guid.NewGuid()}.bin";
+                this._CurrentFileName = $"{Guid.NewGuid()}.bin";
                 }
             }
 
@@ -263,12 +263,12 @@ namespace LCore.Web
         /// Method should be ran on the bytes that are returned on GetPreloadedEntityBody().
         /// </summary>
         /// <param name="bufferData"></param>
-        public void GetFieldSeperators(ref byte[] bufferData)
+        public void GetFieldSeparators(ref byte[] bufferData)
             {
             try
                 {
-                this._formPostID = Encoding.UTF8.GetString(bufferData).Substring(29, 13);
-                this._fieldSeperator = $"-----------------------------{this._formPostID}";
+                this._FormPostID = Encoding.UTF8.GetString(bufferData).Substring(29, 13);
+                this._FieldSeparator = $"-----------------------------{this._FormPostID}";
                 }
             catch (Exception ex)
                 {
@@ -287,15 +287,15 @@ namespace LCore.Web
             int byteOffset = 0;
             // Check to see if the current bufferIndex is the same as any previous index found.
             // If it is, offset the searching by the previous location
-            if (this._startIndexBufferID == this._currentBufferIndex + 1)
+            if (this._StartIndexBufferID == this._CurrentBufferIndex + 1)
                 {
-                byteOffset = this._startLocationInBufferID;
+                byteOffset = this._StartLocationInBufferID;
                 }
 
             // Check to see if the end index was found before this start index.  That way we keep moving ahead
-            if (this._endIndexBufferID == this._currentBufferIndex + 1)
+            if (this._EndIndexBufferID == this._CurrentBufferIndex + 1)
                 {
-                byteOffset = this._endLocationInBufferID;
+                byteOffset = this._EndLocationInBufferID;
                 }
 
 
@@ -328,10 +328,10 @@ namespace LCore.Web
                 {
                 // Did not find it. Add this and previous buffer together to see if it exists.
                 // Check to see if the buffer index is at the start. 
-                if (this._currentBufferIndex > 0)
+                if (this._CurrentBufferIndex > 0)
                     {
                     // Get the previous buffer
-                    byte[] previousBuffer = this._bufferHistory[this._currentBufferIndex - 1];
+                    byte[] previousBuffer = this._BufferHistory[this._CurrentBufferIndex - 1];
                     byte[] mergedBytes = MergeArrays(ref previousBuffer, ref bufferData);
                     // Get the byte array for the text
                     byte[] searchString2 = Encoding.UTF8.GetBytes("Content-Type: ");
@@ -345,7 +345,7 @@ namespace LCore.Web
                         // Next search for \r\n\r\n at this substring
 
                         searchString2 = Encoding.UTF8.GetBytes("Content-Type: ");
-                        // because we are searching part of the previosu buffer, we only need to go back the length of the search 
+                        // because we are searching part of the previous buffer, we only need to go back the length of the search 
                         // array.  Any further, and our normal if statement would have picked it up when it first was processed.
                         int tempSearchStringLocation = FindBytePattern(ref mergedBytes, ref searchString2, previousBuffer.Length - searchString2.Length);
 
@@ -357,7 +357,7 @@ namespace LCore.Web
                             if (tempSearchStringLocation > previousBuffer.Length)
                                 {
                                 // Located in the second object.  
-                                // If we used the previous buffer, we shoudl not have to worry about going out of
+                                // If we used the previous buffer, we should not have to worry about going out of
                                 // range unless the buffer was set to some really low number.  So not going to check for
                                 // out of range issues.
                                 int currentBufferByteLocation = tempSearchStringLocation - previousBuffer.Length;
@@ -387,25 +387,25 @@ namespace LCore.Web
             // Check to see if the current bufferIndex is the same as any previous index found.
             // If it is, offset the searching by the previous location.  This will allow us to find the next leading
             // Stop location so we do not return a byte offset that may have happened before the start index.
-            if (this._startIndexBufferID == this._currentBufferIndex + 1)
+            if (this._StartIndexBufferID == this._CurrentBufferIndex + 1)
                 {
-                byteOffset = this._startLocationInBufferID;
+                byteOffset = this._StartLocationInBufferID;
                 }
 
             // First see if we can find it in the current buffer batch.
-            byte[] searchString = Encoding.UTF8.GetBytes(this._fieldSeperator);
-            int tempFieldSeperator = FindBytePattern(ref bufferData, ref searchString, byteOffset);
+            byte[] searchString = Encoding.UTF8.GetBytes(this._FieldSeparator);
+            int tempFieldSeparator = FindBytePattern(ref bufferData, ref searchString, byteOffset);
 
-            if (tempFieldSeperator != -1)
+            if (tempFieldSeparator != -1)
                 {
-                // Found field ending. Depending on where the field seperator is located on this, we may have to move back into
-                // the prevoius buffer to return its offset.
-                if (tempFieldSeperator - 2 < 0)
+                // Found field ending. Depending on where the field separator is located on this, we may have to move back into
+                // the previous buffer to return its offset.
+                if (tempFieldSeparator - 2 < 0)
                     {
                     }
                 else
                     {
-                    return tempFieldSeperator - 2;
+                    return tempFieldSeparator - 2;
                     }
                 }
             else if (byteOffset - searchString.Length > 0)
@@ -417,24 +417,24 @@ namespace LCore.Web
                 {
                 // Did not find it. Add this and previous buffer together to see if it exists.
                 // Check to see if the buffer index is at the start. 
-                if (this._currentBufferIndex > 0)
+                if (this._CurrentBufferIndex > 0)
                     {
 
                     // Get the previous buffer
-                    byte[] previousBuffer = this._bufferHistory[this._currentBufferIndex - 1];
+                    byte[] previousBuffer = this._BufferHistory[this._CurrentBufferIndex - 1];
                     byte[] mergedBytes = MergeArrays(ref previousBuffer, ref bufferData);
                     // Get the byte array for the text
-                    byte[] searchString2 = Encoding.UTF8.GetBytes(this._fieldSeperator);
+                    byte[] searchString2 = Encoding.UTF8.GetBytes(this._FieldSeparator);
                     // Search the bytes for the searchString
-                    tempFieldSeperator = FindBytePattern(ref mergedBytes, ref searchString2, previousBuffer.Length - searchString2.Length + byteOffset);
+                    tempFieldSeparator = FindBytePattern(ref mergedBytes, ref searchString2, previousBuffer.Length - searchString2.Length + byteOffset);
 
-                    if (tempFieldSeperator != -1)
+                    if (tempFieldSeparator != -1)
                         {
                         // Found content type start location
                         // Next search for \r\n\r\n at this substring
 
                         searchString2 = Encoding.UTF8.GetBytes("\r\n\r\n");
-                        int tempSearchStringLocation = FindBytePattern(ref mergedBytes, ref searchString2, tempFieldSeperator);
+                        int tempSearchStringLocation = FindBytePattern(ref mergedBytes, ref searchString2, tempFieldSeparator);
 
                         if (tempSearchStringLocation != -1)
                             {
@@ -444,7 +444,7 @@ namespace LCore.Web
                             if (tempSearchStringLocation > previousBuffer.Length)
                                 {
                                 // Located in the second object.  
-                                // If we used the previous buffer, we shoudl not have to worry about going out of
+                                // If we used the previous buffer, we should not have to worry about going out of
                                 // range unless the buffer was set to some really low number.  So not going to check for
                                 // out of range issues.
                                 int currentBufferByteLocation = tempSearchStringLocation - previousBuffer.Length;
@@ -471,11 +471,11 @@ namespace LCore.Web
         /// <returns>-1 if not found or index of starting location of pattern</returns>
         private static int FindBytePattern(ref byte[] containerBytes, ref byte[] searchBytes, int startAtIndex)
             {
-            const int returnValue = -1;
+            const int ReturnValue = -1;
             for (int byteIndex = startAtIndex; byteIndex < containerBytes.Length; byteIndex++)
                 {
 
-                // Make sure the searchBytes lenght does not exceed the containerbytes
+                // Make sure the searchBytes length does not exceed the containerbytes
                 if (byteIndex + searchBytes.Length > containerBytes.Length)
                     {
                     return -1;
@@ -504,7 +504,7 @@ namespace LCore.Web
                         }
                     }
                 }
-            return returnValue;
+            return ReturnValue;
             }
 
         /// <summary>
@@ -528,7 +528,7 @@ namespace LCore.Web
         /// <param name="filePath"></param>
         private static void DeleteFile(object filePath)
             {
-            // File may have already been removed from the main appliation.
+            // File may have already been removed from the main application.
             try
                 {
                 if (File.Exists((string)filePath))
@@ -549,7 +549,7 @@ namespace LCore.Web
         public void Dispose()
             {
             // Clear the buffer history
-            this._bufferHistory.Clear();
+            this._BufferHistory.Clear();
             GC.Collect();
             }
 

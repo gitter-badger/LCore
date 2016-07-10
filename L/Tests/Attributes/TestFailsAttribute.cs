@@ -37,17 +37,7 @@ namespace LCore.Tests
         /// Optionally specify the [ExceptionType] and 
         /// [AdditionalChecks] to be performed
         /// </summary>
-        public TestFailsAttribute(Type ExceptionType = null)
-            : this(null, ExceptionType)
-            {
-            }
-
-        /// <summary>
-        /// Denotes that a particular test fails.
-        /// Optionally specify the [ExceptionType] and 
-        /// [AdditionalChecks] to be performed
-        /// </summary>
-        public TestFailsAttribute(object[] Parameters, Type ExceptionType = null, params string[] AdditionalChecks)
+        public TestFailsAttribute(object[] Parameters = null, Type ExceptionType = null, params string[] AdditionalChecks)
             : base(Parameters)
             {
             this.ExceptionType = ExceptionType ?? typeof(Exception);

@@ -11,7 +11,7 @@ namespace LCore.Naming
     public class FriendlyNameAttribute : Attribute, IL_FriendlyName
         {
         /// <summary>
-        /// Friendly name for the object descibed.
+        /// Friendly name for the object described.
         /// </summary>
         public string FriendlyName { get; set; }
 

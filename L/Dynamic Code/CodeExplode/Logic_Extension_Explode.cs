@@ -1052,105 +1052,105 @@ namespace LCore.Extensions
         /// </summary>
         public static Action Then(this Action In, params Action[] Acts)
             {
-            return L.Logic.L_Then_A()(In, Acts);
+            return L.Logic.Then_A()(In, Acts);
             }
         /// <summary>
         /// Joins multiple actions together, performing them in order.
         /// </summary>
         public static Action<T1> Then<T1>(this Action<T1> In, params Action<T1>[] Acts)
             {
-            return L.Logic.L_Then_A<T1>()(In, Acts);
+            return L.Logic.Then_A<T1>()(In, Acts);
             }
         /// <summary>
         /// Joins multiple actions together, performing them in order.
         /// </summary>
         public static Action<T1, T2> Then<T1, T2>(this Action<T1, T2> In, params Action<T1, T2>[] Acts)
             {
-            return L.Logic.L_Then_A<T1, T2>()(In, Acts);
+            return L.Logic.Then_A<T1, T2>()(In, Acts);
             }
         /// <summary>
         /// Joins multiple actions together, performing them in order.
         /// </summary>
         public static Action<T1, T2, T3> Then<T1, T2, T3>(this Action<T1, T2, T3> In, params Action<T1, T2, T3>[] Acts)
             {
-            return L.Logic.L_Then_A<T1, T2, T3>()(In, Acts);
+            return L.Logic.Then_A<T1, T2, T3>()(In, Acts);
             }
         /// <summary>
         /// Joins multiple actions together, performing them in order.
         /// </summary>
         public static Action<T1, T2, T3, T4> Then<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In, params Action<T1, T2, T3, T4>[] Acts)
             {
-            return L.Logic.L_Then_A<T1, T2, T3, T4>()(In, Acts);
+            return L.Logic.Then_A<T1, T2, T3, T4>()(In, Acts);
             }
         /// <summary>
         /// Joins multiple actions together, performing them in order.
         /// </summary>
         public static Func<U> Then<U>(this Action In, params Func<U>[] Acts)
             {
-            return L.Logic.L_Then_A_F<U>()(In, Acts);
+            return L.Logic.Then_A_F<U>()(In, Acts);
             }
         /// <summary>
         /// Joins multiple actions together, performing them in order.
         /// </summary>
         public static Func<T1, U> Then<T1, U>(this Action<T1> In, params Func<T1, U>[] Acts)
             {
-            return L.Logic.L_Then_A_F<T1, U>()(In, Acts);
+            return L.Logic.Then_A_F<T1, U>()(In, Acts);
             }
         /// <summary>
         /// Joins multiple actions together, performing them in order.
         /// </summary>
         public static Func<T1, T2, U> Then<T1, T2, U>(this Action<T1, T2> In, params Func<T1, T2, U>[] Acts)
             {
-            return L.Logic.L_Then_A_F<T1, T2, U>()(In, Acts);
+            return L.Logic.Then_A_F<T1, T2, U>()(In, Acts);
             }
         /// <summary>
         /// Joins multiple actions together, performing them in order.
         /// </summary>
         public static Func<T1, T2, T3, U> Then<T1, T2, T3, U>(this Action<T1, T2, T3> In, params Func<T1, T2, T3, U>[] Acts)
             {
-            return L.Logic.L_Then_A_F<T1, T2, T3, U>()(In, Acts);
+            return L.Logic.Then_A_F<T1, T2, T3, U>()(In, Acts);
             }
         /// <summary>
         /// Joins multiple actions together, performing them in order.
         /// </summary>
         public static Func<T1, T2, T3, T4, U> Then<T1, T2, T3, T4, U>(this Action<T1, T2, T3, T4> In, params Func<T1, T2, T3, T4, U>[] Acts)
             {
-            return L.Logic.L_Then_A_F<T1, T2, T3, T4, U>()(In, Acts);
+            return L.Logic.Then_A_F<T1, T2, T3, T4, U>()(In, Acts);
             }
         /// <summary>
         /// Joins multiple actions together, performing them in order.
         /// </summary>
         public static Func<U> Then<U>(this Func<U> In, params Action[] Acts)
             {
-            return L.Logic.L_Then_F<U>()(In, Acts);
+            return L.Logic.Then_F<U>()(In, Acts);
             }
         /// <summary>
         /// Joins multiple actions together, performing them in order.
         /// </summary>
         public static Func<T1, U> Then<T1, U>(this Func<T1, U> In, params Action<T1>[] Acts)
             {
-            return L.Logic.L_Then_F<T1, U>()(In, Acts);
+            return L.Logic.Then_F<T1, U>()(In, Acts);
             }
         /// <summary>
         /// Joins multiple actions together, performing them in order.
         /// </summary>
         public static Func<T1, T2, U> Then<T1, T2, U>(this Func<T1, T2, U> In, params Action<T1, T2>[] Acts)
             {
-            return L.Logic.L_Then_F<T1, T2, U>()(In, Acts);
+            return L.Logic.Then_F<T1, T2, U>()(In, Acts);
             }
         /// <summary>
         /// Joins multiple actions together, performing them in order.
         /// </summary>
         public static Func<T1, T2, T3, U> Then<T1, T2, T3, U>(this Func<T1, T2, T3, U> In, params Action<T1, T2, T3>[] Acts)
             {
-            return L.Logic.L_Then_F<T1, T2, T3, U>()(In, Acts);
+            return L.Logic.Then_F<T1, T2, T3, U>()(In, Acts);
             }
         /// <summary>
         /// Joins multiple actions together, performing them in order.
         /// </summary>
         public static Func<T1, T2, T3, T4, U> Then<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In, params Action<T1, T2, T3, T4>[] Acts)
             {
-            return L.Logic.L_Then_F<T1, T2, T3, T4, U>()(In, Acts);
+            return L.Logic.Then_F<T1, T2, T3, T4, U>()(In, Acts);
             }
         /// <summary>
         /// Joins multiple actions together, performing them in order.
@@ -4225,21 +4225,21 @@ namespace LCore.Extensions
         /// </summary>
         public static Action<T1> WhileI<T1>(this Action<Int32, T1> In, Func<Int32, T1, Boolean> Continue)
             {
-            return L.Loop.L_WhileI_T<T1>()(In, Continue);
+            return L.Loop.WhileI_T<T1>()(In, Continue);
             }
         /// <summary>
         /// Takes action In and returns an action that is performed for as long as Continue evaluates to true.
         /// </summary>
         public static Action<T1, T2> WhileI<T1, T2>(this Action<Int32, T1, T2> In, Func<Int32, T1, T2, Boolean> Continue)
             {
-            return L.Loop.L_WhileI_T<T1, T2>()(In, Continue);
+            return L.Loop.WhileI_T<T1, T2>()(In, Continue);
             }
         /// <summary>
         /// Takes action In and returns an action that is performed for as long as Continue evaluates to true.
         /// </summary>
         public static Action<T1, T2, T3> WhileI<T1, T2, T3>(this Action<Int32, T1, T2, T3> In, Func<Int32, T1, T2, T3, Boolean> Continue)
             {
-            return L.Loop.L_WhileI_T<T1, T2, T3>()(In, Continue);
+            return L.Loop.WhileI_T<T1, T2, T3>()(In, Continue);
             }
         #endregion
         #region UntilI
@@ -4248,28 +4248,28 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<U> UntilI<U>(this Func<Int32, U> In, Func<Int32, Boolean> Break)
             {
-            return L.Loop.L_UntilI<U>()(In, Break);
+            return L.Loop.Until<U>()(In, Break);
             }
         /// <summary>
         /// Takes Func In and returns a Func that is performed until Break evaluates to true, or In returns a non-null value. This value will be the method's return value.
         /// </summary>
         public static Func<T1, U> UntilI<T1, U>(this Func<Int32, T1, U> In, Func<Int32, T1, Boolean> Break)
             {
-            return L.Loop.L_UntilI<T1, U>()(In, Break);
+            return L.Loop.Until<T1, U>()(In, Break);
             }
         /// <summary>
         /// Takes Func In and returns a Func that is performed until Break evaluates to true, or In returns a non-null value. This value will be the method's return value.
         /// </summary>
         public static Func<T1, T2, U> UntilI<T1, T2, U>(this Func<Int32, T1, T2, U> In, Func<Int32, T1, T2, Boolean> Break)
             {
-            return L.Loop.L_UntilI<T1, T2, U>()(In, Break);
+            return L.Loop.Until<T1, T2, U>()(In, Break);
             }
         /// <summary>
         /// Takes Func In and returns a Func that is performed until Break evaluates to true, or In returns a non-null value. This value will be the method's return value.
         /// </summary>
         public static Func<T1, T2, T3, U> UntilI<T1, T2, T3, U>(this Func<Int32, T1, T2, T3, U> In, Func<Int32, T1, T2, T3, Boolean> Break)
             {
-            return L.Loop.L_UntilI<T1, T2, T3, U>()(In, Break);
+            return L.Loop.Until<T1, T2, T3, U>()(In, Break);
             }
         #endregion
         #region DoWhileI
@@ -4278,28 +4278,28 @@ namespace LCore.Extensions
         /// </summary>
         public static Action DoWhileI(this Action<Int32> In, Func<Int32, Boolean> Continue)
             {
-            return L.Loop.L_DoWhileI()(In, Continue);
+            return L.Loop.DoWhile()(In, Continue);
             }
         /// <summary>
         /// Takes action In and returns an action that is performed for as long as Continue evaluates to true.
         /// </summary>
         public static Action<T1> DoWhileI<T1>(this Action<Int32, T1> In, Func<Int32, T1, Boolean> Continue)
             {
-            return L.Loop.L_DoWhileI<T1>()(In, Continue);
+            return L.Loop.DoWhile<T1>()(In, Continue);
             }
         /// <summary>
         /// Takes action In and returns an action that is performed for as long as Continue evaluates to true.
         /// </summary>
         public static Action<T1, T2> DoWhileI<T1, T2>(this Action<Int32, T1, T2> In, Func<Int32, T1, T2, Boolean> Continue)
             {
-            return L.Loop.L_DoWhileI<T1, T2>()(In, Continue);
+            return L.Loop.DoWhile<T1, T2>()(In, Continue);
             }
         /// <summary>
         /// Takes action In and returns an action that is performed for as long as Continue evaluates to true.
         /// </summary>
         public static Action<T1, T2, T3> DoWhileI<T1, T2, T3>(this Action<Int32, T1, T2, T3> In, Func<Int32, T1, T2, T3, Boolean> Continue)
             {
-            return L.Loop.L_DoWhileI<T1, T2, T3>()(In, Continue);
+            return L.Loop.DoWhile<T1, T2, T3>()(In, Continue);
             }
         #endregion
         #region DoUntilI
@@ -4308,28 +4308,28 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<U> DoUntilI<U>(this Func<Int32, U> In, Func<Int32, Boolean> Break)
             {
-            return L.Loop.L_DoUntilI<U>()(In, Break);
+            return L.Loop.DoUntil<U>()(In, Break);
             }
         /// <summary>
         /// Takes Func In and returns a Func that is performed until Break evaluates to true, or In returns a non-null value. This value will be the method's return value.
         /// </summary>
         public static Func<T1, U> DoUntilI<T1, U>(this Func<Int32, T1, U> In, Func<Int32, T1, Boolean> Break)
             {
-            return L.Loop.L_DoUntilI<T1, U>()(In, Break);
+            return L.Loop.DoUntil<T1, U>()(In, Break);
             }
         /// <summary>
         /// Takes Func In and returns a Func that is performed until Break evaluates to true, or In returns a non-null value. This value will be the method's return value.
         /// </summary>
         public static Func<T1, T2, U> DoUntilI<T1, T2, U>(this Func<Int32, T1, T2, U> In, Func<Int32, T1, T2, Boolean> Break)
             {
-            return L.Loop.L_DoUntilI<T1, T2, U>()(In, Break);
+            return L.Loop.DoUntil<T1, T2, U>()(In, Break);
             }
         /// <summary>
         /// Takes Func In and returns a Func that is performed until Break evaluates to true, or In returns a non-null value. This value will be the method's return value.
         /// </summary>
         public static Func<T1, T2, T3, U> DoUntilI<T1, T2, T3, U>(this Func<Int32, T1, T2, T3, U> In, Func<Int32, T1, T2, T3, Boolean> Break)
             {
-            return L.Loop.L_DoUntilI<T1, T2, T3, U>()(In, Break);
+            return L.Loop.DoUntil<T1, T2, T3, U>()(In, Break);
             }
         #endregion
         #region Collect
@@ -4384,7 +4384,7 @@ namespace LCore.Extensions
         /// </summary>
         public static Action While(this Action In, Func<Boolean> Continue)
             {
-            return L.Loop.L_While(In, Continue);
+            return L.Loop.While(In, Continue);
             }
         #region While
         /// <summary>
@@ -4507,7 +4507,7 @@ namespace LCore.Extensions
         /// </summary>
         public static Action WhileI(this Action<Int32> In, Func<Int32, Boolean> Continue)
             {
-            return L.Loop.L_WhileI(In, Continue);
+            return L.Loop.WhileI(In, Continue);
             }
         #endregion
         #region Then
@@ -4516,7 +4516,7 @@ namespace LCore.Extensions
         /// </summary>
         public static Action Then(this Action In, Action Act)
             {
-            return L.Logic.L_Then(In, Act);
+            return L.Logic.Then(In, Act);
             }
         #endregion
         #region Merge

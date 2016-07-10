@@ -14,8 +14,8 @@ namespace LCore.Extensions
         {
         internal class Exploder
             {
-            #region LogicType_ToExtensionStrings
-            public static Func<Type, string> LogicType_ToExtensionStrings = t =>
+            #region LogicTypeToExtensionStrings
+            public static Func<Type, string> LogicTypeToExtensionStrings = t =>
             {
                 List<MemberInfo> Members = t.GetMembers().Select(
                     m => (m is FieldInfo && ((FieldInfo)m).IsStatic)
@@ -23,26 +23,26 @@ namespace LCore.Extensions
                 List<string> MemberNames = Members.Convert(m => m.Name);
                 var Members2 = new Lists<string, MemberInfo>(MemberNames, Members);
 
-                return LogicMemberInfo_ToExtensionStrings(Members2, "", null);
+                return LogicMemberInfoToExtensionStrings(Members2, "", null);
             };
             #endregion
-            #region LogicMemberInfo_Explode
-            public static readonly Func<Lists<string, MemberInfo>, string> LogicMemberInfo_Explode =
-                Members => Members.List2.Convert(MemberInfo_Explode).Combine("\r\n");
+            #region LogicMemberInfoExplode
+            public static readonly Func<Lists<string, MemberInfo>, string> LogicMemberInfoExplode =
+                Members => Members.List2.Convert(MemberInfoExplode).Combine("\r\n");
             #endregion
-            #region MemberInfo_GetCode
-            public static readonly Func<MemberInfo, string> MemberInfo_GetCode = Member =>
+            #region MemberInfoGetCode
+            public static readonly Func<MemberInfo, string> MemberInfoGetCode = Member =>
                 {
                     string CodeLocation = CodeExploder.CodeRootLocation;
                     if (CodeLocation.IsEmpty())
                         throw new Exception("CodeExploder.CodeRootLocation has not been set");
-                    return MemberInfo_GetCodeFromPath(CodeLocation, Member);
+                    return MemberInfoGetCodeFromPath(CodeLocation, Member);
                 };
             #endregion
-            #region MemberInfo_GetCodeFromPath
-            public static readonly Func<string, MemberInfo, string> MemberInfo_GetCodeFromPath = (Path, Member) =>
+            #region MemberInfoGetCodeFromPath
+            public static readonly Func<string, MemberInfo, string> MemberInfoGetCodeFromPath = (Path, Member) =>
                 {
-                    List<FileInfo> Files = Language_GetCodeFiles(Path);
+                    List<FileInfo> Files = LanguageGetCodeFiles(Path);
                     string SearchStr = $"{Lang.CleanGenericTypeName(Member.GetMemberType().ToString())} {Member.Name}";
                     string SearchStr2 = Lang.ReplaceNativeTypes(SearchStr);
                     string SearchStr3 = Member.Name + CodeExplodeGenerics.MethodActionToken;
@@ -51,9 +51,9 @@ namespace LCore.Extensions
                     string Code = "";
                     int Index = -1;
 
-                    var file = Files.First(f =>
+                    var File = Files.First(f =>
                     {
-                        string FileContents = Language_GetCodeString(f.FullName);
+                        string FileContents = LanguageGetCodeString(f.FullName);
 
                         if (FileContents.Contains(SearchStr4))
                             {
@@ -84,15 +84,15 @@ namespace LCore.Extensions
                             }
                         return false;
                     });
-                    if (file == null)
+                    if (File == null)
                         {
                         return "";
                         }
-                    string temp = Code.Substring(0, Index);
-                    Index = temp.LastIndexOf("\r\n", StringComparison.Ordinal);
+                    string Temp = Code.Substring(0, Index);
+                    Index = Temp.LastIndexOf("\r\n", StringComparison.Ordinal);
                     Code = Code.Substring(Index + 2);
                     int OpenBraceIndex = Code.IndexOf('{');
-                    int EndIndex = Language_FindMate(Code, OpenBraceIndex) + 1;
+                    int EndIndex = LanguageFindMate(Code, OpenBraceIndex) + 1;
 
                     string Out = $"{Code.Substring(0, EndIndex)}\r\n";
 
@@ -102,20 +102,20 @@ namespace LCore.Extensions
                     return Out;
                 };
             #endregion
-            #region Language_FindMate
+            #region LanguageFindMate
 
-            public static readonly Func<string, int, int> Language_FindMate = (Str, Start) =>
+            public static readonly Func<string, int, int> LanguageFindMate = (Str, Start) =>
             {
-                char open = Str[Start];
-                char close = Lang.CloseSequences[Lang.OpenSequences.List().IndexOf(Str[Start].ToString())][0];
+                char Open = Str[Start];
+                char Close = Lang.CloseSequences[Lang.OpenSequences.List().IndexOf(Str[Start].ToString())][0];
                 int Depth = 0;
                 int Index = Start + 1;
                 int Out = -1;
                 Index.For(Str.Length - 1, i =>
                 {
-                    if (Str[i] == open)
+                    if (Str[i] == Open)
                         Depth++;
-                    if (Str[i] == close)
+                    if (Str[i] == Close)
                         {
                         if (Depth == 0)
                             {
@@ -131,12 +131,12 @@ namespace LCore.Extensions
             };
 
             #endregion
-            #region Language_GetCodeString
-            public static readonly Func<string, string> Language_GetCodeString = F<string, string>(
+            #region LanguageGetCodeString
+            public static readonly Func<string, string> LanguageGetCodeString = F<string, string>(
                 File => L.File.GetFileContents(File).ByteArrayToString()).Cache("Language_GetCodeString");
             #endregion
-            #region MemberInfo_Explode
-            public static readonly Func<MemberInfo, string> MemberInfo_Explode = Member =>
+            #region MemberInfoExplode
+            public static readonly Func<MemberInfo, string> MemberInfoExplode = Member =>
             {
                 var Replacements = new List<List<string>>();
                 string Comments = "";
@@ -150,14 +150,14 @@ namespace LCore.Extensions
                         }
                     }
                 string Out = "";
-                string MethodCode = MemberInfo_GetCode(Member);
+                string MethodCode = MemberInfoGetCode(Member);
                 string FunctionNameSearch = $" {Member.Name}";
                 bool Level2_Tokens = CodeExplodeGenerics.ContainsMultiLevelTokens(MethodCode);
 
                 if (Level2_Tokens)
                     {
                     List<List<string>> Replacements2 = CodeExplodeGenerics.GetLevel2Replacements();
-                    List<string> TempBase = Code_Explode(Member, MethodCode, Replacements2, FunctionNameSearch, Comments, "x", true);
+                    List<string> TempBase = CodeExplode(Member, MethodCode, Replacements2, FunctionNameSearch, Comments, "x", true);
 
                     TempBase.Insert(0, MethodCode);
 
@@ -168,11 +168,11 @@ namespace LCore.Extensions
                         int Cutoff = -1;
                         if (i2 > 0)
                             {
-                            if (s.Contains(CodeExplodeGenerics.SubtractGenericType_Layer2) ||
-                                s.Contains(CodeExplodeGenerics.SubtractArgumentType_Layer2))
+                            if (s.Contains(CodeExplodeGenerics.SubtractGenericTypeLayer2) ||
+                                s.Contains(CodeExplodeGenerics.SubtractArgumentTypeLayer2))
                                 {
-                                s = s.Replace(CodeExplodeGenerics.SubtractGenericType_Layer2, CodeExplodeGenerics.SubtractGenericType[i2 - 1]);
-                                s = s.Replace(CodeExplodeGenerics.SubtractArgumentType_Layer2, CodeExplodeGenerics.SubtractArgumentType[i2 - 1]);
+                                s = s.Replace(CodeExplodeGenerics.SubtractGenericTypeLayer2, CodeExplodeGenerics.SubtractGenericType[i2 - 1]);
+                                s = s.Replace(CodeExplodeGenerics.SubtractArgumentTypeLayer2, CodeExplodeGenerics.SubtractArgumentType[i2 - 1]);
                                 Cutoff = i2;
                                 }
                             }
@@ -180,7 +180,7 @@ namespace LCore.Extensions
                         Out += s;
                         if (Cutoff > 1)
                             {
-                            List<string> Explodes = Code_Explode(Member, s, Replacements, FunctionNameSearch, Comments, "", true);
+                            List<string> Explodes = CodeExplode(Member, s, Replacements, FunctionNameSearch, Comments, "", true);
                             Explodes.RemoveRange(0, Cutoff);
                             Explodes.Each(c =>
                             {
@@ -190,7 +190,7 @@ namespace LCore.Extensions
                             }
                         else
                             {
-                            Code_Explode(Member, s, Replacements, FunctionNameSearch, Comments, "", true).Each(c =>
+                            CodeExplode(Member, s, Replacements, FunctionNameSearch, Comments, "", true).Each(c =>
                             {
                                 if (!Out.Contains(c))
                                     Out += c;
@@ -200,7 +200,7 @@ namespace LCore.Extensions
                     }
                 else
                     {
-                    Code_Explode(Member, MethodCode, Replacements, FunctionNameSearch, Comments, "", false).Each(c =>
+                    CodeExplode(Member, MethodCode, Replacements, FunctionNameSearch, Comments, "", false).Each(c =>
                     {
                         if (!Out.Contains(c))
                             Out += c;
@@ -225,7 +225,7 @@ namespace LCore.Extensions
                     return s;
                 };
 
-            public static readonly Func<MemberInfo, string, List<List<string>>, string, string, string, bool, List<string>> Code_Explode = (Member, Code, Replacements, FunctionNameSearch, Comments, NumberSeparator, AppendNumber1ToFunctionName) =>
+            public static readonly Func<MemberInfo, string, List<List<string>>, string, string, string, bool, List<string>> CodeExplode = (Member, Code, Replacements, FunctionNameSearch, Comments, NumberSeparator, AppendNumber1ToFunctionName) =>
             {
                 var Out = new List<string>();
                 string LastFunctionName = FunctionNameSearch;
@@ -270,18 +270,18 @@ namespace LCore.Extensions
                     });
                     if (ReplacementsMade)
                         {
-                        string s = "";
+                        string Str = "";
                         if (!LastAddition.Contains(Comments) && !Comments.IsEmpty())
-                            s += Lang.CommentSummary(Comments);
-                        s += LastAddition;
-                        Out.Add(s);
+                            Str += Lang.CommentSummary(Comments);
+                        Str += LastAddition;
+                        Out.Add(Str);
                         }
                 });
                 return Out;
             };
             #endregion
-            #region LogicMemberInfo_ToExtensionStrings
-            public static readonly Func<Lists<string, MemberInfo>, string, List<string>, string> LogicMemberInfo_ToExtensionStrings = (Members, ForceComment, ForceParamNames) =>
+            #region LogicMemberInfoToExtensionStrings
+            public static readonly Func<Lists<string, MemberInfo>, string, List<string>, string> LogicMemberInfoToExtensionStrings = (Members, ForceComment, ForceParamNames) =>
             {
                 string Out = "";
                 string LastName = "";
@@ -310,11 +310,11 @@ namespace LCore.Extensions
                         if (i > 0)
                             Out += "#endregion\r\n";
                         Out += $"#region {Members.List1[i]}\r\n";
-                        Out += LogicMemberInfo_ToExtensionString(Members.List2[i], Members.List1[i], Comment, ParamNames);
+                        Out += LogicMemberInfoToExtensionString(Members.List2[i], Members.List1[i], Comment, ParamNames);
                         }
                     else
                         {
-                        Out += LogicMemberInfo_ToExtensionString(Members.List2[i], Members.List1[i], Comment, ParamNames);
+                        Out += LogicMemberInfoToExtensionString(Members.List2[i], Members.List1[i], Comment, ParamNames);
                         }
 
                     if (i == Members.Count - 1)
@@ -324,24 +324,24 @@ namespace LCore.Extensions
 
                     if (ExtendExplosions)
                         {
-                        List<MemberInfo> ExplodedMembers = MemberInfo_GetExplodedMembers(Members.List2[i]);
+                        List<MemberInfo> ExplodedMembers = MemberInfoGetExplodedMembers(Members.List2[i]);
                         List<string> ExplodedNames = new string[ExplodedMembers.Count].Fill(Members.List1[i]).List();
-                        Out += LogicMemberInfo_ToExtensionStrings(new Lists<string, MemberInfo>(ExplodedNames, ExplodedMembers), Comment, ParamNames);
+                        Out += LogicMemberInfoToExtensionStrings(new Lists<string, MemberInfo>(ExplodedNames, ExplodedMembers), Comment, ParamNames);
                         }
                 });
                 return Out;
             };
             #endregion
-            #region LogicMemberInfo_ToExtensionString
-            public static readonly Func<MemberInfo, string, string, List<string>, string> LogicMemberInfo_ToExtensionString = (Member, FunctionName, Comment, ParamNames) =>
+            #region LogicMemberInfoToExtensionString
+            public static readonly Func<MemberInfo, string, string, List<string>, string> LogicMemberInfoToExtensionString = (Member, FunctionName, Comment, ParamNames) =>
             {
                 Type FieldType;
 
-                var info = Member as FieldInfo;
+                var Info = Member as FieldInfo;
 
-                if (info != null && info.IsStatic)
+                if (Info != null && Info.IsStatic)
                     {
-                    FieldType = info.FieldType;
+                    FieldType = Info.FieldType;
                     }
                 else if (Member is MethodInfo && ((MethodInfo)Member).IsStatic)
                     {
@@ -405,9 +405,9 @@ namespace LCore.Extensions
                     }
                 CodeExploder.DeclaredExtensionCache.Add(Declaration);
                 string Out = Declaration;
-                var member = Member as MethodInfo;
+                var Member2 = Member as MethodInfo;
 
-                member?.GetGenericArguments().Each(g =>
+                Member2?.GetGenericArguments().Each(g =>
                 {
                     Type[] Constraints = g.GetGenericParameterConstraints();
                     if (!Constraints.IsEmpty())
@@ -419,18 +419,18 @@ namespace LCore.Extensions
                 return Out;
             };
             #endregion
-            #region Language_GetCodeFiles
-            public static readonly Func<string, List<FileInfo>> Language_GetCodeFiles = F<string, List<FileInfo>>(s =>
+            #region LanguageGetCodeFiles
+            public static readonly Func<string, List<FileInfo>> LanguageGetCodeFiles = F<string, List<FileInfo>>(s =>
             {
-                return Directory.GetFiles(s, $"*{CodeExplode.ExplodeFileType}", SearchOption.AllDirectories).List().Select(
+                return Directory.GetFiles(s, $"*{Dynamic.CodeExplode.ExplodeFileType}", SearchOption.AllDirectories).List().Select(
                     s2 => !s2.ToLower().Contains(CodeExploder.CodeExplodeLocation?.ToLower() ?? "#")).Convert(s3 => new FileInfo(s3));
             }).Cache("CodeExplode_FileInfoCache");
             #endregion
-            #region MemberInfo_GetExplodedMembers
-            public static readonly Func<MemberInfo, List<MemberInfo>> MemberInfo_GetExplodedMembers = Member =>
+            #region MemberInfoGetExplodedMembers
+            public static readonly Func<MemberInfo, List<MemberInfo>> MemberInfoGetExplodedMembers = Member =>
             {
                 var MemberType = Member.DeclaringType;
-                var ExplodeAttr = MemberType.GetAttribute<CodeExplode_ExplodeLogic>();
+                var ExplodeAttr = MemberType.GetAttribute<CodeExplodeLogic>();
                 var ExplodeType = ExplodeAttr.OutputType;
 
                 if (ExplodeType != null)
@@ -484,7 +484,7 @@ namespace LCore.Dynamic
                     {
                         1.For(i + 1, j =>
                           {
-                              string ArgStr = new string[j].Fill("T").Collect((i2, s) => s + (i2 + 1)).Combine(", ");
+                              string ArgStr = new string[j].Fill("T").Collect((i2, s) => $"{s}{i2 + 1}").Combine(", ");
                               _GlobalFindReplace.Add($"/*-T{i}*/<{ArgStr}>", $"/*-T{i}*/");
                               _GlobalFindReplace.Add($"/*-T{i}*/<{ArgStr}, U>", $"/*-T{i}*/<U>");
                               _GlobalFindReplace.Add($"/*-T{i}*/{ArgStr}, U", $"/*-T{i}*/U");
@@ -573,9 +573,9 @@ namespace LCore.Dynamic
 
             return Attributes.Convert(attr =>
                 {
-                    List<MemberInfo> temp = Members.Select(attr.ExplodeMember).Select(MethodSelector);
+                    List<MemberInfo> Temp = Members.Select(attr.ExplodeMember).Select(MethodSelector);
 
-                    var Members2 = new Lists<string, MemberInfo>(temp.Convert(m => m.GetAttribute<CodeExplodeMember>().MethodName), temp);
+                    var Members2 = new Lists<string, MemberInfo>(Temp.Convert(m => m.GetAttribute<CodeExplodeMember>().MethodName), Temp);
 
                     string Out =
                             L.Lang.Using(this.UsingLibraries,
@@ -616,8 +616,8 @@ namespace LCore.Dynamic
         // ReSharper disable once SuggestBaseTypeForParameter
         private string GetTypeFileName(Type t)
             {
-            var ce = t.GetAttribute<CodeExplode>();
-            return $"{ce.CodeRegionTitle}_Explode{FileExtension}";
+            var Explode = t.GetAttribute<CodeExplode>();
+            return $"{Explode.CodeRegionTitle}_Explode{FileExtension}";
             }
         }
     }

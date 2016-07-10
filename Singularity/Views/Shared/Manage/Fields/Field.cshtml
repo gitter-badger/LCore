@@ -117,16 +117,16 @@
         @Html.Raw("</td>")
         }
     }
-catch (Exception e)
+catch (Exception Ex)
     {
-    ControllerHelper.HandleError(Context, e);
+    ControllerHelper.HandleError(Context, Ex);
 
     if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell))
         {
         @Html.Raw("<td>")
         }
 
-        @Html.Partial(PartialViews.Manage.Fields.Error, e)
+        @Html.Partial(PartialViews.Manage.Fields.Error, Ex)
 
     if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell))
         {

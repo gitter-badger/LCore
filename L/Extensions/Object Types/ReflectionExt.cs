@@ -79,6 +79,27 @@ namespace LCore.Extensions
             }
         #endregion
 
+        #region FullyQualifiedName
+
+        /// <summary>
+        /// Returns the fully qualified name for a member
+        /// </summary>
+        public static string FullyQualifiedName(this MemberInfo In)
+            {
+            if (In is TypeInfo)
+                {
+                return ((TypeInfo)In).FullName;
+                }
+            if (In is PropertyInfo || In is FieldInfo || In is EventInfo || In is MethodInfo)
+                {
+                string BaseName = (In.ReflectedType ?? In.DeclaringType)?.FullName;
+                return $"{BaseName}.{In.Name}";
+                }
+            return "";
+            }
+
+        #endregion
+
         #region GetAttribute
         /// <summary>
         /// Returns an attribute of type [T] if it exists.
@@ -133,7 +154,7 @@ namespace LCore.Extensions
                     }
                 }
 
-            if (typeof(T).HasInterface<IL_Attribute_ReverseOrder>())
+            if (typeof(T).HasInterface<IReverseAttributeOrder>())
                 Out.Reverse();
             return Out;
             }
@@ -163,6 +184,19 @@ namespace LCore.Extensions
 
             throw new Exception($"Could not get attribute type name: {p.GetType().FullName}");
             }
+        #endregion
+
+        #region GetClassHierarchy
+
+        /// <summary>
+        /// Returns the full hierarchy of classes if [In] is a nested class.
+        /// Ex. "L.Comment.Test"
+        /// </summary>
+        public static string GetClassHierarchy(this Type In)
+            {
+            return In?.FullName.AfterLast(".").ReplaceAll("+", ".");
+            }
+
         #endregion
 
         #region GetComparer
@@ -773,20 +807,6 @@ namespace LCore.Extensions
         #endregion
 
         #endregion
-
-        public static string FullyQualifiedName(this MemberInfo In)
-            {
-            if (In is TypeInfo)
-                {
-                return ((TypeInfo)In).FullName;
-                }
-            if (In is PropertyInfo || In is FieldInfo || In is EventInfo)
-                {
-                return $"{In.ReflectedType?.FullName}.{In.Name}";
-                }
-            return "";
-            }
-
         }
 
     public static partial class L

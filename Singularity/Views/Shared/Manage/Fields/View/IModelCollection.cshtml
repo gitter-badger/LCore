@@ -15,11 +15,11 @@
     }
 
 @{
-    var data = Model.PropertyData as IEnumerable;
+    var Data = Model.PropertyData as IEnumerable;
 }
-@if (data != null)
+@if (Data != null)
     {
-    List<IModel> Models = data.List().List<IModel>();
+    List<IModel> Models = Data.List().List<IModel>();
 
     string Title = Models.CollectStr((i, m) => $"{m.ToString()}\r\n");
 

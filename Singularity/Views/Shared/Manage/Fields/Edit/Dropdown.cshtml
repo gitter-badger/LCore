@@ -10,11 +10,11 @@
     string EmptyValue = FieldAttr.EmptyValue;
     string EmptyKey = FieldAttr.EmptyKey;
 
-    List<SelectListItem> Items = FieldAttr.KeyValues(ViewContext).Select(KeyValue => new SelectListItem
+    List<SelectListItem> Items = FieldAttr.KeyValues(ViewContext).Select(keyValue => new SelectListItem
         {
-        Text = KeyValue.Key,
-        Value = KeyValue.Value,
-        Selected = (Model.PropertyData ?? "").ToString() == KeyValue.Value
+        Text = keyValue.Key,
+        Value = keyValue.Value,
+        Selected = (Model.PropertyData ?? "").ToString() == keyValue.Value
         }).ToList();
 }
 
@@ -26,16 +26,16 @@
 
         <input name="@Model.Meta.PropertyName" type="hidden" value="" />
 
-        @foreach (var i in Items)
+        @foreach (var Item in Items)
             {
             <div class="list-check">
                 <input type="checkbox"
-                       id="@(Model.Meta.PropertyName)_@(i.Value)"
+                       id="@(Model.Meta.PropertyName)_@(Item.Value)"
                        name="@Model.Meta.PropertyName"
-                       value="@i.Value"
-                       @((Model.PropertyData ?? "").ToString().Contains(i.Value) ? Html.Raw("checked=\"true\"") : Html.Raw(""))>
-                <label for="@(Model.Meta.PropertyName)_@(i.Value)">
-                    @i.Text
+                       value="@Item.Value"
+                       @((Model.PropertyData ?? "").ToString().Contains(Item.Value) ? Html.Raw("checked=\"true\"") : Html.Raw(""))>
+                <label for="@(Model.Meta.PropertyName)_@(Item.Value)">
+                    @Item.Text
                 </label>
             </div>
             }
