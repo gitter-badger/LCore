@@ -34,8 +34,8 @@ namespace Singularity.Controllers
 
             Searches = Searches.Select(s =>
             {
-                var t = L.Ref.FindType(s.SearchType);
-                return t.HasInterface<IEmailable>();
+                var Type = L.Ref.FindType(s.SearchType);
+                return Type.HasInterface<IEmailable>();
             });
 
             var Model = new EmailTemplateSavedSearchViewModel
@@ -134,7 +134,7 @@ namespace Singularity.Controllers
         public IEnumerable<EmailTemplate> Templates { get; set; }
         public IEnumerable<SavedSearch> Searches { get; set; }
 
-        [FieldType_DropdownSource("EmailTo")]
+        [FieldTypeDropdownSource("EmailTo")]
         public string[] EmailToIDs { get; set; }
 
         public IEnumerable<IEmailable> EmailTo { get; set; }

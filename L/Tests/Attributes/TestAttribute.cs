@@ -34,9 +34,9 @@ namespace LCore.Tests
             {
                 if (this.Parameters.HasIndex(i))
                     {
-                    var o = this.Parameters[i];
-                    this.FixObject(Method, p.ParameterType, ref o);
-                    this.Parameters[i] = o;
+                    var Param = this.Parameters[i];
+                    this.FixObject(Method, p.ParameterType, ref Param);
+                    this.Parameters[i] = Param;
                     }
             });
             }
@@ -53,16 +53,16 @@ namespace LCore.Tests
                 {
                 if (Obj != null)
                     {
-                    var array = Obj as Array;
-                    if (array != null)
+                    var Array = Obj as Array;
+                    if (Array != null)
                         {
-                        Type[] Args = { array.GetType().GetElementType() };
+                        Type[] Args = { Array.GetType().GetElementType() };
                         if (ObjectType == typeof(List<>).MakeGenericType(Args))
                             {
                             var ListType = typeof(List<>).MakeGenericType(Args);
 
                             var NewList = (IList)ListType.New();
-                            array.Each(obj =>
+                            Array.Each(obj =>
                             {
                                 NewList.Add(obj);
                             });
@@ -165,10 +165,10 @@ namespace LCore.Tests
                     throw new Exception($"Could not find Source Method: {MethodName} with arguments: {Types.ToS()}");
                 }
 
-            var info = ValueLambda as PropertyInfo;
-            if (info != null)
+            var Info = ValueLambda as PropertyInfo;
+            if (Info != null)
                 {
-                Out = info.GetGetMethod().Invoke(null, new object[] { });
+                Out = Info.GetGetMethod().Invoke(null, new object[] { });
                 }
             else if (ValueLambda is FieldInfo)
                 {

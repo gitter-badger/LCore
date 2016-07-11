@@ -388,7 +388,7 @@ WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n              
             #line 102 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                                                                    
                 }
-            else if (Model.Meta.ModelType.HasInterface<IModel>(false))
+            else if (Model.Meta.ModelType.HasInterface<IModel>())
                 {
                 
             

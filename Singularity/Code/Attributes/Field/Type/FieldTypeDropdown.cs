@@ -10,9 +10,9 @@ using Singularity.Routes;
 
 namespace Singularity.Annotations
     {
-    public abstract class FieldType_Dropdown : CustomPartialAttribute, ISetFormField
+    public abstract class FieldTypeDropdown : CustomPartialAttribute, ISetFormField
         {
-        protected FieldType_Dropdown()
+        protected FieldTypeDropdown()
             : base(PartialViews.Manage.Fields.Edit.Dropdown, ControllerHelper.ViewType.Create, ControllerHelper.ViewType.Edit)
             {
             }
@@ -44,11 +44,11 @@ namespace Singularity.Annotations
             }
         }
 
-    public class FieldType_DropdownOptions : FieldType_Dropdown
+    public class FieldTypeDropdownOptions : FieldTypeDropdown
         {
         public string[] Values { get; set; }
 
-        public FieldType_DropdownOptions(string[] Values, bool MultiSelect = false)
+        public FieldTypeDropdownOptions(string[] Values, bool MultiSelect = false)
             {
             this.Values = Values;
             this._MultiSelect = MultiSelect;
@@ -60,11 +60,11 @@ namespace Singularity.Annotations
             }
         }
 
-    public class FieldType_DropdownSource : FieldType_Dropdown
+    public class FieldTypeDropdownSource : FieldTypeDropdown
         {
         public string SourceField { get; set; }
 
-        public FieldType_DropdownSource(string SourceField, bool MultiSelect = false)
+        public FieldTypeDropdownSource(string SourceField, bool MultiSelect = false)
             {
             this.SourceField = SourceField;
             this._MultiSelect = MultiSelect;
@@ -80,10 +80,10 @@ namespace Singularity.Annotations
                 {
                 var Out = Model.GetProperty(this.SourceField);
 
-                var @out = Out as IEnumerable;
-                if (@out != null)
+                var Enumerable = Out as IEnumerable;
+                if (Enumerable != null)
                     {
-                    return @out;
+                    return Enumerable;
                     }
                 }
 

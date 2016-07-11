@@ -7,8 +7,8 @@ namespace LCore.Naming
     /// Tag model properties with this Attribute to designate the field's
     /// Friendly Name
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-    public class FriendlyNameAttribute : Attribute, IL_FriendlyName
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Class)]
+    public class FriendlyNameAttribute : Attribute, IFriendlyName
         {
         /// <summary>
         /// Friendly name for the object described.

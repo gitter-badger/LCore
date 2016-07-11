@@ -31,11 +31,11 @@ namespace LCore.Extensions
 
             Add?.Each(o =>
                 {
-                    var last = default(TKey);
+                    var Last = default(TKey);
 
-                    while (!o.IsNull() && o.Key != null && In.ContainsKey(o.Key) && o.Key?.Equals(last) != true)
+                    while (!o.IsNull() && o.Key != null && In.ContainsKey(o.Key) && o.Key?.Equals(Last) != true)
                         {
-                        last = o.Key;
+                        Last = o.Key;
                         o = Conflict(o);
                         }
 
@@ -132,6 +132,19 @@ namespace LCore.Extensions
                 return In[Key];
 
             return default(TValue);
+            }
+
+        #endregion
+
+        #region SafeRemove
+
+        /// <summary>
+        /// Safely removes an item from a dictionary if it exists.
+        /// </summary>
+        public static void SafeRemove<TKey, TValue>(this Dictionary<TKey, TValue> Dictionary, TKey Key)
+            {
+            if (!Equals(Key, default(TKey)) && Dictionary?.ContainsKey(Key) == true)
+                Dictionary.Remove(Key);
             }
 
         #endregion

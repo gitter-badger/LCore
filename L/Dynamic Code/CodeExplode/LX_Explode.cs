@@ -2716,9 +2716,6 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, U>, String, Func<T1, U>> L_Cache<T1, U>()
             {
-            L.Logic.Cache(ref L.Logic.ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
-
             return (In, CacheID) =>
             {
                 Dictionary<String, CacheData> CacheDict = null;
@@ -2764,9 +2761,6 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, U>, String, Func<T1, T2, U>> L_Cache2<T1, T2, U>()
             {
-            L.Logic.Cache(ref L.Logic.ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
-
             return (In, CacheID) =>
             {
                 Dictionary<String, CacheData> CacheDict = null;
@@ -2812,9 +2806,6 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, U>, String, Func<T1, T2, T3, U>> L_Cache3<T1, T2, T3, U>()
             {
-            L.Logic.Cache(ref L.Logic.ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
-
             return (In, CacheID) =>
             {
                 Dictionary<String, CacheData> CacheDict = null;
@@ -2860,9 +2851,6 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, U>, String, Func<T1, T2, T3, T4, U>> L_Cache4<T1, T2, T3, T4, U>()
             {
-            L.Logic.Cache(ref L.Logic.ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
-
             return (In, CacheID) =>
             {
                 Dictionary<String, CacheData> CacheDict = null;
@@ -2908,9 +2896,6 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, U>, String, Func<T1, T2, T3, T4, T5, U>> L_Cache5<T1, T2, T3, T4, T5, U>()
             {
-            L.Logic.Cache(ref L.Logic.ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
-
             return (In, CacheID) =>
             {
                 Dictionary<String, CacheData> CacheDict = null;
@@ -2956,9 +2941,6 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, U>, String, Func<T1, T2, T3, T4, T5, T6, U>> L_Cache6<T1, T2, T3, T4, T5, T6, U>()
             {
-            L.Logic.Cache(ref L.Logic.ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
-
             return (In, CacheID) =>
             {
                 Dictionary<String, CacheData> CacheDict = null;
@@ -3004,9 +2986,6 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, T7, U>, String, Func<T1, T2, T3, T4, T5, T6, T7, U>> L_Cache7<T1, T2, T3, T4, T5, T6, T7, U>()
             {
-            L.Logic.Cache(ref L.Logic.ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
-
             return (In, CacheID) =>
             {
                 Dictionary<String, CacheData> CacheDict = null;
@@ -3052,9 +3031,6 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, U>, String, Func<T1, T2, T3, T4, T5, T6, T7, T8, U>> L_Cache8<T1, T2, T3, T4, T5, T6, T7, T8, U>()
             {
-            L.Logic.Cache(ref L.Logic.ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
-
             return (In, CacheID) =>
             {
                 Dictionary<String, CacheData> CacheDict = null;
@@ -3100,9 +3076,6 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>, String, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>> L_Cache9<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>()
             {
-            L.Logic.Cache(ref L.Logic.ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
-
             return (In, CacheID) =>
             {
                 Dictionary<String, CacheData> CacheDict = null;
@@ -3148,9 +3121,6 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>, String, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>> L_Cache10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>()
             {
-            L.Logic.Cache(ref L.Logic.ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
-
             return (In, CacheID) =>
             {
                 Dictionary<String, CacheData> CacheDict = null;
@@ -3196,9 +3166,6 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>, String, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>> L_Cache11<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>()
             {
-            L.Logic.Cache(ref L.Logic.ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
-
             return (In, CacheID) =>
             {
                 Dictionary<String, CacheData> CacheDict = null;
@@ -3244,9 +3211,6 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>, String, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>> L_Cache12<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>()
             {
-            L.Logic.Cache(ref L.Logic.ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
-
             return (In, CacheID) =>
             {
                 Dictionary<String, CacheData> CacheDict = null;
@@ -3292,9 +3256,6 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>, String, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>> L_Cache13<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>()
             {
-            L.Logic.Cache(ref L.Logic.ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
-
             return (In, CacheID) =>
             {
                 Dictionary<String, CacheData> CacheDict = null;
@@ -3340,9 +3301,6 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>, String, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>> L_Cache14<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>()
             {
-            L.Logic.Cache(ref L.Logic.ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
-
             return (In, CacheID) =>
             {
                 Dictionary<String, CacheData> CacheDict = null;
@@ -3388,9 +3346,6 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>, String, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>> L_Cache15<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>()
             {
-            L.Logic.Cache(ref L.Logic.ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
-
             return (In, CacheID) =>
             {
                 Dictionary<String, CacheData> CacheDict = null;
@@ -3436,9 +3391,6 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>, String, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>> L_Cache16<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>()
             {
-            L.Logic.Cache(ref L.Logic.ResultCacheData,
-                () => { return new Dictionary<String, Dictionary<String, CacheData>>(); });
-
             return (In, CacheID) =>
             {
                 Dictionary<String, CacheData> CacheDict = null;

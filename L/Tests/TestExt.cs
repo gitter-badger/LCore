@@ -601,20 +601,20 @@ namespace LCore.Tests
                 Params = Params ?? new object[] { };
                 Method.Invoke(Target, Params);
                 }
-            catch (TargetInvocationException e)
+            catch (TargetInvocationException Ex)
                 {
-                if (!e.InnerException.GetType().IsType(EType))
+                if (!Ex.InnerException.GetType().IsType(EType))
                     throw new Exception(
-                        $"Exception type {EType.FullName} did not throw.\n{e.InnerException.GetType().FullName} was thrown instead.");
+                        $"Exception type {EType.FullName} did not throw.\n{Ex.InnerException.GetType().FullName} was thrown instead.");
                 return;
                 }
-            catch (Exception e)
+            catch (Exception Ex)
                 {
-                if (e.IsType(EType))
+                if (Ex.IsType(EType))
                     return;
 
                 throw new Exception(
-                    $"Exception type {EType.FullName} did not throw.\n{e.GetType().FullName} was thrown instead.");
+                    $"Exception type {EType.FullName} did not throw.\n{Ex.GetType().FullName} was thrown instead.");
                 }
 
             AdditionalChecks.Each((i, check) =>
@@ -812,16 +812,16 @@ namespace LCore.Tests
                 {
                 Actual = (U)Method.Invoke(null, Params);
                 }
-            catch (Exception e)
+            catch (Exception Ex)
                 {
-                Error = e;
+                Error = Ex;
                 }
 
             bool Passed;
-            var result = ExpectedResult as IEnumerable;
-            if (result != null && Actual is IEnumerable)
+            var Result = ExpectedResult as IEnumerable;
+            if (Result != null && Actual is IEnumerable)
                 {
-                Passed = result.Equivalent((IEnumerable)Actual);
+                Passed = Result.Equivalent((IEnumerable)Actual);
                 if (!Passed)
                     {
                     }
@@ -854,10 +854,10 @@ namespace LCore.Tests
                     Passed = Passed && check(Actual);
                     if (!Passed)
                         {
-                        string s;
+                        string Str;
                         try
                             {
-                            string collectStr = Params.CollectStr((i, p) =>
+                            string CollectStr = Params.CollectStr((i, p) =>
                             {
                                 try
                                     {
@@ -868,15 +868,15 @@ namespace LCore.Tests
                                     return "null\n";
                                     }
                             });
-                            s =
-                                $"\nResult did not pass additional checks.\n\n Params:\n {collectStr}\nExpected: \'{ExpectedResult.ToS()}\'\nActual:   \'{(Error ?? (object)Actual).ToS()}\'\n\n";
+                            Str =
+                                $"\nResult did not pass additional checks.\n\n Params:\n {CollectStr}\nExpected: \'{ExpectedResult.ToS()}\'\nActual:   \'{(Error ?? (object)Actual).ToS()}\'\n\n";
                             }
                         catch
                             {
-                            s = "Result did not pass additional checks.";
+                            Str = "Result did not pass additional checks.";
                             }
 
-                        throw new Exception(s.ReplaceAll("\r", ""));
+                        throw new Exception(Str.ReplaceAll("\r", ""));
                         }
                 });
                 }
@@ -884,10 +884,10 @@ namespace LCore.Tests
 
             if (!Passed)
                 {
-                string s;
+                string Str;
                 try
                     {
-                    string collectStr = Params.CollectStr((i, p) =>
+                    string CollectStr = Params.CollectStr((i, p) =>
                     {
                         try
                             {
@@ -898,16 +898,16 @@ namespace LCore.Tests
                             return "null\n";
                             }
                     });
-                    s = $"Result did not match value. \nParams:\n {collectStr}\nExpected: \'{ExpectedResult.ToS()}\'\n";
-                    s += $"Actual: \'{(Error ?? (object)Actual).ToS().Remove("System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. --->", "System.Exception: ")}\'";
+                    Str = $"Result did not match value. \nParams:\n {CollectStr}\nExpected: \'{ExpectedResult.ToS()}\'\n";
+                    Str += $"Actual: \'{(Error ?? (object)Actual).ToS().Remove("System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. --->", "System.Exception: ")}\'";
                     }
                 catch
                     {
-                    s = "Result did not match value.";
+                    Str = "Result did not match value.";
                     }
 
 
-                throw new Exception(s.ReplaceAll("\r", ""));
+                throw new Exception(Str.ReplaceAll("\r", ""));
                 }
             }
 
@@ -1121,30 +1121,30 @@ namespace LCore.Tests
                 int CurrentTest = 1;
                 try
                     {
-                    var key = tests.Key as MethodInfo;
-                    if (key != null)
+                    var Key = tests.Key as MethodInfo;
+                    if (Key != null)
                         {
                         List<ITestAttribute> ValueList = tests.Value.List();
                         ValueList.Reverse();
 
                         ValueList.Each(test =>
                         {
-                            var m = key;
+                            var Member = Key;
 
-                            if (m.ContainsGenericParameters)
+                            if (Member.ContainsGenericParameters)
                                 {
-                                var Generics = m.GetAttribute<TestMethodGenerics>();
+                                var Generics = Member.GetAttribute<TestMethodGenerics>();
 
                                 if (!test.GenericTypes.IsEmpty())
                                     {
-                                    m = m.MakeGenericMethod(test.GenericTypes);
+                                    Member = Member.MakeGenericMethod(test.GenericTypes);
                                     }
                                 else
                                     if (Generics != null)
                                     {
-                                    m = m.MakeGenericMethod(Generics.GenericTypes);
+                                    Member = Member.MakeGenericMethod(Generics.GenericTypes);
                                     }
-                                else if (m.HasAttribute<TestedAttribute>())
+                                else if (Member.HasAttribute<TestedAttribute>())
                                     {
 
                                     }
@@ -1154,8 +1154,8 @@ namespace LCore.Tests
                                     }
                                 }
 
-                            test.FixParameterTypes(m);
-                            test.RunTest(m);
+                            test.FixParameterTypes(Member);
+                            test.RunTest(Member);
 
                             TestsRan++;
                             CurrentTest++;
@@ -1164,9 +1164,9 @@ namespace LCore.Tests
                     else
                         throw new Exception($"Member {tests.Key.Name} is not a method.");
                     }
-                catch (Exception e)
+                catch (Exception Ex)
                     {
-                    throw new Exception($"\nTesting for Member: {tests.Key.FullyQualifiedName()} \nTest #{CurrentTest} failed.\n{e.ToS()}\n", e);
+                    throw new Exception($"\nTesting for Member: {tests.Key.FullyQualifiedName()} \nTest #{CurrentTest} failed.\n{Ex.ToS()}\n", Ex);
                     }
             });
 

@@ -3,7 +3,7 @@ using LCore.Naming;
 
 namespace Singularity.Annotations
     {
-    public class FriendlyModelName : Attribute, IL_FriendlyName
+    public class FriendlyModelName : Attribute, IFriendlyName
         {
         public string FriendlyName { get; set; }
 

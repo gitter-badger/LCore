@@ -74,8 +74,8 @@ namespace Singularity.Models
                         }
                     else
                         {
-                        var d = Lambda.Compile();
-                        ValueData = d.DynamicInvoke(this.ModelData);
+                        var Func = Lambda.Compile();
+                        ValueData = Func.DynamicInvoke(this.ModelData);
                         }
 
                     return ValueData;

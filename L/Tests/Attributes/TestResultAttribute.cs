@@ -21,13 +21,13 @@ namespace LCore.Tests
 
             //            Method.MethodAssertResult(Parameters, ExpectedResult, Checks);
 
-            var m = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>)(method =>
+            var Info = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>)(method =>
                 method.Name == nameof(TestExt.MethodAssertResult) &&
                 method.ContainsGenericParameters));
 
-            m = m.MakeGenericMethod(this.ExpectedResult?.GetType() ?? Method.ReturnType);
+            Info = Info.MakeGenericMethod(this.ExpectedResult?.GetType() ?? Method.ReturnType);
 
-            m.Invoke(null, new[] { Method, this.Parameters, this.ExpectedResult, Checks });
+            Info.Invoke(null, new[] { Method, this.Parameters, this.ExpectedResult, Checks });
             }
 
         /// <summary>

@@ -21,7 +21,7 @@ namespace Singularity.Extensions
     [ExtensionProvider]
     public static class QueryExt
         {
-        public static Dictionary<string, Func<Expression, Expression, Expression>> BinaryOps = new Dictionary<string, Func<Expression, Expression, Expression>>
+        public static readonly Dictionary<string, Func<Expression, Expression, Expression>> BinaryOps = new Dictionary<string, Func<Expression, Expression, Expression>>
             {
                 {"~", null}, // LIKE, custom Expression
                 {"><", null}, // WITHIN, custom expression
@@ -40,37 +40,37 @@ namespace Singularity.Extensions
         public static IQueryable<T> IsNull<T>(this IQueryable<T> source, string Column)
             {
             // Use source type instead of T which can be [Object]
-            var t = source.ElementType;
+            var Type = source.ElementType;
 
-            var param = Expression.Parameter(t, string.Empty);
-            var member = Expression.PropertyOrField(param, Column);
+            var Param = Expression.Parameter(Type, string.Empty);
+            var Member = Expression.PropertyOrField(Param, Column);
 
             // Non-nullable value types can't contain nulls. No results will be returned.
-            if (member.Type.IsValueType && !member.Type.IsNullable())
-                return source.Where((Expression<Func<T, bool>>)Expression.Lambda(Expression.Constant(false), param));
+            if (Member.Type.IsValueType && !Member.Type.IsNullable())
+                return source.Where((Expression<Func<T, bool>>)Expression.Lambda(Expression.Constant(false), Param));
 
-            var property = Expression.Equal(member, Expression.Constant(null));
-            var condition = Expression.Lambda(property, param);
+            var Property = Expression.Equal(Member, Expression.Constant(null));
+            var Condition = Expression.Lambda(Property, Param);
 
-            return source.Where((Expression<Func<T, bool>>)condition);
+            return source.Where((Expression<Func<T, bool>>)Condition);
             }
 
         public static IQueryable<T> IsNotNull<T>(this IQueryable<T> source, string Column)
             {
             // Use source type instead of T which can be [Object]
-            var t = source.ElementType;
+            var Type = source.ElementType;
 
-            var param = Expression.Parameter(t, string.Empty);
-            var member = Expression.PropertyOrField(param, Column);
+            var Param = Expression.Parameter(Type, string.Empty);
+            var Member = Expression.PropertyOrField(Param, Column);
 
             // Non-nullable value types can't contain nulls. Nothing can be filtered.
-            if (member.Type.IsValueType && !member.Type.IsNullable())
+            if (Member.Type.IsValueType && !Member.Type.IsNullable())
                 return source;
 
-            var property = Expression.NotEqual(member, Expression.Constant(null));
-            var condition = Expression.Lambda(property, param);
+            var Property = Expression.NotEqual(Member, Expression.Constant(null));
+            var Condition = Expression.Lambda(Property, Param);
 
-            return source.Where((Expression<Func<T, bool>>)condition);
+            return source.Where((Expression<Func<T, bool>>)Condition);
             }
 
         public static Expression<Func<T, bool>> Or<T>(this IEnumerable<Expression<Func<T, bool>>> Expressions)
@@ -160,7 +160,7 @@ namespace Singularity.Extensions
 
                     if (!Prop.ModelType.HasInterface<IConvertible>() &&
                         // Don't skip IModel types for not being IConvertible
-                        !Prop.ModelType.HasInterface<IModel>(false))
+                        !Prop.ModelType.HasInterface<IModel>())
                         continue;
 
                     if (Prop.AdditionalValues.ContainsKey(GlobalSearchDisabledAttribute.Key)
@@ -169,7 +169,7 @@ namespace Singularity.Extensions
 
                     string[] Properties = ParentProperties.Add(Prop.PropertyName);
 
-                    if (Prop.ModelType.HasInterface<IModel>(false))
+                    if (Prop.ModelType.HasInterface<IModel>())
                         {
                         Type[] Types = ParentTypes.Add(Prop.ModelType);
 
@@ -224,7 +224,7 @@ namespace Singularity.Extensions
             return null;
             }
 
-        private static IOrderedQueryable<T> OrderingHelper<T>(IQueryable<T> source, string PropertyName, bool descending, bool anotherLevel)
+        private static IOrderedQueryable<T> OrderingHelper<T>(IQueryable<T> source, string PropertyName, bool Desc, bool anotherLevel)
             {
             string PropertyName2 = "";
             if (PropertyName.Contains("."))
@@ -236,9 +236,9 @@ namespace Singularity.Extensions
                 }
 
             // Use source type instead of T which can be [Object]
-            var t = source.ElementType;
+            var Type = source.ElementType;
 
-            var PropertyType = t.Meta(PropertyName).ModelType;
+            var PropertyType = Type.Meta(PropertyName).ModelType;
 
             if (PropertyType.HasInterface<IEnumerable>() &&
                 PropertyType.IsGenericType &&
@@ -246,58 +246,56 @@ namespace Singularity.Extensions
                 {
                 // Sort ICollection<IModel> properties by Count
 
-                var param = Expression.Parameter(t, string.Empty);
-                var property = Expression.PropertyOrField(param, PropertyName);
+                var Param = Expression.Parameter(Type, string.Empty);
+                var Property = Expression.PropertyOrField(Param, PropertyName);
 
                 if (!string.IsNullOrEmpty(PropertyName2))
                     {
-                    property = Expression.PropertyOrField(property, PropertyName2);
+                    Property = Expression.PropertyOrField(Property, PropertyName2);
                     }
 
-                var property2 = Expression.PropertyOrField(property, "Count");
+                var Property2 = Expression.PropertyOrField(Property, "Count");
 
                 // Expression property2 = Expression.Call(property, property.Type.GetMethod("get_Count"));
 
-                var sort = Expression.Lambda(property2, param);
+                var Sort = Expression.Lambda(Property2, Param);
 
                 var ConditionGreaterThanZero =
                     (Expression<Func<T, bool>>)Expression.Lambda(
-                        Expression.GreaterThan(property2, Expression.Constant(0)),
-                        param);
+                        Expression.GreaterThan(Property2, Expression.Constant(0)),
+                        Param);
 
                 source = source.Where(ConditionGreaterThanZero);
 
-                var call = Expression.Call(
+                var Call = Expression.Call(
                     typeof(Queryable),
-                    (!anotherLevel ? "OrderBy" : "ThenBy") + (descending ? "Descending" : string.Empty),
-                    new[] { t, property2.Type },
+                    (!anotherLevel ? "OrderBy" : "ThenBy") + (Desc ? "Descending" : string.Empty),
+                    new[] { Type, Property2.Type },
                     source.Expression,
-                    Expression.Quote(sort));
+                    Expression.Quote(Sort));
 
-                return (IOrderedQueryable<T>)source.Provider.CreateQuery<T>(call);
+                return (IOrderedQueryable<T>)source.Provider.CreateQuery<T>(Call);
                 }
-            else
+
+            source = source.IsNotNull(PropertyName);
+
+            var Parameter = Expression.Parameter(Type, string.Empty);
+            var Property3 = Expression.PropertyOrField(Parameter, PropertyName);
+
+            if (!string.IsNullOrEmpty(PropertyName2))
                 {
-                source = source.IsNotNull(PropertyName);
-
-                var param = Expression.Parameter(t, string.Empty);
-                var property = Expression.PropertyOrField(param, PropertyName);
-
-                if (!string.IsNullOrEmpty(PropertyName2))
-                    {
-                    property = Expression.PropertyOrField(property, PropertyName2);
-                    }
-
-                var sort = Expression.Lambda(property, param);
-
-                var call = Expression.Call(
-                    typeof(Queryable),
-                    (!anotherLevel ? "OrderBy" : "ThenBy") + (descending ? "Descending" : string.Empty),
-                    new[] { t, property.Type },
-                    source.Expression,
-                    Expression.Quote(sort));
-                return (IOrderedQueryable<T>)source.Provider.CreateQuery<T>(call);
+                Property3 = Expression.PropertyOrField(Property3, PropertyName2);
                 }
+
+            var Sort2 = Expression.Lambda(Property3, Parameter);
+
+            var Call2 = Expression.Call(
+                typeof(Queryable),
+                (!anotherLevel ? "OrderBy" : "ThenBy") + (Desc ? "Descending" : string.Empty),
+                new[] { Type, Property3.Type },
+                source.Expression,
+                Expression.Quote(Sort2));
+            return (IOrderedQueryable<T>)source.Provider.CreateQuery<T>(Call2);
             }
 
         public static IOrderedQueryable<T> OrderBy<T>(this IQueryable<T> source, string PropertyName)
@@ -328,8 +326,8 @@ namespace Singularity.Extensions
             if (selector == null)
                 return null;
 
-            int asterixCount = filter.Count(c => c.Equals('*'));
-            if (asterixCount > 2)
+            int AsterixCount = filter.Count(c => c.Equals('*'));
+            if (AsterixCount > 2)
                 throw new ApplicationException(
                     $"Invalid filter used{(fieldName == null ? "" : $" for \'{fieldName}\'")}. '*' can maximum occur 2 times.");
 
@@ -338,7 +336,7 @@ namespace Singularity.Extensions
                     $"Invalid filter used{(fieldName == null ? "" : $" for \'{fieldName}\'")}. '?' is not supported, only '*' is supported.");
 
             // *XX*
-            if (asterixCount == 2 && filter.Length > 2 && filter.StartsWith("*") && filter.EndsWith("*"))
+            if (AsterixCount == 2 && filter.Length > 2 && filter.StartsWith("*") && filter.EndsWith("*"))
                 {
                 filter = filter.Replace("*", "");
                 return Expression.Lambda<Func<T, bool>>(
@@ -347,7 +345,7 @@ namespace Singularity.Extensions
                 }
 
             // *XX
-            if (asterixCount == 1 && filter.Length > 1 && filter.StartsWith("*"))
+            if (AsterixCount == 1 && filter.Length > 1 && filter.StartsWith("*"))
                 {
                 filter = filter.Replace("*", "");
                 return Expression.Lambda<Func<T, bool>>(
@@ -357,7 +355,7 @@ namespace Singularity.Extensions
                 }
 
             // XX*
-            if (asterixCount == 1 && filter.Length > 1 && filter.EndsWith("*"))
+            if (AsterixCount == 1 && filter.Length > 1 && filter.EndsWith("*"))
                 {
                 filter = filter.Replace("*", "");
                 return Expression.Lambda<Func<T, bool>>(
@@ -367,21 +365,21 @@ namespace Singularity.Extensions
                 }
 
             // X*X
-            if (asterixCount == 1 && filter.Length > 2 && !filter.StartsWith("*") && !filter.EndsWith("*"))
+            if (AsterixCount == 1 && filter.Length > 2 && !filter.StartsWith("*") && !filter.EndsWith("*"))
                 {
-                string startsWith = filter.Substring(0, filter.IndexOf('*'));
-                string endsWith = filter.Substring(filter.IndexOf('*') + 1);
+                string StartsWith = filter.Substring(0, filter.IndexOf('*'));
+                string EndsWith = filter.Substring(filter.IndexOf('*') + 1);
 
                 return
                     Expression.Lambda<Func<T, bool>>(
                     Expression.And(
-                        Expression.Call(selector.Body, "StartsWith", null, Expression.Constant(startsWith)),
-                        Expression.Call(selector.Body, "EndsWith", null, Expression.Constant(endsWith))),
+                        Expression.Call(selector.Body, "StartsWith", null, Expression.Constant(StartsWith)),
+                        Expression.Call(selector.Body, "EndsWith", null, Expression.Constant(EndsWith))),
                         selector.Parameters[0]);
                 }
 
             // XX
-            if (asterixCount == 0 && filter.Length > 0)
+            if (AsterixCount == 0 && filter.Length > 0)
                 {
                 return
                     Expression.Lambda<Func<T, bool>>(
@@ -391,11 +389,11 @@ namespace Singularity.Extensions
                 }
 
             // *
-            if (asterixCount == 1 && filter.Length == 1)
+            if (AsterixCount == 1 && filter.Length == 1)
                 return null;
 
             // Invalid Filter
-            if (asterixCount > 0)
+            if (AsterixCount > 0)
                 throw new ApplicationException(
                     $"Invalid filter used{(fieldName == null ? "" : $" for \'{fieldName}\'")}.");
 
@@ -432,7 +430,7 @@ namespace Singularity.Extensions
                 Meta = MemberType.Meta(Property);
                 Accessor = Meta.GetExpression();
 
-                if (Meta.ModelType.HasInterface<IModel>(false) && Meta.ModelType.HasAttribute<SearchColumnsAttribute>())
+                if (Meta.ModelType.HasInterface<IModel>() && Meta.ModelType.HasAttribute<SearchColumnsAttribute>())
                     {
                     // Relation fields drill into the sub-model to filter
                     // Use the default field since no field was given
@@ -446,7 +444,7 @@ namespace Singularity.Extensions
                     string[] FullProperties;
 
                     Accessor = typeof(T).FindSubProperty(out Meta, out FullProperties, Property, SearchColumn);
-                        
+
                     MemberType = Meta.ModelType;
                     }
                 }
@@ -495,10 +493,10 @@ namespace Singularity.Extensions
 
         public static object FindByID(this DbSet Set, object ID)
             {
-            string s = ID as string;
-            if (s != null)
+            string Str = ID as string;
+            if (Str != null)
                 {
-                string StrID = s;
+                string StrID = Str;
 
                 long IdLong;
                 if (long.TryParse(StrID, out IdLong))
@@ -508,9 +506,9 @@ namespace Singularity.Extensions
                 if (int.TryParse(StrID, out IdInt))
                     return Set.Find(IdInt);
 
-                Guid g;
-                if (Guid.TryParse(StrID, out g))
-                    return Set.Find(g);
+                Guid Guid;
+                if (Guid.TryParse(StrID, out Guid))
+                    return Set.Find(Guid);
                 }
 
             return Set.Find(ID);
@@ -519,10 +517,10 @@ namespace Singularity.Extensions
         public static T FindByID<T>(this DbSet<T> Set, object ID)
             where T : class
             {
-            string s = ID as string;
-            if (s != null)
+            string Str = ID as string;
+            if (Str != null)
                 {
-                string StrID = s;
+                string StrID = Str;
 
                 long IdLong;
                 if (long.TryParse(StrID, out IdLong))
@@ -532,9 +530,9 @@ namespace Singularity.Extensions
                 if (int.TryParse(StrID, out IdInt))
                     return Set.Find(IdInt);
 
-                Guid g;
-                if (Guid.TryParse(StrID, out g))
-                    return Set.Find(g);
+                Guid Guid;
+                if (Guid.TryParse(StrID, out Guid))
+                    return Set.Find(Guid);
                 }
 
             return Set.Find(ID);

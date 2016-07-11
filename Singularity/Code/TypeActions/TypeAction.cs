@@ -79,7 +79,7 @@ namespace Singularity.Utilities
                 {
                 return this.PerformAction_Enum(t, In);
                 }
-            return t.HasInterface<IModel>(false) ? this.PerformAction_IModel(t, In) : this.PerformAction_Object(In);
+            return t.HasInterface<IModel>() ? this.PerformAction_IModel(t, In) : this.PerformAction_Object(In);
             }
 
         protected abstract object PerformAction_Object(T In);
@@ -176,7 +176,7 @@ namespace Singularity.Utilities
                 {
                 return this.PerformAction_Enum((Enum)In);
                 }
-            return t.HasInterface<IModel>(false) ? this.PerformAction_IModel((IModel)In) : this.PerformAction_Object(In);
+            return t.HasInterface<IModel>() ? this.PerformAction_IModel((IModel)In) : this.PerformAction_Object(In);
             }
 
         protected abstract T PerformAction_Object(object In);
@@ -269,7 +269,7 @@ namespace Singularity.Utilities
                 {
                 return this.PerformAction_Enum(t);
                 }
-            return t.HasInterface<IModel>(false) ? this.PerformAction_IModel(t) : this.PerformAction_Object(t);
+            return t.HasInterface<IModel>() ? this.PerformAction_IModel(t) : this.PerformAction_Object(t);
             }
 
         protected abstract T PerformAction_Object(Type t);

@@ -20,14 +20,14 @@ namespace LCore.Tools
         /// </summary>
         public readonly long OriginalTimeMS;
 
-        private readonly List<long> TimeTakenMS = new List<long>();
+        private readonly List<long> _TimeSavedMS = new List<long>();
 
         /// <summary>
-        /// Adds a value of time to the cache
+        /// Adds a value of time saved to the cache
         /// </summary>
         public void AddTime(long Time)
             {
-            this.TimeTakenMS.Add(Time);
+            this._TimeSavedMS.Add(Time);
             }
 
         /// <summary>
@@ -42,11 +42,23 @@ namespace LCore.Tools
         /// <summary>
         /// Estimates the total CPU time saved by this cache.
         /// </summary>
-        public long TotalTimeSaved => this.OriginalTimeMS - (long)this.TimeTakenMS.Average();
+        public long TotalTimeSaved => this._TimeSavedMS.Sum();
 
         /// <summary>
         /// Estimates the percentage of time saved vs. used by this cache.
         /// </summary>
-        public float PercentSaved => (float)1 - (float)(this.TimeTakenMS.Average() / this.OriginalTimeMS);
+        public float PercentSaved
+            {
+            get
+                {
+                float TotalTime = this.OriginalTimeMS * this._TimeSavedMS.Count;
+                TotalTime += this.OriginalTimeMS;
+
+                float Out = (this.TotalTimeSaved - TotalTime) / TotalTime * 100;
+                Out += 100;
+
+                return Out;
+                }
+            }
         }
     }

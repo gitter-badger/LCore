@@ -18,7 +18,7 @@ namespace Singularity.Models
         [FieldType_HTMLContentEditor]
         public string Body { get; set; }
 
-        [FieldType_DropdownContextManageControllers(MultiSelect: true)]
+        [FieldTypeDropdownContextManageControllers(MultiSelect: true)]
         public string Pages { get; set; }
 
         [HideManageViewColumn]

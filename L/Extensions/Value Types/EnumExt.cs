@@ -91,7 +91,7 @@ namespace LCore.Extensions
             MemberInfo[] Members = Type.GetMembers();
             var Member = Members.First(o => o.Name == In.ToString());
 
-            var Attr = Member?.GetAttribute<IL_FriendlyName>();
+            var Attr = Member?.GetAttribute<IFriendlyName>();
 
             return Attr != null ?
                 Attr.FriendlyName :

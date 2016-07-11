@@ -35,7 +35,7 @@ namespace Singularity.Controllers
             string InlineEdit = null,
             bool DefaultManageSearch = false)
             {
-            var m = new ManageViewModel(this);
+            var ViewModel = new ManageViewModel(this);
 
             var DefaultSearch = SavedSearch.FindDefault(this.DbContext, this.ModelType.FullName, this.Name, true);
 
@@ -52,60 +52,60 @@ namespace Singularity.Controllers
                 GlobalSearchTerm = (GlobalSearchTerm ?? "").Trim();
                 FieldSearchTerms = (FieldSearchTerms ?? "").Trim();
 
-                m.Page = Page - 1;
-                m.TypeName = typeof(T).Name;
-                m.ModelType = typeof(T);
-                m.ViewType = ViewType;
-                m.InlineEditID = InlineEdit;
+                ViewModel.Page = Page - 1;
+                ViewModel.TypeName = typeof(T).Name;
+                ViewModel.ModelType = typeof(T);
+                ViewModel.ViewType = ViewType;
+                ViewModel.InlineEditID = InlineEdit;
 
-                if (m.ModelType == null)
+                if (ViewModel.ModelType == null)
                     throw new ArgumentException("TypeName");
 
                 if (this.Session == null ||
-                    ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, m.ModelType).View != true)
+                    ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, ViewModel.ModelType).View != true)
                     {
                     return new HttpUnauthorizedResult();
                     }
 
                 if (this.Session == null ||
-                    (ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, m.ModelType).ViewInactive != true &&
+                    (ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, ViewModel.ModelType).ViewInactive != true &&
                     ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive)))
                     {
                     return new HttpUnauthorizedResult();
                     }
 
-                m.FieldSearchTerms = this.HelperT.ExtractSearchTerms(ref FieldSearchTerms, m.ModelType);
-                m.GlobalSearchTerm = GlobalSearchTerm;
+                ViewModel.FieldSearchTerms = this.HelperT.ExtractSearchTerms(ref FieldSearchTerms, ViewModel.ModelType);
+                ViewModel.GlobalSearchTerm = GlobalSearchTerm;
 
                 if (string.IsNullOrEmpty(SortTerm))
                     {
-                    this.SetDefaultSort(m);
+                    this.SetDefaultSort(ViewModel);
                     }
                 else
                     {
-                    m.OverrideSort = SortTerm;
-                    m.OverrideSortDirection = SortDirection;
+                    ViewModel.OverrideSort = SortTerm;
+                    ViewModel.OverrideSortDirection = SortDirection;
                     }
 
                 int TotalItems;
 
-                m.Models = this.HelperT.GetModels(out TotalItems,
+                ViewModel.Models = this.HelperT.GetModels(out TotalItems,
                     Page, this.RowsPerPage,
-                    m.OverrideSort, m.OverrideSortDirection,
-                    m.GlobalSearchTerm, m.FieldSearchTerms,
-                    m.ViewType);
+                    ViewModel.OverrideSort, ViewModel.OverrideSortDirection,
+                    ViewModel.GlobalSearchTerm, ViewModel.FieldSearchTerms,
+                    ViewModel.ViewType);
 
-                m.TotalItems = TotalItems;
-                m.TotalPages = (int)Math.Ceiling(TotalItems / (double)this.RowsPerPage);
+                ViewModel.TotalItems = TotalItems;
+                ViewModel.TotalPages = (int)Math.Ceiling(TotalItems / (double)this.RowsPerPage);
                 }
-            catch (Exception e)
+            catch (Exception Ex)
                 {
                 this.ModelState.AddModelError(string.Empty,
-                    this.Session.IsAdmin() ? $"An error has occured - {e}" :
+                    this.Session.IsAdmin() ? $"An error has occured - {Ex}" :
                     "An unexpected error has occured");
                 }
 
-            return this.View(m);
+            return this.View(ViewModel);
             }
         #endregion
 
@@ -120,14 +120,14 @@ namespace Singularity.Controllers
             string FieldSearchTerms = null,
             ControllerHelper.ManageViewType ViewType = ControllerHelper.ManageViewType.Normal)
             {
-            var m = new ManageViewModel(this);
+            var ViewModel = new ManageViewModel(this);
 
             try
                 {
-                m.Page = Page - 1;
-                m.TypeName = typeof(T).Name;
-                m.ModelType = typeof(T);
-                m.ViewType = ViewType;
+                ViewModel.Page = Page - 1;
+                ViewModel.TypeName = typeof(T).Name;
+                ViewModel.ModelType = typeof(T);
+                ViewModel.ViewType = ViewType;
 
                 GlobalSearchTerm = (GlobalSearchTerm ?? "").Trim();
                 FieldSearchTerms = (FieldSearchTerms ?? "").Trim();
@@ -138,29 +138,29 @@ namespace Singularity.Controllers
                     GlobalSearchTerm = $"{FieldSearchTerms}|{GlobalSearchTerm}";
                     }
 
-                m.FieldSearchTerms = this.HelperT.ExtractSearchTerms(ref GlobalSearchTerm, m.ModelType);
-                m.GlobalSearchTerm = GlobalSearchTerm;
+                ViewModel.FieldSearchTerms = this.HelperT.ExtractSearchTerms(ref GlobalSearchTerm, ViewModel.ModelType);
+                ViewModel.GlobalSearchTerm = GlobalSearchTerm;
 
                 return this.RedirectToAction(nameof(ManageController.Manage), this.Name, new
                     {
-                    m.TypeName,
-                    Page = m.Page + 1,
+                    ViewModel.TypeName,
+                    Page = ViewModel.Page + 1,
                     SortDirection,
                     SortTerm,
                     GlobalSearchTerm,
-                    FieldSearchTerms = m.GetGlobalSearchCombined("Global"),
-                    m.ViewType
+                    FieldSearchTerms = ViewModel.GetGlobalSearchCombined("Global"),
+                    ViewModel.ViewType
                     });
                 }
-            catch (Exception e)
+            catch (Exception Ex)
                 {
                 this.ModelState.AddModelError(string.Empty,
-                    this.Session.IsAdmin() ? $"An error has occured - {e}" : "An unexpected error has occured");
+                    this.Session.IsAdmin() ? $"An error has occured - {Ex}" : "An unexpected error has occured");
                 }
 
             return this.RedirectToAction(nameof(ManageController.Manage), this.Name, new
                 {
-                m.TypeName
+                ViewModel.TypeName
                 });
             }
         #endregion
@@ -179,7 +179,7 @@ namespace Singularity.Controllers
             FieldSearchTerms = (FieldSearchTerms ?? "").Trim();
 
 
-            var m = new ManageViewModel(this)
+            var ViewModel = new ManageViewModel(this)
                 {
                 Page = Page - 1,
                 TypeName = typeof(T).Name,
@@ -187,34 +187,34 @@ namespace Singularity.Controllers
                 ViewType = ViewType
                 };
 
-            if (m.ModelType == null)
+            if (ViewModel.ModelType == null)
                 throw new ArgumentException("TypeName");
 
             if (this.Session == null ||
-                ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, m.ModelType).Export != true)
+                ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, ViewModel.ModelType).Export != true)
                 {
                 return;
                 }
 
             if (this.Session == null ||
-                (ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, m.ModelType).ViewInactive != true &&
-                m.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive)))
+                (ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, ViewModel.ModelType).ViewInactive != true &&
+                ViewModel.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive)))
                 {
                 return;
                 }
 
             if (string.IsNullOrEmpty(SortTerm))
                 {
-                this.SetDefaultSort(m);
+                this.SetDefaultSort(ViewModel);
                 }
             else
                 {
-                m.OverrideSort = SortTerm;
-                m.OverrideSortDirection = SortDirection;
+                ViewModel.OverrideSort = SortTerm;
+                ViewModel.OverrideSortDirection = SortDirection;
                 }
 
-            m.FieldSearchTerms = this.HelperT.ExtractSearchTerms(ref FieldSearchTerms, m.ModelType);
-            m.GlobalSearchTerm = GlobalSearchTerm;
+            ViewModel.FieldSearchTerms = this.HelperT.ExtractSearchTerms(ref FieldSearchTerms, ViewModel.ModelType);
+            ViewModel.GlobalSearchTerm = GlobalSearchTerm;
 
             int TotalItems;
 
@@ -224,7 +224,7 @@ namespace Singularity.Controllers
             //List<Delegate> Accessors = new List<Delegate>();
             var Functions = new List<Func<object, object>>();
 
-            string FileName = $"{m.ModelType.Name}-{DateTime.Now.ToString().ReplaceAll("/", "-").ReplaceAll("\\", "-").ReplaceAll(":", "-")}";
+            string FileName = $"{ViewModel.ModelType.Name}-{DateTime.Now.ToString().ReplaceAll("/", "-").ReplaceAll("\\", "-").ReplaceAll(":", "-")}";
 
             var Columns = new List<ModelMetadata>();
 
@@ -234,16 +234,16 @@ namespace Singularity.Controllers
 
                 if (!string.IsNullOrEmpty(Export.OverrideSort))
                     {
-                    m.OverrideSort = Export.OverrideSort;
-                    m.OverrideSortDirection = SortDirection.Ascending;
+                    ViewModel.OverrideSort = Export.OverrideSort;
+                    ViewModel.OverrideSortDirection = SortDirection.Ascending;
 
                     if (Export.OverrideSortDirection == SortDirection.Descending)
-                        m.OverrideSortDirection = SortDirection.Descending;
+                        ViewModel.OverrideSortDirection = SortDirection.Descending;
                     }
 
                 ColumnNames.AddRange(Export.Fields.Lines());
 
-                Dictionary<string, ModelMetadata> AllMeta = m.ModelType.GetMeta();
+                Dictionary<string, ModelMetadata> AllMeta = ViewModel.ModelType.GetMeta();
 
                 ColumnNames = ColumnNames.Select(c => AllMeta.Keys.Has(c));
 
@@ -255,7 +255,7 @@ namespace Singularity.Controllers
                         {
                         if (!Meta.HasAttribute<FieldDisableExportAttribute>())
                             {
-                            var Lambda = m.ModelType.GetTokenExpression(c, out Meta);
+                            var Lambda = ViewModel.ModelType.GetTokenExpression(c, out Meta);
 
                             Func<object, object> F = ((Expression<Func<object, object>>)Lambda).Compile();
 
@@ -277,7 +277,7 @@ namespace Singularity.Controllers
                 }
             else
                 {
-                foreach (var Meta in m.ModelType.Meta().Properties)
+                foreach (var Meta in ViewModel.ModelType.Meta().Properties)
                     {
                     if (Meta.ModelType.FullName.StartsWith("System.Collections.Generic.ICollection`1"))
                         {
@@ -294,16 +294,16 @@ namespace Singularity.Controllers
                     }
 
                 // Add field search terms to data
-                if (m.FieldSearchTerms != null)
+                if (ViewModel.FieldSearchTerms != null)
                     {
-                    foreach (var Op in m.FieldSearchTerms.Values)
+                    foreach (var Op in ViewModel.FieldSearchTerms.Values)
                         {
                         if (Op.Property.Contains("."))
                             {
                             ModelMetadata Meta;
                             string[] FullProperty;
 
-                            var Lambda = m.ModelType.FindSubProperty(out Meta, out FullProperty, Op.Property.Split("."));
+                            var Lambda = ViewModel.ModelType.FindSubProperty(out Meta, out FullProperty, Op.Property.Split("."));
 
                             if (!Meta.HasAttribute<FieldDisableExportAttribute>())
                                 {
@@ -312,7 +312,7 @@ namespace Singularity.Controllers
                                 var Lambda2 = Expression.Lambda(AsObject, Param);
 
                                 var Param2 = Expression.Parameter(typeof(object), "b");
-                                Expression AsT = Expression.TypeAs(Param2, m.ModelType);
+                                Expression AsT = Expression.TypeAs(Param2, ViewModel.ModelType);
 
                                 var Invoke = Expression.Invoke(Lambda2, AsT);
                                 var Lambda3 = Expression.Lambda(Invoke, Param2);
@@ -331,7 +331,7 @@ namespace Singularity.Controllers
                             }
                         else if (!Columns.Has(c => (c.DisplayName ?? c.PropertyName) == Op.Property))
                             {
-                            var Meta = m.ModelType.Meta(Op.Property);
+                            var Meta = ViewModel.ModelType.Meta(Op.Property);
 
                             if (!Meta.HasAttribute<FieldDisableExportAttribute>())
                                 {
@@ -349,47 +349,47 @@ namespace Singularity.Controllers
             IEnumerable<T> Models = this.HelperT.GetModels_T(out TotalItems,
                 Page,
                 -1, // All records
-                m.OverrideSort,
-                m.OverrideSortDirection,
-                m.GlobalSearchTerm,
-                m.FieldSearchTerms,
-                m.ViewType);
+                ViewModel.OverrideSort,
+                ViewModel.OverrideSortDirection,
+                ViewModel.GlobalSearchTerm,
+                ViewModel.FieldSearchTerms,
+                ViewModel.ViewType);
 
-            var sw = new StringWriter();
+            var Writer = new StringWriter();
 
             // CSV Column Headers
-            for (int i = 0; i < ColumnNames.Count; i++)
+            for (int Index = 0; Index < ColumnNames.Count; Index++)
                 {
-                sw.Write($"\"{ColumnNames[i]}\"");
+                Writer.Write($"\"{ColumnNames[Index]}\"");
 
-                if (i < ColumnNames.Count - 1)
-                    sw.Write(",");
+                if (Index < ColumnNames.Count - 1)
+                    Writer.Write(",");
                 }
 
-            sw.Write("\r\n");
+            Writer.Write("\r\n");
 
             // CSV Body
             foreach (var Model in Models)
                 {
-                for (int i = 0; i < Functions.Count; i++)
+                for (int Index = 0; Index < Functions.Count; Index++)
                     {
-                    var Obj = Functions[i](Model);
+                    var Obj = Functions[Index](Model);
 
                     if ((Obj as DateTime?)?.Ticks == ((DateTime)Obj).Date.Ticks)
                         {
                         Obj = ((DateTime)Obj).ToShortDateString();
                         }
 
-                    sw.Write($"\"{Obj.ToString().ReplaceAll("\"", "'")}\"");
+                    Writer.Write($"\"{Obj.ToString().ReplaceAll("\"", "'")}\"");
                     //sw.Write($"\"{(((delegate )(Accessors[i]))(Model) ?? "").ToString()}\"");
                     //sw.Write($"\"{(Members[i].GetValue(Model) ?? "").ToString()}\"");
-                    if (i < Columns.Count - 1)
-                        sw.Write(",");
+                    if (Index < Columns.Count - 1)
+                        Writer.Write(",");
                     }
-                sw.Write("\r\n");
+                Writer.Write("\r\n");
                 }
 
-            this.Response.WriteCSV(sw, FileName);
+            this.Response.WriteCSV(Writer, FileName);
             }
         #endregion
 
@@ -537,7 +537,7 @@ namespace Singularity.Controllers
                         this.DbContext.SaveChanges();
                         }
                     }
-                catch (Exception e)
+                catch (Exception Ex)
                     {
                     Errors = true;
 
@@ -545,7 +545,7 @@ namespace Singularity.Controllers
 
                     if (ContextProviderFactory.GetCurrent().CurrentUser(this.Session).IsAdmin)
                         {
-                        Message += $" - {e.Message} {e}";
+                        Message += $" - {Ex.Message} {Ex}";
                         }
 
                     this.ModelState.AddModelError("", Message);
@@ -691,7 +691,14 @@ namespace Singularity.Controllers
             string RelationProperty,
             int RelationID)
             {
-            List<HttpPostedFileBase> UploadFiles = (from string name in this.Request.Files where name == $"UploadFile{RelationProperty}" select this.Request.Files[name] into file where file != null && file.ContentLength > 0 select file).ToList();
+            List<HttpPostedFileBase> UploadFiles =
+                (from string Name
+                 in this.Request.Files
+                 where Name == $"UploadFile{RelationProperty}"
+                 select this.Request.Files[Name]
+                 into File
+                 where File != null && File.ContentLength > 0
+                 select File).ToList();
 
             if (UploadFiles.Count == 1)
                 {
@@ -801,12 +808,12 @@ namespace Singularity.Controllers
 
         private void SetDefaultSort(ManageViewModel ManageModel)
             {
-            var attr = ManageModel.ModelType.GetAttribute<DisplayColumnAttribute>(false);
+            var Attr = ManageModel.ModelType.GetAttribute<DisplayColumnAttribute>(false);
 
-            if (!string.IsNullOrEmpty(attr?.SortColumn))
+            if (!string.IsNullOrEmpty(Attr?.SortColumn))
                 {
-                ManageModel.OverrideSort = attr.SortColumn;
-                ManageModel.OverrideSortDirection = attr.SortDescending ? SortDirection.Descending : SortDirection.Ascending;
+                ManageModel.OverrideSort = Attr.SortColumn;
+                ManageModel.OverrideSortDirection = Attr.SortDescending ? SortDirection.Descending : SortDirection.Ascending;
                 }
             }
 
@@ -895,10 +902,10 @@ namespace Singularity.Controllers
 
                 string Property = Key;
 
-                IEnumerable<ModelMetadata> customKeyMeta = CustomKeyMeta as ModelMetadata[] ?? CustomKeyMeta.ToArray();
-                if (customKeyMeta.Count() == 1)
+                IEnumerable<ModelMetadata> CustomKey = CustomKeyMeta as ModelMetadata[] ?? CustomKeyMeta.ToArray();
+                if (CustomKey.Count() == 1)
                     {
-                    Property = customKeyMeta.FirstOrDefault()?.PropertyName;
+                    Property = CustomKey.FirstOrDefault()?.PropertyName;
                     }
 
                 string Value = Form[Key];
@@ -926,13 +933,13 @@ namespace Singularity.Controllers
 
                 // LambdaExpression Lambda = Meta.GetExpression();
 
-                var p = Model.TrueModelType().GetProperty(Property);
+                var PropertyInfo = Model.TrueModelType().GetProperty(Property);
 
                 if (!Meta.IsRequired && (Value ?? "").Trim() == "")
                     {
                     try
                         {
-                        p.SetValue(Model, null);
+                        PropertyInfo.SetValue(Model, null);
                         }
                     catch
                         {
@@ -944,18 +951,18 @@ namespace Singularity.Controllers
                 var Obj = Convert.PerformAction(Value, Meta.ModelType);
 
 
-                p?.SetValue(Model, Obj);
+                PropertyInfo?.SetValue(Model, Obj);
 
                 if (!this.ModelState.IsValidField(Key))
                     {
                     throw new ValidationException(this.ModelState[Key].Errors.List().CollectStr((i, e) => e.ErrorMessage));
                     }
                 }
-            catch (ValidationException e)
+            catch (ValidationException Ex)
                 {
-                this.ModelState.AddModelError(Key, e.Message);
+                this.ModelState.AddModelError(Key, Ex.Message);
                 }
-            catch (Exception e)
+            catch (Exception Ex)
                 {
                 Errors = true;
 
@@ -965,7 +972,7 @@ namespace Singularity.Controllers
 
                 if (UserProfile?.IsAdmin == true)
                     {
-                    Message += $" - {e.Message}";
+                    Message += $" - {Ex.Message}";
                     }
 
                 this.ModelState.AddModelError(Key, Message);

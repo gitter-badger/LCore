@@ -459,7 +459,7 @@ namespace LCore.Dynamic
 
         private const string FileExtension = ".cs";
 
-        private static readonly Func<List<Type>> ExplodeTypeFunc = L.Lang.GetAssemblyTypesWithAttribute.Supply(typeof(CodeExplode))
+        private static readonly Func<List<Type>> _ExplodeTypeFunc = L.Lang.GetAssemblyTypesWithAttribute.Supply(typeof(CodeExplode))
             .Cache("CodeExplode_ExplodeTypes");
 
         private static Lists<string, string> _GlobalFindReplace;
@@ -523,7 +523,7 @@ namespace LCore.Dynamic
                 }
             }
 
-        public List<Type> ExplodeTypes => ExplodeTypeFunc();
+        public List<Type> ExplodeTypes => _ExplodeTypeFunc();
 
         public CodeExploder(string CodeRootDir = "", string CodeExplodeDir = "")
             {

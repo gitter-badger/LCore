@@ -458,24 +458,24 @@ namespace Singularity.Utilities
             {
             if (this.Operation.OperatorStr == "~")
                 {
-                var t = this.Meta.ModelType;
+                var Type = this.Meta.ModelType;
                 if (this.Meta.ModelType.IsGenericType && this.Meta.ModelType.GetGenericArguments()[0].IsEnum)
                     {
-                    t = this.Meta.ModelType.GetGenericArguments()[0];
+                    Type = this.Meta.ModelType.GetGenericArguments()[0];
                     }
 
-                string[] Names = t.GetEnumNames();
-                object[] Values = t.GetEnumValues().Array<object>();
+                string[] Names = Type.GetEnumNames();
+                object[] Values = Type.GetEnumValues().Array<object>();
 
                 int?[] ValueInts = Values.Convert(o => (int?)Convert.ChangeType(o, ((Enum)o).GetTypeCode()));
 
 
                 var SelectedValues = new List<object>();
 
-                for (int i = 0; i < Names.Length; i++)
+                for (int Index = 0; Index < Names.Length; Index++)
                     {
-                    if (Names[i].ToLower().Contains(this.Operation.Search.ToLower()))
-                        SelectedValues.Add(ValueInts[i]);
+                    if (Names[Index].ToLower().Contains(this.Operation.Search.ToLower()))
+                        SelectedValues.Add(ValueInts[Index]);
                     }
 
                 List<Expression<Func<T, bool>>> Ors = SelectedValues.Convert(

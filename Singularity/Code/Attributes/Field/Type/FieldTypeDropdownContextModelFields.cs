@@ -9,7 +9,7 @@ using Singularity.Extensions;
 
 namespace Singularity.Annotations
     {
-    public class FieldTypeDropdownContextModelFields : FieldType_DropdownOptions
+    public class FieldTypeDropdownContextModelFields : FieldTypeDropdownOptions
         {
         public FieldTypeDropdownContextModelFields(string FieldTypeField, bool MultiSelect = false, bool RecursiveFields = false)
             : base(new string[] { }, MultiSelect)
@@ -50,10 +50,10 @@ namespace Singularity.Annotations
                 {
                 var Out = Model.GetProperty(this.FieldTypeField);
 
-                string s = Out as string;
-                if (s != null)
+                string Str = Out as string;
+                if (Str != null)
                     {
-                    return L.Ref.FindType(s);
+                    return L.Ref.FindType(Str);
                     }
                 }
 

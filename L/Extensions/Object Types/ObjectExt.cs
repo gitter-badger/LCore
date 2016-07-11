@@ -74,6 +74,18 @@ namespace LCore.Extensions
             }
         #endregion
 
+        #region Type
+        /// <summary>
+        /// Returns the type of an object.
+        /// </summary>
+        [TestResult(new object[] { 0 }, typeof(int), GenericTypes = new[] { typeof(int) })]
+        [TestResult(new object[] { "" }, typeof(string), GenericTypes = new[] { typeof(string) })]
+        // ReSharper disable once UnusedParameter.Global
+        public static Type Type<T>(this T In)
+            {
+            return typeof(T);
+            }
+        #endregion
 
         #endregion
         }
@@ -100,9 +112,9 @@ namespace LCore.Extensions
             /// </summary>
             public static void Swap<T>(ref T Obj1, ref T Obj2)
                 {
-                var temp = Obj1;
+                var Temp = Obj1;
                 Obj1 = Obj2;
-                Obj2 = temp;
+                Obj2 = Temp;
                 }
             #endregion
 
@@ -126,10 +138,10 @@ namespace LCore.Extensions
                     }
 
                 // If objects are both IEnumerable, send to Enumerable equivalent
-                var enumerable = o1 as IEnumerable;
-                if (enumerable != null && o2 is IEnumerable)
+                var Enumerable = o1 as IEnumerable;
+                if (Enumerable != null && o2 is IEnumerable)
                     {
-                    return enumerable.Equivalent((IEnumerable)o2);
+                    return Enumerable.Equivalent((IEnumerable)o2);
                     }
 
                 return o1.Equals(o2);
@@ -362,16 +374,16 @@ namespace LCore.Extensions
                 {
                     var Member = In.GetType().GetMember(PropertyName).First();
 
-                    var m2 = Member as PropertyInfo;
-                    if (m2 != null)
+                    var PropertyInfo = Member as PropertyInfo;
+                    if (PropertyInfo != null)
                         {
-                        var M2 = m2;
+                        var M2 = PropertyInfo;
                         return M2.GetValue(In);
                         }
-                    var m3 = Member as FieldInfo;
-                    if (m3 != null)
+                    var FieldInfo = Member as FieldInfo;
+                    if (FieldInfo != null)
                         {
-                        var M3 = m3;
+                        var M3 = FieldInfo;
                         return M3.GetValue(In);
                         }
                     throw new Exception($"{In.GetType().FullName} {PropertyName}");
@@ -387,10 +399,10 @@ namespace LCore.Extensions
                 {
                     var Member = In.GetType().GetMember(PropertyName).First();
 
-                    var m2 = Member as PropertyInfo;
-                    if (m2 != null)
+                    var PropertyInfo = Member as PropertyInfo;
+                    if (PropertyInfo != null)
                         {
-                        var M2 = m2;
+                        var M2 = PropertyInfo;
                         M2.SetValue(In, PropertyValue);
                         }
                     else if (Member is FieldInfo)
@@ -466,32 +478,32 @@ namespace LCore.Extensions.Optional
             var CustomMappedKeys = new List<string>();
             if (Obj != null)
                 {
-                foreach (var prop in typeof(T).GetMembers())
+                foreach (var Member in typeof(T).GetMembers())
                     {
-                    if (prop is MethodInfo)
+                    if (Member is MethodInfo)
                         continue;
 
                     string Name = "";
 
-                    if (Obj.HasProperty(prop.Name))
+                    if (Obj.HasProperty(Member.Name))
                         {
-                        Name = prop.Name;
+                        Name = Member.Name;
                         }
                     // Custom mapper takes precedence
                     if (CustomMapper != null)
                         {
-                        Name = CustomMapper(prop.Name);
+                        Name = CustomMapper(Member.Name);
                         if (CustomMappedKeys.Contains(Name))
                             continue;
-                        if (prop.Name != Name)
+                        if (Member.Name != Name)
                             CustomMappedKeys.Add(Name);
                         }
 
-                    var member = Obj.GetType().GetMember(Name).FirstOrDefault();
+                    var Member2 = Obj.GetType().GetMember(Name).FirstOrDefault();
 
-                    if ((member is PropertyInfo && ((PropertyInfo)member).CanWrite) ||
-                        member is FieldInfo)
-                        Obj.SetProperty(Name, In.GetProperty(prop.Name));
+                    if ((Member2 is PropertyInfo && ((PropertyInfo)Member2).CanWrite) ||
+                        Member2 is FieldInfo)
+                        Obj.SetProperty(Name, In.GetProperty(Member.Name));
                     }
                 }
             }
@@ -521,23 +533,23 @@ namespace LCore.Extensions.Optional
 
                     try
                         {
-                        var fieldInfo = m as FieldInfo;
-                        if (fieldInfo != null)
+                        var FieldInfo = m as FieldInfo;
+                        if (FieldInfo != null)
                             {
-                            Out2 += $": {fieldInfo.GetValue(In)}\r\n";
+                            Out2 += $": {FieldInfo.GetValue(In)}\r\n";
                             }
-                        var info = m as PropertyInfo;
-                        if (info != null)
+                        var PropertyInfo = m as PropertyInfo;
+                        if (PropertyInfo != null)
                             {
-                            Out2 += $": {info.GetValue(In)}\r\n";
+                            Out2 += $": {PropertyInfo.GetValue(In)}\r\n";
                             }
                         }
-                    catch (Exception e)
+                    catch (Exception Ex)
                         {
                         if (!ShowErrorFields)
                             return "";
 
-                        Out2 += $": {e.Message}\r\n";
+                        Out2 += $": {Ex.Message}\r\n";
                         }
                     return Out2;
                 });
@@ -661,15 +673,15 @@ namespace LCore.Extensions.Optional
                         continue;
                         }
 
-                    var member = Member as PropertyInfo;
-                    if (member != null && member.CanWrite)
+                    var PropertyInfo = Member as PropertyInfo;
+                    if (PropertyInfo != null && PropertyInfo.CanWrite)
                         {
-                        member.SetValue(In, InitValue.SafeEquals(default(T)) ? typeof(T).New<T>() : InitValue);
+                        PropertyInfo.SetValue(In, InitValue.SafeEquals(default(T)) ? typeof(T).New<T>() : InitValue);
                         }
                     else
                         {
-                        var info = Member as FieldInfo;
-                        info?.SetValue(In, InitValue.SafeEquals(default(T)) ? typeof(T).New<T>() : InitValue);
+                        var FieldInfo = Member as FieldInfo;
+                        FieldInfo?.SetValue(In, InitValue.SafeEquals(default(T)) ? typeof(T).New<T>() : InitValue);
                         }
                     }
                 }

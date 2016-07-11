@@ -7,7 +7,7 @@ namespace LCore.Naming
     /// Extend this interface on an attribute to add friendly names 
     /// to classes and properties.
     /// </summary>
-    public interface IL_FriendlyName : ISubClassPersistentAttribute
+    public interface IFriendlyName : ISubClassPersistentAttribute
         {
         /// <summary>
         /// Friendly name for the object described.

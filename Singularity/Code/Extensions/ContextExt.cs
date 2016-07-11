@@ -27,16 +27,16 @@ namespace Singularity.Extensions
 
         public static string GetTableName<T>(this DbContext context) where T : class
             {
-            var objectContext = ((IObjectContextAdapter) context).ObjectContext;
+            var ObjectContext = ((IObjectContextAdapter) context).ObjectContext;
 
-            return objectContext.GetTableName<T>();
+            return ObjectContext.GetTableName<T>();
             }
 
         public static string GetTableName(this DbContext context, Type t)
             {
-            var objectContext = ((IObjectContextAdapter) context).ObjectContext;
+            var ObjectContext = ((IObjectContextAdapter) context).ObjectContext;
 
-            return objectContext.GetTableName(t);
+            return ObjectContext.GetTableName(t);
             }
 
         #endregion
@@ -100,12 +100,12 @@ namespace Singularity.Extensions
 
         public static string GetTableName<T>(this ObjectContext context) where T : class
             {
-            string sql = context.CreateObjectSet<T>().ToTraceString();
-            var regex = new Regex("FROM (?<table>.*) AS");
-            var match = regex.Match(sql);
+            string SQL = context.CreateObjectSet<T>().ToTraceString();
+            var Regex = new Regex("FROM (?<table>.*) AS");
+            var Match = Regex.Match(SQL);
 
-            string table = match.Groups["table"].Value;
-            return table;
+            string Table = Match.Groups["table"].Value;
+            return Table;
             }
 
         public static string GetTableName(this ObjectContext context, Type t)
@@ -118,12 +118,12 @@ namespace Singularity.Extensions
                 {
                 var Query = (ObjectQuery) Method.Invoke(context, new object[] {});
 
-                string sql = Query.ToTraceString();
-                var regex = new Regex("FROM (?<table>.*) AS");
-                var match = regex.Match(sql);
+                string SQL = Query.ToTraceString();
+                var Regex = new Regex("FROM (?<table>.*) AS");
+                var Match = Regex.Match(SQL);
 
-                string table = match.Groups["table"].Value;
-                return table;
+                string Table = Match.Groups["table"].Value;
+                return Table;
                 }
 
             return null;

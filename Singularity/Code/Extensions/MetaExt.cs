@@ -21,11 +21,11 @@ namespace Singularity.Extensions
 
         public static Expression<Func<T, bool>> ExpressionWithin<T, U>(this ModelMetadata Meta, U Min, U Max)
             {
-            var param = Expression.Parameter(typeof(T), string.Empty);
-            var member = Expression.PropertyOrField(param, Meta.PropertyName);
+            var Param = Expression.Parameter(typeof(T), string.Empty);
+            var Member = Expression.PropertyOrField(Param, Meta.PropertyName);
 
 
-            LambdaExpression Lambda = Expression.Lambda<Func<T, bool>>(member, param);
+            LambdaExpression Lambda = Expression.Lambda<Func<T, bool>>(Member, Param);
             Expression<Func<T, bool>> Out = Lambda.ExpressionWithin<T, U>(Min, Max);
 
             return Out;
@@ -33,8 +33,8 @@ namespace Singularity.Extensions
 
         public static Expression<Func<T, bool>> ExpressionWithin<T, U>(this LambdaExpression Member, U Min, U Max)
             {
-            Expression const1 = Expression.Constant(Min);
-            Expression const2 = Expression.Constant(Max);
+            Expression Const1 = Expression.Constant(Min);
+            Expression Const2 = Expression.Constant(Max);
 
 
             if (Member.Body.Type.IsNullable())
@@ -44,24 +44,21 @@ namespace Singularity.Extensions
                 //  const1 = Expression.Convert(const1, Member.Type);
                 //  const2 = Expression.Convert(const2, Member.Type);
 
-                var expr = Expression.And(
-                    Expression.GreaterThanOrEqual(Member2, const1),
-                    Expression.LessThanOrEqual(Member2, const2));
+                var Expr = Expression.And(
+                    Expression.GreaterThanOrEqual(Member2, Const1),
+                    Expression.LessThanOrEqual(Member2, Const2));
 
-                Expression<Func<T, bool>> condition = Expression.Lambda<Func<T, bool>>(expr, Member.Parameters[0]);
+                Expression<Func<T, bool>> Condition = Expression.Lambda<Func<T, bool>>(Expr, Member.Parameters[0]);
 
-                return condition;
+                return Condition;
                 }
-            else
-                {
-                var expr = Expression.And(
-                    Expression.GreaterThanOrEqual(Member.Body, const1),
-                    Expression.LessThanOrEqual(Member.Body, const2));
+            var Expr2 = Expression.And(
+                Expression.GreaterThanOrEqual(Member.Body, Const1),
+                Expression.LessThanOrEqual(Member.Body, Const2));
 
-                Expression<Func<T, bool>> condition = Expression.Lambda<Func<T, bool>>(expr, Member.Parameters[0]);
+            Expression<Func<T, bool>> Condition2 = Expression.Lambda<Func<T, bool>>(Expr2, Member.Parameters[0]);
 
-                return condition;
-                }
+            return Condition2;
             }
 
         #endregion
@@ -70,10 +67,10 @@ namespace Singularity.Extensions
 
         public static Expression<Func<T, bool>> ExpressionWithout<T, U>(this ModelMetadata Meta, U Min, U Max)
             {
-            var param = Expression.Parameter(typeof(T), string.Empty);
-            var member = Expression.PropertyOrField(param, Meta.PropertyName);
+            var Param = Expression.Parameter(typeof(T), string.Empty);
+            var Member = Expression.PropertyOrField(Param, Meta.PropertyName);
 
-            LambdaExpression Lambda = Expression.Lambda<Func<T, bool>>(member, param);
+            LambdaExpression Lambda = Expression.Lambda<Func<T, bool>>(Member, Param);
             Expression<Func<T, bool>> Out = Lambda.ExpressionWithout<T, U>(Min, Max);
 
             return Out;
@@ -81,22 +78,22 @@ namespace Singularity.Extensions
 
         public static Expression<Func<T, bool>> ExpressionWithout<T, U>(this LambdaExpression Member, U Min, U Max)
             {
-            Expression const1 = Expression.Constant(Min);
-            Expression const2 = Expression.Constant(Max);
+            Expression Const1 = Expression.Constant(Min);
+            Expression Const2 = Expression.Constant(Max);
 
             if (Member.Type.IsNullable())
                 {
-                const1 = Expression.Convert(const1, Member.Body.Type);
-                const2 = Expression.Convert(const2, Member.Body.Type);
+                Const1 = Expression.Convert(Const1, Member.Body.Type);
+                Const2 = Expression.Convert(Const2, Member.Body.Type);
                 }
 
-            var expr = Expression.Or(
-                Expression.LessThanOrEqual(Member, const1),
-                Expression.GreaterThanOrEqual(Member, const2));
+            var Expr = Expression.Or(
+                Expression.LessThanOrEqual(Member, Const1),
+                Expression.GreaterThanOrEqual(Member, Const2));
 
-            Expression<Func<T, bool>> condition = Expression.Lambda<Func<T, bool>>(expr, Member.Parameters[0]);
+            Expression<Func<T, bool>> Condition = Expression.Lambda<Func<T, bool>>(Expr, Member.Parameters[0]);
 
-            return condition;
+            return Condition;
             }
 
         #endregion
@@ -138,18 +135,18 @@ namespace Singularity.Extensions
             if (string.IsNullOrEmpty(Meta.PropertyName))
                 throw new ArgumentNullException(nameof(Meta));
 
-            var param = Expression.Parameter(Meta.ContainerType, string.Empty);
-            var property = Expression.PropertyOrField(param, Meta.PropertyName);
-            var Expr = Expression.Lambda(property, param);
+            var Param = Expression.Parameter(Meta.ContainerType, string.Empty);
+            var Property = Expression.PropertyOrField(Param, Meta.PropertyName);
+            var Expr = Expression.Lambda(Property, Param);
 
             return Expr;
             }
 
         public static Expression<Func<T, U>> GetExpression<T, U>(this ModelMetadata Meta)
             {
-            var param = Expression.Parameter(typeof(T), string.Empty);
-            var property = Expression.PropertyOrField(param, Meta.PropertyName);
-            Expression<Func<T, U>> Expr = Expression.Lambda<Func<T, U>>(property, param);
+            var Param = Expression.Parameter(typeof(T), string.Empty);
+            var Property = Expression.PropertyOrField(Param, Meta.PropertyName);
+            Expression<Func<T, U>> Expr = Expression.Lambda<Func<T, U>>(Property, Param);
 
             return Expr;
             }
@@ -165,12 +162,12 @@ namespace Singularity.Extensions
 
         public static Func<object, object> GetFunc(this ModelMetadata Meta)
             {
-            var param = Expression.Parameter(typeof(object), string.Empty);
-            var property =
+            var Param = Expression.Parameter(typeof(object), string.Empty);
+            var Property =
                 Expression.TypeAs(
-                    Expression.PropertyOrField(Expression.TypeAs(param, Meta.ContainerType), Meta.PropertyName),
+                    Expression.PropertyOrField(Expression.TypeAs(Param, Meta.ContainerType), Meta.PropertyName),
                     typeof(object));
-            Expression<Func<object, object>> Expr = Expression.Lambda<Func<object, object>>(property, param);
+            Expression<Func<object, object>> Expr = Expression.Lambda<Func<object, object>>(Property, Param);
 
             return Expr.Compile();
             }
@@ -185,9 +182,9 @@ namespace Singularity.Extensions
                 {
                 return Meta.ModelType;
                 }
-            var param = Expression.Parameter(Meta.ContainerType, string.Empty);
-            var property = Expression.PropertyOrField(param, Meta.PropertyName);
-            return property.Member;
+            var Param = Expression.Parameter(Meta.ContainerType, string.Empty);
+            var Property = Expression.PropertyOrField(Param, Meta.PropertyName);
+            return Property.Member;
             }
 
         #endregion
@@ -225,24 +222,24 @@ namespace Singularity.Extensions
 
             TypeMeta.Each(meta =>
                 {
-                string KeyString = string.IsNullOrEmpty(PathString)
-                    ? meta.PropertyName
-                    : $"{PathString}.{meta.PropertyName}";
+                    string KeyString = string.IsNullOrEmpty(PathString)
+                        ? meta.PropertyName
+                        : $"{PathString}.{meta.PropertyName}";
 
-                if (!In.ContainsKey(KeyString))
-                    In[KeyString] = meta;
+                    if (!In.ContainsKey(KeyString))
+                        In[KeyString] = meta;
 
-                if (!Selector(meta))
-                    return;
+                    if (!Selector(meta))
+                        return;
 
-                if (KeyString.Contains($".{meta.PropertyName}."))
-                    {
-                    // Avoids recursive lookups
-                    }
-                else if (meta.ModelType.HasInterface<IModel>())
-                    {
-                    In = meta.ModelType.GetMeta(In, Selector, Levels, CurrentLevel + 1, KeyString);
-                    }
+                    if (KeyString.Contains($".{meta.PropertyName}."))
+                        {
+                        // Avoids recursive lookups
+                        }
+                    else if (meta.ModelType.HasInterface<IModel>())
+                        {
+                        In = meta.ModelType.GetMeta(In, Selector, Levels, CurrentLevel + 1, KeyString);
+                        }
                 });
 
             return In;
@@ -255,10 +252,10 @@ namespace Singularity.Extensions
         public static Expression<Func<T, bool>> GetOperatorExpression<T>(this ModelMetadata Meta,
             Func<Expression, Expression, Expression> Operator, object Value)
             {
-            var param = Expression.Parameter(typeof(T), string.Empty);
-            var property = Expression.PropertyOrField(param, Meta.PropertyName);
+            var Param = Expression.Parameter(typeof(T), string.Empty);
+            var Property = Expression.PropertyOrField(Param, Meta.PropertyName);
 
-            var Lambda = Expression.Lambda(property, param);
+            var Lambda = Expression.Lambda(Property, Param);
 
             return Lambda.GetOperatorExpression<T>(Operator, Value);
             }
@@ -266,18 +263,18 @@ namespace Singularity.Extensions
         public static Expression<Func<T, bool>> GetOperatorExpression<T>(this LambdaExpression Lambda,
             Func<Expression, Expression, Expression> Operator, object Value)
             {
-            Expression compare;
+            Expression Compare;
 
             if (Lambda.Body.Type.IsNullable())
                 {
-                compare = Expression.Convert(Expression.Constant(Value), Lambda.Body.Type);
+                Compare = Expression.Convert(Expression.Constant(Value), Lambda.Body.Type);
                 }
             else
                 {
-                compare = Expression.Constant(Value);
+                Compare = Expression.Constant(Value);
                 }
 
-            Expression<Func<T, bool>> Expr = Expression.Lambda<Func<T, bool>>(Operator(Lambda.Body, compare),
+            Expression<Func<T, bool>> Expr = Expression.Lambda<Func<T, bool>>(Operator(Lambda.Body, Compare),
                 Lambda.Parameters[0]);
 
             return Expr;
@@ -292,9 +289,9 @@ namespace Singularity.Extensions
             if (string.IsNullOrEmpty(Meta.PropertyName))
                 throw new ArgumentNullException(nameof(Meta));
 
-            var param = Expression.Parameter(Meta.ModelType, string.Empty);
-            var property = Expression.PropertyOrField(param, Meta.PropertyName);
-            var Out = Expression.Lambda(property, param);
+            var Param = Expression.Parameter(Meta.ModelType, string.Empty);
+            var Property = Expression.PropertyOrField(Param, Meta.PropertyName);
+            var Out = Expression.Lambda(Property, Param);
 
             return Out;
             }
@@ -452,16 +449,16 @@ namespace Singularity.Extensions
 
             FullProperties = new string[Properties.Length];
 
-            for (int i = 0; i < Properties.Length; i++)
+            for (int Index = 0; Index < Properties.Length; Index++)
                 {
-                FullProperties[i] = CurrentType.SearchForProperty(Properties[i]);
+                FullProperties[Index] = CurrentType.SearchForProperty(Properties[Index]);
 
                 Member = Member == null
-                    ? Expression.PropertyOrField(Param, FullProperties[i])
-                    : Expression.PropertyOrField(Member, FullProperties[i]);
+                    ? Expression.PropertyOrField(Param, FullProperties[Index])
+                    : Expression.PropertyOrField(Member, FullProperties[Index]);
 
 
-                if (i < Properties.Length - 1)
+                if (Index < Properties.Length - 1)
                     CurrentType = Member.Type;
 
                 }
@@ -483,9 +480,9 @@ namespace Singularity.Extensions
 
         public static LambdaExpression GetExpression(this Type t, string PropertyName)
             {
-            var param = Expression.Parameter(t, string.Empty);
-            var property = Expression.PropertyOrField(param, PropertyName);
-            var Expr = Expression.Lambda(property, param);
+            var Param = Expression.Parameter(t, string.Empty);
+            var Property = Expression.PropertyOrField(Param, PropertyName);
+            var Expr = Expression.Lambda(Property, Param);
 
             return Expr;
             }
@@ -496,9 +493,9 @@ namespace Singularity.Extensions
 
         public static Expression<Func<T, U>> GetExpression<T, U>(this Type t, string PropertyName)
             {
-            var param = Expression.Parameter(t, string.Empty);
-            var property = Expression.PropertyOrField(param, PropertyName);
-            Expression<Func<T, U>> Expr = Expression.Lambda<Func<T, U>>(property, param);
+            var Param = Expression.Parameter(t, string.Empty);
+            var Property = Expression.PropertyOrField(Param, PropertyName);
+            Expression<Func<T, U>> Expr = Expression.Lambda<Func<T, U>>(Property, Param);
 
             return Expr;
             }

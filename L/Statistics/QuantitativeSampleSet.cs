@@ -413,11 +413,11 @@ namespace LCore.Statistics
 
                 var Divisions = new T[ClassCount + 1];
 
-                for (int j = 0; j < Divisions.Length; j++)
+                for (int Index2 = 0; Index2 < Divisions.Length; Index2++)
                     {
                     double Difference = this.Divide(this._Range, this.Convert(ClassCount));
-                    var Value = this.Add(this._Minimum, this.Convert(Difference * j));
-                    Divisions[j] = Value;
+                    var Value = this.Add(this._Minimum, this.Convert(Difference * Index2));
+                    Divisions[Index2] = Value;
                     }
             });
                 #endregion
@@ -443,14 +443,14 @@ namespace LCore.Statistics
 
                 this.DataSet.Each((i, x) =>
             {
-                double d = this.GetValueDeviation(x);
-                double v = this.GetValueVariance(x);
+                double Deviation = this.GetValueDeviation(x);
+                double Variance = this.GetValueVariance(x);
 
-                this._DataDeviation[i] = d;
-                this._DataVariance[i] = v;
+                this._DataDeviation[i] = Deviation;
+                this._DataVariance[i] = Variance;
 
-                this._TotalDeviation += d;
-                this._TotalVariance += v;
+                this._TotalDeviation += Deviation;
+                this._TotalVariance += Variance;
             });
 
                 if (this.IsSample)
@@ -520,10 +520,10 @@ namespace LCore.Statistics
                     {
                     return (T)x;
                     }
-                var @in = x as IConvertible;
-                if (@in != null)
+                var Convertible = x as IConvertible;
+                if (Convertible != null)
                     {
-                    return this.Convert(@in);
+                    return this.Convert(Convertible);
                     }
                 throw new Exception($"Could not convert to {typeof(T).FullName}: {(x ?? "[null]").ToString()}");
             });

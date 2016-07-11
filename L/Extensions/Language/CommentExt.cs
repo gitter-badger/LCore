@@ -149,8 +149,8 @@ namespace LCore.Extensions
 
             string CommentName = GetCommentName(In);
 
-            if (MemberCommentNodes.ContainsKey(CommentName))
-                return MemberCommentNodes[CommentName];
+            if (_MemberCommentNodes.ContainsKey(CommentName))
+                return _MemberCommentNodes[CommentName];
 
             while (Nodes.Count > 0)
                 {
@@ -158,7 +158,7 @@ namespace LCore.Extensions
 
                 string TagName = MemberNode.Attributes?[L.Comment.XmlTags.Name].Value;
 
-                MemberCommentNodes.SafeAdd(TagName, MemberNode);
+                _MemberCommentNodes.SafeAdd(TagName, MemberNode);
                 Nodes.RemoveAt(0);
 
                 if (string.Equals(MemberNode.Attributes?[L.Comment.XmlTags.Name].Value, CommentName))
@@ -243,7 +243,7 @@ namespace LCore.Extensions
             return Out;
             }
 
-        private static readonly Dictionary<string, XmlNode> MemberCommentNodes = new Dictionary<string, XmlNode>();
+        private static readonly Dictionary<string, XmlNode> _MemberCommentNodes = new Dictionary<string, XmlNode>();
 
         private static List<XmlNode> GetCommentNodes(this MemberInfo In)
             {

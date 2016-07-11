@@ -101,7 +101,7 @@
                 {
                 @Html.Partial(PartialViews.Manage.Fields.View.DisplayColumn, Model)
                 }
-            else if (Model.Meta.ModelType.HasInterface<IModel>(false))
+            else if (Model.Meta.ModelType.HasInterface<IModel>())
                 {
                 @Html.Partial(PartialViews.Manage.Fields.View.IModel, Model)
                 }

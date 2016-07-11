@@ -24,12 +24,12 @@ namespace Singularity.Models
 
         public string Group { get; set; }
 
-        [FieldType_DropdownContextManageControllers]
+        [FieldTypeDropdownContextManageControllers]
         [FieldLoadFromQueryString]
         public string ManagementPage { get; set; }
 
         [Required]
-        [FieldType_DropdownContextModelTypes]
+        [FieldTypeDropdownContextModelTypes]
         [FieldUpdateRefreshPage]
         [FieldLoadFromQueryString]
         public string ExportType { get; set; }

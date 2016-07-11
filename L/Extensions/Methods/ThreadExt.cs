@@ -131,7 +131,7 @@ namespace LCore.Extensions
         #region Profile - Methods
         /// <summary>
         /// Surrounds the method with logic that logs all execution times.
-        /// Access the data using: L.MethodProfileCache
+        /// Access the data using: L.Thread.MethodProfileCache
         /// </summary>
         public static Action Profile(this Action In, string ProfileName)
             {
@@ -139,7 +139,7 @@ namespace LCore.Extensions
             }
         /// <summary>
         /// Surrounds the method with logic that logs all execution times.
-        /// Access the data using: L.MethodProfileCache
+        /// Access the data using: L.Thread.MethodProfileCache
         /// </summary>
         public static Action<T1> Profile<T1>(this Action<T1> In, string ProfileName)
             {
@@ -147,7 +147,7 @@ namespace LCore.Extensions
             }
         /// <summary>
         /// Surrounds the method with logic that logs all execution times.
-        /// Access the data using: L.MethodProfileCache
+        /// Access the data using: L.Thread.MethodProfileCache
         /// </summary>
         public static Func<U> Profile<U>(this Func<U> In, string ProfileName)
             {
@@ -162,7 +162,7 @@ namespace LCore.Extensions
             }
         /// <summary>
         /// Surrounds the method with logic that logs all execution times.
-        /// Access the data using: L.MethodProfileCache
+        /// Access the data using: L.Thread.MethodProfileCache
         /// </summary>
         public static Func<T1, U> Profile<T1, U>(this Func<T1, U> In, string ProfileName)
             {

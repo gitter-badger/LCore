@@ -82,19 +82,19 @@ namespace Singularity.Models
                 }
 
 
-            foreach (string s in Columns)
+            foreach (string Str in Columns)
                 {
-                if (s.Contains("."))
+                if (Str.Contains("."))
                     {
-                    Out.Add(s);
+                    Out.Add(Str);
                     }
                 else
                     {
-                    var Meta = this.ModelType.Meta(s);
+                    var Meta = this.ModelType.Meta(Str);
 
-                    if (this.FieldSearchTerms?.ContainsKey(s) == true)
+                    if (this.FieldSearchTerms?.ContainsKey(Str) == true)
                         {
-                        Out.Add(s);
+                        Out.Add(Str);
                         }
                     else if (Meta.HasAttribute<KeyAttribute>(true))
                         {
@@ -107,7 +107,7 @@ namespace Singularity.Models
                         }
                     else
                         {
-                        Out.Add(s);
+                        Out.Add(Str);
                         }
                     }
                 }

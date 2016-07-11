@@ -123,12 +123,12 @@ namespace Singularity.Extensions
             string[] CSVHeader = null;
 
 
-            for (int i = 0; i < CSVData.Length; i++)
+            for (int Index = 0; Index < CSVData.Length; Index++)
                 {
-                string[] Line = CSVData[i];
+                string[] Line = CSVData[Index];
 
                 // Assume the first line is the header
-                if (i == 0)
+                if (Index == 0)
                     {
                     CSVHeader = Line;
 
@@ -164,10 +164,10 @@ namespace Singularity.Extensions
 
             ModelMetadata[] ModelMeta = null;
 
-            for (int j = 0; j < CSVLine.Length; j++)
+            for (int Index = 0; Index < CSVLine.Length; Index++)
                 {
-                string HeaderTitle = CSVHeader[j];
-                string LineValue = CSVLine[j];
+                string HeaderTitle = CSVHeader[Index];
+                string LineValue = CSVLine[Index];
 
                 var Meta = Out.Meta(HeaderTitle);
 

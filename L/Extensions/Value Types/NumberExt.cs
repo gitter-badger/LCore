@@ -485,11 +485,11 @@ namespace LCore.Extensions
             {
             var Out = In;
 
-            foreach (var i in Others)
+            foreach (var Item in Others)
                 {
                 if (Out == null ||
-                    (i != null && i.CompareTo(Out) > 0))
-                    Out = i;
+                    (Item != null && Item.CompareTo(Out) > 0))
+                    Out = Item;
                 }
 
             return Out;
@@ -506,11 +506,11 @@ namespace LCore.Extensions
             {
             var Out = In;
 
-            foreach (var i in Others)
+            foreach (var Item in Others)
                 {
                 if (Out == null ||
-                    (i != null && i.CompareTo(Out) < 0))
-                    Out = i;
+                    (Item != null && Item.CompareTo(Out) < 0))
+                    Out = Item;
                 }
 
             return Out;
@@ -878,16 +878,16 @@ namespace LCore.Extensions
             var Out = new int[(From - To).Abs() + 1];
 
             int Direction = From < To ? 1 : -1;
-            int Index = 0;
+            int OutIndex = 0;
 
-            int i = From;
+            int Index2 = From;
             do
                 {
-                Out[Index] = i;
-                Index++;
+                Out[OutIndex] = Index2;
+                OutIndex++;
 
-                i += Direction;
-                } while (i - Direction != To);
+                Index2 += Direction;
+                } while (Index2 - Direction != To);
 
             return Out;
             }

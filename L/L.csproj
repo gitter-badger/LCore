@@ -147,7 +147,7 @@
     <Compile Include="Extensions\Object Types\FileExt.cs" />
     <Compile Include="Interfaces\IReverseAttributeOrder.cs" />
     <Compile Include="Extensions\Object Types\StringExt.cs" />
-    <Compile Include="Naming\IL_FriendlyName.cs" />
+    <Compile Include="Naming\IFriendlyName.cs" />
     <Compile Include="Extensions\Methods\LogicExt.cs" />
     <Compile Include="Extensions\Object Types\EnumerableExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

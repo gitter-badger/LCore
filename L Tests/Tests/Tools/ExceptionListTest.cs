@@ -34,6 +34,8 @@ namespace L_Tests.Tests.Tools
 
             Ex.Exceptions.ToS().Should().Be(TestImplicit2.Exceptions.ToS());
 
+            // ReSharper disable once SuggestVarOrType_Elsewhere
+            // ReSharper disable once RedundantCast
             List<Exception> TestImplicit3 = Ex;
             ExceptionList TestImplicit4 = TestImplicit3;
 

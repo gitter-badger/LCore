@@ -9,9 +9,9 @@ using Singularity.Context;
 
 namespace Singularity.Annotations
     {
-    public class FieldType_DropdownContextManageControllers : FieldType_DropdownOptions
+    public class FieldTypeDropdownContextManageControllers : FieldTypeDropdownOptions
         {
-        public FieldType_DropdownContextManageControllers(Type TypeFilter = null, bool MultiSelect = false)
+        public FieldTypeDropdownContextManageControllers(Type TypeFilter = null, bool MultiSelect = false)
             : base(new string[] { }, MultiSelect)
             {
             this.TypeFilter = TypeFilter;

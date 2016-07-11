@@ -113,11 +113,11 @@ namespace LCore.Extensions
             if (Objs.IsEmpty())
                 return;
 
-            foreach (var obj in Objs)
+            foreach (var Obj in Objs)
                 {
-                if (!In.Contains(obj))
+                if (!In.Contains(Obj))
                     {
-                    In.Add(obj);
+                    In.Add(Obj);
                     }
                 }
             }
@@ -398,13 +398,13 @@ namespace LCore.Extensions
 
             var Out = new List<object>();
 
-            int i = 0;
-            foreach (var o in In)
+            int Index = 0;
+            foreach (var Obj in In)
                 {
-                var obj = Func(i, o);
-                if (obj != null)
-                    Out.Add(obj);
-                i++;
+                var Result = Func(Index, Obj);
+                if (Result != null)
+                    Out.Add(Result);
+                Index++;
                 }
             return Out;
             }
@@ -427,13 +427,13 @@ namespace LCore.Extensions
 
             var Out = new List<T>();
 
-            int i = 0;
-            foreach (T o in In)
+            int Index = 0;
+            foreach (T Obj in In)
                 {
-                var obj = Func(i, o);
-                if (obj != null)
-                    Out.Add(obj);
-                i++;
+                var Result = Func(Index, Obj);
+                if (Result != null)
+                    Out.Add(Result);
+                Index++;
                 }
             return Out;
             }
@@ -456,13 +456,13 @@ namespace LCore.Extensions
 
             var Out = new List<T>();
 
-            int i = 0;
-            foreach (var o in In)
+            int Index = 0;
+            foreach (var Obj in In)
                 {
-                var obj = Func(i, o);
-                if (obj != null)
-                    Out.Add(obj);
-                i++;
+                var Result = Func(Index, Obj);
+                if (Result != null)
+                    Out.Add(Result);
+                Index++;
                 }
 
             return Out;
@@ -503,12 +503,12 @@ namespace LCore.Extensions
 
             int Count = In.Count;
             var Out = new List<T>();
-            for (int i = 0; i < Count; i++)
+            for (int Index = 0; Index < Count; Index++)
                 {
-                var o = In[i];
-                var obj = Func(i, o);
-                if (obj != null)
-                    Out.Add(obj);
+                var Item = In[Index];
+                var Result = Func(Index, Item);
+                if (Result != null)
+                    Out.Add(Result);
                 }
             return Out;
             }
@@ -655,11 +655,11 @@ namespace LCore.Extensions
             {
             In = In ?? new object[] { };
             var Out = new List<object>();
-            foreach (var o in In)
+            foreach (var Obj in In)
                 {
-                IEnumerable<object> obj = Func(o);
-                if (obj != null)
-                    Out.AddRange(obj);
+                IEnumerable<object> Result = Func(Obj);
+                if (Result != null)
+                    Out.AddRange(Result);
                 }
             return Out;
             }
@@ -673,11 +673,11 @@ namespace LCore.Extensions
             In = In.List<T>();
 
             var Out = new List<U>();
-            foreach (T o in In)
+            foreach (T Obj in In)
                 {
-                IEnumerable<U> obj = Func(o);
-                if (obj != null)
-                    Out.AddRange(obj);
+                IEnumerable<U> Result = Func(Obj);
+                if (Result != null)
+                    Out.AddRange(Result);
                 }
             return Out;
             }
@@ -691,11 +691,11 @@ namespace LCore.Extensions
             In = In ?? new T[] { };
 
             var Out = new List<U>();
-            foreach (var o in In)
+            foreach (var Obj in In)
                 {
-                IEnumerable<U> obj = Func(o);
-                if (obj != null)
-                    Out.AddRange(obj);
+                IEnumerable<U> Result = Func(Obj);
+                if (Result != null)
+                    Out.AddRange(Result);
                 }
             return Out;
             }
@@ -717,11 +717,11 @@ namespace LCore.Extensions
             {
             In = In ?? new List<T>();
             var Out = new List<U>();
-            foreach (var o in In)
+            foreach (var Obj in In)
                 {
-                IEnumerable<U> obj = Func(o);
-                if (obj != null)
-                    Out.AddRange(obj);
+                IEnumerable<U> Result = Func(Obj);
+                if (Result != null)
+                    Out.AddRange(Result);
                 }
             return Out;
             }
@@ -738,9 +738,9 @@ namespace LCore.Extensions
             List<object> Out = NewList<List<object>, object>();
             In.Each((i, o) =>
             {
-                var obj = Func(i, o);
-                if (obj != null)
-                    Out.Add(obj);
+                var Result = Func(i, o);
+                if (Result != null)
+                    Out.Add(Result);
             });
             return Out;
             }
@@ -770,9 +770,9 @@ namespace LCore.Extensions
             List<U> Out = NewList<List<U>, U>();
             In.Each((i, o) =>
             {
-                var obj = Func(i, o);
-                if (obj != null)
-                    Out.Add(obj);
+                var Result = Func(i, o);
+                if (Result != null)
+                    Out.Add(Result);
             });
             return Out;
             }
@@ -786,9 +786,9 @@ namespace LCore.Extensions
             List<U> Out = NewList<List<U>, U>();
             In.Each((i, o) =>
             {
-                var obj = Func(i, o);
-                if (obj != null)
-                    Out.Add(obj);
+                var Result = Func(i, o);
+                if (Result != null)
+                    Out.Add(Result);
             });
             return Out;
             }
@@ -805,30 +805,30 @@ namespace LCore.Extensions
                 return 0;
                 }
 
-            var o = In as Array;
-            if (o != null)
+            var Array = In as Array;
+            if (Array != null)
                 {
-                return o.Length;
+                return Array.Length;
                 }
-            var list = In as IList;
-            if (list != null)
+            var List = In as IList;
+            if (List != null)
                 {
-                return list.Count;
+                return List.Count;
                 }
-            var collection = In as ICollection;
-            if (collection != null)
+            var Collection = In as ICollection;
+            if (Collection != null)
                 {
                 try
                     {
-                    return collection.Count;
+                    return Collection.Count;
                     }
                 catch
                     {
                     return 0;
                     }
                 }
-            string s = In as string;
-            if (s != null)
+            string Str = In as string;
+            if (Str != null)
                 {
                 try
                     {
@@ -908,9 +908,9 @@ namespace LCore.Extensions
             {
             if (!In.IsEmpty())
                 {
-                foreach (var o in In)
+                foreach (var Obj in In)
                     {
-                    Func(o);
+                    Func(Obj);
                     }
                 }
             }
@@ -950,9 +950,9 @@ namespace LCore.Extensions
             {
             if (!In.IsEmpty())
                 {
-                foreach (var o in In)
+                foreach (var Obj in In)
                     {
-                    Func(o);
+                    Func(Obj);
                     }
                 }
             }
@@ -976,11 +976,11 @@ namespace LCore.Extensions
             {
             if (!In.IsEmpty())
                 {
-                int i = 0;
-                foreach (var o in In)
+                int Index = 0;
+                foreach (var Obj in In)
                     {
-                    Func(i, o);
-                    i++;
+                    Func(Index, Obj);
+                    Index++;
                     }
                 }
             }
@@ -1021,11 +1021,11 @@ namespace LCore.Extensions
             {
             if (!In.IsEmpty())
                 {
-                int i = 0;
-                foreach (var o in In)
+                int Index = 0;
+                foreach (var Obj in In)
                     {
-                    Func(i, o);
-                    i++;
+                    Func(Index, Obj);
+                    Index++;
                     }
                 }
             }
@@ -1054,9 +1054,9 @@ namespace LCore.Extensions
             if (In == null || Compare == null)
                 return false;
             // Strings are IEnumerable too - we have to test for this just in case.
-            string s = In as string;
-            if (s != null && Compare is string)
-                return s == (string)Compare;
+            string Str = In as string;
+            if (Str != null && Compare is string)
+                return Str == (string)Compare;
 
             int Count1 = In.Count();
             int Count2 = Compare.Count();
@@ -1449,10 +1449,10 @@ namespace LCore.Extensions
             if (In == null)
                 return null;
 
-            var @in = In as IList;
-            if (@in != null)
+            var List = In as IList;
+            if (List != null)
                 {
-                return @in[Index];
+                return List[Index];
                 }
 
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
@@ -1463,10 +1463,10 @@ namespace LCore.Extensions
                 }
             // ReSharper restore HeuristicUnreachableCode
 
-            string s = In as string;
-            if (s != null)
+            string Str = In as string;
+            if (Str != null)
                 {
-                return s[Index];
+                return Str[Index];
                 }
             throw new Exception(In.GetType().FullName);
             }
@@ -1478,16 +1478,16 @@ namespace LCore.Extensions
             if (In == null)
                 return default(T);
 
-            var @in = In as IList<T>;
-            if (@in != null)
+            var List = In as IList<T>;
+            if (List != null)
                 {
-                return @in[Index];
+                return List[Index];
                 }
             // ReSharper disable once SuspiciousTypeConversion.Global
-            var array = In as Array;
-            if (array != null)
+            var Array = In as Array;
+            if (Array != null)
                 {
-                return (T)array.GetValue(Index);
+                return (T)Array.GetValue(Index);
                 }
             throw new Exception(In.GetType().FullName);
             }
@@ -1924,11 +1924,11 @@ namespace LCore.Extensions
 
             (In.Length - 1).To(0, i =>
             {
-                var o = In[i];
-                bool Result = Func(o);
+                var Item = In[i];
+                bool Result = Func(Item);
                 if (Result)
                     {
-                    Out[StartCount - Count] = o;
+                    Out[StartCount - Count] = Item;
 
                     Count--;
                     if (Count == 0)
@@ -1961,11 +1961,11 @@ namespace LCore.Extensions
 
             (In.Count - 1).To(0, i =>
             {
-                var o = In[i];
-                bool Result = Func(o);
+                var Item = In[i];
+                bool Result = Func(Item);
                 if (Result)
                     {
-                    Out.Add(o);
+                    Out.Add(Item);
                     Count--;
                     if (Count == 0)
                         return false;
@@ -2096,11 +2096,11 @@ namespace LCore.Extensions
             if (!In.HasIndex(Index2))
                 throw new Exception($"Invalid index 2: {Index2}");
 
-            var temp = In[Index1];
+            var Item = In[Index1];
 
             In.RemoveAt(Index1);
 
-            In.Insert(Index2, temp);
+            In.Insert(Index2, Item);
             }
         #endregion
 
@@ -2217,13 +2217,13 @@ namespace LCore.Extensions
 
             var RandomIndexes = new List<int>();
 
-            var rand = new Random(_RandomSeed);
-            _RandomSeed = rand.Next();
+            var Rand = new Random(_RandomSeed);
+            _RandomSeed = Rand.Next();
             while (RandomIndexes.Count < Count)
                 {
-                int r = rand.Next(Count2);
-                if (!AllowDuplicates && !RandomIndexes.Contains(r))
-                    RandomIndexes.Add(r);
+                int RandInt = Rand.Next(Count2);
+                if (!AllowDuplicates && !RandomIndexes.Contains(RandInt))
+                    RandomIndexes.Add(RandInt);
                 }
 
             return RandomIndexes.Convert(In.GetAt);
@@ -2240,14 +2240,14 @@ namespace LCore.Extensions
 
             var RandomIndexes = new List<int>();
 
-            var rand = new Random(_RandomSeed);
-            _RandomSeed = rand.Next();
+            var Rand = new Random(_RandomSeed);
+            _RandomSeed = Rand.Next();
 
             while (RandomIndexes.Count < Count)
                 {
-                int r = rand.Next(Count2);
-                if (!RandomIndexes.Contains(r))
-                    RandomIndexes.Add(r);
+                int RandInt = Rand.Next(Count2);
+                if (!RandomIndexes.Contains(RandInt))
+                    RandomIndexes.Add(RandInt);
                 }
 
             return RandomIndexes.ToArray().Convert(i => In[i]);
@@ -2262,10 +2262,10 @@ namespace LCore.Extensions
             if (Count < 1)
                 return default(T);
 
-            var rand = new Random(_RandomSeed);
-            _RandomSeed = rand.Next();
+            var Rand = new Random(_RandomSeed);
+            _RandomSeed = Rand.Next();
 
-            int RandomIndex = rand.Next(Count);
+            int RandomIndex = Rand.Next(Count);
 
             return In.GetAt(RandomIndex);
             }
@@ -2342,6 +2342,33 @@ namespace LCore.Extensions
                 RemoveAt_Checked(List, Index);
                 }
             }
+        #endregion
+
+        #region RemoveDuplicate
+
+        /// <summary>
+        /// Removes duplicate items from an enumerable using [Indexer] to determine 
+        /// uniqueness.
+        /// </summary>
+        public static IEnumerable<T> RemoveDuplicate<T, U>(this IEnumerable<T> In, Func<T, U> Indexer)
+            {
+            In = In ?? new T[] { };
+            Indexer = Indexer ?? L.F<T, U>();
+
+            var Keys = new List<U>();
+            var Out = new List<T>();
+
+            In.Each(i =>
+            {
+                var Key = Indexer(i);
+                if (!Keys.Contains(Key))
+                    Out.Add(i);
+                Keys.Add(Key);
+            });
+
+            return Out;
+            }
+
         #endregion
 
         #region RemoveDuplicates
@@ -2549,10 +2576,10 @@ namespace LCore.Extensions
             if (In == null)
                 return;
 
-            var @in = In as IList;
-            if (@in != null)
+            var List = In as IList;
+            if (List != null)
                 {
-                @in[Index] = Value;
+                List[Index] = Value;
                 }
             else throw new Exception(In.GetType().FullName);
             }
@@ -2564,18 +2591,18 @@ namespace LCore.Extensions
             if (In == null)
                 return;
 
-            var @in = In as IList<T>;
-            if (@in != null)
+            var List = In as IList<T>;
+            if (List != null)
                 {
-                @in[Index] = Value;
+                List[Index] = Value;
                 return;
                 }
 
             // ReSharper disable once SuspiciousTypeConversion.Global
-            var array = In as Array;
-            if (array != null)
+            var Array = In as Array;
+            if (Array != null)
                 {
-                array.SetValue(Value, Index);
+                Array.SetValue(Value, Index);
                 return;
                 }
 
@@ -2680,9 +2707,9 @@ namespace LCore.Extensions
             if (!In.HasIndex(Index2))
                 throw new Exception($"Invalid index 2: {Index2}");
 
-            var temp = In[Index1];
+            var Item = In[Index1];
             In[Index1] = In[Index2];
-            In[Index2] = temp;
+            In[Index2] = Item;
             }
         /// <summary>
         /// Swaps two indexes in list [In].
@@ -2694,9 +2721,9 @@ namespace LCore.Extensions
             if (!In.HasIndex(Index2))
                 throw new Exception($"Invalid index 2: {Index2}");
 
-            var temp = In[Index1];
+            var Item = In[Index1];
             In[Index1] = In[Index2];
-            In[Index2] = temp;
+            In[Index2] = Item;
             }
         #endregion
 
@@ -2708,10 +2735,10 @@ namespace LCore.Extensions
         public static int TotalCount(this IEnumerable In)
             {
             var Collection = In;
-            var @in = In as IDictionary;
-            if (@in != null)
+            var Dictionary = In as IDictionary;
+            if (Dictionary != null)
                 {
-                Collection = @in.Values;
+                Collection = Dictionary.Values;
                 }
 
             if (In is string)
@@ -2722,9 +2749,9 @@ namespace LCore.Extensions
 
             Collection.Each(v =>
                 {
-                    var enumerable = v as IEnumerable;
-                    if (enumerable != null)
-                        Out += enumerable.TotalCount();
+                    var Enumerable = v as IEnumerable;
+                    if (Enumerable != null)
+                        Out += Enumerable.TotalCount();
                     else
                         Out++;
                 });
@@ -2747,7 +2774,7 @@ namespace LCore.Extensions
 
             // ReSharper disable once LoopCanBeConvertedToQuery
             // ReSharper disable once UnusedVariable
-            foreach (var o in In)
+            foreach (var Obj in In)
                 {
                 bool Continue = Func();
                 if (!Continue)
@@ -2768,7 +2795,7 @@ namespace LCore.Extensions
 
             // ReSharper disable once LoopCanBeConvertedToQuery
             // ReSharper disable once UnusedVariable
-            foreach (var o in In)
+            foreach (var Obj in In)
                 {
                 bool Continue = Func();
                 if (!Continue)
@@ -2788,9 +2815,9 @@ namespace LCore.Extensions
                 throw new ArgumentNullException(nameof(Func));
 
             // ReSharper disable once LoopCanBeConvertedToQuery
-            foreach (var o in In)
+            foreach (var Obj in In)
                 {
-                bool Continue = Func(o);
+                bool Continue = Func(Obj);
                 if (!Continue)
                     return false;
                 }
@@ -2808,9 +2835,9 @@ namespace LCore.Extensions
                 throw new ArgumentNullException(nameof(Func));
 
             // ReSharper disable once LoopCanBeConvertedToQuery
-            foreach (var o in In)
+            foreach (var Obj in In)
                 {
-                bool Continue = Func(o);
+                bool Continue = Func(Obj);
                 if (!Continue)
                     return false;
                 }
@@ -2826,11 +2853,11 @@ namespace LCore.Extensions
             if (Func == null)
                 throw new ArgumentNullException(nameof(Func));
 
-            int i = 0;
+            int Index = 0;
             return In.While(o =>
             {
-                bool Continue = Func(i);
-                i++;
+                bool Continue = Func(Index);
+                Index++;
                 return Continue;
             });
             }
@@ -2844,11 +2871,11 @@ namespace LCore.Extensions
             if (Func == null)
                 throw new ArgumentNullException(nameof(Func));
 
-            int i = 0;
+            int Index = 0;
             return In.While(o =>
             {
-                bool Continue = Func(i, o);
-                i++;
+                bool Continue = Func(Index, o);
+                Index++;
                 return Continue;
             });
             }
@@ -2862,11 +2889,11 @@ namespace LCore.Extensions
             if (Func == null)
                 throw new ArgumentNullException(nameof(Func));
 
-            int i = 0;
+            int Index = 0;
             return In.While(o =>
                 {
-                    bool Continue = Func(i, o);
-                    i++;
+                    bool Continue = Func(Index, o);
+                    Index++;
                     return Continue;
                 });
             }

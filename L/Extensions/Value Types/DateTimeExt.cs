@@ -49,37 +49,37 @@ namespace LCore.Extensions
             {
             try
                 {
-                string day = d.Day.ToString();
-                if (day.Length == 1) { day = $"0{day}"; }
-                int month = d.Month;
-                string Month = L.Date.MonthGetString(month);
+                string Day = d.Day.ToString();
+                if (Day.Length == 1) { Day = $"0{Day}"; }
+                int MonthNum = d.Month;
+                string Month = L.Date.MonthGetString(MonthNum);
 
-                var mDate = d.ToUniversalTime();
-                string mTime = mDate.Hour.ToString().Length == 1 ? $"0{mDate.Hour}" : mDate.Hour.ToString();
+                var MDate = d.ToUniversalTime();
+                string MTime = MDate.Hour.ToString().Length == 1 ? $"0{MDate.Hour}" : MDate.Hour.ToString();
 
-                mTime += ":";
-                if (mDate.Minute.ToString().Length == 1)
+                MTime += ":";
+                if (MDate.Minute.ToString().Length == 1)
                     {
-                    mTime += $"0{mDate.Minute}";
+                    MTime += $"0{MDate.Minute}";
                     }
                 else
                     {
-                    mTime += mDate.Minute.ToString();
+                    MTime += MDate.Minute.ToString();
                     }
 
-                mTime += ":";
-                if (mDate.Second.ToString().Length == 1)
+                MTime += ":";
+                if (MDate.Second.ToString().Length == 1)
                     {
-                    mTime += $"0{mDate.Second}";
+                    MTime += $"0{MDate.Second}";
                     }
                 else
                     {
-                    mTime += mDate.Second.ToString();
+                    MTime += MDate.Second.ToString();
                     }
 
                 string Str = d.DayOfWeek.ToString().Substring(0, 3);
-                Str += $", {day} {Month.Substring(0, 3)}";
-                Str += $" {d.Year} {mTime} GMT";
+                Str += $", {Day} {Month.Substring(0, 3)}";
+                Str += $" {d.Year} {MTime} GMT";
                 return Str;
 
                 }
@@ -106,29 +106,29 @@ namespace LCore.Extensions
         /// </summary>
         public static string ToTimeString(this TimeSpan t)
             {
-            float temp = (float)t.TotalSeconds;
-            string unit = "second";
-            if (temp > 60)
+            float Temp = (float)t.TotalSeconds;
+            string Unit = "second";
+            if (Temp > 60)
                 {
-                unit = "minute";
+                Unit = "minute";
 
-                temp = temp / 60;
-                if (temp > 60)
+                Temp = Temp / 60;
+                if (Temp > 60)
                     {
-                    unit = "hour";
+                    Unit = "hour";
 
-                    temp = temp / 60;
+                    Temp = Temp / 60;
 
-                    if (temp > 24)
+                    if (Temp > 24)
                         {
-                        unit = "day";
-                        temp = temp / 24;
+                        Unit = "day";
+                        Temp = Temp / 24;
                         }
                     }
                 }
-            int temp2 = (int)temp;
+            int Temp2 = (int)Temp;
 
-            string Out = $"{temp2} {unit.Pluralize(temp2)}";
+            string Out = $"{Temp2} {Unit.Pluralize(Temp2)}";
 
             return Out;
             }

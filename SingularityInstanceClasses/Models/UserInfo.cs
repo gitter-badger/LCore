@@ -77,7 +77,7 @@ namespace SingularityInstanceClasses.Models
                 u.UserID == UserID;
             }
 
-        public static Expression<Func<UserInfo, bool>> Filter_Active =
+        public static readonly Expression<Func<UserInfo, bool>> Filter_Active =
             u => u.Active &&
                 u.Role != null;
 

@@ -11,7 +11,7 @@ namespace L_Tests.Tests.Extensions
     [TestClass]
     public class LogicExtTest : ExtensionTester
         {
-        private static readonly string TestString = Guid.NewGuid().ToString();
+        private static readonly string _TestString = Guid.NewGuid().ToString();
 
         protected override Type[] TestType => new[] { typeof(LogicExt) };
 
@@ -23,7 +23,7 @@ namespace L_Tests.Tests.Extensions
             bool Result = false;
             Action<object> Action = o =>
                 {
-                    o.Should().Be(TestString);
+                    o.Should().Be(_TestString);
                     Result = true;
                 };
             Action<object> ActionFail = o =>
@@ -33,12 +33,12 @@ namespace L_Tests.Tests.Extensions
 
             Action<string> Action2 = Action.Cast<object, string>();
 
-            Action2(TestString);
+            Action2(_TestString);
 
             Result.Should().BeTrue();
 
             // Exceptions are passed.
-            ActionFail.Cast<object, string>().ShouldFail(TestString);
+            ActionFail.Cast<object, string>().ShouldFail(_TestString);
             }
 
         [TestMethod]
@@ -48,8 +48,8 @@ namespace L_Tests.Tests.Extensions
             bool Result = false;
             Action<object, object> Action = (o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
                 Result = true;
             };
             Action<object, object> ActionFail = (o1, o2) =>
@@ -60,12 +60,12 @@ namespace L_Tests.Tests.Extensions
 
             Action<string, string> Action2 = Action.Cast<object, object, string, string>();
 
-            Action2(TestString, TestString);
+            Action2(_TestString, _TestString);
 
             Result.Should().BeTrue();
 
             // Exceptions are passed.
-            ActionFail.Cast<object, object, string, string>().ShouldFail(TestString, TestString);
+            ActionFail.Cast<object, object, string, string>().ShouldFail(_TestString, _TestString);
             }
 
 

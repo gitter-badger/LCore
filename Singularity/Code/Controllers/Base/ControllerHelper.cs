@@ -120,9 +120,9 @@ namespace Singularity.Controllers
                     ErrorsTable.Add(Error);
                     Context.SaveChanges();
                     }
-                catch (Exception e)
+                catch (Exception Ex2)
                     {
-                    throw new Exception("Could not log error to database", e);
+                    throw new Exception("Could not log error to database", Ex2);
                     }
                 }
             }
@@ -364,12 +364,12 @@ namespace Singularity.Controllers
             #region Sort
             if (!string.IsNullOrEmpty(SortTerm))
                 {
-                if (typeof(T).Meta(SortTerm).ModelType.HasInterface<IModel>(false))
+                if (typeof(T).Meta(SortTerm).ModelType.HasInterface<IModel>())
                     {
-                    var t = typeof(T).Meta(SortTerm).ModelType;
-                    var display = t.GetAttribute<DisplayColumnAttribute>(false);
+                    var Type = typeof(T).Meta(SortTerm).ModelType;
+                    var Display = Type.GetAttribute<DisplayColumnAttribute>(false);
 
-                    SortTerm = display != null ? $"{SortTerm}.{display.SortColumn}" : $"{SortTerm}.{Enumerable.First(t.Meta().Properties).PropertyName}";
+                    SortTerm = Display != null ? $"{SortTerm}.{Display.SortColumn}" : $"{SortTerm}.{Enumerable.First(Type.Meta().Properties).PropertyName}";
                     }
 
                 Out = SortDirection == SortDirection.Ascending ?

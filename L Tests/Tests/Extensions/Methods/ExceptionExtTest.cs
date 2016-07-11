@@ -13,7 +13,7 @@ namespace L_Tests.Tests.Extensions
     [TestClass]
     public class ExceptionExtTest : ExtensionTester
         {
-        private static readonly string TestString = Guid.NewGuid().ToString();
+        private static readonly string _TestString = Guid.NewGuid().ToString();
 
         protected override Type[] TestType => new[] { typeof(ExceptionExt) };
 
@@ -21,264 +21,264 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_Try_Action_0()
             {
-            var a = new Action(() => { });
-            var b = new Action(() => { throw new Exception(); });
+            var A = new Action(() => { });
+            var B = new Action(() => { throw new Exception(); });
 
             // Both actions don't fail.
-            bool result = a.Try()();
-            bool result2 = b.Try()();
+            bool Result = A.Try()();
+            bool Result2 = B.Try()();
 
             // Result was true
-            result.Should().BeTrue();
+            Result.Should().BeTrue();
 
             // Result was false
-            result2.Should().BeFalse();
+            Result2.Should().BeFalse();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Try_Action_1()
             {
-            var a = new Action<string>(o =>
+            var A = new Action<string>(o =>
                 {
-                    o.Should().Be(TestString);
+                    o.Should().Be(_TestString);
                 });
-            var b = new Action<string>(o =>
+            var B = new Action<string>(o =>
                 {
-                    o.Should().Be(TestString);
+                    o.Should().Be(_TestString);
 
                     throw new Exception();
                 });
 
             // Both actions don't fail.
-            bool result = a.Try()(TestString);
-            bool result2 = b.Try()(TestString);
+            bool Result = A.Try()(_TestString);
+            bool Result2 = B.Try()(_TestString);
 
             // Result was true
-            result.Should().BeTrue();
+            Result.Should().BeTrue();
 
             // Result was false
-            result2.Should().BeFalse();
+            Result2.Should().BeFalse();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Try_Action_2()
             {
-            var a = new Action<string, string>((o1, o2) =>
+            var A = new Action<string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
             });
-            var b = new Action<string, string>((o1, o2) =>
+            var B = new Action<string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
 
                 throw new Exception();
             });
 
             // Both actions don't fail.
-            bool result = a.Try()(TestString, TestString);
-            bool result2 = b.Try()(TestString, TestString);
+            bool Result = A.Try()(_TestString, _TestString);
+            bool Result2 = B.Try()(_TestString, _TestString);
 
             // Result was true
-            result.Should().BeTrue();
+            Result.Should().BeTrue();
 
             // Result was false
-            result2.Should().BeFalse();
+            Result2.Should().BeFalse();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Try_Action_3()
             {
-            var a = new Action<string, string, string>((o1, o2, o3) =>
+            var A = new Action<string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
             });
-            var b = new Action<string, string, string>((o1, o2, o3) =>
+            var B = new Action<string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
 
                 throw new Exception();
             });
 
             // Both actions don't fail.
-            bool result = a.Try()(TestString, TestString, TestString);
-            bool result2 = b.Try()(TestString, TestString, TestString);
+            bool Result = A.Try()(_TestString, _TestString, _TestString);
+            bool Result2 = B.Try()(_TestString, _TestString, _TestString);
 
             // Result was true
-            result.Should().BeTrue();
+            Result.Should().BeTrue();
 
             // Result was false
-            result2.Should().BeFalse();
+            Result2.Should().BeFalse();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Try_Action_4()
             {
-            var a = new Action<string, string, string, string>((o1, o2, o3, o4) =>
+            var A = new Action<string, string, string, string>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
             });
-            var b = new Action<string, string, string, string>((o1, o2, o3, o4) =>
+            var B = new Action<string, string, string, string>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
 
                 throw new Exception();
             });
 
             // Both actions don't fail.
-            bool result = a.Try()(TestString, TestString, TestString, TestString);
-            bool result2 = b.Try()(TestString, TestString, TestString, TestString);
+            bool Result = A.Try()(_TestString, _TestString, _TestString, _TestString);
+            bool Result2 = B.Try()(_TestString, _TestString, _TestString, _TestString);
 
             // Result was true
-            result.Should().BeTrue();
+            Result.Should().BeTrue();
 
             // Result was false
-            result2.Should().BeFalse();
+            Result2.Should().BeFalse();
             }
 
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Try_Func_0()
             {
-            var a = new Func<int>(() => { return 5; });
-            var b = new Func<int>(() => { throw new Exception(); });
+            var A = new Func<int>(() => { return 5; });
+            var B = new Func<int>(() => { throw new Exception(); });
 
             // Both actions don't fail.
-            int result = a.Try()();
-            int result2 = b.Try()();
+            int Result = A.Try()();
+            int Result2 = B.Try()();
 
             // Result was true
-            result.Should().Be(5);
+            Result.Should().Be(5);
 
             // Result was false
-            result2.Should().Be(default(int));
+            Result2.Should().Be(default(int));
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Try_Func_1()
             {
-            var a = new Func<string, int>(o =>
+            var A = new Func<string, int>(o =>
             {
-                o.Should().Be(TestString);
+                o.Should().Be(_TestString);
                 return 5;
             });
-            var b = new Func<string, int>(o =>
+            var B = new Func<string, int>(o =>
             {
-                o.Should().Be(TestString);
+                o.Should().Be(_TestString);
 
                 throw new Exception();
             });
 
             // Both actions don't fail.
-            int result = a.Try()(TestString);
-            int result2 = b.Try()(TestString);
+            int Result = A.Try()(_TestString);
+            int Result2 = B.Try()(_TestString);
 
             // Result was true
-            result.Should().Be(5);
+            Result.Should().Be(5);
 
             // Result was false
-            result2.Should().Be(default(int));
+            Result2.Should().Be(default(int));
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Try_Func_2()
             {
-            var a = new Func<string, string, int>((o1, o2) =>
+            var A = new Func<string, string, int>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
                 return 5;
             });
-            var b = new Func<string, string, int>((o1, o2) =>
+            var B = new Func<string, string, int>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
 
                 throw new Exception();
             });
 
             // Both actions don't fail.
-            int result = a.Try()(TestString, TestString);
-            int result2 = b.Try()(TestString, TestString);
+            int Result = A.Try()(_TestString, _TestString);
+            int Result2 = B.Try()(_TestString, _TestString);
 
             // Result was true
-            result.Should().Be(5);
+            Result.Should().Be(5);
 
             // Result was false
-            result2.Should().Be(default(int));
+            Result2.Should().Be(default(int));
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Try_Func_3()
             {
-            var a = new Func<string, string, string, int>((o1, o2, o3) =>
+            var A = new Func<string, string, string, int>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
                 return 5;
             });
-            var b = new Func<string, string, string, int>((o1, o2, o3) =>
+            var B = new Func<string, string, string, int>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
 
                 throw new Exception();
             });
 
             // Both actions don't fail.
-            int result = a.Try()(TestString, TestString, TestString);
-            int result2 = b.Try()(TestString, TestString, TestString);
+            int Result = A.Try()(_TestString, _TestString, _TestString);
+            int Result2 = B.Try()(_TestString, _TestString, _TestString);
 
             // Result was true
-            result.Should().Be(5);
+            Result.Should().Be(5);
 
             // Result was false
-            result2.Should().Be(default(int));
+            Result2.Should().Be(default(int));
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Try_Func_4()
             {
-            var a = new Func<string, string, string, string, int>((o1, o2, o3, o4) =>
+            var A = new Func<string, string, string, string, int>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
                 return 5;
             });
-            var b = new Func<string, string, string, string, int>((o1, o2, o3, o4) =>
+            var B = new Func<string, string, string, string, int>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
 
                 throw new Exception();
             });
 
             // Both actions don't fail.
-            int result = a.Try()(TestString, TestString, TestString, TestString);
-            int result2 = b.Try()(TestString, TestString, TestString, TestString);
+            int Result = A.Try()(_TestString, _TestString, _TestString, _TestString);
+            int Result2 = B.Try()(_TestString, _TestString, _TestString, _TestString);
 
             // Result was true
-            result.Should().Be(5);
+            Result.Should().Be(5);
 
             // Result was false
-            result2.Should().Be(default(int));
+            Result2.Should().Be(default(int));
             }
 
 
@@ -286,125 +286,125 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_Retry_0()
             {
-            int i = 0;
-            var test = new Action(() =>
+            int I = 0;
+            var Test = new Action(() =>
             {
-                i++;
-                if (i < 5)
+                I++;
+                if (I < 5)
                     throw new ArgumentException();
             });
 
-            test.Retry(3).ShouldFail<ArgumentException>();
+            Test.Retry(3).ShouldFail<ArgumentException>();
 
             // Reset
-            i = 0;
-            test.Retry(4)();
-            i.Should().Be(5);
+            I = 0;
+            Test.Retry(4)();
+            I.Should().Be(5);
 
-            L.A(() => test.Retry(0)).ShouldFail();
-            L.A(() => test.Retry(-1)).ShouldFail();
+            L.A(() => Test.Retry(0)).ShouldFail();
+            L.A(() => Test.Retry(-1)).ShouldFail();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Retry_Action_1()
             {
-            int i = 0;
-            var test = new Action<string>(o =>
+            int I = 0;
+            var Test = new Action<string>(o =>
                 {
-                    o.Should().Be(TestString);
+                    o.Should().Be(_TestString);
 
-                    i++;
-                    if (i < 5)
+                    I++;
+                    if (I < 5)
                         throw new ArgumentException();
                 });
 
-            test.Retry(3).ShouldFail<string, ArgumentException>(TestString);
+            Test.Retry(3).ShouldFail<string, ArgumentException>(_TestString);
 
             // Reset
-            i = 0;
-            test.Retry(4)(TestString);
-            i.Should().Be(5);
+            I = 0;
+            Test.Retry(4)(_TestString);
+            I.Should().Be(5);
 
-            L.A(() => test.Retry(0)).ShouldFail();
-            L.A(() => test.Retry(-1)).ShouldFail();
+            L.A(() => Test.Retry(0)).ShouldFail();
+            L.A(() => Test.Retry(-1)).ShouldFail();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Retry_Action_2()
             {
-            int i = 0;
-            var test = new Action<string, string>((o1, o2) =>
+            int I = 0;
+            var Test = new Action<string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
 
-                i++;
-                if (i < 5)
+                I++;
+                if (I < 5)
                     throw new ArgumentException();
             });
 
-            test.Retry(3).ShouldFail<string, string, ArgumentException>(TestString, TestString);
+            Test.Retry(3).ShouldFail<string, string, ArgumentException>(_TestString, _TestString);
 
             // Reset
-            i = 0;
-            test.Retry(4)(TestString, TestString);
-            i.Should().Be(5);
+            I = 0;
+            Test.Retry(4)(_TestString, _TestString);
+            I.Should().Be(5);
 
-            L.A(() => test.Retry(0)).ShouldFail();
-            L.A(() => test.Retry(-1)).ShouldFail();
+            L.A(() => Test.Retry(0)).ShouldFail();
+            L.A(() => Test.Retry(-1)).ShouldFail();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Retry_Action_3()
             {
-            int i = 0;
-            var test = new Action<string, string, string>((o1, o2, o3) =>
+            int I = 0;
+            var Test = new Action<string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
 
-                i++;
-                if (i < 5)
+                I++;
+                if (I < 5)
                     throw new ArgumentException();
             });
 
-            test.Retry(3).ShouldFail<string, string, string, ArgumentException>(TestString, TestString, TestString);
+            Test.Retry(3).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
 
             // Reset
-            i = 0;
-            test.Retry(4)(TestString, TestString, TestString);
-            i.Should().Be(5);
+            I = 0;
+            Test.Retry(4)(_TestString, _TestString, _TestString);
+            I.Should().Be(5);
 
-            L.A(() => test.Retry(0)).ShouldFail();
-            L.A(() => test.Retry(-1)).ShouldFail();
+            L.A(() => Test.Retry(0)).ShouldFail();
+            L.A(() => Test.Retry(-1)).ShouldFail();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Retry_Action_4()
             {
-            int i = 0;
-            var test = new Action<string, string, string, string>((o1, o2, o3, o4) =>
+            int I = 0;
+            var Test = new Action<string, string, string, string>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
 
-                i++;
-                if (i < 5)
+                I++;
+                if (I < 5)
                     throw new ArgumentException();
             });
 
-            test.Retry(3).ShouldFail<string, string, string, string, ArgumentException>(TestString, TestString, TestString, TestString);
+            Test.Retry(3).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString, _TestString);
 
             // Reset
-            i = 0;
-            test.Retry(4)(TestString, TestString, TestString, TestString);
-            i.Should().Be(5);
+            I = 0;
+            Test.Retry(4)(_TestString, _TestString, _TestString, _TestString);
+            I.Should().Be(5);
 
-            L.A(() => test.Retry(0)).ShouldFail();
-            L.A(() => test.Retry(-1)).ShouldFail();
+            L.A(() => Test.Retry(0)).ShouldFail();
+            L.A(() => Test.Retry(-1)).ShouldFail();
             }
 
 
@@ -412,135 +412,135 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_Retry_Func_0()
             {
-            int i = 0;
-            var test = new Func<string>(() =>
+            int I = 0;
+            var Test = new Func<string>(() =>
             {
-                i++;
-                if (i < 5)
+                I++;
+                if (I < 5)
                     throw new ArgumentException();
 
-                return TestString;
+                return _TestString;
             });
 
-            test.Retry(3).ShouldFail<string, ArgumentException>();
+            Test.Retry(3).ShouldFail<string, ArgumentException>();
 
             // Reset
-            i = 0;
-            test.Retry(4)().Should().Be(TestString);
-            i.Should().Be(5);
+            I = 0;
+            Test.Retry(4)().Should().Be(_TestString);
+            I.Should().Be(5);
 
-            L.F(() => test.Retry(0)).ShouldFail();
-            L.F(() => test.Retry(-1)).ShouldFail();
+            L.F(() => Test.Retry(0)).ShouldFail();
+            L.F(() => Test.Retry(-1)).ShouldFail();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Retry_Func_1()
             {
-            int i = 0;
-            var test = new Func<string, string>(o =>
+            int I = 0;
+            var Test = new Func<string, string>(o =>
             {
-                o.Should().Be(TestString);
+                o.Should().Be(_TestString);
 
-                i++;
-                if (i < 5)
+                I++;
+                if (I < 5)
                     throw new ArgumentException();
 
-                return TestString;
+                return _TestString;
             });
 
-            test.Retry(3).ShouldFail<string, string, ArgumentException>(TestString);
+            Test.Retry(3).ShouldFail<string, string, ArgumentException>(_TestString);
 
             // Reset
-            i = 0;
-            test.Retry(4)(TestString);
-            i.Should().Be(5);
+            I = 0;
+            Test.Retry(4)(_TestString);
+            I.Should().Be(5);
 
-            L.F(() => test.Retry(0)).ShouldFail();
-            L.F(() => test.Retry(-1)).ShouldFail();
+            L.F(() => Test.Retry(0)).ShouldFail();
+            L.F(() => Test.Retry(-1)).ShouldFail();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Retry_Func_2()
             {
-            int i = 0;
-            var test = new Func<string, string, string>((o1, o2) =>
+            int I = 0;
+            var Test = new Func<string, string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
 
-                i++;
-                if (i < 5)
+                I++;
+                if (I < 5)
                     throw new ArgumentException();
 
-                return TestString;
+                return _TestString;
             });
 
-            test.Retry(3).ShouldFail<string, string, string, ArgumentException>(TestString, TestString);
+            Test.Retry(3).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString);
 
             // Reset
-            i = 0;
-            test.Retry(4)(TestString, TestString);
-            i.Should().Be(5);
+            I = 0;
+            Test.Retry(4)(_TestString, _TestString);
+            I.Should().Be(5);
 
-            L.F(() => test.Retry(0)).ShouldFail();
-            L.F(() => test.Retry(-1)).ShouldFail();
+            L.F(() => Test.Retry(0)).ShouldFail();
+            L.F(() => Test.Retry(-1)).ShouldFail();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Retry_Func_3()
             {
-            int i = 0;
-            var test = new Func<string, string, string, string>((o1, o2, o3) =>
+            int I = 0;
+            var Test = new Func<string, string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
 
-                i++;
-                if (i < 5)
+                I++;
+                if (I < 5)
                     throw new ArgumentException();
 
-                return TestString;
+                return _TestString;
             });
 
-            test.Retry(3).ShouldFail<string, string, string, string, ArgumentException>(TestString, TestString, TestString);
+            Test.Retry(3).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
 
             // Reset
-            i = 0;
-            test.Retry(4)(TestString, TestString, TestString);
-            i.Should().Be(5);
+            I = 0;
+            Test.Retry(4)(_TestString, _TestString, _TestString);
+            I.Should().Be(5);
 
-            L.F(() => test.Retry(0)).ShouldFail();
-            L.F(() => test.Retry(-1)).ShouldFail();
+            L.F(() => Test.Retry(0)).ShouldFail();
+            L.F(() => Test.Retry(-1)).ShouldFail();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Retry_Func_4()
             {
-            int i = 0;
-            var test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
+            int I = 0;
+            var Test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
 
-                i++;
-                if (i < 5)
+                I++;
+                if (I < 5)
                     throw new ArgumentException();
 
-                return TestString;
+                return _TestString;
             });
 
-            test.Retry(3).ShouldFail<string, string, string, string, string, ArgumentException>(TestString, TestString, TestString, TestString);
+            Test.Retry(3).ShouldFail<string, string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString, _TestString);
 
             // Reset
-            i = 0;
-            test.Retry(4)(TestString, TestString, TestString, TestString);
-            i.Should().Be(5);
+            I = 0;
+            Test.Retry(4)(_TestString, _TestString, _TestString, _TestString);
+            I.Should().Be(5);
 
-            L.F(() => test.Retry(0)).ShouldFail();
-            L.F(() => test.Retry(-1)).ShouldFail();
+            L.F(() => Test.Retry(0)).ShouldFail();
+            L.F(() => Test.Retry(-1)).ShouldFail();
             }
 
 
@@ -548,14 +548,14 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Action_0()
             {
-            var test = new Action(() =>
+            var Test = new Action(() =>
                 {
                     throw new ArgumentException();
                 });
-            var test2 = new Action(() =>
+            var Test2 = new Action(() =>
                 {
                 });
-            var handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(e =>
                 {
                     e.Should().NotBeNull()
                         .And.BeOfType<ArgumentException>();
@@ -567,25 +567,25 @@ namespace L_Tests.Tests.Extensions
                     throw e;
                 });
 
-            test.Catch(handler)();
-            test2.Catch(handler)();
+            Test.Catch(Handler)();
+            Test2.Catch(Handler)();
 
-            test.Catch(Rethrow_Handler).ShouldFail<ArgumentException>();
+            Test.Catch(Rethrow_Handler).ShouldFail<ArgumentException>();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Action_1()
             {
-            var test = new Action<string>(o =>
+            var Test = new Action<string>(o =>
                 {
-                    o.Should().Be(TestString);
+                    o.Should().Be(_TestString);
                     throw new ArgumentException();
                 });
-            var test2 = new Action<string>(o =>
+            var Test2 = new Action<string>(o =>
                 {
-                    o.Should().Be(TestString);
+                    o.Should().Be(_TestString);
                 });
-            var handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(e =>
             {
                 e.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
@@ -597,224 +597,25 @@ namespace L_Tests.Tests.Extensions
                 throw e;
             });
 
-            test.Catch(handler)(TestString);
-            test2.Catch(handler)(TestString);
+            Test.Catch(Handler)(_TestString);
+            Test2.Catch(Handler)(_TestString);
 
-            test.Catch(Rethrow_Handler).ShouldFail<string, ArgumentException>(TestString);
+            Test.Catch(Rethrow_Handler).ShouldFail<string, ArgumentException>(_TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Action_2()
             {
-            var test = new Action<string, string>((o1, o2) =>
+            var Test = new Action<string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
                 throw new ArgumentException();
             });
-            var test2 = new Action<string, string>((o1, o2) =>
+            var Test2 = new Action<string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-            });
-            var handler = new Action<Exception>(e =>
-            {
-                e.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-            });
-            var Rethrow_Handler = new Action<Exception>(e =>
-            {
-                e.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw e;
-            });
-
-            test.Catch(handler)(TestString, TestString);
-            test2.Catch(handler)(TestString, TestString);
-
-            test.Catch(Rethrow_Handler).ShouldFail<string, string, ArgumentException>(TestString, TestString);
-            }
-        [TestMethod]
-        [TestCategory(UnitTests)]
-        public void Test_Catch_Exception_Action_3()
-            {
-            var test = new Action<string, string, string>((o1, o2, o3) =>
-            {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                throw new ArgumentException();
-            });
-            var test2 = new Action<string, string, string>((o1, o2, o3) =>
-            {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-            });
-            var handler = new Action<Exception>(e =>
-            {
-                e.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-            });
-            var Rethrow_Handler = new Action<Exception>(e =>
-            {
-                e.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw e;
-            });
-
-            test.Catch(handler)(TestString, TestString, TestString);
-            test2.Catch(handler)(TestString, TestString, TestString);
-
-            test.Catch(Rethrow_Handler).ShouldFail<string, string, string, ArgumentException>(TestString, TestString, TestString);
-            }
-        [TestMethod]
-        [TestCategory(UnitTests)]
-        public void Test_Catch_Exception_Action_4()
-            {
-            var test = new Action<string, string, string, string>((o1, o2, o3, o4) =>
-            {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
-                throw new ArgumentException();
-            });
-            var test2 = new Action<string, string, string, string>((o1, o2, o3, o4) =>
-            {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
-            });
-            var handler = new Action<Exception>(e =>
-            {
-                e.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-            });
-            var Rethrow_Handler = new Action<Exception>(e =>
-            {
-                e.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw e;
-            });
-
-            test.Catch(handler)(TestString, TestString, TestString, TestString);
-            test2.Catch(handler)(TestString, TestString, TestString, TestString);
-
-            test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, ArgumentException>(TestString, TestString, TestString, TestString);
-            }
-
-        [TestMethod]
-        [TestCategory(UnitTests)]
-        public void Test_Catch_Exception_Func_0()
-            {
-            var test = new Func<string>(() =>
-                {
-                    throw new ArgumentException();
-                });
-            var test2 = new Func<string>(() =>
-                {
-                    return TestString;
-                });
-            var handler = new Action<Exception>(e =>
-                {
-                    e.Should().NotBeNull()
-                        .And.BeOfType<ArgumentException>();
-                });
-            var Rethrow_Handler = new Action<Exception>(e =>
-                {
-                    e.Should().NotBeNull()
-                        .And.BeOfType<ArgumentException>();
-                    throw e;
-                });
-
-            test.Catch(handler)();
-            test2.Catch(handler)().Should().Be(TestString);
-
-            test.Catch(Rethrow_Handler).ShouldFail<string, ArgumentException>();
-            }
-        [TestMethod]
-        [TestCategory(UnitTests)]
-        public void Test_Catch_Exception_Func_1()
-            {
-            var test = new Func<string, string>(o =>
-            {
-                o.Should().Be(TestString);
-                throw new ArgumentException();
-            });
-            var test2 = new Func<string, string>(o =>
-            {
-                o.Should().Be(TestString);
-                return TestString;
-            });
-            var handler = new Action<Exception>(e =>
-            {
-                e.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-            });
-            var Rethrow_Handler = new Action<Exception>(e =>
-            {
-                e.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw e;
-            });
-
-            test.Catch(handler)(TestString);
-            test2.Catch(handler)(TestString).Should().Be(TestString);
-
-            test.Catch(Rethrow_Handler).ShouldFail<string, string, ArgumentException>(TestString);
-            }
-        [TestMethod]
-        [TestCategory(UnitTests)]
-        public void Test_Catch_Exception_Func_2()
-            {
-            var test = new Func<string, string, string>((o1, o2) =>
-            {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                throw new ArgumentException();
-            });
-            var test2 = new Func<string, string, string>((o1, o2) =>
-            {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                return TestString;
-            });
-            var handler = new Action<Exception>(e =>
-            {
-                e.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-            });
-            var Rethrow_Handler = new Action<Exception>(e =>
-            {
-                e.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw e;
-            });
-
-            test.Catch(handler)(TestString, TestString);
-            test2.Catch(handler)(TestString, TestString).Should().Be(TestString);
-
-            test.Catch(Rethrow_Handler).ShouldFail<string, string, string, ArgumentException>(TestString, TestString);
-            }
-        [TestMethod]
-        [TestCategory(UnitTests)]
-        public void Test_Catch_Exception_Func_3()
-            {
-            var test = new Func<string, string, string, string>((o1, o2, o3) =>
-            {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                throw new ArgumentException();
-            });
-            var test2 = new Func<string, string, string, string>((o1, o2, o3) =>
-            {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                return TestString;
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
             });
             var Handler = new Action<Exception>(e =>
             {
@@ -828,30 +629,29 @@ namespace L_Tests.Tests.Extensions
                 throw e;
             });
 
-            test.Catch(Handler)(TestString, TestString, TestString);
-            test2.Catch(Handler)(TestString, TestString, TestString).Should().Be(TestString);
+            Test.Catch(Handler)(_TestString, _TestString);
+            Test2.Catch(Handler)(_TestString, _TestString);
 
-            test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, ArgumentException>(TestString, TestString, TestString);
+            Test.Catch(Rethrow_Handler).ShouldFail<string, string, ArgumentException>(_TestString, _TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
-        public void Test_Catch_Exception_Func_4()
+        public void Test_Catch_Exception_Action_3()
             {
-            var test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
+            var Test = new Action<string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
                 throw new ArgumentException();
             });
-            var test2 = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
+            var Test2 = new Action<string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                return TestString;
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
             });
-            var handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(e =>
             {
                 e.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
@@ -863,25 +663,225 @@ namespace L_Tests.Tests.Extensions
                 throw e;
             });
 
-            test.Catch(handler)(TestString, TestString, TestString, TestString);
-            test2.Catch(handler)(TestString, TestString, TestString, TestString).Should().Be(TestString);
+            Test.Catch(Handler)(_TestString, _TestString, _TestString);
+            Test2.Catch(Handler)(_TestString, _TestString, _TestString);
 
-            test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, string, ArgumentException>(TestString, TestString, TestString, TestString);
+            Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
+            }
+        [TestMethod]
+        [TestCategory(UnitTests)]
+        public void Test_Catch_Exception_Action_4()
+            {
+            var Test = new Action<string, string, string, string>((o1, o2, o3, o4) =>
+            {
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
+                throw new ArgumentException();
+            });
+            var Test2 = new Action<string, string, string, string>((o1, o2, o3, o4) =>
+            {
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
+            });
+            var Handler = new Action<Exception>(e =>
+            {
+                e.Should().NotBeNull()
+                    .And.BeOfType<ArgumentException>();
+            });
+            var Rethrow_Handler = new Action<Exception>(e =>
+            {
+                e.Should().NotBeNull()
+                    .And.BeOfType<ArgumentException>();
+                throw e;
+            });
+
+            Test.Catch(Handler)(_TestString, _TestString, _TestString, _TestString);
+            Test2.Catch(Handler)(_TestString, _TestString, _TestString, _TestString);
+
+            Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString, _TestString);
+            }
+
+        [TestMethod]
+        [TestCategory(UnitTests)]
+        public void Test_Catch_Exception_Func_0()
+            {
+            var Test = new Func<string>(() =>
+                {
+                    throw new ArgumentException();
+                });
+            var Test2 = new Func<string>(() =>
+                {
+                    return _TestString;
+                });
+            var Handler = new Action<Exception>(e =>
+                {
+                    e.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                });
+            var Rethrow_Handler = new Action<Exception>(e =>
+                {
+                    e.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw e;
+                });
+
+            Test.Catch(Handler)();
+            Test2.Catch(Handler)().Should().Be(_TestString);
+
+            Test.Catch(Rethrow_Handler).ShouldFail<string, ArgumentException>();
+            }
+        [TestMethod]
+        [TestCategory(UnitTests)]
+        public void Test_Catch_Exception_Func_1()
+            {
+            var Test = new Func<string, string>(o =>
+            {
+                o.Should().Be(_TestString);
+                throw new ArgumentException();
+            });
+            var Test2 = new Func<string, string>(o =>
+            {
+                o.Should().Be(_TestString);
+                return _TestString;
+            });
+            var Handler = new Action<Exception>(e =>
+            {
+                e.Should().NotBeNull()
+                    .And.BeOfType<ArgumentException>();
+            });
+            var Rethrow_Handler = new Action<Exception>(e =>
+            {
+                e.Should().NotBeNull()
+                    .And.BeOfType<ArgumentException>();
+                throw e;
+            });
+
+            Test.Catch(Handler)(_TestString);
+            Test2.Catch(Handler)(_TestString).Should().Be(_TestString);
+
+            Test.Catch(Rethrow_Handler).ShouldFail<string, string, ArgumentException>(_TestString);
+            }
+        [TestMethod]
+        [TestCategory(UnitTests)]
+        public void Test_Catch_Exception_Func_2()
+            {
+            var Test = new Func<string, string, string>((o1, o2) =>
+            {
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                throw new ArgumentException();
+            });
+            var Test2 = new Func<string, string, string>((o1, o2) =>
+            {
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                return _TestString;
+            });
+            var Handler = new Action<Exception>(e =>
+            {
+                e.Should().NotBeNull()
+                    .And.BeOfType<ArgumentException>();
+            });
+            var Rethrow_Handler = new Action<Exception>(e =>
+            {
+                e.Should().NotBeNull()
+                    .And.BeOfType<ArgumentException>();
+                throw e;
+            });
+
+            Test.Catch(Handler)(_TestString, _TestString);
+            Test2.Catch(Handler)(_TestString, _TestString).Should().Be(_TestString);
+
+            Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString);
+            }
+        [TestMethod]
+        [TestCategory(UnitTests)]
+        public void Test_Catch_Exception_Func_3()
+            {
+            var Test = new Func<string, string, string, string>((o1, o2, o3) =>
+            {
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                throw new ArgumentException();
+            });
+            var Test2 = new Func<string, string, string, string>((o1, o2, o3) =>
+            {
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                return _TestString;
+            });
+            var Handler = new Action<Exception>(e =>
+            {
+                e.Should().NotBeNull()
+                    .And.BeOfType<ArgumentException>();
+            });
+            var Rethrow_Handler = new Action<Exception>(e =>
+            {
+                e.Should().NotBeNull()
+                    .And.BeOfType<ArgumentException>();
+                throw e;
+            });
+
+            Test.Catch(Handler)(_TestString, _TestString, _TestString);
+            Test2.Catch(Handler)(_TestString, _TestString, _TestString).Should().Be(_TestString);
+
+            Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
+            }
+        [TestMethod]
+        [TestCategory(UnitTests)]
+        public void Test_Catch_Exception_Func_4()
+            {
+            var Test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
+            {
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                throw new ArgumentException();
+            });
+            var Test2 = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
+            {
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                return _TestString;
+            });
+            var Handler = new Action<Exception>(e =>
+            {
+                e.Should().NotBeNull()
+                    .And.BeOfType<ArgumentException>();
+            });
+            var Rethrow_Handler = new Action<Exception>(e =>
+            {
+                e.Should().NotBeNull()
+                    .And.BeOfType<ArgumentException>();
+                throw e;
+            });
+
+            Test.Catch(Handler)(_TestString, _TestString, _TestString, _TestString);
+            Test2.Catch(Handler)(_TestString, _TestString, _TestString, _TestString).Should().Be(_TestString);
+
+            Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString, _TestString);
             }
 
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Action_0()
             {
-            var test = new Action(() =>
+            var Test = new Action(() =>
             {
                 throw new ArgumentException();
             });
-            var test2 = new Action(() =>
+            var Test2 = new Action(() =>
             {
             });
 
-            var handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(e =>
             {
                 e.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
@@ -896,28 +896,28 @@ namespace L_Tests.Tests.Extensions
                 throw e;
             });
 
-            test.Catch(handler)();
-            test2.Catch(handler)();
+            Test.Catch(Handler)();
+            Test2.Catch(Handler)();
 
-            test.Catch(Wrong_Handler).ShouldFail<ArgumentException>();
-            test.Catch(Rethrow_Handler).ShouldFail<ArgumentException>();
+            Test.Catch(Wrong_Handler).ShouldFail<ArgumentException>();
+            Test.Catch(Rethrow_Handler).ShouldFail<ArgumentException>();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Action_1()
             {
-            var test = new Action<string>(o =>
+            var Test = new Action<string>(o =>
                 {
-                    o.Should().Be(TestString);
+                    o.Should().Be(_TestString);
 
                     throw new ArgumentException();
                 });
-            var test2 = new Action<string>(o =>
+            var Test2 = new Action<string>(o =>
                 {
-                    o.Should().Be(TestString);
+                    o.Should().Be(_TestString);
                 });
 
-            var handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(e =>
             {
                 e.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
@@ -932,30 +932,30 @@ namespace L_Tests.Tests.Extensions
                 throw e;
             });
 
-            test.Catch(handler)(TestString);
-            test2.Catch(handler)(TestString);
+            Test.Catch(Handler)(_TestString);
+            Test2.Catch(Handler)(_TestString);
 
-            test.Catch(Wrong_Handler).ShouldFail<string, ArgumentException>(TestString);
-            test.Catch(Rethrow_Handler).ShouldFail<string, ArgumentException>(TestString);
+            Test.Catch(Wrong_Handler).ShouldFail<string, ArgumentException>(_TestString);
+            Test.Catch(Rethrow_Handler).ShouldFail<string, ArgumentException>(_TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Action_2()
             {
-            var test = new Action<string, string>((o1, o2) =>
+            var Test = new Action<string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
 
                 throw new ArgumentException();
             });
-            var test2 = new Action<string, string>((o1, o2) =>
+            var Test2 = new Action<string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
             });
 
-            var handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(e =>
             {
                 e.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
@@ -970,32 +970,32 @@ namespace L_Tests.Tests.Extensions
                 throw e;
             });
 
-            test.Catch(handler)(TestString, TestString);
-            test2.Catch(handler)(TestString, TestString);
+            Test.Catch(Handler)(_TestString, _TestString);
+            Test2.Catch(Handler)(_TestString, _TestString);
 
-            test.Catch(Wrong_Handler).ShouldFail<string, string, ArgumentException>(TestString, TestString);
-            test.Catch(Rethrow_Handler).ShouldFail<string, string, ArgumentException>(TestString, TestString);
+            Test.Catch(Wrong_Handler).ShouldFail<string, string, ArgumentException>(_TestString, _TestString);
+            Test.Catch(Rethrow_Handler).ShouldFail<string, string, ArgumentException>(_TestString, _TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Action_3()
             {
-            var test = new Action<string, string, string>((o1, o2, o3) =>
+            var Test = new Action<string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
 
                 throw new ArgumentException();
             });
-            var test2 = new Action<string, string, string>((o1, o2, o3) =>
+            var Test2 = new Action<string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
             });
 
-            var handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(e =>
             {
                 e.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
@@ -1010,32 +1010,32 @@ namespace L_Tests.Tests.Extensions
                 throw e;
             });
 
-            test.Catch(handler)(TestString, TestString, TestString);
-            test2.Catch(handler)(TestString, TestString, TestString);
+            Test.Catch(Handler)(_TestString, _TestString, _TestString);
+            Test2.Catch(Handler)(_TestString, _TestString, _TestString);
 
-            test.Catch(Wrong_Handler).ShouldFail<string, string, string, ArgumentException>(TestString, TestString, TestString);
-            test.Catch(Rethrow_Handler).ShouldFail<string, string, string, ArgumentException>(TestString, TestString, TestString);
+            Test.Catch(Wrong_Handler).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
+            Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Action_4()
             {
-            var test = new Action<string, string, string, string>((o1, o2, o3, o4) =>
+            var Test = new Action<string, string, string, string>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
 
                 throw new ArgumentException();
             });
-            var test2 = new Action<string, string, string, string>((o1, o2, o3, o4) =>
+            var Test2 = new Action<string, string, string, string>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
             });
 
-            var handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(e =>
             {
                 e.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
@@ -1050,11 +1050,11 @@ namespace L_Tests.Tests.Extensions
                 throw e;
             });
 
-            test.Catch(handler)(TestString, TestString, TestString, TestString);
-            test2.Catch(handler)(TestString, TestString, TestString, TestString);
+            Test.Catch(Handler)(_TestString, _TestString, _TestString, _TestString);
+            Test2.Catch(Handler)(_TestString, _TestString, _TestString, _TestString);
 
-            test.Catch(Wrong_Handler).ShouldFail<string, string, string, string, ArgumentException>(TestString, TestString, TestString, TestString);
-            test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, ArgumentException>(TestString, TestString, TestString, TestString);
+            Test.Catch(Wrong_Handler).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString, _TestString);
+            Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString, _TestString);
             }
 
 
@@ -1062,16 +1062,16 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_0()
             {
-            var test = new Func<string>(() =>
+            var Test = new Func<string>(() =>
                 {
                     throw new ArgumentException();
                 });
-            var test2 = new Func<string>(() =>
+            var Test2 = new Func<string>(() =>
                 {
-                    return TestString;
+                    return _TestString;
                 });
 
-            var handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(e =>
                 {
                     e.Should().NotBeNull()
                         .And.BeOfType<ArgumentException>();
@@ -1086,30 +1086,30 @@ namespace L_Tests.Tests.Extensions
                     throw e;
                 });
 
-            test.Catch(handler)();
-            test2.Catch(handler)().Should().Be(TestString);
+            Test.Catch(Handler)();
+            Test2.Catch(Handler)().Should().Be(_TestString);
 
-            test.Catch(Wrong_Handler).ShouldFail<string, ArgumentException>();
-            test.Catch(Rethrow_Handler).ShouldFail<string, ArgumentException>();
+            Test.Catch(Wrong_Handler).ShouldFail<string, ArgumentException>();
+            Test.Catch(Rethrow_Handler).ShouldFail<string, ArgumentException>();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_1()
             {
-            var test = new Func<string, string>(o =>
+            var Test = new Func<string, string>(o =>
             {
-                o.Should().Be(TestString);
+                o.Should().Be(_TestString);
 
                 throw new ArgumentException();
             });
-            var test2 = new Func<string, string>(o =>
+            var Test2 = new Func<string, string>(o =>
             {
-                o.Should().Be(TestString);
+                o.Should().Be(_TestString);
 
-                return TestString;
+                return _TestString;
             });
 
-            var handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(e =>
             {
                 e.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
@@ -1124,32 +1124,32 @@ namespace L_Tests.Tests.Extensions
                 throw e;
             });
 
-            test.Catch(handler)(TestString);
-            test2.Catch(handler)(TestString).Should().Be(TestString);
+            Test.Catch(Handler)(_TestString);
+            Test2.Catch(Handler)(_TestString).Should().Be(_TestString);
 
-            test.Catch(Wrong_Handler).ShouldFail<string, string, ArgumentException>(TestString);
-            test.Catch(Rethrow_Handler).ShouldFail<string, string, ArgumentException>(TestString);
+            Test.Catch(Wrong_Handler).ShouldFail<string, string, ArgumentException>(_TestString);
+            Test.Catch(Rethrow_Handler).ShouldFail<string, string, ArgumentException>(_TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_2()
             {
-            var test = new Func<string, string, string>((o1, o2) =>
+            var Test = new Func<string, string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
 
                 throw new ArgumentException();
             });
-            var test2 = new Func<string, string, string>((o1, o2) =>
+            var Test2 = new Func<string, string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
 
-                return TestString;
+                return _TestString;
             });
 
-            var handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(e =>
             {
                 e.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
@@ -1164,34 +1164,34 @@ namespace L_Tests.Tests.Extensions
                 throw e;
             });
 
-            test.Catch(handler)(TestString, TestString);
-            test2.Catch(handler)(TestString, TestString).Should().Be(TestString);
+            Test.Catch(Handler)(_TestString, _TestString);
+            Test2.Catch(Handler)(_TestString, _TestString).Should().Be(_TestString);
 
-            test.Catch(Wrong_Handler).ShouldFail<string, string, string, ArgumentException>(TestString, TestString);
-            test.Catch(Rethrow_Handler).ShouldFail<string, string, string, ArgumentException>(TestString, TestString);
+            Test.Catch(Wrong_Handler).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString);
+            Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_3()
             {
-            var test = new Func<string, string, string, string>((o1, o2, o3) =>
+            var Test = new Func<string, string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
 
                 throw new ArgumentException();
             });
-            var test2 = new Func<string, string, string, string>((o1, o2, o3) =>
+            var Test2 = new Func<string, string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
 
-                return TestString;
+                return _TestString;
             });
 
-            var handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(e =>
             {
                 e.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
@@ -1206,36 +1206,36 @@ namespace L_Tests.Tests.Extensions
                 throw e;
             });
 
-            test.Catch(handler)(TestString, TestString, TestString);
-            test2.Catch(handler)(TestString, TestString, TestString).Should().Be(TestString);
+            Test.Catch(Handler)(_TestString, _TestString, _TestString);
+            Test2.Catch(Handler)(_TestString, _TestString, _TestString).Should().Be(_TestString);
 
-            test.Catch(Wrong_Handler).ShouldFail<string, string, string, string, ArgumentException>(TestString, TestString, TestString);
-            test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, ArgumentException>(TestString, TestString, TestString);
+            Test.Catch(Wrong_Handler).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
+            Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_4()
             {
-            var test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
+            var Test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
 
                 throw new ArgumentException();
             });
-            var test2 = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
+            var Test2 = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
 
-                return TestString;
+                return _TestString;
             });
 
-            var handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(e =>
             {
                 e.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
@@ -1250,31 +1250,31 @@ namespace L_Tests.Tests.Extensions
                 throw e;
             });
 
-            test.Catch(handler)(TestString, TestString, TestString, TestString);
-            test2.Catch(handler)(TestString, TestString, TestString, TestString).Should().Be(TestString);
+            Test.Catch(Handler)(_TestString, _TestString, _TestString, _TestString);
+            Test2.Catch(Handler)(_TestString, _TestString, _TestString, _TestString).Should().Be(_TestString);
 
-            test.Catch(Wrong_Handler).ShouldFail<string, string, string, string, string, ArgumentException>(TestString, TestString, TestString, TestString);
-            test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, string, ArgumentException>(TestString, TestString, TestString, TestString);
+            Test.Catch(Wrong_Handler).ShouldFail<string, string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString, _TestString);
+            Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString, _TestString);
             }
 
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_Func_0()
             {
-            var test = new Func<string>(() =>
+            var Test = new Func<string>(() =>
             {
                 throw new ArgumentException();
             });
-            var test2 = new Func<string>(() =>
+            var Test2 = new Func<string>(() =>
             {
-                return $"{TestString}a";
+                return $"{_TestString}a";
             });
 
-            var handler = new Func<ArgumentException, string>(e =>
+            var Handler = new Func<ArgumentException, string>(e =>
             {
                 e.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                return $"{TestString}b";
+                return $"{_TestString}b";
             });
 
             Func<FormatException, string> Wrong_Handler = L.F<FormatException, string>();
@@ -1286,34 +1286,34 @@ namespace L_Tests.Tests.Extensions
                 throw e;
             });
 
-            test.Catch(handler)().Should().Be($"{TestString}b");
-            test2.Catch(handler)().Should().Be($"{TestString}a");
+            Test.Catch(Handler)().Should().Be($"{_TestString}b");
+            Test2.Catch(Handler)().Should().Be($"{_TestString}a");
 
-            test.Catch(Wrong_Handler).ShouldFail<string, ArgumentException>();
-            test.Catch(Rethrow_Handler).ShouldFail<string, ArgumentException>();
+            Test.Catch(Wrong_Handler).ShouldFail<string, ArgumentException>();
+            Test.Catch(Rethrow_Handler).ShouldFail<string, ArgumentException>();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_Func_1()
             {
-            var test = new Func<string, string>(o =>
+            var Test = new Func<string, string>(o =>
                  {
-                     o.Should().Be(TestString);
+                     o.Should().Be(_TestString);
 
                      throw new ArgumentException();
                  });
-            var test2 = new Func<string, string>(o =>
+            var Test2 = new Func<string, string>(o =>
                 {
-                    o.Should().Be(TestString);
+                    o.Should().Be(_TestString);
 
-                    return $"{TestString}a";
+                    return $"{_TestString}a";
                 });
 
-            var handler = new Func<ArgumentException, string>(e =>
+            var Handler = new Func<ArgumentException, string>(e =>
                 {
                     e.Should().NotBeNull()
                         .And.BeOfType<ArgumentException>();
-                    return $"{TestString}b";
+                    return $"{_TestString}b";
                 });
 
             Func<FormatException, string> Wrong_Handler = L.F<FormatException, string>();
@@ -1325,36 +1325,36 @@ namespace L_Tests.Tests.Extensions
                     throw e;
                 });
 
-            test.Catch(handler)(TestString).Should().Be($"{TestString}b");
-            test2.Catch(handler)(TestString).Should().Be($"{TestString}a");
+            Test.Catch(Handler)(_TestString).Should().Be($"{_TestString}b");
+            Test2.Catch(Handler)(_TestString).Should().Be($"{_TestString}a");
 
-            test.Catch(Wrong_Handler).ShouldFail<string, string, ArgumentException>(TestString);
-            test.Catch(Rethrow_Handler).ShouldFail<string, string, ArgumentException>(TestString);
+            Test.Catch(Wrong_Handler).ShouldFail<string, string, ArgumentException>(_TestString);
+            Test.Catch(Rethrow_Handler).ShouldFail<string, string, ArgumentException>(_TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_Func_2()
             {
-            var test = new Func<string, string, string>((o1, o2) =>
+            var Test = new Func<string, string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
 
                 throw new ArgumentException();
             });
-            var test2 = new Func<string, string, string>((o1, o2) =>
+            var Test2 = new Func<string, string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
 
-                return $"{TestString}a";
+                return $"{_TestString}a";
             });
 
-            var handler = new Func<ArgumentException, string>(e =>
+            var Handler = new Func<ArgumentException, string>(e =>
             {
                 e.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                return $"{TestString}b";
+                return $"{_TestString}b";
             });
 
             Func<FormatException, string> Wrong_Handler = L.F<FormatException, string>();
@@ -1366,38 +1366,38 @@ namespace L_Tests.Tests.Extensions
                 throw e;
             });
 
-            test.Catch(handler)(TestString, TestString).Should().Be($"{TestString}b");
-            test2.Catch(handler)(TestString, TestString).Should().Be($"{TestString}a");
+            Test.Catch(Handler)(_TestString, _TestString).Should().Be($"{_TestString}b");
+            Test2.Catch(Handler)(_TestString, _TestString).Should().Be($"{_TestString}a");
 
-            test.Catch(Wrong_Handler).ShouldFail<string, string, string, ArgumentException>(TestString, TestString);
-            test.Catch(Rethrow_Handler).ShouldFail<string, string, string, ArgumentException>(TestString, TestString);
+            Test.Catch(Wrong_Handler).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString);
+            Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_Func_3()
             {
-            var test = new Func<string, string, string, string>((o1, o2, o3) =>
+            var Test = new Func<string, string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
 
                 throw new ArgumentException();
             });
-            var test2 = new Func<string, string, string, string>((o1, o2, o3) =>
+            var Test2 = new Func<string, string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
 
-                return $"{TestString}a";
+                return $"{_TestString}a";
             });
 
-            var handler = new Func<ArgumentException, string>(e =>
+            var Handler = new Func<ArgumentException, string>(e =>
             {
                 e.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                return $"{TestString}b";
+                return $"{_TestString}b";
             });
 
             Func<FormatException, string> Wrong_Handler = L.F<FormatException, string>();
@@ -1409,40 +1409,40 @@ namespace L_Tests.Tests.Extensions
                 throw e;
             });
 
-            test.Catch(handler)(TestString, TestString, TestString).Should().Be($"{TestString}b");
-            test2.Catch(handler)(TestString, TestString, TestString).Should().Be($"{TestString}a");
+            Test.Catch(Handler)(_TestString, _TestString, _TestString).Should().Be($"{_TestString}b");
+            Test2.Catch(Handler)(_TestString, _TestString, _TestString).Should().Be($"{_TestString}a");
 
-            test.Catch(Wrong_Handler).ShouldFail<string, string, string, string, ArgumentException>(TestString, TestString, TestString);
-            test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, ArgumentException>(TestString, TestString, TestString);
+            Test.Catch(Wrong_Handler).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
+            Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_Func_4()
             {
-            var test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
+            var Test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
 
                 throw new ArgumentException();
             });
-            var test2 = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
+            var Test2 = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
 
-                return $"{TestString}a";
+                return $"{_TestString}a";
             });
 
-            var handler = new Func<ArgumentException, string>(e =>
+            var Handler = new Func<ArgumentException, string>(e =>
             {
                 e.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                return $"{TestString}b";
+                return $"{_TestString}b";
             });
 
             Func<FormatException, string> Wrong_Handler = L.F<FormatException, string>();
@@ -1454,229 +1454,229 @@ namespace L_Tests.Tests.Extensions
                 throw e;
             });
 
-            test.Catch(handler)(TestString, TestString, TestString, TestString).Should().Be($"{TestString}b");
-            test2.Catch(handler)(TestString, TestString, TestString, TestString).Should().Be($"{TestString}a");
+            Test.Catch(Handler)(_TestString, _TestString, _TestString, _TestString).Should().Be($"{_TestString}b");
+            Test2.Catch(Handler)(_TestString, _TestString, _TestString, _TestString).Should().Be($"{_TestString}a");
 
-            test.Catch(Wrong_Handler).ShouldFail<string, string, string, string, string, ArgumentException>(TestString, TestString, TestString, TestString);
-            test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, string, ArgumentException>(TestString, TestString, TestString, TestString);
+            Test.Catch(Wrong_Handler).ShouldFail<string, string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString, _TestString);
+            Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString, _TestString);
             }
 
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Action_0()
             {
-            var test = new Action(() =>
+            var Test = new Action(() =>
             {
                 throw new ArgumentException();
             });
-            var test2 = new Action(() =>
+            var Test2 = new Action(() =>
             {
             });
 
-            test.Catch<ArgumentException>()();
-            test2.Catch<ArgumentException>()();
+            Test.Catch<ArgumentException>()();
+            Test2.Catch<ArgumentException>()();
 
-            test.Catch<FormatException>().ShouldFail<ArgumentException>();
+            Test.Catch<FormatException>().ShouldFail<ArgumentException>();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Action_1()
             {
-            var test = new Action<string>(o =>
+            var Test = new Action<string>(o =>
                 {
-                    o.Should().Be(TestString);
+                    o.Should().Be(_TestString);
                     throw new ArgumentException();
                 });
-            var test2 = new Action<string>(o =>
+            var Test2 = new Action<string>(o =>
                 {
-                    o.Should().Be(TestString);
+                    o.Should().Be(_TestString);
                 });
 
-            test.Catch<string, ArgumentException>()(TestString);
-            test2.Catch<string, ArgumentException>()(TestString);
+            Test.Catch<string, ArgumentException>()(_TestString);
+            Test2.Catch<string, ArgumentException>()(_TestString);
 
-            test.Catch<string, FormatException>().ShouldFail<string, ArgumentException>(TestString);
+            Test.Catch<string, FormatException>().ShouldFail<string, ArgumentException>(_TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Action_2()
             {
-            var test = new Action<string, string>((o1, o2) =>
+            var Test = new Action<string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
                 throw new ArgumentException();
             });
-            var test2 = new Action<string, string>((o1, o2) =>
+            var Test2 = new Action<string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
             });
 
-            test.Catch<string, string, ArgumentException>()(TestString, TestString);
-            test2.Catch<string, string, ArgumentException>()(TestString, TestString);
+            Test.Catch<string, string, ArgumentException>()(_TestString, _TestString);
+            Test2.Catch<string, string, ArgumentException>()(_TestString, _TestString);
 
-            test.Catch<string, string, FormatException>().ShouldFail<string, string, ArgumentException>(TestString, TestString);
+            Test.Catch<string, string, FormatException>().ShouldFail<string, string, ArgumentException>(_TestString, _TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Action_3()
             {
-            var test = new Action<string, string, string>((o1, o2, o3) =>
+            var Test = new Action<string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
                 throw new ArgumentException();
             });
-            var test2 = new Action<string, string, string>((o1, o2, o3) =>
+            var Test2 = new Action<string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
             });
 
-            test.Catch<string, string, string, ArgumentException>()(TestString, TestString, TestString);
-            test2.Catch<string, string, string, ArgumentException>()(TestString, TestString, TestString);
+            Test.Catch<string, string, string, ArgumentException>()(_TestString, _TestString, _TestString);
+            Test2.Catch<string, string, string, ArgumentException>()(_TestString, _TestString, _TestString);
 
-            test.Catch<string, string, string, FormatException>().ShouldFail<string, string, string, ArgumentException>(TestString, TestString, TestString);
+            Test.Catch<string, string, string, FormatException>().ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Action_4()
             {
-            var test = new Action<string, string, string, string>((o1, o2, o3, o4) =>
+            var Test = new Action<string, string, string, string>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
                 throw new ArgumentException();
             });
-            var test2 = new Action<string, string, string, string>((o1, o2, o3, o4) =>
+            var Test2 = new Action<string, string, string, string>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
             });
 
-            test.Catch<string, string, string, string, ArgumentException>()(TestString, TestString, TestString, TestString);
-            test2.Catch<string, string, string, string, ArgumentException>()(TestString, TestString, TestString, TestString);
+            Test.Catch<string, string, string, string, ArgumentException>()(_TestString, _TestString, _TestString, _TestString);
+            Test2.Catch<string, string, string, string, ArgumentException>()(_TestString, _TestString, _TestString, _TestString);
 
-            test.Catch<string, string, string, string, FormatException>().ShouldFail<string, string, string, string, ArgumentException>(TestString, TestString, TestString, TestString);
+            Test.Catch<string, string, string, string, FormatException>().ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString, _TestString);
             }
 
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Func_0()
             {
-            var test = new Func<string>(() =>
+            var Test = new Func<string>(() =>
             {
                 throw new ArgumentException();
             });
-            var test2 = new Func<string>(() =>
+            var Test2 = new Func<string>(() =>
             {
-                return $"{TestString}a";
+                return $"{_TestString}a";
             });
 
-            test.Catch<string, ArgumentException>()().Should().Be(default(string));
-            test2.Catch<string, ArgumentException>()().Should().Be($"{TestString}a");
+            Test.Catch<string, ArgumentException>()().Should().Be(default(string));
+            Test2.Catch<string, ArgumentException>()().Should().Be($"{_TestString}a");
 
-            test.Catch<string, FormatException>().ShouldFail<string, ArgumentException>();
+            Test.Catch<string, FormatException>().ShouldFail<string, ArgumentException>();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Func_1()
             {
-            var test = new Func<string, string>(o =>
+            var Test = new Func<string, string>(o =>
                 {
-                    o.Should().Be(TestString);
+                    o.Should().Be(_TestString);
                     throw new ArgumentException();
                 });
-            var test2 = new Func<string, string>(o =>
+            var Test2 = new Func<string, string>(o =>
                 {
-                    o.Should().Be(TestString);
-                    return $"{TestString}a";
+                    o.Should().Be(_TestString);
+                    return $"{_TestString}a";
                 });
 
-            test.Catch<string, string, ArgumentException>()(TestString).Should().Be(default(string));
-            test2.Catch<string, string, ArgumentException>()(TestString).Should().Be($"{TestString}a");
+            Test.Catch<string, string, ArgumentException>()(_TestString).Should().Be(default(string));
+            Test2.Catch<string, string, ArgumentException>()(_TestString).Should().Be($"{_TestString}a");
 
-            test.Catch<string, string, FormatException>().ShouldFail<string, string, ArgumentException>(TestString);
+            Test.Catch<string, string, FormatException>().ShouldFail<string, string, ArgumentException>(_TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Func_2()
             {
-            var test = new Func<string, string, string>((o1, o2) =>
+            var Test = new Func<string, string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
                 throw new ArgumentException();
             });
-            var test2 = new Func<string, string, string>((o1, o2) =>
+            var Test2 = new Func<string, string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                return $"{TestString}a";
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                return $"{_TestString}a";
             });
 
-            test.Catch<string, string, string, ArgumentException>()(TestString, TestString).Should().Be(default(string));
-            test2.Catch<string, string, string, ArgumentException>()(TestString, TestString).Should().Be(
-                $"{TestString}a");
+            Test.Catch<string, string, string, ArgumentException>()(_TestString, _TestString).Should().Be(default(string));
+            Test2.Catch<string, string, string, ArgumentException>()(_TestString, _TestString).Should().Be(
+                $"{_TestString}a");
 
-            test.Catch<string, string, string, FormatException>().ShouldFail<string, string, string, ArgumentException>(TestString, TestString);
+            Test.Catch<string, string, string, FormatException>().ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Func_3()
             {
-            var test = new Func<string, string, string, string>((o1, o2, o3) =>
+            var Test = new Func<string, string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
                 throw new ArgumentException();
             });
-            var test2 = new Func<string, string, string, string>((o1, o2, o3) =>
+            var Test2 = new Func<string, string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                return $"{TestString}a";
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                return $"{_TestString}a";
             });
 
-            test.Catch<string, string, string, string, ArgumentException>()(TestString, TestString, TestString).Should().Be(default(string));
-            test2.Catch<string, string, string, string, ArgumentException>()(TestString, TestString, TestString).Should().Be($"{TestString}a");
+            Test.Catch<string, string, string, string, ArgumentException>()(_TestString, _TestString, _TestString).Should().Be(default(string));
+            Test2.Catch<string, string, string, string, ArgumentException>()(_TestString, _TestString, _TestString).Should().Be($"{_TestString}a");
 
-            test.Catch<string, string, string, string, FormatException>().ShouldFail<string, string, string, string, ArgumentException>(TestString, TestString, TestString);
+            Test.Catch<string, string, string, string, FormatException>().ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Func_4()
             {
-            var test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
+            var Test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
                 throw new ArgumentException();
             });
-            var test2 = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
+            var Test2 = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
-                return $"{TestString}a";
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
+                return $"{_TestString}a";
             });
 
-            test.Catch<string, string, string, string, string, ArgumentException>()(TestString, TestString, TestString, TestString).Should().Be(default(string));
-            test2.Catch<string, string, string, string, string, ArgumentException>()(TestString, TestString, TestString, TestString).Should().Be($"{TestString}a");
+            Test.Catch<string, string, string, string, string, ArgumentException>()(_TestString, _TestString, _TestString, _TestString).Should().Be(default(string));
+            Test2.Catch<string, string, string, string, string, ArgumentException>()(_TestString, _TestString, _TestString, _TestString).Should().Be($"{_TestString}a");
 
-            test.Catch<string, string, string, string, string, FormatException>().ShouldFail<string, string, string, string, string, ArgumentException>(TestString, TestString, TestString, TestString);
+            Test.Catch<string, string, string, string, string, FormatException>().ShouldFail<string, string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString, _TestString);
             }
 
 
@@ -1684,135 +1684,135 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_Fail_Action()
             {
-            var act = new Action(() => { });
+            var Act = new Action(() => { });
 
-            act();
-            act.Fail().ShouldFail<Exception>();
+            Act();
+            Act.Fail().ShouldFail<Exception>();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Fail_Action_1()
             {
-            var act = new Action<string>(o =>
+            var Act = new Action<string>(o =>
                 {
-                    o.Should().Be(TestString);
+                    o.Should().Be(_TestString);
                 });
 
-            act(TestString);
-            act.Fail().ShouldFail<string, Exception>(TestString);
+            Act(_TestString);
+            Act.Fail().ShouldFail<string, Exception>(_TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Fail_Action_2()
             {
-            var act = new Action<string, string>((o1, o2) =>
+            var Act = new Action<string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
             });
 
-            act(TestString, TestString);
-            act.Fail().ShouldFail<string, string, Exception>(TestString, TestString);
+            Act(_TestString, _TestString);
+            Act.Fail().ShouldFail<string, string, Exception>(_TestString, _TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Fail_Action_3()
             {
-            var act = new Action<string, string, string>((o1, o2, o3) =>
+            var Act = new Action<string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
             });
 
-            act(TestString, TestString, TestString);
-            act.Fail().ShouldFail<string, string, string, Exception>(TestString, TestString, TestString);
+            Act(_TestString, _TestString, _TestString);
+            Act.Fail().ShouldFail<string, string, string, Exception>(_TestString, _TestString, _TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Fail_Action_4()
             {
-            var act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
+            var Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
             });
 
-            act(TestString, TestString, TestString, TestString);
-            act.Fail().ShouldFail<string, string, string, string, Exception>(TestString, TestString, TestString, TestString);
+            Act(_TestString, _TestString, _TestString, _TestString);
+            Act.Fail().ShouldFail<string, string, string, string, Exception>(_TestString, _TestString, _TestString, _TestString);
             }
 
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Fail_Func()
             {
-            var act = new Func<string>(() =>
+            var Act = new Func<string>(() =>
                 {
-                    return TestString;
+                    return _TestString;
                 });
 
-            act();
-            act.Fail().ShouldFail<string, Exception>();
+            Act();
+            Act.Fail().ShouldFail<string, Exception>();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Fail_Func_1()
             {
-            var act = new Func<string, string>(o =>
+            var Act = new Func<string, string>(o =>
             {
-                o.Should().Be(TestString);
-                return TestString;
+                o.Should().Be(_TestString);
+                return _TestString;
             });
 
-            act(TestString);
-            act.Fail().ShouldFail<string, string, Exception>(TestString);
+            Act(_TestString);
+            Act.Fail().ShouldFail<string, string, Exception>(_TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Fail_Func_2()
             {
-            var act = new Func<string, string, string>((o1, o2) =>
+            var Act = new Func<string, string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                return TestString;
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                return _TestString;
             });
 
-            act(TestString, TestString);
-            act.Fail().ShouldFail<string, string, string, Exception>(TestString, TestString);
+            Act(_TestString, _TestString);
+            Act.Fail().ShouldFail<string, string, string, Exception>(_TestString, _TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Fail_Func_3()
             {
-            var act = new Func<string, string, string, string>((o1, o2, o3) =>
+            var Act = new Func<string, string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                return TestString;
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                return _TestString;
             });
 
-            act(TestString, TestString, TestString);
-            act.Fail().ShouldFail<string, string, string, string, Exception>(TestString, TestString, TestString);
+            Act(_TestString, _TestString, _TestString);
+            Act.Fail().ShouldFail<string, string, string, string, Exception>(_TestString, _TestString, _TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Fail_Func_4()
             {
-            var act = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
+            var Act = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
-                return TestString;
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
+                return _TestString;
             });
 
-            act(TestString, TestString, TestString, TestString);
-            act.Fail().ShouldFail<string, string, string, string, string, Exception>(TestString, TestString, TestString, TestString);
+            Act(_TestString, _TestString, _TestString, _TestString);
+            Act.Fail().ShouldFail<string, string, string, string, string, Exception>(_TestString, _TestString, _TestString, _TestString);
             }
 
 
@@ -1820,122 +1820,122 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_Report_Action_0()
             {
-            var act = new Action(() =>
+            var Act = new Action(() =>
                 {
 
                 });
-            var handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(e =>
             {
-                e.Message.Should().Be($"{TestString}a\r\nParameter name: {TestString}b");
-                e.ParamName.Should().Be($"{TestString}b");
+                e.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                e.ParamName.Should().Be($"{_TestString}b");
             });
-            var handler2 = new Action<Exception>(e =>
+            var Handler2 = new Action<Exception>(e =>
             {
-                e.Message.Should().Be($"{TestString}c");
+                e.Message.Should().Be($"{_TestString}c");
             });
 
-            act();
-            act.Report(new ArgumentException($"{TestString}a", $"{TestString}b")).Catch(handler)();
+            Act();
+            Act.Report(new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler)();
 
-            act.Report($"{TestString}c", new ArgumentException($"{TestString}a", $"{TestString}b")).Catch(handler2)();
+            Act.Report($"{_TestString}c", new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler2)();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Report_Action_1()
             {
-            var act = new Action<string>(o =>
+            var Act = new Action<string>(o =>
                 {
-                    o.Should().Be(TestString);
+                    o.Should().Be(_TestString);
                 });
-            var handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(e =>
                 {
-                    e.Message.Should().Be($"{TestString}a\r\nParameter name: {TestString}b");
-                    e.ParamName.Should().Be($"{TestString}b");
+                    e.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                    e.ParamName.Should().Be($"{_TestString}b");
                 });
-            var handler2 = new Action<Exception>(e =>
+            var Handler2 = new Action<Exception>(e =>
                 {
-                    e.Message.Should().Be($"{TestString}c");
+                    e.Message.Should().Be($"{_TestString}c");
                 });
 
-            act(TestString);
-            act.Report(new ArgumentException($"{TestString}a", $"{TestString}b")).Catch(handler)(TestString);
+            Act(_TestString);
+            Act.Report(new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler)(_TestString);
 
-            act.Report($"{TestString}c", new ArgumentException($"{TestString}a", $"{TestString}b")).Catch(handler2)(TestString);
+            Act.Report($"{_TestString}c", new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler2)(_TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Report_Action_2()
             {
-            var act = new Action<string, string>((o1, o2) =>
+            var Act = new Action<string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
             });
-            var handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(e =>
             {
-                e.Message.Should().Be($"{TestString}a\r\nParameter name: {TestString}b");
-                e.ParamName.Should().Be($"{TestString}b");
+                e.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                e.ParamName.Should().Be($"{_TestString}b");
             });
-            var handler2 = new Action<Exception>(e =>
+            var Handler2 = new Action<Exception>(e =>
             {
-                e.Message.Should().Be($"{TestString}c");
+                e.Message.Should().Be($"{_TestString}c");
             });
 
-            act(TestString, TestString);
-            act.Report(new ArgumentException($"{TestString}a", $"{TestString}b")).Catch(handler)(TestString, TestString);
+            Act(_TestString, _TestString);
+            Act.Report(new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler)(_TestString, _TestString);
 
-            act.Report($"{TestString}c", new ArgumentException($"{TestString}a", $"{TestString}b")).Catch(handler2)(TestString, TestString);
+            Act.Report($"{_TestString}c", new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler2)(_TestString, _TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Report_Action_3()
             {
-            var act = new Action<string, string, string>((o1, o2, o3) =>
+            var Act = new Action<string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
             });
-            var handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(e =>
             {
-                e.Message.Should().Be($"{TestString}a\r\nParameter name: {TestString}b");
-                e.ParamName.Should().Be($"{TestString}b");
+                e.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                e.ParamName.Should().Be($"{_TestString}b");
             });
-            var handler2 = new Action<Exception>(e =>
+            var Handler2 = new Action<Exception>(e =>
             {
-                e.Message.Should().Be($"{TestString}c");
+                e.Message.Should().Be($"{_TestString}c");
             });
 
-            act(TestString, TestString, TestString);
-            act.Report(new ArgumentException($"{TestString}a", $"{TestString}b")).Catch(handler)(TestString, TestString, TestString);
+            Act(_TestString, _TestString, _TestString);
+            Act.Report(new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler)(_TestString, _TestString, _TestString);
 
-            act.Report($"{TestString}c", new ArgumentException($"{TestString}a", $"{TestString}b")).Catch(handler2)(TestString, TestString, TestString);
+            Act.Report($"{_TestString}c", new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler2)(_TestString, _TestString, _TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Report_Action_4()
             {
-            var act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
+            var Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
             });
-            var handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(e =>
             {
-                e.Message.Should().Be($"{TestString}a\r\nParameter name: {TestString}b");
-                e.ParamName.Should().Be($"{TestString}b");
+                e.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                e.ParamName.Should().Be($"{_TestString}b");
             });
-            var handler2 = new Action<Exception>(e =>
+            var Handler2 = new Action<Exception>(e =>
             {
-                e.Message.Should().Be($"{TestString}c");
+                e.Message.Should().Be($"{_TestString}c");
             });
 
-            act(TestString, TestString, TestString, TestString);
-            act.Report(new ArgumentException($"{TestString}a", $"{TestString}b")).Catch(handler)(TestString, TestString, TestString, TestString);
+            Act(_TestString, _TestString, _TestString, _TestString);
+            Act.Report(new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler)(_TestString, _TestString, _TestString, _TestString);
 
-            act.Report($"{TestString}c", new ArgumentException($"{TestString}a", $"{TestString}b")).Catch(handler2)(TestString, TestString, TestString, TestString);
+            Act.Report($"{_TestString}c", new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler2)(_TestString, _TestString, _TestString, _TestString);
             }
 
 
@@ -1943,248 +1943,248 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_Report_Func_0()
             {
-            var act = new Func<string>(() =>
+            var Act = new Func<string>(() =>
                 {
-                    return $"{TestString}a";
+                    return $"{_TestString}a";
                 });
-            var handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(e =>
             {
-                e.Message.Should().Be($"{TestString}a\r\nParameter name: {TestString}b");
-                e.ParamName.Should().Be($"{TestString}b");
+                e.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                e.ParamName.Should().Be($"{_TestString}b");
             });
-            var handler2 = new Action<Exception>(e =>
+            var Handler2 = new Action<Exception>(e =>
             {
-                e.Message.Should().Be($"{TestString}c");
+                e.Message.Should().Be($"{_TestString}c");
             });
 
-            act().Should().Be($"{TestString}a");
-            act.Report(new ArgumentException($"{TestString}a", $"{TestString}b")).Catch(handler)();
+            Act().Should().Be($"{_TestString}a");
+            Act.Report(new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler)();
 
-            act.Report($"{TestString}c", new ArgumentException($"{TestString}a", $"{TestString}b")).Catch(handler2)();
+            Act.Report($"{_TestString}c", new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler2)();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Report_Func_1()
             {
-            var act = new Func<string, string>(o =>
+            var Act = new Func<string, string>(o =>
                  {
-                     o.Should().Be(TestString);
-                     return $"{TestString}a";
+                     o.Should().Be(_TestString);
+                     return $"{_TestString}a";
                  });
-            var handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(e =>
                 {
-                    e.Message.Should().Be($"{TestString}a\r\nParameter name: {TestString}b");
-                    e.ParamName.Should().Be($"{TestString}b");
+                    e.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                    e.ParamName.Should().Be($"{_TestString}b");
                 });
-            var handler2 = new Action<Exception>(e =>
+            var Handler2 = new Action<Exception>(e =>
             {
-                e.Message.Should().Be($"{TestString}c");
+                e.Message.Should().Be($"{_TestString}c");
             });
 
-            act(TestString).Should().Be($"{TestString}a");
-            act.Report(new ArgumentException($"{TestString}a", $"{TestString}b")).Catch(handler)(TestString);
+            Act(_TestString).Should().Be($"{_TestString}a");
+            Act.Report(new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler)(_TestString);
 
-            act.Report($"{TestString}c", new ArgumentException($"{TestString}a", $"{TestString}b")).Catch(handler2)(TestString);
+            Act.Report($"{_TestString}c", new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler2)(_TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Report_Func_2()
             {
-            var act = new Func<string, string, string>((o1, o2) =>
+            var Act = new Func<string, string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                return $"{TestString}a";
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                return $"{_TestString}a";
             });
-            var handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(e =>
             {
-                e.Message.Should().Be($"{TestString}a\r\nParameter name: {TestString}b");
-                e.ParamName.Should().Be($"{TestString}b");
+                e.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                e.ParamName.Should().Be($"{_TestString}b");
             });
-            var handler2 = new Action<Exception>(e =>
+            var Handler2 = new Action<Exception>(e =>
             {
-                e.Message.Should().Be($"{TestString}c");
+                e.Message.Should().Be($"{_TestString}c");
             });
 
-            act(TestString, TestString).Should().Be($"{TestString}a");
-            act.Report(new ArgumentException($"{TestString}a", $"{TestString}b")).Catch(handler)(TestString, TestString);
+            Act(_TestString, _TestString).Should().Be($"{_TestString}a");
+            Act.Report(new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler)(_TestString, _TestString);
 
-            act.Report($"{TestString}c", new ArgumentException($"{TestString}a", $"{TestString}b")).Catch(handler2)(TestString, TestString);
+            Act.Report($"{_TestString}c", new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler2)(_TestString, _TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Report_Func_3()
             {
-            var act = new Func<string, string, string, string>((o1, o2, o3) =>
+            var Act = new Func<string, string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                return $"{TestString}a";
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                return $"{_TestString}a";
             });
-            var handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(e =>
             {
-                e.Message.Should().Be($"{TestString}a\r\nParameter name: {TestString}b");
-                e.ParamName.Should().Be($"{TestString}b");
+                e.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                e.ParamName.Should().Be($"{_TestString}b");
             });
-            var handler2 = new Action<Exception>(e =>
+            var Handler2 = new Action<Exception>(e =>
             {
-                e.Message.Should().Be($"{TestString}c");
+                e.Message.Should().Be($"{_TestString}c");
             });
 
-            act(TestString, TestString, TestString).Should().Be($"{TestString}a");
-            act.Report(new ArgumentException($"{TestString}a", $"{TestString}b")).Catch(handler)(TestString, TestString, TestString);
+            Act(_TestString, _TestString, _TestString).Should().Be($"{_TestString}a");
+            Act.Report(new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler)(_TestString, _TestString, _TestString);
 
-            act.Report($"{TestString}c", new ArgumentException($"{TestString}a", $"{TestString}b")).Catch(handler2)(TestString, TestString, TestString);
+            Act.Report($"{_TestString}c", new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler2)(_TestString, _TestString, _TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Report_Func_4()
             {
-            var act = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
+            var Act = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
-                return $"{TestString}a";
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
+                return $"{_TestString}a";
             });
-            var handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(e =>
             {
-                e.Message.Should().Be($"{TestString}a\r\nParameter name: {TestString}b");
-                e.ParamName.Should().Be($"{TestString}b");
+                e.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                e.ParamName.Should().Be($"{_TestString}b");
             });
-            var handler2 = new Action<Exception>(e =>
+            var Handler2 = new Action<Exception>(e =>
             {
-                e.Message.Should().Be($"{TestString}c");
+                e.Message.Should().Be($"{_TestString}c");
             });
 
-            act(TestString, TestString, TestString, TestString).Should().Be($"{TestString}a");
-            act.Report(new ArgumentException($"{TestString}a", $"{TestString}b")).Catch(handler)(TestString, TestString, TestString, TestString);
+            Act(_TestString, _TestString, _TestString, _TestString).Should().Be($"{_TestString}a");
+            Act.Report(new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler)(_TestString, _TestString, _TestString, _TestString);
 
-            act.Report($"{TestString}c", new ArgumentException($"{TestString}a", $"{TestString}b")).Catch(handler2)(TestString, TestString, TestString, TestString);
+            Act.Report($"{_TestString}c", new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler2)(_TestString, _TestString, _TestString, _TestString);
             }
 
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Throw_0()
             {
-            var act = new Action(() =>
+            var Act = new Action(() =>
                 {
 
                 });
-            var handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(e =>
                 {
-                    e.Message.Should().Be($"{TestString}a");
+                    e.Message.Should().Be($"{_TestString}a");
                 });
 
-            act();
-            act.Throw($"{TestString}a").ShouldFail();
-            act.Throw($"{TestString}a").Catch(handler)();
+            Act();
+            Act.Throw($"{_TestString}a").ShouldFail();
+            Act.Throw($"{_TestString}a").Catch(Handler)();
 
-            Func<string> func = act.Return(TestString);
+            Func<string> Func = Act.Return(_TestString);
 
-            func().Should().Be(TestString);
-            func.Throw($"{TestString}a").ShouldFail();
-            func.Throw($"{TestString}a").Catch(handler)();
+            Func().Should().Be(_TestString);
+            Func.Throw($"{_TestString}a").ShouldFail();
+            Func.Throw($"{_TestString}a").Catch(Handler)();
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Throw_1()
             {
-            var act = new Action<string>(o =>
+            var Act = new Action<string>(o =>
                 {
-                    o.Should().Be(TestString);
+                    o.Should().Be(_TestString);
                 });
-            var handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(e =>
             {
-                e.Message.Should().Be($"{TestString}a");
+                e.Message.Should().Be($"{_TestString}a");
             });
 
-            act(TestString);
-            act.Throw($"{TestString}a").ShouldFail(TestString);
-            act.Throw($"{TestString}a").Catch(handler)(TestString);
+            Act(_TestString);
+            Act.Throw($"{_TestString}a").ShouldFail(_TestString);
+            Act.Throw($"{_TestString}a").Catch(Handler)(_TestString);
 
-            Func<string, string> func = act.Return(TestString);
+            Func<string, string> Func = Act.Return(_TestString);
 
-            func(TestString).Should().Be(TestString);
-            func.Throw($"{TestString}a").ShouldFail(TestString);
-            func.Throw($"{TestString}a").Catch(handler)(TestString);
+            Func(_TestString).Should().Be(_TestString);
+            Func.Throw($"{_TestString}a").ShouldFail(_TestString);
+            Func.Throw($"{_TestString}a").Catch(Handler)(_TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Throw_2()
             {
-            var act = new Action<string, string>((o1, o2) =>
+            var Act = new Action<string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
             });
-            var handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(e =>
             {
-                e.Message.Should().Be($"{TestString}a");
+                e.Message.Should().Be($"{_TestString}a");
             });
 
-            act(TestString, TestString);
-            act.Throw($"{TestString}a").ShouldFail(TestString, TestString);
-            act.Throw($"{TestString}a").Catch(handler)(TestString, TestString);
+            Act(_TestString, _TestString);
+            Act.Throw($"{_TestString}a").ShouldFail(_TestString, _TestString);
+            Act.Throw($"{_TestString}a").Catch(Handler)(_TestString, _TestString);
 
-            Func<string, string, string> func = act.Return(TestString);
+            Func<string, string, string> Func = Act.Return(_TestString);
 
-            func(TestString, TestString).Should().Be(TestString);
-            func.Throw($"{TestString}a").ShouldFail(TestString, TestString);
-            func.Throw($"{TestString}a").Catch(handler)(TestString, TestString);
+            Func(_TestString, _TestString).Should().Be(_TestString);
+            Func.Throw($"{_TestString}a").ShouldFail(_TestString, _TestString);
+            Func.Throw($"{_TestString}a").Catch(Handler)(_TestString, _TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Throw_3()
             {
-            var act = new Action<string, string, string>((o1, o2, o3) =>
+            var Act = new Action<string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
             });
-            var handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(e =>
             {
-                e.Message.Should().Be($"{TestString}a");
+                e.Message.Should().Be($"{_TestString}a");
             });
 
-            act(TestString, TestString, TestString);
-            act.Throw($"{TestString}a").ShouldFail(TestString, TestString, TestString);
-            act.Throw($"{TestString}a").Catch(handler)(TestString, TestString, TestString);
+            Act(_TestString, _TestString, _TestString);
+            Act.Throw($"{_TestString}a").ShouldFail(_TestString, _TestString, _TestString);
+            Act.Throw($"{_TestString}a").Catch(Handler)(_TestString, _TestString, _TestString);
 
-            Func<string, string, string, string> func = act.Return(TestString);
+            Func<string, string, string, string> Func = Act.Return(_TestString);
 
-            func(TestString, TestString, TestString).Should().Be(TestString);
-            func.Throw($"{TestString}a").ShouldFail(TestString, TestString, TestString);
-            func.Throw($"{TestString}a").Catch(handler)(TestString, TestString, TestString);
+            Func(_TestString, _TestString, _TestString).Should().Be(_TestString);
+            Func.Throw($"{_TestString}a").ShouldFail(_TestString, _TestString, _TestString);
+            Func.Throw($"{_TestString}a").Catch(Handler)(_TestString, _TestString, _TestString);
             }
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Throw_4()
             {
-            var act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
+            var Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
             });
-            var handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(e =>
             {
-                e.Message.Should().Be($"{TestString}a");
+                e.Message.Should().Be($"{_TestString}a");
             });
 
-            act(TestString, TestString, TestString, TestString);
-            act.Throw($"{TestString}a").ShouldFail(TestString, TestString, TestString, TestString);
-            act.Throw($"{TestString}a").Catch(handler)(TestString, TestString, TestString, TestString);
+            Act(_TestString, _TestString, _TestString, _TestString);
+            Act.Throw($"{_TestString}a").ShouldFail(_TestString, _TestString, _TestString, _TestString);
+            Act.Throw($"{_TestString}a").Catch(Handler)(_TestString, _TestString, _TestString, _TestString);
 
-            Func<string, string, string, string, string> func = act.Return(TestString);
+            Func<string, string, string, string, string> Func = Act.Return(_TestString);
 
-            func(TestString, TestString, TestString, TestString).Should().Be(TestString);
-            func.Throw($"{TestString}a").ShouldFail(TestString, TestString, TestString, TestString);
-            func.Throw($"{TestString}a").Catch(handler)(TestString, TestString, TestString, TestString);
+            Func(_TestString, _TestString, _TestString, _TestString).Should().Be(_TestString);
+            Func.Throw($"{_TestString}a").ShouldFail(_TestString, _TestString, _TestString, _TestString);
+            Func.Throw($"{_TestString}a").Catch(Handler)(_TestString, _TestString, _TestString, _TestString);
             }
 
 
@@ -2194,12 +2194,12 @@ namespace L_Tests.Tests.Extensions
             {
             lock (this)
                 {
-                Action<Exception> temp = L.Exc.DefaultExceptionHandler;
+                Action<Exception> Temp = L.Exc.DefaultExceptionHandler;
 
                 L.Exc.DefaultExceptionHandler = e =>
                 {
                     e.Should().BeOfType<ArgumentException>();
-                    e.Message.Should().Be($"{TestString}a");
+                    e.Message.Should().Be($"{_TestString}a");
                 };
 
                 var Good_Act = new Action(() =>
@@ -2207,16 +2207,16 @@ namespace L_Tests.Tests.Extensions
                 });
                 var Bad_Act = new Action(() =>
                 {
-                    throw new ArgumentException($"{TestString}a");
+                    throw new ArgumentException($"{_TestString}a");
                 });
 
                 Good_Act.Handle()();
                 Bad_Act.Handle()();
 
-                Good_Act.Return(TestString).Handle()().Should().Be(TestString);
-                Bad_Act.Return(TestString).Handle()().Should().Be(default(string));
+                Good_Act.Return(_TestString).Handle()().Should().Be(_TestString);
+                Bad_Act.Return(_TestString).Handle()().Should().Be(default(string));
 
-                L.Exc.DefaultExceptionHandler = temp;
+                L.Exc.DefaultExceptionHandler = Temp;
                 }
             }
         [TestMethod]
@@ -2225,31 +2225,31 @@ namespace L_Tests.Tests.Extensions
             {
             lock (this)
                 {
-                Action<Exception> temp = L.Exc.DefaultExceptionHandler;
+                Action<Exception> Temp = L.Exc.DefaultExceptionHandler;
 
                 L.Exc.DefaultExceptionHandler = e =>
                     {
                         e.Should().BeOfType<ArgumentException>();
-                        e.Message.Should().Be($"{TestString}a");
+                        e.Message.Should().Be($"{_TestString}a");
                     };
 
                 var Good_Act = new Action<string>(o =>
                     {
-                        o.Should().Be(TestString);
+                        o.Should().Be(_TestString);
                     });
                 var Bad_Act = new Action<string>(o =>
                 {
-                    o.Should().Be(TestString);
-                    throw new ArgumentException($"{TestString}a");
+                    o.Should().Be(_TestString);
+                    throw new ArgumentException($"{_TestString}a");
                 });
 
-                Good_Act.Handle()(TestString);
-                Bad_Act.Handle()(TestString);
+                Good_Act.Handle()(_TestString);
+                Bad_Act.Handle()(_TestString);
 
-                Good_Act.Return(TestString).Handle()(TestString).Should().Be(TestString);
-                Bad_Act.Return(TestString).Handle()(TestString).Should().Be(default(string));
+                Good_Act.Return(_TestString).Handle()(_TestString).Should().Be(_TestString);
+                Bad_Act.Return(_TestString).Handle()(_TestString).Should().Be(default(string));
 
-                L.Exc.DefaultExceptionHandler = temp;
+                L.Exc.DefaultExceptionHandler = Temp;
                 }
             }
         [TestMethod]
@@ -2258,33 +2258,33 @@ namespace L_Tests.Tests.Extensions
             {
             lock (this)
                 {
-                Action<Exception> temp = L.Exc.DefaultExceptionHandler;
+                Action<Exception> Temp = L.Exc.DefaultExceptionHandler;
 
                 L.Exc.DefaultExceptionHandler = e =>
                 {
                     e.Should().BeOfType<ArgumentException>();
-                    e.Message.Should().Be($"{TestString}a");
+                    e.Message.Should().Be($"{_TestString}a");
                 };
 
                 var Good_Act = new Action<string, string>((o1, o2) =>
                 {
-                    o1.Should().Be(TestString);
-                    o2.Should().Be(TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
                 });
                 var Bad_Act = new Action<string, string>((o1, o2) =>
                 {
-                    o1.Should().Be(TestString);
-                    o2.Should().Be(TestString);
-                    throw new ArgumentException($"{TestString}a");
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    throw new ArgumentException($"{_TestString}a");
                 });
 
-                Good_Act.Handle()(TestString, TestString);
-                Bad_Act.Handle()(TestString, TestString);
+                Good_Act.Handle()(_TestString, _TestString);
+                Bad_Act.Handle()(_TestString, _TestString);
 
-                Good_Act.Return(TestString).Handle()(TestString, TestString).Should().Be(TestString);
-                Bad_Act.Return(TestString).Handle()(TestString, TestString).Should().Be(default(string));
+                Good_Act.Return(_TestString).Handle()(_TestString, _TestString).Should().Be(_TestString);
+                Bad_Act.Return(_TestString).Handle()(_TestString, _TestString).Should().Be(default(string));
 
-                L.Exc.DefaultExceptionHandler = temp;
+                L.Exc.DefaultExceptionHandler = Temp;
                 }
             }
         [TestMethod]
@@ -2293,35 +2293,35 @@ namespace L_Tests.Tests.Extensions
             {
             lock (this)
                 {
-                Action<Exception> temp = L.Exc.DefaultExceptionHandler;
+                Action<Exception> Temp = L.Exc.DefaultExceptionHandler;
 
                 L.Exc.DefaultExceptionHandler = e =>
                 {
                     e.Should().BeOfType<ArgumentException>();
-                    e.Message.Should().Be($"{TestString}a");
+                    e.Message.Should().Be($"{_TestString}a");
                 };
 
                 var Good_Act = new Action<string, string, string>((o1, o2, o3) =>
                 {
-                    o1.Should().Be(TestString);
-                    o2.Should().Be(TestString);
-                    o3.Should().Be(TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
                 });
                 var Bad_Act = new Action<string, string, string>((o1, o2, o3) =>
                 {
-                    o1.Should().Be(TestString);
-                    o2.Should().Be(TestString);
-                    o3.Should().Be(TestString);
-                    throw new ArgumentException($"{TestString}a");
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    throw new ArgumentException($"{_TestString}a");
                 });
 
-                Good_Act.Handle()(TestString, TestString, TestString);
-                Bad_Act.Handle()(TestString, TestString, TestString);
+                Good_Act.Handle()(_TestString, _TestString, _TestString);
+                Bad_Act.Handle()(_TestString, _TestString, _TestString);
 
-                Good_Act.Return(TestString).Handle()(TestString, TestString, TestString).Should().Be(TestString);
-                Bad_Act.Return(TestString).Handle()(TestString, TestString, TestString).Should().Be(default(string));
+                Good_Act.Return(_TestString).Handle()(_TestString, _TestString, _TestString).Should().Be(_TestString);
+                Bad_Act.Return(_TestString).Handle()(_TestString, _TestString, _TestString).Should().Be(default(string));
 
-                L.Exc.DefaultExceptionHandler = temp;
+                L.Exc.DefaultExceptionHandler = Temp;
                 }
             }
         [TestMethod]
@@ -2330,37 +2330,37 @@ namespace L_Tests.Tests.Extensions
             {
             lock (this)
                 {
-                Action<Exception> temp = L.Exc.DefaultExceptionHandler;
+                Action<Exception> Temp = L.Exc.DefaultExceptionHandler;
 
                 L.Exc.DefaultExceptionHandler = e =>
                 {
                     e.Should().BeOfType<ArgumentException>();
-                    e.Message.Should().Be($"{TestString}a");
+                    e.Message.Should().Be($"{_TestString}a");
                 };
 
                 var Good_Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                    o1.Should().Be(TestString);
-                    o2.Should().Be(TestString);
-                    o3.Should().Be(TestString);
-                    o4.Should().Be(TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
                 });
                 var Bad_Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                    o1.Should().Be(TestString);
-                    o2.Should().Be(TestString);
-                    o3.Should().Be(TestString);
-                    o4.Should().Be(TestString);
-                    throw new ArgumentException($"{TestString}a");
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
+                    throw new ArgumentException($"{_TestString}a");
                 });
 
-                Good_Act.Handle()(TestString, TestString, TestString, TestString);
-                Bad_Act.Handle()(TestString, TestString, TestString, TestString);
+                Good_Act.Handle()(_TestString, _TestString, _TestString, _TestString);
+                Bad_Act.Handle()(_TestString, _TestString, _TestString, _TestString);
 
-                Good_Act.Return(TestString).Handle()(TestString, TestString, TestString, TestString).Should().Be(TestString);
-                Bad_Act.Return(TestString).Handle()(TestString, TestString, TestString, TestString).Should().Be(default(string));
+                Good_Act.Return(_TestString).Handle()(_TestString, _TestString, _TestString, _TestString).Should().Be(_TestString);
+                Bad_Act.Return(_TestString).Handle()(_TestString, _TestString, _TestString, _TestString).Should().Be(default(string));
 
-                L.Exc.DefaultExceptionHandler = temp;
+                L.Exc.DefaultExceptionHandler = Temp;
                 }
             }
 
@@ -2371,26 +2371,26 @@ namespace L_Tests.Tests.Extensions
             {
             var Good_Act = new Action<string>(o =>
                 {
-                    o.Should().Be(TestString);
+                    o.Should().Be(_TestString);
                 });
             var Bad_Act = new Action<string>(o =>
                 {
-                    o.Should().Be(TestString);
-                    throw new ArgumentException($"{TestString}a");
+                    o.Should().Be(_TestString);
+                    throw new ArgumentException($"{_TestString}a");
                 });
 
-            var handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(e =>
                 {
-                    e.Message.Should().Be($"System.String:{TestString}");
+                    e.Message.Should().Be($"System.String:{_TestString}");
                 });
 
-            Good_Act.Debug()(TestString);
-            Good_Act.Debug().Catch(handler)(TestString);
+            Good_Act.Debug()(_TestString);
+            Good_Act.Debug().Catch(Handler)(_TestString);
 
-            Bad_Act.Debug().Catch(handler)(TestString);
+            Bad_Act.Debug().Catch(Handler)(_TestString);
 
-            Good_Act.Return($"{TestString}a").Debug().Catch(handler)(TestString).Should().Be($"{TestString}a");
-            Bad_Act.Return($"{TestString}a").Debug().Catch(handler)(TestString).Should().Be(default(string));
+            Good_Act.Return($"{_TestString}a").Debug().Catch(Handler)(_TestString).Should().Be($"{_TestString}a");
+            Bad_Act.Return($"{_TestString}a").Debug().Catch(Handler)(_TestString).Should().Be(default(string));
             }
         [TestMethod]
         [TestCategory(UnitTests)]
@@ -2398,28 +2398,28 @@ namespace L_Tests.Tests.Extensions
             {
             var Good_Act = new Action<string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
             });
             var Bad_Act = new Action<string, string>((o1, o2) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                throw new ArgumentException($"{TestString}a");
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                throw new ArgumentException($"{_TestString}a");
             });
 
-            var handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(e =>
             {
-                e.Message.Should().Be($"System.String:{TestString}, System.String:{TestString}");
+                e.Message.Should().Be($"System.String:{_TestString}, System.String:{_TestString}");
             });
 
-            Good_Act.Debug()(TestString, TestString);
-            Good_Act.Debug().Catch(handler)(TestString, TestString);
+            Good_Act.Debug()(_TestString, _TestString);
+            Good_Act.Debug().Catch(Handler)(_TestString, _TestString);
 
-            Bad_Act.Debug().Catch(handler)(TestString, TestString);
+            Bad_Act.Debug().Catch(Handler)(_TestString, _TestString);
 
-            Good_Act.Return($"{TestString}a").Debug().Catch(handler)(TestString, TestString).Should().Be($"{TestString}a");
-            Bad_Act.Return($"{TestString}a").Debug().Catch(handler)(TestString, TestString).Should().Be(default(string));
+            Good_Act.Return($"{_TestString}a").Debug().Catch(Handler)(_TestString, _TestString).Should().Be($"{_TestString}a");
+            Bad_Act.Return($"{_TestString}a").Debug().Catch(Handler)(_TestString, _TestString).Should().Be(default(string));
             }
         [TestMethod]
         [TestCategory(UnitTests)]
@@ -2427,30 +2427,30 @@ namespace L_Tests.Tests.Extensions
             {
             var Good_Act = new Action<string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
             });
             var Bad_Act = new Action<string, string, string>((o1, o2, o3) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                throw new ArgumentException($"{TestString}a");
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                throw new ArgumentException($"{_TestString}a");
             });
 
-            var handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(e =>
             {
-                e.Message.Should().Be($"System.String:{TestString}, System.String:{TestString}, System.String:{TestString}");
+                e.Message.Should().Be($"System.String:{_TestString}, System.String:{_TestString}, System.String:{_TestString}");
             });
 
-            Good_Act.Debug()(TestString, TestString, TestString);
-            Good_Act.Debug().Catch(handler)(TestString, TestString, TestString);
+            Good_Act.Debug()(_TestString, _TestString, _TestString);
+            Good_Act.Debug().Catch(Handler)(_TestString, _TestString, _TestString);
 
-            Bad_Act.Debug().Catch(handler)(TestString, TestString, TestString);
+            Bad_Act.Debug().Catch(Handler)(_TestString, _TestString, _TestString);
 
-            Good_Act.Return($"{TestString}a").Debug().Catch(handler)(TestString, TestString, TestString).Should().Be($"{TestString}a");
-            Bad_Act.Return($"{TestString}a").Debug().Catch(handler)(TestString, TestString, TestString).Should().Be(default(string));
+            Good_Act.Return($"{_TestString}a").Debug().Catch(Handler)(_TestString, _TestString, _TestString).Should().Be($"{_TestString}a");
+            Bad_Act.Return($"{_TestString}a").Debug().Catch(Handler)(_TestString, _TestString, _TestString).Should().Be(default(string));
             }
         [TestMethod]
         [TestCategory(UnitTests)]
@@ -2458,32 +2458,32 @@ namespace L_Tests.Tests.Extensions
             {
             var Good_Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
             });
             var Bad_Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
             {
-                o1.Should().Be(TestString);
-                o2.Should().Be(TestString);
-                o3.Should().Be(TestString);
-                o4.Should().Be(TestString);
-                throw new ArgumentException($"{TestString}a");
+                o1.Should().Be(_TestString);
+                o2.Should().Be(_TestString);
+                o3.Should().Be(_TestString);
+                o4.Should().Be(_TestString);
+                throw new ArgumentException($"{_TestString}a");
             });
 
-            var handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(e =>
             {
-                e.Message.Should().Be($"System.String:{TestString}, System.String:{TestString}, System.String:{TestString}, System.String:{TestString}");
+                e.Message.Should().Be($"System.String:{_TestString}, System.String:{_TestString}, System.String:{_TestString}, System.String:{_TestString}");
             });
 
-            Good_Act.Debug()(TestString, TestString, TestString, TestString);
-            Good_Act.Debug().Catch(handler)(TestString, TestString, TestString, TestString);
+            Good_Act.Debug()(_TestString, _TestString, _TestString, _TestString);
+            Good_Act.Debug().Catch(Handler)(_TestString, _TestString, _TestString, _TestString);
 
-            Bad_Act.Debug().Catch(handler)(TestString, TestString, TestString, TestString);
+            Bad_Act.Debug().Catch(Handler)(_TestString, _TestString, _TestString, _TestString);
 
-            Good_Act.Return($"{TestString}a").Debug().Catch(handler)(TestString, TestString, TestString, TestString).Should().Be($"{TestString}a");
-            Bad_Act.Return($"{TestString}a").Debug().Catch(handler)(TestString, TestString, TestString, TestString).Should().Be(default(string));
+            Good_Act.Return($"{_TestString}a").Debug().Catch(Handler)(_TestString, _TestString, _TestString, _TestString).Should().Be($"{_TestString}a");
+            Bad_Act.Return($"{_TestString}a").Debug().Catch(Handler)(_TestString, _TestString, _TestString, _TestString).Should().Be(default(string));
             }
 
         }
