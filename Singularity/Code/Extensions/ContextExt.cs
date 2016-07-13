@@ -10,7 +10,6 @@ using Singularity.Context;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
-using System.Text.RegularExpressions;
 using LCore.Interfaces;
 using Singularity.Models;
 
@@ -25,18 +24,18 @@ namespace Singularity.Extensions
 
         #region GetTableName
 
-        public static string GetTableName<T>(this DbContext context) where T : class
+        public static string GetTableName<T>(this DbContext Context) where T : class
             {
-            var ObjectContext = ((IObjectContextAdapter) context).ObjectContext;
+            var ObjectContext = ((IObjectContextAdapter)Context).ObjectContext;
 
             return ObjectContext.GetTableName<T>();
             }
 
-        public static string GetTableName(this DbContext context, Type t)
+        public static string GetTableName(this DbContext Context, Type Type)
             {
-            var ObjectContext = ((IObjectContextAdapter) context).ObjectContext;
+            var ObjectContext = ((IObjectContextAdapter)Context).ObjectContext;
 
-            return ObjectContext.GetTableName(t);
+            return ObjectContext.GetTableName(Type);
             }
 
         #endregion
@@ -98,31 +97,40 @@ namespace Singularity.Extensions
 
         #region GetTableName
 
-        public static string GetTableName<T>(this ObjectContext context) where T : class
+        public static string GetTableName<T>(this ObjectContext Context) where T : class
             {
-            string SQL = context.CreateObjectSet<T>().ToTraceString();
-            var Regex = new Regex("FROM (?<table>.*) AS");
-            var Match = Regex.Match(SQL);
+            string SQL = Context.CreateObjectSet<T>().ToTraceString();
 
-            string Table = Match.Groups["table"].Value;
+            var Match = SQL.Matches("FROM (?<table>.*) AS").FirstOrDefault();
+
+            string Table = Match?.Groups["table"].Value;
             return Table;
             }
 
-        public static string GetTableName(this ObjectContext context, Type t)
+        /// <exception cref="InvalidOperationException">Cannot get table name from context</exception>
+        public static string GetTableName(this ObjectContext Context, Type Type)
             {
-            var Method = (MethodInfo) context.GetType().GetMember("CreateObjectSet").FirstOrDefault();
+            var Method = (MethodInfo)Context.GetType().GetMember("CreateObjectSet").FirstOrDefault();
 
-            Method = Method?.MakeGenericMethod(t);
+            Method = Method?.MakeGenericMethod(Type);
 
             if (Method != null)
                 {
-                var Query = (ObjectQuery) Method.Invoke(context, new object[] {});
+                ObjectQuery Query;
+                try
+                    {
+                    Query = (ObjectQuery)Method.Invoke(Context, new object[] { });
+                    }
+                catch (Exception Ex)
+                    {
+                    throw new InvalidOperationException("Cannot get table name from context", Ex);
+                    }
 
                 string SQL = Query.ToTraceString();
-                var Regex = new Regex("FROM (?<table>.*) AS");
-                var Match = Regex.Match(SQL);
 
-                string Table = Match.Groups["table"].Value;
+                var Match = SQL.Matches("FROM (?<table>.*) AS").FirstOrDefault();
+
+                string Table = Match?.Groups["table"].Value;
                 return Table;
                 }
 
@@ -137,15 +145,15 @@ namespace Singularity.Extensions
 
         #region AllowCreate
 
-        public static bool AllowCreate(this ViewContext Context, Type t)
+        public static bool AllowCreate(this ViewContext Context, Type Type)
             {
             var Controller = Context.GetManageController();
 
             return Context.HttpContext.Session != null &&
                    ContextProviderFactory.GetCurrent().CurrentRole(Context.HttpContext.Session) != null &&
-                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, t).Create ==
+                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, Type).Create ==
                    true &&
-                   (Controller == null || Controller.ModelType != t ||
+                   (Controller == null || Controller.ModelType != Type ||
                     Controller.OverridePermissions.Create == true);
             }
 
@@ -153,15 +161,15 @@ namespace Singularity.Extensions
 
         #region AllowDeactivate
 
-        public static bool AllowDeactivate(this ViewContext Context, Type t)
+        public static bool AllowDeactivate(this ViewContext Context, Type Type)
             {
             var Controller = Context.GetManageController();
 
             return Context.HttpContext.Session != null &&
                    ContextProviderFactory.GetCurrent().CurrentRole(Context.HttpContext.Session) != null &&
-                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, t).Deactivate ==
+                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, Type).Deactivate ==
                    true &&
-                   (Controller == null || Controller.ModelType != t ||
+                   (Controller == null || Controller.ModelType != Type ||
                     Controller.OverridePermissions.Deactivate == true);
             }
 
@@ -169,14 +177,14 @@ namespace Singularity.Extensions
 
         #region AllowEdit
 
-        public static bool AllowEdit(this ViewContext Context, Type t)
+        public static bool AllowEdit(this ViewContext Context, Type Type)
             {
             var Controller = Context.GetManageController();
 
             return Context.HttpContext.Session != null &&
                    ContextProviderFactory.GetCurrent().CurrentRole(Context.HttpContext.Session) != null &&
-                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, t).Edit == true &&
-                   (Controller == null || Controller.ModelType != t ||
+                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, Type).Edit == true &&
+                   (Controller == null || Controller.ModelType != Type ||
                     Controller.OverridePermissions.Edit == true);
             }
 
@@ -184,15 +192,15 @@ namespace Singularity.Extensions
 
         #region AllowExport
 
-        public static bool AllowExport(this ViewContext Context, Type t)
+        public static bool AllowExport(this ViewContext Context, Type Type)
             {
             var Controller = Context.GetManageController();
 
             return Context.HttpContext.Session != null &&
                    ContextProviderFactory.GetCurrent().CurrentRole(Context.HttpContext.Session) != null &&
-                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, t).Export ==
+                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, Type).Export ==
                    true &&
-                   (Controller == null || Controller.ModelType != t ||
+                   (Controller == null || Controller.ModelType != Type ||
                     Controller.OverridePermissions.Export == true);
             }
 
@@ -200,13 +208,13 @@ namespace Singularity.Extensions
 
         #region AllowView
 
-        public static bool AllowView(this ViewContext Context, Type t)
+        public static bool AllowView(this ViewContext Context, Type Type)
             {
             var Controller = Context.GetManageController();
 
             return Context.HttpContext.Session != null &&
                    ContextProviderFactory.GetCurrent().CurrentRole(Context.HttpContext.Session) != null &&
-                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, t).View == true &&
+                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, Type).View == true &&
                    (Controller == null ||
                     Controller.OverridePermissions.View == true);
             }
@@ -215,15 +223,15 @@ namespace Singularity.Extensions
 
         #region AllowViewInactive
 
-        public static bool AllowViewInactive(this ViewContext Context, Type t)
+        public static bool AllowViewInactive(this ViewContext Context, Type Type)
             {
             var Controller = Context.GetManageController();
 
             return Context.HttpContext.Session != null &&
                    ContextProviderFactory.GetCurrent().CurrentRole(Context.HttpContext.Session) != null &&
-                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, t).ViewInactive ==
+                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, Type).ViewInactive ==
                    true &&
-                   (Controller == null || Controller.ModelType != t ||
+                   (Controller == null || Controller.ModelType != Type ||
                     Controller.OverridePermissions.ViewInactive == true);
             }
 
@@ -233,21 +241,42 @@ namespace Singularity.Extensions
 
         public static string GetActionName(this ViewContext Context)
             {
-            return (string) Context.RouteData.Values["action"];
+            return (string)Context.RouteData.Values["action"];
             }
 
         #endregion
 
         #region GetActionTrace
 
+
         public static IMenuAction[] GetActionTrace(this ViewContext Context)
             {
             string Action = Context.GetActionName();
             string Controller = Context.GetControllerName();
 
-            var ControllerType = Type.GetType($"{Controller}Controller");
+            Type ControllerType;
 
-            var Method = ControllerType?.GetMethod(Action);
+            try
+                {
+                ControllerType = Type.GetType($"{Controller}Controller");
+                }
+            catch (Exception Ex)
+                {
+                ControllerHelper.HandleError(Context.HttpContext, Ex);
+                return new IMenuAction[] { };
+                }
+
+            MethodInfo Method;
+
+            try
+                {
+                Method = ControllerType?.GetMethod(Action);
+                }
+            catch (AmbiguousMatchException Ex)
+                {
+                ControllerHelper.HandleError(Context.HttpContext, Ex);
+                return new IMenuAction[] { };
+                }
 
             var Out = new List<IMenuAction>();
 
@@ -260,9 +289,17 @@ namespace Singularity.Extensions
 
                 Out.Add(Attr);
 
-                ControllerType = Type.GetType(Attr.ParentController ?? Controller);
+                try
+                    {
+                    ControllerType = Type.GetType(Attr.ParentController ?? Controller);
 
-                Method = ControllerType?.GetMethod(Attr.ParentAction ?? Action);
+                    Method = ControllerType?.GetMethod(Attr.ParentAction ?? Action);
+                    }
+                catch (Exception Ex)
+                    {
+                    ControllerHelper.HandleError(Context.HttpContext, Ex);
+                    return new IMenuAction[] { };
+                    }
                 }
 
             Out.Reverse();
@@ -276,7 +313,7 @@ namespace Singularity.Extensions
 
         public static string GetControllerName(this ViewContext Context)
             {
-            return (string) Context.RouteData.Values["controller"];
+            return (string)Context.RouteData.Values["controller"];
             }
 
         #endregion

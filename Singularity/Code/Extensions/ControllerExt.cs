@@ -12,22 +12,24 @@ namespace Singularity.Extensions
         #region Extensions +
         #region CName
 
+        /// <exception cref="ArgumentNullException"><paramref name="Controller"/> is <see langword="null" />.</exception>
         public static string CName(this Type Controller)
             {
             if (Controller == null) throw new ArgumentNullException(nameof(Controller));
 
-            string name = Controller.Name;
-            return name.EndsWith("Controller") ? 
-                name.Substring(0, name.Length - "Controller".Length) : 
-                name;
+            string Name = Controller.Name;
+            return Name.EndsWith("Controller") ? 
+                Name.Substring(0, Name.Length - "Controller".Length) : 
+                Name;
             }
 
+        /// <exception cref="ArgumentNullException"><paramref name="Controller"/> is <see langword="null" />.</exception>
         public static string CName(this Controller Controller)
             {
             if (Controller == null) throw new ArgumentNullException(nameof(Controller));
 
-            string name = Controller.GetType().Name;
-            return name.EndsWith("Controller") ? name.Substring(0, name.Length - "Controller".Length) : name;
+            string Name = Controller.GetType().Name;
+            return Name.EndsWith("Controller") ? Name.Substring(0, Name.Length - "Controller".Length) : Name;
             }
 
         #endregion

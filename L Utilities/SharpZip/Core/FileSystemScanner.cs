@@ -40,6 +40,8 @@ using System;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnassignedField.Global
 // ReSharper disable FieldCanBeMadeReadOnly.Local
+// ReSharper disable InconsistentNaming
+// ReSharper disable CommentTypo
 
 namespace ICSharpCode.SharpZipLib.Core
     {

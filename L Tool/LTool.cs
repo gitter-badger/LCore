@@ -10,8 +10,8 @@ namespace L_Tool
     {
     public partial class LTool : Form
         {
-        private const string Default_CodeRoot = @"D:\Dev\Singularity\L";
-        private const string Default_CodeDynamicFolder = @"D:\Dev\Singularity\L\Dynamic Code\CodeExplode";
+        private const string DefaultCodeRoot = @"D:\Dev\Singularity\L";
+        private const string DefaultCodeDynamicFolder = @"D:\Dev\Singularity\L\Dynamic Code\CodeExplode";
 
         public LTool()
             {
@@ -20,18 +20,18 @@ namespace L_Tool
             this.LoadOptions();
             }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object Sender, EventArgs Event)
             {
             this.SaveOptions();
 
             var Test = new CodeExploder(this.CodeRoot, this.CodeDynamicFolder);
             Test.BackupAllExplodeFiles();
-            string s = Test.ExplodeAllTypes();
-            MessageBox.Show($"{s.Count('\n')} Lines Generated");
+            string Str = Test.ExplodeAllTypes();
+            MessageBox.Show($"{Str.Count('\n')} Lines Generated");
             Application.Exit();
             }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object Sender, EventArgs Event)
             {
             this.SaveOptions();
 
@@ -39,7 +39,7 @@ namespace L_Tool
             Test.BackupAllExplodeFiles();
             }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button3_Click(object Sender, EventArgs Event)
             {
             this.folderBrowserDialog1.ShowDialog();
 
@@ -49,7 +49,7 @@ namespace L_Tool
                 }
             }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button4_Click(object Sender, EventArgs Event)
             {
             this.folderBrowserDialog1.ShowDialog();
 
@@ -59,29 +59,29 @@ namespace L_Tool
                 }
             }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void button5_Click(object Sender, EventArgs Event)
             {
             var Test = new CodeExploder(this.CodeRoot, null);
 
-            string s = !this.textBox4.Text.IsEmpty() ?
-                Test.ExplodeAllTypes(m => m.Name.Contains(this.textBox4.Text)) :
+            string Str = !this.textBox4.Text.IsEmpty() ?
+                Test.ExplodeAllTypes(Type => Type.Name.Contains(this.textBox4.Text)) :
                 Test.ExplodeAllTypes();
 
-            this.textBox3.Text = s;
+            this.textBox3.Text = Str;
             }
 
 
-        private readonly RegistryHelper Registry = new RegistryHelper("LTool", Microsoft.Win32.Registry.CurrentUser);
+        private readonly RegistryHelper _Registry = new RegistryHelper("LTool", Microsoft.Win32.Registry.CurrentUser);
 
         private string CodeRoot
             {
             get
                 {
-                return this.Registry.LoadString("CodeRoot") ?? Default_CodeRoot;
+                return this._Registry.LoadString("CodeRoot") ?? DefaultCodeRoot;
                 }
             set
                 {
-                this.Registry.Save("CodeRoot", value);
+                this._Registry.Save("CodeRoot", value);
                 }
             }
 
@@ -89,11 +89,11 @@ namespace L_Tool
             {
             get
                 {
-                return this.Registry.LoadString("CodeDynamicFolder") ?? Default_CodeDynamicFolder;
+                return this._Registry.LoadString("CodeDynamicFolder") ?? DefaultCodeDynamicFolder;
                 }
             set
                 {
-                this.Registry.Save("CodeDynamicFolder", value);
+                this._Registry.Save("CodeDynamicFolder", value);
                 }
             }
 
@@ -108,7 +108,7 @@ namespace L_Tool
             this.CodeDynamicFolder = this.textBox2.Text;
             }
 
-        private void LTool_Load(object sender, EventArgs e)
+        private void LTool_Load(object Sender, EventArgs Event)
             {
 
             }

@@ -15,9 +15,9 @@ namespace Singularity.Account
 
         public static readonly TimeSpan UserAccountPasswordExpire = new TimeSpan(90, 0, 0, 0);
 
-        public static readonly char[] Password_UpperChars = Enumerable.Range(65, 26).Select(c => (char)c).ToArray();
-        public static readonly char[] Password_LowerChars = Enumerable.Range(97, 26).Select(c => (char)c).ToArray();
-        public static readonly char[] Password_NumberChars = Enumerable.Range(48, 26).Select(c => (char)c).ToArray();
+        public static readonly char[] Password_UpperChars = Enumerable.Range(65, 26).Select(Char => (char)Char).ToArray();
+        public static readonly char[] Password_LowerChars = Enumerable.Range(97, 26).Select(Char => (char)Char).ToArray();
+        public static readonly char[] Password_NumberChars = Enumerable.Range(48, 26).Select(Char => (char)Char).ToArray();
         public static readonly char[] Password_SpecialChars = { '!', '#', '$', '%', '&', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '{', '|', '}' };
 
         public const string DateFormat = "yyyy-MM-dd h:mm tt";
@@ -61,7 +61,7 @@ namespace Singularity.Account
 
             if (Rules.LowerCaseMinimum > 0)
                 {
-                for (int i = 0; i < Rules.LowerCaseMinimum; i++)
+                for (int Index = 0; Index < Rules.LowerCaseMinimum; Index++)
                     {
                     Out.Add(Password_LowerChars.RandomItem());
                     }
@@ -69,7 +69,7 @@ namespace Singularity.Account
 
             if (Rules.UpperCaseMinimum > 0)
                 {
-                for (int i = 0; i < Rules.UpperCaseMinimum; i++)
+                for (int Index = 0; Index < Rules.UpperCaseMinimum; Index++)
                     {
                     Out.Add(Password_UpperChars.RandomItem());
                     }
@@ -77,7 +77,7 @@ namespace Singularity.Account
 
             if (Rules.NumberMinimum > 0)
                 {
-                for (int i = 0; i < Rules.NumberMinimum; i++)
+                for (int Index = 0; Index < Rules.NumberMinimum; Index++)
                     {
                     Out.Add(Password_NumberChars.RandomItem());
                     }
@@ -85,7 +85,7 @@ namespace Singularity.Account
 
             if (Rules.SpecialMinimum > 0)
                 {
-                for (int i = 0; i < Rules.SpecialMinimum; i++)
+                for (int Index = 0; Index < Rules.SpecialMinimum; Index++)
                     {
                     Out.Add(Password_SpecialChars.RandomItem());
                     }
@@ -115,10 +115,10 @@ namespace Singularity.Account
                 Rules.NumberMinimum > 0 ||
                 Rules.SpecialMinimum > 0)
                 {
-                int CountLower = Password.Count(c => Password_LowerChars.Contains(c));
-                int CountUpper = Password.Count(c => Password_UpperChars.Contains(c));
-                int CountNumbers = Password.Count(c => Password_NumberChars.Contains(c));
-                int CountSpecial = Password.Count(c => Password_SpecialChars.Contains(c));
+                int CountLower = Password.Count(Char => Password_LowerChars.Contains(Char));
+                int CountUpper = Password.Count(Char => Password_UpperChars.Contains(Char));
+                int CountNumbers = Password.Count(Char => Password_NumberChars.Contains(Char));
+                int CountSpecial = Password.Count(Char => Password_SpecialChars.Contains(Char));
 
                 if (CountLower > 0 && CountLower < Rules.LowerCaseMinimum)
                     return false;

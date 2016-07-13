@@ -7,6 +7,7 @@ namespace LCore.Numbers
     /// <summary>
     /// Provides an implementation of INumber for ushort
     /// </summary>
+    // ReSharper disable once InconsistentNaming
     public class UShortNumber : Number<ushort>
         {
         /// <summary>

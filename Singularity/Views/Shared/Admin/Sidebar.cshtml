@@ -53,7 +53,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li @(ViewBag.Breadcrumbs?.Contains(
-                        (Expression<Func<Set<string,string>,bool>>)(set=> set.Obj2.ToLower() == Url.Action(nameof(ExamplesController.L), typeof(ExamplesController).CName()))) == true ?
+                        (Expression<Func<Set<string,string>,bool>>)(Set=> Set.Obj2.ToLower() == Url.Action(nameof(ExamplesController.L), typeof(ExamplesController).CName()))) == true ?
                         "class=\"active\"" : "")>
                         <a href="@Url.Action(nameof(ExamplesController.L),typeof(ExamplesController).CName())">
                             @Html.FontAwesome(FontAwesomeExt.Icon.gbp)
@@ -63,7 +63,7 @@
                         </a>
                         <ul class="treeview-menu">
                             <li @(ViewBag.Breadcrumbs?.Contains(
-                                (Expression<Func<Set<string,string>,bool>>)(set=> set.Obj2.ToLower() == Url.Action(nameof(ExamplesController.L_Extensions), typeof(ExamplesController).CName()))) == true ?
+                                (Expression<Func<Set<string,string>,bool>>)(Set=> Set.Obj2.ToLower() == Url.Action(nameof(ExamplesController.L_Extensions), typeof(ExamplesController).CName()))) == true ?
                                 "class=\"active\"" : "")>
                                 <a href="@Url.Action(nameof(ExamplesController.L_Extensions),typeof(ExamplesController).CName())">
                                     @Html.FontAwesome(FontAwesomeExt.Icon.link)
@@ -75,7 +75,7 @@
                                 <ul class="treeview-menu">
                                     @foreach (var Ext in ExtensionClasses_L)
                                         {
-                                        <li @(ViewBag.Breadcrumbs?.Contains( (Expression<Func<Set<string, string>, bool>>)(set => set.Obj2.ToLower() == Url.Action(nameof(ExamplesController.L_Extensions_Class), typeof(ExamplesController).CName(), new { ClassName = Ext.Name }))) == true ? "class=\"active\"" : "")>
+                                        <li @(ViewBag.Breadcrumbs?.Contains( (Expression<Func<Set<string, string>, bool>>)(Set => Set.Obj2.ToLower() == Url.Action(nameof(ExamplesController.L_Extensions_Class), typeof(ExamplesController).CName(), new { ClassName = Ext.Name }))) == true ? "class=\"active\"" : "")>
                                             <a href="@Url.Action(nameof(ExamplesController.L_Extensions_Class), typeof(ExamplesController).CName(),
                                                     new { ClassName = Ext.Name })">
                                                 @Html.FontAwesome(Singularity.Icons.GetTypeIcon(Ext) ?? FontAwesomeExt.Icon.question)

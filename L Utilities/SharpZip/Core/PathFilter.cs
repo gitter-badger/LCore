@@ -35,9 +35,13 @@
 
 using System;
 using System.IO;
+using System.Security;
+// ReSharper disable CommentTypo
+
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable FieldCanBeMadeReadOnly.Local
+// ReSharper disable InconsistentNaming
 
 namespace ICSharpCode.SharpZipLib.Core
     {
@@ -60,12 +64,34 @@ namespace ICSharpCode.SharpZipLib.Core
         #endregion
 
         #region IScanFilter Members
+
         /// <summary>
         /// Test a name to see if it matches the filter.
         /// </summary>
         /// <param name="name">The name to test.</param>
         /// <returns>True if the name matches, false otherwise.</returns>
         /// <remarks><see cref="Path.GetFullPath(string)"/> is used to get the full path before matching.</remarks>
+        /// <exception cref="ArgumentNullException">
+        ///         <paramref>
+        ///             <name>source</name>
+        ///         </paramref>
+        ///     is null.</exception>
+        /// <exception cref="InvalidCastException">An element in the sequence cannot be cast to type <paramref>
+        ///         <name>TResult</name>
+        ///     </paramref>
+        ///     .</exception>
+        /// <exception cref="ArgumentException">
+        ///         <paramref>
+        ///             <name>path</name>
+        ///         </paramref>
+        ///     is a zero-length string, contains only white space, or contains one or more of the invalid characters defined in <see cref="M:System.IO.Path.GetInvalidPathChars" />.-or- The system could not retrieve the absolute path. </exception>
+        /// <exception cref="NotSupportedException">
+        ///         <paramref>
+        ///             <name>path</name>
+        ///         </paramref>
+        ///     contains a colon (":") that is not part of a volume identifier (for example, "c:\"). </exception>
+        /// <exception cref="PathTooLongException">The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters. </exception>
+        /// <exception cref="SecurityException">The caller does not have the required permissions. </exception>
         public virtual bool IsMatch(string name)
             {
             bool result = false;
@@ -141,12 +167,36 @@ namespace ICSharpCode.SharpZipLib.Core
         #endregion
 
         #region IScanFilter Members
+
         /// <summary>
         /// Test a filename to see if it matches the filter.
         /// </summary>
         /// <param name="name">The filename to test.</param>
         /// <returns>True if the filter matches, false otherwise.</returns>
         /// <exception cref="System.IO.FileNotFoundException">The <see paramref="fileName"/> doesnt exist</exception>
+        /// <exception cref="IOException">
+        ///         <see cref="M:System.IO.FileSystemInfo.Refresh" /> cannot initialize the data. </exception>
+        /// <exception cref="ArgumentNullException">
+        ///         <paramref>
+        ///             <name>fileName</name>
+        ///         </paramref>
+        ///     is null. </exception>
+        /// <exception cref="ArgumentException">The file name is empty, contains only white spaces, or contains invalid characters. </exception>
+        /// <exception cref="PathTooLongException">The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters. </exception>
+        /// <exception cref="NotSupportedException">
+        ///         <paramref>
+        ///             <name>fileName</name>
+        ///         </paramref>
+        ///     contains a colon (:) in the middle of the string. </exception>
+        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        /// <exception cref="UnauthorizedAccessException">Access to <paramref>
+        ///         <name>fileName</name>
+        ///     </paramref>
+        ///     is denied. </exception>
+        /// <exception cref="InvalidCastException">An element in the sequence cannot be cast to type <paramref>
+        ///         <name>TResult</name>
+        ///     </paramref>
+        ///     .</exception>
         public override bool IsMatch(string name)
             {
             bool result = base.IsMatch(name);
@@ -208,6 +258,7 @@ namespace ICSharpCode.SharpZipLib.Core
         /// Get/set the minimum <see cref="DateTime"/> value that will match for this filter.
         /// </summary>
         /// <remarks>Files with a LastWrite time less than this value are excluded by the filter.</remarks>
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set">Condition.</exception>
         public DateTime MinDate
             {
             get
@@ -234,6 +285,7 @@ namespace ICSharpCode.SharpZipLib.Core
         /// Get/set the maximum <see cref="DateTime"/> value that will match for this filter.
         /// </summary>
         /// <remarks>Files with a LastWrite time greater than this value are excluded by the filter.</remarks>
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set">Condition.</exception>
         public DateTime MaxDate
             {
             get
@@ -292,6 +344,30 @@ namespace ICSharpCode.SharpZipLib.Core
         /// </summary>
         /// <param name="name">The filename to test.</param>
         /// <returns>True if the filter matches, false otherwise.</returns>
+        /// <exception cref="IOException">
+        ///         <see cref="M:System.IO.FileSystemInfo.Refresh" /> cannot update the state of the file or directory. </exception>
+        /// <exception cref="ArgumentNullException">
+        ///         <paramref>
+        ///             <name>fileName</name>
+        ///         </paramref>
+        ///     is null. </exception>
+        /// <exception cref="ArgumentException">The file name is empty, contains only white spaces, or contains invalid characters. </exception>
+        /// <exception cref="PathTooLongException">The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters. </exception>
+        /// <exception cref="NotSupportedException">
+        ///         <paramref>
+        ///             <name>fileName</name>
+        ///         </paramref>
+        ///     contains a colon (:) in the middle of the string. </exception>
+        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        /// <exception cref="UnauthorizedAccessException">Access to <paramref>
+        ///         <name>fileName</name>
+        ///     </paramref>
+        ///     is denied. </exception>
+        /// <exception cref="FileNotFoundException">The file does not exist.-or- The Length property is called for a directory. </exception>
+        /// <exception cref="InvalidCastException">An element in the sequence cannot be cast to type <paramref>
+        ///         <name>TResult</name>
+        ///     </paramref>
+        ///     .</exception>
         public override bool IsMatch(string name)
             {
             bool result = base.IsMatch(name);
@@ -310,6 +386,7 @@ namespace ICSharpCode.SharpZipLib.Core
         /// <summary>
         /// Get/set the minimum size for a file that will match this filter.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set">Condition.</exception>
         public long MinSize
             {
             get { return this.minSize_; }
@@ -327,6 +404,7 @@ namespace ICSharpCode.SharpZipLib.Core
         /// <summary>
         /// Get/set the maximum size for a file that will match this filter.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set">Condition.</exception>
         public long MaxSize
             {
             get { return this.maxSize_; }

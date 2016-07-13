@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
 
@@ -9,36 +8,36 @@ namespace Singularity.Config
         {
         public static void RegisterDI()
             {
-            var builder = new ContainerBuilder();
-            var assemby = Assembly.GetExecutingAssembly();
+            var Builder = new ContainerBuilder();
+            var Assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
             // Register your MVC controllers.
-            builder.RegisterControllers(assemby);
+            Builder.RegisterControllers(Assembly);
 
             // OPTIONAL: Register model binders that require DI.
-            //            builder.RegisterModelBinders(assemby);
+            //            builder.RegisterModelBinders(assembly);
             //            builder.RegisterModelBinderProvider();
 
             // OPTIONAL: Register web abstractions like HttpContextBase.
-            builder.RegisterModule<AutofacWebTypesModule>();
+            Builder.RegisterModule<AutofacWebTypesModule>();
 
             // OPTIONAL: Enable property injection in view pages.
-            builder.RegisterSource(new ViewRegistrationSource());
+            Builder.RegisterSource(new ViewRegistrationSource());
 
             // OPTIONAL: Enable property injection into action filters.
-            builder.RegisterFilterProvider();
+            Builder.RegisterFilterProvider();
 
 
             // Register all Factories
-            builder.RegisterAssemblyTypes(assemby)
-                   .Where(t => t.Name.EndsWith("Service"))
+            Builder.RegisterAssemblyTypes(Assembly)
+                   .Where(Type => Type.Name.EndsWith("Service"))
                    .AsImplementedInterfaces();
 
-           // builder.RegisterType<ModelContext>().As<SingularityContext>();
+            // builder.RegisterType<ModelContext>().As<SingularityContext>();
 
             // Set the dependency resolver to be Autofac.
-            var container = builder.Build();
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            var Container = Builder.Build();
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(Container));
 
             }
         }

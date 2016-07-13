@@ -5,11 +5,13 @@
 
 interface String {
 
+    // ReSharper disable once InconsistentNaming
     templateInject?: (obj: Object, _context?: Object) => string;
     templateExtract?: (template: string) => Object;
 
 }
 
+// ReSharper disable once InconsistentNaming
 interface JQueryStatic {
 
     getTemplate?: (name: string, data?: Object) => JQuery;
@@ -17,12 +19,17 @@ interface JQueryStatic {
 }
 
 
+// ReSharper disable once InconsistentNaming
 interface JQuery {
 
+    // ReSharper disable once InconsistentNaming
     singIf?: (data?: any, _context?: Object, forceFill?: boolean) => boolean;
+    // ReSharper disable once InconsistentNaming
     singFill?: (data?: any, _context?: Object, forceFill?: boolean, fillInside?: boolean) => void;
+    // ReSharper disable once InconsistentNaming
     singLoop?: (data?: any, _context?: Object, forceFill?: boolean, fillInside?: boolean) => void;
 
+    // ReSharper disable once InconsistentNaming
     fillTemplate?: (data: Object, _context?: Object, forceFill?: boolean) => void;
 }
 
@@ -37,7 +44,7 @@ var singTemplates = singCore.addModule(new sing.Module('Templates', String));
 
 singTemplates.glyphIcon = '&#xe224;';
 
-singTemplates.method('templateInject', StringTemplateInject,
+singTemplates.method('templateInject', stringTemplateInject,
     {
         summary: null,
         parameters: null,
@@ -48,7 +55,8 @@ singTemplates.method('templateInject', StringTemplateInject,
         }
     });
 
-function StringTemplateInject(obj: Object, _context?: Hash<any>): string {
+// ReSharper disable once InconsistentNaming
+function stringTemplateInject(obj: Object, _context?: IHash<any>): string {
 
     let out = this.toString();
 
@@ -125,7 +133,7 @@ function StringTemplateInject(obj: Object, _context?: Hash<any>): string {
     return out;
 }
 
-singTemplates.method('templateExtract', StringTemplateExtract,
+singTemplates.method('templateExtract', stringTemplateExtract,
     {
         summary: null,
         parameters: null,
@@ -136,7 +144,7 @@ singTemplates.method('templateExtract', StringTemplateExtract,
         }
     });
 
-function StringTemplateExtract(template: string): any {
+function stringTemplateExtract(template: string): any {
     let src = this as string;
 
     const templateValues = [] as string[];
@@ -204,7 +212,7 @@ function StringTemplateExtract(template: string): any {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-singTemplates.method('getTemplate', ObjectGetTemplate,
+singTemplates.method('getTemplate', objectGetTemplate,
     {
         summary: null,
         parameters: null,
@@ -216,7 +224,7 @@ singTemplates.method('getTemplate', ObjectGetTemplate,
         }
     }, $);
 
-function ObjectGetTemplate(name: string, data?: Object): JQuery {
+function objectGetTemplate(name: string, data?: Object): JQuery {
 
     let template = sing.templates[name] as any;
 
@@ -237,13 +245,13 @@ function ObjectGetTemplate(name: string, data?: Object): JQuery {
     return template;
 }
 
-singTemplates.method('getTemplateFor', ObjectGetTemplateFor, {}, sing);
+singTemplates.method('getTemplateFor', objectGetTemplateFor, {}, sing);
 
-function ObjectGetTemplateFor() {
+function objectGetTemplateFor() {
 
 }
 
-singTemplates.method('fillTemplate', JQueryFillTemplate,
+singTemplates.method('fillTemplate', jQueryFillTemplate,
     {
         summary: null,
         parameters: null,
@@ -258,7 +266,8 @@ singTemplates.method('fillTemplate', JQueryFillTemplate,
 var deferred = 0;
 var deferredDone = 0;
 
-function JQueryFillTemplate(data: any, _context?: Hash<any>, forceFill: boolean = false): void {
+// ReSharper disable once InconsistentNaming
+function jQueryFillTemplate(data: any, _context?: IHash<any>, forceFill: boolean = false): void {
 
     _context = sing.loadContext(_context);
 
@@ -299,7 +308,7 @@ function JQueryFillTemplate(data: any, _context?: Hash<any>, forceFill: boolean 
                 error(ex);
             }
 
-        }).fn_defer()();
+        }).fnDefer()();
         return;
     }
 
@@ -332,7 +341,7 @@ function JQueryFillTemplate(data: any, _context?: Hash<any>, forceFill: boolean 
         template.replaceWith($(templateReplace));
     }
     catch (ex) {
-        JQueryTemplateError(ex, template, data, _context);
+        jQueryTemplateError(ex, template, data, _context);
     }
 
     // Removes all left over <sing> elements
@@ -349,7 +358,7 @@ function JQueryFillTemplate(data: any, _context?: Hash<any>, forceFill: boolean 
     }
 }
 
-singTemplates.method('singIf', JQueryPerformSingIf,
+singTemplates.method('singIf', jQueryPerformSingIf,
     {
         summary: null,
         parameters: null,
@@ -361,7 +370,8 @@ singTemplates.method('singIf', JQueryPerformSingIf,
         }
     }, $.fn);
 
-function JQueryPerformSingIf(data?: any, _context?: Hash<any>) {
+// ReSharper disable once InconsistentNaming
+function jQueryPerformSingIf(data?: any, _context?: IHash<any>) {
 
     _context = sing.loadContext(_context);
 
@@ -451,7 +461,7 @@ function JQueryPerformSingIf(data?: any, _context?: Hash<any>) {
 
 }
 
-singTemplates.method('singFill', JQueryPerformSingFill,
+singTemplates.method('singFill', jQueryPerformSingFill,
     {
         summary: null,
         parameters: null,
@@ -463,7 +473,8 @@ singTemplates.method('singFill', JQueryPerformSingFill,
         }
     }, $.fn);
 
-function JQueryPerformSingFill(data?: any, _context?: Hash<any>, forceFill: boolean = false, fillInside: boolean = true) {
+// ReSharper disable once InconsistentNaming
+function jQueryPerformSingFill(data?: any, _context?: IHash<any>, forceFill: boolean = false, fillInside: boolean = true) {
 
     _context = sing.loadContext(_context);
 
@@ -498,7 +509,7 @@ function JQueryPerformSingFill(data?: any, _context?: Hash<any>, forceFill: bool
         fill = fillWith.split(' with ')[0].trim();
         source = fillWith.split(' with ')[1].trim();
 
-         //       console.log(`SING-FILL ${fill} WITH ${source}`);
+        //       console.log(`SING-FILL ${fill} WITH ${source}`);
 
         template = $.getTemplate(fill);
 
@@ -607,17 +618,17 @@ function JQueryPerformSingFill(data?: any, _context?: Hash<any>, forceFill: bool
             // Clear data so that sub-templates will have access to their own data sets.
             _context[sing.constants.specialTokens.Data] = undefined;
             // srcThis.fillTemplate(sourceData, _context, forceFill);
-            FillTemplateTraverse(srcThis, srcThis, sourceData, _context);
+            fillTemplateTraverse(srcThis, srcThis, sourceData, _context);
         }
         catch (ex) {
-            JQueryTemplateError(ex, srcThis, data, _context);
+            jQueryTemplateError(ex, srcThis, data, _context);
         }
     }
 
     return srcThis;
 }
 
-singTemplates.method('singLoop', JQueryPerformSingLoop,
+singTemplates.method('singLoop', jQueryPerformSingLoop,
     {
         summary: null,
         parameters: null,
@@ -629,7 +640,8 @@ singTemplates.method('singLoop', JQueryPerformSingLoop,
         }
     }, $.fn);
 
-function JQueryPerformSingLoop(data: any, _context?: Hash<any>, forceFill: boolean = false, fillInside: boolean = true): void {
+// ReSharper disable once InconsistentNaming
+function jQueryPerformSingLoop(data: any, _context?: IHash<any>, forceFill: boolean = false, fillInside: boolean = true): void {
 
     _context = sing.loadContext(_context);
 
@@ -716,10 +728,10 @@ function JQueryPerformSingLoop(data: any, _context?: Hash<any>, forceFill: boole
                 if (fillInside) {
                     try {
                         // loopClone.fillTemplate(data, _context, forceFill);
-                        FillTemplateTraverse(loopClone, loop, data, _context);
+                        fillTemplateTraverse(loopClone, loop, data, _context);
 
                     } catch (ex) {
-                        JQueryTemplateError(ex, loopClone, data, _context);
+                        jQueryTemplateError(ex, loopClone, data, _context);
                     }
                 }
 
@@ -816,7 +828,7 @@ sing.initTemplates = () => {
         }
     });
 
-    FillTemplateTraverse($('body'), $('body'), null, {});
+    fillTemplateTraverse($('body'), $('body'), null, {});
 
     /*
     $(`*[${sing.constants.htmlAttr.Templates.If}]`).each(function () {
@@ -863,36 +875,37 @@ sing.initTemplates = () => {
 
 };
 
-function JQueryTemplateError(ex: any, target: JQuery, data: any, _context: any) {
+// ReSharper disable once InconsistentNaming
+function jQueryTemplateError(ex: any, target: JQuery, data: any, _context: any) {
 
-    const SingTry = target.parents(sing.constants.htmlElement.Templates.Try);
+    const singTry = target.parents(sing.constants.htmlElement.Templates.Try);
 
-    if (SingTry == null || SingTry.length == 0) {
+    if (singTry == null || singTry.length == 0) {
         target.html(`<${sing.constants.htmlElement.Error}>${ex}</${sing.constants.htmlElement.Error}>`);
         console.log(ex);
     }
     else {
         target.hide();
 
-        const SingCatch = SingTry.next();
+        const singCatch = singTry.next();
 
-        if (SingCatch != null &&
-            SingCatch.length > 0 &&
-            SingCatch[0].localName == sing.constants.htmlElement.Templates.Catch) {
+        if (singCatch != null &&
+            singCatch.length > 0 &&
+            singCatch[0].localName == sing.constants.htmlElement.Templates.Catch) {
 
             _context['$ex'] = ex;
 
             // Removes the <sing-catch> element so the contents are shown.
-            SingCatch.replaceWith(SingCatch[0].innerHTML);
+            singCatch.replaceWith(singCatch[0].innerHTML);
 
-            SingCatch.fillTemplate(data, _context, true);
-            SingCatch.show();
+            singCatch.fillTemplate(data, _context, true);
+            singCatch.show();
         }
     }
 }
 
 
-function HtmlTraverse(target: HTMLElement, action: (target: HTMLElement, root: HTMLElement) => void, root: HTMLElement = target) {
+function htmlTraverse(target: HTMLElement, action: (target: HTMLElement, root: HTMLElement) => void, root: HTMLElement = target) {
 
     if (target != null &&
         target.children != null &&
@@ -904,12 +917,12 @@ function HtmlTraverse(target: HTMLElement, action: (target: HTMLElement, root: H
 
             action(target.children[i] as HTMLElement, root);
 
-            HtmlTraverse(target.children[i] as HTMLElement, action, root);
+            htmlTraverse(target.children[i] as HTMLElement, action, root);
         }
     }
 }
 
-function JQueryTraverse(target: JQuery, action: (target: any, root: JQuery) => void, root: JQuery = target) {
+function jQueryTraverse(target: JQuery, action: (target: any, root: JQuery) => void, root: JQuery = target) {
 
     const contents = target.contents();
 
@@ -919,12 +932,12 @@ function JQueryTraverse(target: JQuery, action: (target: any, root: JQuery) => v
 
         if (contents[i] != null &&
             !$.isString(contents[i])) {
-            JQueryTraverse($(contents[i]), action, root);
+            jQueryTraverse($(contents[i]), action, root);
         }
     }
 }
 
-function JQueryTraverseReplace(target: JQuery, action: (target: any, root: JQuery) => string, root: JQuery = target) {
+function jQueryTraverseReplace(target: JQuery, action: (target: any, root: JQuery) => string, root: JQuery = target) {
 
     const contents = target.contents();
 
@@ -934,16 +947,17 @@ function JQueryTraverseReplace(target: JQuery, action: (target: any, root: JQuer
 
         if (contents[i] != null &&
             !$.isString(contents[i])) {
-            JQueryTraverse($(contents[i]), action, root);
+            jQueryTraverse($(contents[i]), action, root);
         }
     }
 }
 
-function FillTemplateTraverse(target: JQuery, root: JQuery, data: any = {}, _context: Hash<any> = {}) {
+// ReSharper disable once InconsistentNaming
+function fillTemplateTraverse(target: JQuery, root: JQuery, data: any = {}, _context: IHash<any> = {}) {
 
     _context = sing.loadContext(_context);
 
-    if (!ObjectDefined(target))
+    if (!objectDefined(target))
         return;
 
     try {
@@ -1002,12 +1016,12 @@ function FillTemplateTraverse(target: JQuery, root: JQuery, data: any = {}, _con
             else {
                 const thisElement = $(this);
 
-                FillTemplateTraverse(thisElement, root, data, _context);
+                fillTemplateTraverse(thisElement, root, data, _context);
             }
         });
     }
     catch (ex) {
-        JQueryTemplateError(ex, target, data, _context);
+        jQueryTemplateError(ex, target, data, _context);
     }
 }
 

@@ -37,6 +37,8 @@
 
 using System;
 // ReSharper disable UnusedMember.Global
+// ReSharper disable InconsistentNaming
+// ReSharper disable CommentTypo
 
 namespace ICSharpCode.SharpZipLib.Checksums
     {

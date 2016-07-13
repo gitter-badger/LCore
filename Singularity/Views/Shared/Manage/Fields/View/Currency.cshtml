@@ -7,12 +7,12 @@
 @model IViewField
 
 @{
-    var data = Model.PropertyData as IFormattable;
+    var Data = Model.PropertyData as IFormattable;
 }
 
-@if (data != null)
+@if (Data != null)
     {
     <span>
-        @data.ToString("C", null)
+        @Data.ToString("C", null)
     </span>
     }

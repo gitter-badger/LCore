@@ -55,7 +55,7 @@ namespace LCore.Extensions
             internal static readonly Type[] AllLambdaTypes = Ary.Array(typeof(FieldInfo), typeof(PropertyInfo), typeof(MethodInfo), typeof(ConstructorInfo))();
 
             #region GetLambdas
-            internal static readonly Func<Type, Type[], string> TypeGetLambdas = (t, FieldTypes) =>
+            internal static readonly Func<Type, Type[], string> TypeGetLambdas = (Type, FieldTypes) =>
             {
                 var Out = new Dictionary<string, string>();
                 Func<KeyValuePair<string, string>, KeyValuePair<string, string>> IncrementFunctionNames = o =>
@@ -65,35 +65,35 @@ namespace LCore.Extensions
                         return new KeyValuePair<string, string>($"/*{o.Key}*/", o.Value);
                         }
 
-                    int i = 1;
-                    while (Out.ContainsKey(i == 1 ? o.Key : o.Key + i)) { i++; }
-                    if (i > 1)
+                    int Index = 1;
+                    while (Out.ContainsKey(Index == 1 ? o.Key : o.Key + Index)) { Index++; }
+                    if (Index > 1)
                         {
-                        return new KeyValuePair<string, string>(o.Key + i,
-                        o.Value.Replace($" {o.Key} =", $" {o.Key}{i} ="));
+                        return new KeyValuePair<string, string>(o.Key + Index,
+                        o.Value.Replace($" {o.Key} =", $" {o.Key}{Index} ="));
                         }
                     return o;
                 };
 
                 if (FieldTypes.Contains(typeof(FieldInfo)))
-                    t.GetFields().List()
+                    Type.GetFields().List()
                     .Convert(FieldInfoGetLambdaStrings)
-                    .Each(d => { Out.Merge(d, IncrementFunctionNames); });
+                    .Each(Dict => { Out.Merge(Dict, IncrementFunctionNames); });
                 if (FieldTypes.Contains(typeof(PropertyInfo)))
-                    t.GetProperties().List()
+                    Type.GetProperties().List()
                     .Convert(PropertyInfoGetLambdaStrings)
-                    .Each(d => { Out.Merge(d, IncrementFunctionNames); });
+                    .Each(Dict => { Out.Merge(Dict, IncrementFunctionNames); });
                 if (FieldTypes.Contains(typeof(MethodInfo)))
-                    t.GetMethods()
-                    .Convert(MethodInfoGetLambdaString.Supply2(t))
-                    .Each(d => { Out.Merge(d, IncrementFunctionNames); });
+                    Type.GetMethods()
+                    .Convert(MethodInfoGetLambdaString.Supply2(Type))
+                    .Each(Dict => { Out.Merge(Dict, IncrementFunctionNames); });
                 if (FieldTypes.Contains(typeof(ConstructorInfo)))
-                    t.GetConstructors().List<MethodBase>()
-                    .Convert(MethodBaseGetLambdaString.Supply2(t))
-                    .Each(d => { Out.Merge(d, IncrementFunctionNames); });
+                    Type.GetConstructors().List<MethodBase>()
+                    .Convert(MethodBaseGetLambdaString.Supply2(Type))
+                    .Each(Dict => { Out.Merge(Dict, IncrementFunctionNames); });
 
                 string Out2 =
-                    $"#region {t.Name}\npublic static class {t.Name}\n{{\n{Out.Values.Combine('\n').ReplaceAll("\n\n", "\n")}\n}}\n#endregion";
+                    $"#region {Type.Name}\npublic static class {Type.Name}\n{{\n{Out.Values.Combine('\n').ReplaceAll("\n\n", "\n")}\n}}\n#endregion";
 
                 //                Type[] Interfaces = t.GetInterfaces();
                 //                Interfaces.Each((t2) => { Out2 += $"\n{t2.GetLambdas(AllLambdaTypes)}"; });
@@ -104,13 +104,13 @@ namespace LCore.Extensions
             internal static readonly Func<Type, string> TypeGetAllLambdas = TypeGetLambdas.Supply2(AllLambdaTypes);
             #endregion
             #region PropertyInfo
-            internal static readonly Func<PropertyInfo, Dictionary<string, string>> PropertyInfoGetLambdaStrings = p =>
+            internal static readonly Func<PropertyInfo, Dictionary<string, string>> PropertyInfoGetLambdaStrings = Prop =>
             {
                 bool Index = false;
-                string MethodType = p.DeclaringType?.Name;
-                string FieldType = p.PropertyType.Name;
-                string FieldName = p.Name;
-                var IndexParameter = p.GetIndexParameters().First();
+                string MethodType = Prop.DeclaringType?.Name;
+                string FieldType = Prop.PropertyType.Name;
+                string FieldName = Prop.Name;
+                var IndexParameter = Prop.GetIndexParameters().First();
                 if (IndexParameter != null)
                     {
                     Index = true;
@@ -124,7 +124,7 @@ namespace LCore.Extensions
                 var Out = new Dictionary<string, string>();
                 try
                     {
-                    var Getter = p.GetGetMethod();
+                    var Getter = Prop.GetGetMethod();
                     bool IsStatic = Getter.IsStatic;
                     if (!Getter.IsPublic)
                         throw new Exception();
@@ -136,7 +136,7 @@ namespace LCore.Extensions
                 catch { }
                 try
                     {
-                    var Setter = p.GetSetMethod();
+                    var Setter = Prop.GetSetMethod();
                     bool IsStatic = Setter.IsStatic;
                     if (!Setter.IsPublic)
                         throw new Exception();
@@ -148,14 +148,14 @@ namespace LCore.Extensions
             };
             #endregion
             #region FieldInfo
-            internal static readonly Func<FieldInfo, Dictionary<string, string>> FieldInfoGetLambdaStrings = f =>
+            internal static readonly Func<FieldInfo, Dictionary<string, string>> FieldInfoGetLambdaStrings = Field =>
             {
-                string MethodType = f.DeclaringType?.Name;
-                string FieldType = f.FieldType.Name;
-                string FieldName = f.Name;
+                string MethodType = Field.DeclaringType?.Name;
+                string FieldType = Field.FieldType.Name;
+                string FieldName = Field.Name;
                 string FunctionGetName = $"{MethodType}_Get{FieldName}";
                 string FunctionSetName = $"{MethodType}_Set{FieldName}";
-                bool IsConst = f.IsLiteral || f.IsInitOnly;
+                bool IsConst = Field.IsLiteral || Field.IsInitOnly;
                 string ObjName = MethodType?.ToLower()[0].ToString();
 
                 var Out = new Dictionary<string, string>
@@ -172,25 +172,25 @@ namespace LCore.Extensions
             };
             #endregion
             #region MethodInfo
-            internal static readonly Func<MethodBase, Type, Dictionary<string, string>> MethodBaseGetLambdaString = (m, t) =>
+            internal static readonly Func<MethodBase, Type, Dictionary<string, string>> MethodBaseGetLambdaString = (Method, Type) =>
             {
-                ParameterInfo[] Params = m.GetParameters();
-                bool IsConstructor = m is ConstructorInfo;
-                var info = m as MethodInfo;
-                var ReturnType = info?.ReturnType ?? (IsConstructor ? ((ConstructorInfo)m).DeclaringType : typeof(void));
-                string[] TypeNames = Params.Convert(p => p.ParameterType.Name);
-                string[] ParamNames = Params.Convert(p => p.Name);
+                ParameterInfo[] Params = Method.GetParameters();
+                bool IsConstructor = Method is ConstructorInfo;
+                var Info = Method as MethodInfo;
+                var ReturnType = Info?.ReturnType ?? (IsConstructor ? ((ConstructorInfo)Method).DeclaringType : typeof(void));
+                string[] TypeNames = Params.Convert(Param => Param.ParameterType.Name);
+                string[] ParamNames = Params.Convert(Param => Param.Name);
                 string ReturnTypeStr = ReturnType.TypeEquals(typeof(void)) ? "" : ReturnType.Name;
                 string MethodType = ReturnType.TypeEquals(typeof(void)) ? "Action" : "Func";
-                string DeclaringType = m.DeclaringType?.Name;
-                string MethodName = m.Name;
+                string DeclaringType = Method.DeclaringType?.Name;
+                string MethodName = Method.Name;
                 string FunctionName = $"{DeclaringType}_{MethodName}";
 
                 if (MethodName.StartsWith("get_") ||
                     MethodName.StartsWith("set_"))
                     return new Dictionary<string, string>();
                 string[] FunctionStrings = ParamNames;
-                if (!m.IsStatic && !IsConstructor)
+                if (!Method.IsStatic && !IsConstructor)
                     {
                     TypeNames = new[] { DeclaringType }.Add(TypeNames);
                     DeclaringType = DeclaringType?.ToLower()[0].ToString();
@@ -200,24 +200,24 @@ namespace LCore.Extensions
                 if (!ReturnTypeStr.IsEmpty())
                     TypeNames = TypeNames.Add(ReturnTypeStr);
                 var TempFound = new List<string>();
-                string ParamString = ParamNames.Collect(s =>
+                string ParamString = ParamNames.Collect(Str =>
                     {
-                        if (!TempFound.Contains(s))
-                            return s;
+                        if (!TempFound.Contains(Str))
+                            return Str;
                             {
-                            s = s + TempFound.Count(s.FN_If()).ToString();
-                            TempFound.Add(s);
-                            return s;
+                            Str = Str + TempFound.Count(Str.FN_If()).ToString();
+                            TempFound.Add(Str);
+                            return Str;
                             }
                     }).Combine(", ");
                 TempFound = new List<string>();
-                string FunctionString = FunctionStrings.Collect(s =>
+                string FunctionString = FunctionStrings.Collect(Str =>
                 {
-                    if (!TempFound.Contains(s))
-                        return s;
-                    s = s + TempFound.Count(s.FN_If()).ToString();
-                    TempFound.Add(s);
-                    return s;
+                    if (!TempFound.Contains(Str))
+                        return Str;
+                    Str = Str + TempFound.Count(Str.FN_If()).ToString();
+                    TempFound.Add(Str);
+                    return Str;
                 }).Combine(", ");
 
                 string MethodAction = $"{DeclaringType}.{MethodName}({FunctionString})";
@@ -248,9 +248,9 @@ namespace LCore.Extensions
 
                 if (ParamNames.Count() > ParameterLimit)
                     Out = $"/* Too Many Parameters :( \n{Out}\n*/";
-                else if (!IsConstructor && !m.GetGenericArguments().IsEmpty() || Out.Contains('`'))
+                else if (!IsConstructor && !Method.GetGenericArguments().IsEmpty() || Out.Contains('`'))
                     Out = $"/* No Generic Types \n{Out}\n*/";
-                else if (!m.DeclaringType.TypeEquals(t))
+                else if (!Method.DeclaringType.TypeEquals(Type))
                     Out = $"/* Method found on base type \n{Out}\n*/";
                 else if (Out.Contains("&"))
                     Out = $"/* No Ref or Out Types \n{Out}\n*/";

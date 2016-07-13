@@ -34,7 +34,7 @@
         var Controller = ViewContext.Controller as ManageController;
     }
     @if (Controller != null &&
-                                Controller.OverridePermissions.Create == true)
+                                        Controller.OverridePermissions.Create == true)
         {
         <div>
             <a href="@(Url.Controller<ManageController>().Action(Controller.CreateAction, Request.Url?.AbsoluteUri))"
@@ -98,22 +98,22 @@
     }
     @Html.Partial(PartialViews.Manage.Pagination, Model)
 
-    @if (Model.ModelType.Meta().Properties.Has(m => m.PropertyName == ControllerHelper.AutomaticFields.Active) &&
-                                ViewContext.AllowViewInactive(Model.ModelType))
+    @if (Model.ModelType.Meta().Properties.Has(Meta => Meta.PropertyName == ControllerHelper.AutomaticFields.Active) &&
+                                        ViewContext.AllowViewInactive(Model.ModelType))
         {
         <div class="show-hide-inactive">
             <a href="@(Url.Controller<ManageController>()
                 .QS(Controllers.Manage.Actions.Route_ToggleInactive(Model))
-                .Lambda<int, string, SortDirection, string, string, ControllerHelper.ManageViewType, string, bool>(c => c.Manage))">
-                @{
-                    string ShowInactiveStr = Model.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive) ? "Show Active" : "Show Inactive";
-                }
+                .Lambda<int, string, SortDirection, string, string, ControllerHelper.ManageViewType, string, bool>(ManageController => ManageController.Manage))">
+            @{
+                string ShowInactiveStr = Model.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive) ? "Show Active" : "Show Inactive";
+            }
 
-                @Html.TextContent($"Manage_{ShowInactiveStr}_{Model.ModelType.GetFriendlyTypeName()}", ShowInactiveStr)
+            @Html.TextContent($"Manage_{ShowInactiveStr}_{Model.ModelType.GetFriendlyTypeName()}", ShowInactiveStr)
             </a>
 
         </div>
-                        }
+                    }
 
     @if (Model.Controller.ArchiveActive)
         {
@@ -122,8 +122,8 @@
         <div class="show-hide-archive">
             <a href="@(Url.Controller<ManageController>()
                 .QS(Controllers.Manage.Actions.Route_ToggleArchive(Model))
-                .Lambda<int, string, SortDirection, string, string, ControllerHelper.ManageViewType, string, bool>(c => c.Manage))">
-                @Html.TextContent($"Manage_{ShowArchiveStr}_{Model.ModelType.GetFriendlyTypeName()}", ShowArchiveStr)
+                .Lambda<int, string, SortDirection, string, string, ControllerHelper.ManageViewType, string, bool>(ManageController => ManageController.Manage))">
+            @Html.TextContent($"Manage_{ShowArchiveStr}_{Model.ModelType.GetFriendlyTypeName()}", ShowArchiveStr)
             </a>
         </div>
         }

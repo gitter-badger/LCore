@@ -55,10 +55,10 @@ namespace Singularity.Models
                     {
                     string[] FieldList = this._Fields.Trim().Lines();
 
-                    FieldList = FieldList.Collect(s =>
+                    FieldList = FieldList.Collect(Field =>
                         {
-                            s = s.Trim();
-                            return s == "" ? null : s;
+                            Field = Field.Trim();
+                            return Field == "" ? null : Field;
                         });
 
                     FieldList = FieldList.RemoveDuplicates().Array();
@@ -80,18 +80,18 @@ namespace Singularity.Models
         public static CustomExport Find(ModelContext DbContext, int CustomExportID)
             {
             return DbContext.GetDBSet<CustomExport>()
-                .FirstOrDefault(ex => ex.Active &&
-                    ex.CustomExportID == CustomExportID);
+                .FirstOrDefault(Export => Export.Active &&
+                    Export.CustomExportID == CustomExportID);
             }
 
         public static IQueryable<CustomExport> Find(ModelContext DbContext, Type ModelType, string ControllerTypeName)
             {
             return DbContext.GetDBSet<CustomExport>().Where(
-                e => e.Active &&
-                    e.ExportType == ModelType.FullName &&
-                    (e.ManagementPage == null ||
-                    e.ManagementPage == "" ||
-                    e.ManagementPage == ControllerTypeName));
+                Export => Export.Active &&
+                    Export.ExportType == ModelType.FullName &&
+                    (Export.ManagementPage == null ||
+                    Export.ManagementPage == "" ||
+                    Export.ManagementPage == ControllerTypeName));
             }
 
 

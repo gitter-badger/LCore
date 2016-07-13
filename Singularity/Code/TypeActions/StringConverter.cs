@@ -11,7 +11,7 @@ namespace Singularity.Utilities
     {
     public class StringConverter : TypeResultAction<string>
         {
-        public HttpSessionStateBase Session { get; set; }
+        public HttpSessionStateBase Session { get; }
 
         public StringConverter()
             {
@@ -47,12 +47,15 @@ namespace Singularity.Utilities
             {
             return this.PerformAction_IConvertible<double>(In);
             }
-        protected override Enum PerformAction_Enum(Type EnumType, string In)
+
+        /// <exception cref="ArgumentNullException"><paramref name="Type" /> or <paramref name="In" /> is null. </exception>
+        /// <exception cref="OverflowException"><paramref name="In" /> is outside the range of the underlying type of <paramref name="Type" />.</exception>
+        protected override Enum PerformAction_Enum(Type Type, string In)
             {
             if (string.IsNullOrEmpty(In))
                 return null;
 
-            if (EnumType.HasAttribute<FlagsAttribute>(true))
+            if (Type.HasAttribute<FlagsAttribute>(true))
                 {
                 if (In.StartsWith(","))
                     {
@@ -62,9 +65,9 @@ namespace Singularity.Utilities
                         return null;
                     }
 
-                return (Enum)Enum.Parse(EnumType, In);
+                return (Enum)Enum.Parse(Type, In);
                 }
-            return In.ParseEnum(EnumType);
+            return In.ParseEnum(Type);
             }
         protected override float PerformAction_Float(string In)
             {
@@ -101,16 +104,22 @@ namespace Singularity.Utilities
             return this.PerformAction_IConvertible<ushort>(In);
             }
 
+        /// <exception cref="ArgumentNullException">
+        ///         <paramref name="In" /> is null. </exception>
+        /// <exception cref="FormatException">
+        ///         <paramref name="In" /> has an invalid format. </exception>
+        /// <exception cref="OverflowException">
+        ///         <paramref name="In" /> represents a number that is less than <see cref="F:System.TimeSpan.MinValue" /> or greater than <see cref="F:System.TimeSpan.MaxValue" />.-or- At least one of the days, hours, minutes, or seconds components is outside its valid range. </exception>
         protected override TimeSpan PerformAction_TimeSpan(string In)
             {
             return TimeSpan.Parse(In);
             }
 
-        protected override IModel PerformAction_IModel(Type t, string In)
+        protected override IModel PerformAction_IModel(Type Type, string In)
             {
             if (this.Session != null)
                 {
-                var Query = ContextProviderFactory.GetCurrent().GetDBSet(this.Session, t);
+                var Query = ContextProviderFactory.GetCurrent().GetDBSet(this.Session, Type);
 
                 if (Query != null)
                     {

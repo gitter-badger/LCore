@@ -39,7 +39,7 @@ namespace Singularity.Models
 
         public const int ShowSurroundingPages = 3;
 
-        public static readonly bool AlwaysShowPaginationFirstLast = true;
+        public const bool AlwaysShowPaginationFirstLast = true;
         public const string FirstPageText = "<<";
         public const string PreviousPageText = "<";
         public const string NextPageText = ">";
@@ -66,7 +66,7 @@ namespace Singularity.Models
 
         public List<string> GetVisibleColumns()
             {
-            List<string> Columns = this.ModelType.Meta().Properties.Select(m => m.PropertyName).ToList();
+            List<string> Columns = this.ModelType.Meta().Properties.Select(Prop => Prop.PropertyName).ToList();
 
             var Out = new List<string>();
 
@@ -130,7 +130,7 @@ namespace Singularity.Models
 
                     if (Meta.ModelType.HasInterface<IModel>())
                         {
-                        Out = Meta.ModelType.Meta().Properties.Aggregate(Out, (current, SubPropertyName) => current + $"\'{PropertyName}.{SubPropertyName.PropertyName}:\',");
+                        Out = Meta.ModelType.Meta().Properties.Aggregate(Out, (Current, SubPropertyName) => Current + $"\'{PropertyName}.{SubPropertyName.PropertyName}:\',");
                         }
                     }
                 }

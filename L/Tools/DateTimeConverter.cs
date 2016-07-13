@@ -15,11 +15,11 @@ namespace LCore.Tools
         /// <summary>
         /// Private member to hold array of formats that RFC 3339 date-time representations conform to.
         /// </summary>
-        private static string[] formats = new string[0];
+        private static string[] _Formats = new string[0];
         /// <summary>
         /// Private member to hold the DateTime format string for representing a DateTime in the RFC 3339 format.
         /// </summary>
-        private const string format = "yyyy-MM-dd'T'HH:mm:ss.fffK";
+        private const string Format = "yyyy-MM-dd'T'HH:mm:ss.fffK";
         #endregion
 
         //============================================================
@@ -38,7 +38,7 @@ namespace LCore.Tools
         /// date-time format string for use in the <see cref="DateTime.ToString(String, IFormatProvider)"/> method.
         /// </para>
         /// </remarks>
-        public static string Rfc3339DateTimeFormat => format;
+        public static string Rfc3339DateTimeFormat => Format;
 
         #endregion
 
@@ -54,30 +54,30 @@ namespace LCore.Tools
             {
             get
                 {
-                if (formats.Length > 0)
+                if (_Formats.Length > 0)
                     {
-                    return formats;
+                    return _Formats;
                     }
-                formats = new string[11];
+                _Formats = new string[11];
 
                 // Rfc3339DateTimePatterns
                 // ReSharper disable StringLiteralTypo
-                formats[0] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK";
-                formats[1] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffffffK";
-                formats[2] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffK";
-                formats[3] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffffK";
-                formats[4] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffK";
-                formats[5] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffK";
-                formats[6] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fK";
-                formats[7] = "yyyy'-'MM'-'dd'T'HH':'mm':'ssK";
+                _Formats[0] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK";
+                _Formats[1] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffffffK";
+                _Formats[2] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffK";
+                _Formats[3] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffffK";
+                _Formats[4] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffK";
+                _Formats[5] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffK";
+                _Formats[6] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fK";
+                _Formats[7] = "yyyy'-'MM'-'dd'T'HH':'mm':'ssK";
 
                 // Fall back patterns
-                formats[8] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK"; // RoundtripDateTimePattern
+                _Formats[8] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK"; // RoundtripDateTimePattern
                 // ReSharper restore StringLiteralTypo
-                formats[9] = DateTimeFormatInfo.InvariantInfo.UniversalSortableDateTimePattern;
-                formats[10] = DateTimeFormatInfo.InvariantInfo.SortableDateTimePattern;
+                _Formats[9] = DateTimeFormatInfo.InvariantInfo.UniversalSortableDateTimePattern;
+                _Formats[10] = DateTimeFormatInfo.InvariantInfo.SortableDateTimePattern;
 
-                return formats;
+                return _Formats;
                 }
             }
         #endregion
@@ -89,29 +89,29 @@ namespace LCore.Tools
         /// <summary>
         /// Converts the specified string representation of a date and time to its <see cref="DateTime"/> equivalent.
         /// </summary>
-        /// <param name="s">A string containing a date and time to convert.</param>
-        /// <returns>A <see cref="DateTime"/> equivalent to the date and time contained in <paramref name="s"/>.</returns>
+        /// <param name="Str">A string containing a date and time to convert.</param>
+        /// <returns>A <see cref="DateTime"/> equivalent to the date and time contained in <paramref name="Str"/>.</returns>
         /// <remarks>
-        /// The string <paramref name="s"/> is parsed using formatting information in the <see cref="DateTimeFormatInfo.InvariantInfo"/> object.
+        /// The string <paramref name="Str"/> is parsed using formatting information in the <see cref="DateTimeFormatInfo.InvariantInfo"/> object.
         /// </remarks>
-        /// <exception cref="ArgumentNullException"><paramref name="s"/> is a <b>null</b> reference (Nothing in Visual Basic).</exception>
-        /// <exception cref="FormatException"><paramref name="s"/> does not contain a valid RFC 3339 string representation of a date and time.</exception>
-        public static DateTime Parse(string s)
+        /// <exception cref="ArgumentNullException"><paramref name="Str"/> is a <b>null</b> reference (Nothing in Visual Basic).</exception>
+        /// <exception cref="FormatException"><paramref name="Str"/> does not contain a valid RFC 3339 string representation of a date and time.</exception>
+        public static DateTime Parse(string Str)
             {
             //------------------------------------------------------------
             //  Validate parameter
             //------------------------------------------------------------
-            if (s == null)
+            if (Str == null)
                 {
-                throw new ArgumentNullException(nameof(s));
+                throw new ArgumentNullException(nameof(Str));
                 }
 
-            DateTime result;
-            if (TryParse(s, out result))
+            DateTime Result;
+            if (TryParse(Str, out Result))
                 {
-                return result;
+                return Result;
                 }
-            throw new FormatException(string.Format(null, "{0} is not a valid RFC 3339 string representation of a date and time.", s));
+            throw new FormatException(string.Format(null, "{0} is not a valid RFC 3339 string representation of a date and time.", Str));
             }
         #endregion
 
@@ -119,11 +119,11 @@ namespace LCore.Tools
         /// <summary>
         /// Converts the value of the specified <see cref="DateTime"/> object to its equivalent string representation.
         /// </summary>
-        /// <param name="utcDateTime">The Coordinated Universal Time (UTC) <see cref="DateTime"/> to convert.</param>
-        /// <returns>A RFC 3339 string representation of the value of the <paramref name="utcDateTime"/>.</returns>
+        /// <param name="UtcDateTime">The Coordinated Universal Time (UTC) <see cref="DateTime"/> to convert.</param>
+        /// <returns>A RFC 3339 string representation of the value of the <paramref name="UtcDateTime"/>.</returns>
         /// <remarks>
         /// <para>
-        /// This method returns a string representation of the <paramref name="utcDateTime"/> that 
+        /// This method returns a string representation of the <paramref name="UtcDateTime"/> that 
         /// is precise to the three most significant digits of the seconds fraction; that is, it represents 
         /// the milliseconds in a date and time value.
         /// </para>
@@ -134,15 +134,15 @@ namespace LCore.Tools
         /// resolution is approximately 10-15 milliseconds.
         /// </para>
         /// </remarks>
-        /// <exception cref="ArgumentException">The specified <paramref name="utcDateTime"/> object does not represent a <see cref="DateTimeKind.Utc">Coordinated Universal Time (UTC)</see> value.</exception>
-        public static string ToString(DateTime utcDateTime)
+        /// <exception cref="ArgumentException">The specified <paramref name="UtcDateTime"/> object does not represent a <see cref="DateTimeKind.Utc">Coordinated Universal Time (UTC)</see> value.</exception>
+        public static string ToString(DateTime UtcDateTime)
             {
-            if (utcDateTime.Kind != DateTimeKind.Utc)
+            if (UtcDateTime.Kind != DateTimeKind.Utc)
                 {
-                utcDateTime = utcDateTime.ToUniversalTime();
+                UtcDateTime = UtcDateTime.ToUniversalTime();
                 }
 
-            return utcDateTime.ToString(Rfc3339DateTimeFormat, DateTimeFormatInfo.InvariantInfo);
+            return UtcDateTime.ToString(Rfc3339DateTimeFormat, DateTimeFormatInfo.InvariantInfo);
             }
         #endregion
 
@@ -150,38 +150,38 @@ namespace LCore.Tools
         /// <summary>
         /// Converts the specified string representation of a date and time to its <see cref="DateTime"/> equivalent.
         /// </summary>
-        /// <param name="s">A string containing a date and time to convert.</param>
-        /// <param name="result">
+        /// <param name="Str">A string containing a date and time to convert.</param>
+        /// <param name="Result">
         /// When this method returns, contains the <see cref="DateTime"/> value equivalent to the date and time 
-        /// contained in <paramref name="s"/>, if the conversion succeeded, 
+        /// contained in <paramref name="Str"/>, if the conversion succeeded, 
         /// or <see cref="DateTime.MinValue">MinValue</see> if the conversion failed. 
         /// The conversion fails if the s parameter is a <b>null</b> reference (Nothing in Visual Basic), 
         /// or does not contain a valid string representation of a date and time. 
         /// This parameter is passed uninitialized.
         /// </param>
-        /// <returns><b>true</b> if the <paramref name="s"/> parameter was converted successfully; otherwise, <b>false</b>.</returns>
+        /// <returns><b>true</b> if the <paramref name="Str"/> parameter was converted successfully; otherwise, <b>false</b>.</returns>
         /// <remarks>
-        /// The string <paramref name="s"/> is parsed using formatting information in the <see cref="DateTimeFormatInfo.InvariantInfo"/> object.
+        /// The string <paramref name="Str"/> is parsed using formatting information in the <see cref="DateTimeFormatInfo.InvariantInfo"/> object.
         /// </remarks>
-        public static bool TryParse(string s, out DateTime result)
+        public static bool TryParse(string Str, out DateTime Result)
             {
             //------------------------------------------------------------
             //  Attempt to convert string representation
             //------------------------------------------------------------
-            bool wasConverted = false;
-            result = DateTime.MinValue;
+            bool WasConverted = false;
+            Result = DateTime.MinValue;
 
-            if (!string.IsNullOrEmpty(s))
+            if (!string.IsNullOrEmpty(Str))
                 {
-                DateTime parseResult;
-                if (DateTime.TryParseExact(s, Rfc3339DateTimePatterns, DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AdjustToUniversal, out parseResult))
+                DateTime ParseResult;
+                if (DateTime.TryParseExact(Str, Rfc3339DateTimePatterns, DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AdjustToUniversal, out ParseResult))
                     {
-                    result = DateTime.SpecifyKind(parseResult, DateTimeKind.Utc);
-                    wasConverted = true;
+                    Result = DateTime.SpecifyKind(ParseResult, DateTimeKind.Utc);
+                    WasConverted = true;
                     }
                 }
 
-            return wasConverted;
+            return WasConverted;
             }
         #endregion
         }

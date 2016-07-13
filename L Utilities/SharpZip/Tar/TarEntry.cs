@@ -36,6 +36,8 @@
 using System;
 using System.IO;
 // ReSharper disable UnusedMember.Global
+// ReSharper disable InconsistentNaming
+// ReSharper disable CommentTypo
 // ReSharper disable MemberCanBePrivate.Global
 
 namespace ICSharpCode.SharpZipLib.Tar

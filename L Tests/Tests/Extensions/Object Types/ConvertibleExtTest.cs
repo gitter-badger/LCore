@@ -17,13 +17,15 @@ namespace L_Tests.Tests.Extensions
         {
         protected override Type[] TestType => new[] { typeof(ConvertibleExt) };
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_ConvertTo()
             {
             const string Test = "-5.5555";
 
-            Func<Type, object> ConvertTo = L.F<Type, object>(type => Test.ConvertTo(type));
+            Func<Type, object> ConvertTo = L.F<Type, object>(Type => Test.ConvertTo(Type));
 
             ConvertTo.ShouldFail(typeof(int));
             ConvertTo.ShouldFail(typeof(uint));
@@ -52,6 +54,8 @@ namespace L_Tests.Tests.Extensions
             Test2.ConvertTo(typeof(char)).Should().Be('5');
             }
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_ConvertTo_T()

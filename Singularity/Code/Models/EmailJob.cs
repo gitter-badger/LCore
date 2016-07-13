@@ -43,7 +43,7 @@ namespace Singularity.Models
         public object SendToUsers { get; set; }
 
         [HideManageViewColumn]
-        [FieldType_FileUpload]
+        [FieldTypeFileUpload]
         [NotMapped]
         public string Attachments { get; set; }
 
@@ -61,7 +61,7 @@ namespace Singularity.Models
 
         public static EmailJob Find(ModelContext DbContext, int EmailJobID)
             {
-            return DbContext.GetDBSet<EmailJob>().FirstOrDefault(t => t.Active && t.EmailJobID == EmailJobID);
+            return DbContext.GetDBSet<EmailJob>().FirstOrDefault(Job => Job.Active && Job.EmailJobID == EmailJobID);
             }
 
         public class FieldTypeDropdownContextModelFieldsSavedSearchEmailType : FieldTypeDropdownContextModelFieldsByDataType

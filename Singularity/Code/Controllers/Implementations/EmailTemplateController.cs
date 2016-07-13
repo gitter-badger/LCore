@@ -19,30 +19,30 @@ namespace Singularity.Controllers
         public ActionResult EmailSavedSearch(int? SavedSearchID, int? TemplateID)
             {
             List<EmailTemplate> Templates = this.HttpContext.GetModelData<EmailTemplate>()
-                .Where(t => t.Active &&
+                .Where(Template => Template.Active &&
                     (TemplateID == null ||
-                    t.EmailTemplateID == TemplateID))
-                .OrderBy(t => t.Subject)
+                    Template.EmailTemplateID == TemplateID))
+                .OrderBy(Template => Template.Subject)
                 .List();
 
             List<SavedSearch> Searches = this.HttpContext.GetModelData<SavedSearch>()
-                .Where(s => s.Active &&
+                .Where(Search => Search.Active &&
                     (SavedSearchID == null ||
-                    s.SavedSearchID == SavedSearchID))
-                .OrderBy(s => s.Name)
+                    Search.SavedSearchID == SavedSearchID))
+                .OrderBy(Search => Search.Name)
                 .List();
 
-            Searches = Searches.Select(s =>
+            Searches = Searches.Select(Search =>
             {
-                var Type = L.Ref.FindType(s.SearchType);
+                var Type = L.Ref.FindType(Search.SearchType);
                 return Type.HasInterface<IEmailable>();
             });
 
             var Model = new EmailTemplateSavedSearchViewModel
-            {
+                {
                 Searches = Searches,
                 Templates = Templates
-            };
+                };
 
             if (SavedSearchID != null)
                 {
@@ -67,7 +67,7 @@ namespace Singularity.Controllers
 
             string AllUserIDs = Form["EmailUsers[]"];
 
-            int[] UserIDs = AllUserIDs.Split(',').Convert(s => Convert.ToInt32(s.Trim())).Array();
+            int[] UserIDs = AllUserIDs.Split(',').Convert(UserID => Convert.ToInt32(UserID.Trim())).Array();
 
             DbSet<EmailHistory> EmailHistorySet = DbContext.GetDBSet<EmailHistory>();
 
@@ -113,8 +113,17 @@ namespace Singularity.Controllers
                 Job.LastSent = DateTime.Now;
 
             this.AddStatusMessage($"{AddedCount} {"Email".Pluralize(AddedCount)} sent.");
+            
+            try
+                {
+                DbContext.SaveChanges();
+                }
+            catch (Exception Ex)
+                {
+                ControllerHelper.HandleError(this.HttpContext, Ex);
 
-            DbContext.SaveChanges();
+                this.AddStatusMessages_Error("An error has occured.");
+                }
 
             return this.Redirect(ReturnUrl);
             }
@@ -123,7 +132,7 @@ namespace Singularity.Controllers
         public override string PageGroup => ControllerHelper.Menu_Admin;
 
         public override ControllerHelper.ViewType? ActionAfterCreate => ControllerHelper.ViewType.Edit;
-        public EmailTemplateController(IAuthenticationService Auth) : base(Auth) {}
+        public EmailTemplateController(IAuthenticationService Auth) : base(Auth) { }
         }
 
     public class EmailTemplateSavedSearchViewModel : IModel

@@ -18,7 +18,7 @@ namespace Singularity.Models
         public string Description { get; set; }
 
         [HideManageViewColumn]
-        [FieldType_HTMLContentEditor]
+        [FieldTypeHtmlContentEditor]
         [AllowHtml]
         [FieldLoadFromQueryString]
         public string TemplateHTML { get; set; }
@@ -65,8 +65,8 @@ namespace Singularity.Models
         public static Template FindByToken(ModelContext Context, string Token)
             {
             var Content = Context.GetDBSet<Template>(
-                ).FirstOrDefault(t => t.Token == Token &&
-                    t.Active);
+                ).FirstOrDefault(Template => Template.Token == Token &&
+                    Template.Active);
 
             return Content;
             }

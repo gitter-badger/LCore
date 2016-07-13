@@ -14,24 +14,25 @@ namespace Singularity.Controllers
         {
         public const string SessionLastError = "LastError";
 
+        // ReSharper disable once MemberCanBeProtected.Global
         public IAuthenticationService Auth { get; set; }
 
-        protected override void OnException(ExceptionContext filterContext)
+        protected override void OnException(ExceptionContext FilterContext)
             {
             try
                 {
-                ControllerHelper.HandleError(filterContext.HttpContext, filterContext.Exception);
+                ControllerHelper.HandleError(FilterContext.HttpContext, FilterContext.Exception);
                 }
-            catch (Exception e)
+            catch (Exception Ex)
                 {
-                throw new Exception(filterContext.Exception.Message, e);
+                throw new Exception(FilterContext.Exception.Message, Ex);
                 }
 
-            base.OnException(filterContext);
+            base.OnException(FilterContext);
 
-            this.Session[SessionLastError] = filterContext.Exception;
+            this.Session[SessionLastError] = FilterContext.Exception;
 
-            filterContext.HttpContext.Response.Redirect(this.Url.Controller<ErrorController>().Action(c => c.Index));
+            FilterContext.HttpContext.Response.Redirect(this.Url.Controller<ErrorController>().Action(Controller => Controller.Index));
             }
 
         private Set<string, string>[] _Breadcrumbs { get; set; }
@@ -42,9 +43,9 @@ namespace Singularity.Controllers
                 {
                 return this._Breadcrumbs;
                 }
-            set
+            protected set
                 {
-                // Set the ViewBag Title automaticaly
+                // Set the ViewBag Title automatically
                 if (value?.Length > 0)
                     {
                     this.ViewBag.Title = value[value.Length - 1].Obj1;

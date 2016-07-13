@@ -37,6 +37,8 @@ using System;
 
 #if !NETCF_1_0 && !NETCF_2_0
 using System.Runtime.Serialization;
+// ReSharper disable CommentTypo
+// ReSharper disable InconsistentNaming
 #endif
 
 namespace ICSharpCode.SharpZipLib.GZip

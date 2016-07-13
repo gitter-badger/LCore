@@ -35,6 +35,8 @@ namespace LCore.Tasks
         public static bool Running;
         public static bool TriggerStop;
 
+        /// <exception cref="ThreadStateException">The thread has already been started. </exception>
+        /// <exception cref="OutOfMemoryException">There is not enough memory available to start this thread. </exception>
         public static void AddPriorityTask(EmptyHandler RunTask, string StatusMessage)
             {
             var Task = new TaskInfo { Task = RunTask, StatusMessage = StatusMessage };
@@ -45,34 +47,43 @@ namespace LCore.Tasks
                 ToDoTasks.Insert(1, Task);
             if (!Running)
                 {
-                var t = new Thread(RunTasks);
-                t.Start();
+                var Thread = new Thread(RunTasks);
+                Thread.Start();
                 }
 
-            Progress_Updated?.Invoke(null, null);
+            ProgressUpdated?.Invoke(null, null);
             }
+
+        /// <exception cref="ThreadStateException">The thread has already been started. </exception>
+        /// <exception cref="OutOfMemoryException">There is not enough memory available to start this thread. </exception>
         public static void AddTask(EmptyHandler RunTask, string StatusMessage)
             {
             var Task = new TaskInfo { Task = RunTask, StatusMessage = StatusMessage };
             ToDoTasks.Add(Task);
             if (!Running)
                 {
-                var t = new Thread(RunTasks)
+                var Thread = new Thread(RunTasks)
                     {
                     Priority = ThreadPriority.Lowest
                     };
-                t.Start();
+                Thread.Start();
                 }
 
-            Progress_Updated?.Invoke(null, null);
+            ProgressUpdated?.Invoke(null, null);
             }
+
+        /// <exception cref="ThreadStateException">The thread has already been started. </exception>
+        /// <exception cref="OutOfMemoryException">There is not enough memory available to start this thread. </exception>
         [DebuggerStepThrough]
         public static void AddTask(EventHandler RunTask, string StatusMessage)
             {
             AddTask(RunTask, StatusMessage, null);
 
-            Progress_Updated?.Invoke(null, null);
+            ProgressUpdated?.Invoke(null, null);
             }
+
+        /// <exception cref="ThreadStateException">The thread has already been started. </exception>
+        /// <exception cref="OutOfMemoryException">There is not enough memory available to start this thread. </exception>
         [DebuggerStepThrough]
         public static void AddTask(EventHandler RunTask, string StatusMessage, object Sender)
             {
@@ -84,11 +95,11 @@ namespace LCore.Tasks
                 ToDoTasks.Add(Task);
                 if (!Running)
                     {
-                    var t = new Thread(RunTasks);
-                    t.Start();
+                    var Thread = new Thread(RunTasks);
+                    Thread.Start();
                     }
 
-                Progress_Updated?.Invoke(null, null);
+                ProgressUpdated?.Invoke(null, null);
                 }
             }
 
@@ -106,16 +117,16 @@ namespace LCore.Tasks
                 var CurrentTask = ToDoTasks[0];
 
                 UpdateTaskBar();
-                Progress_Updated?.Invoke(null, null);
+                ProgressUpdated?.Invoke(null, null);
 
                 try
                     {
                     CurrentTask.Status = TaskInfo.TaskStatus.InProgress;
 
-                    var task = CurrentTask.Task as EventHandler;
-                    if (task != null)
+                    var Task = CurrentTask.Task as EventHandler;
+                    if (Task != null)
                         {
-                        task(ToDoTasks[0].Sender, EventArgs.Empty);
+                        Task(ToDoTasks[0].Sender, EventArgs.Empty);
                         }
                     else
                         {
@@ -124,14 +135,14 @@ namespace LCore.Tasks
 
                     CurrentTask.Status = TaskInfo.TaskStatus.Finished;
                     }
-                catch (Exception e)
+                catch (Exception Ex)
                     {
                     if (CurrentTask != null)
                         {
                         CurrentTask.Status = TaskInfo.TaskStatus.Error;
-                        CurrentTask.Error = e;
+                        CurrentTask.Error = Ex;
                         }
-                    throw new Exception("", e);
+                    throw new Exception("", Ex);
                     }
 
                 FinishedTasks.Add(CurrentTask);
@@ -143,7 +154,7 @@ namespace LCore.Tasks
             UpdateTaskBar();
 
             UpdateTaskBar();
-            Progress_Updated?.Invoke(null, null);
+            ProgressUpdated?.Invoke(null, null);
 
             FinishedTasks = new List<TaskInfo>();
             }
@@ -161,7 +172,7 @@ namespace LCore.Tasks
             {
             TriggerStop = true;
             }
-        public static event EventHandler Progress_Updated;
+        public static event EventHandler ProgressUpdated;
 
         public class TaskInfo
             {

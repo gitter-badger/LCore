@@ -10,8 +10,8 @@ namespace Singularity.Extensions
         {
         public static DataTable GetSchema(this SqlConnection In)
             {
-            var t = In.GetSchema("Tables");
-            return t;
+            var Tables = In.GetSchema("Tables");
+            return Tables;
             /*
             SQLSchema Out = new SQLSchema();
 

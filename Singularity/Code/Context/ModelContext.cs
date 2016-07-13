@@ -24,22 +24,22 @@ namespace Singularity.Context
 
         public SiteConfig GetSiteConfig(HttpContextBase Context)
             {
-            Func<string, SiteConfig> func = url =>
+            Func<string, SiteConfig> Func = Url =>
                 {
-                    var Out = SiteConfig.FindCurrent(this, url);
+                    var Out = SiteConfig.FindCurrent(this, Url);
                     if (Out == null)
-                        throw new Exception($"Could not find Site Config for: {url}");
+                        throw new Exception($"Could not find Site Config for: {Url}");
                     return Out;
                 };
 
             string URL = Context.Request.Url?.AbsoluteUri;
 
-            return func.Cache("SiteConfigCache")(URL);
+            return Func.Cache("SiteConfigCache")(URL);
             }
 
-        public virtual DbSet GetDBSet(Type t)
+        public virtual DbSet GetDBSet(Type Type)
             {
-            return this.Set(t);
+            return this.Set(Type);
             /*
             return this.GetType()
                 .GetProperties().First((prop) =>

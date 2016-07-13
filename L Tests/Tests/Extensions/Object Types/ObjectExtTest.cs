@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using FluentAssertions;
 using LCore.Extensions;
 using LCore.Extensions.Optional;
@@ -37,6 +38,8 @@ namespace L_Tests.Tests.Extensions
             }
 
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_GetProperty()
@@ -51,6 +54,8 @@ namespace L_Tests.Tests.Extensions
             }
 
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_SetProperty()
@@ -246,6 +251,10 @@ namespace L_Tests.Tests.Extensions
             Test5.E.Should().Be(null);
             }
 
+        /// <exception cref="TargetException">Throws an exception if the a property setter throws an exception.</exception>
+        /// <exception cref="MethodAccessException">Throws an exception if the a property setter throws an exception.</exception>
+        /// <exception cref="TargetInvocationException">Throws an exception if the a property setter throws an exception.</exception>
+        /// <exception cref="FieldAccessException">Throws an exception if the field cannot be accessed.</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_InitProperties()
@@ -272,6 +281,8 @@ namespace L_Tests.Tests.Extensions
             Test2.B.Should().BeSameAs(Test2.A);
             }
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_FN_CreateArray()
@@ -298,6 +309,8 @@ namespace L_Tests.Tests.Extensions
 
             }
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_FN_CreateList()
@@ -420,6 +433,8 @@ namespace L_Tests.Tests.Extensions
             new[] { "a", "b", "c" }.ToS().Should().Be("System.String[] { a, b, c }");
             }
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Traverse()
@@ -515,6 +530,8 @@ namespace L_Tests.Tests.Extensions
                     });
             }
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_SupplyTo_Action()
@@ -544,6 +561,8 @@ namespace L_Tests.Tests.Extensions
             L.A(() => Test5()).ShouldFail();
             }
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_SupplyTo_Func()
@@ -601,11 +620,11 @@ namespace L_Tests.Tests.Extensions
             public int? B { get; private set; }
             public int? C { get; private set; }
 
-            public TestClassReadOnly(int a, int b, int c)
+            public TestClassReadOnly(int A, int B, int C)
                 {
-                this.A = a;
-                this.B = b;
-                this.C = c;
+                this.A = A;
+                this.B = B;
+                this.C = C;
                 }
             }
 
@@ -614,6 +633,8 @@ namespace L_Tests.Tests.Extensions
             {
             public int? A { get; set; }
             public int? B { get; set; }
+
+            /// <exception cref="Exception" accessor="get">oh no</exception>
             public int? C
                 {
                 get

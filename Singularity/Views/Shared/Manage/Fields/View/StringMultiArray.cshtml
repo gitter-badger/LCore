@@ -8,27 +8,27 @@
 
 
 <table class="string-multiarray">
-    @for (int i = 0; i < TableData.Length; i++)
+    @for (int Index1 = 0; Index1 < TableData.Length; Index1++)
         {
-        if (i == 0)
+        if (Index1 == 0)
             {
             @Html.Raw("<thead>")
             }
 
             <tr>
-                @for (int j = 0; j < TableData[i].Length; j++)
+                @for (int Index2 = 0; Index2 < TableData[Index1].Length; Index2++)
                     {
                     <td>
-                        @if (TableData[i][j].Length > ControllerHelper.DefaultTableTextLength)
+                        @if (TableData[Index1][Index2].Length > ControllerHelper.DefaultTableTextLength)
                             {
                             <span class="abbreviated" title="@Model.PropertyData">
-                                @TableData[i][j].Substring(0, ControllerHelper.DefaultTableTextLength) ...
+                                @TableData[Index1][Index2].Substring(0, ControllerHelper.DefaultTableTextLength) ...
                             </span>
                             }
                         else
                             {
                             <span>
-                                @TableData[i][j]
+                                @TableData[Index1][Index2]
                             </span>
                             }
                     </td>
@@ -36,7 +36,7 @@
 
             </tr>
 
-        if (i == 0)
+        if (Index1 == 0)
             {
             @Html.Raw("</thead>")
             }
@@ -44,7 +44,7 @@
         if (TableData.Length == 1)
             {
             <tr>
-                <td colspan="@TableData[i].Length">
+                <td colspan="@TableData[Index1].Length">
                     &nbsp;
                 </td>
             </tr>

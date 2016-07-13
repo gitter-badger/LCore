@@ -23,12 +23,12 @@ namespace L_Tests.Tests.Tools
             L.Logic.GetCacheData("testcache").Should().BeNull();
 
             bool Executed = false;
-            Func<string, string> Test = new Func<string, string>(s =>
+            Func<string, string> Test = new Func<string, string>(In =>
                 {
                     Executed.Should().BeFalse();
                     Thread.Sleep(100);
                     Executed = true;
-                    return s + "6";
+                    return In + "6";
                 }).Cache(Key);
 
             /////////////////////////////////////////////////
@@ -54,7 +54,7 @@ namespace L_Tests.Tests.Tools
                 Total += CacheValue.TotalTimeSaved;
                 }
 
-            Total.Should().BeInRange(300, 400);
+            Total.Should().BeInRange(300, 410);
 
             PercentagesSaved.Sum().Should().BeInRange(70, 80);
             }

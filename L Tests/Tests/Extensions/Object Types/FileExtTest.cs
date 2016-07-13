@@ -13,6 +13,19 @@ namespace L_Tests.Tests.Extensions
         {
         protected override Type[] TestType => new[] { typeof(FileExt) };
 
+        /// <exception cref="IOException">A file with the same name and location specified by <paramref>
+        ///         <name>path</name>
+        ///     </paramref>
+        ///     exists.-or-The directory is the application's current working directory.-or-The directory specified by <paramref>
+        ///         <name>path</name>
+        ///     </paramref>
+        ///     is not empty.-or-The directory is read-only or contains a read-only file.-or-The directory is being used by another process.</exception>
+        /// <exception cref="UnauthorizedAccessException">The caller does not have the required permission. </exception>
+        /// <exception cref="DirectoryNotFoundException">
+        ///         <paramref>
+        ///             <name>path</name>
+        ///         </paramref>
+        ///     does not exist or could not be found.-or-The specified path is invalid (for example, it is on an unmapped drive). </exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_EnsurePathExists()

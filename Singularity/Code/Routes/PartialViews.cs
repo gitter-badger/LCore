@@ -121,6 +121,7 @@ namespace Singularity.Routes
                     public static readonly string Empty = $"{nameof(Manage)}/{nameof(Fields)}/{nameof(Edit)}/{nameof(Empty)}";
                     public static readonly string FormatString = $"{nameof(Manage)}/{nameof(Fields)}/{nameof(Edit)}/{nameof(FormatString)}";
                     public static readonly string Hidden = $"{nameof(Manage)}/{nameof(Fields)}/{nameof(Edit)}/{nameof(Hidden)}";
+                    // ReSharper disable once InconsistentNaming
                     public static readonly string IModel = $"{nameof(Manage)}/{nameof(Fields)}/{nameof(Edit)}/{nameof(IModel)}";
                     // public const String IModelCollection = $"{nameof(Manage)}/{nameof(Fields)}/{nameof(Edit)}/IModelCollection";
                     public static readonly string Int = $"{nameof(Manage)}/{nameof(Fields)}/{nameof(Edit)}/{nameof(Int)}";
@@ -158,7 +159,9 @@ namespace Singularity.Routes
                     public static readonly string Enum = $"{nameof(Manage)}/{nameof(Fields)}/{nameof(View)}/{nameof(Enum)}";
                     public static readonly string Empty = $"{nameof(Manage)}/{nameof(Fields)}/{nameof(View)}/{nameof(Empty)}";
                     public static readonly string FormatString = $"{nameof(Manage)}/{nameof(Fields)}/{nameof(View)}/{nameof(FormatString)}";
+                    // ReSharper disable once InconsistentNaming
                     public static readonly string IModel = $"{nameof(Manage)}/{nameof(Fields)}/{nameof(View)}/{nameof(IModel)}";
+                    // ReSharper disable once InconsistentNaming
                     public static readonly string IModelCollection = $"{nameof(Manage)}/{nameof(Fields)}/{nameof(View)}/{nameof(IModelCollection)}";
                     public static readonly string Int = $"{nameof(Manage)}/{nameof(Fields)}/{nameof(View)}/{nameof(Int)}";
                     public static readonly string String = $"{nameof(Manage)}/{nameof(Fields)}/{nameof(View)}/{nameof(String)}";

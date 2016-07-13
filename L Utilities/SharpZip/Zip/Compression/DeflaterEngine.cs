@@ -45,6 +45,9 @@ using ICSharpCode.SharpZipLib.Checksums;
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable FieldCanBeMadeReadOnly.Global
 // ReSharper disable FieldCanBeMadeReadOnly.Local
+// ReSharper disable InconsistentNaming
+// ReSharper disable CommentTypo
+// ReSharper disable IdentifierTypo
 
 namespace ICSharpCode.SharpZipLib.Zip.Compression
     {
@@ -129,6 +132,75 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
         /// <param name="flush">True to flush input buffers</param>
         /// <param name="finish">Finish deflation with the current input.</param>
         /// <returns>Returns true if progress has been made.</returns>
+        /// <exception cref="InvalidOperationException">unknown compressionFunction</exception>
+        /// <exception cref="ArgumentNullException">
+        ///         <paramref>
+        ///             <name>sourceArray</name>
+        ///         </paramref>
+        ///     is null.-or-<paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///         <paramref>
+        ///             <name>sourceIndex</name>
+        ///         </paramref>
+        ///     is less than the lower bound of the first dimension of <paramref>
+        ///         <name>sourceArray</name>
+        ///     </paramref>
+        ///     .-or-<paramref>
+        ///         <name>destinationIndex</name>
+        ///     </paramref>
+        ///     is less than the lower bound of the first dimension of <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     .-or-<paramref>
+        ///         <name>length</name>
+        ///     </paramref>
+        ///     is less than zero.</exception>
+        /// <exception cref="ArgumentException">
+        ///         <paramref>
+        ///             <name>length</name>
+        ///         </paramref>
+        ///     is greater than the number of elements from <paramref>
+        ///         <name>sourceIndex</name>
+        ///     </paramref>
+        ///     to the end of <paramref>
+        ///         <name>sourceArray</name>
+        ///     </paramref>
+        ///     .-or-<paramref>
+        ///         <name>length</name>
+        ///     </paramref>
+        ///     is greater than the number of elements from <paramref>
+        ///         <name>destinationIndex</name>
+        ///     </paramref>
+        ///     to the end of <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     .</exception>
+        /// <exception cref="RankException">
+        ///         <paramref>
+        ///             <name>sourceArray</name>
+        ///         </paramref>
+        ///     and <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     have different ranks.</exception>
+        /// <exception cref="ArrayTypeMismatchException">
+        ///         <paramref>
+        ///             <name>sourceArray</name>
+        ///         </paramref>
+        ///     and <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     are of incompatible types.</exception>
+        /// <exception cref="InvalidCastException">At least one element in <paramref>
+        ///         <name>sourceArray</name>
+        ///     </paramref>
+        ///     cannot be cast to the type of <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     .</exception>
         public bool Deflate(bool flush, bool finish)
             {
             bool progress;
@@ -168,6 +240,9 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
         /// <param name="buffer">The buffer containing input data.</param>
         /// <param name="offset">The offset of the first byte of data.</param>
         /// <param name="count">The number of bytes of data to use as input.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="buffer"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="InvalidOperationException">Old input was not completely processed</exception>
         public void SetInput(byte[] buffer, int offset, int count)
             {
             if (buffer == null)
@@ -220,6 +295,65 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
         /// <param name="buffer">The buffer containing the dictionary data</param>
         /// <param name="offset">The offset in the buffer for the first byte of data</param>
         /// <param name="length">The length of the dictionary data.</param>
+        /// <exception cref="ArgumentNullException">
+        ///         <paramref>
+        ///             <name>sourceArray</name>
+        ///         </paramref>
+        ///     is null.-or-<paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///         <paramref>
+        ///             <name>sourceIndex</name>
+        ///         </paramref>
+        ///     is less than the lower bound of the first dimension of <paramref>
+        ///         <name>sourceArray</name>
+        ///     </paramref>
+        ///     .-or-<paramref>
+        ///         <name>destinationIndex</name>
+        ///     </paramref>
+        ///     is less than the lower bound of the first dimension of <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     .-or-<paramref name="length" /> is less than zero.</exception>
+        /// <exception cref="ArgumentException">
+        ///         <paramref name="length" /> is greater than the number of elements from <paramref>
+        ///         <name>sourceIndex</name>
+        ///     </paramref>
+        ///     to the end of <paramref>
+        ///         <name>sourceArray</name>
+        ///     </paramref>
+        ///     .-or-<paramref name="length" /> is greater than the number of elements from <paramref>
+        ///         <name>destinationIndex</name>
+        ///     </paramref>
+        ///     to the end of <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     .</exception>
+        /// <exception cref="RankException">
+        ///         <paramref>
+        ///             <name>sourceArray</name>
+        ///         </paramref>
+        ///     and <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     have different ranks.</exception>
+        /// <exception cref="ArrayTypeMismatchException">
+        ///         <paramref>
+        ///             <name>sourceArray</name>
+        ///         </paramref>
+        ///     and <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     are of incompatible types.</exception>
+        /// <exception cref="InvalidCastException">At least one element in <paramref>
+        ///         <name>sourceArray</name>
+        ///     </paramref>
+        ///     cannot be cast to the type of <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     .</exception>
         public void SetDictionary(byte[] buffer, int offset, int length)
             {
 #if DebugDeflation
@@ -314,6 +448,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
         /// Set the deflate level (0-9)
         /// </summary>
         /// <param name="level">The value to set the level to.</param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void SetLevel(int level)
             {
             if ((level < 0) || (level > 9))
@@ -375,6 +510,74 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
         /// <summary>
         /// Fill the window
         /// </summary>
+        /// <exception cref="ArgumentNullException">
+        ///         <paramref>
+        ///             <name>sourceArray</name>
+        ///         </paramref>
+        ///     is null.-or-<paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///         <paramref>
+        ///             <name>sourceIndex</name>
+        ///         </paramref>
+        ///     is less than the lower bound of the first dimension of <paramref>
+        ///         <name>sourceArray</name>
+        ///     </paramref>
+        ///     .-or-<paramref>
+        ///         <name>destinationIndex</name>
+        ///     </paramref>
+        ///     is less than the lower bound of the first dimension of <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     .-or-<paramref>
+        ///         <name>length</name>
+        ///     </paramref>
+        ///     is less than zero.</exception>
+        /// <exception cref="ArgumentException">
+        ///         <paramref>
+        ///             <name>length</name>
+        ///         </paramref>
+        ///     is greater than the number of elements from <paramref>
+        ///         <name>sourceIndex</name>
+        ///     </paramref>
+        ///     to the end of <paramref>
+        ///         <name>sourceArray</name>
+        ///     </paramref>
+        ///     .-or-<paramref>
+        ///         <name>length</name>
+        ///     </paramref>
+        ///     is greater than the number of elements from <paramref>
+        ///         <name>destinationIndex</name>
+        ///     </paramref>
+        ///     to the end of <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     .</exception>
+        /// <exception cref="RankException">
+        ///         <paramref>
+        ///             <name>sourceArray</name>
+        ///         </paramref>
+        ///     and <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     have different ranks.</exception>
+        /// <exception cref="ArrayTypeMismatchException">
+        ///         <paramref>
+        ///             <name>sourceArray</name>
+        ///         </paramref>
+        ///     and <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     are of incompatible types.</exception>
+        /// <exception cref="InvalidCastException">At least one element in <paramref>
+        ///         <name>sourceArray</name>
+        ///     </paramref>
+        ///     cannot be cast to the type of <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     .</exception>
         public void FillWindow()
             {
             /* If the window is almost full and there is insufficient lookahead,

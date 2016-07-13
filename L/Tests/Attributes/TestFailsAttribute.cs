@@ -1,6 +1,8 @@
 ﻿using System;
 using LCore.Extensions;
 using System.Reflection;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 // ReSharper disable UnusedMember.Global
 
 namespace LCore.Tests
@@ -16,6 +18,7 @@ namespace LCore.Tests
         /// Implement this method to execute the test.
         /// Make assertions here.
         /// </summary>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         public override void RunTest(MethodInfo Method)
             {
             Func<bool>[] Checks = this.AdditionalChecks.Convert(L.F<MethodInfo, string, Func<bool>>(this.GetCheckMethod).Supply(Method));

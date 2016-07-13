@@ -82,7 +82,7 @@ WriteLiteral("\r\n");
         {
         string Id = SubModel.GetID();
 
-        var Selected = Items.FirstOrDefault(s => s.Value == Id);
+        var Selected = Items.FirstOrDefault(Item => Item.Value == Id);
 
         if (Selected != null)
             {

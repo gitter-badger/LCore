@@ -255,11 +255,11 @@ var Singularity = (function () {
                     this.modules[mod].init();
             }
         }
-        String.prototype['match'] = String.prototype['match'].fn_cache('regexMatch');
+        String.prototype['match'] = String.prototype['match'].fnCache('regexMatch');
     };
     Singularity.prototype.ready = function () {
-        InitHTMLExtensions();
-        InitFields();
+        initHTMLExtensions();
+        initFields();
     };
     Singularity.prototype.getTypeName = function (protoType) {
         if ($.isArray(protoType) && protoType.length > 0) {
@@ -714,10 +714,10 @@ var SingularityMethod = (function () {
     };
     SingularityMethod.prototype.loadAutoIgnoreErrors = function (ext, methods) {
         if (ext.auto.ignoreErrors) {
-            var lastMethod_ignoreErrors = methods[methods.length - 1];
+            var lastMethodIgnoreErrors = methods[methods.length - 1];
             methods.push(function () {
                 try {
-                    return lastMethod_ignoreErrors.apply(this, arguments);
+                    return lastMethodIgnoreErrors.apply(this, arguments);
                 }
                 catch (ex) {
                 }
@@ -726,10 +726,10 @@ var SingularityMethod = (function () {
     };
     SingularityMethod.prototype.loadAutoLogErrors = function (ext, methods) {
         if (ext.auto.logErrors) {
-            var lastMethod_logErrors = methods[methods.length - 1];
+            var lastMethodLogErrors = methods[methods.length - 1];
             methods.push(function () {
                 try {
-                    return lastMethod_logErrors.apply(this, arguments);
+                    return lastMethodLogErrors.apply(this, arguments);
                 }
                 catch (ex) {
                     log(ext.name + " Error: " + ex);
@@ -739,7 +739,7 @@ var SingularityMethod = (function () {
     };
     SingularityMethod.prototype.loadAutoLogExecution = function (ext, methods) {
         if (ext.auto.logExecution) {
-            var lastMethod_logExecution = methods[methods.length - 1];
+            var lastMethodLogExecution = methods[methods.length - 1];
             methods.push(function () {
                 var argStr = '';
                 for (var h = 0; h < arguments.length; h++) {
@@ -749,7 +749,7 @@ var SingularityMethod = (function () {
                 }
                 argStr = "[" + argStr + "]";
                 log("Running:   " + ext.name + "    Arguments: " + argStr);
-                var result = lastMethod_logExecution.apply(this, arguments);
+                var result = lastMethodLogExecution.apply(this, arguments);
                 log("Completed: " + ext.name + "    Result:    " + result);
                 return result;
             });
@@ -757,7 +757,7 @@ var SingularityMethod = (function () {
     };
     SingularityMethod.prototype.loadAutoTimeExecution = function (ext, methods) {
         if (ext.auto.timeExecution) {
-            var lastMethod_timeExecution = methods[methods.length - 1];
+            var lastMethodTimeExecution = methods[methods.length - 1];
             methods.push(function () {
                 var timeBefore = new Date().valueOf();
                 sing.totalExecutions = sing.totalExecutions || 0;
@@ -765,7 +765,7 @@ var SingularityMethod = (function () {
                 sing.totalExecutions = sing.totalExecutions + 1;
                 var subExecutions = sing.totalExecutions;
                 var executionTimeBefore = sing.totalExecutionTime;
-                var result = lastMethod_timeExecution.apply(this, arguments);
+                var result = lastMethodTimeExecution.apply(this, arguments);
                 var executionTimeAfter = sing.totalExecutionTime;
                 var subExecutionTime = executionTimeAfter - executionTimeBefore;
                 subExecutions -= sing.totalExecutions;
@@ -787,9 +787,9 @@ var SingularityMethod = (function () {
     };
     SingularityMethod.prototype.loadAutoDefaultResult = function (ext, methods) {
         if (ext.auto.defaultResult !== undefined) {
-            var lastMethod_defaultResult = methods[methods.length - 1];
+            var lastMethodDefaultResult = methods[methods.length - 1];
             methods.push(function () {
-                var result = lastMethod_defaultResult.apply(this, arguments);
+                var result = lastMethodDefaultResult.apply(this, arguments);
                 if (result === undefined || result === null) {
                     result = ext.auto.defaultResult;
                 }
@@ -799,9 +799,9 @@ var SingularityMethod = (function () {
     };
     SingularityMethod.prototype.loadAutoOverrideResult = function (ext, methods) {
         if (ext.auto.overrideResult !== undefined) {
-            var lastMethod_overrideResult = methods[methods.length - 1];
+            var lastMethodOverrideResult = methods[methods.length - 1];
             methods.push(function () {
-                lastMethod_overrideResult.apply(this, arguments);
+                lastMethodOverrideResult.apply(this, arguments);
                 return ext.auto.overrideResult;
             });
         }
@@ -812,9 +812,9 @@ var SingularityMethod = (function () {
     };
     SingularityMethod.prototype.loadAutoResultAsArray = function (ext, methods) {
         if (ext.auto.resultAsArray) {
-            var lastMethod_resultAsArray = methods[methods.length - 1];
+            var lastMethodResultAsArray = methods[methods.length - 1];
             methods.push(function () {
-                var result = lastMethod_resultAsArray.apply(this, arguments);
+                var result = lastMethodResultAsArray.apply(this, arguments);
                 if (!$.isArray(result)) {
                     if (result === null || result === undefined)
                         return [];
@@ -832,12 +832,12 @@ var SingularityMethod = (function () {
                 description: "This callback function will be executed when " + ext.shortName + " has finished executing. It will be passed the result as its only argument"
             });
             var callbackIndex = ext.details.parameters.length - 1;
-            var lastMethod_makeAsync = methods[methods.length - 1];
+            var lastMethodMakeAsync = methods[methods.length - 1];
             methods.push(function () {
                 var _this = this;
                 var args = arguments;
                 setTimeout(function () {
-                    var result = lastMethod_makeAsync.apply(_this, args);
+                    var result = lastMethodMakeAsync.apply(_this, args);
                     if (args[callbackIndex]) {
                         args[callbackIndex](result);
                     }
@@ -847,11 +847,11 @@ var SingularityMethod = (function () {
     };
     SingularityMethod.prototype.loadAutoRetry = function (ext, methods) {
         if (this.auto.retryTimes > 0) {
-            var lastMethod_retryTimes = methods[methods.length - 1];
+            var lastMethodRetryTimes = methods[methods.length - 1];
             methods.push(function () {
                 for (var attempt = 0; attempt < ext.auto.retryTimes + 1; attempt++) {
                     try {
-                        return lastMethod_retryTimes.apply(this, arguments);
+                        return lastMethodRetryTimes.apply(this, arguments);
                     }
                     catch (ex) {
                         if (attempt == ext.auto.retryTimes - 1)
@@ -867,7 +867,7 @@ var SingularityMethod = (function () {
             ext.details.parameters.length > 0 &&
             (ext.auto.validateInput || ext.auto.injectDefaultInputValue)) {
             var srcext = ext;
-            var lastMethod_validateInput = methods[methods.length - 1];
+            var lastMethodValidateInput = methods[methods.length - 1];
             methods.push(function () {
                 var keys = Object.keys(arguments);
                 var args = [];
@@ -921,7 +921,7 @@ var SingularityMethod = (function () {
                         }
                     }
                 }
-                return lastMethod_validateInput.apply(this, arguments);
+                return lastMethodValidateInput.apply(this, arguments);
             });
         }
     };
@@ -1006,8 +1006,8 @@ singRoot.jsFiddleLinks = {
 singRoot.method('addModule', sing.addModule, {
     manuallyTested: true
 });
-singRoot.method('totalCodeLines', SingularityTotalCodeLines);
-function SingularityTotalCodeLines() {
+singRoot.method('totalCodeLines', singularityTotalCodeLines);
+function singularityTotalCodeLines() {
     var out = 0;
     $.objValues(sing.modules).each(function (mod) {
         if (!mod.parentModule)
@@ -1015,8 +1015,8 @@ function SingularityTotalCodeLines() {
     });
     return out;
 }
-singRoot.method('loadContext', SingularityLoadContext);
-function SingularityLoadContext(context) {
+singRoot.method('loadContext', singularityLoadContext);
+function singularityLoadContext(context) {
     if (context === undefined) {
         context = {};
         context['sing'] = sing;
@@ -1025,8 +1025,8 @@ function SingularityLoadContext(context) {
     context[sing.constants.specialTokens.Global] = function () { return $.objKeys(sing.globalResolve); };
     return context;
 }
-singRoot.method('resolve', SingularityResolve);
-function SingularityResolve(key, data, context, rootKey) {
+singRoot.method('resolve', singularityResolve);
+function singularityResolve(key, data, context, rootKey) {
     if (context === void 0) { context = {}; }
     if (!rootKey)
         rootKey = key.trim();
@@ -1129,7 +1129,7 @@ function SingularityResolve(key, data, context, rootKey) {
         }
         if (key.hasMatch(/^\.?([^\.\'\",\[\]\(\)]+)\((.+)\)(.*)$/)) {
             var index = key.indexOf('(');
-            var indexPair = FindMate(key, index);
+            var indexPair = findMate(key, index);
             methodName = key.substr(0, index);
             var argsStr = key.slice(index + 1, indexPair);
             if (indexPair < key.length - 1)
@@ -1274,7 +1274,7 @@ function SingularityResolve(key, data, context, rootKey) {
                 }
             }
             else {
-                var quotePair = FindMate(key, 0);
+                var quotePair = findMate(key, 0);
                 theRest = key.substr(quotePair + 1);
             }
         }
@@ -1499,9 +1499,9 @@ singModule.method('addModule', singRoot.addModule, {
 singModule.method('method', singRoot.method, {
     manuallyTested: true
 });
-singModule.method('totalCodeLines', ModuleTotalCodeLines);
+singModule.method('totalCodeLines', moduleTotalCodeLines);
 singModule.method('fullName', singRoot.fullName);
-function ModuleTotalCodeLines() {
+function moduleTotalCodeLines() {
     var out = 0;
     var mod = this;
     mod.methods.each(function (ext) {
@@ -1513,16 +1513,16 @@ function ModuleTotalCodeLines() {
     return out;
 }
 ;
-singModule.method('getMethods', ModuleGetMethods, {
+singModule.method('getMethods', moduleGetMethods, {
     manuallyTested: true
 });
-function ModuleGetMethods(extName) {
+function moduleGetMethods(extName) {
     var _this = this;
     return $.objValues(sing.methods).where(function (ext) { return (ext.methodModule == _this &&
         (extName == null || ext.moduleName.contains(extName))); });
 }
-singModule.method('getUnknownProperties', ModuleGetUnknownProperties);
-function ModuleGetUnknownProperties() {
+singModule.method('getUnknownProperties', moduleGetUnknownProperties);
+function moduleGetUnknownProperties() {
     var thisModule = this;
     thisModule.ignoreUnknownMembers = thisModule.ignoreUnknownMembers || [];
     if (thisModule.ignoreUnknownMembers.length == 1 && thisModule.ignoreUnknownMembers[0] == 'ALL')
@@ -1547,8 +1547,8 @@ function ModuleGetUnknownProperties() {
         !methods.has(name) &&
         !thisModule.ignoreUnknownMembers.has(name)); });
 }
-singModule.method('getUnknownMethods', ModuleGetUnknownMethods);
-function ModuleGetUnknownMethods() {
+singModule.method('getUnknownMethods', moduleGetUnknownMethods);
+function moduleGetUnknownMethods() {
     var thisModule = this;
     thisModule.ignoreUnknownMembers = thisModule.ignoreUnknownMembers || [];
     if (thisModule.ignoreUnknownMembers.length == 1 && thisModule.ignoreUnknownMembers[0] == 'ALL')
@@ -1590,7 +1590,7 @@ var Direction = (function () {
     Direction.c = 'c';
     return Direction;
 }());
-function FindMate(key, index) {
+function findMate(key, index) {
     if ($.isEmpty(key) || index < 0 || index >= key.length)
         return -1;
     var startingChars = ['(', '[', '{'];
@@ -1684,7 +1684,7 @@ var singEnumerable = singExt.addModule(new sing.Module('Enumerable', Array));
 singEnumerable.glyphIcon = '&#xe012;';
 singEnumerable.summaryShort = '&nbsp;';
 singEnumerable.summaryLong = '&nbsp;';
-singEnumerable.method('each', EnumerableEach, {
+singEnumerable.method('each', enumerableEach, {
     summary: 'Call each on an array to enumerate the contents of the array.',
     parameters: [
         {
@@ -1716,14 +1716,14 @@ singEnumerable.method('each', EnumerableEach, {
         });
     }
 });
-function EnumerableEach(action) {
+function enumerableEach(action) {
     var thisArray = this;
     thisArray.while(function (item, i) {
         action(item, i);
         return true;
     });
 }
-singEnumerable.method('while', EnumerableWhile, {
+singEnumerable.method('while', enumerableWhile, {
     summary: 'Call each on an array to enumerate the contents of the array. Return any non-null value to continue enumeration otherwise returning false will stop the enumeration.',
     parameters: [
         {
@@ -1748,7 +1748,7 @@ singEnumerable.method('while', EnumerableWhile, {
         ext.addTest([1, 2, 3, 4, 5], [function (item, index) { return (item == 4 && index == 3); }], false);
     }
 });
-function EnumerableWhile(action) {
+function enumerableWhile(action) {
     if (!action)
         return true;
     var exit = false;
@@ -1761,7 +1761,7 @@ function EnumerableWhile(action) {
     }
     return !exit;
 }
-singEnumerable.method('until', EnumerableUntil, {
+singEnumerable.method('until', enumerableUntil, {
     summary: 'Call each on an array to enumerate the contents of the array. Return any non-null value to stop enumeration otherwise it will continue until the end of the array.',
     parameters: [
         {
@@ -1785,7 +1785,7 @@ singEnumerable.method('until', EnumerableUntil, {
         ext.addTest([1], [function () { return false; }], false);
     }
 });
-function EnumerableUntil(action) {
+function enumerableUntil(action) {
     if (!action || this.length == 0)
         return false;
     var thisArray = this;
@@ -1797,7 +1797,7 @@ function EnumerableUntil(action) {
     });
     return exit;
 }
-singEnumerable.method('count', EnumerableCount, {
+singEnumerable.method('count', enumerableCount, {
     summary: 'count enumerates through an array counting how many objects match or satisfy a custom condition.',
     parameters: [
         {
@@ -1820,7 +1820,7 @@ singEnumerable.method('count', EnumerableCount, {
         ext.addTest([5, 6, 7], [function (a) { return a; }], 18);
     }
 });
-function EnumerableCount(itemOrAction) {
+function enumerableCount(itemOrAction) {
     if (itemOrAction === undefined)
         return 0;
     var thisArray = this;
@@ -1842,7 +1842,7 @@ function EnumerableCount(itemOrAction) {
     });
     return out;
 }
-singEnumerable.method('has', EnumerableHas, {
+singEnumerable.method('has', enumerableHas, {
     summary: 'has enumerates through an array and returns whether it contains an item, or items, or matches the passed condition.',
     parameters: [
         {
@@ -1873,7 +1873,7 @@ singEnumerable.method('has', EnumerableHas, {
         ext.addTest([1, 2, 3], [function (a) { return (a == 5); }], false);
     }
 });
-function EnumerableHas() {
+function enumerableHas() {
     var items = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         items[_i - 0] = arguments[_i];
@@ -1904,7 +1904,7 @@ function EnumerableHas() {
     }
     return false;
 }
-singEnumerable.method('select', EnumerableSelect, {
+singEnumerable.method('select', enumerableSelect, {
     summary: 'select enumerates a list and filters its contents based on the filter function you provide.',
     parameters: [
         {
@@ -1927,7 +1927,7 @@ singEnumerable.method('select', EnumerableSelect, {
         ext.addTest([1, 2, 3, undefined], [function (a) { return (a < 3); }], [1, 2]);
     }
 });
-function EnumerableSelect(filter) {
+function enumerableSelect(filter) {
     if (!filter)
         return [];
     var thisArray = this;
@@ -1940,7 +1940,7 @@ function EnumerableSelect(filter) {
     });
     return out;
 }
-singEnumerable.method('collect', EnumerableCollect, {
+singEnumerable.method('collect', enumerableCollect, {
     summary: 'collect acts on an array and passes its values to the collection function you provide.',
     parameters: [
         {
@@ -1968,7 +1968,7 @@ singEnumerable.method('collect', EnumerableCollect, {
         ext.addTest([1, 2, 3, undefined, null], [function (a) { return $.isDefined(a); }], [true, true, true, false, false]);
     }
 });
-function EnumerableCollect(collector) {
+function enumerableCollect(collector) {
     var thisArray = this;
     if (collector == null)
         collector = sing.func.identity;
@@ -1981,7 +1981,7 @@ function EnumerableCollect(collector) {
     });
     return out;
 }
-singEnumerable.method('first', EnumerableFirst, {
+singEnumerable.method('first', enumerableFirst, {
     summary: null,
     parameters: null,
     returns: '',
@@ -2002,7 +2002,7 @@ singEnumerable.method('first', EnumerableFirst, {
         ext.addTest([1, 2, 3, 4, 5], [function (a) { return (a != 3); }], [1]);
     }
 });
-function EnumerableFirst(countOrCondition) {
+function enumerableFirst(countOrCondition) {
     if (countOrCondition <= 0)
         return [];
     var thisArray = this;
@@ -2010,7 +2010,7 @@ function EnumerableFirst(countOrCondition) {
         return this[0];
     if (!countOrCondition)
         return [];
-    if (ObjectIsNumber(countOrCondition)) {
+    if (objectIsNumber(countOrCondition)) {
         var itemNumber = countOrCondition;
         var outArray = [];
         thisArray.while(function (item) {
@@ -2033,7 +2033,7 @@ function EnumerableFirst(countOrCondition) {
     });
     return out;
 }
-singEnumerable.method('last', EnumerableLast, {
+singEnumerable.method('last', enumerableLast, {
     summary: null,
     parameters: [
         {
@@ -2061,7 +2061,7 @@ singEnumerable.method('last', EnumerableLast, {
         ext.addTest([1, 2, 3, 4, 5], [function (a) { return (a != 3); }], [5]);
     }
 });
-function EnumerableLast(countOrCondition) {
+function enumerableLast(countOrCondition) {
     if (countOrCondition <= 0)
         return [];
     var thisArray = this;
@@ -2074,7 +2074,7 @@ function EnumerableLast(countOrCondition) {
         out = out.reverse();
     return out;
 }
-singEnumerable.method('range', EnumerableRange, {
+singEnumerable.method('range', enumerableRange, {
     summary: 'Retrieves a range of items from an array.',
     parameters: [
         {
@@ -2103,7 +2103,7 @@ singEnumerable.method('range', EnumerableRange, {
         ext.addTest([1, 2, 3, 4, 5], [4, 3], []);
     }
 });
-function EnumerableRange(start, end) {
+function enumerableRange(start, end) {
     if (start === void 0) { start = 0; }
     if (end === void 0) { end = this.length - 1; }
     if (start > end)
@@ -2118,7 +2118,7 @@ function EnumerableRange(start, end) {
     }
     return out;
 }
-singEnumerable.method('flatten', EnumerableFlatten, {
+singEnumerable.method('flatten', enumerableFlatten, {
     summary: 'Traverses an array of possibly nested items.',
     parameters: [],
     returns: 'A \'flattened\' single-level array of all items.',
@@ -2133,7 +2133,7 @@ singEnumerable.method('flatten', EnumerableFlatten, {
         ext.addTest([[[1, 2, 3], 4], 5, 6, 7, 8], [], [1, 2, 3, 4, 5, 6, 7, 8]);
     }
 });
-function EnumerableFlatten() {
+function enumerableFlatten() {
     var thisArray = this;
     var out = [];
     thisArray.each(function (item) {
@@ -2144,7 +2144,7 @@ function EnumerableFlatten() {
     });
     return out;
 }
-singEnumerable.method('indices', EnumerableIndices, {
+singEnumerable.method('indices', enumerableIndices, {
     summary: null,
     parameters: null,
     returns: '',
@@ -2163,7 +2163,7 @@ singEnumerable.method('indices', EnumerableIndices, {
         ext.addTest(['a', 'a', 'a', 'b', 'b', 'b'], ['a', 'b'], [0, 1, 2, 3, 4, 5]);
     }
 });
-function EnumerableIndices() {
+function enumerableIndices() {
     var items = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         items[_i - 0] = arguments[_i];
@@ -2196,7 +2196,7 @@ function EnumerableIndices() {
     else
         return [];
 }
-singEnumerable.method('remove', EnumerableRemove, {
+singEnumerable.method('remove', enumerableRemove, {
     summary: 'Enumerates an array removing items that match the provided values.',
     parameters: [
         {
@@ -2223,7 +2223,7 @@ singEnumerable.method('remove', EnumerableRemove, {
         ext.addTest([1, 2], [[1, 2, undefined]], []);
     }
 });
-function EnumerableRemove(itemOrItemsOrFunction) {
+function enumerableRemove(itemOrItemsOrFunction) {
     var thisArray = this;
     if (!itemOrItemsOrFunction)
         return thisArray.collect();
@@ -2233,11 +2233,11 @@ function EnumerableRemove(itemOrItemsOrFunction) {
     }
     if ($.isFunction(itemOrItemsOrFunction)) {
         var itemFunction = itemOrItemsOrFunction;
-        return thisArray.select(itemFunction.fn_not());
+        return thisArray.select(itemFunction.fnNot());
     }
     return thisArray.select(function (item) { return (item != itemOrItemsOrFunction); });
 }
-singEnumerable.method('sortBy', EnumerableSortBy, {
+singEnumerable.method('sortBy', enumerableSortBy, {
     summary: 'Sorts the source array by a custom property or function accessor.',
     parameters: [
         {
@@ -2265,7 +2265,7 @@ singEnumerable.method('sortBy', EnumerableSortBy, {
             { name: 'frank', age: 111 }]);
     }
 });
-function EnumerableSortBy(arg) {
+function enumerableSortBy(arg) {
     var defaultValueFunc = function (item) { return item; };
     if (arg == null) {
         arg = defaultValueFunc;
@@ -2308,7 +2308,7 @@ function EnumerableSortBy(arg) {
     else
         return indexes.quickSort([items]);
 }
-singEnumerable.method('quickSort', EnumerableQuickSort, {
+singEnumerable.method('quickSort', enumerableQuickSort, {
     summary: 'Performs the built-in JavaScript comparison to sort the items in the source array.',
     parameters: [
         {
@@ -2336,7 +2336,7 @@ singEnumerable.method('quickSort', EnumerableQuickSort, {
         });
     }
 });
-function EnumerableQuickSort(sortWith, left, right) {
+function enumerableQuickSort(sortWith, left, right) {
     if (left === void 0) { left = 0; }
     if (right === void 0) { right = (this.length - 1); }
     var thisArray = this;
@@ -2349,7 +2349,7 @@ function EnumerableQuickSort(sortWith, left, right) {
         }
     }
     if (thisArray.length > 1) {
-        var partitionResult = EnumerableQuickSortPartition(thisArray, left, right, sortWith);
+        var partitionResult = enumerableQuickSortPartition(thisArray, left, right, sortWith);
         var index = partitionResult.index;
         thisArray = partitionResult.items;
         sortWith = partitionResult.sortWith;
@@ -2395,7 +2395,7 @@ function EnumerableQuickSort(sortWith, left, right) {
         return thisArray;
     }
 }
-function EnumerableQuickSortPartition(items, left, right, sortWith) {
+function enumerableQuickSortPartition(items, left, right, sortWith) {
     var pivot = items[Math.floor((right + left) / 2)];
     var i = left;
     var j = right;
@@ -2407,7 +2407,7 @@ function EnumerableQuickSortPartition(items, left, right, sortWith) {
             j--;
         }
         if (i <= j) {
-            var swapResult = EnumerableQuickSortSwap(items, i, j, sortWith);
+            var swapResult = enumerableQuickSortSwap(items, i, j, sortWith);
             items = swapResult.items;
             if ($.toStr(swapResult.sortWith) == '0')
                 swapResult.sortWith = swapResult.sortWith;
@@ -2422,7 +2422,7 @@ function EnumerableQuickSortPartition(items, left, right, sortWith) {
         index: i
     };
 }
-function EnumerableQuickSortSwap(items, firstIndex, secondIndex, sortWith) {
+function enumerableQuickSortSwap(items, firstIndex, secondIndex, sortWith) {
     var temp = items[firstIndex];
     items[firstIndex] = items[secondIndex];
     items[secondIndex] = temp;
@@ -2438,7 +2438,7 @@ function EnumerableQuickSortSwap(items, firstIndex, secondIndex, sortWith) {
         sortWith: sortWith
     };
 }
-singEnumerable.method('timesDo', EnumerableTimesDo, {
+singEnumerable.method('timesDo', enumerableTimesDo, {
     summary: 'Repeats a function a number of times',
     parameters: [
         {
@@ -2468,7 +2468,7 @@ singEnumerable.method('timesDo', EnumerableTimesDo, {
         ext.addTest(5, [sing.func.increment, [5]], [6, 6, 6, 6, 6]);
     }
 }, Number.prototype);
-function EnumerableTimesDo(executeFunc, args, caller) {
+function enumerableTimesDo(executeFunc, args, caller) {
     if (!$.isDefined(this) ||
         this <= 0 ||
         !$.isDefined(executeFunc))
@@ -2482,9 +2482,9 @@ function EnumerableTimesDo(executeFunc, args, caller) {
     }
     return out;
 }
-var LOGGING_INFO_ENABLED = true;
-var LOGGING_ERROR_ENABLED = true;
-var LOGGING_WARNING_ENABLED = true;
+var loggingInfoEnabled = true;
+var loggingErrorEnabled = true;
+var loggingWarningEnabled = true;
 var singLog = singCore.addModule(new sing.Module('Logging', sing, sing));
 singLog.glyphIcon = '&#xe105;';
 singLog.ignoreUnknown('ALL');
@@ -2493,11 +2493,11 @@ function log() {
     for (var _i = 0; _i < arguments.length; _i++) {
         message[_i - 0] = arguments[_i];
     }
-    if (LOGGING_INFO_ENABLED) {
+    if (loggingInfoEnabled) {
         console.log("%c" + message, 'background: #eee; color: #555');
     }
 }
-singLog.method('log', ArrayLog, {
+singLog.method('log', arrayLog, {
     summary: null,
     parameters: null,
     returns: '',
@@ -2506,10 +2506,10 @@ singLog.method('log', ArrayLog, {
     tests: function (ext) {
     }
 }, Array.prototype, 'Array');
-function ArrayLog() {
+function arrayLog() {
     log(this);
 }
-singLog.method('log', NumberLog, {
+singLog.method('log', numberLog, {
     summary: 'Common funciton - Logs the calling Number to the console.',
     parameters: [],
     returns: 'Nothing.',
@@ -2522,10 +2522,10 @@ singLog.method('log', NumberLog, {
         ext.addTest(false, []);
     }
 }, Number.prototype, 'Number');
-function NumberLog() {
+function numberLog() {
     log(this);
 }
-singLog.method('log', StringLog, {
+singLog.method('log', stringLog, {
     summary: 'Common funciton - Logs the calling Boolean to the console.',
     parameters: [],
     returns: 'Nothing.',
@@ -2539,10 +2539,10 @@ singLog.method('log', StringLog, {
         ext.addTest('hello', []);
     }
 }, String.prototype, 'String');
-function StringLog() {
+function stringLog() {
     log(this);
 }
-singLog.method('log', BooleanLog, {
+singLog.method('log', booleanLog, {
     summary: 'Common funciton - Logs the calling Boolean to the console.',
     parameters: [],
     returns: 'Nothing.',
@@ -2555,7 +2555,7 @@ singLog.method('log', BooleanLog, {
         ext.addTest(false, []);
     }
 }, Boolean.prototype, 'Boolean');
-function BooleanLog() {
+function booleanLog() {
     log(this);
 }
 function warn() {
@@ -2563,27 +2563,27 @@ function warn() {
     for (var _i = 0; _i < arguments.length; _i++) {
         message[_i - 0] = arguments[_i];
     }
-    if (LOGGING_WARNING_ENABLED) {
+    if (loggingWarningEnabled) {
         if ($.toStr && $.resolve)
             console.log("%c" + $.toStr($.resolve(message), true), 'background: #555; color: #F7DAA3');
         else
             console.log("%c" + message, 'background: #555; color: #F7DAA3');
     }
 }
-singLog.method('warn', ArrayWarn, {}, Array.prototype, 'Array');
-function ArrayWarn() {
+singLog.method('warn', arrayWarn, {}, Array.prototype, 'Array');
+function arrayWarn() {
     warn(this);
 }
-singLog.method('warn', NumberWarn, {}, Number.prototype, 'Number');
-function NumberWarn() {
+singLog.method('warn', numberWarn, {}, Number.prototype, 'Number');
+function numberWarn() {
     warn(this);
 }
-singLog.method('warn', StringWarn, {}, String.prototype, 'String');
-function StringWarn() {
+singLog.method('warn', stringWarn, {}, String.prototype, 'String');
+function stringWarn() {
     warn(this);
 }
-singLog.method('warn', BooleanWarn, {}, Boolean.prototype, 'Boolean');
-function BooleanWarn() {
+singLog.method('warn', booleanWarn, {}, Boolean.prototype, 'Boolean');
+function booleanWarn() {
     warn(this);
 }
 function error() {
@@ -2591,29 +2591,29 @@ function error() {
     for (var _i = 0; _i < arguments.length; _i++) {
         message[_i - 0] = arguments[_i];
     }
-    if (LOGGING_ERROR_ENABLED) {
+    if (loggingErrorEnabled) {
         console.log(message);
     }
 }
-singLog.method('error', ArrayError, {}, Array.prototype, 'Array');
-function ArrayError() {
+singLog.method('error', arrayError, {}, Array.prototype, 'Array');
+function arrayError() {
     error(this);
 }
-singLog.method('error', NumberError, {}, Number.prototype, 'Number');
-function NumberError() {
+singLog.method('error', numberError, {}, Number.prototype, 'Number');
+function numberError() {
     error(this);
 }
-singLog.method('error', StringError, {}, String.prototype, 'String');
-function StringError() {
+singLog.method('error', stringError, {}, String.prototype, 'String');
+function stringError() {
     error(this);
 }
-singLog.method('error', BooleanError, {}, Boolean.prototype, 'Boolean');
-function BooleanError() {
+singLog.method('error', booleanError, {}, Boolean.prototype, 'Boolean');
+function booleanError() {
     error(this);
 }
 var singString = singExt.addModule(new sing.Module('String', String));
 singString.glyphIcon = '&#xe241;';
-singString.method('contains', StringContains, {
+singString.method('contains', stringContains, {
     summary: null,
     parameters: null,
     returns: '',
@@ -2631,13 +2631,13 @@ singString.method('contains', StringContains, {
         ext.addTest('abc', ['abc'], true);
     }
 });
-function StringContains(str) {
+function stringContains(str) {
     if (!str || str == '')
         return false;
     return this == str ||
         this.indexOf(str) >= 0;
 }
-singString.method('replaceAll', StringReplaceAll, {
+singString.method('replaceAll', stringReplaceAll, {
     summary: null,
     parameters: null,
     returns: '',
@@ -2647,7 +2647,7 @@ singString.method('replaceAll', StringReplaceAll, {
     tests: function (ext) {
         ext.addTest('apples', ['s', ' pie'], 'apple pie');
         ext.addTest('apples apples', ['s', ' pie'], 'apple pie apple pie');
-        ext.addFailsTest('apples apples', ['s', 'pies'], StringReplaceAll_ErrorReplacementContinsSearch);
+        ext.addFailsTest('apples apples', ['s', 'pies'], stringReplaceAllErrorReplacementContinsSearch);
         ext.addTest('ababab', ['b', 'c'], 'acacac');
         ext.addTest('ababab', ['b', ''], 'aaa');
         ext.addTest('a', ['', ''], 'a');
@@ -2660,8 +2660,8 @@ singString.method('replaceAll', StringReplaceAll, {
         ext.addTest('b', [undefined, 'a'], 'b');
     }
 });
-var StringReplaceAll_ErrorReplacementContinsSearch = 'Replace All Error: replacement must not contain search term';
-function StringReplaceAll(searchOrSearches, replaceOrReplacements) {
+var stringReplaceAllErrorReplacementContinsSearch = 'Replace All Error: replacement must not contain search term';
+function stringReplaceAll(searchOrSearches, replaceOrReplacements) {
     if (replaceOrReplacements == undefined)
         replaceOrReplacements = '';
     if (searchOrSearches == undefined || searchOrSearches == '')
@@ -2672,7 +2672,7 @@ function StringReplaceAll(searchOrSearches, replaceOrReplacements) {
         searchArray.each(function (item, i) {
             var replacestr = $.isArray(replaceOrReplacements) ? replaceOrReplacements[i] : replaceOrReplacements;
             if (replacestr.toString().contains(item.toString()))
-                throw StringReplaceAll_ErrorReplacementContinsSearch;
+                throw stringReplaceAllErrorReplacementContinsSearch;
             out = out.replaceAll(item, replacestr).toString();
         });
         return out.toString();
@@ -2682,13 +2682,13 @@ function StringReplaceAll(searchOrSearches, replaceOrReplacements) {
             (replaceOrReplacements == ''))
             return '';
         if (replaceOrReplacements.toString().contains(searchOrSearches.toString()))
-            throw StringReplaceAll_ErrorReplacementContinsSearch;
+            throw stringReplaceAllErrorReplacementContinsSearch;
         while (out.indexOf(searchOrSearches) >= 0)
             out = out.replace(searchOrSearches, replaceOrReplacements);
         return out.toString();
     }
 }
-singString.method('removeAll', StringRemoveAll, {
+singString.method('removeAll', stringRemoveAll, {
     summary: null,
     parameters: null,
     returns: '',
@@ -2709,7 +2709,7 @@ singString.method('removeAll', StringRemoveAll, {
         ext.addTest('apple pie', ['pies'], 'apple pie');
     }
 });
-function StringRemoveAll(stringOrStrings) {
+function stringRemoveAll(stringOrStrings) {
     if ($.isArray(stringOrStrings)) {
         var out = this;
         var array = stringOrStrings;
@@ -2722,7 +2722,7 @@ function StringRemoveAll(stringOrStrings) {
     }
     return this.replaceAll(stringOrStrings, '');
 }
-singString.method('upper', StringUpper, {
+singString.method('upper', stringUpper, {
     summary: null,
     parameters: null,
     returns: '',
@@ -2736,10 +2736,10 @@ singString.method('upper', StringUpper, {
         ext.addTest('APPLE', [], 'APPLE');
     }
 });
-function StringUpper() {
+function stringUpper() {
     return this.toUpperCase();
 }
-singString.method('lower', StringLower, {
+singString.method('lower', stringLower, {
     summary: null,
     parameters: null,
     returns: '',
@@ -2753,10 +2753,10 @@ singString.method('lower', StringLower, {
         ext.addTest('APPLE', [], 'apple');
     }
 });
-function StringLower() {
+function stringLower() {
     return this.toLowerCase();
 }
-singString.method('collapseSpaces', StringCollapseSpaces, {
+singString.method('collapseSpaces', stringCollapseSpaces, {
     summary: null,
     parameters: null,
     returns: '',
@@ -2770,10 +2770,10 @@ singString.method('collapseSpaces', StringCollapseSpaces, {
         ext.addTest('apple       pie', [], 'apple pie');
     }
 });
-function StringCollapseSpaces() {
+function stringCollapseSpaces() {
     return this.replaceAll('  ', ' ');
 }
-singString.method('startsWith', StringStartsWith, {
+singString.method('startsWith', stringStartsWith, {
     summary: null,
     parameters: null,
     returns: '',
@@ -2790,7 +2790,7 @@ singString.method('startsWith', StringStartsWith, {
         ext.addTest('apple pie', ['apple pie'], true);
     }
 });
-function StringStartsWith(stringOrStrings) {
+function stringStartsWith(stringOrStrings) {
     var thisString = this;
     if (!stringOrStrings)
         return false;
@@ -2803,7 +2803,7 @@ function StringStartsWith(stringOrStrings) {
     }
     return this.indexOf(stringOrStrings) == 0;
 }
-singString.method('endsWith', StringEndsWith, {
+singString.method('endsWith', stringEndsWith, {
     summary: null,
     parameters: null,
     returns: '',
@@ -2820,7 +2820,7 @@ singString.method('endsWith', StringEndsWith, {
         ext.addTest('apple pie', ['pies'], false);
     }
 });
-function StringEndsWith(stringOrStrings) {
+function stringEndsWith(stringOrStrings) {
     if (!stringOrStrings)
         return false;
     if ($.isArray(stringOrStrings)) {
@@ -2836,7 +2836,7 @@ function StringEndsWith(stringOrStrings) {
     var index = this.indexOf(stringOrStrings);
     return index >= 0 && index == this.length - stringOrStrings.length;
 }
-singString.method('reverse', StringReverse, {
+singString.method('reverse', stringReverse, {
     summary: null,
     parameters: null,
     returns: '',
@@ -2848,14 +2848,14 @@ singString.method('reverse', StringReverse, {
         ext.addTest('apple pie', [], 'eip elppa');
     }
 });
-function StringReverse() {
+function stringReverse() {
     var out = '';
     for (var i = this.length - 1; i >= 0; i--) {
         out += this[i];
     }
     return out;
 }
-singString.method('repeat', StringRepeat, {
+singString.method('repeat', stringRepeat, {
     summary: null,
     parameters: null,
     returns: '',
@@ -2874,7 +2874,7 @@ singString.method('repeat', StringRepeat, {
         ext.addTest('apple', [3, ' '], 'apple apple apple');
     }
 });
-function StringRepeat(times, separator) {
+function stringRepeat(times, separator) {
     if (times === void 0) { times = 0; }
     if (separator === void 0) { separator = ''; }
     if (times <= 0)
@@ -2887,7 +2887,7 @@ function StringRepeat(times, separator) {
     }
     return out;
 }
-singString.method('words', StringWords, {
+singString.method('words', stringWords, {
     summary: null,
     parameters: null,
     returns: '',
@@ -2900,10 +2900,10 @@ singString.method('words', StringWords, {
         ext.addTest('apple pie', [], ['apple', 'pie']);
     }
 });
-function StringWords() {
+function stringWords() {
     return this.collapseSpaces().split(' ');
 }
-singString.method('lines', StringLines, {
+singString.method('lines', stringLines, {
     summary: null,
     parameters: null,
     returns: '',
@@ -2917,10 +2917,10 @@ singString.method('lines', StringLines, {
         ext.addTest('apple pie\r\napple pie', [], ['apple pie', 'apple pie']);
     }
 });
-function StringLines() {
+function stringLines() {
     return this.split('\r\n');
 }
-singString.method('surround', StringSurround, {
+singString.method('surround', stringSurround, {
     summary: null,
     parameters: null,
     returns: '',
@@ -2934,12 +2934,12 @@ singString.method('surround', StringSurround, {
         ext.addTest('pie', ['---'], '---pie---');
     }
 });
-function StringSurround(str) {
+function stringSurround(str) {
     if (!str)
         return this;
     return str + this + str;
 }
-singString.method('truncate', StringTruncate, {
+singString.method('truncate', stringTruncate, {
     summary: null,
     parameters: null,
     returns: '',
@@ -2957,7 +2957,7 @@ singString.method('truncate', StringTruncate, {
         ext.addTest('abc', [5], 'abc');
     }
 });
-function StringTruncate(length) {
+function stringTruncate(length) {
     if (this.length < 0 || isNaN(length))
         return '';
     var thisStr = this;
@@ -2967,7 +2967,7 @@ function StringTruncate(length) {
         return thisStr.substr(0, length).toString();
     return thisStr;
 }
-singString.method('isValidEmail', StringIsValidEmail, {
+singString.method('isValidEmail', stringIsValidEmail, {
     summary: null,
     parameters: null,
     returns: '',
@@ -2977,11 +2977,11 @@ singString.method('isValidEmail', StringIsValidEmail, {
     tests: function (ext) {
     }
 });
-function StringIsValidEmail() {
+function stringIsValidEmail() {
     var thisStr = this;
     return thisStr.hasMatch(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/);
 }
-singString.method('isHex', StringIsHex, {
+singString.method('isHex', stringIsHex, {
     summary: null,
     parameters: null,
     returns: '',
@@ -2991,11 +2991,11 @@ singString.method('isHex', StringIsHex, {
     tests: function (ext) {
     }
 });
-function StringIsHex() {
+function stringIsHex() {
     var thisStr = this;
     return thisStr.hasMatch(/^#?([a-f0-9]{6}|[a-f0-9]{3})$/);
 }
-singString.method('isValidURL', StringIsValidURL, {
+singString.method('isValidURL', stringIsValidUrl, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3005,11 +3005,11 @@ singString.method('isValidURL', StringIsValidURL, {
     tests: function (ext) {
     }
 });
-function StringIsValidURL() {
+function stringIsValidUrl() {
     var thisStr = this;
     return thisStr.hasMatch(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/);
 }
-singString.method('isIPAddress', StringIsIPAddress, {
+singString.method('isIPAddress', stringIsIpAddress, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3019,11 +3019,11 @@ singString.method('isIPAddress', StringIsIPAddress, {
     tests: function (ext) {
     }
 });
-function StringIsIPAddress() {
+function stringIsIpAddress() {
     var thisStr = this;
     return thisStr.hasMatch(/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/);
 }
-singString.method('isGuid', StringIsGuid, {
+singString.method('isGuid', stringIsGuid, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3033,11 +3033,11 @@ singString.method('isGuid', StringIsGuid, {
     tests: function (ext) {
     }
 });
-function StringIsGuid() {
+function stringIsGuid() {
     var thisStr = this;
     return thisStr.hasMatch(/^\{?[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}‌​\}?$/);
 }
-singString.method('tryToNumber', StringTryToNumber, {
+singString.method('tryToNumber', stringTryToNumber, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3047,7 +3047,7 @@ singString.method('tryToNumber', StringTryToNumber, {
     tests: function (ext) {
     }
 });
-function StringTryToNumber(defaultValue) {
+function stringTryToNumber(defaultValue) {
     if (defaultValue === void 0) { defaultValue = this; }
     var retValue = defaultValue;
     if (true) {
@@ -3060,7 +3060,7 @@ function StringTryToNumber(defaultValue) {
     }
     return $.isNumber(retValue) ? retValue : null;
 }
-singString.method('joinLines', StringJoinLines, {
+singString.method('joinLines', stringJoinLines, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3070,11 +3070,11 @@ singString.method('joinLines', StringJoinLines, {
     tests: function (ext) {
     }
 }, Array.prototype);
-function StringJoinLines(asHTML) {
+function stringJoinLines(asHTML) {
     if (asHTML === void 0) { asHTML = true; }
     return this.join(asHTML ? '<br/>' : '\r\n');
 }
-singString.method('pad', StringPad, {
+singString.method('pad', stringPad, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3092,7 +3092,7 @@ singString.method('pad', StringPad, {
         ext.addTest('a', [5, 'wrong'], 'a');
     }
 });
-function StringPad(length, align, whitespace) {
+function stringPad(length, align, whitespace) {
     if (align === void 0) { align = Direction.left; }
     if (whitespace === void 0) { whitespace = ' '; }
     if (align != Direction.left && align != Direction.l &&
@@ -3115,7 +3115,7 @@ function StringPad(length, align, whitespace) {
     }
     return out;
 }
-singString.method('toStr', BooleanToStr, {
+singString.method('toStr', booleanToStr, {
     summary: 'Converts the calling Boolean to string.',
     parameters: [
         {
@@ -3140,13 +3140,13 @@ singString.method('toStr', BooleanToStr, {
         ext.addTest(false, [true], 'false');
     }
 }, Boolean.prototype, 'Boolean');
-function BooleanToStr(includeMarkup) {
+function booleanToStr(includeMarkup) {
     if (includeMarkup === void 0) { includeMarkup = false; }
     if (includeMarkup == false)
         return this.toYesNo();
     return this == false ? 'false' : 'true';
 }
-singString.method('toStr', ObjectToStr, {
+singString.method('toStr', objectToStr, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3199,7 +3199,7 @@ singString.method('toStr', ObjectToStr, {
         ext.addTest($, [sing], 'sing');
     }
 }, $, 'jQuery');
-function ObjectToStr(obj, includeMarkup, stack) {
+function objectToStr(obj, includeMarkup, stack) {
     if (includeMarkup === void 0) { includeMarkup = false; }
     if (stack === void 0) { stack = []; }
     if (obj === undefined)
@@ -3210,7 +3210,7 @@ function ObjectToStr(obj, includeMarkup, stack) {
         return '$';
     if (obj === sing)
         return 'sing';
-    if (obj.toStr && obj.toStr != ObjectToStr)
+    if (obj.toStr && obj.toStr != objectToStr)
         return obj.toStr(includeMarkup);
     if (typeof obj == 'object') {
         if (obj.toString && obj.toString !== ({}).toString)
@@ -3237,7 +3237,7 @@ function ObjectToStr(obj, includeMarkup, stack) {
     }
     return obj;
 }
-singString.method('toStr', ArrayToStr, {
+singString.method('toStr', arrayToStr, {
     summary: null,
     parameters: null,
     returns: null,
@@ -3247,7 +3247,7 @@ singString.method('toStr', ArrayToStr, {
     tests: function (ext) {
     }
 }, Array.prototype, 'Array');
-function ArrayToStr(includeMarkup) {
+function arrayToStr(includeMarkup) {
     var _this = this;
     if (includeMarkup === void 0) { includeMarkup = false; }
     var thisArray = this;
@@ -3259,15 +3259,15 @@ function ArrayToStr(includeMarkup) {
             out += 'undefined';
         else if (item.toStr)
             out += item.toStr(includeMarkup);
-        else if (ObjectIsHash(item))
-            out += ObjectToStr(item, includeMarkup);
+        else if (objectIsHash(item))
+            out += objectToStr(item, includeMarkup);
         if (i < _this.length - 1)
             out += includeMarkup ? ', ' : '\r\n';
     });
     out += includeMarkup ? ']' : '';
     return out;
 }
-singString.method('toStr', StringToStr, {
+singString.method('toStr', stringToStr, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3277,13 +3277,13 @@ singString.method('toStr', StringToStr, {
     tests: function (ext) {
     }
 });
-function StringToStr(includeMarkup) {
+function stringToStr(includeMarkup) {
     if (includeMarkup === void 0) { includeMarkup = false; }
     if (includeMarkup)
         return "'" + this.replaceAll('\r\n', '\\r\\n') + "'";
     return this;
 }
-singString.method('isString', IsString, {
+singString.method('isString', isString, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3299,10 +3299,10 @@ singString.method('isString', IsString, {
         ext.addTest($, ['a'], true);
     }
 }, $);
-function IsString(str) {
+function isString(str) {
     return typeof str == 'string';
 }
-singString.method('first', StringFirst, {
+singString.method('first', stringFirst, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3312,14 +3312,14 @@ singString.method('first', StringFirst, {
     tests: function (ext) {
     }
 });
-function StringFirst(count) {
+function stringFirst(count) {
     if (count <= 0)
         return '';
     if (count >= this.length)
         return this;
     return this.substr(0, count);
 }
-singString.method('last', StringLast, {
+singString.method('last', stringLast, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3329,14 +3329,14 @@ singString.method('last', StringLast, {
     tests: function (ext) {
     }
 });
-function StringLast(count) {
+function stringLast(count) {
     if (count <= 0)
         return '';
     if (count >= this.length)
         return this;
     return this.substr(this.length - count, count);
 }
-singString.method('containsAny', StringContainsAny, {
+singString.method('containsAny', stringContainsAny, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3346,7 +3346,7 @@ singString.method('containsAny', StringContainsAny, {
     tests: function (ext) {
     }
 });
-function StringContainsAny() {
+function stringContainsAny() {
     var items = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         items[_i - 0] = arguments[_i];
@@ -3357,7 +3357,7 @@ function StringContainsAny() {
         return this.contains(item);
     });
 }
-singString.method('before', StringBefore, {
+singString.method('before', stringBefore, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3367,7 +3367,7 @@ singString.method('before', StringBefore, {
     tests: function (ext) {
     }
 });
-function StringBefore(search) {
+function stringBefore(search) {
     if (search == '')
         return this;
     var index = this.indexOf(search);
@@ -3375,7 +3375,7 @@ function StringBefore(search) {
         return this;
     return this.substr(0, index).before(search);
 }
-singString.method('after', StringAfter, {
+singString.method('after', stringAfter, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3385,7 +3385,7 @@ singString.method('after', StringAfter, {
     tests: function (ext) {
     }
 });
-function StringAfter(search) {
+function stringAfter(search) {
     if (search == '')
         return this;
     var index = this.indexOf(search);
@@ -3393,7 +3393,7 @@ function StringAfter(search) {
         return this;
     return this.substr(index + search.length).after(search);
 }
-singString.method('beforeLast', StringBeforeLast, {
+singString.method('beforeLast', stringBeforeLast, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3403,7 +3403,7 @@ singString.method('beforeLast', StringBeforeLast, {
     tests: function (ext) {
     }
 });
-function StringBeforeLast(search) {
+function stringBeforeLast(search) {
     if (search == '')
         return this;
     var index = this.indexOf(search);
@@ -3411,7 +3411,7 @@ function StringBeforeLast(search) {
         return this;
     return this.substr(0, index);
 }
-singString.method('afterFirst', StringAfterFirst, {
+singString.method('afterFirst', stringAfterFirst, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3421,7 +3421,7 @@ singString.method('afterFirst', StringAfterFirst, {
     tests: function (ext) {
     }
 });
-function StringAfterFirst(search) {
+function stringAfterFirst(search) {
     if (search == '')
         return this;
     var index = this.indexOf(search);
@@ -3429,7 +3429,7 @@ function StringAfterFirst(search) {
         return this;
     return this.substr(index + search.length);
 }
-singString.method('toSlug', StringToSlug, {
+singString.method('toSlug', stringToSlug, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3439,14 +3439,14 @@ singString.method('toSlug', StringToSlug, {
     tests: function (ext) {
     }
 });
-function StringToSlug() {
-    var Text = this || '';
-    Text = Text.toLowerCase();
-    Text = Text.replace(/\./g, '_');
-    Text = Text.replace(/\s/g, '-');
-    return Text;
+function stringToSlug() {
+    var text = this || '';
+    text = text.toLowerCase();
+    text = text.replace(/\./g, '_');
+    text = text.replace(/\s/g, '-');
+    return text;
 }
-singString.method('containsAll', StringContainsAll, {
+singString.method('containsAll', stringContainsAll, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3456,7 +3456,7 @@ singString.method('containsAll', StringContainsAll, {
     tests: function (ext) {
     }
 });
-function StringContainsAll() {
+function stringContainsAll() {
     var items = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         items[_i - 0] = arguments[_i];
@@ -3470,7 +3470,7 @@ function StringContainsAll() {
     }
     return true;
 }
-singString.method('pluralize', StringPluralize, {
+singString.method('pluralize', stringPluralize, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3480,7 +3480,7 @@ singString.method('pluralize', StringPluralize, {
     tests: function (ext) {
     }
 });
-function StringPluralize(count) {
+function stringPluralize(count) {
     var thisStr = this;
     if (count === undefined || count === null)
         return thisStr;
@@ -3488,7 +3488,7 @@ function StringPluralize(count) {
         return thisStr + "s";
     return thisStr;
 }
-singString.method('isJSON', StringIsJSON, {
+singString.method('isJSON', stringIsJson, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3498,7 +3498,7 @@ singString.method('isJSON', StringIsJSON, {
     tests: function (ext) {
     }
 });
-function StringIsJSON() {
+function stringIsJson() {
     try {
         var thisStr = this;
         var jsonObject = jQuery.parseJSON(thisStr);
@@ -3508,7 +3508,7 @@ function StringIsJSON() {
         return false;
     }
 }
-singString.method('parseJSON', StringParseJSON, {
+singString.method('parseJSON', stringParseJson, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3518,12 +3518,12 @@ singString.method('parseJSON', StringParseJSON, {
     tests: function (ext) {
     }
 });
-function StringParseJSON() {
+function stringParseJson() {
     var thisStr = this;
     var jsonObject = jQuery.parseJSON(thisStr);
     return jsonObject;
 }
-singString.method('fill', StringFill, {
+singString.method('fill', stringFill, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3533,7 +3533,7 @@ singString.method('fill', StringFill, {
     tests: function (ext) {
     }
 });
-function StringFill(fillWith) {
+function stringFill(fillWith) {
     if (this.length == 0)
         return '';
     var thisStr = this;
@@ -3547,7 +3547,7 @@ function StringFill(fillWith) {
         out = out.substr(0, thisStr.length);
     return out;
 }
-function Test() {
+function test() {
     var bracketStart = '{';
     var bracketEnd = '}';
     var block = this;
@@ -3602,7 +3602,7 @@ function Test() {
 }
 var singHTML = singString.addModule(new sing.Module('HTML', String));
 singHTML.glyphIcon = '&#xe022;';
-singHTML.method('textToHTML', StringTextToHTML, {
+singHTML.method('textToHTML', stringTextToHTML, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3611,12 +3611,12 @@ singHTML.method('textToHTML', StringTextToHTML, {
     tests: function (ext) {
     }
 });
-function StringTextToHTML() {
+function stringTextToHTML() {
     return this.replaceAll('\r\n', '\n')
         .replaceAll('\n', '<br/>')
         .replaceAll('  ', '&nbsp;&nbsp;');
 }
-singHTML.method('stripHTML', StringStripHTML, {
+singHTML.method('stripHTML', stringStripHTML, {
     summary: null,
     parameters: null,
     returns: '',
@@ -3625,13 +3625,13 @@ singHTML.method('stripHTML', StringStripHTML, {
     tests: function (ext) {
     }
 });
-function StringStripHTML() {
+function stringStripHTML() {
     var out = this;
     var pattern = /.*\<(.+)\>.*/;
     out.replaceRegExp(pattern, / /);
     return out;
 }
-singHTML.method('getAttributes', GetAttributes, {
+singHTML.method('getAttributes', getAttributes, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -3641,7 +3641,7 @@ singHTML.method('getAttributes', GetAttributes, {
     tests: function (ext) {
     }
 }, $.fn);
-function GetAttributes() {
+function getAttributes() {
     var thisJQuery = this;
     var attrs = [];
     thisJQuery.each(function () {
@@ -3668,13 +3668,13 @@ function GetAttributes() {
     if (attrs.length == 0)
         return [];
 }
-function InitHTMLExtensions() {
-    InitKeyBindClick();
-    InitRememberPage();
-    InitClickActions();
-    InitPropertyIf();
-    InitIdent();
-    InitHoverSrc();
+function initHTMLExtensions() {
+    initKeyBindClick();
+    initRememberPage();
+    initClickActions();
+    initPropertyIf();
+    initIdent();
+    initHoverSrc();
     $('ul#menu a').each(function () {
         if (document.URL.indexOf($(this).attr('href')) > 0) {
             $('.active-page').removeClass('active-page');
@@ -3731,11 +3731,11 @@ function InitHTMLExtensions() {
         });
     }
     $('.field-list-add-drag').each(function () {
-        var ListParent = $(this);
+        var listParent = $(this);
         $(this).find('.field-list-row').mousedown(function (e) {
             e.stopPropagation();
-            ListParent.find('.field-name').show();
-            ListParent.find('.field-token').hide();
+            listParent.find('.field-name').show();
+            listParent.find('.field-token').hide();
             $(this).data('toggled', 'true');
             $(this).find('.field-name').hide();
             $(this).find('.field-token').show();
@@ -3801,9 +3801,9 @@ function InitHTMLExtensions() {
     }
 }
 var Identicon;
-var jsSHA;
-function InitIdent() {
-    if (Identicon && jsSHA) {
+var jsSha;
+function initIdent() {
+    if (Identicon && jsSha) {
         var ident = $('ident');
         ident.each(function () {
             var thisJQuery = $(this);
@@ -3813,14 +3813,14 @@ function InitIdent() {
             var styles = (thisJQuery.attr('style') || '');
             var icon = new Identicon(hash, size);
             var salt = 'SingularitySalt';
-            var shaObj = new jsSHA(hash + salt, 'TEXT');
+            var shaObj = new jsSha(hash + salt, 'TEXT');
             var hash2 = shaObj.getHash('SHA-256', 'HEX', 1);
             var data = new Identicon(hash2, size);
             $(this).html("<img width=\"" + size + "\" height=\"" + size + "\" src=\"data:image/png;base64," + data + "\" class=\"" + classes + "\" style=\"" + styles + "\">");
         });
     }
 }
-function InitHoverSrc() {
+function initHoverSrc() {
     var animated = $("img[" + sing.constants.htmlAttr.HoverSrc + "]");
     animated.each(function () {
         var thisElement = $(this);
@@ -3836,7 +3836,7 @@ function InitHoverSrc() {
         });
     });
 }
-function PropertyIf(propertyName, changeTrue, changeFalse) {
+function propertyIf(propertyName, changeTrue, changeFalse) {
     $("*[" + propertyName + "-if]").each(function () {
         var propertyTarget = $(this);
         var ifTargetName = propertyTarget.attr(propertyName + "-if");
@@ -3862,44 +3862,44 @@ function PropertyIf(propertyName, changeTrue, changeFalse) {
         }
     });
 }
-function InitPropertyIf() {
-    PropertyIf('show', function (target) {
+function initPropertyIf() {
+    propertyIf('show', function (target) {
         target.show('fast');
     }, function (target) {
         target.hide('fast');
     });
-    PropertyIf('hide', function (target) {
+    propertyIf('hide', function (target) {
         target.hide('fast');
     }, function (target) {
         target.show('fast');
     });
-    PropertyIf('enabled', function (target) {
+    propertyIf('enabled', function (target) {
         target.removeAttr('disabled');
     }, function (target) {
         target.attr('disabled', 'disabled');
     });
-    PropertyIf('disabled', function (target) {
+    propertyIf('disabled', function (target) {
         target.attr('disabled', 'disabled');
     }, function (target) {
         target.removeAttr('disabled');
     });
-    PropertyIf('readonly', function (target) {
+    propertyIf('readonly', function (target) {
         target.attr('readonly', 'readonly');
     }, function (target) {
         target.removeAttr('readonly');
     });
-    PropertyIf('selected', function (target) {
+    propertyIf('selected', function (target) {
         target.attr('selected', 'selected');
     }, function (target) {
         target.removeAttr('selected');
     });
-    PropertyIf('checked', function (target) {
+    propertyIf('checked', function (target) {
         target.attr('checked', 'checked');
     }, function (target) {
         target.removeAttr('checked');
     });
 }
-function InitClickActions() {
+function initClickActions() {
     $("*[" + sing.constants.htmlAttr.Click.Show + "]").each(function () {
         var target = $(this).attr(sing.constants.htmlAttr.Click.Show);
         $(this).click(function () {
@@ -4003,7 +4003,7 @@ function InitClickActions() {
         });
     });
 }
-function InitRememberPage() {
+function initRememberPage() {
     $("*[" + sing.constants.htmlAttr.GoToRememberPage + "]").each(function () {
         if (!$.cookie)
             return;
@@ -4051,7 +4051,7 @@ var keyCharToCode = {
     "=": 187, ",": 188, "-": 189, ".": 190, "/": 191, "`": 192, "[": 219, "\\": 220, "]": 221, "'": 222
 };
 var wysihtml5Editor;
-function InitKeyBindClick() {
+function initKeyBindClick() {
     var down = [];
     $("*[" + sing.constants.htmlAttr.Click.CtrlHref + "]").click(function (e) {
         if (down[keyCharToCode['Ctrl']]) {
@@ -4114,7 +4114,7 @@ function InitKeyBindClick() {
     }).keyup(function (e) {
         down[e.keyCode] = false;
     });
-    var KeyBindTip = '';
+    var keyBindTip = '';
     $("*[" + sing.constants.htmlAttr.Click.KeyBindClick + "]").each(function () {
         var keyCode = $(this).attr(sing.constants.htmlAttr.Click.KeyBindClick);
         var commandName = $(this).attr(sing.constants.htmlAttr.Click.KeyBindClickName);
@@ -4125,8 +4125,8 @@ function InitKeyBindClick() {
         var key1;
         if (keyCode.indexOf('+') > 0 && keyCode.indexOf('+') < keyCode.length - 1) {
             console.log(keyCode);
-            key1 = StringTryToNumber(keyCode.substr(0, keyCode.indexOf('+')));
-            var key2 = StringTryToNumber(keyCode.substr(keyCode.indexOf('+') + 1));
+            key1 = stringTryToNumber(keyCode.substr(0, keyCode.indexOf('+')));
+            var key2 = stringTryToNumber(keyCode.substr(keyCode.indexOf('+') + 1));
             if (!key1)
                 key1 = keyCharToCode[keyCode.substr(0, keyCode.indexOf('+'))];
             if (!key2)
@@ -4135,27 +4135,27 @@ function InitKeyBindClick() {
                 commandName = "<a style='cursor: pointer;' onclick='location.href = \"" + href + "\";'>" + commandName + "</a>";
             else if (id)
                 commandName = "<a style='cursor: pointer;' onclick='$(\"#" + id + "\").click();'>" + commandName + "</a>";
-            KeyBindTip += "<b>" + keyCode.substr(0, keyCode.indexOf('+')) + "+" + keyCode.substr(keyCode.indexOf('+') + 1) + "</b> - " + commandName;
-            KeyBindTip += '<br>';
+            keyBindTip += "<b>" + keyCode.substr(0, keyCode.indexOf('+')) + "+" + keyCode.substr(keyCode.indexOf('+') + 1) + "</b> - " + commandName;
+            keyBindTip += '<br>';
         }
         else {
-            key1 = StringTryToNumber(keyCode);
+            key1 = stringTryToNumber(keyCode);
             if (!key1)
                 key1 = keyCharToCode[keyCode];
             if (href)
                 commandName = "<a style='cursor: pointer;' onclick='location.href = \"" + href + "\";'>" + commandName + "</a>";
             else if (id)
                 commandName = "<a style='cursor: pointer;' onclick='$(\"#" + id + "\").click();'>" + commandName + "</a>";
-            KeyBindTip += "<b>" + keyCode + "</b> - " + commandName;
-            KeyBindTip += '<br>';
+            keyBindTip += "<b>" + keyCode + "</b> - " + commandName;
+            keyBindTip += '<br>';
         }
     });
-    if (KeyBindTip)
-        $('#key-bind-page-tip').html(KeyBindTip);
+    if (keyBindTip)
+        $('#key-bind-page-tip').html(keyBindTip);
     else
         $('#key-bind-page-tip').parent().hide();
 }
-function InitFields() {
+function initFields() {
     $('.tab-container *[href]').each(function () {
         var href = $(this).attr('href');
         if (href.indexOf('#') < 0) {
@@ -4163,15 +4163,10 @@ function InitFields() {
         }
     });
     $('#randomize-fields').click(function () {
-        RandomFields();
+        randomFields();
     });
     try {
         $('.datepicker').datepicker();
-    }
-    catch (ex) {
-    }
-    try {
-        $('.timepicker').timepicker({ step: 15 });
     }
     catch (ex) {
     }
@@ -4225,79 +4220,79 @@ function InitFields() {
     catch (ex) {
     }
 }
-function RandomFields() {
+function randomFields() {
     $('.field[data-type-name]').each(function () {
-        var ObjectType = $(this).attr('data-object-type');
-        var DataTypeName = $(this).attr('data-type-name');
-        var Maximum = parseFloat($(this).attr('maximum'));
-        var Minimum = parseFloat($(this).attr('minimum'));
-        var Object = null;
+        var objectType = $(this).attr('data-object-type');
+        var dataTypeName = $(this).attr('data-type-name');
+        var maximum = parseFloat($(this).attr('maximum'));
+        var minimum = parseFloat($(this).attr('minimum'));
+        var object = null;
         var chance = new Chance(Math.random);
-        if (DataTypeName == 'MultilineText') {
-            Object = chance.paragraph({ sentences: 6 });
-            $(this).find('textarea').val(Object);
+        if (dataTypeName == 'MultilineText') {
+            object = chance.paragraph({ sentences: 6 });
+            $(this).find('textarea').val(object);
             return;
         }
-        else if (ObjectType == 'System.String') {
-            Object = chance.string();
+        else if (objectType == 'System.String') {
+            object = chance.string();
         }
-        if (ObjectType == 'System.Nullable`1[System.Int32]' ||
-            ObjectType == 'System.Int32') {
-            if (Maximum && Minimum) {
-                Object = chance.integer({ min: Minimum, max: Maximum });
-                $(this).find('.int-range').slider('value', Object);
+        if (objectType == 'System.Nullable`1[System.Int32]' ||
+            objectType == 'System.Int32') {
+            if (maximum && minimum) {
+                object = chance.integer({ min: minimum, max: maximum });
+                $(this).find('.int-range').slider('value', object);
                 return;
             }
             else
-                Object = chance.integer();
+                object = chance.integer();
         }
-        if (ObjectType == 'System.Nullable`1[System.Guid]' ||
-            ObjectType == 'System.Guid') {
-            Object = chance.guid();
+        if (objectType == 'System.Nullable`1[System.Guid]' ||
+            objectType == 'System.Guid') {
+            object = chance.guid();
         }
-        if (ObjectType == 'System.Nullable`1[System.DateTime]' ||
-            ObjectType == 'System.DateTime') {
-            if (DataTypeName == 'Date') {
-                Object = chance.date({ string: true });
+        if (objectType == 'System.Nullable`1[System.DateTime]' ||
+            objectType == 'System.DateTime') {
+            if (dataTypeName == 'Date') {
+                object = chance.date({ string: true });
             }
-            else if (DataTypeName == 'Time') {
-                Object = chance.hour({ twentyfour: true }) + ":" + chance.minute() + ":" + chance.second();
+            else if (dataTypeName == 'Time') {
+                object = chance.hour({ twentyfour: true }) + ":" + chance.minute() + ":" + chance.second();
             }
-            else if (DataTypeName == 'DateTime') {
-                Object = chance.date({ string: true }) + " " + chance.hour({ twentyfour: true }) + ":" + chance.minute() + ":" + chance.second();
+            else if (dataTypeName == 'DateTime') {
+                object = chance.date({ string: true }) + " " + chance.hour({ twentyfour: true }) + ":" + chance.minute() + ":" + chance.second();
             }
         }
-        if (DataTypeName == 'PhoneNumber') {
-            Object = chance.phone();
+        if (dataTypeName == 'PhoneNumber') {
+            object = chance.phone();
         }
-        if (DataTypeName == 'EmailAddress') {
-            Object = chance.email();
+        if (dataTypeName == 'EmailAddress') {
+            object = chance.email();
         }
-        if (DataTypeName == 'CreditCard') {
-            Object = chance.cc();
+        if (dataTypeName == 'CreditCard') {
+            object = chance.cc();
         }
-        if (DataTypeName == 'PostalCode') {
-            Object = chance.postal();
+        if (dataTypeName == 'PostalCode') {
+            object = chance.postal();
         }
-        if (DataTypeName == 'ImageUrl') {
-            Object = "https://placekitten.com/g/" + chance.integer({ min: 200, max: 500 }) + "/" + chance.integer({ min: 200, max: 500 });
+        if (dataTypeName == 'ImageUrl') {
+            object = "https://placekitten.com/g/" + chance.integer({ min: 200, max: 500 }) + "/" + chance.integer({ min: 200, max: 500 });
         }
-        if (DataTypeName == 'Url') {
-            Object = chance.domain();
+        if (dataTypeName == 'Url') {
+            object = chance.domain();
         }
-        if (ObjectType == 'System.Nullable`1[System.TimeSpan]' ||
-            ObjectType == 'System.TimeSpan') {
+        if (objectType == 'System.Nullable`1[System.TimeSpan]' ||
+            objectType == 'System.TimeSpan') {
         }
-        if (ObjectType == 'System.Nullable`1[System.Boolean]' ||
-            ObjectType == 'System.Boolean') {
+        if (objectType == 'System.Nullable`1[System.Boolean]' ||
+            objectType == 'System.Boolean') {
             $(this).find('input[type=radio]').each(function () {
                 if (chance.bool()) {
                     $(this).click();
                 }
             });
         }
-        if (ObjectType == 'System.Nullable`1[System.Single]' ||
-            ObjectType == 'System.Single') {
+        if (objectType == 'System.Nullable`1[System.Single]' ||
+            objectType == 'System.Single') {
         }
         var max;
         var selection;
@@ -4311,12 +4306,12 @@ function RandomFields() {
             selection = chance.integer({ min: 0, max: max - 1 });
             $(this).find('ui-menu ui-menu-item')[selection].click();
         }
-        if (Object) {
-            $(this).find('input').val(Object).change();
+        if (object) {
+            $(this).find('input').val(object).change();
         }
     });
 }
-function ObjectToHtml(obj, parentKey, context) {
+function objectToHtml(obj, parentKey, context) {
     if (parentKey === void 0) { parentKey = null; }
     if (context === void 0) { context = null; }
     if (!obj)
@@ -4352,7 +4347,7 @@ function ObjectToHtml(obj, parentKey, context) {
     }
     return out;
 }
-function HtmlToObject(html) {
+function htmlToObject(html) {
     if (!html || html.trim().length == 0)
         return '';
 }
@@ -4451,7 +4446,7 @@ var testStructure = {
 var singJQuery = singExt.addModule(new sing.Module('jQuery', [$, $.fn], $));
 singJQuery.glyphIcon = '&#xe148;';
 singJQuery.ignoreUnknown('ALL');
-singJQuery.method('checked', Checked, {
+singJQuery.method('checked', checked, {
     summary: null,
     parameters: null,
     returns: '',
@@ -4461,7 +4456,7 @@ singJQuery.method('checked', Checked, {
     tests: function (ext) {
     }
 }, $.fn);
-function Checked() {
+function checked() {
     var anyChecked = false;
     this.each(function () {
         var thisJQuery = $(this);
@@ -4470,7 +4465,7 @@ function Checked() {
     });
     return anyChecked;
 }
-singJQuery.method('allVisible', AllVisible, {
+singJQuery.method('allVisible', allVisible, {
     summary: null,
     parameters: null,
     returns: '',
@@ -4480,7 +4475,7 @@ singJQuery.method('allVisible', AllVisible, {
     tests: function (ext) {
     }
 }, $.fn);
-function AllVisible() {
+function allVisible() {
     var allVisible = true;
     this.each(function () {
         var opacity = $(this).attr('opacity');
@@ -4493,7 +4488,7 @@ function AllVisible() {
     });
     return allVisible;
 }
-singJQuery.method('findIDNameSelector', FindIDNameSelector, {
+singJQuery.method('findIDNameSelector', findIDNameSelector, {
     summary: null,
     parameters: null,
     returns: '',
@@ -4503,7 +4498,7 @@ singJQuery.method('findIDNameSelector', FindIDNameSelector, {
     tests: function (ext) {
     }
 }, $.fn);
-function FindIDNameSelector(name) {
+function findIDNameSelector(name) {
     var target = $();
     try {
         target = $(this).find("#" + name);
@@ -4521,7 +4516,7 @@ function FindIDNameSelector(name) {
         catch (ex) { }
     return target || $();
 }
-singJQuery.method('actionIf', ActionIf, {
+singJQuery.method('actionIf', actionIf, {
     summary: null,
     parameters: null,
     returns: '',
@@ -4531,7 +4526,7 @@ singJQuery.method('actionIf', ActionIf, {
     tests: function (ext) {
     }
 }, $.fn);
-function ActionIf(name) {
+function actionIf(name) {
     var target = $(this);
     var ifTargetName = target.attr(name + "-if");
     if (!ifTargetName)
@@ -4603,7 +4598,7 @@ function ActionIf(name) {
     }
 }
 ;
-singJQuery.method('defer', Defer, {
+singJQuery.method('defer', defer, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -4615,11 +4610,11 @@ singJQuery.method('defer', Defer, {
     tests: function (ext) {
     }
 });
-function Defer(deferFunc) {
+function defer(deferFunc) {
     if (deferFunc)
         setTimeout(deferFunc, 0);
 }
-singJQuery.method('hasAttr', JQueryHasAttr, {
+singJQuery.method('hasAttr', jQueryHasAttr, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -4630,10 +4625,10 @@ singJQuery.method('hasAttr', JQueryHasAttr, {
     tests: function (ext) {
     }
 }, $.fn);
-function JQueryHasAttr(name) {
+function jQueryHasAttr(name) {
     return $(this).attr(name) !== undefined;
 }
-singJQuery.method('outerHtml', JQueryOuterHtml, {
+singJQuery.method('outerHtml', jQueryOuterHtml, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -4644,7 +4639,7 @@ singJQuery.method('outerHtml', JQueryOuterHtml, {
     tests: function (ext) {
     }
 }, $.fn);
-function JQueryOuterHtml() {
+function jQueryOuterHtml() {
     if (this.length == 0) {
         return '';
     }
@@ -4652,7 +4647,7 @@ function JQueryOuterHtml() {
         return this[0].outerHTML;
     }
 }
-singJQuery.method('innerHtml', JQueryInnerHtml, {
+singJQuery.method('innerHtml', jQueryInnerHtml, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -4663,7 +4658,7 @@ singJQuery.method('innerHtml', JQueryInnerHtml, {
     tests: function (ext) {
     }
 }, $.fn);
-function JQueryInnerHtml() {
+function jQueryInnerHtml() {
     if (this.length == 0) {
         return '';
     }
@@ -4671,7 +4666,7 @@ function JQueryInnerHtml() {
         return this[0].innerHTML;
     }
 }
-singJQuery.method('isOnScreen', JQueryIsOnScreen, {
+singJQuery.method('isOnScreen', jQueryIsOnScreen, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -4682,7 +4677,7 @@ singJQuery.method('isOnScreen', JQueryIsOnScreen, {
     tests: function (ext) {
     }
 }, $.fn);
-function JQueryIsOnScreen(x, y) {
+function jQueryIsOnScreen(x, y) {
     if (x === void 0) { x = 1; }
     if (y === void 0) { y = 1; }
     var win = $(window);
@@ -4718,7 +4713,7 @@ function JQueryIsOnScreen(x, y) {
     return (deltas.left * deltas.right) >= x && (deltas.top * deltas.bottom) >= y;
 }
 ;
-singJQuery.method('swapClasses', JQuerySwapClass, {
+singJQuery.method('swapClasses', jQuerySwapClass, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -4729,7 +4724,7 @@ singJQuery.method('swapClasses', JQuerySwapClass, {
     tests: function (ext) {
     }
 }, $.fn);
-function JQuerySwapClass(class1, class2) {
+function jQuerySwapClass(class1, class2) {
     var thisJQuery = this;
     if (true) {
         if (thisJQuery.hasClass(class1)) {
@@ -4747,7 +4742,7 @@ function JQuerySwapClass(class1, class2) {
     return thisJQuery;
 }
 ;
-singJQuery.method('fadeClasses', JQueryFadeClass, {
+singJQuery.method('fadeClasses', jQueryFadeClass, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -4758,7 +4753,7 @@ singJQuery.method('fadeClasses', JQueryFadeClass, {
     tests: function (ext) {
     }
 }, $.fn);
-function JQueryFadeClass(class1, class2, speed, callback) {
+function jQueryFadeClass(class1, class2, speed, callback) {
     if (speed === void 0) { speed = 'fast'; }
     var thisJQuery = this;
     if (true) {
@@ -4795,7 +4790,7 @@ function JQueryFadeClass(class1, class2, speed, callback) {
     return thisJQuery;
 }
 ;
-singJQuery.method('superFadeOut', JQuerySuperFadeOut, {
+singJQuery.method('superFadeOut', jQuerySuperFadeOut, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -4806,7 +4801,7 @@ singJQuery.method('superFadeOut', JQuerySuperFadeOut, {
     tests: function (ext) {
     }
 }, $.fn);
-function JQuerySuperFadeOut(speed) {
+function jQuerySuperFadeOut(speed) {
     if (speed === void 0) { speed = 'fast'; }
     var thisJQuery = this;
     thisJQuery.each(function () {
@@ -4831,7 +4826,7 @@ function JQuerySuperFadeOut(speed) {
     return thisJQuery;
 }
 ;
-singJQuery.method('superFadeIn', JQuerySuperFadeIn, {
+singJQuery.method('superFadeIn', jQuerySuperFadeIn, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -4842,7 +4837,7 @@ singJQuery.method('superFadeIn', JQuerySuperFadeIn, {
     tests: function (ext) {
     }
 }, $.fn);
-function JQuerySuperFadeIn(speed) {
+function jQuerySuperFadeIn(speed) {
     if (speed === void 0) { speed = 'fast'; }
     var thisJQuery = this;
     thisJQuery.each(function () {
@@ -4905,7 +4900,7 @@ function JQuerySuperFadeIn(speed) {
 ;
 var singTemplates = singCore.addModule(new sing.Module('Templates', String));
 singTemplates.glyphIcon = '&#xe224;';
-singTemplates.method('templateInject', StringTemplateInject, {
+singTemplates.method('templateInject', stringTemplateInject, {
     summary: null,
     parameters: null,
     returns: '',
@@ -4914,7 +4909,7 @@ singTemplates.method('templateInject', StringTemplateInject, {
     tests: function (ext) {
     }
 });
-function StringTemplateInject(obj, _context) {
+function stringTemplateInject(obj, _context) {
     var out = this.toString();
     var matches = out.match(sing.constants.TemplatePatternRegExp) || [];
     while (matches.length > 0) {
@@ -4947,7 +4942,7 @@ function StringTemplateInject(obj, _context) {
     }
     return out;
 }
-singTemplates.method('templateExtract', StringTemplateExtract, {
+singTemplates.method('templateExtract', stringTemplateExtract, {
     summary: null,
     parameters: null,
     returns: '',
@@ -4956,7 +4951,7 @@ singTemplates.method('templateExtract', StringTemplateExtract, {
     tests: function (ext) {
     }
 });
-function StringTemplateExtract(template) {
+function stringTemplateExtract(template) {
     var src = this;
     var templateValues = [];
     var templateKeys = [];
@@ -5003,7 +4998,7 @@ function StringTemplateExtract(template) {
     }
     return out;
 }
-singTemplates.method('getTemplate', ObjectGetTemplate, {
+singTemplates.method('getTemplate', objectGetTemplate, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -5013,7 +5008,7 @@ singTemplates.method('getTemplate', ObjectGetTemplate, {
     tests: function (ext) {
     }
 }, $);
-function ObjectGetTemplate(name, data) {
+function objectGetTemplate(name, data) {
     var template = sing.templates[name];
     if (!template || template.length == 0)
         return null;
@@ -5028,10 +5023,10 @@ function ObjectGetTemplate(name, data) {
     }
     return template;
 }
-singTemplates.method('getTemplateFor', ObjectGetTemplateFor, {}, sing);
-function ObjectGetTemplateFor() {
+singTemplates.method('getTemplateFor', objectGetTemplateFor, {}, sing);
+function objectGetTemplateFor() {
 }
-singTemplates.method('fillTemplate', JQueryFillTemplate, {
+singTemplates.method('fillTemplate', jQueryFillTemplate, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -5043,7 +5038,7 @@ singTemplates.method('fillTemplate', JQueryFillTemplate, {
 }, $.fn);
 var deferred = 0;
 var deferredDone = 0;
-function JQueryFillTemplate(data, _context, forceFill) {
+function jQueryFillTemplate(data, _context, forceFill) {
     if (forceFill === void 0) { forceFill = false; }
     _context = sing.loadContext(_context);
     var template = (this);
@@ -5068,7 +5063,7 @@ function JQueryFillTemplate(data, _context, forceFill) {
             catch (ex) {
                 error(ex);
             }
-        }).fn_defer()();
+        }).fnDefer()();
         return;
     }
     var loops = template.find("*[" + sing.constants.htmlAttr.Templates.Loop + "]");
@@ -5092,7 +5087,7 @@ function JQueryFillTemplate(data, _context, forceFill) {
         template.replaceWith($(templateReplace));
     }
     catch (ex) {
-        JQueryTemplateError(ex, template, data, _context);
+        jQueryTemplateError(ex, template, data, _context);
     }
     $(sing.constants.htmlElement.Templates.Element).each(function () {
     });
@@ -5102,7 +5097,7 @@ function JQueryFillTemplate(data, _context, forceFill) {
         });
     }
 }
-singTemplates.method('singIf', JQueryPerformSingIf, {
+singTemplates.method('singIf', jQueryPerformSingIf, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -5112,7 +5107,7 @@ singTemplates.method('singIf', JQueryPerformSingIf, {
     tests: function (ext) {
     }
 }, $.fn);
-function JQueryPerformSingIf(data, _context) {
+function jQueryPerformSingIf(data, _context) {
     _context = sing.loadContext(_context);
     var srcThis = this;
     var parent = srcThis.parent("*[" + sing.constants.htmlAttr.Templates.Template + "]");
@@ -5175,7 +5170,7 @@ function JQueryPerformSingIf(data, _context) {
         return true;
     }
 }
-singTemplates.method('singFill', JQueryPerformSingFill, {
+singTemplates.method('singFill', jQueryPerformSingFill, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -5185,7 +5180,7 @@ singTemplates.method('singFill', JQueryPerformSingFill, {
     tests: function (ext) {
     }
 }, $.fn);
-function JQueryPerformSingFill(data, _context, forceFill, fillInside) {
+function jQueryPerformSingFill(data, _context, forceFill, fillInside) {
     if (forceFill === void 0) { forceFill = false; }
     if (fillInside === void 0) { fillInside = true; }
     _context = sing.loadContext(_context);
@@ -5275,15 +5270,15 @@ function JQueryPerformSingFill(data, _context, forceFill, fillInside) {
     if (fillInside) {
         try {
             _context[sing.constants.specialTokens.Data] = undefined;
-            FillTemplateTraverse(srcThis, srcThis, sourceData, _context);
+            fillTemplateTraverse(srcThis, srcThis, sourceData, _context);
         }
         catch (ex) {
-            JQueryTemplateError(ex, srcThis, data, _context);
+            jQueryTemplateError(ex, srcThis, data, _context);
         }
     }
     return srcThis;
 }
-singTemplates.method('singLoop', JQueryPerformSingLoop, {
+singTemplates.method('singLoop', jQueryPerformSingLoop, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -5293,7 +5288,7 @@ singTemplates.method('singLoop', JQueryPerformSingLoop, {
     tests: function (ext) {
     }
 }, $.fn);
-function JQueryPerformSingLoop(data, _context, forceFill, fillInside) {
+function jQueryPerformSingLoop(data, _context, forceFill, fillInside) {
     if (forceFill === void 0) { forceFill = false; }
     if (fillInside === void 0) { fillInside = true; }
     _context = sing.loadContext(_context);
@@ -5354,10 +5349,10 @@ function JQueryPerformSingLoop(data, _context, forceFill, fillInside) {
                     _context[itemKey + sing.constants.specialTokens.Key] = loopKeys[i];
                 if (fillInside) {
                     try {
-                        FillTemplateTraverse(loopClone, loop, data, _context);
+                        fillTemplateTraverse(loopClone, loop, data, _context);
                     }
                     catch (ex) {
-                        JQueryTemplateError(ex, loopClone, data, _context);
+                        jQueryTemplateError(ex, loopClone, data, _context);
                     }
                 }
             }
@@ -5429,28 +5424,28 @@ sing.initTemplates = function () {
             }
         }
     });
-    FillTemplateTraverse($('body'), $('body'), null, {});
+    fillTemplateTraverse($('body'), $('body'), null, {});
 };
-function JQueryTemplateError(ex, target, data, _context) {
-    var SingTry = target.parents(sing.constants.htmlElement.Templates.Try);
-    if (SingTry == null || SingTry.length == 0) {
+function jQueryTemplateError(ex, target, data, _context) {
+    var singTry = target.parents(sing.constants.htmlElement.Templates.Try);
+    if (singTry == null || singTry.length == 0) {
         target.html("<" + sing.constants.htmlElement.Error + ">" + ex + "</" + sing.constants.htmlElement.Error + ">");
         console.log(ex);
     }
     else {
         target.hide();
-        var SingCatch = SingTry.next();
-        if (SingCatch != null &&
-            SingCatch.length > 0 &&
-            SingCatch[0].localName == sing.constants.htmlElement.Templates.Catch) {
+        var singCatch = singTry.next();
+        if (singCatch != null &&
+            singCatch.length > 0 &&
+            singCatch[0].localName == sing.constants.htmlElement.Templates.Catch) {
             _context['$ex'] = ex;
-            SingCatch.replaceWith(SingCatch[0].innerHTML);
-            SingCatch.fillTemplate(data, _context, true);
-            SingCatch.show();
+            singCatch.replaceWith(singCatch[0].innerHTML);
+            singCatch.fillTemplate(data, _context, true);
+            singCatch.show();
         }
     }
 }
-function HtmlTraverse(target, action, root) {
+function htmlTraverse(target, action, root) {
     if (root === void 0) { root = target; }
     if (target != null &&
         target.children != null &&
@@ -5458,37 +5453,37 @@ function HtmlTraverse(target, action, root) {
         for (var i = 0; i < target.children.length; i++) {
             log(target.children[i].nodeType);
             action(target.children[i], root);
-            HtmlTraverse(target.children[i], action, root);
+            htmlTraverse(target.children[i], action, root);
         }
     }
 }
-function JQueryTraverse(target, action, root) {
+function jQueryTraverse(target, action, root) {
     if (root === void 0) { root = target; }
     var contents = target.contents();
     for (var i = 0; i < contents.length; i++) {
         action($(contents[i]), root);
         if (contents[i] != null &&
             !$.isString(contents[i])) {
-            JQueryTraverse($(contents[i]), action, root);
+            jQueryTraverse($(contents[i]), action, root);
         }
     }
 }
-function JQueryTraverseReplace(target, action, root) {
+function jQueryTraverseReplace(target, action, root) {
     if (root === void 0) { root = target; }
     var contents = target.contents();
     for (var i = 0; i < contents.length; i++) {
         action($(contents[i]), root);
         if (contents[i] != null &&
             !$.isString(contents[i])) {
-            JQueryTraverse($(contents[i]), action, root);
+            jQueryTraverse($(contents[i]), action, root);
         }
     }
 }
-function FillTemplateTraverse(target, root, data, _context) {
+function fillTemplateTraverse(target, root, data, _context) {
     if (data === void 0) { data = {}; }
     if (_context === void 0) { _context = {}; }
     _context = sing.loadContext(_context);
-    if (!ObjectDefined(target))
+    if (!objectDefined(target))
         return;
     try {
         if (target &&
@@ -5528,17 +5523,17 @@ function FillTemplateTraverse(target, root, data, _context) {
             }
             else {
                 var thisElement = $(this);
-                FillTemplateTraverse(thisElement, root, data, _context);
+                fillTemplateTraverse(thisElement, root, data, _context);
             }
         });
     }
     catch (ex) {
-        JQueryTemplateError(ex, target, data, _context);
+        jQueryTemplateError(ex, target, data, _context);
     }
 }
 var singRegExp = singString.addModule(new sing.Module('RegExp', String));
 singRegExp.glyphIcon = '&#xe051;';
-singRegExp.method('matchCount', StringMatchCount, {
+singRegExp.method('matchCount', stringMatchCount, {
     summary: null,
     parameters: null,
     returns: '',
@@ -5547,13 +5542,13 @@ singRegExp.method('matchCount', StringMatchCount, {
     tests: function (ext) {
     }
 });
-function StringMatchCount(pattern) {
+function stringMatchCount(pattern) {
     var match = this.match(pattern);
     if (!match)
         return 0;
     return match.length;
 }
-singRegExp.method('hasMatch', StringHasMatch, {
+singRegExp.method('hasMatch', stringHasMatch, {
     summary: null,
     parameters: null,
     returns: '',
@@ -5562,13 +5557,13 @@ singRegExp.method('hasMatch', StringHasMatch, {
     tests: function (ext) {
     }
 });
-function StringHasMatch(pattern) {
+function stringHasMatch(pattern) {
     var match = this.match(pattern);
     if (!match || match.length == 0)
         return false;
     return true;
 }
-singRegExp.method('replaceRegExp', StringReplaceRegExp, {
+singRegExp.method('replaceRegExp', stringReplaceRegExp, {
     summary: null,
     parameters: null,
     returns: '',
@@ -5577,7 +5572,7 @@ singRegExp.method('replaceRegExp', StringReplaceRegExp, {
     tests: function (ext) {
     }
 });
-function StringReplaceRegExp(pattern, replace) {
+function stringReplaceRegExp(pattern, replace) {
     var out = this;
     var match = out.match(pattern);
     var outBefore = '';
@@ -5590,7 +5585,7 @@ function StringReplaceRegExp(pattern, replace) {
     }
     return out;
 }
-singRegExp.method('escapeRegExp', StringEscapeRegExp, {
+singRegExp.method('escapeRegExp', stringEscapeRegExp, {
     summary: null,
     parameters: null,
     returns: '',
@@ -5599,13 +5594,13 @@ singRegExp.method('escapeRegExp', StringEscapeRegExp, {
     tests: function (ext) {
     }
 });
-function StringEscapeRegExp() {
+function stringEscapeRegExp() {
     var out = (this || '');
     return out.replace(/([\\\.\+\*\?\[\^\]\$\(\)\{\}\=\!\<\>\|\:])/g, '\\$1');
 }
 var singBBCode = singString.addModule(new sing.Module('BBCode', String));
 singBBCode.glyphIcon = '&#xe242;';
-singBBCode.method('bbCodesToHTML', StringBBCodesToHTML, {
+singBBCode.method('bbCodesToHTML', stringBBCodesToHTML, {
     summary: null,
     parameters: null,
     returns: '',
@@ -5614,14 +5609,14 @@ singBBCode.method('bbCodesToHTML', StringBBCodesToHTML, {
     tests: function (ext) {
     }
 });
-function StringBBCodesToHTML() {
+function stringBBCodesToHTML() {
     var out = this;
-    sing.BBCodes.each(function (item) {
+    sing.bbCodes.each(function (item) {
         out = out.replaceRegExp(item.matchStr, item.htmlStr);
     });
     return out;
 }
-singBBCode.method('bbCodesToText', StringBBCodesToText, {
+singBBCode.method('bbCodesToText', stringBBCodesToText, {
     summary: null,
     parameters: null,
     returns: '',
@@ -5630,14 +5625,14 @@ singBBCode.method('bbCodesToText', StringBBCodesToText, {
     tests: function (ext) {
     }
 });
-function StringBBCodesToText() {
+function stringBBCodesToText() {
     var out = this;
-    sing.BBCodes.each(function (item) {
+    sing.bbCodes.each(function (item) {
         out = out.replaceRegExp(item.matchStr, item.textStr);
     });
     return out;
 }
-sing.BBCodes = [
+sing.bbCodes = [
     {
         name: 'Bold',
         tag: '[b][/b]',
@@ -5730,8 +5725,8 @@ sing.BBCodes = [
 var singDocs = singCore.addModule(new sing.Module('Documentation', Singularity));
 singDocs.glyphIcon = '&#xe086;';
 singDocs.ignoreUnknown('ALL');
-singDocs.method('getDocs', SingularityGetDocs);
-function SingularityGetDocs(funcName, includeCode, includeDocumentation) {
+singDocs.method('getDocs', singularityGetDocs);
+function singularityGetDocs(funcName, includeCode, includeDocumentation) {
     if (includeCode === void 0) { includeCode = false; }
     if (includeDocumentation === void 0) { includeDocumentation = true; }
     sing.tests.resolveTests();
@@ -5869,8 +5864,8 @@ function SingularityGetDocs(funcName, includeCode, includeDocumentation) {
     return header + out;
 }
 ;
-singDocs.method('getMissing', SingularityGetMissing);
-function SingularityGetMissing(funcName) {
+singDocs.method('getMissing', singularityGetMissing);
+function singularityGetMissing(funcName) {
     sing.tests.resolveTests();
     var featuresCount = 0;
     var featuresFound = 0;
@@ -5922,8 +5917,8 @@ function SingularityGetMissing(funcName) {
     return header + out;
 }
 ;
-singDocs.method('getSummary', SingularityGetSummary);
-function SingularityGetSummary(funcName, includeFunctions) {
+singDocs.method('getSummary', singularityGetSummary);
+function singularityGetSummary(funcName, includeFunctions) {
     if (funcName === void 0) { funcName = 'all'; }
     if (includeFunctions === void 0) { includeFunctions = true; }
     var out = sing.getDocs(funcName, false, false);
@@ -5938,8 +5933,8 @@ function SingularityGetSummary(funcName, includeFunctions) {
             out += "\r\n" + (ext.name + " ").pad(30);
             out += ((ext.details.returnTypeName || '') + " function(").pad(20, Direction.r);
             out += ((ext.details && ext.details.parameters) ? ext.details.parameters.collect(function (item, i) {
-                var TypeNames = item.types.collect(function (a) { return a.name; }).join(', ');
-                return (i > 0 ? ''.pad(50) : '') + "[" + TypeNames + "] " + item.name;
+                var typeNames = item.types.collect(function (a) { return a.name; }).join(', ');
+                return (i > 0 ? ''.pad(50) : '') + "[" + typeNames + "] " + item.name;
             }).join(', \r\n') : '') + ") " + (ext.details && ext.details.parameters && ext.details.parameters.length > 1 ? "\r\n" + ''.pad(50) : '') + "{ ... } ";
         });
     }
@@ -5950,7 +5945,7 @@ var singObject = singExt.addModule(new sing.Module('Object', $, $));
 singObject.glyphIcon = '&#xe165;';
 singObject.srcLink = '/Scripts/singularity/singularity-object.ts';
 singObject.ignoreUnknown('ALL');
-singObject.method('objEach', ObjectEach, {
+singObject.method('objEach', objectEach, {
     summary: null,
     parameters: null,
     returns: '',
@@ -5971,13 +5966,13 @@ singObject.method('objEach', ObjectEach, {
         }, 'Executes for every element');
     }
 });
-function ObjectEach(obj, eachFunc) {
+function objectEach(obj, eachFunc) {
     var keys = Object.keys(obj);
     keys.each(function (key, i) {
         eachFunc(key, obj[key], i);
     });
 }
-singObject.method('objProperties', ObjectProperties, {
+singObject.method('objProperties', objectProperties, {
     summary: null,
     parameters: null,
     returns: '',
@@ -5994,14 +5989,14 @@ singObject.method('objProperties', ObjectProperties, {
         ext.addTest($, [{ a: 1, b: 2 }], [{ key: 'a', value: 1 }, { key: 'b', value: 2 }]);
     }
 });
-function ObjectProperties(obj) {
+function objectProperties(obj) {
     if (obj == null || !(typeof obj == 'object'))
         return [];
     var keys = Object.keys(obj);
     var values = keys.collect(function (item) { return ({ key: item, value: obj[item] }); });
     return values;
 }
-singObject.method('objValues', ObjectValues, {
+singObject.method('objValues', objectValues, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -6023,7 +6018,7 @@ singObject.method('objValues', ObjectValues, {
         ext.addTest($, [{ a: 'b', c: 'd' }, ['c']], 'd');
     }
 });
-function ObjectValues(obj, findKeys) {
+function objectValues(obj, findKeys) {
     if (obj == null || !(typeof obj == 'object'))
         return null;
     if (findKeys != null && findKeys.length > 0) {
@@ -6040,7 +6035,7 @@ function ObjectValues(obj, findKeys) {
         return values;
     }
 }
-singObject.method('arrayValues', ArrayFindValues, {
+singObject.method('arrayValues', arrayFindValues, {
     summary: null,
     parameters: null,
     returns: '',
@@ -6069,7 +6064,7 @@ singObject.method('arrayValues', ArrayFindValues, {
             { a: { name: 'a2' }, b: { name: 'b2' }, c: { name: 'c2' } }], ['c', 'name'], ['c', 'c2']);
     }
 }, Array.prototype);
-function ArrayFindValues() {
+function arrayFindValues() {
     var names = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         names[_i - 0] = arguments[_i];
@@ -6097,7 +6092,7 @@ function ArrayFindValues() {
     }
     return [];
 }
-singObject.method('objKeys', ObjectKeys, {
+singObject.method('objKeys', objectKeys, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -6116,13 +6111,13 @@ singObject.method('objKeys', ObjectKeys, {
         ext.addTest($, [{ a: 1, b: 2 }], ['a', 'b']);
     }
 }, $);
-function ObjectKeys(obj) {
+function objectKeys(obj) {
     if (obj == null || !(typeof obj == 'object'))
         return [];
     var keys = Object.keys(obj);
     return keys;
 }
-singObject.method('objHasKey', ObjectHasKey, {
+singObject.method('objHasKey', objectHasKey, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -6137,12 +6132,12 @@ singObject.method('objHasKey', ObjectHasKey, {
         ext.addTest(null, [{ a: 'b' }, 'a'], true);
     }
 });
-function ObjectHasKey(obj, key) {
+function objectHasKey(obj, key) {
     if (!$.isDefined(obj))
         return false;
     return $.isDefined(obj[key]) || Object.keys(obj).has(key);
 }
-singObject.method('resolve', ObjectResolve, {
+singObject.method('resolve', objectResolve, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -6159,14 +6154,14 @@ singObject.method('resolve', ObjectResolve, {
         ext.addTest($, [function () { return ['aa', 'bb']; }], ['aa', 'bb']);
     }
 });
-function ObjectResolve(obj, args) {
+function objectResolve(obj, args) {
     if ($.isFunction(obj))
         return obj.apply(null, args);
     if ($.isArray(obj) && obj.length == 1)
         return obj[0];
     return obj;
 }
-singObject.method('isDefined', ObjectDefined, {
+singObject.method('isDefined', objectDefined, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -6184,12 +6179,12 @@ singObject.method('isDefined', ObjectDefined, {
         ext.addTest(null, [{ name: 'a' }], true);
     }
 });
-function ObjectDefined(obj) {
+function objectDefined(obj) {
     if (obj !== undefined && obj !== null)
         return true;
     return false;
 }
-singObject.method('isHash', ObjectIsHash, {
+singObject.method('isHash', objectIsHash, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -6207,8 +6202,8 @@ singObject.method('isHash', ObjectIsHash, {
         ext.addTest(null, [{ a: 'a' }], true);
     }
 });
-function ObjectIsHash(obj) {
-    if (!ObjectDefined(obj))
+function objectIsHash(obj) {
+    if (!objectDefined(obj))
         return false;
     if ($.isArray(obj))
         return false;
@@ -6216,7 +6211,7 @@ function ObjectIsHash(obj) {
         return true;
     return false;
 }
-singObject.method('clone', ArrayClone, {
+singObject.method('clone', arrayClone, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -6238,7 +6233,7 @@ singObject.method('clone', ArrayClone, {
         }, 'Arrays must be clones, not the source array');
     }
 }, Array.prototype, 'Array');
-function ArrayClone(deepClone) {
+function arrayClone(deepClone) {
     if (deepClone === void 0) { deepClone = false; }
     var thisArray = this;
     if (deepClone) {
@@ -6248,7 +6243,7 @@ function ArrayClone(deepClone) {
         return thisArray.collect();
     }
 }
-singObject.method('clone', NumberClone, {
+singObject.method('clone', numberClone, {
     glyphIcon: '&#xe224;',
     tests: function (ext) {
         ext.addTest(0, [], 0);
@@ -6266,10 +6261,10 @@ singObject.method('clone', NumberClone, {
         }, 'Numbers must be clones, not the source number');
     }
 }, Number.prototype, 'Number');
-function NumberClone() {
+function numberClone() {
     return this.valueOf();
 }
-singObject.method('clone', BooleanClone, {
+singObject.method('clone', booleanClone, {
     glyphIcon: '&#xe224;',
     tests: function (ext) {
         ext.addTest(false, [], false);
@@ -6283,10 +6278,10 @@ singObject.method('clone', BooleanClone, {
         }, 'Booleans must be clones, not the source boolean');
     }
 }, Boolean.prototype, 'Boolean');
-function BooleanClone() {
+function booleanClone() {
     return this.valueOf();
 }
-singObject.method('clone', StringClone, {
+singObject.method('clone', stringClone, {
     glyphIcon: '&#xe224;',
     tests: function (ext) {
         ext.addTest('', [], '');
@@ -6300,10 +6295,10 @@ singObject.method('clone', StringClone, {
         }, 'Strings must be clones, not the source string');
     }
 }, String.prototype, 'String');
-function StringClone() {
+function stringClone() {
     return this.valueOf();
 }
-singObject.method('clone', DateClone, {
+singObject.method('clone', dateClone, {
     glyphIcon: '&#xe224;',
     tests: function (ext) {
         var testDate = new Date();
@@ -6319,10 +6314,10 @@ singObject.method('clone', DateClone, {
         }, 'Dates must be clones, not the source date');
     }
 }, Date.prototype, 'Date');
-function DateClone() {
+function dateClone() {
     return new Date(this.valueOf());
 }
-singObject.method('clone', ObjectClone, {
+singObject.method('clone', objectClone, {
     glyphIcon: '&#xe224;',
     tests: function (ext) {
         ext.addTest($, [0], 0);
@@ -6343,9 +6338,9 @@ singObject.method('clone', ObjectClone, {
         ext.addTest($, [[['a']]], [['a']]);
     }
 }, $, 'jQuery');
-function ObjectClone(obj, deepClone) {
+function objectClone(obj, deepClone) {
     if (deepClone === void 0) { deepClone = false; }
-    if (obj.clone !== ObjectClone && $.isFunction(obj.clone))
+    if (obj.clone !== objectClone && $.isFunction(obj.clone))
         return obj.clone(deepClone);
     var out = {};
     var key;
@@ -6366,7 +6361,7 @@ function ObjectClone(obj, deepClone) {
     }
     return out;
 }
-singObject.method('isEmpty', ObjectIsEmpty, {
+singObject.method('isEmpty', objectIsEmpty, {
     glyphIcon: '&#xe118;',
     tests: function (ext) {
         ext.addTest($, [0], false);
@@ -6388,7 +6383,7 @@ singObject.method('isEmpty', ObjectIsEmpty, {
         ext.addTest($, [[[], [1]]], false);
     }
 }, $);
-function ObjectIsEmpty(obj) {
+function objectIsEmpty(obj) {
     return (obj === undefined ||
         obj === null ||
         obj === '' ||
@@ -6398,7 +6393,7 @@ function ObjectIsEmpty(obj) {
         ($.isArray(obj) && (obj.length == 0 || !obj.has(function (item) { return (!$.isEmpty(item)); }))) ||
         ($.isHash(obj) && !$.objValues(obj).has(function (item) { return (!$.isEmpty(item)); }));
 }
-singObject.method('typeName', ObjectTypeName, {
+singObject.method('typeName', objectTypeName, {
     glyphIcon: '&#xe041;',
     tests: function (ext) {
         ext.addTest($, [0], 'Number');
@@ -6417,7 +6412,7 @@ singObject.method('typeName', ObjectTypeName, {
         ext.addTest($, [sing], 'Singularity');
     }
 }, $);
-function ObjectTypeName(obj) {
+function objectTypeName(obj) {
     if (typeof obj === 'undefined')
         return 'Undefined';
     if (obj === null)
@@ -6503,10 +6498,10 @@ singTests.glyphIcon = '&#xe067;';
 singTests.method('resolveTests', sing.tests.resolveTests, {
     manuallyTested: true
 });
-singTests.method('addTest', SingularityAddTest, {
+singTests.method('addTest', singularityAddTest, {
     manuallyTested: true
 });
-function SingularityAddTest(name, testFunc, requirement) {
+function singularityAddTest(name, testFunc, requirement) {
     if (!sing.methods[name])
         throw name + " not found";
     if (!sing.methods[name].details.tests)
@@ -6516,10 +6511,10 @@ function SingularityAddTest(name, testFunc, requirement) {
     sing.methods[name].details.unitTests = sing.methods[name].details.unitTests.concat(new SingularityTest(name, testFunc, sing.methods[name].details.unitTests.length + 1, requirement));
 }
 ;
-singTests.method('addCustomTest', SingularityAddCustomTest, {
+singTests.method('addCustomTest', singularityAddCustomTest, {
     manuallyTested: true
 });
-function SingularityAddCustomTest(name, testFunc, requirement) {
+function singularityAddCustomTest(name, testFunc, requirement) {
     if (!$.isString(name))
         throw name + " was not a string";
     if (!sing.methods[name])
@@ -6532,10 +6527,10 @@ function SingularityAddCustomTest(name, testFunc, requirement) {
     sing.methods[name].details.unitTests = sing.methods[name].details.unitTests.concat(new SingularityTest(name, testFunc, sing.methods[name].details.unitTests.length + 1, requirement));
 }
 ;
-singTests.method('addMethodTest', SingularityAddMethodTest, {
+singTests.method('addMethodTest', singularityAddMethodTest, {
     manuallyTested: true
 });
-function SingularityAddMethodTest(ext, target, args, compare, requirement) {
+function singularityAddMethodTest(ext, target, args, compare, requirement) {
     if (!ext.method)
         throw ext.name + " method not found";
     requirement = (requirement ? (requirement + "\r\n") : '') +
@@ -6560,10 +6555,10 @@ function SingularityAddMethodTest(ext, target, args, compare, requirement) {
     }, requirement);
 }
 ;
-singTests.method('addAssertTest', SingularityAddAssertTest, {
+singTests.method('addAssertTest', singularityAddAssertTest, {
     manuallyTested: true
 });
-function SingularityAddAssertTest(name, result, compare, requirement) {
+function singularityAddAssertTest(name, result, compare, requirement) {
     requirement = requirement || $.toStr(compare, true) + " is expected to match result: " + $.toStr(result, true);
     this.addTest(name, function () {
         if (compare == result)
@@ -6575,10 +6570,10 @@ function SingularityAddAssertTest(name, result, compare, requirement) {
     }, requirement);
 }
 ;
-singTests.method('addFailsTest', SingularityAddFailsTest, {
+singTests.method('addFailsTest', singularityAddFailsTest, {
     manuallyTested: true
 });
-function SingularityAddFailsTest(ext, target, args, expectedError, requirement) {
+function singularityAddFailsTest(ext, target, args, expectedError, requirement) {
     if (target == null)
         throw 'no target';
     requirement = (requirement ? (requirement + "\r\n") : '') + "(" + $.toStr(target, true) + ")." + ext.shortName;
@@ -6607,10 +6602,10 @@ function SingularityAddFailsTest(ext, target, args, expectedError, requirement) 
     }, requirement);
 }
 ;
-singTests.method('runTests', SingularityRunTests, {
+singTests.method('runTests', singularityRunTests, {
     manuallyTested: true
 });
-function SingularityRunTests(display) {
+function singularityRunTests(display) {
     if (display === void 0) { display = false; }
     sing.tests.resolveTests();
     var result = '';
@@ -6670,10 +6665,10 @@ function SingularityRunTests(display) {
     return sing.tests.listTests() + "\r\n" + displayStr + "\r\n" + (result || ("\r\n\r\nAll " + testCount + " tests succeeded."));
 }
 ;
-singTests.method('listTests', SingularityListTests, {
+singTests.method('listTests', singularityListTests, {
     manuallyTested: true
 });
-function SingularityListTests() {
+function singularityListTests() {
     sing.tests.resolveTests();
     var out = '\r\n';
     for (var i = 0; i < Object.keys(sing.methods).length; i++) {
@@ -6688,10 +6683,10 @@ function SingularityListTests() {
     return out;
 }
 ;
-singTests.method('listMissingTests', SingularityListMissingTests, {
+singTests.method('listMissingTests', singularityListMissingTests, {
     manuallyTested: true
 });
-function SingularityListMissingTests() {
+function singularityListMissingTests() {
     sing.tests.resolveTests();
     var out = '';
     for (var i = 0; i < Object.keys(sing.methods).length; i++) {
@@ -6705,25 +6700,25 @@ function SingularityListMissingTests() {
     return out;
 }
 ;
-SingularityMethod.prototype.addFailsTest = MethodAddFailsTest;
-singTests.method('addFailsTest', MethodAddFailsTest, {
+SingularityMethod.prototype.addFailsTest = methodAddFailsTest;
+singTests.method('addFailsTest', methodAddFailsTest, {
     manuallyTested: true
 }, SingularityMethod);
-function MethodAddFailsTest(caller, args, expectedError, requirement) {
+function methodAddFailsTest(caller, args, expectedError, requirement) {
     sing.tests.addFailsTest(this, caller, args, expectedError, requirement);
 }
-SingularityMethod.prototype.addCustomTest = MethodAddCustomTest;
-singTests.method('addCustomTest', MethodAddCustomTest, {
+SingularityMethod.prototype.addCustomTest = methodAddCustomTest;
+singTests.method('addCustomTest', methodAddCustomTest, {
     manuallyTested: true
 }, SingularityMethod);
-function MethodAddCustomTest(testFunc, requirement) {
+function methodAddCustomTest(testFunc, requirement) {
     sing.tests.addCustomTest(this.name, testFunc, requirement);
 }
-SingularityMethod.prototype.addTest = MethodAddSimpleTest;
-singTests.method('addTest', MethodAddSimpleTest, {
+SingularityMethod.prototype.addTest = methodAddSimpleTest;
+singTests.method('addTest', methodAddSimpleTest, {
     manuallyTested: true
 }, SingularityMethod);
-function MethodAddSimpleTest(caller, args, result, requirement) {
+function methodAddSimpleTest(caller, args, result, requirement) {
     var thisSingularityMethod = this;
     sing.tests.addMethodTest(thisSingularityMethod, caller, args, result, requirement);
 }
@@ -6734,7 +6729,7 @@ singBoolean.summaryLong = 'Perform boolean operations using extension methods in
 singBoolean.features = ['Multi-variable operations',
     'Ternary operation',
     'toYesNo'];
-singBoolean.method('XOR', BooleanXOR, {
+singBoolean.method('XOR', booleanXor, {
     summary: '\
         XOR acts on a boolean to perform the binary XOR function on the passed Boolean',
     parameters: [
@@ -6772,12 +6767,12 @@ singBoolean.method('XOR', BooleanXOR, {
         ext.addFailsTest(false, ['a'], 'Singularity.Extensions.Boolean.XOR  Parameter: b: \'a\' string did not match input type [\'boolean\'].');
     }
 });
-function BooleanXOR(b) {
+function booleanXor(b) {
     var a = this.valueOf();
     return (a == true && b == false) ||
         (a == false && b);
 }
-singBoolean.method('XNOR', BooleanXNOR, {
+singBoolean.method('XNOR', booleanXNOR, {
     summary: '\
         XNOR acts on a boolean to perform the binary XNOR function on the passed Boolean, the inverse of the XOR function',
     parameters: [
@@ -6815,10 +6810,10 @@ singBoolean.method('XNOR', BooleanXNOR, {
         ext.addFailsTest(false, ['a']);
     }
 });
-function BooleanXNOR(b) {
+function booleanXNOR(b) {
     return !this.XOR(b);
 }
-singBoolean.method('OR', BooleanOR, {
+singBoolean.method('OR', booleanOR, {
     summary: '\
         OR acts on a boolean to perform the binary OR function on the passed Booleans',
     parameters: [
@@ -6858,14 +6853,14 @@ singBoolean.method('OR', BooleanOR, {
         ext.addTest(false, [false, false, false, false, true], true);
     }
 });
-function BooleanOR() {
+function booleanOR() {
     var b = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         b[_i - 0] = arguments[_i];
     }
     return this == true || b.has(true);
 }
-singBoolean.method('NOR', BooleanNOR, {
+singBoolean.method('NOR', booleanNOR, {
     summary: '\
         NOR acts on a boolean to perform the binary NOR function on the passed Booleans',
     parameters: [
@@ -6906,14 +6901,14 @@ singBoolean.method('NOR', BooleanNOR, {
         ext.addTest(true, [true, true, true], false);
     }
 });
-function BooleanNOR() {
+function booleanNOR() {
     var b = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         b[_i - 0] = arguments[_i];
     }
     return !this.OR.apply(this, b);
 }
-singBoolean.method('AND', BooleanAND, {
+singBoolean.method('AND', booleanAND, {
     summary: '\
         AND acts on a boolean to perform the binary AND function on the passed Booleans',
     parameters: [
@@ -6954,14 +6949,14 @@ singBoolean.method('AND', BooleanAND, {
         ext.addTest(true, [true, true, true], true);
     }
 });
-function BooleanAND() {
+function booleanAND() {
     var b = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         b[_i - 0] = arguments[_i];
     }
     return this == true && !b.has(false);
 }
-singBoolean.method('NAND', BooleanNAND, {
+singBoolean.method('NAND', booleanNAND, {
     summary: '\
         NAND acts on a boolean to perform the binary NAND function on the passed Booleans',
     parameters: [
@@ -7000,7 +6995,7 @@ singBoolean.method('NAND', BooleanNAND, {
         ext.addTest(true, [true, true, true], false);
     }
 });
-function BooleanNAND() {
+function booleanNAND() {
     var b = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         b[_i - 0] = arguments[_i];
@@ -7009,7 +7004,7 @@ function BooleanNAND() {
         return this;
     return !this.AND.apply(this, b);
 }
-singBoolean.method('toYesNo', BooleanToYesNo, {
+singBoolean.method('toYesNo', booleanToYesNo, {
     summary: "\
         toYesNo converts a Boolean to a string of 'Yes' or 'No'",
     parameters: [],
@@ -7028,10 +7023,10 @@ singBoolean.method('toYesNo', BooleanToYesNo, {
         ext.addTest(false, [], 'No');
     }
 });
-function BooleanToYesNo() {
+function booleanToYesNo() {
     return this == false ? 'No' : 'Yes';
 }
-singBoolean.method('ternary', BooleanTernary, {
+singBoolean.method('ternary', booleanTernary, {
     summary: 'Performs the ternary operation using the calling boolean.',
     parameters: [
         {
@@ -7054,10 +7049,10 @@ singBoolean.method('ternary', BooleanTernary, {
         ext.addTest(false, ['a', 'b'], 'b');
     }
 }, String.prototype);
-function BooleanTernary(obj, obj2) {
+function booleanTernary(obj, obj2) {
     return this.valueOf() ? obj : obj2;
 }
-singBoolean.method('isBoolean', StringIsBoolean, {
+singBoolean.method('isBoolean', stringIsBoolean, {
     summary: 'Determines if the calling string is a Boolean format.',
     parameters: [],
     returns: 'true if the calling String is a form of a Boolean. isBoolean is Case Insensitive. \r\n\
@@ -7094,7 +7089,7 @@ singBoolean.method('isBoolean', StringIsBoolean, {
         ext.addTest('Anything else', [], false);
     }
 }, String.prototype);
-function StringIsBoolean() {
+function stringIsBoolean() {
     var lower = this.lower().trim();
     if (lower == 'y' || lower == 'yes' || lower == 'true' || lower == '1' || lower == 't')
         return true;
@@ -7102,7 +7097,7 @@ function StringIsBoolean() {
         return true;
     return false;
 }
-singBoolean.method('toBoolean', StringToBoolean, {
+singBoolean.method('toBoolean', stringToBoolean, {
     summary: 'Converts the calling string to a Boolean format. ',
     parameters: [],
     returns: 'true if the calling String is a form of a Boolean. isBoolean is Case Insensitive. \r\n\
@@ -7138,7 +7133,7 @@ singBoolean.method('toBoolean', StringToBoolean, {
         ext.addTest('Anything else', [], undefined);
     }
 }, String.prototype);
-function StringToBoolean() {
+function stringToBoolean() {
     var lower = this.lower().trim();
     if (lower == 'y' || lower == 'yes' || lower == 'true' || lower == '1' || lower == 't')
         return true;
@@ -7154,7 +7149,7 @@ singNumber.features = ['Math object extensions: max, min, round, pow, ceil, floo
     'String extensions: isNumeric, isInteger, toNumber, toInteger',
     'Number array extensions: total, average',
     'JQuery $ extensions: isInt, isFloat, isNumber'];
-singNumber.method('max', NumberMax, {
+singNumber.method('max', numberMax, {
     summary: 'Compares multiple Numbers to find the largest.',
     parameters: [
         {
@@ -7181,7 +7176,7 @@ singNumber.method('max', NumberMax, {
         ext.addTest(100, [undefined], 100);
     }
 });
-function NumberMax() {
+function numberMax() {
     var numbers = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         numbers[_i - 0] = arguments[_i];
@@ -7190,7 +7185,7 @@ function NumberMax() {
     numbers = numbers.collect();
     return Math.max.apply(null, numbers);
 }
-singNumber.method('min', NumberMin, {
+singNumber.method('min', numberMin, {
     summary: 'Compares multiple Numbers to find the smallest.',
     parameters: [
         {
@@ -7217,7 +7212,7 @@ singNumber.method('min', NumberMin, {
         ext.addTest(100, [undefined], 100);
     }
 });
-function NumberMin() {
+function numberMin() {
     var numbers = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         numbers[_i - 0] = arguments[_i];
@@ -7226,7 +7221,7 @@ function NumberMin() {
     numbers = numbers.collect();
     return Math.min.apply(null, numbers);
 }
-singNumber.method('round', NumberRound, {
+singNumber.method('round', numberRound, {
     summary: 'Rounds the calling Number to the nearest whole Number. If a number of decimal places is supplied they will be included',
     parameters: [
         {
@@ -7254,12 +7249,12 @@ singNumber.method('round', NumberRound, {
         ext.addTest(1.644999999999999, [undefined], 2);
     }
 });
-function NumberRound(decimalPlaces) {
+function numberRound(decimalPlaces) {
     if (decimalPlaces > 0)
         return Math.round(this * ((10).pow(decimalPlaces))) / ((10).pow(decimalPlaces));
     return Math.round(this);
 }
-singNumber.method('ceil', NumberCeiling, {
+singNumber.method('ceil', numberCeiling, {
     summary: 'Extension of the Math.ceil function',
     parameters: [
         {
@@ -7281,12 +7276,12 @@ singNumber.method('ceil', NumberCeiling, {
         ext.addTest(5.11, [1], 5.2);
     }
 });
-function NumberCeiling(decimalPlaces) {
+function numberCeiling(decimalPlaces) {
     if (decimalPlaces > 0)
         return Math.ceil(this * ((10).pow(decimalPlaces))) / ((10).pow(decimalPlaces));
     return Math.ceil(this);
 }
-singNumber.method('floor', NumberFloor, {
+singNumber.method('floor', numberFloor, {
     summary: 'Extension of the Math.floor function',
     parameters: [
         {
@@ -7309,12 +7304,12 @@ singNumber.method('floor', NumberFloor, {
         ext.addTest(5.99, [1], 5.9);
     }
 });
-function NumberFloor(decimalPlaces) {
+function numberFloor(decimalPlaces) {
     if (decimalPlaces > 0)
         return Math.floor(this * ((10).pow(decimalPlaces))) / ((10).pow(decimalPlaces));
     return Math.floor(this);
 }
-singNumber.method('pow', NumberPower, {
+singNumber.method('pow', numberPower, {
     summary: 'Returns the calling number raised to the power passed. \r\n\
             Decimal numbers are supported and can be used for calculating fractional powers and roots.',
     parameters: [
@@ -7343,10 +7338,10 @@ singNumber.method('pow', NumberPower, {
         ext.addFailsTest(2, [undefined], 'Singularity.Extensions.Number.pow Missing Parameter: number power');
     }
 });
-function NumberPower(power) {
+function numberPower(power) {
     return Math.pow(this, power);
 }
-singNumber.method('abs', NumberAbsoluteValue, {
+singNumber.method('abs', numberAbsoluteValue, {
     summary: 'Extension of Math.abs',
     parameters: [],
     returns: 'The calling number as a positive value',
@@ -7365,10 +7360,10 @@ singNumber.method('abs', NumberAbsoluteValue, {
         ext.addTest(NaN, [], NaN);
     }
 });
-function NumberAbsoluteValue() {
+function numberAbsoluteValue() {
     return Math.abs(this);
 }
-singNumber.method('percentOf', NumberPercentOf, {
+singNumber.method('percentOf', numberPercentOf, {
     summary: 'Takes the source number and returns the percent it is of the argument number',
     parameters: [
         {
@@ -7419,7 +7414,7 @@ singNumber.method('percentOf', NumberPercentOf, {
         ext.addTest(56122, [56123, 5, true], '99.99821%');
     }
 });
-function NumberPercentOf(of, decimalPlaces, asString) {
+function numberPercentOf(of, decimalPlaces, asString) {
     if (decimalPlaces === void 0) { decimalPlaces = 0; }
     if (asString === void 0) { asString = false; }
     if (asString) {
@@ -7439,7 +7434,7 @@ function NumberPercentOf(of, decimalPlaces, asString) {
         }
     }
 }
-singNumber.method('formatFileSize', NumberFormatFileSize, {
+singNumber.method('formatFileSize', numberFormatFileSize, {
     summary: 'Takes a number (of Bytes) and returns a formatted string of the proper unit (B, KB, MB, etc)',
     parameters: [
         {
@@ -7495,7 +7490,7 @@ singNumber.method('formatFileSize', NumberFormatFileSize, {
         ext.addTest(1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 + 550000000000000000000000, [5, true], '1.45495 Yottabyte');
     }
 });
-function NumberFormatFileSize(decimalPlaces, useLongUnit) {
+function numberFormatFileSize(decimalPlaces, useLongUnit) {
     if (useLongUnit === void 0) { useLongUnit = false; }
     var units = useLongUnit ? ['Byte', 'Kilobyte', 'Megabyte', 'Gigabyte', 'Terabyte', 'Petabyte', 'Exabyte', 'Zettabyte', 'Yottabyte'] :
         ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'XB', 'ZB', 'YB'];
@@ -7514,7 +7509,7 @@ function NumberFormatFileSize(decimalPlaces, useLongUnit) {
     }
     return out;
 }
-singNumber.method('toStr', NumberToStr, {
+singNumber.method('toStr', numberToStr, {
     summary: '\
         Common funciton - toStr is a standardized way of converting Objects to Strings.',
     parameters: [
@@ -7545,13 +7540,13 @@ singNumber.method('toStr', NumberToStr, {
         ext.addTest(NaN, [true], 'NaN');
     }
 });
-function NumberToStr(includeMarkup) {
+function numberToStr(includeMarkup) {
     if (includeMarkup === void 0) { includeMarkup = false; }
     if (isNaN(this))
         return includeMarkup ? 'NaN' : '';
     return this.toString();
 }
-singNumber.method('numericValueOf', NumberNumericValueOf, {
+singNumber.method('numericValueOf', numberNumericValueOf, {
     summary: 'Common funciton - Used for sorting, returns the calling number.',
     parameters: [],
     returns: 'Returns the calling number.',
@@ -7568,10 +7563,10 @@ singNumber.method('numericValueOf', NumberNumericValueOf, {
         ext.addTest(-Infinity, [], -Infinity);
     }
 });
-function NumberNumericValueOf() {
+function numberNumericValueOf() {
     return this;
 }
-singNumber.method('numericValueOf', StringNumericValueOf, {
+singNumber.method('numericValueOf', stringNumericValueOf, {
     summary: 'Common funciton - Convert all common objects to numeric values',
     parameters: [],
     returns: 'Returns the numeric value of the calling String',
@@ -7583,7 +7578,7 @@ singNumber.method('numericValueOf', StringNumericValueOf, {
         ext.addTest('hello', [], 448378203247);
     }
 }, String.prototype, 'String');
-function StringNumericValueOf() {
+function stringNumericValueOf() {
     if (this.isNumeric())
         return this.toNumber();
     var out = 0;
@@ -7595,7 +7590,7 @@ function StringNumericValueOf() {
     }
     return out;
 }
-singNumber.method('numericValueOf', BooleanToNumericValue, {
+singNumber.method('numericValueOf', booleanToNumericValue, {
     summary: 'Common funciton - Convert all common objects to numeric values',
     parameters: [],
     returns: 'Returns the numeric value of the calling Boolean',
@@ -7607,13 +7602,13 @@ singNumber.method('numericValueOf', BooleanToNumericValue, {
         ext.addTest(false, [], 0);
     }
 }, Boolean.prototype, 'Boolean');
-function BooleanToNumericValue() {
+function booleanToNumericValue() {
     if (this.valueOf() === false)
         return 0;
     if (this.valueOf() === true)
         return 1;
 }
-singNumber.method('isInt', NumberIsInt, {
+singNumber.method('isInt', numberIsInt, {
     summary: 'Determine whether an object is an Integer.',
     parameters: [{
             name: 'obj',
@@ -7638,10 +7633,10 @@ singNumber.method('isInt', NumberIsInt, {
         ext.addTest(null, [-Infinity], true);
     }
 }, $);
-function NumberIsInt(obj) {
+function numberIsInt(obj) {
     return $.isNumber(obj) && obj.round().valueOf() == obj.valueOf();
 }
-singNumber.method('isFloat', NumberIsFloat, {
+singNumber.method('isFloat', numberIsFloat, {
     summary: 'Determine whether an object is a Float.',
     parameters: [{
             name: 'obj',
@@ -7666,10 +7661,10 @@ singNumber.method('isFloat', NumberIsFloat, {
         ext.addTest(null, [-Infinity], false);
     }
 }, $);
-function NumberIsFloat(obj) {
+function numberIsFloat(obj) {
     return $.isNumber(obj) && obj.round().valueOf() != obj.valueOf();
 }
-singNumber.method('isNumber', ObjectIsNumber, {
+singNumber.method('isNumber', objectIsNumber, {
     summary: 'Determine whether an object is a number.',
     parameters: [{
             name: 'obj',
@@ -7694,10 +7689,10 @@ singNumber.method('isNumber', ObjectIsNumber, {
         ext.addTest(null, [-Infinity], true);
     }
 }, $);
-function ObjectIsNumber(obj) {
+function objectIsNumber(obj) {
     return !isNaN(obj) && typeof obj == 'number';
 }
-singNumber.method('random', NumberRandom, {
+singNumber.method('random', numberRandom, {
     summary: 'Call $.random to produce a number of random numbers.',
     parameters: [
         {
@@ -7739,7 +7734,7 @@ singNumber.method('random', NumberRandom, {
         }, 'Returns multiple random numbers correctly');
     }
 }, $);
-function NumberRandom(minimum, maximum, count) {
+function numberRandom(minimum, maximum, count) {
     if (count === void 0) { count = 1; }
     if (maximum <= minimum)
         throw 'maximum must be greater than minimum';
@@ -7763,7 +7758,7 @@ function NumberRandom(minimum, maximum, count) {
     }
     return out;
 }
-singNumber.method('isNumeric', StringIsNumeric, {
+singNumber.method('isNumeric', stringIsNumeric, {
     summary: 'Call isNumeric on a String to determine if the string is in Numeric form. If the string is not a number false will be returned.',
     parameters: [],
     returns: 'A true value if the string represents a valid Number, otherwise false is returned.',
@@ -7780,7 +7775,7 @@ singNumber.method('isNumeric', StringIsNumeric, {
         ext.addTest('2 > 5', [], false);
     }
 }, String.prototype);
-function StringIsNumeric() {
+function stringIsNumeric() {
     if (this.length == 0)
         return false;
     var src = this.trim();
@@ -7795,7 +7790,7 @@ function StringIsNumeric() {
     }
     return false;
 }
-singNumber.method('isInteger', StringIsInteger, {
+singNumber.method('isInteger', stringIsInteger, {
     summary: 'Call isInteger on a String to determine if the string is in Integer form. If the string is not a number or has a decimal value, false will be returned.',
     parameters: [],
     returns: 'A true value if the string represents a valid Integer, otherwise false is returned.',
@@ -7811,7 +7806,7 @@ singNumber.method('isInteger', StringIsInteger, {
         ext.addTest('123.999', [], false);
     }
 }, String.prototype);
-function StringIsInteger() {
+function stringIsInteger() {
     if (this.length == 0)
         return false;
     var src = this.trim();
@@ -7826,7 +7821,7 @@ function StringIsInteger() {
     }
     return false;
 }
-singNumber.method('isEven', NumberIsEven, {
+singNumber.method('isEven', numberIsEven, {
     summary: 'Call isEven on a Number to determine if the number is an even Integer.',
     parameters: [],
     returns: 'A true value if the number is an even integer, false otherwise.',
@@ -7843,11 +7838,11 @@ singNumber.method('isEven', NumberIsEven, {
         ext.addTest((-2.000000000000001), [], false);
     }
 });
-function NumberIsEven() {
+function numberIsEven() {
     var thisNumber = this;
     return thisNumber % 2 == 0;
 }
-singNumber.method('isOdd', NumberIsOdd, {
+singNumber.method('isOdd', numberIsOdd, {
     summary: 'Call isOdd on a Number to determine if the number is an odd Integer.',
     parameters: [],
     returns: 'A true value if the number is an odd integer, false otherwise.',
@@ -7865,11 +7860,11 @@ singNumber.method('isOdd', NumberIsOdd, {
         ext.addTest((-3.000000000000001), [], false);
     }
 });
-function NumberIsOdd() {
+function numberIsOdd() {
     var thisNumber = this;
     return (thisNumber % 2).abs() == 1;
 }
-singNumber.method('toNumber', StringToNumber, {
+singNumber.method('toNumber', stringToNumber, {
     summary: 'Call toNumber on a String to try to convert the string to number form. If any decimal values are given they will be included in the result.',
     parameters: [],
     returns: 'A number value if the string represents a valid Number, otherwise NaN is returned.',
@@ -7885,7 +7880,7 @@ singNumber.method('toNumber', StringToNumber, {
         ext.addTest('123.999', [], 123.999);
     }
 }, String.prototype);
-function StringToNumber() {
+function stringToNumber() {
     if (this.length == 0)
         return NaN;
     var src = this.trim();
@@ -7896,7 +7891,7 @@ function StringToNumber() {
     }
     return NaN;
 }
-singNumber.method('toInteger', StringToInteger, {
+singNumber.method('toInteger', stringToInteger, {
     summary: 'Call toInteger on a String to try to convert the string to integer form. If any decimal values are given they will be rounded down (floor).',
     parameters: [],
     returns: 'A number value if the string represents a valid Number, otherwise NaN is returned.',
@@ -7912,7 +7907,7 @@ singNumber.method('toInteger', StringToInteger, {
         ext.addTest('123.999', [], 123);
     }
 }, String.prototype);
-function StringToInteger() {
+function stringToInteger() {
     if (this.length == 0)
         return NaN;
     var src = this.trim();
@@ -7923,7 +7918,7 @@ function StringToInteger() {
     }
     return NaN;
 }
-singNumber.method('total', ArrayTotal, {
+singNumber.method('total', arrayTotal, {
     summary: 'Call total on an array of numbers to get the total.',
     parameters: [],
     returns: 'The total of all the numbers in the array.',
@@ -7942,7 +7937,7 @@ singNumber.method('total', ArrayTotal, {
         ext.addTest([1, 2, 3, -6], [], 0);
     }
 }, Array.prototype);
-function ArrayTotal() {
+function arrayTotal() {
     var thisArray = this;
     thisArray = thisArray.select(function (a) { return $.isNumber(a); });
     if (thisArray.length == 0)
@@ -7956,7 +7951,7 @@ function ArrayTotal() {
     }
     return out;
 }
-singNumber.method('average', ArrayAverage, {
+singNumber.method('average', arrayAverage, {
     summary: 'Call average on an array of numbers to get the average value',
     parameters: [],
     returns: 'The average of all the numbers in the array.',
@@ -7976,7 +7971,7 @@ singNumber.method('average', ArrayAverage, {
         ext.addTest([1, 2, 3, -6], [], 0);
     }
 }, Array.prototype);
-function ArrayAverage() {
+function arrayAverage() {
     var thisArray = this;
     thisArray = thisArray.select(function (a) { return $.isNumber(a); });
     if (thisArray.length == 0)
@@ -7992,7 +7987,7 @@ function ArrayAverage() {
 }
 var singFunction = singExt.addModule(new sing.Module('Function', Function));
 singFunction.glyphIcon = '&#xe019;';
-singFunction.method('fn_try', FunctionTry, {
+singFunction.method('fnTry', functionTry, {
     summary: null,
     parameters: null,
     returns: '',
@@ -8003,15 +7998,15 @@ singFunction.method('fn_try', FunctionTry, {
         ext.addCustomTest(function () {
             (function () {
                 throw 'fail';
-            }).fn_try()();
+            }).fnTry()();
         });
     }
 });
-function FunctionTry() {
+function functionTry() {
     var source = this;
-    return source.fn_catch();
+    return source.fnCatch();
 }
-singFunction.method('fn_catch', FunctionCatch, {
+singFunction.method('fnCatch', functionCatch, {
     summary: null,
     parameters: null,
     returns: '',
@@ -8023,7 +8018,7 @@ singFunction.method('fn_catch', FunctionCatch, {
             var test = '';
             (function () {
                 throw 'fail';
-            }).fn_catch(function (ex) {
+            }).fnCatch(function (ex) {
                 test = ex;
             })();
             if (test != 'fail')
@@ -8031,7 +8026,7 @@ singFunction.method('fn_catch', FunctionCatch, {
         });
     }
 });
-function FunctionCatch(catchFunction, logFailure) {
+function functionCatch(catchFunction, logFailure) {
     if (logFailure === void 0) { logFailure = false; }
     var source = this;
     return function () {
@@ -8050,7 +8045,7 @@ function FunctionCatch(catchFunction, logFailure) {
         return result;
     };
 }
-singFunction.method('fn_log', FunctionLog, {
+singFunction.method('fnLog', functionLog, {
     summary: null,
     parameters: null,
     returns: '',
@@ -8059,7 +8054,7 @@ singFunction.method('fn_log', FunctionLog, {
     manuallyTested: true,
     glyphIcon: '&#xe105;'
 });
-function FunctionLog(logAttempt, logSuccess, logFailure) {
+function functionLog(logAttempt, logSuccess, logFailure) {
     if (logAttempt === void 0) { logAttempt = true; }
     if (logSuccess === void 0) { logSuccess = true; }
     if (logFailure === void 0) { logFailure = true; }
@@ -8084,7 +8079,7 @@ function FunctionLog(logAttempt, logSuccess, logFailure) {
         }
     };
 }
-singFunction.method('fn_count', FunctionCount, {
+singFunction.method('fnCount', functionCount, {
     summary: null,
     parameters: null,
     returns: '',
@@ -8092,7 +8087,7 @@ singFunction.method('fn_count', FunctionCount, {
     glyphIcon: '&#xe141;',
     examples: null
 });
-function FunctionCount(logFailure) {
+function functionCount(logFailure) {
     if (logFailure === void 0) { logFailure = false; }
     var source = this;
     var functionCallCount = 0;
@@ -8112,7 +8107,7 @@ function FunctionCount(logFailure) {
         }
     };
 }
-singFunction.method('fn_cache', FunctionCache, {
+singFunction.method('fnCache', functionCache, {
     summary: null,
     parameters: null,
     returns: '',
@@ -8121,7 +8116,7 @@ singFunction.method('fn_cache', FunctionCache, {
     glyphIcon: '&#xe121;',
     manuallyTested: true
 });
-function FunctionCache(uniqueCacheID, expiresAfter) {
+function functionCache(uniqueCacheID, expiresAfter) {
     if (expiresAfter === void 0) { expiresAfter = 0; }
     var source = this;
     var cacheKeyLimit = 300;
@@ -8143,7 +8138,7 @@ function FunctionCache(uniqueCacheID, expiresAfter) {
         if (!cache[uniqueCacheID])
             cache[uniqueCacheID] = {};
         var thisCache = cache[uniqueCacheID];
-        var argStr = ObjectToStr(thisCaller) + "|||||||" + ObjectToStr(items);
+        var argStr = objectToStr(thisCaller) + "|||||||" + objectToStr(items);
         if (argStr.length > cacheKeyLimit) {
             return source.apply(thisCaller, items);
         }
@@ -8168,7 +8163,7 @@ function FunctionCache(uniqueCacheID, expiresAfter) {
         }
     };
 }
-singFunction.method('fn_or', FunctionOR, {
+singFunction.method('fnOr', functionOR, {
     summary: null,
     parameters: null,
     returns: '',
@@ -8177,13 +8172,13 @@ singFunction.method('fn_or', FunctionOR, {
     glyphIcon: '&#xe110;',
     tests: function (ext) {
         ext.addCustomTest(function () {
-            var fn_test = (function (a) { return (a > 5); }).fn_or((function (a) { return (a < 0); }));
-            if (!fn_test(-50) || !fn_test(50) || fn_test(2))
+            var fnTest = (function (a) { return (a > 5); }).fnOR((function (a) { return (a < 0); }));
+            if (!fnTest(-50) || !fnTest(50) || fnTest(2))
                 return 'failed';
         });
     }
 });
-function FunctionOR(orFunc) {
+function functionOR(orFunc) {
     var source = this;
     return function () {
         var result1 = source.apply(this, arguments);
@@ -8191,7 +8186,7 @@ function FunctionOR(orFunc) {
         return result1 || result2;
     };
 }
-singFunction.method('fn_if', FunctionIf, {
+singFunction.method('fnIf', functionIf, {
     summary: null,
     parameters: null,
     returns: '',
@@ -8201,21 +8196,21 @@ singFunction.method('fn_if', FunctionIf, {
     tests: function (ext) {
         ext.addCustomTest(function () {
             var a = 0;
-            var fn_test = (function () {
+            var fnTest = (function () {
                 a++;
-            }).fn_if((function (a) { return (a == 'GO'); }));
-            fn_test('NO');
+            }).fnIf((function (a) { return (a == 'GO'); }));
+            fnTest('NO');
             if (a != 0)
                 return 'failed';
-            fn_test('GO');
-            fn_test('GO');
-            fn_test('GO');
+            fnTest('GO');
+            fnTest('GO');
+            fnTest('GO');
             if (a != 3)
                 return 'failed';
         });
     }
 });
-function FunctionIf(ifFunc) {
+function functionIf(ifFunc) {
     var srcThis = this;
     return function () {
         var items = [];
@@ -8227,7 +8222,7 @@ function FunctionIf(ifFunc) {
         }
     };
 }
-singFunction.method('fn_unless', FunctionUnless, {
+singFunction.method('fnUnless', functionUnless, {
     summary: null,
     parameters: null,
     returns: '',
@@ -8237,21 +8232,21 @@ singFunction.method('fn_unless', FunctionUnless, {
     tests: function (ext) {
         ext.addCustomTest(function () {
             var a = 0;
-            var fn_test = (function () {
+            var fnTest = (function () {
                 a++;
-            }).fn_unless((function (a) { return (a == 'NO'); }));
-            fn_test('NO');
+            }).fnUnless((function (a) { return (a == 'NO'); }));
+            fnTest('NO');
             if (a != 0)
                 return 'failed';
-            fn_test('GO');
-            fn_test('GO');
-            fn_test('GO');
+            fnTest('GO');
+            fnTest('GO');
+            fnTest('GO');
             if (a != 3)
                 return 'failed';
         });
     }
 });
-function FunctionUnless(ifFunc) {
+function functionUnless(ifFunc) {
     var srcThis = this;
     return function () {
         var items = [];
@@ -8263,7 +8258,7 @@ function FunctionUnless(ifFunc) {
         }
     };
 }
-singFunction.method('fn_then', FunctionThen, {
+singFunction.method('fnThen', functionThen, {
     summary: null,
     parameters: null,
     returns: '',
@@ -8273,7 +8268,7 @@ singFunction.method('fn_then', FunctionThen, {
     tests: function (ext) {
     }
 });
-function FunctionThen(thenFunc) {
+function functionThen(thenFunc) {
     var srcThis = this;
     return function () {
         var items = [];
@@ -8289,7 +8284,7 @@ function FunctionThen(thenFunc) {
         return out;
     };
 }
-singFunction.method('fn_repeat', FunctionRepeat, {
+singFunction.method('fnRepeat', functionRepeat, {
     summary: null,
     parameters: null,
     returns: '',
@@ -8299,7 +8294,7 @@ singFunction.method('fn_repeat', FunctionRepeat, {
     tests: function (ext) {
     }
 });
-function FunctionRepeat(repeatOver) {
+function functionRepeat(repeatOver) {
     var _this = this;
     var srcThis = this;
     if ($.isFunction(repeatOver)) {
@@ -8340,7 +8335,7 @@ function FunctionRepeat(repeatOver) {
         return out;
     };
 }
-singFunction.method('fn_while', FunctionWhile, {
+singFunction.method('fnWhile', functionWhile, {
     summary: null,
     parameters: null,
     returns: '',
@@ -8350,7 +8345,7 @@ singFunction.method('fn_while', FunctionWhile, {
     tests: function (ext) {
     }
 });
-function FunctionWhile(condition) {
+function functionWhile(condition) {
     return function () {
         var items = [];
         for (var _i = 0; _i < arguments.length; _i++) {
@@ -8359,7 +8354,7 @@ function FunctionWhile(condition) {
         return this.fn_repeat(condition).apply(this, items);
     };
 }
-singFunction.method('fn_retry', FunctionRetry, {
+singFunction.method('fnRetry', functionRetry, {
     summary: null,
     parameters: null,
     returns: '',
@@ -8369,7 +8364,7 @@ singFunction.method('fn_retry', FunctionRetry, {
     tests: function (ext) {
     }
 });
-function FunctionRetry(times) {
+function functionRetry(times) {
     if (times === void 0) { times = 1; }
     var srcThis = this;
     return function () {
@@ -8392,7 +8387,7 @@ function FunctionRetry(times) {
         throw "Failed " + times + " times with " + exception;
     };
 }
-singFunction.method('fn_time', FunctionTime, {
+singFunction.method('fnTime', functionTime, {
     summary: null,
     parameters: null,
     returns: '',
@@ -8402,7 +8397,7 @@ singFunction.method('fn_time', FunctionTime, {
     tests: function (ext) {
     }
 });
-function FunctionTime() {
+function functionTime() {
     var srcThis = this;
     return function () {
         var items = [];
@@ -8417,7 +8412,7 @@ function FunctionTime() {
         return length;
     };
 }
-singFunction.method('fn_defer', FunctionDefer, {
+singFunction.method('fnDefer', functionDefer, {
     summary: null,
     parameters: null,
     returns: '',
@@ -8428,7 +8423,7 @@ singFunction.method('fn_defer', FunctionDefer, {
     tests: function (ext) {
     }
 });
-function FunctionDefer(callback) {
+function functionDefer(callback) {
     var srcThis = this;
     return function () {
         var items = [];
@@ -8442,7 +8437,7 @@ function FunctionDefer(callback) {
         }, 1);
     };
 }
-singFunction.method('fn_delay', FunctionDelay, {
+singFunction.method('fnDelay', functionDelay, {
     summary: null,
     parameters: null,
     returns: '',
@@ -8452,7 +8447,7 @@ singFunction.method('fn_delay', FunctionDelay, {
     tests: function (ext) {
     }
 });
-function FunctionDelay(delayMS, callback) {
+function functionDelay(delayMS, callback) {
     delayMS = delayMS.max(1);
     return function () {
         var items = [];
@@ -8466,7 +8461,7 @@ function FunctionDelay(delayMS, callback) {
         }, delayMS);
     };
 }
-singFunction.method('fn_before', FunctionBefore, {
+singFunction.method('fnBefore', functionBefore, {
     summary: null,
     parameters: null,
     returns: '',
@@ -8476,7 +8471,7 @@ singFunction.method('fn_before', FunctionBefore, {
     tests: function (ext) {
     }
 });
-function FunctionBefore(triggerFunc) {
+function functionBefore(triggerFunc) {
     var srcThis = this;
     return function () {
         var items = [];
@@ -8488,7 +8483,7 @@ function FunctionBefore(triggerFunc) {
         return result;
     };
 }
-singFunction.method('fn_after', FunctionAfter, {
+singFunction.method('fnAfter', functionAfter, {
     summary: null,
     parameters: null,
     returns: '',
@@ -8498,7 +8493,7 @@ singFunction.method('fn_after', FunctionAfter, {
     tests: function (ext) {
     }
 });
-function FunctionAfter(triggerFunc) {
+function functionAfter(triggerFunc) {
     var srcThis = this;
     return function () {
         var items = [];
@@ -8511,7 +8506,7 @@ function FunctionAfter(triggerFunc) {
         return result;
     };
 }
-singFunction.method('fn_wrap', FunctionWrap, {
+singFunction.method('fnWrap', functionWrap, {
     summary: null,
     parameters: null,
     returns: '',
@@ -8521,7 +8516,7 @@ singFunction.method('fn_wrap', FunctionWrap, {
     tests: function (ext) {
     }
 });
-function FunctionWrap(triggerFunc) {
+function functionWrap(triggerFunc) {
     var srcThis = this;
     return function () {
         var items = [];
@@ -8535,7 +8530,7 @@ function FunctionWrap(triggerFunc) {
         return result;
     };
 }
-singFunction.method('fn_trace', FunctionTrace, {
+singFunction.method('fnTrace', functionTrace, {
     summary: null,
     parameters: null,
     returns: '',
@@ -8545,7 +8540,7 @@ singFunction.method('fn_trace', FunctionTrace, {
     tests: function (ext) {
     }
 });
-function FunctionTrace(traceStr) {
+function functionTrace(traceStr) {
     var srcThis = this;
     return function () {
         var items = [];
@@ -8559,7 +8554,7 @@ function FunctionTrace(traceStr) {
         return result;
     };
 }
-singFunction.method('fn_recurring', FunctionRecurring, {
+singFunction.method('fnRecurring', functionRecurring, {
     summary: null,
     parameters: null,
     returns: '',
@@ -8569,7 +8564,7 @@ singFunction.method('fn_recurring', FunctionRecurring, {
     tests: function (ext) {
     }
 });
-function FunctionRecurring(intervalMS, breakCondition) {
+function functionRecurring(intervalMS, breakCondition) {
     var srcThis = this;
     var minimum = 10;
     var runs = 0;
@@ -8594,7 +8589,7 @@ function FunctionRecurring(intervalMS, breakCondition) {
         setTimer(src, items);
     };
 }
-singFunction.method('executeAll', ArrayExecuteAll, {
+singFunction.method('executeAll', arrayExecuteAll, {
     summary: null,
     parameters: null,
     returns: '',
@@ -8604,7 +8599,7 @@ singFunction.method('executeAll', ArrayExecuteAll, {
     tests: function (ext) {
     }
 }, Array.prototype);
-function ArrayExecuteAll() {
+function arrayExecuteAll() {
     var _this = this;
     var items = [];
     for (var _i = 0; _i < arguments.length; _i++) {
@@ -8615,10 +8610,10 @@ function ArrayExecuteAll() {
     var out = items.collect(function (item) { return item.apply(_this, items); });
     return out;
 }
-singFunction.method('fn_not', FunctionNot, {
+singFunction.method('fnNot', functionNot, {
     glyphIcon: '&#xe126;'
 });
-function FunctionNot() {
+function functionNot() {
     var srcThis = this;
     return function () {
         var items = [];
@@ -8637,7 +8632,7 @@ singArray.features = ['Shuffling arrays',
     'De-duplication',
     'Array indexing'];
 singArray.glyphIcon = '&#xe236;';
-singArray.method('splitAt', SplitAt, {
+singArray.method('splitAt', splitAt, {
     summary: 'Takes an array and splits it at the specified indexes.',
     parameters: [
         {
@@ -8662,7 +8657,7 @@ singArray.method('splitAt', SplitAt, {
         ext.addTest([1, 2, 3, 4, 5, 6], [1, 3], [[1], [2, 3], [4, 5, 6]]);
     }
 });
-function SplitAt() {
+function splitAt() {
     var indexes = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         indexes[_i - 0] = arguments[_i];
@@ -8688,7 +8683,7 @@ function SplitAt() {
         out.push(section);
     return out;
 }
-singArray.method('removeAt', ArrayRemoveAt, {
+singArray.method('removeAt', arrayRemoveAt, {
     summary: 'Takes an array and returns a new array with the passed indexes removed.',
     parameters: [
         {
@@ -8715,7 +8710,7 @@ singArray.method('removeAt', ArrayRemoveAt, {
         ext.addTest([1, 2, 3, 4, 5, 6], [0, 5], [2, 3, 4, 5]);
     }
 });
-function ArrayRemoveAt() {
+function arrayRemoveAt() {
     var indexes = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         indexes[_i - 0] = arguments[_i];
@@ -8723,7 +8718,7 @@ function ArrayRemoveAt() {
     var thisArray = this;
     return thisArray.select(function (item, index) { return (!indexes.has(index)); });
 }
-singArray.method('unique', ArrayUnique, {
+singArray.method('unique', arrayUnique, {
     summary: 'Takes an array and returns only unique values, discarding duplicates.',
     parameters: [],
     returns: 'An array with unique values.',
@@ -8738,7 +8733,7 @@ singArray.method('unique', ArrayUnique, {
         ext.addTest([1, 2, 3, 'a', 'b', 'c', 1, 2, 3, 'a', 'b', 'c'], [], [1, 2, 3, 'a', 'b', 'c']);
     }
 });
-function ArrayUnique() {
+function arrayUnique() {
     var thisArray = this;
     var out = [];
     thisArray.each(function (item) {
@@ -8747,7 +8742,7 @@ function ArrayUnique() {
     });
     return out;
 }
-singArray.method('random', ArrayRandom, {
+singArray.method('random', arrayRandom, {
     summary: 'Takes an array and returns one or more random values from the source array.',
     parameters: [
         {
@@ -8771,7 +8766,7 @@ singArray.method('random', ArrayRandom, {
         });
     }
 });
-function ArrayRandom(count) {
+function arrayRandom(count) {
     if (count === void 0) { count = 1; }
     var thisArray = this;
     var out = [];
@@ -8784,7 +8779,7 @@ function ArrayRandom(count) {
     }
     return out;
 }
-singArray.method('shuffle', ArrayShuffle, {
+singArray.method('shuffle', arrayShuffle, {
     summary: 'Takes an array and returns a new array with the original array values, shuffled.',
     parameters: [],
     returns: 'A new array with the original array values, shuffled',
@@ -8801,7 +8796,7 @@ singArray.method('shuffle', ArrayShuffle, {
         });
     }
 });
-function ArrayShuffle() {
+function arrayShuffle() {
     var thisArray = this;
     var out = [];
     while (thisArray.length > 0) {
@@ -8811,7 +8806,7 @@ function ArrayShuffle() {
     }
     return out;
 }
-singArray.method('group', ArrayGroup, {
+singArray.method('group', arrayGroup, {
     summary: 'Takes an array and groups the items using the key returned from the indexing function',
     returns: 'A Javascript hash object grouped by the indexing function.',
     returnType: Object,
@@ -8830,7 +8825,7 @@ singArray.method('group', ArrayGroup, {
         ext.addTest([1, 2, 2, 3], [function (a) { return ("group" + a); }], { group1: [1], group2: [2, 2], group3: [3] });
     }
 });
-function ArrayGroup(indexFunc) {
+function arrayGroup(indexFunc) {
     var thisArray = this;
     var out = {};
     thisArray.each(function (item, index) {
@@ -8843,7 +8838,7 @@ function ArrayGroup(indexFunc) {
     });
     return out;
 }
-singArray.method('toArray', ObjToArray, {
+singArray.method('toArray', objToArray, {
     summary: 'Takes an object of any kind and returns it as an array. If no object is passed an empty array will be returned. \
             If an array is passed, it will be returned.',
     parameters: [
@@ -8864,7 +8859,7 @@ singArray.method('toArray', ObjToArray, {
         ext.addTest(null, [[0, 1, 2]], [0, 1, 2]);
     }
 }, $);
-function ObjToArray(obj) {
+function objToArray(obj) {
     if (!$.isDefined(obj))
         return [];
     if ($.isArray(obj))

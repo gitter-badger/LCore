@@ -37,6 +37,8 @@ using System;
 
 #if !NETCF_1_0 && !NETCF_2_0
 using System.Runtime.Serialization;
+// ReSharper disable CommentTypo
+// ReSharper disable NotAccessedField.Local
 #endif
 
 namespace ICSharpCode.SharpZipLib.BZip2
@@ -49,15 +51,16 @@ namespace ICSharpCode.SharpZipLib.BZip2
 #endif	
 	public class BZip2Exception : SharpZipBaseException
 	{
+	    private readonly string _Message;
 
 #if !NETCF_1_0 && !NETCF_2_0
 		/// <summary>
 		/// Deserialization constructor 
 		/// </summary>
-		/// <param name="info"><see cref="SerializationInfo"/> for this constructor</param>
-		/// <param name="context"><see cref="StreamingContext"/> for this constructor</param>
-		protected BZip2Exception(SerializationInfo info, StreamingContext context)
-			: base(info, context)
+		/// <param name="Info"><see cref="SerializationInfo"/> for this constructor</param>
+		/// <param name="Context"><see cref="StreamingContext"/> for this constructor</param>
+		protected BZip2Exception(SerializationInfo Info, StreamingContext Context)
+			: base(Info, Context)
 
 		{
 		}
@@ -72,18 +75,19 @@ namespace ICSharpCode.SharpZipLib.BZip2
 		/// <summary>
 		/// Initialise a new instance of BZip2Exception with its message set to message.
 		/// </summary>
-		/// <param name="message">The message describing the error.</param>
-		public BZip2Exception(string message) : base(message)
-		{
-		}
+		/// <param name="Message">The message describing the error.</param>
+		public BZip2Exception(string Message) : base(Message)
+		    {
+		    this._Message = Message;
+		    }
 
-		/// <summary>
+	    /// <summary>
 		/// Initialise an instance of BZip2Exception
 		/// </summary>
-		/// <param name="message">A message describing the error.</param>
-		/// <param name="exception">The exception that is the cause of the current exception.</param>
-		public BZip2Exception(string message, Exception exception)
-			: base(message, exception)
+		/// <param name="Message">A message describing the error.</param>
+		/// <param name="Exception">The exception that is the cause of the current exception.</param>
+		public BZip2Exception(string Message, Exception Exception)
+			: base(Message, Exception)
 		{
 		}
 	}

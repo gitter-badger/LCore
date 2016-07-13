@@ -11,83 +11,83 @@ namespace LCore.Extensions
         internal static class Lang
             {
             #region RemoveTypeNamespaces
-            internal static readonly Func<string, string> RemoveTypeNamespaces = s =>
+            internal static readonly Func<string, string> RemoveTypeNamespaces = Str =>
             {
-                while (s.Has('.'))
+                while (Str.Has('.'))
                     {
-                    int Index = s.IndexOf('.');
-                    string Temp = s.Substring(0, Index);
+                    int Index = Str.IndexOf('.');
+                    string Temp = Str.Substring(0, Index);
                     int IndexSpace = Temp.LastIndexOfAny(SeparatorChars);
                     if (IndexSpace < 0)
                         {
-                        s = s.Substring(Index + 1);
+                        Str = Str.Substring(Index + 1);
                         }
                     else
                         {
-                        s = s.Substring(0, IndexSpace + 1) + s.Substring(Index + 1);
+                        Str = Str.Substring(0, IndexSpace + 1) + Str.Substring(Index + 1);
                         }
                     }
-                return s;
+                return Str;
             };
             #endregion
             #region CleanGenericTypeName
-            internal static readonly Func<string, string> CleanGenericTypeName = s =>
+            internal static readonly Func<string, string> CleanGenericTypeName = Str =>
             {
-                s = s.Replace("`1[", "<");
-                s = s.Replace("`2[", "<");
-                s = s.Replace("`3[", "<");
-                s = s.Replace("`4[", "<");
-                s = s.Replace("`5[", "<");
-                s = s.Replace("`6[", "<");
-                s = s.Replace("`7[", "<");
-                s = s.Replace("`8[", "<");
-                s = s.Replace("`9[", "<");
-                s = s.Replace("`10[", "<");
-                s = s.Replace("`11[", "<");
-                s = s.Replace("`12[", "<");
-                s = s.Replace("`13[", "<");
-                s = s.Replace("`14[", "<");
-                s = s.Replace("`15[", "<");
-                s = s.Replace("`16[", "<");
-                s = s.Replace("`17[", "<");
-                s = s.Replace("Action`10", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10>");
-                s = s.Replace("Action`11", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11>");
-                s = s.Replace("Action`12", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12>");
-                s = s.Replace("Action`13", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13>");
-                s = s.Replace("Action`14", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14>");
-                s = s.Replace("Action`15", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15>");
-                s = s.Replace("Action`16", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16>");
-                s = s.Replace("Action`1", "Action<T1>");
-                s = s.Replace("Action`2", "Action<T1,T2>");
-                s = s.Replace("Action`3", "Action<T1,T2,T3>");
-                s = s.Replace("Action`4", "Action<T1,T2,T3,T4>");
-                s = s.Replace("Action`5", "Action<T1,T2,T3,T4,T5>");
-                s = s.Replace("Action`6", "Action<T1,T2,T3,T4,T5,T6>");
-                s = s.Replace("Action`7", "Action<T1,T2,T3,T4,T5,T6,T7>");
-                s = s.Replace("Action`8", "Action<T1,T2,T3,T4,T5,T6,T7,T8>");
-                s = s.Replace("Action`9", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9>");
-                s = s.Replace("Func`10", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,U>");
-                s = s.Replace("Func`11", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,U>");
-                s = s.Replace("Func`12", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,U>");
-                s = s.Replace("Func`13", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,U>");
-                s = s.Replace("Func`14", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,U>");
-                s = s.Replace("Func`15", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,U>");
-                s = s.Replace("Func`16", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,U>");
-                s = s.Replace("Func`17", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,U>");
-                s = s.Replace("Func`1", "Func<U>");
-                s = s.Replace("Func`2", "Func<T1,U>");
-                s = s.Replace("Func`3", "Func<T1,T2,U>");
-                s = s.Replace("Func`4", "Func<T1,T2,T3,U>");
-                s = s.Replace("Func`5", "Func<T1,T2,T3,T4,U>");
-                s = s.Replace("Func`6", "Func<T1,T2,T3,T4,T5,U>");
-                s = s.Replace("Func`7", "Func<T1,T2,T3,T4,T5,T6,U>");
-                s = s.Replace("Func`8", "Func<T1,T2,T3,T4,T5,T6,T7,U>");
-                s = s.Replace("Func`9", "Func<T1,T2,T3,T4,T5,T6,T7,T8,U>");
-                s = s.Replace("[]", "***");
-                s = s.Replace("]", ">");
-                s = s.Replace("[", ">");
-                s = s.Replace("***", "[]");
-                return RemoveTypeNamespaces(s);
+                Str = Str.Replace("`1[", "<");
+                Str = Str.Replace("`2[", "<");
+                Str = Str.Replace("`3[", "<");
+                Str = Str.Replace("`4[", "<");
+                Str = Str.Replace("`5[", "<");
+                Str = Str.Replace("`6[", "<");
+                Str = Str.Replace("`7[", "<");
+                Str = Str.Replace("`8[", "<");
+                Str = Str.Replace("`9[", "<");
+                Str = Str.Replace("`10[", "<");
+                Str = Str.Replace("`11[", "<");
+                Str = Str.Replace("`12[", "<");
+                Str = Str.Replace("`13[", "<");
+                Str = Str.Replace("`14[", "<");
+                Str = Str.Replace("`15[", "<");
+                Str = Str.Replace("`16[", "<");
+                Str = Str.Replace("`17[", "<");
+                Str = Str.Replace("Action`10", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10>");
+                Str = Str.Replace("Action`11", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11>");
+                Str = Str.Replace("Action`12", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12>");
+                Str = Str.Replace("Action`13", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13>");
+                Str = Str.Replace("Action`14", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14>");
+                Str = Str.Replace("Action`15", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15>");
+                Str = Str.Replace("Action`16", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16>");
+                Str = Str.Replace("Action`1", "Action<T1>");
+                Str = Str.Replace("Action`2", "Action<T1,T2>");
+                Str = Str.Replace("Action`3", "Action<T1,T2,T3>");
+                Str = Str.Replace("Action`4", "Action<T1,T2,T3,T4>");
+                Str = Str.Replace("Action`5", "Action<T1,T2,T3,T4,T5>");
+                Str = Str.Replace("Action`6", "Action<T1,T2,T3,T4,T5,T6>");
+                Str = Str.Replace("Action`7", "Action<T1,T2,T3,T4,T5,T6,T7>");
+                Str = Str.Replace("Action`8", "Action<T1,T2,T3,T4,T5,T6,T7,T8>");
+                Str = Str.Replace("Action`9", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9>");
+                Str = Str.Replace("Func`10", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,U>");
+                Str = Str.Replace("Func`11", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,U>");
+                Str = Str.Replace("Func`12", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,U>");
+                Str = Str.Replace("Func`13", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,U>");
+                Str = Str.Replace("Func`14", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,U>");
+                Str = Str.Replace("Func`15", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,U>");
+                Str = Str.Replace("Func`16", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,U>");
+                Str = Str.Replace("Func`17", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,U>");
+                Str = Str.Replace("Func`1", "Func<U>");
+                Str = Str.Replace("Func`2", "Func<T1,U>");
+                Str = Str.Replace("Func`3", "Func<T1,T2,U>");
+                Str = Str.Replace("Func`4", "Func<T1,T2,T3,U>");
+                Str = Str.Replace("Func`5", "Func<T1,T2,T3,T4,U>");
+                Str = Str.Replace("Func`6", "Func<T1,T2,T3,T4,T5,U>");
+                Str = Str.Replace("Func`7", "Func<T1,T2,T3,T4,T5,T6,U>");
+                Str = Str.Replace("Func`8", "Func<T1,T2,T3,T4,T5,T6,T7,U>");
+                Str = Str.Replace("Func`9", "Func<T1,T2,T3,T4,T5,T6,T7,T8,U>");
+                Str = Str.Replace("[]", "***");
+                Str = Str.Replace("]", ">");
+                Str = Str.Replace("[", ">");
+                Str = Str.Replace("***", "[]");
+                return RemoveTypeNamespaces(Str);
             };
             #endregion
 
@@ -99,14 +99,14 @@ namespace LCore.Extensions
             internal static readonly char[] SeparatorChars = { ' ', ',', '<', '>', '(', ')', '{', '}', '[', ']', '-', '+', '.', '/', '*', '-', '&', '^', '%', '=', '?' };
 
             #region GetAssemblyTypesWithAttribute
-            internal static readonly Func<Type, List<Type>> GetAssemblyTypesWithAttribute = attr =>
+            internal static readonly Func<Type, List<Type>> GetAssemblyTypesWithAttribute = Attr =>
             {
                 return Assembly.GetCallingAssembly().GetModules()
-                    .Convert(mod =>
+                    .Convert(Module =>
                         {
-                            return mod.GetTypes().Select(t =>
+                            return Module.GetTypes().Select(Type =>
                             {
-                                return attr.TypeEquals(typeof(void)) || t.HasAttribute(attr, true);
+                                return Attr.TypeEquals(typeof(void)) || Type.HasAttribute(Attr, true);
                             });
                         })
                     .Flatten<Type>();
@@ -116,19 +116,19 @@ namespace LCore.Extensions
             internal static Func<List<Type>> GetAssemblyTypes = GetAssemblyTypesWithAttribute.Supply(typeof(void));
             #endregion
             #region ReplaceNativeTypes
-            internal static readonly Func<string, string> ReplaceNativeTypes = s =>
+            internal static readonly Func<string, string> ReplaceNativeTypes = Str =>
             {
-                s = s.Replace("System.Double", "double");
-                s = s.Replace("System.UInt32", "uint");
-                s = s.Replace("System.Int32", "int");
-                s = s.Replace("System.Single", "float");
-                s = s.Replace("System.Boolean", "bool");
-                s = s.Replace("Double", "double");
-                s = s.Replace("UInt32", "uint");
-                s = s.Replace("Int32", "int");
-                s = s.Replace("Single", "float");
-                s = s.Replace("Boolean", "bool");
-                return s;
+                Str = Str.Replace("System.Double", "double");
+                Str = Str.Replace("System.UInt32", "uint");
+                Str = Str.Replace("System.Int32", "int");
+                Str = Str.Replace("System.Single", "float");
+                Str = Str.Replace("System.Boolean", "bool");
+                Str = Str.Replace("Double", "double");
+                Str = Str.Replace("UInt32", "uint");
+                Str = Str.Replace("Int32", "int");
+                Str = Str.Replace("Single", "float");
+                Str = Str.Replace("Boolean", "bool");
+                return Str;
             };
             #endregion
             #region CommentSummary
@@ -147,9 +147,9 @@ namespace LCore.Extensions
                     return In;
 
                 string Out = "";
-                Using.Each(str =>
+                Using.Each(Str =>
                 {
-                    Out += $"using {str};\r\n";
+                    Out += $"using {Str};\r\n";
                 });
                 Out += "\r\n";
                 Out += In;
@@ -171,13 +171,13 @@ namespace LCore.Extensions
             internal static readonly Func<string[], List<string>> GetGenericsFromTypes = Generics =>
                 {
                     var Out = new List<string>();
-                    Generics.Each(g =>
+                    Generics.Each(Generic =>
                     {
-                        Out.AddRange(GetTypeGenerics(g));
+                        Out.AddRange(GetTypeGenerics(Generic));
                     });
 
                     Out = Out.RemoveDuplicates();
-                    Out = Out.Select(s => GenericTypes.Has(s)).List();
+                    Out = Out.Select(Str => GenericTypes.Has(Str)).List();
                     Out.Sort(Str.NumericalCompare);
                     return Out;
                 };
@@ -187,11 +187,11 @@ namespace LCore.Extensions
             {
                 string Out = TypeStr.Has('<') ? TypeStr.Substring(TypeStr.LastIndexOf('<') + 1, TypeStr.LastIndexOf('>') - TypeStr.LastIndexOf('<') - 1) : "";
                 if (Out.Has(','))
-                    return Out.Split(',').List().Collect(s =>
+                    return Out.Split(',').List().Collect(Str =>
                         {
-                            if (s == "T")
+                            if (Str == "T")
                                 return "T1";
-                            return s == "" ? null : s.Trim();
+                            return Str == "" ? null : Str.Trim();
                         });
                 return !Out.IsEmpty() ? new List<string> { Out } : new List<string>();
             };
@@ -207,8 +207,8 @@ namespace LCore.Extensions
             internal static readonly Func<MethodInfo, string> GetEmptyLambdaFromMethod = Method =>
                 {
                     string FunctionTypeName = CleanGenericTypeName(Method.ReturnType.ToString());
-                    string ParameterTypes = Method.GetParameters().Convert(p => CleanGenericTypeName(p.ParameterType.ToString())).Combine(", ");
-                    string ParameterNames = Method.GetParameters().Convert(p => p.Name).Combine(",  ");
+                    string ParameterTypes = Method.GetParameters().Convert(Param => CleanGenericTypeName(Param.ParameterType.ToString())).Combine(", ");
+                    string ParameterNames = Method.GetParameters().Convert(Param => Param.Name).Combine(",  ");
                     List<string> Generics = GetGenericsFromTypes(ParameterTypes.Split(",  ").Add(FunctionTypeName));
                     bool ReadOnly = Generics.IsEmpty();
                     string BaseType = Method.ReturnType.TypeEquals(typeof(void)) ? "Action" : "Func";
@@ -322,7 +322,7 @@ namespace LCore.Extensions
                     }
 
                 Out +=
-                    $"{(MemberType.HasFlag(MemberTypes.Method) ? "()" : "")}({Params.List1.List().Collect(s => { if (s.Contains(" = ")) s = s.Substring(0, s.IndexOf(" = ")); return s; }).Combine(", ")})";
+                    $"{(MemberType.HasFlag(MemberTypes.Method) ? "()" : "")}({Params.List1.List().Collect(Str => { if (Str.Contains(" = ")) Str = Str.Substring(0, Str.IndexOf(" = ")); return Str; }).Combine(", ")})";
                 if (ExecuteResult)
                     Out += "()";
                 Out += ";\r\n";

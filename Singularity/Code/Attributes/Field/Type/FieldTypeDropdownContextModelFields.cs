@@ -18,6 +18,7 @@ namespace Singularity.Annotations
             this.RecursiveFields = RecursiveFields;
             }
 
+        // ReSharper disable once MemberCanBeProtected.Global
         public FieldTypeDropdownContextModelFields(Type ModelType, bool MultiSelect = false, bool RecursiveFields = false)
             : base(new string[] { }, MultiSelect)
             {
@@ -68,18 +69,18 @@ namespace Singularity.Annotations
             if (ContextModelType != null)
                 {
                 Dictionary<string, ModelMetadata> Properties = this.RecursiveFields ?
-                    ContextModelType.Meta().Properties.Index(p => p.PropertyName) :
+                    ContextModelType.Meta().Properties.Index(Prop => Prop.PropertyName) :
                     ContextModelType.GetMeta();
 
                 List<KeyValuePair<string, string>>[] Keys = { new List<KeyValuePair<string, string>>() };
 
-                Properties.Each(k =>
+                Properties.Each(Prop =>
                 {
-                    if (this.IncludeField(k.Key, k.Value))
-                        Keys[0].Add(new KeyValuePair<string, string>(k.Value.PropertyName.Humanize(), k.Value.PropertyName));
+                    if (this.IncludeField(Prop.Key, Prop.Value))
+                        Keys[0].Add(new KeyValuePair<string, string>(Prop.Value.PropertyName.Humanize(), Prop.Value.PropertyName));
                 });
 
-                Keys[0] = Keys[0].OrderBy(k => k.Key).List();
+                Keys[0] = Keys[0].OrderBy(Key => Key.Key).List();
 
                 return Keys[0];
                 }

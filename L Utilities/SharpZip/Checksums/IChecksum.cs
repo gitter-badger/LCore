@@ -37,6 +37,7 @@
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedMemberInSuper.Global
+// ReSharper disable InconsistentNaming
 namespace ICSharpCode.SharpZipLib.Checksums
     {
 

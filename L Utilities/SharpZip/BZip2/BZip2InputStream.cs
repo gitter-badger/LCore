@@ -1,3 +1,4 @@
+
 // BZip2InputStream.cs
 //
 // Copyright (C) 2001 Mike Krueger
@@ -40,6 +41,10 @@ using ICSharpCode.SharpZipLib.Checksums;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable FieldCanBeMadeReadOnly.Local
 // ReSharper disable SuggestBaseTypeForParameter
+// ReSharper disable ExceptionNotDocumented
+// ReSharper disable CommentTypo
+// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
 
 namespace ICSharpCode.SharpZipLib.BZip2
     {
@@ -51,13 +56,13 @@ namespace ICSharpCode.SharpZipLib.BZip2
         {
         #region Constants
 
-        private const int START_BLOCK_STATE = 1;
-        private const int RAND_PART_A_STATE = 2;
-        private const int RAND_PART_B_STATE = 3;
-        private const int RAND_PART_C_STATE = 4;
-        private const int NO_RAND_PART_A_STATE = 5;
-        private const int NO_RAND_PART_B_STATE = 6;
-        private const int NO_RAND_PART_C_STATE = 7;
+        private const int StartBlockState = 1;
+        private const int RandPartAState = 2;
+        private const int RandPartBState = 3;
+        private const int RandPartCState = 4;
+        private const int NoRandPartAState = 5;
+        private const int NoRandPartBState = 6;
+        private const int NoRandPartCState = 7;
         #endregion
         #region Constructors
         /// <summary>
@@ -115,11 +120,20 @@ namespace ICSharpCode.SharpZipLib.BZip2
         /// Setting the position is not supported and will throw a NotSupportException
         /// </summary>
         /// <exception cref="NotSupportedException">Any attempt to set the position</exception>
+        /// <exception cref="IOException"></exception>
         public override long Position
             {
             get
                 {
-                return this.baseStream.Position;
+                try
+                    {
+                    return this.baseStream.Position;
+                    }
+                // ReSharper disable once RedundantCatchClause
+                catch (IOException)
+                    {
+                    throw;
+                    }
                 }
             set
                 {
@@ -130,6 +144,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
         /// <summary>
         /// Flushes the stream.
         /// </summary>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
         public override void Flush()
             {
             this.baseStream?.Flush();
@@ -192,6 +207,10 @@ namespace ICSharpCode.SharpZipLib.BZip2
         /// than the number of bytes requested if that number of bytes are not 
         /// currently available or zero if the end of the stream is reached.
         /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref>
+        ///         <name></name>
+        ///     </paramref>
+        ///     is <see langword="null" />.</exception>
         public override int Read(byte[] buffer, int offset, int count)
             {
             if (buffer == null)
@@ -235,21 +254,21 @@ namespace ICSharpCode.SharpZipLib.BZip2
             int retChar = this.currentChar;
             switch (this.currentState)
                 {
-                case RAND_PART_B_STATE:
+                case RandPartBState:
                     this.SetupRandPartB();
                     break;
-                case RAND_PART_C_STATE:
+                case RandPartCState:
                     this.SetupRandPartC();
                     break;
-                case NO_RAND_PART_B_STATE:
+                case NoRandPartBState:
                     this.SetupNoRandPartB();
                     break;
-                case NO_RAND_PART_C_STATE:
+                case NoRandPartCState:
                     this.SetupNoRandPartC();
                     break;
-                case START_BLOCK_STATE:
-                case NO_RAND_PART_A_STATE:
-                case RAND_PART_A_STATE:
+                case StartBlockState:
+                case NoRandPartAState:
+                case RandPartAState:
                     break;
                 }
             return retChar;
@@ -318,7 +337,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
             this.GetAndMoveToFrontDecode();
 
             this.mCrc.Reset();
-            this.currentState = START_BLOCK_STATE;
+            this.currentState = StartBlockState;
             }
 
         private void EndBlock()
@@ -745,7 +764,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
                 this.i2++;
 
                 this.currentChar = this.ch2;
-                this.currentState = RAND_PART_B_STATE;
+                this.currentState = RandPartBState;
                 this.mCrc.Update(this.ch2);
                 }
             else
@@ -766,7 +785,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
                 this.i2++;
 
                 this.currentChar = this.ch2;
-                this.currentState = NO_RAND_PART_B_STATE;
+                this.currentState = NoRandPartBState;
                 this.mCrc.Update(this.ch2);
                 }
             else
@@ -781,7 +800,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
             {
             if (this.ch2 != this.chPrev)
                 {
-                this.currentState = RAND_PART_A_STATE;
+                this.currentState = RandPartAState;
                 this.count = 1;
                 this.SetupRandPartA();
                 }
@@ -804,12 +823,12 @@ namespace ICSharpCode.SharpZipLib.BZip2
                     this.rNToGo--;
                     this.z ^= (byte)(this.rNToGo == 1 ? 1 : 0);
                     this.j2 = 0;
-                    this.currentState = RAND_PART_C_STATE;
+                    this.currentState = RandPartCState;
                     this.SetupRandPartC();
                     }
                 else
                     {
-                    this.currentState = RAND_PART_A_STATE;
+                    this.currentState = RandPartAState;
                     this.SetupRandPartA();
                     }
                 }
@@ -825,7 +844,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
                 }
             else
                 {
-                this.currentState = RAND_PART_A_STATE;
+                this.currentState = RandPartAState;
                 this.i2++;
                 this.count = 0;
                 this.SetupRandPartA();
@@ -836,7 +855,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
             {
             if (this.ch2 != this.chPrev)
                 {
-                this.currentState = NO_RAND_PART_A_STATE;
+                this.currentState = NoRandPartAState;
                 this.count = 1;
                 this.SetupNoRandPartA();
                 }
@@ -847,13 +866,13 @@ namespace ICSharpCode.SharpZipLib.BZip2
                     {
                     this.z = this.ll8[this.tPos];
                     this.tPos = this.tt[this.tPos];
-                    this.currentState = NO_RAND_PART_C_STATE;
+                    this.currentState = NoRandPartCState;
                     this.j2 = 0;
                     this.SetupNoRandPartC();
                     }
                 else
                     {
-                    this.currentState = NO_RAND_PART_A_STATE;
+                    this.currentState = NoRandPartAState;
                     this.SetupNoRandPartA();
                     }
                 }
@@ -869,7 +888,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
                 }
             else
                 {
-                this.currentState = NO_RAND_PART_A_STATE;
+                this.currentState = NoRandPartAState;
                 this.i2++;
                 this.count = 0;
                 this.SetupNoRandPartA();
@@ -1018,7 +1037,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
 
         private int currentChar = -1;
 
-        private int currentState = START_BLOCK_STATE;
+        private int currentState = StartBlockState;
 
         private int storedBlockCRC;
         private int storedCombinedCRC;

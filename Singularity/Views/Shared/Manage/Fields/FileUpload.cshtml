@@ -163,12 +163,12 @@ else if (Model.ViewTypes.Has(ControllerHelper.ViewType.Display))
         <div class="display-file border-round">
 
             <div class="file-icon">
-                <a href="@(Url.Controller<ManageController>().Action(c => c.DownloadFile, File.FileUploadID))">
+                <a href="@(Url.Controller<ManageController>().Action(Controller => Controller.DownloadFile, File.FileUploadID))">
                     <img src="/Content/icons/32px/@(Ext).png" alt="Image not found" error-src="/Content/icons/32px/_blank.png" />
                 </a>
             </div>
             <div>
-                <a href="@(Url.Controller<ManageController>().Action(c => c.DownloadFile, File.FileUploadID))">
+                <a href="@(Url.Controller<ManageController>().Action(Controller => Controller.DownloadFile, File.FileUploadID))">
                     Name:
                     @Path.GetFileName(File.FilePath)
                 </a>
@@ -182,7 +182,7 @@ else if (Model.ViewTypes.Has(ControllerHelper.ViewType.Display))
             @if (Attr.AllowDeactivate)
                 {
                 <a class="btn btn-default" id="file-upload-button-@Model.PropertyName"
-                   href="@(Url.Controller<ManageController>().Action(c => c.DeleteFile, File.FileUploadID, Request.Url?.AbsoluteUri))">
+                   href="@(Url.Controller<ManageController>().Action(Controller => Controller.DeleteFile, File.FileUploadID, Request.Url?.AbsoluteUri))">
                     <glyph>&#xe014;</glyph>
                     Remove
                 </a>

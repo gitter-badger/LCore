@@ -23,12 +23,12 @@ namespace Singularity.Annotations
             Type[] Types = Context.HttpContext.GetModelContext().ContextTypes;
 
             if (this.TypeFilter != null)
-                Types = Types.Where(t => t.IsType(this.TypeFilter)).Array();
+                Types = Types.Where(Type => Type.IsType(this.TypeFilter)).Array();
 
             List<KeyValuePair<string, string>> Keys = Types.Convert(
-                t => new KeyValuePair<string, string>(t.GetFriendlyTypeName(), t.FullName)).List();
+                Type => new KeyValuePair<string, string>(Type.GetFriendlyTypeName(), Type.FullName)).List();
 
-            Keys = Keys.OrderBy(k => k.Key).List();
+            Keys = Keys.OrderBy(Key => Key.Key).List();
 
             return Keys;
             }

@@ -1,6 +1,8 @@
 ﻿@* Generator: MvcView *@
 
 
+@using System.Data.Entity.Infrastructure
+@using System.Data.Entity.Validation
 @using LCore.Extensions;
 @using Singularity.Extensions;
 
@@ -26,7 +28,12 @@
 
         Context.GetDBSet<Template>().Add(Content);
 
-        Context.SaveChanges();
+        try
+            {
+            Context.SaveChanges();
+            }
+        catch (DbUpdateException) { }
+        catch (DbEntityValidationException) { }
         }
 
     var Permissions = ContextProvider.GetModelPermissions(Session, typeof(Template));
@@ -60,7 +67,7 @@
             <span class="text-content-edit">
                 <span onclick="window.location = '@(Url.Controller<TemplateController>()
                     .QS(new Dictionary<string, object> { { "Token", Token }, { "DefaultText", HttpUtility.HtmlEncode(Model.DefaultText) } })
-                    .Action(c => c.Edit, Content.GetID<int>(), Request.Url?.AbsoluteUri, false))'; return false;" class="btn btn-default">
+                    .Action(Controller => Controller.Edit, Content.GetID<int>(), Request.Url?.AbsoluteUri, false))'; return false;" class="btn btn-default">
                     <glyph>&#xe065;</glyph>
                 </span>
             </span>
@@ -81,10 +88,10 @@ else
         @if (Permissions.Create == true)
             {
             <span class="text-content-create">
-                
+
                 <span onclick="window.location = '@(Url.Controller<TemplateController>()
                     .QS(new Dictionary<string, object> { { "Token", Token }, { "DefaultText", HttpUtility.HtmlEncode(Model.DefaultText) } })
-                    .Action(c => c.Create, Request.Url?.AbsoluteUri))'; return false;" class="btn btn-default">
+                    .Action(Controller => Controller.Create, Request.Url?.AbsoluteUri))'; return false;" class="btn btn-default">
                     <glyph>&#xe065;</glyph>
                 </span>
             </span>

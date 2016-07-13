@@ -10,10 +10,10 @@ namespace LCore.Web
         public static List<ASyncProgress> _Progress = new List<ASyncProgress>();
         public static ASyncProgress Progress(Guid UploadID)
             {
-            foreach (var t in _Progress)
+            foreach (var Progress in _Progress)
                 {
-                if (t.RequestID == UploadID)
-                    return t;
+                if (Progress.RequestID == UploadID)
+                    return Progress;
                 }
 
             var Out = new ASyncProgress { RequestID = UploadID };
@@ -38,6 +38,6 @@ namespace LCore.Web
         public Stream FileContent { get; set; }
         public string FileName { get; set; }
 
-        public enum RequestStatus { None, In_Progress, Complete, Error, Error_Too_Large }
+        public enum RequestStatus { None, InProgress, Complete, Error, ErrorTooLarge }
         }
     }

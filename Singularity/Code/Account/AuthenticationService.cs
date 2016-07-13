@@ -32,26 +32,55 @@ namespace Singularity.Account
 
         /////////////////////////////////////////////////////////
 
-        private readonly HttpSessionStateBase SessionState;
+        private HttpSessionStateBase _SessionState { get; }
 
         public AuthenticationService(HttpSessionStateBase Session)
             {
-            this.SessionState = Session;
+            this._SessionState = Session;
             }
 
         /////////////////////////////////////////////////////////
 
-        public bool IsLoggedIn => this.SessionState[Session.UserName] != null;
+        public bool IsLoggedIn
+            {
+            get
+                {
+                try
+                    {
+                    return this._SessionState[Session.UserName] != null;
+                    }
+                catch (NotImplementedException)
+                    {
+                    /* IIS 7 Integrated mode error, should not occur. */
+                    return false;
+                    }
+                }
+            }
 
         public string UserName
             {
             get
                 {
-                return (string)this.SessionState[Session.UserName];
+                try
+                    {
+                    return (string)this._SessionState[Session.UserName];
+                    }
+                catch (NotImplementedException)
+                    {
+                    /* IIS 7 Integrated mode error, should not occur. */
+                    return null;
+                    }
                 }
             private set
                 {
-                this.SessionState[Session.UserName] = value;
+                try
+                    {
+                    this._SessionState[Session.UserName] = value;
+                    }
+                catch (NotImplementedException)
+                    {
+                    /* IIS 7 Integrated mode error, should not occur. */
+                    }
                 }
             }
 
@@ -59,11 +88,26 @@ namespace Singularity.Account
             {
             get
                 {
-                return (int)(this.SessionState[Session.FailedLoginAttempts] ?? 0);
+                try
+                    {
+                    return (int)(this._SessionState[Session.FailedLoginAttempts] ?? 0);
+                    }
+                catch (NotImplementedException)
+                    {
+                    /* IIS 7 Integrated mode error, should not occur. */
+                    return 0;
+                    }
                 }
             private set
                 {
-                this.SessionState[Session.FailedLoginAttempts] = value;
+                try
+                    {
+                    this._SessionState[Session.FailedLoginAttempts] = value;
+                    }
+                catch (NotImplementedException)
+                    {
+                    /* IIS 7 Integrated mode error, should not occur. */
+                    }
                 }
             }
 
@@ -72,11 +116,26 @@ namespace Singularity.Account
             {
             get
                 {
-                return (string)this.SessionState[Session.PasswordHash];
+                try
+                    {
+                    return (string)this._SessionState[Session.PasswordHash];
+                    }
+                catch (NotImplementedException)
+                    {
+                    /* IIS 7 Integrated mode error, should not occur. */
+                    return null;
+                    }
                 }
             private set
                 {
-                this.SessionState[Session.PasswordHash] = value;
+                try
+                    {
+                    this._SessionState[Session.PasswordHash] = value;
+                    }
+                catch (NotImplementedException)
+                    {
+                    /* IIS 7 Integrated mode error, should not occur. */
+                    }
                 }
             }
 
@@ -84,11 +143,26 @@ namespace Singularity.Account
             {
             get
                 {
-                return (DateTime)this.SessionState[Session.Start];
+                try
+                    {
+                    return (DateTime)this._SessionState[Session.Start];
+                    }
+                catch (NotImplementedException)
+                    {
+                    /* IIS 7 Integrated mode error, should not occur. */
+                    return DateTime.MinValue;
+                    }
                 }
             private set
                 {
-                this.SessionState[Session.Start] = value;
+                try
+                    {
+                    this._SessionState[Session.Start] = value;
+                    }
+                catch (NotImplementedException)
+                    {
+                    /* IIS 7 Integrated mode error, should not occur. */
+                    }
                 }
             }
 
@@ -96,11 +170,26 @@ namespace Singularity.Account
             {
             get
                 {
-                return (UserAccount)this.SessionState[Session.User];
+                try
+                    {
+                    return (UserAccount)this._SessionState[Session.User];
+                    }
+                catch (NotImplementedException)
+                    {
+                    /* IIS 7 Integrated mode error, should not occur. */
+                    return null;
+                    }
                 }
             private set
                 {
-                this.SessionState[Session.User] = value;
+                try
+                    {
+                    this._SessionState[Session.User] = value;
+                    }
+                catch (NotImplementedException)
+                    {
+                    /* IIS 7 Integrated mode error, should not occur. */
+                    }
                 }
             }
 
@@ -108,11 +197,26 @@ namespace Singularity.Account
             {
             get
                 {
-                return (List<AccountRole>)this.SessionState[Session.Roles];
+                try
+                    {
+                    return (List<AccountRole>)this._SessionState[Session.Roles];
+                    }
+                catch (NotImplementedException)
+                    {
+                    /* IIS 7 Integrated mode error, should not occur. */
+                    return new List<AccountRole>();
+                    }
                 }
             private set
                 {
-                this.SessionState[Session.Roles] = value;
+                try
+                    {
+                    this._SessionState[Session.Roles] = value;
+                    }
+                catch (NotImplementedException)
+                    {
+                    /* IIS 7 Integrated mode error, should not occur. */
+                    }
                 }
             }
 
@@ -120,22 +224,52 @@ namespace Singularity.Account
             {
             get
                 {
-                return (bool)(this.SessionState[Session.IsImpersonating] ?? false);
+                try
+                    {
+                    return (bool)(this._SessionState[Session.IsImpersonating] ?? false);
+                    }
+                catch (NotImplementedException)
+                    {
+                    /* IIS 7 Integrated mode error, should not occur. */
+                    return false;
+                    }
                 }
             set
                 {
-                this.SessionState[Session.IsImpersonating] = value;
+                try
+                    {
+                    this._SessionState[Session.IsImpersonating] = value;
+                    }
+                catch (NotImplementedException)
+                    {
+                    /* IIS 7 Integrated mode error, should not occur. */
+                    }
                 }
             }
         public UserAccount LoggedInUserImpersonating
             {
             get
                 {
-                return (UserAccount)this.SessionState[Session.UserImpersonating];
+                try
+                    {
+                    return (UserAccount)this._SessionState[Session.UserImpersonating];
+                    }
+                catch (NotImplementedException)
+                    {
+                    /* IIS 7 Integrated mode error, should not occur. */
+                    return null;
+                    }
                 }
             private set
                 {
-                this.SessionState[Session.UserImpersonating] = value;
+                try
+                    {
+                    this._SessionState[Session.UserImpersonating] = value;
+                    }
+                catch (NotImplementedException)
+                    {
+                    /* IIS 7 Integrated mode error, should not occur. */
+                    }
                 }
             }
 
@@ -167,23 +301,23 @@ namespace Singularity.Account
             return Result;
             }
 
-        public UserAccount Impersonate(HttpContextBase Context, int userID)
+        public UserAccount Impersonate(HttpContextBase Context, int UserID)
             {
             if (this.IsLoggedIn && this.LoggedInUser.IsAdmin)
                 {
                 var DbContext = Context.GetModelContext();
-                var u = UserAccount.Data.GetByID(DbContext, userID);
+                var User = UserAccount.Data.GetByID(DbContext, UserID);
 
                 this.LoggedInUserImpersonating = this.LoggedInUser;
-                this.UserName = u.UserName;
-                this.PasswordHash = u.PasswordHash;
-                this.LoggedInUser = u;
-                this.LoggedInRoles = u.Roles.ToList();
+                this.UserName = User.UserName;
+                this.PasswordHash = User.PasswordHash;
+                this.LoggedInUser = User;
+                this.LoggedInRoles = User.Roles.ToList();
                 this.SessionStart = DateTime.Now;
 
                 this.IsImpersonating = true;
 
-                return u;
+                return User;
                 }
             return null;
             }

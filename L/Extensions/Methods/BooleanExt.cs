@@ -1512,15 +1512,15 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that ANDs the booleans that are sent
             /// </summary>
-            public static readonly Func<bool, bool, bool> And = (b1, b2) => b1 && b2;
+            public static readonly Func<bool, bool, bool> And = (o1, o2) => o1 && o2;
             /// <summary>
             /// Returns a function that ORs the booleans that are sent
             /// </summary>
-            public static readonly Func<bool, bool, bool> Or = (b1, b2) => b1 || b2;
+            public static readonly Func<bool, bool, bool> Or = (o1, o2) => o1 || o2;
             /// <summary>
             /// Returns a function that XORs the booleans that are sent
             /// </summary>
-            public static readonly Func<bool, bool, bool> Xor = (b1, b2) => b1 ^ b2;
+            public static readonly Func<bool, bool, bool> Xor = (o1, o2) => o1 ^ o2;
             #endregion
 
             // Explode
@@ -1532,7 +1532,7 @@ namespace LCore.Extensions
             [CodeExplodeExtensionMethod("If", new[] { "Condition", "Action" }, Comments.If)]
             public static Func<Func/*GF*/<bool>, Action, Func/*GF*/<bool>> L_If_A/*MF*/()
                 {
-                return (c, a) => { return () => { if (c()) { a(); return true; } return false; }; };
+                return (Condition, Action) => { return () => { if (Condition()) { Action(); return true; } return false; }; };
                 }
             /// <summary>
             /// Logical If Statement. If the condition passed is true, the action passed is executed.
@@ -1542,7 +1542,7 @@ namespace LCore.Extensions
             [CodeExplodeExtensionMethod("If", new[] { "Condition", "Action" }, Comments.If)]
             public static Func<Func<T1, bool>, Action<T1>, Func<T1, bool>> L_If_A<T1>()
                 {
-                return (c, a) => { return o => { if (c(o)) { a(o); return true; } return false; }; };
+                return (Condition, Action) => { return o => { if (Condition(o)) { Action(o); return true; } return false; }; };
                 }
             /// <summary>
             /// Logical If Statement. If the condition passed is true, the action passed is executed.
@@ -1553,7 +1553,7 @@ namespace LCore.Extensions
             [CodeExplodeExtensionMethod("If", new[] { "Condition", "Action" }, Comments.If)]
             public static Func<Func<T1, T2, bool>, Action<T1, T2>, Func<T1, T2, bool>> L_If_A<T1, T2>()
                 {
-                return (c, a) => { return (o1, o2) => { if (c(o1, o2)) { a(o1, o2); return true; } return false; }; };
+                return (Condition, Action) => { return (o1, o2) => { if (Condition(o1, o2)) { Action(o1, o2); return true; } return false; }; };
                 }
             /// <summary>
             /// Logical If Statement. If the condition passed is true, the action passed is executed.
@@ -1565,7 +1565,7 @@ namespace LCore.Extensions
             [CodeExplodeExtensionMethod("If", new[] { "Condition", "Action" }, Comments.If)]
             public static Func<Func<T1, T2, T3, bool>, Action<T1, T2, T3>, Func<T1, T2, T3, bool>> L_If_A<T1, T2, T3>()
                 {
-                return (c, a) => { return (o1, o2, o3) => { if (c(o1, o2, o3)) { a(o1, o2, o3); return true; } return false; }; };
+                return (Condition, Action) => { return (o1, o2, o3) => { if (Condition(o1, o2, o3)) { Action(o1, o2, o3); return true; } return false; }; };
                 }
             /// <summary>
             /// Logical If Statement. If the condition passed is true, the action passed is executed.
@@ -1578,7 +1578,7 @@ namespace LCore.Extensions
             [CodeExplodeExtensionMethod("If", new[] { "Condition", "Action" }, Comments.If)]
             public static Func<Func<T1, T2, T3, T4, bool>, Action<T1, T2, T3, T4>, Func<T1, T2, T3, T4, bool>> L_If_A<T1, T2, T3, T4>()
                 {
-                return (c, a) => { return (o1, o2, o3, o4) => { if (c(o1, o2, o3, o4)) { a(o1, o2, o3, o4); return true; } return false; }; };
+                return (Condition, Action) => { return (o1, o2, o3, o4) => { if (Condition(o1, o2, o3, o4)) { Action(o1, o2, o3, o4); return true; } return false; }; };
                 }
             /// <summary>
             /// Logical If Statement for a Func. If the condition passed is true, the action passed is executed and its result returned. Otherwise, the result will be the default value for U.
@@ -1588,7 +1588,7 @@ namespace LCore.Extensions
             [CodeExplodeExtensionMethod("If", new[] { "Condition", "Action" }, Comments.If)]
             public static Func<Func<bool>, Func<U>, Func<U>> L_If_F<U>()
                 {
-                return (c, a) => { return () => c() ? a() : default(U); };
+                return (Condition, Action) => { return () => Condition() ? Action() : default(U); };
                 }
             /// <summary>
             /// Logical If Statement for a Func. If the condition passed is true, the action passed is executed and its result returned. Otherwise, the result will be the default value for U.
@@ -1599,7 +1599,7 @@ namespace LCore.Extensions
             [CodeExplodeExtensionMethod("If", new[] { "Condition", "Action" }, Comments.If)]
             public static Func<Func<T1, bool>, Func<T1, U>, Func<T1, U>> L_If_F<T1, U>()
                 {
-                return (c, a) => { return o1 => c(o1) ? a(o1) : default(U); };
+                return (Condition, Action) => { return o1 => Condition(o1) ? Action(o1) : default(U); };
                 }
             /// <summary>
             /// Logical If Statement for a Func. If the condition passed is true, the action passed is executed and its result returned. Otherwise, the result will be the default value for U.
@@ -1611,7 +1611,7 @@ namespace LCore.Extensions
             [CodeExplodeExtensionMethod("If", new[] { "Condition", "Action" }, Comments.If)]
             public static Func<Func<T1, T2, bool>, Func<T1, T2, U>, Func<T1, T2, U>> L_If_F<T1, T2, U>()
                 {
-                return (c, a) => { return (o1, o2) => c(o1, o2) ? a(o1, o2) : default(U); };
+                return (Condition, Action) => { return (o1, o2) => Condition(o1, o2) ? Action(o1, o2) : default(U); };
                 }
             /// <summary>
             /// Logical If Statement for a Func. If the condition passed is true, the action passed is executed and its result returned. Otherwise, the result will be the default value for U.
@@ -1624,7 +1624,7 @@ namespace LCore.Extensions
             [CodeExplodeExtensionMethod("If", new[] { "Condition", "Action" }, Comments.If)]
             public static Func<Func<T1, T2, T3, bool>, Func<T1, T2, T3, U>, Func<T1, T2, T3, U>> L_If_F<T1, T2, T3, U>()
                 {
-                return (c, a) => { return (o1, o2, o3) => c(o1, o2, o3) ? a(o1, o2, o3) : default(U); };
+                return (Condition, Action) => { return (o1, o2, o3) => Condition(o1, o2, o3) ? Action(o1, o2, o3) : default(U); };
                 }
             /// <summary>
             /// Logical If Statement for a Func. If the condition passed is true, the action passed is executed and its result returned. Otherwise, the result will be the default value for U.
@@ -1638,7 +1638,7 @@ namespace LCore.Extensions
             [CodeExplodeExtensionMethod("If", new[] { "Condition", "Action" }, Comments.If)]
             public static Func<Func<T1, T2, T3, T4, bool>, Func<T1, T2, T3, T4, U>, Func<T1, T2, T3, T4, U>> L_If_F<T1, T2, T3, T4, U>()
                 {
-                return (c, a) => { return (o1, o2, o3, o4) => c(o1, o2, o3, o4) ? a(o1, o2, o3, o4) : default(U); };
+                return (Condition, Action) => { return (o1, o2, o3, o4) => Condition(o1, o2, o3, o4) ? Action(o1, o2, o3, o4) : default(U); };
                 }
             #endregion
             #region If Else
@@ -1649,7 +1649,7 @@ namespace LCore.Extensions
             [CodeExplodeExtensionMethod("IfElse", new[] { "Condition", "Action", "Else" }, Comments.IfElse)]
             public static Func<Func<bool>, Action, Action, Action> L_IfElse()
                 {
-                return (c, a, b) => { return () => { if (c()) a(); else b(); }; };
+                return (Condition, Action, Else) => { return () => { if (Condition()) Action(); else Else(); }; };
                 }
             /// <summary>
             /// Logical If Else Statement. If the condition passed is true, the first action passed is executed. Otherwise, the second action is executed.
@@ -1659,7 +1659,7 @@ namespace LCore.Extensions
             [CodeExplodeExtensionMethod("IfElse", new[] { "Condition", "Action", "Else" }, Comments.IfElse)]
             public static Func<Func<T1, bool>, Action<T1>, Action<T1>, Action<T1>> L_IfElse<T1>()
                 {
-                return (c, a, b) => { return o1 => { if (c(o1)) a(o1); else b(o1); }; };
+                return (Condition, Action, Else) => { return o1 => { if (Condition(o1)) Action(o1); else Else(o1); }; };
                 }
             /// <summary>
             /// Logical If Else Statement. If the condition passed is true, the first action passed is executed. Otherwise, the second action is executed.
@@ -1670,7 +1670,7 @@ namespace LCore.Extensions
             [CodeExplodeExtensionMethod("IfElse", new[] { "Condition", "Action", "Else" }, Comments.IfElse)]
             public static Func<Func<T1, T2, bool>, Action<T1, T2>, Action<T1, T2>, Action<T1, T2>> L_IfElse<T1, T2>()
                 {
-                return (c, a, b) => { return (o1, o2) => { if (c(o1, o2)) a(o1, o2); else b(o1, o2); }; };
+                return (Condition, Action, Else) => { return (o1, o2) => { if (Condition(o1, o2)) Action(o1, o2); else Else(o1, o2); }; };
                 }
             /// <summary>
             /// Logical If Else Statement. If the condition passed is true, the first action passed is executed. Otherwise, the second action is executed.
@@ -1682,7 +1682,7 @@ namespace LCore.Extensions
             [CodeExplodeExtensionMethod("IfElse", new[] { "Condition", "Action", "Else" }, Comments.IfElse)]
             public static Func<Func<T1, T2, T3, bool>, Action<T1, T2, T3>, Action<T1, T2, T3>, Action<T1, T2, T3>> L_IfElse<T1, T2, T3>()
                 {
-                return (c, a, b) => { return (o1, o2, o3) => { if (c(o1, o2, o3)) a(o1, o2, o3); else b(o1, o2, o3); }; };
+                return (Condition, Action, Else) => { return (o1, o2, o3) => { if (Condition(o1, o2, o3)) Action(o1, o2, o3); else Else(o1, o2, o3); }; };
                 }
             /// <summary>
             /// Logical If Else Statement. If the condition passed is true, the first action passed is executed. Otherwise, the second action is executed.
@@ -1695,7 +1695,7 @@ namespace LCore.Extensions
             [CodeExplodeExtensionMethod("IfElse", new[] { "Condition", "Action", "Else" }, Comments.IfElse)]
             public static Func<Func<T1, T2, T3, T4, bool>, Action<T1, T2, T3, T4>, Action<T1, T2, T3, T4>, Action<T1, T2, T3, T4>> L_IfElse<T1, T2, T3, T4>()
                 {
-                return (c, a, b) => { return (o1, o2, o3, o4) => { if (c(o1, o2, o3, o4)) a(o1, o2, o3, o4); else b(o1, o2, o3, o4); }; };
+                return (Condition, Action, Else) => { return (o1, o2, o3, o4) => { if (Condition(o1, o2, o3, o4)) Action(o1, o2, o3, o4); else Else(o1, o2, o3, o4); }; };
                 }
             #endregion
             #endregion

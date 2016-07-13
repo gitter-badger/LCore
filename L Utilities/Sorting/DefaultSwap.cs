@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 
+// ReSharper disable InconsistentNaming
+
 namespace NSort
     {
     /// <summary>
@@ -11,9 +13,9 @@ namespace NSort
         {
         public void Swap(IList array, int left, int right)
             {
-            var swap = array[left];
+            var Swap = array[left];
             array[left] = array[right];
-            array[right] = swap;
+            array[right] = Swap;
             }
 
         public void Set(IList array, int left, int right)

@@ -6,9 +6,9 @@ namespace SingularityInstance
 {
     public partial class Startup
     {
-        public void Configuration(IAppBuilder app)
+        public void Configuration(IAppBuilder App)
         {
-            this.ConfigureAuth(app);
+            this.ConfigureAuth(App);
         }
     }
 }

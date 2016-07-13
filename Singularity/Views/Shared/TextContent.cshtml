@@ -5,60 +5,54 @@
 @using Singularity.Extensions;
 
 @{
-    TextContent Content = null;
-    ModelPermissions Permissions = null;
-    string Display = null;
-    string Token = null;
 
-    try
+    string Token = Model.Token ?? "";
+
+    Token = Token.ReplaceAll(" ", "");
+
+    var ContextProvider = ContextProviderFactory.GetCurrent();
+    var Context = ContextProvider.GetContext(Session);
+
+    var Content = TextContent.FindByToken(Context, Token);
+
+    // Auto-create TextContent models so they exist before being filled in
+    if (Content == null && Model.AutoCreate)
         {
-
-        Token = Model.Token ?? "";
-
-        Token = Token.ReplaceAll(" ", "");
-
-        var ContextProvider = ContextProviderFactory.GetCurrent();
-        var Context = ContextProvider.GetContext(Session);
-
-        Content = TextContent.FindByToken(Context, Token);
-
-        // Auto-create TextContent models so they exist before being filled in
-        if (Content == null && Model.AutoCreate)
+        Content = new TextContent
             {
-            Content = new TextContent
-                {
-                Active = true,
-                Token = Model.Token,
-                Text = Model.DefaultText
-                };
+            Active = true,
+            Token = Model.Token,
+            Text = Model.DefaultText
+            };
 
-            Context.GetDBSet<TextContent>().Add(Content);
+        Context.GetDBSet<TextContent>().Add(Content);
 
+        try
+            {
             Context.SaveChanges();
             }
-
-        Permissions = ContextProvider.GetModelPermissions(Session, typeof(TextContent));
-
-        Display = Content != null ? Content.Text : Model.DefaultText;
-        Display = Display ?? "";
-
-        for (int Index = 0; Index < Model.ContextData.Length; Index++)
+        catch
             {
-            Display = Display.ReplaceAll($"[{Index}]", (Model.ContextData[Index] ?? "").ToString());
+
             }
-
-        Display = Display.ReplaceAll("\r\n", "<br>");
         }
-    catch
+
+    var Permissions = ContextProvider.GetModelPermissions(Session, typeof(TextContent));
+
+    string Display = Content != null ? Content.Text : Model.DefaultText;
+    Display = Display ?? "";
+
+    for (int Index = 0; Index < Model.ContextData.Length; Index++)
         {
-
+        Display = Display.ReplaceAll($"[{Index}]", (Model.ContextData[Index] ?? "").ToString());
         }
+
+    Display = Display.ReplaceAll("\r\n", "<br>");
 }
 @model TextContentViewModel
 
 @try
     {
-
     if (Content != null)
         {
         <span class="text-content-custom">
@@ -76,7 +70,7 @@
 
                     <span onclick="window.location = '@(Url.Controller<TextContentController>()
                     .QS(new Dictionary<string, object> { { "Token", Token }, { "DefaultText", HttpUtility.HtmlEncode(Model.DefaultText) } })
-                    .Action(c => c.Edit, Content.GetID<int>(), Request.Url?.AbsoluteUri, false))'; return false;" class="btn btn-default">
+                    .Action(Controller => Controller.Edit, Content.GetID<int>(), Request.Url?.AbsoluteUri, false))'; return false;" class="btn btn-default">
                         <glyph>&#xe065;</glyph>
                     </span>
                 </span>
@@ -101,7 +95,7 @@
 
                     <span onclick="window.location = '@(Url.Controller<TextContentController>()
                     .QS(new Dictionary<string, object> { { "Token", Token }, { "DefaultText", HttpUtility.HtmlEncode(Model.DefaultText) } })
-                    .Action(c => c.Create, Request.Url?.AbsoluteUri))'; return false;" class="btn btn-default">
+                    .Action(Controller => Controller.Create, Request.Url?.AbsoluteUri))'; return false;" class="btn btn-default">
                         <glyph>&#xe065;</glyph>
                     </span>
                 </span>

@@ -4,71 +4,72 @@ using System.Collections;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable FieldCanBeMadeReadOnly.Global
 // ReSharper disable FieldCanBeMadeReadOnly.Local
+// ReSharper disable InconsistentNaming
 
 namespace NSort
     {
     public class InternalSwapper : ISwap
         {
         public int[] SwapList;
-        private DefaultSwap Swapper = new DefaultSwap();
+        private DefaultSwap _Swapper = new DefaultSwap();
         public InternalSwapper(int length)
             {
             this.SwapList = new int[length];
 
-            for (int i = 0; i < this.SwapList.Length; i++)
+            for (int Index = 0; Index < this.SwapList.Length; Index++)
                 {
-                this.SwapList[i] = i;
+                this.SwapList[Index] = Index;
                 }
             }
 
         public void Swap(IList array, int left, int right)
             {
-            this.Swapper.Swap(array, left, right);
-            this.Swapper.Swap(this.SwapList, left, right);
+            this._Swapper.Swap(array, left, right);
+            this._Swapper.Swap(this.SwapList, left, right);
             }
         public void Set(IList array, int left, int right)
             {
-            this.Swapper.Set(array, left, right);
-            this.Swapper.Set(this.SwapList, left, right);
+            this._Swapper.Set(array, left, right);
+            this._Swapper.Set(this.SwapList, left, right);
             }
         public void Set(IList array, int left, object obj)
             {
-            this.Swapper.Set(array, left, obj);
-            this.Swapper.Set(this.SwapList, left, obj);
+            this._Swapper.Set(array, left, obj);
+            this._Swapper.Set(this.SwapList, left, obj);
             }
 
         }
     public class PostSorter : ISorter
         {
-        private IComparer Comparer;
+        private IComparer _Comparer;
         public PostSorter(IComparer Comparer)
             {
-            this.Comparer = Comparer;
+            this._Comparer = Comparer;
             }
         public void Sort(IList SortList, IList[] SwapLists)
             {
             var SortListClone = new object[SortList.Count];
             SortList.CopyTo(SortListClone, 0);
 
-            var clone = new object[SwapLists.Length][];
+            var Clone = new object[SwapLists.Length][];
 
-            for (int i = 0; i < SwapLists.Length; i++)
+            for (int Index = 0; Index < SwapLists.Length; Index++)
                 {
-                clone[i] = new object[SwapLists[i].Count];
-                SwapLists[i].CopyTo(clone[i], 0);
+                Clone[Index] = new object[SwapLists[Index].Count];
+                SwapLists[Index].CopyTo(Clone[Index], 0);
                 }
 
-            var swap = new InternalSwapper(SortList.Count);
-            ISorter Sorter = new QuickSorter(this.Comparer, swap);
+            var Swap = new InternalSwapper(SortList.Count);
+            ISorter Sorter = new QuickSorter(this._Comparer, Swap);
 
             Sorter.Sort(SortListClone);
 
-            for (int j = 0; j < SwapLists.Length; j++)
+            for (int Index2 = 0; Index2 < SwapLists.Length; Index2++)
                 {
-                var list = SwapLists[j];
-                for (int i = 0; i < list.Count; i++)
+                var List = SwapLists[Index2];
+                for (int Index3 = 0; Index3 < List.Count; Index3++)
                     {
-                    list[i] = clone[j][i];
+                    List[Index3] = Clone[Index2][Index3];
                     }
                 }
 

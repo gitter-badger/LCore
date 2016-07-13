@@ -9,35 +9,35 @@ namespace Singularity.Filters
         {
         public UrlHelper Url { get; set; }
 
-        public override void OnResultExecuting(ResultExecutingContext filterContext)
+        public override void OnResultExecuting(ResultExecutingContext FilterContext)
             {
             try
                 {
-                base.OnResultExecuting(filterContext);
+                base.OnResultExecuting(FilterContext);
                 }
-            catch (Exception e)
+            catch (Exception Ex)
                 {
-                this.LogError(e);
+                this.LogError(Ex);
                 
-                filterContext.HttpContext.Response.Redirect(this.Url.Controller<ErrorController>().Action(c => c.Index));
+                FilterContext.HttpContext.Response.Redirect(this.Url.Controller<ErrorController>().Action(Controller => Controller.Index));
                 }
             }
 
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        public override void OnActionExecuting(ActionExecutingContext FilterContext)
             {
             try
                 {
-                base.OnActionExecuting(filterContext);
+                base.OnActionExecuting(FilterContext);
                 }
-            catch (Exception e)
+            catch (Exception Ex)
                 {
-                this.LogError(e);
+                this.LogError(Ex);
                 
-                filterContext.HttpContext.Response.Redirect(this.Url.Controller<ErrorController>().Action(c => c.Index));
+                FilterContext.HttpContext.Response.Redirect(this.Url.Controller<ErrorController>().Action(Controller => Controller.Index));
                 }
             }
 
-        protected virtual void LogError(Exception e)
+        protected virtual void LogError(Exception Ex)
             {
             }
         }

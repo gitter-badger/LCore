@@ -6,23 +6,23 @@ namespace Singularity.Annotations
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class IgnoreValidationAttribute : FilterAttribute, IAuthorizationFilter
         {
-        public void OnAuthorization(AuthorizationContext filterContext)
+        public void OnAuthorization(AuthorizationContext FilterContext)
             {
-            if (filterContext?.HttpContext != null)
+            if (FilterContext?.HttpContext != null)
                 {
-                string itemKey = this.CreateKey(filterContext.ActionDescriptor);
-                if (!filterContext.HttpContext.Items.Contains(itemKey))
+                string ItemKey = this.CreateKey(FilterContext.ActionDescriptor);
+                if (!FilterContext.HttpContext.Items.Contains(ItemKey))
                     {
-                    filterContext.HttpContext.Items.Add(itemKey, true);
+                    FilterContext.HttpContext.Items.Add(ItemKey, true);
                     }
                 }
             }
 
-        private string CreateKey(ActionDescriptor actionDescriptor)
+        private string CreateKey(ActionDescriptor ActionDescriptor)
             {
-            string action = actionDescriptor.ActionName.ToLower();
-            string controller = actionDescriptor.ControllerDescriptor.ControllerName.ToLower();
-            return $"IgnoreValidation_{controller}_{action}";
+            string Action = ActionDescriptor.ActionName.ToLower();
+            string Controller = ActionDescriptor.ControllerDescriptor.ControllerName.ToLower();
+            return $"IgnoreValidation_{Controller}_{Action}";
             }
         }
     }

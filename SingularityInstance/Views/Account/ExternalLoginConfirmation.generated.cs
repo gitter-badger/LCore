@@ -139,7 +139,7 @@ WriteLiteral("        ");
 
             
             #line 21 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
-   Write(Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" }));
+   Write(Html.LabelFor(ViewModel => ViewModel.Email, new { @class = "col-md-2 control-label" }));
 
             
             #line default
@@ -154,7 +154,7 @@ WriteLiteral("            ");
 
             
             #line 23 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
-       Write(Html.TextBoxFor(m => m.Email, new { @class = "form-control" }));
+       Write(Html.TextBoxFor(ViewModel => ViewModel.Email, new { @class = "form-control" }));
 
             
             #line default
@@ -165,7 +165,7 @@ WriteLiteral("            ");
 
             
             #line 24 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
-       Write(Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" }));
+       Write(Html.ValidationMessageFor(ViewModel => ViewModel.Email, "", new { @class = "text-danger" }));
 
             
             #line default

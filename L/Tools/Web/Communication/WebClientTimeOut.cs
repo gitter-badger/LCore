@@ -8,27 +8,36 @@ namespace LCore.Web
         {
         public const int SleepInterval = 100;
 
-        public int TimeOutMS = 20000;
+        public int TimeOutMS { get; } = 20000;
 
-        public new byte[] UploadData(string address, byte[] data)
+        /// <exception cref="InvalidOperationException">Unable to process, another request is already being made</exception>
+        /// <exception cref="TimeoutException">Timeout occurred</exception>
+        public new byte[] UploadData(string Address, byte[] Data)
             {
-            return this.UploadData(new Uri(address), data);
+            return this.UploadData(new Uri(Address), Data);
             }
 
-        public new byte[] UploadData(Uri address, byte[] data)
+        /// <exception cref="InvalidOperationException">Unable to process, another request is already being made</exception>
+        /// <exception cref="TimeoutException">Timeout occurred</exception>
+        public new byte[] UploadData(Uri Address, byte[] Data)
             {
-            return this.UploadData(address, "POST", data);
+            return this.UploadData(Address, "POST", Data);
             }
 
-        public new byte[] UploadData(string address, string method, byte[] data)
+        /// <exception cref="InvalidOperationException">Unable to process, another request is already being made</exception>
+        /// <exception cref="TimeoutException">Timeout occurred</exception>
+        public new byte[] UploadData(string Address, string Method, byte[] Data)
             {
-            return this.UploadData(new Uri(address), method, data);
+            return this.UploadData(new Uri(Address), Method, Data);
             }
 
-        public new byte[] UploadData(Uri address, string method, byte[] data)
+        /// <exception cref="InvalidOperationException">Unable to process, another request is already being made</exception>
+        /// <exception cref="TimeoutException">Timeout occurred</exception>
+        // ReSharper disable once UnusedParameter.Global
+        public new byte[] UploadData(Uri Address, string Method, byte[] Data)
             {
             if (this.IsBusy)
-                throw new Exception($"Unable to process, another request is already being made: {address.AbsoluteUri}");
+                throw new InvalidOperationException($"Unable to process, another request is already being made: {Address.AbsoluteUri}");
 
             int Waited = 0;
 
@@ -36,7 +45,7 @@ namespace LCore.Web
 
             this.FinishedResponse = null;
 
-            this.UploadDataAsync(address, data);
+            this.UploadDataAsync(Address, Data);
 
             while (Waited < this.TimeOutMS && this.FinishedResponse == null)
                 {
@@ -47,12 +56,13 @@ namespace LCore.Web
             if (this.FinishedResponse == null)
                 {
                 this.CancelAsync();
-                throw new Exception($"Timeout occurred: {address.AbsoluteUri}");
+                throw new TimeoutException($"Timeout occurred: {Address.AbsoluteUri}");
                 }
 
             return this.FinishedResponse;
             }
 
+        // ReSharper disable once InconsistentNaming
         public void UploadData_Completed(object o, UploadDataCompletedEventArgs e)
             {
             this.FinishedResponse = e.Result;

@@ -8,23 +8,23 @@ namespace LCore.Tasks
     {
     public class TaskTimer
         {
-        public TaskTimer(Task t)
+        public TaskTimer(Task Task)
             {
-            this.TimerTask = t;
+            this.TimerTask = Task;
 
             this.Timer_Reset();
             }
 
         public static TimeSpan DefaultWait { get; } = new TimeSpan(0, 0, 10);
 
-        private Timer RunTaskTimer;
+        private Timer _RunTaskTimer;
         public Task TimerTask { get; }
 
-        private void Timer_Reset(object o, ElapsedEventArgs e)
+        private void Timer_Reset(object Obj, ElapsedEventArgs Event)
             {
             this.Timer_Reset();
             }
-        private void Timer_Elapsed(object o, ElapsedEventArgs e)
+        private void Timer_Elapsed(object Obj, ElapsedEventArgs Event)
             {
             this.TimerTask?.Run();
             }
@@ -39,34 +39,34 @@ namespace LCore.Tasks
             if (WaitTime < 0)
                 return;
 
-            double d = (int)(WaitTime * L.Date.TicksToMilliseconds / 1000) * (double)1000;
+            double Wait = (int)(WaitTime * L.Date.TicksToMilliseconds / 1000) * (double)1000;
 
-            if (d != 0)
+            if (Wait != 0)
                 {
-                if (this.RunTaskTimer?.Enabled == true)
+                if (this._RunTaskTimer?.Enabled == true)
                     try
                         {
-                        this.RunTaskTimer.Stop();
+                        this._RunTaskTimer.Stop();
                         }
                     catch { }
 
-                if (d > L.Date.MaxTimerInterval)
+                if (Wait > L.Date.MaxTimerInterval)
                     {
-                    this.RunTaskTimer = new Timer(L.Date.MaxTimerInterval);
+                    this._RunTaskTimer = new Timer(L.Date.MaxTimerInterval);
 
-                    this.RunTaskTimer.Elapsed += this.Timer_Reset;
-                    this.RunTaskTimer.AutoReset = false;
+                    this._RunTaskTimer.Elapsed += this.Timer_Reset;
+                    this._RunTaskTimer.AutoReset = false;
                     }
                 else
                     {
-                        this.RunTaskTimer = new Timer(d) {AutoReset = false};
+                    this._RunTaskTimer = new Timer(Wait) { AutoReset = false };
 
 
-                        this.RunTaskTimer.Elapsed += this.Timer_Elapsed;
+                    this._RunTaskTimer.Elapsed += this.Timer_Elapsed;
                     }
 
 
-                this.RunTaskTimer.Start();
+                this._RunTaskTimer.Start();
                 }
             }
         }

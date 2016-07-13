@@ -6,11 +6,11 @@ namespace Singularity.Config
     {
     public static class RouteConfig
         {
-        public static void RegisterRoutes(RouteCollection routes)
+        public static void RegisterRoutes(RouteCollection Routes)
             {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
+            Routes.MapRoute(
                 "Default",
                 "{controller}/{action}/{id}",
                 new

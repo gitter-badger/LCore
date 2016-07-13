@@ -45,6 +45,9 @@ using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable FieldCanBeMadeReadOnly.Global
+// ReSharper disable InconsistentNaming
+// ReSharper disable CommentTypo
+// ReSharper disable IdentifierTypo
 
 namespace ICSharpCode.SharpZipLib.GZip
     {

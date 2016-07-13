@@ -43,6 +43,9 @@ using ICSharpCode.SharpZipLib.Checksums;
 // ReSharper disable ConvertToAutoPropertyWithPrivateSetter
 // ReSharper disable FieldCanBeMadeReadOnly.Local
 // ReSharper disable SuggestBaseTypeForParameter
+// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
+// ReSharper disable CommentTypo
 
 namespace ICSharpCode.SharpZipLib.BZip2
     {
@@ -159,11 +162,18 @@ namespace ICSharpCode.SharpZipLib.BZip2
         /// <summary>
         /// Gets or sets the current position of this stream.
         /// </summary>
+        /// <exception cref="NotSupportedException" accessor="set">BZip2OutputStream position cannot be set</exception>
+        /// <exception cref="IOException"></exception>
         public override long Position
             {
             get
                 {
-                return this.baseStream.Position;
+                try
+                    {
+                    return this.baseStream.Position;
+                    }
+                // ReSharper disable once RedundantCatchClause
+                catch (IOException) { throw; }
                 }
             set
                 {
@@ -177,6 +187,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
         /// <param name="offset">The point relative to the offset from which to being seeking.</param>
         /// <param name="origin">The reference point from which to begin seeking.</param>
         /// <returns>The new position in the stream.</returns>
+        /// <exception cref="NotSupportedException">BZip2OutputStream Seek not supported</exception>
         public override long Seek(long offset, SeekOrigin origin)
             {
             throw new NotSupportedException("BZip2OutputStream Seek not supported");
@@ -186,6 +197,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
         /// Sets the length of this stream to the given value.
         /// </summary>
         /// <param name="value">The new stream length.</param>
+        /// <exception cref="NotSupportedException">BZip2OutputStream SetLength not supported</exception>
         public override void SetLength(long value)
             {
             throw new NotSupportedException("BZip2OutputStream SetLength not supported");
@@ -195,6 +207,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
         /// Read a byte from the stream advancing the position.
         /// </summary>
         /// <returns>The byte read cast to an int; -1 if end of stream.</returns>
+        /// <exception cref="NotSupportedException">BZip2OutputStream ReadByte not supported</exception>
         public override int ReadByte()
             {
             throw new NotSupportedException("BZip2OutputStream ReadByte not supported");
@@ -209,6 +222,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
         /// <returns>The total number of bytes read. This might be less than the number of bytes
         /// requested if that number of bytes are not currently available, or zero 
         /// if the end of the stream is reached.</returns>
+        /// <exception cref="NotSupportedException">BZip2OutputStream Read not supported</exception>
         public override int Read(byte[] buffer, int offset, int count)
             {
             throw new NotSupportedException("BZip2OutputStream Read not supported");
@@ -220,6 +234,9 @@ namespace ICSharpCode.SharpZipLib.BZip2
         /// <param name="buffer">The buffer containing data to write.</param>
         /// <param name="offset">The offset of the first byte to write.</param>
         /// <param name="count">The number of bytes to write.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="buffer"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
+        /// <exception cref="ArgumentException">Offset/count out of range</exception>
         public override void Write(byte[] buffer, int offset, int count)
             {
             if (buffer == null)
@@ -285,6 +302,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
         /// End the current block and end compression.
         /// Close the stream and free any resources
         /// </summary>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
         public override void Close()
             {
             this.Dispose(true);
@@ -372,11 +390,8 @@ namespace ICSharpCode.SharpZipLib.BZip2
         /// Releases the unmanaged resources used by the <see cref="BZip2OutputStream"/> and optionally releases the managed resources.
         /// </summary>
         /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
-#if NET_1_0 || NET_1_1 || NETCF_1_0
-		protected virtual void Dispose(bool disposing)
-#else
+        /// <exception cref="IOException">An I/O error occurs. </exception>
         protected override void Dispose(bool disposing)
-#endif
             {
             try
                 {
@@ -413,6 +428,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
         /// <summary>
         /// Flush output buffers
         /// </summary>		
+        /// <exception cref="IOException">An I/O error occurs. </exception>
         public override void Flush()
             {
             this.baseStream.Flush();

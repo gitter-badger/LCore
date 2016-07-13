@@ -37,6 +37,7 @@ namespace ASP
     using Singularity;
     using Singularity.Context;
     using Singularity.Controllers;
+    using Singularity.Extensions;
     using Singularity.Models;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
@@ -63,7 +64,7 @@ WriteLiteral("\r\n\r\n");
             
             #line 9 "..\..\Views\Shared\Manage\Fields\View\Currency.cshtml"
   
-    var data = Model.PropertyData as IFormattable;
+    var Data = Model.PropertyData as IFormattable;
 
             
             #line default
@@ -72,7 +73,7 @@ WriteLiteral("\r\n\r\n");
 
             
             #line 13 "..\..\Views\Shared\Manage\Fields\View\Currency.cshtml"
- if (data != null)
+ if (Data != null)
     {
 
             
@@ -84,7 +85,7 @@ WriteLiteral("        ");
 
             
             #line 16 "..\..\Views\Shared\Manage\Fields\View\Currency.cshtml"
-   Write(data.ToString("C", null));
+   Write(Data.ToString("C", null));
 
             
             #line default

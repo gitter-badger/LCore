@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Data.Entity;
 
-using System.Web;
 using Singularity.Controllers;
 using Singularity.Models;
 using Singularity.Extensions;
 using System.Linq;
 using LCore.Extensions;
 using Microsoft.WindowsAzure.StorageClient;
+using System.Web;
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable UnusedParameter.Global
 // ReSharper disable VirtualMemberNeverOverriden.Global
 
 namespace Singularity.Context
     {
+
     public abstract class ContextProvider
         {
         public const string ContextSession = "SingularityContext";
@@ -44,11 +45,11 @@ namespace Singularity.Context
 
         public ManageController GetManageController(HttpSessionStateBase Session, string ControllerName)
             {
-            return this.AllManageControllers(Session).FirstOrDefault(c => c.GetType().FullName == ControllerName);
+            return this.AllManageControllers(Session).FirstOrDefault(Controller => Controller.GetType().FullName == ControllerName);
             }
         public ManageController GetManageController(HttpSessionStateBase Session, Type ModelType)
             {
-            return this.AllManageControllers(Session).FirstOrDefault(c => c.ModelType == ModelType);
+            return this.AllManageControllers(Session).FirstOrDefault(Controller => Controller.ModelType == ModelType);
             }
 
         public ModelPermissions GetModelPermissions(HttpSessionStateBase Session, Type RequestedType)
@@ -82,9 +83,9 @@ namespace Singularity.Context
             throw new Exception($"Could not find permissions for {RequestedType.Name}");
             }
 
-        public DbSet GetDBSet(HttpSessionStateBase Session, Type t)
+        public DbSet GetDBSet(HttpSessionStateBase Session, Type Type)
             {
-            return this.GetContext(Session).GetDBSet(t);
+            return this.GetContext(Session).GetDBSet(Type);
             }
 
         public DbSet<T> GetDBSet<T>(HttpSessionStateBase Session)

@@ -39,6 +39,7 @@ using System;
 
 using ICSharpCode.SharpZipLib.Core;
 // ReSharper disable UnusedMemberInSuper.Global
+// ReSharper disable InconsistentNaming
 
 namespace ICSharpCode.SharpZipLib.Zip
 {

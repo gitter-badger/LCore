@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Security.Cryptography;
 using LCore.Extensions;
 
@@ -12,7 +13,14 @@ namespace Singularity.Account
 
         public static SHA256 GetSHA()
             {
-            return SHA256CryptoServiceProvider.Create();
+            try
+                {
+                return SHA256CryptoServiceProvider.Create();
+                }
+            catch (TargetInvocationException)
+                {
+                return null;
+                }
             }
 
         public static string GetHash(string In)

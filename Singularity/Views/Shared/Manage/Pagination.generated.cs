@@ -78,12 +78,12 @@ WriteLiteral("\r\n");
     string ShowingStartStr = ShowingStart.ToString("N0");
     string ShowingEndStr = ShowingEnd.ToString("N0");
     string ShowingTotalStr = ShowingTotal.ToString("N0");
-    
+
     if (ShowingEnd > ShowingTotal)
         {
-/*
-        ShowingEnd = ShowingTotal;
-*/
+        /*
+                ShowingEnd = ShowingTotal;
+        */
         }
 
             
@@ -151,36 +151,36 @@ WriteLiteral("\r\n");
             #line hidden
 WriteLiteral("        <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 1171), Tuple.Create("\"", 1408)
+WriteAttribute("href", Tuple.Create(" href=\"", 1191), Tuple.Create("\"", 1446)
             
             #line 38 "..\..\Views\Shared\Manage\Pagination.cshtml"
-, Tuple.Create(Tuple.Create("", 1178), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
+, Tuple.Create(Tuple.Create("", 1198), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
             .QS(Controllers.Manage.Actions.Route_Page(Model, 1) )
-            .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage)
+            .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(Controller=> Controller.Manage)
             
             #line default
             #line hidden
-, 1178), false)
+, 1198), false)
 );
 
-WriteAttribute("key-bind-click", Tuple.Create("\r\n           key-bind-click=\"", 1409), Tuple.Create("\"", 1490)
+WriteAttribute("key-bind-click", Tuple.Create("\r\n           key-bind-click=\"", 1447), Tuple.Create("\"", 1528)
             
             #line 41 "..\..\Views\Shared\Manage\Pagination.cshtml"
-, Tuple.Create(Tuple.Create("", 1438), Tuple.Create<System.Object, System.Int32>(ViewBag.PaginationCount == 1 ? "Ctrl+Home" : null
+, Tuple.Create(Tuple.Create("", 1476), Tuple.Create<System.Object, System.Int32>(ViewBag.PaginationCount == 1 ? "Ctrl+Home" : null
             
             #line default
             #line hidden
-, 1438), false)
+, 1476), false)
 );
 
-WriteAttribute("key-bind-click-name", Tuple.Create("\r\n           key-bind-click-name=\"", 1491), Tuple.Create("\"", 1578)
+WriteAttribute("key-bind-click-name", Tuple.Create("\r\n           key-bind-click-name=\"", 1529), Tuple.Create("\"", 1616)
             
             #line 42 "..\..\Views\Shared\Manage\Pagination.cshtml"
-, Tuple.Create(Tuple.Create("", 1525), Tuple.Create<System.Object, System.Int32>(ViewBag.PaginationCount == 1 ? "First Page" : null
+, Tuple.Create(Tuple.Create("", 1563), Tuple.Create<System.Object, System.Int32>(ViewBag.PaginationCount == 1 ? "First Page" : null
             
             #line default
             #line hidden
-, 1525), false)
+, 1563), false)
 );
 
 WriteLiteral(">\r\n            <span");
@@ -209,36 +209,36 @@ WriteLiteral("\r\n            </span>\r\n        </a>\r\n");
             #line hidden
 WriteLiteral("        <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 1719), Tuple.Create("\"", 1964)
+WriteAttribute("href", Tuple.Create(" href=\"", 1757), Tuple.Create("\"", 2020)
             
             #line 48 "..\..\Views\Shared\Manage\Pagination.cshtml"
-, Tuple.Create(Tuple.Create("", 1726), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
+, Tuple.Create(Tuple.Create("", 1764), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
             .QS(Controllers.Manage.Actions.Route_Page(Model, Model.Page))
-            .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage)
+            .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(Controller=> Controller.Manage)
             
             #line default
             #line hidden
-, 1726), false)
+, 1764), false)
 );
 
-WriteAttribute("key-bind-click", Tuple.Create("\r\n           key-bind-click=\"", 1965), Tuple.Create("\"", 2046)
+WriteAttribute("key-bind-click", Tuple.Create("\r\n           key-bind-click=\"", 2021), Tuple.Create("\"", 2102)
             
             #line 51 "..\..\Views\Shared\Manage\Pagination.cshtml"
-, Tuple.Create(Tuple.Create("", 1994), Tuple.Create<System.Object, System.Int32>(ViewBag.PaginationCount == 1 ? "Ctrl+Left" : null
+, Tuple.Create(Tuple.Create("", 2050), Tuple.Create<System.Object, System.Int32>(ViewBag.PaginationCount == 1 ? "Ctrl+Left" : null
             
             #line default
             #line hidden
-, 1994), false)
+, 2050), false)
 );
 
-WriteAttribute("key-bind-click-name", Tuple.Create("\r\n           key-bind-click-name=\"", 2047), Tuple.Create("\"", 2137)
+WriteAttribute("key-bind-click-name", Tuple.Create("\r\n           key-bind-click-name=\"", 2103), Tuple.Create("\"", 2193)
             
             #line 52 "..\..\Views\Shared\Manage\Pagination.cshtml"
-, Tuple.Create(Tuple.Create("", 2081), Tuple.Create<System.Object, System.Int32>(ViewBag.PaginationCount == 1 ? "Previous Page" : null
+, Tuple.Create(Tuple.Create("", 2137), Tuple.Create<System.Object, System.Int32>(ViewBag.PaginationCount == 1 ? "Previous Page" : null
             
             #line default
             #line hidden
-, 2081), false)
+, 2137), false)
 );
 
 WriteLiteral(">\r\n            <span");
@@ -261,6 +261,7 @@ WriteLiteral("\r\n            </span>\r\n        </a>\r\n");
             
             #line 57 "..\..\Views\Shared\Manage\Pagination.cshtml"
         }
+    // ReSharper disable once ConditionIsAlwaysTrueOrFalse
     else if (ManageViewModel.AlwaysShowPaginationFirstLast)
         {
 
@@ -276,7 +277,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 61 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 62 "..\..\Views\Shared\Manage\Pagination.cshtml"
        Write(ManageViewModel.FirstPageText);
 
             
@@ -285,7 +286,7 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </span>\r\n");
 
             
-            #line 63 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 64 "..\..\Views\Shared\Manage\Pagination.cshtml"
 
 
             
@@ -300,7 +301,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 65 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 66 "..\..\Views\Shared\Manage\Pagination.cshtml"
        Write(ManageViewModel.PreviousPageText);
 
             
@@ -309,7 +310,7 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </span>\r\n");
 
             
-            #line 67 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 68 "..\..\Views\Shared\Manage\Pagination.cshtml"
         }
 
             
@@ -322,13 +323,13 @@ WriteLiteral(" class=\"page-numbers\"");
 WriteLiteral(">\r\n");
 
             
-            #line 70 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 71 "..\..\Views\Shared\Manage\Pagination.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 70 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 71 "..\..\Views\Shared\Manage\Pagination.cshtml"
          if (Model.TotalItems > 0)
             {
             for (int Index = 0; Index < Model.TotalPages; Index++)
@@ -348,7 +349,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 77 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 78 "..\..\Views\Shared\Manage\Pagination.cshtml"
                     Write(Index + 1);
 
             
@@ -357,7 +358,7 @@ WriteLiteral("                        ");
 WriteLiteral("\r\n                    </span>\r\n");
 
             
-            #line 79 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 80 "..\..\Views\Shared\Manage\Pagination.cshtml"
                     }
                 else if (Index >= Model.Page - ManageViewModel.ShowSurroundingPages &&
                     Index <= Model.Page + ManageViewModel.ShowSurroundingPages)
@@ -368,16 +369,16 @@ WriteLiteral("\r\n                    </span>\r\n");
             #line hidden
 WriteLiteral("                    <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 3157), Tuple.Create("\"", 3425)
+WriteAttribute("href", Tuple.Create(" href=\"", 3273), Tuple.Create("\"", 3559)
             
-            #line 83 "..\..\Views\Shared\Manage\Pagination.cshtml"
-, Tuple.Create(Tuple.Create("", 3164), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
+            #line 84 "..\..\Views\Shared\Manage\Pagination.cshtml"
+, Tuple.Create(Tuple.Create("", 3280), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
                         .QS(Controllers.Manage.Actions.Route_Page(Model, Index + 1))
-                        .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage)
+                        .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(Controller=> Controller.Manage)
             
             #line default
             #line hidden
-, 3164), false)
+, 3280), false)
 );
 
 WriteLiteral(">\r\n                        <span");
@@ -389,7 +390,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 87 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 88 "..\..\Views\Shared\Manage\Pagination.cshtml"
                         Write(Index + 1);
 
             
@@ -398,7 +399,7 @@ WriteLiteral("                            ");
 WriteLiteral("\r\n                        </span>\r\n                    </a>\r\n");
 
             
-            #line 90 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 91 "..\..\Views\Shared\Manage\Pagination.cshtml"
                     }
                 }
             }
@@ -409,14 +410,14 @@ WriteLiteral("\r\n                        </span>\r\n                    </a>\r\
             #line default
             #line hidden
             
-            #line 95 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 96 "..\..\Views\Shared\Manage\Pagination.cshtml"
        Write(Html.TextContent($"Manage_Pagination_NoResults_{Model.FriendlyModelTypeName}", "No Results"));
 
             
             #line default
             #line hidden
             
-            #line 95 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 96 "..\..\Views\Shared\Manage\Pagination.cshtml"
                                                                                                          
             }
 
@@ -426,13 +427,13 @@ WriteLiteral("\r\n                        </span>\r\n                    </a>\r\
 WriteLiteral("    </span>\r\n\r\n");
 
             
-            #line 99 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 100 "..\..\Views\Shared\Manage\Pagination.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 99 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 100 "..\..\Views\Shared\Manage\Pagination.cshtml"
      if (Model.Page + 1 != Model.TotalPages)
         {
 
@@ -441,36 +442,36 @@ WriteLiteral("    </span>\r\n\r\n");
             #line hidden
 WriteLiteral("        <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 3865), Tuple.Create("\"", 4122)
+WriteAttribute("href", Tuple.Create(" href=\"", 3999), Tuple.Create("\"", 4274)
             
-            #line 101 "..\..\Views\Shared\Manage\Pagination.cshtml"
-, Tuple.Create(Tuple.Create("", 3872), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
+            #line 102 "..\..\Views\Shared\Manage\Pagination.cshtml"
+, Tuple.Create(Tuple.Create("", 4006), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
                 .QS(Controllers.Manage.Actions.Route_Page(Model, Model.Page + 2))
-                .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage)
+                .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(Controller=> Controller.Manage)
             
             #line default
             #line hidden
-, 3872), false)
+, 4006), false)
 );
 
-WriteAttribute("key-bind-click", Tuple.Create("\r\n           key-bind-click=\"", 4123), Tuple.Create("\"", 4205)
-            
-            #line 104 "..\..\Views\Shared\Manage\Pagination.cshtml"
-, Tuple.Create(Tuple.Create("", 4152), Tuple.Create<System.Object, System.Int32>(ViewBag.PaginationCount == 1 ? "Ctrl+Right" : null
-            
-            #line default
-            #line hidden
-, 4152), false)
-);
-
-WriteAttribute("key-bind-click-name", Tuple.Create("\r\n           key-bind-click-name=\"", 4206), Tuple.Create("\"", 4292)
+WriteAttribute("key-bind-click", Tuple.Create("\r\n           key-bind-click=\"", 4275), Tuple.Create("\"", 4357)
             
             #line 105 "..\..\Views\Shared\Manage\Pagination.cshtml"
-, Tuple.Create(Tuple.Create("", 4240), Tuple.Create<System.Object, System.Int32>(ViewBag.PaginationCount == 1 ? "Next Page" : null
+, Tuple.Create(Tuple.Create("", 4304), Tuple.Create<System.Object, System.Int32>(ViewBag.PaginationCount == 1 ? "Ctrl+Right" : null
             
             #line default
             #line hidden
-, 4240), false)
+, 4304), false)
+);
+
+WriteAttribute("key-bind-click-name", Tuple.Create("\r\n           key-bind-click-name=\"", 4358), Tuple.Create("\"", 4444)
+            
+            #line 106 "..\..\Views\Shared\Manage\Pagination.cshtml"
+, Tuple.Create(Tuple.Create("", 4392), Tuple.Create<System.Object, System.Int32>(ViewBag.PaginationCount == 1 ? "Next Page" : null
+            
+            #line default
+            #line hidden
+, 4392), false)
 );
 
 WriteLiteral(">\r\n            <span");
@@ -482,7 +483,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 107 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 108 "..\..\Views\Shared\Manage\Pagination.cshtml"
            Write(ManageViewModel.NextPageText);
 
             
@@ -491,7 +492,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </span>\r\n        </a>\r\n");
 
             
-            #line 110 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 111 "..\..\Views\Shared\Manage\Pagination.cshtml"
 
 
             
@@ -499,36 +500,36 @@ WriteLiteral("\r\n            </span>\r\n        </a>\r\n");
             #line hidden
 WriteLiteral("        <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 4428), Tuple.Create("\"", 4687)
+WriteAttribute("href", Tuple.Create(" href=\"", 4580), Tuple.Create("\"", 4857)
             
-            #line 111 "..\..\Views\Shared\Manage\Pagination.cshtml"
-, Tuple.Create(Tuple.Create("", 4435), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
+            #line 112 "..\..\Views\Shared\Manage\Pagination.cshtml"
+, Tuple.Create(Tuple.Create("", 4587), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
                 .QS(Controllers.Manage.Actions.Route_Page(Model, Model.TotalPages))
-                .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage)
+                .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(Controller=> Controller.Manage)
             
             #line default
             #line hidden
-, 4435), false)
+, 4587), false)
 );
 
-WriteAttribute("key-bind-click", Tuple.Create("\r\n           key-bind-click=\"", 4688), Tuple.Create("\"", 4768)
-            
-            #line 114 "..\..\Views\Shared\Manage\Pagination.cshtml"
-, Tuple.Create(Tuple.Create("", 4717), Tuple.Create<System.Object, System.Int32>(ViewBag.PaginationCount == 1 ? "Ctrl+End" : null
-            
-            #line default
-            #line hidden
-, 4717), false)
-);
-
-WriteAttribute("key-bind-click-name", Tuple.Create("\r\n           key-bind-click-name=\"", 4769), Tuple.Create("\"", 4855)
+WriteAttribute("key-bind-click", Tuple.Create("\r\n           key-bind-click=\"", 4858), Tuple.Create("\"", 4938)
             
             #line 115 "..\..\Views\Shared\Manage\Pagination.cshtml"
-, Tuple.Create(Tuple.Create("", 4803), Tuple.Create<System.Object, System.Int32>(ViewBag.PaginationCount == 1 ? "Last Page" : null
+, Tuple.Create(Tuple.Create("", 4887), Tuple.Create<System.Object, System.Int32>(ViewBag.PaginationCount == 1 ? "Ctrl+End" : null
             
             #line default
             #line hidden
-, 4803), false)
+, 4887), false)
+);
+
+WriteAttribute("key-bind-click-name", Tuple.Create("\r\n           key-bind-click-name=\"", 4939), Tuple.Create("\"", 5025)
+            
+            #line 116 "..\..\Views\Shared\Manage\Pagination.cshtml"
+, Tuple.Create(Tuple.Create("", 4973), Tuple.Create<System.Object, System.Int32>(ViewBag.PaginationCount == 1 ? "Last Page" : null
+            
+            #line default
+            #line hidden
+, 4973), false)
 );
 
 WriteLiteral(">\r\n            <span");
@@ -540,7 +541,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 117 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 118 "..\..\Views\Shared\Manage\Pagination.cshtml"
            Write(ManageViewModel.LastPageText);
 
             
@@ -549,8 +550,9 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </span>\r\n        </a>\r\n");
 
             
-            #line 120 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 121 "..\..\Views\Shared\Manage\Pagination.cshtml"
         }
+    // ReSharper disable once ConditionIsAlwaysTrueOrFalse
     else if (ManageViewModel.AlwaysShowPaginationFirstLast)
         {
 
@@ -566,7 +568,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 124 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 126 "..\..\Views\Shared\Manage\Pagination.cshtml"
        Write(ManageViewModel.NextPageText);
 
             
@@ -575,7 +577,7 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </span>\r\n");
 
             
-            #line 126 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 128 "..\..\Views\Shared\Manage\Pagination.cshtml"
 
 
             
@@ -590,7 +592,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 128 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 130 "..\..\Views\Shared\Manage\Pagination.cshtml"
        Write(ManageViewModel.LastPageText);
 
             
@@ -599,7 +601,7 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </span>\r\n");
 
             
-            #line 130 "..\..\Views\Shared\Manage\Pagination.cshtml"
+            #line 132 "..\..\Views\Shared\Manage\Pagination.cshtml"
         }
 
             

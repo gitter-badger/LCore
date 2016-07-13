@@ -42,6 +42,9 @@ using System.Text;
 // ReSharper disable FieldCanBeMadeReadOnly.Local
 // ReSharper disable ClassWithVirtualMembersNeverInherited.Global
 // ReSharper disable EventNeverSubscribedTo.Global
+// ReSharper disable InconsistentNaming
+// ReSharper disable CommentTypo
+// ReSharper disable IdentifierTypo
 
 namespace ICSharpCode.SharpZipLib.Tar
     {

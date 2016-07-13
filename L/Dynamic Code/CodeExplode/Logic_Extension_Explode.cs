@@ -4379,9 +4379,11 @@ namespace LCore.Extensions
             }
         #endregion
         #region While
+
         /// <summary>
         /// Takes action In and returns an action that is performed for as long as Continue evaluates to true.
         /// </summary>
+        /// <exception cref="Exception">Exceptions thrown by parameters are not caught.</exception>
         public static Action While(this Action In, Func<Boolean> Continue)
             {
             return L.Loop.While(In, Continue);
@@ -4505,6 +4507,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Takes action In and returns an action that is performed for as long as Continue evaluates to true.
         /// </summary>
+        /// <exception cref="Exception">Exceptions thrown by parameters are not caught.</exception>
         public static Action WhileI(this Action<Int32> In, Func<Int32, Boolean> Continue)
             {
             return L.Loop.WhileI(In, Continue);
@@ -4514,6 +4517,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Joins two methods together, performing one then another.
         /// </summary>
+        /// <exception cref="Exception">Exceptions thrown by parameters are not caught.</exception>
         public static Action Then(this Action In, Action Act)
             {
             return L.Logic.Then(In, Act);

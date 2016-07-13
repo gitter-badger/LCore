@@ -43,6 +43,8 @@ using ICSharpCode.SharpZipLib.Core;
 // ReSharper disable UnassignedField.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 // ReSharper disable SuggestBaseTypeForParameter
+// ReSharper disable InconsistentNaming
+// ReSharper disable CommentTypo
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
@@ -86,6 +88,15 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// Delegate to invoke when processing file failures.
         /// </summary>
         public FileFailureHandler FileFailure;
+
+        public FastZipEvents()
+            {
+            try
+                {
+                this.ProgressInterval = TimeSpan.FromSeconds(3);
+                }
+            catch (OverflowException) { }
+            }
 
         /// <summary>
         /// Raise the <see cref="DirectoryFailure">directory failure</see> event.
@@ -188,7 +199,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// </summary>
         /// <value>The minimum period of time between <see cref="Progress"/> events.</value>
         /// <seealso cref="Progress"/>
-        public TimeSpan ProgressInterval { get; } = TimeSpan.FromSeconds(3);
+        public TimeSpan ProgressInterval { get; }
 
         #region Instance Fields
 
@@ -327,6 +338,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         #endregion
 
         #region CreateZip
+
         /// <summary>
         /// Create a zip file.
         /// </summary>
@@ -335,6 +347,12 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <param name="recurse">True to recurse directories, false for no recursion.</param>
         /// <param name="fileFilter">The <see cref="PathFilter">file filter</see> to apply.</param>
         /// <param name="directoryFilter">The <see cref="PathFilter">directory filter</see> to apply.</param>
+        /// <exception cref="UnauthorizedAccessException">The caller does not have the required permission.-or- <paramref>
+        ///         <name>path</name>
+        ///     </paramref>
+        ///     specified a file that is read-only. </exception>
+        /// <exception cref="DirectoryNotFoundException">The specified path is invalid (for example, it is on an unmapped drive). </exception>
+        /// <exception cref="IOException">An I/O error occurred while creating the file. </exception>
         public void CreateZip(string zipFileName, string sourceDirectory,
             bool recurse, string fileFilter, string directoryFilter)
             {
@@ -348,6 +366,12 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <param name="sourceDirectory">The directory to obtain files and directories from.</param>
         /// <param name="recurse">True to recurse directories, false for no recursion.</param>
         /// <param name="fileFilter">The file filter to apply.</param>
+        /// <exception cref="UnauthorizedAccessException">The caller does not have the required permission.-or- <paramref>
+        ///         <name>path</name>
+        ///     </paramref>
+        ///     specified a file that is read-only. </exception>
+        /// <exception cref="DirectoryNotFoundException">The specified path is invalid (for example, it is on an unmapped drive). </exception>
+        /// <exception cref="IOException">An I/O error occurred while creating the file. </exception>
         public void CreateZip(string zipFileName, string sourceDirectory, bool recurse, string fileFilter)
             {
             this.CreateZip(File.Create(zipFileName), sourceDirectory, recurse, fileFilter, null);
@@ -404,12 +428,24 @@ namespace ICSharpCode.SharpZipLib.Zip
         #endregion
 
         #region ExtractZip
+
         /// <summary>
         /// Extract the contents of a zip file.
         /// </summary>
         /// <param name="zipFileName">The zip file to extract from.</param>
         /// <param name="targetDirectory">The directory to save extracted information in.</param>
         /// <param name="fileFilter">A filter to apply to files.</param>
+        /// <exception cref="ArgumentNullException">confirmDelegate is <see langword="null" />.</exception>
+        /// <exception cref="InvalidCastException">An element in the sequence cannot be cast to type <paramref>
+        ///         <name>TResult</name>
+        ///     </paramref>
+        ///     .</exception>
+        /// <exception cref="ZipException">
+        /// The file doesn't contain a valid zip archive.
+        /// </exception>
+        /// <exception cref="IOException">
+        /// An i/o error occurs
+        /// </exception>
         public void ExtractZip(string zipFileName, string targetDirectory, string fileFilter)
             {
             this.ExtractZip(zipFileName, targetDirectory, Overwrite.Always, null, fileFilter, null, this.restoreDateTimeOnExtract_);
@@ -425,6 +461,17 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <param name="fileFilter">A filter to apply to files.</param>
         /// <param name="directoryFilter">A filter to apply to directories.</param>
         /// <param name="restoreDateTime">Flag indicating wether to restore the date and time for extracted files.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="confirmDelegate"/> is <see langword="null" />.</exception>
+        /// <exception cref="IOException">
+        /// An i/o error occurs
+        /// </exception>
+        /// <exception cref="ZipException">
+        /// The file doesn't contain a valid zip archive.
+        /// </exception>
+        /// <exception cref="InvalidCastException">An element in the sequence cannot be cast to type <paramref>
+        ///         <name>TResult</name>
+        ///     </paramref>
+        ///     .</exception>
         public void ExtractZip(string zipFileName, string targetDirectory,
                                Overwrite overwrite, ConfirmOverwriteDelegate confirmDelegate,
                                string fileFilter, string directoryFilter, bool restoreDateTime)

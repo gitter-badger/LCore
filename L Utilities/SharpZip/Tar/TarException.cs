@@ -37,6 +37,8 @@ using System;
 
 using System.Runtime.Serialization;
 // ReSharper disable MemberCanBeProtected.Global
+// ReSharper disable CommentTypo
+// ReSharper disable InconsistentNaming
 
 namespace ICSharpCode.SharpZipLib.Tar
     {

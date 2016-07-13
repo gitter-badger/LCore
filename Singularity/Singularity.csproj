@@ -249,12 +249,12 @@
     <Compile Include="Code\Attributes\Field\FieldTabAttribute.cs" />
     <Compile Include="Code\Attributes\Field\FieldGlobalSearchAttribute.cs" />
     <Compile Include="Code\Attributes\Field\FieldNoToken.cs" />
-    <Compile Include="Code\Attributes\Field\Type\FieldType_SortableListAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\Type\FieldTypeSortableListAttribute.cs" />
     <Compile Include="Code\Attributes\Field\Type\FieldTypeDropdownContextModelFieldsByType.cs" />
     <Compile Include="Code\Attributes\Field\Type\FieldTypeDropdownContextModelFieldsByDataType.cs" />
     <Compile Include="Code\Attributes\Field\Type\FieldTypeDropdownContextModelFields.cs" />
     <Compile Include="Code\Attributes\Field\Type\FieldTypeDropdownContextManageControllers.cs" />
-    <Compile Include="Code\Attributes\Field\Type\FieldType_Hidden.cs" />
+    <Compile Include="Code\Attributes\Field\Type\FieldTypeHidden.cs" />
     <Compile Include="Code\Attributes\Field\FieldDontClone.cs" />
     <Compile Include="Code\Azure\AzureBlobInterface.cs" />
     <Compile Include="Code\Azure\AzureCloudExt.cs" />
@@ -293,8 +293,8 @@
     <Compile Include="Code\Attributes\SearchColumnsAttribute.cs" />
     <Compile Include="Code\Attributes\Field\Type\FieldTypeDropdownContextModelTypes.cs" />
     <Compile Include="Code\Attributes\Field\Type\FieldTypeDropdown.cs" />
-    <Compile Include="Code\Attributes\Field\Type\FieldType_HTMLContentEditor.cs" />
-    <Compile Include="Code\Attributes\Field\Type\FieldType_FileUploadAttribute.cs" />
+    <Compile Include="Code\Attributes\Field\Type\FieldTypeHtmlContentEditor.cs" />
+    <Compile Include="Code\Attributes\Field\Type\FieldTypeFileUploadAttribute.cs" />
     <Compile Include="Code\Attributes\IgnoreValidationAttribute.cs" />
     <Compile Include="Code\Attributes\Field\FieldInformationAttribute.cs" />
     <Compile Include="Code\Attributes\Field\MetadataAttribute.cs" />

@@ -188,7 +188,7 @@ namespace LCore.Extensions
                 In.DeclaringType?.GetClassHierarchy(),
                 In.Name,
                 In.GetGenericArguments().Length);
-            string Parameters = In.GetParameters().Convert(p => p.ParameterType.FullName).JoinLines(",");
+            string Parameters = In.GetParameters().Convert(Param => Param.ParameterType.FullName).JoinLines(",");
             return $"{Out}({Parameters})";
             }
         private static string GetCommentName(this FieldInfo In)
@@ -230,15 +230,15 @@ namespace LCore.Extensions
                 }
             }
 
-        private static string GetCommentName(string Code, string Namespace, string TypeName, string MemberName, int types)
+        private static string GetCommentName(string Code, string Namespace, string TypeName, string MemberName, int Types)
             {
             string Out = $"{Code}:{Namespace}.{TypeName}";
 
             if (!string.IsNullOrEmpty(MemberName))
                 Out += $".{MemberName}";
 
-            if (types > 0)
-                Out += $"``{types}";
+            if (Types > 0)
+                Out += $"``{Types}";
 
             return Out;
             }
@@ -247,9 +247,9 @@ namespace LCore.Extensions
 
         private static List<XmlNode> GetCommentNodes(this MemberInfo In)
             {
-            return new Func<MemberInfo, List<XmlNode>>(member =>
+            return new Func<MemberInfo, List<XmlNode>>(Member =>
                 {
-                    var Type = member is Type ? (Type)member : member.ReflectedType;
+                    var Type = Member is Type ? (Type)Member : Member.ReflectedType;
 
                     if (Type != null)
                         {
@@ -294,8 +294,8 @@ namespace LCore.Extensions
                 /// </summary>
                 /// <remarks>Remark</remarks>
                 /// <returns>Returns</returns>
-                /// <param name="a">param1</param>
-                /// <param name="b">param2</param>
+                /// <param name="A">param1</param>
+                /// <param name="B">param2</param>
                 /// <example><code>some code</code></example>
                 /// <example><c>more code</c></example>
                 /// <exception cref="Exception">exception 1</exception>
@@ -305,9 +305,9 @@ namespace LCore.Extensions
                 /// <typeparam name="T">Type</typeparam>
                 /// <value>value</value>
                 // ReSharper disable once UnusedTypeParameter
-                public static string TestMethod<T>(int a, string b)
+                public static string TestMethod<T>(int A, string B)
                     {
-                    return a + b;
+                    return A + B;
                     }
 
                 /// <summary>

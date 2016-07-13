@@ -22,6 +22,7 @@ namespace Singularity.Utilities
             this.Meta = Meta;
             }
 
+        /// <exception cref="ArgumentException">Invalid Value</exception>
         protected override Expression<Func<T, bool>> PerformAction_Boolean()
             {
             string SearchLower = this.Operation.Search.ToLower();
@@ -30,9 +31,14 @@ namespace Singularity.Utilities
                 return this.Accessor.GetOperatorExpression<T>(this.Operation.Operator, true);
             if (SearchLower == "n" || SearchLower == "no" || SearchLower == "false")
                 return this.Accessor.GetOperatorExpression<T>(this.Operation.Operator, false);
-            throw new Exception($"Invalid value: {SearchLower}");
+            throw new ArgumentException($"Invalid value: {SearchLower}");
             }
 
+        /// <exception cref="OverflowException">
+        ///         <paramref>
+        ///             <name>value</name>
+        ///         </paramref>
+        ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
         protected override Expression<Func<T, bool>> PerformAction_Int()
             {
             if (this.Operation.OperatorStr == "<>" || this.Operation.OperatorStr == "><")
@@ -81,6 +87,11 @@ namespace Singularity.Utilities
                 }
             return null;
             }
+        /// <exception cref="OverflowException">
+        ///         <paramref>
+        ///             <name>value</name>
+        ///         </paramref>
+        ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
         protected override Expression<Func<T, bool>> PerformAction_UInt()
             {
             if (this.Operation.OperatorStr == "<>" || this.Operation.OperatorStr == "><")
@@ -126,6 +137,11 @@ namespace Singularity.Utilities
                 }
             return null;
             }
+        /// <exception cref="OverflowException">
+        ///         <paramref>
+        ///             <name>value</name>
+        ///         </paramref>
+        ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
         protected override Expression<Func<T, bool>> PerformAction_Long()
             {
             if (this.Operation.OperatorStr == "<>" || this.Operation.OperatorStr == "><")
@@ -171,6 +187,11 @@ namespace Singularity.Utilities
                 }
             return null;
             }
+        /// <exception cref="OverflowException">
+        ///         <paramref>
+        ///             <name>value</name>
+        ///         </paramref>
+        ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
         protected override Expression<Func<T, bool>> PerformAction_ULong()
             {
             if (this.Operation.OperatorStr == "<>" || this.Operation.OperatorStr == "><")
@@ -217,6 +238,11 @@ namespace Singularity.Utilities
                 }
             return null;
             }
+        /// <exception cref="OverflowException">
+        ///         <paramref>
+        ///             <name>value</name>
+        ///         </paramref>
+        ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
         protected override Expression<Func<T, bool>> PerformAction_Short()
             {
             if (this.Operation.OperatorStr == "<>" || this.Operation.OperatorStr == "><")
@@ -262,6 +288,11 @@ namespace Singularity.Utilities
                 }
             return null;
             }
+        /// <exception cref="OverflowException">
+        ///         <paramref>
+        ///             <name>value</name>
+        ///         </paramref>
+        ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
         protected override Expression<Func<T, bool>> PerformAction_UShort()
             {
             if (this.Operation.OperatorStr == "<>" || this.Operation.OperatorStr == "><")
@@ -307,6 +338,11 @@ namespace Singularity.Utilities
                 }
             return null;
             }
+        /// <exception cref="OverflowException">
+        ///         <paramref>
+        ///             <name>value</name>
+        ///         </paramref>
+        ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
         protected override Expression<Func<T, bool>> PerformAction_Decimal()
             {
             if (this.Operation.OperatorStr == "<>" || this.Operation.OperatorStr == "><")
@@ -352,6 +388,11 @@ namespace Singularity.Utilities
                 }
             return null;
             }
+        /// <exception cref="OverflowException">
+        ///         <paramref>
+        ///             <name>value</name>
+        ///         </paramref>
+        ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
         protected override Expression<Func<T, bool>> PerformAction_Double()
             {
             if (this.Operation.OperatorStr == "<>" || this.Operation.OperatorStr == "><")
@@ -397,6 +438,11 @@ namespace Singularity.Utilities
                 }
             return null;
             }
+        /// <exception cref="OverflowException">
+        ///         <paramref>
+        ///             <name>value</name>
+        ///         </paramref>
+        ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
         protected override Expression<Func<T, bool>> PerformAction_Float()
             {
             if (this.Operation.OperatorStr == "<>" || this.Operation.OperatorStr == "><")
@@ -443,6 +489,7 @@ namespace Singularity.Utilities
             return null;
             }
 
+        /// <exception cref="ApplicationException">Used * characters more than 2 times</exception>
         protected override Expression<Func<T, bool>> PerformAction_String()
             {
             if (this.Operation.OperatorStr == "~")
@@ -454,7 +501,12 @@ namespace Singularity.Utilities
             return this.Accessor.GetOperatorExpression<T>(this.Operation.Operator, this.Operation.Search);
             }
 
-        protected override Expression<Func<T, bool>> PerformAction_Enum(Type EmumType)
+        /// <exception cref="OverflowException">
+        ///         <paramref>
+        ///             <name>value</name>
+        ///         </paramref>
+        ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
+        protected override Expression<Func<T, bool>> PerformAction_Enum(Type EnumType)
             {
             if (this.Operation.OperatorStr == "~")
                 {
@@ -467,7 +519,7 @@ namespace Singularity.Utilities
                 string[] Names = Type.GetEnumNames();
                 object[] Values = Type.GetEnumValues().Array<object>();
 
-                int?[] ValueInts = Values.Convert(o => (int?)Convert.ChangeType(o, ((Enum)o).GetTypeCode()));
+                int?[] ValueInts = Values.Convert(Value => (int?)Convert.ChangeType(Value, ((Enum)Value).GetTypeCode()));
 
 
                 var SelectedValues = new List<object>();
@@ -479,11 +531,11 @@ namespace Singularity.Utilities
                     }
 
                 List<Expression<Func<T, bool>>> Ors = SelectedValues.Convert(
-                    o => (Expression<Func<T, bool>>)
+                    Value => (Expression<Func<T, bool>>)
                     Expression.Lambda(
                         Expression.Equal(
                             Expression.Convert(this.Accessor.Body, typeof(int?)),
-                            Expression.Convert(Expression.Constant(o), typeof(int?))), this.Accessor.Parameters[0]));
+                            Expression.Convert(Expression.Constant(Value), typeof(int?))), this.Accessor.Parameters[0]));
 
                 Expression CombinedOrs = Ors.Or();
 
@@ -504,6 +556,11 @@ namespace Singularity.Utilities
             return this.Accessor.GetOperatorExpression<T>(this.Operation.Operator, this.Operation.Search);
             }
 
+        /// <exception cref="OverflowException">
+        ///         <paramref>
+        ///             <name>value</name>
+        ///         </paramref>
+        ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
         protected override Expression<Func<T, bool>> PerformAction_TimeSpan()
             {
             var SearchTime = TimeSpan.Parse(this.Operation.Search);
@@ -556,7 +613,8 @@ namespace Singularity.Utilities
             return null;
             }
 
-        protected override Expression<Func<T, bool>> PerformAction_IModel(Type t)
+        
+        protected override Expression<Func<T, bool>> PerformAction_IModel(Type Type)
             {
             /*
             if (Operation.OperatorStr == "~")
@@ -572,15 +630,17 @@ namespace Singularity.Utilities
              */
             }
 
-        protected override Expression<Func<T, bool>> PerformAction_Object(Type t)
+
+        /// <exception cref="ArgumentException">Type not supported.</exception>
+        protected override Expression<Func<T, bool>> PerformAction_Object(Type Type)
             {
-            if (t.PreferGeneric().HasInterface<IModel>())
+            if (Type.PreferGeneric().HasInterface<IModel>())
                 {
                 // Covers one-to-many fields
                 return null;
                 }
 
-            throw new Exception($"Type not supported: {t.Name}");
+            throw new ArgumentException($"Type not supported: {Type.Name}");
             }
         }
     }

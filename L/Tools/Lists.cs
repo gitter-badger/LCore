@@ -94,6 +94,9 @@ namespace LCore.Tools
         /// <summary>
         /// Create a new lists object starting with two lists with the same Count.
         /// </summary>
+        /// <exception cref="ArgumentNullException"><paramref name="List1"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="List2"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentException">List counts did not match</exception>
         public Lists(List<T1> List1, List<T2> List2)
             {
             if (List1 == null)

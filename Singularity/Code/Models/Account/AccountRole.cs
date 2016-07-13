@@ -52,6 +52,7 @@ namespace Singularity.Models
         public ModelPermissions SavedSearchPermissions { get; set; }
         public ModelPermissions EmailJobPermissions { get; set; }
 
+        // ReSharper disable once InconsistentNaming
         public bool RequireDuo2FA { get; set; }
 
         public virtual ICollection<UserAccount> Users { get; set; }
@@ -65,7 +66,7 @@ namespace Singularity.Models
 
             public static AccountRole GetByID(ModelContext Context, int RoleID)
                 {
-                return Context.GetDBSet<AccountRole>().FirstOrDefault(r => r.RoleID == RoleID);
+                return Context.GetDBSet<AccountRole>().FirstOrDefault(Role => Role.RoleID == RoleID);
                 }
             }        public virtual bool AllowAccess(IModel Model)            {            var Permissions = (ModelPermissions)this.GetProperty($"{Model.GetType().Name}Permissions");            return Permissions?.View == true;            }        }
 

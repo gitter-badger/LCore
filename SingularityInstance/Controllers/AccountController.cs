@@ -14,28 +14,28 @@ namespace SingularityInstance.Controllers
     [Authorize]
     public class AccountController : Controller
         {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
+        private ApplicationSignInManager _SignInManager;
+        private ApplicationUserManager _UserManager;
 
         public AccountController()
             {
             }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountController(ApplicationUserManager UserManager, ApplicationSignInManager SignInManager)
             {
-            this.UserManager = userManager;
-            this.SignInManager = signInManager;
+            this.UserManager = UserManager;
+            this.SignInManager = SignInManager;
             }
 
         public ApplicationSignInManager SignInManager
             {
             get
                 {
-                return this._signInManager ?? this.HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+                return this._SignInManager ?? this.HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
                 }
             private set
                 {
-                this._signInManager = value;
+                this._SignInManager = value;
                 }
             }
 
@@ -43,20 +43,20 @@ namespace SingularityInstance.Controllers
             {
             get
                 {
-                return this._userManager ?? this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return this._UserManager ?? this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 }
             private set
                 {
-                this._userManager = value;
+                this._UserManager = value;
                 }
             }
 
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login(string ReturnUrl)
             {
-            this.ViewBag.ReturnUrl = returnUrl;
+            this.ViewBag.ReturnUrl = ReturnUrl;
             return this.View();
             }
 
@@ -65,43 +65,43 @@ namespace SingularityInstance.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel Model, string ReturnUrl)
             {
             if (!this.ModelState.IsValid)
                 {
-                return this.View(model);
+                return this.View(Model);
                 }
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await this.SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-            switch (result)
+            var Result = await this.SignInManager.PasswordSignInAsync(Model.Email, Model.Password, Model.RememberMe, false);
+            switch (Result)
                 {
                 case SignInStatus.Success:
-                    return this.RedirectToLocal(returnUrl);
+                    return this.RedirectToLocal(ReturnUrl);
                 case SignInStatus.LockedOut:
                     return this.View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return this.RedirectToAction("SendCode", new { ReturnUrl = returnUrl, model.RememberMe });
+                    return this.RedirectToAction("SendCode", new {ReturnUrl, Model.RememberMe });
                 // ReSharper disable once RedundantCaseLabel
                 case SignInStatus.Failure:
                 default:
                     this.ModelState.AddModelError("", "Invalid login attempt.");
-                    return this.View(model);
+                    return this.View(Model);
                 }
             }
 
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
-        public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
+        public async Task<ActionResult> VerifyCode(string Provider, string ReturnUrl, bool RememberMe)
             {
             // Require that the user has already logged in via username/password or external login
             if (!await this.SignInManager.HasBeenVerifiedAsync())
                 {
                 return this.View("Error");
                 }
-            return this.View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
+            return this.View(new VerifyCodeViewModel { Provider = Provider, ReturnUrl = ReturnUrl, RememberMe = RememberMe });
             }
 
         //
@@ -109,29 +109,29 @@ namespace SingularityInstance.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
+        public async Task<ActionResult> VerifyCode(VerifyCodeViewModel Model)
             {
             if (!this.ModelState.IsValid)
                 {
-                return this.View(model);
+                return this.View(Model);
                 }
 
             // The following code protects for brute force attacks against the two factor codes. 
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await this.SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, model.RememberMe, model.RememberBrowser);
-            switch (result)
+            var Result = await this.SignInManager.TwoFactorSignInAsync(Model.Provider, Model.Code, Model.RememberMe, Model.RememberBrowser);
+            switch (Result)
                 {
                 case SignInStatus.Success:
-                    return this.RedirectToLocal(model.ReturnUrl);
+                    return this.RedirectToLocal(Model.ReturnUrl);
                 case SignInStatus.LockedOut:
                     return this.View("Lockout");
                 // ReSharper disable once RedundantCaseLabel
                 case SignInStatus.Failure:
                 default:
                     this.ModelState.AddModelError("", "Invalid code.");
-                    return this.View(model);
+                    return this.View(Model);
                 }
             }
 
@@ -148,15 +148,15 @@ namespace SingularityInstance.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel Model)
             {
             if (this.ModelState.IsValid)
                 {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await this.UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                var User = new ApplicationUser { UserName = Model.Email, Email = Model.Email };
+                var Result = await this.UserManager.CreateAsync(User, Model.Password);
+                if (Result.Succeeded)
                     {
-                    await this.SignInManager.SignInAsync(user, false, false);
+                    await this.SignInManager.SignInAsync(User, false, false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -166,24 +166,24 @@ namespace SingularityInstance.Controllers
 
                     return this.RedirectToAction("Index", "Home");
                     }
-                this.AddErrors(result);
+                this.AddErrors(Result);
                 }
 
             // If we got this far, something failed, redisplay form
-            return this.View(model);
+            return this.View(Model);
             }
 
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        public async Task<ActionResult> ConfirmEmail(string UserId, string Code)
             {
-            if (userId == null || code == null)
+            if (UserId == null || Code == null)
                 {
                 return this.View("Error");
                 }
-            var result = await this.UserManager.ConfirmEmailAsync(userId, code);
-            return this.View(result.Succeeded ? "ConfirmEmail" : "Error");
+            var Result = await this.UserManager.ConfirmEmailAsync(UserId, Code);
+            return this.View(Result.Succeeded ? "ConfirmEmail" : "Error");
             }
 
         //
@@ -199,12 +199,12 @@ namespace SingularityInstance.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel Model)
             {
             if (this.ModelState.IsValid)
                 {
-                var user = await this.UserManager.FindByNameAsync(model.Email);
-                if (user == null || !await this.UserManager.IsEmailConfirmedAsync(user.Id))
+                var User = await this.UserManager.FindByNameAsync(Model.Email);
+                if (User == null || !await this.UserManager.IsEmailConfirmedAsync(User.Id))
                     {
                     // Don't reveal that the user does not exist or is not confirmed
                     return this.View("ForgotPasswordConfirmation");
@@ -219,7 +219,7 @@ namespace SingularityInstance.Controllers
                 }
 
             // If we got this far, something failed, redisplay form
-            return this.View(model);
+            return this.View(Model);
             }
 
         //
@@ -233,9 +233,9 @@ namespace SingularityInstance.Controllers
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public ActionResult ResetPassword(string Code)
             {
-            return code == null ? this.View("Error") : this.View();
+            return Code == null ? this.View("Error") : this.View();
             }
 
         //
@@ -243,24 +243,24 @@ namespace SingularityInstance.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel Model)
             {
             if (!this.ModelState.IsValid)
                 {
-                return this.View(model);
+                return this.View(Model);
                 }
-            var user = await this.UserManager.FindByNameAsync(model.Email);
-            if (user == null)
+            var User = await this.UserManager.FindByNameAsync(Model.Email);
+            if (User == null)
                 {
                 // Don't reveal that the user does not exist
                 return this.RedirectToAction("ResetPasswordConfirmation", "Account");
                 }
-            var result = await this.UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-            if (result.Succeeded)
+            var Result = await this.UserManager.ResetPasswordAsync(User.Id, Model.Code, Model.Password);
+            if (Result.Succeeded)
                 {
                 return this.RedirectToAction("ResetPasswordConfirmation", "Account");
                 }
-            this.AddErrors(result);
+            this.AddErrors(Result);
             return this.View();
             }
 
@@ -277,25 +277,25 @@ namespace SingularityInstance.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ExternalLogin(string provider, string returnUrl)
+        public ActionResult ExternalLogin(string Provider, string ReturnUrl)
             {
             // Request a redirect to the external login provider
-            return new ChallengeResult(provider, this.Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+            return new ChallengeResult(Provider, this.Url.Action("ExternalLoginCallback", "Account", new {ReturnUrl }));
             }
 
         //
         // GET: /Account/SendCode
         [AllowAnonymous]
-        public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
+        public async Task<ActionResult> SendCode(string ReturnUrl, bool RememberMe)
             {
-            string userId = await this.SignInManager.GetVerifiedUserIdAsync();
-            if (userId == null)
+            string UserId = await this.SignInManager.GetVerifiedUserIdAsync();
+            if (UserId == null)
                 {
                 return this.View("Error");
                 }
-            IList<string> userFactors = await this.UserManager.GetValidTwoFactorProvidersAsync(userId);
-            List<SelectListItem> factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
-            return this.View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
+            IList<string> UserFactors = await this.UserManager.GetValidTwoFactorProvidersAsync(UserId);
+            List<SelectListItem> FactorOptions = UserFactors.Select(Purpose => new SelectListItem { Text = Purpose, Value = Purpose }).ToList();
+            return this.View(new SendCodeViewModel { Providers = FactorOptions, ReturnUrl = ReturnUrl, RememberMe = RememberMe });
             }
 
         //
@@ -303,7 +303,7 @@ namespace SingularityInstance.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SendCode(SendCodeViewModel model)
+        public async Task<ActionResult> SendCode(SendCodeViewModel Model)
             {
             if (!this.ModelState.IsValid)
                 {
@@ -311,41 +311,41 @@ namespace SingularityInstance.Controllers
                 }
 
             // Generate the token and send it
-            if (!await this.SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
+            if (!await this.SignInManager.SendTwoFactorCodeAsync(Model.SelectedProvider))
                 {
                 return this.View("Error");
                 }
-            return this.RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, model.ReturnUrl, model.RememberMe });
+            return this.RedirectToAction("VerifyCode", new { Provider = Model.SelectedProvider, Model.ReturnUrl, Model.RememberMe });
             }
 
         //
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
-        public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
+        public async Task<ActionResult> ExternalLoginCallback(string ReturnUrl)
             {
-            var loginInfo = await this.AuthenticationManager.GetExternalLoginInfoAsync();
-            if (loginInfo == null)
+            var LoginInfo = await this.AuthenticationManager.GetExternalLoginInfoAsync();
+            if (LoginInfo == null)
                 {
                 return this.RedirectToAction("Login");
                 }
 
             // Sign in the user with this external login provider if the user already has a login
-            var result = await this.SignInManager.ExternalSignInAsync(loginInfo, false);
-            switch (result)
+            var Result = await this.SignInManager.ExternalSignInAsync(LoginInfo, false);
+            switch (Result)
                 {
                 case SignInStatus.Success:
-                    return this.RedirectToLocal(returnUrl);
+                    return this.RedirectToLocal(ReturnUrl);
                 case SignInStatus.LockedOut:
                     return this.View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return this.RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+                    return this.RedirectToAction("SendCode", new {ReturnUrl, RememberMe = false });
                 // ReSharper disable once RedundantCaseLabel
                 case SignInStatus.Failure:
                 default:
                     // If the user does not have an account, then prompt the user to create an account
-                    this.ViewBag.ReturnUrl = returnUrl;
-                    this.ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return this.View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                    this.ViewBag.ReturnUrl = ReturnUrl;
+                    this.ViewBag.LoginProvider = LoginInfo.Login.LoginProvider;
+                    return this.View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = LoginInfo.Email });
                 }
             }
 
@@ -354,7 +354,7 @@ namespace SingularityInstance.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel Model, string ReturnUrl)
             {
             if (this.User.Identity.IsAuthenticated)
                 {
@@ -364,27 +364,27 @@ namespace SingularityInstance.Controllers
             if (this.ModelState.IsValid)
                 {
                 // Get the information about the user from the external login provider
-                var info = await this.AuthenticationManager.GetExternalLoginInfoAsync();
-                if (info == null)
+                var Info = await this.AuthenticationManager.GetExternalLoginInfoAsync();
+                if (Info == null)
                     {
                     return this.View("ExternalLoginFailure");
                     }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await this.UserManager.CreateAsync(user);
-                if (result.Succeeded)
+                var User = new ApplicationUser { UserName = Model.Email, Email = Model.Email };
+                var Result = await this.UserManager.CreateAsync(User);
+                if (Result.Succeeded)
                     {
-                    result = await this.UserManager.AddLoginAsync(user.Id, info.Login);
-                    if (result.Succeeded)
+                    Result = await this.UserManager.AddLoginAsync(User.Id, Info.Login);
+                    if (Result.Succeeded)
                         {
-                        await this.SignInManager.SignInAsync(user, false, false);
-                        return this.RedirectToLocal(returnUrl);
+                        await this.SignInManager.SignInAsync(User, false, false);
+                        return this.RedirectToLocal(ReturnUrl);
                         }
                     }
-                this.AddErrors(result);
+                this.AddErrors(Result);
                 }
 
-            this.ViewBag.ReturnUrl = returnUrl;
-            return this.View(model);
+            this.ViewBag.ReturnUrl = ReturnUrl;
+            return this.View(Model);
             }
 
         //
@@ -405,24 +405,24 @@ namespace SingularityInstance.Controllers
             return this.View();
             }
 
-        protected override void Dispose(bool disposing)
+        protected override void Dispose(bool Disposing)
             {
-            if (disposing)
+            if (Disposing)
                 {
-                if (this._userManager != null)
+                if (this._UserManager != null)
                     {
-                    this._userManager.Dispose();
-                    this._userManager = null;
+                    this._UserManager.Dispose();
+                    this._UserManager = null;
                     }
 
-                if (this._signInManager != null)
+                if (this._SignInManager != null)
                     {
-                    this._signInManager.Dispose();
-                    this._signInManager = null;
+                    this._SignInManager.Dispose();
+                    this._SignInManager = null;
                     }
                 }
 
-            base.Dispose(disposing);
+            base.Dispose(Disposing);
             }
 
         #region Helpers
@@ -431,44 +431,44 @@ namespace SingularityInstance.Controllers
 
         private IAuthenticationManager AuthenticationManager => this.HttpContext.GetOwinContext().Authentication;
 
-        private void AddErrors(IdentityResult result)
+        private void AddErrors(IdentityResult Result)
             {
-            foreach (string error in result.Errors)
+            foreach (string Error in Result.Errors)
                 {
-                this.ModelState.AddModelError("", error);
+                this.ModelState.AddModelError("", Error);
                 }
             }
 
-        private ActionResult RedirectToLocal(string returnUrl)
+        private ActionResult RedirectToLocal(string ReturnUrl)
             {
-            if (this.Url.IsLocalUrl(returnUrl))
+            if (this.Url.IsLocalUrl(ReturnUrl))
                 {
-                return this.Redirect(returnUrl);
+                return this.Redirect(ReturnUrl);
                 }
             return this.RedirectToAction("Index", "Home");
             }
 
         internal class ChallengeResult : HttpUnauthorizedResult
             {
-            public ChallengeResult(string provider, string redirectUri, string userId = null)
+            public ChallengeResult(string Provider, string RedirectURI, string UserID = null)
                 {
-                this.LoginProvider = provider;
-                this.RedirectUri = redirectUri;
-                this.UserId = userId;
+                this.LoginProvider = Provider;
+                this.RedirectUri = RedirectURI;
+                this.UserId = UserID;
                 }
 
             public string LoginProvider { get; set; }
             public string RedirectUri { get; set; }
             public string UserId { get; set; }
 
-            public override void ExecuteResult(ControllerContext context)
+            public override void ExecuteResult(ControllerContext Context)
                 {
-                var properties = new AuthenticationProperties { RedirectUri = this.RedirectUri };
+                var Properties = new AuthenticationProperties { RedirectUri = this.RedirectUri };
                 if (this.UserId != null)
                     {
-                    properties.Dictionary[XsrfKey] = this.UserId;
+                    Properties.Dictionary[XsrfKey] = this.UserId;
                     }
-                context.HttpContext.GetOwinContext().Authentication.Challenge(properties, this.LoginProvider);
+                Context.HttpContext.GetOwinContext().Authentication.Challenge(Properties, this.LoginProvider);
                 }
             }
         #endregion

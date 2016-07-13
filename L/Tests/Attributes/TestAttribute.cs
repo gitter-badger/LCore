@@ -30,12 +30,12 @@ namespace LCore.Tests
         /// </summary>
         public virtual void FixParameterTypes(MethodInfo Method)
             {
-            Method.GetParameters().Each((i, p) =>
+            Method.GetParameters().Each((i, Parameter) =>
             {
                 if (this.Parameters.HasIndex(i))
                     {
                     var Param = this.Parameters[i];
-                    this.FixObject(Method, p.ParameterType, ref Param);
+                    this.FixObject(Method, Parameter.ParameterType, ref Param);
                     this.Parameters[i] = Param;
                     }
             });
@@ -62,9 +62,9 @@ namespace LCore.Tests
                             var ListType = typeof(List<>).MakeGenericType(Args);
 
                             var NewList = (IList)ListType.New();
-                            Array.Each(obj =>
+                            Array.Each(Item =>
                             {
-                                NewList.Add(obj);
+                                NewList.Add(Item);
                             });
 
                             Obj = NewList;
@@ -80,10 +80,10 @@ namespace LCore.Tests
                         {
                         Type[] Types = ((object[])Obj).GetTypes();
                         ConstructorInfo[] ObjectConstructors = ObjectType.GetConstructors();
-                        var Const = ObjectConstructors.First(c =>
+                        var Const = ObjectConstructors.First(Constructor =>
                         {
-                            ParameterInfo[] Params = c.GetParameters();
-                            return Params.Length == Types.Length && Params.All((i2, p) => Types[i2].IsType(p.ParameterType));
+                            ParameterInfo[] Params = Constructor.GetParameters();
+                            return Params.Length == Types.Length && Params.All((i2, Param) => Types[i2].IsType(Param.ParameterType));
                         });
 
                         if (Const != null)
@@ -147,14 +147,14 @@ namespace LCore.Tests
                 }
 
             var ValueLambda = SourceType?.GetMember(MemberName).Select(
-                m => ObjectType == null || m.GetMemberType() == ObjectType).First();
+                Member => ObjectType == null || Member.GetMemberType() == ObjectType).First();
 
             if (ValueLambda == null)
                 {
                 if (ReturnType != null)
                     {
                     ValueLambda = SourceType?.GetMember(MemberName).Select(
-                        m => ObjectType == null || m.GetMemberType() == ReturnType).First();
+                        Member => ObjectType == null || Member.GetMemberType() == ReturnType).First();
                     }
                 else
                     {

@@ -34,6 +34,7 @@
 // exception statement from your version.
 
 using System;
+// ReSharper disable InconsistentNaming
 
 namespace ICSharpCode.SharpZipLib.Core
 {

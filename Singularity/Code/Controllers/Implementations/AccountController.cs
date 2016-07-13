@@ -22,16 +22,16 @@ namespace Singularity.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginViewModel model)
+        public ActionResult Login(LoginViewModel Model)
             {
             if (!this.ModelState.IsValid)
                 {
-                return this.View(model);
+                return this.View(Model);
                 }
 
             var DbContext = this.HttpContext.GetModelContext();
 
-            var Result = this.Auth.AttemptLogIn(this.HttpContext, model.Username, model.Password);
+            var Result = this.Auth.AttemptLogIn(this.HttpContext, Model.Username, Model.Password);
 
             if (Result != null)
                 {
@@ -72,31 +72,31 @@ namespace Singularity.Controllers
         [HttpPost]
         [RequireAuth]
         [ValidateAntiForgeryToken]
-        public ActionResult ForceResetPassword(ForceResetPasswordViewModel model, IAuthenticationService Auth)
+        public ActionResult ForceResetPassword(ForceResetPasswordViewModel Model, IAuthenticationService Auth)
             {
             bool Errors = false;
 
-            if (model != null)
+            if (Model != null)
                 {
-                if (string.IsNullOrEmpty(model.Password))
+                if (string.IsNullOrEmpty(Model.Password))
                     {
                     this.AddStatusMessages_Error("Please supply a new password");
 
                     Errors = true;
                     }
-                if (string.IsNullOrEmpty(model.ConfirmPassword))
+                if (string.IsNullOrEmpty(Model.ConfirmPassword))
                     {
                     this.AddStatusMessages_Error("Please confirm your password");
 
                     Errors = true;
                     }
-                if (model.Password != model.ConfirmPassword)
+                if (Model.Password != Model.ConfirmPassword)
                     {
                     this.AddStatusMessages_Error("Passwords did not match");
 
                     Errors = true;
                     }
-                if (!Authentication.PasswordFitsRules(model.Password, Authentication.PasswordDefaultRules))
+                if (!Authentication.PasswordFitsRules(Model.Password, Authentication.PasswordDefaultRules))
                     {
                     this.AddStatusMessages_Error("Password does not fit password requirements");
 
@@ -114,19 +114,28 @@ namespace Singularity.Controllers
 
                 var LoggedIn = UserAccount.Data.GetByID(DbContext, Auth.LoggedInUser.UserAccountID);
 
-                LoggedIn.SetPassword(model.Password);
+                LoggedIn.SetPassword(Model.Password);
                 LoggedIn.ExpiredDate = DateTime.Now.Add(Authentication.UserAccountPasswordExpire);
 
-                DbContext.SaveChanges();
+                try
+                    {
+                    DbContext.SaveChanges();
 
-                // new password, new session
-                Auth.LogOut();
+                    // new password, new session
+                    Auth.LogOut();
 
-                Auth.AttemptLogIn(this.HttpContext, LoggedIn.UserName, model.Password);
+                    Auth.AttemptLogIn(this.HttpContext, LoggedIn.UserName, Model.Password);
 
-                this.AddStatusMessages_Success("Password successfully updated");
+                    this.AddStatusMessages_Success("Password successfully updated");
 
-                return this.RedirectToAction(DbContext.GetHomeAction(LoggedIn), DbContext.GetHomeController(LoggedIn));
+                    return this.RedirectToAction(DbContext.GetHomeAction(LoggedIn), DbContext.GetHomeController(LoggedIn));
+                    }
+                catch (Exception Ex)
+                    {
+                    ControllerHelper.HandleError(this.HttpContext, Ex);
+
+                    this.AddStatusMessages_Error("An error has occured.");
+                    }
                 }
 
             return this.View();
@@ -135,11 +144,11 @@ namespace Singularity.Controllers
         [HttpPost]
         [RequireAdmin]
         [ValidateAntiForgeryToken]
-        public ActionResult ImpersonateUser(ImpersonateUserViewModel model, IAuthenticationService Auth)
+        public ActionResult ImpersonateUser(ImpersonateUserViewModel Model, IAuthenticationService Auth)
             {
             var DbContext = this.HttpContext.GetModelContext();
 
-            Auth.Impersonate(this.HttpContext, model.UserAccountID);
+            Auth.Impersonate(this.HttpContext, Model.UserAccountID);
 
             return this.RedirectToAction(DbContext.GetHomeAction(Auth.LoggedInUser), DbContext.GetHomeController(Auth.LoggedInUser));
             }

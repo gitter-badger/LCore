@@ -37,40 +37,40 @@ namespace Singularity.Extensions
                 {":", Expression.Equal}
             };
 
-        public static IQueryable<T> IsNull<T>(this IQueryable<T> source, string Column)
+        public static IQueryable<T> IsNull<T>(this IQueryable<T> Source, string Column)
             {
             // Use source type instead of T which can be [Object]
-            var Type = source.ElementType;
+            var Type = Source.ElementType;
 
             var Param = Expression.Parameter(Type, string.Empty);
             var Member = Expression.PropertyOrField(Param, Column);
 
             // Non-nullable value types can't contain nulls. No results will be returned.
             if (Member.Type.IsValueType && !Member.Type.IsNullable())
-                return source.Where((Expression<Func<T, bool>>)Expression.Lambda(Expression.Constant(false), Param));
+                return Source.Where((Expression<Func<T, bool>>)Expression.Lambda(Expression.Constant(false), Param));
 
             var Property = Expression.Equal(Member, Expression.Constant(null));
             var Condition = Expression.Lambda(Property, Param);
 
-            return source.Where((Expression<Func<T, bool>>)Condition);
+            return Source.Where((Expression<Func<T, bool>>)Condition);
             }
 
-        public static IQueryable<T> IsNotNull<T>(this IQueryable<T> source, string Column)
+        public static IQueryable<T> IsNotNull<T>(this IQueryable<T> Source, string Column)
             {
             // Use source type instead of T which can be [Object]
-            var Type = source.ElementType;
+            var Type = Source.ElementType;
 
             var Param = Expression.Parameter(Type, string.Empty);
             var Member = Expression.PropertyOrField(Param, Column);
 
             // Non-nullable value types can't contain nulls. Nothing can be filtered.
             if (Member.Type.IsValueType && !Member.Type.IsNullable())
-                return source;
+                return Source;
 
             var Property = Expression.NotEqual(Member, Expression.Constant(null));
             var Condition = Expression.Lambda(Property, Param);
 
-            return source.Where((Expression<Func<T, bool>>)Condition);
+            return Source.Where((Expression<Func<T, bool>>)Condition);
             }
 
         public static Expression<Func<T, bool>> Or<T>(this IEnumerable<Expression<Func<T, bool>>> Expressions)
@@ -224,7 +224,7 @@ namespace Singularity.Extensions
             return null;
             }
 
-        private static IOrderedQueryable<T> OrderingHelper<T>(IQueryable<T> source, string PropertyName, bool Desc, bool anotherLevel)
+        private static IOrderedQueryable<T> OrderingHelper<T>(IQueryable<T> Source, string PropertyName, bool Desc, bool AnotherLevel)
             {
             string PropertyName2 = "";
             if (PropertyName.Contains("."))
@@ -236,7 +236,7 @@ namespace Singularity.Extensions
                 }
 
             // Use source type instead of T which can be [Object]
-            var Type = source.ElementType;
+            var Type = Source.ElementType;
 
             var PropertyType = Type.Meta(PropertyName).ModelType;
 
@@ -265,19 +265,19 @@ namespace Singularity.Extensions
                         Expression.GreaterThan(Property2, Expression.Constant(0)),
                         Param);
 
-                source = source.Where(ConditionGreaterThanZero);
+                Source = Source.Where(ConditionGreaterThanZero);
 
                 var Call = Expression.Call(
                     typeof(Queryable),
-                    (!anotherLevel ? "OrderBy" : "ThenBy") + (Desc ? "Descending" : string.Empty),
+                    (!AnotherLevel ? "OrderBy" : "ThenBy") + (Desc ? "Descending" : string.Empty),
                     new[] { Type, Property2.Type },
-                    source.Expression,
+                    Source.Expression,
                     Expression.Quote(Sort));
 
-                return (IOrderedQueryable<T>)source.Provider.CreateQuery<T>(Call);
+                return (IOrderedQueryable<T>)Source.Provider.CreateQuery<T>(Call);
                 }
 
-            source = source.IsNotNull(PropertyName);
+            Source = Source.IsNotNull(PropertyName);
 
             var Parameter = Expression.Parameter(Type, string.Empty);
             var Property3 = Expression.PropertyOrField(Parameter, PropertyName);
@@ -291,122 +291,125 @@ namespace Singularity.Extensions
 
             var Call2 = Expression.Call(
                 typeof(Queryable),
-                (!anotherLevel ? "OrderBy" : "ThenBy") + (Desc ? "Descending" : string.Empty),
+                (!AnotherLevel ? "OrderBy" : "ThenBy") + (Desc ? "Descending" : string.Empty),
                 new[] { Type, Property3.Type },
-                source.Expression,
+                Source.Expression,
                 Expression.Quote(Sort2));
-            return (IOrderedQueryable<T>)source.Provider.CreateQuery<T>(Call2);
+            return (IOrderedQueryable<T>)Source.Provider.CreateQuery<T>(Call2);
             }
 
-        public static IOrderedQueryable<T> OrderBy<T>(this IQueryable<T> source, string PropertyName)
+        public static IOrderedQueryable<T> OrderBy<T>(this IQueryable<T> Source, string PropertyName)
             {
-            return OrderingHelper(source, PropertyName, false, false);
+            return OrderingHelper(Source, PropertyName, false, false);
             }
 
-        public static IOrderedQueryable<T> OrderByDescending<T>(this IQueryable<T> source, string PropertyName)
+        public static IOrderedQueryable<T> OrderByDescending<T>(this IQueryable<T> Source, string PropertyName)
             {
-            return OrderingHelper(source, PropertyName, true, false);
+            return OrderingHelper(Source, PropertyName, true, false);
             }
 
-        public static IOrderedQueryable<T> ThenBy<T>(this IOrderedQueryable<T> source, string PropertyName)
+        public static IOrderedQueryable<T> ThenBy<T>(this IOrderedQueryable<T> Source, string PropertyName)
             {
-            return OrderingHelper(source, PropertyName, false, true);
+            return OrderingHelper(Source, PropertyName, false, true);
             }
 
-        public static IOrderedQueryable<T> ThenByDescending<T>(this IOrderedQueryable<T> source, string PropertyName)
+        public static IOrderedQueryable<T> ThenByDescending<T>(this IOrderedQueryable<T> Source, string PropertyName)
             {
-            return OrderingHelper(source, PropertyName, true, true);
+            return OrderingHelper(Source, PropertyName, true, true);
             }
 
-        public static Expression<Func<T, bool>> WhereFilter<T>(this Expression<Func<T, string>> selector, string filter, string fieldName)
+        /// <exception cref="ApplicationException">Used * characters more than 2 times</exception>
+        /// <exception cref="ApplicationException">Used ? character, it's not supported</exception>
+        public static Expression<Func<T, bool>> WhereFilter<T>(this Expression<Func<T, string>> Selector, string Filter, string FieldName)
             {
-            if (filter == null)
+            if (Filter == null)
                 return null;
 
-            if (selector == null)
+            if (Selector == null)
                 return null;
 
-            int AsterixCount = filter.Count(c => c.Equals('*'));
+            int AsterixCount = Filter.Count(Char => Char.Equals('*'));
             if (AsterixCount > 2)
                 throw new ApplicationException(
-                    $"Invalid filter used{(fieldName == null ? "" : $" for \'{fieldName}\'")}. '*' can maximum occur 2 times.");
+                    $"Invalid filter used{(FieldName == null ? "" : $" for \'{FieldName}\'")}. '*' can maximum occur 2 times.");
 
-            if (filter.Contains("?"))
+            if (Filter.Contains("?"))
                 throw new ApplicationException(
-                    $"Invalid filter used{(fieldName == null ? "" : $" for \'{fieldName}\'")}. '?' is not supported, only '*' is supported.");
+                    $"Invalid filter used{(FieldName == null ? "" : $" for \'{FieldName}\'")}. '?' is not supported, only '*' is supported.");
 
             // *XX*
-            if (AsterixCount == 2 && filter.Length > 2 && filter.StartsWith("*") && filter.EndsWith("*"))
+            if (AsterixCount == 2 && Filter.Length > 2 && Filter.StartsWith("*") && Filter.EndsWith("*"))
                 {
-                filter = filter.Replace("*", "");
+                Filter = Filter.Replace("*", "");
                 return Expression.Lambda<Func<T, bool>>(
-                        Expression.Call(selector.Body, "Contains", null, Expression.Constant(filter)),
-                        selector.Parameters[0]);
+                        Expression.Call(Selector.Body, "Contains", null, Expression.Constant(Filter)),
+                        Selector.Parameters[0]);
                 }
 
             // *XX
-            if (AsterixCount == 1 && filter.Length > 1 && filter.StartsWith("*"))
+            if (AsterixCount == 1 && Filter.Length > 1 && Filter.StartsWith("*"))
                 {
-                filter = filter.Replace("*", "");
+                Filter = Filter.Replace("*", "");
                 return Expression.Lambda<Func<T, bool>>(
-                        Expression.Call(selector.Body, "EndsWith", null, Expression.Constant(filter)),
-                        selector.Parameters[0]
+                        Expression.Call(Selector.Body, "EndsWith", null, Expression.Constant(Filter)),
+                        Selector.Parameters[0]
                     );
                 }
 
             // XX*
-            if (AsterixCount == 1 && filter.Length > 1 && filter.EndsWith("*"))
+            if (AsterixCount == 1 && Filter.Length > 1 && Filter.EndsWith("*"))
                 {
-                filter = filter.Replace("*", "");
+                Filter = Filter.Replace("*", "");
                 return Expression.Lambda<Func<T, bool>>(
-                        Expression.Call(selector.Body, "StartsWith", null, Expression.Constant(filter)),
-                        selector.Parameters[0]
+                        Expression.Call(Selector.Body, "StartsWith", null, Expression.Constant(Filter)),
+                        Selector.Parameters[0]
                     );
                 }
 
             // X*X
-            if (AsterixCount == 1 && filter.Length > 2 && !filter.StartsWith("*") && !filter.EndsWith("*"))
+            if (AsterixCount == 1 && Filter.Length > 2 && !Filter.StartsWith("*") && !Filter.EndsWith("*"))
                 {
-                string StartsWith = filter.Substring(0, filter.IndexOf('*'));
-                string EndsWith = filter.Substring(filter.IndexOf('*') + 1);
+                string StartsWith = Filter.Substring(0, Filter.IndexOf('*'));
+                string EndsWith = Filter.Substring(Filter.IndexOf('*') + 1);
 
                 return
                     Expression.Lambda<Func<T, bool>>(
                     Expression.And(
-                        Expression.Call(selector.Body, "StartsWith", null, Expression.Constant(StartsWith)),
-                        Expression.Call(selector.Body, "EndsWith", null, Expression.Constant(EndsWith))),
-                        selector.Parameters[0]);
+                        Expression.Call(Selector.Body, "StartsWith", null, Expression.Constant(StartsWith)),
+                        Expression.Call(Selector.Body, "EndsWith", null, Expression.Constant(EndsWith))),
+                        Selector.Parameters[0]);
                 }
 
             // XX
-            if (AsterixCount == 0 && filter.Length > 0)
+            if (AsterixCount == 0 && Filter.Length > 0)
                 {
                 return
                     Expression.Lambda<Func<T, bool>>(
-                        Expression.Equal(selector.Body, Expression.Constant(filter)),
-                        selector.Parameters[0]
+                        Expression.Equal(Selector.Body, Expression.Constant(Filter)),
+                        Selector.Parameters[0]
                     );
                 }
 
             // *
-            if (AsterixCount == 1 && filter.Length == 1)
+            if (AsterixCount == 1 && Filter.Length == 1)
                 return null;
 
             // Invalid Filter
             if (AsterixCount > 0)
                 throw new ApplicationException(
-                    $"Invalid filter used{(fieldName == null ? "" : $" for \'{fieldName}\'")}.");
+                    $"Invalid filter used{(FieldName == null ? "" : $" for \'{FieldName}\'")}.");
 
             // Empty string: all results
             return null;
 
             }
 
+        /// <exception cref="ArgumentException">Property not found</exception>
         public static IQueryable<T> FilterBy<T>(this IQueryable<T> Query, SearchOperation Operation)
             {
             if (string.IsNullOrEmpty(Operation.Property))
                 {
-                throw new Exception("Property not found");
+                throw new ArgumentException("Property not found");
                 }
 
             string Property = Operation.Property;
@@ -461,18 +464,18 @@ namespace Singularity.Extensions
             return Query;
             }
 
-        public static string SearchForProperty(this Type type, string Property)
+        public static string SearchForProperty(this Type Type, string Property)
             {
             Property = Property.ToLower().Trim();
 
             List<MemberInfo> Fields =
-                type.GetMembers().Where(m => m.Name.ToLower().StartsWith(Property)).ToList();
+                Type.GetMembers().Where(Member => Member.Name.ToLower().StartsWith(Property)).ToList();
 
             if (Fields.Count == 1)
                 return Fields[0].Name;
             if (Fields.Count > 1)
                 {
-                List<MemberInfo> FieldsEqual = Fields.Where(m => m.Name.ToLower() == Property).ToList();
+                List<MemberInfo> FieldsEqual = Fields.Where(Field => Field.Name.ToLower() == Property).ToList();
 
                 if (FieldsEqual.Count == 1)
                     return FieldsEqual[0].Name;

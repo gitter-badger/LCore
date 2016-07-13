@@ -5,6 +5,7 @@ using System;
 // ReSharper disable ClassNeverInstantiated.Global
 // ReSharper disable UnassignedField.Global
 // ReSharper disable MemberCanBeMadeStatic.Local
+// ReSharper disable InconsistentNaming
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global

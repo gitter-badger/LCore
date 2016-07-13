@@ -1,14 +1,15 @@
 ﻿/// <reference path="singularity-core.ts"/>
 
+// ReSharper disable once InconsistentNaming
 interface JQueryStatic {
 
-    objEach<T>(objHash: Hash<T>, eachFunc: (key: string, item: T, i: number) => any): any[];
+    objEach<T>(objHash: IHash<T>, eachFunc: (key: string, item: T, i: number) => any): any[];
     objEach(obj: any, eachFunc: (key: string, item: any, i: number) => any): any[];
 
-    objProperties<T>(objHash?: Hash<T>): [{ key: string; value: T; }];
+    objProperties<T>(objHash?: IHash<T>): [{ key: string; value: T; }];
     objProperties(obj?: any): [{ key: string; value: any; }];
 
-    objValues<T>(objHash?: Hash<T>): T[];
+    objValues<T>(objHash?: IHash<T>): T[];
     objValues(obj?: any): any[];
 
     objKeys?: (obj?: any) => string[];
@@ -28,6 +29,7 @@ interface JQueryStatic {
 }
 
 
+// ReSharper disable once InconsistentNaming
 interface JQuery {
 }
 
@@ -61,7 +63,7 @@ singObject.srcLink = '/Scripts/singularity/singularity-object.ts';
 
 singObject.ignoreUnknown('ALL');
 
-singObject.method('objEach', ObjectEach,
+singObject.method('objEach', objectEach,
     {
         summary: null,
         parameters: null,
@@ -89,7 +91,7 @@ singObject.method('objEach', ObjectEach,
         }
     });
 
-function ObjectEach(obj: Hash<any>, eachFunc: (key: string, item: any, index: number) => void): void {
+function objectEach(obj: IHash<any>, eachFunc: (key: string, item: any, index: number) => void): void {
 
     const keys = Object.keys(obj);
 
@@ -98,7 +100,7 @@ function ObjectEach(obj: Hash<any>, eachFunc: (key: string, item: any, index: nu
     });
 }
 
-singObject.method('objProperties', ObjectProperties,
+singObject.method('objProperties', objectProperties,
     {
         summary: null,
         parameters: null,
@@ -117,7 +119,7 @@ singObject.method('objProperties', ObjectProperties,
         }
     });
 
-function ObjectProperties(obj?: Hash<any>): { key: string; value: any }[] {
+function objectProperties(obj?: IHash<any>): { key: string; value: any }[] {
     if (obj == null || !(typeof obj == 'object'))
         return [];
 
@@ -128,7 +130,7 @@ function ObjectProperties(obj?: Hash<any>): { key: string; value: any }[] {
     return values;
 }
 
-singObject.method('objValues', ObjectValues,
+singObject.method('objValues', objectValues,
     {
         summary: null,
         parameters: null,
@@ -154,7 +156,7 @@ singObject.method('objValues', ObjectValues,
         }
     });
 
-function ObjectValues(obj?: Hash<any> | any[], findKeys?: string[]): any[] {
+function objectValues(obj?: IHash<any> | any[], findKeys?: string[]): any[] {
     if (obj == null || !(typeof obj == 'object'))
         return null;
 
@@ -175,7 +177,7 @@ function ObjectValues(obj?: Hash<any> | any[], findKeys?: string[]): any[] {
     }
 }
 
-singObject.method('arrayValues', ArrayFindValues,
+singObject.method('arrayValues', arrayFindValues,
     {
         summary: null,
         parameters: null,
@@ -206,7 +208,7 @@ singObject.method('arrayValues', ArrayFindValues,
         }
     }, Array.prototype);
 
-function ArrayFindValues<T>(...names: string[]): any[] {
+function arrayFindValues<T>(...names: string[]): any[] {
     if (!names || names.length == 0 || names[0] == null)
         return [];
 
@@ -215,7 +217,7 @@ function ArrayFindValues<T>(...names: string[]): any[] {
     }
     if (names.length > 0) {
         var name = names.shift();
-        const thisArray = this as Hash<any>[];
+        const thisArray = this as IHash<any>[];
         const out = thisArray.collect(item => {
 
             if (!item || !item[name])
@@ -235,7 +237,7 @@ function ArrayFindValues<T>(...names: string[]): any[] {
     return [];
 }
 
-singObject.method('objKeys', ObjectKeys,
+singObject.method('objKeys', objectKeys,
     {
         summary: null,
         parameters: null,
@@ -256,7 +258,7 @@ singObject.method('objKeys', ObjectKeys,
         }
     }, $);
 
-function ObjectKeys(obj?: Object): string[] {
+function objectKeys(obj?: Object): string[] {
     if (obj == null || !(typeof obj == 'object'))
         return [];
 
@@ -265,7 +267,7 @@ function ObjectKeys(obj?: Object): string[] {
     return keys;
 }
 
-singObject.method('objHasKey', ObjectHasKey,
+singObject.method('objHasKey', objectHasKey,
     {
         summary: null,
         parameters: null,
@@ -282,14 +284,14 @@ singObject.method('objHasKey', ObjectHasKey,
         }
     });
 
-function ObjectHasKey(obj: any, key: string): boolean {
+function objectHasKey(obj: any, key: string): boolean {
     if (!$.isDefined(obj))
         return false;
 
     return $.isDefined(obj[key]) || Object.keys(obj).has(key);
 }
 
-singObject.method('resolve', ObjectResolve,
+singObject.method('resolve', objectResolve,
     {
         summary: null,
         parameters: null,
@@ -308,7 +310,7 @@ singObject.method('resolve', ObjectResolve,
         }
     });
 
-function ObjectResolve(obj: any, args: any[]): any {
+function objectResolve(obj: any, args: any[]): any {
 
     if ($.isFunction(obj))
         return obj.apply(null, args);
@@ -319,7 +321,7 @@ function ObjectResolve(obj: any, args: any[]): any {
     return obj;
 }
 
-singObject.method('isDefined', ObjectDefined,
+singObject.method('isDefined', objectDefined,
     {
         summary: null,
         parameters: null,
@@ -340,14 +342,14 @@ singObject.method('isDefined', ObjectDefined,
         }
     });
 
-function ObjectDefined(obj?: any) {
+function objectDefined(obj?: any) {
     if (obj !== undefined && obj !== null)
         return true;
 
     return false;
 }
 
-singObject.method('isHash', ObjectIsHash,
+singObject.method('isHash', objectIsHash,
     {
         summary: null,
         parameters: null,
@@ -368,9 +370,9 @@ singObject.method('isHash', ObjectIsHash,
         }
     });
 
-function ObjectIsHash(obj?: any) {
+function objectIsHash(obj?: any) {
 
-    if (! ObjectDefined(obj))
+    if (! objectDefined(obj))
         return false;
 
     if ($.isArray(obj))
@@ -382,7 +384,7 @@ function ObjectIsHash(obj?: any) {
     return false;
 }
 
-singObject.method('clone', ArrayClone,
+singObject.method('clone', arrayClone,
     {
         summary: null,
         parameters: null,
@@ -411,7 +413,7 @@ singObject.method('clone', ArrayClone,
         }
     }, Array.prototype, 'Array');
 
-function ArrayClone<T>(deepClone: boolean = false): any[] {
+function arrayClone<T>(deepClone: boolean = false): any[] {
 
     const thisArray = this as T[];
 
@@ -423,7 +425,7 @@ function ArrayClone<T>(deepClone: boolean = false): any[] {
     }
 }
 
-singObject.method('clone', NumberClone, {
+singObject.method('clone', numberClone, {
     glyphIcon: '&#xe224;',
     tests(ext) {
         ext.addTest(0, [], 0);
@@ -448,11 +450,11 @@ singObject.method('clone', NumberClone, {
     }
 }, Number.prototype, 'Number');
 
-function NumberClone() {
+function numberClone() {
     return this.valueOf();
 }
 
-singObject.method('clone', BooleanClone, {
+singObject.method('clone', booleanClone, {
     glyphIcon: '&#xe224;',
     tests(ext) {
         ext.addTest(false, [], false);
@@ -479,11 +481,11 @@ singObject.method('clone', BooleanClone, {
     }
 }, Boolean.prototype, 'Boolean');
 
-function BooleanClone() {
+function booleanClone() {
     return this.valueOf();
 }
 
-singObject.method('clone', StringClone, {
+singObject.method('clone', stringClone, {
     glyphIcon: '&#xe224;',
     tests(ext) {
         ext.addTest('', [], '');
@@ -505,11 +507,11 @@ singObject.method('clone', StringClone, {
     }
 }, String.prototype, 'String');
 
-function StringClone() {
+function stringClone() {
     return this.valueOf();
 }
 
-singObject.method('clone', DateClone, {
+singObject.method('clone', dateClone, {
     glyphIcon: '&#xe224;',
     tests(ext) {
 
@@ -538,11 +540,11 @@ singObject.method('clone', DateClone, {
     }
 }, Date.prototype, 'Date');
 
-function DateClone() {
+function dateClone() {
     return new Date(this.valueOf());
 }
 
-singObject.method('clone', ObjectClone, {
+singObject.method('clone', objectClone, {
     glyphIcon: '&#xe224;',
     tests(ext) {
 
@@ -570,12 +572,12 @@ singObject.method('clone', ObjectClone, {
     }
 }, $, 'jQuery');
 
-function ObjectClone(obj: any, deepClone: boolean = false) {
+function objectClone(obj: any, deepClone: boolean = false) {
 
-    if (obj.clone !== ObjectClone && $.isFunction(obj.clone))
+    if (obj.clone !== objectClone && $.isFunction(obj.clone))
         return obj.clone(deepClone);
 
-    const out: Hash<any> = {};
+    const out: IHash<any> = {};
 
     let key: any;
     const objKeys = $.objKeys(obj);
@@ -596,7 +598,7 @@ function ObjectClone(obj: any, deepClone: boolean = false) {
     return out;
 }
 
-singObject.method('isEmpty', ObjectIsEmpty, {
+singObject.method('isEmpty', objectIsEmpty, {
     glyphIcon: '&#xe118;',
     tests(ext) {
         ext.addTest($, [0], false);
@@ -619,7 +621,7 @@ singObject.method('isEmpty', ObjectIsEmpty, {
     }
 }, $);
 
-function ObjectIsEmpty(obj?: any): boolean {
+function objectIsEmpty(obj?: any): boolean {
 
     return (obj === undefined ||
         obj === null ||
@@ -632,7 +634,7 @@ function ObjectIsEmpty(obj?: any): boolean {
 }
 
 
-singObject.method('typeName', ObjectTypeName, {
+singObject.method('typeName', objectTypeName, {
     glyphIcon: '&#xe041;',
     tests(ext) {
 
@@ -658,7 +660,7 @@ singObject.method('typeName', ObjectTypeName, {
     }
 }, $);
 
-function ObjectTypeName(obj?: any) {
+function objectTypeName(obj?: any) {
     if (typeof obj === 'undefined')
         return 'Undefined';
     if (obj === null)

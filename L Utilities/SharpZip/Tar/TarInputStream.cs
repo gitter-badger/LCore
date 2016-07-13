@@ -41,6 +41,8 @@ using System.Text;
 // ReSharper disable UnusedParameter.Global
 // ReSharper disable FieldCanBeMadeReadOnly.Global
 // ReSharper disable FieldCanBeMadeReadOnly.Local
+// ReSharper disable InconsistentNaming
+// ReSharper disable CommentTypo
 
 namespace ICSharpCode.SharpZipLib.Tar
     {

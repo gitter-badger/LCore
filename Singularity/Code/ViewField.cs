@@ -101,8 +101,8 @@ namespace Singularity.Models
             get
                 {
                 return this.Meta.GetAttributes<FieldHtmlAttribute>().Convert(
-                    f => f.AffectsViewTypes(this.ViewTypes) ?
-                        $"{f.FieldAttr}=\"{f.FieldAttrValue}\"" :
+                    HtmlAttribute => HtmlAttribute.AffectsViewTypes(this.ViewTypes) ?
+                        $"{HtmlAttribute.FieldAttr}=\"{HtmlAttribute.FieldAttrValue}\"" :
                         null
                         ).Flatten<string>().Array();
                 }
@@ -113,9 +113,9 @@ namespace Singularity.Models
             get
                 {
                 return this.Meta.GetAttributes<FieldClassAttribute>().Convert(
-                    f =>
-                        f.AffectsViewTypes(this.ViewTypes) ?
-                        f.FieldClasses :
+                    ClassAttribute =>
+                        ClassAttribute.AffectsViewTypes(this.ViewTypes) ?
+                        ClassAttribute.FieldClasses :
                         null
                         ).Flatten<string>().Array();
                 }
@@ -123,23 +123,24 @@ namespace Singularity.Models
 
         public string ColumnClass => this.PropertyName.ToUrlSlug();
 
-        public List<SelectListItem> GetRelationItems(Type t, object CurrentValue)
+        /// <exception cref="ArgumentException">Type was not found on DbContext</exception>
+        public List<SelectListItem> GetRelationItems(Type Type, object CurrentValue)
             {
             var MyContext = ContextProviderFactory.GetCurrent();
 
-            if (!MyContext.GetContextTypes(this.Context.HttpContext.Session).Has(t))
+            if (!MyContext.GetContextTypes(this.Context.HttpContext.Session).Has(Type))
                 {
-                throw new Exception(t.Name);
+                throw new ArgumentException(Type.Name);
                 }
 
-            var Objects = MyContext.GetDBSet(this.Context.HttpContext.Session, t);
+            var Objects = MyContext.GetDBSet(this.Context.HttpContext.Session, Type);
 
             List<IModel> Models;
 
-            if (t.HasProperty(ControllerHelper.AutomaticFields.Active) &&
-                t.Meta(ControllerHelper.AutomaticFields.Active).ModelType == typeof(bool))
+            if (Type.HasProperty(ControllerHelper.AutomaticFields.Active) &&
+                Type.Meta(ControllerHelper.AutomaticFields.Active).ModelType == typeof(bool))
                 {
-                string TableName = MyContext.GetContext(this.Context.HttpContext.Session).GetTableName(t);
+                string TableName = MyContext.GetContext(this.Context.HttpContext.Session).GetTableName(Type);
 
                 Models = Objects.SqlQuery(
                     $"SELECT * FROM {TableName} WHERE {ControllerHelper.AutomaticFields.Active} = \'true\'")
@@ -150,11 +151,11 @@ namespace Singularity.Models
                 Models = Objects.List<IModel>();
                 }
 
-            return Models.Select(m => new SelectListItem
+            return Models.Select(Model => new SelectListItem
                 {
-                Text = m.ToString(),
-                Value = m.GetID(),
-                Selected = (CurrentValue ?? "").ToString() == (m.GetID() ?? "").ToString()
+                Text = Model.ToString(),
+                Value = Model.GetID(),
+                Selected = (CurrentValue ?? "").ToString() == (Model.GetID() ?? "").ToString()
                 }).ToList();
             }
 
@@ -163,11 +164,11 @@ namespace Singularity.Models
             if (ContextProviderFactory.GetCurrent().GetModelPermissions(this.Context.HttpContext.Session, this.FieldType).View == true)
                 {
                 var Manage = ContextProviderFactory.GetCurrent().AllManageControllers(this.Context.HttpContext.Session)
-                    .First(m => m.ModelType == this.Meta.ModelType);
+                    .First(Controller => Controller.ModelType == this.Meta.ModelType);
 
                 if (Manage != null && this.Context.AllowView(this.Meta.ContainerType))
                     {
-                    if (this.ModelData.TrueModelType().HasAttribute<DisplayColumnAttribute>(false) && 
+                    if (this.ModelData.TrueModelType().HasAttribute<DisplayColumnAttribute>(false) &&
                         this.ModelData.TrueModelType().GetAttribute<DisplayColumnAttribute>(false).DisplayColumn == this.Meta.PropertyName)
                         {
                         var ThisModel = this.ModelData.GetProperty(this.PropertyName);
@@ -209,7 +210,8 @@ namespace Singularity.Models
                 .GetModelPermissions(this.Context.HttpContext.Session, this.Meta.ModelType.PreferGeneric()).View == true
                 && this.Meta.AdditionalValues.ContainsKey(MetadataAttribute.AdditionalData_RelationForeignKey))
                 {
-                var Manage = ContextProviderFactory.GetCurrent().AllManageControllers(this.Context.HttpContext.Session).First(m => m.ModelType == this.Meta.ModelType.PreferGeneric());
+                var Manage = ContextProviderFactory.GetCurrent().AllManageControllers(this.Context.HttpContext.Session)
+                    .First(Controller => Controller.ModelType == this.Meta.ModelType.PreferGeneric());
 
                 if (this.Context.AllowView(this.Meta.ModelType.PreferGeneric()))
                     {
@@ -231,11 +233,12 @@ namespace Singularity.Models
             }
 
 
+        /// <exception cref="ArgumentException"><see cref="PropertyName"/></exception>
         public ViewField(ViewContext Context, Type FieldType, string PropertyName, IModel ModelData,
             params ControllerHelper.ViewType[] ViewTypes)
             {
             if (PropertyName == null)
-                throw new ArgumentException("PropertyName");
+                throw new ArgumentException(nameof(PropertyName));
 
             this.Context = Context;
 

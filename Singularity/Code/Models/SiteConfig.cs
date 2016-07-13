@@ -20,6 +20,7 @@ namespace Singularity.Models
 
         public bool RequireHTTPS { get; set; }
 
+        // ReSharper disable once InconsistentNaming
         public bool Require2FA { get; set; }
 
         public static SiteConfig FindCurrent(ModelContext DbContext, string URL)
@@ -42,7 +43,7 @@ namespace Singularity.Models
             if (URL.Contains(":"))
                 URL = URL.Substring(0, URL.IndexOf(':'));
 
-            return DbContext.GetDBSet<SiteConfig>().FirstOrDefault(s => s.SiteRootURL == URL);
+            return DbContext.GetDBSet<SiteConfig>().FirstOrDefault(Site => Site.SiteRootURL == URL);
             }
         }
     }

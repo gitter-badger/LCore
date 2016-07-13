@@ -140,7 +140,7 @@ WriteLiteral("        ");
 
             
             #line 16 "..\..\Views\Account\VerifyCode.cshtml"
-   Write(Html.LabelFor(m => m.Code, new { @class = "col-md-2 control-label" }));
+   Write(Html.LabelFor(ViewModel => ViewModel.Code, new { @class = "col-md-2 control-label" }));
 
             
             #line default
@@ -155,7 +155,7 @@ WriteLiteral("            ");
 
             
             #line 18 "..\..\Views\Account\VerifyCode.cshtml"
-       Write(Html.TextBoxFor(m => m.Code, new { @class = "form-control" }));
+       Write(Html.TextBoxFor(ViewModel => ViewModel.Code, new { @class = "form-control" }));
 
             
             #line default
@@ -180,7 +180,7 @@ WriteLiteral("                ");
 
             
             #line 24 "..\..\Views\Account\VerifyCode.cshtml"
-           Write(Html.CheckBoxFor(m => m.RememberBrowser));
+           Write(Html.CheckBoxFor(ViewModel => ViewModel.RememberBrowser));
 
             
             #line default
@@ -191,7 +191,7 @@ WriteLiteral("                ");
 
             
             #line 25 "..\..\Views\Account\VerifyCode.cshtml"
-           Write(Html.LabelFor(m => m.RememberBrowser));
+           Write(Html.LabelFor(ViewModel => ViewModel.RememberBrowser));
 
             
             #line default

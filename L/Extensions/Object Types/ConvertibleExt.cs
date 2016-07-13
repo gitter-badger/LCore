@@ -46,9 +46,19 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="System.FormatException">Throws a format exception if the format is not correct for the output type.</exception>
         [Tested]
-        public static object ConvertTo(this IConvertible In, Type t)
+        public static object ConvertTo(this IConvertible In, Type Type)
             {
-            return In == null ? null : Convert.ChangeType(In, t);
+            try
+                {
+                return In == null ? null : Convert.ChangeType(In, Type);
+                }
+            catch (InvalidCastException)
+                {
+                }
+            catch (OverflowException)
+                {
+                }
+            return null;
             }
 
         /// <summary>
@@ -61,8 +71,16 @@ namespace LCore.Extensions
             if (In == null)
                 return default(T);
 
-            return (T)Convert.ChangeType(In, typeof(T));
+            try
+                {
+                return (T)Convert.ChangeType(In, typeof(T));
+                }
+            catch (InvalidCastException) { }
+            catch (OverflowException) { }
+
+            return default(T);
             }
+
         #endregion
 
         #region TryConvertTo

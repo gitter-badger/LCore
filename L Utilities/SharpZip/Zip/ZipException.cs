@@ -1,4 +1,5 @@
 // ZipException.cs
+// ReSharper disable CommentTypo
 //
 // Copyright (C) 2001 Mike Krueger
 //
@@ -37,6 +38,7 @@
 // exception statement from your version.
 
 using System;
+// ReSharper disable InconsistentNaming
 
 #if !NETCF_1_0 && !NETCF_2_0
 using System.Runtime.Serialization;

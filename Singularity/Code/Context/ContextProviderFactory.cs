@@ -14,10 +14,11 @@ namespace Singularity.Context
             return CurrentProvider;
             }
 
+        /// <exception cref="InvalidOperationException">ContextProvider is already set.</exception>
         public static void SetCurrent(ContextProvider Value)
             {
             if (CurrentProvider != null)
-                throw new Exception("ContextProvider is already set.");
+                throw new InvalidOperationException("ContextProvider is already set.");
 
             CurrentProvider = Value;
             }
@@ -28,11 +29,11 @@ namespace Singularity.Context
             var Type = typeof(T);
 
             return Context.GetType()
-                .GetProperties().First(prop =>
+                .GetProperties().First(Prop =>
                 {
-                    if (prop.PropertyType.IsGenericType &&
-                        prop.PropertyType.GetGenericArguments()[0] == Type)
-                        return (DbSet<T>)prop.GetValue(Context);
+                    if (Prop.PropertyType.IsGenericType &&
+                        Prop.PropertyType.GetGenericArguments()[0] == Type)
+                        return (DbSet<T>)Prop.GetValue(Context);
 
                     return null;
                 });

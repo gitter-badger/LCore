@@ -19,7 +19,7 @@ namespace Singularity.Account
         UserAccount LoggedInUserImpersonating { get; }
         UserAccount AttemptLogIn(HttpContextBase Context, string NewUserName, string NewPassword);
         UserAccount AttemptLogInHash(HttpContextBase Context, string NewUserName, string NewPasswordHash);
-        UserAccount Impersonate(HttpContextBase Context, int userID);
+        UserAccount Impersonate(HttpContextBase Context, int UserID);
         void LogOut();
         }
     }

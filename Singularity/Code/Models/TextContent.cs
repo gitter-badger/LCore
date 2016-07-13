@@ -54,17 +54,18 @@ namespace Singularity.Models
         public static IQueryable<TextContent> FindGlobalTokens(ModelContext DbContext)
             {
             return DbContext.GetDBSet<TextContent>().Where(
-                t => t.Active &&
-                    t.GlobalToken == true);
+                Content => Content.Active &&
+                    Content.GlobalToken == true);
             }
 
         public static TextContent FindByToken(ModelContext DbContext, string Token)
             {
-            Func<string, TextContent> Func = s =>
+            Func<string, TextContent> Func = Str =>
             {
-                return DbContext.GetDBSet<TextContent>().FirstOrDefault(t => t.Token == Token && t.Active);
+                return DbContext.GetDBSet<TextContent>().FirstOrDefault(Text => Text.Token == Str && Text.Active);
             };
 
+            // Token is cached not DbContext
             return Func.Cache("TextContentTokenCache")(Token);
             }
         }

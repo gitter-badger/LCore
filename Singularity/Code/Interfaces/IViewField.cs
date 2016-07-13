@@ -25,7 +25,7 @@ namespace Singularity.Models
         T GetModelData<T>()
             where T : IModel;
 
-        List<SelectListItem> GetRelationItems(Type t, object CurrentValue);
+        List<SelectListItem> GetRelationItems(Type Type, object CurrentValue);
         string Route_FieldManyRelation(string ControllerName);
         string Route_FieldRelation(string ControllerName);
         }

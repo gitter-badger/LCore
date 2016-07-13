@@ -4,9 +4,9 @@
 @{
     Layout = Layouts.Main;
 
-    var c = ViewContext.Controller;
+    var Controller = ViewContext.Controller;
 
-    var ViewLayout = c as IDefaultViewLayout;
+    var ViewLayout = Controller as IDefaultViewLayout;
     if (ViewLayout != null)
         {
         Layout = ViewLayout.DefaultLayout;

@@ -37,6 +37,7 @@ namespace ASP
     using Singularity;
     using Singularity.Context;
     using Singularity.Controllers;
+    using Singularity.Extensions;
     using Singularity.Models;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
@@ -74,9 +75,9 @@ WriteLiteral(">\r\n");
             #line hidden
             
             #line 11 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
-     for (int i = 0; i < TableData.Length; i++)
+     for (int Index1 = 0; Index1 < TableData.Length; Index1++)
         {
-        if (i == 0)
+        if (Index1 == 0)
             {
             
             
@@ -108,7 +109,7 @@ WriteLiteral("            <tr>\r\n");
             #line hidden
             
             #line 19 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
-                 for (int j = 0; j < TableData[i].Length; j++)
+                 for (int Index2 = 0; Index2 < TableData[Index1].Length; Index2++)
                     {
 
             
@@ -124,7 +125,7 @@ WriteLiteral("                    <td>\r\n");
             #line hidden
             
             #line 22 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
-                         if (TableData[i][j].Length > ControllerHelper.DefaultTableTextLength)
+                         if (TableData[Index1][Index2].Length > ControllerHelper.DefaultTableTextLength)
                             {
 
             
@@ -134,14 +135,14 @@ WriteLiteral("                            <span");
 
 WriteLiteral(" class=\"abbreviated\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 606), Tuple.Create("\"", 633)
+WriteAttribute("title", Tuple.Create(" title=\"", 656), Tuple.Create("\"", 683)
             
             #line 24 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
-, Tuple.Create(Tuple.Create("", 614), Tuple.Create<System.Object, System.Int32>(Model.PropertyData
+, Tuple.Create(Tuple.Create("", 664), Tuple.Create<System.Object, System.Int32>(Model.PropertyData
             
             #line default
             #line hidden
-, 614), false)
+, 664), false)
 );
 
 WriteLiteral(">\r\n");
@@ -150,7 +151,7 @@ WriteLiteral("                                ");
 
             
             #line 25 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
-                           Write(TableData[i][j].Substring(0, ControllerHelper.DefaultTableTextLength));
+                           Write(TableData[Index1][Index2].Substring(0, ControllerHelper.DefaultTableTextLength));
 
             
             #line default
@@ -172,7 +173,7 @@ WriteLiteral("                                ");
 
             
             #line 31 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
-                           Write(TableData[i][j]);
+                           Write(TableData[Index1][Index2]);
 
             
             #line default
@@ -200,7 +201,7 @@ WriteLiteral("\r\n            </tr>\r\n");
             
             #line 38 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
 
-        if (i == 0)
+        if (Index1 == 0)
             {
             
             
@@ -226,14 +227,14 @@ WriteLiteral("\r\n            </tr>\r\n");
             #line hidden
 WriteLiteral("            <tr>\r\n                <td");
 
-WriteAttribute("colspan", Tuple.Create(" colspan=\"", 1277), Tuple.Create("\"", 1307)
+WriteAttribute("colspan", Tuple.Create(" colspan=\"", 1352), Tuple.Create("\"", 1387)
             
             #line 47 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
-, Tuple.Create(Tuple.Create("", 1287), Tuple.Create<System.Object, System.Int32>(TableData[i].Length
+, Tuple.Create(Tuple.Create("", 1362), Tuple.Create<System.Object, System.Int32>(TableData[Index1].Length
             
             #line default
             #line hidden
-, 1287), false)
+, 1362), false)
 );
 
 WriteLiteral(">\r\n                    &nbsp;\r\n                </td>\r\n            </tr>\r\n");

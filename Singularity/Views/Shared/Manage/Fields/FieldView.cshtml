@@ -13,13 +13,13 @@
 @model IViewField
 
 
-<div class="field @Model.ViewTypes.CollectStr((i,t) => $"{t.ToString().ToLower()}-field ") field-@Model.ColumnClass @Model.ModelFieldClasses.Combine(" ")"
+<div class="field @Model.ViewTypes.CollectStr((i,Type) => $"{Type.ToString().ToLower()}-field ") field-@Model.ColumnClass @Model.ModelFieldClasses.Combine(" ")"
      @Html.Raw(Model.ModelFieldHtmlAttributes.Combine(" "))
      data-object-type="@Model.Meta.ModelType"
      data-type-name="@Model.Meta.DataTypeName">
 
     @if (Model.Meta.HasAttribute<ICustomPartial>() &&
-        Model.Meta.GetAttribute<ICustomPartial>().IsActive(Html, Model, Model.ViewTypes))
+                        Model.Meta.GetAttribute<ICustomPartial>().IsActive(Html, Model, Model.ViewTypes))
         {
         Model.Meta.GetAttribute<ICustomPartial>().RenderPartial(Html, Model, Model.ViewTypes);
         }

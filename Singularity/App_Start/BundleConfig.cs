@@ -6,11 +6,13 @@ namespace Singularity.Config
 {
     public class BundleConfig
     {
+        // ReSharper disable InconsistentNaming
         public const string Script_jQuery = "~/bundles/jquery";
         public const string Script_jQueryUI = "~/bundles/jquery-ui";
         public const string Style_jQueryUI = "~/Content/jquery-ui/base/css";
 
         public const string Script_jQueryVal = "~/bundles/jqueryval";
+        // ReSharper restore InconsistentNaming
 
         public const string Script_Bootstrap = "~/bundles/bootstrap";
         public const string Style_Bootstrap = "~/Content/bootstrap";
@@ -21,21 +23,21 @@ namespace Singularity.Config
 
 
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
-        public static void RegisterBundles(BundleCollection bundles)
+        public static void RegisterBundles(BundleCollection Bundles)
         {
 
 
             #region jQuery
-            bundles.Add(new ScriptBundle(Script_jQuery).Include(
+            Bundles.Add(new ScriptBundle(Script_jQuery).Include(
                         "~/Scripts/jquery-2.1.3.js"));
 
             #endregion
 
             #region jQuery UI
-            bundles.Add(new ScriptBundle(Script_jQueryUI).Include(
+            Bundles.Add(new ScriptBundle(Script_jQueryUI).Include(
                         "~/Scripts/jquery-ui-1.11.4.js"));
 
-            bundles.Add(new StyleBundle(Style_jQueryUI).Include(
+            Bundles.Add(new StyleBundle(Style_jQueryUI).Include(
                         "~/Content/jquery-ui/base/accordion.css",
                         "~/Content/jquery-ui/base/all.css",
                         "~/Content/jquery-ui/base/autocomplete.css",
@@ -59,28 +61,28 @@ namespace Singularity.Config
             #endregion
 
             #region jQuery Validate
-            bundles.Add(new ScriptBundle(Script_jQueryVal).Include(
+            Bundles.Add(new ScriptBundle(Script_jQueryVal).Include(
                         "~/Scripts/jquery.validate*"));
             #endregion
 
             #region Bootstrap
-            bundles.Add(new ScriptBundle(Script_Bootstrap).Include(
+            Bundles.Add(new ScriptBundle(Script_Bootstrap).Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new StyleBundle(Style_Bootstrap).Include(
+            Bundles.Add(new StyleBundle(Style_Bootstrap).Include(
                       "~/Content/bootstrap.css",
                       "~/Content/bootstrap.icon.css"));
             #endregion
 
             #region Modernizr
 
-            bundles.Add(new ScriptBundle(Script_Modernizr).Include(
+            Bundles.Add(new ScriptBundle(Script_Modernizr).Include(
                         "~/Scripts/modernizr-*"));
             #endregion
 
             #region Singularity
-            ControllerHelper.RegisterBundles(bundles, false);
+            ControllerHelper.RegisterBundles(Bundles, false);
             #endregion
 
 

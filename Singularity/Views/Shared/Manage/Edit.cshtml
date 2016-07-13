@@ -46,21 +46,21 @@
     </h2>
 
     @using (Html.BeginForm(ViewBag.Create ?
-                            nameof(ManageController.Create) :
-                            nameof(ManageController.Edit),
-                        (string)ViewBag.ControllerName,
-                        (object)ViewBag.Route_Edit, FormMethod.Post, new { @class = "edit-form" }))
+                                            nameof(ManageController.Create) :
+                                            nameof(ManageController.Edit),
+                                        (string)ViewBag.ControllerName,
+                                        (object)ViewBag.Route_Edit, FormMethod.Post, new { @class = "edit-form" }))
         {
 
         bool RequiredFields = false;
 
         string LastTab = "";
 
-        Dictionary<string, List<ModelMetadata>> TabGroups = Fields.Group(m =>
+        Dictionary<string, List<ModelMetadata>> TabGroups = Fields.Group(Meta =>
         {
-            if (m.AdditionalValues.ContainsKey(FieldTabAttribute.Key))
+            if (Meta.AdditionalValues.ContainsKey(FieldTabAttribute.Key))
                 {
-                LastTab = (string)m.AdditionalValues[FieldTabAttribute.Key];
+                LastTab = (string)Meta.AdditionalValues[FieldTabAttribute.Key];
                 return LastTab;
                 }
             return LastTab;
@@ -150,7 +150,7 @@
                             {
                             <div class="left">
                                 <a href="@(Url.Controller<ManageController>()
-                    .Action((Expression<Func<ManageController, Func<int, string, ActionResult>>>)(c => c.Delete),
+                    .Action((Expression<Func<ManageController, Func<int, string, ActionResult>>>)(Controller => Controller.Delete),
                     Model.GetID<int>(), ViewBag.ReturnURL))"
                                    id="DeleteButton"
                                    key-bind-click="Ctrl+Delete"

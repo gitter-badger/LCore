@@ -39,6 +39,7 @@ using System;
 using System.Collections.Generic;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 // ReSharper disable UnusedMethodReturnValue.Global
+// ReSharper disable InconsistentNaming
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
@@ -105,10 +106,11 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
                     codeLengths[i++] = 5;
                     }
                 defDistTree = new InflaterHuffmanTree(codeLengths);
-                }
-            catch (Exception)
+                 }
+            catch (Exception Ex)
                 {
-                throw new SharpZipBaseException("InflaterHuffmanTree: static tree length illegal");
+                // ReSharper disable once ThrowFromCatchWithNoInnerException
+                throw new SharpZipBaseException("InflaterHuffmanTree: static tree length illegal", Ex);
                 }
             }
 

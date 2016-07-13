@@ -11,14 +11,7 @@
 
     if (Export.ExportType != null)
         {
-        try
-            {
             ModelExportType = L.Ref.FindType(Export.ExportType);
-            }
-        catch
-            {
-
-            }
         }
 
     var BasedMeta = new Dictionary<string, List<ModelMetadata>>();
@@ -27,13 +20,13 @@
         new Dictionary<string, ModelMetadata>() :
         ModelExportType.GetMeta();
 
-    AllMeta.Keys.Each(k =>
+    AllMeta.Keys.Each(Meta =>
     {
         string BaseKey = "";
 
-        if (k.Contains("."))
+        if (Meta.Contains("."))
             {
-            BaseKey = k.Substring(0, k.LastIndexOf('.'));
+            BaseKey = Meta.Substring(0, Meta.LastIndexOf('.'));
             }
 
         if (!BasedMeta.ContainsKey(BaseKey))
@@ -41,7 +34,7 @@
             BasedMeta[BaseKey] = new List<ModelMetadata>();
             }
 
-        BasedMeta[BaseKey].Add(AllMeta[k]);
+        BasedMeta[BaseKey].Add(AllMeta[Meta]);
     });
 }
 

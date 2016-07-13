@@ -1,11 +1,13 @@
 ﻿/// <reference path="singularity-core.ts"/>
 
+// ReSharper disable once InconsistentNaming
 interface JQueryStatic {
     isString?: (obj: any) => boolean;
 
-    Defer?: (deferFunc: Function) => void;
+    defer?: (deferFunc: Function) => void;
 }
 
+// ReSharper disable once InconsistentNaming
 interface JQuery {
     // Missing from definition
     selectmenu(): JQuery;
@@ -46,7 +48,7 @@ singJQuery.ignoreUnknown('ALL');
 //
 */
 
-singJQuery.method('checked', Checked,
+singJQuery.method('checked', checked,
     {
         summary: null,
         parameters: null,
@@ -58,7 +60,7 @@ singJQuery.method('checked', Checked,
         }
     }, $.fn);
 
-function Checked() {
+function checked() {
     var anyChecked = false;
 
 
@@ -71,7 +73,7 @@ function Checked() {
     return anyChecked;
 }
 
-singJQuery.method('allVisible', AllVisible,
+singJQuery.method('allVisible', allVisible,
     {
         summary: null,
         parameters: null,
@@ -83,7 +85,7 @@ singJQuery.method('allVisible', AllVisible,
         }
     }, $.fn);
 
-function AllVisible() {
+function allVisible() {
 
     var allVisible = true;
 
@@ -102,7 +104,7 @@ function AllVisible() {
     return allVisible;
 }
 
-singJQuery.method('findIDNameSelector', FindIDNameSelector,
+singJQuery.method('findIDNameSelector', findIDNameSelector,
     {
         summary: null,
         parameters: null,
@@ -114,7 +116,7 @@ singJQuery.method('findIDNameSelector', FindIDNameSelector,
         }
     }, $.fn);
 
-function FindIDNameSelector(name: string) {
+function findIDNameSelector(name: string) {
 
     let target = $();
 
@@ -135,7 +137,7 @@ function FindIDNameSelector(name: string) {
     return target || $();
 }
 
-singJQuery.method('actionIf', ActionIf,
+singJQuery.method('actionIf', actionIf,
     {
         summary: null,
         parameters: null,
@@ -147,7 +149,7 @@ singJQuery.method('actionIf', ActionIf,
         }
     }, $.fn);
 
-function ActionIf(name: string) {
+function actionIf(name: string) {
 
     var target = $(this);
 
@@ -233,7 +235,7 @@ function ActionIf(name: string) {
     }
 };
 
-singJQuery.method('defer', Defer,
+singJQuery.method('defer', defer,
     {
         summary: null,
         parameters: null,
@@ -247,12 +249,12 @@ singJQuery.method('defer', Defer,
         }
     });
 
-function Defer(deferFunc: Function): void {
+function defer(deferFunc: Function): void {
     if (deferFunc)
         setTimeout(deferFunc, 0);
 }
 
-singJQuery.method('hasAttr', JQueryHasAttr,
+singJQuery.method('hasAttr', jQueryHasAttr,
     {
         summary: null,
         parameters: null,
@@ -265,12 +267,12 @@ singJQuery.method('hasAttr', JQueryHasAttr,
         }
     }, $.fn);
 
-function JQueryHasAttr(name: string): boolean {
+function jQueryHasAttr(name: string): boolean {
 
     return $(this).attr(name) !== undefined;
 }
 
-singJQuery.method('outerHtml', JQueryOuterHtml,
+singJQuery.method('outerHtml', jQueryOuterHtml,
     {
         summary: null,
         parameters: null,
@@ -283,7 +285,7 @@ singJQuery.method('outerHtml', JQueryOuterHtml,
         }
     }, $.fn);
 
-function JQueryOuterHtml(): string {
+function jQueryOuterHtml(): string {
 
     if (this.length == 0) {
         return '';
@@ -293,7 +295,7 @@ function JQueryOuterHtml(): string {
     }
 }
 
-singJQuery.method('innerHtml', JQueryInnerHtml,
+singJQuery.method('innerHtml', jQueryInnerHtml,
     {
         summary: null,
         parameters: null,
@@ -306,7 +308,7 @@ singJQuery.method('innerHtml', JQueryInnerHtml,
         }
     }, $.fn);
 
-function JQueryInnerHtml(): string {
+function jQueryInnerHtml(): string {
 
     if (this.length == 0) {
         return '';
@@ -318,7 +320,7 @@ function JQueryInnerHtml(): string {
 
 // https://github.com/moagrius/isOnScreen
 
-singJQuery.method('isOnScreen', JQueryIsOnScreen,
+singJQuery.method('isOnScreen', jQueryIsOnScreen,
     {
         summary: null,
         parameters: null,
@@ -331,7 +333,7 @@ singJQuery.method('isOnScreen', JQueryIsOnScreen,
         }
     }, $.fn);
 
-function JQueryIsOnScreen(x: number = 1, y: number = 1): boolean {
+function jQueryIsOnScreen(x: number = 1, y: number = 1): boolean {
 
     const win = $(window);
 
@@ -375,7 +377,7 @@ function JQueryIsOnScreen(x: number = 1, y: number = 1): boolean {
     return (deltas.left * deltas.right) >= x && (deltas.top * deltas.bottom) >= y;
 };
 
-singJQuery.method('swapClasses', JQuerySwapClass,
+singJQuery.method('swapClasses', jQuerySwapClass,
     {
         summary: null,
         parameters: null,
@@ -388,7 +390,7 @@ singJQuery.method('swapClasses', JQuerySwapClass,
         }
     }, $.fn);
 
-function JQuerySwapClass(class1: string, class2: string): JQuery {
+function jQuerySwapClass(class1: string, class2: string): JQuery {
 
     const thisJQuery = this as JQuery;
 
@@ -409,7 +411,7 @@ function JQuerySwapClass(class1: string, class2: string): JQuery {
     return thisJQuery;
 };
 
-singJQuery.method('fadeClasses', JQueryFadeClass,
+singJQuery.method('fadeClasses', jQueryFadeClass,
     {
         summary: null,
         parameters: null,
@@ -422,7 +424,7 @@ singJQuery.method('fadeClasses', JQueryFadeClass,
         }
     }, $.fn);
 
-function JQueryFadeClass(class1: string, class2: string, speed: string|number = 'fast', callback?: Function): JQuery {
+function jQueryFadeClass(class1: string, class2: string, speed: string|number = 'fast', callback?: Function): JQuery {
 
     var thisJQuery = this as JQuery;
 
@@ -465,7 +467,7 @@ function JQueryFadeClass(class1: string, class2: string, speed: string|number = 
     return thisJQuery;
 };
 
-singJQuery.method('superFadeOut', JQuerySuperFadeOut,
+singJQuery.method('superFadeOut', jQuerySuperFadeOut,
     {
         summary: null,
         parameters: null,
@@ -478,7 +480,7 @@ singJQuery.method('superFadeOut', JQuerySuperFadeOut,
         }
     }, $.fn);
 
-function JQuerySuperFadeOut(speed: string|number = 'fast'): JQuery {
+function jQuerySuperFadeOut(speed: string|number = 'fast'): JQuery {
 
     const thisJQuery = this as JQuery;
 
@@ -512,7 +514,7 @@ function JQuerySuperFadeOut(speed: string|number = 'fast'): JQuery {
     return thisJQuery;
 };
 
-singJQuery.method('superFadeIn', JQuerySuperFadeIn,
+singJQuery.method('superFadeIn', jQuerySuperFadeIn,
     {
         summary: null,
         parameters: null,
@@ -525,7 +527,7 @@ singJQuery.method('superFadeIn', JQuerySuperFadeIn,
         }
     }, $.fn);
 
-function JQuerySuperFadeIn(speed: string|number = 'fast'): JQuery {
+function jQuerySuperFadeIn(speed: string|number = 'fast'): JQuery {
 
     const thisJQuery = this as JQuery;
 

@@ -24,9 +24,9 @@ namespace LCore.Extensions
         [TestResult(new object[] { DayOfWeek.Friday }, 5)]
         [TestResult(new object[] { DayOfWeek.Saturday }, 6)]
         [TestResult(new object[] { DayOfWeek.Sunday }, 0)]
-        public static int DayOfWeekNumber(this DayOfWeek day)
+        public static int DayOfWeekNumber(this DayOfWeek Day)
             {
-            return L.Date.GetDayNumber(day);
+            return L.Date.GetDayNumber(Day);
             }
         #endregion
 
@@ -45,16 +45,16 @@ namespace LCore.Extensions
         /// <summary>
         /// Converts a DateTime to string using Date and Time Specification of RFC 822
         /// </summary>
-        public static string ToSpecification(this DateTime d)
+        public static string ToSpecification(this DateTime Date)
             {
             try
                 {
-                string Day = d.Day.ToString();
+                string Day = Date.Day.ToString();
                 if (Day.Length == 1) { Day = $"0{Day}"; }
-                int MonthNum = d.Month;
+                int MonthNum = Date.Month;
                 string Month = L.Date.MonthGetString(MonthNum);
 
-                var MDate = d.ToUniversalTime();
+                var MDate = Date.ToUniversalTime();
                 string MTime = MDate.Hour.ToString().Length == 1 ? $"0{MDate.Hour}" : MDate.Hour.ToString();
 
                 MTime += ":";
@@ -77,9 +77,9 @@ namespace LCore.Extensions
                     MTime += MDate.Second.ToString();
                     }
 
-                string Str = d.DayOfWeek.ToString().Substring(0, 3);
+                string Str = Date.DayOfWeek.ToString().Substring(0, 3);
                 Str += $", {Day} {Month.Substring(0, 3)}";
-                Str += $" {d.Year} {MTime} GMT";
+                Str += $" {Date.Year} {MTime} GMT";
                 return Str;
 
                 }
@@ -91,9 +91,9 @@ namespace LCore.Extensions
         #endregion
 
         #region MonthString
-        private static string MonthString(this DateTime d)
+        private static string MonthString(this DateTime Date)
             {
-            return L.Date.GetMonthString(d);
+            return L.Date.GetMonthString(Date);
             }
         #endregion
 
@@ -104,9 +104,9 @@ namespace LCore.Extensions
         ///     5 minutes
         ///     2 years
         /// </summary>
-        public static string ToTimeString(this TimeSpan t)
+        public static string ToTimeString(this TimeSpan Time)
             {
-            float Temp = (float)t.TotalSeconds;
+            float Temp = (float)Time.TotalSeconds;
             string Unit = "second";
             if (Temp > 60)
                 {
@@ -291,9 +291,9 @@ namespace LCore.Extensions
             /// Returns the number of the day of the week, from
             /// Sunday: 0 to Saturday: 6.
             /// </summary>
-            public static readonly Func<DayOfWeek, int> GetDayNumber = d =>
+            public static readonly Func<DayOfWeek, int> GetDayNumber = Day =>
                 {
-                    switch (d)
+                    switch (Day)
                         {
                         case DayOfWeek.Sunday: return 0;
                         case DayOfWeek.Monday: return 1;
@@ -303,13 +303,13 @@ namespace LCore.Extensions
                         case DayOfWeek.Friday: return 5;
                         case DayOfWeek.Saturday: return 6;
                         }
-                    throw new ArgumentException(nameof(d));
+                    throw new ArgumentException(nameof(Day));
                 };
 
             /// <summary>
             /// Returns the name of the months from a datetime.
             /// </summary>
-            public static readonly Func<DateTime, string> GetMonthString = d => MonthGetString(d.Month);
+            public static readonly Func<DateTime, string> GetMonthString = Date => MonthGetString(Date.Month);
             #endregion
             }
         }

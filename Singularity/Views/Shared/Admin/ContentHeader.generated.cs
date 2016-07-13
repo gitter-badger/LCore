@@ -91,6 +91,8 @@ WriteLiteral(">\r\n");
          for (int Index = 0; Index < Breadcrumbs.Length; Index++)
             {
             Set<string, string> Key = Breadcrumbs[Index];
+
+            // ReSharper disable once ExceptionNotDocumented
             bool Last = Index == Breadcrumbs.Length - 1;
 
             if (Last)
@@ -100,14 +102,14 @@ WriteLiteral(">\r\n");
             #line default
             #line hidden
             
-            #line 21 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
+            #line 23 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
            Write(Key.Obj1);
 
             
             #line default
             #line hidden
             
-            #line 21 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
+            #line 23 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
                          
                 }
             else
@@ -118,14 +120,14 @@ WriteLiteral(">\r\n");
             #line hidden
 WriteLiteral("                <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 611), Tuple.Create("\"", 627)
+WriteAttribute("href", Tuple.Create(" href=\"", 675), Tuple.Create("\"", 691)
             
-            #line 25 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
-, Tuple.Create(Tuple.Create("", 618), Tuple.Create<System.Object, System.Int32>(Key.Obj2
+            #line 27 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
+, Tuple.Create(Tuple.Create("", 682), Tuple.Create<System.Object, System.Int32>(Key.Obj2
             
             #line default
             #line hidden
-, 618), false)
+, 682), false)
 );
 
 WriteLiteral(">\r\n");
@@ -133,7 +135,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                    ");
 
             
-            #line 26 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
+            #line 28 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
                Write(Key.Obj1);
 
             
@@ -142,20 +144,20 @@ WriteLiteral("                    ");
 WriteLiteral("\r\n                </a>\r\n");
 
             
-            #line 28 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
+            #line 30 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
                 
             
             #line default
             #line hidden
             
-            #line 28 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
+            #line 30 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
            Write(Html.FontAwesome(FontAwesomeExt.Icon.arrow_right));
 
             
             #line default
             #line hidden
             
-            #line 28 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
+            #line 30 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
                                                                   
                 }
             }
@@ -170,16 +172,17 @@ WriteLiteral(" class=\"breadcrumb\"");
 WriteLiteral(">\r\n");
 
             
-            #line 34 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
+            #line 36 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 34 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
+            #line 36 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
          for (int Index = 0; Index < Breadcrumbs.Length; Index++)
             {
             Set<string, string> Key = Breadcrumbs[Index];
+            // ReSharper disable once ExceptionNotDocumented
             bool Last = Index == Breadcrumbs.Length - 1;
 
             if (Last)
@@ -197,7 +200,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                    ");
 
             
-            #line 42 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
+            #line 45 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
                Write(Key.Obj1);
 
             
@@ -206,7 +209,7 @@ WriteLiteral("                    ");
 WriteLiteral("\r\n                </li>\r\n");
 
             
-            #line 44 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
+            #line 47 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
                 }
             else
                 {
@@ -220,14 +223,14 @@ WriteLiteral(" class=\"active\"");
 
 WriteLiteral(">\r\n                    <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 1277), Tuple.Create("\"", 1293)
+WriteAttribute("href", Tuple.Create(" href=\"", 1403), Tuple.Create("\"", 1419)
             
-            #line 48 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
-, Tuple.Create(Tuple.Create("", 1284), Tuple.Create<System.Object, System.Int32>(Key.Obj2
+            #line 51 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
+, Tuple.Create(Tuple.Create("", 1410), Tuple.Create<System.Object, System.Int32>(Key.Obj2
             
             #line default
             #line hidden
-, 1284), false)
+, 1410), false)
 );
 
 WriteLiteral(">\r\n");
@@ -235,7 +238,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 49 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
+            #line 52 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
                    Write(Key.Obj1);
 
             
@@ -244,20 +247,20 @@ WriteLiteral("                        ");
 WriteLiteral("\r\n                    </a>\r\n                </li>\r\n");
 
             
-            #line 52 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
+            #line 55 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
                 
             
             #line default
             #line hidden
             
-            #line 52 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
+            #line 55 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
            Write(Html.FontAwesome(FontAwesomeExt.Icon.arrow_right));
 
             
             #line default
             #line hidden
             
-            #line 52 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
+            #line 55 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
                                                                   
                 }
             }
@@ -268,7 +271,7 @@ WriteLiteral("\r\n                    </a>\r\n                </li>\r\n");
 WriteLiteral("    </ol>\r\n</section>\r\n\r\n<h1>");
 
             
-            #line 58 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
+            #line 61 "..\..\Views\Shared\Admin\ContentHeader.cshtml"
 Write(ViewBag.Title);
 
             

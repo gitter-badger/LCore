@@ -282,6 +282,8 @@ namespace L_Tests.Tests.Extensions
             }
 
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Retry_0()
@@ -304,6 +306,8 @@ namespace L_Tests.Tests.Extensions
             L.A(() => Test.Retry(0)).ShouldFail();
             L.A(() => Test.Retry(-1)).ShouldFail();
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Retry_Action_1()
@@ -328,6 +332,8 @@ namespace L_Tests.Tests.Extensions
             L.A(() => Test.Retry(0)).ShouldFail();
             L.A(() => Test.Retry(-1)).ShouldFail();
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Retry_Action_2()
@@ -353,6 +359,8 @@ namespace L_Tests.Tests.Extensions
             L.A(() => Test.Retry(0)).ShouldFail();
             L.A(() => Test.Retry(-1)).ShouldFail();
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Retry_Action_3()
@@ -379,6 +387,8 @@ namespace L_Tests.Tests.Extensions
             L.A(() => Test.Retry(0)).ShouldFail();
             L.A(() => Test.Retry(-1)).ShouldFail();
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Retry_Action_4()
@@ -408,6 +418,8 @@ namespace L_Tests.Tests.Extensions
             }
 
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Retry_Func_0()
@@ -432,6 +444,8 @@ namespace L_Tests.Tests.Extensions
             L.F(() => Test.Retry(0)).ShouldFail();
             L.F(() => Test.Retry(-1)).ShouldFail();
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Retry_Func_1()
@@ -458,6 +472,8 @@ namespace L_Tests.Tests.Extensions
             L.F(() => Test.Retry(0)).ShouldFail();
             L.F(() => Test.Retry(-1)).ShouldFail();
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Retry_Func_2()
@@ -485,6 +501,8 @@ namespace L_Tests.Tests.Extensions
             L.F(() => Test.Retry(0)).ShouldFail();
             L.F(() => Test.Retry(-1)).ShouldFail();
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Retry_Func_3()
@@ -513,6 +531,8 @@ namespace L_Tests.Tests.Extensions
             L.F(() => Test.Retry(0)).ShouldFail();
             L.F(() => Test.Retry(-1)).ShouldFail();
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Retry_Func_4()
@@ -544,6 +564,8 @@ namespace L_Tests.Tests.Extensions
             }
 
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Action_0()
@@ -555,16 +577,16 @@ namespace L_Tests.Tests.Extensions
             var Test2 = new Action(() =>
                 {
                 });
-            var Handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(Ex =>
                 {
-                    e.Should().NotBeNull()
+                    Ex.Should().NotBeNull()
                         .And.BeOfType<ArgumentException>();
                 });
-            var Rethrow_Handler = new Action<Exception>(e =>
+            var Rethrow_Handler = new Action<Exception>(Ex =>
                 {
-                    e.Should().NotBeNull()
+                    Ex.Should().NotBeNull()
                         .And.BeOfType<ArgumentException>();
-                    throw e;
+                    throw Ex;
                 });
 
             Test.Catch(Handler)();
@@ -572,6 +594,8 @@ namespace L_Tests.Tests.Extensions
 
             Test.Catch(Rethrow_Handler).ShouldFail<ArgumentException>();
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Action_1()
@@ -585,16 +609,16 @@ namespace L_Tests.Tests.Extensions
                 {
                     o.Should().Be(_TestString);
                 });
-            var Handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
             });
-            var Rethrow_Handler = new Action<Exception>(e =>
+            var Rethrow_Handler = new Action<Exception>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                throw e;
+                throw Ex;
             });
 
             Test.Catch(Handler)(_TestString);
@@ -602,6 +626,8 @@ namespace L_Tests.Tests.Extensions
 
             Test.Catch(Rethrow_Handler).ShouldFail<string, ArgumentException>(_TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Action_2()
@@ -617,16 +643,16 @@ namespace L_Tests.Tests.Extensions
                 o1.Should().Be(_TestString);
                 o2.Should().Be(_TestString);
             });
-            var Handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
             });
-            var Rethrow_Handler = new Action<Exception>(e =>
+            var Rethrow_Handler = new Action<Exception>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                throw e;
+                throw Ex;
             });
 
             Test.Catch(Handler)(_TestString, _TestString);
@@ -634,6 +660,8 @@ namespace L_Tests.Tests.Extensions
 
             Test.Catch(Rethrow_Handler).ShouldFail<string, string, ArgumentException>(_TestString, _TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Action_3()
@@ -651,16 +679,16 @@ namespace L_Tests.Tests.Extensions
                 o2.Should().Be(_TestString);
                 o3.Should().Be(_TestString);
             });
-            var Handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
             });
-            var Rethrow_Handler = new Action<Exception>(e =>
+            var Rethrow_Handler = new Action<Exception>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                throw e;
+                throw Ex;
             });
 
             Test.Catch(Handler)(_TestString, _TestString, _TestString);
@@ -668,6 +696,8 @@ namespace L_Tests.Tests.Extensions
 
             Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Action_4()
@@ -687,16 +717,16 @@ namespace L_Tests.Tests.Extensions
                 o3.Should().Be(_TestString);
                 o4.Should().Be(_TestString);
             });
-            var Handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
             });
-            var Rethrow_Handler = new Action<Exception>(e =>
+            var Rethrow_Handler = new Action<Exception>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                throw e;
+                throw Ex;
             });
 
             Test.Catch(Handler)(_TestString, _TestString, _TestString, _TestString);
@@ -705,6 +735,8 @@ namespace L_Tests.Tests.Extensions
             Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString, _TestString);
             }
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Func_0()
@@ -717,16 +749,16 @@ namespace L_Tests.Tests.Extensions
                 {
                     return _TestString;
                 });
-            var Handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(Ex =>
                 {
-                    e.Should().NotBeNull()
+                    Ex.Should().NotBeNull()
                         .And.BeOfType<ArgumentException>();
                 });
-            var Rethrow_Handler = new Action<Exception>(e =>
+            var Rethrow_Handler = new Action<Exception>(Ex =>
                 {
-                    e.Should().NotBeNull()
+                    Ex.Should().NotBeNull()
                         .And.BeOfType<ArgumentException>();
-                    throw e;
+                    throw Ex;
                 });
 
             Test.Catch(Handler)();
@@ -734,6 +766,8 @@ namespace L_Tests.Tests.Extensions
 
             Test.Catch(Rethrow_Handler).ShouldFail<string, ArgumentException>();
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Func_1()
@@ -748,16 +782,16 @@ namespace L_Tests.Tests.Extensions
                 o.Should().Be(_TestString);
                 return _TestString;
             });
-            var Handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
             });
-            var Rethrow_Handler = new Action<Exception>(e =>
+            var Rethrow_Handler = new Action<Exception>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                throw e;
+                throw Ex;
             });
 
             Test.Catch(Handler)(_TestString);
@@ -765,6 +799,8 @@ namespace L_Tests.Tests.Extensions
 
             Test.Catch(Rethrow_Handler).ShouldFail<string, string, ArgumentException>(_TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Func_2()
@@ -781,16 +817,16 @@ namespace L_Tests.Tests.Extensions
                 o2.Should().Be(_TestString);
                 return _TestString;
             });
-            var Handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
             });
-            var Rethrow_Handler = new Action<Exception>(e =>
+            var Rethrow_Handler = new Action<Exception>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                throw e;
+                throw Ex;
             });
 
             Test.Catch(Handler)(_TestString, _TestString);
@@ -798,6 +834,8 @@ namespace L_Tests.Tests.Extensions
 
             Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Func_3()
@@ -816,16 +854,16 @@ namespace L_Tests.Tests.Extensions
                 o3.Should().Be(_TestString);
                 return _TestString;
             });
-            var Handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
             });
-            var Rethrow_Handler = new Action<Exception>(e =>
+            var Rethrow_Handler = new Action<Exception>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                throw e;
+                throw Ex;
             });
 
             Test.Catch(Handler)(_TestString, _TestString, _TestString);
@@ -833,6 +871,8 @@ namespace L_Tests.Tests.Extensions
 
             Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Func_4()
@@ -851,16 +891,16 @@ namespace L_Tests.Tests.Extensions
                 o3.Should().Be(_TestString);
                 return _TestString;
             });
-            var Handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
             });
-            var Rethrow_Handler = new Action<Exception>(e =>
+            var Rethrow_Handler = new Action<Exception>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                throw e;
+                throw Ex;
             });
 
             Test.Catch(Handler)(_TestString, _TestString, _TestString, _TestString);
@@ -869,6 +909,8 @@ namespace L_Tests.Tests.Extensions
             Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString, _TestString);
             }
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Action_0()
@@ -881,19 +923,19 @@ namespace L_Tests.Tests.Extensions
             {
             });
 
-            var Handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
             });
 
             Action<FormatException> Wrong_Handler = L.A<FormatException>();
 
-            var Rethrow_Handler = new Action<ArgumentException>(e =>
+            var Rethrow_Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                throw e;
+                throw Ex;
             });
 
             Test.Catch(Handler)();
@@ -902,6 +944,8 @@ namespace L_Tests.Tests.Extensions
             Test.Catch(Wrong_Handler).ShouldFail<ArgumentException>();
             Test.Catch(Rethrow_Handler).ShouldFail<ArgumentException>();
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Action_1()
@@ -917,19 +961,19 @@ namespace L_Tests.Tests.Extensions
                     o.Should().Be(_TestString);
                 });
 
-            var Handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
             });
 
             Action<FormatException> Wrong_Handler = L.A<FormatException>();
 
-            var Rethrow_Handler = new Action<ArgumentException>(e =>
+            var Rethrow_Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                throw e;
+                throw Ex;
             });
 
             Test.Catch(Handler)(_TestString);
@@ -938,6 +982,8 @@ namespace L_Tests.Tests.Extensions
             Test.Catch(Wrong_Handler).ShouldFail<string, ArgumentException>(_TestString);
             Test.Catch(Rethrow_Handler).ShouldFail<string, ArgumentException>(_TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Action_2()
@@ -955,19 +1001,19 @@ namespace L_Tests.Tests.Extensions
                 o2.Should().Be(_TestString);
             });
 
-            var Handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
             });
 
             Action<FormatException> Wrong_Handler = L.A<FormatException>();
 
-            var Rethrow_Handler = new Action<ArgumentException>(e =>
+            var Rethrow_Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                throw e;
+                throw Ex;
             });
 
             Test.Catch(Handler)(_TestString, _TestString);
@@ -976,6 +1022,8 @@ namespace L_Tests.Tests.Extensions
             Test.Catch(Wrong_Handler).ShouldFail<string, string, ArgumentException>(_TestString, _TestString);
             Test.Catch(Rethrow_Handler).ShouldFail<string, string, ArgumentException>(_TestString, _TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Action_3()
@@ -995,19 +1043,19 @@ namespace L_Tests.Tests.Extensions
                 o3.Should().Be(_TestString);
             });
 
-            var Handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
             });
 
             Action<FormatException> Wrong_Handler = L.A<FormatException>();
 
-            var Rethrow_Handler = new Action<ArgumentException>(e =>
+            var Rethrow_Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                throw e;
+                throw Ex;
             });
 
             Test.Catch(Handler)(_TestString, _TestString, _TestString);
@@ -1016,6 +1064,8 @@ namespace L_Tests.Tests.Extensions
             Test.Catch(Wrong_Handler).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
             Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Action_4()
@@ -1035,19 +1085,19 @@ namespace L_Tests.Tests.Extensions
                 o3.Should().Be(_TestString);
             });
 
-            var Handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
             });
 
             Action<FormatException> Wrong_Handler = L.A<FormatException>();
 
-            var Rethrow_Handler = new Action<ArgumentException>(e =>
+            var Rethrow_Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                throw e;
+                throw Ex;
             });
 
             Test.Catch(Handler)(_TestString, _TestString, _TestString, _TestString);
@@ -1058,6 +1108,8 @@ namespace L_Tests.Tests.Extensions
             }
 
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_0()
@@ -1071,19 +1123,19 @@ namespace L_Tests.Tests.Extensions
                     return _TestString;
                 });
 
-            var Handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(Ex =>
                 {
-                    e.Should().NotBeNull()
+                    Ex.Should().NotBeNull()
                         .And.BeOfType<ArgumentException>();
                 });
 
             Action<FormatException> Wrong_Handler = L.A<FormatException>();
 
-            var Rethrow_Handler = new Action<ArgumentException>(e =>
+            var Rethrow_Handler = new Action<ArgumentException>(Ex =>
                 {
-                    e.Should().NotBeNull()
+                    Ex.Should().NotBeNull()
                         .And.BeOfType<ArgumentException>();
-                    throw e;
+                    throw Ex;
                 });
 
             Test.Catch(Handler)();
@@ -1092,6 +1144,8 @@ namespace L_Tests.Tests.Extensions
             Test.Catch(Wrong_Handler).ShouldFail<string, ArgumentException>();
             Test.Catch(Rethrow_Handler).ShouldFail<string, ArgumentException>();
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_1()
@@ -1109,19 +1163,19 @@ namespace L_Tests.Tests.Extensions
                 return _TestString;
             });
 
-            var Handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
             });
 
             Action<FormatException> Wrong_Handler = L.A<FormatException>();
 
-            var Rethrow_Handler = new Action<ArgumentException>(e =>
+            var Rethrow_Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                throw e;
+                throw Ex;
             });
 
             Test.Catch(Handler)(_TestString);
@@ -1130,6 +1184,8 @@ namespace L_Tests.Tests.Extensions
             Test.Catch(Wrong_Handler).ShouldFail<string, string, ArgumentException>(_TestString);
             Test.Catch(Rethrow_Handler).ShouldFail<string, string, ArgumentException>(_TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_2()
@@ -1149,19 +1205,19 @@ namespace L_Tests.Tests.Extensions
                 return _TestString;
             });
 
-            var Handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
             });
 
             Action<FormatException> Wrong_Handler = L.A<FormatException>();
 
-            var Rethrow_Handler = new Action<ArgumentException>(e =>
+            var Rethrow_Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                throw e;
+                throw Ex;
             });
 
             Test.Catch(Handler)(_TestString, _TestString);
@@ -1170,6 +1226,8 @@ namespace L_Tests.Tests.Extensions
             Test.Catch(Wrong_Handler).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString);
             Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_3()
@@ -1191,19 +1249,19 @@ namespace L_Tests.Tests.Extensions
                 return _TestString;
             });
 
-            var Handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
             });
 
             Action<FormatException> Wrong_Handler = L.A<FormatException>();
 
-            var Rethrow_Handler = new Action<ArgumentException>(e =>
+            var Rethrow_Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                throw e;
+                throw Ex;
             });
 
             Test.Catch(Handler)(_TestString, _TestString, _TestString);
@@ -1212,6 +1270,8 @@ namespace L_Tests.Tests.Extensions
             Test.Catch(Wrong_Handler).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
             Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_4()
@@ -1235,19 +1295,19 @@ namespace L_Tests.Tests.Extensions
                 return _TestString;
             });
 
-            var Handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
             });
 
             Action<FormatException> Wrong_Handler = L.A<FormatException>();
 
-            var Rethrow_Handler = new Action<ArgumentException>(e =>
+            var Rethrow_Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                throw e;
+                throw Ex;
             });
 
             Test.Catch(Handler)(_TestString, _TestString, _TestString, _TestString);
@@ -1257,6 +1317,8 @@ namespace L_Tests.Tests.Extensions
             Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString, _TestString);
             }
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_Func_0()
@@ -1270,20 +1332,20 @@ namespace L_Tests.Tests.Extensions
                 return $"{_TestString}a";
             });
 
-            var Handler = new Func<ArgumentException, string>(e =>
+            var Handler = new Func<ArgumentException, string>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
                 return $"{_TestString}b";
             });
 
             Func<FormatException, string> Wrong_Handler = L.F<FormatException, string>();
 
-            var Rethrow_Handler = new Action<ArgumentException>(e =>
+            var Rethrow_Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                throw e;
+                throw Ex;
             });
 
             Test.Catch(Handler)().Should().Be($"{_TestString}b");
@@ -1292,6 +1354,8 @@ namespace L_Tests.Tests.Extensions
             Test.Catch(Wrong_Handler).ShouldFail<string, ArgumentException>();
             Test.Catch(Rethrow_Handler).ShouldFail<string, ArgumentException>();
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_Func_1()
@@ -1309,20 +1373,20 @@ namespace L_Tests.Tests.Extensions
                     return $"{_TestString}a";
                 });
 
-            var Handler = new Func<ArgumentException, string>(e =>
+            var Handler = new Func<ArgumentException, string>(Ex =>
                 {
-                    e.Should().NotBeNull()
+                    Ex.Should().NotBeNull()
                         .And.BeOfType<ArgumentException>();
                     return $"{_TestString}b";
                 });
 
             Func<FormatException, string> Wrong_Handler = L.F<FormatException, string>();
 
-            var Rethrow_Handler = new Action<ArgumentException>(e =>
+            var Rethrow_Handler = new Action<ArgumentException>(Ex =>
                 {
-                    e.Should().NotBeNull()
+                    Ex.Should().NotBeNull()
                         .And.BeOfType<ArgumentException>();
-                    throw e;
+                    throw Ex;
                 });
 
             Test.Catch(Handler)(_TestString).Should().Be($"{_TestString}b");
@@ -1331,6 +1395,8 @@ namespace L_Tests.Tests.Extensions
             Test.Catch(Wrong_Handler).ShouldFail<string, string, ArgumentException>(_TestString);
             Test.Catch(Rethrow_Handler).ShouldFail<string, string, ArgumentException>(_TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_Func_2()
@@ -1350,20 +1416,20 @@ namespace L_Tests.Tests.Extensions
                 return $"{_TestString}a";
             });
 
-            var Handler = new Func<ArgumentException, string>(e =>
+            var Handler = new Func<ArgumentException, string>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
                 return $"{_TestString}b";
             });
 
             Func<FormatException, string> Wrong_Handler = L.F<FormatException, string>();
 
-            var Rethrow_Handler = new Action<ArgumentException>(e =>
+            var Rethrow_Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                throw e;
+                throw Ex;
             });
 
             Test.Catch(Handler)(_TestString, _TestString).Should().Be($"{_TestString}b");
@@ -1372,6 +1438,8 @@ namespace L_Tests.Tests.Extensions
             Test.Catch(Wrong_Handler).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString);
             Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_Func_3()
@@ -1393,20 +1461,20 @@ namespace L_Tests.Tests.Extensions
                 return $"{_TestString}a";
             });
 
-            var Handler = new Func<ArgumentException, string>(e =>
+            var Handler = new Func<ArgumentException, string>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
                 return $"{_TestString}b";
             });
 
             Func<FormatException, string> Wrong_Handler = L.F<FormatException, string>();
 
-            var Rethrow_Handler = new Action<ArgumentException>(e =>
+            var Rethrow_Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                throw e;
+                throw Ex;
             });
 
             Test.Catch(Handler)(_TestString, _TestString, _TestString).Should().Be($"{_TestString}b");
@@ -1415,6 +1483,8 @@ namespace L_Tests.Tests.Extensions
             Test.Catch(Wrong_Handler).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
             Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_Func_4()
@@ -1438,20 +1508,20 @@ namespace L_Tests.Tests.Extensions
                 return $"{_TestString}a";
             });
 
-            var Handler = new Func<ArgumentException, string>(e =>
+            var Handler = new Func<ArgumentException, string>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
                 return $"{_TestString}b";
             });
 
             Func<FormatException, string> Wrong_Handler = L.F<FormatException, string>();
 
-            var Rethrow_Handler = new Action<ArgumentException>(e =>
+            var Rethrow_Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Should().NotBeNull()
+                Ex.Should().NotBeNull()
                     .And.BeOfType<ArgumentException>();
-                throw e;
+                throw Ex;
             });
 
             Test.Catch(Handler)(_TestString, _TestString, _TestString, _TestString).Should().Be($"{_TestString}b");
@@ -1461,6 +1531,8 @@ namespace L_Tests.Tests.Extensions
             Test.Catch(Rethrow_Handler).ShouldFail<string, string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString, _TestString);
             }
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Action_0()
@@ -1478,6 +1550,8 @@ namespace L_Tests.Tests.Extensions
 
             Test.Catch<FormatException>().ShouldFail<ArgumentException>();
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Action_1()
@@ -1497,6 +1571,8 @@ namespace L_Tests.Tests.Extensions
 
             Test.Catch<string, FormatException>().ShouldFail<string, ArgumentException>(_TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Action_2()
@@ -1518,6 +1594,8 @@ namespace L_Tests.Tests.Extensions
 
             Test.Catch<string, string, FormatException>().ShouldFail<string, string, ArgumentException>(_TestString, _TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Action_3()
@@ -1541,6 +1619,8 @@ namespace L_Tests.Tests.Extensions
 
             Test.Catch<string, string, string, FormatException>().ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Action_4()
@@ -1567,6 +1647,8 @@ namespace L_Tests.Tests.Extensions
             Test.Catch<string, string, string, string, FormatException>().ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString, _TestString);
             }
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Func_0()
@@ -1585,6 +1667,8 @@ namespace L_Tests.Tests.Extensions
 
             Test.Catch<string, FormatException>().ShouldFail<string, ArgumentException>();
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Func_1()
@@ -1605,6 +1689,8 @@ namespace L_Tests.Tests.Extensions
 
             Test.Catch<string, string, FormatException>().ShouldFail<string, string, ArgumentException>(_TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Func_2()
@@ -1628,6 +1714,8 @@ namespace L_Tests.Tests.Extensions
 
             Test.Catch<string, string, string, FormatException>().ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Func_3()
@@ -1652,6 +1740,8 @@ namespace L_Tests.Tests.Extensions
 
             Test.Catch<string, string, string, string, FormatException>().ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Func_4()
@@ -1680,6 +1770,8 @@ namespace L_Tests.Tests.Extensions
             }
 
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Fail_Action()
@@ -1689,6 +1781,8 @@ namespace L_Tests.Tests.Extensions
             Act();
             Act.Fail().ShouldFail<Exception>();
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Fail_Action_1()
@@ -1701,6 +1795,8 @@ namespace L_Tests.Tests.Extensions
             Act(_TestString);
             Act.Fail().ShouldFail<string, Exception>(_TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Fail_Action_2()
@@ -1714,6 +1810,8 @@ namespace L_Tests.Tests.Extensions
             Act(_TestString, _TestString);
             Act.Fail().ShouldFail<string, string, Exception>(_TestString, _TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Fail_Action_3()
@@ -1728,6 +1826,8 @@ namespace L_Tests.Tests.Extensions
             Act(_TestString, _TestString, _TestString);
             Act.Fail().ShouldFail<string, string, string, Exception>(_TestString, _TestString, _TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Fail_Action_4()
@@ -1744,6 +1844,8 @@ namespace L_Tests.Tests.Extensions
             Act.Fail().ShouldFail<string, string, string, string, Exception>(_TestString, _TestString, _TestString, _TestString);
             }
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Fail_Func()
@@ -1756,6 +1858,8 @@ namespace L_Tests.Tests.Extensions
             Act();
             Act.Fail().ShouldFail<string, Exception>();
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Fail_Func_1()
@@ -1769,6 +1873,8 @@ namespace L_Tests.Tests.Extensions
             Act(_TestString);
             Act.Fail().ShouldFail<string, string, Exception>(_TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Fail_Func_2()
@@ -1783,6 +1889,8 @@ namespace L_Tests.Tests.Extensions
             Act(_TestString, _TestString);
             Act.Fail().ShouldFail<string, string, string, Exception>(_TestString, _TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Fail_Func_3()
@@ -1798,6 +1906,8 @@ namespace L_Tests.Tests.Extensions
             Act(_TestString, _TestString, _TestString);
             Act.Fail().ShouldFail<string, string, string, string, Exception>(_TestString, _TestString, _TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Fail_Func_4()
@@ -1824,14 +1934,14 @@ namespace L_Tests.Tests.Extensions
                 {
 
                 });
-            var Handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
-                e.ParamName.Should().Be($"{_TestString}b");
+                Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                Ex.ParamName.Should().Be($"{_TestString}b");
             });
-            var Handler2 = new Action<Exception>(e =>
+            var Handler2 = new Action<Exception>(Ex =>
             {
-                e.Message.Should().Be($"{_TestString}c");
+                Ex.Message.Should().Be($"{_TestString}c");
             });
 
             Act();
@@ -1847,14 +1957,14 @@ namespace L_Tests.Tests.Extensions
                 {
                     o.Should().Be(_TestString);
                 });
-            var Handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(Ex =>
                 {
-                    e.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
-                    e.ParamName.Should().Be($"{_TestString}b");
+                    Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                    Ex.ParamName.Should().Be($"{_TestString}b");
                 });
-            var Handler2 = new Action<Exception>(e =>
+            var Handler2 = new Action<Exception>(Ex =>
                 {
-                    e.Message.Should().Be($"{_TestString}c");
+                    Ex.Message.Should().Be($"{_TestString}c");
                 });
 
             Act(_TestString);
@@ -1871,14 +1981,14 @@ namespace L_Tests.Tests.Extensions
                 o1.Should().Be(_TestString);
                 o2.Should().Be(_TestString);
             });
-            var Handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
-                e.ParamName.Should().Be($"{_TestString}b");
+                Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                Ex.ParamName.Should().Be($"{_TestString}b");
             });
-            var Handler2 = new Action<Exception>(e =>
+            var Handler2 = new Action<Exception>(Ex =>
             {
-                e.Message.Should().Be($"{_TestString}c");
+                Ex.Message.Should().Be($"{_TestString}c");
             });
 
             Act(_TestString, _TestString);
@@ -1896,14 +2006,14 @@ namespace L_Tests.Tests.Extensions
                 o2.Should().Be(_TestString);
                 o3.Should().Be(_TestString);
             });
-            var Handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
-                e.ParamName.Should().Be($"{_TestString}b");
+                Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                Ex.ParamName.Should().Be($"{_TestString}b");
             });
-            var Handler2 = new Action<Exception>(e =>
+            var Handler2 = new Action<Exception>(Ex =>
             {
-                e.Message.Should().Be($"{_TestString}c");
+                Ex.Message.Should().Be($"{_TestString}c");
             });
 
             Act(_TestString, _TestString, _TestString);
@@ -1922,14 +2032,14 @@ namespace L_Tests.Tests.Extensions
                 o3.Should().Be(_TestString);
                 o4.Should().Be(_TestString);
             });
-            var Handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
-                e.ParamName.Should().Be($"{_TestString}b");
+                Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                Ex.ParamName.Should().Be($"{_TestString}b");
             });
-            var Handler2 = new Action<Exception>(e =>
+            var Handler2 = new Action<Exception>(Ex =>
             {
-                e.Message.Should().Be($"{_TestString}c");
+                Ex.Message.Should().Be($"{_TestString}c");
             });
 
             Act(_TestString, _TestString, _TestString, _TestString);
@@ -1947,14 +2057,14 @@ namespace L_Tests.Tests.Extensions
                 {
                     return $"{_TestString}a";
                 });
-            var Handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
-                e.ParamName.Should().Be($"{_TestString}b");
+                Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                Ex.ParamName.Should().Be($"{_TestString}b");
             });
-            var Handler2 = new Action<Exception>(e =>
+            var Handler2 = new Action<Exception>(Ex =>
             {
-                e.Message.Should().Be($"{_TestString}c");
+                Ex.Message.Should().Be($"{_TestString}c");
             });
 
             Act().Should().Be($"{_TestString}a");
@@ -1971,14 +2081,14 @@ namespace L_Tests.Tests.Extensions
                      o.Should().Be(_TestString);
                      return $"{_TestString}a";
                  });
-            var Handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(Ex =>
                 {
-                    e.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
-                    e.ParamName.Should().Be($"{_TestString}b");
+                    Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                    Ex.ParamName.Should().Be($"{_TestString}b");
                 });
-            var Handler2 = new Action<Exception>(e =>
+            var Handler2 = new Action<Exception>(Ex =>
             {
-                e.Message.Should().Be($"{_TestString}c");
+                Ex.Message.Should().Be($"{_TestString}c");
             });
 
             Act(_TestString).Should().Be($"{_TestString}a");
@@ -1996,14 +2106,14 @@ namespace L_Tests.Tests.Extensions
                 o2.Should().Be(_TestString);
                 return $"{_TestString}a";
             });
-            var Handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
-                e.ParamName.Should().Be($"{_TestString}b");
+                Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                Ex.ParamName.Should().Be($"{_TestString}b");
             });
-            var Handler2 = new Action<Exception>(e =>
+            var Handler2 = new Action<Exception>(Ex =>
             {
-                e.Message.Should().Be($"{_TestString}c");
+                Ex.Message.Should().Be($"{_TestString}c");
             });
 
             Act(_TestString, _TestString).Should().Be($"{_TestString}a");
@@ -2022,14 +2132,14 @@ namespace L_Tests.Tests.Extensions
                 o3.Should().Be(_TestString);
                 return $"{_TestString}a";
             });
-            var Handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
-                e.ParamName.Should().Be($"{_TestString}b");
+                Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                Ex.ParamName.Should().Be($"{_TestString}b");
             });
-            var Handler2 = new Action<Exception>(e =>
+            var Handler2 = new Action<Exception>(Ex =>
             {
-                e.Message.Should().Be($"{_TestString}c");
+                Ex.Message.Should().Be($"{_TestString}c");
             });
 
             Act(_TestString, _TestString, _TestString).Should().Be($"{_TestString}a");
@@ -2049,14 +2159,14 @@ namespace L_Tests.Tests.Extensions
                 o4.Should().Be(_TestString);
                 return $"{_TestString}a";
             });
-            var Handler = new Action<ArgumentException>(e =>
+            var Handler = new Action<ArgumentException>(Ex =>
             {
-                e.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
-                e.ParamName.Should().Be($"{_TestString}b");
+                Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                Ex.ParamName.Should().Be($"{_TestString}b");
             });
-            var Handler2 = new Action<Exception>(e =>
+            var Handler2 = new Action<Exception>(Ex =>
             {
-                e.Message.Should().Be($"{_TestString}c");
+                Ex.Message.Should().Be($"{_TestString}c");
             });
 
             Act(_TestString, _TestString, _TestString, _TestString).Should().Be($"{_TestString}a");
@@ -2065,6 +2175,8 @@ namespace L_Tests.Tests.Extensions
             Act.Report($"{_TestString}c", new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler2)(_TestString, _TestString, _TestString, _TestString);
             }
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Throw_0()
@@ -2073,9 +2185,9 @@ namespace L_Tests.Tests.Extensions
                 {
 
                 });
-            var Handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(Ex =>
                 {
-                    e.Message.Should().Be($"{_TestString}a");
+                    Ex.Message.Should().Be($"{_TestString}a");
                 });
 
             Act();
@@ -2088,6 +2200,8 @@ namespace L_Tests.Tests.Extensions
             Func.Throw($"{_TestString}a").ShouldFail();
             Func.Throw($"{_TestString}a").Catch(Handler)();
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Throw_1()
@@ -2096,9 +2210,9 @@ namespace L_Tests.Tests.Extensions
                 {
                     o.Should().Be(_TestString);
                 });
-            var Handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(Ex =>
             {
-                e.Message.Should().Be($"{_TestString}a");
+                Ex.Message.Should().Be($"{_TestString}a");
             });
 
             Act(_TestString);
@@ -2111,6 +2225,8 @@ namespace L_Tests.Tests.Extensions
             Func.Throw($"{_TestString}a").ShouldFail(_TestString);
             Func.Throw($"{_TestString}a").Catch(Handler)(_TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Throw_2()
@@ -2120,9 +2236,9 @@ namespace L_Tests.Tests.Extensions
                 o1.Should().Be(_TestString);
                 o2.Should().Be(_TestString);
             });
-            var Handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(Ex =>
             {
-                e.Message.Should().Be($"{_TestString}a");
+                Ex.Message.Should().Be($"{_TestString}a");
             });
 
             Act(_TestString, _TestString);
@@ -2135,6 +2251,8 @@ namespace L_Tests.Tests.Extensions
             Func.Throw($"{_TestString}a").ShouldFail(_TestString, _TestString);
             Func.Throw($"{_TestString}a").Catch(Handler)(_TestString, _TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Throw_3()
@@ -2145,9 +2263,9 @@ namespace L_Tests.Tests.Extensions
                 o2.Should().Be(_TestString);
                 o3.Should().Be(_TestString);
             });
-            var Handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(Ex =>
             {
-                e.Message.Should().Be($"{_TestString}a");
+                Ex.Message.Should().Be($"{_TestString}a");
             });
 
             Act(_TestString, _TestString, _TestString);
@@ -2160,6 +2278,8 @@ namespace L_Tests.Tests.Extensions
             Func.Throw($"{_TestString}a").ShouldFail(_TestString, _TestString, _TestString);
             Func.Throw($"{_TestString}a").Catch(Handler)(_TestString, _TestString, _TestString);
             }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Throw_4()
@@ -2171,9 +2291,9 @@ namespace L_Tests.Tests.Extensions
                 o3.Should().Be(_TestString);
                 o4.Should().Be(_TestString);
             });
-            var Handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(Ex =>
             {
-                e.Message.Should().Be($"{_TestString}a");
+                Ex.Message.Should().Be($"{_TestString}a");
             });
 
             Act(_TestString, _TestString, _TestString, _TestString);
@@ -2196,10 +2316,10 @@ namespace L_Tests.Tests.Extensions
                 {
                 Action<Exception> Temp = L.Exc.DefaultExceptionHandler;
 
-                L.Exc.DefaultExceptionHandler = e =>
+                L.Exc.DefaultExceptionHandler = Ex =>
                 {
-                    e.Should().BeOfType<ArgumentException>();
-                    e.Message.Should().Be($"{_TestString}a");
+                    Ex.Should().BeOfType<ArgumentException>();
+                    Ex.Message.Should().Be($"{_TestString}a");
                 };
 
                 var Good_Act = new Action(() =>
@@ -2227,10 +2347,10 @@ namespace L_Tests.Tests.Extensions
                 {
                 Action<Exception> Temp = L.Exc.DefaultExceptionHandler;
 
-                L.Exc.DefaultExceptionHandler = e =>
+                L.Exc.DefaultExceptionHandler = Ex =>
                     {
-                        e.Should().BeOfType<ArgumentException>();
-                        e.Message.Should().Be($"{_TestString}a");
+                        Ex.Should().BeOfType<ArgumentException>();
+                        Ex.Message.Should().Be($"{_TestString}a");
                     };
 
                 var Good_Act = new Action<string>(o =>
@@ -2260,10 +2380,10 @@ namespace L_Tests.Tests.Extensions
                 {
                 Action<Exception> Temp = L.Exc.DefaultExceptionHandler;
 
-                L.Exc.DefaultExceptionHandler = e =>
+                L.Exc.DefaultExceptionHandler = Ex =>
                 {
-                    e.Should().BeOfType<ArgumentException>();
-                    e.Message.Should().Be($"{_TestString}a");
+                    Ex.Should().BeOfType<ArgumentException>();
+                    Ex.Message.Should().Be($"{_TestString}a");
                 };
 
                 var Good_Act = new Action<string, string>((o1, o2) =>
@@ -2295,10 +2415,10 @@ namespace L_Tests.Tests.Extensions
                 {
                 Action<Exception> Temp = L.Exc.DefaultExceptionHandler;
 
-                L.Exc.DefaultExceptionHandler = e =>
+                L.Exc.DefaultExceptionHandler = Ex =>
                 {
-                    e.Should().BeOfType<ArgumentException>();
-                    e.Message.Should().Be($"{_TestString}a");
+                    Ex.Should().BeOfType<ArgumentException>();
+                    Ex.Message.Should().Be($"{_TestString}a");
                 };
 
                 var Good_Act = new Action<string, string, string>((o1, o2, o3) =>
@@ -2332,10 +2452,10 @@ namespace L_Tests.Tests.Extensions
                 {
                 Action<Exception> Temp = L.Exc.DefaultExceptionHandler;
 
-                L.Exc.DefaultExceptionHandler = e =>
+                L.Exc.DefaultExceptionHandler = Ex =>
                 {
-                    e.Should().BeOfType<ArgumentException>();
-                    e.Message.Should().Be($"{_TestString}a");
+                    Ex.Should().BeOfType<ArgumentException>();
+                    Ex.Message.Should().Be($"{_TestString}a");
                 };
 
                 var Good_Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
@@ -2379,9 +2499,9 @@ namespace L_Tests.Tests.Extensions
                     throw new ArgumentException($"{_TestString}a");
                 });
 
-            var Handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(Ex =>
                 {
-                    e.Message.Should().Be($"System.String:{_TestString}");
+                    Ex.Message.Should().Be($"System.String:{_TestString}");
                 });
 
             Good_Act.Debug()(_TestString);
@@ -2408,9 +2528,9 @@ namespace L_Tests.Tests.Extensions
                 throw new ArgumentException($"{_TestString}a");
             });
 
-            var Handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(Ex =>
             {
-                e.Message.Should().Be($"System.String:{_TestString}, System.String:{_TestString}");
+                Ex.Message.Should().Be($"System.String:{_TestString}, System.String:{_TestString}");
             });
 
             Good_Act.Debug()(_TestString, _TestString);
@@ -2439,9 +2559,9 @@ namespace L_Tests.Tests.Extensions
                 throw new ArgumentException($"{_TestString}a");
             });
 
-            var Handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(Ex =>
             {
-                e.Message.Should().Be($"System.String:{_TestString}, System.String:{_TestString}, System.String:{_TestString}");
+                Ex.Message.Should().Be($"System.String:{_TestString}, System.String:{_TestString}, System.String:{_TestString}");
             });
 
             Good_Act.Debug()(_TestString, _TestString, _TestString);
@@ -2472,9 +2592,9 @@ namespace L_Tests.Tests.Extensions
                 throw new ArgumentException($"{_TestString}a");
             });
 
-            var Handler = new Action<Exception>(e =>
+            var Handler = new Action<Exception>(Ex =>
             {
-                e.Message.Should().Be($"System.String:{_TestString}, System.String:{_TestString}, System.String:{_TestString}, System.String:{_TestString}");
+                Ex.Message.Should().Be($"System.String:{_TestString}, System.String:{_TestString}, System.String:{_TestString}, System.String:{_TestString}");
             });
 
             Good_Act.Debug()(_TestString, _TestString, _TestString, _TestString);

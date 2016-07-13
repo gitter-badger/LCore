@@ -35,6 +35,8 @@
 
 using System;
 using System.IO;
+// ReSharper disable InconsistentNaming
+// ReSharper disable CommentTypo
 
 namespace ICSharpCode.SharpZipLib.Core
     {

@@ -30,9 +30,9 @@ namespace LCore.Extensions
                 }
             var Out = new char[In.Length];
 
-            for (int i = 0; i < In.Length; i++)
+            for (int Index = 0; Index < In.Length; Index++)
                 {
-                Out[i] = Convert.ToChar(In[i]);
+                Out[Index] = Convert.ToChar(In[Index]);
                 }
             return Out;
             }
@@ -73,9 +73,9 @@ namespace LCore.Extensions
         public static byte[] EveryOtherByte(this byte[] In)
             {
             var Out = new byte[In.Length / 2];
-            for (int i = 0; i < Out.Length; i++)
+            for (int Index = 0; Index < Out.Length; Index++)
                 {
-                Out[i] = In[i * 2];
+                Out[Index] = In[Index * 2];
                 }
             return Out;
             }
@@ -118,9 +118,9 @@ namespace LCore.Extensions
             if (StartPos > F.Length || BlockSize < 0)
                 throw new ArgumentException($"PartNum: {BlockNum}");
 
-            int tries = 0;
+            int Tries = 0;
             byte[] Contents = null;
-            while (tries < 2)
+            while (Tries < 2)
                 {
                 try
                     {
@@ -137,9 +137,9 @@ namespace LCore.Extensions
 
                     break;
                     }
-                catch (Exception e)
+                catch (Exception Ex)
                     {
-                    if (tries == 9)
+                    if (Tries == 9)
                         {
                         try
                             {
@@ -151,11 +151,11 @@ namespace LCore.Extensions
                         try { F.Close(); }
                         catch { }
 
-                        throw new Exception("", e);
+                        throw new Exception("", Ex);
                         }
                     Thread.Sleep(200);
                     }
-                tries++;
+                Tries++;
                 }
 
             try
@@ -204,22 +204,22 @@ namespace LCore.Extensions
         /// </summary>
         public static MemoryStream GetMemoryStream(this Stream In)
             {
-            var memStream = new MemoryStream();
+            var MemStream = new MemoryStream();
 
-            var respBuffer = new byte[1024];
+            var RespBuffer = new byte[1024];
             try
                 {
-                int bytesRead = In.Read(respBuffer, 0,
-                respBuffer.Length);
-                while (bytesRead > 0)
+                int BytesRead = In.Read(RespBuffer, 0,
+                RespBuffer.Length);
+                while (BytesRead > 0)
                     {
-                    memStream.Write(respBuffer, 0, bytesRead);
-                    bytesRead = In.Read(respBuffer, 0,
-                    respBuffer.Length);
+                    MemStream.Write(RespBuffer, 0, BytesRead);
+                    BytesRead = In.Read(RespBuffer, 0,
+                    RespBuffer.Length);
                     }
                 }
             catch { }
-            return memStream;
+            return MemStream;
             }
         #endregion
 
@@ -330,18 +330,18 @@ namespace LCore.Extensions
         /// <summary>
         /// Reads all bytes from the stream and returns a Byte[].
         /// </summary>
-        public static byte[] ReadAllBytes(this Stream input)
+        public static byte[] ReadAllBytes(this Stream Input)
             {
-            var buffer = new byte[16 * 1024];
+            var Buffer = new byte[16 * 1024];
 
-            using (var ms = new MemoryStream())
+            using (var Stream = new MemoryStream())
                 {
-                int read;
-                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+                int Read;
+                while ((Read = Input.Read(Buffer, 0, Buffer.Length)) > 0)
                     {
-                    ms.Write(buffer, 0, read);
+                    Stream.Write(Buffer, 0, Read);
                     }
-                return ms.ToArray();
+                return Stream.ToArray();
                 }
             }
         #endregion
@@ -358,8 +358,8 @@ namespace LCore.Extensions
                 {
                 try
                     {
-                    var fs = new FileStream(FullPath, FileMode.Open, FileAccess.ReadWrite);
-                    fs.Close();
+                    var Stream = new FileStream(FullPath, FileMode.Open, FileAccess.ReadWrite);
+                    Stream.Close();
                     return true;
                     }
                 catch (Exception)
@@ -441,15 +441,15 @@ namespace LCore.Extensions
             /// </summary>
             public static void BufferedMove(string From, string To, bool DeleteOriginal, int ChunkSize = 128 * 1024)
                 {
-                var f1 = new FileStream(From, FileMode.Open, FileAccess.Read, FileShare.Read);
-                var f2 = new FileStream(To, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+                var Stream1 = new FileStream(From, FileMode.Open, FileAccess.Read, FileShare.Read);
+                var Stream2 = new FileStream(To, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
 
-                f2.Seek(0, SeekOrigin.Begin);
-                f2.SetLength(f1.Length);
+                Stream2.Seek(0, SeekOrigin.Begin);
+                Stream2.SetLength(Stream1.Length);
 
                 int BufferSize = ChunkSize;
 
-                long TotalSize = f1.Length;
+                long TotalSize = Stream1.Length;
                 long Index = 0;
 
                 while (Index < TotalSize)
@@ -459,15 +459,15 @@ namespace LCore.Extensions
                     if (CurrentChunkSize > BufferSize)
                         CurrentChunkSize = BufferSize;
                     var Bytes = new byte[CurrentChunkSize];
-                    f1.Read(Bytes, 0, (int)CurrentChunkSize);
-                    f2.Write(Bytes, 0, (int)CurrentChunkSize);
-                    f2.Flush();
+                    Stream1.Read(Bytes, 0, (int)CurrentChunkSize);
+                    Stream2.Write(Bytes, 0, (int)CurrentChunkSize);
+                    Stream2.Flush();
                     Index += CurrentChunkSize;
                     BufferedMoveProgress?.Invoke(new[] { Index, TotalSize }, null);
                     }
 
-                f2.Close();
-                f1.Close();
+                Stream2.Close();
+                Stream1.Close();
 
                 if (DeleteOriginal)
                     System.IO.File.Delete(From);
@@ -506,20 +506,20 @@ namespace LCore.Extensions
                     throw new ArgumentNullException(nameof(Path));
                     }
 
-                string Out = Path.CollectStr<string, string[]>((i, s) =>
-                    {
-                        if (!s.IsEmpty())
+                string Out = Path.CollectStr<string, string[]>((i, Str) =>
+                {
+                    if (!Str.IsEmpty())
+                        {
+                        string StrOut = "";
+                        if (i != 0)
                             {
-                            string s2 = "";
-                            if (i != 0)
-                                {
-                                s2 += Separator;
-                                }
-                            s2 += Path[i];
-                            return s2;
+                            StrOut += Separator;
                             }
-                        return null;
-                    });
+                        StrOut += Path[i];
+                        return StrOut;
+                        }
+                    return null;
+                });
 
                 Out = Out.Replace($"{Separator}{Separator}", Separator.ToString());
                 Out = Out.Replace("http:/", "http://");
@@ -540,10 +540,10 @@ namespace LCore.Extensions
             /// <summary>
             /// A function that returns the bytes of a file from a string path.
             /// </summary>
-            public static Func<string, byte[]> GetFileContents = FileName =>
+            public static readonly Func<string, byte[]> GetFileContents = FileName =>
                 {
-                    var s = FileName.GetFileStream();
-                    return FileExt.GetFileBlock(s, (int)s.Length, 0);
+                    var Str = FileName.GetFileStream();
+                    return FileExt.GetFileBlock(Str, (int)Str.Length, 0);
                 };
 
             #endregion
@@ -604,14 +604,14 @@ namespace LCore.Extensions
                         return true;
                         }
                     }
-                catch (Exception e)
+                catch (Exception Ex)
                     {
-                    if (e.Message.Contains("The process cannot access the file because it is being used by another process."))
+                    if (Ex.Message.Contains("The process cannot access the file because it is being used by another process."))
                         return false;
 
                     if (Tries <= 0)
                         {
-                        throw new Exception($"Could not move file \'{PathSource}\' to destination \'{PathDestination}\'", e);
+                        throw new Exception($"Could not move file \'{PathSource}\' to destination \'{PathDestination}\'", Ex);
                         }
 
                     System.Threading.Thread.Sleep(1000);

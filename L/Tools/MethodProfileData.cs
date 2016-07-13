@@ -28,7 +28,7 @@ namespace LCore.Tools
             get
                 {
                 double Out = 0;
-                this.Times.Each(t => { Out += t.Ticks; });
+                this.Times.Each(Time => { Out += Time.Ticks; });
                 Out = Out / this.Times.Count;
                 Out = Out * L.Date.TicksToMilliseconds;
                 return Out;

@@ -17,9 +17,9 @@ namespace Singularity.Models
         public string ErrorEmail { get; set; }
         public string ErrorFromEmail { get; set; }
         public string ErrorEmailSubject { get; set; }
-        public string STMPHost { get; set; }
-        public string STMPUser { get; set; }
-        public string STMPPassword { get; set; }
+        public string SMTPHost { get; set; }
+        public string SMTPUser { get; set; }
+        public string SMTPPassword { get; set; }
         public string StyleFolder { get; set; }
         public string Copyright { get; set; }
         public string NameFormat { get; set; }

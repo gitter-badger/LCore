@@ -4,7 +4,7 @@ using System;
 
 namespace Singularity.Annotations
     {
-    public class FieldType_FileUploadAttribute : CustomPartialAttribute, IFileUpload
+    public class FieldTypeFileUploadAttribute : CustomPartialAttribute, IFileUpload
         {
         public bool AllowDeactivate { get; set; }
         public bool AllowMultipleUploads { get; set; }
@@ -14,7 +14,7 @@ namespace Singularity.Annotations
 
         public string[] AllowFileTypes { get; set; }
 
-        public FieldType_FileUploadAttribute(bool AllowDeactivate = true, bool AllowMultipleUploads = true,
+        public FieldTypeFileUploadAttribute(bool AllowDeactivate = true, bool AllowMultipleUploads = true,
             int SizeMinimum = 0, int SizeMaximum = int.MaxValue, string[] AllowFileTypes = null)
             : base(PartialViews.Manage.Fields.FileUpload, ControllerHelper.ViewType.All)
             {

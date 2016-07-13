@@ -95,30 +95,30 @@ WriteLiteral("\r\n\r\n");
 
 WriteLiteral("\r\n<div");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 437), Tuple.Create("\"", 586)
+WriteAttribute("class", Tuple.Create(" class=\"", 437), Tuple.Create("\"", 592)
 , Tuple.Create(Tuple.Create("", 445), Tuple.Create("field", 445), true)
             
             #line 16 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
-, Tuple.Create(Tuple.Create(" ", 450), Tuple.Create<System.Object, System.Int32>(Model.ViewTypes.CollectStr((i,t) => $"{t.ToString().ToLower()}-field ")
+, Tuple.Create(Tuple.Create(" ", 450), Tuple.Create<System.Object, System.Int32>(Model.ViewTypes.CollectStr((i,Type) => $"{Type.ToString().ToLower()}-field ")
             
             #line default
             #line hidden
 , 451), false)
-, Tuple.Create(Tuple.Create(" ", 523), Tuple.Create("field-", 524), true)
+, Tuple.Create(Tuple.Create(" ", 529), Tuple.Create("field-", 530), true)
             
             #line 16 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
-                  , Tuple.Create(Tuple.Create("", 530), Tuple.Create<System.Object, System.Int32>(Model.ColumnClass
+                        , Tuple.Create(Tuple.Create("", 536), Tuple.Create<System.Object, System.Int32>(Model.ColumnClass
             
             #line default
             #line hidden
-, 530), false)
+, 536), false)
             
             #line 16 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
-                                    , Tuple.Create(Tuple.Create(" ", 548), Tuple.Create<System.Object, System.Int32>(Model.ModelFieldClasses.Combine(" ")
+                                          , Tuple.Create(Tuple.Create(" ", 554), Tuple.Create<System.Object, System.Int32>(Model.ModelFieldClasses.Combine(" ")
             
             #line default
             #line hidden
-, 549), false)
+, 555), false)
 );
 
 WriteLiteral("\r\n     ");
@@ -159,7 +159,7 @@ WriteLiteral("\">\r\n\r\n");
             
             #line 21 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
      if (Model.Meta.HasAttribute<ICustomPartial>() &&
-        Model.Meta.GetAttribute<ICustomPartial>().IsActive(Html, Model, Model.ViewTypes))
+                        Model.Meta.GetAttribute<ICustomPartial>().IsActive(Html, Model, Model.ViewTypes))
         {
         Model.Meta.GetAttribute<ICustomPartial>().RenderPartial(Html, Model, Model.ViewTypes);
         }

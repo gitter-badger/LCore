@@ -39,6 +39,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the absolute value of [In]
         /// </summary>
+        /// <exception cref="OverflowException"><paramref name="In" /> equals <see cref="F:System.Int32.MinValue" />. </exception>
         [TestResult(new object[] { int.MinValue + (int)1 }, int.MaxValue)]
         [TestResult(new object[] { int.MaxValue }, int.MaxValue)]
         [TestResult(new object[] { 0 }, 0)]
@@ -54,6 +55,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the absolute value of [In]
         /// </summary>
+        /// <exception cref="OverflowException"><paramref name="In" /> equals <see cref="F:System.Int64.MinValue" />. </exception>
         [TestResult(new object[] { long.MinValue + (long)1 }, long.MaxValue)]
         [TestResult(new object[] { long.MaxValue }, long.MaxValue)]
         [TestResult(new object[] { (long)0 }, (long)0)]
@@ -69,7 +71,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the absolute value of [In]
         /// </summary>99
-//        [TestResult(new object[] { short.MinValue + (short)1 }, short.MaxValue)]
+        /// <exception cref="OverflowException"><paramref name="In" /> equals <see cref="F:System.Int16.MinValue" />. </exception>
         [TestResult(new object[] { short.MaxValue }, short.MaxValue)]
         [TestResult(new object[] { (short)0 }, (short)0)]
         [TestResult(new object[] { (short)1 }, (short)1)]
@@ -114,7 +116,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the absolute value of [In]
         /// </summary>
-//        [TestResult(new object[] { sbyte.MinValue + (sbyte)1 }, sbyte.MaxValue)]
+        /// <exception cref="OverflowException"><paramref name="In" /> equals <see cref="F:System.SByte.MinValue" />. </exception>
         [TestResult(new object[] { sbyte.MaxValue }, sbyte.MaxValue)]
         [TestResult(new object[] { (sbyte)0 }, (sbyte)0)]
         [TestResult(new object[] { (sbyte)1 }, (sbyte)1)]
@@ -272,6 +274,7 @@ namespace LCore.Extensions
         /// Returns the floor of the float [In].
         /// [Decimals] must be at least 0.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">[Decimals] was less than 0.</exception>
         [TestFails(new object[] { (float)1, (int)-1 })]
         [TestResult(new object[] { null, 0 }, (float)0)]
         [TestResult(new object[] { (float)1, 0 }, (float)1)]
@@ -319,6 +322,7 @@ namespace LCore.Extensions
         /// Returns the floor of the float [In].
         /// [Decimals] must be at least 0.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">[Decimals] was less than 0.</exception>
         [TestFails(new object[] { (double)1, (int)-1 })]
         [TestResult(new object[] { null, 0 }, (double)0)]
         [TestResult(new object[] { (double)1, 0 }, (double)1)]
@@ -521,6 +525,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns an int, representing a percent ([In] / [Total]).
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">[Total] was equal to than 0.</exception>
         [TestFails(new object[] { 5, 0 })]
         [TestResult(new object[] { 5, 1 }, 500)]
         [TestResult(new object[] { 5, 100 }, 5)]
@@ -555,6 +560,7 @@ namespace LCore.Extensions
         /// Returns the rounded integer of the float [In]
         /// [Decimals] must be at least 0.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Decimals was less than 0.</exception>
         [TestFails(new object[] { (float)1, (int)-1 })]
         [TestResult(new object[] { null, 0 }, (float)0)]
         [TestResult(new object[] { (float)1, 0 }, (float)1)]
@@ -602,6 +608,7 @@ namespace LCore.Extensions
         /// Returns the rounded integer of the float [In]
         /// [Decimals] must be at least 0.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Decimals was less than 0.</exception>
         [TestFails(new object[] { (double)1, (int)-1 })]
         [TestResult(new object[] { null, 0 }, (double)0)]
         [TestResult(new object[] { (double)1, 0 }, (double)1)]
@@ -864,11 +871,13 @@ namespace LCore.Extensions
         #endregion
 
         #region To
+
         /// <summary>
         /// Creates an array of increasing or decreasing numbers 
         /// starting at [From] and progressing until [To].
         /// Array length will be |[From]-[To]|.
         /// </summary>
+        /// <exception cref="OverflowException">If the size of the range is larger than an Array can contain.</exception>
         [TestResult(new object[] { 0, 0 }, new int[] { 0 })]
         [TestResult(new object[] { 0, 10 }, new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 })]
         [TestResult(new object[] { 10, 0 }, new int[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 })]

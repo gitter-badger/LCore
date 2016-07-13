@@ -7,15 +7,17 @@ namespace Singularity.Extensions
     {
     public class SwapVisitor : ExpressionVisitor
         {
-        private readonly Expression from, to;
-        public SwapVisitor(Expression from, Expression to)
+        private readonly Expression _From;
+        private readonly Expression _To;
+
+        public SwapVisitor(Expression From, Expression To)
             {
-            this.from = from;
-            this.to = to;
+            this._From = From;
+            this._To = To;
             }
-        public override Expression Visit(Expression node)
+        public override Expression Visit(Expression Node)
             {
-            return node == this.from ? this.to : base.Visit(node);
+            return Node == this._From ? this._To : base.Visit(Node);
             }
         }
     }

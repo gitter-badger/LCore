@@ -98,7 +98,7 @@ WriteLiteral("\r\n");
     {
     List<IModel> Models = Data.List().List<IModel>();
 
-    string Title = Models.CollectStr((i, m) => $"{m.ToString()}\r\n");
+    string Title = Models.CollectStr((i, Item) => $"{Item.ToString()}\r\n");
 
     if (Models.Count > 0)
         {
@@ -108,24 +108,24 @@ WriteLiteral("\r\n");
             #line hidden
 WriteLiteral("        <a");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 555), Tuple.Create("\"", 569)
+WriteAttribute("title", Tuple.Create(" title=\"", 561), Tuple.Create("\"", 575)
             
             #line 28 "..\..\Views\Shared\Manage\Fields\View\IModelCollection.cshtml"
-, Tuple.Create(Tuple.Create("", 563), Tuple.Create<System.Object, System.Int32>(Title
+, Tuple.Create(Tuple.Create("", 569), Tuple.Create<System.Object, System.Int32>(Title
             
             #line default
             #line hidden
-, 563), false)
+, 569), false)
 );
 
-WriteAttribute("href", Tuple.Create(" href=\"", 570), Tuple.Create("\"", 631)
+WriteAttribute("href", Tuple.Create(" href=\"", 576), Tuple.Create("\"", 637)
             
             #line 28 "..\..\Views\Shared\Manage\Fields\View\IModelCollection.cshtml"
-, Tuple.Create(Tuple.Create("", 577), Tuple.Create<System.Object, System.Int32>(Model.Route_FieldManyRelation(ViewBag.ControllerName)
+, Tuple.Create(Tuple.Create("", 583), Tuple.Create<System.Object, System.Int32>(Model.Route_FieldManyRelation(ViewBag.ControllerName)
             
             #line default
             #line hidden
-, 577), false)
+, 583), false)
 );
 
 WriteLiteral(">\r\n            <span>\r\n");

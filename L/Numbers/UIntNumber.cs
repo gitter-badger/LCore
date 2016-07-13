@@ -7,6 +7,7 @@ namespace LCore.Numbers
     /// <summary>
     /// Provides an implementation of INumber for uint
     /// </summary>
+    // ReSharper disable once InconsistentNaming
     public class UIntNumber : Number<uint>
         {
         /// <summary>

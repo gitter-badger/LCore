@@ -70,12 +70,12 @@ namespace Singularity.Models
 
 
 
-        public static FileUpload FindFileUpload(ModelContext DbContext, int FileID, Type t)
+        public static FileUpload FindFileUpload(ModelContext DbContext, int FileID, Type Type)
             {
             var File = DbContext.GetDBSet<FileUpload>().FirstOrDefault(
-                f => f.Active &&
-                    f.RelationType == t.FullName &&
-                    f.FileUploadID == FileID);
+                Upload => Upload.Active &&
+                    Upload.RelationType == Type.FullName &&
+                    Upload.FileUploadID == FileID);
 
             return File;
             }
@@ -87,11 +87,11 @@ namespace Singularity.Models
             string Type = Model.TrueModelType().FullName;
 
             return DbContext.GetDBSet<FileUpload>().Where(
-                f => f.Active &&
-                f.RelationID == IntID &&
-                f.RelationType == Type &&
+                Upload => Upload.Active &&
+                Upload.RelationID == IntID &&
+                Upload.RelationType == Type &&
                     (Property == null ||
-                    f.RelationProperty == Property));
+                    Upload.RelationProperty == Property));
             }
         }
     }

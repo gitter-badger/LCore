@@ -88,20 +88,20 @@ namespace Singularity
                 [typeof(ulong)] = FontAwesomeExt.Icon.sort_numeric_asc
                 };
 
-            public static FontAwesomeExt.Icon? GetTypeIcon(Type type)
+            public static FontAwesomeExt.Icon? GetTypeIcon(Type Type)
                 {
-                if (type == null)
+                if (Type == null)
                     return null;
 
-                if (TypeIcons.ContainsKey(type))
-                    return TypeIcons[type];
+                if (TypeIcons.ContainsKey(Type))
+                    return TypeIcons[Type];
 
-                if (TypeIcons_L.ContainsKey(type))
-                    return TypeIcons_L[type];
+                if (TypeIcons_L.ContainsKey(Type))
+                    return TypeIcons_L[Type];
 
                 // ReSharper disable once ConvertIfStatementToReturnStatement
-                if (TypeIcons_Singularity.ContainsKey(type))
-                    return TypeIcons_Singularity[type];
+                if (TypeIcons_Singularity.ContainsKey(Type))
+                    return TypeIcons_Singularity[Type];
 
                 return FontAwesomeExt.Icon.question;
                 }

@@ -7,6 +7,7 @@ namespace LCore.Numbers
     /// <summary>
     /// Provides an implementation of INumber for ulong
     /// </summary>
+    // ReSharper disable once InconsistentNaming
     public class ULongNumber : Number<ulong>
         {
         /// <summary>

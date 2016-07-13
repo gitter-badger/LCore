@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 
+// ReSharper disable InconsistentNaming
+
 namespace NSort
 {
 	/// <summary>

@@ -42,6 +42,9 @@ using System.IO;
 // ReSharper disable UnusedMethodReturnValue.Global
 // ReSharper disable ClassNeverInstantiated.Global
 // ReSharper disable RedundantLogicalConditionalExpressionOperand
+// ReSharper disable InconsistentNaming
+// ReSharper disable CommentTypo
+// ReSharper disable IdentifierTypo
 #pragma warning disable 162
 
 namespace ICSharpCode.SharpZipLib.Zip

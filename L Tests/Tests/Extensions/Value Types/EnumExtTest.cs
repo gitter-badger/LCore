@@ -4,7 +4,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using FluentAssertions;
 using LCore.Naming;
-using LCore.Tests;
 using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
@@ -43,10 +42,11 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_ParseEnum()
             {
-            L.A(() => ((string)null).ParseEnum(typeof(TestEnum)).Should().Be(null)).ShouldFail();
-            L.A(() => "".ParseEnum(typeof(TestEnum)).Should().Be(null)).ShouldFail();
-            L.A(() => "Test1".ParseEnum(null).Should().Be(null)).ShouldFail();
-            L.A(() => "FriendlyName".ParseEnum(typeof(TestEnum)).Should().Be(null)).ShouldFail();
+            ((string)null).ParseEnum(typeof(TestEnum)).Should().Be(null);
+
+            "".ParseEnum(typeof(TestEnum)).Should().BeNull();
+            "Test1".ParseEnum(null).Should().BeNull();
+            "FriendlyName".ParseEnum(typeof(TestEnum)).Should().BeNull();
 
             "Test1".ParseEnum(typeof(TestEnum)).Should().Be(TestEnum.Test1);
             "CamelCaseEnumsAreGreat".ParseEnum(typeof(TestEnum)).Should().Be(TestEnum.CamelCaseEnumsAreGreat);

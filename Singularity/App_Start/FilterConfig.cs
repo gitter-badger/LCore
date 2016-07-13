@@ -4,9 +4,9 @@ namespace Singularity.Config
 {
     public class FilterConfig
     {
-        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+        public static void RegisterGlobalFilters(GlobalFilterCollection Filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            Filters.Add(new HandleErrorAttribute());
         }
     }
 }

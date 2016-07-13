@@ -87,19 +87,44 @@ WriteLiteral("\r\n\r\n<table>\r\n    <thead>\r\n        <tr>\r\n            <td>
             #line hidden
 WriteLiteral("                <td>\r\n");
 
-WriteLiteral("                    ");
-
             
             #line 21 "..\..\Views\Shared\Helpers\DataTable.cshtml"
-               Write(Col.ColumnName);
+                    
+            
+            #line default
+            #line hidden
+            
+            #line 21 "..\..\Views\Shared\Helpers\DataTable.cshtml"
+                     try
+                        {
+                        
+            
+            #line default
+            #line hidden
+            
+            #line 23 "..\..\Views\Shared\Helpers\DataTable.cshtml"
+                   Write(Col.ColumnName);
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n                </td>\r\n");
-
             
             #line 23 "..\..\Views\Shared\Helpers\DataTable.cshtml"
+                                       
+                        }
+                    catch (DuplicateNameException Ex)
+                        {
+                        /*Should not occur*/
+                        ControllerHelper.HandleError(Context, Ex);
+                        }
+
+            
+            #line default
+            #line hidden
+WriteLiteral("                </td>\r\n");
+
+            
+            #line 31 "..\..\Views\Shared\Helpers\DataTable.cshtml"
                 }
 
             
@@ -108,13 +133,13 @@ WriteLiteral("\r\n                </td>\r\n");
 WriteLiteral("\r\n        </tr>\r\n    </thead>\r\n    <tbody>\r\n");
 
             
-            #line 28 "..\..\Views\Shared\Helpers\DataTable.cshtml"
+            #line 36 "..\..\Views\Shared\Helpers\DataTable.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 28 "..\..\Views\Shared\Helpers\DataTable.cshtml"
+            #line 36 "..\..\Views\Shared\Helpers\DataTable.cshtml"
          for (int Index = 0; Index < Model.Rows.Count; Index++)
             {
 
@@ -126,7 +151,7 @@ WriteLiteral("            <tr>\r\n                <td>\r\n");
 WriteLiteral("                    ");
 
             
-            #line 32 "..\..\Views\Shared\Helpers\DataTable.cshtml"
+            #line 40 "..\..\Views\Shared\Helpers\DataTable.cshtml"
                 Write(Index + 1);
 
             
@@ -135,13 +160,13 @@ WriteLiteral("                    ");
 WriteLiteral("\r\n                </td>\r\n");
 
             
-            #line 34 "..\..\Views\Shared\Helpers\DataTable.cshtml"
+            #line 42 "..\..\Views\Shared\Helpers\DataTable.cshtml"
                 
             
             #line default
             #line hidden
             
-            #line 34 "..\..\Views\Shared\Helpers\DataTable.cshtml"
+            #line 42 "..\..\Views\Shared\Helpers\DataTable.cshtml"
                  for (int Index2 = 0; Index2 < Model.Columns.Count; Index2++)
                     {
                     var FieldData = Model.Rows[Index][Index2];
@@ -154,7 +179,7 @@ WriteLiteral("                    <td>\r\n");
 WriteLiteral("                        ");
 
             
-            #line 38 "..\..\Views\Shared\Helpers\DataTable.cshtml"
+            #line 46 "..\..\Views\Shared\Helpers\DataTable.cshtml"
                    Write(FieldData);
 
             
@@ -163,7 +188,7 @@ WriteLiteral("                        ");
 WriteLiteral("\r\n                    </td>\r\n");
 
             
-            #line 40 "..\..\Views\Shared\Helpers\DataTable.cshtml"
+            #line 48 "..\..\Views\Shared\Helpers\DataTable.cshtml"
                     }
 
             
@@ -172,7 +197,7 @@ WriteLiteral("\r\n                    </td>\r\n");
 WriteLiteral("            </tr>\r\n");
 
             
-            #line 42 "..\..\Views\Shared\Helpers\DataTable.cshtml"
+            #line 50 "..\..\Views\Shared\Helpers\DataTable.cshtml"
             }
 
             

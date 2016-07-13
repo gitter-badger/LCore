@@ -33,9 +33,9 @@ namespace Singularity.Annotations
         protected string _ValueData;
         public object ValueData => this.Info;
 
-        public void OnMetadataCreated(ModelMetadata metadata)
+        public void OnMetadataCreated(ModelMetadata Metadata)
             {
-            metadata.AdditionalValues[this.ValueKey] = this.ValueData;
+            Metadata.AdditionalValues[this.ValueKey] = this.ValueData;
             }
         }
     }

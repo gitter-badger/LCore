@@ -17,7 +17,7 @@ namespace LCore.Web
 
     public class HttpCommunicator
         {
-        public const int Tries = 5;
+        public const int DefaultTries = 5;
         public const int TryFailWait = 100;
         public const int RequestTimeOut = 20000; // 20 seconds
 
@@ -31,7 +31,7 @@ namespace LCore.Web
 
         public ResponseData GetUrlResponse(string Url, List<DataItem> Data = null)
             {
-            int tries = 0;
+            int Tries = 0;
 
             var Client = new WebClientTimeOut();
             System.IO.MemoryStream BodyStream = null;
@@ -39,35 +39,35 @@ namespace LCore.Web
             if (Data != null)
                 {
 
-                foreach (var t in Data)
+                foreach (var Item in Data)
                     {
                     try
                         {
-                        if (t.Type == DataItem.DataStorageType.Body)
+                        if (Item.Type == DataItem.DataStorageType.Body)
                             {
                             if (BodyStream == null)
                                 {
                                 BodyStream = new System.IO.MemoryStream();
                                 }
 
-                            byte[] bytes = t.Value.ToByteArray();
-                            BodyStream.Write(bytes, 0, bytes.Length);
+                            byte[] Bytes = Item.Value.ToByteArray();
+                            BodyStream.Write(Bytes, 0, Bytes.Length);
 
 
-                            Client.Headers[$"{Http_Header_Prefix}{t.Name}_Length"] = bytes.Length.ToString();
+                            Client.Headers[$"{Http_Header_Prefix}{Item.Name}_Length"] = Bytes.Length.ToString();
                             }
-                        else if (t.Type == DataItem.DataStorageType.Header)
+                        else if (Item.Type == DataItem.DataStorageType.Header)
                             {
-                            Client.Headers[Http_Header_Prefix + t.Name] = t.Value.CleanCrlf();
+                            Client.Headers[Http_Header_Prefix + Item.Name] = Item.Value.CleanCrlf();
                             }
                         else
                             {
-                            throw new Exception($"Unsupported type: \'{t.Type}\'");
+                            throw new Exception($"Unsupported type: \'{Item.Type}\'");
                             }
                         }
-                    catch (Exception e)
+                    catch (Exception Ex)
                         {
-                        throw new Exception($"Could not add header \'{t.Name}\' with Value \'{t.Value}\'", e);
+                        throw new Exception($"Could not add header \'{Item.Name}\' with Value \'{Item.Value}\'", Ex);
                         }
                     }
                 }
@@ -94,15 +94,15 @@ namespace LCore.Web
 
                     return new ResponseData { BinaryValue = OutBytes, Value = Out };
                     }
-                catch (Exception e)
+                catch (Exception Ex)
                     {
-                    FailReason = e;
+                    FailReason = Ex;
 
-                    tries++;
+                    Tries++;
                     Thread.Sleep(TryFailWait);
                     }
                 }
-            while (tries < Tries);
+            while (Tries < DefaultTries);
 
             throw new Exception(Url, FailReason);
             }
@@ -113,7 +113,7 @@ namespace LCore.Web
 
             public string Name;
             public string Value;
-            public DataStorageType Type = DataStorageType.Header;
+            public readonly DataStorageType Type = DataStorageType.Header;
             }
         public class ResponseData
             {

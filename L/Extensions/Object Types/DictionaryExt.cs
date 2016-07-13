@@ -23,6 +23,7 @@ namespace LCore.Extensions
         /// [Conflict] is responsible for returning a KeyValuePair with a new name to try.
         /// To leave an item out, return a KeyValuePair with a null key.
         /// </summary>
+        
         [Tested]
         public static void Merge<TKey, TValue>(this IDictionary<TKey, TValue> In, IDictionary<TKey, TValue> Add,
             Func<KeyValuePair<TKey, TValue>, KeyValuePair<TKey, TValue>> Conflict = null)

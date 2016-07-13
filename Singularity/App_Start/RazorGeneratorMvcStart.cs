@@ -9,18 +9,18 @@ namespace Singularity
     {
     public static class RazorGeneratorMvcStart
         {
+        /// <exception cref="HttpException">The Web application is running under IIS 7 in Integrated mode.</exception>
         public static void Start()
             {
-            var engine = new PrecompiledMvcEngine(typeof(RazorGeneratorMvcStart).Assembly)
+            var Engine = new PrecompiledMvcEngine(typeof(RazorGeneratorMvcStart).Assembly)
                 {
                 UsePhysicalViewsIfNewer = HttpContext.Current.Request.IsLocal
                 };
 
-            ViewEngines.Engines.Insert(0, engine);
+            ViewEngines.Engines.Insert(0, Engine);
 
             // StartPage lookups are done by WebPages. 
-            VirtualPathFactoryManager.RegisterVirtualPathFactory(engine);
+            VirtualPathFactoryManager.RegisterVirtualPathFactory(Engine);
             }
         }
     }
- 

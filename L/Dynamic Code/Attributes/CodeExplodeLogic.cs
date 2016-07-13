@@ -13,11 +13,11 @@ namespace LCore.Dynamic
         /// </summary>
         public const int ExplodeCount = 17;
 
-        public override string ExplodeCode(Lists<string, MemberInfo> t)
+        public override string ExplodeCode(Lists<string, MemberInfo> Members)
             {
             CodeExploder.DeclaredExtensionCache.Clear();
 
-            return L.Exploder.LogicMemberInfoExplode(t);
+            return L.Exploder.LogicMemberInfoExplode(Members);
             }
         public override bool ExplodeMember(MemberInfo Member)
             {

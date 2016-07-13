@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 
 using System.IO;
+using LCore.Extensions;
 using LCore.Interfaces;
 
 namespace Singularity.Extensions
@@ -12,31 +12,31 @@ namespace Singularity.Extensions
     [ExtensionProvider]
     public static class MVCExt
         {
-
         public class ResponseCapture : IDisposable
             {
-            private readonly HttpResponseBase response;
-            private readonly TextWriter originalWriter;
-            private StringWriter localWriter;
-            public ResponseCapture(HttpResponseBase response)
+            private readonly HttpResponseBase _Response;
+            private readonly TextWriter _OriginalWriter;
+            private StringWriter _LocalWriter;
+
+            public ResponseCapture(HttpResponseBase Response)
                 {
-                this.response = response;
-                this.originalWriter = response.Output;
-                this.localWriter = new StringWriter();
-                response.Output = this.localWriter;
+                this._Response = Response;
+                this._OriginalWriter = Response.Output;
+                this._LocalWriter = new StringWriter();
+                Response.Output = this._LocalWriter;
                 }
             public override string ToString()
                 {
-                this.localWriter.Flush();
-                return this.localWriter.ToString();
+                this._LocalWriter.Flush();
+                return this._LocalWriter.ToString();
                 }
             public void Dispose()
                 {
-                if (this.localWriter != null)
+                if (this._LocalWriter != null)
                     {
-                    this.localWriter.Dispose();
-                    this.localWriter = null;
-                    this.response.Output = this.originalWriter;
+                    this._LocalWriter.Dispose();
+                    this._LocalWriter = null;
+                    this._Response.Output = this._OriginalWriter;
                     }
                 }
             }
@@ -54,28 +54,20 @@ namespace Singularity.Extensions
             return Out;
             }
 
-        public static bool HasAttribute<TModel, TProperty, TAttribute>(this HtmlHelper<TModel> html, Expression<Func<TModel, TProperty>> ex)
+        public static bool HasAttribute<TModel, TProperty, TAttribute>(this HtmlHelper<TModel> HTML, Expression<Func<TModel, TProperty>> Ex)
             where TAttribute : Attribute
             {
-            var me = ex.Body as MemberExpression;
+            var Member = Ex.Body as MemberExpression;
 
-            var required = me?.Member
-                .GetCustomAttributes(typeof(TAttribute), false)
-                .FirstOrDefault();
-
-            return required != null;
+            return Member?.Member.HasAttribute<TAttribute>(false) == true;
             }
 
-        public static TAttribute GetAttribute<TModel, TProperty, TAttribute>(this HtmlHelper<TModel> html, Expression<Func<TModel, TProperty>> ex)
+        public static TAttribute GetAttribute<TModel, TProperty, TAttribute>(this HtmlHelper<TModel> HTML, Expression<Func<TModel, TProperty>> Ex)
             where TAttribute : Attribute
             {
-            var me = ex.Body as MemberExpression;
-
-            var required = me?.Member
-                .GetCustomAttributes(typeof(TAttribute), false)
-                .FirstOrDefault();
-
-            return required as TAttribute;
+            var Member = Ex.Body as MemberExpression;
+            
+            return Member?.Member.GetAttribute<TAttribute>(false);
             }
         }
     }

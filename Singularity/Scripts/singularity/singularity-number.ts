@@ -17,6 +17,7 @@ interface Number {
 }
 
 
+// ReSharper disable once InconsistentNaming
 interface JQueryStatic {
     isInt?: (num: any) => boolean;
     isFloat?: (num: any) => boolean;
@@ -62,7 +63,7 @@ singNumber.features = ['Math object extensions: max, min, round, pow, ceil, floo
 // Number Extensions
 //
 
-singNumber.method('max', NumberMax,
+singNumber.method('max', numberMax,
     {
         summary: 'Compares multiple Numbers to find the largest.',
         parameters: [
@@ -93,7 +94,7 @@ singNumber.method('max', NumberMax,
         }
     });
 
-function NumberMax(...numbers: number[]): number {
+function numberMax(...numbers: number[]): number {
 
     numbers.push(this);
 
@@ -102,7 +103,7 @@ function NumberMax(...numbers: number[]): number {
     return Math.max.apply(null, numbers);
 }
 
-singNumber.method('min', NumberMin,
+singNumber.method('min', numberMin,
     {
         summary: 'Compares multiple Numbers to find the smallest.',
         parameters: [
@@ -133,7 +134,7 @@ singNumber.method('min', NumberMin,
         }
     });
 
-function NumberMin(...numbers: number[]): number {
+function numberMin(...numbers: number[]): number {
 
     numbers.push(this);
 
@@ -142,7 +143,7 @@ function NumberMin(...numbers: number[]): number {
     return Math.min.apply(null, numbers);
 }
 
-singNumber.method('round', NumberRound,
+singNumber.method('round', numberRound,
     {
         summary: 'Rounds the calling Number to the nearest whole Number. If a number of decimal places is supplied they will be included',
         parameters: [
@@ -174,14 +175,14 @@ singNumber.method('round', NumberRound,
         }
     });
 
-function NumberRound(decimalPlaces: number) {
+function numberRound(decimalPlaces: number) {
     if (decimalPlaces > 0)
         return Math.round(this * ((10).pow(decimalPlaces))) / ((10).pow(decimalPlaces));
 
     return Math.round(this);
 }
 
-singNumber.method('ceil', NumberCeiling,
+singNumber.method('ceil', numberCeiling,
     {
         summary: 'Extension of the Math.ceil function',
         parameters: [
@@ -206,14 +207,14 @@ singNumber.method('ceil', NumberCeiling,
         }
     });
 
-function NumberCeiling(decimalPlaces: number) {
+function numberCeiling(decimalPlaces: number) {
     if (decimalPlaces > 0)
         return Math.ceil(this * ((10).pow(decimalPlaces))) / ((10).pow(decimalPlaces));
 
     return Math.ceil(this);
 }
 
-singNumber.method('floor', NumberFloor,
+singNumber.method('floor', numberFloor,
     {
         summary: 'Extension of the Math.floor function',
         parameters: [
@@ -239,7 +240,7 @@ singNumber.method('floor', NumberFloor,
         }
     });
 
-function NumberFloor(decimalPlaces: number) {
+function numberFloor(decimalPlaces: number) {
 
     if (decimalPlaces > 0)
         return Math.floor(this * ((10).pow(decimalPlaces))) / ((10).pow(decimalPlaces));
@@ -247,7 +248,7 @@ function NumberFloor(decimalPlaces: number) {
     return Math.floor(this);
 }
 
-singNumber.method('pow', NumberPower,
+singNumber.method('pow', numberPower,
     {
         summary: 'Returns the calling number raised to the power passed. \r\n\
             Decimal numbers are supported and can be used for calculating fractional powers and roots.',
@@ -281,11 +282,11 @@ singNumber.method('pow', NumberPower,
         }
     });
 
-function NumberPower(power: number) {
+function numberPower(power: number) {
     return Math.pow(this, power);
 }
 
-singNumber.method('abs', NumberAbsoluteValue,
+singNumber.method('abs', numberAbsoluteValue,
     {
         summary: 'Extension of Math.abs',
         parameters: [],
@@ -308,11 +309,11 @@ singNumber.method('abs', NumberAbsoluteValue,
         }
     });
 
-function NumberAbsoluteValue(): number {
+function numberAbsoluteValue(): number {
     return Math.abs(this);
 }
 
-singNumber.method('percentOf', NumberPercentOf,
+singNumber.method('percentOf', numberPercentOf,
     {
         summary: 'Takes the source number and returns the percent it is of the argument number',
         parameters: [
@@ -366,7 +367,7 @@ singNumber.method('percentOf', NumberPercentOf,
         }
     });
 
-function NumberPercentOf(of: number, decimalPlaces: number = 0, asString: boolean = false): number | string {
+function numberPercentOf(of: number, decimalPlaces: number = 0, asString: boolean = false): number | string {
 
     if (asString) {
         if (of == 0)
@@ -386,7 +387,7 @@ function NumberPercentOf(of: number, decimalPlaces: number = 0, asString: boolea
     }
 }
 
-singNumber.method('formatFileSize', NumberFormatFileSize,
+singNumber.method('formatFileSize', numberFormatFileSize,
     {
         summary: 'Takes a number (of Bytes) and returns a formatted string of the proper unit (B, KB, MB, etc)',
         parameters: [
@@ -455,7 +456,7 @@ singNumber.method('formatFileSize', NumberFormatFileSize,
         }
     });
 
-function NumberFormatFileSize(decimalPlaces: number, useLongUnit: boolean = false) {
+function numberFormatFileSize(decimalPlaces: number, useLongUnit: boolean = false) {
 
     const units = useLongUnit ? ['Byte', 'Kilobyte', 'Megabyte', 'Gigabyte', 'Terabyte', 'Petabyte', 'Exabyte', 'Zettabyte', 'Yottabyte'] :
     ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'XB', 'ZB', 'YB'];
@@ -480,7 +481,7 @@ function NumberFormatFileSize(decimalPlaces: number, useLongUnit: boolean = fals
     return out;
 }
 
-singNumber.method('toStr', NumberToStr,
+singNumber.method('toStr', numberToStr,
     {
         summary: '\
         Common funciton - toStr is a standardized way of converting Objects to Strings.',
@@ -516,7 +517,7 @@ singNumber.method('toStr', NumberToStr,
         }
     });
 
-function NumberToStr(includeMarkup: boolean = false) {
+function numberToStr(includeMarkup: boolean = false) {
 
     if (isNaN(this))
         return includeMarkup ? 'NaN' : '';
@@ -524,7 +525,7 @@ function NumberToStr(includeMarkup: boolean = false) {
     return this.toString();
 }
 
-singNumber.method('numericValueOf', NumberNumericValueOf,
+singNumber.method('numericValueOf', numberNumericValueOf,
     {
         summary: 'Common funciton - Used for sorting, returns the calling number.',
         parameters: [],
@@ -544,11 +545,11 @@ singNumber.method('numericValueOf', NumberNumericValueOf,
         }
     });
 
-function NumberNumericValueOf(): number {
+function numberNumericValueOf(): number {
     return (this as number);
 }
 
-singNumber.method('numericValueOf', StringNumericValueOf,
+singNumber.method('numericValueOf', stringNumericValueOf,
     {
         summary: 'Common funciton - Convert all common objects to numeric values',
         parameters: [],
@@ -562,7 +563,7 @@ singNumber.method('numericValueOf', StringNumericValueOf,
         }
     }, String.prototype, 'String');
 
-function StringNumericValueOf(): number {
+function stringNumericValueOf(): number {
 
     if (this.isNumeric())
         return this.toNumber();
@@ -582,7 +583,7 @@ function StringNumericValueOf(): number {
     return out;
 }
 
-singNumber.method('numericValueOf', BooleanToNumericValue,
+singNumber.method('numericValueOf', booleanToNumericValue,
     {
         summary: 'Common funciton - Convert all common objects to numeric values',
         parameters: [],
@@ -596,7 +597,7 @@ singNumber.method('numericValueOf', BooleanToNumericValue,
         }
     }, Boolean.prototype, 'Boolean');
 
-function BooleanToNumericValue(): number {
+function booleanToNumericValue(): number {
     if (this.valueOf() === false)
         return 0;
 
@@ -606,7 +607,7 @@ function BooleanToNumericValue(): number {
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-singNumber.method('isInt', NumberIsInt,
+singNumber.method('isInt', numberIsInt,
     {
         summary: 'Determine whether an object is an Integer.',
         parameters: [{
@@ -633,11 +634,11 @@ singNumber.method('isInt', NumberIsInt,
         }
     }, $);
 
-function NumberIsInt(obj: any) {
+function numberIsInt(obj: any) {
     return $.isNumber(obj) && obj.round().valueOf() == obj.valueOf();
 }
 
-singNumber.method('isFloat', NumberIsFloat,
+singNumber.method('isFloat', numberIsFloat,
     {
         summary: 'Determine whether an object is a Float.',
         parameters: [{
@@ -664,11 +665,11 @@ singNumber.method('isFloat', NumberIsFloat,
         }
     }, $);
 
-function NumberIsFloat(obj: any) {
+function numberIsFloat(obj: any) {
     return $.isNumber(obj) && obj.round().valueOf() != obj.valueOf();
 }
 
-singNumber.method('isNumber', ObjectIsNumber,
+singNumber.method('isNumber', objectIsNumber,
     {
         summary: 'Determine whether an object is a number.',
         parameters: [{
@@ -695,11 +696,11 @@ singNumber.method('isNumber', ObjectIsNumber,
         }
     }, $);
 
-function ObjectIsNumber(obj: any) {
+function objectIsNumber(obj: any) {
     return !isNaN(obj) && typeof obj == 'number';
 }
 
-singNumber.method('random', NumberRandom,
+singNumber.method('random', numberRandom,
     {
         summary: 'Call $.random to produce a number of random numbers.',
         parameters: [
@@ -754,7 +755,7 @@ singNumber.method('random', NumberRandom,
         }
     }, $);
 
-function NumberRandom(minimum: number, maximum: number, count: number = 1): number|number[]|void {
+function numberRandom(minimum: number, maximum: number, count: number = 1): number|number[]|void {
     if (maximum <= minimum)
         throw 'maximum must be greater than minimum';
 
@@ -786,7 +787,7 @@ function NumberRandom(minimum: number, maximum: number, count: number = 1): numb
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-singNumber.method('isNumeric', StringIsNumeric,
+singNumber.method('isNumeric', stringIsNumeric,
     {
         summary: 'Call isNumeric on a String to determine if the string is in Numeric form. If the string is not a number false will be returned.',
         parameters: [],
@@ -805,7 +806,7 @@ singNumber.method('isNumeric', StringIsNumeric,
         }
     }, String.prototype);
 
-function StringIsNumeric() {
+function stringIsNumeric() {
 
     if (this.length == 0)
         return false;
@@ -826,7 +827,7 @@ function StringIsNumeric() {
     return false;
 }
 
-singNumber.method('isInteger', StringIsInteger,
+singNumber.method('isInteger', stringIsInteger,
     {
         summary: 'Call isInteger on a String to determine if the string is in Integer form. If the string is not a number or has a decimal value, false will be returned.',
         parameters: [],
@@ -844,7 +845,7 @@ singNumber.method('isInteger', StringIsInteger,
         }
     }, String.prototype);
 
-function StringIsInteger() {
+function stringIsInteger() {
 
     if (this.length == 0)
         return false;
@@ -864,7 +865,7 @@ function StringIsInteger() {
     return false;
 }
 
-singNumber.method('isEven', NumberIsEven,
+singNumber.method('isEven', numberIsEven,
     {
         summary: 'Call isEven on a Number to determine if the number is an even Integer.',
         parameters: [],
@@ -883,12 +884,12 @@ singNumber.method('isEven', NumberIsEven,
         }
     });
 
-function NumberIsEven() {
+function numberIsEven() {
     const thisNumber = this as number;
     return thisNumber % 2 == 0;
 }
 
-singNumber.method('isOdd', NumberIsOdd,
+singNumber.method('isOdd', numberIsOdd,
     {
         summary: 'Call isOdd on a Number to determine if the number is an odd Integer.',
         parameters: [],
@@ -908,12 +909,12 @@ singNumber.method('isOdd', NumberIsOdd,
         }
     });
 
-function NumberIsOdd() {
+function numberIsOdd() {
     const thisNumber = this as number;
     return (thisNumber % 2).abs() == 1;
 }
 
-singNumber.method('toNumber', StringToNumber,
+singNumber.method('toNumber', stringToNumber,
     {
         summary: 'Call toNumber on a String to try to convert the string to number form. If any decimal values are given they will be included in the result.',
         parameters: [],
@@ -931,7 +932,7 @@ singNumber.method('toNumber', StringToNumber,
         }
     }, String.prototype);
 
-function StringToNumber(): number {
+function stringToNumber(): number {
 
     if (this.length == 0)
         return NaN;
@@ -947,7 +948,7 @@ function StringToNumber(): number {
     return NaN;
 }
 
-singNumber.method('toInteger', StringToInteger,
+singNumber.method('toInteger', stringToInteger,
     {
         summary: 'Call toInteger on a String to try to convert the string to integer form. If any decimal values are given they will be rounded down (floor).',
         parameters: [],
@@ -965,7 +966,7 @@ singNumber.method('toInteger', StringToInteger,
         }
     }, String.prototype);
 
-function StringToInteger(): number {
+function stringToInteger(): number {
 
     if (this.length == 0)
         return NaN;
@@ -983,7 +984,7 @@ function StringToInteger(): number {
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-singNumber.method('total', ArrayTotal, {
+singNumber.method('total', arrayTotal, {
     summary: 'Call total on an array of numbers to get the total.',
     parameters: [],
     returns: 'The total of all the numbers in the array.',
@@ -1003,7 +1004,7 @@ singNumber.method('total', ArrayTotal, {
     }
 }, Array.prototype);
 
-function ArrayTotal() {
+function arrayTotal() {
 
     let thisArray = this as number[];
 
@@ -1027,7 +1028,7 @@ function ArrayTotal() {
 
 }
 
-singNumber.method('average', ArrayAverage, {
+singNumber.method('average', arrayAverage, {
     summary: 'Call average on an array of numbers to get the average value',
     parameters: [],
     returns: 'The average of all the numbers in the array.',
@@ -1048,7 +1049,7 @@ singNumber.method('average', ArrayAverage, {
     }
 }, Array.prototype);
 
-function ArrayAverage() {
+function arrayAverage() {
 
     let thisArray = this as number[];
 

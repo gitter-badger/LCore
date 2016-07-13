@@ -19,8 +19,7 @@ namespace Singularity.Extensions
         //////////////////////////////////////////////////////////////////////////////////////////////////
         // Attributes
         //
-
-
+        
         public static bool HasAttribute<TAttribute>(this IModel Model)
             where TAttribute : IPersistAttribute
             {
@@ -55,7 +54,7 @@ namespace Singularity.Extensions
 
         public static string GetID(this IModel Model)
             {
-            var KeyProperty = Model.Properties().FirstOrDefault(m => m.HasAttribute<KeyAttribute>(true));
+            var KeyProperty = Model.Properties().FirstOrDefault(Prop => Prop.HasAttribute<KeyAttribute>(true));
 
             if (KeyProperty != null)
                 {
@@ -70,7 +69,7 @@ namespace Singularity.Extensions
 
         public static bool HasID(this IModel Model)
             {
-            string KeyField = Model.Properties().FirstOrDefault(m => m.HasAttribute<KeyAttribute>(true))?.PropertyName;
+            string KeyField = Model.Properties().FirstOrDefault(Prop => Prop.HasAttribute<KeyAttribute>(true))?.PropertyName;
 
             var ID = Model.GetProperty(KeyField);
 
@@ -87,9 +86,9 @@ namespace Singularity.Extensions
             return TypeName.Humanize();
             }
 
-        public static Type WithoutDynamicType(this Type t)
+        public static Type WithoutDynamicType(this Type Type)
             {
-            return t.Namespace == "System.Data.Entity.DynamicProxies" ? t.BaseType : t;
+            return Type.Namespace == "System.Data.Entity.DynamicProxies" ? Type.BaseType : Type;
             }
 
         public static Type TrueModelType<T>(this T Model)
@@ -103,6 +102,8 @@ namespace Singularity.Extensions
 
         // CSV to Model ////////////////////////////////////////////////////////////////////////////////////////////////
 
+        /// <exception cref="ArgumentException">Header and line length don't match, Could not find property</exception>
+        /// <exception cref="Exception">If a property could not be set.</exception>
         public static List<T> CSVToModels<T>(this string CSVData)
             where T : IModel
             {
@@ -115,6 +116,8 @@ namespace Singularity.Extensions
             return CSVArray.CSVToModels<T>();
             }
 
+        /// <exception cref="ArgumentException">Header and line length don't match, Could not find property</exception>
+        /// <exception cref="Exception">If a property could not be set.</exception>
         public static List<T> CSVToModels<T>(this string[][] CSVData)
             where T : IModel
             {
@@ -141,6 +144,8 @@ namespace Singularity.Extensions
             return Out;
             }
 
+        /// <exception cref="ArgumentException">Header and line length don't match, Could not find property</exception>
+        /// <exception cref="Exception">If a property could not be set.</exception>
         public static T CSVToModel<T>(this string CSVLine)
             where T : IModel
             {
@@ -149,6 +154,8 @@ namespace Singularity.Extensions
             return LineSplit.CSVToModel<T>();
             }
 
+        /// <exception cref="ArgumentException">Header and line length don't match, Could not find property</exception>
+        /// <exception cref="Exception">If a property could not be set.</exception>
         public static T CSVToModel<T>(this string[] CSVLine, string[] CSVHeader = null)
             where T : IModel
             {
@@ -158,7 +165,7 @@ namespace Singularity.Extensions
                 CSVHeader = Out.CSVHeader();
 
             if (CSVLine.Length != CSVHeader.Length)
-                throw new Exception("Header and line length don't match");
+                throw new ArgumentException("Header and line length don't match");
 
             Out.Initialize();
 
@@ -187,7 +194,7 @@ namespace Singularity.Extensions
                         }
 
                     if (Meta == null)
-                        throw new Exception($"Could not find property {HeaderTitle}");
+                        throw new ArgumentException($"Could not find property {HeaderTitle}");
                     }
 
                 if (Meta.IsReadOnly)
@@ -226,9 +233,9 @@ namespace Singularity.Extensions
             return typeof(T).CSVHeader();
             }
 
-        public static string[] CSVHeader(this Type t)
+        public static string[] CSVHeader(this Type Type)
             {
-            ModelMetadata[] ModelMeta = t.Meta().Properties.Array();
+            ModelMetadata[] ModelMeta = Type.Meta().Properties.Array();
 
             List<string> Out = (from Meta in ModelMeta where !Meta.HasAttribute<FieldDisableExportAttribute>() select Meta.HasAttribute<FieldExportHeaderAttribute>() ? Meta.GetAttribute<FieldExportHeaderAttribute>().HeaderText : Meta.PropertyName).ToList();
 
@@ -270,10 +277,11 @@ namespace Singularity.Extensions
                 }
             }
 
+        /// <exception cref="InvalidOperationException">Data field was not convertible to string.</exception>
         public static string TemplateTokenFill<T>(this T Model, string Template) where T : IModel
             {
             var ModelType = Model.TrueModelType();
-            Dictionary<string, ModelMetadata> AllMeta = ModelType.GetMeta(m => !m.HasAttribute<FieldNoTokenAttribute>());
+            Dictionary<string, ModelMetadata> AllMeta = ModelType.GetMeta(Meta => !Meta.HasAttribute<FieldNoTokenAttribute>());
 
             string Out = Template ?? "";
 
@@ -304,7 +312,7 @@ namespace Singularity.Extensions
                         }
                     else
                         {
-                        throw new Exception($"Data for {Key} was not convertible to String: {Data}");
+                        throw new InvalidOperationException($"Data for {Key} was not convertible to String: {Data}");
                         }
                     }
                 }
@@ -342,7 +350,7 @@ namespace Singularity.Extensions
                     Meta.ModelType.HasInterface<IModel>())
                     continue;
 
-                var MetaT = ModelMetaT.First(m => m.PropertyName == Meta.PropertyName);
+                var MetaT = ModelMetaT.First(Metadata => Metadata.PropertyName == Meta.PropertyName);
 
                 if (MetaT == null ||
                     MetaT.IsReadOnly ||

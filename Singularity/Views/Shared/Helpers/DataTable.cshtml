@@ -18,7 +18,15 @@
                 {
                 var Col = Model.Columns[Index];
                 <td>
-                    @Col.ColumnName
+                    @try
+                        {
+                        @Col.ColumnName
+                        }
+                    catch (DuplicateNameException Ex)
+                        {
+                        /*Should not occur*/
+                        ControllerHelper.HandleError(Context, Ex);
+                        }
                 </td>
                 }
 

@@ -138,7 +138,7 @@ WriteLiteral("        ");
 
             
             #line 17 "..\..\Views\Manage\VerifyPhoneNumber.cshtml"
-   Write(Html.LabelFor(m => m.Code, new { @class = "col-md-2 control-label" }));
+   Write(Html.LabelFor(ViewModel => ViewModel.Code, new { @class = "col-md-2 control-label" }));
 
             
             #line default
@@ -153,7 +153,7 @@ WriteLiteral("            ");
 
             
             #line 19 "..\..\Views\Manage\VerifyPhoneNumber.cshtml"
-       Write(Html.TextBoxFor(m => m.Code, new { @class = "form-control" }));
+       Write(Html.TextBoxFor(ViewModel => ViewModel.Code, new { @class = "form-control" }));
 
             
             #line default

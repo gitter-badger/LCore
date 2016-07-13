@@ -21,29 +21,29 @@ namespace Singularity.Annotations
 
     public static class FieldGroups
         {
-        public static IEnumerable<ModelMetadata> GetFieldGroup(HttpContextBase Context, Type t, ControllerHelper.ViewType ViewType)
+        public static IEnumerable<ModelMetadata> GetFieldGroup(HttpContextBase Context, Type Type, ControllerHelper.ViewType ViewType)
             {
-            return t.Meta().Properties.Select(m =>
+            return Type.Meta().Properties.Select(Prop =>
             {
-                if (m.GetAttributes<IVisibility>().Count(i => i.GetVisibility(Context, ViewType) == false) > 0)
+                if (Prop.GetAttributes<IVisibility>().Count(i => i.GetVisibility(Context, ViewType) == false) > 0)
                     {
                     return false;
                     }
                 if (ViewType == ControllerHelper.ViewType.Display &&
-                    !m.ShowForDisplay)
+                    !Prop.ShowForDisplay)
                     {
                     return false;
                     }
                 if (ViewType == ControllerHelper.ViewType.Edit &&
-                    !m.ShowForEdit)
+                    !Prop.ShowForEdit)
                     {
                     return false;
                     }
-                if (m.HasAttribute<KeyAttribute>(true))
+                if (Prop.HasAttribute<KeyAttribute>(true))
                     {
                     return false;
                     }
-                return !ViewType.HasFlag(ControllerHelper.ViewType.TableCell) || !m.AdditionalValues.ContainsKey(HideManageViewColumnAttribute.Key) || m.AdditionalValues[HideManageViewColumnAttribute.Key] as bool? != true;
+                return !ViewType.HasFlag(ControllerHelper.ViewType.TableCell) || !Prop.AdditionalValues.ContainsKey(HideManageViewColumnAttribute.Key) || Prop.AdditionalValues[HideManageViewColumnAttribute.Key] as bool? != true;
             });
             }
         }

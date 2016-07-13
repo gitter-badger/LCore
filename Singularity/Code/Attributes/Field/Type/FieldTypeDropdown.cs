@@ -56,7 +56,7 @@ namespace Singularity.Annotations
 
         public override IEnumerable<KeyValuePair<string, string>> KeyValues(ViewContext Context)
             {
-            return this.Values.Convert(var => new KeyValuePair<string, string>(var, var));
+            return this.Values.Convert(Value => new KeyValuePair<string, string>(Value, Value));
             }
         }
 
@@ -93,23 +93,23 @@ namespace Singularity.Annotations
 
         public override IEnumerable<KeyValuePair<string, string>> KeyValues(ViewContext Context)
             {
-            return this.GetSourceData(Context).Convert(var =>
+            return this.GetSourceData(Context).Convert(DataItem =>
             {
-                if (var == null)
+                if (DataItem == null)
                     {
                     return null;
                     }
                 // ReSharper disable once CanBeReplacedWithTryCastAndCheckForNull
-                if (var is IModel)
+                if (DataItem is IModel)
                     {
-                    return new KeyValuePair<string, string>(((IModel)var).GetID(), var.ToString());
+                    return new KeyValuePair<string, string>(((IModel)DataItem).GetID(), DataItem.ToString());
                     }
                 // ReSharper disable once CanBeReplacedWithTryCastAndCheckForNull
-                if (var is string)
+                if (DataItem is string)
                     {
-                    return new KeyValuePair<string, string>((string)var, (string)var);
+                    return new KeyValuePair<string, string>((string)DataItem, (string)DataItem);
                     }
-                return new KeyValuePair<string, string>(var.ToString(), var.ToString());
+                return new KeyValuePair<string, string>(DataItem.ToString(), DataItem.ToString());
                 // ReSharper disable once SuspiciousTypeConversion.Global
             }) as IEnumerable<KeyValuePair<string, string>>;
             }

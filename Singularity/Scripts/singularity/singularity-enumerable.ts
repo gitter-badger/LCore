@@ -59,7 +59,7 @@ singEnumerable.summaryLong = '&nbsp;';
 // Iteration Functions
 //
 
-singEnumerable.method('each', EnumerableEach,
+singEnumerable.method('each', enumerableEach,
     {
         summary: 'Call each on an array to enumerate the contents of the array.',
         parameters: [
@@ -97,7 +97,7 @@ singEnumerable.method('each', EnumerableEach,
         }
     });
 
-function EnumerableEach<T>(action: (item: T, i: number) => void) {
+function enumerableEach<T>(action: (item: T, i: number) => void) {
     const thisArray = this as Array<T>;
 
     thisArray.while((item: T, i: number) => {
@@ -108,7 +108,7 @@ function EnumerableEach<T>(action: (item: T, i: number) => void) {
     });
 }
 
-singEnumerable.method('while', EnumerableWhile,
+singEnumerable.method('while', enumerableWhile,
     {
         summary: 'Call each on an array to enumerate the contents of the array. Return any non-null value to continue enumeration otherwise returning false will stop the enumeration.',
         parameters: [
@@ -152,7 +152,7 @@ singEnumerable.method('while', EnumerableWhile,
         }
     });
 
-function EnumerableWhile<T>(action: (item: T, index: number) => any) {
+function enumerableWhile<T>(action: (item: T, index: number) => any) {
     if (!action)
         return true;
 
@@ -172,7 +172,7 @@ function EnumerableWhile<T>(action: (item: T, index: number) => any) {
 }
 
 
-singEnumerable.method('until', EnumerableUntil,
+singEnumerable.method('until', enumerableUntil,
     {
         summary: 'Call each on an array to enumerate the contents of the array. Return any non-null value to stop enumeration otherwise it will continue until the end of the array.',
         parameters: [
@@ -214,7 +214,7 @@ singEnumerable.method('until', EnumerableUntil,
         }
     });
 
-function EnumerableUntil<T>(action: (item: T, index: number) => any) {
+function enumerableUntil<T>(action: (item: T, index: number) => any) {
     if (!action || this.length == 0)
         return false;
 
@@ -238,7 +238,7 @@ function EnumerableUntil<T>(action: (item: T, index: number) => any) {
 //
 // Lookup Functions
 
-singEnumerable.method('count', EnumerableCount,
+singEnumerable.method('count', enumerableCount,
     {
         summary: 'count enumerates through an array counting how many objects match or satisfy a custom condition.',
         parameters: [
@@ -264,7 +264,7 @@ singEnumerable.method('count', EnumerableCount,
         }
     });
 
-function EnumerableCount<T>(itemOrAction: T | ((item: T, index: number) => any)) {
+function enumerableCount<T>(itemOrAction: T | ((item: T, index: number) => any)) {
     if (itemOrAction === undefined)
         return 0;
 
@@ -294,7 +294,7 @@ function EnumerableCount<T>(itemOrAction: T | ((item: T, index: number) => any))
     return out;
 }
 
-singEnumerable.method('has', EnumerableHas,
+singEnumerable.method('has', enumerableHas,
     {
         summary: 'has enumerates through an array and returns whether it contains an item, or items, or matches the passed condition.',
         parameters: [
@@ -328,7 +328,7 @@ singEnumerable.method('has', EnumerableHas,
         }
     });
 
-function EnumerableHas<T>(...items: T[]) {
+function enumerableHas<T>(...items: T[]) {
 
     var srcThis = this as T[];
 
@@ -367,7 +367,7 @@ function EnumerableHas<T>(...items: T[]) {
     return false;
 }
 
-singEnumerable.method('select', EnumerableSelect,
+singEnumerable.method('select', enumerableSelect,
     {
         summary: 'select enumerates a list and filters its contents based on the filter function you provide.',
         parameters: [
@@ -392,7 +392,7 @@ singEnumerable.method('select', EnumerableSelect,
         }
     });
 
-function EnumerableSelect<T>(filter: (item: T, index: number) => boolean): T[] {
+function enumerableSelect<T>(filter: (item: T, index: number) => boolean): T[] {
     if (!filter)
         return [];
 
@@ -411,7 +411,7 @@ function EnumerableSelect<T>(filter: (item: T, index: number) => boolean): T[] {
     return out;
 }
 
-singEnumerable.method('collect', EnumerableCollect,
+singEnumerable.method('collect', enumerableCollect,
     {
         summary: 'collect acts on an array and passes its values to the collection function you provide.',
         parameters: [
@@ -441,7 +441,7 @@ singEnumerable.method('collect', EnumerableCollect,
         }
     });
 
-function EnumerableCollect<T>(collector: (item: T, index: number) => any) {
+function enumerableCollect<T>(collector: (item: T, index: number) => any) {
     const thisArray = this as T[];
 
     if (collector == null)
@@ -458,7 +458,7 @@ function EnumerableCollect<T>(collector: (item: T, index: number) => any) {
     return out;
 }
 
-singEnumerable.method('first', EnumerableFirst,
+singEnumerable.method('first', enumerableFirst,
     {
         summary: null,
         parameters: null,
@@ -483,7 +483,7 @@ singEnumerable.method('first', EnumerableFirst,
         }
     });
 
-function EnumerableFirst<T>(countOrCondition: number | ((item: T, index: number) => boolean)): T | T[] {
+function enumerableFirst<T>(countOrCondition: number | ((item: T, index: number) => boolean)): T | T[] {
 
     if (countOrCondition <= 0)
         return [];
@@ -496,7 +496,7 @@ function EnumerableFirst<T>(countOrCondition: number | ((item: T, index: number)
     if (!countOrCondition)
         return [];
 
-    if (ObjectIsNumber(countOrCondition)) {
+    if (objectIsNumber(countOrCondition)) {
         var itemNumber = countOrCondition as number;
 
         var outArray: any[] = [];
@@ -525,7 +525,7 @@ function EnumerableFirst<T>(countOrCondition: number | ((item: T, index: number)
     return out;
 }
 
-singEnumerable.method('last', EnumerableLast,
+singEnumerable.method('last', enumerableLast,
     {
         summary: null,
         parameters: [
@@ -557,7 +557,7 @@ singEnumerable.method('last', EnumerableLast,
         }
     });
 
-function EnumerableLast<T>(countOrCondition: number | ((item: T, index: number) => boolean)): T | T[] {
+function enumerableLast<T>(countOrCondition: number | ((item: T, index: number) => boolean)): T | T[] {
 
     if (countOrCondition <= 0)
         return [];
@@ -578,7 +578,7 @@ function EnumerableLast<T>(countOrCondition: number | ((item: T, index: number) 
     return out as T | T[];
 }
 
-singEnumerable.method('range', EnumerableRange,
+singEnumerable.method('range', enumerableRange,
     {
         summary: 'Retrieves a range of items from an array.',
         parameters: [
@@ -611,7 +611,7 @@ singEnumerable.method('range', EnumerableRange,
         }
     });
 
-function EnumerableRange<T>(start: number = 0, end: number = this.length - 1): T[] {
+function enumerableRange<T>(start: number = 0, end: number = this.length - 1): T[] {
     if (start > end)
         return [];
 
@@ -628,7 +628,7 @@ function EnumerableRange<T>(start: number = 0, end: number = this.length - 1): T
     return out;
 }
 
-singEnumerable.method('flatten', EnumerableFlatten,
+singEnumerable.method('flatten', enumerableFlatten,
     {
         summary: 'Traverses an array of possibly nested items.',
         parameters: [],
@@ -645,7 +645,7 @@ singEnumerable.method('flatten', EnumerableFlatten,
         }
     });
 
-function EnumerableFlatten(): any[] {
+function enumerableFlatten(): any[] {
     const thisArray = this as any[];
 
     var out: any[] = [];
@@ -660,7 +660,7 @@ function EnumerableFlatten(): any[] {
     return out;
 }
 
-singEnumerable.method('indices', EnumerableIndices,
+singEnumerable.method('indices', enumerableIndices,
     {
         summary: null,
         parameters: null,
@@ -683,7 +683,7 @@ singEnumerable.method('indices', EnumerableIndices,
         }
     });
 
-function EnumerableIndices<T>(...items: any[]): number[] {
+function enumerableIndices<T>(...items: any[]): number[] {
 
     const thisArray = this as T[];
 
@@ -725,7 +725,7 @@ function EnumerableIndices<T>(...items: any[]): number[] {
         return [];
 }
 
-singEnumerable.method('remove', EnumerableRemove,
+singEnumerable.method('remove', enumerableRemove,
     {
         summary: 'Enumerates an array removing items that match the provided values.',
         parameters: [
@@ -754,7 +754,7 @@ singEnumerable.method('remove', EnumerableRemove,
         }
     });
 
-function EnumerableRemove<T>(itemOrItemsOrFunction: T | T[] | ((item: T, index: number) => boolean)): T[] {
+function enumerableRemove<T>(itemOrItemsOrFunction: T | T[] | ((item: T, index: number) => boolean)): T[] {
 
     const thisArray = this as T[];
 
@@ -772,13 +772,13 @@ function EnumerableRemove<T>(itemOrItemsOrFunction: T | T[] | ((item: T, index: 
 
         const itemFunction = itemOrItemsOrFunction as (item: T, index: number) => boolean;
 
-        return thisArray.select(itemFunction.fn_not());
+        return thisArray.select(itemFunction.fnNot());
     }
 
     return thisArray.select((item) => (item != itemOrItemsOrFunction));
 }
 
-singEnumerable.method('sortBy', EnumerableSortBy,
+singEnumerable.method('sortBy', enumerableSortBy,
     {
         summary: 'Sorts the source array by a custom property or function accessor.',
         parameters: [
@@ -817,7 +817,7 @@ singEnumerable.method('sortBy', EnumerableSortBy,
         }
     });
 
-function EnumerableSortBy<T>(arg?: string | string[] | ((item: T) => any)): T[] {
+function enumerableSortBy<T>(arg?: string | string[] | ((item: T) => any)): T[] {
 
     var defaultValueFunc = (item: T): any => item;
 
@@ -876,7 +876,7 @@ function EnumerableSortBy<T>(arg?: string | string[] | ((item: T) => any)): T[] 
     const items = this.clone();
 
     if (customIndex) {
-        const out = (indexes.quickSort([items]) as QuickSortResult);
+        const out = (indexes.quickSort([items]) as IQuickSortResult);
 
         if (out.sortWith)
             return out.sortWith[0] as T[];
@@ -886,7 +886,7 @@ function EnumerableSortBy<T>(arg?: string | string[] | ((item: T) => any)): T[] 
         return indexes.quickSort([items]) as T[];
 }
 
-singEnumerable.method('quickSort', EnumerableQuickSort,
+singEnumerable.method('quickSort', enumerableQuickSort,
     {
         summary: 'Performs the built-in JavaScript comparison to sort the items in the source array.',
         parameters: [
@@ -914,7 +914,7 @@ singEnumerable.method('quickSort', EnumerableQuickSort,
 
                 var result = ['d', 'a', 'c', 'e', 'b'].quickSort([test]);
 
-                test = (result as QuickSortResult).sortWith[0];
+                test = (result as IQuickSortResult).sortWith[0];
 
                 if ($.toStr(test) != $.toStr([2, 5, 3, 1, 4]))
                     return 'test failed.';
@@ -922,7 +922,7 @@ singEnumerable.method('quickSort', EnumerableQuickSort,
         }
     });
 
-function EnumerableQuickSort(sortWith?: any[][], left: number = 0, right: number = (this.length - 1)): any[] | QuickSortResult {
+function enumerableQuickSort(sortWith?: any[][], left: number = 0, right: number = (this.length - 1)): any[] | IQuickSortResult {
 
     let thisArray = this as any[];
 
@@ -936,17 +936,17 @@ function EnumerableQuickSort(sortWith?: any[][], left: number = 0, right: number
     }
     if (thisArray.length > 1) {
 
-        const partitionResult = EnumerableQuickSortPartition(thisArray, left, right, sortWith);
+        const partitionResult = enumerableQuickSortPartition(thisArray, left, right, sortWith);
         const index = partitionResult.index;
         thisArray = partitionResult.items;
         sortWith = partitionResult.sortWith;
-        let sorted: any[] | QuickSortResult;
+        let sorted: any[] | IQuickSortResult;
         if (left < index - 1) {
             if (!$.isEmpty(sortWith)) {
                 sorted = thisArray.quickSort(sortWith, left, index - 1);
                 if ($.isHash(sorted)) {
-                    thisArray = (sorted as QuickSortResult).items;
-                    sortWith = (sorted as QuickSortResult).sortWith;
+                    thisArray = (sorted as IQuickSortResult).items;
+                    sortWith = (sorted as IQuickSortResult).sortWith;
                 }
                 else {
                     thisArray = (sorted as any[]);
@@ -962,8 +962,8 @@ function EnumerableQuickSort(sortWith?: any[][], left: number = 0, right: number
             if (!$.isEmpty(sortWith)) {
                 sorted = thisArray.quickSort(sortWith, index, right);
                 if ($.isHash(sorted)) {
-                    thisArray = (sorted as QuickSortResult).items;
-                    sortWith = (sorted as QuickSortResult).sortWith;
+                    thisArray = (sorted as IQuickSortResult).items;
+                    sortWith = (sorted as IQuickSortResult).sortWith;
                 }
                 else {
                     thisArray = (sorted as any[]);
@@ -988,12 +988,12 @@ function EnumerableQuickSort(sortWith?: any[][], left: number = 0, right: number
     }
 }
 
-interface QuickSortResult {
+interface IQuickSortResult {
     items: any[];
     sortWith: any[][];
 }
 
-function EnumerableQuickSortPartition(items: any[], left?: number, right?: number, sortWith?: any[][])
+function enumerableQuickSortPartition(items: any[], left?: number, right?: number, sortWith?: any[][])
     : {
         items: any[];
         sortWith: any[][];
@@ -1015,7 +1015,7 @@ function EnumerableQuickSortPartition(items: any[], left?: number, right?: numbe
         }
 
         if (i <= j) {
-            const swapResult = EnumerableQuickSortSwap(items, i, j, sortWith);
+            const swapResult = enumerableQuickSortSwap(items, i, j, sortWith);
             items = swapResult.items;
 
             if ($.toStr(swapResult.sortWith) == '0')
@@ -1035,7 +1035,7 @@ function EnumerableQuickSortPartition(items: any[], left?: number, right?: numbe
     };
 }
 
-function EnumerableQuickSortSwap(items: any[], firstIndex: number, secondIndex: number, sortWith?: any[][]) {
+function enumerableQuickSortSwap(items: any[], firstIndex: number, secondIndex: number, sortWith?: any[][]) {
 
     let temp = items[firstIndex];
     items[firstIndex] = items[secondIndex];
@@ -1056,7 +1056,7 @@ function EnumerableQuickSortSwap(items: any[], firstIndex: number, secondIndex: 
     };
 }
 
-singEnumerable.method('timesDo', EnumerableTimesDo,
+singEnumerable.method('timesDo', enumerableTimesDo,
     {
         summary: 'Repeats a function a number of times',
         parameters: [
@@ -1101,7 +1101,7 @@ singEnumerable.method('timesDo', EnumerableTimesDo,
         }
     }, Number.prototype);
 
-function EnumerableTimesDo(executeFunc: (...args: any[]) => any, args: any[], caller: any): any[] {
+function enumerableTimesDo(executeFunc: (...args: any[]) => any, args: any[], caller: any): any[] {
 
     if (!$.isDefined(this) ||
         this <= 0 ||

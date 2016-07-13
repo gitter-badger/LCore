@@ -15,11 +15,12 @@ namespace Singularity.Extensions
 
         #region FontAwesome
 
-        public static MvcHtmlString FontAwesome(this HtmlHelper Html, Icon? icon)
+        // ReSharper disable once UnusedParameter.Global
+        public static MvcHtmlString FontAwesome(this HtmlHelper Html, Icon? Icon)
             {
-            return icon == null ?
+            return Icon == null ?
                 new MvcHtmlString("") :
-                new MvcHtmlString($"<i class=\"fa fa-{StyleName((Icon)icon)}\"></i>");
+                new MvcHtmlString($"<i class=\"fa fa-{StyleName((Icon)Icon)}\"></i>");
             }
 
         #endregion
@@ -39,7 +40,10 @@ namespace Singularity.Extensions
 
         #endregion
 
+        #region Icons
+
         // ReSharper disable IdentifierTypo
+        // ReSharper disable InconsistentNaming
         public enum Icon
             {
             // 500px,
@@ -773,6 +777,11 @@ namespace Singularity.Extensions
             youtube_play,
             youtube_square
             }
+
         // ReSharper restore IdentifierTypo
+        // ReSharper restore InconsistentNaming
+
+        #endregion
+
         }
     }

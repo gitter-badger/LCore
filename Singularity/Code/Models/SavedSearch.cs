@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Helpers;
 using System.ComponentModel;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using LCore.Naming;
 using Singularity.Context;
 using Singularity.Annotations;
@@ -24,7 +26,7 @@ namespace Singularity.Models
         public string Group { get; set; }
 
         [FieldLoadFromQueryString]
-        [FieldType_Hidden]
+        [FieldTypeHidden]
         public string SearchType { get; set; }
 
         [HideManageViewColumn]
@@ -33,7 +35,7 @@ namespace Singularity.Models
         public string SearchTypeReadOnly => this.SearchType;
 
         [FieldLoadFromQueryString]
-        [FieldType_Hidden]
+        [FieldTypeHidden]
         public string ControllerName { get; set; }
 
         [HideManageViewColumn]
@@ -68,19 +70,20 @@ namespace Singularity.Models
         public static IQueryable<SavedSearch> Find(ModelContext DbContext, string TypeName, string ControllerName)
             {
             return DbContext.GetDBSet<SavedSearch>().Where(
-                e => e.Active &&
-                    e.SearchType == TypeName &&
-                    e.ControllerName == ControllerName &&
-                    e.Default != true);
+                Search => Search.Active &&
+                    Search.SearchType == TypeName &&
+                    Search.ControllerName == ControllerName &&
+                    Search.Default != true);
             }
 
         public static SavedSearch FindDefault(ModelContext DbContext, string TypeName, string ControllerName, bool Autocreate)
             {
             var Out = DbContext.GetDBSet<SavedSearch>(
-                ).FirstOrDefault(e => e.Active &&
-                    e.SearchType == TypeName &&
-                    e.ControllerName == ControllerName &&
-                    e.Default == true);
+                ).FirstOrDefault(Search
+                => Search.Active &&
+                    Search.SearchType == TypeName &&
+                    Search.ControllerName == ControllerName &&
+                    Search.Default == true);
 
             if (Out == null && Autocreate)
                 {
@@ -93,7 +96,12 @@ namespace Singularity.Models
                 Out.Name = $"Default Search for {ControllerName} page";
 
                 DbContext.GetDBSet<SavedSearch>().Add(Out);
-                DbContext.SaveChanges();
+                try
+                    {
+                    DbContext.SaveChanges();
+                    }
+                catch (DbUpdateException) { }
+                catch (DbEntityValidationException) { }
                 }
 
             return Out;

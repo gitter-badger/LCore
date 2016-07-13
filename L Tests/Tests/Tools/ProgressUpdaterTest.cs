@@ -22,21 +22,21 @@ namespace L_Tests.Tests.Tools
             int Max = 0;
 
             var Updater = new ProgressUpdater(
-                s =>
+                Str =>
                 {
-                    Status = s;
+                    Status = Str;
                 },
-                s =>
+                Str =>
                 {
-                    Log = s;
+                    Log = Str;
                 },
-                i =>
+                NewProgress =>
                 {
-                    Progress = i;
+                    Progress = NewProgress;
                 },
-                i =>
+                NewMaximum =>
                 {
-                    Max = i;
+                    Max = NewMaximum;
                 });
 
             L.A(() =>

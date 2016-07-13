@@ -20,39 +20,56 @@ namespace LCore.Extensions
         /// This method will fail if the String is null, empty, or does not match a value of the enum.
         /// </summary>
         [TestMethodGenerics(typeof(L.Align))]
-        [TestFails(new object[] { null })]
-        [TestFails(new object[] { "" })]
-        [TestFails(new object[] { "WRONG" })]
-        [TestFails(new object[] { "left" })]
+        [TestResult(new object[] { null }, null)]
+        [TestResult(new object[] { "" }, null)]
+        [TestResult(new object[] { "WRONG" }, null)]
+        [TestResult(new object[] { "left" }, null)]
         [TestResult(new object[] { "Left" }, L.Align.Left)]
         [TestResult(new object[] { "Right" }, L.Align.Right)]
-        public static T ParseEnum<T>(this string s)
+        public static T ParseEnum<T>(this string Str)
             {
-            return (T)Enum.Parse(typeof(T), s);
+            try
+                {
+                return (T)Enum.Parse(typeof(T), Str);
+                }
+            catch (ArgumentNullException) { }
+            catch (OverflowException) { }
+            catch (ArgumentException) { }
+
+            return default(T);
             }
+
         /// <summary>
         /// Takes a String and returns and Enum of Type [t].
         /// This method will fail if the String is null, empty, 
         /// or does not match a value of the enum.
         /// </summary>
         [Tested]
-        public static Enum ParseEnum(this string s, Type t)
+        public static Enum ParseEnum(this string Str, Type Type)
             {
-            return (Enum)Enum.Parse(t, s);
+            try
+                {
+                return (Enum)Enum.Parse(Type, Str);
+                }
+            catch (ArgumentNullException) { }
+            catch (OverflowException) { }
+            catch (ArgumentException) { }
+
+            return null;
             }
         /// <summary>
         /// Takes an Enum of any type and converts it to an enum of the specified type T.
         /// This method will fail if the source enum is null or the String value of the source enum is not found in type T.
         /// </summary>
         [TestMethodGenerics(typeof(L.Align))]
-        [TestFails(new object[] { null })]
-        [TestFails(new object[] { Test.TestEnum.Top })]
+        [TestResult(new object[] { null }, null)]
+        [TestResult(new object[] { Test.TestEnum.Top }, null)]
         [TestResult(new object[] { Test.TestEnum.Left }, L.Align.Left)]
         [TestResult(new object[] { Test.TestEnum.Right }, L.Align.Right)]
         [TestResult(new object[] { Test.TestEnum.Top }, L.AlignVertical.Top, GenericTypes = new[] { typeof(L.AlignVertical) })]
-        public static T ParseEnum<T>(this Enum e)
+        public static T ParseEnum<T>(this Enum Enum)
             {
-            return e.ToString().ParseEnum<T>();
+            return Enum.ToString().ParseEnum<T>();
             }
         #endregion
 
@@ -65,11 +82,11 @@ namespace LCore.Extensions
         /// If the enum friendly name is not found, null will be returned.
         /// </summary> 
         [Tested]
-        public static Enum ParseEnum_FriendlyName(this string s, Type t)
+        public static Enum ParseEnum_FriendlyName(this string Str, Type Type)
             {
-            var Out = Enum.GetValues(t).Array<Enum>().First(
-                e => e.ToString() == s ||
-                    e.GetFriendlyName() == s);
+            var Out = Enum.GetValues(Type).Array<Enum>().First(
+                Enum => Enum.ToString() == Str ||
+                    Enum.GetFriendlyName() == Str);
 
             return Out;
             }

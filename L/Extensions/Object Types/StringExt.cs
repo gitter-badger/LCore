@@ -252,7 +252,7 @@ namespace LCore.Extensions
 
             int Index = In.LastIndexOf(Sequence);
 
-            return Index == 0 ? "" : 
+            return Index == 0 ? "" :
                 Index < 0
                 ? In
                 : In.Sub(0, Index);
@@ -423,9 +423,9 @@ namespace LCore.Extensions
             if (In.IsEmpty() || Search.IsEmpty())
                 return 0;
 
-            int[] nums = 0.To(In.Length - 1);
+            int[] Nums = 0.To(In.Length - 1);
 
-            return nums.Where(i => In.Sub(i).StartsWith(Search)).Count();
+            return Nums.Where(i => In.Sub(i).StartsWith(Search)).Count();
             }
         #endregion
 
@@ -461,28 +461,28 @@ namespace LCore.Extensions
             if (Value.IsEmpty())
                 return "";
 
-            var sb = new StringBuilder(Value.Length);
+            var Builder = new StringBuilder(Value.Length);
             // Upper the first char.
-            sb.Append(char.ToUpper(Value[0]));
+            Builder.Append(char.ToUpper(Value[0]));
 
-            Value.Each((i, ch) =>
+            Value.Each((i, Char) =>
             {
                 if (i == 0)
                     return;
 
                 // Get the current char.
-                char c = ch;
+                char Ch = Char;
 
                 // Upper if after a space.
                 if (i > 0 && char.IsWhiteSpace(Value[i - 1]))
-                    c = char.ToUpper(c);
+                    Ch = char.ToUpper(Ch);
                 else
-                    c = char.ToLower(c);
+                    Ch = char.ToLower(Ch);
 
-                sb.Append(c);
+                Builder.Append(Ch);
             });
 
-            return sb.ToString();
+            return Builder.ToString();
             }
         #endregion
 
@@ -509,31 +509,31 @@ namespace LCore.Extensions
             if (Size < 0) throw new ArgumentOutOfRangeException(nameof(Size));
             if (Decimals < 0) throw new ArgumentOutOfRangeException(nameof(Decimals));
 
-            double temp = Size;
+            double Temp = Size;
             string Unit = "B";
-            if (temp >= 1024)
+            if (Temp >= 1024)
                 {
-                temp = temp / 1024;
+                Temp = Temp / 1024;
                 Unit = "KB";
-                if (temp >= 1024)
+                if (Temp >= 1024)
                     {
-                    temp = temp / 1024;
+                    Temp = Temp / 1024;
                     Unit = "MB";
-                    if (temp >= 1024)
+                    if (Temp >= 1024)
                         {
-                        temp = temp / 1024;
+                        Temp = Temp / 1024;
                         Unit = "GB";
-                        if (temp >= 1024)
+                        if (Temp >= 1024)
                             {
-                            temp = temp / 1024;
+                            Temp = Temp / 1024;
                             Unit = "TB";
-                            if (temp >= 1024)
+                            if (Temp >= 1024)
                                 {
-                                temp = temp / 1024;
+                                Temp = Temp / 1024;
                                 Unit = "PB";
-                                if (temp >= 1024)
+                                if (Temp >= 1024)
                                     {
-                                    temp = temp / 1024;
+                                    Temp = Temp / 1024;
                                     Unit = "EB";
                                     }
                                 }
@@ -541,9 +541,9 @@ namespace LCore.Extensions
                         }
                     }
                 double Power = Math.Pow(10, Decimals);
-                temp = Math.Round(temp * Power) / Power;
+                Temp = Math.Round(Temp * Power) / Power;
                 }
-            string Out = temp.ToString();
+            string Out = Temp.ToString();
 
             if (Decimals > 0 && Unit != "B")
                 {
@@ -589,26 +589,26 @@ namespace LCore.Extensions
             if (Decimals < 0) throw new ArgumentOutOfRangeException(nameof(Decimals));
             if (Size < 0) throw new ArgumentOutOfRangeException(nameof(Size));
 
-            double temp = Size;
+            double Temp = Size;
             string Unit = "B";
-            if (temp >= 1024)
+            if (Temp >= 1024)
                 {
-                temp = temp / 1024;
+                Temp = Temp / 1024;
                 Unit = "KB";
-                if (temp >= 1024)
+                if (Temp >= 1024)
                     {
-                    temp = temp / 1024;
+                    Temp = Temp / 1024;
                     Unit = "MB";
-                    if (temp >= 1024)
+                    if (Temp >= 1024)
                         {
-                        temp = temp / 1024;
+                        Temp = Temp / 1024;
                         Unit = "GB";
                         }
                     }
                 double Power = Math.Pow(10, Decimals);
-                temp = Math.Round(temp * Power) / Power;
+                Temp = Math.Round(Temp * Power) / Power;
                 }
-            string Out = temp.ToString();
+            string Out = Temp.ToString();
 
             if (Decimals > 0 && Unit != "B")
                 {
@@ -643,9 +643,9 @@ namespace LCore.Extensions
         [TestResult(new object[] { "123", new[] { @"\d+" } }, true)]
         public static bool HasMatch(this string In, params string[] Expressions)
             {
-            return Expressions.Count(s =>
+            return Expressions.Count(Str =>
             {
-                var Reg = new Regex(s);
+                var Reg = new Regex(Str);
                 var Matches = Reg.Matches(In);
                 return Matches.Count > 0;
             }) > 0;
@@ -669,21 +669,21 @@ namespace LCore.Extensions
         [TestResult(new object[] { "VeryGoodExample" }, "Very Good Example")]
         public static string Humanize(this string FieldName)
             {
-            char last = ' ';
+            char Last = ' ';
 
             string Out = (FieldName ?? "").Trim().CollectStr<char, string>(
-                (i, c) =>
+                (i, Char) =>
                     {
                         if (i == 0 ||
-                            (last.IsNumber() && !c.IsNumber()) ||
-                            (!last.IsNumber() && c.IsNumber()) ||
-                            (!char.IsUpper(last) && char.IsUpper(c)))
+                            (Last.IsNumber() && !Char.IsNumber()) ||
+                            (!Last.IsNumber() && Char.IsNumber()) ||
+                            (!char.IsUpper(Last) && char.IsUpper(Char)))
                             {
-                            last = c;
-                            return (i != 0 ? " " : "") + c.ToString().ToUpper();
+                            Last = Char;
+                            return (i != 0 ? " " : "") + Char.ToString().ToUpper();
                             }
-                        last = c;
-                        return c.ToString();
+                        Last = Char;
+                        return Char.ToString();
                     }).Trim();
             Out = Out.Replace("_", " ");
             Out = Out.ReplaceAll("  ", " ");
@@ -819,9 +819,9 @@ namespace LCore.Extensions
 
             string[] Out2 = Out.Split("\r");
 
-            for (int i = 0; i < Out2.Length; i++)
+            for (int Index = 0; Index < Out2.Length; Index++)
                 {
-                Out2[i] = Out2[i].Trim();
+                Out2[Index] = Out2[Index].Trim();
                 }
             return Out2;
             }
@@ -965,7 +965,7 @@ namespace LCore.Extensions
             {
             string Out = In ?? "";
 
-            Find.Each(s => Out = Out.ReplaceAll(s, ""));
+            Find.Each(Str => Out = Out.ReplaceAll(Str, ""));
 
             return Out;
             }
@@ -1121,9 +1121,9 @@ namespace LCore.Extensions
             if (In.IsEmpty())
                 return new string[] { };
 
-            int i = In.IndexOf(SplitStr);
+            int Index = In.IndexOf(SplitStr);
 
-            if (i < 0)
+            if (Index < 0)
                 {
                 return !In.IsEmpty() ? new[] { In } : new string[] { };
                 }
@@ -1131,8 +1131,8 @@ namespace LCore.Extensions
             var Out = new List<string>();
             In.Traverse(Cursor =>
             {
-                int Index = Cursor.IndexOf(SplitStr);
-                if (Index < 0)
+                int Index2 = Cursor.IndexOf(SplitStr);
+                if (Index2 < 0)
                     {
                     if (Cursor.Length > 0)
                         {
@@ -1140,10 +1140,10 @@ namespace LCore.Extensions
                         }
                     return null;
                     }
-                if (Index > 0)
+                if (Index2 > 0)
                     {
-                    Out.Add(Cursor.Substring(0, Index));
-                    return Cursor.Substring(Index);
+                    Out.Add(Cursor.Substring(0, Index2));
+                    return Cursor.Substring(Index2);
                     }
                 // if (Index == 0)
                 // {
@@ -1203,24 +1203,24 @@ namespace LCore.Extensions
 
             var Out = new List<string>();
 
-            int fieldStart = 0;
-            for (int i = 0; i < Line.Length; i++)
+            int FieldStart = 0;
+            for (int Index = 0; Index < Line.Length; Index++)
                 {
-                if (Line[i] == SplitBy)
+                if (Line[Index] == SplitBy)
                     {
-                    Out.Add(Line.Substring(fieldStart, i - fieldStart));
-                    fieldStart = i + 1;
+                    Out.Add(Line.Substring(FieldStart, Index - FieldStart));
+                    FieldStart = Index + 1;
                     }
 
-                if (Line[i] == '"')
-                    for (i++; Line[i] != '"'; i++)
+                if (Line[Index] == '"')
+                    for (Index++; Line[Index] != '"'; Index++)
                         {
                         }
                 }
 
             // Last column
-            if (Line.Length - fieldStart != 0)
-                Out.Add(Line.Substring(fieldStart, Line.Length - fieldStart));
+            if (Line.Length - FieldStart != 0)
+                Out.Add(Line.Substring(FieldStart, Line.Length - FieldStart));
 
             return Out;
             }
@@ -1303,20 +1303,20 @@ namespace LCore.Extensions
             if (In == Compare)
                 return 1;
 
-            List<string> pairs1 = WordLetterPairs(In.ToUpper());
-            List<string> pairs2 = WordLetterPairs(Compare.ToUpper());
+            List<string> Pairs1 = WordLetterPairs(In.ToUpper());
+            List<string> Pairs2 = WordLetterPairs(Compare.ToUpper());
 
-            int intersection = 0;
-            int union = pairs1.Count + pairs2.Count;
+            int Intersection = 0;
+            int Union = Pairs1.Count + Pairs2.Count;
 
-            foreach (string t in pairs1)
+            foreach (string Str in Pairs1)
                 {
-                for (int j = 0; j < pairs2.Count; j++)
+                for (int Index = 0; Index < Pairs2.Count; Index++)
                     {
-                    if (t == pairs2[j])
+                    if (Str == Pairs2[Index])
                         {
-                        intersection++;
-                        pairs2.RemoveAt(j);
+                        Intersection++;
+                        Pairs2.RemoveAt(Index);
                         // ReSharper disable once CommentTypo
                         //Must remove the match to prevent "GGGG" from appearing to match "GG" with 100% success
 
@@ -1325,41 +1325,41 @@ namespace LCore.Extensions
                     }
                 }
 
-            return 2.0 * intersection / union;
+            return 2.0 * Intersection / Union;
             }
 
-        private static List<string> WordLetterPairs(string str)
+        private static List<string> WordLetterPairs(string Str)
             {
             var AllPairs = new List<string>();
 
             // Tokenize the string and put the tokens/words into an array
-            string[] Words = Regex.Split(str, @"\s");
+            string[] Words = Regex.Split(Str, @"\s");
 
             // For each word
-            foreach (string t in Words)
+            foreach (string Word in Words)
                 {
-                if (!string.IsNullOrEmpty(t))
+                if (!string.IsNullOrEmpty(Word))
                     {
                     // Find the pairs of characters
-                    string[] PairsInWord = LetterPairs(t);
+                    string[] PairsInWord = LetterPairs(Word);
 
                     AllPairs.AddRange(PairsInWord);
                     }
                 }
             return AllPairs;
             }
-        private static string[] LetterPairs(string str)
+        private static string[] LetterPairs(string Str)
             {
-            int numPairs = str.Length - 1;
+            int NumPairs = Str.Length - 1;
 
-            var pairs = new string[numPairs];
+            var Pairs = new string[NumPairs];
 
-            for (int i = 0; i < numPairs; i++)
+            for (int Index = 0; Index < NumPairs; Index++)
                 {
-                pairs[i] = str.Substring(i, 2);
+                Pairs[Index] = Str.Substring(Index, 2);
                 }
 
-            return pairs;
+            return Pairs;
             }
         #endregion
 
@@ -1392,7 +1392,7 @@ namespace LCore.Extensions
 
             string Out = "";
 
-            for (int i = 0; i < Count; i++)
+            for (int Index = 0; Index < Count; Index++)
                 {
                 Out += In;
                 }
@@ -1432,18 +1432,18 @@ namespace LCore.Extensions
             if (Bytes.IsEmpty())
                 return "";
 
-            var c = new char[Bytes.Length * 2 + 2];
-            c[0] = '0'; c[1] = 'x';
+            var Char = new char[Bytes.Length * 2 + 2];
+            Char[0] = '0'; Char[1] = 'x';
 
-            for (int y = 0, x = 2; y < Bytes.Length; ++y, ++x)
+            for (int Index1 = 0, Index2 = 2; Index1 < Bytes.Length; ++Index1, ++Index2)
                 {
-                byte b = (byte)(Bytes[y] >> 4);
-                c[x] = (char)(b > 9 ? b + 0x37 : b + 0x30);
-                b = (byte)(Bytes[y] & 0xF);
-                c[++x] = (char)(b > 9 ? b + 0x37 : b + 0x30);
+                byte Byte = (byte)(Bytes[Index1] >> 4);
+                Char[Index2] = (char)(Byte > 9 ? Byte + 0x37 : Byte + 0x30);
+                Byte = (byte)(Bytes[Index1] & 0xF);
+                Char[++Index2] = (char)(Byte > 9 ? Byte + 0x37 : Byte + 0x30);
                 }
 
-            return new string(c);
+            return new string(Char);
             }
         #endregion
 
@@ -1452,14 +1452,14 @@ namespace LCore.Extensions
         /// Converts an input string into a memory stream.
         /// </summary>
         [Tested]
-        public static Stream ToStream(this string str)
+        public static Stream ToStream(this string Str)
             {
-            var stream = new MemoryStream();
-            var writer = new StreamWriter(stream);
-            writer.Write(str);
-            writer.Flush();
-            stream.Position = 0;
-            return stream;
+            var Stream = new MemoryStream();
+            var Writer = new StreamWriter(Stream);
+            Writer.Write(Str);
+            Writer.Flush();
+            Stream.Position = 0;
+            return Stream;
             }
         #endregion
 
@@ -1632,7 +1632,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Character indexer returns the character at index [i]
             /// </summary>
-            public static readonly Func<string, int, char> Char = (s, i) => s[i];
+            public static readonly Func<string, int, char> Char = (Str, i) => Str[i];
 
             #endregion
 
@@ -1649,7 +1649,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Function that joins strings from an IEnumerable[string].
             /// </summary>
-            public static readonly Func<IEnumerable<string>, string, string> JoinLines = (l, s) => l.Combine(s);
+            public static readonly Func<IEnumerable<string>, string, string> JoinLines = (Line, CombineStr) => Line.Combine(CombineStr);
             #endregion
 
             #region NumericalCompare
@@ -1657,82 +1657,82 @@ namespace LCore.Extensions
             /// Compares a string numerically, begin mindful of strings with sequences of numbers.
             /// Ex: File0005
             /// </summary>
-            public static readonly Func<string, string, int> NumericalCompare = (s1, s2) =>
+            public static readonly Func<string, string, int> NumericalCompare = (Compare1, Compare2) =>
                 {
-                    int len1 = s1.Length;
-                    int len2 = s2.Length;
-                    int marker1 = 0;
-                    int marker2 = 0;
+                    int Len1 = Compare1.Length;
+                    int Len2 = Compare2.Length;
+                    int Marker1 = 0;
+                    int Marker2 = 0;
 
                     // Walk through two the strings with two markers.
-                    while (marker1 < len1 && marker2 < len2)
+                    while (Marker1 < Len1 && Marker2 < Len2)
                         {
-                        char ch1 = s1[marker1];
-                        char ch2 = s2[marker2];
+                        char Ch1 = Compare1[Marker1];
+                        char Ch2 = Compare2[Marker2];
 
                         // Some buffers we can build up characters in for each chunk.
-                        var space1 = new char[len1];
-                        int loc1 = 0;
-                        var space2 = new char[len2];
-                        int loc2 = 0;
+                        var Space1 = new char[Len1];
+                        int Loc1 = 0;
+                        var Space2 = new char[Len2];
+                        int Loc2 = 0;
 
                         // Walk through all following characters that are digits or
                         // characters in BOTH strings starting at the appropriate marker.
                         // Collect char arrays.
                         do
                             {
-                            space1[loc1++] = ch1;
-                            marker1++;
+                            Space1[Loc1++] = Ch1;
+                            Marker1++;
 
-                            if (marker1 < len1)
+                            if (Marker1 < Len1)
                                 {
-                                ch1 = s1[marker1];
+                                Ch1 = Compare1[Marker1];
                                 }
                             else
                                 {
                                 break;
                                 }
-                            } while (char.IsDigit(ch1) == char.IsDigit(space1[0]));
+                            } while (char.IsDigit(Ch1) == char.IsDigit(Space1[0]));
 
                         do
                             {
-                            space2[loc2++] = ch2;
-                            marker2++;
+                            Space2[Loc2++] = Ch2;
+                            Marker2++;
 
-                            if (marker2 < len2)
+                            if (Marker2 < Len2)
                                 {
-                                ch2 = s2[marker2];
+                                Ch2 = Compare2[Marker2];
                                 }
                             else
                                 {
                                 break;
                                 }
-                            } while (char.IsDigit(ch2) == char.IsDigit(space2[0]));
+                            } while (char.IsDigit(Ch2) == char.IsDigit(Space2[0]));
 
                         // If we have collected numbers, compare them numerically.
                         // Otherwise, if we have strings, compare them alphabetically.
-                        string str1 = new string(space1);
-                        string str2 = new string(space2);
+                        string Str1 = new string(Space1);
+                        string Str2 = new string(Space2);
 
-                        int result;
+                        int Result;
 
-                        if (char.IsDigit(space1[0]) && char.IsDigit(space2[0]))
+                        if (char.IsDigit(Space1[0]) && char.IsDigit(Space2[0]))
                             {
-                            int thisNumericChunk = int.Parse(str1);
-                            int thatNumericChunk = int.Parse(str2);
-                            result = thisNumericChunk.CompareTo(thatNumericChunk);
+                            int ThisNumericChunk = int.Parse(Str1);
+                            int ThatNumericChunk = int.Parse(Str2);
+                            Result = ThisNumericChunk.CompareTo(ThatNumericChunk);
                             }
                         else
                             {
-                            result = string.Compare(str1, str2, StringComparison.Ordinal);
+                            Result = string.Compare(Str1, Str2, StringComparison.Ordinal);
                             }
 
-                        if (result != 0)
+                        if (Result != 0)
                             {
-                            return result;
+                            return Result;
                             }
                         }
-                    return len1 - len2;
+                    return Len1 - Len2;
                 };
 
             #endregion
@@ -1746,16 +1746,16 @@ namespace LCore.Extensions
             /// [Count] is used as the number of things you're referring to. 
             /// If you pass 1 (or -1), pluralization will not be applied
             /// </summary>
-            public static readonly Func<string, int, string> Pluralize = (s, c) =>
+            public static readonly Func<string, int, string> Pluralize = (Str, Count) =>
             {
-                if (s.IsEmpty())
+                if (Str.IsEmpty())
                     return "";
 
-                if (c == 0 || Math.Abs(c) > 1)
+                if (Count == 0 || Math.Abs(Count) > 1)
                     return
                         PluralizationService.CreateService(
-                            CultureInfo.CurrentCulture).Pluralize(s);
-                return s ?? "";
+                            CultureInfo.CurrentCulture).Pluralize(Str);
+                return Str ?? "";
             };
 
             #endregion
@@ -1765,7 +1765,7 @@ namespace LCore.Extensions
             /// Function that removes any of the supplied characters from a string.
             /// </summary>
             public static readonly Func<string, char[], string> RemoveChars =
-                (s, chars) => s.Collect(Substitute.Supply(chars).Supply2(' '))
+                (Str, Chars) => Str.Collect(Substitute.Supply(Chars).Supply2(' '))
                     .ReplaceAll("  ", " ").Trim();
 
             #endregion
@@ -1774,10 +1774,10 @@ namespace LCore.Extensions
             /// <summary>
             /// Function that replaces all double occurrences of a string with single occurrences.
             /// </summary>
-            public static readonly Func<string, char, string> ReplaceDouble = (s, c) =>
+            public static readonly Func<string, char, string> ReplaceDouble = (StrIn, Char) =>
                 {
-                    string s2 = c.ToString();
-                    return s.ReplaceAll(s2 + s2, s2);
+                    string Str = Char.ToString();
+                    return StrIn.ReplaceAll(Str + Str, Str);
                 };
 
             #endregion
@@ -1788,18 +1788,17 @@ namespace LCore.Extensions
             /// Takes a string and returns a singularized version of the word or phrase.
             /// This method will not fail. If the input is empty it will just return "".
             /// </summary>
-            public static readonly Func<string, string> Singularize =
-                s =>
-                    s.IsEmpty()
+            public static readonly Func<string, string> Singularize = Str =>
+                    Str.IsEmpty()
                         ? ""
                         : PluralizationService.CreateService(
-                            CultureInfo.CurrentCulture).Singularize(s);
+                            CultureInfo.CurrentCulture).Singularize(Str);
 
             #endregion
 
             #region Substitute
             internal static readonly Func<char[], char, char, char> Substitute =
-                (chars, c, sub) => chars.Contains(c) ? sub : c;
+                (Chars, Char, Substitute) => Chars.Contains(Char) ? Substitute : Char;
 
             #endregion
 
@@ -1828,14 +1827,14 @@ namespace LCore.Extensions
                 {
                     if (o == null)
                         return "";
-                    string s = o as string;
-                    if (s != null)
+                    string Str = o as string;
+                    if (Str != null)
                         {
-                        return s;
+                        return Str;
                         }
-                    var enumerable = o as IEnumerable;
-                    return enumerable != null ?
-                        $"{enumerable.GetType().FullName} {{ {enumerable.Array().Convert(ToS).Combine(", ")} }}" :
+                    var Enumerable = o as IEnumerable;
+                    return Enumerable != null ?
+                        $"{Enumerable.GetType().FullName} {{ {Enumerable.Array().Convert(ToS).Combine(", ")} }}" :
                         o.ToString();
                 };
             #endregion

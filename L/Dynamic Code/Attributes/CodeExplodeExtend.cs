@@ -8,9 +8,9 @@ namespace LCore.Dynamic
     {
     internal class CodeExplodeExtend : CodeExplode
         {
-        public override string ExplodeCode(Lists<string, MemberInfo> t)
+        public override string ExplodeCode(Lists<string, MemberInfo> Members)
             {
-            return L.Exploder.LogicMemberInfoToExtensionStrings(t, "", null);
+            return L.Exploder.LogicMemberInfoToExtensionStrings(Members, "", null);
             }
 
         public override bool ExplodeMember(MemberInfo Member)

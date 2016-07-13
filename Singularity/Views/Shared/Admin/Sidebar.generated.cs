@@ -246,7 +246,7 @@ WriteLiteral(">\r\n                    <li ");
             
             #line 55 "..\..\Views\Shared\Admin\Sidebar.cshtml"
                     Write(ViewBag.Breadcrumbs?.Contains(
-                        (Expression<Func<Set<string,string>,bool>>)(set=> set.Obj2.ToLower() == Url.Action(nameof(ExamplesController.L), typeof(ExamplesController).CName()))) == true ?
+                        (Expression<Func<Set<string,string>,bool>>)(Set=> Set.Obj2.ToLower() == Url.Action(nameof(ExamplesController.L), typeof(ExamplesController).CName()))) == true ?
                         "class=\"active\"" : "");
 
             
@@ -293,7 +293,7 @@ WriteLiteral(">\r\n                            <li ");
             
             #line 65 "..\..\Views\Shared\Admin\Sidebar.cshtml"
                             Write(ViewBag.Breadcrumbs?.Contains(
-                                (Expression<Func<Set<string,string>,bool>>)(set=> set.Obj2.ToLower() == Url.Action(nameof(ExamplesController.L_Extensions), typeof(ExamplesController).CName()))) == true ?
+                                (Expression<Func<Set<string,string>,bool>>)(Set=> Set.Obj2.ToLower() == Url.Action(nameof(ExamplesController.L_Extensions), typeof(ExamplesController).CName()))) == true ?
                                 "class=\"active\"" : "");
 
             
@@ -356,7 +356,7 @@ WriteLiteral("                                        <li ");
 
             
             #line 78 "..\..\Views\Shared\Admin\Sidebar.cshtml"
-                                        Write(ViewBag.Breadcrumbs?.Contains( (Expression<Func<Set<string, string>, bool>>)(set => set.Obj2.ToLower() == Url.Action(nameof(ExamplesController.L_Extensions_Class), typeof(ExamplesController).CName(), new { ClassName = Ext.Name }))) == true ? "class=\"active\"" : "");
+                                        Write(ViewBag.Breadcrumbs?.Contains( (Expression<Func<Set<string, string>, bool>>)(Set => Set.Obj2.ToLower() == Url.Action(nameof(ExamplesController.L_Extensions_Class), typeof(ExamplesController).CName(), new { ClassName = Ext.Name }))) == true ? "class=\"active\"" : "");
 
             
             #line default

@@ -50,10 +50,10 @@ namespace LCore.Tests
         /// </summary>
         public TypeTests(Type Test)
             {
-            IEnumerable<MemberInfo> TestMembers = Test.GetMembers().Where(m => m.DeclaringType == Test);
+            IEnumerable<MemberInfo> TestMembers = Test.GetMembers().Where(Member => Member.DeclaringType == Test);
             this.MembersPresent = TestMembers.Count();
 
-            this.TestsMissing = TestMembers.Where(m => m.DeclaringType == Test)
+            this.TestsMissing = TestMembers.Where(Member => Member.DeclaringType == Test)
                 .WithoutAttribute<ITestAttribute>().Count();
 
             this.UnitTestCount = TestMembers.WithAttribute<TestedAttribute>().Count();
@@ -66,7 +66,8 @@ namespace LCore.Tests
 
             foreach (var Member in TestedMembers)
                 {
-                this.TestAttributes.AddRange(Member.GetAttributes<ITestAttribute>(false));
+                this.TestAttributes.AddRange(
+                    Member.GetAttributes<ITestAttribute>(false));
                 }
             }
         }

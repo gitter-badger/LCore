@@ -52,12 +52,10 @@ namespace ASP
             
             #line 1 "..\..\Views\Shared\StatusMessages.cshtml"
   
-    var c = ViewContext.Controller;
-
-    List<string> Success = c.GetStatusMessages_Success() ?? new List<string>();
-    List<string> Errors = c.GetStatusMessages_Error() ?? new List<string>();
-    List<string> Warnings = c.GetStatusMessages_Warning() ?? new List<string>();
-    List<string> Information = c.GetStatusMessages_Information() ?? new List<string>();
+    List<string> Success = ViewContext.Controller.GetStatusMessages_Success() ?? new List<string>();
+    List<string> Errors = ViewContext.Controller.GetStatusMessages_Error() ?? new List<string>();
+    List<string> Warnings = ViewContext.Controller.GetStatusMessages_Warning() ?? new List<string>();
+    List<string> Information = ViewContext.Controller.GetStatusMessages_Information() ?? new List<string>();
 
             
             #line default
@@ -65,7 +63,7 @@ namespace ASP
 WriteLiteral("\r\n\r\n");
 
             
-            #line 10 "..\..\Views\Shared\StatusMessages.cshtml"
+            #line 8 "..\..\Views\Shared\StatusMessages.cshtml"
  if (TempData.Peek(ControllerHelper.StatusMessage_Temporary) != null)
     {
     string Message = (string)TempData[ControllerHelper.StatusMessage_Temporary];
@@ -82,13 +80,13 @@ WriteLiteral(" class=\"status-message close-dialog\"");
 WriteLiteral(">\r\n");
 
             
-            #line 16 "..\..\Views\Shared\StatusMessages.cshtml"
+            #line 14 "..\..\Views\Shared\StatusMessages.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 16 "..\..\Views\Shared\StatusMessages.cshtml"
+            #line 14 "..\..\Views\Shared\StatusMessages.cshtml"
          if (!string.IsNullOrEmpty(Icon))
             {
 
@@ -98,7 +96,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            <glyph>");
 
             
-            #line 18 "..\..\Views\Shared\StatusMessages.cshtml"
+            #line 16 "..\..\Views\Shared\StatusMessages.cshtml"
               Write(Icon);
 
             
@@ -107,7 +105,7 @@ WriteLiteral("            <glyph>");
 WriteLiteral("</glyph>\r\n");
 
             
-            #line 19 "..\..\Views\Shared\StatusMessages.cshtml"
+            #line 17 "..\..\Views\Shared\StatusMessages.cshtml"
             }
 
             
@@ -116,7 +114,7 @@ WriteLiteral("</glyph>\r\n");
 WriteLiteral("        ");
 
             
-            #line 20 "..\..\Views\Shared\StatusMessages.cshtml"
+            #line 18 "..\..\Views\Shared\StatusMessages.cshtml"
    Write(Message);
 
             
@@ -125,7 +123,7 @@ WriteLiteral("        ");
 WriteLiteral("\r\n    </div>\r\n");
 
             
-            #line 22 "..\..\Views\Shared\StatusMessages.cshtml"
+            #line 20 "..\..\Views\Shared\StatusMessages.cshtml"
     }
 
             
@@ -138,13 +136,13 @@ WriteLiteral(" class=\"container\"");
 WriteLiteral(">\r\n");
 
             
-            #line 26 "..\..\Views\Shared\StatusMessages.cshtml"
+            #line 24 "..\..\Views\Shared\StatusMessages.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 26 "..\..\Views\Shared\StatusMessages.cshtml"
+            #line 24 "..\..\Views\Shared\StatusMessages.cshtml"
      foreach (string Message in Errors)
         {
 
@@ -166,7 +164,7 @@ WriteLiteral(">&times;</a>\r\n            <strong>Error!</strong>\r\n");
 WriteLiteral("            ");
 
             
-            #line 31 "..\..\Views\Shared\StatusMessages.cshtml"
+            #line 29 "..\..\Views\Shared\StatusMessages.cshtml"
        Write(Message);
 
             
@@ -175,7 +173,7 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </div>\r\n");
 
             
-            #line 33 "..\..\Views\Shared\StatusMessages.cshtml"
+            #line 31 "..\..\Views\Shared\StatusMessages.cshtml"
         }
 
             
@@ -184,7 +182,7 @@ WriteLiteral("\r\n        </div>\r\n");
 WriteLiteral("    ");
 
             
-            #line 34 "..\..\Views\Shared\StatusMessages.cshtml"
+            #line 32 "..\..\Views\Shared\StatusMessages.cshtml"
      foreach (string Message in Warnings)
         {
 
@@ -206,7 +204,7 @@ WriteLiteral(">&times;</a>\r\n            <strong>Warning!</strong>\r\n");
 WriteLiteral("            ");
 
             
-            #line 39 "..\..\Views\Shared\StatusMessages.cshtml"
+            #line 37 "..\..\Views\Shared\StatusMessages.cshtml"
        Write(Message);
 
             
@@ -215,7 +213,7 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </div>\r\n");
 
             
-            #line 41 "..\..\Views\Shared\StatusMessages.cshtml"
+            #line 39 "..\..\Views\Shared\StatusMessages.cshtml"
         }
 
             
@@ -224,7 +222,7 @@ WriteLiteral("\r\n        </div>\r\n");
 WriteLiteral("    ");
 
             
-            #line 42 "..\..\Views\Shared\StatusMessages.cshtml"
+            #line 40 "..\..\Views\Shared\StatusMessages.cshtml"
      foreach (string Message in Information)
         {
 
@@ -246,7 +244,7 @@ WriteLiteral(">&times;</a>\r\n");
 WriteLiteral("            ");
 
             
-            #line 46 "..\..\Views\Shared\StatusMessages.cshtml"
+            #line 44 "..\..\Views\Shared\StatusMessages.cshtml"
        Write(Message);
 
             
@@ -255,7 +253,7 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </div>\r\n");
 
             
-            #line 48 "..\..\Views\Shared\StatusMessages.cshtml"
+            #line 46 "..\..\Views\Shared\StatusMessages.cshtml"
         }
 
             
@@ -264,7 +262,7 @@ WriteLiteral("\r\n        </div>\r\n");
 WriteLiteral("    ");
 
             
-            #line 49 "..\..\Views\Shared\StatusMessages.cshtml"
+            #line 47 "..\..\Views\Shared\StatusMessages.cshtml"
      foreach (string Message in Success)
         {
 
@@ -286,7 +284,7 @@ WriteLiteral(">&times;</a>\r\n            <strong>Success!</strong>\r\n");
 WriteLiteral("            ");
 
             
-            #line 54 "..\..\Views\Shared\StatusMessages.cshtml"
+            #line 52 "..\..\Views\Shared\StatusMessages.cshtml"
        Write(Message);
 
             
@@ -295,7 +293,7 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </div>\r\n");
 
             
-            #line 56 "..\..\Views\Shared\StatusMessages.cshtml"
+            #line 54 "..\..\Views\Shared\StatusMessages.cshtml"
         }
 
             

@@ -37,6 +37,7 @@ namespace ASP
     using Singularity;
     using Singularity.Context;
     using Singularity.Controllers;
+    using Singularity.Extensions;
     using Singularity.Models;
     
     #line 1 "..\..\Views\_ViewStart.cshtml"
@@ -61,9 +62,9 @@ WriteLiteral("\r\n\r\n");
   
     Layout = Layouts.Main;
 
-    var c = ViewContext.Controller;
+    var Controller = ViewContext.Controller;
 
-    var ViewLayout = c as IDefaultViewLayout;
+    var ViewLayout = Controller as IDefaultViewLayout;
     if (ViewLayout != null)
         {
         Layout = ViewLayout.DefaultLayout;

@@ -60,7 +60,7 @@
                     {
                     <a href="@(Url.Controller<ManageController>()
                         .QS(Controllers.Manage.Actions.Route_SortColumn(Model, Meta.PropertyName))
-                        .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage))">
+                        .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(Controller=> Controller.Manage))">
 
                         @Html.TextContent($"Manage_ColumnHeader_{Model.ModelType.GetFriendlyTypeName()}_{ColumnTitle}", ColumnTitle)
 

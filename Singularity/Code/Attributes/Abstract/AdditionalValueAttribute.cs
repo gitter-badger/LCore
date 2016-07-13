@@ -8,9 +8,9 @@ namespace Singularity.Annotations
         public abstract string ValueKey { get; }
         public abstract object ValueData { get; }
 
-        public virtual void OnMetadataCreated(ModelMetadata metadata)
+        public virtual void OnMetadataCreated(ModelMetadata Metadata)
             {
-            metadata.AdditionalValues[this.ValueKey] = this.ValueData;
+            Metadata.AdditionalValues[this.ValueKey] = this.ValueData;
             }
         }
     }

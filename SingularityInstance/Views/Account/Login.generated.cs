@@ -137,7 +137,7 @@ WriteLiteral("                    ");
 
             
             #line 18 "..\..\Views\Account\Login.cshtml"
-               Write(Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" }));
+               Write(Html.LabelFor(ViewModel => ViewModel.Email, new { @class = "col-md-2 control-label" }));
 
             
             #line default
@@ -152,7 +152,7 @@ WriteLiteral("                        ");
 
             
             #line 20 "..\..\Views\Account\Login.cshtml"
-                   Write(Html.TextBoxFor(m => m.Email, new { @class = "form-control" }));
+                   Write(Html.TextBoxFor(ViewModel => ViewModel.Email, new { @class = "form-control" }));
 
             
             #line default
@@ -163,7 +163,7 @@ WriteLiteral("                        ");
 
             
             #line 21 "..\..\Views\Account\Login.cshtml"
-                   Write(Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" }));
+                   Write(Html.ValidationMessageFor(ViewModel => ViewModel.Email, "", new { @class = "text-danger" }));
 
             
             #line default
@@ -180,7 +180,7 @@ WriteLiteral("                    ");
 
             
             #line 25 "..\..\Views\Account\Login.cshtml"
-               Write(Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" }));
+               Write(Html.LabelFor(ViewModel => ViewModel.Password, new { @class = "col-md-2 control-label" }));
 
             
             #line default
@@ -195,7 +195,7 @@ WriteLiteral("                        ");
 
             
             #line 27 "..\..\Views\Account\Login.cshtml"
-                   Write(Html.PasswordFor(m => m.Password, new { @class = "form-control" }));
+                   Write(Html.PasswordFor(ViewModel => ViewModel.Password, new { @class = "form-control" }));
 
             
             #line default
@@ -206,7 +206,7 @@ WriteLiteral("                        ");
 
             
             #line 28 "..\..\Views\Account\Login.cshtml"
-                   Write(Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" }));
+                   Write(Html.ValidationMessageFor(ViewModel => ViewModel.Password, "", new { @class = "text-danger" }));
 
             
             #line default
@@ -231,7 +231,7 @@ WriteLiteral("                            ");
 
             
             #line 34 "..\..\Views\Account\Login.cshtml"
-                       Write(Html.CheckBoxFor(m => m.RememberMe));
+                       Write(Html.CheckBoxFor(ViewModel => ViewModel.RememberMe));
 
             
             #line default
@@ -242,7 +242,7 @@ WriteLiteral("                            ");
 
             
             #line 35 "..\..\Views\Account\Login.cshtml"
-                       Write(Html.LabelFor(m => m.RememberMe));
+                       Write(Html.LabelFor(ViewModel => ViewModel.RememberMe));
 
             
             #line default

@@ -74,11 +74,11 @@ WriteLiteral("\r\n");
     string EmptyValue = FieldAttr.EmptyValue;
     string EmptyKey = FieldAttr.EmptyKey;
 
-    List<SelectListItem> Items = FieldAttr.KeyValues(ViewContext).Select(keyValue => new SelectListItem
+    List<SelectListItem> Items = FieldAttr.KeyValues(ViewContext).Select(KeyValue => new SelectListItem
         {
-        Text = keyValue.Key,
-        Value = keyValue.Value,
-        Selected = (Model.PropertyData ?? "").ToString() == keyValue.Value
+        Text = KeyValue.Key,
+        Value = KeyValue.Value,
+        Selected = (Model.PropertyData ?? "").ToString() == KeyValue.Value
         }).ToList();
 
             

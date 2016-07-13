@@ -15,14 +15,14 @@ namespace Singularity.Models
         [Required]
         public string Subject { get; set; }
 
-        [FieldType_HTMLContentEditor]
+        [FieldTypeHtmlContentEditor]
         public string Body { get; set; }
 
         [FieldTypeDropdownContextManageControllers(MultiSelect: true)]
         public string Pages { get; set; }
 
         [HideManageViewColumn]
-        [FieldType_FileUpload]
+        [FieldTypeFileUpload]
         [NotMapped]
         public string Attachments { get; set; }
 
@@ -37,9 +37,9 @@ namespace Singularity.Models
         public static IQueryable<EmailTemplate> FindPageTemplates(ModelContext DbContext, string ControllerName)
             {
             return DbContext.GetDBSet<EmailTemplate>().Where(
-                e => e.Active &&
-                    (e.Pages.Contains($"{ControllerName},") ||
-                    e.Pages.EndsWith(ControllerName)));
+                Template => Template.Active &&
+                    (Template.Pages.Contains($"{ControllerName},") ||
+                    Template.Pages.EndsWith(ControllerName)));
             }
         }
     }

@@ -6,35 +6,36 @@ using System.Linq;
 
 namespace LCore.Tasks
     {
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class TaskManager
         {
-        public static bool NoAsyncTasks = false;
+        public static readonly bool NoAsyncTasks = false;
 
-        private readonly List<TaskTimer> AllTasks = new List<TaskTimer>();
+        private readonly List<TaskTimer> _AllTasks = new List<TaskTimer>();
 
         public void AddTask(Task NewTask)
             {
-            NewTask.NextRun_Changed += this.ScheduleTask;
-            this.AllTasks.Add(new TaskTimer(NewTask));
+            NewTask.NextRunChanged += this.ScheduleTask;
+            this._AllTasks.Add(new TaskTimer(NewTask));
 
             this.ScheduleTask(NewTask);
             }
 
-        public void ScheduleTask(object o, EventArgs e)
+        public void ScheduleTask(object Obj, EventArgs Event)
             {
-            if (!(o is Task))
+            if (!(Obj is Task))
                 return;
 
-            this.ScheduleTask((Task)o);
+            this.ScheduleTask((Task)Obj);
             }
 
-        public void ScheduleTask(Task t)
+        public void ScheduleTask(Task NewTask)
             {
-            foreach (var t1 in this.AllTasks)
+            foreach (var Task in this._AllTasks)
                 {
-                if (t1.TimerTask == t)
+                if (Task.TimerTask == NewTask)
                     {
-                    t1.Timer_Reset();
+                    Task.Timer_Reset();
                     break;
                     }
                 }
@@ -44,10 +45,10 @@ namespace LCore.Tasks
             {
             get
                 {
-                return this.AllTasks.Count(t => t.TimerTask.IsRunning);
+                return this._AllTasks.Count(Task => Task.TimerTask.IsRunning);
                 }
             }
 
-        public int TotalTasks => this.AllTasks.Count;
+        public int TotalTasks => this._AllTasks.Count;
         }
     }

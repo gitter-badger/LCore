@@ -42,8 +42,8 @@ namespace LCore.Dynamic
         public const string GenericFuncTokenCommaAfter = "/*GF,*/";
         public const string GenericFuncTokenI = "/*IGF*/";
 
-        public static readonly string[] SubtractGenericType = new string[16].Collect((i, s) => $"/*-T{i + 1}*/");
-        public static readonly string[] SubtractArgumentType = new string[16].Collect((i, s) => $"/*-O{i + 1}*/");
+        public static readonly string[] SubtractGenericType = new string[16].Collect((i, Str) => $"/*-T{i + 1}*/");
+        public static readonly string[] SubtractArgumentType = new string[16].Collect((i, Str) => $"/*-O{i + 1}*/");
 
         public static readonly Func<string, bool> ContainsMultiLevelTokens = In => In.ContainsAny(L.List.ToList(
             GenericActionTokenLayer2,
@@ -68,7 +68,7 @@ namespace LCore.Dynamic
             )()
             .Add(SubtractGenericType)
             .Add(SubtractArgumentType)
-                      .Each(s => { In = In.ReplaceAll(s, ""); });
+                      .Each(Str => { In = In.ReplaceAll(Str, ""); });
             return In;
         };
         #region GetLevel2Replacements
@@ -110,20 +110,20 @@ namespace LCore.Dynamic
             bool SuffixComma = PreStr.Contains(GenericActionTokenCommaAfter) || PreStr == GenericActionTokenCommaAfter;
             bool IncludeBraces = !PrefixComma && !SuffixComma;
             bool PrefixI = PreStr.Contains(GenericActionTokenI) || PreStr == GenericActionTokenI;
-            int i = 0;
+            int Index = 0;
             return L.F(() =>
             {
                 string Generics = "";
-                if (i > 0)
+                if (Index > 0)
                     {
                     Generics = (IncludeBraces ? "<" : "") +
-                        new string[i].Collect((i2, s) => $"T{i2 + 1}").Combine(", ")
+                        new string[Index].Collect((i2, Str) => $"T{i2 + 1}").Combine(", ")
                         + (IncludeBraces ? ">" : "");
                     }
-                i++;
-                return (PrefixComma && i > 1 ? ", " : "") +
-                    (PrefixI && i > 2 ? (i - 1).ToString() : "") + PreStr + Generics + PostStr +
-                    (SuffixComma && i > 1 ? ", " : "");
+                Index++;
+                return (PrefixComma && Index > 1 ? ", " : "") +
+                    (PrefixI && Index > 2 ? (Index - 1).ToString() : "") + PreStr + Generics + PostStr +
+                    (SuffixComma && Index > 1 ? ", " : "");
             }).Collect((uint)CodeExplodeLogic.ExplodeCount)();
         });
         #endregion
@@ -134,23 +134,23 @@ namespace LCore.Dynamic
             bool SuffixComma = PreStr.Contains(GenericFuncTokenCommaAfter) || PreStr == GenericFuncTokenCommaAfter;
             bool IncludeBraces = !PrefixComma && !SuffixComma;
             bool PrefixI = PreStr.Contains(GenericFuncTokenI) || PreStr == GenericFuncTokenI;
-            int i = 0;
+            int Index = 0;
             return L.F(() =>
             {
                 string Generics;
-                if (i > 0)
+                if (Index > 0)
                     {
                     Generics = (IncludeBraces ? "<" : "") +
-                        new string[i + 1].Collect((i2, s) => i2 - 1 == i - 1 ? OutputType : $"T{i2 + 1}").Combine(", ")
+                        new string[Index + 1].Collect((i2, Str) => i2 - 1 == Index - 1 ? OutputType : $"T{i2 + 1}").Combine(", ")
                         + (OutputType.IsEmpty() ? ", " : (IncludeBraces ? ">" : ""));
                     }
                 else
                     Generics = (IncludeBraces ? "<" : "") + OutputType + (OutputType.IsEmpty() ? "" : (IncludeBraces ? ">" : ""));
-                i++;
-                return (PrefixComma && i > 1 ? ", " : "") +
-                    (PrefixI && i > 2 ? (i - 1).ToString() : "")
+                Index++;
+                return (PrefixComma && Index > 1 ? ", " : "") +
+                    (PrefixI && Index > 2 ? (Index - 1).ToString() : "")
                     + PreStr + Generics +
-                     (SuffixComma && i > 1 ? ", " : "");
+                     (SuffixComma && Index > 1 ? ", " : "");
             }).Collect((uint)CodeExplodeLogic.ExplodeCount)();
         });
         #endregion
@@ -160,11 +160,11 @@ namespace LCore.Dynamic
         {
             bool PrefixComma = PreArgs.Contains(ArgumentTokenCommaBefore) || PreArgs == ArgumentTokenCommaBefore;
             bool SuffixComma = PreArgs.Contains(ArgumentTokenCommaAfter) || PreArgs == ArgumentTokenCommaAfter;
-            int i = 0;
+            int Index = 0;
             return L.F(() =>
             {
                 string Out;
-                if (i > 0)
+                if (Index > 0)
                     {
                     Out = (!PreArgs.IsEmpty() ? PreArgs + (PreArgs != "(" &&
                         PreArgs != $"({ArgumentToken}" &&
@@ -173,7 +173,7 @@ namespace LCore.Dynamic
                         PreArgs != ArgumentTokenCommaBefore &&
                         PreArgs != ArgumentTokenLayer2 ?
                         ", " : "") : "") +
-                        new string[i].Collect((i2, s) => $"o{i2 + 1}").Combine(", ")
+                        new string[Index].Collect((i2, Str) => $"o{i2 + 1}").Combine(", ")
                         + (!PostArgs.IsEmpty() ? (PostArgs != ")" && PostArgs != $"{ArgumentToken})" &&
                         PostArgs != ArgumentToken &&
                         PostArgs != ArgumentTokenCommaAfter &&
@@ -204,11 +204,11 @@ namespace LCore.Dynamic
                         Out = $"{PreArgs}{PostArgs}{EndStr}";
                         }
                     }
-                i++;
+                Index++;
                 return
-                     (PrefixComma && i > 1 ? ", " : "")
+                     (PrefixComma && Index > 1 ? ", " : "")
                     + Out +
-                     (SuffixComma && i > 1 ? ", " : "");
+                     (SuffixComma && Index > 1 ? ", " : "");
             }).Collect((uint)CodeExplodeLogic.ExplodeCount)();
         };
         #endregion
@@ -233,16 +233,16 @@ namespace LCore.Dynamic
             CodeReplacementsGenericParams("Action", ">"),
             CodeReplacementsGenericParams("Action", ",")
             };
-            OutputParams.Each(output =>
+            OutputParams.Each(Output =>
                 {
-                    Out.Add(CodeReplacementsGenericParamsOutput("Func", output.Name, ""));
-                    Out.Add(CodeReplacementsGenericParamsOutput("Func", output.FullName, ""));
-                    Out.Add(CodeReplacementsGenericParamsOutput(GenericFuncToken, output.Name, ""));
-                    Out.Add(CodeReplacementsGenericParamsOutput(GenericFuncToken, output.FullName, ""));
-                    Out.Add(CodeReplacementsGenericParamsOutput(GenericFuncTokenCommaBefore, output.Name, ""));
-                    Out.Add(CodeReplacementsGenericParamsOutput(GenericFuncTokenCommaBefore, output.FullName, ""));
-                    Out.Add(CodeReplacementsGenericParamsOutput(GenericFuncTokenCommaAfter, output.Name, ""));
-                    Out.Add(CodeReplacementsGenericParamsOutput(GenericFuncTokenCommaAfter, output.FullName, ""));
+                    Out.Add(CodeReplacementsGenericParamsOutput("Func", Output.Name, ""));
+                    Out.Add(CodeReplacementsGenericParamsOutput("Func", Output.FullName, ""));
+                    Out.Add(CodeReplacementsGenericParamsOutput(GenericFuncToken, Output.Name, ""));
+                    Out.Add(CodeReplacementsGenericParamsOutput(GenericFuncToken, Output.FullName, ""));
+                    Out.Add(CodeReplacementsGenericParamsOutput(GenericFuncTokenCommaBefore, Output.Name, ""));
+                    Out.Add(CodeReplacementsGenericParamsOutput(GenericFuncTokenCommaBefore, Output.FullName, ""));
+                    Out.Add(CodeReplacementsGenericParamsOutput(GenericFuncTokenCommaAfter, Output.Name, ""));
+                    Out.Add(CodeReplacementsGenericParamsOutput(GenericFuncTokenCommaAfter, Output.FullName, ""));
                 });
             Out.Add(CodeReplacementsGenericParamsOutput("Func", "U", ""));
             Out.Add(CodeReplacementsArgs("(", ")", " =>"));
@@ -277,8 +277,10 @@ namespace LCore.Dynamic
             }
         protected List<List<string>> Cutoff(List<List<string>> Replacements)
             {
-            return Replacements.Collect(l => l.Count > this._MaximumGeneric ? l.First(this._MaximumGeneric) : l);
-
+            return Replacements.Collect(Replacement => 
+                Replacement.Count > this._MaximumGeneric 
+                ? Replacement.First(this._MaximumGeneric) 
+                : Replacement);
             }
         }
     }

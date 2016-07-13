@@ -1,5 +1,7 @@
 ﻿using System;
 
+// ReSharper disable InconsistentNaming
+
 namespace NSort
 	{
 	public class MatrixComparer : ComparableComparer

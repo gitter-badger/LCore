@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBeProtected.Global
+// ReSharper disable InconsistentNaming
 
 namespace NSort
     {
@@ -16,15 +17,17 @@ namespace NSort
 
     public abstract class SwapSorter : ISorter
         {
-        private IComparer comparer;
-        private ISwap swapper;
+        private IComparer _Comparer;
+        private ISwap _Swapper;
 
         protected SwapSorter()
             {
-            this.comparer = new ComparableComparer();
-            this.swapper = new DefaultSwap();
+            this._Comparer = new ComparableComparer();
+            this._Swapper = new DefaultSwap();
             }
 
+        /// <exception cref="ArgumentNullException"><paramref name="comparer"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="swapper"/> is <see langword="null" />.</exception>
         protected SwapSorter(IComparer comparer, ISwap swapper)
             {
             if (comparer == null)
@@ -32,8 +35,8 @@ namespace NSort
             if (swapper == null)
                 throw new ArgumentNullException(nameof(swapper));
 
-            this.comparer = comparer;
-            this.swapper = swapper;
+            this._Comparer = comparer;
+            this._Swapper = swapper;
             }
 
         /// <summary>
@@ -42,20 +45,18 @@ namespace NSort
         /// <value>
         /// Comparer object
         /// </value>
-        /// <exception cref="ArgumentNullException">
-        /// Set property, the value is a null reference
-        /// </exception>
+        /// <exception cref="NullReferenceException" accessor="set">comparer is null</exception>
         public IComparer Comparer
             {
             get
                 {
-                return this.comparer;
+                return this._Comparer;
                 }
             set
                 {
                 if (value == null)
-                    throw new NullReferenceException(nameof(this.comparer));
-                this.comparer = value;
+                    throw new NullReferenceException(nameof(this._Comparer));
+                this._Comparer = value;
                 }
             }
 
@@ -65,18 +66,18 @@ namespace NSort
         /// <value>
         /// The <see cref="ISwap"/> swapper.
         /// </value>
-        /// <exception cref="ArgumentNullException">Swapper is a null reference</exception>
+        /// <exception cref="NullReferenceException" accessor="set">swapper is null</exception>
         public ISwap Swapper
             {
             get
                 {
-                return this.swapper;
+                return this._Swapper;
                 }
             set
                 {
                 if (value == null)
-                    throw new NullReferenceException(nameof(this.swapper));
-                this.swapper = value;
+                    throw new NullReferenceException(nameof(this._Swapper));
+                this._Swapper = value;
                 }
             }
 

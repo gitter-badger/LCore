@@ -1,3 +1,4 @@
+// ReSharper disable CommentTypo
 // TarHeader.cs
 //
 // Copyright (C) 2001 Mike Krueger
@@ -72,6 +73,8 @@ using System.Text;
 // ReSharper disable UnusedMethodReturnValue.Local
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedMember.Global
+// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
 
 namespace ICSharpCode.SharpZipLib.Tar
     {
@@ -552,6 +555,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// <param name = "header">
         /// The tar entry header buffer to get information from.
         /// </param>
+        /// <exception cref="ArgumentNullException"><paramref name="header"/> is <see langword="null" />.</exception>
         public void ParseBuffer(byte[] header)
             {
             if (header == null)
@@ -613,6 +617,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// 'Write' header information to buffer provided, updating the <see cref="Checksum">check sum</see>.
         /// </summary>
         /// <param name="outBuffer">output buffer for header information</param>
+        /// <exception cref="ArgumentNullException"><paramref name="outBuffer"/> is <see langword="null" />.</exception>
         public void WriteHeader(byte[] outBuffer)
             {
             if (outBuffer == null)
@@ -732,6 +737,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// <param name = "offset">The offset into the buffer from which to parse.</param>
         /// <param name = "length">The number of header bytes to parse.</param>
         /// <returns>The long equivalent of the octal string.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="header"/> is <see langword="null" />.</exception>
         public static long ParseOctal(byte[] header, int offset, int length)
             {
             if (header == null)
@@ -786,6 +792,9 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// <returns>
         /// The name parsed.
         /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="header"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
+        /// <exception cref="ArgumentException">Exceeds header size</exception>
         public static StringBuilder ParseName(byte[] header, int offset, int length)
             {
             if (header == null)
@@ -839,6 +848,8 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// <param name="bufferOffset">The index of the first byte to add</param>
         /// <param name="length">The number of characters/bytes to add</param>
         /// <returns>The next free index in the <paramref name="buffer">buffer</paramref></returns>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="buffer"/> is <see langword="null" />.</exception>
         public static int GetNameBytes(StringBuilder name, int nameOffset, byte[] buffer, int bufferOffset, int length)
             {
             if (name == null)
@@ -863,6 +874,8 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// <param name="bufferOffset">The index of the first byte to add</param>
         /// <param name="length">The number of characters/bytes to add</param>
         /// <returns>The next free index in the <paramref name="buffer">buffer</paramref></returns>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="buffer"/> is <see langword="null" />.</exception>
         public static int GetNameBytes(string name, int nameOffset, byte[] buffer, int bufferOffset, int length)
             {
             if (name == null)
@@ -908,6 +921,8 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// <returns>
         /// The index of the next free byte in the buffer
         /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="buffer"/> is <see langword="null" />.</exception>
         public static int GetNameBytes(StringBuilder name, byte[] buffer, int offset, int length)
             {
 
@@ -932,6 +947,8 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// <param name="offset">The offset into the buffer from which to start adding</param>
         /// <param name="length">The number of header bytes to add</param>
         /// <returns>The index of the next free byte in the buffer</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="buffer"/> is <see langword="null" />.</exception>
         public static int GetNameBytes(string name, byte[] buffer, int offset, int length)
             {
 
@@ -957,6 +974,8 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// <param name="bufferOffset">The offset to start adding at.</param>
         /// <param name="length">The number of ascii characters to add.</param>
         /// <returns>The next free index in the buffer.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="toAdd"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="buffer"/> is <see langword="null" />.</exception>
         public static int GetAsciiBytes(string toAdd, int nameOffset, byte[] buffer, int bufferOffset, int length)
             {
             if (toAdd == null)
@@ -994,6 +1013,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// <returns>
         /// The offset of the character next byte after the octal string
         /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="buffer"/> is <see langword="null" />.</exception>
         public static int GetOctalBytes(long value, byte[] buffer, int offset, int length)
             {
             if (buffer == null)

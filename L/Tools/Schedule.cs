@@ -34,18 +34,18 @@ namespace LCore.Tools
             if (this.Mode == ScheduleMode.Daily)
                 {
                 Out += SplitChar;
-                for (int i = 0; i < this.DaysOfWeek.Count; i++)
+                for (int Index = 0; Index < this.DaysOfWeek.Count; Index++)
                     {
-                    Out += this.DaysOfWeek[i].ToString();
-                    if (i < this.DaysOfWeek.Count - 1)
+                    Out += this.DaysOfWeek[Index].ToString();
+                    if (Index < this.DaysOfWeek.Count - 1)
                         Out += ",";
                     }
 
                 Out += SplitChar;
-                for (int i = 0; i < this.TimesOfDay.Count; i++)
+                for (int Index = 0; Index < this.TimesOfDay.Count; Index++)
                     {
-                    Out += this.TimesOfDay[i].ToString();
-                    if (i < this.TimesOfDay.Count - 1)
+                    Out += this.TimesOfDay[Index].ToString();
+                    if (Index < this.TimesOfDay.Count - 1)
                         Out += ",";
                     }
                 }
@@ -53,10 +53,10 @@ namespace LCore.Tools
                 {
                 Out += SplitChar;
 
-                for (int i = 0; i < this.DaysOfMonth.Count; i++)
+                for (int Index = 0; Index < this.DaysOfMonth.Count; Index++)
                     {
-                    Out += this.DaysOfMonth[i].ToString();
-                    if (i < this.DaysOfMonth.Count - 1)
+                    Out += this.DaysOfMonth[Index].ToString();
+                    if (Index < this.DaysOfMonth.Count - 1)
                         Out += ",";
                     }
                 }
@@ -74,35 +74,35 @@ namespace LCore.Tools
             {
             var Out = new Schedule();
 
-            string[] split = In.Split(SplitChar);
+            string[] Split = In.Split(SplitChar);
 
-            var Mode = split[0].ParseEnum<ScheduleMode>();
+            var Mode = Split[0].ParseEnum<ScheduleMode>();
             Out.Mode = Mode;
 
             if (Mode == ScheduleMode.Daily)
                 {
-                string[] days = split[1].Split(',');
-                List<DayOfWeek> DaysOfWeek = days.Select(t => t.ParseEnum<DayOfWeek>()).ToList();
+                string[] Days = Split[1].Split(',');
+                List<DayOfWeek> DaysOfWeek = Days.Select(Day => Day.ParseEnum<DayOfWeek>()).ToList();
 
                 Out.DaysOfWeek = DaysOfWeek;
 
-                string[] times = split[2].Split(',');
-                List<DateTime> TimesOfDay = times.Select(t => Convert.ToDateTime(t)).ToList();
+                string[] Times = Split[2].Split(',');
+                List<DateTime> TimesOfDay = Times.Select(Time => Convert.ToDateTime(Time)).ToList();
                 TimesOfDay.Sort();
 
                 Out.TimesOfDay = TimesOfDay;
                 }
             else if (Mode == ScheduleMode.Monthly)
                 {
-                string[] days = split[1].Split(',');
-                List<int> DaysOfMonth = days.Select(t => Convert.ToInt32(t)).ToList();
+                string[] Days = Split[1].Split(',');
+                List<int> DaysOfMonth = Days.Select(Day => Convert.ToInt32(Day)).ToList();
                 DaysOfMonth.Sort();
 
                 Out.DaysOfMonth = DaysOfMonth;
                 }
             else if (Mode == ScheduleMode.OneTime)
                 {
-                Out.OneTimeScheduleDate = Convert.ToDateTime(split[1]);
+                Out.OneTimeScheduleDate = Convert.ToDateTime(Split[1]);
                 }
             else if (Mode == ScheduleMode.Manual)
                 {

@@ -47,8 +47,8 @@ namespace L_Tests.Tests.Extensions
             Comments2.Parameters.ShouldBeEquivalentTo(
                 new[]
                     {
-                        new Set<string, string>("a", "param1"),
-                        new Set<string, string>("b", "param2")
+                        new Set<string, string>("A", "param1"),
+                        new Set<string, string>("B", "param2")
                     }
                 );
             Comments2.Exceptions.ShouldBeEquivalentTo(
@@ -101,15 +101,15 @@ namespace L_Tests.Tests.Extensions
 
         private class TestInvalidMemberInfo : MemberInfo
             {
-            public override object[] GetCustomAttributes(bool inherit)
+            public override object[] GetCustomAttributes(bool Inherit)
                 {
                 return null;
                 }
-            public override bool IsDefined(Type attributeType, bool inherit)
+            public override bool IsDefined(Type AttributeType, bool Inherit)
                 {
                 return false;
                 }
-            public override object[] GetCustomAttributes(Type attributeType, bool inherit)
+            public override object[] GetCustomAttributes(Type AttributeType, bool Inherit)
                 {
                 return null;
                 }

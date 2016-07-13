@@ -38,10 +38,13 @@
 using System;
 
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
+// ReSharper disable CommentTypo
+// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
 
 namespace ICSharpCode.SharpZipLib.Zip.Compression
     {
-        internal class InflaterDynHeader
+    internal class InflaterDynHeader
         {
         #region Constants
 
@@ -60,6 +63,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
 
         #endregion
 
+        /// <exception cref="SharpZipBaseException"></exception>
         public bool Decode(StreamManipulator input)
             {
             decode_loop:
@@ -197,6 +201,74 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
                 }
             }
 
+        /// <exception cref="ArgumentNullException">
+        ///         <paramref>
+        ///             <name>sourceArray</name>
+        ///         </paramref>
+        ///     is null.-or-<paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///         <paramref>
+        ///             <name>sourceIndex</name>
+        ///         </paramref>
+        ///     is less than the lower bound of the first dimension of <paramref>
+        ///         <name>sourceArray</name>
+        ///     </paramref>
+        ///     .-or-<paramref>
+        ///         <name>destinationIndex</name>
+        ///     </paramref>
+        ///     is less than the lower bound of the first dimension of <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     .-or-<paramref>
+        ///         <name>length</name>
+        ///     </paramref>
+        ///     is less than zero.</exception>
+        /// <exception cref="ArgumentException">
+        ///         <paramref>
+        ///             <name>length</name>
+        ///         </paramref>
+        ///     is greater than the number of elements from <paramref>
+        ///         <name>sourceIndex</name>
+        ///     </paramref>
+        ///     to the end of <paramref>
+        ///         <name>sourceArray</name>
+        ///     </paramref>
+        ///     .-or-<paramref>
+        ///         <name>length</name>
+        ///     </paramref>
+        ///     is greater than the number of elements from <paramref>
+        ///         <name>destinationIndex</name>
+        ///     </paramref>
+        ///     to the end of <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     .</exception>
+        /// <exception cref="RankException">
+        ///         <paramref>
+        ///             <name>sourceArray</name>
+        ///         </paramref>
+        ///     and <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     have different ranks.</exception>
+        /// <exception cref="ArrayTypeMismatchException">
+        ///         <paramref>
+        ///             <name>sourceArray</name>
+        ///         </paramref>
+        ///     and <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     are of incompatible types.</exception>
+        /// <exception cref="InvalidCastException">At least one element in <paramref>
+        ///         <name>sourceArray</name>
+        ///     </paramref>
+        ///     cannot be cast to the type of <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     .</exception>
         public InflaterHuffmanTree BuildLitLenTree()
             {
             var litlenLens = new byte[this.lnum];
@@ -204,6 +276,74 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
             return new InflaterHuffmanTree(litlenLens);
             }
 
+        /// <exception cref="ArgumentNullException">
+        ///         <paramref>
+        ///             <name>sourceArray</name>
+        ///         </paramref>
+        ///     is null.-or-<paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///         <paramref>
+        ///             <name>sourceIndex</name>
+        ///         </paramref>
+        ///     is less than the lower bound of the first dimension of <paramref>
+        ///         <name>sourceArray</name>
+        ///     </paramref>
+        ///     .-or-<paramref>
+        ///         <name>destinationIndex</name>
+        ///     </paramref>
+        ///     is less than the lower bound of the first dimension of <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     .-or-<paramref>
+        ///         <name>length</name>
+        ///     </paramref>
+        ///     is less than zero.</exception>
+        /// <exception cref="ArgumentException">
+        ///         <paramref>
+        ///             <name>length</name>
+        ///         </paramref>
+        ///     is greater than the number of elements from <paramref>
+        ///         <name>sourceIndex</name>
+        ///     </paramref>
+        ///     to the end of <paramref>
+        ///         <name>sourceArray</name>
+        ///     </paramref>
+        ///     .-or-<paramref>
+        ///         <name>length</name>
+        ///     </paramref>
+        ///     is greater than the number of elements from <paramref>
+        ///         <name>destinationIndex</name>
+        ///     </paramref>
+        ///     to the end of <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     .</exception>
+        /// <exception cref="RankException">
+        ///         <paramref>
+        ///             <name>sourceArray</name>
+        ///         </paramref>
+        ///     and <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     have different ranks.</exception>
+        /// <exception cref="ArrayTypeMismatchException">
+        ///         <paramref>
+        ///             <name>sourceArray</name>
+        ///         </paramref>
+        ///     and <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     are of incompatible types.</exception>
+        /// <exception cref="InvalidCastException">At least one element in <paramref>
+        ///         <name>sourceArray</name>
+        ///     </paramref>
+        ///     cannot be cast to the type of <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     .</exception>
         public InflaterHuffmanTree BuildDistTree()
             {
             var distLens = new byte[this.dnum];

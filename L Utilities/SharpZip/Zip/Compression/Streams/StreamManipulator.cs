@@ -37,6 +37,8 @@
 // exception statement from your version.
 
 using System;
+// ReSharper disable InconsistentNaming
+// ReSharper disable CommentTypo
 
 namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
     {
@@ -168,6 +170,51 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
         /// <exception cref="InvalidOperationException">
         /// Bit buffer isnt byte aligned
         /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///         <paramref>
+        ///             <name>sourceArray</name>
+        ///         </paramref>
+        ///     is null.-or-<paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     is null.</exception>
+        /// <exception cref="ArgumentException">
+        ///         <paramref name="length" /> is greater than the number of elements from <paramref>
+        ///         <name>sourceIndex</name>
+        ///     </paramref>
+        ///     to the end of <paramref>
+        ///         <name>sourceArray</name>
+        ///     </paramref>
+        ///     .-or-<paramref name="length" /> is greater than the number of elements from <paramref>
+        ///         <name>destinationIndex</name>
+        ///     </paramref>
+        ///     to the end of <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     .</exception>
+        /// <exception cref="RankException">
+        ///         <paramref>
+        ///             <name>sourceArray</name>
+        ///         </paramref>
+        ///     and <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     have different ranks.</exception>
+        /// <exception cref="ArrayTypeMismatchException">
+        ///         <paramref>
+        ///             <name>sourceArray</name>
+        ///         </paramref>
+        ///     and <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     are of incompatible types.</exception>
+        /// <exception cref="InvalidCastException">At least one element in <paramref>
+        ///         <name>sourceArray</name>
+        ///     </paramref>
+        ///     cannot be cast to the type of <paramref>
+        ///         <name>destinationArray</name>
+        ///     </paramref>
+        ///     .</exception>
         public int CopyBytes(byte[] output, int offset, int length)
             {
             if (length < 0)
@@ -229,6 +276,9 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
         /// <param name="buffer">data to be input</param>
         /// <param name="offset">offset of first byte of input</param>
         /// <param name="count">number of bytes of input to add.</param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArgumentNullException"><paramref name="buffer"/> is <see langword="null" />.</exception>
+        /// <exception cref="InvalidOperationException">Old input was not completely processed</exception>
         public void SetInput(byte[] buffer, int offset, int count)
             {
             if (buffer == null)

@@ -14,6 +14,17 @@ namespace LCore.Tests
         /// Implement this method to execute the test.
         /// Make assertions here.
         /// </summary>
+        /// <exception cref="TargetException">Test target may throw an exception.</exception>
+        /// <exception cref="TargetInvocationException">Test target may throw an exception.</exception>
+        /// <exception cref="TargetParameterCountException">The <paramref>
+        ///         <name>parameters</name>
+        ///     </paramref>
+        ///     array does not have the correct number of arguments. </exception>
+        /// <exception cref="MethodAccessException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.MemberAccessException" />, instead.The caller does not have permission to execute the method or constructor that is represented by the current instance. </exception>
+        /// <exception cref="ArgumentException">The elements of the <paramref>
+        ///         <name>parameters</name>
+        ///     </paramref>
+        ///     array do not match the signature of the method or constructor reflected by this instance. </exception>
         public override void RunTest(MethodInfo Method)
             {
             Func<object, bool>[] Checks = this.AdditionalResultChecks.Convert(
@@ -21,9 +32,9 @@ namespace LCore.Tests
 
             //            Method.MethodAssertResult(Parameters, ExpectedResult, Checks);
 
-            var Info = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>)(method =>
-                method.Name == nameof(TestExt.MethodAssertResult) &&
-                method.ContainsGenericParameters));
+            var Info = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>)(MethodInfo =>
+                MethodInfo.Name == nameof(TestExt.MethodAssertResult) &&
+                MethodInfo.ContainsGenericParameters));
 
             Info = Info.MakeGenericMethod(this.ExpectedResult?.GetType() ?? Method.ReturnType);
 

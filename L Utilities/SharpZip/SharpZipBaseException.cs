@@ -37,6 +37,7 @@ using System;
 
 #if !NETCF_1_0 && !NETCF_2_0
 using System.Runtime.Serialization;
+// ReSharper disable InconsistentNaming
 #endif
 
 namespace ICSharpCode.SharpZipLib
@@ -86,7 +87,7 @@ namespace ICSharpCode.SharpZipLib
         /// </summary>
         /// <param name="message">A message describing the exception.</param>
         /// <param name="innerException">The inner exception</param>
-        protected SharpZipBaseException(string message, Exception innerException)
+        public SharpZipBaseException(string message, Exception innerException)
             : base(message, innerException)
             {
             }

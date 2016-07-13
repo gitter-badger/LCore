@@ -10,97 +10,97 @@ using Microsoft.Owin.Security;
 using SingularityInstance.Models;
 
 namespace SingularityInstance
-{
-    public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+    public class EmailService : IIdentityMessageService
         {
+        public Task SendAsync(IdentityMessage Message)
+            {
             // Plug in your email service here to send an email.
             return Task.FromResult(0);
+            }
         }
-    }
 
     public class SmsService : IIdentityMessageService
-    {
-        public Task SendAsync(IdentityMessage message)
         {
+        public Task SendAsync(IdentityMessage Message)
+            {
             // Plug in your SMS service here to send a text message.
             return Task.FromResult(0);
+            }
         }
-    }
 
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
     public class ApplicationUserManager : UserManager<ApplicationUser>
-    {
-        public ApplicationUserManager(IUserStore<ApplicationUser> store)
-            : base(store)
         {
-        }
-
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
-        {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
-            // Configure validation logic for usernames
-            manager.UserValidator = new UserValidator<ApplicationUser>(manager)
+        public ApplicationUserManager(IUserStore<ApplicationUser> Store)
+            : base(Store)
             {
+            }
+
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> Options, IOwinContext Context)
+            {
+            var Manager = new ApplicationUserManager(new UserStore<ApplicationUser>(Context.Get<ApplicationDbContext>()));
+            // Configure validation logic for usernames
+            Manager.UserValidator = new UserValidator<ApplicationUser>(Manager)
+                {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
-            };
+                };
 
             // Configure validation logic for passwords
-            manager.PasswordValidator = new PasswordValidator
-            {
+            Manager.PasswordValidator = new PasswordValidator
+                {
                 RequiredLength = 6,
                 RequireNonLetterOrDigit = true,
                 RequireDigit = true,
                 RequireLowercase = true,
                 RequireUppercase = true
-            };
+                };
 
             // Configure user lockout defaults
-            manager.UserLockoutEnabledByDefault = true;
-            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            manager.MaxFailedAccessAttemptsBeforeLockout = 5;
+            Manager.UserLockoutEnabledByDefault = true;
+            Manager.DefaultAccountLockoutTimeSpan = new TimeSpan(0, 5, 0);
+            Manager.MaxFailedAccessAttemptsBeforeLockout = 5;
 
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
             // You can write your own provider and plug it in here.
-            manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<ApplicationUser>
-            {
+            Manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<ApplicationUser>
+                {
                 MessageFormat = "Your security code is {0}"
-            });
-            manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser>
-            {
+                });
+            Manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser>
+                {
                 Subject = "Security Code",
                 BodyFormat = "Your security code is {0}"
-            });
-            manager.EmailService = new EmailService();
-            manager.SmsService = new SmsService();
-            var dataProtectionProvider = options.DataProtectionProvider;
-            if (dataProtectionProvider != null)
-            {
-                manager.UserTokenProvider = 
-                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+                });
+            Manager.EmailService = new EmailService();
+            Manager.SmsService = new SmsService();
+            var DataProtectionProvider = Options.DataProtectionProvider;
+            if (DataProtectionProvider != null)
+                {
+                Manager.UserTokenProvider =
+                    new DataProtectorTokenProvider<ApplicationUser>(DataProtectionProvider.Create("ASP.NET Identity"));
+                }
+            return Manager;
             }
-            return manager;
         }
-    }
 
     // Configure the application sign-in manager which is used in this application.
     public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
-    {
-        public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
-            : base(userManager, authenticationManager)
         {
-        }
+        public ApplicationSignInManager(ApplicationUserManager UserManager, IAuthenticationManager AuthenticationManager)
+            : base(UserManager, AuthenticationManager)
+            {
+            }
 
-        public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
-        {
-            return user.GenerateUserIdentityAsync((ApplicationUserManager) this.UserManager);
-        }
+        public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser User)
+            {
+            return User.GenerateUserIdentityAsync((ApplicationUserManager)this.UserManager);
+            }
 
-        public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
-        {
-            return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
+        public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> Options, IOwinContext Context)
+            {
+            return new ApplicationSignInManager(Context.GetUserManager<ApplicationUserManager>(), Context.Authentication);
+            }
         }
     }
-}

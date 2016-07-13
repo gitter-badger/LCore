@@ -122,7 +122,7 @@
         {
         <a href="@(Url.Controller<SavedSearchController>()
                     .QS(Controllers.SavedSearch.Actions.Route_CreateSavedSearch(Model, ViewContext))
-                    .Lambda<string>(c => c.Create))">
+                    .Lambda<string>(Controller => Controller.Create))">
             <div class="btn btn-default" title="Save Search">
                 <glyph>&#xe172;</glyph>
             </div>
@@ -153,7 +153,7 @@
                             <a class="saved-search btn btn-default"
                                href="@(Url.Controller<ManageController>()
                                 .QS(Controllers.SavedSearch.Actions.Route_ViewSavedSearch(Model, Search))
-                                .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage))">
+                                .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(Controller=> Controller.Manage))">
                                 <glyph>&#xe003;</glyph>
                                 <h4>@Search.Name</h4>
                             </a>
@@ -163,14 +163,14 @@
                                 <a class="email-saved-search btn btn-default"
                                    href="@(Url.Controller<EmailJobController>()
                                        .QS(new Dictionary<string, object> { {"SavedSearchID", Search.SavedSearchID} })
-                                       .Action(c => c.Create, Request.Url?.AbsoluteUri))">
+                                       .Action(Controller => Controller.Create, Request.Url?.AbsoluteUri))">
                                     <glyph>&#x2709;</glyph>
                                 </a>
                                 }
                             <a class="edit-saved-search btn btn-default"
                                href="@(Url.Controller<SavedSearchController>()
                                     .QS(Controllers.Manage.Actions.Route_Edit(Search, Request))
-                                    .Lambda<int, string, bool>(c => c.Edit))">
+                                    .Lambda<int, string, bool>(Controller => Controller.Edit))">
                                 <glyph>&#xe065;</glyph>
                             </a>
                         </div>

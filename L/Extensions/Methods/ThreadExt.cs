@@ -184,7 +184,11 @@ namespace LCore.Extensions
                 In();
                 Count++;
 
-                Elapsed = DateTime.Now.Subtract(Start).Milliseconds.Abs();
+                try
+                    {
+                    Elapsed = DateTime.Now.Subtract(Start).Milliseconds.Abs();
+                    }
+                catch (OverflowException) { /* never occurs - Milliseconds will never be int.MinValue. */ }
                 }
 
             return Count;

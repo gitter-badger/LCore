@@ -12,6 +12,8 @@ namespace L_Tests.Tests.Tools
     [TestClass]
     public class DateTimeConverterTest
         {
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(L.Test.Categories.Tools)]
         public void Test_DateTimeConverter()

@@ -12,21 +12,23 @@ namespace Singularity.Annotations
         void RenderPartial_Before(HtmlHelper Html, IViewField Model, params ControllerHelper.ViewType[] Type);
         void RenderPartial_After(HtmlHelper Html, IViewField Model, params ControllerHelper.ViewType[] Type);
 
+        // ReSharper disable UnusedParameter.Global
         bool IsActive(HtmlHelper Html, IViewField Model, params ControllerHelper.ViewType[] Type);
+        // ReSharper restore UnusedParameter.Global
         }
 
     public class FieldPartialBeforeAttribute : FieldPartialAttribute
         {
-        public FieldPartialBeforeAttribute(string PartialView_Before, params ControllerHelper.ViewType[] Type)
-            : base(PartialView_Before, null, Type)
+        public FieldPartialBeforeAttribute(string PartialViewBefore, params ControllerHelper.ViewType[] Type)
+            : base(PartialViewBefore, null, Type)
             {
             }
         }
 
     public class FieldPartialAfterAttribute : FieldPartialAttribute
         {
-        public FieldPartialAfterAttribute(string PartialView_After, params ControllerHelper.ViewType[] Type)
-            : base(null, PartialView_After, Type)
+        public FieldPartialAfterAttribute(string PartialViewAfter, params ControllerHelper.ViewType[] Type)
+            : base(null, PartialViewAfter, Type)
             {
             }
         }
@@ -53,11 +55,11 @@ namespace Singularity.Annotations
         public string PartialView_Before { get; }
         public string PartialView_After { get; }
 
-        public FieldPartialAttribute(string PartialView_Before, string PartialView_After, params ControllerHelper.ViewType[] Type)
+        public FieldPartialAttribute(string PartialViewBefore, string PartialViewAfter, params ControllerHelper.ViewType[] Type)
             : base(Type)
             {
-            this.PartialView_Before = PartialView_Before;
-            this.PartialView_After = PartialView_After;
+            this.PartialView_Before = PartialViewBefore;
+            this.PartialView_After = PartialViewAfter;
             }
         }
     }

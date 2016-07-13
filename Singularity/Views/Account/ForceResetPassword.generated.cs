@@ -39,7 +39,12 @@ namespace ASP
     using Singularity.Controllers;
     using Singularity.Extensions;
     using Singularity.Models;
+    
+    #line 2 "..\..\Views\Account\ForceResetPassword.cshtml"
     using Singularity.Routes;
+    
+    #line default
+    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Account/ForceResetPassword.cshtml")]
@@ -50,10 +55,12 @@ namespace ASP
         }
         public override void Execute()
         {
-WriteLiteral("\r\n\r\n");
+WriteLiteral("\r\n");
+
+WriteLiteral("\r\n");
 
             
-            #line 5 "..\..\Views\Account\ForceResetPassword.cshtml"
+            #line 6 "..\..\Views\Account\ForceResetPassword.cshtml"
   
     ViewBag.Title = "Reset password";
 
@@ -63,7 +70,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("\r\n\r\n<h2>");
 
             
-            #line 9 "..\..\Views\Account\ForceResetPassword.cshtml"
+            #line 10 "..\..\Views\Account\ForceResetPassword.cshtml"
 Write(ViewBag.Title);
 
             
@@ -72,23 +79,23 @@ Write(ViewBag.Title);
 WriteLiteral(".</h2>\r\n\r\n");
 
             
-            #line 11 "..\..\Views\Account\ForceResetPassword.cshtml"
+            #line 12 "..\..\Views\Account\ForceResetPassword.cshtml"
  using (Html.BeginForm(nameof(AccountController.ForceResetPassword), typeof(AccountController).CName(),
-                FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
     
             
             #line default
             #line hidden
             
-            #line 14 "..\..\Views\Account\ForceResetPassword.cshtml"
+            #line 15 "..\..\Views\Account\ForceResetPassword.cshtml"
 Write(Html.AntiForgeryToken());
 
             
             #line default
             #line hidden
             
-            #line 14 "..\..\Views\Account\ForceResetPassword.cshtml"
+            #line 15 "..\..\Views\Account\ForceResetPassword.cshtml"
                             
 
             
@@ -99,20 +106,20 @@ WriteLiteral("    <h4>Reset your password.</h4>\r\n");
 WriteLiteral("    <hr />\r\n");
 
             
-            #line 17 "..\..\Views\Account\ForceResetPassword.cshtml"
+            #line 18 "..\..\Views\Account\ForceResetPassword.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 17 "..\..\Views\Account\ForceResetPassword.cshtml"
+            #line 18 "..\..\Views\Account\ForceResetPassword.cshtml"
 Write(Html.ValidationSummary("", new { @class = "text-danger" }));
 
             
             #line default
             #line hidden
             
-            #line 17 "..\..\Views\Account\ForceResetPassword.cshtml"
+            #line 18 "..\..\Views\Account\ForceResetPassword.cshtml"
                                                                
 
     
@@ -120,15 +127,15 @@ Write(Html.ValidationSummary("", new { @class = "text-danger" }));
             #line default
             #line hidden
             
-            #line 19 "..\..\Views\Account\ForceResetPassword.cshtml"
-Write(Html.HiddenFor(m => m.Username));
+            #line 20 "..\..\Views\Account\ForceResetPassword.cshtml"
+Write(Html.HiddenFor(ViewModel => ViewModel.Username));
 
             
             #line default
             #line hidden
             
-            #line 19 "..\..\Views\Account\ForceResetPassword.cshtml"
-                                    
+            #line 20 "..\..\Views\Account\ForceResetPassword.cshtml"
+                                                    
 
             
             #line default
@@ -138,8 +145,8 @@ WriteLiteral("    <!--\r\n    <div class=\"form-group\">\r\n");
 WriteLiteral("        ");
 
             
-            #line 22 "..\..\Views\Account\ForceResetPassword.cshtml"
-   Write(Html.LabelFor(m => m.Username, new { @class = "col-md-2 control-label" }));
+            #line 23 "..\..\Views\Account\ForceResetPassword.cshtml"
+   Write(Html.LabelFor(ViewModel => ViewModel.Username, new { @class = "col-md-2 control-label" }));
 
             
             #line default
@@ -149,8 +156,8 @@ WriteLiteral("\r\n        <div class=\"col-md-10\">\r\n");
 WriteLiteral("            ");
 
             
-            #line 24 "..\..\Views\Account\ForceResetPassword.cshtml"
-       Write(Html.TextBoxFor(m => m.Username, new { @class = "form-control" }));
+            #line 25 "..\..\Views\Account\ForceResetPassword.cshtml"
+       Write(Html.TextBoxFor(ViewModel => ViewModel.Username, new { @class = "form-control" }));
 
             
             #line default
@@ -166,8 +173,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 29 "..\..\Views\Account\ForceResetPassword.cshtml"
-   Write(Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" }));
+            #line 30 "..\..\Views\Account\ForceResetPassword.cshtml"
+   Write(Html.LabelFor(ViewModel => ViewModel.Password, new { @class = "col-md-2 control-label" }));
 
             
             #line default
@@ -181,8 +188,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 31 "..\..\Views\Account\ForceResetPassword.cshtml"
-       Write(Html.PasswordFor(m => m.Password, new { @class = "form-control" }));
+            #line 32 "..\..\Views\Account\ForceResetPassword.cshtml"
+       Write(Html.PasswordFor(ViewModel => ViewModel.Password, new { @class = "form-control" }));
 
             
             #line default
@@ -198,8 +205,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 35 "..\..\Views\Account\ForceResetPassword.cshtml"
-   Write(Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" }));
+            #line 36 "..\..\Views\Account\ForceResetPassword.cshtml"
+   Write(Html.LabelFor(ViewModel => ViewModel.ConfirmPassword, new { @class = "col-md-2 control-label" }));
 
             
             #line default
@@ -213,8 +220,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 37 "..\..\Views\Account\ForceResetPassword.cshtml"
-       Write(Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" }));
+            #line 38 "..\..\Views\Account\ForceResetPassword.cshtml"
+       Write(Html.PasswordFor(ViewModel => ViewModel.ConfirmPassword, new { @class = "form-control" }));
 
             
             #line default
@@ -240,7 +247,7 @@ WriteLiteral(" value=\"Reset\"");
 WriteLiteral(" />\r\n        </div>\r\n    </div>\r\n");
 
             
-            #line 45 "..\..\Views\Account\ForceResetPassword.cshtml"
+            #line 46 "..\..\Views\Account\ForceResetPassword.cshtml"
     }
 
             
@@ -249,7 +256,7 @@ WriteLiteral(" />\r\n        </div>\r\n    </div>\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 47 "..\..\Views\Account\ForceResetPassword.cshtml"
+            #line 48 "..\..\Views\Account\ForceResetPassword.cshtml"
 Write(Html.Partial(PartialViews.PasswordRequirements));
 
             
@@ -264,7 +271,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 50 "..\..\Views\Account\ForceResetPassword.cshtml"
+            #line 51 "..\..\Views\Account\ForceResetPassword.cshtml"
 Write(Scripts.Render("~/bundles/jqueryval"));
 
             

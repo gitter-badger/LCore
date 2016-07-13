@@ -1,5 +1,5 @@
 ﻿@* Generator: MvcView *@
-@using System.Linq;
+
 @using LCore.Extensions;
 
 @{
@@ -7,7 +7,7 @@
 
     var Values = Enum.GetValues(EnumType);
 
-    IEnumerable<Enum> Enums = Values.Cast<Enum>();
+    IEnumerable<Enum> Enums = Values.List<Enum>();
 
 }
 
@@ -36,11 +36,11 @@
     }
 else
     {
-    List<SelectListItem> Items = Enums.Select(e => new SelectListItem
+    List<SelectListItem> Items = Enums.Select(Enum => new SelectListItem
         {
-        Text = e.GetFriendlyName(),
-        Value = e.ToString(),
-        Selected = (Model.PropertyData ?? "").ToString() == e.ToString()
+        Text = Enum.GetFriendlyName(),
+        Value = Enum.ToString(),
+        Selected = (Model.PropertyData ?? "").ToString() == Enum.ToString()
         }).ToList();
 
     Items.Sort((Func<SelectListItem, IComparable>

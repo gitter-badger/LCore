@@ -17,9 +17,9 @@ namespace Singularity.Extensions
 
         #region Glyph
 
-        public static MvcHtmlString Glyph(this HtmlHelper Html, Icon icon)
+        public static MvcHtmlString Glyph(this HtmlHelper Html, Icon Icon)
             {
-            return new MvcHtmlString($"<span class=\"glyphicon glyphicon-{StyleName(icon)}\"></span>");
+            return new MvcHtmlString($"<span class=\"glyphicon glyphicon-{StyleName(Icon)}\"></span>");
             }
 
         #endregion
@@ -38,7 +38,10 @@ namespace Singularity.Extensions
         #endregion
 
         #endregion
-        
+
+        #region Icons
+
+        // ReSharper disable InconsistentNaming
         public enum Icon
             {
             adjust,
@@ -301,5 +304,10 @@ namespace Singularity.Extensions
             zoom_in,
             zoom_out
             }
+
+        // ReSharper restore InconsistentNaming
+
+        #endregion
+
         }
     }

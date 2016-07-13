@@ -42,6 +42,8 @@ using System.Text.RegularExpressions;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable FieldCanBeMadeReadOnly.Local
+// ReSharper disable InconsistentNaming
+// ReSharper disable CommentTypo
 
 namespace ICSharpCode.SharpZipLib.Core
     {
@@ -100,6 +102,8 @@ namespace ICSharpCode.SharpZipLib.Core
         /// </summary>
         /// <param name="toTest">The filter expression to test.</param>
         /// <returns>True if the expression is valid, false otherwise.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="toTest"/> is <see langword="null" />.</exception>
+        /// <exception cref="InvalidCastException">The type of the source <see cref="T:System.Collections.ArrayList" /> cannot be cast automatically to the specified type. </exception>
         public static bool IsValidFilterExpression(string toTest)
             {
             if (toTest == null)
@@ -149,6 +153,13 @@ namespace ICSharpCode.SharpZipLib.Core
         /// </summary>
         /// <param name="original">The original string</param>
         /// <returns>Returns a <see cref="T:System.String[]"/> containing the individual filter elements.</returns>
+        /// <exception cref="ArgumentException">Missing terminating escape character</exception>
+        /// <exception cref="ArgumentNullException">
+        ///         <paramref>
+        ///             <name>type</name>
+        ///         </paramref>
+        ///     is null. </exception>
+        /// <exception cref="InvalidCastException">The type of the source <see cref="T:System.Collections.ArrayList" /> cannot be cast automatically to the specified type. </exception>
         public static string[] SplitQuoted(string original)
             {
             const char escape = '\\';
@@ -214,6 +225,15 @@ namespace ICSharpCode.SharpZipLib.Core
         /// </summary>
         /// <param name="name">The value to test.</param>
         /// <returns>True if the value is included, false otherwise.</returns>
+        /// <exception cref="ArgumentNullException">
+        ///         <paramref>
+        ///             <name>source</name>
+        ///         </paramref>
+        ///     is null.</exception>
+        /// <exception cref="InvalidCastException">An element in the sequence cannot be cast to type <paramref>
+        ///         <name>TResult</name>
+        ///     </paramref>
+        ///     .</exception>
         public bool IsIncluded(string name)
             {
             bool result = false;
@@ -236,17 +256,36 @@ namespace ICSharpCode.SharpZipLib.Core
         /// </summary>
         /// <param name="name">The value to test.</param>
         /// <returns>True if the value is excluded, false otherwise.</returns>
+        /// <exception cref="ArgumentNullException">
+        ///         <paramref>
+        ///             <name>source</name>
+        ///         </paramref>
+        ///     is null.</exception>
+        /// <exception cref="InvalidCastException">An element in the sequence cannot be cast to type <paramref>
+        ///         <name>TResult</name>
+        ///     </paramref>
+        ///     .</exception>
         public bool IsExcluded(string name)
             {
             return this.exclusions_.Cast<Regex>().Any(r => r.IsMatch(name));
             }
 
         #region IScanFilter Members
+
         /// <summary>
         /// Test a value to see if it matches the filter.
         /// </summary>
         /// <param name="name">The value to test.</param>
         /// <returns>True if the value matches, false otherwise.</returns>
+        /// <exception cref="ArgumentNullException">
+        ///         <paramref>
+        ///             <name>source</name>
+        ///         </paramref>
+        ///     is null.</exception>
+        /// <exception cref="InvalidCastException">An element in the sequence cannot be cast to type <paramref>
+        ///         <name>TResult</name>
+        ///     </paramref>
+        ///     .</exception>
         public bool IsMatch(string name)
             {
             return this.IsIncluded(name) && (this.IsExcluded(name) == false);

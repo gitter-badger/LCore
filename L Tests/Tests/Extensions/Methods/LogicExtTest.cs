@@ -16,6 +16,8 @@ namespace L_Tests.Tests.Extensions
         protected override Type[] TestType => new[] { typeof(LogicExt) };
 
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Cast_0()
@@ -41,6 +43,8 @@ namespace L_Tests.Tests.Extensions
             ActionFail.Cast<object, string>().ShouldFail(_TestString);
             }
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_Cast_1()

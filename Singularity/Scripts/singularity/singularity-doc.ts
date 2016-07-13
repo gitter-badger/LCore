@@ -14,9 +14,9 @@ singDocs.glyphIcon = '&#xe086;';
 
 singDocs.ignoreUnknown('ALL');
 
-singDocs.method('getDocs', SingularityGetDocs);
+singDocs.method('getDocs', singularityGetDocs);
 
-function SingularityGetDocs(funcName?: string, includeCode: boolean = false, includeDocumentation: boolean = true) {
+function singularityGetDocs(funcName?: string, includeCode: boolean = false, includeDocumentation: boolean = true) {
 
     sing.tests.resolveTests();
 
@@ -214,9 +214,9 @@ function SingularityGetDocs(funcName?: string, includeCode: boolean = false, inc
     return header + out;
 };
 
-singDocs.method('getMissing', SingularityGetMissing);
+singDocs.method('getMissing', singularityGetMissing);
 
-function SingularityGetMissing(funcName?: string) {
+function singularityGetMissing(funcName?: string) {
 
     sing.tests.resolveTests();
 
@@ -285,9 +285,9 @@ function SingularityGetMissing(funcName?: string) {
 
 };
 
-singDocs.method('getSummary', SingularityGetSummary);
+singDocs.method('getSummary', singularityGetSummary);
 
-function SingularityGetSummary(funcName: string = 'all', includeFunctions: boolean = true) {
+function singularityGetSummary(funcName: string = 'all', includeFunctions: boolean = true) {
 
     var out = sing.getDocs(funcName, false, false);
 
@@ -307,8 +307,8 @@ function SingularityGetSummary(funcName: string = 'all', includeFunctions: boole
             out += (`${ext.details.returnTypeName || ''} function(`).pad(20, Direction.r);
 
             out += `${(ext.details && ext.details.parameters) ? ext.details.parameters.collect((item, i) => {
-                var TypeNames = item.types.collect(a => a.name).join(', ');
-                return `${i > 0 ? ''.pad(50) : ''}[${TypeNames}] ${item.name}`;
+                var typeNames = item.types.collect(a => a.name).join(', ');
+                return `${i > 0 ? ''.pad(50) : ''}[${typeNames}] ${item.name}`;
             }).join(', \r\n') : ''}) ${ext.details && ext.details.parameters && ext.details.parameters.length > 1 ? `\r\n${''.pad(50)}` : ''}{ ... } `;
         });
     }

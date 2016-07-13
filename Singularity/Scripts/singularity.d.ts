@@ -16,10 +16,10 @@ declare class Singularity {
     totalExecutions: number;
     totalExecutionTime: number;
     topLevelMethod: boolean;
-    modules: Hash<SingularityModule>;
+    modules: IHash<SingularityModule>;
     addModule(mod: SingularityModule): SingularityModule;
-    methods: Hash<SingularityMethod>;
-    templates: Hash<string>;
+    methods: IHash<SingularityMethod>;
+    templates: IHash<string>;
     constants: {
         IncludeURLs: {
             Style: string;
@@ -122,8 +122,8 @@ declare class Singularity {
         toString(obj: any): any;
     };
     autoDefaults: SingularityAutoDefinition;
-    types: Hash<SingularityType>;
-    addType(name: string, addType: SingularityType): void;
+    types: IHash<ISingularityType>;
+    addType(name: string, addType: ISingularityType): void;
     defaultSettings: {
         requiredDocumentation: boolean;
         requiredGlyphIcons: boolean;
@@ -132,12 +132,12 @@ declare class Singularity {
     };
     init(): void;
     ready(): void;
-    getType: (protoType: any) => SingularityType;
+    getType: (protoType: any) => ISingularityType;
     getTypeName(protoType: any | any[]): any;
     getTemplateName(protoType: any): string;
-    globalResolve: Hash<any>;
+    globalResolve: IHash<any>;
     resolve: (key: string, data?: any, context?: Object, rootKey?: string) => any;
-    loadContext: (context: Hash<any>) => Hash<any>;
+    loadContext: (context: IHash<any>) => IHash<any>;
     loadTemplate: (url: string, callback: (ms: number) => void) => void;
     initTemplates: () => void;
     totalCodeLines: () => number;
@@ -147,7 +147,7 @@ declare class Singularity {
     getDocs: (funcName?: string, includeCode?: boolean, includeDocumentation?: boolean) => string;
     getSummary: (funcName?: string, includeFunctions?: boolean) => string;
     getMissing: (funcName?: string) => string;
-    BBCodes: BBCode[];
+    bbCodes: IBBCode[];
 }
 declare class SingularityModule {
     name: string;
@@ -158,15 +158,15 @@ declare class SingularityModule {
     glyphIcon: string;
     srcLink: string;
     version: number;
-    features: SingularityFeature[];
-    resources: Hash<string>;
+    features: ISingularityFeature[];
+    resources: IHash<string>;
     parentModule: SingularityModule;
     subModules: SingularityModule[];
     methods: SingularityMethod[];
-    properties: SingularityParameter[];
+    properties: ISingularityParameter[];
     trackObjects: any[];
     ignoreUnknownMembers: string[];
-    jsFiddleLinks: Hash<String>;
+    jsFiddleLinks: IHash<String>;
     addModule(mod: SingularityModule): SingularityModule;
     rootModule: () => SingularityModule;
     totalMethods(): number;
@@ -185,7 +185,7 @@ declare class SingularityModule {
     uninitializedMethods: {
         extName: string;
         method?: Function;
-        details?: SingularityMethodDetails;
+        details?: ISingularityMethodDetails;
         extendPrototype: any;
         prefix: string;
     }[];
@@ -196,8 +196,8 @@ declare class SingularityModule {
     requiredDocumentation: boolean;
     requiredGlyphIcons: boolean;
     requiredUnitTests: boolean;
-    method(extName: string, method?: Function, details?: SingularityMethodDetails, extendPrototype?: any, prefix?: string): void;
-    property(name: string, param?: SingularityParameter): void;
+    method(extName: string, method?: Function, details?: ISingularityMethodDetails, extendPrototype?: any, prefix?: string): void;
+    property(name: string, param?: ISingularityParameter): void;
     ignore: (...items: string[]) => void;
     ignoreUnknown(...items: string[]): void;
     init(): void;
@@ -206,7 +206,7 @@ declare class SingularityModule {
     constructor(name: string, objectClass: any | any[], objectPrototype?: any);
 }
 declare class SingularityMethod {
-    details: SingularityMethodDetails;
+    details: ISingularityMethodDetails;
     isAlias: boolean;
     shortName: string;
     name: string;
@@ -218,7 +218,7 @@ declare class SingularityMethod {
     prefix: string;
     method: Function;
     methodOriginal: Function;
-    data: Hash<any>;
+    data: IHash<any>;
     methodModule: SingularityModule;
     auto: SingularityAutoDefinition;
     toString(): string;
@@ -227,7 +227,7 @@ declare class SingularityMethod {
     documentationComplete(): boolean;
     documentationPresent(): number;
     documentationTotal(): number;
-    constructor(methodModule: SingularityModule, details?: SingularityMethodDetails, target?: any, moduleName?: string, name?: string, method?: Function, prefix?: string);
+    constructor(methodModule: SingularityModule, details?: ISingularityMethodDetails, target?: any, moduleName?: string, name?: string, method?: Function, prefix?: string);
     private loadAutoIgnoreErrors(ext, methods);
     private loadAutoLogErrors(ext, methods);
     private loadAutoLogExecution(ext, methods);
@@ -245,7 +245,7 @@ declare class SingularityMethod {
     addCustomTest: (testFunc: () => any, requirement?: string) => void;
     addFailsTest: (caller: any, args: any[], expectedError?: string, requirement?: string) => void;
 }
-interface SingularityMethodDetails {
+interface ISingularityMethodDetails {
     summary?: string;
     glyphIcon?: string;
     returns?: string;
@@ -256,15 +256,15 @@ interface SingularityMethodDetails {
     override?: boolean;
     auto?: SingularityAutoDefinition;
     validateInput?: boolean;
-    parameters?: SingularityParameter[];
-    features?: SingularityFeature[];
+    parameters?: ISingularityParameter[];
+    features?: ISingularityFeature[];
     manuallyTested?: boolean;
     manuallyTestedVersion?: number;
     tests?: (ext: SingularityMethod) => void;
     unitTests?: SingularityTest[];
-    jsFiddleLinks?: Hash<String>;
+    jsFiddleLinks?: IHash<String>;
 }
-interface SingularityParameter {
+interface ISingularityParameter {
     name?: string;
     defaultValue?: any;
     required?: boolean;
@@ -273,7 +273,7 @@ interface SingularityParameter {
     glyphIcon?: string;
     description?: string;
 }
-interface SingularityType {
+interface ISingularityType {
     name: string;
     typeClass: any;
     protoType: any;
@@ -282,7 +282,7 @@ interface SingularityType {
     templateName?: string;
     autoDefault: SingularityAutoDefinition;
 }
-interface SingularityFeature {
+interface ISingularityFeature {
     name: string;
     description?: string;
     tests?: (ext?: SingularityMethod) => void;
@@ -305,24 +305,24 @@ declare class SingularityAutoDefinition {
 }
 declare var sing: Singularity;
 declare var singRoot: SingularityModule;
-declare function SingularityTotalCodeLines(): number;
-declare function SingularityLoadContext(context: Hash<any>): Object;
-declare function SingularityResolve(key: string, data?: any, context?: Hash<any>, rootKey?: string): any;
+declare function singularityTotalCodeLines(): number;
+declare function singularityLoadContext(context: IHash<any>): Object;
+declare function singularityResolve(key: string, data?: any, context?: IHash<any>, rootKey?: string): any;
 declare var singCore: SingularityModule;
 declare var singModule: SingularityModule;
-declare function ModuleTotalCodeLines(): number;
-declare function ModuleGetMethods(extName?: string): SingularityMethod[];
-declare function ModuleGetUnknownProperties(): string[];
-declare function ModuleGetUnknownMethods(): string[];
+declare function moduleTotalCodeLines(): number;
+declare function moduleGetMethods(extName?: string): SingularityMethod[];
+declare function moduleGetUnknownProperties(): string[];
+declare function moduleGetUnknownMethods(): string[];
 declare var singMethod: SingularityModule;
 declare var singExt: SingularityModule;
-interface HashObject {
+interface IHashObject {
     [index: string]: any;
 }
-interface Hash<T> {
+interface IHash<T> {
     [index: string]: T;
 }
-interface IndexHash<U> {
+interface IIndexHash<U> {
     [index: number]: U;
 }
 interface INamed {
@@ -342,7 +342,7 @@ declare class Direction {
     static r: string;
     static c: string;
 }
-declare function FindMate(key: string, index: number): number;
+declare function findMate(key: string, index: number): number;
 declare function insertAtCaret(areaId: string, text: string): void;
 interface Array<T> {
     each?: (action: (item?: T, index?: number) => void) => void;
@@ -375,35 +375,35 @@ interface Number {
     timesDo?: (executeFunc: () => void, args?: any[], caller?: any) => any[];
 }
 declare var singEnumerable: SingularityModule;
-declare function EnumerableEach<T>(action: (item: T, i: number) => void): void;
-declare function EnumerableWhile<T>(action: (item: T, index: number) => any): boolean;
-declare function EnumerableUntil<T>(action: (item: T, index: number) => any): boolean;
-declare function EnumerableCount<T>(itemOrAction: T | ((item: T, index: number) => any)): number;
-declare function EnumerableHas<T>(...items: T[]): any;
-declare function EnumerableSelect<T>(filter: (item: T, index: number) => boolean): T[];
-declare function EnumerableCollect<T>(collector: (item: T, index: number) => any): T[];
-declare function EnumerableFirst<T>(countOrCondition: number | ((item: T, index: number) => boolean)): T | T[];
-declare function EnumerableLast<T>(countOrCondition: number | ((item: T, index: number) => boolean)): T | T[];
-declare function EnumerableRange<T>(start?: number, end?: number): T[];
-declare function EnumerableFlatten(): any[];
-declare function EnumerableIndices<T>(...items: any[]): number[];
-declare function EnumerableRemove<T>(itemOrItemsOrFunction: T | T[] | ((item: T, index: number) => boolean)): T[];
-declare function EnumerableSortBy<T>(arg?: string | string[] | ((item: T) => any)): T[];
-declare function EnumerableQuickSort(sortWith?: any[][], left?: number, right?: number): any[] | QuickSortResult;
-interface QuickSortResult {
+declare function enumerableEach<T>(action: (item: T, i: number) => void): void;
+declare function enumerableWhile<T>(action: (item: T, index: number) => any): boolean;
+declare function enumerableUntil<T>(action: (item: T, index: number) => any): boolean;
+declare function enumerableCount<T>(itemOrAction: T | ((item: T, index: number) => any)): number;
+declare function enumerableHas<T>(...items: T[]): any;
+declare function enumerableSelect<T>(filter: (item: T, index: number) => boolean): T[];
+declare function enumerableCollect<T>(collector: (item: T, index: number) => any): T[];
+declare function enumerableFirst<T>(countOrCondition: number | ((item: T, index: number) => boolean)): T | T[];
+declare function enumerableLast<T>(countOrCondition: number | ((item: T, index: number) => boolean)): T | T[];
+declare function enumerableRange<T>(start?: number, end?: number): T[];
+declare function enumerableFlatten(): any[];
+declare function enumerableIndices<T>(...items: any[]): number[];
+declare function enumerableRemove<T>(itemOrItemsOrFunction: T | T[] | ((item: T, index: number) => boolean)): T[];
+declare function enumerableSortBy<T>(arg?: string | string[] | ((item: T) => any)): T[];
+declare function enumerableQuickSort(sortWith?: any[][], left?: number, right?: number): any[] | IQuickSortResult;
+interface IQuickSortResult {
     items: any[];
     sortWith: any[][];
 }
-declare function EnumerableQuickSortPartition(items: any[], left?: number, right?: number, sortWith?: any[][]): {
+declare function enumerableQuickSortPartition(items: any[], left?: number, right?: number, sortWith?: any[][]): {
     items: any[];
     sortWith: any[][];
     index: number;
 };
-declare function EnumerableQuickSortSwap(items: any[], firstIndex: number, secondIndex: number, sortWith?: any[][]): {
+declare function enumerableQuickSortSwap(items: any[], firstIndex: number, secondIndex: number, sortWith?: any[][]): {
     items: any[];
     sortWith: any[][];
 };
-declare function EnumerableTimesDo(executeFunc: (...args: any[]) => any, args: any[], caller: any): any[];
+declare function enumerableTimesDo(executeFunc: (...args: any[]) => any, args: any[], caller: any): any[];
 interface Array<T> {
     log?: () => void;
 }
@@ -416,25 +416,25 @@ interface String {
 interface Boolean {
     log?: () => void;
 }
-declare var LOGGING_INFO_ENABLED: boolean;
-declare var LOGGING_ERROR_ENABLED: boolean;
-declare var LOGGING_WARNING_ENABLED: boolean;
+declare var loggingInfoEnabled: boolean;
+declare var loggingErrorEnabled: boolean;
+declare var loggingWarningEnabled: boolean;
 declare var singLog: SingularityModule;
 declare function log(...message: any[]): void;
-declare function ArrayLog(): void;
-declare function NumberLog(): void;
-declare function StringLog(): void;
-declare function BooleanLog(): void;
+declare function arrayLog(): void;
+declare function numberLog(): void;
+declare function stringLog(): void;
+declare function booleanLog(): void;
 declare function warn(...message: any[]): void;
-declare function ArrayWarn(): void;
-declare function NumberWarn(): void;
-declare function StringWarn(): void;
-declare function BooleanWarn(): void;
+declare function arrayWarn(): void;
+declare function numberWarn(): void;
+declare function stringWarn(): void;
+declare function booleanWarn(): void;
 declare function error(...message: any[]): void;
-declare function ArrayError(): void;
-declare function NumberError(): void;
-declare function StringError(): void;
-declare function BooleanError(): void;
+declare function arrayError(): void;
+declare function numberError(): void;
+declare function stringError(): void;
+declare function booleanError(): void;
 interface String {
     pad?: (length: number, align?: Direction) => string;
     lower?: () => string;
@@ -473,75 +473,75 @@ interface JQueryStatic {
     toStr?: (obj: any, includeMarkup?: boolean, stack?: any[]) => string;
 }
 declare var singString: SingularityModule;
-declare function StringContains(str?: string): boolean;
-declare var StringReplaceAll_ErrorReplacementContinsSearch: string;
-declare function StringReplaceAll(searchOrSearches: string | string[], replaceOrReplacements: string | string[]): any;
-declare function StringRemoveAll(stringOrStrings: string | string[]): any;
-declare function StringUpper(): any;
-declare function StringLower(): any;
-declare function StringCollapseSpaces(): any;
-declare function StringStartsWith(stringOrStrings: string | string[]): boolean;
-declare function StringEndsWith(stringOrStrings: string | string[]): boolean;
-declare function StringReverse(): string;
-declare function StringRepeat(times?: number, separator?: string): string;
-declare function StringWords(): any;
-declare function StringLines(): any;
-declare function StringSurround(str: string): any;
-declare function StringTruncate(length: number): string;
-declare function StringIsValidEmail(): boolean;
-declare function StringIsHex(): boolean;
-declare function StringIsValidURL(): boolean;
-declare function StringIsIPAddress(): boolean;
-declare function StringIsGuid(): boolean;
-declare function StringTryToNumber(defaultValue?: any): any;
-declare function StringJoinLines(asHTML?: boolean): any;
-declare function StringPad(length: number, align?: Direction, whitespace?: string): any;
-declare function BooleanToStr(includeMarkup?: boolean): string;
-declare function ObjectToStr(obj: any, includeMarkup?: boolean, stack?: any[]): any;
-declare function ArrayToStr(includeMarkup?: boolean): string;
-declare function StringToStr(includeMarkup?: boolean): any;
-declare function IsString(str?: any): boolean;
-declare function StringFirst(count: number): any;
-declare function StringLast(count: number): any;
-declare function StringContainsAny(...items: string[]): boolean;
-declare function StringBefore(search: string): any;
-declare function StringAfter(search: string): any;
-declare function StringBeforeLast(search: string): any;
-declare function StringAfterFirst(search: string): any;
-declare function StringToSlug(): string;
-declare function StringContainsAll(...items: string[]): boolean;
-declare function StringPluralize(count: number): string;
-declare function StringIsJSON(): boolean;
-declare function StringParseJSON(): Object;
-declare function StringFill(fillWith: string): any;
-declare function Test(): string;
-interface TimePickerOptions {
+declare function stringContains(str?: string): boolean;
+declare var stringReplaceAllErrorReplacementContinsSearch: string;
+declare function stringReplaceAll(searchOrSearches: string | string[], replaceOrReplacements: string | string[]): any;
+declare function stringRemoveAll(stringOrStrings: string | string[]): any;
+declare function stringUpper(): any;
+declare function stringLower(): any;
+declare function stringCollapseSpaces(): any;
+declare function stringStartsWith(stringOrStrings: string | string[]): boolean;
+declare function stringEndsWith(stringOrStrings: string | string[]): boolean;
+declare function stringReverse(): string;
+declare function stringRepeat(times?: number, separator?: string): string;
+declare function stringWords(): any;
+declare function stringLines(): any;
+declare function stringSurround(str: string): any;
+declare function stringTruncate(length: number): string;
+declare function stringIsValidEmail(): boolean;
+declare function stringIsHex(): boolean;
+declare function stringIsValidUrl(): boolean;
+declare function stringIsIpAddress(): boolean;
+declare function stringIsGuid(): boolean;
+declare function stringTryToNumber(defaultValue?: any): any;
+declare function stringJoinLines(asHTML?: boolean): any;
+declare function stringPad(length: number, align?: Direction, whitespace?: string): any;
+declare function booleanToStr(includeMarkup?: boolean): string;
+declare function objectToStr(obj: any, includeMarkup?: boolean, stack?: any[]): any;
+declare function arrayToStr(includeMarkup?: boolean): string;
+declare function stringToStr(includeMarkup?: boolean): any;
+declare function isString(str?: any): boolean;
+declare function stringFirst(count: number): any;
+declare function stringLast(count: number): any;
+declare function stringContainsAny(...items: string[]): boolean;
+declare function stringBefore(search: string): any;
+declare function stringAfter(search: string): any;
+declare function stringBeforeLast(search: string): any;
+declare function stringAfterFirst(search: string): any;
+declare function stringToSlug(): string;
+declare function stringContainsAll(...items: string[]): boolean;
+declare function stringPluralize(count: number): string;
+declare function stringIsJson(): boolean;
+declare function stringParseJson(): Object;
+declare function stringFill(fillWith: string): any;
+declare function test(): string;
+interface ITimePickerOptions {
     step?: number;
 }
 interface String {
     textToHTML?: () => string;
 }
 declare var singHTML: SingularityModule;
-declare function StringTextToHTML(): string;
-declare function StringStripHTML(): string;
-declare function GetAttributes(): IKeyValue<string, string>[] | IKeyValue<string, string>[][];
-declare function InitHTMLExtensions(): void;
+declare function stringTextToHTML(): string;
+declare function stringStripHTML(): string;
+declare function getAttributes(): IKeyValue<string, string>[] | IKeyValue<string, string>[][];
+declare function initHTMLExtensions(): void;
 declare var Identicon: any;
-declare var jsSHA: any;
-declare function InitIdent(): void;
-declare function InitHoverSrc(): void;
-declare function PropertyIf(propertyName: string, changeTrue?: (propertyTarget: JQuery) => void, changeFalse?: (propertyTarget: JQuery) => void): void;
-declare function InitPropertyIf(): void;
-declare function InitClickActions(): void;
-declare function InitRememberPage(): void;
-declare var keyCodeToChar: IndexHash<string>;
-declare var keyCharToCode: Hash<number>;
+declare var jsSha: any;
+declare function initIdent(): void;
+declare function initHoverSrc(): void;
+declare function propertyIf(propertyName: string, changeTrue?: (propertyTarget: JQuery) => void, changeFalse?: (propertyTarget: JQuery) => void): void;
+declare function initPropertyIf(): void;
+declare function initClickActions(): void;
+declare function initRememberPage(): void;
+declare var keyCodeToChar: IIndexHash<string>;
+declare var keyCharToCode: IHash<number>;
 declare var wysihtml5Editor: any;
-declare function InitKeyBindClick(): void;
-declare function InitFields(): void;
-declare function RandomFields(): void;
-declare function ObjectToHtml(obj: any, parentKey?: string, context?: any): string;
-declare function HtmlToObject(html: string): string;
+declare function initKeyBindClick(): void;
+declare function initFields(): void;
+declare function randomFields(): void;
+declare function objectToHtml(obj: any, parentKey?: string, context?: any): string;
+declare function htmlToObject(html: string): string;
 declare var testStructure: {
     html: {
         head: {
@@ -607,7 +607,7 @@ declare var testStructure: {
 };
 interface JQueryStatic {
     isString?: (obj: any) => boolean;
-    Defer?: (deferFunc: Function) => void;
+    defer?: (deferFunc: Function) => void;
 }
 interface JQuery {
     selectmenu(): JQuery;
@@ -626,19 +626,19 @@ interface JQuery {
     superFadeOut?: (speed?: string | number) => JQuery;
 }
 declare var singJQuery: SingularityModule;
-declare function Checked(): boolean;
-declare function AllVisible(): boolean;
-declare function FindIDNameSelector(name: string): JQuery;
-declare function ActionIf(name: string): boolean;
-declare function Defer(deferFunc: Function): void;
-declare function JQueryHasAttr(name: string): boolean;
-declare function JQueryOuterHtml(): string;
-declare function JQueryInnerHtml(): string;
-declare function JQueryIsOnScreen(x?: number, y?: number): boolean;
-declare function JQuerySwapClass(class1: string, class2: string): JQuery;
-declare function JQueryFadeClass(class1: string, class2: string, speed?: string | number, callback?: Function): JQuery;
-declare function JQuerySuperFadeOut(speed?: string | number): JQuery;
-declare function JQuerySuperFadeIn(speed?: string | number): JQuery;
+declare function checked(): boolean;
+declare function allVisible(): boolean;
+declare function findIDNameSelector(name: string): JQuery;
+declare function actionIf(name: string): boolean;
+declare function defer(deferFunc: Function): void;
+declare function jQueryHasAttr(name: string): boolean;
+declare function jQueryOuterHtml(): string;
+declare function jQueryInnerHtml(): string;
+declare function jQueryIsOnScreen(x?: number, y?: number): boolean;
+declare function jQuerySwapClass(class1: string, class2: string): JQuery;
+declare function jQueryFadeClass(class1: string, class2: string, speed?: string | number, callback?: Function): JQuery;
+declare function jQuerySuperFadeOut(speed?: string | number): JQuery;
+declare function jQuerySuperFadeIn(speed?: string | number): JQuery;
 interface String {
     templateInject?: (obj: Object, _context?: Object) => string;
     templateExtract?: (template: string) => Object;
@@ -657,21 +657,21 @@ interface ITemplateContext {
     data: any;
 }
 declare var singTemplates: SingularityModule;
-declare function StringTemplateInject(obj: Object, _context?: Hash<any>): string;
-declare function StringTemplateExtract(template: string): any;
-declare function ObjectGetTemplate(name: string, data?: Object): JQuery;
-declare function ObjectGetTemplateFor(): void;
+declare function stringTemplateInject(obj: Object, _context?: IHash<any>): string;
+declare function stringTemplateExtract(template: string): any;
+declare function objectGetTemplate(name: string, data?: Object): JQuery;
+declare function objectGetTemplateFor(): void;
 declare var deferred: number;
 declare var deferredDone: number;
-declare function JQueryFillTemplate(data: any, _context?: Hash<any>, forceFill?: boolean): void;
-declare function JQueryPerformSingIf(data?: any, _context?: Hash<any>): boolean;
-declare function JQueryPerformSingFill(data?: any, _context?: Hash<any>, forceFill?: boolean, fillInside?: boolean): JQuery;
-declare function JQueryPerformSingLoop(data: any, _context?: Hash<any>, forceFill?: boolean, fillInside?: boolean): void;
-declare function JQueryTemplateError(ex: any, target: JQuery, data: any, _context: any): void;
-declare function HtmlTraverse(target: HTMLElement, action: (target: HTMLElement, root: HTMLElement) => void, root?: HTMLElement): void;
-declare function JQueryTraverse(target: JQuery, action: (target: any, root: JQuery) => void, root?: JQuery): void;
-declare function JQueryTraverseReplace(target: JQuery, action: (target: any, root: JQuery) => string, root?: JQuery): void;
-declare function FillTemplateTraverse(target: JQuery, root: JQuery, data?: any, _context?: Hash<any>): void;
+declare function jQueryFillTemplate(data: any, _context?: IHash<any>, forceFill?: boolean): void;
+declare function jQueryPerformSingIf(data?: any, _context?: IHash<any>): boolean;
+declare function jQueryPerformSingFill(data?: any, _context?: IHash<any>, forceFill?: boolean, fillInside?: boolean): JQuery;
+declare function jQueryPerformSingLoop(data: any, _context?: IHash<any>, forceFill?: boolean, fillInside?: boolean): void;
+declare function jQueryTemplateError(ex: any, target: JQuery, data: any, _context: any): void;
+declare function htmlTraverse(target: HTMLElement, action: (target: HTMLElement, root: HTMLElement) => void, root?: HTMLElement): void;
+declare function jQueryTraverse(target: JQuery, action: (target: any, root: JQuery) => void, root?: JQuery): void;
+declare function jQueryTraverseReplace(target: JQuery, action: (target: any, root: JQuery) => string, root?: JQuery): void;
+declare function fillTemplateTraverse(target: JQuery, root: JQuery, data?: any, _context?: IHash<any>): void;
 interface String {
     replaceRegExp?: (pattern: RegExp, replace?: RegExp) => string;
     hasMatch?: (pattern: RegExp) => boolean;
@@ -679,15 +679,15 @@ interface String {
     escapeRegExp?: () => string;
 }
 declare var singRegExp: SingularityModule;
-declare function StringMatchCount(pattern: string): any;
-declare function StringHasMatch(pattern: string): boolean;
-declare function StringReplaceRegExp(pattern: RegExp, replace?: RegExp): string;
-declare function StringEscapeRegExp(): string;
+declare function stringMatchCount(pattern: string): any;
+declare function stringHasMatch(pattern: string): boolean;
+declare function stringReplaceRegExp(pattern: RegExp, replace?: RegExp): string;
+declare function stringEscapeRegExp(): string;
 interface String {
     bbCodesToHTML?: () => string;
     bbCodesToText?: () => string;
 }
-interface BBCode {
+interface IBBCode {
     name: string;
     tag: string;
     matchStr: RegExp;
@@ -696,21 +696,21 @@ interface BBCode {
     test: string;
 }
 declare var singBBCode: SingularityModule;
-declare function StringBBCodesToHTML(): string;
-declare function StringBBCodesToText(): string;
+declare function stringBBCodesToHTML(): string;
+declare function stringBBCodesToText(): string;
 interface ISingularityDocs {
     getDocs?: (funcName?: string, includeCode?: boolean, includeDocumentation?: boolean) => string;
     getSummary?: (funcName?: string, includeFunctions?: boolean) => string;
     getMissing?: (funcName?: string) => string;
 }
 declare var singDocs: SingularityModule;
-declare function SingularityGetDocs(funcName?: string, includeCode?: boolean, includeDocumentation?: boolean): string;
-declare function SingularityGetMissing(funcName?: string): string;
-declare function SingularityGetSummary(funcName?: string, includeFunctions?: boolean): string;
+declare function singularityGetDocs(funcName?: string, includeCode?: boolean, includeDocumentation?: boolean): string;
+declare function singularityGetMissing(funcName?: string): string;
+declare function singularityGetSummary(funcName?: string, includeFunctions?: boolean): string;
 interface JQueryStatic {
-    objEach<T>(objHash: Hash<T>, eachFunc: (key: string, item: T, i: number) => any): any[];
+    objEach<T>(objHash: IHash<T>, eachFunc: (key: string, item: T, i: number) => any): any[];
     objEach(obj: any, eachFunc: (key: string, item: any, i: number) => any): any[];
-    objProperties<T>(objHash?: Hash<T>): [{
+    objProperties<T>(objHash?: IHash<T>): [{
         key: string;
         value: T;
     }];
@@ -718,7 +718,7 @@ interface JQueryStatic {
         key: string;
         value: any;
     }];
-    objValues<T>(objHash?: Hash<T>): T[];
+    objValues<T>(objHash?: IHash<T>): T[];
     objValues(obj?: any): any[];
     objKeys?: (obj?: any) => string[];
     objHasKey?: (obj: Object, key: string) => boolean;
@@ -748,26 +748,26 @@ interface Date {
     clone?: () => Date;
 }
 declare var singObject: SingularityModule;
-declare function ObjectEach(obj: Hash<any>, eachFunc: (key: string, item: any, index: number) => void): void;
-declare function ObjectProperties(obj?: Hash<any>): {
+declare function objectEach(obj: IHash<any>, eachFunc: (key: string, item: any, index: number) => void): void;
+declare function objectProperties(obj?: IHash<any>): {
     key: string;
     value: any;
 }[];
-declare function ObjectValues(obj?: Hash<any> | any[], findKeys?: string[]): any[];
-declare function ArrayFindValues<T>(...names: string[]): any[];
-declare function ObjectKeys(obj?: Object): string[];
-declare function ObjectHasKey(obj: any, key: string): boolean;
-declare function ObjectResolve(obj: any, args: any[]): any;
-declare function ObjectDefined(obj?: any): boolean;
-declare function ObjectIsHash(obj?: any): boolean;
-declare function ArrayClone<T>(deepClone?: boolean): any[];
-declare function NumberClone(): any;
-declare function BooleanClone(): any;
-declare function StringClone(): any;
-declare function DateClone(): Date;
-declare function ObjectClone(obj: any, deepClone?: boolean): any;
-declare function ObjectIsEmpty(obj?: any): boolean;
-declare function ObjectTypeName(obj?: any): any;
+declare function objectValues(obj?: IHash<any> | any[], findKeys?: string[]): any[];
+declare function arrayFindValues<T>(...names: string[]): any[];
+declare function objectKeys(obj?: Object): string[];
+declare function objectHasKey(obj: any, key: string): boolean;
+declare function objectResolve(obj: any, args: any[]): any;
+declare function objectDefined(obj?: any): boolean;
+declare function objectIsHash(obj?: any): boolean;
+declare function arrayClone<T>(deepClone?: boolean): any[];
+declare function numberClone(): any;
+declare function booleanClone(): any;
+declare function stringClone(): any;
+declare function dateClone(): Date;
+declare function objectClone(obj: any, deepClone?: boolean): any;
+declare function objectIsEmpty(obj?: any): boolean;
+declare function objectTypeName(obj?: any): any;
 declare class SingularityTests {
     testErrors: string[];
     addTest: (name: string, testFunc: () => any, requirement?: string) => void;
@@ -790,17 +790,17 @@ declare class SingularityTest {
     constructor(name: string, tempFunc: Function, index: number, requirement?: string);
 }
 declare var singTests: SingularityModule;
-declare function SingularityAddTest(name: string, testFunc: () => any, requirement?: string): void;
-declare function SingularityAddCustomTest(name: string, testFunc: Function, requirement?: string): void;
-declare function SingularityAddMethodTest(ext: SingularityMethod, target?: any, args?: any[], compare?: any, requirement?: string): void;
-declare function SingularityAddAssertTest(name: string, result: any, compare: any, requirement?: string): void;
-declare function SingularityAddFailsTest(ext: SingularityMethod, target: any, args: any[], expectedError?: string, requirement?: string): void;
-declare function SingularityRunTests(display?: boolean): string;
-declare function SingularityListTests(): string;
-declare function SingularityListMissingTests(): string;
-declare function MethodAddFailsTest(caller: any, args: any[], expectedError?: string, requirement?: string): void;
-declare function MethodAddCustomTest(testFunc: () => any, requirement?: string): void;
-declare function MethodAddSimpleTest(caller: any, args: any[], result?: any, requirement?: string): void;
+declare function singularityAddTest(name: string, testFunc: () => any, requirement?: string): void;
+declare function singularityAddCustomTest(name: string, testFunc: Function, requirement?: string): void;
+declare function singularityAddMethodTest(ext: SingularityMethod, target?: any, args?: any[], compare?: any, requirement?: string): void;
+declare function singularityAddAssertTest(name: string, result: any, compare: any, requirement?: string): void;
+declare function singularityAddFailsTest(ext: SingularityMethod, target: any, args: any[], expectedError?: string, requirement?: string): void;
+declare function singularityRunTests(display?: boolean): string;
+declare function singularityListTests(): string;
+declare function singularityListMissingTests(): string;
+declare function methodAddFailsTest(caller: any, args: any[], expectedError?: string, requirement?: string): void;
+declare function methodAddCustomTest(testFunc: () => any, requirement?: string): void;
+declare function methodAddSimpleTest(caller: any, args: any[], result?: any, requirement?: string): void;
 interface Boolean {
     toYesNo?: () => string;
     XOR?: (b: boolean) => boolean;
@@ -816,16 +816,16 @@ interface String {
     toBoolean?: () => boolean;
 }
 declare var singBoolean: SingularityModule;
-declare function BooleanXOR(b: boolean): boolean;
-declare function BooleanXNOR(b: boolean): boolean;
-declare function BooleanOR(...b: boolean[]): boolean;
-declare function BooleanNOR(...b: boolean[]): boolean;
-declare function BooleanAND(...b: boolean[]): boolean;
-declare function BooleanNAND(...b: boolean[]): boolean;
-declare function BooleanToYesNo(): string;
-declare function BooleanTernary(obj?: any, obj2?: any): any;
-declare function StringIsBoolean(): boolean;
-declare function StringToBoolean(): boolean;
+declare function booleanXor(b: boolean): boolean;
+declare function booleanXNOR(b: boolean): boolean;
+declare function booleanOR(...b: boolean[]): boolean;
+declare function booleanNOR(...b: boolean[]): boolean;
+declare function booleanAND(...b: boolean[]): boolean;
+declare function booleanNAND(...b: boolean[]): boolean;
+declare function booleanToYesNo(): string;
+declare function booleanTernary(obj?: any, obj2?: any): any;
+declare function stringIsBoolean(): boolean;
+declare function stringToBoolean(): boolean;
 interface Number {
     pow?: (power: number) => number;
     round?: (decimalPlaces?: number) => number;
@@ -859,109 +859,109 @@ interface Array<T> {
     average?: () => number;
 }
 declare var singNumber: SingularityModule;
-declare function NumberMax(...numbers: number[]): number;
-declare function NumberMin(...numbers: number[]): number;
-declare function NumberRound(decimalPlaces: number): number;
-declare function NumberCeiling(decimalPlaces: number): number;
-declare function NumberFloor(decimalPlaces: number): number;
-declare function NumberPower(power: number): number;
-declare function NumberAbsoluteValue(): number;
-declare function NumberPercentOf(of: number, decimalPlaces?: number, asString?: boolean): number | string;
-declare function NumberFormatFileSize(decimalPlaces: number, useLongUnit?: boolean): string;
-declare function NumberToStr(includeMarkup?: boolean): any;
-declare function NumberNumericValueOf(): number;
-declare function StringNumericValueOf(): number;
-declare function BooleanToNumericValue(): number;
-declare function NumberIsInt(obj: any): boolean;
-declare function NumberIsFloat(obj: any): boolean;
-declare function ObjectIsNumber(obj: any): boolean;
-declare function NumberRandom(minimum: number, maximum: number, count?: number): number | number[] | void;
-declare function StringIsNumeric(): boolean;
-declare function StringIsInteger(): boolean;
-declare function NumberIsEven(): boolean;
-declare function NumberIsOdd(): boolean;
-declare function StringToNumber(): number;
-declare function StringToInteger(): number;
-declare function ArrayTotal(): number;
-declare function ArrayAverage(): number;
+declare function numberMax(...numbers: number[]): number;
+declare function numberMin(...numbers: number[]): number;
+declare function numberRound(decimalPlaces: number): number;
+declare function numberCeiling(decimalPlaces: number): number;
+declare function numberFloor(decimalPlaces: number): number;
+declare function numberPower(power: number): number;
+declare function numberAbsoluteValue(): number;
+declare function numberPercentOf(of: number, decimalPlaces?: number, asString?: boolean): number | string;
+declare function numberFormatFileSize(decimalPlaces: number, useLongUnit?: boolean): string;
+declare function numberToStr(includeMarkup?: boolean): any;
+declare function numberNumericValueOf(): number;
+declare function stringNumericValueOf(): number;
+declare function booleanToNumericValue(): number;
+declare function numberIsInt(obj: any): boolean;
+declare function numberIsFloat(obj: any): boolean;
+declare function objectIsNumber(obj: any): boolean;
+declare function numberRandom(minimum: number, maximum: number, count?: number): number | number[] | void;
+declare function stringIsNumeric(): boolean;
+declare function stringIsInteger(): boolean;
+declare function numberIsEven(): boolean;
+declare function numberIsOdd(): boolean;
+declare function stringToNumber(): number;
+declare function stringToInteger(): number;
+declare function arrayTotal(): number;
+declare function arrayAverage(): number;
 interface Date {
 }
 interface Function {
-    fn_try?: <T>(logFailure?: boolean) => (...items: any[]) => T;
-    fn_catch(catchFunction?: (ex: any) => void, logFailure?: boolean): Function;
-    fn_catch<T>(catchFunction?: (ex: any) => void, logFailure?: boolean): (...items: any[]) => T;
-    fn_log?: <T>(logAttempt?: boolean, logSuccess?: boolean, logFailure?: boolean) => (...items: any[]) => T;
-    fn_time?: <T>() => (...items: any[]) => T;
-    fn_count?: <T>(logFailure?: boolean) => (...items: any[]) => T;
-    fn_trace?: <T>() => (...items: any[]) => T;
-    fn_cache<T>(uniqueCacheID: string, expiresAfter?: Date): (var1: T) => void;
-    fn_cache<T, U>(uniqueCacheID: string, expiresAfter?: Date): (var1: T) => U;
-    fn_cache<T, T2, U>(uniqueCacheID: string, expiresAfter?: Date): (var1: T, var2?: T2) => U;
-    fn_cache<T>(uniqueCacheID: string, expiresAfter?: Date): (...items: any[]) => T;
-    fn_if?: (ifFunc: (...items: any[]) => boolean) => (...items: any[]) => any;
-    fn_unless?: <T>(unlessFunc: (...items: any[]) => boolean) => (...items: any[]) => T;
-    fn_then?: <T>(thenFunc: (...items: any[]) => any) => (...items: any[]) => T;
-    fn_repeat<T>(times: number): (...items: any[]) => T;
-    fn_repeat<T>(list: any[]): (...items: any[]) => T;
-    fn_repeat<T>(repeat_fn: (...items: any[]) => T): (...items: any[]) => T;
-    fn_while?: <T>(whileFunc: (...items: any[]) => boolean) => (...items: any[]) => T;
-    fn_until?: <T>(untilFunc: (...items: any[]) => boolean) => (...items: any[]) => T;
-    fn_repeatEvery?: <T>(periodMS: number) => (...items: any[]) => T;
-    fn_retry?: <T>(times: number) => (...items: any[]) => T;
-    fn_recurring?: (intervalMS: number, breakCondition?: number | ((...items: any[]) => boolean)) => ((...items: any[]) => void);
-    fn_defer?: <T>(callback?: (...items: any[]) => void) => () => T;
-    fn_delay?: <T>(delayMS: number) => (...items: any[]) => T;
-    fn_async?: <T>(callback?: (...items: any[]) => void) => (...items: any[]) => T;
-    fn_wrap?: <T>(wrapper: (fn: (...items: any[]) => T, ...items: any[]) => T) => (...items: any[]) => T;
-    fn_onExecute?: <T>(eventHandler: (...items: any[]) => void) => (...items: any[]) => T;
-    fn_onExecuted?: <T>(eventHandler: (...items: any[]) => void) => (...items: any[]) => T;
-    fn_or?: (orFunc: (...items: any[]) => boolean) => (...items: any[]) => boolean;
-    fn_and?: (orFunc: (...items: any[]) => boolean) => (...items: any[]) => boolean;
-    fn_not(): () => boolean;
-    fn_not(): Function;
+    fnTry?: <T>(logFailure?: boolean) => (...items: any[]) => T;
+    fnCatch(catchFunction?: (ex: any) => void, logFailure?: boolean): Function;
+    fnCatch<T>(catchFunction?: (ex: any) => void, logFailure?: boolean): (...items: any[]) => T;
+    fnLog?: <T>(logAttempt?: boolean, logSuccess?: boolean, logFailure?: boolean) => (...items: any[]) => T;
+    fnTime?: <T>() => (...items: any[]) => T;
+    fnCount?: <T>(logFailure?: boolean) => (...items: any[]) => T;
+    fnTrace?: <T>() => (...items: any[]) => T;
+    fnCache<T>(uniqueCacheID: string, expiresAfter?: Date): (var1: T) => void;
+    fnCache<T, U>(uniqueCacheID: string, expiresAfter?: Date): (var1: T) => U;
+    fnCache<T, T2, U>(uniqueCacheID: string, expiresAfter?: Date): (var1: T, var2?: T2) => U;
+    fnCache<T>(uniqueCacheID: string, expiresAfter?: Date): (...items: any[]) => T;
+    fnIf?: (ifFunc: (...items: any[]) => boolean) => (...items: any[]) => any;
+    fnUnless?: <T>(unlessFunc: (...items: any[]) => boolean) => (...items: any[]) => T;
+    fnThen?: <T>(thenFunc: (...items: any[]) => any) => (...items: any[]) => T;
+    fnRepeat<T>(times: number): (...items: any[]) => T;
+    fnRepeat<T>(list: any[]): (...items: any[]) => T;
+    fnRepeat<T>(repeatFn: (...items: any[]) => T): (...items: any[]) => T;
+    fnWhile?: <T>(whileFunc: (...items: any[]) => boolean) => (...items: any[]) => T;
+    fnUntil?: <T>(untilFunc: (...items: any[]) => boolean) => (...items: any[]) => T;
+    fnRepeatEvery?: <T>(periodMS: number) => (...items: any[]) => T;
+    fnRetry?: <T>(times: number) => (...items: any[]) => T;
+    fnRecurring?: (intervalMs: number, breakCondition?: number | ((...items: any[]) => boolean)) => ((...items: any[]) => void);
+    fnDefer?: <T>(callback?: (...items: any[]) => void) => () => T;
+    fnDelay?: <T>(delayMs: number) => (...items: any[]) => T;
+    fnAsync?: <T>(callback?: (...items: any[]) => void) => (...items: any[]) => T;
+    fnWrap?: <T>(wrapper: (fn: (...items: any[]) => T, ...items: any[]) => T) => (...items: any[]) => T;
+    fnOnExecute?: <T>(eventHandler: (...items: any[]) => void) => (...items: any[]) => T;
+    fnOnExecuted?: <T>(eventHandler: (...items: any[]) => void) => (...items: any[]) => T;
+    fnOR?: (orFunc: (...items: any[]) => boolean) => (...items: any[]) => boolean;
+    fnAND?: (orFunc: (...items: any[]) => boolean) => (...items: any[]) => boolean;
+    fnNot(): () => boolean;
+    fnNot(): Function;
 }
 declare var singFunction: SingularityModule;
-declare function FunctionTry(): Function;
-declare function FunctionCatch(catchFunction: Function, logFailure?: boolean): Function;
-declare function FunctionLog(logAttempt?: boolean, logSuccess?: boolean, logFailure?: boolean): () => any;
-declare function FunctionCount(logFailure?: boolean): () => any;
-declare function FunctionCache(uniqueCacheID: string, expiresAfter?: number): (...items: any[]) => any;
-declare function FunctionOR(orFunc: (...items: any[]) => boolean): (...items: any[]) => boolean;
-declare function FunctionIf<T>(ifFunc: (...items: any[]) => boolean): (...items: any[]) => any;
-declare function FunctionUnless(ifFunc: (...items: any[]) => boolean): (...items: any[]) => any;
-declare function FunctionThen(thenFunc: Function): Function;
-declare function FunctionRepeat(repeatOver: number | any[] | ((...items: any[]) => boolean)): (...items: any[]) => any;
-declare function FunctionWhile(condition: ((...items: any[]) => boolean)): (...items: any[]) => any;
-declare function FunctionRetry(times?: number): (...items: any[]) => any;
-declare function FunctionTime(): (...items: any[]) => number;
-declare function FunctionDefer(callback?: Function): (...items: any[]) => void;
-declare function FunctionDelay(delayMS: number, callback?: Function): (...items: any[]) => void;
-declare function FunctionBefore(triggerFunc?: Function): (...items: any[]) => any;
-declare function FunctionAfter(triggerFunc?: Function): (...items: any[]) => any;
-declare function FunctionWrap(triggerFunc?: Function): (...items: any[]) => any;
-declare function FunctionTrace(traceStr?: string): (...items: any[]) => any;
-declare function FunctionRecurring(intervalMS: number, breakCondition?: number | ((...items: any[]) => boolean)): (...items: any[]) => void;
-declare function ArrayExecuteAll(...items: Function[]): any[];
-declare function FunctionNot(): Function;
+declare function functionTry(): Function;
+declare function functionCatch(catchFunction: Function, logFailure?: boolean): Function;
+declare function functionLog(logAttempt?: boolean, logSuccess?: boolean, logFailure?: boolean): () => any;
+declare function functionCount(logFailure?: boolean): () => any;
+declare function functionCache(uniqueCacheID: string, expiresAfter?: number): (...items: any[]) => any;
+declare function functionOR(orFunc: (...items: any[]) => boolean): (...items: any[]) => boolean;
+declare function functionIf<T>(ifFunc: (...items: any[]) => boolean): (...items: any[]) => any;
+declare function functionUnless(ifFunc: (...items: any[]) => boolean): (...items: any[]) => any;
+declare function functionThen(thenFunc: Function): Function;
+declare function functionRepeat(repeatOver: number | any[] | ((...items: any[]) => boolean)): (...items: any[]) => any;
+declare function functionWhile(condition: ((...items: any[]) => boolean)): (...items: any[]) => any;
+declare function functionRetry(times?: number): (...items: any[]) => any;
+declare function functionTime(): (...items: any[]) => number;
+declare function functionDefer(callback?: Function): (...items: any[]) => void;
+declare function functionDelay(delayMS: number, callback?: Function): (...items: any[]) => void;
+declare function functionBefore(triggerFunc?: Function): (...items: any[]) => any;
+declare function functionAfter(triggerFunc?: Function): (...items: any[]) => any;
+declare function functionWrap(triggerFunc?: Function): (...items: any[]) => any;
+declare function functionTrace(traceStr?: string): (...items: any[]) => any;
+declare function functionRecurring(intervalMS: number, breakCondition?: number | ((...items: any[]) => boolean)): (...items: any[]) => void;
+declare function arrayExecuteAll(...items: Function[]): any[];
+declare function functionNot(): Function;
 interface Array<T> {
     arrayValues?: (findKeys?: string | string[]) => any[];
     splitAt?: (...indexes: number[]) => T[];
     sortBy?: (arg?: string | string[] | ((item: T) => number)) => T[];
     orderBy?: (arg?: string | string[] | ((item: T) => number)) => T[];
-    quickSort?: (sortWith?: any[][], left?: number, right?: number) => any[] | QuickSortResult;
+    quickSort?: (sortWith?: any[][], left?: number, right?: number) => any[] | IQuickSortResult;
     removeAt?: (...indexes: number[]) => T[];
     unique?: (...indexes: number[]) => T[];
     random?: (count?: number) => T | T[];
-    group?: (keyFunc: (item: any, index: number) => string) => Hash<T>;
+    group?: (keyFunc: (item: any, index: number) => string) => IHash<T>;
 }
 interface JQueryStatic {
     toArray?: (obj: any) => any[];
 }
 declare var singArray: SingularityModule;
-declare function SplitAt<T>(...indexes: number[]): T[][];
-declare function ArrayRemoveAt<T>(...indexes: number[]): T[];
-declare function ArrayUnique<T>(): T[];
-declare function ArrayRandom<T>(count?: number): T[];
-declare function ArrayShuffle<T>(): T[];
-declare function ArrayGroup<T>(indexFunc: (item: T, index: number) => string): Hash<T[]>;
-declare function ObjToArray(obj: any): any;
+declare function splitAt<T>(...indexes: number[]): T[][];
+declare function arrayRemoveAt<T>(...indexes: number[]): T[];
+declare function arrayUnique<T>(): T[];
+declare function arrayRandom<T>(count?: number): T[];
+declare function arrayShuffle<T>(): T[];
+declare function arrayGroup<T>(indexFunc: (item: T, index: number) => string): IHash<T[]>;
+declare function objToArray(obj: any): any;

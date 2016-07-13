@@ -7,7 +7,7 @@ interface String {
     bbCodesToText?: () => string;
 }
 
-interface BBCode {
+interface IBBCode {
     name: string;
     tag: string;
 
@@ -24,7 +24,7 @@ var singBBCode = singString.addModule(new sing.Module('BBCode', String));
 
 singBBCode.glyphIcon = '&#xe242;';
 
-singBBCode.method('bbCodesToHTML', StringBBCodesToHTML,
+singBBCode.method('bbCodesToHTML', stringBBCodesToHTML,
     {
         summary: null,
         parameters: null,
@@ -35,17 +35,17 @@ singBBCode.method('bbCodesToHTML', StringBBCodesToHTML,
         }
     });
 
-function StringBBCodesToHTML(): string {
+function stringBBCodesToHTML(): string {
     var out = this;
 
-    sing.BBCodes.each((item) => {
+    sing.bbCodes.each((item) => {
         out = out.replaceRegExp(item.matchStr, item.htmlStr);
     });
 
     return (out as string);
 }
 
-singBBCode.method('bbCodesToText', StringBBCodesToText,
+singBBCode.method('bbCodesToText', stringBBCodesToText,
     {
         summary: null,
         parameters: null,
@@ -56,10 +56,10 @@ singBBCode.method('bbCodesToText', StringBBCodesToText,
         }
     });
 
-function StringBBCodesToText(): string {
+function stringBBCodesToText(): string {
     var out = this;
 
-    sing.BBCodes.each((item) => {
+    sing.bbCodes.each((item) => {
         out = out.replaceRegExp(item.matchStr, item.textStr);
     });
     return out;
@@ -67,7 +67,7 @@ function StringBBCodesToText(): string {
 
 
 // Tests from http://en.wikipedia.org/wiki/BBCode
-sing.BBCodes = ([
+sing.bbCodes = ([
     {
         name: 'Bold',
         tag: '[b][/b]',
@@ -436,5 +436,5 @@ textStr: '$3',
 test: '[:-)]',
 },
 */
-] as BBCode[]);
+] as IBBCode[]);
 

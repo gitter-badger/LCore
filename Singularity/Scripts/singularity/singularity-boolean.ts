@@ -3,12 +3,14 @@
 interface Boolean {
     toYesNo?: () => string;
 
+    // ReSharper disable InconsistentNaming
     XOR?: (b: boolean) => boolean;
     XNOR?: (b: boolean) => boolean;
     OR?: (...b: boolean[]) => boolean;
     AND?: (...b: boolean[]) => boolean;
     NAND?: (...b: boolean[]) => boolean;
     NOR?: (...b: boolean[]) => boolean;
+    // ReSharper restore InconsistentNaming
 
     ternary?: (obj?: any, obj2?: any) => any;
 }
@@ -36,7 +38,7 @@ singBoolean.features = ['Multi-variable operations',
 //
 //
 
-singBoolean.method('XOR', BooleanXOR,
+singBoolean.method('XOR', booleanXor,
     {
         summary: '\
         XOR acts on a boolean to perform the binary XOR function on the passed Boolean',
@@ -78,14 +80,14 @@ singBoolean.method('XOR', BooleanXOR,
         }
     });
 
-function BooleanXOR(b: boolean): boolean {
+function booleanXor(b: boolean): boolean {
     const a = this.valueOf();
 
     return (a == true && b == false) ||
         (a == false && b);
 }
 
-singBoolean.method('XNOR', BooleanXNOR,
+singBoolean.method('XNOR', booleanXNOR,
     {
         summary: '\
         XNOR acts on a boolean to perform the binary XNOR function on the passed Boolean, the inverse of the XOR function',
@@ -127,11 +129,11 @@ singBoolean.method('XNOR', BooleanXNOR,
         }
     });
 
-function BooleanXNOR(b: boolean): boolean {
+function booleanXNOR(b: boolean): boolean {
     return !this.XOR(b);
 }
 
-singBoolean.method('OR', BooleanOR,
+singBoolean.method('OR', booleanOR,
     {
         summary: '\
         OR acts on a boolean to perform the binary OR function on the passed Booleans',
@@ -176,11 +178,11 @@ singBoolean.method('OR', BooleanOR,
         }
     });
 
-function BooleanOR(...b: boolean[]): boolean {
+function booleanOR(...b: boolean[]): boolean {
     return this == true || b.has(true);
 }
 
-singBoolean.method('NOR', BooleanNOR,
+singBoolean.method('NOR', booleanNOR,
     {
         summary: '\
         NOR acts on a boolean to perform the binary NOR function on the passed Booleans',
@@ -225,11 +227,11 @@ singBoolean.method('NOR', BooleanNOR,
         }
     });
 
-function BooleanNOR(...b: boolean[]): boolean {
+function booleanNOR(...b: boolean[]): boolean {
     return !this.OR.apply(this, b);
 }
 
-singBoolean.method('AND', BooleanAND,
+singBoolean.method('AND', booleanAND,
     {
         summary: '\
         AND acts on a boolean to perform the binary AND function on the passed Booleans',
@@ -274,11 +276,11 @@ singBoolean.method('AND', BooleanAND,
         }
     });
 
-function BooleanAND(...b: boolean[]): boolean {
+function booleanAND(...b: boolean[]): boolean {
     return this == true && !b.has(false);
 }
 
-singBoolean.method('NAND', BooleanNAND,
+singBoolean.method('NAND', booleanNAND,
     {
         summary: '\
         NAND acts on a boolean to perform the binary NAND function on the passed Booleans',
@@ -322,13 +324,13 @@ singBoolean.method('NAND', BooleanNAND,
         }
     });
 
-function BooleanNAND(...b: boolean[]): boolean {
+function booleanNAND(...b: boolean[]): boolean {
     if (b.length == 0)
         return this;
     return !this.AND.apply(this, b);
 }
 
-singBoolean.method('toYesNo', BooleanToYesNo,
+singBoolean.method('toYesNo', booleanToYesNo,
     {
         summary: "\
         toYesNo converts a Boolean to a string of 'Yes' or 'No'",
@@ -349,11 +351,11 @@ singBoolean.method('toYesNo', BooleanToYesNo,
         }
     });
 
-function BooleanToYesNo(): string {
+function booleanToYesNo(): string {
     return this == false ? 'No' : 'Yes';
 }
 
-singBoolean.method('ternary', BooleanTernary,
+singBoolean.method('ternary', booleanTernary,
     {
         summary: 'Performs the ternary operation using the calling boolean.',
         parameters: [
@@ -378,13 +380,13 @@ singBoolean.method('ternary', BooleanTernary,
         }
     }, String.prototype);
 
-function BooleanTernary(obj?: any, obj2?: any): any {
+function booleanTernary(obj?: any, obj2?: any): any {
 
     return this.valueOf() ? obj : obj2;
 }
 
 
-singBoolean.method('isBoolean', StringIsBoolean,
+singBoolean.method('isBoolean', stringIsBoolean,
     {
         summary: 'Determines if the calling string is a Boolean format.',
         parameters: [],
@@ -423,7 +425,7 @@ singBoolean.method('isBoolean', StringIsBoolean,
         }
     }, String.prototype);
 
-function StringIsBoolean() {
+function stringIsBoolean() {
     const lower = this.lower().trim();
     if (lower == 'y' || lower == 'yes' || lower == 'true' || lower == '1' || lower == 't')
         return true;
@@ -434,7 +436,7 @@ function StringIsBoolean() {
 
 }
 
-singBoolean.method('toBoolean', StringToBoolean,
+singBoolean.method('toBoolean', stringToBoolean,
     {
         summary: 'Converts the calling string to a Boolean format. ',
         parameters: [],
@@ -473,7 +475,7 @@ singBoolean.method('toBoolean', StringToBoolean,
         }
     }, String.prototype);
 
-function StringToBoolean() {
+function stringToBoolean() {
 
     const lower = this.lower().trim();
 

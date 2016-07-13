@@ -191,18 +191,18 @@ namespace Singularity.Extensions
 
         #region GetMeta
 
-        public static Dictionary<string, ModelMetadata> GetMeta(this Type t,
+        public static Dictionary<string, ModelMetadata> GetMeta(this Type Type,
             Func<ModelMetadata, bool> Selector = null,
             int Levels = 0)
             {
             var Out = new Dictionary<string, ModelMetadata>();
 
-            Out = GetMeta(t, Out, Selector, Levels);
+            Out = GetMeta(Type, Out, Selector, Levels);
 
             return Out;
             }
 
-        private static Dictionary<string, ModelMetadata> GetMeta(this Type t,
+        private static Dictionary<string, ModelMetadata> GetMeta(this Type Type,
             Dictionary<string, ModelMetadata> In,
             Func<ModelMetadata, bool> Selector = null,
             int Levels = 0,
@@ -216,29 +216,29 @@ namespace Singularity.Extensions
                 return In;
 
             if (Selector == null)
-                Selector = m => true;
+                Selector = Member => true;
 
-            ModelMetadata[] TypeMeta = t.Meta().Properties.Array();
+            ModelMetadata[] TypeMeta = Type.Meta().Properties.Array();
 
-            TypeMeta.Each(meta =>
+            TypeMeta.Each(Meta =>
                 {
                     string KeyString = string.IsNullOrEmpty(PathString)
-                        ? meta.PropertyName
-                        : $"{PathString}.{meta.PropertyName}";
+                        ? Meta.PropertyName
+                        : $"{PathString}.{Meta.PropertyName}";
 
                     if (!In.ContainsKey(KeyString))
-                        In[KeyString] = meta;
+                        In[KeyString] = Meta;
 
-                    if (!Selector(meta))
+                    if (!Selector(Meta))
                         return;
 
-                    if (KeyString.Contains($".{meta.PropertyName}."))
+                    if (KeyString.Contains($".{Meta.PropertyName}."))
                         {
                         // Avoids recursive lookups
                         }
-                    else if (meta.ModelType.HasInterface<IModel>())
+                    else if (Meta.ModelType.HasInterface<IModel>())
                         {
-                        In = meta.ModelType.GetMeta(In, Selector, Levels, CurrentLevel + 1, KeyString);
+                        In = Meta.ModelType.GetMeta(In, Selector, Levels, CurrentLevel + 1, KeyString);
                         }
                 });
 
@@ -345,18 +345,18 @@ namespace Singularity.Extensions
 
         #region HasProperty
 
-        public static bool HasProperty(this Type t, string PropertyName)
+        public static bool HasProperty(this Type Type, string PropertyName)
             {
-            return t.GetProperty(PropertyName) != null;
+            return Type.GetProperty(PropertyName) != null;
             }
 
         #endregion
 
         #region IsNullable
 
-        public static bool IsNullable(this Type t)
+        public static bool IsNullable(this Type Type)
             {
-            return t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>);
+            return Type.IsGenericType && Type.GetGenericTypeDefinition() == typeof(Nullable<>);
 
             //    return t.Name == "Nullable" || t.Name == "Nullable`1";
             }
@@ -365,22 +365,22 @@ namespace Singularity.Extensions
 
         #region Meta
 
-        public static ModelMetadata Meta(this Type t, string PropertyName = null)
+        public static ModelMetadata Meta(this Type Type, string PropertyName = null)
             {
-            t = t.WithoutDynamicType();
+            Type = Type.WithoutDynamicType();
 
             return !string.IsNullOrEmpty(PropertyName)
-                ? ModelMetadataProviders.Current.GetMetadataForProperty(null, t,
+                ? ModelMetadataProviders.Current.GetMetadataForProperty(null, Type,
                     PropertyName.Contains(".") ? PropertyName.Split(".")[1] : PropertyName)
-                : ModelMetadataProviders.Current.GetMetadataForType(null, t);
+                : ModelMetadataProviders.Current.GetMetadataForType(null, Type);
             }
 
-        public static ModelMetadata Meta(this TypeInfo t, string PropertyName = null)
+        public static ModelMetadata Meta(this TypeInfo Type, string PropertyName = null)
             {
             return !string.IsNullOrEmpty(PropertyName)
-                ? ModelMetadataProviders.Current.GetMetadataForProperty(null, t,
+                ? ModelMetadataProviders.Current.GetMetadataForProperty(null, Type,
                     PropertyName.Contains(".") ? PropertyName.Split(".")[1] : PropertyName)
-                : ModelMetadataProviders.Current.GetMetadataForType(null, t);
+                : ModelMetadataProviders.Current.GetMetadataForType(null, Type);
             }
 
         public static ModelMetadata Meta<T>(this T Model, Expression<Func<T, object>> Expression)
@@ -401,9 +401,9 @@ namespace Singularity.Extensions
 
         #region PreferGeneric
 
-        public static Type PreferGeneric(this Type t)
+        public static Type PreferGeneric(this Type Type)
             {
-            return t.IsGenericType ? t.GetGenericArguments()[0] : t;
+            return Type.IsGenericType ? Type.GetGenericArguments()[0] : Type;
             }
 
         #endregion
@@ -440,12 +440,12 @@ namespace Singularity.Extensions
 
         #region FindSubProperty
 
-        public static LambdaExpression FindSubProperty(this Type t, out ModelMetadata Meta, out string[] FullProperties,
+        public static LambdaExpression FindSubProperty(this Type Type, out ModelMetadata Meta, out string[] FullProperties,
             params string[] Properties)
             {
-            var Param = Expression.Parameter(t, string.Empty);
+            var Param = Expression.Parameter(Type, string.Empty);
             MemberExpression Member = null;
-            var CurrentType = t;
+            var CurrentType = Type;
 
             FullProperties = new string[Properties.Length];
 
@@ -478,9 +478,9 @@ namespace Singularity.Extensions
 
         #region GetExpression
 
-        public static LambdaExpression GetExpression(this Type t, string PropertyName)
+        public static LambdaExpression GetExpression(this Type Type, string PropertyName)
             {
-            var Param = Expression.Parameter(t, string.Empty);
+            var Param = Expression.Parameter(Type, string.Empty);
             var Property = Expression.PropertyOrField(Param, PropertyName);
             var Expr = Expression.Lambda(Property, Param);
 
@@ -491,9 +491,9 @@ namespace Singularity.Extensions
 
         #region GetExpression
 
-        public static Expression<Func<T, U>> GetExpression<T, U>(this Type t, string PropertyName)
+        public static Expression<Func<T, U>> GetExpression<T, U>(this Type Type, string PropertyName)
             {
-            var Param = Expression.Parameter(t, string.Empty);
+            var Param = Expression.Parameter(Type, string.Empty);
             var Property = Expression.PropertyOrField(Param, PropertyName);
             Expression<Func<T, U>> Expr = Expression.Lambda<Func<T, U>>(Property, Param);
 

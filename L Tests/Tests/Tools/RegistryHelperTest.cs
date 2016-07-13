@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Security;
 using FluentAssertions;
 using LCore.Extensions;
 using LCore.Tests;
@@ -15,6 +17,22 @@ namespace L_Tests.Tests.Tools
     [TestClass]
     public class RegistryHelperTest
         {
+        /// <exception cref="ArgumentException">
+        ///         <paramref>
+        ///             <name>hKey</name>
+        ///         </paramref>
+        ///     or <paramref>
+        ///         <name>view</name>
+        ///     </paramref>
+        ///     is invalid.</exception>
+        /// <exception cref="UnauthorizedAccessException">The user does not have the necessary registry rights.</exception>
+        /// <exception cref="SecurityException">The user does not have the permissions required to perform this action.</exception>
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
+        /// <exception cref="IOException">A system error occurred; for example, the current key has been deleted.</exception>
+        /// <exception cref="InvalidCastException">Count registry value is not properly set</exception>
+        /// <exception cref="OverflowException">Count registry value is not properly set</exception>
+        /// <exception cref="ObjectDisposedException">The <see cref="T:Microsoft.Win32.RegistryKey" /> that contains the specified value is closed (closed keys cannot be accessed). </exception>
         [TestMethod]
         [TestCategory(L.Test.Categories.Tools)]
         public void Test_RegistryHandler()
@@ -29,7 +47,7 @@ namespace L_Tests.Tests.Tools
             L.A(() => new RegistryHelper(null, RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default))).ShouldFail();
             L.A(() => new RegistryHelper("a", null)).ShouldFail();
 
-            L.A(() => new RegistryHelper("#Q*()HY&)R(B)#(*)__~_~+_)JG)+&&**(@!2-09%*@:><?:\"'\r\n", 
+            L.A(() => new RegistryHelper("#Q*()HY&)R(B)#(*)__~_~+_)JG)+&&**(@!2-09%*@:><?:\"'\r\n",
                 RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default))).ShouldFail();
 
             L.A(() => Reg.Save(null, (object)5)).ShouldFail();

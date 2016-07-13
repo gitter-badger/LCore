@@ -7,7 +7,7 @@
 
 @model IViewField
 
-<a href="@(Url.Controller<TemplateController>().Action(c=>c.PreviewPdf, ModelData.TemplateID))">
+<a href="@(Url.Controller<TemplateController>().Action(Controller=>Controller.PreviewPdf, ModelData.TemplateID))">
     <glyph>&#xe175;</glyph>
     View template PDF
 </a>

@@ -227,10 +227,10 @@ $(function () {
     });
 
     // Auto open menu items
-    const Url = window.location.pathname;
+    const url = window.location.pathname;
 
-    $(`a[href="${Url}"]`).parents('li').addClass('active');
-    $(`a[href="${Url}"]`).parents('li.treeview').addClass('active');
+    $(`a[href="${url}"]`).parents('li').addClass('active');
+    $(`a[href="${url}"]`).parents('li.treeview').addClass('active');
 
 });
 
@@ -252,31 +252,31 @@ function _init() {
      */
     $.AdminLTE.layout = {
         activate: function () {
-            var _this = this;
-            _this.fix();
-            _this.fixSidebar();
+            var thisAdmin = this;
+            thisAdmin.fix();
+            thisAdmin.fixSidebar();
             $(window, '.wrapper').resize(function () {
-                _this.fix();
-                _this.fixSidebar();
+                thisAdmin.fix();
+                thisAdmin.fixSidebar();
             });
         },
         fix: function () {
             //Get window height and the wrapper height
             const neg = $('.main-header').outerHeight() + $('.main-footer').outerHeight();
-            const window_height = $(window).height();
-            const sidebar_height = $('.sidebar').height();
+            const windowHeight = $(window).height();
+            const sidebarHeight = $('.sidebar').height();
             //Set the min-height of the content and sidebar based on the
             //the height of the document.
             if ($('body').hasClass('fixed')) {
-                $('.content-wrapper, .right-side').css('min-height', window_height - $('.main-footer').outerHeight());
+                $('.content-wrapper, .right-side').css('min-height', windowHeight - $('.main-footer').outerHeight());
             } else {
                 let postSetWidth;
-                if (window_height >= sidebar_height) {
-                    $('.content-wrapper, .right-side').css('min-height', window_height - neg);
-                    postSetWidth = window_height - neg;
+                if (windowHeight >= sidebarHeight) {
+                    $('.content-wrapper, .right-side').css('min-height', windowHeight - neg);
+                    postSetWidth = windowHeight - neg;
                 } else {
-                    $('.content-wrapper, .right-side').css('min-height', sidebar_height);
-                    postSetWidth = sidebar_height;
+                    $('.content-wrapper, .right-side').css('min-height', sidebarHeight);
+                    postSetWidth = sidebarHeight;
                 }
 
                 //Fix for the control sidebar height
@@ -365,20 +365,20 @@ function _init() {
             }
         },
         expandOnHover: function () {
-            var _this = this;
+            var thisAdmin = this;
             var screenWidth = $.AdminLTE.options.screenSizes.sm - 1;
             //Expand sidebar on hover
             $('.main-sidebar').hover(function () {
                 if ($('body').hasClass('sidebar-mini')
                     && $('body').hasClass('sidebar-collapse')
                     && $(window).width() > screenWidth) {
-                    _this.expand();
+                    thisAdmin.expand();
                 }
             }, function () {
                 if ($('body').hasClass('sidebar-mini')
                     && $('body').hasClass('sidebar-expanded-on-hover')
                     && $(window).width() > screenWidth) {
-                    _this.collapse();
+                    thisAdmin.collapse();
                 }
             });
         },
@@ -401,7 +401,7 @@ function _init() {
      * @Usage: $.AdminLTE.tree('.sidebar')
      */
     $.AdminLTE.tree = function (menu) {
-        var _this = this;
+        var thisAdmin = this;
         var animationSpeed = $.AdminLTE.options.animationSpeed;
         $(document).on('click', menu + ' li a', function (e) {
             //Get the clicked link and the next element
@@ -428,16 +428,17 @@ function _init() {
                 //Remove the menu-open class from the parent
                 ul.removeClass('menu-open');
                 //Get the parent li
-                var parent_li = $this.parent('li');
+                // ReSharper disable once InconsistentNaming
+                var parentLI = $this.parent('li');
 
                 //Open the target menu and add the menu-open class
                 checkElement.slideDown(animationSpeed, function () {
                     //Add the class active to the parent li
                     checkElement.addClass('menu-open');
                     parent.find('li.active').removeClass('active');
-                    parent_li.addClass('active');
+                    parentLI.addClass('active');
                     //Fix the layout in case the sidebar stretches over the height of the window
-                    _this.layout.fix();
+                    thisAdmin.layout.fix();
                 });
             }
             // If the arrow is clicked, dont redirect //if this isn't a link, prevent the page from being redirected
@@ -458,7 +459,7 @@ function _init() {
         //instantiate the object
         activate: function () {
             //Get the object
-            var _this = this;
+            var thisAdmin = this;
             //Update options
             var o = $.AdminLTE.options.controlSidebarOptions;
             //Get the sidebar
@@ -473,23 +474,23 @@ function _init() {
                 if (!sidebar.hasClass('control-sidebar-open')
                     && !$('body').hasClass('control-sidebar-open')) {
                     //Open the sidebar
-                    _this.open(sidebar, o.slide);
+                    thisAdmin.open(sidebar, o.slide);
                 } else {
-                    _this.close(sidebar, o.slide);
+                    thisAdmin.close(sidebar, o.slide);
                 }
             });
 
             //If the body has a boxed layout, fix the sidebar bg position
             const bg = $('.control-sidebar-bg');
-            _this._fix(bg);
+            thisAdmin._fix(bg);
 
             //If the body has a fixed layout, make the control sidebar fixed
             if ($('body').hasClass('fixed')) {
-                _this._fixForFixed(sidebar);
+                thisAdmin._fixForFixed(sidebar);
             } else {
                 //If the content height is less than the sidebar's height, force max height
                 if ($('.content-wrapper, .right-side').height() < sidebar.height()) {
-                    _this._fixForContent(sidebar);
+                    thisAdmin._fixForContent(sidebar);
                 }
             }
         },
@@ -513,12 +514,12 @@ function _init() {
             }
         },
         _fix: function (sidebar) {
-            var _this = this;
+            var thisAdmin = this;
             if ($('body').hasClass('layout-boxed')) {
                 sidebar.css('position', 'absolute');
                 sidebar.height($('.wrapper').height());
                 $(window).resize(function () {
-                    _this._fix(sidebar);
+                    thisAdmin._fix(sidebar);
                 });
             } else {
                 sidebar.css({
@@ -553,45 +554,45 @@ function _init() {
         selectors: $.AdminLTE.options.boxWidgetOptions.boxWidgetSelectors,
         icons: $.AdminLTE.options.boxWidgetOptions.boxWidgetIcons,
         animationSpeed: $.AdminLTE.options.animationSpeed,
-        activate: function (_box) {
-            var _this = this;
-            if (!_box) {
-                _box = document; // activate all boxes per default
+        activate: function (box) {
+            var thisAdmin = this;
+            if (!box) {
+                box = document; // activate all boxes per default
             }
             //Listen for collapse event triggers
-            $(_box).on('click', _this.selectors.collapse, function (e) {
+            $(box).on('click', thisAdmin.selectors.collapse, function (e) {
                 e.preventDefault();
-                _this.collapse($(this));
+                thisAdmin.collapse($(this));
             });
 
             //Listen for remove event triggers
-            $(_box).on('click', _this.selectors.remove, function (e) {
+            $(box).on('click', thisAdmin.selectors.remove, function (e) {
                 e.preventDefault();
-                _this.remove($(this));
+                thisAdmin.remove($(this));
             });
         },
         collapse: function (element) {
-            const _this = this;
+            const thisAdmin = this;
             //Find the box parent
             var box = element.parents('.box').first();
             //Find the body and the footer
-            const box_content = box.find('> .box-body, > .box-footer, > form  >.box-body, > form > .box-footer');
+            const boxContent = box.find('> .box-body, > .box-footer, > form  >.box-body, > form > .box-footer');
             if (!box.hasClass('collapsed-box')) {
                 //Convert minus into plus
                 element.children(':first')
-                    .removeClass(_this.icons.collapse)
-                    .addClass(_this.icons.open);
+                    .removeClass(thisAdmin.icons.collapse)
+                    .addClass(thisAdmin.icons.open);
                 //Hide the content
-                box_content.slideUp(_this.animationSpeed, function () {
+                boxContent.slideUp(thisAdmin.animationSpeed, function () {
                     box.addClass('collapsed-box');
                 });
             } else {
                 //Convert plus into minus
                 element.children(':first')
-                    .removeClass(_this.icons.open)
-                    .addClass(_this.icons.collapse);
+                    .removeClass(thisAdmin.icons.open)
+                    .addClass(thisAdmin.icons.collapse);
                 //Show the content
-                box_content.slideDown(_this.animationSpeed, function () {
+                boxContent.slideDown(thisAdmin.animationSpeed, function () {
                     box.removeClass('collapsed-box');
                 });
             }

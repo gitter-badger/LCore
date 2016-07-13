@@ -21,7 +21,7 @@ namespace Singularity.Controllers
             {
             get
                 {
-                return c => c.Create;
+                return Controller => Controller.Create;
                 }
             }
 
@@ -29,9 +29,9 @@ namespace Singularity.Controllers
         public abstract ActionResult Create(string ReturnUrl, FormCollection Form);
 
 
-        public abstract ActionResult Update(int id, string ReturnUrl, FormCollection Form, bool Create = false);
+        public abstract ActionResult Update(int ID, string ReturnUrl, FormCollection Form, bool Create = false);
 
-        public abstract ActionResult Edit(int id, string ReturnUrl, bool Create = false);
+        public abstract ActionResult Edit(int ID, string ReturnUrl, bool Create = false);
 
         public abstract ActionResult UploadFile(
             FormCollection Form,
@@ -67,13 +67,13 @@ namespace Singularity.Controllers
             ControllerHelper.ManageViewType ViewType = ControllerHelper.ManageViewType.All,
             int CustomExportID = -1);
 
-        public abstract void DeleteFile(int id, string ReturnUrl);
+        public abstract void DeleteFile(int ID, string ReturnUrl);
         public abstract void DownloadFile(int FileID);
 
-        public abstract ActionResult Details(int id, string ReturnUrl);
-        public abstract ActionResult Edit(int id, string ReturnUrl, FormCollection Form, bool Create = false);
-        public abstract ActionResult Delete(int id, string ReturnUrl);
-        public abstract ActionResult DeleteConfirm(int id, string ReturnUrl, FormCollection collection, bool Restore = false);
+        public abstract ActionResult Details(int ID, string ReturnUrl);
+        public abstract ActionResult Edit(int ID, string ReturnUrl, FormCollection Form, bool Create = false);
+        public abstract ActionResult Delete(int ID, string ReturnUrl);
+        public abstract ActionResult DeleteConfirm(int ID, string ReturnUrl, FormCollection Collection, bool Restore = false);
 
 
         public virtual string Name

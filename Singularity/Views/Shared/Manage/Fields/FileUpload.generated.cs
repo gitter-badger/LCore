@@ -590,10 +590,10 @@ WriteLiteral(" class=\"file-icon\"");
 
 WriteLiteral(">\r\n                <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 6782), Tuple.Create("\"", 6873)
+WriteAttribute("href", Tuple.Create(" href=\"", 6782), Tuple.Create("\"", 6891)
             
             #line 166 "..\..\Views\Shared\Manage\Fields\FileUpload.cshtml"
-, Tuple.Create(Tuple.Create("", 6789), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(c => c.DownloadFile, File.FileUploadID)
+, Tuple.Create(Tuple.Create("", 6789), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(Controller => Controller.DownloadFile, File.FileUploadID)
             
             #line default
             #line hidden
@@ -602,16 +602,16 @@ WriteAttribute("href", Tuple.Create(" href=\"", 6782), Tuple.Create("\"", 6873)
 
 WriteLiteral(">\r\n                    <img");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 6901), Tuple.Create("\"", 6937)
-, Tuple.Create(Tuple.Create("", 6907), Tuple.Create("/Content/icons/32px/", 6907), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 6919), Tuple.Create("\"", 6955)
+, Tuple.Create(Tuple.Create("", 6925), Tuple.Create("/Content/icons/32px/", 6925), true)
             
             #line 167 "..\..\Views\Shared\Manage\Fields\FileUpload.cshtml"
-, Tuple.Create(Tuple.Create("", 6927), Tuple.Create<System.Object, System.Int32>(Ext
+, Tuple.Create(Tuple.Create("", 6945), Tuple.Create<System.Object, System.Int32>(Ext
             
             #line default
             #line hidden
-, 6927), false)
-, Tuple.Create(Tuple.Create("", 6933), Tuple.Create(".png", 6933), true)
+, 6945), false)
+, Tuple.Create(Tuple.Create("", 6951), Tuple.Create(".png", 6951), true)
 );
 
 WriteLiteral(" alt=\"Image not found\"");
@@ -621,14 +621,14 @@ WriteLiteral(" error-src=\"/Content/icons/32px/_blank.png\"");
 WriteLiteral(" />\r\n                </a>\r\n            </div>\r\n            <div>\r\n               " +
 " <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 7087), Tuple.Create("\"", 7178)
+WriteAttribute("href", Tuple.Create(" href=\"", 7105), Tuple.Create("\"", 7214)
             
             #line 171 "..\..\Views\Shared\Manage\Fields\FileUpload.cshtml"
-, Tuple.Create(Tuple.Create("", 7094), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(c => c.DownloadFile, File.FileUploadID)
+, Tuple.Create(Tuple.Create("", 7112), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(Controller => Controller.DownloadFile, File.FileUploadID)
             
             #line default
             #line hidden
-, 7094), false)
+, 7112), false)
 );
 
 WriteLiteral(">\r\n                    Name:\r\n");
@@ -674,25 +674,25 @@ WriteLiteral("                <a");
 
 WriteLiteral(" class=\"btn btn-default\"");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 7522), Tuple.Create("\"", 7565)
-, Tuple.Create(Tuple.Create("", 7527), Tuple.Create("file-upload-button-", 7527), true)
+WriteAttribute("id", Tuple.Create(" id=\"", 7558), Tuple.Create("\"", 7601)
+, Tuple.Create(Tuple.Create("", 7563), Tuple.Create("file-upload-button-", 7563), true)
             
             #line 184 "..\..\Views\Shared\Manage\Fields\FileUpload.cshtml"
-, Tuple.Create(Tuple.Create("", 7546), Tuple.Create<System.Object, System.Int32>(Model.PropertyName
+, Tuple.Create(Tuple.Create("", 7582), Tuple.Create<System.Object, System.Int32>(Model.PropertyName
             
             #line default
             #line hidden
-, 7546), false)
+, 7582), false)
 );
 
-WriteAttribute("href", Tuple.Create("\r\n                   href=\"", 7566), Tuple.Create("\"", 7701)
+WriteAttribute("href", Tuple.Create("\r\n                   href=\"", 7602), Tuple.Create("\"", 7755)
             
             #line 185 "..\..\Views\Shared\Manage\Fields\FileUpload.cshtml"
-, Tuple.Create(Tuple.Create("", 7593), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(c => c.DeleteFile, File.FileUploadID, Request.Url?.AbsoluteUri)
+, Tuple.Create(Tuple.Create("", 7629), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(Controller => Controller.DeleteFile, File.FileUploadID, Request.Url?.AbsoluteUri)
             
             #line default
             #line hidden
-, 7593), false)
+, 7629), false)
 );
 
 WriteLiteral(">\r\n                    <glyph>&#xe014;</glyph>\r\n                    Remove\r\n     " +

@@ -25,7 +25,7 @@ namespace L_Tests.Tests.Extensions
                 TestAction.Async()();
                 Success.Should().BeFalse();
 
-                Thread.Sleep(10);
+                Thread.Sleep(20);
 
                 Success.Should().BeTrue();
                 }

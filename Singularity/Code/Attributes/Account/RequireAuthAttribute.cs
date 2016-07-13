@@ -18,6 +18,7 @@ namespace Singularity.Attributes
             base.OnAuthorization(FilterContext);
             }
 
+        /// <exception cref="ArgumentNullException"><paramref name="HttpContext"/> is <see langword="null" />.</exception>
         protected override bool AuthorizeCore(HttpContextBase HttpContext)
             {
             if (HttpContext == null) throw new ArgumentNullException(nameof(HttpContext));

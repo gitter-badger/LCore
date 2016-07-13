@@ -16,12 +16,12 @@
     string ShowingStartStr = ShowingStart.ToString("N0");
     string ShowingEndStr = ShowingEnd.ToString("N0");
     string ShowingTotalStr = ShowingTotal.ToString("N0");
-    
+
     if (ShowingEnd > ShowingTotal)
         {
-/*
-        ShowingEnd = ShowingTotal;
-*/
+        /*
+                ShowingEnd = ShowingTotal;
+        */
         }
 }
 
@@ -37,7 +37,7 @@
         {
         <a href="@(Url.Controller<ManageController>()
             .QS(Controllers.Manage.Actions.Route_Page(Model, 1) )
-            .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage))"
+            .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(Controller=> Controller.Manage))"
            key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+Home" : null)"
            key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "First Page" : null)">
             <span class="page-previous">
@@ -47,7 +47,7 @@
 
         <a href="@(Url.Controller<ManageController>()
             .QS(Controllers.Manage.Actions.Route_Page(Model, Model.Page))
-            .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage))"
+            .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(Controller=> Controller.Manage))"
            key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+Left" : null)"
            key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "Previous Page" : null)">
             <span class="page-previous">
@@ -55,6 +55,7 @@
             </span>
         </a>
         }
+    // ReSharper disable once ConditionIsAlwaysTrueOrFalse
     else if (ManageViewModel.AlwaysShowPaginationFirstLast)
         {
         <span class="page-previous">
@@ -82,7 +83,7 @@
                     {
                     <a href="@(Url.Controller<ManageController>()
                         .QS(Controllers.Manage.Actions.Route_Page(Model, Index + 1))
-                        .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage))">
+                        .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(Controller=> Controller.Manage))">
                         <span class="page">
                             @(Index + 1)
                         </span>
@@ -100,7 +101,7 @@
         {
         <a href="@(Url.Controller<ManageController>()
                 .QS(Controllers.Manage.Actions.Route_Page(Model, Model.Page + 2))
-                .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage))"
+                .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(Controller=> Controller.Manage))"
            key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+Right" : null)"
            key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "Next Page" : null)">
             <span class="page-next">
@@ -110,7 +111,7 @@
 
         <a href="@(Url.Controller<ManageController>()
                 .QS(Controllers.Manage.Actions.Route_Page(Model, Model.TotalPages))
-                .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage))"
+                .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(Controller=> Controller.Manage))"
            key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+End" : null)"
            key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "Last Page" : null)">
             <span class="page-last">
@@ -118,6 +119,7 @@
             </span>
         </a>
         }
+    // ReSharper disable once ConditionIsAlwaysTrueOrFalse
     else if (ManageViewModel.AlwaysShowPaginationFirstLast)
         {
         <span class="page-next">

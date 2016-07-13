@@ -20,9 +20,22 @@ namespace LCore.Dynamic
 
         public abstract bool ExplodeMember(MemberInfo Member);
 
-        public Type OutputType => Type.GetType($"{this.CodeNamespace}.{this.ClassName}");
+        public Type OutputType
+            {
+            get
+                {
+                try
+                    {
+                    return Type.GetType($"{this.CodeNamespace}.{this.ClassName}");
+                    }
+                catch (Exception)
+                    {
+                    return null;
+                    }
+                }
+            }
 
-        public virtual string ClassName => this.CodeFileName;
+        public string ClassName => this.CodeFileName;
 
         protected CodeExplode(Type T)
             : this(T.FullName, T.Name, T.Namespace)

@@ -8,85 +8,85 @@ namespace Singularity.Utilities
     {
     public abstract class TypeResultAction<T>
         {
-        public object PerformAction(T In, Type t = null)
+        public object PerformAction(T In, Type Type = null)
             {
             if (In == null)
                 return default(T);
 
-            t = t ?? In.GetType();
+            Type = Type ?? In.GetType();
 
-            bool Nullable = t.IsNullable();
+            bool Nullable = Type.IsNullable();
 
             if (Nullable)
                 {
-                t = t.GetGenericArguments()[0];
+                Type = Type.GetGenericArguments()[0];
                 }
 
-            if (t == typeof(int))
+            if (Type == typeof(int))
                 {
                 return this.PerformAction_Int(In);
                 }
-            if (t == typeof(uint))
+            if (Type == typeof(uint))
                 {
                 return this.PerformAction_UInt(In);
                 }
-            if (t == typeof(long))
+            if (Type == typeof(long))
                 {
                 return this.PerformAction_Long(In);
                 }
-            if (t == typeof(ulong))
+            if (Type == typeof(ulong))
                 {
                 return this.PerformAction_ULong(In);
                 }
-            if (t == typeof(short))
+            if (Type == typeof(short))
                 {
                 return this.PerformAction_Short(In);
                 }
-            if (t == typeof(ushort))
+            if (Type == typeof(ushort))
                 {
                 return this.PerformAction_UShort(In);
                 }
-            if (t == typeof(decimal))
+            if (Type == typeof(decimal))
                 {
                 return this.PerformAction_Decimal(In);
                 }
-            if (t == typeof(double))
+            if (Type == typeof(double))
                 {
                 return this.PerformAction_Double(In);
                 }
-            if (t == typeof(float))
+            if (Type == typeof(float))
                 {
                 return this.PerformAction_Float(In);
                 }
-            if (t == typeof(bool))
+            if (Type == typeof(bool))
                 {
                 return this.PerformAction_Boolean(In);
                 }
-            if (t == typeof(DateTime))
+            if (Type == typeof(DateTime))
                 {
                 return this.PerformAction_DateTime(In);
                 }
-            if (t == typeof(TimeSpan))
+            if (Type == typeof(TimeSpan))
                 {
                 return this.PerformAction_TimeSpan(In);
                 }
-            if (t == typeof(string))
+            if (Type == typeof(string))
                 {
                 return this.PerformAction_String(In);
                 }
-            if (t.IsEnum ||
-                (t.IsGenericType && t.GetGenericArguments()[0].IsEnum))
+            if (Type.IsEnum ||
+                (Type.IsGenericType && Type.GetGenericArguments()[0].IsEnum))
                 {
-                return this.PerformAction_Enum(t, In);
+                return this.PerformAction_Enum(Type, In);
                 }
-            return t.HasInterface<IModel>() ? this.PerformAction_IModel(t, In) : this.PerformAction_Object(In);
+            return Type.HasInterface<IModel>() ? this.PerformAction_IModel(Type, In) : this.PerformAction_Object(In);
             }
 
         protected abstract object PerformAction_Object(T In);
 
-        protected abstract IModel PerformAction_IModel(Type t, T In);
+        protected abstract IModel PerformAction_IModel(Type Type, T In);
 
-        protected abstract Enum PerformAction_Enum(Type t, T In);
+        protected abstract Enum PerformAction_Enum(Type Type, T In);
         protected abstract string PerformAction_String(T In);
         protected abstract TimeSpan PerformAction_TimeSpan(T In);
         protected abstract DateTime PerformAction_DateTime(T In);
@@ -105,78 +105,78 @@ namespace Singularity.Utilities
 
     public abstract class TypeArgumentAction<T>
         {
-        public T PerformAction(object In, Type t = null)
+        public T PerformAction(object In, Type Type = null)
             {
             if (In == null)
                 return default(T);
 
-            t = t ?? In.GetType();
+            Type = Type ?? In.GetType();
 
-            bool Nullable = t.IsNullable();
+            bool Nullable = Type.IsNullable();
 
             if (Nullable)
                 {
-                t = t.GetGenericArguments()[0];
+                Type = Type.GetGenericArguments()[0];
                 }
 
-            if (t == typeof(int))
+            if (Type == typeof(int))
                 {
                 return this.PerformAction_Int((int)In);
                 }
-            if (t == typeof(uint))
+            if (Type == typeof(uint))
                 {
                 return this.PerformAction_UInt((uint)In);
                 }
-            if (t == typeof(long))
+            if (Type == typeof(long))
                 {
                 return this.PerformAction_Long((long)In);
                 }
-            if (t == typeof(ulong))
+            if (Type == typeof(ulong))
                 {
                 return this.PerformAction_ULong((ulong)In);
                 }
-            if (t == typeof(short))
+            if (Type == typeof(short))
                 {
                 return this.PerformAction_Short((short)In);
                 }
-            if (t == typeof(ushort))
+            if (Type == typeof(ushort))
                 {
                 return this.PerformAction_UShort((ushort)In);
                 }
-            if (t == typeof(decimal))
+            if (Type == typeof(decimal))
                 {
                 return this.PerformAction_Decimal((decimal)In);
                 }
-            if (t == typeof(double))
+            if (Type == typeof(double))
                 {
                 return this.PerformAction_Double((double)In);
                 }
-            if (t == typeof(float))
+            if (Type == typeof(float))
                 {
                 return this.PerformAction_Float((float)In);
                 }
-            if (t == typeof(bool))
+            if (Type == typeof(bool))
                 {
                 return this.PerformAction_Boolean((bool)In);
                 }
-            if (t == typeof(DateTime))
+            if (Type == typeof(DateTime))
                 {
                 return this.PerformAction_DateTime((DateTime)In);
                 }
-            if (t == typeof(TimeSpan))
+            if (Type == typeof(TimeSpan))
                 {
                 return this.PerformAction_TimeSpan((TimeSpan)In);
                 }
-            if (t == typeof(string))
+            if (Type == typeof(string))
                 {
                 return this.PerformAction_String((string)In);
                 }
-            if (t.IsEnum ||
-                (t.IsGenericType && t.GetGenericArguments()[0].IsEnum))
+            if (Type.IsEnum ||
+                (Type.IsGenericType && Type.GetGenericArguments()[0].IsEnum))
                 {
                 return this.PerformAction_Enum((Enum)In);
                 }
-            return t.HasInterface<IModel>() ? this.PerformAction_IModel((IModel)In) : this.PerformAction_Object(In);
+            return Type.HasInterface<IModel>() ? this.PerformAction_IModel((IModel)In) : this.PerformAction_Object(In);
             }
 
         protected abstract T PerformAction_Object(object In);
@@ -203,80 +203,80 @@ namespace Singularity.Utilities
     public abstract class TypeAction<T>
         {
         [System.Diagnostics.DebuggerStepThrough]
-        public T PerformAction(Type t)
+        public T PerformAction(Type Type)
             {
-            bool Nullable = t.IsNullable();
+            bool Nullable = Type.IsNullable();
 
             if (Nullable)
                 {
-                t = t.GetGenericArguments()[0];
+                Type = Type.GetGenericArguments()[0];
                 }
 
-            if (t == typeof(int))
+            if (Type == typeof(int))
                 {
                 return this.PerformAction_Int();
                 }
-            if (t == typeof(uint))
+            if (Type == typeof(uint))
                 {
                 return this.PerformAction_UInt();
                 }
-            if (t == typeof(long))
+            if (Type == typeof(long))
                 {
                 return this.PerformAction_Long();
                 }
-            if (t == typeof(ulong))
+            if (Type == typeof(ulong))
                 {
                 return this.PerformAction_ULong();
                 }
-            if (t == typeof(short))
+            if (Type == typeof(short))
                 {
                 return this.PerformAction_Short();
                 }
-            if (t == typeof(ushort))
+            if (Type == typeof(ushort))
                 {
                 return this.PerformAction_UShort();
                 }
-            if (t == typeof(decimal))
+            if (Type == typeof(decimal))
                 {
                 return this.PerformAction_Decimal();
                 }
-            if (t == typeof(double))
+            if (Type == typeof(double))
                 {
                 return this.PerformAction_Double();
                 }
-            if (t == typeof(float))
+            if (Type == typeof(float))
                 {
                 return this.PerformAction_Float();
                 }
-            if (t == typeof(bool))
+            if (Type == typeof(bool))
                 {
                 return this.PerformAction_Boolean();
                 }
-            if (t == typeof(DateTime))
+            if (Type == typeof(DateTime))
                 {
                 return this.PerformAction_DateTime();
                 }
-            if (t == typeof(TimeSpan))
+            if (Type == typeof(TimeSpan))
                 {
                 return this.PerformAction_TimeSpan();
                 }
-            if (t == typeof(string))
+            if (Type == typeof(string))
                 {
                 return this.PerformAction_String();
                 }
-            if (t.IsEnum ||
-                (t.IsGenericType && t.GetGenericArguments()[0].IsEnum))
+            if (Type.IsEnum ||
+                (Type.IsGenericType && Type.GetGenericArguments()[0].IsEnum))
                 {
-                return this.PerformAction_Enum(t);
+                return this.PerformAction_Enum(Type);
                 }
-            return t.HasInterface<IModel>() ? this.PerformAction_IModel(t) : this.PerformAction_Object(t);
+            return Type.HasInterface<IModel>() ? this.PerformAction_IModel(Type) : this.PerformAction_Object(Type);
             }
 
-        protected abstract T PerformAction_Object(Type t);
+        protected abstract T PerformAction_Object(Type Type);
 
-        protected abstract T PerformAction_IModel(Type t);
+        protected abstract T PerformAction_IModel(Type Type);
 
-        protected abstract T PerformAction_Enum(Type t);
+        protected abstract T PerformAction_Enum(Type EnumType);
         protected abstract T PerformAction_String();
         protected abstract T PerformAction_TimeSpan();
         protected abstract T PerformAction_DateTime();

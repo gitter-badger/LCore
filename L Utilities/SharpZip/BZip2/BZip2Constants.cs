@@ -32,6 +32,7 @@
 // obligated to do so.  If you do not wish to do so, delete this
 // exception statement from your version.
 
+// ReSharper disable CommentTypo
 namespace ICSharpCode.SharpZipLib.BZip2
     {
 

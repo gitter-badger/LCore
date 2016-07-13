@@ -21,7 +21,7 @@
     {
     List<IModel> Models = Data.List().List<IModel>();
 
-    string Title = Models.CollectStr((i, m) => $"{m.ToString()}\r\n");
+    string Title = Models.CollectStr((i, Item) => $"{Item.ToString()}\r\n");
 
     if (Models.Count > 0)
         {

@@ -61,6 +61,7 @@ interface Array<T> {
     toStr?: (includeMarkup?: boolean) => string;
 }
 
+// ReSharper disable once InconsistentNaming
 interface JQueryStatic {
     toStr?: (obj: any, includeMarkup?: boolean, stack?: any[]) => string;
 }
@@ -78,7 +79,7 @@ singString.glyphIcon = '&#xe241;';
 // String Extensions
 //
 
-singString.method('contains', StringContains,
+singString.method('contains', stringContains,
     {
         summary: null,
         parameters: null,
@@ -99,7 +100,7 @@ singString.method('contains', StringContains,
         }
     });
 
-function StringContains(str?: string) {
+function stringContains(str?: string) {
     if (!str || str == '')
         return false;
 
@@ -107,7 +108,7 @@ function StringContains(str?: string) {
         this.indexOf(str) >= 0;
 }
 
-singString.method('replaceAll', StringReplaceAll,
+singString.method('replaceAll', stringReplaceAll,
     {
         summary: null,
         parameters: null,
@@ -119,7 +120,7 @@ singString.method('replaceAll', StringReplaceAll,
             ext.addTest('apples', ['s', ' pie'], 'apple pie');
             ext.addTest('apples apples', ['s', ' pie'], 'apple pie apple pie');
 
-            ext.addFailsTest('apples apples', ['s', 'pies'], StringReplaceAll_ErrorReplacementContinsSearch);
+            ext.addFailsTest('apples apples', ['s', 'pies'], stringReplaceAllErrorReplacementContinsSearch);
 
             ext.addTest('ababab', ['b', 'c'], 'acacac');
             ext.addTest('ababab', ['b', ''], 'aaa');
@@ -142,9 +143,9 @@ singString.method('replaceAll', StringReplaceAll,
         }
     });
 
-var StringReplaceAll_ErrorReplacementContinsSearch = 'Replace All Error: replacement must not contain search term';
+var stringReplaceAllErrorReplacementContinsSearch = 'Replace All Error: replacement must not contain search term';
 
-function StringReplaceAll(searchOrSearches: string | string[], replaceOrReplacements: string | string[]) {
+function stringReplaceAll(searchOrSearches: string | string[], replaceOrReplacements: string | string[]) {
     // if replace is null, return original string otherwise it will
     // replace search string with 'undefined'.
     if (replaceOrReplacements == undefined)
@@ -163,7 +164,7 @@ function StringReplaceAll(searchOrSearches: string | string[], replaceOrReplacem
             var replacestr = $.isArray(replaceOrReplacements) ? replaceOrReplacements[i] : replaceOrReplacements;
 
             if (replacestr.toString().contains(item.toString()))
-                throw StringReplaceAll_ErrorReplacementContinsSearch;
+                throw stringReplaceAllErrorReplacementContinsSearch;
 
             out = out.replaceAll(item, replacestr).toString();
         });
@@ -176,7 +177,7 @@ function StringReplaceAll(searchOrSearches: string | string[], replaceOrReplacem
             return '';
 
         if (replaceOrReplacements.toString().contains(searchOrSearches.toString()))
-            throw StringReplaceAll_ErrorReplacementContinsSearch;
+            throw stringReplaceAllErrorReplacementContinsSearch;
 
         while (out.indexOf(searchOrSearches) >= 0)
             out = out.replace(searchOrSearches, replaceOrReplacements);
@@ -185,7 +186,7 @@ function StringReplaceAll(searchOrSearches: string | string[], replaceOrReplacem
     }
 }
 
-singString.method('removeAll', StringRemoveAll,
+singString.method('removeAll', stringRemoveAll,
     {
         summary: null,
         parameters: null,
@@ -208,7 +209,7 @@ singString.method('removeAll', StringRemoveAll,
         }
     });
 
-function StringRemoveAll(stringOrStrings: string | string[]) {
+function stringRemoveAll(stringOrStrings: string | string[]) {
     if ($.isArray(stringOrStrings)) {
         let out = this;
         const array = stringOrStrings as string[];
@@ -223,7 +224,7 @@ function StringRemoveAll(stringOrStrings: string | string[]) {
     return this.replaceAll(stringOrStrings, '');
 }
 
-singString.method('upper', StringUpper,
+singString.method('upper', stringUpper,
     {
         summary: null,
         parameters: null,
@@ -239,11 +240,11 @@ singString.method('upper', StringUpper,
         }
     });
 
-function StringUpper() {
+function stringUpper() {
     return this.toUpperCase();
 }
 
-singString.method('lower', StringLower,
+singString.method('lower', stringLower,
     {
         summary: null,
         parameters: null,
@@ -259,11 +260,11 @@ singString.method('lower', StringLower,
         }
     });
 
-function StringLower() {
+function stringLower() {
     return this.toLowerCase();
 }
 
-singString.method('collapseSpaces', StringCollapseSpaces,
+singString.method('collapseSpaces', stringCollapseSpaces,
     {
         summary: null,
         parameters: null,
@@ -279,11 +280,11 @@ singString.method('collapseSpaces', StringCollapseSpaces,
         }
     });
 
-function StringCollapseSpaces() {
+function stringCollapseSpaces() {
     return this.replaceAll('  ', ' ');
 }
 
-singString.method('startsWith', StringStartsWith,
+singString.method('startsWith', stringStartsWith,
     {
         summary: null,
         parameters: null,
@@ -302,7 +303,7 @@ singString.method('startsWith', StringStartsWith,
         }
     });
 
-function StringStartsWith(stringOrStrings: string | string[]) {
+function stringStartsWith(stringOrStrings: string | string[]) {
 
     var thisString = this as string;
 
@@ -321,7 +322,7 @@ function StringStartsWith(stringOrStrings: string | string[]) {
     return this.indexOf(stringOrStrings) == 0;
 }
 
-singString.method('endsWith', StringEndsWith,
+singString.method('endsWith', stringEndsWith,
     {
         summary: null,
         parameters: null,
@@ -340,7 +341,7 @@ singString.method('endsWith', StringEndsWith,
         }
     });
 
-function StringEndsWith(stringOrStrings: string | string[]) {
+function stringEndsWith(stringOrStrings: string | string[]) {
     if (!stringOrStrings)
         return false;
 
@@ -361,7 +362,7 @@ function StringEndsWith(stringOrStrings: string | string[]) {
 }
 
 
-singString.method('reverse', StringReverse,
+singString.method('reverse', stringReverse,
     {
         summary: null,
         parameters: null,
@@ -375,7 +376,7 @@ singString.method('reverse', StringReverse,
         }
     });
 
-function StringReverse() {
+function stringReverse() {
     let out = '';
 
     for (let i = this.length - 1; i >= 0; i--) {
@@ -384,7 +385,7 @@ function StringReverse() {
     return out;
 }
 
-singString.method('repeat', StringRepeat,
+singString.method('repeat', stringRepeat,
     {
         summary: null,
         parameters: null,
@@ -405,7 +406,7 @@ singString.method('repeat', StringRepeat,
         }
     });
 
-function StringRepeat(times: number = 0, separator: string = '') {
+function stringRepeat(times: number = 0, separator: string = '') {
     if (times <= 0)
         return '';
 
@@ -421,7 +422,7 @@ function StringRepeat(times: number = 0, separator: string = '') {
     return out;
 }
 
-singString.method('words', StringWords,
+singString.method('words', stringWords,
     {
         summary: null,
         parameters: null,
@@ -436,11 +437,11 @@ singString.method('words', StringWords,
         }
     });
 
-function StringWords() {
+function stringWords() {
     return this.collapseSpaces().split(' ');
 }
 
-singString.method('lines', StringLines,
+singString.method('lines', stringLines,
     {
         summary: null,
         parameters: null,
@@ -456,11 +457,11 @@ singString.method('lines', StringLines,
         }
     });
 
-function StringLines() {
+function stringLines() {
     return this.split('\r\n');
 }
 
-singString.method('surround', StringSurround,
+singString.method('surround', stringSurround,
     {
         summary: null,
         parameters: null,
@@ -476,14 +477,14 @@ singString.method('surround', StringSurround,
         }
     });
 
-function StringSurround(str: string) {
+function stringSurround(str: string) {
     if (!str)
         return this;
 
     return str + this + str;
 }
 
-singString.method('truncate', StringTruncate,
+singString.method('truncate', stringTruncate,
     {
         summary: null,
         parameters: null,
@@ -503,7 +504,7 @@ singString.method('truncate', StringTruncate,
         }
     });
 
-function StringTruncate(length: number): string {
+function stringTruncate(length: number): string {
     if (this.length < 0 || isNaN(length))
         return '';
 
@@ -518,7 +519,7 @@ function StringTruncate(length: number): string {
     return thisStr;
 }
 
-singString.method('isValidEmail', StringIsValidEmail,
+singString.method('isValidEmail', stringIsValidEmail,
     {
         summary: null,
         parameters: null,
@@ -530,13 +531,13 @@ singString.method('isValidEmail', StringIsValidEmail,
         }
     });
 
-function StringIsValidEmail(): boolean {
+function stringIsValidEmail(): boolean {
     const thisStr = this as string;
 
     return thisStr.hasMatch(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/);
 }
 
-singString.method('isHex', StringIsHex,
+singString.method('isHex', stringIsHex,
     {
         summary: null,
         parameters: null,
@@ -548,13 +549,13 @@ singString.method('isHex', StringIsHex,
         }
     });
 
-function StringIsHex(): boolean {
+function stringIsHex(): boolean {
     const thisStr = this as string;
 
     return thisStr.hasMatch(/^#?([a-f0-9]{6}|[a-f0-9]{3})$/);
 }
 
-singString.method('isValidURL', StringIsValidURL,
+singString.method('isValidURL', stringIsValidUrl,
     {
         summary: null,
         parameters: null,
@@ -566,12 +567,12 @@ singString.method('isValidURL', StringIsValidURL,
         }
     });
 
-function StringIsValidURL(): boolean {
+function stringIsValidUrl(): boolean {
     const thisStr = this as string;
     return thisStr.hasMatch(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/);
 }
 
-singString.method('isIPAddress', StringIsIPAddress,
+singString.method('isIPAddress', stringIsIpAddress,
     {
         summary: null,
         parameters: null,
@@ -583,12 +584,12 @@ singString.method('isIPAddress', StringIsIPAddress,
         }
     });
 
-function StringIsIPAddress(): boolean {
+function stringIsIpAddress(): boolean {
     const thisStr = this as string;
     return thisStr.hasMatch(/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/);
 }
 
-singString.method('isGuid', StringIsGuid,
+singString.method('isGuid', stringIsGuid,
     {
         summary: null,
         parameters: null,
@@ -600,14 +601,14 @@ singString.method('isGuid', StringIsGuid,
         }
     });
 
-function StringIsGuid(): boolean {
+function stringIsGuid(): boolean {
     const thisStr = this as string;
 
     return thisStr.hasMatch(/^\{?[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}‌​\}?$/);
 }
 
 
-singString.method('tryToNumber', StringTryToNumber,
+singString.method('tryToNumber', stringTryToNumber,
     {
         summary: null,
         parameters: null,
@@ -619,7 +620,7 @@ singString.method('tryToNumber', StringTryToNumber,
         }
     });
 
-function StringTryToNumber(defaultValue: any = this) {
+function stringTryToNumber(defaultValue: any = this) {
     let retValue = defaultValue;
 
     if (true) {
@@ -638,7 +639,7 @@ function StringTryToNumber(defaultValue: any = this) {
 //
 // String Array functions
 
-singString.method('joinLines', StringJoinLines,
+singString.method('joinLines', stringJoinLines,
     {
         summary: null,
         parameters: null,
@@ -650,7 +651,7 @@ singString.method('joinLines', StringJoinLines,
         }
     }, Array.prototype);
 
-function StringJoinLines(asHTML: boolean = true) {
+function stringJoinLines(asHTML: boolean = true) {
     return this.join(asHTML ? '<br/>' : '\r\n');
 }
 
@@ -658,7 +659,7 @@ function StringJoinLines(asHTML: boolean = true) {
 //////////////////////////////////////////////////////
 //
 
-singString.method('pad', StringPad,
+singString.method('pad', stringPad,
     {
         summary: null,
         parameters: null,
@@ -682,7 +683,7 @@ singString.method('pad', StringPad,
         }
     });
 
-function StringPad(length: number, align: Direction = Direction.left, whitespace: string = ' ') {
+function stringPad(length: number, align: Direction = Direction.left, whitespace: string = ' ') {
 
     if (align != Direction.left && align != Direction.l &&
         align != Direction.right && align != Direction.r &&
@@ -714,7 +715,7 @@ function StringPad(length: number, align: Direction = Direction.left, whitespace
 //////////////////////////////////////////////////////
 //
 
-singString.method('toStr', BooleanToStr,
+singString.method('toStr', booleanToStr,
     {
         summary: 'Converts the calling Boolean to string.',
         parameters: [
@@ -741,14 +742,14 @@ singString.method('toStr', BooleanToStr,
         }
     }, Boolean.prototype, 'Boolean');
 
-function BooleanToStr(includeMarkup: boolean = false): string {
+function booleanToStr(includeMarkup: boolean = false): string {
     if (includeMarkup == false)
         return this.toYesNo();
 
     return this == false ? 'false' : 'true';
 }
 
-singString.method('toStr', ObjectToStr,
+singString.method('toStr', objectToStr,
     {
         summary: null,
         parameters: null,
@@ -818,7 +819,7 @@ singString.method('toStr', ObjectToStr,
         }
     }, $, 'jQuery');
 
-function ObjectToStr(obj: any, includeMarkup: boolean = false, stack: any[] = []) {
+function objectToStr(obj: any, includeMarkup: boolean = false, stack: any[] = []) {
 
     if (obj === undefined)
         return includeMarkup ? 'undefined' : '';
@@ -829,7 +830,7 @@ function ObjectToStr(obj: any, includeMarkup: boolean = false, stack: any[] = []
     if (obj === sing)
         return 'sing';
 
-    if (obj.toStr && obj.toStr != ObjectToStr)
+    if (obj.toStr && obj.toStr != objectToStr)
         return obj.toStr(includeMarkup);
 
     if (typeof obj == 'object') {
@@ -866,7 +867,7 @@ function ObjectToStr(obj: any, includeMarkup: boolean = false, stack: any[] = []
     return obj;
 }
 
-singString.method('toStr', ArrayToStr,
+singString.method('toStr', arrayToStr,
     {
         summary: null,
         parameters: null,
@@ -878,7 +879,7 @@ singString.method('toStr', ArrayToStr,
         }
     }, Array.prototype, 'Array');
 
-function ArrayToStr(includeMarkup: boolean = false) {
+function arrayToStr(includeMarkup: boolean = false) {
 
     const thisArray = this as any[];
 
@@ -890,8 +891,8 @@ function ArrayToStr(includeMarkup: boolean = false) {
             out += 'undefined';
         else if (item.toStr)
             out += item.toStr(includeMarkup);  // includeMarkup is passed to child elements
-        else if (ObjectIsHash(item))
-            out += ObjectToStr(item, includeMarkup);
+        else if (objectIsHash(item))
+            out += objectToStr(item, includeMarkup);
 
         if (i < this.length - 1)
             out += includeMarkup ? ', ' : '\r\n';
@@ -902,7 +903,7 @@ function ArrayToStr(includeMarkup: boolean = false) {
     return out;
 }
 
-singString.method('toStr', StringToStr,
+singString.method('toStr', stringToStr,
     {
         summary: null,
         parameters: null,
@@ -914,14 +915,14 @@ singString.method('toStr', StringToStr,
         }
     });
 
-function StringToStr(includeMarkup: boolean = false) {
+function stringToStr(includeMarkup: boolean = false) {
     if (includeMarkup)
         return `'${this.replaceAll('\r\n', '\\r\\n')}'`;
 
     return this;
 }
 
-singString.method('isString', IsString,
+singString.method('isString', isString,
     {
         summary: null,
         parameters: null,
@@ -939,11 +940,11 @@ singString.method('isString', IsString,
         }
     }, $);
 
-function IsString(str?: any) {
+function isString(str?: any) {
     return typeof str == 'string';
 }
 
-singString.method('first', StringFirst,
+singString.method('first', stringFirst,
     {
         summary: null,
         parameters: null,
@@ -955,7 +956,7 @@ singString.method('first', StringFirst,
         }
     });
 
-function StringFirst(count: number) {
+function stringFirst(count: number) {
 
     if (count <= 0)
         return '';
@@ -966,7 +967,7 @@ function StringFirst(count: number) {
     return this.substr(0, count);
 }
 
-singString.method('last', StringLast,
+singString.method('last', stringLast,
     {
         summary: null,
         parameters: null,
@@ -978,7 +979,7 @@ singString.method('last', StringLast,
         }
     });
 
-function StringLast(count: number) {
+function stringLast(count: number) {
 
     if (count <= 0)
         return '';
@@ -989,7 +990,7 @@ function StringLast(count: number) {
     return this.substr(this.length - count, count);
 }
 
-singString.method('containsAny', StringContainsAny,
+singString.method('containsAny', stringContainsAny,
     {
         summary: null,
         parameters: null,
@@ -1001,7 +1002,7 @@ singString.method('containsAny', StringContainsAny,
         }
     });
 
-function StringContainsAny(...items: string[]) {
+function stringContainsAny(...items: string[]) {
     if (!items || items.length == 0)
         return false;
 
@@ -1010,7 +1011,7 @@ function StringContainsAny(...items: string[]) {
     });
 }
 
-singString.method('before', StringBefore,
+singString.method('before', stringBefore,
     {
         summary: null,
         parameters: null,
@@ -1022,7 +1023,7 @@ singString.method('before', StringBefore,
         }
     });
 
-function StringBefore(search: string) {
+function stringBefore(search: string) {
     if (search == '')
         return this;
 
@@ -1034,7 +1035,7 @@ function StringBefore(search: string) {
     return this.substr(0, index).before(search);
 }
 
-singString.method('after', StringAfter,
+singString.method('after', stringAfter,
     {
         summary: null,
         parameters: null,
@@ -1046,7 +1047,7 @@ singString.method('after', StringAfter,
         }
     });
 
-function StringAfter(search: string) {
+function stringAfter(search: string) {
     if (search == '')
         return this;
 
@@ -1059,7 +1060,7 @@ function StringAfter(search: string) {
 }
 
 
-singString.method('beforeLast', StringBeforeLast,
+singString.method('beforeLast', stringBeforeLast,
     {
         summary: null,
         parameters: null,
@@ -1071,7 +1072,7 @@ singString.method('beforeLast', StringBeforeLast,
         }
     });
 
-function StringBeforeLast(search: string) {
+function stringBeforeLast(search: string) {
     if (search == '')
         return this;
 
@@ -1083,7 +1084,7 @@ function StringBeforeLast(search: string) {
     return this.substr(0, index);
 }
 
-singString.method('afterFirst', StringAfterFirst,
+singString.method('afterFirst', stringAfterFirst,
     {
         summary: null,
         parameters: null,
@@ -1095,7 +1096,7 @@ singString.method('afterFirst', StringAfterFirst,
         }
     });
 
-function StringAfterFirst(search: string) {
+function stringAfterFirst(search: string) {
     if (search == '')
         return this;
 
@@ -1107,7 +1108,7 @@ function StringAfterFirst(search: string) {
     return this.substr(index + search.length);
 }
 
-singString.method('toSlug', StringToSlug,
+singString.method('toSlug', stringToSlug,
     {
         summary: null,
         parameters: null,
@@ -1119,19 +1120,19 @@ singString.method('toSlug', StringToSlug,
         }
     });
 
-function StringToSlug() {
+function stringToSlug() {
 
     // ReSharper disable once ConditionIsAlwaysConst
 // ReSharper disable once HeuristicallyUnreachableCode
-    let Text: string = this || '';
-    Text = Text.toLowerCase();
-    Text = Text.replace(/\./g, '_');
-    Text = Text.replace(/\s/g, '-');
+    let text: string = this || '';
+    text = text.toLowerCase();
+    text = text.replace(/\./g, '_');
+    text = text.replace(/\s/g, '-');
 
-    return Text;
+    return text;
 }
 
-singString.method('containsAll', StringContainsAll,
+singString.method('containsAll', stringContainsAll,
     {
         summary: null,
         parameters: null,
@@ -1143,7 +1144,7 @@ singString.method('containsAll', StringContainsAll,
         }
     });
 
-function StringContainsAll(...items: string[]) {
+function stringContainsAll(...items: string[]) {
 
     if (items.length == 0)
         return false;
@@ -1158,7 +1159,7 @@ function StringContainsAll(...items: string[]) {
     return true;
 }
 
-singString.method('pluralize', StringPluralize,
+singString.method('pluralize', stringPluralize,
     {
         summary: null,
         parameters: null,
@@ -1170,7 +1171,7 @@ singString.method('pluralize', StringPluralize,
         }
     });
 
-function StringPluralize(count: number) {
+function stringPluralize(count: number) {
     const thisStr = this as string;
 
     if (count === undefined || count === null)
@@ -1182,7 +1183,7 @@ function StringPluralize(count: number) {
     return thisStr;
 }
 
-singString.method('isJSON', StringIsJSON,
+singString.method('isJSON', stringIsJson,
     {
         summary: null,
         parameters: null,
@@ -1194,7 +1195,7 @@ singString.method('isJSON', StringIsJSON,
         }
     });
 
-function StringIsJSON(): boolean {
+function stringIsJson(): boolean {
     try {
         const thisStr = this as string;
         const jsonObject = jQuery.parseJSON(thisStr);
@@ -1206,7 +1207,7 @@ function StringIsJSON(): boolean {
     }
 }
 
-singString.method('parseJSON', StringParseJSON,
+singString.method('parseJSON', stringParseJson,
     {
         summary: null,
         parameters: null,
@@ -1218,13 +1219,13 @@ singString.method('parseJSON', StringParseJSON,
         }
     });
 
-function StringParseJSON(): Object {
+function stringParseJson(): Object {
     const thisStr = this as string;
     const jsonObject = jQuery.parseJSON(thisStr);
     return jsonObject;
 }
 
-singString.method('fill', StringFill,
+singString.method('fill', stringFill,
     {
         summary: null,
         parameters: null,
@@ -1236,7 +1237,7 @@ singString.method('fill', StringFill,
         }
     });
 
-function StringFill(fillWith: string) {
+function stringFill(fillWith: string) {
     if (this.length == 0)
         return '';
 
@@ -1258,7 +1259,7 @@ function StringFill(fillWith: string) {
 }
 
 
-function Test() {
+function test() {
     const bracketStart = '{';
     const bracketEnd = '}';
 

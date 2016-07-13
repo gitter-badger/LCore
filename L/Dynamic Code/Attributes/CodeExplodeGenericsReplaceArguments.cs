@@ -26,16 +26,16 @@ namespace LCore.Dynamic
             get
                 {
                 List<List<string>> Out = base.Replacements;
-                Out.Add(CodeReplacementsArgs($"{this.PreArgs}(", $"){this.PostArgs}", ";").Collect(s =>
+                Out.Add(CodeReplacementsArgs($"{this.PreArgs}(", $"){this.PostArgs}", ";").Collect(Str =>
                 {
                     this.ArgIndexes.Each((i, Index) =>
                     {
-                        s = s.Replace($"(o{(Index + 1).ToString()}, ", $"({this.ArgNames[i]}, ");
-                        s = s.Replace($", o{(Index + 1).ToString()}, ", $", {this.ArgNames[i]}, ");
-                        s = s.Replace($", o{(Index + 1).ToString()})", $", {this.ArgNames[i]})");
-                        s = s.Replace($"(o{(Index + 1).ToString()})", $"({this.ArgNames[i]})");
+                        Str = Str.Replace($"(o{(Index + 1).ToString()}, ", $"({this.ArgNames[i]}, ");
+                        Str = Str.Replace($", o{(Index + 1).ToString()}, ", $", {this.ArgNames[i]}, ");
+                        Str = Str.Replace($", o{(Index + 1).ToString()})", $", {this.ArgNames[i]})");
+                        Str = Str.Replace($"(o{(Index + 1).ToString()})", $"({this.ArgNames[i]})");
                     });
-                    return s;
+                    return Str;
                 }));
 
                 Out = this.Cutoff(Out);

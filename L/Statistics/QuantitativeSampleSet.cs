@@ -17,7 +17,7 @@ namespace LCore.Statistics
             IEquatable<T>,
             IFormattable
         {
-        protected T[] DataSet { get; set; }
+        protected T[] DataSet { get; private set; }
 
         protected T[] DataSetSorted { get; set; }
 
@@ -307,28 +307,28 @@ namespace LCore.Statistics
 
                 #region Basic Stats
 
-                this.DataSetSorted.Each((i, x) =>
+                this.DataSetSorted.Each((i, DataItem) =>
             {
                 if (i == 0)
-                    Minimum = x;
+                    Minimum = DataItem;
 
-                Maximum = x;
+                Maximum = DataItem;
 
-                Total = this.Add(Total, x);
+                Total = this.Add(Total, DataItem);
 
-                this._GeometricMean *= Math.Pow(x.ConvertTo<double>(), GeometricRatio);
+                this._GeometricMean *= Math.Pow(DataItem.ConvertTo<double>(), GeometricRatio);
 
-                this._HarmonicMean += 1 / x.ConvertTo<double>();
+                this._HarmonicMean += 1 / DataItem.ConvertTo<double>();
 
-                if (x.ConvertTo<double>() < this._LowerFence)
+                if (DataItem.ConvertTo<double>() < this._LowerFence)
                     {
-                    LowerOutliers.Add(x);
-                    Outliers.Add(x);
+                    LowerOutliers.Add(DataItem);
+                    Outliers.Add(DataItem);
                     }
-                else if (x.ConvertTo<double>() > this._UpperFence)
+                else if (DataItem.ConvertTo<double>() > this._UpperFence)
                     {
-                    UpperOutliers.Add(x);
-                    Outliers.Add(x);
+                    UpperOutliers.Add(DataItem);
+                    Outliers.Add(DataItem);
                     }
             });
 
@@ -355,7 +355,7 @@ namespace LCore.Statistics
                 }
             }
 
-        protected bool ParsedFrequency = false;
+        public bool ParsedFrequency = false;
         protected virtual void ParseDataFrequency()
             {
             this.ParseData();
@@ -365,49 +365,49 @@ namespace LCore.Statistics
                 var MostFrequent = new List<T>();
                 long MostFrequentCount = 0;
 
-                this.DataSetSorted.Each((i, x) =>
+                this.DataSetSorted.Each((i, DataItem) =>
             {
                 #region Frequency
-                if (!this._Frequency.ContainsKey(x))
+                if (!this._Frequency.ContainsKey(DataItem))
                     {
-                    this._Frequency.Add(x, 1);
+                    this._Frequency.Add(DataItem, 1);
 
                     if (MostFrequentCount == 0 || MostFrequentCount == 1)
                         {
                         MostFrequentCount = 1;
-                        MostFrequent.Add(x);
+                        MostFrequent.Add(DataItem);
                         }
                     }
                 else
                     {
-                    long Count = this._Frequency[x] + 1;
+                    long Count = this._Frequency[DataItem] + 1;
 
                     if (Count == MostFrequentCount)
                         {
-                        MostFrequent.Add(x);
+                        MostFrequent.Add(DataItem);
                         }
                     else if (Count > MostFrequentCount)
                         {
                         MostFrequent.Clear();
-                        MostFrequent.Add(x);
+                        MostFrequent.Add(DataItem);
                         MostFrequentCount = Count;
                         }
 
-                    this._Frequency[x]++;
+                    this._Frequency[DataItem]++;
                     }
                 #endregion
 
                 #region RelativeFrequency
 
-                this._Frequency.Keys.Each(x2 =>
+                this._Frequency.Keys.Each(Key =>
             {
-                this._RelativeFrequency[x2] = this._Frequency[x2] / this.SampleSize;
+                this._RelativeFrequency[Key] = this._Frequency[Key] / this.SampleSize;
             });
                 #endregion
 
                 #region FrequencyClasses
 
-                this._Frequency.Keys.Each(x2 =>
+                this._Frequency.Keys.Each(Key =>
             {
                 int ClassCount = StatsExt.GetOptimumClassCount(this.SampleSize);
 
@@ -441,10 +441,10 @@ namespace LCore.Statistics
                 this._TotalDeviation = 0;
                 this._TotalVariance = 0;
 
-                this.DataSet.Each((i, x) =>
+                this.DataSet.Each((i, DataItem) =>
             {
-                double Deviation = this.GetValueDeviation(x);
-                double Variance = this.GetValueVariance(x);
+                double Deviation = this.GetValueDeviation(DataItem);
+                double Variance = this.GetValueVariance(DataItem);
 
                 this._DataDeviation[i] = Deviation;
                 this._DataVariance[i] = Variance;
@@ -468,19 +468,19 @@ namespace LCore.Statistics
                 }
             }
 
-        public double GetValueDeviation(T x)
+        public double GetValueDeviation(T Value)
             {
-            return x.ConvertTo<double>() - this.Mean();
+            return Value.ConvertTo<double>() - this.Mean();
             }
 
-        public double GetValueVariance(T x)
+        public double GetValueVariance(T Value)
             {
-            return Math.Pow(x.ConvertTo<double>() - this.Mean(), 2);
+            return Math.Pow(Value.ConvertTo<double>() - this.Mean(), 2);
             }
 
-        public double GetValueZScore(T x)
+        public double GetValueZScore(T Value)
             {
-            return (x.ConvertTo<double>() - this.Mean()) / this.StandardDeviation();
+            return (Value.ConvertTo<double>() - this.Mean()) / this.StandardDeviation();
             }
 
         /// <summary>
@@ -514,18 +514,18 @@ namespace LCore.Statistics
             {
             Data = Data ?? new T[] { };
 
-            this.DataSet = Data.Array().Convert(x =>
+            this.DataSet = Data.Array().Convert(DataItem =>
             {
-                if (x is T)
+                if (DataItem is T)
                     {
-                    return (T)x;
+                    return (T)DataItem;
                     }
-                var Convertible = x as IConvertible;
+                var Convertible = DataItem as IConvertible;
                 if (Convertible != null)
                     {
                     return this.Convert(Convertible);
                     }
-                throw new Exception($"Could not convert to {typeof(T).FullName}: {(x ?? "[null]").ToString()}");
+                throw new Exception($"Could not convert to {typeof(T).FullName}: {(DataItem ?? "[null]").ToString()}");
             });
 
             this.SampleSize = this.DataSet.Length;

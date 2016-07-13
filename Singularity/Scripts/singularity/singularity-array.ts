@@ -11,7 +11,7 @@ interface Array<T> {
     sortBy?: (arg?: string | string[]| ((item: T) => number)) => T[];
     orderBy?: (arg?: string | string[]| ((item: T) => number)) => T[];
 
-    quickSort?: (sortWith?: any[][], left?: number, right?: number) => any[]| QuickSortResult;
+    quickSort?: (sortWith?: any[][], left?: number, right?: number) => any[]| IQuickSortResult;
 
 
     removeAt?: (...indexes: number[]) => T[];
@@ -19,10 +19,11 @@ interface Array<T> {
 
     random?: (count?: number) => T | T[];
 
-    group?: (keyFunc: (item: any, index: number) => string) => Hash<T>;
+    group?: (keyFunc: (item: any, index: number) => string) => IHash<T>;
 
 }
 
+// ReSharper disable once InconsistentNaming
 interface JQueryStatic {
     toArray?: (obj: any) => any[];
 }
@@ -51,7 +52,7 @@ singArray.glyphIcon = '&#xe236;';
 //
 
 
-singArray.method('splitAt', SplitAt,
+singArray.method('splitAt', splitAt,
     {
         summary: 'Takes an array and splits it at the specified indexes.',
         parameters: [
@@ -78,7 +79,7 @@ singArray.method('splitAt', SplitAt,
         }
     });
 
-function SplitAt<T>(...indexes: number[]): T[][] {
+function splitAt<T>(...indexes: number[]): T[][] {
 
     indexes = indexes.unique();
 
@@ -113,7 +114,7 @@ function SplitAt<T>(...indexes: number[]): T[][] {
     return out;
 }
 
-singArray.method('removeAt', ArrayRemoveAt,
+singArray.method('removeAt', arrayRemoveAt,
     {
         summary: 'Takes an array and returns a new array with the passed indexes removed.',
         parameters: [
@@ -142,14 +143,14 @@ singArray.method('removeAt', ArrayRemoveAt,
         }
     });
 
-function ArrayRemoveAt<T>(...indexes: number[]): T[] {
+function arrayRemoveAt<T>(...indexes: number[]): T[] {
 
     const thisArray = this as T[];
 
     return thisArray.select((item, index) => (!indexes.has(index)));
 }
 
-singArray.method('unique', ArrayUnique,
+singArray.method('unique', arrayUnique,
     {
         summary: 'Takes an array and returns only unique values, discarding duplicates.',
         parameters: [],
@@ -166,7 +167,7 @@ singArray.method('unique', ArrayUnique,
         }
     });
 
-function ArrayUnique<T>(): T[] {
+function arrayUnique<T>(): T[] {
 
     const thisArray = this as T[];
 
@@ -180,7 +181,7 @@ function ArrayUnique<T>(): T[] {
     return out;
 }
 
-singArray.method('random', ArrayRandom,
+singArray.method('random', arrayRandom,
     {
         summary: 'Takes an array and returns one or more random values from the source array.',
         parameters: [
@@ -211,7 +212,7 @@ singArray.method('random', ArrayRandom,
         }
     });
 
-function ArrayRandom<T>(count: number = 1): T[] {
+function arrayRandom<T>(count: number = 1): T[] {
 
     let thisArray = this as T[];
 
@@ -232,7 +233,7 @@ function ArrayRandom<T>(count: number = 1): T[] {
     return out;
 }
 
-singArray.method('shuffle', ArrayShuffle,
+singArray.method('shuffle', arrayShuffle,
     {
         summary: 'Takes an array and returns a new array with the original array values, shuffled.',
         parameters: [],
@@ -255,7 +256,7 @@ singArray.method('shuffle', ArrayShuffle,
         }
     });
 
-function ArrayShuffle<T>(): T[] {
+function arrayShuffle<T>(): T[] {
 
     let thisArray = this as T[];
 
@@ -273,7 +274,7 @@ function ArrayShuffle<T>(): T[] {
 
 }
 
-singArray.method('group', ArrayGroup,
+singArray.method('group', arrayGroup,
     {
         summary: 'Takes an array and groups the items using the key returned from the indexing function',
         returns: 'A Javascript hash object grouped by the indexing function.',
@@ -295,11 +296,11 @@ singArray.method('group', ArrayGroup,
         }
     });
 
-function ArrayGroup<T>(indexFunc: (item: T, index: number) => string): Hash<T[]> {
+function arrayGroup<T>(indexFunc: (item: T, index: number) => string): IHash<T[]> {
 
     const thisArray = this as T[];
 
-    var out: Hash<T[]> = {};
+    var out: IHash<T[]> = {};
 
     thisArray.each((item, index) => {
 
@@ -317,7 +318,7 @@ function ArrayGroup<T>(indexFunc: (item: T, index: number) => string): Hash<T[]>
     return out;
 }
 
-singArray.method('toArray', ObjToArray,
+singArray.method('toArray', objToArray,
     {
         summary: 'Takes an object of any kind and returns it as an array. If no object is passed an empty array will be returned. \
             If an array is passed, it will be returned.',
@@ -340,7 +341,7 @@ singArray.method('toArray', ObjToArray,
         }
     }, $);
 
-function ObjToArray(obj: any) {
+function objToArray(obj: any) {
 
     if (!$.isDefined(obj))
         return [];

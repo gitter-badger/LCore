@@ -436,12 +436,12 @@ WriteLiteral(@"
             #line hidden
 WriteLiteral("        <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 4423), Tuple.Create("\"", 4626)
+WriteAttribute("href", Tuple.Create(" href=\"", 4423), Tuple.Create("\"", 4644)
             
             #line 123 "..\..\Views\Shared\Manage\Search.cshtml"
 , Tuple.Create(Tuple.Create("", 4430), Tuple.Create<System.Object, System.Int32>(Url.Controller<SavedSearchController>()
                     .QS(Controllers.SavedSearch.Actions.Route_CreateSavedSearch(Model, ViewContext))
-                    .Lambda<string>(c => c.Create)
+                    .Lambda<string>(Controller => Controller.Create)
             
             #line default
             #line hidden
@@ -552,16 +552,16 @@ WriteLiteral(">\r\n                            <a");
 
 WriteLiteral(" class=\"saved-search btn btn-default\"");
 
-WriteAttribute("href", Tuple.Create("\r\n                               href=\"", 5808), Tuple.Create("\"", 6137)
+WriteAttribute("href", Tuple.Create("\r\n                               href=\"", 5826), Tuple.Create("\"", 6173)
             
             #line 154 "..\..\Views\Shared\Manage\Search.cshtml"
-, Tuple.Create(Tuple.Create("", 5847), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
+, Tuple.Create(Tuple.Create("", 5865), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
                                 .QS(Controllers.SavedSearch.Actions.Route_ViewSavedSearch(Model, Search))
-                                .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage)
+                                .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(Controller=> Controller.Manage)
             
             #line default
             #line hidden
-, 5847), false)
+, 5865), false)
 );
 
 WriteLiteral(">\r\n                                <glyph>&#xe003;</glyph>\r\n                     " +
@@ -595,16 +595,16 @@ WriteLiteral("                                <a");
 
 WriteLiteral(" class=\"email-saved-search btn btn-default\"");
 
-WriteAttribute("href", Tuple.Create("\r\n                                   href=\"", 6551), Tuple.Create("\"", 6842)
+WriteAttribute("href", Tuple.Create("\r\n                                   href=\"", 6587), Tuple.Create("\"", 6896)
             
             #line 164 "..\..\Views\Shared\Manage\Search.cshtml"
-, Tuple.Create(Tuple.Create("", 6594), Tuple.Create<System.Object, System.Int32>(Url.Controller<EmailJobController>()
+, Tuple.Create(Tuple.Create("", 6630), Tuple.Create<System.Object, System.Int32>(Url.Controller<EmailJobController>()
                                        .QS(new Dictionary<string, object> { {"SavedSearchID", Search.SavedSearchID} })
-                                       .Action(c => c.Create, Request.Url?.AbsoluteUri)
+                                       .Action(Controller => Controller.Create, Request.Url?.AbsoluteUri)
             
             #line default
             #line hidden
-, 6594), false)
+, 6630), false)
 );
 
 WriteLiteral(">\r\n                                    <glyph>&#x2709;</glyph>\r\n                 " +
@@ -621,16 +621,16 @@ WriteLiteral("                            <a");
 
 WriteLiteral(" class=\"edit-saved-search btn btn-default\"");
 
-WriteAttribute("href", Tuple.Create("\r\n                               href=\"", 7052), Tuple.Create("\"", 7307)
+WriteAttribute("href", Tuple.Create("\r\n                               href=\"", 7106), Tuple.Create("\"", 7379)
             
             #line 171 "..\..\Views\Shared\Manage\Search.cshtml"
-, Tuple.Create(Tuple.Create("", 7091), Tuple.Create<System.Object, System.Int32>(Url.Controller<SavedSearchController>()
+, Tuple.Create(Tuple.Create("", 7145), Tuple.Create<System.Object, System.Int32>(Url.Controller<SavedSearchController>()
                                     .QS(Controllers.Manage.Actions.Route_Edit(Search, Request))
-                                    .Lambda<int, string, bool>(c => c.Edit)
+                                    .Lambda<int, string, bool>(Controller => Controller.Edit)
             
             #line default
             #line hidden
-, 7091), false)
+, 7145), false)
 );
 
 WriteLiteral(">\r\n                                <glyph>&#xe065;</glyph>\r\n                     " +

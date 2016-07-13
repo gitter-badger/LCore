@@ -52,7 +52,7 @@ namespace L_Tests.Tests.Extensions
 
             Test.Keys.List().ShouldBeEquivalentTo(new List<string> { "a", "b", "c", "d", "e", "f", "g", "h", "i" });
 
-            Test.Merge(Test3, a => new KeyValuePair<string, string>($"{a.Key}a", $"{a.Value}b"));
+            Test.Merge(Test3, Value => new KeyValuePair<string, string>($"{Value.Key}a", $"{Value.Value}b"));
 
             Test.Keys.Count.Should().Be(12);
 

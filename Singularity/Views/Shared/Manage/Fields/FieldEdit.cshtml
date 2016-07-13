@@ -6,6 +6,7 @@
 @using Singularity.Extensions;
 @using Singularity.Annotations;
 @using System.ComponentModel.DataAnnotations.Schema;
+@using System.Reflection
 
 @{
     var Meta = Model.Meta;
@@ -34,7 +35,12 @@
     else
         {
         var Func = Lambda.Compile();
-        Func.DynamicInvoke(Model);
+        try
+            {
+            Func.DynamicInvoke(Model);
+            }
+        catch (MemberAccessException) { }
+        catch (TargetInvocationException) { }
         }
 
     RangeAttribute Attr = null;
@@ -53,7 +59,7 @@
     return;
     }
 
-<div class="field @Model.ViewTypes.CollectStr((i, t) => $"{t.ToString().ToLower()}-field ") field-@Model.ColumnClass @Model.ModelFieldClasses.Combine(" ")"
+<div class="field @Model.ViewTypes.CollectStr((i, Type) => $"{Type.ToString().ToLower()}-field ") field-@Model.ColumnClass @Model.ModelFieldClasses.Combine(" ")"
      data-object-type="@Meta.ModelType"
      data-type-name="@Meta.DataTypeName"
      @Html.Raw(Model.ModelFieldHtmlAttributes.Combine(" "))

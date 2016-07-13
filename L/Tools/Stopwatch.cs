@@ -8,7 +8,7 @@ namespace LCore.Tools
     /// </summary>
     public class StopWatch
         {
-        private DateTime StartTime;
+        private DateTime _StartTime;
 
         /// <summary>
         /// Create a new StopWatch.
@@ -23,7 +23,7 @@ namespace LCore.Tools
         /// </summary>
         public void Start()
             {
-            this.StartTime = DateTime.Now;
+            this._StartTime = DateTime.Now;
             }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace LCore.Tools
         /// <returns>The duration in milliseconds</returns>
         public double Stop()
             {
-            return (DateTime.Now.Ticks - this.StartTime.Ticks) * L.Date.TicksToMilliseconds;
+            return (DateTime.Now.Ticks - this._StartTime.Ticks) * L.Date.TicksToMilliseconds;
             }
         }
     }

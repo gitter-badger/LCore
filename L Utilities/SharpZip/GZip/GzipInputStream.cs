@@ -45,6 +45,10 @@ using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable FieldCanBeMadeReadOnly.Global
+// ReSharper disable InconsistentNaming
+// ReSharper disable StringLiteralTypo
+// ReSharper disable CommentTypo
+// ReSharper disable IdentifierTypo
 
 namespace ICSharpCode.SharpZipLib.GZip
     {
@@ -111,6 +115,7 @@ namespace ICSharpCode.SharpZipLib.GZip
         #endregion
 
         #region Stream overrides
+
         /// <summary>
         /// Reads uncompressed data into an array of bytes
         /// </summary>
@@ -124,6 +129,9 @@ namespace ICSharpCode.SharpZipLib.GZip
         /// The number of uncompressed bytes to be read
         /// </param>
         /// <returns>Returns the number of bytes actually read.</returns>
+        /// <exception cref="SharpZipBaseException">
+        /// Inflater needs a dictionary
+        /// </exception>
         public override int Read(byte[] buffer, int offset, int count)
             {
             // We first have to read the GZIP header, then we feed all the
@@ -145,17 +153,17 @@ namespace ICSharpCode.SharpZipLib.GZip
                 }
 
             // We don't have to read the header, so we just grab data from the superclass
-            int bytesRead = base.Read(buffer, offset, count);
-            if (bytesRead > 0)
+            int BytesRead = base.Read(buffer, offset, count);
+            if (BytesRead > 0)
                 {
-                this.crc.Update(buffer, offset, bytesRead);
+                this.crc.Update(buffer, offset, BytesRead);
                 }
 
             if (this.inf.IsFinished)
                 {
                 this.ReadFooter();
                 }
-            return bytesRead;
+            return BytesRead;
             }
         #endregion
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
+using System.Reflection;
 using LCore.Extensions.Optional;
 using LCore.Tests;
 using NSort;
@@ -98,6 +99,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Appends the supplied List[T] with the supplied items.
         /// </summary>
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         [TestMethodGenerics(typeof(int))]
         [TestFails(new object[] { null, null }, typeof(ArgumentNullException))]
         [TestFails(new object[] { null, new int[] { } }, typeof(ArgumentNullException))]
@@ -110,6 +112,7 @@ namespace LCore.Extensions
             {
             if (In == null)
                 throw new ArgumentNullException(nameof(In));
+
             if (Objs.IsEmpty())
                 return;
 
@@ -139,19 +142,27 @@ namespace LCore.Extensions
         #endregion
 
         #region AddTo
+
         /// <summary>
         /// Adds the item of the supplied collection to the second supplied collection.
         /// This method tries to look for the Collection's Add method, if it exists.
         /// </summary>
+        /// <exception cref="InvalidOperationException">If an 'Add' method cannot be found for [Collection].</exception>
         public static void AddTo<T>(this IEnumerable<T> In, ICollection Collection)
             {
             var CollectionType = Collection.GetType();
 
-            var AddMethod = CollectionType.GetMethod("Add", new[] { typeof(T) }) ??
-                                   CollectionType.GetMethod("Add", new[] { typeof(object) });
+            MethodInfo AddMethod = null;
+
+            try
+                {
+                AddMethod = CollectionType.GetMethod("Add", new[] { typeof(T) }) ??
+                    CollectionType.GetMethod("Add", new[] { typeof(object) });
+                }
+            catch (AmbiguousMatchException) { }
 
             if (AddMethod == null)
-                throw new Exception($"Could not find \'Add\' method for type \'{typeof(T)}\'");
+                throw new InvalidOperationException($"Could not find \'Add\' method for type \'{typeof(T)}\'");
 
             In.Each(o => { AddMethod.Invoke(Collection, new object[] { o }); });
             }
@@ -240,9 +251,13 @@ namespace LCore.Extensions
             if (Obj == null)
                 return In;
 
-            var Out = new T[In.Length + Obj.Length];
+            int Length1 = In.Length;
+            int Length2 = Obj.Length;
+
+            var Out = new T[Length1 + Length2];
             In.CopyTo(Out, 0);
-            Obj.CopyTo(Out, In.Length);
+            Obj.CopyTo(Out, Length1);
+
             return Out;
             }
         #endregion
@@ -299,7 +314,7 @@ namespace LCore.Extensions
             {
             In = In ?? new object[] { };
             Func = Func ?? (o => null);
-            return In.Cast<object>().Select(Func).Where(obj => obj != null).ToList();
+            return In.Cast<object>().Select(Func).Where(Obj => Obj != null).ToList();
             }
         /// <summary>
         /// Runs a Func[T,T] [In.Count] times and returns a list with the results. 
@@ -320,7 +335,7 @@ namespace LCore.Extensions
             In = In.List<T>();
             Func = Func ?? (o => default(T));
 
-            return In.Cast<T>().Select(Func).Where(obj => obj != null).ToList();
+            return In.Cast<T>().Select(Func).Where(Obj => Obj != null).ToList();
             }
         /// <summary>
         /// Runs a Func[T,T] [In.Count] times and returns a list with the results. 
@@ -340,7 +355,7 @@ namespace LCore.Extensions
             In = In ?? new T[] { };
             Func = Func ?? (o => default(T));
 
-            return In.Select(Func).Where(obj => obj != null).ToList();
+            return In.Select(Func).Where(Obj => Obj != null).ToList();
             }
         /// <summary>
         /// Iterates through a collection, executing the Func[T,T] on the input.
@@ -376,7 +391,7 @@ namespace LCore.Extensions
             In = In ?? new List<T>();
             Func = Func ?? (o => default(T));
 
-            return In.Select(Func).Where(obj => obj != null).ToList();
+            return In.Select(Func).Where(Obj => Obj != null).ToList();
             }
         #endregion
 
@@ -385,6 +400,7 @@ namespace LCore.Extensions
         /// Runs a Func[Object,Object] [In.Count] times and returns a list with the results. 
         /// Values from the Input collection are used as the parameters. Null values are excluded.
         /// </summary>
+
         [TestFails(new object[] { new[] { 1 }, null })]
         [TestFails(new object[] { new[] { 1 }, Test.FailIOOFunc_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.FailIOOFunc_Name })]
@@ -413,6 +429,7 @@ namespace LCore.Extensions
         /// Values from the Input collection are used as the parameters. 
         /// Null values and values that are not of type T are excluded.
         /// </summary>
+
         [TestMethodGenerics(typeof(int))]
         [TestFails(new object[] { new[] { 1 }, null })]
         [TestFails(new object[] { new[] { 1 }, Test.FailITTFunc_Name })]
@@ -442,6 +459,7 @@ namespace LCore.Extensions
         /// Values from the Input collection are used as the parameters.
         /// Returns a list containing the result of the Func[T,T]. Null values are excluded.
         /// </summary>
+
         [TestMethodGenerics(typeof(int))]
         [TestFails(new object[] { new[] { 1 }, null })]
         [TestFails(new object[] { new[] { 1 }, Test.FailITTFunc_Name })]
@@ -472,6 +490,7 @@ namespace LCore.Extensions
         /// The int passed is the 0-based index of the current item.
         /// Returns a T[] of the results of the Func. Null values are excluded.
         /// </summary>
+
         [TestMethodGenerics(typeof(int))]
         [TestFails(new object[] { new[] { 1 }, null })]
         [TestFails(new object[] { new[] { 1 }, Test.FailITTFunc_Name })]
@@ -489,6 +508,7 @@ namespace LCore.Extensions
         /// The int passed is the 0-based index of the current item.
         /// Returns a List[T] of the results of the Func. Null values are excluded.
         /// </summary>
+
         [TestMethodGenerics(typeof(int))]
         [TestFails(new object[] { new[] { 1 }, null })]
         [TestFails(new object[] { new[] { 1 }, Test.FailITTFunc_Name })]
@@ -519,6 +539,7 @@ namespace LCore.Extensions
         /// Runs a Func[T] [Count] times and returns a list with the results.
         /// Returns a list containing the result of the Func[T]. Null values are excluded.
         /// </summary>
+
         public static List<T> Collect<T>(this Func<T> In, int Count)
             {
             List<T> Out = NewList<List<T>, T>();
@@ -530,6 +551,7 @@ namespace LCore.Extensions
         /// Returns a list containing the result of the Func[T]. Null values are excluded.
         /// The int passed to the Func is the 0-based index of the current item.
         /// </summary>
+
         public static List<T> CollectI<T>(this Func<int, T> In, int Count)
             {
             List<T> Out = NewList<List<T>, T>();
@@ -551,6 +573,7 @@ namespace LCore.Extensions
         /// The int passed is the index of the current item.
         /// Returns a string concatenation of the results of the Func.
         /// </summary>
+
         public static string CollectStr<T>(this List<T> In, Func<int, T, string> Func)
             {
             return In.CollectStr<T, List<T>>(Func);
@@ -560,6 +583,7 @@ namespace LCore.Extensions
         /// The int passed is the index of the current item.
         /// Returns a string concatenation of the results of the Func.
         /// </summary>
+
         public static string CollectStr<T>(this T[] In, Func<int, T, string> Func)
             {
             return In.CollectStr<T, T[]>(Func);
@@ -569,6 +593,7 @@ namespace LCore.Extensions
         /// The int passed is the index of the current item.
         /// Returns a string concatenation of the results of the Func.
         /// </summary>
+
         public static string CollectStr<T, U>(this U In, Func<int, T, string> Func) where U : IEnumerable<T>
             {
             string Out = "";
@@ -615,6 +640,7 @@ namespace LCore.Extensions
         /// Iterates through a collection, returning a List[Object] containing the results of the passed Func[Object,Object].
         /// Null values are ignored.
         /// </summary>
+
         public static List<object> Convert(this IEnumerable In, Func<object, object> Func)
             {
             return In.Convert((i, o) => Func(o));
@@ -623,6 +649,7 @@ namespace LCore.Extensions
         /// Iterates through a collection, returning a U[] containing the results of the passed Func[T,U].
         /// Null values are ignored.
         /// </summary>
+
         public static U[] Convert<T, U>(this T[] In, Func<T, U> Func)
             {
             return In.Convert((i, o) => Func(o));
@@ -631,6 +658,7 @@ namespace LCore.Extensions
         /// Iterates through a collection, returning a List[U] containing the results of the passed Func[T,U].
         /// Null values are ignored.
         /// </summary>
+
         public static List<U> Convert<T, U>(this List<T> In, Func<T, U> Func)
             {
             return In.Convert((i, o) => Func(o));
@@ -639,6 +667,7 @@ namespace LCore.Extensions
         /// Iterates through a collection, returning a List[U] containing the results of the passed Func[T,U].
         /// Null values are ignored.
         /// </summary>
+
         public static List<U> Convert<T, U>(this IEnumerable<T> In, Func<T, U> Func)
             {
             return In.Convert((i, o) => Func(o));
@@ -651,6 +680,7 @@ namespace LCore.Extensions
         /// Func can return multiple objects. 
         /// They are all collected and returned in one list.
         /// </summary>
+
         public static List<object> ConvertAll(this IEnumerable In, Func<object, IEnumerable<object>> Func)
             {
             In = In ?? new object[] { };
@@ -668,6 +698,7 @@ namespace LCore.Extensions
         /// Func can return multiple objects. 
         /// They are all collected and returned in one list.
         /// </summary>
+
         public static List<U> ConvertAll<T, U>(this IEnumerable In, Func<T, IEnumerable<U>> Func)
             {
             In = In.List<T>();
@@ -686,6 +717,7 @@ namespace LCore.Extensions
         /// Func can return multiple objects. 
         /// They are all collected and returned in one list.
         /// </summary>
+
         public static List<U> ConvertAll<T, U>(this IEnumerable<T> In, Func<T, IEnumerable<U>> Func)
             {
             In = In ?? new T[] { };
@@ -704,6 +736,7 @@ namespace LCore.Extensions
         /// Func can return multiple objects. 
         /// They are all collected and returned in one array.
         /// </summary>
+
         public static U[] ConvertAll<T, U>(this T[] In, Func<T, IEnumerable<U>> Func)
             {
             return In.List().ConvertAll(Func).ToArray();
@@ -713,6 +746,7 @@ namespace LCore.Extensions
         /// Func can return multiple objects. 
         /// They are all collected and returned in one list.
         /// </summary>
+
         public static List<U> ConvertAll<T, U>(this List<T> In, Func<T, IEnumerable<U>> Func)
             {
             In = In ?? new List<T>();
@@ -733,6 +767,7 @@ namespace LCore.Extensions
         /// The int passed is the 0-based index of the current item.
         /// Null values are ignored.
         /// </summary>
+
         public static List<object> Convert(this IEnumerable In, Func<int, object, object> Func)
             {
             List<object> Out = NewList<List<object>, object>();
@@ -749,10 +784,12 @@ namespace LCore.Extensions
         /// The int passed is the 0-based index of the current item.
         /// Null values are ignored.
         /// </summary>
+
         public static U[] Convert<T, U>(this T[] In, Func<int, T, U> Func)
             {
             if (In == null)
                 return new U[] { };
+
             var Out = new U[In.Length];
             In.Each((i, o) =>
             {
@@ -765,6 +802,7 @@ namespace LCore.Extensions
         /// The int passed is the 0-based index of the current item.
         /// Null values are ignored.
         /// </summary>
+
         public static List<U> Convert<T, U>(this List<T> In, Func<int, T, U> Func)
             {
             List<U> Out = NewList<List<U>, U>();
@@ -781,6 +819,7 @@ namespace LCore.Extensions
         /// The int passed is the 0-based index of the current item.
         /// Null values are ignored.
         /// </summary>
+
         public static List<U> Convert<T, U>(this IEnumerable<T> In, Func<int, T, U> Func)
             {
             List<U> Out = NewList<List<U>, U>();
@@ -859,7 +898,7 @@ namespace LCore.Extensions
         /// </summary>
         public static int Count<T>(this IEnumerable<T> In, T Obj)
             {
-            return In.Count(L.Obj.SafeEquals.Supply(Obj).Cast<object, bool, T, bool>());
+            return In.Count(i => L.Obj.SafeEquals(Obj, i));
             }
         #endregion
 
@@ -897,6 +936,7 @@ namespace LCore.Extensions
         /// Iterates through every item in a collection, executing the passed Action.
         /// This method will fail if [Func] is null or if [Func] throws an exception.
         /// </summary>
+
         [TestFails(new object[] { new[] { 1 }, null })]
         [TestFails(new object[] { new[] { 1 }, Test.Fail_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.Fail_Name })]
@@ -938,6 +978,7 @@ namespace LCore.Extensions
         /// The collection items are used as the parameters to the Action.
         /// This method will fail if [Func] is null or if [Func] throws an exception.
         /// </summary>
+
         [TestMethodGenerics(typeof(int))]
         [TestFails(new object[] { new[] { 1 }, null })]
         [TestFails(new object[] { new[] { 1 }, Test.FailI_Name })]
@@ -965,6 +1006,7 @@ namespace LCore.Extensions
         /// The collection items are used as the parameters to the Func[int, Object].
         /// This method will fail if [Func] is null or if [Func] throws an exception.
         /// </summary>
+
         [TestFails(new object[] { new[] { 1 }, null })]
         [TestFails(new object[] { new[] { 1 }, Test.FailOI_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.FailOI_Name })]
@@ -990,6 +1032,7 @@ namespace LCore.Extensions
         /// The collection items are used as the parameters to the Action[int, Object].
         /// This method will fail if [Func] is null or if [Func] throws an exception.
         /// </summary>
+
         [TestMethodGenerics(typeof(int))]
         [TestFails(new object[] { new[] { 1 }, null })]
         [TestFails(new object[] { new[] { 1 }, Test.FailOI_Name })]
@@ -1009,6 +1052,7 @@ namespace LCore.Extensions
         /// The collection items are used as the parameters to the Action[int, T].
         /// This method will fail if [Func] is null or if [Func] throws an exception.
         /// </summary>
+
         [TestMethodGenerics(typeof(int))]
         [TestFails(new object[] { new[] { 1 }, null })]
         [TestFails(new object[] { new[] { 1 }, Test.FailIT_Name })]
@@ -1127,7 +1171,7 @@ namespace LCore.Extensions
         /// </summary>
         public static T[] First<T>(this T[] In, int Count)
             {
-            return In.First(t => true, Count);
+            return In.First(Item => true, Count);
             }
         /// <summary>
         /// Returns the first item in the List[T].
@@ -1135,7 +1179,7 @@ namespace LCore.Extensions
         /// </summary>
         public static T First<T>(this List<T> In)
             {
-            List<T> Result = In.First(t => true, 1);
+            List<T> Result = In.First(Item => true, 1);
             return Result.Any() ? Result[0] : default(T);
             }
         /// <summary>
@@ -1143,7 +1187,7 @@ namespace LCore.Extensions
         /// </summary>
         public static List<T> First<T>(this List<T> In, int Count)
             {
-            return In.First(t => true, Count);
+            return In.First(Item => true, Count);
             }
         /// <summary>
         /// Returns the first item in the List[T].
@@ -1166,7 +1210,7 @@ namespace LCore.Extensions
         /// </summary>
         public static T First<T>(this IEnumerable In)
             {
-            return In.First<T>(t => true);
+            return In.First<T>(Item => true);
             }
         /// <summary>
         /// Returns a new List[T] containing the first [Count] items in the source collection that are of type T.
@@ -1212,13 +1256,15 @@ namespace LCore.Extensions
             {
             return In.List().First(Func);
             }
+
         /// <summary>
         /// Returns a new T[] containing the first [Count] items that evoke a true result from the passed Func[T,Boolean].
         /// </summary>
+        /// <exception cref="ArgumentException">If [Count] is less than 1.</exception>
         public static T[] First<T>(this T[] In, Func<T, bool> Func, int Count)
             {
             if (Count <= 0)
-                throw new ArgumentException("Count");
+                throw new ArgumentException(nameof(Count));
             int StartCount = Count;
             var Out = new T[StartCount];
 
@@ -1251,10 +1297,11 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns a new List[T] containing the first [Count] items that evoke a true result from the passed Func[T,Boolean].
         /// </summary>
+        /// <exception cref="ArgumentException">If [Count] is less than 1.</exception>
         public static List<T> First<T>(this List<T> In, Func<T, bool> Func, int Count)
             {
             if (Count <= 0)
-                throw new ArgumentException("Count");
+                throw new ArgumentException(nameof(Count));
 
             List<T> Out = NewList<List<T>, T>();
 
@@ -1316,13 +1363,16 @@ namespace LCore.Extensions
             {
             return In.List().First(Func);
             }
+
         /// <summary>
         /// Returns a new T[] containing the first [Count] items that evoke a true result from the passed Func[T,Boolean].
         /// </summary>
+        /// <exception cref="ArgumentException">If Count is less than 1.</exception>
         public static U[] First<T, U>(this T[] In, Func<T, U> Func, int Count)
             {
             if (Count <= 0)
-                throw new ArgumentException("Count");
+                throw new ArgumentException(nameof(Count));
+
             int StartCount = Count;
             var Out = new U[StartCount];
 
@@ -1355,6 +1405,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns a new List[T] containing the first [Count] items that evoke a true result from the passed Func[T,Boolean].
         /// </summary>
+        /// <exception cref="ArgumentException">If Count is less than 1.</exception>
         public static List<U> First<T, U>(this List<T> In, Func<T, U> Func, int Count)
             {
             if (Count <= 0)
@@ -1579,10 +1630,10 @@ namespace LCore.Extensions
             {
             Dictionary<U, List<T>> First = In.Group(Grouper1);
             var Out = new Dictionary<U, Dictionary<V, List<T>>>();
-            First.Each(kv =>
+            First.Each(Pair =>
                 {
-                    Dictionary<V, List<T>> Dict2 = kv.Value.Group(Grouper2);
-                    Out.Add(kv.Key, Dict2);
+                    Dictionary<V, List<T>> Dict2 = Pair.Value.Group(Grouper2);
+                    Out.Add(Pair.Key, Dict2);
                 });
             return Out;
             }
@@ -1750,10 +1801,10 @@ namespace LCore.Extensions
             {
             Dictionary<U, List<T>> First = In.Group(Indexer1);
             var Out = new Dictionary<U, Dictionary<V, T>>();
-            First.Each(kv =>
+            First.Each(Pair =>
                 {
-                    Dictionary<V, T> Dict2 = kv.Value.Index(Indexer2);
-                    Out.Add(kv.Key, Dict2);
+                    Dictionary<V, T> Dict2 = Pair.Value.Index(Indexer2);
+                    Out.Add(Pair.Key, Dict2);
                 });
             return Out;
             }
@@ -1819,14 +1870,16 @@ namespace LCore.Extensions
         /// </summary>
         public static T Last<T>(this T[] In)
             {
-            return In == null || In.Length == 0 ? default(T) : In[In.Length - 1];
+            return In == null || In.Length == 0
+                ? default(T)
+                : In[In.Length - 1];
             }
         /// <summary>
         /// Returns a new T[] containing the last [Count] items in the T[].
         /// </summary>
         public static T[] Last<T>(this T[] In, int Count)
             {
-            return In.Last(t => true, Count);
+            return In.Last(Item => true, Count);
             }
         /// <summary>
         /// Returns the last item in the List[T].
@@ -1834,7 +1887,7 @@ namespace LCore.Extensions
         /// </summary>
         public static T Last<T>(this List<T> In)
             {
-            List<T> Result = In.Last(t => true, 1);
+            List<T> Result = In.Last(Item => true, 1);
             return Result.Any() ? Result[0] : default(T);
             }
         /// <summary>
@@ -1842,7 +1895,7 @@ namespace LCore.Extensions
         /// </summary>
         public static List<T> Last<T>(this List<T> In, int Count)
             {
-            return In.Last(t => true, Count);
+            return In.Last(Item => true, Count);
             }
         /// <summary>
         /// Returns the Last item in the List[T].
@@ -2747,9 +2800,9 @@ namespace LCore.Extensions
                 }
             int Out = 0;
 
-            Collection.Each(v =>
+            Collection.Each(Item =>
                 {
-                    var Enumerable = v as IEnumerable;
+                    var Enumerable = Item as IEnumerable;
                     if (Enumerable != null)
                         Out += Enumerable.TotalCount();
                     else

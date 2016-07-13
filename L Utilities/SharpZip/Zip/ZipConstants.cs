@@ -40,6 +40,10 @@
 using System;
 using System.Text;
 using System.Threading;
+// ReSharper disable StringLiteralTypo
+// ReSharper disable CommentTypo
+// ReSharper disable IdentifierTypo
+// ReSharper disable InconsistentNaming
 
 #if NETCF_1_0 || NETCF_2_0
 using System.Globalization;

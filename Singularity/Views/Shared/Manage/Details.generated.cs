@@ -111,10 +111,10 @@ WriteLiteral("            <a");
 
 WriteLiteral(" class=\"btn-default right\"");
 
-WriteAttribute("href", Tuple.Create("\r\n               href=\"", 692), Tuple.Create("\"", 825)
+WriteAttribute("href", Tuple.Create("\r\n               href=\"", 692), Tuple.Create("\"", 843)
             
             #line 27 "..\..\Views\Shared\Manage\Details.cshtml"
-, Tuple.Create(Tuple.Create("", 715), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(c => c.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false)
+, Tuple.Create(Tuple.Create("", 715), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(Controller => Controller.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false)
             
             #line default
             #line hidden
@@ -136,14 +136,14 @@ WriteLiteral("        <a");
 
 WriteLiteral(" class=\"btn-default right\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 963), Tuple.Create("\"", 988)
+WriteAttribute("href", Tuple.Create(" href=\"", 981), Tuple.Create("\"", 1006)
             
             #line 33 "..\..\Views\Shared\Manage\Details.cshtml"
-, Tuple.Create(Tuple.Create("", 970), Tuple.Create<System.Object, System.Int32>(ViewBag.ReturnURL
+, Tuple.Create(Tuple.Create("", 988), Tuple.Create<System.Object, System.Int32>(ViewBag.ReturnURL
             
             #line default
             #line hidden
-, 970), false)
+, 988), false)
 );
 
 WriteLiteral(">\r\n            <glyph>&#xe091;</glyph>\r\n            Back\r\n        </a>\r\n");
@@ -234,14 +234,14 @@ WriteLiteral("            <a");
 
 WriteLiteral(" class=\"btn-default right\"");
 
-WriteAttribute("href", Tuple.Create("\r\n               href=\"", 1613), Tuple.Create("\"", 1746)
+WriteAttribute("href", Tuple.Create("\r\n               href=\"", 1631), Tuple.Create("\"", 1782)
             
             #line 61 "..\..\Views\Shared\Manage\Details.cshtml"
-, Tuple.Create(Tuple.Create("", 1636), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(c => c.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false)
+, Tuple.Create(Tuple.Create("", 1654), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(Controller => Controller.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false)
             
             #line default
             #line hidden
-, 1636), false)
+, 1654), false)
 );
 
 WriteLiteral("\r\n               key-bind-click=\"Ctrl+E\"");
@@ -263,14 +263,14 @@ WriteLiteral("        <a");
 
 WriteLiteral(" class=\"btn-default right\"");
 
-WriteAttribute("href", Tuple.Create("\r\n           href=\"", 1967), Tuple.Create("\"", 2004)
+WriteAttribute("href", Tuple.Create("\r\n           href=\"", 2003), Tuple.Create("\"", 2040)
             
             #line 70 "..\..\Views\Shared\Manage\Details.cshtml"
-, Tuple.Create(Tuple.Create("", 1986), Tuple.Create<System.Object, System.Int32>(ViewBag.ReturnURL
+, Tuple.Create(Tuple.Create("", 2022), Tuple.Create<System.Object, System.Int32>(ViewBag.ReturnURL
             
             #line default
             #line hidden
-, 1986), false)
+, 2022), false)
 );
 
 WriteLiteral("\r\n           key-bind-click=\"Esc\"");

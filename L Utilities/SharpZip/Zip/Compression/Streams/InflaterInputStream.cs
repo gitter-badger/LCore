@@ -50,6 +50,9 @@ using System.Security.Cryptography;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable FieldCanBeMadeReadOnly.Global
+// ReSharper disable InconsistentNaming
+// ReSharper disable CommentTypo
+// ReSharper disable IdentifierTypo
 // ReSharper disable FieldCanBeMadeReadOnly.Local
 
 namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams

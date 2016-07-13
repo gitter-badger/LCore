@@ -1,49 +1,49 @@
 ﻿/// <reference path="singularity-core.ts"/>
 
 interface Function {
-    fn_try?: <T>(logFailure?: boolean) => (...items: any[]) => T;
+    fnTry?: <T>(logFailure?: boolean) => (...items: any[]) => T;
 
-    fn_catch(catchFunction?: (ex: any) => void, logFailure?: boolean): Function;
-    fn_catch<T>(catchFunction?: (ex: any) => void, logFailure?: boolean): (...items: any[]) => T;
+    fnCatch(catchFunction?: (ex: any) => void, logFailure?: boolean): Function;
+    fnCatch<T>(catchFunction?: (ex: any) => void, logFailure?: boolean): (...items: any[]) => T;
 
-    fn_log?: <T>(logAttempt?: boolean, logSuccess?: boolean, logFailure?: boolean) => (...items: any[]) => T;
-    fn_time?: <T>() => (...items: any[]) => T;
-    fn_count?: <T>(logFailure?: boolean) => (...items: any[]) => T;
-    fn_trace?: <T>() => (...items: any[]) => T;
+    fnLog?: <T>(logAttempt?: boolean, logSuccess?: boolean, logFailure?: boolean) => (...items: any[]) => T;
+    fnTime?: <T>() => (...items: any[]) => T;
+    fnCount?: <T>(logFailure?: boolean) => (...items: any[]) => T;
+    fnTrace?: <T>() => (...items: any[]) => T;
 
-    fn_cache<T>(uniqueCacheID: string, expiresAfter?: Date): (var1: T) => void;
-    fn_cache<T, U>(uniqueCacheID: string, expiresAfter?: Date): (var1: T) => U;
-    fn_cache<T, T2, U>(uniqueCacheID: string, expiresAfter?: Date): (var1: T, var2?: T2) => U;
-    fn_cache<T>(uniqueCacheID: string, expiresAfter?: Date): (...items: any[]) => T;
+    fnCache<T>(uniqueCacheID: string, expiresAfter?: Date): (var1: T) => void;
+    fnCache<T, U>(uniqueCacheID: string, expiresAfter?: Date): (var1: T) => U;
+    fnCache<T, T2, U>(uniqueCacheID: string, expiresAfter?: Date): (var1: T, var2?: T2) => U;
+    fnCache<T>(uniqueCacheID: string, expiresAfter?: Date): (...items: any[]) => T;
 
-    fn_if?: (ifFunc: (...items: any[]) => boolean) => (...items: any[]) => any;
-    fn_unless?: <T>(unlessFunc: (...items: any[]) => boolean) => (...items: any[]) => T;
-    fn_then?: <T>(thenFunc: (...items: any[]) => any) => (...items: any[]) => T;
+    fnIf?: (ifFunc: (...items: any[]) => boolean) => (...items: any[]) => any;
+    fnUnless?: <T>(unlessFunc: (...items: any[]) => boolean) => (...items: any[]) => T;
+    fnThen?: <T>(thenFunc: (...items: any[]) => any) => (...items: any[]) => T;
 
-    fn_repeat<T>(times: number): (...items: any[]) => T;
-    fn_repeat<T>(list: any[]): (...items: any[]) => T;
-    fn_repeat<T>(repeat_fn: (...items: any[]) => T): (...items: any[]) => T;
+    fnRepeat<T>(times: number): (...items: any[]) => T;
+    fnRepeat<T>(list: any[]): (...items: any[]) => T;
+    fnRepeat<T>(repeatFn: (...items: any[]) => T): (...items: any[]) => T;
 
-    fn_while?: <T>(whileFunc: (...items: any[]) => boolean) => (...items: any[]) => T;
-    fn_until?: <T>(untilFunc: (...items: any[]) => boolean) => (...items: any[]) => T;
-    fn_repeatEvery?: <T>(periodMS: number) => (...items: any[]) => T;
-    fn_retry?: <T>(times: number) => (...items: any[]) => T;
+    fnWhile?: <T>(whileFunc: (...items: any[]) => boolean) => (...items: any[]) => T;
+    fnUntil?: <T>(untilFunc: (...items: any[]) => boolean) => (...items: any[]) => T;
+    fnRepeatEvery?: <T>(periodMS: number) => (...items: any[]) => T;
+    fnRetry?: <T>(times: number) => (...items: any[]) => T;
 
-    fn_recurring?: (intervalMS: number, breakCondition?: number | ((...items: any[]) => boolean)) => ((...items: any[]) => void);
+    fnRecurring?: (intervalMs: number, breakCondition?: number | ((...items: any[]) => boolean)) => ((...items: any[]) => void);
 
-    fn_defer?: <T>(callback?: (...items: any[]) => void) => () => T;
-    fn_delay?: <T>(delayMS: number) => (...items: any[]) => T;
-    fn_async?: <T>(callback?: (...items: any[]) => void) => (...items: any[]) => T;
-    fn_wrap?: <T>(wrapper: (fn: (...items: any[]) => T, ...items: any[]) => T) => (...items: any[]) => T;
-    fn_onExecute?: <T>(eventHandler: (...items: any[]) => void) => (...items: any[]) => T;
-    fn_onExecuted?: <T>(eventHandler: (...items: any[]) => void) => (...items: any[]) => T;
+    fnDefer?: <T>(callback?: (...items: any[]) => void) => () => T;
+    fnDelay?: <T>(delayMs: number) => (...items: any[]) => T;
+    fnAsync?: <T>(callback?: (...items: any[]) => void) => (...items: any[]) => T;
+    fnWrap?: <T>(wrapper: (fn: (...items: any[]) => T, ...items: any[]) => T) => (...items: any[]) => T;
+    fnOnExecute?: <T>(eventHandler: (...items: any[]) => void) => (...items: any[]) => T;
+    fnOnExecuted?: <T>(eventHandler: (...items: any[]) => void) => (...items: any[]) => T;
 
 
-    fn_or?: (orFunc: (...items: any[]) => boolean) => (...items: any[]) => boolean;
-    fn_and?: (orFunc: (...items: any[]) => boolean) => (...items: any[]) => boolean;
+    fnOR?: (orFunc: (...items: any[]) => boolean) => (...items: any[]) => boolean;
+    fnAND?: (orFunc: (...items: any[]) => boolean) => (...items: any[]) => boolean;
 
-    fn_not(): () => boolean;
-    fn_not(): Function;
+    fnNot(): () => boolean;
+    fnNot(): Function;
 
     // fn_ifElse
     // fn_supply?: <T, U>(parameter: U) => (param: U, ...items: any[]) => T;
@@ -59,7 +59,7 @@ singFunction.glyphIcon = '&#xe019;';
 // Function Extensions
 //
 
-singFunction.method('fn_try', FunctionTry,
+singFunction.method('fnTry', functionTry,
     {
         summary: null,
         parameters: null,
@@ -72,18 +72,18 @@ singFunction.method('fn_try', FunctionTry,
             ext.addCustomTest(() => {
                 (() => {
                     throw 'fail';
-                }).fn_try()();
+                }).fnTry()();
             });
         }
     });
 
-function FunctionTry() {
+function functionTry() {
     const source = this as Function;
     // Redirects to catch with no catchFunction
-    return source.fn_catch();
+    return source.fnCatch();
 }
 
-singFunction.method('fn_catch', FunctionCatch,
+singFunction.method('fnCatch', functionCatch,
     {
         summary: null,
         parameters: null,
@@ -98,7 +98,7 @@ singFunction.method('fn_catch', FunctionCatch,
 
                 (() => {
                     throw 'fail';
-                }).fn_catch(ex => {
+                }).fnCatch(ex => {
                     test = ex;
                 })();
 
@@ -108,7 +108,7 @@ singFunction.method('fn_catch', FunctionCatch,
         }
     });
 
-function FunctionCatch(catchFunction: Function, logFailure: boolean = false): Function {
+function functionCatch(catchFunction: Function, logFailure: boolean = false): Function {
     var source = this;
 
     return function () {
@@ -132,7 +132,7 @@ function FunctionCatch(catchFunction: Function, logFailure: boolean = false): Fu
     };
 }
 
-singFunction.method('fn_log', FunctionLog,
+singFunction.method('fnLog', functionLog,
     {
         summary: null,
         parameters: null,
@@ -143,7 +143,7 @@ singFunction.method('fn_log', FunctionLog,
         glyphIcon: '&#xe105;'
     });
 
-function FunctionLog(logAttempt: boolean = true, logSuccess: boolean = true, logFailure: boolean = true) {
+function functionLog(logAttempt: boolean = true, logSuccess: boolean = true, logFailure: boolean = true) {
 
     var thisFunction = this as Function;
 
@@ -174,7 +174,7 @@ function FunctionLog(logAttempt: boolean = true, logSuccess: boolean = true, log
     };
 }
 
-singFunction.method('fn_count', FunctionCount,
+singFunction.method('fnCount', functionCount,
     {
         summary: null,
         parameters: null,
@@ -184,7 +184,7 @@ singFunction.method('fn_count', FunctionCount,
         examples: null
     });
 
-function FunctionCount(logFailure: boolean = false) {
+function functionCount(logFailure: boolean = false) {
     var source = this;
     var functionCallCount = 0;
 
@@ -208,7 +208,7 @@ function FunctionCount(logFailure: boolean = false) {
     };
 }
 
-singFunction.method('fn_cache', FunctionCache,
+singFunction.method('fnCache', functionCache,
     {
         summary: null,
         parameters: null,
@@ -219,7 +219,7 @@ singFunction.method('fn_cache', FunctionCache,
         manuallyTested: true
     });
 
-function FunctionCache(uniqueCacheID: string, expiresAfter: number = 0) {
+function functionCache(uniqueCacheID: string, expiresAfter: number = 0) {
     var source = this;
 
     var cacheKeyLimit = 300;
@@ -250,7 +250,7 @@ function FunctionCache(uniqueCacheID: string, expiresAfter: number = 0) {
 
         const thisCache = cache[uniqueCacheID];
 
-        const argStr = `${ObjectToStr(thisCaller)}|||||||${ObjectToStr(items)}`;
+        const argStr = `${objectToStr(thisCaller)}|||||||${objectToStr(items)}`;
 
         if (argStr.length > cacheKeyLimit) {
             return source.apply(thisCaller, items);
@@ -282,7 +282,7 @@ function FunctionCache(uniqueCacheID: string, expiresAfter: number = 0) {
     };
 }
 
-singFunction.method('fn_or', FunctionOR,
+singFunction.method('fnOr', functionOR,
     {
         summary: null,
         parameters: null,
@@ -293,15 +293,15 @@ singFunction.method('fn_or', FunctionOR,
         tests(ext) {
             ext.addCustomTest(() => {
 
-                var fn_test = ((a: number) => (a > 5)).fn_or(((a: number) => (a < 0)));
+                var fnTest = ((a: number) => (a > 5)).fnOR(((a: number) => (a < 0)));
 
-                if (!fn_test(-50) || !fn_test(50) || fn_test(2))
+                if (!fnTest(-50) || !fnTest(50) || fnTest(2))
                     return 'failed';
             });
         }
     });
 
-function FunctionOR(orFunc: (...items: any[]) => boolean): (...items: any[]) => boolean {
+function functionOR(orFunc: (...items: any[]) => boolean): (...items: any[]) => boolean {
 
     var source = this;
 
@@ -315,7 +315,7 @@ function FunctionOR(orFunc: (...items: any[]) => boolean): (...items: any[]) => 
 
 }
 
-singFunction.method('fn_if', FunctionIf,
+singFunction.method('fnIf', functionIf,
     {
         summary: null,
         parameters: null,
@@ -328,18 +328,18 @@ singFunction.method('fn_if', FunctionIf,
 
                 var a = 0;
 
-                var fn_test = (() => {
+                var fnTest = (() => {
                     a++;
-                }).fn_if(((a: any) => (a == 'GO')));
+                }).fnIf(((a: any) => (a == 'GO')));
 
-                fn_test('NO');
+                fnTest('NO');
 
                 if (a != 0)
                     return 'failed';
 
-                fn_test('GO');
-                fn_test('GO');
-                fn_test('GO');
+                fnTest('GO');
+                fnTest('GO');
+                fnTest('GO');
 
                 if (a != 3)
                     return 'failed';
@@ -347,7 +347,7 @@ singFunction.method('fn_if', FunctionIf,
         }
     });
 
-function FunctionIf<T>(ifFunc: (...items: any[]) => boolean): (...items: any[]) => any {
+function functionIf<T>(ifFunc: (...items: any[]) => boolean): (...items: any[]) => any {
 
     var srcThis = this;
 
@@ -359,7 +359,7 @@ function FunctionIf<T>(ifFunc: (...items: any[]) => boolean): (...items: any[]) 
     };
 }
 
-singFunction.method('fn_unless', FunctionUnless,
+singFunction.method('fnUnless', functionUnless,
     {
         summary: null,
         parameters: null,
@@ -372,18 +372,18 @@ singFunction.method('fn_unless', FunctionUnless,
 
                 var a = 0;
 
-                var fn_test = (() => {
+                var fnTest = (() => {
                     a++;
-                }).fn_unless(((a: any) => (a == 'NO')));
+                }).fnUnless(((a: any) => (a == 'NO')));
 
-                fn_test('NO');
+                fnTest('NO');
 
                 if (a != 0)
                     return 'failed';
 
-                fn_test('GO');
-                fn_test('GO');
-                fn_test('GO');
+                fnTest('GO');
+                fnTest('GO');
+                fnTest('GO');
 
                 if (a != 3)
                     return 'failed';
@@ -391,7 +391,7 @@ singFunction.method('fn_unless', FunctionUnless,
         }
     });
 
-function FunctionUnless(ifFunc: (...items: any[]) => boolean): (...items: any[]) => any {
+function functionUnless(ifFunc: (...items: any[]) => boolean): (...items: any[]) => any {
 
     var srcThis = this;
 
@@ -403,7 +403,7 @@ function FunctionUnless(ifFunc: (...items: any[]) => boolean): (...items: any[])
     };
 }
 
-singFunction.method('fn_then', FunctionThen,
+singFunction.method('fnThen', functionThen,
     {
         summary: null,
         parameters: null,
@@ -449,7 +449,7 @@ singFunction.method('fn_then', FunctionThen,
         }
     });
 
-function FunctionThen(thenFunc: Function): Function {
+function functionThen(thenFunc: Function): Function {
 
     var srcThis = this;
 
@@ -469,7 +469,7 @@ function FunctionThen(thenFunc: Function): Function {
     };
 }
 
-singFunction.method('fn_repeat', FunctionRepeat,
+singFunction.method('fnRepeat', functionRepeat,
     {
         summary: null,
         parameters: null,
@@ -512,7 +512,7 @@ singFunction.method('fn_repeat', FunctionRepeat,
         }
     });
 
-function FunctionRepeat(repeatOver: number | any[] | ((...items: any[]) => boolean)): (...items: any[]) => any {
+function functionRepeat(repeatOver: number | any[] | ((...items: any[]) => boolean)): (...items: any[]) => any {
 
     var srcThis = this;
 
@@ -561,7 +561,7 @@ function FunctionRepeat(repeatOver: number | any[] | ((...items: any[]) => boole
 
 }
 
-singFunction.method('fn_while', FunctionWhile,
+singFunction.method('fnWhile', functionWhile,
     {
         summary: null,
         parameters: null,
@@ -573,13 +573,13 @@ singFunction.method('fn_while', FunctionWhile,
         }
     });
 
-function FunctionWhile(condition: ((...items: any[]) => boolean)): (...items: any[]) => any {
+function functionWhile(condition: ((...items: any[]) => boolean)): (...items: any[]) => any {
     return function (...items: any[]) {
         return this.fn_repeat(condition).apply(this, items);
     };
 }
 
-singFunction.method('fn_retry', FunctionRetry,
+singFunction.method('fnRetry', functionRetry,
     {
         summary: null,
         parameters: null,
@@ -591,7 +591,7 @@ singFunction.method('fn_retry', FunctionRetry,
         }
     });
 
-function FunctionRetry(times: number = 1): (...items: any[]) => any {
+function functionRetry(times: number = 1): (...items: any[]) => any {
 
     var srcThis = this;
 
@@ -613,7 +613,7 @@ function FunctionRetry(times: number = 1): (...items: any[]) => any {
     };
 }
 
-singFunction.method('fn_time', FunctionTime,
+singFunction.method('fnTime', functionTime,
     {
         summary: null,
         parameters: null,
@@ -625,7 +625,7 @@ singFunction.method('fn_time', FunctionTime,
         }
     });
 
-function FunctionTime() {
+function functionTime() {
 
     var srcThis = this;
 
@@ -645,7 +645,7 @@ function FunctionTime() {
     };
 }
 
-singFunction.method('fn_defer', FunctionDefer,
+singFunction.method('fnDefer', functionDefer,
     {
         summary: null,
         parameters: null,
@@ -658,7 +658,7 @@ singFunction.method('fn_defer', FunctionDefer,
         }
     });
 
-function FunctionDefer(callback?: Function) {
+function functionDefer(callback?: Function) {
     var srcThis = this;
     return (...items: any[]) => {
         setTimeout(() => {
@@ -669,7 +669,7 @@ function FunctionDefer(callback?: Function) {
     };
 }
 
-singFunction.method('fn_delay', FunctionDelay,
+singFunction.method('fnDelay', functionDelay,
     {
         summary: null,
         parameters: null,
@@ -681,7 +681,7 @@ singFunction.method('fn_delay', FunctionDelay,
         }
     });
 
-function FunctionDelay(delayMS: number, callback?: Function) {
+function functionDelay(delayMS: number, callback?: Function) {
     delayMS = delayMS.max(1);
 
     return (...items: any[]) => {
@@ -693,7 +693,7 @@ function FunctionDelay(delayMS: number, callback?: Function) {
     };
 }
 
-singFunction.method('fn_before', FunctionBefore,
+singFunction.method('fnBefore', functionBefore,
     {
         summary: null,
         parameters: null,
@@ -705,7 +705,7 @@ singFunction.method('fn_before', FunctionBefore,
         }
     });
 
-function FunctionBefore(triggerFunc?: Function) {
+function functionBefore(triggerFunc?: Function) {
 
     var srcThis = this;
 
@@ -720,7 +720,7 @@ function FunctionBefore(triggerFunc?: Function) {
     };
 }
 
-singFunction.method('fn_after', FunctionAfter,
+singFunction.method('fnAfter', functionAfter,
     {
         summary: null,
         parameters: null,
@@ -732,7 +732,7 @@ singFunction.method('fn_after', FunctionAfter,
         }
     });
 
-function FunctionAfter(triggerFunc?: Function) {
+function functionAfter(triggerFunc?: Function) {
 
     var srcThis = this;
 
@@ -749,7 +749,7 @@ function FunctionAfter(triggerFunc?: Function) {
     };
 }
 
-singFunction.method('fn_wrap', FunctionWrap,
+singFunction.method('fnWrap', functionWrap,
     {
         summary: null,
         parameters: null,
@@ -761,7 +761,7 @@ singFunction.method('fn_wrap', FunctionWrap,
         }
     });
 
-function FunctionWrap(triggerFunc?: Function) {
+function functionWrap(triggerFunc?: Function) {
 
     var srcThis = this;
 
@@ -780,7 +780,7 @@ function FunctionWrap(triggerFunc?: Function) {
     };
 }
 
-singFunction.method('fn_trace', FunctionTrace,
+singFunction.method('fnTrace', functionTrace,
     {
         summary: null,
         parameters: null,
@@ -792,7 +792,7 @@ singFunction.method('fn_trace', FunctionTrace,
         }
     });
 
-function FunctionTrace(traceStr?: string) {
+function functionTrace(traceStr?: string) {
 
     var srcThis = this;
 
@@ -809,7 +809,7 @@ function FunctionTrace(traceStr?: string) {
     };
 }
 
-singFunction.method('fn_recurring', FunctionRecurring,
+singFunction.method('fnRecurring', functionRecurring,
     {
         summary: null,
         parameters: null,
@@ -821,7 +821,7 @@ singFunction.method('fn_recurring', FunctionRecurring,
         }
     });
 
-function FunctionRecurring(intervalMS: number, breakCondition?: number | ((...items: any[]) => boolean)) {
+function functionRecurring(intervalMS: number, breakCondition?: number | ((...items: any[]) => boolean)) {
 
     var srcThis = this as Function;
 
@@ -854,7 +854,7 @@ function FunctionRecurring(intervalMS: number, breakCondition?: number | ((...it
     };
 }
 
-singFunction.method('executeAll', ArrayExecuteAll,
+singFunction.method('executeAll', arrayExecuteAll,
     {
         summary: null,
         parameters: null,
@@ -866,7 +866,7 @@ singFunction.method('executeAll', ArrayExecuteAll,
         }
     }, Array.prototype);
 
-function ArrayExecuteAll(...items: Function[]): any[] {
+function arrayExecuteAll(...items: Function[]): any[] {
     if (!items.every($.isFunction))
         throw 'Not all items were functions';
     const out = items.collect(item => item.apply(this, items));
@@ -874,12 +874,12 @@ function ArrayExecuteAll(...items: Function[]): any[] {
     return out;
 }
 
-singFunction.method('fn_not', FunctionNot,
+singFunction.method('fnNot', functionNot,
     {
         glyphIcon: '&#xe126;'
     });
 
-function FunctionNot(): Function {
+function functionNot(): Function {
 
     var srcThis = this;
 

@@ -246,12 +246,12 @@ WriteLiteral("\r\n");
             #line hidden
 WriteLiteral("                    <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2340), Tuple.Create("\"", 2622)
+WriteAttribute("href", Tuple.Create(" href=\"", 2340), Tuple.Create("\"", 2640)
             
             #line 61 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
 , Tuple.Create(Tuple.Create("", 2347), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
                         .QS(Controllers.Manage.Actions.Route_SortColumn(Model, Meta.PropertyName))
-                        .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(c=> c.Manage)
+                        .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(Controller=> Controller.Manage)
             
             #line default
             #line hidden

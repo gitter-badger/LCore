@@ -20,20 +20,21 @@
     // Inject the project's user type so the context matches
     ModelExportType = ModelExportType.MakeGenericType(ModelUserType);
 
-    Dictionary<string, ModelMetadata> AllMeta = ModelExportType.GetMeta(m => !m.HasAttribute<FieldNoTokenAttribute>());
+    Dictionary<string, ModelMetadata> AllMeta = ModelExportType.GetMeta(
+        Meta => !Meta.HasAttribute<FieldNoTokenAttribute>());
 
-    AllMeta.Keys.Each(k =>
+    AllMeta.Keys.Each(Key =>
     {
         string BaseKey = "";
 
-        if (AllMeta[k].HasAttribute<IFieldNoToken>())
+        if (AllMeta[Key].HasAttribute<IFieldNoToken>())
             {
             return;
             }
 
-        if (k.Contains("."))
+        if (Key.Contains("."))
             {
-            BaseKey = k.Substring(0, k.LastIndexOf('.'));
+            BaseKey = Key.Substring(0, Key.LastIndexOf('.'));
             }
 
         if (!BasedMeta.ContainsKey(BaseKey))
@@ -41,7 +42,7 @@
             BasedMeta[BaseKey] = new List<ModelMetadata>();
             }
 
-        BasedMeta[BaseKey].Add(AllMeta[k]);
+        BasedMeta[BaseKey].Add(AllMeta[Key]);
     });
 }
 

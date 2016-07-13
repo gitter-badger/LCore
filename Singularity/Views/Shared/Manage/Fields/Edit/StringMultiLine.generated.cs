@@ -72,7 +72,7 @@ WriteLiteral("\r\n");
             
             #line 6 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
   
-    bool IsSortableList = Model.Meta.HasAttribute<FieldType_SortableListAttribute>();
+    bool IsSortableList = Model.Meta.HasAttribute<FieldTypeSortableListAttribute>();
 
             
             #line default
@@ -106,24 +106,24 @@ WriteLiteral("    <select");
 
 WriteLiteral(" class=\"sortable\"");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 649), Tuple.Create("\"", 678)
+WriteAttribute("id", Tuple.Create(" id=\"", 648), Tuple.Create("\"", 677)
             
             #line 29 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
-, Tuple.Create(Tuple.Create("", 654), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+, Tuple.Create(Tuple.Create("", 653), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-, 654), false)
+, 653), false)
 );
 
-WriteAttribute("name", Tuple.Create(" name=\"", 679), Tuple.Create("\"", 710)
+WriteAttribute("name", Tuple.Create(" name=\"", 678), Tuple.Create("\"", 709)
             
             #line 29 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
-, Tuple.Create(Tuple.Create("", 686), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+, Tuple.Create(Tuple.Create("", 685), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-, 686), false)
+, 685), false)
 );
 
 WriteLiteral(">\r\n");
@@ -144,14 +144,14 @@ WriteLiteral(">\r\n");
             #line hidden
 WriteLiteral("            <option");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 789), Tuple.Create("\"", 802)
+WriteAttribute("value", Tuple.Create(" value=\"", 788), Tuple.Create("\"", 801)
             
             #line 32 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
-, Tuple.Create(Tuple.Create("", 797), Tuple.Create<System.Object, System.Int32>(Line
+, Tuple.Create(Tuple.Create("", 796), Tuple.Create<System.Object, System.Int32>(Line
             
             #line default
             #line hidden
-, 797), false)
+, 796), false)
 );
 
 WriteLiteral(">\r\n");
@@ -187,24 +187,24 @@ else
             #line hidden
 WriteLiteral("    <textarea");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 915), Tuple.Create("\"", 944)
+WriteAttribute("id", Tuple.Create(" id=\"", 914), Tuple.Create("\"", 943)
             
             #line 40 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
-, Tuple.Create(Tuple.Create("", 920), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+, Tuple.Create(Tuple.Create("", 919), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-, 920), false)
+, 919), false)
 );
 
-WriteAttribute("name", Tuple.Create(" name=\"", 945), Tuple.Create("\"", 976)
+WriteAttribute("name", Tuple.Create(" name=\"", 944), Tuple.Create("\"", 975)
             
             #line 40 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
-, Tuple.Create(Tuple.Create("", 952), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+, Tuple.Create(Tuple.Create("", 951), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-, 952), false)
+, 951), false)
 );
 
 WriteLiteral(">");

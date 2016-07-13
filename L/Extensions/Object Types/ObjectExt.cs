@@ -122,8 +122,8 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that safely compares an object with another, returning whether they are equal.
             /// </summary>
-            public static readonly Func<object, object, bool> SafeEquals = (o1, o2) =>
-            {
+            public static bool SafeEquals(object o1, object o2)
+                {
                 // If both are null, or both are same instance, return true.
                 if (ReferenceEquals(o1, o2))
                     {
@@ -132,7 +132,7 @@ namespace LCore.Extensions
 
                 // If one is null, but not both, return false.
                 if (ReferenceEquals(o1, null) ||
-                                ReferenceEquals(o2, null))
+                    ReferenceEquals(o2, null))
                     {
                     return false;
                     }
@@ -145,7 +145,7 @@ namespace LCore.Extensions
                     }
 
                 return o1.Equals(o2);
-            };
+                }
             #endregion
 
             #region ToString
@@ -344,9 +344,10 @@ namespace LCore.Extensions
                     {
                     return o => { Method.Invoke(o, Params); };
                     }
-                throw new Exception($"{typeof(U).FullName} {MethodName}");
+                throw new ArgumentException($"{typeof(U).FullName} {MethodName}");
                 }
             #endregion
+
             /// <summary>
             /// Determine if an object has a property by name.
             /// </summary>
@@ -386,7 +387,7 @@ namespace LCore.Extensions
                         var M3 = FieldInfo;
                         return M3.GetValue(In);
                         }
-                    throw new Exception($"{In.GetType().FullName} {PropertyName}");
+                    throw new ArgumentException($"{In.GetType().FullName} {PropertyName}");
                 };
                 }
 
@@ -411,7 +412,7 @@ namespace LCore.Extensions
                         M3.SetValue(In, PropertyValue);
                         }
                     else
-                        throw new Exception($"{In.GetType().FullName} {PropertyName}");
+                        throw new ArgumentException($"{In.GetType().FullName} {PropertyName}");
 
                 };
                 }
@@ -447,7 +448,7 @@ namespace LCore.Extensions.Optional
         [Tested]
         public static void CopyFieldsTo<T>(this T In, object Obj)
             {
-            In.CopyFieldsTo(Obj, s => s);
+            In.CopyFieldsTo(Obj, FieldName => FieldName);
             }
 
         /// <summary>
@@ -461,8 +462,8 @@ namespace LCore.Extensions.Optional
         public static void CopyFieldsTo<T>(this T In, object Obj, Dictionary<string, string> CustomMapper = null)
             {
             In.CopyFieldsTo(Obj, CustomMapper == null ?
-                (Func<string, string>)(s => s) :
-                (s => CustomMapper.ContainsKey(s) ? CustomMapper[s] : s));
+                (Func<string, string>)(FieldName => FieldName) :
+                (FieldName => CustomMapper.ContainsKey(FieldName) ? CustomMapper[FieldName] : FieldName));
             }
 
         /// <summary>
@@ -524,21 +525,21 @@ namespace LCore.Extensions.Optional
             {
             string Out = $"{typeof(T).FullName} {{\r\n";
 
-            Out += typeof(T).GetMembers().CollectStr((i, m) =>
+            Out += typeof(T).GetMembers().CollectStr((i, Member) =>
                 {
-                    if (!(m is PropertyInfo || m is FieldInfo))
+                    if (!(Member is PropertyInfo || Member is FieldInfo))
                         return "";
 
-                    string Out2 = m.Name;
+                    string Out2 = Member.Name;
 
                     try
                         {
-                        var FieldInfo = m as FieldInfo;
+                        var FieldInfo = Member as FieldInfo;
                         if (FieldInfo != null)
                             {
                             Out2 += $": {FieldInfo.GetValue(In)}\r\n";
                             }
-                        var PropertyInfo = m as PropertyInfo;
+                        var PropertyInfo = Member as PropertyInfo;
                         if (PropertyInfo != null)
                             {
                             Out2 += $": {PropertyInfo.GetValue(In)}\r\n";
@@ -569,9 +570,11 @@ namespace LCore.Extensions.Optional
             {
             return () => new[] { In };
             }
+
         /// <summary>
         /// Returns a function that creates a new Array containing [Count] instances of [In]
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">If [Count] is less than 0.</exception>
         [Tested]
         public static Func<T[]> FN_CreateArray<T>(this T In, int Count)
             {
@@ -603,11 +606,12 @@ namespace LCore.Extensions.Optional
                 return Out;
             };
             }
+
         /// <summary>
         /// Returns a function that creates a new List from parameters.
-        /// 
         /// If [Count] is passed, the List will be filled with [Count] instances of [In]
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">If [Count] is less than 0.</exception>
         [Tested]
         public static Func<List<T>> FN_CreateList<T>(this T In, int Count)
             {
@@ -646,11 +650,12 @@ namespace LCore.Extensions.Optional
         [Tested]
         public static Func<T, bool> FN_If<T>(this T In)
             {
-            return L.Obj.SafeEquals.Supply2(In).Cast<object, bool, T, bool>();
+            return Obj => L.Obj.SafeEquals(In, Obj);
             }
         #endregion
 
         #region InitProperties
+
         /// <summary>
         /// Initializes an object's properties of type [T] to [InitValue] or their default values.
         /// Only affects properties of type T.
@@ -658,6 +663,10 @@ namespace LCore.Extensions.Optional
         /// <typeparam name="T"></typeparam>
         /// <param name="In"></param>
         /// <param name="InitValue"></param>
+        /// <exception cref="TargetException">Throws an exception if the a property setter throws an exception.</exception>
+        /// <exception cref="MethodAccessException">Throws an exception if the a property setter throws an exception.</exception>
+        /// <exception cref="TargetInvocationException">Throws an exception if the a property setter throws an exception.</exception>
+        /// <exception cref="FieldAccessException">Throws an exception if the field cannot be accessed.</exception>
         [Tested]
         public static void InitProperties<T>(this object In, T InitValue = default(T))
             {

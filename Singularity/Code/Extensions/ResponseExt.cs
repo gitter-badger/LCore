@@ -29,7 +29,7 @@ namespace Singularity.Extensions
             Response.Write(CSVData);
             Response.End();
             }
-        public static void WriteCSV(this HttpResponseBase Response, StringWriter sw, string FileName)
+        public static void WriteCSV(this HttpResponseBase Response, StringWriter Str, string FileName)
             {
             if (FileName == null)
                 FileName = "data";
@@ -40,7 +40,7 @@ namespace Singularity.Extensions
             Response.Clear();
             Response.AddHeader("Content-Disposition", $"attachment; filename={FileName}.csv");
             Response.ContentType = "text/csv";
-            Response.Write(sw);
+            Response.Write(Str);
             Response.End();
             }
 
@@ -58,7 +58,7 @@ namespace Singularity.Extensions
             Response.End();
             }
 
-        public static void WritePDF(this HttpResponseBase Response, byte[] PDF_Bytes, string FileName)
+        public static void WritePDF(this HttpResponseBase Response, byte[] PDFBytes, string FileName)
             {
             if (FileName == null)
                 FileName = "data";
@@ -68,10 +68,10 @@ namespace Singularity.Extensions
 
             Response.Clear();
             Response.AddHeader("Content-Disposition", $"attachment; filename={FileName}.pdf");
-            Response.AddHeader("Content-Length", PDF_Bytes.Length.ToString());
+            Response.AddHeader("Content-Length", PDFBytes.Length.ToString());
 
             Response.ContentType = "application/pdf";
-            Response.BinaryWrite(PDF_Bytes);
+            Response.BinaryWrite(PDFBytes);
             Response.End();
             }
         }

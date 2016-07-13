@@ -4,16 +4,16 @@ using Singularity.Routes;
 
 namespace Singularity.Annotations
     {
-    public class FieldType_Hidden : CustomPartialAttribute, IMetadataAware
+    public class FieldTypeHidden : CustomPartialAttribute, IMetadataAware
         {
-        public FieldType_Hidden()
+        public FieldTypeHidden()
             : base(PartialViews.Manage.Fields.Edit.Hidden, ControllerHelper.ViewType.Create, ControllerHelper.ViewType.Edit)
             {
             }
 
-        public virtual void OnMetadataCreated(ModelMetadata metadata)
+        public virtual void OnMetadataCreated(ModelMetadata Metadata)
             {
-            metadata.AdditionalValues[FieldHideLabelAttribute.HideLabel] = true;
+            Metadata.AdditionalValues[FieldHideLabelAttribute.HideLabel] = true;
             }
         }
     }

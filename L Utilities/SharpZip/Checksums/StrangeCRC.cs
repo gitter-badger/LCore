@@ -37,6 +37,8 @@
 // exception statement from your version.
 
 using System;
+// ReSharper disable InconsistentNaming
+// ReSharper disable CommentTypo
 
 namespace ICSharpCode.SharpZipLib.Checksums
     {

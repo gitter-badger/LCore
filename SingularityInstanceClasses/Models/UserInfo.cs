@@ -73,20 +73,20 @@ namespace SingularityInstanceClasses.Models
 
         public static Expression<Func<UserInfo, bool>> Filter_ByID(int UserID)
             {
-            return u => u.Active &&
-                u.UserID == UserID;
+            return User => User.Active &&
+                User.UserID == UserID;
             }
 
         public static readonly Expression<Func<UserInfo, bool>> Filter_Active =
-            u => u.Active &&
-                u.Role != null;
+            User => User.Active &&
+                User.Role != null;
 
         public static Expression<Func<UserInfo, bool>> Filter_ByName(string FirstName, string LastName)
             {
-            return u => u.Active &&
-                u.Role != null &&
-                u.FirstName == FirstName &&
-                u.LastName == LastName;
+            return User => User.Active &&
+                User.Role != null &&
+                User.FirstName == FirstName &&
+                User.LastName == LastName;
             }
         }
     }

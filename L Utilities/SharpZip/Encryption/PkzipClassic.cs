@@ -34,6 +34,8 @@
 // obligated to do so.  If you do not wish to do so, delete this
 // exception statement from your version.
 //
+// ReSharper disable InconsistentNaming
+// ReSharper disable CommentTypo
 
 
 #if !NETCF_1_0

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
@@ -10,6 +9,7 @@ using LCore.Extensions;
 using Singularity.Context;
 using Singularity.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Web.Helpers;
 using Singularity.Extensions;
 
@@ -25,7 +25,7 @@ namespace Singularity.Controllers
 
         public const string Style_JQuery_Mobile = "~/Content/jquery-mobile";
         public const string Script_JQuery_Mobile = "~/Scripts/jquery-mobile";
-        
+
         public const string ViewBag_ManageModel = "ManageModel";
         public const string ViewBag_EditModel = "EditModel";
 
@@ -88,6 +88,7 @@ namespace Singularity.Controllers
 
         public const int DefaultRowsPerPage = 20;
 
+        /// <exception cref="InvalidOperationException">Could not log error to database</exception>
         public static void HandleError(HttpContextBase HttpContext, Exception Ex)
             {
             var Context = ContextProviderFactory.GetCurrent().GetContext(HttpContext.Session);
@@ -108,10 +109,10 @@ namespace Singularity.Controllers
                         };
 
                     if (ErrorsTable.Count(
-                        e => e.FullDetails == Error.FullDetails &&
-                        e.URL == Error.URL &&
+                        DataError => DataError.FullDetails == Error.FullDetails &&
+                        DataError.URL == Error.URL &&
                         // e.Created.Date == Error.Created.Date &&
-                        e.Active) > 0)
+                        DataError.Active) > 0)
                         {
                         // Don't duplicate errors more than once per day.
                         return;
@@ -122,7 +123,7 @@ namespace Singularity.Controllers
                     }
                 catch (Exception Ex2)
                     {
-                    throw new Exception("Could not log error to database", Ex2);
+                    throw new InvalidOperationException("Could not log error to database", Ex2);
                     }
                 }
             }
@@ -132,23 +133,23 @@ namespace Singularity.Controllers
             return System.Configuration.ConfigurationManager.AppSettings[Key];
             }
 
-        public static void RegisterBundles(BundleCollection bundles, bool IncludedLib)
+        public static void RegisterBundles(BundleCollection Bundles, bool IncludedLib)
             {
             string Root = IncludedLib ? "~/bin/" : "~/";
 
             #region Singularity
-            bundles.Add(new ScriptBundle(Script_Singularity).Include(
+            Bundles.Add(new ScriptBundle(Script_Singularity).Include(
                 $"{Root}Scripts/singularity-min.js"));
 
-            bundles.Add(new StyleBundle(Style_Singularity).Include(
+            Bundles.Add(new StyleBundle(Style_Singularity).Include(
                 $"{Root}Content/singularity.css",
                 $"{Root}Content/singularity-forms.css"));
             #endregion
 
-            bundles.Add(new ScriptBundle(Script_JQuery_Mobile).Include(
+            Bundles.Add(new ScriptBundle(Script_JQuery_Mobile).Include(
                 $"{Root}Scripts/jquery-mobile/jquery.mobile.custom.js"));
 
-            bundles.Add(new ScriptBundle(Style_JQuery_Mobile).Include(
+            Bundles.Add(new ScriptBundle(Style_JQuery_Mobile).Include(
                 $"{Root}Scripts/jquery-mobile/jquery.mobile.custom.theme.css"));
             }
 
@@ -181,7 +182,7 @@ namespace Singularity.Controllers
                         if (Property == null)
                             continue;
 
-                        if (!ModelType.Meta().Properties.Has(p => p.PropertyName == Property))
+                        if (!ModelType.Meta().Properties.Has(Prop => Prop.PropertyName == Property))
                             {
                             if (Property.Contains("."))
                                 {
@@ -258,6 +259,7 @@ namespace Singularity.Controllers
             this.Owner = Owner;
             }
 
+        /// <exception cref="OverflowException">The number of elements in <see cref="T"/> is larger than <see cref="F:System.Int32.MaxValue" />.</exception>
         public override IEnumerable<IModel> GetModels()
             {
             int TotalItems;
@@ -265,6 +267,7 @@ namespace Singularity.Controllers
             return this.GetModels(out TotalItems);
             }
 
+        /// <exception cref="OverflowException">The number of elements in <see cref="T"/> is larger than <see cref="F:System.Int32.MaxValue" />.</exception>
         public override IEnumerable<IModel> GetModels(out int TotalItems,
             int Page = 0,
             int RowsPerPage = -1,
@@ -277,6 +280,7 @@ namespace Singularity.Controllers
             return this.GetModels_T(out TotalItems, Page, RowsPerPage, SortTerm, SortDirection, GlobalSearchTerm, FieldSearchOperations, ViewType);
             }
 
+        /// <exception cref="OverflowException">The number of elements in <see cref="T"/> is larger than <see cref="F:System.Int32.MaxValue" />.</exception>
         public IEnumerable<T> GetModels_T()
             {
             int TotalItems;
@@ -284,6 +288,7 @@ namespace Singularity.Controllers
             return this.GetModels_T(out TotalItems);
             }
 
+        /// <exception cref="OverflowException">The number of elements in <see cref="T"/> is larger than <see cref="F:System.Int32.MaxValue" />.</exception>
         public IEnumerable<T> GetModels_T(out int TotalItems,
             int Page = 0,
             int RowsPerPage = -1,
@@ -357,7 +362,7 @@ namespace Singularity.Controllers
             #region Field Search Filter
             if (FieldSearchOperations.Keys.Count > 0)
                 {
-                Set = FieldSearchOperations.Keys.Aggregate(Set, (current, Property) => current.FilterBy(FieldSearchOperations[Property]));
+                Set = FieldSearchOperations.Keys.Aggregate(Set, (Current, Property) => Current.FilterBy(FieldSearchOperations[Property]));
                 }
             #endregion
 
@@ -378,7 +383,7 @@ namespace Singularity.Controllers
                 }
             else
                 {
-                Out = Set.OrderBy(p => 0);
+                Out = Set.OrderBy(Item => 0);
                 }
             #endregion
 

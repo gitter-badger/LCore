@@ -76,8 +76,8 @@ namespace Singularity.Context
             {
             // Many to Many parent child relationship             
             ModelBuilder.Entity<TestModel>()
-                        .HasMany(s => s.ChildModels)
-                        .WithOptional(s => s.ParentModel);
+                        .HasMany(TestModel => TestModel.ChildModels)
+                        .WithOptional(TestModel => TestModel.ParentModel);
             }
         }
     }

@@ -10,16 +10,16 @@ namespace Singularity.Extensions
     public class ControllerActionLinkHelper<T>
         where T : Controller
         {
-        private HtmlHelper Html;
-        private MethodInfo Method;
-        private ParameterInfo[] Params;
-        private RouteValueDictionary Args;
+        private readonly HtmlHelper _Html;
+        private MethodInfo _Method;
+        private ParameterInfo[] _Params;
+        private RouteValueDictionary _Args;
 
         private MvcHtmlString HtmlActionLink(string Text, string Action, string Controller, dynamic LinkArgs)
             {
             LinkArgs = LinkArgs ?? new RouteValueDictionary();
 
-            return string.IsNullOrEmpty(Controller) ? LinkExtensions.ActionLink(this.Html, Text, Action, LinkArgs) : LinkExtensions.ActionLink(this.Html, Text, Action, Controller, LinkArgs, null);
+            return string.IsNullOrEmpty(Controller) ? LinkExtensions.ActionLink(this._Html, Text, Action, LinkArgs) : LinkExtensions.ActionLink(this._Html, Text, Action, Controller, LinkArgs, null);
             }
 
         public string ControllerName
@@ -30,41 +30,41 @@ namespace Singularity.Extensions
                     {
                     return null;
                     }
-                    string _ControllerName = typeof(T).Name;
+                    string ControllerName = typeof(T).Name;
 
-                    if (_ControllerName.EndsWith("Controller"))
-                        _ControllerName = _ControllerName.Substring(0, _ControllerName.Length - "Controller".Length);
+                    if (ControllerName.EndsWith("Controller"))
+                        ControllerName = ControllerName.Substring(0, ControllerName.Length - "Controller".Length);
 
-                    return _ControllerName;
+                    return ControllerName;
                 }
             }
 
         private string GetActionName(LambdaExpression ActionExpression)
             {
-            if (this.Method == null)
-                this.Method = (MethodInfo)
+            if (this._Method == null)
+                this._Method = (MethodInfo)
                     (((ActionExpression.Body as UnaryExpression)
                         ?.Operand as MethodCallExpression)
                         ?.Object as ConstantExpression)?.Value;
 
-            string ActionName = this.Method?.Name;
+            string ActionName = this._Method?.Name;
 
             return ActionName;
             }
 
         public void FillParameter(int Index, object Value)
             {
-            if (this.Params == null)
-                this.Params = this.Method.GetParameters();
+            if (this._Params == null)
+                this._Params = this._Method.GetParameters();
 
-            this.Args = this.Args ?? new RouteValueDictionary();
+            this._Args = this._Args ?? new RouteValueDictionary();
 
-            this.Args[this.Params[Index].Name] = Value;
+            this._Args[this._Params[Index].Name] = Value;
             }
 
         public ControllerActionLinkHelper(HtmlHelper Html)
             {
-            this.Html = Html;
+            this._Html = Html;
             }
 
         #region Func
@@ -73,7 +73,7 @@ namespace Singularity.Extensions
             {
             string ActionName = this.GetActionName(ActionExpression);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1>(
@@ -85,7 +85,7 @@ namespace Singularity.Extensions
 
             this.FillParameter(0, Value);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2>(
@@ -98,7 +98,7 @@ namespace Singularity.Extensions
             this.FillParameter(0, Value);
             this.FillParameter(1, Value2);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3>(
@@ -112,7 +112,7 @@ namespace Singularity.Extensions
             this.FillParameter(1, Value2);
             this.FillParameter(2, Value3);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4>(
@@ -127,7 +127,7 @@ namespace Singularity.Extensions
             this.FillParameter(2, Value3);
             this.FillParameter(3, Value4);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5>(
@@ -143,7 +143,7 @@ namespace Singularity.Extensions
             this.FillParameter(3, Value4);
             this.FillParameter(4, Value5);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5, A6>(
@@ -160,7 +160,7 @@ namespace Singularity.Extensions
             this.FillParameter(4, Value5);
             this.FillParameter(5, Value6);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5, A6, A7>(
@@ -178,7 +178,7 @@ namespace Singularity.Extensions
             this.FillParameter(5, Value6);
             this.FillParameter(6, Value7);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5, A6, A7, A8>(
@@ -197,7 +197,7 @@ namespace Singularity.Extensions
             this.FillParameter(6, Value7);
             this.FillParameter(7, Value8);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5, A6, A7, A8, A9>(
@@ -217,7 +217,7 @@ namespace Singularity.Extensions
             this.FillParameter(7, Value8);
             this.FillParameter(8, Value9);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10>(
@@ -238,7 +238,7 @@ namespace Singularity.Extensions
             this.FillParameter(8, Value9);
             this.FillParameter(9, Value10);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11>(
@@ -261,7 +261,7 @@ namespace Singularity.Extensions
             this.FillParameter(9, Value10);
             this.FillParameter(10, Value11);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12>(
@@ -285,7 +285,7 @@ namespace Singularity.Extensions
             this.FillParameter(10, Value11);
             this.FillParameter(11, Value12);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13>(
@@ -310,7 +310,7 @@ namespace Singularity.Extensions
             this.FillParameter(11, Value12);
             this.FillParameter(12, Value13);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14>(
@@ -336,7 +336,7 @@ namespace Singularity.Extensions
             this.FillParameter(12, Value13);
             this.FillParameter(13, Value14);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>(
@@ -363,7 +363,7 @@ namespace Singularity.Extensions
             this.FillParameter(13, Value14);
             this.FillParameter(14, Value15);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16>(
@@ -391,7 +391,7 @@ namespace Singularity.Extensions
             this.FillParameter(14, Value15);
             this.FillParameter(15, Value16);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         #endregion
@@ -402,7 +402,7 @@ namespace Singularity.Extensions
             {
             string ActionName = this.GetActionName(ActionExpression);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1>(
@@ -414,7 +414,7 @@ namespace Singularity.Extensions
 
             this.FillParameter(0, Value);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2>(
@@ -427,7 +427,7 @@ namespace Singularity.Extensions
             this.FillParameter(0, Value);
             this.FillParameter(1, Value2);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3>(
@@ -441,7 +441,7 @@ namespace Singularity.Extensions
             this.FillParameter(1, Value2);
             this.FillParameter(2, Value3);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4>(
@@ -456,7 +456,7 @@ namespace Singularity.Extensions
             this.FillParameter(2, Value3);
             this.FillParameter(3, Value4);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5>(
@@ -472,7 +472,7 @@ namespace Singularity.Extensions
             this.FillParameter(3, Value4);
             this.FillParameter(4, Value5);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5, A6>(
@@ -489,7 +489,7 @@ namespace Singularity.Extensions
             this.FillParameter(4, Value5);
             this.FillParameter(5, Value6);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5, A6, A7>(
@@ -507,7 +507,7 @@ namespace Singularity.Extensions
             this.FillParameter(5, Value6);
             this.FillParameter(6, Value7);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5, A6, A7, A8>(
@@ -526,7 +526,7 @@ namespace Singularity.Extensions
             this.FillParameter(6, Value7);
             this.FillParameter(7, Value8);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5, A6, A7, A8, A9>(
@@ -546,7 +546,7 @@ namespace Singularity.Extensions
             this.FillParameter(7, Value8);
             this.FillParameter(8, Value9);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10>(
@@ -567,7 +567,7 @@ namespace Singularity.Extensions
             this.FillParameter(8, Value9);
             this.FillParameter(9, Value10);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11>(
@@ -590,7 +590,7 @@ namespace Singularity.Extensions
             this.FillParameter(9, Value10);
             this.FillParameter(10, Value11);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12>(
@@ -614,7 +614,7 @@ namespace Singularity.Extensions
             this.FillParameter(10, Value11);
             this.FillParameter(11, Value12);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13>(
@@ -639,7 +639,7 @@ namespace Singularity.Extensions
             this.FillParameter(11, Value12);
             this.FillParameter(12, Value13);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14>(
@@ -665,7 +665,7 @@ namespace Singularity.Extensions
             this.FillParameter(12, Value13);
             this.FillParameter(13, Value14);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString Action<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>(
@@ -692,7 +692,7 @@ namespace Singularity.Extensions
             this.FillParameter(13, Value14);
             this.FillParameter(14, Value15);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         public MvcHtmlString ActionLink<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16>(
@@ -720,7 +720,7 @@ namespace Singularity.Extensions
             this.FillParameter(14, Value15);
             this.FillParameter(15, Value16);
 
-            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this.Args);
+            return this.HtmlActionLink(Text, ActionName, this.ControllerName, this._Args);
             }
 
         #endregion

@@ -56,7 +56,7 @@ namespace Singularity.Models
 
             public static UserAccount GetByID(ModelContext Context, int UserID)
                 {
-                return Context.GetDBSet<UserAccount>().FirstOrDefault(r => r.UserAccountID == UserID);
+                return Context.GetDBSet<UserAccount>().FirstOrDefault(User => User.UserAccountID == UserID);
                 }
 
             public static UserAccount GetByCredentials(ModelContext Context, string UserName, string Password)
@@ -65,17 +65,17 @@ namespace Singularity.Models
 
                 string Hash = Crypto.GetHash(PasswordString);
                 return Context.GetDBSet<UserAccount>().FirstOrDefault(
-                    r => r.UserName == UserName &&
+                    User => User.UserName == UserName &&
                          //  (r.PasswordHash == null && r.Password == Password) ||
                          // Enabled users only!
-                         r.Enabled && r.PasswordHash != null && r.PasswordHash == Hash);
+                         User.Enabled && User.PasswordHash != null && User.PasswordHash == Hash);
                 }
             public static UserAccount GetByHash(ModelContext Context, string UserName, string PasswordHash)
                 {
                 return Context.GetDBSet<UserAccount>().FirstOrDefault(
-                    r => r.UserName == UserName &&
+                    User => User.UserName == UserName &&
                          // Enabled users only!
-                         r.Enabled && r.PasswordHash != null && r.PasswordHash == PasswordHash);
+                         User.Enabled && User.PasswordHash != null && User.PasswordHash == PasswordHash);
                 }
 
             public static void GeneratePasswordHash(UserAccount In, string Password)
@@ -99,8 +99,8 @@ namespace Singularity.Models
 
             public static IEnumerable<SelectListItem> GetActiveUserSelectList(ModelContext Context)
                 {
-                List<UserAccount> Users = GetAll(Context).Where(u => u.Enabled).ToList();                return Users.Select(u => new SelectListItem                    {                    Text = u.UserName,
-                    Value = u.UserAccountID.ToString()                    }).ToList();
+                List<UserAccount> Users = GetAll(Context).Where(User => User.Enabled).ToList();                return Users.Select(User => new SelectListItem                    {                    Text = User.UserName,
+                    Value = User.UserAccountID.ToString()                    }).ToList();
                 }
 
             /*

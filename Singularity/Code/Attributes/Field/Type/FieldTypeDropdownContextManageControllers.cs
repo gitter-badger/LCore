@@ -24,12 +24,12 @@ namespace Singularity.Annotations
             ManageController[] Controllers = ContextProviderFactory.GetCurrent().AllManageControllers(Context.HttpContext.Session);
 
             if (this.TypeFilter != null)
-                Controllers = Controllers.Where(c => c.ModelType.IsType(this.TypeFilter)).Array();
+                Controllers = Controllers.Where(Controller => Controller.ModelType.IsType(this.TypeFilter)).Array();
 
             List<KeyValuePair<string, string>> Keys = Controllers.Convert(
-                c => new KeyValuePair<string, string>(c.Name, c.GetType().FullName)).List();
+                Controller => new KeyValuePair<string, string>(Controller.Name, Controller.GetType().FullName)).List();
 
-            Keys = Keys.OrderBy(k => k.Key).List();
+            Keys = Keys.OrderBy(Key => Key.Key).List();
 
             return Keys;
             }

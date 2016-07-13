@@ -7,19 +7,23 @@ namespace Singularity.Extensions
     {
     public class ExpressionParameterReplacer : ExpressionVisitor
         {
-        public ExpressionParameterReplacer(IList<ParameterExpression> fromParameters, IList<ParameterExpression> toParameters)
+        public ExpressionParameterReplacer(IList<ParameterExpression> FromParameters, IList<ParameterExpression> ToParameters)
             {
             this.ParameterReplacements = new Dictionary<ParameterExpression, ParameterExpression>();
-            for (int i = 0; i != fromParameters.Count && i != toParameters.Count; i++)
-                this.ParameterReplacements.Add(fromParameters[i], toParameters[i]);
+
+            for (int Index = 0; Index != FromParameters.Count && Index != ToParameters.Count; Index++)
+                this.ParameterReplacements.Add(FromParameters[Index], ToParameters[Index]);
             }
+
         private IDictionary<ParameterExpression, ParameterExpression> ParameterReplacements { get; }
-        protected override Expression VisitParameter(ParameterExpression node)
+        protected override Expression VisitParameter(ParameterExpression Node)
             {
-            ParameterExpression replacement;
-            if (this.ParameterReplacements.TryGetValue(node, out replacement))
-                node = replacement;
-            return base.VisitParameter(node);
+            ParameterExpression Replacement;
+
+            if (this.ParameterReplacements.TryGetValue(Node, out Replacement))
+                Node = Replacement;
+
+            return base.VisitParameter(Node);
             }
         }
     }

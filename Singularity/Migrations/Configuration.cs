@@ -12,7 +12,7 @@ namespace Singularity.Migrations
             this.AutomaticMigrationsEnabled = true;
             }
 
-        protected override void Seed(SingularityContext context)
+        protected override void Seed(SingularityContext Context)
             {
             //  This method will be called after migrating to the latest version.
 

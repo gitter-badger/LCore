@@ -37,12 +37,15 @@
 
 using System;
 using System.IO;
+using System.Security;
 using ICSharpCode.SharpZipLib.Core;
 // ReSharper disable UnusedParameter.Global
 // ReSharper disable UnusedMethodReturnValue.Global
 // ReSharper disable UnusedParameter.Local
 // ReSharper disable ClassNeverInstantiated.Global
 // ReSharper disable UnassignedField.Global
+// ReSharper disable CommentTypo
+// ReSharper disable InconsistentNaming
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
@@ -160,6 +163,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <summary>
         /// Get / set the <see cref="DateTime"/> value to use when <see cref="Setting"/> is set to <see cref="TimeSetting.Fixed"/>
         /// </summary>
+        /// <exception cref="ArgumentException" accessor="set">Value is too old to be valid</exception>
         public DateTime FixedDateTime
             {
             get { return this.fixedDateTime_; }
@@ -211,6 +215,19 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// </summary>
         /// <param name="fileName">The name of the file to create a new entry for.</param>
         /// <returns>Returns a new <see cref="ZipEntry"/> based on the <paramref name="fileName"/>.</returns>
+        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        /// <exception cref="UnauthorizedAccessException">Access to <paramref name="fileName" /> is denied. </exception>
+        /// <exception cref="IOException">
+        ///         <see cref="M:System.IO.FileSystemInfo.Refresh" /> cannot initialize the data. </exception>
+        /// <exception cref="DirectoryNotFoundException">The specified path is invalid; for example, it is on an unmapped drive.</exception>
+        /// <exception cref="ZipException">Unhandled time setting in MakeFileEntry</exception>
+        /// <exception cref="ArgumentNullException">
+        ///         <paramref name="fileName" /> is null. </exception>
+        /// <exception cref="ArgumentException">The file name is empty, contains only white spaces, or contains invalid characters. </exception>
+        /// <exception cref="PathTooLongException">The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters. </exception>
+        /// <exception cref="NotSupportedException">
+        ///         <paramref name="fileName" /> contains a colon (:) in the middle of the string. </exception>
+        /// <exception cref="FileNotFoundException">The file does not exist.-or- The Length property is called for a directory. </exception>
         public ZipEntry MakeFileEntry(string fileName)
             {
             return this.MakeFileEntry(fileName, true);
@@ -222,6 +239,19 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <param name="fileName">The name of the file to create a new entry for.</param>
         /// <param name="useFileSystem">If true entry detail is retrieved from the file system if the file exists.</param>
         /// <returns>Returns a new <see cref="ZipEntry"/> based on the <paramref name="fileName"/>.</returns>
+        /// <exception cref="ArgumentNullException">
+        ///         <paramref name="fileName" /> is null. </exception>
+        /// <exception cref="ArgumentException">The file name is empty, contains only white spaces, or contains invalid characters. </exception>
+        /// <exception cref="PathTooLongException">The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters. </exception>
+        /// <exception cref="NotSupportedException">
+        ///         <paramref name="fileName" /> contains a colon (:) in the middle of the string. </exception>
+        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        /// <exception cref="UnauthorizedAccessException">Access to <paramref name="fileName" /> is denied. </exception>
+        /// <exception cref="IOException">
+        ///         <see cref="M:System.IO.FileSystemInfo.Refresh" /> cannot initialize the data. </exception>
+        /// <exception cref="DirectoryNotFoundException">The specified path is invalid; for example, it is on an unmapped drive.</exception>
+        /// <exception cref="ZipException">Unhandled time setting in MakeFileEntry</exception>
+        /// <exception cref="FileNotFoundException">The file does not exist.-or- The Length property is called for a directory. </exception>
         public ZipEntry MakeFileEntry(string fileName, bool useFileSystem)
             {
             var result = new ZipEntry(this.nameTransform_.TransformFile(fileName))
@@ -313,6 +343,23 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// </summary>
         /// <param name="directoryName">The raw untransformed name for the new directory</param>
         /// <returns>Returns a new <see cref="ZipEntry"></see> representing a directory.</returns>
+        /// <exception cref="ArgumentNullException">
+        ///         <paramref>
+        ///             <name>path</name>
+        ///         </paramref>
+        ///     is null. </exception>
+        /// <exception cref="ArgumentException">
+        ///         <paramref>
+        ///             <name>path</name>
+        ///         </paramref>
+        ///     contains invalid characters such as ", &lt;, &gt;, or |. </exception>
+        /// <exception cref="PathTooLongException">The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters. The specified path, file name, or both are too long.</exception>
+        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        /// <exception cref="IOException">
+        ///         <see cref="M:System.IO.FileSystemInfo.Refresh" /> cannot initialize the data. </exception>
+        /// <exception cref="DirectoryNotFoundException">The specified path is invalid; for example, it is on an unmapped drive.</exception>
+        /// <exception cref="ZipException">Unhandled time setting in MakeDirectoryEntry</exception>
+        /// <exception cref="FileNotFoundException">The specified file does not exist. </exception>
         public ZipEntry MakeDirectoryEntry(string directoryName)
             {
             return this.MakeDirectoryEntry(directoryName, true);
@@ -324,6 +371,23 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <param name="directoryName">The raw untransformed name for the new directory</param>
         /// <param name="useFileSystem">If true entry detail is retrieved from the file system if the file exists.</param>
         /// <returns>Returns a new <see cref="ZipEntry"></see> representing a directory.</returns>
+        /// <exception cref="ArgumentNullException">
+        ///         <paramref>
+        ///             <name>path</name>
+        ///         </paramref>
+        ///     is null. </exception>
+        /// <exception cref="ArgumentException">
+        ///         <paramref>
+        ///             <name>path</name>
+        ///         </paramref>
+        ///     contains invalid characters such as ", &lt;, &gt;, or |. </exception>
+        /// <exception cref="PathTooLongException">The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters. The specified path, file name, or both are too long.</exception>
+        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        /// <exception cref="IOException">
+        ///         <see cref="M:System.IO.FileSystemInfo.Refresh" /> cannot initialize the data. </exception>
+        /// <exception cref="DirectoryNotFoundException">The specified path is invalid; for example, it is on an unmapped drive.</exception>
+        /// <exception cref="ZipException">Unhandled time setting in MakeDirectoryEntry</exception>
+        /// <exception cref="FileNotFoundException">The specified file does not exist. </exception>
         public ZipEntry MakeDirectoryEntry(string directoryName, bool useFileSystem)
             {
 

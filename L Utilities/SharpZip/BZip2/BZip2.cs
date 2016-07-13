@@ -1,3 +1,4 @@
+// ReSharper disable CommentTypo
 // BZip2.cs
 //
 // Copyright (C) 2001 Mike Krueger
@@ -35,6 +36,8 @@
 
 using System;
 using System.IO;
+// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
 
 namespace ICSharpCode.SharpZipLib.BZip2
     {
@@ -51,6 +54,11 @@ namespace ICSharpCode.SharpZipLib.BZip2
         /// <param name="inStream">The stream containing data to decompress.</param>
         /// <param name="outStream">The stream to write decompressed data to.</param>
         /// <remarks>Both streams are closed on completion</remarks>
+        /// <exception cref="ArgumentNullException"><paramref>
+        ///         <name></name>
+        ///     </paramref>
+        ///     is <see langword="null" />.</exception>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
         public static void Decompress(Stream inStream, Stream outStream)
             {
             if (inStream == null)
@@ -85,6 +93,10 @@ namespace ICSharpCode.SharpZipLib.BZip2
         /// <param name="outStream">The stream to write compressed data to.</param>
         /// <param name="blockSize">The block size to use.</param>
         /// <remarks>Both streams are closed on completion</remarks>
+        /// <exception cref="ArgumentNullException"><paramref>
+        ///         <name></name>
+        ///     </paramref>
+        ///     is <see langword="null" />.</exception>
         public static void Compress(Stream inStream, Stream outStream, int blockSize)
             {
             if (inStream == null)

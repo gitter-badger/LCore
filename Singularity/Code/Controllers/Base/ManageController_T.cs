@@ -245,17 +245,17 @@ namespace Singularity.Controllers
 
                 Dictionary<string, ModelMetadata> AllMeta = ViewModel.ModelType.GetMeta();
 
-                ColumnNames = ColumnNames.Select(c => AllMeta.Keys.Has(c));
+                ColumnNames = ColumnNames.Select(Col => AllMeta.Keys.Has(Col));
 
-                ColumnNames.Each(c =>
+                ColumnNames.Each(Col =>
                 {
-                    var Meta = AllMeta[c];
+                    var Meta = AllMeta[Col];
 
-                    if (c.Contains("."))
+                    if (Col.Contains("."))
                         {
                         if (!Meta.HasAttribute<FieldDisableExportAttribute>())
                             {
-                            var Lambda = ViewModel.ModelType.GetTokenExpression(c, out Meta);
+                            var Lambda = ViewModel.ModelType.GetTokenExpression(Col, out Meta);
 
                             Func<object, object> F = ((Expression<Func<object, object>>)Lambda).Compile();
 
@@ -329,7 +329,7 @@ namespace Singularity.Controllers
                                 Functions.Add(F);
                                 }
                             }
-                        else if (!Columns.Has(c => (c.DisplayName ?? c.PropertyName) == Op.Property))
+                        else if (!Columns.Has(Col => (Col.DisplayName ?? Col.PropertyName) == Op.Property))
                             {
                             var Meta = ViewModel.ModelType.Meta(Op.Property);
 
@@ -394,7 +394,7 @@ namespace Singularity.Controllers
         #endregion
 
         #region Details
-        public override ActionResult Details(int id, string ReturnUrl)
+        public override ActionResult Details(int ID, string ReturnUrl)
             {
             if (this.Session == null ||
                 ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, typeof(T)).View != true)
@@ -402,7 +402,7 @@ namespace Singularity.Controllers
                 return new HttpUnauthorizedResult();
                 }
 
-            IModel Model = this.GetModelQuery().Find(id);
+            IModel Model = this.GetModelQuery().Find(ID);
 
             if (!this.Session.CurrentRole().AllowAccess(Model))
                 {
@@ -417,7 +417,7 @@ namespace Singularity.Controllers
         #endregion
 
         #region Edit
-        public override ActionResult Edit(int id, string ReturnUrl, bool Create = false)
+        public override ActionResult Edit(int ID, string ReturnUrl, bool Create = false)
             {
 
             if (Create)
@@ -440,7 +440,7 @@ namespace Singularity.Controllers
                     return new HttpUnauthorizedResult();
                     }
 
-                IModel Model = this.GetModelQuery().Find(id);
+                IModel Model = this.GetModelQuery().Find(ID);
 
                 return !this.Session.CurrentRole().AllowAccess(Model) ? new HttpUnauthorizedResult() : this.Edit(Model, ReturnUrl);
                 }
@@ -478,7 +478,7 @@ namespace Singularity.Controllers
 
         [HttpPost]
         [Route("Manage/{id}/{ReturnURL}")]
-        public override ActionResult Edit(int id, string ReturnUrl, FormCollection Form, bool Create = false)
+        public override ActionResult Edit(int ID, string ReturnUrl, FormCollection Form, bool Create = false)
             {
             bool UpdateMode = !string.IsNullOrEmpty(Form["UpdateButton"]);
 
@@ -490,7 +490,7 @@ namespace Singularity.Controllers
 
             this.ViewBag.ControllerName = this.Name;
 
-            var Model = this.GetModel(id, Create, null);
+            var Model = this.GetModel(ID, Create, null);
 
             bool Errors;
 
@@ -577,13 +577,13 @@ namespace Singularity.Controllers
 
         [HttpPost]
         [Route("Manage/{id}/{ReturnURL}")]
-        public override ActionResult Update(int id, string ReturnUrl, FormCollection Form, bool Create = false)
+        public override ActionResult Update(int ID, string ReturnUrl, FormCollection Form, bool Create = false)
             {
-            this.Edit(id, ReturnUrl, Form, Create);
+            this.Edit(ID, ReturnUrl, Form, Create);
 
             return this.RedirectToAction(nameof(ManageController.Edit), new
                 {
-                id,
+                id = ID,
                 ReturnURL = ReturnUrl,
                 Create
                 });
@@ -612,7 +612,7 @@ namespace Singularity.Controllers
         #endregion
 
         #region Delete
-        public override ActionResult Delete(int id, string ReturnUrl)
+        public override ActionResult Delete(int ID, string ReturnUrl)
             {
             if (this.Session == null ||
                 ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, typeof(T)).Deactivate != true)
@@ -620,7 +620,7 @@ namespace Singularity.Controllers
                 return new HttpUnauthorizedResult();
                 }
 
-            IModel Model = this.GetModelQuery().Find(id);
+            IModel Model = this.GetModelQuery().Find(ID);
 
             if (!this.Session.CurrentRole().AllowAccess(Model))
                 {
@@ -633,7 +633,7 @@ namespace Singularity.Controllers
             }
 
         [IgnoreValidation]
-        public override ActionResult DeleteConfirm(int id, string ReturnUrl, FormCollection collection, bool Restore = false)
+        public override ActionResult DeleteConfirm(int ID, string ReturnUrl, FormCollection Collection, bool Restore = false)
             {
             if (this.Session == null ||
                 ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, typeof(T)).Deactivate != true)
@@ -643,7 +643,7 @@ namespace Singularity.Controllers
 
             DbSet DbSet = this.GetModelQuery();
 
-            var Model = (T)DbSet.Find(id);
+            var Model = (T)DbSet.Find(ID);
 
             if (!this.Session.CurrentRole().AllowAccess(Model))
                 {
@@ -785,9 +785,9 @@ namespace Singularity.Controllers
         #endregion}
 
         #region DeleteFile
-        public override void DeleteFile(int id, string ReturnUrl)
+        public override void DeleteFile(int ID, string ReturnUrl)
             {
-            var File = FileUpload.FindFileUpload(this.DbContext, id, typeof(T));
+            var File = FileUpload.FindFileUpload(this.DbContext, ID, typeof(T));
 
             if (!this.Session.CurrentRole().AllowAccess(File))
                 {
@@ -819,7 +819,7 @@ namespace Singularity.Controllers
 
         public override bool AllowAdminRandomize => false;
 
-        protected virtual T GetModel(int id, bool Create, T Model)
+        protected virtual T GetModel(int ID, bool Create, T Model)
             {
             if (Create)
                 {
@@ -829,7 +829,7 @@ namespace Singularity.Controllers
                 }
             else
                 {
-                Model = this.GetModelQuery().Find(id);
+                Model = this.GetModelQuery().Find(ID);
 
                 if (Model.HasProperty(ControllerHelper.AutomaticFields.Updated))
                     Model.SetProperty(ControllerHelper.AutomaticFields.Updated, DateTime.Now);
@@ -838,36 +838,36 @@ namespace Singularity.Controllers
             // Load fields from query string
             List<ModelMetadata> MetaData = Model.Properties().List();
 
-            MetaData.Each(m =>
+            MetaData.Each(Meta =>
             {
-                if (m.HasAttribute<IFieldLoadFromQueryStringAttribute>())
+                if (Meta.HasAttribute<IFieldLoadFromQueryStringAttribute>())
                     {
-                    if (StringConverter.IsTypeSupported(m))
+                    if (StringConverter.IsTypeSupported(Meta))
                         {
-                        string QS = this.Request.QueryString[m.PropertyName];
+                        string QS = this.Request.QueryString[Meta.PropertyName];
 
                         if (!string.IsNullOrEmpty(QS))
                             {
                             var Converter = new StringConverter(this.Session);
 
-                            var Value = Converter.PerformAction(QS, m.ModelType);
+                            var Value = Converter.PerformAction(QS, Meta.ModelType);
 
-                            Model.SetProperty(m.PropertyName, Value);
+                            Model.SetProperty(Meta.PropertyName, Value);
                             }
                         }
-                    else if (m.ModelType.HasInterface<IConvertible>())
+                    else if (Meta.ModelType.HasInterface<IConvertible>())
                         {
                         }
-                    else if (m.ModelType.HasInterface<IModel>())
+                    else if (Meta.ModelType.HasInterface<IModel>())
                         {
-                        string QS = this.Request.QueryString[m.PropertyName];
+                        string QS = this.Request.QueryString[Meta.PropertyName];
 
-                        var Context = this.DbContext.GetDBSet(m.ModelType);
+                        var Context = this.DbContext.GetDBSet(Meta.ModelType);
                         var QSModel = (IModel)Context.Find(QS);
 
                         if (QSModel != null)
                             {
-                            Model.SetProperty(m.PropertyName, QSModel);
+                            Model.SetProperty(Meta.PropertyName, QSModel);
                             }
                         }
                     }
@@ -897,8 +897,8 @@ namespace Singularity.Controllers
             try
                 {
                 IEnumerable<ModelMetadata> CustomKeyMeta = Model.Properties().Where(
-                    pr => pr.HasAttribute<FieldFormKeyAttribute>() &&
-                        pr.GetAttribute<FieldFormKeyAttribute>().CustomKey == Key);
+                    Prop => Prop.HasAttribute<FieldFormKeyAttribute>() &&
+                        Prop.GetAttribute<FieldFormKeyAttribute>().CustomKey == Key);
 
                 string Property = Key;
 
@@ -955,7 +955,7 @@ namespace Singularity.Controllers
 
                 if (!this.ModelState.IsValidField(Key))
                     {
-                    throw new ValidationException(this.ModelState[Key].Errors.List().CollectStr((i, e) => e.ErrorMessage));
+                    throw new ValidationException(this.ModelState[Key].Errors.List().CollectStr((i, Ex) => Ex.ErrorMessage));
                     }
                 }
             catch (ValidationException Ex)

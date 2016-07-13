@@ -3,6 +3,7 @@ using System.Collections;
 // ReSharper disable FieldCanBeMadeReadOnly.Global
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedMember.Global
+// ReSharper disable InconsistentNaming
 
 namespace NSort
     {
@@ -46,6 +47,8 @@ namespace NSort
                     }
                 }
             }
+
+        /// <exception cref="Exception"></exception>
         public virtual void Set(IList List, int i, object o)
             {
             throw new Exception();

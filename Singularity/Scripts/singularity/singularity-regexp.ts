@@ -15,7 +15,7 @@ var singRegExp = singString.addModule(new sing.Module('RegExp', String));
 
 singRegExp.glyphIcon = '&#xe051;';
 
-singRegExp.method('matchCount', StringMatchCount,
+singRegExp.method('matchCount', stringMatchCount,
     {
         summary: null,
         parameters: null,
@@ -26,7 +26,7 @@ singRegExp.method('matchCount', StringMatchCount,
         }
     });
 
-function StringMatchCount(pattern: string) {
+function stringMatchCount(pattern: string) {
 
     const match = this.match(pattern);
 
@@ -36,7 +36,7 @@ function StringMatchCount(pattern: string) {
     return match.length;
 }
 
-singRegExp.method('hasMatch', StringHasMatch,
+singRegExp.method('hasMatch', stringHasMatch,
     {
         summary: null,
         parameters: null,
@@ -47,7 +47,7 @@ singRegExp.method('hasMatch', StringHasMatch,
         }
     });
 
-function StringHasMatch(pattern: string): boolean {
+function stringHasMatch(pattern: string): boolean {
 
     const match = this.match(pattern);
 
@@ -57,7 +57,7 @@ function StringHasMatch(pattern: string): boolean {
     return true;
 }
 
-singRegExp.method('replaceRegExp', StringReplaceRegExp,
+singRegExp.method('replaceRegExp', stringReplaceRegExp,
     {
         summary: null,
         parameters: null,
@@ -68,7 +68,7 @@ singRegExp.method('replaceRegExp', StringReplaceRegExp,
         }
     });
 
-function StringReplaceRegExp(pattern: RegExp, replace?: RegExp): string {
+function stringReplaceRegExp(pattern: RegExp, replace?: RegExp): string {
 
     let out = this;
 
@@ -90,7 +90,7 @@ function StringReplaceRegExp(pattern: RegExp, replace?: RegExp): string {
     return out;
 }
 
-singRegExp.method('escapeRegExp', StringEscapeRegExp,
+singRegExp.method('escapeRegExp', stringEscapeRegExp,
     {
         summary: null,
         parameters: null,
@@ -101,7 +101,7 @@ singRegExp.method('escapeRegExp', StringEscapeRegExp,
         }
     });
 
-function StringEscapeRegExp(): string {
+function stringEscapeRegExp(): string {
 
     // ReSharper disable once ConditionIsAlwaysConst
     // ReSharper disable once HeuristicallyUnreachableCode

@@ -3,6 +3,7 @@ using System.Collections;
 // ReSharper disable FieldCanBeMadeReadOnly.Global
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedMember.Global
+// ReSharper disable InconsistentNaming
 
 namespace NSort
     {
@@ -22,16 +23,16 @@ namespace NSort
             if (this.Header && (left == 0 || right == 0))
                 return;
 
-            for (int i = 0; i < this.Source.GetLength(0); i++)
+            for (int Index = 0; Index < this.Source.GetLength(0); Index++)
                 {
-                object temp = this.Source[i, left];
-                this.Source[i, left] = this.Source[i, right];
-                this.Source[i, right] = (string)temp;
+                object Temp = this.Source[Index, left];
+                this.Source[Index, left] = this.Source[Index, right];
+                this.Source[Index, right] = (string)Temp;
                 }
 
-            var temp2 = array[left];
+            var Temp2 = array[left];
             array[left] = array[right];
-            array[right] = temp2;
+            array[right] = Temp2;
             }
         public void Set(IList array, int left, int right)
             {

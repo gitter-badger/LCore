@@ -3,36 +3,60 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using LCore.Extensions;
+// ReSharper disable UnusedMember.Global
 
 namespace LCore.Dynamic
     {
-    internal class AttributeList : ICustomAttributeProvider
+    /// <summary>
+    /// Internal class used to store multiple Attribute objects.
+    /// </summary>
+    public class AttributeList : ICustomAttributeProvider
         {
-        public string TypeName;
+        /// <summary>
+        /// The name of the type this AttributeList is representing
+        /// </summary>
+        public string TypeName { get; set; }
+
         private readonly Attribute[] _Attributes;
 
-        public AttributeList(string TypeName, List<Attribute> Attributes)
-            : this(TypeName, Attributes.ToArray())
+        /// <summary>
+        /// Creates a new AttributeList from a 
+        /// </summary>
+        /// <param name="TypeName"></param>
+        /// <param name="Attributes"></param>
+        public AttributeList(string TypeName, IEnumerable<Attribute> Attributes)
             {
-            }
+            if (Attributes == null)
+                Attributes = new Attribute[] { };
 
-        public AttributeList(string TypeName, Attribute[] Attributes)
-            {
             this.TypeName = TypeName;
-            this._Attributes = Attributes;
+            this._Attributes = Attributes.ToArray();
             }
 
         // ReSharper disable once CoVariantArrayConversion
-        public object[] GetCustomAttributes(bool inherit) => this._Attributes;
+        /// <summary>Returns an array of all of the custom attributes defined on this member, excluding named attributes, or an empty array if there are no custom attributes.</summary>
+        /// <returns>An array of Objects representing custom attributes, or an empty array.</returns>
+        /// <param name="Inherit">When true, look up the hierarchy chain for the inherited custom attribute. </param>
+        public object[] GetCustomAttributes(bool Inherit) => this._Attributes;
 
-        public object[] GetCustomAttributes(Type attributeType, bool inherit)
+        /// <summary>Returns an array of custom attributes defined on this member, identified by type, or an empty array if there are no custom attributes of that type.</summary>
+        /// <returns>An array of Objects representing custom attributes, or an empty array.</returns>
+        /// <param name="AttributeType">The type of the custom attributes. </param>
+        /// <param name="Inherit">When true, look up the hierarchy chain for the inherited custom attribute. </param>
+        /// <exception cref="T:System.ArgumentNullException">
+        /// <paramref name="AttributeType" /> is null.</exception>
+        public object[] GetCustomAttributes(Type AttributeType, bool Inherit)
             {
-            return this._Attributes.Select(a => (object)a.IsType(attributeType)).ToArray();
+            return this._Attributes.Select(Attr => (object)Attr.IsType(AttributeType)).ToArray();
             }
 
-        public bool IsDefined(Type attributeType, bool inherit)
+        /// <summary>Indicates whether one or more instance of <paramref name="AttributeType" /> is defined on this member.</summary>
+        /// <returns>true if the <paramref name="AttributeType" /> is defined on this member; false otherwise.</returns>
+        /// <param name="AttributeType">The type of the custom attributes. </param>
+        /// <param name="Inherit">When true, look up the hierarchy chain for the inherited custom attribute. </param>
+        public bool IsDefined(Type AttributeType, bool Inherit)
             {
-            return this._Attributes.Count(a => a.IsType(attributeType)) > 0;
+            return this._Attributes.Count(Attr => Attr.IsType(AttributeType)) > 0;
             }
         }
     }

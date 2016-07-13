@@ -16,12 +16,12 @@ namespace LCore.Tools
             int Num = 0;
             double Total = 0;
 
-            foreach (double t in this.WalkingStats)
+            foreach (double Stat in this._WalkingStats)
                 {
                 // ReSharper disable once CompareOfFloatsByEqualityOperator
-                if (t != 0)
+                if (Stat != 0)
                     {
-                    Total += t;
+                    Total += Stat;
                     Num++;
                     }
                 }
@@ -32,22 +32,23 @@ namespace LCore.Tools
             return Total / Num;
             }
 
-        private readonly int WalkingAverageSize;
-        private double[] WalkingStats;
+        private readonly int _WalkingAverageSize;
+        private double[] _WalkingStats;
 
-        private int CurrentPos;
+        private int _CurrentPos;
 
         /// <summary>
         /// Create a new StatMonitor using a particular walking average size.
         /// [WalkingAverageSize] must be at least 1.
         /// </summary>
         /// <param name="WalkingAverageSize"></param>
+        /// <exception cref="ArgumentException">[WalkingAverageSize] was not greater than 0.</exception>
         public StatMonitor(int WalkingAverageSize)
             {
             if (WalkingAverageSize < 1)
                 throw new ArgumentException($"WalkingAverageSize must be greater than 0. ({WalkingAverageSize})");
 
-            this.WalkingAverageSize = WalkingAverageSize;
+            this._WalkingAverageSize = WalkingAverageSize;
             this.Clear();
             }
 
@@ -56,10 +57,10 @@ namespace LCore.Tools
         /// </summary>
         public void AddStat(double Stat)
             {
-            this.WalkingStats[this.CurrentPos] = Stat;
-            this.CurrentPos = this.CurrentPos + 1;
-            if (this.CurrentPos > this.WalkingStats.Length - 1)
-                this.CurrentPos = 0;
+            this._WalkingStats[this._CurrentPos] = Stat;
+            this._CurrentPos = this._CurrentPos + 1;
+            if (this._CurrentPos > this._WalkingStats.Length - 1)
+                this._CurrentPos = 0;
             }
 
         /// <summary>
@@ -67,8 +68,8 @@ namespace LCore.Tools
         /// </summary>
         public void Clear()
             {
-            this.WalkingStats = new double[this.WalkingAverageSize];
-            this.CurrentPos = 0;
+            this._WalkingStats = new double[this._WalkingAverageSize];
+            this._CurrentPos = 0;
             }
         }
     }
