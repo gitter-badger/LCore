@@ -17,8 +17,8 @@ namespace L_Tests.Tests.Extensions
         {
         protected override Type[] TestType => new[] { typeof(ConvertibleExt) };
 
-        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_ConvertTo()
@@ -52,6 +52,10 @@ namespace L_Tests.Tests.Extensions
             Test2.ConvertTo(typeof(ushort)).Should().Be((ushort)5);
             Test2.ConvertTo(typeof(byte)).Should().Be((byte)5);
             Test2.ConvertTo(typeof(char)).Should().Be('5');
+            Test2.ConvertTo(typeof(string)).Should().Be("5");
+
+            long.MaxValue.ConvertTo<int>().Should().Be(default(int));
+            long.MaxValue.ConvertTo(typeof(int)).Should().Be(null);
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -62,16 +66,16 @@ namespace L_Tests.Tests.Extensions
             {
             const string Test = "-5.5555";
 
-            L.F<IConvertible, int>(ConvertibleExt.ConvertTo<int>).ShouldFail(Test);
-            L.F<IConvertible, uint>(ConvertibleExt.ConvertTo<uint>).ShouldFail(Test);
-            L.F<IConvertible, long>(ConvertibleExt.ConvertTo<long>).ShouldFail(Test);
-            L.F<IConvertible, short>(ConvertibleExt.ConvertTo<short>).ShouldFail(Test);
-            L.F<IConvertible, ushort>(ConvertibleExt.ConvertTo<ushort>).ShouldFail(Test);
-            L.F<IConvertible, byte>(ConvertibleExt.ConvertTo<byte>).ShouldFail(Test);
-            L.F<IConvertible, char>(ConvertibleExt.ConvertTo<char>).ShouldFail(Test);
+            L.F<IConvertible, int?>(ConvertibleExt.ConvertTo<int>).ShouldFail(Test);
+            L.F<IConvertible, uint?>(ConvertibleExt.ConvertTo<uint>).ShouldFail(Test);
+            L.F<IConvertible, long?>(ConvertibleExt.ConvertTo<long>).ShouldFail(Test);
+            L.F<IConvertible, short?>(ConvertibleExt.ConvertTo<short>).ShouldFail(Test);
+            L.F<IConvertible, ushort?>(ConvertibleExt.ConvertTo<ushort>).ShouldFail(Test);
+            L.F<IConvertible, byte?>(ConvertibleExt.ConvertTo<byte>).ShouldFail(Test);
+            L.F<IConvertible, char?>(ConvertibleExt.ConvertTo<char>).ShouldFail(Test);
 
-            double Result1 = Test.ConvertTo<double>();
-            float Result2 = Test.ConvertTo<float>();
+            double? Result1 = Test.ConvertTo<double>();
+            float? Result2 = Test.ConvertTo<float>();
 
             Result1.Should().Be(-5.5555);
             Result2.Should().Be((float)-5.5555);
@@ -86,8 +90,13 @@ namespace L_Tests.Tests.Extensions
             Test2.ConvertTo<ushort>().Should().Be((ushort)5);
             Test2.ConvertTo<byte>().Should().Be((byte)5);
             Test2.ConvertTo<char>().Should().Be('5');
+            Test2.ConvertToString().Should().Be("5");
 
             ConvertibleExt.ConvertTo<int>(null).Should().Be(default(int));
+
+            ConvertibleExt.ConvertToString(null).Should().Be((string)null);
+
+            new BadConverter().ConvertToString().Should().Be((string)null);
             }
 
         [TestMethod]
@@ -114,7 +123,7 @@ namespace L_Tests.Tests.Extensions
             new[] {
                 Test.CanConvertTo<double>(),
                 Test.CanConvertTo<float>(),
-                Test.CanConvertTo<string>()
+                Test.CanConvertToString()
                 }.ShouldAllBeEquivalentTo(true);
 
             new[] {
@@ -136,7 +145,7 @@ namespace L_Tests.Tests.Extensions
                 Test.CanConvertTo<short>(),
                 Test.CanConvertTo<long>(),
                 Test.CanConvertTo<int>(),
-                Test.CanConvertTo<string>()
+                Test.CanConvertToString()
                 }.ShouldAllBeEquivalentTo(true);
 
             new[] {
@@ -153,7 +162,7 @@ namespace L_Tests.Tests.Extensions
             new[] {
                 Test.CanConvertTo<double>(),
                 Test.CanConvertTo<float>(),
-                Test.CanConvertTo<string>()
+                Test.CanConvertToString()
                 }.ShouldAllBeEquivalentTo(true);
 
             new[] {
@@ -181,9 +190,12 @@ namespace L_Tests.Tests.Extensions
                 Test.CanConvertTo<ulong>(),
                 Test.CanConvertTo<double>(),
                 Test.CanConvertTo<float>(),
-                Test.CanConvertTo<string>()
+                Test.CanConvertToString()
                 }.ShouldAllBeEquivalentTo(false);
             // ReSharper restore ExpressionIsAlwaysNull
+
+            DateTime.Now.CanConvertToString().Should().BeFalse();
+            DateTime.Now.Date.CanConvertToString().Should().BeTrue();
             }
 
 
@@ -202,7 +214,7 @@ namespace L_Tests.Tests.Extensions
             Test.TryConvertTo<float>().Should().Be((float)5);
             Test.TryConvertTo<double>().Should().Be((double)5);
             Test.TryConvertTo<char>().Should().Be('5');
-            Test.TryConvertTo<string>().Should().Be("5");
+            Test.TryConvertToString().Should().Be("5");
 
             Test = "-5.5";
 
@@ -213,13 +225,138 @@ namespace L_Tests.Tests.Extensions
             Test.TryConvertTo<ulong>().Should().Be("-5.5");
             Test.TryConvertTo<uint>().Should().Be("-5.5");
             Test.TryConvertTo<char>().Should().Be("-5.5");
-            Test.TryConvertTo<string>().Should().Be("-5.5");
+            Test.TryConvertToString().Should().Be("-5.5");
             Test.TryConvertTo<float>().Should().Be(-5.5f);
             Test.TryConvertTo<double>().Should().Be((double)-5.5);
 
             Test = null;
 
-            Test.TryConvertTo<string>().Should().Be(null);
+            Test.TryConvertToString().Should().Be(null);
+
+
+            ((string)null).TryConvertToString().Should().Be(null);
+            ((string)null).TryConvertTo<int>().Should().Be(null);
             }
+
+
+        #region Helpers
+
+        /// <exception cref="Exception">Condition.</exception>
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
+        [TestMethod]
+        [TestCategory(Internal)]
+        public void Test_Internal()
+            {
+            // ReSharper disable ReturnValueOfPureMethodIsNotUsed
+            var Test = new BadConverter();
+            Test.GetTypeCode();
+            Test.ToBoolean(null);
+            Test.ToChar(null);
+            Test.ToSByte(null);
+            Test.ToByte(null);
+            Test.ToInt16(null);
+            Test.ToUInt16(null);
+            Test.ToInt32(null);
+            Test.ToInt64(null);
+            Test.ToUInt64(null);
+            Test.ToSingle(null);
+            Test.ToDouble(null);
+            Test.ToDecimal(null);
+            Test.ToDateTime(null);
+            Test.ToType(null, null);
+            L.F(() => Test.ToString(null)).ShouldFail();
+            // ReSharper restore ReturnValueOfPureMethodIsNotUsed
+            }
+
+        internal class BadConverter : IConvertible
+            {
+            public TypeCode GetTypeCode()
+                {
+                return default(TypeCode);
+                }
+
+            public bool ToBoolean(IFormatProvider Provider)
+                {
+                return default(bool);
+                }
+
+            public char ToChar(IFormatProvider Provider)
+                {
+                return default(char);
+                }
+
+            public sbyte ToSByte(IFormatProvider Provider)
+                {
+                return default(sbyte);
+                }
+
+            public byte ToByte(IFormatProvider Provider)
+                {
+                return default(byte);
+                }
+
+            public short ToInt16(IFormatProvider Provider)
+                {
+                return default(short);
+                }
+
+            public ushort ToUInt16(IFormatProvider Provider)
+                {
+                return default(ushort);
+                }
+
+            public int ToInt32(IFormatProvider Provider)
+                {
+                return default(int);
+                }
+
+            public uint ToUInt32(IFormatProvider Provider)
+                {
+                return default(uint);
+                }
+
+            public long ToInt64(IFormatProvider Provider)
+                {
+                return default(long);
+                }
+
+            public ulong ToUInt64(IFormatProvider Provider)
+                {
+                return default(ulong);
+                }
+
+            public float ToSingle(IFormatProvider Provider)
+                {
+                return default(float);
+                }
+
+            public double ToDouble(IFormatProvider Provider)
+                {
+                return default(double);
+                }
+
+            public decimal ToDecimal(IFormatProvider Provider)
+                {
+                return default(decimal);
+                }
+
+            public DateTime ToDateTime(IFormatProvider Provider)
+                {
+                return default(DateTime);
+                }
+
+            /// <exception cref="Exception">Condition.</exception>
+            public string ToString(IFormatProvider Provider)
+                {
+                throw new Exception();
+                }
+
+            public object ToType(Type ConversionType, IFormatProvider Provider)
+                {
+                return default(object);
+                }
+            }
+        #endregion
         }
     }

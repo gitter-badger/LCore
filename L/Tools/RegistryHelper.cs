@@ -18,8 +18,6 @@ namespace LCore.Tools
     /// </summary>
     public class RegistryHelper
         {
-        public enum RegistryType { CurrentUser, LocalMachine }
-
         protected readonly RegistryKey Key;
 
         /// <exception cref="SecurityException">The user does not have the permissions required to read from the registry key. </exception>
@@ -81,7 +79,7 @@ namespace LCore.Tools
         /// <exception cref="IOException">The <see cref="T:Microsoft.Win32.RegistryKey" /> object represents a root-level node, and the operating system is Windows 2000, Windows XP, or Windows Server 2003.</exception>
         public void Save(string Name, IConvertible Obj)
             {
-            this.Key.SetValue(Name, Obj.ConvertTo<string>());
+            this.Key.SetValue(Name, Obj.ConvertToString());
             }
 
         /// <exception cref="ArgumentNullException"><paramref name="List" /> is null. </exception>

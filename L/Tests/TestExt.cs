@@ -996,16 +996,17 @@ namespace LCore.Tests
 
             bool Passed;
             var Result = ExpectedResult as IEnumerable;
-            if (Result != null && Actual is IEnumerable)
+
+            if (ExpectedResult is IComparable && Actual is IComparable)
                 {
-                Passed = Result.Equivalent((IEnumerable)Actual);
+                Passed = ((IComparable)ExpectedResult).CompareTo((IComparable)Actual) == 0;
                 if (!Passed)
                     {
                     }
                 }
-            else if (ExpectedResult is IComparable && Actual is IComparable)
+            else if (Result != null && Actual is IEnumerable)
                 {
-                Passed = ((IComparable)ExpectedResult).CompareTo((IComparable)Actual) == 0;
+                Passed = Result.Equivalent((IEnumerable)Actual);
                 if (!Passed)
                     {
                     }

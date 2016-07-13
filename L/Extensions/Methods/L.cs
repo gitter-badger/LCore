@@ -9,20 +9,7 @@ namespace LCore.Extensions
     {
     /// <summary>
     /// L provides a shorthand to common functions and method manipulation functions.
-    /// -
-    /// -
-    /// <para>paragraph</para>
-    /// <see>some other function</see>
-    /// <seealso>another function too</seealso>
     /// </summary>
-    /// <example>
-    ///     <code>var This = "some code";</code>
-    ///     <c>var And = "some more code";</c>
-    /// </example>
-    /// <returns>some stuff</returns>
-    /// <remarks>Oh it's really awesome also</remarks>
-    /// <exception cref="System.Exception">Throws an exception</exception>
-    /// <exception cref="System.IO.FileNotFoundException">Throws a FileNotFoundException exception</exception>
     [ExtensionProvider]
     [CodeExplodeExtend("Method Extensions", "Logic_Extension", "LCore.Extensions")]
     [CodeExplodeLogic("Method Explosions", "LX", "LCore", new[] { typeof(bool) })]
@@ -667,6 +654,12 @@ namespace LCore.Extensions
                 /// Unit Tests category name
                 /// </summary>
                 public const string UnitTests = nameof(UnitTests);
+                /// <summary>
+                /// Internal category name
+                /// </summary>
+                public const string Internal = nameof(Internal);
+
+                
                 }
             }
         }

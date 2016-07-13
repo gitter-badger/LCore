@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using LCore.Extensions;
 // ReSharper disable UnusedVariable
 // ReSharper disable VirtualMemberNeverOverriden.Global
+// ReSharper disable MemberCanBeProtected.Global
 
 namespace LCore.Statistics
     {
@@ -17,7 +18,7 @@ namespace LCore.Statistics
             IEquatable<T>,
             IFormattable
         {
-        protected T[] DataSet { get; private set; }
+        protected T[] DataSet { get; }
 
         protected T[] DataSetSorted { get; set; }
 
@@ -51,8 +52,9 @@ namespace LCore.Statistics
         protected long _ModeFrequency = default(long);
         protected double _StandardDeviation = default(double);
         protected double _ApproximateStandardDeviation = default(double);
-        protected Dictionary<T, long> _Frequency = new Dictionary<T, long>();
-        protected Dictionary<T, float> _RelativeFrequency = new Dictionary<T, float>();
+        protected readonly Dictionary<T, long> _Frequency = new Dictionary<T, long>();
+        // ReSharper disable once CollectionNeverQueried.Global
+        protected readonly Dictionary<T, float> _RelativeFrequency = new Dictionary<T, float>();
 
         protected double _GeometricMean = default(double);
         protected double _HarmonicMean = default(double);
@@ -225,7 +227,14 @@ namespace LCore.Statistics
         public virtual double[] GetBoxPlot()
             {
             this.ParseData();
-            return new[] { this._Minimum.ConvertTo<double>(), this._Quartile1, this._Median, this._Quartile3, this._Maximum.ConvertTo<double>() };
+            return new[] {
+            // ReSharper disable once PossibleInvalidOperationException
+                (double)this._Minimum.ConvertTo<double>(),
+                this._Quartile1,
+                this._Median,
+                this._Quartile3,
+            // ReSharper disable once PossibleInvalidOperationException
+                (double)this._Maximum.ConvertTo<double>() };
             }
 
         protected bool Parsed;
@@ -261,7 +270,8 @@ namespace LCore.Statistics
                     }
                 else
                     {
-                    this._Median = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2)) - 1].ConvertTo<double>();
+                    // ReSharper disable once PossibleInvalidOperationException
+                    this._Median = (double)this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2)) - 1].ConvertTo<double>();
                     }
                 #endregion
 
@@ -296,8 +306,10 @@ namespace LCore.Statistics
                     QuartileRatio2 = 0.50;
                     }
 
-                this._Quartile1 = Q1_1.ConvertTo<double>() * QuartileRatio1 + Q1_1.ConvertTo<double>() * QuartileRatio2;
-                this._Quartile3 = Q3_1.ConvertTo<double>() * QuartileRatio2 + Q3_1.ConvertTo<double>() * QuartileRatio1;
+                // ReSharper disable PossibleInvalidOperationException
+                this._Quartile1 = (double)Q1_1.ConvertTo<double>() * QuartileRatio1 + (double)Q1_1.ConvertTo<double>() * QuartileRatio2;
+                this._Quartile3 = (double)Q3_1.ConvertTo<double>() * QuartileRatio2 + (double)Q3_1.ConvertTo<double>() * QuartileRatio1;
+                // ReSharper restore PossibleInvalidOperationException
 
                 this._InterQuartileRange = this._Quartile3 - this._Quartile1;
 
@@ -316,11 +328,14 @@ namespace LCore.Statistics
 
                 Total = this.Add(Total, DataItem);
 
-                this._GeometricMean *= Math.Pow(DataItem.ConvertTo<double>(), GeometricRatio);
+                // ReSharper disable once PossibleInvalidOperationException
+                this._GeometricMean *= Math.Pow((double)DataItem.ConvertTo<double>(), GeometricRatio);
 
-                this._HarmonicMean += 1 / DataItem.ConvertTo<double>();
+                // ReSharper disable once PossibleInvalidOperationException
+                this._HarmonicMean += 1 / (double)DataItem.ConvertTo<double>();
 
-                if (DataItem.ConvertTo<double>() < this._LowerFence)
+                // ReSharper disable once PossibleInvalidOperationException
+                if ((double)DataItem.ConvertTo<double>() < this._LowerFence)
                     {
                     LowerOutliers.Add(DataItem);
                     Outliers.Add(DataItem);
@@ -343,7 +358,8 @@ namespace LCore.Statistics
 
                 this._HarmonicMean = this.SampleSize / this._HarmonicMean;
 
-                this._ApproximateStandardDeviation = this._Range.ConvertTo<double>() / 4;
+                // ReSharper disable once PossibleInvalidOperationException
+                this._ApproximateStandardDeviation = (double)this._Range.ConvertTo<double>() / 4;
 
                 this._LowerOutliers = LowerOutliers.Array();
                 this._UpperOutliers = UpperOutliers.Array();
@@ -355,12 +371,14 @@ namespace LCore.Statistics
                 }
             }
 
-        public bool ParsedFrequency = false;
+        private const bool ParsedFrequency = false;
+
         protected virtual void ParseDataFrequency()
             {
             this.ParseData();
 
-            if (!this.ParsedFrequency)
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+            if (!ParsedFrequency)
                 {
                 var MostFrequent = new List<T>();
                 long MostFrequentCount = 0;
@@ -470,17 +488,20 @@ namespace LCore.Statistics
 
         public double GetValueDeviation(T Value)
             {
-            return Value.ConvertTo<double>() - this.Mean();
+            // ReSharper disable once PossibleInvalidOperationException
+            return (double)Value.ConvertTo<double>() - this.Mean();
             }
 
         public double GetValueVariance(T Value)
             {
-            return Math.Pow(Value.ConvertTo<double>() - this.Mean(), 2);
+            // ReSharper disable once PossibleInvalidOperationException
+            return Math.Pow((double)Value.ConvertTo<double>() - this.Mean(), 2);
             }
 
         public double GetValueZScore(T Value)
             {
-            return (Value.ConvertTo<double>() - this.Mean()) / this.StandardDeviation();
+            // ReSharper disable once PossibleInvalidOperationException
+            return ((double)Value.ConvertTo<double>() - this.Mean()) / this.StandardDeviation();
             }
 
         /// <summary>
@@ -490,7 +511,8 @@ namespace LCore.Statistics
         /// <returns>Returns a positive or negative number representing the distance (in standard deviations) from the mean of the data.</returns>
         public double GetStandardDeviationLine(T DataPoint)
             {
-            double Distance = DataPoint.ConvertTo<double>() - this._Mean;
+            // ReSharper disable once PossibleInvalidOperationException
+            double Distance = (double)DataPoint.ConvertTo<double>() - this._Mean;
 
             double Result = Distance / this._StandardDeviation;
 

@@ -211,7 +211,7 @@ namespace L_Tests.Tests.Extensions
             ((MemberInfo)null).GetAttribute<TestedAttribute>(false).Should().BeNull();
             }
 
-        
+
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_GetAttributes()
@@ -478,6 +478,7 @@ namespace L_Tests.Tests.Extensions
             }
 
 
+        
         [TestMethod]
         [TestCategory(UnitTests)]
         public void Test_HasInterface()
@@ -493,6 +494,15 @@ namespace L_Tests.Tests.Extensions
 
             typeof(TestClass).HasInterface<ITest>().Should().BeTrue();
             typeof(TestClass).HasInterface(typeof(ITest)).Should().BeTrue();
+
+            // Static types cant have interfaces.
+            typeof(TestExt).HasInterface(typeof(ITest)).Should().BeFalse();
+            typeof(TestExt).HasInterface<ITest>().Should().BeFalse();
+
+            typeof(BadStatic).HasInterface(typeof(ITest)).Should().BeFalse();
+            typeof(BadStatic).HasInterface<ITest>().Should().BeFalse();
+
+
             }
 
 
@@ -979,6 +989,15 @@ namespace L_Tests.Tests.Extensions
 
         #region Helpers
 
+        internal static class BadStatic
+            {
+            /// <exception cref="Exception">Condition.</exception>
+            static BadStatic()
+                {
+                throw new Exception();
+                }
+            }
+
         internal class TestClassGeneric1<T1> : TestClass, ICustomAttributeProvider
             {
             public object[] GetCustomAttributes(Type AttributeType, bool Inherit)
@@ -1002,7 +1021,7 @@ namespace L_Tests.Tests.Extensions
                 {
                 this.Test = Test;
                 }
-            
+
             /// <exception cref="ArgumentException">Condition.</exception>
             public TestClassGeneric2(string Test, string Test2, string Test3)
                 {

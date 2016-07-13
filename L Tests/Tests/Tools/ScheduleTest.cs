@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using LCore.Extensions;
+using LCore.Tests;
 using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -10,6 +11,8 @@ namespace L_Tests.Tests.Tools
     [TestClass]
     public class ScheduleTest
         {
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [TestMethod]
         [TestCategory(L.Test.Categories.Tools)]
         public void TestSchedule()
@@ -70,6 +73,8 @@ namespace L_Tests.Tests.Tools
 
             Test2.ToString().Should().Be(Str);
 
+            L.A(() => Schedule.FromString($"BadEnum|{Date2}")).ShouldFail();
+            L.A(() => Schedule.FromString($"Daily|Saturday,Thursday,Blurnsday|{Date},{Date2}")).ShouldFail();
             }
         }
     }

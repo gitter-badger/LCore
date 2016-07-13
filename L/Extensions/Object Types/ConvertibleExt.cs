@@ -20,16 +20,16 @@ namespace LCore.Extensions
         /// </summary>
         [Tested]
         public static bool CanConvertTo<T>(this IConvertible In)
-            where T : IConvertible
+            where T : struct, IConvertible
             {
             if (In == null)
                 return false;
 
             try
                 {
-                var Out = In.ConvertTo<T>();
-                var Verify = Out.ConvertTo(In.GetType());
+                T? Out = In.ConvertTo<T>();
 
+                var Verify = Out.ConvertTo(In.GetType());
 
                 return Equals(Verify, In);
                 }
@@ -38,6 +38,27 @@ namespace LCore.Extensions
                 return false;
                 }
             }
+        #endregion
+
+        #region CanConvertToString
+
+        /// <summary>
+        /// Returns whether or not an IConvertible object [In] can be, safely and without 
+        /// any data loss, converted to a string.
+        /// </summary>
+        [Tested]
+        public static bool CanConvertToString(this IConvertible In)
+            {
+            if (In == null)
+                return false;
+
+            string Out = In.ConvertToString();
+
+            var Verify = Out.ConvertTo(In.GetType());
+
+            return Equals(Verify, In);
+            }
+
         #endregion
 
         #region ConvertTo
@@ -58,6 +79,7 @@ namespace LCore.Extensions
             catch (OverflowException)
                 {
                 }
+
             return null;
             }
 
@@ -66,7 +88,8 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="System.FormatException">Throws a format exception if the format is not correct for the output type.</exception>
         [Tested]
-        public static T ConvertTo<T>(this IConvertible In) where T : IConvertible
+        public static T? ConvertTo<T>(this IConvertible In)
+            where T : struct, IConvertible
             {
             if (In == null)
                 return default(T);
@@ -80,23 +103,62 @@ namespace LCore.Extensions
 
             return default(T);
             }
+        #endregion
+
+        #region ConvertToString
+
+        /// <summary>
+        /// Converts an IConvertible to a string, if it is capable.
+        /// </summary>
+        public static string ConvertToString(this IConvertible In)
+            {
+            if (In == null)
+                return null;
+
+            try
+                {
+                return (string)Convert.ChangeType(In, typeof(string));
+                }
+            catch { }
+
+            return null;
+            }
 
         #endregion
 
         #region TryConvertTo
         /// <summary>
         /// Converts an IConvertible to type [t], if it is capable.
+        /// If [In] cannot be converted, the source will be returned.
         /// </summary>
         /// <exception cref="System.FormatException">Throws a format exception if the format is not correct for the output type.</exception>
         [Tested]
         public static IConvertible TryConvertTo<T>(this IConvertible In)
-            where T : IConvertible
+            where T : struct, IConvertible
             {
             if (In == null)
                 return null;
 
             return In.CanConvertTo<T>() ? In.ConvertTo<T>() : In;
             }
+        #endregion
+
+        #region TryConvertToString
+
+        /// <summary>
+        /// Converts an IConvertible to a string, if it is capable.
+        /// If [In] cannot be converted, the source will be returned.
+        /// </summary>
+        public static IConvertible TryConvertToString(this IConvertible In)
+            {
+            if (In == null)
+                return null;
+
+            return In.CanConvertToString()
+                ? In.ConvertToString()
+                : In;
+            }
+
         #endregion
 
         #endregion

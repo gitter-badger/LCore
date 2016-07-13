@@ -70,19 +70,41 @@ namespace LCore.Tools
             return Out;
             }
 
+        /// <exception cref="ArgumentException">ScheduleMode could not be determined.</exception>
         public static Schedule FromString(string In)
             {
             var Out = new Schedule();
 
             string[] Split = In.Split(SplitChar);
 
-            var Mode = Split[0].ParseEnum<ScheduleMode>();
+            ScheduleMode Mode;
+            try
+                {
+                // ReSharper disable once PossibleInvalidOperationException
+                Mode = (ScheduleMode)Split[0].ParseEnum<ScheduleMode>();
+                }
+            catch (Exception Ex)
+                {
+                throw new ArgumentException("ScheduleMode could not be determined.", Ex);
+                }
+
             Out.Mode = Mode;
 
             if (Mode == ScheduleMode.Daily)
                 {
                 string[] Days = Split[1].Split(',');
-                List<DayOfWeek> DaysOfWeek = Days.Select(Day => Day.ParseEnum<DayOfWeek>()).ToList();
+                List<DayOfWeek> DaysOfWeek = Days.Select(Day =>
+                {
+                    try
+                        {
+                        // ReSharper disable once PossibleInvalidOperationException
+                        return (DayOfWeek)Day.ParseEnum<DayOfWeek>();
+                        }
+                    catch (Exception Ex)
+                        {
+                        throw new ArgumentException("ScheduleMode could not be determined.", Ex);
+                        }
+                }).ToList();
 
                 Out.DaysOfWeek = DaysOfWeek;
 

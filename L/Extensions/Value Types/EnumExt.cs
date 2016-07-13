@@ -26,17 +26,16 @@ namespace LCore.Extensions
         [TestResult(new object[] { "left" }, null)]
         [TestResult(new object[] { "Left" }, L.Align.Left)]
         [TestResult(new object[] { "Right" }, L.Align.Right)]
-        public static T ParseEnum<T>(this string Str)
+        public static T? ParseEnum<T>(this string Str)
+             where T : struct
             {
             try
                 {
                 return (T)Enum.Parse(typeof(T), Str);
                 }
-            catch (ArgumentNullException) { }
-            catch (OverflowException) { }
-            catch (ArgumentException) { }
+            catch { }
 
-            return default(T);
+            return null;
             }
 
         /// <summary>
@@ -51,9 +50,7 @@ namespace LCore.Extensions
                 {
                 return (Enum)Enum.Parse(Type, Str);
                 }
-            catch (ArgumentNullException) { }
-            catch (OverflowException) { }
-            catch (ArgumentException) { }
+            catch { }
 
             return null;
             }
@@ -67,10 +64,12 @@ namespace LCore.Extensions
         [TestResult(new object[] { Test.TestEnum.Left }, L.Align.Left)]
         [TestResult(new object[] { Test.TestEnum.Right }, L.Align.Right)]
         [TestResult(new object[] { Test.TestEnum.Top }, L.AlignVertical.Top, GenericTypes = new[] { typeof(L.AlignVertical) })]
-        public static T ParseEnum<T>(this Enum Enum)
+        public static T? ParseEnum<T>(this Enum Enum)
+             where T : struct
             {
-            return Enum.ToString().ParseEnum<T>();
+            return Enum?.ToString().ParseEnum<T>();
             }
+
         #endregion
 
         #region ParseEnum_FriendlyName
