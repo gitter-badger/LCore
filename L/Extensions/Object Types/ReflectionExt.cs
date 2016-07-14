@@ -26,7 +26,7 @@ namespace LCore.Extensions
 
         #region AlsoBaseTypes
         /// <summary>
-        /// Returns a list of the provided type [In] as well as all of [In]'s base types.
+        /// Returns a list of the provided type <paramref name="In" /> as well as all of <paramref name="In" />'s base types.
         /// </summary>
         [Tested]
         public static List<Type> AlsoBaseTypes(this Type In)
@@ -39,7 +39,7 @@ namespace LCore.Extensions
 
         #region BaseTypes
         /// <summary>
-        /// Returns a list of all of [In]'s base types.
+        /// Returns a list of all of <paramref name="In" />'s base types.
         /// </summary>
         [Tested]
         public static List<Type> BaseTypes(this Type In)
@@ -57,9 +57,9 @@ namespace LCore.Extensions
         #region FindMethod
 
         /// <summary>
-        /// Finds a method by name, searching the Type [In] as well as all
+        /// Finds a method by name, searching the Type <paramref name="In" /> as well as all
         /// base types.
-        /// Optionally include a Type[] [Arguments] to specify the method arguments.
+        /// Optionally include a Type[] <paramref name="Arguments" /> to specify the method arguments.
         /// </summary>
         /// <exception cref="AmbiguousMatchException">More than one method is found with the specified name and specified parameters. </exception>
         [Tested]
@@ -86,7 +86,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Finds a method by name, searching the Type [In] as well as all
+        /// Finds a method by name, searching the Type <paramref name="In" /> as well as all
         /// base types.
         /// Supply Type parameters to locate a method by its parameter types.
         /// </summary>
@@ -98,7 +98,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Finds a method by name, searching the Type [In] as well as all
+        /// Finds a method by name, searching the Type <paramref name="In" /> as well as all
         /// base types.
         /// Supply Type parameters to locate a method by its parameter types.
         /// </summary>
@@ -110,7 +110,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Finds a method by name, searching the Type [In] as well as all
+        /// Finds a method by name, searching the Type <paramref name="In" /> as well as all
         /// base types.
         /// Supply Type parameters to locate a method by its parameter types.
         /// </summary>
@@ -122,7 +122,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Finds a method by name, searching the Type [In] as well as all
+        /// Finds a method by name, searching the Type <paramref name="In" /> as well as all
         /// base types.
         /// Supply Type parameters to locate a method by its parameter types.
         /// </summary>
@@ -159,7 +159,7 @@ namespace LCore.Extensions
 
         #region GetAttribute
         /// <summary>
-        /// Returns an attribute of type [T] if it exists.
+        /// Returns an attribute of type <typeparamref name="T" /> if it exists.
         /// </summary>
         [Tested]
         public static T GetAttribute<T>(this ICustomAttributeProvider AttributeProvider)
@@ -173,7 +173,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Returns an attribute of type [T] if it exists.
+        /// Returns an attribute of type <typeparamref name="T" /> if it exists.
         /// </summary>
         [Tested]
         public static T GetAttribute<T>(this ICustomAttributeProvider AttributeProvider, bool IncludeBaseTypes)
@@ -193,7 +193,7 @@ namespace LCore.Extensions
 
         #region GetAttributes
         /// <summary>
-        /// Returns all attributes of type [T].
+        /// Returns all attributes of type <typeparamref name="T" />.
         /// </summary>
         [Tested]
         public static List<T> GetAttributes<T>(this ICustomAttributeProvider AttributeProvider, bool IncludeBaseTypes)
@@ -240,7 +240,7 @@ namespace LCore.Extensions
         #region GetClassHierarchy
 
         /// <summary>
-        /// Returns the full hierarchy of classes if [In] is a nested class.
+        /// Returns the full hierarchy of classes if <paramref name="In" /> is a nested class.
         /// Ex. "L.Comment.Test"
         /// </summary>
         [Tested]
@@ -263,7 +263,7 @@ namespace LCore.Extensions
             }
         /// <summary>
         /// Returns a ComparableComparer to compare comparable types.
-        /// Returns a strongly typed IComparer[T] if you know the type you're comparing.
+        /// Returns a strongly typed IComparer<typeparamref name="T" /> if you know the type you're comparing.
         /// </summary>
         [Tested]
         public static IComparer<T> GetComparer<T>(this MemberInfo In)
@@ -280,7 +280,7 @@ namespace LCore.Extensions
 
         #region GetExtensionMethods
         /// <summary>
-        /// Returns all Extension methods declared on Type [In]
+        /// Returns all Extension methods declared on Type <paramref name="In" />
         /// </summary>
         [Tested]
         public static MethodInfo[] GetExtensionMethods(this Type In)
@@ -326,7 +326,7 @@ namespace LCore.Extensions
 
         #region GetSubClass
         /// <summary>
-        /// Gets a subclass from a type [In] or any of its base classes.
+        /// Gets a subclass from a type <paramref name="In" /> or any of its base classes.
         /// Subclass from a descendant will be used before an ancestor subclasses.
         /// </summary>
         [Tested]
@@ -342,7 +342,7 @@ namespace LCore.Extensions
 
         #region GetSubClasses
         /// <summary>
-        /// Gets a subclasses from a type [In] or any of its base classes.
+        /// Gets a subclasses from a type <paramref name="In" /> or any of its base classes.
         /// Subclasses from a descendant will be used before an ancestor subclasses.
         /// </summary>
         [Tested]
@@ -400,7 +400,7 @@ namespace LCore.Extensions
         /// Returns the value from a specific object.
         /// If the field is not found an Exception will be thrown.
         /// </summary>
-        /// <exception cref="ArgumentException">If the MemberInfo [In] cannot be found on [Obj].</exception>
+        /// <exception cref="ArgumentException">If the MemberInfo <paramref name="In" /> cannot be found on <paramref name="Obj" />.</exception>
         [Tested]
         public static object GetValue(this MemberInfo In, object Obj)
             {
@@ -433,7 +433,7 @@ namespace LCore.Extensions
             }
         /// <summary>
         /// Returns a list of object values from a list of members.
-        /// Optionally, set [Instantiate] to true to instantiate null members.
+        /// Optionally, set <paramref name="Instantiate" /> to true to instantiate null members.
         /// </summary>
         [Tested]
         public static List<T> GetValues<T>(this IEnumerable<MemberInfo> In, object Obj, bool Instantiate = false)
@@ -473,14 +473,14 @@ namespace LCore.Extensions
 
         #region GetTypes
         /// <summary>
-        /// Returns a list of the types of all elements within [In].
+        /// Returns a list of the types of all elements within <paramref name="In" />.
         /// </summary>
         public static List<Type> GetTypes<T>(this IEnumerable<T> In)
             {
             return In.Convert(i => i.GetType());
             }
         /// <summary>
-        /// Returns an array of the types of all elements within [In].
+        /// Returns an array of the types of all elements within <paramref name="In" />.
         /// </summary>
         public static Type[] GetTypes<T>(this T[] In)
             {
@@ -490,7 +490,7 @@ namespace LCore.Extensions
 
         #region HasAttribute
         /// <summary>
-        /// Returns whether a member has a certain attribute type [T].
+        /// Returns whether a member has a certain attribute type <typeparamref name="T" />.
         /// </summary>
         [Tested]
         public static bool HasAttribute<T>(this ICustomAttributeProvider AttributeProvider)
@@ -503,7 +503,7 @@ namespace LCore.Extensions
             return AttributeProvider.HasAttribute<T>(Persist);
             }
         /// <summary>
-        /// Returns whether a member has a certain attribute type [T].
+        /// Returns whether a member has a certain attribute type <typeparamref name="T" />.
         /// Optionally, look on base type members for the attribute.
         /// </summary>
         [Tested]
@@ -513,7 +513,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Returns whether a member has a certain attribute type [a].
+        /// Returns whether a member has a certain attribute type <paramref name="AttributeProvider" />.
         /// Optionally, look on base type members for the attribute.
         /// </summary>
         [Tested]
@@ -529,7 +529,7 @@ namespace LCore.Extensions
 
         #region HasInterface
         /// <summary>
-        /// Returns whether or not a given type [In] implements an interface.
+        /// Returns whether or not a given type <paramref name="In" /> implements an interface.
         /// Optionally, IncludeBaseTypes can be set to false to only look within top-level classes.
         /// </summary>
         [Tested]
@@ -550,7 +550,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Returns whether or not a given type [In] implements an interface.
+        /// Returns whether or not a given type <paramref name="In" /> implements an interface.
         /// Optionally, IncludeBaseTypes can be set to false to only look within top-level classes.
         /// </summary>
         [Tested]
@@ -637,7 +637,7 @@ namespace LCore.Extensions
 
         #region IsType
         /// <summary>
-        /// Returns whether object [In] is type [T] or a subclass of [T]
+        /// Returns whether object <paramref name="In" /> is type <typeparamref name="T" /> or a subclass of <typeparamref name="T" />
         /// </summary>
         [Tested]
         public static bool IsType<T>(this object In)
@@ -646,7 +646,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Returns whether object [In] is type [t] or a subclass of [t]
+        /// Returns whether object <paramref name="In" /> is type <paramref name="Type" /> or a subclass of <paramref name="Type" />
         /// </summary>
         [Tested]
         public static bool IsType(this object In, Type Type)
@@ -657,7 +657,7 @@ namespace LCore.Extensions
             return In.GetType().IsType(Type);
             }
         /// <summary>
-        /// Returns whether type [In] is type [t] or a subclass of [t]
+        /// Returns whether type <paramref name="In" /> is type <paramref name="Type" /> or a subclass of <paramref name="Type" />
         /// </summary>
         [Tested]
         public static bool IsType(this Type In, Type Type)
@@ -670,7 +670,7 @@ namespace LCore.Extensions
                    (Type.IsInterface && In.HasInterface(Type));
             }
         /// <summary>
-        /// Returns whether type [In] is type [T] or a subclass of [T]
+        /// Returns whether type <paramref name="In" /> is type <typeparamref name="T" /> or a subclass of <typeparamref name="T" />
         /// </summary>
         [Tested]
         public static bool IsType<T>(this Type In)
@@ -682,7 +682,7 @@ namespace LCore.Extensions
 
         #region MembersOfType
         /// <summary>
-        /// Return all members of type [In] who expose type [t].
+        /// Return all members of type <paramref name="In" /> who expose type <paramref name="Type" />.
         /// Optionally, scan base classes.
         /// </summary>
         [Tested]
@@ -703,7 +703,7 @@ namespace LCore.Extensions
         #region MemberType
         /// <summary>
         /// Returns the type of the member.
-        /// Uses the return value if [In] is a MethodInfo.
+        /// Uses the return value if <paramref name="In" /> is a MethodInfo.
         /// </summary>
         /// <exception cref="ArgumentException">If an unknown MemberInfo type is passed.</exception>
         [Tested]
@@ -732,7 +732,7 @@ namespace LCore.Extensions
 
         #region New
         /// <summary>
-        /// Creates a new [T] object. Optionally, pass in [Arguments] to the constructor.
+        /// Creates a new <typeparamref name="T" /> object. Optionally, pass in <paramref name="Arguments" /> to the constructor.
         /// </summary>
         [Tested]
         public static T New<T>(this Type In, object[] Arguments = null)
@@ -741,8 +741,8 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Creates a new object. Optionally, pass in [Arguments] to the constructor.
-        /// If the object type is uses a generic type, you need to supply it using [GenericType]
+        /// Creates a new object. Optionally, pass in <paramref name="Arguments" /> to the constructor.
+        /// If the object type is uses a generic type, you need to supply it using <paramref name="GenericType" />
         /// </summary>
         /// <exception cref="InvalidOperationException">The object could not be created, constructor was not found.</exception>
         [Tested]
@@ -810,12 +810,12 @@ namespace LCore.Extensions
         #region SetValue
 
         /// <summary>
-        /// Sets the member value on [Obj].
+        /// Sets the member value on <paramref name="Obj" />.
         /// </summary>
         /// <param name="In"></param>
         /// <param name="Obj"></param>
         /// <param name="Value"></param>
-        /// <exception cref="ArgumentException">If the MemberInfo [In] was not found on Obj.</exception>
+        /// <exception cref="ArgumentException">If the MemberInfo <paramref name="In" /> was not found on Obj.</exception>
         [Tested]
         public static void SetValue(this MemberInfo In, object Obj, object Value)
             {
@@ -894,8 +894,8 @@ namespace LCore.Extensions
 
         #region WithAttribute
         /// <summary>
-        /// Filters an IEnumerable[MemberInfo], including any members with given 
-        /// attribute [T].
+        /// Filters an IEnumerable`MemberInfo, including any members with given 
+        /// attribute <typeparamref name="T" />.
         /// </summary>
         [Tested]
         public static IEnumerable<MemberInfo> WithAttribute<T>(this IEnumerable<MemberInfo> In, bool IncludeBaseTypes = true)
@@ -903,7 +903,7 @@ namespace LCore.Extensions
             return In.Select(Member => Member.HasAttribute<T>(IncludeBaseTypes)).List();
             }
         /// <summary>
-        /// Filters an IEnumerable[MemberInfo], including any members with given [AttributeType].
+        /// Filters an IEnumerable`MemberInfo, including any members with given <paramref name="AttributeType" />.
         /// </summary>
         [Tested]
         public static List<MemberInfo> WithAttribute(this IEnumerable<MemberInfo> In, Type AttributeType, bool IncludeBaseTypes = true)
@@ -914,8 +914,8 @@ namespace LCore.Extensions
 
         #region WithoutAttribute
         /// <summary>
-        /// Filters an IEnumerable[MemberInfo], excluding any members with given 
-        /// attribute [T].
+        /// Filters an IEnumerable`MemberInfo, excluding any members with given 
+        /// attribute <typeparamref name="T" />.
         /// </summary>
         [Tested]
         public static IEnumerable<MemberInfo> WithoutAttribute<T>(this IEnumerable<MemberInfo> In, bool IncludeBaseTypes = true)
@@ -923,8 +923,8 @@ namespace LCore.Extensions
             return In.Select(Member => !Member.HasAttribute<T>(IncludeBaseTypes)).List();
             }
         /// <summary>
-        /// Filters an IEnumerable[MemberInfo], excluding any members with given 
-        /// attribute [T].
+        /// Filters an IEnumerable`MemberInfo, excluding any members with given 
+        /// attribute <paramref name="AttributeType" />.
         /// </summary>
         [Tested]
         public static List<MemberInfo> WithoutAttribute(this IEnumerable<MemberInfo> In, Type AttributeType, bool IncludeBaseTypes = true)
@@ -973,7 +973,7 @@ namespace LCore.Extensions
             #region GetNamespaceTypes
 
             /// <summary>
-            /// Returns all namespace types, optionally filtering using multiple [AttributeTypes]
+            /// Returns all namespace types, optionally filtering using multiple <paramref name="AttributeTypes" />
             /// </summary>
             public static Type[] GetNamespaceTypes(string Namespace, params Type[] AttributeTypes)
                 {
@@ -994,7 +994,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns all namespace types, optionally filtering using multiple [AttributeTypes]
+            /// Returns all namespace types, optionally filtering using multiple <paramref name="AttributeTypes" />
             /// </summary>
             public static Type[] GetNamespaceTypes(Type AssemblyType, string Namespace, params Type[] AttributeTypes)
                 {
@@ -1025,7 +1025,7 @@ namespace LCore.Extensions
 
             /// <summary>
             /// Retrieve a MemberInfo using a lambda statement.
-            /// Ex. L.Ref.Member[Class](t => t.Member);
+            /// Ex. L.Ref.Member`Class(t => t.Member);
             /// </summary>
             public static MemberInfo Member<T>(Expression<Func<T, object>> Expr)
                 {
@@ -1053,7 +1053,7 @@ namespace LCore.Extensions
 
             /// <summary>
             /// Retrieve a MethodInfo using a lambda statement.
-            /// Ex. L.Ref.Method[Class](t => t.Method(""));
+            /// Ex. L.Ref.Method`Class(t => t.Method(""));
             /// </summary>
             public static MethodInfo Method<T>(Expression<Action<T>> Expr)
                 {
@@ -1090,7 +1090,7 @@ namespace LCore.Extensions
 
             /// <summary>
             /// Retrieve a constantly declared MethodInfo using a string name.
-            /// Ex. L.Ref.Constant[Class](nameof(Class.ConstantName));
+            /// Ex. L.Ref.Constant`Class(nameof(Class.ConstantName));
             /// </summary>
             public static MemberInfo Constant<T>(string ConstantName)
                 {
@@ -1101,7 +1101,7 @@ namespace LCore.Extensions
 
             /// <summary>
             /// Retrieve a EventInfo using a string name.
-            /// Ex. L.Ref.Constant[Class](nameof(Class.EventName));
+            /// Ex. L.Ref.Constant`Class(nameof(Class.EventName));
             /// </summary>
             public static EventInfo Event<T>(string EventName)
                 {
@@ -1128,7 +1128,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Retrieves a new [T], passing [Parameters] to the constructor.
+            /// Retrieves a new <typeparamref name="T" />, passing <paramref name="Parameters" /> to the constructor.
             /// </summary>
             public static T New<T>(params object[] Parameters)
                 {

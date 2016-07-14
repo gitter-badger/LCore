@@ -81,7 +81,7 @@ namespace LCore.Extensions
         #region If - Action
 
         /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the action passed is executed.
+        /// Logical If Statement. If the <paramref name="Condition" /> passed is true, the action passed is executed.
         /// </summary>
         [Tested]
         public static Func<bool> If(this Action In, Func<bool> Condition)
@@ -98,7 +98,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the action passed is executed.
+        /// Logical If Statement. If the <paramref name="Condition" /> passed is true, the action passed is executed.
         /// </summary>
         [Tested]
         public static Func<T, bool> If<T>(this Action In, Func<T, bool> Condition)
@@ -115,7 +115,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the action passed is executed.
+        /// Logical If Statement. If the <paramref name="Condition" /> passed is true, the action passed is executed.
         /// </summary>
         [Tested]
         public static Func<T1, T2, bool> If<T1, T2>(this Action In, Func<T1, T2, bool> Condition)
@@ -132,7 +132,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the action passed is executed.
+        /// Logical If Statement. If the <paramref name="Condition" /> passed is true, the action passed is executed.
         /// </summary>
         [Tested]
         public static Func<T1, T2, T3, bool> If<T1, T2, T3>(this Action In, Func<T1, T2, T3, bool> Condition)
@@ -149,7 +149,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the action passed is executed.
+        /// Logical If Statement. If the <paramref name="Condition" /> passed is true, the action passed is executed.
         /// </summary>
         [Tested]
         public static Func<T1, T2, T3, T4, bool> If<T1, T2, T3, T4>(this Action In, Func<T1, T2, T3, T4, bool> Condition)
@@ -181,7 +181,7 @@ namespace LCore.Extensions
         #region If - Func_T
 
         /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the function passed is executed.
+        /// Logical If Statement. If the <paramref name="Condition" /> passed is true, the function passed is executed.
         /// </summary>
         [Tested]
         public static Func<T> If<T>(this Func<T> In, Func<bool> Condition)
@@ -190,7 +190,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the function passed is executed.
+        /// Logical If Statement. If the <paramref name="Condition" /> passed is true, the function passed is executed.
         /// </summary>
         [Tested]
         public static Func<T2, T1> If<T1, T2>(this Func<T1> In, Func<T2, bool> Condition)
@@ -199,7 +199,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the function passed is executed.
+        /// Logical If Statement. If the <paramref name="Condition" /> passed is true, the function passed is executed.
         /// </summary>
         [Tested]
         public static Func<T2, T3, T1> If<T1, T2, T3>(this Func<T1> In, Func<T2, T3, bool> Condition)
@@ -208,7 +208,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the function passed is executed.
+        /// Logical If Statement. If the <paramref name="Condition" /> passed is true, the function passed is executed.
         /// </summary>
         [Tested]
         public static Func<T2, T3, T4, T1> If<T1, T2, T3, T4>(this Func<T1> In, Func<T2, T3, T4, bool> Condition)
@@ -217,7 +217,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Logical If Statement. If the [Condition] passed is true, the function passed is executed.
+        /// Logical If Statement. If the <paramref name="Condition" /> passed is true, the function passed is executed.
         /// </summary>
         [Tested]
         public static Func<T2, T3, T4, T5, T1> If<T1, T2, T3, T4, T5>(this Func<T1> In,
@@ -581,7 +581,7 @@ namespace LCore.Extensions
         #region ElseIf
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false and the result of [Condition] is true.
+        /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false and the result of <paramref name="Condition" /> is true.
         /// </summary>
         [Tested]
         public static Func<bool> ElseIf(this Func<bool> In, Func<bool> Condition, Action Act)
@@ -602,7 +602,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false and the result of [Condition] is true.
+        /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false and the result of <paramref name="Condition" /> is true.
         /// </summary>
         [Tested]
         public static Func<T, bool> ElseIf<T>(this Func<T, bool> In, Func<T, bool> Condition, Action<T> Act)
@@ -623,7 +623,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false and the result of [Condition] is true.
+        /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false and the result of <paramref name="Condition" /> is true.
         /// </summary>
         [Tested]
         public static Func<T1, T2, bool> ElseIf<T1, T2>(this Func<T1, T2, bool> In, Func<T1, T2, bool> Condition,
@@ -645,7 +645,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false and the result of [Condition] is true.
+        /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false and the result of <paramref name="Condition" /> is true.
         /// </summary>
         [Tested]
         public static Func<T1, T2, T3, bool> ElseIf<T1, T2, T3>(this Func<T1, T2, T3, bool> In,
@@ -667,7 +667,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false and the result of [Condition] is true.
+        /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false and the result of <paramref name="Condition" /> is true.
         /// </summary>
         [Tested]
         public static Func<T1, T2, T3, T4, bool> ElseIf<T1, T2, T3, T4>(this Func<T1, T2, T3, T4, bool> In,
@@ -689,7 +689,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false and the result of [Condition] is true.
+        /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false and the result of <paramref name="Condition" /> is true.
         /// </summary>
         [Tested]
         public static Func<U> ElseIf<U>(this Func<U> In, Func<bool> Condition, Func<U> Act)
@@ -706,7 +706,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false and the result of [Condition] is true.
+        /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false and the result of <paramref name="Condition" /> is true.
         /// </summary>
         [Tested]
         public static Func<T, U> ElseIf<T, U>(this Func<T, U> In, Func<T, bool> Condition, Func<T, U> Act)
@@ -723,7 +723,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false and the result of [Condition] is true.
+        /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false and the result of <paramref name="Condition" /> is true.
         /// </summary>
         [Tested]
         public static Func<T1, T2, U> ElseIf<T1, T2, U>(this Func<T1, T2, U> In, Func<T1, T2, bool> Condition,
@@ -741,7 +741,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false and the result of [Condition] is true.
+        /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false and the result of <paramref name="Condition" /> is true.
         /// </summary>
         [Tested]
         public static Func<T1, T2, T3, U> ElseIf<T1, T2, T3, U>(this Func<T1, T2, T3, U> In,
@@ -759,7 +759,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false and the result of [Condition] is true.
+        /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false and the result of <paramref name="Condition" /> is true.
         /// </summary>
         [Tested]
         public static Func<T1, T2, T3, T4, U> ElseIf<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In,
@@ -783,7 +783,7 @@ namespace LCore.Extensions
         #region Else - Action
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false.
+        /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false.
         /// </summary>
         [Tested]
         public static Action Else(this Func<bool> In, Action Act)
@@ -796,7 +796,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false.
+        /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false.
         /// </summary>
         [Tested]
         public static Action<T1> Else<T1>(this Func<T1, bool> In, Action<T1> Act)
@@ -809,7 +809,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false.
+        /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false.
         /// </summary>
         [Tested]
         public static Action<T1, T2> Else<T1, T2>(this Func<T1, T2, bool> In, Action<T1, T2> Act)
@@ -822,7 +822,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false.
+        /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false.
         /// </summary>
         [Tested]
         public static Action<T1, T2, T3> Else<T1, T2, T3>(this Func<T1, T2, T3, bool> In, Action<T1, T2, T3> Act)
@@ -835,7 +835,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false.
+        /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false.
         /// </summary>
         [Tested]
         public static Action<T1, T2, T3, T4> Else<T1, T2, T3, T4>(this Func<T1, T2, T3, T4, bool> In, Action<T1, T2, T3, T4> Act)
@@ -852,7 +852,7 @@ namespace LCore.Extensions
         #region Else - Func
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false.
+        /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false.
         /// </summary>
         [Tested]
         public static Func<U> Else<U>(this Func<U> In, Func<U> Act)
@@ -861,7 +861,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false.
+        /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false.
         /// </summary>
         [Tested]
         public static Func<T1, U> Else<T1, U>(this Func<T1, U> In, Func<T1, U> Act)
@@ -870,7 +870,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false.
+        /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false.
         /// </summary>
         [Tested]
         public static Func<T1, T2, U> Else<T1, T2, U>(this Func<T1, T2, U> In, Func<T1, T2, U> Act)
@@ -879,7 +879,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false.
+        /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false.
         /// </summary>
         [Tested]
         public static Func<T1, T2, T3, U> Else<T1, T2, T3, U>(this Func<T1, T2, T3, U> In, Func<T1, T2, T3, U> Act)
@@ -888,7 +888,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false.
+        /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false.
         /// </summary>
         [Tested]
         public static Func<T1, T2, T3, T4, U> Else<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In,
@@ -902,7 +902,7 @@ namespace LCore.Extensions
         #region Else - Result
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false.
+        /// Returns <paramref name="Result" /> if the result of <paramref name="In" /> is false.
         /// </summary>
         [Tested]
         public static Func<U> Else<U>(this Func<U> In, U Result)
@@ -911,7 +911,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false.
+        /// Returns <paramref name="Result" /> if the result of <paramref name="In" /> is false.
         /// </summary>
         [Tested]
         public static Func<T1, U> Else<T1, U>(this Func<T1, U> In, U Result)
@@ -920,7 +920,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false.
+        /// Returns <paramref name="Result" /> if the result of <paramref name="In" /> is false.
         /// </summary>
         [Tested]
         public static Func<T1, T2, U> Else<T1, T2, U>(this Func<T1, T2, U> In, U Result)
@@ -929,7 +929,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false.
+        /// Returns <paramref name="Result" /> if the result of <paramref name="In" /> is false.
         /// </summary>
         [Tested]
         public static Func<T1, T2, T3, U> Else<T1, T2, T3, U>(this Func<T1, T2, T3, U> In, U Result)
@@ -938,7 +938,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Executes [Act] if the result of [In] is false.
+        /// Returns <paramref name="Result" /> if the result of <paramref name="In" /> is false.
         /// </summary>
         [Tested]
         public static Func<T1, T2, T3, T4, U> Else<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In, U Result)

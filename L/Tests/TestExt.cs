@@ -4,7 +4,6 @@ using LCore.Extensions;
 using System.Collections;
 using System.Diagnostics;
 using System.Reflection;
-using FluentAssertions;
 using LCore.Extensions.Optional;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -207,7 +206,7 @@ namespace LCore.Tests
 
         #region ShouldFail
         /// <summary>
-        /// Assert that a metod fails with a particular type of exception [E].
+        /// Assert that a metod fails with a particular type of exception <typeparamref name="E" />.
         /// Optionally, pass in additional checks to test additional parameters.
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
@@ -217,7 +216,7 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Assert that a metod fails with a particular type of exception [EType].
+        /// Assert that a metod fails with a particular type of exception <paramref name="EType" />.
         /// Optionally, pass in additional checks to test additional parameters.
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
@@ -430,8 +429,8 @@ namespace LCore.Tests
 
         #region ShouldBe
         /// <summary>
-        /// Asserts that a method's result will match [ExpectedResult].
-        /// Optionally, pass in [AdditionalResultChecks] to check the result further.
+        /// Asserts that a method's result will match <paramref name="ExpectedResult" />.
+        /// Optionally, pass in <paramref name="AdditionalResultChecks" /> to check the result further.
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void MethodShouldBe(this MethodInfo Method, object[] Params = null, object ExpectedResult = null, params Func<object, bool>[] AdditionalResultChecks)
@@ -440,8 +439,8 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Asserts that a method's result will match [ExpectedResult].
-        /// Optionally, pass in [AdditionalResultChecks] to check the result further.
+        /// Asserts that a method's result will match <paramref name="ExpectedResult" />.
+        /// Optionally, pass in <paramref name="AdditionalResultChecks" /> to check the result further.
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void MethodShouldBe<U>(this MethodInfo Method, object[] Params = null, U ExpectedResult = default(U), params Func<object, bool>[] AdditionalResultChecks)
@@ -450,8 +449,8 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Asserts that a method's result will match [ExpectedResult].
-        /// Optionally, pass in [AdditionalResultChecks] to check the result further.
+        /// Asserts that a method's result will match <paramref name="ExpectedResult" />.
+        /// Optionally, pass in <paramref name="AdditionalResultChecks" /> to check the result further.
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
@@ -461,8 +460,8 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Asserts that a method's result will match [ExpectedResult].
-        /// Optionally, pass in [AdditionalResultChecks] to check the result further.
+        /// Asserts that a method's result will match <paramref name="ExpectedResult" />.
+        /// Optionally, pass in <paramref name="AdditionalResultChecks" /> to check the result further.
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
@@ -472,8 +471,8 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Asserts that a method's result will match [ExpectedResult].
-        /// Optionally, pass in [AdditionalResultChecks] to check the result further.
+        /// Asserts that a method's result will match <paramref name="ExpectedResult" />.
+        /// Optionally, pass in <paramref name="AdditionalResultChecks" /> to check the result further.
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
@@ -483,8 +482,8 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Asserts that a method's result will match [ExpectedResult].
-        /// Optionally, pass in [AdditionalResultChecks] to check the result further.
+        /// Asserts that a method's result will match <paramref name="ExpectedResult" />.
+        /// Optionally, pass in <paramref name="AdditionalResultChecks" /> to check the result further.
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
@@ -494,8 +493,8 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Asserts that a method's result will match [ExpectedResult].
-        /// Optionally, pass in [AdditionalResultChecks] to check the result further.
+        /// Asserts that a method's result will match <paramref name="ExpectedResult" />.
+        /// Optionally, pass in <paramref name="AdditionalResultChecks" /> to check the result further.
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
@@ -713,7 +712,7 @@ namespace LCore.Tests
 
         #region AssertFails
         /// <summary>
-        /// Assert that a metod fails with a particular type of exception [E].
+        /// Assert that a metod fails with a particular type of exception <typeparamref name="E" />.
         /// Optionally, pass in additional checks to test additional parameters.
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
@@ -723,7 +722,7 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Assert that a metod fails with a particular type of exception [EType].
+        /// Assert that a metod fails with a particular type of exception <paramref name="EType" />.
         /// Optionally, pass in additional checks to test additional parameters.
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
@@ -965,8 +964,8 @@ namespace LCore.Tests
 
         #region AssertResult
         /// <summary>
-        /// Asserts that a method's result will match [ExpectedResult].
-        /// Optionally, pass in [AdditionalResultChecks] to check the result further.
+        /// Asserts that a method's result will match <paramref name="ExpectedResult" />.
+        /// Optionally, pass in <paramref name="AdditionalResultChecks" /> to check the result further.
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void MethodAssertResult(this MethodInfo Method, object[] Params = null, object ExpectedResult = null, params Func<object, bool>[] AdditionalResultChecks)
@@ -975,8 +974,8 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Asserts that a method's result will match [ExpectedResult].
-        /// Optionally, pass in [AdditionalResultChecks] to check the result further.
+        /// Asserts that a method's result will match <paramref name="ExpectedResult" />.
+        /// Optionally, pass in <paramref name="AdditionalResultChecks" /> to check the result further.
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void MethodAssertResult<U>(this MethodInfo Method, object[] Params = null, U ExpectedResult = default(U), params Func<object, bool>[] AdditionalResultChecks)
@@ -1090,8 +1089,8 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Asserts that a method's result will match [ExpectedResult].
-        /// Optionally, pass in [AdditionalResultChecks] to check the result further.
+        /// Asserts that a method's result will match <paramref name="ExpectedResult" />.
+        /// Optionally, pass in <paramref name="AdditionalResultChecks" /> to check the result further.
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
@@ -1101,8 +1100,8 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Asserts that a method's result will match [ExpectedResult].
-        /// Optionally, pass in [AdditionalResultChecks] to check the result further.
+        /// Asserts that a method's result will match <paramref name="ExpectedResult" />.
+        /// Optionally, pass in <paramref name="AdditionalResultChecks" /> to check the result further.
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
@@ -1112,8 +1111,8 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Asserts that a method's result will match [ExpectedResult].
-        /// Optionally, pass in [AdditionalResultChecks] to check the result further.
+        /// Asserts that a method's result will match <paramref name="ExpectedResult" />.
+        /// Optionally, pass in <paramref name="AdditionalResultChecks" /> to check the result further.
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
@@ -1123,8 +1122,8 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Asserts that a method's result will match [ExpectedResult].
-        /// Optionally, pass in [AdditionalResultChecks] to check the result further.
+        /// Asserts that a method's result will match <paramref name="ExpectedResult" />.
+        /// Optionally, pass in <paramref name="AdditionalResultChecks" /> to check the result further.
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
@@ -1134,8 +1133,8 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Asserts that a method's result will match [ExpectedResult].
-        /// Optionally, pass in [AdditionalResultChecks] to check the result further.
+        /// Asserts that a method's result will match <paramref name="ExpectedResult" />.
+        /// Optionally, pass in <paramref name="AdditionalResultChecks" /> to check the result further.
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
@@ -1147,8 +1146,8 @@ namespace LCore.Tests
 
         #region AssertSource
         /// <summary>
-        /// Asserts that a method's source will match [ExpectedSource].
-        /// Optionally, pass in [AdditionalSourceChecks] to check the result further.
+        /// Asserts that a method's source will match <paramref name="ExpectedSource" />.
+        /// Optionally, pass in <paramref name="AdditionalSourceChecks" /> to check the result further.
         /// 
         /// This is used for methods that manipulate the object they were called on, not the result (if any).
         /// </summary>
@@ -1159,8 +1158,8 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Asserts that a method's source will match [ExpectedSource].
-        /// Optionally, pass in [AdditionalSourceChecks] to check the result further.
+        /// Asserts that a method's source will match <paramref name="ExpectedSource" />.
+        /// Optionally, pass in <paramref name="AdditionalSourceChecks" /> to check the result further.
         /// This is used for methods that manipulate the object they were called on, not the result (if any).
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
@@ -1214,8 +1213,8 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Asserts that a method's source will match [ExpectedSource].
-        /// Optionally, pass in [AdditionalSourceChecks] to check the result further.
+        /// Asserts that a method's source will match <paramref name="ExpectedSource" />.
+        /// Optionally, pass in <paramref name="AdditionalSourceChecks" /> to check the result further.
         /// This is used for methods that manipulate the object they were called on, not the result (if any).
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -1226,8 +1225,8 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Asserts that a method's source will match [ExpectedSource].
-        /// Optionally, pass in [AdditionalSourceChecks] to check the result further.
+        /// Asserts that a method's source will match <paramref name="ExpectedSource" />.
+        /// Optionally, pass in <paramref name="AdditionalSourceChecks" /> to check the result further.
         /// This is used for methods that manipulate the object they were called on, not the result (if any).
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -1238,8 +1237,8 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Asserts that a method's source will match [ExpectedSource].
-        /// Optionally, pass in [AdditionalSourceChecks] to check the result further.
+        /// Asserts that a method's source will match <paramref name="ExpectedSource" />.
+        /// Optionally, pass in <paramref name="AdditionalSourceChecks" /> to check the result further.
         /// This is used for methods that manipulate the object they were called on, not the result (if any).
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -1250,8 +1249,8 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Asserts that a method's source will match [ExpectedSource].
-        /// Optionally, pass in [AdditionalSourceChecks] to check the result further.
+        /// Asserts that a method's source will match <paramref name="ExpectedSource" />.
+        /// Optionally, pass in <paramref name="AdditionalSourceChecks" /> to check the result further.
         /// This is used for methods that manipulate the object they were called on, not the result (if any).
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -1262,8 +1261,8 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Asserts that a method's source will match [ExpectedSource].
-        /// Optionally, pass in [AdditionalSourceChecks] to check the result further.
+        /// Asserts that a method's source will match <paramref name="ExpectedSource" />.
+        /// Optionally, pass in <paramref name="AdditionalSourceChecks" /> to check the result further.
         /// This is used for methods that manipulate the object they were called on, not the result (if any).
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -1274,8 +1273,8 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Asserts that a method's source will match [ExpectedSource].
-        /// Optionally, pass in [AdditionalSourceChecks] to check the result further.
+        /// Asserts that a method's source will match <paramref name="ExpectedSource" />.
+        /// Optionally, pass in <paramref name="AdditionalSourceChecks" /> to check the result further.
         /// This is used for methods that manipulate the object they were called on, not the result (if any).
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -1286,8 +1285,8 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Asserts that a method's source will match [ExpectedSource].
-        /// Optionally, pass in [AdditionalSourceChecks] to check the result further.
+        /// Asserts that a method's source will match <paramref name="ExpectedSource" />.
+        /// Optionally, pass in <paramref name="AdditionalSourceChecks" /> to check the result further.
         /// This is used for methods that manipulate the object they were called on, not the result (if any).
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -1298,8 +1297,8 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Asserts that a method's source will match [ExpectedSource].
-        /// Optionally, pass in [AdditionalSourceChecks] to check the result further.
+        /// Asserts that a method's source will match <paramref name="ExpectedSource" />.
+        /// Optionally, pass in <paramref name="AdditionalSourceChecks" /> to check the result further.
         /// This is used for methods that manipulate the object they were called on, not the result (if any).
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -1313,7 +1312,7 @@ namespace LCore.Tests
 
 
         /// <summary>
-        /// Runs unit tests that are active for a particular Type [t]
+        /// Runs unit tests that are active for a particular Type <paramref name="Type" />
         /// </summary>
         public static int RunUnitTests(this Type Type)
             {
@@ -1379,7 +1378,7 @@ namespace LCore.Tests
             }
 
         /// <summary>
-        /// Retrieves TestAttributes for type [t]
+        /// Retrieves TestAttributes for type <paramref name="Type" />
         /// </summary>
         public static Dictionary<MemberInfo, List<ITestAttribute>> GetTestMembers(this Type Type)
             {
@@ -1427,7 +1426,7 @@ namespace LCore.Tests
 
             int Passed = Type.RunUnitTests();
 
-            TestCount.Should().Be(Passed);
+            Assert.AreEqual(TestCount, Passed);
             }
         }
     }

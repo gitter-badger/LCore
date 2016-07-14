@@ -18,7 +18,7 @@ namespace LCore.Tools
         public T2 Obj2 { get; set; }
 
         /// <summary>
-        /// Construct a set with [T1] and [T2]
+        /// Construct a set with <typeparamref name="T1" /> and <typeparamref name="T2" />
         /// </summary>
         public Set(T1 Obj1, T2 Obj2)
             {

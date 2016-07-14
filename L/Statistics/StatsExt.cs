@@ -22,7 +22,7 @@ namespace LCore.Statistics
         /// </summary>
         /// <param name="StandardDeviations">Must be positive</param>
         /// <returns>Returns the ratio (between 0 and 1) of data that exists within StandardDeviations of the mean</returns>
-        /// <exception cref="ArgumentException">[StandardDeviations] was less than 0.</exception>
+        /// <exception cref="ArgumentException"><paramref name="StandardDeviations" /> was less than 0.</exception>
         public static float GetRatioWithin(double StandardDeviations)
             {
             if (StandardDeviations < 0)
@@ -37,7 +37,7 @@ namespace LCore.Statistics
         /// </summary>
         /// <param name="StandardDeviations">Must be positive</param>
         /// <returns>Returns the ratio (between 0 and 1) of data that exists outside of StandardDeviations of the mean</returns>
-        /// <exception cref="ArgumentException">[StandardDeviations] was less than 0.</exception>
+        /// <exception cref="ArgumentException"><paramref name="StandardDeviations" /> was less than 0.</exception>
         public static float GetRatioWithout(double StandardDeviations)
             {
             if (StandardDeviations < 0)

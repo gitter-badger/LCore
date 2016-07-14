@@ -79,8 +79,8 @@ namespace LCore.Extensions
         #region After
 
         /// <summary>
-        /// Returns the contents of [In] after the first occurrence of 
-        /// [Sequence].
+        /// Returns the contents of <paramref name="In" /> after the first occurrence of 
+        /// <paramref name="Sequence" />.
         /// </summary>
         [TestResult(new object[] { null, null }, "")]
         [TestResult(new object[] { null, "" }, "")]
@@ -109,8 +109,8 @@ namespace LCore.Extensions
         #region AfterLast
 
         /// <summary>
-        /// Returns the contents of [In] after the last occurrence of 
-        /// [Sequence].
+        /// Returns the contents of <paramref name="In" /> after the last occurrence of 
+        /// <paramref name="Sequence" />.
         /// </summary>
         [TestResult(new object[] { null, null }, "")]
         [TestResult(new object[] { null, "" }, "")]
@@ -140,8 +140,8 @@ namespace LCore.Extensions
         /// <summary>
         /// Takes a string and returns a padded string aligned Left.
         /// The pad character defaults to a space ' '.
-        /// If [In] is longer than [Length], the result is [In] truncated to [Length].
-        /// This method will only fail if [Length] is less than 0.
+        /// If <paramref name="In" /> is longer than <paramref name="Length" />, the result is <paramref name="In" /> truncated to <paramref name="Length" />.
+        /// This method will only fail if <paramref name="Length" /> is less than 0.
         /// </summary>
         [TestFails(new object[] { null, -1, (char)0 })]
         [TestFails(new object[] { "a", -1, ' ' })]
@@ -161,8 +161,8 @@ namespace LCore.Extensions
         /// <summary>
         /// Takes a string and returns a padded string aligned Left.
         /// The pad character defaults to a space ' '.
-        /// If [In] is longer than [Length], the result is [In] truncated to [Length].
-        /// This method will only fail if [Length] is less than 0.
+        /// If <paramref name="In" /> is longer than <paramref name="Length" />, the result is <paramref name="In" /> truncated to <paramref name="Length" />.
+        /// This method will only fail if <paramref name="Length" /> is less than 0.
         /// </summary>
         [TestFails(new object[] { null, -1, (char)0 })]
         [TestFails(new object[] { "a", -1, ' ' })]
@@ -182,8 +182,8 @@ namespace LCore.Extensions
         /// <summary>
         /// Takes a string and returns a padded string aligned either on the Left or Right. Left = true for left, false for Right.
         /// The pad character defaults to a space ' '.
-        /// If [In] is longer than [Length], the result is [In] truncated to [Length].
-        /// This method will only fail if [Length] is less than 0.
+        /// If <paramref name="In" /> is longer than <paramref name="Length" />, the result is <paramref name="In" /> truncated to <paramref name="Length" />.
+        /// This method will only fail if <paramref name="Length" /> is less than 0.
         /// </summary>
         [TestFails(new object[] { null, -1, (char)0 })]
         [TestFails(new object[] { "a", -1, ' ' })]
@@ -202,8 +202,8 @@ namespace LCore.Extensions
         #region Before
 
         /// <summary>
-        /// Returns the contents of [In] before the first occurrence of 
-        /// [Sequence].
+        /// Returns the contents of <paramref name="In" /> before the first occurrence of 
+        /// <paramref name="Sequence" />.
         /// </summary>
         [TestResult(new object[] { null, null }, "")]
         [TestResult(new object[] { null, "" }, "")]
@@ -232,8 +232,8 @@ namespace LCore.Extensions
         #region BeforeLast
 
         /// <summary>
-        /// Returns the contents of [In] before the last occurrence of 
-        /// [Sequence].
+        /// Returns the contents of <paramref name="In" /> before the last occurrence of 
+        /// <paramref name="Sequence" />.
         /// </summary>
         [TestResult(new object[] { null, null }, "")]
         [TestResult(new object[] { null, "" }, "")]
@@ -315,7 +315,7 @@ namespace LCore.Extensions
 
         #region Combine
         /// <summary>
-        /// Combines an IEnumerable[String] using [In] as a separator string.
+        /// Combines an IEnumerable<paramref name="In" /> using <paramref name="CombineStr" /> as a separator string.
         /// </summary>
         /// <param name="In"></param>
         /// <param name="CombineStr"></param>
@@ -348,7 +348,7 @@ namespace LCore.Extensions
         #region Concatenate
 
         /// <summary>
-        /// Concatenates a given String [In] to length [MaxLength] minus the length of [ConcatenateString].
+        /// Concatenates a given String <paramref name="In" /> to length <paramref name="MaxLength" /> minus the length of <paramref name="ConcatenateString" />.
         /// You can specify a Concatenation String, which defaults to "..."
         /// </summary>
 
@@ -404,12 +404,12 @@ namespace LCore.Extensions
 
         #region Count
         /// <summary>
-        /// Returns the amount of times [Search] appears in [In].
+        /// Returns the amount of times <paramref name="Search" /> appears in <paramref name="In" />.
         /// Overlapping sequences are counted multiple times.
         /// </summary>
         /// <param name="In">The source to search</param>
         /// <param name="Search">The search term</param>
-        /// <returns>The amount of times [Search] appears in [In]</returns>
+        /// <returns>The amount of times <paramref name="Search" /> appears in <paramref name="In" /></returns>
         [TestResult(new object[] { null, null }, 0)]
         [TestResult(new object[] { "", "" }, 0)]
         // ReSharper disable StringLiteralTypo
@@ -431,8 +431,8 @@ namespace LCore.Extensions
 
         #region Fill
         /// <summary>
-        /// Returns a String filled with [Count] characters of the source character.
-        /// Throws an exception if [Count] is less than 0.
+        /// Returns a String filled with <paramref name="Count" /> characters of the source character.
+        /// Throws an exception if <paramref name="Count" /> is less than 0.
         /// </summary>
         [TestFails(new object[] { 'a', -1 })]
         [TestResult(new object[] { 'a', 0 }, "")]
@@ -489,7 +489,7 @@ namespace LCore.Extensions
         #region FormatFileSize
         /// <summary>
         /// Formats a file size Long into a friendly string, up to TB.
-        /// The result will be displayed with [Decimals] shown. Bytes will not display decimals.
+        /// The result will be displayed with <paramref name="Decimals" /> shown. Bytes will not display decimals.
         /// </summary>
         [TestFails(new object[] { (long)-1, 1 })]
         [TestFails(new object[] { 1024 + 512, -1 })]
@@ -565,7 +565,7 @@ namespace LCore.Extensions
 
         /// <summary>
         /// Formats a file size int into a friendly string, up to TB.
-        /// The result will be displayed with [Decimals] shown. Bytes will not display decimals.
+        /// The result will be displayed with <paramref name="Decimals" /> shown. Bytes will not display decimals.
         /// </summary>
 
         [TestFails(new object[] { -1, 1 })]
@@ -726,14 +726,14 @@ namespace LCore.Extensions
 
         #region IsSymmetrical
         /// <summary>
-        /// Returns true if the source [In] is symmetrical to [Compare]. 
+        /// Returns true if the source <paramref name="In" /> is symmetrical to <paramref name="Compare" />. 
         /// Symmetry guages how similar two strings are from 0 to 1.
         /// Default threshhold is 95% Symmetry (0.95).
         /// </summary>
         /// <param name="In">The string to compare</param>
         /// <param name="Compare">The string to compare with</param>
         /// <param name="Threshhold">Double from 0 to 1, Required threshhold percent default 0.95</param>
-        /// <returns> true if the source [In] is symmetrical to [Compare]. </returns>
+        /// <returns> true if the source <paramref name="In" /> is symmetrical to <paramref name="Compare" />. </returns>
 
         [TestResult(new object[] { "holographic", "monographic", 0.7 }, true)]
         [TestResult(new object[] { "holographic", "monographic", 0.7001 }, false)]
@@ -829,11 +829,11 @@ namespace LCore.Extensions
 
         #region Matches
         /// <summary>
-        /// Returns all matches for [In] nad Regex [Expression].
+        /// Returns all matches for <paramref name="In" /> nad Regex <paramref name="Expression" />.
         /// </summary>
         /// <param name="In"></param>
         /// <param name="Expression"></param>
-        /// <returns>All matches for [In] nad Regex [Expression].</returns>
+        /// <returns>All matches for <paramref name="In" /> nad Regex <paramref name="Expression" />.</returns>
         [Tested]
         public static List<Match> Matches(this string In, string Expression)
             {
@@ -850,8 +850,8 @@ namespace LCore.Extensions
         /// <summary>
         /// Takes a string and returns a padded string aligned either on the Left or Right. Left = true for left, false for Right.
         /// The pad character defaults to a space ' '.
-        /// If [In] is longer than [Length], the result is [In] truncated to [Length].
-        /// This method will only fail if [Length] is less than 0.
+        /// If <paramref name="In" /> is longer than <paramref name="Length" />, the result is <paramref name="In" /> truncated to <paramref name="Length" />.
+        /// This method will only fail if <paramref name="Length" /> is less than 0.
         /// </summary>
         [TestFails(new object[] { null, -1, L.Align.Right, (char)0 })]
         [TestFails(new object[] { "a", -1, L.Align.Right, ' ' })]
@@ -915,7 +915,7 @@ namespace LCore.Extensions
         /// Takes a string and returns a pluralized version of the word or phrase.
         /// This method will not fail. If the input is empty it will just return "".
         /// 
-        /// [Count] is used as the number of things you're referring to. 
+        /// <paramref name="Count" /> is used as the number of things you're referring to. 
         /// If you pass 1 (or -1), pluralization will not be applied
         /// </summary>
         [TestResult(new object[] { null, -1 }, "")]
@@ -950,11 +950,11 @@ namespace LCore.Extensions
 
         #region RemoveAll
         /// <summary>
-        /// Returns a String based on [In] with all passed strings removed.
+        /// Returns a String based on <paramref name="In" /> with all passed strings removed.
         /// </summary>
         /// <param name="In">The source string</param>
         /// <param name="Find">The strings to remove.</param>
-        /// <returns>A String based on [In] with all passed strings removed.</returns>
+        /// <returns>A String based on <paramref name="In" /> with all passed strings removed.</returns>
         [TestResult(new object[] { null, new string[] { } }, "")]
         [TestResult(new object[] { "", new string[] { } }, "")]
         [TestResult(new object[] { "a", new[] { "a" } }, "")]
@@ -973,8 +973,8 @@ namespace LCore.Extensions
 
         #region ReplaceAll
         /// <summary>
-        /// Takes a string and returns a string with all Occurrences of [Find] replaced with [Replace].
-        /// This method will fail if [Find] is empty.
+        /// Takes a string and returns a string with all Occurrences of <paramref name="Find" /> replaced with <paramref name="Replace" />.
+        /// This method will fail if <paramref name="Find" /> is empty.
         /// </summary>
         [TestFails(new object[] { "a", null, null })]
         [TestFails(new object[] { "a", null, "" })]
@@ -1001,7 +1001,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Takes a string and [Replacements] dictionary. 
+        /// Takes a string and <paramref name="Replacements" /> dictionary. 
         /// All keys are replaced with the corresponding value.
         /// </summary>
         [Tested]
@@ -1096,8 +1096,8 @@ namespace LCore.Extensions
 
         #region Split
         /// <summary>
-        /// Takes a String and returns a String[] split by the [SplitStr]
-        /// This method will throw an Exception if [SplitStr] is empty.
+        /// Takes a String and returns a String[] split by the <paramref name="SplitStr" />
+        /// This method will throw an Exception if <paramref name="SplitStr" /> is empty.
         /// </summary>
         [TestFails(new object[] { null, null })]
         [TestFails(new object[] { "", null })]
@@ -1187,7 +1187,7 @@ namespace LCore.Extensions
 
         #region SplitWithQuotes
         /// <summary>
-        /// Returns a list of String segments from [Line], split by [SplitBy]
+        /// Returns a list of String segments from <paramref name="Line" />, split by <paramref name="SplitBy" />
         /// Very useful for CSV column formatting.
         /// </summary>
         /// <param name="Line">Source string</param>
@@ -1491,7 +1491,7 @@ namespace LCore.Extensions
 
         #region Trim
         /// <summary>
-        /// Returns [In] with [TrimStr] removed from the start and 
+        /// Returns <paramref name="In" /> with <paramref name="TrimStr" /> removed from the start and 
         /// end if it's present. Trims multiple occurrences.
         /// </summary>
         [TestResult(new object[] { null, null }, "")]
@@ -1515,9 +1515,9 @@ namespace LCore.Extensions
 
         #region TrimEnd
         /// <summary>
-        /// Returns [In] with [TrimStr] removed from the end 
+        /// Returns <paramref name="In" /> with <paramref name="TrimStr" /> removed from the end 
         /// if it's present. Trims multiple occurrences.
-        /// </summary>        [TestResult(new object[] { null, null }, "")]
+        /// </summary>        
         [TestResult(new object[] { "", null }, "")]
         [TestResult(new object[] { "", "" }, "")]
         [TestResult(new object[] { "abc", "" }, "abc")]
@@ -1545,7 +1545,7 @@ namespace LCore.Extensions
 
         #region TrimStart
         /// <summary>
-        /// Returns [In] with [TrimStr] removed from the start 
+        /// Returns <paramref name="In" /> with <paramref name="TrimStr" /> removed from the start 
         /// if it's present. Trims multiple occurrences.
         /// </summary>
         [TestResult(new object[] { "", null }, "")]
@@ -1630,9 +1630,12 @@ namespace LCore.Extensions
             #region Char
 
             /// <summary>
-            /// Character indexer returns the character at index [i]
+            /// Character indexer returns the character at index <paramref name="i" />
             /// </summary>
-            public static readonly Func<string, int, char> Char = (Str, i) => Str[i];
+            public static char Char(string Str, int i)
+                {
+                return Str[i];
+                }
 
             #endregion
 
@@ -1647,9 +1650,13 @@ namespace LCore.Extensions
 
             #region JoinLines
             /// <summary>
-            /// Function that joins strings from an IEnumerable[string].
+            /// Function that joins strings from an IEnumerable <paramref name="Line" />.
             /// </summary>
-            public static readonly Func<IEnumerable<string>, string, string> JoinLines = (Line, CombineStr) => Line.Combine(CombineStr);
+            public static string JoinLines(IEnumerable<string> Line, string CombineStr)
+                {
+                return Line.Combine(CombineStr);
+                }
+
             #endregion
 
             #region NumericalCompare
@@ -1743,11 +1750,11 @@ namespace LCore.Extensions
             /// Takes a string and returns a pluralized version of the word or phrase.
             /// This method will not fail. If the input is empty it will just return "".
             /// 
-            /// [Count] is used as the number of things you're referring to. 
+            /// <paramref name="Count" /> is used as the number of things you're referring to. 
             /// If you pass 1 (or -1), pluralization will not be applied
             /// </summary>
-            public static readonly Func<string, int, string> Pluralize = (Str, Count) =>
-            {
+            public static string Pluralize(string Str, int Count)
+                {
                 if (Str.IsEmpty())
                     return "";
 
@@ -1756,17 +1763,19 @@ namespace LCore.Extensions
                         PluralizationService.CreateService(
                             CultureInfo.CurrentCulture).Pluralize(Str);
                 return Str ?? "";
-            };
+                }
 
             #endregion
 
             #region RemoveChars
+
             /// <summary>
             /// Function that removes any of the supplied characters from a string.
             /// </summary>
-            public static readonly Func<string, char[], string> RemoveChars =
-                (Str, Chars) => Str.Collect(Substitute.Supply(Chars).Supply2(' '))
-                    .ReplaceAll("  ", " ").Trim();
+            public static string RemoveChars(string Str, char[] Chars)
+                {
+                return Str.Collect(Substitute.Supply(Chars).Supply2(' ')).ReplaceAll("  ", " ").Trim();
+                }
 
             #endregion
 
@@ -1805,15 +1814,15 @@ namespace LCore.Extensions
             #region Surround
 
             /// <summary>
-            /// Surrounds a string with [Before] and [After]
+            /// Surrounds a string with <paramref name="Before" /> and <paramref name="After" />
             /// </summary>
-            public static readonly Func<string, string, string, string> Surround = (In, Before, After) =>
+            public static string Surround(string In, string Before, string After)
                 {
-                    if (In.IsEmpty())
-                        return "";
+                if (In.IsEmpty())
+                    return "";
 
-                    return Before + In + After;
-                };
+                return Before + In + After;
+                }
 
             #endregion
 

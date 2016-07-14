@@ -21,7 +21,7 @@ namespace LCore.Extensions
         #region AddEach
 
         /// <summary>
-        /// Adds [AddNum] to each item in the list [In]
+        /// Adds <paramref name="AddNum" /> to each item in the list <paramref name="In" />
         /// </summary>
         [TestResult(new object[] { null }, 0)]
         [TestResult(new object[] { new int[] { }, 0 }, 0)]
@@ -37,7 +37,7 @@ namespace LCore.Extensions
         #region Abs
 
         /// <summary>
-        /// Returns the absolute value of [In]
+        /// Returns the absolute value of <paramref name="In" />
         /// </summary>
         /// <exception cref="OverflowException"><paramref name="In" /> equals <see cref="F:System.Int32.MinValue" />. </exception>
         [TestResult(new object[] { int.MinValue + (int)1 }, int.MaxValue)]
@@ -53,7 +53,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Returns the absolute value of [In]
+        /// Returns the absolute value of <paramref name="In" />
         /// </summary>
         /// <exception cref="OverflowException"><paramref name="In" /> equals <see cref="F:System.Int64.MinValue" />. </exception>
         [TestResult(new object[] { long.MinValue + (long)1 }, long.MaxValue)]
@@ -69,7 +69,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Returns the absolute value of [In]
+        /// Returns the absolute value of <paramref name="In" />
         /// </summary>99
         /// <exception cref="OverflowException"><paramref name="In" /> equals <see cref="F:System.Int16.MinValue" />. </exception>
         [TestResult(new object[] { short.MaxValue }, short.MaxValue)]
@@ -84,7 +84,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Returns the absolute value of [In]
+        /// Returns the absolute value of <paramref name="In" />
         /// </summary>
         [TestResult(new object[] { double.MinValue + (double)1 }, double.MaxValue)]
         [TestResult(new object[] { double.MaxValue }, double.MaxValue)]
@@ -99,7 +99,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Returns the absolute value of [In]
+        /// Returns the absolute value of <paramref name="In" />
         /// </summary>
         [TestResult(new object[] { float.MinValue + (float)1 }, float.MaxValue)]
         [TestResult(new object[] { float.MaxValue }, float.MaxValue)]
@@ -114,7 +114,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Returns the absolute value of [In]
+        /// Returns the absolute value of <paramref name="In" />
         /// </summary>
         /// <exception cref="OverflowException"><paramref name="In" /> equals <see cref="F:System.SByte.MinValue" />. </exception>
         [TestResult(new object[] { sbyte.MaxValue }, sbyte.MaxValue)]
@@ -129,7 +129,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Returns the absolute value of [In]
+        /// Returns the absolute value of <paramref name="In" />
         /// </summary>
         [TestResult(new object[] { (double)0 }, (double)00)]
         [TestResult(new object[] { (double)1 }, (double)1)]
@@ -146,7 +146,7 @@ namespace LCore.Extensions
         #region AsPercent
 
         /// <summary>
-        /// Returns the float [In], multiplied by 100 and converted to an int.
+        /// Returns the float <paramref name="In" />, multiplied by 100 and converted to an int.
         /// </summary>
         [TestResult(new object[] { float.MinValue }, -2147483648)]
         [TestResult(new object[] { float.MaxValue }, -2147483648)]
@@ -162,7 +162,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Returns the double [In], multiplied by 100 and converted to an int.
+        /// Returns the double <paramref name="In" />, multiplied by 100 and converted to an int.
         /// </summary>
         [TestResult(new object[] { double.MinValue }, -2147483648)]
         [TestResult(new object[] { double.MaxValue }, -2147483648)]
@@ -257,7 +257,7 @@ namespace LCore.Extensions
         #region Floor
 
         /// <summary>
-        /// Returns the floor of the float [In]
+        /// Returns the floor of the float <paramref name="In" />
         /// </summary>
         [TestResult(new object[] { null }, 0)]
         [TestResult(new object[] { (float)1 }, (int)1)]
@@ -271,10 +271,10 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Returns the floor of the float [In].
-        /// [Decimals] must be at least 0.
+        /// Returns the floor of the float <paramref name="In" />.
+        /// <paramref name="Decimals" /> must be at least 0.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">[Decimals] was less than 0.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="Decimals" /> was less than 0.</exception>
         [TestFails(new object[] { (float)1, (int)-1 })]
         [TestResult(new object[] { null, 0 }, (float)0)]
         [TestResult(new object[] { (float)1, 0 }, (float)1)]
@@ -305,7 +305,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Returns the floor of the double [In]
+        /// Returns the floor of the double <paramref name="In" />
         /// </summary>
         [TestResult(new object[] { null }, (long)0)]
         [TestResult(new object[] { (double)1 }, (long)1)]
@@ -319,10 +319,10 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Returns the floor of the float [In].
-        /// [Decimals] must be at least 0.
+        /// Returns the floor of the float <paramref name="In" />.
+        /// <paramref name="Decimals" /> must be at least 0.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">[Decimals] was less than 0.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="Decimals" /> was less than 0.</exception>
         [TestFails(new object[] { (double)1, (int)-1 })]
         [TestResult(new object[] { null, 0 }, (double)0)]
         [TestResult(new object[] { (double)1, 0 }, (double)1)]
@@ -481,7 +481,7 @@ namespace LCore.Extensions
 
         #region Max
         /// <summary>
-        /// Returns the largest of [In] and all items in [Others]
+        /// Returns the largest of <paramref name="In" /> and all items in <paramref name="Others" />
         /// </summary>
         [Tested]
         public static T Max<T>(this T In, params T[] Others)
@@ -502,7 +502,7 @@ namespace LCore.Extensions
 
         #region Min
         /// <summary>
-        /// Returns the smallest of [In] and all items in [Others]
+        /// Returns the smallest of <paramref name="In" /> and all items in <paramref name="Others" />
         /// </summary>
         [Tested]
         public static T Min<T>(this T In, params T[] Others)
@@ -523,9 +523,9 @@ namespace LCore.Extensions
 
         #region PercentageOf
         /// <summary>
-        /// Returns an int, representing a percent ([In] / [Total]).
+        /// Returns an int, representing a percent (<paramref name="In" /> / <paramref name="Total" />).
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">[Total] was equal to than 0.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="Total" /> was equal to than 0.</exception>
         [TestFails(new object[] { 5, 0 })]
         [TestResult(new object[] { 5, 1 }, 500)]
         [TestResult(new object[] { 5, 100 }, 5)]
@@ -543,7 +543,7 @@ namespace LCore.Extensions
         #region Round
 
         /// <summary>
-        /// Returns the rounded integer of the float [In]
+        /// Returns the rounded integer of the float <paramref name="In" />
         /// </summary>
         [TestResult(new object[] { null }, 0)]
         [TestResult(new object[] { (float)1 }, (int)1)]
@@ -557,8 +557,8 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Returns the rounded integer of the float [In]
-        /// [Decimals] must be at least 0.
+        /// Returns the rounded integer of the float <paramref name="In" />
+        /// <paramref name="Decimals" /> must be at least 0.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Decimals was less than 0.</exception>
         [TestFails(new object[] { (float)1, (int)-1 })]
@@ -591,7 +591,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Returns the rounded integer of the float [In]
+        /// Returns the rounded integer of the float <paramref name="In" />
         /// </summary>
         [TestResult(new object[] { null }, (long)0)]
         [TestResult(new object[] { (double)1 }, (long)1)]
@@ -605,8 +605,8 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Returns the rounded integer of the float [In]
-        /// [Decimals] must be at least 0.
+        /// Returns the rounded integer of the float <paramref name="In" />
+        /// <paramref name="Decimals" /> must be at least 0.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Decimals was less than 0.</exception>
         [TestFails(new object[] { (double)1, (int)-1 })]
@@ -790,7 +790,7 @@ namespace LCore.Extensions
         #region SubtractEach
 
         /// <summary>
-        /// Subtracts [SubtractNum] to each item in the list [In]
+        /// Subtracts <paramref name="SubtractNum" /> to each item in the list <paramref name="In" />
         /// </summary>
         [TestResult(new object[] { null }, 0)]
         [TestResult(new object[] { new int[] { }, 0 }, 0)]
@@ -874,8 +874,8 @@ namespace LCore.Extensions
 
         /// <summary>
         /// Creates an array of increasing or decreasing numbers 
-        /// starting at [From] and progressing until [To].
-        /// Array length will be |[From]-[To]|.
+        /// starting at <paramref name="From" /> and progressing until <paramref name="To" />.
+        /// Array length will be |<paramref name="From" />-<paramref name="To" />|.
         /// </summary>
         /// <exception cref="OverflowException">If the size of the range is larger than an Array can contain.</exception>
         [TestResult(new object[] { 0, 0 }, new int[] { 0 })]

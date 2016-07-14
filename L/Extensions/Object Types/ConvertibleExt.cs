@@ -15,8 +15,8 @@ namespace LCore.Extensions
 
         #region CanConvertTo
         /// <summary>
-        /// Returns whether or not an IConvertible object [In] can be, safely and without 
-        /// any data loss, converted to type [T]
+        /// Returns whether or not an IConvertible object <paramref name="In" /> can be, safely and without 
+        /// any data loss, converted to type <typeparamref name="T" />
         /// </summary>
         [Tested]
         public static bool CanConvertTo<T>(this IConvertible In)
@@ -43,7 +43,7 @@ namespace LCore.Extensions
         #region CanConvertToString
 
         /// <summary>
-        /// Returns whether or not an IConvertible object [In] can be, safely and without 
+        /// Returns whether or not an IConvertible object <paramref name="In" /> can be, safely and without 
         /// any data loss, converted to a string.
         /// </summary>
         [Tested]
@@ -63,7 +63,7 @@ namespace LCore.Extensions
 
         #region ConvertTo
         /// <summary>
-        /// Converts an IConvertible to type [t], if it is capable.
+        /// Converts an IConvertible to type <paramref name="Type"/>, if it is capable.
         /// </summary>
         /// <exception cref="System.FormatException">Throws a format exception if the format is not correct for the output type.</exception>
         [Tested]
@@ -84,7 +84,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Converts an IConvertible to type [T], if it is capable.
+        /// Converts an IConvertible to type <typeparamref name="T" />, if it is capable.
         /// </summary>
         /// <exception cref="System.FormatException">Throws a format exception if the format is not correct for the output type.</exception>
         [Tested]
@@ -128,8 +128,8 @@ namespace LCore.Extensions
 
         #region TryConvertTo
         /// <summary>
-        /// Converts an IConvertible to type [t], if it is capable.
-        /// If [In] cannot be converted, the source will be returned.
+        /// Converts an IConvertible to type <typeparamref name="T" />, if it is capable.
+        /// If <paramref name="In" /> cannot be converted, the source will be returned.
         /// </summary>
         /// <exception cref="System.FormatException">Throws a format exception if the format is not correct for the output type.</exception>
         [Tested]
@@ -147,7 +147,7 @@ namespace LCore.Extensions
 
         /// <summary>
         /// Converts an IConvertible to a string, if it is capable.
-        /// If [In] cannot be converted, the source will be returned.
+        /// If <paramref name="In" /> cannot be converted, the source will be returned.
         /// </summary>
         public static IConvertible TryConvertToString(this IConvertible In)
             {

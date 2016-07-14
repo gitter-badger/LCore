@@ -10,7 +10,7 @@ namespace LCore.Tools
     public class ExceptionList : Exception
         {
         /// <summary>
-        /// Implicitally convert a List[Exception] to an ExceptionList
+        /// Implicitally convert a List<paramref name="Ex" /> to an ExceptionList
         /// </summary>
         public static implicit operator Exception[] (ExceptionList Ex)
             {
@@ -24,14 +24,14 @@ namespace LCore.Tools
             return new ExceptionList(Ex);
             }
         /// <summary>
-        /// Implicitally convert a List[Exception] to an ExceptionList
+        /// Implicitally convert a List<paramref name="Ex" /> to an ExceptionList
         /// </summary>
         public static implicit operator List<Exception>(ExceptionList Ex)
             {
             return Ex.Exceptions;
             }
         /// <summary>
-        /// Implicitally convert a ExceptionList to a List[Exception]
+        /// Implicitally convert a ExceptionList to a List<paramref name="Ex" />
         /// </summary>
         public static implicit operator ExceptionList(List<Exception> Ex)
             {

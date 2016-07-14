@@ -20,7 +20,7 @@ namespace LCore.Extensions
 
         #region ByteArrayToCharArray
         /// <summary>
-        /// Safely converts a byte[] to a char[]
+        /// Safely converts a byte<paramref name="] to a char[" />
         /// </summary>
         public static char[] ByteArrayToCharArray(byte[] In)
             {
@@ -83,7 +83,7 @@ namespace LCore.Extensions
 
         #region GetFileBlock
         /// <summary>
-        /// Reads a chunk of file [F] using [BlockSize] and [BlockNum] as index.
+        /// Reads a chunk of file <paramref name="F" /> using <paramref name="BlockSize" /> and <paramref name="BlockNum" /> as index.
         /// </summary>
         public static byte[] GetFileBlock(FileStream F, int BlockSize, int BlockNum)
             {
@@ -348,7 +348,7 @@ namespace LCore.Extensions
 
         #region WaitForFileUnlock
         /// <summary>
-        /// Waits until a FileStream can be opened. Waits at most [MaxWaitMS] milliseconds.
+        /// Waits until a FileStream can be opened. Waits at most <paramref name="MaxWaitMS" /> milliseconds.
         /// </summary>
         public static bool WaitForFileUnlock(string FullPath, int MaxWaitMS)
             {
@@ -436,7 +436,7 @@ namespace LCore.Extensions
             public static event EventHandler BufferedMoveProgress;
 
             /// <summary>
-            /// Moves a file from [From] to [To] using a buffer.
+            /// Moves a file from <paramref name="From" /> to <paramref name="To" /> using a buffer.
             /// The original file is deleted.
             /// </summary>
             public static void BufferedMove(string From, string To, bool DeleteOriginal, int ChunkSize = 128 * 1024)
@@ -479,7 +479,7 @@ namespace LCore.Extensions
             /// Removes non-supported characters from filenames.
             /// </summary>
             public static readonly Func<string, string> CleanFileName =
-                Str.RemoveChars.Surround2(Path.GetInvalidFileNameChars);
+                F<string,char[],string>(Str.RemoveChars).Surround2(Path.GetInvalidFileNameChars);
             #endregion
 
             #region CombinePaths
@@ -550,7 +550,7 @@ namespace LCore.Extensions
 
             #region SafeCopyFile
             /// <summary>
-            /// Tries to copy a file from [PathSource] to [PathDestination].
+            /// Tries to copy a file from <paramref name="PathSource" /> to <paramref name="PathDestination" />.
             /// Optionally, retry a number of times, default 0.
             /// Optionally, overwrite the destination file if it exists. 
             /// </summary>
@@ -562,7 +562,7 @@ namespace LCore.Extensions
 
             #region SafeMoveFile
             /// <summary>
-            /// Tries to move a file from [PathSource] to [PathDestination].
+            /// Tries to move a file from <paramref name="PathSource" /> to <paramref name="PathDestination" />.
             /// Optionally, retry a number of times, default 0.
             /// Optionally, overwrite the destination file if it exists.
             /// Optionally, delete the original.

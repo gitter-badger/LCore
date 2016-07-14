@@ -1163,11 +1163,11 @@ namespace LCore.Extensions
 
         /// <summary>
         /// Retries the action a specified number of times.
-        /// The default number of [Tries] is 1. 
+        /// The default number of  <paramref name="Tries" /> is 1. 
         /// The initial attempt is not counted, so the action 
-        /// will be executed at most [Tries] + 1 times.
+        /// will be executed at most  <paramref name="Tries" /> + 1 times.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">[Tries] is less than 1.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         [Tested]
         public static Action Retry(this Action In, int Tries = 1)
             {
@@ -1196,11 +1196,11 @@ namespace LCore.Extensions
             }
         /// <summary>
         /// Retries the action a specified number of times.
-        /// The default number of [Tries] is 1. 
+        /// The default number of  <paramref name="Tries" /> is 1. 
         /// The initial attempt is not counted, so the action 
-        /// will be executed at most [Tries] + 1 times.
+        /// will be executed at most  <paramref name="Tries" /> + 1 times.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">[Tries] is less than 1.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         [Tested]
         public static Action<T> Retry<T>(this Action<T> In, int Tries = 1)
             {
@@ -1229,11 +1229,11 @@ namespace LCore.Extensions
             }
         /// <summary>
         /// Retries the action a specified number of times.
-        /// The default number of [Tries] is 1. 
+        /// The default number of  <paramref name="Tries" /> is 1. 
         /// The initial attempt is not counted, so the action 
-        /// will be executed at most [Tries] + 1 times.
+        /// will be executed at most  <paramref name="Tries" /> + 1 times.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">[Tries] is less than 1.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         [Tested]
         public static Action<T1, T2> Retry<T1, T2>(this Action<T1, T2> In, int Tries = 1)
             {
@@ -1262,11 +1262,11 @@ namespace LCore.Extensions
             }
         /// <summary>
         /// Retries the action a specified number of times.
-        /// The default number of [Tries] is 1. 
+        /// The default number of  <paramref name="Tries" /> is 1. 
         /// The initial attempt is not counted, so the action 
-        /// will be executed at most [Tries] + 1 times.
+        /// will be executed at most  <paramref name="Tries" /> + 1 times.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">[Tries] is less than 1.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         [Tested]
         public static Action<T1, T2, T3> Retry<T1, T2, T3>(this Action<T1, T2, T3> In, int Tries = 1)
             {
@@ -1295,11 +1295,11 @@ namespace LCore.Extensions
             }
         /// <summary>
         /// Retries the action a specified number of times.
-        /// The default number of [Tries] is 1. 
+        /// The default number of  <paramref name="Tries" /> is 1. 
         /// The initial attempt is not counted, so the action 
-        /// will be executed at most [Tries] + 1 times.
+        /// will be executed at most  <paramref name="Tries" /> + 1 times.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">[Tries] is less than 1.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         [Tested]
         public static Action<T1, T2, T3, T4> Retry<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In, int Tries = 1)
             {
@@ -1329,11 +1329,11 @@ namespace LCore.Extensions
 
         /// <summary>
         /// Retries the function a specified number of times.
-        /// The default number of [Tries] is 1.
+        /// The default number of  <paramref name="Tries" /> is 1.
         /// The initial attempt is not counted, so the function 
-        /// will be executed at most [Tries] + 1 times.
+        /// will be executed at most  <paramref name="Tries" /> + 1 times.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">[Tries] is less than 1.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         [Tested]
         public static Func<U> Retry<U>(this Func<U> In, int Tries = 1)
             {
@@ -1361,11 +1361,11 @@ namespace LCore.Extensions
             }
         /// <summary>
         /// Retries the function a specified number of times.
-        /// The default number of [Tries] is 1.
+        /// The default number of  <paramref name="Tries" /> is 1.
         /// The initial attempt is not counted, so the function 
-        /// will be executed at most [Tries] + 1 times.
+        /// will be executed at most  <paramref name="Tries" /> + 1 times.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">[Tries] is less than 1.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         [Tested]
         public static Func<T1, U> Retry<T1, U>(this Func<T1, U> In, int Tries = 1)
             {
@@ -1393,11 +1393,11 @@ namespace LCore.Extensions
             }
         /// <summary>
         /// Retries the function a specified number of times.
-        /// The default number of [Tries] is 1.
+        /// The default number of  <paramref name="Tries" /> is 1.
         /// The initial attempt is not counted, so the function 
-        /// will be executed at most [Tries] + 1 times.
+        /// will be executed at most  <paramref name="Tries" /> + 1 times.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">[Tries] is less than 1.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         [Tested]
         public static Func<T1, T2, U> Retry<T1, T2, U>(this Func<T1, T2, U> In, int Tries = 1)
             {
@@ -1425,11 +1425,11 @@ namespace LCore.Extensions
             }
         /// <summary>
         /// Retries the function a specified number of times.
-        /// The default number of [Tries] is 1.
+        /// The default number of <paramref name="Tries" /> is 1.
         /// The initial attempt is not counted, so the function 
-        /// will be executed at most [Tries] + 1 times.
+        /// will be executed at most <paramref name="Tries" /> + 1 times.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">[Tries] is less than 1.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="Tries" /> is less than 1.</exception>
         [Tested]
         public static Func<T1, T2, T3, U> Retry<T1, T2, T3, U>(this Func<T1, T2, T3, U> In, int Tries = 1)
             {
@@ -1457,11 +1457,11 @@ namespace LCore.Extensions
             }
         /// <summary>
         /// Retries the function a specified number of times.
-        /// The default number of [Tries] is 1.
+        /// The default number of <paramref name="Tries" /> is 1.
         /// The initial attempt is not counted, so the function 
-        /// will be executed at most [Tries] + 1 times.
+        /// will be executed at most <paramref name="Tries" /> + 1 times.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">[Tries] is less than 1.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="Tries" /> is less than 1.</exception>
         [Tested]
         public static Func<T1, T2, T3, T4, U> Retry<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In, int Tries = 1)
             {
@@ -1491,56 +1491,56 @@ namespace LCore.Extensions
 
         #region Debug
         /// <summary>
-        /// If an exception occurs while executing [In], an exception is rethrown that includes detailed parameter data
+        /// If an exception occurs while executing <paramref name="In" />, an exception is rethrown that includes detailed parameter data
         /// </summary>
         public static Action<T1> Debug<T1>(this Action<T1> In)
             {
             return o1 => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1 })))(o1); };
             }
         /// <summary>
-        /// If an exception occurs while executing [In], an exception is rethrown that includes detailed parameter data
+        /// If an exception occurs while executing <paramref name="In" />, an exception is rethrown that includes detailed parameter data
         /// </summary>
         public static Action<T1, T2> Debug<T1, T2>(this Action<T1, T2> In)
             {
             return (o1, o2) => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2 })))(o1, o2); };
             }
         /// <summary>
-        /// If an exception occurs while executing [In], an exception is rethrown that includes detailed parameter data
+        /// If an exception occurs while executing <paramref name="In" />, an exception is rethrown that includes detailed parameter data
         /// </summary>
         public static Action<T1, T2, T3> Debug<T1, T2, T3>(this Action<T1, T2, T3> In)
             {
             return (o1, o2, o3) => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2, o3 })))(o1, o2, o3); };
             }
         /// <summary>
-        /// If an exception occurs while executing [In], an exception is rethrown that includes detailed parameter data
+        /// If an exception occurs while executing <paramref name="In" />, an exception is rethrown that includes detailed parameter data
         /// </summary>
         public static Action<T1, T2, T3, T4> Debug<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In)
             {
             return (o1, o2, o3, o4) => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2, o3, o4 })))(o1, o2, o3, o4); };
             }
         /// <summary>
-        /// If an exception occurs while executing [In], an exception is rethrown that includes detailed parameter data
+        /// If an exception occurs while executing <paramref name="In" />, an exception is rethrown that includes detailed parameter data
         /// </summary>
         public static Func<T1, U> Debug<T1, U>(this Func<T1, U> In)
             {
             return o1 => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1 })))(o1);
             }
         /// <summary>
-        /// If an exception occurs while executing [In], an exception is rethrown that includes detailed parameter data
+        /// If an exception occurs while executing <paramref name="In" />, an exception is rethrown that includes detailed parameter data
         /// </summary>
         public static Func<T1, T2, U> Debug<T1, T2, U>(this Func<T1, T2, U> In)
             {
             return (o1, o2) => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2 })))(o1, o2);
             }
         /// <summary>
-        /// If an exception occurs while executing [In], an exception is rethrown that includes detailed parameter data
+        /// If an exception occurs while executing <paramref name="In" />, an exception is rethrown that includes detailed parameter data
         /// </summary>
         public static Func<T1, T2, T3, U> Debug<T1, T2, T3, U>(this Func<T1, T2, T3, U> In)
             {
             return (o1, o2, o3) => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2, o3 })))(o1, o2, o3);
             }
         /// <summary>
-        /// If an exception occurs while executing [In], an exception is rethrown that includes detailed parameter data
+        /// If an exception occurs while executing <paramref name="In" />, an exception is rethrown that includes detailed parameter data
         /// </summary>
         public static Func<T1, T2, T3, T4, U> Debug<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In)
             {
@@ -1716,8 +1716,8 @@ namespace LCore.Extensions
 
         #region Report
         /// <summary>
-        /// The returned action executes action [In] and then throws an
-        /// Exception with InnerException [e] and Message [Message]
+        /// The returned action executes action <paramref name="In" /> and then throws an
+        /// Exception with InnerException <paramref name="Ex" /> and Message <paramref name="Message" />
         /// </summary>
         [Tested]
         public static Action Report<E>(this Action In, string Message, E Ex) where E : Exception
@@ -1725,8 +1725,8 @@ namespace LCore.Extensions
             return In.Merge(() => L.Exc.Report(Message, Ex));
             }
         /// <summary>
-        /// The returned action executes action [In] and then throws an
-        /// Exception with InnerException [e] and Message [Message]
+        /// The returned action executes action <paramref name="In" /> and then throws an
+        /// Exception with InnerException <paramref name="Ex" /> and Message <paramref name="Message" />
         /// </summary>
         [Tested]
         public static Action<T> Report<T, E>(this Action<T> In, string Message, E Ex) where E : Exception
@@ -1734,8 +1734,8 @@ namespace LCore.Extensions
             return In.Merge(() => L.Exc.Report(Message, Ex));
             }
         /// <summary>
-        /// The returned action executes action [In] and then throws an
-        /// Exception with InnerException [e] and Message [Message]
+        /// The returned action executes action <paramref name="In" /> and then throws an
+        /// Exception with InnerException <paramref name="Ex" /> and Message <paramref name="Message" />
         /// </summary>
         [Tested]
         public static Action<T1, T2> Report<T1, T2, E>(this Action<T1, T2> In, string Message, E Ex) where E : Exception
@@ -1743,8 +1743,8 @@ namespace LCore.Extensions
             return In.Merge(() => L.Exc.Report(Message, Ex));
             }
         /// <summary>
-        /// The returned action executes action [In] and then throws an
-        /// Exception with InnerException [e] and Message [Message]
+        /// The returned action executes action <paramref name="In" /> and then throws an
+        /// Exception with InnerException <paramref name="Ex" /> and Message <paramref name="Message" />
         /// </summary>
         [Tested]
         public static Action<T1, T2, T3> Report<T1, T2, T3, E>(this Action<T1, T2, T3> In, string Message, E Ex) where E : Exception
@@ -1752,8 +1752,8 @@ namespace LCore.Extensions
             return In.Merge(() => L.Exc.Report(Message, Ex));
             }
         /// <summary>
-        /// The returned action executes action [In] and then throws an
-        /// Exception with InnerException [e] and Message [Message]
+        /// The returned action executes action <paramref name="In" /> and then throws an
+        /// Exception with InnerException <paramref name="Ex" /> and Message <paramref name="Message" />
         /// </summary>
         [Tested]
         public static Action<T1, T2, T3, T4> Report<T1, T2, T3, T4, E>(this Action<T1, T2, T3, T4> In, string Message, E Ex) where E : Exception
@@ -1761,8 +1761,8 @@ namespace LCore.Extensions
             return In.Merge(() => L.Exc.Report(Message, Ex));
             }
         /// <summary>
-        /// The returned action executes action [In] and then throws an
-        /// Exception with InnerException [e] and Message [Message]
+        /// The returned action executes action <paramref name="In" /> and then throws an
+        /// Exception with InnerException <paramref name="Ex" /> and Message <paramref name="Message" />
         /// </summary>
         [Tested]
         public static Func<U> Report<U, E>(this Func<U> In, string Message, E Ex) where E : Exception
@@ -1770,8 +1770,8 @@ namespace LCore.Extensions
             return In.Merge(() => L.Exc.Report(Message, Ex));
             }
         /// <summary>
-        /// The returned action executes action [In] and then throws an
-        /// Exception with InnerException [e] and Message [Message]
+        /// The returned action executes action <paramref name="In" /> and then throws an
+        /// Exception with InnerException <paramref name="Ex" /> and Message <paramref name="Message" />
         /// </summary>
         [Tested]
         public static Func<T, U> Report<T, U, E>(this Func<T, U> In, string Message, E Ex) where E : Exception
@@ -1779,8 +1779,8 @@ namespace LCore.Extensions
             return In.Merge(() => L.Exc.Report(Message, Ex));
             }
         /// <summary>
-        /// The returned action executes action [In] and then throws an
-        /// Exception with InnerException [e] and Message [Message]
+        /// The returned action executes action <paramref name="In" /> and then throws an
+        /// Exception with InnerException <paramref name="Ex" /> and Message <paramref name="Message" />
         /// </summary>
         [Tested]
         public static Func<T1, T2, U> Report<T1, T2, U, E>(this Func<T1, T2, U> In, string Message, E Ex) where E : Exception
@@ -1788,8 +1788,8 @@ namespace LCore.Extensions
             return In.Merge(() => L.Exc.Report(Message, Ex));
             }
         /// <summary>
-        /// The returned action executes action [In] and then throws an
-        /// Exception with InnerException [e] and Message [Message]
+        /// The returned action executes action <paramref name="In" /> and then throws an
+        /// Exception with InnerException <paramref name="Ex" /> and Message <paramref name="Message" />
         /// </summary>
         [Tested]
         public static Func<T1, T2, T3, U> Report<T1, T2, T3, U, E>(this Func<T1, T2, T3, U> In, string Message, E Ex) where E : Exception
@@ -1797,8 +1797,8 @@ namespace LCore.Extensions
             return In.Merge(() => L.Exc.Report(Message, Ex));
             }
         /// <summary>
-        /// The returned action executes action [In] and then throws an
-        /// Exception with InnerException [e] and Message [Message]
+        /// The returned action executes action <paramref name="In" /> and then throws an
+        /// Exception with InnerException <paramref name="Ex" /> and Message <paramref name="Message" />
         /// </summary>
         [Tested]
         public static Func<T1, T2, T3, T4, U> Report<T1, T2, T3, T4, U, E>(this Func<T1, T2, T3, T4, U> In, string Message, E Ex) where E : Exception
@@ -1809,8 +1809,8 @@ namespace LCore.Extensions
 
         #region Report Empty
         /// <summary>
-        /// The returned action executes action [In] and then throws an
-        /// Exception with InnerException [e]
+        /// The returned action executes action <paramref name="In" /> and then throws an
+        /// Exception with InnerrException <paramref name="Ex" />
         /// </summary>
         [Tested]
         public static Action Report<E>(this Action In, E Ex) where E : Exception
@@ -1818,8 +1818,8 @@ namespace LCore.Extensions
             return In.Merge(L.Exc.ReportEmpty.Supply(Ex));
             }
         /// <summary>
-        /// The returned action executes action [In] and then throws an
-        /// Exception with InnerException [e]
+        /// The returned action executes action <paramref name="In" /> and then throws an
+        /// Exception with InnerrException <paramref name="Ex" />
         /// </summary>
         [Tested]
         public static Action<T> Report<T, E>(this Action<T> In, E Ex) where E : Exception
@@ -1827,8 +1827,8 @@ namespace LCore.Extensions
             return In.Merge(L.Exc.ReportEmpty.Supply(Ex));
             }
         /// <summary>
-        /// The returned action executes action [In] and then throws an
-        /// Exception with InnerException [e]
+        /// The returned action executes action <paramref name="In" /> and then throws an
+        /// Exception with InnerrException <paramref name="Ex" />
         /// </summary>
         [Tested]
         public static Action<T1, T2> Report<T1, T2, E>(this Action<T1, T2> In, E Ex) where E : Exception
@@ -1836,8 +1836,8 @@ namespace LCore.Extensions
             return In.Merge(L.Exc.ReportEmpty.Supply(Ex));
             }
         /// <summary>
-        /// The returned action executes action [In] and then throws an
-        /// Exception with InnerException [e]
+        /// The returned action executes action <paramref name="In" /> and then throws an
+        /// Exception with InnerrException <paramref name="Ex" />
         /// </summary>
         [Tested]
         public static Action<T1, T2, T3> Report<T1, T2, T3, E>(this Action<T1, T2, T3> In, E Ex) where E : Exception
@@ -1845,8 +1845,8 @@ namespace LCore.Extensions
             return In.Merge(L.Exc.ReportEmpty.Supply(Ex));
             }
         /// <summary>
-        /// The returned action executes action [In] and then throws an
-        /// Exception with InnerException [e]
+        /// The returned action executes action <paramref name="In" /> and then throws an
+        /// Exception with InnerrException <paramref name="Ex" />
         /// </summary>
         [Tested]
         public static Action<T1, T2, T3, T4> Report<T1, T2, T3, T4, E>(this Action<T1, T2, T3, T4> In, E Ex) where E : Exception
@@ -1854,8 +1854,8 @@ namespace LCore.Extensions
             return In.Merge(L.Exc.ReportEmpty.Supply(Ex));
             }
         /// <summary>
-        /// The returned action executes action [In] and then throws an
-        /// Exception with InnerException [e]
+        /// The returned action executes action <paramref name="In" /> and then throws an
+        /// Exception with InnerrException <paramref name="Ex" />
         /// </summary>
         [Tested]
         public static Func<U> Report<U, E>(this Func<U> In, E Ex) where E : Exception
@@ -1863,8 +1863,8 @@ namespace LCore.Extensions
             return In.Merge(L.Exc.ReportEmpty.Supply(Ex));
             }
         /// <summary>
-        /// The returned action executes action [In] and then throws an
-        /// Exception with InnerException [e]
+        /// The returned action executes action <paramref name="In" /> and then throws an
+        /// Exception with InnerrException <paramref name="Ex" />
         /// </summary>
         [Tested]
         public static Func<T, U> Report<T, U, E>(this Func<T, U> In, E Ex) where E : Exception
@@ -1872,8 +1872,8 @@ namespace LCore.Extensions
             return In.Merge(L.Exc.ReportEmpty.Supply(Ex));
             }
         /// <summary>
-        /// The returned action executes action [In] and then throws an
-        /// Exception with InnerException [e]
+        /// The returned action executes action <paramref name="In" /> and then throws an
+        /// Exception with InnerrException <paramref name="Ex" />
         /// </summary>
         [Tested]
         public static Func<T1, T2, U> Report<T1, T2, U, E>(this Func<T1, T2, U> In, E Ex) where E : Exception
@@ -1881,8 +1881,8 @@ namespace LCore.Extensions
             return In.Merge(L.Exc.ReportEmpty.Supply(Ex));
             }
         /// <summary>
-        /// The returned action executes action [In] and then throws an
-        /// Exception with InnerException [e]
+        /// The returned action executes action <paramref name="In" /> and then throws an
+        /// Exception with InnerrException <paramref name="Ex" />
         /// </summary>
         [Tested]
         public static Func<T1, T2, T3, U> Report<T1, T2, T3, U, E>(this Func<T1, T2, T3, U> In, E Ex) where E : Exception
@@ -1890,8 +1890,8 @@ namespace LCore.Extensions
             return In.Merge(L.Exc.ReportEmpty.Supply(Ex));
             }
         /// <summary>
-        /// The returned action executes action [In] and then throws an
-        /// Exception with InnerException [e]
+        /// The returned action executes action <paramref name="In" /> and then throws an
+        /// Exception with InnerrException <paramref name="Ex" />
         /// </summary>
         [Tested]
         public static Func<T1, T2, T3, T4, U> Report<T1, T2, T3, T4, U, E>(this Func<T1, T2, T3, T4, U> In, E Ex) where E : Exception
@@ -2011,7 +2011,7 @@ namespace LCore.Extensions
             {
             #region Lambdas +
             /// <summary>
-            /// The default exception handler used with [Method].Handle().
+            /// The default exception handler used with Method.Handle().
             /// This should be set to your own exception handler action.
             /// </summary>
             // ReSharper disable once FieldCanBeMadeReadOnly.Global

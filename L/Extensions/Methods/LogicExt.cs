@@ -10,7 +10,7 @@ namespace LCore.Extensions
     {
     /// <summary>
     /// Provides extensions methods for logical methods: 
-    /// Action[...] and Func[...]
+    /// Action and Func
     /// </summary>
     public static class LogicExt
         {

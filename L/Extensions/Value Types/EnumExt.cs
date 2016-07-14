@@ -39,7 +39,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Takes a String and returns and Enum of Type [t].
+        /// Takes a String and returns and Enum of Type <paramref name="Type" />.
         /// This method will fail if the String is null, empty, 
         /// or does not match a value of the enum.
         /// </summary>
@@ -75,7 +75,7 @@ namespace LCore.Extensions
         #region ParseEnum_FriendlyName
         /// <summary>
         /// Returns the friendly name of the value of an enum type.
-        /// Add a friendly name by adding a [FriendlyName("")] attribute
+        /// Add a friendly name by adding a FriendlyNameAttribute
         /// to the Enum element.
         /// 
         /// If the enum friendly name is not found, null will be returned.
@@ -94,7 +94,7 @@ namespace LCore.Extensions
         #region GetFriendlyName
         /// <summary>
         /// Returns the friendly name of the value of an enum type.
-        /// Add a friendly name by adding a [FriendlyName("")] attribute
+        /// Add a friendly name by adding a FriendlyNameAttribute
         /// to the Enum element.
         /// </summary> 
         [Tested]

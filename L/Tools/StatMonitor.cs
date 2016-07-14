@@ -39,10 +39,10 @@ namespace LCore.Tools
 
         /// <summary>
         /// Create a new StatMonitor using a particular walking average size.
-        /// [WalkingAverageSize] must be at least 1.
+        /// <paramref name="WalkingAverageSize" /> must be at least 1.
         /// </summary>
         /// <param name="WalkingAverageSize"></param>
-        /// <exception cref="ArgumentException">[WalkingAverageSize] was not greater than 0.</exception>
+        /// <exception cref="ArgumentException"><paramref name="WalkingAverageSize" /> was not greater than 0.</exception>
         public StatMonitor(int WalkingAverageSize)
             {
             if (WalkingAverageSize < 1)

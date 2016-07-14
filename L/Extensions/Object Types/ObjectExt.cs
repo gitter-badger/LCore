@@ -161,7 +161,7 @@ namespace LCore.Extensions
             #region New
 
             /// <summary>
-            /// Retrieves a func that creates an object of type [U] with the supplied parameters.
+            /// Retrieves a func that creates an object of type <typeparamref name="U" /> with the supplied parameters.
             /// </summary>
             public static Func<U> New<U>(params object[] In)
                 {
@@ -169,14 +169,14 @@ namespace LCore.Extensions
                 return () => (U)Const?.Invoke(In);
                 }
             /// <summary>
-            /// Retrieves a func that creates an object of type [U].
+            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<U> New<U>()
                 {
                 return () => (U)typeof(U).GetConstructor(Ary.Array<Type>()())?.Invoke(Ary.Array<object>()());
                 }
             /// <summary>
-            /// Retrieves a func that creates an object of type [U].
+            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<T1, U> New<T1, U>()
                 {
@@ -184,7 +184,7 @@ namespace LCore.Extensions
                 return o1 => (U)Const?.Invoke(new object[] { o1 });
                 }
             /// <summary>
-            /// Retrieves a func that creates an object of type [U].
+            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<T1, T2, U> New<T1, T2, U>()
                 {
@@ -192,7 +192,7 @@ namespace LCore.Extensions
                 return (o1, o2) => (U)Const?.Invoke(new object[] { o1, o2 });
                 }
             /// <summary>
-            /// Retrieves a func that creates an object of type [U].
+            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<T1, T2, T3, U> New<T1, T2, T3, U>()
                 {
@@ -200,7 +200,7 @@ namespace LCore.Extensions
                 return (o1, o2, o3) => (U)Const?.Invoke(new object[] { o1, o2, o3 });
                 }
             /// <summary>
-            /// Retrieves a func that creates an object of type [U].
+            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<T1, T2, T3, T4, U> New<T1, T2, T3, T4, U>()
                 {
@@ -208,7 +208,7 @@ namespace LCore.Extensions
                 return (o1, o2, o3, o4) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4 });
                 }
             /// <summary>
-            /// Retrieves a func that creates an object of type [U].
+            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<T1, T2, T3, T4, T5, U> New<T1, T2, T3, T4, T5, U>()
                 {
@@ -216,7 +216,7 @@ namespace LCore.Extensions
                 return (o1, o2, o3, o4, o5) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5 });
                 }
             /// <summary>
-            /// Retrieves a func that creates an object of type [U].
+            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<T1, T2, T3, T4, T5, T6, U> New<T1, T2, T3, T4, T5, T6, U>()
                 {
@@ -224,7 +224,7 @@ namespace LCore.Extensions
                 return (o1, o2, o3, o4, o5, o6) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6 });
                 }
             /// <summary>
-            /// Retrieves a func that creates an object of type [U].
+            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<T1, T2, T3, T4, T5, T6, T7, U> New<T1, T2, T3, T4, T5, T6, T7, U>()
                 {
@@ -232,7 +232,7 @@ namespace LCore.Extensions
                 return (o1, o2, o3, o4, o5, o6, o7) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7 });
                 }
             /// <summary>
-            /// Retrieves a func that creates an object of type [U].
+            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<T1, T2, T3, T4, T5, T6, T7, T8, U> New<T1, T2, T3, T4, T5, T6, T7, T8, U>()
                 {
@@ -240,7 +240,7 @@ namespace LCore.Extensions
                 return (o1, o2, o3, o4, o5, o6, o7, o8) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8 });
                 }
             /// <summary>
-            /// Retrieves a func that creates an object of type [U].
+            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>()
                 {
@@ -248,7 +248,7 @@ namespace LCore.Extensions
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9 });
                 }
             /// <summary>
-            /// Retrieves a func that creates an object of type [U].
+            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>()
                 {
@@ -256,7 +256,7 @@ namespace LCore.Extensions
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10 });
                 }
             /// <summary>
-            /// Retrieves a func that creates an object of type [U].
+            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>()
                 {
@@ -264,7 +264,7 @@ namespace LCore.Extensions
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11 });
                 }
             /// <summary>
-            /// Retrieves a func that creates an object of type [U].
+            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>()
                 {
@@ -272,7 +272,7 @@ namespace LCore.Extensions
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12 });
                 }
             /// <summary>
-            /// Retrieves a func that creates an object of type [U].
+            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>()
                 {
@@ -280,7 +280,7 @@ namespace LCore.Extensions
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13 });
                 }
             /// <summary>
-            /// Retrieves a func that creates an object of type [U].
+            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>()
                 {
@@ -288,7 +288,7 @@ namespace LCore.Extensions
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14 });
                 }
             /// <summary>
-            /// Retrieves a func that creates an object of type [U].
+            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>()
                 {
@@ -296,7 +296,7 @@ namespace LCore.Extensions
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15 });
                 }
             /// <summary>
-            /// Retrieves a func that creates an object of type [U].
+            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>()
                 {
@@ -323,7 +323,7 @@ namespace LCore.Extensions
 
             #region IsA
             /// <summary>
-            /// Retrieves a func that determines if an object matches type [T].
+            /// Retrieves a func that determines if an object matches type <typeparamref name="T" />.
             /// </summary>
             public static Func<object, bool> IsA<T>()
                 {
@@ -333,7 +333,7 @@ namespace LCore.Extensions
 
             #region Method
             /// <summary>
-            /// Retrieves a func that retrieves a method executor on type [U] using the supplied parameters
+            /// Retrieves a func that retrieves a method executor on type <typeparamref name="U" /> using the supplied parameters
             /// </summary>
             private static Action<U> Method<U>(string MethodName, params object[] Params)
                 {
@@ -442,8 +442,8 @@ namespace LCore.Extensions.Optional
 
         #region CopyFieldsTo
         /// <summary>
-        /// Copies all possible fields from [In] to [Obj].
-        /// Matching field names are transferred to [Obj] for fields and properties with public setters.
+        /// Copies all possible fields from <paramref name="In" /> to <paramref name="Obj" />.
+        /// Matching field names are transferred to <paramref name="Obj" /> for fields and properties with public setters.
         /// </summary>
         [Tested]
         public static void CopyFieldsTo<T>(this T In, object Obj)
@@ -452,8 +452,8 @@ namespace LCore.Extensions.Optional
             }
 
         /// <summary>
-        /// Copies all possible fields from [In] to [Obj].
-        /// Matching field names are transferred to [Obj] for fields and properties with public setters.
+        /// Copies all possible fields from <paramref name="In" /> to <paramref name="Obj" />.
+        /// Matching field names are transferred to <paramref name="Obj" /> for fields and properties with public setters.
         /// 
         /// Optionally you can supply a CustomMapper dictionary to map fields to new field names.
         /// </summary>
@@ -467,8 +467,8 @@ namespace LCore.Extensions.Optional
             }
 
         /// <summary>
-        /// Copies all possible fields from [In] to [Obj].
-        /// Matching field names are transferred to [Obj] for fields and properties with public setters.
+        /// Copies all possible fields from <paramref name="In" /> to <paramref name="Obj" />.
+        /// Matching field names are transferred to <paramref name="Obj" /> for fields and properties with public setters.
         /// 
         /// Optionally you can supply a CustomMapper function to map fields to new field names.
         /// </summary>
@@ -572,9 +572,9 @@ namespace LCore.Extensions.Optional
             }
 
         /// <summary>
-        /// Returns a function that creates a new Array containing [Count] instances of [In]
+        /// Returns a function that creates a new Array containing <paramref name="Count" /> instances of <paramref name="In" />
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">If [Count] is less than 0.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">If <paramref name="Count" /> is less than 0.</exception>
         [Tested]
         public static Func<T[]> FN_CreateArray<T>(this T In, int Count)
             {
@@ -609,9 +609,9 @@ namespace LCore.Extensions.Optional
 
         /// <summary>
         /// Returns a function that creates a new List from parameters.
-        /// If [Count] is passed, the List will be filled with [Count] instances of [In]
+        /// If <paramref name="Count" /> is passed, the List will be filled with <paramref name="Count" /> instances of <paramref name="In" />
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">If [Count] is less than 0.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">If <paramref name="Count" /> is less than 0.</exception>
         [Tested]
         public static Func<List<T>> FN_CreateList<T>(this T In, int Count)
             {
@@ -632,7 +632,7 @@ namespace LCore.Extensions.Optional
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="In">The parameter will be returned by the function</param>
-        /// <returns>A function that returns the input parameter [In]</returns>
+        /// <returns>A function that returns the input parameter <paramref name="In" /></returns>
         [Tested]
         public static Func<T> FN_Func<T>(this T In)
             {
@@ -657,7 +657,7 @@ namespace LCore.Extensions.Optional
         #region InitProperties
 
         /// <summary>
-        /// Initializes an object's properties of type [T] to [InitValue] or their default values.
+        /// Initializes an object's properties of type <typeparamref name="T" /> to <paramref name="InitValue" /> or their default values.
         /// Only affects properties of type T.
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -730,7 +730,7 @@ namespace LCore.Extensions.Optional
         #region SupplyTo - T
         #region SupplyTo - T - Action_T1
         /// <summary>
-        /// Supplies a parameter [Obj] so it does not need to be included
+        /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Obj">The parameter supplied</param>
@@ -744,8 +744,8 @@ namespace LCore.Extensions.Optional
         #endregion
         /*    #region SupplyTo - T - Action_T2
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #1 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #1 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -755,8 +755,8 @@ namespace LCore.Extensions.Optional
                 return o => { In(Obj, o); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included.
-            /// Inserts the parameter #2 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included.
+            /// Inserts the parameter #2 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -768,8 +768,8 @@ namespace LCore.Extensions.Optional
             #endregion
             #region SupplyTo - T - Action_T3
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #1 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #1 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -779,8 +779,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2) => { In(Obj, o1, o2); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #2 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #2 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -790,8 +790,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2) => { In(o1, Obj, o2); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #3 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #3 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -803,8 +803,8 @@ namespace LCore.Extensions.Optional
             #endregion
             #region SupplyTo - T - Action_T4
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #1 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #1 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -814,8 +814,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3) => { In(Obj, o1, o2, o3); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #2 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #2 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -825,8 +825,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3) => { In(o1, Obj, o2, o3); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #3 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #3 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -836,8 +836,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3) => { In(o1, o2, Obj, o3); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #4 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #4 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -849,8 +849,8 @@ namespace LCore.Extensions.Optional
             #endregion
             #region SupplyTo - T - Action_T5
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #1 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #1 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -860,8 +860,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4) => { In(Obj, o1, o2, o3, o4); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #2 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #2 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -871,8 +871,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4) => { In(o1, Obj, o2, o3, o4); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #3 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #3 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -882,8 +882,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4) => { In(o1, o2, Obj, o3, o4); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #4 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #4 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -893,8 +893,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4) => { In(o1, o2, o3, Obj, o4); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #5 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #5 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -906,8 +906,8 @@ namespace LCore.Extensions.Optional
             #endregion
             #region SupplyTo - T - Action_T6
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #1 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #1 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -917,8 +917,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5) => { In(Obj, o1, o2, o3, o4, o5); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #2 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #2 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -928,8 +928,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5) => { In(o1, Obj, o2, o3, o4, o5); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #3 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #3 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -939,8 +939,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5) => { In(o1, o2, Obj, o3, o4, o5); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #4 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #4 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -950,8 +950,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5) => { In(o1, o2, o3, Obj, o4, o5); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #5 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #5 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -961,8 +961,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5) => { In(o1, o2, o3, o4, Obj, o5); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #6 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #6 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -974,8 +974,8 @@ namespace LCore.Extensions.Optional
             #endregion
             #region SupplyTo - T - Action_T7
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #1 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #1 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -985,8 +985,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6) => { In(Obj, o1, o2, o3, o4, o5, o6); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #2 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #2 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -996,8 +996,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6) => { In(o1, Obj, o2, o3, o4, o5, o6); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #3 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #3 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1007,8 +1007,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6) => { In(o1, o2, Obj, o3, o4, o5, o6); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #4 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #4 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1018,8 +1018,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6) => { In(o1, o2, o3, Obj, o4, o5, o6); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #5 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #5 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1029,8 +1029,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6) => { In(o1, o2, o3, o4, Obj, o5, o6); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #6 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #6 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1040,8 +1040,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6) => { In(o1, o2, o3, o4, o5, Obj, o6); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #7 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #7 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1053,8 +1053,8 @@ namespace LCore.Extensions.Optional
             #endregion
             #region SupplyTo - T - Action_T8
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #1 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #1 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1064,8 +1064,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7) => { In(Obj, o1, o2, o3, o4, o5, o6, o7); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #2 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #2 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1075,8 +1075,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7) => { In(o1, Obj, o2, o3, o4, o5, o6, o7); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #3 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #3 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1086,8 +1086,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7) => { In(o1, o2, Obj, o3, o4, o5, o6, o7); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #4 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #4 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1097,8 +1097,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7) => { In(o1, o2, o3, Obj, o4, o5, o6, o7); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #5 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #5 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1108,8 +1108,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7) => { In(o1, o2, o3, o4, Obj, o5, o6, o7); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #6 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #6 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1119,8 +1119,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7) => { In(o1, o2, o3, o4, o5, Obj, o6, o7); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #7 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #7 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1130,8 +1130,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7) => { In(o1, o2, o3, o4, o5, o6, Obj, o7); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #8 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #8 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1143,8 +1143,8 @@ namespace LCore.Extensions.Optional
             #endregion
             #region SupplyTo - T - Action_T9
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #1 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #1 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1154,8 +1154,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8) => { In(Obj, o1, o2, o3, o4, o5, o6, o7, o8); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #2 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #2 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1165,8 +1165,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8) => { In(o1, Obj, o2, o3, o4, o5, o6, o7, o8); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #3 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #3 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1176,8 +1176,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8) => { In(o1, o2, Obj, o3, o4, o5, o6, o7, o8); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #4 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #4 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1187,8 +1187,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8) => { In(o1, o2, o3, Obj, o4, o5, o6, o7, o8); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #5 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #5 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1198,8 +1198,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8) => { In(o1, o2, o3, o4, Obj, o5, o6, o7, o8); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #6 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #6 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1209,8 +1209,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8) => { In(o1, o2, o3, o4, o5, Obj, o6, o7, o8); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #7 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #7 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1220,8 +1220,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8) => { In(o1, o2, o3, o4, o5, o6, Obj, o7, o8); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #8 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #8 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1231,8 +1231,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8) => { In(o1, o2, o3, o4, o5, o6, o7, Obj, o8); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #9 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #9 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1244,8 +1244,8 @@ namespace LCore.Extensions.Optional
             #endregion
             #region SupplyTo - T - Action_T10
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #1 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #1 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1255,8 +1255,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => { In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #2 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #2 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1266,8 +1266,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => { In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #3 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #3 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1277,8 +1277,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => { In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #4 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #4 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1288,8 +1288,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => { In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #5 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #5 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1299,8 +1299,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => { In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #6 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #6 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1310,8 +1310,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => { In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #7 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #7 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1321,8 +1321,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => { In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #8 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #8 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1332,8 +1332,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => { In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #8 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #8 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1343,8 +1343,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => { In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #10 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #10 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1356,8 +1356,8 @@ namespace LCore.Extensions.Optional
             #endregion
             #region SupplyTo - T - Action_T11
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #1 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #1 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1367,8 +1367,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => { In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #2 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #2 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1378,8 +1378,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => { In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #3 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #3 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1389,8 +1389,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => { In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #4 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #4 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1400,8 +1400,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => { In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #5 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #5 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1411,8 +1411,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => { In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #6 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #6 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1422,8 +1422,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => { In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #7 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #7 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1433,8 +1433,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => { In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #8 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #8 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1444,8 +1444,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => { In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #9 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #9 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1455,8 +1455,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => { In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #10 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #10 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1466,8 +1466,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #11 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #11 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1480,8 +1480,8 @@ namespace LCore.Extensions.Optional
             #endregion
             #region SupplyTo - T - Action_T12
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #1 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #1 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1491,8 +1491,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #2 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #2 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1502,8 +1502,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #3 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #3 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1513,8 +1513,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10, o11); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #4 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #4 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1524,8 +1524,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10, o11); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #5 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #5 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1535,8 +1535,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10, o11); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #6 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #6 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1546,8 +1546,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10, o11); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #7 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #7 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1557,8 +1557,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10, o11); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #8 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #8 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1568,8 +1568,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10, o11); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #9 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #9 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1579,8 +1579,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10, o11); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #10 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #10 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1590,8 +1590,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10, o11); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #11 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #11 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1601,8 +1601,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj, o11); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #12 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #12 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1614,8 +1614,8 @@ namespace LCore.Extensions.Optional
             #endregion
             #region SupplyTo - T - Action_T13
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #1 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #1 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1625,8 +1625,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #2 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #2 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1636,8 +1636,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #3 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #3 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1647,8 +1647,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #4 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #4 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1658,8 +1658,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10, o11, o12); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #5 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #5 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1669,8 +1669,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10, o11, o12); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #6 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #6 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1680,8 +1680,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10, o11, o12); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #7 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #7 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1691,8 +1691,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10, o11, o12); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #8 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #8 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1702,8 +1702,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10, o11, o12); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #9 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #9 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1713,8 +1713,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10, o11, o12); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #10 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #10 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1724,8 +1724,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10, o11, o12); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #11 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #11 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1735,8 +1735,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj, o11, o12); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #12 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #12 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1746,8 +1746,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, Obj, o12); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #13 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #13 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1760,8 +1760,8 @@ namespace LCore.Extensions.Optional
 
             #region SupplyTo - T - Action_T14
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #1 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #1 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1771,8 +1771,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #2 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #2 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1782,8 +1782,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #3 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #3 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1793,8 +1793,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #4 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #4 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1804,8 +1804,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #5 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #5 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1815,8 +1815,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10, o11, o12, o13); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #6 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #6 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1826,8 +1826,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10, o11, o12, o13); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #7 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #7 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1837,8 +1837,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10, o11, o12, o13); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #8 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #8 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1848,8 +1848,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10, o11, o12, o13); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #9 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #9 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1859,8 +1859,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10, o11, o12, o13); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #10 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #10 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1870,8 +1870,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10, o11, o12, o13); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #11 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #11 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1881,8 +1881,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj, o11, o12, o13); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #12 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #12 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1892,8 +1892,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, Obj, o12, o13); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #13 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #13 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1903,8 +1903,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, Obj, o13); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #14 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #14 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1916,8 +1916,8 @@ namespace LCore.Extensions.Optional
             #endregion
             #region SupplyTo - T - Action_T15
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #1 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #1 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -1927,8 +1927,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #2 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #2 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -1939,8 +1939,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #3 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #3 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -1951,8 +1951,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #4 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #4 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -1963,8 +1963,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #5 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #5 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -1975,8 +1975,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #6 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #6 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -1987,8 +1987,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10, o11, o12, o13, o14); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #7 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #7 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -1999,8 +1999,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10, o11, o12, o13, o14); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #8 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #8 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2011,8 +2011,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10, o11, o12, o13, o14); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #9 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #9 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2023,8 +2023,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10, o11, o12, o13, o14); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #10 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #10 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2035,8 +2035,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10, o11, o12, o13, o14); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #11 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #11 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2047,8 +2047,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj, o11, o12, o13, o14); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #12 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #12 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2059,8 +2059,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, Obj, o12, o13, o14); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #13 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #13 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2071,8 +2071,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, Obj, o13, o14); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #14 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #14 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2083,8 +2083,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, Obj, o14); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #15 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #15 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2097,8 +2097,8 @@ namespace LCore.Extensions.Optional
             #endregion
             #region SupplyTo - T - Action_T16
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #1 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #1 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -2108,8 +2108,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #2 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #2 in action <paramref name="In" />.
             /// </summary>
             /// <param name="Obj">The parameter supplied</param>
             /// <param name="In">The action</param>
@@ -2119,8 +2119,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #3 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #3 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2131,8 +2131,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #4 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #4 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2143,8 +2143,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #5 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #5 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2155,8 +2155,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #6 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #6 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2167,8 +2167,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #7 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #7 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2179,8 +2179,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10, o11, o12, o13, o14, o15); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #8 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #8 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2191,8 +2191,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10, o11, o12, o13, o14, o15); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #9 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #9 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2203,8 +2203,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10, o11, o12, o13, o14, o15); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #10 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #10 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2215,8 +2215,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10, o11, o12, o13, o14, o15); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #11 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #11 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2227,8 +2227,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj, o11, o12, o13, o14, o15); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #12 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #12 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2239,8 +2239,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, Obj, o12, o13, o14, o15); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #13 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #13 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2251,8 +2251,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, Obj, o13, o14, o15); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #14 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #14 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2263,8 +2263,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, Obj, o14, o15); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #15 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #15 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2275,8 +2275,8 @@ namespace LCore.Extensions.Optional
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => { In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, Obj, o15); };
                 }
             /// <summary>
-            /// Supplies a parameter [Obj] so it does not need to be included
-            /// Inserts the parameter #16 in action [In].
+            /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+            /// Inserts the parameter #16 in action <paramref name="In" />.
             /// </summary>
 
             /// <param name="Obj">The parameter supplied</param>
@@ -2291,8 +2291,8 @@ namespace LCore.Extensions.Optional
         #region SupplyTo - T - Func_T1
 
         /// <summary>
-        /// Supplies a parameter [Obj] so it does not need to be included
-        /// Inserts the parameter #1 in func [In].
+        /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+        /// Inserts the parameter #1 in func <paramref name="In" />.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="U"></typeparam>
@@ -2307,8 +2307,8 @@ namespace LCore.Extensions.Optional
         #endregion
         /*        #region SupplyTo - T - Func_T2
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #1 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #1 in func <paramref name="In" />.
                 /// </summary>
                 /// <param name="Obj">The parameter supplied</param>
                 /// <param name="In">The action</param>
@@ -2318,8 +2318,8 @@ namespace LCore.Extensions.Optional
                     return o => In(Obj, o);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #2 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #2 in func <paramref name="In" />.
                 /// </summary>
                 /// <param name="Obj">The parameter supplied</param>
                 /// <param name="In">The action</param>
@@ -2331,8 +2331,8 @@ namespace LCore.Extensions.Optional
                 #endregion
                 #region SupplyTo - T - Func_T3
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #1 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #1 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2343,8 +2343,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2) => In(Obj, o1, o2);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #2 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #2 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2355,8 +2355,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2) => In(o1, Obj, o2);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #3 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #3 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2369,8 +2369,8 @@ namespace LCore.Extensions.Optional
                 #endregion
                 #region SupplyTo - T - Func_T4
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #1 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #1 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2381,8 +2381,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3) => In(Obj, o1, o2, o3);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #2 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #2 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2393,8 +2393,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3) => In(o1, Obj, o2, o3);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #3 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #3 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2405,8 +2405,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3) => In(o1, o2, Obj, o3);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #4 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #4 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2419,8 +2419,8 @@ namespace LCore.Extensions.Optional
                 #endregion
                 #region SupplyTo - T - Func_T5
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #1 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #1 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2431,8 +2431,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4) => In(Obj, o1, o2, o3, o4);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #2 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #2 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2443,8 +2443,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4) => In(o1, Obj, o2, o3, o4);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #3 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #3 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2455,8 +2455,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4) => In(o1, o2, Obj, o3, o4);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #4 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #4 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2467,8 +2467,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4) => In(o1, o2, o3, Obj, o4);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #5 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #5 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2481,8 +2481,8 @@ namespace LCore.Extensions.Optional
                 #endregion
                 #region SupplyTo - T - Func_T6
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #1 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #1 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2493,8 +2493,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5) => In(Obj, o1, o2, o3, o4, o5);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #2 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #2 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2505,8 +2505,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5) => In(o1, Obj, o2, o3, o4, o5);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #3 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #3 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2517,8 +2517,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5) => In(o1, o2, Obj, o3, o4, o5);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #4 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #4 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2529,8 +2529,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5) => In(o1, o2, o3, Obj, o4, o5);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #5 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #5 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2541,8 +2541,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5) => In(o1, o2, o3, o4, Obj, o5);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #6 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #6 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2555,8 +2555,8 @@ namespace LCore.Extensions.Optional
                 #endregion
                 #region SupplyTo - T - Func_T7
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #1 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #1 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2567,8 +2567,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6) => In(Obj, o1, o2, o3, o4, o5, o6);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #2 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #2 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2579,8 +2579,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6) => In(o1, Obj, o2, o3, o4, o5, o6);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #3 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #3 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2591,8 +2591,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6) => In(o1, o2, Obj, o3, o4, o5, o6);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #4 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #4 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2603,8 +2603,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6) => In(o1, o2, o3, Obj, o4, o5, o6);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #5 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #5 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2615,8 +2615,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6) => In(o1, o2, o3, o4, Obj, o5, o6);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #6 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #6 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2627,8 +2627,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6) => In(o1, o2, o3, o4, o5, Obj, o6);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #7 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #7 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2641,8 +2641,8 @@ namespace LCore.Extensions.Optional
                 #endregion
                 #region SupplyTo - T - Func_T8
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #1 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #1 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2653,8 +2653,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7) => In(Obj, o1, o2, o3, o4, o5, o6, o7);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #2 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #2 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2665,8 +2665,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7) => In(o1, Obj, o2, o3, o4, o5, o6, o7);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #3 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #3 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2677,8 +2677,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7) => In(o1, o2, Obj, o3, o4, o5, o6, o7);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #4 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #4 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2689,8 +2689,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7) => In(o1, o2, o3, Obj, o4, o5, o6, o7);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #5 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #5 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2701,8 +2701,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7) => In(o1, o2, o3, o4, Obj, o5, o6, o7);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #6 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #6 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2713,8 +2713,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7) => In(o1, o2, o3, o4, o5, Obj, o6, o7);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #7 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #7 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2725,8 +2725,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7) => In(o1, o2, o3, o4, o5, o6, Obj, o7);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #8 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #8 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2739,8 +2739,8 @@ namespace LCore.Extensions.Optional
                 #endregion
                 #region SupplyTo - T - Func_T9
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #1 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #1 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2751,8 +2751,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8) => In(Obj, o1, o2, o3, o4, o5, o6, o7, o8);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #2 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #2 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2763,8 +2763,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8) => In(o1, Obj, o2, o3, o4, o5, o6, o7, o8);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #3 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #3 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2775,8 +2775,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8) => In(o1, o2, Obj, o3, o4, o5, o6, o7, o8);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #4 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #4 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2787,8 +2787,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8) => In(o1, o2, o3, Obj, o4, o5, o6, o7, o8);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #5 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #5 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2799,8 +2799,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8) => In(o1, o2, o3, o4, Obj, o5, o6, o7, o8);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #6 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #6 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2811,8 +2811,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8) => In(o1, o2, o3, o4, o5, Obj, o6, o7, o8);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #7 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #7 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2823,8 +2823,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8) => In(o1, o2, o3, o4, o5, o6, Obj, o7, o8);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #8 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #8 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2835,8 +2835,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8) => In(o1, o2, o3, o4, o5, o6, o7, Obj, o8);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #9 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #9 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2849,8 +2849,8 @@ namespace LCore.Extensions.Optional
                 #endregion
                 #region SupplyTo - T - Func_T10
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #1 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #1 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2861,8 +2861,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #2 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #2 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2873,8 +2873,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #3 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #3 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2885,8 +2885,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #4 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #4 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2897,8 +2897,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #5 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #5 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2909,8 +2909,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #6 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #6 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2921,8 +2921,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #7 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #7 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2933,8 +2933,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #8 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #8 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2945,8 +2945,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #9 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #9 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2957,8 +2957,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #10 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #10 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2971,8 +2971,8 @@ namespace LCore.Extensions.Optional
                 #endregion
                 #region SupplyTo - T - Func_T11
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #1 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #1 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2983,8 +2983,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #2 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #2 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -2995,8 +2995,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #3 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #3 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3007,8 +3007,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #4 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #4 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3019,8 +3019,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #5 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #5 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3031,8 +3031,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #6 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #6 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3043,8 +3043,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #7 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #7 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3055,8 +3055,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #8 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #8 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3067,8 +3067,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #9 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #9 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3079,8 +3079,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #10 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #10 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3091,8 +3091,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #11 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #11 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3105,8 +3105,8 @@ namespace LCore.Extensions.Optional
                 #endregion
                 #region SupplyTo - T - Func_T12
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #1 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #1 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3117,8 +3117,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #2 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #2 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3129,8 +3129,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #3 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #3 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3141,8 +3141,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10, o11);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #4 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #4 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3153,8 +3153,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10, o11);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #5 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #5 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3165,8 +3165,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10, o11);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #6 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #6 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3177,8 +3177,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10, o11);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #7 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #7 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3189,8 +3189,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10, o11);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #8 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #8 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3201,8 +3201,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10, o11);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #9 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #9 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3213,8 +3213,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10, o11);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #10 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #10 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3225,8 +3225,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10, o11);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #11 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #11 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3237,8 +3237,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj, o11);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #12 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #12 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3251,8 +3251,8 @@ namespace LCore.Extensions.Optional
                 #endregion
                 #region SupplyTo - T - Func_T13
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #1 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #1 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3263,8 +3263,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #2 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #2 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3275,8 +3275,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #3 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #3 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3287,8 +3287,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #4 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #4 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3299,8 +3299,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10, o11, o12);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #5 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #5 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3311,8 +3311,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10, o11, o12);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #6 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #6 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3323,8 +3323,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10, o11, o12);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #7 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #7 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3335,8 +3335,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10, o11, o12);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #8 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #8 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3347,8 +3347,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10, o11, o12);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #9 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #9 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3359,8 +3359,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10, o11, o12);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #10 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #10 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3371,8 +3371,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10, o11, o12);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #11 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #11 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3383,8 +3383,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj, o11, o12);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #12 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #12 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3395,8 +3395,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, Obj, o12);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #13 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #13 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3409,8 +3409,8 @@ namespace LCore.Extensions.Optional
                 #endregion
                 #region SupplyTo - T - Func_T14
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #1 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #1 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3421,8 +3421,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #2 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #2 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3433,8 +3433,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #3 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #3 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3445,8 +3445,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #4 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #4 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3457,8 +3457,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #5 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #5 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3469,8 +3469,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10, o11, o12, o13);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #6 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #6 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3481,8 +3481,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10, o11, o12, o13);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #7 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #7 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3493,8 +3493,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10, o11, o12, o13);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #8 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #8 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3505,8 +3505,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10, o11, o12, o13);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #9 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #9 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3517,8 +3517,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10, o11, o12, o13);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #10 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #10 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3529,8 +3529,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10, o11, o12, o13);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #11 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #11 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3541,8 +3541,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj, o11, o12, o13);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #12 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #12 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3553,8 +3553,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, Obj, o12, o13);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #13 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #13 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3565,8 +3565,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, Obj, o13);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #14 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #14 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3579,8 +3579,8 @@ namespace LCore.Extensions.Optional
                 #endregion
                 #region SupplyTo - T - Func_T15
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #1 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #1 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3591,8 +3591,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #2 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #2 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3603,8 +3603,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #3 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #3 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3615,8 +3615,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #4 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #4 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3627,8 +3627,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #5 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #5 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3639,8 +3639,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #6 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #6 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3651,8 +3651,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10, o11, o12, o13, o14);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #7 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #7 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3663,8 +3663,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10, o11, o12, o13, o14);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #8 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #8 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3675,8 +3675,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10, o11, o12, o13, o14);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #9 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #9 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3687,8 +3687,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10, o11, o12, o13, o14);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #10 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #10 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3699,8 +3699,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10, o11, o12, o13, o14);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #11 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #11 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3711,8 +3711,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj, o11, o12, o13, o14);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #12 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #12 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3723,8 +3723,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, Obj, o12, o13, o14);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #13 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #13 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3735,8 +3735,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, Obj, o13, o14);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #14 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #14 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3747,8 +3747,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, Obj, o14);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #15 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #15 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3761,8 +3761,8 @@ namespace LCore.Extensions.Optional
                 #endregion
                 #region SupplyTo - T - Func_T16
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #1 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #1 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3773,8 +3773,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(Obj, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #2 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #2 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3785,8 +3785,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, Obj, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #3 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #3 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3797,8 +3797,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, Obj, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #4 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #4 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3809,8 +3809,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, Obj, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #5 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #5 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3821,8 +3821,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, Obj, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #6 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #6 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3833,8 +3833,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, Obj, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #7 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #7 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3845,8 +3845,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, o6, Obj, o7, o8, o9, o10, o11, o12, o13, o14, o15);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #8 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #8 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3857,8 +3857,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, o6, o7, Obj, o8, o9, o10, o11, o12, o13, o14, o15);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #9 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #9 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3869,8 +3869,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, o6, o7, o8, Obj, o9, o10, o11, o12, o13, o14, o15);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #10 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #10 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3881,8 +3881,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, Obj, o10, o11, o12, o13, o14, o15);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #11 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #11 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3893,8 +3893,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, Obj, o11, o12, o13, o14, o15);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #12 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #12 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3905,8 +3905,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, Obj, o12, o13, o14, o15);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #13 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #13 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3917,8 +3917,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, Obj, o13, o14, o15);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #14 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #14 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3929,8 +3929,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, Obj, o14, o15);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #15 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #15 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3941,8 +3941,8 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, Obj, o15);
                     }
                 /// <summary>
-                /// Supplies a parameter [Obj] so it does not need to be included
-                /// Inserts the parameter #16 in func [In].
+                /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
+                /// Inserts the parameter #16 in func <paramref name="In" />.
                 /// </summary>
 
                 /// <param name="Obj">The parameter supplied</param>
@@ -3970,7 +3970,7 @@ namespace LCore.Extensions.Optional
 
         #region Traverse
         /// <summary>
-        /// Traverses an object structure using a traverser function you supply [Traverser]
+        /// Traverses an object structure using a traverser function you supply <paramref name="Traverser" />
         /// </summary>
         /// <param name="In">Source object</param>
         /// <param name="Traverser">Traversing function</param>
@@ -3986,7 +3986,7 @@ namespace LCore.Extensions.Optional
             }
 
         /// <summary>
-        /// Traverses an object structure using a traverser function you supply [Traverser]
+        /// Traverses an object structure using a traverser function you supply <paramref name="Traverser" />
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="In">Source object</param>

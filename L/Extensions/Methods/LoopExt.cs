@@ -19,7 +19,7 @@ namespace LCore.Extensions
         #region To
 
         /// <summary>
-        /// Loops from In to To, performing Func. The results of Func are returned in a List[U].
+        /// Loops from In to To, performing Func. The results of Func are returned in a List`<typeparamref name="U" />.
         /// </summary>
         /// <typeparam name="U"></typeparam>
         /// <param name="In"></param>
@@ -36,7 +36,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Loops from In to To, performing Func. The results of Func are returned in a List[U].
+        /// Loops from In to To, performing Func. The results of Func are returned in a List`<typeparamref name="T" />.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="In"></param>
@@ -706,11 +706,12 @@ namespace LCore.Extensions
             #region Collect
 
             /// <summary>
-            /// Returns a Func that collects the result of In into a List[U]. The Func will be run [Count] times and there will be that many items in the resulting List[U].
+            /// Returns a Func that collects the result of In into a List`<typeparamref name="U" />. 
+            /// The Func will be run <paramref><name>Count</name></paramref> times and there will be that many items 
+            /// in the resulting List`<typeparamref name="U" />.
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
             [CodeExplodeExtensionMethod("Collect", new[] { "Func", "Times" }, Comments.Collect)]
             //  [CodeExplodeGenerics("Collect", L.Comments.Collect)]
             public static Func<Func<U>, uint, Func<List<U>>> L_Collect<U>()
@@ -727,12 +728,14 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a Func that collects the result of In into a List[U]. The Func will be run [Count] times and there will be that many items in the resulting List[U].
+            /// Returns a Func that collects the result of In into a List`<typeparamref name="U" />. 
+            /// The Func will be run <paramref><name>Count</name></paramref> times and there will be that many items 
+            /// in the resulting List`<typeparamref name="U" />.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Collect", new[] { "Func", "Times" }, Comments.Collect)]
             public static Func<Func<T1, U>, uint, Func<T1, List<U>>> L_Collect<T1, U>()
                 {
@@ -748,13 +751,15 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a Func that collects the result of In into a List[U]. The Func will be run [Count] times and there will be that many items in the resulting List[U].
+            /// Returns a Func that collects the result of In into a List`<typeparamref name="U" />. 
+            /// The Func will be run <paramref><name>Count</name></paramref> times and there will be that many items 
+            /// in the resulting List`<typeparamref name="U" />.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Collect", new[] { "Func", "Times" }, Comments.Collect)]
             public static Func<Func<T1, T2, U>, uint, Func<T1, T2, List<U>>> L_Collect<T1, T2, U>()
                 {
@@ -770,14 +775,16 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a Func that collects the result of In into a List[U]. The Func will be run [Count] times and there will be that many items in the resulting List[U].
+            /// Returns a Func that collects the result of In into a List`<typeparamref name="U" />. 
+            /// The Func will be run <paramref><name>Count</name></paramref> times and there will be that many items 
+            /// in the resulting List`<typeparamref name="U" />.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Collect", new[] { "Func", "Times" }, Comments.Collect)]
             public static Func<Func<T1, T2, T3, U>, uint, Func<T1, T2, T3, List<U>>> L_Collect<T1, T2, T3, U>()
                 {
@@ -793,7 +800,9 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a Func that collects the result of In into a List[U]. The Func will be run [Count] times and there will be that many items in the resulting List[U].
+            /// Returns a Func that collects the result of In into a List`<typeparamref name="U" />. 
+            /// The Func will be run <paramref><name>Count</name></paramref> times and there will be that many items 
+            /// in the resulting List`<typeparamref name="U" />.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -801,7 +810,6 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
             [CodeExplodeExtensionMethod("Collect", new[] { "Func", "Times" }, Comments.Collect)]
             public static Func<Func<T1, T2, T3, T4, U>, uint, Func<T1, T2, T3, T4, List<U>>> L_Collect
                 <T1, T2, T3, T4, U>()

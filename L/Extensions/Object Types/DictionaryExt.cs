@@ -19,8 +19,8 @@ namespace LCore.Extensions
 
         /// <summary>
         /// Merges two dictionaries.
-        /// If conflicts occur, they are passed to [Conflict].
-        /// [Conflict] is responsible for returning a KeyValuePair with a new name to try.
+        /// If conflicts occur, they are passed to <paramref name="Conflict" />.
+        /// <paramref name="Conflict" /> is responsible for returning a KeyValuePair with a new name to try.
         /// To leave an item out, return a KeyValuePair with a null key.
         /// </summary>
         
@@ -53,7 +53,7 @@ namespace LCore.Extensions
 
         /// <summary>
         /// Safely adds one dictionary to another.
-        /// If keys from [Add] already exist in [In], they will not be added
+        /// If keys from <paramref name="Add" /> already exist in <paramref name="In" />, they will not be added
         /// </summary>
         [Tested]
         public static void AddRange<TKey, TValue>(this IDictionary<TKey, TValue> In, IDictionary<TKey, TValue> Add)

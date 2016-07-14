@@ -499,8 +499,8 @@ namespace L_Tests.Tests.Extensions
             typeof(TestExt).HasInterface(typeof(ITest)).Should().BeFalse();
             typeof(TestExt).HasInterface<ITest>().Should().BeFalse();
 
-            typeof(BadStatic).HasInterface(typeof(ITest)).Should().BeFalse();
-            typeof(BadStatic).HasInterface<ITest>().Should().BeFalse();
+//            typeof(BadStatic).HasInterface(typeof(ITest)).Should().BeFalse();
+//            typeof(BadStatic).HasInterface<ITest>().Should().BeFalse();
 
 
             }
@@ -988,7 +988,7 @@ namespace L_Tests.Tests.Extensions
             }
 
         #region Helpers
-
+/*
         internal static class BadStatic
             {
             /// <exception cref="Exception">Condition.</exception>
@@ -996,7 +996,7 @@ namespace L_Tests.Tests.Extensions
                 {
                 throw new Exception();
                 }
-            }
+            }*/
 
         internal class TestClassGeneric1<T1> : TestClass, ICustomAttributeProvider
             {

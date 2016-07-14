@@ -258,6 +258,7 @@ namespace L_Tests.Tests.Extensions
             Test.ToInt16(null);
             Test.ToUInt16(null);
             Test.ToInt32(null);
+            Test.ToUInt32(null);
             Test.ToInt64(null);
             Test.ToUInt64(null);
             Test.ToSingle(null);

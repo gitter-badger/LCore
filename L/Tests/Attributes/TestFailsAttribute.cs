@@ -9,8 +9,8 @@ namespace LCore.Tests
     {
     /// <summary>
     /// Denotes that a particular test fails.
-    /// Optionally specify the [ExceptionType] and 
-    /// [AdditionalChecks] to be performed
+    /// Optionally specify the ExceptionType and 
+    /// AdditionalChecks to be performed
     /// </summary>
     public class TestFailsAttribute : TestAttribute
         {
@@ -37,8 +37,8 @@ namespace LCore.Tests
 
         /// <summary>
         /// Denotes that a particular test fails.
-        /// Optionally specify the [ExceptionType] and 
-        /// [AdditionalChecks] to be performed
+        /// Optionally specify the <paramref name="ExceptionType" /> and 
+        /// <paramref name="AdditionalChecks" /> to be performed
         /// </summary>
         public TestFailsAttribute(object[] Parameters = null, Type ExceptionType = null, params string[] AdditionalChecks)
             : base(Parameters)

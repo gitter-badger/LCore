@@ -75,7 +75,7 @@ namespace LCore.Tools
             }
 
         /// <summary>
-        /// Removes values from both lists at [Index].
+        /// Removes values from both lists at <paramref name="Index" />.
         /// </summary>
         public void RemoveAt(int Index)
             {

@@ -99,7 +99,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Returns the current length of [Queue]
+        /// Returns the current length of <paramref name="Queue" />
         /// </summary>
         public static int GetQueueLength(this CloudQueue Queue)
             {
