@@ -19,10 +19,10 @@
                 @for (int j = 0; j < TableData.GetLength(1); j++)
                     {
                     <td>
-                        @if (TableData[i, j].Length > ControllerHelper.DefaultTableTextLength)
+                        @if (TableData[i, j].Length > SingularityControllerHelper.DefaultTableTextLength)
                             {
                             <span class="abbreviated" title="@Model.PropertyData">
-                                @TableData[i, j].Substring(0, ControllerHelper.DefaultTableTextLength) ...
+                                @TableData[i, j].Substring(0, SingularityControllerHelper.DefaultTableTextLength) ...
                             </span>
                             }
                         else

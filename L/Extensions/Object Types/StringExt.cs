@@ -1774,7 +1774,7 @@ namespace LCore.Extensions
             /// </summary>
             public static string RemoveChars(string Str, char[] Chars)
                 {
-                return Str.Collect(Substitute.Supply(Chars).Supply2(' ')).ReplaceAll("  ", " ").Trim();
+                return Str.CollectStr(Substitute.Supply(Chars).Supply2(' ')).ReplaceAll("  ", " ").Trim();
                 }
 
             #endregion

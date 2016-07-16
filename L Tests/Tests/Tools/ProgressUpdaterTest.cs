@@ -6,13 +6,13 @@ using FluentAssertions;
 using LCore.Extensions;
 using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace L_Tests.Tests.Tools
     {
-    [TestClass]
     public class ProgressUpdaterTest
         {
-        [TestMethod]
+        [Fact]
         [TestCategory(L.Test.Categories.Tools)]
         public void Test_ProgressUpdater()
             {

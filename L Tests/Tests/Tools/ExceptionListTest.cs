@@ -5,14 +5,15 @@ using LCore.Extensions;
 using LCore.Extensions.Optional;
 using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+
 // ReSharper disable NotResolvedInText
 
 namespace L_Tests.Tests.Tools
     {
-    [TestClass]
     public class ExceptionListTest
         {
-        [TestMethod]
+        [Fact]
         [TestCategory(L.Test.Categories.Tools)]
         public void Test_ExceptionList()
             {

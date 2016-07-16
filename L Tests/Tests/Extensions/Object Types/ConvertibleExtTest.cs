@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using FluentAssertions;
 using LCore.Tests;
+using Xunit;
 using static LCore.Extensions.L.Test.Categories;
 // ReSharper disable ExpressionIsAlwaysNull
 
@@ -12,14 +13,13 @@ using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
-    [TestClass]
     public class ConvertibleExtTest : ExtensionTester
         {
         protected override Type[] TestType => new[] { typeof(ConvertibleExt) };
 
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_ConvertTo()
             {
@@ -60,7 +60,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_ConvertTo_T()
             {
@@ -99,7 +99,7 @@ namespace L_Tests.Tests.Extensions
             new BadConverter().ConvertToString().Should().Be((string)null);
             }
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_CanConvertTo()
             {
@@ -199,7 +199,7 @@ namespace L_Tests.Tests.Extensions
             }
 
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_TryConvertTo()
             {
@@ -244,7 +244,7 @@ namespace L_Tests.Tests.Extensions
         /// <exception cref="Exception">Condition.</exception>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(Internal)]
         public void Test_Internal()
             {

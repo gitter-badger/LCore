@@ -4,11 +4,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
 using FluentAssertions;
+using Xunit;
 using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
-    [TestClass]
     public class FileExtTest : ExtensionTester
         {
         protected override Type[] TestType => new[] { typeof(FileExt) };
@@ -26,7 +26,7 @@ namespace L_Tests.Tests.Extensions
         ///             <name>path</name>
         ///         </paramref>
         ///     does not exist or could not be found.-or-The specified path is invalid (for example, it is on an unmapped drive). </exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_EnsurePathExists()
             {

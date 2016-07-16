@@ -10,7 +10,7 @@
 @{
     string ControllerTypeName = ViewContext.Controller.GetType().FullName;
 
-    List<CustomExport> Exports = CustomExport.Find(Context, Model.ModelType, ControllerTypeName).List();
+    List<CustomExport> Exports = CustomExport.Find(Context.GetModelContext(), Model.ModelType, ControllerTypeName).List();
 
     Dictionary<string, List<CustomExport>> ExportGroups = Exports.Group();
 }

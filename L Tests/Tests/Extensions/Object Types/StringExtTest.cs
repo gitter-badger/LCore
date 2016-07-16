@@ -6,19 +6,19 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using FluentAssertions;
 using LCore.Tests;
+using Xunit;
 using static LCore.Extensions.L.Test.Categories;
 
 // ReSharper disable RedundantCast
 
 namespace L_Tests.Tests.Extensions
     {
-    [TestClass]
     public class StringExtTest : ExtensionTester
         {
         protected override Type[] TestType => new[] { typeof(StringExt) };
 
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_ReplaceAll_Dictionary()
             {
@@ -45,7 +45,7 @@ namespace L_Tests.Tests.Extensions
             }
 
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_ToStream()
             {
@@ -69,7 +69,7 @@ namespace L_Tests.Tests.Extensions
             }
 
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Matches()
             {

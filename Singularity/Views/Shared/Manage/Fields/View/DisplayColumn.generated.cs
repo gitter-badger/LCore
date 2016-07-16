@@ -36,7 +36,13 @@ namespace ASP
     using LCore.Extensions;
     using Singularity;
     using Singularity.Context;
+    
+    #line 4 "..\..\Views\Shared\Manage\Fields\View\DisplayColumn.cshtml"
     using Singularity.Controllers;
+    
+    #line default
+    #line hidden
+    using Singularity.Extensions;
     using Singularity.Models;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
@@ -50,8 +56,12 @@ namespace ASP
         {
 WriteLiteral("\r\n\r\n");
 
+WriteLiteral("\r\n");
+
+WriteLiteral("\r\n");
+
             
-            #line 3 "..\..\Views\Shared\Manage\Fields\View\DisplayColumn.cshtml"
+            #line 6 "..\..\Views\Shared\Manage\Fields\View\DisplayColumn.cshtml"
   
 
 
@@ -61,8 +71,8 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("\r\n\r\n");
 
             
-            #line 9 "..\..\Views\Shared\Manage\Fields\View\DisplayColumn.cshtml"
- if (Model.PropertyData.ToString().Length > ControllerHelper.DefaultTableTextLength)
+            #line 12 "..\..\Views\Shared\Manage\Fields\View\DisplayColumn.cshtml"
+ if (Model.PropertyData.ToString().Length > SingularityControllerHelper.DefaultTableTextLength)
     {
 
             
@@ -70,14 +80,14 @@ WriteLiteral("\r\n\r\n");
             #line hidden
 WriteLiteral("    <span");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 162), Tuple.Create("\"", 200)
+WriteAttribute("title", Tuple.Create(" title=\"", 260), Tuple.Create("\"", 298)
             
-            #line 11 "..\..\Views\Shared\Manage\Fields\View\DisplayColumn.cshtml"
-, Tuple.Create(Tuple.Create("", 170), Tuple.Create<System.Object, System.Int32>(Model.PropertyData.ToString()
+            #line 14 "..\..\Views\Shared\Manage\Fields\View\DisplayColumn.cshtml"
+, Tuple.Create(Tuple.Create("", 268), Tuple.Create<System.Object, System.Int32>(Model.PropertyData.ToString()
             
             #line default
             #line hidden
-, 170), false)
+, 268), false)
 );
 
 WriteLiteral(">\r\n");
@@ -85,8 +95,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 12 "..\..\Views\Shared\Manage\Fields\View\DisplayColumn.cshtml"
-   Write(Model.PropertyData.ToString().Substring(0, ControllerHelper.DefaultTableTextLength));
+            #line 15 "..\..\Views\Shared\Manage\Fields\View\DisplayColumn.cshtml"
+   Write(Model.PropertyData.ToString().Substring(0, SingularityControllerHelper.DefaultTableTextLength));
 
             
             #line default
@@ -94,7 +104,7 @@ WriteLiteral("        ");
 WriteLiteral("\r\n    </span>\r\n");
 
             
-            #line 14 "..\..\Views\Shared\Manage\Fields\View\DisplayColumn.cshtml"
+            #line 17 "..\..\Views\Shared\Manage\Fields\View\DisplayColumn.cshtml"
     }
 else
     {
@@ -107,7 +117,7 @@ WriteLiteral("    <span>\r\n");
 WriteLiteral("        ");
 
             
-            #line 18 "..\..\Views\Shared\Manage\Fields\View\DisplayColumn.cshtml"
+            #line 21 "..\..\Views\Shared\Manage\Fields\View\DisplayColumn.cshtml"
    Write(Model.PropertyData.ToString());
 
             
@@ -116,7 +126,7 @@ WriteLiteral("        ");
 WriteLiteral("\r\n    </span>\r\n");
 
             
-            #line 20 "..\..\Views\Shared\Manage\Fields\View\DisplayColumn.cshtml"
+            #line 23 "..\..\Views\Shared\Manage\Fields\View\DisplayColumn.cshtml"
     }
             
             #line default

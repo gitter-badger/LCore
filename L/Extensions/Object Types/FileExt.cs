@@ -20,7 +20,7 @@ namespace LCore.Extensions
 
         #region ByteArrayToCharArray
         /// <summary>
-        /// Safely converts a byte<paramref name="] to a char[" />
+        /// Safely converts a byte[] to a char[]
         /// </summary>
         public static char[] ByteArrayToCharArray(byte[] In)
             {

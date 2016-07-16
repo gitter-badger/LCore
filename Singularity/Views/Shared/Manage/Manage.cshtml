@@ -31,13 +31,13 @@
 
 
     @{
-        var Controller = ViewContext.Controller as ManageController;
+        var Controller = ViewContext.Controller as IManageController;
     }
     @if (Controller != null &&
                                         Controller.OverridePermissions.Create == true)
         {
         <div>
-            <a href="@(Url.Controller<ManageController>().Action(Controller.CreateAction, Request.Url?.AbsoluteUri))"
+            <a href="@(Url.Controller<IManageController>().Action(Controller.CreateAction, Request.Url?.AbsoluteUri))"
                key-bind-click="Numpad +"
                key-bind-click-name="New @Model.FriendlyModelTypeName">
                 <glyph>&#x2a;</glyph>

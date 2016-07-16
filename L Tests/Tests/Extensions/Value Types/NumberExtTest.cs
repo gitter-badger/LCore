@@ -3,18 +3,18 @@ using LCore.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using FluentAssertions;
+using Xunit;
 using static LCore.Extensions.L.Test.Categories;
 // ReSharper disable StringLiteralTypo
 
 namespace L_Tests.Tests.Extensions
     {
-    [TestClass]
     public class NumberExtTest : ExtensionTester
         {
         protected override Type[] TestType => new[] { typeof(NumberExt) };
 
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Max()
             {
@@ -31,7 +31,7 @@ namespace L_Tests.Tests.Extensions
             "aab".Max("baa", "caff", "acl", "aegeg", "grgg", "ttt").Should().Be("ttt");
             }
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Min()
             {

@@ -1076,7 +1076,7 @@ namespace LCore.Tests
                             }
                     });
                     Str = $"Result did not match value. \nParams:\n {CollectStr}\nExpected: \'{ExpectedResult.ToS()}\'\n";
-                    Str += $"Actual: \'{(Error ?? (object)Actual).ToS().Remove("System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. --->", "System.Exception: ")}\'";
+                    Str += $"Actual: \'{(Error ?? (object)Actual ?? "").ToString().RemoveAll("System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. --->", "System.Exception: ")}\'";
                     }
                 catch
                     {

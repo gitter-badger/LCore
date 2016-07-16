@@ -37,6 +37,7 @@ namespace ASP
     using Singularity;
     using Singularity.Context;
     using Singularity.Controllers;
+    using Singularity.Extensions;
     using Singularity.Models;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
@@ -124,7 +125,7 @@ WriteLiteral("                    <td>\r\n");
             #line hidden
             
             #line 22 "..\..\Views\Shared\Manage\Fields\View\StringMatrix.cshtml"
-                         if (TableData[i, j].Length > ControllerHelper.DefaultTableTextLength)
+                         if (TableData[i, j].Length > SingularityControllerHelper.DefaultTableTextLength)
                             {
 
             
@@ -134,14 +135,14 @@ WriteLiteral("                            <span");
 
 WriteLiteral(" class=\"abbreviated\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 610), Tuple.Create("\"", 637)
+WriteAttribute("title", Tuple.Create(" title=\"", 621), Tuple.Create("\"", 648)
             
             #line 24 "..\..\Views\Shared\Manage\Fields\View\StringMatrix.cshtml"
-, Tuple.Create(Tuple.Create("", 618), Tuple.Create<System.Object, System.Int32>(Model.PropertyData
+, Tuple.Create(Tuple.Create("", 629), Tuple.Create<System.Object, System.Int32>(Model.PropertyData
             
             #line default
             #line hidden
-, 618), false)
+, 629), false)
 );
 
 WriteLiteral(">\r\n");
@@ -150,7 +151,7 @@ WriteLiteral("                                ");
 
             
             #line 25 "..\..\Views\Shared\Manage\Fields\View\StringMatrix.cshtml"
-                           Write(TableData[i, j].Substring(0, ControllerHelper.DefaultTableTextLength));
+                           Write(TableData[i, j].Substring(0, SingularityControllerHelper.DefaultTableTextLength));
 
             
             #line default
@@ -227,14 +228,14 @@ WriteLiteral("\r\n            </tr>\r\n");
             #line hidden
 WriteLiteral("            <tr>\r\n                <td");
 
-WriteAttribute("colspan", Tuple.Create(" colspan=\"", 1289), Tuple.Create("\"", 1322)
+WriteAttribute("colspan", Tuple.Create(" colspan=\"", 1311), Tuple.Create("\"", 1344)
             
             #line 48 "..\..\Views\Shared\Manage\Fields\View\StringMatrix.cshtml"
-, Tuple.Create(Tuple.Create("", 1299), Tuple.Create<System.Object, System.Int32>(TableData.GetLength(1)
+, Tuple.Create(Tuple.Create("", 1321), Tuple.Create<System.Object, System.Int32>(TableData.GetLength(1)
             
             #line default
             #line hidden
-, 1299), false)
+, 1321), false)
 );
 
 WriteLiteral(">\r\n                    &nbsp;\r\n                </td>\r\n            </tr>\r\n");

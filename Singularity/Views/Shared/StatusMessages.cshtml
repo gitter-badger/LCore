@@ -5,10 +5,10 @@
     List<string> Information = ViewContext.Controller.GetStatusMessages_Information() ?? new List<string>();
 }
 
-@if (TempData.Peek(ControllerHelper.StatusMessage_Temporary) != null)
+@if (TempData.Peek(SingularityControllerHelper.StatusMessage_Temporary) != null)
     {
-    string Message = (string)TempData[ControllerHelper.StatusMessage_Temporary];
-    string Icon = (string)(TempData[ControllerHelper.StatusMessage_TemporaryIcon] ?? "");
+    string Message = (string)TempData[SingularityControllerHelper.StatusMessage_Temporary];
+    string Icon = (string)(TempData[SingularityControllerHelper.StatusMessage_TemporaryIcon] ?? "");
 
     <div class="status-message close-dialog">
         @if (!string.IsNullOrEmpty(Icon))

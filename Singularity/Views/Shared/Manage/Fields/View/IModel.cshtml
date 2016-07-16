@@ -10,13 +10,13 @@
 @model IViewField
 
 @if (Model.PropertyData != null && 
-    Model.PropertyData.ToString().Length > ControllerHelper.DefaultTableTextLength)
+    Model.PropertyData.ToString().Length > SingularityControllerHelper.DefaultTableTextLength)
     {
     <a class="btn btn-default"
        title="@Model.PropertyData.ToString()"
        href="@Model.Route_FieldRelation(ViewBag.ControllerName)">
         <span>
-            @Model.PropertyData.ToString().Substring(0, ControllerHelper.DefaultTableTextLength)
+            @Model.PropertyData.ToString().Substring(0, SingularityControllerHelper.DefaultTableTextLength)
         </span>
     </a>
     }

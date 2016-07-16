@@ -7,11 +7,11 @@
 @model IViewField
 
 @if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell) &&
-    Model.PropertyData.ToString().Length > ControllerHelper.DefaultTableTextLength)
+    Model.PropertyData.ToString().Length > SingularityControllerHelper.DefaultTableTextLength)
     {
     <a href="mailto:@Model.PropertyData">
         <span class="abbreviated" title="@Model.PropertyData">
-            @Model.PropertyData.ToString().Substring(0, ControllerHelper.DefaultTableTextLength) ...
+            @Model.PropertyData.ToString().Substring(0, SingularityControllerHelper.DefaultTableTextLength) ...
         </span>
     </a>
     }

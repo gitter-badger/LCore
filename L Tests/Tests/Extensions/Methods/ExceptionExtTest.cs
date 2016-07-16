@@ -4,20 +4,20 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using FluentAssertions;
 using LCore.Tests;
+using Xunit;
 using static LCore.Extensions.L.Test.Categories;
 
 // ReSharper disable ConvertToLambdaExpression
 
 namespace L_Tests.Tests.Extensions
     {
-    [TestClass]
     public class ExceptionExtTest : ExtensionTester
         {
         private static readonly string _TestString = Guid.NewGuid().ToString();
 
         protected override Type[] TestType => new[] { typeof(ExceptionExt) };
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Try_Action_0()
             {
@@ -34,7 +34,7 @@ namespace L_Tests.Tests.Extensions
             // Result was false
             Result2.Should().BeFalse();
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Try_Action_1()
             {
@@ -59,7 +59,7 @@ namespace L_Tests.Tests.Extensions
             // Result was false
             Result2.Should().BeFalse();
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Try_Action_2()
             {
@@ -86,7 +86,7 @@ namespace L_Tests.Tests.Extensions
             // Result was false
             Result2.Should().BeFalse();
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Try_Action_3()
             {
@@ -115,7 +115,7 @@ namespace L_Tests.Tests.Extensions
             // Result was false
             Result2.Should().BeFalse();
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Try_Action_4()
             {
@@ -147,7 +147,7 @@ namespace L_Tests.Tests.Extensions
             Result2.Should().BeFalse();
             }
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Try_Func_0()
             {
@@ -164,7 +164,7 @@ namespace L_Tests.Tests.Extensions
             // Result was false
             Result2.Should().Be(default(int));
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Try_Func_1()
             {
@@ -190,7 +190,7 @@ namespace L_Tests.Tests.Extensions
             // Result was false
             Result2.Should().Be(default(int));
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Try_Func_2()
             {
@@ -218,7 +218,7 @@ namespace L_Tests.Tests.Extensions
             // Result was false
             Result2.Should().Be(default(int));
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Try_Func_3()
             {
@@ -248,7 +248,7 @@ namespace L_Tests.Tests.Extensions
             // Result was false
             Result2.Should().Be(default(int));
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Try_Func_4()
             {
@@ -284,7 +284,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Retry_0()
             {
@@ -308,7 +308,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Retry_Action_1()
             {
@@ -334,7 +334,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Retry_Action_2()
             {
@@ -361,7 +361,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Retry_Action_3()
             {
@@ -389,7 +389,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Retry_Action_4()
             {
@@ -420,7 +420,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Retry_Func_0()
             {
@@ -446,7 +446,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Retry_Func_1()
             {
@@ -474,7 +474,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Retry_Func_2()
             {
@@ -503,7 +503,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Retry_Func_3()
             {
@@ -533,7 +533,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Retry_Func_4()
             {
@@ -566,7 +566,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Action_0()
             {
@@ -596,7 +596,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Action_1()
             {
@@ -628,7 +628,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Action_2()
             {
@@ -662,7 +662,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Action_3()
             {
@@ -698,7 +698,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Action_4()
             {
@@ -737,7 +737,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Func_0()
             {
@@ -768,7 +768,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Func_1()
             {
@@ -801,7 +801,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Func_2()
             {
@@ -836,7 +836,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Func_3()
             {
@@ -873,7 +873,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_Exception_Func_4()
             {
@@ -911,7 +911,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Action_0()
             {
@@ -946,7 +946,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Action_1()
             {
@@ -984,7 +984,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Action_2()
             {
@@ -1024,7 +1024,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Action_3()
             {
@@ -1066,7 +1066,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Action_4()
             {
@@ -1110,7 +1110,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_0()
             {
@@ -1146,7 +1146,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_1()
             {
@@ -1186,7 +1186,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_2()
             {
@@ -1228,7 +1228,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_3()
             {
@@ -1272,7 +1272,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_4()
             {
@@ -1319,7 +1319,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_Func_0()
             {
@@ -1356,7 +1356,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_Func_1()
             {
@@ -1397,7 +1397,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_Func_2()
             {
@@ -1440,7 +1440,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_Func_3()
             {
@@ -1485,7 +1485,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_EType_Func_Func_4()
             {
@@ -1533,7 +1533,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Action_0()
             {
@@ -1552,7 +1552,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Action_1()
             {
@@ -1573,7 +1573,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Action_2()
             {
@@ -1596,7 +1596,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Action_3()
             {
@@ -1621,7 +1621,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Action_4()
             {
@@ -1649,7 +1649,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Func_0()
             {
@@ -1669,7 +1669,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Func_1()
             {
@@ -1691,7 +1691,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Func_2()
             {
@@ -1716,7 +1716,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Func_3()
             {
@@ -1742,7 +1742,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Catch_NoArgs_Func_4()
             {
@@ -1772,7 +1772,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Fail_Action()
             {
@@ -1783,7 +1783,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Fail_Action_1()
             {
@@ -1797,7 +1797,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Fail_Action_2()
             {
@@ -1812,7 +1812,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Fail_Action_3()
             {
@@ -1828,7 +1828,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Fail_Action_4()
             {
@@ -1846,7 +1846,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Fail_Func()
             {
@@ -1860,7 +1860,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Fail_Func_1()
             {
@@ -1875,7 +1875,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Fail_Func_2()
             {
@@ -1891,7 +1891,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Fail_Func_3()
             {
@@ -1908,7 +1908,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Fail_Func_4()
             {
@@ -1926,7 +1926,7 @@ namespace L_Tests.Tests.Extensions
             }
 
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Report_Action_0()
             {
@@ -1949,7 +1949,7 @@ namespace L_Tests.Tests.Extensions
 
             Act.Report($"{_TestString}c", new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler2)();
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Report_Action_1()
             {
@@ -1972,7 +1972,7 @@ namespace L_Tests.Tests.Extensions
 
             Act.Report($"{_TestString}c", new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler2)(_TestString);
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Report_Action_2()
             {
@@ -1996,7 +1996,7 @@ namespace L_Tests.Tests.Extensions
 
             Act.Report($"{_TestString}c", new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler2)(_TestString, _TestString);
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Report_Action_3()
             {
@@ -2021,7 +2021,7 @@ namespace L_Tests.Tests.Extensions
 
             Act.Report($"{_TestString}c", new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler2)(_TestString, _TestString, _TestString);
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Report_Action_4()
             {
@@ -2049,7 +2049,7 @@ namespace L_Tests.Tests.Extensions
             }
 
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Report_Func_0()
             {
@@ -2072,7 +2072,7 @@ namespace L_Tests.Tests.Extensions
 
             Act.Report($"{_TestString}c", new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler2)();
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Report_Func_1()
             {
@@ -2096,7 +2096,7 @@ namespace L_Tests.Tests.Extensions
 
             Act.Report($"{_TestString}c", new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler2)(_TestString);
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Report_Func_2()
             {
@@ -2121,7 +2121,7 @@ namespace L_Tests.Tests.Extensions
 
             Act.Report($"{_TestString}c", new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler2)(_TestString, _TestString);
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Report_Func_3()
             {
@@ -2147,7 +2147,7 @@ namespace L_Tests.Tests.Extensions
 
             Act.Report($"{_TestString}c", new ArgumentException($"{_TestString}a", $"{_TestString}b")).Catch(Handler2)(_TestString, _TestString, _TestString);
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Report_Func_4()
             {
@@ -2177,7 +2177,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Throw_0()
             {
@@ -2202,7 +2202,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Throw_1()
             {
@@ -2227,7 +2227,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Throw_2()
             {
@@ -2253,7 +2253,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Throw_3()
             {
@@ -2280,7 +2280,7 @@ namespace L_Tests.Tests.Extensions
             }
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Throw_4()
             {
@@ -2308,7 +2308,7 @@ namespace L_Tests.Tests.Extensions
             }
 
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Handle_0()
             {
@@ -2339,7 +2339,7 @@ namespace L_Tests.Tests.Extensions
                 L.Exc.DefaultExceptionHandler = Temp;
                 }
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Handle_1()
             {
@@ -2372,7 +2372,7 @@ namespace L_Tests.Tests.Extensions
                 L.Exc.DefaultExceptionHandler = Temp;
                 }
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Handle_2()
             {
@@ -2407,7 +2407,7 @@ namespace L_Tests.Tests.Extensions
                 L.Exc.DefaultExceptionHandler = Temp;
                 }
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Handle_3()
             {
@@ -2444,7 +2444,7 @@ namespace L_Tests.Tests.Extensions
                 L.Exc.DefaultExceptionHandler = Temp;
                 }
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Handle_4()
             {
@@ -2485,7 +2485,7 @@ namespace L_Tests.Tests.Extensions
             }
 
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Debug_1()
             {
@@ -2512,7 +2512,7 @@ namespace L_Tests.Tests.Extensions
             Good_Act.Return($"{_TestString}a").Debug().Catch(Handler)(_TestString).Should().Be($"{_TestString}a");
             Bad_Act.Return($"{_TestString}a").Debug().Catch(Handler)(_TestString).Should().Be(default(string));
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Debug_2()
             {
@@ -2541,7 +2541,7 @@ namespace L_Tests.Tests.Extensions
             Good_Act.Return($"{_TestString}a").Debug().Catch(Handler)(_TestString, _TestString).Should().Be($"{_TestString}a");
             Bad_Act.Return($"{_TestString}a").Debug().Catch(Handler)(_TestString, _TestString).Should().Be(default(string));
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Debug_3()
             {
@@ -2572,7 +2572,7 @@ namespace L_Tests.Tests.Extensions
             Good_Act.Return($"{_TestString}a").Debug().Catch(Handler)(_TestString, _TestString, _TestString).Should().Be($"{_TestString}a");
             Bad_Act.Return($"{_TestString}a").Debug().Catch(Handler)(_TestString, _TestString, _TestString).Should().Be(default(string));
             }
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Debug_4()
             {

@@ -3,17 +3,17 @@ using System;
 using System.Collections.Generic;
 using FluentAssertions;
 using LCore.Extensions;
+using Xunit;
 using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
-    [TestClass]
     public class LoopExtTest : ExtensionTester
         {
         protected override Type[] TestType => new[] { typeof(LoopExt) };
 
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_To_0()
             {
@@ -55,7 +55,7 @@ namespace L_Tests.Tests.Extensions
             Result2.ShouldAllBeEquivalentTo(new List<int> { 1, 2 });
             }
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_To_1()
             {

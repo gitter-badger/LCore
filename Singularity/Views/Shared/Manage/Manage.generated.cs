@@ -148,7 +148,7 @@ WriteLiteral(" remember-page>\r\n\r\n\r\n");
             
             #line 33 "..\..\Views\Shared\Manage\Manage.cshtml"
       
-        var Controller = ViewContext.Controller as ManageController;
+        var Controller = ViewContext.Controller as IManageController;
     
             
             #line default
@@ -172,27 +172,27 @@ WriteLiteral("\r\n");
             #line hidden
 WriteLiteral("        <div>\r\n            <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 952), Tuple.Create("\"", 1054)
+WriteAttribute("href", Tuple.Create(" href=\"", 953), Tuple.Create("\"", 1056)
             
             #line 40 "..\..\Views\Shared\Manage\Manage.cshtml"
-, Tuple.Create(Tuple.Create("", 959), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(Controller.CreateAction, Request.Url?.AbsoluteUri)
+, Tuple.Create(Tuple.Create("", 960), Tuple.Create<System.Object, System.Int32>(Url.Controller<IManageController>().Action(Controller.CreateAction, Request.Url?.AbsoluteUri)
             
             #line default
             #line hidden
-, 959), false)
+, 960), false)
 );
 
 WriteLiteral("\r\n               key-bind-click=\"Numpad +\"");
 
-WriteAttribute("key-bind-click-name", Tuple.Create("\r\n               key-bind-click-name=\"", 1097), Tuple.Create("\"", 1167)
-, Tuple.Create(Tuple.Create("", 1135), Tuple.Create("New", 1135), true)
+WriteAttribute("key-bind-click-name", Tuple.Create("\r\n               key-bind-click-name=\"", 1099), Tuple.Create("\"", 1169)
+, Tuple.Create(Tuple.Create("", 1137), Tuple.Create("New", 1137), true)
             
             #line 42 "..\..\Views\Shared\Manage\Manage.cshtml"
-, Tuple.Create(Tuple.Create(" ", 1138), Tuple.Create<System.Object, System.Int32>(Model.FriendlyModelTypeName
+, Tuple.Create(Tuple.Create(" ", 1140), Tuple.Create<System.Object, System.Int32>(Model.FriendlyModelTypeName
             
             #line default
             #line hidden
-, 1139), false)
+, 1141), false)
 );
 
 WriteLiteral(">\r\n                <glyph>&#x2a;</glyph>\r\n");
@@ -312,14 +312,14 @@ WriteLiteral("\r\n\r\n        <tbody>\r\n");
             #line hidden
 WriteLiteral("                    <tr>\r\n                        <td");
 
-WriteAttribute("colspan", Tuple.Create(" colspan=\"", 1945), Tuple.Create("\"", 1993)
+WriteAttribute("colspan", Tuple.Create(" colspan=\"", 1947), Tuple.Create("\"", 1995)
             
             #line 69 "..\..\Views\Shared\Manage\Manage.cshtml"
-, Tuple.Create(Tuple.Create("", 1955), Tuple.Create<System.Object, System.Int32>(Model.GetVisibleColumns().Count + 3
+, Tuple.Create(Tuple.Create("", 1957), Tuple.Create<System.Object, System.Int32>(Model.GetVisibleColumns().Count + 3
             
             #line default
             #line hidden
-, 1955), false)
+, 1957), false)
 );
 
 WriteLiteral(" class=\"no-results center\"");
@@ -427,16 +427,16 @@ WriteLiteral(" class=\"show-hide-inactive\"");
 
 WriteLiteral(">\r\n            <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 3412), Tuple.Create("\"", 3694)
+WriteAttribute("href", Tuple.Create(" href=\"", 3414), Tuple.Create("\"", 3696)
             
             #line 105 "..\..\Views\Shared\Manage\Manage.cshtml"
-, Tuple.Create(Tuple.Create("", 3419), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
+, Tuple.Create(Tuple.Create("", 3421), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
                 .QS(Controllers.Manage.Actions.Route_ToggleInactive(Model))
                 .Lambda<int, string, SortDirection, string, string, ControllerHelper.ManageViewType, string, bool>(ManageController => ManageController.Manage)
             
             #line default
             #line hidden
-, 3419), false)
+, 3421), false)
 );
 
 WriteLiteral(">\r\n");
@@ -499,16 +499,16 @@ WriteLiteral(" class=\"show-hide-archive\"");
 
 WriteLiteral(">\r\n            <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 4294), Tuple.Create("\"", 4575)
+WriteAttribute("href", Tuple.Create(" href=\"", 4296), Tuple.Create("\"", 4577)
             
             #line 123 "..\..\Views\Shared\Manage\Manage.cshtml"
-, Tuple.Create(Tuple.Create("", 4301), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
+, Tuple.Create(Tuple.Create("", 4303), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
                 .QS(Controllers.Manage.Actions.Route_ToggleArchive(Model))
                 .Lambda<int, string, SortDirection, string, string, ControllerHelper.ManageViewType, string, bool>(ManageController => ManageController.Manage)
             
             #line default
             #line hidden
-, 4301), false)
+, 4303), false)
 );
 
 WriteLiteral(">\r\n");

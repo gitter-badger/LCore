@@ -6,7 +6,6 @@
 
 @model IViewField
 
-
 <table class="string-multiarray">
     @for (int Index1 = 0; Index1 < TableData.Length; Index1++)
         {
@@ -19,10 +18,10 @@
                 @for (int Index2 = 0; Index2 < TableData[Index1].Length; Index2++)
                     {
                     <td>
-                        @if (TableData[Index1][Index2].Length > ControllerHelper.DefaultTableTextLength)
+                        @if (TableData[Index1][Index2].Length > SingularityControllerHelper.DefaultTableTextLength)
                             {
                             <span class="abbreviated" title="@Model.PropertyData">
-                                @TableData[Index1][Index2].Substring(0, ControllerHelper.DefaultTableTextLength) ...
+                                @TableData[Index1][Index2].Substring(0, SingularityControllerHelper.DefaultTableTextLength) ...
                             </span>
                             }
                         else

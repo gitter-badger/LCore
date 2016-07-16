@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using FluentAssertions;
 using LCore.Tools;
+using Xunit;
 using static LCore.Extensions.L.Test.Categories;
 // ReSharper disable ReturnValueOfPureMethodIsNotUsed
 
@@ -14,13 +15,11 @@ using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
-
-    [TestClass]
     public class CommentExtTest : ExtensionTester
         {
         protected override Type[] TestType => new[] { typeof(CommentExt) };
         
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_GetComments()
             {

@@ -61,20 +61,20 @@ WriteLiteral("\r\n\r\n");
             #line hidden
 WriteLiteral("\r\n\r\n");
 
-WriteLiteral("\r\n<table");
+WriteLiteral("<table");
 
 WriteLiteral(" class=\"string-multiarray\"");
 
 WriteLiteral(">\r\n");
 
             
-            #line 11 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
+            #line 10 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 11 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
+            #line 10 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
      for (int Index1 = 0; Index1 < TableData.Length; Index1++)
         {
         if (Index1 == 0)
@@ -84,14 +84,14 @@ WriteLiteral(">\r\n");
             #line default
             #line hidden
             
-            #line 15 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
+            #line 14 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
        Write(Html.Raw("<thead>"));
 
             
             #line default
             #line hidden
             
-            #line 15 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
+            #line 14 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
                                 
             }
 
@@ -102,13 +102,13 @@ WriteLiteral(">\r\n");
 WriteLiteral("            <tr>\r\n");
 
             
-            #line 19 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
+            #line 18 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
                 
             
             #line default
             #line hidden
             
-            #line 19 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
+            #line 18 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
                  for (int Index2 = 0; Index2 < TableData[Index1].Length; Index2++)
                     {
 
@@ -118,14 +118,14 @@ WriteLiteral("            <tr>\r\n");
 WriteLiteral("                    <td>\r\n");
 
             
-            #line 22 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
+            #line 21 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
                         
             
             #line default
             #line hidden
             
-            #line 22 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
-                         if (TableData[Index1][Index2].Length > ControllerHelper.DefaultTableTextLength)
+            #line 21 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
+                         if (TableData[Index1][Index2].Length > SingularityControllerHelper.DefaultTableTextLength)
                             {
 
             
@@ -135,14 +135,14 @@ WriteLiteral("                            <span");
 
 WriteLiteral(" class=\"abbreviated\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 656), Tuple.Create("\"", 683)
+WriteAttribute("title", Tuple.Create(" title=\"", 665), Tuple.Create("\"", 692)
             
-            #line 24 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
-, Tuple.Create(Tuple.Create("", 664), Tuple.Create<System.Object, System.Int32>(Model.PropertyData
+            #line 23 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
+, Tuple.Create(Tuple.Create("", 673), Tuple.Create<System.Object, System.Int32>(Model.PropertyData
             
             #line default
             #line hidden
-, 664), false)
+, 673), false)
 );
 
 WriteLiteral(">\r\n");
@@ -150,8 +150,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                ");
 
             
-            #line 25 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
-                           Write(TableData[Index1][Index2].Substring(0, ControllerHelper.DefaultTableTextLength));
+            #line 24 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
+                           Write(TableData[Index1][Index2].Substring(0, SingularityControllerHelper.DefaultTableTextLength));
 
             
             #line default
@@ -159,7 +159,7 @@ WriteLiteral("                                ");
 WriteLiteral(" ...\r\n                            </span>\r\n");
 
             
-            #line 27 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
+            #line 26 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
                             }
                         else
                             {
@@ -172,7 +172,7 @@ WriteLiteral("                            <span>\r\n");
 WriteLiteral("                                ");
 
             
-            #line 31 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
+            #line 30 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
                            Write(TableData[Index1][Index2]);
 
             
@@ -181,7 +181,7 @@ WriteLiteral("                                ");
 WriteLiteral("\r\n                            </span>\r\n");
 
             
-            #line 33 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
+            #line 32 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
                             }
 
             
@@ -190,7 +190,7 @@ WriteLiteral("\r\n                            </span>\r\n");
 WriteLiteral("                    </td>\r\n");
 
             
-            #line 35 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
+            #line 34 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
                     }
 
             
@@ -199,7 +199,7 @@ WriteLiteral("                    </td>\r\n");
 WriteLiteral("\r\n            </tr>\r\n");
 
             
-            #line 38 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
+            #line 37 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
 
         if (Index1 == 0)
             {
@@ -208,14 +208,14 @@ WriteLiteral("\r\n            </tr>\r\n");
             #line default
             #line hidden
             
-            #line 41 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
+            #line 40 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
        Write(Html.Raw("</thead>"));
 
             
             #line default
             #line hidden
             
-            #line 41 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
+            #line 40 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
                                  
             }
 
@@ -227,20 +227,20 @@ WriteLiteral("\r\n            </tr>\r\n");
             #line hidden
 WriteLiteral("            <tr>\r\n                <td");
 
-WriteAttribute("colspan", Tuple.Create(" colspan=\"", 1352), Tuple.Create("\"", 1387)
+WriteAttribute("colspan", Tuple.Create(" colspan=\"", 1372), Tuple.Create("\"", 1407)
             
-            #line 47 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
-, Tuple.Create(Tuple.Create("", 1362), Tuple.Create<System.Object, System.Int32>(TableData[Index1].Length
+            #line 46 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
+, Tuple.Create(Tuple.Create("", 1382), Tuple.Create<System.Object, System.Int32>(TableData[Index1].Length
             
             #line default
             #line hidden
-, 1362), false)
+, 1382), false)
 );
 
 WriteLiteral(">\r\n                    &nbsp;\r\n                </td>\r\n            </tr>\r\n");
 
             
-            #line 51 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
+            #line 50 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
             }
 
         }

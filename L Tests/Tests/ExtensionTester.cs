@@ -5,6 +5,8 @@ using System.Diagnostics;
 using FluentAssertions;
 using LCore.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+
 // ReSharper disable ConvertToConstant.Global
 
 // ReSharper disable VirtualMemberNeverOverriden.Global
@@ -30,8 +32,8 @@ namespace L_Tests
         /// <summary>
         /// Run all Attribute tests on the Type.
         /// </summary>
-        [TestMethod]
         [TestCategory(L.Test.Categories.AttributeTests)]
+        [Fact]
         public virtual void AttributeTests()
             {
             foreach (var Test in this.TestType)

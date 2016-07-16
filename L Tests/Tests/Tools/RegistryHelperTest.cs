@@ -9,12 +9,13 @@ using LCore.Tests;
 using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Win32;
+using Xunit;
+
 // ReSharper disable ObjectCreationAsStatement
 // ReSharper disable RedundantCast
 
 namespace L_Tests.Tests.Tools
     {
-    [TestClass]
     public class RegistryHelperTest
         {
         /// <exception cref="ArgumentException">
@@ -33,7 +34,7 @@ namespace L_Tests.Tests.Tools
         /// <exception cref="InvalidCastException">Count registry value is not properly set</exception>
         /// <exception cref="OverflowException">Count registry value is not properly set</exception>
         /// <exception cref="ObjectDisposedException">The <see cref="T:Microsoft.Win32.RegistryKey" /> that contains the specified value is closed (closed keys cannot be accessed). </exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(L.Test.Categories.Tools)]
         public void Test_RegistryHandler()
             {

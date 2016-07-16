@@ -6,6 +6,7 @@ using FluentAssertions;
 using LCore.Extensions;
 using LCore.Extensions.Optional;
 using LCore.Tests;
+using Xunit;
 using ObjectExt = LCore.Extensions.ObjectExt;
 using static LCore.Extensions.L.Test.Categories;
 // ReSharper disable MemberCanBePrivate.Local
@@ -17,14 +18,13 @@ using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
-    [TestClass]
     public class ObjectExtTest : ExtensionTester
         {
         protected override Type[] TestType => new[] { typeof(ObjectExt), typeof(LCore.Extensions.Optional.ObjectExt) };
 
         #region LCore.Extensions.ObjectExt
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_HasProperty()
             {
@@ -40,7 +40,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_GetProperty()
             {
@@ -56,7 +56,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_SetProperty()
             {
@@ -74,7 +74,7 @@ namespace L_Tests.Tests.Extensions
 
         #region LCore.Extensions.Optional.ObjectExt
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_CopyFieldsTo_0()
             {
@@ -169,7 +169,7 @@ namespace L_Tests.Tests.Extensions
             Test8.C.Should().Be(-3);
             }
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_CopyFieldsTo_1()
             {
@@ -255,7 +255,7 @@ namespace L_Tests.Tests.Extensions
         /// <exception cref="MethodAccessException">Throws an exception if the a property setter throws an exception.</exception>
         /// <exception cref="TargetInvocationException">Throws an exception if the a property setter throws an exception.</exception>
         /// <exception cref="FieldAccessException">Throws an exception if the field cannot be accessed.</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_InitProperties()
             {
@@ -283,7 +283,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_FN_CreateArray()
             {
@@ -311,7 +311,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_FN_CreateList()
             {
@@ -337,7 +337,7 @@ namespace L_Tests.Tests.Extensions
 
             }
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Details()
             {
@@ -366,7 +366,7 @@ namespace L_Tests.Tests.Extensions
                     "L_Tests.Tests.Extensions.ObjectExtTest+TestClassError {\r\nA: 1\r\nB: 2\r\nC: Exception has been thrown by the target of an invocation.\r\nD: 5\r\nE: 7\r\n}");
             }
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_FN_If()
             {
@@ -392,7 +392,7 @@ namespace L_Tests.Tests.Extensions
             }
 
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_FN_Func()
             {
@@ -406,7 +406,7 @@ namespace L_Tests.Tests.Extensions
                 .And.NotBeNull();
             }
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_SafeEquals()
             {
@@ -419,7 +419,7 @@ namespace L_Tests.Tests.Extensions
             ((string)null).SafeEquals(null).Should().BeTrue();
             }
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_ToS()
             {
@@ -435,7 +435,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Traverse()
             {
@@ -532,7 +532,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_SupplyTo_Action()
             {
@@ -563,7 +563,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_SupplyTo_Func()
             {

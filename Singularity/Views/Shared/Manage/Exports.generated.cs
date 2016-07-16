@@ -76,7 +76,7 @@ WriteLiteral("\r\n");
   
     string ControllerTypeName = ViewContext.Controller.GetType().FullName;
 
-    List<CustomExport> Exports = CustomExport.Find(Context, Model.ModelType, ControllerTypeName).List();
+    List<CustomExport> Exports = CustomExport.Find(Context.GetModelContext(), Model.ModelType, ControllerTypeName).List();
 
     Dictionary<string, List<CustomExport>> ExportGroups = Exports.Group();
 
@@ -179,14 +179,14 @@ WriteLiteral("                        ");
             #line hidden
 WriteLiteral("\r\n                        <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 1872), Tuple.Create("\"", 2023)
+WriteAttribute("href", Tuple.Create(" href=\"", 1890), Tuple.Create("\"", 2041)
             
             #line 50 "..\..\Views\Shared\Manage\Exports.cshtml"
-, Tuple.Create(Tuple.Create("", 1879), Tuple.Create<System.Object, System.Int32>(Url.Controller<CustomExportController>().Action(Controller => Controller.Edit, DefaultExport.CustomExportID, Request.Url?.AbsoluteUri, false)
+, Tuple.Create(Tuple.Create("", 1897), Tuple.Create<System.Object, System.Int32>(Url.Controller<CustomExportController>().Action(Controller => Controller.Edit, DefaultExport.CustomExportID, Request.Url?.AbsoluteUri, false)
             
             #line default
             #line hidden
-, 1879), false)
+, 1897), false)
 );
 
 WriteLiteral(">\r\n                            <div");
@@ -226,10 +226,10 @@ WriteLiteral("                        ");
             #line hidden
 WriteLiteral("\r\n                        <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2652), Tuple.Create("\"", 3116)
+WriteAttribute("href", Tuple.Create(" href=\"", 2670), Tuple.Create("\"", 3134)
             
             #line 64 "..\..\Views\Shared\Manage\Exports.cshtml"
-, Tuple.Create(Tuple.Create("", 2659), Tuple.Create<System.Object, System.Int32>(Url.Controller<CustomExportController>().QS(new Dictionary<string, object> {
+, Tuple.Create(Tuple.Create("", 2677), Tuple.Create<System.Object, System.Int32>(Url.Controller<CustomExportController>().QS(new Dictionary<string, object> {
                                 {"ExportType", Model.ModelType.FullName},
                                 {"Name", CustomExport.DefaultName},
                                 {"ManagementPage", ViewContext.GetManageController().GetType().FullName}
@@ -238,7 +238,7 @@ WriteAttribute("href", Tuple.Create(" href=\"", 2652), Tuple.Create("\"", 3116)
             
             #line default
             #line hidden
-, 2659), false)
+, 2677), false)
 );
 
 WriteLiteral(">\r\n                            <div");
@@ -264,43 +264,43 @@ WriteLiteral("                        <span");
 
 WriteLiteral(" class=\"btn-info btn right method-show-hide relative\"");
 
-WriteAttribute("click-fade-toggle", Tuple.Create(" click-fade-toggle=\"", 3646), Tuple.Create("\"", 3708)
-, Tuple.Create(Tuple.Create("", 3666), Tuple.Create(".manage-export-group-", 3666), true)
+WriteAttribute("click-fade-toggle", Tuple.Create(" click-fade-toggle=\"", 3664), Tuple.Create("\"", 3726)
+, Tuple.Create(Tuple.Create("", 3684), Tuple.Create(".manage-export-group-", 3684), true)
             
             #line 81 "..\..\Views\Shared\Manage\Exports.cshtml"
-                                           , Tuple.Create(Tuple.Create("", 3687), Tuple.Create<System.Object, System.Int32>(Group.RemoveAll(" ")
+                                           , Tuple.Create(Tuple.Create("", 3705), Tuple.Create<System.Object, System.Int32>(Group.RemoveAll(" ")
             
             #line default
             #line hidden
-, 3687), false)
+, 3705), false)
 );
 
 WriteLiteral(">\r\n                            <glyph");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 3746), Tuple.Create("\"", 3804)
-, Tuple.Create(Tuple.Create("", 3754), Tuple.Create("manage-export-group-", 3754), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 3764), Tuple.Create("\"", 3822)
+, Tuple.Create(Tuple.Create("", 3772), Tuple.Create("manage-export-group-", 3772), true)
             
             #line 82 "..\..\Views\Shared\Manage\Exports.cshtml"
-, Tuple.Create(Tuple.Create("", 3774), Tuple.Create<System.Object, System.Int32>(Group.RemoveAll(" ")
+, Tuple.Create(Tuple.Create("", 3792), Tuple.Create<System.Object, System.Int32>(Group.RemoveAll(" ")
             
             #line default
             #line hidden
-, 3774), false)
-, Tuple.Create(Tuple.Create(" ", 3795), Tuple.Create("absolute", 3796), true)
+, 3792), false)
+, Tuple.Create(Tuple.Create(" ", 3813), Tuple.Create("absolute", 3814), true)
 );
 
 WriteLiteral(">&#x2b;</glyph>\r\n                            <glyph");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 3856), Tuple.Create("\"", 3914)
-, Tuple.Create(Tuple.Create("", 3864), Tuple.Create("manage-export-group-", 3864), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 3874), Tuple.Create("\"", 3932)
+, Tuple.Create(Tuple.Create("", 3882), Tuple.Create("manage-export-group-", 3882), true)
             
             #line 83 "..\..\Views\Shared\Manage\Exports.cshtml"
-, Tuple.Create(Tuple.Create("", 3884), Tuple.Create<System.Object, System.Int32>(Group.RemoveAll(" ")
+, Tuple.Create(Tuple.Create("", 3902), Tuple.Create<System.Object, System.Int32>(Group.RemoveAll(" ")
             
             #line default
             #line hidden
-, 3884), false)
-, Tuple.Create(Tuple.Create(" ", 3905), Tuple.Create("absolute", 3906), true)
+, 3902), false)
+, Tuple.Create(Tuple.Create(" ", 3923), Tuple.Create("absolute", 3924), true)
 );
 
 WriteLiteral(" style=\" display: none;\"");
@@ -337,25 +337,25 @@ WriteLiteral("\r\n                        </h3>\r\n");
             #line hidden
 WriteLiteral("                    <div");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 4143), Tuple.Create("\"", 4192)
-, Tuple.Create(Tuple.Create("", 4151), Tuple.Create("manage-export-group-", 4151), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 4161), Tuple.Create("\"", 4210)
+, Tuple.Create(Tuple.Create("", 4169), Tuple.Create("manage-export-group-", 4169), true)
             
             #line 91 "..\..\Views\Shared\Manage\Exports.cshtml"
-, Tuple.Create(Tuple.Create("", 4171), Tuple.Create<System.Object, System.Int32>(Group.RemoveAll(" ")
+, Tuple.Create(Tuple.Create("", 4189), Tuple.Create<System.Object, System.Int32>(Group.RemoveAll(" ")
             
             #line default
             #line hidden
-, 4171), false)
+, 4189), false)
 );
 
-WriteAttribute("style", Tuple.Create(" style=\"", 4193), Tuple.Create("\"", 4234)
+WriteAttribute("style", Tuple.Create(" style=\"", 4211), Tuple.Create("\"", 4252)
             
             #line 91 "..\..\Views\Shared\Manage\Exports.cshtml"
-   , Tuple.Create(Tuple.Create("", 4201), Tuple.Create<System.Object, System.Int32>(IsGroup ? "display:none;" : ""
+   , Tuple.Create(Tuple.Create("", 4219), Tuple.Create<System.Object, System.Int32>(IsGroup ? "display:none;" : ""
             
             #line default
             #line hidden
-, 4201), false)
+, 4219), false)
 );
 
 WriteLiteral(">\r\n");
@@ -395,14 +395,14 @@ WriteLiteral("                                ");
             #line hidden
 WriteLiteral("\r\n                                <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 4745), Tuple.Create("\"", 4889)
+WriteAttribute("href", Tuple.Create(" href=\"", 4763), Tuple.Create("\"", 4907)
             
             #line 99 "..\..\Views\Shared\Manage\Exports.cshtml"
-, Tuple.Create(Tuple.Create("", 4752), Tuple.Create<System.Object, System.Int32>(Url.Controller<CustomExportController>().Action(Controller => Controller.Edit, Export.CustomExportID, Request.Url?.AbsoluteUri, false)
+, Tuple.Create(Tuple.Create("", 4770), Tuple.Create<System.Object, System.Int32>(Url.Controller<CustomExportController>().Action(Controller => Controller.Edit, Export.CustomExportID, Request.Url?.AbsoluteUri, false)
             
             #line default
             #line hidden
-, 4752), false)
+, 4770), false)
 );
 
 WriteLiteral(">\r\n                                    <div");
@@ -453,10 +453,10 @@ WriteLiteral("                    ");
             #line hidden
 WriteLiteral("\r\n                    <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 5596), Tuple.Create("\"", 6039)
+WriteAttribute("href", Tuple.Create(" href=\"", 5614), Tuple.Create("\"", 6057)
             
             #line 116 "..\..\Views\Shared\Manage\Exports.cshtml"
-, Tuple.Create(Tuple.Create("", 5603), Tuple.Create<System.Object, System.Int32>(Url.Controller<CustomExportController>().QS(new Dictionary<string, object>
+, Tuple.Create(Tuple.Create("", 5621), Tuple.Create<System.Object, System.Int32>(Url.Controller<CustomExportController>().QS(new Dictionary<string, object>
                         {
                             {"ExportType", Model.ModelType.FullName},
                             {"Name", CustomExport.DefaultName},
@@ -465,7 +465,7 @@ WriteAttribute("href", Tuple.Create(" href=\"", 5596), Tuple.Create("\"", 6039)
             
             #line default
             #line hidden
-, 5603), false)
+, 5621), false)
 );
 
 WriteLiteral(">\r\n                        <div");
@@ -501,10 +501,10 @@ WriteLiteral("\r\n");
             #line hidden
 WriteLiteral("                <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 6358), Tuple.Create("\"", 6701)
+WriteAttribute("href", Tuple.Create(" href=\"", 6376), Tuple.Create("\"", 6719)
             
             #line 132 "..\..\Views\Shared\Manage\Exports.cshtml"
-, Tuple.Create(Tuple.Create("", 6365), Tuple.Create<System.Object, System.Int32>(Url.Controller<CustomExportController>().QS(new Dictionary<string, object>
+, Tuple.Create(Tuple.Create("", 6383), Tuple.Create<System.Object, System.Int32>(Url.Controller<CustomExportController>().QS(new Dictionary<string, object>
                     {
                     {"ExportType", Model.ModelType.FullName},
                     {"ManagementPage", ViewContext.Controller.GetType().FullName}
@@ -512,7 +512,7 @@ WriteAttribute("href", Tuple.Create(" href=\"", 6358), Tuple.Create("\"", 6701)
             
             #line default
             #line hidden
-, 6365), false)
+, 6383), false)
 );
 
 WriteLiteral(">\r\n                    <div");

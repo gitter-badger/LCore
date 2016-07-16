@@ -3,13 +3,13 @@ using FluentAssertions;
 using LCore.Extensions;
 using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace L_Tests.Tests.Tools
     {
-    [TestClass]
     public class SetTest
         {
-        [TestMethod]
+        [Fact]
         [TestCategory(L.Test.Categories.Tools)]
         public void TestSets()
             {

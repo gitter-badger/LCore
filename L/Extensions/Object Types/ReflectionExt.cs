@@ -542,7 +542,6 @@ namespace LCore.Extensions
                 {
                 return In.GetInterfaces().Has(Interface);
                 }
-            // Static types cause TargetInvocationException to throw.
             catch (TargetInvocationException)
                 {
                 return false;
@@ -565,7 +564,6 @@ namespace LCore.Extensions
                 {
                 return In.GetInterfaces().Has(Interface);
                 }
-            // Static types cause TargetInvocationException to throw.
             catch (TargetInvocationException)
                 {
                 return false;

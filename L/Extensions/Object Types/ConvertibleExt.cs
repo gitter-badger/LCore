@@ -110,6 +110,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Converts an IConvertible to a string, if it is capable.
         /// </summary>
+        [Tested]
         public static string ConvertToString(this IConvertible In)
             {
             if (In == null)
@@ -149,6 +150,7 @@ namespace LCore.Extensions
         /// Converts an IConvertible to a string, if it is capable.
         /// If <paramref name="In" /> cannot be converted, the source will be returned.
         /// </summary>
+        [Tested]
         public static IConvertible TryConvertToString(this IConvertible In)
             {
             if (In == null)

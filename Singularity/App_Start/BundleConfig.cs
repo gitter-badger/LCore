@@ -82,7 +82,7 @@ namespace Singularity.Config
             #endregion
 
             #region Singularity
-            ControllerHelper.RegisterBundles(Bundles, false);
+            SingularityControllerHelper.RegisterBundles(Bundles, false);
             #endregion
 
 

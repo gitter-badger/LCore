@@ -42,6 +42,7 @@ namespace ASP
     using Singularity;
     using Singularity.Context;
     using Singularity.Controllers;
+    using Singularity.Extensions;
     using Singularity.Models;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
@@ -69,7 +70,7 @@ WriteLiteral("\r\n\r\n");
             
             #line 9 "..\..\Views\Shared\Manage\Fields\View\EmailAddress.cshtml"
  if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell) &&
-    Model.PropertyData.ToString().Length > ControllerHelper.DefaultTableTextLength)
+    Model.PropertyData.ToString().Length > SingularityControllerHelper.DefaultTableTextLength)
     {
 
             
@@ -77,29 +78,29 @@ WriteLiteral("\r\n\r\n");
             #line hidden
 WriteLiteral("    <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 248), Tuple.Create("\"", 281)
-, Tuple.Create(Tuple.Create("", 255), Tuple.Create("mailto:", 255), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 259), Tuple.Create("\"", 292)
+, Tuple.Create(Tuple.Create("", 266), Tuple.Create("mailto:", 266), true)
             
             #line 12 "..\..\Views\Shared\Manage\Fields\View\EmailAddress.cshtml"
-, Tuple.Create(Tuple.Create("", 262), Tuple.Create<System.Object, System.Int32>(Model.PropertyData
+, Tuple.Create(Tuple.Create("", 273), Tuple.Create<System.Object, System.Int32>(Model.PropertyData
             
             #line default
             #line hidden
-, 262), false)
+, 273), false)
 );
 
 WriteLiteral(">\r\n        <span");
 
 WriteLiteral(" class=\"abbreviated\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 318), Tuple.Create("\"", 345)
+WriteAttribute("title", Tuple.Create(" title=\"", 329), Tuple.Create("\"", 356)
             
             #line 13 "..\..\Views\Shared\Manage\Fields\View\EmailAddress.cshtml"
-, Tuple.Create(Tuple.Create("", 326), Tuple.Create<System.Object, System.Int32>(Model.PropertyData
+, Tuple.Create(Tuple.Create("", 337), Tuple.Create<System.Object, System.Int32>(Model.PropertyData
             
             #line default
             #line hidden
-, 326), false)
+, 337), false)
 );
 
 WriteLiteral(">\r\n");
@@ -108,7 +109,7 @@ WriteLiteral("            ");
 
             
             #line 14 "..\..\Views\Shared\Manage\Fields\View\EmailAddress.cshtml"
-       Write(Model.PropertyData.ToString().Substring(0, ControllerHelper.DefaultTableTextLength));
+       Write(Model.PropertyData.ToString().Substring(0, SingularityControllerHelper.DefaultTableTextLength));
 
             
             #line default
@@ -126,15 +127,15 @@ else
             #line hidden
 WriteLiteral("    <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 504), Tuple.Create("\"", 537)
-, Tuple.Create(Tuple.Create("", 511), Tuple.Create("mailto:", 511), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 526), Tuple.Create("\"", 559)
+, Tuple.Create(Tuple.Create("", 533), Tuple.Create("mailto:", 533), true)
             
             #line 20 "..\..\Views\Shared\Manage\Fields\View\EmailAddress.cshtml"
-, Tuple.Create(Tuple.Create("", 518), Tuple.Create<System.Object, System.Int32>(Model.PropertyData
+, Tuple.Create(Tuple.Create("", 540), Tuple.Create<System.Object, System.Int32>(Model.PropertyData
             
             #line default
             #line hidden
-, 518), false)
+, 540), false)
 );
 
 WriteLiteral(">\r\n        <span>\r\n");

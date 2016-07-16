@@ -4,16 +4,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Threading;
 using FluentAssertions;
+using Xunit;
 using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
-    [TestClass]
     public class ThreadExtTest : ExtensionTester
         {
         protected override Type[] TestType => new[] { typeof(ThreadExt) };
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Async()
             {
@@ -31,7 +31,7 @@ namespace L_Tests.Tests.Extensions
                 }
             }
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Profile()
             {

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -56,8 +56,8 @@
     <Reference Include="AttributeRouting.Web.Mvc">
       <HintPath>..\packages\AttributeRouting.3.5.6\lib\net40\AttributeRouting.Web.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac, Version=3.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.3.4.0\lib\net40\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Autofac.Integration.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
@@ -76,7 +76,7 @@
       <HintPath>C:\Users\Ben\Desktop\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp">
@@ -93,8 +93,8 @@
     <Reference Include="Microsoft.WindowsAzure.StorageClient">
       <HintPath>C:\Program Files\Microsoft SDKs\Azure\.NET SDK\v2.7\bin\Microsoft.WindowsAzure.StorageClient.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
@@ -225,151 +225,14 @@
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="App_Start\DependencyConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Code\Account\Crypto.cs" />
-    <Compile Include="Code\Account\Authentication.cs" />
-    <Compile Include="Code\Account\AuthenticationService.cs" />
-    <Compile Include="Code\Account\IAuthenticationService.cs" />
-    <Compile Include="Code\Attributes\Abstract\AdditionalValueAttribute.cs" />
-    <Compile Include="Code\Attributes\Abstract\SetFormField.cs" />
-    <Compile Include="Code\Attributes\Account\RequireAuthAttribute.cs" />
-    <Compile Include="Code\Attributes\Account\RequireAdminAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\Export\FieldDisableImportAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\Export\FieldExportHeaderAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\Export\FieldDisableExportAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\FieldHideLabelAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\FieldFocusAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\FieldDefaultValueAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\FieldHtmlAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\FieldFormKeyAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\FieldClassAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\FieldLoadFromQueryStringAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\FieldUpdateRefreshPageAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\FieldHeaderAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\FieldPartialAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\FieldTabAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\FieldGlobalSearchAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\FieldNoToken.cs" />
-    <Compile Include="Code\Attributes\Field\Type\FieldTypeSortableListAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\Type\FieldTypeDropdownContextModelFieldsByType.cs" />
-    <Compile Include="Code\Attributes\Field\Type\FieldTypeDropdownContextModelFieldsByDataType.cs" />
-    <Compile Include="Code\Attributes\Field\Type\FieldTypeDropdownContextModelFields.cs" />
-    <Compile Include="Code\Attributes\Field\Type\FieldTypeDropdownContextManageControllers.cs" />
-    <Compile Include="Code\Attributes\Field\Type\FieldTypeHidden.cs" />
-    <Compile Include="Code\Attributes\Field\FieldDontClone.cs" />
-    <Compile Include="Code\Azure\AzureBlobInterface.cs" />
-    <Compile Include="Code\Azure\AzureCloudExt.cs" />
-    <Compile Include="Code\Azure\AzureInterface.cs" />
-    <Compile Include="Code\Azure\AzureQueueInterface.cs" />
-    <Compile Include="Code\Context\SingularityContext.cs" />
-    <Compile Include="Code\Context\SingularityContextProvider.cs" />
-    <Compile Include="Code\Controllers\Base\ManageController_T.cs" />
-    <Compile Include="Code\Controllers\Base\ReadOnlyManageController_T.cs" />
-    <Compile Include="Code\Controllers\Base\StatusMessages.cs" />
-    <Compile Include="Code\Controllers\Implementations\HomeController.cs" />
-    <Compile Include="Code\Controllers\Implementations\AccountController.cs" />
-    <Compile Include="Code\Controllers\Implementations\ExamplesController.cs" />
-    <Compile Include="Code\Controllers\Implementations\EmailJobController.cs" />
-    <Compile Include="Code\Controllers\Implementations\EmailHistoryController.cs" />
-    <Compile Include="Code\Controllers\Implementations\EmailTemplateController.cs" />
-    <Compile Include="Code\Controllers\Implementations\SingularityController.cs" />
-    <Compile Include="Code\Examples\Example.cs" />
-    <Compile Include="Code\Extensions\ContextExt.cs" />
-    <Compile Include="Code\Helpers\ControllerActionHelper.cs" />
-    <Compile Include="Code\Helpers\ControllerActionLinkHelper.cs" />
-    <Compile Include="Code\Extensions\ControllerExt.cs" />
-    <Compile Include="Code\Extensions\DataExt.cs" />
-    <Compile Include="Code\Helpers\ExpressionParameterReplacer.cs" />
-    <Compile Include="Code\Extensions\GlyphIconExt.cs" />
-    <Compile Include="Code\Extensions\SessionExt.cs" />
-    <Compile Include="Code\Extensions\ResponseExt.cs" />
-    <Compile Include="Code\Helpers\SwapVisitor.cs" />
-    <Compile Include="Code\Extensions\UrlExt.cs" />
-    <Compile Include="Code\Filters\SecurityFilterAttribute.cs" />
-    <Compile Include="Code\Extensions\FontAwesomeExt.cs" />
-    <Compile Include="Code\Interfaces\IDefaultViewLayout.cs" />
-    <Compile Include="Code\Interfaces\IComplexType.cs" />
-    <Compile Include="Code\Interfaces\IDontClone.cs" />
-    <Compile Include="Code\Interfaces\IEmailable.cs" />
-    <Compile Include="Code\Attributes\SearchColumnsAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\Type\FieldTypeDropdownContextModelTypes.cs" />
-    <Compile Include="Code\Attributes\Field\Type\FieldTypeDropdown.cs" />
-    <Compile Include="Code\Attributes\Field\Type\FieldTypeHtmlContentEditor.cs" />
-    <Compile Include="Code\Attributes\Field\Type\FieldTypeFileUploadAttribute.cs" />
-    <Compile Include="Code\Attributes\IgnoreValidationAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\FieldInformationAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\MetadataAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\FieldStringFormatAttribute.cs" />
-    <Compile Include="Code\Attributes\Field\FieldVisibilityAttribute.cs" />
-    <Compile Include="Code\Attributes\FriendlyName.cs" />
-    <Compile Include="Code\Attributes\Manage\CustomPartialAttribute.cs" />
-    <Compile Include="Code\Attributes\Manage\GlobalSearchDisabledAttribute.cs" />
-    <Compile Include="Code\Attributes\Manage\HiddenColumnAttribute.cs" />
-    <Compile Include="Code\Attributes\Manage\ViewTypedAttribute.cs" />
-    <Compile Include="Code\Attributes\Model\ModelPermissions.cs" />
-    <Compile Include="Code\Context\ModelContext.cs" />
-    <Compile Include="Code\Context\ContextProvider.cs" />
-    <Compile Include="Code\Context\ContextProviderFactory.cs" />
-    <Compile Include="Code\Controllers\Base\ControllerHelper.cs" />
-    <Compile Include="Code\Controllers\Implementations\SavedSearchController.cs" />
-    <Compile Include="Code\Controllers\Implementations\CustomExportController.cs" />
-    <Compile Include="Code\Controllers\Implementations\ErrorController.cs" />
-    <Compile Include="Code\Controllers\Implementations\TemplateController.cs" />
-    <Compile Include="Code\Controllers\Implementations\TextContentController.cs" />
-    <Compile Include="Code\Controllers\Implementations\ErrorsController.cs" />
-    <Compile Include="Code\Controllers\Base\ManageController.cs" />
-    <Compile Include="Code\Controllers\Implementations\TestController.cs" />
-    <Compile Include="Code\Extensions\HtmlExt.cs" />
-    <Compile Include="Code\Extensions\MetaExt.cs" />
-    <Compile Include="Code\Extensions\ModelExt.cs" />
-    <Compile Include="Code\Extensions\MVCExt.cs" />
-    <Compile Include="Code\Extensions\QueryExt.cs" />
     <Compile Include="Code\SingularityRazor.cs" />
-    <Compile Include="Code\SearchOperation.cs" />
-    <Compile Include="Code\Filters\ErrorFilterAttribute.cs" />
-    <Compile Include="Code\Interfaces\IMenuAction.cs" />
-    <Compile Include="Code\Models\Event.cs" />
-    <Compile Include="Code\Models\GlobalSettings.cs" />
-    <Compile Include="Code\Models\TestModel.cs" />
-    <Compile Include="Code\Models\ViewModels\LoginViewModel.cs" />
-    <Compile Include="Code\Models\ViewModels\ForceResetPasswordViewModel.cs" />
-    <Compile Include="Code\Models\ViewModels\ImpersonateUserViewModel.cs" />
-    <Compile Include="Code\Models\Account\AccountRole.cs" />
-    <Compile Include="Code\Models\Account\SecurityLog.cs" />
-    <Compile Include="Code\Models\Account\UserAccount.cs" />
-    <Compile Include="Code\Routes\Controllers.cs" />
-    <Compile Include="Code\Routes\Layouts.cs" />
-    <Compile Include="Code\Singularity.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Code\Interfaces\IMenuItem.cs" />
-    <Compile Include="Code\Interfaces\IMenuController.cs" />
-    <Compile Include="Code\Interfaces\IFieldGroups.cs" />
-    <Compile Include="Code\Interfaces\IFileUpload.cs" />
-    <Compile Include="Code\Interfaces\IModel.cs" />
-    <Compile Include="Code\Interfaces\IViewField.cs" />
-    <Compile Include="Code\Models\SiteConfig.cs" />
-    <Compile Include="Code\Models\EmailHistory.cs" />
-    <Compile Include="Code\Models\EmailJob.cs" />
-    <Compile Include="Code\Models\EmailTemplate.cs" />
-    <Compile Include="Code\Models\SavedSearch.cs" />
-    <Compile Include="Code\Models\CustomExport.cs" />
-    <Compile Include="Code\Models\Template.cs" />
-    <Compile Include="Code\Models\ViewModels\TemplateViewModel.cs" />
-    <Compile Include="Code\Models\ViewModels\TextContentViewModel.cs" />
-    <Compile Include="Code\Models\TextContent.cs" />
-    <Compile Include="Code\Models\Error.cs" />
-    <Compile Include="Code\Models\FileUpload.cs" />
-    <Compile Include="Code\Models\ViewModels\ManageViewModel.cs" />
-    <Compile Include="Code\Models\Account\ModelPermissions.cs" />
     <Compile Include="Code\ViewField.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Code\Routes\PartialViews.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Code\TypeActions\FilterAction.cs" />
-    <Compile Include="Code\TypeActions\StringConverter.cs" />
-    <Compile Include="Code\TypeActions\TypeAction.cs" />
     <Compile Include="Views\Account\ForceResetPassword.generated.cs">
       <DependentUpon>ForceResetPassword.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -449,6 +312,11 @@
       <DependentUpon>Footer.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\Shared\Manage\Exports.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Exports.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shared\Nav.generated.cs">
       <AutoGen>True</AutoGen>
@@ -664,11 +532,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FieldHeader.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Shared\Manage\Exports.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Exports.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shared\Manage\HeaderRow.generated.cs">
       <AutoGen>True</AutoGen>
@@ -1233,9 +1096,13 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\L\L.csproj">
+    <ProjectReference Include="..\L MVC\L MVC.csproj">
+      <Project>{98dded95-a78f-47c7-85df-886d18e340fc}</Project>
+      <Name>L MVC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\L\L Core.csproj">
       <Project>{cd24bcec-5a94-4524-b1d3-0537c66b0761}</Project>
-      <Name>L</Name>
+      <Name>L Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -1295,8 +1162,8 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <!--
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

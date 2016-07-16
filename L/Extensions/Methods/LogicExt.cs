@@ -18,6 +18,7 @@ namespace LCore.Extensions
 
         #region Surround +
         #region Surround - Action_T
+
         /// <summary>
         /// Returns a method with the first parameter removed and supplied with the result of Func.
         /// </summary>
@@ -25,26 +26,35 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action Surround<U>(this Action<U> In, Func<U> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return () => { In(Func()); };
             }
+
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="U"></typeparam>
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T1> Surround<T1, U>(this Action<U> In, Func<T1, U> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return o => { In(Func(o)); };
             }
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -52,13 +62,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T1, T2> Surround<T1, T2, U>(this Action<U> In, Func<T1, T2, U> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2) => { In(Func(o1, o2)); };
             }
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -67,13 +81,16 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         public static Action<T1, T2, T3> Surround<T1, T2, T3, U>(this Action<U> In, Func<T1, T2, T3, U> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3) => { In(Func(o1, o2, o3)); };
             }
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -83,41 +100,53 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T1, T2, T3, T4> Surround<T1, T2, T3, T4, U>(this Action<U> In, Func<T1, T2, T3, T4, U> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3, o4) => { In(Func(o1, o2, o3, o4)); };
             }
         #endregion
         #region Surround - Action_T_T
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T2> Surround<T1, T2>(this Action<T1, T2> In, Func<T1> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return o => { In(Func(), o); };
             }
         /// <summary>
-        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T1> Surround2<T1, T2>(this Action<T1, T2> In, Func<T2> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return o => { In(o, Func()); };
             }
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -125,13 +154,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T2, T3> Surround<T1, T2, T3>(this Action<T1, T2> In, Func<T3, T1> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2) => { In(Func(o2), o1); };
             }
         /// <summary>
-        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -139,13 +172,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T1, T3> Surround2<T1, T2, T3>(this Action<T1, T2> In, Func<T3, T2> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2) => { In(o1, Func(o2)); };
             }
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -154,13 +191,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T2, T3, T4> Surround<T1, T2, T3, T4>(this Action<T1, T2> In, Func<T3, T4, T1> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3) => { In(Func(o2, o3), o1); };
             }
         /// <summary>
-        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -169,13 +210,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T1, T3, T4> Surround2<T1, T2, T3, T4>(this Action<T1, T2> In, Func<T3, T4, T2> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3) => { In(o1, Func(o2, o3)); };
             }
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -185,13 +230,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T2, T3, T4, T5> Surround<T1, T2, T3, T4, T5>(this Action<T1, T2> In, Func<T3, T4, T5, T1> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3, o4) => { In(Func(o2, o3, o4), o1); };
             }
         /// <summary>
-        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -201,15 +250,19 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T1, T3, T4, T5> Surround2<T1, T2, T3, T4, T5>(this Action<T1, T2> In, Func<T3, T4, T5, T2> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3, o4) => { In(o1, Func(o2, o3, o4)); };
             }
         #endregion
         #region Surround - Action_T_T_T
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -217,13 +270,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T2, T3> Surround<T1, T2, T3>(this Action<T1, T2, T3> In, Func<T1> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2) => { In(Func(), o1, o2); };
             }
         /// <summary>
-        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -231,13 +288,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T1, T3> Surround2<T1, T2, T3>(this Action<T1, T2, T3> In, Func<T2> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2) => { In(o1, Func(), o2); };
             }
         /// <summary>
-        /// Returns a method with the third parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the third parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -245,13 +306,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T1, T2> Surround3<T1, T2, T3>(this Action<T1, T2, T3> In, Func<T3> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2) => { In(o1, o2, Func()); };
             }
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -260,13 +325,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T2, T3, T4> Surround<T1, T2, T3, T4>(this Action<T1, T2, T3> In, Func<T4, T1> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3) => { In(Func(o3), o1, o2); };
             }
         /// <summary>
-        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -275,13 +344,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T1, T3, T4> Surround2<T1, T2, T3, T4>(this Action<T1, T2, T3> In, Func<T4, T2> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3) => { In(o1, Func(o3), o2); };
             }
         /// <summary>
-        /// Returns a method with the third parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the third parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -290,13 +363,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T1, T2, T4> Surround3<T1, T2, T3, T4>(this Action<T1, T2, T3> In, Func<T4, T3> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3) => { In(o1, o2, Func(o3)); };
             }
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -306,13 +383,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T2, T3, T4, T5> Surround<T1, T2, T3, T4, T5>(this Action<T1, T2, T3> In, Func<T4, T5, T1> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3, o4) => { In(Func(o3, o4), o1, o2); };
             }
         /// <summary>
-        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -322,13 +403,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T1, T3, T4, T5> Surround2<T1, T2, T3, T4, T5>(this Action<T1, T2, T3> In, Func<T4, T5, T2> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3, o4) => { In(o1, Func(o3, o4), o2); };
             }
         /// <summary>
-        /// Returns a method with the third parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the third parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -338,15 +423,19 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T1, T2, T4, T5> Surround3<T1, T2, T3, T4, T5>(this Action<T1, T2, T3> In, Func<T4, T5, T3> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3, o4) => { In(o1, o2, Func(o3, o4)); };
             }
         #endregion
         #region Surround - Action_T_T_T_T
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -355,13 +444,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T2, T3, T4> Surround<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In, Func<T1> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3) => { In(Func(), o1, o2, o3); };
             }
         /// <summary>
-        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -370,13 +463,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T1, T3, T4> Surround2<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In, Func<T2> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3) => { In(o1, Func(), o2, o3); };
             }
         /// <summary>
-        /// Returns a method with the third parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the third parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -385,13 +482,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T1, T2, T4> Surround3<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In, Func<T3> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3) => { In(o1, o2, Func(), o3); };
             }
         /// <summary>
-        /// Returns a method with the fourth parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the fourth parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -400,13 +501,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T1, T2, T3> Surround4<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In, Func<T4> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3) => { In(o1, o2, o3, Func()); };
             }
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -416,13 +521,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T2, T3, T4, T5> Surround<T1, T2, T3, T4, T5>(this Action<T1, T2, T3, T4> In, Func<T5, T1> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3, o4) => { In(Func(o4), o1, o2, o3); };
             }
         /// <summary>
-        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -432,13 +541,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T1, T3, T4, T5> Surround2<T1, T2, T3, T4, T5>(this Action<T1, T2, T3, T4> In, Func<T5, T2> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3, o4) => { In(o1, Func(o4), o2, o3); };
             }
         /// <summary>
-        /// Returns a method with the third parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the third parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -448,13 +561,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T1, T2, T4, T5> Surround3<T1, T2, T3, T4, T5>(this Action<T1, T2, T3, T4> In, Func<T5, T3> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3, o4) => { In(o1, o2, Func(o4), o3); };
             }
         /// <summary>
-        /// Returns a method with the fourth parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the fourth parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -464,23 +581,31 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Action<T1, T2, T3, T5> Surround4<T1, T2, T3, T4, T5>(this Action<T1, T2, T3, T4> In, Func<T5, T4> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3, o4) => { In(o1, o2, o3, Func(o4)); };
             }
         #endregion
         #region Surround - Func_T_U
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<U> Surround<T1, U>(this Func<T1, U> In, Func<T1> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return () => In(Func());
             }
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -488,13 +613,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T1, U> Surround<T1, T2, U>(this Func<T2, U> In, Func<T1, T2> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return o => In(Func(o));
             }
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -503,13 +632,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T1, T2, U> Surround<T1, T2, T3, U>(this Func<T3, U> In, Func<T1, T2, T3> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2) => In(Func(o1, o2));
             }
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -519,13 +652,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T1, T2, T3, U> Surround<T1, T2, T3, T4, U>(this Func<T4, U> In, Func<T1, T2, T3, T4> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3) => In(Func(o1, o2, o3));
             }
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -536,15 +673,19 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T1, T2, T3, T4, U> Surround<T1, T2, T3, T4, T5, U>(this Func<T5, U> In, Func<T1, T2, T3, T4, T5> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3, o4) => In(Func(o1, o2, o3, o4));
             }
         #endregion
         #region Surround - Func_T_T_U
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -552,13 +693,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T2, U> Surround<T1, T2, U>(this Func<T1, T2, U> In, Func<T1> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return o => In(Func(), o);
             }
         /// <summary>
-        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -566,13 +711,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T1, U> Surround2<T1, T2, U>(this Func<T1, T2, U> In, Func<T2> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return o => In(o, Func());
             }
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -581,13 +730,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T2, T3, U> Surround<T1, T2, T3, U>(this Func<T1, T2, U> In, Func<T3, T1> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2) => In(Func(o2), o1);
             }
         /// <summary>
-        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -596,13 +749,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T1, T3, U> Surround2<T1, T2, T3, U>(this Func<T1, T2, U> In, Func<T3, T2> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2) => In(o1, Func(o2));
             }
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -612,13 +769,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T2, T3, T4, U> Surround<T1, T2, T3, T4, U>(this Func<T1, T2, U> In, Func<T3, T4, T1> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3) => In(Func(o2, o3), o1);
             }
         /// <summary>
-        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -628,13 +789,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T1, T3, T4, U> Surround2<T1, T2, T3, T4, U>(this Func<T1, T2, U> In, Func<T3, T4, T2> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3) => In(o1, Func(o2, o3));
             }
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -645,13 +810,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T2, T3, T4, T5, U> Surround<T1, T2, T3, T4, T5, U>(this Func<T1, T2, U> In, Func<T3, T4, T5, T1> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3, o4) => In(Func(o2, o3, o4), o1);
             }
         /// <summary>
-        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -662,15 +831,19 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T1, T3, T4, T5, U> Surround2<T1, T2, T3, T4, T5, U>(this Func<T1, T2, U> In, Func<T3, T4, T5, T2> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3, o4) => In(o1, Func(o2, o3, o4));
             }
         #endregion
         #region Surround - Func_T_T_T_U
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -679,13 +852,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T2, T3, U> Surround<T1, T2, T3, U>(this Func<T1, T2, T3, U> In, Func<T1> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2) => In(Func(), o1, o2);
             }
         /// <summary>
-        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -694,13 +871,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T1, T3, U> Surround2<T1, T2, T3, U>(this Func<T1, T2, T3, U> In, Func<T2> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2) => In(o1, Func(), o2);
             }
         /// <summary>
-        /// Returns a method with the third parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the third parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -709,13 +890,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T1, T2, U> Surround3<T1, T2, T3, U>(this Func<T1, T2, T3, U> In, Func<T3> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2) => In(o1, o2, Func());
             }
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -725,13 +910,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T2, T3, T4, U> Surround<T1, T2, T3, T4, U>(this Func<T1, T2, T3, U> In, Func<T4, T1> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3) => In(Func(o3), o1, o2);
             }
         /// <summary>
-        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -741,13 +930,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T1, T3, T4, U> Surround2<T1, T2, T3, T4, U>(this Func<T1, T2, T3, U> In, Func<T4, T2> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3) => In(o1, Func(o3), o2);
             }
         /// <summary>
-        /// Returns a method with the third parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the third parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -757,13 +950,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T1, T2, T4, U> Surround3<T1, T2, T3, T4, U>(this Func<T1, T2, T3, U> In, Func<T4, T3> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3) => In(o1, o2, Func(o3));
             }
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -774,13 +971,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T2, T3, T4, T5, U> Surround<T1, T2, T3, T4, T5, U>(this Func<T1, T2, T3, U> In, Func<T4, T5, T1> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3, o4) => In(Func(o3, o4), o1, o2);
             }
         /// <summary>
-        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -791,13 +992,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T1, T3, T4, T5, U> Surround2<T1, T2, T3, T4, T5, U>(this Func<T1, T2, T3, U> In, Func<T4, T5, T2> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3, o4) => In(o1, Func(o3, o4), o2);
             }
         /// <summary>
-        /// Returns a method with the third parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the third parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -808,15 +1013,19 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T1, T2, T4, T5, U> Surround3<T1, T2, T3, T4, T5, U>(this Func<T1, T2, T3, U> In, Func<T4, T5, T3> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3, o4) => In(o1, o2, Func(o3, o4));
             }
         #endregion
         #region Surround - Func_T_T_T_T_U
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -826,13 +1035,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T2, T3, T4, U> Surround<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In, Func<T1> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3) => In(Func(), o1, o2, o3);
             }
         /// <summary>
-        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -842,13 +1055,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T1, T3, T4, U> Surround2<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In, Func<T2> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3) => In(o1, Func(), o2, o3);
             }
         /// <summary>
-        /// Returns a method with the third parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the third parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -858,13 +1075,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T1, T2, T4, U> Surround3<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In, Func<T3> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3) => In(o1, o2, Func(), o3);
             }
         /// <summary>
-        /// Returns a method with the fourth parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the fourth parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -874,13 +1095,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T1, T2, T3, U> Surround4<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In, Func<T4> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3) => In(o1, o2, o3, Func());
             }
         /// <summary>
-        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the first parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -891,13 +1116,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T2, T3, T4, T5, U> Surround<T1, T2, T3, T4, T5, U>(this Func<T1, T2, T3, T4, U> In, Func<T5, T1> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3, o4) => In(Func(o4), o1, o2, o3);
             }
         /// <summary>
-        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the second parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -908,13 +1137,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T1, T3, T4, T5, U> Surround2<T1, T2, T3, T4, T5, U>(this Func<T1, T2, T3, T4, U> In, Func<T5, T2> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3, o4) => In(o1, Func(o4), o2, o3);
             }
         /// <summary>
-        /// Returns a method with the third parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the third parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -925,13 +1158,17 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T1, T2, T4, T5, U> Surround3<T1, T2, T3, T4, T5, U>(this Func<T1, T2, T3, T4, U> In, Func<T5, T3> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3, o4) => In(o1, o2, Func(o4), o3);
             }
         /// <summary>
-        /// Returns a method with the fourth parameter removed and supplied with the result of Func. Parameter liss are merged.
+        /// Returns a method with the fourth parameter removed and supplied with the result of Func. Parameter lists are merged.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -942,9 +1179,13 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        [Tested]
         public static Func<T1, T2, T3, T5, U> Surround4<T1, T2, T3, T4, T5, U>(this Func<T1, T2, T3, T4, U> In, Func<T5, T4> Func)
             {
+            if (In == null) throw new ArgumentNullException(nameof(In));
+            if (Func == null) throw new ArgumentNullException(nameof(Func));
             return (o1, o2, o3, o4) => In(o1, o2, o3, Func(o4));
             }
         #endregion
@@ -958,7 +1199,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action Enclose<T1>(this Func<T1> Func, Action<T1> Outer)
             {
             return Outer.Surround(Func);
@@ -971,7 +1212,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T2> Enclose<T1, T2>(this Func<T2, T1> Func, Action<T1> Outer)
             {
             return Outer.Surround(Func);
@@ -985,7 +1226,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T2, T3> Enclose<T1, T2, T3>(this Func<T2, T3, T1> Func, Action<T1> Outer)
             {
             return Outer.Surround(Func);
@@ -1000,7 +1241,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T2, T3, T4> Enclose<T1, T2, T3, T4>(this Func<T2, T3, T4, T1> Func, Action<T1> Outer)
             {
             return Outer.Surround(Func);
@@ -1016,7 +1257,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T2, T3, T4, T5> Enclose<T1, T2, T3, T4, T5>(this Func<T2, T3, T4, T5, T1> Func, Action<T1> Outer)
             {
             return Outer.Surround(Func);
@@ -1031,7 +1272,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T2> Enclose<T1, T2>(this Func<T1> Func, Action<T1, T2> Outer)
             {
             return Outer.Surround(Func);
@@ -1044,7 +1285,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T1> Enclose2<T1, T2>(this Func<T2> Func, Action<T1, T2> Outer)
             {
             return Outer.Surround2(Func);
@@ -1058,7 +1299,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T2, T3> Enclose<T1, T2, T3>(this Func<T3, T1> Func, Action<T1, T2> Outer)
             {
             return Outer.Surround(Func);
@@ -1072,7 +1313,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T1, T3> Enclose2<T1, T2, T3>(this Func<T3, T2> Func, Action<T1, T2> Outer)
             {
             return Outer.Surround2(Func);
@@ -1087,7 +1328,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T2, T3, T4> Enclose<T1, T2, T3, T4>(this Func<T3, T4, T1> Func, Action<T1, T2> Outer)
             {
             return Outer.Surround(Func);
@@ -1102,7 +1343,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T1, T3, T4> Enclose2<T1, T2, T3, T4>(this Func<T3, T4, T2> Func, Action<T1, T2> Outer)
             {
             return Outer.Surround2(Func);
@@ -1118,7 +1359,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T2, T3, T4, T5> Enclose<T1, T2, T3, T4, T5>(this Func<T3, T4, T5, T1> Func, Action<T1, T2> Outer)
             {
             return Outer.Surround(Func);
@@ -1134,7 +1375,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T1, T3, T4, T5> Enclose2<T1, T2, T3, T4, T5>(this Func<T3, T4, T5, T2> Func, Action<T1, T2> Outer)
             {
             return Outer.Surround2(Func);
@@ -1150,7 +1391,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T2, T3> Enclose<T1, T2, T3>(this Func<T1> Func, Action<T1, T2, T3> Outer)
             {
             return Outer.Surround(Func);
@@ -1164,7 +1405,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T1, T3> Enclose2<T1, T2, T3>(this Func<T2> Func, Action<T1, T2, T3> Outer)
             {
             return Outer.Surround2(Func);
@@ -1178,7 +1419,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T1, T2> Enclose3<T1, T2, T3>(this Func<T3> Func, Action<T1, T2, T3> Outer)
             {
             return Outer.Surround3(Func);
@@ -1193,7 +1434,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T2, T3, T4> Enclose<T1, T2, T3, T4>(this Func<T4, T1> Func, Action<T1, T2, T3> Outer)
             {
             return Outer.Surround(Func);
@@ -1208,7 +1449,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T1, T3, T4> Enclose2<T1, T2, T3, T4>(this Func<T4, T2> Func, Action<T1, T2, T3> Outer)
             {
             return Outer.Surround2(Func);
@@ -1223,7 +1464,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T1, T2, T4> Enclose3<T1, T2, T3, T4>(this Func<T4, T3> Func, Action<T1, T2, T3> Outer)
             {
             return Outer.Surround3(Func);
@@ -1239,7 +1480,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T2, T3, T4, T5> Enclose<T1, T2, T3, T4, T5>(this Func<T4, T5, T1> Func, Action<T1, T2, T3> Outer)
             {
             return Outer.Surround(Func);
@@ -1255,7 +1496,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T1, T3, T4, T5> Enclose2<T1, T2, T3, T4, T5>(this Func<T4, T5, T2> Func, Action<T1, T2, T3> Outer)
             {
             return Outer.Surround2(Func);
@@ -1271,7 +1512,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T1, T2, T4, T5> Enclose3<T1, T2, T3, T4, T5>(this Func<T4, T5, T3> Func, Action<T1, T2, T3> Outer)
             {
             return Outer.Surround3(Func);
@@ -1288,7 +1529,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T2, T3, T4> Enclose<T1, T2, T3, T4>(this Func<T1> Func, Action<T1, T2, T3, T4> Outer)
             {
             return Outer.Surround(Func);
@@ -1303,7 +1544,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T1, T3, T4> Enclose2<T1, T2, T3, T4>(this Func<T2> Func, Action<T1, T2, T3, T4> Outer)
             {
             return Outer.Surround2(Func);
@@ -1318,7 +1559,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T1, T2, T4> Enclose3<T1, T2, T3, T4>(this Func<T3> Func, Action<T1, T2, T3, T4> Outer)
             {
             return Outer.Surround3(Func);
@@ -1333,7 +1574,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T1, T2, T3> Enclose4<T1, T2, T3, T4>(this Func<T4> Func, Action<T1, T2, T3, T4> Outer)
             {
             return Outer.Surround4(Func);
@@ -1349,7 +1590,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T2, T3, T4, T5> Enclose<T1, T2, T3, T4, T5>(this Func<T5, T1> Func, Action<T1, T2, T3, T4> Outer)
             {
             return Outer.Surround(Func);
@@ -1365,7 +1606,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T1, T3, T4, T5> Enclose2<T1, T2, T3, T4, T5>(this Func<T5, T2> Func, Action<T1, T2, T3, T4> Outer)
             {
             return Outer.Surround2(Func);
@@ -1381,7 +1622,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T1, T2, T4, T5> Enclose3<T1, T2, T3, T4, T5>(this Func<T5, T3> Func, Action<T1, T2, T3, T4> Outer)
             {
             return Outer.Surround3(Func);
@@ -1397,7 +1638,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<T1, T2, T3, T5> Enclose4<T1, T2, T3, T4, T5>(this Func<T5, T4> Func, Action<T1, T2, T3, T4> Outer)
             {
             return Outer.Surround4(Func);
@@ -1407,7 +1648,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns a method that uses the Func method as the first parameter to the Outer method. Inverse of Surround.
         /// </summary>
-        
+        [Tested]
         public static Func<U> Enclose<T1, U>(this Func<T1> Func, Func<T1, U> Outer)
             {
             return Outer.Surround(Func);
@@ -1421,7 +1662,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T1, U> Enclose<T1, T2, U>(this Func<T1, T2> Func, Func<T2, U> Outer)
             {
             return Outer.Surround(Func);
@@ -1436,7 +1677,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T1, T2, U> Enclose<T1, T2, T3, U>(this Func<T1, T2, T3> Func, Func<T3, U> Outer)
             {
             return Outer.Surround(Func);
@@ -1452,7 +1693,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T1, T2, T3, U> Enclose<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4> Func, Func<T4, U> Outer)
             {
             return Outer.Surround(Func);
@@ -1469,7 +1710,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T1, T2, T3, T4, U> Enclose<T1, T2, T3, T4, T5, U>(this Func<T1, T2, T3, T4, T5> Func, Func<T5, U> Outer)
             {
             return Outer.Surround(Func);
@@ -1485,7 +1726,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T2, U> Enclose<T1, T2, U>(this Func<T1> Func, Func<T1, T2, U> Outer)
             {
             return Outer.Surround(Func);
@@ -1499,7 +1740,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T1, U> Enclose2<T1, T2, U>(this Func<T2> Func, Func<T1, T2, U> Outer)
             {
             return Outer.Surround2(Func);
@@ -1514,7 +1755,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T2, T3, U> Enclose<T1, T2, T3, U>(this Func<T3, T1> Func, Func<T1, T2, U> Outer)
             {
             return Outer.Surround(Func);
@@ -1529,7 +1770,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T1, T3, U> Enclose2<T1, T2, T3, U>(this Func<T3, T2> Func, Func<T1, T2, U> Outer)
             {
             return Outer.Surround2(Func);
@@ -1545,7 +1786,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T2, T3, T4, U> Enclose<T1, T2, T3, T4, U>(this Func<T3, T4, T1> Func, Func<T1, T2, U> Outer)
             {
             return Outer.Surround(Func);
@@ -1561,7 +1802,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T1, T3, T4, U> Enclose2<T1, T2, T3, T4, U>(this Func<T3, T4, T2> Func, Func<T1, T2, U> Outer)
             {
             return Outer.Surround2(Func);
@@ -1578,7 +1819,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T2, T3, T4, T5, U> Enclose<T1, T2, T3, T4, T5, U>(this Func<T3, T4, T5, T1> Func, Func<T1, T2, U> Outer)
             {
             return Outer.Surround(Func);
@@ -1595,7 +1836,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T1, T3, T4, T5, U> Enclose2<T1, T2, T3, T4, T5, U>(this Func<T3, T4, T5, T2> Func, Func<T1, T2, U> Outer)
             {
             return Outer.Surround2(Func);
@@ -1612,7 +1853,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T2, T3, U> Enclose<T1, T2, T3, U>(this Func<T1> Func, Func<T1, T2, T3, U> Outer)
             {
             return Outer.Surround(Func);
@@ -1627,7 +1868,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T1, T3, U> Enclose2<T1, T2, T3, U>(this Func<T2> Func, Func<T1, T2, T3, U> Outer)
             {
             return Outer.Surround2(Func);
@@ -1642,7 +1883,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T1, T2, U> Enclose3<T1, T2, T3, U>(this Func<T3> Func, Func<T1, T2, T3, U> Outer)
             {
             return Outer.Surround3(Func);
@@ -1658,7 +1899,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T2, T3, T4, U> Enclose<T1, T2, T3, T4, U>(this Func<T4, T1> Func, Func<T1, T2, T3, U> Outer)
             {
             return Outer.Surround(Func);
@@ -1674,7 +1915,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T1, T3, T4, U> Enclose2<T1, T2, T3, T4, U>(this Func<T4, T2> Func, Func<T1, T2, T3, U> Outer)
             {
             return Outer.Surround2(Func);
@@ -1690,7 +1931,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T1, T2, T4, U> Enclose3<T1, T2, T3, T4, U>(this Func<T4, T3> Func, Func<T1, T2, T3, U> Outer)
             {
             return Outer.Surround3(Func);
@@ -1707,7 +1948,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T2, T3, T4, T5, U> Enclose<T1, T2, T3, T4, T5, U>(this Func<T4, T5, T1> Func, Func<T1, T2, T3, U> Outer)
             {
             return Outer.Surround(Func);
@@ -1724,7 +1965,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T1, T3, T4, T5, U> Enclose2<T1, T2, T3, T4, T5, U>(this Func<T4, T5, T2> Func, Func<T1, T2, T3, U> Outer)
             {
             return Outer.Surround2(Func);
@@ -1741,7 +1982,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T1, T2, T4, T5, U> Enclose3<T1, T2, T3, T4, T5, U>(this Func<T4, T5, T3> Func, Func<T1, T2, T3, U> Outer)
             {
             return Outer.Surround3(Func);
@@ -1759,7 +2000,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T2, T3, T4, U> Enclose<T1, T2, T3, T4, U>(this Func<T1> Func, Func<T1, T2, T3, T4, U> Outer)
             {
             return Outer.Surround(Func);
@@ -1775,7 +2016,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T1, T3, T4, U> Enclose2<T1, T2, T3, T4, U>(this Func<T2> Func, Func<T1, T2, T3, T4, U> Outer)
             {
             return Outer.Surround2(Func);
@@ -1791,7 +2032,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T1, T2, T4, U> Enclose3<T1, T2, T3, T4, U>(this Func<T3> Func, Func<T1, T2, T3, T4, U> Outer)
             {
             return Outer.Surround3(Func);
@@ -1807,7 +2048,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T1, T2, T3, U> Enclose4<T1, T2, T3, T4, U>(this Func<T4> Func, Func<T1, T2, T3, T4, U> Outer)
             {
             return Outer.Surround4(Func);
@@ -1824,7 +2065,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T2, T3, T4, T5, U> Enclose<T1, T2, T3, T4, T5, U>(this Func<T5, T1> Func, Func<T1, T2, T3, T4, U> Outer)
             {
             return Outer.Surround(Func);
@@ -1841,7 +2082,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T1, T3, T4, T5, U> Enclose2<T1, T2, T3, T4, T5, U>(this Func<T5, T2> Func, Func<T1, T2, T3, T4, U> Outer)
             {
             return Outer.Surround2(Func);
@@ -1858,7 +2099,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T1, T2, T4, T5, U> Enclose3<T1, T2, T3, T4, T5, U>(this Func<T5, T3> Func, Func<T1, T2, T3, T4, U> Outer)
             {
             return Outer.Surround3(Func);
@@ -1875,7 +2116,7 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <param name="Outer"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T1, T2, T3, T5, U> Enclose4<T1, T2, T3, T4, T5, U>(this Func<T5, T4> Func, Func<T1, T2, T3, T4, U> Outer)
             {
             return Outer.Surround4(Func);
@@ -1891,7 +2132,7 @@ namespace LCore.Extensions
         /// <typeparam name="U1"></typeparam>
         /// <param name="In"></param>
         /// <returns></returns>
-        
+
         [Tested]
         public static Action<U1> Cast<T1, U1>(this Action<T1> In) where U1 : T1
             {
@@ -1906,7 +2147,7 @@ namespace LCore.Extensions
         /// <typeparam name="U2"></typeparam>
         /// <param name="In"></param>
         /// <returns></returns>
-        
+
         [Tested]
         public static Action<U1, U2> Cast<T1, T2, U1, U2>(this Action<T1, T2> In)
             where U1 : T1
@@ -1925,7 +2166,7 @@ namespace LCore.Extensions
         /// <typeparam name="U3"></typeparam>
         /// <param name="In"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<U1, U2, U3> Cast<T1, T2, T3, U1, U2, U3>(this Action<T1, T2, T3> In)
             where U1 : T1
             where U2 : T2
@@ -1946,7 +2187,7 @@ namespace LCore.Extensions
         /// <typeparam name="U4"></typeparam>
         /// <param name="In"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Action<U1, U2, U3, U4> Cast<T1, T2, T3, T4, U1, U2, U3, U4>(this Action<T1, T2, T3, T4> In)
             where U1 : T1
             where U2 : T2
@@ -1962,7 +2203,7 @@ namespace LCore.Extensions
         /// <typeparam name="U2"></typeparam>
         /// <param name="In"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<U2> Cast<U1, U2>(this Func<U1> In)
             {
             return L.Logic.L_Cast_F<U1, U2>()(In);
@@ -1976,7 +2217,7 @@ namespace LCore.Extensions
         /// <typeparam name="U2"></typeparam>
         /// <param name="In"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T2, U2> Cast<T1, U1, T2, U2>(this Func<T1, U1> In)
             where T2 : T1
             where U2 : U1
@@ -1994,7 +2235,7 @@ namespace LCore.Extensions
         /// <typeparam name="U2"></typeparam>
         /// <param name="In"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T3, T4, U2> Cast<T1, T2, U1, T3, T4, U2>(this Func<T1, T2, U1> In)
             where T3 : T1
             where T4 : T2
@@ -2015,7 +2256,7 @@ namespace LCore.Extensions
         /// <typeparam name="U2"></typeparam>
         /// <param name="In"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T4, T5, T6, U2> Cast<T1, T2, T3, U1, T4, T5, T6, U2>(this Func<T1, T2, T3, U1> In)
             where T4 : T1
             where T5 : T2
@@ -2039,7 +2280,7 @@ namespace LCore.Extensions
         /// <typeparam name="U2"></typeparam>
         /// <param name="In"></param>
         /// <returns></returns>
-        
+        [Tested]
         public static Func<T5, T6, T7, T8, U2> Cast<T1, T2, T3, T4, U1, T5, T6, T7, T8, U2>(this Func<T1, T2, T3, T4, U1> In)
             where T5 : T1
             where T6 : T2
@@ -2071,7 +2312,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Do", new[] { "In" }, Comments.Do, false, true)]
             [CodeExplodeGenerics("Do", Comments.Do)]
             public static Func<Func /*GF*/<U>, Action> L_Do /*MF*/<U>()
@@ -2094,7 +2335,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Cache", new[] { "In", "CacheID" }, Comments.Cache, false, true)]
             [CodeExplodeGenerics("Cache", Comments.Cache)]
             public static Func<Func<U>, string, Func<U>> L_Cache /*MF*/<U>()
@@ -2147,7 +2388,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Caches the results of In using a Unique CacheID, combined with the string representation of all parameters.
             /// </summary>
-            
+
             public static T Cache<T>(ref object CacheStore, Func<T> Default)
                 {
                 if (!(CacheStore is T))
@@ -2158,7 +2399,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Caches the results of In using a Unique CacheID, combined with the string representation of all parameters.
             /// </summary>
-            
+
             public static T Cache<T>(ref T CacheStore, Func<T> Default)
                 {
                 // ReSharper disable once ConvertIfStatementToNullCoalescingExpression
@@ -2198,7 +2439,7 @@ namespace LCore.Extensions
             /// Returns a function that sets (overrides) the first parameter in Func with the result of In
             /// </summary>
             /// <returns></returns>
-            
+
             [CodeExplodeGenericsReplaceArguments("Set", new[] { 0 }, new[] { "In()" }, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
             public static Func<Action<T1>, Func<T1>, Action<T1>> L_SetFunc_A<T1>()
@@ -2213,7 +2454,7 @@ namespace LCore.Extensions
             /// Returns a function that sets (overrides) the first parameter in Func with the result of In
             /// </summary>
             /// <returns></returns>
-            
+
             [CodeExplodeGenericsReplaceArguments("Set", new[] { 0 }, new[] { "In()" }, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
             public static Func<Func<T1, U>, Func<T1>, Func<T1, U>> L_SetFunc_F /*MF*/<T1, U>()
@@ -2231,7 +2472,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the second parameter in Func with the result of In
             /// </summary>
-            
+
             [CodeExplodeGenericsReplaceArguments("Set", new[] { 1 }, new[] { "In()" }, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
             public static Func<Action<T1, T2>, Func<T2>, Action<T1, T2>> L_SetFunc_A2<T1, T2>()
@@ -2245,7 +2486,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the second parameter in Func with the result of In
             /// </summary>
-            
+
             [CodeExplodeGenericsReplaceArguments("Set", new[] { 1 }, new[] { "In()" }, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
             public static Func<Func<T1, T2, U>, Func<T2>, Func<T1, T2, U>> L_SetFunc_F2 /*MF*/<T1, T2, U>()
@@ -2263,7 +2504,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the third parameter in Func with the result of In
             /// </summary>
-            
+
             [CodeExplodeGenericsReplaceArguments("Set", new[] { 2 }, new[] { "In()" }, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
             public static Func<Action<T1, T2, T3>, Func<T3>, Action<T1, T2, T3>> L_SetFunc_A3<T1, T2, T3>()
@@ -2277,7 +2518,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the third parameter in Func with the result of In
             /// </summary>
-            
+
             [CodeExplodeGenericsReplaceArguments("Set", new[] { 2 }, new[] { "In()" }, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
             public static Func<Func<T1, T2, T3, U>, Func<T3>, Func<T1, T2, T3, U>> L_SetFunc_F3 /*MF*/<T1, T2, T3, U>()
@@ -2295,7 +2536,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the fourth parameter in Func with the result of In
             /// </summary>
-            
+
             [CodeExplodeGenericsReplaceArguments("Set", new[] { 3 }, new[] { "In()" }, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
             public static Func<Action<T1, T2, T3, T4>, Func<T4>, Action<T1, T2, T3, T4>> L_SetFunc_A4<T1, T2, T3, T4>()
@@ -2309,7 +2550,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the fourth parameter in Func with the result of In
             /// </summary>
-            
+
             [CodeExplodeGenericsReplaceArguments("Set", new[] { 3 }, new[] { "In()" }, Comments.SetFunc)]
             [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<T4>, Func<T1, T2, T3, T4, U>> L_SetFunc_F4 /*MF*/
@@ -2804,7 +3045,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeGenericsReplaceArguments("Set", new[] { 0 }, new[] { "Obj" }, Comments.Set)]
             [CodeExplodeExtensionMethod("Set", new[] { "Func", "Obj" }, Comments.Set, false, true)]
             public static Func<Action<T1>, T1, Action<T1>> L_Set_A<T1>()
@@ -2818,7 +3059,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the first parameter in Func with In
             /// </summary>
-            
+
             [CodeExplodeGenericsReplaceArguments("Set", new[] { 0 }, new[] { "Obj" }, Comments.Set)]
             [CodeExplodeExtensionMethod("Set", new[] { "Func", "Obj" }, Comments.Set, false, true)]
             public static Func<Func<T1, U>, T1, Func<T1, U>> L_Set_F /*MF*/<T1, U>()
@@ -2839,7 +3080,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeGenericsReplaceArguments("Set2", new[] { 1 }, new[] { "Obj" }, Comments.Set2)]
             [CodeExplodeExtensionMethod("Set2", new[] { "Func", "Obj" }, Comments.Set2, false, true)]
             public static Func<Action<T1, T2>, T2, Action<T1, T2>> L_Set2_A<T1, T2>()
@@ -2854,7 +3095,7 @@ namespace LCore.Extensions
             /// Returns a function that sets (overrides) the second parameter in Func with In
             /// </summary>
             /// <returns></returns>
-            
+
             [CodeExplodeGenericsReplaceArguments("Set2", new[] { 1 }, new[] { "Obj" }, Comments.Set2)]
             [CodeExplodeExtensionMethod("Set2", new[] { "Func", "Obj" }, Comments.Set2, false, true)]
             public static Func<Func<T1, T2, U>, T2, Func<T1, T2, U>> L_Set2_F /*MF*/<T1, T2, U>()
@@ -2876,7 +3117,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeGenericsReplaceArguments("Set3", new[] { 2 }, new[] { "Obj" }, Comments.Set3)]
             [CodeExplodeExtensionMethod("Set3", new[] { "Func", "Obj" }, Comments.Set3, false, true)]
             public static Func<Action<T1, T2, T3>, T3, Action<T1, T2, T3>> L_Set3_A<T1, T2, T3>()
@@ -2895,7 +3136,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeGenericsReplaceArguments("Set3", new[] { 2 }, new[] { "Obj" }, Comments.Set3)]
             [CodeExplodeExtensionMethod("Set3", new[] { "Func", "Obj" }, Comments.Set3, false, true)]
             public static Func<Func<T1, T2, T3, U>, T3, Func<T1, T2, T3, U>> L_Set3_F /*MF*/<T1, T2, T3, U>()
@@ -2918,7 +3159,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeGenericsReplaceArguments("Set4", new[] { 3 }, new[] { "Obj" }, Comments.Set4)]
             [CodeExplodeExtensionMethod("Set4", new[] { "Func", "Obj" }, Comments.Set4, false, true)]
             public static Func<Action<T1, T2, T3, T4>, T4, Action<T1, T2, T3, T4>> L_Set4_A<T1, T2, T3, T4>()
@@ -2938,7 +3179,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeGenericsReplaceArguments("Set4", new[] { 3 }, new[] { "Obj" }, Comments.Set4)]
             [CodeExplodeExtensionMethod("Set4", new[] { "Func", "Obj" }, Comments.Set4, false, true)]
             public static Func<Func<T1, T2, T3, T4, U>, T4, Func<T1, T2, T3, T4, U>> L_Set4_F /*MF*/<T1, T2, T3, T4, U>()
@@ -2960,7 +3201,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Return", new[] { "In", "Obj = default(U)" }, Comments.Return)]
             public static Func<Action, U, Func<U>> L_Return_A<U>()
                 {
@@ -2980,7 +3221,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Return", new[] { "In", "Obj = default(U)" }, Comments.Return)]
             public static Func<Action<T1>, U, Func<T1, U>> L_Return_A<T1, U>()
                 {
@@ -3001,7 +3242,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Return", new[] { "In", "Obj = default(U)" }, Comments.Return)]
             public static Func<Action<T1, T2>, U, Func<T1, T2, U>> L_Return_A<T1, T2, U>()
                 {
@@ -3023,7 +3264,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Return", new[] { "In", "Obj = default(U)" }, Comments.Return)]
             public static Func<Action<T1, T2, T3>, U, Func<T1, T2, T3, U>> L_Return_A<T1, T2, T3, U>()
                 {
@@ -3046,7 +3287,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Return", new[] { "In", "Obj = default(U)" }, Comments.Return)]
             public static Func<Action<T1, T2, T3, T4>, U, Func<T1, T2, T3, T4, U>> L_Return_A<T1, T2, T3, T4, U>()
                 {
@@ -3065,7 +3306,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Return", new[] { "In", "Obj = default(U)" }, Comments.ReturnFunc)]
             public static Func<Func<U>, U, Func<U>> L_Return_F<U>()
                 {
@@ -3085,7 +3326,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Return", new[] { "In", "Obj = default(U)" }, Comments.Return)]
             public static Func<Func<T1, U>, U, Func<T1, U>> L_Return_F<T1, U>()
                 {
@@ -3106,7 +3347,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Return", new[] { "In", "Obj = default(U)" }, Comments.Return)]
             public static Func<Func<T1, T2, U>, U, Func<T1, T2, U>> L_Return_F<T1, T2, U>()
                 {
@@ -3128,7 +3369,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Return", new[] { "In", "Obj = default(U)" }, Comments.Return)]
             public static Func<Func<T1, T2, T3, U>, U, Func<T1, T2, T3, U>> L_Return_F<T1, T2, T3, U>()
                 {
@@ -3151,7 +3392,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Return", new[] { "In", "Obj = default(U)" }, Comments.Return)]
             public static Func<Func<T1, T2, T3, T4, U>, U, Func<T1, T2, T3, T4, U>> L_Return_F<T1, T2, T3, T4, U>()
                 {
@@ -3175,7 +3416,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Rotate", new[] { "In" }, Comments.Rotate)]
             public static Func<Action<T1, T2>, Action<T2, T1>> L_Rotate_A<T1, T2>()
                 {
@@ -3189,7 +3430,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Rotate", new[] { "In" }, Comments.Rotate)]
             public static Func<Action<T1, T2, T3>, Action<T3, T1, T2>> L_Rotate_A<T1, T2, T3>()
                 {
@@ -3204,7 +3445,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Rotate", new[] { "In" }, Comments.Rotate)]
             public static Func<Action<T1, T2, T3, T4>, Action<T4, T1, T2, T3>> L_Rotate_A<T1, T2, T3, T4>()
                 {
@@ -3218,7 +3459,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Rotate", new[] { "In" }, Comments.Rotate)]
             public static Func<Func<T1, T2, U>, Func<T2, T1, U>> L_Rotate_F<T1, T2, U>()
                 {
@@ -3233,7 +3474,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Rotate", new[] { "In" }, Comments.Rotate)]
             public static Func<Func<T1, T2, T3, U>, Func<T3, T1, T2, U>> L_Rotate_F<T1, T2, T3, U>()
                 {
@@ -3249,7 +3490,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Rotate", new[] { "In" }, Comments.Rotate)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<T4, T1, T2, T3, U>> L_Rotate_F<T1, T2, T3, T4, U>()
                 {
@@ -3266,7 +3507,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("RotateBack", new[] { "In" }, Comments.RotateBack)]
             public static Func<Action<T1, T2>, Action<T2, T1>> L_RotateBack_A<T1, T2>()
                 {
@@ -3280,7 +3521,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            
+
             public static Func<Action<T1, T2, T3>, Action<T2, T3, T1>> L_RotateBack_A<T1, T2, T3>()
                 {
                 return In => { return (o1, o2, o3) => { In(o3, o1, o2); }; };
@@ -3294,7 +3535,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             public static Func<Action<T1, T2, T3, T4>, Action<T2, T3, T4, T1>> L_RotateBack_A<T1, T2, T3, T4>()
                 {
                 return In => { return (o1, o2, o3, o4) => { In(o4, o1, o2, o3); }; };
@@ -3307,7 +3548,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             public static Func<Func<T1, T2, U>, Func<T2, T1, U>> L_RotateBack_F<T1, T2, U>()
                 {
                 return In => { return (o1, o2) => In(o2, o1); };
@@ -3321,7 +3562,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             public static Func<Func<T1, T2, T3, U>, Func<T2, T3, T1, U>> L_RotateBack_F<T1, T2, T3, U>()
                 {
                 return In => { return (o2, o3, o1) => In(o1, o2, o3); };
@@ -3336,7 +3577,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             public static Func<Func<T1, T2, T3, T4, U>, Func<T2, T3, T4, T1, U>> L_RotateBack_F<T1, T2, T3, T4, U>()
                 {
                 return In => { return (o2, o3, o4, o1) => In(o1, o2, o3, o4); };
@@ -3351,7 +3592,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Default", new[] { "In", "Default" }, Comments.Default)]
             public static Func<Action<T1>, T1, Action<T1>> L_Default_A<T1>()
                 {
@@ -3375,7 +3616,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Default", new[] { "In", "Default" }, Comments.Default)]
             public static Func<Action<T1, T2>, T1, Action<T1, T2>> L_Default_A<T1, T2>()
                 {
@@ -3399,7 +3640,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Default2", new[] { "In", "Default" }, Comments.Default2)]
             public static Func<Action<T1, T2>, T2, Action<T1, T2>> L_Default2_A<T1, T2>()
                 {
@@ -3424,7 +3665,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Default", new[] { "In", "Default" }, Comments.Default)]
             public static Func<Action<T1, T2, T3>, T1, Action<T1, T2, T3>> L_Default_A<T1, T2, T3>()
                 {
@@ -3449,7 +3690,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Default2", new[] { "In", "Default2" }, Comments.Default2)]
             public static Func<Action<T1, T2, T3>, T2, Action<T1, T2, T3>> L_Default2_A<T1, T2, T3>()
                 {
@@ -3474,7 +3715,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Default3", new[] { "In", "Default3" }, Comments.Default3)]
             public static Func<Action<T1, T2, T3>, T3, Action<T1, T2, T3>> L_Default3_A<T1, T2, T3>()
                 {
@@ -3500,7 +3741,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Default", new[] { "In", "Default" }, Comments.Default)]
             public static Func<Action<T1, T2, T3, T4>, T1, Action<T1, T2, T3, T4>> L_Default_A<T1, T2, T3, T4>()
                 {
@@ -3526,7 +3767,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Default2", new[] { "In", "Default2" }, Comments.Default2)]
             public static Func<Action<T1, T2, T3, T4>, T2, Action<T1, T2, T3, T4>> L_Default2_A<T1, T2, T3, T4>()
                 {
@@ -3552,7 +3793,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Default3", new[] { "In", "Default3" }, Comments.Default3)]
             public static Func<Action<T1, T2, T3, T4>, T3, Action<T1, T2, T3, T4>> L_Default3_A<T1, T2, T3, T4>()
                 {
@@ -3578,7 +3819,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Default4", new[] { "In", "Default4" }, Comments.Default4)]
             public static Func<Action<T1, T2, T3, T4>, T4, Action<T1, T2, T3, T4>> L_Default4_A<T1, T2, T3, T4>()
                 {
@@ -3602,7 +3843,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Default", new[] { "In", "Default" }, Comments.Default)]
             public static Func<Func<T1, U>, T1, Func<T1, U>> L_Default_F<T1, U>()
                 {
@@ -3627,7 +3868,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Default", new[] { "In", "Default" }, Comments.Default)]
             public static Func<Func<T1, T2, U>, T1, Func<T1, T2, U>> L_Default_F<T1, T2, U>()
                 {
@@ -3652,7 +3893,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Default2", new[] { "In", "Default2" }, Comments.Default2)]
             public static Func<Func<T1, T2, U>, T2, Func<T1, T2, U>> L_Default2_F<T1, T2, U>()
                 {
@@ -3678,7 +3919,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Default", new[] { "In", "Default" }, Comments.Default)]
             public static Func<Func<T1, T2, T3, U>, T1, Func<T1, T2, T3, U>> L_Default_F<T1, T2, T3, U>()
                 {
@@ -3704,7 +3945,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Default2", new[] { "In", "Default2" }, Comments.Default2)]
             public static Func<Func<T1, T2, T3, U>, T2, Func<T1, T2, T3, U>> L_Default2_F<T1, T2, T3, U>()
                 {
@@ -3730,7 +3971,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Default3", new[] { "In", "Default3" }, Comments.Default3)]
             public static Func<Func<T1, T2, T3, U>, T3, Func<T1, T2, T3, U>> L_Default3_F<T1, T2, T3, U>()
                 {
@@ -3757,7 +3998,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Default", new[] { "In", "Default" }, Comments.Default)]
             public static Func<Func<T1, T2, T3, T4, U>, T1, Func<T1, T2, T3, T4, U>> L_Default_F<T1, T2, T3, T4, U>()
                 {
@@ -3784,7 +4025,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Default2", new[] { "In", "Default2" }, Comments.Default2)]
             public static Func<Func<T1, T2, T3, T4, U>, T2, Func<T1, T2, T3, T4, U>> L_Default2_F<T1, T2, T3, T4, U>()
                 {
@@ -3811,7 +4052,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Default3", new[] { "In", "Default3" }, Comments.Default3)]
             public static Func<Func<T1, T2, T3, T4, U>, T3, Func<T1, T2, T3, T4, U>> L_Default3_F<T1, T2, T3, T4, U>()
                 {
@@ -3838,7 +4079,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Default4", new[] { "In", "Default4" }, Comments.Default4)]
             public static Func<Func<T1, T2, T3, T4, U>, T4, Func<T1, T2, T3, T4, U>> L_Default4_F<T1, T2, T3, T4, U>()
                 {
@@ -3866,7 +4107,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Defaults", new[] { "In", "Default", "Default2" }, Comments.Defaults)]
             public static Func<Action<T1, T2>, T1, T2, Action<T1, T2>> L_Defaults_A<T1, T2>()
                 {
@@ -3892,7 +4133,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Defaults", new[] { "In", "Default", "Default2", "Default3" }, Comments.Defaults)]
             public static Func<Action<T1, T2, T3>, T1, T2, T3, Action<T1, T2, T3>> L_Defaults_A<T1, T2, T3>()
                 {
@@ -3922,7 +4163,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Defaults", new[] { "In", "Default", "Default2", "Default3", "Default4" },
                 Comments.Defaults)]
             public static Func<Action<T1, T2, T3, T4>, T1, T2, T3, T4, Action<T1, T2, T3, T4>> L_Defaults_A
@@ -3956,7 +4197,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Defaults", new[] { "In", "Default", "Default2" }, Comments.Defaults)]
             public static Func<Func<T1, T2, U>, T1, T2, Func<T1, T2, U>> L_Defaults_F<T1, T2, U>()
                 {
@@ -3983,7 +4224,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Defaults", new[] { "In", "Default", "Default2", "Default3" }, Comments.Defaults)]
             public static Func<Func<T1, T2, T3, U>, T1, T2, T3, Func<T1, T2, T3, U>> L_Defaults_F<T1, T2, T3, U>()
                 {
@@ -4014,7 +4255,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Defaults", new[] { "In", "Default", "Default2", "Default3", "Default4" },
                 Comments.Defaults)]
             public static Func<Func<T1, T2, T3, T4, U>, T1, T2, T3, T4, Func<T1, T2, T3, T4, U>> L_Defaults_F
@@ -4050,7 +4291,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Require", new[] { "In", "ParameterName = null" }, Comments.Require)]
             public static Func<Action<T1>, string, Action<T1>> L_Require_A<T1>()
                 {
@@ -4071,7 +4312,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Require", new[] { "In", "ParameterName = null" }, Comments.Require)]
             public static Func<Action<T1, T2>, string, Action<T1, T2>> L_Require_A<T1, T2>()
                 {
@@ -4092,7 +4333,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Require2", new[] { "In", "ParameterName2 = null" }, Comments.Require2)]
             public static Func<Action<T1, T2>, string, Action<T1, T2>> L_Require2_A<T1, T2>()
                 {
@@ -4114,7 +4355,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Require", new[] { "In", "ParameterName = null" }, Comments.Require)]
             public static Func<Action<T1, T2, T3>, string, Action<T1, T2, T3>> L_Require_A<T1, T2, T3>()
                 {
@@ -4136,7 +4377,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Require2", new[] { "In", "ParameterName2 = null" }, Comments.Require2)]
             public static Func<Action<T1, T2, T3>, string, Action<T1, T2, T3>> L_Require2_A<T1, T2, T3>()
                 {
@@ -4158,7 +4399,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Require3", new[] { "In", "ParameterName3 = null" }, Comments.Require3)]
             public static Func<Action<T1, T2, T3>, string, Action<T1, T2, T3>> L_Require3_A<T1, T2, T3>()
                 {
@@ -4181,7 +4422,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Require", new[] { "In", "ParameterName = null" }, Comments.Require)]
             public static Func<Action<T1, T2, T3, T4>, string, Action<T1, T2, T3, T4>> L_Require_A<T1, T2, T3, T4>()
                 {
@@ -4204,7 +4445,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Require2", new[] { "In", "ParameterName2 = null" }, Comments.Require2)]
             public static Func<Action<T1, T2, T3, T4>, string, Action<T1, T2, T3, T4>> L_Require2_A<T1, T2, T3, T4>()
                 {
@@ -4227,7 +4468,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Require3", new[] { "In", "ParameterName3 = null" }, Comments.Require3)]
             public static Func<Action<T1, T2, T3, T4>, string, Action<T1, T2, T3, T4>> L_Require3_A<T1, T2, T3, T4>()
                 {
@@ -4250,7 +4491,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Require4", new[] { "In", "ParameterName4 = null" }, Comments.Require4)]
             public static Func<Action<T1, T2, T3, T4>, string, Action<T1, T2, T3, T4>> L_Require4_A<T1, T2, T3, T4>()
                 {
@@ -4271,7 +4512,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Require", new[] { "In", "ParameterName = null" }, Comments.Require)]
             public static Func<Func<T1, U>, string, Func<T1, U>> L_Require_F<T1, U>()
                 {
@@ -4293,7 +4534,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Require", new[] { "In", "ParameterName = null" }, Comments.Require)]
             public static Func<Func<T1, T2, U>, string, Func<T1, T2, U>> L_Require_F<T1, T2, U>()
                 {
@@ -4315,7 +4556,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Require2", new[] { "In", "ParameterName2 = null" }, Comments.Require2)]
             public static Func<Func<T1, T2, U>, string, Func<T1, T2, U>> L_Require2_F<T1, T2, U>()
                 {
@@ -4338,7 +4579,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Require", new[] { "In", "ParameterName = null" }, Comments.Require)]
             public static Func<Func<T1, T2, T3, U>, string, Func<T1, T2, T3, U>> L_Require_F<T1, T2, T3, U>()
                 {
@@ -4361,7 +4602,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Require2", new[] { "In", "ParameterName2 = null" }, Comments.Require2)]
             public static Func<Func<T1, T2, T3, U>, string, Func<T1, T2, T3, U>> L_Require2_F<T1, T2, T3, U>()
                 {
@@ -4384,7 +4625,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Require3", new[] { "In", "ParameterName3 = null" }, Comments.Require3)]
             public static Func<Func<T1, T2, T3, U>, string, Func<T1, T2, T3, U>> L_Require3_F<T1, T2, T3, U>()
                 {
@@ -4408,7 +4649,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Require", new[] { "In", "ParameterName = null" }, Comments.Require)]
             public static Func<Func<T1, T2, T3, T4, U>, string, Func<T1, T2, T3, T4, U>> L_Require_F<T1, T2, T3, T4, U>()
                 {
@@ -4432,7 +4673,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Require2", new[] { "In", "ParameterName2 = null" }, Comments.Require2)]
             public static Func<Func<T1, T2, T3, T4, U>, string, Func<T1, T2, T3, T4, U>> L_Require2_F<T1, T2, T3, T4, U>
                 ()
@@ -4457,7 +4698,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Require3", new[] { "In", "ParameterName3 = null" }, Comments.Require3)]
             public static Func<Func<T1, T2, T3, T4, U>, string, Func<T1, T2, T3, T4, U>> L_Require3_F<T1, T2, T3, T4, U>
                 ()
@@ -4482,7 +4723,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Require4", new[] { "In", "ParameterName4 = null" }, Comments.Require4)]
             public static Func<Func<T1, T2, T3, T4, U>, string, Func<T1, T2, T3, T4, U>> L_Require4_F<T1, T2, T3, T4, U>
                 ()
@@ -4508,7 +4749,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("RequireAll", new[] { "In", "ParameterName = null", "ParameterName2 = null" },
                 Comments.RequireAll)]
             public static Func<Action<T1, T2>, string, string, Action<T1, T2>> L_RequireAll_A<T1, T2>()
@@ -4533,7 +4774,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("RequireAll",
                 new[] { "In", "ParameterName = null", "ParameterName2 = null", "ParameterName3 = null" },
                 Comments.RequireAll)]
@@ -4563,7 +4804,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("RequireAll",
                 new[]
                     {
@@ -4597,7 +4838,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("RequireAll", new[] { "In", "ParameterName = null", "ParameterName2 = null" },
                 Comments.RequireAll)]
             public static Func<Func<T1, T2, U>, string, string, Func<T1, T2, U>> L_RequireAll_F<T1, T2, U>()
@@ -4623,7 +4864,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("RequireAll",
                 new[] { "In", "ParameterName = null", "ParameterName2 = null", "ParameterName3 = null" },
                 Comments.RequireAll)]
@@ -4654,7 +4895,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("RequireAll",
                 new[]
                     {
@@ -4690,7 +4931,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Yield", new[] { "In" }, Comments.Yield)]
             public static Func<Action<U>, Func<U, U>> L_Yield_A<U>()
                 {
@@ -4710,7 +4951,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Yield", new[] { "In" }, Comments.Yield)]
             public static Func<Action<U, T1>, Func<U, T1, U>> L_Yield_A<T1, U>()
                 {
@@ -4730,7 +4971,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Yield2", new[] { "In" }, Comments.Yield2)]
             public static Func<Action<T1, U>, Func<T1, U, U>> L_Yield2_A<T1, U>()
                 {
@@ -4751,7 +4992,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Yield", new[] { "In" }, Comments.Yield)]
             public static Func<Action<U, T1, T2>, Func<U, T1, T2, U>> L_Yield_A<T1, T2, U>()
                 {
@@ -4772,7 +5013,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Yield2", new[] { "In" }, Comments.Yield2)]
             public static Func<Action<T1, U, T2>, Func<T1, U, T2, U>> L_Yield2_A<T1, T2, U>()
                 {
@@ -4793,7 +5034,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Yield3", new[] { "In" }, Comments.Yield3)]
             public static Func<Action<T1, T2, U>, Func<T1, T2, U, U>> L_Yield3_A<T1, T2, U>()
                 {
@@ -4815,7 +5056,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Yield", new[] { "In" }, Comments.Yield)]
             public static Func<Action<U, T1, T2, T3>, Func<U, T1, T2, T3, U>> L_Yield_A<T1, T2, T3, U>()
                 {
@@ -4837,7 +5078,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Yield2", new[] { "In" }, Comments.Yield2)]
             public static Func<Action<T1, U, T2, T3>, Func<T1, U, T2, T3, U>> L_Yield2_A<T1, T2, T3, U>()
                 {
@@ -4859,7 +5100,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Yield3", new[] { "In" }, Comments.Yield3)]
             public static Func<Action<T1, T2, U, T3>, Func<T1, T2, U, T3, U>> L_Yield3_A<T1, T2, T3, U>()
                 {
@@ -4881,7 +5122,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Yield4", new[] { "In" }, Comments.Yield4)]
             public static Func<Action<T1, T2, T3, U>, Func<T1, T2, T3, U, U>> L_Yield4_A<T1, T2, T3, U>()
                 {
@@ -4900,7 +5141,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Yield", new[] { "In" }, Comments.Yield)]
             public static Func<Func<U, U>, Func<U, U>> L_Yield_F<U>()
                 {
@@ -4920,7 +5161,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Yield", new[] { "In" }, Comments.Yield)]
             public static Func<Func<U, T1, U>, Func<U, T1, U>> L_Yield_F<T1, U>()
                 {
@@ -4940,7 +5181,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Yield2", new[] { "In" }, Comments.Yield2)]
             public static Func<Func<T1, U, U>, Func<T1, U, U>> L_Yield2_F<T1, U>()
                 {
@@ -4961,7 +5202,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Yield", new[] { "In" }, Comments.Yield)]
             public static Func<Func<U, T1, T2, U>, Func<U, T1, T2, U>> L_Yield_F<T1, T2, U>()
                 {
@@ -4982,7 +5223,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Yield2", new[] { "In" }, Comments.Yield2)]
             public static Func<Func<T1, U, T2, U>, Func<T1, U, T2, U>> L_Yield2_F<T1, T2, U>()
                 {
@@ -5003,7 +5244,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Yield3", new[] { "In" }, Comments.Yield3)]
             public static Func<Func<T1, T2, U, U>, Func<T1, T2, U, U>> L_Yield3_F<T1, T2, U>()
                 {
@@ -5025,7 +5266,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Yield", new[] { "In" }, Comments.Yield)]
             public static Func<Func<U, T1, T2, T3, U>, Func<U, T1, T2, T3, U>> L_Yield_F<T1, T2, T3, U>()
                 {
@@ -5047,7 +5288,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Yield2", new[] { "In" }, Comments.Yield2)]
             public static Func<Func<T1, U, T2, T3, U>, Func<T1, U, T2, T3, U>> L_Yield2_F<T1, T2, T3, U>()
                 {
@@ -5069,7 +5310,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Yield3", new[] { "In" }, Comments.Yield3)]
             public static Func<Func<T1, T2, U, T3, U>, Func<T1, T2, U, T3, U>> L_Yield3_F<T1, T2, T3, U>()
                 {
@@ -5091,7 +5332,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Yield4", new[] { "In" }, Comments.Yield4)]
             public static Func<Func<T1, T2, T3, U, U>, Func<T1, T2, T3, U, U>> L_Yield4_F<T1, T2, T3, U>()
                 {
@@ -5113,7 +5354,7 @@ namespace LCore.Extensions
             /// For a method Act that returns a method, Returns a method that executes the Method passed and its result.
             /// </summary>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Execute", new[] { "Act" }, Comments.Execute)]
             public static Func<Func<Action>, Action> L_Execute_A()
                 {
@@ -5131,7 +5372,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Execute", new[] { "Act" }, Comments.Execute)]
             public static Func<Func<Action<T1>>, Action<T1>> L_Execute_A<T1>()
                 {
@@ -5150,7 +5391,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Execute", new[] { "Act" }, Comments.Execute)]
             public static Func<Func<Action<T1, T2>>, Action<T1, T2>> L_Execute_A<T1, T2>()
                 {
@@ -5170,7 +5411,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Execute", new[] { "Act" }, Comments.Execute)]
             public static Func<Func<Action<T1, T2, T3>>, Action<T1, T2, T3>> L_Execute_A<T1, T2, T3>()
                 {
@@ -5191,7 +5432,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Execute", new[] { "Act" }, Comments.Execute)]
             public static Func<Func<Action<T1, T2, T3, T4>>, Action<T1, T2, T3, T4>> L_Execute_A<T1, T2, T3, T4>()
                 {
@@ -5209,7 +5450,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Execute", new[] { "Act" }, Comments.Execute)]
             public static Func<Func<Func<U>>, Func<U>> L_Execute_F<U>()
                 {
@@ -5225,7 +5466,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Execute", new[] { "Act" }, Comments.Execute)]
             public static Func<Func<Func<T1, U>>, Func<T1, U>> L_Execute_F<T1, U>()
                 {
@@ -5242,7 +5483,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Execute", new[] { "Act" }, Comments.Execute)]
             public static Func<Func<Func<T1, T2, U>>, Func<T1, T2, U>> L_Execute_F<T1, T2, U>()
                 {
@@ -5260,7 +5501,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Execute", new[] { "Act" }, Comments.Execute)]
             public static Func<Func<Func<T1, T2, T3, U>>, Func<T1, T2, T3, U>> L_Execute_F<T1, T2, T3, U>()
                 {
@@ -5279,7 +5520,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Execute", new[] { "Act" }, Comments.Execute)]
             public static Func<Func<Func<T1, T2, T3, T4, U>>, Func<T1, T2, T3, T4, U>> L_Execute_F<T1, T2, T3, T4, U>()
                 {
@@ -5299,7 +5540,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U1"></typeparam>
             /// <returns></returns>
-            
+
             public static Func<Action<T1>, Action<U1>> L_Cast_A<T1, U1>()
                 where U1 : T1
                 {
@@ -5317,7 +5558,7 @@ namespace LCore.Extensions
             /// <typeparam name="U1"></typeparam>
             /// <typeparam name="U2"></typeparam>
             /// <returns></returns>
-            
+
             public static Func<Action<T1, T2>, Action<U1, U2>> L_Cast_A<T1, T2, U1, U2>()
                 where U1 : T1
                 where U2 : T2
@@ -5338,7 +5579,7 @@ namespace LCore.Extensions
             /// <typeparam name="U2"></typeparam>
             /// <typeparam name="U3"></typeparam>
             /// <returns></returns>
-            
+
             public static Func<Action<T1, T2, T3>, Action<U1, U2, U3>> L_Cast_A<T1, T2, T3, U1, U2, U3>()
                 where U1 : T1
                 where U2 : T2
@@ -5350,7 +5591,7 @@ namespace LCore.Extensions
                     };
                 }
 
-            
+
             /// <summary>
             /// Returns a function that takes a Casts the paramaters of the Action to U1, U2, U3, U4
             /// </summary>
@@ -5381,7 +5622,7 @@ namespace LCore.Extensions
             /// <typeparam name="U1"></typeparam>
             /// <typeparam name="U2"></typeparam>
             /// <returns></returns>
-            
+
             public static Func<Func<U1>, Func<U2>> L_Cast_F<U1, U2>()
                 {
                 return In =>
@@ -5398,7 +5639,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U2"></typeparam>
             /// <returns></returns>
-            
+
             public static Func<Func<T1, U1>, Func<T2, U2>> L_Cast_F<T1, U1, T2, U2>()
                 where T2 : T1
                 where U2 : U1
@@ -5419,7 +5660,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U2"></typeparam>
             /// <returns></returns>
-            
+
             public static Func<Func<T1, T2, U1>, Func<T3, T4, U2>> L_Cast_F<T1, T2, U1, T3, T4, U2>()
                 where T3 : T1
                 where T4 : T2
@@ -5443,7 +5684,7 @@ namespace LCore.Extensions
             /// <typeparam name="T6"></typeparam>
             /// <typeparam name="U2"></typeparam>
             /// <returns></returns>
-            
+
             public static Func<Func<T1, T2, T3, U1>, Func<T4, T5, T6, U2>> L_Cast_F<T1, T2, T3, U1, T4, T5, T6, U2>()
                 where T4 : T1
                 where T5 : T2
@@ -5470,7 +5711,7 @@ namespace LCore.Extensions
             /// <typeparam name="T8"></typeparam>
             /// <typeparam name="U2"></typeparam>
             /// <returns></returns>
-            
+
             public static Func<Func<T1, T2, T3, T4, U1>, Func<T5, T6, T7, T8, U2>> L_Cast_F
                 <T1, T2, T3, T4, U1, T5, T6, T7, T8, U2>()
                 where T5 : T1
@@ -5492,7 +5733,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Joins two methods together, performing one then another.
             /// </summary>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "Action1", "Action2" }, Comments.Then)]
             public static readonly Func<Action, Action, Action> Then = (Action1, Action2) =>
                     {
@@ -5507,7 +5748,7 @@ namespace LCore.Extensions
             /// Joins multiple actions together, performing them in order.
             /// </summary>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
             public static Func<Action, Action[], Action> Then_A()
                 {
@@ -5523,7 +5764,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
             public static Func<Action<T1>, Action<T1>[], Action<T1>> Then_A<T1>()
                 {
@@ -5547,7 +5788,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
             public static Func<Action<T1, T2>, Action<T1, T2>[], Action<T1, T2>> Then_A<T1, T2>()
                 {
@@ -5572,7 +5813,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
             public static Func<Action<T1, T2, T3>, Action<T1, T2, T3>[], Action<T1, T2, T3>> Then_A<T1, T2, T3>()
                 {
@@ -5598,7 +5839,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
             public static Func<Action<T1, T2, T3, T4>, Action<T1, T2, T3, T4>[], Action<T1, T2, T3, T4>> Then_A
                 <T1, T2, T3, T4>()
@@ -5622,7 +5863,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
             public static Func<Action, Func<U>[], Func<U>> Then_A_F<U>()
                 {
@@ -5635,7 +5876,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
             public static Func<Action<T1>, Func<T1, U>[], Func<T1, U>> Then_A_F<T1, U>()
                 {
@@ -5649,7 +5890,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
             public static Func<Action<T1, T2>, Func<T1, T2, U>[], Func<T1, T2, U>> Then_A_F<T1, T2, U>()
                 {
@@ -5664,7 +5905,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
             public static Func<Action<T1, T2, T3>, Func<T1, T2, T3, U>[], Func<T1, T2, T3, U>> Then_A_F<T1, T2, T3, U>
                 ()
@@ -5681,7 +5922,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
             public static Func<Action<T1, T2, T3, T4>, Func<T1, T2, T3, T4, U>[], Func<T1, T2, T3, T4, U>> Then_A_F
                 <T1, T2, T3, T4, U>()
@@ -5694,7 +5935,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
             public static Func<Func<U>, Action[], Func<U>> Then_F<U>()
                 {
@@ -5719,7 +5960,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
             public static Func<Func<T1, U>, Action<T1>[], Func<T1, U>> Then_F<T1, U>()
                 {
@@ -5745,7 +5986,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
             public static Func<Func<T1, T2, U>, Action<T1, T2>[], Func<T1, T2, U>> Then_F<T1, T2, U>()
                 {
@@ -5772,7 +6013,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
             public static Func<Func<T1, T2, T3, U>, Action<T1, T2, T3>[], Func<T1, T2, T3, U>> Then_F<T1, T2, T3, U>()
                 {
@@ -5800,7 +6041,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
             public static Func<Func<T1, T2, T3, T4, U>, Action<T1, T2, T3, T4>[], Func<T1, T2, T3, T4, U>> Then_F
                 <T1, T2, T3, T4, U>()
@@ -5825,7 +6066,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
             public static Func<Func<U>, Func<U>[], Func<U>> L_Then_F_F<U>()
                 {
@@ -5849,7 +6090,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
             public static Func<Func<T1, U>, Func<T1, U>[], Func<T1, U>> L_Then_F_F<T1, U>()
                 {
@@ -5875,7 +6116,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
             public static Func<Func<T1, T2, U>, Func<T1, T2, U>[], Func<T1, T2, U>> L_Then_F_F<T1, T2, U>()
                 {
@@ -5901,7 +6142,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
             public static Func<Func<T1, T2, T3, U>, Func<T1, T2, T3, U>[], Func<T1, T2, T3, U>> L_Then_F_F
                 <T1, T2, T3, U>()
@@ -5929,7 +6170,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<T1, T2, T3, T4, U>[], Func<T1, T2, T3, T4, U>> L_Then_F_F
                 <T1, T2, T3, T4, U>()
@@ -5959,7 +6200,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
             public static Func<Action<T1>, Action[], Action<T1>> L_ThenMissing_A<T1>()
                 {
@@ -5983,7 +6224,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
             public static Func<Action<T1, T2>, Action<T1>[], Action<T1, T2>> L_ThenMissing_A<T1, T2>()
                 {
@@ -6007,7 +6248,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
             public static Func<Action<T1, T2>, Action[], Action<T1, T2>> L_ThenMissing_A2<T1, T2>()
                 {
@@ -6032,7 +6273,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
             public static Func<Action<T1, T2, T3>, Action<T1, T2>[], Action<T1, T2, T3>> L_ThenMissing_A<T1, T2, T3>()
                 {
@@ -6057,7 +6298,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
             public static Func<Action<T1, T2, T3>, Action<T1>[], Action<T1, T2, T3>> L_ThenMissing_A2<T1, T2, T3>()
                 {
@@ -6082,7 +6323,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
             public static Func<Action<T1, T2, T3>, Action[], Action<T1, T2, T3>> L_ThenMissing_A3<T1, T2, T3>()
                 {
@@ -6108,7 +6349,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
             public static Func<Action<T1, T2, T3, T4>, Action<T1, T2, T3>[], Action<T1, T2, T3, T4>> L_ThenMissing_A
                 <T1, T2, T3, T4>()
@@ -6135,7 +6376,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
             public static Func<Action<T1, T2, T3, T4>, Action<T1, T2>[], Action<T1, T2, T3, T4>> L_ThenMissing_A2
                 <T1, T2, T3, T4>()
@@ -6162,7 +6403,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
             public static Func<Action<T1, T2, T3, T4>, Action<T1>[], Action<T1, T2, T3, T4>> L_ThenMissing_A3
                 <T1, T2, T3, T4>()
@@ -6189,7 +6430,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
             public static Func<Action<T1, T2, T3, T4>, Action[], Action<T1, T2, T3, T4>> L_ThenMissing_A4
                 <T1, T2, T3, T4>()
@@ -6218,7 +6459,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
             public static Func<Action<T1>, Func<U>[], Func<T1, U>> L_ThenMissing_A_F<T1, U>()
                 {
@@ -6244,7 +6485,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2>, Func<T1, U>[], Func<T1, T2, U>> L_ThenMissing_A_F<T1, T2, U>()
                 {
@@ -6271,7 +6512,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2, T3>, Func<T1, T2, U>[], Func<T1, T2, T3, U>> L_ThenMissing_A_F
                 <T1, T2, T3, U>()
@@ -6298,7 +6539,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2>, Func<U>[], Func<T1, T2, U>> L_ThenMissing_A_F2<T1, T2, U>()
                 {
@@ -6325,7 +6566,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2, T3>, Func<U>[], Func<T1, T2, T3, U>> L_ThenMissing_A_F3<T1, T2, T3, U>()
                 {
@@ -6352,7 +6593,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2, T3>, Func<T1, U>[], Func<T1, T2, T3, U>> L_ThenMissing_A_F2<T1, T2, T3, U>
                 ()
@@ -6381,7 +6622,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2, T3, T4>, Func<T1, T2, T3, U>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_A_F
                 <T1, T2, T3, T4, U>()
@@ -6410,7 +6651,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2, T3, T4>, Func<T1, T2, U>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_A_F2
                 <T1, T2, T3, T4, U>()
@@ -6439,7 +6680,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2, T3, T4>, Func<T1, U>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_A_F3
                 <T1, T2, T3, T4, U>()
@@ -6468,7 +6709,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2, T3, T4>, Func<U>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_A_F4
                 <T1, T2, T3, T4, U>()
@@ -6498,7 +6739,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
             public static Func<Func<T1, U>, Action[], Func<T1, U>> L_ThenMissing_F_A<T1, U>()
                 {
@@ -6524,7 +6765,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
             public static Func<Func<T1, T2, U>, Action<T1>[], Func<T1, T2, U>> L_ThenMissing_F_A<T1, T2, U>()
                 {
@@ -6550,7 +6791,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
             public static Func<Func<T1, T2, U>, Action[], Func<T1, T2, U>> L_ThenMissing_F_A2<T1, T2, U>()
                 {
@@ -6577,7 +6818,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "Acts" }, Comments.ThenMissing)]
             public static Func<Func<T1, T2, T3, U>, Action<T1, T2>[], Func<T1, T2, T3, U>> L_ThenMissing_F_A
                 <T1, T2, T3, U>()
@@ -6605,7 +6846,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
             public static Func<Func<T1, T2, T3, U>, Action<T1>[], Func<T1, T2, T3, U>> L_ThenMissing_F_A2<T1, T2, T3, U>
                 ()
@@ -6633,7 +6874,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
             public static Func<Func<T1, T2, T3, U>, Action[], Func<T1, T2, T3, U>> L_ThenMissing_F_A3<T1, T2, T3, U>()
                 {
@@ -6661,7 +6902,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
             public static Func<Func<T1, T2, T3, T4, U>, Action<T1, T2, T3>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_F_A
                 <T1, T2, T3, T4, U>()
@@ -6690,7 +6931,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "Acts" }, Comments.ThenMissing)]
             public static Func<Func<T1, T2, T3, T4, U>, Action<T1, T2>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_F_A2
                 <T1, T2, T3, T4, U>()
@@ -6719,7 +6960,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
             public static Func<Func<T1, T2, T3, T4, U>, Action<T1>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_F_A3
                 <T1, T2, T3, T4, U>()
@@ -6748,7 +6989,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
             public static Func<Func<T1, T2, T3, T4, U>, Action[], Func<T1, T2, T3, T4, U>> L_ThenMissing_F_A4
                 <T1, T2, T3, T4, U>()
@@ -6778,7 +7019,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
             public static Func<Func<T1, U>, Func<U>[], Func<T1, U>> L_ThenMissing_F_F<T1, U>()
                 {
@@ -6803,7 +7044,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, U>, Func<T1, U>[], Func<T1, T2, U>> L_ThenMissing_F_F<T1, T2, U>()
                 {
@@ -6828,7 +7069,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, U>, Func<U>[], Func<T1, T2, U>> L_ThenMissing_F_F2<T1, T2, U>()
                 {
@@ -6854,7 +7095,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, T3, U>, Func<T1, U>[], Func<T1, T2, T3, U>> L_ThenMissing_F_F2
                 <T1, T2, T3, U>()
@@ -6881,7 +7122,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, T3, U>, Func<U>[], Func<T1, T2, T3, U>> L_ThenMissing_F_F3<T1, T2, T3, U>()
                 {
@@ -6907,7 +7148,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, T3, U>, Func<T1, T2, U>[], Func<T1, T2, T3, U>> L_ThenMissing_F_F
                 <T1, T2, T3, U>()
@@ -6935,7 +7176,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<T1, T2, T3, U>[], Func<T1, T2, T3, T4, U>>
                 L_ThenMissing_F_F<T1, T2, T3, T4, U>()
@@ -6963,7 +7204,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<T1, T2, U>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_F_F2
                 <T1, T2, T3, T4, U>()
@@ -6991,7 +7232,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<T1, U>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_F_F3
                 <T1, T2, T3, T4, U>()
@@ -7019,7 +7260,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<U>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_F_F4
                 <T1, T2, T3, T4, U>()
@@ -7045,9 +7286,9 @@ namespace LCore.Extensions
             #region Merge
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge, false, true)]
             [CodeExplodeGenerics("Merge", Comments.Merge)]
             public static Func<Action /*X2GA*/, Action /*GA*/ /*X2-TI*/, Action> L_Merge /*MA*/()
@@ -7063,11 +7304,11 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge, false, true)]
             [CodeExplodeGenerics("Merge", Comments.Merge)]
             public static Func<Action /*X2GA*/, Func /*GF*/<U> /*X2-TI*/, Func<U>> L_Merge_A_F /*MF*/<U>()
@@ -7083,11 +7324,11 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<U>, Action, Func<U>> L_Merge_F_A<U>()
                 {
@@ -7103,12 +7344,12 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<U>, Action<T1>, Func<T1, U>> L_Merge_F_A1<T1, U>()
                 {
@@ -7124,13 +7365,13 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<U>, Action<T1, T2>, Func<T1, T2, U>> L_Merge_F_A2<T1, T2, U>()
                 {
@@ -7146,14 +7387,14 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<U>, Action<T1, T2, T3>, Func<T1, T2, T3, U>> L_Merge_F_A3<T1, T2, T3, U>()
                 {
@@ -7169,7 +7410,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -7177,7 +7418,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<U>, Action<T1, T2, T3, T4>, Func<T1, T2, T3, T4, U>> L_Merge_F_A4<T1, T2, T3, T4, U>
                 ()
@@ -7194,12 +7435,12 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<T1, U>, Action, Func<T1, U>> L_Merge_F1_A<T1, U>()
                 {
@@ -7215,13 +7456,13 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<T1, U>, Action<T2>, Func<T1, T2, U>> L_Merge_F1_A1<T1, T2, U>()
                 {
@@ -7237,14 +7478,14 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<T1, U>, Action<T2, T3>, Func<T1, T2, T3, U>> L_Merge_F1_A2<T1, T2, T3, U>()
                 {
@@ -7260,7 +7501,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -7268,7 +7509,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<T1, U>, Action<T2, T3, T4>, Func<T1, T2, T3, T4, U>> L_Merge_F1_A3
                 <T1, T2, T3, T4, U>()
@@ -7285,13 +7526,13 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<T1, T2, U>, Action, Func<T1, T2, U>> L_Merge_F2_A<T1, T2, U>()
                 {
@@ -7307,14 +7548,14 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<T1, T2, U>, Action<T3>, Func<T1, T2, T3, U>> L_Merge_F2_A1<T1, T2, T3, U>()
                 {
@@ -7330,7 +7571,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -7338,7 +7579,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<T1, T2, U>, Action<T3, T4>, Func<T1, T2, T3, T4, U>> L_Merge_F2_A2
                 <T1, T2, T3, T4, U>()
@@ -7355,14 +7596,14 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<T1, T2, T3, U>, Action, Func<T1, T2, T3, U>> L_Merge_F3_A<T1, T2, T3, U>()
                 {
@@ -7378,7 +7619,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -7386,7 +7627,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<T1, T2, T3, U>, Action<T4>, Func<T1, T2, T3, T4, U>> L_Merge_F3_A1
                 <T1, T2, T3, T4, U>()
@@ -7403,7 +7644,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -7411,7 +7652,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<T1, T2, T3, T4, U>, Action, Func<T1, T2, T3, T4, U>> L_Merge_F3_A<T1, T2, T3, T4, U>
                 ()
@@ -7428,11 +7669,11 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<U>, Func<U>, Func<U>> L_Merge_F_F<U>()
                 {
@@ -7447,12 +7688,12 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<U>, Func<T1, U>, Func<T1, U>> L_Merge_F_F1<T1, U>()
                 {
@@ -7467,13 +7708,13 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<U>, Func<T1, T2, U>, Func<T1, T2, U>> L_Merge_F_F2<T1, T2, U>()
                 {
@@ -7488,14 +7729,14 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<U>, Func<T1, T2, T3, U>, Func<T1, T2, T3, U>> L_Merge_F_F3<T1, T2, T3, U>()
                 {
@@ -7510,7 +7751,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -7518,7 +7759,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<U>, Func<T1, T2, T3, T4, U>, Func<T1, T2, T3, T4, U>> L_Merge_F_F4
                 <T1, T2, T3, T4, U>()
@@ -7534,12 +7775,12 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<T1, U>, Func<U>, Func<T1, U>> L_Merge_F1_F<T1, U>()
                 {
@@ -7554,13 +7795,13 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<T1, U>, Func<T3, U>, Func<T1, T3, U>> L_Merge_F1_F1<T1, T3, U>()
                 {
@@ -7575,14 +7816,14 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<T1, U>, Func<T3, T4, U>, Func<T1, T3, T4, U>> L_Merge_F1_F2<T1, T3, T4, U>()
                 {
@@ -7597,7 +7838,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -7605,7 +7846,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<T1, U>, Func<T2, T3, T4, U>, Func<T1, T2, T3, T4, U>> L_Merge_F1_F3
                 <T1, T2, T3, T4, U>()
@@ -7621,13 +7862,13 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<T1, T2, U>, Func<U>, Func<T1, T2, U>> L_Merge_F2_F<T1, T2, U>()
                 {
@@ -7642,14 +7883,14 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<T1, T2, U>, Func<T4, U>, Func<T1, T2, T4, U>> L_Merge_F2_F1<T1, T2, T4, U>()
                 {
@@ -7664,7 +7905,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -7672,7 +7913,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<T1, T2, U>, Func<T3, T4, U>, Func<T1, T2, T3, T4, U>> L_Merge_F2_F2
                 <T1, T2, T3, T4, U>()
@@ -7688,14 +7929,14 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<T1, T2, T3, U>, Func<U>, Func<T1, T2, T3, U>> L_Merge_F3_F<T1, T2, T3, U>()
                 {
@@ -7710,7 +7951,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -7718,7 +7959,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<T1, T2, T3, U>, Func<T4, U>, Func<T1, T2, T3, T4, U>> L_Merge_F3_F1
                 <T1, T2, T3, T4, U>()
@@ -7734,7 +7975,7 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Returns a function that Performs In, then Merge. Parameter liss are merged.
+            /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
@@ -7742,7 +7983,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<U>, Func<T1, T2, T3, T4, U>> L_Merge_F4_F
                 <T1, T2, T3, T4, U>()
@@ -7766,7 +8007,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Supply", new[] { "In", "Obj" }, Comments.Supply)]
             public static Func<Action<T1>, T1, Action> L_Supply_A<T1>()
                 {
@@ -7782,7 +8023,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Supply", new[] { "In", "Obj" }, Comments.Supply)]
             public static Func<Action<T1, T2>, T1, Action<T2>> L_Supply_A<T1, T2>()
                 {
@@ -7798,7 +8039,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Supply2", new[] { "In", "Obj" }, Comments.Supply_2)]
             public static Func<Action<T1, T2>, T2, Action<T1>> L_Supply_A2<T1, T2>()
                 {
@@ -7815,7 +8056,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Supply", new[] { "In", "Obj" }, Comments.Supply)]
             public static Func<Action<T1, T2, T3>, T1, Action<T2, T3>> L_Supply_A<T1, T2, T3>()
                 {
@@ -7832,7 +8073,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Supply2", new[] { "In", "Obj" }, Comments.Supply_2)]
             public static Func<Action<T1, T2, T3>, T2, Action<T1, T3>> L_Supply_A2<T1, T2, T3>()
                 {
@@ -7849,7 +8090,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Supply3", new[] { "In", "Obj" }, Comments.Supply_3)]
             public static Func<Action<T1, T2, T3>, T3, Action<T1, T2>> L_Supply_A3<T1, T2, T3>()
                 {
@@ -7867,7 +8108,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Supply", new[] { "In", "Obj" }, Comments.Supply)]
             public static Func<Action<T1, T2, T3, T4>, T1, Action<T2, T3, T4>> L_Supply_A<T1, T2, T3, T4>()
                 {
@@ -7885,7 +8126,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Supply2", new[] { "In", "Obj" }, Comments.Supply_2)]
             public static Func<Action<T1, T2, T3, T4>, T2, Action<T1, T3, T4>> L_Supply_A2<T1, T2, T3, T4>()
                 {
@@ -7903,7 +8144,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Supply3", new[] { "In", "Obj" }, Comments.Supply_3)]
             public static Func<Action<T1, T2, T3, T4>, T3, Action<T1, T2, T4>> L_Supply_A3<T1, T2, T3, T4>()
                 {
@@ -7921,7 +8162,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Supply4", new[] { "In", "Obj" }, Comments.Supply_4)]
             public static Func<Action<T1, T2, T3, T4>, T4, Action<T1, T2, T3>> L_Supply_A4<T1, T2, T3, T4>()
                 {
@@ -7937,7 +8178,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Supply", new[] { "In", "Obj" }, Comments.Supply)]
             public static Func<Func<T1, U>, T1, Func<U>> L_Supply_F<T1, U>()
                 {
@@ -7954,7 +8195,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Supply", new[] { "In", "Obj" }, Comments.Supply)]
             public static Func<Func<T1, T2, U>, T1, Func<T2, U>> L_Supply_F<T1, T2, U>()
                 {
@@ -7971,7 +8212,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Supply2", new[] { "In", "Obj" }, Comments.Supply_2)]
             public static Func<Func<T1, T2, U>, T2, Func<T1, U>> L_Supply_F2<T1, T2, U>()
                 {
@@ -7989,7 +8230,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Supply", new[] { "In", "Obj" }, Comments.Supply)]
             public static Func<Func<T1, T2, T3, U>, T1, Func<T2, T3, U>> L_Supply_F<T1, T2, T3, U>()
                 {
@@ -8007,7 +8248,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Supply2", new[] { "In", "Obj" }, Comments.Supply_2)]
             public static Func<Func<T1, T2, T3, U>, T2, Func<T1, T3, U>> L_Supply_F2<T1, T2, T3, U>()
                 {
@@ -8025,7 +8266,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Supply3", new[] { "In", "Obj" }, Comments.Supply_3)]
             public static Func<Func<T1, T2, T3, U>, T3, Func<T1, T2, U>> L_Supply_F3<T1, T2, T3, U>()
                 {
@@ -8044,7 +8285,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Supply", new[] { "In", "Obj" }, Comments.Supply)]
             public static Func<Func<T1, T2, T3, T4, U>, T1, Func<T2, T3, T4, U>> L_Supply_F<T1, T2, T3, T4, U>()
                 {
@@ -8063,7 +8304,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Supply2", new[] { "In", "Obj" }, Comments.Supply_2)]
             public static Func<Func<T1, T2, T3, T4, U>, T2, Func<T1, T3, T4, U>> L_Supply_F2<T1, T2, T3, T4, U>()
                 {
@@ -8082,7 +8323,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Supply3", new[] { "In", "Obj" }, Comments.Supply_3)]
             public static Func<Func<T1, T2, T3, T4, U>, T3, Func<T1, T2, T4, U>> L_Supply_F3<T1, T2, T3, T4, U>()
                 {
@@ -8101,7 +8342,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            
+
             [CodeExplodeExtensionMethod("Supply4", new[] { "In", "Obj" }, Comments.Supply_4)]
             public static Func<Func<T1, T2, T3, T4, U>, T4, Func<T1, T2, T3, U>> L_Supply_F4<T1, T2, T3, T4, U>()
                 {

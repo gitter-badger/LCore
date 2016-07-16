@@ -4,16 +4,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using FluentAssertions;
+using Xunit;
 using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
-    [TestClass]
     public class DictionaryExtTest : ExtensionTester
         {
         protected override Type[] TestType => new[] { typeof(DictionaryExt) };
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_Merge()
             {
@@ -59,7 +59,7 @@ namespace L_Tests.Tests.Extensions
             Test.Keys.List().ShouldBeEquivalentTo(new List<string> { "a", "b", "c", "d", "e", "f", "g", "h", "i", "ga", "ha", "ia" });
             }
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_AddRange()
             {
@@ -80,7 +80,7 @@ namespace L_Tests.Tests.Extensions
             }
 
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_SafeAdd()
             {
@@ -106,7 +106,7 @@ namespace L_Tests.Tests.Extensions
             }
 
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_SafeSet()
             {
@@ -130,7 +130,7 @@ namespace L_Tests.Tests.Extensions
             }
 
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_SafeGet()
             {
@@ -144,7 +144,7 @@ namespace L_Tests.Tests.Extensions
             }
 
 
-        [TestMethod]
+        [Fact]
         [TestCategory(UnitTests)]
         public void Test_GetAllValues()
             {

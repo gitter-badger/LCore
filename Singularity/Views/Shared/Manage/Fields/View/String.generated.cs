@@ -42,6 +42,7 @@ namespace ASP
     using Singularity;
     using Singularity.Context;
     using Singularity.Controllers;
+    using Singularity.Extensions;
     using Singularity.Models;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
@@ -69,7 +70,7 @@ WriteLiteral("\r\n\r\n");
             
             #line 9 "..\..\Views\Shared\Manage\Fields\View\String.cshtml"
  if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell) &&
-    Model.PropertyData.ToString().Length > ControllerHelper.DefaultTableTextLength)
+    Model.PropertyData.ToString().Length > SingularityControllerHelper.DefaultTableTextLength)
     {
 
             
@@ -79,14 +80,14 @@ WriteLiteral("    <span");
 
 WriteLiteral(" class=\"abbreviated\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 271), Tuple.Create("\"", 298)
+WriteAttribute("title", Tuple.Create(" title=\"", 282), Tuple.Create("\"", 309)
             
             #line 12 "..\..\Views\Shared\Manage\Fields\View\String.cshtml"
-, Tuple.Create(Tuple.Create("", 279), Tuple.Create<System.Object, System.Int32>(Model.PropertyData
+, Tuple.Create(Tuple.Create("", 290), Tuple.Create<System.Object, System.Int32>(Model.PropertyData
             
             #line default
             #line hidden
-, 279), false)
+, 290), false)
 );
 
 WriteLiteral(">\r\n");
@@ -95,7 +96,7 @@ WriteLiteral("        ");
 
             
             #line 13 "..\..\Views\Shared\Manage\Fields\View\String.cshtml"
-   Write(Model.PropertyData.ToString().Substring(0, ControllerHelper.DefaultTableTextLength));
+   Write(Model.PropertyData.ToString().Substring(0, SingularityControllerHelper.DefaultTableTextLength));
 
             
             #line default

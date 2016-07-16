@@ -4334,35 +4334,41 @@ namespace LCore.Extensions
         #endregion
         #region Collect
         /// <summary>
-        /// Returns a Func that collects the result of In into a List`<typeparamref name="U" />. The Func will be run <paramref name="Count" /> times and there will be that many items in the resulting List`<typeparamref name="U" />.
+        /// Returns a Func that collects the result of In into a List`<typeparamref name="U" />. 
+        /// The Func will be run <paramref><name>Count</name></paramref> times and there will be that many items in the resulting List`<typeparamref name="U" />.
         /// </summary>
         public static Func<List<U>> Collect<U>(this Func<U> Func, UInt32 Times)
             {
             return L.Loop.L_Collect<U>()(Func, Times);
             }
         /// <summary>
-        /// Returns a Func that collects the result of In into a List`<typeparamref name="U" />. The Func will be run <paramref name="Count" /> times and there will be that many items in the resulting List`<typeparamref name="U" />.
+        /// Returns a Func that collects the result of In into a List`<typeparamref name="U" />. 
+        /// The Func will be run <paramref><name>Count</name></paramref> times and there will be that many items in the resulting List`<typeparamref name="U" />.
         /// </summary>
         public static Func<T1, List<U>> Collect<T1, U>(this Func<T1, U> Func, UInt32 Times)
             {
             return L.Loop.L_Collect<T1, U>()(Func, Times);
             }
         /// <summary>
-        /// Returns a Func that collects the result of In into a List`<typeparamref name="U" />. The Func will be run <paramref name="Count" /> times and there will be that many items in the resulting List`<typeparamref name="U" />.
+        /// Returns a Func that collects the result of In into a List`<typeparamref name="U" />. 
+        /// The Func will be run <paramref><name>Count</name></paramref> times and there will be that many items in the resulting List`<typeparamref name="U" />.
         /// </summary>
         public static Func<T1, T2, List<U>> Collect<T1, T2, U>(this Func<T1, T2, U> Func, UInt32 Times)
             {
             return L.Loop.L_Collect<T1, T2, U>()(Func, Times);
             }
         /// <summary>
-        /// Returns a Func that collects the result of In into a List`<typeparamref name="U" />. The Func will be run <paramref name="Count" /> times and there will be that many items in the resulting List`<typeparamref name="U" />.
+        /// Returns a Func that collects the result of In into a List`<typeparamref name="U" />. 
+        /// The Func will be run <paramref><name>Count</name></paramref> times and there will be that many items in the resulting List`<typeparamref name="U" />.
         /// </summary>
         public static Func<T1, T2, T3, List<U>> Collect<T1, T2, T3, U>(this Func<T1, T2, T3, U> Func, UInt32 Times)
             {
             return L.Loop.L_Collect<T1, T2, T3, U>()(Func, Times);
             }
+
         /// <summary>
-        /// Returns a Func that collects the result of In into a List`<typeparamref name="U" />. The Func will be run <paramref name="Count" /> times and there will be that many items in the resulting List`<typeparamref name="U" />.
+        /// Returns a Func that collects the result of In into a List`<typeparamref name="U" />. 
+        /// The Func will be run <paramref><name>Count</name></paramref> times and there will be that many items in the resulting List`<typeparamref name="U" />.
         /// </summary>
         public static Func<T1, T2, T3, T4, List<U>> Collect<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> Func, UInt32 Times)
             {

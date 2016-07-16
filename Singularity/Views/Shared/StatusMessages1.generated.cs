@@ -64,10 +64,10 @@ WriteLiteral("\r\n\r\n");
 
             
             #line 8 "..\..\Views\Shared\StatusMessages.cshtml"
- if (TempData.Peek(ControllerHelper.StatusMessage_Temporary) != null)
+ if (TempData.Peek(SingularityControllerHelper.StatusMessage_Temporary) != null)
     {
-    string Message = (string)TempData[ControllerHelper.StatusMessage_Temporary];
-    string Icon = (string)(TempData[ControllerHelper.StatusMessage_TemporaryIcon] ?? "");
+    string Message = (string)TempData[SingularityControllerHelper.StatusMessage_Temporary];
+    string Icon = (string)(TempData[SingularityControllerHelper.StatusMessage_TemporaryIcon] ?? "");
 
 
             

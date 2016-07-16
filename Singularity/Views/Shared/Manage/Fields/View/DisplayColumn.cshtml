@@ -1,15 +1,18 @@
 ﻿@* Generator: MvcView *@
 
+@*ReSharper disable once RedundantUsingDirective*@
+@using Singularity.Controllers;
+
 @{
 
 }
 
 @model IViewField
 
-@if (Model.PropertyData.ToString().Length > ControllerHelper.DefaultTableTextLength)
+@if (Model.PropertyData.ToString().Length > SingularityControllerHelper.DefaultTableTextLength)
     {
     <span title="@Model.PropertyData.ToString()">
-        @Model.PropertyData.ToString().Substring(0, ControllerHelper.DefaultTableTextLength)
+        @Model.PropertyData.ToString().Substring(0, SingularityControllerHelper.DefaultTableTextLength)
     </span>
     }
 else
