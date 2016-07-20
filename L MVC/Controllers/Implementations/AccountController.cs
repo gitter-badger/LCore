@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Web.Mvc;
-using Singularity.Account;
-using Singularity.Attributes;
-using Singularity.Extensions;
-using Singularity.Models;
+using LMVC.Account;
+using LMVC.Extensions;
+using LMVC.Filters;
+using LMVC.Models;
 
-namespace Singularity.Controllers
+namespace LMVC.Controllers
     {
     public class AccountController : SingularityController
         {
@@ -17,6 +17,7 @@ namespace Singularity.Controllers
 
         public ActionResult Login()
             {
+            // ReSharper disable once Mvc.ViewNotResolved
             return this.View();
             }
 
@@ -26,6 +27,7 @@ namespace Singularity.Controllers
             {
             if (!this.ModelState.IsValid)
                 {
+                // ReSharper disable once Mvc.ViewNotResolved
                 return this.View(Model);
                 }
 
@@ -43,6 +45,7 @@ namespace Singularity.Controllers
                 }
             this.AddStatusMessages_Error("Unable to login");
 
+            // ReSharper disable once Mvc.ViewNotResolved
             return this.View();
             }
 
@@ -66,6 +69,7 @@ namespace Singularity.Controllers
         [RequireAuth]
         public ActionResult ForceResetPassword()
             {
+            // ReSharper disable once Mvc.ViewNotResolved
             return this.View();
             }
 
@@ -138,6 +142,7 @@ namespace Singularity.Controllers
                     }
                 }
 
+            // ReSharper disable once Mvc.ViewNotResolved
             return this.View();
             }
 

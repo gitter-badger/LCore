@@ -40,8 +40,8 @@ namespace ASP
     using System.Web.WebPages;
     using LCore.Extensions;
     using Singularity;
-    using Singularity.Context;
-    using Singularity.Controllers;
+    using LMVC.Context;
+    using LMVC.Controllers;
     
     #line 3 "..\..\Views\Shared\Manage\Fields\Edit\IModel.cshtml"
     using Singularity.Extensions;

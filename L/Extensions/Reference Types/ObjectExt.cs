@@ -620,7 +620,9 @@ namespace LCore.Extensions.Optional
             return () =>
             {
                 var Out = new List<T>();
-                new Action(() => Out.Add(In)).Repeat((uint)Count)();
+                if (Count == 0)
+                    return Out;
+                new Action(() => Out.Add(In)).Repeat((uint)Count-1)();
                 return Out;
             };
             }

@@ -6,9 +6,9 @@ using LCore.Extensions;
 
 using System.Web.Mvc;
 using LCore.Interfaces;
-using Singularity.Models;
+using LMVC.Models;
 
-namespace Singularity.Extensions
+namespace LMVC.Extensions
     {
     [ExtensionProvider]
     public static class MetaExt

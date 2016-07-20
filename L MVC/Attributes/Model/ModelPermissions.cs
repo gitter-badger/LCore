@@ -2,7 +2,7 @@
 using LCore.Extensions;
 
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     public interface IModelPermissionsAttribute : ISubClassPersistentAttribute
         {

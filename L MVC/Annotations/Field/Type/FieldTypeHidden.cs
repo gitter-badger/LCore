@@ -1,8 +1,8 @@
-﻿using Singularity.Controllers;
+﻿using LMVC.Controllers;
 using System.Web.Mvc;
-using Singularity.Routes;
+using LMVC.Routes;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     public class FieldTypeHidden : CustomPartialAttribute, IMetadataAware
         {

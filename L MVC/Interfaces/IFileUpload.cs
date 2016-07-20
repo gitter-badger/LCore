@@ -1,6 +1,6 @@
 ﻿using LCore.Extensions;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     public interface IFileUpload : ITopLevelAttribute
         {

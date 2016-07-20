@@ -6,7 +6,7 @@ using LCore.Extensions;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedMember.Global
 
-namespace Singularity.Account
+namespace LMVC.Account
     {
     public static class Authentication
         {

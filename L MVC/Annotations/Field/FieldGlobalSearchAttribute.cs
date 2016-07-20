@@ -1,7 +1,7 @@
 ﻿using System;
 using LCore.Extensions;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     public class FieldGlobalSearchAttribute : Attribute, ISubClassPersistentAttribute
         {

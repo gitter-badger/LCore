@@ -53,8 +53,8 @@ namespace ASP
     #line default
     #line hidden
     using Singularity;
-    using Singularity.Context;
-    using Singularity.Controllers;
+    using LMVC.Context;
+    using LMVC.Controllers;
     
     #line 6 "..\..\Views\Shared\Admin\Sidebar.cshtml"
     using Singularity.Extensions;

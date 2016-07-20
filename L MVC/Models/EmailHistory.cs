@@ -7,14 +7,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using LCore.Extensions;
-using Singularity.Context;
+using LMVC.Context;
 using System.Net.Mail;
 using System.IO;
-using Singularity.Annotations;
-using Singularity.Extensions;
+using LMVC.Annotations;
+using LMVC.Extensions;
 
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     [Table("EmailHistory")]
     public class EmailHistory : IModel

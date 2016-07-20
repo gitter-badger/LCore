@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using LCore.Tests;
 using LCore.Interfaces;
 
@@ -11,6 +13,33 @@ namespace LCore.Extensions
     public static class DateExt
         {
         #region Extensions +
+
+        #region Average
+        /// <summary>
+        /// Returns the average of all timespan elements in Times
+        /// </summary>
+        public static TimeSpan Average(this IEnumerable<TimeSpan> Times)
+            {
+            Times = Times ?? new TimeSpan[] { };
+
+            long Total = 0;
+            int Count = 0;
+
+            Times.Each(Time =>
+                {
+                    Total += Time.Ticks;
+                    Count++;
+                });
+
+            if (Count == 0)
+                return new TimeSpan(0);
+
+            long Out = Total / Count;
+
+            return new TimeSpan(Out);
+            }
+        #endregion
+
 
         #region DayOfWeekNumber
         /// <summary>
@@ -45,55 +74,52 @@ namespace LCore.Extensions
         /// <summary>
         /// Converts a DateTime to string using Date and Time Specification of RFC 822
         /// </summary>
+        [Tested]
         public static string ToSpecification(this DateTime Date)
             {
-            try
+            string Day = Date.Day.ToString();
+            if (Day.Length == 1) { Day = $"0{Day}"; }
+            int MonthNum = Date.Month;
+            string Month = L.Date.MonthNumberGetName(MonthNum);
+
+            var MDate = Date.ToUniversalTime();
+            string MTime = MDate.Hour.ToString().Length == 1 ? $"0{MDate.Hour}" : MDate.Hour.ToString();
+
+            MTime += ":";
+            if (MDate.Minute.ToString().Length == 1)
                 {
-                string Day = Date.Day.ToString();
-                if (Day.Length == 1) { Day = $"0{Day}"; }
-                int MonthNum = Date.Month;
-                string Month = L.Date.MonthGetString(MonthNum);
-
-                var MDate = Date.ToUniversalTime();
-                string MTime = MDate.Hour.ToString().Length == 1 ? $"0{MDate.Hour}" : MDate.Hour.ToString();
-
-                MTime += ":";
-                if (MDate.Minute.ToString().Length == 1)
-                    {
-                    MTime += $"0{MDate.Minute}";
-                    }
-                else
-                    {
-                    MTime += MDate.Minute.ToString();
-                    }
-
-                MTime += ":";
-                if (MDate.Second.ToString().Length == 1)
-                    {
-                    MTime += $"0{MDate.Second}";
-                    }
-                else
-                    {
-                    MTime += MDate.Second.ToString();
-                    }
-
-                string Str = Date.DayOfWeek.ToString().Substring(0, 3);
-                Str += $", {Day} {Month.Substring(0, 3)}";
-                Str += $" {Date.Year} {MTime} GMT";
-                return Str;
-
+                MTime += $"0{MDate.Minute}";
                 }
-            catch (Exception)
+            else
                 {
-                return null;
+                MTime += MDate.Minute.ToString();
                 }
+
+            MTime += ":";
+            if (MDate.Second.ToString().Length == 1)
+                {
+                MTime += $"0{MDate.Second}";
+                }
+            else
+                {
+                MTime += MDate.Second.ToString();
+                }
+
+            string Str = Date.DayOfWeek.ToString().Substring(0, 3);
+            Str += $", {Day} {Month.Substring(0, 3)}";
+            Str += $" {Date.Year} {MTime} GMT";
+            return Str;
             }
         #endregion
 
         #region MonthString
-        private static string MonthString(this DateTime Date)
+        /// <summary>
+        /// Gets the name of the month for the source DateTime <paramref name="Date"/>
+        /// </summary>
+        [Tested]
+        public static string GetMonthName(this DateTime Date)
             {
-            return L.Date.GetMonthString(Date);
+            return L.Date.GetMonthName(Date);
             }
         #endregion
 
@@ -108,21 +134,33 @@ namespace LCore.Extensions
             {
             float Temp = (float)Time.TotalSeconds;
             string Unit = "second";
-            if (Temp > 60)
+            if (Temp.Abs() > 60)
                 {
                 Unit = "minute";
 
                 Temp = Temp / 60;
-                if (Temp > 60)
+                if (Temp.Abs() > 60)
                     {
                     Unit = "hour";
 
                     Temp = Temp / 60;
 
-                    if (Temp > 24)
+                    if (Temp.Abs() > 24)
                         {
                         Unit = "day";
                         Temp = Temp / 24;
+
+                        if (Temp.Abs() > 365)
+                            {
+                            Unit = "year";
+                            Temp = Temp / 365;
+
+                            if (Temp.Abs() > 365)
+                                {
+                                Unit = "century";
+                                Temp = Temp / 365;
+                                }
+                            }
                         }
                     }
                 }
@@ -145,7 +183,7 @@ namespace LCore.Extensions
         /// </summary>
         public static string TimeDifference(this DateTime Start, DateTime Current, bool IncludeAgo)
             {
-            if (Start == DateTime.MinValue)
+            if (Start == DateTime.MinValue || Current == DateTime.MinValue)
                 return "Never";
 
             string Post = "";
@@ -165,7 +203,7 @@ namespace LCore.Extensions
                 }
 
 
-            int Amount = 0;
+            int Amount;
             string Unit = "Just now";
 
             if (Difference.Days > 365)
@@ -177,6 +215,11 @@ namespace LCore.Extensions
                 {
                 Amount = Difference.Days / 30;
                 Unit = "month";
+                }
+            else if (Difference.Days > 7)
+                {
+                Amount = Difference.Days / 7;
+                Unit = "week";
                 }
             else if (Difference.Days > 0)
                 {
@@ -200,7 +243,7 @@ namespace LCore.Extensions
                 }
             else
                 {
-                Post = "";
+                return Unit;
                 }
 
             Unit = Unit.Pluralize(Amount);
@@ -220,21 +263,21 @@ namespace LCore.Extensions
             }
         #endregion
 
-        #region Past
+        #region IsPast
         /// <summary>
         /// Returns whether or not the given datetime is in the past
         /// </summary>
-        public static bool Past(this DateTime In)
+        public static bool IsPast(this DateTime In)
             {
             return In.Ticks < DateTime.Now.Ticks;
             }
         #endregion
 
-        #region Future
+        #region IsFuture
         /// <summary>
         /// Returns whether or not the given datetime is in the future
         /// </summary>
-        public static bool Future(this DateTime In)
+        public static bool IsFuture(this DateTime In)
             {
             return In.Ticks > DateTime.Now.Ticks;
             }
@@ -268,7 +311,7 @@ namespace LCore.Extensions
             /// Returns the name of the month by the number of the month.
             /// Fails if the number is not between 1 and 12.
             /// </summary>
-            public static readonly Func<int, string> MonthGetString = i =>
+            public static readonly Func<int, string> MonthNumberGetName = i =>
                 {
                     switch (i)
                         {
@@ -309,7 +352,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns the name of the months from a datetime.
             /// </summary>
-            public static readonly Func<DateTime, string> GetMonthString = Date => MonthGetString(Date.Month);
+            public static readonly Func<DateTime, string> GetMonthName = Date => MonthNumberGetName(Date.Month);
             #endregion
             }
         }

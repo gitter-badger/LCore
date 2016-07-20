@@ -26,6 +26,8 @@ namespace LCore.Extensions
         [Tested]
         public static Action Async(this Action In, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
             {
+            In = In ?? L.A();
+
             return () =>
             {
                 var ActionThread = new Thread(() => { In(); }) { Priority = Priority };
@@ -44,12 +46,10 @@ namespace LCore.Extensions
                                     return;
                                 }
                             if (ActionThread.IsAlive)
-                                try
-                                    {
-                                    ActionThread.Interrupt();
-                                    ActionThread.Abort();
-                                    }
-                                catch { }
+                                {
+                                ActionThread.Interrupt();
+                                ActionThread.Abort();
+                                }
                         });
                     WatcherThread.Start();
                     }
@@ -61,8 +61,10 @@ namespace LCore.Extensions
         /// If a time limit is supplied, the thread will be interrupted if it does not 
         /// complete within the time period.
         /// </summary>
+        [Tested]
         public static Action<T> Async<T>(this Action<T> In, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
             {
+            In = In ?? L.A<T>();
             return o => { In.Supply(o).Async(TimeLimit, Priority)(); };
             }
 
@@ -73,8 +75,11 @@ namespace LCore.Extensions
         /// If a time limit is supplied, the thread will be interrupted if it does not 
         /// complete within the time period.
         /// </summary>
+        [Tested]
         public static Action Async<U>(this Func<U> In, Action<U> Callback, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
             {
+            In = In ?? L.F<U>();
+            Callback = Callback ?? L.A<U>();
             var SafeCallback = Callback.Surround(In).Catch<ThreadInterruptedException>();
             return SafeCallback.Async(TimeLimit, Priority);
             }
@@ -84,8 +89,11 @@ namespace LCore.Extensions
         /// If a time limit is supplied, the thread will be interrupted if it does not 
         /// complete within the time period.
         /// </summary>
+        [Tested]
         public static Action<T1> Async<T1, U>(this Func<T1, U> In, Action<U> Callback, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
             {
+            In = In ?? L.F<T1, U>();
+            Callback = Callback ?? L.A<U>();
             return o => { In.Supply(o).Async(Callback, TimeLimit, Priority)(); };
             }
         #endregion
@@ -94,37 +102,27 @@ namespace LCore.Extensions
         /// <summary>
         /// Performs an action, reporting back the amount of time it took to complete
         /// </summary>
+        [Tested]
         public static TimeSpan Profile(this Action In, uint Repeat = L.Thread.DefaultProfileRepeat)
             {
             return L.Thread.ProfileActionRepeat(In, Repeat);
             }
         /// <summary>
-        /// Performs an action, reporting back the amount of time it took to complete
-        /// </summary>
-        public static TimeSpan[] Profile(this Action In, uint Repeat = L.Thread.DefaultProfileRepeat, params Action[] Acts)
-            {
-            Action[] AllActs = L.Ary.Array(In)().Add(Acts);
-            return AllActs.Convert(L.Thread.ProfileActionRepeat.Supply2(Repeat));
-            }
-        /// <summary>
         /// Performs a function, reporting back the amount of time it took to complete
         /// </summary>
-        public static MethodProfileData Profile<U>(this Func<U> In, uint Repeat = L.Thread.DefaultProfileRepeat)
+        public static MethodProfileData<U> Profile<U>(this Func<U> In, uint Repeat = L.Thread.DefaultProfileRepeat)
             {
-            var Out = new MethodProfileData();
-            var Start = DateTime.Now;
-            Out.Data = In.Collect(Repeat)();
-            var End = DateTime.Now;
-            Out.Times.Add(End - Start);
+            var Out = new MethodProfileData<U>();
+            var OutList = new List<U>();
+            Out.Data = OutList;
+            L.A(() =>
+                {
+                    var Start = DateTime.Now;
+                    OutList.Add(In());
+                    var End = DateTime.Now;
+                    Out.Times.Add(new TimeSpan(End.Ticks - Start.Ticks));
+                }).Repeat(Repeat)();
             return Out;
-            }
-        /// <summary>
-        /// Performs a function, reporting back the amount of time it took to complete
-        /// </summary>
-        public static MethodProfileData[] Profile<U>(this Func<U> In, uint Repeat = L.Thread.DefaultProfileRepeat, params Func<U>[] Acts)
-            {
-            Func<U>[] AllActs = L.Ary.Array(In)().Add(Acts);
-            return AllActs.Convert(o => o.Profile(Repeat));
             }
         #endregion
 
@@ -153,11 +151,19 @@ namespace LCore.Extensions
             {
             return () =>
                 {
-                    if (!L.Thread.MethodProfileCache.ContainsKey(ProfileName))
-                        L.Thread.MethodProfileCache.Add(ProfileName, new MethodProfileData());
-                    var Out = In.Profile();
-                    L.Thread.MethodProfileCache[ProfileName].Times.AddRange(Out.Times);
-                    return (U)Out.Data;
+                    L.Thread.MethodProfileCache.SafeAdd(ProfileName, new MethodProfileData());
+
+                    MethodProfileData<U> Out = In.Profile();
+
+                    var Cache = L.Thread.MethodProfileCache[ProfileName];
+
+                    Cache.Times.AddRange(Out.Times);
+
+                    List<object> TempList = Cache.Data.List();
+                    TempList.AddRange(Out.Data.List<object>());
+                    Cache.Data = TempList;
+
+                    return Out.Data.First();
                 };
             }
         /// <summary>
@@ -201,7 +207,7 @@ namespace LCore.Extensions
         /// </summary>
         public static class Thread
             {
-            internal const uint DefaultProfileRepeat = 1;
+            internal const uint DefaultProfileRepeat = 0;
 
             /// <summary>
             /// Access profile data from methods passed through Profile.
@@ -210,12 +216,13 @@ namespace LCore.Extensions
 
             #region Profile
             internal static readonly Func<Action, uint, TimeSpan> ProfileActionRepeat = (In, Repeat) =>
-            {
-                var Start = DateTime.Now;
-                In.Repeat(Repeat)();
-                var End = DateTime.Now;
-                return End - Start;
-            };
+                {
+                    In = In ?? A();
+                    var Start = DateTime.Now;
+                    In.Repeat(Repeat)();
+                    var End = DateTime.Now;
+                    return End - Start;
+                };
             internal static readonly Func<Action, string, Action> ProfileAction = (In, ProfileName) =>
                 {
                     return () =>

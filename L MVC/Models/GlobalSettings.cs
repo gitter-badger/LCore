@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     [Table("GlobalSettings")]
     public class GlobalSettings

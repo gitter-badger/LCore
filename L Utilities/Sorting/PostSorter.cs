@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable FieldCanBeMadeReadOnly.Global
@@ -11,7 +13,10 @@ namespace NSort
     public class InternalSwapper : ISwap
         {
         public int[] SwapList;
+        public List<int> SwapList2 = new List<int>();
+
         private DefaultSwap _Swapper = new DefaultSwap();
+
         public InternalSwapper(int length)
             {
             this.SwapList = new int[length];
@@ -25,12 +30,12 @@ namespace NSort
         public void Swap(IList array, int left, int right)
             {
             this._Swapper.Swap(array, left, right);
-            this._Swapper.Swap(this.SwapList, left, right);
+            this._Swapper.Swap((IList)this.SwapList, left, right);
             }
         public void Set(IList array, int left, int right)
             {
             this._Swapper.Set(array, left, right);
-            this._Swapper.Set(this.SwapList, left, right);
+            this._Swapper.Set((IList)this.SwapList, left, right);
             }
         public void Set(IList array, int left, object obj)
             {
@@ -38,6 +43,23 @@ namespace NSort
             this._Swapper.Set(this.SwapList, left, obj);
             }
 
+        public void Swap<T>(IList<T> array, int left, int right)
+            {
+            this._Swapper.Swap(array, left, right);
+            this._Swapper.Swap((IList<T>)this.SwapList2, left, right);
+            }
+
+        public void Set<T>(IList<T> array, int left, int right)
+            {
+            this._Swapper.Set(array, left, right);
+            this._Swapper.Set((IList<T>)this.SwapList2, left, right);
+            }
+
+        public void Set<T>(IList<T> array, int left, T obj)
+            {
+            this._Swapper.Set(array, left, obj);
+            this._Swapper.Set((IList<T>)this.SwapList2, left, obj);
+            }
         }
     public class PostSorter : ISorter
         {

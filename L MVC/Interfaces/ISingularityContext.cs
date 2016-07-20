@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Singularity.Context
+namespace LMVC.Context
     {
     public interface ISingularityContext
         {

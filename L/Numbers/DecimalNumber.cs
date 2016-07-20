@@ -1,13 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using LCore.Extensions;
+// ReSharper disable RedundantCast
 
 namespace LCore.Numbers
     {
     /// <summary>
     /// Provides an implementation of INumber for decimal
     /// </summary>
-    public class DecimalNumber : Number<decimal>
+   // [Number(typeof(decimal), decimal.MinValue, decimal.MaxValue, decimal.One)]
+    public class DecimalNumber : Number<decimal, DecimalNumber>
         {
         /// <summary>
         /// Implicitally convert a decimal to a DecimalNumber
@@ -16,54 +19,6 @@ namespace LCore.Numbers
         public static implicit operator DecimalNumber(decimal i)
             {
             return new DecimalNumber(i);
-            }
-        /// <summary>
-        /// Implicitally convert a DecimalNumber to a decimal
-        /// </summary>
-        /// <param name="i">The DecimalNumber to convert</param>
-        public static implicit operator decimal(DecimalNumber i)
-            {
-            return i.Value;
-            }
-
-        /// <summary>
-        /// Applies the addition operation and returns the result as a double.
-        /// </summary>
-        /// <param name="Value">Number value</param>
-        /// <returns>A double result</returns>
-        public override decimal Add(decimal Value)
-            {
-            return this.Value + Value;
-            }
-
-        /// <summary>
-        /// Applies the subtraction operation and returns the result as a double.
-        /// </summary>
-        /// <param name="Value">Number value</param>
-        /// <returns>A double result</returns>
-        public override decimal Subtract(decimal Value)
-            {
-            return this.Value - Value;
-            }
-
-        /// <summary>
-        /// Applies the multiplication operation and returns the result as a double.
-        /// </summary>
-        /// <param name="Value">Number value</param>
-        /// <returns>A double result</returns>
-        public override decimal Multiply(decimal Value)
-            {
-            return this.Value * Value;
-            }
-
-        /// <summary>
-        /// Applies the division operation and returns the result as a double.
-        /// </summary>
-        /// <param name="Value">Number value</param>
-        /// <returns>A double result</returns>
-        public override double Divide(decimal Value)
-            {
-            return (double)(this.Value / Value);
             }
 
         /// <summary>
@@ -74,6 +29,82 @@ namespace LCore.Numbers
             : base(Value)
             {
 
+            }
+
+        /// <summary>
+        /// Create a new DecimalNumber wrapper for a decimal
+        /// </summary>
+        public DecimalNumber()
+            {
+            }
+
+        /// <summary>
+        /// The smallest storable change in value for type decimal.
+        /// </summary>
+        public override Number<decimal> TypePrecision => (DecimalNumber)(decimal)0.0000000000000000000000000001m;
+
+        /// <summary>
+        /// The lowest possible value for type decimal.
+        /// </summary>
+        public override Number<decimal> TypeMinValue => (DecimalNumber)decimal.MinValue;
+
+        /// <summary>
+        /// The highest possible value for type decimal.
+        /// </summary>
+        public override Number<decimal> TypeMaxValue => (DecimalNumber)decimal.MaxValue;
+
+        /// <summary>
+        /// The default value for type decimal.
+        /// </summary>
+        public override Number<decimal> TypeDefaultValue => (DecimalNumber)default(decimal);
+
+        /// <summary>
+        /// Returns the precision needed to store the current value.
+        /// </summary>
+        public override Number GetValuePrecision()
+            {
+            return (DecimalNumber)(decimal)((double)10).Pow(-this.Value.DecimalPlaces());
+            }
+
+        /// <summary>
+        /// Applies the addition operation and returns the result as a decimal.
+        /// </summary>
+        public override decimal Add(decimal Number1, decimal Number2)
+            {
+            return (decimal)((decimal)Number1 + (decimal)Number2);
+            }
+
+        /// <summary>
+        /// Applies the subtraction operation and returns the result as a decimal.
+        /// </summary>
+        public override decimal Subtract(decimal Number1, decimal Number2)
+            {
+            return (decimal)((decimal)Number1 - (decimal)Number2);
+            }
+
+        /// <summary>
+        /// Applies the multiplication operation and returns the result as a decimal.
+        /// </summary>
+        public override decimal Multiply(decimal Number1, decimal Number2)
+            {
+            return (decimal)((decimal)Number1 * (decimal)Number2);
+            }
+
+        /// <summary>
+        /// Applies the division operation and returns the result as a Number.
+        /// </summary>
+        /// <returns>A double result</returns>
+        public override object Divide(decimal Number1, decimal Number2)
+            {
+            return (double)((decimal)Number1 / (decimal)Number2);
+            }
+
+        /// <summary>
+        /// Create a new Number of the same type
+        /// </summary>
+        public override Number<decimal> New(decimal In)
+            {
+            return new DecimalNumber(In);
             }
         }
     }

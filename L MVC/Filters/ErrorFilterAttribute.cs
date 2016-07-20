@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Web.Mvc;
-using Singularity.Controllers;
-using Singularity.Extensions;
+using LMVC.Controllers;
+using LMVC.Extensions;
 
-namespace Singularity.Filters
+namespace LMVC.Filters
     {
     public class ErrorFilterAttribute : ActionFilterAttribute
         {

@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 using System.Data;
 using LCore.Interfaces;
 
-namespace Singularity.Extensions
+namespace LMVC.Extensions
     {
     [ExtensionProvider]
     public static class DataExt

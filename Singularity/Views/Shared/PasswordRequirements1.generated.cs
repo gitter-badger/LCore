@@ -34,15 +34,14 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using LCore.Extensions;
+    using LMVC;
+    using LMVC.Annotations;
+    using LMVC.Context;
+    using LMVC.Controllers;
+    using LMVC.Extensions;
+    using LMVC.Models;
     using Singularity;
-    
-    #line 1 "..\..\Views\Shared\PasswordRequirements.cshtml"
-    using Singularity.Account;
-    
-    #line default
-    #line hidden
-    using Singularity.Context;
-    using Singularity.Controllers;
+    using Singularity.Extensions;
     using Singularity.Models;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
@@ -57,7 +56,7 @@ namespace ASP
 WriteLiteral("\r\n");
 
             
-            #line 3 "..\..\Views\Shared\PasswordRequirements.cshtml"
+            #line 2 "..\..\Views\Shared\PasswordRequirements.cshtml"
   
     var Rules = Authentication.PasswordDefaultRules;
 
@@ -67,13 +66,13 @@ WriteLiteral("\r\n");
 WriteLiteral("\r\n\r\n\r\n<ul>\r\n");
 
             
-            #line 9 "..\..\Views\Shared\PasswordRequirements.cshtml"
+            #line 8 "..\..\Views\Shared\PasswordRequirements.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 9 "..\..\Views\Shared\PasswordRequirements.cshtml"
+            #line 8 "..\..\Views\Shared\PasswordRequirements.cshtml"
      if (Rules.LengthMinimum > 0)
         {
 
@@ -83,7 +82,7 @@ WriteLiteral("\r\n\r\n\r\n<ul>\r\n");
 WriteLiteral("        <li>Password must be at least <b>");
 
             
-            #line 11 "..\..\Views\Shared\PasswordRequirements.cshtml"
+            #line 10 "..\..\Views\Shared\PasswordRequirements.cshtml"
                                     Write(Rules.LengthMinimum);
 
             
@@ -92,7 +91,7 @@ WriteLiteral("        <li>Password must be at least <b>");
 WriteLiteral(" characters long</b></li>\r\n");
 
             
-            #line 12 "..\..\Views\Shared\PasswordRequirements.cshtml"
+            #line 11 "..\..\Views\Shared\PasswordRequirements.cshtml"
         }
 
             
@@ -101,7 +100,7 @@ WriteLiteral(" characters long</b></li>\r\n");
 WriteLiteral("    ");
 
             
-            #line 13 "..\..\Views\Shared\PasswordRequirements.cshtml"
+            #line 12 "..\..\Views\Shared\PasswordRequirements.cshtml"
      if (Rules.LengthMaximum > 0)
         {
 
@@ -111,7 +110,7 @@ WriteLiteral("    ");
 WriteLiteral("        <li>Password must be at most <b>");
 
             
-            #line 15 "..\..\Views\Shared\PasswordRequirements.cshtml"
+            #line 14 "..\..\Views\Shared\PasswordRequirements.cshtml"
                                    Write(Rules.LengthMaximum);
 
             
@@ -120,7 +119,7 @@ WriteLiteral("        <li>Password must be at most <b>");
 WriteLiteral(" characters long</b></li>\r\n");
 
             
-            #line 16 "..\..\Views\Shared\PasswordRequirements.cshtml"
+            #line 15 "..\..\Views\Shared\PasswordRequirements.cshtml"
         }
 
             
@@ -129,7 +128,7 @@ WriteLiteral(" characters long</b></li>\r\n");
 WriteLiteral("    ");
 
             
-            #line 17 "..\..\Views\Shared\PasswordRequirements.cshtml"
+            #line 16 "..\..\Views\Shared\PasswordRequirements.cshtml"
      if (Rules.LowerCaseMinimum > 0)
         {
 
@@ -139,7 +138,7 @@ WriteLiteral("    ");
 WriteLiteral("        <li>Password must contain at least <b>");
 
             
-            #line 19 "..\..\Views\Shared\PasswordRequirements.cshtml"
+            #line 18 "..\..\Views\Shared\PasswordRequirements.cshtml"
                                          Write(Rules.LowerCaseMinimum);
 
             
@@ -148,7 +147,7 @@ WriteLiteral("        <li>Password must contain at least <b>");
 WriteLiteral(" lower case characters</b></li>\r\n");
 
             
-            #line 20 "..\..\Views\Shared\PasswordRequirements.cshtml"
+            #line 19 "..\..\Views\Shared\PasswordRequirements.cshtml"
         }
 
             
@@ -157,7 +156,7 @@ WriteLiteral(" lower case characters</b></li>\r\n");
 WriteLiteral("    ");
 
             
-            #line 21 "..\..\Views\Shared\PasswordRequirements.cshtml"
+            #line 20 "..\..\Views\Shared\PasswordRequirements.cshtml"
      if (Rules.UpperCaseMinimum > 0)
         {
 
@@ -167,7 +166,7 @@ WriteLiteral("    ");
 WriteLiteral("        <li>Password must contain at least <b>");
 
             
-            #line 23 "..\..\Views\Shared\PasswordRequirements.cshtml"
+            #line 22 "..\..\Views\Shared\PasswordRequirements.cshtml"
                                          Write(Rules.UpperCaseMinimum);
 
             
@@ -176,7 +175,7 @@ WriteLiteral("        <li>Password must contain at least <b>");
 WriteLiteral(" upper case characters</b></li>\r\n");
 
             
-            #line 24 "..\..\Views\Shared\PasswordRequirements.cshtml"
+            #line 23 "..\..\Views\Shared\PasswordRequirements.cshtml"
         }
 
             
@@ -185,7 +184,7 @@ WriteLiteral(" upper case characters</b></li>\r\n");
 WriteLiteral("    ");
 
             
-            #line 25 "..\..\Views\Shared\PasswordRequirements.cshtml"
+            #line 24 "..\..\Views\Shared\PasswordRequirements.cshtml"
      if (Rules.NumberMinimum > 0)
         {
 
@@ -195,7 +194,7 @@ WriteLiteral("    ");
 WriteLiteral("        <li>Password must contain at least <b>");
 
             
-            #line 27 "..\..\Views\Shared\PasswordRequirements.cshtml"
+            #line 26 "..\..\Views\Shared\PasswordRequirements.cshtml"
                                          Write(Rules.NumberMinimum);
 
             
@@ -204,7 +203,7 @@ WriteLiteral("        <li>Password must contain at least <b>");
 WriteLiteral(" numbers</b></li>\r\n");
 
             
-            #line 28 "..\..\Views\Shared\PasswordRequirements.cshtml"
+            #line 27 "..\..\Views\Shared\PasswordRequirements.cshtml"
         }
 
             
@@ -213,7 +212,7 @@ WriteLiteral(" numbers</b></li>\r\n");
 WriteLiteral("    ");
 
             
-            #line 29 "..\..\Views\Shared\PasswordRequirements.cshtml"
+            #line 28 "..\..\Views\Shared\PasswordRequirements.cshtml"
      if (Rules.SpecialMinimum > 0)
         {
 
@@ -223,7 +222,7 @@ WriteLiteral("    ");
 WriteLiteral("        <li>Password must contain at least <b>");
 
             
-            #line 31 "..\..\Views\Shared\PasswordRequirements.cshtml"
+            #line 30 "..\..\Views\Shared\PasswordRequirements.cshtml"
                                          Write(Rules.SpecialMinimum);
 
             
@@ -232,7 +231,7 @@ WriteLiteral("        <li>Password must contain at least <b>");
 WriteLiteral(" special characters</b></li>\r\n");
 
             
-            #line 32 "..\..\Views\Shared\PasswordRequirements.cshtml"
+            #line 31 "..\..\Views\Shared\PasswordRequirements.cshtml"
         }
 
             

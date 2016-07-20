@@ -1,11 +1,18 @@
-﻿using System;using System.Collections.Generic;using System.Linq;using System.ComponentModel.DataAnnotations;using LCore.Extensions;using Singularity.Context;// ReSharper disable UnusedAutoPropertyAccessor.Global
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ComponentModel.DataAnnotations;
+using LCore.Extensions;
+using LMVC.Context;
+
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnassignedGetOnlyAutoProperty
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable ClassWithVirtualMembersNeverInherited.Global
 // ReSharper disable ClassNeverInstantiated.Global
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     public class AccountRole : IModel, IAccountRole
         {
@@ -68,6 +75,14 @@ namespace Singularity.Models
                 {
                 return Context.GetDBSet<AccountRole>().FirstOrDefault(Role => Role.RoleID == RoleID);
                 }
-            }        public virtual bool AllowAccess(IModel Model)            {            var Permissions = (ModelPermissions)this.GetProperty($"{Model.GetType().Name}Permissions");            return Permissions?.View == true;            }        }
+            }
+
+        public virtual bool AllowAccess(IModel Model)
+            {
+            var Permissions = (ModelPermissions)this.GetProperty($"{Model.GetType().Name}Permissions");
+
+            return Permissions?.View == true;
+            }
+        }
 
     }

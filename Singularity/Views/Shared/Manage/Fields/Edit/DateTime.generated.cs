@@ -40,8 +40,8 @@ namespace ASP
     #line default
     #line hidden
     using Singularity;
-    using Singularity.Context;
-    using Singularity.Controllers;
+    using LMVC.Context;
+    using LMVC.Controllers;
     using Singularity.Models;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]

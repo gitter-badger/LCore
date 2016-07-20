@@ -9,14 +9,14 @@ using LCore.Extensions;
 using System.Collections;
 using System.Data.Entity;
 using System.Reflection;
-using Singularity.Controllers;
+using LMVC.Controllers;
 using System.Web.Mvc;
 using LCore.Interfaces;
-using Singularity.Models;
-using Singularity.Utilities;
-using Singularity.Annotations;
+using LMVC.Models;
+using LMVC.Utilities;
+using LMVC.Annotations;
 
-namespace Singularity.Extensions
+namespace LMVC.Extensions
     {
     [ExtensionProvider]
     public static class QueryExt

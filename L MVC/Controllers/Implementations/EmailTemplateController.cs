@@ -1,4 +1,4 @@
-﻿using Singularity.Models;
+﻿using LMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -6,12 +6,12 @@ using System.Linq;
 using System.Web.Mvc;
 
 using LCore.Extensions;
-using Singularity.Account;
-using Singularity.Context;
-using Singularity.Annotations;
-using Singularity.Extensions;
+using LMVC.Account;
+using LMVC.Context;
+using LMVC.Annotations;
+using LMVC.Extensions;
 
-namespace Singularity.Controllers
+namespace LMVC.Controllers
     {
     [Authorize]
     public class EmailTemplateController : ManageController<EmailTemplate>
@@ -54,6 +54,7 @@ namespace Singularity.Controllers
                 Model.Template = this.HttpContext.GetModelData<EmailTemplate>().Find(TemplateID);
                 }
 
+            // ReSharper disable once Mvc.ViewNotResolved
             return this.View(Model);
             }
 

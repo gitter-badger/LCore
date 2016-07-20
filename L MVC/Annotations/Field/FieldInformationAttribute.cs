@@ -1,9 +1,9 @@
-﻿using Singularity.Controllers;
-using Singularity.Routes;
+﻿using LMVC.Controllers;
+using LMVC.Routes;
 using System;
 using System.Web.Mvc;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     public interface IPartialAttribute
         {

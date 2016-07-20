@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using Singularity.Extensions;
-using Singularity.Models;
-using Singularity.Routes;
+using LMVC.Extensions;
+using LMVC.Models;
+using LMVC.Routes;
 using LCore.Extensions;
 using LCore.Tools;
-using Singularity.Account;
+using LMVC.Account;
 
 
-namespace Singularity.Controllers
+namespace LMVC.Controllers
     {
     public class ExamplesController : SingularityController, IDefaultViewLayout
         {
@@ -21,6 +21,7 @@ namespace Singularity.Controllers
                 new Set<string, string>(nameof(this.Home), this.Url.Action(nameof(this.Home)))
                 };
 
+            // ReSharper disable once Mvc.ViewNotResolved
             return this.View();
             }
 
@@ -33,6 +34,7 @@ namespace Singularity.Controllers
                 new Set<string, string>(nameof(this.Home), this.Url.Action(nameof(this.Home))),
                 new Set<string, string>(nameof(this.L), this.Url.Action(nameof(this.L)))
                 };
+            // ReSharper disable once Mvc.ViewNotResolved
             return this.View(typeof(L));
             }
 
@@ -47,6 +49,7 @@ namespace Singularity.Controllers
                 new Set<string, string>("Extensions", this.Url.Action(nameof(this.L_Extensions)))
                 };
 
+            // ReSharper disable once Mvc.ViewNotResolved
             return this.View(typeof(LogicExt));
             }
 
@@ -67,6 +70,7 @@ namespace Singularity.Controllers
                 new Set<string, string>(ClassName, this.Url.Action(nameof(this.L_Extensions_Class), new { ClassName =ClassName }))
                 };
 
+            // ReSharper disable once Mvc.ViewNotResolved
             return this.View(ExtClass);
             }
 
@@ -74,6 +78,7 @@ namespace Singularity.Controllers
         [MenuAction(null, FontAwesomeExt.Icon.circle, nameof(Home))]
         public ActionResult Singularity()
             {
+            // ReSharper disable once Mvc.ViewNotResolved
             return this.View();
             }
 
@@ -81,6 +86,7 @@ namespace Singularity.Controllers
         [MenuAction(null, FontAwesomeExt.Icon.chain, nameof(Singularity))]
         public ActionResult SingularityExtensions()
             {
+            // ReSharper disable once Mvc.ViewNotResolved
             return this.View();
             }
 
@@ -88,6 +94,7 @@ namespace Singularity.Controllers
         [MenuAction(null, FontAwesomeExt.Icon.question, nameof(SingularityExtensions))]
         public ActionResult SingularityExtensionType(string Type)
             {
+            // ReSharper disable once Mvc.ViewNotResolved
             return this.View();
             }
 
@@ -95,6 +102,7 @@ namespace Singularity.Controllers
         [MenuAction(null, FontAwesomeExt.Icon.chain, nameof(Singularity))]
         public ActionResult SingularityExtensionMethod(string Type, string Method)
             {
+            // ReSharper disable once Mvc.ViewNotResolved
             return this.View();
             }
 

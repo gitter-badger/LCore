@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data.Entity;
 
-using Singularity.Controllers;
-using Singularity.Models;
-using Singularity.Extensions;
+using LMVC.Controllers;
+using LMVC.Models;
+using LMVC.Extensions;
 using System.Linq;
 using LCore.Extensions;
 using Microsoft.WindowsAzure.StorageClient;
@@ -12,7 +12,7 @@ using System.Web;
 // ReSharper disable UnusedParameter.Global
 // ReSharper disable VirtualMemberNeverOverriden.Global
 
-namespace Singularity.Context
+namespace LMVC.Context
     {
     public abstract class ContextProvider : IContextProvider
         {

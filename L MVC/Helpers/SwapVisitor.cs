@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Singularity.Extensions
+namespace LMVC.Extensions
     {
     public class SwapVisitor : ExpressionVisitor
         {

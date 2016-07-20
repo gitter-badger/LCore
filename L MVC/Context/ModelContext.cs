@@ -3,14 +3,14 @@ using System.Data.Entity;
 
 using LCore.Extensions;
 using System.Web;
-using Singularity.Models;
-using Singularity.Extensions;
+using LMVC.Models;
+using LMVC.Extensions;
 using System.Data.SqlClient;
-using Singularity.Controllers;
+using LMVC.Controllers;
 
 // ReSharper disable UnassignedGetOnlyAutoProperty
 
-namespace Singularity.Context
+namespace LMVC.Context
     {
     public abstract class ModelContext : DbContext, IModelContext
         {

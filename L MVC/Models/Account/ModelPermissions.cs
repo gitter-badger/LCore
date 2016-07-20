@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     [ComplexType]
     public class ModelPermissions : IModelPermissions

@@ -1,7 +1,7 @@
 ﻿using LCore.Tools;
-using Singularity.Account;
+using LMVC.Account;
 
-namespace Singularity.Controllers
+namespace LMVC.Controllers
     {
     public interface ISingularityController
         {

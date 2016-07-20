@@ -34,15 +34,15 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using LCore.Extensions;
+    using LMVC;
+    using LMVC.Account;
+    using LMVC.Annotations;
+    using LMVC.Context;
+    using LMVC.Controllers;
+    using LMVC.Extensions;
+    using LMVC.Models;
     using Singularity;
-    
-    #line 2 "..\..\Views\Shared\Manage\Fields\Information.cshtml"
-    using Singularity.Annotations;
-    
-    #line default
-    #line hidden
-    using Singularity.Context;
-    using Singularity.Controllers;
+    using Singularity.Extensions;
     using Singularity.Models;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
@@ -54,12 +54,10 @@ namespace ASP
         }
         public override void Execute()
         {
-WriteLiteral("\r\n");
-
-WriteLiteral("\r\n");
+WriteLiteral("\r\n\r\n");
 
             
-            #line 4 "..\..\Views\Shared\Manage\Fields\Information.cshtml"
+            #line 3 "..\..\Views\Shared\Manage\Fields\Information.cshtml"
   
 
 
@@ -69,7 +67,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\r\n\r\n");
 
             
-            #line 10 "..\..\Views\Shared\Manage\Fields\Information.cshtml"
+            #line 9 "..\..\Views\Shared\Manage\Fields\Information.cshtml"
  if (Model.Meta.AdditionalValues.ContainsKey(InformationAttribute.Key))
 {
 
@@ -85,7 +83,7 @@ WriteLiteral(">\r\n        <p>\r\n            <glyph>&#xE086;</glyph>\r\n");
 WriteLiteral("            ");
 
             
-            #line 15 "..\..\Views\Shared\Manage\Fields\Information.cshtml"
+            #line 14 "..\..\Views\Shared\Manage\Fields\Information.cshtml"
        Write(Model.Meta.AdditionalValues[InformationAttribute.Key]);
 
             
@@ -94,7 +92,7 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </p>\r\n    </div>\r\n");
 
             
-            #line 18 "..\..\Views\Shared\Manage\Fields\Information.cshtml"
+            #line 17 "..\..\Views\Shared\Manage\Fields\Information.cshtml"
 }
             
             #line default

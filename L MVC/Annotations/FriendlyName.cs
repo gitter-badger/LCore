@@ -1,7 +1,7 @@
 ﻿using System;
 using LCore.Naming;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     public class FriendlyModelName : Attribute, IFriendlyName
         {

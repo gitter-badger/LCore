@@ -1,7 +1,7 @@
-﻿using Singularity.Controllers;
+﻿using LMVC.Controllers;
 using System;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     public class FieldUpdateRefreshPageAttribute : FieldClassAttribute
         {

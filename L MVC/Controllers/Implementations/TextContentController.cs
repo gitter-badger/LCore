@@ -1,10 +1,10 @@
 ﻿
-using Singularity.Models;
+using LMVC.Models;
 using System.Web;
 using System.Web.Mvc;
-using Singularity.Account;
+using LMVC.Account;
 
-namespace Singularity.Controllers
+namespace LMVC.Controllers
     {
     [Authorize]
     public class TextContentController : ManageController<TextContent>

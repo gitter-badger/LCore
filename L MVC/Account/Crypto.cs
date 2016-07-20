@@ -5,7 +5,7 @@ using LCore.Extensions;
 
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace Singularity.Account
+namespace LMVC.Account
     {
     public static class Crypto
         {

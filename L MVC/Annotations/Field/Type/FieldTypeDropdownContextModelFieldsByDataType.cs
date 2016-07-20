@@ -3,7 +3,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     public class FieldTypeDropdownContextModelFieldsByDataType : FieldTypeDropdownContextModelFields
         {

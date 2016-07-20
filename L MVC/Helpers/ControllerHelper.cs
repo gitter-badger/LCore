@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using LCore.Extensions;
-using Singularity.Models;
+using LMVC.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using Singularity.Context;
-using Singularity.Extensions;
+using LMVC.Context;
 
 
-namespace Singularity.Controllers
+namespace LMVC.Controllers
     {
     public static class ControllerHelper
         {

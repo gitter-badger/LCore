@@ -34,15 +34,14 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using LCore.Extensions;
+    using LMVC;
+    using LMVC.Account;
+    using LMVC.Annotations;
+    using LMVC.Context;
+    using LMVC.Controllers;
+    using LMVC.Extensions;
+    using LMVC.Models;
     using Singularity;
-    
-    #line 3 "..\..\Views\Shared\Manage\Fields\FieldHeader.cshtml"
-    using Singularity.Annotations;
-    
-    #line default
-    #line hidden
-    using Singularity.Context;
-    using Singularity.Controllers;
     
     #line 2 "..\..\Views\Shared\Manage\Fields\FieldHeader.cshtml"
     using Singularity.Extensions;
@@ -65,7 +64,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 7 "..\..\Views\Shared\Manage\Fields\FieldHeader.cshtml"
+            #line 6 "..\..\Views\Shared\Manage\Fields\FieldHeader.cshtml"
   
     var Attr = Model.Meta.GetAttribute<FieldHeaderAttribute>();
 
@@ -75,7 +74,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\r\n\r\n\r\n");
 
             
-            #line 12 "..\..\Views\Shared\Manage\Fields\FieldHeader.cshtml"
+            #line 11 "..\..\Views\Shared\Manage\Fields\FieldHeader.cshtml"
 Write(Html.Raw($"<h{Attr.HeaderType}>"));
 
             
@@ -84,7 +83,7 @@ Write(Html.Raw($"<h{Attr.HeaderType}>"));
 WriteLiteral("\r\n");
 
             
-            #line 13 "..\..\Views\Shared\Manage\Fields\FieldHeader.cshtml"
+            #line 12 "..\..\Views\Shared\Manage\Fields\FieldHeader.cshtml"
 Write(Html.TextContent($"Manage_{(ViewBag.Create == true ? "Create" : "Edit")}_Field_Header_{Model.ModelData.GetFriendlyTypeName()}_{Attr.HeaderTitle}", Attr.HeaderTitle));
 
             
@@ -93,7 +92,7 @@ Write(Html.TextContent($"Manage_{(ViewBag.Create == true ? "Create" : "Edit")}_F
 WriteLiteral("\r\n");
 
             
-            #line 14 "..\..\Views\Shared\Manage\Fields\FieldHeader.cshtml"
+            #line 13 "..\..\Views\Shared\Manage\Fields\FieldHeader.cshtml"
 Write(Html.Raw($"</h{Attr.HeaderType}>"));
 
             
@@ -102,7 +101,7 @@ Write(Html.Raw($"</h{Attr.HeaderType}>"));
 WriteLiteral("\r\n\r\n");
 
             
-            #line 16 "..\..\Views\Shared\Manage\Fields\FieldHeader.cshtml"
+            #line 15 "..\..\Views\Shared\Manage\Fields\FieldHeader.cshtml"
  if (Attr.HorizontalRule)
     {
 
@@ -112,7 +111,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("    <hr />\r\n");
 
             
-            #line 19 "..\..\Views\Shared\Manage\Fields\FieldHeader.cshtml"
+            #line 18 "..\..\Views\Shared\Manage\Fields\FieldHeader.cshtml"
     }
             
             #line default

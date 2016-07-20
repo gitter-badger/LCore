@@ -6,7 +6,7 @@ using LCore.Interfaces;
 
 // ReSharper disable UnusedMember.Global
 
-namespace Singularity.Extensions
+namespace LMVC.Extensions
     {
     [ExtensionProvider]
     public static class FontAwesomeExt

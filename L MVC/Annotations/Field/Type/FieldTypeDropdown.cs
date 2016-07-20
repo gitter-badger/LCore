@@ -1,14 +1,14 @@
-﻿using Singularity.Controllers;
+﻿using LMVC.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using LCore.Extensions;
 using System.Collections;
-using Singularity.Models;
-using Singularity.Extensions;
-using Singularity.Routes;
+using LMVC.Models;
+using LMVC.Extensions;
+using LMVC.Routes;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     public abstract class FieldTypeDropdown : CustomPartialAttribute, ISetFormField
         {

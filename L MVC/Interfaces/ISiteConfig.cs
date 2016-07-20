@@ -1,4 +1,4 @@
-﻿namespace Singularity.Models
+﻿namespace LMVC.Models
     {
     public interface ISiteConfig
         {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class IgnoreValidationAttribute : FilterAttribute, IAuthorizationFilter

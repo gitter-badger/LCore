@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using Singularity.Models;
-using FileUpload = Singularity.Models.FileUpload;
+using LMVC.Models;
+using FileUpload = LMVC.Models.FileUpload;
 
 //TODO: Implement: Rename SingularityInstanceClasses to [YourProject]Classes
-namespace Singularity.Context
+namespace LMVC.Context
     {
     //TODO: Implement: Rename SingularityContext to [YourProject]Context
     public class SingularityContext : ModelContext, ISingularityContext

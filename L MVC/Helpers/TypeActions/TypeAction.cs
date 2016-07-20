@@ -1,10 +1,10 @@
 ﻿
 using LCore.Extensions;
-using Singularity.Models;
-using Singularity.Extensions;
+using LMVC.Models;
+using LMVC.Extensions;
 using System;
 
-namespace Singularity.Utilities
+namespace LMVC.Utilities
     {
     public abstract class TypeResultAction<T>
         {

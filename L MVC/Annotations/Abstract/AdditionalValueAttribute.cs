@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     public abstract class AdditionalValueAttribute : Attribute, IMetadataAware
         {

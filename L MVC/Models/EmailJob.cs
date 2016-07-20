@@ -3,11 +3,11 @@ using System;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Singularity.Context;
-using Singularity.Annotations;
+using LMVC.Annotations;
+using LMVC.Context;
 
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     public class EmailJob : IModel
         {

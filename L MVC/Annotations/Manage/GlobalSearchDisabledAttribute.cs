@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     public class GlobalSearchDisabledAttribute : AdditionalValueAttribute
         {

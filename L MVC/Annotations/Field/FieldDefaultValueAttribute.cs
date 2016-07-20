@@ -1,8 +1,8 @@
-﻿using Singularity.Models;
+﻿using LMVC.Models;
 using System;
 using LCore.Extensions;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     public class FieldDefaultValueAttribute : Attribute, ISubClassPersistentAttribute
         {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     public interface IUserAccount
         {

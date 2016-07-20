@@ -35,8 +35,8 @@ namespace ASP
     using System.Web.WebPages;
     using LCore.Extensions;
     using Singularity;
-    using Singularity.Context;
-    using Singularity.Controllers;
+    using LMVC.Context;
+    using LMVC.Controllers;
     using Singularity.Models;
     
     #line 3 "..\..\Views\Test\SingularityTest.cshtml"

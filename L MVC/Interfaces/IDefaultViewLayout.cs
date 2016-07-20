@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Singularity.Controllers
+namespace LMVC.Controllers
     {
     public interface IDefaultViewLayout
         {

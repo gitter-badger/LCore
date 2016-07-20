@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web;
-using Singularity.Controllers;
-using Singularity.Models;
+using LMVC.Controllers;
+using LMVC.Models;
 using Microsoft.WindowsAzure.StorageClient;
 using LCore.Extensions;
-using Singularity.Account;
+using LMVC.Account;
 
-namespace Singularity.Context
+namespace LMVC.Context
     {
     public class SingularityContextProvider : ContextProvider
         {

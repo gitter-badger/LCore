@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
-using Singularity.Controllers;
-using Singularity.Extensions;
-using Singularity.Models;
+using LMVC.Controllers;
+using LMVC.Extensions;
+using LMVC.Models;
 
-namespace Singularity.Routes
+namespace LMVC.Routes
     {
     public static class Controllers
         {

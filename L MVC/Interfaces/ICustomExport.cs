@@ -1,6 +1,6 @@
 ﻿using System.Web.Helpers;
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     public interface ICustomExport
         {

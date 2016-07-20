@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using LCore.Naming;
 
-namespace Singularity.Controllers
+namespace LMVC.Controllers
     {
     public interface IMenuController : INamed
         {

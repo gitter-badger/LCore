@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Web.Mvc;
-using Singularity.Context;
-using Singularity.Models;
+using LMVC.Context;
+using LMVC.Models;
 
-namespace Singularity.Controllers
+namespace LMVC.Controllers
     {
     public interface IManageController
         {

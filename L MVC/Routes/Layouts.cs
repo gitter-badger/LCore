@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Singularity.Routes
+namespace LMVC.Routes
     {
     public static class Layouts
         {

@@ -34,11 +34,16 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using LCore.Extensions;
+    using LMVC;
+    using LMVC.Account;
+    using LMVC.Annotations;
+    using LMVC.Context;
+    using LMVC.Controllers;
+    using LMVC.Extensions;
+    using LMVC.Models;
     using Singularity;
-    using Singularity.Context;
-    using Singularity.Controllers;
     
-    #line 2 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
+    #line 3 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
     using Singularity.Extensions;
     
     #line default
@@ -54,12 +59,12 @@ namespace ASP
         }
         public override void Execute()
         {
-WriteLiteral("\r\n");
+WriteLiteral("\r\n\r\n");
 
 WriteLiteral("\r\n");
 
             
-            #line 4 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
+            #line 5 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
   
     var SavedSearchSelector = new ViewField(ViewContext, typeof(SavedSearch), "SavedSearch", Model, ControllerHelper.ViewType.Edit);
     var TemplateSelector = new ViewField(ViewContext, typeof(EmailTemplate), "Template", Model, ControllerHelper.ViewType.Edit);
@@ -73,7 +78,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\r\n\r\n");
 
             
-            #line 14 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
+            #line 15 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
  using (Html.BeginForm(nameof(Controller.EmailSavedSearchTemplate),
         Url.Controller<EmailTemplateController>().ControllerName, FormMethod.Post, new { id = "logoutForm" }))
     {
@@ -82,14 +87,14 @@ WriteLiteral("\r\n\r\n");
             #line default
             #line hidden
             
-            #line 17 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
+            #line 18 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
 Write(Html.ViewField(SavedSearchSelector));
 
             
             #line default
             #line hidden
             
-            #line 17 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
+            #line 18 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
                                         
 
     
@@ -97,14 +102,14 @@ Write(Html.ViewField(SavedSearchSelector));
             #line default
             #line hidden
             
-            #line 19 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
+            #line 20 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
 Write(Html.ViewField(TemplateSelector));
 
             
             #line default
             #line hidden
             
-            #line 19 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
+            #line 20 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
                                      
 
 
@@ -120,7 +125,7 @@ WriteLiteral(" value=\"Next\"");
 WriteLiteral(" />\r\n");
 
             
-            #line 22 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
+            #line 23 "..\..\Views\EmailTemplate\EmailSavedSearch.cshtml"
     }
             
             #line default

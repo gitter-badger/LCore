@@ -1,4 +1,4 @@
-using Singularity.Context;
+using LMVC.Context;
 
 namespace Singularity.Migrations
     {

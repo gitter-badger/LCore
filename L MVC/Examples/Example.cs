@@ -1,4 +1,4 @@
-﻿namespace Singularity.Examples
+﻿namespace LMVC.Models
     {
     public class Example
         {

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using LCore.Extensions;
-using Singularity.Controllers;
-using Singularity.Context;
+using LMVC.Controllers;
+using LMVC.Context;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     public class FieldTypeDropdownContextManageControllers : FieldTypeDropdownOptions
         {

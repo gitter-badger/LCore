@@ -1,6 +1,6 @@
 ﻿using System.Web;
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     public class TextContentViewModel
         {

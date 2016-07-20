@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using LCore.Tools;
-using Singularity.Account;
-using Singularity.Filters;
-using Singularity.Extensions;
-using Singularity.Routes;
+using LMVC.Account;
+using LMVC.Filters;
+using LMVC.Extensions;
+using LMVC.Routes;
 
-namespace Singularity.Controllers
+namespace LMVC.Controllers
     {
     [ErrorFilter]
     public abstract class SingularityController : Controller, ISingularityController

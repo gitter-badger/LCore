@@ -41,36 +41,38 @@ namespace L_Tests.Tests.Tools
 
             L.A(() =>
                 {
-                    Updater.Clear();
+                    lock (Updater)
+                        {
+                        Updater.Clear();
 
-                    Status.Should().Be("");
-                    Log.Should().Be("");
-                    Progress.Should().Be(0);
-                    Max.Should().Be(0);
+                        Status.Should().Be("");
+                        Log.Should().Be("");
+                        Progress.Should().Be(0);
+                        Max.Should().Be(0);
 
-                    Updater.Maximum(100);
-                    
-                    Max.Should().Be(0);
-                    Thread.Sleep(1);
-                    Max.Should().Be(100);
+                        Updater.Maximum(100);
 
-                    Updater.Progress(5);
-                    Thread.Sleep(1);
-                    Progress.Should().Be(5);
+                        Max.Should().Be(0);
+                        Thread.Sleep(1);
+                        Max.Should().Be(100);
 
-                    Updater.Status("hi");
-                    Thread.Sleep(1);
-                    Status.Should().Be("hi");
+                        Updater.Progress(5);
+                        Thread.Sleep(1);
+                        Progress.Should().Be(5);
 
-                    Updater.Log("hi again");
-                    Thread.Sleep(1);
-                    Log.Should().Be("hi again");
+                        Updater.Status("hi");
+                        Thread.Sleep(1);
+                        Status.Should().Be("hi");
 
-                    Status.Should().Be("hi");
-                    Log.Should().Be("hi again");
-                    Progress.Should().Be(5);
-                    Max.Should().Be(100);
+                        Updater.Log("hi again");
+                        Thread.Sleep(1);
+                        Log.Should().Be("hi again");
 
+                        Status.Should().Be("hi");
+                        Log.Should().Be("hi again");
+                        Progress.Should().Be(5);
+                        Max.Should().Be(100);
+                        }
                 })();
             }
         }

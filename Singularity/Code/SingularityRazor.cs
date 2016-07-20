@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
-using Singularity.Account;
-using Singularity.Controllers;
+using LMVC.Account;
+using LMVC.Controllers;
 
 namespace Singularity.Extensions
     {

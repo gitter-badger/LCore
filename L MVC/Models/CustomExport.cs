@@ -6,11 +6,11 @@ using System.Web.Helpers;
 
 
 using LCore.Extensions;
-using Singularity.Context;
-using Singularity.Annotations;
+using LMVC.Context;
+using LMVC.Annotations;
 using LCore.Interfaces;
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     public class CustomExport : IModel, IGrouped, ICustomExport
         {

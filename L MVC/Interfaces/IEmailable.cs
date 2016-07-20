@@ -1,6 +1,6 @@
-﻿using Singularity.Models;
+﻿using LMVC.Models;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     public interface IEmailable : IModel
         {

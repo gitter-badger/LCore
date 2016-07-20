@@ -128,5 +128,100 @@ namespace L_Tests.Tests.Extensions
 
             L.A(() => Func2.Collect(-1)).ShouldFail();
             }
+
+        [Fact]
+        public void Test_CollectStr()
+            {
+            Func<char, char> Modifier = Char => (char)(Char + 1);
+            Func<int, int, string> Modifier2 = (i, o) => $"{o}-";
+
+            ((string)null).CollectStr(Modifier).Should().Be("");
+            "abc".CollectStr(null).Should().Be("abc");
+
+            "abc".CollectStr(Modifier).Should().Be("bcd");
+
+
+            ((int[])null).CollectStr(Modifier2).Should().Be("");
+            ((List<int>)null).CollectStr(Modifier2).Should().Be("");
+
+            new[] { 5, 1, 77, 2, 7, 3 }.CollectStr(Modifier2).Should().Be("5-1-77-2-7-3-");
+            new[] { 5, 1, 77, 2, 7, 3 }.CollectStr(null).Should().Be("5177273");
+
+            new[] { 5, 1, 77, 2, 7, 3 }.List().CollectStr(Modifier2).Should().Be("5-1-77-2-7-3-");
+            new[] { 5, 1, 77, 2, 7, 3 }.List().CollectStr(null).Should().Be("5177273");
+
+            ((List<int>)null).CollectStr<int, List<int>>(Modifier2).Should().Be("");
+            }
+
+        [Fact]
+        public void Test_CombineString()
+            {
+            var List = new IConvertible[] { 123, "abc", 5.5f, null, 'a' };
+
+            List.Combine("--").Should().Be("123--abc--5.5--a");
+            List.Combine(',').Should().Be("123,abc,5.5,a");
+
+            List.Combine(null).Should().Be("123abc5.5a");
+            List.Combine("").Should().Be("123abc5.5a");
+
+            ((IConvertible[])null).Combine("--").Should().Be("");
+            ((IConvertible[])null).Combine(',').Should().Be("");
+            }
+
+        [Fact]
+        public void Test_Convert()
+            {
+            var List = new object[] { 123, "abc", 5.5f, null, 'a' };
+
+            Func<object, object> Converter = o => o?.ToString();
+
+            ((IEnumerable)List).Convert(Converter).ShouldBeEquivalentTo(new List<object> { "123", "abc", "5.5", "a" });
+
+            ((IEnumerable)List).Convert((Func<object, object>)null).ShouldBeEquivalentTo(new List<object> { 123, "abc", 5.5f, 'a' });
+
+            ((IEnumerable)null).Convert(Converter).ShouldBeEquivalentTo(new List<object>());
+
+            Func<object, string> Converter2 = o => o?.ToString();
+
+            ((IEnumerable<object>)List).Convert(Converter2).ShouldBeEquivalentTo(new List<string> { "123", "abc", "5.5", "a" });
+
+            ((IEnumerable<object>)List).Convert((Func<object, string>)null).ShouldBeEquivalentTo(new List<string> { "abc" });
+
+            ((IEnumerable<object>)null).Convert(Converter2).ShouldBeEquivalentTo(new List<string>());
+
+            ((object[])List).Convert(Converter2).ShouldBeEquivalentTo(new string[] { "123", "abc", "5.5", null, "a" });
+
+            ((object[])List).Convert((Func<object, string>)null).ShouldBeEquivalentTo(new string[] { null, "abc", null, null, null });
+
+            ((object[])null).Convert(Converter2).ShouldBeEquivalentTo(new string[] { });
+
+            List.List().Convert(Converter2).ShouldBeEquivalentTo(new List<string> { "123", "abc", "5.5", "a" });
+
+            List.List().Convert((Func<object, string>)null).ShouldBeEquivalentTo(new List<string> { "abc" });
+
+            ((List<object>)null).List().Convert(Converter2).ShouldBeEquivalentTo(new List<string>());
+            }
+
+        [Fact]
+        public void FactMethodName()
+            {
+            var List = new object[] { 123, "abc", 5.5f, null, 'a' };
+
+            Func<object, string[]> Converter = o => new[] { o?.ToString(), o?.ToString() };
+
+            ((IEnumerable)List).ConvertAll(Converter).ShouldBeEquivalentTo(
+                new List<object> { "123", "123", "abc", "abc", "5.5", "5.5", "a", "a" });
+
+            ((IEnumerable)null).ConvertAll(Converter).ShouldBeEquivalentTo(
+                new List<object>());
+
+
+            ((IEnumerable<object>)List).ConvertAll<object, string>(Converter).ShouldBeEquivalentTo(
+                new List<object> { "123", "123", "abc", "abc", "5.5", "5.5", null, null, "a", "a" });
+
+            ((IEnumerable<object>)null).ConvertAll<object, string>(Converter).ShouldBeEquivalentTo(
+                new List<object>());
+
+            }
         }
     }

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.WindowsAzure.StorageClient;
 
-namespace Singularity.Azure
+namespace LMVC.Azure
     {
     public class AzureBlobInterface
         {

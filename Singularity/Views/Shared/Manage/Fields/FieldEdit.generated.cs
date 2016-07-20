@@ -17,7 +17,7 @@ namespace ASP
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     
-    #line 8 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+    #line 7 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
     using System.ComponentModel.DataAnnotations.Schema;
     
     #line default
@@ -28,7 +28,7 @@ namespace ASP
     using System.Linq.Expressions;
     using System.Net;
     
-    #line 9 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+    #line 8 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
     using System.Reflection;
     
     #line default
@@ -51,15 +51,20 @@ namespace ASP
     
     #line default
     #line hidden
-    using Singularity;
+    using LMVC;
+    using LMVC.Account;
+    using LMVC.Annotations;
+    using LMVC.Context;
+    using LMVC.Controllers;
+    using LMVC.Extensions;
+    using LMVC.Models;
     
-    #line 7 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
-    using Singularity.Annotations;
+    #line 4 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+    using LMVC.Routes;
     
     #line default
     #line hidden
-    using Singularity.Context;
-    using Singularity.Controllers;
+    using Singularity;
     
     #line 6 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
     using Singularity.Extensions;
@@ -67,12 +72,6 @@ namespace ASP
     #line default
     #line hidden
     using Singularity.Models;
-    
-    #line 4 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
-    using Singularity.Routes;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/Manage/Fields/FieldEdit.cshtml")]
@@ -90,7 +89,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 11 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 10 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
   
     var Meta = Model.Meta;
 
@@ -141,7 +140,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 57 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 56 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
  if (Model.Meta.PropertyName == ControllerHelper.AutomaticFields.Active)
     {
     return;
@@ -152,36 +151,36 @@ WriteLiteral("\r\n");
             #line hidden
 WriteLiteral("\r\n<div");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 1667), Tuple.Create("\"", 1823)
-, Tuple.Create(Tuple.Create("", 1675), Tuple.Create("field", 1675), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 1627), Tuple.Create("\"", 1783)
+, Tuple.Create(Tuple.Create("", 1635), Tuple.Create("field", 1635), true)
             
-            #line 62 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
-, Tuple.Create(Tuple.Create(" ", 1680), Tuple.Create<System.Object, System.Int32>(Model.ViewTypes.CollectStr((i, Type) => $"{Type.ToString().ToLower()}-field ")
-            
-            #line default
-            #line hidden
-, 1681), false)
-, Tuple.Create(Tuple.Create(" ", 1760), Tuple.Create("field-", 1761), true)
-            
-            #line 62 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
-                        , Tuple.Create(Tuple.Create("", 1767), Tuple.Create<System.Object, System.Int32>(Model.ColumnClass
+            #line 61 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+, Tuple.Create(Tuple.Create(" ", 1640), Tuple.Create<System.Object, System.Int32>(Model.ViewTypes.CollectStr((i, Type) => $"{Type.ToString().ToLower()}-field ")
             
             #line default
             #line hidden
-, 1767), false)
+, 1641), false)
+, Tuple.Create(Tuple.Create(" ", 1720), Tuple.Create("field-", 1721), true)
             
-            #line 62 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
-                                          , Tuple.Create(Tuple.Create(" ", 1785), Tuple.Create<System.Object, System.Int32>(Model.ModelFieldClasses.Combine(" ")
+            #line 61 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+                        , Tuple.Create(Tuple.Create("", 1727), Tuple.Create<System.Object, System.Int32>(Model.ColumnClass
             
             #line default
             #line hidden
-, 1786), false)
+, 1727), false)
+            
+            #line 61 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+                                          , Tuple.Create(Tuple.Create(" ", 1745), Tuple.Create<System.Object, System.Int32>(Model.ModelFieldClasses.Combine(" ")
+            
+            #line default
+            #line hidden
+, 1746), false)
 );
 
 WriteLiteral("\r\n     data-object-type=\"");
 
             
-            #line 63 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 62 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                   Write(Meta.ModelType);
 
             
@@ -192,7 +191,7 @@ WriteLiteral("\"");
 WriteLiteral("\r\n     data-type-name=\"");
 
             
-            #line 64 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 63 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                 Write(Meta.DataTypeName);
 
             
@@ -203,7 +202,7 @@ WriteLiteral("\"");
 WriteLiteral("\r\n     ");
 
             
-            #line 65 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 64 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
 Write(Html.Raw(Model.ModelFieldHtmlAttributes.Combine(" ")));
 
             
@@ -212,7 +211,7 @@ Write(Html.Raw(Model.ModelFieldHtmlAttributes.Combine(" ")));
 WriteLiteral("\r\n     maximum=\"");
 
             
-            #line 66 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 65 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
           Write(Attr?.Maximum);
 
             
@@ -221,7 +220,7 @@ WriteLiteral("\r\n     maximum=\"");
 WriteLiteral("\"\r\n     minimum=\"");
 
             
-            #line 67 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 66 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
           Write(Attr?.Minimum);
 
             
@@ -230,13 +229,13 @@ WriteLiteral("\"\r\n     minimum=\"");
 WriteLiteral("\">\r\n\r\n");
 
             
-            #line 69 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 68 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 69 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 68 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
      if (Model.Meta.HasAttribute<HiddenInputAttribute>(true))
         {
         
@@ -244,14 +243,14 @@ WriteLiteral("\">\r\n\r\n");
             #line default
             #line hidden
             
-            #line 71 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 70 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
    Write(Html.ViewField(Model));
 
             
             #line default
             #line hidden
             
-            #line 71 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 70 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                               
         }
     else
@@ -261,14 +260,14 @@ WriteLiteral("\">\r\n\r\n");
             #line default
             #line hidden
             
-            #line 75 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 74 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
    Write(Html.ValidationMessage(Model.Meta.PropertyName));
 
             
             #line default
             #line hidden
             
-            #line 75 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 74 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                                                         
 
         if (ShowLabel)
@@ -279,7 +278,7 @@ WriteLiteral("\">\r\n\r\n");
             #line default
             #line hidden
             
-            #line 80 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 79 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
        Write(Html.TextContent($"Manage_Edit_Field_Label_{Model.ModelData.GetFriendlyTypeName()}_{Label}",
                 Html.Label(Model.Meta.PropertyName, Label)));
 
@@ -287,7 +286,7 @@ WriteLiteral("\">\r\n\r\n");
             #line default
             #line hidden
             
-            #line 81 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 80 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                                                            
             }
 
@@ -304,7 +303,7 @@ WriteLiteral(" class=\"required-mark\"");
 WriteLiteral(">*</span>\r\n");
 
             
-            #line 87 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 86 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
             }
 
         if (Meta.HasAttribute<ICustomPartial>() &&
@@ -321,14 +320,14 @@ WriteLiteral(">*</span>\r\n");
             #line default
             #line hidden
             
-            #line 98 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 97 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
        Write(Html.Partial(PartialViews.Manage.Fields.Edit.PropertyName(Model.PropertyName), Model));
 
             
             #line default
             #line hidden
             
-            #line 98 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 97 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                                                                                                   
             }
         else if (Model.Meta.HasAttribute<KeyAttribute>(true))
@@ -338,14 +337,14 @@ WriteLiteral(">*</span>\r\n");
             #line default
             #line hidden
             
-            #line 102 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 101 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
        Write(Html.Partial(PartialViews.Manage.Fields.Edit.Key, Model));
 
             
             #line default
             #line hidden
             
-            #line 102 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 101 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                                                                      
             }
         else if (Model.Meta.ModelType == typeof(bool) ||
@@ -356,14 +355,14 @@ WriteLiteral(">*</span>\r\n");
             #line default
             #line hidden
             
-            #line 107 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 106 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
        Write(Html.Partial(PartialViews.Manage.Fields.Edit.Boolean, Model));
 
             
             #line default
             #line hidden
             
-            #line 107 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 106 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                                                                          
             }
         else if (Model.Meta.DataTypeName == DataType.Currency.ToString())
@@ -373,14 +372,14 @@ WriteLiteral(">*</span>\r\n");
             #line default
             #line hidden
             
-            #line 111 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 110 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
        Write(Html.Partial(PartialViews.Manage.Fields.Edit.Currency, Model));
 
             
             #line default
             #line hidden
             
-            #line 111 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 110 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                                                                           
             }
         else if (Model.Meta.ModelType == typeof(int) ||
@@ -394,14 +393,14 @@ WriteLiteral(">*</span>\r\n");
             #line default
             #line hidden
             
-            #line 119 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 118 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
            Write(Html.Partial(PartialViews.Manage.Fields.Edit.IntRange, Model));
 
             
             #line default
             #line hidden
             
-            #line 119 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 118 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                                                                               
                 }
             else
@@ -411,14 +410,14 @@ WriteLiteral(">*</span>\r\n");
             #line default
             #line hidden
             
-            #line 123 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 122 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
            Write(Html.Partial(PartialViews.Manage.Fields.Edit.Int, Model));
 
             
             #line default
             #line hidden
             
-            #line 123 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 122 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                                                                          
                 }
             }
@@ -430,14 +429,14 @@ WriteLiteral(">*</span>\r\n");
             #line default
             #line hidden
             
-            #line 129 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 128 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
        Write(Html.Partial(PartialViews.Manage.Fields.Edit.Long, Model));
 
             
             #line default
             #line hidden
             
-            #line 129 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 128 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                                                                       
             }
         else if (Model.Meta.ModelType == typeof(double) ||
@@ -452,14 +451,14 @@ WriteLiteral(">*</span>\r\n");
             #line default
             #line hidden
             
-            #line 138 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 137 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
        Write(Html.Partial(PartialViews.Manage.Fields.Edit.Decimal, Model));
 
             
             #line default
             #line hidden
             
-            #line 138 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 137 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                                                                          
             }
         else if (Model.Meta.ModelType == typeof(DateTime) ||
@@ -470,14 +469,14 @@ WriteLiteral(">*</span>\r\n");
             #line default
             #line hidden
             
-            #line 143 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 142 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
        Write(Html.Partial(PartialViews.Manage.Fields.Edit.DateTime, Model));
 
             
             #line default
             #line hidden
             
-            #line 143 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 142 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                                                                           
             }
         else if (Model.Meta.ModelType.PreferGeneric().IsEnum)
@@ -487,14 +486,14 @@ WriteLiteral(">*</span>\r\n");
             #line default
             #line hidden
             
-            #line 147 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 146 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
        Write(Html.Partial(PartialViews.Manage.Fields.Edit.Enum, Model));
 
             
             #line default
             #line hidden
             
-            #line 147 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 146 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                                                                       
             }
         else if (Model.Meta.ModelType.HasAttribute<ComplexTypeAttribute>(true))
@@ -504,14 +503,14 @@ WriteLiteral(">*</span>\r\n");
             #line default
             #line hidden
             
-            #line 151 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 150 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
        Write(Html.Partial(PartialViews.Manage.Fields.Edit.ComplexType, Model));
 
             
             #line default
             #line hidden
             
-            #line 151 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 150 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                                                                              
             }
         else if (Model.Meta.ModelType.HasInterface<IModel>())
@@ -521,14 +520,14 @@ WriteLiteral(">*</span>\r\n");
             #line default
             #line hidden
             
-            #line 155 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 154 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
        Write(Html.Partial(PartialViews.Manage.Fields.Edit.IModel, Model));
 
             
             #line default
             #line hidden
             
-            #line 155 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 154 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                                                                         
             }
         else if (Model.Meta.ModelType == typeof(string))
@@ -538,14 +537,14 @@ WriteLiteral(">*</span>\r\n");
             #line default
             #line hidden
             
-            #line 159 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 158 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
         Write(Model.Meta.DataTypeName == DataType.MultilineText.ToString() ? Html.Partial(PartialViews.Manage.Fields.Edit.StringMultiLine, Model) : Html.Partial(PartialViews.Manage.Fields.Edit.String, Model));
 
             
             #line default
             #line hidden
             
-            #line 159 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 158 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                                                                                                                                                                                                                 
             }
         else if (Html.ViewExists(PartialViews.Manage.Fields.Edit.PropertyType(Model.Meta.ModelType)))
@@ -555,14 +554,14 @@ WriteLiteral(">*</span>\r\n");
             #line default
             #line hidden
             
-            #line 163 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 162 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
        Write(Html.Partial(PartialViews.Manage.Fields.Edit.PropertyType(Model.Meta.ModelType), Model));
 
             
             #line default
             #line hidden
             
-            #line 163 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 162 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                                                                                                     
             }
         else if (Html.ViewExists(PartialViews.Manage.Fields.Edit.DataTypeName(Model.Meta.DataTypeName)))
@@ -572,14 +571,14 @@ WriteLiteral(">*</span>\r\n");
             #line default
             #line hidden
             
-            #line 167 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 166 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
        Write(Html.Partial(PartialViews.Manage.Fields.Edit.DataTypeName(Model.Meta.DataTypeName), Model));
 
             
             #line default
             #line hidden
             
-            #line 167 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 166 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                                                                                                        
             }
         else
@@ -589,14 +588,14 @@ WriteLiteral(">*</span>\r\n");
             #line default
             #line hidden
             
-            #line 171 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 170 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
        Write(Html.Partial(PartialViews.Manage.Fields.Edit.Unknown, Model));
 
             
             #line default
             #line hidden
             
-            #line 171 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
+            #line 170 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                                                                          
             }
         }

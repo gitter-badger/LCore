@@ -1,7 +1,7 @@
 ﻿
 using System.Web.Mvc;
 
-namespace Singularity.Controllers
+namespace LMVC.Controllers
     {
     public interface IMenuItem
         {

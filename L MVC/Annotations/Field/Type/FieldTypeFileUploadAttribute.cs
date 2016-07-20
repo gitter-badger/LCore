@@ -1,8 +1,8 @@
-﻿using Singularity.Controllers;
-using Singularity.Routes;
+﻿using LMVC.Controllers;
+using LMVC.Routes;
 using System;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     public class FieldTypeFileUploadAttribute : CustomPartialAttribute, IFileUpload
         {

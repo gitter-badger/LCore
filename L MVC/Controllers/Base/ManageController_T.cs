@@ -8,16 +8,16 @@ using System.IO;
 using System.Data.Entity;
 using System.Web.Mvc;
 using LCore.Extensions;
-using Singularity.Models;
-using Singularity.Context;
-using Singularity.Extensions;
+using LMVC.Models;
+using LMVC.Context;
+using LMVC.Extensions;
 using System.Web.Helpers;
-using Singularity.Account;
-using Singularity.Annotations;
-using Singularity.Utilities;
+using LMVC.Account;
+using LMVC.Annotations;
+using LMVC.Utilities;
 // ReSharper disable VirtualMemberNeverOverriden.Global
 
-namespace Singularity.Controllers
+namespace LMVC.Controllers
     {
     public abstract class ManageController<T> : ManageController
         where T : class, IModel

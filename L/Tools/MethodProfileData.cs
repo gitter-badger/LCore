@@ -8,7 +8,16 @@ namespace LCore.Tools
     /// Class used to provide structured Method Profile times 
     /// for the Profile extension method.
     /// </summary>
-    public class MethodProfileData
+    public class MethodProfileData : MethodProfileData<object>
+        {
+
+        }
+
+    /// <summary>
+    /// Class used to provide structured Method Profile times 
+    /// for the Profile extension method.
+    /// </summary>
+    public class MethodProfileData<T>
         {
         /// <summary>
         /// The collection of execution times for the method.
@@ -18,7 +27,7 @@ namespace LCore.Tools
         /// <summary>
         /// The data cached.
         /// </summary>
-        public object Data;
+        public IEnumerable<T> Data;
 
         /// <summary>
         /// Computes the average millisecond execution time for the method

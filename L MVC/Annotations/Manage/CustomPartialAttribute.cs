@@ -1,11 +1,11 @@
-﻿using Singularity.Controllers;
-using Singularity.Models;
+﻿using LMVC.Controllers;
+using LMVC.Models;
 using System;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using LCore.Extensions;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     public interface ICustomPartial : ISubClassPersistentAttribute
         {

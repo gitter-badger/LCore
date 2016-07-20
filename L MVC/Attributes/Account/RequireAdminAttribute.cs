@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
 
-namespace Singularity.Attributes
+namespace LMVC.Filters
     {
     public class RequireAdminAttribute : RequireAuthAttribute
         {

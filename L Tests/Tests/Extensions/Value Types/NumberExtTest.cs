@@ -47,5 +47,32 @@ namespace L_Tests.Tests.Extensions
             "_aaa".Min("baa", "caff", "acl", "aegeg", "grgg", "ttt").Should().Be("_aaa");
             "ccc".Min("baa", "caff", "acl", "aegeg", "grgg", "ttt").Should().Be("acl");
             }
+
+        [Fact]
+        public void Test_NumericalCompare()
+            {
+            L.Str.CompareNumberString("5", "10").Should().BeLessThan(0);
+            L.Str.CompareNumberString("15", "10").Should().BeGreaterThan(0);
+            L.Str.CompareNumberString("-5", "10").Should().BeLessThan(0);
+            L.Str.CompareNumberString("5", "-10").Should().BeGreaterThan(0);
+            L.Str.CompareNumberString("-5", "-10").Should().BeGreaterThan(0);
+            L.Str.CompareNumberString("-5", "-5").Should().Be(0);
+            L.Str.CompareNumberString("-5000.00000", "-5000.000").Should().Be(0);
+
+            L.Str.CompareNumberString("-5000.000001", "-5000.000").Should().BeLessThan(0);
+            L.Str.CompareNumberString("-5000.000001", "-5000.0001").Should().BeGreaterThan(0);
+
+
+            L.Str.CompareNumberString("55", "501").Should().BeLessThan(0);
+            L.Str.CompareNumberString("501", "55").Should().BeGreaterThan(0);
+
+            L.Str.CompareNumberString(int.MaxValue.ToString(), "4").Should().BeGreaterThan(0);
+            }
+
+        [Fact]
+        public void Test_ScientificNotationConversion()
+            {
+            L.Num.ScientificNotationToNumber("1.0e5").Should().Be("100000.0");
+            }
         }
     }

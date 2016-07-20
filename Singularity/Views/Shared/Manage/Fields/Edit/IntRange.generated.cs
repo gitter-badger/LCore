@@ -40,8 +40,8 @@ namespace ASP
     #line default
     #line hidden
     using Singularity;
-    using Singularity.Context;
-    using Singularity.Controllers;
+    using LMVC.Context;
+    using LMVC.Controllers;
     
     #line 2 "..\..\Views\Shared\Manage\Fields\Edit\IntRange.cshtml"
     using Singularity.Extensions;

@@ -305,8 +305,10 @@ namespace L_Tests.Tests.Extensions
                     L.Ref.StaticMethod(() => DateExt.ToSpecification(DateTime.MinValue)),
                     L.Ref.StaticMethod(() => DateExt.ToTimeString(new TimeSpan())),
                     L.Ref.StaticMethod(() => DateExt.TimeDifference(DateTime.MinValue, DateTime.MinValue,false)),
-                    L.Ref.StaticMethod(() => DateExt.Past(DateTime.MinValue)),
-                    L.Ref.StaticMethod(() => DateExt.Future(DateTime.MinValue))
+                    L.Ref.StaticMethod(() => DateExt.GetMonthName(DateTime.MinValue)),
+                    L.Ref.StaticMethod(() => DateExt.IsPast(DateTime.MinValue)),
+                    L.Ref.StaticMethod(() => DateExt.IsFuture(DateTime.MinValue)),
+                    L.Ref.StaticMethod(() => DateExt.Average(null))
                 // ReSharper restore InvokeAsExtensionMethod
                 });
             }
@@ -819,7 +821,7 @@ namespace L_Tests.Tests.Extensions
         public void Test_ToInvocationSignature()
             {
             // ReSharper disable once InvokeAsExtensionMethod
-            L.Ref.StaticMethod(() => DateExt.Future(DateTime.MinValue)).ToInvocationSignature().Should().Be("[DateTime].Future() => Boolean");
+            L.Ref.StaticMethod(() => DateExt.IsFuture(DateTime.MinValue)).ToInvocationSignature().Should().Be("[DateTime].IsFuture() => Boolean");
             L.Ref.Method<TestClass>(Test => Test.Test5("")).ToInvocationSignature().Should().Be("[ReflectionExtTest.TestBaseClass2].Test5(String)");
             L.Ref.StaticMethod(() => L.Ref.FindType("")).ToInvocationSignature().Should().Be("L.Ref.FindType(String) => Type");
 

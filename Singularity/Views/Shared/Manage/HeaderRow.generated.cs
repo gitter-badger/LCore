@@ -17,7 +17,7 @@ namespace ASP
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     
-    #line 8 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+    #line 7 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
     using System.ComponentModel.DataAnnotations.Schema;
     
     #line default
@@ -45,15 +45,20 @@ namespace ASP
     
     #line default
     #line hidden
-    using Singularity;
+    using LMVC;
+    using LMVC.Account;
+    using LMVC.Annotations;
+    using LMVC.Context;
+    using LMVC.Controllers;
+    using LMVC.Extensions;
+    using LMVC.Models;
     
-    #line 7 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
-    using Singularity.Annotations;
+    #line 4 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+    using LMVC.Routes;
     
     #line default
     #line hidden
-    using Singularity.Context;
-    using Singularity.Controllers;
+    using Singularity;
     
     #line 6 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
     using Singularity.Extensions;
@@ -61,12 +66,6 @@ namespace ASP
     #line default
     #line hidden
     using Singularity.Models;
-    
-    #line 4 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
-    using Singularity.Routes;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/Manage/HeaderRow.cshtml")]
@@ -86,7 +85,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 13 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 12 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
   
     IEnumerable<ModelMetadata> Fields = Model.ModelType.HasInterface<IFieldGroups>() ? (Model.ModelType.New() as IFieldGroups)?.GetFieldGroup(Context, ControllerHelper.ViewType.TableCell) : FieldGroups.GetFieldGroup(Context, Model.ModelType, ControllerHelper.ViewType.TableCell).ToList();
 
@@ -98,13 +97,13 @@ WriteLiteral("\r\n");
 WriteLiteral("\r\n\r\n<thead>\r\n    <tr>\r\n");
 
             
-            #line 21 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 20 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 21 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 20 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
          if (ViewContext.AllowView(Model.ModelType))
             {
 
@@ -120,7 +119,7 @@ WriteLiteral(">\r\n                <div>\r\n");
 WriteLiteral("                    ");
 
             
-            #line 25 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 24 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
                Write(Html.TextContent($"Manage_ColumnHeader_{Model.ModelType.GetFriendlyTypeName()}_View", "View"));
 
             
@@ -129,7 +128,7 @@ WriteLiteral("                    ");
 WriteLiteral("\r\n                </div>\r\n            </td>\r\n");
 
             
-            #line 28 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 27 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
             }
 
             
@@ -138,13 +137,13 @@ WriteLiteral("\r\n                </div>\r\n            </td>\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 30 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 29 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 30 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 29 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
          foreach (var Meta in Fields)
             {
             string ColumnTitle = Meta.DisplayName ?? Meta.PropertyName.Humanize();
@@ -156,21 +155,21 @@ WriteLiteral("\r\n");
             #line hidden
 WriteLiteral("            <td");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 1192), Tuple.Create("\"", 1276)
+WriteAttribute("class", Tuple.Create(" class=\"", 1152), Tuple.Create("\"", 1236)
             
-            #line 35 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
-, Tuple.Create(Tuple.Create("", 1200), Tuple.Create<System.Object, System.Int32>(Model.OverrideSort == Meta.PropertyName ? "sort-column" : ""
-            
-            #line default
-            #line hidden
-, 1200), false)
-            
-            #line 35 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
-      , Tuple.Create(Tuple.Create(" ", 1263), Tuple.Create<System.Object, System.Int32>(ColumnClass
+            #line 34 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+, Tuple.Create(Tuple.Create("", 1160), Tuple.Create<System.Object, System.Int32>(Model.OverrideSort == Meta.PropertyName ? "sort-column" : ""
             
             #line default
             #line hidden
-, 1264), false)
+, 1160), false)
+            
+            #line 34 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+      , Tuple.Create(Tuple.Create(" ", 1223), Tuple.Create<System.Object, System.Int32>(ColumnClass
+            
+            #line default
+            #line hidden
+, 1224), false)
 );
 
 WriteLiteral(">\r\n                ");
@@ -178,13 +177,13 @@ WriteLiteral(">\r\n                ");
 WriteLiteral("\r\n");
 
             
-            #line 45 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 44 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
                 
             
             #line default
             #line hidden
             
-            #line 45 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 44 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
                  if (Meta.HasAttribute<NotMappedAttribute>(true))
                     {
                     // No DB column: no sorting
@@ -194,14 +193,14 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 49 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 48 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
                Write(Html.TextContent($"Manage_ColumnHeader_{Model.ModelType.GetFriendlyTypeName()}_{ColumnTitle}", ColumnTitle));
 
             
             #line default
             #line hidden
             
-            #line 49 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 48 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
                                                                                                                                 
                     }
                 else if (Meta.PropertyName.Contains("."))
@@ -213,28 +212,28 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 55 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 54 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
                    Write(Str.Humanize());
 
             
             #line default
             #line hidden
             
-            #line 55 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 54 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
                                        
                         
             
             #line default
             #line hidden
             
-            #line 56 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 55 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
                     Write(new HtmlString("&nbsp;"));
 
             
             #line default
             #line hidden
             
-            #line 56 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 55 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
                                                    
                         }
                     }
@@ -246,16 +245,16 @@ WriteLiteral("\r\n");
             #line hidden
 WriteLiteral("                    <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2340), Tuple.Create("\"", 2640)
+WriteAttribute("href", Tuple.Create(" href=\"", 2300), Tuple.Create("\"", 2600)
             
-            #line 61 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
-, Tuple.Create(Tuple.Create("", 2347), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
+            #line 60 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+, Tuple.Create(Tuple.Create("", 2307), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
                         .QS(Controllers.Manage.Actions.Route_SortColumn(Model, Meta.PropertyName))
                         .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(Controller=> Controller.Manage)
             
             #line default
             #line hidden
-, 2347), false)
+, 2307), false)
 );
 
 WriteLiteral(">\r\n\r\n");
@@ -263,7 +262,7 @@ WriteLiteral(">\r\n\r\n");
 WriteLiteral("                        ");
 
             
-            #line 65 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 64 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
                    Write(Html.TextContent($"Manage_ColumnHeader_{Model.ModelType.GetFriendlyTypeName()}_{ColumnTitle}", ColumnTitle));
 
             
@@ -272,13 +271,13 @@ WriteLiteral("                        ");
 WriteLiteral("\r\n\r\n");
 
             
-            #line 67 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 66 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
                         
             
             #line default
             #line hidden
             
-            #line 67 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 66 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
                          if (Model.OverrideSort == Meta.PropertyName)
                         {
                         if (Model.OverrideSortDirection == SortDirection.Ascending)
@@ -294,7 +293,7 @@ WriteLiteral(" class=\"glyphicons glyphicons-up-arrow\"");
 WriteLiteral(">&#xe093;</span>\r\n");
 
             
-            #line 72 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 71 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
                                 }
                             else
                                 {
@@ -309,7 +308,7 @@ WriteLiteral(" class=\"glyphicons glyphicons-down-arrow\"");
 WriteLiteral(">&#xe094;</span>\r\n");
 
             
-            #line 76 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 75 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
                                 }
                             }
 
@@ -319,7 +318,7 @@ WriteLiteral(">&#xe094;</span>\r\n");
 WriteLiteral("                    </a>\r\n");
 
             
-            #line 79 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 78 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
                     }
 
             
@@ -328,7 +327,7 @@ WriteLiteral("                    </a>\r\n");
 WriteLiteral("            </td>\r\n");
 
             
-            #line 81 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 80 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
             }
 
             
@@ -337,13 +336,13 @@ WriteLiteral("            </td>\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 83 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 82 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 83 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 82 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
          if (ViewContext.AllowEdit(Model.ModelType))
             {
 
@@ -359,7 +358,7 @@ WriteLiteral(">\r\n                <div>\r\n");
 WriteLiteral("                    ");
 
             
-            #line 87 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 86 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
                Write(Html.TextContent($"Manage_ColumnHeader_{Model.ModelType.GetFriendlyTypeName()}_Edit", "Edit"));
 
             
@@ -368,7 +367,7 @@ WriteLiteral("                    ");
 WriteLiteral("\r\n                </div>\r\n            </td>\r\n");
 
             
-            #line 90 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 89 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
             }
 
             
@@ -377,13 +376,13 @@ WriteLiteral("\r\n                </div>\r\n            </td>\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 92 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 91 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 92 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 91 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
          if (ViewContext.AllowDeactivate(Model.ModelType))
             {
 
@@ -397,13 +396,13 @@ WriteLiteral(" class=\"deactivate-cell\"");
 WriteLiteral(">\r\n                <div>\r\n");
 
             
-            #line 96 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 95 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
                     
             
             #line default
             #line hidden
             
-            #line 96 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 95 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
                       
                         string DeleteRestoreStr = Model.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive) ? "Restore" : "Delete";
                     
@@ -415,7 +414,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("                    ");
 
             
-            #line 100 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 99 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
                Write(Html.TextContent($"Manage_ColumnHeader_{Model.ModelType.GetFriendlyTypeName()}_{DeleteRestoreStr}", DeleteRestoreStr));
 
             
@@ -424,7 +423,7 @@ WriteLiteral("                    ");
 WriteLiteral("\r\n                </div>\r\n            </td>\r\n");
 
             
-            #line 103 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 102 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
                             }
 
             
@@ -433,7 +432,7 @@ WriteLiteral("\r\n                </div>\r\n            </td>\r\n");
 WriteLiteral("    </tr>\r\n</thead>\r\n\r\n");
 
             
-            #line 107 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
+            #line 106 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
   
     // ReSharper restore PossibleNullReferenceException
 

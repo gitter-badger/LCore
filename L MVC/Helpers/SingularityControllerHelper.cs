@@ -8,10 +8,10 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using LCore.Extensions;
-using Singularity.Extensions;
-using Singularity.Models;
+using LMVC.Extensions;
+using LMVC.Models;
 
-namespace Singularity.Controllers
+namespace LMVC.Controllers
     {
     public abstract class SingularityControllerHelper
         {

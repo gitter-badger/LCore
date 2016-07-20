@@ -6,12 +6,12 @@ using System.ComponentModel;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using LCore.Naming;
-using Singularity.Context;
-using Singularity.Annotations;
-using Singularity.Extensions;
+using LMVC.Context;
+using LMVC.Annotations;
+using LMVC.Extensions;
 using LCore.Interfaces;
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     public class SavedSearch : IModel, IGrouped
         {

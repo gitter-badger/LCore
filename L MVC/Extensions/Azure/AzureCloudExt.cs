@@ -2,7 +2,7 @@
 using System.IO;
 using Microsoft.WindowsAzure.StorageClient;
 
-namespace LCore.Extensions
+namespace LMVC.Extensions
     {
     /// <summary>
     /// Provides extensions to allow easier interaction with Azure Cloud Blobs and Azure Queues.

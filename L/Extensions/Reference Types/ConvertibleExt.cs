@@ -1,12 +1,12 @@
 ﻿using System;
 using LCore.Interfaces;
+using LCore.Numbers;
 using LCore.Tests;
 
 namespace LCore.Extensions
     {
     /// <summary>
-    /// Provides extension methods to common Interface types:
-    /// IConvertible
+    /// Provides extension methods to IConvertible objects.
     /// </summary>
     [ExtensionProvider]
     public static class ConvertibleExt
@@ -27,7 +27,45 @@ namespace LCore.Extensions
 
             try
                 {
+                // If [In] is a string, then we need to make sure to trim off unneeded 0's and decimal point, 
+                // otherwise equality test will fail.
+                while (In is string &&
+                    ((string)In).Length > 1 &&
+                    ((string)In).Contains(".") &&
+                    (((string)In).EndsWith("0") || ((string)In).EndsWith(".")))
+                    In = ((string)In).Sub(0, ((string)In).Length - 1);
+
                 T? Out = In.ConvertTo<T>();
+
+                var Verify = Out.ConvertTo(In.GetType());
+
+                return Equals(Verify, In);
+                }
+            catch
+                {
+                return false;
+                }
+            }
+        /// <summary>
+        /// Returns whether or not an IConvertible object <paramref name="In" /> can be, safely and without 
+        /// any data loss, converted to type <paramref name="Type"/>
+        /// </summary>
+        public static bool CanConvertTo(this IConvertible In, Type Type)
+            {
+            if (In == null || Type == null)
+                return false;
+
+            try
+                {
+                var Out = (IConvertible)In.ConvertTo(Type);
+
+                // If [In] is a string, then we need to make sure to trim off unneeded 0's and decimal point, 
+                // otherwise equality test will fail.
+                while (Out is string &&
+                    ((string)Out).Length > 1 &&
+                    ((string)In).Contains(".") &&
+                    (((string)Out).EndsWith("0") || ((string)Out).EndsWith(".")))
+                    Out = ((string)Out).Sub(0, ((string)Out).Length - 1);
 
                 var Verify = Out.ConvertTo(In.GetType());
 
@@ -69,6 +107,21 @@ namespace LCore.Extensions
         [Tested]
         public static object ConvertTo(this IConvertible In, Type Type)
             {
+            if (In is double)
+                In = ((DoubleNumber)(double)In).ToString();
+            if (In is float)
+                In = ((FloatNumber)(float)In).ToString();
+            if (In is decimal)
+                In = ((DecimalNumber)(decimal)In).ToString();
+
+            // If [In] is a string, then we need to make sure to trim off unneeded 0's and decimal point, 
+            // otherwise equality test will fail.
+            while (In is string &&
+                ((string)In).Length > 1 &&
+                ((string)In).Contains(".") &&
+                (((string)In).EndsWith("0") || ((string)In).EndsWith(".")))
+                In = ((string)In).Sub(0, ((string)In).Length - 1);
+
             try
                 {
                 return In == null ? null : Convert.ChangeType(In, Type);
@@ -93,6 +146,21 @@ namespace LCore.Extensions
             {
             if (In == null)
                 return default(T);
+
+            if (In is double)
+                In = ((DoubleNumber)(double)In).ToString();
+            if (In is float)
+                In = ((FloatNumber)(float)In).ToString();
+            if (In is decimal)
+                In = ((DecimalNumber)(decimal)In).ToString();
+
+            // If [In] is a string, then we need to make sure to trim off unneeded 0's and decimal point, 
+            // otherwise equality test will fail.
+            while (In is string &&
+                ((string)In).Length > 1 &&
+                ((string)In).Contains(".") &&
+                (((string)In).EndsWith("0") || ((string)In).EndsWith(".")))
+                In = ((string)In).Sub(0, ((string)In).Length - 1);
 
             try
                 {

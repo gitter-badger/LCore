@@ -567,8 +567,11 @@ namespace LCore.Extensions
         /// <summary>
         /// Iterates through a String, applying an action to each char.
         /// </summary>
+        [Tested]
         public static string CollectStr(this string In, Func<char, char> Func)
             {
+            In = In ?? "";
+            Func = Func ?? (Char => Char);
             return new string(In.ToArray().Collect(Func));
             }
         /// <summary>
@@ -576,9 +579,11 @@ namespace LCore.Extensions
         /// The int passed is the index of the current item.
         /// Returns a string concatenation of the results of the Func.
         /// </summary>
-
+        [Tested]
         public static string CollectStr<T>(this List<T> In, Func<int, T, string> Func)
             {
+            In = In ?? new List<T>();
+            Func = Func ?? ((i, o) => $"{o}");
             return In.CollectStr<T, List<T>>(Func);
             }
         /// <summary>
@@ -587,8 +592,11 @@ namespace LCore.Extensions
         /// Returns a string concatenation of the results of the Func.
         /// </summary>
 
+        [Tested]
         public static string CollectStr<T>(this T[] In, Func<int, T, string> Func)
             {
+            In = In ?? new T[] { };
+            Func = Func ?? ((i, o) => $"{o}");
             return In.CollectStr<T, T[]>(Func);
             }
         /// <summary>
@@ -596,9 +604,13 @@ namespace LCore.Extensions
         /// The int passed is the index of the current item.
         /// Returns a string concatenation of the results of the Func.
         /// </summary>
-
-        public static string CollectStr<T, U>(this U In, Func<int, T, string> Func) where U : IEnumerable<T>
+        [Tested]
+        public static string CollectStr<T, U>(this U In, Func<int, T, string> Func)
+            where U : IEnumerable<T>
             {
+            if (In == null || Func == null)
+                return "";
+
             string Out = "";
             In.Each((i, o) => { Out += Func(i, o) ?? ""; });
             return Out;
@@ -609,21 +621,25 @@ namespace LCore.Extensions
         /// <summary>
         /// Combines a list of strings with no separator.
         /// </summary>
+        [TestResult(new object[] { new string[] { } }, "")]
+        [TestResult(new object[] { new[] { "" } }, "")]
+        [TestResult(new object[] { new[] { "abc" } }, "abc")]
+        [TestResult(new object[] { new[] { "abc", "123" } }, "abc123")]
+        [TestResult(new object[] { new[] { "abc", "123", "hi" } }, "abc123hi")]
+        [TestResult(new object[] { new[] { "abc", "123", null, "hi" } }, "abc123hi")]
         public static string Combine(this IEnumerable<string> List)
             {
             return List.Combine("");
             }
         /// <summary>
-        /// Convert a list of IConvertible to strings, then joins them with a separator character.
-        /// </summary>
-        public static string Combine<T>(this IEnumerable<T> List, char SeparateChar)
-            where T : IConvertible
-            {
-            return List.Convert(i => i.ToString()).Combine(SeparateChar);
-            }
-        /// <summary>
         /// Joins a list of strings with a separator character.
         /// </summary>
+        [TestResult(new object[] { new string[] { }, ' ' }, "")]
+        [TestResult(new object[] { new[] { "" }, ' ' }, "")]
+        [TestResult(new object[] { new[] { "abc" }, ' ' }, "abc")]
+        [TestResult(new object[] { new[] { "abc", "123" }, ' ' }, "abc 123")]
+        [TestResult(new object[] { new[] { "abc", "123", "hi" }, ',' }, "abc,123,hi")]
+        [TestResult(new object[] { new[] { "abc", "123", null, "hi" }, ',' }, "abc,123,hi")]
         public static string Combine(this IEnumerable<string> List, char SeparateChar)
             {
             return List.Combine(SeparateChar.ToString());
@@ -631,10 +647,20 @@ namespace LCore.Extensions
         /// <summary>
         /// Convert a list of IConvertible to strings, then joins them with a separator string.
         /// </summary>
+        [Tested]
         public static string Combine<T>(this IEnumerable<T> List, string SeparateStr)
             where T : IConvertible
             {
-            return List.Convert(i => i.ToString()).Combine(SeparateStr);
+            return List.Convert(i => i.ConvertToString()).Combine(SeparateStr);
+            }
+        /// <summary>
+        /// Convert a list of IConvertible to strings, then joins them with a separator character.
+        /// </summary>
+        [Tested]
+        public static string Combine<T>(this IEnumerable<T> List, char SeparateChar)
+            where T : IConvertible
+            {
+            return List.Convert(i => i.ConvertToString()).Combine(SeparateChar);
             }
         #endregion
 
@@ -643,36 +669,55 @@ namespace LCore.Extensions
         /// Iterates through a collection, returning a List`Object containing the results of the passed Func`Object,Object.
         /// Null values are ignored.
         /// </summary>
-
+        [Tested]
         public static List<object> Convert(this IEnumerable In, Func<object, object> Func)
             {
+            Func = Func ?? (o => o);
             return In.Convert((i, o) => Func(o));
             }
         /// <summary>
         /// Iterates through a collection, returning a U[] containing the results of the passed Func`<typeparamref name="T" />,<typeparamref name="U" />.
         /// Null values are ignored.
         /// </summary>
-
+        [Tested]
         public static U[] Convert<T, U>(this T[] In, Func<T, U> Func)
             {
+            Func = Func ?? (o =>
+                {
+                    var Out = default(U);
+                    try { Out = (U)(object)o; } catch { }
+                    return Out;
+                });
             return In.Convert((i, o) => Func(o));
             }
         /// <summary>
         /// Iterates through a collection, returning a List`<typeparamref name="U" /> containing the results of the passed Func`<typeparamref name="T" />,<typeparamref name="U" />.
         /// Null values are ignored.
         /// </summary>
-
+        [Tested]
         public static List<U> Convert<T, U>(this List<T> In, Func<T, U> Func)
             {
+            Func = Func ?? (o =>
+            {
+                var Out = default(U);
+                try { Out = (U)(object)o; } catch { }
+                return Out;
+            });
             return In.Convert((i, o) => Func(o));
             }
         /// <summary>
         /// Iterates through a collection, returning a List`<typeparamref name="U" /> containing the results of the passed Func`<typeparamref name="T" />,<typeparamref name="U" />.
         /// Null values are ignored.
         /// </summary>
-
+        [Tested]
         public static List<U> Convert<T, U>(this IEnumerable<T> In, Func<T, U> Func)
             {
+            Func = Func ?? (o =>
+            {
+                var Out = default(U);
+                try { Out = (U)(object)o; } catch { }
+                return Out;
+            });
             return In.Convert((i, o) => Func(o));
             }
         #endregion
@@ -2737,7 +2782,7 @@ namespace LCore.Extensions
         /// Sorts the collection using the results of the passed [Comparer] Func`<typeparamref name="T" />,<typeparamref name="T" />,int.
         /// The Func should return positive if the first item is greater, negative if the second item is greater, and 0 if they are equal.
         /// </summary>
-        public static void Sort<T>(this IList In, Func<T, T, int> Comparer)
+        public static void Sort<T>(this IList<T> In, Func<T, T, int> Comparer)
             {
             var Sorter = new QuickSorter(new CustomComparer<T>(Comparer), new DefaultSwap());
             Sorter.Sort(In);
@@ -2749,7 +2794,7 @@ namespace LCore.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="In"></param>
         /// <param name="FieldRetriever"></param>
-        public static void Sort<T>(this IList In, Func<T, IComparable> FieldRetriever)
+        public static void Sort<T>(this IList<T> In, Func<T, IComparable> FieldRetriever)
             {
             var Sorter = new QuickSorter(new CustomComparer<T>(FieldRetriever), new DefaultSwap());
             Sorter.Sort(In);

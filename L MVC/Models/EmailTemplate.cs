@@ -1,11 +1,11 @@
-﻿using Singularity.Context;
+﻿using LMVC.Context;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using Singularity.Annotations;
+using LMVC.Annotations;
 
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     public class EmailTemplate : IModel
         {

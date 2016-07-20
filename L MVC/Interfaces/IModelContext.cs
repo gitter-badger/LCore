@@ -5,9 +5,9 @@ using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using Singularity.Models;
+using LMVC.Models;
 
-namespace Singularity.Context
+namespace LMVC.Context
     {
     public interface IModelContext
         {

@@ -17,7 +17,7 @@ namespace ASP
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     
-    #line 7 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+    #line 6 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
     using System.ComponentModel.DataAnnotations.Schema;
     
     #line default
@@ -45,28 +45,27 @@ namespace ASP
     
     #line default
     #line hidden
-    using Singularity;
+    using LMVC;
+    using LMVC.Account;
+    using LMVC.Annotations;
+    using LMVC.Context;
+    using LMVC.Controllers;
+    using LMVC.Extensions;
+    using LMVC.Models;
     
-    #line 5 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
-    using Singularity.Annotations;
+    #line 3 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+    using LMVC.Routes;
     
     #line default
     #line hidden
-    using Singularity.Context;
-    using Singularity.Controllers;
+    using Singularity;
     
-    #line 6 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+    #line 5 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
     using Singularity.Extensions;
     
     #line default
     #line hidden
     using Singularity.Models;
-    
-    #line 3 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
-    using Singularity.Routes;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/Manage/Fields/FieldView.cshtml")]
@@ -84,7 +83,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 9 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 8 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
   
     bool ShowLabel = Model.ViewTypes.HasAny(ControllerHelper.ViewType.Create, ControllerHelper.ViewType.Edit, ControllerHelper.ViewType.Display);
 
@@ -95,36 +94,36 @@ WriteLiteral("\r\n\r\n");
 
 WriteLiteral("\r\n<div");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 437), Tuple.Create("\"", 592)
-, Tuple.Create(Tuple.Create("", 445), Tuple.Create("field", 445), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 397), Tuple.Create("\"", 552)
+, Tuple.Create(Tuple.Create("", 405), Tuple.Create("field", 405), true)
             
-            #line 16 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
-, Tuple.Create(Tuple.Create(" ", 450), Tuple.Create<System.Object, System.Int32>(Model.ViewTypes.CollectStr((i,Type) => $"{Type.ToString().ToLower()}-field ")
-            
-            #line default
-            #line hidden
-, 451), false)
-, Tuple.Create(Tuple.Create(" ", 529), Tuple.Create("field-", 530), true)
-            
-            #line 16 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
-                        , Tuple.Create(Tuple.Create("", 536), Tuple.Create<System.Object, System.Int32>(Model.ColumnClass
+            #line 15 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+, Tuple.Create(Tuple.Create(" ", 410), Tuple.Create<System.Object, System.Int32>(Model.ViewTypes.CollectStr((i,Type) => $"{Type.ToString().ToLower()}-field ")
             
             #line default
             #line hidden
-, 536), false)
+, 411), false)
+, Tuple.Create(Tuple.Create(" ", 489), Tuple.Create("field-", 490), true)
             
-            #line 16 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
-                                          , Tuple.Create(Tuple.Create(" ", 554), Tuple.Create<System.Object, System.Int32>(Model.ModelFieldClasses.Combine(" ")
+            #line 15 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+                        , Tuple.Create(Tuple.Create("", 496), Tuple.Create<System.Object, System.Int32>(Model.ColumnClass
             
             #line default
             #line hidden
-, 555), false)
+, 496), false)
+            
+            #line 15 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+                                          , Tuple.Create(Tuple.Create(" ", 514), Tuple.Create<System.Object, System.Int32>(Model.ModelFieldClasses.Combine(" ")
+            
+            #line default
+            #line hidden
+, 515), false)
 );
 
 WriteLiteral("\r\n     ");
 
             
-            #line 17 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 16 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
 Write(Html.Raw(Model.ModelFieldHtmlAttributes.Combine(" ")));
 
             
@@ -133,7 +132,7 @@ Write(Html.Raw(Model.ModelFieldHtmlAttributes.Combine(" ")));
 WriteLiteral("\r\n     data-object-type=\"");
 
             
-            #line 18 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 17 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                   Write(Model.Meta.ModelType);
 
             
@@ -142,7 +141,7 @@ WriteLiteral("\r\n     data-object-type=\"");
 WriteLiteral("\"\r\n     data-type-name=\"");
 
             
-            #line 19 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 18 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                 Write(Model.Meta.DataTypeName);
 
             
@@ -151,13 +150,13 @@ WriteLiteral("\"\r\n     data-type-name=\"");
 WriteLiteral("\">\r\n\r\n");
 
             
-            #line 21 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 20 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 21 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 20 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
      if (Model.Meta.HasAttribute<ICustomPartial>() &&
                         Model.Meta.GetAttribute<ICustomPartial>().IsActive(Html, Model, Model.ViewTypes))
         {
@@ -197,7 +196,7 @@ WriteLiteral(" class=\"manage-view-show-similar\"");
 WriteLiteral("\r\n                      data-field-name=\"");
 
             
-            #line 50 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 49 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                   Write(Model.Meta.PropertyName);
 
             
@@ -208,7 +207,7 @@ WriteLiteral("\"");
 WriteLiteral("\r\n                      data-field-value=\"");
 
             
-            #line 51 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 50 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                    Write(Data);
 
             
@@ -221,7 +220,7 @@ WriteLiteral("\r\n                      title=\"View Similar\"");
 WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n                </span>\r\n");
 
             
-            #line 55 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 54 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                 }
             }
 
@@ -234,7 +233,7 @@ WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n              
             #line default
             #line hidden
             
-            #line 62 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 61 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
        Write(Html.TextContent($"Manage_Edit_Field_Label_{Model.ModelData.GetFriendlyTypeName()}_{Label}",
                 Html.Label(Model.Meta.PropertyName, Label)));
 
@@ -242,7 +241,7 @@ WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n              
             #line default
             #line hidden
             
-            #line 63 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 62 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                                            
             }
 
@@ -253,14 +252,14 @@ WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n              
             #line default
             #line hidden
             
-            #line 68 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 67 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
        Write(Html.Partial(PartialViews.Manage.Fields.View.Empty, Model));
 
             
             #line default
             #line hidden
             
-            #line 68 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 67 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                                                        
             }
         else
@@ -274,14 +273,14 @@ WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n              
             #line default
             #line hidden
             
-            #line 76 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 75 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
            Write(Html.Partial(PartialViews.Manage.Fields.View.PropertyName(Model.PropertyName)));
 
             
             #line default
             #line hidden
             
-            #line 76 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 75 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                                                                                
                 }
             else if (Model.Meta.AdditionalValues.ContainsKey(FieldStringFormatAttribute.Key) &&
@@ -292,14 +291,14 @@ WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n              
             #line default
             #line hidden
             
-            #line 81 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 80 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
            Write(Html.Partial(PartialViews.Manage.Fields.View.FormatString, Model));
 
             
             #line default
             #line hidden
             
-            #line 81 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 80 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                                                                   
                 }
             else if (Model.Meta.ModelType == typeof(bool) || Model.Meta.ModelType == typeof(bool?))
@@ -309,14 +308,14 @@ WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n              
             #line default
             #line hidden
             
-            #line 85 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 84 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
            Write(Html.Partial(PartialViews.Manage.Fields.View.Boolean, Model));
 
             
             #line default
             #line hidden
             
-            #line 85 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 84 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                                                              
                 }
             else if (Model.Meta.DataTypeName == DataType.Currency.ToString())
@@ -326,14 +325,14 @@ WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n              
             #line default
             #line hidden
             
-            #line 89 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 88 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
            Write(Html.Partial(PartialViews.Manage.Fields.View.Currency, Model));
 
             
             #line default
             #line hidden
             
-            #line 89 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 88 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                                                               
                 }
             else if (Model.Meta.ModelType == typeof(int) || Model.Meta.ModelType == typeof(int?))
@@ -343,14 +342,14 @@ WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n              
             #line default
             #line hidden
             
-            #line 93 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 92 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
            Write(Html.Partial(PartialViews.Manage.Fields.View.Int, Model));
 
             
             #line default
             #line hidden
             
-            #line 93 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 92 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                                                          
                 }
             else if (Model.Meta.ModelType == typeof(DateTime) || Model.Meta.ModelType == typeof(DateTime?))
@@ -360,14 +359,14 @@ WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n              
             #line default
             #line hidden
             
-            #line 97 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 96 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
            Write(Html.Partial(PartialViews.Manage.Fields.View.DateTime, Model));
 
             
             #line default
             #line hidden
             
-            #line 97 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 96 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                                                               
                 }
             else if (Model.ModelData.TrueModelType().HasAttribute<DisplayColumnAttribute>(true) &&
@@ -378,14 +377,14 @@ WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n              
             #line default
             #line hidden
             
-            #line 102 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 101 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
            Write(Html.Partial(PartialViews.Manage.Fields.View.DisplayColumn, Model));
 
             
             #line default
             #line hidden
             
-            #line 102 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 101 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                                                                    
                 }
             else if (Model.Meta.ModelType.HasInterface<IModel>())
@@ -395,14 +394,14 @@ WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n              
             #line default
             #line hidden
             
-            #line 106 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 105 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
            Write(Html.Partial(PartialViews.Manage.Fields.View.IModel, Model));
 
             
             #line default
             #line hidden
             
-            #line 106 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 105 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                                                             
                 }
             else if (Model.Meta.ModelType.HasInterface<IEnumerable>() &&
@@ -414,14 +413,14 @@ WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n              
             #line default
             #line hidden
             
-            #line 112 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 111 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
            Write(Html.Partial(PartialViews.Manage.Fields.View.IModelCollection, Model));
 
             
             #line default
             #line hidden
             
-            #line 112 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 111 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                                                                       
                 }
             else if (Model.Meta.ModelType.PreferGeneric().IsEnum)
@@ -431,14 +430,14 @@ WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n              
             #line default
             #line hidden
             
-            #line 116 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 115 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
            Write(Html.Partial(PartialViews.Manage.Fields.View.Enum, Model));
 
             
             #line default
             #line hidden
             
-            #line 116 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 115 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                                                           
                 }
             else if (Html.ViewExists(PartialViews.Manage.Fields.View.PropertyType(Model.Meta.ModelType)))
@@ -448,14 +447,14 @@ WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n              
             #line default
             #line hidden
             
-            #line 120 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 119 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
            Write(Html.Partial(PartialViews.Manage.Fields.View.PropertyType(Model.Meta.ModelType), Model));
 
             
             #line default
             #line hidden
             
-            #line 120 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 119 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                                                                                         
                 }
             else if (Html.ViewExists(PartialViews.Manage.Fields.View.DataTypeName(Model.Meta.DataTypeName)))
@@ -465,14 +464,14 @@ WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n              
             #line default
             #line hidden
             
-            #line 124 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 123 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
            Write(Html.Partial(PartialViews.Manage.Fields.View.DataTypeName(Model.Meta.DataTypeName), Model));
 
             
             #line default
             #line hidden
             
-            #line 124 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 123 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                                                                                            
                 }
             else if (Model.Meta.ModelType == typeof(string))
@@ -482,14 +481,14 @@ WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n              
             #line default
             #line hidden
             
-            #line 128 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 127 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
            Write(Html.Partial(PartialViews.Manage.Fields.View.String, Model));
 
             
             #line default
             #line hidden
             
-            #line 128 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 127 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                                                             
                 }
             else if (Model.Meta.ModelType == typeof(string[,]))
@@ -499,14 +498,14 @@ WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n              
             #line default
             #line hidden
             
-            #line 132 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 131 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
            Write(Html.Partial(PartialViews.Manage.Fields.View.StringMatrix, Model));
 
             
             #line default
             #line hidden
             
-            #line 132 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 131 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                                                                   
                 }
             else if (Model.Meta.ModelType == typeof(string[][]))
@@ -516,14 +515,14 @@ WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n              
             #line default
             #line hidden
             
-            #line 136 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 135 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
            Write(Html.Partial(PartialViews.Manage.Fields.View.StringMultiArray, Model));
 
             
             #line default
             #line hidden
             
-            #line 136 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 135 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                                                                       
                 }
             else
@@ -533,14 +532,14 @@ WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n              
             #line default
             #line hidden
             
-            #line 140 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 139 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
            Write(Html.Partial(PartialViews.Manage.Fields.View.Unknown, Model));
 
             
             #line default
             #line hidden
             
-            #line 140 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
+            #line 139 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                                                              
                 }
             }

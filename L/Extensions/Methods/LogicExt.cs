@@ -2358,29 +2358,31 @@ namespace LCore.Extensions
                                 var Start = DateTime.Now;
 
                                 string Key = Obj.Objects_ToString(Ary.Array<object>( /*A*/)());
-
-                                bool Exists = CacheDict.ContainsKey(Key);
-                                if (Exists)
+                                lock (CacheDict)
                                     {
-                                    var CachedResult = CacheDict[Key];
-
-                                    if (CachedResult.Data is U)
+                                    bool Exists = CacheDict.ContainsKey(Key);
+                                    if (Exists)
                                         {
-                                        var End = DateTime.Now;
+                                        var CachedResult = CacheDict[Key];
 
-                                        CachedResult.AddTime(
-                                        (long)
-                                            (CachedResult.OriginalTimeMS - (End - Start).Ticks * Date.TicksToMilliseconds));
+                                        if (CachedResult.Data is U)
+                                            {
+                                            var End = DateTime.Now;
 
-                                        return (U)CachedResult.Data;
+                                            CachedResult.AddTime(
+                                            (long)
+                                                (CachedResult.OriginalTimeMS - (End - Start).Ticks * Date.TicksToMilliseconds));
+
+                                            return (U)CachedResult.Data;
+                                            }
                                         }
+                                    var Out = In();
+                                    var End2 = DateTime.Now;
+                                    if (!Exists)
+                                        CacheDict.Add(Key,
+                                        new CacheData(Out, (long)((End2 - Start).Ticks * Date.TicksToMilliseconds)));
+                                    return Out;
                                     }
-                                var Out = In();
-                                var End2 = DateTime.Now;
-                                if (!Exists)
-                                    CacheDict.Add(Key,
-                                    new CacheData(Out, (long)((End2 - Start).Ticks * Date.TicksToMilliseconds)));
-                                return Out;
                             };
                     };
                 }

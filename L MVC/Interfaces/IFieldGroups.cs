@@ -3,15 +3,15 @@ using System;
 using System.Collections.Generic;
 
 using LCore.Extensions;
-using Singularity.Models;
-using Singularity.Controllers;
-using Singularity.Extensions;
+using LMVC.Models;
+using LMVC.Controllers;
+using LMVC.Extensions;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     public interface IFieldGroups : IModel
         {

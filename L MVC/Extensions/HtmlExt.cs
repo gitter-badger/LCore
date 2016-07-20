@@ -4,10 +4,10 @@ using LCore.Extensions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using LCore.Interfaces;
-using Singularity.Models;
-using Singularity.Routes;
+using LMVC.Models;
+using LMVC.Routes;
 
-namespace Singularity.Extensions
+namespace LMVC.Extensions
     {
     [ExtensionProvider]
     public static class HtmlExt

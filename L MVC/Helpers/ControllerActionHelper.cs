@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Singularity.Extensions
+namespace LMVC.Extensions
     {
     public class ControllerActionHelper<T>
         {

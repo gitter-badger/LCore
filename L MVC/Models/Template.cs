@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using Singularity.Context;
+using LMVC.Context;
 using System.Linq;
-using Singularity.Annotations;
+using LMVC.Annotations;
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     public class Template : IModel
         {

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
-using Singularity.Context;
+using LMVC.Context;
 using System.Web.Mvc;
-using Singularity.Annotations;
+using LMVC.Annotations;
 
 using LCore.Extensions;
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     [FriendlyModelName("Text Content")]
     public class TextContent : IModel

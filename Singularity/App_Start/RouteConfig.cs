@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
-using Singularity.Controllers;
+using LMVC.Controllers;
 
 namespace Singularity.Config
     {

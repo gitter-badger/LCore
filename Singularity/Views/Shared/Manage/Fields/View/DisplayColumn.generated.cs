@@ -35,10 +35,10 @@ namespace ASP
     using System.Web.WebPages;
     using LCore.Extensions;
     using Singularity;
-    using Singularity.Context;
+    using LMVC.Context;
     
     #line 4 "..\..\Views\Shared\Manage\Fields\View\DisplayColumn.cshtml"
-    using Singularity.Controllers;
+    using LMVC.Controllers;
     
     #line default
     #line hidden

@@ -6,10 +6,10 @@ using System.Web;
 using System.Web.Mvc;
 using LCore.Extensions;
 using LCore.Interfaces;
-using Singularity.Context;
-using Singularity.Controllers;
+using LMVC.Context;
+using LMVC.Controllers;
 
-namespace Singularity.Extensions
+namespace LMVC.Extensions
     {
     [ExtensionProvider]
     public static class SingularityControllerExt

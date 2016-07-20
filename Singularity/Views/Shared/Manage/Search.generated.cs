@@ -39,15 +39,20 @@ namespace ASP
     
     #line default
     #line hidden
-    using Singularity;
+    using LMVC;
+    using LMVC.Account;
+    using LMVC.Annotations;
+    using LMVC.Context;
+    using LMVC.Controllers;
+    using LMVC.Extensions;
+    using LMVC.Models;
     
-    #line 6 "..\..\Views\Shared\Manage\Search.cshtml"
-    using Singularity.Annotations;
+    #line 7 "..\..\Views\Shared\Manage\Search.cshtml"
+    using LMVC.Routes;
     
     #line default
     #line hidden
-    using Singularity.Context;
-    using Singularity.Controllers;
+    using Singularity;
     
     #line 5 "..\..\Views\Shared\Manage\Search.cshtml"
     using Singularity.Extensions;
@@ -55,12 +60,6 @@ namespace ASP
     #line default
     #line hidden
     using Singularity.Models;
-    
-    #line 8 "..\..\Views\Shared\Manage\Search.cshtml"
-    using Singularity.Routes;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/Manage/Search.cshtml")]
@@ -78,7 +77,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 12 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 11 "..\..\Views\Shared\Manage\Search.cshtml"
   
     string ControllerTypeName = ViewContext.Controller.GetType().FullName;
 
@@ -98,13 +97,13 @@ WriteLiteral(" class=\"manage-global-search\"");
 WriteLiteral(">\r\n");
 
             
-            #line 24 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 23 "..\..\Views\Shared\Manage\Search.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 24 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 23 "..\..\Views\Shared\Manage\Search.cshtml"
      if (Model.FieldSearchTerms.Keys.Count > 0)
         {
         foreach (var Value in Model.FieldSearchTerms.Values)
@@ -125,7 +124,7 @@ WriteLiteral(">\r\n                    $().ready(function () {\r\n              
 "e-");
 
             
-            #line 34 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 33 "..\..\Views\Shared\Manage\Search.cshtml"
                               Write(Model.ModelTypeCssClass);
 
             
@@ -134,7 +133,7 @@ WriteLiteral(">\r\n                    $().ready(function () {\r\n              
 WriteLiteral(" .manage-table tbody td.");
 
             
-            #line 34 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 33 "..\..\Views\Shared\Manage\Search.cshtml"
                                                                               Write(Column);
 
             
@@ -144,7 +143,7 @@ WriteLiteral(" span\').each(function () {\r\n                            const h
 "();\r\n                            $(this).html(html.replace(new RegExp(`(${(\'");
 
             
-            #line 36 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 35 "..\..\Views\Shared\Manage\Search.cshtml"
                                                                   Write(Value.Search);
 
             
@@ -154,7 +153,7 @@ WriteLiteral("\').escapeRegExp()})`, \'ig\'), \'<strong>$1</strong>\'));\r\n    
 ";\r\n                    });\r\n                </script>\r\n");
 
             
-            #line 40 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 39 "..\..\Views\Shared\Manage\Search.cshtml"
                 }
             }
         }
@@ -165,13 +164,13 @@ WriteLiteral("\').escapeRegExp()})`, \'ig\'), \'<strong>$1</strong>\'));\r\n    
 WriteLiteral("\r\n");
 
             
-            #line 44 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 43 "..\..\Views\Shared\Manage\Search.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 44 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 43 "..\..\Views\Shared\Manage\Search.cshtml"
      if (!string.IsNullOrEmpty(Model.GlobalSearchTerm))
         {
 
@@ -185,7 +184,7 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral(">\r\n            $().ready(function () {\r\n                $(\'.manage-");
 
             
-            #line 48 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 47 "..\..\Views\Shared\Manage\Search.cshtml"
                       Write(Model.ModelTypeCssClass);
 
             
@@ -196,7 +195,7 @@ WriteLiteral(" .manage-table tbody td span\').each(function () {\r\n            
 "{(\'");
 
             
-            #line 50 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 49 "..\..\Views\Shared\Manage\Search.cshtml"
                                                           Write(Model.GlobalSearchTerm);
 
             
@@ -206,7 +205,7 @@ WriteLiteral("\').escapeRegExp()})`, \'ig\'), \'<strong>$1</strong>\'));\r\n    
 "       });\r\n        </script>\r\n");
 
             
-            #line 54 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 53 "..\..\Views\Shared\Manage\Search.cshtml"
         }
     else
         {
@@ -222,7 +221,7 @@ WriteLiteral(">\r\n            $().ready(function () {\r\n                $(\'#G
 "l(\'\');\r\n            });\r\n        </script>\r\n");
 
             
-            #line 62 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 61 "..\..\Views\Shared\Manage\Search.cshtml"
         }
 
             
@@ -231,13 +230,13 @@ WriteLiteral(">\r\n            $().ready(function () {\r\n                $(\'#G
 WriteLiteral("\r\n");
 
             
-            #line 64 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 63 "..\..\Views\Shared\Manage\Search.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 64 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 63 "..\..\Views\Shared\Manage\Search.cshtml"
      if (!SearchEmpty)
         {
         using (Html.BeginForm(nameof(ManageController.Manage),
@@ -259,7 +258,7 @@ WriteLiteral(" value=\"Clear\"");
 WriteLiteral(" />\r\n");
 
             
-            #line 73 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 72 "..\..\Views\Shared\Manage\Search.cshtml"
             }
         }
 
@@ -269,13 +268,13 @@ WriteLiteral(" />\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 76 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 75 "..\..\Views\Shared\Manage\Search.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 76 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 75 "..\..\Views\Shared\Manage\Search.cshtml"
      if (Model.FieldSearchTerms != null &&
                     Model.FieldSearchTerms.Keys.Count > 0)
         {
@@ -299,13 +298,13 @@ WriteLiteral(" class=\"filter-area\"");
 WriteLiteral(">\r\n");
 
             
-            #line 87 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 86 "..\..\Views\Shared\Manage\Search.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 87 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 86 "..\..\Views\Shared\Manage\Search.cshtml"
              foreach (var Value in Model.FieldSearchTerms.Values)
                 {
 
@@ -314,14 +313,14 @@ WriteLiteral(">\r\n");
             #line hidden
 WriteLiteral("                <span>\r\n                    <span");
 
-WriteAttribute("search-text", Tuple.Create(" search-text=\"", 3157), Tuple.Create("\"", 3223)
+WriteAttribute("search-text", Tuple.Create(" search-text=\"", 3117), Tuple.Create("\"", 3183)
             
-            #line 90 "..\..\Views\Shared\Manage\Search.cshtml"
-, Tuple.Create(Tuple.Create("", 3171), Tuple.Create<System.Object, System.Int32>(Value.Property + Value.OperatorStr + Value.Search
+            #line 89 "..\..\Views\Shared\Manage\Search.cshtml"
+, Tuple.Create(Tuple.Create("", 3131), Tuple.Create<System.Object, System.Int32>(Value.Property + Value.OperatorStr + Value.Search
             
             #line default
             #line hidden
-, 3171), false)
+, 3131), false)
 );
 
 WriteLiteral(">\r\n");
@@ -329,7 +328,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 91 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 90 "..\..\Views\Shared\Manage\Search.cshtml"
                    Write(Value.Property);
 
             
@@ -340,7 +339,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                        ");
 
             
-            #line 92 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 91 "..\..\Views\Shared\Manage\Search.cshtml"
                    Write(Value.OperatorStr);
 
             
@@ -351,7 +350,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                        ");
 
             
-            #line 93 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 92 "..\..\Views\Shared\Manage\Search.cshtml"
                    Write(Value.Search);
 
             
@@ -362,7 +361,7 @@ WriteLiteral("\r\n                    </span>\r\n");
 WriteLiteral("                    ");
 
             
-            #line 95 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 94 "..\..\Views\Shared\Manage\Search.cshtml"
                Write(Html.ActionLink("X", nameof(ManageController.Manage),
                         Model.Controller.Name,
                         Controllers.Manage.Actions.Route_RemoveFilter(Model, Value.Property), new { }));
@@ -373,7 +372,7 @@ WriteLiteral("                    ");
 WriteLiteral("\r\n                </span>\r\n");
 
             
-            #line 99 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 98 "..\..\Views\Shared\Manage\Search.cshtml"
                 }
 
             
@@ -382,7 +381,7 @@ WriteLiteral("\r\n                </span>\r\n");
 WriteLiteral("        </div>\r\n");
 
             
-            #line 101 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 100 "..\..\Views\Shared\Manage\Search.cshtml"
         }
 
             
@@ -397,7 +396,7 @@ WriteLiteral(">\r\n        $().ready(function () {\r\n            const availabl
 WriteLiteral("                ");
 
             
-            #line 106 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 105 "..\..\Views\Shared\Manage\Search.cshtml"
            Write(Html.Raw(Model.GetSearchSuggestions()));
 
             
@@ -419,13 +418,13 @@ WriteLiteral(@"
 ");
 
             
-            #line 119 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 118 "..\..\Views\Shared\Manage\Search.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 119 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 118 "..\..\Views\Shared\Manage\Search.cshtml"
      if (!SearchEmpty &&
                 ViewContext.AllowCreate(typeof(SavedSearch)) &&
                 ViewContext.GetManageController().ViewSavedSearches)
@@ -436,16 +435,16 @@ WriteLiteral(@"
             #line hidden
 WriteLiteral("        <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 4423), Tuple.Create("\"", 4644)
+WriteAttribute("href", Tuple.Create(" href=\"", 4383), Tuple.Create("\"", 4604)
             
-            #line 123 "..\..\Views\Shared\Manage\Search.cshtml"
-, Tuple.Create(Tuple.Create("", 4430), Tuple.Create<System.Object, System.Int32>(Url.Controller<SavedSearchController>()
+            #line 122 "..\..\Views\Shared\Manage\Search.cshtml"
+, Tuple.Create(Tuple.Create("", 4390), Tuple.Create<System.Object, System.Int32>(Url.Controller<SavedSearchController>()
                     .QS(Controllers.SavedSearch.Actions.Route_CreateSavedSearch(Model, ViewContext))
                     .Lambda<string>(Controller => Controller.Create)
             
             #line default
             #line hidden
-, 4430), false)
+, 4390), false)
 );
 
 WriteLiteral(">\r\n            <div");
@@ -457,7 +456,7 @@ WriteLiteral(" title=\"Save Search\"");
 WriteLiteral(">\r\n                <glyph>&#xe172;</glyph>\r\n            </div>\r\n        </a>\r\n");
 
             
-            #line 130 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 129 "..\..\Views\Shared\Manage\Search.cshtml"
         }
 
             
@@ -466,13 +465,13 @@ WriteLiteral(">\r\n                <glyph>&#xe172;</glyph>\r\n            </div>
 WriteLiteral("\r\n");
 
             
-            #line 132 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 131 "..\..\Views\Shared\Manage\Search.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 132 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 131 "..\..\Views\Shared\Manage\Search.cshtml"
      if (SavedSearches.Count > 0 &&
                 ViewContext.GetManageController().ViewSavedSearches)
         {
@@ -509,13 +508,13 @@ WriteLiteral(" style=\"display:none\"");
 WriteLiteral(">\r\n");
 
             
-            #line 144 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 143 "..\..\Views\Shared\Manage\Search.cshtml"
                 
             
             #line default
             #line hidden
             
-            #line 144 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 143 "..\..\Views\Shared\Manage\Search.cshtml"
                  foreach (string GroupName in SavedSearchGroups.Keys)
                     {
                     List<SavedSearch> Group = SavedSearchGroups[GroupName];
@@ -527,7 +526,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                    <h3>");
 
             
-            #line 148 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 147 "..\..\Views\Shared\Manage\Search.cshtml"
                    Write(GroupName);
 
             
@@ -536,7 +535,7 @@ WriteLiteral("                    <h3>");
 WriteLiteral("</h3>\r\n");
 
             
-            #line 149 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 148 "..\..\Views\Shared\Manage\Search.cshtml"
 
                     foreach (var Search in Group)
                         {
@@ -552,23 +551,23 @@ WriteLiteral(">\r\n                            <a");
 
 WriteLiteral(" class=\"saved-search btn btn-default\"");
 
-WriteAttribute("href", Tuple.Create("\r\n                               href=\"", 5826), Tuple.Create("\"", 6173)
+WriteAttribute("href", Tuple.Create("\r\n                               href=\"", 5786), Tuple.Create("\"", 6133)
             
-            #line 154 "..\..\Views\Shared\Manage\Search.cshtml"
-, Tuple.Create(Tuple.Create("", 5865), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
+            #line 153 "..\..\Views\Shared\Manage\Search.cshtml"
+, Tuple.Create(Tuple.Create("", 5825), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
                                 .QS(Controllers.SavedSearch.Actions.Route_ViewSavedSearch(Model, Search))
                                 .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(Controller=> Controller.Manage)
             
             #line default
             #line hidden
-, 5865), false)
+, 5825), false)
 );
 
 WriteLiteral(">\r\n                                <glyph>&#xe003;</glyph>\r\n                     " +
 "           <h4>");
 
             
-            #line 158 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 157 "..\..\Views\Shared\Manage\Search.cshtml"
                                Write(Search.Name);
 
             
@@ -577,13 +576,13 @@ WriteLiteral(">\r\n                                <glyph>&#xe003;</glyph>\r\n  
 WriteLiteral("</h4>\r\n                            </a>\r\n");
 
             
-            #line 160 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 159 "..\..\Views\Shared\Manage\Search.cshtml"
                             
             
             #line default
             #line hidden
             
-            #line 160 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 159 "..\..\Views\Shared\Manage\Search.cshtml"
                              if (Model.ModelType.HasInterface<IEmailable>() &&
                             ViewContext.AllowCreate(typeof(EmailJob)))
                                 {
@@ -595,23 +594,23 @@ WriteLiteral("                                <a");
 
 WriteLiteral(" class=\"email-saved-search btn btn-default\"");
 
-WriteAttribute("href", Tuple.Create("\r\n                                   href=\"", 6587), Tuple.Create("\"", 6896)
+WriteAttribute("href", Tuple.Create("\r\n                                   href=\"", 6547), Tuple.Create("\"", 6856)
             
-            #line 164 "..\..\Views\Shared\Manage\Search.cshtml"
-, Tuple.Create(Tuple.Create("", 6630), Tuple.Create<System.Object, System.Int32>(Url.Controller<EmailJobController>()
+            #line 163 "..\..\Views\Shared\Manage\Search.cshtml"
+, Tuple.Create(Tuple.Create("", 6590), Tuple.Create<System.Object, System.Int32>(Url.Controller<EmailJobController>()
                                        .QS(new Dictionary<string, object> { {"SavedSearchID", Search.SavedSearchID} })
                                        .Action(Controller => Controller.Create, Request.Url?.AbsoluteUri)
             
             #line default
             #line hidden
-, 6630), false)
+, 6590), false)
 );
 
 WriteLiteral(">\r\n                                    <glyph>&#x2709;</glyph>\r\n                 " +
 "               </a>\r\n");
 
             
-            #line 169 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 168 "..\..\Views\Shared\Manage\Search.cshtml"
                                 }
 
             
@@ -621,23 +620,23 @@ WriteLiteral("                            <a");
 
 WriteLiteral(" class=\"edit-saved-search btn btn-default\"");
 
-WriteAttribute("href", Tuple.Create("\r\n                               href=\"", 7106), Tuple.Create("\"", 7379)
+WriteAttribute("href", Tuple.Create("\r\n                               href=\"", 7066), Tuple.Create("\"", 7339)
             
-            #line 171 "..\..\Views\Shared\Manage\Search.cshtml"
-, Tuple.Create(Tuple.Create("", 7145), Tuple.Create<System.Object, System.Int32>(Url.Controller<SavedSearchController>()
+            #line 170 "..\..\Views\Shared\Manage\Search.cshtml"
+, Tuple.Create(Tuple.Create("", 7105), Tuple.Create<System.Object, System.Int32>(Url.Controller<SavedSearchController>()
                                     .QS(Controllers.Manage.Actions.Route_Edit(Search, Request))
                                     .Lambda<int, string, bool>(Controller => Controller.Edit)
             
             #line default
             #line hidden
-, 7145), false)
+, 7105), false)
 );
 
 WriteLiteral(">\r\n                                <glyph>&#xe065;</glyph>\r\n                     " +
 "       </a>\r\n                        </div>\r\n");
 
             
-            #line 177 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 176 "..\..\Views\Shared\Manage\Search.cshtml"
                         }
                     }
 
@@ -647,7 +646,7 @@ WriteLiteral(">\r\n                                <glyph>&#xe065;</glyph>\r\n  
 WriteLiteral("            </div>\r\n        </div>\r\n");
 
             
-            #line 181 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 180 "..\..\Views\Shared\Manage\Search.cshtml"
         }
 
             
@@ -656,13 +655,13 @@ WriteLiteral("            </div>\r\n        </div>\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 183 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 182 "..\..\Views\Shared\Manage\Search.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 183 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 182 "..\..\Views\Shared\Manage\Search.cshtml"
      using (Html.BeginForm(nameof(ManageController.Search),
                 Model.Controller.Name,
                 Controllers.Manage.Actions.Route_Search(Model),
@@ -674,28 +673,28 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 189 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 188 "..\..\Views\Shared\Manage\Search.cshtml"
    Write(Html.TextBox("GlobalSearchTerm", Model.GlobalSearchTerm));
 
             
             #line default
             #line hidden
             
-            #line 189 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 188 "..\..\Views\Shared\Manage\Search.cshtml"
                                                                  
         
             
             #line default
             #line hidden
             
-            #line 190 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 189 "..\..\Views\Shared\Manage\Search.cshtml"
    Write(Html.Hidden("FieldSearchTerms", Model.GetGlobalSearchCombined()));
 
             
             #line default
             #line hidden
             
-            #line 190 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 189 "..\..\Views\Shared\Manage\Search.cshtml"
                                                                          
 
 
@@ -712,7 +711,7 @@ WriteLiteral(">\r\n            <glyph>&#xe003;</glyph>\r\n            <span>\r\n
 "h\r\n            </span>\r\n        </a>\r\n");
 
             
-            #line 198 "..\..\Views\Shared\Manage\Search.cshtml"
+            #line 197 "..\..\Views\Shared\Manage\Search.cshtml"
         }
 
             

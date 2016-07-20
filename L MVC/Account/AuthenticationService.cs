@@ -1,16 +1,16 @@
-﻿using Singularity.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Web;
 using LCore.Extensions;
-using Singularity.Extensions;
+using LMVC.Extensions;
+using LMVC.Models;
 
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedMethodReturnValue.Global
 
-namespace Singularity.Account
+namespace LMVC.Account
     {
     public class AuthenticationService : IAuthenticationService
         {

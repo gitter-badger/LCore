@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
 using LCore.Interfaces;
-using Singularity.Controllers;
+using LMVC.Controllers;
 
-namespace Singularity.Extensions
+namespace LMVC.Extensions
     {
     [ExtensionProvider]
     public static class UrlExt

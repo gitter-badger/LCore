@@ -7,7 +7,7 @@ using System.IO;
 using LCore.Extensions;
 using LCore.Interfaces;
 
-namespace Singularity.Extensions
+namespace LMVC.Extensions
     {
     [ExtensionProvider]
     public static class MVCExt

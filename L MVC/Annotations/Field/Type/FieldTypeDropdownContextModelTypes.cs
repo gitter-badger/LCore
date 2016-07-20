@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using LCore.Extensions;
-using Singularity.Extensions;
+using LMVC.Extensions;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     public class FieldTypeDropdownContextModelTypes : FieldTypeDropdownOptions
         {

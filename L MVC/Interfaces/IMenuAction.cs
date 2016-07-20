@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using Singularity.Controllers;
-using Singularity.Extensions;
+using LMVC.Controllers;
+using LMVC.Extensions;
 // ReSharper disable RedundantArgumentDefaultValue
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     public interface IMenuAction : IMenuItem
         {

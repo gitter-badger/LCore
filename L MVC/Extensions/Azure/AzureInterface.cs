@@ -2,7 +2,7 @@
 using System.Configuration;
 using Microsoft.WindowsAzure;
 
-namespace Singularity.Azure
+namespace LMVC.Azure
     {
     public class AzureInterface
         {

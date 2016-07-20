@@ -331,12 +331,16 @@ namespace LCore.Extensions
         // ReSharper disable once StringLiteralTypo
         [TestResult(new object[] { new[] { "b", "b", "b" }, "a" }, "babab")]
         [TestResult(new object[] { new[] { "b", "b", "b" }, "_a_" }, "b_a_b_a_b")]
+        [TestResult(new object[] { new[] { "b", "b", null, "b" }, "_a_" }, "b_a_b_a_b")]
         public static string Combine(this IEnumerable<string> In, string CombineStr)
             {
             string Out = "";
             int Count = In.Count();
             In.Each((i, o) =>
             {
+                if (o == null)
+                    return;
+
                 Out += o;
                 if (i < Count - 1)
                     Out += CombineStr;
@@ -1660,6 +1664,79 @@ namespace LCore.Extensions
             #endregion
 
             #region NumericalCompare
+
+            /// <summary>
+            /// Compares two string-representations of numbers.
+            /// Ex: 
+            ///     0
+            ///     5
+            ///     5.003
+            ///    -2
+            ///    -0.00000001
+            /// </summary>
+            public static readonly Func<string, string, int> CompareNumberString = (Compare1, Compare2) =>
+                {
+                    int DecimalIndex1 = Compare1.IndexOf(".");
+                    int DecimalIndex2 = Compare2.IndexOf(".");
+
+                    if (DecimalIndex1 == -1)
+                        Compare1 = $"{Compare1}.0";
+                    if (DecimalIndex2 == -1)
+                        Compare2 = $"{Compare2}.0";
+
+
+                    while (Compare1.Length < Compare2.Length)
+                        Compare1 = $"{Compare1}0";
+
+                    while (Compare2.Length < Compare1.Length)
+                        Compare2 = $"{Compare2}0";
+
+                    int Len1 = Compare1.Length;
+                    int Len2 = Compare2.Length;
+                    int Marker1 = 0;
+                    int Marker2 = 0;
+
+                    if (Compare1.StartsWith("-") && !Compare2.StartsWith("-"))
+                        return -1;
+                    if (Compare2.StartsWith("-") && !Compare1.StartsWith("-"))
+                        return 1;
+
+                    bool Negatives = Compare1.StartsWith("-") && Compare2.StartsWith("-");
+
+                    DecimalIndex1 = Compare1.IndexOf(".");
+                    DecimalIndex2 = Compare2.IndexOf(".");
+
+                    if (DecimalIndex1 < DecimalIndex2)
+                        return -1 * (Negatives ? -1 : 1);
+                    if (DecimalIndex2 < DecimalIndex1)
+                        return 1 * (Negatives ? -1 : 1);
+
+                    // Walk through two the strings with two markers.
+                    while (Marker1 < Len1 && Marker2 < Len2)
+                        {
+                        char Char1 = Compare1[Marker1];
+                        char Char2 = Compare2[Marker2];
+
+                        if (char.IsDigit(Char1) && char.IsDigit(Char2))
+                            {
+                            // ReSharper disable PossibleInvalidOperationException
+                            ushort Digit1 = (ushort)Char1.ToString().ConvertTo<ushort>();
+                            ushort Digit2 = (ushort)Char2.ToString().ConvertTo<ushort>();
+                            // ReSharper restore PossibleInvalidOperationException
+
+                            if (Digit1 != Digit2)
+                                return Digit1.CompareTo(Digit2) * (Negatives ? -1 : 1);
+                            }
+                        else if (Char1.CompareTo(Char2) != 0)
+                            return Char1.CompareTo(Char2) * (Negatives ? -1 : 1);
+
+                        Marker1++;
+                        Marker2++;
+                        }
+                    return 0;
+                };
+
+
             /// <summary>
             /// Compares a string numerically, begin mindful of strings with sequences of numbers.
             /// Ex: File0005
@@ -1725,8 +1802,8 @@ namespace LCore.Extensions
 
                         if (char.IsDigit(Space1[0]) && char.IsDigit(Space2[0]))
                             {
-                            int ThisNumericChunk = int.Parse(Str1);
-                            int ThatNumericChunk = int.Parse(Str2);
+                            long ThisNumericChunk = long.Parse(Str1);
+                            long ThatNumericChunk = long.Parse(Str2);
                             Result = ThisNumericChunk.CompareTo(ThatNumericChunk);
                             }
                         else
@@ -1758,9 +1835,8 @@ namespace LCore.Extensions
                 if (Str.IsEmpty())
                     return "";
 
-                if (Count == 0 || Math.Abs(Count) > 1)
-                    return
-                        PluralizationService.CreateService(
+                if (Count == 0 || Count == int.MinValue || Math.Abs(Count) > 1)
+                    return PluralizationService.CreateService(
                             CultureInfo.CurrentCulture).Pluralize(Str);
                 return Str ?? "";
                 }

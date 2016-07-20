@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Singularity.Annotations;
+using LMVC.Annotations;
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     [Table("Events")]
     [DisplayColumn("Date", "Date", true)]

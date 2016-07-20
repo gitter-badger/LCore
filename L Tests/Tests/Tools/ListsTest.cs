@@ -40,13 +40,13 @@ namespace L_Tests.Tests.Tools
 
             L.A(() => Test.Add(Guid.NewGuid().ToString(), Rand.Next())).Repeat(100)();
 
-            Test.Count.Should().Be(101);
+            Test.Count.Should().Be(102);
 
             Test.RemoveAt(1);
 
-            Test.Count.Should().Be(100);
-            Test.List1.Count.Should().Be(100);
-            Test.List2.Count.Should().Be(100);
+            Test.Count.Should().Be(101);
+            Test.List1.Count.Should().Be(101);
+            Test.List2.Count.Should().Be(101);
 
             Test.GetAt(0).ShouldBeEquivalentTo(new Set<string, int>("c", 3));
 

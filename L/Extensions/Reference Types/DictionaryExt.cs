@@ -23,7 +23,7 @@ namespace LCore.Extensions
         /// <paramref name="Conflict" /> is responsible for returning a KeyValuePair with a new name to try.
         /// To leave an item out, return a KeyValuePair with a null key.
         /// </summary>
-        
+
         [Tested]
         public static void Merge<TKey, TValue>(this IDictionary<TKey, TValue> In, IDictionary<TKey, TValue> Add,
             Func<KeyValuePair<TKey, TValue>, KeyValuePair<TKey, TValue>> Conflict = null)
@@ -64,6 +64,7 @@ namespace LCore.Extensions
         #endregion
 
         #region GetAllValues
+
         /// <summary>
         /// Returns all values from a dictionary with IEnumerable values.
         /// </summary>
@@ -87,6 +88,7 @@ namespace LCore.Extensions
         #endregion
 
         #region SafeAdd
+
         /// <summary>
         /// Safely adds an item to a dictionary.
         /// If the dictionary is null or the item exists already, nothing is added.
@@ -94,8 +96,14 @@ namespace LCore.Extensions
         [Tested]
         public static void SafeAdd<TKey, TValue>(this IDictionary<TKey, TValue> In, TKey Key, TValue Val)
             {
-            if (In != null && Key != null && !In.ContainsKey(Key))
-                In.Add(Key, Val);
+            if (In != null)
+                {
+                lock (In)
+                    {
+                    if (Key != null && !In.ContainsKey(Key))
+                        In.Add(Key, Val);
+                    }
+                }
             }
 
         #endregion
@@ -112,10 +120,13 @@ namespace LCore.Extensions
             {
             if (In != null && Key != null)
                 {
-                if (!In.ContainsKey(Key))
-                    In.Add(Key, Val);
-                else
-                    In[Key] = Val;
+                lock (In)
+                    {
+                    if (!In.ContainsKey(Key))
+                        In.Add(Key, Val);
+                    else
+                        In[Key] = Val;
+                    }
                 }
             }
 
@@ -129,8 +140,16 @@ namespace LCore.Extensions
         [Tested]
         public static TValue SafeGet<TKey, TValue>(this IDictionary<TKey, TValue> In, TKey Key)
             {
-            if (In != null && In.ContainsKey(Key))
-                return In[Key];
+            if (In != null)
+                {
+                lock (In)
+                    {
+                    if (In.ContainsKey(Key))
+                        {
+                        return In[Key];
+                        }
+                    }
+                }
 
             return default(TValue);
             }
@@ -144,8 +163,14 @@ namespace LCore.Extensions
         /// </summary>
         public static void SafeRemove<TKey, TValue>(this Dictionary<TKey, TValue> Dictionary, TKey Key)
             {
-            if (!Equals(Key, default(TKey)) && Dictionary?.ContainsKey(Key) == true)
-                Dictionary.Remove(Key);
+            if (!Equals(Key, default(TKey)) && Dictionary != null)
+                {
+                lock (Dictionary)
+                    {
+                    if (Dictionary.ContainsKey(Key))
+                        Dictionary.Remove(Key);
+                    }
+                }
             }
 
         #endregion

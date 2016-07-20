@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
-using Singularity.Account;
+using LMVC.Account;
 
-namespace Singularity.Controllers
+namespace LMVC.Controllers
     {
     [Authorize]
     public class ErrorsController : ManageController<Models.Error>

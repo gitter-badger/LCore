@@ -1,15 +1,15 @@
 ﻿
-using Singularity.Models;
+using LMVC.Models;
 using System;
 using System.Web;
 using System.Web.Mvc;
 
 
 using LCore.Extensions;
-using Singularity.Account;
-using Singularity.Extensions;
+using LMVC.Account;
+using LMVC.Extensions;
 
-namespace Singularity.Controllers
+namespace LMVC.Controllers
     {
     [Authorize]
     public class TemplateController : ManageController<Template>

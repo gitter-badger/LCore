@@ -1,11 +1,19 @@
-﻿using System;using System.Collections.Generic;using System.Linq;using System.ComponentModel.DataAnnotations;using System.Web.Mvc;using Singularity.Account;using Singularity.Context;// ReSharper disable UnusedAutoPropertyAccessor.Global
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+using LMVC.Account;
+using LMVC.Context;
+
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnassignedGetOnlyAutoProperty
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable ClassWithVirtualMembersNeverInherited.Global
 // ReSharper disable ClassNeverInstantiated.Global
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     public class UserAccount : IModel, IUserAccount
         {
@@ -34,13 +42,24 @@ namespace Singularity.Models
         [Required]
         public bool IsAdmin { get; set; }
 
-        [Required]        public DateTime ExpiredDate { get; set; }
+        [Required]
+        public DateTime ExpiredDate { get; set; }
 
 
         public virtual ICollection<AccountRole> Roles { get; set; }
 
 
-        public virtual string[] GetEmails()            {            var Out = new List<string>();            if (!string.IsNullOrEmpty(this.Email))                Out.Add(this.Email);            return Out.ToArray();            }        public void SetPassword(string Pass)
+        public virtual string[] GetEmails()
+            {
+            var Out = new List<string>();
+
+            if (!string.IsNullOrEmpty(this.Email))
+                Out.Add(this.Email);
+
+            return Out.ToArray();
+            }
+
+        public void SetPassword(string Pass)
             {
             string PasswordString = this.UserName + Pass;
             // this.Password = Pass;
@@ -95,12 +114,18 @@ namespace Singularity.Models
 
                 string PasswordString = In.UserName + Password;
 
-                return In.PasswordHash == Crypto.GetHash(PasswordString);                }
+                return In.PasswordHash == Crypto.GetHash(PasswordString);
+                }
 
             public static IEnumerable<SelectListItem> GetActiveUserSelectList(ModelContext Context)
                 {
-                List<UserAccount> Users = GetAll(Context).Where(User => User.Enabled).ToList();                return Users.Select(User => new SelectListItem                    {                    Text = User.UserName,
-                    Value = User.UserAccountID.ToString()                    }).ToList();
+                List<UserAccount> Users = GetAll(Context).Where(User => User.Enabled).ToList();
+
+                return Users.Select(User => new SelectListItem
+                    {
+                    Text = User.UserName,
+                    Value = User.UserAccountID.ToString()
+                    }).ToList();
                 }
 
             /*
@@ -119,6 +144,7 @@ namespace Singularity.Models
 
                 }
                 */
-            }        }
+            }
+        }
 
     }

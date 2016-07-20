@@ -63,7 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\Methods\L.cs" />
-    <Compile Include="Extensions\Object Types\ReflectionExt.cs" />
+    <Compile Include="Extensions\Reference Types\ComparableExt.cs" />
+    <Compile Include="Extensions\Reference Types\ReflectionExt.cs" />
     <Compile Include="Extensions\Value Types\NumberExt.cs" />
     <Compile Include="Interfaces\IExtensionProvider.cs" />
     <Compile Include="Interfaces\IPersistAttribute.cs" />
@@ -83,16 +84,15 @@
     <Compile Include="Dynamic Code\CodeExplode\Logic_Extension_Explode_bak.cs" />
     <Compile Include="Dynamic Code\CodeExplode\Logic_Extension_Explode.cs" />
     <Compile Include="Dynamic Code\CodeExplode\LX_Explode.cs" />
-    <Compile Include="Extensions\AzureCloudExt.cs" />
     <Compile Include="Interfaces\IGrouped.cs" />
     <Compile Include="Numbers\DecimalNumber.cs" />
     <Compile Include="Numbers\DoubleNumber.cs" />
     <Compile Include="Numbers\FloatNumber.cs" />
     <Compile Include="Numbers\INumber.cs" />
     <Compile Include="Numbers\LongNumber.cs" />
-    <Compile Include="Numbers\Number.cs" />
-    <Compile Include="Numbers\NumberByte.cs" />
-    <Compile Include="Numbers\NumberInt.cs" />
+    <Compile Include="Numbers\Base\Number.cs" />
+    <Compile Include="Numbers\ByteNumber.cs" />
+    <Compile Include="Numbers\IntNumber.cs" />
     <Compile Include="Numbers\SByteNumber.cs" />
     <Compile Include="Numbers\ShortNumber.cs" />
     <Compile Include="Numbers\UIntNumber.cs" />
@@ -130,18 +130,18 @@
     <Compile Include="Extensions\Methods\LoopExt.cs" />
     <Compile Include="Extensions\Methods\ThreadExt.cs" />
     <Compile Include="Extensions\Methods\ExceptionExt.cs" />
-    <Compile Include="Extensions\Object Types\ConvertibleExt.cs" />
-    <Compile Include="Extensions\Object Types\ObjectExt.cs" />
+    <Compile Include="Extensions\Reference Types\ConvertibleExt.cs" />
+    <Compile Include="Extensions\Reference Types\ObjectExt.cs" />
     <Compile Include="Extensions\Methods\BooleanExt.cs" />
-    <Compile Include="Extensions\Object Types\DictionaryExt.cs" />
+    <Compile Include="Extensions\Reference Types\DictionaryExt.cs" />
     <Compile Include="Extensions\Language\LambdaExt.cs" />
     <Compile Include="Extensions\Value Types\DateTimeExt.cs" />
-    <Compile Include="Extensions\Object Types\FileExt.cs" />
+    <Compile Include="Extensions\Reference Types\FileExt.cs" />
     <Compile Include="Interfaces\IReverseAttributeOrder.cs" />
-    <Compile Include="Extensions\Object Types\StringExt.cs" />
+    <Compile Include="Extensions\Reference Types\StringExt.cs" />
     <Compile Include="Naming\IFriendlyName.cs" />
     <Compile Include="Extensions\Methods\LogicExt.cs" />
-    <Compile Include="Extensions\Object Types\EnumerableExt.cs" />
+    <Compile Include="Extensions\Reference Types\EnumerableExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\Async\Tasks\Task.cs" />
     <Compile Include="Tools\Async\Tasks\TaskManager.cs" />
@@ -169,6 +169,7 @@
   <ItemGroup>
     <None Include="LCore.0.9.nupkg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -4,14 +4,14 @@ using System.Linq;
 using System.Linq.Expressions;
 using LCore.Extensions;
 using System.ComponentModel.DataAnnotations;
-using Singularity.Controllers;
+using LMVC.Controllers;
 using System.Web.Mvc;
 using LCore.Interfaces;
-using Singularity.Models;
-using Singularity.Annotations;
-using Singularity.Utilities;
+using LMVC.Models;
+using LMVC.Annotations;
+using LMVC.Utilities;
 
-namespace Singularity.Extensions
+namespace LMVC.Extensions
     {
     [ExtensionProvider]
     public static class ModelExt

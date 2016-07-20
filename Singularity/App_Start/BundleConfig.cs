@@ -1,4 +1,4 @@
-﻿using Singularity.Controllers;
+﻿using LMVC.Controllers;
 using System;
 using System.Web.Optimization;
 

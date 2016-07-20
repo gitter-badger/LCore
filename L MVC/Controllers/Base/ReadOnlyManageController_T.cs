@@ -1,7 +1,7 @@
-﻿using Singularity.Account;
-using Singularity.Models;
+﻿using LMVC.Account;
+using LMVC.Models;
 
-namespace Singularity.Controllers
+namespace LMVC.Controllers
     {
     public abstract class ReadOnlyManageController<T> : ManageController<T>
         where T : class, IModel

@@ -1,7 +1,7 @@
-﻿using Singularity.Controllers;
-using Singularity.Routes;
+﻿using LMVC.Controllers;
+using LMVC.Routes;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     public class FieldTypeHtmlContentEditor : CustomPartialAttribute
         {

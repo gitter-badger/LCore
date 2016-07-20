@@ -1,9 +1,9 @@
-﻿using Singularity.Controllers;
+﻿using LMVC.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     public interface IViewField
         {

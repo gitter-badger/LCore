@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Singularity.Context;
+using LMVC.Context;
 
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     [Table("SiteConfig")]
     public class SiteConfig : IModel, ISiteConfig

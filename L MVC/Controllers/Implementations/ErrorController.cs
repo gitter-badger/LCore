@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Singularity.Controllers
+namespace LMVC.Controllers
     {
     [Authorize]
     public class ErrorController : Controller
@@ -8,6 +8,7 @@ namespace Singularity.Controllers
 
         public ActionResult Index()
             {
+            // ReSharper disable once Mvc.ViewNotResolved
             return this.View();
             }
         }

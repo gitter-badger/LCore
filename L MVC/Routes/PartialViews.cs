@@ -1,8 +1,8 @@
 ﻿using System;
-using Singularity.Controllers;
+using LMVC.Controllers;
 using System.Collections.Generic;
 
-namespace Singularity.Routes
+namespace LMVC.Routes
     {
     public static class PartialViews
         {

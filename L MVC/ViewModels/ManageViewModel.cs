@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using LCore.Extensions;
 using System.ComponentModel.DataAnnotations;
-using Singularity.Controllers;
+using LMVC.Controllers;
 using System.Web.Helpers;
-using Singularity.Extensions;
-using Singularity.Annotations;
+using LMVC.Extensions;
+using LMVC.Annotations;
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     public class ManageViewModel
         {

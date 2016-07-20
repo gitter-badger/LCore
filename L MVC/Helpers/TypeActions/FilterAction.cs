@@ -1,13 +1,13 @@
 ﻿
 using LCore.Extensions;
-using Singularity.Extensions;
-using Singularity.Models;
+using LMVC.Extensions;
+using LMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 
-namespace Singularity.Utilities
+namespace LMVC.Utilities
     {
     public class FilterExpression<T> : TypeAction<Expression<Func<T, bool>>>
         {

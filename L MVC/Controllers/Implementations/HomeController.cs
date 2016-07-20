@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Web.Mvc;
-using Singularity.Account;
+using LMVC.Account;
 
-namespace Singularity.Controllers
+namespace LMVC.Controllers
     {
     public class HomeController : SingularityController
         {
         public ActionResult Index()
             {
+            // ReSharper disable once Mvc.ViewNotResolved
             return this.View();
             }
 

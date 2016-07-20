@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Web;
-using Singularity.Models;
+using LMVC.Models;
 
-namespace Singularity.Account
+namespace LMVC.Account
     {
     public interface IAuthenticationService
         {

@@ -168,10 +168,10 @@
     <Compile Include="Attributes\Account\RequireAdminAttribute.cs" />
     <Compile Include="Attributes\Account\RequireAuthAttribute.cs" />
     <Compile Include="Attributes\Model\ModelPermissions.cs" />
-    <Compile Include="Azure\AzureBlobInterface.cs" />
-    <Compile Include="Azure\AzureCloudExt.cs" />
-    <Compile Include="Azure\AzureInterface.cs" />
-    <Compile Include="Azure\AzureQueueInterface.cs" />
+    <Compile Include="Extensions\Azure\AzureBlobInterface.cs" />
+    <Compile Include="Extensions\Azure\AzureCloudExt.cs" />
+    <Compile Include="Extensions\Azure\AzureInterface.cs" />
+    <Compile Include="Extensions\Azure\AzureQueueInterface.cs" />
     <Compile Include="Context\ContextProvider.cs" />
     <Compile Include="Context\ContextProviderFactory.cs" />
     <Compile Include="Context\ModelContext.cs" />

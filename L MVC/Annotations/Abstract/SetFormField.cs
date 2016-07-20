@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Web.Mvc;
 using LCore.Extensions;
-using Singularity.Models;
+using LMVC.Models;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     public interface ISetFormField : ITopLevelAttribute
         {

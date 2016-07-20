@@ -34,22 +34,21 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 4 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
+    #line 3 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
     using LCore.Extensions;
     
     #line default
     #line hidden
+    using LMVC;
+    using LMVC.Account;
+    using LMVC.Annotations;
+    using LMVC.Context;
+    using LMVC.Controllers;
+    using LMVC.Extensions;
+    using LMVC.Models;
     using Singularity;
     
     #line 2 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
-    using Singularity.Annotations;
-    
-    #line default
-    #line hidden
-    using Singularity.Context;
-    using Singularity.Controllers;
-    
-    #line 3 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
     using Singularity.Extensions;
     
     #line default
@@ -70,7 +69,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 6 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
+            #line 5 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
   
     bool IsSortableList = Model.Meta.HasAttribute<FieldTypeSortableListAttribute>();
 
@@ -80,7 +79,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\r\n\r\n");
 
             
-            #line 12 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
+            #line 11 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
  if (IsSortableList)
     {
     string[] Lines;
@@ -106,36 +105,36 @@ WriteLiteral("    <select");
 
 WriteLiteral(" class=\"sortable\"");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 648), Tuple.Create("\"", 677)
+WriteAttribute("id", Tuple.Create(" id=\"", 615), Tuple.Create("\"", 644)
             
-            #line 29 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
-, Tuple.Create(Tuple.Create("", 653), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+            #line 28 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
+, Tuple.Create(Tuple.Create("", 620), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-, 653), false)
+, 620), false)
 );
 
-WriteAttribute("name", Tuple.Create(" name=\"", 678), Tuple.Create("\"", 709)
+WriteAttribute("name", Tuple.Create(" name=\"", 645), Tuple.Create("\"", 676)
             
-            #line 29 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
-, Tuple.Create(Tuple.Create("", 685), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+            #line 28 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
+, Tuple.Create(Tuple.Create("", 652), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-, 685), false)
+, 652), false)
 );
 
 WriteLiteral(">\r\n");
 
             
-            #line 30 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
+            #line 29 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 30 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
+            #line 29 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
          foreach (string Line in Lines)
             {
 
@@ -144,14 +143,14 @@ WriteLiteral(">\r\n");
             #line hidden
 WriteLiteral("            <option");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 788), Tuple.Create("\"", 801)
+WriteAttribute("value", Tuple.Create(" value=\"", 755), Tuple.Create("\"", 768)
             
-            #line 32 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
-, Tuple.Create(Tuple.Create("", 796), Tuple.Create<System.Object, System.Int32>(Line
+            #line 31 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
+, Tuple.Create(Tuple.Create("", 763), Tuple.Create<System.Object, System.Int32>(Line
             
             #line default
             #line hidden
-, 796), false)
+, 763), false)
 );
 
 WriteLiteral(">\r\n");
@@ -159,7 +158,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 33 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
+            #line 32 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
            Write(Line);
 
             
@@ -168,7 +167,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </option>\r\n");
 
             
-            #line 35 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
+            #line 34 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
             }
 
             
@@ -177,7 +176,7 @@ WriteLiteral("\r\n            </option>\r\n");
 WriteLiteral("    </select>\r\n");
 
             
-            #line 37 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
+            #line 36 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
     }
 else
     {
@@ -187,30 +186,30 @@ else
             #line hidden
 WriteLiteral("    <textarea");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 914), Tuple.Create("\"", 943)
+WriteAttribute("id", Tuple.Create(" id=\"", 881), Tuple.Create("\"", 910)
             
-            #line 40 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
-, Tuple.Create(Tuple.Create("", 919), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+            #line 39 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
+, Tuple.Create(Tuple.Create("", 886), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-, 919), false)
+, 886), false)
 );
 
-WriteAttribute("name", Tuple.Create(" name=\"", 944), Tuple.Create("\"", 975)
+WriteAttribute("name", Tuple.Create(" name=\"", 911), Tuple.Create("\"", 942)
             
-            #line 40 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
-, Tuple.Create(Tuple.Create("", 951), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
+            #line 39 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
+, Tuple.Create(Tuple.Create("", 918), Tuple.Create<System.Object, System.Int32>(Model.Meta.PropertyName
             
             #line default
             #line hidden
-, 951), false)
+, 918), false)
 );
 
 WriteLiteral(">");
 
             
-            #line 40 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
+            #line 39 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
                                                                        Write(Model.PropertyData);
 
             
@@ -219,7 +218,7 @@ WriteLiteral(">");
 WriteLiteral("</textarea>\r\n");
 
             
-            #line 41 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
+            #line 40 "..\..\Views\Shared\Manage\Fields\Edit\StringMultiLine.cshtml"
     }
 
             

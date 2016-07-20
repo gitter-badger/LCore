@@ -34,23 +34,22 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using LCore.Extensions;
-    using Singularity;
-    
-    #line 6 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
-    using Singularity.Annotations;
-    
-    #line default
-    #line hidden
-    using Singularity.Context;
-    using Singularity.Controllers;
-    using Singularity.Extensions;
-    using Singularity.Models;
+    using LMVC;
+    using LMVC.Account;
+    using LMVC.Annotations;
+    using LMVC.Context;
+    using LMVC.Controllers;
+    using LMVC.Extensions;
+    using LMVC.Models;
     
     #line 5 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
-    using Singularity.Routes;
+    using LMVC.Routes;
     
     #line default
     #line hidden
+    using Singularity;
+    using Singularity.Extensions;
+    using Singularity.Models;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/Manage/Fields/Field.cshtml")]
@@ -68,7 +67,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 10 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 9 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
  try
     {
 
@@ -79,14 +78,14 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 15 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 14 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
    Write(Html.Raw($"<td class=\"{Model.ColumnClass}\">"));
 
             
             #line default
             #line hidden
             
-            #line 15 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 14 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
                                                         
         }
 
@@ -98,14 +97,14 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 21 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 20 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
    Write(Html.Partial(PartialViews.Manage.Fields.PropertyName_Before(Model.PropertyName), Model));
 
             
             #line default
             #line hidden
             
-            #line 21 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 20 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
                                                                                                 
         }
 
@@ -117,14 +116,14 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 27 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 26 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
    Write(Html.Partial(PartialViews.Manage.Fields.PropertyType_Before(Model.FieldType), Model));
 
             
             #line default
             #line hidden
             
-            #line 27 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 26 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
                                                                                              
         }
 
@@ -138,14 +137,14 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 35 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 34 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
        Write(Html.Partial(PartialViews.Manage.Fields.ViewType_Before(Type), Model));
 
             
             #line default
             #line hidden
             
-            #line 35 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 34 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
                                                                                   
             }
         }
@@ -158,14 +157,14 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 42 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 41 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
    Write(Html.Partial(PartialViews.Manage.Fields.PropertyName(Model.PropertyName), Model));
 
             
             #line default
             #line hidden
             
-            #line 42 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 41 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
                                                                                          
         }
     else
@@ -184,14 +183,14 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 55 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 54 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
            Write(Html.Partial($"Fields/{Model.FieldType.Name}_{Type}"));
 
             
             #line default
             #line hidden
             
-            #line 55 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 54 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
                                                                       
                 OverridenView = true;
                 }
@@ -218,14 +217,14 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 76 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 75 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
        Write(Html.Partial(PartialViews.Manage.Fields.View.FieldView, Model));
 
             
             #line default
             #line hidden
             
-            #line 76 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 75 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
                                                                            
             }
         else if (Model.ViewTypes.HasAny(ControllerHelper.ViewType.Edit, ControllerHelper.ViewType.Create))
@@ -235,14 +234,14 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 80 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 79 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
        Write(Html.Partial(PartialViews.Manage.Fields.Edit.FieldEdit, Model));
 
             
             #line default
             #line hidden
             
-            #line 80 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 79 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
                                                                            
             }
 
@@ -265,14 +264,14 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 97 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 96 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
    Write(Html.Partial(PartialViews.Manage.Fields.PropertyType_After(Model.FieldType), Model));
 
             
             #line default
             #line hidden
             
-            #line 97 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 96 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
                                                                                             
         }
 
@@ -286,14 +285,14 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 105 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 104 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
        Write(Html.Partial(PartialViews.Manage.Fields.ViewType_After(Type), Model));
 
             
             #line default
             #line hidden
             
-            #line 105 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 104 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
                                                                                  
             }
         }
@@ -306,14 +305,14 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 112 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 111 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
    Write(Html.Partial(PartialViews.Manage.Fields.PropertyName_After(Model.PropertyName), Model));
 
             
             #line default
             #line hidden
             
-            #line 112 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 111 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
                                                                                                
         }
 
@@ -324,14 +323,14 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 117 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 116 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
    Write(Html.Raw("</td>"));
 
             
             #line default
             #line hidden
             
-            #line 117 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 116 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
                           
         }
     }
@@ -346,14 +345,14 @@ catch (Exception Ex)
             #line default
             #line hidden
             
-            #line 126 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 125 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
    Write(Html.Raw("<td>"));
 
             
             #line default
             #line hidden
             
-            #line 126 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 125 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
                          
         }
 
@@ -362,14 +361,14 @@ catch (Exception Ex)
             #line default
             #line hidden
             
-            #line 129 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 128 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
    Write(Html.Partial(PartialViews.Manage.Fields.Error, Ex));
 
             
             #line default
             #line hidden
             
-            #line 129 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 128 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
                                                            
 
     if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell))
@@ -379,14 +378,14 @@ catch (Exception Ex)
             #line default
             #line hidden
             
-            #line 133 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 132 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
    Write(Html.Raw("</td>"));
 
             
             #line default
             #line hidden
             
-            #line 133 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
+            #line 132 "..\..\Views\Shared\Manage\Fields\Field.cshtml"
                           
         }
     }

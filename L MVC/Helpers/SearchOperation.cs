@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Singularity.Extensions
+namespace LMVC.Extensions
     {
     public class SearchOperation
         {

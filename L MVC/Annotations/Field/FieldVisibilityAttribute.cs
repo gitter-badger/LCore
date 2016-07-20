@@ -1,8 +1,8 @@
-﻿using Singularity.Controllers;
+﻿using LMVC.Controllers;
 using System;
 using System.Web;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     public interface IVisibility
         {

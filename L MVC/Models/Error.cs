@@ -1,9 +1,9 @@
-﻿using Singularity.Annotations;
+﻿using LMVC.Annotations;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     [DisplayColumn("Message", "Created", true)]
     public class Error : IModel

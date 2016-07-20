@@ -5,7 +5,7 @@
 // ReSharper disable ClassWithVirtualMembersNeverInherited.Global
 // ReSharper disable ClassNeverInstantiated.Global
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
 
     public class LoginViewModel

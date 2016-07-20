@@ -1,10 +1,10 @@
 ﻿using System.Web;
 using LCore.Interfaces;
-using Singularity.Context;
-using Singularity.Models;
+using LMVC.Context;
+using LMVC.Models;
 using WebMatrix.WebData;
 
-namespace Singularity.Extensions
+namespace LMVC.Extensions
     {
     [ExtensionProvider]
     public static class SessionExt

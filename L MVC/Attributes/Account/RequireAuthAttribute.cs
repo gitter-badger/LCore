@@ -2,11 +2,11 @@
 using System;
 using System.Web;
 using System.Web.Mvc;
-using Singularity.Account;
-using Singularity.Controllers;
-using Singularity.Extensions;
+using LMVC.Account;
+using LMVC.Controllers;
+using LMVC.Extensions;
 
-namespace Singularity.Attributes
+namespace LMVC.Filters
     {
     public class RequireAuthAttribute : AuthorizeAttribute
         {

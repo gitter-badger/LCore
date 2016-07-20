@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
-namespace Singularity.Controllers
+namespace LMVC.Controllers
     {
     public static class StatusMessages
         {

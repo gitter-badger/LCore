@@ -34,15 +34,15 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using LCore.Extensions;
+    using LMVC;
+    using LMVC.Account;
+    using LMVC.Annotations;
+    using LMVC.Context;
+    using LMVC.Controllers;
+    using LMVC.Extensions;
+    using LMVC.Models;
     using Singularity;
-    using Singularity.Context;
-    using Singularity.Controllers;
-    
-    #line 2 "..\..\Views\Account\Login.cshtml"
     using Singularity.Extensions;
-    
-    #line default
-    #line hidden
     using Singularity.Models;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
@@ -56,10 +56,8 @@ namespace ASP
         {
 WriteLiteral("\r\n");
 
-WriteLiteral("\r\n");
-
             
-            #line 6 "..\..\Views\Account\Login.cshtml"
+            #line 4 "..\..\Views\Account\Login.cshtml"
   
     ViewBag.Title = "Log in";
 
@@ -69,7 +67,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\r\n\r\n<h2>");
 
             
-            #line 10 "..\..\Views\Account\Login.cshtml"
+            #line 8 "..\..\Views\Account\Login.cshtml"
 Write(ViewBag.Title);
 
             
@@ -90,13 +88,13 @@ WriteLiteral(" id=\"loginForm\"");
 WriteLiteral(">\r\n");
 
             
-            #line 14 "..\..\Views\Account\Login.cshtml"
+            #line 12 "..\..\Views\Account\Login.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 14 "..\..\Views\Account\Login.cshtml"
+            #line 12 "..\..\Views\Account\Login.cshtml"
              using (Html.BeginForm(nameof(AccountController.Login), typeof(AccountController).CName(),
                 new { ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
@@ -105,14 +103,14 @@ WriteLiteral(">\r\n");
             #line default
             #line hidden
             
-            #line 17 "..\..\Views\Account\Login.cshtml"
+            #line 15 "..\..\Views\Account\Login.cshtml"
            Write(Html.AntiForgeryToken());
 
             
             #line default
             #line hidden
             
-            #line 17 "..\..\Views\Account\Login.cshtml"
+            #line 15 "..\..\Views\Account\Login.cshtml"
                                         
 
             
@@ -123,20 +121,20 @@ WriteLiteral("                <h4>Use a local account to log in.</h4>\r\n");
 WriteLiteral("                <hr />\r\n");
 
             
-            #line 20 "..\..\Views\Account\Login.cshtml"
+            #line 18 "..\..\Views\Account\Login.cshtml"
                 
             
             #line default
             #line hidden
             
-            #line 20 "..\..\Views\Account\Login.cshtml"
+            #line 18 "..\..\Views\Account\Login.cshtml"
            Write(Html.ValidationSummary(true, "", new { @class = "text-danger" }));
 
             
             #line default
             #line hidden
             
-            #line 20 "..\..\Views\Account\Login.cshtml"
+            #line 18 "..\..\Views\Account\Login.cshtml"
                                                                                  
 
             
@@ -151,7 +149,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                    ");
 
             
-            #line 22 "..\..\Views\Account\Login.cshtml"
+            #line 20 "..\..\Views\Account\Login.cshtml"
                Write(Html.LabelFor(ViewModel => ViewModel.Username, new { @class = "col-md-2 control-label" }));
 
             
@@ -166,7 +164,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 24 "..\..\Views\Account\Login.cshtml"
+            #line 22 "..\..\Views\Account\Login.cshtml"
                    Write(Html.TextBoxFor(ViewModel => ViewModel.Username, new { @class = "form-control" }));
 
             
@@ -177,7 +175,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                        ");
 
             
-            #line 25 "..\..\Views\Account\Login.cshtml"
+            #line 23 "..\..\Views\Account\Login.cshtml"
                    Write(Html.ValidationMessageFor(ViewModel => ViewModel.Username, "", new { @class = "text-danger" }));
 
             
@@ -194,7 +192,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                    ");
 
             
-            #line 29 "..\..\Views\Account\Login.cshtml"
+            #line 27 "..\..\Views\Account\Login.cshtml"
                Write(Html.LabelFor(ViewModel => ViewModel.Password, new { @class = "col-md-2 control-label" }));
 
             
@@ -209,7 +207,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 31 "..\..\Views\Account\Login.cshtml"
+            #line 29 "..\..\Views\Account\Login.cshtml"
                    Write(Html.PasswordFor(ViewModel => ViewModel.Password, new { @class = "form-control" }));
 
             
@@ -220,7 +218,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                        ");
 
             
-            #line 32 "..\..\Views\Account\Login.cshtml"
+            #line 30 "..\..\Views\Account\Login.cshtml"
                    Write(Html.ValidationMessageFor(ViewModel => ViewModel.Password, "", new { @class = "text-danger" }));
 
             
@@ -247,7 +245,7 @@ WriteLiteral(" class=\"btn btn-default\"");
 WriteLiteral(" />\r\n                    </div>\r\n                </div>\r\n");
 
             
-            #line 40 "..\..\Views\Account\Login.cshtml"
+            #line 38 "..\..\Views\Account\Login.cshtml"
                 }
 
             
@@ -262,7 +260,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 46 "..\..\Views\Account\Login.cshtml"
+            #line 44 "..\..\Views\Account\Login.cshtml"
 Write(Scripts.Render("~/bundles/jqueryval"));
 
             

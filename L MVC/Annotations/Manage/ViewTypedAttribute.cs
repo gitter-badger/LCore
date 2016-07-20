@@ -1,9 +1,9 @@
-﻿using Singularity.Controllers;
+﻿using LMVC.Controllers;
 using System;
 
 using LCore.Extensions;
 
-namespace Singularity.Annotations
+namespace LMVC.Annotations
     {
     public interface IViewTyped
         {

@@ -1,13 +1,13 @@
 ﻿
 using LCore.Extensions;
-using Singularity.Models;
+using LMVC.Models;
 using System;
 using System.Web;
 using System.Web.Mvc;
-using Singularity.Context;
-using Singularity.Extensions;
+using LMVC.Context;
+using LMVC.Extensions;
 
-namespace Singularity.Utilities
+namespace LMVC.Utilities
     {
     public class StringConverter : TypeResultAction<string>
         {

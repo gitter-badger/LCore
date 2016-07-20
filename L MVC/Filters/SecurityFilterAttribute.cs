@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Security;
 using System.Web.Mvc;
-using Singularity.Context;
+using LMVC.Context;
 
-namespace Singularity.Filters
+namespace LMVC.Filters
     {
     public class SecurityFilterAttribute : ActionFilterAttribute, IAuthorizationFilter
         {

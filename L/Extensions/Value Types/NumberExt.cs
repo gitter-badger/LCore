@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using LCore.Interfaces;
+using LCore.Numbers;
 using LCore.Tests;
 // ReSharper disable RedundantCast
 // ReSharper disable RedundantExplicitArrayCreation
@@ -254,6 +256,178 @@ namespace LCore.Extensions
 
         #endregion
 
+        #region ConvertToBestMatch
+
+        /// <summary>
+        /// Converts <paramref name="Number"/> to the most restrictive number type possible
+        /// without losing any precision.
+        /// </summary>
+        public static Number ConvertToBestMatch(this Number Number)
+            {
+            Number Out = null;
+            foreach (var Type in L.Num.NumberTypes.Values)
+                {
+                if (Out == null ||
+                    (Type.MinValue.IsLessThanOrEqual(Number) &&
+                    Type.MaxValue.IsGreaterThanOrEqual(Number) &&
+                    Type.Precision.IsLessThanOrEqual(Number.GetValuePrecision())))
+                    {
+                    int Better = 0;
+                    if (Out == null || Type.MinValue.IsGreaterThan(Out.MinValue))
+                        Better++;
+                    if (Out == null || Type.MaxValue.IsLessThan(Out.MaxValue))
+                        Better++;
+                    if (Out == null || Type.Precision.IsGreaterThan(Out.Precision))
+                        Better += 2;
+
+                    if (Better > 1)
+                        Out = Type;
+                    }
+                }
+
+            return Out?.New(Number) ?? Number;
+            }
+
+        #endregion
+
+        #region DecimalPlaces
+        /// <summary>
+        /// Returns the number of decimal places used for the provided number.
+        /// For non-floating point types this value is always 0.
+        /// </summary>
+        // ReSharper disable once UnusedParameter.Global
+        public static uint DecimalPlaces(this int Int)
+            {
+            return 0;
+            }
+
+        /// <summary>
+        /// Returns the number of decimal places used for the provided number.
+        /// For non-floating point types this value is always 0.
+        /// </summary>
+        // ReSharper disable once UnusedParameter.Global
+        public static uint DecimalPlaces(this short Short)
+            {
+            return 0;
+            }
+
+        /// <summary>
+        /// Returns the number of decimal places used for the provided number.
+        /// For non-floating point types this value is always 0.
+        /// </summary>
+        // ReSharper disable once UnusedParameter.Global
+        public static uint DecimalPlaces(this long Long)
+            {
+            return 0;
+            }
+
+        /// <summary>
+        /// Returns the number of decimal places used for the provided number.
+        /// For non-floating point types this value is always 0.
+        /// </summary>
+        // ReSharper disable once InconsistentNaming
+        // ReSharper disable once UnusedParameter.Global
+        public static uint DecimalPlaces(this uint UInt)
+            {
+            return 0;
+            }
+
+        /// <summary>
+        /// Returns the number of decimal places used for the provided number.
+        /// For non-floating point types this value is always 0.
+        /// </summary>
+        // ReSharper disable once InconsistentNaming
+        // ReSharper disable once UnusedParameter.Global
+        public static uint DecimalPlaces(this ushort UShort)
+            {
+            return 0;
+            }
+
+        /// <summary>
+        /// Returns the number of decimal places used for the provided number.
+        /// For non-floating point types this value is always 0.
+        /// </summary>
+        // ReSharper disable once InconsistentNaming
+        // ReSharper disable once UnusedParameter.Global
+        public static uint DecimalPlaces(this ulong ULong)
+            {
+            return 0;
+            }
+
+        /// <summary>
+        /// Returns the number of decimal places used for the provided number.
+        /// For non-floating point types this value is always 0.
+        /// </summary>
+        // ReSharper disable once UnusedParameter.Global
+        public static uint DecimalPlaces(this char Char)
+            {
+            return 0;
+            }
+
+        /// <summary>
+        /// Returns the number of decimal places used for the provided number.
+        /// For non-floating point types this value is always 0.
+        /// </summary>
+        // ReSharper disable once UnusedParameter.Global
+        public static uint DecimalPlaces(this byte Byte)
+            {
+            return 0;
+            }
+
+        /// <summary>
+        /// Returns the number of decimal places used for the provided number.
+        /// For non-floating point types this value is always 0.
+        /// </summary>
+        // ReSharper disable once UnusedParameter.Global
+        public static uint DecimalPlaces(this sbyte Int)
+            {
+            return 0;
+            }
+
+        /// <summary>
+        /// Returns the number of decimal places used for the provided number.
+        /// </summary>
+        public static ushort DecimalPlaces(this decimal Decimal)
+            {
+            ushort Out = 0;
+            while (!Decimal.CanConvertTo<int>())
+                {
+                Decimal = Decimal * 10;
+                Out++;
+                }
+            return Out;
+            }
+
+        /// <summary>
+        /// Returns the number of decimal places used for the provided number.
+        /// </summary>
+        public static uint DecimalPlaces(this double Double)
+            {
+            uint Out = 0;
+            while (!Double.CanConvertTo<int>())
+                {
+                Double = Double * 10;
+                Out++;
+                }
+            return Out;
+            }
+
+        /// <summary>
+        /// Returns the number of decimal places used for the provided number.
+        /// </summary>
+        public static ushort DecimalPlaces(this float Float)
+            {
+            ushort Out = 0;
+            while (!Float.CanConvertTo<int>())
+                {
+                Float = Float * 10;
+                Out++;
+                }
+            return Out;
+            }
+
+        #endregion
+
         #region Floor
 
         /// <summary>
@@ -479,48 +653,6 @@ namespace LCore.Extensions
 
         #endregion
 
-        #region Max
-        /// <summary>
-        /// Returns the largest of <paramref name="In" /> and all items in <paramref name="Others" />
-        /// </summary>
-        [Tested]
-        public static T Max<T>(this T In, params T[] Others)
-            where T : IComparable
-            {
-            var Out = In;
-
-            foreach (var Item in Others)
-                {
-                if (Out == null ||
-                    (Item != null && Item.CompareTo(Out) > 0))
-                    Out = Item;
-                }
-
-            return Out;
-            }
-        #endregion
-
-        #region Min
-        /// <summary>
-        /// Returns the smallest of <paramref name="In" /> and all items in <paramref name="Others" />
-        /// </summary>
-        [Tested]
-        public static T Min<T>(this T In, params T[] Others)
-            where T : IComparable
-            {
-            var Out = In;
-
-            foreach (var Item in Others)
-                {
-                if (Out == null ||
-                    (Item != null && Item.CompareTo(Out) < 0))
-                    Out = Item;
-                }
-
-            return Out;
-            }
-        #endregion
-
         #region PercentageOf
         /// <summary>
         /// Returns an int, representing a percent (<paramref name="In" /> / <paramref name="Total" />).
@@ -536,6 +668,18 @@ namespace LCore.Extensions
             if (Total == 0) throw new ArgumentOutOfRangeException(nameof(Total));
 
             return ((double)In / Total).AsPercent();
+            }
+
+        #endregion
+
+        #region Pow
+
+        /// <summary>
+        /// Raise <paramref name="Double"/> to the power of <paramref name="Power"/>.
+        /// </summary>
+        public static double Pow(this double Double, double Power)
+            {
+            return Math.Pow(Double, Power);
             }
 
         #endregion
@@ -903,6 +1047,230 @@ namespace LCore.Extensions
 
         #endregion
 
+        #region Wrap
+
+        /// <summary>
+        /// Wraps a number in a Number subclass, 
+        /// allowing you to perform comparisons and operations across
+        /// types.
+        /// </summary>
+        public static Number Wrap<T>(this T Number)
+        where T : struct,
+            IComparable,
+            IComparable<T>,
+            IConvertible,
+            IEquatable<T>,
+            IFormattable
+            {
+            return L.Num.NumberTypes[L.Num.NumberTypes.Keys.First(Type => Type == Number.GetType() || Number.CanConvertTo(Type))]
+                .New(Number);
+            }
+        /// <summary>
+        /// Wraps a string in a Number subclass, 
+        /// allowing you to perform comparisons and operations across
+        /// types.
+        /// </summary>
+        public static Number Wrap(this string Str)
+            {
+            return L.Num.MostPreciseType.New(Str).ConvertToBestMatch();
+            }
+
         #endregion
+
+        #endregion
+        }
+
+    public static partial class L
+        {
+        /// <summary>
+        /// Contains static methods and variables used for number extensions and wrappers.
+        /// </summary>
+        public static class Num
+            {
+            /// <summary>
+            /// Regular expression used to identify string numbers in Scientific Notation.
+            /// </summary>
+            public const string RegexScientificNotation = @"(-?(?:0|[0-9]\d*)(?:\.\d*))?(?:[eE]([+\-]?\d+))";
+
+            /// <summary>
+            /// Type of numerical operation to perform.
+            /// </summary>
+            public enum Operation
+                {
+                /// <summary>
+                /// Add
+                /// </summary>
+                Add,
+                /// <summary>
+                /// Subtract
+                /// </summary>
+                Subtract,
+                /// <summary>
+                /// Multiply
+                /// </summary>
+                Multiply,
+                /// <summary>
+                /// Divide
+                /// </summary>
+                Divide
+                }
+
+            private static Number _MostRobustType = null;
+            /// <summary>
+            /// The most robust type for storing numbers based on precision.
+            /// </summary>
+            public static Number MostRobustType
+                {
+                get
+                    {
+                    if (_MostRobustType == null)
+                        {
+                        // ReSharper disable once UnusedVariable
+                        Dictionary<Type, Number> Temp = NumberTypes;
+                        }
+
+                    return _MostRobustType;
+                    }
+                }
+
+            private static Number _MostPreciseType;
+            /// <summary>
+            /// The most precise type for storing numbers based on precision.
+            /// </summary>
+            public static Number MostPreciseType
+                {
+                get
+                    {
+                    if (_MostPreciseType == null)
+                        {
+                        // ReSharper disable once UnusedVariable
+                        Dictionary<Type, Number> Temp = NumberTypes;
+                        }
+
+                    return _MostPreciseType;
+                    }
+                }
+
+
+            private static Dictionary<Type, Number> _NumberTypes;
+
+            /// <summary>
+            /// All number-container types defined in this assembly.
+            /// </summary>
+            public static Dictionary<Type, Number> NumberTypes
+                {
+                get
+                    {
+                    return Logic.Cache(ref _NumberTypes, () =>
+                    {
+                        var Out = new Dictionary<Type, Number>();
+
+                        typeof(Number).Assembly.GetTypes().Select(Type => Type.HasInterface<INumber>()).Each(Type =>
+                            {
+                                try
+                                    {
+                                    var Temp = Type.New();
+                                    if (Temp is Number)
+                                        Out.Add(Type, (Number)Temp);
+                                    }
+                                catch
+                                    {
+                                    }
+                            });
+
+                        Number LargestMax = null;
+                        Number SmallestMin = null;
+                        Number FinestPrecision = null;
+
+                        Out.Values.Each(Number =>
+                        {
+                            if (LargestMax == null || Number.MaxValue.CompareTo(LargestMax.MaxValue) > 0)
+                                LargestMax = Number;
+                            if (SmallestMin == null || Number.MinValue.CompareTo(SmallestMin.MinValue) < 0)
+                                SmallestMin = Number;
+                            if (FinestPrecision == null || Number.Precision.CompareTo(FinestPrecision.Precision) < 0)
+                                FinestPrecision = Number;
+                        });
+
+                        // Calculate which types are most robust and most precise.
+                        // If any two match then there is a clear choice, if not, precision takes precedence.
+                        if (LargestMax.GetType().TypeEquals(SmallestMin.GetType()))
+                            _MostPreciseType = LargestMax;
+                        else if (LargestMax.GetType().TypeEquals(FinestPrecision.GetType()))
+                            _MostPreciseType = FinestPrecision;
+                        else if (SmallestMin.GetType().TypeEquals(FinestPrecision.GetType()))
+                            _MostPreciseType = FinestPrecision;
+                        else
+                            _MostPreciseType = FinestPrecision;
+
+                        _MostPreciseType = FinestPrecision;
+                        return Out;
+                    });
+                    }
+                }
+
+            /// <summary>
+            /// Converts a string <paramref name="In"/> in Scientific Notation format
+            /// to a string representing the actual number.
+            /// Ex: L.Num.ScientificNotationToNumber("5.0032e2"); // "503.2"
+            /// </summary>
+            public static string ScientificNotationToNumber(string In)
+                {
+                List<Match> Matches = ((string)In).Matches(RegexScientificNotation);
+
+                if (Matches.Count == 0 || Matches[0].Groups.Count != 3)
+                    return In;
+
+                string Out = Matches[0].Groups[1].Value;
+
+                if (!Out.Contains("."))
+                    Out += ".0";
+
+                int DotIndex = Out.IndexOf(".");
+
+                int? Exponent = Matches[0].Groups[2].Value.ConvertTo<int>();
+
+                if (Exponent == null)
+                    return In;
+
+                if (Exponent == 0)
+                    return Out;
+
+                Out = Out.Substring(0, DotIndex) + Out.Substring(DotIndex + 1);
+
+                DotIndex += (int)Exponent;
+
+                if (DotIndex < 0)
+                    {
+                    try
+                        {
+                        Out = $"0.{"0".Times(Math.Abs(DotIndex))}{Out}";
+                        }
+                    catch (OverflowException) { }
+                    }
+                else if (DotIndex == 0)
+                    {
+                    Out = $"0.{Out}";
+                    }
+                else if (DotIndex == Out.Length)
+                    {
+                    Out = $"{Out}.0";
+                    }
+                else if (DotIndex > Out.Length)
+                    {
+                    try
+                        {
+                        Out = $"{Out}{"0".Times((Out.Length - DotIndex).Abs())}.0";
+                        }
+                    catch (OverflowException) { }
+                    }
+                else
+                    {
+                    Out = $"{Out.Sub(0, DotIndex)}.{Out.Sub(DotIndex)}";
+                    }
+
+                return Out;
+                }
+            }
         }
     }

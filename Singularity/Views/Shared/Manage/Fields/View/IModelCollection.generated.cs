@@ -40,8 +40,8 @@ namespace ASP
     #line default
     #line hidden
     using Singularity;
-    using Singularity.Context;
-    using Singularity.Controllers;
+    using LMVC.Context;
+    using LMVC.Controllers;
     using Singularity.Extensions;
     using Singularity.Models;
     

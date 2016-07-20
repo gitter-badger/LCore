@@ -3,7 +3,7 @@ using System.Data.Entity;
 
 using LCore.Extensions;
 
-namespace Singularity.Context
+namespace LMVC.Context
     {
     public static class ContextProviderFactory
         {

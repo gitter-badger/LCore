@@ -4,13 +4,11 @@ using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 using Microsoft.WindowsAzure.StorageClient;
-
-
 using LCore.Extensions;
-using Singularity.Context;
-using Singularity.Extensions;
+using LMVC.Context;
+using LMVC.Extensions;
 
-namespace Singularity.Models
+namespace LMVC.Models
     {
     public class FileUpload : IModel
         {

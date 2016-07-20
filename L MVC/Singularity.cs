@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using LCore.Extensions;
-using Singularity.Extensions;
+using LMVC.Extensions;
 
-namespace Singularity
+namespace LMVC
     {
     public static class Singularity
         {
@@ -55,12 +55,27 @@ namespace Singularity
                 [typeof(EnumExt)] = FontAwesomeExt.Icon.navicon,
                 [typeof(ThreadExt)] = FontAwesomeExt.Icon.random,
                 [typeof(NumberExt)] = FontAwesomeExt.Icon.sort_numeric_asc,
+                [typeof(CommentExt)] = FontAwesomeExt.Icon.adjust,
+                [typeof(ComparableExt)] = FontAwesomeExt.Icon.question,
                 [typeof(L)] = FontAwesomeExt.Icon.gbp
                 };
 
-            public static readonly Dictionary<Type, FontAwesomeExt.Icon> TypeIcons_Singularity = new Dictionary<Type, FontAwesomeExt.Icon>
+            public static readonly Dictionary<Type, FontAwesomeExt.Icon> TypeIcons_LMVC = new Dictionary<Type, FontAwesomeExt.Icon>
                 {
-                [typeof(MetaExt)] = FontAwesomeExt.Icon.info_circle
+                [typeof(MetaExt)] = FontAwesomeExt.Icon.question,
+                [typeof(ContextExt)] = FontAwesomeExt.Icon.question,
+                [typeof(ControllerExt)] = FontAwesomeExt.Icon.question,
+                [typeof(GlyphIconExt)] = FontAwesomeExt.Icon.question,
+                [typeof(HtmlExt)] = FontAwesomeExt.Icon.question,
+                [typeof(ModelExt)] = FontAwesomeExt.Icon.question,
+                [typeof(DataExt)] = FontAwesomeExt.Icon.question,
+                [typeof(UrlExt)] = FontAwesomeExt.Icon.internet_explorer,
+                [typeof(SessionExt)] = FontAwesomeExt.Icon.question,
+                [typeof(SingularityControllerExt)] = FontAwesomeExt.Icon.question,
+                [typeof(MVCExt)] = FontAwesomeExt.Icon.question,
+                [typeof(ResponseExt)] = FontAwesomeExt.Icon.question,
+                [typeof(FontAwesomeExt)] = FontAwesomeExt.Icon.question,
+                [typeof(QueryExt)] = FontAwesomeExt.Icon.question
                 };
 
             public static readonly Dictionary<Type, FontAwesomeExt.Icon> TypeIcons = new Dictionary<Type, FontAwesomeExt.Icon>
@@ -100,8 +115,8 @@ namespace Singularity
                     return TypeIcons_L[Type];
 
                 // ReSharper disable once ConvertIfStatementToReturnStatement
-                if (TypeIcons_Singularity.ContainsKey(Type))
-                    return TypeIcons_Singularity[Type];
+                if (TypeIcons_LMVC.ContainsKey(Type))
+                    return TypeIcons_LMVC[Type];
 
                 return FontAwesomeExt.Icon.question;
                 }

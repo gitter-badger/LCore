@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using LCore.Interfaces;
 
-namespace Singularity.Extensions
+namespace LMVC.Extensions
     {
     [ExtensionProvider]
     public static class ControllerExt

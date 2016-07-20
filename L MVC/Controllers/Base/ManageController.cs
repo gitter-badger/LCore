@@ -2,13 +2,13 @@
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using LCore.Extensions;
-using Singularity.Context;
-using Singularity.Extensions;
-using Singularity.Account;
-using Singularity.Filters;
-using Singularity.Models;
+using LMVC.Context;
+using LMVC.Extensions;
+using LMVC.Account;
+using LMVC.Filters;
+using LMVC.Models;
 
-namespace Singularity.Controllers
+namespace LMVC.Controllers
     {
     [Authorize]
     [SecurityFilter]

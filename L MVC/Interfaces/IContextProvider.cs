@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Web;
-using Singularity.Controllers;
+using LMVC.Controllers;
 
-namespace Singularity.Context
+namespace LMVC.Context
     {
     public interface IContextProvider
         {

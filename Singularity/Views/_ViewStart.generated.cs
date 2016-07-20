@@ -34,17 +34,23 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using LCore.Extensions;
-    using Singularity;
-    using Singularity.Context;
-    using Singularity.Controllers;
-    using Singularity.Extensions;
-    using Singularity.Models;
     
     #line 1 "..\..\Views\_ViewStart.cshtml"
-    using Singularity.Routes;
+    using LMVC.Controllers;
     
     #line default
     #line hidden
+    
+    #line 2 "..\..\Views\_ViewStart.cshtml"
+    using LMVC.Routes;
+    
+    #line default
+    #line hidden
+    using Singularity;
+    using LMVC.Context;
+    using LMVC.Controllers;
+    using Singularity.Extensions;
+    using Singularity.Models;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/_ViewStart.cshtml")]
@@ -58,7 +64,7 @@ namespace ASP
 WriteLiteral("\r\n\r\n");
 
             
-            #line 4 "..\..\Views\_ViewStart.cshtml"
+            #line 5 "..\..\Views\_ViewStart.cshtml"
   
     Layout = Layouts.Main;
 
