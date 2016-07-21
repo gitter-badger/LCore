@@ -986,7 +986,13 @@ namespace LCore.Tests
             var Actual = default(U);
             try
                 {
-                Actual = (U)Method.Invoke(null, Params);
+                var MethodResult = Method.Invoke(null, Params);
+
+                if (MethodResult is U ||
+                    (MethodResult == null && typeof(U).IsNullable()))
+                    Actual = (U)MethodResult;
+                else
+                    throw new InternalTestFailureException($"Expected object of type {typeof(U).FullName} but received {MethodResult.Type().FullName}: {MethodResult}");
                 }
             catch (Exception Ex)
                 {

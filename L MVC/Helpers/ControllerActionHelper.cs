@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Web.Mvc;
 using System.Web.Routing;
+using LCore.Extensions;
 
 namespace LMVC.Extensions
     {
@@ -39,7 +40,7 @@ namespace LMVC.Extensions
                 string Out = typeof(T).Name;
 
                 if (Out.EndsWith("Controller"))
-                    Out = Out.Substring(0, Out.Length - "Controller".Length);
+                    Out = Out.Sub(0, Out.Length - "Controller".Length);
 
                 return Out;
                 }

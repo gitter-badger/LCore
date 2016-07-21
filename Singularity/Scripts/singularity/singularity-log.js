@@ -1,7 +1,7 @@
 /// <reference path="singularity-core.ts"/>
-var LOGGING_INFO_ENABLED = false;
-var LOGGING_ERROR_ENABLED = true;
-var LOGGING_WARNING_ENABLED = true;
+var loggingInfoEnabled = true;
+var loggingErrorEnabled = true;
+var loggingWarningEnabled = true;
 var singLog = singCore.addModule(new sing.Module('Logging', sing, sing));
 singLog.glyphIcon = '&#xe105;';
 singLog.ignoreUnknown('ALL');
@@ -10,26 +10,23 @@ function log() {
     for (var _i = 0; _i < arguments.length; _i++) {
         message[_i - 0] = arguments[_i];
     }
-    if (LOGGING_INFO_ENABLED) {
-        if (false && $.toStr && $.resolve)
-            console.log('%c' + $.toStr($.resolve(message), true), 'background: #eee; color: #555');
-        else
-            console.log('%c' + message, 'background: #eee; color: #555');
+    if (loggingInfoEnabled) {
+        console.log("%c" + message, 'background: #eee; color: #555');
     }
 }
-singLog.method('log', ArrayLog, {
+singLog.method('log', arrayLog, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: null,
     examples: null,
     tests: function (ext) {
-    },
-}, Array.prototype, "Array");
-function ArrayLog() {
+    }
+}, Array.prototype, 'Array');
+function arrayLog() {
     log(this);
 }
-singLog.method('log', NumberLog, {
+singLog.method('log', numberLog, {
     summary: 'Common funciton - Logs the calling Number to the console.',
     parameters: [],
     returns: 'Nothing.',
@@ -41,11 +38,11 @@ singLog.method('log', NumberLog, {
         ext.addTest(true, []);
         ext.addTest(false, []);
     }
-}, Number.prototype, "Number");
-function NumberLog() {
+}, Number.prototype, 'Number');
+function numberLog() {
     log(this);
 }
-singLog.method('log', StringLog, {
+singLog.method('log', stringLog, {
     summary: 'Common funciton - Logs the calling Boolean to the console.',
     parameters: [],
     returns: 'Nothing.',
@@ -58,11 +55,11 @@ singLog.method('log', StringLog, {
         ext.addTest('a', []);
         ext.addTest('hello', []);
     }
-}, String.prototype, "String");
-function StringLog() {
+}, String.prototype, 'String');
+function stringLog() {
     log(this);
 }
-singLog.method('log', BooleanLog, {
+singLog.method('log', booleanLog, {
     summary: 'Common funciton - Logs the calling Boolean to the console.',
     parameters: [],
     returns: 'Nothing.',
@@ -74,8 +71,8 @@ singLog.method('log', BooleanLog, {
         ext.addTest(true, []);
         ext.addTest(false, []);
     }
-}, Boolean.prototype, "Boolean");
-function BooleanLog() {
+}, Boolean.prototype, 'Boolean');
+function booleanLog() {
     log(this);
 }
 function warn() {
@@ -83,27 +80,27 @@ function warn() {
     for (var _i = 0; _i < arguments.length; _i++) {
         message[_i - 0] = arguments[_i];
     }
-    if (LOGGING_WARNING_ENABLED) {
+    if (loggingWarningEnabled) {
         if ($.toStr && $.resolve)
-            console.log('%c' + $.toStr($.resolve(message), true), 'background: #555; color: #F7DAA3');
+            console.log("%c" + $.toStr($.resolve(message), true), 'background: #555; color: #F7DAA3');
         else
-            console.log('%c' + message, 'background: #555; color: #F7DAA3');
+            console.log("%c" + message, 'background: #555; color: #F7DAA3');
     }
 }
-singLog.method('warn', ArrayWarn, {}, Array.prototype, "Array");
-function ArrayWarn() {
+singLog.method('warn', arrayWarn, {}, Array.prototype, 'Array');
+function arrayWarn() {
     warn(this);
 }
-singLog.method('warn', NumberWarn, {}, Number.prototype, "Number");
-function NumberWarn() {
+singLog.method('warn', numberWarn, {}, Number.prototype, 'Number');
+function numberWarn() {
     warn(this);
 }
-singLog.method('warn', StringWarn, {}, String.prototype, "String");
-function StringWarn() {
+singLog.method('warn', stringWarn, {}, String.prototype, 'String');
+function stringWarn() {
     warn(this);
 }
-singLog.method('warn', BooleanWarn, {}, Boolean.prototype, "Boolean");
-function BooleanWarn() {
+singLog.method('warn', booleanWarn, {}, Boolean.prototype, 'Boolean');
+function booleanWarn() {
     warn(this);
 }
 function error() {
@@ -111,24 +108,24 @@ function error() {
     for (var _i = 0; _i < arguments.length; _i++) {
         message[_i - 0] = arguments[_i];
     }
-    if (LOGGING_ERROR_ENABLED) {
+    if (loggingErrorEnabled) {
         console.log(message);
     }
 }
-singLog.method('error', ArrayError, {}, Array.prototype, "Array");
-function ArrayError() {
+singLog.method('error', arrayError, {}, Array.prototype, 'Array');
+function arrayError() {
     error(this);
 }
-singLog.method('error', NumberError, {}, Number.prototype, "Number");
-function NumberError() {
+singLog.method('error', numberError, {}, Number.prototype, 'Number');
+function numberError() {
     error(this);
 }
-singLog.method('error', StringError, {}, String.prototype, "String");
-function StringError() {
+singLog.method('error', stringError, {}, String.prototype, 'String');
+function stringError() {
     error(this);
 }
-singLog.method('error', BooleanError, {}, Boolean.prototype, "Boolean");
-function BooleanError() {
+singLog.method('error', booleanError, {}, Boolean.prototype, 'Boolean');
+function booleanError() {
     error(this);
 }
 //# sourceMappingURL=singularity-log.js.map

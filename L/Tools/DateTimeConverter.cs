@@ -111,7 +111,7 @@ namespace LCore.Tools
                 {
                 return Result;
                 }
-            throw new FormatException(string.Format(null, "{0} is not a valid RFC 3339 string representation of a date and time.", Str));
+            throw new FormatException($"{Str} is not a valid RFC 3339 string representation of a date and time.");
             }
         #endregion
 

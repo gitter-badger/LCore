@@ -312,5 +312,16 @@ namespace L_Tests.Tests.Extensions
                 Result.Data.ShouldBeEquivalentTo(new List<string> { "abc", "abc", "abc", "abc", "abc" });
                 }
             }
+
+        [Fact]
+        public void Test_CountExecutions()
+            {
+            var Act = new Action(() =>
+                {
+                    Thread.Sleep(2);
+                });
+
+            Act.CountExecutions(100).Should().BeInRange(30, 50);
+            }
         }
     }

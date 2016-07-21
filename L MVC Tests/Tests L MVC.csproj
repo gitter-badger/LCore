@@ -101,11 +101,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\L MVC\L MVC.csproj">
-      <Project>{98dded95-a78f-47c7-85df-886d18e340fc}</Project>
+      <Project>{98DDED95-A78F-47C7-85DF-886D18E340FC}</Project>
       <Name>L MVC</Name>
     </ProjectReference>
     <ProjectReference Include="..\L\L Core.csproj">
-      <Project>{cd24bcec-5a94-4524-b1d3-0537c66b0761}</Project>
+      <Project>{CD24BCEC-5A94-4524-B1D3-0537C66B0761}</Project>
       <Name>L Core</Name>
     </ProjectReference>
   </ItemGroup>

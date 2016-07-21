@@ -51,9 +51,15 @@ namespace ASP
     
     #line default
     #line hidden
-    using Singularity;
+    using LMVC;
+    using LMVC.Account;
+    using LMVC.Annotations;
     using LMVC.Context;
     using LMVC.Controllers;
+    using LMVC.Extensions;
+    using LMVC.Models;
+    using LMVC.Routes;
+    using Singularity;
     
     #line 7 "..\..\Views\Shared\Template.cshtml"
     using Singularity.Extensions;

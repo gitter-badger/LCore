@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using LCore.Extensions;
 using LMVC.Context;
 
 
@@ -31,17 +32,17 @@ namespace LMVC.Models
 
             // Remove protocol
             if (URL.StartsWith("http://"))
-                URL = URL.Substring("http://".Length);
+                URL = URL.Sub("http://".Length);
             else if (URL.StartsWith("https://"))
-                URL = URL.Substring("https://".Length);
+                URL = URL.Sub("https://".Length);
 
             // Remove path
             if (URL.Contains("/"))
-                URL = URL.Substring(0, URL.IndexOf('/'));
+                URL = URL.Sub(0, URL.IndexOf('/'));
 
             // Remove port
             if (URL.Contains(":"))
-                URL = URL.Substring(0, URL.IndexOf(':'));
+                URL = URL.Sub(0, URL.IndexOf(':'));
 
             return DbContext.GetDBSet<SiteConfig>().FirstOrDefault(Site => Site.SiteRootURL == URL);
             }

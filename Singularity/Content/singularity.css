@@ -1,4 +1,7 @@
-﻿*[singularity] .singularity-test {
+﻿
+/* ReSharper disable All */
+
+*[singularity] .singularity-test {
   font-size: 0.85em;
   font-family: Verdana;
   width: 100%;

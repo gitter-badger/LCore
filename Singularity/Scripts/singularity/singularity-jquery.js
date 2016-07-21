@@ -1,5 +1,5 @@
 /// <reference path="singularity-core.ts"/>
-var singJQuery = singExt.addModule(new sing.Module("jQuery", [$, $.fn], $));
+var singJQuery = singExt.addModule(new sing.Module('jQuery', [$, $.fn], $));
 singJQuery.glyphIcon = '&#xe148;';
 singJQuery.ignoreUnknown('ALL');
 /*
@@ -9,7 +9,7 @@ singJQuery.ignoreUnknown('ALL');
 //
 //
 */
-singJQuery.method('checked', Checked, {
+singJQuery.method('checked', checked, {
     summary: null,
     parameters: null,
     returns: '',
@@ -17,9 +17,9 @@ singJQuery.method('checked', Checked, {
     examples: null,
     glyphIcon: '&#xe013;',
     tests: function (ext) {
-    },
+    }
 }, $.fn);
-function Checked() {
+function checked() {
     var anyChecked = false;
     this.each(function () {
         var thisJQuery = $(this);
@@ -28,7 +28,7 @@ function Checked() {
     });
     return anyChecked;
 }
-singJQuery.method('allVisible', AllVisible, {
+singJQuery.method('allVisible', allVisible, {
     summary: null,
     parameters: null,
     returns: '',
@@ -36,9 +36,9 @@ singJQuery.method('allVisible', AllVisible, {
     examples: null,
     glyphIcon: '&#xe105;',
     tests: function (ext) {
-    },
+    }
 }, $.fn);
-function AllVisible() {
+function allVisible() {
     var allVisible = true;
     this.each(function () {
         var opacity = $(this).attr('opacity');
@@ -51,7 +51,7 @@ function AllVisible() {
     });
     return allVisible;
 }
-singJQuery.method('findIDNameSelector', FindIDNameSelector, {
+singJQuery.method('findIDNameSelector', findIDNameSelector, {
     summary: null,
     parameters: null,
     returns: '',
@@ -59,30 +59,27 @@ singJQuery.method('findIDNameSelector', FindIDNameSelector, {
     examples: null,
     glyphIcon: '&#xe003;',
     tests: function (ext) {
-    },
+    }
 }, $.fn);
-function FindIDNameSelector(name) {
+function findIDNameSelector(name) {
     var target = $();
     try {
-        target = $(this).find('#' + name);
+        target = $(this).find("#" + name);
     }
-    catch (ex) {
-    }
+    catch (ex) { }
     if (target.length == 0)
         try {
-            target = $(this).find('[name=' + name + ']');
+            target = $(this).find("[name=" + name + "]");
         }
-        catch (ex) {
-        }
+        catch (ex) { }
     if (target.length == 0)
         try {
             target = $(this).find(name);
         }
-        catch (ex) {
-        }
+        catch (ex) { }
     return target || $();
 }
-singJQuery.method('actionIf', ActionIf, {
+singJQuery.method('actionIf', actionIf, {
     summary: null,
     parameters: null,
     returns: '',
@@ -90,79 +87,59 @@ singJQuery.method('actionIf', ActionIf, {
     examples: null,
     glyphIcon: '&#xe162;',
     tests: function (ext) {
-    },
+    }
 }, $.fn);
-function ActionIf(name) {
+function actionIf(name) {
     var target = $(this);
-    var ifTargetName = target.attr(name + '-if');
+    var ifTargetName = target.attr(name + "-if");
     // If there's no target, there's no condition to match. Always true.
     if (!ifTargetName)
         return true;
     var ifTarget = $('body').findIDNameSelector(ifTargetName);
-    var targetValue = (target.attr(name + '-if-value') || '');
-    var operation = function (a, b) {
-        return a == b;
-    };
+    var targetValue = (target.attr(name + "-if-value") || '');
+    var operation = function (a, b) { return (a == b); };
     if (targetValue.indexOf('!=') == 0) {
-        operation = function (a, b) {
-            return a != b;
-        };
+        operation = function (a, b) { return (a != b); };
         targetValue = targetValue.substr(2);
     }
     else if (targetValue.indexOf('>=') == 0) {
-        operation = function (a, b) {
-            return parseFloat(a) >= parseFloat(b);
-        };
+        operation = function (a, b) { return (parseFloat(a) >= parseFloat(b)); };
         targetValue = parseFloat(targetValue.substr(2));
     }
     else if (targetValue.indexOf('<=') == 0) {
-        operation = function (a, b) {
-            return parseFloat(a) <= parseFloat(b);
-        };
+        operation = function (a, b) { return (parseFloat(a) <= parseFloat(b)); };
         targetValue = parseFloat(targetValue.substr(2));
     }
     else if (targetValue.indexOf('><') == 0) {
-        operation = function (a, b) {
-            return parseFloat(a) >= parseFloat(b[0]) && parseFloat(a) <= parseFloat(b[1]);
-        };
+        operation = function (a, b) { return (parseFloat(a) >= parseFloat(b[0]) && parseFloat(a) <= parseFloat(b[1])); };
         targetValue = targetValue.substr(2);
         targetValue = [
             targetValue.split(',')[0],
-            targetValue.split(',')[1],
+            targetValue.split(',')[1]
         ];
     }
     else if (targetValue.indexOf('<>') == 0) {
-        operation = function (a, b) {
-            return parseFloat(a) <= parseFloat(b[0]) || parseFloat(a) >= parseFloat(b[1]);
-        };
+        operation = function (a, b) { return (parseFloat(a) <= parseFloat(b[0]) || parseFloat(a) >= parseFloat(b[1])); };
         targetValue = targetValue.substr(2);
         targetValue = [
             targetValue.split(',')[0],
-            targetValue.split(',')[1],
+            targetValue.split(',')[1]
         ];
     }
     else if (targetValue.indexOf(',') > 0) {
-        operation = function (a, b) {
-            return b.indexOf(a) >= 0;
-        };
+        operation = function (a, b) { return (b.indexOf(a) >= 0); };
         targetValue = targetValue.split(',');
     }
     else if (targetValue.indexOf('!') == 0) {
-        operation = function (a, b) {
-            return parseFloat(a) != parseFloat(b);
-        };
+        operation = function (a, b) { return (parseFloat(a) != parseFloat(b)); };
         targetValue = targetValue.substr(1);
     }
     else if (targetValue.indexOf('<') == 0) {
-        operation = function (a, b) {
-            return parseFloat(a) < parseFloat(b);
-        };
+        operation = function (a, b) { return (parseFloat(a) < parseFloat(b)); };
         targetValue = parseFloat(targetValue.substr(1));
     }
     else if (targetValue.indexOf('>') == 0) {
-        operation = function (a, b) {
-            return parseFloat(a) > parseFloat(b);
-        };
+        operation = function (a, b) { return (parseFloat(a) > parseFloat(b)); };
         targetValue = parseFloat(targetValue.substr(1));
     }
     if (ifTarget.length == 0) {
@@ -186,7 +163,7 @@ function ActionIf(name) {
     }
 }
 ;
-singJQuery.method('defer', Defer, {
+singJQuery.method('defer', defer, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -196,13 +173,13 @@ singJQuery.method('defer', Defer, {
     examples: null,
     glyphIcon: '&#xe095;',
     tests: function (ext) {
-    },
+    }
 });
-function Defer(deferFunc) {
+function defer(deferFunc) {
     if (deferFunc)
         setTimeout(deferFunc, 0);
 }
-singJQuery.method('hasAttr', JQueryHasAttr, {
+singJQuery.method('hasAttr', jQueryHasAttr, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -211,12 +188,12 @@ singJQuery.method('hasAttr', JQueryHasAttr, {
     examples: null,
     glyphIcon: '&#xe042;',
     tests: function (ext) {
-    },
+    }
 }, $.fn);
-function JQueryHasAttr(name) {
+function jQueryHasAttr(name) {
     return $(this).attr(name) !== undefined;
 }
-singJQuery.method('outerHtml', JQueryOuterHtml, {
+singJQuery.method('outerHtml', jQueryOuterHtml, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -225,17 +202,17 @@ singJQuery.method('outerHtml', JQueryOuterHtml, {
     examples: null,
     glyphIcon: '&#xe140;',
     tests: function (ext) {
-    },
+    }
 }, $.fn);
-function JQueryOuterHtml() {
-    if (!this || this.length == 0) {
+function jQueryOuterHtml() {
+    if (this.length == 0) {
         return '';
     }
     else {
         return this[0].outerHTML;
     }
 }
-singJQuery.method('innerHtml', JQueryInnerHtml, {
+singJQuery.method('innerHtml', jQueryInnerHtml, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -244,10 +221,10 @@ singJQuery.method('innerHtml', JQueryInnerHtml, {
     examples: null,
     glyphIcon: '&#xe087;',
     tests: function (ext) {
-    },
+    }
 }, $.fn);
-function JQueryInnerHtml() {
-    if (!this || this.length == 0) {
+function jQueryInnerHtml() {
+    if (this.length == 0) {
         return '';
     }
     else {
@@ -255,7 +232,7 @@ function JQueryInnerHtml() {
     }
 }
 // https://github.com/moagrius/isOnScreen
-singJQuery.method('isOnScreen', JQueryIsOnScreen, {
+singJQuery.method('isOnScreen', jQueryIsOnScreen, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -264,9 +241,9 @@ singJQuery.method('isOnScreen', JQueryIsOnScreen, {
     examples: null,
     glyphIcon: '&#xe106;',
     tests: function (ext) {
-    },
+    }
 }, $.fn);
-function JQueryIsOnScreen(x, y) {
+function jQueryIsOnScreen(x, y) {
     if (x === void 0) { x = 1; }
     if (y === void 0) { y = 1; }
     var win = $(window);
@@ -274,7 +251,7 @@ function JQueryIsOnScreen(x, y) {
         top: win.scrollTop(),
         left: win.scrollLeft(),
         right: 0,
-        bottom: 0,
+        bottom: 0
     };
     viewport.right = viewport.left + win.width();
     viewport.bottom = viewport.top + win.height();
@@ -286,7 +263,10 @@ function JQueryIsOnScreen(x, y) {
     var bounds = this.offset();
     bounds.right = bounds.left + width;
     bounds.bottom = bounds.top + height;
-    var visible = (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
+    var visible = (!(viewport.right < bounds.left ||
+        viewport.left > bounds.right ||
+        viewport.bottom < bounds.top ||
+        viewport.top > bounds.bottom));
     if (!visible) {
         return false;
     }
@@ -299,7 +279,7 @@ function JQueryIsOnScreen(x, y) {
     return (deltas.left * deltas.right) >= x && (deltas.top * deltas.bottom) >= y;
 }
 ;
-singJQuery.method('swapClasses', JQuerySwapClass, {
+singJQuery.method('swapClasses', jQuerySwapClass, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -308,11 +288,11 @@ singJQuery.method('swapClasses', JQuerySwapClass, {
     examples: null,
     glyphIcon: '&#xe110;',
     tests: function (ext) {
-    },
+    }
 }, $.fn);
-function JQuerySwapClass(class1, class2) {
+function jQuerySwapClass(class1, class2) {
     var thisJQuery = this;
-    if (thisJQuery) {
+    if (true) {
         if (thisJQuery.hasClass(class1)) {
             thisJQuery.removeClass(class1);
             thisJQuery.addClass(class2);
@@ -328,7 +308,7 @@ function JQuerySwapClass(class1, class2) {
     return thisJQuery;
 }
 ;
-singJQuery.method('fadeClasses', JQueryFadeClass, {
+singJQuery.method('fadeClasses', jQueryFadeClass, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -337,12 +317,12 @@ singJQuery.method('fadeClasses', JQueryFadeClass, {
     examples: null,
     glyphIcon: '',
     tests: function (ext) {
-    },
+    }
 }, $.fn);
-function JQueryFadeClass(class1, class2, speed, callback) {
+function jQueryFadeClass(class1, class2, speed, callback) {
     if (speed === void 0) { speed = 'fast'; }
     var thisJQuery = this;
-    if (thisJQuery) {
+    if (true) {
         if (thisJQuery.hasClass(class1)) {
             thisJQuery.fadeOut(speed, function () {
                 thisJQuery.removeClass(class1);
@@ -376,7 +356,7 @@ function JQueryFadeClass(class1, class2, speed, callback) {
     return thisJQuery;
 }
 ;
-singJQuery.method('superFadeOut', JQuerySuperFadeOut, {
+singJQuery.method('superFadeOut', jQuerySuperFadeOut, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -385,9 +365,9 @@ singJQuery.method('superFadeOut', JQuerySuperFadeOut, {
     examples: null,
     glyphIcon: '',
     tests: function (ext) {
-    },
+    }
 }, $.fn);
-function JQuerySuperFadeOut(speed) {
+function jQuerySuperFadeOut(speed) {
     if (speed === void 0) { speed = 'fast'; }
     var thisJQuery = this;
     thisJQuery.each(function () {
@@ -406,13 +386,13 @@ function JQuerySuperFadeOut(speed) {
             opacity: 0,
             height: 0,
             padding: 0,
-            margin: 0,
+            margin: 0
         }, speed);
     });
     return thisJQuery;
 }
 ;
-singJQuery.method('superFadeIn', JQuerySuperFadeIn, {
+singJQuery.method('superFadeIn', jQuerySuperFadeIn, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -421,9 +401,9 @@ singJQuery.method('superFadeIn', JQuerySuperFadeIn, {
     examples: null,
     glyphIcon: '',
     tests: function (ext) {
-    },
+    }
 }, $.fn);
-function JQuerySuperFadeIn(speed) {
+function jQuerySuperFadeIn(speed) {
     if (speed === void 0) { speed = 'fast'; }
     var thisJQuery = this;
     thisJQuery.each(function () {
@@ -468,7 +448,7 @@ function JQuerySuperFadeIn(speed) {
             'margin-top': marginTop,
             'margin-bottom': marginBottom,
             'margin-left': marginLeft,
-            'margin-right': marginRight,
+            'margin-right': marginRight
         }, speed, function () {
             jElement.css('height', '');
             jElement.css('padding-top', '');

@@ -41,6 +41,7 @@ namespace ASP
     using LMVC.Controllers;
     using LMVC.Extensions;
     using LMVC.Models;
+    using LMVC.Routes;
     using Singularity;
     using Singularity.Extensions;
     using Singularity.Models;

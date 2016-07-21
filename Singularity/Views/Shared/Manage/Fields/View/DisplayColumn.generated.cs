@@ -34,7 +34,9 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using LCore.Extensions;
-    using Singularity;
+    using LMVC;
+    using LMVC.Account;
+    using LMVC.Annotations;
     using LMVC.Context;
     
     #line 4 "..\..\Views\Shared\Manage\Fields\View\DisplayColumn.cshtml"
@@ -42,6 +44,10 @@ namespace ASP
     
     #line default
     #line hidden
+    using LMVC.Extensions;
+    using LMVC.Models;
+    using LMVC.Routes;
+    using Singularity;
     using Singularity.Extensions;
     using Singularity.Models;
     
@@ -80,14 +86,14 @@ WriteLiteral("\r\n\r\n");
             #line hidden
 WriteLiteral("    <span");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 260), Tuple.Create("\"", 298)
+WriteAttribute("title", Tuple.Create(" title=\"", 253), Tuple.Create("\"", 291)
             
             #line 14 "..\..\Views\Shared\Manage\Fields\View\DisplayColumn.cshtml"
-, Tuple.Create(Tuple.Create("", 268), Tuple.Create<System.Object, System.Int32>(Model.PropertyData.ToString()
+, Tuple.Create(Tuple.Create("", 261), Tuple.Create<System.Object, System.Int32>(Model.PropertyData.ToString()
             
             #line default
             #line hidden
-, 268), false)
+, 261), false)
 );
 
 WriteLiteral(">\r\n");

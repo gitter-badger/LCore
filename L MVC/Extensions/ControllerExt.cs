@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using LCore.Extensions;
 using LCore.Interfaces;
 
 namespace LMVC.Extensions
@@ -19,7 +20,7 @@ namespace LMVC.Extensions
 
             string Name = Controller.Name;
             return Name.EndsWith("Controller") ? 
-                Name.Substring(0, Name.Length - "Controller".Length) : 
+                Name.Sub(0, Name.Length - "Controller".Length) : 
                 Name;
             }
 
@@ -29,7 +30,9 @@ namespace LMVC.Extensions
             if (Controller == null) throw new ArgumentNullException(nameof(Controller));
 
             string Name = Controller.GetType().Name;
-            return Name.EndsWith("Controller") ? Name.Substring(0, Name.Length - "Controller".Length) : Name;
+            return Name.EndsWith("Controller") 
+                ? Name.Sub(0, Name.Length - "Controller".Length) 
+                : Name;
             }
 
         #endregion

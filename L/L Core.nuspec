@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>0.9.0.0</version>
+    <title>L Core</title>
+    <authors>Ben Hamel</authors>
+    <owners>Ben Hamel</owners>
+<!--    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>-->
+    <projectUrl>http://codesingularity.info</projectUrl>
+    <iconUrl>http://codesingularity.info/Content/Icon.ico</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>C# Extensions Method Library</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags></tags>
+  </metadata>
+</package>

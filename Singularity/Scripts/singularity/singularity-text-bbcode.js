@@ -2,47 +2,47 @@
 /// <reference path="singularity-string.ts"/>
 var singBBCode = singString.addModule(new sing.Module('BBCode', String));
 singBBCode.glyphIcon = '&#xe242;';
-singBBCode.method('bbCodesToHTML', StringBBCodesToHTML, {
+singBBCode.method('bbCodesToHTML', stringBBCodesToHTML, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: null,
     examples: null,
     tests: function (ext) {
-    },
+    }
 });
-function StringBBCodesToHTML() {
+function stringBBCodesToHTML() {
     var out = this;
-    sing.BBCodes.each(function (item, index) {
+    sing.bbCodes.each(function (item) {
         out = out.replaceRegExp(item.matchStr, item.htmlStr);
     });
     return out;
 }
-singBBCode.method('bbCodesToText', StringBBCodesToText, {
+singBBCode.method('bbCodesToText', stringBBCodesToText, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: null,
     examples: null,
     tests: function (ext) {
-    },
+    }
 });
-function StringBBCodesToText() {
+function stringBBCodesToText() {
     var out = this;
-    sing.BBCodes.each(function (item, index) {
+    sing.bbCodes.each(function (item) {
         out = out.replaceRegExp(item.matchStr, item.textStr);
     });
     return out;
 }
 // Tests from http://en.wikipedia.org/wiki/BBCode
-sing.BBCodes = [
+sing.bbCodes = [
     {
         name: 'Bold',
         tag: '[b][/b]',
         matchStr: /\[b\](.+)\[\/b\]/,
         htmlStr: '\<b\>$1\</b\>',
         textStr: '$1',
-        test: '[b]bolded text[/b]',
+        test: '[b]bolded text[/b]'
     },
     {
         name: 'Italics',
@@ -50,7 +50,7 @@ sing.BBCodes = [
         matchStr: /\[i\](.+)\[\/i\]/,
         htmlStr: '<i>$1</i>',
         textStr: '$1',
-        test: '[i]italicized text[/i]',
+        test: '[i]italicized text[/i]'
     },
     {
         name: 'Underline',
@@ -58,7 +58,7 @@ sing.BBCodes = [
         matchStr: /\[u\](.+)\[\/u\]/,
         htmlStr: '<u>$1</u>',
         textStr: '$1',
-        test: '[u]underlined text[/u]',
+        test: '[u]underlined text[/u]'
     },
     {
         name: 'Strikethrough',
@@ -66,7 +66,7 @@ sing.BBCodes = [
         matchStr: /\[s\](.+)\[\/s\]/,
         htmlStr: '<s>$1</s>',
         textStr: '$1',
-        test: '[s]strikethrough text[/s]',
+        test: '[s]strikethrough text[/s]'
     },
     {
         name: 'Center',
@@ -74,7 +74,7 @@ sing.BBCodes = [
         matchStr: /\[center\](.+)\[\/center\]/,
         htmlStr: '<center>$1</center>',
         textStr: '$1',
-        test: '[center]centered text[/center]',
+        test: '[center]centered text[/center]'
     },
     {
         name: 'Font Style Size',
@@ -82,7 +82,7 @@ sing.BBCodes = [
         matchStr: /\[style size\=["]*(\d{1,3}).*\](.+)\[\/style\]/,
         htmlStr: '<font size="$1">$2</font>',
         textStr: '$2',
-        test: '[style size="20px"]Large Text[/style]',
+        test: '[style size="20px"]Large Text[/style]'
     },
     {
         name: 'Font Size',
@@ -90,7 +90,7 @@ sing.BBCodes = [
         matchStr: /\[size\=["]*(\d{1,3}).*\](.+)\[\/size\]/,
         htmlStr: '<font size="$1">$2</font>',
         textStr: '$2',
-        test: '[size="28px"]Larger Text[/size]',
+        test: '[size="28px"]Larger Text[/size]'
     },
     {
         name: 'Font Color',
@@ -98,7 +98,7 @@ sing.BBCodes = [
         matchStr: /\[color\=["]*([.,\#]+).*\](.+)\[\/color\]/,
         htmlStr: '<font style="color:$1;">$2</font>',
         textStr: '$2',
-        test: '[color="red"]Red Text[/style]\r\n[color=#FF0000]Red Text[/color]',
+        test: '[color="red"]Red Text[/style]\r\n[color=#FF0000]Red Text[/color]'
     },
     {
         name: 'Style Color',
@@ -106,7 +106,7 @@ sing.BBCodes = [
         matchStr: /\[style color\=["]*([.,#]+).*\](.+)\[\/style\]/,
         htmlStr: '<font style="color:$1;">$2</font>',
         textStr: '$2',
-        test: '[style color="red"]Red Text[/style]\r\n[style color=#FF0000]Red Text[/style]',
+        test: '[style color="red"]Red Text[/style]\r\n[style color=#FF0000]Red Text[/style]'
     },
     {
         name: 'URL',
@@ -114,7 +114,7 @@ sing.BBCodes = [
         matchStr: /\[url\](.+)\[\/url\]/,
         htmlStr: '<a href="$1">$1</a>',
         textStr: '$1',
-        test: '[url]http://example.org[/url]',
+        test: '[url]http://example.org[/url]'
     },
     {
         name: 'Named URL',
@@ -122,7 +122,7 @@ sing.BBCodes = [
         matchStr: /\[url\=\"?(.+)\"?\](.+)\[\/url\]/,
         htmlStr: '<a href=$1>$2</a>',
         textStr: '$2',
-        test: '[url="http://example.com"]Example[/url]',
-    },
+        test: '[url="http://example.com"]Example[/url]'
+    }
 ];
 //# sourceMappingURL=singularity-text-bbcode.js.map

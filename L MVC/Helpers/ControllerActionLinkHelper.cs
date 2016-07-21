@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
+using LCore.Extensions;
 
 namespace LMVC.Extensions
     {
@@ -30,12 +31,12 @@ namespace LMVC.Extensions
                     {
                     return null;
                     }
-                    string ControllerName = typeof(T).Name;
+                string ControllerName = typeof(T).Name;
 
-                    if (ControllerName.EndsWith("Controller"))
-                        ControllerName = ControllerName.Substring(0, ControllerName.Length - "Controller".Length);
+                if (ControllerName.EndsWith("Controller"))
+                    ControllerName = ControllerName.Sub(0, ControllerName.Length - "Controller".Length);
 
-                    return ControllerName;
+                return ControllerName;
                 }
             }
 

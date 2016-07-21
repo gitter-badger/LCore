@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.Entity;
-
 using LCore.Extensions;
 
 namespace LMVC.Context
@@ -28,15 +27,10 @@ namespace LMVC.Context
             {
             var Type = typeof(T);
 
-            return Context.GetType()
-                .GetProperties().First(Prop =>
-                {
-                    if (Prop.PropertyType.IsGenericType &&
-                        Prop.PropertyType.GetGenericArguments()[0] == Type)
-                        return (DbSet<T>)Prop.GetValue(Context);
-
-                    return null;
-                });
+            return (DbSet<T>)Context.GetType()
+                .GetProperties().First(Prop => Prop.PropertyType.IsGenericType &&
+                    Prop.PropertyType.GetGenericArguments()[0] == Type)
+                    .GetValue(Context);
             }
         }
     }

@@ -21,7 +21,6 @@ namespace L_MVC_Tests.Layouts
         [Fact]
         public void SingularityHasLIcons()
             {
-
             List<Type> L_Icons = Singularity.Icons.TypeIcons_L.Keys.List();
             L_Icons.Sort(i => i.Name);
 

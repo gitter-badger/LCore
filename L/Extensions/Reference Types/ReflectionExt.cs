@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -287,7 +286,7 @@ namespace LCore.Extensions
             {
             return
                 In.GetMethods()
-                    .Where(Method => Method.IsStatic &&
+                    .Select(Method => Method.IsStatic &&
                         Method.IsPublic &&
                         Method.IsDefined(typeof(ExtensionAttribute), true))
                     .Array();
@@ -789,7 +788,7 @@ namespace LCore.Extensions
 
                 Type[] ArgTypes = Arguments.GetTypes();
 
-                var Const = In.AlsoBaseTypes().First(Type => Type.GetConstructor(ArgTypes));
+                var Const = In.AlsoBaseTypes().Convert(Type => Type.GetConstructor(ArgTypes)).First();
 
                 if (Const == null)
                     {
@@ -854,7 +853,7 @@ namespace LCore.Extensions
             string Return = In.ReturnType.GetClassHierarchy();
             string Start;
 
-            Params.AddRange(In.GetParameters().Select(Param => Param.ParameterType.Name));
+            Params.AddRange(In.GetParameters().Convert(Param => Param.ParameterType.Name));
 
             if (In.IsExtensionMethod())
                 {
@@ -932,6 +931,12 @@ namespace LCore.Extensions
         #endregion
 
         #endregion
+
+        public static bool IsNullable(this Type Type)
+            {
+            //return Type != null && Type.IsType(typeof(Nullable<>));
+            return Type.IsGenericType && Type.GetGenericTypeDefinition() == typeof(Nullable<>);
+            }
         }
 
     public static partial class L
@@ -980,15 +985,14 @@ namespace LCore.Extensions
                 IEnumerable<Type> Types =
                     Assembly.GetCallingAssembly()
                         .GetTypes()
-                        .Where(
-                            Type => (AttributeTypes.Length == 0 ||
+                        .Select(Type => (AttributeTypes.Length == 0 ||
                                   AttributeTypes.Count(AttrType =>
                                     Type.IsType(AttrType) ||
                                     Type.HasInterface(AttrType) ||
                                     Type.HasAttribute(AttrType, true)) > 0)
                                 && Type.Namespace == Namespace);
 
-                return Types.ToArray();
+                return Types.Array();
                 }
 
             /// <summary>
@@ -999,13 +1003,13 @@ namespace LCore.Extensions
                 IEnumerable<Type> Types =
                     Assembly.GetAssembly(AssemblyType)
                         .GetTypes()
-                        .Where(Type => AttributeTypes.Count(
+                        .Select(Type => AttributeTypes.Count(
                             AttrType => Type.IsType(AttrType) ||
                                 Type.HasInterface(AttrType) ||
                                 Type.HasAttribute(AttrType, true)) > 0
                             && Type.Namespace == Namespace);
 
-                return Types.ToArray();
+                return Types.Array();
                 }
 
             #endregion
@@ -1034,7 +1038,7 @@ namespace LCore.Extensions
                     var TypeCursor = typeof(T);
                     while (TypeCursor != null)
                         {
-                        var TopLevelMember = typeof(T).GetMember(Out.Name).FirstOrDefault();
+                        var TopLevelMember = typeof(T).GetMember(Out.Name).First();
 
                         if (TopLevelMember != null)
                             {
@@ -1094,7 +1098,7 @@ namespace LCore.Extensions
                 {
                 return typeof(T).GetMember(ConstantName,
                     BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Static)
-                    .FirstOrDefault();
+                    .First();
                 }
 
             /// <summary>
@@ -1103,7 +1107,7 @@ namespace LCore.Extensions
             /// </summary>
             public static EventInfo Event<T>(string EventName)
                 {
-                var Out = (EventInfo)typeof(T).GetMember(EventName).FirstOrDefault();
+                var Out = (EventInfo)typeof(T).GetMember(EventName).First();
 
                 if (Out != null)
                     {

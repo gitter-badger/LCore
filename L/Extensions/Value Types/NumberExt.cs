@@ -1236,7 +1236,7 @@ namespace LCore.Extensions
                 if (Exponent == 0)
                     return Out;
 
-                Out = Out.Substring(0, DotIndex) + Out.Substring(DotIndex + 1);
+                Out = Out.Sub(0, DotIndex) + Out.Sub(DotIndex + 1);
 
                 DotIndex += (int)Exponent;
 

@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using LCore.Extensions;
 
 namespace LMVC.Models
     {
@@ -35,7 +36,7 @@ namespace LMVC.Models
                     if (LineIndex - InIndex <= 0)
                         return "";
 
-                    string FullFile = this.FullDetails.Substring(InIndex, LineIndex - InIndex);
+                    string FullFile = this.FullDetails.Sub(InIndex, LineIndex - InIndex);
 
                     return FullFile.Substring(FullFile.LastIndexOf('\\') + 1);
                     }
@@ -58,7 +59,7 @@ namespace LMVC.Models
                     int LineIndex = InIndex + this.FullDetails.Substring(InIndex).IndexOf(":line ") + 6;
 
                     string Line = this.FullDetails.Substring(LineIndex);
-                    Line = Line.Substring(0, Line.IndexOf(' '));
+                    Line = Line.Sub(0, Line.IndexOf(' '));
 
                     int Out;
 
@@ -89,10 +90,10 @@ namespace LMVC.Models
                     if (InIndex - AtIndex <= 0)
                         return "";
 
-                    string Function = this.FullDetails.Substring(AtIndex, InIndex - AtIndex);
+                    string Function = this.FullDetails.Sub(AtIndex, InIndex - AtIndex);
 
-                    Function = Function.Substring(Function.LastIndexOf('.') + 1);
-                    Function = Function.Substring(0, Function.IndexOf('('));
+                    Function = Function.Sub(Function.LastIndexOf('.') + 1);
+                    Function = Function.Sub(0, Function.IndexOf('('));
 
                     return Function;
                     }

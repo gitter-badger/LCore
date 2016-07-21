@@ -105,8 +105,8 @@ namespace LCore.Extensions
                 MTime += MDate.Second.ToString();
                 }
 
-            string Str = Date.DayOfWeek.ToString().Substring(0, 3);
-            Str += $", {Day} {Month.Substring(0, 3)}";
+            string Str = Date.DayOfWeek.ToString().Sub(0, 3);
+            Str += $", {Day} {Month.Sub(0, 3)}";
             Str += $" {Date.Year} {MTime} GMT";
             return Str;
             }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using LCore.Extensions;
 using System.ComponentModel.DataAnnotations;
@@ -54,7 +53,7 @@ namespace LMVC.Extensions
 
         public static string GetID(this IModel Model)
             {
-            var KeyProperty = Model.Properties().FirstOrDefault(Prop => Prop.HasAttribute<KeyAttribute>(true));
+            var KeyProperty = Model.Properties().First(Prop => Prop.HasAttribute<KeyAttribute>(true));
 
             if (KeyProperty != null)
                 {
@@ -69,7 +68,7 @@ namespace LMVC.Extensions
 
         public static bool HasID(this IModel Model)
             {
-            string KeyField = Model.Properties().FirstOrDefault(Prop => Prop.HasAttribute<KeyAttribute>(true))?.PropertyName;
+            string KeyField = Model.Properties().First(Prop => Prop.HasAttribute<KeyAttribute>(true))?.PropertyName;
 
             var ID = Model.GetProperty(KeyField);
 
@@ -109,7 +108,7 @@ namespace LMVC.Extensions
             {
             string[] Lines = CSVData.Lines();
 
-            List<string[]> CSV = Lines.Select(Line => Line.SplitWithQuotes(',').Array()).ToList();
+            List<string[]> CSV = Lines.Convert(Line => Line.SplitWithQuotes(',').Array()).List();
 
             string[][] CSVArray = CSV.Array();
 
@@ -237,8 +236,11 @@ namespace LMVC.Extensions
             {
             ModelMetadata[] ModelMeta = Type.Meta().Properties.Array();
 
-            List<string> Out = (from Meta in ModelMeta where !Meta.HasAttribute<FieldDisableExportAttribute>()
-                                select Meta.HasAttribute<FieldExportHeaderAttribute>() ? Meta.GetAttribute<FieldExportHeaderAttribute>().HeaderText : Meta.PropertyName).ToList();
+            List<string> Out = ModelMeta
+                .Select(Meta => !Meta.HasAttribute<FieldDisableExportAttribute>())
+                .Convert(Meta => Meta.HasAttribute<FieldExportHeaderAttribute>()
+                    ? Meta.GetAttribute<FieldExportHeaderAttribute>().HeaderText
+                    : Meta.PropertyName).List();
 
             return Out.Array();
             }

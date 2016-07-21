@@ -50,7 +50,7 @@ namespace LMVC.Controllers
 
         public const int DefaultTableTextLength = 50;
 
-        public const bool GlobalSearchAssumeStars = false;
+        protected const bool GlobalSearchAssumeStars = false;
 
         public const int DefaultRowsPerPage = 20;
 
@@ -178,7 +178,7 @@ namespace LMVC.Controllers
     public class SingularityControllerHelper<T> : SingularityControllerHelper
         where T : class, IModel
         {
-        public ManageController<T> Owner { get; set; }
+        public ManageController<T> Owner { get; }
 
         public SingularityControllerHelper(ManageController<T> Owner)
             {
@@ -300,7 +300,9 @@ namespace LMVC.Controllers
                     var Type = typeof(T).Meta(SortTerm).ModelType;
                     var Display = Type.GetAttribute<DisplayColumnAttribute>(false);
 
-                    SortTerm = Display != null ? $"{SortTerm}.{Display.SortColumn}" : $"{SortTerm}.{Enumerable.First(Type.Meta().Properties).PropertyName}";
+                    SortTerm = Display != null 
+                        ? $"{SortTerm}.{Display.SortColumn}" 
+                        : $"{SortTerm}.{Type.Meta().Properties.First().PropertyName}";
                     }
 
                 Out = SortDirection == SortDirection.Ascending ?

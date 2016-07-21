@@ -1,11 +1,11 @@
 /// <reference path="singularity-core.ts"/>
-var singFunction = singExt.addModule(new sing.Module("Function", Function));
+var singFunction = singExt.addModule(new sing.Module('Function', Function));
 singFunction.glyphIcon = '&#xe019;';
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Function Extensions
 //
-singFunction.method('fn_try', FunctionTry, {
+singFunction.method('fnTry', functionTry, {
     summary: null,
     parameters: null,
     returns: '',
@@ -16,16 +16,16 @@ singFunction.method('fn_try', FunctionTry, {
         ext.addCustomTest(function () {
             (function () {
                 throw 'fail';
-            }).fn_try()();
+            }).fnTry()();
         });
-    },
+    }
 });
-function FunctionTry() {
+function functionTry() {
     var source = this;
     // Redirects to catch with no catchFunction
-    return source.fn_catch();
+    return source.fnCatch();
 }
-singFunction.method('fn_catch', FunctionCatch, {
+singFunction.method('fnCatch', functionCatch, {
     summary: null,
     parameters: null,
     returns: '',
@@ -37,15 +37,15 @@ singFunction.method('fn_catch', FunctionCatch, {
             var test = '';
             (function () {
                 throw 'fail';
-            }).fn_catch(function (ex) {
+            }).fnCatch(function (ex) {
                 test = ex;
             })();
             if (test != 'fail')
                 return 'failed';
         });
-    },
+    }
 });
-function FunctionCatch(catchFunction, logFailure) {
+function functionCatch(catchFunction, logFailure) {
     if (logFailure === void 0) { logFailure = false; }
     var source = this;
     return function () {
@@ -61,19 +61,20 @@ function FunctionCatch(catchFunction, logFailure) {
             if (catchFunction)
                 return catchFunction.apply(this, [ex].concat(arguments));
         }
+        // ReSharper disable once UsageOfPossiblyUnassignedValue
         return result;
     };
 }
-singFunction.method('fn_log', FunctionLog, {
+singFunction.method('fnLog', functionLog, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: Function,
     examples: null,
     manuallyTested: true,
-    glyphIcon: '&#xe105;',
+    glyphIcon: '&#xe105;'
 });
-function FunctionLog(logAttempt, logSuccess, logFailure) {
+function functionLog(logAttempt, logSuccess, logFailure) {
     if (logAttempt === void 0) { logAttempt = true; }
     if (logSuccess === void 0) { logSuccess = true; }
     if (logFailure === void 0) { logFailure = true; }
@@ -81,11 +82,11 @@ function FunctionLog(logAttempt, logSuccess, logFailure) {
     return function () {
         try {
             if (logAttempt) {
-                log(['Attempting: ', thisFunction.name, arguments, result]);
+                log(['Attempting: ', thisFunction.name, arguments]);
             }
             var result = thisFunction.apply(this, arguments);
             if (logSuccess) {
-                log(['Completed: ' + thisFunction.name, arguments, result]);
+                log([("Completed: " + thisFunction.name), arguments, result]);
             }
             return result;
         }
@@ -98,44 +99,44 @@ function FunctionLog(logAttempt, logSuccess, logFailure) {
         }
     };
 }
-singFunction.method('fn_count', FunctionCount, {
+singFunction.method('fnCount', functionCount, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: Function,
     glyphIcon: '&#xe141;',
-    examples: null,
+    examples: null
 });
-function FunctionCount(logFailure) {
+function functionCount(logFailure) {
     if (logFailure === void 0) { logFailure = false; }
     var source = this;
     var functionCallCount = 0;
     return function () {
         try {
             var result = source.apply(this, arguments);
-            log([source.name, 'count:' + functionCallCount]);
+            log([source.name, ("count:" + functionCallCount)]);
             log([arguments, result]);
             return result;
         }
         catch (ex) {
             if (logFailure) {
-                log(['FAILED', source.name, ex, 'count:' + functionCallCount]);
+                log(['FAILED', source.name, ex, ("count:" + functionCallCount)]);
                 log([arguments]);
             }
             throw ex;
         }
     };
 }
-singFunction.method('fn_cache', FunctionCache, {
+singFunction.method('fnCache', functionCache, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: Function,
     examples: null,
     glyphIcon: '&#xe121;',
-    manuallyTested: true,
+    manuallyTested: true
 });
-function FunctionCache(uniqueCacheID, expiresAfter) {
+function functionCache(uniqueCacheID, expiresAfter) {
     if (expiresAfter === void 0) { expiresAfter = 0; }
     var source = this;
     var cacheKeyLimit = 300;
@@ -157,12 +158,13 @@ function FunctionCache(uniqueCacheID, expiresAfter) {
         if (!cache[uniqueCacheID])
             cache[uniqueCacheID] = {};
         var thisCache = cache[uniqueCacheID];
-        var argStr = $.toStr(thisCaller) + '|||||||' + $.toStr(items);
+        var argStr = objectToStr(thisCaller) + "|||||||" + objectToStr(items);
         if (argStr.length > cacheKeyLimit) {
             return source.apply(thisCaller, items);
         }
         else {
-            if (thisCache[argStr] != undefined && thisCache[argStr] != null) {
+            if (thisCache[argStr] != undefined &&
+                thisCache[argStr] != null) {
                 if (thisCache[argStr].expires < (new Date()).valueOf()) {
                     // Expired
                     thisCache[argStr] = {};
@@ -182,7 +184,7 @@ function FunctionCache(uniqueCacheID, expiresAfter) {
         }
     };
 }
-singFunction.method('fn_or', FunctionOR, {
+singFunction.method('fnOr', functionOR, {
     summary: null,
     parameters: null,
     returns: '',
@@ -191,17 +193,13 @@ singFunction.method('fn_or', FunctionOR, {
     glyphIcon: '&#xe110;',
     tests: function (ext) {
         ext.addCustomTest(function () {
-            var fn_test = (function (a) {
-                return a > 5;
-            }).fn_or((function (a) {
-                return a < 0;
-            }));
-            if (!fn_test(-50) || !fn_test(50) || fn_test(2))
+            var fnTest = (function (a) { return (a > 5); }).fnOR((function (a) { return (a < 0); }));
+            if (!fnTest(-50) || !fnTest(50) || fnTest(2))
                 return 'failed';
         });
-    },
+    }
 });
-function FunctionOR(orFunc) {
+function functionOR(orFunc) {
     var source = this;
     return function () {
         var result1 = source.apply(this, arguments);
@@ -209,7 +207,7 @@ function FunctionOR(orFunc) {
         return result1 || result2;
     };
 }
-singFunction.method('fn_if', FunctionIf, {
+singFunction.method('fnIf', functionIf, {
     summary: null,
     parameters: null,
     returns: '',
@@ -219,23 +217,21 @@ singFunction.method('fn_if', FunctionIf, {
     tests: function (ext) {
         ext.addCustomTest(function () {
             var a = 0;
-            var fn_test = (function () {
+            var fnTest = (function () {
                 a++;
-            }).fn_if((function (a) {
-                return a == 'GO';
-            }));
-            fn_test('NO');
+            }).fnIf((function (a) { return (a == 'GO'); }));
+            fnTest('NO');
             if (a != 0)
                 return 'failed';
-            fn_test('GO');
-            fn_test('GO');
-            fn_test('GO');
+            fnTest('GO');
+            fnTest('GO');
+            fnTest('GO');
             if (a != 3)
                 return 'failed';
         });
-    },
+    }
 });
-function FunctionIf(ifFunc) {
+function functionIf(ifFunc) {
     var srcThis = this;
     return function () {
         var items = [];
@@ -247,7 +243,7 @@ function FunctionIf(ifFunc) {
         }
     };
 }
-singFunction.method('fn_unless', FunctionUnless, {
+singFunction.method('fnUnless', functionUnless, {
     summary: null,
     parameters: null,
     returns: '',
@@ -257,23 +253,21 @@ singFunction.method('fn_unless', FunctionUnless, {
     tests: function (ext) {
         ext.addCustomTest(function () {
             var a = 0;
-            var fn_test = (function () {
+            var fnTest = (function () {
                 a++;
-            }).fn_unless((function (a) {
-                return a == 'NO';
-            }));
-            fn_test('NO');
+            }).fnUnless((function (a) { return (a == 'NO'); }));
+            fnTest('NO');
             if (a != 0)
                 return 'failed';
-            fn_test('GO');
-            fn_test('GO');
-            fn_test('GO');
+            fnTest('GO');
+            fnTest('GO');
+            fnTest('GO');
             if (a != 3)
                 return 'failed';
         });
-    },
+    }
 });
-function FunctionUnless(ifFunc) {
+function functionUnless(ifFunc) {
     var srcThis = this;
     return function () {
         var items = [];
@@ -285,7 +279,7 @@ function FunctionUnless(ifFunc) {
         }
     };
 }
-singFunction.method('fn_then', FunctionThen, {
+singFunction.method('fnThen', functionThen, {
     summary: null,
     parameters: null,
     returns: '',
@@ -326,9 +320,9 @@ singFunction.method('fn_then', FunctionThen, {
                 return 'failed';
         });
         */
-    },
+    }
 });
-function FunctionThen(thenFunc) {
+function functionThen(thenFunc) {
     var srcThis = this;
     return function () {
         var items = [];
@@ -344,7 +338,7 @@ function FunctionThen(thenFunc) {
         return out;
     };
 }
-singFunction.method('fn_repeat', FunctionRepeat, {
+singFunction.method('fnRepeat', functionRepeat, {
     summary: null,
     parameters: null,
     returns: '',
@@ -383,9 +377,10 @@ singFunction.method('fn_repeat', FunctionRepeat, {
                 return 'failed';
         });
         */
-    },
+    }
 });
-function FunctionRepeat(repeatOver) {
+function functionRepeat(repeatOver) {
+    var _this = this;
     var srcThis = this;
     if ($.isFunction(repeatOver)) {
         return function () {
@@ -395,7 +390,7 @@ function FunctionRepeat(repeatOver) {
             }
             var out = [];
             var result = repeatOver.apply(this, items);
-            while (result != null && result != undefined) {
+            while (result != null) {
                 out.push(result);
                 result = repeatOver.apply(this, items);
             }
@@ -403,13 +398,7 @@ function FunctionRepeat(repeatOver) {
         };
     }
     if ($.isNumber(repeatOver)) {
-        return function () {
-            var items = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                items[_i - 0] = arguments[_i];
-            }
-            return repeatOver.timesDo(srcThis);
-        };
+        return function () { return repeatOver.timesDo(_this); };
     }
     repeatOver = $.toArray(repeatOver);
     return function () {
@@ -418,17 +407,20 @@ function FunctionRepeat(repeatOver) {
             items[_i - 0] = arguments[_i];
         }
         var out = [];
-        for (var repeat in repeatOver) {
-            var args = items;
-            args.push(repeat);
-            var result = srcThis.apply(this, items);
-            if (result != null && result != undefined)
-                out.push(result);
+        var array = repeatOver;
+        for (var repeat in array) {
+            if ((array).hasOwnProperty(repeat)) {
+                var args = items;
+                args.push(repeat);
+                var result = srcThis.apply(this, items);
+                if (result != null)
+                    out.push(result);
+            }
         }
         return out;
     };
 }
-singFunction.method('fn_while', FunctionWhile, {
+singFunction.method('fnWhile', functionWhile, {
     summary: null,
     parameters: null,
     returns: '',
@@ -436,9 +428,9 @@ singFunction.method('fn_while', FunctionWhile, {
     examples: null,
     glyphIcon: '&#xe030;',
     tests: function (ext) {
-    },
+    }
 });
-function FunctionWhile(condition) {
+function functionWhile(condition) {
     return function () {
         var items = [];
         for (var _i = 0; _i < arguments.length; _i++) {
@@ -447,7 +439,7 @@ function FunctionWhile(condition) {
         return this.fn_repeat(condition).apply(this, items);
     };
 }
-singFunction.method('fn_retry', FunctionRetry, {
+singFunction.method('fnRetry', functionRetry, {
     summary: null,
     parameters: null,
     returns: '',
@@ -455,9 +447,9 @@ singFunction.method('fn_retry', FunctionRetry, {
     examples: null,
     glyphIcon: '&#xe031;',
     tests: function (ext) {
-    },
+    }
 });
-function FunctionRetry(times) {
+function functionRetry(times) {
     if (times === void 0) { times = 1; }
     var srcThis = this;
     return function () {
@@ -477,10 +469,10 @@ function FunctionRetry(times) {
                 attempts++;
             }
         }
-        throw 'Failed ' + times + ' times with ' + exception;
+        throw "Failed " + times + " times with " + exception;
     };
 }
-singFunction.method('fn_time', FunctionTime, {
+singFunction.method('fnTime', functionTime, {
     summary: null,
     parameters: null,
     returns: '',
@@ -488,9 +480,9 @@ singFunction.method('fn_time', FunctionTime, {
     examples: null,
     glyphIcon: '&#x231b;',
     tests: function (ext) {
-    },
+    }
 });
-function FunctionTime() {
+function functionTime() {
     var srcThis = this;
     return function () {
         var items = [];
@@ -501,11 +493,11 @@ function FunctionTime() {
         srcThis.apply(this, items);
         var end = new Date().valueOf();
         var length = (end - start).max(0);
-        log('Completed: ' + srcThis.name + ' in ' + length + ' milliseconds');
+        log("Completed: " + srcThis.name + " in " + length + " milliseconds");
         return length;
     };
 }
-singFunction.method('fn_defer', FunctionDefer, {
+singFunction.method('fnDefer', functionDefer, {
     summary: null,
     parameters: null,
     returns: '',
@@ -514,9 +506,9 @@ singFunction.method('fn_defer', FunctionDefer, {
     glyphIcon: '&#xe234;',
     aliases: ['async'],
     tests: function (ext) {
-    },
+    }
 });
-function FunctionDefer(callback) {
+function functionDefer(callback) {
     var srcThis = this;
     return function () {
         var items = [];
@@ -524,13 +516,13 @@ function FunctionDefer(callback) {
             items[_i - 0] = arguments[_i];
         }
         setTimeout(function () {
-            var result = srcThis.apply(this, items);
+            var result = srcThis.apply(srcThis, items);
             if (callback)
                 callback(result);
         }, 1);
     };
 }
-singFunction.method('fn_delay', FunctionDelay, {
+singFunction.method('fnDelay', functionDelay, {
     summary: null,
     parameters: null,
     returns: '',
@@ -538,10 +530,9 @@ singFunction.method('fn_delay', FunctionDelay, {
     examples: null,
     glyphIcon: '&#xe234;',
     tests: function (ext) {
-    },
+    }
 });
-function FunctionDelay(delayMS, callback) {
-    var srcThis = this;
+function functionDelay(delayMS, callback) {
     delayMS = delayMS.max(1);
     return function () {
         var items = [];
@@ -549,13 +540,13 @@ function FunctionDelay(delayMS, callback) {
             items[_i - 0] = arguments[_i];
         }
         setTimeout(function () {
-            var result = srcThis.apply(this, items);
+            var result = this.apply(this, items);
             if (callback)
                 callback(result);
         }, delayMS);
     };
 }
-singFunction.method('fn_before', FunctionBefore, {
+singFunction.method('fnBefore', functionBefore, {
     summary: null,
     parameters: null,
     returns: '',
@@ -563,9 +554,9 @@ singFunction.method('fn_before', FunctionBefore, {
     examples: null,
     glyphIcon: '&#xe070;',
     tests: function (ext) {
-    },
+    }
 });
-function FunctionBefore(triggerFunc) {
+function functionBefore(triggerFunc) {
     var srcThis = this;
     return function () {
         var items = [];
@@ -577,7 +568,7 @@ function FunctionBefore(triggerFunc) {
         return result;
     };
 }
-singFunction.method('fn_after', FunctionAfter, {
+singFunction.method('fnAfter', functionAfter, {
     summary: null,
     parameters: null,
     returns: '',
@@ -585,9 +576,9 @@ singFunction.method('fn_after', FunctionAfter, {
     examples: null,
     glyphIcon: '&#xe076;',
     tests: function (ext) {
-    },
+    }
 });
-function FunctionAfter(triggerFunc) {
+function functionAfter(triggerFunc) {
     var srcThis = this;
     return function () {
         var items = [];
@@ -600,7 +591,7 @@ function FunctionAfter(triggerFunc) {
         return result;
     };
 }
-singFunction.method('fn_wrap', FunctionWrap, {
+singFunction.method('fnWrap', functionWrap, {
     summary: null,
     parameters: null,
     returns: '',
@@ -608,9 +599,9 @@ singFunction.method('fn_wrap', FunctionWrap, {
     examples: null,
     glyphIcon: '&#xe102;',
     tests: function (ext) {
-    },
+    }
 });
-function FunctionWrap(triggerFunc) {
+function functionWrap(triggerFunc) {
     var srcThis = this;
     return function () {
         var items = [];
@@ -624,7 +615,7 @@ function FunctionWrap(triggerFunc) {
         return result;
     };
 }
-singFunction.method('fn_trace', FunctionTrace, {
+singFunction.method('fnTrace', functionTrace, {
     summary: null,
     parameters: null,
     returns: '',
@@ -632,9 +623,9 @@ singFunction.method('fn_trace', FunctionTrace, {
     examples: null,
     glyphIcon: '&#xe105;',
     tests: function (ext) {
-    },
+    }
 });
-function FunctionTrace(traceStr) {
+function functionTrace(traceStr) {
     var srcThis = this;
     return function () {
         var items = [];
@@ -648,7 +639,7 @@ function FunctionTrace(traceStr) {
         return result;
     };
 }
-singFunction.method('fn_recurring', FunctionRecurring, {
+singFunction.method('fnRecurring', functionRecurring, {
     summary: null,
     parameters: null,
     returns: '',
@@ -656,9 +647,9 @@ singFunction.method('fn_recurring', FunctionRecurring, {
     examples: null,
     glyphIcon: '&#xe031;',
     tests: function (ext) {
-    },
+    }
 });
-function FunctionRecurring(intervalMS, breakCondition) {
+function functionRecurring(intervalMS, breakCondition) {
     var srcThis = this;
     var minimum = 10;
     var runs = 0;
@@ -666,7 +657,7 @@ function FunctionRecurring(intervalMS, breakCondition) {
     var setTimer = function (src, items) {
         if ($.isNumber(breakCondition) && breakCondition > 0 && runs >= breakCondition)
             return;
-        else if ($.isFunction(breakCondition) && breakCondition(items) == true)
+        else if ($.isFunction(breakCondition) && breakCondition(items))
             return;
         setTimeout(function () {
             setTimer(src, items);
@@ -683,7 +674,7 @@ function FunctionRecurring(intervalMS, breakCondition) {
         setTimer(src, items);
     };
 }
-singFunction.method('executeAll', ArrayExecuteAll, {
+singFunction.method('executeAll', arrayExecuteAll, {
     summary: null,
     parameters: null,
     returns: '',
@@ -691,26 +682,23 @@ singFunction.method('executeAll', ArrayExecuteAll, {
     examples: null,
     glyphIcon: '&#xe162;',
     tests: function (ext) {
-    },
+    }
 }, Array.prototype);
-function ArrayExecuteAll() {
+function arrayExecuteAll() {
+    var _this = this;
     var items = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         items[_i - 0] = arguments[_i];
     }
     if (!items.every($.isFunction))
         throw 'Not all items were functions';
-    var srcThis = this;
-    var out = [];
-    out = items.collect(function (item) {
-        return item.apply(srcThis, items);
-    });
+    var out = items.collect(function (item) { return item.apply(_this, items); });
     return out;
 }
-singFunction.method('fn_not', FunctionNot, {
-    glyphIcon: '&#xe126;',
+singFunction.method('fnNot', functionNot, {
+    glyphIcon: '&#xe126;'
 });
-function FunctionNot() {
+function functionNot() {
     var srcThis = this;
     return function () {
         var items = [];

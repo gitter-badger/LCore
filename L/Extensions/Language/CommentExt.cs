@@ -255,7 +255,7 @@ namespace LCore.Extensions
                         {
                         var Assem = Assembly.GetAssembly(Type);
 
-                        string ProjectFolder = AppContext.BaseDirectory;
+                        string ProjectFolder = AppDomain.CurrentDomain.BaseDirectory;
                         string DocFile = ProjectFolder;
 
                         DocFile = !DocFile.EndsWith("\\bin\\Debug") && !DocFile.EndsWith("\\bin\\Release")

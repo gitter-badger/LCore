@@ -1,25 +1,28 @@
 /// <reference path="singularity-core.ts"/>
 /// <reference path="singularity-string.ts"/>
+/// <reference path="singularity-html.ts"/>
+/// <reference path="singularity-jquery.ts"/>
 var singTemplates = singCore.addModule(new sing.Module('Templates', String));
 singTemplates.glyphIcon = '&#xe224;';
-singTemplates.method('templateInject', StringTemplateInject, {
+singTemplates.method('templateInject', stringTemplateInject, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: null,
     examples: null,
     tests: function (ext) {
-    },
+    }
 });
-function StringTemplateInject(obj, _context) {
+// ReSharper disable once InconsistentNaming
+function stringTemplateInject(obj, _context) {
     var out = this.toString();
     // Causes injection of data into all EMPTY <sing> tags.
     /*
-    var tagIndex = out.indexOf('<' + sing.constants.htmlElement.Templates.Element + '>');
+    var tagIndex = out.indexOf(`<${sing.constants.htmlElement.Templates.Element}>`);
     while (tagIndex >= 0) {
-        var tagIndexClose = out.indexOf('</' + sing.constants.htmlElement.Templates.Element + '>');
-        var len = ('<' + sing.constants.htmlElement.Templates.Element + '>').length;
-        var len2 = ('</' + sing.constants.htmlElement.Templates.Element + '>').length;
+        var tagIndexClose = out.indexOf(`</${sing.constants.htmlElement.Templates.Element}>`);
+        var len = (`<${sing.constants.htmlElement.Templates.Element}>`).length;
+        var len2 = (`</${sing.constants.htmlElement.Templates.Element}>`).length;
 
         if (tagIndex > 0) {
             out = out.substr(0, tagIndex) + sing.constants.TemplatePatternStart +
@@ -33,7 +36,7 @@ function StringTemplateInject(obj, _context) {
             sing.constants.TemplatePatternEnd +
             + out.substr(tagIndexClose + len2);
         }
-        tagIndex = out.indexOf('<' + sing.constants.htmlElement.Templates.Element + '>');
+        tagIndex = out.indexOf(`<${sing.constants.htmlElement.Templates.Element}>`);
     }
     */
     var matches = out.match(sing.constants.TemplatePatternRegExp) || [];
@@ -42,14 +45,15 @@ function StringTemplateInject(obj, _context) {
         // WARNING this can cause problems if a string ' with ' is used.
         if (key.contains(' with ')) {
             // sing-fill template. ignore.
-            out = out.replace(sing.constants.TemplatePatternStart + key + sing.constants.TemplatePatternEnd, '<<' + key + '>>');
+            out = out.replace(sing.constants.TemplatePatternStart + key + sing.constants.TemplatePatternEnd, "<<" + key + ">>");
             matches = out.match(sing.constants.TemplatePatternRegExp) || [];
             continue;
         }
-        var value = null;
+        var value = void 0;
+        value = null;
         value = sing.resolve(key, obj, _context);
-        if (value == null)
-            throw 'could not find key \'' + key + '\'';
+        if (!$.isDefined(value))
+            value = '';
         var valueTemplate = sing.getTemplateName(value);
         if (valueTemplate != null) {
             var valueTemplateHtml = $.getTemplate(valueTemplate);
@@ -58,7 +62,7 @@ function StringTemplateInject(obj, _context) {
                 return valueTemplateStr;
             }
         }
-        if (value != null && value != undefined) {
+        if (value != null) {
             out = out.replace(sing.constants.TemplatePatternStart + key + sing.constants.TemplatePatternEnd, value.toString());
         }
         else {
@@ -68,16 +72,16 @@ function StringTemplateInject(obj, _context) {
     }
     return out;
 }
-singTemplates.method('templateExtract', StringTemplateExtract, {
+singTemplates.method('templateExtract', stringTemplateExtract, {
     summary: null,
     parameters: null,
     returns: '',
     returnType: null,
     examples: null,
     tests: function (ext) {
-    },
+    }
 });
-function StringTemplateExtract(template) {
+function stringTemplateExtract(template) {
     var src = this;
     var templateValues = [];
     var templateKeys = [];
@@ -125,7 +129,7 @@ function StringTemplateExtract(template) {
     return out;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////
-singTemplates.method('getTemplate', ObjectGetTemplate, {
+singTemplates.method('getTemplate', objectGetTemplate, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -133,9 +137,9 @@ singTemplates.method('getTemplate', ObjectGetTemplate, {
     returnType: '',
     examples: null,
     tests: function (ext) {
-    },
+    }
 }, $);
-function ObjectGetTemplate(name, data) {
+function objectGetTemplate(name, data) {
     var template = sing.templates[name];
     if (!template || template.length == 0)
         return null;
@@ -145,15 +149,15 @@ function ObjectGetTemplate(name, data) {
             return template.attr(sing.constants.htmlAttr.Templates.TemplateData, 'true').fillTemplate(data);
         }
         catch (ex) {
-            return $('<error>' + ex + '</error>');
+            return $("<error>" + ex + "</error>");
         }
     }
     return template;
 }
-singTemplates.method('getTemplateFor', ObjectGetTemplateFor, {}, sing);
-function ObjectGetTemplateFor(obj) {
+singTemplates.method('getTemplateFor', objectGetTemplateFor, {}, sing);
+function objectGetTemplateFor() {
 }
-singTemplates.method('fillTemplate', JQueryFillTemplate, {
+singTemplates.method('fillTemplate', jQueryFillTemplate, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -161,11 +165,12 @@ singTemplates.method('fillTemplate', JQueryFillTemplate, {
     returnType: '',
     examples: null,
     tests: function (ext) {
-    },
+    }
 }, $.fn);
 var deferred = 0;
 var deferredDone = 0;
-function JQueryFillTemplate(data, _context, forceFill) {
+// ReSharper disable once InconsistentNaming
+function jQueryFillTemplate(data, _context, forceFill) {
     if (forceFill === void 0) { forceFill = false; }
     _context = sing.loadContext(_context);
     var template = (this);
@@ -181,7 +186,7 @@ function JQueryFillTemplate(data, _context, forceFill) {
         _context = $.extend(true, {}, _context);
         (function () {
             try {
-                var deferTemplate = $('*[' + sing.constants.htmlAttr.Templates.DeferID + '=' + thisDeferredID + ']');
+                var deferTemplate = $("*[" + sing.constants.htmlAttr.Templates.DeferID + "=" + thisDeferredID + "]");
                 var newTemplate = $(tempHtml);
                 deferTemplate.before(newTemplate);
                 deferTemplate.remove();
@@ -191,22 +196,23 @@ function JQueryFillTemplate(data, _context, forceFill) {
             catch (ex) {
                 error(ex);
             }
-        }).fn_defer()();
+        }).fnDefer()();
         return;
     }
-    var loops = template.find('*[' + sing.constants.htmlAttr.Templates.Loop + ']');
+    var loops = template.find("*[" + sing.constants.htmlAttr.Templates.Loop + "]");
     loops.each(function () {
         $(this).singLoop(data, _context, true);
     });
-    var ifs = template.find('*[' + sing.constants.htmlAttr.Templates.If + ']');
+    var ifs = template.find("*[" + sing.constants.htmlAttr.Templates.If + "]");
     ifs.each(function () {
         $(this).singIf(data, _context, true);
     });
-    var fills = template.find('*[' + sing.constants.htmlAttr.Templates.Fill + ']');
+    var fills = template.find("*[" + sing.constants.htmlAttr.Templates.Fill + "]");
     fills.each(function () {
         $(this).singFill(data, _context, forceFill);
     });
-    if (template.attr(sing.constants.htmlAttr.Templates.Fill) && template.attr(sing.constants.htmlAttr.Templates.Fill).length > 0)
+    if (template.attr(sing.constants.htmlAttr.Templates.Fill) &&
+        template.attr(sing.constants.htmlAttr.Templates.Fill).length > 0)
         template.singFill(data, _context, forceFill);
     try {
         var html = template[0].outerHTML;
@@ -214,7 +220,7 @@ function JQueryFillTemplate(data, _context, forceFill) {
         template.replaceWith($(templateReplace));
     }
     catch (ex) {
-        JQueryTemplateError(ex, template, data, _context);
+        jQueryTemplateError(ex, template, data, _context);
     }
     // Removes all left over <sing> elements
     $(sing.constants.htmlElement.Templates.Element).each(function () {
@@ -228,7 +234,7 @@ function JQueryFillTemplate(data, _context, forceFill) {
         });
     }
 }
-singTemplates.method('singIf', JQueryPerformSingIf, {
+singTemplates.method('singIf', jQueryPerformSingIf, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -236,16 +242,16 @@ singTemplates.method('singIf', JQueryPerformSingIf, {
     returnType: '',
     examples: null,
     tests: function (ext) {
-    },
+    }
 }, $.fn);
-function JQueryPerformSingIf(data, _context, forceFill) {
-    if (forceFill === void 0) { forceFill = false; }
+// ReSharper disable once InconsistentNaming
+function jQueryPerformSingIf(data, _context) {
     _context = sing.loadContext(_context);
     var srcThis = this;
     // Don't perform if for elements within templates
-    var parent = srcThis.parent('*[' + sing.constants.htmlAttr.Templates.Template + ']');
+    var parent = srcThis.parent("*[" + sing.constants.htmlAttr.Templates.Template + "]");
     if (parent.length != 0 && parent.attr(sing.constants.htmlAttr.Templates.TemplateData) != 'true')
-        return;
+        return null;
     var mode = sing.constants.htmlAttr.Templates.If;
     var condition = '';
     if ($(this).hasAttr(sing.constants.htmlAttr.Templates.ElseIf)) {
@@ -282,18 +288,23 @@ function JQueryPerformSingIf(data, _context, forceFill) {
     srcThis.removeAttr(mode);
     var next = srcThis.next();
     if (srcThis.siblings().length > 0) {
-        next = next;
     }
-    if ($.isEmpty(sourceData) || sourceData === false || sourceData === 0 || sourceData == []) {
+    if ($.isEmpty(sourceData) ||
+        sourceData === false ||
+        sourceData === 0 ||
+        sourceData == []) {
         srcThis.remove();
         // Evaluate all subsequent else-if and else tags if the result is false.
-        if (next && next.length == 1 && (next.hasAttr(sing.constants.htmlAttr.Templates.ElseIf) || next.hasAttr(sing.constants.htmlAttr.Templates.Else))) {
+        if (next && next.length == 1 && (next.hasAttr(sing.constants.htmlAttr.Templates.ElseIf) ||
+            next.hasAttr(sing.constants.htmlAttr.Templates.Else))) {
             next.singIf(data, _context);
         }
         return false;
     }
     else {
-        while (next && next.length > 0 && (next.hasAttr(sing.constants.htmlAttr.Templates.ElseIf) || next.hasAttr(sing.constants.htmlAttr.Templates.Else))) {
+        // Remove all subsequent else-if and else tags if the result is true.
+        while (next && next.length > 0 && (next.hasAttr(sing.constants.htmlAttr.Templates.ElseIf) ||
+            next.hasAttr(sing.constants.htmlAttr.Templates.Else))) {
             var last = next;
             next = last.next();
             last.remove();
@@ -301,7 +312,7 @@ function JQueryPerformSingIf(data, _context, forceFill) {
         return true;
     }
 }
-singTemplates.method('singFill', JQueryPerformSingFill, {
+singTemplates.method('singFill', jQueryPerformSingFill, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -309,17 +320,18 @@ singTemplates.method('singFill', JQueryPerformSingFill, {
     returnType: '',
     examples: null,
     tests: function (ext) {
-    },
+    }
 }, $.fn);
-function JQueryPerformSingFill(data, _context, forceFill, fillInside) {
+// ReSharper disable once InconsistentNaming
+function jQueryPerformSingFill(data, _context, forceFill, fillInside) {
     if (forceFill === void 0) { forceFill = false; }
     if (fillInside === void 0) { fillInside = true; }
     _context = sing.loadContext(_context);
     var srcThis = this;
     // Don't perform fill for elements within inline templates
-    var parent = srcThis.parent('*[' + sing.constants.htmlAttr.Templates.Template + ']');
+    var parent = srcThis.parent("*[" + sing.constants.htmlAttr.Templates.Template + "]");
     if (parent.length != 0 && parent.attr(sing.constants.htmlAttr.Templates.TemplateData) != 'true')
-        return;
+        return null;
     var fillWith = srcThis.attr(sing.constants.htmlAttr.Templates.Fill);
     // srcThis.removeAttr(sing.constants.htmlAttr.Templates.Fill);
     // srcThis.attr(sing.constants.htmlAttr.Templates.Filled, fillWith)
@@ -330,20 +342,21 @@ function JQueryPerformSingFill(data, _context, forceFill, fillInside) {
     // No template - target self.
     var template = null;
     var source = '';
+    var fill;
     if (!fillWith.contains(' with ')) {
         template = srcThis;
         source = fillWith;
     }
     else {
-        var fill = fillWith.split(' with ')[0].trim();
+        fill = fillWith.split(' with ')[0].trim();
         source = fillWith.split(' with ')[1].trim();
-        //        console.log('SING-FILL ' + fill + ' WITH ' + source);
+        //       console.log(`SING-FILL ${fill} WITH ${source}`);
         template = $.getTemplate(fill);
         srcThis.html('');
         srcThis.prepend(template);
     }
     if (!template || template.length == 0)
-        throw 'could not find template ' + fill;
+        throw "could not find template " + fill;
     var sourceData;
     if (source.contains(' as ')) {
         var after = source.after(' as ').trim();
@@ -358,26 +371,72 @@ function JQueryPerformSingFill(data, _context, forceFill, fillInside) {
         sourceData = sing.resolve(source, data, _context);
     }
     if (!$.isDefined(sourceData))
-        throw 'could not find data ' + source;
+        throw "could not find data " + source;
     template.removeAttr(sing.constants.htmlAttr.Templates.Template);
     srcThis.removeAttr(sing.constants.htmlAttr.Templates.Fill);
     srcThis.attr(sing.constants.htmlAttr.Templates.DataType, $.typeName(sourceData));
     if (fill)
         srcThis.attr(sing.constants.htmlAttr.Templates.TemplateName, fill.toSlug());
+    var content = srcThis.children("." + sing.constants.htmlAttr.Templates.Content + ", " + sing.constants.htmlElement.Templates.Element + "[" + sing.constants.htmlAttr.Templates.ShortContent + "]");
+    if (content.length > 0) {
+        content.each(function (c) {
+            // Load the content name from the attribute
+            var contentName = $(c).attr(sing.constants.htmlAttr.Templates.Content) || $(c).attr(sing.constants.htmlAttr.Templates.ShortContent);
+            var contentCode = $(c).outerHtml();
+            var contentNamed = !$.isEmpty(contentName);
+            // Set the content to the html
+            _context['content'] = sourceData['content'] || {};
+            if (contentNamed) {
+                // Add unnamed content to the content.unnamed object
+                _context['content']['unnamed'] = sourceData['content']['unnamed'] || [];
+                _context['content']['unnamed'].push(contentCode);
+            }
+            else {
+                if (_context['content'][contentName] == null) {
+                    // Add named content to the content object
+                    _context['content'][contentName] = contentCode;
+                }
+                else if ($.isArray(sourceData['content'][contentName])) {
+                    // Add named content to the existing content object array
+                    _context['content'][contentName].push(contentCode);
+                }
+                else {
+                    // Add named content to a new content object array
+                    var temp = sourceData['content'][contentName];
+                    _context['content'][contentName] = [temp, contentCode];
+                }
+            }
+            $(c).remove();
+        });
+    }
+    var dataElements = srcThis.children("[" + sing.constants.htmlAttr.Templates.Data + "], " + sing.constants.htmlElement.Templates.Element + "[" + sing.constants.htmlAttr.Templates.ShortData + "]");
+    if (dataElements.length > 0) {
+        dataElements.each(function (d) {
+            var dataName = $(d).attr(sing.constants.htmlAttr.Templates.Content) || $(d).attr(sing.constants.htmlAttr.Templates.ShortContent);
+            var contentValue = $(d).innerHtml();
+            _context[dataName] = contentValue;
+            $(d).remove();
+        });
+    }
+    var inner = srcThis.innerHtml().trim();
+    // If no content is supplied and there is still inner code, use it as the content.
+    if (!$.isEmpty((inner))) {
+        _context['content'] = inner;
+    }
     if (fillInside) {
         try {
             // Clear data so that sub-templates will have access to their own data sets.
             _context[sing.constants.specialTokens.Data] = undefined;
             // srcThis.fillTemplate(sourceData, _context, forceFill);
-            FillTemplateTraverse(srcThis, srcThis, sourceData, _context);
+            fillTemplateTraverse(srcThis, srcThis, sourceData, _context);
         }
         catch (ex) {
-            JQueryTemplateError(ex, srcThis, data, _context);
+            jQueryTemplateError(ex, srcThis, data, _context);
         }
     }
     return srcThis;
 }
-singTemplates.method('singLoop', JQueryPerformSingLoop, {
+singTemplates.method('singLoop', jQueryPerformSingLoop, {
     summary: null,
     parameters: null,
     validateInput: false,
@@ -385,9 +444,10 @@ singTemplates.method('singLoop', JQueryPerformSingLoop, {
     returnType: '',
     examples: null,
     tests: function (ext) {
-    },
+    }
 }, $.fn);
-function JQueryPerformSingLoop(data, _context, forceFill, fillInside) {
+// ReSharper disable once InconsistentNaming
+function jQueryPerformSingLoop(data, _context, forceFill, fillInside) {
     if (forceFill === void 0) { forceFill = false; }
     if (fillInside === void 0) { fillInside = true; }
     _context = sing.loadContext(_context);
@@ -409,13 +469,14 @@ function JQueryPerformSingLoop(data, _context, forceFill, fillInside) {
         }
     }
     var loopData;
+    var ex;
     try {
         loopData = sing.resolve(loopKey, data, _context);
     }
     catch (ex) {
         loopData = [];
     }
-    // console.log('SING-LOOP ' + itemKey + ' IN ' + loopKey);
+    //console.log(`SING-LOOP ${itemKey} IN ${loopKey}`);
     if (loopData == null || loopData.length == 0) {
     }
     else {
@@ -427,7 +488,7 @@ function JQueryPerformSingLoop(data, _context, forceFill, fillInside) {
         if ($.isArray(loopData)) {
             _context[itemKey + sing.constants.specialTokens.Length] = loopData.length;
             for (var i = 0; i < loopData.length; i++) {
-                // console.log('SING-LOOP ' + (i) + ' ' + itemKey + ' IN ' + loopKey);
+                //console.log(`SING-LOOP ${i} ${itemKey} IN ${loopKey}`);
                 var loopClone;
                 if (loop.attr(sing.constants.htmlAttr.Templates.LoopInner) == 'true') {
                     loopClone = $(loop[0].innerHTML);
@@ -451,10 +512,10 @@ function JQueryPerformSingLoop(data, _context, forceFill, fillInside) {
                 if (fillInside) {
                     try {
                         // loopClone.fillTemplate(data, _context, forceFill);
-                        FillTemplateTraverse(loopClone, loop, data, _context);
+                        fillTemplateTraverse(loopClone, loop, data, _context);
                     }
                     catch (ex) {
-                        JQueryTemplateError(ex, loopClone, data, _context);
+                        jQueryTemplateError(ex, loopClone, data, _context);
                     }
                 }
             }
@@ -466,16 +527,15 @@ sing.loadTemplate = function (url, callback) {
     if ($.isArray(url)) {
         for (var i = 0; i < url.length; i++) {
             var last = i == url.length - 1;
-            sing.loadTemplate(url[i], last ? callback : function (ms) {
-            });
+            sing.loadTemplate(url[i], last ? callback : function () { });
         }
     }
     else {
         var start = new Date().valueOf();
         $.ajax(url, {
             complete: function (data) {
-                var templates = $('<div>' + data.responseText + '</div>');
-                templates.find('*[' + sing.constants.htmlAttr.Templates.Template + ']').each(function () {
+                var templates = $("<div>" + data.responseText + "</div>");
+                templates.find("*[" + sing.constants.htmlAttr.Templates.Template + "]").each(function () {
                     if ($(this).attr(sing.constants.htmlAttr.Templates.TemplateData) == 'true')
                         return;
                     var name = $(this).attr(sing.constants.htmlAttr.Templates.Template);
@@ -492,7 +552,7 @@ sing.loadTemplate = function (url, callback) {
 };
 $().init(function () {
     // Load all inline templates on jQuery init
-    $('*[' + sing.constants.htmlAttr.Templates.Template + ']').each(function () {
+    $("*[" + sing.constants.htmlAttr.Templates.Template + "]").each(function () {
         var thisElement = $(this);
         if (thisElement.attr(sing.constants.htmlAttr.Templates.TemplateData) == 'true')
             return;
@@ -505,31 +565,34 @@ $().init(function () {
 sing.initTemplates = function () {
     $(sing.constants.htmlElement.Templates.Element).each(function () {
         var thisElement = this;
-        // Initialize inline elements (shorthand)
-        if (thisElement.hasAttr(sing.constants.htmlAttr.Templates.ShortIf)) {
-            thisElement.attr(sing.constants.htmlAttr.Templates.If, thisElement.attr(sing.constants.htmlAttr.Templates.ShortIf));
-            thisElement.removeAttr(sing.constants.htmlAttr.Templates.ShortIf);
-        }
-        if (thisElement.hasAttr(sing.constants.htmlAttr.Templates.ShortElseIf)) {
-            thisElement.attr(sing.constants.htmlAttr.Templates.ElseIf, thisElement.attr(sing.constants.htmlAttr.Templates.ShortElseIf));
-            thisElement.removeAttr(sing.constants.htmlAttr.Templates.ShortElseIf);
-        }
-        if (thisElement.hasAttr(sing.constants.htmlAttr.Templates.ShortElse)) {
-            thisElement.attr(sing.constants.htmlAttr.Templates.Else, thisElement.attr(sing.constants.htmlAttr.Templates.ShortElse));
-            thisElement.removeAttr(sing.constants.htmlAttr.Templates.ShortElse);
-        }
-        if (thisElement.hasAttr(sing.constants.htmlAttr.Templates.ShortLoop)) {
-            thisElement.attr(sing.constants.htmlAttr.Templates.Loop, thisElement.attr(sing.constants.htmlAttr.Templates.ShortLoop));
-            thisElement.removeAttr(sing.constants.htmlAttr.Templates.ShortLoop);
-        }
-        if (thisElement.hasAttr(sing.constants.htmlAttr.Templates.ShortFill)) {
-            thisElement.attr(sing.constants.htmlAttr.Templates.Fill, thisElement.attr(sing.constants.htmlAttr.Templates.ShortFill));
-            thisElement.removeAttr(sing.constants.htmlAttr.Templates.ShortFill);
+        // ReSharper disable once ConditionIsAlwaysConst
+        if (thisElement != null) {
+            // Initialize inline elements (shorthand)
+            if (thisElement.hasAttr(sing.constants.htmlAttr.Templates.ShortIf)) {
+                thisElement.attr(sing.constants.htmlAttr.Templates.If, thisElement.attr(sing.constants.htmlAttr.Templates.ShortIf));
+                thisElement.removeAttr(sing.constants.htmlAttr.Templates.ShortIf);
+            }
+            if (thisElement.hasAttr(sing.constants.htmlAttr.Templates.ShortElseIf)) {
+                thisElement.attr(sing.constants.htmlAttr.Templates.ElseIf, thisElement.attr(sing.constants.htmlAttr.Templates.ShortElseIf));
+                thisElement.removeAttr(sing.constants.htmlAttr.Templates.ShortElseIf);
+            }
+            if (thisElement.hasAttr(sing.constants.htmlAttr.Templates.ShortElse)) {
+                thisElement.attr(sing.constants.htmlAttr.Templates.Else, thisElement.attr(sing.constants.htmlAttr.Templates.ShortElse));
+                thisElement.removeAttr(sing.constants.htmlAttr.Templates.ShortElse);
+            }
+            if (thisElement.hasAttr(sing.constants.htmlAttr.Templates.ShortLoop)) {
+                thisElement.attr(sing.constants.htmlAttr.Templates.Loop, thisElement.attr(sing.constants.htmlAttr.Templates.ShortLoop));
+                thisElement.removeAttr(sing.constants.htmlAttr.Templates.ShortLoop);
+            }
+            if (thisElement.hasAttr(sing.constants.htmlAttr.Templates.ShortFill)) {
+                thisElement.attr(sing.constants.htmlAttr.Templates.Fill, thisElement.attr(sing.constants.htmlAttr.Templates.ShortFill));
+                thisElement.removeAttr(sing.constants.htmlAttr.Templates.ShortFill);
+            }
         }
     });
-    FillTemplateTraverse($('body'), $('body'), null, {});
+    fillTemplateTraverse($('body'), $('body'), null, {});
     /*
-    $('*[' + sing.constants.htmlAttr.Templates.If + ']').each(function () {
+    $(`*[${sing.constants.htmlAttr.Templates.If}]`).each(function () {
 
         try {
             $(this).hide();
@@ -543,7 +606,7 @@ sing.initTemplates = function () {
         }
     });
 
-    $('*[' + sing.constants.htmlAttr.Templates.Loop + ']').each(function () {
+    $(`*[${sing.constants.htmlAttr.Templates.Loop}]`).each(function () {
 
         try {
             $(this).hide();
@@ -557,7 +620,7 @@ sing.initTemplates = function () {
         }
     });
 
-    $('*[' + sing.constants.htmlAttr.Templates.Fill + ']').each(function () {
+    $(`*[${sing.constants.htmlAttr.Templates.Fill}]`).each(function () {
 
         try {
             $(this).singFill();
@@ -571,68 +634,79 @@ sing.initTemplates = function () {
     });
     */
 };
-function JQueryTemplateError(ex, target, data, _context) {
-    var SingTry = target.parents(sing.constants.htmlElement.Templates.Try);
-    if (SingTry == null || SingTry.length == 0) {
-        target.html('<' + sing.constants.htmlElement.Error + '>' + ex + '</' + sing.constants.htmlElement.Error + '>');
+// ReSharper disable once InconsistentNaming
+function jQueryTemplateError(ex, target, data, _context) {
+    var singTry = target.parents(sing.constants.htmlElement.Templates.Try);
+    if (singTry == null || singTry.length == 0) {
+        target.html("<" + sing.constants.htmlElement.Error + ">" + ex + "</" + sing.constants.htmlElement.Error + ">");
         console.log(ex);
     }
     else {
         target.hide();
-        var SingCatch = SingTry.next();
-        if (SingCatch != null && SingCatch.length > 0 && SingCatch[0].localName == sing.constants.htmlElement.Templates.Catch) {
+        var singCatch = singTry.next();
+        if (singCatch != null &&
+            singCatch.length > 0 &&
+            singCatch[0].localName == sing.constants.htmlElement.Templates.Catch) {
             _context['$ex'] = ex;
             // Removes the <sing-catch> element so the contents are shown.
-            SingCatch.replaceWith(SingCatch[0].innerHTML);
-            SingCatch.fillTemplate(data, _context, true);
-            SingCatch.show();
+            singCatch.replaceWith(singCatch[0].innerHTML);
+            singCatch.fillTemplate(data, _context, true);
+            singCatch.show();
         }
     }
 }
-function HtmlTraverse(target, action, root) {
+function htmlTraverse(target, action, root) {
     if (root === void 0) { root = target; }
-    if (target != null && target.children != null && target.children.length > 0) {
+    if (target != null &&
+        target.children != null &&
+        target.children.length > 0) {
         for (var i = 0; i < target.children.length; i++) {
             log(target.children[i].nodeType);
             action(target.children[i], root);
-            HtmlTraverse(target.children[i], action, root);
+            htmlTraverse(target.children[i], action, root);
         }
     }
 }
-function JQueryTraverse(target, action, root) {
+function jQueryTraverse(target, action, root) {
     if (root === void 0) { root = target; }
     var contents = target.contents();
     for (var i = 0; i < contents.length; i++) {
         action($(contents[i]), root);
-        if (contents[i] != null && !$.isString(contents[i])) {
-            JQueryTraverse($(contents[i]), action, root);
+        if (contents[i] != null &&
+            !$.isString(contents[i])) {
+            jQueryTraverse($(contents[i]), action, root);
         }
     }
 }
-function JQueryTraverseReplace(target, action, root) {
+function jQueryTraverseReplace(target, action, root) {
     if (root === void 0) { root = target; }
     var contents = target.contents();
     for (var i = 0; i < contents.length; i++) {
         action($(contents[i]), root);
-        if (contents[i] != null && !$.isString(contents[i])) {
-            JQueryTraverse($(contents[i]), action, root);
+        if (contents[i] != null &&
+            !$.isString(contents[i])) {
+            jQueryTraverse($(contents[i]), action, root);
         }
     }
 }
-function FillTemplateTraverse(target, root, data, _context) {
+// ReSharper disable once InconsistentNaming
+function fillTemplateTraverse(target, root, data, _context) {
     if (data === void 0) { data = {}; }
     if (_context === void 0) { _context = {}; }
     _context = sing.loadContext(_context);
-    if (!$.isDefined(target))
+    if (!objectDefined(target))
         return;
     try {
-        target.attr('test-filled', 'yup');
-        if (target && target.length > 0 && target[0].attributes) {
+        //target.attr('test-filled', 'yup');
+        if (target &&
+            target.length > 0 &&
+            target[0].attributes) {
             var attributes = target[0].attributes;
             for (var i = 0; i < attributes.length; i++) {
                 var value = attributes[i];
-                if (value.name == sing.constants.htmlAttr.Templates.Fill || value.name == sing.constants.htmlAttr.Templates.If || value.name == sing.constants.htmlAttr.Templates.Loop) {
-                }
+                if (value.name == sing.constants.htmlAttr.Templates.Fill ||
+                    value.name == sing.constants.htmlAttr.Templates.If ||
+                    value.name == sing.constants.htmlAttr.Templates.Loop) { }
                 else if (value.specified) {
                     var newValue = value.value.templateInject(data, _context);
                     if (value.value != newValue) {
@@ -657,19 +731,19 @@ function FillTemplateTraverse(target, root, data, _context) {
             // Loop processes inner elements.
             return;
         }
-        target.contents().each(function (index, element) {
+        target.contents().each(function () {
             if (this.nodeType == 3) {
                 $(this).before((this.textContent || '').templateInject(data, _context));
                 this.textContent = '';
             }
             else {
                 var thisElement = $(this);
-                FillTemplateTraverse(thisElement, root, data, _context);
+                fillTemplateTraverse(thisElement, root, data, _context);
             }
         });
     }
     catch (ex) {
-        JQueryTemplateError(ex, target, data, _context);
+        jQueryTemplateError(ex, target, data, _context);
     }
 }
 // #region Examples 
@@ -754,9 +828,6 @@ function FillTemplateTraverse(target, root, data, _context) {
 </div>
 
 
-// These should work
-
-
 // IF Operators
 <div sing-if="{{item.age}}">
     <a>{{item.name}}</a>
@@ -800,6 +871,131 @@ function FillTemplateTraverse(target, root, data, _context) {
     </ul>
 </div>
 
+
+<!-- named content -->
+
+<div sing-fill="{{ TestInnerSection with data }}">
+    <div sing-content="Content">
+        ...
+    </div>
+    <div sing-content="Content2">
+        ...
+    </div>
+</div>
+
+<div sing-template="TestInnerSection">
+
+    <H1>Stuff</H1>
+
+    {{ content.Content }}
+
+    {{ content.Content2 }}
+
+</div>
+
+<!-- unnamed content -->
+
+<div sing-fill="{{ TestInnerSection2 with data }}">
+    <div sing-content>
+        <p>1</p>
+    </div>
+    <div sing-content>
+        <p>2</p>
+    </div>
+</div>
+
+<div sing-template="TestInnerSection2">
+
+    <H1>Stuff</H1>
+
+    <div sing-loop="{{ block in content.unnamed }}">
+        {{ block }}
+    </div>
+</div>
+
+<!-- named and unnamed content -->
+
+<div sing-fill="{{ TestInnerSection3 with data }}">
+    <div sing-content="header">
+        <p>hello</p>
+    </div>
+    <div sing-content>
+        <p>1</p>
+    </div>
+    <div sing-content>
+        <p>2</p>
+    </div>
+    <div sing-content>
+        <p>3</p>
+    </div>
+</div>
+
+<div sing-template="TestInnerSection3">
+
+    <h1>{{content.header}}</h1>
+
+    <div sing-loop="{{ block in content.unnamed }}">
+        <span>
+            {{ block }}
+        </span>
+    </div>
+</div>
+
+<!-- multiple named content -->
+
+<div sing-fill="{{ TestInnerSection4 with data }}">
+    <div sing-content="header">
+        <p>hello</p>
+    </div>
+
+    <div sing-content="People">
+        <p>1</p>
+    </div>
+    <div sing-content="People">
+        <p>2</p>
+    </div>
+
+    <div sing-content="Places">
+        <p>3</p>
+    </div>
+    <div sing-content="Places">
+        <p>3</p>
+    </div>
+</div>
+
+<div sing-template="TestInnerSection4">
+
+    <h1>{{content.header}}</h1>
+
+    <div sing-loop="{{ person in content.People }}">
+        <span>
+            {{ person }}
+        </span>
+    </div>
+    <div sing-loop="{{ place in content.Places }}">
+        <span>
+            {{ place }}
+        </span>
+    </div>
+</div>
+
+<!-- anonymous content wrapper -->
+
+<div sing-fill="{{ TestInnerSection5 with data }}">
+    <p>...</p>
+    <p>...</p>
+</div>
+
+<div sing-template="TestInnerSection5">
+    <div>
+        <h1></h1>
+
+        <div>
+            {{content}}
+        </div>
+    </div>
+</div>
+
 // Inline logic (shorthand)
 //
 // <sing if="{{}}">
@@ -807,10 +1003,9 @@ function FillTemplateTraverse(target, root, data, _context) {
 // <sing else>
 // <sing fill="{{}}">
 // <sing loop="{{}}">
-// <sing template="{{}}">
-
-
-
+// <sing template="">
+// <sing content="">
+// <sing data="varName">Value</sing>
 
 */
 // #endregion Examples

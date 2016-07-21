@@ -16,15 +16,15 @@ namespace LCore.Extensions
                 while (Str.Has('.'))
                     {
                     int Index = Str.IndexOf('.');
-                    string Temp = Str.Substring(0, Index);
+                    string Temp = Str.Sub(0, Index);
                     int IndexSpace = Temp.LastIndexOfAny(SeparatorChars);
                     if (IndexSpace < 0)
                         {
-                        Str = Str.Substring(Index + 1);
+                        Str = Str.Sub(Index + 1);
                         }
                     else
                         {
-                        Str = Str.Substring(0, IndexSpace + 1) + Str.Substring(Index + 1);
+                        Str = Str.Sub(0, IndexSpace + 1) + Str.Substring(Index + 1);
                         }
                     }
                 return Str;
@@ -185,7 +185,7 @@ namespace LCore.Extensions
             #region GetTypeGenerics
             internal static readonly Func<string, List<string>> GetTypeGenerics = TypeStr =>
             {
-                string Out = TypeStr.Has('<') ? TypeStr.Substring(TypeStr.LastIndexOf('<') + 1, TypeStr.LastIndexOf('>') - TypeStr.LastIndexOf('<') - 1) : "";
+                string Out = TypeStr.Has('<') ? TypeStr.Sub(TypeStr.LastIndexOf('<') + 1, TypeStr.LastIndexOf('>') - TypeStr.LastIndexOf('<') - 1) : "";
                 if (Out.Has(','))
                     return Out.Split(',').List().Collect(Str =>
                         {
@@ -322,7 +322,7 @@ namespace LCore.Extensions
                     }
 
                 Out +=
-                    $"{(MemberType.HasFlag(MemberTypes.Method) ? "()" : "")}({Params.List1.List().Collect(Str => { if (Str.Contains(" = ")) Str = Str.Substring(0, Str.IndexOf(" = ")); return Str; }).Combine(", ")})";
+                    $"{(MemberType.HasFlag(MemberTypes.Method) ? "()" : "")}({Params.List1.List().Collect(Str => { if (Str.Contains(" = ")) Str = Str.Sub(0, Str.IndexOf(" = ")); return Str; }).Combine(", ")})";
                 if (ExecuteResult)
                     Out += "()";
                 Out += ";\r\n";

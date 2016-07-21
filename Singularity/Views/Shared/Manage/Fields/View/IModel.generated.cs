@@ -39,9 +39,20 @@ namespace ASP
     
     #line default
     #line hidden
-    using Singularity;
+    using LMVC;
+    using LMVC.Account;
+    using LMVC.Annotations;
     using LMVC.Context;
     using LMVC.Controllers;
+    using LMVC.Extensions;
+    using LMVC.Models;
+    
+    #line 5 "..\..\Views\Shared\Manage\Fields\View\IModel.cshtml"
+    using LMVC.Routes;
+    
+    #line default
+    #line hidden
+    using Singularity;
     
     #line 2 "..\..\Views\Shared\Manage\Fields\View\IModel.cshtml"
     using Singularity.Extensions;
@@ -49,12 +60,6 @@ namespace ASP
     #line default
     #line hidden
     using Singularity.Models;
-    
-    #line 5 "..\..\Views\Shared\Manage\Fields\View\IModel.cshtml"
-    using Singularity.Routes;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/Manage/Fields/View/IModel.cshtml")]
@@ -93,24 +98,24 @@ WriteLiteral("    <a");
 
 WriteLiteral(" class=\"btn btn-default\"");
 
-WriteAttribute("title", Tuple.Create("\r\n       title=\"", 367), Tuple.Create("\"", 413)
+WriteAttribute("title", Tuple.Create("\r\n       title=\"", 360), Tuple.Create("\"", 406)
             
             #line 16 "..\..\Views\Shared\Manage\Fields\View\IModel.cshtml"
-, Tuple.Create(Tuple.Create("", 383), Tuple.Create<System.Object, System.Int32>(Model.PropertyData.ToString()
+, Tuple.Create(Tuple.Create("", 376), Tuple.Create<System.Object, System.Int32>(Model.PropertyData.ToString()
             
             #line default
             #line hidden
-, 383), false)
+, 376), false)
 );
 
-WriteAttribute("href", Tuple.Create("\r\n       href=\"", 414), Tuple.Create("\"", 479)
+WriteAttribute("href", Tuple.Create("\r\n       href=\"", 407), Tuple.Create("\"", 472)
             
             #line 17 "..\..\Views\Shared\Manage\Fields\View\IModel.cshtml"
-, Tuple.Create(Tuple.Create("", 429), Tuple.Create<System.Object, System.Int32>(Model.Route_FieldRelation(ViewBag.ControllerName)
+, Tuple.Create(Tuple.Create("", 422), Tuple.Create<System.Object, System.Int32>(Model.Route_FieldRelation(ViewBag.ControllerName)
             
             #line default
             #line hidden
-, 429), false)
+, 422), false)
 );
 
 WriteLiteral(">\r\n        <span>\r\n");
@@ -139,14 +144,14 @@ WriteLiteral("    <a");
 
 WriteLiteral(" class=\"btn btn-default\"");
 
-WriteAttribute("href", Tuple.Create("\r\n       href=\"", 685), Tuple.Create("\"", 750)
+WriteAttribute("href", Tuple.Create("\r\n       href=\"", 678), Tuple.Create("\"", 743)
             
             #line 26 "..\..\Views\Shared\Manage\Fields\View\IModel.cshtml"
-, Tuple.Create(Tuple.Create("", 700), Tuple.Create<System.Object, System.Int32>(Model.Route_FieldRelation(ViewBag.ControllerName)
+, Tuple.Create(Tuple.Create("", 693), Tuple.Create<System.Object, System.Int32>(Model.Route_FieldRelation(ViewBag.ControllerName)
             
             #line default
             #line hidden
-, 700), false)
+, 693), false)
 );
 
 WriteLiteral(">\r\n        <span>\r\n");
@@ -185,16 +190,16 @@ WriteLiteral("    <a");
 
 WriteLiteral(" class=\"btn btn-default\"");
 
-WriteAttribute("href", Tuple.Create("\r\n       href=\"", 1035), Tuple.Create("\"", 1291)
+WriteAttribute("href", Tuple.Create("\r\n       href=\"", 1028), Tuple.Create("\"", 1284)
             
             #line 38 "..\..\Views\Shared\Manage\Fields\View\IModel.cshtml"
-, Tuple.Create(Tuple.Create("", 1050), Tuple.Create<System.Object, System.Int32>(Url.Action(nameof(ManageController.Edit),
+, Tuple.Create(Tuple.Create("", 1043), Tuple.Create<System.Object, System.Int32>(Url.Action(nameof(ManageController.Edit),
         ContextProviderFactory.GetCurrent().GetManageController(Session, Model.FieldType).Name,
         Controllers.Manage.Actions.Route_Edit((IModel)Model.PropertyData, Request.Url?.AbsoluteUri))
             
             #line default
             #line hidden
-, 1050), false)
+, 1043), false)
 );
 
 WriteLiteral(">\r\n        <span>\r\n            <glyph>&#xe065;</glyph>\r\n            Edit\r\n       " +
@@ -223,16 +228,16 @@ WriteLiteral("    <a");
 
 WriteLiteral(" class=\"btn btn-default\"");
 
-WriteAttribute("href", Tuple.Create("\r\n       href=\"", 1589), Tuple.Create("\"", 1821)
+WriteAttribute("href", Tuple.Create("\r\n       href=\"", 1582), Tuple.Create("\"", 1814)
             
             #line 53 "..\..\Views\Shared\Manage\Fields\View\IModel.cshtml"
-, Tuple.Create(Tuple.Create("", 1604), Tuple.Create<System.Object, System.Int32>(Url.Action(nameof(ManageController.Create),
+, Tuple.Create(Tuple.Create("", 1597), Tuple.Create<System.Object, System.Int32>(Url.Action(nameof(ManageController.Create),
         ContextProviderFactory.GetCurrent().GetManageController(Session, Model.FieldType).Name,
         Controllers.Manage.Actions.Route_Create(Request.Url?.AbsoluteUri))
             
             #line default
             #line hidden
-, 1604), false)
+, 1597), false)
 );
 
 WriteLiteral(">\r\n        <span>\r\n            <glyph>&#x2a;</glyph>\r\n            Create\r\n       " +

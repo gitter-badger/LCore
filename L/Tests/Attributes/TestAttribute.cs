@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using LCore.Extensions;
 using LCore.Extensions.Optional;
 using System.Collections;
 using System.Reflection;
-using System.Linq;
+
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable VirtualMemberNeverOverriden.Global
 
@@ -109,7 +108,7 @@ namespace LCore.Tests
 
             if (MethodName.Contains("."))
                 {
-                List<string> Parts = MethodName.Split(".").ToList();
+                List<string> Parts = MethodName.Split(".").List();
 
                 MemberName = Parts.Last();
                 Parts.RemoveAt(Parts.Count - 1);

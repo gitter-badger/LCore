@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using LCore.Extensions;
@@ -153,12 +152,12 @@ namespace Singularity.Models
                 Models = Objects.List<IModel>();
                 }
 
-            return Models.Select(Model => new SelectListItem
+            return Models.Convert(Model => new SelectListItem
                 {
                 Text = Model.ToString(),
                 Value = Model.GetID(),
                 Selected = (CurrentValue ?? "").ToString() == (Model.GetID() ?? "").ToString()
-                }).ToList();
+                }).List();
             }
 
         public string Route_FieldRelation(string ControllerName)

@@ -18,12 +18,7 @@ namespace ASP
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.Design;
     using System.IO;
-    
-    #line 4 "..\..\Views\Shared\Manage\Fields\Edit\IModel.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
     using System.Linq.Expressions;
     using System.Net;
     using System.Text;
@@ -39,9 +34,20 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using LCore.Extensions;
-    using Singularity;
+    using LMVC;
+    using LMVC.Account;
+    using LMVC.Annotations;
     using LMVC.Context;
     using LMVC.Controllers;
+    using LMVC.Extensions;
+    using LMVC.Models;
+    
+    #line 5 "..\..\Views\Shared\Manage\Fields\Edit\IModel.cshtml"
+    using LMVC.Routes;
+    
+    #line default
+    #line hidden
+    using Singularity;
     
     #line 3 "..\..\Views\Shared\Manage\Fields\Edit\IModel.cshtml"
     using Singularity.Extensions;
@@ -49,12 +55,6 @@ namespace ASP
     #line default
     #line hidden
     using Singularity.Models;
-    
-    #line 6 "..\..\Views\Shared\Manage\Fields\Edit\IModel.cshtml"
-    using Singularity.Routes;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/Manage/Fields/Edit/IModel.cshtml")]
@@ -72,7 +72,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 8 "..\..\Views\Shared\Manage\Fields\Edit\IModel.cshtml"
+            #line 7 "..\..\Views\Shared\Manage\Fields\Edit\IModel.cshtml"
   
     var SubModel = (IModel)Model.PropertyData;
 
@@ -82,7 +82,7 @@ WriteLiteral("\r\n");
         {
         string Id = SubModel.GetID();
 
-        var Selected = Items.FirstOrDefault(Item => Item.Value == Id);
+        var Selected = EnumerableExt.First(Items, Item => Item.Value == Id);
 
         if (Selected != null)
             {
@@ -96,7 +96,7 @@ WriteLiteral("\r\n");
 WriteLiteral("\r\n\r\n");
 
             
-            #line 28 "..\..\Views\Shared\Manage\Fields\Edit\IModel.cshtml"
+            #line 27 "..\..\Views\Shared\Manage\Fields\Edit\IModel.cshtml"
 Write(Html.DropDownList(Model.Meta.PropertyName, Items, new { @class = "select-list" }));
 
             

@@ -34,14 +34,21 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 2 "..\..\Views\Shared\Manage\Fields\Edit\Currency.cshtml"
+    #line 3 "..\..\Views\Shared\Manage\Fields\Edit\Currency.cshtml"
     using LCore.Extensions;
     
     #line default
     #line hidden
-    using Singularity;
+    using LMVC;
+    using LMVC.Account;
+    using LMVC.Annotations;
     using LMVC.Context;
     using LMVC.Controllers;
+    using LMVC.Extensions;
+    using LMVC.Models;
+    using LMVC.Routes;
+    using Singularity;
+    using Singularity.Extensions;
     using Singularity.Models;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
@@ -53,12 +60,12 @@ namespace ASP
         }
         public override void Execute()
         {
-WriteLiteral("\r\n");
+WriteLiteral("\r\n\r\n");
 
 WriteLiteral("\r\n");
 
             
-            #line 4 "..\..\Views\Shared\Manage\Fields\Edit\Currency.cshtml"
+            #line 5 "..\..\Views\Shared\Manage\Fields\Edit\Currency.cshtml"
   
 
             
@@ -69,7 +76,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("<span>$</span>\r\n");
 
             
-            #line 10 "..\..\Views\Shared\Manage\Fields\Edit\Currency.cshtml"
+            #line 11 "..\..\Views\Shared\Manage\Fields\Edit\Currency.cshtml"
 Write(Html.TextBox(Model.Meta.PropertyName,
                         Model.ModelData.GetProperty(Model.Meta.PropertyName),
                         new { @class = "spinner-money" }));

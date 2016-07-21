@@ -305,10 +305,10 @@ namespace LMVC.Extensions
             Token = Token ?? "";
 
             if (Token.StartsWith("["))
-                Token = Token.Substring(1);
+                Token = Token.Sub(1);
 
             if (Token.EndsWith("]"))
-                Token = Token.Substring(0, Token.Length - 1);
+                Token = Token.Sub(0, Token.Length - 1);
 
             string[] FullProperty;
 
@@ -348,17 +348,6 @@ namespace LMVC.Extensions
         public static bool HasProperty(this Type Type, string PropertyName)
             {
             return Type.GetProperty(PropertyName) != null;
-            }
-
-        #endregion
-
-        #region IsNullable
-
-        public static bool IsNullable(this Type Type)
-            {
-            return Type.IsGenericType && Type.GetGenericTypeDefinition() == typeof(Nullable<>);
-
-            //    return t.Name == "Nullable" || t.Name == "Nullable`1";
             }
 
         #endregion

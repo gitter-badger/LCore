@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using LCore.Extensions;
 using System.Collections;
 using System.Data.Entity;
+using System.Linq;
 using System.Reflection;
 using LMVC.Controllers;
 using System.Web.Mvc;
@@ -15,6 +15,9 @@ using LCore.Interfaces;
 using LMVC.Models;
 using LMVC.Utilities;
 using LMVC.Annotations;
+
+// ReSharper disable once RedundantUsingDirective
+using IQueryable = System.Linq.IQueryable;
 
 namespace LMVC.Extensions
     {
@@ -328,7 +331,7 @@ namespace LMVC.Extensions
             if (Selector == null)
                 return null;
 
-            int AsterixCount = Filter.Count(Char => Char.Equals('*'));
+            uint AsterixCount = EnumerableExt.Count(Filter, Char => Char.Equals('*'));
             if (AsterixCount > 2)
                 throw new ApplicationException(
                     $"Invalid filter used{(FieldName == null ? "" : $" for \'{FieldName}\'")}. '*' can maximum occur 2 times.");
@@ -369,8 +372,8 @@ namespace LMVC.Extensions
             // X*X
             if (AsterixCount == 1 && Filter.Length > 2 && !Filter.StartsWith("*") && !Filter.EndsWith("*"))
                 {
-                string StartsWith = Filter.Substring(0, Filter.IndexOf('*'));
-                string EndsWith = Filter.Substring(Filter.IndexOf('*') + 1);
+                string StartsWith = Filter.Sub(0, Filter.IndexOf('*'));
+                string EndsWith = Filter.Sub(Filter.IndexOf('*') + 1);
 
                 return
                     Expression.Lambda<Func<T, bool>>(

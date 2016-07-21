@@ -12,7 +12,7 @@ namespace LCore.Dynamic
         public readonly string PostArgs;
 
         public CodeExplodeGenericsReplaceArguments(string Name, int[] ArgIndexes, string[] ArgNames,
-            string Comments = "", string PreArgs = "", string PostArgs = "", int MaximumGeneric = CodeExplodeLogic.ExplodeCount)
+            string Comments = "", string PreArgs = "", string PostArgs = "", uint MaximumGeneric = CodeExplodeLogic.ExplodeCount)
             : base(Name, Comments, MaximumGeneric)
             {
             this.PreArgs = PreArgs;

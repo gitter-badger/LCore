@@ -6,14 +6,14 @@ namespace LCore.Dynamic
     {
     internal class CodeExplodeGenerics : CodeExplodeMember
         {
-        public CodeExplodeGenerics(string Name = "", string Comments = "", int MaximumGeneric = CodeExplodeLogic.ExplodeCount)
+        public CodeExplodeGenerics(string Name = "", string Comments = "", uint MaximumGeneric = CodeExplodeLogic.ExplodeCount)
             : base(Name, Comments)
             {
             this._MaximumGeneric = MaximumGeneric;
             }
 
         private List<List<string>> _Replacements;
-        private readonly int _MaximumGeneric;
+        private readonly uint _MaximumGeneric;
 
         public const string NoArgumentsToken = "/**/";
 

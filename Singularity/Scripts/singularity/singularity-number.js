@@ -1,14 +1,18 @@
 /// <reference path="singularity-core.ts"/>
-var singNumber = singExt.addModule(new sing.Module("Number", Number));
+var singNumber = singExt.addModule(new sing.Module('Number', Number));
 singNumber.glyphIcon = 'icon-calculator';
 singNumber.summaryShort = 'Extensions on Number.prototype and others';
 singNumber.summaryLong = '&nbsp;';
-singNumber.features = ['Math object extensions: max, min, round, pow, ceil, floor, abs', 'Friendly file sizes: formatFileSize', 'String extensions: isNumeric, isInteger, toNumber, toInteger', 'Number array extensions: total, average', 'JQuery $ extensions: isInt, isFloat, isNumber'];
+singNumber.features = ['Math object extensions: max, min, round, pow, ceil, floor, abs',
+    'Friendly file sizes: formatFileSize',
+    'String extensions: isNumeric, isInteger, toNumber, toInteger',
+    'Number array extensions: total, average',
+    'JQuery $ extensions: isInt, isFloat, isNumber'];
 ////////////////////////////////////////////////////////////////////////////////////
 //
 // Number Extensions
 //
-singNumber.method('max', NumberMax, {
+singNumber.method('max', numberMax, {
     summary: 'Compares multiple Numbers to find the largest.',
     parameters: [
         {
@@ -33,9 +37,9 @@ singNumber.method('max', NumberMax, {
         ext.addTest(100, [], 100);
         ext.addTest(100, [null], 100);
         ext.addTest(100, [undefined], 100);
-    },
+    }
 });
-function NumberMax() {
+function numberMax() {
     var numbers = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         numbers[_i - 0] = arguments[_i];
@@ -44,7 +48,7 @@ function NumberMax() {
     numbers = numbers.collect();
     return Math.max.apply(null, numbers);
 }
-singNumber.method('min', NumberMin, {
+singNumber.method('min', numberMin, {
     summary: 'Compares multiple Numbers to find the smallest.',
     parameters: [
         {
@@ -69,9 +73,9 @@ singNumber.method('min', NumberMin, {
         ext.addTest(100, [], 100);
         ext.addTest(100, [null], 100);
         ext.addTest(100, [undefined], 100);
-    },
+    }
 });
-function NumberMin() {
+function numberMin() {
     var numbers = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         numbers[_i - 0] = arguments[_i];
@@ -80,14 +84,14 @@ function NumberMin() {
     numbers = numbers.collect();
     return Math.min.apply(null, numbers);
 }
-singNumber.method('round', NumberRound, {
+singNumber.method('round', numberRound, {
     summary: 'Rounds the calling Number to the nearest whole Number. If a number of decimal places is supplied they will be included',
     parameters: [
         {
             name: 'decimalPlaces',
             types: [Number],
             description: 'Specify how many decimal places the output should have',
-            defaultValue: 0,
+            defaultValue: 0
         }
     ],
     returns: 'A number rounded to the supplied number of decimal places',
@@ -106,25 +110,22 @@ singNumber.method('round', NumberRound, {
         ext.addTest(1.644999999999999, [2], 1.64);
         ext.addTest(1.644999999999999, [null], 2);
         ext.addTest(1.644999999999999, [undefined], 2);
-    },
+    }
 });
-function NumberRound(decimalPlaces) {
-    if (!this)
-        return null;
+function numberRound(decimalPlaces) {
     if (decimalPlaces > 0)
         return Math.round(this * ((10).pow(decimalPlaces))) / ((10).pow(decimalPlaces));
     return Math.round(this);
 }
-singNumber.method('ceil', NumberCeiling, {
+singNumber.method('ceil', numberCeiling, {
     summary: 'Extension of the Math.ceil function',
     parameters: [
         {
             name: 'decimalPlaces',
             types: [Number],
             description: 'Specify how many decimal places the output should have',
-            defaultValue: 0,
-        }
-    ],
+            defaultValue: 0
+        }],
     returns: 'returns the calling number, rounded up',
     returnType: Number,
     examples: ['\
@@ -136,25 +137,22 @@ singNumber.method('ceil', NumberCeiling, {
         ext.addTest(5.1, [], 6);
         ext.addTest(5.1, [1], 5.1);
         ext.addTest(5.11, [1], 5.2);
-    },
+    }
 });
-function NumberCeiling(decimalPlaces) {
-    if (!this)
-        return null;
+function numberCeiling(decimalPlaces) {
     if (decimalPlaces > 0)
         return Math.ceil(this * ((10).pow(decimalPlaces))) / ((10).pow(decimalPlaces));
     return Math.ceil(this);
 }
-singNumber.method('floor', NumberFloor, {
+singNumber.method('floor', numberFloor, {
     summary: 'Extension of the Math.floor function',
     parameters: [
         {
             name: 'decimalPlaces',
             types: [Number],
             description: 'Specify how many decimal places the output should have',
-            defaultValue: 0,
-        }
-    ],
+            defaultValue: 0
+        }],
     returns: 'returns the calling number, rounded down',
     returnType: Number,
     examples: ['\
@@ -167,16 +165,14 @@ singNumber.method('floor', NumberFloor, {
         ext.addTest(5.1, [1], 5.1);
         ext.addTest(5.11, [1], 5.1);
         ext.addTest(5.99, [1], 5.9);
-    },
+    }
 });
-function NumberFloor(decimalPlaces) {
-    if (!this)
-        return null;
+function numberFloor(decimalPlaces) {
     if (decimalPlaces > 0)
         return Math.floor(this * ((10).pow(decimalPlaces))) / ((10).pow(decimalPlaces));
     return Math.floor(this);
 }
-singNumber.method('pow', NumberPower, {
+singNumber.method('pow', numberPower, {
     summary: 'Returns the calling number raised to the power passed. \r\n\
             Decimal numbers are supported and can be used for calculating fractional powers and roots.',
     parameters: [
@@ -184,7 +180,7 @@ singNumber.method('pow', NumberPower, {
             name: 'power',
             types: [Number],
             required: true,
-            description: 'The power to raise the calling number to',
+            description: 'The power to raise the calling number to'
         }
     ],
     returns: 'Returns the calling number raised to the power passed.',
@@ -203,12 +199,12 @@ singNumber.method('pow', NumberPower, {
         ext.addTest(2, [1 / 2], 1.4142135623730951);
         ext.addFailsTest(2, [null], 'Singularity.Extensions.Number.pow Missing Parameter: number power');
         ext.addFailsTest(2, [undefined], 'Singularity.Extensions.Number.pow Missing Parameter: number power');
-    },
+    }
 });
-function NumberPower(power) {
+function numberPower(power) {
     return Math.pow(this, power);
 }
-singNumber.method('abs', NumberAbsoluteValue, {
+singNumber.method('abs', numberAbsoluteValue, {
     summary: 'Extension of Math.abs',
     parameters: [],
     returns: 'The calling number as a positive value',
@@ -225,25 +221,25 @@ singNumber.method('abs', NumberAbsoluteValue, {
         ext.addTest(-Infinity, [], Infinity);
         ext.addTest(Infinity, [], Infinity);
         ext.addTest(NaN, [], NaN);
-    },
+    }
 });
-function NumberAbsoluteValue() {
+function numberAbsoluteValue() {
     return Math.abs(this);
 }
-singNumber.method('percentOf', NumberPercentOf, {
+singNumber.method('percentOf', numberPercentOf, {
     summary: 'Takes the source number and returns the percent it is of the argument number',
     parameters: [
         {
             name: 'of',
             types: [Number],
             description: 'The number you are dividing by to get the percent',
-            required: true,
+            required: true
         },
         {
             name: 'decimalPlaces',
             types: [Number],
             description: 'Specify how many decimal places the output should have',
-            defaultValue: 0,
+            defaultValue: 0
         }
     ],
     returns: 'A number rounded to the supplied number of decimal places',
@@ -279,16 +275,16 @@ singNumber.method('percentOf', NumberPercentOf, {
         ext.addTest(56122, [56123, 5], 99.99821);
         ext.addTest(56122, [56123, 5, false], 99.99821);
         ext.addTest(56122, [56123, 5, true], '99.99821%');
-    },
+    }
 });
-function NumberPercentOf(of, decimalPlaces, asString) {
+function numberPercentOf(of, decimalPlaces, asString) {
     if (decimalPlaces === void 0) { decimalPlaces = 0; }
     if (asString === void 0) { asString = false; }
     if (asString) {
         if (of == 0)
             return '(?)%';
         else {
-            return ((this / of) * 100).floor(decimalPlaces) + '%';
+            return ((this / of) * 100).floor(decimalPlaces) + "%";
         }
     }
     else {
@@ -301,20 +297,20 @@ function NumberPercentOf(of, decimalPlaces, asString) {
         }
     }
 }
-singNumber.method('formatFileSize', NumberFormatFileSize, {
+singNumber.method('formatFileSize', numberFormatFileSize, {
     summary: 'Takes a number (of Bytes) and returns a formatted string of the proper unit (B, KB, MB, etc)',
     parameters: [
         {
             name: 'decimalPlaces',
             types: [Number],
             description: 'Specify how many decimal places the output should have',
-            defaultValue: 0,
+            defaultValue: 0
         },
         {
             name: 'useLongUnit',
             types: [Boolean],
             description: 'Specify a value of true to receive the output unit in long-form (Byte, Kilobyte, etc)',
-            defaultValue: false,
+            defaultValue: false
         }
     ],
     returns: 'A string representation of the calling number file size.',
@@ -355,33 +351,35 @@ singNumber.method('formatFileSize', NumberFormatFileSize, {
         ext.addTest(1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 + 550000000000000000000, [5, true], '1.46587 Zettabyte');
         ext.addTest(1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 + 550000000000000000000000, [5, false], '1.45495 YB');
         ext.addTest(1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 + 550000000000000000000000, [5, true], '1.45495 Yottabyte');
-    },
+    }
 });
-function NumberFormatFileSize(decimalPlaces, useLongUnit) {
+function numberFormatFileSize(decimalPlaces, useLongUnit) {
     if (useLongUnit === void 0) { useLongUnit = false; }
-    var units = useLongUnit ? ['Byte', 'Kilobyte', 'Megabyte', 'Gigabyte', 'Terabyte', 'Petabyte', 'Exabyte', 'Zettabyte', 'Yottabyte'] : ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'XB', 'ZB', 'YB'];
+    var units = useLongUnit ? ['Byte', 'Kilobyte', 'Megabyte', 'Gigabyte', 'Terabyte', 'Petabyte', 'Exabyte', 'Zettabyte', 'Yottabyte'] :
+        ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'XB', 'ZB', 'YB'];
     var magnitude = 0;
     if (this < 0)
-        return '0 ' + units[magnitude];
+        return "0 " + units[magnitude];
     var outNumber = this;
     while (outNumber >= 1024) {
         outNumber = outNumber / 1024;
         magnitude++;
     }
-    var out = outNumber.round(decimalPlaces) + ' ' + units[magnitude];
-    if (useLongUnit && (outNumber.floor() > 1 || outNumber.floor() == 0)) {
+    var out = outNumber.round(decimalPlaces) + " " + units[magnitude];
+    if (useLongUnit &&
+        (outNumber.floor() > 1 || outNumber.floor() == 0)) {
         out += 's';
     }
     return out;
 }
-singNumber.method('toStr', NumberToStr, {
-    summary: "\
-        Common funciton - toStr is a standardized way of converting Objects to Strings.",
+singNumber.method('toStr', numberToStr, {
+    summary: '\
+        Common funciton - toStr is a standardized way of converting Objects to Strings.',
     parameters: [
         {
             name: 'includeMarkup',
             types: [Boolean],
-            defaultValue: false,
+            defaultValue: false
         }
     ],
     returns: 'A string representation of the Number toStr is called on.',
@@ -403,15 +401,15 @@ singNumber.method('toStr', NumberToStr, {
         ext.addTest(NaN, [], '');
         ext.addTest(NaN, [false], '');
         ext.addTest(NaN, [true], 'NaN');
-    },
+    }
 });
-function NumberToStr(includeMarkup) {
+function numberToStr(includeMarkup) {
     if (includeMarkup === void 0) { includeMarkup = false; }
     if (isNaN(this))
         return includeMarkup ? 'NaN' : '';
     return this.toString();
 }
-singNumber.method('numericValueOf', NumberNumericValueOf, {
+singNumber.method('numericValueOf', numberNumericValueOf, {
     summary: 'Common funciton - Used for sorting, returns the calling number.',
     parameters: [],
     returns: 'Returns the calling number.',
@@ -426,12 +424,12 @@ singNumber.method('numericValueOf', NumberNumericValueOf, {
         ext.addTest(0, [], 0);
         ext.addTest(Infinity, [], Infinity);
         ext.addTest(-Infinity, [], -Infinity);
-    },
+    }
 });
-function NumberNumericValueOf() {
+function numberNumericValueOf() {
     return this;
 }
-singNumber.method('numericValueOf', StringNumericValueOf, {
+singNumber.method('numericValueOf', stringNumericValueOf, {
     summary: 'Common funciton - Convert all common objects to numeric values',
     parameters: [],
     returns: 'Returns the numeric value of the calling String',
@@ -441,9 +439,9 @@ singNumber.method('numericValueOf', StringNumericValueOf, {
     tests: function (ext) {
         ext.addTest('hi', [], 26729);
         ext.addTest('hello', [], 448378203247);
-    },
-}, String.prototype, "String");
-function StringNumericValueOf() {
+    }
+}, String.prototype, 'String');
+function stringNumericValueOf() {
     if (this.isNumeric())
         return this.toNumber();
     var out = 0;
@@ -455,7 +453,7 @@ function StringNumericValueOf() {
     }
     return out;
 }
-singNumber.method('numericValueOf', BooleanToNumericValue, {
+singNumber.method('numericValueOf', booleanToNumericValue, {
     summary: 'Common funciton - Convert all common objects to numeric values',
     parameters: [],
     returns: 'Returns the numeric value of the calling Boolean',
@@ -466,23 +464,21 @@ singNumber.method('numericValueOf', BooleanToNumericValue, {
         ext.addTest(true, [], 1);
         ext.addTest(false, [], 0);
     }
-}, Boolean.prototype, "Boolean");
-function BooleanToNumericValue() {
-    if (this === undefined || this === null)
-        return -1;
+}, Boolean.prototype, 'Boolean');
+function booleanToNumericValue() {
     if (this.valueOf() === false)
         return 0;
     if (this.valueOf() === true)
         return 1;
 }
 ////////////////////////////////////////////////////////////////////////////////////
-singNumber.method('isInt', NumberIsInt, {
+singNumber.method('isInt', numberIsInt, {
     summary: 'Determine whether an object is an Integer.',
     parameters: [{
-        name: 'obj',
-        types: [Object],
-        description: 'The object you want to test',
-    }],
+            name: 'obj',
+            types: [Object],
+            description: 'The object you want to test'
+        }],
     returns: 'Returns whether the calling Object is an Integer. Returns false for Floats and non-numbers.',
     returnType: Boolean,
     examples: [],
@@ -499,18 +495,18 @@ singNumber.method('isInt', NumberIsInt, {
         ext.addTest(null, [-1], true);
         ext.addTest(null, [Infinity], true);
         ext.addTest(null, [-Infinity], true);
-    },
+    }
 }, $);
-function NumberIsInt(obj) {
+function numberIsInt(obj) {
     return $.isNumber(obj) && obj.round().valueOf() == obj.valueOf();
 }
-singNumber.method('isFloat', NumberIsFloat, {
+singNumber.method('isFloat', numberIsFloat, {
     summary: 'Determine whether an object is a Float.',
     parameters: [{
-        name: 'obj',
-        types: [Object],
-        description: 'The object you want to test',
-    }],
+            name: 'obj',
+            types: [Object],
+            description: 'The object you want to test'
+        }],
     returns: 'Returns whether the calling Object is a Float. Returns false for Integers and non-numbers.',
     returnType: Boolean,
     examples: [],
@@ -527,18 +523,18 @@ singNumber.method('isFloat', NumberIsFloat, {
         ext.addTest(null, [-1], false);
         ext.addTest(null, [Infinity], false);
         ext.addTest(null, [-Infinity], false);
-    },
+    }
 }, $);
-function NumberIsFloat(obj) {
+function numberIsFloat(obj) {
     return $.isNumber(obj) && obj.round().valueOf() != obj.valueOf();
 }
-singNumber.method('isNumber', ObjectIsNumber, {
+singNumber.method('isNumber', objectIsNumber, {
     summary: 'Determine whether an object is a number.',
     parameters: [{
-        name: 'obj',
-        types: [Object],
-        description: 'The object you want to test',
-    }],
+            name: 'obj',
+            types: [Object],
+            description: 'The object you want to test'
+        }],
     returns: 'Returns whether the calling Object is a Number',
     returnType: Boolean,
     examples: [],
@@ -555,31 +551,31 @@ singNumber.method('isNumber', ObjectIsNumber, {
         ext.addTest(null, [-1], true);
         ext.addTest(null, [Infinity], true);
         ext.addTest(null, [-Infinity], true);
-    },
+    }
 }, $);
-function ObjectIsNumber(obj) {
+function objectIsNumber(obj) {
     return !isNaN(obj) && typeof obj == 'number';
 }
-singNumber.method('random', NumberRandom, {
+singNumber.method('random', numberRandom, {
     summary: 'Call $.random to produce a number of random numbers.',
     parameters: [
         {
             name: 'minimum',
             types: [Number],
             description: 'The minimum random value to be returned.',
-            required: true,
+            required: true
         },
         {
             name: 'maximum',
             types: [Number],
             description: 'The maximum random value to be returned.',
-            required: true,
+            required: true
         },
         {
             name: 'count',
             types: [Number],
-            description: 'The number of random values to be returned',
-        },
+            description: 'The number of random values to be returned'
+        }
     ],
     returns: 'An array containing [count] of random numbers between [minimum] and [maximum]',
     returnType: Array,
@@ -600,14 +596,14 @@ singNumber.method('random', NumberRandom, {
             if (randoms.length != 5)
                 return '5 items were not returned';
         }, 'Returns multiple random numbers correctly');
-    },
+    }
 }, $);
-function NumberRandom(minimum, maximum, count) {
+function numberRandom(minimum, maximum, count) {
     if (count === void 0) { count = 1; }
     if (maximum <= minimum)
         throw 'maximum must be greater than minimum';
     if (count == 0) {
-        return;
+        return null;
     }
     if (count == 1) {
         var rand = Math.random();
@@ -616,18 +612,20 @@ function NumberRandom(minimum, maximum, count) {
         rand += minimum;
         return rand;
     }
+    var out;
     if (count > 1) {
-        var out = [];
+        out = [];
         while (count > 0) {
             out.push($.random(minimum, maximum, 1));
             count--;
         }
     }
+    // ReSharper disable once UsageOfPossiblyUnassignedValue
     return out;
 }
 ////////////////////////////////////////////////////////////////////////////////////
-singNumber.method('isNumeric', StringIsNumeric, {
-    summary: 'Call isNumeric on a String to determine if the string is in Numeric form. If the ' + 'string is not a number false will be returned.',
+singNumber.method('isNumeric', stringIsNumeric, {
+    summary: 'Call isNumeric on a String to determine if the string is in Numeric form. If the string is not a number false will be returned.',
     parameters: [],
     returns: 'A true value if the string represents a valid Number, otherwise false is returned.',
     returnType: Boolean,
@@ -641,9 +639,9 @@ singNumber.method('isNumeric', StringIsNumeric, {
         ext.addTest('123.456', [], true);
         ext.addTest('123.999', [], true);
         ext.addTest('2 > 5', [], false);
-    },
+    }
 }, String.prototype);
-function StringIsNumeric() {
+function stringIsNumeric() {
     if (this.length == 0)
         return false;
     var src = this.trim();
@@ -659,8 +657,8 @@ function StringIsNumeric() {
     }
     return false;
 }
-singNumber.method('isInteger', StringIsInteger, {
-    summary: 'Call isInteger on a String to determine if the string is in Integer form. If the string ' + 'is not a number or has a decimal value, false will be returned.',
+singNumber.method('isInteger', stringIsInteger, {
+    summary: 'Call isInteger on a String to determine if the string is in Integer form. If the string is not a number or has a decimal value, false will be returned.',
     parameters: [],
     returns: 'A true value if the string represents a valid Integer, otherwise false is returned.',
     returnType: Boolean,
@@ -673,9 +671,9 @@ singNumber.method('isInteger', StringIsInteger, {
         ext.addTest('-123', [], true);
         ext.addTest('123.456', [], false);
         ext.addTest('123.999', [], false);
-    },
+    }
 }, String.prototype);
-function StringIsInteger() {
+function stringIsInteger() {
     if (this.length == 0)
         return false;
     var src = this.trim();
@@ -690,7 +688,7 @@ function StringIsInteger() {
     }
     return false;
 }
-singNumber.method('isEven', NumberIsEven, {
+singNumber.method('isEven', numberIsEven, {
     summary: 'Call isEven on a Number to determine if the number is an even Integer.',
     parameters: [],
     returns: 'A true value if the number is an even integer, false otherwise.',
@@ -705,13 +703,13 @@ singNumber.method('isEven', NumberIsEven, {
         ext.addTest((-2), [], true);
         ext.addTest((2.000000000000001), [], false);
         ext.addTest((-2.000000000000001), [], false);
-    },
+    }
 });
-function NumberIsEven() {
+function numberIsEven() {
     var thisNumber = this;
     return thisNumber % 2 == 0;
 }
-singNumber.method('isOdd', NumberIsOdd, {
+singNumber.method('isOdd', numberIsOdd, {
     summary: 'Call isOdd on a Number to determine if the number is an odd Integer.',
     parameters: [],
     returns: 'A true value if the number is an odd integer, false otherwise.',
@@ -727,14 +725,14 @@ singNumber.method('isOdd', NumberIsOdd, {
         ext.addTest((-3), [], true);
         ext.addTest((3.000000000000001), [], false);
         ext.addTest((-3.000000000000001), [], false);
-    },
+    }
 });
-function NumberIsOdd() {
+function numberIsOdd() {
     var thisNumber = this;
     return (thisNumber % 2).abs() == 1;
 }
-singNumber.method('toNumber', StringToNumber, {
-    summary: 'Call toNumber on a String to try to convert the string to number form. If any decimal values ' + 'are given they will be included in the result.',
+singNumber.method('toNumber', stringToNumber, {
+    summary: 'Call toNumber on a String to try to convert the string to number form. If any decimal values are given they will be included in the result.',
     parameters: [],
     returns: 'A number value if the string represents a valid Number, otherwise NaN is returned.',
     returnType: Number,
@@ -747,9 +745,9 @@ singNumber.method('toNumber', StringToNumber, {
         ext.addTest('-123', [], -123);
         ext.addTest('123.456', [], 123.456);
         ext.addTest('123.999', [], 123.999);
-    },
+    }
 }, String.prototype);
-function StringToNumber() {
+function stringToNumber() {
     if (this.length == 0)
         return NaN;
     var src = this.trim();
@@ -760,8 +758,8 @@ function StringToNumber() {
     }
     return NaN;
 }
-singNumber.method('toInteger', StringToInteger, {
-    summary: 'Call toInteger on a String to try to convert the string to integer form. If any decimal ' + 'values are given they will be rounded down (floor).',
+singNumber.method('toInteger', stringToInteger, {
+    summary: 'Call toInteger on a String to try to convert the string to integer form. If any decimal values are given they will be rounded down (floor).',
     parameters: [],
     returns: 'A number value if the string represents a valid Number, otherwise NaN is returned.',
     returnType: Number,
@@ -774,9 +772,9 @@ singNumber.method('toInteger', StringToInteger, {
         ext.addTest('-123', [], -123);
         ext.addTest('123.456', [], 123);
         ext.addTest('123.999', [], 123);
-    },
+    }
 }, String.prototype);
-function StringToInteger() {
+function stringToInteger() {
     if (this.length == 0)
         return NaN;
     var src = this.trim();
@@ -788,7 +786,7 @@ function StringToInteger() {
     return NaN;
 }
 ////////////////////////////////////////////////////////////////////////////////////
-singNumber.method('total', ArrayTotal, {
+singNumber.method('total', arrayTotal, {
     summary: 'Call total on an array of numbers to get the total.',
     parameters: [],
     returns: 'The total of all the numbers in the array.',
@@ -805,13 +803,11 @@ singNumber.method('total', ArrayTotal, {
         ext.addTest([1, 2, 3, undefined], [], 6);
         ext.addTest([1, 2, 3, 'a'], [], 6);
         ext.addTest([1, 2, 3, -6], [], 0);
-    },
+    }
 }, Array.prototype);
-function ArrayTotal() {
+function arrayTotal() {
     var thisArray = this;
-    thisArray = thisArray.select(function (a) {
-        return $.isNumber(a);
-    });
+    thisArray = thisArray.select(function (a) { return $.isNumber(a); });
     if (thisArray.length == 0)
         return 0;
     var out = 0;
@@ -823,7 +819,7 @@ function ArrayTotal() {
     }
     return out;
 }
-singNumber.method('average', ArrayAverage, {
+singNumber.method('average', arrayAverage, {
     summary: 'Call average on an array of numbers to get the average value',
     parameters: [],
     returns: 'The average of all the numbers in the array.',
@@ -841,15 +837,13 @@ singNumber.method('average', ArrayAverage, {
         ext.addTest([1, 2, 3, 4, 5, 5, null], [], 3.3333333333333335);
         ext.addTest([1, 2, 3, 4, 5, 5, undefined], [], 3.3333333333333335);
         ext.addTest([1, 2, 3, -6], [], 0);
-    },
+    }
 }, Array.prototype);
-function ArrayAverage() {
+function arrayAverage() {
     var thisArray = this;
-    thisArray = thisArray.select(function (a) {
-        return $.isNumber(a);
-    });
+    thisArray = thisArray.select(function (a) { return $.isNumber(a); });
     if (thisArray.length == 0)
-        return;
+        return null;
     var out = 0;
     for (var i = 0; i < thisArray.length; i++) {
         var item = thisArray[i];

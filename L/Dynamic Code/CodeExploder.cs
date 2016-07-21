@@ -88,13 +88,13 @@ namespace LCore.Extensions
                         {
                         return "";
                         }
-                    string Temp = Code.Substring(0, Index);
+                    string Temp = Code.Sub(0, Index);
                     Index = Temp.LastIndexOf("\r\n", StringComparison.Ordinal);
                     Code = Code.Substring(Index + 2);
                     int OpenBraceIndex = Code.IndexOf('{');
                     int EndIndex = LanguageFindMate(Code, OpenBraceIndex) + 1;
 
-                    string Out = $"{Code.Substring(0, EndIndex)}\r\n";
+                    string Out = $"{Code.Sub(0, EndIndex)}\r\n";
 
                     if (Out.IsEmpty())
                         {
@@ -353,7 +353,9 @@ namespace LCore.Extensions
                 Type[] AllParamTypes = FieldType.GetGenericArguments();
                 bool ReturnValue = FieldType.Name.StartsWith("Func");
 
-                Type[] ParamTypes = ReturnValue ? AllParamTypes.First(AllParamTypes.Length - 1) : AllParamTypes;
+                Type[] ParamTypes = ReturnValue
+                    ? AllParamTypes.First((uint)AllParamTypes.Length - 1)
+                    : AllParamTypes;
 
                 var ReturnType = ReturnValue ? AllParamTypes.Last() : typeof(void);
 

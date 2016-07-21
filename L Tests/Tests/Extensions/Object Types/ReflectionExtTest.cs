@@ -480,7 +480,7 @@ namespace L_Tests.Tests.Extensions
             }
 
 
-        
+
         [Fact]
         [TestCategory(UnitTests)]
         public void Test_HasInterface()
@@ -501,8 +501,8 @@ namespace L_Tests.Tests.Extensions
             typeof(TestExt).HasInterface(typeof(ITest)).Should().BeFalse();
             typeof(TestExt).HasInterface<ITest>().Should().BeFalse();
 
-//            typeof(BadStatic).HasInterface(typeof(ITest)).Should().BeFalse();
-//            typeof(BadStatic).HasInterface<ITest>().Should().BeFalse();
+            //            typeof(BadStatic).HasInterface(typeof(ITest)).Should().BeFalse();
+            //            typeof(BadStatic).HasInterface<ITest>().Should().BeFalse();
 
 
             }
@@ -765,10 +765,8 @@ namespace L_Tests.Tests.Extensions
             L.A(() => new TestMember().MemberType()).ShouldFail();
             }
 
-
+        
         /// <exception cref="InvalidOperationException">The object could not be created, constructor was not found.</exception>
-        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
-        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
         [TestCategory(UnitTests)]
         public void Test_New()
@@ -776,6 +774,11 @@ namespace L_Tests.Tests.Extensions
             typeof(string).New<string>().Should().Be("");
 
             L.Ref.New<TestClass>().ShouldBeEquivalentTo(new TestClass());
+            L.Ref.New<TestBaseClass2>("").ShouldBeEquivalentTo(new TestBaseClass2());
+            L.Ref.New<TestBaseClass2>("", "").ShouldBeEquivalentTo(new TestBaseClass2());
+            L.Ref.New<TestBaseClass2>("", "", "").ShouldBeEquivalentTo(new TestBaseClass2());
+            L.Ref.New<TestBaseClass2>("", "", "", "").ShouldBeEquivalentTo(new TestBaseClass2());
+
             L.Ref.New<TestClassGeneric1<string>>().ShouldBeEquivalentTo(new TestClassGeneric1<string>());
             L.Ref.New<TestClassGeneric1<int>>().ShouldBeEquivalentTo(new TestClassGeneric1<int>());
             L.Ref.New<TestClassGeneric2<string, int>>("a").ShouldBeEquivalentTo(new TestClassGeneric2<string, int>("a"));
@@ -785,12 +788,7 @@ namespace L_Tests.Tests.Extensions
 
             typeof(TestClassGeneric2<,>).New(new object[] { "a" }, typeof(TestClassGeneric2<int, int>))
                 .ShouldBeEquivalentTo(new TestClassGeneric2<int, int>("a"));
-
-            L.A(() => typeof(TestClassGeneric2<,>).New(new object[] { "a", "a" }, typeof(TestClassGeneric2<int, int>)))
-                .ShouldFail();
-
-            L.A(() => typeof(TestClassGeneric2<,>).New(new object[] { "a", "a", "a" }, typeof(TestClassGeneric2<int, int>)))
-                .ShouldFail();
+            
             }
 
 
@@ -990,15 +988,15 @@ namespace L_Tests.Tests.Extensions
             }
 
         #region Helpers
-/*
-        internal static class BadStatic
-            {
-            /// <exception cref="Exception">Condition.</exception>
-            static BadStatic()
-                {
-                throw new Exception();
-                }
-            }*/
+        /*
+                internal static class BadStatic
+                    {
+                    /// <exception cref="Exception">Condition.</exception>
+                    static BadStatic()
+                        {
+                        throw new Exception();
+                        }
+                    }*/
 
         internal class TestClassGeneric1<T1> : TestClass, ICustomAttributeProvider
             {
@@ -1088,6 +1086,27 @@ namespace L_Tests.Tests.Extensions
             public string Test13 { get; private set; } = "6";
 
             public TestClass Test14 { get; set; }
+
+            public TestBaseClass2()
+                {
+
+                }
+            public TestBaseClass2(string Str)
+                {
+
+                }
+            public TestBaseClass2(string Str, string Str2)
+                {
+
+                }
+            public TestBaseClass2(string Str, string Str2, string Str3)
+                {
+
+                }
+            public TestBaseClass2(string Str, string Str2, string Str3, string Str4)
+                {
+
+                }
 
             public class TestSubClass
                 {

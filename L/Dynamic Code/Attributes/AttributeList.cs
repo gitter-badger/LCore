@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Linq;
 using LCore.Extensions;
 // ReSharper disable UnusedMember.Global
 
@@ -30,7 +29,7 @@ namespace LCore.Dynamic
                 Attributes = new Attribute[] { };
 
             this.TypeName = TypeName;
-            this._Attributes = Attributes.ToArray();
+            this._Attributes = Attributes.Array();
             }
 
         // ReSharper disable once CoVariantArrayConversion
@@ -43,11 +42,9 @@ namespace LCore.Dynamic
         /// <returns>An array of Objects representing custom attributes, or an empty array.</returns>
         /// <param name="AttributeType">The type of the custom attributes. </param>
         /// <param name="Inherit">When true, look up the hierarchy chain for the inherited custom attribute. </param>
-        /// <exception cref="T:System.ArgumentNullException">
-        /// <paramref name="AttributeType" /> is null.</exception>
         public object[] GetCustomAttributes(Type AttributeType, bool Inherit)
             {
-            return this._Attributes.Select(Attr => (object)Attr.IsType(AttributeType)).ToArray();
+            return this._Attributes.Select(Attr => Attr.IsType(AttributeType)).Array<object>();
             }
 
         /// <summary>Indicates whether one or more instance of <paramref name="AttributeType" /> is defined on this member.</summary>

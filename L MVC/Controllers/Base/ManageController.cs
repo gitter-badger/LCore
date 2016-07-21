@@ -81,7 +81,7 @@ namespace LMVC.Controllers
                 {
                 string Out = this.GetType().Name;
 
-                Out = Out.Substring(0, Out.IndexOf("Controller"));
+                Out = Out.Sub(0, Out.IndexOf("Controller"));
 
                 return Out;
                 }

@@ -1,7 +1,6 @@
 ﻿@* Generator: MvcView *@
 
 @using Singularity.Extensions;
-@using System.Linq;
 @* ReSharper disable once RedundantUsingDirective*@
 @using LMVC.Routes;
 
@@ -14,7 +13,7 @@
         {
         string Id = SubModel.GetID();
 
-        var Selected = Items.FirstOrDefault(Item => Item.Value == Id);
+        var Selected = EnumerableExt.First(Items, Item => Item.Value == Id);
 
         if (Selected != null)
             {

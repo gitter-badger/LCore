@@ -34,16 +34,22 @@ namespace ASP
     using System.Web.UI;
     using System.Web.WebPages;
     using LCore.Extensions;
-    using Singularity;
+    using LMVC;
+    using LMVC.Account;
+    using LMVC.Annotations;
     using LMVC.Context;
     using LMVC.Controllers;
-    using Singularity.Models;
+    using LMVC.Extensions;
+    using LMVC.Models;
     
     #line 4 "..\..\Views\Test\JavascriptTest.cshtml"
-    using Singularity.Routes;
+    using LMVC.Routes;
     
     #line default
     #line hidden
+    using Singularity;
+    using Singularity.Extensions;
+    using Singularity.Models;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Test/JavascriptTest.cshtml")]

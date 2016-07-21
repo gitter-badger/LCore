@@ -267,7 +267,7 @@ namespace LCore.Web
             {
             try
                 {
-                this._FormPostID = Encoding.UTF8.GetString(BufferData).Substring(29, 13);
+                this._FormPostID = Encoding.UTF8.GetString(BufferData).Sub(29, 13);
                 this._FieldSeparator = $"-----------------------------{this._FormPostID}";
                 }
             catch (Exception Ex)

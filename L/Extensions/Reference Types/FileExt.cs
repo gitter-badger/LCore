@@ -58,7 +58,7 @@ namespace LCore.Extensions
             string DirPath = Path;
 
             if (DirPath.Contains("\\"))
-                DirPath = DirPath.Substring(0, DirPath.LastIndexOf("\\", StringComparison.Ordinal));
+                DirPath = DirPath.Sub(0, DirPath.LastIndexOf("\\", StringComparison.Ordinal));
 
             if (!Directory.Exists(DirPath))
                 Directory.CreateDirectory(DirPath);
@@ -584,7 +584,7 @@ namespace LCore.Extensions
                     if (PathDestination.StartsWith("\\"))
                         PathDestination = $"\\{PathDestination}";
 
-                    string Dir = PathDestination.Substring(0, PathDestination.LastIndexOf('\\'));
+                    string Dir = PathDestination.Sub(0, PathDestination.LastIndexOf('\\'));
 
                     if (!Directory.Exists(Dir))
                         Directory.CreateDirectory(Dir);

@@ -13,7 +13,6 @@ namespace LCore.Extensions
     [ExtensionProvider]
     public static class ThreadExt
         {
-        /* TODO: L: Thread: Refactor to 16 All Below */
         #region Extensions +
 
         #region Async
@@ -98,6 +97,31 @@ namespace LCore.Extensions
             }
         #endregion
 
+        #region CountExecutions
+
+        /// <summary>
+        /// Counts how many times <paramref name="In"/> can be performed in the given number of <paramref name="Milliseconds"/>
+        /// </summary>
+        [Tested]
+        public static uint CountExecutions(this Action In, uint Milliseconds)
+            {
+            var Start = DateTime.Now;
+            double Elapsed = 0;
+
+            uint Count = 0;
+            while (Elapsed < Milliseconds)
+                {
+                In();
+                Count++;
+
+                Elapsed = (DateTime.Now.Ticks - Start.Ticks) * L.Date.TicksToMilliseconds;
+                }
+
+            return Count;
+            }
+
+        #endregion
+
         #region Profile
         /// <summary>
         /// Performs an action, reporting back the amount of time it took to complete
@@ -110,6 +134,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Performs a function, reporting back the amount of time it took to complete
         /// </summary>
+        [Tested]
         public static MethodProfileData<U> Profile<U>(this Func<U> In, uint Repeat = L.Thread.DefaultProfileRepeat)
             {
             var Out = new MethodProfileData<U>();
@@ -131,6 +156,7 @@ namespace LCore.Extensions
         /// Surrounds the method with logic that logs all execution times.
         /// Access the data using: L.Thread.MethodProfileCache
         /// </summary>
+        [Tested]
         public static Action Profile(this Action In, string ProfileName)
             {
             return L.Thread.ProfileAction(In, ProfileName);
@@ -139,6 +165,7 @@ namespace LCore.Extensions
         /// Surrounds the method with logic that logs all execution times.
         /// Access the data using: L.Thread.MethodProfileCache
         /// </summary>
+        [Tested]
         public static Action<T1> Profile<T1>(this Action<T1> In, string ProfileName)
             {
             return o => { In.Supply(o).Profile(ProfileName)(); };
@@ -147,6 +174,7 @@ namespace LCore.Extensions
         /// Surrounds the method with logic that logs all execution times.
         /// Access the data using: L.Thread.MethodProfileCache
         /// </summary>
+        [Tested]
         public static Func<U> Profile<U>(this Func<U> In, string ProfileName)
             {
             return () =>
@@ -170,6 +198,7 @@ namespace LCore.Extensions
         /// Surrounds the method with logic that logs all execution times.
         /// Access the data using: L.Thread.MethodProfileCache
         /// </summary>
+        [Tested]
         public static Func<T1, U> Profile<T1, U>(this Func<T1, U> In, string ProfileName)
             {
             return o => In.Supply(o).Profile(ProfileName)();
@@ -177,28 +206,6 @@ namespace LCore.Extensions
         #endregion
 
         #endregion
-
-        // Does not work yet
-        internal static int CountExecutions(this Action In, int Milliseconds)
-            {
-            var Start = DateTime.Now;
-            int Elapsed = 0;
-
-            int Count = 0;
-            while (Elapsed < Milliseconds)
-                {
-                In();
-                Count++;
-
-                try
-                    {
-                    Elapsed = DateTime.Now.Subtract(Start).Milliseconds.Abs();
-                    }
-                catch (OverflowException) { /* never occurs - Milliseconds will never be int.MinValue. */ }
-                }
-
-            return Count;
-            }
         }
     public static partial class L
         {

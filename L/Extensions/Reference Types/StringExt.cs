@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 // using System.Data.Entity.Design.PluralizationServices;
-using System.Linq;
 using System.Text;
 using System.Collections;
 using System.Data.Entity.Design.PluralizationServices;
@@ -70,7 +69,7 @@ namespace LCore.Extensions
                 }
             else
                 {
-                Objs2 = new string(Chars.ToArray());
+                Objs2 = new string(Chars.Array());
                 }
             return In + Objs2;
             }
@@ -137,14 +136,14 @@ namespace LCore.Extensions
         #endregion
 
         #region AlignCenter
+
         /// <summary>
         /// Takes a string and returns a padded string aligned Left.
         /// The pad character defaults to a space ' '.
         /// If <paramref name="In" /> is longer than <paramref name="Length" />, the result is <paramref name="In" /> truncated to <paramref name="Length" />.
-        /// This method will only fail if <paramref name="Length" /> is less than 0.
         /// </summary>
-        [TestFails(new object[] { null, -1, (char)0 })]
-        [TestFails(new object[] { "a", -1, ' ' })]
+        [TestResult(new object[] { null, -1, (char)0 }, "")]
+        [TestResult(new object[] { "a", -1, ' ' }, "")]
         [TestResult(new object[] { null, 5, ' ' }, "     ")]
         [TestResult(new object[] { " ", 5, ' ' }, "     ")]
         [TestResult(new object[] { "a", 5, ' ' }, "  a  ")]
@@ -152,6 +151,27 @@ namespace LCore.Extensions
         [TestResult(new object[] { "   abc   ", 5, ' ' }, " abc ")]
         [TestResult(new object[] { "abcdef", 5, ' ' }, "abcde")]
         public static string AlignCenter(this string In, int Length, char PadChar = ' ')
+            {
+            return Length < 0
+                ? ""
+                : In.AlignCenter((uint)Length, PadChar);
+            }
+
+        /// <summary>
+        /// Takes a string and returns a padded string aligned Left.
+        /// The pad character defaults to a space ' '.
+        /// If <paramref name="In" /> is longer than <paramref name="Length" />, the result is <paramref name="In" /> 
+        /// truncated to <paramref name="Length" />.
+        /// </summary>
+        [TestResult(new object[] { null, 0u, ' ' }, "")]
+        [TestResult(new object[] { "a", 0u, ' ' }, "")]
+        [TestResult(new object[] { null, 5u, ' ' }, "     ")]
+        [TestResult(new object[] { " ", 5u, ' ' }, "     ")]
+        [TestResult(new object[] { "a", 5u, ' ' }, "  a  ")]
+        [TestResult(new object[] { "abc", 5u, ' ' }, " abc ")]
+        [TestResult(new object[] { "   abc   ", 5u, ' ' }, " abc ")]
+        [TestResult(new object[] { "abcdef", 5u, ' ' }, "abcde")]
+        public static string AlignCenter(this string In, uint Length, char PadChar = ' ')
             {
             return In.Pad(Length, L.Align.Center, PadChar);
             }
@@ -162,10 +182,9 @@ namespace LCore.Extensions
         /// Takes a string and returns a padded string aligned Left.
         /// The pad character defaults to a space ' '.
         /// If <paramref name="In" /> is longer than <paramref name="Length" />, the result is <paramref name="In" /> truncated to <paramref name="Length" />.
-        /// This method will only fail if <paramref name="Length" /> is less than 0.
         /// </summary>
-        [TestFails(new object[] { null, -1, (char)0 })]
-        [TestFails(new object[] { "a", -1, ' ' })]
+        [TestResult(new object[] { null, -1, (char)0 }, "")]
+        [TestResult(new object[] { "a", -1, ' ' }, "")]
         [TestResult(new object[] { null, 5, ' ' }, "     ")]
         [TestResult(new object[] { " ", 5, ' ' }, "     ")]
         [TestResult(new object[] { "a", 5, ' ' }, "a    ")]
@@ -173,6 +192,23 @@ namespace LCore.Extensions
         [TestResult(new object[] { "   abc   ", 5, ' ' }, "abc  ")]
         [TestResult(new object[] { "abcdef", 5, ' ' }, "abcde")]
         public static string AlignLeft(this string In, int Length, char PadChar = ' ')
+            {
+            return Length < 0
+                ? ""
+                : In.AlignLeft((uint)Length, PadChar);
+            }
+        /// <summary>
+        /// Takes a string and returns a padded string aligned Left.
+        /// The pad character defaults to a space ' '.
+        /// If <paramref name="In" /> is longer than <paramref name="Length" />, the result is <paramref name="In" /> truncated to <paramref name="Length" />.
+        /// </summary>
+        [TestResult(new object[] { null, 5u, ' ' }, "     ")]
+        [TestResult(new object[] { " ", 5u, ' ' }, "     ")]
+        [TestResult(new object[] { "a", 5u, ' ' }, "a    ")]
+        [TestResult(new object[] { "abc", 5u, ' ' }, "abc  ")]
+        [TestResult(new object[] { "   abc   ", 5u, ' ' }, "abc  ")]
+        [TestResult(new object[] { "abcdef", 5u, ' ' }, "abcde")]
+        public static string AlignLeft(this string In, uint Length, char PadChar = ' ')
             {
             return In.Pad(Length, L.Align.Left, PadChar);
             }
@@ -183,10 +219,9 @@ namespace LCore.Extensions
         /// Takes a string and returns a padded string aligned either on the Left or Right. Left = true for left, false for Right.
         /// The pad character defaults to a space ' '.
         /// If <paramref name="In" /> is longer than <paramref name="Length" />, the result is <paramref name="In" /> truncated to <paramref name="Length" />.
-        /// This method will only fail if <paramref name="Length" /> is less than 0.
         /// </summary>
-        [TestFails(new object[] { null, -1, (char)0 })]
-        [TestFails(new object[] { "a", -1, ' ' })]
+        [TestResult(new object[] { null, -1, (char)0 }, "")]
+        [TestResult(new object[] { "a", -1, ' ' }, "")]
         [TestResult(new object[] { null, 5, ' ' }, "     ")]
         [TestResult(new object[] { " ", 5, ' ' }, "     ")]
         [TestResult(new object[] { "a", 5, ' ' }, "    a")]
@@ -194,6 +229,23 @@ namespace LCore.Extensions
         [TestResult(new object[] { "   abc   ", 5, ' ' }, "  abc")]
         [TestResult(new object[] { "abcdef", 5, ' ' }, "abcde")]
         public static string AlignRight(this string In, int Length, char PadChar = ' ')
+            {
+            return Length < 0
+                ? ""
+                : In.AlignRight((uint)Length, PadChar);
+            }
+        /// <summary>
+        /// Takes a string and returns a padded string aligned either on the Left or Right. Left = true for left, false for Right.
+        /// The pad character defaults to a space ' '.
+        /// If <paramref name="In" /> is longer than <paramref name="Length" />, the result is <paramref name="In" /> truncated to <paramref name="Length" />.
+        /// </summary>
+        [TestResult(new object[] { null, 5u, ' ' }, "     ")]
+        [TestResult(new object[] { " ", 5u, ' ' }, "     ")]
+        [TestResult(new object[] { "a", 5u, ' ' }, "    a")]
+        [TestResult(new object[] { "abc", 5u, ' ' }, "  abc")]
+        [TestResult(new object[] { "   abc   ", 5u, ' ' }, "  abc")]
+        [TestResult(new object[] { "abcdef", 5u, ' ' }, "abcde")]
+        public static string AlignRight(this string In, uint Length, char PadChar = ' ')
             {
             return In.Pad(Length, L.Align.Right, PadChar);
             }
@@ -335,7 +387,7 @@ namespace LCore.Extensions
         public static string Combine(this IEnumerable<string> In, string CombineStr)
             {
             string Out = "";
-            int Count = In.Count();
+            uint Count = In.Count();
             In.Each((i, o) =>
             {
                 if (o == null)
@@ -355,7 +407,6 @@ namespace LCore.Extensions
         /// Concatenates a given String <paramref name="In" /> to length <paramref name="MaxLength" /> minus the length of <paramref name="ConcatenateString" />.
         /// You can specify a Concatenation String, which defaults to "..."
         /// </summary>
-
         [TestFails(new object[] { null, 0, "..." }, typeof(ArgumentException))]
         [TestResult(new object[] { null, 5, "..." }, "")]
         [TestResult(new object[] { null, -5, "..." }, "")]
@@ -369,14 +420,14 @@ namespace LCore.Extensions
             if (MaxLength < 0)
                 return In ?? "";
             if (MaxLength < ConcatenateString.Length)
-                throw new ArgumentException("MaxLength");
+                throw new ArgumentException(nameof(MaxLength));
 
             In = In ?? "";
             In = In.Trim();
 
             if (In.Length > MaxLength)
                 {
-                return In.Substring(0, MaxLength - ConcatenateString.Length) + ConcatenateString;
+                return In.Sub(0, MaxLength - ConcatenateString.Length) + ConcatenateString;
                 }
             return In;
             }
@@ -414,22 +465,22 @@ namespace LCore.Extensions
         /// <param name="In">The source to search</param>
         /// <param name="Search">The search term</param>
         /// <returns>The amount of times <paramref name="Search" /> appears in <paramref name="In" /></returns>
-        [TestResult(new object[] { null, null }, 0)]
-        [TestResult(new object[] { "", "" }, 0)]
+        [TestResult(new object[] { null, null }, 0u)]
+        [TestResult(new object[] { "", "" }, 0u)]
         // ReSharper disable StringLiteralTypo
-        [TestResult(new object[] { "aaabbbccc", "" }, 0)]
-        [TestResult(new object[] { "aaabbbccc", "a" }, 3)]
-        [TestResult(new object[] { "aaabbbccc", "aa" }, 2)]
-        [TestResult(new object[] { "aaabbbccc", "aaa" }, 1)]
+        [TestResult(new object[] { "aaabbbccc", "" }, 0u)]
+        [TestResult(new object[] { "aaabbbccc", "a" }, 3u)]
+        [TestResult(new object[] { "aaabbbccc", "aa" }, 2u)]
+        [TestResult(new object[] { "aaabbbccc", "aaa" }, 1u)]
         // ReSharper restore StringLiteralTypo
-        public static int Count(this string In, string Search)
+        public static uint Count(this string In, string Search)
             {
             if (In.IsEmpty() || Search.IsEmpty())
                 return 0;
 
             int[] Nums = 0.To(In.Length - 1);
 
-            return Nums.Where(i => In.Sub(i).StartsWith(Search)).Count();
+            return Nums.Select(i => In.Sub(i).StartsWith(Search)).Count();
             }
         #endregion
 
@@ -438,12 +489,27 @@ namespace LCore.Extensions
         /// Returns a String filled with <paramref name="Count" /> characters of the source character.
         /// Throws an exception if <paramref name="Count" /> is less than 0.
         /// </summary>
-        [TestFails(new object[] { 'a', -1 })]
+        [TestResult(new object[] { 'a', -1 }, "")]
         [TestResult(new object[] { 'a', 0 }, "")]
         [TestResult(new object[] { 'a', 3 }, "aaa")]
         // ReSharper disable once StringLiteralTypo
         [TestResult(new object[] { 'z', 5 }, "zzzzz")]
         public static string Fill(this char In, int Count)
+            {
+            return Count < 0
+                ? ""
+                : In.Fill((uint)Count);
+            }
+
+        /// <summary>
+        /// Returns a String filled with <paramref name="Count" /> characters of the source character.
+        /// Throws an exception if <paramref name="Count" /> is less than 0.
+        /// </summary>
+        [TestResult(new object[] { 'a', 0u }, "")]
+        [TestResult(new object[] { 'a', 3u }, "aaa")]
+        // ReSharper disable once StringLiteralTypo
+        [TestResult(new object[] { 'z', 5u }, "zzzzz")]
+        public static string Fill(this char In, uint Count)
             {
             return new string(new char[Count].Collect(o => In));
             }
@@ -645,6 +711,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "123", null }, false)]
         [TestResult(new object[] { "123", new string[] { } }, false)]
         [TestResult(new object[] { "123", new[] { @"\d+" } }, true)]
+        [TestResult(new object[] { "123", new[] { @"\d\d\d\d" } }, false)]
         public static bool HasMatch(this string In, params string[] Expressions)
             {
             return Expressions.Count(Str =>
@@ -855,10 +922,9 @@ namespace LCore.Extensions
         /// Takes a string and returns a padded string aligned either on the Left or Right. Left = true for left, false for Right.
         /// The pad character defaults to a space ' '.
         /// If <paramref name="In" /> is longer than <paramref name="Length" />, the result is <paramref name="In" /> truncated to <paramref name="Length" />.
-        /// This method will only fail if <paramref name="Length" /> is less than 0.
         /// </summary>
-        [TestFails(new object[] { null, -1, L.Align.Right, (char)0 })]
-        [TestFails(new object[] { "a", -1, L.Align.Right, ' ' })]
+        [TestResult(new object[] { null, -1, L.Align.Right, (char)0 }, "")]
+        [TestResult(new object[] { "a", -1, L.Align.Right, ' ' }, "a")]
         [TestResult(new object[] { null, 5, L.Align.Left, ' ' }, "     ")]
         [TestResult(new object[] { " ", 5, L.Align.Left, ' ' }, "     ")]
         [TestResult(new object[] { "a", 5, L.Align.Left, ' ' }, "a    ")]
@@ -888,13 +954,51 @@ namespace LCore.Extensions
         [TestResult(new object[] { "   abc   ", 6, L.Align.Center, '0' }, "00abc0")]
         public static string Pad(this string In, int Length, L.Align Alignment = L.Align.Left, char PadChar = ' ')
             {
+            return Length < 0
+                ? In ?? ""
+                : In.Pad((uint)Length, Alignment, PadChar);
+            }
+        /// <summary>
+        /// Takes a string and returns a padded string aligned either on the Left or Right. Left = true for left, false for Right.
+        /// The pad character defaults to a space ' '.
+        /// If <paramref name="In" /> is longer than <paramref name="Length" />, the result is <paramref name="In" /> truncated to <paramref name="Length" />.
+        /// </summary>
+        [TestResult(new object[] { null, 5u, L.Align.Left, ' ' }, "     ")]
+        [TestResult(new object[] { " ", 5u, L.Align.Left, ' ' }, "     ")]
+        [TestResult(new object[] { "a", 5u, L.Align.Left, ' ' }, "a    ")]
+        [TestResult(new object[] { "a", 5u, L.Align.Right, ' ' }, "    a")]
+        [TestResult(new object[] { "a", 5u, L.Align.Center, ' ' }, "  a  ")]
+        [TestResult(new object[] { "abc", 5u, L.Align.Left, ' ' }, "abc  ")]
+        [TestResult(new object[] { "abc", 5u, L.Align.Right, ' ' }, "  abc")]
+        [TestResult(new object[] { "abc", 5u, L.Align.Center, ' ' }, " abc ")]
+        [TestResult(new object[] { "   abc   ", 5u, L.Align.Right, ' ' }, "  abc")]
+        [TestResult(new object[] { "abcdef", 5u, L.Align.Left, ' ' }, "abcde")]
+        [TestResult(new object[] { "abcdef", 5u, L.Align.Right, ' ' }, "abcde")]
+        [TestResult(new object[] { "abcdef", 5u, L.Align.Center, ' ' }, "abcde")]
+        [TestResult(new object[] { null, 5u, L.Align.Left, '0' }, "00000")]
+        [TestResult(new object[] { " ", 5u, L.Align.Left, '0' }, "00000")]
+        [TestResult(new object[] { "a", 5u, L.Align.Left, '0' }, "a0000")]
+        [TestResult(new object[] { "a", 5u, L.Align.Right, '0' }, "0000a")]
+        [TestResult(new object[] { "a", 5u, L.Align.Center, '0' }, "00a00")]
+        [TestResult(new object[] { "abc", 5u, L.Align.Left, '0' }, "abc00")]
+        [TestResult(new object[] { "abc", 5u, L.Align.Right, '0' }, "00abc")]
+        [TestResult(new object[] { "abc", 5u, L.Align.Center, '0' }, "0abc0")]
+        [TestResult(new object[] { "   abc   ", 5u, L.Align.Left, '0' }, "abc00")]
+        [TestResult(new object[] { "   abc   ", 5u, L.Align.Right, '0' }, "00abc")]
+        [TestResult(new object[] { "   abc   ", 5u, L.Align.Center, '0' }, "0abc0")]
+        [TestResult(new object[] { "abcdef", 5u, L.Align.Left, '0' }, "abcde")]
+        [TestResult(new object[] { "abcdef", 5u, L.Align.Right, '0' }, "abcde")]
+        [TestResult(new object[] { "abcdef", 5u, L.Align.Center, '0' }, "abcde")]
+        [TestResult(new object[] { "   abc   ", 6u, L.Align.Center, '0' }, "00abc0")]
+        public static string Pad(this string In, uint Length, L.Align Alignment = L.Align.Left, char PadChar = ' ')
+            {
             if (In.IsEmpty())
                 return PadChar.Fill(Length);
 
             In = In.Trim();
 
             if (In.Length > Length)
-                return In.Substring(0, Length);
+                return In.Sub(0, Length);
             while (In.Length < Length)
                 {
                 if (Alignment == L.Align.Left)
@@ -1146,8 +1250,8 @@ namespace LCore.Extensions
                     }
                 if (Index2 > 0)
                     {
-                    Out.Add(Cursor.Substring(0, Index2));
-                    return Cursor.Substring(Index2);
+                    Out.Add(Cursor.Sub(0, Index2));
+                    return Cursor.Sub(Index2);
                     }
                 // if (Index == 0)
                 // {
@@ -1212,7 +1316,7 @@ namespace LCore.Extensions
                 {
                 if (Line[Index] == SplitBy)
                     {
-                    Out.Add(Line.Substring(FieldStart, Index - FieldStart));
+                    Out.Add(Line.Sub(FieldStart, Index - FieldStart));
                     FieldStart = Index + 1;
                     }
 
@@ -1224,7 +1328,7 @@ namespace LCore.Extensions
 
             // Last column
             if (Line.Length - FieldStart != 0)
-                Out.Add(Line.Substring(FieldStart, Line.Length - FieldStart));
+                Out.Add(Line.Sub(FieldStart, Line.Length - FieldStart));
 
             return Out;
             }
@@ -1241,24 +1345,46 @@ namespace LCore.Extensions
         [TestResult(new object[] { "aaaa", 0, 1 }, "a")]
         [TestResult(new object[] { "aaaa", 0, 10 }, "aaaa")]
         [TestResult(new object[] { "aaaa", -1, 10 }, "aaaa")]
+        [TestResult(new object[] { "aaaa", 0, 0 }, "")]
+        [TestResult(new object[] { "aaaa", 0, -1 }, "")]
         [TestResult(new object[] { "aaaa", 5, 5 }, "")]
         [TestResult(new object[] { "aaaa", 4, 4 }, "")]
         [TestResult(new object[] { "aaaa", 3, 3 }, "a")]
         [TestResult(new object[] { "123456789123456789", 5, 8 }, "67891234")]
         public static string Sub(this string In, int Start, int? Length = null)
             {
-            In = In ?? "";
-
             if (Start < 0)
                 Start = 0;
-            if (Start > In.Length)
-                Start = In.Length;
-            if (Start + Length > In.Length)
-                Length = In.Length - Start;
 
-            return Length == null || Length == 0 ?
-                In.Substring(Start) :
-                In.Substring(Start, (int)Length);
+            if (Length < 0)
+                Length = 0;
+
+            return In.Sub((uint)Start, (uint?)Length);
+            }
+        [TestResult(new object[] { null, 0u, null }, "")]
+        [TestResult(new object[] { "", 0u, null }, "")]
+        [TestResult(new object[] { "", 0u, 1u }, "")]
+        [TestResult(new object[] { "aaaa", 0u, 1u }, "a")]
+        [TestResult(new object[] { "aaaa", 0u, 10u }, "aaaa")]
+        [TestResult(new object[] { "aaaa", 5u, 5u }, "")]
+        [TestResult(new object[] { "aaaa", 4u, 4u }, "")]
+        [TestResult(new object[] { "aaaa", 3u, 3u }, "a")]
+        [TestResult(new object[] { "123456789123456789", 5u, 8u }, "67891234")]
+        public static string Sub(this string In, uint Start, uint? Length = null)
+            {
+            In = In ?? "";
+
+            if (Start > In.Length)
+                Start = (uint)In.Length;
+            if (Start + Length > In.Length)
+                Length = (uint)In.Length - Start;
+
+            if (Length == 0)
+                return "";
+
+            return Length == null ?
+                In.Substring((int)Start) :
+                In.Substring((int)Start, (int)Length);
             }
         #endregion
 
@@ -1360,7 +1486,7 @@ namespace LCore.Extensions
 
             for (int Index = 0; Index < NumPairs; Index++)
                 {
-                Pairs[Index] = Str.Substring(Index, 2);
+                Pairs[Index] = Str.Sub(Index, 2);
                 }
 
             return Pairs;
@@ -1540,7 +1666,7 @@ namespace LCore.Extensions
                 {
                 In = In == TrimStr ?
                     "" :
-                    In.Substring(0, In.Length - TrimStr.Length);
+                    In.Sub(0, In.Length - TrimStr.Length);
                 }
 
             return In;
@@ -1883,7 +2009,7 @@ namespace LCore.Extensions
 
             #region Substitute
             internal static readonly Func<char[], char, char, char> Substitute =
-                (Chars, Char, Substitute) => Chars.Contains(Char) ? Substitute : Char;
+                (Chars, Char, Substitute) => Chars.Has(Char) ? Substitute : Char;
 
             #endregion
 

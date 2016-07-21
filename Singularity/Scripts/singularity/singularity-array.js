@@ -1,9 +1,12 @@
 /// <reference path="singularity-core.ts"/>
 /// <reference path="singularity-tests.ts"/>
-var singArray = singExt.addModule(new sing.Module("Array", Array));
+var singArray = singExt.addModule(new sing.Module('Array', Array));
 singArray.summaryShort = 'Extensions on the Array prototype';
 singArray.summaryLong = 'Performs array manipulation functions on any type of Javascript Array.';
-singArray.features = ['Shuffling arrays', 'Random elements', 'De-duplication', 'Array indexing'];
+singArray.features = ['Shuffling arrays',
+    'Random elements',
+    'De-duplication',
+    'Array indexing'];
 singArray.glyphIcon = '&#xe236;';
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -14,7 +17,7 @@ singArray.glyphIcon = '&#xe236;';
 //
 // Mapping Functions
 //
-singArray.method('splitAt', SplitAt, {
+singArray.method('splitAt', splitAt, {
     summary: 'Takes an array and splits it at the specified indexes.',
     parameters: [
         {
@@ -22,7 +25,7 @@ singArray.method('splitAt', SplitAt, {
             description: 'The indexes to split the source Array.',
             isMulti: true,
             types: [Number],
-            required: false,
+            required: false
         }
     ],
     returns: 'A split group of arrays',
@@ -37,9 +40,9 @@ singArray.method('splitAt', SplitAt, {
         ext.addTest([1, 2], [0], [[1, 2]]);
         ext.addTest([1, 2], [1], [[1], [2]]);
         ext.addTest([1, 2, 3, 4, 5, 6], [1, 3], [[1], [2, 3], [4, 5, 6]]);
-    },
+    }
 });
-function SplitAt() {
+function splitAt() {
     var indexes = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         indexes[_i - 0] = arguments[_i];
@@ -65,7 +68,7 @@ function SplitAt() {
         out.push(section);
     return out;
 }
-singArray.method('removeAt', ArrayRemoveAt, {
+singArray.method('removeAt', arrayRemoveAt, {
     summary: 'Takes an array and returns a new array with the passed indexes removed.',
     parameters: [
         {
@@ -73,7 +76,7 @@ singArray.method('removeAt', ArrayRemoveAt, {
             description: 'The indexes to remove from the source Array.',
             isMulti: true,
             types: [Number],
-            required: false,
+            required: false
         }
     ],
     returns: 'An array with the passed indexes removed',
@@ -90,19 +93,17 @@ singArray.method('removeAt', ArrayRemoveAt, {
         ext.addTest([1, 2], [0, 1], []);
         ext.addTest([1, 2, 3, 4, 5, 6], [0, 1], [3, 4, 5, 6]);
         ext.addTest([1, 2, 3, 4, 5, 6], [0, 5], [2, 3, 4, 5]);
-    },
+    }
 });
-function ArrayRemoveAt() {
+function arrayRemoveAt() {
     var indexes = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         indexes[_i - 0] = arguments[_i];
     }
     var thisArray = this;
-    return thisArray.select(function (item, index) {
-        return !indexes.has(index);
-    });
+    return thisArray.select(function (item, index) { return (!indexes.has(index)); });
 }
-singArray.method('unique', ArrayUnique, {
+singArray.method('unique', arrayUnique, {
     summary: 'Takes an array and returns only unique values, discarding duplicates.',
     parameters: [],
     returns: 'An array with unique values.',
@@ -115,24 +116,24 @@ singArray.method('unique', ArrayUnique, {
         ext.addTest([1, 2, 3], [], [1, 2, 3]);
         ext.addTest([1, 2, 3, 1, 2, 3], [], [1, 2, 3]);
         ext.addTest([1, 2, 3, 'a', 'b', 'c', 1, 2, 3, 'a', 'b', 'c'], [], [1, 2, 3, 'a', 'b', 'c']);
-    },
+    }
 });
-function ArrayUnique() {
+function arrayUnique() {
     var thisArray = this;
     var out = [];
-    thisArray.each(function (item, index) {
+    thisArray.each(function (item) {
         if (!out.has(item) && $.isDefined(item))
             out.push(item);
     });
     return out;
 }
-singArray.method('random', ArrayRandom, {
+singArray.method('random', arrayRandom, {
     summary: 'Takes an array and returns one or more random values from the source array.',
     parameters: [
         {
             name: 'count',
             defaultValue: 1,
-            types: [Number],
+            types: [Number]
         }
     ],
     returns: 'A single item if no count is supplied or count is 1. Otherwise an array of items is returned.',
@@ -145,14 +146,12 @@ singArray.method('random', ArrayRandom, {
             var test3 = test.random(5);
             if (!test.has(test2))
                 return 'failed';
-            if (test3.has(function (a) {
-                return !test.has(a);
-            }))
+            if (test3.has(function (a) { return (!test.has(a)); }))
                 return 'failed';
         });
-    },
+    }
 });
-function ArrayRandom(count) {
+function arrayRandom(count) {
     if (count === void 0) { count = 1; }
     var thisArray = this;
     var out = [];
@@ -166,7 +165,7 @@ function ArrayRandom(count) {
     }
     return out;
 }
-singArray.method('shuffle', ArrayShuffle, {
+singArray.method('shuffle', arrayShuffle, {
     summary: 'Takes an array and returns a new array with the original array values, shuffled.',
     parameters: [],
     returns: 'A new array with the original array values, shuffled',
@@ -178,14 +177,12 @@ singArray.method('shuffle', ArrayShuffle, {
             var test2 = test.shuffle();
             if (test == test2 || test2.length != test.length)
                 return 'failed';
-            if (test2.has(function (a) {
-                return !test.has(a);
-            }))
+            if (test2.has(function (a) { return (!test.has(a)); }))
                 return 'failed';
         });
-    },
+    }
 });
-function ArrayShuffle() {
+function arrayShuffle() {
     var thisArray = this;
     var out = [];
     while (thisArray.length > 0) {
@@ -195,31 +192,26 @@ function ArrayShuffle() {
     }
     return out;
 }
-singArray.method('group', ArrayGroup, {
+singArray.method('group', arrayGroup, {
     summary: 'Takes an array and groups the items using the key returned from the indexing function',
     returns: 'A Javascript hash object grouped by the indexing function.',
     returnType: Object,
     parameters: [
         {
             name: 'indexFunc',
-            types: [Function],
-        },
+            types: [Function]
+        }
     ],
     glyphIcon: '&#xe032;',
     tests: function (ext) {
         ext.addTest([], [], []);
         ext.addTest([], [null], []);
-        ext.addTest([1, 2, 3], [function (a) {
-        }], { '': [1, 2, 3] });
-        ext.addTest([1, 2, 3], [function (a) {
-            return 'group' + a;
-        }], { group1: [1], group2: [2], group3: [3] });
-        ext.addTest([1, 2, 2, 3], [function (a) {
-            return 'group' + a;
-        }], { group1: [1], group2: [2, 2], group3: [3] });
-    },
+        ext.addTest([1, 2, 3], [function () { }], { '': [1, 2, 3] });
+        ext.addTest([1, 2, 3], [function (a) { return ("group" + a); }], { group1: [1], group2: [2], group3: [3] });
+        ext.addTest([1, 2, 2, 3], [function (a) { return ("group" + a); }], { group1: [1], group2: [2, 2], group3: [3] });
+    }
 });
-function ArrayGroup(indexFunc) {
+function arrayGroup(indexFunc) {
     var thisArray = this;
     var out = {};
     thisArray.each(function (item, index) {
@@ -232,13 +224,13 @@ function ArrayGroup(indexFunc) {
     });
     return out;
 }
-singArray.method('toArray', ObjToArray, {
+singArray.method('toArray', objToArray, {
     summary: 'Takes an object of any kind and returns it as an array. If no object is passed an empty array will be returned. \
             If an array is passed, it will be returned.',
     parameters: [
         {
             name: 'obj',
-            types: [Object],
+            types: [Object]
         }
     ],
     validateInput: false,
@@ -251,9 +243,9 @@ singArray.method('toArray', ObjToArray, {
         ext.addTest(null, [undefined], []);
         ext.addTest(null, [0], [0]);
         ext.addTest(null, [[0, 1, 2]], [0, 1, 2]);
-    },
+    }
 }, $);
-function ObjToArray(obj) {
+function objToArray(obj) {
     if (!$.isDefined(obj))
         return [];
     if ($.isArray(obj))

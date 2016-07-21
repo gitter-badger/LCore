@@ -9,12 +9,12 @@
     string EmptyValue = FieldAttr.EmptyValue;
     string EmptyKey = FieldAttr.EmptyKey;
 
-    List<SelectListItem> Items = FieldAttr.KeyValues(ViewContext).Select(KeyValue => new SelectListItem
+    List<SelectListItem> Items = FieldAttr.KeyValues(ViewContext).Convert(KeyValue => new SelectListItem
         {
         Text = KeyValue.Key,
         Value = KeyValue.Value,
         Selected = (Model.PropertyData ?? "").ToString() == KeyValue.Value
-        }).ToList();
+        }).List();
 }
 
 @model IViewField

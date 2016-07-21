@@ -666,8 +666,6 @@ namespace LCore.Extensions.Optional
         /// <param name="In"></param>
         /// <param name="InitValue"></param>
         /// <exception cref="TargetException">Throws an exception if the a property setter throws an exception.</exception>
-        /// <exception cref="MethodAccessException">Throws an exception if the a property setter throws an exception.</exception>
-        /// <exception cref="TargetInvocationException">Throws an exception if the a property setter throws an exception.</exception>
         /// <exception cref="FieldAccessException">Throws an exception if the field cannot be accessed.</exception>
         [Tested]
         public static void InitProperties<T>(this object In, T InitValue = default(T))

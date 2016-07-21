@@ -36,15 +36,14 @@
     }
 else
     {
-    List<SelectListItem> Items = Enums.Select(Enum => new SelectListItem
+    List<SelectListItem> Items = Enums.Convert(Enum => new SelectListItem
         {
         Text = Enum.GetFriendlyName(),
         Value = Enum.ToString(),
         Selected = (Model.PropertyData ?? "").ToString() == Enum.ToString()
-        }).ToList();
+        });
 
-    Items.Sort((Func<SelectListItem, IComparable>
-        )(i => (IComparable)i.Text));
+    Items.Sort(i => (IComparable)i.Text);
 
     <select name="@Model.Meta.PropertyName" id="@Model.Meta.PropertyName">
         @foreach (var Item in Items)

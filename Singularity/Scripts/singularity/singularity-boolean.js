@@ -1,17 +1,19 @@
 /// <reference path="singularity-core.ts"/>
-var singBoolean = singExt.addModule(new sing.Module("Boolean", Boolean));
+var singBoolean = singExt.addModule(new sing.Module('Boolean', Boolean));
 singBoolean.glyphIcon = '&#xe063;';
 singBoolean.summaryShort = 'Extensions on Boolean.prototype';
 singBoolean.summaryLong = 'Perform boolean operations using extension methods instead of operators.';
-singBoolean.features = ['Multi-variable operations', 'Ternary operation', 'toYesNo'];
+singBoolean.features = ['Multi-variable operations',
+    'Ternary operation',
+    'toYesNo'];
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Boolean Extensions
 //
 //
-singBoolean.method('XOR', BooleanXOR, {
-    summary: "\
-        XOR acts on a boolean to perform the binary XOR function on the passed Boolean",
+singBoolean.method('XOR', booleanXor, {
+    summary: '\
+        XOR acts on a boolean to perform the binary XOR function on the passed Boolean',
     parameters: [
         {
             name: 'b',
@@ -44,16 +46,17 @@ singBoolean.method('XOR', BooleanXOR, {
         ext.addFailsTest(true, [undefined], 'Singularity.Extensions.Boolean.XOR Missing Parameter: boolean b');
         ext.addFailsTest(false, [null], 'Singularity.Extensions.Boolean.XOR Missing Parameter: boolean b');
         ext.addFailsTest(false, [undefined], 'Singularity.Extensions.Boolean.XOR Missing Parameter: boolean b');
-        ext.addFailsTest(false, ['a'], 'Singularity.Extensions.Boolean.XOR  Parameter: b: \'a\' string did not ' + 'match input type [\'boolean\'].');
+        ext.addFailsTest(false, ['a'], 'Singularity.Extensions.Boolean.XOR  Parameter: b: \'a\' string did not match input type [\'boolean\'].');
     }
 });
-function BooleanXOR(b) {
+function booleanXor(b) {
     var a = this.valueOf();
-    return (a == true && b == false) || (a == false && b == true);
+    return (a == true && b == false) ||
+        (a == false && b);
 }
-singBoolean.method('XNOR', BooleanXNOR, {
-    summary: "\
-        XNOR acts on a boolean to perform the binary XNOR function on the passed Boolean, the inverse of the XOR function",
+singBoolean.method('XNOR', booleanXNOR, {
+    summary: '\
+        XNOR acts on a boolean to perform the binary XNOR function on the passed Boolean, the inverse of the XOR function',
     parameters: [
         {
             name: 'b',
@@ -89,12 +92,12 @@ singBoolean.method('XNOR', BooleanXNOR, {
         ext.addFailsTest(false, ['a']);
     }
 });
-function BooleanXNOR(b) {
+function booleanXNOR(b) {
     return !this.XOR(b);
 }
-singBoolean.method('OR', BooleanOR, {
-    summary: "\
-        OR acts on a boolean to perform the binary OR function on the passed Booleans",
+singBoolean.method('OR', booleanOR, {
+    summary: '\
+        OR acts on a boolean to perform the binary OR function on the passed Booleans',
     parameters: [
         {
             name: 'b',
@@ -132,16 +135,16 @@ singBoolean.method('OR', BooleanOR, {
         ext.addTest(false, [false, false, false, false, true], true);
     }
 });
-function BooleanOR() {
+function booleanOR() {
     var b = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         b[_i - 0] = arguments[_i];
     }
     return this == true || b.has(true);
 }
-singBoolean.method('NOR', BooleanNOR, {
-    summary: "\
-        NOR acts on a boolean to perform the binary NOR function on the passed Booleans",
+singBoolean.method('NOR', booleanNOR, {
+    summary: '\
+        NOR acts on a boolean to perform the binary NOR function on the passed Booleans',
     parameters: [
         {
             name: 'b',
@@ -180,16 +183,16 @@ singBoolean.method('NOR', BooleanNOR, {
         ext.addTest(true, [true, true, true], false);
     }
 });
-function BooleanNOR() {
+function booleanNOR() {
     var b = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         b[_i - 0] = arguments[_i];
     }
     return !this.OR.apply(this, b);
 }
-singBoolean.method('AND', BooleanAND, {
-    summary: "\
-        AND acts on a boolean to perform the binary AND function on the passed Booleans",
+singBoolean.method('AND', booleanAND, {
+    summary: '\
+        AND acts on a boolean to perform the binary AND function on the passed Booleans',
     parameters: [
         {
             name: 'b',
@@ -228,16 +231,16 @@ singBoolean.method('AND', BooleanAND, {
         ext.addTest(true, [true, true, true], true);
     }
 });
-function BooleanAND() {
+function booleanAND() {
     var b = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         b[_i - 0] = arguments[_i];
     }
     return this == true && !b.has(false);
 }
-singBoolean.method('NAND', BooleanNAND, {
-    summary: "\
-        NAND acts on a boolean to perform the binary NAND function on the passed Booleans",
+singBoolean.method('NAND', booleanNAND, {
+    summary: '\
+        NAND acts on a boolean to perform the binary NAND function on the passed Booleans',
     parameters: [
         {
             name: 'b',
@@ -274,7 +277,7 @@ singBoolean.method('NAND', BooleanNAND, {
         ext.addTest(true, [true, true, true], false);
     }
 });
-function BooleanNAND() {
+function booleanNAND() {
     var b = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         b[_i - 0] = arguments[_i];
@@ -283,7 +286,7 @@ function BooleanNAND() {
         return this;
     return !this.AND.apply(this, b);
 }
-singBoolean.method('toYesNo', BooleanToYesNo, {
+singBoolean.method('toYesNo', booleanToYesNo, {
     summary: "\
         toYesNo converts a Boolean to a string of 'Yes' or 'No'",
     parameters: [],
@@ -302,21 +305,21 @@ singBoolean.method('toYesNo', BooleanToYesNo, {
         ext.addTest(false, [], 'No');
     }
 });
-function BooleanToYesNo() {
-    return this == false ? "No" : "Yes";
+function booleanToYesNo() {
+    return this == false ? 'No' : 'Yes';
 }
-singBoolean.method('ternary', BooleanTernary, {
+singBoolean.method('ternary', booleanTernary, {
     summary: 'Performs the ternary operation using the calling boolean.',
     parameters: [
         {
             name: 'obj',
             types: [Object],
-            description: 'The first object, returned if the caller is true',
+            description: 'The first object, returned if the caller is true'
         },
         {
             name: 'obj2',
             types: [Object],
-            description: 'The second object, returned if the caller is false',
+            description: 'The second object, returned if the caller is false'
         }
     ],
     returns: 'Returns the first argument if the calling boolean is true, otherwise the second argument is returned.',
@@ -326,12 +329,12 @@ singBoolean.method('ternary', BooleanTernary, {
     tests: function (ext) {
         ext.addTest(true, ['a', 'b'], 'a');
         ext.addTest(false, ['a', 'b'], 'b');
-    },
+    }
 }, String.prototype);
-function BooleanTernary(obj, obj2) {
+function booleanTernary(obj, obj2) {
     return this.valueOf() ? obj : obj2;
 }
-singBoolean.method('isBoolean', StringIsBoolean, {
+singBoolean.method('isBoolean', stringIsBoolean, {
     summary: 'Determines if the calling string is a Boolean format.',
     parameters: [],
     returns: 'true if the calling String is a form of a Boolean. isBoolean is Case Insensitive. \r\n\
@@ -366,11 +369,9 @@ singBoolean.method('isBoolean', StringIsBoolean, {
         ext.addTest('0', [], true);
         ext.addTest('1', [], true);
         ext.addTest('Anything else', [], false);
-    },
+    }
 }, String.prototype);
-function StringIsBoolean() {
-    if (!this)
-        return false;
+function stringIsBoolean() {
     var lower = this.lower().trim();
     if (lower == 'y' || lower == 'yes' || lower == 'true' || lower == '1' || lower == 't')
         return true;
@@ -378,7 +379,7 @@ function StringIsBoolean() {
         return true;
     return false;
 }
-singBoolean.method('toBoolean', StringToBoolean, {
+singBoolean.method('toBoolean', stringToBoolean, {
     summary: 'Converts the calling string to a Boolean format. ',
     parameters: [],
     returns: 'true if the calling String is a form of a Boolean. isBoolean is Case Insensitive. \r\n\
@@ -412,11 +413,9 @@ singBoolean.method('toBoolean', StringToBoolean, {
         ext.addTest('   TRUE    ', [], true, 'Handles whitespace');
         ext.addTest('   FALSE    ', [], false, 'Handles whitespace');
         ext.addTest('Anything else', [], undefined);
-    },
+    }
 }, String.prototype);
-function StringToBoolean() {
-    if (!this)
-        return;
+function stringToBoolean() {
     var lower = this.lower().trim();
     if (lower == 'y' || lower == 'yes' || lower == 'true' || lower == '1' || lower == 't')
         return true;

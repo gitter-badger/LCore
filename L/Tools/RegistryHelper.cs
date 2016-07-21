@@ -104,7 +104,7 @@ namespace LCore.Tools
         /// <exception cref="IOException">The <see cref="T:Microsoft.Win32.RegistryKey" /> object represents a root-level node, and the operating system is Windows 2000, Windows XP, or Windows Server 2003.</exception>
         public void Save(string Name, IEnumerable<object> List)
             {
-            int Count = List.Count();
+            uint Count = List.Count();
 
             this.Key.SetValue($"{Name}_Count", Count);
 
