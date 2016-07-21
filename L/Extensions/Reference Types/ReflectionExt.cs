@@ -936,7 +936,7 @@ namespace LCore.Extensions
             {
             //return Type != null && Type.IsType(typeof(Nullable<>));
             return Type.IsGenericType && Type.GetGenericTypeDefinition() == typeof(Nullable<>);
-            } 
+            }  
         }
 
     public static partial class L
