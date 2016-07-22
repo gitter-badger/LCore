@@ -1337,7 +1337,9 @@ namespace LCore.Extensions
 
         #region Sub
         /// <summary>
-        /// Alias for string.SubString with some additional argument protection.
+        /// Alias for string.SubString with additional argument protection.
+        /// Invalid values for <paramref name="Start"/> and <paramref name="Length"/>
+        /// do not throw exceptions, they are bound to the start and and of <paramref name="In"/>.
         /// </summary>
         [TestResult(new object[] { null, 0, null }, "")]
         [TestResult(new object[] { "", 0, null }, "")]
@@ -1361,6 +1363,11 @@ namespace LCore.Extensions
 
             return In.Sub((uint)Start, (uint?)Length);
             }
+        /// <summary>
+        /// Alias for string.SubString with additional argument protection.
+        /// Invalid values for <paramref name="Start"/> and <paramref name="Length"/>
+        /// do not throw exceptions, they are bound to the start and and of <paramref name="In"/>.
+        /// </summary>
         [TestResult(new object[] { null, 0u, null }, "")]
         [TestResult(new object[] { "", 0u, null }, "")]
         [TestResult(new object[] { "", 0u, 1u }, "")]

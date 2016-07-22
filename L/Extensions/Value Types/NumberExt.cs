@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using LCore.Interfaces;
 using LCore.Numbers;
@@ -196,7 +195,7 @@ namespace LCore.Extensions
             {
             In = In ?? new int[] { };
 
-            IEnumerable<int> Enumerable = In as int[] ?? In.ToArray();
+            IEnumerable<int> Enumerable = In as int[] ?? In.Array();
             return Enumerable.Sum() / (double)Enumerable.Count();
             }
 
@@ -214,7 +213,7 @@ namespace LCore.Extensions
             {
             In = In ?? new long[] { };
 
-            IEnumerable<long> Enumerable = In as long[] ?? In.ToArray();
+            IEnumerable<long> Enumerable = In as long[] ?? In.Array();
             return Enumerable.Sum() / (double)Enumerable.Count();
             }
 
@@ -232,7 +231,7 @@ namespace LCore.Extensions
             {
             In = In ?? new float[] { };
 
-            IEnumerable<float> Enumerable = In as float[] ?? In.ToArray();
+            IEnumerable<float> Enumerable = In as float[] ?? In.Array();
             return Enumerable.Sum() / (double)Enumerable.Count();
             }
 
@@ -250,7 +249,7 @@ namespace LCore.Extensions
             {
             In = In ?? new double[] { };
 
-            IEnumerable<double> Enumerable = In as double[] ?? In.ToArray();
+            IEnumerable<double> Enumerable = In as double[] ?? In.Array();
             return Enumerable.Sum() / Enumerable.Count();
             }
 
@@ -262,6 +261,7 @@ namespace LCore.Extensions
         /// Converts <paramref name="Number"/> to the most restrictive number type possible
         /// without losing any precision.
         /// </summary>
+        [TestedIndirectly]
         public static Number ConvertToBestMatch(this Number Number)
             {
             Number Out = null;
@@ -295,6 +295,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
+        [Tested]
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this int Int)
             {
@@ -305,6 +306,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
+        [Tested]
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this short Short)
             {
@@ -315,6 +317,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
+        [Tested]
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this long Long)
             {
@@ -325,6 +328,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
+        [Tested]
         // ReSharper disable once InconsistentNaming
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this uint UInt)
@@ -336,6 +340,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
+        [Tested]
         // ReSharper disable once InconsistentNaming
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this ushort UShort)
@@ -347,6 +352,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
+        [Tested]
         // ReSharper disable once InconsistentNaming
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this ulong ULong)
@@ -358,6 +364,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
+        [Tested]
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this char Char)
             {
@@ -368,6 +375,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
+        [Tested]
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this byte Byte)
             {
@@ -378,6 +386,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
+        [Tested]
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this sbyte Int)
             {
@@ -387,43 +396,53 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the number of decimal places used for the provided number.
         /// </summary>
-        public static ushort DecimalPlaces(this decimal Decimal)
+        [Tested]
+        public static ushort DecimalPlaces(this decimal Dec)
             {
-            ushort Out = 0;
-            while (!Decimal.CanConvertTo<int>())
+            string Out = Dec.ToString("0." + new string('#', 339));
+
+            if (Out.Contains("."))
                 {
-                Decimal = Decimal * 10;
-                Out++;
+                Out = Out.After(".").TrimEnd("0");
+
+                return (ushort)Out.Length;
                 }
-            return Out;
+            return 0;
             }
 
         /// <summary>
         /// Returns the number of decimal places used for the provided number.
         /// </summary>
-        public static uint DecimalPlaces(this double Double)
+        [Tested]
+        public static ushort DecimalPlaces(this double Double)
             {
-            uint Out = 0;
-            while (!Double.CanConvertTo<int>())
+            string Out = Double.ToString("0." + new string('#', 339));
+
+            if (Out.Contains("."))
                 {
-                Double = Double * 10;
-                Out++;
+                Out = Out.After(".").TrimEnd("0");
+
+                return (ushort)Out.Length;
                 }
-            return Out;
+            return 0;
             }
+
 
         /// <summary>
         /// Returns the number of decimal places used for the provided number.
         /// </summary>
+        [Tested]
         public static ushort DecimalPlaces(this float Float)
             {
-            ushort Out = 0;
-            while (!Float.CanConvertTo<int>())
+            string Out = Float.ToString("0." + new string('#', 339));
+
+            if (Out.Contains("."))
                 {
-                Float = Float * 10;
-                Out++;
+                Out = Out.After(".").TrimEnd("0");
+
+                return (ushort)Out.Length;
                 }
-            return Out;
+            return 0;
             }
 
         #endregion
@@ -657,6 +676,38 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns an int, representing a percent (<paramref name="In" /> / <paramref name="Total" />).
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="Total" /> was equal to 0.</exception>
+        [TestFails(new object[] { 5, 0 })]
+        [TestResult(new object[] { 5, 1 }, 500)]
+        [TestResult(new object[] { 5, 100 }, 5)]
+        [TestResult(new object[] { 22, 5 }, 440)]
+        [TestResult(new object[] { -22, 5 }, -440)]
+        public static int PercentageOf(this float In, float Total)
+            {
+            if (Total == 0) throw new ArgumentOutOfRangeException(nameof(Total));
+
+            return ((double)In / Total).AsPercent();
+            }
+
+        /// <summary>
+        /// Returns an int, representing a percent (<paramref name="In" /> / <paramref name="Total" />).
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="Total" /> was equal to 0.</exception>
+        [TestFails(new object[] { 5d, 0d })]
+        [TestResult(new object[] { 5d, 1d }, 500)]
+        [TestResult(new object[] { 5d, 100d }, 5)]
+        [TestResult(new object[] { 22d, 5d }, 440)]
+        [TestResult(new object[] { -22d, 5d }, -440)]
+        public static int PercentageOf(this double In, double Total)
+            {
+            if (Total == 0) throw new ArgumentOutOfRangeException(nameof(Total));
+
+            return ((double)In / Total).AsPercent();
+            }
+
+        /// <summary>
+        /// Returns an int, representing a percent (<paramref name="In" /> / <paramref name="Total" />).
+        /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="Total" /> was equal to than 0.</exception>
         [TestFails(new object[] { 5, 0 })]
         [TestResult(new object[] { 5, 1 }, 500)]
@@ -670,6 +721,51 @@ namespace LCore.Extensions
             return ((double)In / Total).AsPercent();
             }
 
+        /// <summary>
+        /// Returns an int, representing a percent (<paramref name="In" /> / <paramref name="Total" />).
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="Total" /> was equal to than 0.</exception>
+        [TestFails(new object[] { (uint)5, (uint)0 })]
+        [TestResult(new object[] { (uint)5, (uint)1 }, 500)]
+        [TestResult(new object[] { (uint)5, (uint)100 }, 5)]
+        [TestResult(new object[] { (uint)22, (uint)5 }, 440)]
+        public static int PercentageOf(this uint In, uint Total)
+            {
+            if (Total == 0) throw new ArgumentOutOfRangeException(nameof(Total));
+
+            return ((double)In / Total).AsPercent();
+            }
+
+        /// <summary>
+        /// Returns an int, representing a percent (<paramref name="In" /> / <paramref name="Total" />).
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="Total" /> was equal to 0.</exception>
+        [TestFails(new object[] { (short)5, (short)0 })]
+        [TestResult(new object[] { (short)5, (short)1 }, 500)]
+        [TestResult(new object[] { (short)5, (short)100 }, 5)]
+        [TestResult(new object[] { (short)22, (short)5 }, 440)]
+        [TestResult(new object[] { (short)-22, (short)5 }, -440)]
+        public static int PercentageOf(this short In, short Total)
+            {
+            if (Total == 0) throw new ArgumentOutOfRangeException(nameof(Total));
+
+            return ((double)In / Total).AsPercent();
+            }
+        /// <summary>
+        /// Returns an int, representing a percent (<paramref name="In" /> / <paramref name="Total" />).
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="Total" /> was equal to 0.</exception>
+        [TestFails(new object[] { 5L, 0L })]
+        [TestResult(new object[] { 5L, 1L }, 500)]
+        [TestResult(new object[] { 5L, 100L }, 5)]
+        [TestResult(new object[] { 22L, 5L }, 440)]
+        [TestResult(new object[] { -22L, 5L }, -440)]
+        public static int PercentageOf(this long In, long Total)
+            {
+            if (Total == 0) throw new ArgumentOutOfRangeException(nameof(Total));
+
+            return ((double)In / Total).AsPercent();
+            }
         #endregion
 
         #region Pow
@@ -677,9 +773,127 @@ namespace LCore.Extensions
         /// <summary>
         /// Raise <paramref name="Double"/> to the power of <paramref name="Power"/>.
         /// </summary>
+        [TestResult(new object[] { 0d, 0d }, 1d)]
+        [TestResult(new object[] { 1d, 0d }, 1d)]
+        [TestResult(new object[] { 2d, 1d }, 2d)]
+        [TestResult(new object[] { 2d, -1d }, 0.5d)]
+        [TestResult(new object[] { 2.32552d, -1.12421d }, 0.38721704119787403d)]
+        [TestResult(new object[] { 2.32552d, 2.12421d }, 6.00572741531699d)]
+        [TestResult(new object[] { 5d, 2d }, 25d)]
+        [TestResult(new object[] { 5d, 5d }, 3125d)]
+        [TestResult(new object[] { -5d, 2d }, 25d)]
+        [TestResult(new object[] { -5d, 5d }, -3125d)]
+        [TestResult(new object[] { -2.32552d, 2.12421d }, double.NaN)]
+        [TestResult(new object[] { -2.32552d, -1.12421d }, double.NaN)]
         public static double Pow(this double Double, double Power)
             {
             return Math.Pow(Double, Power);
+            }
+        /// <summary>
+        /// Raise <paramref name="Int"/> to the power of <paramref name="Power"/>.
+        /// </summary>
+        [TestResult(new object[] { 0, 0 }, 1d)]
+        [TestResult(new object[] { 1, 0 }, 1d)]
+        [TestResult(new object[] { 2, 1 }, 2d)]
+        [TestResult(new object[] { 2, -1 }, 0.5d)]
+        [TestResult(new object[] { 5, 2 }, 25d)]
+        [TestResult(new object[] { 5, 5d }, 3125d)]
+        [TestResult(new object[] { -5, 2d }, 25d)]
+        [TestResult(new object[] { -5, 5d }, -3125d)]
+        public static double Pow(this int Int, double Power)
+            {
+            return Math.Pow(Int, Power);
+            }
+        /// <summary>
+        /// Raise <paramref name="Int"/> to the power of <paramref name="Power"/>.
+        /// </summary>
+        [TestResult(new object[] { 0u, 0d }, 1d)]
+        [TestResult(new object[] { 1u, 0d }, 1d)]
+        [TestResult(new object[] { 2u, 1d }, 2d)]
+        [TestResult(new object[] { 2u, -1d }, 0.5d)]
+        [TestResult(new object[] { 5u, 2d }, 25d)]
+        [TestResult(new object[] { 5u, 5d }, 3125d)]
+        public static double Pow(this uint Int, double Power)
+            {
+            return Math.Pow(Int, Power);
+            }
+        /// <summary>
+        /// Raise <paramref name="Short"/> to the power of <paramref name="Power"/>.
+        /// </summary>
+        [TestResult(new object[] { (short)0, 0d }, 1d)]
+        [TestResult(new object[] { (short)1, 0d }, 1d)]
+        [TestResult(new object[] { (short)2, 1d }, 2d)]
+        [TestResult(new object[] { (short)2, -1d }, 0.5d)]
+        [TestResult(new object[] { (short)5, 2d }, 25d)]
+        [TestResult(new object[] { (short)5, 5d }, 3125d)]
+        [TestResult(new object[] { (short)-5, 5d }, -3125d)]
+        public static double Pow(this short Short, double Power)
+            {
+            return Math.Pow(Short, Power);
+            }
+        /// <summary>
+        /// Raise <paramref name="UShort"/> to the power of <paramref name="Power"/>.
+        /// </summary>
+        // ReSharper disable once InconsistentNaming
+        public static double Pow(this ushort UShort, double Power)
+            {
+            return Math.Pow(UShort, Power);
+            }
+        /// <summary>
+        /// Raise <paramref name="Long"/> to the power of <paramref name="Power"/>.
+        /// </summary>
+        [TestResult(new object[] { 0L, 0d }, 1d)]
+        [TestResult(new object[] { 1L, 0d }, 1d)]
+        [TestResult(new object[] { 2L, 1d }, 2d)]
+        [TestResult(new object[] { 2L, -1d }, 0.5d)]
+        [TestResult(new object[] { 5L, 2d }, 25d)]
+        [TestResult(new object[] { 5L, 5d }, 3125d)]
+        [TestResult(new object[] { -5L, 5d }, -3125d)]
+        public static double Pow(this long Long, double Power)
+            {
+            return Math.Pow(Long, Power);
+            }
+        /// <summary>
+        /// Raise <paramref name="Long"/> to the power of <paramref name="Power"/>.
+        /// </summary>
+        [TestResult(new object[] { 0uL, 0d }, 1d)]
+        [TestResult(new object[] { 1uL, 0d }, 1d)]
+        [TestResult(new object[] { 2uL, 1d }, 2d)]
+        [TestResult(new object[] { 2uL, -1d }, 0.5d)]
+        [TestResult(new object[] { 5uL, 2d }, 25d)]
+        [TestResult(new object[] { 5uL, 5d }, 3125d)]
+        // ReSharper disable once UnusedParameter.Global
+        public static double Pow(this ulong Long, double Power)
+            {
+            return Math.Pow(Long, Power);
+            }
+        /// <summary>
+        /// Raise <paramref name="Long"/> to the power of <paramref name="Power"/>.
+        /// </summary>
+        [TestResult(new object[] { (sbyte)0, 0d }, 1d)]
+        [TestResult(new object[] { (sbyte)1, 0d }, 1d)]
+        [TestResult(new object[] { (sbyte)2, 1d }, 2d)]
+        [TestResult(new object[] { (sbyte)2, -1d }, 0.5d)]
+        [TestResult(new object[] { (sbyte)5, 2d }, 25d)]
+        [TestResult(new object[] { (sbyte)5, 5d }, 3125d)]
+        [TestResult(new object[] { (sbyte)-5, 5d }, -3125d)]
+        // ReSharper disable once UnusedParameter.Global
+        public static double Pow(this sbyte Long, double Power)
+            {
+            return Math.Pow(Long, Power);
+            }
+        /// <summary>
+        /// Raise <paramref name="Byte"/> to the power of <paramref name="Power"/>.
+        /// </summary>
+        [TestResult(new object[] { (byte)0, 0d }, 1d)]
+        [TestResult(new object[] { (byte)1, 0d }, 1d)]
+        [TestResult(new object[] { (byte)2, 1d }, 2d)]
+        [TestResult(new object[] { (byte)2, -1d }, 0.5d)]
+        [TestResult(new object[] { (byte)5, 2d }, 25d)]
+        [TestResult(new object[] { (byte)5, 5d }, 3125d)]
+        public static double Pow(this byte Byte, double Power)
+            {
+            return Math.Pow(Byte, Power);
             }
 
         #endregion
@@ -735,7 +949,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Returns the rounded integer of the float <paramref name="In" />
+        /// Returns the rounded integer of the double <paramref name="In" />
         /// </summary>
         [TestResult(new object[] { null }, (long)0)]
         [TestResult(new object[] { (double)1 }, (long)1)]
@@ -749,7 +963,7 @@ namespace LCore.Extensions
             }
 
         /// <summary>
-        /// Returns the rounded integer of the float <paramref name="In" />
+        /// Returns the rounded integer of the double <paramref name="In" />
         /// <paramref name="Decimals" /> must be at least 0.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Decimals was less than 0.</exception>
@@ -782,6 +996,29 @@ namespace LCore.Extensions
             return Out2;
             }
 
+        /// <summary>
+        /// Returns the rounded integer of the float <paramref name="In" />
+        /// </summary>
+        /// <exception cref="OverflowException">The result is outside the range of a <see cref="T:System.Decimal" />.</exception>
+        public static long Round(this decimal In)
+            {
+            return (long)Math.Round(In);
+            }
+
+        /// <summary>
+        /// Returns the rounded integer of the float <paramref name="In" />
+        /// <paramref name="Decimals" /> must be at least 0.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Decimals was less than 0.</exception>
+        public static double Round(this decimal In, int Decimals)
+            {
+            if (Decimals < 0) throw new ArgumentOutOfRangeException(nameof(Decimals));
+
+            double Power = Math.Pow(10, Decimals);
+            double Out = (int)Math.Round((double)In * Power);
+            double Out2 = Out / Power;
+            return Out2;
+            }
         #endregion
 
         #region SquareRoot
@@ -794,7 +1031,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { 1 }, (double)1)]
         [TestResult(new object[] { 66 }, (double)8.12403840463596)]
         [TestResult(new object[] { 567 }, (double)23.811761799581316)]
-        public static double SquareRoot(this int In)
+        public static double Sqrt(this int In)
             {
             return Math.Sqrt(In);
             }
@@ -807,7 +1044,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { (long)1 }, (double)1)]
         [TestResult(new object[] { (long)66 }, (double)8.12403840463596)]
         [TestResult(new object[] { (long)567 }, (double)23.811761799581316)]
-        public static double SquareRoot(this long In)
+        public static double Sqrt(this long In)
             {
             return Math.Sqrt(In);
             }
@@ -820,7 +1057,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { (short)1 }, (double)1)]
         [TestResult(new object[] { (short)66 }, (double)8.12403840463596)]
         [TestResult(new object[] { (short)567 }, (double)23.811761799581316)]
-        public static double SquareRoot(this short In)
+        public static double Sqrt(this short In)
             {
             return Math.Sqrt(In);
             }
@@ -835,7 +1072,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { (double)66 }, (double)8.12403840463596)]
         [TestResult(new object[] { (double)567 }, (double)23.811761799581316)]
         [TestResult(new object[] { (double)567.646 }, (double)23.825322663082655)]
-        public static double SquareRoot(this double In)
+        public static double Sqrt(this double In)
             {
             return Math.Sqrt(In);
             }
@@ -850,7 +1087,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { (float)66 }, (double)8.12403840463596)]
         [TestResult(new object[] { (float)567 }, (double)23.811761799581316)]
         [TestResult(new object[] { (float)567.646 }, (double)23.8253225811058)]
-        public static double SquareRoot(this float In)
+        public static double Sqrt(this float In)
             {
             return Math.Sqrt(In);
             }
@@ -862,7 +1099,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { (uint)1 }, (double)1)]
         [TestResult(new object[] { (uint)66 }, (double)8.12403840463596)]
         [TestResult(new object[] { (uint)567 }, (double)23.811761799581316)]
-        public static double SquareRoot(this uint In)
+        public static double Sqrt(this uint In)
             {
             return Math.Sqrt(In);
             }
@@ -874,7 +1111,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { (ulong)1 }, (double)1)]
         [TestResult(new object[] { (ulong)66 }, (double)8.12403840463596)]
         [TestResult(new object[] { (ulong)567 }, (double)23.811761799581316)]
-        public static double SquareRoot(this ulong In)
+        public static double Sqrt(this ulong In)
             {
             return Math.Sqrt(In);
             }
@@ -886,7 +1123,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { (ushort)1 }, (double)1)]
         [TestResult(new object[] { (ushort)66 }, (double)8.12403840463596)]
         [TestResult(new object[] { (ushort)567 }, (double)23.811761799581316)]
-        public static double SquareRoot(this ushort In)
+        public static double Sqrt(this ushort In)
             {
             return Math.Sqrt(In);
             }
@@ -898,7 +1135,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { (byte)1 }, (double)1)]
         [TestResult(new object[] { (byte)66 }, (double)8.12403840463596)]
         [TestResult(new object[] { (byte)244 }, (double)15.620499351813308)]
-        public static double SquareRoot(this byte In)
+        public static double Sqrt(this byte In)
             {
             return Math.Sqrt(In);
             }
@@ -911,7 +1148,8 @@ namespace LCore.Extensions
         [TestResult(new object[] { (sbyte)1 }, (double)1)]
         [TestResult(new object[] { (sbyte)66 }, (double)8.12403840463596)]
         [TestResult(new object[] { (sbyte)124 }, (double)11.135528725660043)]
-        public static double SquareRoot(this sbyte In)
+        // ReSharper disable once UnusedParameter.Global
+        public static double Sqrt(this sbyte In)
             {
             return Math.Sqrt(In);
             }
@@ -924,7 +1162,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { (double)1 }, (double)1)]
         [TestResult(new object[] { (double)66 }, (double)8.12403840463596)]
         [TestResult(new object[] { (double)244 }, (double)15.620499351813308)]
-        public static double SquareRoot(this decimal In)
+        public static double Sqrt(this decimal In)
             {
             return Math.Sqrt((double)In);
             }
@@ -1062,7 +1300,10 @@ namespace LCore.Extensions
             IEquatable<T>,
             IFormattable
             {
-            return L.Num.NumberTypes[L.Num.NumberTypes.Keys.First(Type => Type == Number.GetType() || Number.CanConvertTo(Type))]
+            Dictionary<Type, Number> Types = L.Num.NumberTypes;
+            // TODO: Add support for Nullable types
+            return (Types.Values.First(Type => Type.NumberType == Number.GetType())
+                ?? Types.Values.First(Type => Number.CanConvertTo(Type.NumberType)))?
                 .New(Number);
             }
         /// <summary>
@@ -1072,7 +1313,9 @@ namespace LCore.Extensions
         /// </summary>
         public static Number Wrap(this string Str)
             {
-            return L.Num.MostPreciseType.New(Str).ConvertToBestMatch();
+            return Str.IsEmpty()
+                ? null
+                : L.Num.MostPreciseType.New(Str).ConvertToBestMatch();
             }
 
         #endregion
@@ -1115,7 +1358,7 @@ namespace LCore.Extensions
                 Divide
                 }
 
-            private static Number _MostRobustType = null;
+            private static readonly Number _MostRobustType = null;
             /// <summary>
             /// The most robust type for storing numbers based on precision.
             /// </summary>

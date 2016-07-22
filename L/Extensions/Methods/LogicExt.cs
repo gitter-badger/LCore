@@ -613,8 +613,7 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> or <paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
         public static Func<T1, U> Surround<T1, T2, U>(this Func<T2, U> In, Func<T1, T2> Func)
             {
@@ -632,8 +631,7 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Func"></param>
         /// <returns></returns>
-        /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="In"/> or is <see langword="null" />.</exception>
         [Tested]
         public static Func<T1, T2, U> Surround<T1, T2, T3, U>(this Func<T3, U> In, Func<T1, T2, T3> Func)
             {

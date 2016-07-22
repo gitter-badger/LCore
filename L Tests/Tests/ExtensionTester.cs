@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using LCore.Extensions;
+// ReSharper disable once RedundantUsingDirective
 using System.Diagnostics;
+using LCore.Extensions;
 using FluentAssertions;
 using LCore.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -40,12 +41,14 @@ namespace L_Tests
                 {
                 var TestData = Test.GetTestData();
 
+#if DEBUG
                 Debug.Write("--------------------------------------------------------\r\n");
                 Debug.Write($"Testing {TestData.TestsPresent} {Test.FullName} methods. \r\n");
                 Debug.Write($"      Total attribute tests:  {TestData.TestAttributes.Count - TestData.UnitTestCount} (~{(TestData.TestAttributes.Count / ((double)TestData.TestsPresent - TestData.UnitTestCount)).Round(1).Max(0)} per method) \r\n");
                 Debug.Write($"      Unit tests:             {TestData.UnitTestCount}. \r\n");
                 Debug.Write("\r\n");
                 Debug.Write($"Missing: {TestData.TestsMissing} methods                  {TestData.CoveragePercent}% Coverage\r\n");
+#endif
 
                 Test.RunTypeTests();
 

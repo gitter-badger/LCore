@@ -1257,7 +1257,10 @@ namespace LCore.Extensions
         #endregion
 
         #region First
-
+        /// <summary>
+        /// Returns the first item in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
+        /// Returns null if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
+        /// </summary>
         public static T First<T>(this IEnumerable In, Func<T, bool> Condition = null)
             {
             Condition = Condition ?? (o => true);
@@ -1270,6 +1273,10 @@ namespace LCore.Extensions
 
             return default(T);
             }
+        /// <summary>
+        /// Returns the first item in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
+        /// Returns null if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
+        /// </summary>
         public static T First<T>(this T[] In, Func<object, bool> Condition = null)
             {
             Condition = Condition ?? (o => true);
@@ -1282,6 +1289,10 @@ namespace LCore.Extensions
 
             return default(T);
             }
+        /// <summary>
+        /// Returns the first item in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
+        /// Returns null if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
+        /// </summary>
         public static T First<T>(this IEnumerable<T> In, Func<T, bool> Condition = null)
             {
             Condition = Condition ?? (o => true);
@@ -1295,6 +1306,10 @@ namespace LCore.Extensions
             return default(T);
             }
 
+        /// <summary>
+        /// Returns the first <paramref name="Count"/> Items in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
+        /// Returns an empty list if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
+        /// </summary>
         public static List<T> First<T>(this IEnumerable In, uint Count, Func<T, bool> Condition = null)
             {
             Condition = Condition ?? (o => true);
@@ -1309,6 +1324,10 @@ namespace LCore.Extensions
 
             return Out;
             }
+        /// <summary>
+        /// Returns the first <paramref name="Count"/> Items in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
+        /// Returns an empty list if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
+        /// </summary>
         public static List<T> First<T>(this IEnumerable<T> In, uint Count, Func<T, bool> Condition = null)
             {
             Condition = Condition ?? (o => true);
@@ -1324,6 +1343,10 @@ namespace LCore.Extensions
 
             return Out;
             }
+        /// <summary>
+        /// Returns the first <paramref name="Count"/> Items in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
+        /// Returns an empty list if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
+        /// </summary>
         public static List<T> First<T>(this List<T> In, uint Count, Func<T, bool> Condition = null)
             {
             Condition = Condition ?? (o => true);
@@ -1339,6 +1362,10 @@ namespace LCore.Extensions
 
             return Out;
             }
+        /// <summary>
+        /// Returns the first <paramref name="Count"/> Items in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
+        /// Returns an empty array if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
+        /// </summary>
         public static T[] First<T>(this T[] In, uint Count, Func<T, bool> Condition = null)
             {
             Condition = Condition ?? (o => true);
@@ -1354,6 +1381,10 @@ namespace LCore.Extensions
             return Out.Array();
             }
 
+        /// <summary>
+        /// Returns the first Object in <paramref name="In"/> that causes is equal to <paramref name="Object"/>.
+        /// Returns null if <paramref name="Object"/> is null or is not found.
+        /// </summary>
         public static T First<T>(this IEnumerable In, T Object)
             {
             return In.First<T>(o => o.SafeEquals(Object));

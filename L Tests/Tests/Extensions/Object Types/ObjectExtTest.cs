@@ -252,8 +252,6 @@ namespace L_Tests.Tests.Extensions
             }
 
         /// <exception cref="TargetException">Throws an exception if the a property setter throws an exception.</exception>
-        /// <exception cref="MethodAccessException">Throws an exception if the a property setter throws an exception.</exception>
-        /// <exception cref="TargetInvocationException">Throws an exception if the a property setter throws an exception.</exception>
         /// <exception cref="FieldAccessException">Throws an exception if the field cannot be accessed.</exception>
         [Fact]
         [TestCategory(UnitTests)]

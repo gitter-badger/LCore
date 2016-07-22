@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using LCore.Extensions;
 using System.Collections;
+// ReSharper disable once RedundantUsingDirective
 using System.Diagnostics;
 using System.Reflection;
 using LCore.Extensions.Optional;
@@ -1419,7 +1420,9 @@ namespace LCore.Tests
 
             int TestCount = Tests.TotalCount();
 
+#if DEBUG
             List<string> Missing = Tests.Keys.List().Select(Key => Tests[Key].Count == 0).Convert(Member => Member.Name);
+
             List<string> Missing2 = Missing.RemoveDuplicates();
 
             if (Missing.Count > 0)
@@ -1429,6 +1432,7 @@ namespace LCore.Tests
                     Debug.Write($"   {Method.Pad(18)}   ({Missing.Count(Method)})\r\n"));
                 Debug.Write("\r\n");
                 }
+#endif
 
             int Passed = Type.RunUnitTests();
 

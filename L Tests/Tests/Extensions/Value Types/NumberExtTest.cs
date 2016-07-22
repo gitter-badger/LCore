@@ -2,10 +2,13 @@
 using LCore.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
+using LCore.Numbers;
 using Xunit;
 using static LCore.Extensions.L.Test.Categories;
 // ReSharper disable StringLiteralTypo
+// ReSharper disable UnusedParameter.Global
 
 namespace L_Tests.Tests.Extensions
     {
@@ -74,5 +77,211 @@ namespace L_Tests.Tests.Extensions
             {
             L.Num.ScientificNotationToNumber("1.0e5").Should().Be("100000.0");
             }
+
+        [Fact]
+        public void Test_Wrap()
+            {
+            5.Wrap().Should().BeOfType<IntNumber>().And.Be((IntNumber)5);
+            5u.Wrap().Should().BeOfType<UIntNumber>().And.Be((UIntNumber)5u);
+            5L.Wrap().Should().BeOfType<LongNumber>().And.Be((LongNumber)5L);
+            ((short)5).Wrap().Should().BeOfType<ShortNumber>().And.Be((ShortNumber)(short)5);
+            ((ushort)5).Wrap().Should().BeOfType<UShortNumber>().And.Be((UShortNumber)(ushort)5);
+            ((byte)5).Wrap().Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)5);
+            ((sbyte)5).Wrap().Should().BeOfType<SByteNumber>().And.Be((SByteNumber)(sbyte)5);
+            5uL.Wrap().Should().BeOfType<ULongNumber>().And.Be((ULongNumber)5uL);
+            5m.Wrap().Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)5m);
+            ((double)5).Wrap().Should().BeOfType<DoubleNumber>().And.Be((DoubleNumber)5d);
+            5f.Wrap().Should().BeOfType<FloatNumber>().And.Be((FloatNumber)5f);
+
+            new TestClass().Wrap().Should().Be(null);
+            }
+
+        [Fact]
+        public void Test_WrapString()
+            {
+            ((string)null).Wrap().Should().BeNull();
+            "".Wrap().Should().BeNull();
+
+            "0".Wrap().Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)0);
+            "5".Wrap().Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)5);
+            "5.3".Wrap().Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)5.3m);
+            "-5".Wrap().Should().BeOfType<SByteNumber>().And.Be((SByteNumber)(sbyte)-5);
+            "-5.5".Wrap().Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)(-5.5m));
+            }
+
+        [Fact]
+        public void Test_DecimalPlaces()
+            {
+            1.DecimalPlaces().Should().Be(0);
+            ((short)1).DecimalPlaces().Should().Be(0);
+            1L.DecimalPlaces().Should().Be(0);
+            1uL.DecimalPlaces().Should().Be(0);
+            ((char)0).DecimalPlaces().Should().Be(0);
+            ((char)0).DecimalPlaces().Should().Be(0);
+            ((byte)0).DecimalPlaces().Should().Be(0);
+            ((sbyte)0).DecimalPlaces().Should().Be(0);
+
+            5.5m.DecimalPlaces().Should().Be(1);
+            5.50032m.DecimalPlaces().Should().Be(5);
+            5.50042032m.DecimalPlaces().Should().Be(8);
+            5.501042032m.DecimalPlaces().Should().Be(9);
+
+            (-5.5m).DecimalPlaces().Should().Be(1);
+            (-5.50032m).DecimalPlaces().Should().Be(5);
+            (-5.50042032m).DecimalPlaces().Should().Be(8);
+            (-5.501042032m).DecimalPlaces().Should().Be(9);
+
+            5.5d.DecimalPlaces().Should().Be(1);
+            5.50032d.DecimalPlaces().Should().Be(5);
+            5.50042032d.DecimalPlaces().Should().Be(8);
+            5.501042032d.DecimalPlaces().Should().Be(9);
+
+            (-5.5d).DecimalPlaces().Should().Be(1);
+            (-5.50032d).DecimalPlaces().Should().Be(5);
+            (-5.50042032d).DecimalPlaces().Should().Be(8);
+            (-5.501042032d).DecimalPlaces().Should().Be(9);
+
+            5.5f.DecimalPlaces().Should().Be(1);
+            5.50032f.DecimalPlaces().Should().Be(5);
+            5.50042032f.DecimalPlaces().Should().Be(5);
+            5.501042032f.DecimalPlaces().Should().Be(6);
+            (-5.5f).DecimalPlaces().Should().Be(1);
+            (-5.50032f).DecimalPlaces().Should().Be(5);
+            (-5.50042032f).DecimalPlaces().Should().Be(5);
+            (-5.501042032f).DecimalPlaces().Should().Be(6);
+
+            float.MinValue.DecimalPlaces().Should().Be(0);
+            double.MinValue.DecimalPlaces().Should().Be(0);
+            decimal.MinValue.DecimalPlaces().Should().Be(0);
+
+            float.Epsilon.DecimalPlaces().Should().Be(51);
+            double.Epsilon.DecimalPlaces().Should().Be(338);
+            ((IConvertible)new DecimalNumber().TypePrecision.GetValue()).ConvertTo<decimal>()?.DecimalPlaces().Should().Be(28);
+
+            50d.DecimalPlaces().Should().Be(0);
+            50.0m.DecimalPlaces().Should().Be(0);
+            50f.DecimalPlaces().Should().Be(0);
+            }
+        #region Helpers
+
+        [ExcludeFromCodeCoverage]
+        internal struct TestClass : IComparable,
+            IComparable<TestClass>,
+            IConvertible,
+            IEquatable<TestClass>,
+            IFormattable
+            {
+            public int CompareTo(TestClass Obj)
+                {
+                return 0;
+                }
+
+            int IComparable<TestClass>.CompareTo(TestClass Other)
+                {
+                return this.CompareTo(Other);
+                }
+
+            public TypeCode GetTypeCode()
+                {
+                return default(TypeCode);
+                }
+
+            public bool ToBoolean(IFormatProvider Provider)
+                {
+                return false;
+                }
+
+            public char ToChar(IFormatProvider Provider)
+                {
+                return (char)0;
+                }
+
+            public sbyte ToSByte(IFormatProvider Provider)
+                {
+                return 0;
+                }
+
+            public byte ToByte(IFormatProvider Provider)
+                {
+                return 0;
+                }
+
+            public short ToInt16(IFormatProvider Provider)
+                {
+                return 0;
+                }
+
+            public ushort ToUInt16(IFormatProvider Provider)
+                {
+                return 0;
+                }
+
+            public int ToInt32(IFormatProvider Provider)
+                {
+                return 0;
+                }
+
+            public uint ToUInt32(IFormatProvider Provider)
+                {
+                return 0u;
+                }
+
+            public long ToInt64(IFormatProvider Provider)
+                {
+                return 0L;
+                }
+
+            public ulong ToUInt64(IFormatProvider Provider)
+                {
+                return 0uL;
+                }
+
+            public float ToSingle(IFormatProvider Provider)
+                {
+                return 0;
+                }
+
+            public double ToDouble(IFormatProvider Provider)
+                {
+                return 0d;
+                }
+
+            public decimal ToDecimal(IFormatProvider Provider)
+                {
+                return 0m;
+                }
+
+            public DateTime ToDateTime(IFormatProvider Provider)
+                {
+                return DateTime.Now;
+                }
+
+            public string ToString(IFormatProvider Provider)
+                {
+                return null;
+                }
+
+            public object ToType(Type ConversionType, IFormatProvider Provider)
+                {
+                return null;
+                }
+
+            public string ToString(string Format, IFormatProvider FormatProvider)
+                {
+                return null;
+                }
+
+            public int CompareTo(object Obj)
+                {
+                return 0;
+                }
+
+            public bool Equals(TestClass Other)
+                {
+                return false;
+                }
+            }
+
+        #endregion
         }
     }

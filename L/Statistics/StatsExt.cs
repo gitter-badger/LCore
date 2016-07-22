@@ -9,11 +9,11 @@ namespace LCore.Statistics
         {
         public static int GetOptimumClassCount(long SampleSize)
             {
-            return (int)SampleSize.SquareRoot().Round();
+            return (int)SampleSize.Sqrt().Round();
             }
         public static int GetOptimumClassCount(int SampleSize)
             {
-            return (int)SampleSize.SquareRoot().Round();
+            return (int)SampleSize.Sqrt().Round();
             }
 
         /// <summary>

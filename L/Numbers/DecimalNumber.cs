@@ -106,5 +106,21 @@ namespace LCore.Numbers
             {
             return new DecimalNumber(In);
             }
+
+
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>A string that represents the current object.</returns>
+        /// <filterpriority>2</filterpriority>
+        public override string ToString()
+            {
+            string Out = this.Value.ToString("0." + new string('#', 339));
+
+            if (Out.Contains("."))
+                Out = Out.TrimEnd("0");
+
+            return Out;
+            }
         }
     }

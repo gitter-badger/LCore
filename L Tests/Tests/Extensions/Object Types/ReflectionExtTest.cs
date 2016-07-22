@@ -164,36 +164,6 @@ namespace L_Tests.Tests.Extensions
             Member.GetCustomAttributes(false).Should().BeNull();
             Member.IsDefined(null, false).Should().BeFalse();
             }
-
-        [Fact]
-        [TestCategory(UnitTests)]
-        public void Test_TestClass()
-            {
-            var Test = new TestClass { Test = "A" };
-
-            Test.Test.Should().Be("A");
-            Test.Test2 = "A";
-            Test.Test2.Should().Be("A");
-            Test.Test3 = "A";
-            Test.Test3.Should().Be("A");
-            Test.Test4();
-            Test.Test5("");
-            Test.Test5("", "");
-            Test.Test5("", "", "");
-            Test.Test5("", "", "", "");
-
-            var Test2 = new TestBaseClass { Test2 = "A" };
-
-            Test2.Test2.Should().Be("A");
-            Test2.Test3 = "A";
-            Test2.Test3.Should().Be("A");
-            Test2.Test4();
-            Test2.Test5("");
-            Test2.Test5("", "");
-            Test2.Test5("", "", "");
-            Test2.Test5("", "", "", "");
-            }
-
         [Fact]
         [TestCategory(UnitTests)]
         public void Test_GetAttribute()
@@ -687,43 +657,6 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_MemberType()
             {
-            /*
-            typeof(TestClass).GetMembers().Convert(m => m.Name)
-                .ShouldBeEquivalentTo(new List<string>
-                    {
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    ""
-                    });*/
 
             typeof(TestClass).GetMembers().Convert(Member => Member.MemberType())
                 .ShouldBeEquivalentTo(new List<Type>
@@ -765,7 +698,7 @@ namespace L_Tests.Tests.Extensions
             L.A(() => new TestMember().MemberType()).ShouldFail();
             }
 
-        
+
         /// <exception cref="InvalidOperationException">The object could not be created, constructor was not found.</exception>
         [Fact]
         [TestCategory(UnitTests)]
@@ -788,7 +721,7 @@ namespace L_Tests.Tests.Extensions
 
             typeof(TestClassGeneric2<,>).New(new object[] { "a" }, typeof(TestClassGeneric2<int, int>))
                 .ShouldBeEquivalentTo(new TestClassGeneric2<int, int>("a"));
-            
+
             }
 
 
@@ -997,6 +930,41 @@ namespace L_Tests.Tests.Extensions
                         throw new Exception();
                         }
                     }*/
+
+
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
+        [Fact]
+        [TestCategory(UnitTests)]
+        public void Test_Helpers()
+            {
+            var Test = new TestClass { Test = "A" };
+
+            Test.Test.Should().Be("A");
+            Test.Test2 = "A";
+            Test.Test2.Should().Be("A");
+            Test.Test3 = "A";
+            Test.Test3.Should().Be("A");
+            Test.Test4();
+            Test.Test5("");
+            Test.Test5("", "");
+            Test.Test5("", "", "");
+            Test.Test5("", "", "", "");
+
+            var Test2 = new TestBaseClass { Test2 = "A" };
+
+            Test2.Test2.Should().Be("A");
+            Test2.Test3 = "A";
+            Test2.Test3.Should().Be("A");
+            Test2.Test4();
+            Test2.Test5("");
+            Test2.Test5("", "");
+            Test2.Test5("", "", "");
+            Test2.Test5("", "", "", "");
+
+            // ReSharper disable once ObjectCreationAsStatement
+            L.A(() => new TestClassGeneric2<int, int>("", "", "")).ShouldFail();
+            }
 
         internal class TestClassGeneric1<T1> : TestClass, ICustomAttributeProvider
             {

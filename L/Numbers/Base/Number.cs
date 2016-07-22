@@ -121,7 +121,7 @@ namespace LCore.Numbers
         /// <summary>
         /// The type of number stored in the wrapper.
         /// </summary>
-        public Type NumberType => typeof(T);
+        public override Type NumberType => typeof(T);
 
         /// <summary>
         /// Applies the addition operation and returns the result as a Number.
@@ -265,8 +265,8 @@ namespace LCore.Numbers
             if (In is T)
                 return this.New((T)In);
 
-            if (In is string && ((string) In).HasMatch(L.Num.RegexScientificNotation))
-                return this.New(L.Num.ScientificNotationToNumber((string) In));
+            if (In is string && ((string)In).HasMatch(L.Num.RegexScientificNotation))
+                return this.New(L.Num.ScientificNotationToNumber((string)In));
 
             if (In is IConvertible && ((IConvertible)In).CanConvertTo<T>())
                 return this.New(((IConvertible)In).ConvertTo<T>());
@@ -376,17 +376,6 @@ namespace LCore.Numbers
             }
 
 
-        /// <summary>
-        /// Returns a string that represents the current object.
-        /// </summary>
-        /// <returns>A string that represents the current object.</returns>
-        /// <filterpriority>2</filterpriority>
-        public override string ToString()
-            {
-            return this.Value.ToString();
-            }
-
-
         /// <summary>Compares the current instance with another object of the same type and returns an integer that indicates whether the current instance precedes, follows, or occurs in the same position in the sort order as the other object.</summary>
         /// <returns>A value that indicates the relative order of the objects being compared. 
         /// The return value has these meanings: Value Meaning Less than zero This instance 
@@ -421,6 +410,11 @@ namespace LCore.Numbers
     public abstract class Number : INumber
         {
         /// <summary>
+        /// The type of number stored in the wrapper.
+        /// </summary>
+        public abstract Type NumberType { get; }
+
+        /// <summary>
         /// Returns whether this Number is equal to <paramref name="Other"/>
         /// </summary>
         protected bool Equals(Number Other)
@@ -442,6 +436,18 @@ namespace LCore.Numbers
 
             return false;
             }
+
+
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>A string that represents the current object.</returns>
+        /// <filterpriority>2</filterpriority>
+        public override string ToString()
+            {
+            return this.GetValue().ToString();
+            }
+
 
         /// <summary>
         /// Returns whether <paramref name="Number1"/> is greater than <paramref name="Number2"/>

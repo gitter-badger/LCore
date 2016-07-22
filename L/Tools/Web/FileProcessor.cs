@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
+// ReSharper disable once RedundantUsingDirective
 using System.Diagnostics;
+using System.Text;
 using System.IO;
 using System.Threading;
 
@@ -270,9 +271,12 @@ namespace LCore.Web
                 this._FormPostID = Encoding.UTF8.GetString(BufferData).Sub(29, 13);
                 this._FieldSeparator = $"-----------------------------{this._FormPostID}";
                 }
+            // ReSharper disable once UnusedVariable
             catch (Exception Ex)
                 {
+#if DEBUG
                 Debug.WriteLine($"Error in GetFieldSeperators(): {Ex.Message}");
+#endif
                 }
             }
 

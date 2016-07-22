@@ -932,6 +932,10 @@ namespace LCore.Extensions
 
         #endregion
 
+        /// <summary>
+        /// Determines if <paramref name="Type"/> is a nullable type.
+        /// Ex: int?, bool?, (Nullable[int], Nullable[bool])
+        /// </summary>
         public static bool IsNullable(this Type Type)
             {
             //return Type != null && Type.IsType(typeof(Nullable<>));

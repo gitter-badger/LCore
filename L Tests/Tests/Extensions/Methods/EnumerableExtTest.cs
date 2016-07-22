@@ -475,6 +475,11 @@ namespace L_Tests.Tests.Extensions
                 .ShouldBeEquivalentTo(new object[] { 0, 5, "abc", "123", 'a', 'b' });
             }
 
+        [Fact]
+        public void Test_First()
+            {
+            
+            }
         #region Internal
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
