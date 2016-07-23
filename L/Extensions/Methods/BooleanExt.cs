@@ -62,18 +62,6 @@ namespace LCore.Extensions
             {
             return L.Bool.Not.Surround(Condition);
             }
-        // TODO: Boolean: Not 5
-        // TODO: Boolean: Not 6
-        // TODO: Boolean: Not 7
-        // TODO: Boolean: Not 8
-        // TODO: Boolean: Not 9
-        // TODO: Boolean: Not 10
-        // TODO: Boolean: Not 11
-        // TODO: Boolean: Not 12
-        // TODO: Boolean: Not 13
-        // TODO: Boolean: Not 14
-        // TODO: Boolean: Not 15
-        // TODO: Boolean: Not 16
         #endregion
 
         #region If
@@ -164,19 +152,7 @@ namespace LCore.Extensions
                     return false;
                 };
             }
-
-        // TODO: Boolean: If 5
-        // TODO: Boolean: If 6
-        // TODO: Boolean: If 7
-        // TODO: Boolean: If 8
-        // TODO: Boolean: If 9
-        // TODO: Boolean: If 10
-        // TODO: Boolean: If 11
-        // TODO: Boolean: If 12
-        // TODO: Boolean: If 13
-        // TODO: Boolean: If 14
-        // TODO: Boolean: If 15
-        // TODO: Boolean: If 16
+        
         #endregion
         #region If - Func_T
 

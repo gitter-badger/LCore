@@ -3033,9 +3033,7 @@ namespace LCore.Extensions
             */
 
             #endregion
-
-            /* TODO: L: Logic: Refactor to 16 parameters below */
-
+                
             #region Set
 
             #region Set 1

@@ -86,7 +86,7 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\L\L.csproj">
+    <ProjectReference Include="..\L\L Core.csproj">
       <Project>{cd24bcec-5a94-4524-b1d3-0537c66b0761}</Project>
       <Name>L</Name>
     </ProjectReference>
