@@ -696,7 +696,7 @@ namespace L_Tests.Tests.Extensions
             Result.Keys.List().Should().Equal(
                 "5", "3", "4", "1", "2", "7", "9", "8", "6"
                 );
-            Result.Values.List().ShouldBeEquivalentTo(new List<int> {
+            Result.Values.List().ToS().Should().Be(new List<List<int>> {
                 new List<int> { 5, 589, 553 },
                 new List<int> { 32, 35, 36 },
                 new List<int> { 46, 43, 4364643, 445, 44 },
@@ -705,8 +705,7 @@ namespace L_Tests.Tests.Extensions
                 new List<int> { 72 },
                 new List<int> { 94, 9542 },
                 new List<int> { 8875, 886 },
-                new List<int> { 663 }}
-                );
+                new List<int> { 663 }}.ToS());
             }
 
         #region Internal

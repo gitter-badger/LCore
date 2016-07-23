@@ -510,14 +510,14 @@ namespace L_Tests.Tests.Extensions
 
             typeof(TestClass).InstantiateValues<string>(Test, true);
             typeof(TestClass).InstantiateValues<TestClass>(Test, true);
-            typeof(TestClass).GetValues<object>(Test).ToS().ShouldBeEquivalentTo(
+            typeof(TestClass).GetValues<object>(Test).ShouldBeEquivalentTo(
                 new List<object> { "a", "6", "b", "", "", "", new TestClass() });
 
             Test = new TestClass { Test = "a", Test6 = "b" };
 
             typeof(TestClass).GetMembers().InstantiateValues<string>(Test);
             typeof(TestClass).GetMembers().InstantiateValues<TestClass>(Test);
-            typeof(TestClass).GetValues<object>(Test).ToS().ShouldBeEquivalentTo(
+            typeof(TestClass).GetValues<object>(Test).ShouldBeEquivalentTo(
                 new List<object> { "a", "6", "b", "", "", "", new TestClass() });
             }
 
