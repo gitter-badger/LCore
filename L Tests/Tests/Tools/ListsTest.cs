@@ -22,19 +22,19 @@ namespace L_Tests.Tests.Tools
             Test.Add("a", 1);
 
             Test.Count.Should().Be(1);
-            Test.GetAt(0).ShouldBeEquivalentTo(new Set<string, int>("a", 1));
+            Test.GetAt(0).Should().Be(new Set<string, int>("a", 1));
 
             Test.Set(0, "b", 2);
 
-            Test.GetAt(0).ShouldBeEquivalentTo(new Set<string, int>("b", 2));
+            Test.GetAt(0).Should().Be(new Set<string, int>("b", 2));
 
             Test.Set1(0, "c");
 
-            Test.GetAt(0).ShouldBeEquivalentTo(new Set<string, int>("c", 2));
+            Test.GetAt(0).Should().Be(new Set<string, int>("c", 2));
 
             Test.Set2(0, 3);
 
-            Test.GetAt(0).ShouldBeEquivalentTo(new Set<string, int>("c", 3));
+            Test.GetAt(0).Should().Be(new Set<string, int>("c", 3));
 
             var Rand = new Random();
 
@@ -48,7 +48,7 @@ namespace L_Tests.Tests.Tools
             Test.List1.Count.Should().Be(101);
             Test.List2.Count.Should().Be(101);
 
-            Test.GetAt(0).ShouldBeEquivalentTo(new Set<string, int>("c", 3));
+            Test.GetAt(0).Should().Be(new Set<string, int>("c", 3));
 
             }
 

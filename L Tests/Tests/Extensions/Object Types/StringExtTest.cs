@@ -59,7 +59,7 @@ namespace L_Tests.Tests.Extensions
 
             Result.Read(Test2, 0, Test2.Length);
 
-            Test2.ShouldBeEquivalentTo(new byte[] { 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122 });
+            Test2.Should().Equal(97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122);
 
 
             const string Test3 = null;

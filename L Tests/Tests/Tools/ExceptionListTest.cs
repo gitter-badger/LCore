@@ -24,7 +24,7 @@ namespace L_Tests.Tests.Tools
                     new FormatException("3")
                 });
 
-            Ex.Exceptions.ToS().ShouldBeEquivalentTo("System.Collections.Generic.List`1[[System.Exception, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] { System.Exception: 1, System.ArgumentNullException: Value cannot be null.\r\nParameter name: 2, System.FormatException: 3 }");
+            Ex.Exceptions.ToS().Should().Be("System.Collections.Generic.List`1[[System.Exception, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] { System.Exception: 1, System.ArgumentNullException: Value cannot be null.\r\nParameter name: 2, System.FormatException: 3 }");
 
             Ex.StackTrace.Should().Be("");
 

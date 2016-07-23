@@ -940,7 +940,97 @@ namespace LCore.Extensions
             {
             //return Type != null && Type.IsType(typeof(Nullable<>));
             return Type.IsGenericType && Type.GetGenericTypeDefinition() == typeof(Nullable<>);
-            }  
+            }
+
+
+        /// <summary>
+        /// Determines if a Type <paramref name="Type"/> has an Indexer
+        /// of the specified type: <paramref name="Type"/>[<typeparamref name="TKey"/>] == object
+        /// </summary>
+        public static bool HasIndexGetter<TKey>(this Type Type)
+            {
+            return Type.IndexGetter<TKey>() != null;
+            }
+
+        /// <summary>
+        /// Returns an Indexer of the specified type, if a getter is available.
+        /// <paramref name="Type"/>[<typeparamref name="TKey"/>] == object
+        /// </summary>
+        public static PropertyInfo IndexGetter<TKey>(this Type Type)
+            {
+            return Type?.GetMembers().First<PropertyInfo>(
+                Member => Member.Name == "Item" &&
+                          Member.CanRead &&
+                          Member.GetMethod.GetParameters().Length == 1 &&
+                          Member.GetMethod.GetParameters()[0].ParameterType == typeof(TKey));
+            }
+
+        /// <summary>
+        /// Determines if a Type <paramref name="Type"/> has an Indexer
+        /// of the specified type: <paramref name="Type"/>[<typeparamref name="TKey"/>] == <typeparamref name="TValue"/>
+        /// </summary>
+        public static bool HasIndexGetter<TKey, TValue>(this Type Type)
+            {
+            return Type.IndexGetter<TKey, TValue>() != null;
+            }
+
+        /// <summary>
+        /// Determines if a Type <paramref name="Type"/> has an Indexer
+        /// of the specified type: <paramref name="Type"/>[<typeparamref name="TKey"/>] == <typeparamref name="TValue"/>
+        /// </summary>
+        public static bool HasIndexSetter<TKey, TValue>(this Type Type)
+            {
+            return Type.IndexSetter<TKey, TValue>() != null;
+            }
+
+        /// <summary>
+        /// Returns an Indexer of the specified type, if a getter is available.
+        /// <paramref name="Type"/>[<typeparamref name="TKey"/>] == <typeparamref name="TValue"/>
+        /// </summary>
+        public static PropertyInfo IndexGetter<TKey, TValue>(this Type Type)
+            {
+            return Type?.GetMembers().First<PropertyInfo>(
+                Member => Member.Name == "Item" &&
+                          Member.CanRead &&
+                          Member.GetMethod.DeclaringType == typeof(TValue) &&
+                          Member.GetMethod.GetParameters().Length == 1 &&
+                          Member.GetMethod.GetParameters()[0].ParameterType == typeof(TKey));
+            }
+        /// <summary>
+        /// Returns an Indexer of the specified type, if a setter is available.
+        /// <paramref name="Type"/>[<typeparamref name="TKey"/>] == <typeparamref name="TValue"/>
+        /// </summary>
+        public static PropertyInfo IndexSetter<TKey, TValue>(this Type Type)
+            {
+            return Type?.GetMembers().First<PropertyInfo>(
+                Member => Member.Name == "Item" &&
+                          Member.CanWrite &&
+                          Member.SetMethod.GetParameters().Length == 2 &&
+                          Member.SetMethod.GetParameters()[0].ParameterType == typeof(TKey) &&
+                          Member.SetMethod.GetParameters()[1].ParameterType == typeof(TValue));
+            }
+
+
+        /// <summary>
+        /// Determines if a Type <paramref name="Type"/> has an Indexer
+        /// of the specified type: <paramref name="Type"/>[<typeparamref name="TKey"/>] == object
+        /// </summary>
+        public static bool HasIndexSetter<TKey>(this Type Type)
+            {
+            return Type.IndexSetter<TKey>() != null;
+            }
+        /// <summary>
+        /// Returns an Indexer of the specified type, if a setter is available.
+        /// <paramref name="Type"/>[<typeparamref name="TKey"/>] == object
+        /// </summary>
+        public static PropertyInfo IndexSetter<TKey>(this Type Type)
+            {
+            return Type?.GetMembers().First<PropertyInfo>(
+                Member => Member.Name == "Item" &&
+                          Member.CanWrite &&
+                          Member.SetMethod.GetParameters().Length == 2 &&
+                          Member.SetMethod.GetParameters()[0].ParameterType == typeof(TKey));
+            }
         }
 
     public static partial class L

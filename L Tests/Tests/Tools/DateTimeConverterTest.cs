@@ -7,6 +7,7 @@ using LCore.Tests;
 using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
+// ReSharper disable RedundantExplicitParamsArrayCreation
 
 namespace L_Tests.Tests.Tools
     {
@@ -20,7 +21,7 @@ namespace L_Tests.Tests.Tools
             {
             // ReSharper disable StringLiteralTypo
             DateTimeConverter.Rfc3339DateTimeFormat.Should().Be("yyyy-MM-dd'T'HH:mm:ss.fffK");
-            DateTimeConverter.Rfc3339DateTimePatterns.ShouldBeEquivalentTo(new[]
+            DateTimeConverter.Rfc3339DateTimePatterns.Should().Equal(new[]
                 {
                 "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK",
                     "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffffffK",

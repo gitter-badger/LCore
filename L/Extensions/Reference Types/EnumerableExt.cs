@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections;
+using System.Diagnostics;
 using System.Reflection;
 using LCore.Extensions.Optional;
 using LCore.Tests;
@@ -300,6 +301,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { new int[] { }, Test.IncrementInt_Name })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, Test.IncrementInt_Name }, new[] { 2, 3, 4 })]
         [TestResult(new object[] { new object[] { 1, 2, "a", 3 }, Test.IncrementInt_Name }, new[] { 2, 3, 4 })]
+        [DebuggerStepThrough]
         public static List<T> Collect<T>(this IEnumerable In, Func<T, T> Func)
             {
             In = In.List<T>();
@@ -320,6 +322,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.IncrementInt_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.IncrementInt_Name })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, Test.IncrementInt_Name }, new[] { 2, 3, 4 })]
+        [DebuggerStepThrough]
         public static List<T> Collect<T>(this IEnumerable<T> In, Func<T, T> Func)
             {
             In = In ?? new T[] { };
@@ -339,6 +342,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.IncrementInt_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.IncrementInt_Name })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, Test.IncrementInt_Name }, new[] { 2, 3, 4 })]
+        [DebuggerStepThrough]
         public static T[] Collect<T>(this T[] In, Func<T, T> Func)
             {
             Func = Func ?? (o => default(T));
@@ -356,6 +360,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.IncrementInt_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.IncrementInt_Name })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, Test.IncrementInt_Name }, new[] { 2, 3, 4 })]
+        [DebuggerStepThrough]
         public static List<T> Collect<T>(this List<T> In, Func<T, T> Func)
             {
             In = In ?? new List<T>();
@@ -389,6 +394,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.PassI_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.PassI_Name })]
         [TestResult(new object[] { new object[] { 1, 2, 3 }, Test.PassI_Name }, new object[] { 0, 1, 2 })]
+        [DebuggerStepThrough]
         public static List<object> Collect(this IEnumerable In, Func<int, object, object> Func)
             {
             In = In ?? new object[] { };
@@ -419,6 +425,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.PassIII_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.PassIII_Name })]
         [TestResult(new object[] { new object[] { 1, 2, 3 }, Test.PassIII_Name }, new[] { 0, 1, 2 })]
+        [DebuggerStepThrough]
         public static List<T> Collect<T>(this IEnumerable In, Func<int, T, T> Func)
             {
             In = In ?? new T[] { };
@@ -449,6 +456,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.PassIII_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.PassIII_Name })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, Test.PassIII_Name }, new[] { 0, 1, 2 })]
+        [DebuggerStepThrough]
         public static List<T> Collect<T>(this IEnumerable<T> In, Func<int, T, T> Func)
             {
             In = In ?? new T[] { };
@@ -480,6 +488,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.PassIII_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.PassIII_Name })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, Test.PassIII_Name }, new[] { 0, 1, 2 })]
+        [DebuggerStepThrough]
         public static T[] Collect<T>(this T[] In, Func<int, T, T> Func)
             {
             return In.List().Collect(Func).ToArray();
@@ -498,6 +507,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.PassIII_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.PassIII_Name })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, Test.PassIII_Name }, new[] { 0, 1, 2 })]
+        [DebuggerStepThrough]
         public static List<T> Collect<T>(this List<T> In, Func<int, T, T> Func)
             {
             In = In ?? new List<T>();
@@ -522,6 +532,7 @@ namespace LCore.Extensions
         /// Returns a list containing the result of the Func<typeparamref name="T" />. Null values are excluded.
         /// </summary>
         [Tested]
+        [DebuggerStepThrough]
         public static List<T> Collect<T>(this Func<T> In, int Count)
             {
             if (Count < 0)
@@ -541,6 +552,7 @@ namespace LCore.Extensions
         /// The int passed to the Func is the 0-based index of the current item.
         /// </summary>
         [Tested]
+        [DebuggerStepThrough]
         public static List<T> Collect<T>(this Func<int, T> In, int Count)
             {
             if (Count < 0)
@@ -663,6 +675,7 @@ namespace LCore.Extensions
         /// Null values are ignored.
         /// </summary>
         [Tested]
+        [DebuggerStepThrough]
         public static List<object> Convert(this IEnumerable In, Func<object, object> Func)
             {
             Func = Func ?? (o => o);
@@ -673,6 +686,7 @@ namespace LCore.Extensions
         /// Null values are ignored.
         /// </summary>
         [Tested]
+        [DebuggerStepThrough]
         public static U[] Convert<T, U>(this T[] In, Func<T, U> Func)
             {
             Func = Func ?? (o =>
@@ -688,6 +702,7 @@ namespace LCore.Extensions
         /// Null values are ignored.
         /// </summary>
         [Tested]
+        [DebuggerStepThrough]
         public static List<U> Convert<T, U>(this List<T> In, Func<T, U> Func)
             {
             Func = Func ?? (o =>
@@ -703,6 +718,7 @@ namespace LCore.Extensions
         /// Null values are ignored.
         /// </summary>
         [Tested]
+        [DebuggerStepThrough]
         public static List<U> Convert<T, U>(this IEnumerable<T> In, Func<T, U> Func)
             {
             Func = Func ?? (o =>
@@ -722,6 +738,7 @@ namespace LCore.Extensions
         /// They are all collected and returned in one list.
         /// </summary>
         [Tested]
+        [DebuggerStepThrough]
         public static List<object> ConvertAll(this IEnumerable In, Func<object, IEnumerable<object>> Func)
             {
             In = In ?? new object[] { };
@@ -740,6 +757,7 @@ namespace LCore.Extensions
         /// They are all collected and returned in one list.
         /// </summary>
         [Tested]
+        [DebuggerStepThrough]
         public static List<U> ConvertAll<T, U>(this IEnumerable In, Func<T, IEnumerable<U>> Func)
             {
             In = In.List<T>();
@@ -759,6 +777,7 @@ namespace LCore.Extensions
         /// They are all collected and returned in one list.
         /// </summary>
         [Tested]
+        [DebuggerStepThrough]
         public static List<U> ConvertAll<T, U>(this IEnumerable<T> In, Func<T, IEnumerable<U>> Func)
             {
             In = In ?? new T[] { };
@@ -778,6 +797,7 @@ namespace LCore.Extensions
         /// They are all collected and returned in one array.
         /// </summary>
         [Tested]
+        [DebuggerStepThrough]
         public static U[] ConvertAll<T, U>(this T[] In, Func<T, IEnumerable<U>> Func)
             {
             return In.List().ConvertAll(Func).ToArray();
@@ -788,6 +808,7 @@ namespace LCore.Extensions
         /// They are all collected and returned in one list.
         /// </summary>
         [Tested]
+        [DebuggerStepThrough]
         public static List<U> ConvertAll<T, U>(this List<T> In, Func<T, IEnumerable<U>> Func)
             {
             In = In ?? new List<T>();
@@ -809,6 +830,7 @@ namespace LCore.Extensions
         /// Null values are ignored.
         /// </summary>
         [Tested]
+        [DebuggerStepThrough]
         public static List<object> Convert(this IEnumerable In, Func<int, object, object> Func)
             {
             List<object> Out = NewList<List<object>, object>();
@@ -826,6 +848,7 @@ namespace LCore.Extensions
         /// Null values are ignored.
         /// </summary>
         [Tested]
+        [DebuggerStepThrough]
         public static U[] Convert<T, U>(this T[] In, Func<int, T, U> Func)
             {
             if (In == null)
@@ -844,6 +867,8 @@ namespace LCore.Extensions
         /// Null values are ignored.
         /// </summary>
 
+        [Tested]
+        [DebuggerStepThrough]
         public static List<U> Convert<T, U>(this List<T> In, Func<int, T, U> Func)
             {
             List<U> Out = NewList<List<U>, U>();
@@ -861,6 +886,7 @@ namespace LCore.Extensions
         /// Null values are ignored.
         /// </summary>
         [Tested]
+        [DebuggerStepThrough]
         public static List<U> Convert<T, U>(this IEnumerable<T> In, Func<int, T, U> Func)
             {
             List<U> Out = NewList<List<U>, U>();
@@ -879,6 +905,7 @@ namespace LCore.Extensions
         /// Returns the size of a collection
         /// </summary>
         [Tested]
+        [DebuggerStepThrough]
         public static uint Count<T>(this T In) where T : IEnumerable
             {
             if (In == null)
@@ -999,6 +1026,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.ReceiveObject_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.ReceiveObject_Name })]
         [TestSucceedes(new object[] { new[] { 1, 2, 3 }, Test.ReceiveObject_Name }, Test.HasReceivedObjects_Name)]
+        [DebuggerStepThrough]
         public static void Each(this IEnumerable In, Action<object> Func)
             {
             if (Func == null)
@@ -1026,6 +1054,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { new int[] { }, Test.ReceiveT_Name })]
         [TestSucceedes(new object[] { new[] { 1, 2, 3 }, Test.ReceiveT_Name }, Test.HasReceivedObjects_Name)]
         [TestSucceedes(new object[] { new object[] { 1, 2, "a", 3 }, Test.ReceiveT_Name }, Test.HasReceivedObjectsButNoStrings_Name)]
+        [DebuggerStepThrough]
         public static void Each<T>(this IEnumerable In, Action<T> Func)
             {
             if (Func == null)
@@ -1048,6 +1077,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.ReceiveT_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.ReceiveT_Name })]
         [TestSucceedes(new object[] { new[] { 1, 2, 3 }, Test.ReceiveT_Name }, Test.HasReceivedObjects_Name)]
+        [DebuggerStepThrough]
         public static void Each<T>(this IEnumerable<T> In, Action<T> Func)
             {
             if (Func == null)
@@ -1078,6 +1108,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.ReceiveObjectI_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.ReceiveObjectI_Name })]
         [TestSucceedes(new object[] { new[] { 1, 2, 3 }, Test.ReceiveObjectI_Name }, Test.HasReceivedObjectsI_Name)]
+        [DebuggerStepThrough]
         public static void Each(this IEnumerable In, Action<int, object> Func)
             {
             if (Func == null)
@@ -1108,6 +1139,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.ReceiveObjectI_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.ReceiveObjectI_Name })]
         [TestSucceedes(new object[] { new object[] { 1, 2, "", 3 }, Test.ReceiveObjectI_Name }, Test.HasReceivedObjectsI_Name)]
+        [DebuggerStepThrough]
         public static void Each<T>(this IEnumerable In, Action<int, object> Func)
             {
             if (Func == null)
@@ -1130,6 +1162,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.ReceiveTI_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.ReceiveTI_Name })]
         [TestSucceedes(new object[] { new[] { 1, 2, 3 }, Test.ReceiveTI_Name }, Test.HasReceivedObjectsI_Name)]
+        [DebuggerStepThrough]
         public static void Each<T>(this IEnumerable<T> In, Action<int, T> Func)
             {
             if (Func == null)
@@ -1261,6 +1294,7 @@ namespace LCore.Extensions
         /// Returns the first item in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
         /// Returns null if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
         /// </summary>
+        [Tested]
         public static T First<T>(this IEnumerable In, Func<T, bool> Condition = null)
             {
             Condition = Condition ?? (o => true);
@@ -1277,6 +1311,7 @@ namespace LCore.Extensions
         /// Returns the first item in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
         /// Returns null if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
         /// </summary>
+        [Tested]
         public static T First<T>(this T[] In, Func<object, bool> Condition = null)
             {
             Condition = Condition ?? (o => true);
@@ -1293,6 +1328,7 @@ namespace LCore.Extensions
         /// Returns the first item in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
         /// Returns null if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
         /// </summary>
+        [Tested]
         public static T First<T>(this IEnumerable<T> In, Func<T, bool> Condition = null)
             {
             Condition = Condition ?? (o => true);
@@ -1305,86 +1341,125 @@ namespace LCore.Extensions
 
             return default(T);
             }
+        #endregion 
+
+        #region First Multi
+        /// <summary>
+        /// Returns the first <paramref name="Count"/> Items in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
+        /// Returns an empty list if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
+        /// </summary>
+        [Tested]
+        public static List<T> First<T>(this IEnumerable In, int Count, Func<T, bool> Condition = null)
+            {
+            return Count < 0
+                ? new List<T>()
+                : In.First((uint)Count, Condition);
+            }
 
         /// <summary>
         /// Returns the first <paramref name="Count"/> Items in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
         /// Returns an empty list if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
         /// </summary>
+        [Tested]
         public static List<T> First<T>(this IEnumerable In, uint Count, Func<T, bool> Condition = null)
             {
             Condition = Condition ?? (o => true);
             var Out = new List<T>();
-            foreach (var Item in In)
+            if (Count > 0)
                 {
-                if (Item is T && Condition((T)Item))
-                    Out.Add((T)Item);
-                if (Out.Count == Count)
-                    break;
+                foreach (var Item in In)
+                    {
+                    if (Item is T && Condition((T)Item))
+                        Out.Add((T)Item);
+                    if (Out.Count == Count)
+                        break;
+                    }
                 }
-
             return Out;
+            }
+
+        /// <summary>
+        /// Returns the first <paramref name="Count"/> Items in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
+        /// Returns an empty list if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
+        /// </summary>
+        [Tested]
+        public static List<T> First<T>(this IEnumerable<T> In, int Count, Func<T, bool> Condition = null)
+            {
+            return Count < 0
+                ? new List<T>()
+                : In.First((uint)Count, Condition);
             }
         /// <summary>
         /// Returns the first <paramref name="Count"/> Items in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
         /// Returns an empty list if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
         /// </summary>
+        [Tested]
         public static List<T> First<T>(this IEnumerable<T> In, uint Count, Func<T, bool> Condition = null)
             {
             Condition = Condition ?? (o => true);
             var Out = new List<T>();
-            foreach (var Item in In)
+            if (Count > 0)
                 {
-                if (Condition(Item))
-                    Out.Add(Item);
+                foreach (var Item in In)
+                    {
+                    if (Condition(Item))
+                        Out.Add(Item);
 
-                if (Out.Count == Count)
-                    break;
+                    if (Out.Count == Count)
+                        break;
+                    }
                 }
 
             return Out;
             }
-        /// <summary>
-        /// Returns the first <paramref name="Count"/> Items in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
-        /// Returns an empty list if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
-        /// </summary>
-        public static List<T> First<T>(this List<T> In, uint Count, Func<T, bool> Condition = null)
-            {
-            Condition = Condition ?? (o => true);
-            var Out = new List<T>();
-            foreach (var Item in In)
-                {
-                if (Condition(Item))
-                    Out.Add(Item);
 
-                if (Out.Count == Count)
-                    break;
-                }
-
-            return Out;
-            }
         /// <summary>
         /// Returns the first <paramref name="Count"/> Items in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
         /// Returns an empty array if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
         /// </summary>
+        [Tested]
+        public static T[] First<T>(this T[] In, int Count, Func<T, bool> Condition = null)
+            {
+            return Count < 0
+                ? new T[] { }
+                : In.First((uint)Count, Condition);
+            }
+
+        /// <summary>
+        /// Returns the first <paramref name="Count"/> Items in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
+        /// Returns an empty array if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
+        /// </summary>
+        [Tested]
         public static T[] First<T>(this T[] In, uint Count, Func<T, bool> Condition = null)
             {
             Condition = Condition ?? (o => true);
             var Out = new List<T>();
-            foreach (var Item in In)
+
+            if (Count > 0)
                 {
-                if (Condition(Item))
-                    Out.Add(Item);
-                if (Out.Count == Count)
-                    break;
+                foreach (var Item in In)
+                    {
+                    if (Condition(Item))
+                        Out.Add(Item);
+                    if (Out.Count == Count)
+                        break;
+                    }
                 }
 
-            return Out.Array();
+            return
+
+            Out.Array();
             }
+
+        #endregion
+
+        #region First Match
 
         /// <summary>
         /// Returns the first Object in <paramref name="In"/> that causes is equal to <paramref name="Object"/>.
         /// Returns null if <paramref name="Object"/> is null or is not found.
         /// </summary>
+        [Tested]
         public static T First<T>(this IEnumerable In, T Object)
             {
             return In.First<T>(o => o.SafeEquals(Object));
@@ -1397,17 +1472,28 @@ namespace LCore.Extensions
         /// Iterates through a collection and sub-collections and returns a flattened List<typeparamref name="T" />. 
         /// Ignores all Objects that are not of type T as well as nulls.
         /// </summary>
+        [Tested]
         public static List<T> Flatten<T>(this IEnumerable In)
             {
             List<T> Out = NewList<List<T>, T>();
 
             In.Each(o =>
-            {
-                if (o is T)
-                    Out.Add((T)o);
-                else if (o is IEnumerable)
-                    Out.AddRange(((IEnumerable)o).Flatten<T>());
-            });
+                {
+                    if (o.IsNull())
+                        return;
+
+                    if (o is IEnumerable)
+                        {
+                        List<T> Flat = ((IEnumerable)o).Flatten<T>();
+
+                        if (Flat.Count > 0)
+                            Out.AddRange(Flat);
+                        else if (o is T)
+                            Out.Add((T)o);
+                        }
+                    else if (o is T)
+                        Out.Add((T)o);
+                });
             return Out;
             }
         #endregion
@@ -1415,7 +1501,9 @@ namespace LCore.Extensions
         #region GetAt
         /// <summary>
         /// Returns the item at the specified index.
+        /// If the index is out of range, null is returned.
         /// </summary>
+        [Tested]
         public static object GetAt(this IEnumerable In, int Index)
             {
             return Index < 0
@@ -1425,7 +1513,40 @@ namespace LCore.Extensions
 
         /// <summary>
         /// Returns the item at the specified index.
+        /// If the index is out of range, null is returned.
         /// </summary>
+        [Tested]
+        public static object GetAt(this IEnumerable In, uint Index)
+            {
+            if (In == null)
+                return null;
+
+            var List = In as IList;
+            if (List != null)
+                {
+                return List.Count > Index
+                    ? List[(int)Index]
+                    : null;
+                }
+
+            string Str = In as string;
+            if (Str != null)
+                {
+                return Str.Length > Index
+                    ? Str[(int)Index]
+                    : default(char);
+                }
+
+            var IndexProp = In.GetType().IndexGetter<int>();
+
+            return IndexProp?.GetMethod.Invoke(In, new object[] { (int)Index });
+            }
+
+        /// <summary>
+        /// Returns the item at the specified index.
+        /// If the index is out of range, null is returned.
+        /// </summary>
+        [Tested]
         public static T GetAt<T>(this IEnumerable<T> In, int Index)
             {
             return Index < 0
@@ -1435,81 +1556,69 @@ namespace LCore.Extensions
 
         /// <summary>
         /// Returns the item at the specified index.
+        /// If the index is out of range, null is returned.
         /// </summary>
-        public static object GetAt(this IEnumerable In, uint Index)
-            {
-            if (In == null)
-                return null;
-
-            var List = In as IList;
-            if (List != null)
-                {
-                return List[(int)Index];
-                }
-
-            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-            if (In is Array)
-            // ReSharper disable HeuristicUnreachableCode
-                {
-                return (In as Array).GetValue(Index);
-                }
-            // ReSharper restore HeuristicUnreachableCode
-
-            string Str = In as string;
-            if (Str != null)
-                {
-                return Str[(int)Index];
-                }
-            throw new Exception(In.GetType().FullName);
-            }
-        /// <summary>
-        /// Returns the item at the specified index.
-        /// </summary>
+        [Tested]
         public static T GetAt<T>(this IEnumerable<T> In, uint Index)
             {
             if (In == null)
                 return default(T);
 
-            var List = In as IList<T>;
-            if (List != null)
-                {
-                return List[(int)Index];
-                }
             // ReSharper disable once SuspiciousTypeConversion.Global
             var Array = In as Array;
             if (Array != null)
                 {
-                return (T)Array.GetValue(Index);
+                return Array.Length > Index
+                    ? (T)Array.GetValue(Index)
+                    : default(T);
                 }
-            throw new Exception(In.GetType().FullName);
+
+            var List = In as IList<T>;
+            if (List != null)
+                {
+                return List.Count > Index
+                    ? List[(int)Index]
+                    : default(T);
+                }
+
+            string Str = In as string;
+            if (Str != null)
+                {
+                return Str.Length > Index
+                    ? (T)(object)Str[(int)Index]
+                    : default(T);
+                }
+
+            var IndexProp = In.GetType().IndexGetter<int, T>();
+            if (IndexProp != null)
+                return (T)IndexProp.GetMethod.Invoke(In, new object[] { (int)Index });
+
+            return default(T);
             }
-        /// <summary>
-        /// Returns a new T[] containing the items at the specified indexes.
-        /// </summary>
-        public static T[] GetAt<T>(this T[] In, params int[] Indexes)
-            {
-            return In.Select((i, o) => Indexes.Has(i));
-            }
+
         #endregion
 
         #region GetAtIndices
         /// <summary>
-        /// Returns a new List`Object containing the items at the specified indexes.
+        /// Returns a new T[] containing the items at the specified indexes.
         /// </summary>
-        public static List<object> GetAtIndices(this IEnumerable In, params int[] Indices)
-            {
-            return In.List().GetAtIndices(Indices);
-            }
-        /// <summary>
-        /// Returns a new List<typeparamref name="T" /> containing the items at the specified indexes.
-        /// </summary>
-        public static List<T> GetAtIndices<T>(this List<T> In, params int[] Indices)
+        [Tested]
+        public static T[] GetAtIndices<T>(this T[] In, params int[] Indices)
             {
             return In.Select((i, o) => Indices.Has(i));
             }
         /// <summary>
+        /// Returns a new List`Object containing the items at the specified indexes.
+        /// </summary>
+        [Tested]
+        public static List<T> GetAtIndices<T>(this IEnumerable In, params int[] Indices)
+            {
+            return In.Select<T>((i, o) => Indices.Has(i));
+            }
+        /// <summary>
         /// Returns a new List<typeparam name="T" /> containing the items at the specified indexes.
         /// </summary>
+        [Tested]
         public static List<T> GetAtIndices<T>(this IEnumerable<T> In, params int[] Indices)
             {
             return In.Select((i, o) => Indices.Has(i));
@@ -1526,39 +1635,30 @@ namespace LCore.Extensions
             {
             return In.Group(o => o.Group ?? "");
             }
-
+        
         /// <summary>
         /// Groups items into a dictionary using a custom indexer. 
         /// The result of the indexer will be used as the Key for each element.
         /// </summary>
-        public static Dictionary<U, List<object>> Group<U>(this IEnumerable In, Func<object, U> Grouper)
+        public static Dictionary<TKey, List<TValue>> Group<TValue, TKey>(this IEnumerable<TValue> In, Func<TValue, TKey> Grouper)
             {
-            return In.List().Group(Grouper);
-            }
-
-        /// <summary>
-        /// Groups items into a dictionary using a custom indexer. 
-        /// The result of the indexer will be used as the Key for each element.
-        /// </summary>
-        public static Dictionary<U, List<T>> Group<T, U>(this IEnumerable<T> In, Func<T, U> Grouper)
-            {
-            var Out = new Dictionary<U, List<T>>();
+            var Out = new Dictionary<TKey, List<TValue>>();
             In.Each(o =>
             {
                 var Index = Grouper(o);
-                List<T> L;
+                List<TValue> GroupList;
 
                 if (Out.ContainsKey(Index))
                     {
-                    L = Out[Index];
+                    GroupList = Out[Index];
                     }
                 else
                     {
-                    L = new List<T>();
-                    Out.Add(Index, L);
+                    GroupList = new List<TValue>();
+                    Out.Add(Index, GroupList);
                     }
 
-                L.Add(o);
+                GroupList.Add(o);
             });
             return Out;
             }
@@ -1800,6 +1900,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns whether or not this supplied is null or empty.
         /// </summary>
+        [DebuggerStepThrough]
         public static bool IsEmpty(this IEnumerable In)
             {
             uint Count = In.Count();

@@ -29,11 +29,11 @@ namespace L_Tests.Tests.Tools
                 OneTimeScheduleDate = Date2
                 };
 
-            Test.DaysOfMonth.ShouldBeEquivalentTo(new List<int> { 5, 15, 20 });
-            Test.DaysOfWeek.ShouldBeEquivalentTo(new List<DayOfWeek> { DayOfWeek.Saturday, DayOfWeek.Thursday });
-            Test.Mode.ShouldBeEquivalentTo(Schedule.ScheduleMode.Daily);
-            Test.TimesOfDay.ShouldBeEquivalentTo(new List<DateTime> { Date, Date2 });
-            Test.OneTimeScheduleDate.ShouldBeEquivalentTo(Date2);
+            Test.DaysOfMonth.Should().Equal(5, 15, 20);
+            Test.DaysOfWeek.Should().Equal(DayOfWeek.Saturday, DayOfWeek.Thursday);
+            Test.Mode.Should().Be(Schedule.ScheduleMode.Daily);
+            Test.TimesOfDay.Should().Equal(Date, Date2);
+            Test.OneTimeScheduleDate.Should().Be(Date2);
 
             string Str = Test.ToString();
 

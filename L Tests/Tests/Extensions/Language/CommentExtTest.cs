@@ -18,7 +18,7 @@ namespace L_Tests.Tests.Extensions
     public class CommentExtTest : ExtensionTester
         {
         protected override Type[] TestType => new[] { typeof(CommentExt) };
-        
+
         [Fact]
         [TestCategory(UnitTests)]
         public void Test_GetComments()
@@ -29,58 +29,41 @@ namespace L_Tests.Tests.Extensions
             // Test xml member cache
             Comments = typeof(L.Comment).GetComments();
 
-            Comments.Summary.ShouldBeEquivalentTo(@"
+            Comments.Summary.Should().Be(@"
             Contains values and test members for CommentExt
             ");
 
 
             var Comments2 = typeof(L.Comment.Test).GetMember(nameof(L.Comment.Test.TestMethod)).FirstOrDefault().GetComments();
 
-            Comments2.Summary.ShouldBeEquivalentTo(@"
+            Comments2.Summary.Should().Be(@"
             Test class
             ");
             Comments2.Returns.Should().Be("Returns");
             Comments2.Value.Should().Be("value");
             Comments2.Remarks.Should().Be("Remark");
-            Comments2.Examples.ShouldBeEquivalentTo(new[] { "some code", "more code" });
-            Comments2.Parameters.ShouldBeEquivalentTo(
-                new[]
-                    {
-                        new Set<string, string>("A", "param1"),
-                        new Set<string, string>("B", "param2")
-                    }
-                );
-            Comments2.Exceptions.ShouldBeEquivalentTo(
-                new[]
-                    {
-                        new Set<string, string>("T:System.Exception", "exception 1"),
-                        new Set<string, string>("T:System.ArgumentException", "exception 2")
-                    }
-                );
-            Comments2.Permissions.ShouldBeEquivalentTo(
-                new[]
-                    {
-                        new Set<string, string>("T:System.Security.PermissionSet", "permission 1"),
-                        new Set<string, string>("T:System.Security.CodeAccessPermission", "permission 2")
-                    }
-                );
-            Comments2.TypeParameters.ShouldBeEquivalentTo(
-                new[]
-                    {
-                        new Set<string, string>("T", "Type")
-                    }
-                );
-            Comments2.Includes.ShouldBeEquivalentTo(new Set<string, string>[] { });
+            Comments2.Examples.Should().Equal("some code", "more code");
+            Comments2.Parameters.Should().Equal(
+                new Set<string, string>("A", "param1"),
+                new Set<string, string>("B", "param2"));
+            Comments2.Exceptions.Should().Equal(
+                new Set<string, string>("T:System.Exception", "exception 1"),
+                new Set<string, string>("T:System.ArgumentException", "exception 2"));
+            Comments2.Permissions.Should().Equal(
+                new Set<string, string>("T:System.Security.PermissionSet", "permission 1"),
+                new Set<string, string>("T:System.Security.CodeAccessPermission", "permission 2"));
+            Comments2.TypeParameters.Should().Equal(new Set<string, string>("T", "Type"));
+            Comments2.Includes.Should().Equal();
 
             var Comments3 = typeof(L.Comment.Test).GetMember(nameof(L.Comment.Test.TestProperty)).FirstOrDefault().GetComments();
 
-            Comments3.Summary.ShouldBeEquivalentTo(@"
+            Comments3.Summary.Should().Be(@"
             TestProperty 
             ");
 
             var Comments4 = typeof(L.Comment.Test).GetMember(nameof(L.Comment.Test.TestField)).FirstOrDefault().GetComments();
 
-            Comments4.Summary.ShouldBeEquivalentTo(@"
+            Comments4.Summary.Should().Be(@"
             TestField
             ");
 

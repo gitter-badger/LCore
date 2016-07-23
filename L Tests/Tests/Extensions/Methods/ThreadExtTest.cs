@@ -277,7 +277,7 @@ namespace L_Tests.Tests.Extensions
                 Result.Times.Count.Should().Be(5);
                 Result.AverageMS.Should().BeInRange(8, 15);
                 Result.Data.Count().Should().Be(5);
-                Result.Data.ShouldBeEquivalentTo(new List<string> { "abc", "abc", "abc", "abc", "abc" });
+                Result.Data.Should().Equal("abc", "abc", "abc", "abc", "abc");
                 }
             }
         [Fact]
@@ -309,7 +309,7 @@ namespace L_Tests.Tests.Extensions
                 Result.Times.Count.Should().Be(5);
                 Result.AverageMS.Should().BeInRange(8, 15);
                 Result.Data.Count().Should().Be(5);
-                Result.Data.ShouldBeEquivalentTo(new List<string> { "abc", "abc", "abc", "abc", "abc" });
+                Result.Data.Should().Equal("abc", "abc", "abc", "abc", "abc");
                 }
             }
 

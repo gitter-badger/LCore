@@ -289,13 +289,13 @@ namespace L_Tests.Tests.Extensions
 
             int[] Test2 = Test();
 
-            Test2.ShouldBeEquivalentTo(new[] { 5 });
+            Test2.Should().Equal(5);
 
             Func<string[]> Test3 = "5".FN_CreateArray(5);
 
             string[] Test4 = Test3();
 
-            Test4.ShouldBeEquivalentTo(new[] { "5", "5", "5", "5", "5" });
+            Test4.Should().Equal("5", "5", "5", "5", "5");
 
             L.F<string, int, Func<string[]>>(LCore.Extensions.Optional.ObjectExt.FN_CreateArray).ShouldFail("5", -1);
 
@@ -303,7 +303,7 @@ namespace L_Tests.Tests.Extensions
 
             string[] Test6 = Test5();
 
-            Test6.ShouldBeEquivalentTo(new string[] { });
+            Test6.Should().Equal();
 
             }
 
@@ -317,13 +317,13 @@ namespace L_Tests.Tests.Extensions
 
             List<int> Test2 = Test();
 
-            Test2.ShouldBeEquivalentTo(new[] { 5 });
+            Test2.Should().Equal(5);
 
             Func<List<string>> Test3 = "5".FN_CreateList(5);
 
             List<string> Test4 = Test3();
 
-            Test4.ShouldBeEquivalentTo(new[] { "5", "5", "5", "5", "5" });
+            Test4.Should().Equal("5", "5", "5", "5", "5");
 
             L.F<string, int, Func<List<string>>>(LCore.Extensions.Optional.ObjectExt.FN_CreateList).ShouldFail("5", -1);
 
@@ -331,7 +331,7 @@ namespace L_Tests.Tests.Extensions
 
             List<string> Test6 = Test5();
 
-            Test6.ShouldBeEquivalentTo(new string[] { });
+            Test6.Should().Equal();
 
             }
 
@@ -346,7 +346,7 @@ namespace L_Tests.Tests.Extensions
                 C = 3
                 };
 
-            Test.Details().ShouldBeEquivalentTo("L_Tests.Tests.Extensions.ObjectExtTest+TestClass {\r\nA: 1\r\nB: 2\r\nC: 3\r\n}");
+            Test.Details().Should().Be("L_Tests.Tests.Extensions.ObjectExtTest+TestClass {\r\nA: 1\r\nB: 2\r\nC: 3\r\n}");
 
 
             var Test2 = new TestClassError
@@ -356,11 +356,11 @@ namespace L_Tests.Tests.Extensions
                 };
 
             Test2.Details()
-                .ShouldBeEquivalentTo("L_Tests.Tests.Extensions.ObjectExtTest+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
+                .Should().Be("L_Tests.Tests.Extensions.ObjectExtTest+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
             Test2.Details(false)
-                .ShouldBeEquivalentTo("L_Tests.Tests.Extensions.ObjectExtTest+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
+                .Should().Be("L_Tests.Tests.Extensions.ObjectExtTest+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
             Test2.Details(true)
-                .ShouldBeEquivalentTo(
+                .Should().Be(
                     "L_Tests.Tests.Extensions.ObjectExtTest+TestClassError {\r\nA: 1\r\nB: 2\r\nC: Exception has been thrown by the target of an invocation.\r\nD: 5\r\nE: 7\r\n}");
             }
 

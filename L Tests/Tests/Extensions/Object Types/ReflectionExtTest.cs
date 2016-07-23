@@ -12,6 +12,7 @@ using LCore.Naming;
 using LCore.Tests;
 using LCore.Dynamic;
 using Xunit;
+using LCore.Extensions.Optional;
 using static LCore.Extensions.L.Test.Categories;
 // ReSharper disable UnusedParameter.Global
 // ReSharper disable UnassignedGetOnlyAutoProperty
@@ -35,49 +36,22 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_AlsoBaseTypes()
             {
-            typeof(TestClass).AlsoBaseTypes().ShouldBeEquivalentTo(new[]
-                {
-                    typeof(TestClass),
-                    typeof(TestBaseClass),
-                    typeof(TestBaseClass2),
-                    typeof(object)
-                });
+            typeof(TestClass).AlsoBaseTypes().Should().Equal(typeof(TestClass), typeof(TestBaseClass), typeof(TestBaseClass2), typeof(object));
 
-            typeof(TestBaseClass).AlsoBaseTypes().ShouldBeEquivalentTo(new[]
-                {
-                    typeof(TestBaseClass),
-                    typeof(TestBaseClass2),
-                    typeof(object)
-                });
+            typeof(TestBaseClass).AlsoBaseTypes().Should().Equal(typeof(TestBaseClass), typeof(TestBaseClass2), typeof(object));
 
-            typeof(TestBaseClass2).AlsoBaseTypes().ShouldBeEquivalentTo(new[]
-                {
-                    typeof(TestBaseClass2),
-                    typeof(object)
-                });
+            typeof(TestBaseClass2).AlsoBaseTypes().Should().Equal(typeof(TestBaseClass2), typeof(object));
             }
 
         [Fact]
         [TestCategory(UnitTests)]
         public void Test_BaseTypes()
             {
-            typeof(TestClass).BaseTypes().ShouldBeEquivalentTo(new[]
-                {
-                    typeof(TestBaseClass),
-                    typeof(TestBaseClass2),
-                    typeof(object)
-                });
+            typeof(TestClass).BaseTypes().Should().Equal(typeof(TestBaseClass), typeof(TestBaseClass2), typeof(object));
 
-            typeof(TestBaseClass).BaseTypes().ShouldBeEquivalentTo(new[]
-                {
-                    typeof(TestBaseClass2),
-                    typeof(object)
-                });
+            typeof(TestBaseClass).BaseTypes().Should().Equal(typeof(TestBaseClass2), typeof(object));
 
-            typeof(TestBaseClass2).BaseTypes().ShouldBeEquivalentTo(new[]
-                {
-                    typeof(object)
-                });
+            typeof(TestBaseClass2).BaseTypes().Should().Equal(typeof(object));
             }
 
         /// <exception cref="AmbiguousMatchException">More than one method is found with the specified name and specified parameters. </exception>
@@ -191,27 +165,26 @@ namespace L_Tests.Tests.Extensions
             Member.GetAttributes<TestResultAttribute>(true)
                 .ShouldBeEquivalentTo(new List<TestResultAttribute>
                     {
-                    new TestResultAttribute(new object[] {}, 1),
-                    new TestResultAttribute(new object[] {}, 2),
-                    new TestResultAttribute(new object[] {}, 3),
-                    new TestResultAttribute(new object[] {}, 4)
-                    });
+                    new TestResultAttribute(new object[] { }, 1),
+                    new TestResultAttribute(new object[] { }, 2),
+                    new TestResultAttribute(new object[] { }, 3),
+                    new TestResultAttribute(new object[] { }, 4)});
 
             Member.GetAttributes<TestResultAttribute>(false)
                 .ShouldBeEquivalentTo(new List<TestResultAttribute>
                     {
-                    new TestResultAttribute(new object[] {}, 1),
-                    new TestResultAttribute(new object[] {}, 2),
-                    new TestResultAttribute(new object[] {}, 3),
-                    new TestResultAttribute(new object[] {}, 4)
-                    });
+                    new TestResultAttribute(new object[] { }, 1),
+                    new TestResultAttribute(new object[] { }, 2),
+                    new TestResultAttribute(new object[] { }, 3),
+                    new TestResultAttribute(new object[] { }, 4)}
+                    );
 
 
             ((MemberInfo)null).GetAttributes<TestResultAttribute>(false)
-                .ShouldBeEquivalentTo(new List<TestResultAttribute>());
+                .Should().Equal();
 
             new TestMember().GetAttributes<TestResultAttribute>(false)
-                .ShouldBeEquivalentTo(new List<TestResultAttribute>());
+                .Should().Equal();
 
             }
 
@@ -267,20 +240,19 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_GetExtensionMethods()
             {
-            typeof(DateExt).GetExtensionMethods().ShouldBeEquivalentTo(new[]
-                {
-                // ReSharper disable InvokeAsExtensionMethod
+            typeof(DateExt).GetExtensionMethods().Should().Equal(
+                    // ReSharper disable InvokeAsExtensionMethod
+                    L.Ref.StaticMethod(() => DateExt.Average(null)),
                     L.Ref.StaticMethod(() => DateExt.DayOfWeekNumber(default(DayOfWeek))),
                     L.Ref.StaticMethod(() => DateExt.CleanDateString(DateTime.MinValue)),
                     L.Ref.StaticMethod(() => DateExt.ToSpecification(DateTime.MinValue)),
-                    L.Ref.StaticMethod(() => DateExt.ToTimeString(new TimeSpan())),
-                    L.Ref.StaticMethod(() => DateExt.TimeDifference(DateTime.MinValue, DateTime.MinValue,false)),
                     L.Ref.StaticMethod(() => DateExt.GetMonthName(DateTime.MinValue)),
+                    L.Ref.StaticMethod(() => DateExt.ToTimeString(new TimeSpan())),
+                    L.Ref.StaticMethod(() => DateExt.TimeDifference(DateTime.MinValue, DateTime.MinValue, false)),
                     L.Ref.StaticMethod(() => DateExt.IsPast(DateTime.MinValue)),
-                    L.Ref.StaticMethod(() => DateExt.IsFuture(DateTime.MinValue)),
-                    L.Ref.StaticMethod(() => DateExt.Average(null))
+                    L.Ref.StaticMethod(() => DateExt.IsFuture(DateTime.MinValue))
                 // ReSharper restore InvokeAsExtensionMethod
-                });
+                );
             }
 
 
@@ -313,12 +285,11 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_GetSubClasses()
             {
-            typeof(TestClass).GetSubClasses().ShouldBeEquivalentTo(new List<Type>
-                {
+            typeof(TestClass).GetSubClasses().Should().Equal(
                 typeof(TestClass.TestSubClass),
                 typeof(TestClass.TestSubClass2)
-                });
-            typeof(TestClass.TestSubClass2).GetSubClasses().ShouldBeEquivalentTo(new List<Type>());
+                );
+            typeof(TestClass.TestSubClass2).GetSubClasses().Should().Equal();
             }
 
 
@@ -365,26 +336,15 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new TestClass { Test = "a", Test6 = "b" };
 
-            typeof(TestClass).GetValues<string>(Test).ShouldBeEquivalentTo(new List<string>
-                {
-                "a",
-                "b",
-                "6"
-                });
+            typeof(TestClass).GetValues<string>(Test).Should().Equal("a", "6", "b");
 
-            typeof(TestClass).GetMembers().GetValues<string>(Test).ShouldBeEquivalentTo(new List<string>
-                {
-                "a",
-                "b",
-                "6"
-                });
+            typeof(TestClass).GetMembers().GetValues<string>(Test).Should().Equal("a", "6", "b");
 
             var Test2 = new TestClass();
 
-            typeof(TestClass).GetMembers().GetValues<string>(Test2, false).ShouldBeEquivalentTo(new List<string>
-                { "6" });
-            typeof(TestClass).GetMembers().GetValues<string>(Test2, true).ShouldBeEquivalentTo(new List<string>
-                {"","","","","","","","","","","","","","6"});
+            typeof(TestClass).GetMembers().GetValues<string>(Test2, false).Should().Equal("6");
+
+            typeof(TestClass).GetMembers().GetValues<string>(Test2, true).Should().Equal("", "", "", "", "", "", "", "", "", "", "", "", "6", "");
             }
 
 
@@ -395,15 +355,9 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new object[] { 0, "a", (double)-3, -5.5f };
 
-            Test.GetTypes().ShouldBeEquivalentTo(new[]
-                {
-                    typeof(int),
-                    typeof(string),
-                    typeof(double),
-                    typeof(float)
-                });
+            Test.GetTypes().Should().Equal(typeof(int), typeof(string), typeof(double), typeof(float));
 
-            Test.ToList().GetTypes().ShouldBeEquivalentTo(new List<Type>
+            Test.ToList().GetTypes().Should().Equal(new List<Type>
                 {
                     typeof(int),
                     typeof(string),
@@ -541,52 +495,30 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new TestClass { Test = "a", Test6 = "b" };
 
-            typeof(TestClass).GetValues<object>(Test).ShouldBeEquivalentTo(new List<object>
-                {
+            typeof(TestClass).GetValues<object>(Test).Should().Equal(
                 "a",
-                "b",
-                "6"
-                });
+                "6",
+                "b"
+                );
 
             typeof(TestClass).InstantiateValues<string>(Test, false);
             typeof(TestClass).InstantiateValues<TestClass>(Test, false);
-            typeof(TestClass).GetValues<object>(Test).ShouldBeEquivalentTo(new List<object>
-                {
-                "a",
-                "b",
-                "6"
-                });
+            typeof(TestClass).GetValues<object>(Test).Should().Equal("a", "6", "b");
 
 
             Test = new TestClass { Test = "a", Test6 = "b" };
 
             typeof(TestClass).InstantiateValues<string>(Test, true);
             typeof(TestClass).InstantiateValues<TestClass>(Test, true);
-            typeof(TestClass).GetValues<object>(Test).ShouldBeEquivalentTo(new List<object>
-                {
-                "a",
-                "b",
-                "6",
-                "",
-                "",
-                "",
-                new TestClass()
-                });
+            typeof(TestClass).GetValues<object>(Test).ToS().ShouldBeEquivalentTo(
+                new List<object> { "a", "6", "b", "", "", "", new TestClass() });
 
             Test = new TestClass { Test = "a", Test6 = "b" };
 
             typeof(TestClass).GetMembers().InstantiateValues<string>(Test);
             typeof(TestClass).GetMembers().InstantiateValues<TestClass>(Test);
-            typeof(TestClass).GetValues<object>(Test).ShouldBeEquivalentTo(new List<object>
-                {
-                "a",
-                "b",
-                "6",
-                "",
-                "",
-                "",
-                new TestClass()
-                });
+            typeof(TestClass).GetValues<object>(Test).ToS().ShouldBeEquivalentTo(
+                new List<object> { "a", "6", "b", "", "", "", new TestClass() });
             }
 
 
@@ -622,32 +554,32 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_Members()
             {
-            typeof(TestClass).MembersOfType(typeof(string)).ShouldBeEquivalentTo(new List<MemberInfo>
-                {
-                L.Ref.Member<TestClass>(Test=>Test.Test),
-                L.Ref.Member<TestClass>(Test=>Test.Test2),
-                L.Ref.Member<TestClass>(Test=>Test.Test3),
-                L.Ref.Member<TestClass>(Test=>Test.Test11),
-                L.Ref.Member<TestClass>(Test=>Test.Test12),
-                L.Ref.Member<TestClass>(Test=>Test.Test13),
+            typeof(TestClass).MembersOfType(typeof(string)).Should().Equal(
                 // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-                L.Ref.Method<TestClass>(Test=>Test.ToString()),
-                L.Ref.Member<TestClass>(Test=>Test.Test6)
-                });
+                L.Ref.Method<TestClass>(Test => Test.ToString()),
+                L.Ref.Member<TestClass>(Test => Test.Test),
+                L.Ref.Member<TestClass>(Test => Test.Test2),
+                L.Ref.Member<TestClass>(Test => Test.Test3),
+                L.Ref.Member<TestClass>(Test => Test.Test11),
+                L.Ref.Member<TestClass>(Test => Test.Test12),
+                L.Ref.Member<TestClass>(Test => Test.Test13),
+                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+                L.Ref.Member<TestClass>(Test => Test.Test6)
+                );
 
-            typeof(TestClass).MembersOfType(typeof(string), false).ShouldBeEquivalentTo(new List<MemberInfo>());
-            typeof(TestClass).MembersOfType(typeof(string), true).ShouldBeEquivalentTo(new List<MemberInfo>
-                {
-                L.Ref.Member<TestClass>(Test=>Test.Test),
-                L.Ref.Member<TestClass>(Test=>Test.Test2),
-                L.Ref.Member<TestClass>(Test=>Test.Test3),
-                L.Ref.Member<TestClass>(Test=>Test.Test11),
-                L.Ref.Member<TestClass>(Test=>Test.Test12),
-                L.Ref.Member<TestClass>(Test=>Test.Test13),
+            typeof(TestClass).MembersOfType(typeof(string), false).Should().Equal();
+            typeof(TestClass).MembersOfType(typeof(string), true).ShouldBeEquivalentTo(new List<MemberInfo> { 
                 // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-                L.Ref.Method<TestClass>(Test=>Test.ToString()),
-                L.Ref.Member<TestClass>(Test=>Test.Test6)
-                });
+                L.Ref.Method<TestClass>(Test => Test.ToString()),
+                L.Ref.Member<TestClass>(Test => Test.Test),
+                L.Ref.Member<TestClass>(Test => Test.Test2),
+                L.Ref.Member<TestClass>(Test => Test.Test3),
+                L.Ref.Member<TestClass>(Test => Test.Test11),
+                L.Ref.Member<TestClass>(Test => Test.Test12),
+                L.Ref.Member<TestClass>(Test => Test.Test13),
+                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+                L.Ref.Member<TestClass>(Test => Test.Test6)}
+                );
             }
 
         /// <exception cref="ArgumentException">If an unknown MemberInfo type is passed.</exception>
@@ -659,8 +591,7 @@ namespace L_Tests.Tests.Extensions
             {
 
             typeof(TestClass).GetMembers().Convert(Member => Member.MemberType())
-                .ShouldBeEquivalentTo(new List<Type>
-                {
+                .ShouldBeEquivalentTo(new Type[] {
                     typeof(void),
                     typeof(void),
                     typeof(void),
@@ -692,8 +623,8 @@ namespace L_Tests.Tests.Extensions
                     typeof(string),
                     typeof(TestClass),
                     typeof(EventHandler),
-                    typeof(string)
-                });
+                    typeof(string)}
+                );
 
             L.A(() => new TestMember().MemberType()).ShouldFail();
             }
@@ -784,140 +715,132 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_WithAttribute()
             {
-            ((MemberInfo[])null).WithAttribute<NotMappedAttribute>().ShouldBeEquivalentTo(new List<MemberInfo>());
+            ((MemberInfo[])null).WithAttribute<NotMappedAttribute>().Should().Equal();
 
-            typeof(TestClass).GetMembers().WithAttribute<NotMappedAttribute>().ShouldBeEquivalentTo(new List<MemberInfo>
-                {
-                L.Ref.Member<TestClass>(Test=>Test.Test),
-                L.Ref.Member<TestClass>(Test=>Test.Test2)
-                });
-            typeof(TestClass).GetMembers().WithAttribute<ITestAttribute>().ShouldBeEquivalentTo(new List<MemberInfo>
-                {
-                L.Ref.Method<TestClass>(Test=>Test.Test5(""))
-                });
+            typeof(TestClass).GetMembers().WithAttribute<NotMappedAttribute>().Should().Equal(
+                L.Ref.Member<TestClass>(Test => Test.Test),
+                L.Ref.Member<TestClass>(Test => Test.Test2)
+                );
+            typeof(TestClass).GetMembers().WithAttribute<ITestAttribute>().Should().Equal(
+                L.Ref.Method<TestClass>(Test => Test.Test5(""))
+                );
 
 
-            ((MemberInfo[])null).WithAttribute(typeof(NotMappedAttribute)).ShouldBeEquivalentTo(new List<MemberInfo>());
+            ((MemberInfo[])null).WithAttribute(typeof(NotMappedAttribute)).Should().Equal();
 
-            typeof(TestClass).GetMembers().WithAttribute(typeof(NotMappedAttribute)).ShouldBeEquivalentTo(new List<MemberInfo>
-                {
-                L.Ref.Member<TestClass>(Test=>Test.Test),
-                L.Ref.Member<TestClass>(Test=>Test.Test2)
-                });
-            typeof(TestClass).GetMembers().WithAttribute(typeof(ITestAttribute)).ShouldBeEquivalentTo(new List<MemberInfo>
-                {
-                L.Ref.Method<TestClass>(Test=>Test.Test5(""))
-                });
+            typeof(TestClass).GetMembers().WithAttribute(typeof(NotMappedAttribute)).Should().Equal(
+                L.Ref.Member<TestClass>(Test => Test.Test2),
+                L.Ref.Member<TestClass>(Test => Test.Test)
+                );
+            typeof(TestClass).GetMembers().WithAttribute(typeof(ITestAttribute)).Should().Equal(
+                L.Ref.Method<TestClass>(Test => Test.Test5(""))
+                );
             }
 
         [Fact]
         [TestCategory(UnitTests)]
         public void Test_WithoutAttribute()
             {
-            ((MemberInfo[])null).WithoutAttribute<NotMappedAttribute>().ShouldBeEquivalentTo(new List<MemberInfo>());
+            ((MemberInfo[])null).WithoutAttribute<NotMappedAttribute>().Should().Equal();
 
             typeof(TestClass).GetMembers().Select(Member => !(Member is MethodInfo && ((MethodInfo)Member).IsSpecialName))
-                .WithoutAttribute<NotMappedAttribute>().ShouldBeEquivalentTo(new List<MemberInfo>
-                {
-                L.Ref.Method<TestClass>(Test=>Test.Test4()),
-                L.Ref.Method<TestClass>(Test=>Test.Test5("")),
-                L.Ref.Method<TestClass>(Test=>Test.Test5("","")),
-                L.Ref.Method<TestClass>(Test=>Test.Test5("","","")),
-                L.Ref.Method<TestClass>(Test=>Test.Test5("","","","")),
+                .WithoutAttribute<NotMappedAttribute>().ShouldBeEquivalentTo(new List<MemberInfo>() {
+                L.Ref.Method<TestClass>(Test => Test.Test4()),
+                L.Ref.Method<TestClass>(Test => Test.Test5("")),
+                L.Ref.Method<TestClass>(Test => Test.Test5("", "")),
+                L.Ref.Method<TestClass>(Test => Test.Test5("", "", "")),
+                L.Ref.Method<TestClass>(Test => Test.Test5("", "", "", "")),
                 // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-                L.Ref.Method<TestClass>(Test=>Test.ToString()),
-                L.Ref.Method<TestClass>(Test=>Test.Equals(null)),
-                L.Ref.Method<TestClass>(Test=>Test.GetHashCode()),
-                L.Ref.Method<TestClass>(Test=>Test.GetType()),
+                L.Ref.Method<TestClass>(Test => Test.ToString()),
+                L.Ref.Method<TestClass>(Test => Test.Equals(null)),
+                L.Ref.Method<TestClass>(Test => Test.GetHashCode()),
+                L.Ref.Method<TestClass>(Test => Test.GetType()),
                 // ReSharper restore ReturnValueOfPureMethodIsNotUsed
                 // ReSharper disable once ObjectCreationAsStatement
-                L.Ref.Constructor(()=>new TestClass()),
-                L.Ref.Member<TestClass>(Test=>Test.Test3),
-                L.Ref.Member<TestClass>(Test=>Test.Test11),
-                L.Ref.Member<TestClass>(Test=>Test.Test12),
-                L.Ref.Member<TestClass>(Test=>Test.Test13),
-                L.Ref.Member<TestClass>(Test=>Test.Test14),
+                L.Ref.Constructor(() => new TestClass()),
+                L.Ref.Member<TestClass>(Test => Test.Test3),
+                L.Ref.Member<TestClass>(Test => Test.Test11),
+                L.Ref.Member<TestClass>(Test => Test.Test12),
+                L.Ref.Member<TestClass>(Test => Test.Test13),
+                L.Ref.Member<TestClass>(Test => Test.Test14),
                 L.Ref.Event<TestClass>(nameof(TestClass.Test7)),
-                L.Ref.Member<TestClass>(Test=>Test.Test6)
-                });
+                L.Ref.Member<TestClass>(Test => Test.Test6)}
+                );
             typeof(TestClass).GetMembers().Select(Member => !(Member is MethodInfo && ((MethodInfo)Member).IsSpecialName))
-                .WithoutAttribute<ITestAttribute>().ShouldBeEquivalentTo(new List<MemberInfo>
-                    {
-                    L.Ref.Method<TestClass>(Test=>Test.Test4()),
-                    L.Ref.Method<TestClass>(Test=>Test.Test5("","")),
-                    L.Ref.Method<TestClass>(Test=>Test.Test5("","","")),
-                    L.Ref.Method<TestClass>(Test=>Test.Test5("","","","")),
+                .WithoutAttribute<ITestAttribute>().ShouldBeEquivalentTo(new List<MemberInfo>() {
+                    L.Ref.Method<TestClass>(Test => Test.Test4()),
+                    L.Ref.Method<TestClass>(Test => Test.Test5("", "")),
+                    L.Ref.Method<TestClass>(Test => Test.Test5("", "", "")),
+                    L.Ref.Method<TestClass>(Test => Test.Test5("", "", "", "")),
                     // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-                    L.Ref.Method<TestClass>(Test=>Test.ToString()),
-                    L.Ref.Method<TestClass>(Test=>Test.Equals(null)),
-                    L.Ref.Method<TestClass>(Test=>Test.GetHashCode()),
-                    L.Ref.Method<TestClass>(Test=>Test.GetType()),
+                    L.Ref.Method<TestClass>(Test => Test.ToString()),
+                    L.Ref.Method<TestClass>(Test => Test.Equals(null)),
+                    L.Ref.Method<TestClass>(Test => Test.GetHashCode()),
+                    L.Ref.Method<TestClass>(Test => Test.GetType()),
                     // ReSharper restore ReturnValueOfPureMethodIsNotUsed
                     // ReSharper disable once ObjectCreationAsStatement
-                    L.Ref.Constructor(()=>new TestClass()),
-                    L.Ref.Member<TestClass>(Test=>Test.Test3),
-                    L.Ref.Member<TestClass>(Test=>Test.Test11),
-                    L.Ref.Member<TestClass>(Test=>Test.Test12),
-                    L.Ref.Member<TestClass>(Test=>Test.Test13),
-                    L.Ref.Member<TestClass>(Test=>Test.Test14),
+                    L.Ref.Constructor(() => new TestClass()),
+                    L.Ref.Member<TestClass>(Test => Test.Test),
+                    L.Ref.Member<TestClass>(Test => Test.Test2),
+                    L.Ref.Member<TestClass>(Test => Test.Test3),
+                    L.Ref.Member<TestClass>(Test => Test.Test11),
+                    L.Ref.Member<TestClass>(Test => Test.Test12),
+                    L.Ref.Member<TestClass>(Test => Test.Test13),
+                    L.Ref.Member<TestClass>(Test => Test.Test14),
                     L.Ref.Event<TestClass>(nameof(TestClass.Test7)),
-                    L.Ref.Member<TestClass>(Test=>Test.Test6),
-                    L.Ref.Member<TestClass>(Test=>Test.Test2),
-                    L.Ref.Member<TestClass>(Test=>Test.Test)
-                    });
+                    L.Ref.Member<TestClass>(Test => Test.Test6)}
+                    );
 
 
-            ((MemberInfo[])null).WithoutAttribute(typeof(NotMappedAttribute)).ShouldBeEquivalentTo(new List<MemberInfo>());
+            ((MemberInfo[])null).WithoutAttribute(typeof(NotMappedAttribute)).Should().Equal();
 
             typeof(TestClass).GetMembers().Select(Member => !(Member is MethodInfo && ((MethodInfo)Member).IsSpecialName))
-                .WithoutAttribute(typeof(NotMappedAttribute)).ShouldBeEquivalentTo(new List<MemberInfo>
-                    {
-                    L.Ref.Method<TestClass>(Test=>Test.Test4()),
-                    L.Ref.Method<TestClass>(Test=>Test.Test5("")),
-                    L.Ref.Method<TestClass>(Test=>Test.Test5("","")),
-                    L.Ref.Method<TestClass>(Test=>Test.Test5("","","")),
-                    L.Ref.Method<TestClass>(Test=>Test.Test5("","","","")),
+                .WithoutAttribute(typeof(NotMappedAttribute)).ShouldBeEquivalentTo(new List<MemberInfo>() {
+                    L.Ref.Method<TestClass>(Test => Test.Test4()),
+                    L.Ref.Method<TestClass>(Test => Test.Test5("")),
+                    L.Ref.Method<TestClass>(Test => Test.Test5("", "")),
+                    L.Ref.Method<TestClass>(Test => Test.Test5("", "", "")),
+                    L.Ref.Method<TestClass>(Test => Test.Test5("", "", "", "")),
                     // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-                    L.Ref.Method<TestClass>(Test=>Test.ToString()),
-                    L.Ref.Method<TestClass>(Test=>Test.Equals(null)),
-                    L.Ref.Method<TestClass>(Test=>Test.GetHashCode()),
-                    L.Ref.Method<TestClass>(Test=>Test.GetType()),
+                    L.Ref.Method<TestClass>(Test => Test.ToString()),
+                    L.Ref.Method<TestClass>(Test => Test.Equals(null)),
+                    L.Ref.Method<TestClass>(Test => Test.GetHashCode()),
+                    L.Ref.Method<TestClass>(Test => Test.GetType()),
                     // ReSharper restore ReturnValueOfPureMethodIsNotUsed
                     // ReSharper disable once ObjectCreationAsStatement
-                    L.Ref.Constructor(()=>new TestClass()),
-                    L.Ref.Member<TestClass>(Test=>Test.Test3),
-                    L.Ref.Member<TestClass>(Test=>Test.Test11),
-                    L.Ref.Member<TestClass>(Test=>Test.Test12),
-                    L.Ref.Member<TestClass>(Test=>Test.Test13),
-                    L.Ref.Member<TestClass>(Test=>Test.Test14),
+                    L.Ref.Constructor(() => new TestClass()),
+                    L.Ref.Member<TestClass>(Test => Test.Test3),
+                    L.Ref.Member<TestClass>(Test => Test.Test11),
+                    L.Ref.Member<TestClass>(Test => Test.Test12),
+                    L.Ref.Member<TestClass>(Test => Test.Test13),
+                    L.Ref.Member<TestClass>(Test => Test.Test14),
                     L.Ref.Event<TestClass>(nameof(TestClass.Test7)),
-                    L.Ref.Member<TestClass>(Test=>Test.Test6)
-                    });
+                    L.Ref.Member<TestClass>(Test => Test.Test6)}
+                    );
             typeof(TestClass).GetMembers().Select(Member => !(Member is MethodInfo && ((MethodInfo)Member).IsSpecialName))
-                .WithoutAttribute(typeof(ITestAttribute)).ShouldBeEquivalentTo(new List<MemberInfo>
-                    {
-                    L.Ref.Method<TestClass>(Test=>Test.Test4()),
-                    L.Ref.Method<TestClass>(Test=>Test.Test5("","")),
-                    L.Ref.Method<TestClass>(Test=>Test.Test5("","","")),
-                    L.Ref.Method<TestClass>(Test=>Test.Test5("","","","")),
+                .WithoutAttribute(typeof(ITestAttribute)).ShouldBeEquivalentTo(new List<MemberInfo>() {
+                    L.Ref.Method<TestClass>(Test => Test.Test4()),
+                    L.Ref.Method<TestClass>(Test => Test.Test5("", "")),
+                    L.Ref.Method<TestClass>(Test => Test.Test5("", "", "")),
+                    L.Ref.Method<TestClass>(Test => Test.Test5("", "", "", "")),
                     // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-                    L.Ref.Method<TestClass>(Test=>Test.ToString()),
-                    L.Ref.Method<TestClass>(Test=>Test.Equals(null)),
-                    L.Ref.Method<TestClass>(Test=>Test.GetHashCode()),
-                    L.Ref.Method<TestClass>(Test=>Test.GetType()),
+                    L.Ref.Method<TestClass>(Test => Test.ToString()),
+                    L.Ref.Method<TestClass>(Test => Test.Equals(null)),
+                    L.Ref.Method<TestClass>(Test => Test.GetHashCode()),
+                    L.Ref.Method<TestClass>(Test => Test.GetType()),
                     // ReSharper restore ReturnValueOfPureMethodIsNotUsed
                     // ReSharper disable once ObjectCreationAsStatement
-                    L.Ref.Constructor(()=>new TestClass()),
-                    L.Ref.Member<TestClass>(Test=>Test.Test3),
-                    L.Ref.Member<TestClass>(Test=>Test.Test11),
-                    L.Ref.Member<TestClass>(Test=>Test.Test12),
-                    L.Ref.Member<TestClass>(Test=>Test.Test13),
-                    L.Ref.Member<TestClass>(Test=>Test.Test14),
+                    L.Ref.Constructor(() => new TestClass()),
+                    L.Ref.Member<TestClass>(Test => Test.Test),
+                    L.Ref.Member<TestClass>(Test => Test.Test2),
+                    L.Ref.Member<TestClass>(Test => Test.Test3),
+                    L.Ref.Member<TestClass>(Test => Test.Test11),
+                    L.Ref.Member<TestClass>(Test => Test.Test12),
+                    L.Ref.Member<TestClass>(Test => Test.Test13),
+                    L.Ref.Member<TestClass>(Test => Test.Test14),
                     L.Ref.Event<TestClass>(nameof(TestClass.Test7)),
-                    L.Ref.Member<TestClass>(Test=>Test.Test6),
-                    L.Ref.Member<TestClass>(Test=>Test.Test2),
-                    L.Ref.Member<TestClass>(Test=>Test.Test)
-                    });
+                    L.Ref.Member<TestClass>(Test => Test.Test6)}
+                    );
             }
 
         #region Helpers

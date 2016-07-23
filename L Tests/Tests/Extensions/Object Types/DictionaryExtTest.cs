@@ -50,13 +50,13 @@ namespace L_Tests.Tests.Extensions
 
             Test.Keys.Count.Should().Be(9);
 
-            Test.Keys.List().ShouldBeEquivalentTo(new List<string> { "a", "b", "c", "d", "e", "f", "g", "h", "i" });
+            Test.Keys.List().Should().Equal(new List<string> { "a", "b", "c", "d", "e", "f", "g", "h", "i" });
 
             Test.Merge(Test3, Value => new KeyValuePair<string, string>($"{Value.Key}a", $"{Value.Value}b"));
 
             Test.Keys.Count.Should().Be(12);
 
-            Test.Keys.List().ShouldBeEquivalentTo(new List<string> { "a", "b", "c", "d", "e", "f", "g", "h", "i", "ga", "ha", "ia" });
+            Test.Keys.List().Should().Equal(new List<string> { "a", "b", "c", "d", "e", "f", "g", "h", "i", "ga", "ha", "ia" });
             }
 
         [Fact]
@@ -149,7 +149,7 @@ namespace L_Tests.Tests.Extensions
         public void Test_GetAllValues()
             {
             ((Dictionary<string, int[]>)null).GetAllValues<string, int, int[]>()
-                .ShouldBeEquivalentTo(new List<int>());
+                .Should().Equal(new List<int>());
 
             var Test = new Dictionary<string, int[]>
                 {
@@ -159,7 +159,7 @@ namespace L_Tests.Tests.Extensions
                 };
 
             Test.GetAllValues<string, int, int[]>()
-                .ShouldBeEquivalentTo(new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+                .Should().Equal(new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 1, 2, 3, 4, 5, 6, 7, 8, 9 });
             }
         }
     }
