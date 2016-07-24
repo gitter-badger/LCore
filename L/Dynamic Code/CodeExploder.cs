@@ -146,7 +146,9 @@ namespace LCore.Extensions
                 if (Member.HasAttribute(typeof(CodeExplodeGenerics), true))
                     {
                     var Attr = Member.GetAttribute<CodeExplodeGenerics>();
+                    // ReSharper disable once InvocationIsSkipped
                     Debug.Assert(Attr != null, "Attr != null");
+                    // ReSharper disable once PossibleNullReferenceException
                     Comments = Attr.Comments;
                     if (!Attr.Replacements.IsEmpty())
                         {
@@ -374,11 +376,12 @@ namespace LCore.Extensions
                 if (Member.HasAttribute(typeof(CodeExplodeExtensionMethod), true))
                     {
                     var Attr = Member.GetAttribute<CodeExplodeExtensionMethod>();
+                    // ReSharper disable once InvocationIsSkipped
                     Debug.Assert(Attr != null, "Attr != null");
-                    Comment = Attr.Comments;
-                    ExecuteResult = Attr.ExecuteResult;
+                    Comment = Attr?.Comments;
+                    ExecuteResult = Attr?.ExecuteResult == true;
 
-                    if (!Attr.ParameterNames.IsEmpty())
+                    if (Attr?.ParameterNames.IsEmpty() == false)
                         {
                         ParamNames = Attr.ParameterNames.List();
                         }

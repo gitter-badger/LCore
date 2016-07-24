@@ -2,7 +2,6 @@
 using LCore.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Linq;
 using System.Reflection;
 using FluentAssertions;
 using LCore.Tools;
@@ -34,7 +33,7 @@ namespace L_Tests.Tests.Extensions
             ");
 
 
-            var Comments2 = typeof(L.Comment.Test).GetMember(nameof(L.Comment.Test.TestMethod)).FirstOrDefault().GetComments();
+            var Comments2 = typeof(L.Comment.Test).GetMember(nameof(L.Comment.Test.TestMethod)).First().GetComments();
 
             Comments2.Summary.Should().Be(@"
             Test class
@@ -55,13 +54,13 @@ namespace L_Tests.Tests.Extensions
             Comments2.TypeParameters.Should().Equal(new Set<string, string>("T", "Type"));
             Comments2.Includes.Should().Equal();
 
-            var Comments3 = typeof(L.Comment.Test).GetMember(nameof(L.Comment.Test.TestProperty)).FirstOrDefault().GetComments();
+            var Comments3 = typeof(L.Comment.Test).GetMember(nameof(L.Comment.Test.TestProperty)).First().GetComments();
 
             Comments3.Summary.Should().Be(@"
             TestProperty 
             ");
 
-            var Comments4 = typeof(L.Comment.Test).GetMember(nameof(L.Comment.Test.TestField)).FirstOrDefault().GetComments();
+            var Comments4 = typeof(L.Comment.Test).GetMember(nameof(L.Comment.Test.TestField)).First().GetComments();
 
             Comments4.Summary.Should().Be(@"
             TestField

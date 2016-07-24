@@ -117,7 +117,9 @@ namespace LCore.Extensions
             if (Objs.IsEmpty())
                 return;
 
+            // ReSharper disable once InvocationIsSkipped
             Debug.Assert(Objs != null, "Objs != null");
+            // ReSharper disable once PossibleNullReferenceException
             foreach (var Obj in Objs)
                 {
                 if (!In.Contains(Obj))
@@ -391,7 +393,7 @@ namespace LCore.Extensions
         /// Runs a Func`Object,Object <paramref name="In.Count" /> times and returns a list with the results. 
         /// Values from the Input collection are used as the parameters. Null values are excluded.
         /// </summary>
-    
+
         [TestFails(new object[] { new[] { 1 }, Test.FailIOOFunc_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.FailIOOFunc_Name })]
         [TestSucceedes(new object[] { new int[] { }, null })]
@@ -2234,14 +2236,14 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns all items within <paramref name="In" /> that have the given <paramref name="Name" />
         /// </summary>
-        public static List<INamed> Named(this IEnumerable In, string Name)
+        public static List<INamed> Named([CanBeNull]this IEnumerable In, [CanBeNull]string Name)
             {
             return In.List<INamed>().Select(o => o?.Name == Name);
             }
         /// <summary>
         /// Returns all items within <paramref name="In" /> that have the given <paramref name="Name" />
         /// </summary>
-        public static T[] Named<T>(this T[] In, string Name)
+        public static T[] Named<T>([CanBeNull]this T[] In, [CanBeNull]string Name)
             where T : INamed
             {
             return In.Select(o => o?.Name == Name);
@@ -2249,16 +2251,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns all items within <paramref name="In" /> that have the given <paramref name="Name" />
         /// </summary>
-        public static List<T> Named<T>(this List<T> In, string Name)
-            where T : INamed
-            {
-            return In.Select(o => o?.Name == Name);
-            }
-
-        /// <summary>
-        /// Returns all items within <paramref name="In" /> that have the given <paramref name="Name" />
-        /// </summary>
-        public static IEnumerable<T> Named<T>(this IEnumerable<T> In, string Name)
+        public static IEnumerable<T> Named<T>([CanBeNull]this IEnumerable<T> In, [CanBeNull]string Name)
             where T : INamed
             {
             return In.Select(o => o?.Name == Name);
@@ -2267,29 +2260,28 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns all items within <paramref name="In" /> that have the given <paramref name="Name" />
         /// </summary>
-        public static List<object> Named(this IEnumerable In, string Name, Func<object, string> Namer)
+        public static List<object> Named([CanBeNull]this IEnumerable In, [CanBeNull]string Name, [CanBeNull]Func<object, string> Namer)
             {
+            Namer = Namer ?? (o => null);
+
             return In.List<object>().Select(o => o != null && Namer(o) == Name);
             }
         /// <summary>
         /// Returns all items within <paramref name="In" /> that have the given <paramref name="Name" />
         /// </summary>
-        public static List<T> Named<T>(this IEnumerable<T> In, string Name, Func<T, string> Namer)
+        public static List<T> Named<T>([CanBeNull]this IEnumerable<T> In, [CanBeNull]string Name, [CanBeNull]Func<T, string> Namer)
             {
+            Namer = Namer ?? (o => null);
+
             return In.List().Select(o => o != null && Namer(o) == Name);
             }
         /// <summary>
         /// Returns all items within <paramref name="In" /> that have the given <paramref name="Name" />
         /// </summary>
-        public static T[] Named<T>(this T[] In, string Name, Func<T, string> Namer)
+        public static T[] Named<T>([CanBeNull]this T[] In, [CanBeNull]string Name, [CanBeNull]Func<T, string> Namer)
             {
-            return In.Select(o => o != null && Namer(o) == Name);
-            }
-        /// <summary>
-        /// Returns all items within <paramref name="In" /> that have the given <paramref name="Name" />
-        /// </summary>
-        public static List<T> Named<T>(this List<T> In, string Name, Func<T, string> Namer)
-            {
+            Namer = Namer ?? (o => null);
+
             return In.Select(o => o != null && Namer(o) == Name);
             }
         #endregion

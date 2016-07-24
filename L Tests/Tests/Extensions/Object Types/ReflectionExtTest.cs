@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Reflection;
 using FluentAssertions;
 using LCore.Naming;
@@ -189,7 +188,6 @@ namespace L_Tests.Tests.Extensions
 
 
         /// <exception cref="ArgumentException">Unsupported / unknown attribute provider is passed.</exception>
-        /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
@@ -199,7 +197,7 @@ namespace L_Tests.Tests.Extensions
             typeof(TestClass).GetAttributeTypeName().Should().Be("L_Tests.Tests.Extensions.ReflectionExtTest+TestClass");
             L.Ref.Member<TestClass>(Class => Class.Test2).GetAttributeTypeName().Should().Be("L_Tests.Tests.Extensions.ReflectionExtTest+TestClass");
             L.Ref.Member<TestBaseClass>(Class => Class.Test2).GetAttributeTypeName().Should().Be("L_Tests.Tests.Extensions.ReflectionExtTest+TestBaseClass");
-            L.Ref.Method<TestClass>(Class => Class.Test5("")).GetParameters().FirstOrDefault()
+            L.Ref.Method<TestClass>(Class => Class.Test5("")).GetParameters().First()
                 .GetAttributeTypeName().Should().Be("L_Tests.Tests.Extensions.ReflectionExtTest+TestBaseClass2");
 
             new AttributeList("name", new Attribute[] { }).GetAttributeTypeName().Should().Be("name");
@@ -346,8 +344,7 @@ namespace L_Tests.Tests.Extensions
             typeof(TestClass).GetMembers().GetValues<string>(Test2, true).Should().Equal("", "", "", "", "", "", "", "", "", "", "", "", "6", "");
             }
 
-
-        /// <exception cref="ArgumentNullException"></exception>
+        
         [Fact]
         [TestCategory(UnitTests)]
         public void Test_GetTypes()
@@ -356,7 +353,7 @@ namespace L_Tests.Tests.Extensions
 
             Test.GetTypes().Should().Equal(typeof(int), typeof(string), typeof(double), typeof(float));
 
-            Test.ToList().GetTypes().Should().Equal(new List<Type>
+            Test.List().GetTypes().Should().Equal(new List<Type>
                 {
                     typeof(int),
                     typeof(string),

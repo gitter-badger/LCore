@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using LCore.Extensions;
 #pragma warning disable 1591
 
 
@@ -41,7 +41,7 @@ namespace LCore.Tasks
                 }
             }
 
-        public int RunningTasks
+        public uint RunningTasks
             {
             get
                 {

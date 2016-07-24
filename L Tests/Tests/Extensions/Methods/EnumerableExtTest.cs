@@ -7,6 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using LCore.Extensions.Optional;
 using LCore.Interfaces;
+using LCore.Naming;
 using LCore.Tests;
 using Xunit;
 using static LCore.Extensions.L.Test.Categories;
@@ -793,7 +794,7 @@ namespace L_Tests.Tests.Extensions
             new int[] { }.GroupTwice((Func<int, string>)null, (Func<int, string>)null).Should().BeEmpty();
 
             L.A(() => Test.GroupTwice<int, int, int>(i => i, i => { throw new Exception(); })).ShouldFail();
-            L.A(() => Test.GroupTwice<int, int, int>(i => { throw new Exception(); }, i => i)).ShouldFail();
+            L.A(() => Test.GroupTwice<int, int, int>(i => { throw new Exception(); }, null)).ShouldFail();
             }
 
         [Fact]
@@ -1144,7 +1145,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_Move_Array()
             {
-            var Test = new[] {1, 2, 3, 4, 5, 6, 7, 8, 9};
+            var Test = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
 
             Test.Move(0, 1);
@@ -1159,11 +1160,12 @@ namespace L_Tests.Tests.Extensions
 
             Test.Should().Equal(1, 6, 3, 4, 5, 2, 7, 8, 9);
 
-            ((int[]) null).Move(0, 0);
+            ((int[])null).Move(0, 0);
 
             L.A(() => Test.Move(-1, 5)).ShouldFail();
             L.A(() => Test.Move(0, 9)).ShouldFail();
             }
+        
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
@@ -1185,11 +1187,16 @@ namespace L_Tests.Tests.Extensions
             L.A(() => Test.Move(0, 9)).ShouldFail();
             }
 
+        [Fact]
+        public void Test_Named()
+            {
+            
+            }
 
         #region Internal
 
         [ExcludeFromCodeCoverage]
-        internal class TestGroup : IGrouped
+        internal class TestGroup : IGrouped, INamed
             {
             public TestGroup(string Group)
                 {
@@ -1197,6 +1204,8 @@ namespace L_Tests.Tests.Extensions
                 }
 
             public string Group { get; }
+
+            public string Name => this.Group;
             }
         [ExcludeFromCodeCoverage]
         internal class BadCollection : ICollection
@@ -1240,6 +1249,7 @@ namespace L_Tests.Tests.Extensions
             public bool IsSynchronized { get; }
             }
 
+        [ExcludeFromCodeCoverage]
         internal class NotAnIndexer : IEnumerable<int>
             {
             private readonly int[] _Test = { 5, 6, 7 };

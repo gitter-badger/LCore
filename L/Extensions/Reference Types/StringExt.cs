@@ -1504,13 +1504,10 @@ namespace LCore.Extensions
 
         #region Times
         /// <summary>
-        /// Takes a string and returns
+        /// Returns input string <paramref name="In"/> repeated <paramref name="Count"/> times.
         /// </summary>
-        /// <param name="In"></param>
-        /// <param name="Count"></param>
-        /// <returns></returns>
-        [TestFails(new object[] { null, -1 }, typeof(ArgumentException))]
-        [TestFails(new object[] { "a", -1 }, typeof(ArgumentException))]
+        [TestResult(new object[] { null, -1 }, "")]
+        [TestResult(new object[] { "a", -1 }, "")]
         [TestResult(new object[] { null, 0 }, "")]
         [TestResult(new object[] { "", 0 }, "")]
         [TestResult(new object[] { "a", 0 }, "")]
@@ -1522,8 +1519,24 @@ namespace LCore.Extensions
         // ReSharper restore StringLiteralTypo
         public static string Times([CanBeNull]this string In, int Count)
             {
-            if (Count < 0)
-                throw new ArgumentException("Count was less than 0.");
+            return Count < 0
+                ? "" :
+                In.Times((uint)Count);
+            }
+        /// <summary>
+        /// Returns input string <paramref name="In"/> repeated <paramref name="Count"/> times.
+        /// </summary>
+        [TestResult(new object[] { null, 0u }, "")]
+        [TestResult(new object[] { "", 0u }, "")]
+        [TestResult(new object[] { "a", 0u }, "")]
+        [TestResult(new object[] { "a", 1u }, "a")]
+        // ReSharper disable StringLiteralTypo
+        [TestResult(new object[] { "ablah", 1u }, "ablah")]
+        [TestResult(new object[] { "ablah", 2u }, "ablahablah")]
+        [TestResult(new object[] { "ablah", 5u }, "ablahablahablahablahablah")]
+        // ReSharper restore StringLiteralTypo
+        public static string Times([CanBeNull]this string In, uint Count)
+            {
             if (Count == 0)
                 return "";
             if (Count == 1)

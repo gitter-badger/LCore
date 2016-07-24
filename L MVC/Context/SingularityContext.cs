@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using JetBrains.Annotations;
+using LCore.Extensions;
 using LMVC.Models;
 using FileUpload = LMVC.Models.FileUpload;
 
@@ -62,7 +62,7 @@ namespace LMVC.Context
         public override Type UserAccountType => typeof(UserAccount);
         public override Type UserRoleType => typeof(AccountRole);
 
-        public GlobalSettings GlobalSettings => this.GlobalSettingsData.FirstOrDefault();
+        public GlobalSettings GlobalSettings => this.GlobalSettingsData.First();
 
         public override string ContextName => Name;
 

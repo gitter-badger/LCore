@@ -2,7 +2,6 @@
 using LCore.Extensions.Optional;
 using System.Collections.Generic;
 using System.Collections;
-using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 using LCore.Interfaces;
@@ -502,7 +501,7 @@ namespace LCore.Extensions.Optional
                             CustomMappedKeys.Add(Name);
                         }
 
-                    var Member2 = Obj.GetType().GetMember(Name).FirstOrDefault();
+                    var Member2 = Obj.GetType().GetMember(Name).First();
 
                     if ((Member2 is PropertyInfo && ((PropertyInfo)Member2).CanWrite) ||
                         Member2 is FieldInfo)

@@ -241,6 +241,8 @@ namespace L_Tests.Tests.Extensions
                     return Rand;
                 };
 
+            Thread.Sleep(50);
+
             lock (Func)
                 {
                 MethodProfileData<int> Result = Func.Profile();

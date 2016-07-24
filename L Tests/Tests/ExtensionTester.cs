@@ -23,7 +23,7 @@ namespace L_Tests
         /// <summary>
         /// Less than this amount of method coverage will result in a test failure.
         /// </summary>
-        protected virtual int RequireCoveragePercent => 1;
+        protected virtual uint RequireCoveragePercent => 1;
 
         /// <summary>
         /// The Type to test.
@@ -54,7 +54,7 @@ namespace L_Tests
 
                 if (this.RequireCoveragePercent > 0)
                     TestData.CoveragePercent.Should()
-                        .BeGreaterOrEqualTo(this.RequireCoveragePercent, 
+                        .BeGreaterOrEqualTo(this.RequireCoveragePercent,
                         $"{this.RequireCoveragePercent}% coverage required");
                 }
             }

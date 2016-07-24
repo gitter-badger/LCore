@@ -42,47 +42,47 @@ namespace LCore.Extensions
         /// Returns the absolute value of <paramref name="In" />
         /// </summary>
         /// <exception cref="OverflowException"><paramref name="In" /> equals <see cref="F:System.Int32.MinValue" />. </exception>
-        [TestResult(new object[] { int.MinValue + (int)1 }, int.MaxValue)]
-        [TestResult(new object[] { int.MaxValue }, int.MaxValue)]
-        [TestResult(new object[] { 0 }, 0)]
-        [TestResult(new object[] { 1 }, 1)]
-        [TestResult(new object[] { -1 }, 1)]
-        [TestResult(new object[] { -500 }, 500)]
-        [TestResult(new object[] { 500 }, 500)]
-        public static int Abs(this int In)
+        [TestResult(new object[] { int.MinValue + (int)1 }, (uint)int.MaxValue)]
+        [TestResult(new object[] { int.MaxValue }, (uint)int.MaxValue)]
+        [TestResult(new object[] { 0 }, 0u)]
+        [TestResult(new object[] { 1 }, 1u)]
+        [TestResult(new object[] { -1 }, 1u)]
+        [TestResult(new object[] { -500 }, 500u)]
+        [TestResult(new object[] { 500 }, 500u)]
+        public static uint Abs(this int In)
             {
-            return Math.Abs(In);
+            return (uint)Math.Abs(In);
             }
 
         /// <summary>
         /// Returns the absolute value of <paramref name="In" />
         /// </summary>
         /// <exception cref="OverflowException"><paramref name="In" /> equals <see cref="F:System.Int64.MinValue" />. </exception>
-        [TestResult(new object[] { long.MinValue + (long)1 }, long.MaxValue)]
-        [TestResult(new object[] { long.MaxValue }, long.MaxValue)]
-        [TestResult(new object[] { (long)0 }, (long)0)]
-        [TestResult(new object[] { (long)1 }, (long)1)]
-        [TestResult(new object[] { (long)-1 }, (long)1)]
-        [TestResult(new object[] { (long)-500 }, (long)500)]
-        [TestResult(new object[] { (long)500 }, (long)500)]
-        public static long Abs(this long In)
+        [TestResult(new object[] { long.MinValue + (long)1 }, (ulong)long.MaxValue)]
+        [TestResult(new object[] { long.MaxValue }, (ulong)long.MaxValue)]
+        [TestResult(new object[] { (long)0 }, (ulong)0)]
+        [TestResult(new object[] { (long)1 }, (ulong)1)]
+        [TestResult(new object[] { (long)-1 }, (ulong)1)]
+        [TestResult(new object[] { (long)-500 }, (ulong)500)]
+        [TestResult(new object[] { (long)500 }, (ulong)500)]
+        public static ulong Abs(this long In)
             {
-            return Math.Abs(In);
+            return (ulong)Math.Abs(In);
             }
 
         /// <summary>
         /// Returns the absolute value of <paramref name="In" />
         /// </summary>99
         /// <exception cref="OverflowException"><paramref name="In" /> equals <see cref="F:System.Int16.MinValue" />. </exception>
-        [TestResult(new object[] { short.MaxValue }, short.MaxValue)]
-        [TestResult(new object[] { (short)0 }, (short)0)]
-        [TestResult(new object[] { (short)1 }, (short)1)]
-        [TestResult(new object[] { (short)-1 }, (short)1)]
-        [TestResult(new object[] { (short)-500 }, (short)500)]
-        [TestResult(new object[] { (short)500 }, (short)500)]
-        public static short Abs(this short In)
+        [TestResult(new object[] { short.MaxValue }, (ushort)short.MaxValue)]
+        [TestResult(new object[] { (short)0 }, (ushort)0)]
+        [TestResult(new object[] { (short)1 }, (ushort)1)]
+        [TestResult(new object[] { (short)-1 }, (ushort)1)]
+        [TestResult(new object[] { (short)-500 }, (ushort)500)]
+        [TestResult(new object[] { (short)500 }, (ushort)500)]
+        public static ushort Abs(this short In)
             {
-            return Math.Abs(In);
+            return (ushort)Math.Abs(In);
             }
 
         /// <summary>
@@ -119,15 +119,15 @@ namespace LCore.Extensions
         /// Returns the absolute value of <paramref name="In" />
         /// </summary>
         /// <exception cref="OverflowException"><paramref name="In" /> equals <see cref="F:System.SByte.MinValue" />. </exception>
-        [TestResult(new object[] { sbyte.MaxValue }, sbyte.MaxValue)]
-        [TestResult(new object[] { (sbyte)0 }, (sbyte)0)]
-        [TestResult(new object[] { (sbyte)1 }, (sbyte)1)]
-        [TestResult(new object[] { (sbyte)-1 }, (sbyte)1)]
-        [TestResult(new object[] { (sbyte)-100 }, (sbyte)100)]
-        [TestResult(new object[] { (sbyte)100 }, (sbyte)100)]
-        public static sbyte Abs(this sbyte In)
+        [TestResult(new object[] { sbyte.MaxValue }, (byte)sbyte.MaxValue)]
+        [TestResult(new object[] { (sbyte)0 }, (byte)0)]
+        [TestResult(new object[] { (sbyte)1 }, (byte)1)]
+        [TestResult(new object[] { (sbyte)-1 }, (byte)1)]
+        [TestResult(new object[] { (sbyte)-100 }, (byte)100)]
+        [TestResult(new object[] { (sbyte)100 }, (byte)100)]
+        public static byte Abs(this sbyte In)
             {
-            return Math.Abs(In);
+            return (byte)Math.Abs(In);
             }
 
         /// <summary>

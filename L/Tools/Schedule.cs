@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using LCore.Extensions;
 #pragma warning disable 1591
 
@@ -93,7 +92,7 @@ namespace LCore.Tools
             if (Mode == ScheduleMode.Daily)
                 {
                 string[] Days = Split[1].Split(',');
-                List<DayOfWeek> DaysOfWeek = Days.Select(Day =>
+                List<DayOfWeek> DaysOfWeek = Days.Convert(Day =>
                 {
                     try
                         {
@@ -104,12 +103,12 @@ namespace LCore.Tools
                         {
                         throw new ArgumentException("ScheduleMode could not be determined.", Ex);
                         }
-                }).ToList();
+                }).List();
 
                 Out.DaysOfWeek = DaysOfWeek;
 
                 string[] Times = Split[2].Split(',');
-                List<DateTime> TimesOfDay = Times.Select(Time => Convert.ToDateTime(Time)).ToList();
+                List<DateTime> TimesOfDay = Times.Convert(Convert.ToDateTime).List();
                 TimesOfDay.Sort();
 
                 Out.TimesOfDay = TimesOfDay;
@@ -117,7 +116,7 @@ namespace LCore.Tools
             else if (Mode == ScheduleMode.Monthly)
                 {
                 string[] Days = Split[1].Split(',');
-                List<int> DaysOfMonth = Days.Select(Day => Convert.ToInt32(Day)).ToList();
+                List<int> DaysOfMonth = Days.Convert(Convert.ToInt32).List();
                 DaysOfMonth.Sort();
 
                 Out.DaysOfMonth = DaysOfMonth;

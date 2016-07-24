@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using LCore.Extensions;
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
@@ -22,27 +21,27 @@ namespace LCore.Tests
         /// <summary>
         /// An int from 0 to 100, the percentage of test coverage for the Type.
         /// </summary>
-        public int CoveragePercent { get; protected set; }
+        public uint CoveragePercent { get; protected set; }
 
         /// <summary>
         /// The total number of tests present
         /// </summary>
-        public int TestsPresent { get; protected set; }
+        public uint TestsPresent { get; protected set; }
 
         /// <summary>
         /// The total number of unit tests (non-attribute tests)
         /// </summary>
-        public int UnitTestCount { get; protected set; }
+        public uint UnitTestCount { get; protected set; }
 
         /// <summary>
         /// The number of members missing tests
         /// </summary>
-        public int TestsMissing { get; protected set; }
+        public uint TestsMissing { get; protected set; }
 
         /// <summary>
         /// The total number of testable members
         /// </summary>
-        public int MembersPresent { get; protected set; }
+        public uint MembersPresent { get; protected set; }
 
         /// <summary>
         /// Creating a TypeTests object for a type will scan it and 
@@ -50,16 +49,20 @@ namespace LCore.Tests
         /// </summary>
         public TypeTests(Type Test)
             {
-            IEnumerable<MemberInfo> TestMembers = Test.GetMembers().Where(Member => Member.DeclaringType == Test);
+            IEnumerable<MemberInfo> TestMembers = Test.GetMembers().Select(Member => Member.DeclaringType == Test);
             this.MembersPresent = TestMembers.Count();
 
-            this.TestsMissing = TestMembers.Where(Member => Member.DeclaringType == Test)
+            this.TestsMissing = TestMembers.Select(Member => Member.DeclaringType == Test)
                 .WithoutAttribute<ITestAttribute>().Count();
 
             this.UnitTestCount = TestMembers.WithAttribute<TestedAttribute>().Count();
             this.TestsPresent = this.MembersPresent - this.TestsMissing;
 
-            this.CoveragePercent = ((double)this.TestsPresent / this.MembersPresent).AsPercent();
+            try
+                {
+                this.CoveragePercent = ((double)this.TestsPresent / this.MembersPresent).AsPercent().Abs();
+                }
+            catch (OverflowException) { }
 
             IEnumerable<MemberInfo> TestedMembers = TestMembers.WithAttribute<ITestAttribute>();
             this.TestAttributes = new List<ITestAttribute>();

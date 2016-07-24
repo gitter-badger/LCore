@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Security;
 using System.Xml;
@@ -85,7 +84,7 @@ namespace LCore.Extensions
                 var Examples = new List<string>();
 
                 if (ExamplesParamNodes != null)
-                    Examples.AddRange(from XmlNode Node in ExamplesParamNodes select Node.InnerText);
+                    Examples.AddRange(ExamplesParamNodes.List<XmlNode>().Convert(Node => Node.InnerText));
 
                 if (ExceptionNodes != null)
                     foreach (XmlNode Node in ExceptionNodes)

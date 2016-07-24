@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using LCore.Extensions.Optional;
 using LCore.Extensions;
 using System.Reflection;
-using System.Linq;
 
 namespace LCore.Dynamic
     {
@@ -75,19 +74,19 @@ namespace LCore.Extensions
                     return o;
                 };
 
-                if (FieldTypes.Contains(typeof(FieldInfo)))
+                if (FieldTypes.Has(typeof(FieldInfo)))
                     Type.GetFields().List()
                     .Convert(FieldInfoGetLambdaStrings)
                     .Each(Dict => { Out.Merge(Dict, IncrementFunctionNames); });
-                if (FieldTypes.Contains(typeof(PropertyInfo)))
+                if (FieldTypes.Has(typeof(PropertyInfo)))
                     Type.GetProperties().List()
                     .Convert(PropertyInfoGetLambdaStrings)
                     .Each(Dict => { Out.Merge(Dict, IncrementFunctionNames); });
-                if (FieldTypes.Contains(typeof(MethodInfo)))
+                if (FieldTypes.Has(typeof(MethodInfo)))
                     Type.GetMethods()
                     .Convert(MethodInfoGetLambdaString.Supply2(Type))
                     .Each(Dict => { Out.Merge(Dict, IncrementFunctionNames); });
-                if (FieldTypes.Contains(typeof(ConstructorInfo)))
+                if (FieldTypes.Has(typeof(ConstructorInfo)))
                     Type.GetConstructors().List<MethodBase>()
                     .Convert(MethodBaseGetLambdaString.Supply2(Type))
                     .Each(Dict => { Out.Merge(Dict, IncrementFunctionNames); });
@@ -248,7 +247,7 @@ namespace LCore.Extensions
 
                 if (ParamNames.Count() > ParameterLimit)
                     Out = $"/* Too Many Parameters :( \n{Out}\n*/";
-                else if (!IsConstructor && !Method.GetGenericArguments().IsEmpty() || Out.Contains('`'))
+                else if (!IsConstructor && !Method.GetGenericArguments().IsEmpty() || Out.Has('`'))
                     Out = $"/* No Generic Types \n{Out}\n*/";
                 else if (!Method.DeclaringType.TypeEquals(Type))
                     Out = $"/* Method found on base type \n{Out}\n*/";
