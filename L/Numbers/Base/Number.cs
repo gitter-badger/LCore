@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using LCore.Extensions;
 
 // ReSharper disable MemberCanBeProtected.Global
@@ -386,7 +387,7 @@ namespace LCore.Numbers
         /// <exception cref="T:System.ArgumentException">
         /// <paramref name="Obj" /> is not the same type as this instance. </exception>
         /// <filterpriority>2</filterpriority>
-        public override int CompareTo(object Obj)
+        public override int CompareTo([CanBeNull] object Obj)
             {
             if (Obj is INumber)
                 {
@@ -425,7 +426,7 @@ namespace LCore.Numbers
         /// <summary>
         /// Returns whether this Number is equal to <paramref name="Obj"/>
         /// </summary>
-        public override bool Equals(object Obj)
+        public override bool Equals([CanBeNull] object Obj)
             {
             if (ReferenceEquals(null, Obj)) return false;
             if (ReferenceEquals(this, Obj)) return true;
@@ -473,14 +474,14 @@ namespace LCore.Numbers
         /// <summary>
         /// Returns whether <paramref name="Number1"/> is less than or equal to <paramref name="Number2"/>
         /// </summary>
-        public static bool operator <=(Number Number1, IComparable Number2)
+        public static bool operator <=([CanBeNull]Number Number1, [CanBeNull]IComparable Number2)
             {
             return Number1.IsLessThanOrEqual(Number2);
             }
         /// <summary>
         /// Returns whether <paramref name="Number1"/> is equal to <paramref name="Number2"/>
         /// </summary>
-        public static bool operator ==(Number Number1, IComparable Number2)
+        public static bool operator ==([CanBeNull]Number Number1, [CanBeNull]IComparable Number2)
             {
             if (ReferenceEquals(Number1, null) && !ReferenceEquals(Number2, null))
                 return false;
@@ -495,7 +496,7 @@ namespace LCore.Numbers
         /// <summary>
         /// Returns whether <paramref name="Number1"/> is not equal to <paramref name="Number2"/>
         /// </summary>
-        public static bool operator !=(Number Number1, IComparable Number2)
+        public static bool operator !=([CanBeNull]Number Number1, [CanBeNull]IComparable Number2)
             {
             if (ReferenceEquals(Number1, null) && !ReferenceEquals(Number2, null))
                 return true;
@@ -516,60 +517,101 @@ namespace LCore.Numbers
         /// <summary>
         /// Performs the division operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
         /// </summary>
-        public static Number operator /(Number Number1, IConvertible Number2)
+        public static Number operator /([CanBeNull] Number Number1, [CanBeNull] IConvertible Number2)
             {
+            if (Number1 == null)
+                Number1 = new ByteNumber();
+            if (Number2 == null)
+                return Number1;
+
             return Number1.Divide(Number2);
             }
+
         /// <summary>
         /// Performs the division operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
         /// </summary>
-        public static Number operator /(Number Number1, Number Number2)
+        public static Number operator /([CanBeNull]Number Number1, [CanBeNull]Number Number2)
             {
+            if (Number1 == null)
+                Number1 = new ByteNumber();
+            if (Number2 == null)
+                return Number1;
+
             return Number1.Divide(Number2);
             }
 
         /// <summary>
         /// Performs the multiplication operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
         /// </summary>
-        public static Number operator *(Number Number1, IConvertible Number2)
+        public static Number operator *([CanBeNull]Number Number1, [CanBeNull]IConvertible Number2)
             {
+            if (Number1 == null)
+                Number1 = new ByteNumber();
+            if (Number2 == null)
+                return Number1;
+
             return Number1.Multiply(Number2);
             }
         /// <summary>
         /// Performs the multiplication operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
         /// </summary>
-        public static Number operator *(Number Number1, Number Number2)
+        public static Number operator *([CanBeNull]Number Number1, [CanBeNull]Number Number2)
             {
+            if (Number1 == null)
+                return new ByteNumber();
+            if (Number2 == null)
+                return Number1;
+
             return Number1.Multiply(Number2);
             }
 
         /// <summary>
         /// Performs the subtraction operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
         /// </summary>
-        public static Number operator -(Number Number1, IConvertible Number2)
+        public static Number operator -([CanBeNull]Number Number1, [CanBeNull]IConvertible Number2)
             {
+            if (Number1 == null)
+                Number1 = new ByteNumber();
+            if (Number2 == null)
+                return Number1;
+
             return Number1.Subtract(Number2);
             }
         /// <summary>
         /// Performs the subtraction operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
         /// </summary>
-        public static Number operator -(Number Number1, Number Number2)
+        public static Number operator -([CanBeNull]Number Number1, [CanBeNull]Number Number2)
             {
+            if (Number1 == null)
+                Number1 = new ByteNumber();
+            if (Number2 == null)
+                return Number1;
+
             return Number1.Subtract(Number2);
             }
 
         /// <summary>
         /// Performs the addition operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
         /// </summary>
-        public static Number operator +(Number Number1, IConvertible Number2)
+        public static Number operator +([CanBeNull]Number Number1, [CanBeNull]IConvertible Number2)
             {
+            if (Number1 == null)
+                Number1 = new ByteNumber();
+            if (Number2 == null)
+                return Number1;
+
             return Number1.Add(Number2);
             }
         /// <summary>
         /// Performs the addition operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
         /// </summary>
-        public static Number operator +(Number Number1, Number Number2)
+        public static Number operator +([CanBeNull]Number Number1, [CanBeNull]Number Number2)
             {
+            if (Number1 == null)
+                Number1 = new ByteNumber();
+            if (Number2 == null)
+                return Number1;
+
             return Number1.Add(Number2);
             }
 
@@ -580,7 +622,7 @@ namespace LCore.Numbers
         /// <exception cref="T:System.ArgumentException">
         /// <paramref name="Obj" /> is not the same type as this instance. </exception>
         /// <filterpriority>2</filterpriority>
-        public abstract int CompareTo(object Obj);
+        public abstract int CompareTo([CanBeNull] object Obj);
 
         /// <summary>
         /// Create a new Number of the same type

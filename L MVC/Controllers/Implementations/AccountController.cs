@@ -35,6 +35,7 @@ namespace LMVC.Controllers
 
             var Result = this.Auth.AttemptLogIn(this.HttpContext, Model.Username, Model.Password);
 
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
             if (Result != null)
                 {
                 this.AddStatusMessages_Success($"Logged in, welcome {Result.UserName}!");
@@ -43,7 +44,9 @@ namespace LMVC.Controllers
                     ? this.RedirectToAction(nameof(AccountController.ForceResetPassword), typeof(AccountController).CName())
                     : this.RedirectToAction(DbContext.GetHomeAction(Result), DbContext.GetHomeController(Result));
                 }
+            // ReSharper disable HeuristicUnreachableCode
             this.AddStatusMessages_Error("Unable to login");
+            // ReSharper restore HeuristicUnreachableCode
 
             // ReSharper disable once Mvc.ViewNotResolved
             return this.View();

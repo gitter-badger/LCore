@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using JetBrains.Annotations;
 using LCore.Dynamic;
 using LCore.Extensions.Optional;
 using LCore.Interfaces;
@@ -62,7 +63,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="AmbiguousMatchException">More than one method is found with the specified name and specified parameters. </exception>
         [Tested]
-        public static MethodInfo FindMethod(this Type In, string Name, Type[] Arguments = null)
+        public static MethodInfo FindMethod(this Type In, [CanBeNull]string Name, Type[] Arguments = null)
             {
             Name = Name ?? "";
 
@@ -161,7 +162,8 @@ namespace LCore.Extensions
         /// Returns an attribute of type <typeparamref name="T" /> if it exists.
         /// </summary>
         [Tested]
-        public static T GetAttribute<T>(this ICustomAttributeProvider AttributeProvider)
+        [CanBeNull]
+        public static T GetAttribute<T>([CanBeNull]this ICustomAttributeProvider AttributeProvider)
             where T : IPersistAttribute
             {
             if (AttributeProvider == null)
@@ -175,7 +177,7 @@ namespace LCore.Extensions
         /// Returns an attribute of type <typeparamref name="T" /> if it exists.
         /// </summary>
         [Tested]
-        public static T GetAttribute<T>(this ICustomAttributeProvider AttributeProvider, bool IncludeBaseTypes)
+        public static T GetAttribute<T>([CanBeNull]this ICustomAttributeProvider AttributeProvider, bool IncludeBaseTypes)
             {
             if (AttributeProvider == null)
                 return default(T);
@@ -195,7 +197,7 @@ namespace LCore.Extensions
         /// Returns all attributes of type <typeparamref name="T" />.
         /// </summary>
         [Tested]
-        public static List<T> GetAttributes<T>(this ICustomAttributeProvider AttributeProvider, bool IncludeBaseTypes)
+        public static List<T> GetAttributes<T>([CanBeNull]this ICustomAttributeProvider AttributeProvider, bool IncludeBaseTypes)
             where T : class
             {
             List<T> Out = AttributeProvider?.GetCustomAttributes(typeof(T), IncludeBaseTypes).Filter<T>() ?? new List<T>();
@@ -243,7 +245,7 @@ namespace LCore.Extensions
         /// Ex. "L.Comment.Test"
         /// </summary>
         [Tested]
-        public static string GetClassHierarchy(this Type In)
+        public static string GetClassHierarchy([CanBeNull]this Type In)
             {
             return In?.FullName.AfterLast(".").ReplaceAll("+", ".") ?? "";
             }
@@ -387,9 +389,7 @@ namespace LCore.Extensions
                 Out += ">";
                 return Out;
                 }
-            return In.HasAttribute<IFriendlyName>()
-                ? In.GetAttribute<IFriendlyName>().FriendlyName
-                : In?.Name.Humanize();
+            return In.GetAttribute<IFriendlyName>()?.FriendlyName ?? In?.Name.Humanize();
             }
         #endregion
 

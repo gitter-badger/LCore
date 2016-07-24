@@ -5,6 +5,7 @@ using System.Reflection;
 using LCore.Extensions;
 
 using System.Web.Mvc;
+using JetBrains.Annotations;
 using LCore.Interfaces;
 using LMVC.Models;
 
@@ -300,7 +301,7 @@ namespace LMVC.Extensions
 
         #region GetTokenExpression
 
-        public static LambdaExpression GetTokenExpression(this Type ModelType, string Token, out ModelMetadata Meta)
+        public static LambdaExpression GetTokenExpression(this Type ModelType, [CanBeNull]string Token, out ModelMetadata Meta)
             {
             Token = Token ?? "";
 

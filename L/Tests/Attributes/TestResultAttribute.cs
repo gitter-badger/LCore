@@ -36,9 +36,9 @@ namespace LCore.Tests
                 MethodInfo.Name == nameof(TestExt.MethodAssertResult) &&
                 MethodInfo.ContainsGenericParameters));
 
-            Info = Info.MakeGenericMethod(this.ExpectedResult?.GetType() ?? Method.ReturnType);
+            Info = Info?.MakeGenericMethod(this.ExpectedResult?.GetType() ?? Method.ReturnType);
 
-            Info.Invoke(null, new[] { Method, this.Parameters, this.ExpectedResult, Checks });
+            Info?.Invoke(null, new[] { Method, this.Parameters, this.ExpectedResult, Checks });
             }
 
         /// <summary>

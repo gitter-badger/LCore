@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using JetBrains.Annotations;
 using LCore.Extensions;
 using LMVC.Context;
 
@@ -24,7 +25,7 @@ namespace LMVC.Models
         // ReSharper disable once InconsistentNaming
         public bool Require2FA { get; set; }
 
-        public static SiteConfig FindCurrent(ModelContext DbContext, string URL)
+        public static SiteConfig FindCurrent(ModelContext DbContext, [CanBeNull]string URL)
             {
             URL = URL ?? "";
 

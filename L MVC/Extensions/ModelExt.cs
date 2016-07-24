@@ -5,6 +5,7 @@ using LCore.Extensions;
 using System.ComponentModel.DataAnnotations;
 using LMVC.Controllers;
 using System.Web.Mvc;
+using JetBrains.Annotations;
 using LCore.Interfaces;
 using LMVC.Models;
 using LMVC.Annotations;
@@ -90,7 +91,7 @@ namespace LMVC.Extensions
             return Type.Namespace == "System.Data.Entity.DynamicProxies" ? Type.BaseType : Type;
             }
 
-        public static Type TrueModelType<T>(this T Model)
+        public static Type TrueModelType<T>([CanBeNull]this T Model)
             where T : IModel
             {
             if (Model == null)
@@ -281,7 +282,7 @@ namespace LMVC.Extensions
             }
 
         /// <exception cref="InvalidOperationException">Data field was not convertible to string.</exception>
-        public static string TemplateTokenFill<T>(this T Model, string Template) where T : IModel
+        public static string TemplateTokenFill<T>(this T Model, [CanBeNull]string Template) where T : IModel
             {
             var ModelType = Model.TrueModelType();
             Dictionary<string, ModelMetadata> AllMeta = ModelType.GetMeta(Meta => !Meta.HasAttribute<FieldNoTokenAttribute>());

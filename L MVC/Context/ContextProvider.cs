@@ -8,6 +8,8 @@ using System.Linq;
 using LCore.Extensions;
 using Microsoft.WindowsAzure.StorageClient;
 using System.Web;
+using JetBrains.Annotations;
+
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable UnusedParameter.Global
 // ReSharper disable VirtualMemberNeverOverriden.Global
@@ -26,8 +28,10 @@ namespace LMVC.Context
 
         public abstract Type[] GetContextTypes(HttpSessionStateBase Session);
 
+        [CanBeNull]
         public abstract UserAccount CurrentUser(HttpSessionStateBase Session);
 
+        [CanBeNull]
         public abstract AccountRole CurrentRole(HttpSessionStateBase Session);
 
         public abstract AccountRole GetAnonymousRole();

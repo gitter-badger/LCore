@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Threading;
+using JetBrains.Annotations;
 using LCore.Interfaces;
 using LCore.Tests;
 
@@ -22,7 +23,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Safely converts a byte[] to a char[]
         /// </summary>
-        public static char[] ByteArrayToCharArray(byte[] In)
+        public static char[] ByteArrayToCharArray([CanBeNull]byte[] In)
             {
             if (In == null)
                 {

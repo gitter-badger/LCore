@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
+using JetBrains.Annotations;
 using LCore.Extensions;
 
 namespace LMVC.Extensions
@@ -16,7 +17,7 @@ namespace LMVC.Extensions
         private ParameterInfo[] _Params;
         private RouteValueDictionary _Args;
 
-        private MvcHtmlString HtmlActionLink(string Text, string Action, string Controller, dynamic LinkArgs)
+        private MvcHtmlString HtmlActionLink(string Text, string Action, string Controller, [CanBeNull]dynamic LinkArgs)
             {
             LinkArgs = LinkArgs ?? new RouteValueDictionary();
 

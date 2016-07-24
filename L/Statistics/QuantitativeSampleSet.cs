@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
 using LCore.Extensions;
 // ReSharper disable UnusedVariable
 // ReSharper disable VirtualMemberNeverOverriden.Global
@@ -519,7 +520,7 @@ namespace LCore.Statistics
             return Result;
             }
 
-        protected QuantitativeSampleSet(IEnumerable<T> Data, long PopulationSize = 0)
+        protected QuantitativeSampleSet([CanBeNull]IEnumerable<T> Data, long PopulationSize = 0)
             {
             Data = Data ?? new T[] { };
 

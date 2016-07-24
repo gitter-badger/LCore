@@ -35,6 +35,8 @@
 
 using System;
 using System.IO;
+using NSort;
+
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
 // ReSharper disable HeuristicUnreachableCode
 // ReSharper disable MemberCanBePrivate.Global
@@ -335,7 +337,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <param name="startOfCentralDirectory">The start of the central directory.</param>
         /// <param name="comment">The archive comment.  (This can be null).</param>
         public void WriteEndOfCentralDirectory(long noOfEntries, long sizeEntries,
-            long startOfCentralDirectory, byte[] comment)
+            long startOfCentralDirectory, [CanBeNull]byte[] comment)
             {
 
             if ((noOfEntries >= 0xffff) ||

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using JetBrains.Annotations;
 using LCore.Tools;
 using LMVC.Account;
 using LMVC.Filters;
@@ -17,8 +18,11 @@ namespace LMVC.Controllers
         // ReSharper disable once MemberCanBeProtected.Global
         public IAuthenticationService Auth { get; set; }
 
-        protected override void OnException(ExceptionContext FilterContext)
+        protected override void OnException([CanBeNull] ExceptionContext FilterContext)
             {
+            if (FilterContext == null)
+                return;
+
             try
                 {
                 ControllerHelper.HandleError(FilterContext.HttpContext, FilterContext.Exception);

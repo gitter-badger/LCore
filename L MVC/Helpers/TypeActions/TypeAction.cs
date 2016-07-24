@@ -2,12 +2,13 @@
 using LCore.Extensions;
 using LMVC.Models;
 using System;
+using JetBrains.Annotations;
 
 namespace LMVC.Utilities
     {
     public abstract class TypeResultAction<T>
         {
-        public object PerformAction(T In, Type Type = null)
+        public object PerformAction([CanBeNull]T In, Type Type = null)
             {
             if (In == null)
                 return default(T);

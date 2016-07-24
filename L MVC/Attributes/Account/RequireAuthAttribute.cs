@@ -2,6 +2,7 @@
 using System;
 using System.Web;
 using System.Web.Mvc;
+using JetBrains.Annotations;
 using LMVC.Account;
 using LMVC.Controllers;
 using LMVC.Extensions;
@@ -13,13 +14,13 @@ namespace LMVC.Filters
         public IAuthenticationService Auth { get; set; }
         public UrlHelper Url { get; set; }
 
-        public override void OnAuthorization(AuthorizationContext FilterContext)
+        public override void OnAuthorization([CanBeNull] AuthorizationContext FilterContext)
             {
             base.OnAuthorization(FilterContext);
             }
 
         /// <exception cref="ArgumentNullException"><paramref name="HttpContext"/> is <see langword="null" />.</exception>
-        protected override bool AuthorizeCore(HttpContextBase HttpContext)
+        protected override bool AuthorizeCore([NotNull] HttpContextBase HttpContext)
             {
             if (HttpContext == null) throw new ArgumentNullException(nameof(HttpContext));
 

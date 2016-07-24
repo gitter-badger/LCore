@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using LCore.Extensions;
 using System.Collections;
+using JetBrains.Annotations;
 using LMVC.Models;
 using LMVC.Extensions;
 using LMVC.Routes;
@@ -26,7 +27,7 @@ namespace LMVC.Annotations
 
         public virtual string EmptyValue => "";
 
-        public bool SetFormField(FormCollection Form, IModel Model, ModelMetadata Meta, string Value)
+        public bool SetFormField(FormCollection Form, IModel Model, ModelMetadata Meta, [CanBeNull] string Value)
             {
             Value = Value ?? "";
 

@@ -2202,14 +2202,12 @@ namespace ICSharpCode.SharpZipLib.Zip
 
         private string GetTransformedFileName(string name)
             {
-            return this.NameTransform != null ? this.NameTransform.TransformFile(name) :
-                name;
+            return this.NameTransform?.TransformFile(name) ?? name;
             }
 
         private string GetTransformedDirectoryName(string name)
             {
-            return this.NameTransform != null ? this.NameTransform.TransformDirectory(name) :
-                name;
+            return this.NameTransform?.TransformDirectory(name) ?? name;
             }
 
         /// <summary>

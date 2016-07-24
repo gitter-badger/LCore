@@ -2,6 +2,7 @@
 using LMVC.Routes;
 using System;
 using System.Web.Mvc;
+using JetBrains.Annotations;
 
 namespace LMVC.Annotations
     {
@@ -33,9 +34,10 @@ namespace LMVC.Annotations
         protected string _ValueData;
         public object ValueData => this.Info;
 
-        public void OnMetadataCreated(ModelMetadata Metadata)
+        public void OnMetadataCreated([CanBeNull] ModelMetadata Metadata)
             {
-            Metadata.AdditionalValues[this.ValueKey] = this.ValueData;
+            if (Metadata != null)
+                Metadata.AdditionalValues[this.ValueKey] = this.ValueData;
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
 
@@ -10,7 +11,7 @@ namespace LCore.Tools
     /// </summary>
     public class Set<T1, T2> : IEquatable<Set<T1, T2>>
         {
-        public override bool Equals(object Obj)
+        public override bool Equals([CanBeNull] object Obj)
             {
             if (ReferenceEquals(null, Obj))
                 return false;
@@ -51,7 +52,7 @@ namespace LCore.Tools
         /// <summary>
         /// Determines if both members of a set match another set of the same type.
         /// </summary>
-        public bool Equals(Set<T1, T2> Other)
+        public bool Equals([CanBeNull] Set<T1, T2> Other)
             {
             if (ReferenceEquals(null, Other)) return false;
             if (ReferenceEquals(this, Other)) return true;

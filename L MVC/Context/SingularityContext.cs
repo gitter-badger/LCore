@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using JetBrains.Annotations;
 using LMVC.Models;
 using FileUpload = LMVC.Models.FileUpload;
 
@@ -70,10 +71,10 @@ namespace LMVC.Context
             return "/Images/logo.png";
             }
 
-        protected override void OnModelCreating(DbModelBuilder ModelBuilder)
+        protected override void OnModelCreating([CanBeNull] DbModelBuilder ModelBuilder)
             {
             // Many to Many parent child relationship             
-            ModelBuilder.Entity<TestModel>()
+            ModelBuilder?.Entity<TestModel>()
                         .HasMany(TestModel => TestModel.ChildModels)
                         .WithOptional(TestModel => TestModel.ParentModel);
             }

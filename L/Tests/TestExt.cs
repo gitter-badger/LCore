@@ -1025,7 +1025,7 @@ namespace LCore.Tests
                 {
                 string Details1 = ExpectedResult.Details();
 
-                string Details2 = Error == null ? Actual.Details() : Error.Details();
+                string Details2 = Error?.Details() ?? Actual.Details();
 
                 Passed = Details1 == Details2;
                 //throw new Exception($"Could not determine if result matched expected. \n{ExpectedResult.Type().ToS()}");

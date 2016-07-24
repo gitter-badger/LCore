@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using JetBrains.Annotations;
 using LCore.Interfaces;
 using LCore.Tests;
 using LCore.Tools;
@@ -23,7 +24,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         [Tested]
-        public static Action Async(this Action In, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
+        public static Action Async([CanBeNull]this Action In, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
             {
             In = In ?? L.A();
 
@@ -61,7 +62,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         [Tested]
-        public static Action<T> Async<T>(this Action<T> In, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
+        public static Action<T> Async<T>([CanBeNull]this Action<T> In, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
             {
             In = In ?? L.A<T>();
             return o => { In.Supply(o).Async(TimeLimit, Priority)(); };
@@ -75,7 +76,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         [Tested]
-        public static Action Async<U>(this Func<U> In, Action<U> Callback, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
+        public static Action Async<U>([CanBeNull]this Func<U> In, [CanBeNull]Action<U> Callback, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
             {
             In = In ?? L.F<U>();
             Callback = Callback ?? L.A<U>();
@@ -89,7 +90,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         [Tested]
-        public static Action<T1> Async<T1, U>(this Func<T1, U> In, Action<U> Callback, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
+        public static Action<T1> Async<T1, U>([CanBeNull]this Func<T1, U> In, [CanBeNull]Action<U> Callback, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
             {
             In = In ?? L.F<T1, U>();
             Callback = Callback ?? L.A<U>();

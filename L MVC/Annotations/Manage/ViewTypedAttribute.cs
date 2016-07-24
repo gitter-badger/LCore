@@ -1,6 +1,6 @@
 ﻿using LMVC.Controllers;
 using System;
-
+using JetBrains.Annotations;
 using LCore.Extensions;
 
 namespace LMVC.Annotations
@@ -12,7 +12,7 @@ namespace LMVC.Annotations
 
     public abstract class ViewTypedAttribute : Attribute, IViewTyped
         {
-        protected ViewTypedAttribute(params ControllerHelper.ViewType[] ViewTypes)
+        protected ViewTypedAttribute([CanBeNull]params ControllerHelper.ViewType[] ViewTypes)
             {
             this.ViewTypes = ViewTypes ?? new ControllerHelper.ViewType[] { };
             }

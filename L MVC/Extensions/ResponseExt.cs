@@ -4,6 +4,7 @@ using System.Web;
 
 using LCore.Extensions;
 using System.IO;
+using JetBrains.Annotations;
 using LCore.Interfaces;
 
 namespace LMVC.Extensions
@@ -15,7 +16,7 @@ namespace LMVC.Extensions
             {
             Response.WriteCSV(CSVData.JoinLines(), FileName);
             }
-        public static void WriteCSV(this HttpResponseBase Response, string CSVData, string FileName)
+        public static void WriteCSV(this HttpResponseBase Response, string CSVData, [CanBeNull]string FileName)
             {
             if (FileName == null)
                 FileName = "data";
@@ -29,7 +30,7 @@ namespace LMVC.Extensions
             Response.Write(CSVData);
             Response.End();
             }
-        public static void WriteCSV(this HttpResponseBase Response, StringWriter Str, string FileName)
+        public static void WriteCSV(this HttpResponseBase Response, StringWriter Str, [CanBeNull]string FileName)
             {
             if (FileName == null)
                 FileName = "data";
@@ -58,7 +59,7 @@ namespace LMVC.Extensions
             Response.End();
             }
 
-        public static void WritePDF(this HttpResponseBase Response, byte[] PDFBytes, string FileName)
+        public static void WritePDF(this HttpResponseBase Response, byte[] PDFBytes, [CanBeNull]string FileName)
             {
             if (FileName == null)
                 FileName = "data";

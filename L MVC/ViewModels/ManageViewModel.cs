@@ -5,6 +5,7 @@ using LCore.Extensions;
 using System.ComponentModel.DataAnnotations;
 using LMVC.Controllers;
 using System.Web.Helpers;
+using JetBrains.Annotations;
 using LMVC.Extensions;
 using LMVC.Annotations;
 
@@ -49,7 +50,7 @@ namespace LMVC.Models
 
         public string InlineEditID { get; set; }
 
-        public string GetGlobalSearchCombined(params string[] Without)
+        public string GetGlobalSearchCombined([CanBeNull]params string[] Without)
             {
             Without = Without ?? new string[] { };
 

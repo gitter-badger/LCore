@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using LCore.Extensions;
 using Microsoft.Win32;
 using Enumerable = System.Linq.Enumerable;
@@ -124,6 +125,7 @@ namespace LCore.Tools
         /// <exception cref="IOException">The <see cref="T:Microsoft.Win32.RegistryKey" /> that contains the specified value has been marked for deletion. </exception>
         /// <exception cref="UnauthorizedAccessException">The user does not have the necessary registry rights.</exception>
         /// <exception cref="ObjectDisposedException">The <see cref="T:Microsoft.Win32.RegistryKey" /> that contains the specified value is closed (closed keys cannot be accessed). </exception>
+        [CanBeNull]
         public string LoadString(string Name)
             {
             return (string)this.Key.GetValue(Name);

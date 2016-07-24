@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using LCore.Tests;
 using LCore.Interfaces;
 
@@ -18,7 +19,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the average of all timespan elements in Times
         /// </summary>
-        public static TimeSpan Average(this IEnumerable<TimeSpan> Times)
+        public static TimeSpan Average([CanBeNull]this IEnumerable<TimeSpan> Times)
             {
             Times = Times ?? new TimeSpan[] { };
 

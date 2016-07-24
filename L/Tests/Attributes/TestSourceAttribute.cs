@@ -38,18 +38,18 @@ namespace LCore.Tests
 
             if (this.ExpectedSource != null)
                 {
-                OutMethod = OutMethod.MakeGenericMethod(this.ExpectedSource.GetType());
+                OutMethod = OutMethod?.MakeGenericMethod(this.ExpectedSource.GetType());
                 }
             else if (this.Parameters[0] != null)
                 {
-                OutMethod = OutMethod.MakeGenericMethod(this.Parameters[0].GetType());
+                OutMethod = OutMethod?.MakeGenericMethod(this.Parameters[0].GetType());
                 }
             else
                 {
-                OutMethod = OutMethod.MakeGenericMethod(typeof(object));
+                OutMethod = OutMethod?.MakeGenericMethod(typeof(object));
                 }
 
-            OutMethod.Invoke(null, new[] { Method, this.Parameters, this.ExpectedSource, Checks });
+            OutMethod?.Invoke(null, new[] { Method, this.Parameters, this.ExpectedSource, Checks });
             }
 
         /// <summary>

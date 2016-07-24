@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using JetBrains.Annotations;
 using LCore.Extensions;
 // ReSharper disable UnusedMember.Global
 
@@ -23,7 +24,7 @@ namespace LCore.Dynamic
         /// </summary>
         /// <param name="TypeName"></param>
         /// <param name="Attributes"></param>
-        public AttributeList(string TypeName, IEnumerable<Attribute> Attributes)
+        public AttributeList(string TypeName, [CanBeNull] IEnumerable<Attribute> Attributes)
             {
             if (Attributes == null)
                 Attributes = new Attribute[] { };

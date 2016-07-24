@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using JetBrains.Annotations;
 
 namespace LMVC.Extensions
     {
@@ -15,7 +16,7 @@ namespace LMVC.Extensions
             this._From = From;
             this._To = To;
             }
-        public override Expression Visit(Expression Node)
+        public override Expression Visit([CanBeNull] Expression Node)
             {
             return Node == this._From ? this._To : base.Visit(Node);
             }

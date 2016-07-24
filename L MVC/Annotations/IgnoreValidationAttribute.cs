@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Web.Mvc;
+using JetBrains.Annotations;
 
 namespace LMVC.Annotations
     {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class IgnoreValidationAttribute : FilterAttribute, IAuthorizationFilter
         {
-        public void OnAuthorization(AuthorizationContext FilterContext)
+        public void OnAuthorization([CanBeNull] AuthorizationContext FilterContext)
             {
             if (FilterContext?.HttpContext != null)
                 {

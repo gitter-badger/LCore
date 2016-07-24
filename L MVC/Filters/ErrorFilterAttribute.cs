@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using JetBrains.Annotations;
 using LMVC.Controllers;
 using LMVC.Extensions;
 
@@ -9,8 +10,11 @@ namespace LMVC.Filters
         {
         public UrlHelper Url { get; set; }
 
-        public override void OnResultExecuting(ResultExecutingContext FilterContext)
+        public override void OnResultExecuting([CanBeNull] ResultExecutingContext FilterContext)
             {
+            if (FilterContext == null)
+                return;
+
             try
                 {
                 base.OnResultExecuting(FilterContext);
@@ -18,14 +22,17 @@ namespace LMVC.Filters
             catch (Exception Ex)
                 {
                 this.LogError(Ex);
-                
+
                 FilterContext.HttpContext.Response.Redirect(
                     this.Url.Controller<ErrorController>().Action(Controller => Controller.Index));
                 }
             }
 
-        public override void OnActionExecuting(ActionExecutingContext FilterContext)
+        public override void OnActionExecuting([CanBeNull] ActionExecutingContext FilterContext)
             {
+            if (FilterContext == null)
+                return;
+
             try
                 {
                 base.OnActionExecuting(FilterContext);
@@ -33,7 +40,7 @@ namespace LMVC.Filters
             catch (Exception Ex)
                 {
                 this.LogError(Ex);
-                
+
                 FilterContext.HttpContext.Response.Redirect(this.Url.Controller<ErrorController>().Action(Controller => Controller.Index));
                 }
             }

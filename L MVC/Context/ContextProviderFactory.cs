@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using JetBrains.Annotations;
 using LCore.Extensions;
 
 namespace LMVC.Context
@@ -22,15 +23,14 @@ namespace LMVC.Context
             CurrentProvider = Value;
             }
 
-        public static DbSet<T> GetDBSet<T>(this DbContext Context)
+        public static DbSet<T> GetDBSet<T>([CanBeNull]this DbContext Context)
             where T : class
             {
             var Type = typeof(T);
 
-            return (DbSet<T>)Context.GetType()
+            return (DbSet<T>)Context?.GetType()
                 .GetProperties().First(Prop => Prop.PropertyType.IsGenericType &&
-                    Prop.PropertyType.GetGenericArguments()[0] == Type)
-                    .GetValue(Context);
+                    Prop.PropertyType.GetGenericArguments()[0] == Type)?.GetValue(Context);
             }
         }
     }

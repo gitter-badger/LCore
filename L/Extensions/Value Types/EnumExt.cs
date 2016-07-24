@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using JetBrains.Annotations;
 using LCore.Tests;
 using LCore.Naming;
 using LCore.Interfaces;
@@ -98,7 +99,7 @@ namespace LCore.Extensions
         /// to the Enum element.
         /// </summary> 
         [Tested]
-        public static string GetFriendlyName(this Enum In)
+        public static string GetFriendlyName([CanBeNull]this Enum In)
             {
             if (In == null)
                 return "";

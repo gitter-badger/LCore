@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 using LCore.Interfaces;
 using LCore.Tests;
 
@@ -83,7 +84,7 @@ namespace LCore.Extensions
         /// Returns the largest of <paramref name="In" /> and all items in <paramref name="Others" />
         /// </summary>
         [Tested]
-        public static T Max<T>(this T In, params T[] Others)
+        public static T Max<T>([CanBeNull]this T In, params T[] Others)
             where T : IComparable
             {
             var Out = In;
@@ -104,7 +105,7 @@ namespace LCore.Extensions
         /// Returns the smallest of <paramref name="In" /> and all items in <paramref name="Others" />
         /// </summary>
         [Tested]
-        public static T Min<T>(this T In, params T[] Others)
+        public static T Min<T>([CanBeNull]this T In, params T[] Others)
             where T : IComparable
             {
             var Out = In;

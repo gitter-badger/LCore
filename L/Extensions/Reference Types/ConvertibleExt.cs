@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 using LCore.Interfaces;
 using LCore.Numbers;
 using LCore.Tests;
@@ -19,7 +20,7 @@ namespace LCore.Extensions
         /// any data loss, converted to type <typeparamref name="T" />
         /// </summary>
         [Tested]
-        public static bool CanConvertTo<T>(this IConvertible In)
+        public static bool CanConvertTo<T>([CanBeNull]this IConvertible In)
             where T : struct, IConvertible
             {
             if (In == null)
@@ -50,7 +51,7 @@ namespace LCore.Extensions
         /// Returns whether or not an IConvertible object <paramref name="In" /> can be, safely and without 
         /// any data loss, converted to type <paramref name="Type"/>
         /// </summary>
-        public static bool CanConvertTo(this IConvertible In, Type Type)
+        public static bool CanConvertTo([CanBeNull]this IConvertible In, [CanBeNull]Type Type)
             {
             if (In == null || Type == null)
                 return false;
@@ -85,7 +86,7 @@ namespace LCore.Extensions
         /// any data loss, converted to a string.
         /// </summary>
         [Tested]
-        public static bool CanConvertToString(this IConvertible In)
+        public static bool CanConvertToString([CanBeNull]this IConvertible In)
             {
             if (In == null)
                 return false;

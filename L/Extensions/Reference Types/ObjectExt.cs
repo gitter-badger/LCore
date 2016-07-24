@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 using System.Reflection;
+using JetBrains.Annotations;
 using LCore.Interfaces;
 using LCore.Tests;
 
@@ -335,7 +336,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Retrieves a func that retrieves a method executor on type <typeparamref name="U" /> using the supplied parameters
             /// </summary>
-            private static Action<U> Method<U>(string MethodName, params object[] Params)
+            private static Action<U> Method<U>(string MethodName, [CanBeNull]params object[] Params)
                 {
                 Params = Params ?? new object[] { };
 

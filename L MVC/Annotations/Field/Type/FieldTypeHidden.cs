@@ -1,5 +1,6 @@
 ﻿using LMVC.Controllers;
 using System.Web.Mvc;
+using JetBrains.Annotations;
 using LMVC.Routes;
 
 namespace LMVC.Annotations
@@ -11,9 +12,10 @@ namespace LMVC.Annotations
             {
             }
 
-        public virtual void OnMetadataCreated(ModelMetadata Metadata)
+        public virtual void OnMetadataCreated([CanBeNull] ModelMetadata Metadata)
             {
-            Metadata.AdditionalValues[FieldHideLabelAttribute.HideLabel] = true;
+            if (Metadata != null)
+                Metadata.AdditionalValues[FieldHideLabelAttribute.HideLabel] = true;
             }
         }
     }

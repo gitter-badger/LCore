@@ -1005,8 +1005,6 @@ namespace L_Tests.Tests.Extensions
             ((int[])null).IsEmpty().Should().BeTrue();
             }
 
-
-
         [Fact]
         public void Test_Last()
             {
@@ -1140,6 +1138,53 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable)null).List().Should().BeEmpty();
             ((IEnumerable<int>)null).List().Should().BeEmpty();
             }
+
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
+        [Fact]
+        public void Test_Move_Array()
+            {
+            var Test = new[] {1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+
+            Test.Move(0, 1);
+
+            Test.Should().Equal(2, 1, 3, 4, 5, 6, 7, 8, 9);
+
+            Test.Move(0, 5);
+
+            Test.Should().Equal(1, 3, 4, 5, 6, 2, 7, 8, 9);
+
+            Test.Move(4, 1);
+
+            Test.Should().Equal(1, 6, 3, 4, 5, 2, 7, 8, 9);
+
+            ((int[]) null).Move(0, 0);
+
+            L.A(() => Test.Move(-1, 5)).ShouldFail();
+            L.A(() => Test.Move(0, 9)).ShouldFail();
+            }
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
+        [Fact]
+        public void Test_Move_List()
+            {
+            List<int> Test = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }.List();
+
+            Test.Move(0, 1);
+            Test.Should().Equal(2, 1, 3, 4, 5, 6, 7, 8, 9);
+            Test.Move(0, 5);
+            Test.Should().Equal(1, 3, 4, 5, 6, 2, 7, 8, 9);
+            Test.Move(4, 1);
+            Test.Should().Equal(1, 6, 3, 4, 5, 2, 7, 8, 9);
+
+
+            ((List<int>)null).Move(0, 0);
+
+            L.A(() => Test.Move(-1, 5)).ShouldFail();
+            L.A(() => Test.Move(0, 9)).ShouldFail();
+            }
+
 
         #region Internal
 

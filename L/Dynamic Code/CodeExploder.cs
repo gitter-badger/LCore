@@ -4,8 +4,11 @@ using LCore.Extensions;
 using LCore.Dynamic;
 using LCore.Tools;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using System.IO;
+using JetBrains.Annotations;
+
 #pragma warning disable 1591
 
 namespace LCore.Extensions
@@ -143,6 +146,7 @@ namespace LCore.Extensions
                 if (Member.HasAttribute(typeof(CodeExplodeGenerics), true))
                     {
                     var Attr = Member.GetAttribute<CodeExplodeGenerics>();
+                    Debug.Assert(Attr != null, "Attr != null");
                     Comments = Attr.Comments;
                     if (!Attr.Replacements.IsEmpty())
                         {
@@ -370,6 +374,7 @@ namespace LCore.Extensions
                 if (Member.HasAttribute(typeof(CodeExplodeExtensionMethod), true))
                     {
                     var Attr = Member.GetAttribute<CodeExplodeExtensionMethod>();
+                    Debug.Assert(Attr != null, "Attr != null");
                     Comment = Attr.Comments;
                     ExecuteResult = Attr.ExecuteResult;
 
@@ -433,7 +438,7 @@ namespace LCore.Extensions
             {
                 var MemberType = Member.DeclaringType;
                 var ExplodeAttr = MemberType.GetAttribute<CodeExplodeLogic>();
-                var ExplodeType = ExplodeAttr.OutputType;
+                var ExplodeType = ExplodeAttr?.OutputType;
 
                 if (ExplodeType != null)
                     {
@@ -564,7 +569,7 @@ namespace LCore.Dynamic
             return this.ExplodeType(Type, null);
             }
 
-        public string ExplodeType(Type Type, Func<MemberInfo, bool> MethodSelector)
+        public string ExplodeType(Type Type, [CanBeNull]Func<MemberInfo, bool> MethodSelector)
             {
             if (MethodSelector == null)
                 MethodSelector = Member => true;
@@ -577,7 +582,8 @@ namespace LCore.Dynamic
                 {
                     List<MemberInfo> Temp = Members.Select(Attr.ExplodeMember).Select(MethodSelector);
 
-                    var Members2 = new Lists<string, MemberInfo>(Temp.Convert(Member => Member.GetAttribute<CodeExplodeMember>().MethodName), Temp);
+                    var Members2 = new Lists<string, MemberInfo>(Temp.Convert(
+                        Member => Member.GetAttribute<CodeExplodeMember>()?.MethodName), Temp);
 
                     string Out =
                             L.Lang.Using(this.UsingLibraries,
@@ -619,7 +625,7 @@ namespace LCore.Dynamic
         private string GetTypeFileName(Type Type)
             {
             var Explode = Type.GetAttribute<CodeExplode>();
-            return $"{Explode.CodeRegionTitle}_Explode{FileExtension}";
+            return $"{Explode?.CodeRegionTitle}_Explode{FileExtension}";
             }
         }
     }

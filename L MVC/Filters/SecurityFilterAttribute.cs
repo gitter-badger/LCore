@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security;
 using System.Web.Mvc;
+using JetBrains.Annotations;
 using LMVC.Context;
 
 namespace LMVC.Filters
@@ -8,16 +9,19 @@ namespace LMVC.Filters
     public class SecurityFilterAttribute : ActionFilterAttribute, IAuthorizationFilter
         {
         /// <exception cref="SecurityException">HTTPS is required to view this site.</exception>
-        public void OnAuthorization(AuthorizationContext FilterContext)
+        public void OnAuthorization([CanBeNull] AuthorizationContext FilterContext)
             {
-            var Config = ContextProviderFactory.GetCurrent().GetContext(FilterContext.HttpContext.Session)
-                .GetSiteConfig(FilterContext.HttpContext);
+            if (FilterContext != null)
+                {
+                var Config = ContextProviderFactory.GetCurrent().GetContext(FilterContext.HttpContext.Session)
+                    .GetSiteConfig(FilterContext.HttpContext);
 
-            string URL = FilterContext.HttpContext.Request.Url?.AbsoluteUri ?? "";
-            URL = URL.ToLower();
+                string URL = FilterContext.HttpContext.Request.Url?.AbsoluteUri ?? "";
+                URL = URL.ToLower();
 
-            if (Config.RequireHTTPS && !URL.StartsWith("https://"))
-                throw new SecurityException("HTTPS is required to view this site.");
+                if (Config.RequireHTTPS && !URL.StartsWith("https://"))
+                    throw new SecurityException("HTTPS is required to view this site.");
+                }
             }
 
         protected virtual void LogError(Exception Ex)

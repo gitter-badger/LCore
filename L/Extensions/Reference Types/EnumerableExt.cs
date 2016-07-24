@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Diagnostics;
 using System.Reflection;
+using JetBrains.Annotations;
 using LCore.Extensions.Optional;
 using LCore.Tests;
 using NSort;
@@ -31,7 +32,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { new int[] { }, new[] { 1 } }, new[] { 1 })]
         [TestResult(new object[] { new[] { 1 }, null }, new[] { 1 })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, new[] { 4, 5, 6 } }, new[] { 1, 2, 3, 4, 5, 6 })]
-        public static T[] Add<T>(this T[] In, IEnumerable<T> Objs)
+        public static T[] Add<T>([CanBeNull]this T[] In, [CanBeNull]IEnumerable<T> Objs)
             {
             In = In ?? new T[] { };
             Objs = Objs ?? new T[] { };
@@ -61,7 +62,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { new int[] { }, new[] { 1 } }, new[] { 1 })]
         [TestResult(new object[] { new[] { 1 }, null }, new[] { 1 })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, new[] { 4, 5, 6 } }, new[] { 1, 2, 3, 4, 5, 6 })]
-        public static T[] Add<T>(this T[] In, params T[] Objs)
+        public static T[] Add<T>([CanBeNull]this T[] In, [CanBeNull]params T[] Objs)
             {
             In = In ?? new T[] { };
             Objs = Objs ?? new T[] { };
@@ -108,7 +109,7 @@ namespace LCore.Extensions
         [TestSource(new object[] { new int[] { }, new[] { 1 } }, new[] { 1 })]
         [TestSource(new object[] { new[] { 1 }, null }, new[] { 1 })]
         [TestSource(new object[] { new[] { 1, 2, 3 }, new[] { 4, 5, 6 } }, new[] { 1, 2, 3, 4, 5, 6 })]
-        public static void Add<T>(this List<T> In, IEnumerable<T> Objs)
+        public static void Add<T>([CanBeNull]this List<T> In, [CanBeNull]IEnumerable<T> Objs)
             {
             if (In == null)
                 throw new ArgumentNullException(nameof(In));
@@ -116,6 +117,7 @@ namespace LCore.Extensions
             if (Objs.IsEmpty())
                 return;
 
+            Debug.Assert(Objs != null, "Objs != null");
             foreach (var Obj in Objs)
                 {
                 if (!In.Contains(Obj))
@@ -129,8 +131,11 @@ namespace LCore.Extensions
         /// <summary>
         /// Adds many <typeparamref name="T[]" /> <paramref name="Items" /> to an IList`<typeparamref name="T[]" /> <paramref name="In" /> in one command.
         /// </summary>
-        public static void Add<T>(this IList<T> In, params T[] Items)
+        public static void Add<T>([CanBeNull]this IList<T> In, [CanBeNull]params T[] Items)
             {
+            if (In == null)
+                return;
+
             Items = Items ?? new T[] { };
 
             foreach (var Item in Items)
@@ -302,7 +307,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { new[] { 1, 2, 3 }, Test.IncrementInt_Name }, new[] { 2, 3, 4 })]
         [TestResult(new object[] { new object[] { 1, 2, "a", 3 }, Test.IncrementInt_Name }, new[] { 2, 3, 4 })]
         [DebuggerStepThrough]
-        public static List<T> Collect<T>(this IEnumerable In, Func<T, T> Func)
+        public static List<T> Collect<T>([CanBeNull]this IEnumerable In, [CanBeNull]Func<T, T> Func)
             {
             In = In.List<T>();
             Func = Func ?? (o => default(T));
@@ -323,7 +328,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { new int[] { }, Test.IncrementInt_Name })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, Test.IncrementInt_Name }, new[] { 2, 3, 4 })]
         [DebuggerStepThrough]
-        public static List<T> Collect<T>(this IEnumerable<T> In, Func<T, T> Func)
+        public static List<T> Collect<T>([CanBeNull]this IEnumerable<T> In, [CanBeNull]Func<T, T> Func)
             {
             In = In ?? new T[] { };
             Func = Func ?? (o => default(T));
@@ -343,7 +348,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { new int[] { }, Test.IncrementInt_Name })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, Test.IncrementInt_Name }, new[] { 2, 3, 4 })]
         [DebuggerStepThrough]
-        public static T[] Collect<T>(this T[] In, Func<T, T> Func)
+        public static T[] Collect<T>([CanBeNull]this T[] In, [CanBeNull]Func<T, T> Func)
             {
             Func = Func ?? (o => default(T));
             return In.List(true).Collect(Func).ToArray();
@@ -361,7 +366,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { new int[] { }, Test.IncrementInt_Name })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, Test.IncrementInt_Name }, new[] { 2, 3, 4 })]
         [DebuggerStepThrough]
-        public static List<T> Collect<T>(this List<T> In, Func<T, T> Func)
+        public static List<T> Collect<T>([CanBeNull]this List<T> In, [CanBeNull]Func<T, T> Func)
             {
             In = In ?? new List<T>();
             Func = Func ?? (o => default(T));
@@ -395,9 +400,10 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { new int[] { }, Test.PassI_Name })]
         [TestResult(new object[] { new object[] { 1, 2, 3 }, Test.PassI_Name }, new object[] { 0, 1, 2 })]
         [DebuggerStepThrough]
-        public static List<object> Collect(this IEnumerable In, Func<int, object, object> Func)
+        public static List<object> Collect([CanBeNull]this IEnumerable In, [CanBeNull]Func<int, object, object> Func)
             {
             In = In ?? new object[] { };
+            Func = Func ?? ((i, Obj) => Obj);
 
             var Out = new List<object>();
 
@@ -953,7 +959,7 @@ namespace LCore.Extensions
         /// Returns the number of items in the collection that are equivalent to Obj.
         /// </summary>
         [Tested]
-        public static uint Count<T>(this IEnumerable<T> In, T Obj)
+        public static uint Count<T>([CanBeNull]this IEnumerable<T> In, T Obj)
             {
             In = In ?? new T[] { };
 
@@ -966,7 +972,7 @@ namespace LCore.Extensions
         /// Returns the number of items in the collection that cause <paramref name="Condition"/> to return true.
         /// </summary>
         [Tested]
-        public static uint Count<T>(this IEnumerable<T> In, Func<T, bool> Condition)
+        public static uint Count<T>([CanBeNull]this IEnumerable<T> In, Func<T, bool> Condition)
             {
             In = In ?? new T[] { };
 
@@ -1298,6 +1304,7 @@ namespace LCore.Extensions
         /// Returns null if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
         /// </summary>
         [Tested]
+        [CanBeNull]
         public static T First<T>(this IEnumerable In, Func<T, bool> Condition = null)
             {
             Condition = Condition ?? (o => true);
@@ -1315,6 +1322,7 @@ namespace LCore.Extensions
         /// Returns null if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
         /// </summary>
         [Tested]
+        [CanBeNull]
         public static T First<T>(this T[] In, Func<object, bool> Condition = null)
             {
             Condition = Condition ?? (o => true);
@@ -1332,6 +1340,7 @@ namespace LCore.Extensions
         /// Returns null if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
         /// </summary>
         [Tested]
+        [CanBeNull]
         public static T First<T>(this IEnumerable<T> In, Func<T, bool> Condition = null)
             {
             Condition = Condition ?? (o => true);
@@ -2129,8 +2138,11 @@ namespace LCore.Extensions
         /// <summary>
         /// Moves items in an array, recursively shifting items where needed.
         /// </summary>
+        [Tested]
         public static void Move<T>(this T[] In, int Index1, int Index2)
             {
+            if (In == null)
+                return;
             if (!In.HasIndex(Index1))
                 throw new Exception($"Invalid index 1: {Index1}");
             if (!In.HasIndex(Index2))
@@ -2138,14 +2150,14 @@ namespace LCore.Extensions
             if (Index1 == Index2)
                 return;
 
-            In.Swap(Index1, Index2);
-
-            if (Index1 < Index2)
+            if (Index2 > Index1)
                 {
+                In.Swap(Index1, Index1 + 1);
                 In.Move(Index1 + 1, Index2);
                 }
-            else if (Index1 > Index2)
+            else
                 {
+                In.Swap(Index1, Index1 - 1);
                 In.Move(Index1 - 1, Index2);
                 }
             }
@@ -2153,8 +2165,11 @@ namespace LCore.Extensions
         /// <summary>
         /// Moves items in an IList, shifting items where needed.
         /// </summary>
-        public static void Move(this IList In, int Index1, int Index2)
+        [Tested]
+        public static void Move([CanBeNull]this IList In, int Index1, int Index2)
             {
+            if (In == null)
+                return;
             if (!In.HasIndex(Index1))
                 throw new Exception($"Invalid index 1: {Index1}");
             if (!In.HasIndex(Index2))

@@ -12,13 +12,13 @@ namespace NSort
     public class CustomComparer<T> : IComparer<T>, IComparer
         {
         /// <exception cref="Exception">Could not compare</exception>
-        public int Compare(object x, object y)
+        public int Compare([CanBeNull]object x, [CanBeNull]object y)
             {
             return this.Compare((T)x, (T)y);
             }
 
         /// <exception cref="Exception">Could not compare</exception>
-        public int Compare(T x, T y)
+        public int Compare([CanBeNull]T x, [CanBeNull]T y)
             {
             if (this.Comparer != null)
                 {

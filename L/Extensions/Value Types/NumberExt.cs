@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using JetBrains.Annotations;
 using LCore.Interfaces;
 using LCore.Numbers;
 using LCore.Tests;
@@ -191,7 +192,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { new[] { 1, 1 } }, (double)1)]
         [TestResult(new object[] { new[] { 1, 100 } }, (double)50.5)]
         [TestResult(new object[] { new[] { 1, 100, 55, 66 } }, (double)55.5)]
-        public static double Average(this IEnumerable<int> In)
+        public static double Average([CanBeNull]this IEnumerable<int> In)
             {
             In = In ?? new int[] { };
 
@@ -209,7 +210,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { new long[] { 1, 1 } }, (double)1)]
         [TestResult(new object[] { new long[] { 1, 100 } }, (double)50.5)]
         [TestResult(new object[] { new long[] { 1, 100, 55, 66 } }, (double)55.5)]
-        public static double Average(this IEnumerable<long> In)
+        public static double Average([CanBeNull]this IEnumerable<long> In)
             {
             In = In ?? new long[] { };
 
@@ -227,7 +228,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { new float[] { 1, 1 } }, (double)1)]
         [TestResult(new object[] { new float[] { 1, 100 } }, (double)50.5)]
         [TestResult(new object[] { new float[] { 1, 100, 55, 66 } }, (double)55.5)]
-        public static double Average(this IEnumerable<float> In)
+        public static double Average([CanBeNull]this IEnumerable<float> In)
             {
             In = In ?? new float[] { };
 
@@ -245,7 +246,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { new double[] { 1, 1 } }, (double)1)]
         [TestResult(new object[] { new double[] { 1, 100 } }, (double)50.5)]
         [TestResult(new object[] { new double[] { 1, 100, 55, 66 } }, (double)55.5)]
-        public static double Average(this IEnumerable<double> In)
+        public static double Average([CanBeNull]this IEnumerable<double> In)
             {
             In = In ?? new double[] { };
 

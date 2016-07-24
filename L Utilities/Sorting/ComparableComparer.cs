@@ -9,13 +9,15 @@ namespace NSort
     {
     public class ComparableComparer : IComparer<IComparable>, IComparer
         {
-        public int Compare(object x, object y)
+        public int Compare([CanBeNull]object x, [CanBeNull]object y)
             {
             return this.Compare((IComparable)x, (IComparable)y);
             }
-        public int Compare(IComparable x, IComparable y)
+        public int Compare([CanBeNull]IComparable x, [CanBeNull]IComparable y)
             {
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
             if (x == null)
+                // ReSharper disable HeuristicUnreachableCode
                 {
                 if (y == null)
                     {
@@ -23,6 +25,7 @@ namespace NSort
                     }
                 return -y.CompareTo(null);
                 }
+            // ReSharper restore HeuristicUnreachableCode
             return x.CompareTo(y);
             }
         }

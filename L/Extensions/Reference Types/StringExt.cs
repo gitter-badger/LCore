@@ -10,6 +10,7 @@ using LCore.Tests;
 using System.Text.RegularExpressions;
 using LCore.Extensions.Optional;
 using LCore.Interfaces;
+using JetBrains.Annotations;
 // ReSharper disable StringCompareIsCultureSpecific.1
 // ReSharper disable StringCompareToIsCultureSpecific
 // ReSharper disable StringIndexOfIsCultureSpecific.2
@@ -57,7 +58,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abc", new[] { 'b', 'c', 'd', 'e', 'f', 'g' } }, "abcbcdefg")]
         [TestResult(new object[] { "abc", "abcbcdefg" }, "abcabcbcdefg")]
         // ReSharper restore StringLiteralTypo
-        public static string Add(this string In, IEnumerable<char> Chars)
+        public static string Add([CanBeNull]this string In, [CanBeNull]IEnumerable<char> Chars)
             {
             In = In ?? "";
             Chars = Chars ?? new char[] { };
@@ -89,7 +90,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "aa--bb--aa--bb--cc", "--" }, "bb--aa--bb--cc")]
         [TestResult(new object[] { "aa--bb--aa--bb--cc", "bb--" }, "aa--bb--cc")]
         [TestResult(new object[] { "aa--bb--aa--bb--cc", "cc" }, "")]
-        public static string After(this string In, string Sequence)
+        public static string After([CanBeNull]this string In, [CanBeNull]string Sequence)
             {
             In = In ?? "";
 
@@ -119,7 +120,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "aa--bb--aa--bb--cc", "--" }, "cc")]
         [TestResult(new object[] { "aa--bb--aa--bb--cc", "aa--" }, "bb--cc")]
         [TestResult(new object[] { "aa--bb--aa--bb--cc", "cc" }, "")]
-        public static string AfterLast(this string In, string Sequence)
+        public static string AfterLast([CanBeNull]this string In, [CanBeNull]string Sequence)
             {
             In = In ?? "";
 
@@ -265,7 +266,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "aa--bb--aa--bb--cc", "--" }, "aa")]
         [TestResult(new object[] { "aa--bb--aa--bb--cc", "--cc" }, "aa--bb--aa--bb")]
         [TestResult(new object[] { "aa--bb--aa--bb--cc", "aa" }, "")]
-        public static string Before(this string In, string Sequence)
+        public static string Before([CanBeNull]this string In, [CanBeNull]string Sequence)
             {
             In = In ?? "";
 
@@ -295,7 +296,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "aa--bb--aa--bb--cc", "--" }, "aa--bb--aa--bb")]
         [TestResult(new object[] { "aa--bb--aa--bb--cc", "aa--" }, "aa--bb--")]
         [TestResult(new object[] { "aa--bb--aa--bb--cc", "aa--bb--a" }, "")]
-        public static string BeforeLast(this string In, string Sequence)
+        public static string BeforeLast([CanBeNull]this string In, [CanBeNull]string Sequence)
             {
             In = In ?? "";
 
@@ -344,7 +345,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abab" }, "abab")]
         [TestResult(new object[] { "abab\r\n" }, "ababÞ")]
         [TestResult(new object[] { "abab\n" }, "ababÞ")]
-        public static string CleanCrlf(this string In)
+        public static string CleanCrlf([CanBeNull]this string In)
             {
             return (In ?? "").ReplaceLineEndings(CrlfReplace.ToString());
             }
@@ -358,7 +359,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { null }, "")]
         [TestResult(new object[] { "abab" }, "abab")]
         [TestResult(new object[] { "ababÞ" }, "abab\r\n")]
-        public static string UnCleanCrlf(this string In)
+        public static string UnCleanCrlf([CanBeNull]this string In)
             {
             return (In ?? "").Replace(new string(new[] { CrlfReplace }), "\r\n");
             }
