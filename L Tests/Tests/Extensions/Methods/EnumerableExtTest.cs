@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using LCore.Extensions.Optional;
+using LCore.Interfaces;
 using LCore.Tests;
 using Xunit;
 using static LCore.Extensions.L.Test.Categories;
@@ -689,27 +690,90 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_Group()
             {
-            int[] Test = { 5, 32, 46, 43, 13, 26531, 15315, 35, 72, 14, 94, 2, 589, 36, 8875, 245, 235, 886, 2226, 9542, 4364643, 445, 44, 553, 663, 223 };
+            int[] Test =
+                {
+                5, 32, 46, 43, 13, 26531, 15315, 35, 72, 14, 94, 2, 589, 36, 8875, 245, 235, 886, 2226, 9542,
+                4364643, 445, 44, 553, 663, 223
+                };
 
             Dictionary<string, List<int>> Result = Test.Group(i => $"{i.ToString().Sub(0, 1)}");
 
             Result.Keys.List().Should().Equal(
                 "5", "3", "4", "1", "2", "7", "9", "8", "6"
                 );
-            Result.Values.List().ToS().Should().Be(new List<List<int>> {
-                new List<int> { 5, 589, 553 },
-                new List<int> { 32, 35, 36 },
-                new List<int> { 46, 43, 4364643, 445, 44 },
-                new List<int> { 13, 15315, 14 },
-                new List<int> { 26531, 2, 245, 235, 2226, 223 },
-                new List<int> { 72 },
-                new List<int> { 94, 9542 },
-                new List<int> { 8875, 886 },
-                new List<int> { 663 }}.ToS());
+            Result.Values.List().ToS().Should().Be(new List<List<int>>
+                {
+                new List<int> {5, 589, 553},
+                new List<int> {32, 35, 36},
+                new List<int> {46, 43, 4364643, 445, 44},
+                new List<int> {13, 15315, 14},
+                new List<int> {26531, 2, 245, 235, 2226, 223},
+                new List<int> {72},
+                new List<int> {94, 9542},
+                new List<int> {8875, 886},
+                new List<int> {663}
+                }.ToS());
+
+            Result = Test.Group((Func<int, string>)null);
+
+            Result.Keys.List().Should().Equal();
+            Result.Values.List().ShouldBeEquivalentTo(new List<int>());
+
+            ((int[])null).Group((Func<int, string>)null).Should().BeEmpty();
+            new int[] { }.Group((Func<int, string>)null).Should().BeEmpty();
             }
+
+        [Fact]
+        public void Test_Group_IGroup()
+            {
+            var Test2 = new[]
+                {
+                new TestGroup("a"),
+                new TestGroup("a"),
+                new TestGroup("a"),
+                new TestGroup("a"),
+                new TestGroup("a"),
+                new TestGroup("a"),
+                new TestGroup("ccc"),
+                new TestGroup("ccc"),
+                new TestGroup("ccc"),
+                new TestGroup("ccc"),
+                new TestGroup("ccc"),
+                new TestGroup("ccc"),
+                new TestGroup("ccc"),
+                new TestGroup("b"),
+                new TestGroup("b"),
+                new TestGroup("b")
+                };
+
+            Dictionary<string, List<TestGroup>> Result2 = Test2.Group();
+
+            Result2.Keys.Should().Equal("a", "ccc", "b");
+
+            Result2["a"].Count.Should().Be(6);
+            Result2["b"].Count.Should().Be(3);
+            Result2["ccc"].Count.Should().Be(7);
+
+            Result2["a"].Should().BeOfType<List<TestGroup>>();
+            Result2["b"].Should().BeOfType<List<TestGroup>>();
+            Result2["ccc"].Should().BeOfType<List<TestGroup>>();
+            }
+
+
+
 
         #region Internal
 
+        [ExcludeFromCodeCoverage]
+        internal class TestGroup : IGrouped
+            {
+            public TestGroup(string Group)
+                {
+                this.Group = Group;
+                }
+
+            public string Group { get; }
+            }
         [ExcludeFromCodeCoverage]
         internal class BadCollection : ICollection
             {

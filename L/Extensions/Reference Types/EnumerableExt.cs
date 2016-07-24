@@ -1630,41 +1630,47 @@ namespace LCore.Extensions
         /// <summary>
         /// Groups items implementing interface IGroup from an IEnumerable into a Dictionary`string,List`T` />" />
         /// </summary>
+        [Tested]
         public static Dictionary<string, List<T>> Group<T>(this IEnumerable<T> In)
             where T : IGrouped
             {
             return In.Group(o => o.Group ?? "");
             }
-        
+
         /// <summary>
         /// Groups items into a dictionary using a custom indexer. 
         /// The result of the indexer will be used as the Key for each element.
         /// </summary>
+        [Tested]
         public static Dictionary<TKey, List<TValue>> Group<TValue, TKey>(this IEnumerable<TValue> In, Func<TValue, TKey> Grouper)
             {
+            Grouper = Grouper ?? (o => default(TKey));
             var Out = new Dictionary<TKey, List<TValue>>();
             In.Each(o =>
             {
                 var Index = Grouper(o);
-                List<TValue> GroupList;
 
-                if (Out.ContainsKey(Index))
+                if (Index != null)
                     {
-                    GroupList = Out[Index];
-                    }
-                else
-                    {
-                    GroupList = new List<TValue>();
-                    Out.Add(Index, GroupList);
-                    }
+                    List<TValue> GroupList;
+                    if (Out.ContainsKey(Index))
+                        {
+                        GroupList = Out[Index];
+                        }
+                    else
+                        {
+                        GroupList = new List<TValue>();
+                        Out.Add(Index, GroupList);
+                        }
 
-                GroupList.Add(o);
+                    GroupList.Add(o);
+                    }
             });
             return Out;
             }
         #endregion
 
-        #region GroupDouble
+        #region GroupTwice
         /// <summary>
         /// Groups items into a 2-level dictionary using 2 custom indexers. 
         /// The result of the indexers will be used as the Keys for each element.

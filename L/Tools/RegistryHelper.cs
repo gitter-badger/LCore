@@ -236,6 +236,8 @@ namespace LCore.Tools
         /// <exception cref="ArgumentNullException"><paramref name="RootKey"/> is <see langword="null" />.</exception>
         /// <exception cref="ObjectDisposedException">The <see cref="T:Microsoft.Win32.RegistryKey" /> is closed (closed keys cannot be accessed). </exception>
         /// <exception cref="SecurityException">The user does not have the permissions required to read the registry key. </exception>
+        /// <exception cref="UnauthorizedAccessException">The current <see cref="T:Microsoft.Win32.RegistryKey" /> object represents a key with access control security, and the caller does not have <see cref="F:System.Security.AccessControl.RegistryRights.ChangePermissions" /> rights.</exception>
+        /// <exception cref="IOException">The nesting level exceeds 510.-or-A system error occurred, such as deletion of the key, or an attempt to create a key in the <see cref="F:Microsoft.Win32.Registry.LocalMachine" /> root.</exception>
         public RegistryHelper(string RegistrySubKey, RegistryKey RootKey)
             {
             if (string.IsNullOrEmpty(RegistrySubKey))
