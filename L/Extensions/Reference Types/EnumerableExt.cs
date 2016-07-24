@@ -1890,6 +1890,7 @@ namespace LCore.Extensions
         /// Returns whether or not this supplied is null or empty.
         /// </summary>
         [DebuggerStepThrough]
+        [Tested]
         public static bool IsEmpty(this IEnumerable In)
             {
             uint Count = In.Count();
@@ -1898,216 +1899,184 @@ namespace LCore.Extensions
         #endregion
 
         #region Last
-        /// <summary>
-        /// Returns the last item in the <typeparamref name="T"/>[].
-        /// Returns null if the array is empty.
-        /// </summary>
-        public static T Last<T>(this T[] In)
-            {
-            return In == null || In.Length == 0
-                ? default(T)
-                : In[In.Length - 1];
-            }
-        /// <summary>
-        /// Returns a new <typeparamref name="T"/>[] containing the last <paramref name="Count" /> items in the <typeparamref name="T"/>[]" />.
-        /// </summary>
-        public static T[] Last<T>(this T[] In, uint Count)
-            {
-            return In.Last(Item => true, Count);
-            }
-        /// <summary>
-        /// Returns the last item in the List`<typeparam name="T"/>.
-        /// Returns null if the array is empty.
-        /// </summary>
-        public static T Last<T>(this List<T> In)
-            {
-            List<T> Result = In.Last(Item => true, 1);
-            return !Result.IsEmpty() ? Result[0] : default(T);
-            }
-        /// <summary>
-        /// Returns a new List`<typeparamref name="T"/> containing the last <paramref name="Count" /> items in the source List`<typeparamref name="T"/>.
-        /// </summary>
-        public static List<T> Last<T>(this List<T> In, uint Count)
-            {
-            return In.Last(Item => true, Count);
-            }
-        /// <summary>
-        /// Returns the Last item in the List<typeparamref name="T" />.
-        /// Returns null if the array is empty.
-        /// </summary>
-        public static T Last<T>(this IEnumerable<T> In)
-            {
-            uint Count = In.Count();
-            return L.F(() => In.GetAt(Count - 1)).Try()();
-            }
-        /// <summary>
-        /// Returns a new List`<typeparamref name="T" /> containing the last <paramref name="Count" /> items in the source List`<typeparamref name="T" />.
-        /// </summary>
-        public static List<T> Last<T>(this IEnumerable<T> In, uint Count)
-            {
-            return In.List().Last(Count);
-            }
-        /// <summary>
-        /// Returns the last item in the collection of type <typeparamref name="T" />.
-        /// Returns null if the array is empty.
-        /// </summary>
-        public static T Last<T>(this IEnumerable In)
-            {
-            return In.Last<T>(o => true);
-            }
-        /// <summary>
-        /// Returns a new List`<typeparamref name="T" /> containing the Last <paramref name="Count" /> items in the source collection that are of type <typeparamref name="T" />.
-        /// </summary>
-        public static List<T> Last<T>(this IEnumerable In, uint Count)
-            {
-            return In.List<T>().Last(Count);
-            }
-        #endregion
 
-        #region Last Func
         /// <summary>
-        /// Returns the last item in the source collection that evokes a true result from the passed Func`<typeparamref name="T" />,Boolean.
-        /// Returns null otherwise.
+        /// Returns the Last item in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
+        /// Returns null if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
         /// </summary>
-        public static T Last<T>(this IEnumerable In, Func<T, bool> Func)
+        [Tested]
+        public static T Last<T>(this IEnumerable In, Func<T, bool> Condition = null)
             {
-            return In.List<T>().Last(Func);
-            }
-        /// <summary>
-        /// Returns the last item in the source T[] that evokes a true result from the passed Func`<typeparamref name="T" />,Boolean.
-        /// Returns null otherwise.
-        /// </summary>
-        public static T Last<T>(this T[] In, Func<T, bool> Func)
-            {
-            T[] Result = In.Last(Func, 1);
-            return Result.Length > 0 ? Result[0] : default(T);
-            }
-        /// <summary>
-        /// Returns the last item in the source List<typeparamref name="T" /> that evokes a true result from the passed Func`<typeparamref name="T" />,Boolean.
-        /// Returns null otherwise.
-        /// </summary>
-        public static T Last<T>(this List<T> In, Func<T, bool> Func)
-            {
-            List<T> Result = In.Last(Func, 1);
-            return !Result.IsEmpty() ? Result[0] : default(T);
-            }
-        /// <summary>
-        /// Returns the last item in the source collection that evokes a true result from the passed Func`<typeparamref name="T" />,Boolean.
-        /// Returns null otherwise.
-        /// </summary>
-        public static T Last<T>(this IEnumerable<T> In, Func<T, bool> Func)
-            {
-            return In.List().Last(Func);
-            }
-        /// <summary>
-        /// Returns a new T[] containing the last <paramref name="Count" /> items that evoke a true result from the passed Func`<typeparamref name="T" />,Boolean.
-        /// </summary>
-        public static T[] Last<T>(this T[] In, Func<T, bool> Func, uint Count)
-            {
-            if (Count <= 0)
-                throw new ArgumentException("Count");
-            uint StartCount = Count;
-            var Out = new T[StartCount];
+            Condition = Condition ?? (o => true);
 
-            (In.Length - 1).To(0, i =>
+            foreach (var Item in In.Reverse())
+                {
+                if (Item is T && Condition((T)Item))
+                    return (T)Item;
+                }
+
+            return default(T);
+            }
+        /// <summary>
+        /// Returns the Last item in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
+        /// Returns null if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
+        /// </summary>
+        [Tested]
+        public static T Last<T>(this T[] In, Func<object, bool> Condition = null)
             {
-                var Item = In[i];
-                bool Result = Func(Item);
-                if (Result)
+            Condition = Condition ?? (o => true);
+
+            foreach (var Item in In.Reverse())
+                {
+                if (Condition(Item))
+                    return Item;
+                }
+
+            return default(T);
+            }
+        /// <summary>
+        /// Returns the Last item in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
+        /// Returns null if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
+        /// </summary>
+        [Tested]
+        public static T Last<T>(this IEnumerable<T> In, Func<T, bool> Condition = null)
+            {
+            Condition = Condition ?? (o => true);
+
+            foreach (var Item in In.Reverse())
+                {
+                if (Item != null && Condition(Item))
+                    return Item;
+                }
+
+            return default(T);
+            }
+        #endregion 
+
+        #region Last Multi
+        /// <summary>
+        /// Returns the Last <paramref name="Count"/> Items in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
+        /// Returns an empty list if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
+        /// </summary>
+        [Tested]
+        public static List<T> Last<T>(this IEnumerable In, int Count, Func<T, bool> Condition = null)
+            {
+            return Count < 0
+                ? new List<T>()
+                : In.Last((uint)Count, Condition);
+            }
+
+        /// <summary>
+        /// Returns the Last <paramref name="Count"/> Items in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
+        /// Returns an empty list if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
+        /// </summary>
+        [Tested]
+        public static List<T> Last<T>(this IEnumerable In, uint Count, Func<T, bool> Condition = null)
+            {
+            Condition = Condition ?? (o => true);
+            var Out = new List<T>();
+            if (Count > 0)
+                {
+                foreach (var Item in In)
                     {
-                    Out[StartCount - Count] = Item;
+                    if (Item is T && Condition((T)Item))
+                        Out.Add((T)Item);
 
-                    Count--;
-                    if (Count == 0)
-                        return false;
+                    if (Out.Count > Count)
+                        Out.RemoveAt(0);
                     }
-                return true;
-            });
+                }
+            return Out;
+            }
+
+        /// <summary>
+        /// Returns the Last <paramref name="Count"/> Items in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
+        /// Returns an empty list if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
+        /// </summary>
+        [Tested]
+        public static List<T> Last<T>(this IEnumerable<T> In, int Count, Func<T, bool> Condition = null)
+            {
+            return Count < 0
+                ? new List<T>()
+                : In.Last((uint)Count, Condition);
+            }
+        /// <summary>
+        /// Returns the Last <paramref name="Count"/> Items in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
+        /// Returns an empty list if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
+        /// </summary>
+        [Tested]
+        public static List<T> Last<T>(this IEnumerable<T> In, uint Count, Func<T, bool> Condition = null)
+            {
+            Condition = Condition ?? (o => true);
+            var Out = new List<T>();
 
             if (Count > 0)
-                Out = Out.First(Count).Array();
+                {
+                foreach (var Item in In)
+                    {
+                    if (Condition(Item))
+                        Out.Add(Item);
+
+                    if (Out.Count > Count)
+                        Out.RemoveAt(0);
+                    }
+                }
 
             return Out;
             }
+
         /// <summary>
-        /// Returns a new List<typeparamref name="T" /> containing the last <paramref name="Count" /> items that evoke a true result from the passed Func`<typeparamref name="T" />,Boolean.
+        /// Returns the Last <paramref name="Count"/> Items in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
+        /// Returns an empty array if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
         /// </summary>
-        public static List<T> Last<T>(this IEnumerable In, Func<T, bool> Func, uint Count)
+        [Tested]
+        public static T[] Last<T>(this T[] In, int Count, Func<T, bool> Condition = null)
             {
-            return In.List<T>().Last(Func, Count);
+            return Count < 0
+                ? new T[] { }
+                : In.Last((uint)Count, Condition);
             }
+
         /// <summary>
-        /// Returns a new List<typeparamref name="T" /> containing the last <paramref name="Count" /> items that evoke a true result from the passed Func`<typeparamref name="T" />,Boolean.
+        /// Returns the Last <paramref name="Count"/> Items in <paramref name="In"/> that causes <paramref name="Condition"/> to return true.
+        /// Returns an empty array if <paramref name="In"/> is null or empty or <paramref name="Condition"/> never returns true.
         /// </summary>
-        public static List<T> Last<T>(this List<T> In, Func<T, bool> Func, uint Count)
+        [Tested]
+        public static T[] Last<T>(this T[] In, uint Count, Func<T, bool> Condition = null)
             {
-            if (Count <= 0)
-                throw new ArgumentException("Count");
-
-            List<T> Out = NewList<List<T>, T>();
-
-            (In.Count - 1).To(0, i =>
-            {
-                var Item = In[i];
-                bool Result = Func(Item);
-                if (Result)
-                    {
-                    Out.Add(Item);
-                    Count--;
-                    if (Count == 0)
-                        return false;
-                    }
-                return true;
-            });
+            Condition = Condition ?? (o => true);
+            var Out = new List<T>();
 
             if (Count > 0)
-                Out = Out.First(Count);
+                {
+                foreach (var Item in In)
+                    {
+                    if (Condition(Item))
+                        Out.Add(Item);
+                    if (Out.Count > Count)
+                        Out.RemoveAt(0);
+                    }
+                }
 
-            return Out;
+            return Out.Array();
             }
-        /// <summary>
-        /// Returns a new List1`<typeparamref name="T" /> containing the last <paramref name="Count" /> items that evoke a true result from the passed Func`<typeparamref name="T" />,Boolean.
-        /// </summary>
-        public static List<T> Last<T>(this IEnumerable<T> In, Func<T, bool> Func, uint Count)
-            {
-            return In.List().Last(Func, Count);
-            }
+
         #endregion
 
-        #region Last Object
+        #region Last Match
+
         /// <summary>
-        /// Returns the last <typeparamref name="T" /> in the source <typeparamref name="T[]" /> that is equivalent to Obj.
-        /// Otherwise, returns null.
+        /// Returns the Last Object in <paramref name="In"/> that causes is equal to <paramref name="Object"/>.
+        /// Returns null if <paramref name="Object"/> is null or is not found.
         /// </summary>
-        public static T Last<T>(this T[] In, T Obj)
+        [Tested]
+        public static T Last<T>(this IEnumerable In, T Object)
             {
-            return In.Last(Obj.FN_If());
+            return In.Last<T>(o => o.SafeEquals(Object));
             }
-        /// <summary>
-        /// Returns the last <typeparamref name="T" /> in the source List`<typeparamref name="T" /> that is equivalent to Obj.
-        /// Otherwise, returns null.
-        /// </summary>
-        public static T Last<T>(this List<T> In, T Obj)
-            {
-            return In.Last(Obj.FN_If());
-            }
-        /// <summary>
-        /// Returns the last <typeparamref name="T" /> in the source collection that is equivalent to Obj.
-        /// Otherwise, returns null.
-        /// </summary>
-        public static T Last<T>(this IEnumerable<T> In, T Obj)
-            {
-            return In.Last(Obj.FN_If());
-            }
-        /// <summary>
-        /// Returns the last <typeparamref name="T" /> in the source collection that is equivalent to Obj.
-        /// Otherwise, returns null.
-        /// </summary>
-        public static T Last<T>(this IEnumerable In, T Obj)
-            {
-            return In.Last(Obj.FN_If());
-            }
+
         #endregion
+
 
         #region List
         /// <summary>

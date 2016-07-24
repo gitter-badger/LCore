@@ -1005,6 +1005,117 @@ namespace L_Tests.Tests.Extensions
             ((int[])null).IsEmpty().Should().BeTrue();
             }
 
+
+
+        [Fact]
+        public void Test_Last()
+            {
+            int[] Test = { 5, 21436, 7, 2, 2, 253 };
+
+            Test.Last().Should().Be(253);
+            Test.Last(null).Should().Be(253);
+            Test.Last(i => false).Should().Be(default(int));
+            Test.Last(i => true).Should().Be(253);
+            Test.Last(i => i > 100).Should().Be(253);
+            Test.Last(i => i > 100 && i < 1000).Should().Be(253);
+            Test.Last(i => i > 1000).Should().Be(21436);
+
+            Test.List().Last().Should().Be(253);
+            Test.List().Last(null).Should().Be(253);
+            Test.List().Last(i => false).Should().Be(default(int));
+            Test.List().Last(i => true).Should().Be(253);
+            Test.List().Last(i => i > 100).Should().Be(253);
+            Test.List().Last(i => i > 100 && i < 1000).Should().Be(253);
+            Test.List().Last(i => i > 1000).Should().Be(21436);
+
+            ((IEnumerable)Test).Last<int>().Should().Be(253);
+            ((IEnumerable)Test).Last<int?>().Should().Be(253);
+            ((IEnumerable)Test).Last<int>(null).Should().Be(253);
+            ((IEnumerable)Test).Last<int>(i => false).Should().Be(default(int));
+            ((IEnumerable)Test).Last<int?>((Func<int?, bool>)null).Should().Be(253);
+            ((IEnumerable)Test).Last<int?>(i => false).Should().Be((int?)null);
+            ((IEnumerable)Test).Last<int>(i => true).Should().Be(253);
+            ((IEnumerable)Test).Last<int>(i => i > 100).Should().Be(253);
+            ((IEnumerable)Test).Last<int>(i => i > 100 && i < 1000).Should().Be(253);
+            ((IEnumerable)Test).Last<int>(i => i > 1000).Should().Be(21436);
+            }
+
+        [Fact]
+        public void Test_LastMulti()
+            {
+            int[] Test = { 5, 21436, 7, 2, 2, 253 };
+
+            Func<int, bool> True = i => true;
+            Func<int, bool> False = i => false;
+
+            Test.Last(2).Should().Equal(2, 253);
+            Test.Last(-5, True).Should().Equal();
+            Test.Last(0, True).Should().Equal();
+            Test.Last(2, False).Should().Equal();
+            Test.Last(2, True).Should().Equal(2, 253);
+            Test.Last(5, i => i > 2).Should().Equal(5, 21436, 7, 253);
+            Test.Last(2, i => i > 100).Should().Equal(21436, 253);
+            Test.Last(2, i => i > 100 && i < 1000).Should().Equal(253);
+            Test.Last(2, i => i > 1000).Should().Equal(21436);
+
+            Test.Last(2u).Should().Equal(2, 253);
+            Test.Last(0u, True).Should().Equal();
+            Test.Last(2u, False).Should().Equal();
+            Test.Last(2u, True).Should().Equal(2, 253);
+            Test.Last(5u, i => i > 2).Should().Equal(5, 21436, 7, 253);
+            Test.Last(2u, i => i > 100).Should().Equal(21436, 253);
+            Test.Last(2u, i => i > 100 && i < 1000).Should().Equal(253);
+            Test.Last(2u, i => i > 1000).Should().Equal(21436);
+
+            Test.List().Last(2).Should().Equal(2, 253);
+            Test.List().Last(-5, True).Should().Equal();
+            Test.List().Last(0, True).Should().Equal();
+            Test.List().Last(2, False).Should().Equal();
+            Test.List().Last(2, True).Should().Equal(2, 253);
+            Test.List().Last(5, i => i > 2).Should().Equal(5, 21436, 7, 253);
+            Test.List().Last(2, i => i > 100).Should().Equal(21436, 253);
+            Test.List().Last(2, i => i > 100 && i < 1000).Should().Equal(253);
+            Test.List().Last(2, i => i > 1000).Should().Equal(21436);
+
+            Test.List().Last(2u).Should().Equal(2, 253);
+            Test.List().Last(0u, True).Should().Equal();
+            Test.List().Last(2u, False).Should().Equal();
+            Test.List().Last(2u, True).Should().Equal(2, 253);
+            Test.List().Last(5u, i => i > 2).Should().Equal(5, 21436, 7, 253);
+            Test.List().Last(2u, i => i > 100).Should().Equal(21436, 253);
+            Test.List().Last(2u, i => i > 100 && i < 1000).Should().Equal(253);
+            Test.List().Last(2u, i => i > 1000).Should().Equal(21436);
+
+            ((IEnumerable)Test).Last<int>(2, null).Should().Equal(2, 253);
+            ((IEnumerable)Test).Last<int>(-5, True).Should().Equal();
+            ((IEnumerable)Test).Last<int>(0, True).Should().Equal();
+            ((IEnumerable)Test).Last<int>(2, False).Should().Equal();
+            ((IEnumerable)Test).Last<int>(2, True).Should().Equal(2, 253);
+            ((IEnumerable)Test).Last<int>(5, i => i > 2).Should().Equal(5, 21436, 7, 253);
+            ((IEnumerable)Test).Last<int>(2, i => i > 100).Should().Equal(21436, 253);
+            ((IEnumerable)Test).Last<int>(2, i => i > 100 && i < 1000).Should().Equal(253);
+            ((IEnumerable)Test).Last<int>(2, i => i > 1000).Should().Equal(21436);
+
+            ((IEnumerable)Test).Last<int>(2u, null).Should().Equal(2, 253);
+            ((IEnumerable)Test).Last<int>(0u, True).Should().Equal();
+            ((IEnumerable)Test).Last<int>(2u, False).Should().Equal();
+            ((IEnumerable)Test).Last<int>(2u, True).Should().Equal(2, 253);
+            ((IEnumerable)Test).Last<int>(5u, i => i > 2).Should().Equal(5, 21436, 7, 253);
+            ((IEnumerable)Test).Last<int>(2u, i => i > 100).Should().Equal(21436, 253);
+            ((IEnumerable)Test).Last<int>(2u, i => i > 100 && i < 1000).Should().Equal(253);
+            ((IEnumerable)Test).Last<int>(2u, i => i > 1000).Should().Equal(21436);
+            }
+
+        [Fact]
+        public void Test_LastMatch()
+            {
+            int[] Test = { 5, 21436, 7, 2, 2, 253 };
+
+            ((IEnumerable)Test).Last(5).Should().Be(5);
+            ((IEnumerable)Test).Last(10).Should().Be(default(int));
+            }
+
+
         #region Internal
 
         [ExcludeFromCodeCoverage]
