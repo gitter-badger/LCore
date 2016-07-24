@@ -1709,13 +1709,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns whether or not the source IEnumerable <paramref name="In" /> contains any of the elements from <paramref name="Obj" />
         /// </summary>
-        public static bool HasAny<T>(this IEnumerable In, IEnumerable<T> Obj)
-            {
-            return Obj.Has(In.Has);
-            }
-        /// <summary>
-        /// Returns whether or not the source IEnumerable <paramref name="In" /> contains any of the elements from <paramref name="Obj" />
-        /// </summary>
+        [Tested]
         public static bool HasAny(this IEnumerable In, IEnumerable Obj)
             {
             return Obj.Has(In.Has);
@@ -1723,6 +1717,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns whether or not the source T <paramref name="In" /> contains any of the elements from <paramref name="Obj" />
         /// </summary>
+        [Tested]
         public static bool HasAny<T>(this IEnumerable<T> In, IEnumerable<T> Obj)
             {
             return Obj.Has(In.Has);
@@ -1730,6 +1725,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns whether or not the source IEnumerable <paramref name="In" /> contains any of the elements from <paramref name="Obj" />
         /// </summary>
+        [Tested]
         public static bool HasAny(this IEnumerable In, params object[] Obj)
             {
             return In.HasAny((IEnumerable)Obj);
@@ -1737,6 +1733,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns whether or not the source T <paramref name="In" /> contains any of the elements from <paramref name="Obj" />
         /// </summary>
+        [Tested]
         public static bool HasAny<T>(this IEnumerable<T> In, params T[] Obj)
             {
             return In.HasAny((IEnumerable<T>)Obj);

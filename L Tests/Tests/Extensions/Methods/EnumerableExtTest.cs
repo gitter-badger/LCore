@@ -803,6 +803,45 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable<int>)null).Has(5).Should().BeFalse();
             }
 
+        [Fact]
+        public void Test_HasAny()
+            {
+            var Test = new object[]
+                {
+                "a", 1, 2, 3, 4, 5, null
+                };
+
+            Test.HasAny(new List<object> { "a" }).Should().BeTrue();
+            Test.HasAny(new List<object> { 1 }).Should().BeTrue();
+            Test.HasAny(new List<object> { 1f }).Should().BeFalse();
+            Test.HasAny(new List<object> { 1f, 2d, 3.0m }).Should().BeFalse();
+            Test.HasAny(new List<object> { 1f, 2d, 3.0m, 5 }).Should().BeTrue();
+            Test.HasAny(new List<object> { (object)null }).Should().BeTrue();
+
+            ((IEnumerable)Test).HasAny(new List<object> { "a" }).Should().BeTrue();
+            ((IEnumerable)Test).HasAny(new List<object> { 1 }).Should().BeTrue();
+            ((IEnumerable)Test).HasAny(new List<object> { 1f }).Should().BeFalse();
+            ((IEnumerable)Test).HasAny(new List<object> { 1f, 2d, 3.0m }).Should().BeFalse();
+            ((IEnumerable)Test).HasAny(new List<object> { 1f, 2d, 3.0m, 5 }).Should().BeTrue();
+            ((IEnumerable)Test).HasAny(new List<object> { (object)null }).Should().BeTrue();
+
+            Test.HasAny("b", "a").Should().BeTrue();
+            Test.HasAny(1).Should().BeTrue();
+            Test.HasAny(1f).Should().BeFalse();
+            Test.HasAny(1f, 2d, 3.0m).Should().BeFalse();
+            Test.HasAny(1f, 2d, 3.0m, 5).Should().BeTrue();
+            Test.HasAny((object)null).Should().BeTrue();
+
+            ((IEnumerable)Test).HasAny("b", "a").Should().BeTrue();
+            ((IEnumerable)Test).HasAny(1).Should().BeTrue();
+            ((IEnumerable)Test).HasAny(1f).Should().BeFalse();
+            ((IEnumerable)Test).HasAny(1f, 2d, 3.0m).Should().BeFalse();
+            ((IEnumerable)Test).HasAny(1f, 2d, 3.0m, 5).Should().BeTrue();
+            ((IEnumerable)Test).HasAny((object)null).Should().BeTrue();
+
+            ((IEnumerable)null).HasAny(5).Should().BeFalse();
+            ((IEnumerable<int>)null).HasAny(5).Should().BeFalse();
+            }
 
         #region Internal
 
