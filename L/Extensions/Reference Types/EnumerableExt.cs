@@ -2077,20 +2077,21 @@ namespace LCore.Extensions
 
         #endregion
 
-
         #region List
         /// <summary>
         /// Returns a new List`Object from the supplied collection.
         /// </summary>
-        public static List<object> List(this IEnumerable In)
+        [Tested]
+        public static List<object> List(this IEnumerable In, bool IncludeNulls = false)
             {
-            return In.List<object>();
+            return In.List<object>(IncludeNulls);
             }
 
         /// <summary>
         /// Creates a new List<typeparamref name="T" /> from the supplied collection.
         /// This method cannot fail.
         /// </summary>
+        [Tested]
         public static List<T> List<T>(this IEnumerable<T> In, bool IncludeNulls = false)
             {
             var Out = new List<T>();
@@ -2107,6 +2108,7 @@ namespace LCore.Extensions
         /// Returns a new List<typeparamref name="T" /> from the supplied collection.
         /// Nulls and values that are not of type <typeparamref name="T" /> are not included.
         /// </summary>
+        [Tested]
         public static List<T> List<T>(this IEnumerable In, bool IncludeNulls = false)
             {
             return In.Filter<T>(IncludeNulls);
@@ -2115,6 +2117,7 @@ namespace LCore.Extensions
         /// Returns a new List`<typeparamref name="U" /> from the supplied collection<typeparamref name="T" />.
         /// Nulls and values that are not of type U are not included.
         /// </summary>
+        [Tested]
         public static List<U> List<T, U>(this IEnumerable<T> In, bool IncludeNulls = false)
             {
             return In.Filter<U>(IncludeNulls);

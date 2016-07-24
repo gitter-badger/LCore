@@ -1115,6 +1115,31 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable)Test).Last(10).Should().Be(default(int));
             }
 
+        [Fact]
+        public void Test_List()
+            {
+            var Test = new[] { 5, 6, 2, 2 };
+            var Test2 = new object[] { 5, 6, 2, 2, null, "a" };
+
+            Test.List().Should().Equal(5, 6, 2, 2);
+            Test2.List().Should().Equal(5, 6, 2, 2, "a");
+            Test2.List(true).Should().Equal(5, 6, 2, 2, null, "a");
+            Test2.List(false).Should().Equal(5, 6, 2, 2, "a");
+
+            ((IEnumerable)Test).List().Should().Equal(5, 6, 2, 2);
+            ((IEnumerable)Test2).List().Should().Equal(5, 6, 2, 2, "a");
+            ((IEnumerable)Test2).List(true).Should().Equal(5, 6, 2, 2, null, "a");
+            ((IEnumerable)Test2).List(false).Should().Equal(5, 6, 2, 2, "a");
+
+            Test2.List<int>().Should().Equal(5, 6, 2, 2);
+            Test2.List<string>().Should().Equal("a");
+            Test2.List<object>().Should().Equal(5, 6, 2, 2, "a");
+            Test2.List<object>(true).Should().Equal(5, 6, 2, 2, null, "a");
+            Test2.List<object>(false).Should().Equal(5, 6, 2, 2, "a");
+
+            ((IEnumerable)null).List().Should().BeEmpty();
+            ((IEnumerable<int>)null).List().Should().BeEmpty();
+            }
 
         #region Internal
 

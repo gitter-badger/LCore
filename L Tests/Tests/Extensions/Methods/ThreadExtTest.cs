@@ -314,7 +314,7 @@ namespace L_Tests.Tests.Extensions
                 var Result = L.Thread.MethodProfileCache["TestProfile"];
 
                 Result.Times.Count.Should().Be(5);
-                Result.AverageMS.Should().BeInRange(8, 15);
+                Result.AverageMS.Should().BeInRange(8, 18);
                 Result.Data.Count().Should().Be(5);
                 Result.Data.Should().Equal("abc", "abc", "abc", "abc", "abc");
                 }
