@@ -553,7 +553,7 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_Members()
             {
-            typeof(TestClass).MembersOfType(typeof(string)).Should().Equal(
+            typeof(TestClass).MembersOfType(typeof(string)).ShouldBeEquivalentTo(new List<MemberInfo> { 
                 // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
                 L.Ref.Method<TestClass>(Test => Test.ToString()),
                 L.Ref.Member<TestClass>(Test => Test.Test),
@@ -563,7 +563,7 @@ namespace L_Tests.Tests.Extensions
                 L.Ref.Member<TestClass>(Test => Test.Test12),
                 L.Ref.Member<TestClass>(Test => Test.Test13),
                 // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-                L.Ref.Member<TestClass>(Test => Test.Test6)
+                L.Ref.Member<TestClass>(Test => Test.Test6)}
                 );
 
             typeof(TestClass).MembersOfType(typeof(string), false).Should().Equal();
