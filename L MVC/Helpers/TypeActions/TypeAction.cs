@@ -8,6 +8,7 @@ namespace LMVC.Utilities
     {
     public abstract class TypeResultAction<T>
         {
+        [CanBeNull]
         public object PerformAction([CanBeNull]T In, Type Type = null)
             {
             if (In == null)
@@ -82,30 +83,47 @@ namespace LMVC.Utilities
             return Type.HasInterface<IModel>() ? this.PerformAction_IModel(Type, In) : this.PerformAction_Object(In);
             }
 
+        [CanBeNull]
         protected abstract object PerformAction_Object(T In);
 
+        [CanBeNull]
         protected abstract IModel PerformAction_IModel(Type Type, T In);
 
+        [CanBeNull]
         protected abstract Enum PerformAction_Enum(Type Type, T In);
+        [CanBeNull]
         protected abstract string PerformAction_String(T In);
+        [CanBeNull]
         protected abstract TimeSpan? PerformAction_TimeSpan(T In);
+        [CanBeNull]
         protected abstract DateTime? PerformAction_DateTime(T In);
 
+        [CanBeNull]
         protected abstract bool? PerformAction_Boolean(T In);
+        [CanBeNull]
         protected abstract float? PerformAction_Float(T In);
+        [CanBeNull]
         protected abstract double? PerformAction_Double(T In);
+        [CanBeNull]
         protected abstract decimal? PerformAction_Decimal(T In);
+        [CanBeNull]
         protected abstract ushort? PerformAction_UShort(T In);
+        [CanBeNull]
         protected abstract short? PerformAction_Short(T In);
+        [CanBeNull]
         protected abstract ulong? PerformAction_ULong(T In);
+        [CanBeNull]
         protected abstract long? PerformAction_Long(T In);
+        [CanBeNull]
         protected abstract uint? PerformAction_UInt(T In);
+        [CanBeNull]
         protected abstract int? PerformAction_Int(T In);
         }
 
     public abstract class TypeArgumentAction<T>
         {
-        public T PerformAction(object In, Type Type = null)
+        [CanBeNull]
+        public T PerformAction([CanBeNull]object In, [CanBeNull]Type Type = null)
             {
             if (In == null)
                 return default(T);
@@ -179,30 +197,47 @@ namespace LMVC.Utilities
             return Type.HasInterface<IModel>() ? this.PerformAction_IModel((IModel)In) : this.PerformAction_Object(In);
             }
 
+        [CanBeNull]
         protected abstract T PerformAction_Object(object In);
 
+        [CanBeNull]
         protected abstract T PerformAction_IModel(IModel In);
 
+        [CanBeNull]
         protected abstract T PerformAction_Enum(Enum In);
+        [CanBeNull]
         protected abstract T PerformAction_String(string In);
+        [CanBeNull]
         protected abstract T PerformAction_TimeSpan(TimeSpan In);
+        [CanBeNull]
         protected abstract T PerformAction_DateTime(DateTime In);
 
+        [CanBeNull]
         protected abstract T PerformAction_Boolean(bool In);
+        [CanBeNull]
         protected abstract T PerformAction_Float(float In);
+        [CanBeNull]
         protected abstract T PerformAction_Double(double In);
+        [CanBeNull]
         protected abstract T PerformAction_Decimal(decimal In);
+        [CanBeNull]
         protected abstract T PerformAction_UShort(ushort In);
+        [CanBeNull]
         protected abstract T PerformAction_Short(short In);
+        [CanBeNull]
         protected abstract T PerformAction_ULong(ulong In);
+        [CanBeNull]
         protected abstract T PerformAction_Long(long In);
+        [CanBeNull]
         protected abstract T PerformAction_UInt(uint In);
+        [CanBeNull]
         protected abstract T PerformAction_Int(int In);
         }
 
     public abstract class TypeAction<T>
         {
         [System.Diagnostics.DebuggerStepThrough]
+        [CanBeNull]
         public T PerformAction(Type Type)
             {
             bool Nullable = Type.IsNullable();
@@ -272,24 +307,40 @@ namespace LMVC.Utilities
             return Type.HasInterface<IModel>() ? this.PerformAction_IModel(Type) : this.PerformAction_Object(Type);
             }
 
+        [CanBeNull]
         protected abstract T PerformAction_Object(Type Type);
 
+        [CanBeNull]
         protected abstract T PerformAction_IModel(Type Type);
 
+        [CanBeNull]
         protected abstract T PerformAction_Enum(Type EnumType);
+        [CanBeNull]
         protected abstract T PerformAction_String();
+        [CanBeNull]
         protected abstract T PerformAction_TimeSpan();
+        [CanBeNull]
         protected abstract T PerformAction_DateTime();
 
+        [CanBeNull]
         protected abstract T PerformAction_Boolean();
+        [CanBeNull]
         protected abstract T PerformAction_Float();
+        [CanBeNull]
         protected abstract T PerformAction_Double();
+        [CanBeNull]
         protected abstract T PerformAction_Decimal();
+        [CanBeNull]
         protected abstract T PerformAction_UShort();
+        [CanBeNull]
         protected abstract T PerformAction_Short();
+        [CanBeNull]
         protected abstract T PerformAction_ULong();
+        [CanBeNull]
         protected abstract T PerformAction_Long();
+        [CanBeNull]
         protected abstract T PerformAction_UInt();
+        [CanBeNull]
         protected abstract T PerformAction_Int();
         }
     }

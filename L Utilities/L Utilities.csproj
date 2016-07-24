@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JetBrains.Annotations">
+      <HintPath>..\packages\JetBrains.Annotations.10.1.5\lib\net\JetBrains.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -99,7 +102,6 @@
     <Compile Include="SharpZip\Zip\ZipInputStream.cs" />
     <Compile Include="SharpZip\Zip\ZipNameTransform.cs" />
     <Compile Include="SharpZip\Zip\ZipOutputStream.cs" />
-    <Compile Include="Sorting\CanBeNullAttribute.cs" />
     <Compile Include="Sorting\ComparableComparer.cs" />
     <Compile Include="Sorting\CustomComparer.cs" />
     <Compile Include="Sorting\DefaultSwap.cs" />

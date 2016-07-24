@@ -4,6 +4,7 @@ using LCore.Extensions;
 using LCore.Extensions.Optional;
 using System.Collections;
 using System.Reflection;
+using JetBrains.Annotations;
 
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable VirtualMemberNeverOverriden.Global
@@ -44,7 +45,7 @@ namespace LCore.Tests
         /// Attempts to resolve a single parameter object.
         /// This corrects parameter types, converts arrays to lists if needed.
         /// </summary>
-        protected virtual void FixObject(MethodInfo SourceMethod, Type ObjectType, ref object Obj)
+        protected virtual void FixObject([CanBeNull]MethodInfo SourceMethod, [CanBeNull]Type ObjectType, ref object Obj)
             {
             // Converts Arrays to Lists when the Method requires it.
             if (ObjectType != null &&
@@ -62,9 +63,9 @@ namespace LCore.Tests
 
                             var NewList = (IList)ListType.New();
                             Array.Each(Item =>
-                            {
-                                NewList.Add(Item);
-                            });
+                                {
+                                    NewList?.Add(Item);
+                                });
 
                             Obj = NewList;
                             }
@@ -99,8 +100,12 @@ namespace LCore.Tests
                 }
             }
 
-        private static object GetMethodDelegate(MethodInfo SourceMethod, Type ObjectType, string MethodName)
+        [CanBeNull]
+        private static object GetMethodDelegate([CanBeNull]MethodInfo SourceMethod, [CanBeNull]Type ObjectType, [CanBeNull]string MethodName)
             {
+            if (SourceMethod == null || MethodName == null)
+                return null;
+
             object Out;
 
             Type SourceType;
@@ -150,7 +155,7 @@ namespace LCore.Tests
 
             if (ValueLambda == null)
                 {
-                if (ReturnType != null)
+                if (ReturnType != typeof(void))
                     {
                     ValueLambda = SourceType?.GetMember(MemberName).Select(
                         Member => ObjectType == null || Member.GetMemberType() == ReturnType).First();

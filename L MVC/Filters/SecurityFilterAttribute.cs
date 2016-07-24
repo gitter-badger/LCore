@@ -19,7 +19,7 @@ namespace LMVC.Filters
                 string URL = FilterContext.HttpContext.Request.Url?.AbsoluteUri ?? "";
                 URL = URL.ToLower();
 
-                if (Config.RequireHTTPS && !URL.StartsWith("https://"))
+                if (Config?.RequireHTTPS == true && !URL.StartsWith("https://"))
                     throw new SecurityException("HTTPS is required to view this site.");
                 }
             }

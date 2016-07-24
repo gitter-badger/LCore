@@ -27,7 +27,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "left" }, null)]
         [TestResult(new object[] { "Left" }, L.Align.Left)]
         [TestResult(new object[] { "Right" }, L.Align.Right)]
-        public static T? ParseEnum<T>(this string Str)
+        public static T? ParseEnum<T>([CanBeNull]this string Str)
              where T : struct
             {
             try
@@ -45,7 +45,7 @@ namespace LCore.Extensions
         /// or does not match a value of the enum.
         /// </summary>
         [Tested]
-        public static Enum ParseEnum(this string Str, Type Type)
+        public static Enum ParseEnum([CanBeNull]this string Str, [CanBeNull]Type Type)
             {
             try
                 {
@@ -65,7 +65,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { Test.TestEnum.Left }, L.Align.Left)]
         [TestResult(new object[] { Test.TestEnum.Right }, L.Align.Right)]
         [TestResult(new object[] { Test.TestEnum.Top }, L.AlignVertical.Top, GenericTypes = new[] { typeof(L.AlignVertical) })]
-        public static T? ParseEnum<T>(this Enum Enum)
+        public static T? ParseEnum<T>([CanBeNull]this Enum Enum)
              where T : struct
             {
             return Enum?.ToString().ParseEnum<T>();

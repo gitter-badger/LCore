@@ -39,7 +39,7 @@
 
 using System;
 using System.IO;
-
+using JetBrains.Annotations;
 #if !NETCF_1_0
 using System.Security.Cryptography;
 #endif
@@ -599,7 +599,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
         /// <param name="state">A user-provided object that distinguishes this particular asynchronous write request from other requests</param>
         /// <returns>An <see cref="System.IAsyncResult">IAsyncResult</see> that references the asynchronous write</returns>
         /// <exception cref="NotSupportedException">Any access</exception>
-        public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object state)
+        public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, [CanBeNull]AsyncCallback callback, [CanBeNull]object state)
             {
             throw new NotSupportedException("InflaterInputStream BeginWrite not supported");
             }

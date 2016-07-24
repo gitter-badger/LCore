@@ -11,7 +11,8 @@
 
     var Groups = Model as IFieldGroups;
 
-    IEnumerable<ModelMetadata> Fields = Groups != null ? Groups.GetFieldGroup(Context, ViewType) : FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ViewType);
+    IEnumerable<ModelMetadata> Fields = Groups?.GetFieldGroup(Context, ViewType) 
+        ?? FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ViewType);
 }
 
 @model IModel

@@ -1,6 +1,7 @@
 ﻿using System;
 using LMVC.Controllers;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace LMVC.Routes
     {
@@ -12,7 +13,7 @@ namespace LMVC.Routes
         public const string LoginPartial = nameof(LoginPartial);
         public const string PasswordRequirements = nameof(PasswordRequirements);
 
-        
+
         public const string StatusMessages = nameof(StatusMessages);
 
         public const string TextContent = nameof(TextContent);
@@ -74,7 +75,7 @@ namespace LMVC.Routes
                     return $"{nameof(Manage)}/{nameof(Fields)}/{PropertyName}_After";
                     }
 
-                public static string PropertyType_Before(Type PropertyType)
+                public static string PropertyType_Before([CanBeNull]Type PropertyType)
                     {
                     return PropertyType != null ? $"{nameof(Manage)}/{nameof(Fields)}/{PropertyType.Name}_Before" : null;
                     }

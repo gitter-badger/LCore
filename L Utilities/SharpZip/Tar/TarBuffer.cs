@@ -34,6 +34,8 @@
 
 using System;
 using System.IO;
+using JetBrains.Annotations;
+
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable InconsistentNaming
@@ -352,6 +354,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// <returns>
         /// The block of data read.
         /// </returns>
+        [CanBeNull]
         public byte[] ReadBlock()
             {
             if (this.inputStream == null)

@@ -52,6 +52,8 @@ using ICSharpCode.SharpZipLib.Core;
 using ICSharpCode.SharpZipLib.Checksums;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using ICSharpCode.SharpZipLib.Zip.Compression;
+using JetBrains.Annotations;
+
 // ReSharper disable UnusedParameter.Global
 // ReSharper disable UnusedMethodReturnValue.Global
 // ReSharper disable UnusedParameter.Local
@@ -2711,8 +2713,8 @@ namespace ICSharpCode.SharpZipLib.Zip
             /// <param name="y">Second object to compare.</param>
             /// <returns>Compare result.</returns>
             public int Compare(
-                object x,
-                object y)
+                [CanBeNull]object x,
+                [CanBeNull]object y)
                 {
                 var zx = x as ZipUpdate;
                 var zy = y as ZipUpdate;
@@ -3046,6 +3048,7 @@ namespace ICSharpCode.SharpZipLib.Zip
             /// </summary>
             public long CrcPatchOffset { get; set; } = -1;
 
+            [CanBeNull]
             public Stream GetSource()
                 {
                 Stream result = null;
@@ -3374,6 +3377,7 @@ namespace ICSharpCode.SharpZipLib.Zip
             }
 
 #if !NETCF_1_0
+        [CanBeNull]
         private Stream CreateAndInitDecryptionStream(Stream baseStream, ZipEntry entry)
             {
             CryptoStream result = null;
@@ -4094,7 +4098,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <param name="entry">The entry to provide data for.</param>
         /// <param name="name">The file name for data if known.</param>
         /// <returns>Returns a stream providing data; or null if not available</returns>
-        public Stream GetSource(ZipEntry entry, string name)
+        public Stream GetSource(ZipEntry entry, [CanBeNull]string name)
             {
             Stream result = null;
 
@@ -4338,7 +4342,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <param name="stream">The current stream.</param>
         /// <returns>Returns a stream suitable for direct updating.</returns>
         /// <remarks>If the <paramref name="stream"/>stream is not null this is used as is.</remarks>
-        public override Stream OpenForDirectUpdate(Stream stream)
+        public override Stream OpenForDirectUpdate([CanBeNull]Stream stream)
             {
             Stream result;
             if ((stream == null) || !stream.CanWrite)
@@ -4369,7 +4373,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 
         #region Internal routines
 
-        private static string GetTempFileName(string original, bool makeTempFile)
+        private static string GetTempFileName([CanBeNull]string original, bool makeTempFile)
             {
             string result = null;
 
@@ -4504,7 +4508,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <returns>Returns a stream suitable for direct updating.</returns>
         /// <remarks>If the <paramref name="stream"/> passed is not null this is used;
         /// otherwise a new <see cref="MemoryStream"/> is returned.</remarks>
-        public override Stream OpenForDirectUpdate(Stream stream)
+        public override Stream OpenForDirectUpdate([CanBeNull]Stream stream)
             {
             Stream result;
             if ((stream == null) || !stream.CanWrite)

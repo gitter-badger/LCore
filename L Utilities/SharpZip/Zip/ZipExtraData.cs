@@ -36,6 +36,8 @@
 
 using System;
 using System.IO;
+using JetBrains.Annotations;
+
 // ReSharper disable UnusedParameter.Global
 // ReSharper disable UnusedMethodReturnValue.Global
 // ReSharper disable UnusedParameter.Local
@@ -549,8 +551,9 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// Initialise with known extra data.
         /// </summary>
         /// <param name="data">The extra data.</param>
-        public ZipExtraData(byte[] data)
+        public ZipExtraData([CanBeNull]byte[] data)
             {
+            // ReSharper disable once ConstantNullCoalescingCondition
             this.data_ = data ?? new byte[0];
             }
 
@@ -722,13 +725,15 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <param name="headerID">The ID for this entry.</param>
         /// <param name="fieldData">The data to add.</param>
         /// <remarks>If the ID already exists its contents are replaced.</remarks>
-        public void AddEntry(int headerID, byte[] fieldData)
+        public void AddEntry(int headerID, [CanBeNull]byte[] fieldData)
             {
             if ((headerID > ushort.MaxValue) || (headerID < 0))
                 {
                 throw new ArgumentOutOfRangeException(nameof(headerID));
                 }
 
+            // ReSharper disable once ConstantConditionalAccessQualifier
+            // ReSharper disable once ConstantNullCoalescingCondition
             int addLength = fieldData?.Length ?? 0;
 
             if (addLength > ushort.MaxValue)

@@ -66,6 +66,7 @@ namespace LMVC.Context
 
         public override string ContextName => Name;
 
+        [NotNull]
         public override string GetLogoURL()
             {
             return "/Images/logo.png";

@@ -42,7 +42,7 @@ namespace LMVC.Controllers
         public const string Session_User = "ProfileUserSession";
 
         public static TimeSpan DefaultArchiveTimeSpan = new TimeSpan(180, 0, 0, 0, 0);
-        
+
 
         public static readonly bool AllowRegister = false;
         public static readonly bool AllowExternalLogin = false;
@@ -106,10 +106,7 @@ namespace LMVC.Controllers
 
                         string Property = Split2[0].RemoveAll(" ");
 
-                        if (Property == null)
-                            continue;
-
-                        if (!ModelType.Meta().Properties.Has(Prop => Prop.PropertyName == Property))
+                        if (!ModelType.Meta()?.Properties.Has(Prop => Prop.PropertyName == Property) == true)
                             {
                             if (Property.Contains("."))
                                 {
@@ -139,9 +136,6 @@ namespace LMVC.Controllers
                             Operator = Operator,
                             Search = Search
                             };
-
-                        if (Property == null)
-                            continue;
 
                         if (Out.ContainsKey(Property))
                             {
@@ -261,7 +255,7 @@ namespace LMVC.Controllers
 
             #region Active Filter
             if (typeof(T).HasProperty(ControllerHelper.AutomaticFields.Active) &&
-                typeof(T).Meta(ControllerHelper.AutomaticFields.Active).ModelType == typeof(bool))
+                typeof(T).Meta(ControllerHelper.AutomaticFields.Active)?.ModelType == typeof(bool))
                 {
                 if (ViewType.HasFlag(ControllerHelper.ManageViewType.All))
                     {
@@ -295,14 +289,14 @@ namespace LMVC.Controllers
             #region Sort
             if (!string.IsNullOrEmpty(SortTerm))
                 {
-                if (typeof(T).Meta(SortTerm).ModelType.HasInterface<IModel>())
+                if (typeof(T).Meta(SortTerm)?.ModelType.HasInterface<IModel>() == true)
                     {
-                    var Type = typeof(T).Meta(SortTerm).ModelType;
+                    var Type = typeof(T).Meta(SortTerm)?.ModelType;
                     var Display = Type.GetAttribute<DisplayColumnAttribute>(false);
 
-                    SortTerm = Display != null 
-                        ? $"{SortTerm}.{Display.SortColumn}" 
-                        : $"{SortTerm}.{Type.Meta().Properties.First().PropertyName}";
+                    SortTerm = Display != null
+                        ? $"{SortTerm}.{Display.SortColumn}"
+                        : $"{SortTerm}.{Type.Meta()?.Properties.First().PropertyName}";
                     }
 
                 Out = SortDirection == SortDirection.Ascending ?

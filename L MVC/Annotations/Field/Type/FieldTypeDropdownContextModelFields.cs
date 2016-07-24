@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using JetBrains.Annotations;
 using LCore.Extensions;
 using LMVC.Models;
 using LMVC.Extensions;
@@ -37,6 +38,7 @@ namespace LMVC.Annotations
             return true;
             }
 
+        [CanBeNull]
         public virtual Type GetModelType(ViewContext Context)
             {
             if (this.ModelType != null)
@@ -62,14 +64,14 @@ namespace LMVC.Annotations
             return null;
             }
 
-        public override IEnumerable<KeyValuePair<string, string>> KeyValues(ViewContext Context)
+        public override IEnumerable<KeyValuePair<string, string>> KeyValues([CanBeNull]ViewContext Context)
             {
             var ContextModelType = this.GetModelType(Context);
 
             if (ContextModelType != null)
                 {
                 Dictionary<string, ModelMetadata> Properties = this.RecursiveFields ?
-                    ContextModelType.Meta().Properties.Index(Prop => Prop.PropertyName) :
+                    ContextModelType.Meta()?.Properties.Index(Prop => Prop.PropertyName) :
                     ContextModelType.GetMeta();
 
                 List<KeyValuePair<string, string>>[] Keys = { new List<KeyValuePair<string, string>>() };

@@ -25,6 +25,7 @@ namespace LMVC.Models
         // ReSharper disable once InconsistentNaming
         public bool Require2FA { get; set; }
 
+        [CanBeNull]
         public static SiteConfig FindCurrent(ModelContext DbContext, [CanBeNull]string URL)
             {
             URL = URL ?? "";

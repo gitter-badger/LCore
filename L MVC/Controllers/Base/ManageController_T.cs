@@ -12,6 +12,7 @@ using LMVC.Models;
 using LMVC.Context;
 using LMVC.Extensions;
 using System.Web.Helpers;
+using JetBrains.Annotations;
 using LMVC.Account;
 using LMVC.Annotations;
 using LMVC.Utilities;
@@ -62,13 +63,13 @@ namespace LMVC.Controllers
                     throw new ArgumentException("TypeName");
 
                 if (this.Session == null ||
-                    ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, ViewModel.ModelType).View != true)
+                    ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, ViewModel.ModelType)?.View != true)
                     {
                     return new HttpUnauthorizedResult();
                     }
 
                 if (this.Session == null ||
-                    (ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, ViewModel.ModelType).ViewInactive != true &&
+                    (ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, ViewModel.ModelType)?.ViewInactive != true &&
                     ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive)))
                     {
                     return new HttpUnauthorizedResult();
@@ -192,13 +193,13 @@ namespace LMVC.Controllers
                 throw new ArgumentException("TypeName");
 
             if (this.Session == null ||
-                ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, ViewModel.ModelType).Export != true)
+                ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, ViewModel.ModelType)?.Export != true)
                 {
                 return;
                 }
 
             if (this.Session == null ||
-                (ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, ViewModel.ModelType).ViewInactive != true &&
+                (ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, ViewModel.ModelType)?.ViewInactive != true &&
                 ViewModel.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive)))
                 {
                 return;
@@ -278,21 +279,23 @@ namespace LMVC.Controllers
                 }
             else
                 {
-                foreach (var Meta in ViewModel.ModelType.Meta().Properties)
-                    {
-                    if (Meta.ModelType.FullName.StartsWith("System.Collections.Generic.ICollection`1"))
+                IEnumerable<ModelMetadata> ModelMetadata = ViewModel.ModelType.Meta()?.Properties;
+                if (ModelMetadata != null)
+                    foreach (var Meta in ModelMetadata)
                         {
-                        // Ignore collections
+                        if (Meta.ModelType.FullName.StartsWith("System.Collections.Generic.ICollection`1"))
+                            {
+                            // Ignore collections
+                            }
+                        else if (!Meta.HasAttribute<FieldDisableExportAttribute>())
+                            {
+                            Columns.Add(Meta);
+                            ColumnNames.Add(Meta.DisplayName ?? Meta.PropertyName);
+                            // Members.Add(Meta.GetMember());
+                            //  Accessors.Add(Meta.GetDelegate());
+                            Functions.Add(Meta.GetFunc());
+                            }
                         }
-                    else if (!Meta.HasAttribute<FieldDisableExportAttribute>())
-                        {
-                        Columns.Add(Meta);
-                        ColumnNames.Add(Meta.DisplayName ?? Meta.PropertyName);
-                        // Members.Add(Meta.GetMember());
-                        //  Accessors.Add(Meta.GetDelegate());
-                        Functions.Add(Meta.GetFunc());
-                        }
-                    }
 
                 // Add field search terms to data
                 if (ViewModel.FieldSearchTerms != null)
@@ -334,7 +337,7 @@ namespace LMVC.Controllers
                             {
                             var Meta = ViewModel.ModelType.Meta(Op.Property);
 
-                            if (!Meta.HasAttribute<FieldDisableExportAttribute>())
+                            if (Meta != null && !Meta.HasAttribute<FieldDisableExportAttribute>())
                                 {
                                 Columns.Add(Meta);
                                 ColumnNames.Add(Meta.DisplayName ?? Meta.PropertyName);
@@ -398,7 +401,7 @@ namespace LMVC.Controllers
         public override ActionResult Details(int ID, string ReturnUrl)
             {
             if (this.Session == null ||
-                ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, typeof(T)).View != true)
+                ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, typeof(T))?.View != true)
                 {
                 return new HttpUnauthorizedResult();
                 }
@@ -424,7 +427,7 @@ namespace LMVC.Controllers
             if (Create)
                 {
                 if (this.Session == null ||
-                     ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, typeof(T)).Create != true)
+                     ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, typeof(T))?.Create != true)
                     {
                     return new HttpUnauthorizedResult();
                     }
@@ -436,7 +439,7 @@ namespace LMVC.Controllers
             else
                 {
                 if (this.Session == null ||
-                     ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, typeof(T)).Edit != true)
+                     ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, typeof(T))?.Edit != true)
                     {
                     return new HttpUnauthorizedResult();
                     }
@@ -447,7 +450,7 @@ namespace LMVC.Controllers
                 }
             }
 
-        protected virtual ActionResult Edit(IModel Model, string ReturnUrl, bool Create = false)
+        protected virtual ActionResult Edit([CanBeNull]IModel Model, string ReturnUrl, bool Create = false)
             {
             this.ViewBag.ReturnURL = ReturnUrl;
 
@@ -484,7 +487,7 @@ namespace LMVC.Controllers
             bool UpdateMode = !string.IsNullOrEmpty(Form["UpdateButton"]);
 
             if (this.Session == null ||
-                 ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, typeof(T)).Edit != true)
+                 ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, typeof(T))?.Edit != true)
                 {
                 return new HttpUnauthorizedResult();
                 }
@@ -511,7 +514,9 @@ namespace LMVC.Controllers
                     if (Create)
                         {
                         // Attach related models so they don't get duplicated
-                        foreach (var Meta in Model.Properties())
+                        IEnumerable<ModelMetadata> Properties = Model.Properties() ?? new List<ModelMetadata>();
+
+                        foreach (var Meta in Properties)
                             {
                             if (Meta.ModelType.HasInterface<IModel>())
                                 {
@@ -521,7 +526,7 @@ namespace LMVC.Controllers
                                 }
                             }
 
-                        this.DbContext.GetDBSet<T>().Add(Model);
+                        this.DbContext.GetDBSet<T>()?.Add(Model);
                         }
 
                     if (UpdateMode)
@@ -595,7 +600,7 @@ namespace LMVC.Controllers
         public override ActionResult Create(string ReturnUrl)
             {
             if (this.Session == null ||
-                ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, typeof(T)).Create != true)
+                ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, typeof(T))?.Create != true)
                 {
                 return new HttpUnauthorizedResult();
                 }
@@ -616,7 +621,7 @@ namespace LMVC.Controllers
         public override ActionResult Delete(int ID, string ReturnUrl)
             {
             if (this.Session == null ||
-                ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, typeof(T)).Deactivate != true)
+                ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, typeof(T))?.Deactivate != true)
                 {
                 return new HttpUnauthorizedResult();
                 }
@@ -637,7 +642,7 @@ namespace LMVC.Controllers
         public override ActionResult DeleteConfirm(int ID, string ReturnUrl, FormCollection Collection, bool Restore = false)
             {
             if (this.Session == null ||
-                ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, typeof(T)).Deactivate != true)
+                ContextProviderFactory.GetCurrent().GetModelPermissions(this.Session, typeof(T))?.Deactivate != true)
                 {
                 return new HttpUnauthorizedResult();
                 }
@@ -659,7 +664,7 @@ namespace LMVC.Controllers
                 {
                 bool Val = Restore;
 
-                if (Model.Meta(ControllerHelper.AutomaticFields.Active).ModelType == typeof(bool?))
+                if (Model.Meta(ControllerHelper.AutomaticFields.Active)?.ModelType == typeof(bool?))
                     Model.SetProperty(ControllerHelper.AutomaticFields.Active, (bool?)Val);
                 else
                     Model.SetProperty(ControllerHelper.AutomaticFields.Active, Val);
@@ -723,15 +728,17 @@ namespace LMVC.Controllers
             return this.Redirect(ReturnUrl);
             }
 
+        [CanBeNull]
         protected virtual ActionResult UploadSingleFile(FormCollection Form, string RelationType, string RelationProperty, int RelationID, HttpPostedFileBase File)
             {
             var FileUp = this.GetFileUpload(File, Form, RelationType, RelationProperty, RelationID);
 
-            this.DbContext.GetDBSet<FileUpload>().Add(FileUp);
+            this.DbContext.GetDBSet<FileUpload>()?.Add(FileUp);
 
             return null;
             }
 
+        [CanBeNull]
         // ReSharper disable once UnusedParameter.Global
         protected virtual FileUpload GetFileUpload(HttpPostedFileBase UploadFile, FormCollection Form, string RelationType, string RelationProperty, int RelationID)
             {
@@ -741,7 +748,7 @@ namespace LMVC.Controllers
 
             string FullPath = L.File.CombinePaths(RootPath, FilePath);
 
-            if (FullPath != null && !Directory.Exists(Path.GetDirectoryName(FullPath)))
+            if (!Directory.Exists(Path.GetDirectoryName(FullPath)))
                 {
                 Directory.CreateDirectory(Path.GetDirectoryName(FullPath));
                 }
@@ -864,7 +871,7 @@ namespace LMVC.Controllers
                         string QS = this.Request.QueryString[Meta.PropertyName];
 
                         var Context = this.DbContext.GetDBSet(Meta.ModelType);
-                        var QSModel = (IModel)Context.Find(QS);
+                        var QSModel = (IModel)Context?.Find(QS);
 
                         if (QSModel != null)
                             {
@@ -899,7 +906,7 @@ namespace LMVC.Controllers
                 {
                 IEnumerable<ModelMetadata> CustomKeyMeta = Model.Properties().Where(
                     Prop => Prop.HasAttribute<FieldFormKeyAttribute>() &&
-                        Prop.GetAttribute<FieldFormKeyAttribute>().CustomKey == Key);
+                        Prop.GetAttribute<FieldFormKeyAttribute>()?.CustomKey == Key);
 
                 string Property = Key;
 
@@ -918,8 +925,8 @@ namespace LMVC.Controllers
 
                 // Fix for Boolean Checkbox fields from HtmlHelper
                 if (Value == "true,false" &&
-                    (Meta.ModelType == typeof(bool) ||
-                    Meta.ModelType == typeof(bool?)))
+                    (Meta?.ModelType == typeof(bool) ||
+                    Meta?.ModelType == typeof(bool?)))
                     {
                     Value = "true";
                     }
@@ -928,6 +935,7 @@ namespace LMVC.Controllers
                     return false;
 
                 if (Meta.HasAttribute<ISetFormField>())
+                    // ReSharper disable once PossibleNullReferenceException
                     return Meta.GetAttribute<ISetFormField>().SetFormField(Form, Model, Meta, Value);
 
                 var Convert = new StringConverter(this.Session);
@@ -936,7 +944,7 @@ namespace LMVC.Controllers
 
                 var PropertyInfo = Model.TrueModelType().GetProperty(Property);
 
-                if (!Meta.IsRequired && (Value ?? "").Trim() == "")
+                if (!Meta?.IsRequired == true && (Value ?? "").Trim() == "")
                     {
                     try
                         {
@@ -949,8 +957,7 @@ namespace LMVC.Controllers
                     return false;
                     }
 
-                var Obj = Convert.PerformAction(Value, Meta.ModelType);
-
+                var Obj = Convert.PerformAction(Value, Meta?.ModelType);
 
                 PropertyInfo?.SetValue(Model, Obj);
 
@@ -986,11 +993,11 @@ namespace LMVC.Controllers
 
         // ReSharper disable once MemberCanBeProtected.Global
         public virtual TimeSpan ArchiveTimeSpan => SingularityControllerHelper.DefaultArchiveTimeSpan;
-
+        [CanBeNull]
         public virtual Expression<Func<T, bool>> GetArchivedCondition(bool Archived)
             {
             if (typeof(T).HasProperty(ControllerHelper.AutomaticFields.Archived) &&
-                typeof(T).Meta(ControllerHelper.AutomaticFields.Archived).ModelType == typeof(bool))
+                typeof(T).Meta(ControllerHelper.AutomaticFields.Archived)?.ModelType == typeof(bool))
                 {
                 Expression<Func<T, bool>> Exp = typeof(T).GetExpression<T, bool>(ControllerHelper.AutomaticFields.Active);
                 Expression Equal = Archived ?
@@ -1002,7 +1009,7 @@ namespace LMVC.Controllers
                 }
             if (this.ArchiveTimeSpan != default(TimeSpan) &&
                 typeof(T).HasProperty(ControllerHelper.AutomaticFields.Created) &&
-                typeof(T).Meta(ControllerHelper.AutomaticFields.Created).ModelType == typeof(DateTime))
+                typeof(T).Meta(ControllerHelper.AutomaticFields.Created)?.ModelType == typeof(DateTime))
                 {
                 var Cutoff = DateTime.Now.Subtract(this.ArchiveTimeSpan);
 

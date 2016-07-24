@@ -39,6 +39,8 @@
 
 using System;
 using System.IO;
+using JetBrains.Annotations;
+
 // ReSharper disable UnusedParameter.Global
 // ReSharper disable UnusedMethodReturnValue.Global
 // ReSharper disable UnusedParameter.Local
@@ -1077,7 +1079,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <remarks>
         /// The <seealso cref="ZipNameTransform">Zip name transform</seealso> class is more flexible.
         /// </remarks>
-        public static string CleanName(string name)
+        public static string CleanName([CanBeNull]string name)
             {
             if (name == null)
                 {

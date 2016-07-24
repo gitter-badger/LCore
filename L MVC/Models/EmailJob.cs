@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using JetBrains.Annotations;
 using LMVC.Annotations;
 using LMVC.Context;
 
@@ -71,9 +72,10 @@ namespace LMVC.Models
                 {
                 }
 
-            public override Type GetModelType(System.Web.Mvc.ViewContext Context)
+            [CanBeNull]
+            public override Type GetModelType([CanBeNull]System.Web.Mvc.ViewContext Context)
                 {
-                if (Context.Controller.ViewBag.EditModel != null)
+                if (Context?.Controller.ViewBag.EditModel != null)
                     {
                     var Job = (EmailJob)Context.Controller.ViewBag.EditModel;
 

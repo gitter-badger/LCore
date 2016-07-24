@@ -11,6 +11,7 @@ using System.Linq;
 using System.Reflection;
 using LMVC.Controllers;
 using System.Web.Mvc;
+using JetBrains.Annotations;
 using LCore.Interfaces;
 using LMVC.Models;
 using LMVC.Utilities;
@@ -76,61 +77,37 @@ namespace LMVC.Extensions
             return Source.Where((Expression<Func<T, bool>>)Condition);
             }
 
-        public static Expression<Func<T, bool>> Or<T>(this IEnumerable<Expression<Func<T, bool>>> Expressions)
+        public static Expression<Func<T, bool>> Or<T>([CanBeNull]this IEnumerable<Expression<Func<T, bool>>> Expressions)
             {
-            Expression<Func<T, bool>> Out = null;
+            Expression<Func<T, bool>> Out = Obj => false;
 
-            foreach (Expression<Func<T, bool>> Exp in Expressions)
-                {
-                if (Out == null)
-                    {
-                    Out = Exp;
-                    }
-                else if (Exp != null)
-                    {
-                    Out = Expression.Lambda<Func<T, bool>>(
-                        Expression.OrElse(
-                            Out.Body,
-                            new ExpressionParameterReplacer(Exp.Parameters, Out.Parameters).Visit(Exp.Body)),
-                        Out.Parameters);
-                    }
-                }
+            Out = Expressions.Where(Exp => Exp != null).Aggregate(Out, (Current, Exp) =>
+                Expression.Lambda<Func<T, bool>>(Expression.OrElse(Current.Body,
+                    new ExpressionParameterReplacer(Exp.Parameters, Current.Parameters).Visit(Exp.Body)), Current.Parameters));
 
-            if (Out != null)
-                {
-                if (Out.CanReduce)
-                    Out.Reduce();
-                }
-
-            return Out;
-            }
-
-        public static Expression<Func<T, bool>> And<T>(this IEnumerable<Expression<Func<T, bool>>> Expressions)
-            {
-            Expression<Func<T, bool>> Out = null;
-
-            foreach (Expression<Func<T, bool>> Exp in Expressions)
-                {
-                if (Out == null)
-                    {
-                    Out = Exp;
-                    }
-                else
-                    {
-                    Out = Expression.Lambda<Func<T, bool>>(
-                        Expression.AndAlso(
-                            Out.Body,
-                            new ExpressionParameterReplacer(Exp.Parameters, Out.Parameters).Visit(Exp.Body)),
-                        Out.Parameters);
-                    }
-                }
-
-            if (Out?.CanReduce == true)
+            if (Out.CanReduce)
                 Out.Reduce();
 
             return Out;
             }
 
+        public static Expression<Func<T, bool>> And<T>([CanBeNull]this IEnumerable<Expression<Func<T, bool>>> Expressions)
+            {
+            Expression<Func<T, bool>> Out = Obj => false;
+
+            if (Expressions != null)
+                Out = Expressions.Aggregate(Out, (Current, Exp) =>
+                    Expression.Lambda<Func<T, bool>>(Expression.AndAlso(Current.Body,
+                        new ExpressionParameterReplacer(Exp.Parameters, Current.Parameters).Visit(Exp.Body)),
+                        Current.Parameters));
+
+            if (Out.CanReduce)
+                Out.Reduce();
+
+            return Out;
+            }
+
+        [CanBeNull]
         public static Expression<Func<T, bool>> GlobalSearchRecursive<T>(string GlobalSearch,
             string[] ParentProperties = null, Type[] ParentTypes = null)
             {
@@ -149,66 +126,67 @@ namespace LMVC.Extensions
 
                 var FieldConditions = new List<Expression<Func<T, bool>>>();
 
-                foreach (var Prop in Meta.Properties)
-                    {
-                    if (Prop.HasAttribute<KeyAttribute>(true))
-                        continue;
-
-                    if (Prop.HasAttribute<NotMappedAttribute>(true))
-                        continue;
-
-                    if (!Prop.HasAttribute<FieldGlobalSearchAttribute>()
-                        || Prop.HasAttribute<HideManageViewColumnAttribute>())
-                        continue;
-
-                    if (!Prop.ModelType.HasInterface<IConvertible>() &&
-                        // Don't skip IModel types for not being IConvertible
-                        !Prop.ModelType.HasInterface<IModel>())
-                        continue;
-
-                    if (Prop.AdditionalValues.ContainsKey(GlobalSearchDisabledAttribute.Key)
-                        && Prop.AdditionalValues[GlobalSearchDisabledAttribute.Key] as bool? == true)
-                        continue;
-
-                    string[] Properties = ParentProperties.Add(Prop.PropertyName);
-
-                    if (Prop.ModelType.HasInterface<IModel>())
+                if (Meta != null)
+                    foreach (var Prop in Meta.Properties)
                         {
-                        Type[] Types = ParentTypes.Add(Prop.ModelType);
+                        if (Prop.HasAttribute<KeyAttribute>(true))
+                            continue;
 
-                        Expression<Func<T, bool>> SubFieldConditions = GlobalSearchRecursive<T>(
-                            $"\"{GlobalSearchPartClean}\"", Properties, Types);
+                        if (Prop.HasAttribute<NotMappedAttribute>(true))
+                            continue;
 
-                        if (SubFieldConditions != null)
-                            FieldConditions.Add(SubFieldConditions);
-                        }
-                    else
-                        {
-                        ModelMetadata Meta2;
-                        string[] FullProperties;
+                        if (!Prop.HasAttribute<FieldGlobalSearchAttribute>()
+                            || Prop.HasAttribute<HideManageViewColumnAttribute>())
+                            continue;
 
-                        var Accessor = ParentTypes[0].FindSubProperty(out Meta2, out FullProperties, Properties);
+                        if (!Prop.ModelType.HasInterface<IConvertible>() &&
+                            // Don't skip IModel types for not being IConvertible
+                            !Prop.ModelType.HasInterface<IModel>())
+                            continue;
 
-                        var Operation = new SearchOperation
+                        if (Prop.AdditionalValues.ContainsKey(GlobalSearchDisabledAttribute.Key)
+                            && Prop.AdditionalValues[GlobalSearchDisabledAttribute.Key] as bool? == true)
+                            continue;
+
+                        string[] Properties = ParentProperties.Add(Prop.PropertyName);
+
+                        if (Prop.ModelType.HasInterface<IModel>())
                             {
-                            Property = Prop.PropertyName,
-                            OperatorStr = "~",
-                            Operator = BinaryOps["~"],
-                            Search = GlobalSearchPartClean
-                            };
+                            Type[] Types = ParentTypes.Add(Prop.ModelType);
 
-                        var Filter = new FilterExpression<T>(Operation, Accessor, Meta2);
+                            Expression<Func<T, bool>> SubFieldConditions = GlobalSearchRecursive<T>(
+                                $"\"{GlobalSearchPartClean}\"", Properties, Types);
 
-                        Expression<Func<T, bool>> Expr = Filter.PerformAction(Meta2.ModelType);
+                            if (SubFieldConditions != null)
+                                FieldConditions.Add(SubFieldConditions);
+                            }
+                        else
+                            {
+                            ModelMetadata Meta2;
+                            string[] FullProperties;
 
-                        if (Expr != null)
-                            FieldConditions.Add(Expr);
+                            var Accessor = ParentTypes[0].FindSubProperty(out Meta2, out FullProperties, Properties);
+
+                            var Operation = new SearchOperation
+                                {
+                                Property = Prop.PropertyName,
+                                OperatorStr = "~",
+                                Operator = BinaryOps["~"],
+                                Search = GlobalSearchPartClean
+                                };
+
+                            var Filter = new FilterExpression<T>(Operation, Accessor, Meta2);
+
+                            Expression<Func<T, bool>> Expr = Filter.PerformAction(Meta2.ModelType);
+
+                            if (Expr != null)
+                                FieldConditions.Add(Expr);
+                            }
                         }
-                    }
 
                 Expression<Func<T, bool>> FieldCondition = FieldConditions.Or();
 
-                if (FieldCondition?.CanReduce == true)
+                if (FieldCondition.CanReduce)
                     FieldCondition = (Expression<Func<T, bool>>)FieldCondition.Reduce();
 
                 SearchPartConditions.Add(FieldCondition);
@@ -218,7 +196,7 @@ namespace LMVC.Extensions
                 {
                 Expression<Func<T, bool>> Out = SearchPartConditions.And();
 
-                if (Out?.CanReduce == true)
+                if (Out.CanReduce)
                     Out.Reduce();
 
                 return Out;
@@ -241,10 +219,10 @@ namespace LMVC.Extensions
             // Use source type instead of T which can be [Object]
             var Type = Source.ElementType;
 
-            var PropertyType = Type.Meta(PropertyName).ModelType;
+            var PropertyType = Type.Meta(PropertyName)?.ModelType;
 
             if (PropertyType.HasInterface<IEnumerable>() &&
-                PropertyType.IsGenericType &&
+                PropertyType?.IsGenericType == true &&
                 PropertyType.GetGenericArguments()[0].HasInterface<IModel>())
                 {
                 // Sort ICollection<IModel> properties by Count
@@ -301,29 +279,29 @@ namespace LMVC.Extensions
             return (IOrderedQueryable<T>)Source.Provider.CreateQuery<T>(Call2);
             }
 
-        public static IOrderedQueryable<T> OrderBy<T>(this IQueryable<T> Source, string PropertyName)
+        public static IOrderedQueryable<T> OrderBy<T>([CanBeNull]this IQueryable<T> Source, [CanBeNull]string PropertyName)
             {
             return OrderingHelper(Source, PropertyName, false, false);
             }
 
-        public static IOrderedQueryable<T> OrderByDescending<T>(this IQueryable<T> Source, string PropertyName)
+        public static IOrderedQueryable<T> OrderByDescending<T>([CanBeNull]this IQueryable<T> Source, [CanBeNull]string PropertyName)
             {
             return OrderingHelper(Source, PropertyName, true, false);
             }
 
-        public static IOrderedQueryable<T> ThenBy<T>(this IOrderedQueryable<T> Source, string PropertyName)
+        public static IOrderedQueryable<T> ThenBy<T>([CanBeNull]this IOrderedQueryable<T> Source, [CanBeNull]string PropertyName)
             {
             return OrderingHelper(Source, PropertyName, false, true);
             }
 
-        public static IOrderedQueryable<T> ThenByDescending<T>(this IOrderedQueryable<T> Source, string PropertyName)
+        public static IOrderedQueryable<T> ThenByDescending<T>([CanBeNull]this IOrderedQueryable<T> Source, [CanBeNull]string PropertyName)
             {
             return OrderingHelper(Source, PropertyName, true, true);
             }
 
         /// <exception cref="ApplicationException">Used * characters more than 2 times</exception>
         /// <exception cref="ApplicationException">Used ? character, it's not supported</exception>
-        public static Expression<Func<T, bool>> WhereFilter<T>(this Expression<Func<T, string>> Selector, string Filter, string FieldName)
+        public static Expression<Func<T, bool>> WhereFilter<T>([CanBeNull]this Expression<Func<T, string>> Selector, [CanBeNull]string Filter, [CanBeNull]string FieldName)
             {
             if (Filter == null)
                 return null;
@@ -408,7 +386,7 @@ namespace LMVC.Extensions
             }
 
         /// <exception cref="ArgumentException">Property not found</exception>
-        public static IQueryable<T> FilterBy<T>(this IQueryable<T> Query, SearchOperation Operation)
+        public static IQueryable<T> FilterBy<T>([CanBeNull]this IQueryable<T> Query, SearchOperation Operation)
             {
             if (string.IsNullOrEmpty(Operation.Property))
                 {
@@ -436,7 +414,8 @@ namespace LMVC.Extensions
                 Meta = MemberType.Meta(Property);
                 Accessor = Meta.GetExpression();
 
-                if (Meta.ModelType.HasInterface<IModel>() && Meta.ModelType.HasAttribute<SearchColumnsAttribute>())
+                if (Meta?.ModelType.HasInterface<IModel>() == true &&
+                    Meta.ModelType.HasAttribute<SearchColumnsAttribute>())
                     {
                     // Relation fields drill into the sub-model to filter
                     // Use the default field since no field was given
@@ -549,7 +528,7 @@ namespace LMVC.Extensions
             // Filter out inactive if there is an Active field
             if (typeof(T).HasProperty(ControllerHelper.AutomaticFields.Active))
                 {
-                if (typeof(T).Meta(ControllerHelper.AutomaticFields.Active).ModelType == typeof(bool))
+                if (typeof(T).Meta(ControllerHelper.AutomaticFields.Active)?.ModelType == typeof(bool))
                     {
                     Expression<Func<T, bool>> Exp = typeof(T).GetExpression<T, bool>(ControllerHelper.AutomaticFields.Active);
                     Expression Equal = Expression.Equal(Exp.Body, Expression.Constant(true));
@@ -557,7 +536,7 @@ namespace LMVC.Extensions
 
                     Set = Set.Where((Expression<Func<T, bool>>)Lambda);
                     }
-                else if (typeof(T).Meta(ControllerHelper.AutomaticFields.Active).ModelType == typeof(bool?))
+                else if (typeof(T).Meta(ControllerHelper.AutomaticFields.Active)?.ModelType == typeof(bool?))
                     {
                     Expression<Func<T, bool?>> Exp = typeof(T).GetExpression<T, bool?>(ControllerHelper.AutomaticFields.Active);
                     Expression Equal = Expression.Equal(Exp.Body, Expression.Constant(true));

@@ -5,6 +5,7 @@ using System.Collections;
 // ReSharper disable once RedundantUsingDirective
 using System.Diagnostics;
 using System.Reflection;
+using JetBrains.Annotations;
 using LCore.Extensions.Optional;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -727,7 +728,7 @@ namespace LCore.Tests
         /// Optionally, pass in additional checks to test additional parameters.
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        public static void MethodAssertFails(this MethodInfo Method, object[] Params, object Target, Type EType = null, params Func<bool>[] AdditionalChecks)
+        public static void MethodAssertFails(this MethodInfo Method, [CanBeNull]object[] Params, object Target, Type EType = null, params Func<bool>[] AdditionalChecks)
             {
             EType = EType ?? typeof(Exception);
 

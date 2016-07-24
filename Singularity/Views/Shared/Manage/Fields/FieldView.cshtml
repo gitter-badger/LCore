@@ -18,9 +18,9 @@
      data-type-name="@Model.Meta.DataTypeName">
 
     @if (Model.Meta.HasAttribute<ICustomPartial>() &&
-                        Model.Meta.GetAttribute<ICustomPartial>().IsActive(Html, Model, Model.ViewTypes))
+        Model.Meta.GetAttribute<ICustomPartial>()?.IsActive(Html, Model, Model.ViewTypes) == true)
         {
-        Model.Meta.GetAttribute<ICustomPartial>().RenderPartial(Html, Model, Model.ViewTypes);
+        Model.Meta.GetAttribute<ICustomPartial>()?.RenderPartial(Html, Model, Model.ViewTypes);
         }
     else
         {
@@ -96,7 +96,7 @@
                 @Html.Partial(PartialViews.Manage.Fields.View.DateTime, Model)
                 }
             else if (Model.ModelData.TrueModelType().HasAttribute<DisplayColumnAttribute>(true) &&
-                Model.ModelData.TrueModelType().GetAttribute<DisplayColumnAttribute>(true).DisplayColumn == Model.Meta.PropertyName)
+                Model.ModelData.TrueModelType().GetAttribute<DisplayColumnAttribute>(true)?.DisplayColumn == Model.Meta.PropertyName)
                 {
                 @Html.Partial(PartialViews.Manage.Fields.View.DisplayColumn, Model)
                 }

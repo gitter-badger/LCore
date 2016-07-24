@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using JetBrains.Annotations;
 using LMVC.Account;
 using LMVC.Extensions;
 using LMVC.Filters;
@@ -79,7 +80,7 @@ namespace LMVC.Controllers
         [HttpPost]
         [RequireAuth]
         [ValidateAntiForgeryToken]
-        public ActionResult ForceResetPassword(ForceResetPasswordViewModel Model, IAuthenticationService Auth)
+        public ActionResult ForceResetPassword([CanBeNull]ForceResetPasswordViewModel Model, IAuthenticationService Auth)
             {
             bool Errors = false;
 

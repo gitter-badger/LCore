@@ -3,6 +3,7 @@ using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using LMVC.Context;
 using System.Web.Mvc;
+using JetBrains.Annotations;
 using LMVC.Annotations;
 
 using LCore.Extensions;
@@ -39,7 +40,8 @@ namespace LMVC.Models
             return this.Token ?? "";
             }
 
-        public static string GetText(ModelContext DbContext, string Token, string DefaultText = "")
+        [CanBeNull]
+        public static string GetText([CanBeNull]ModelContext DbContext, [CanBeNull]string Token, [CanBeNull]string DefaultText = "")
             {
             string Out = DefaultText;
 
@@ -51,21 +53,23 @@ namespace LMVC.Models
             return Out;
             }
 
-        public static IQueryable<TextContent> FindGlobalTokens(ModelContext DbContext)
+        [CanBeNull]
+        public static IQueryable<TextContent> FindGlobalTokens([CanBeNull]ModelContext DbContext)
             {
-            return DbContext.GetDBSet<TextContent>().Where(
+            return DbContext?.GetDBSet<TextContent>().Where(
                 Content => Content.Active &&
                     Content.GlobalToken == true);
             }
 
-        public static TextContent FindByToken(ModelContext DbContext, string Token)
+        [CanBeNull]
+        public static TextContent FindByToken([CanBeNull]ModelContext DbContext, [CanBeNull]string Token)
             {
             Func<string, TextContent> Func = Str =>
             {
-                return DbContext.GetDBSet<TextContent>().FirstOrDefault(Text => Text.Token == Str && Text.Active);
+                return DbContext?.GetDBSet<TextContent>().FirstOrDefault(Text => Text.Token == Str && Text.Active);
             };
 
-            // Token is cached not DbContext
+            // Token is cached not DbContext or the function involved.
             return Func.Cache("TextContentTokenCache")(Token);
             }
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using JetBrains.Annotations;
 using LMVC.Account;
 using LMVC.Context;
 
@@ -89,6 +90,7 @@ namespace LMVC.Models
                          // Enabled users only!
                          User.Enabled && User.PasswordHash != null && User.PasswordHash == Hash);
                 }
+            [CanBeNull]
             public static UserAccount GetByHash(ModelContext Context, string UserName, string PasswordHash)
                 {
                 return Context.GetDBSet<UserAccount>().FirstOrDefault(
@@ -107,7 +109,7 @@ namespace LMVC.Models
                     }
                 }
 
-            public static bool ValidatePasswordHash(UserAccount In, string Password)
+            public static bool ValidatePasswordHash([CanBeNull]UserAccount In, [CanBeNull]string Password)
                 {
                 if (In?.PasswordHash == null)
                     return false;

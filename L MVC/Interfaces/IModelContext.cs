@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using JetBrains.Annotations;
 using LMVC.Models;
 
 namespace LMVC.Context
@@ -19,11 +20,17 @@ namespace LMVC.Context
         Type UserRoleType { get; }
 
         SqlConnection CreateConnection();
+        [CanBeNull]
         DbSet GetDBSet(Type Type);
+        [CanBeNull]
         DbSet<T> GetDBSet<T>() where T : class;
+        [CanBeNull]
         string GetHomeAction(IUserAccount User);
+        [CanBeNull]
         string GetHomeController(IUserAccount User);
+        [CanBeNull]
         string GetLogoURL();
+        [CanBeNull]
         ISiteConfig GetSiteConfig(HttpContextBase Context);
 
 

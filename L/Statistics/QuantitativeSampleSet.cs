@@ -533,7 +533,7 @@ namespace LCore.Statistics
                 throw new Exception("Population size can not be smaller than the Sample size.");
             }
 
-        protected QuantitativeSampleSet(IEnumerable Data, long PopulationSize = 0)
+        protected QuantitativeSampleSet([CanBeNull]IEnumerable Data, long PopulationSize = 0)
             {
             Data = Data ?? new T[] { };
 

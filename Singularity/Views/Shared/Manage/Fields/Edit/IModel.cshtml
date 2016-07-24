@@ -9,16 +9,13 @@
 
     List<SelectListItem> Items = Model.GetRelationItems(Model.Meta.ModelType, SubModel);
 
-    if (SubModel != null)
+    string Id = SubModel.GetID();
+
+    var Selected = EnumerableExt.First(Items, Item => Item.Value == Id);
+
+    if (Selected != null)
         {
-        string Id = SubModel.GetID();
-
-        var Selected = EnumerableExt.First(Items, Item => Item.Value == Id);
-
-        if (Selected != null)
-            {
-            Selected.Selected = true;
-            }
+        Selected.Selected = true;
         }
 }
 

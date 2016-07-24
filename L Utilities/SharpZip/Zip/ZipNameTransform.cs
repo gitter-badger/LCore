@@ -39,6 +39,8 @@ using System.IO;
 using System.Text;
 
 using ICSharpCode.SharpZipLib.Core;
+using JetBrains.Annotations;
+
 // ReSharper disable UnusedParameter.Global
 // ReSharper disable UnusedMethodReturnValue.Global
 // ReSharper disable UnusedParameter.Local
@@ -140,7 +142,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// </summary>
         /// <param name="name">The file name to transform.</param>
         /// <returns>The transformed name.</returns>
-        public string TransformFile(string name)
+        public string TransformFile([CanBeNull]string name)
             {
             if (name != null)
                 {
@@ -249,7 +251,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// An empty name is valid for a file where the input comes from standard input.
         /// A null name is not considered valid.
         /// </remarks>
-        public static bool IsValidName(string name, bool relaxed)
+        public static bool IsValidName([CanBeNull]string name, bool relaxed)
             {
             bool result = name != null;
 
@@ -282,7 +284,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// An empty name is valid where the input comes from standard input.
         /// A null name is not considered valid.
         /// </remarks>
-        public static bool IsValidName(string name)
+        public static bool IsValidName([CanBeNull]string name)
             {
             bool result =
                 (name != null) &&

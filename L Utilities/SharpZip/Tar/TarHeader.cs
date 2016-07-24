@@ -70,6 +70,8 @@ struct header
 using System;
 using System.Collections.Generic;
 using System.Text;
+using JetBrains.Annotations;
+
 // ReSharper disable UnusedMethodReturnValue.Local
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedMember.Global
@@ -682,7 +684,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// </summary>
         /// <param name="obj">The object to compare with.</param>
         /// <returns>true if the objects are equal, false otherwise.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals([CanBeNull]object obj)
             {
             var localHeader = obj as TarHeader;
 

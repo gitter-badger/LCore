@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using LCore.Extensions;
 using LMVC.Extensions;
 
@@ -103,7 +104,7 @@ namespace LMVC
                 [typeof(ulong)] = FontAwesomeExt.Icon.sort_numeric_asc
                 };
 
-            public static FontAwesomeExt.Icon? GetTypeIcon(Type Type)
+            public static FontAwesomeExt.Icon? GetTypeIcon([CanBeNull]Type Type)
                 {
                 if (Type == null)
                     return null;

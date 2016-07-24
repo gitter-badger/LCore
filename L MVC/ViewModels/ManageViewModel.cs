@@ -67,7 +67,7 @@ namespace LMVC.Models
 
         public List<string> GetVisibleColumns()
             {
-            List<string> Columns = this.ModelType.Meta().Properties.Select(Prop => Prop.PropertyName).ToList();
+            List<string> Columns = this.ModelType.Meta()?.Properties.Select(Prop => Prop.PropertyName).List() ?? new List<string>();
 
             var Out = new List<string>();
 
@@ -81,7 +81,6 @@ namespace LMVC.Models
                         }
                     }
                 }
-
 
             foreach (string Str in Columns)
                 {
@@ -101,7 +100,7 @@ namespace LMVC.Models
                         {
                         // Hide Column because of Primary Key
                         }
-                    else if (Meta.AdditionalValues.ContainsKey(HideManageViewColumnAttribute.Key)
+                    else if (Meta?.AdditionalValues.ContainsKey(HideManageViewColumnAttribute.Key) == true
                         && Meta.AdditionalValues[HideManageViewColumnAttribute.Key] as bool? == true)
                         {
                         // Hide Column because of Attribute
@@ -129,9 +128,11 @@ namespace LMVC.Models
                     // Show suggestions for related model fields
                     var Meta = this.ModelType.Meta(PropertyName);
 
-                    if (Meta.ModelType.HasInterface<IModel>())
+                    if (Meta?.ModelType.HasInterface<IModel>() == true)
                         {
-                        Out = Meta.ModelType.Meta().Properties.Aggregate(Out, (Current, SubPropertyName) => Current + $"\'{PropertyName}.{SubPropertyName.PropertyName}:\',");
+                        Out = Meta.ModelType.Meta()?.Properties.Aggregate(Out,
+                            (Current, SubPropertyName) =>
+                                Current + $"\'{PropertyName}.{SubPropertyName.PropertyName}:\',");
                         }
                     }
                 }

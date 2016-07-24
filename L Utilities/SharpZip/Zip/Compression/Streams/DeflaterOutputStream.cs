@@ -38,6 +38,7 @@
 
 using System;
 using System.IO;
+using JetBrains.Annotations;
 #if !NETCF_1_0
 using System.Security.Cryptography;
 using ICSharpCode.SharpZipLib.Encryption;
@@ -432,7 +433,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
         /// <param name="state">The state to use.</param>
         /// <returns>Returns an <see cref="IAsyncResult"/></returns>
         /// <exception cref="NotSupportedException">Any access</exception>
-        public override IAsyncResult BeginRead(byte[] buffer, int offset, int count, AsyncCallback callback, object state)
+        public override IAsyncResult BeginRead(byte[] buffer, int offset, int count, [CanBeNull]AsyncCallback callback, [CanBeNull]object state)
             {
             throw new NotSupportedException("DeflaterOutputStream BeginRead not currently supported");
             }
@@ -447,7 +448,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
         /// <param name="state">The state object.</param>
         /// <returns>Returns an IAsyncResult.</returns>
         /// <exception cref="NotSupportedException">Any access</exception>
-        public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object state)
+        public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, [CanBeNull]AsyncCallback callback, [CanBeNull]object state)
             {
             throw new NotSupportedException("BeginWrite is not supported");
             }

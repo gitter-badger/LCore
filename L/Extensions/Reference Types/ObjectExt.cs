@@ -58,7 +58,8 @@ namespace LCore.Extensions
         /// </summary>
         /// <returns>The value of a specific property, if it exists.</returns>
         [Tested]
-        public static object GetProperty(this object In, string PropertyName)
+        [CanBeNull]
+        public static object GetProperty([CanBeNull]this object In, [CanBeNull]string PropertyName)
             {
             return L.Obj.GetProperty()(In, PropertyName);
             }
@@ -123,7 +124,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that safely compares an object with another, returning whether they are equal.
             /// </summary>
-            public static bool SafeEquals(object o1, object o2)
+            public static bool SafeEquals([CanBeNull]object o1, [CanBeNull]object o2)
                 {
                 // If both are null, or both are same instance, return true.
                 if (ReferenceEquals(o1, o2))
@@ -475,7 +476,7 @@ namespace LCore.Extensions.Optional
         /// </summary>
         [Tested]
         // ReSharper disable once MethodOverloadWithOptionalParameter
-        public static void CopyFieldsTo<T>(this T In, object Obj, Func<string, string> CustomMapper = null)
+        public static void CopyFieldsTo<T>([CanBeNull]this T In, [CanBeNull]object Obj, [CanBeNull]Func<string, string> CustomMapper = null)
             {
             var CustomMappedKeys = new List<string>();
             if (Obj != null)
@@ -623,7 +624,7 @@ namespace LCore.Extensions.Optional
                 var Out = new List<T>();
                 if (Count == 0)
                     return Out;
-                new Action(() => Out.Add(In)).Repeat((uint)Count-1)();
+                new Action(() => Out.Add(In)).Repeat((uint)Count - 1)();
                 return Out;
             };
             }
@@ -669,7 +670,7 @@ namespace LCore.Extensions.Optional
         /// <exception cref="TargetException">Throws an exception if the a property setter throws an exception.</exception>
         /// <exception cref="FieldAccessException">Throws an exception if the field cannot be accessed.</exception>
         [Tested]
-        public static void InitProperties<T>(this object In, T InitValue = default(T))
+        public static void InitProperties<T>([CanBeNull]this object In, [CanBeNull]T InitValue = default(T))
             {
             if (In != null)
                 {

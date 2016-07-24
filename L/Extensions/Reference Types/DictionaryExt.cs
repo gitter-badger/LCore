@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections;
+using JetBrains.Annotations;
 using LCore.Extensions.Optional;
 using LCore.Interfaces;
 using LCore.Tests;
@@ -25,10 +26,11 @@ namespace LCore.Extensions
         /// </summary>
 
         [Tested]
-        public static void Merge<TKey, TValue>(this IDictionary<TKey, TValue> In, IDictionary<TKey, TValue> Add,
-            Func<KeyValuePair<TKey, TValue>, KeyValuePair<TKey, TValue>> Conflict = null)
+        public static void Merge<TKey, TValue>([CanBeNull]this IDictionary<TKey, TValue> In, [CanBeNull]IDictionary<TKey, TValue> Add,
+            [CanBeNull]Func<KeyValuePair<TKey, TValue>, KeyValuePair<TKey, TValue>> Conflict = null)
             {
             Conflict = Conflict ?? (o => new KeyValuePair<TKey, TValue>(default(TKey), default(TValue)));
+            In = In ?? new Dictionary<TKey, TValue>();
 
             Add?.Each(o =>
                 {
@@ -56,7 +58,7 @@ namespace LCore.Extensions
         /// If keys from <paramref name="Add" /> already exist in <paramref name="In" />, they will not be added
         /// </summary>
         [Tested]
-        public static void AddRange<TKey, TValue>(this IDictionary<TKey, TValue> In, IDictionary<TKey, TValue> Add)
+        public static void AddRange<TKey, TValue>([CanBeNull]this IDictionary<TKey, TValue> In, [CanBeNull]IDictionary<TKey, TValue> Add)
             {
             Add?.Keys.Each(o => { In.SafeAdd(o, Add[o]); });
             }
@@ -69,7 +71,7 @@ namespace LCore.Extensions
         /// Returns all values from a dictionary with IEnumerable values.
         /// </summary>
         [Tested]
-        public static List<TValue> GetAllValues<TKey, TValue, TValueList>(this Dictionary<TKey, TValueList> In)
+        public static List<TValue> GetAllValues<TKey, TValue, TValueList>([CanBeNull]this Dictionary<TKey, TValueList> In)
             where TValueList : IEnumerable<TValue>
             {
             var Out = new List<TValue>();
@@ -94,7 +96,7 @@ namespace LCore.Extensions
         /// If the dictionary is null or the item exists already, nothing is added.
         /// </summary>
         [Tested]
-        public static void SafeAdd<TKey, TValue>(this IDictionary<TKey, TValue> In, TKey Key, TValue Val)
+        public static void SafeAdd<TKey, TValue>([CanBeNull]this IDictionary<TKey, TValue> In, [CanBeNull]TKey Key, [CanBeNull]TValue Val)
             {
             if (In != null)
                 {
@@ -116,7 +118,7 @@ namespace LCore.Extensions
         /// If it does exist it gets updated.
         /// </summary>
         [Tested]
-        public static void SafeSet<TKey, TValue>(this IDictionary<TKey, TValue> In, TKey Key, TValue Val)
+        public static void SafeSet<TKey, TValue>([CanBeNull]this IDictionary<TKey, TValue> In, [CanBeNull]TKey Key, [CanBeNull]TValue Val)
             {
             if (In != null && Key != null)
                 {
@@ -138,7 +140,7 @@ namespace LCore.Extensions
         /// Safely gets an item from a dictionary if it exists.
         /// </summary>
         [Tested]
-        public static TValue SafeGet<TKey, TValue>(this IDictionary<TKey, TValue> In, TKey Key)
+        public static TValue SafeGet<TKey, TValue>([CanBeNull]this IDictionary<TKey, TValue> In, [CanBeNull]TKey Key)
             {
             if (In != null)
                 {
@@ -161,7 +163,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Safely removes an item from a dictionary if it exists.
         /// </summary>
-        public static void SafeRemove<TKey, TValue>(this Dictionary<TKey, TValue> Dictionary, TKey Key)
+        public static void SafeRemove<TKey, TValue>([CanBeNull]this Dictionary<TKey, TValue> Dictionary, [CanBeNull]TKey Key)
             {
             if (!Equals(Key, default(TKey)) && Dictionary != null)
                 {

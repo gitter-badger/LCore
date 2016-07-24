@@ -7,12 +7,14 @@
     var Attr = Model.Meta.GetAttribute<FieldHeaderAttribute>();
 }
 
-
-@Html.Raw($"<h{Attr.HeaderType}>")
-@Html.TextContent($"Manage_{(ViewBag.Create == true ? "Create" : "Edit")}_Field_Header_{Model.ModelData.GetFriendlyTypeName()}_{Attr.HeaderTitle}", Attr.HeaderTitle)
-@Html.Raw($"</h{Attr.HeaderType}>")
-
-@if (Attr.HorizontalRule)
+@if (Attr != null)
     {
-    <hr />
+    @Html.Raw($"<h{Attr.HeaderType}>")
+    @Html.TextContent($"Manage_{(ViewBag.Create == true ? "Create" : "Edit")}_Field_Header_{Model.ModelData.GetFriendlyTypeName()}_{Attr.HeaderTitle}", Attr.HeaderTitle)
+    @Html.Raw($"</h{Attr.HeaderType}>")
+
+    if (Attr.HorizontalRule)
+        {
+        <hr />
+        }
     }

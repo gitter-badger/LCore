@@ -36,6 +36,8 @@
 using System;
 using System.IO;
 using System.Text;
+using JetBrains.Annotations;
+
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedParameter.Global
@@ -386,6 +388,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// <returns>
         /// The next TarEntry in the archive, or null.
         /// </returns>
+        [CanBeNull]
         public TarEntry GetNextEntry()
             {
             if (this.hasHitEOF)

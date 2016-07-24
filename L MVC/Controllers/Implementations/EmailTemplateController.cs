@@ -72,58 +72,64 @@ namespace LMVC.Controllers
 
             DbSet<EmailHistory> EmailHistorySet = DbContext.GetDBSet<EmailHistory>();
 
-            var EmailModelType = ContextProviderFactory.GetCurrent().GetManageController(this.Session, Job.SavedSearch.ControllerName).ModelType;
-
-            var EmailSet = DbContext.GetDBSet(EmailModelType);
-
-            int AddedCount = 0;
-
-            foreach (int UserID in UserIDs)
+            if (EmailHistorySet != null)
                 {
-                var SendEmail = new EmailHistory();
-                SendEmail.Initialize();
+                var EmailModelType = ContextProviderFactory.GetCurrent().GetManageController(this.Session, Job.SavedSearch.ControllerName)?.ModelType;
 
-                SendEmail.ReplyToAddress = this.Session.CurrentUser().GetEmails().FirstOrDefault();
+                var EmailSet = DbContext.GetDBSet(EmailModelType);
 
-                SendEmail.Subject = Job.EmailTemplate.Subject;
+                int AddedCount = 0;
 
-                // TODO: MVC: fill tokens.
-                SendEmail.Body = Job.EmailTemplate.Body;
-
-                SendEmail.UserID = UserID;
-
-                SendEmail.EmailJob = Job;
-
-                SendEmail.EmailTemplate = Job.EmailTemplate;
-
-                var EmailUser = (IEmailable)EmailSet.Find(UserID);
-
-                SendEmail.ToAddresses = EmailUser.GetEmails(Job.EmailToField).JoinLines(",");
-
-                var Existing = EmailHistory.FindEmail(DbContext, SendEmail);
-
-                if (Existing == null)
+                foreach (int UserID in UserIDs)
                     {
-                    AddedCount++;
+                    var SendEmail = new EmailHistory();
+                    SendEmail.Initialize();
 
-                    EmailHistorySet.Add(SendEmail);
+                    SendEmail.ReplyToAddress = this.Session.CurrentUser().GetEmails().FirstOrDefault();
+
+                    SendEmail.Subject = Job.EmailTemplate.Subject;
+
+                    // TODO: MVC: fill tokens.
+                    SendEmail.Body = Job.EmailTemplate.Body;
+
+                    SendEmail.UserID = UserID;
+
+                    SendEmail.EmailJob = Job;
+
+                    SendEmail.EmailTemplate = Job.EmailTemplate;
+
+                    var EmailUser = (IEmailable)EmailSet?.Find(UserID);
+
+                    if (EmailUser != null)
+                        {
+                        SendEmail.ToAddresses = EmailUser.GetEmails(Job.EmailToField).JoinLines(",");
+
+                        var Existing = EmailHistory.FindEmail(DbContext, SendEmail);
+
+                        if (Existing == null)
+                            {
+                            AddedCount++;
+
+                            EmailHistorySet.Add(SendEmail);
+                            }
+                        }
                     }
-                }
 
-            if (AddedCount > 0)
-                Job.LastSent = DateTime.Now;
+                if (AddedCount > 0)
+                    Job.LastSent = DateTime.Now;
 
-            this.AddStatusMessage($"{AddedCount} {"Email".Pluralize(AddedCount)} sent.");
-            
-            try
-                {
-                DbContext.SaveChanges();
-                }
-            catch (Exception Ex)
-                {
-                ControllerHelper.HandleError(this.HttpContext, Ex);
+                this.AddStatusMessage($"{AddedCount} {"Email".Pluralize(AddedCount)} sent.");
 
-                this.AddStatusMessages_Error("An error has occured.");
+                try
+                    {
+                    DbContext.SaveChanges();
+                    }
+                catch (Exception Ex)
+                    {
+                    ControllerHelper.HandleError(this.HttpContext, Ex);
+
+                    this.AddStatusMessages_Error("An error has occured.");
+                    }
                 }
 
             return this.Redirect(ReturnUrl);

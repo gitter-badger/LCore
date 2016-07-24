@@ -6,6 +6,7 @@ using System.Web;
 using LMVC.Models;
 using LMVC.Extensions;
 using System.Data.SqlClient;
+using JetBrains.Annotations;
 using LMVC.Controllers;
 
 // ReSharper disable UnassignedGetOnlyAutoProperty
@@ -14,14 +15,20 @@ namespace LMVC.Context
     {
     public abstract class ModelContext : DbContext, IModelContext
         {
+        [CanBeNull]
         public abstract string GetLogoURL();
+        [CanBeNull]
         public abstract string ContextName { get; }
 
+        [CanBeNull]
         public abstract Type[] ContextTypes { get; }
 
+        [CanBeNull]
         public abstract Type UserAccountType { get; }
+        [CanBeNull]
         public abstract Type UserRoleType { get; }
 
+        [CanBeNull]
         public ISiteConfig GetSiteConfig(HttpContextBase Context)
             {
             Func<string, SiteConfig> Func = Url =>
@@ -37,6 +44,7 @@ namespace LMVC.Context
             return Func.Cache("SiteConfigCache")(URL);
             }
 
+        [CanBeNull]
         public virtual DbSet GetDBSet(Type Type)
             {
             return this.Set(Type);
@@ -52,7 +60,7 @@ namespace LMVC.Context
                 });
              */
             }
-
+        [CanBeNull]
         public virtual DbSet<T> GetDBSet<T>()
             where T : class
             {
@@ -89,11 +97,13 @@ namespace LMVC.Context
             return Context.GetModelContext();
             }
 
+        [CanBeNull]
         public virtual string GetHomeAction(IUserAccount User)
             {
             return nameof(HomeController.Index);
             }
 
+        [CanBeNull]
         public virtual string GetHomeController(IUserAccount User)
             {
             return typeof(HomeController).CName();

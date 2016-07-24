@@ -16,9 +16,8 @@
 
     var BasedMeta = new Dictionary<string, List<ModelMetadata>>();
 
-    Dictionary<string, ModelMetadata> AllMeta = ModelExportType == null ?
-        new Dictionary<string, ModelMetadata>() :
-        ModelExportType.GetMeta();
+    Dictionary<string, ModelMetadata> AllMeta = ModelExportType?.GetMeta() 
+        ?? new Dictionary<string, ModelMetadata>();
 
     AllMeta.Keys.Each(Meta =>
     {

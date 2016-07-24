@@ -40,6 +40,8 @@
 using System;
 using System.Text;
 using System.Threading;
+using JetBrains.Annotations;
+
 // ReSharper disable StringLiteralTypo
 // ReSharper disable CommentTypo
 // ReSharper disable IdentifierTypo
@@ -503,7 +505,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <returns>
         /// data[0]..data[length - 1] converted to a string
         /// </returns>
-        public static string ConvertToString(byte[] data, int count)
+        public static string ConvertToString([CanBeNull]byte[] data, int count)
             {
             return data == null ?
                 string.Empty :
@@ -519,7 +521,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <returns>
         /// <paramref name="data">data</paramref>converted to a string
         /// </returns>
-        public static string ConvertToString(byte[] data)
+        public static string ConvertToString([CanBeNull]byte[] data)
             {
             return data == null ? string.Empty : ConvertToString(data, data.Length);
             }
@@ -535,7 +537,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <returns>
         /// <paramref name="data">data</paramref>converted to a string
         /// </returns>
-        public static string ConvertToStringExt(int flags, byte[] data, int count)
+        public static string ConvertToStringExt(int flags, [CanBeNull]byte[] data, int count)
             {
             if (data == null)
                 {
@@ -555,7 +557,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <returns>
         /// <paramref name="data">data</paramref>converted to a string
         /// </returns>
-        public static string ConvertToStringExt(int flags, byte[] data)
+        public static string ConvertToStringExt(int flags, [CanBeNull]byte[] data)
             {
             if (data == null)
                 {
@@ -574,7 +576,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// String to convert to an array
         /// </param>
         /// <returns>Converted array</returns>
-        public static byte[] ConvertToArray(string str)
+        public static byte[] ConvertToArray([CanBeNull]string str)
             {
             return str == null ? new byte[0] : Encoding.GetEncoding(DefaultCodePage).GetBytes(str);
             }
@@ -587,7 +589,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// String to convert to an array
         /// </param>
         /// <returns>Converted array</returns>
-        public static byte[] ConvertToArray(int flags, string str)
+        public static byte[] ConvertToArray(int flags, [CanBeNull]string str)
             {
             if (str == null)
                 {

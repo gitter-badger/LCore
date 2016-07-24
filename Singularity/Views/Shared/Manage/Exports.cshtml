@@ -22,7 +22,7 @@
     <div class="manage-export">
         <span class="btn-info btn right method-show-hide relative" click-fade-toggle=".manage-export-full">
             <glyph class="manage-export-full absolute">&#x2b;</glyph>
-            <glyph class="manage-export-full absolute" style=" display: none;">&#x2212;</glyph>
+            <glyph class="manage-export-full absolute" style="display: none;">&#x2212;</glyph>
         </span>
 
         <h2>Exports</h2>
@@ -30,7 +30,7 @@
         <div class="manage-export-full" style="display:none">
             @Html.TextContent($"Manage_ExportCSV_{Model.ModelType.GetFriendlyTypeName()}", "Export", ShowText: false)
 
-            @if (Exports != null && Exports.Count > 0)
+            @if (Exports.Count > 0)
                 {
                 foreach (var Export in Exports)
                     {
@@ -64,7 +64,7 @@
                         <a href="@(Url.Controller<CustomExportController>().QS(new Dictionary<string, object> {
                                 {"ExportType", Model.ModelType.FullName},
                                 {"Name", CustomExport.DefaultName},
-                                {"ManagementPage", ViewContext.GetManageController().GetType().FullName}
+                                {"ManagementPage", ViewContext.GetManageController()?.GetType().FullName}
                             })
                             .Action(Controller => Controller.Create, Request.Url?.AbsoluteUri))">
                             <div class="btn btn-default">
@@ -117,7 +117,7 @@
                         {
                             {"ExportType", Model.ModelType.FullName},
                             {"Name", CustomExport.DefaultName},
-                            {"ManagementPage", ViewContext.GetManageController().GetType().FullName}
+                            {"ManagementPage", ViewContext.GetManageController()?.GetType().FullName}
                         }).Action(Controller => Controller.Create, Request.Url?.AbsoluteUri))">
                         <div class="btn btn-default">
                             <glyph>&#xe065;</glyph>

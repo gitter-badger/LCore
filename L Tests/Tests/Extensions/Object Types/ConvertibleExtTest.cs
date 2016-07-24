@@ -3,6 +3,7 @@ using LCore.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using FluentAssertions;
+using JetBrains.Annotations;
 using LCore.Tests;
 using Xunit;
 using static LCore.Extensions.L.Test.Categories;
@@ -334,83 +335,83 @@ namespace L_Tests.Tests.Extensions
                 return default(TypeCode);
                 }
 
-            public bool ToBoolean(IFormatProvider Provider)
+            public bool ToBoolean([CanBeNull]IFormatProvider Provider)
                 {
                 return default(bool);
                 }
 
-            public char ToChar(IFormatProvider Provider)
+            public char ToChar([CanBeNull]IFormatProvider Provider)
                 {
                 return default(char);
                 }
 
-            public sbyte ToSByte(IFormatProvider Provider)
+            public sbyte ToSByte([CanBeNull]IFormatProvider Provider)
                 {
                 return default(sbyte);
                 }
 
-            public byte ToByte(IFormatProvider Provider)
+            public byte ToByte([CanBeNull]IFormatProvider Provider)
                 {
                 return default(byte);
                 }
 
-            public short ToInt16(IFormatProvider Provider)
+            public short ToInt16([CanBeNull]IFormatProvider Provider)
                 {
                 return default(short);
                 }
 
-            public ushort ToUInt16(IFormatProvider Provider)
+            public ushort ToUInt16([CanBeNull]IFormatProvider Provider)
                 {
                 return default(ushort);
                 }
 
-            public int ToInt32(IFormatProvider Provider)
+            public int ToInt32([CanBeNull]IFormatProvider Provider)
                 {
                 return default(int);
                 }
 
-            public uint ToUInt32(IFormatProvider Provider)
+            public uint ToUInt32([CanBeNull]IFormatProvider Provider)
                 {
                 return default(uint);
                 }
 
-            public long ToInt64(IFormatProvider Provider)
+            public long ToInt64([CanBeNull]IFormatProvider Provider)
                 {
                 return default(long);
                 }
 
-            public ulong ToUInt64(IFormatProvider Provider)
+            public ulong ToUInt64([CanBeNull]IFormatProvider Provider)
                 {
                 return default(ulong);
                 }
 
-            public float ToSingle(IFormatProvider Provider)
+            public float ToSingle([CanBeNull]IFormatProvider Provider)
                 {
                 return default(float);
                 }
 
-            public double ToDouble(IFormatProvider Provider)
+            public double ToDouble([CanBeNull]IFormatProvider Provider)
                 {
                 return default(double);
                 }
 
-            public decimal ToDecimal(IFormatProvider Provider)
+            public decimal ToDecimal([CanBeNull]IFormatProvider Provider)
                 {
                 return default(decimal);
                 }
 
-            public DateTime ToDateTime(IFormatProvider Provider)
+            public DateTime ToDateTime([CanBeNull]IFormatProvider Provider)
                 {
                 return default(DateTime);
                 }
 
             /// <exception cref="Exception">Condition.</exception>
-            public string ToString(IFormatProvider Provider)
+            public string ToString([CanBeNull]IFormatProvider Provider)
                 {
                 throw new Exception();
                 }
 
-            public object ToType(Type ConversionType, IFormatProvider Provider)
+            public object ToType([CanBeNull]Type ConversionType, [CanBeNull]IFormatProvider Provider)
                 {
                 return default(object);
                 }

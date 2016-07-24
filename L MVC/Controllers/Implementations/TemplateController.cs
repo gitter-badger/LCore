@@ -30,11 +30,12 @@ namespace LMVC.Controllers
 
         public void PreviewPdf(int ID)
             {
-            var Temp = this.DbContext.GetDBSet<Template>().Find(ID);
+            var Temp = this.DbContext.GetDBSet<Template>()?.Find(ID);
 
-            byte[] PdfBytes = Temp.GetPdfBytes();
+            byte[] PdfBytes = Temp?.GetPdfBytes();
 
-            this.Response.WritePDF(PdfBytes, $"{Temp.Description.CleanFileName()}.pdf");
+            if (Temp != null)
+                this.Response.WritePDF(PdfBytes, $"{Temp.Description.CleanFileName()}.pdf");
             }
 
         protected override Template GetModel(int ID, bool Create, Template Model)

@@ -26,7 +26,7 @@
             Text = Model.DefaultText
             };
 
-        Context.GetDBSet<TextContent>().Add(Content);
+        Context.GetDBSet<TextContent>()?.Add(Content);
 
         try
             {

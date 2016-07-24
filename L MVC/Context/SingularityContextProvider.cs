@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web;
+using JetBrains.Annotations;
 using LMVC.Controllers;
 using LMVC.Models;
 using Microsoft.WindowsAzure.StorageClient;
@@ -11,11 +12,13 @@ namespace LMVC.Context
     {
     public class SingularityContextProvider : ContextProvider
         {
+        [CanBeNull]
         public override string GetFileUploadRootPath(HttpSessionStateBase Session, HttpPostedFileBase File, string RelationType, string RelationProperty, int RelationID)
             {
             return this.GetSettings(Session).StorageFolder;
             }
 
+        [CanBeNull]
         public override string GetFileUploadFilePath(HttpSessionStateBase Session, HttpPostedFileBase File, string RelationType, string RelationProperty, int RelationID)
             {
             return L.File.CombinePaths(
@@ -33,6 +36,7 @@ namespace LMVC.Context
 
         public override string SiteTitle => Singularity.AppName;
 
+        [CanBeNull]
         public override IMenuController[] AllMenuControllers(HttpSessionStateBase Session)
             {
             var Out = new List<IMenuController>();
@@ -46,7 +50,7 @@ namespace LMVC.Context
             }
 
 
-        public override ManageController[] AllManageControllers(HttpSessionStateBase Session)
+        public override ManageController[] AllManageControllers([CanBeNull]HttpSessionStateBase Session)
             {
             if (Session?[ContextSession] == null || (string)Session[ContextSession] == SingularityContext.Name)
                 {
@@ -64,11 +68,13 @@ namespace LMVC.Context
             return new ManageController[] { };
             }
 
+        [CanBeNull]
         public override UserAccount CurrentUser(HttpSessionStateBase Session)
             {
             return (UserAccount)Session[SingularityControllerHelper.Session_User];
             }
 
+        [CanBeNull]
         public override AccountRole CurrentRole(HttpSessionStateBase Session)
             {
             return (AccountRole)(Session[SingularityControllerHelper.Session_Role] ?? this.GetAnonymousRole());
@@ -79,12 +85,13 @@ namespace LMVC.Context
             return new AccountRole();
             }
 
+        [CanBeNull]
         public override Type[] GetContextTypes(HttpSessionStateBase Session)
             {
             return ((SingularityContext)this.GetContext(Session)).ContextTypes;
             }
 
-        public override ModelContext GetContext(HttpSessionStateBase Session)
+        public override ModelContext GetContext([CanBeNull]HttpSessionStateBase Session)
             {
             if (Session?[ContextSession] == null || (string)Session[ContextSession] == SingularityContext.Name)
                 {

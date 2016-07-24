@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using LMVC.Context;
 using System.Linq;
+using JetBrains.Annotations;
 using LMVC.Annotations;
 
 namespace LMVC.Models
@@ -61,7 +62,7 @@ namespace LMVC.Models
             */
             }
 
-
+        [CanBeNull]
         public static Template FindByToken(ModelContext Context, string Token)
             {
             var Content = Context.GetDBSet<Template>(
@@ -71,7 +72,8 @@ namespace LMVC.Models
             return Content;
             }
 
-        public static string GetTemplateString(ModelContext Context, string Token)
+        [CanBeNull]
+        public static string GetTemplateString([CanBeNull]ModelContext Context, [CanBeNull]string Token)
             {
             string Out = "";
 

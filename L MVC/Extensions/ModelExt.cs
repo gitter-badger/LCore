@@ -19,7 +19,7 @@ namespace LMVC.Extensions
         //////////////////////////////////////////////////////////////////////////////////////////////////
         // Attributes
         //
-        
+
         public static bool HasAttribute<TAttribute>(this IModel Model)
             where TAttribute : IPersistAttribute
             {
@@ -52,23 +52,31 @@ namespace LMVC.Extensions
             return default(TOut);
             }
 
-        public static string GetID(this IModel Model)
+        [CanBeNull]
+        public static string GetID([CanBeNull]this IModel Model)
             {
+            if (Model == null)
+                return null;
+
             var KeyProperty = Model.Properties().First(Prop => Prop.HasAttribute<KeyAttribute>(true));
 
             if (KeyProperty != null)
                 {
                 string KeyField = KeyProperty.PropertyName;
 
-                return Model.GetProperty(KeyField).ToString();
+                return Model.GetProperty(KeyField)?.ToString();
                 }
 
-            return Model.HasProperty($"{Model.TrueModelType().Name}ID") ? Model.GetProperty(
-                $"{Model.TrueModelType().Name}ID").ToString() : null;
+            return Model.HasProperty($"{Model.TrueModelType().Name}ID")
+                ? Model.GetProperty($"{Model.TrueModelType().Name}ID")?.ToString()
+                : null;
             }
 
-        public static bool HasID(this IModel Model)
+        public static bool HasID([CanBeNull]this IModel Model)
             {
+            if (Model == null)
+                return false;
+
             string KeyField = Model.Properties().First(Prop => Prop.HasAttribute<KeyAttribute>(true))?.PropertyName;
 
             var ID = Model.GetProperty(KeyField);
@@ -181,12 +189,12 @@ namespace LMVC.Extensions
                 if (Meta == null)
                     {
                     // Only compute once per model if needed
-                    ModelMeta = ModelMeta ?? typeof(T).Meta().Properties.Array();
+                    ModelMeta = ModelMeta ?? typeof(T).Meta()?.Properties.Array() ?? new ModelMetadata[] { };
 
                     foreach (var FieldMeta in ModelMeta)
                         {
                         if (FieldMeta.HasAttribute<FieldExportHeaderAttribute>() &&
-                            FieldMeta.GetAttribute<FieldExportHeaderAttribute>().HeaderText == HeaderTitle)
+                            FieldMeta.GetAttribute<FieldExportHeaderAttribute>()?.HeaderText == HeaderTitle)
                             {
                             Meta = FieldMeta;
                             break;
@@ -235,12 +243,12 @@ namespace LMVC.Extensions
 
         public static string[] CSVHeader(this Type Type)
             {
-            ModelMetadata[] ModelMeta = Type.Meta().Properties.Array();
+            ModelMetadata[] ModelMeta = Type.Meta()?.Properties.Array();
 
             List<string> Out = ModelMeta
                 .Select(Meta => !Meta.HasAttribute<FieldDisableExportAttribute>())
                 .Convert(Meta => Meta.HasAttribute<FieldExportHeaderAttribute>()
-                    ? Meta.GetAttribute<FieldExportHeaderAttribute>().HeaderText
+                    ? Meta.GetAttribute<FieldExportHeaderAttribute>()?.HeaderText
                     : Meta.PropertyName).List();
 
             return Out.Array();
@@ -253,20 +261,20 @@ namespace LMVC.Extensions
             {
             // Active field /////////////////////////////////////////////////////////
             if (Model.HasProperty(ControllerHelper.AutomaticFields.Active) &&
-                Model.Meta(ControllerHelper.AutomaticFields.Active).ModelType == typeof(bool))
+                Model.Meta(ControllerHelper.AutomaticFields.Active)?.ModelType == typeof(bool))
                 {
                 Model.SetProperty(ControllerHelper.AutomaticFields.Active, true);
                 }
 
             // Created field ////////////////////////////////////////////////////////
             if (Model.HasProperty(ControllerHelper.AutomaticFields.Created) &&
-                Model.Meta(ControllerHelper.AutomaticFields.Created).ModelType == typeof(DateTime))
+                Model.Meta(ControllerHelper.AutomaticFields.Created)?.ModelType == typeof(DateTime))
                 {
                 Model.SetProperty(ControllerHelper.AutomaticFields.Created, DateTime.Now);
                 }
 
             // Default Value fields /////////////////////////////////////////////////
-            ModelMetadata[] Properties = Model.Meta().Properties.Array();
+            ModelMetadata[] Properties = Model.Meta()?.Properties.Array() ?? new ModelMetadata[] { };
 
             foreach (var Meta in Properties)
                 {
@@ -343,7 +351,7 @@ namespace LMVC.Extensions
             where T : IModel
             where U : IModel
             {
-            List<ModelMetadata> ModelMetaT = typeof(T).Meta().Properties.List();
+            List<ModelMetadata> ModelMetaT = typeof(T).Meta()?.Properties.List();
             List<ModelMetadata> ModelMetaU = Out.Properties().List();
 
             foreach (var Meta in ModelMetaU)

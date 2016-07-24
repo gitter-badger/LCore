@@ -36,6 +36,8 @@
 using System;
 using System.IO;
 using System.Security;
+using JetBrains.Annotations;
+
 // ReSharper disable CommentTypo
 
 // ReSharper disable UnusedMember.Global
@@ -92,7 +94,7 @@ namespace ICSharpCode.SharpZipLib.Core
         ///     contains a colon (":") that is not part of a volume identifier (for example, "c:\"). </exception>
         /// <exception cref="PathTooLongException">The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters. </exception>
         /// <exception cref="SecurityException">The caller does not have the required permissions. </exception>
-        public virtual bool IsMatch(string name)
+        public virtual bool IsMatch([CanBeNull]string name)
             {
             bool result = false;
 
@@ -197,7 +199,7 @@ namespace ICSharpCode.SharpZipLib.Core
         ///         <name>TResult</name>
         ///     </paramref>
         ///     .</exception>
-        public override bool IsMatch(string name)
+        public override bool IsMatch([CanBeNull]string name)
             {
             bool result = base.IsMatch(name);
 
@@ -368,7 +370,7 @@ namespace ICSharpCode.SharpZipLib.Core
         ///         <name>TResult</name>
         ///     </paramref>
         ///     .</exception>
-        public override bool IsMatch(string name)
+        public override bool IsMatch([CanBeNull]string name)
             {
             bool result = base.IsMatch(name);
 

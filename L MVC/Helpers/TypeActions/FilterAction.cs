@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Web.Mvc;
+using JetBrains.Annotations;
 
 namespace LMVC.Utilities
     {
@@ -23,6 +24,7 @@ namespace LMVC.Utilities
             }
 
         /// <exception cref="ArgumentException">Invalid Value</exception>
+        [CanBeNull]
         protected override Expression<Func<T, bool>> PerformAction_Boolean()
             {
             string SearchLower = this.Operation.Search.ToLower();
@@ -39,6 +41,7 @@ namespace LMVC.Utilities
         ///             <name>value</name>
         ///         </paramref>
         ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
+        [CanBeNull]
         protected override Expression<Func<T, bool>> PerformAction_Int()
             {
             if (this.Operation.OperatorStr == "<>" || this.Operation.OperatorStr == "><")
@@ -92,6 +95,7 @@ namespace LMVC.Utilities
         ///             <name>value</name>
         ///         </paramref>
         ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
+        [CanBeNull]
         protected override Expression<Func<T, bool>> PerformAction_UInt()
             {
             if (this.Operation.OperatorStr == "<>" || this.Operation.OperatorStr == "><")
@@ -142,6 +146,8 @@ namespace LMVC.Utilities
         ///             <name>value</name>
         ///         </paramref>
         ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
+
+        [CanBeNull]
         protected override Expression<Func<T, bool>> PerformAction_Long()
             {
             if (this.Operation.OperatorStr == "<>" || this.Operation.OperatorStr == "><")
@@ -192,6 +198,7 @@ namespace LMVC.Utilities
         ///             <name>value</name>
         ///         </paramref>
         ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
+        [CanBeNull]
         protected override Expression<Func<T, bool>> PerformAction_ULong()
             {
             if (this.Operation.OperatorStr == "<>" || this.Operation.OperatorStr == "><")
@@ -243,6 +250,7 @@ namespace LMVC.Utilities
         ///             <name>value</name>
         ///         </paramref>
         ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
+        [CanBeNull]
         protected override Expression<Func<T, bool>> PerformAction_Short()
             {
             if (this.Operation.OperatorStr == "<>" || this.Operation.OperatorStr == "><")
@@ -293,6 +301,7 @@ namespace LMVC.Utilities
         ///             <name>value</name>
         ///         </paramref>
         ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
+        [CanBeNull]
         protected override Expression<Func<T, bool>> PerformAction_UShort()
             {
             if (this.Operation.OperatorStr == "<>" || this.Operation.OperatorStr == "><")
@@ -343,6 +352,7 @@ namespace LMVC.Utilities
         ///             <name>value</name>
         ///         </paramref>
         ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
+        [CanBeNull]
         protected override Expression<Func<T, bool>> PerformAction_Decimal()
             {
             if (this.Operation.OperatorStr == "<>" || this.Operation.OperatorStr == "><")
@@ -393,6 +403,7 @@ namespace LMVC.Utilities
         ///             <name>value</name>
         ///         </paramref>
         ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
+        [CanBeNull]
         protected override Expression<Func<T, bool>> PerformAction_Double()
             {
             if (this.Operation.OperatorStr == "<>" || this.Operation.OperatorStr == "><")
@@ -443,6 +454,7 @@ namespace LMVC.Utilities
         ///             <name>value</name>
         ///         </paramref>
         ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
+        [CanBeNull]
         protected override Expression<Func<T, bool>> PerformAction_Float()
             {
             if (this.Operation.OperatorStr == "<>" || this.Operation.OperatorStr == "><")
@@ -490,6 +502,7 @@ namespace LMVC.Utilities
             }
 
         /// <exception cref="ApplicationException">Used * characters more than 2 times</exception>
+        [CanBeNull]
         protected override Expression<Func<T, bool>> PerformAction_String()
             {
             if (this.Operation.OperatorStr == "~")
@@ -506,6 +519,7 @@ namespace LMVC.Utilities
         ///             <name>value</name>
         ///         </paramref>
         ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
+        [CanBeNull]
         protected override Expression<Func<T, bool>> PerformAction_Enum(Type EnumType)
             {
             if (this.Operation.OperatorStr == "~")
@@ -561,12 +575,14 @@ namespace LMVC.Utilities
         ///             <name>value</name>
         ///         </paramref>
         ///     represents a number that is less than <see cref="F:System.Int32.MinValue" /> or greater than <see cref="F:System.Int32.MaxValue" />. </exception>
+        [CanBeNull]
         protected override Expression<Func<T, bool>> PerformAction_TimeSpan()
             {
             var SearchTime = TimeSpan.Parse(this.Operation.Search);
 
             return this.Accessor.GetOperatorExpression<T>(this.Operation.Operator, SearchTime);
             }
+        [CanBeNull]
         protected override Expression<Func<T, bool>> PerformAction_DateTime()
             {
             if (this.Operation.OperatorStr == "<>" || this.Operation.OperatorStr == "><")
@@ -613,7 +629,8 @@ namespace LMVC.Utilities
             return null;
             }
 
-        
+
+        [CanBeNull]
         protected override Expression<Func<T, bool>> PerformAction_IModel(Type Type)
             {
             /*
@@ -632,6 +649,7 @@ namespace LMVC.Utilities
 
 
         /// <exception cref="ArgumentException">Type not supported.</exception>
+        [CanBeNull]
         protected override Expression<Func<T, bool>> PerformAction_Object(Type Type)
             {
             if (Type.PreferGeneric().HasInterface<IModel>())

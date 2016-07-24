@@ -36,7 +36,7 @@ else
     {
     <a class="btn btn-default"
        href="@Url.Action(nameof(ManageController.Edit),
-        ContextProviderFactory.GetCurrent().GetManageController(Session, Model.FieldType).Name,
+        ContextProviderFactory.GetCurrent().GetManageController(Session, Model.FieldType)?.Name,
         Controllers.Manage.Actions.Route_Edit((IModel)Model.PropertyData, Request.Url?.AbsoluteUri))">
         <span>
             <glyph>&#xe065;</glyph>
@@ -51,7 +51,7 @@ else
     {
     <a class="btn btn-default"
        href="@Url.Action(nameof(ManageController.Create),
-        ContextProviderFactory.GetCurrent().GetManageController(Session, Model.FieldType).Name,
+        ContextProviderFactory.GetCurrent().GetManageController(Session, Model.FieldType)?.Name,
         Controllers.Manage.Actions.Route_Create(Request.Url?.AbsoluteUri))">
         <span>
             <glyph>&#x2a;</glyph>

@@ -22,7 +22,7 @@ namespace LMVC.Annotations
         {
         public static IEnumerable<ModelMetadata> GetFieldGroup(HttpContextBase Context, Type Type, ControllerHelper.ViewType ViewType)
             {
-            return Type.Meta().Properties.Select(Prop =>
+            return Type.Meta()?.Properties.Select(Prop =>
             {
                 if (Prop.GetAttributes<IVisibility>().Count(i => i.GetVisibility(Context, ViewType) == false) > 0)
                     {

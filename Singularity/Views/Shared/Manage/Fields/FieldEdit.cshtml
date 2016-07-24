@@ -29,7 +29,7 @@
 
     if (Lambda == null)
         {
-        Model.ModelData.GetProperty(Meta.PropertyName);
+        Model.ModelData.GetProperty(Meta?.PropertyName);
         }
     else
         {
@@ -59,8 +59,8 @@
     }
 
 <div class="field @Model.ViewTypes.CollectStr((i, Type) => $"{Type.ToString().ToLower()}-field ") field-@Model.ColumnClass @Model.ModelFieldClasses.Combine(" ")"
-     data-object-type="@Meta.ModelType"
-     data-type-name="@Meta.DataTypeName"
+     data-object-type="@Meta?.ModelType"
+     data-type-name="@Meta?.DataTypeName"
      @Html.Raw(Model.ModelFieldHtmlAttributes.Combine(" "))
      maximum="@(Attr?.Maximum)"
      minimum="@(Attr?.Minimum)">
@@ -86,9 +86,9 @@
             }
 
         if (Meta.HasAttribute<ICustomPartial>() &&
-            Meta.GetAttribute<ICustomPartial>().IsActive(Html, Model, Model.ViewTypes))
+            Meta.GetAttribute<ICustomPartial>()?.IsActive(Html, Model, Model.ViewTypes) == true)
             {
-            Meta.GetAttribute<ICustomPartial>().RenderPartial(Html, Model, Model.ViewTypes);
+            Meta.GetAttribute<ICustomPartial>()?.RenderPartial(Html, Model, Model.ViewTypes);
             }
         else if (Html.ViewExists(PartialViews.Manage.Fields.Edit.PropertyName(Model.PropertyName)))
             {

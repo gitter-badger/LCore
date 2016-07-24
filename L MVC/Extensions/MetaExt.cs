@@ -100,19 +100,19 @@ namespace LMVC.Extensions
         #endregion
 
         #region GetAttribute
-
-        public static T GetAttribute<T>(this ModelMetadata Meta)
+        [CanBeNull]
+        public static T GetAttribute<T>([CanBeNull]this ModelMetadata Meta)
             where T : IPersistAttribute
             {
             return Meta.GetMember().GetAttribute<T>();
             }
-
-        public static T GetAttribute<T>(this ModelMetadata Meta, bool IncludeBaseTypes)
+        [CanBeNull]
+        public static T GetAttribute<T>([CanBeNull]this ModelMetadata Meta, bool IncludeBaseTypes)
             {
             return Meta.GetMember().GetAttribute<T>(IncludeBaseTypes);
             }
-
-        public static List<T> GetAttributes<T>(this ModelMetadata Meta)
+        [CanBeNull]
+        public static List<T> GetAttributes<T>([CanBeNull]this ModelMetadata Meta)
             where T : class
             {
             return Meta.GetMember().GetAttributes<T>(false);
@@ -192,8 +192,8 @@ namespace LMVC.Extensions
 
         #region GetMeta
 
-        public static Dictionary<string, ModelMetadata> GetMeta(this Type Type,
-            Func<ModelMetadata, bool> Selector = null,
+        public static Dictionary<string, ModelMetadata> GetMeta([CanBeNull]this Type Type,
+            [CanBeNull]Func<ModelMetadata, bool> Selector = null,
             int Levels = 0)
             {
             var Out = new Dictionary<string, ModelMetadata>();
@@ -203,12 +203,12 @@ namespace LMVC.Extensions
             return Out;
             }
 
-        private static Dictionary<string, ModelMetadata> GetMeta(this Type Type,
-            Dictionary<string, ModelMetadata> In,
-            Func<ModelMetadata, bool> Selector = null,
+        private static Dictionary<string, ModelMetadata> GetMeta([CanBeNull]this Type Type,
+            [CanBeNull]Dictionary<string, ModelMetadata> In,
+            [CanBeNull]Func<ModelMetadata, bool> Selector = null,
             int Levels = 0,
             int CurrentLevel = 0,
-            string PathString = "")
+            [CanBeNull]string PathString = "")
             {
             if (In == null)
                 In = new Dictionary<string, ModelMetadata>();
@@ -219,7 +219,7 @@ namespace LMVC.Extensions
             if (Selector == null)
                 Selector = Member => true;
 
-            ModelMetadata[] TypeMeta = Type.Meta().Properties.Array();
+            ModelMetadata[] TypeMeta = Type.Meta()?.Properties.Array();
 
             TypeMeta.Each(Meta =>
                 {
@@ -354,8 +354,8 @@ namespace LMVC.Extensions
         #endregion
 
         #region Meta
-
-        public static ModelMetadata Meta(this Type Type, string PropertyName = null)
+        [CanBeNull]
+        public static ModelMetadata Meta([CanBeNull]this Type Type, [CanBeNull]string PropertyName = null)
             {
             Type = Type.WithoutDynamicType();
 
@@ -364,22 +364,25 @@ namespace LMVC.Extensions
                     PropertyName.Contains(".") ? PropertyName.Split(".")[1] : PropertyName)
                 : ModelMetadataProviders.Current.GetMetadataForType(null, Type);
             }
-
-        public static ModelMetadata Meta(this TypeInfo Type, string PropertyName = null)
+        [CanBeNull]
+        public static ModelMetadata Meta([CanBeNull]this TypeInfo Type, [CanBeNull]string PropertyName = null)
             {
             return !string.IsNullOrEmpty(PropertyName)
                 ? ModelMetadataProviders.Current.GetMetadataForProperty(null, Type,
                     PropertyName.Contains(".") ? PropertyName.Split(".")[1] : PropertyName)
                 : ModelMetadataProviders.Current.GetMetadataForType(null, Type);
             }
-
-        public static ModelMetadata Meta<T>(this T Model, Expression<Func<T, object>> Expression)
+        [CanBeNull]
+        public static ModelMetadata Meta<T>([CanBeNull]this T Model, [CanBeNull]Expression<Func<T, object>> Expression)
             where T : IModel
             {
-            return Model.Meta((Expression.Body as MemberExpression)?.Member.Name);
+            return Expression != null
+                ? Model.Meta((Expression.Body as MemberExpression)?.Member.Name)
+                : null;
             }
 
-        public static ModelMetadata Meta<T>(this T Model, string PropertyName = null)
+        [CanBeNull]
+        public static ModelMetadata Meta<T>([CanBeNull]this T Model, [CanBeNull]string PropertyName = null)
             where T : IModel
             {
             return string.IsNullOrEmpty(PropertyName)
@@ -399,11 +402,11 @@ namespace LMVC.Extensions
         #endregion
 
         #region Properties
-
+        [CanBeNull]
         public static IEnumerable<ModelMetadata> Properties<T>(this T Model)
             where T : IModel
             {
-            return Model.Meta().Properties;
+            return Model.Meta()?.Properties;
             }
 
         #endregion

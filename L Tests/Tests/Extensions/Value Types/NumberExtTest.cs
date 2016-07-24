@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
+using JetBrains.Annotations;
 using LCore.Numbers;
 using Xunit;
 using static LCore.Extensions.L.Test.Categories;
@@ -186,92 +187,92 @@ namespace L_Tests.Tests.Extensions
                 return default(TypeCode);
                 }
 
-            public bool ToBoolean(IFormatProvider Provider)
+            public bool ToBoolean([CanBeNull]IFormatProvider Provider)
                 {
                 return false;
                 }
 
-            public char ToChar(IFormatProvider Provider)
+            public char ToChar([CanBeNull]IFormatProvider Provider)
                 {
                 return (char)0;
                 }
 
-            public sbyte ToSByte(IFormatProvider Provider)
+            public sbyte ToSByte([CanBeNull]IFormatProvider Provider)
                 {
                 return 0;
                 }
 
-            public byte ToByte(IFormatProvider Provider)
+            public byte ToByte([CanBeNull]IFormatProvider Provider)
                 {
                 return 0;
                 }
 
-            public short ToInt16(IFormatProvider Provider)
+            public short ToInt16([CanBeNull]IFormatProvider Provider)
                 {
                 return 0;
                 }
 
-            public ushort ToUInt16(IFormatProvider Provider)
+            public ushort ToUInt16([CanBeNull]IFormatProvider Provider)
                 {
                 return 0;
                 }
 
-            public int ToInt32(IFormatProvider Provider)
+            public int ToInt32([CanBeNull]IFormatProvider Provider)
                 {
                 return 0;
                 }
 
-            public uint ToUInt32(IFormatProvider Provider)
+            public uint ToUInt32([CanBeNull]IFormatProvider Provider)
                 {
                 return 0u;
                 }
 
-            public long ToInt64(IFormatProvider Provider)
+            public long ToInt64([CanBeNull]IFormatProvider Provider)
                 {
                 return 0L;
                 }
 
-            public ulong ToUInt64(IFormatProvider Provider)
+            public ulong ToUInt64([CanBeNull]IFormatProvider Provider)
                 {
                 return 0uL;
                 }
 
-            public float ToSingle(IFormatProvider Provider)
+            public float ToSingle([CanBeNull]IFormatProvider Provider)
                 {
                 return 0;
                 }
 
-            public double ToDouble(IFormatProvider Provider)
+            public double ToDouble([CanBeNull]IFormatProvider Provider)
                 {
                 return 0d;
                 }
 
-            public decimal ToDecimal(IFormatProvider Provider)
+            public decimal ToDecimal([CanBeNull]IFormatProvider Provider)
                 {
                 return 0m;
                 }
 
-            public DateTime ToDateTime(IFormatProvider Provider)
+            public DateTime ToDateTime([CanBeNull]IFormatProvider Provider)
                 {
                 return DateTime.Now;
                 }
 
-            public string ToString(IFormatProvider Provider)
+            public string ToString([CanBeNull]IFormatProvider Provider)
                 {
                 return null;
                 }
 
-            public object ToType(Type ConversionType, IFormatProvider Provider)
+            public object ToType([CanBeNull]Type ConversionType, [CanBeNull]IFormatProvider Provider)
                 {
                 return null;
                 }
 
-            public string ToString(string Format, IFormatProvider FormatProvider)
+            public string ToString([CanBeNull]string Format, [CanBeNull] IFormatProvider FormatProvider)
                 {
                 return null;
                 }
 
-            public int CompareTo(object Obj)
+            public int CompareTo([CanBeNull]object Obj)
                 {
                 return 0;
                 }

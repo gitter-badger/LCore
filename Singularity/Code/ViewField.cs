@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using LCore.Extensions;
 using System.ComponentModel.DataAnnotations;
 using System.Collections;
+using JetBrains.Annotations;
 using LMVC.Annotations;
 using LMVC.Context;
 using LMVC.Controllers;
@@ -71,7 +72,7 @@ namespace Singularity.Models
 
                     if (Lambda == null)
                         {
-                        ValueData = this.ModelData.GetProperty(MyMeta.PropertyName);
+                        ValueData = this.ModelData.GetProperty(MyMeta?.PropertyName);
                         }
                     else
                         {
@@ -125,7 +126,7 @@ namespace Singularity.Models
         public string ColumnClass => this.PropertyName.ToUrlSlug();
 
         /// <exception cref="ArgumentException">Type was not found on DbContext</exception>
-        public List<SelectListItem> GetRelationItems(Type Type, object CurrentValue)
+        public List<SelectListItem> GetRelationItems(Type Type, [CanBeNull]object CurrentValue)
             {
             var MyContext = ContextProviderFactory.GetCurrent();
 
@@ -139,11 +140,11 @@ namespace Singularity.Models
             List<IModel> Models;
 
             if (Type.HasProperty(ControllerHelper.AutomaticFields.Active) &&
-                Type.Meta(ControllerHelper.AutomaticFields.Active).ModelType == typeof(bool))
+                Type.Meta(ControllerHelper.AutomaticFields.Active)?.ModelType == typeof(bool))
                 {
                 string TableName = MyContext.GetContext(this.Context.HttpContext.Session).GetTableName(Type);
 
-                Models = Objects.SqlQuery(
+                Models = Objects?.SqlQuery(
                     $"SELECT * FROM {TableName} WHERE {ControllerHelper.AutomaticFields.Active} = \'true\'")
                     .List<IModel>();
                 }
@@ -162,7 +163,7 @@ namespace Singularity.Models
 
         public string Route_FieldRelation(string ControllerName)
             {
-            if (ContextProviderFactory.GetCurrent().GetModelPermissions(this.Context.HttpContext.Session, this.FieldType).View == true)
+            if (ContextProviderFactory.GetCurrent().GetModelPermissions(this.Context.HttpContext.Session, this.FieldType)?.View == true)
                 {
                 var Manage = ContextProviderFactory.GetCurrent().AllManageControllers(this.Context.HttpContext.Session)
                     .First(Controller => Controller.ModelType == this.Meta.ModelType);
@@ -170,7 +171,7 @@ namespace Singularity.Models
                 if (Manage != null && this.Context.AllowView(this.Meta.ContainerType))
                     {
                     if (this.ModelData.TrueModelType().HasAttribute<DisplayColumnAttribute>(false) &&
-                        this.ModelData.TrueModelType().GetAttribute<DisplayColumnAttribute>(false).DisplayColumn == this.Meta.PropertyName)
+                        this.ModelData.TrueModelType().GetAttribute<DisplayColumnAttribute>(false)?.DisplayColumn == this.Meta.PropertyName)
                         {
                         var ThisModel = this.ModelData.GetProperty(this.PropertyName);
 
@@ -208,7 +209,7 @@ namespace Singularity.Models
         public string Route_FieldManyRelation(string ControllerName)
             {
             if (ContextProviderFactory.GetCurrent()
-                .GetModelPermissions(this.Context.HttpContext.Session, this.Meta.ModelType.PreferGeneric()).View == true
+                .GetModelPermissions(this.Context.HttpContext.Session, this.Meta.ModelType.PreferGeneric())?.View == true
                 && this.Meta.AdditionalValues.ContainsKey(MetadataAttribute.AdditionalData_RelationForeignKey))
                 {
                 var Manage = ContextProviderFactory.GetCurrent().AllManageControllers(this.Context.HttpContext.Session)
@@ -221,7 +222,7 @@ namespace Singularity.Models
                     if (RelatedModel is IEnumerable)
                         {
                         return new UrlHelper(this.Context.HttpContext.Request.RequestContext)
-                            .Action(nameof(ManageController.Manage), Manage.Name, new
+                            .Action(nameof(ManageController.Manage), Manage?.Name, new
                                 {
                                 FieldSearchTerms =
                                 $"{(string)this.Meta.AdditionalValues[MetadataAttribute.AdditionalData_RelationForeignKey]}:{this.ModelData}"

@@ -261,7 +261,7 @@ namespace LCore.Numbers
         public abstract Number<T> New(T In);
 
         /// <exception cref="ArgumentException">The object In is not of the correct type, and cannot be converted to it</exception>
-        public override Number New(object In)
+        public override Number New([CanBeNull]object In)
             {
             if (In is T)
                 return this.New((T)In);
@@ -521,6 +521,7 @@ namespace LCore.Numbers
             {
             if (Number1 == null)
                 Number1 = new ByteNumber();
+            // ReSharper disable once ConvertIfStatementToReturnStatement
             if (Number2 == null)
                 return Number1;
 
@@ -534,6 +535,7 @@ namespace LCore.Numbers
             {
             if (Number1 == null)
                 Number1 = new ByteNumber();
+            // ReSharper disable once ConvertIfStatementToReturnStatement
             if (Number2 == null)
                 return Number1;
 
@@ -547,6 +549,7 @@ namespace LCore.Numbers
             {
             if (Number1 == null)
                 Number1 = new ByteNumber();
+            // ReSharper disable once ConvertIfStatementToReturnStatement
             if (Number2 == null)
                 return Number1;
 
@@ -559,6 +562,7 @@ namespace LCore.Numbers
             {
             if (Number1 == null)
                 return new ByteNumber();
+            // ReSharper disable once ConvertIfStatementToReturnStatement
             if (Number2 == null)
                 return Number1;
 
@@ -572,6 +576,7 @@ namespace LCore.Numbers
             {
             if (Number1 == null)
                 Number1 = new ByteNumber();
+            // ReSharper disable once ConvertIfStatementToReturnStatement
             if (Number2 == null)
                 return Number1;
 
@@ -584,6 +589,7 @@ namespace LCore.Numbers
             {
             if (Number1 == null)
                 Number1 = new ByteNumber();
+            // ReSharper disable once ConvertIfStatementToReturnStatement
             if (Number2 == null)
                 return Number1;
 
@@ -597,6 +603,7 @@ namespace LCore.Numbers
             {
             if (Number1 == null)
                 Number1 = new ByteNumber();
+            // ReSharper disable once ConvertIfStatementToReturnStatement
             if (Number2 == null)
                 return Number1;
 
@@ -609,6 +616,7 @@ namespace LCore.Numbers
             {
             if (Number1 == null)
                 Number1 = new ByteNumber();
+            // ReSharper disable once ConvertIfStatementToReturnStatement
             if (Number2 == null)
                 return Number1;
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Web;
 using System.Web.Mvc;
+using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.Interfaces;
 using LMVC.Context;
@@ -40,8 +41,7 @@ namespace LMVC.Extensions
 
             return Context.HttpContext.Session != null &&
                    ContextProviderFactory.GetCurrent().CurrentRole(Context.HttpContext.Session) != null &&
-                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, Type).Create ==
-                   true &&
+                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, Type)?.Create == true &&
                    (Controller == null || Controller.ModelType != Type ||
                     Controller.OverridePermissions.Create == true);
             }
@@ -56,8 +56,7 @@ namespace LMVC.Extensions
 
             return Context.HttpContext.Session != null &&
                    ContextProviderFactory.GetCurrent().CurrentRole(Context.HttpContext.Session) != null &&
-                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, Type).Deactivate ==
-                   true &&
+                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, Type)?.Deactivate == true &&
                    (Controller == null || Controller.ModelType != Type ||
                     Controller.OverridePermissions.Deactivate == true);
             }
@@ -72,8 +71,7 @@ namespace LMVC.Extensions
 
             return Context.HttpContext.Session != null &&
                    ContextProviderFactory.GetCurrent().CurrentRole(Context.HttpContext.Session) != null &&
-                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, Type).Edit ==
-                   true &&
+                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, Type)?.Edit == true &&
                    (Controller == null || Controller.ModelType != Type ||
                     Controller.OverridePermissions.Edit == true);
             }
@@ -88,8 +86,7 @@ namespace LMVC.Extensions
 
             return Context.HttpContext.Session != null &&
                    ContextProviderFactory.GetCurrent().CurrentRole(Context.HttpContext.Session) != null &&
-                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, Type).Export ==
-                   true &&
+                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, Type)?.Export == true &&
                    (Controller == null || Controller.ModelType != Type ||
                     Controller.OverridePermissions.Export == true);
             }
@@ -104,7 +101,7 @@ namespace LMVC.Extensions
 
             return Context.HttpContext.Session != null &&
                    ContextProviderFactory.GetCurrent().CurrentRole(Context.HttpContext.Session) != null &&
-                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, Type).View ==
+                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, Type)?.View ==
                    true &&
                    (Controller == null ||
                     Controller.OverridePermissions.View == true);
@@ -120,10 +117,7 @@ namespace LMVC.Extensions
 
             return Context.HttpContext.Session != null &&
                    ContextProviderFactory.GetCurrent().CurrentRole(Context.HttpContext.Session) != null &&
-                   ContextProviderFactory.GetCurrent()
-                       .GetModelPermissions(Context.HttpContext.Session, Type)
-                       .ViewInactive ==
-                   true &&
+                   ContextProviderFactory.GetCurrent().GetModelPermissions(Context.HttpContext.Session, Type)?.ViewInactive == true &&
                    (Controller == null || Controller.ModelType != Type ||
                     Controller.OverridePermissions.ViewInactive == true);
             }
@@ -161,6 +155,7 @@ namespace LMVC.Extensions
 
         #region GetManageController
 
+        [CanBeNull]
         public static ManageController GetManageController(this ViewContext Context)
             {
             return Context.GetController<ManageController>();

@@ -1,8 +1,8 @@
 ﻿@{
-    List<string> Success = ViewContext.Controller.GetStatusMessages_Success() ?? new List<string>();
-    List<string> Errors = ViewContext.Controller.GetStatusMessages_Error() ?? new List<string>();
-    List<string> Warnings = ViewContext.Controller.GetStatusMessages_Warning() ?? new List<string>();
-    List<string> Information = ViewContext.Controller.GetStatusMessages_Information() ?? new List<string>();
+    List<string> Success = ViewContext.Controller.GetStatusMessages_Success();
+    List<string> Errors = ViewContext.Controller.GetStatusMessages_Error();
+    List<string> Warnings = ViewContext.Controller.GetStatusMessages_Warning();
+    List<string> Information = ViewContext.Controller.GetStatusMessages_Information();
 }
 
 @if (TempData.Peek(SingularityControllerHelper.StatusMessage_Temporary) != null)

@@ -26,7 +26,7 @@
             TemplateHTML = Model.DefaultText
             };
 
-        Context.GetDBSet<Template>().Add(Content);
+        Context.GetDBSet<Template>()?.Add(Content);
 
         try
             {
@@ -62,7 +62,7 @@
             {
             <span>...</span>
             }
-        @if (Permissions.Edit == true)
+        @if (Permissions?.Edit == true)
             {
             <span class="text-content-edit">
                 <span onclick="window.location = '@(Url.Controller<TemplateController>()
@@ -85,7 +85,7 @@ else
             {
             <span>...</span>
             }
-        @if (Permissions.Create == true)
+        @if (Permissions?.Create == true)
             {
             <span class="text-content-create">
 

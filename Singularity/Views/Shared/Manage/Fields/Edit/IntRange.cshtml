@@ -8,16 +8,21 @@
 
 @model IViewField
 
-<div class="int-range"
-     target="@Model.Meta.PropertyName"
-     text-target="@(Model.Meta.PropertyName)_Text"
-     value="@Model.ModelData.GetProperty(Model.Meta.PropertyName)"
-     maximum="@Attr.Maximum"
-     minimum="@Attr.Minimum">
-</div>
 
-<div id="@(Model.Meta.PropertyName)_Text" class="int-range-display">
-    @Model.ModelData.GetProperty(Model.Meta.PropertyName)
-</div>
+@if (Attr != null)
+    {
+    <div class="int-range"
+         target="@Model.Meta.PropertyName"
+         text-target="@(Model.Meta.PropertyName)_Text"
+         value="@Model.ModelData.GetProperty(Model.Meta.PropertyName)"
+         maximum="@Attr.Maximum"
+         minimum="@Attr.Minimum">
+    </div>
 
-@Html.Hidden(Model.Meta.PropertyName);
+    <div id="@(Model.Meta.PropertyName)_Text" class="int-range-display">
+        @Model.ModelData.GetProperty(Model.Meta.PropertyName)
+    </div>
+
+    @Html.Hidden(Model.Meta.PropertyName)
+
+    }

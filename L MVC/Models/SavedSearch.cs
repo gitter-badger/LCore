@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Helpers;
 using System.ComponentModel;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using LCore.Naming;
@@ -78,8 +79,8 @@ namespace LMVC.Models
 
         public static SavedSearch FindDefault(IModelContext DbContext, string TypeName, string ControllerName, bool Autocreate)
             {
-            var Out = DbContext.GetDBSet<SavedSearch>(
-                ).FirstOrDefault(Search
+            DbSet<SavedSearch> SearchSet = DbContext.GetDBSet<SavedSearch>();
+            var Out = SearchSet.FirstOrDefault(Search
                 => Search.Active &&
                     Search.SearchType == TypeName &&
                     Search.ControllerName == ControllerName &&
@@ -95,7 +96,9 @@ namespace LMVC.Models
                 Out.Default = true;
                 Out.Name = $"Default Search for {ControllerName} page";
 
-                DbContext.GetDBSet<SavedSearch>().Add(Out);
+                // ReSharper disable once PossibleNullReferenceException
+                SearchSet.Add(Out);
+
                 try
                     {
                     DbContext.SaveChanges();

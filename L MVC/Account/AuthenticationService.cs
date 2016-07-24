@@ -358,7 +358,7 @@ namespace LMVC.Account
                 };
 
 
-            DbContext.GetDBSet<SecurityLog>().Add(Log);
+            DbContext.GetDBSet<SecurityLog>()?.Add(Log);
             DbContext.SaveChanges();
             }
 
@@ -375,7 +375,7 @@ namespace LMVC.Account
                 };
 
 
-            DbContext.GetDBSet<SecurityLog>().Add(Log);
+            DbContext.GetDBSet<SecurityLog>()?.Add(Log);
 
             DbContext.SaveChanges();
             }

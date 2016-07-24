@@ -9,7 +9,7 @@
 <span class="field-error error">
 
     @if (ContextProviderFactory.GetCurrent().CurrentUser(Session) != null &&
-                ContextProviderFactory.GetCurrent().CurrentUser(Session).IsAdmin)
+        ContextProviderFactory.GetCurrent().CurrentUser(Session)?.IsAdmin == true)
         {
         <a title="@Model.ToString()">Error</a>
         }

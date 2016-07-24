@@ -10,9 +10,8 @@
         new[] { ControllerHelper.ViewType.TableCell };
 
     var Groups = Model as IFieldGroups;
-    IEnumerable<ModelMetadata> Fields = Groups != null ?
-        Groups.GetFieldGroup(Context, ControllerHelper.ViewType.TableCell) :
-        FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ControllerHelper.ViewType.TableCell);
+    IEnumerable<ModelMetadata> Fields = Groups?.GetFieldGroup(Context, ControllerHelper.ViewType.TableCell) 
+        ?? FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ControllerHelper.ViewType.TableCell);
 }
 
 @model IModel

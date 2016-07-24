@@ -18,6 +18,7 @@ namespace LMVC.Controllers
         // ReSharper disable once MemberCanBeProtected.Global
         public IAuthenticationService Auth { get; set; }
 
+        /// <exception cref="InvalidOperationException"></exception>
         protected override void OnException([CanBeNull] ExceptionContext FilterContext)
             {
             if (FilterContext == null)
@@ -29,7 +30,7 @@ namespace LMVC.Controllers
                 }
             catch (Exception Ex)
                 {
-                throw new Exception(FilterContext.Exception.Message, Ex);
+                throw new InvalidOperationException(FilterContext.Exception.Message, Ex);
                 }
 
             base.OnException(FilterContext);

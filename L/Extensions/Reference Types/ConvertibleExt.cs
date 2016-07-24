@@ -106,7 +106,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="System.FormatException">Throws a format exception if the format is not correct for the output type.</exception>
         [Tested]
-        public static object ConvertTo(this IConvertible In, Type Type)
+        public static object ConvertTo([CanBeNull]this IConvertible In, [CanBeNull]Type Type)
             {
             if (In is double)
                 In = ((DoubleNumber)(double)In).ToString();
@@ -142,7 +142,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="System.FormatException">Throws a format exception if the format is not correct for the output type.</exception>
         [Tested]
-        public static T? ConvertTo<T>(this IConvertible In)
+        public static T? ConvertTo<T>([CanBeNull]this IConvertible In)
             where T : struct, IConvertible
             {
             if (In == null)
@@ -180,7 +180,8 @@ namespace LCore.Extensions
         /// Converts an IConvertible to a string, if it is capable.
         /// </summary>
         [Tested]
-        public static string ConvertToString(this IConvertible In)
+        [CanBeNull]
+        public static string ConvertToString([CanBeNull]this IConvertible In)
             {
             if (In == null)
                 return null;
@@ -203,7 +204,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="System.FormatException">Throws a format exception if the format is not correct for the output type.</exception>
         [Tested]
-        public static IConvertible TryConvertTo<T>(this IConvertible In)
+        public static IConvertible TryConvertTo<T>([CanBeNull]this IConvertible In)
             where T : struct, IConvertible
             {
             if (In == null)
@@ -220,7 +221,7 @@ namespace LCore.Extensions
         /// If <paramref name="In" /> cannot be converted, the source will be returned.
         /// </summary>
         [Tested]
-        public static IConvertible TryConvertToString(this IConvertible In)
+        public static IConvertible TryConvertToString([CanBeNull]this IConvertible In)
             {
             if (In == null)
                 return null;

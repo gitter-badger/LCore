@@ -35,6 +35,8 @@
 
 using System;
 using System.IO;
+using JetBrains.Annotations;
+
 // ReSharper disable UnusedMember.Global
 // ReSharper disable InconsistentNaming
 // ReSharper disable CommentTypo
@@ -159,7 +161,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// <returns>
         /// True if the entries are equal; false if not.
         /// </returns>
-        public override bool Equals(object obj)
+        public override bool Equals([CanBeNull]object obj)
             {
             var localEntry = obj as TarEntry;
 

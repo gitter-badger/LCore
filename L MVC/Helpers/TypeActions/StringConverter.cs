@@ -4,6 +4,7 @@ using LMVC.Models;
 using System;
 using System.Web;
 using System.Web.Mvc;
+using JetBrains.Annotations;
 using LMVC.Context;
 using LMVC.Extensions;
 
@@ -50,7 +51,9 @@ namespace LMVC.Utilities
 
         /// <exception cref="ArgumentNullException"><paramref name="Type" /> or <paramref name="In" /> is null. </exception>
         /// <exception cref="OverflowException"><paramref name="In" /> is outside the range of the underlying type of <paramref name="Type" />.</exception>
-        protected override Enum PerformAction_Enum(Type Type, string In)
+
+        [CanBeNull]
+        protected override Enum PerformAction_Enum([CanBeNull]Type Type, string In)
             {
             if (string.IsNullOrEmpty(In))
                 return null;
@@ -86,7 +89,7 @@ namespace LMVC.Utilities
             {
             return this.PerformAction_IConvertible<short>(In);
             }
-
+        [CanBeNull]
         protected override string PerformAction_String(string In)
             {
             return In;
@@ -115,6 +118,7 @@ namespace LMVC.Utilities
             return TimeSpan.Parse(In);
             }
 
+        [CanBeNull]
         protected override IModel PerformAction_IModel(Type Type, string In)
             {
             if (this.Session != null)
@@ -129,12 +133,13 @@ namespace LMVC.Utilities
             return null;
             }
 
+        [CanBeNull]
         protected override object PerformAction_Object(string In)
             {
             return In;
             }
 
-        public static bool IsTypeSupported(ModelMetadata Meta)
+        public static bool IsTypeSupported([CanBeNull]ModelMetadata Meta)
             {
             return Meta?.IsReadOnly != true &&
                 (Meta?.ModelType.HasInterface<IConvertible>() == true ||

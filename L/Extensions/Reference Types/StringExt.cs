@@ -414,7 +414,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "test string", -5, "..." }, "test string")]
         [TestResult(new object[] { "test string", 5, "..." }, "te...")]
         [TestResult(new object[] { "test string123456789", 15, "..." }, "test string1...")]
-        public static string Concatenate(this string In, int MaxLength, string ConcatenateString = "...")
+        public static string Concatenate([CanBeNull]this string In, int MaxLength, [CanBeNull]string ConcatenateString = "...")
             {
             ConcatenateString = ConcatenateString ?? "";
 
@@ -739,7 +739,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "blah_blah_blah" }, "Blah Blah Blah")]
         [TestResult(new object[] { "Blah0Blah1Blah2" }, "Blah 0 Blah 1 Blah 2")]
         [TestResult(new object[] { "VeryGoodExample" }, "Very Good Example")]
-        public static string Humanize(this string FieldName)
+        public static string Humanize([CanBeNull]this string FieldName)
             {
             char Last = ' ';
 
@@ -776,7 +776,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { " " }, true)]
         [TestResult(new object[] { "     " }, true)]
         [TestResult(new object[] { "a" }, false)]
-        public static bool IsEmpty(this string In)
+        public static bool IsEmpty([CanBeNull]this string In)
             {
             return In == null || In.Trim() == "";
             }
@@ -883,7 +883,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "a couple lines\r\n\r\n to test  " }, new[] { "a couple lines", "to test" })]
         [TestResult(new object[] { "a couple lines\r\r to test  " }, new[] { "a couple lines", "to test" })]
         [TestResult(new object[] { "a couple lines\n\n to test  " }, new[] { "a couple lines", "to test" })]
-        public static string[] Lines(this string In)
+        public static string[] Lines([CanBeNull]this string In)
             {
             string Out = (In ?? "").ReplaceAll("\r\n", "\r");
 
@@ -953,7 +953,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abcdef", 5, L.Align.Right, '0' }, "abcde")]
         [TestResult(new object[] { "abcdef", 5, L.Align.Center, '0' }, "abcde")]
         [TestResult(new object[] { "   abc   ", 6, L.Align.Center, '0' }, "00abc0")]
-        public static string Pad(this string In, int Length, L.Align Alignment = L.Align.Left, char PadChar = ' ')
+        public static string Pad([CanBeNull]this string In, int Length, L.Align Alignment = L.Align.Left, char PadChar = ' ')
             {
             return Length < 0
                 ? In ?? ""
@@ -1070,7 +1070,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "b", new[] { "a" } }, "b")]
         // ReSharper disable once StringLiteralTypo
         [TestResult(new object[] { "abbcbabbababcaab", new[] { "a", "b" } }, "cc")]
-        public static string RemoveAll(this string In, params string[] Find)
+        public static string RemoveAll([CanBeNull]this string In, [CanBeNull]params string[] Find)
             {
             string Out = In ?? "";
 
@@ -1099,9 +1099,10 @@ namespace LCore.Extensions
         [TestResult(new object[] { "baba", "a", "r" }, "brbr")]
         // ReSharper disable once StringLiteralTypo
         [TestResult(new object[] { "babamm", "bam", "" }, "")]
-        public static string ReplaceAll(this string In, string Find, string Replace)
+        public static string ReplaceAll([CanBeNull]this string In, [CanBeNull]string Find, [CanBeNull]string Replace)
             {
             string Out = In ?? "";
+
             while (Out.Contains(Find))
                 {
                 Out = Out.Replace(Find, Replace);
@@ -1114,7 +1115,7 @@ namespace LCore.Extensions
         /// All keys are replaced with the corresponding value.
         /// </summary>
         [Tested]
-        public static string ReplaceAll(this string In, IDictionary<string, string> Replacements)
+        public static string ReplaceAll([CanBeNull]this string In, [CanBeNull]IDictionary<string, string> Replacements)
             {
             string Out = In ?? "";
 
@@ -1149,7 +1150,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "", "" }, "")]
         [TestResult(new object[] { "abc", "" }, "abc")]
         [TestResult(new object[] { "abc\r\r\r\r\n abc \r\n\n\r\n\r\n", "\r\n" }, "abc\r\n abc \r\n\r\n\r\n\r\n")]
-        public static string ReplaceLineEndings(this string In, string Replacement)
+        public static string ReplaceLineEndings([CanBeNull]this string In, [CanBeNull]string Replacement)
             {
             In = In ?? "";
 
@@ -1180,7 +1181,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { " " }, " ")]
         // ReSharper disable once StringLiteralTypo
         [TestResult(new object[] { "blahblah " }, " halbhalb")]
-        public static string Reverse(this string In)
+        public static string Reverse([CanBeNull]this string In)
             {
             return new string((In ?? "").ToCharArray().Reverse());
             }
@@ -1306,7 +1307,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "", default(char) }, new string[] { })]
         [TestResult(new object[] { " ", default(char) }, new[] { " " })]
         [TestResult(new object[] { "text,\" more, and more\", even more", ',' }, new[] { "text", "\" more, and more\"", " even more" })]
-        public static List<string> SplitWithQuotes(this string Line, char SplitBy)
+        public static List<string> SplitWithQuotes([CanBeNull]this string Line, char SplitBy)
             {
             Line = Line ?? "";
 
@@ -1378,7 +1379,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "aaaa", 4u, 4u }, "")]
         [TestResult(new object[] { "aaaa", 3u, 3u }, "a")]
         [TestResult(new object[] { "123456789123456789", 5u, 8u }, "67891234")]
-        public static string Sub(this string In, uint Start, uint? Length = null)
+        public static string Sub([CanBeNull]this string In, uint Start, uint? Length = null)
             {
             In = In ?? "";
 
@@ -1433,7 +1434,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "elephant", "infant" }, (double)((double)1 / (double)3))]
         [TestResult(new object[] { "holographic", "monographic" }, (double)0.7)]
         // ReSharper restore RedundantCast
-        public static double Symmetry(this string In, string Compare)
+        public static double Symmetry([CanBeNull]this string In, [CanBeNull]string Compare)
             {
             In = In ?? "";
             Compare = Compare ?? "";
@@ -1519,7 +1520,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "ablah", 2 }, "ablahablah")]
         [TestResult(new object[] { "ablah", 5 }, "ablahablahablahablahablah")]
         // ReSharper restore StringLiteralTypo
-        public static string Times(this string In, int Count)
+        public static string Times([CanBeNull]this string In, int Count)
             {
             if (Count < 0)
                 throw new ArgumentException("Count was less than 0.");
@@ -1615,7 +1616,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "  BlahBlah  " }, "blahblah")]
         [TestResult(new object[] { "  Blah Blah  " }, "blah-blah")]
         [TestResult(new object[] { "  BLAH_BLAH  " }, "blah-blah")]
-        public static string ToUrlSlug(this string In)
+        public static string ToUrlSlug([CanBeNull]this string In)
             {
             string Out = (In ?? "").ToLower();
             Out = Out.ReplaceAll("_", "-");
@@ -1642,7 +1643,7 @@ namespace LCore.Extensions
         // ReSharper disable StringLiteralTypo
         [TestResult(new object[] { "aabbbbbbbaaaaaaaa", "a" }, "bbbbbbb")]
         // ReSharper restore StringLiteralTypo
-        public static string Trim(this string In, string TrimStr)
+        public static string Trim([CanBeNull]this string In, [CanBeNull]string TrimStr)
             {
             if (string.IsNullOrEmpty(In) || string.IsNullOrEmpty(TrimStr))
                 return In ?? "";
@@ -1665,7 +1666,7 @@ namespace LCore.Extensions
         // ReSharper disable StringLiteralTypo
         [TestResult(new object[] { "aabbbbbbbaaaaaaaa", "a" }, "aabbbbbbb")]
         // ReSharper restore StringLiteralTypo
-        public static string TrimEnd(this string In, string TrimStr)
+        public static string TrimEnd([CanBeNull]this string In, [CanBeNull]string TrimStr)
             {
             if (string.IsNullOrEmpty(In) || string.IsNullOrEmpty(TrimStr))
                 return In ?? "";
@@ -1695,7 +1696,7 @@ namespace LCore.Extensions
         // ReSharper disable StringLiteralTypo
         [TestResult(new object[] { "aabbbbbbbaaaaaaaa", "a" }, "bbbbbbbaaaaaaaa")]
         // ReSharper restore StringLiteralTypo
-        public static string TrimStart(this string In, string TrimStr)
+        public static string TrimStart([CanBeNull]this string In, [CanBeNull]string TrimStr)
             {
             if (string.IsNullOrEmpty(In) || string.IsNullOrEmpty(TrimStr))
                 return In ?? "";
@@ -1739,7 +1740,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abc" }, "abc")]
         [TestResult(new object[] { "<abc>" }, "&lt;abc&gt;")]
         [TestResult(new object[] { "<abc></abc>" }, "&lt;abc&gt;&lt;/abc&gt;")]
-        public static string XmlClean(this string In)
+        public static string XmlClean([CanBeNull]this string In)
             {
             return (In ?? "").ReplaceAll("<", "&lt;").ReplaceAll(">", "&gt;");
             }
@@ -1964,7 +1965,7 @@ namespace LCore.Extensions
             /// <paramref name="Count" /> is used as the number of things you're referring to. 
             /// If you pass 1 (or -1), pluralization will not be applied
             /// </summary>
-            public static string Pluralize(string Str, int Count)
+            public static string Pluralize([CanBeNull]string Str, int Count)
                 {
                 if (Str.IsEmpty())
                     return "";

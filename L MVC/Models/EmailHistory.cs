@@ -10,6 +10,7 @@ using LCore.Extensions;
 using LMVC.Context;
 using System.Net.Mail;
 using System.IO;
+using JetBrains.Annotations;
 using LMVC.Annotations;
 using LMVC.Extensions;
 
@@ -103,7 +104,7 @@ namespace LMVC.Models
                 // Inject the project's user type so the context matches
                 ModelContextType = ModelContextType.MakeGenericType(ModelUserType);
 
-                var EmailUser = (IModel)DbContext.GetDBSet(ModelUserType).Find(Email.UserID);
+                var EmailUser = (IModel)DbContext.GetDBSet(ModelUserType)?.Find(Email.UserID);
 
                 var EmailContext = (IModel)ModelContextType.New(new object[] { Email, EmailUser });
 
@@ -152,6 +153,7 @@ namespace LMVC.Models
                 History => History.Sent == null);
             }
 
+        [CanBeNull]
         public static EmailHistory FindEmail(ModelContext DbContext, EmailHistory Email, bool? Sent = null)
             {
             return DbContext.GetDBSet<EmailHistory>()

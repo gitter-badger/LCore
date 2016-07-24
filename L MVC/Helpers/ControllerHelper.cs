@@ -66,7 +66,7 @@ namespace LMVC.Controllers
                         return;
                         }
 
-                    ErrorsTable.Add(Error);
+                    ErrorsTable?.Add(Error);
 
                     DbContext.SaveChanges();
                     }

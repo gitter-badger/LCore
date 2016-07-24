@@ -117,7 +117,7 @@
 
     @if (!SearchEmpty &&
                 ViewContext.AllowCreate(typeof(SavedSearch)) &&
-                ViewContext.GetManageController().ViewSavedSearches)
+                ViewContext.GetManageController()?.ViewSavedSearches == true)
         {
         <a href="@(Url.Controller<SavedSearchController>()
                     .QS(Controllers.SavedSearch.Actions.Route_CreateSavedSearch(Model, ViewContext))
@@ -129,7 +129,7 @@
         }
 
     @if (SavedSearches.Count > 0 &&
-                ViewContext.GetManageController().ViewSavedSearches)
+                ViewContext.GetManageController()?.ViewSavedSearches == true)
         {
         <div class="manage-saved-searches">
             <h2>Searches</h2>

@@ -13,7 +13,8 @@
     var ViewType = ViewBag.Create == true ? ControllerHelper.ViewType.Create : ControllerHelper.ViewType.Edit;
 
     var Groups = Model as IFieldGroups;
-    IEnumerable<ModelMetadata> Fields = Groups != null ? Groups.GetFieldGroup(Context, ViewType) : FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ViewType);
+    IEnumerable<ModelMetadata> Fields = Groups?.GetFieldGroup(Context, ViewType)
+        ?? FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ViewType);
 }
 
 @model IModel
@@ -45,10 +46,10 @@
     </h2>
 
     @using (Html.BeginForm(ViewBag.Create ?
-                                            nameof(ManageController.Create) :
-                                            nameof(ManageController.Edit),
-                                        (string)ViewBag.ControllerName,
-                                        (object)ViewBag.Route_Edit, FormMethod.Post, new { @class = "edit-form" }))
+                                                    nameof(ManageController.Create) :
+                                                    nameof(ManageController.Edit),
+                                                (string)ViewBag.ControllerName,
+                                                (object)ViewBag.Route_Edit, FormMethod.Post, new { @class = "edit-form" }))
         {
 
         bool RequiredFields = false;
@@ -133,7 +134,7 @@
 
                         if (ViewBag.Create &&
                             ViewBag.AllowAdminRandomize &&
-                            ContextProviderFactory.GetCurrent().CurrentUser(Session).IsAdmin)
+                            ContextProviderFactory.GetCurrent().CurrentUser(Session)?.IsAdmin == true)
                             {
                             <div id="randomize-fields" class="btn btn-default left"
                                  key-bind-click="Ctrl+R"

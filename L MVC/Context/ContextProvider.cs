@@ -22,10 +22,12 @@ namespace LMVC.Context
 
         public abstract ManageController[] AllManageControllers(HttpSessionStateBase Session);
 
+        [CanBeNull]
         public abstract IMenuController[] AllMenuControllers(HttpSessionStateBase Session);
 
         public abstract ModelContext GetContext(HttpSessionStateBase Session);
 
+        [CanBeNull]
         public abstract Type[] GetContextTypes(HttpSessionStateBase Session);
 
         [CanBeNull]
@@ -36,8 +38,10 @@ namespace LMVC.Context
 
         public abstract AccountRole GetAnonymousRole();
 
+        [CanBeNull]
         public abstract string GetFileUploadRootPath(HttpSessionStateBase Session, HttpPostedFileBase File, string RelationType, string RelationProperty, int RelationID);
 
+        [CanBeNull]
         public abstract string GetFileUploadFilePath(HttpSessionStateBase Session, HttpPostedFileBase File, string RelationType, string RelationProperty, int RelationID);
 
         public abstract CloudBlobDirectory GetFileUploadCloudContainer();
@@ -46,20 +50,24 @@ namespace LMVC.Context
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+        [CanBeNull]
         public ManageController GetManageController(HttpSessionStateBase Session, string ControllerName)
             {
             return this.AllManageControllers(Session).FirstOrDefault(Controller => Controller.GetType().FullName == ControllerName);
             }
+        [CanBeNull]
         public ManageController GetManageController(HttpSessionStateBase Session, Type ModelType)
             {
             return this.AllManageControllers(Session).FirstOrDefault(Controller => Controller.ModelType == ModelType);
             }
 
+        [CanBeNull]
         public ModelPermissions GetModelPermissions(HttpSessionStateBase Session, Type RequestedType)
             {
             return this.GetModelPermissions(this.CurrentRole(Session), RequestedType);
             }
 
+        [CanBeNull]
         private ModelPermissions GetModelPermissions(IModel ProfileRole, Type RequestedType)
             {
             var RoleType = ProfileRole.GetType();
@@ -86,17 +94,20 @@ namespace LMVC.Context
             throw new Exception($"Could not find permissions for {RequestedType.Name}");
             }
 
+        [CanBeNull]
         public DbSet GetDBSet(HttpSessionStateBase Session, Type Type)
             {
             return this.GetContext(Session).GetDBSet(Type);
             }
 
+        [CanBeNull]
         public DbSet<T> GetDBSet<T>(HttpSessionStateBase Session)
             where T : class, new()
             {
             return this.GetContext(Session).GetDBSet<T>();
             }
 
+        [CanBeNull]
         public virtual string GetVersionNumber()
             {
             return "1.0";

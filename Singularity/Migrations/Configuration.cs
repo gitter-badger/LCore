@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using LMVC.Context;
 
 namespace Singularity.Migrations
@@ -12,7 +13,7 @@ namespace Singularity.Migrations
             this.AutomaticMigrationsEnabled = true;
             }
 
-        protected override void Seed(SingularityContext Context)
+        protected override void Seed([NotNull] SingularityContext Context)
             {
             //  This method will be called after migrating to the latest version.
 
