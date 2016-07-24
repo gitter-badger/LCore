@@ -853,6 +853,8 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable<int>)null).HasAny(5).Should().BeFalse();
             }
 
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         [Fact]
         public void Test_Has_Func()
             {
@@ -874,6 +876,9 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable)Test).Has((Func<object, bool>)null).Should().BeFalse();
             ((IEnumerable)null).Has((Func<object, bool>)null).Should().BeFalse();
             ((IEnumerable<int>)null).Has((Func<object, bool>)null).Should().BeFalse();
+
+
+            L.A(() => Test.Has<int>(i => { throw new Exception(); })).ShouldFail();
             }
 
         [Fact]
@@ -898,6 +903,30 @@ namespace L_Tests.Tests.Extensions
 
             ((int[])null).HasIndex(0).Should().BeFalse();
             ((IEnumerable)null).HasIndex(0).Should().BeFalse();
+            }
+
+
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
+        [Fact]
+        public void Test_Index()
+            {
+            var Test = new int[]
+                {
+                5, 322, 466, 3, 5549, 456, 1, 23, 1, 2, 77, 9, 756475, 4, 123, 655, 8996, 45, 8, 7412, 21, 5, 3, 65, 4,
+                12, 54, 78, 9, 8, 56, 66, 5, 4, 88
+                };
+
+            Dictionary<string, int> Result = Test.Index(i => i.ToString().Sub(0, 2));
+
+            Result.Keys.Should().Equal("5", "32", "46", "3", "55", "45", "1", "23", "2", "77", "9", "75", "4", "12", "65", "89", "8", "74", "21", "54", "78", "56", "66", "88");
+
+            Result.Values.TotalCount().Should().Be(24);
+
+            ((int[])null).Index<int>(null).Should().BeEmpty();
+            ((IEnumerable)null).Index<object>(null).Should().BeEmpty();
+
+            L.A(() => Test.Index<int>(i => { throw new Exception(); })).ShouldFail();
             }
 
         #region Internal

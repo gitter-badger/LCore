@@ -1807,16 +1807,18 @@ namespace LCore.Extensions
         #region Index
         /// <summary>
         /// Converts an IEnumerable to a Dictionary, using an indexer.
-        /// Keys map to values 1 to 1, duplicate key values will be ignored. 
+        /// Keys map to values 1-to-1, duplicate key values will be ignored. 
         /// </summary>
+        [Tested]
         public static Dictionary<U, object> Index<U>(this IEnumerable In, Func<object, U> Indexer)
             {
             return In.List().Index(Indexer);
             }
         /// <summary>
         /// Converts an IEnumerable to a Dictionary, using an indexer.
-        /// Keys map to values 1 to 1, duplicate key values will be ignored. 
+        /// Keys map to values 1-to-1, duplicate key values will be ignored. 
         /// </summary>
+        [Tested]
         public static Dictionary<U, T> Index<T, U>(this IEnumerable<T> In, Func<T, U> Indexer)
             {
             var Out = new Dictionary<U, T>();
