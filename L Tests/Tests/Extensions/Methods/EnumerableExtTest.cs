@@ -979,10 +979,30 @@ namespace L_Tests.Tests.Extensions
             Test.IndexOf(i => i == 88).Should().Be(34);
             Test.IndexOf(i => i == 88888).Should().Be(null);
 
+            ((IEnumerable)Test).IndexOf<int>(i => i == 23).Should().Be(7);
+            ((IEnumerable)Test).IndexOf<int>(i => i == 88).Should().Be(34);
+            ((IEnumerable)Test).IndexOf<int>(i => i == 88888).Should().Be(null);
+
+
             ((int[])null).IndexOf<int>((Func<int, bool>)null).Should().Be(null);
             ((IEnumerable<int>)null).IndexOf<int>((Func<int, bool>)null).Should().Be(null);
 
             L.A(() => Test.IndexOf<int>(i => { throw new Exception(); })).ShouldFail();
+            }
+
+
+        [Fact]
+        public void Test_IsEmpty()
+            {
+            ((IEnumerable)"").IsEmpty().Should().BeTrue();
+            ((IEnumerable)"a").IsEmpty().Should().BeFalse();
+            ((IEnumerable)"   a   ").IsEmpty().Should().BeFalse();
+            ((IEnumerable)"       ").IsEmpty().Should().BeFalse();
+            new int[] { }.IsEmpty().Should().BeTrue();
+            new int[] { 5 }.IsEmpty().Should().BeFalse();
+
+            ((string)null).IsEmpty().Should().BeTrue();
+            ((int[])null).IsEmpty().Should().BeTrue();
             }
 
         #region Internal
