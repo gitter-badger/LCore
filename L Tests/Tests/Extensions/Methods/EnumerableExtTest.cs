@@ -760,7 +760,31 @@ namespace L_Tests.Tests.Extensions
             }
 
 
+        [Fact]
+        public void Test_GroupTwice()
+            {
+            int[] Test =
+                {
+                5, 32, 46, 43, 13, 26531, 15315, 35, 72, 14, 94, 2, 589, 36, 8875, 245, 235, 886, 2226, 9542,
+                4364643, 445, 44, 553, 663, 223
+                };
 
+            Dictionary<string, Dictionary<string, List<int>>> Result = Test.GroupTwice(
+                i => i < 1000 ? "Small Numbers" : "Large Numbers",
+                i => $"{i.ToString().Sub(0, 1)}");
+
+            Result.Keys.List().Should().Equal("Small Numbers", "Large Numbers");
+
+
+            Result["Small Numbers"].Keys.List().Should().Equal("5", "3", "4", "1", "7", "9", "2", "8", "6");
+            Result["Large Numbers"].Keys.List().Should().Equal("2", "1", "8", "9", "4");
+
+            Result["Small Numbers"].Values.Flatten<int>().Count.Should().Be(20);
+            Result["Large Numbers"].Values.Flatten<int>().Count.Should().Be(6);
+
+            ((int[])null).GroupTwice((Func<int, string>)null, (Func<int, string>)null).Should().BeEmpty();
+            new int[] { }.GroupTwice((Func<int, string>)null, (Func<int, string>)null).Should().BeEmpty();
+            }
 
         #region Internal
 
