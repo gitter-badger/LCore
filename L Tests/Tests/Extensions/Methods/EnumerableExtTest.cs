@@ -687,6 +687,8 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable<int>)Test).GetAtIndices<string>(5, 7, 9).Should().Equal();
             }
 
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         [Fact]
         public void Test_Group()
             {
@@ -721,6 +723,9 @@ namespace L_Tests.Tests.Extensions
 
             ((int[])null).Group((Func<int, string>)null).Should().BeEmpty();
             new int[] { }.Group((Func<int, string>)null).Should().BeEmpty();
+
+
+            L.A(() => Test.Group<int, int>(i => { throw new Exception(); })).ShouldFail();
             }
 
         [Fact]
@@ -760,6 +765,8 @@ namespace L_Tests.Tests.Extensions
             }
 
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
         public void Test_GroupTwice()
             {
@@ -784,6 +791,9 @@ namespace L_Tests.Tests.Extensions
 
             ((int[])null).GroupTwice((Func<int, string>)null, (Func<int, string>)null).Should().BeEmpty();
             new int[] { }.GroupTwice((Func<int, string>)null, (Func<int, string>)null).Should().BeEmpty();
+
+            L.A(() => Test.GroupTwice<int, int, int>(i => i, i => { throw new Exception(); })).ShouldFail();
+            L.A(() => Test.GroupTwice<int, int, int>(i => { throw new Exception(); }, i => i)).ShouldFail();
             }
 
         [Fact]
@@ -841,6 +851,53 @@ namespace L_Tests.Tests.Extensions
 
             ((IEnumerable)null).HasAny(5).Should().BeFalse();
             ((IEnumerable<int>)null).HasAny(5).Should().BeFalse();
+            }
+
+        [Fact]
+        public void Test_Has_Func()
+            {
+            var Test = new object[]
+                {
+                "a", 1, 2, 3, 4, 5, null
+                };
+
+
+            Test.Has(o => o is int && (int)o == 1).Should().BeTrue();
+            Test.Has(o => o is string && (string)o == "a").Should().BeTrue();
+            Test.Has(o => o is string && (string)o == "b").Should().BeFalse();
+
+            ((IEnumerable)Test).Has<object>(o => o is int && (int)o == 1).Should().BeTrue();
+            ((IEnumerable)Test).Has<object>(o => o is string && (string)o == "a").Should().BeTrue();
+            ((IEnumerable)Test).Has<object>(o => o is string && (string)o == "b").Should().BeFalse();
+
+            Test.Has((Func<object, bool>)null).Should().BeFalse();
+            ((IEnumerable)Test).Has((Func<object, bool>)null).Should().BeFalse();
+            ((IEnumerable)null).Has((Func<object, bool>)null).Should().BeFalse();
+            ((IEnumerable<int>)null).Has((Func<object, bool>)null).Should().BeFalse();
+            }
+
+        [Fact]
+        public void Test_HasIndex()
+            {
+            var Test = new object[]
+                {
+                "a", 1, 2, 3, 4, 5, null
+                };
+
+
+            Test.HasIndex(-1).Should().BeFalse();
+            Test.HasIndex(0).Should().BeTrue();
+            Test.HasIndex(1).Should().BeTrue();
+            Test.HasIndex(6).Should().BeTrue();
+            Test.HasIndex(7).Should().BeFalse();
+
+            Test.HasIndex(0u).Should().BeTrue();
+            Test.HasIndex(1u).Should().BeTrue();
+            Test.HasIndex(6u).Should().BeTrue();
+            Test.HasIndex(7u).Should().BeFalse();
+
+            ((int[])null).HasIndex(0).Should().BeFalse();
+            ((IEnumerable)null).HasIndex(0).Should().BeFalse();
             }
 
         #region Internal

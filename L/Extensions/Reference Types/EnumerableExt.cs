@@ -1712,7 +1712,7 @@ namespace LCore.Extensions
         [Tested]
         public static bool HasAny(this IEnumerable In, IEnumerable Obj)
             {
-            return Obj.Has(In.Has);
+            return Obj.Has<object>(In.Has);
             }
         /// <summary>
         /// Returns whether or not the source T <paramref name="In" /> contains any of the elements from <paramref name="Obj" />
@@ -1745,20 +1745,18 @@ namespace LCore.Extensions
         /// Returns whether the collection contains an object that receives a true value from the condition when passed to it.
         /// Execution will stop immediately if a true value is found.
         /// </summary>
+        [Tested]
         public static bool Has<T>(this IEnumerable In, Func<T, bool> Condition)
             {
-            return In.List<T>(true).Has(Condition);
-            }
-        /// <summary>
-        /// Returns whether the collection contains an object that receives a true value from the condition when passed to it.
-        /// Execution will stop immediately if a true value is found.
-        /// </summary>
-        public static bool Has(this IEnumerable In, Func<object, bool> Condition)
-            {
+            if (Condition == null)
+                return false;
+
             bool Found = false;
             In.While(o =>
             {
-                Found = Found || Condition(o);
+                if (o is T ||
+                ((typeof(T).IsNullable() || typeof(T).IsClass) && o.IsNull()))
+                    Found = Found || Condition((T)o);
                 return !Found;
             });
             return Found;
@@ -1767,8 +1765,12 @@ namespace LCore.Extensions
         /// Returns whether the collection contains an object that receives a true value from the condition when passed to it.
         /// Execution will stop immediately if a true value is found.
         /// </summary>
+        [Tested]
         public static bool Has<T>(this IEnumerable<T> In, Func<T, bool> Condition)
             {
+            if (Condition == null)
+                return false;
+
             bool Found = false;
             In.While(o =>
             {
@@ -1783,11 +1785,22 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns whether or not a given IEnumerable has an <paramref name="Index" />.
         /// </summary>
+        [Tested]
         public static bool HasIndex(this IEnumerable In, int Index)
+            {
+            return Index >= 0 &&
+                In.HasIndex((uint)Index);
+            }
+
+        /// <summary>
+        /// Returns whether or not a given IEnumerable has an <paramref name="Index" />.
+        /// </summary>
+        [Tested]
+        public static bool HasIndex(this IEnumerable In, uint Index)
             {
             uint Count = In.Count();
 
-            return Index >= 0 && Index < Count;
+            return Index < Count;
             }
         #endregion
 
