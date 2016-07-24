@@ -247,24 +247,19 @@ namespace LCore.Tools
 
             if (this.Key == null)
                 {
-                try
-                    {
-                    var Control = RootKey.GetAccessControl();
-                    Control.AddAccessRule(new System.Security.AccessControl.RegistryAccessRule("Everyone",
-                        System.Security.AccessControl.RegistryRights.FullControl,
-                        System.Security.AccessControl.AccessControlType.Allow));
+                var Control = RootKey.GetAccessControl();
+                Control.AddAccessRule(new System.Security.AccessControl.RegistryAccessRule("Everyone",
+                    System.Security.AccessControl.RegistryRights.FullControl,
+                    System.Security.AccessControl.AccessControlType.Allow));
 
-                    RootKey.SetAccessControl(Control);
-                    RootKey.Flush();
+                RootKey.SetAccessControl(Control);
+                RootKey.Flush();
 
-                    RootKey.CreateSubKey(RegistrySubKey, RegistryKeyPermissionCheck.ReadWriteSubTree);
+                RootKey.CreateSubKey(RegistrySubKey, RegistryKeyPermissionCheck.ReadWriteSubTree);
 
-                    this.Key = RootKey.OpenSubKey(RegistrySubKey, true);
-                    }
-                catch
-                    {
-                    throw;
-                    }
+                this.Key = RootKey.OpenSubKey(RegistrySubKey, true);
+
+
                 return;
                 }
 
