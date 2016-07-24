@@ -222,7 +222,7 @@ namespace L_Tests.Tests.Extensions
 
 
             ((IEnumerable<object>)List).ConvertAll<object, string>(Converter).Should().Equal(
-                new List<string> { "123", "123", "abc", "abc", "5.5", "5.5", null, null, "a", "a" });
+                new List<string> { "123", "123", "abc", "abc", "5.5", "5.5", "a", "a" });
 
             ((IEnumerable<object>)null).ConvertAll<object, string>(Converter).Should().Equal(
                 new List<string>());
@@ -236,22 +236,22 @@ namespace L_Tests.Tests.Extensions
 
             Func<object, IEnumerable<object>> Converter = o => new object[] { o?.ToString(), o?.ToString() };
 
-            ((IEnumerable)List).ConvertAll(Converter).Should().Equal("123", "123", "abc", "abc", "5.5", "5.5", null, null, "a", "a");
+            ((IEnumerable)List).ConvertAll(Converter).Should().Equal("123", "123", "abc", "abc", "5.5", "5.5", "a", "a");
 
             ((IEnumerable)null).ConvertAll(Converter).Should().Equal();
 
 
-            ((IEnumerable<object>)List).ConvertAll(Converter).Should().Equal("123", "123", "abc", "abc", "5.5", "5.5", null, null, "a", "a");
+            ((IEnumerable<object>)List).ConvertAll(Converter).Should().Equal("123", "123", "abc", "abc", "5.5", "5.5", "a", "a");
 
             ((IEnumerable<object>)null).ConvertAll(Converter).Should().Equal();
 
 
-            ((object[])List).ConvertAll(Converter).Should().Equal("123", "123", "abc", "abc", "5.5", "5.5", null, null, "a", "a");
+            ((object[])List).ConvertAll(Converter).Should().Equal("123", "123", "abc", "abc", "5.5", "5.5", "a", "a");
 
             ((object[])null).ConvertAll(Converter).Should().Equal();
 
 
-            List.List().ConvertAll(Converter).Should().Equal("123", "123", "abc", "abc", "5.5", "5.5", null, null, "a", "a");
+            List.List().ConvertAll(Converter).Should().Equal("123", "123", "abc", "abc", "5.5", "5.5", "a", "a");
 
             ((List<object>)null).ConvertAll(Converter).Should().Equal();
             }
@@ -785,6 +785,24 @@ namespace L_Tests.Tests.Extensions
             ((int[])null).GroupTwice((Func<int, string>)null, (Func<int, string>)null).Should().BeEmpty();
             new int[] { }.GroupTwice((Func<int, string>)null, (Func<int, string>)null).Should().BeEmpty();
             }
+
+        [Fact]
+        public void Test_Has()
+            {
+            var Test = new object[]
+                {
+                "a", 1, 2, 3, 4, 5, null
+                };
+
+            Test.Has("a").Should().BeTrue();
+            Test.Has(1).Should().BeTrue();
+            Test.Has(1f).Should().BeFalse();
+            Test.Has((object)null).Should().BeTrue();
+
+            ((IEnumerable)null).Has(5).Should().BeFalse();
+            ((IEnumerable<int>)null).Has(5).Should().BeFalse();
+            }
+
 
         #region Internal
 

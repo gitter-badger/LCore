@@ -346,7 +346,7 @@ namespace LCore.Extensions
         public static T[] Collect<T>(this T[] In, Func<T, T> Func)
             {
             Func = Func ?? (o => default(T));
-            return In.List().Collect(Func).ToArray();
+            return In.List(true).Collect(Func).ToArray();
             }
         /// <summary>
         /// Iterates through a collection, executing the Func`<typeparamref name="T" />,<typeparamref name="T" /> on the input.
@@ -749,7 +749,7 @@ namespace LCore.Extensions
                 if (Result != null)
                     Out.AddRange(Result);
                 }
-            return Out;
+            return Out.List();
             }
         /// <summary>
         /// Iterates over <paramref name="In" />, passing each item to <paramref name="Func" />.
@@ -769,7 +769,7 @@ namespace LCore.Extensions
                 if (Result != null)
                     Out.AddRange(Result);
                 }
-            return Out;
+            return Out.List();
             }
         /// <summary>
         /// Iterates over <paramref name="In" />, passing each item to <paramref name="Func" />.
@@ -789,7 +789,7 @@ namespace LCore.Extensions
                 if (Result != null)
                     Out.AddRange(Result);
                 }
-            return Out;
+            return Out.List();
             }
         /// <summary>
         /// Iterates over <paramref name="In" />, passing each item to <paramref name="Func" />.
@@ -819,7 +819,7 @@ namespace LCore.Extensions
                 if (Result != null)
                     Out.AddRange(Result);
                 }
-            return Out;
+            return Out.List();
             }
         #endregion
 
@@ -1247,12 +1247,13 @@ namespace LCore.Extensions
         /// Values that are null or are not of type T are not included.
         /// </summary>
         [Tested]
-        public static List<T> Filter<T>(this IEnumerable In)
+        public static List<T> Filter<T>(this IEnumerable In, bool IncludeNulls = false)
             {
             var Out = new List<T>();
             In.Each(o =>
             {
-                if (o is T)
+                if (o is T ||
+                ((typeof(T).IsNullable() || typeof(T).IsClass) && IncludeNulls && o.IsNull()))
                     Out.Add((T)o);
             });
             return Out;
@@ -1262,12 +1263,13 @@ namespace LCore.Extensions
         /// Values that are null or are not of type U are not included.
         /// </summary>
         [Tested]
-        public static U[] Filter<T, U>(this T[] In)
+        public static U[] Filter<T, U>(this T[] In, bool IncludeNulls = false)
             {
             var Out = new List<U>();
             In.Each(o =>
             {
-                if (o is U)
+                if (o is U ||
+                ((typeof(T).IsNullable() || typeof(T).IsClass) && IncludeNulls && o.IsNull()))
                     Out.Add((U)o);
             });
             return Out.Array();
@@ -1277,12 +1279,13 @@ namespace LCore.Extensions
         /// Values that are null or are not of type U are not included.
         /// </summary>
         [Tested]
-        public static List<U> Filter<T, U>(this List<T> In)
+        public static List<U> Filter<T, U>(this List<T> In, bool IncludeNulls = false)
             {
             var Out = new List<U>();
             In.Each(o =>
             {
-                if (o is U)
+                if (o is U ||
+                ((typeof(T).IsNullable() || typeof(T).IsClass) && IncludeNulls && o.IsNull()))
                     Out.Add((U)o);
             });
             return Out;
@@ -1675,6 +1678,7 @@ namespace LCore.Extensions
         /// Groups items into a 2-level dictionary using 2 custom indexers. 
         /// The result of the indexers will be used as the Keys for each element.
         /// </summary>
+        [Tested]
         public static Dictionary<U, Dictionary<V, List<T>>> GroupTwice<T, U, V>(this IEnumerable<T> In,
             Func<T, U> Grouper1, Func<T, V> Grouper2)
             {
@@ -1689,30 +1693,15 @@ namespace LCore.Extensions
             }
         #endregion
 
-        #region Has
+        #region Has Object
         /// <summary>
         /// Returns whether the collection contains an object equivalent to Obj.
         /// Execution will stop immediately if an object is found.
         /// </summary>
+        [Tested]
         public static bool Has<T>(this IEnumerable In, T Obj)
             {
-            return In.Filter<T>().Has(Obj.FN_If());
-            }
-        /// <summary>
-        /// Returns whether the collection contains an object equivalent to Obj.
-        /// Execution will stop immediately if an object is found.
-        /// </summary>
-        public static bool Has(this IEnumerable In, object Obj)
-            {
-            return In.Has(Obj.FN_If());
-            }
-        /// <summary>
-        /// Returns whether the collection contains an object equivalent to Obj.
-        /// Execution will stop immediately if an object is found.
-        /// </summary>
-        public static bool Has<T>(this IEnumerable<T> In, T Obj)
-            {
-            return In.Has(Obj.FN_If());
+            return In.List<T>(true).Has(Obj.FN_If());
             }
         #endregion
 
@@ -1761,7 +1750,7 @@ namespace LCore.Extensions
         /// </summary>
         public static bool Has<T>(this IEnumerable In, Func<T, bool> Condition)
             {
-            return In.Filter<T>().Has(Condition);
+            return In.List<T>(true).Has(Condition);
             }
         /// <summary>
         /// Returns whether the collection contains an object that receives a true value from the condition when passed to it.
@@ -2139,28 +2128,33 @@ namespace LCore.Extensions
         /// Creates a new List<typeparamref name="T" /> from the supplied collection.
         /// This method cannot fail.
         /// </summary>
-        public static List<T> List<T>(this IEnumerable<T> In)
+        public static List<T> List<T>(this IEnumerable<T> In, bool IncludeNulls = false)
             {
             var Out = new List<T>();
+
             if (!In.IsEmpty())
                 Out.AddRange(In);
-            return Out;
+
+
+            return IncludeNulls
+                ? Out
+                : Out.Filter<T>();
             }
         /// <summary>
         /// Returns a new List<typeparamref name="T" /> from the supplied collection.
         /// Nulls and values that are not of type <typeparamref name="T" /> are not included.
         /// </summary>
-        public static List<T> List<T>(this IEnumerable In)
+        public static List<T> List<T>(this IEnumerable In, bool IncludeNulls = false)
             {
-            return In.Filter<T>();
+            return In.Filter<T>(IncludeNulls);
             }
         /// <summary>
         /// Returns a new List`<typeparamref name="U" /> from the supplied collection<typeparamref name="T" />.
         /// Nulls and values that are not of type U are not included.
         /// </summary>
-        public static List<U> List<T, U>(this IEnumerable<T> In)
+        public static List<U> List<T, U>(this IEnumerable<T> In, bool IncludeNulls = false)
             {
-            return In.Filter<U>();
+            return In.Filter<U>(IncludeNulls);
             }
         #endregion
 
