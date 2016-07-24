@@ -12,7 +12,6 @@ using LCore.Naming;
 using LCore.Tests;
 using LCore.Dynamic;
 using Xunit;
-using LCore.Extensions.Optional;
 using static LCore.Extensions.L.Test.Categories;
 // ReSharper disable UnusedParameter.Global
 // ReSharper disable UnassignedGetOnlyAutoProperty
@@ -591,7 +590,7 @@ namespace L_Tests.Tests.Extensions
             {
 
             typeof(TestClass).GetMembers().Convert(Member => Member.MemberType())
-                .ShouldBeEquivalentTo(new Type[] {
+                .ShouldBeEquivalentTo(new[] {
                     typeof(void),
                     typeof(void),
                     typeof(void),
@@ -728,10 +727,11 @@ namespace L_Tests.Tests.Extensions
 
             ((MemberInfo[])null).WithAttribute(typeof(NotMappedAttribute)).Should().Equal();
 
-            typeof(TestClass).GetMembers().WithAttribute(typeof(NotMappedAttribute)).Should().Equal(
-                L.Ref.Member<TestClass>(Test => Test.Test2),
-                L.Ref.Member<TestClass>(Test => Test.Test)
+            typeof(TestClass).GetMembers().WithAttribute(typeof(NotMappedAttribute)).ShouldBeEquivalentTo(new List<MemberInfo> {
+                L.Ref.Member<TestClass>(Test => Test.Test),
+                L.Ref.Member<TestClass>(Test => Test.Test2)}
                 );
+
             typeof(TestClass).GetMembers().WithAttribute(typeof(ITestAttribute)).Should().Equal(
                 L.Ref.Method<TestClass>(Test => Test.Test5(""))
                 );
@@ -744,7 +744,8 @@ namespace L_Tests.Tests.Extensions
             ((MemberInfo[])null).WithoutAttribute<NotMappedAttribute>().Should().Equal();
 
             typeof(TestClass).GetMembers().Select(Member => !(Member is MethodInfo && ((MethodInfo)Member).IsSpecialName))
-                .WithoutAttribute<NotMappedAttribute>().ShouldBeEquivalentTo(new List<MemberInfo>() {
+                .WithoutAttribute<NotMappedAttribute>().ShouldBeEquivalentTo(new List<MemberInfo>
+                    {
                 L.Ref.Method<TestClass>(Test => Test.Test4()),
                 L.Ref.Method<TestClass>(Test => Test.Test5("")),
                 L.Ref.Method<TestClass>(Test => Test.Test5("", "")),
@@ -767,7 +768,8 @@ namespace L_Tests.Tests.Extensions
                 L.Ref.Member<TestClass>(Test => Test.Test6)}
                 );
             typeof(TestClass).GetMembers().Select(Member => !(Member is MethodInfo && ((MethodInfo)Member).IsSpecialName))
-                .WithoutAttribute<ITestAttribute>().ShouldBeEquivalentTo(new List<MemberInfo>() {
+                .WithoutAttribute<ITestAttribute>().ShouldBeEquivalentTo(new List<MemberInfo>
+                    {
                     L.Ref.Method<TestClass>(Test => Test.Test4()),
                     L.Ref.Method<TestClass>(Test => Test.Test5("", "")),
                     L.Ref.Method<TestClass>(Test => Test.Test5("", "", "")),
@@ -795,7 +797,8 @@ namespace L_Tests.Tests.Extensions
             ((MemberInfo[])null).WithoutAttribute(typeof(NotMappedAttribute)).Should().Equal();
 
             typeof(TestClass).GetMembers().Select(Member => !(Member is MethodInfo && ((MethodInfo)Member).IsSpecialName))
-                .WithoutAttribute(typeof(NotMappedAttribute)).ShouldBeEquivalentTo(new List<MemberInfo>() {
+                .WithoutAttribute(typeof(NotMappedAttribute)).ShouldBeEquivalentTo(new List<MemberInfo>
+                    {
                     L.Ref.Method<TestClass>(Test => Test.Test4()),
                     L.Ref.Method<TestClass>(Test => Test.Test5("")),
                     L.Ref.Method<TestClass>(Test => Test.Test5("", "")),
@@ -818,7 +821,8 @@ namespace L_Tests.Tests.Extensions
                     L.Ref.Member<TestClass>(Test => Test.Test6)}
                     );
             typeof(TestClass).GetMembers().Select(Member => !(Member is MethodInfo && ((MethodInfo)Member).IsSpecialName))
-                .WithoutAttribute(typeof(ITestAttribute)).ShouldBeEquivalentTo(new List<MemberInfo>() {
+                .WithoutAttribute(typeof(ITestAttribute)).ShouldBeEquivalentTo(new List<MemberInfo>
+                    {
                     L.Ref.Method<TestClass>(Test => Test.Test4()),
                     L.Ref.Method<TestClass>(Test => Test.Test5("", "")),
                     L.Ref.Method<TestClass>(Test => Test.Test5("", "", "")),

@@ -20,14 +20,18 @@ namespace L_Tests.Tests.Extensions
         public void Test_Async()
             {
             bool Success = false;
-            var TestAction = new Action(() => { Success = true; });
+            var TestAction = new Action(() =>
+            {
+                Thread.Sleep(20);
+                Success = true;
+            });
 
             lock (TestAction)
                 {
                 TestAction.Async()();
                 Success.Should().BeFalse();
 
-                Thread.Sleep(20);
+                Thread.Sleep(40);
 
                 Success.Should().BeTrue();
                 }
@@ -40,10 +44,11 @@ namespace L_Tests.Tests.Extensions
             bool Success = false;
             var TestAction = new Action(() =>
             {
-                Thread.Sleep(40);
+                Thread.Sleep(30);
                 Success = true;
             });
 
+            Thread.Sleep(40);
             lock (TestAction)
                 {
                 TestAction.Async(20)();
@@ -74,7 +79,7 @@ namespace L_Tests.Tests.Extensions
                 TestAction.Async()("abc");
                 Success.Should().Be("");
 
-                Thread.Sleep(20);
+                Thread.Sleep(30);
 
                 Success.Should().Be("abc");
                 }
@@ -87,9 +92,11 @@ namespace L_Tests.Tests.Extensions
             string Result = "";
             var TestAction = new Action<string>(Str =>
             {
-                Thread.Sleep(40);
+                Thread.Sleep(30);
                 Result = Str;
             });
+
+            Thread.Sleep(40);
 
             lock (TestAction)
                 {

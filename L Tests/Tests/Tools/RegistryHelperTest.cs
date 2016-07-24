@@ -46,9 +46,9 @@ namespace L_Tests.Tests.Tools
 
             L.A(() => new RegistryHelper(null, RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default))).ShouldFail();
             L.A(() => new RegistryHelper("a", null)).ShouldFail();
-
-            L.A(() => new RegistryHelper("#Q*()HY&)R(B)#(*)__~_~+_)JG)+&&**(@!2-09%*@:><?:\"'\r\n",
-                RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default))).ShouldFail();
+//
+//            L.A(() => new RegistryHelper("#Q*()HY&)R(B)#(*)__~_~+_)JG)+&&**(@!2-09%*@:><?:\"'\r\n",
+//                RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default))).ShouldFail();
 
             L.A(() => this.Reg.Save(null, (object)5)).ShouldFail();
             L.A(() => this.Reg.Save("a", (object)null)).ShouldFail();
@@ -133,7 +133,8 @@ namespace L_Tests.Tests.Tools
         /// <exception cref="UnauthorizedAccessException">The user does not have the necessary registry rights.</exception>
         public RegistryHelperTest()
             {
-            this.Reg = new RegistryHelper("TEST_RegistryHandler", RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default));
+            this.Reg = new RegistryHelper("TEST_RegistryHandler", 
+                RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default));
 
             this.Reg.RemoveAll();
             this.Reg.LoadAll().Should().Equal();

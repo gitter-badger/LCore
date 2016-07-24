@@ -246,30 +246,31 @@ namespace LCore.Tools
             this.Key = RootKey.OpenSubKey(RegistrySubKey, RegistryKeyPermissionCheck.ReadWriteSubTree);
 
             if (this.Key == null)
+                {
+                try
+                    {
+                    var Control = RootKey.GetAccessControl();
+                    Control.AddAccessRule(new System.Security.AccessControl.RegistryAccessRule("Everyone",
+                        System.Security.AccessControl.RegistryRights.FullControl,
+                        System.Security.AccessControl.AccessControlType.Allow));
+
+                    RootKey.SetAccessControl(Control);
+                    RootKey.Flush();
+
+                    RootKey.CreateSubKey(RegistrySubKey, RegistryKeyPermissionCheck.ReadWriteSubTree);
+
+                    this.Key = RootKey.OpenSubKey(RegistrySubKey, true);
+                    }
+                catch
+                    {
+                    throw;
+                    }
+                return;
+                }
+
+            if (this.Key == null)
                 throw new InvalidOperationException($"Could not open registry key: {this.Key}");
 
-            /*
-                        if (this.Key == null)
-                            {
-                            try
-                                {
-                                var r = RootKey.GetAccessControl();
-                                r.AddAccessRule(new System.Security.AccessControl.RegistryAccessRule("Everyone",
-                                    System.Security.AccessControl.RegistryRights.FullControl,
-                                    System.Security.AccessControl.AccessControlType.Allow));
-                                RootKey.SetAccessControl(r);
-                                RootKey.Flush();
-
-                                RootKey.CreateSubKey(RegistrySubKey, RegistryKeyPermissionCheck.ReadWriteSubTree);
-
-                                this.Key = RootKey.OpenSubKey(RegistrySubKey, true);
-                                }
-                            catch (Exception e)
-                                {
-                                throw new RegistryException(e);
-                                }
-                            return;
-                            }*/
             }
         /*
                 internal class RegistryException : Exception
