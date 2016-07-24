@@ -1858,16 +1858,16 @@ namespace LCore.Extensions
         /// <summary>
         /// Iterates over <paramref name="In" /> and returns the index of the first true result from <paramref name="Func" />.
         /// </summary>
-        public static int IndexOf<T>(this IEnumerable In, Func<T, bool> Func)
+        public static int? IndexOf<T>(this IEnumerable In, Func<T, bool> Func)
             {
             return In.List<T>(true).IndexOf(Func);
             }
         /// <summary>
         /// Iterates over <paramref name="In" /> and returns the index of the first true result from <paramref name="Func" />.
         /// </summary>
-        public static int IndexOf<T>(this IEnumerable<T> In, Func<T, bool> Func)
+        public static int? IndexOf<T>(this IEnumerable<T> In, Func<T, bool> Func)
             {
-            int Out = -1;
+            int? Out = null;
 
             In.WhileI((i, o) =>
             {
