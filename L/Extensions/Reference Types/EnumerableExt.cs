@@ -1838,15 +1838,7 @@ namespace LCore.Extensions
         /// Indexes an IEnumerable into a two-level Dictionary.
         /// Using, two indexers, if keys are the same, duplicates will be ignored.
         /// </summary>
-        public static Dictionary<U, Dictionary<V, object>> IndexTwice<U, V>(this IEnumerable In, Func<object, U> Indexer1, Func<object, V> Indexer2)
-            {
-            return In.List().IndexTwice(Indexer1, Indexer2);
-            }
-
-        /// <summary>
-        /// Indexes an IEnumerable into a two-level Dictionary.
-        /// Using, two indexers, if keys are the same, duplicates will be ignored.
-        /// </summary>
+        [Tested]
         public static Dictionary<U, Dictionary<V, T>> IndexTwice<T, U, V>(this IEnumerable<T> In, Func<T, U> Indexer1,
             Func<T, V> Indexer2)
             {
@@ -1866,21 +1858,9 @@ namespace LCore.Extensions
         /// <summary>
         /// Iterates over <paramref name="In" /> and returns the index of the first true result from <paramref name="Func" />.
         /// </summary>
-        public static int IndexOf(this IEnumerable In, Func<object, bool> Func)
+        public static int IndexOf<T>(this IEnumerable In, Func<T, bool> Func)
             {
-            int Out = -1;
-
-            In.WhileI((i, o) =>
-            {
-                if (Func(o))
-                    {
-                    Out = i;
-                    return false;
-                    }
-                return true;
-            });
-
-            return Out;
+            return In.List<T>(true).IndexOf(Func);
             }
         /// <summary>
         /// Iterates over <paramref name="In" /> and returns the index of the first true result from <paramref name="Func" />.

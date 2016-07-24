@@ -929,6 +929,42 @@ namespace L_Tests.Tests.Extensions
             L.A(() => Test.Index<int>(i => { throw new Exception(); })).ShouldFail();
             }
 
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        /// <exception cref="InternalTestFailureException">The test fails</exception>
+        [Fact]
+        public void Test_IndexTwice()
+            {
+            var Test = new int[]
+                {
+                5, 322, 466, 3, 5549, 456, 1, 23, 1, 2, 77, 9, 756475, 4, 123, 655, 8996, 45, 8, 7412, 21, 5, 3, 65, 4,
+                12, 54, 78, 9, 8, 56, 66, 5, 4, 88
+                };
+
+            Dictionary<string, Dictionary<string, int>> Result = Test.IndexTwice(
+                i => i.ToString().Sub(0, 2),
+                i => i.ToString().Sub(2, 2));
+
+            Result.Keys.Should().Equal("5", "32", "46", "3", "55", "45", "1", "23", "2", "77", "9", "75", "4", "12", "65", "89", "8", "74", "21", "54", "78", "56", "66", "88");
+
+            Result.Values.TotalCount().Should().Be(27);
+
+            Result = ((IEnumerable<int>)Test).IndexTwice<int, string, string>(
+                i => i.ToString().Sub(0, 2),
+                i => i.ToString().Sub(2, 2));
+
+            Result.Keys.Should().Equal("5", "32", "46", "3", "55", "45", "1", "23", "2", "77", "9", "75", "4", "12", "65", "89", "8", "74", "21", "54", "78", "56", "66", "88");
+
+            Result.Values.TotalCount().Should().Be(27);
+
+
+
+            ((int[])null).IndexTwice<int, string, string>((Func<int, string>)null, (Func<int, string>)null).Should().BeEmpty();
+            ((IEnumerable<object>)null).IndexTwice<object, string, string>((Func<object, string>)null, (Func<object, string>)null).Should().BeEmpty();
+            
+            L.A(() => Test.Index<int>(i => { throw new Exception(); })).ShouldFail();
+            }
+
+
         #region Internal
 
         [ExcludeFromCodeCoverage]
