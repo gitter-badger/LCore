@@ -1390,7 +1390,9 @@ namespace LCore.Extensions
             IFormattable
             {
             Dictionary<Type, Number> Types = L.Num.NumberTypes;
+
             // TODO: Add support for Nullable types
+
             return (Types.Values.First(Type => Type.NumberType == Number.GetType())
                 ?? Types.Values.First(Type => Number.CanConvertTo(Type.NumberType)))?
                 .New(Number);

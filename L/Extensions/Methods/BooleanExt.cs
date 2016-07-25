@@ -201,18 +201,6 @@ namespace LCore.Extensions
             {
             return (o1, o2, o3, o4) => Condition(o1, o2, o3, o4) ? In() : default(T1);
             }
-        // TODO: Boolean: If Func 5
-        // TODO: Boolean: If Func 6
-        // TODO: Boolean: If Func 7
-        // TODO: Boolean: If Func 8
-        // TODO: Boolean: If Func 9
-        // TODO: Boolean: If Func 10
-        // TODO: Boolean: If Func 11
-        // TODO: Boolean: If Func 12
-        // TODO: Boolean: If Func 13
-        // TODO: Boolean: If Func 14
-        // TODO: Boolean: If Func 15
-        // TODO: Boolean: If Func 16
         #endregion
 
         #endregion
