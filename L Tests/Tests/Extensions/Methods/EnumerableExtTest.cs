@@ -1165,7 +1165,7 @@ namespace L_Tests.Tests.Extensions
             L.A(() => Test.Move(-1, 5)).ShouldFail();
             L.A(() => Test.Move(0, 9)).ShouldFail();
             }
-        
+
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
@@ -1190,8 +1190,75 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_Named()
             {
-            
+            var Test = new TestGroup[]
+                {
+                new TestGroup("a"),
+                new TestGroup("a"),
+                new TestGroup("a"),
+                new TestGroup("a"),
+                new TestGroup("a"),
+                new TestGroup("a"),
+                new TestGroup("b"),
+                new TestGroup("b"),
+                new TestGroup("b")
+                };
+
+
+            Test.Named("a").Length.Should().Be(6);
+            Test.Named("A").Length.Should().Be(0);
+            Test.Named("b").Length.Should().Be(3);
+            Test.Named("").Length.Should().Be(0);
+            Test.Named(null).Length.Should().Be(0);
+
+            List<TestGroup> Test2 = Test.List();
+
+            Test2.Named("a").Count().Should().Be(6);
+            Test2.Named("A").Count().Should().Be(0);
+            Test2.Named("b").Count().Should().Be(3);
+            Test2.Named("").Count().Should().Be(0);
+            Test2.Named(null).Count().Should().Be(0);
+
+            ((IEnumerable)Test2).Named("a").Count.Should().Be(6);
+            ((IEnumerable)Test2).Named("A").Count.Should().Be(0);
+            ((IEnumerable)Test2).Named("b").Count.Should().Be(3);
+            ((IEnumerable)Test2).Named("").Count.Should().Be(0);
+            ((IEnumerable)Test2).Named(null).Count.Should().Be(0);
+
+            ((INamed[])null).Named("A").Count().Should().Be(0);
+            ((IEnumerable<INamed>)null).Named("A").Count().Should().Be(0);
+            ((IEnumerable<INamed>)null).Named("A").Count().Should().Be(0);
             }
+
+        [Fact]
+        public void Test_Named_Func()
+            {
+            var Test = new[] { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
+
+            var Namer = new Func<int, string>(i => i.ToString().Sub(0, 1));
+            var Namer2 = new Func<object, string>(i => i.ToString().Sub(0, 1));
+
+            Test.Named("a", null).Should().BeEmpty();
+            Test.Named("a", Namer).Should().BeEmpty();
+            Test.Named("1", Namer).Length.Should().Be(2);
+            Test.Named("8", Namer).Length.Should().Be(1);
+
+            List<int> Test2 = Test.List();
+
+            Test2.Named("a", null).Should().BeEmpty();
+            Test2.Named("a", Namer).Should().BeEmpty();
+            Test2.Named("1", Namer).Count.Should().Be(2);
+            Test2.Named("8", Namer).Count.Should().Be(1);
+
+            ((IEnumerable)Test2).Named("a", null).Should().BeEmpty();
+            ((IEnumerable)Test2).Named("a", Namer2).Should().BeEmpty();
+            ((IEnumerable)Test2).Named("1", Namer2).Count().Should().Be(2);
+            ((IEnumerable)Test2).Named("8", Namer2).Count().Should().Be(1);
+
+
+            ((IEnumerable)null).Named("a", Namer2).Should().BeEmpty();
+            ((IEnumerable<int>)null).Named("a", Namer).Should().BeEmpty();
+            }
+
 
         #region Internal
 

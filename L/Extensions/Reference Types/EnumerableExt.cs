@@ -544,7 +544,7 @@ namespace LCore.Extensions
             if (Count < 0)
                 throw new ArgumentOutOfRangeException(nameof(Count));
 
-            List<T> Out = NewList<List<T>, T>();
+            List<T> Out = L.List.NewList<List<T>, T>();
 
             if (Count == 0)
                 return Out;
@@ -564,7 +564,7 @@ namespace LCore.Extensions
             if (Count < 0)
                 throw new ArgumentOutOfRangeException(nameof(Count));
 
-            List<T> Out = NewList<List<T>, T>();
+            List<T> Out = L.List.NewList<List<T>, T>();
 
             if (Count == 0)
                 return Out;
@@ -856,7 +856,7 @@ namespace LCore.Extensions
         [DebuggerStepThrough]
         public static List<object> Convert([CanBeNull]this IEnumerable In, [CanBeNull]Func<int, object, object> Func)
             {
-            List<object> Out = NewList<List<object>, object>();
+            List<object> Out = L.List.NewList<List<object>, object>();
 
             if (Func == null)
                 return Out;
@@ -902,7 +902,7 @@ namespace LCore.Extensions
         [DebuggerStepThrough]
         public static List<U> Convert<T, U>([CanBeNull]this List<T> In, [CanBeNull]Func<int, T, U> Func)
             {
-            List<U> Out = NewList<List<U>, U>();
+            List<U> Out = L.List.NewList<List<U>, U>();
 
             if (Func == null)
                 return Out;
@@ -924,7 +924,7 @@ namespace LCore.Extensions
         [DebuggerStepThrough]
         public static List<U> Convert<T, U>([CanBeNull]this IEnumerable<T> In, [CanBeNull]Func<int, T, U> Func)
             {
-            List<U> Out = NewList<List<U>, U>();
+            List<U> Out = L.List.NewList<List<U>, U>();
 
             if (Func == null)
                 return Out;
@@ -1536,7 +1536,7 @@ namespace LCore.Extensions
         [Tested]
         public static List<T> Flatten<T>(this IEnumerable In)
             {
-            List<T> Out = NewList<List<T>, T>();
+            List<T> Out = L.List.NewList<List<T>, T>();
 
             In.Each(o =>
                 {
@@ -2236,6 +2236,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns all items within <paramref name="In" /> that have the given <paramref name="Name" />
         /// </summary>
+        [Tested]
         public static List<INamed> Named([CanBeNull]this IEnumerable In, [CanBeNull]string Name)
             {
             return In.List<INamed>().Select(o => o?.Name == Name);
@@ -2243,6 +2244,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns all items within <paramref name="In" /> that have the given <paramref name="Name" />
         /// </summary>
+        [Tested]
         public static T[] Named<T>([CanBeNull]this T[] In, [CanBeNull]string Name)
             where T : INamed
             {
@@ -2251,6 +2253,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns all items within <paramref name="In" /> that have the given <paramref name="Name" />
         /// </summary>
+        [Tested]
         public static IEnumerable<T> Named<T>([CanBeNull]this IEnumerable<T> In, [CanBeNull]string Name)
             where T : INamed
             {
@@ -2260,6 +2263,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns all items within <paramref name="In" /> that have the given <paramref name="Name" />
         /// </summary>
+        [Tested]
         public static List<object> Named([CanBeNull]this IEnumerable In, [CanBeNull]string Name, [CanBeNull]Func<object, string> Namer)
             {
             Namer = Namer ?? (o => null);
@@ -2269,6 +2273,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns all items within <paramref name="In" /> that have the given <paramref name="Name" />
         /// </summary>
+        [Tested]
         public static List<T> Named<T>([CanBeNull]this IEnumerable<T> In, [CanBeNull]string Name, [CanBeNull]Func<T, string> Namer)
             {
             Namer = Namer ?? (o => null);
@@ -2278,6 +2283,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns all items within <paramref name="In" /> that have the given <paramref name="Name" />
         /// </summary>
+        [Tested]
         public static T[] Named<T>([CanBeNull]this T[] In, [CanBeNull]string Name, [CanBeNull]Func<T, string> Namer)
             {
             Namer = Namer ?? (o => null);
@@ -2286,42 +2292,20 @@ namespace LCore.Extensions
             }
         #endregion
 
-        #region NewList
-        /// <summary>
-        /// Creates a new list of the specified type.
-        /// Types supported: U[], List`<typeparamref name="T" />, String
-        /// </summary>
-        public static T NewList<T, U>()
-            {
-            object Out;
-            if (typeof(T).IsArray)
-                {
-                Out = new U[] { };
-                }
-            else if (typeof(T).TypeEquals(typeof(List<U>)))
-                {
-                Out = new List<U>();
-                }
-            else if (typeof(T).TypeEquals(typeof(string)))
-                {
-                Out = "";
-                }
-            else
-                throw new Exception(typeof(T).FullName);
-
-            return (T)Out;
-            }
-        #endregion
-
         #region Random
         private static int _RandomSeed = new Random().Next();
         /// <summary>
-        /// Returns a single random <typeparamref name="T" /> from an IEnumerable`<typeparamref name="T" />.
+        /// Returns a new List`<typeparamref name="T" /> containing <paramref name="Count" /> random items from the collection.
+        /// If Count is higher than In.Count, an ArgumentException will be thrown.
+        /// This method will not include any single index more than once unless AllowDuplicates is set to true.
         /// </summary>
-        public static T RandomItem<T>(this IEnumerable<T> In)
+        public static List<T> Random<T>(this IEnumerable<T> In, int Count, bool AllowDuplicates = false)
             {
-            return In.Random(1)[0];
+            return Count < 0
+                ? new List<T>()
+                : In.Random((uint)Count, AllowDuplicates);
             }
+
         /// <summary>
         /// Returns a new List`<typeparamref name="T" /> containing <paramref name="Count" /> random items from the collection.
         /// If Count is higher than In.Count, an ArgumentException will be thrown.
@@ -2330,27 +2314,49 @@ namespace LCore.Extensions
         public static List<T> Random<T>(this IEnumerable<T> In, uint Count, bool AllowDuplicates = false)
             {
             uint Count2 = In.Count();
-            if (Count > Count2)
-                throw new ArgumentException("Count");
 
             var RandomIndexes = new List<int>();
 
             var Rand = new Random(_RandomSeed);
-            _RandomSeed = Rand.Next();
-            while (RandomIndexes.Count < Count)
+
+            if (AllowDuplicates)
                 {
-                int RandInt = Rand.Next((int)Count2);
-                if (!AllowDuplicates && !RandomIndexes.Contains(RandInt))
-                    RandomIndexes.Add(RandInt);
+                _RandomSeed = Rand.Next();
+
+                while (RandomIndexes.Count < Count)
+                    {
+                    int RandInt = Rand.Next((int)Count2);
+                    if (!RandomIndexes.Contains(RandInt))
+                        RandomIndexes.Add(RandInt);
+                    }
+
+                return RandomIndexes.Convert(In.GetAt).First(Count).List();
                 }
 
-            return RandomIndexes.Convert(In.GetAt);
+
+            uint[] Indices = 0u.To(Count2);
+            Indices.Shuffle();
+            T[] Items = In.Array();
+
+            return Items.Convert((i, Item) => In.GetAt(i)).First(Count).List();
             }
+
         /// <summary>
         /// Returns a new <typeparamref name="T[]" /> containing <paramref name="Count" /> random items from the source <typeparamref name="T[]" />
         /// If <paramref name="Count" /> is higher than In.Count, an ArgumentException will be thrown.
         /// </summary>
-        public static T[] Random<T>(this T[] In, uint Count)
+        public static T[] Random<T>(this T[] In, int Count, bool AllowDuplicates = false)
+            {
+            return Count < 0
+                ? new T[] { }
+                : In.Random((uint)Count, AllowDuplicates);
+            }
+
+        /// <summary>
+        /// Returns a new <typeparamref name="T[]" /> containing <paramref name="Count" /> random items from the source <typeparamref name="T[]" />
+        /// If <paramref name="Count" /> is higher than In.Count, an ArgumentException will be thrown.
+        /// </summary>
+        public static T[] Random<T>(this T[] In, uint Count, bool AllowDuplicates = false)
             {
             uint Count2 = In.Count();
             if (Count > Count2)
@@ -2370,6 +2376,7 @@ namespace LCore.Extensions
 
             return RandomIndexes.ToArray().Convert(i => In[i]);
             }
+
         /// <summary>
         /// Returns 1 random item from the collection.
         /// If the collection is empty, null is returned.
@@ -2386,6 +2393,16 @@ namespace LCore.Extensions
             int RandomIndex = Rand.Next((int)Count);
 
             return In.GetAt(RandomIndex);
+            }
+        #endregion
+
+        #region RandomItem
+        /// <summary>
+        /// Returns a single random <typeparamref name="T" /> from an IEnumerable`<typeparamref name="T" />.
+        /// </summary>
+        public static T RandomItem<T>(this IEnumerable<T> In)
+            {
+            return In.Random(1)[0];
             }
         #endregion
 
@@ -2563,7 +2580,7 @@ namespace LCore.Extensions
         /// </summary>
         public static T[] Select<T>(this T[] In, Func<T, bool> Func)
             {
-            T[] Out = NewList<T[], T>();
+            T[] Out = L.List.NewList<T[], T>();
 
             In.Each(Result =>
             {
@@ -2578,7 +2595,7 @@ namespace LCore.Extensions
         /// </summary>
         public static List<T> Select<T>(this List<T> In, Func<T, bool> Func)
             {
-            List<T> Out = NewList<List<T>, T>();
+            List<T> Out = L.List.NewList<List<T>, T>();
 
             In.Each(Result =>
             {
@@ -2593,7 +2610,7 @@ namespace LCore.Extensions
         /// </summary>
         public static List<T> Select<T>(this IEnumerable<T> In, Func<T, bool> Func)
             {
-            List<T> Out = NewList<List<T>, T>();
+            List<T> Out = L.List.NewList<List<T>, T>();
 
             In.Each(Result =>
             {
@@ -2610,7 +2627,7 @@ namespace LCore.Extensions
         /// </summary>
         public static List<T> Select<T>(this IEnumerable In, Func<T, bool> Func)
             {
-            List<T> Out = NewList<List<T>, T>();
+            List<T> Out = L.List.NewList<List<T>, T>();
 
             In.Each(Result =>
             {
@@ -2631,7 +2648,7 @@ namespace LCore.Extensions
         /// </summary>
         public static List<T> Select<T>(this IEnumerable In, Func<int, T, bool> Func)
             {
-            List<T> Out = NewList<List<T>, T>();
+            List<T> Out = L.List.NewList<List<T>, T>();
 
             In.Each((i, Result) =>
             {
@@ -2651,7 +2668,7 @@ namespace LCore.Extensions
         /// </summary>
         public static T[] Select<T>(this T[] In, Func<int, T, bool> Func)
             {
-            T[] Out = NewList<T[], T>();
+            T[] Out = L.List.NewList<T[], T>();
 
             In.Each((i, Result) =>
             {
@@ -2667,7 +2684,7 @@ namespace LCore.Extensions
         /// </summary>
         public static List<T> Select<T>(this List<T> In, Func<int, T, bool> Func)
             {
-            List<T> Out = NewList<List<T>, T>();
+            List<T> Out = L.List.NewList<List<T>, T>();
 
             In.Each((i, Result) =>
             {
@@ -2683,7 +2700,7 @@ namespace LCore.Extensions
         /// </summary>
         public static List<T> Select<T>(this IEnumerable<T> In, Func<int, T, bool> Func)
             {
-            List<T> Out = NewList<List<T>, T>();
+            List<T> Out = L.List.NewList<List<T>, T>();
 
             In.Each((i, Result) =>
             {
@@ -3157,6 +3174,33 @@ namespace LCore.Extensions
         /// </summary>
         public static class List
             {
+            #region NewList
+            /// <summary>
+            /// Creates a new list of the specified type.
+            /// Types supported: U[], List`<typeparamref name="U" />, String
+            /// </summary>
+            public static T NewList<T, U>()
+                {
+                object Out;
+                if (typeof(T).IsArray)
+                    {
+                    Out = new U[] { };
+                    }
+                else if (typeof(T).TypeEquals(typeof(List<U>)))
+                    {
+                    Out = new List<U>();
+                    }
+                else if (typeof(T).TypeEquals(typeof(string)))
+                    {
+                    Out = "";
+                    }
+                else
+                    throw new Exception(typeof(T).FullName);
+
+                return (T)Out;
+                }
+            #endregion
+
             #region List +
             /// <summary>
             /// 

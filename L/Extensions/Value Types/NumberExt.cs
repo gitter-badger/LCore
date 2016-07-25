@@ -8,6 +8,7 @@ using LCore.Numbers;
 using LCore.Tests;
 // ReSharper disable RedundantCast
 // ReSharper disable RedundantExplicitArrayCreation
+// ReSharper disable UnusedParameter.Global
 
 namespace LCore.Extensions
     {
@@ -53,6 +54,18 @@ namespace LCore.Extensions
             {
             return (uint)Math.Abs(In);
             }
+        /// <summary>
+        /// Returns the absolute value of <paramref name="In" />
+        /// </summary>
+        [TestResult(new object[] { uint.MinValue }, uint.MinValue)]
+        [TestResult(new object[] { uint.MaxValue }, uint.MaxValue)]
+        [TestResult(new object[] { 0u }, 0u)]
+        [TestResult(new object[] { 1u }, 1u)]
+        [TestResult(new object[] { 500u }, 500u)]
+        public static uint Abs(this uint In)
+            {
+            return In;
+            }
 
         /// <summary>
         /// Returns the absolute value of <paramref name="In" />
@@ -72,6 +85,19 @@ namespace LCore.Extensions
 
         /// <summary>
         /// Returns the absolute value of <paramref name="In" />
+        /// </summary>
+        [TestResult(new object[] { ulong.MinValue }, ulong.MinValue)]
+        [TestResult(new object[] { ulong.MaxValue }, ulong.MaxValue)]
+        [TestResult(new object[] { (ulong)0 }, (ulong)0)]
+        [TestResult(new object[] { (ulong)1 }, (ulong)1)]
+        [TestResult(new object[] { (ulong)500 }, (ulong)500)]
+        public static ulong Abs(this ulong In)
+            {
+            return In;
+            }
+
+        /// <summary>
+        /// Returns the absolute value of <paramref name="In" />
         /// </summary>99
         /// <exception cref="OverflowException"><paramref name="In" /> equals <see cref="F:System.Int16.MinValue" />. </exception>
         [TestResult(new object[] { short.MaxValue }, (ushort)short.MaxValue)]
@@ -83,6 +109,18 @@ namespace LCore.Extensions
         public static ushort Abs(this short In)
             {
             return (ushort)Math.Abs(In);
+            }
+
+        /// <summary>
+        /// Returns the absolute value of <paramref name="In" />
+        /// </summary>99
+        [TestResult(new object[] { ushort.MaxValue }, ushort.MaxValue)]
+        [TestResult(new object[] { (ushort)0 }, (ushort)0)]
+        [TestResult(new object[] { (ushort)1 }, (ushort)1)]
+        [TestResult(new object[] { (ushort)500 }, (ushort)500)]
+        public static ushort Abs(this ushort In)
+            {
+            return In;
             }
 
         /// <summary>
@@ -126,6 +164,18 @@ namespace LCore.Extensions
         [TestResult(new object[] { (sbyte)-100 }, (byte)100)]
         [TestResult(new object[] { (sbyte)100 }, (byte)100)]
         public static byte Abs(this sbyte In)
+            {
+            return (byte)Math.Abs(In);
+            }
+        /// <summary>
+        /// Returns the absolute value of <paramref name="In" />
+        /// </summary>
+        /// <exception cref="OverflowException"><paramref name="In" /> equals <see cref="F:System.SByte.MinValue" />. </exception>
+        [TestResult(new object[] { byte.MaxValue }, byte.MaxValue)]
+        [TestResult(new object[] { (byte)0 }, (byte)0)]
+        [TestResult(new object[] { (byte)1 }, (byte)1)]
+        [TestResult(new object[] { (byte)100 }, (byte)100)]
+        public static byte Abs(this byte In)
             {
             return (byte)Math.Abs(In);
             }
@@ -1284,6 +1334,32 @@ namespace LCore.Extensions
             return Out;
             }
 
+        /// <summary>
+        /// Creates an array of increasing or decreasing numbers 
+        /// starting at <paramref name="From" /> and progressing until <paramref name="To" />.
+        /// Array length will be |<paramref name="From" />-<paramref name="To" />|.
+        /// </summary>
+        [TestResult(new object[] { 0u, 0u }, new uint[] { 0 })]
+        [TestResult(new object[] { 0u, 10u }, new uint[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 })]
+        [TestResult(new object[] { 10u, 0u }, new uint[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 })]
+        public static uint[] To(this uint From, uint To)
+            {
+            var Out = new uint[((int)From - (int)To).Abs() + 1];
+
+            int Direction = From < To ? 1 : -1;
+            int OutIndex = 0;
+
+            int Index2 = (int)From;
+            do
+                {
+                Out[OutIndex] = (uint)Index2;
+                OutIndex++;
+
+                Index2 = Index2 + Direction;
+                } while (Index2 - Direction != To);
+
+            return Out;
+            }
         #endregion
 
         #region Wrap
