@@ -12,6 +12,8 @@ using LCore.Tests;
 using Xunit;
 using static LCore.Extensions.L.Test.Categories;
 // ReSharper disable RedundantArgumentDefaultValue
+// ReSharper disable SuggestVarOrType_Elsewhere
+// ReSharper disable RedundantDelegateCreation
 
 // ReSharper disable RedundantCast
 // ReSharper disable RedundantTypeArgumentsOfMethod
@@ -29,7 +31,7 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_All_0()
             {
-            var Test = new[] { 1, 5, 7, 3, 4, 7, 4, 7, 10 };
+            int[] Test = { 1, 5, 7, 3, 4, 7, 4, 7, 10 };
 
             ((IEnumerable)Test).All((Func<object, bool>)(o => (int)o < 15)).Should().BeTrue();
             ((IEnumerable)Test).All((Func<object, bool>)(o => (int)o < 10)).Should().BeFalse();
@@ -71,8 +73,8 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_Append()
             {
-            var Test1 = new int[] { 1, 5, 9, 5, 3 };
-            var Test2 = new int[] { 55, 55, 55, 55 };
+            int[] Test1 = { 1, 5, 9, 5, 3 };
+            int[] Test2 = { 55, 55, 55, 55 };
 
             ((int[])null).Append(Test2).Should().Equal(55, 55, 55, 55);
             Test2.Append((int[])null).Should().Equal(55, 55, 55, 55);
@@ -89,8 +91,8 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_Array()
             {
-            var Test1 = new List<int> { 1, 5, 9, 5, 3 };
-            var Test2 = new List<object> { 1, 5, 9, 5, 3, "s" };
+            List<int> Test1 = new List<int> { 1, 5, 9, 5, 3 };
+            List<object> Test2 = new List<object> { 1, 5, 9, 5, 3, "s" };
 
             ((IEnumerable)Test1).Array().Should().Equal(1, 5, 9, 5, 3);
             ((IEnumerable)Test2).Array().Should().Equal(1, 5, 9, 5, 3, "s");
@@ -162,7 +164,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_CombineString()
             {
-            var List = new IConvertible[] { 123, "abc", 5.5f, null, 'a' };
+            IConvertible[] List = { 123, "abc", 5.5f, null, 'a' };
 
             List.Combine("--").Should().Be("123--abc--5.5--a");
             List.Combine(',').Should().Be("123,abc,5.5,a");
@@ -177,7 +179,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_Convert()
             {
-            var List = new object[] { 123, "abc", 5.5f, null, 'a' };
+            object[] List = { 123, "abc", 5.5f, null, 'a' };
 
             Func<object, object> Converter = o => o?.ToString();
 
@@ -211,7 +213,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_ConvertAll()
             {
-            var List = new object[] { 123, "abc", 5.5f, null, 'a' };
+            object[] List = { 123, "abc", 5.5f, null, 'a' };
 
             Func<object, string[]> Converter = o => new[] { o?.ToString(), o?.ToString() };
 
@@ -233,7 +235,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_ConvertAll_1()
             {
-            var List = new object[] { 123, "abc", 5.5f, null, 'a' };
+            object[] List = { 123, "abc", 5.5f, null, 'a' };
 
             Func<object, IEnumerable<object>> Converter = o => new object[] { o?.ToString(), o?.ToString() };
 
@@ -281,7 +283,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_Count_Object()
             {
-            var Test = new string[] { "a", "a", "a", "a", "b" };
+            string[] Test = { "a", "a", "a", "a", "b" };
 
             Test.Count((string)null).Should().Be(0);
             Test.Count("a").Should().Be(4);
@@ -298,7 +300,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_Cycle()
             {
-            var Test = new string[] { "a", "a", "a", "a", null, "a" };
+            string[] Test = { "a", "a", "a", "a", null, "a" };
 
             int Count = 0;
 
@@ -356,7 +358,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_EachObject()
             {
-            var Test = new string[] { "a", "b", "c" };
+            string[] Test = { "a", "b", "c" };
             string Result = "";
 
             L.A<string>(Str => { Result += Str; }).Each(Test);
@@ -408,7 +410,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_Fill()
             {
-            var Test = new int[5];
+            int[] Test = new int[5];
 
             Test.Fill(1).Should().Equal(1, 1, 1, 1, 1);
 
@@ -420,7 +422,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_Fill_List()
             {
-            var Test = new int[5];
+            int[] Test = new int[5];
 
             Test.List().Fill(1).Should().Equal(1, 1, 1, 1, 1);
 
@@ -583,8 +585,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_Flatten()
             {
-            var Test = new object[]
-                {
+            object[] Test = {
                 "a",
                 1,
                 null,
@@ -732,8 +733,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_Group_IGroup()
             {
-            var Test2 = new[]
-                {
+            TestGroup[] Test2 = {
                 new TestGroup("a"),
                 new TestGroup("a"),
                 new TestGroup("a"),
@@ -800,8 +800,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_Has()
             {
-            var Test = new object[]
-                {
+            object[] Test = {
                 "a", 1, 2, 3, 4, 5, null
                 };
 
@@ -817,8 +816,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_HasAny()
             {
-            var Test = new object[]
-                {
+            object[] Test = {
                 "a", 1, 2, 3, 4, 5, null
                 };
 
@@ -859,8 +857,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_Has_Func()
             {
-            var Test = new object[]
-                {
+            object[] Test = {
                 "a", 1, 2, 3, 4, 5, null
                 };
 
@@ -885,8 +882,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_HasIndex()
             {
-            var Test = new object[]
-                {
+            object[] Test = {
                 "a", 1, 2, 3, 4, 5, null
                 };
 
@@ -912,8 +908,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_Index()
             {
-            var Test = new int[]
-                {
+            int[] Test = {
                 5, 322, 466, 3, 5549, 456, 1, 23, 1, 2, 77, 9, 756475, 4, 123, 655, 8996, 45, 8, 7412, 21, 5, 3, 65, 4,
                 12, 54, 78, 9, 8, 56, 66, 5, 4, 88
                 };
@@ -935,8 +930,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_IndexTwice()
             {
-            var Test = new int[]
-                {
+            int[] Test = {
                 5, 322, 466, 3, 5549, 456, 1, 23, 1, 2, 77, 9, 756475, 4, 123, 655, 8996, 45, 8, 7412, 21, 5, 3, 65, 4,
                 12, 54, 78, 9, 8, 56, 66, 5, 4, 88
                 };
@@ -970,8 +964,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_IndexOf()
             {
-            var Test = new int[]
-                {
+            int[] Test = {
                 5, 322, 466, 3, 5549, 456, 1, 23, 1, 2, 77, 9, 756475, 4, 123, 655, 8996, 45, 8, 7412, 21, 5, 3, 65, 4,
                 12, 54, 78, 9, 8, 56, 66, 5, 4, 88
                 };
@@ -1117,8 +1110,8 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_List()
             {
-            var Test = new[] { 5, 6, 2, 2 };
-            var Test2 = new object[] { 5, 6, 2, 2, null, "a" };
+            int[] Test = { 5, 6, 2, 2 };
+            object[] Test2 = { 5, 6, 2, 2, null, "a" };
 
             Test.List().Should().Equal(5, 6, 2, 2);
             Test2.List().Should().Equal(5, 6, 2, 2, "a");
@@ -1145,7 +1138,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_Move_Array()
             {
-            var Test = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            int[] Test = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
 
             Test.Move(0, 1);
@@ -1190,8 +1183,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_Named()
             {
-            var Test = new TestGroup[]
-                {
+            TestGroup[] Test = {
                 new TestGroup("a"),
                 new TestGroup("a"),
                 new TestGroup("a"),
@@ -1232,10 +1224,10 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_Named_Func()
             {
-            var Test = new[] { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
+            int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
 
-            var Namer = new Func<int, string>(i => i.ToString().Sub(0, 1));
-            var Namer2 = new Func<object, string>(i => i.ToString().Sub(0, 1));
+            Func<int, string> Namer = new Func<int, string>(i => i.ToString().Sub(0, 1));
+            Func<object, string> Namer2 = new Func<object, string>(i => i.ToString().Sub(0, 1));
 
             Test.Named("a", null).Should().BeEmpty();
             Test.Named("a", Namer).Should().BeEmpty();
@@ -1259,6 +1251,103 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable<int>)null).Named("a", Namer).Should().BeEmpty();
             }
 
+        [Fact]
+        public void Test_Random()
+            {
+            int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
+            uint[] Test2 = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
+
+            for (int i = 0; i < 1000; i++)
+                {
+                Test.Has(Test.Random()).Should().BeTrue();
+                }
+
+
+            Test.Random(-1).Should().BeEmpty();
+            Test.Random(0).Should().BeEmpty();
+
+            Test.List().Random(-1).Should().BeEmpty();
+            Test.List().Random(0).Should().BeEmpty();
+
+            //((IEnumerable)Test).Random(-1).Should().BeEmpty();
+            //((IEnumerable)Test).Random(0).Should().BeEmpty();
+
+            for (int i = 0; i < 100; i++)
+                {
+                int[] Results = Test.Random(5);
+
+                Results.Length.Should().Be(5);
+                Results.All(Test.Has).Should().BeTrue();
+
+
+                int[] Results2 = Test.Random(50, false);
+
+                Results2.Length.Should().Be(Test.Length);
+                Results2.All(Test.Has).Should().BeTrue();
+
+                int[] Results3 = Test.Random(50, true);
+
+                Results3.Length.Should().Be(50);
+                Results3.All(Test.Has).Should().BeTrue();
+
+
+                int[] Results4 = Test.Random(5u);
+
+                Results4.Length.Should().Be(5);
+                Results4.All(Test.Has).Should().BeTrue();
+
+
+                int[] Results5 = Test.Random(50u, false);
+
+                Results5.Length.Should().Be(Test.Length);
+                Results5.All(Test.Has).Should().BeTrue();
+
+                int[] Results6 = Test.Random(50u, true);
+
+                Results6.Length.Should().Be(50);
+                Results6.All(Test.Has).Should().BeTrue();
+
+
+                List<int> Test3 = Test.List();
+
+                List<int> Result7 = Test3.Random(5);
+
+                Result7.Count.Should().Be(5);
+                Result7.All(Test.Has).Should().BeTrue();
+
+
+                List<int> Results8 = Test3.Random(50, false);
+
+                Results8.Count.Should().Be(Test.Length);
+                Results8.All(Test.Has).Should().BeTrue();
+
+                List<int> Results9 = Test3.Random(50, true);
+
+                Results9.Count.Should().Be(50);
+                Results9.All(Test.Has).Should().BeTrue();
+
+
+                List<int> Results10 = Test3.Random(5u);
+
+                Results10.Count.Should().Be(5);
+                Results10.All(Test.Has).Should().BeTrue();
+
+
+                List<int> Results11 = Test3.Random(50u, false);
+
+                Results11.Count.Should().Be(Test.Length);
+                Results11.All(Test.Has).Should().BeTrue();
+
+                List<int> Results12 = Test3.Random(50u, true);
+
+                Results12.Count.Should().Be(50);
+                Results12.All(Test.Has).Should().BeTrue();
+
+
+                }
+
+
+            }
 
         #region Internal
 

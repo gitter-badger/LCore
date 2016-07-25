@@ -2299,6 +2299,7 @@ namespace LCore.Extensions
         /// If Count is higher than In.Count, an ArgumentException will be thrown.
         /// This method will not include any single index more than once unless AllowDuplicates is set to true.
         /// </summary>
+        [Tested]
         public static List<T> Random<T>(this IEnumerable<T> In, int Count, bool AllowDuplicates = false)
             {
             return Count < 0
@@ -2311,6 +2312,7 @@ namespace LCore.Extensions
         /// If Count is higher than In.Count, an ArgumentException will be thrown.
         /// This method will not include any single index more than once unless AllowDuplicates is set to true.
         /// </summary>
+        [Tested]
         public static List<T> Random<T>(this IEnumerable<T> In, uint Count, bool AllowDuplicates = false)
             {
             uint Count2 = In.Count();
@@ -2323,11 +2325,11 @@ namespace LCore.Extensions
                 {
                 _RandomSeed = Rand.Next();
 
-                while (RandomIndexes.Count < Count)
+                while (RandomIndexes.Count < (int)Count)
                     {
                     int RandInt = Rand.Next((int)Count2);
-                    if (!RandomIndexes.Contains(RandInt))
-                        RandomIndexes.Add(RandInt);
+
+                    RandomIndexes.Add(RandInt);
                     }
 
                 return RandomIndexes.Convert(In.GetAt).First(Count).List();
@@ -2345,6 +2347,7 @@ namespace LCore.Extensions
         /// Returns a new <typeparamref name="T[]" /> containing <paramref name="Count" /> random items from the source <typeparamref name="T[]" />
         /// If <paramref name="Count" /> is higher than In.Count, an ArgumentException will be thrown.
         /// </summary>
+        [Tested]
         public static T[] Random<T>(this T[] In, int Count, bool AllowDuplicates = false)
             {
             return Count < 0
@@ -2356,22 +2359,29 @@ namespace LCore.Extensions
         /// Returns a new <typeparamref name="T[]" /> containing <paramref name="Count" /> random items from the source <typeparamref name="T[]" />
         /// If <paramref name="Count" /> is higher than In.Count, an ArgumentException will be thrown.
         /// </summary>
+        [Tested]
         public static T[] Random<T>(this T[] In, uint Count, bool AllowDuplicates = false)
             {
             uint Count2 = In.Count();
-            if (Count > Count2)
-                throw new ArgumentException("Count");
 
             var RandomIndexes = new List<int>();
 
             var Rand = new Random(_RandomSeed);
             _RandomSeed = Rand.Next();
 
-            while (RandomIndexes.Count < Count)
+            if (!AllowDuplicates)
+                {
+                if (Count > In.Length)
+                    {
+                    Count = (uint)In.Length;
+                    }
+                }
+
+            while (RandomIndexes.Count < (int)Count)
                 {
                 int RandInt = Rand.Next((int)Count2);
-                if (!RandomIndexes.Contains(RandInt))
-                    RandomIndexes.Add(RandInt);
+
+                RandomIndexes.Add(RandInt);
                 }
 
             return RandomIndexes.ToArray().Convert(i => In[i]);
@@ -2381,6 +2391,7 @@ namespace LCore.Extensions
         /// Returns 1 random item from the collection.
         /// If the collection is empty, null is returned.
         /// </summary>
+        [Tested]
         public static T Random<T>(this IEnumerable<T> In)
             {
             uint Count = In.Count();
