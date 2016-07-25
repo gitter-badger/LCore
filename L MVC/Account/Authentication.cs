@@ -63,7 +63,7 @@ namespace LMVC.Account
                 {
                 for (int Index = 0; Index < Rules.LowerCaseMinimum; Index++)
                     {
-                    Out.Add(Password_LowerChars.RandomItem());
+                    Out.Add(Password_LowerChars.Random());
                     }
                 }
 
@@ -71,7 +71,7 @@ namespace LMVC.Account
                 {
                 for (int Index = 0; Index < Rules.UpperCaseMinimum; Index++)
                     {
-                    Out.Add(Password_UpperChars.RandomItem());
+                    Out.Add(Password_UpperChars.Random());
                     }
                 }
 
@@ -79,7 +79,7 @@ namespace LMVC.Account
                 {
                 for (int Index = 0; Index < Rules.NumberMinimum; Index++)
                     {
-                    Out.Add(Password_NumberChars.RandomItem());
+                    Out.Add(Password_NumberChars.Random());
                     }
                 }
 
@@ -87,13 +87,13 @@ namespace LMVC.Account
                 {
                 for (int Index = 0; Index < Rules.SpecialMinimum; Index++)
                     {
-                    Out.Add(Password_SpecialChars.RandomItem());
+                    Out.Add(Password_SpecialChars.Random());
                     }
                 }
 
             while (Out.Count < Length)
                 {
-                Out.Add(Password_LowerChars.RandomItem());
+                Out.Add(Password_LowerChars.Random());
                 }
 
             Out = Out.Shuffle();

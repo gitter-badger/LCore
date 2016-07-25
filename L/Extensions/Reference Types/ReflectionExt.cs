@@ -1040,6 +1040,14 @@ namespace LCore.Extensions
                           Member.SetMethod.GetParameters().Length == 2 &&
                           Member.SetMethod.GetParameters()[0].ParameterType == typeof(TKey));
             }
+
+        /// <summary>
+        /// Creates a new random object for many simple types.
+        /// </summary>
+        public static object NewRandom(this Type Type)
+            {
+            return L.Ref.NewRandom(Type);
+            }
         }
 
     public static partial class L
@@ -1238,6 +1246,66 @@ namespace LCore.Extensions
             public static T New<T>(params object[] Parameters)
                 {
                 return typeof(T).New<T>(Parameters);
+                }
+
+            /// <summary>
+            /// Creates a new random <typeparamref name="T"/> for many simple types.
+            /// </summary>
+            public static T NewRandom<T>()
+                {
+                return (T)NewRandom(typeof(T));
+                }
+
+            /// <summary>
+            /// Creates a new random object of type <paramref name="Type"/> for many simple types.
+            /// </summary>
+            public static object NewRandom(Type Type)
+                {
+                if (Type == typeof(string))
+                    return new Guid().ToString();
+
+                if (Type == typeof(Guid))
+                    return new Guid();
+
+                var Rand = new Random();
+
+                if (Type == typeof(double))
+                    return Rand.NextDouble() * int.MaxValue - int.MinValue;
+
+                if (Type == typeof(char))
+                    return Rand.Next(char.MinValue, char.MaxValue);
+                if (Type == typeof(byte))
+                    return Rand.Next(byte.MinValue, byte.MaxValue);
+                if (Type == typeof(sbyte))
+                    return Rand.Next(sbyte.MinValue, sbyte.MaxValue);
+                if (Type == typeof(short))
+                    return Rand.Next(short.MinValue, short.MaxValue);
+                if (Type == typeof(ushort))
+                    return Rand.Next(ushort.MinValue, ushort.MaxValue);
+                if (Type == typeof(long) || Type == typeof(ulong) || Type == typeof(int)
+                    || Type == typeof(uint) || Type == typeof(uint))
+                    return Rand.Next(int.MinValue, int.MaxValue);
+
+
+                // TODO: Create from object constructor and initialize properties.
+
+
+                // TODO: Create dynamic object from Interface and initialize properties.
+
+
+                if (Type.HasInterface<IConvertible>())
+                    {
+                    try
+                        {
+                        var Result = Rand.Next(char.MinValue, char.MaxValue).ConvertTo(Type);
+
+                        if (Result.IsType(Type) || Result == null)
+                            return Result;
+                        }
+                    catch { }
+                    }
+
+                return null;
                 }
 
 

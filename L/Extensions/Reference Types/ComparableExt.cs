@@ -17,9 +17,9 @@ namespace LCore.Extensions
         /// <summary>
         /// Use this fluent extension method to compare IComparable equality.
         /// </summary>
-        public static bool IsEqualTo(this IComparable In, IComparable Obj)
+        public static bool IsEqualTo([CanBeNull]this IComparable In, [CanBeNull]IComparable Obj)
             {
-            return In.CompareTo(Obj) == 0;
+            return In?.CompareTo(Obj) == 0;
             }
 
         #endregion

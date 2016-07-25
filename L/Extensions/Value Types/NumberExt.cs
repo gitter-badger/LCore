@@ -42,7 +42,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the absolute value of <paramref name="In" />
         /// </summary>
-        /// <exception cref="OverflowException"><paramref name="In" /> equals <see cref="F:System.Int32.MinValue" />. </exception>
         [TestResult(new object[] { int.MinValue + (int)1 }, (uint)int.MaxValue)]
         [TestResult(new object[] { int.MaxValue }, (uint)int.MaxValue)]
         [TestResult(new object[] { 0 }, 0u)]
@@ -52,8 +51,16 @@ namespace LCore.Extensions
         [TestResult(new object[] { 500 }, 500u)]
         public static uint Abs(this int In)
             {
-            return (uint)Math.Abs(In);
+            try
+                {
+                return (uint)Math.Abs(In);
+                }
+            catch (OverflowException)
+                {
+                return (uint)((long)In).Abs();
+                }
             }
+
         /// <summary>
         /// Returns the absolute value of <paramref name="In" />
         /// </summary>
@@ -70,7 +77,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the absolute value of <paramref name="In" />
         /// </summary>
-        /// <exception cref="OverflowException"><paramref name="In" /> equals <see cref="F:System.Int64.MinValue" />. </exception>
         [TestResult(new object[] { long.MinValue + (long)1 }, (ulong)long.MaxValue)]
         [TestResult(new object[] { long.MaxValue }, (ulong)long.MaxValue)]
         [TestResult(new object[] { (long)0 }, (ulong)0)]
@@ -80,7 +86,14 @@ namespace LCore.Extensions
         [TestResult(new object[] { (long)500 }, (ulong)500)]
         public static ulong Abs(this long In)
             {
-            return (ulong)Math.Abs(In);
+            try
+                {
+                return (ulong)Math.Abs(In);
+                }
+            catch (OverflowException)
+                {
+                return (ulong)long.MaxValue + 1;
+                }
             }
 
         /// <summary>
@@ -1310,7 +1323,6 @@ namespace LCore.Extensions
         /// starting at <paramref name="From" /> and progressing until <paramref name="To" />.
         /// Array length will be |<paramref name="From" />-<paramref name="To" />|.
         /// </summary>
-        /// <exception cref="OverflowException">If the size of the range is larger than an Array can contain.</exception>
         [TestResult(new object[] { 0, 0 }, new int[] { 0 })]
         [TestResult(new object[] { 0, 10 }, new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 })]
         [TestResult(new object[] { 10, 0 }, new int[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 })]

@@ -376,19 +376,21 @@ namespace LCore.Extensions
                 if (Member.HasAttribute(typeof(CodeExplodeExtensionMethod), true))
                     {
                     var Attr = Member.GetAttribute<CodeExplodeExtensionMethod>();
-                    // ReSharper disable once InvocationIsSkipped
-                    Debug.Assert(Attr != null, "Attr != null");
-                    Comment = Attr?.Comments;
-                    ExecuteResult = Attr?.ExecuteResult == true;
 
-                    if (Attr?.ParameterNames.IsEmpty() == false)
+                    if (Attr != null)
                         {
-                        ParamNames = Attr.ParameterNames.List();
+                        Comment = Attr.Comments;
+                        ExecuteResult = Attr.ExecuteResult;
+
+                        if (Attr.ParameterNames.IsEmpty() == false)
+                            {
+                            ParamNames = Attr.ParameterNames.List();
+                            }
+                        ParamTypes.Each((i, Param) =>
+                        {
+                            Params.Add(ParamNames[i], Param);
+                        });
                         }
-                    ParamTypes.Each((i, Param) =>
-                    {
-                        Params.Add(ParamNames[i], Param);
-                    });
                     }
                 else if (NoParams)
                     {

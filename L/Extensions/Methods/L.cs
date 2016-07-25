@@ -658,8 +658,12 @@ namespace LCore.Extensions
                 /// Internal category name
                 /// </summary>
                 public const string Internal = nameof(Internal);
+                /// <summary>
+                /// NullabilityTests category name
+                /// </summary>
+                public const string NullabilityTests = nameof(NullabilityTests);
 
-                
+
                 }
             }
         }

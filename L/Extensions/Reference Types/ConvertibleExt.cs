@@ -106,6 +106,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="System.FormatException">Throws a format exception if the format is not correct for the output type.</exception>
         [Tested]
+        [CanBeNull]
         public static object ConvertTo([CanBeNull]this IConvertible In, [CanBeNull]Type Type)
             {
             if (In is double)

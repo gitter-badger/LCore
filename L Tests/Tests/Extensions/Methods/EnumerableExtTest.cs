@@ -76,11 +76,11 @@ namespace L_Tests.Tests.Extensions
             int[] Test1 = { 1, 5, 9, 5, 3 };
             int[] Test2 = { 55, 55, 55, 55 };
 
-            ((int[])null).Append(Test2).Should().Equal(55, 55, 55, 55);
+/*            ((int[])null).Append(Test2).Should().Equal(55, 55, 55, 55);
             Test2.Append((int[])null).Should().Equal(55, 55, 55, 55);
 
             ((int[])null).Append(Test1).Should().Equal(1, 5, 9, 5, 3);
-            Test1.Append((int[])null).Should().Equal(1, 5, 9, 5, 3);
+            Test1.Append((int[])null).Should().Equal(1, 5, 9, 5, 3);*/
 
             Test1.Append(Test2).Should().Equal(1, 5, 9, 5, 3, 55, 55, 55, 55);
             Test2.Append(Test1).Should().Equal(55, 55, 55, 55, 1, 5, 9, 5, 3);
@@ -1345,6 +1345,62 @@ namespace L_Tests.Tests.Extensions
 
 
                 }
+
+
+            }
+
+        [Fact]
+        public void Test_Remove()
+            {
+            int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
+
+            Test.Remove(6, 5).Should().Equal(48498, 45, 542, 321, 2, 1, 13, 698, 9, 88, 7, 44, 223, 3, 446);
+            Test.Remove(0, 1).Should().Equal(48498, 45, 6, 542, 321, 2, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446);
+            Test.Remove().Should().Equal(48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446);
+            Test.Remove(i => i < 1000).Should().Equal(48498);
+            Test.Remove((Index, Item) => Index < 6).Should().Equal(1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446);
+
+            Test.List().Remove(6, 5).Should().Equal(48498, 45, 542, 321, 2, 1, 13, 698, 9, 88, 7, 44, 223, 3, 446);
+            Test.List().Remove(0, 1).ShouldBeEquivalentTo(new List<int> { 48498, 45, 6, 542, 321, 2, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 });
+            Test.List().Remove().Should().Equal(48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446);
+            Test.List().Remove(i => i < 1000).Should().Equal(48498);
+            Test.List().Remove((Index, Item) => Index < 6).Should().Equal(1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446);
+
+
+            ((IEnumerable<int>)null).Remove(6, 5).Should().Equal();
+            ((IEnumerable<int>)null).Remove(0, 1).Should().Equal();
+            ((IEnumerable<int>)null).Remove().Should().Equal();
+            ((IEnumerable<int>)null).Remove((Func<int, bool>)null).Should().Equal();
+            ((IEnumerable<int>)null).Remove((Func<int, int, bool>)null).Should().Equal();
+
+            }
+
+        [Fact]
+        public void Test_RemoveAt()
+            {
+            int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
+
+
+            Test.RemoveAt().Should()
+                .Equal(48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446);
+
+
+            Test.RemoveAt(5, 1, 6, 8, 64, 3, 6, 7).Should()
+                .Equal(48498, 6, 321, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446);
+
+            Test.RemoveAt(-5, 1, 6, -8, -64, 3, 6, 7).Should()
+                .Equal(48498, 6, 321, 2, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446);
+
+
+            Test.List().RemoveAt().Should()
+                .Equal(48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446);
+
+
+            Test.List().RemoveAt(5, 1, 6, 8, 64, 3, 6, 7).Should()
+                .Equal(48498, 6, 321, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446);
+
+            Test.List().RemoveAt(-5, 1, 6, -8, -64, 3, 6, 7).Should()
+                .Equal(48498, 6, 321, 2, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446);
 
 
             }

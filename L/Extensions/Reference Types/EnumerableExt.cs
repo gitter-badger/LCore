@@ -2394,41 +2394,16 @@ namespace LCore.Extensions
         [Tested]
         public static T Random<T>(this IEnumerable<T> In)
             {
-            uint Count = In.Count();
-            if (Count < 1)
-                return default(T);
-
-            var Rand = new Random(_RandomSeed);
-            _RandomSeed = Rand.Next();
-
-            int RandomIndex = Rand.Next((int)Count);
-
-            return In.GetAt(RandomIndex);
-            }
-        #endregion
-
-        #region RandomItem
-        /// <summary>
-        /// Returns a single random <typeparamref name="T" /> from an IEnumerable`<typeparamref name="T" />.
-        /// </summary>
-        public static T RandomItem<T>(this IEnumerable<T> In)
-            {
-            return In.Random(1)[0];
+            return In.Random(1).First();
             }
         #endregion
 
         #region Remove
-        /// <summary>
-        /// Returns a new List<typeparamref name="T" /> that contains no instances of any object whose ToString value is within the Strings passed.
-        /// </summary>
-        public static List<T> Remove<T>(this IEnumerable<T> In, params string[] Strings)
-            {
-            return Strings.IsEmpty() ? In.List() : In.Remove(o => Strings.Has(o.ToString()));
-            }
 
         /// <summary>
         /// Returns a new List<typeparamref name="T" /> that contains no instances of any object passed.
         /// </summary>
+        [Tested]
         public static List<T> Remove<T>(this IEnumerable<T> In, params T[] Objs)
             {
             return Objs.IsEmpty() ? In.List() : In.Remove(Objs.Has);
@@ -2437,6 +2412,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns a new List<typeparamref name="T" /> that contains no instances of any object that evokes a true result from the passed Func`<typeparamref name="T" />,Boolean.
         /// </summary>
+        [Tested]
         public static List<T> Remove<T>(this IEnumerable<T> In, Func<T, bool> Func)
             {
             return In.List().Select(o => !Func(o));
@@ -2446,7 +2422,8 @@ namespace LCore.Extensions
         /// Func`int,<typeparamref name="T" />,Boolean.
         /// The int passed to the function is the 0-based index of the current item.
         /// </summary>
-        public static List<T> RemoveI<T>(this IEnumerable<T> In, Func<int, T, bool> Func)
+        [Tested]
+        public static List<T> Remove<T>(this IEnumerable<T> In, Func<int, T, bool> Func)
             {
             return In.Select((i, o) => !Func(i, o));
             }
@@ -2458,7 +2435,9 @@ namespace LCore.Extensions
         /// </summary>
         public static List<T> RemoveAt<T>(this IEnumerable<T> In, params int[] Indexes)
             {
-            return Indexes.IsEmpty() ? In.List() : In.Select((i, o) => !Indexes.Has(i));
+            return Indexes.IsEmpty() 
+                ? In.List() 
+                : In.Select((i, o) => !Indexes.Has(i));
             }
 
         /// <summary>

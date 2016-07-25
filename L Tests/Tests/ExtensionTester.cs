@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 // ReSharper disable once RedundantUsingDirective
 using System.Diagnostics;
+using System.Reflection;
 using LCore.Extensions;
 using FluentAssertions;
+using JetBrains.Annotations;
+using LCore.Extensions.Optional;
 using LCore.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 // ReSharper disable ConvertToConstant.Global
 
@@ -35,7 +39,7 @@ namespace L_Tests
         /// </summary>
         [TestCategory(L.Test.Categories.AttributeTests)]
         [Fact]
-        public virtual void AttributeTests()
+        public virtual void TestAttributeAssertions()
             {
             foreach (var Test in this.TestType)
                 {
@@ -57,6 +61,66 @@ namespace L_Tests
                         .BeGreaterOrEqualTo(this.RequireCoveragePercent,
                         $"{this.RequireCoveragePercent}% coverage required");
                 }
+            }
+
+        [TestCategory(L.Test.Categories.NullabilityTests)]
+        [Fact]
+        public void TestNullability()
+            {
+            uint Assertions = 0;
+
+            foreach (var Test in this.TestType)
+                {
+                MethodInfo[] Methods = Test.GetExtensionMethods();
+
+                foreach (var Method in Methods)
+                    {
+                    bool MethodCanBeNull = Method.HasAttribute<CanBeNullAttribute>(false);
+
+                    ParameterInfo[] ParameterTypes = Method.GetParameters();
+
+                    bool[] ParametersCanBeNull = ParameterTypes.Convert(
+                        Param => Param.HasAttribute<CanBeNullAttribute>(false));
+                    
+                    int ParameterCount = ParameterTypes.Length;
+
+                    for (int i = 0; i < ParametersCanBeNull.Length; i++)
+                        {
+                        if (ParametersCanBeNull[i])
+                            {
+                            var Params = new object[ParameterCount];
+
+                            for (int j = 0; j < Params.Length; j++)
+                                {
+                                if (i == j)
+                                    Params[j] = null;
+                                else
+                                    Params[j] = ParameterTypes[j].ParameterType.NewRandom();
+                                }
+
+                            var Invoker = Params[0];
+
+                            Params = Params.RemoveAt(0);
+                            try
+                                {
+                                var Result = Method.Invoke(Invoker, Params);
+
+
+                                if (!MethodCanBeNull && Method.ReturnType.IsNullable() && Result.IsNull())
+                                    Assert.Fail($"Method call was passed null for parameter {i + 1}, should not have returned null, but it did.");
+                                }
+                            catch (Exception Ex)
+                                {
+                                Assert.Fail($"Method call was passed null for parameter {i + 1} and failed", Ex);
+                                }
+
+                            Assertions++;
+                            }
+                        }
+                    }
+                }
+
+            Debug.Write($"All Passed\r\n\r\nAssertions: {Assertions}");
             }
         }
     }

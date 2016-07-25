@@ -62,13 +62,17 @@ namespace LCore.Statistics
 
         protected double _SampleVariance = default(double);
 
-
-        protected virtual T Convert(IConvertible In)
+        protected virtual T Convert([CanBeNull]IConvertible In)
             {
             if (In is T)
                 return (T)In;
 
-            return (T)In.ConvertTo(typeof(T));
+            var Out = In?.ConvertTo(typeof(T));
+
+            if (Out != null)
+                return (T)Out;
+
+            return default(T);
             }
 
         public abstract bool Equals(T X1, T X2);
