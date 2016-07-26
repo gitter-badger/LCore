@@ -11,6 +11,10 @@ namespace LCore.Tools
     /// </summary>
     public class Set<T1, T2> : IEquatable<Set<T1, T2>>
         {
+        /// <summary>Determines whether the specified object is equal to the current object.</summary>
+        /// <returns>true if the specified object  is equal to the current object; otherwise, false.</returns>
+        /// <param name="Obj">The object to compare with the current object. </param>
+        /// <filterpriority>2</filterpriority>
         public override bool Equals([CanBeNull] object Obj)
             {
             if (ReferenceEquals(null, Obj))
@@ -23,6 +27,9 @@ namespace LCore.Tools
             return this.Equals((Set<T1, T2>)Obj);
             }
 
+        /// <summary>Serves as a hash function for a particular type. </summary>
+        /// <returns>A hash code for the current object.</returns>
+        /// <filterpriority>2</filterpriority>
         public override int GetHashCode()
             {
             unchecked

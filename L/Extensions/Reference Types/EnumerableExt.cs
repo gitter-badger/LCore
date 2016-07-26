@@ -1981,10 +1981,10 @@ namespace LCore.Extensions
             {
             Condition = Condition ?? (o => true);
 
-            foreach (var Item in In.Reverse())
+            foreach (var Item in In.Mirror<T>())
                 {
-                if (Item is T && Condition((T)Item))
-                    return (T)Item;
+                if (Condition(Item))
+                    return Item;
                 }
 
             return default(T);
@@ -1998,7 +1998,7 @@ namespace LCore.Extensions
             {
             Condition = Condition ?? (o => true);
 
-            foreach (var Item in In.Reverse())
+            foreach (var Item in In.Mirror())
                 {
                 if (Condition(Item))
                     return Item;
@@ -2015,7 +2015,7 @@ namespace LCore.Extensions
             {
             Condition = Condition ?? (o => true);
 
-            foreach (var Item in In.Reverse())
+            foreach (var Item in In.Mirror())
                 {
                 if (Item != null && Condition(Item))
                     return Item;
@@ -2209,10 +2209,14 @@ namespace LCore.Extensions
             {
             if (In == null)
                 return;
-            if (!In.HasIndex(Index1))
-                throw new Exception($"Invalid index 1: {Index1}");
-            if (!In.HasIndex(Index2))
-                throw new Exception($"Invalid index 2: {Index2}");
+            if (Index1 < 0)
+                Index1 = 0;
+            if (Index2 < 0)
+                Index2 = 0;
+            if (Index1 >= In.Length)
+                Index1 = In.Length - 1;
+            if (Index2 >= In.Length)
+                Index2 = In.Length - 1;
             if (Index1 == Index2)
                 return;
 
@@ -2236,10 +2240,16 @@ namespace LCore.Extensions
             {
             if (In == null)
                 return;
-            if (!In.HasIndex(Index1))
-                throw new Exception($"Invalid index 1: {Index1}");
-            if (!In.HasIndex(Index2))
-                throw new Exception($"Invalid index 2: {Index2}");
+            if (Index1 < 0)
+                Index1 = 0;
+            if (Index2 < 0)
+                Index2 = 0;
+            if (Index1 >= In.Count)
+                Index1 = In.Count - 1;
+            if (Index2 >= In.Count)
+                Index2 = In.Count - 1;
+            if (Index1 == Index2)
+                return;
 
             var Item = In[Index1];
 
@@ -2338,10 +2348,10 @@ namespace LCore.Extensions
 
             var Rand = new Random(_RandomSeed);
 
+            _RandomSeed = Rand.Next();
+
             if (AllowDuplicates)
                 {
-                _RandomSeed = Rand.Next();
-
                 while (RandomIndexes.Count < (int)Count)
                     {
                     int RandInt = Rand.Next((int)Count2);
@@ -2351,13 +2361,21 @@ namespace LCore.Extensions
 
                 return RandomIndexes.Convert(In.GetAt).First(Count).List();
                 }
+            else
+                {
+                if (Count > Count2)
+                    Count = Count2;
 
+                while (RandomIndexes.Count < (int)Count)
+                    {
+                    int RandInt = Rand.Next((int)Count2);
 
-            uint[] Indices = 0u.To(Count2);
-            Indices.Shuffle();
-            T[] Items = In.Array();
+                    if (!RandomIndexes.Has(RandInt))
+                        RandomIndexes.Add(RandInt);
+                    }
 
-            return Items.Convert((i, Item) => In.GetAt(i)).First(Count).List();
+                return RandomIndexes.Convert((i, Item) => In.GetAt(Item)).First(Count).List();
+                }
             }
 
         /// <summary>
@@ -2457,6 +2475,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns a new List<typeparamref name="T" />, excluding any indexes passed.
         /// </summary>
+        [Tested]
         public static List<T> RemoveAt<T>([CanBeNull]this IEnumerable<T> In, [CanBeNull]params int[] Indexes)
             {
             return Indexes.IsEmpty()
@@ -2467,6 +2486,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns a new T[], excluding any indexes passed.
         /// </summary>
+        [Tested]
         public static T[] RemoveAt<T>([CanBeNull]this T[] In, [CanBeNull]params int[] Indexes)
             {
             if (Indexes.IsEmpty())
@@ -2503,7 +2523,8 @@ namespace LCore.Extensions
         /// Removes duplicate items from an enumerable using <paramref name="Indexer" /> to determine 
         /// uniqueness.
         /// </summary>
-        public static IEnumerable<T> RemoveDuplicate<T, U>([CanBeNull]this IEnumerable<T> In, [CanBeNull]Func<T, U> Indexer)
+        [Tested]
+        public static List<T> RemoveDuplicate<T, U>([CanBeNull]this IEnumerable<T> In, [CanBeNull]Func<T, U> Indexer)
             {
             In = In ?? new T[] { };
             Indexer = Indexer ?? L.F<T, U>();
@@ -2521,6 +2542,24 @@ namespace LCore.Extensions
 
             return Out;
             }
+        /// <summary>
+        /// Removes duplicate items from an enumerable using <paramref name="Indexer" /> to determine 
+        /// uniqueness.
+        /// </summary>
+        [Tested]
+        public static T[] RemoveDuplicate<T, U>([CanBeNull]this T[] In, [CanBeNull]Func<T, U> Indexer)
+            {
+            return ((IEnumerable<T>)In).RemoveDuplicate(Indexer).Array();
+            }
+        /// <summary>
+        /// Removes duplicate items from an enumerable using <paramref name="Indexer" /> to determine 
+        /// uniqueness.
+        /// </summary>
+        [Tested]
+        public static List<T> RemoveDuplicate<T, U>([CanBeNull]this IEnumerable In, [CanBeNull]Func<T, U> Indexer)
+            {
+            return In.List<T>().RemoveDuplicate(Indexer);
+            }
 
         #endregion
 
@@ -2528,7 +2567,8 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns a new List<typeparamref name="T" /> with duplicates removed (items with equivalent values).
         /// </summary>
-        public static List<T> RemoveDuplicates<T>([CanBeNull]this List<T> In)
+        [Tested]
+        public static List<T> RemoveDuplicates<T>([CanBeNull]this IEnumerable<T> In)
             {
             var Out = new List<T>();
             In.Each(i =>
@@ -2541,24 +2581,27 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns a new List<typeparamref name="T" /> with duplicates removed (items with equivalent values).
         /// </summary>
-        public static List<T> RemoveDuplicates<T>([CanBeNull]this IEnumerable<T> In)
+        [Tested]
+        public static T[] RemoveDuplicates<T>([CanBeNull]this T[] In)
             {
-            return In.List().RemoveDuplicates();
+            return In.List().RemoveDuplicates().Array();
             }
         /// <summary>
         /// Returns a new List`Object with duplicates removed (items with equivalent values).
         /// </summary>
-        public static List<object> RemoveDuplicates([CanBeNull]this IEnumerable In)
+        [Tested]
+        public static List<T> RemoveDuplicates<T>([CanBeNull]this IEnumerable In)
             {
-            return In.List().RemoveDuplicates();
+            return In.List<T>().RemoveDuplicates();
             }
         #endregion
 
-        #region Reverse
+        #region Mirror
         /// <summary>
         /// Returns a new array with the item orders reversed.
         /// </summary>
-        public static T[] Reverse<T>([CanBeNull]this T[] In)
+        [Tested]
+        public static T[] Mirror<T>([CanBeNull]this T[] In)
             {
             In = In ?? new T[] { };
 
@@ -2566,33 +2609,23 @@ namespace LCore.Extensions
             return In.Collect((i, o) => In[Count - (i + 1)]);
             }
         /// <summary>
-        /// Reverses the order of the items a List<typeparamref name="T" />.
-        /// </summary>
-        public static void Reverse<T>([CanBeNull]this List<T> In)
-            {
-            if (In == null)
-                return;
-
-            uint Count = In.Count();
-            In.Reverse(0, (int)Count);
-            }
-        /// <summary>
         /// Returns a new List<typeparamref name="T" /> with the order of the items reversed.
         /// </summary>
-        public static List<T> Reverse<T>([CanBeNull]this IEnumerable<T> In)
+        [Tested]
+        public static List<T> Mirror<T>([CanBeNull]this IEnumerable<T> In)
             {
             List<T> Out = In.List();
-            Out.Reverse<T>();
+            Out.Reverse();
             return Out;
             }
         /// <summary>
         /// Returns a new List`Object with the order of the items reversed.
         /// </summary>
-        public static List<object> Reverse([CanBeNull]this IEnumerable In)
+        [Tested]
+        public static List<T> Mirror<T>([CanBeNull]this IEnumerable In)
             {
-            List<object> Out = In.List<object>();
-            Out.Reverse<object>();
-            return Out;
+            List<T> Out = In.List<T>();
+            return Out.Mirror();
             }
         #endregion
 
@@ -2600,6 +2633,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns a new T[] containing items from In that evoke a true result from the passed Func`<typeparamref name="T" />,Boolean.
         /// </summary>
+        [Tested]
         public static T[] Select<T>([CanBeNull]this T[] In, [CanBeNull]Func<T, bool> Func)
             {
             if (Func == null)
@@ -2618,24 +2652,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns a new List<typeparamref name="T" /> containing items from In that evoke a true result from the passed Func`<typeparamref name="T" />,Boolean.
         /// </summary>
-        public static List<T> Select<T>([CanBeNull]this List<T> In, [CanBeNull]Func<T, bool> Func)
-            {
-            if (Func == null)
-                return new List<T>();
-
-            List<T> Out = L.List.NewList<List<T>, T>();
-
-            In.Each(Result =>
-            {
-                bool Select = Func(Result);
-                if (Select)
-                    Out.Add(Result);
-            });
-            return Out;
-            }
-        /// <summary>
-        /// Returns a new List<typeparamref name="T" /> containing items from In that evoke a true result from the passed Func`<typeparamref name="T" />,Boolean.
-        /// </summary>
+        [Tested]
         public static List<T> Select<T>([CanBeNull]this IEnumerable<T> In, [CanBeNull]Func<T, bool> Func)
             {
             if (Func == null)
@@ -2656,6 +2673,7 @@ namespace LCore.Extensions
         /// Returns a new List`Object containing items from In that evoke a true result from the passed 
         /// Func`Object,Boolean />.
         /// </summary>
+        [Tested]
         public static List<T> Select<T>([CanBeNull]this IEnumerable In, [CanBeNull]Func<T, bool> Func)
             {
             if (Func == null)
@@ -2680,6 +2698,7 @@ namespace LCore.Extensions
         /// Returns a new List`Object containing items from In that evoke a true result from the passed Func`int,Object,Boolean.
         /// The int passed to the Func is the 0-based index of the current item.
         /// </summary>
+        [Tested]
         public static List<T> Select<T>([CanBeNull]this IEnumerable In, [CanBeNull]Func<int, T, bool> Func)
             {
             if (Func == null)
@@ -2703,6 +2722,7 @@ namespace LCore.Extensions
         /// Returns a new T[] containing items from In that evoke a true result from the passed Func`int,<typeparamref name="T" />,Boolean.
         /// The int passed to the Func is the 0-based index of the current item.
         /// </summary>
+        [Tested]
         public static T[] Select<T>([CanBeNull]this T[] In, [CanBeNull]Func<int, T, bool> Func)
             {
             if (Func == null)
@@ -2721,6 +2741,7 @@ namespace LCore.Extensions
         /// Returns a new List<typeparamref name="T" /> containing items from In that evoke a true result from the passed Func`<typeparamref name="T" />,Boolean.
         /// The int passed to the Func is the 0-based index of the current item.
         /// </summary>
+        [Tested]
         public static List<T> Select<T>([CanBeNull]this List<T> In, [CanBeNull]Func<int, T, bool> Func)
             {
             if (Func == null)
@@ -2740,6 +2761,7 @@ namespace LCore.Extensions
         /// Returns a new List<typeparamref name="T" /> containing items from In that evoke a true result from the passed Func`<typeparamref name="T" />,Boolean.
         /// The int passed to the Func is the 0-based index of the current item.
         /// </summary>
+        [Tested]
         public static List<T> Select<T>([CanBeNull]this IEnumerable<T> In, [CanBeNull]Func<int, T, bool> Func)
             {
             if (Func == null)
@@ -2761,9 +2783,12 @@ namespace LCore.Extensions
         /// <summary>
         /// Sets the item in the collection at <paramref name="Index" /> to <paramref name="Value" />.
         /// </summary>
+        [Tested]
         public static void SetAt([CanBeNull]this IEnumerable In, int Index, [CanBeNull]object Value)
             {
             if (In == null)
+                return;
+            if (!In.HasIndex(Index))
                 return;
 
             var List = In as IList;
@@ -2771,32 +2796,23 @@ namespace LCore.Extensions
                 {
                 List[Index] = Value;
                 }
-            else throw new Exception(In.GetType().FullName);
             }
         /// <summary>
         /// Sets the item in the collection at <paramref name="Index" /> to <paramref name="Value" />.
         /// </summary>
+        [Tested]
         public static void SetAt<T>([CanBeNull]this IEnumerable<T> In, int Index, [CanBeNull]T Value)
             {
             if (In == null)
+                return;
+            if (!In.HasIndex(Index))
                 return;
 
             var List = In as IList<T>;
             if (List != null)
                 {
                 List[Index] = Value;
-                return;
                 }
-
-            // ReSharper disable once SuspiciousTypeConversion.Global
-            var Array = In as Array;
-            if (Array != null)
-                {
-                Array.SetValue(Value, Index);
-                return;
-                }
-
-            throw new Exception(typeof(T).FullName);
             }
         #endregion
 
@@ -2804,55 +2820,26 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns a new List<typeparamref name="T" /> with the item order randomized.
         /// </summary>
-        public static List<T> Shuffle<T>([CanBeNull]this List<T> In)
+        [Tested]
+        public static List<T> Shuffle<T>([CanBeNull]this IEnumerable<T> In)
             {
-            if (In == null)
-                return new List<T>();
-
-            var Out = new List<T>();
-            if (!In.IsEmpty())
-                {
-                Out = In.Random((uint)In.Count);
-                }
-            return Out;
+            return In.Random(In.Count(), false);
             }
         /// <summary>
         /// Returns a new T[] with the item order randomized.
         /// </summary>
+        [Tested]
         public static T[] Shuffle<T>([CanBeNull]this T[] In)
             {
-            T[] Out = { };
-            if (!In.IsEmpty())
-                {
-                Out = In.Random(In.Count());
-                }
-            return Out;
+            return In.List().Shuffle().Array();
             }
         /// <summary>
         /// Returns a new List<typeparamref name="T" /> with the item order randomized.
         /// </summary>
+        [Tested]
         public static List<T> Shuffle<T>([CanBeNull]this IEnumerable In)
             {
             return In.List<T>().Shuffle();
-            }
-        /// <summary>
-        /// Returns a new List`Object with the item order randomized.
-        /// </summary>
-        public static List<object> Shuffle([CanBeNull]this IEnumerable In)
-            {
-            return In.List().Shuffle();
-            }
-        /// <summary>
-        /// Returns a new List<typeparamref name="T" /> with the item order randomized.
-        /// </summary>
-        public static List<T> Shuffle<T>([CanBeNull]this IEnumerable<T> In)
-            {
-            var Out = new List<T>();
-            if (!In.IsEmpty())
-                {
-                Out = In.Random(In.Count());
-                }
-            return Out;
             }
         #endregion
 

@@ -1183,7 +1183,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "blahblah " }, " halbhalb")]
         public static string Reverse([CanBeNull]this string In)
             {
-            return new string((In ?? "").ToCharArray().Reverse());
+            return new string((In ?? "").ToCharArray().Mirror());
             }
         #endregion
 

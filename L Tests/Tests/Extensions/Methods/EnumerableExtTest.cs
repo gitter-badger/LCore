@@ -76,11 +76,11 @@ namespace L_Tests.Tests.Extensions
             int[] Test1 = { 1, 5, 9, 5, 3 };
             int[] Test2 = { 55, 55, 55, 55 };
 
-/*            ((int[])null).Append(Test2).Should().Equal(55, 55, 55, 55);
-            Test2.Append((int[])null).Should().Equal(55, 55, 55, 55);
+            /*            ((int[])null).Append(Test2).Should().Equal(55, 55, 55, 55);
+                        Test2.Append((int[])null).Should().Equal(55, 55, 55, 55);
 
-            ((int[])null).Append(Test1).Should().Equal(1, 5, 9, 5, 3);
-            Test1.Append((int[])null).Should().Equal(1, 5, 9, 5, 3);*/
+                        ((int[])null).Append(Test1).Should().Equal(1, 5, 9, 5, 3);
+                        Test1.Append((int[])null).Should().Equal(1, 5, 9, 5, 3);*/
 
             Test1.Append(Test2).Should().Equal(1, 5, 9, 5, 3, 55, 55, 55, 55);
             Test2.Append(Test1).Should().Equal(55, 55, 55, 55, 1, 5, 9, 5, 3);
@@ -1155,8 +1155,17 @@ namespace L_Tests.Tests.Extensions
 
             ((int[])null).Move(0, 0);
 
-            L.A(() => Test.Move(-1, 5)).ShouldFail();
-            L.A(() => Test.Move(0, 9)).ShouldFail();
+            Test.Move(-1, 5);
+            Test.Should().Equal(6, 3, 4, 5, 2, 1, 7, 8, 9);
+
+            Test.Move(-1, -1);
+            Test.Should().Equal(6, 3, 4, 5, 2, 1, 7, 8, 9);
+
+            Test.Move(0, 9);
+            Test.Should().Equal(3, 4, 5, 2, 1, 7, 8, 9, 6);
+
+            Test.Move(9, 9);
+            Test.Should().Equal(3, 4, 5, 2, 1, 7, 8, 9, 6);
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -1176,8 +1185,18 @@ namespace L_Tests.Tests.Extensions
 
             ((List<int>)null).Move(0, 0);
 
-            L.A(() => Test.Move(-1, 5)).ShouldFail();
-            L.A(() => Test.Move(0, 9)).ShouldFail();
+
+            Test.Move(-1, 5);
+            Test.Should().Equal(6, 3, 4, 5, 2, 1, 7, 8, 9);
+
+            Test.Move(-1, -1);
+            Test.Should().Equal(6, 3, 4, 5, 2, 1, 7, 8, 9);
+
+            Test.Move(0, 9);
+            Test.Should().Equal(3, 4, 5, 2, 1, 7, 8, 9, 6);
+
+            Test.Move(9, 9);
+            Test.Should().Equal(3, 4, 5, 2, 1, 7, 8, 9, 6);
             }
 
         [Fact]
@@ -1257,7 +1276,7 @@ namespace L_Tests.Tests.Extensions
             int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
             uint[] Test2 = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 300; i++)
                 {
                 Test.Has(Test.Random()).Should().BeTrue();
                 }
@@ -1272,7 +1291,7 @@ namespace L_Tests.Tests.Extensions
             //((IEnumerable)Test).Random(-1).Should().BeEmpty();
             //((IEnumerable)Test).Random(0).Should().BeEmpty();
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 20; i++)
                 {
                 int[] Results = Test.Random(5);
 
@@ -1402,6 +1421,316 @@ namespace L_Tests.Tests.Extensions
             Test.List().RemoveAt(-5, 1, 6, -8, -64, 3, 6, 7).Should()
                 .Equal(48498, 6, 321, 2, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446);
 
+
+            }
+
+        [Fact]
+        public void Test_RemoveDuplicate()
+            {
+            int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
+
+            Func<int, string> Func = i => i.ToString().Sub(0, 2);
+            Func<int, string> Func2 = i => i.ToString().Sub(0, 1);
+
+            //////////////////////////////////
+
+            Test.RemoveDuplicate(Func)
+                .Should().Equal(48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 44, 223, 3);
+            Test.RemoveDuplicate(Func2)
+                .Should().Equal(48498, 6, 542, 321, 2, 1, 9, 88, 7);
+
+            Test.RemoveDuplicate(Func)
+                 .Should().Equal(48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 44, 223, 3);
+
+            Test.Convert(i => i.ToString()).RemoveDuplicate(s => s.Sub(0, 1))
+                 .Should().Equal("48498", "6", "542", "321", "2", "1", "9", "88", "7");
+
+            new int[] { }.RemoveDuplicate(Func).Should().Equal();
+            ((int[])null).RemoveDuplicate(Func).Should().Equal();
+
+            //////////////////////////////////
+
+            var TestList = Test.List();
+
+            TestList.RemoveDuplicate(Func)
+                 .Should().Equal(48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 44, 223, 3);
+            TestList.RemoveDuplicate(Func2)
+                .Should().Equal(48498, 6, 542, 321, 2, 1, 9, 88, 7);
+
+            TestList.RemoveDuplicate(Func)
+                 .Should().Equal(48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 44, 223, 3);
+
+            TestList.Convert(i => i.ToString()).RemoveDuplicate(s => s.Sub(0, 1))
+                 .Should().Equal("48498", "6", "542", "321", "2", "1", "9", "88", "7");
+
+            new List<int>().RemoveDuplicate(Func).Should().Equal();
+            ((List<int>)null).RemoveDuplicate(Func).Should().Equal();
+
+            //////////////////////////////////
+
+            ((IEnumerable)TestList).RemoveDuplicate(Func)
+                 .Should().Equal(48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 44, 223, 3);
+            ((IEnumerable)TestList).RemoveDuplicate(Func2)
+                .Should().Equal(48498, 6, 542, 321, 2, 1, 9, 88, 7);
+
+            ((IEnumerable)TestList).RemoveDuplicate(Func)
+                 .Should().Equal(48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 44, 223, 3);
+
+            ((IEnumerable)TestList.Convert(i => i.ToString())).RemoveDuplicate<string, string>(s => s.Sub(0, 1))
+                 .Should().Equal("48498", "6", "542", "321", "2", "1", "9", "88", "7");
+
+            ((IEnumerable)new List<int>()).RemoveDuplicate(Func).Should().Equal();
+            ((IEnumerable)null).RemoveDuplicate(Func).Should().Equal();
+            }
+
+        [Fact]
+        public void Test_RemoveDuplicates()
+            {
+            int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
+                6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
+                446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4 };
+
+            Test.RemoveDuplicates().Should().Equal(48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 44, 223, 3, 446, 4);
+            Test.Convert(i => i.ToString()).RemoveDuplicates()
+                .Should().Equal("48498", "45", "6", "542", "321", "2", "1", "13", "5", "698", "9", "88", "7", "44", "223", "3", "446", "4");
+
+            new int[] { }.RemoveDuplicates().Should().Equal();
+            ((int[])null).RemoveDuplicates().Should().Equal();
+
+            Test.List().RemoveDuplicates().Should().Equal(48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 44, 223, 3, 446, 4);
+            Test.Convert(i => i.ToString()).List().RemoveDuplicates().Should().Equal("48498", "45", "6", "542", "321", "2", "1", "13", "5", "698", "9", "88", "7", "44", "223", "3", "446", "4");
+
+            new List<int>().RemoveDuplicates().Should().Equal();
+            ((List<int>)null).RemoveDuplicates().Should().Equal();
+
+            ((IEnumerable)Test).RemoveDuplicates<int>().Should().Equal(48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 44, 223, 3, 446, 4);
+            ((IEnumerable)Test.Convert(i => i.ToString())).RemoveDuplicates<string>().Should().Equal("48498", "45", "6", "542", "321", "2", "1", "13", "5", "698", "9", "88", "7", "44", "223", "3", "446", "4");
+
+            ((IEnumerable)(object)new List<int>()).RemoveDuplicates<int>().Should().Equal();
+            ((IEnumerable)null).RemoveDuplicates<int>().Should().Equal();
+            }
+
+        [Fact]
+        public void Test_Mirror()
+            {
+            int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
+                6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
+                446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4 };
+
+
+            int[] Mirrored = { 4, 3, 2, 1, 5, 4, 4, 4, 4, 2, 446, 6, 5, 3, 223, 5, 6, 44, 5, 7, 88, 9,
+                698, 5, 13, 1, 2, 321, 542, 6, 45, 48498, 446, 6, 5, 3, 223, 5, 6, 44, 5, 7, 88, 9, 698,
+                5, 13, 1, 2, 321, 542, 6, 45, 48498 };
+
+
+            Test.Mirror().Should().Equal(Mirrored);
+            Test.List().Mirror().Should().Equal(Mirrored);
+            ((IEnumerable)Test).Mirror<int>().Should().Equal(Mirrored);
+
+            Test.Mirror().Mirror().Should().Equal(Test);
+            Test.List().Mirror().Mirror().Should().Equal(Test);
+            ((IEnumerable)Test).Mirror<int>().Mirror().Should().Equal(Test);
+
+
+            ((IEnumerable)null).Mirror<int>().Should().Equal();
+            ((IEnumerable<int>)null).Mirror<int>().Should().Equal();
+            ((int[])null).Mirror<int>().Should().Equal();
+            }
+
+        [Fact]
+        public void Test_Select()
+            {
+            int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
+                6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
+                446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4 };
+
+            var IndexTest = new List<int>();
+            //////////////////////
+
+            Test.Select(i => i < 50).Should().Equal(45, 6, 2, 1, 13, 5, 9, 7, 5, 44, 6, 5, 3, 5, 6, 45, 6, 2, 1, 13, 5, 9, 7, 5, 44, 6, 5, 3, 5, 6, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
+            Test.Select(i => i > 50).Should().Equal(48498, 542, 321, 698, 88, 223, 446, 48498, 542, 321, 698, 88, 223, 446);
+            Test.Select(i => i < 10).Should().Equal(6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
+
+            Test.Select((Index, Item) => Item < 50).Should().Equal(45, 6, 2, 1, 13, 5, 9, 7, 5, 44, 6, 5, 3, 5, 6, 45, 6, 2, 1, 13, 5, 9, 7, 5, 44, 6, 5, 3, 5, 6, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
+            Test.Select((Index, Item) => Item > 50).Should().Equal(48498, 542, 321, 698, 88, 223, 446, 48498, 542, 321, 698, 88, 223, 446);
+            Test.Select((Index, Item) =>
+            {
+                IndexTest.Add(Index);
+                return Item < 10;
+            }).Should().Equal(6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
+
+            IndexTest.Should().Equal(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53);
+
+            ((int[])null).Select((Func<int, bool>)null).Should().Equal();
+            ((int[])null).Select((Func<int, int, bool>)null).Should().Equal();
+
+            //////////////////////
+            IndexTest = new List<int>();
+
+            Test.List().Select(i => i < 50).Should().Equal(45, 6, 2, 1, 13, 5, 9, 7, 5, 44, 6, 5, 3, 5, 6, 45, 6, 2, 1, 13, 5, 9, 7, 5, 44, 6, 5, 3, 5, 6, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
+            Test.List().Select(i => i > 50).Should().Equal(48498, 542, 321, 698, 88, 223, 446, 48498, 542, 321, 698, 88, 223, 446);
+            Test.List().Select(i => i < 10).Should().Equal(6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
+
+            Test.List().Select<int>((Index, Item) => Item < 50).Should().Equal(45, 6, 2, 1, 13, 5, 9, 7, 5, 44, 6, 5, 3, 5, 6, 45, 6, 2, 1, 13, 5, 9, 7, 5, 44, 6, 5, 3, 5, 6, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
+            Test.List().Select<int>((Index, Item) => Item > 50).Should().Equal(48498, 542, 321, 698, 88, 223, 446, 48498, 542, 321, 698, 88, 223, 446);
+            Test.List().Select<int>((Index, Item) =>
+                {
+                    IndexTest.Add(Index);
+                    return Item < 10;
+                }).Should().Equal(6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
+
+            IndexTest.Should().Equal(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53);
+
+            ((List<int>)null).Select((Func<int, bool>)null).Should().Equal();
+            ((List<int>)null).Select((Func<int, int, bool>)null).Should().Equal();
+
+            //////////////////////
+            IndexTest = new List<int>();
+
+            ((IEnumerable)Test.List()).Select<int>(i => i < 50).Should().Equal(45, 6, 2, 1, 13, 5, 9, 7, 5, 44, 6, 5, 3, 5, 6, 45, 6, 2, 1, 13, 5, 9, 7, 5, 44, 6, 5, 3, 5, 6, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
+            ((IEnumerable)Test.List()).Select<int>(i => i > 50).Should().Equal(48498, 542, 321, 698, 88, 223, 446, 48498, 542, 321, 698, 88, 223, 446);
+            ((IEnumerable)Test.List()).Select<int>(i => i < 10).Should().Equal(6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
+
+            ((IEnumerable)Test.List()).Select<int>((Index, Item) => Item < 50).Should().Equal(45, 6, 2, 1, 13, 5, 9, 7, 5, 44, 6, 5, 3, 5, 6, 45, 6, 2, 1, 13, 5, 9, 7, 5, 44, 6, 5, 3, 5, 6, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
+            ((IEnumerable)Test.List()).Select<int>((Index, Item) => Item > 50).Should().Equal(48498, 542, 321, 698, 88, 223, 446, 48498, 542, 321, 698, 88, 223, 446);
+            ((IEnumerable)Test.List()).Select<int>((Index, Item) =>
+            {
+                IndexTest.Add(Index);
+                return Item < 10;
+            }).Should().Equal(6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
+
+            IndexTest.Should().Equal(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53);
+
+            ((IEnumerable)null).Select((Func<int, bool>)null).Should().Equal();
+            ((IEnumerable)null).Select((Func<int, int, bool>)null).Should().Equal();
+            }
+
+        [Fact]
+        public void Test_SetAt()
+            {
+            int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
+                6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
+                446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4 };
+            var Test2 = Test.List();
+            var Test3 = Test.List();
+
+            Test.SetAt(0, 0);
+            Test.SetAt(1, 5);
+
+            Test.Should().Equal(0, 5, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
+                6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
+                446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
+
+            // Out of range silently fails.
+            Test.SetAt(-1, 5);
+            Test.SetAt(1000, 5);
+
+            Test.Should().Equal(0, 5, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
+                6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
+                446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
+
+            // null works
+
+            ((int[])null).SetAt(-1, 5);
+
+
+            //////////////////////////////////////////////
+
+
+            Test2.SetAt(0, 0);
+            Test2.SetAt(1, 5);
+
+            Test2.Should().Equal(0, 5, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
+                6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
+                446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
+
+            // Out of range silently fails.
+            Test2.SetAt(-1, 5);
+            Test2.SetAt(1000, 5);
+
+            Test2.Should().Equal(0, 5, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
+                6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
+                446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
+
+            // null works
+
+            ((List<int>)null).SetAt(-1, 5);
+
+            //////////////////////////////////////////////
+
+            ((IEnumerable)Test3).SetAt(0, 0);
+            ((IEnumerable)Test3).SetAt(1, 5);
+
+            Test3.Should().Equal(0, 5, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
+                6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
+                446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
+
+            ((IEnumerable)Test3).SetAt(-1, 5);
+            ((IEnumerable)Test3).SetAt(1000, 5);
+
+            ((IEnumerable)Test3).Should().Equal(0, 5, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
+                6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
+                446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
+
+            // null works
+
+            ((IEnumerable)null).SetAt(-1, 5);
+
+            }
+
+        [Fact]
+        public void Test_Shuffle()
+            {
+            int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
+                6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
+                446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4 };
+
+            // Test 100 times
+            for (int i = 0; i < 100; i++)
+                {
+                // Have all items with no regard for order.
+                var Shuffled = Test.Shuffle();
+                Shuffled.ShouldBeEquivalentTo(Test);
+
+                // But not equal to test with order (incredibly small chance for this to fail randomly)
+                Shuffled.ToS().Should().NotBe(Test.ToS());
+                }
+
+
+            ((int[])null).Shuffle().Should().BeEmpty();
+
+
+            // Test List
+            List<int> Test2 = Test.List();
+
+            // Test 100 times
+            for (int i = 0; i < 100; i++)
+                {
+                // Have all items with no regard for order.
+                var Shuffled = Test2.Shuffle();
+                Shuffled.ShouldBeEquivalentTo(Test2);
+
+                // But not equal to test with order (incredibly small chance for this to fail randomly)
+                Shuffled.ToS().Should().NotBe(Test2.ToS());
+                }
+
+            ((List<int>)null).Shuffle().Should().BeEmpty();
+
+            // Test List
+            IEnumerable Test3 = Test.List();
+
+            // Test 100 times
+            for (int i = 0; i < 100; i++)
+                {
+                // Have all items with no regard for order.
+                var Shuffled = Test3.Shuffle<int>();
+                Shuffled.ShouldBeEquivalentTo(Test3);
+
+                // But not equal to test with order (incredibly small chance for this to fail randomly)
+                Shuffled.ToS().Should().NotBe(Test3.ToS());
+                }
+
+            ((IEnumerable)null).Shuffle<int>().Should().BeEmpty();
 
             }
 
