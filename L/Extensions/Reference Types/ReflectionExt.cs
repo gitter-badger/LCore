@@ -222,9 +222,8 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentException">Unsupported / unknown attribute provider is passed.</exception>
         [Tested]
-        public static string GetAttributeTypeName([NotNull] this ICustomAttributeProvider AttributeProvider)
+        public static string GetAttributeTypeName([CanBeNull] this ICustomAttributeProvider AttributeProvider)
             {
-            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
             if (AttributeProvider == null)
                 return "";
 
@@ -244,7 +243,7 @@ namespace LCore.Extensions
             if (ParameterInfo != null)
                 return ParameterInfo.Member.DeclaringType?.FullName;
 
-            throw new ArgumentException($"Could not get attribute type name: {AttributeProvider?.GetType().FullName}", nameof(AttributeProvider));
+            throw new ArgumentException($"Could not get attribute type name: {AttributeProvider.GetType().FullName}", nameof(AttributeProvider));
             }
         #endregion
 

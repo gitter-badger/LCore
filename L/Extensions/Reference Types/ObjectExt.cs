@@ -378,17 +378,16 @@ namespace LCore.Extensions
                             return null;
 
                         var Member = In.GetType().GetMember(PropertyName).First();
-
-                        var PropertyInfo = Member as PropertyInfo;
-                        if (PropertyInfo != null)
+                        
+                        if (Member is PropertyInfo)
                             {
-                            var M2 = PropertyInfo;
+                            var M2 = (PropertyInfo)Member;
                             return M2.GetValue(In);
                             }
-                        var FieldInfo = Member as FieldInfo;
-                        if (FieldInfo != null)
+
+                        if (Member is FieldInfo)
                             {
-                            var M3 = FieldInfo;
+                            var M3 = (FieldInfo)Member;
                             return M3.GetValue(In);
                             }
 
