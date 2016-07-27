@@ -48,9 +48,13 @@ namespace L_Tests.Tests.Extensions
 
             Test.GetProperty(nameof(string.Length)).Should().Be(44);
 
-            L.A(() => Test.GetProperty(null)).ShouldFail();
-            L.A(() => Test.GetProperty("")).ShouldFail();
-            L.A(() => Test.GetProperty("bad property")).ShouldFail();
+            Test.GetProperty(null).Should().BeNull();
+
+            Test.GetProperty("").Should().BeNull();
+
+            Test.GetProperty("bad property").Should().BeNull();
+
+
             }
 
 

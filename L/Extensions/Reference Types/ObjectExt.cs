@@ -368,28 +368,32 @@ namespace LCore.Extensions
                 }
 
             /// <summary>
-            /// Get a property value from an object.
+            /// Get a property or field value from an object.
             /// </summary>
             public static Func<object, string, object> GetProperty()
                 {
                 return (In, PropertyName) =>
-                {
-                    var Member = In.GetType().GetMember(PropertyName).First();
+                    {
+                        if (In == null || PropertyName == null)
+                            return null;
 
-                    var PropertyInfo = Member as PropertyInfo;
-                    if (PropertyInfo != null)
-                        {
-                        var M2 = PropertyInfo;
-                        return M2.GetValue(In);
-                        }
-                    var FieldInfo = Member as FieldInfo;
-                    if (FieldInfo != null)
-                        {
-                        var M3 = FieldInfo;
-                        return M3.GetValue(In);
-                        }
-                    throw new ArgumentException($"{In.GetType().FullName} {PropertyName}");
-                };
+                        var Member = In.GetType().GetMember(PropertyName).First();
+
+                        var PropertyInfo = Member as PropertyInfo;
+                        if (PropertyInfo != null)
+                            {
+                            var M2 = PropertyInfo;
+                            return M2.GetValue(In);
+                            }
+                        var FieldInfo = Member as FieldInfo;
+                        if (FieldInfo != null)
+                            {
+                            var M3 = FieldInfo;
+                            return M3.GetValue(In);
+                            }
+
+                        return null;
+                    };
                 }
 
             /// <summary>

@@ -1685,8 +1685,8 @@ namespace L_Tests.Tests.Extensions
                 6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
                 446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4 };
 
-            // Test 100 times
-            for (int i = 0; i < 100; i++)
+            // Test 30 times
+            for (int i = 0; i < 30; i++)
                 {
                 // Have all items with no regard for order.
                 var Shuffled = Test.Shuffle();
@@ -1704,7 +1704,7 @@ namespace L_Tests.Tests.Extensions
             List<int> Test2 = Test.List();
 
             // Test 100 times
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 30; i++)
                 {
                 // Have all items with no regard for order.
                 var Shuffled = Test2.Shuffle();
@@ -1720,7 +1720,7 @@ namespace L_Tests.Tests.Extensions
             IEnumerable Test3 = Test.List();
 
             // Test 100 times
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 30; i++)
                 {
                 // Have all items with no regard for order.
                 var Shuffled = Test3.Shuffle<int>();
@@ -1732,6 +1732,116 @@ namespace L_Tests.Tests.Extensions
 
             ((IEnumerable)null).Shuffle<int>().Should().BeEmpty();
 
+            }
+
+        [Fact]
+        public void Test_Sort()
+            {
+            for (int i = 0; i < 50; i++)
+                {
+                int[] Random = new int[50].Fill(j => (int)typeof(int).NewRandom());
+
+                Random.Sort();
+                Random.Should().BeInAscendingOrder();
+
+                string[] Random2 = new string[50].Fill(j => (string)typeof(string).NewRandom());
+
+                Random2.Sort();
+                Random2.Should().BeInAscendingOrder();
+
+                char[] Random3 = new char[50].Fill(j => (char)typeof(char).NewRandom());
+
+                Random3.Sort();
+                Random3.Should().BeInAscendingOrder();
+
+                string[] Random4 = new string[50].Fill(j => (string)typeof(string).NewRandom());
+
+                Random4.Sort(s => s.ToString());
+                Random4.Should().BeInAscendingOrder();
+
+                string[] Random5 = new string[50].Fill(j => (string)typeof(string).NewRandom());
+
+                // ReSharper disable once StringCompareToIsCultureSpecific
+                Random5.Sort((o1, o2) => o1.CompareTo(o2));
+                Random5.Should().BeInAscendingOrder();
+
+                string[] Random6 = new string[50].Fill(j => (string)typeof(string).NewRandom());
+
+                // ReSharper disable once StringCompareToIsCultureSpecific
+                Random6.Sort((Func<string, IComparable>)null);
+                Random6.Should().BeInAscendingOrder();
+
+                string[] Random7 = new string[50].Fill(j => (string)typeof(string).NewRandom());
+
+                // ReSharper disable once StringCompareToIsCultureSpecific
+                Random7.Sort((Func<string, string, int>)null);
+                Random7.Should().BeInAscendingOrder();
+                }
+
+            ((IList)null).Sort();
+            ((IList<string>)null).Sort((Func<string, string, int>)null);
+            ((IList<string>)null).Sort((Func<string, IComparable>)null);
+            }
+
+        [Fact]
+        public void Test_Swap()
+            {
+            int[] Test = { 48498, 45, 6, 542, 321, 2, 1 };
+
+
+            List<int> Test2 = Test.List();
+
+            Test.Swap(0, 1);
+            Test.Should().Equal(45, 48498, 6, 542, 321, 2, 1);
+            Test.Swap(1, 5);
+            Test.Should().Equal(45, 2, 6, 542, 321, 48498, 1);
+            Test.Swap(-1, 10);
+            Test.Should().Equal(1, 2, 6, 542, 321, 48498, 45);
+            Test.Swap(-1, -1);
+            Test.Should().Equal(1, 2, 6, 542, 321, 48498, 45);
+            Test.Swap(10, 10);
+            Test.Should().Equal(1, 2, 6, 542, 321, 48498, 45);
+
+            ((int[])null).Swap(0, 1);
+
+            Test2.Swap(0, 1);
+            Test2.Should().Equal(45, 48498, 6, 542, 321, 2, 1);
+            Test2.Swap(1, 5);
+            Test2.Should().Equal(45, 2, 6, 542, 321, 48498, 1);
+            Test2.Swap(-1, 10);
+            Test2.Should().Equal(1, 2, 6, 542, 321, 48498, 45);
+            Test2.Swap(-1, -1);
+            Test2.Should().Equal(1, 2, 6, 542, 321, 48498, 45);
+            Test2.Swap(10, 10);
+            Test2.Should().Equal(1, 2, 6, 542, 321, 48498, 45);
+
+            ((List<int>)null).Swap(0, 1);
+            }
+
+        [Fact]
+        public void Test_TotalCount()
+            {
+            var Test = new object[]
+                {
+                1,
+                2,
+                3,
+                new int[] {4,5,6},
+                new object[]
+                    {
+                        null,
+                    new int[] {7,8,9,10},
+                    new int[] {11,12,13,14}
+                    },
+                "15",
+                "    16    "
+                };
+
+
+            Test.TotalCount().Should().Be(16);
+
+
+            ((IEnumerable)null).TotalCount().Should().Be(0);
             }
 
         #region Internal

@@ -192,8 +192,9 @@ namespace L_Tests.Tests.Extensions
             Action Act = () => Thread.Sleep(10);
             lock (Act)
                 {
-                Act.Profile().Should().BeCloseTo(new TimeSpan(0, 0, 0, 0, 10), 30);
-                Act.Profile(5).Should().BeCloseTo(new TimeSpan(0, 0, 0, 0, 50), 30);
+                Act.Profile().Should().BeCloseTo(new TimeSpan(0, 0, 0, 0, 10), 40);
+                Act.Profile(5).Should().BeCloseTo(new TimeSpan(0, 0, 0, 0, 50), 80);
+                Act.Profile(20).Should().BeCloseTo(new TimeSpan(0, 0, 0, 0, 200), 100);
 
                 ((Action)null).Profile().Should().BeCloseTo(new TimeSpan(0));
                 ((Action)null).Profile(5).Should().BeCloseTo(new TimeSpan(0));

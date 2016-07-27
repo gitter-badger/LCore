@@ -24,6 +24,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         [Tested]
+        [TestBound(1, -1, 5000, false)]
         public static Action Async([CanBeNull]this Action In, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
             {
             In = In ?? L.A();
@@ -62,6 +63,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         [Tested]
+        [TestBound(1, -1, 5000, false)]
         public static Action<T> Async<T>([CanBeNull]this Action<T> In, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
             {
             In = In ?? L.A<T>();
@@ -76,6 +78,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         [Tested]
+        [TestBound(1, -1, 5000, false)]
         public static Action Async<U>([CanBeNull]this Func<U> In, [CanBeNull]Action<U> Callback, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
             {
             In = In ?? L.F<U>();
@@ -90,6 +93,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         [Tested]
+        [TestBound(1, -1, 5000, false)]
         public static Action<T1> Async<T1, U>([CanBeNull]this Func<T1, U> In, [CanBeNull]Action<U> Callback, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
             {
             In = In ?? L.F<T1, U>();
@@ -104,8 +108,12 @@ namespace LCore.Extensions
         /// Counts how many times <paramref name="In"/> can be performed in the given number of <paramref name="Milliseconds"/>
         /// </summary>
         [Tested]
-        public static uint CountExecutions(this Action In, uint Milliseconds)
+        [TestBound(1, 0, 100, false)]
+        public static uint CountExecutions([CanBeNull]this Action In, uint Milliseconds)
             {
+            if (In == null)
+                In = () => { };
+
             var Start = DateTime.Now;
             double Elapsed = 0;
 
@@ -128,7 +136,8 @@ namespace LCore.Extensions
         /// Performs an action, reporting back the amount of time it took to complete
         /// </summary>
         [Tested]
-        public static TimeSpan Profile(this Action In, uint Repeat = L.Thread.DefaultProfileRepeat)
+        [TestBound(1, 0, 100, false)]
+        public static TimeSpan Profile([CanBeNull]this Action In, uint Repeat = L.Thread.DefaultProfileRepeat)
             {
             return L.Thread.ProfileActionRepeat(In, Repeat);
             }
@@ -136,7 +145,8 @@ namespace LCore.Extensions
         /// Performs a function, reporting back the amount of time it took to complete
         /// </summary>
         [Tested]
-        public static MethodProfileData<U> Profile<U>(this Func<U> In, uint Repeat = L.Thread.DefaultProfileRepeat)
+        [TestBound(1, 0u, 100u, false)]
+        public static MethodProfileData<U> Profile<U>([CanBeNull]this Func<U> In, uint Repeat = L.Thread.DefaultProfileRepeat)
             {
             var Out = new MethodProfileData<U>();
             var OutList = new List<U>();
@@ -158,7 +168,7 @@ namespace LCore.Extensions
         /// Access the data using: L.Thread.MethodProfileCache
         /// </summary>
         [Tested]
-        public static Action Profile(this Action In, string ProfileName)
+        public static Action Profile([CanBeNull]this Action In, string ProfileName)
             {
             return L.Thread.ProfileAction(In, ProfileName);
             }
@@ -167,7 +177,7 @@ namespace LCore.Extensions
         /// Access the data using: L.Thread.MethodProfileCache
         /// </summary>
         [Tested]
-        public static Action<T1> Profile<T1>(this Action<T1> In, string ProfileName)
+        public static Action<T1> Profile<T1>([CanBeNull]this Action<T1> In, string ProfileName)
             {
             return o => { In.Supply(o).Profile(ProfileName)(); };
             }
@@ -176,7 +186,7 @@ namespace LCore.Extensions
         /// Access the data using: L.Thread.MethodProfileCache
         /// </summary>
         [Tested]
-        public static Func<U> Profile<U>(this Func<U> In, string ProfileName)
+        public static Func<U> Profile<U>([CanBeNull]this Func<U> In, string ProfileName)
             {
             return () =>
                 {
@@ -200,13 +210,15 @@ namespace LCore.Extensions
         /// Access the data using: L.Thread.MethodProfileCache
         /// </summary>
         [Tested]
-        public static Func<T1, U> Profile<T1, U>(this Func<T1, U> In, string ProfileName)
+        public static Func<T1, U> Profile<T1, U>([CanBeNull]this Func<T1, U> In, string ProfileName)
             {
             return o => In.Supply(o).Profile(ProfileName)();
             }
         #endregion
 
         #endregion
+
+
         }
     public static partial class L
         {
@@ -225,7 +237,9 @@ namespace LCore.Extensions
             #region Profile
             internal static readonly Func<Action, uint, TimeSpan> ProfileActionRepeat = (In, Repeat) =>
                 {
-                    In = In ?? A();
+                    if (In == null)
+                        return new TimeSpan(0);
+
                     var Start = DateTime.Now;
                     In.Repeat(Repeat)();
                     var End = DateTime.Now;

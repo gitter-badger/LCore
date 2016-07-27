@@ -63,6 +63,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="AmbiguousMatchException">More than one method is found with the specified name and specified parameters. </exception>
         [Tested]
+        [CanBeNull]
         public static MethodInfo FindMethod(this Type In, [CanBeNull]string Name, Type[] Arguments = null)
             {
             Name = Name ?? "";
@@ -92,6 +93,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="AmbiguousMatchException">More than one method is found with the specified name and specified parameters. </exception>
         [Tested]
+        [CanBeNull]
         public static MethodInfo FindMethod<T>(this Type In, string Name)
             {
             return In.FindMethod(Name, new[] { typeof(T) });
@@ -104,6 +106,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="AmbiguousMatchException">More than one method is found with the specified name and specified parameters. </exception>
         [Tested]
+        [CanBeNull]
         public static MethodInfo FindMethod<T1, T2>(this Type In, string Name)
             {
             return In.FindMethod(Name, new[] { typeof(T1), typeof(T2) });
@@ -116,6 +119,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="AmbiguousMatchException">More than one method is found with the specified name and specified parameters. </exception>
         [Tested]
+        [CanBeNull]
         public static MethodInfo FindMethod<T1, T2, T3>(this Type In, string Name)
             {
             return In.FindMethod(Name, new[] { typeof(T1), typeof(T2), typeof(T3) });
@@ -128,6 +132,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="AmbiguousMatchException">More than one method is found with the specified name and specified parameters. </exception>
         [Tested]
+        [CanBeNull]
         public static MethodInfo FindMethod<T1, T2, T3, T4>(this Type In, string Name)
             {
             return In.FindMethod(Name, new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
@@ -217,8 +222,12 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentException">Unsupported / unknown attribute provider is passed.</exception>
         [Tested]
-        public static string GetAttributeTypeName(this ICustomAttributeProvider AttributeProvider)
+        public static string GetAttributeTypeName([NotNull] this ICustomAttributeProvider AttributeProvider)
             {
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+            if (AttributeProvider == null)
+                return "";
+
             var Type1 = AttributeProvider as Type;
             if (Type1 != null)
                 return Type1.FullName;
@@ -235,7 +244,7 @@ namespace LCore.Extensions
             if (ParameterInfo != null)
                 return ParameterInfo.Member.DeclaringType?.FullName;
 
-            throw new ArgumentException($"Could not get attribute type name: {AttributeProvider.GetType().FullName}", nameof(AttributeProvider));
+            throw new ArgumentException($"Could not get attribute type name: {AttributeProvider?.GetType().FullName}", nameof(AttributeProvider));
             }
         #endregion
 
@@ -427,8 +436,11 @@ namespace LCore.Extensions
         /// Returns a list of all member values, optionally include subclasses.
         /// </summary>
         [Tested]
-        public static List<T> GetValues<T>(this Type In, object Obj, bool IncludeBaseClasses = true)
+        public static List<T> GetValues<T>([CanBeNull]this Type In, [CanBeNull]object Obj, bool IncludeBaseClasses = true)
             {
+            if (In == null)
+                return new List<T>();
+
             List<MemberInfo> Members = In.MembersOfType(typeof(T), IncludeBaseClasses);
             return Members.RemoveDuplicate(Member => Member.Name).GetValues<T>(Obj);
             }
@@ -440,6 +452,10 @@ namespace LCore.Extensions
         public static List<T> GetValues<T>([CanBeNull]this IEnumerable<MemberInfo> In, [CanBeNull]object Obj, bool Instantiate = false)
             {
             var Out = new List<T>();
+
+            if (Obj == null)
+                return Out;
+
             Out = In.Convert(o =>
             {
                 var Obj2 = o.GetValue(Obj);
@@ -608,8 +624,11 @@ namespace LCore.Extensions
         /// </summary>
         [Tested]
         // ReSharper disable once UnusedMethodReturnValue.Global
-        public static List<T> InstantiateValues<T>(this Type In, object Obj, bool IncludeBaseClasses)
+        public static List<T> InstantiateValues<T>([CanBeNull]this Type In, [CanBeNull]object Obj, bool IncludeBaseClasses)
             {
+            if (In == null || Obj == null)
+                return new List<T>();
+
             List<MemberInfo> Members = In.MembersOfType(typeof(T), IncludeBaseClasses);
             return Members.GetValues<T>(Obj, true);
             }
@@ -618,8 +637,11 @@ namespace LCore.Extensions
         /// </summary>
         [Tested]
         // ReSharper disable once UnusedMethodReturnValue.Global
-        public static List<T> InstantiateValues<T>(this IEnumerable<MemberInfo> In, object Obj)
+        public static List<T> InstantiateValues<T>([CanBeNull]this IEnumerable<MemberInfo> In, [CanBeNull] object Obj)
             {
+            if (In == null || Obj == null)
+                return new List<T>();
+
             return In.GetValues<T>(Obj, true);
             }
         #endregion
@@ -846,7 +868,6 @@ namespace LCore.Extensions
         /// Ex: MethodInfo.ToInvocationSignature() => string
         ///     string.Sub(int, int) => string
         /// </summary>
-        [Tested]
         public static string ToInvocationSignature([CanBeNull]this MethodInfo In)
             {
             if (In == null)
@@ -1044,9 +1065,9 @@ namespace LCore.Extensions
         /// <summary>
         /// Creates a new random object for many simple types.
         /// </summary>
-        public static object NewRandom(this Type Type)
+        public static object NewRandom(this Type Type, object Minimum = null, object Maximum = null)
             {
-            return L.Ref.NewRandom(Type);
+            return L.Ref.NewRandom(Type, Minimum, Maximum);
             }
         }
 
@@ -1251,40 +1272,73 @@ namespace LCore.Extensions
             /// <summary>
             /// Creates a new random <typeparamref name="T"/> for many simple types.
             /// </summary>
-            public static T NewRandom<T>()
+            public static T NewRandom<T>(T Minimum = default(T), T Maximum = default(T))
                 {
-                return (T)NewRandom(typeof(T));
+                return (T)NewRandom(typeof(T), Minimum, Maximum);
                 }
 
             /// <summary>
             /// Creates a new random object of type <paramref name="Type"/> for many simple types.
             /// </summary>
-            public static object NewRandom(Type Type)
+            public static object NewRandom(Type Type, object Minimum = null, object Maximum = null)
                 {
+                var Rand = new Random();
+
+
+                if (Minimum != null || Maximum != null)
+                    {
+                    if (Minimum is IConvertible)
+                        Minimum = ((IConvertible)Minimum).ConvertTo(Type) ?? Minimum;
+
+                    if (Maximum is IConvertible)
+                        Maximum = ((IConvertible)Maximum).ConvertTo(Type) ?? Maximum;
+
+                    if (Minimum.IsType(Type) && Maximum.IsType(Type))
+                        if (Minimum is IConvertible && ((IConvertible)Minimum).CanConvertTo(typeof(int)) &&
+                            Maximum is IConvertible && ((IConvertible)Maximum).CanConvertTo(typeof(int)))
+                            return Rand.Next((int)((IConvertible)Minimum).ConvertTo<int>(), (int)((IConvertible)Maximum).ConvertTo<int>())
+                                .ConvertTo(Type);
+
+                    if (Minimum.IsType(Type))
+                        if (Minimum is IConvertible && ((IConvertible)Minimum).CanConvertTo(typeof(int)))
+                            return Rand.Next((int)((IConvertible)Minimum).ConvertTo<int>(), int.MaxValue)
+                                .ConvertTo(Type);
+
+                    if (Maximum.IsType(Type))
+                        if (Maximum is IConvertible && ((IConvertible)Maximum).CanConvertTo(typeof(int)))
+                            return Rand.Next((int)((IConvertible)Maximum).ConvertTo<int>(), int.MaxValue)
+                                .ConvertTo(Type);
+                    }
+
+
                 if (Type == typeof(string))
                     return new Guid().ToString();
 
                 if (Type == typeof(Guid))
                     return new Guid();
 
-                var Rand = new Random();
 
                 if (Type == typeof(double))
                     return Rand.NextDouble() * int.MaxValue - int.MinValue;
 
                 if (Type == typeof(char))
-                    return Rand.Next(char.MinValue, char.MaxValue);
+                    return (char)Rand.Next(char.MinValue, char.MaxValue);
                 if (Type == typeof(byte))
-                    return Rand.Next(byte.MinValue, byte.MaxValue);
+                    return (byte)Rand.Next(byte.MinValue, byte.MaxValue);
                 if (Type == typeof(sbyte))
-                    return Rand.Next(sbyte.MinValue, sbyte.MaxValue);
+                    return (sbyte)Rand.Next(sbyte.MinValue, sbyte.MaxValue);
                 if (Type == typeof(short))
-                    return Rand.Next(short.MinValue, short.MaxValue);
+                    return (short)Rand.Next(short.MinValue, short.MaxValue);
                 if (Type == typeof(ushort))
-                    return Rand.Next(ushort.MinValue, ushort.MaxValue);
-                if (Type == typeof(long) || Type == typeof(ulong) || Type == typeof(int)
-                    || Type == typeof(uint) || Type == typeof(uint))
+                    return (ushort)Rand.Next(ushort.MinValue, ushort.MaxValue);
+                if (Type == typeof(long))
+                    return (long)Rand.Next(int.MinValue, int.MaxValue);
+                if (Type == typeof(ulong))
+                    return (ulong)Rand.Next(int.MinValue, int.MaxValue);
+                if (Type == typeof(int))
                     return Rand.Next(int.MinValue, int.MaxValue);
+                if (Type == typeof(uint))
+                    return (uint)Rand.Next(int.MinValue, int.MaxValue);
 
 
                 // TODO: Create from object constructor and initialize properties.

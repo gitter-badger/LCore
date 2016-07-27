@@ -140,6 +140,7 @@ namespace LCore.Extensions
         /// Safely gets an item from a dictionary if it exists.
         /// </summary>
         [Tested]
+        [CanBeNull]
         public static TValue SafeGet<TKey, TValue>([CanBeNull]this IDictionary<TKey, TValue> In, [CanBeNull]TKey Key)
             {
             if (In != null)

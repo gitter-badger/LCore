@@ -16,7 +16,8 @@ namespace LCore.Extensions
     /// Provides extensions for list types:
     /// List`T, T[], IEnumerable`T
     /// </summary>
-    [ExtensionProvider]
+    // ReSharper disable once ArgumentsStyleLiteral
+    [ExtensionProvider(TestMethodsForNulls: true)]
     public static class EnumerableExt
         {
         #region Extensions +
@@ -542,6 +543,7 @@ namespace LCore.Extensions
         /// </summary>
         [Tested]
         [DebuggerStepThrough]
+        [TestBound(1, 0, 100, false)]
         public static List<T> Collect<T>([CanBeNull]this Func<T> In, int Count)
             {
             In = In ?? (() => default(T));
@@ -564,6 +566,7 @@ namespace LCore.Extensions
         /// </summary>
         [Tested]
         [DebuggerStepThrough]
+        [TestBound(1,0,100,false)]
         public static List<T> Collect<T>([CanBeNull]this Func<int, T> In, int Count)
             {
             In = In ?? (i => default(T));
@@ -1292,6 +1295,14 @@ namespace LCore.Extensions
             {
             return In.Collect(o => Obj);
             }
+        /// <summary>
+        /// Returns a new T[] containing <paramref name="In.Count" /> entries using <paramref name="Filler"/>
+        /// to generate entries.
+        /// </summary>
+        public static T[] Fill<T>([CanBeNull]this T[] In, [CanBeNull]Func<T, T> Filler)
+            {
+            return In.Collect(Filler);
+            }
         #endregion
 
         #region Filter
@@ -1575,6 +1586,7 @@ namespace LCore.Extensions
         /// If the index is out of range, null is returned.
         /// </summary>
         [Tested]
+        [CanBeNull]
         public static object GetAt([CanBeNull]this IEnumerable In, int Index)
             {
             return Index < 0
@@ -1587,6 +1599,7 @@ namespace LCore.Extensions
         /// If the index is out of range, null is returned.
         /// </summary>
         [Tested]
+        [CanBeNull]
         public static object GetAt([CanBeNull]this IEnumerable In, uint Index)
             {
             if (In == null)
@@ -1618,6 +1631,7 @@ namespace LCore.Extensions
         /// If the index is out of range, null is returned.
         /// </summary>
         [Tested]
+        [CanBeNull]
         public static T GetAt<T>([CanBeNull]this IEnumerable<T> In, int Index)
             {
             return Index < 0
@@ -1630,6 +1644,7 @@ namespace LCore.Extensions
         /// If the index is out of range, null is returned.
         /// </summary>
         [Tested]
+        [CanBeNull]
         public static T GetAt<T>([CanBeNull]this IEnumerable<T> In, uint Index)
             {
             if (In == null)
@@ -1820,11 +1835,9 @@ namespace LCore.Extensions
                 return false;
 
             bool Found = false;
-            In.While(o =>
+            In.While<T>(o =>
             {
-                if (o is T ||
-                ((typeof(T).IsNullable() || typeof(T).IsClass) && o.IsNull()))
-                    Found = Found || Condition((T)o);
+                Found = Found || Condition(o);
                 return !Found;
             });
             return Found;
@@ -2327,6 +2340,7 @@ namespace LCore.Extensions
         /// This method will not include any single index more than once unless AllowDuplicates is set to true.
         /// </summary>
         [Tested]
+        [TestBound(1, 0, 100, false)]
         public static List<T> Random<T>([CanBeNull]this IEnumerable<T> In, int Count, bool AllowDuplicates = false)
             {
             return Count < 0
@@ -2340,6 +2354,7 @@ namespace LCore.Extensions
         /// This method will not include any single index more than once unless AllowDuplicates is set to true.
         /// </summary>
         [Tested]
+        [TestBound(1, 0u, 100u, false)]
         public static List<T> Random<T>([CanBeNull]this IEnumerable<T> In, uint Count, bool AllowDuplicates = false)
             {
             uint Count2 = In.Count();
@@ -2361,21 +2376,20 @@ namespace LCore.Extensions
 
                 return RandomIndexes.Convert(In.GetAt).First(Count).List();
                 }
-            else
+
+
+            if (Count > Count2)
+                Count = Count2;
+
+            while (RandomIndexes.Count < (int)Count)
                 {
-                if (Count > Count2)
-                    Count = Count2;
+                int RandInt = Rand.Next((int)Count2);
 
-                while (RandomIndexes.Count < (int)Count)
-                    {
-                    int RandInt = Rand.Next((int)Count2);
-
-                    if (!RandomIndexes.Has(RandInt))
-                        RandomIndexes.Add(RandInt);
-                    }
-
-                return RandomIndexes.Convert((i, Item) => In.GetAt(Item)).First(Count).List();
+                if (!RandomIndexes.Has(RandInt))
+                    RandomIndexes.Add(RandInt);
                 }
+
+            return RandomIndexes.Convert((i, Item) => In.GetAt(Item)).First(Count).List();
             }
 
         /// <summary>
@@ -2383,6 +2397,7 @@ namespace LCore.Extensions
         /// If <paramref name="Count" /> is higher than In.Count, an ArgumentException will be thrown.
         /// </summary>
         [Tested]
+        [TestBound(1, 0, 100, false)]
         public static T[] Random<T>([CanBeNull]this T[] In, int Count, bool AllowDuplicates = false)
             {
             return Count < 0
@@ -2395,9 +2410,12 @@ namespace LCore.Extensions
         /// If <paramref name="Count" /> is higher than In.Count, an ArgumentException will be thrown.
         /// </summary>
         [Tested]
+        [TestBound(1, 0u, 100u, false)]
         public static T[] Random<T>([CanBeNull]this T[] In, uint Count, bool AllowDuplicates = false)
             {
-            In = In ?? new T[] { };
+            if (In == null)
+                return new T[] {};
+
             uint Count2 = In.Count();
 
             var RandomIndexes = new List<int>();
@@ -2571,7 +2589,7 @@ namespace LCore.Extensions
         public static List<T> RemoveDuplicates<T>([CanBeNull]this IEnumerable<T> In)
             {
             var Out = new List<T>();
-            In.Each(i =>
+            In?.Each(i =>
                 {
                     if (!Out.Contains(i))
                         Out.Add(i);
@@ -2823,7 +2841,7 @@ namespace LCore.Extensions
         [Tested]
         public static List<T> Shuffle<T>([CanBeNull]this IEnumerable<T> In)
             {
-            return In.Random(In.Count(), false);
+            return In.Random(In.Count());
             }
         /// <summary>
         /// Returns a new T[] with the item order randomized.
@@ -2848,8 +2866,12 @@ namespace LCore.Extensions
         /// Sorts the collection using the default comparer which works for all types that support IComparable.
         /// </summary>
         /// <param name="In"></param>
+        [Tested]
         public static void Sort([CanBeNull]this IList In)
             {
+            if (In == null)
+                return;
+
             var Sorter = new QuickSorter(new ComparableComparer(), new DefaultSwap());
             Sorter.Sort(In);
             }
@@ -2857,8 +2879,14 @@ namespace LCore.Extensions
         /// Sorts the collection using the results of the passed [Comparer] Func`<typeparamref name="T" />,<typeparamref name="T" />,int.
         /// The Func should return positive if the first item is greater, negative if the second item is greater, and 0 if they are equal.
         /// </summary>
+        [Tested]
         public static void Sort<T>([CanBeNull]this IList<T> In, [CanBeNull]Func<T, T, int> Comparer)
             {
+            if (In == null)
+                return;
+
+            // ReSharper disable once StringCompareToIsCultureSpecific
+            Comparer = Comparer ?? ((o1, o2) => o1?.ToString().CompareTo(o2?.ToString()) ?? 0);
             var Sorter = new QuickSorter(new CustomComparer<T>(Comparer), new DefaultSwap());
             Sorter.Sort(In);
             }
@@ -2869,8 +2897,13 @@ namespace LCore.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="In"></param>
         /// <param name="FieldRetriever"></param>
+        [Tested]
         public static void Sort<T>([CanBeNull]this IList<T> In, [CanBeNull]Func<T, IComparable> FieldRetriever)
             {
+            if (In == null)
+                return;
+
+            FieldRetriever = FieldRetriever ?? (o => o?.ToString());
             var Sorter = new QuickSorter(new CustomComparer<T>(FieldRetriever), new DefaultSwap());
             Sorter.Sort(In);
             }
@@ -2880,14 +2913,21 @@ namespace LCore.Extensions
         /// <summary>
         /// Swaps two indexes in T[] <paramref name="In" />.
         /// </summary>
+        [Tested]
         public static void Swap<T>([CanBeNull]this T[] In, int Index1, int Index2)
             {
             if (In == null)
                 return;
-            if (!In.HasIndex(Index1))
-                throw new Exception($"Invalid index 1: {Index1}");
-            if (!In.HasIndex(Index2))
-                throw new Exception($"Invalid index 2: {Index2}");
+            if (Index1 < 0)
+                Index1 = 0;
+            if (Index2 < 0)
+                Index2 = 0;
+            if (Index1 >= In.Length)
+                Index1 = In.Length - 1;
+            if (Index2 >= In.Length)
+                Index2 = In.Length - 1;
+            if (Index1 == Index2)
+                return;
 
             var Item = In[Index1];
             In[Index1] = In[Index2];
@@ -2896,14 +2936,21 @@ namespace LCore.Extensions
         /// <summary>
         /// Swaps two indexes in list <paramref name="In" />.
         /// </summary>
+        [Tested]
         public static void Swap([CanBeNull]this IList In, int Index1, int Index2)
             {
             if (In == null)
                 return;
-            if (!In.HasIndex(Index1))
-                throw new Exception($"Invalid index 1: {Index1}");
-            if (!In.HasIndex(Index2))
-                throw new Exception($"Invalid index 2: {Index2}");
+            if (Index1 < 0)
+                Index1 = 0;
+            if (Index2 < 0)
+                Index2 = 0;
+            if (Index1 >= In.Count)
+                Index1 = In.Count - 1;
+            if (Index2 >= In.Count)
+                Index2 = In.Count - 1;
+            if (Index1 == Index2)
+                return;
 
             var Item = In[Index1];
             In[Index1] = In[Index2];
@@ -2916,6 +2963,7 @@ namespace LCore.Extensions
         /// Returns the total number of elements within the collection.
         /// Counts contained IEnumerable objects for their contents also.
         /// </summary>
+        [Tested]
         public static int TotalCount([CanBeNull]this IEnumerable In)
             {
             var Collection = In;
@@ -2936,7 +2984,7 @@ namespace LCore.Extensions
                     var Enumerable = Item as IEnumerable;
                     if (Enumerable != null)
                         Out += Enumerable.TotalCount();
-                    else
+                    else if (Item != null)
                         Out++;
                 });
 
@@ -2949,7 +2997,7 @@ namespace LCore.Extensions
         /// Iterates through a collection. A false return value from the Func stops the iteration.
         /// Returns false if the While loop was stopped prematurely or if the input was null, true otherwise.
         /// </summary>
-        public static bool While([CanBeNull]this IEnumerable In, [CanBeNull]Func<bool> Func)
+        public static bool While<T>([CanBeNull]this IEnumerable In, [CanBeNull]Func<T, bool> Func)
             {
             if (In == null)
                 return false;
@@ -2957,10 +3005,9 @@ namespace LCore.Extensions
                 return false;
 
             // ReSharper disable once LoopCanBeConvertedToQuery
-            // ReSharper disable once UnusedVariable
             foreach (var Obj in In)
                 {
-                bool Continue = Func();
+                bool Continue = Func((T)Obj);
                 if (!Continue)
                     return false;
                 }
@@ -2968,44 +3015,21 @@ namespace LCore.Extensions
             }
         /// <summary>
         /// Iterates through a collection. A false return value from the Func stops the iteration.
+        /// The int passed to the Func is the 0-based index of the current item.
         /// Returns false if the While loop was stopped prematurely or if the input was null, true otherwise.
         /// </summary>
-        public static bool While<T>([CanBeNull]this IEnumerable<T> In, [CanBeNull]Func<bool> Func)
+        public static bool While<T>([CanBeNull]this IEnumerable In, [CanBeNull]Func<int, T, bool> Func)
             {
-            if (In == null)
-                return false;
             if (Func == null)
                 return false;
 
-            // ReSharper disable once LoopCanBeConvertedToQuery
-            // ReSharper disable once UnusedVariable
-            foreach (var Obj in In)
-                {
-                bool Continue = Func();
-                if (!Continue)
-                    return false;
-                }
-            return true;
-            }
-        /// <summary>
-        /// Iterates through a collection. A false return value from the Func stops the iteration.
-        /// Returns false if the While loop was stopped prematurely or if the input was null, true otherwise.
-        /// </summary>
-        public static bool While([CanBeNull]this IEnumerable In, [CanBeNull]Func<object, bool> Func)
+            int Index = 0;
+            return In.List<T>().While(o =>
             {
-            if (In == null)
-                return false;
-            if (Func == null)
-                return false;
-
-            // ReSharper disable once LoopCanBeConvertedToQuery
-            foreach (var Obj in In)
-                {
-                bool Continue = Func(Obj);
-                if (!Continue)
-                    return false;
-                }
-            return true;
+                bool Continue = Func(Index, o);
+                Index++;
+                return Continue;
+            });
             }
         /// <summary>
         /// Iterates through a collection. A false return value from the Func stops the iteration.
@@ -3026,42 +3050,6 @@ namespace LCore.Extensions
                     return false;
                 }
             return true;
-            }
-        /// <summary>
-        /// Iterates through a collection. A false return value from the Func stops the iteration.
-        /// The int passed to the Func is the 0-based index of the current item.
-        /// Returns false if the While loop was stopped prematurely or if the input was null, true otherwise.
-        /// </summary>
-        public static bool While<T>([CanBeNull]this IEnumerable In, [CanBeNull]Func<int, bool> Func)
-            {
-            if (Func == null)
-                return false;
-
-            int Index = 0;
-            return In.List<T>().While(o =>
-            {
-                bool Continue = Func(Index);
-                Index++;
-                return Continue;
-            });
-            }
-        /// <summary>
-        /// Iterates through a collection. A false return value from the Func stops the iteration.
-        /// The int passed to the Func is the 0-based index of the current item.
-        /// Returns false if the While loop was stopped prematurely or if the input was null, true otherwise.
-        /// </summary>
-        public static bool While<T>([CanBeNull]this IEnumerable In, [CanBeNull]Func<int, T, bool> Func)
-            {
-            if (Func == null)
-                return false;
-
-            int Index = 0;
-            return In.List<T>().While(o =>
-            {
-                bool Continue = Func(Index, o);
-                Index++;
-                return Continue;
-            });
             }
         /// <summary>
         /// Iterates through a collection. A false return value from the Func stops the iteration.

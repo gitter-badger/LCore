@@ -205,6 +205,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="System.FormatException">Throws a format exception if the format is not correct for the output type.</exception>
         [Tested]
+        [CanBeNull]
         public static IConvertible TryConvertTo<T>([CanBeNull]this IConvertible In)
             where T : struct, IConvertible
             {
@@ -222,6 +223,7 @@ namespace LCore.Extensions
         /// If <paramref name="In" /> cannot be converted, the source will be returned.
         /// </summary>
         [Tested]
+        [CanBeNull]
         public static IConvertible TryConvertToString([CanBeNull]this IConvertible In)
             {
             if (In == null)

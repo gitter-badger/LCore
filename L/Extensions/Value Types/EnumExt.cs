@@ -27,6 +27,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "left" }, null)]
         [TestResult(new object[] { "Left" }, L.Align.Left)]
         [TestResult(new object[] { "Right" }, L.Align.Right)]
+        [CanBeNull]
         public static T? ParseEnum<T>([CanBeNull]this string Str)
              where T : struct
             {
@@ -45,6 +46,7 @@ namespace LCore.Extensions
         /// or does not match a value of the enum.
         /// </summary>
         [Tested]
+        [CanBeNull]
         public static Enum ParseEnum([CanBeNull]this string Str, [CanBeNull]Type Type)
             {
             try
@@ -65,6 +67,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { Test.TestEnum.Left }, L.Align.Left)]
         [TestResult(new object[] { Test.TestEnum.Right }, L.Align.Right)]
         [TestResult(new object[] { Test.TestEnum.Top }, L.AlignVertical.Top, GenericTypes = new[] { typeof(L.AlignVertical) })]
+        [CanBeNull]
         public static T? ParseEnum<T>([CanBeNull]this Enum Enum)
              where T : struct
             {
@@ -82,8 +85,12 @@ namespace LCore.Extensions
         /// If the enum friendly name is not found, null will be returned.
         /// </summary> 
         [Tested]
-        public static Enum ParseEnum_FriendlyName(this string Str, Type Type)
+        [CanBeNull]
+        public static Enum ParseEnum_FriendlyName([CanBeNull]this string Str, [CanBeNull]Type Type)
             {
+            if (Type == null)
+                return null;
+
             var Out = Enum.GetValues(Type).Array<Enum>().First(
                 Enum => Enum.ToString() == Str ||
                     Enum.GetFriendlyName() == Str);

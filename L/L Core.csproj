@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;JETBRAINS_ANNOTATIONS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -114,6 +114,7 @@
     <Compile Include="Tests\Attributes\TestedIndirectlyAttribute.cs" />
     <Compile Include="Tests\Attributes\TestMethodGenerics.cs" />
     <Compile Include="Tests\Attributes\TestedAttribute.cs" />
+    <Compile Include="Tests\Attributes\TestBoundAttribute.cs" />
     <Compile Include="Tests\TypeTests.cs" />
     <Compile Include="Tools\CacheData.cs" />
     <Compile Include="Extensions\Language\CommentExt.cs" />

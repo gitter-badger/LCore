@@ -1,8 +1,12 @@
-﻿using System;
+﻿// This allows for [CanBeNull] annotations to be seen.
+#define JETBRAINS_ANNOTATIONS
+
+using System;
 using System.Collections.Generic;
 // ReSharper disable once RedundantUsingDirective
 using System.Diagnostics;
 using System.Reflection;
+using System.Threading;
 using LCore.Extensions;
 using FluentAssertions;
 using JetBrains.Annotations;
@@ -77,12 +81,46 @@ namespace L_Tests
                     {
                     bool MethodCanBeNull = Method.HasAttribute<CanBeNullAttribute>(false);
 
-                    ParameterInfo[] ParameterTypes = Method.GetParameters();
+                    List<TestBoundAttribute> ParameterBounds = Method.GetAttributes<TestBoundAttribute>(false);
 
-                    bool[] ParametersCanBeNull = ParameterTypes.Convert(
+                    var TheMethod = Method;
+
+                    if (Method.ContainsGenericParameters)
+                        {
+                        try { TheMethod = Method.MakeGenericMethod(typeof(int)); }
+                        catch
+                            {
+                            try { TheMethod = Method.MakeGenericMethod(typeof(string)); }
+                            catch
+                                {
+                                try { TheMethod = Method.MakeGenericMethod(typeof(int), typeof(string)); }
+                                catch
+                                    {
+                                    try { TheMethod = Method.MakeGenericMethod(typeof(string), typeof(string)); }
+                                    catch
+                                        {
+                                        try { TheMethod = Method.MakeGenericMethod(typeof(int), typeof(int), typeof(int)); }
+                                        catch
+                                            {
+                                            try { TheMethod = Method.MakeGenericMethod(typeof(string), typeof(string), typeof(string)); } catch { }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    // If we cant find a proper type to use to fill parameters, skip the method.
+                    if (TheMethod.ContainsGenericParameters)
+                        continue;
+
+
+                    ParameterInfo[] Parameters = TheMethod.GetParameters();
+
+                    bool[] ParametersCanBeNull = Parameters.Convert(
                         Param => Param.HasAttribute<CanBeNullAttribute>(false));
-                    
-                    int ParameterCount = ParameterTypes.Length;
+
+                    int ParameterCount = Parameters.Length;
 
                     for (int i = 0; i < ParametersCanBeNull.Length; i++)
                         {
@@ -95,23 +133,52 @@ namespace L_Tests
                                 if (i == j)
                                     Params[j] = null;
                                 else
-                                    Params[j] = ParameterTypes[j].ParameterType.NewRandom();
+                                    Params[j] = Parameters[j].ParameterType.NewRandom();
+
+                                var ParamBound = ParameterBounds.First(Param => Param.ParameterIndex == j);
+                                if (ParamBound != null)
+                                    {
+                                    Params[j] = Parameters[j].ParameterType.NewRandom(ParamBound.Minimum, ParamBound.Maximum);
+                                    }
                                 }
 
-                            var Invoker = Params[0];
+                            //var Invoker = Params[0];
 
-                            Params = Params.RemoveAt(0);
+                            //Params = Params.RemoveAt(0);
                             try
                                 {
-                                var Result = Method.Invoke(Invoker, Params);
+                                bool Finished = false;
+                                L.A(() =>
+                                {
+                                    var Result = TheMethod.Invoke(null, Params);
+
+                                    if (!MethodCanBeNull
+                                        && TheMethod.ReturnType != typeof(void)
+                                        && !TheMethod.ReturnType.IsNullable()
+                                        && Result.IsNull())
+                                        Assert.Fail($"Method {Method.ToInvocationSignature()} was passed null for parameter {i + 1}, should not have returned null, but it did.");
 
 
-                                if (!MethodCanBeNull && Method.ReturnType.IsNullable() && Result.IsNull())
-                                    Assert.Fail($"Method call was passed null for parameter {i + 1}, should not have returned null, but it did.");
+                                    Finished = true;
+                                }).Async(300)();
+
+                                uint Waited = 0;
+
+                                while (Waited < 300)
+                                    {
+                                    Thread.Sleep(1);
+                                    Waited += 1;
+
+                                    if (Finished)
+                                        break;
+                                    }
+
+                                if (!Finished)
+                                    Assert.Fail($"Method {Method.ToInvocationSignature()} timed out. Passed parameters: {Params.ToS()}");
                                 }
                             catch (Exception Ex)
                                 {
-                                Assert.Fail($"Method call was passed null for parameter {i + 1} and failed", Ex);
+                                Assert.Fail($"Method {Method.ToInvocationSignature()} was passed null for parameter {i + 1} and failed with {Ex}");
                                 }
 
                             Assertions++;
@@ -122,5 +189,7 @@ namespace L_Tests
 
             Debug.Write($"All Passed\r\n\r\nAssertions: {Assertions}");
             }
+
+
         }
     }
