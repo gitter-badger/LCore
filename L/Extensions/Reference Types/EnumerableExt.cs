@@ -543,7 +543,7 @@ namespace LCore.Extensions
         /// </summary>
         [Tested]
         [DebuggerStepThrough]
-        [TestBound(1, 0, 100, false)]
+        [TestBound(1, 0, 100)]
         public static List<T> Collect<T>([CanBeNull]this Func<T> In, int Count)
             {
             In = In ?? (() => default(T));
@@ -566,7 +566,7 @@ namespace LCore.Extensions
         /// </summary>
         [Tested]
         [DebuggerStepThrough]
-        [TestBound(1,0,100,false)]
+        [TestBound(1,0,100)]
         public static List<T> Collect<T>([CanBeNull]this Func<int, T> In, int Count)
             {
             In = In ?? (i => default(T));
@@ -2340,7 +2340,7 @@ namespace LCore.Extensions
         /// This method will not include any single index more than once unless AllowDuplicates is set to true.
         /// </summary>
         [Tested]
-        [TestBound(1, 0, 100, false)]
+        [TestBound(1, 0, 100)]
         public static List<T> Random<T>([CanBeNull]this IEnumerable<T> In, int Count, bool AllowDuplicates = false)
             {
             return Count < 0
@@ -2354,7 +2354,7 @@ namespace LCore.Extensions
         /// This method will not include any single index more than once unless AllowDuplicates is set to true.
         /// </summary>
         [Tested]
-        [TestBound(1, 0u, 100u, false)]
+        [TestBound(1, 0u, 100u)]
         public static List<T> Random<T>([CanBeNull]this IEnumerable<T> In, uint Count, bool AllowDuplicates = false)
             {
             uint Count2 = In.Count();
@@ -2397,7 +2397,7 @@ namespace LCore.Extensions
         /// If <paramref name="Count" /> is higher than In.Count, an ArgumentException will be thrown.
         /// </summary>
         [Tested]
-        [TestBound(1, 0, 100, false)]
+        [TestBound(1, 0, 100)]
         public static T[] Random<T>([CanBeNull]this T[] In, int Count, bool AllowDuplicates = false)
             {
             return Count < 0
@@ -2410,7 +2410,7 @@ namespace LCore.Extensions
         /// If <paramref name="Count" /> is higher than In.Count, an ArgumentException will be thrown.
         /// </summary>
         [Tested]
-        [TestBound(1, 0u, 100u, false)]
+        [TestBound(1, 0u, 100u)]
         public static T[] Random<T>([CanBeNull]this T[] In, uint Count, bool AllowDuplicates = false)
             {
             if (In == null)

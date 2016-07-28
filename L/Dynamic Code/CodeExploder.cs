@@ -46,10 +46,10 @@ namespace LCore.Extensions
             public static readonly Func<string, MemberInfo, string> MemberInfoGetCodeFromPath = (Path, Member) =>
                 {
                     List<FileInfo> Files = LanguageGetCodeFiles(Path);
-                    string SearchStr = $"{Lang.CleanGenericTypeName(Member.GetMemberType().ToString())} {Member.Name}";
+                    string SearchStr = $"{Lang.CleanGenericTypeName(Member?.GetMemberType()?.ToString())} {Member?.Name}";
                     string SearchStr2 = Lang.ReplaceNativeTypes(SearchStr);
-                    string SearchStr3 = Member.Name + CodeExplodeGenerics.MethodActionToken;
-                    string SearchStr4 = Member.Name + CodeExplodeGenerics.MethodFuncToken;
+                    string SearchStr3 = Member?.Name + CodeExplodeGenerics.MethodActionToken;
+                    string SearchStr4 = Member?.Name + CodeExplodeGenerics.MethodFuncToken;
                     SearchStr = SearchStr.Replace(",", ", ");
                     string Code = "";
                     int Index = -1;

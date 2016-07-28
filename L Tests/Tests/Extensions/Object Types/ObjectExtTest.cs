@@ -37,9 +37,7 @@ namespace L_Tests.Tests.Extensions
             ((string)null).HasProperty(nameof(string.Length)).Should().BeFalse();
             }
 
-
-        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
-        /// <exception cref="InternalTestFailureException">The test fails</exception>
+       
         [Fact]
         [TestCategory(UnitTests)]
         public void Test_GetProperty()
@@ -53,8 +51,6 @@ namespace L_Tests.Tests.Extensions
             Test.GetProperty("").Should().BeNull();
 
             Test.GetProperty("bad property").Should().BeNull();
-
-
             }
 
 

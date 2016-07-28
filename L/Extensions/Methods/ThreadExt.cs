@@ -24,7 +24,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         [Tested]
-        [TestBound(1, -1, 5000, false)]
+        [TestBound(1, -1, 5000)]
         public static Action Async([CanBeNull]this Action In, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
             {
             In = In ?? L.A();
@@ -63,7 +63,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         [Tested]
-        [TestBound(1, -1, 5000, false)]
+        [TestBound(1, -1, 5000)]
         public static Action<T> Async<T>([CanBeNull]this Action<T> In, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
             {
             In = In ?? L.A<T>();
@@ -78,7 +78,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         [Tested]
-        [TestBound(1, -1, 5000, false)]
+        [TestBound(1, -1, 5000)]
         public static Action Async<U>([CanBeNull]this Func<U> In, [CanBeNull]Action<U> Callback, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
             {
             In = In ?? L.F<U>();
@@ -93,7 +93,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         [Tested]
-        [TestBound(1, -1, 5000, false)]
+        [TestBound(1, -1, 5000)]
         public static Action<T1> Async<T1, U>([CanBeNull]this Func<T1, U> In, [CanBeNull]Action<U> Callback, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
             {
             In = In ?? L.F<T1, U>();
@@ -108,7 +108,7 @@ namespace LCore.Extensions
         /// Counts how many times <paramref name="In"/> can be performed in the given number of <paramref name="Milliseconds"/>
         /// </summary>
         [Tested]
-        [TestBound(1, 0, 100, false)]
+        [TestBound(1, 0, 100)]
         public static uint CountExecutions([CanBeNull]this Action In, uint Milliseconds)
             {
             if (In == null)
@@ -136,7 +136,7 @@ namespace LCore.Extensions
         /// Performs an action, reporting back the amount of time it took to complete
         /// </summary>
         [Tested]
-        [TestBound(1, 0, 100, false)]
+        [TestBound(1, 0, 100)]
         public static TimeSpan Profile([CanBeNull]this Action In, uint Repeat = L.Thread.DefaultProfileRepeat)
             {
             return L.Thread.ProfileActionRepeat(In, Repeat);
@@ -145,12 +145,17 @@ namespace LCore.Extensions
         /// Performs a function, reporting back the amount of time it took to complete
         /// </summary>
         [Tested]
-        [TestBound(1, 0u, 100u, false)]
+        [TestBound(1, 0u, 100u)]
         public static MethodProfileData<U> Profile<U>([CanBeNull]this Func<U> In, uint Repeat = L.Thread.DefaultProfileRepeat)
             {
             var Out = new MethodProfileData<U>();
+
+            if (In == null)
+                return Out;
+
             var OutList = new List<U>();
             Out.Data = OutList;
+
             L.A(() =>
                 {
                     var Start = DateTime.Now;
@@ -158,6 +163,7 @@ namespace LCore.Extensions
                     var End = DateTime.Now;
                     Out.Times.Add(new TimeSpan(End.Ticks - Start.Ticks));
                 }).Repeat(Repeat)();
+
             return Out;
             }
         #endregion

@@ -124,65 +124,87 @@ namespace L_Tests
 
                     for (int i = 0; i < ParametersCanBeNull.Length; i++)
                         {
-                        if (ParametersCanBeNull[i])
+                        bool NullsAllowedForParameter = ParametersCanBeNull[i];
+
+                        var Params = new object[ParameterCount];
+
+                        for (int j = 0; j < Params.Length; j++)
                             {
-                            var Params = new object[ParameterCount];
+                            if (i == j)
+                                Params[j] = null;
+                            else
+                                Params[j] = Parameters[j].ParameterType.NewRandom();
 
-                            for (int j = 0; j < Params.Length; j++)
+                            var ParamBound = ParameterBounds.First(Param => Param.ParameterIndex == j);
+                            if (ParamBound != null)
                                 {
-                                if (i == j)
-                                    Params[j] = null;
-                                else
-                                    Params[j] = Parameters[j].ParameterType.NewRandom();
-
-                                var ParamBound = ParameterBounds.First(Param => Param.ParameterIndex == j);
-                                if (ParamBound != null)
-                                    {
-                                    Params[j] = Parameters[j].ParameterType.NewRandom(ParamBound.Minimum, ParamBound.Maximum);
-                                    }
+                                Params[j] = Parameters[j].ParameterType.NewRandom(ParamBound.Minimum, ParamBound.Maximum);
                                 }
-
-                            //var Invoker = Params[0];
-
-                            //Params = Params.RemoveAt(0);
-                            try
-                                {
-                                bool Finished = false;
-                                L.A(() =>
-                                {
+                            }
+                        try
+                            {
+                            bool Finished = false;
+                            L.A(() =>
+                            {
+                                try
+                                    {
                                     var Result = TheMethod.Invoke(null, Params);
+
+                                    if (!NullsAllowedForParameter)
+                                        {
+                                        Finished = true;
+                                        Assert.Fail(
+                                        $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed, but it passed.");
+                                        }
 
                                     if (!MethodCanBeNull
                                         && TheMethod.ReturnType != typeof(void)
                                         && !TheMethod.ReturnType.IsNullable()
                                         && Result.IsNull())
-                                        Assert.Fail($"Method {Method.ToInvocationSignature()} was passed null for parameter {i + 1}, should not have returned null, but it did.");
-
-
-                                    Finished = true;
-                                }).Async(300)();
-
-                                uint Waited = 0;
-
-                                while (Waited < 300)
+                                        {
+                                        Finished = true;
+                                        Assert.Fail(
+                                        $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should not have returned null, but it did.");
+                                        }
+                                    }
+                                catch (Exception Ex)
                                     {
-                                    Thread.Sleep(1);
-                                    Waited += 1;
-
-                                    if (Finished)
-                                        break;
+                                    if (!NullsAllowedForParameter)
+                                        {
+                                        // Enforces use of ArgumentNullException on any field marked [NotNull]
+                                        if (!(Ex is ArgumentNullException) ||
+                                            ((ArgumentNullException)Ex).ParamName != Parameters[i].Name)
+                                            {
+                                            Finished = true;
+                                            Assert.Fail(
+                                                $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed with an ArgumentNullException matching the parameter name, but it threw an {Ex.GetType()}: {Ex.Message}.");
+                                            }
+                                        }
                                     }
 
-                                if (!Finished)
-                                    Assert.Fail($"Method {Method.ToInvocationSignature()} timed out. Passed parameters: {Params.ToS()}");
-                                }
-                            catch (Exception Ex)
+                                Finished = true;
+                            }).Async(300)();
+
+                            uint Waited = 0;
+
+                            while (Waited < 300)
                                 {
-                                Assert.Fail($"Method {Method.ToInvocationSignature()} was passed null for parameter {i + 1} and failed with {Ex}");
+                                Thread.Sleep(1);
+                                Waited += 1;
+
+                                if (Finished)
+                                    break;
                                 }
 
-                            Assertions++;
+                            if (!Finished)
+                                Assert.Fail($"Method {Method.FullyQualifiedName()} timed out. Passed parameters: {Params.ToS()}");
                             }
+                        catch (Exception Ex)
+                            {
+                            Assert.Fail($"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1} and failed with {Ex}");
+                            }
+
+                        Assertions++;
                         }
                     }
                 }

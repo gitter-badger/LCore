@@ -151,7 +151,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abc", 5, ' ' }, " abc ")]
         [TestResult(new object[] { "   abc   ", 5, ' ' }, " abc ")]
         [TestResult(new object[] { "abcdef", 5, ' ' }, "abcde")]
-        [TestBound(1, 0, 100, false)]
+        [TestBound(1, 0, 100)]
         public static string AlignCenter(this string In, int Length, char PadChar = ' ')
             {
             return Length < 0
@@ -173,7 +173,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abc", 5u, ' ' }, " abc ")]
         [TestResult(new object[] { "   abc   ", 5u, ' ' }, " abc ")]
         [TestResult(new object[] { "abcdef", 5u, ' ' }, "abcde")]
-        [TestBound(1, 0u, 100u, false)]
+        [TestBound(1, 0u, 100u)]
         public static string AlignCenter(this string In, uint Length, char PadChar = ' ')
             {
             return In.Pad(Length, L.Align.Center, PadChar);
@@ -194,7 +194,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abc", 5, ' ' }, "abc  ")]
         [TestResult(new object[] { "   abc   ", 5, ' ' }, "abc  ")]
         [TestResult(new object[] { "abcdef", 5, ' ' }, "abcde")]
-        [TestBound(1, 0, 100, false)]
+        [TestBound(1, 0, 100)]
         public static string AlignLeft(this string In, int Length, char PadChar = ' ')
             {
             return Length < 0
@@ -212,7 +212,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abc", 5u, ' ' }, "abc  ")]
         [TestResult(new object[] { "   abc   ", 5u, ' ' }, "abc  ")]
         [TestResult(new object[] { "abcdef", 5u, ' ' }, "abcde")]
-        [TestBound(1, 0u, 100u, false)]
+        [TestBound(1, 0u, 100u)]
         public static string AlignLeft(this string In, uint Length, char PadChar = ' ')
             {
             return In.Pad(Length, L.Align.Left, PadChar);
@@ -233,7 +233,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abc", 5, ' ' }, "  abc")]
         [TestResult(new object[] { "   abc   ", 5, ' ' }, "  abc")]
         [TestResult(new object[] { "abcdef", 5, ' ' }, "abcde")]
-        [TestBound(1, 0, 100, false)]
+        [TestBound(1, 0, 100)]
         public static string AlignRight(this string In, int Length, char PadChar = ' ')
             {
             return Length < 0
@@ -251,7 +251,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abc", 5u, ' ' }, "  abc")]
         [TestResult(new object[] { "   abc   ", 5u, ' ' }, "  abc")]
         [TestResult(new object[] { "abcdef", 5u, ' ' }, "abcde")]
-        [TestBound(1, 0u, 100u, false)]
+        [TestBound(1, 0u, 100u)]
         public static string AlignRight(this string In, uint Length, char PadChar = ' ')
             {
             return In.Pad(Length, L.Align.Right, PadChar);
@@ -959,7 +959,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abcdef", 5, L.Align.Right, '0' }, "abcde")]
         [TestResult(new object[] { "abcdef", 5, L.Align.Center, '0' }, "abcde")]
         [TestResult(new object[] { "   abc   ", 6, L.Align.Center, '0' }, "00abc0")]
-        [TestBound(1, 0, 100, false)]
+        [TestBound(1, 0, 100)]
         public static string Pad([CanBeNull]this string In, int Length, L.Align Alignment = L.Align.Left, char PadChar = ' ')
             {
             return Length < 0
@@ -998,7 +998,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abcdef", 5u, L.Align.Right, '0' }, "abcde")]
         [TestResult(new object[] { "abcdef", 5u, L.Align.Center, '0' }, "abcde")]
         [TestResult(new object[] { "   abc   ", 6u, L.Align.Center, '0' }, "00abc0")]
-        [TestBound(1, 0, 100, false)]
+        [TestBound(1, 0, 100)]
         public static string Pad(this string In, uint Length, L.Align Alignment = L.Align.Left, char PadChar = ' ')
             {
             if (In.IsEmpty())
@@ -1523,7 +1523,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "ablah", 2 }, "ablahablah")]
         [TestResult(new object[] { "ablah", 5 }, "ablahablahablahablahablah")]
         // ReSharper restore StringLiteralTypo
-        [TestBound(1,0,100,false)]
+        [TestBound(1,0,100)]
         public static string Times([CanBeNull]this string In, int Count)
             {
             return Count < 0
@@ -1542,7 +1542,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "ablah", 2u }, "ablahablah")]
         [TestResult(new object[] { "ablah", 5u }, "ablahablahablahablahablah")]
         // ReSharper restore StringLiteralTypo
-        [TestBound(1, 0u, 100u, false)]
+        [TestBound(1, 0u, 100u)]
         public static string Times([CanBeNull]this string In, uint Count)
             {
             if (Count == 0)

@@ -1739,7 +1739,7 @@ namespace L_Tests.Tests.Extensions
             {
             for (int i = 0; i < 50; i++)
                 {
-                int[] Random = new int[50].Fill(j => (int)typeof(int).NewRandom());
+                int[] Random = new int[50].Fill(j => (int)L.Ref.NewRandom<int>());
 
                 Random.Sort();
                 Random.Should().BeInAscendingOrder();
@@ -1749,7 +1749,7 @@ namespace L_Tests.Tests.Extensions
                 Random2.Sort();
                 Random2.Should().BeInAscendingOrder();
 
-                char[] Random3 = new char[50].Fill(j => (char)typeof(char).NewRandom());
+                char[] Random3 = new char[50].Fill(j => (char)L.Ref.NewRandom<char>());
 
                 Random3.Sort();
                 Random3.Should().BeInAscendingOrder();

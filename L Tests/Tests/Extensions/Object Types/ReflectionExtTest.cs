@@ -58,8 +58,8 @@ namespace L_Tests.Tests.Extensions
         public void Test_FindMethod()
             {
             // ReSharper disable ExceptionNotDocumented
-/*            typeof(TestBaseClass2).FindMethod(null).Should().BeNull();
-            typeof(TestBaseClass2).FindMethod("").Should().BeNull();*/
+            /*            typeof(TestBaseClass2).FindMethod(null).Should().BeNull();
+                        typeof(TestBaseClass2).FindMethod("").Should().BeNull();*/
             typeof(TestBaseClass2).FindMethod("wrong").Should().BeNull();
 
             typeof(TestBaseClass2).FindMethod(nameof(TestBaseClass2.Test4), new Type[] { })
@@ -344,7 +344,7 @@ namespace L_Tests.Tests.Extensions
             typeof(TestClass).GetMembers().GetValues<string>(Test2, true).Should().Equal("", "", "", "", "", "", "", "", "", "", "", "", "6", "");
             }
 
-        
+
         [Fact]
         [TestCategory(UnitTests)]
         public void Test_GetTypes()
@@ -622,7 +622,7 @@ namespace L_Tests.Tests.Extensions
                     typeof(string)}
                 );
 
-            L.A(() => new TestMember().MemberType()).ShouldFail();
+            new TestMember().MemberType().Should().BeNull();
             }
 
 

@@ -72,9 +72,13 @@ namespace L_Tests.Tests.Extensions
         public void Test_Async_T()
             {
             string Success = "";
-            var TestAction = new Action<string>(Str => { Success = Str; });
+            var TestAction = new Action<string>(Str =>
+            {
+                Thread.Sleep(5);
+                Success = Str;
+            });
 
-            lock (TestAction)
+            lock (Success)
                 {
                 TestAction.Async()("abc");
                 Success.Should().Be("");

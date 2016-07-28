@@ -378,13 +378,14 @@ namespace LCore.Extensions
                             return null;
 
                         var Member = In.GetType().GetMember(PropertyName).First();
-                        
+
                         if (Member is PropertyInfo)
                             {
                             var M2 = (PropertyInfo)Member;
                             return M2.GetValue(In);
                             }
 
+                        // ReSharper disable once UseNullPropagation
                         if (Member is FieldInfo)
                             {
                             var M3 = (FieldInfo)Member;
