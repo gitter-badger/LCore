@@ -1327,17 +1327,18 @@ namespace LCore.Extensions
                     if (Minimum.IsType(Type) && Maximum.IsType(Type))
                         if (Minimum is IConvertible && ((IConvertible)Minimum).CanConvertTo(typeof(int)) &&
                             Maximum is IConvertible && ((IConvertible)Maximum).CanConvertTo(typeof(int)))
-                            return Rand.Next((int)((IConvertible)Minimum).ConvertTo<int>(), (int)((IConvertible)Maximum).ConvertTo<int>())
-                                .ConvertTo(Type);
+                            return Rand.Next((int)(((IConvertible)Minimum).ConvertTo<int>() ?? int.MinValue),
+                                (int)(((IConvertible)Maximum).ConvertTo<int>() ?? int.MinValue)).ConvertTo(Type);
 
                     if (Minimum.IsType(Type))
                         if (Minimum is IConvertible && ((IConvertible)Minimum).CanConvertTo(typeof(int)))
-                            return Rand.Next((int)((IConvertible)Minimum).ConvertTo<int>(), int.MaxValue)
+                            return Rand.Next((int)(((IConvertible)Minimum).ConvertTo<int>() ?? int.MinValue), int.MaxValue)
                                 .ConvertTo(Type);
 
                     if (Maximum.IsType(Type))
                         if (Maximum is IConvertible && ((IConvertible)Maximum).CanConvertTo(typeof(int)))
-                            return Rand.Next((int)((IConvertible)Maximum).ConvertTo<int>(), int.MaxValue)
+                            return Rand.Next(int.MinValue,
+                                (int)(((IConvertible)Minimum).ConvertTo<int>() ?? int.MinValue))
                                 .ConvertTo(Type);
                     }
 

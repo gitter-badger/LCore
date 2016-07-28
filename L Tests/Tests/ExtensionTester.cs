@@ -128,6 +128,8 @@ namespace L_Tests
 
                         var Params = new object[ParameterCount];
 
+                        var ParamBound = ParameterBounds.First(Param => Param.ParameterIndex == i);
+
                         for (int j = 0; j < Params.Length; j++)
                             {
                             if (i == j)
@@ -135,10 +137,10 @@ namespace L_Tests
                             else
                                 Params[j] = Parameters[j].ParameterType.NewRandom();
 
-                            var ParamBound = ParameterBounds.First(Param => Param.ParameterIndex == j);
-                            if (ParamBound != null)
+                            var ParamBound2 = ParameterBounds.First(Param => Param.ParameterIndex == j);
+                            if (ParamBound2 != null)
                                 {
-                                Params[j] = Parameters[j].ParameterType.NewRandom(ParamBound.Minimum, ParamBound.Maximum);
+                                Params[j] = Parameters[j].ParameterType.NewRandom(ParamBound2.Minimum, ParamBound2.Maximum);
                                 }
                             }
                         try
@@ -171,11 +173,11 @@ namespace L_Tests
                                     {
                                     if (!NullsAllowedForParameter)
                                         {
+                                        Finished = true;
                                         // Enforces use of ArgumentNullException on any field marked [NotNull]
                                         if (!(Ex is ArgumentNullException) ||
                                             ((ArgumentNullException)Ex).ParamName != Parameters[i].Name)
                                             {
-                                            Finished = true;
                                             Assert.Fail(
                                                 $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed with an ArgumentNullException matching the parameter name, but it threw an {Ex.GetType()}: {Ex.Message}.");
                                             }
@@ -205,6 +207,11 @@ namespace L_Tests
                             }
 
                         Assertions++;
+
+                        if (ParamBound != null && ParamBound.TestWithinBounds > 0u)
+                            {
+                            
+                            }
                         }
                     }
                 }

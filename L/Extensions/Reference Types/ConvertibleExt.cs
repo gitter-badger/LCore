@@ -51,6 +51,7 @@ namespace LCore.Extensions
         /// Returns whether or not an IConvertible object <paramref name="In" /> can be, safely and without 
         /// any data loss, converted to type <paramref name="Type"/>
         /// </summary>
+        [Tested]
         public static bool CanConvertTo([CanBeNull]this IConvertible In, [CanBeNull]Type Type)
             {
             if (In == null || Type == null)
@@ -58,17 +59,22 @@ namespace LCore.Extensions
 
             try
                 {
-                var Out = (IConvertible)In.ConvertTo(Type);
-
                 // If [In] is a string, then we need to make sure to trim off unneeded 0's and decimal point, 
                 // otherwise equality test will fail.
-                while (Out is string &&
-                    ((string)Out).Length > 1 &&
+                while (In is string &&
+                    ((string)In).Length > 1 &&
                     ((string)In).Contains(".") &&
-                    (((string)Out).EndsWith("0") || ((string)Out).EndsWith(".")))
-                    Out = ((string)Out).Sub(0, ((string)Out).Length - 1);
+                    (((string)In).EndsWith("0") || ((string)In).EndsWith(".")))
+                    In = ((string)In).Sub(0, ((string)In).Length - 1);
+
+                var Out = (IConvertible)In.ConvertTo(Type);
 
                 var Verify = Out.ConvertTo(In.GetType());
+
+                if (Out is string)
+                    {
+                    return Equals(Verify, In);
+                    }
 
                 return Equals(Verify, In);
                 }

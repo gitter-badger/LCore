@@ -501,6 +501,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { 'a', 3 }, "aaa")]
         // ReSharper disable once StringLiteralTypo
         [TestResult(new object[] { 'z', 5 }, "zzzzz")]
+        [TestBound(1,0, 100)]
         public static string Fill(this char In, int Count)
             {
             return Count < 0
@@ -516,6 +517,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { 'a', 3u }, "aaa")]
         // ReSharper disable once StringLiteralTypo
         [TestResult(new object[] { 'z', 5u }, "zzzzz")]
+        [TestBound(1, 0, 100)]
         public static string Fill(this char In, uint Count)
             {
             return new string(new char[Count].Collect(o => In));
