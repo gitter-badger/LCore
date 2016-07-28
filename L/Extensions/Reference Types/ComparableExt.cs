@@ -62,6 +62,7 @@ namespace LCore.Extensions
                 return true;
             if (In != null && Obj == null)
                 return false;
+            // ReSharper disable once UseNullPropagation
             if (In == null)
                 return false;
 
@@ -98,6 +99,7 @@ namespace LCore.Extensions
                 return false;
             if (In != null && Obj == null)
                 return true;
+            // ReSharper disable once UseNullPropagation
             if (In == null)
                 return false;
 
@@ -135,13 +137,15 @@ namespace LCore.Extensions
             {
             var Out = In;
 
-            foreach (var Item in Others)
+            if (Others != null)
                 {
-                if (Out == null ||
-                    (Item != null && Item.CompareTo(Out) > 0))
-                    Out = Item;
+                foreach (var Item in Others)
+                    {
+                    if (Out == null ||
+                        (Item != null && Item.CompareTo(Out) > 0))
+                        Out = Item;
+                    }
                 }
-
             return Out;
             }
         #endregion
@@ -156,13 +160,15 @@ namespace LCore.Extensions
             {
             var Out = In;
 
-            foreach (var Item in Others)
+            if (Others != null)
                 {
-                if (Out == null ||
-                    (Item != null && Item.CompareTo(Out) < 0))
-                    Out = Item;
+                foreach (var Item in Others)
+                    {
+                    if (Out == null ||
+                        (Item != null && Item.CompareTo(Out) < 0))
+                        Out = Item;
+                    }
                 }
-
             return Out;
             }
         #endregion

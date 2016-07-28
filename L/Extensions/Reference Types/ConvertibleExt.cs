@@ -1,5 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
+using LCore.Extensions.Optional;
 using LCore.Interfaces;
 using LCore.Numbers;
 using LCore.Tests;
@@ -102,10 +103,10 @@ namespace LCore.Extensions
         #endregion
 
         #region ConvertTo
+
         /// <summary>
         /// Converts an IConvertible to type <paramref name="Type"/>, if it is capable.
         /// </summary>
-        /// <exception cref="System.FormatException">Throws a format exception if the format is not correct for the output type.</exception>
         [Tested]
         [CanBeNull]
         public static object ConvertTo([CanBeNull]this IConvertible In, [CanBeNull]Type Type)
@@ -129,10 +130,7 @@ namespace LCore.Extensions
                 {
                 return In == null ? null : Convert.ChangeType(In, Type);
                 }
-            catch (InvalidCastException)
-                {
-                }
-            catch (OverflowException)
+            catch (Exception)
                 {
                 }
 
@@ -142,8 +140,8 @@ namespace LCore.Extensions
         /// <summary>
         /// Converts an IConvertible to type <typeparamref name="T" />, if it is capable.
         /// </summary>
-        /// <exception cref="System.FormatException">Throws a format exception if the format is not correct for the output type.</exception>
         [Tested]
+        [CanBeNull]
         public static T? ConvertTo<T>([CanBeNull]this IConvertible In)
             where T : struct, IConvertible
             {
@@ -167,12 +165,11 @@ namespace LCore.Extensions
 
             try
                 {
-                return (T)Convert.ChangeType(In, typeof(T));
+                return In.IsNull() ? (T?)null : (T)Convert.ChangeType(In, typeof(T));
                 }
-            catch (InvalidCastException) { }
-            catch (OverflowException) { }
+            catch (Exception) { }
 
-            return default(T);
+            return null;
             }
         #endregion
 
@@ -200,11 +197,11 @@ namespace LCore.Extensions
         #endregion
 
         #region TryConvertTo
+
         /// <summary>
         /// Converts an IConvertible to type <typeparamref name="T" />, if it is capable.
         /// If <paramref name="In" /> cannot be converted, the source will be returned.
         /// </summary>
-        /// <exception cref="System.FormatException">Throws a format exception if the format is not correct for the output type.</exception>
         [Tested]
         [CanBeNull]
         public static IConvertible TryConvertTo<T>([CanBeNull]this IConvertible In)

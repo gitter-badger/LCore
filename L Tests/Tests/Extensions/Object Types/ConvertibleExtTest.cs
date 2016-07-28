@@ -18,8 +18,7 @@ namespace L_Tests.Tests.Extensions
         {
         protected override Type[] TestType => new[] { typeof(ConvertibleExt) };
 
-        /// <exception cref="InternalTestFailureException">The test fails</exception>
-        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        
         [Fact]
         [TestCategory(UnitTests)]
         public void Test_ConvertTo()
@@ -28,14 +27,13 @@ namespace L_Tests.Tests.Extensions
 
             Func<Type, object> ConvertTo = L.F<Type, object>(Type => Test.ConvertTo(Type));
 
-            ConvertTo.ShouldFail(typeof(int));
-            ConvertTo.ShouldFail(typeof(uint));
-            ConvertTo.ShouldFail(typeof(long));
-            ConvertTo.ShouldFail(typeof(short));
-            ConvertTo.ShouldFail(typeof(ushort));
-            ConvertTo.ShouldFail(typeof(byte));
-            ConvertTo.ShouldFail(typeof(char));
-            ConvertTo.ShouldFail(typeof(byte));
+            ConvertTo(typeof(int)).Should().Be((int?)null);
+            ConvertTo(typeof(uint)).Should().Be((uint?)null);
+            ConvertTo(typeof(long)).Should().Be((long?)null);
+            ConvertTo(typeof(short)).Should().Be((short?)null);
+            ConvertTo(typeof(ushort)).Should().Be((ushort?)null);
+            ConvertTo(typeof(byte)).Should().Be((byte?)null);
+            ConvertTo(typeof(char)).Should().Be((char?)null);
 
             var Result1 = Test.ConvertTo(typeof(double));
             var Result2 = Test.ConvertTo(typeof(float));
@@ -55,25 +53,28 @@ namespace L_Tests.Tests.Extensions
             Test2.ConvertTo(typeof(char)).Should().Be('5');
             Test2.ConvertTo(typeof(string)).Should().Be("5");
 
-            long.MaxValue.ConvertTo<int>().Should().Be(default(int));
+            long.MaxValue.ConvertTo<int>().Should().Be(null);
             long.MaxValue.ConvertTo(typeof(int)).Should().Be(null);
+
+
+            "5.000".ConvertTo(typeof(double)).Should().Be(5d);
+            "5.000".ConvertTo(typeof(int)).Should().Be(5);
             }
 
-        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
-        /// <exception cref="InternalTestFailureException">The test fails</exception>
+        
         [Fact]
         [TestCategory(UnitTests)]
         public void Test_ConvertTo_T()
             {
             const string Test = "-5.5555";
 
-            L.F<IConvertible, int?>(ConvertibleExt.ConvertTo<int>).ShouldFail(Test);
-            L.F<IConvertible, uint?>(ConvertibleExt.ConvertTo<uint>).ShouldFail(Test);
-            L.F<IConvertible, long?>(ConvertibleExt.ConvertTo<long>).ShouldFail(Test);
-            L.F<IConvertible, short?>(ConvertibleExt.ConvertTo<short>).ShouldFail(Test);
-            L.F<IConvertible, ushort?>(ConvertibleExt.ConvertTo<ushort>).ShouldFail(Test);
-            L.F<IConvertible, byte?>(ConvertibleExt.ConvertTo<byte>).ShouldFail(Test);
-            L.F<IConvertible, char?>(ConvertibleExt.ConvertTo<char>).ShouldFail(Test);
+            Test.ConvertTo<int>().Should().Be((int?)null);
+            Test.ConvertTo<uint>().Should().Be((uint?)null);
+            Test.ConvertTo<long>().Should().Be((long?)null);
+            Test.ConvertTo<short>().Should().Be((short?)null);
+            Test.ConvertTo<ushort>().Should().Be((ushort?)null);
+            Test.ConvertTo<byte>().Should().Be((byte?)null);
+            Test.ConvertTo<char>().Should().Be((char?)null);
 
             double? Result1 = Test.ConvertTo<double>();
             float? Result2 = Test.ConvertTo<float>();
