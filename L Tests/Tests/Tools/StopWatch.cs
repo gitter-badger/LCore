@@ -26,7 +26,7 @@ namespace L_Tests.Tests.Tools
 
                 Test.Start();
                 Thread.Sleep(20);
-                Test.Stop().Should().BeInRange(18, 22);
+                Test.Stop().Should().BeInRange(15, 25);
                 }
             }
         }
