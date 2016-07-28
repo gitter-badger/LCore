@@ -308,6 +308,14 @@ namespace LCore.Extensions
                     {
                     return A + B;
                     }
+#pragma warning disable 1589
+                /// <include file='filepath' path='[@name="filename"]'/>
+#pragma warning restore 1589
+                // ReSharper disable once UnusedTypeParameter
+                public static string TestMethod2<T>(int A, string B)
+                    {
+                    return A + B;
+                    }
 
                 /// <summary>
                 /// TestProperty 

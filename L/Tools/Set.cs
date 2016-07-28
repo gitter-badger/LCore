@@ -65,5 +65,13 @@ namespace LCore.Tools
             if (ReferenceEquals(this, Other)) return true;
             return EqualityComparer<T1>.Default.Equals(this.Obj1, Other.Obj1) && EqualityComparer<T2>.Default.Equals(this.Obj2, Other.Obj2);
             }
+
+        /// <summary>Returns a string that represents the current object.</summary>
+        /// <returns>A string that represents the current object.</returns>
+        /// <filterpriority>2</filterpriority>
+        public override string ToString()
+            {
+            return $"[{this.Obj1},{this.Obj2}]";
+            }
         }
     }

@@ -379,7 +379,7 @@ namespace LCore.Extensions
             if (In == null)
                 return "";
 
-            if (In.Namespace == "System.Data.Entity.DynamicProxies")
+            if (In.Namespace == "System.Data.Entity.DynamicProxies" || In.Name.Contains("Proxy"))
                 In = In.BaseType;
 
             if (In?.IsGenericType == true && In.Name.Has('`'))
@@ -556,14 +556,7 @@ namespace LCore.Extensions
             if (In == null || Interface == null)
                 return false;
 
-            try
-                {
-                return In.GetInterfaces().Has(Interface);
-                }
-            catch (TargetInvocationException)
-                {
-                return false;
-                }
+            return In.GetInterfaces().Has(Interface);
             }
 
         /// <summary>
@@ -578,14 +571,7 @@ namespace LCore.Extensions
 
             var Interface = typeof(T);
 
-            try
-                {
-                return In.GetInterfaces().Has(Interface);
-                }
-            catch (TargetInvocationException)
-                {
-                return false;
-                }
+            return In.GetInterfaces().Has(Interface);
             }
         #endregion
 
@@ -595,6 +581,7 @@ namespace LCore.Extensions
         /// Determines if a Type <paramref name="Type"/> has an Indexer
         /// of the specified type: <paramref name="Type"/>[<typeparamref name="TKey"/>] == <typeparamref name="TValue"/>
         /// </summary>
+        [Tested]
         public static bool HasIndexGetter<TKey, TValue>([CanBeNull] this Type Type)
             {
             return Type.IndexGetter<TKey, TValue>() != null;
@@ -604,6 +591,7 @@ namespace LCore.Extensions
         /// Determines if a Type <paramref name="Type"/> has an Indexer
         /// of the specified type: <paramref name="Type"/>[<typeparamref name="TKey"/>] == object
         /// </summary>
+        [Tested]
         public static bool HasIndexGetter<TKey>([CanBeNull] this Type Type)
             {
             return Type.IndexGetter<TKey>() != null;
@@ -617,6 +605,7 @@ namespace LCore.Extensions
         /// Determines if a Type <paramref name="Type"/> has an Indexer
         /// of the specified type: <paramref name="Type"/>[<typeparamref name="TKey"/>] == <typeparamref name="TValue"/>
         /// </summary>
+        [Tested]
         public static bool HasIndexSetter<TKey, TValue>([CanBeNull] this Type Type)
             {
             return Type.IndexSetter<TKey, TValue>() != null;
@@ -626,6 +615,7 @@ namespace LCore.Extensions
         /// Determines if a Type <paramref name="Type"/> has an Indexer
         /// of the specified type: <paramref name="Type"/>[<typeparamref name="TKey"/>] == object
         /// </summary>
+        [Tested]
         public static bool HasIndexSetter<TKey>([CanBeNull] this Type Type)
             {
             return Type.IndexSetter<TKey>() != null;
@@ -675,7 +665,7 @@ namespace LCore.Extensions
             return Type?.GetMembers().First<PropertyInfo>(
                 Member => Member.Name == "Item" &&
                           Member.CanRead &&
-                          Member.GetMethod.DeclaringType == typeof(TValue) &&
+                          Member.GetMethod.ReturnType == typeof(TValue) &&
                           Member.GetMethod.GetParameters().Length == 1 &&
                           Member.GetMethod.GetParameters()[0].ParameterType == typeof(TKey));
             }

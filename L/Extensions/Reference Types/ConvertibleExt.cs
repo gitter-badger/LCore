@@ -27,26 +27,19 @@ namespace LCore.Extensions
             if (In == null)
                 return false;
 
-            try
-                {
-                // If [In] is a string, then we need to make sure to trim off unneeded 0's and decimal point, 
-                // otherwise equality test will fail.
-                while (In is string &&
-                    ((string)In).Length > 1 &&
-                    ((string)In).Contains(".") &&
-                    (((string)In).EndsWith("0") || ((string)In).EndsWith(".")))
-                    In = ((string)In).Sub(0, ((string)In).Length - 1);
+            // If [In] is a string, then we need to make sure to trim off unneeded 0's and decimal point, 
+            // otherwise equality test will fail.
+            while (In is string &&
+                ((string)In).Length > 1 &&
+                ((string)In).Contains(".") &&
+                (((string)In).EndsWith("0") || ((string)In).EndsWith(".")))
+                In = ((string)In).Sub(0, ((string)In).Length - 1);
 
-                T? Out = In.ConvertTo<T>();
+            T? Out = In.ConvertTo<T>();
 
-                var Verify = Out.ConvertTo(In.GetType());
+            var Verify = Out.ConvertTo(In.GetType());
 
-                return Equals(Verify, In);
-                }
-            catch
-                {
-                return false;
-                }
+            return Equals(Verify, In);
             }
         /// <summary>
         /// Returns whether or not an IConvertible object <paramref name="In" /> can be, safely and without 
@@ -58,26 +51,19 @@ namespace LCore.Extensions
             if (In == null || Type == null)
                 return false;
 
-            try
-                {
-                // If [In] is a string, then we need to make sure to trim off unneeded 0's and decimal point, 
-                // otherwise equality test will fail.
-                while (In is string &&
-                    ((string)In).Length > 1 &&
-                    ((string)In).Contains(".") &&
-                    (((string)In).EndsWith("0") || ((string)In).EndsWith(".")))
-                    In = ((string)In).Sub(0, ((string)In).Length - 1);
+            // If [In] is a string, then we need to make sure to trim off unneeded 0's and decimal point, 
+            // otherwise equality test will fail.
+            while (In is string &&
+                ((string)In).Length > 1 &&
+                ((string)In).Contains(".") &&
+                (((string)In).EndsWith("0") || ((string)In).EndsWith(".")))
+                In = ((string)In).Sub(0, ((string)In).Length - 1);
 
-                var Out = (IConvertible)In.ConvertTo(Type);
+            var Out = (IConvertible)In.ConvertTo(Type);
 
-                var Verify = Out.ConvertTo(In.GetType());
+            var Verify = Out.ConvertTo(In.GetType());
 
-                return Equals(Verify, In);
-                }
-            catch
-                {
-                return false;
-                }
+            return Equals(Verify, In);
             }
         #endregion
 

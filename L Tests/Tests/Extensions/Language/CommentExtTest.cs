@@ -52,7 +52,6 @@ namespace L_Tests.Tests.Extensions
                 new Set<string, string>("T:System.Security.PermissionSet", "permission 1"),
                 new Set<string, string>("T:System.Security.CodeAccessPermission", "permission 2"));
             Comments2.TypeParameters.Should().Equal(new Set<string, string>("T", "Type"));
-            Comments2.Includes.Should().Equal();
 
             var Comments3 = typeof(L.Comment.Test).GetMember(nameof(L.Comment.Test.TestProperty)).First().GetComments();
 
@@ -78,6 +77,9 @@ namespace L_Tests.Tests.Extensions
             Test.ReflectedType.Should().BeNull();
 
             Test.GetComments().Should().BeNull();
+
+            var Comments5 = typeof(L.Comment.Test).GetMember(nameof(L.Comment.Test.TestMethod2)).First().GetComments();
+            Comments5.Includes.Should().Equal(new Set<string, string>("filepath", "[@name=\"filename\"]"));
             }
 
         private class TestInvalidMemberInfo : MemberInfo
