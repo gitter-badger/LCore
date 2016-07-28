@@ -1327,6 +1327,8 @@ namespace LCore.Extensions
         [TestResult(new object[] { 0, 10 }, new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 })]
         [TestResult(new object[] { 10, 0 }, new int[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 })]
         [TestResult(new object[] { 10, -5 }, new int[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5 })]
+        [TestBound(0,-500, 500)]
+        [TestBound(1, -500, 500)]
         public static int[] To(this int From, int To)
             {
             var Out = new int[(From - To).Abs() + 1];
@@ -1354,6 +1356,8 @@ namespace LCore.Extensions
         [TestResult(new object[] { 0u, 0u }, new uint[] { 0 })]
         [TestResult(new object[] { 0u, 10u }, new uint[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 })]
         [TestResult(new object[] { 10u, 0u }, new uint[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 })]
+        [TestBound(0, -500u, 500u)]
+        [TestBound(1, -500u, 500u)]
         public static uint[] To(this uint From, uint To)
             {
             var Out = new uint[((int)From - (int)To).Abs() + 1];
