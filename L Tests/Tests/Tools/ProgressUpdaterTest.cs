@@ -53,19 +53,19 @@ namespace L_Tests.Tests.Tools
                         Updater.Maximum(100);
 
                         Max.Should().Be(0);
-                        Thread.Sleep(5);
+                        Thread.Sleep(20);
                         Max.Should().Be(100);
 
                         Updater.Progress(5);
-                        Thread.Sleep(5);
+                        Thread.Sleep(20);
                         Progress.Should().Be(5);
 
                         Updater.Status("hi");
-                        Thread.Sleep(5);
+                        Thread.Sleep(20);
                         Status.Should().Be("hi");
 
                         Updater.Log("hi again");
-                        Thread.Sleep(5);
+                        Thread.Sleep(20);
                         Log.Should().Be("hi again");
 
                         Status.Should().Be("hi");

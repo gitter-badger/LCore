@@ -71,11 +71,6 @@ namespace LCore.Extensions
 
                 var Verify = Out.ConvertTo(In.GetType());
 
-                if (Out is string)
-                    {
-                    return Equals(Verify, In);
-                    }
-
                 return Equals(Verify, In);
                 }
             catch

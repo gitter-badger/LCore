@@ -17,9 +17,17 @@ namespace LCore.Extensions
         /// <summary>
         /// Use this fluent extension method to compare IComparable equality.
         /// </summary>
+        [Tested]
         public static bool IsEqualTo([CanBeNull]this IComparable In, [CanBeNull]IComparable Obj)
             {
-            return In?.CompareTo(Obj) == 0;
+            if (In == null && Obj != null)
+                return false;
+            if (In != null && Obj == null)
+                return false;
+            if (In == null)
+                return true;
+
+            return In.CompareTo(Obj) == 0;
             }
 
         #endregion
@@ -28,8 +36,16 @@ namespace LCore.Extensions
         /// <summary>
         /// Use this fluent extension method to compare IComparable inequality.
         /// </summary>
-        public static bool IsNotEqualTo(this IComparable In, IComparable Obj)
+        [Tested]
+        public static bool IsNotEqualTo([CanBeNull]this IComparable In, [CanBeNull]IComparable Obj)
             {
+            if (In == null && Obj != null)
+                return true;
+            if (In != null && Obj == null)
+                return true;
+            if (In == null)
+                return false;
+
             return In.CompareTo(Obj) != 0;
             }
 
@@ -39,8 +55,16 @@ namespace LCore.Extensions
         /// <summary>
         /// Use this fluent extension method to compare one IComparable to another.
         /// </summary>
-        public static bool IsLessThan(this IComparable In, IComparable Obj)
+        [Tested]
+        public static bool IsLessThan([CanBeNull]this IComparable In, [CanBeNull]IComparable Obj)
             {
+            if (In == null && Obj != null)
+                return true;
+            if (In != null && Obj == null)
+                return false;
+            if (In == null)
+                return false;
+
             return In.CompareTo(Obj) < 0;
             }
 
@@ -50,8 +74,15 @@ namespace LCore.Extensions
         /// <summary>
         /// Use this fluent extension method to compare one IComparable to another.
         /// </summary>
-        public static bool IsLessThanOrEqual(this IComparable In, IComparable Obj)
+        public static bool IsLessThanOrEqual([CanBeNull]this IComparable In, [CanBeNull] IComparable Obj)
             {
+            if (In == null && Obj != null)
+                return true;
+            if (In != null && Obj == null)
+                return false;
+            if (In == null)
+                return true;
+
             return In.CompareTo(Obj) <= 0;
             }
 
@@ -61,8 +92,15 @@ namespace LCore.Extensions
         /// <summary>
         /// Use this fluent extension method to compare one IComparable to another.
         /// </summary>
-        public static bool IsGreaterThan(this IComparable In, IComparable Obj)
+        public static bool IsGreaterThan([CanBeNull]this IComparable In, [CanBeNull]IComparable Obj)
             {
+            if (In == null && Obj != null)
+                return false;
+            if (In != null && Obj == null)
+                return true;
+            if (In == null)
+                return false;
+
             return In.CompareTo(Obj) > 0;
             }
 
@@ -72,8 +110,16 @@ namespace LCore.Extensions
         /// <summary>
         /// Use this fluent extension method to compare one IComparable to another.
         /// </summary>
-        public static bool IsGreaterThanOrEqual(this IComparable In, IComparable Obj)
+        [Tested]
+        public static bool IsGreaterThanOrEqual([CanBeNull]this IComparable In, [CanBeNull]IComparable Obj)
             {
+            if (In == null && Obj != null)
+                return false;
+            if (In != null && Obj == null)
+                return true;
+            if (In == null)
+                return true;
+
             return In.CompareTo(Obj) >= 0;
             }
 
@@ -84,7 +130,7 @@ namespace LCore.Extensions
         /// Returns the largest of <paramref name="In" /> and all items in <paramref name="Others" />
         /// </summary>
         [Tested]
-        public static T Max<T>([CanBeNull]this T In, params T[] Others)
+        public static T Max<T>([CanBeNull]this T In, [CanBeNull]params T[] Others)
             where T : IComparable
             {
             var Out = In;
@@ -105,7 +151,7 @@ namespace LCore.Extensions
         /// Returns the smallest of <paramref name="In" /> and all items in <paramref name="Others" />
         /// </summary>
         [Tested]
-        public static T Min<T>([CanBeNull]this T In, params T[] Others)
+        public static T Min<T>([CanBeNull]this T In, [CanBeNull]params T[] Others)
             where T : IComparable
             {
             var Out = In;

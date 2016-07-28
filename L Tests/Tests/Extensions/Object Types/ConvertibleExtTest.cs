@@ -98,6 +98,9 @@ namespace L_Tests.Tests.Extensions
             ConvertibleExt.ConvertToString(null).Should().Be((string)null);
 
             new BadConverter().ConvertToString().Should().Be((string)null);
+
+            "5.000".ConvertTo<double>().Should().Be(5d);
+            "5.000".ConvertTo<int>().Should().Be(5);
             }
 
         [Fact]
