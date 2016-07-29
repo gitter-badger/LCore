@@ -14,7 +14,7 @@ using LCore.Extensions.Optional;
 using LCore.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
-using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+//using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 // ReSharper disable ConvertToConstant.Global
 
@@ -71,8 +71,6 @@ namespace L_Tests
         [Fact]
         public void TestNullability()
             {
-            uint Assertions = 0;
-
             foreach (var Test in this.TestType)
                 {
                 MethodInfo[] Methods = Test.GetExtensionMethods();
@@ -205,8 +203,6 @@ namespace L_Tests
                             throw new InternalTestFailureException($"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1} and failed with {Ex}");
                             }
 
-                        Assertions++;
-
                         if (ParamBound != null && ParamBound.TestWithinBounds > 0u)
                             {
 
@@ -214,10 +210,6 @@ namespace L_Tests
                         }
                     }
                 }
-
-            Debug.Write($"All Passed\r\n\r\nAssertions: {Assertions}");
             }
-
-
         }
     }

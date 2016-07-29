@@ -1685,9 +1685,9 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_Add()
             {
-            int[] Test = new[] { 1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736 };
+            int[] Test = { 1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736 };
 
-            int[] Test2 = new[] { 52317854, 87, 53, 23843254, 1, 45394, 73643854, 948746, 5 };
+            int[] Test2 = { 52317854, 87, 53, 23843254, 1, 45394, 73643854, 948746, 5 };
 
 
             Test.Add(5)
@@ -1704,10 +1704,9 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_Add_List()
             {
-            List<int> Test = new List<int> { 1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736 };
+            List<int> Test = new List<int> { 1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736, 5 };
 
 
-            Test.Add(5);
             Test.Should()
                 .Equal(1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736, 5);
 
@@ -1722,7 +1721,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_AddTo()
             {
-            int[] Test = new[] { 1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736 };
+            int[] Test = { 1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736 };
 
             Collection<int> Collection = new Collection<int>();
 

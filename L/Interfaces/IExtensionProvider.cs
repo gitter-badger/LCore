@@ -18,18 +18,5 @@ namespace LCore.Interfaces
     [AttributeUsage(AttributeTargets.Class)]
     public class ExtensionProviderAttribute : Attribute, IExtensionProvider, ITopLevelAttribute
         {
-        /// <summary>
-        /// This determines that every method parameter will be checked for null-safety (assumed to be possibly null)
-        /// </summary>
-        public bool TestMethodsForNulls { get; set; }
-
-        /// <summary>
-        /// Test all method test attributes declared on static methods.
-        /// Set <paramref name="TestMethodsForNulls"/> to true to enable nullability testing for all parameters.
-        /// </summary>
-        public ExtensionProviderAttribute(bool TestMethodsForNulls = false)
-            {
-            this.TestMethodsForNulls = TestMethodsForNulls;
-            }
         }
     }

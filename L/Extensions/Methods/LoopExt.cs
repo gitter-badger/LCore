@@ -296,7 +296,7 @@ namespace LCore.Extensions
                     if (Times == 0)
                         return Act;
 
-                    return L_To /*IGA*/()(1, (int)Times + 1, Act);
+                    return L_To /*IGA*/()(1, Times + 1, Act);
                 };
                 }
 

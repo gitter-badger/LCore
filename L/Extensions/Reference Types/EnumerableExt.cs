@@ -18,7 +18,7 @@ namespace LCore.Extensions
     /// List`T, T[], IEnumerable`T
     /// </summary>
     // ReSharper disable once ArgumentsStyleLiteral
-    [ExtensionProvider(TestMethodsForNulls: true)]
+    [ExtensionProvider]
     public static class EnumerableExt
         {
         #region Extensions +
@@ -354,7 +354,7 @@ namespace LCore.Extensions
         public static List<T> Collect<T>([CanBeNull]this List<T> In, [CanBeNull]Func<T, T> Func)
             {
             In = In ?? new List<T>();
-            Func = Func ?? (o => default(T));
+            Func = Func ?? (Obj => Obj);
 
             var Out = new List<T>();
 
@@ -402,19 +402,19 @@ namespace LCore.Extensions
                 }
             return Out;
             }
+
         /// <summary>
         /// Runs a Func`<typeparamref name="T" />,<typeparamref name="T" /> <paramref name="In.Count" /> times and returns a list with the results. 
         /// Values from the Input collection are used as the parameters. 
         /// Null values and values that are not of type T are excluded.
         /// </summary>
-
         [TestMethodGenerics(typeof(int))]
         [TestFails(new object[] { new[] { 1 }, Test.FailITTFunc_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.FailITTFunc_Name })]
         [TestSucceedes(new object[] { new int[] { }, null })]
         [TestSucceedes(new object[] { null, Test.PassIII_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.PassIII_Name })]
-        [TestResult(new object[] { new object[] { 1, 2, 3 }, Test.PassIII_Name }, new[] { 0, 1, 2 })]
+        [TestResult(new object[] { new object[] { 1, 2, 3 }, Test.PassIII_Name }, new int[] { 0, 1, 2 })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, null }, new[] { 1, 2, 3 })]
         [DebuggerStepThrough]
         public static List<T> Collect<T>([CanBeNull]this IEnumerable In, [CanBeNull]Func<int, T, T> Func)
@@ -2433,6 +2433,7 @@ namespace LCore.Extensions
         /// If the collection is empty, null is returned.
         /// </summary>
         [Tested]
+        [CanBeNull]
         public static T Random<T>([CanBeNull]this IEnumerable<T> In)
             {
             return In.Random(1).First();

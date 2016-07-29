@@ -10,7 +10,6 @@ using LCore.Extensions.Optional;
 using LCore.Interfaces;
 using LCore.Naming;
 using LCore.Tests;
-using LCore.Tools;
 using NSort;
 // ReSharper disable UnusedMember.Global
 
@@ -1303,26 +1302,54 @@ namespace LCore.Extensions
                 return (T)NewRandom(typeof(T), Minimum, Maximum);
                 }
 
-            public static readonly Set<Type, Func<Type, object[], object>>[] NewRandom_ArrayTypes = {
-                new Set<Type,Func<Type, object[],object>>(typeof(Array), (ItemType, Items) =>
+            public static readonly Dictionary<Type, Func<Type, object[], object>> NewRandom_ArrayTypes = new Dictionary<Type, Func<Type, object[], object>>
+                {
+                [typeof(Array)] = (ItemType, Items) =>
+                     {
+                         var Out = (Array)ItemType.MakeArrayType().New(new object[] { Items.Length });
+                         object Out2 = Out.Collect((i, Item) => Items[i]).Array();
+
+                         return Out2;
+                     },
+                [typeof(List)] = (ItemType, Items) =>
                     {
-                    var Out = (Array)ItemType.MakeArrayType().New(new object[] { Items.Length});
-                    object Out2 = Out.Collect((i, Item) => Items[i]).Array();
+                        object Out = (IList)typeof(List<>).MakeGenericType(ItemType).New();
 
-                    return Out2;
-                    }),
-                new Set<Type,Func<Type, object[],object>>(typeof(List), (ItemType, Items) =>
-                    {
-                    object Out = (IList)typeof(List<>).MakeGenericType(ItemType).New();
+                        Items.List().Each(Item => ((IList)Out)?.Add(Item));
 
-                    Items.List().Each(Item => ( (IList)Out)?.Add(Item));
-
-                    return Out;
-                    }),
+                        return Out;
+                    }
                 };
-            public static readonly Type[] NewRandom_Types = new[] {
+
+            public static readonly Dictionary<Type, Func<object, object, object>> NewRandom_TypeCreators =
+                new Dictionary<Type, Func<object, object, object>>
+                    {
+                    [typeof(IEnumerable)] = (Min, Max) =>
+                    {
+
+                        Func<Type, object[], object> ArrayType = NewRandom_ArrayTypes.Values.Random();
+                        var SelectedType = NewRandom_Types.Random();
+
+                        var RandomItems = new List<object>();
+
+                        int RandomCount = NewRandom(1, 50);
+
+                        A(() =>
+                        {
+                            RandomItems.Add(NewRandom(SelectedType, Min, Max));
+                        }).Repeat(RandomCount)();
+
+                        if (ArrayType != null)
+                            return ArrayType(SelectedType, RandomItems.Array());
+
+                        return null;
+                    }
+                    };
+
+            public static readonly Type[] NewRandom_Types = {
                 typeof(string), typeof(Guid), typeof(int), typeof(uint), typeof(short), typeof(ushort),
                 typeof(long),typeof(ulong), typeof(byte), typeof(sbyte), typeof(char) };
+
             /// <summary>
             /// Creates a new random object of type <paramref name="Type"/> for many simple types.
             /// </summary>
@@ -1332,37 +1359,39 @@ namespace LCore.Extensions
 
                 if (Type == typeof(IEnumerable))
                     {
-                    Set<Type, Func<Type, object[], object>> ArrayType = NewRandom_ArrayTypes.Random();
+                    Func<Type, object[], object> ArrayTypeCreator = NewRandom_ArrayTypes.Values.Random();
                     var SelectedType = NewRandom_Types.Random();
 
                     var RandomItems = new List<object>();
 
-                    int RandomCount = L.Ref.NewRandom<int>(1, 50);
+                    int RandomCount = NewRandom(1, 50);
 
-                    L.A(() =>
+                    A(() =>
                     {
-                        RandomItems.Add(L.Ref.NewRandom<object>(SelectedType));
+                        RandomItems.Add(NewRandom<object>(SelectedType));
                     }).Repeat(RandomCount)();
 
-                    return ArrayType.Obj2(SelectedType, RandomItems.Array());
+                    if (ArrayTypeCreator != null)
+                        return ArrayTypeCreator(SelectedType, RandomItems.Array());
                     }
                 if (Type.IsGenericType &&
                     Type.GetGenericTypeDefinition() == typeof(IEnumerable<>))
                     {
                     var EnumerableType = Type.GetGenericArguments()[0];
 
-                    Set<Type, Func<Type, object[], object>> ArrayType = NewRandom_ArrayTypes.Random();
+                    Func<Type, object[], object> ArrayTypeCreator = NewRandom_ArrayTypes.Values.Random();
 
                     var RandomItems = new List<object>();
 
-                    int RandomCount = L.Ref.NewRandom<int>(1, 50);
+                    int RandomCount = NewRandom(1, 50);
 
-                    L.A(() =>
+                    A(() =>
                     {
-                        RandomItems.Add(L.Ref.NewRandom<object>(EnumerableType));
+                        RandomItems.Add(NewRandom<object>(EnumerableType));
                     }).Repeat(RandomCount)();
 
-                    return ArrayType.Obj2(EnumerableType, RandomItems.Array());
+                    if (ArrayTypeCreator != null)
+                        return ArrayTypeCreator(EnumerableType, RandomItems.Array());
                     }
 
                 if (Minimum != null || Maximum != null)
@@ -1420,7 +1449,6 @@ namespace LCore.Extensions
                 if (Type == typeof(uint))
                     return (uint)Rand.Next(int.MinValue, int.MaxValue);
 
-
                 // TODO: Create from object constructor and initialize properties.
 
 
@@ -1438,6 +1466,16 @@ namespace LCore.Extensions
                         }
                     catch { }
                     }
+
+
+                if (NewRandom_TypeCreators.ContainsKey(Type) ||
+                    (Type.IsGenericType &&
+                    Type.GetGenericTypeDefinition() == Type))
+                    return NewRandom_TypeCreators[Type](Minimum, Maximum);
+
+                // ReSharper disable once ConvertIfStatementToReturnStatement
+                if (NewRandom_TypeCreators.Keys.Has(KeyType => KeyType.HasInterface(Type)))
+                    return NewRandom_TypeCreators[NewRandom_TypeCreators.Keys.First(KeyType => KeyType.HasInterface(Type))](Minimum, Maximum);
 
                 return null;
                 }

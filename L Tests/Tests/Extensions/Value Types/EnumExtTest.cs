@@ -34,7 +34,9 @@ namespace L_Tests.Tests.Extensions
             "".ParseEnum_FriendlyName(typeof(TestEnum)).Should().Be(null);
 
             "FriendlyName".ParseEnum_FriendlyName(typeof(TestEnum)).Should().Be(TestEnum.Test1);
-            "Camel Case Enums Are Great".ParseEnum_FriendlyName(typeof(TestEnum)).Should().Be(TestEnum.CamelCaseEnumsAreGreat);
+            "Camel Case Enums Are Great".ParseEnum_FriendlyName(typeof(TestEnum))
+                .Should()
+                .Be(TestEnum.CamelCaseEnumsAreGreat);
             }
 
 
