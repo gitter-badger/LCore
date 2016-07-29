@@ -168,6 +168,8 @@ namespace LCore.Extensions
         /// Returns an attribute of type <typeparamref name="T" /> if it exists.
         /// </summary>
         [Tested]
+        [TestMethodGenerics(typeof(FriendlyNameAttribute))]
+        //[TestResult(new object[] { null }, default(IPersistAttribute))]
         [CanBeNull]
         public static T GetAttribute<T>([CanBeNull]this ICustomAttributeProvider AttributeProvider)
             where T : IPersistAttribute
@@ -1332,7 +1334,7 @@ namespace LCore.Extensions
                     {
                     Set<Type, Func<Type, object[], object>> ArrayType = NewRandom_ArrayTypes.Random();
                     var SelectedType = NewRandom_Types.Random();
-                    
+
                     var RandomItems = new List<object>();
 
                     int RandomCount = L.Ref.NewRandom<int>(1, 50);

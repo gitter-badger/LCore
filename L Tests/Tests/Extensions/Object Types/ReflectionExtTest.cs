@@ -155,12 +155,15 @@ namespace L_Tests.Tests.Extensions
             {
             var Member = L.Ref.Member<TestClass>(Test => Test.Test2);
 
+
             Member.GetAttribute<NotMappedAttribute>(true).Should().NotBeNull();
             Member.GetAttribute<NotMappedAttribute>(false).Should().BeNull();
 
             Member.GetAttribute<KeyAttribute>(true).Should().BeNull();
 
             Member.GetAttribute<TestedAttribute>().Should().BeNull();
+
+            ((ICustomAttributeProvider)null).GetAttribute<FriendlyNameAttribute>().Should().BeNull();
             }
 
 
@@ -189,7 +192,7 @@ namespace L_Tests.Tests.Extensions
                     }
                 );
 
-            
+
             new TestMember().GetAttributes<TestResultAttribute>(false)
                 .Should().Equal();
 
@@ -744,7 +747,7 @@ namespace L_Tests.Tests.Extensions
             typeof(TestClass).GetMembers().WithAttribute<ITestAttribute>().Should().Equal(
                 L.Ref.Method<TestClass>(Test => Test.Test5(""))
                 );
-            
+
 
             typeof(TestClass).GetMembers()
                 .WithAttribute(typeof(NotMappedAttribute))
@@ -817,7 +820,7 @@ namespace L_Tests.Tests.Extensions
                     L.Ref.Member<TestClass>(Test => Test.Test6)
                     }
                 );
-            
+
 
             typeof(TestClass).GetMembers()
                 .Select(Member => !(Member is MethodInfo && ((MethodInfo)Member).IsSpecialName))
