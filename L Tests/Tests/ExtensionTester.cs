@@ -155,8 +155,7 @@ namespace L_Tests
                                     if (!NullsAllowedForParameter)
                                         {
                                         Finished = true;
-                                        Assert.Fail(
-                                        $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed, but it passed.");
+                                        throw new InternalTestFailureException($"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed, but it passed.");
                                         }
 
                                     if (!MethodCanBeNull
@@ -165,7 +164,7 @@ namespace L_Tests
                                         && Result.IsNull())
                                         {
                                         Finished = true;
-                                        Assert.Fail(
+                                        throw new InternalTestFailureException(
                                         $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should not have returned null, but it did.");
                                         }
                                     }
@@ -178,7 +177,7 @@ namespace L_Tests
                                         if (!(Ex is ArgumentNullException) ||
                                             ((ArgumentNullException)Ex).ParamName != Parameters[i].Name)
                                             {
-                                            Assert.Fail(
+                                            throw new InternalTestFailureException(
                                                 $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed with an ArgumentNullException matching the parameter name, but it threw an {Ex.GetType()}: {Ex.Message}.");
                                             }
                                         }
@@ -199,18 +198,18 @@ namespace L_Tests
                                 }
 
                             if (!Finished)
-                                Assert.Fail($"Method {Method.FullyQualifiedName()} timed out. Passed parameters: {Params.ToS()}");
+                                throw new InternalTestFailureException($"Method {Method.FullyQualifiedName()} timed out. Passed parameters: {Params.ToS()}");
                             }
                         catch (Exception Ex)
                             {
-                            Assert.Fail($"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1} and failed with {Ex}");
+                            throw new InternalTestFailureException($"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1} and failed with {Ex}");
                             }
 
                         Assertions++;
 
                         if (ParamBound != null && ParamBound.TestWithinBounds > 0u)
                             {
-                            
+
                             }
                         }
                     }

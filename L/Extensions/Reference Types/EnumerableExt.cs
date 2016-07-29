@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using JetBrains.Annotations;
 using LCore.Extensions.Optional;
@@ -33,6 +34,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { new int[] { }, new[] { 1 } }, new[] { 1 })]
         [TestResult(new object[] { new[] { 1 }, null }, new[] { 1 })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, new[] { 4, 5, 6 } }, new[] { 1, 2, 3, 4, 5, 6 })]
+        [TestResult(new object[] { new[] { 1, 2, 3 }, new[] { 3, 4, 5, 6 } }, new[] { 1, 2, 3, 3, 4, 5, 6 })]
         public static T[] Add<T>([CanBeNull]this T[] In, [CanBeNull]IEnumerable<T> Objs)
             {
             In = In ?? new T[] { };
@@ -63,6 +65,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { new int[] { }, new[] { 1 } }, new[] { 1 })]
         [TestResult(new object[] { new[] { 1 }, null }, new[] { 1 })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, new[] { 4, 5, 6 } }, new[] { 1, 2, 3, 4, 5, 6 })]
+        [TestResult(new object[] { new[] { 1, 2, 3 }, new[] { 3, 4, 5, 6 } }, new[] { 1, 2, 3, 3, 4, 5, 6 })]
         public static T[] Add<T>([CanBeNull]this T[] In, [CanBeNull]params T[] Objs)
             {
             In = In ?? new T[] { };
@@ -93,6 +96,7 @@ namespace LCore.Extensions
         [TestSource(new object[] { new int[] { }, new[] { 1 } }, new[] { 1 })]
         [TestSource(new object[] { new[] { 1 }, null }, new[] { 1 })]
         [TestSource(new object[] { new[] { 1, 2, 3 }, new[] { 4, 5, 6 } }, new[] { 1, 2, 3, 4, 5, 6 })]
+        [TestSource(new object[] { new[] { 1, 2, 3 }, new[] { 3, 4, 5, 6 } }, new[] { 1, 2, 3, 3, 4, 5, 6 })]
         public static void Add<T>([CanBeNull]this List<T> In, [CanBeNull]params T[] Objs)
             {
             In.Add((IEnumerable<T>)Objs);
@@ -110,43 +114,17 @@ namespace LCore.Extensions
         [TestSource(new object[] { new int[] { }, new[] { 1 } }, new[] { 1 })]
         [TestSource(new object[] { new[] { 1 }, null }, new[] { 1 })]
         [TestSource(new object[] { new[] { 1, 2, 3 }, new[] { 4, 5, 6 } }, new[] { 1, 2, 3, 4, 5, 6 })]
+        [TestSource(new object[] { new[] { 1, 2, 3 }, new[] { 3, 4, 5, 6 } }, new[] { 1, 2, 3, 3, 4, 5, 6 })]
         public static void Add<T>([CanBeNull]this List<T> In, [CanBeNull]IEnumerable<T> Objs)
             {
             if (In == null)
                 return;
 
-            if (Objs.IsEmpty())
+            if (Objs == null)
                 return;
 
-            // ReSharper disable once InvocationIsSkipped
-            Debug.Assert(Objs != null, "Objs != null");
-            // ReSharper disable once PossibleNullReferenceException
-            foreach (var Obj in Objs)
-                {
-                if (!In.Contains(Obj))
-                    {
-                    In.Add(Obj);
-                    }
-                }
+            In.AddRange(Objs);
             }
-
-
-        /// <summary>
-        /// Adds many <typeparamref name="T[]" /> <paramref name="Items" /> to an IList`<typeparamref name="T[]" /> <paramref name="In" /> in one command.
-        /// </summary>
-        public static void Add<T>([CanBeNull]this IList<T> In, [CanBeNull]params T[] Items)
-            {
-            if (In == null)
-                return;
-
-            Items = Items ?? new T[] { };
-
-            foreach (var Item in Items)
-                {
-                In.Add(Item);
-                }
-            }
-
         #endregion
 
         #region AddTo
@@ -404,6 +382,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.PassI_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.PassI_Name })]
         [TestResult(new object[] { new object[] { 1, 2, 3 }, Test.PassI_Name }, new object[] { 0, 1, 2 })]
+        [TestResult(new object[] { new object[] { 1, 2, 3 }, null }, new object[] { 1, 2, 3 })]
         [DebuggerStepThrough]
         public static List<object> Collect([CanBeNull]this IEnumerable In, [CanBeNull]Func<int, object, object> Func)
             {
@@ -435,6 +414,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.PassIII_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.PassIII_Name })]
         [TestResult(new object[] { new object[] { 1, 2, 3 }, Test.PassIII_Name }, new[] { 0, 1, 2 })]
+        [TestResult(new object[] { new[] { 1, 2, 3 }, null }, new[] { 1, 2, 3 })]
         [DebuggerStepThrough]
         public static List<T> Collect<T>([CanBeNull]this IEnumerable In, [CanBeNull]Func<int, T, T> Func)
             {
@@ -466,6 +446,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.PassIII_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.PassIII_Name })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, Test.PassIII_Name }, new[] { 0, 1, 2 })]
+        [TestResult(new object[] { new[] { 1, 2, 3 }, null }, new[] { 1, 2, 3 })]
         [DebuggerStepThrough]
         public static List<T> Collect<T>([CanBeNull]this IEnumerable<T> In, [CanBeNull]Func<int, T, T> Func)
             {
@@ -516,6 +497,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.PassIII_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.PassIII_Name })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, Test.PassIII_Name }, new[] { 0, 1, 2 })]
+        [TestResult(new object[] { new[] { 1, 2, 3 }, null }, new[] { 1, 2, 3 })]
         [DebuggerStepThrough]
         public static List<T> Collect<T>([CanBeNull]this List<T> In, [CanBeNull]Func<int, T, T> Func)
             {
@@ -566,7 +548,7 @@ namespace LCore.Extensions
         /// </summary>
         [Tested]
         [DebuggerStepThrough]
-        [TestBound(1,0,100)]
+        [TestBound(1, 0, 100)]
         public static List<T> Collect<T>([CanBeNull]this Func<int, T> In, int Count)
             {
             In = In ?? (i => default(T));
@@ -1679,6 +1661,10 @@ namespace LCore.Extensions
             if (IndexProp != null)
                 return (T)IndexProp.GetMethod.Invoke(In, new object[] { (int)Index });
 
+            var IndexProp2 = In.GetType().IndexGetter<uint, T>();
+            if (IndexProp2 != null)
+                return (T)IndexProp2.GetMethod.Invoke(In, new object[] { Index });
+
             return default(T);
             }
 
@@ -2414,7 +2400,7 @@ namespace LCore.Extensions
         public static T[] Random<T>([CanBeNull]this T[] In, uint Count, bool AllowDuplicates = false)
             {
             if (In == null)
-                return new T[] {};
+                return new T[] { };
 
             uint Count2 = In.Count();
 
@@ -2511,27 +2497,6 @@ namespace LCore.Extensions
                 return In ?? new T[] { };
 
             return In.Select((i, o) => !Indexes.Has(i));
-            }
-        #endregion
-
-        #region RemoveAt_Checked
-        /// <summary>
-        /// Ensures items are removed from a list, checking the count afterwards and retrying
-        /// if the remove fails.
-        /// </summary>
-        public static void RemoveAt_Checked<T>([CanBeNull]this List<T> List, int Index)
-            {
-            if (List == null)
-                return;
-
-            int Count = List.Count;
-            List.RemoveAt(Index);
-            int Count2 = List.Count;
-
-            if (Count != Count2 + 1)
-                {
-                RemoveAt_Checked(List, Index);
-                }
             }
         #endregion
 
@@ -2814,6 +2779,20 @@ namespace LCore.Extensions
                 {
                 List[Index] = Value;
                 }
+
+            var IndexProp = In.GetType().IndexSetter<int, object>();
+            if (IndexProp != null)
+                {
+                IndexProp.SetMethod.Invoke(In, new[] { Index, Value });
+                return;
+                }
+
+            var IndexProp2 = In.GetType().IndexSetter<uint, object>();
+            // ReSharper disable once UseNullPropagation
+            if (IndexProp2 != null)
+                {
+                IndexProp2.SetMethod.Invoke(In, new[] { (uint)Index, Value });
+                }
             }
         /// <summary>
         /// Sets the item in the collection at <paramref name="Index" /> to <paramref name="Value" />.
@@ -2830,6 +2809,20 @@ namespace LCore.Extensions
             if (List != null)
                 {
                 List[Index] = Value;
+                }
+
+            var IndexProp = In.GetType().IndexSetter<int, T>();
+            if (IndexProp != null)
+                {
+                IndexProp.SetMethod.Invoke(In, new object[] { Index, Value });
+                return;
+                }
+
+            var IndexProp2 = In.GetType().IndexSetter<uint, T>();
+            // ReSharper disable once UseNullPropagation
+            if (IndexProp2 != null)
+                {
+                IndexProp2.SetMethod.Invoke(In, new object[] { (uint)Index, Value });
                 }
             }
         #endregion
@@ -3083,6 +3076,7 @@ namespace LCore.Extensions
 
         #endregion
 
+        [ExcludeFromCodeCoverage]
         internal static class Test
             {
             // ReSharper disable InconsistentNaming

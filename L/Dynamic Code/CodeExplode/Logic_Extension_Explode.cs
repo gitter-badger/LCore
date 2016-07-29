@@ -4214,9 +4214,16 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns an action that is repeated a number of times.
         /// </summary>
-        public static Action Repeat(this Action Act, UInt32 Times)
+        public static Action Repeat(this Action Act, uint Times)
             {
-            return L.Loop.L_Repeat()(Act, Times);
+            return L.Loop.L_Repeat_uint()(Act, Times);
+            }
+        /// <summary>
+        /// Returns an action that is repeated a number of times.
+        /// </summary>
+        public static Action Repeat(this Action Act, int Times)
+            {
+            return L.Loop.L_Repeat_int()(Act, Times);
             }
         #endregion
         #region WhileI

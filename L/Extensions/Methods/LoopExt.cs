@@ -271,11 +271,27 @@ namespace LCore.Extensions
             /// </summary>
             /// <returns></returns>
             [CodeExplodeExtensionMethod("Repeat", new[] { "Act", "Times" }, Comments.Repeat, false, true)]
-            //     [CodeExplodeGenerics("Repeat", L.Comments.Repeat)]
-            public static Func<Action, uint, Action> L_Repeat()
+            public static Func<Action, uint, Action> L_Repeat_uint()
                 {
                 return (Act, Times) =>
                 {
+                    // ReSharper disable once ConvertIfStatementToReturnStatement
+                    if (Times == 0)
+                        return Act;
+
+                    return L_To /*IGA*/()(1, (int)Times + 1, Act);
+                };
+                }
+            /// <summary>
+            /// Returns an action that is repeated a number of times.
+            /// </summary>
+            [CodeExplodeExtensionMethod("Repeat", new[] { "Act", "Times" }, Comments.Repeat, false, true)]
+            public static Func<Action, int, Action> L_Repeat_int()
+                {
+                return (Act, Times) =>
+                {
+                    if (Times < 0)
+                        return () => { };
                     // ReSharper disable once ConvertIfStatementToReturnStatement
                     if (Times == 0)
                         return Act;

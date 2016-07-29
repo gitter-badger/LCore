@@ -35,8 +35,6 @@ namespace L_Tests.Tests.Extensions
 
                 Success.Should().BeTrue();
                 }
-
-            ((Action)null).Async()();
             }
         [Fact]
         public void Test_AsyncTimeLimit()
@@ -87,8 +85,6 @@ namespace L_Tests.Tests.Extensions
 
                 Success.Should().Be("abc");
                 }
-
-            ((Action<string>)null).Async()("");
             }
         [Fact]
         public void Test_Async_T_TimeLimit()
@@ -135,8 +131,6 @@ namespace L_Tests.Tests.Extensions
 
                 Thread.Sleep(20);
                 }
-
-            ((Func<string>)null).Async(null)();
             }
         [Fact]
         public void Test_Async_Func_T()
@@ -156,8 +150,6 @@ namespace L_Tests.Tests.Extensions
 
                 Success.Should().BeTrue();
                 }
-
-            ((Func<string, string>)null).Async(null)("abc");
             }
 
         [Fact]
@@ -289,7 +281,7 @@ namespace L_Tests.Tests.Extensions
                 var Result = L.Thread.MethodProfileCache["TestProfile"];
 
                 Result.Times.Count.Should().Be(5);
-                Result.AverageMS.Should().BeInRange(8, 15);
+                Result.AverageMS.Should().BeInRange(5, 25);
                 Result.Data.Count().Should().Be(5);
                 Result.Data.Should().Equal("abc", "abc", "abc", "abc", "abc");
                 }
@@ -321,7 +313,7 @@ namespace L_Tests.Tests.Extensions
                 var Result = L.Thread.MethodProfileCache["TestProfile"];
 
                 Result.Times.Count.Should().Be(5);
-                Result.AverageMS.Should().BeInRange(8, 18);
+                Result.AverageMS.Should().BeInRange(5, 25);
                 Result.Data.Count().Should().Be(5);
                 Result.Data.Should().Equal("abc", "abc", "abc", "abc", "abc");
                 }

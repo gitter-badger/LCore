@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using LCore.Extensions.Optional;
@@ -76,11 +77,6 @@ namespace L_Tests.Tests.Extensions
             int[] Test1 = { 1, 5, 9, 5, 3 };
             int[] Test2 = { 55, 55, 55, 55 };
 
-            /*            ((int[])null).Append(Test2).Should().Equal(55, 55, 55, 55);
-                        Test2.Append((int[])null).Should().Equal(55, 55, 55, 55);
-
-                        ((int[])null).Append(Test1).Should().Equal(1, 5, 9, 5, 3);
-                        Test1.Append((int[])null).Should().Equal(1, 5, 9, 5, 3);*/
 
             Test1.Append(Test2).Should().Equal(1, 5, 9, 5, 3, 55, 55, 55, 55);
             Test2.Append(Test1).Should().Equal(55, 55, 55, 55, 1, 5, 9, 5, 3);
@@ -143,14 +139,10 @@ namespace L_Tests.Tests.Extensions
             Func<char, char> Modifier = Char => (char)(Char + 1);
             Func<int, int, string> Modifier2 = (i, o) => $"{o}-";
 
-            ((string)null).CollectStr(Modifier).Should().Be("");
-            "abc".CollectStr(null).Should().Be("abc");
 
             "abc".CollectStr(Modifier).Should().Be("bcd");
 
 
-            ((int[])null).CollectStr(Modifier2).Should().Be("");
-            ((List<int>)null).CollectStr(Modifier2).Should().Be("");
 
             new[] { 5, 1, 77, 2, 7, 3 }.CollectStr(Modifier2).Should().Be("5-1-77-2-7-3-");
             new[] { 5, 1, 77, 2, 7, 3 }.CollectStr(null).Should().Be("5177273");
@@ -158,7 +150,6 @@ namespace L_Tests.Tests.Extensions
             new[] { 5, 1, 77, 2, 7, 3 }.List().CollectStr(Modifier2).Should().Be("5-1-77-2-7-3-");
             new[] { 5, 1, 77, 2, 7, 3 }.List().CollectStr(null).Should().Be("5177273");
 
-            ((List<int>)null).CollectStr<int, List<int>>(Modifier2).Should().Be("");
             }
 
         [Fact]
@@ -171,9 +162,6 @@ namespace L_Tests.Tests.Extensions
 
             List.Combine(null).Should().Be("123abc5.5a");
             List.Combine("").Should().Be("123abc5.5a");
-
-            ((IConvertible[])null).Combine("--").Should().Be("");
-            ((IConvertible[])null).Combine(',').Should().Be("");
             }
 
         [Fact]
@@ -187,27 +175,19 @@ namespace L_Tests.Tests.Extensions
 
             ((IEnumerable)List).Convert((Func<object, object>)null).Should().Equal(123, "abc", 5.5f, 'a');
 
-            ((IEnumerable)null).Convert(Converter).Should().Equal();
-
             Func<object, string> Converter2 = o => o?.ToString();
 
             ((IEnumerable<object>)List).Convert(Converter2).Should().Equal("123", "abc", "5.5", "a");
 
             ((IEnumerable<object>)List).Convert((Func<object, string>)null).Should().Equal("abc");
 
-            ((IEnumerable<object>)null).Convert(Converter2).Should().Equal();
-
             ((object[])List).Convert(Converter2).Should().Equal("123", "abc", "5.5", null, "a");
 
             ((object[])List).Convert((Func<object, string>)null).Should().Equal(null, "abc", null, null, null);
 
-            ((object[])null).Convert(Converter2).Should().Equal();
-
             List.List().Convert(Converter2).Should().Equal("123", "abc", "5.5", "a");
 
             List.List().Convert((Func<object, string>)null).Should().Equal("abc");
-
-            ((List<object>)null).List().Convert(Converter2).Should().Equal();
             }
 
         [Fact]
@@ -220,16 +200,8 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable)List).ConvertAll(Converter).Should().Equal(
                 new List<string> { "123", "123", "abc", "abc", "5.5", "5.5", "a", "a" });
 
-            ((IEnumerable)null).ConvertAll(Converter).Should().Equal(
-                new List<string>());
-
-
             ((IEnumerable<object>)List).ConvertAll<object, string>(Converter).Should().Equal(
                 new List<string> { "123", "123", "abc", "abc", "5.5", "5.5", "a", "a" });
-
-            ((IEnumerable<object>)null).ConvertAll<object, string>(Converter).Should().Equal(
-                new List<string>());
-
             }
 
         [Fact]
@@ -246,29 +218,18 @@ namespace L_Tests.Tests.Extensions
 
             ((IEnumerable<object>)List).ConvertAll(Converter).Should().Equal("123", "123", "abc", "abc", "5.5", "5.5", "a", "a");
 
-            ((IEnumerable<object>)null).ConvertAll(Converter).Should().Equal();
-
 
             ((object[])List).ConvertAll(Converter).Should().Equal("123", "123", "abc", "abc", "5.5", "5.5", "a", "a");
 
-            ((object[])null).ConvertAll(Converter).Should().Equal();
 
 
             List.List().ConvertAll(Converter).Should().Equal("123", "123", "abc", "abc", "5.5", "5.5", "a", "a");
-
-            ((List<object>)null).ConvertAll(Converter).Should().Equal();
             }
 
 
         [Fact]
         public void Test_Count_T()
             {
-            ((string)null).Count().Should().Be(0);
-            ((IEnumerable)null).Count().Should().Be(0);
-            ((ICollection)null).Count().Should().Be(0);
-            ((IList)null).Count().Should().Be(0);
-            ((IList<object>)null).Count().Should().Be(0);
-
             "55555".Count().Should().Be(5);
 
             new object[] { 1, 2, 3, 4, 5 }.Count().Should().Be(5);
@@ -289,10 +250,6 @@ namespace L_Tests.Tests.Extensions
             Test.Count("a").Should().Be(4);
             Test.Count("b").Should().Be(1);
             Test.Count("c").Should().Be(0);
-
-            ((string[])null).Count("a").Should().Be(0);
-            ((List<string>)null).Count("a").Should().Be(0);
-            ((List<string>)null).Count("a").Should().Be(0);
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -438,8 +395,6 @@ namespace L_Tests.Tests.Extensions
             object[] Test = { 0, 5, "abc", "123", 'a', 'b', null };
 
 
-            ((IEnumerable)null).Filter<int>()
-                .Should().Equal(new List<int>());
             ((IEnumerable)Test).Filter<int>()
                 .Should().Equal(0, 5);
             ((IEnumerable)Test).Filter<string>()
@@ -450,8 +405,6 @@ namespace L_Tests.Tests.Extensions
                 .Should().Equal('a', 'b');
 
 
-            ((object[])null).Filter<int>()
-                .Should().Equal();
             Test.Filter<int>()
                 .Should().Equal(0, 5);
             Test.Filter<string>()
@@ -462,8 +415,6 @@ namespace L_Tests.Tests.Extensions
                 .Should().Equal(0, 5, "abc", "123", 'a', 'b');
 
 
-            ((List<object>)null).Filter<int>()
-                .Should().Equal();
             Test.List().Filter<object, int>()
                 .Should().Equal(0, 5);
             Test.List().Filter<object, string>()
@@ -597,8 +548,6 @@ namespace L_Tests.Tests.Extensions
                     }
                 };
 
-            ((IEnumerable)null).Flatten<object>().Should().Equal();
-
             Test.Flatten<object>().ToS().Should().Be(new List<object> { "a", 1, 5, 7, 3, 5, 7, 0, 3, 5, 7, 3 }.ToS());
             Test.Flatten<string>().Should().Equal("a");
             Test.Flatten<int>().Should().Equal(1, 5, 7, 3, 5, 7, 0, 3, 5, 7, 3);
@@ -637,10 +586,6 @@ namespace L_Tests.Tests.Extensions
             ((Array)Test).GetAt(1u).Should().Be(32);
             ((Array)Test).GetAt(100u).Should().Be(null);
 
-
-            ((int[])null).GetAt(5).Should().Be(0);
-            ((IEnumerable)null).GetAt(5).Should().Be(null);
-
             "".GetAt(0).Should().Be(default(char));
             "12345".GetAt(-1).Should().Be(default(char));
             "12345".GetAt(0).Should().Be('1');
@@ -670,9 +615,7 @@ namespace L_Tests.Tests.Extensions
             {
             int[] Test = { 5, 32, 46, 43, 13, 26531, 15315, 4364643, 445, 44, 553, 663, 223 };
 
-            ((int[])null).GetAtIndices().Should().Equal();
             new int[] { }.GetAtIndices().Should().Equal();
-            ((int[])null).GetAtIndices(5, 7, 9).Should().Equal();
             new int[] { }.GetAtIndices(5, 7, 9).Should().Equal();
 
             Test.GetAtIndices().Should().Equal();
@@ -722,9 +665,6 @@ namespace L_Tests.Tests.Extensions
 
             Result.Keys.List().Should().Equal();
             Result.Values.List().ShouldBeEquivalentTo(new List<int>());
-
-            ((int[])null).Group((Func<int, string>)null).Should().BeEmpty();
-            new int[] { }.Group((Func<int, string>)null).Should().BeEmpty();
 
 
             L.A(() => Test.Group<int, int>(i => { throw new Exception(); })).ShouldFail();
@@ -790,9 +730,6 @@ namespace L_Tests.Tests.Extensions
             Result["Small Numbers"].Values.Flatten<int>().Count.Should().Be(20);
             Result["Large Numbers"].Values.Flatten<int>().Count.Should().Be(6);
 
-            ((int[])null).GroupTwice((Func<int, string>)null, (Func<int, string>)null).Should().BeEmpty();
-            new int[] { }.GroupTwice((Func<int, string>)null, (Func<int, string>)null).Should().BeEmpty();
-
             L.A(() => Test.GroupTwice<int, int, int>(i => i, i => { throw new Exception(); })).ShouldFail();
             L.A(() => Test.GroupTwice<int, int, int>(i => { throw new Exception(); }, null)).ShouldFail();
             }
@@ -808,9 +745,6 @@ namespace L_Tests.Tests.Extensions
             Test.Has(1).Should().BeTrue();
             Test.Has(1f).Should().BeFalse();
             Test.Has((object)null).Should().BeTrue();
-
-            ((IEnumerable)null).Has(5).Should().BeFalse();
-            ((IEnumerable<int>)null).Has(5).Should().BeFalse();
             }
 
         [Fact]
@@ -919,9 +853,6 @@ namespace L_Tests.Tests.Extensions
 
             Result.Values.TotalCount().Should().Be(24);
 
-            ((int[])null).Index<int>(null).Should().BeEmpty();
-            ((IEnumerable)null).Index<object>(null).Should().BeEmpty();
-
             L.A(() => Test.Index<int>(i => { throw new Exception(); })).ShouldFail();
             }
 
@@ -951,11 +882,6 @@ namespace L_Tests.Tests.Extensions
 
             Result.Values.TotalCount().Should().Be(27);
 
-
-
-            ((int[])null).IndexTwice<int, string, string>((Func<int, string>)null, (Func<int, string>)null).Should().BeEmpty();
-            ((IEnumerable<object>)null).IndexTwice<object, string, string>((Func<object, string>)null, (Func<object, string>)null).Should().BeEmpty();
-
             L.A(() => Test.Index<int>(i => { throw new Exception(); })).ShouldFail();
             }
 
@@ -977,9 +903,6 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable)Test).IndexOf<int>(i => i == 88).Should().Be(34);
             ((IEnumerable)Test).IndexOf<int>(i => i == 88888).Should().Be(null);
 
-
-            ((int[])null).IndexOf<int>((Func<int, bool>)null).Should().Be(null);
-            ((IEnumerable<int>)null).IndexOf<int>((Func<int, bool>)null).Should().Be(null);
 
             L.A(() => Test.IndexOf<int>(i => { throw new Exception(); })).ShouldFail();
             }
@@ -1128,9 +1051,6 @@ namespace L_Tests.Tests.Extensions
             Test2.List<object>().Should().Equal(5, 6, 2, 2, "a");
             Test2.List<object>(true).Should().Equal(5, 6, 2, 2, null, "a");
             Test2.List<object>(false).Should().Equal(5, 6, 2, 2, "a");
-
-            ((IEnumerable)null).List().Should().BeEmpty();
-            ((IEnumerable<int>)null).List().Should().BeEmpty();
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -1152,8 +1072,6 @@ namespace L_Tests.Tests.Extensions
             Test.Move(4, 1);
 
             Test.Should().Equal(1, 6, 3, 4, 5, 2, 7, 8, 9);
-
-            ((int[])null).Move(0, 0);
 
             Test.Move(-1, 5);
             Test.Should().Equal(6, 3, 4, 5, 2, 1, 7, 8, 9);
@@ -1181,9 +1099,6 @@ namespace L_Tests.Tests.Extensions
             Test.Should().Equal(1, 3, 4, 5, 6, 2, 7, 8, 9);
             Test.Move(4, 1);
             Test.Should().Equal(1, 6, 3, 4, 5, 2, 7, 8, 9);
-
-
-            ((List<int>)null).Move(0, 0);
 
 
             Test.Move(-1, 5);
@@ -1248,26 +1163,18 @@ namespace L_Tests.Tests.Extensions
             Func<int, string> Namer = new Func<int, string>(i => i.ToString().Sub(0, 1));
             Func<object, string> Namer2 = new Func<object, string>(i => i.ToString().Sub(0, 1));
 
-            Test.Named("a", null).Should().BeEmpty();
             Test.Named("a", Namer).Should().BeEmpty();
             Test.Named("1", Namer).Length.Should().Be(2);
             Test.Named("8", Namer).Length.Should().Be(1);
 
             List<int> Test2 = Test.List();
-
-            Test2.Named("a", null).Should().BeEmpty();
             Test2.Named("a", Namer).Should().BeEmpty();
             Test2.Named("1", Namer).Count.Should().Be(2);
             Test2.Named("8", Namer).Count.Should().Be(1);
 
-            ((IEnumerable)Test2).Named("a", null).Should().BeEmpty();
             ((IEnumerable)Test2).Named("a", Namer2).Should().BeEmpty();
             ((IEnumerable)Test2).Named("1", Namer2).Count().Should().Be(2);
             ((IEnumerable)Test2).Named("8", Namer2).Count().Should().Be(1);
-
-
-            ((IEnumerable)null).Named("a", Namer2).Should().BeEmpty();
-            ((IEnumerable<int>)null).Named("a", Namer).Should().BeEmpty();
             }
 
         [Fact]
@@ -1287,9 +1194,6 @@ namespace L_Tests.Tests.Extensions
 
             Test.List().Random(-1).Should().BeEmpty();
             Test.List().Random(0).Should().BeEmpty();
-
-            //((IEnumerable)Test).Random(-1).Should().BeEmpty();
-            //((IEnumerable)Test).Random(0).Should().BeEmpty();
 
             for (int i = 0; i < 20; i++)
                 {
@@ -1384,14 +1288,6 @@ namespace L_Tests.Tests.Extensions
             Test.List().Remove().Should().Equal(48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446);
             Test.List().Remove(i => i < 1000).Should().Equal(48498);
             Test.List().Remove((Index, Item) => Index < 6).Should().Equal(1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446);
-
-
-            ((IEnumerable<int>)null).Remove(6, 5).Should().Equal();
-            ((IEnumerable<int>)null).Remove(0, 1).Should().Equal();
-            ((IEnumerable<int>)null).Remove().Should().Equal();
-            ((IEnumerable<int>)null).Remove((Func<int, bool>)null).Should().Equal();
-            ((IEnumerable<int>)null).Remove((Func<int, int, bool>)null).Should().Equal();
-
             }
 
         [Fact]
@@ -1445,9 +1341,6 @@ namespace L_Tests.Tests.Extensions
             Test.Convert(i => i.ToString()).RemoveDuplicate(s => s.Sub(0, 1))
                  .Should().Equal("48498", "6", "542", "321", "2", "1", "9", "88", "7");
 
-            new int[] { }.RemoveDuplicate(Func).Should().Equal();
-            ((int[])null).RemoveDuplicate(Func).Should().Equal();
-
             //////////////////////////////////
 
             var TestList = Test.List();
@@ -1463,9 +1356,6 @@ namespace L_Tests.Tests.Extensions
             TestList.Convert(i => i.ToString()).RemoveDuplicate(s => s.Sub(0, 1))
                  .Should().Equal("48498", "6", "542", "321", "2", "1", "9", "88", "7");
 
-            new List<int>().RemoveDuplicate(Func).Should().Equal();
-            ((List<int>)null).RemoveDuplicate(Func).Should().Equal();
-
             //////////////////////////////////
 
             ((IEnumerable)TestList).RemoveDuplicate(Func)
@@ -1479,8 +1369,6 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable)TestList.Convert(i => i.ToString())).RemoveDuplicate<string, string>(s => s.Sub(0, 1))
                  .Should().Equal("48498", "6", "542", "321", "2", "1", "9", "88", "7");
 
-            ((IEnumerable)new List<int>()).RemoveDuplicate(Func).Should().Equal();
-            ((IEnumerable)null).RemoveDuplicate(Func).Should().Equal();
             }
 
         [Fact]
@@ -1494,20 +1382,15 @@ namespace L_Tests.Tests.Extensions
             Test.Convert(i => i.ToString()).RemoveDuplicates()
                 .Should().Equal("48498", "45", "6", "542", "321", "2", "1", "13", "5", "698", "9", "88", "7", "44", "223", "3", "446", "4");
 
-            new int[] { }.RemoveDuplicates().Should().Equal();
-            ((int[])null).RemoveDuplicates().Should().Equal();
-
             Test.List().RemoveDuplicates().Should().Equal(48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 44, 223, 3, 446, 4);
             Test.Convert(i => i.ToString()).List().RemoveDuplicates().Should().Equal("48498", "45", "6", "542", "321", "2", "1", "13", "5", "698", "9", "88", "7", "44", "223", "3", "446", "4");
 
             new List<int>().RemoveDuplicates().Should().Equal();
-            ((List<int>)null).RemoveDuplicates().Should().Equal();
 
             ((IEnumerable)Test).RemoveDuplicates<int>().Should().Equal(48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 44, 223, 3, 446, 4);
             ((IEnumerable)Test.Convert(i => i.ToString())).RemoveDuplicates<string>().Should().Equal("48498", "45", "6", "542", "321", "2", "1", "13", "5", "698", "9", "88", "7", "44", "223", "3", "446", "4");
 
             ((IEnumerable)(object)new List<int>()).RemoveDuplicates<int>().Should().Equal();
-            ((IEnumerable)null).RemoveDuplicates<int>().Should().Equal();
             }
 
         [Fact]
@@ -1530,11 +1413,6 @@ namespace L_Tests.Tests.Extensions
             Test.Mirror().Mirror().Should().Equal(Test);
             Test.List().Mirror().Mirror().Should().Equal(Test);
             ((IEnumerable)Test).Mirror<int>().Mirror().Should().Equal(Test);
-
-
-            ((IEnumerable)null).Mirror<int>().Should().Equal();
-            ((IEnumerable<int>)null).Mirror<int>().Should().Equal();
-            ((int[])null).Mirror<int>().Should().Equal();
             }
 
         [Fact]
@@ -1561,9 +1439,6 @@ namespace L_Tests.Tests.Extensions
 
             IndexTest.Should().Equal(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53);
 
-            ((int[])null).Select((Func<int, bool>)null).Should().Equal();
-            ((int[])null).Select((Func<int, int, bool>)null).Should().Equal();
-
             //////////////////////
             IndexTest = new List<int>();
 
@@ -1581,9 +1456,6 @@ namespace L_Tests.Tests.Extensions
 
             IndexTest.Should().Equal(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53);
 
-            ((List<int>)null).Select((Func<int, bool>)null).Should().Equal();
-            ((List<int>)null).Select((Func<int, int, bool>)null).Should().Equal();
-
             //////////////////////
             IndexTest = new List<int>();
 
@@ -1600,9 +1472,6 @@ namespace L_Tests.Tests.Extensions
             }).Should().Equal(6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
 
             IndexTest.Should().Equal(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53);
-
-            ((IEnumerable)null).Select((Func<int, bool>)null).Should().Equal();
-            ((IEnumerable)null).Select((Func<int, int, bool>)null).Should().Equal();
             }
 
         [Fact]
@@ -1629,10 +1498,6 @@ namespace L_Tests.Tests.Extensions
                 6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
                 446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
 
-            // null works
-
-            ((int[])null).SetAt(-1, 5);
-
 
             //////////////////////////////////////////////
 
@@ -1652,10 +1517,6 @@ namespace L_Tests.Tests.Extensions
                 6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
                 446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
 
-            // null works
-
-            ((List<int>)null).SetAt(-1, 5);
-
             //////////////////////////////////////////////
 
             ((IEnumerable)Test3).SetAt(0, 0);
@@ -1671,11 +1532,6 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable)Test3).Should().Equal(0, 5, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
                 6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
                 446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
-
-            // null works
-
-            ((IEnumerable)null).SetAt(-1, 5);
-
             }
 
         [Fact]
@@ -1697,9 +1553,6 @@ namespace L_Tests.Tests.Extensions
                 }
 
 
-            ((int[])null).Shuffle().Should().BeEmpty();
-
-
             // Test List
             List<int> Test2 = Test.List();
 
@@ -1714,8 +1567,6 @@ namespace L_Tests.Tests.Extensions
                 Shuffled.ToS().Should().NotBe(Test2.ToS());
                 }
 
-            ((List<int>)null).Shuffle().Should().BeEmpty();
-
             // Test List
             IEnumerable Test3 = Test.List();
 
@@ -1729,9 +1580,6 @@ namespace L_Tests.Tests.Extensions
                 // But not equal to test with order (incredibly small chance for this to fail randomly)
                 Shuffled.ToS().Should().NotBe(Test3.ToS());
                 }
-
-            ((IEnumerable)null).Shuffle<int>().Should().BeEmpty();
-
             }
 
         [Fact]
@@ -1777,10 +1625,6 @@ namespace L_Tests.Tests.Extensions
                 Random7.Sort((Func<string, string, int>)null);
                 Random7.Should().BeInAscendingOrder();
                 }
-
-            ((IList)null).Sort();
-            ((IList<string>)null).Sort((Func<string, string, int>)null);
-            ((IList<string>)null).Sort((Func<string, IComparable>)null);
             }
 
         [Fact]
@@ -1802,8 +1646,6 @@ namespace L_Tests.Tests.Extensions
             Test.Swap(10, 10);
             Test.Should().Equal(1, 2, 6, 542, 321, 48498, 45);
 
-            ((int[])null).Swap(0, 1);
-
             Test2.Swap(0, 1);
             Test2.Should().Equal(45, 48498, 6, 542, 321, 2, 1);
             Test2.Swap(1, 5);
@@ -1815,7 +1657,6 @@ namespace L_Tests.Tests.Extensions
             Test2.Swap(10, 10);
             Test2.Should().Equal(1, 2, 6, 542, 321, 48498, 45);
 
-            ((List<int>)null).Swap(0, 1);
             }
 
         [Fact]
@@ -1839,9 +1680,59 @@ namespace L_Tests.Tests.Extensions
 
 
             Test.TotalCount().Should().Be(16);
+            }
+
+        [Fact]
+        public void Test_Add()
+            {
+            int[] Test = new[] { 1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736 };
+
+            int[] Test2 = new[] { 52317854, 87, 53, 23843254, 1, 45394, 73643854, 948746, 5 };
 
 
-            ((IEnumerable)null).TotalCount().Should().Be(0);
+            Test.Add(5)
+                .Should()
+                .Equal(1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736, 5);
+
+
+            Test.Add(5, 6, 7, 8, 1)
+                .Should()
+                .Equal(1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736, 5, 6, 7, 8, 1);
+
+
+            }
+        [Fact]
+        public void Test_Add_List()
+            {
+            List<int> Test = new List<int> { 1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736 };
+
+
+            Test.Add(5);
+            Test.Should()
+                .Equal(1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736, 5);
+
+
+            Test.Add(5, 6, 7, 8, 1);
+            Test.Should()
+                .Equal(1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736, 5, 5, 6, 7, 8, 1);
+
+
+            }
+
+        [Fact]
+        public void Test_AddTo()
+            {
+            int[] Test = new[] { 1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736 };
+
+            Collection<int> Collection = new Collection<int>();
+
+            Test.AddTo(Collection);
+
+            Collection.Should().Equal(1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736);
+
+            Test.AddTo(Collection);
+
+            Collection.Should().Equal(1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736, 1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736);
             }
 
         #region Internal

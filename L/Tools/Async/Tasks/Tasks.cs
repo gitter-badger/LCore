@@ -147,8 +147,9 @@ namespace LCore.Tasks
 
                 FinishedTasks.Add(CurrentTask);
 
-                ToDoTasks.RemoveAt_Checked(0);
+                ToDoTasks = ToDoTasks.Select((i, Task) => i != 0);
                 }
+
             Running = false;
 
             UpdateTaskBar();

@@ -10,6 +10,7 @@ using LCore.Extensions.Optional;
 using LCore.Interfaces;
 using LCore.Naming;
 using LCore.Tests;
+using LCore.Tools;
 using NSort;
 // ReSharper disable UnusedMember.Global
 
@@ -281,7 +282,7 @@ namespace LCore.Extensions
             {
             var Type = In.GetMemberType();
 
-            if (Type.HasInterface<IComparable>() && typeof(T) != typeof(object))
+            if (Type != null && Type.HasInterface<IComparable>() && typeof(T) != typeof(object))
                 {
                 return (IComparer<T>)new ComparableComparer();
                 }
@@ -660,6 +661,7 @@ namespace LCore.Extensions
         /// <paramref name="Type"/>[<typeparamref name="TKey"/>] == <typeparamref name="TValue"/>
         /// </summary>
         [CanBeNull]
+        [Tested]
         public static PropertyInfo IndexGetter<TKey, TValue>([CanBeNull] this Type Type)
             {
             return Type?.GetMembers().First<PropertyInfo>(
@@ -675,6 +677,7 @@ namespace LCore.Extensions
         /// <paramref name="Type"/>[<typeparamref name="TKey"/>] == object
         /// </summary>
         [CanBeNull]
+        [Tested]
         public static PropertyInfo IndexGetter<TKey>([CanBeNull] this Type Type)
             {
             return Type?.GetMembers().First<PropertyInfo>(
@@ -1298,6 +1301,26 @@ namespace LCore.Extensions
                 return (T)NewRandom(typeof(T), Minimum, Maximum);
                 }
 
+            public static readonly Set<Type, Func<Type, object[], object>>[] NewRandom_ArrayTypes = {
+                new Set<Type,Func<Type, object[],object>>(typeof(Array), (ItemType, Items) =>
+                    {
+                    var Out = (Array)ItemType.MakeArrayType().New(new object[] { Items.Length});
+                    object Out2 = Out.Collect((i, Item) => Items[i]).Array();
+
+                    return Out2;
+                    }),
+                new Set<Type,Func<Type, object[],object>>(typeof(List), (ItemType, Items) =>
+                    {
+                    object Out = (IList)typeof(List<>).MakeGenericType(ItemType).New();
+
+                    Items.List().Each(Item => ( (IList)Out)?.Add(Item));
+
+                    return Out;
+                    }),
+                };
+            public static readonly Type[] NewRandom_Types = new[] {
+                typeof(string), typeof(Guid), typeof(int), typeof(uint), typeof(short), typeof(ushort),
+                typeof(long),typeof(ulong), typeof(byte), typeof(sbyte), typeof(char) };
             /// <summary>
             /// Creates a new random object of type <paramref name="Type"/> for many simple types.
             /// </summary>
@@ -1305,6 +1328,40 @@ namespace LCore.Extensions
                 {
                 var Rand = new Random();
 
+                if (Type == typeof(IEnumerable))
+                    {
+                    Set<Type, Func<Type, object[], object>> ArrayType = NewRandom_ArrayTypes.Random();
+                    var SelectedType = NewRandom_Types.Random();
+                    
+                    var RandomItems = new List<object>();
+
+                    int RandomCount = L.Ref.NewRandom<int>(1, 50);
+
+                    L.A(() =>
+                    {
+                        RandomItems.Add(L.Ref.NewRandom<object>(SelectedType));
+                    }).Repeat(RandomCount)();
+
+                    return ArrayType.Obj2(SelectedType, RandomItems.Array());
+                    }
+                if (Type.IsGenericType &&
+                    Type.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+                    {
+                    var EnumerableType = Type.GetGenericArguments()[0];
+
+                    Set<Type, Func<Type, object[], object>> ArrayType = NewRandom_ArrayTypes.Random();
+
+                    var RandomItems = new List<object>();
+
+                    int RandomCount = L.Ref.NewRandom<int>(1, 50);
+
+                    L.A(() =>
+                    {
+                        RandomItems.Add(L.Ref.NewRandom<object>(EnumerableType));
+                    }).Repeat(RandomCount)();
+
+                    return ArrayType.Obj2(EnumerableType, RandomItems.Array());
+                    }
 
                 if (Minimum != null || Maximum != null)
                     {
@@ -1338,7 +1395,6 @@ namespace LCore.Extensions
 
                 if (Type == typeof(Guid))
                     return new Guid();
-
 
                 if (Type == typeof(double))
                     return Rand.NextDouble() * int.MaxValue - int.MinValue;

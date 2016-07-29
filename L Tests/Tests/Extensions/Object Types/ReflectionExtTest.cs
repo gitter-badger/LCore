@@ -64,9 +64,6 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_FindMethod()
             {
-            // ReSharper disable ExceptionNotDocumented
-            /*            typeof(TestBaseClass2).FindMethod(null).Should().BeNull();
-                        typeof(TestBaseClass2).FindMethod("").Should().BeNull();*/
             typeof(TestBaseClass2).FindMethod("wrong").Should().BeNull();
 
             typeof(TestBaseClass2).FindMethod(nameof(TestBaseClass2.Test4), new Type[] { })
@@ -107,6 +104,11 @@ namespace L_Tests.Tests.Extensions
             typeof(TestBaseClass2).FindMethod(nameof(object.ToString))
                 .Should().NotBeNull();
             // ReSharper restore ExceptionNotDocumented
+
+            typeof(int).FindMethod("ToString").Should().NotBeNull();
+
+            // Tests underlying type method finding
+            typeof(int).FindMethod("Equals", new[] { typeof(object), typeof(object) }).Should().NotBeNull();
             }
 
 
@@ -159,9 +161,6 @@ namespace L_Tests.Tests.Extensions
             Member.GetAttribute<KeyAttribute>(true).Should().BeNull();
 
             Member.GetAttribute<TestedAttribute>().Should().BeNull();
-
-            ((MemberInfo)null).GetAttribute<TestedAttribute>().Should().BeNull();
-            ((MemberInfo)null).GetAttribute<TestedAttribute>(false).Should().BeNull();
             }
 
 
@@ -190,10 +189,7 @@ namespace L_Tests.Tests.Extensions
                     }
                 );
 
-
-            ((MemberInfo)null).GetAttributes<TestResultAttribute>(false)
-                .Should().Equal();
-
+            
             new TestMember().GetAttributes<TestResultAttribute>(false)
                 .Should().Equal();
 
@@ -237,8 +233,6 @@ namespace L_Tests.Tests.Extensions
         public void Test_GetClassHierarchy()
             {
             typeof(TestClass).GetClassHierarchy().Should().Be("ReflectionExtTest.TestClass");
-
-            ((Type)null).GetClassHierarchy().Should().Be("");
             }
 
 
@@ -318,9 +312,6 @@ namespace L_Tests.Tests.Extensions
             typeof(TestBaseClass2).GetFriendlyTypeName().Should().Be("Test Base Class 2");
 
             typeof(TestClassGeneric2<string, int>).GetFriendlyTypeName().Should().Be("TestClassGeneric2<String, Int32>");
-
-            ((Type)null).GetFriendlyTypeName().Should().Be("");
-
             }
 
 
@@ -718,8 +709,6 @@ namespace L_Tests.Tests.Extensions
                 .ToInvocationSignature()
                 .Should()
                 .Be("L.Ref.FindType(String) => Type");
-
-            ((MethodInfo)null).ToInvocationSignature().Should().Be("");
             }
 
 
@@ -747,7 +736,6 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_WithAttribute()
             {
-            ((MemberInfo[])null).WithAttribute<NotMappedAttribute>().Should().Equal();
 
             typeof(TestClass).GetMembers().WithAttribute<NotMappedAttribute>().Should().Equal(
                 L.Ref.Member<TestClass>(Test => Test.Test),
@@ -756,9 +744,7 @@ namespace L_Tests.Tests.Extensions
             typeof(TestClass).GetMembers().WithAttribute<ITestAttribute>().Should().Equal(
                 L.Ref.Method<TestClass>(Test => Test.Test5(""))
                 );
-
-
-            ((MemberInfo[])null).WithAttribute(typeof(NotMappedAttribute)).Should().Equal();
+            
 
             typeof(TestClass).GetMembers()
                 .WithAttribute(typeof(NotMappedAttribute))
@@ -778,8 +764,6 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_WithoutAttribute()
             {
-            ((MemberInfo[])null).WithoutAttribute<NotMappedAttribute>().Should().Equal();
-
             typeof(TestClass).GetMembers()
                 .Select(Member => !(Member is MethodInfo && ((MethodInfo)Member).IsSpecialName))
                 .WithoutAttribute<NotMappedAttribute>().ShouldBeEquivalentTo(new List<MemberInfo>
@@ -833,9 +817,7 @@ namespace L_Tests.Tests.Extensions
                     L.Ref.Member<TestClass>(Test => Test.Test6)
                     }
                 );
-
-
-            ((MemberInfo[])null).WithoutAttribute(typeof(NotMappedAttribute)).Should().Equal();
+            
 
             typeof(TestClass).GetMembers()
                 .Select(Member => !(Member is MethodInfo && ((MethodInfo)Member).IsSpecialName))
@@ -917,6 +899,8 @@ namespace L_Tests.Tests.Extensions
             typeof(TestClassIndexer).HasIndexGetter<string, string>().Should().BeFalse();
             typeof(TestClassIndexer).HasIndexGetter<int, int>().Should().BeFalse();
             typeof(TestClassIndexer).HasIndexGetter<object, object>().Should().BeFalse();
+
+
             }
 
         [Fact]
@@ -927,8 +911,82 @@ namespace L_Tests.Tests.Extensions
             typeof(TestClassIndexer).HasIndexSetter<string, string>().Should().BeFalse();
             typeof(TestClassIndexer).HasIndexSetter<int, int>().Should().BeFalse();
             typeof(TestClassIndexer).HasIndexSetter<object, object>().Should().BeFalse();
+
+
             }
 
+        /// <exception cref="TargetException">In the .NET for Windows Store apps or the Portable Class Library, catch <see cref="T:System.Exception" /> instead.The <paramref>
+        ///         <name>obj</name>
+        ///     </paramref>
+        ///     parameter is null and the method is not static.-or- The method is not declared or inherited by the class of <paramref>
+        ///         <name>obj</name>
+        ///     </paramref>
+        ///     . -or-A static constructor is invoked, and <paramref>
+        ///         <name>obj</name>
+        ///     </paramref>
+        ///     is neither null nor an instance of the class that declared the constructor.</exception>
+        /// <exception cref="TargetInvocationException">The invoked method or constructor throws an exception. -or-The current instance is a <see cref="T:System.Reflection.Emit.DynamicMethod" /> that contains unverifiable code. See the "Verification" section in Remarks for <see cref="T:System.Reflection.Emit.DynamicMethod" />.</exception>
+        /// <exception cref="TargetParameterCountException">The <paramref>
+        ///         <name>parameters</name>
+        ///     </paramref>
+        ///     array does not have the correct number of arguments. </exception>
+        /// <exception cref="MethodAccessException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.MemberAccessException" />, instead.The caller does not have permission to execute the method or constructor that is represented by the current instance. </exception>
+        [Fact]
+        public void Test_IndexGetter()
+            {
+            var Test = new TestClassIndexer();
+
+            typeof(TestClassIndexer).IndexGetter<int>().Should().BeAssignableTo<PropertyInfo>()
+                .And.Should().NotBeNull();
+            typeof(TestClassIndexer).IndexGetter<string>().Should().BeAssignableTo<PropertyInfo>()
+                .And.Should().NotBeNull();
+            typeof(TestClassIndexer).IndexGetter<object>().Should().BeNull();
+
+            (typeof(TestClassIndexer).IndexGetter<int, string>().Should().BeAssignableTo<PropertyInfo>()
+                .And.Should().NotBeNull()
+                .And.Subject as PropertyInfo)?.GetMethod.Invoke(Test, new object[] { 5 }).Should().Be("5");
+            typeof(TestClassIndexer).IndexGetter<string, int?>().Should().BeAssignableTo<PropertyInfo>()
+                .And.Should().NotBeNull();
+            typeof(TestClassIndexer).IndexGetter<string, string>().Should().BeNull();
+            typeof(TestClassIndexer).IndexGetter<int, int>().Should().BeNull();
+            typeof(TestClassIndexer).IndexGetter<object, object>().Should().BeNull();
+            }
+
+        /// <exception cref="TargetException">In the .NET for Windows Store apps or the Portable Class Library, catch <see cref="T:System.Exception" /> instead.The <paramref>
+        ///         <name>obj</name>
+        ///     </paramref>
+        ///     parameter is null and the method is not static.-or- The method is not declared or inherited by the class of <paramref>
+        ///         <name>obj</name>
+        ///     </paramref>
+        ///     . -or-A static constructor is invoked, and <paramref>
+        ///         <name>obj</name>
+        ///     </paramref>
+        ///     is neither null nor an instance of the class that declared the constructor.</exception>
+        /// <exception cref="TargetInvocationException">The invoked method or constructor throws an exception. -or-The current instance is a <see cref="T:System.Reflection.Emit.DynamicMethod" /> that contains unverifiable code. See the "Verification" section in Remarks for <see cref="T:System.Reflection.Emit.DynamicMethod" />.</exception>
+        /// <exception cref="TargetParameterCountException">The <paramref>
+        ///         <name>parameters</name>
+        ///     </paramref>
+        ///     array does not have the correct number of arguments. </exception>
+        /// <exception cref="MethodAccessException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.MemberAccessException" />, instead.The caller does not have permission to execute the method or constructor that is represented by the current instance. </exception>
+        [Fact]
+        public void Test_IndexSetter()
+            {
+            var Test = new TestClassIndexer();
+
+            (typeof(TestClassIndexer).IndexSetter<int>().Should().BeAssignableTo<PropertyInfo>()
+                .And.Should().NotBeNull()
+                .And.Subject as PropertyInfo)?.SetMethod.Invoke(Test, new object[] { 5, "5" });
+            typeof(TestClassIndexer).IndexSetter<string>().Should().BeNull();
+            typeof(TestClassIndexer).IndexSetter<object>().Should().BeNull();
+
+            (typeof(TestClassIndexer).IndexSetter<int, string>().Should().BeAssignableTo<PropertyInfo>()
+                .And.Should().NotBeNull()
+                .And.Subject as PropertyInfo)?.SetMethod.Invoke(Test, new object[] { 5, "5" });
+            typeof(TestClassIndexer).IndexSetter<string, int?>().Should().BeNull();
+            typeof(TestClassIndexer).IndexSetter<string, string>().Should().BeNull();
+            typeof(TestClassIndexer).IndexSetter<int, int>().Should().BeNull();
+            typeof(TestClassIndexer).IndexSetter<object, object>().Should().BeNull();
+            }
         #region Helpers
 
         /*

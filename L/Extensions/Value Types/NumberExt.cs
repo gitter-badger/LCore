@@ -42,6 +42,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the absolute value of <paramref name="In" />
         /// </summary>
+        [TestResult(new object[] { int.MinValue }, (uint)int.MaxValue + 1)]
         [TestResult(new object[] { int.MinValue + (int)1 }, (uint)int.MaxValue)]
         [TestResult(new object[] { int.MaxValue }, (uint)int.MaxValue)]
         [TestResult(new object[] { 0 }, 0u)]
@@ -77,7 +78,8 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the absolute value of <paramref name="In" />
         /// </summary>
-        [TestResult(new object[] { long.MinValue + (long)1 }, (ulong)long.MaxValue)]
+        [TestResult(new object[] { long.MinValue }, (ulong)long.MaxValue + 1)]
+        [TestResult(new object[] { long.MinValue + 1 }, (ulong)long.MaxValue)]
         [TestResult(new object[] { long.MaxValue }, (ulong)long.MaxValue)]
         [TestResult(new object[] { (long)0 }, (ulong)0)]
         [TestResult(new object[] { (long)1 }, (ulong)1)]
@@ -1071,14 +1073,11 @@ namespace LCore.Extensions
 
         /// <summary>
         /// Returns the rounded integer of the float <paramref name="In" />
-        /// <paramref name="Decimals" /> must be at least 0.
+        /// <paramref name="DecimalPlaces" /> must be at least 0.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Decimals was less than 0.</exception>
-        public static double Round(this decimal In, int Decimals)
+        public static double Round(this decimal In, int DecimalPlaces)
             {
-            if (Decimals < 0) throw new ArgumentOutOfRangeException(nameof(Decimals));
-
-            double Power = Math.Pow(10, Decimals);
+            double Power = Math.Pow(10, DecimalPlaces);
             double Out = (int)Math.Round((double)In * Power);
             double Out2 = Out / Power;
             return Out2;
@@ -1327,7 +1326,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { 0, 10 }, new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 })]
         [TestResult(new object[] { 10, 0 }, new int[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 })]
         [TestResult(new object[] { 10, -5 }, new int[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5 })]
-        [TestBound(0,-500, 500)]
+        [TestBound(0, -500, 500)]
         [TestBound(1, -500, 500)]
         public static int[] To(this int From, int To)
             {
