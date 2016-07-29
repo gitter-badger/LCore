@@ -349,6 +349,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.IncrementInt_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.IncrementInt_Name })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, Test.IncrementInt_Name }, new[] { 2, 3, 4 })]
+        [TestResult(new object[] { new[] { 1, 2, 3 }, null }, new [] { 1, 2, 3 })]
         [DebuggerStepThrough]
         public static List<T> Collect<T>([CanBeNull]this List<T> In, [CanBeNull]Func<T, T> Func)
             {
