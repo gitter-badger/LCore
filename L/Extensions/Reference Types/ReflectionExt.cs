@@ -1339,6 +1339,7 @@ namespace LCore.Extensions
                             RandomItems.Add(NewRandom(SelectedType, Min, Max));
                         }).Repeat(RandomCount)();
 
+                    // ReSharper disable once ConvertIfStatementToReturnStatement
                         if (ArrayType != null)
                             return ArrayType(SelectedType, RandomItems.Array());
 

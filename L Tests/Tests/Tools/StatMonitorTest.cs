@@ -12,8 +12,8 @@ namespace L_Tests.Tests.Tools
     {
     public class StatMonitorTest
         {
-        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
+        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         [Fact]
         [TestCategory(L.Test.Categories.Tools)]
         public void Test_StatMonitor()

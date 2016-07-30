@@ -1734,6 +1734,29 @@ namespace L_Tests.Tests.Extensions
             Collection.Should().Equal(1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736, 1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736);
             }
 
+        [Fact]
+        public void Test_GetAt_SetAt_CustomIndexer()
+            {
+            var Test = new CustomIndexer();
+
+            Test.Str.Should().Be("it's just a test");
+
+            Test.Count().Should().Be(16);
+            Test.HasIndex(3).Should().BeTrue();
+            Test.GetAt(0).Should().Be('i');
+            Test.GetAt(1).Should().Be('t');
+            Test.GetAt(2).Should().Be('\'');
+            Test.GetAt(3).Should().Be('s');
+            Test.SetAt(3, 'd');
+            Test.GetAt(3).Should().Be('d');
+
+            Test.Str.Should().Be("it'd just a test");
+
+
+
+            Test.SetAt(3, 'd');
+            }
+
         #region Internal
 
         [ExcludeFromCodeCoverage]
@@ -1791,6 +1814,59 @@ namespace L_Tests.Tests.Extensions
             }
 
         [ExcludeFromCodeCoverage]
+        internal class CustomIndexer : IEnumerable<char>
+        {
+            public string Str => new string(this.Chars);
+            public char[] Chars = "it's just a test".Array();
+
+            public char this[int Index]
+            {
+                get { return this.Str[Index]; }
+                // ReSharper disable once ValueParameterNotUsed
+                set
+                {
+                    this.Chars.SetAt(Index, value);
+                }
+            }
+
+            public IEnumerator<char> GetEnumerator()
+            {
+                return (IEnumerator<char>)this.Chars.GetEnumerator();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return this.Chars.GetEnumerator();
+            }
+        }
+        [ExcludeFromCodeCoverage]
+        internal class CustomIndexerU : IEnumerable<char>
+        {
+            public string Str => new string(this.Chars);
+            public char[] Chars = "it's just a test".Array();
+
+            public char this[uint Index]
+            {
+                get { return this.Str[(int)Index]; }
+                // ReSharper disable once ValueParameterNotUsed
+                set
+                {
+                    this.Chars.SetAt(Index, value);
+                }
+            }
+
+            public IEnumerator<char> GetEnumerator()
+            {
+                return (IEnumerator<char>)this.Chars.GetEnumerator();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return this.Chars.GetEnumerator();
+            }
+        }
+
+        [ExcludeFromCodeCoverage]
         internal class NotAnIndexer : IEnumerable<int>
             {
             private readonly int[] _Test = { 5, 6, 7 };
@@ -1809,3 +1885,4 @@ namespace L_Tests.Tests.Extensions
         #endregion
         }
     }
+
