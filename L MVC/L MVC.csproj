@@ -304,6 +304,13 @@
     <Compile Include="ViewModels\ManageViewModel.cs" />
     <Compile Include="ViewModels\TemplateViewModel.cs" />
     <Compile Include="ViewModels\TextContentViewModel.cs" />
+    <Compile Include="Web\ASyncProgress.cs" />
+    <Compile Include="Web\Communication\HttpCommunicator.cs" />
+    <Compile Include="Web\Communication\WebClientTimeOut.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Web\FileProcessor.cs" />
+    <Compile Include="Web\IAsyncProgress.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

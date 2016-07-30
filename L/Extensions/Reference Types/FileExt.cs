@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security.Cryptography;
 using System.Threading;
@@ -26,15 +27,13 @@ namespace LCore.Extensions
         public static char[] ByteArrayToCharArray([CanBeNull]byte[] In)
             {
             if (In == null)
-                {
                 return new char[0];
-                }
+
             var Out = new char[In.Length];
 
             for (int Index = 0; Index < In.Length; Index++)
-                {
                 Out[Index] = Convert.ToChar(In[Index]);
-                }
+
             return Out;
             }
         #endregion
@@ -86,7 +85,8 @@ namespace LCore.Extensions
         /// <summary>
         /// Reads a chunk of file <paramref name="F" /> using <paramref name="BlockSize" /> and <paramref name="BlockNum" /> as index.
         /// </summary>
-        public static byte[] GetFileBlock(FileStream F, int BlockSize, int BlockNum)
+        [ExcludeFromCodeCoverage]
+        internal static byte[] GetFileBlock(FileStream F, int BlockSize, int BlockNum)
             {
             if (F == null)
                 throw new ArgumentNullException(nameof(F));
@@ -188,12 +188,10 @@ namespace LCore.Extensions
         /// Returns the file's hash, determined by the file bytes and 
         /// L.HashAlgorithm (default to SHA256)
         /// </summary>
-        public static byte[] GetFileHash(this string FullPath)
+        public static byte[] GetFileHash([CanBeNull]this string FullPath)
             {
-            if (FullPath == null)
-                throw new ArgumentNullException(nameof(FullPath));
-            if (!File.Exists(FullPath))
-                throw new FileNotFoundException(FullPath);
+            if (FullPath == null || !File.Exists(FullPath))
+                return new byte[] { };
 
             return GetStreamHash(FullPath.ToStream());
             }
@@ -235,8 +233,7 @@ namespace LCore.Extensions
                 throw new ArgumentNullException(nameof(InputStream));
 
             byte[] Hash = L.File.HashAlgorithm.ComputeHash(InputStream);
-            try { InputStream.Close(); }
-            catch { }
+            InputStream.Close();
             return Hash;
             }
         #endregion
@@ -259,7 +256,8 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="WildCard"></param>
         /// <returns></returns>
-        public static bool MatchesWildCard(string In, string WildCard)
+        [ExcludeFromCodeCoverage]
+        internal static bool MatchesWildCard(string In, string WildCard)
             {
             if (In == null)
                 throw new ArgumentNullException(nameof(In));
@@ -282,7 +280,8 @@ namespace LCore.Extensions
         #endregion
 
         #region MatchesWildCardLowerCase
-        private static bool MatchesWildCardLowerCase(string In, string WildCard)
+        [ExcludeFromCodeCoverage]
+        internal static bool MatchesWildCardLowerCase(string In, string WildCard)
             {
             if (WildCard == "*")
                 {
@@ -351,7 +350,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Waits until a FileStream can be opened. Waits at most <paramref name="MaxWaitMS" /> milliseconds.
         /// </summary>
-        public static bool WaitForFileUnlock(string FullPath, int MaxWaitMS)
+        public static bool WaitForFileUnlock(string FullPath, int MaxWaitMS, FileMode FileMode = FileMode.Open, FileAccess FileAccess = FileAccess.ReadWrite)
             {
             const int Wait = 100;
 
@@ -359,7 +358,7 @@ namespace LCore.Extensions
                 {
                 try
                     {
-                    var Stream = new FileStream(FullPath, FileMode.Open, FileAccess.ReadWrite);
+                    var Stream = new FileStream(FullPath, FileMode, FileAccess);
                     Stream.Close();
                     return true;
                     }
@@ -480,7 +479,7 @@ namespace LCore.Extensions
             /// Removes non-supported characters from filenames.
             /// </summary>
             public static readonly Func<string, string> CleanFileName =
-                F<string,char[],string>(Str.RemoveChars).Surround2(Path.GetInvalidFileNameChars);
+                F<string, char[], string>(Str.RemoveChars).Surround2(Path.GetInvalidFileNameChars);
             #endregion
 
             #region CombinePaths

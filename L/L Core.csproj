@@ -158,13 +158,6 @@
     <Compile Include="Tools\Async\Tasks\TaskManager.cs" />
     <Compile Include="Tools\Async\Tasks\Tasks.cs" />
     <Compile Include="Tools\Set.cs" />
-    <Compile Include="Tools\Web\ASyncProgress.cs" />
-    <Compile Include="Tools\Web\FileProcessor.cs" />
-    <Compile Include="Tools\Web\IAsyncProgress.cs" />
-    <Compile Include="Tools\Web\Communication\HttpCommunicator.cs" />
-    <Compile Include="Tools\Web\Communication\WebClientTimeOut.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Tools\DateTimeConverter.cs" />
     <Compile Include="Tools\ProgressUpdater.cs" />
     <Compile Include="Tools\Schedule.cs" />

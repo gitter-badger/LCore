@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 #pragma warning disable 1591
 
-namespace LCore.Web
+namespace LMVC.Web
     {
-    public class WebClientTimeOut : WebClient
+    internal class WebClientTimeOut : WebClient
         {
         public const int SleepInterval = 100;
 

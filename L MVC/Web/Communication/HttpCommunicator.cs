@@ -2,6 +2,7 @@
 
 using LCore.Extensions;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedMember.Global
@@ -10,11 +11,10 @@ using System.Threading;
 // ReSharper disable UnassignedField.Global
 #pragma warning disable 1591
 
-namespace LCore.Web
+namespace LMVC.Web
     {
     //NOTE: when adding functions here, make sure all variable types used are serializable. 
     //Add each new type to the Tests project constant Tests.SERIALIZABLETYPES
-
     public class HttpCommunicator
         {
         public const int DefaultTries = 5;

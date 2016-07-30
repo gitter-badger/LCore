@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 // ReSharper disable once RedundantUsingDirective
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.IO;
 using System.Threading;
@@ -9,7 +10,7 @@ using System.Threading;
 using LCore.Extensions;
 // ReSharper disable FieldCanBeMadeReadOnly.Local
 
-namespace LCore.Web
+namespace LMVC.Web
     {
     /// <summary>
     /// FileProcessor is used to process byte data from a multi-part form and save it to the disk.
