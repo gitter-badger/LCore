@@ -138,7 +138,15 @@ namespace L_Tests
                             var ParamBound2 = ParameterBounds.First(Param => Param.ParameterIndex == j);
                             if (ParamBound2 != null)
                                 {
-                                Params[j] = Parameters[j].ParameterType.NewRandom(ParamBound2.Minimum, ParamBound2.Maximum);
+                                try
+                                    {
+                                    Params[j] = Parameters[j].ParameterType.NewRandom(ParamBound2.Minimum,
+                                        ParamBound2.Maximum);
+                                    }
+                                catch (Exception Ex)
+                                    {
+                                    throw new InternalTestFailureException($"Method {Method.FullyQualifiedName()} could not generate random parameter #{j + 1}", Ex);
+                                    }
                                 }
                             }
                         try

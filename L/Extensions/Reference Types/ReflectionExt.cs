@@ -1297,12 +1297,13 @@ namespace LCore.Extensions
             /// <summary>
             /// Creates a new random <typeparamref name="T"/> for many simple types.
             /// </summary>
-            public static T NewRandom<T>(T Minimum = default(T), T Maximum = default(T))
+            public static T NewRandom<T>(T? Minimum = null, T? Maximum = null)
+                where T : struct
                 {
                 return (T)NewRandom(typeof(T), Minimum, Maximum);
                 }
 
-            public static readonly Dictionary<Type, Func<Type, object[], object>> NewRandom_ArrayTypes = new Dictionary<Type, Func<Type, object[], object>>
+            internal static readonly Dictionary<Type, Func<Type, object[], object>> NewRandom_ArrayTypes = new Dictionary<Type, Func<Type, object[], object>>
                 {
                 [typeof(Array)] = (ItemType, Items) =>
                      {
@@ -1321,35 +1322,127 @@ namespace LCore.Extensions
                     }
                 };
 
-            public static readonly Dictionary<Type, Func<object, object, object>> NewRandom_TypeCreators =
-                new Dictionary<Type, Func<object, object, object>>
+            internal static readonly Dictionary<Type, Func<Type, object, object, object>> NewRandom_InterfaceCreators =
+                new Dictionary<Type, Func<Type, object, object, object>>
                     {
-                    [typeof(IEnumerable)] = (Min, Max) =>
-                    {
-
-                        Func<Type, object[], object> ArrayType = NewRandom_ArrayTypes.Values.Random();
-                        var SelectedType = NewRandom_Types.Random();
-
-                        var RandomItems = new List<object>();
-
-                        int RandomCount = NewRandom(1, 50);
-
-                        A(() =>
+                    [typeof(IEnumerable)] = (Type, Min, Max) =>
                         {
-                            RandomItems.Add(NewRandom(SelectedType, Min, Max));
-                        }).Repeat(RandomCount)();
+                            Func<Type, object[], object> ArrayType = NewRandom_ArrayTypes.Values.Random();
+                            var SelectedType = NewRandom_TypeCreators.Keys.Random();
 
-                    // ReSharper disable once ConvertIfStatementToReturnStatement
-                        if (ArrayType != null)
-                            return ArrayType(SelectedType, RandomItems.Array());
+                            var RandomItems = new List<object>();
 
-                        return null;
-                    }
+                            int RandomCount = (int)NewRandom(typeof(int), 1, 50);
+
+                            A(() =>
+                                {
+                                    RandomItems.Add(NewRandom(SelectedType, Min, Max));
+                                }).Repeat(RandomCount)();
+
+                            // ReSharper disable once ConvertIfStatementToReturnStatement
+                            // ReSharper disable once UseNullPropagation
+                            if (ArrayType != null)
+                                return ArrayType(SelectedType, RandomItems.Array());
+
+                            return null;
+                        },
+                    [typeof(IEnumerable<>)] = (Type, Min, Max) =>
+                        {
+                            if (Type.GetGenericArguments().Length == 1)
+                                {
+                                var EnumerableType = Type.GetGenericArguments()[0];
+
+                                Func<Type, object[], object> ArrayTypeCreator = NewRandom_ArrayTypes.Values.Random();
+
+                                var RandomItems = new List<object>();
+
+                                int RandomCount = (int)NewRandom(typeof(int), 1, 50);
+
+                                A(() =>
+                                    {
+                                        RandomItems.Add(NewRandom(EnumerableType, Min, Max));
+                                    }).Repeat(RandomCount)();
+
+                                // ReSharper disable once ConvertIfStatementToReturnStatement
+                                // ReSharper disable once UseNullPropagation
+                                if (ArrayTypeCreator != null)
+                                    return ArrayTypeCreator(EnumerableType, RandomItems.Array());
+
+                                }
+
+                            return null;
+                        }
                     };
 
-            public static readonly Type[] NewRandom_Types = {
-                typeof(string), typeof(Guid), typeof(int), typeof(uint), typeof(short), typeof(ushort),
-                typeof(long),typeof(ulong), typeof(byte), typeof(sbyte), typeof(char) };
+            internal static readonly Dictionary<Type, Func<Type, object, object, object>> NewRandom_TypeCreators =
+                new Dictionary<Type, Func<Type, object, object, object>>
+                    {
+                    [typeof(Guid)] = (Type, Min, Max) => new Guid(),
+                    [typeof(string)] = (Type, Min, Max) => new Guid().ToString(),
+                    [typeof(double)] = (Type, Min, Max) =>
+                    {
+                        double Minimum = (double?)Min ?? (double)int.MinValue;
+                        double Maximum = (double?)Max ?? (double)int.MaxValue;
+
+                        return new Random().NextDouble() * Minimum - Maximum;
+                    },
+                    [typeof(char)] = (Type, Min, Max) =>
+                    {
+                        char Minimum = (char?)Min ?? char.MinValue;
+                        char Maximum = (char?)Max ?? char.MaxValue;
+
+                        return (char)new Random().Next(Minimum, Maximum);
+                    },
+                    [typeof(byte)] = (Type, Min, Max) =>
+                    {
+                        byte Minimum = (byte?)Min ?? byte.MinValue;
+                        byte Maximum = (byte?)Max ?? byte.MaxValue;
+
+                        return (byte)new Random().Next(Minimum, Maximum);
+                    },
+                    [typeof(sbyte)] = (Type, Min, Max) =>
+                    {
+                        sbyte Minimum = (sbyte?)Min ?? sbyte.MinValue;
+                        sbyte Maximum = (sbyte?)Max ?? sbyte.MaxValue;
+
+                        return (sbyte)new Random().Next(Minimum, Maximum);
+                    },
+                    [typeof(short)] = (Type, Min, Max) =>
+                    {
+                        short Minimum = (short?)Min ?? short.MinValue;
+                        short Maximum = (short?)Max ?? short.MaxValue;
+
+                        return (short)new Random().Next(Minimum, Maximum);
+                    },
+                    [typeof(ushort)] = (Type, Min, Max) =>
+                    {
+                        ushort Minimum = (ushort?)Min ?? ushort.MinValue;
+                        ushort Maximum = (ushort?)Max ?? ushort.MaxValue;
+
+                        return (ushort)new Random().Next(Minimum, Maximum);
+                    },
+                    [typeof(long)] = (Type, Min, Max) =>
+                        {
+                            int Minimum = (int?)Min ?? int.MinValue;
+                            int Maximum = (int?)Max ?? int.MaxValue;
+
+                            return (long)new Random().Next(Minimum, Maximum);
+                        },
+                    [typeof(int)] = (Type, Min, Max) =>
+                    {
+                        int Minimum = (int?)Min ?? int.MinValue;
+                        int Maximum = (int?)Max ?? int.MaxValue;
+
+                        return (int)new Random().Next(Minimum, Maximum);
+                    },
+                    [typeof(uint)] = (Type, Min, Max) =>
+                    {
+                        int Minimum = (int)((uint?)Min ?? uint.MinValue);
+                        int Maximum = (int)((uint?)Max ?? (uint)int.MaxValue);
+
+                        return (uint)new Random().Next(Minimum, Maximum);
+                    }
+                    };
 
             /// <summary>
             /// Creates a new random object of type <paramref name="Type"/> for many simple types.
@@ -1358,43 +1451,6 @@ namespace LCore.Extensions
                 {
                 var Rand = new Random();
 
-                if (Type == typeof(IEnumerable))
-                    {
-                    Func<Type, object[], object> ArrayTypeCreator = NewRandom_ArrayTypes.Values.Random();
-                    var SelectedType = NewRandom_Types.Random();
-
-                    var RandomItems = new List<object>();
-
-                    int RandomCount = NewRandom(1, 50);
-
-                    A(() =>
-                    {
-                        RandomItems.Add(NewRandom<object>(SelectedType));
-                    }).Repeat(RandomCount)();
-
-                    if (ArrayTypeCreator != null)
-                        return ArrayTypeCreator(SelectedType, RandomItems.Array());
-                    }
-                if (Type.IsGenericType &&
-                    Type.GetGenericTypeDefinition() == typeof(IEnumerable<>))
-                    {
-                    var EnumerableType = Type.GetGenericArguments()[0];
-
-                    Func<Type, object[], object> ArrayTypeCreator = NewRandom_ArrayTypes.Values.Random();
-
-                    var RandomItems = new List<object>();
-
-                    int RandomCount = NewRandom(1, 50);
-
-                    A(() =>
-                    {
-                        RandomItems.Add(NewRandom<object>(EnumerableType));
-                    }).Repeat(RandomCount)();
-
-                    if (ArrayTypeCreator != null)
-                        return ArrayTypeCreator(EnumerableType, RandomItems.Array());
-                    }
-
                 if (Minimum != null || Maximum != null)
                     {
                     if (Minimum is IConvertible)
@@ -1402,81 +1458,55 @@ namespace LCore.Extensions
 
                     if (Maximum is IConvertible)
                         Maximum = ((IConvertible)Maximum).ConvertTo(Type) ?? Maximum;
+                    /*
+                                        if (Minimum.IsType(Type) && Maximum.IsType(Type))
+                                            if (Minimum is IConvertible && ((IConvertible)Minimum).CanConvertTo(typeof(int)) &&
+                                                Maximum is IConvertible && ((IConvertible)Maximum).CanConvertTo(typeof(int)))
+                                                return Rand.Next(((IConvertible)Minimum).ConvertTo<int>() ?? int.MinValue,
+                                                    ((IConvertible)Maximum).ConvertTo<int>() ?? int.MinValue).ConvertTo(Type);
 
-                    if (Minimum.IsType(Type) && Maximum.IsType(Type))
-                        if (Minimum is IConvertible && ((IConvertible)Minimum).CanConvertTo(typeof(int)) &&
-                            Maximum is IConvertible && ((IConvertible)Maximum).CanConvertTo(typeof(int)))
-                            return Rand.Next(((IConvertible)Minimum).ConvertTo<int>() ?? int.MinValue,
-                                ((IConvertible)Maximum).ConvertTo<int>() ?? int.MinValue).ConvertTo(Type);
+                                        if (Minimum.IsType(Type))
+                                            if (Minimum is IConvertible && ((IConvertible)Minimum).CanConvertTo(typeof(int)))
+                                                return Rand.Next(((IConvertible)Minimum).ConvertTo<int>() ?? int.MinValue, int.MaxValue)
+                                                    .ConvertTo(Type);
 
-                    if (Minimum.IsType(Type))
-                        if (Minimum is IConvertible && ((IConvertible)Minimum).CanConvertTo(typeof(int)))
-                            return Rand.Next(((IConvertible)Minimum).ConvertTo<int>() ?? int.MinValue, int.MaxValue)
-                                .ConvertTo(Type);
-
-                    if (Maximum.IsType(Type))
-                        if (Maximum is IConvertible && ((IConvertible)Maximum).CanConvertTo(typeof(int)))
-                            return Rand.Next(int.MinValue,
-                                ((IConvertible)Minimum).ConvertTo<int>() ?? int.MinValue)
-                                .ConvertTo(Type);
+                                        if (Maximum.IsType(Type))
+                                            if (Maximum is IConvertible && ((IConvertible)Maximum).CanConvertTo(typeof(int)))
+                                                return Rand.Next(int.MinValue,
+                                                    ((IConvertible)Minimum).ConvertTo<int>() ?? int.MinValue)
+                                                    .ConvertTo(Type);*/
                     }
 
 
-                if (Type == typeof(string))
-                    return new Guid().ToString();
-
-                if (Type == typeof(Guid))
-                    return new Guid();
-
-                if (Type == typeof(double))
-                    return Rand.NextDouble() * int.MaxValue - int.MinValue;
-
-                if (Type == typeof(char))
-                    return (char)Rand.Next(char.MinValue, char.MaxValue);
-                if (Type == typeof(byte))
-                    return (byte)Rand.Next(byte.MinValue, byte.MaxValue);
-                if (Type == typeof(sbyte))
-                    return (sbyte)Rand.Next(sbyte.MinValue, sbyte.MaxValue);
-                if (Type == typeof(short))
-                    return (short)Rand.Next(short.MinValue, short.MaxValue);
-                if (Type == typeof(ushort))
-                    return (ushort)Rand.Next(ushort.MinValue, ushort.MaxValue);
-                if (Type == typeof(long))
-                    return (long)Rand.Next(int.MinValue, int.MaxValue);
-                if (Type == typeof(ulong))
-                    return (ulong)Rand.Next(int.MinValue, int.MaxValue);
-                if (Type == typeof(int))
-                    return Rand.Next(int.MinValue, int.MaxValue);
-                if (Type == typeof(uint))
-                    return (uint)Rand.Next(int.MinValue, int.MaxValue);
-
                 // TODO: Create from object constructor and initialize properties.
-
 
                 // TODO: Create dynamic object from Interface and initialize properties.
 
 
+
+
+                if (NewRandom_TypeCreators.ContainsKey(Type) ||
+                    (Type.IsGenericType &&
+                    Type.GetGenericTypeDefinition() == Type))
+                    return NewRandom_TypeCreators[Type](Type, Minimum, Maximum);
+
+                var InterfaceType = NewRandom_TypeCreators.Keys.First(KeyType => KeyType.HasInterface(Type));
+                // ReSharper disable once ConvertIfStatementToReturnStatement
+                if (InterfaceType != null)
+                    return NewRandom_TypeCreators[InterfaceType](InterfaceType, Minimum, Maximum);
+
+                // Lastly, try to convert to the type
                 if (Type.HasInterface<IConvertible>())
                     {
                     try
                         {
-                        var Result = Rand.Next(char.MinValue, char.MaxValue).ConvertTo(Type);
+                        var Result = Rand.Next((int?)Minimum ?? char.MinValue, (int?)Maximum ?? char.MaxValue).ConvertTo(Type);
 
                         if (Result.IsType(Type) || Result == null)
                             return Result;
                         }
                     catch { }
                     }
-
-
-                if (NewRandom_TypeCreators.ContainsKey(Type) ||
-                    (Type.IsGenericType &&
-                    Type.GetGenericTypeDefinition() == Type))
-                    return NewRandom_TypeCreators[Type](Minimum, Maximum);
-
-                // ReSharper disable once ConvertIfStatementToReturnStatement
-                if (NewRandom_TypeCreators.Keys.Has(KeyType => KeyType.HasInterface(Type)))
-                    return NewRandom_TypeCreators[NewRandom_TypeCreators.Keys.First(KeyType => KeyType.HasInterface(Type))](Minimum, Maximum);
 
                 return null;
                 }

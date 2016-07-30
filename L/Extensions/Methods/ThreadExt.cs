@@ -108,7 +108,7 @@ namespace LCore.Extensions
         /// Counts how many times <paramref name="In"/> can be performed in the given number of <paramref name="Milliseconds"/>
         /// </summary>
         [Tested]
-        [TestBound(1, 0, 100)]
+        [TestBound(1, 0u, 100u)]
         public static uint CountExecutions([CanBeNull]this Action In, uint Milliseconds)
             {
             if (In == null)
