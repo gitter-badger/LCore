@@ -2,12 +2,14 @@
 
 using LCore.Tools;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace LCore.Extensions
     {
     public static partial class L
         {
+        [ExcludeFromCodeCoverage]
         internal static class Lang
             {
             #region RemoveTypeNamespaces

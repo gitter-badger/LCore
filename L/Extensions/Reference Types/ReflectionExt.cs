@@ -1433,7 +1433,7 @@ namespace LCore.Extensions
                         int Minimum = (int?)Min ?? int.MinValue;
                         int Maximum = (int?)Max ?? int.MaxValue;
 
-                        return (int)new Random().Next(Minimum, Maximum);
+                        return new Random().Next(Minimum, Maximum);
                     },
                     [typeof(uint)] = (Type, Min, Max) =>
                     {

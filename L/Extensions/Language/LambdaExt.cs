@@ -1,6 +1,7 @@
 ﻿using System;
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using LCore.Extensions.Optional;
 using LCore.Extensions;
 using System.Reflection;
@@ -49,6 +50,7 @@ namespace LCore.Extensions
     {
     public static partial class L
         {
+        [ExcludeFromCodeCoverage]
         internal static class Lam
             {
             internal static readonly Type[] AllLambdaTypes = Ary.Array(typeof(FieldInfo), typeof(PropertyInfo), typeof(MethodInfo), typeof(ConstructorInfo))();

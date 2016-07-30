@@ -308,6 +308,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { new int[] { }, Test.IncrementInt_Name })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, Test.IncrementInt_Name }, new[] { 2, 3, 4 })]
         [TestResult(new object[] { new object[] { 1, 2, "a", 3 }, Test.IncrementInt_Name }, new[] { 2, 3, 4 })]
+        [TestResult(new object[] { new[] { 1, 2, 3 }, null }, new[] { 1, 2, 3 })]
         [DebuggerStepThrough]
         public static List<T> Collect<T>([CanBeNull] this IEnumerable In, [CanBeNull] Func<T, T> Func)
             {
@@ -330,6 +331,7 @@ namespace LCore.Extensions
         [TestSucceedes(new object[] { null, Test.IncrementInt_Name })]
         [TestSucceedes(new object[] { new int[] { }, Test.IncrementInt_Name })]
         [TestResult(new object[] { new[] { 1, 2, 3 }, Test.IncrementInt_Name }, new[] { 2, 3, 4 })]
+        [TestResult(new object[] { new[] { 1, 2, 3 }, null }, new[] { 1, 2, 3 })]
         [DebuggerStepThrough]
         public static List<T> Collect<T>([CanBeNull] this IEnumerable<T> In, [CanBeNull] Func<T, T> Func)
             {
@@ -637,6 +639,8 @@ namespace LCore.Extensions
         /// Returns a string concatenation of the results of the Func.
         /// </summary>
         [Tested]
+        [TestMethodGenerics(typeof(int), typeof(List<int>))]
+        [TestResult(new object[] { null, null }, "")]
         public static string CollectStr<T, U>([CanBeNull] this U In, [CanBeNull] Func<int, T, string> Func)
             where U : IEnumerable<T>
             {
@@ -932,13 +936,10 @@ namespace LCore.Extensions
         [DebuggerStepThrough]
         public static U[] Convert<T, U>([CanBeNull] this T[] In, [CanBeNull] Func<int, T, U> Func)
             {
-            if (In == null)
+            if (Func == null || In == null)
                 return new U[] { };
 
             var Out = new U[In.Length];
-
-            if (Func == null)
-                return Out;
 
             In.Each((i, o) => { Out[i] = Func(i, o); });
             return Out;
@@ -1701,7 +1702,17 @@ namespace LCore.Extensions
 
             var IndexProp = In.GetType().IndexGetter<int>();
 
-            return IndexProp?.GetMethod.Invoke(In, new object[] { (int)Index });
+            if (IndexProp != null)
+                return IndexProp.GetMethod.Invoke(In, new object[] { (int)Index });
+
+            var IndexProp2 = In.GetType().IndexGetter<uint>();
+
+            // ReSharper disable once UseNullPropagation
+            // ReSharper disable once ConvertIfStatementToReturnStatement
+            if (IndexProp2 != null)
+                return IndexProp2.GetMethod.Invoke(In, new object[] { Index });
+
+            return null;
             }
 
         /// <summary>
@@ -2446,6 +2457,8 @@ namespace LCore.Extensions
         /// Returns all items within <paramref name="In" /> that have the given <paramref name="Name" />
         /// </summary>
         [Tested]
+        [TestMethodGenerics(typeof(int))]
+        [TestResult(new object[] { new[] { 1 }, "", null }, new int[] { })]
         public static List<T> Named<T>([CanBeNull] this IEnumerable<T> In, [CanBeNull] string Name,
             [CanBeNull] Func<T, string> Namer)
             {
@@ -2458,6 +2471,8 @@ namespace LCore.Extensions
         /// Returns all items within <paramref name="In" /> that have the given <paramref name="Name" />
         /// </summary>
         [Tested]
+        [TestMethodGenerics(typeof(int))]
+        [TestResult(new object[] { new[] {1}, "", null }, new int[] { })]
         public static T[] Named<T>([CanBeNull] this T[] In, [CanBeNull] string Name, [CanBeNull] Func<T, string> Namer)
             {
             Namer = Namer ?? (o => null);
@@ -2934,11 +2949,23 @@ namespace LCore.Extensions
 
         #region SetAt
 
+
         /// <summary>
         /// Sets the item in the collection at <paramref name="Index" /> to <paramref name="Value" />.
         /// </summary>
         [Tested]
-        public static void SetAt([CanBeNull] this IEnumerable In, int Index, [CanBeNull] object Value)
+        public static void SetAt<T>([CanBeNull] this IEnumerable In, int Index, [CanBeNull] T Value)
+            {
+            if (Index < 0)
+                return;
+
+            In.SetAt((uint)Index, Value);
+            }
+        /// <summary>
+        /// Sets the item in the collection at <paramref name="Index" /> to <paramref name="Value" />.
+        /// </summary>
+        [Tested]
+        public static void SetAt<T>([CanBeNull] this IEnumerable In, uint Index, [CanBeNull] T Value)
             {
             if (In == null)
                 return;
@@ -2948,21 +2975,21 @@ namespace LCore.Extensions
             var List = In as IList;
             if (List != null)
                 {
-                List[Index] = Value;
+                List[(int)Index] = Value;
                 }
 
-            var IndexProp = In.GetType().IndexSetter<int, object>();
+            var IndexProp = In.GetType().IndexSetter<int, T>();
             if (IndexProp != null)
                 {
-                IndexProp.SetMethod.Invoke(In, new[] { Index, Value });
+                IndexProp.SetMethod.Invoke(In, new object[] { (int)Index, Value });
                 return;
                 }
 
-            var IndexProp2 = In.GetType().IndexSetter<uint, object>();
+            var IndexProp2 = In.GetType().IndexSetter<uint, T>();
             // ReSharper disable once UseNullPropagation
             if (IndexProp2 != null)
                 {
-                IndexProp2.SetMethod.Invoke(In, new[] { (uint)Index, Value });
+                IndexProp2.SetMethod.Invoke(In, new object[] { Index, Value });
                 }
             }
 
@@ -3231,9 +3258,9 @@ namespace LCore.Extensions
         /// </summary>
         public static bool While<T>([CanBeNull] this IEnumerable<T> In, [CanBeNull] Func<T, bool> Func)
             {
-            if (In == null)
-                return false;
             if (Func == null)
+                return false;
+            if (In == null)
                 return false;
 
             // ReSharper disable once LoopCanBeConvertedToQuery

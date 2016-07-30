@@ -15,6 +15,11 @@ using static LCore.Extensions.L.Test.Categories;
 // ReSharper disable RedundantArgumentDefaultValue
 // ReSharper disable SuggestVarOrType_Elsewhere
 // ReSharper disable RedundantDelegateCreation
+// ReSharper disable MethodOverloadWithOptionalParameter
+// ReSharper disable UnusedTypeParameter
+// ReSharper disable UnusedParameter.Global
+// ReSharper disable InconsistentNaming
+// ReSharper disable FieldCanBeMadeReadOnly.Local
 
 // ReSharper disable RedundantCast
 // ReSharper disable RedundantTypeArgumentsOfMethod
@@ -1732,6 +1737,14 @@ namespace L_Tests.Tests.Extensions
             Test.AddTo(Collection);
 
             Collection.Should().Equal(1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736, 1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736);
+
+            var Test2 = new BadCollection();
+
+            L.A(() => Test.AddTo(Test2)).ShouldFail<InvalidOperationException>();
+
+            var Test3 = new AmbiguousMatchCollection();
+
+            L.A(() => Test.Convert<int, string>(i => $"{i}").AddTo(Test3)).ShouldFail<InvalidOperationException>();
             }
 
         [Fact]
@@ -1752,10 +1765,22 @@ namespace L_Tests.Tests.Extensions
 
             Test.Str.Should().Be("it'd just a test");
 
+            ((IEnumerable)Test).SetAt(4, '-');
+            ((IEnumerable)Test).GetAt(4).Should().Be('-');
+            Test.Str.Should().Be("it'd-just a test");
 
+            var Test2 = new CustomIndexerU();
 
-            Test.SetAt(3, 'd');
+            Test2.Str.Should().Be("it's just a test");
+            Test2.SetAt(12u, 'v');
+            Test2.GetAt(12u).Should().Be('v');
+            Test2.Str.Should().Be("it's just a vest");
+
+            ((IEnumerable)Test2).SetAt(14u, 'n');
+            ((IEnumerable)Test2).GetAt(14u).Should().Be('n');
+            Test2.Str.Should().Be("it's just a vent");
             }
+
 
         #region Internal
 
@@ -1771,6 +1796,77 @@ namespace L_Tests.Tests.Extensions
 
             public string Name => this.Group;
             }
+
+        [ExcludeFromCodeCoverage]
+        internal class AmbiguousMatchCollection : ICollection
+            {
+            public string this[int Index]
+                {
+                get
+                    {
+                    return $"{Index}";
+                    }
+                // ReSharper disable once ValueParameterNotUsed
+                set
+                    {
+
+                    }
+                }
+
+            // ReSharper disable once NotNullMemberIsNotInitialized
+            public AmbiguousMatchCollection() { }
+
+            public AmbiguousMatchCollection(object SyncRoot, bool IsSynchronized)
+                {
+                this.SyncRoot = SyncRoot;
+                this.IsSynchronized = IsSynchronized;
+                }
+
+            public IEnumerator GetEnumerator()
+                {
+                return null;
+                }
+
+            public void CopyTo(Array Array, int Index) { }
+
+            /// <exception cref="Exception" accessor="get"></exception>
+            public int Count
+                {
+                get { throw new Exception(); }
+                }
+
+            public object SyncRoot { get; }
+            public bool IsSynchronized { get; }
+
+            public void Add(string Str)
+                {
+
+                }
+            
+            public void Add(string Obj, bool Test = false)
+                {
+
+                }
+
+            public void Add<T>(string Obj)
+                {
+
+                }
+            public void Add<T>(string Obj, bool Test = false)
+                {
+
+                }
+
+            public void Add(object Obj)
+                {
+
+                }
+            public void Add<T>(object Obj)
+                {
+
+                }
+            }
+
         [ExcludeFromCodeCoverage]
         internal class BadCollection : ICollection
             {
@@ -1815,56 +1911,56 @@ namespace L_Tests.Tests.Extensions
 
         [ExcludeFromCodeCoverage]
         internal class CustomIndexer : IEnumerable<char>
-        {
+            {
             public string Str => new string(this.Chars);
-            public char[] Chars = "it's just a test".Array();
+            private char[] Chars = "it's just a test".Array();
 
             public char this[int Index]
-            {
+                {
                 get { return this.Str[Index]; }
                 // ReSharper disable once ValueParameterNotUsed
                 set
-                {
+                    {
                     this.Chars.SetAt(Index, value);
+                    }
                 }
-            }
 
             public IEnumerator<char> GetEnumerator()
-            {
+                {
                 return (IEnumerator<char>)this.Chars.GetEnumerator();
-            }
+                }
 
             IEnumerator IEnumerable.GetEnumerator()
-            {
+                {
                 return this.Chars.GetEnumerator();
+                }
             }
-        }
         [ExcludeFromCodeCoverage]
         internal class CustomIndexerU : IEnumerable<char>
-        {
+            {
             public string Str => new string(this.Chars);
-            public char[] Chars = "it's just a test".Array();
+            private char[] Chars = "it's just a test".Array();
 
             public char this[uint Index]
-            {
+                {
                 get { return this.Str[(int)Index]; }
                 // ReSharper disable once ValueParameterNotUsed
                 set
-                {
+                    {
                     this.Chars.SetAt(Index, value);
+                    }
                 }
-            }
 
             public IEnumerator<char> GetEnumerator()
-            {
+                {
                 return (IEnumerator<char>)this.Chars.GetEnumerator();
-            }
+                }
 
             IEnumerator IEnumerable.GetEnumerator()
-            {
+                {
                 return this.Chars.GetEnumerator();
+                }
             }
-        }
 
         [ExcludeFromCodeCoverage]
         internal class NotAnIndexer : IEnumerable<int>
