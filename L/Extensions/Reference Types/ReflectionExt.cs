@@ -1374,7 +1374,7 @@ namespace LCore.Extensions
                         }
                     };
 
-            internal static readonly Dictionary<Type, Func<Type, object, object, object>> NewRandom_TypeCreators =
+            public static readonly Dictionary<Type, Func<Type, object, object, object>> NewRandom_TypeCreators =
                 new Dictionary<Type, Func<Type, object, object, object>>
                     {
                     [typeof(Guid)] = (Type, Min, Max) => new Guid(),
@@ -1423,10 +1423,12 @@ namespace LCore.Extensions
                     },
                     [typeof(long)] = (Type, Min, Max) =>
                         {
-                            int Minimum = (int?)Min ?? int.MinValue;
-                            int Maximum = (int?)Max ?? int.MaxValue;
+                            long Minimum = (long?)Min ?? int.MinValue;
+                            long Maximum = (long?)Max ?? int.MaxValue;
+                            int MinimumInt = Minimum.ConvertTo<int>() ?? int.MinValue;
+                            int MaximumInt = Maximum.ConvertTo<int>() ?? int.MaxValue;
 
-                            return (long)new Random().Next(Minimum, Maximum);
+                            return (long)new Random().Next(MinimumInt, MaximumInt);
                         },
                     [typeof(int)] = (Type, Min, Max) =>
                     {

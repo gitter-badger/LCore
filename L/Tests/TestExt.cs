@@ -1357,13 +1357,21 @@ namespace LCore.Tests
                                     {
                                     Member = Member.MakeGenericMethod(Generics.GenericTypes);
                                     }
-                                else if (Member.HasAttribute<TestedAttribute>())
+                                else if (AttrTest is TestedAttribute)
                                     {
 
                                     }
                                 else
                                     {
-                                    throw new Exception("Unable to find generics for Test Attribute");
+                                    try
+                                        {
+                                        Member = Member.MakeGenericMethod(
+                                            L.Ref.NewRandom_TypeCreators.Keys.Random(Member.GetGenericArguments().Length).Array());
+                                        }
+                                    catch (Exception Ex)
+                                        {
+                                        throw new InternalTestFailureException("Unable to find generics for Test Attribute", Ex);
+                                        }
                                     }
                                 }
 

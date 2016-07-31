@@ -2509,6 +2509,8 @@ namespace LCore.Extensions
         [TestBound(1, 0u, 100u)]
         public static List<T> Random<T>([CanBeNull] this IEnumerable<T> In, uint Count, bool AllowDuplicates = false)
             {
+            In = In.List();
+
             uint Count2 = In.Count();
 
             var RandomIndexes = new List<int>();

@@ -16,7 +16,9 @@ namespace LCore.Extensions
         {
         #region Extensions +
 
-        #region Async
+        #region Async +
+
+        #region Async Priority No Parameters
         /// <summary>
         /// Performs an action or function asynchronously. 
         /// If a function is used, a callback can be supplied to retrieve the value. 
@@ -24,8 +26,40 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         [Tested]
-        [TestBound(1, -1, 5000)]
-        public static Action Async([CanBeNull]this Action In, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
+        public static Action Async([CanBeNull]this Action In)
+            {
+            In = In ?? L.A();
+
+            return () =>
+            {
+                var ActionThread = new Thread(() => { In(); }) { Priority = ThreadPriority.Normal };
+                ActionThread.Start();
+            };
+            }
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        [Tested]
+        public static Action<T> Async<T>([CanBeNull]this Action<T> In)
+            {
+            In = In ?? L.A<T>();
+            return o => { In.Supply(o).Async()(); };
+            }
+
+        #endregion
+
+        #region Async Priority No Limit
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        // ReSharper disable MethodOverloadWithOptionalParameter
+        public static Action Async([CanBeNull]this Action In, ThreadPriority Priority = ThreadPriority.Normal)
             {
             In = In ?? L.A();
 
@@ -33,25 +67,58 @@ namespace LCore.Extensions
             {
                 var ActionThread = new Thread(() => { In(); }) { Priority = Priority };
                 ActionThread.Start();
-                if (TimeLimit > 0)
+            };
+            }
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        public static Action<T> Async<T>([CanBeNull]this Action<T> In, ThreadPriority Priority = ThreadPriority.Normal)
+            {
+            In = In ?? L.A<T>();
+            return o => { In.Supply(o).Async(Priority)(); };
+            }
+
+        #endregion
+
+        #region Async TimeSpan
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        public static Action Async([CanBeNull]this Action In, TimeSpan TimeLimit = default(TimeSpan), ThreadPriority Priority = ThreadPriority.Normal)
+            {
+            In = In ?? L.A();
+
+            return () =>
+            {
+                var ActionThread = new Thread(() => { In(); }) { Priority = Priority };
+                ActionThread.Start();
+                double TimeLimitMilliseconds = TimeLimit.TotalMilliseconds;
+
+                if (TimeLimitMilliseconds > 0)
                     {
                     var WatcherThread = new Thread(() =>
-                        {
-                            int Wait = TimeLimit / 10;
-                            while (Wait > 1)
-                                {
-                                Thread.Sleep(Wait);
-                                TimeLimit -= Wait;
-                                Wait = TimeLimit / 10;
-                                if (!ActionThread.IsAlive)
-                                    return;
-                                }
-                            if (ActionThread.IsAlive)
-                                {
-                                ActionThread.Interrupt();
-                                ActionThread.Abort();
-                                }
-                        });
+                    {
+                        int? Wait = (TimeLimitMilliseconds / 10).Round().ConvertTo<int>();
+                        while (Wait != null && Wait > 1)
+                            {
+                            Thread.Sleep((int)Wait);
+                            TimeLimitMilliseconds -= (int)Wait;
+                            Wait = (int)TimeLimitMilliseconds / 10;
+                            if (!ActionThread.IsAlive)
+                                return;
+                            }
+                        if (ActionThread.IsAlive)
+                            {
+                            ActionThread.Interrupt();
+                            ActionThread.Abort();
+                            }
+                    });
                     WatcherThread.Start();
                     }
             };
@@ -62,14 +129,41 @@ namespace LCore.Extensions
         /// If a time limit is supplied, the thread will be interrupted if it does not 
         /// complete within the time period.
         /// </summary>
-        [Tested]
-        [TestBound(1, -1, 5000)]
-        public static Action<T> Async<T>([CanBeNull]this Action<T> In, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
+        public static Action<T> Async<T>([CanBeNull]this Action<T> In, TimeSpan TimeLimit = default(TimeSpan), ThreadPriority Priority = ThreadPriority.Normal)
             {
             In = In ?? L.A<T>();
             return o => { In.Supply(o).Async(TimeLimit, Priority)(); };
             }
 
+        #endregion
+
+        #region Async int
+
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        [TestBound(1, 0, 5000)]
+        public static Action Async([CanBeNull]this Action In, int TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            {
+            return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
+            }
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        [TestBound(1, 0, 5000)]
+        public static Action<T> Async<T>([CanBeNull]this Action<T> In, int TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            {
+            return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
+            }
+        #endregion
+
+        #region Async uint
 
         /// <summary>
         /// Performs an action or function asynchronously. 
@@ -78,8 +172,146 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         [Tested]
-        [TestBound(1, -1, 5000)]
-        public static Action Async<U>([CanBeNull]this Func<U> In, [CanBeNull]Action<U> Callback, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
+        [TestBound(1, 0u, 5000u)]
+        public static Action Async([CanBeNull]this Action In, uint TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            {
+            return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
+            }
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        [Tested]
+        [TestBound(1, 0u, 5000u)]
+        public static Action<T> Async<T>([CanBeNull]this Action<T> In, uint TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            {
+            return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
+            }
+        #endregion
+
+        #region Async long
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        [TestBound(1, 0L, 5000L)]
+        public static Action Async([CanBeNull]this Action In, long TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            {
+            return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
+            }
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        [TestBound(1, 0L, 5000L)]
+        public static Action<T> Async<T>([CanBeNull]this Action<T> In, long TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            {
+            return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
+            }
+        #endregion
+
+        #region Async ulong
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        [TestBound(1, 0uL, 5000uL)]
+        public static Action Async([CanBeNull]this Action In, ulong TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            {
+            return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
+            }
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        [TestBound(1, 0uL, 5000uL)]
+        public static Action<T> Async<T>([CanBeNull]this Action<T> In, ulong TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            {
+            return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
+            }
+
+        #endregion
+
+        #endregion
+
+        #region AsyncResult +
+
+        #region Async Priority No Parameters
+
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        public static Action AsyncResult<U>([CanBeNull]this Func<U> In, [CanBeNull]Action<U> Callback)
+            {
+            In = In ?? L.F<U>();
+            Callback = Callback ?? L.A<U>();
+            var SafeCallback = Callback.Surround(In).Catch<ThreadInterruptedException>();
+            return SafeCallback.Async();
+            }
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        public static Action<T1> AsyncResult<T1, U>([CanBeNull]this Func<T1, U> In, [CanBeNull]Action<U> Callback)
+            {
+            In = In ?? L.F<T1, U>();
+            Callback = Callback ?? L.A<U>();
+            return o => { In.Supply(o).AsyncResult(Callback)(); };
+            }
+        #endregion
+
+        #region Async Priority No Limit
+
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        public static Action AsyncResult<U>([CanBeNull]this Func<U> In, [CanBeNull]Action<U> Callback, ThreadPriority Priority = ThreadPriority.Normal)
+            {
+            In = In ?? L.F<U>();
+            Callback = Callback ?? L.A<U>();
+            var SafeCallback = Callback.Surround(In).Catch<ThreadInterruptedException>();
+            return SafeCallback.Async(Priority);
+            }
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        public static Action<T1> AsyncResult<T1, U>([CanBeNull]this Func<T1, U> In, [CanBeNull]Action<U> Callback, ThreadPriority Priority = ThreadPriority.Normal)
+            {
+            In = In ?? L.F<T1, U>();
+            Callback = Callback ?? L.A<U>();
+            return o => { In.Supply(o).AsyncResult(Callback, Priority)(); };
+            }
+        #endregion
+
+        #region Async TimeSpan
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        public static Action AsyncResult<U>([CanBeNull]this Func<U> In, [CanBeNull]Action<U> Callback, TimeSpan TimeLimit = default(TimeSpan), ThreadPriority Priority = ThreadPriority.Normal)
             {
             In = In ?? L.F<U>();
             Callback = Callback ?? L.A<U>();
@@ -92,14 +324,124 @@ namespace LCore.Extensions
         /// If a time limit is supplied, the thread will be interrupted if it does not 
         /// complete within the time period.
         /// </summary>
-        [Tested]
-        [TestBound(1, -1, 5000)]
-        public static Action<T1> Async<T1, U>([CanBeNull]this Func<T1, U> In, [CanBeNull]Action<U> Callback, int TimeLimit = -1, ThreadPriority Priority = ThreadPriority.Normal)
+        public static Action<T1> AsyncResult<T1, U>([CanBeNull]this Func<T1, U> In, [CanBeNull]Action<U> Callback, TimeSpan TimeLimit = default(TimeSpan), ThreadPriority Priority = ThreadPriority.Normal)
             {
             In = In ?? L.F<T1, U>();
             Callback = Callback ?? L.A<U>();
-            return o => { In.Supply(o).Async(Callback, TimeLimit, Priority)(); };
+            return o => { In.Supply(o).AsyncResult(Callback, TimeLimit, Priority)(); };
             }
+
+        #endregion
+
+        #region Async int
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        [Tested]
+        [TestBound(1, -1, 5000)]
+        public static Action AsyncResult<U>([CanBeNull]this Func<U> In, [CanBeNull]Action<U> Callback, int TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            {
+            return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
+            }
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        [Tested]
+        [TestBound(1, -1, 5000)]
+        public static Action<T1> AsyncResult<T1, U>([CanBeNull]this Func<T1, U> In, [CanBeNull]Action<U> Callback, int TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            {
+            return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
+            }
+
+        #endregion
+
+        #region Async uint
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        [TestBound(1, 0u, 5000u)]
+        public static Action AsyncResult<U>([CanBeNull]this Func<U> In, [CanBeNull]Action<U> Callback, uint TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            {
+            return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
+            }
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        [TestBound(1, 0u, 5000u)]
+        public static Action<T1> AsyncResult<T1, U>([CanBeNull]this Func<T1, U> In, [CanBeNull]Action<U> Callback, uint TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            {
+            return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
+            }
+
+        #endregion
+
+        #region Async long
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        [TestBound(1, 0L, 5000L)]
+        public static Action AsyncResult<U>([CanBeNull]this Func<U> In, [CanBeNull]Action<U> Callback, long TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            {
+            return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
+            }
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+
+        [TestBound(1, 0L, 5000L)]
+        public static Action<T1> AsyncResult<T1, U>([CanBeNull]this Func<T1, U> In, [CanBeNull]Action<U> Callback, long TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            {
+            return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
+            }
+
+        #endregion
+
+        #region Async ulong
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+        [TestBound(1, 0uL, 5000uL)]
+        public static Action AsyncResult<U>([CanBeNull]this Func<U> In, [CanBeNull]Action<U> Callback, ulong TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            {
+            return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
+            }
+        /// <summary>
+        /// Performs an action or function asynchronously. 
+        /// If a function is used, a callback can be supplied to retrieve the value. 
+        /// If a time limit is supplied, the thread will be interrupted if it does not 
+        /// complete within the time period.
+        /// </summary>
+
+        [TestBound(1, 0uL, 5000uL)]
+        public static Action<T1> AsyncResult<T1, U>([CanBeNull]this Func<T1, U> In, [CanBeNull]Action<U> Callback, ulong TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            {
+            return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
+            }
+
+        // ReSharper restore MethodOverloadWithOptionalParameter
+        #endregion
+
         #endregion
 
         #region CountExecutions
@@ -223,8 +565,6 @@ namespace LCore.Extensions
         #endregion
 
         #endregion
-
-
         }
     public static partial class L
         {

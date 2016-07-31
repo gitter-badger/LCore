@@ -17,7 +17,7 @@ namespace L_Tests.Tests.Extensions
 
         [Fact]
         [TestCategory(UnitTests)]
-        public void Test_Async()
+        public void Test_Async_Action()
             {
             bool Success = false;
             var TestAction = new Action(() =>
@@ -37,7 +37,7 @@ namespace L_Tests.Tests.Extensions
                 }
             }
         [Fact]
-        public void Test_AsyncTimeLimit()
+        public void Test_Async_Action_TimeLimit()
             {
             bool Success = false;
             var TestAction = new Action(() =>
@@ -64,10 +64,94 @@ namespace L_Tests.Tests.Extensions
 
                 TestAction();
                 }
+
+            // test uint
+            Success = false;
+            Thread.Sleep(40);
+            lock (TestAction)
+                {
+                TestAction.Async(20u)();
+                Success.Should().BeFalse();
+
+                Thread.Sleep(40);
+
+                Success.Should().BeFalse();
+
+                TestAction.Async(50u)();
+                Success.Should().BeFalse();
+                Thread.Sleep(50);
+
+                Success.Should().BeTrue();
+
+                TestAction();
+                }
+
+            // test long
+            Success = false;
+            Thread.Sleep(40);
+            lock (TestAction)
+                {
+                TestAction.Async(20L)();
+                Success.Should().BeFalse();
+
+                Thread.Sleep(40);
+
+                Success.Should().BeFalse();
+
+                TestAction.Async(50L)();
+                Success.Should().BeFalse();
+                Thread.Sleep(50);
+
+                Success.Should().BeTrue();
+
+                TestAction();
+                }
+
+            // test ulong
+            Success = false;
+            Thread.Sleep(40);
+            lock (TestAction)
+                {
+                TestAction.Async(20uL)();
+                Success.Should().BeFalse();
+
+                Thread.Sleep(40);
+
+                Success.Should().BeFalse();
+
+                TestAction.Async(50uL)();
+                Success.Should().BeFalse();
+                Thread.Sleep(50);
+
+                Success.Should().BeTrue();
+
+                TestAction();
+                }
+
+            // test TimeSpan
+            Success = false;
+            Thread.Sleep(40);
+            lock (TestAction)
+                {
+                TestAction.Async(TimeSpan.FromMilliseconds(20))();
+                Success.Should().BeFalse();
+
+                Thread.Sleep(40);
+
+                Success.Should().BeFalse();
+
+                TestAction.Async(TimeSpan.FromMilliseconds(50))();
+                Success.Should().BeFalse();
+                Thread.Sleep(50);
+
+                Success.Should().BeTrue();
+
+                TestAction();
+                }
             }
         [Fact]
         [TestCategory(UnitTests)]
-        public void Test_Async_T()
+        public void Test_Async_Action_T()
             {
             string Success = "";
             var TestAction = new Action<string>(Str =>
@@ -87,7 +171,7 @@ namespace L_Tests.Tests.Extensions
                 }
             }
         [Fact]
-        public void Test_Async_T_TimeLimit()
+        public void Test_Async_Action_T_TimeLimit()
             {
             string Result = "";
             var TestAction = new Action<string>(Str =>
@@ -115,6 +199,94 @@ namespace L_Tests.Tests.Extensions
 
                 TestAction("abc");
                 }
+
+            // Test uint
+            Result = "";
+            Thread.Sleep(40);
+
+            lock (TestAction)
+                {
+                TestAction.Async(20u)("abc");
+                Result.Should().Be("");
+
+                Thread.Sleep(40);
+
+                Result.Should().Be("");
+
+                TestAction.Async(50u)("abc");
+                Result.Should().Be("");
+                Thread.Sleep(50);
+
+                Result.Should().Be("abc");
+
+                TestAction("abc");
+                }
+
+            // Test long
+            Result = "";
+            Thread.Sleep(40);
+
+            lock (TestAction)
+                {
+                TestAction.Async(20L)("abc");
+                Result.Should().Be("");
+
+                Thread.Sleep(40);
+
+                Result.Should().Be("");
+
+                TestAction.Async(50L)("abc");
+                Result.Should().Be("");
+                Thread.Sleep(50);
+
+                Result.Should().Be("abc");
+
+                TestAction("abc");
+                }
+
+            // Test long
+            Result = "";
+            Thread.Sleep(40);
+
+            lock (TestAction)
+                {
+                TestAction.Async(20uL)("abc");
+                Result.Should().Be("");
+
+                Thread.Sleep(40);
+
+                Result.Should().Be("");
+
+                TestAction.Async(50uL)("abc");
+                Result.Should().Be("");
+                Thread.Sleep(50);
+
+                Result.Should().Be("abc");
+
+                TestAction("abc");
+                }
+
+            // Test TimeSpan
+            Result = "";
+            Thread.Sleep(40);
+
+            lock (TestAction)
+                {
+                TestAction.Async(TimeSpan.FromMilliseconds(20))("abc");
+                Result.Should().Be("");
+
+                Thread.Sleep(40);
+
+                Result.Should().Be("");
+
+                TestAction.Async(TimeSpan.FromMilliseconds(50))("abc");
+                Result.Should().Be("");
+                Thread.Sleep(50);
+
+                Result.Should().Be("abc");
+
+                TestAction("abc");
+                }
             }
 
         [Fact]
@@ -124,10 +296,17 @@ namespace L_Tests.Tests.Extensions
 
             lock (TestAction)
                 {
-                TestAction.Async(Result =>
+                TestAction.AsyncResult(Result =>
                     {
                         Result.Should().Be("yes");
                     })();
+
+                Thread.Sleep(20);
+
+                TestAction.AsyncResult(Result =>
+                {
+                    Result.Should().Be("yes");
+                }, ThreadPriority.AboveNormal)();
 
                 Thread.Sleep(20);
                 }
@@ -140,15 +319,292 @@ namespace L_Tests.Tests.Extensions
             lock (TestAction)
                 {
                 bool Success = false;
-                TestAction.Async(Result =>
+                TestAction.AsyncResult(Result =>
                     {
                         Result.Should().Be("abcyes");
                         Success = true;
                     })("abc");
 
-                Thread.Sleep(1000);
+                Thread.Sleep(50);
 
                 Success.Should().BeTrue();
+
+                Success = false;
+                TestAction.AsyncResult(Result =>
+                {
+                    Result.Should().Be("abcyes");
+                    Success = true;
+                }, ThreadPriority.AboveNormal)("abc");
+
+                Thread.Sleep(50);
+
+                Success.Should().BeTrue();
+                }
+            }
+        [Fact]
+        public void Test_Async_Func_U_TimeLimit()
+            {
+            bool Success = false;
+            var TestAction = new Func<string>(() =>
+            {
+                Thread.Sleep(30);
+                Success = true;
+                return "abc";
+            });
+
+            Thread.Sleep(40);
+            lock (TestAction)
+                {
+                TestAction.AsyncResult(Result =>
+                    {
+                        Result.Should().Be("abc");
+                    }, 20)();
+
+                Success.Should().BeFalse();
+
+                Thread.Sleep(40);
+
+                Success.Should().BeFalse();
+
+                TestAction.AsyncResult(Result =>
+                {
+                    Result.Should().Be("abc");
+                }, 50)();
+                Success.Should().BeFalse();
+                Thread.Sleep(50);
+
+                Success.Should().BeTrue();
+
+                TestAction();
+                }
+
+            // test uint
+            Success = false;
+            Thread.Sleep(40);
+            lock (TestAction)
+                {
+                TestAction.AsyncResult(Result =>
+                {
+                    Result.Should().Be("abc");
+                }, 20u)();
+                Success.Should().BeFalse();
+
+                Thread.Sleep(40);
+
+                Success.Should().BeFalse();
+
+                TestAction.AsyncResult(Result =>
+                {
+                    Result.Should().Be("abc");
+                }, 50u)();
+                Success.Should().BeFalse();
+                Thread.Sleep(50);
+
+                Success.Should().BeTrue();
+
+                TestAction();
+                }
+
+            // test long
+            Success = false;
+            Thread.Sleep(40);
+            lock (TestAction)
+                {
+                TestAction.AsyncResult(Result =>
+                {
+                    Result.Should().Be("abc");
+                }, 20L)();
+                Success.Should().BeFalse();
+
+                Thread.Sleep(40);
+
+                Success.Should().BeFalse();
+
+                TestAction.AsyncResult(Result =>
+                {
+                    Result.Should().Be("abc");
+                }, 50L)();
+                Success.Should().BeFalse();
+                Thread.Sleep(50);
+
+                Success.Should().BeTrue();
+
+                TestAction();
+                }
+
+            // test ulong
+            Success = false;
+            Thread.Sleep(40);
+            lock (TestAction)
+                {
+                TestAction.AsyncResult(Result =>
+                {
+                    Result.Should().Be("abc");
+                }, 20uL)();
+                Success.Should().BeFalse();
+
+                Thread.Sleep(40);
+
+                Success.Should().BeFalse();
+
+                TestAction.AsyncResult(Result =>
+                {
+                    Result.Should().Be("abc");
+                }, 50uL)();
+                Success.Should().BeFalse();
+                Thread.Sleep(50);
+
+                Success.Should().BeTrue();
+
+                TestAction();
+                }
+
+            // test TimeSpan
+            Success = false;
+            Thread.Sleep(40);
+            lock (TestAction)
+                {
+                TestAction.AsyncResult(Result =>
+                {
+                    Result.Should().Be("abc");
+                }, TimeSpan.FromMilliseconds(20))();
+                Success.Should().BeFalse();
+
+                Thread.Sleep(40);
+
+                Success.Should().BeFalse();
+
+                TestAction.AsyncResult(Result =>
+                {
+                    Result.Should().Be("abc");
+                }, TimeSpan.FromMilliseconds(50))();
+                Success.Should().BeFalse();
+                Thread.Sleep(50);
+
+                Success.Should().BeTrue();
+
+                TestAction();
+                }
+            }
+        [Fact]
+        public void Test_Async_Func_T_U_TimeLimit()
+            {
+            bool Success = false;
+            var TestAction = new Func<string, string>(Result =>
+                 {
+                     Result.Should().Be("abc");
+                     Thread.Sleep(30);
+                     Success = true;
+                     return "abc";
+                 });
+
+            Action<string> ResultFunction = Result =>
+            {
+                Result.Should().Be("abc");
+            };
+
+            Thread.Sleep(40);
+            lock (TestAction)
+                {
+                TestAction.AsyncResult(ResultFunction, 20)("abc");
+
+                Success.Should().BeFalse();
+
+                Thread.Sleep(40);
+
+                Success.Should().BeFalse();
+
+                TestAction.AsyncResult(ResultFunction, 50)("abc");
+                Success.Should().BeFalse();
+                Thread.Sleep(60);
+
+                Success.Should().BeTrue();
+
+                TestAction("abc");
+                }
+
+            // test uint
+            Success = false;
+            Thread.Sleep(40);
+            lock (TestAction)
+                {
+                TestAction.AsyncResult(ResultFunction, 20u)("abc");
+                Success.Should().BeFalse();
+
+                Thread.Sleep(40);
+
+                Success.Should().BeFalse();
+
+                TestAction.AsyncResult(ResultFunction, 50u)("abc");
+                Success.Should().BeFalse();
+                Thread.Sleep(60);
+
+                Success.Should().BeTrue();
+
+                TestAction("abc");
+                }
+
+            // test long
+            Success = false;
+            Thread.Sleep(40);
+            lock (TestAction)
+                {
+                TestAction.AsyncResult(ResultFunction, 20L)("abc");
+                Success.Should().BeFalse();
+
+                Thread.Sleep(40);
+
+                Success.Should().BeFalse();
+
+                TestAction.AsyncResult(ResultFunction, 50L)("abc");
+                Success.Should().BeFalse();
+                Thread.Sleep(50);
+
+                Success.Should().BeTrue();
+
+                TestAction("abc");
+                }
+
+            // test ulong
+            Success = false;
+            Thread.Sleep(40);
+            lock (TestAction)
+                {
+                TestAction.AsyncResult(ResultFunction, 20uL)("abc");
+                Success.Should().BeFalse();
+
+                Thread.Sleep(40);
+
+                Success.Should().BeFalse();
+
+                TestAction.AsyncResult(ResultFunction, 50uL)("abc");
+                Success.Should().BeFalse();
+                Thread.Sleep(50);
+
+                Success.Should().BeTrue();
+
+                TestAction("abc");
+                }
+
+            // test TimeSpan
+            Success = false;
+            Thread.Sleep(40);
+            lock (TestAction)
+                {
+                TestAction.AsyncResult(ResultFunction, TimeSpan.FromMilliseconds(20))("abc");
+                Success.Should().BeFalse();
+
+                Thread.Sleep(40);
+
+                Success.Should().BeFalse();
+
+                TestAction.AsyncResult(ResultFunction, TimeSpan.FromMilliseconds(50))("abc");
+                Success.Should().BeFalse();
+                Thread.Sleep(50);
+
+                Success.Should().BeTrue();
+
+                TestAction("abc");
                 }
             }
 

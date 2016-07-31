@@ -1274,7 +1274,7 @@ namespace L_Tests.Tests.Extensions
 
                 }
 
-
+            L.Ref.NewRandom_TypeCreators.Keys.Random().Should().NotBeNull();
             }
 
         [Fact]
@@ -1842,7 +1842,7 @@ namespace L_Tests.Tests.Extensions
                 {
 
                 }
-            
+
             public void Add(string Obj, bool Test = false)
                 {
 
