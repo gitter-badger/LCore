@@ -223,7 +223,6 @@ namespace LCore.Extensions
         /// If a time limit is supplied, the thread will be interrupted if it does not 
         /// complete within the time period.
         /// </summary>
-        [TestBound(1, 0uL, 5000uL)]
         public static Action Async([CanBeNull]this Action In, ulong TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
@@ -234,7 +233,6 @@ namespace LCore.Extensions
         /// If a time limit is supplied, the thread will be interrupted if it does not 
         /// complete within the time period.
         /// </summary>
-        [TestBound(1, 0uL, 5000uL)]
         public static Action<T> Async<T>([CanBeNull]this Action<T> In, ulong TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);

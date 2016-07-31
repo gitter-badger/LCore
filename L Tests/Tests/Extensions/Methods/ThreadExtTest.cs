@@ -168,6 +168,16 @@ namespace L_Tests.Tests.Extensions
                 Thread.Sleep(30);
 
                 Success.Should().Be("abc");
+
+
+                Success = "";
+
+                TestAction.Async(ThreadPriority.AboveNormal)("abc");
+                Success.Should().Be("");
+
+                Thread.Sleep(30);
+
+                Success.Should().Be("abc");
                 }
             }
         [Fact]
@@ -493,7 +503,7 @@ namespace L_Tests.Tests.Extensions
             var TestAction = new Func<string, string>(Result =>
                  {
                      Result.Should().Be("abc");
-                     Thread.Sleep(30);
+                     Thread.Sleep(20);
                      Success = true;
                      return "abc";
                  });

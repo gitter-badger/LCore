@@ -950,7 +950,7 @@ namespace LCore.Extensions
                 }
             catch (Exception Ex)
                 {
-                throw new InvalidOperationException($"Could not instanciate type: {In?.FullName}", Ex);
+                throw new InvalidOperationException($"Could not instanciate type: {In?.FullName ?? "[null]"}", Ex);
                 }
             }
         #endregion
@@ -1350,7 +1350,9 @@ namespace LCore.Extensions
                         {
                             if (Type.GetGenericArguments().Length == 1)
                                 {
-                                var EnumerableType = Type.GetGenericArguments()[0];
+                                var EnumerableType = !Type.IsGenericTypeDefinition
+                                    ? Type.GetGenericArguments()[0] ?? Type
+                                    : NewRandom_TypeCreators.Keys.Random();
 
                                 Func<Type, object[], object> ArrayTypeCreator = NewRandom_ArrayTypes.Values.Random();
 
@@ -1374,54 +1376,59 @@ namespace LCore.Extensions
                         }
                     };
 
-            public static readonly Dictionary<Type, Func<Type, object, object, object>> NewRandom_TypeCreators =
-                new Dictionary<Type, Func<Type, object, object, object>>
+            /// <summary>
+            /// Type creators for random data.
+            /// 
+            /// The value function is a Function which takes the Type, 
+            /// </summary>
+            public static readonly Dictionary<Type, Func<object, object, object>> NewRandom_TypeCreators =
+                new Dictionary<Type, Func<object, object, object>>
                     {
-                    [typeof(Guid)] = (Type, Min, Max) => new Guid(),
-                    [typeof(string)] = (Type, Min, Max) => new Guid().ToString(),
-                    [typeof(double)] = (Type, Min, Max) =>
+                    [typeof(Guid)] = (Min, Max) => new Guid(),
+                    [typeof(string)] = (Min, Max) => new Guid().ToString(),
+                    [typeof(double)] = (Min, Max) =>
                     {
                         double Minimum = (double?)Min ?? (double)int.MinValue;
                         double Maximum = (double?)Max ?? (double)int.MaxValue;
 
                         return new Random().NextDouble() * Minimum - Maximum;
                     },
-                    [typeof(char)] = (Type, Min, Max) =>
+                    [typeof(char)] = (Min, Max) =>
                     {
                         char Minimum = (char?)Min ?? char.MinValue;
                         char Maximum = (char?)Max ?? char.MaxValue;
 
                         return (char)new Random().Next(Minimum, Maximum);
                     },
-                    [typeof(byte)] = (Type, Min, Max) =>
+                    [typeof(byte)] = (Min, Max) =>
                     {
                         byte Minimum = (byte?)Min ?? byte.MinValue;
                         byte Maximum = (byte?)Max ?? byte.MaxValue;
 
                         return (byte)new Random().Next(Minimum, Maximum);
                     },
-                    [typeof(sbyte)] = (Type, Min, Max) =>
+                    [typeof(sbyte)] = (Min, Max) =>
                     {
                         sbyte Minimum = (sbyte?)Min ?? sbyte.MinValue;
                         sbyte Maximum = (sbyte?)Max ?? sbyte.MaxValue;
 
                         return (sbyte)new Random().Next(Minimum, Maximum);
                     },
-                    [typeof(short)] = (Type, Min, Max) =>
+                    [typeof(short)] = (Min, Max) =>
                     {
                         short Minimum = (short?)Min ?? short.MinValue;
                         short Maximum = (short?)Max ?? short.MaxValue;
 
                         return (short)new Random().Next(Minimum, Maximum);
                     },
-                    [typeof(ushort)] = (Type, Min, Max) =>
+                    [typeof(ushort)] = (Min, Max) =>
                     {
                         ushort Minimum = (ushort?)Min ?? ushort.MinValue;
                         ushort Maximum = (ushort?)Max ?? ushort.MaxValue;
 
                         return (ushort)new Random().Next(Minimum, Maximum);
                     },
-                    [typeof(long)] = (Type, Min, Max) =>
+                    [typeof(long)] = (Min, Max) =>
                         {
                             long Minimum = (long?)Min ?? int.MinValue;
                             long Maximum = (long?)Max ?? int.MaxValue;
@@ -1430,14 +1437,14 @@ namespace LCore.Extensions
 
                             return (long)new Random().Next(MinimumInt, MaximumInt);
                         },
-                    [typeof(int)] = (Type, Min, Max) =>
+                    [typeof(int)] = (Min, Max) =>
                     {
                         int Minimum = (int?)Min ?? int.MinValue;
                         int Maximum = (int?)Max ?? int.MaxValue;
 
                         return new Random().Next(Minimum, Maximum);
                     },
-                    [typeof(uint)] = (Type, Min, Max) =>
+                    [typeof(uint)] = (Min, Max) =>
                     {
                         int Minimum = (int)((uint?)Min ?? uint.MinValue);
                         int Maximum = (int)((uint?)Max ?? (uint)int.MaxValue);
@@ -1490,24 +1497,21 @@ namespace LCore.Extensions
                 if (NewRandom_TypeCreators.ContainsKey(Type) ||
                     (Type.IsGenericType &&
                     Type.GetGenericTypeDefinition() == Type))
-                    return NewRandom_TypeCreators[Type](Type, Minimum, Maximum);
+                    return NewRandom_TypeCreators[Type](Minimum, Maximum);
 
-                var InterfaceType = NewRandom_TypeCreators.Keys.First(KeyType => KeyType.HasInterface(Type));
+                var InterfaceType = NewRandom_InterfaceCreators.Keys.First(KeyType => KeyType.HasInterface(Type));
                 // ReSharper disable once ConvertIfStatementToReturnStatement
                 if (InterfaceType != null)
-                    return NewRandom_TypeCreators[InterfaceType](InterfaceType, Minimum, Maximum);
+                    return NewRandom_InterfaceCreators[InterfaceType](InterfaceType, Minimum, Maximum);
 
                 // Lastly, try to convert to the type
                 if (Type.HasInterface<IConvertible>())
                     {
-                    try
-                        {
-                        var Result = Rand.Next((int?)Minimum ?? char.MinValue, (int?)Maximum ?? char.MaxValue).ConvertTo(Type);
+                    var Result =
+                        Rand.Next((int?)Minimum ?? char.MinValue, (int?)Maximum ?? char.MaxValue).ConvertTo(Type);
 
-                        if (Result.IsType(Type) || Result == null)
-                            return Result;
-                        }
-                    catch { }
+                    if (Result.IsType(Type) || Result != null)
+                        return Result;
                     }
 
                 return null;

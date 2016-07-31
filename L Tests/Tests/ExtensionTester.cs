@@ -145,7 +145,7 @@ namespace L_Tests
                                     }
                                 catch (Exception Ex)
                                     {
-                                    throw new InternalTestFailureException($"Method {Method.FullyQualifiedName()} could not generate random parameter #{j + 1}", Ex);
+                                    throw new InternalTestFailureException($"Method {Method.FullyQualifiedName()} could not generate random parameter #{j + 1} {Parameters[j].ParameterType.FullName}", Ex);
                                     }
                                 }
                             }
