@@ -1,6 +1,7 @@
 ﻿
 using LCore.Extensions;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using LCore.Numbers;
 using LCore.Tests;
@@ -446,7 +447,7 @@ namespace L_Tests.Tests.Extensions
             ((Number)null - (IConvertible)null).Should().Be((ByteNumber)0);
             }
 
-
+        [ExcludeFromCodeCoverage]
         public void Test_NumberType<TNumber, TNative>()
             where TNumber : Number<TNative>
             where TNative : struct,

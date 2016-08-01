@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 // ReSharper disable once RedundantUsingDirective
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Threading;
 using LCore.Extensions;
@@ -69,6 +70,7 @@ namespace L_Tests
 
         [TestCategory(L.Test.Categories.NullabilityTests)]
         [Fact]
+        [ExcludeFromCodeCoverage]
         public void TestNullability()
             {
             foreach (var Test in this.TestType)

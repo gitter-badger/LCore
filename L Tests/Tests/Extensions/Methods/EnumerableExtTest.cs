@@ -815,7 +815,7 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable<int>)null).Has((Func<object, bool>)null).Should().BeFalse();
 
 
-            L.A(() => Test.Has<int>(i => { throw new Exception(); })).ShouldFail();
+            L.A(() => Test.Has<string>(s => { throw new Exception(); })).ShouldFail();
             }
 
         [Fact]

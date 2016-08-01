@@ -362,13 +362,15 @@ namespace L_Tests.Tests.Extensions
                 return "abc";
             });
 
+            Action<string> TestAction2 = Result =>
+                {
+                    Result.Should().Be("abc");
+                };
+
             Thread.Sleep(40);
             lock (TestAction)
                 {
-                TestAction.AsyncResult(Result =>
-                    {
-                        Result.Should().Be("abc");
-                    }, 20)();
+                TestAction.AsyncResult(TestAction2, 20)();
 
                 Success.Should().BeFalse();
 
@@ -376,10 +378,7 @@ namespace L_Tests.Tests.Extensions
 
                 Success.Should().BeFalse();
 
-                TestAction.AsyncResult(Result =>
-                {
-                    Result.Should().Be("abc");
-                }, 50)();
+                TestAction.AsyncResult(TestAction2, 50)();
                 Success.Should().BeFalse();
                 Thread.Sleep(50);
 
@@ -393,20 +392,14 @@ namespace L_Tests.Tests.Extensions
             Thread.Sleep(40);
             lock (TestAction)
                 {
-                TestAction.AsyncResult(Result =>
-                {
-                    Result.Should().Be("abc");
-                }, 20u)();
+                TestAction.AsyncResult(TestAction2, 20u)();
                 Success.Should().BeFalse();
 
                 Thread.Sleep(40);
 
                 Success.Should().BeFalse();
 
-                TestAction.AsyncResult(Result =>
-                {
-                    Result.Should().Be("abc");
-                }, 50u)();
+                TestAction.AsyncResult(TestAction2, 50u)();
                 Success.Should().BeFalse();
                 Thread.Sleep(50);
 
@@ -420,20 +413,14 @@ namespace L_Tests.Tests.Extensions
             Thread.Sleep(40);
             lock (TestAction)
                 {
-                TestAction.AsyncResult(Result =>
-                {
-                    Result.Should().Be("abc");
-                }, 20L)();
+                TestAction.AsyncResult(TestAction2, 20L)();
                 Success.Should().BeFalse();
 
                 Thread.Sleep(40);
 
                 Success.Should().BeFalse();
 
-                TestAction.AsyncResult(Result =>
-                {
-                    Result.Should().Be("abc");
-                }, 50L)();
+                TestAction.AsyncResult(TestAction2, 50L)();
                 Success.Should().BeFalse();
                 Thread.Sleep(50);
 
@@ -447,20 +434,14 @@ namespace L_Tests.Tests.Extensions
             Thread.Sleep(40);
             lock (TestAction)
                 {
-                TestAction.AsyncResult(Result =>
-                {
-                    Result.Should().Be("abc");
-                }, 20uL)();
+                TestAction.AsyncResult(TestAction2, 20uL)();
                 Success.Should().BeFalse();
 
                 Thread.Sleep(40);
 
                 Success.Should().BeFalse();
 
-                TestAction.AsyncResult(Result =>
-                {
-                    Result.Should().Be("abc");
-                }, 50uL)();
+                TestAction.AsyncResult(TestAction2, 50uL)();
                 Success.Should().BeFalse();
                 Thread.Sleep(50);
 
@@ -474,20 +455,14 @@ namespace L_Tests.Tests.Extensions
             Thread.Sleep(40);
             lock (TestAction)
                 {
-                TestAction.AsyncResult(Result =>
-                {
-                    Result.Should().Be("abc");
-                }, TimeSpan.FromMilliseconds(20))();
+                TestAction.AsyncResult(TestAction2, TimeSpan.FromMilliseconds(20))();
                 Success.Should().BeFalse();
 
                 Thread.Sleep(40);
 
                 Success.Should().BeFalse();
 
-                TestAction.AsyncResult(Result =>
-                {
-                    Result.Should().Be("abc");
-                }, TimeSpan.FromMilliseconds(50))();
+                TestAction.AsyncResult(TestAction2, TimeSpan.FromMilliseconds(50))();
                 Success.Should().BeFalse();
                 Thread.Sleep(50);
 

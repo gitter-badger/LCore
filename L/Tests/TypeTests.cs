@@ -58,11 +58,7 @@ namespace LCore.Tests
             this.UnitTestCount = TestMembers.WithAttribute<TestedAttribute>().Count();
             this.TestsPresent = this.MembersPresent - this.TestsMissing;
 
-            try
-                {
-                this.CoveragePercent = ((double)this.TestsPresent / this.MembersPresent).AsPercent().Abs();
-                }
-            catch (OverflowException) { }
+            this.CoveragePercent = ((double)this.TestsPresent / this.MembersPresent).AsPercent().Abs();
 
             IEnumerable<MemberInfo> TestedMembers = TestMembers.WithAttribute<ITestAttribute>();
             this.TestAttributes = new List<ITestAttribute>();

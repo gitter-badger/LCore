@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security;
 using FluentAssertions;
@@ -147,12 +148,19 @@ namespace L_Tests.Tests.Tools
         ///     is invalid.</exception>
         /// <exception cref="IOException">A system error occurred; for example, the current key has been deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">The user does not have the necessary registry rights.</exception>
+        [ExcludeFromCodeCoverage]
         public RegistryHelperTest()
             {
             try
                 {
-                RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default).DeleteSubKeyTree(TestRegKey);
-                RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default).DeleteSubKey(TestRegKey);
+                if (RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default)
+                    .GetSubKeyNames()
+                    .Has(TestRegKey))
+                    {
+                    RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default).DeleteSubKeyTree(TestRegKey);
+
+                    RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default).DeleteSubKey(TestRegKey);
+                    }
                 }
             catch
                 {
@@ -171,7 +179,7 @@ namespace L_Tests.Tests.Tools
             this.Reg.LoadAll().Should().Equal();
             }
 
-
+        [ExcludeFromCodeCoverage]
         ~RegistryHelperTest()
             {
             this.Reg.RemoveAll();

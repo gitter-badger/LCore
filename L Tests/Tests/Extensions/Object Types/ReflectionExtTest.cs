@@ -1071,6 +1071,7 @@ namespace L_Tests.Tests.Extensions
             }
 
         [FriendlyName("Test2")]
+        [ExcludeFromCodeCoverage]
         public class TestClassIndexer : TestBaseClass
             {
             public string this[int i]
