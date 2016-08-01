@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
+
 #pragma warning disable 1591
 
 
@@ -6,7 +8,8 @@ namespace LCore.Tasks
     {
     using System.Threading;
 
-    public abstract class Task
+    [ExcludeFromCodeCoverage]
+    internal abstract class Task
         {
         protected virtual long RunIntervalSeconds => 60 * 60; // Default: Every hour.
 

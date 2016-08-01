@@ -262,14 +262,7 @@ namespace LCore.Tools
                 RootKey.CreateSubKey(RegistrySubKey, RegistryKeyPermissionCheck.ReadWriteSubTree);
 
                 this.Key = RootKey.OpenSubKey(RegistrySubKey, true);
-
-
-                return;
                 }
-
-            if (this.Key == null)
-                throw new InvalidOperationException($"Could not open registry key: {this.Key}");
-
             }
         /*
                 internal class RegistryException : Exception

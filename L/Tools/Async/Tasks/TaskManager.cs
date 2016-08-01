@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using LCore.Extensions;
 #pragma warning disable 1591
 
@@ -7,7 +8,8 @@ using LCore.Extensions;
 namespace LCore.Tasks
     {
     // ReSharper disable once ClassNeverInstantiated.Global
-    public class TaskManager
+    [ExcludeFromCodeCoverage]
+    internal class TaskManager
         {
         public static readonly bool NoAsyncTasks = false;
 

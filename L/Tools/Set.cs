@@ -63,7 +63,8 @@ namespace LCore.Tools
             {
             if (ReferenceEquals(null, Other)) return false;
             if (ReferenceEquals(this, Other)) return true;
-            return EqualityComparer<T1>.Default.Equals(this.Obj1, Other.Obj1) && EqualityComparer<T2>.Default.Equals(this.Obj2, Other.Obj2);
+            return EqualityComparer<T1>.Default.Equals(this.Obj1, Other.Obj1) &&
+                EqualityComparer<T2>.Default.Equals(this.Obj2, Other.Obj2);
             }
 
         /// <summary>Returns a string that represents the current object.</summary>

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using LCore.Extensions;
 using System.Threading;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+
 #pragma warning disable 1591
 
 namespace LCore.Tasks
     {
-    public static class Tasks
+    [ExcludeFromCodeCoverage]
+    internal static class Tasks
         {
         public static int TotalTasks => ToDoTasks.Count + FinishedTasks.Count;
 

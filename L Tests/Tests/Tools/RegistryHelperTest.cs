@@ -48,6 +48,7 @@ namespace L_Tests.Tests.Tools
 
             L.A(() => new RegistryHelper(null, RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default))).ShouldFail();
             L.A(() => new RegistryHelper("a", null)).ShouldFail();
+            L.A(() => new RegistryHelper("", RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default))).ShouldFail();
             //
             //            L.A(() => new RegistryHelper("#Q*()HY&)R(B)#(*)__~_~+_)JG)+&&**(@!2-09%*@:><?:\"'\r\n",
             //                RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default))).ShouldFail();
@@ -116,6 +117,19 @@ namespace L_Tests.Tests.Tools
                 new Set<string, object>("h_3", "-55"),
                 new Set<string, object>("h_4", "NaN"),
                 new Set<string, object>("h_0", "5")});
+
+            this.Reg.Remove("a", "b", "c", "h_4", "BAD NAME");
+
+            this.Reg.LoadAll().ShouldBeEquivalentTo(new List<Set<string, object>> {
+                new Set<string, object>("d", "-5.5"),
+                new Set<string, object>("e", new byte[] { 5, 243, 224, 21 }),
+                new Set<string, object>("f", "c"),
+                new Set<string, object>("g", "True"),
+                new Set<string, object>("h_Count", "5"),
+                new Set<string, object>("h_1", "-5.5"),
+                new Set<string, object>("h_2", "abc"),
+                new Set<string, object>("h_3", "-55"),
+                new Set<string, object>("h_0", "5")});
             /////////////////////////////////////////////////////
 
             }
@@ -135,6 +149,21 @@ namespace L_Tests.Tests.Tools
         /// <exception cref="UnauthorizedAccessException">The user does not have the necessary registry rights.</exception>
         public RegistryHelperTest()
             {
+            try
+                {
+                RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default).DeleteSubKeyTree(TestRegKey);
+                RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default).DeleteSubKey(TestRegKey);
+                }
+            catch
+                {
+                }
+
+            RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default)
+                .GetSubKeyNames()
+                .Has(TestRegKey)
+                .Should()
+                .BeFalse();
+
             this.Reg = new RegistryHelper(TestRegKey,
                 RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default).CreateSubKey(TestRegKey));
 
@@ -149,6 +178,7 @@ namespace L_Tests.Tests.Tools
 
             this.Reg.LoadAll().Should().Equal();
 
+            RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default).DeleteSubKeyTree(TestRegKey);
             RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default).DeleteSubKey(TestRegKey);
 
 

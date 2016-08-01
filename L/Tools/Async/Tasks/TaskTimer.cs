@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using LCore.Extensions;
 using System.Timers;
 
@@ -6,7 +7,8 @@ using System.Timers;
 
 namespace LCore.Tasks
     {
-    public class TaskTimer
+    [ExcludeFromCodeCoverage]
+    internal class TaskTimer
         {
         public TaskTimer(Task Task)
             {
