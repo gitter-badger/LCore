@@ -15,9 +15,11 @@ namespace LMVC.Account
 
         public static readonly TimeSpan UserAccountPasswordExpire = new TimeSpan(90, 0, 0, 0);
 
+        // ReSharper disable PossibleNullReferenceException
         public static readonly char[] Password_UpperChars = Enumerable.Range(65, 26).Convert(Char => (char)Char.TryConvertTo<char>()).Array();
         public static readonly char[] Password_LowerChars = Enumerable.Range(97, 26).Convert(Char => (char)Char.TryConvertTo<char>()).Array();
         public static readonly char[] Password_NumberChars = Enumerable.Range(48, 26).Convert(Char => (char)Char.TryConvertTo<char>()).Array();
+        // ReSharper restore PossibleNullReferenceException
         public static readonly char[] Password_SpecialChars = { '!', '#', '$', '%', '&', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '{', '|', '}' };
 
         public const string DateFormat = "yyyy-MM-dd h:mm tt";
