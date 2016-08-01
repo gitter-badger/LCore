@@ -70,7 +70,7 @@ namespace LCore.Numbers
         /// </summary>
         public override byte Add(byte Number1, byte Number2)
             {
-            return (byte)((byte)Number1 + (byte)Number2);
+            return (byte)((int)Number1 + (int)Number2);
             }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace LCore.Numbers
         /// </summary>
         public override byte Subtract(byte Number1, byte Number2)
             {
-            return (byte)((byte)Number1 - (byte)Number2);
+            return (byte)((int)Number1 - (int)Number2);
             }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace LCore.Numbers
         /// </summary>
         public override byte Multiply(byte Number1, byte Number2)
             {
-            return (byte)((byte)Number1 * (byte)Number2);
+            return (byte)((int)Number1 * (int)Number2);
             }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace LCore.Numbers
         /// <returns>A double result</returns>
         public override object Divide(byte Number1, byte Number2)
             {
-            return (double)((byte)Number1 / (byte)Number2);
+            return (double)((int)Number1 / (int)Number2);
             }
 
 

@@ -31,20 +31,20 @@ namespace LCore.Numbers
             {
             return i.Value;
             }
-
+/*
         /// <summary>
         /// Performs the division operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
         /// </summary>
         public static Number operator /(Number<T, U> Number1, U Number2)
             {
-            return Number1.Subtract(Number2);
+            return Number1.Divide(Number2);
             }
         /// <summary>
         /// Performs the multiplication operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
         /// </summary>
         public static Number operator *(Number<T, U> Number1, U Number2)
             {
-            return Number1.Subtract(Number2);
+            return Number1.Multiply(Number2);
             }
         /// <summary>
         /// Performs the subtraction operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
@@ -59,7 +59,7 @@ namespace LCore.Numbers
         public static Number operator +(Number<T, U> Number1, U Number2)
             {
             return Number1.Add(Number2);
-            }
+            }*/
 
         /// <summary>
         /// Create a new Number wrapper for a native number type
@@ -95,14 +95,14 @@ namespace LCore.Numbers
         /// <returns>A Number result</returns>
         public static Number operator /(Number<T> Number1, T Number2)
             {
-            return Number1.Subtract(Number2);
+            return Number1.Divide(Number2);
             }
         /// <summary>
         /// Applies the multiplication operation and returns the result as a Number.
         /// </summary>
         public static Number operator *(Number<T> Number1, T Number2)
             {
-            return Number1.Subtract(Number2);
+            return Number1.Multiply(Number2);
             }
         /// <summary>
         /// Applies the subtraction operation and returns the result as a Number.
@@ -400,6 +400,15 @@ namespace LCore.Numbers
                 {
                 return this.Value.CompareTo((IComparable)Obj);
                 }
+            // ReSharper disable once UseNullPropagation
+            if (Obj is IConvertible)
+                {
+                var Result = ((IConvertible)Obj).ConvertTo(typeof(T));
+
+                if (Result != null)
+                    return this.Value.CompareTo(Result);
+                }
+            
 
             throw new ArgumentException(nameof(Obj));
             }
@@ -414,15 +423,7 @@ namespace LCore.Numbers
         /// The type of number stored in the wrapper.
         /// </summary>
         public abstract Type NumberType { get; }
-
-        /// <summary>
-        /// Returns whether this Number is equal to <paramref name="Other"/>
-        /// </summary>
-        protected bool Equals(Number Other)
-            {
-            return this.IsEqualTo(Other);
-            }
-
+        
         /// <summary>
         /// Returns whether this Number is equal to <paramref name="Obj"/>
         /// </summary>
@@ -551,7 +552,7 @@ namespace LCore.Numbers
                 Number1 = new ByteNumber();
             // ReSharper disable once ConvertIfStatementToReturnStatement
             if (Number2 == null)
-                return Number1;
+                return new ByteNumber();
 
             return Number1.Multiply(Number2);
             }
@@ -564,7 +565,7 @@ namespace LCore.Numbers
                 return new ByteNumber();
             // ReSharper disable once ConvertIfStatementToReturnStatement
             if (Number2 == null)
-                return Number1;
+                return new ByteNumber();
 
             return Number1.Multiply(Number2);
             }
