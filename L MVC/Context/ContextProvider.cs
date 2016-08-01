@@ -20,29 +20,27 @@ namespace LMVC.Context
         {
         public const string ContextSession = "SingularityContext";
 
-        public abstract ManageController[] AllManageControllers(HttpSessionStateBase Session);
+        public abstract ManageController[] AllManageControllers([CanBeNull]HttpSessionStateBase Session);
+        
+        public abstract IMenuController[] AllMenuControllers([CanBeNull]HttpSessionStateBase Session);
+
+        public abstract ModelContext GetContext([CanBeNull]HttpSessionStateBase Session);
+        
+        public abstract Type[] GetContextTypes([CanBeNull]HttpSessionStateBase Session);
 
         [CanBeNull]
-        public abstract IMenuController[] AllMenuControllers(HttpSessionStateBase Session);
-
-        public abstract ModelContext GetContext(HttpSessionStateBase Session);
+        public abstract UserAccount CurrentUser([CanBeNull]HttpSessionStateBase Session);
 
         [CanBeNull]
-        public abstract Type[] GetContextTypes(HttpSessionStateBase Session);
-
-        [CanBeNull]
-        public abstract UserAccount CurrentUser(HttpSessionStateBase Session);
-
-        [CanBeNull]
-        public abstract AccountRole CurrentRole(HttpSessionStateBase Session);
+        public abstract AccountRole CurrentRole([CanBeNull]HttpSessionStateBase Session);
 
         public abstract AccountRole GetAnonymousRole();
 
         [CanBeNull]
-        public abstract string GetFileUploadRootPath(HttpSessionStateBase Session, HttpPostedFileBase File, string RelationType, string RelationProperty, int RelationID);
+        public abstract string GetFileUploadRootPath([CanBeNull]HttpSessionStateBase Session, [CanBeNull]HttpPostedFileBase File, [CanBeNull]string RelationType, [CanBeNull]string RelationProperty, int RelationID);
 
         [CanBeNull]
-        public abstract string GetFileUploadFilePath(HttpSessionStateBase Session, HttpPostedFileBase File, string RelationType, string RelationProperty, int RelationID);
+        public abstract string GetFileUploadFilePath([CanBeNull]HttpSessionStateBase Session, [CanBeNull]HttpPostedFileBase File, [CanBeNull]string RelationType, [CanBeNull]string RelationProperty, int RelationID);
 
         public abstract CloudBlobDirectory GetFileUploadCloudContainer();
 
@@ -51,24 +49,24 @@ namespace LMVC.Context
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
         [CanBeNull]
-        public ManageController GetManageController(HttpSessionStateBase Session, string ControllerName)
+        public ManageController GetManageController([CanBeNull]HttpSessionStateBase Session, [CanBeNull]string ControllerName)
             {
             return this.AllManageControllers(Session).FirstOrDefault(Controller => Controller.GetType().FullName == ControllerName);
             }
         [CanBeNull]
-        public ManageController GetManageController(HttpSessionStateBase Session, Type ModelType)
+        public ManageController GetManageController([CanBeNull]HttpSessionStateBase Session, [CanBeNull]Type ModelType)
             {
             return this.AllManageControllers(Session).FirstOrDefault(Controller => Controller.ModelType == ModelType);
             }
 
         [CanBeNull]
-        public ModelPermissions GetModelPermissions(HttpSessionStateBase Session, Type RequestedType)
+        public ModelPermissions GetModelPermissions([CanBeNull]HttpSessionStateBase Session, [CanBeNull]Type RequestedType)
             {
             return this.GetModelPermissions(this.CurrentRole(Session), RequestedType);
             }
 
         [CanBeNull]
-        private ModelPermissions GetModelPermissions(IModel ProfileRole, Type RequestedType)
+        private ModelPermissions GetModelPermissions([CanBeNull]IModel ProfileRole, [CanBeNull] Type RequestedType)
             {
             var RoleType = ProfileRole.GetType();
 
@@ -95,13 +93,13 @@ namespace LMVC.Context
             }
 
         [CanBeNull]
-        public DbSet GetDBSet(HttpSessionStateBase Session, Type Type)
+        public DbSet GetDBSet([CanBeNull]HttpSessionStateBase Session, [CanBeNull]Type Type)
             {
             return this.GetContext(Session).GetDBSet(Type);
             }
 
         [CanBeNull]
-        public DbSet<T> GetDBSet<T>(HttpSessionStateBase Session)
+        public DbSet<T> GetDBSet<T>([CanBeNull]HttpSessionStateBase Session)
             where T : class, new()
             {
             return this.GetContext(Session).GetDBSet<T>();

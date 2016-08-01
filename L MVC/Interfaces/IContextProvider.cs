@@ -10,12 +10,11 @@ namespace LMVC.Context
         {
         [CanBeNull]
         string SiteTitle { get; }
-
-        [CanBeNull]
+        
         IMenuController[] AllMenuControllers(HttpSessionStateBase Session);
-
-        [CanBeNull]
+        
         Type[] GetContextTypes(HttpSessionStateBase Session);
+
         [CanBeNull]
         DbSet GetDBSet(HttpSessionStateBase Session, Type Type);
         [CanBeNull]

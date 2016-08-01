@@ -33,6 +33,6 @@ namespace LMVC.Controllers
             }
 
         public TextContentController(IAuthenticationService Auth) : base(Auth) { }
-        public TextContentController() : base() { }
+        public TextContentController() { }
         }
     }

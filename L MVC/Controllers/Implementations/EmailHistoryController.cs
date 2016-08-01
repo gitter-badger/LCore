@@ -16,6 +16,6 @@ namespace LMVC.Controllers
             };
 
         public EmailHistoryController(IAuthenticationService Auth) : base(Auth) { }
-        public EmailHistoryController() : base() { }
+        public EmailHistoryController() { }
         }
     }

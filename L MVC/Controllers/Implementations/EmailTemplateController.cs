@@ -140,7 +140,7 @@ namespace LMVC.Controllers
         public override ControllerHelper.ViewType? ActionAfterCreate => ControllerHelper.ViewType.Edit;
 
         public EmailTemplateController(IAuthenticationService Auth) : base(Auth) { }
-        public EmailTemplateController() : base() { }
+        public EmailTemplateController() { }
         }
 
     public class EmailTemplateSavedSearchViewModel : IModel

@@ -12,6 +12,6 @@ namespace LMVC.Controllers
         public override string PageGroup => SingularityControllerHelper.Menu_Admin;
 
         public CustomExportController(IAuthenticationService Auth) : base(Auth) { }
-        public CustomExportController() : base() { }
+        public CustomExportController() { }
         }
     }

@@ -12,6 +12,6 @@ namespace LMVC.Controllers
         public override string PageGroup => SingularityControllerHelper.Menu_Admin;
 
         public EmailJobController(IAuthenticationService Auth) : base(Auth) { }
-        public EmailJobController() : base() { }
+        public EmailJobController() { }
         }
     }
