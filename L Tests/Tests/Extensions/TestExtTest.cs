@@ -344,17 +344,41 @@ namespace L_Tests.Tests.Extensions
             {
             var Target = new Helper();
 
-            L.Ref.Method<Helper>(o => o.Test()).MethodAssertSucceedes(Target, new object[] {});
-            L.Ref.Method<Helper>(o => o.Test("")).MethodAssertSucceedes(Target, new object[] {""});
-            L.Ref.Method<Helper>(o => o.Test("", "")).MethodAssertSucceedes(Target, new object[] {"", ""});
-            L.Ref.Method<Helper>(o => o.Test("", "", "")).MethodAssertSucceedes(Target, new object[] {"", "", ""});
-            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).MethodAssertSucceedes(Target, new object[] {"", "", "", ""});
+            L.Ref.Method<Helper>(o => o.Test()).MethodAssertSucceedes(Target, new object[] { });
+            L.Ref.Method<Helper>(o => o.Test("")).MethodAssertSucceedes(Target, new object[] { "" });
+            L.Ref.Method<Helper>(o => o.Test("", "")).MethodAssertSucceedes(Target, new object[] { "", "" });
+            L.Ref.Method<Helper>(o => o.Test("", "", "")).MethodAssertSucceedes(Target, new object[] { "", "", "" });
+            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).MethodAssertSucceedes(Target, new object[] { "", "", "", "" });
+
+            L.Ref.Method<Helper>(o => o.Test()).MethodAssertSucceedes(Target, new object[] { }, o => true);
+            L.Ref.Method<Helper>(o => o.Test("")).MethodAssertSucceedes(Target, new object[] { "" }, o => true);
+            L.Ref.Method<Helper>(o => o.Test("", "")).MethodAssertSucceedes(Target, new object[] { "", "" }, o => true);
+            L.Ref.Method<Helper>(o => o.Test("", "", "")).MethodAssertSucceedes(Target, new object[] { "", "", "" }, o => true);
+            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).MethodAssertSucceedes(Target, new object[] { "", "", "", "" }, o => true);
+
+            L.Ref.Method<Helper>(o => o.Test()).MethodAssertSucceedes(Target, new object[] { }, () => true);
+            L.Ref.Method<Helper>(o => o.Test("")).MethodAssertSucceedes(Target, new object[] { "" }, () => true);
+            L.Ref.Method<Helper>(o => o.Test("", "")).MethodAssertSucceedes(Target, new object[] { "", "" }, () => true);
+            L.Ref.Method<Helper>(o => o.Test("", "", "")).MethodAssertSucceedes(Target, new object[] { "", "", "" }, () => true);
+            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).MethodAssertSucceedes(Target, new object[] { "", "", "", "" }, () => true);
 
             L.Ref.Method<Helper>(o => o.Test()).MethodShouldSucceed(Target, new object[] {});
             L.Ref.Method<Helper>(o => o.Test("")).MethodShouldSucceed(Target, new object[] {""});
             L.Ref.Method<Helper>(o => o.Test("", "")).MethodShouldSucceed(Target, new object[] {"", ""});
             L.Ref.Method<Helper>(o => o.Test("", "", "")).MethodShouldSucceed(Target, new object[] {"", "", ""});
             L.Ref.Method<Helper>(o => o.Test("", "", "", "")).MethodShouldSucceed(Target, new object[] {"", "", "", ""});
+
+            L.Ref.Method<Helper>(o => o.Test()).MethodShouldSucceed(Target, new object[] { }, o => true);
+            L.Ref.Method<Helper>(o => o.Test("")).MethodShouldSucceed(Target, new object[] { "" }, o => true);
+            L.Ref.Method<Helper>(o => o.Test("", "")).MethodShouldSucceed(Target, new object[] { "", "" }, o => true);
+            L.Ref.Method<Helper>(o => o.Test("", "", "")).MethodShouldSucceed(Target, new object[] { "", "", "" }, o => true);
+            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).MethodShouldSucceed(Target, new object[] { "", "", "", "" }, o => true);
+
+            L.Ref.Method<Helper>(o => o.Test()).MethodShouldSucceed(Target, new object[] { }, () => true);
+            L.Ref.Method<Helper>(o => o.Test("")).MethodShouldSucceed(Target, new object[] { "" }, () => true);
+            L.Ref.Method<Helper>(o => o.Test("", "")).MethodShouldSucceed(Target, new object[] { "", "" }, () => true);
+            L.Ref.Method<Helper>(o => o.Test("", "", "")).MethodShouldSucceed(Target, new object[] { "", "", "" }, () => true);
+            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).MethodShouldSucceed(Target, new object[] { "", "", "", "" }, () => true);
             }
 
         [Fact]

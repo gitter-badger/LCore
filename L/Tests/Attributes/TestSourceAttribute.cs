@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using LCore.Extensions;
 using System.Reflection;
 
@@ -27,6 +28,7 @@ namespace LCore.Tests
         ///         <name>parameters</name>
         ///     </paramref>
         ///     array do not match the signature of the method or constructor reflected by this instance. </exception>
+        [ExcludeFromCodeCoverage]
         public override void RunTest(MethodInfo Method)
             {
             Func<object, bool>[] Checks =

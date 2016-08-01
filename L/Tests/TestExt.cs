@@ -4,6 +4,7 @@ using LCore.Extensions;
 using System.Collections;
 // ReSharper disable once RedundantUsingDirective
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using JetBrains.Annotations;
 using LCore.Extensions.Optional;
@@ -415,6 +416,7 @@ namespace LCore.Tests
         /// Optionally, pass in <paramref name="AdditionalResultChecks" /> to check the result further.
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
+        [ExcludeFromCodeCoverage]
         public static void MethodShouldBe(this MethodInfo Method, object Target = null, object[] Params = null, object ExpectedResult = null,
             params Func<object, bool>[] AdditionalResultChecks)
             {
@@ -426,6 +428,7 @@ namespace LCore.Tests
         /// Optionally, pass in <paramref name="AdditionalResultChecks" /> to check the result further.
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
+        [ExcludeFromCodeCoverage]
         public static void MethodShouldBe<U>(this MethodInfo Method, object Target = null, object[] Params = null,
             U ExpectedResult = default(U),
             params Func<object, bool>[] AdditionalResultChecks)
@@ -491,6 +494,7 @@ namespace LCore.Tests
         /// Assert that a metod succeeds (does not throw an exception)
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
+        [ExcludeFromCodeCoverage]
         public static void MethodAssertSucceedes(this MethodInfo Method, object Target = null, object[] Params = null)
             {
             Method.MethodAssertSucceedes<object>(Target, Params, (Func<object, bool>[]) null);
@@ -500,6 +504,7 @@ namespace LCore.Tests
         /// Assert that a metod succeeds (does not throw an exception)
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
+        [ExcludeFromCodeCoverage]
         public static void MethodAssertSucceedes(this MethodInfo Method, object Target = null, object[] Params = null,
             params Func<bool>[] AdditionalChecks)
             {
@@ -511,6 +516,7 @@ namespace LCore.Tests
         /// Assert that a metod succeeds (does not throw an exception)
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
+        [ExcludeFromCodeCoverage]
         public static void MethodAssertSucceedes(this MethodInfo Method, object Target = null, object[] Params = null,
             params Func<object, bool>[] AdditionalChecks)
             {
@@ -521,6 +527,7 @@ namespace LCore.Tests
         /// Assert that a metod succeeds (does not throw an exception)
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
+        [ExcludeFromCodeCoverage]
         public static void MethodAssertSucceedes<U>(this MethodInfo Method, object Target = null, object[] Params = null,
             params Func<U, bool>[] AdditionalResultChecks)
             {
@@ -666,6 +673,7 @@ namespace LCore.Tests
         /// Optionally, pass in additional checks to test additional parameters.
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
+        [ExcludeFromCodeCoverage]
         public static void MethodAssertFails<E>(this MethodInfo Method, object[] Params, object Target, params Func<bool>[] AdditionalChecks)
             where E : Exception
             {
@@ -677,6 +685,7 @@ namespace LCore.Tests
         /// Optionally, pass in additional checks to test additional parameters.
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
+        [ExcludeFromCodeCoverage]
         public static void MethodAssertFails(this MethodInfo Method, [CanBeNull] object[] Params, object Target, Type EType = null,
             params Func<bool>[] AdditionalChecks)
             {
@@ -923,6 +932,7 @@ namespace LCore.Tests
         /// Optionally, pass in <paramref name="AdditionalResultChecks" /> to check the result further.
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
+        [ExcludeFromCodeCoverage]
         public static void MethodAssertResult(this MethodInfo Method, object Target = null, object[] Params = null,
             object ExpectedResult = null,
             params Func<object, bool>[] AdditionalResultChecks)
@@ -935,6 +945,7 @@ namespace LCore.Tests
         /// Optionally, pass in <paramref name="AdditionalResultChecks" /> to check the result further.
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
+        [ExcludeFromCodeCoverage]
         public static void MethodAssertResult<U>(this MethodInfo Method, object Target = null, object[] Params = null,
             U ExpectedResult = default(U),
             params Func<object, bool>[] AdditionalResultChecks)
@@ -1113,6 +1124,7 @@ namespace LCore.Tests
         /// This is used for methods that manipulate the object they were called on, not the result (if any).
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
+        [ExcludeFromCodeCoverage]
         public static void MethodAssertSource(this MethodInfo Method, object Target = null, object[] Params = null, object ExpectedSource = null,
             params Func<object, bool>[] AdditionalSourceChecks)
             {
@@ -1125,6 +1137,8 @@ namespace LCore.Tests
         /// This is used for methods that manipulate the object they were called on, not the result (if any).
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
+
+        [ExcludeFromCodeCoverage]
         public static void MethodAssertSource<U>(this MethodInfo Method, object Target = null, object[] Params = null, U ExpectedSource = default(U),
             params Func<object, bool>[] AdditionalSourceChecks)
             {
@@ -1277,6 +1291,7 @@ namespace LCore.Tests
         /// <summary>
         /// Runs unit tests that are active for a particular Type <paramref name="Type" />
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public static int RunUnitTests(this Type Type)
             {
             int TestsRan = 0;
