@@ -8,6 +8,8 @@ namespace LMVC.Controllers
     public class SavedSearchController : ManageController<SavedSearch>
         {
         public override string PageGroup => SingularityControllerHelper.Menu_Admin;
-        public SavedSearchController(IAuthenticationService Auth) : base(Auth) {}
+
+        public SavedSearchController(IAuthenticationService Auth) : base(Auth) { }
+        public SavedSearchController() : base() { }
         }
     }

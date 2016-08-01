@@ -13,6 +13,11 @@ namespace LMVC.Controllers
             Export = true
             };
 
-        protected ReadOnlyManageController(IAuthenticationService Auth) : base(Auth) {}
+        protected ReadOnlyManageController(IAuthenticationService Auth) : base(Auth)
+            {
+            }
+        protected ReadOnlyManageController()
+            {
+            }
         }
     }

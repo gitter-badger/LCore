@@ -66,6 +66,10 @@ namespace LMVC.Controllers
             {
             this.Auth = Auth;
             }
+        protected SingularityController()
+            {
+
+            }
         }
     }
 

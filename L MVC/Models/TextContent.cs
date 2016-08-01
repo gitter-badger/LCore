@@ -41,7 +41,7 @@ namespace LMVC.Models
             }
 
         [CanBeNull]
-        public static string GetText([CanBeNull]ModelContext DbContext, [CanBeNull]string Token, [CanBeNull]string DefaultText = "")
+        public static string GetText([CanBeNull]IModelContext DbContext, [CanBeNull]string Token, [CanBeNull]string DefaultText = "")
             {
             string Out = DefaultText;
 
@@ -54,7 +54,7 @@ namespace LMVC.Models
             }
 
         [CanBeNull]
-        public static IQueryable<TextContent> FindGlobalTokens([CanBeNull]ModelContext DbContext)
+        public static IQueryable<TextContent> FindGlobalTokens([CanBeNull]IModelContext DbContext)
             {
             return DbContext?.GetDBSet<TextContent>().Where(
                 Content => Content.Active &&
@@ -62,7 +62,7 @@ namespace LMVC.Models
             }
 
         [CanBeNull]
-        public static TextContent FindByToken([CanBeNull]ModelContext DbContext, [CanBeNull]string Token)
+        public static TextContent FindByToken([CanBeNull]IModelContext DbContext, [CanBeNull]string Token)
             {
             Func<string, TextContent> Func = Str =>
             {

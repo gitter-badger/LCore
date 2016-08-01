@@ -63,7 +63,7 @@ namespace LMVC.Models
             }
 
         [CanBeNull]
-        public static Template FindByToken(ModelContext Context, string Token)
+        public static Template FindByToken(IModelContext Context, string Token)
             {
             var Content = Context.GetDBSet<Template>(
                 ).FirstOrDefault(Template => Template.Token == Token &&
@@ -73,7 +73,7 @@ namespace LMVC.Models
             }
 
         [CanBeNull]
-        public static string GetTemplateString([CanBeNull]ModelContext Context, [CanBeNull]string Token)
+        public static string GetTemplateString([CanBeNull]IModelContext Context, [CanBeNull]string Token)
             {
             string Out = "";
 

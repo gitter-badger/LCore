@@ -15,6 +15,7 @@ namespace LMVC.Controllers
             Export = true
             };
 
-        public EmailHistoryController(IAuthenticationService Auth) : base(Auth) {}
+        public EmailHistoryController(IAuthenticationService Auth) : base(Auth) { }
+        public EmailHistoryController() : base() { }
         }
     }

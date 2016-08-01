@@ -1056,11 +1056,15 @@ namespace LMVC.Controllers
 
 
         public override SingularityControllerHelper Helper => this.HelperT;
+
         public SingularityControllerHelper<T> HelperT { get; }
 
         protected ManageController(IAuthenticationService Auth) : base(Auth)
             {
-
+            this.HelperT = new SingularityControllerHelper<T>(this);
+            }
+        protected ManageController()
+            {
             this.HelperT = new SingularityControllerHelper<T>(this);
             }
         }

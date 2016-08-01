@@ -48,5 +48,6 @@ namespace LMVC.Controllers
             }
 
         public TemplateController(IAuthenticationService Auth) : base(Auth) { }
+        public TemplateController() : base() { }
         }
     }

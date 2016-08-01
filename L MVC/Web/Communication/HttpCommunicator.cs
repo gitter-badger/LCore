@@ -2,7 +2,6 @@
 
 using LCore.Extensions;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedMember.Global

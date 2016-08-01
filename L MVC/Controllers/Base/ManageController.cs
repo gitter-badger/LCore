@@ -146,7 +146,9 @@ namespace LMVC.Controllers
 
         protected ManageController(IAuthenticationService Auth) : base(Auth)
             {
-
+            }
+        protected ManageController()
+            {
             }
         }
     }

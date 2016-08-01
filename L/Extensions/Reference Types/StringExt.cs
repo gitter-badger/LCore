@@ -1054,6 +1054,25 @@ namespace LCore.Extensions
         /// <summary>
         /// Takes a string and returns a pluralized version of the word or phrase.
         /// This method will not fail. If the input is empty it will just return "".
+        /// 
+        /// <paramref name="Count" /> is used as the number of things you're referring to. 
+        /// If you pass 1 (or -1), pluralization will not be applied
+        /// </summary>
+        [TestResult(new object[] { null, 0u }, "")]
+        [TestResult(new object[] { "", 0u }, "")]
+        [TestResult(new object[] { "blob", 0u }, "blobs")]
+        [TestResult(new object[] { "blob", 1u }, "blob")]
+        [TestResult(new object[] { "blob", 2u }, "blobs")]
+        [TestResult(new object[] { "person", 2u }, "people")]
+        [TestResult(new object[] { "person", 1u }, "person")]
+        [TestResult(new object[] { "Entry", 2u}, "Entries")]
+        public static string Pluralize(this string In, uint Count)
+            {
+            return L.Str.Pluralize(In, Count);
+            }
+        /// <summary>
+        /// Takes a string and returns a pluralized version of the word or phrase.
+        /// This method will not fail. If the input is empty it will just return "".
         /// </summary>
         [TestResult(new object[] { null }, "")]
         [TestResult(new object[] { "" }, "")]
@@ -1990,12 +2009,27 @@ namespace LCore.Extensions
             /// </summary>
             public static string Pluralize([CanBeNull]string Str, int Count)
                 {
+                return Count < 0 
+                    ? Str.Pluralize(Count.Abs()) 
+                    : Str.Pluralize((uint)Count);
+                }
+
+            /// <summary>
+            /// Takes a string and returns a pluralized version of the word or phrase.
+            /// This method will not fail. If the input is empty it will just return "".
+            /// 
+            /// <paramref name="Count" /> is used as the number of things you're referring to. 
+            /// If you pass 1 (or -1), pluralization will not be applied
+            /// </summary>
+            public static string Pluralize([CanBeNull]string Str, uint Count)
+                {
                 if (Str.IsEmpty())
                     return "";
 
-                if (Count == 0 || Count == int.MinValue || Math.Abs(Count) > 1)
-                    return PluralizationService.CreateService(
-                            CultureInfo.CurrentCulture).Pluralize(Str);
+                if (Count == 0 || Math.Abs(Count) > 1)
+                    return PluralizationService.CreateService(CultureInfo.CurrentCulture)
+                        .Pluralize(Str);
+
                 return Str ?? "";
                 }
 

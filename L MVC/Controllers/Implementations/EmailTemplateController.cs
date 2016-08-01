@@ -138,7 +138,9 @@ namespace LMVC.Controllers
         public override string PageGroup => SingularityControllerHelper.Menu_Admin;
 
         public override ControllerHelper.ViewType? ActionAfterCreate => ControllerHelper.ViewType.Edit;
+
         public EmailTemplateController(IAuthenticationService Auth) : base(Auth) { }
+        public EmailTemplateController() : base() { }
         }
 
     public class EmailTemplateSavedSearchViewModel : IModel

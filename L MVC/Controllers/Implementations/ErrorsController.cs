@@ -16,6 +16,7 @@ namespace LMVC.Controllers
                 }
             }
          */
-        public ErrorsController(IAuthenticationService Auth) : base(Auth) {}
+        public ErrorsController(IAuthenticationService Auth) : base(Auth) { }
+        public ErrorsController() : base() { }
         }
     }
