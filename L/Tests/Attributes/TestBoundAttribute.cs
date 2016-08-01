@@ -44,6 +44,7 @@ namespace LCore.Tests
         /// </summary>
         public override void RunTest(MethodInfo Method)
             {
+/*
             var Attributes = new List<TestBoundAttribute>();
 
             Attributes.Sort(Attr => Attr.ParameterIndex);
@@ -55,12 +56,10 @@ namespace LCore.Tests
 
             Attributes.Each(Attr =>
                 PassedParameters[Attr.ParameterIndex] =
-                    L.Ref.NewRandom(MethodParameters[Attr.ParameterIndex].ParameterType, Attr.Minimum, Attr.Maximum));
+                    L.Ref.NewRandom(MethodParameters[Attr.ParameterIndex].ParameterType, Attr.Minimum, Attr.Maximum));*/
             }
 
         #region Constructors
-
-
 
         /// <summary>
         /// Sets the <paramref name="Minimum"/> and <paramref name="Minimum"/> 
@@ -200,8 +199,8 @@ namespace LCore.Tests
         /// 
         /// </summary>
         public TestBoundAttribute(uint ParameterIndex,
-            [CanBeNull]object Minimum,
-            [CanBeNull]object Maximum) : this(Minimum, Maximum)
+            [CanBeNull] object Minimum,
+            [CanBeNull] object Maximum) : this(Minimum, Maximum)
             {
             this.ParameterIndex = ParameterIndex;
             }
@@ -211,12 +210,13 @@ namespace LCore.Tests
         /// values used for ParameterIndex (0-based index of parameter)
         /// 
         /// </summary>
-        protected TestBoundAttribute([CanBeNull]object Minimum, [CanBeNull]object Maximum)
+        protected TestBoundAttribute([CanBeNull] object Minimum, [CanBeNull] object Maximum)
             {
             this.Minimum = Minimum;
             this.Maximum = Maximum;
             this.ValueType = (Minimum ?? Maximum)?.GetType();
             }
+
         #endregion
         }
     }

@@ -7,6 +7,7 @@ using LCore.Numbers;
 using LCore.Tests;
 using Xunit;
 // ReSharper disable UnusedVariable
+// ReSharper disable EqualExpressionComparison
 
 // ReSharper disable ThrowingSystemException
 // ReSharper disable ConditionIsAlwaysTrueOrFalse

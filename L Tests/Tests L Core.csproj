@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tests\Extensions\Language\CommentExtTest.cs" />
+    <Compile Include="Tests\Extensions\TestExtTest.cs" />
     <Compile Include="Tests\Extensions\Object Types\ComparableExtTest.cs" />
     <Compile Include="Tests\Extensions\Object Types\StatsExtTest.cs" />
     <Compile Include="Tests\Extensions\Methods\LogicExtTest.cs" />
@@ -174,7 +175,7 @@
     <Compile Include="Tests\Tools\ListsTest.cs" />
     <Compile Include="Tests\Tools\ExceptionListTest.cs" />
     <Compile Include="Tests\Tools\ScheduleTest.cs" />
-    <Compile Include="Tests\Tools\StopWatch.cs" />
+    <Compile Include="Tests\Tools\StopWatchTest.cs" />
     <Compile Include="Tests\Tools\StatMonitorTest.cs" />
     <Compile Include="Tests\Tools\SetTest.cs" />
   </ItemGroup>

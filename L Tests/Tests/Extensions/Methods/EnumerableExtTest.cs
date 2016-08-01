@@ -27,16 +27,16 @@ using static LCore.Extensions.L.Test.Categories;
 // ReSharper disable UnusedVariable
 
 namespace L_Tests.Tests.Extensions
-    {
+{
     public class EnumerableExtTest : ExtensionTester
-        {
+    {
         protected override Type[] TestType => new[] { typeof(EnumerableExt) };
 
 
         [Fact]
         [TestCategory(UnitTests)]
         public void Test_All_0()
-            {
+        {
             int[] Test = { 1, 5, 7, 3, 4, 7, 4, 7, 10 };
 
             ((IEnumerable)Test).All((Func<object, bool>)(o => (int)o < 15)).Should().BeTrue();
@@ -72,26 +72,26 @@ namespace L_Tests.Tests.Extensions
 
             ((IEnumerable<int>)Test).All<int>(o => o < 15).Should().BeTrue();
             ((IEnumerable<int>)Test).All<int>(o => o < 10).Should().BeFalse();
-            }
+        }
 
 
         [Fact]
         [TestCategory(UnitTests)]
         public void Test_Append()
-            {
+        {
             int[] Test1 = { 1, 5, 9, 5, 3 };
             int[] Test2 = { 55, 55, 55, 55 };
 
 
             Test1.Append(Test2).Should().Equal(1, 5, 9, 5, 3, 55, 55, 55, 55);
             Test2.Append(Test1).Should().Equal(55, 55, 55, 55, 1, 5, 9, 5, 3);
-            }
+        }
 
 
         [Fact]
         [TestCategory(UnitTests)]
         public void Test_Array()
-            {
+        {
             List<int> Test1 = new List<int> { 1, 5, 9, 5, 3 };
             List<object> Test2 = new List<object> { 1, 5, 9, 5, 3, "s" };
 
@@ -105,7 +105,7 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable)Test2).Array<int>().Should().Equal(1, 5, 9, 5, 3);
 
             ((IEnumerable<object>)Test2).Array<object, IComparable>().Should().Equal(1, 5, 9, 5, 3, "s");
-            }
+        }
 
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -113,7 +113,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         [TestCategory(UnitTests)]
         public void Test_CollectFunc()
-            {
+        {
             int Counter = 0;
             Func<int> Func = () => ++Counter;
 
@@ -136,11 +136,11 @@ namespace L_Tests.Tests.Extensions
             Func2.Collect(5).Should().Equal(0, 1, 3, 6, 10);
 
             L.A(() => Func2.Collect(-1)).ShouldFail();
-            }
+        }
 
         [Fact]
         public void Test_CollectStr()
-            {
+        {
             Func<char, char> Modifier = Char => (char)(Char + 1);
             Func<int, int, string> Modifier2 = (i, o) => $"{o}-";
 
@@ -155,11 +155,11 @@ namespace L_Tests.Tests.Extensions
             new[] { 5, 1, 77, 2, 7, 3 }.List().CollectStr(Modifier2).Should().Be("5-1-77-2-7-3-");
             new[] { 5, 1, 77, 2, 7, 3 }.List().CollectStr(null).Should().Be("5177273");
 
-            }
+        }
 
         [Fact]
         public void Test_CombineString()
-            {
+        {
             IConvertible[] List = { 123, "abc", 5.5f, null, 'a' };
 
             List.Combine("--").Should().Be("123--abc--5.5--a");
@@ -167,11 +167,11 @@ namespace L_Tests.Tests.Extensions
 
             List.Combine(null).Should().Be("123abc5.5a");
             List.Combine("").Should().Be("123abc5.5a");
-            }
+        }
 
         [Fact]
         public void Test_Convert()
-            {
+        {
             object[] List = { 123, "abc", 5.5f, null, 'a' };
 
             Func<object, object> Converter = o => o?.ToString();
@@ -193,11 +193,11 @@ namespace L_Tests.Tests.Extensions
             List.List().Convert(Converter2).Should().Equal("123", "abc", "5.5", "a");
 
             List.List().Convert((Func<object, string>)null).Should().Equal("abc");
-            }
+        }
 
         [Fact]
         public void Test_ConvertAll()
-            {
+        {
             object[] List = { 123, "abc", 5.5f, null, 'a' };
 
             Func<object, string[]> Converter = o => new[] { o?.ToString(), o?.ToString() };
@@ -207,11 +207,11 @@ namespace L_Tests.Tests.Extensions
 
             ((IEnumerable<object>)List).ConvertAll<object, string>(Converter).Should().Equal(
                 new List<string> { "123", "123", "abc", "abc", "5.5", "5.5", "a", "a" });
-            }
+        }
 
         [Fact]
         public void Test_ConvertAll_1()
-            {
+        {
             object[] List = { 123, "abc", 5.5f, null, 'a' };
 
             Func<object, IEnumerable<object>> Converter = o => new object[] { o?.ToString(), o?.ToString() };
@@ -229,12 +229,12 @@ namespace L_Tests.Tests.Extensions
 
 
             List.List().ConvertAll(Converter).Should().Equal("123", "123", "abc", "abc", "5.5", "5.5", "a", "a");
-            }
+        }
 
 
         [Fact]
         public void Test_Count_T()
-            {
+        {
             "55555".Count().Should().Be(5);
 
             new object[] { 1, 2, 3, 4, 5 }.Count().Should().Be(5);
@@ -244,24 +244,24 @@ namespace L_Tests.Tests.Extensions
             var Bad = new BadCollection(null, false);
 
             Bad.Count().Should().Be(0);
-            }
+        }
 
         [Fact]
         public void Test_Count_Object()
-            {
+        {
             string[] Test = { "a", "a", "a", "a", "b" };
 
             Test.Count((string)null).Should().Be(0);
             Test.Count("a").Should().Be(4);
             Test.Count("b").Should().Be(1);
             Test.Count("c").Should().Be(0);
-            }
+        }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
         public void Test_Cycle()
-            {
+        {
             string[] Test = { "a", "a", "a", "a", null, "a" };
 
             int Count = 0;
@@ -313,13 +313,13 @@ namespace L_Tests.Tests.Extensions
                 {
                     throw new Exception();
                 })).ShouldFail();
-            }
+        }
 
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         [Fact]
         public void Test_EachObject()
-            {
+        {
             string[] Test = { "a", "b", "c" };
             string Result = "";
 
@@ -346,11 +346,11 @@ namespace L_Tests.Tests.Extensions
                     throw new Exception();
                 }).Each(Test))
                 .ShouldFail();
-            }
+        }
 
         [Fact]
         public void Test_Equivalent()
-            {
+        {
             int[] Test1 = { 5, 8, 3, 7, 84, 356, 1 };
             int[] Test2 = Test1.Array();
             int[] Test3 = { 5, 8, 3, 7, 84, 356, 2 };
@@ -367,11 +367,11 @@ namespace L_Tests.Tests.Extensions
             "abc".Equivalent("abcd").Should().BeFalse();
             ((string)null).Equivalent("abcd").Should().BeFalse();
             "abc".Equivalent((string)null).Should().BeFalse();
-            }
+        }
 
         [Fact]
         public void Test_Fill()
-            {
+        {
             int[] Test = new int[5];
 
             Test.Fill(1).Should().Equal(1, 1, 1, 1, 1);
@@ -380,10 +380,10 @@ namespace L_Tests.Tests.Extensions
 
             new object[5].Fill(null)
                 .Should().Equal();
-            }
+        }
         [Fact]
         public void Test_Fill_List()
-            {
+        {
             int[] Test = new int[5];
 
             Test.List().Fill(1).Should().Equal(1, 1, 1, 1, 1);
@@ -392,11 +392,11 @@ namespace L_Tests.Tests.Extensions
 
             new List<object> { 1, 2, 3, 4, 5 }.Fill(null)
                 .Should().Equal();
-            }
+        }
 
         [Fact]
         public void Test_Filter()
-            {
+        {
             object[] Test = { 0, 5, "abc", "123", 'a', 'b', null };
 
 
@@ -428,11 +428,11 @@ namespace L_Tests.Tests.Extensions
                 .Should().Equal('a', 'b');
             Test.List().Filter<object, object>()
                 .Should().Equal(0, 5, "abc", "123", 'a', 'b');
-            }
+        }
 
         [Fact]
         public void Test_First()
-            {
+        {
             int[] Test = { 5, 21436, 7, 2, 2, 253 };
 
             Test.First().Should().Be(5);
@@ -461,11 +461,11 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable)Test).First<int>(i => i > 100).Should().Be(21436);
             ((IEnumerable)Test).First<int>(i => i > 100 && i < 1000).Should().Be(253);
             ((IEnumerable)Test).First<int>(i => i > 1000).Should().Be(21436);
-            }
+        }
 
         [Fact]
         public void Test_FirstMulti()
-            {
+        {
             int[] Test = { 5, 21436, 7, 2, 2, 253 };
 
             Func<int, bool> True = i => true;
@@ -527,20 +527,20 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable)Test).First<int>(2u, i => i > 100).Should().Equal(21436, 253);
             ((IEnumerable)Test).First<int>(2u, i => i > 100 && i < 1000).Should().Equal(253);
             ((IEnumerable)Test).First<int>(2u, i => i > 1000).Should().Equal(21436);
-            }
+        }
 
         [Fact]
         public void Test_FirstMatch()
-            {
+        {
             int[] Test = { 5, 21436, 7, 2, 2, 253 };
 
             ((IEnumerable)Test).First(5).Should().Be(5);
             ((IEnumerable)Test).First(10).Should().Be(default(int));
-            }
+        }
 
         [Fact]
         public void Test_Flatten()
-            {
+        {
             object[] Test = {
                 "a",
                 1,
@@ -556,11 +556,11 @@ namespace L_Tests.Tests.Extensions
             Test.Flatten<object>().ToS().Should().Be(new List<object> { "a", 1, 5, 7, 3, 5, 7, 0, 3, 5, 7, 3 }.ToS());
             Test.Flatten<string>().Should().Equal("a");
             Test.Flatten<int>().Should().Equal(1, 5, 7, 3, 5, 7, 0, 3, 5, 7, 3);
-            }
+        }
 
         [Fact]
         public void Test_GetAt()
-            {
+        {
             int[] Test = { 5, 32, 46, 43, 13, 26531, 15315 };
 
 
@@ -613,11 +613,11 @@ namespace L_Tests.Tests.Extensions
             // Non-indexers return null / default
             ((IEnumerable)new NotAnIndexer()).GetAt(0).Should().BeNull();
             ((IEnumerable<int>)new NotAnIndexer()).GetAt(0).Should().Be(default(int));
-            }
+        }
 
         [Fact]
         public void Test_GetAtIndices()
-            {
+        {
             int[] Test = { 5, 32, 46, 43, 13, 26531, 15315, 4364643, 445, 44, 553, 663, 223 };
 
             new int[] { }.GetAtIndices().Should().Equal();
@@ -635,13 +635,13 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable<int>)Test).GetAtIndices<int>(5, 7, 9).Should().Equal(26531, 4364643, 44);
             ((IEnumerable<int>)Test).GetAtIndices<object>(5, 7, 9).Should().Equal(26531, 4364643, 44);
             ((IEnumerable<int>)Test).GetAtIndices<string>(5, 7, 9).Should().Equal();
-            }
+        }
 
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         [Fact]
         public void Test_Group()
-            {
+        {
             int[] Test =
                 {
                 5, 32, 46, 43, 13, 26531, 15315, 35, 72, 14, 94, 2, 589, 36, 8875, 245, 235, 886, 2226, 9542,
@@ -673,11 +673,11 @@ namespace L_Tests.Tests.Extensions
 
 
             L.A(() => Test.Group<int, int>(i => { throw new Exception(); })).ShouldFail();
-            }
+        }
 
         [Fact]
         public void Test_Group_IGroup()
-            {
+        {
             TestGroup[] Test2 = {
                 new TestGroup("a"),
                 new TestGroup("a"),
@@ -708,14 +708,14 @@ namespace L_Tests.Tests.Extensions
             Result2["a"].Should().BeOfType<List<TestGroup>>();
             Result2["b"].Should().BeOfType<List<TestGroup>>();
             Result2["ccc"].Should().BeOfType<List<TestGroup>>();
-            }
+        }
 
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
         public void Test_GroupTwice()
-            {
+        {
             int[] Test =
                 {
                 5, 32, 46, 43, 13, 26531, 15315, 35, 72, 14, 94, 2, 589, 36, 8875, 245, 235, 886, 2226, 9542,
@@ -737,11 +737,11 @@ namespace L_Tests.Tests.Extensions
 
             L.A(() => Test.GroupTwice<int, int, int>(i => i, i => { throw new Exception(); })).ShouldFail();
             L.A(() => Test.GroupTwice<int, int, int>(i => { throw new Exception(); }, null)).ShouldFail();
-            }
+        }
 
         [Fact]
         public void Test_Has()
-            {
+        {
             object[] Test = {
                 "a", 1, 2, 3, 4, 5, null
                 };
@@ -750,11 +750,11 @@ namespace L_Tests.Tests.Extensions
             Test.Has(1).Should().BeTrue();
             Test.Has(1f).Should().BeFalse();
             Test.Has((object)null).Should().BeTrue();
-            }
+        }
 
         [Fact]
         public void Test_HasAny()
-            {
+        {
             object[] Test = {
                 "a", 1, 2, 3, 4, 5, null
                 };
@@ -789,13 +789,13 @@ namespace L_Tests.Tests.Extensions
 
             ((IEnumerable)null).HasAny(5).Should().BeFalse();
             ((IEnumerable<int>)null).HasAny(5).Should().BeFalse();
-            }
+        }
 
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         [Fact]
         public void Test_Has_Func()
-            {
+        {
             object[] Test = {
                 "a", 1, 2, 3, 4, 5, null
                 };
@@ -816,11 +816,11 @@ namespace L_Tests.Tests.Extensions
 
 
             L.A(() => Test.Has<string>(s => { throw new Exception(); })).ShouldFail();
-            }
+        }
 
         [Fact]
         public void Test_HasIndex()
-            {
+        {
             object[] Test = {
                 "a", 1, 2, 3, 4, 5, null
                 };
@@ -839,14 +839,14 @@ namespace L_Tests.Tests.Extensions
 
             ((int[])null).HasIndex(0).Should().BeFalse();
             ((IEnumerable)null).HasIndex(0).Should().BeFalse();
-            }
+        }
 
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
         public void Test_Index()
-            {
+        {
             int[] Test = {
                 5, 322, 466, 3, 5549, 456, 1, 23, 1, 2, 77, 9, 756475, 4, 123, 655, 8996, 45, 8, 7412, 21, 5, 3, 65, 4,
                 12, 54, 78, 9, 8, 56, 66, 5, 4, 88
@@ -859,13 +859,13 @@ namespace L_Tests.Tests.Extensions
             Result.Values.TotalCount().Should().Be(24);
 
             L.A(() => Test.Index<int>(i => { throw new Exception(); })).ShouldFail();
-            }
+        }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
         public void Test_IndexTwice()
-            {
+        {
             int[] Test = {
                 5, 322, 466, 3, 5549, 456, 1, 23, 1, 2, 77, 9, 756475, 4, 123, 655, 8996, 45, 8, 7412, 21, 5, 3, 65, 4,
                 12, 54, 78, 9, 8, 56, 66, 5, 4, 88
@@ -888,13 +888,13 @@ namespace L_Tests.Tests.Extensions
             Result.Values.TotalCount().Should().Be(27);
 
             L.A(() => Test.Index<int>(i => { throw new Exception(); })).ShouldFail();
-            }
+        }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
         public void Test_IndexOf()
-            {
+        {
             int[] Test = {
                 5, 322, 466, 3, 5549, 456, 1, 23, 1, 2, 77, 9, 756475, 4, 123, 655, 8996, 45, 8, 7412, 21, 5, 3, 65, 4,
                 12, 54, 78, 9, 8, 56, 66, 5, 4, 88
@@ -910,12 +910,12 @@ namespace L_Tests.Tests.Extensions
 
 
             L.A(() => Test.IndexOf<int>(i => { throw new Exception(); })).ShouldFail();
-            }
+        }
 
 
         [Fact]
         public void Test_IsEmpty()
-            {
+        {
             ((IEnumerable)"").IsEmpty().Should().BeTrue();
             ((IEnumerable)"a").IsEmpty().Should().BeFalse();
             ((IEnumerable)"   a   ").IsEmpty().Should().BeFalse();
@@ -925,11 +925,11 @@ namespace L_Tests.Tests.Extensions
 
             ((string)null).IsEmpty().Should().BeTrue();
             ((int[])null).IsEmpty().Should().BeTrue();
-            }
+        }
 
         [Fact]
         public void Test_Last()
-            {
+        {
             int[] Test = { 5, 21436, 7, 2, 2, 253 };
 
             Test.Last().Should().Be(253);
@@ -958,11 +958,11 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable)Test).Last<int>(i => i > 100).Should().Be(253);
             ((IEnumerable)Test).Last<int>(i => i > 100 && i < 1000).Should().Be(253);
             ((IEnumerable)Test).Last<int>(i => i > 1000).Should().Be(21436);
-            }
+        }
 
         [Fact]
         public void Test_LastMulti()
-            {
+        {
             int[] Test = { 5, 21436, 7, 2, 2, 253 };
 
             Func<int, bool> True = i => true;
@@ -1024,20 +1024,20 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable)Test).Last<int>(2u, i => i > 100).Should().Equal(21436, 253);
             ((IEnumerable)Test).Last<int>(2u, i => i > 100 && i < 1000).Should().Equal(253);
             ((IEnumerable)Test).Last<int>(2u, i => i > 1000).Should().Equal(21436);
-            }
+        }
 
         [Fact]
         public void Test_LastMatch()
-            {
+        {
             int[] Test = { 5, 21436, 7, 2, 2, 253 };
 
             ((IEnumerable)Test).Last(5).Should().Be(5);
             ((IEnumerable)Test).Last(10).Should().Be(default(int));
-            }
+        }
 
         [Fact]
         public void Test_List()
-            {
+        {
             int[] Test = { 5, 6, 2, 2 };
             object[] Test2 = { 5, 6, 2, 2, null, "a" };
 
@@ -1056,13 +1056,13 @@ namespace L_Tests.Tests.Extensions
             Test2.List<object>().Should().Equal(5, 6, 2, 2, "a");
             Test2.List<object>(true).Should().Equal(5, 6, 2, 2, null, "a");
             Test2.List<object>(false).Should().Equal(5, 6, 2, 2, "a");
-            }
+        }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
         public void Test_Move_Array()
-            {
+        {
             int[] Test = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
 
@@ -1089,13 +1089,13 @@ namespace L_Tests.Tests.Extensions
 
             Test.Move(9, 9);
             Test.Should().Equal(3, 4, 5, 2, 1, 7, 8, 9, 6);
-            }
+        }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
         public void Test_Move_List()
-            {
+        {
             List<int> Test = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }.List();
 
             Test.Move(0, 1);
@@ -1117,11 +1117,11 @@ namespace L_Tests.Tests.Extensions
 
             Test.Move(9, 9);
             Test.Should().Equal(3, 4, 5, 2, 1, 7, 8, 9, 6);
-            }
+        }
 
         [Fact]
         public void Test_Named()
-            {
+        {
             TestGroup[] Test = {
                 new TestGroup("a"),
                 new TestGroup("a"),
@@ -1158,11 +1158,11 @@ namespace L_Tests.Tests.Extensions
             ((INamed[])null).Named("A").Count().Should().Be(0);
             ((IEnumerable<INamed>)null).Named("A").Count().Should().Be(0);
             ((IEnumerable<INamed>)null).Named("A").Count().Should().Be(0);
-            }
+        }
 
         [Fact]
         public void Test_Named_Func()
-            {
+        {
             int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
 
             Func<int, string> Namer = new Func<int, string>(i => i.ToString().Sub(0, 1));
@@ -1180,18 +1180,18 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable)Test2).Named("a", Namer2).Should().BeEmpty();
             ((IEnumerable)Test2).Named("1", Namer2).Count().Should().Be(2);
             ((IEnumerable)Test2).Named("8", Namer2).Count().Should().Be(1);
-            }
+        }
 
         [Fact]
         public void Test_Random()
-            {
+        {
             int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
             uint[] Test2 = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
 
             for (int i = 0; i < 300; i++)
-                {
+            {
                 Test.Has(Test.Random()).Should().BeTrue();
-                }
+            }
 
 
             Test.Random(-1).Should().BeEmpty();
@@ -1201,7 +1201,7 @@ namespace L_Tests.Tests.Extensions
             Test.List().Random(0).Should().BeEmpty();
 
             for (int i = 0; i < 20; i++)
-                {
+            {
                 int[] Results = Test.Random(5);
 
                 Results.Length.Should().Be(5);
@@ -1272,14 +1272,14 @@ namespace L_Tests.Tests.Extensions
                 Results12.All(Test.Has).Should().BeTrue();
 
 
-                }
+            }
 
             L.Ref.NewRandom_TypeCreators.Keys.Random().Should().NotBeNull();
-            }
+        }
 
         [Fact]
         public void Test_Remove()
-            {
+        {
             int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
 
             Test.Remove(6, 5).Should().Equal(48498, 45, 542, 321, 2, 1, 13, 698, 9, 88, 7, 44, 223, 3, 446);
@@ -1293,11 +1293,11 @@ namespace L_Tests.Tests.Extensions
             Test.List().Remove().Should().Equal(48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446);
             Test.List().Remove(i => i < 1000).Should().Equal(48498);
             Test.List().Remove((Index, Item) => Index < 6).Should().Equal(1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446);
-            }
+        }
 
         [Fact]
         public void Test_RemoveAt()
-            {
+        {
             int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
 
 
@@ -1323,11 +1323,11 @@ namespace L_Tests.Tests.Extensions
                 .Equal(48498, 6, 321, 2, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446);
 
 
-            }
+        }
 
         [Fact]
         public void Test_RemoveDuplicate()
-            {
+        {
             int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
 
             Func<int, string> Func = i => i.ToString().Sub(0, 2);
@@ -1374,11 +1374,11 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable)TestList.Convert(i => i.ToString())).RemoveDuplicate<string, string>(s => s.Sub(0, 1))
                  .Should().Equal("48498", "6", "542", "321", "2", "1", "9", "88", "7");
 
-            }
+        }
 
         [Fact]
         public void Test_RemoveDuplicates()
-            {
+        {
             int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
                 6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
                 446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4 };
@@ -1396,11 +1396,11 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable)Test.Convert(i => i.ToString())).RemoveDuplicates<string>().Should().Equal("48498", "45", "6", "542", "321", "2", "1", "13", "5", "698", "9", "88", "7", "44", "223", "3", "446", "4");
 
             ((IEnumerable)(object)new List<int>()).RemoveDuplicates<int>().Should().Equal();
-            }
+        }
 
         [Fact]
         public void Test_Mirror()
-            {
+        {
             int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
                 6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
                 446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4 };
@@ -1418,11 +1418,11 @@ namespace L_Tests.Tests.Extensions
             Test.Mirror().Mirror().Should().Equal(Test);
             Test.List().Mirror().Mirror().Should().Equal(Test);
             ((IEnumerable)Test).Mirror<int>().Mirror().Should().Equal(Test);
-            }
+        }
 
         [Fact]
         public void Test_Select()
-            {
+        {
             int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
                 6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
                 446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4 };
@@ -1477,11 +1477,11 @@ namespace L_Tests.Tests.Extensions
             }).Should().Equal(6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
 
             IndexTest.Should().Equal(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53);
-            }
+        }
 
         [Fact]
         public void Test_SetAt()
-            {
+        {
             int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
                 6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
                 446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4 };
@@ -1537,25 +1537,25 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable)Test3).Should().Equal(0, 5, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
                 6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
                 446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
-            }
+        }
 
         [Fact]
         public void Test_Shuffle()
-            {
+        {
             int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
                 6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
                 446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4 };
 
             // Test 30 times
             for (int i = 0; i < 30; i++)
-                {
+            {
                 // Have all items with no regard for order.
                 var Shuffled = Test.Shuffle();
                 Shuffled.ShouldBeEquivalentTo(Test);
 
                 // But not equal to test with order (incredibly small chance for this to fail randomly)
                 Shuffled.ToS().Should().NotBe(Test.ToS());
-                }
+            }
 
 
             // Test List
@@ -1563,35 +1563,35 @@ namespace L_Tests.Tests.Extensions
 
             // Test 100 times
             for (int i = 0; i < 30; i++)
-                {
+            {
                 // Have all items with no regard for order.
                 var Shuffled = Test2.Shuffle();
                 Shuffled.ShouldBeEquivalentTo(Test2);
 
                 // But not equal to test with order (incredibly small chance for this to fail randomly)
                 Shuffled.ToS().Should().NotBe(Test2.ToS());
-                }
+            }
 
             // Test List
             IEnumerable Test3 = Test.List();
 
             // Test 100 times
             for (int i = 0; i < 30; i++)
-                {
+            {
                 // Have all items with no regard for order.
                 var Shuffled = Test3.Shuffle<int>();
                 Shuffled.ShouldBeEquivalentTo(Test3);
 
                 // But not equal to test with order (incredibly small chance for this to fail randomly)
                 Shuffled.ToS().Should().NotBe(Test3.ToS());
-                }
             }
+        }
 
         [Fact]
         public void Test_Sort()
-            {
+        {
             for (int i = 0; i < 50; i++)
-                {
+            {
                 int[] Random = new int[50].Fill(j => (int)L.Ref.NewRandom<int>());
 
                 Random.Sort();
@@ -1629,12 +1629,12 @@ namespace L_Tests.Tests.Extensions
                 // ReSharper disable once StringCompareToIsCultureSpecific
                 Random7.Sort((Func<string, string, int>)null);
                 Random7.Should().BeInAscendingOrder();
-                }
             }
+        }
 
         [Fact]
         public void Test_Swap()
-            {
+        {
             int[] Test = { 48498, 45, 6, 542, 321, 2, 1 };
 
 
@@ -1662,11 +1662,11 @@ namespace L_Tests.Tests.Extensions
             Test2.Swap(10, 10);
             Test2.Should().Equal(1, 2, 6, 542, 321, 48498, 45);
 
-            }
+        }
 
         [Fact]
         public void Test_TotalCount()
-            {
+        {
             var Test = new object[]
                 {
                 1,
@@ -1685,11 +1685,11 @@ namespace L_Tests.Tests.Extensions
 
 
             Test.TotalCount().Should().Be(16);
-            }
+        }
 
         [Fact]
         public void Test_Add()
-            {
+        {
             int[] Test = { 1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736 };
 
             int[] Test2 = { 52317854, 87, 53, 23843254, 1, 45394, 73643854, 948746, 5 };
@@ -1705,10 +1705,10 @@ namespace L_Tests.Tests.Extensions
                 .Equal(1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736, 5, 6, 7, 8, 1);
 
 
-            }
+        }
         [Fact]
         public void Test_Add_List()
-            {
+        {
             List<int> Test = new List<int> { 1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736, 5 };
 
 
@@ -1721,11 +1721,11 @@ namespace L_Tests.Tests.Extensions
                 .Equal(1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736, 5, 5, 6, 7, 8, 1);
 
 
-            }
+        }
 
         [Fact]
         public void Test_AddTo()
-            {
+        {
             int[] Test = { 1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736 };
 
             Collection<int> Collection = new Collection<int>();
@@ -1745,11 +1745,11 @@ namespace L_Tests.Tests.Extensions
             var Test3 = new AmbiguousMatchCollection();
 
             L.A(() => Test.Convert<int, string>(i => $"{i}").AddTo(Test3)).ShouldFail<InvalidOperationException>();
-            }
+        }
 
         [Fact]
         public void Test_GetAt_SetAt_CustomIndexer()
-            {
+        {
             var Test = new CustomIndexer();
 
             Test.Str.Should().Be("it's just a test");
@@ -1779,206 +1779,206 @@ namespace L_Tests.Tests.Extensions
             ((IEnumerable)Test2).SetAt(14u, 'n');
             ((IEnumerable)Test2).GetAt(14u).Should().Be('n');
             Test2.Str.Should().Be("it's just a vent");
-            }
+        }
 
 
         #region Internal
 
         [ExcludeFromCodeCoverage]
         internal class TestGroup : IGrouped, INamed
-            {
+        {
             public TestGroup(string Group)
-                {
+            {
                 this.Group = Group;
-                }
+            }
 
             public string Group { get; }
 
             public string Name => this.Group;
-            }
+        }
 
         [ExcludeFromCodeCoverage]
         internal class AmbiguousMatchCollection : ICollection
-            {
+        {
             public string this[int Index]
-                {
+            {
                 get
-                    {
+                {
                     return $"{Index}";
-                    }
+                }
                 // ReSharper disable once ValueParameterNotUsed
                 set
-                    {
+                {
 
-                    }
                 }
+            }
 
             // ReSharper disable once NotNullMemberIsNotInitialized
             public AmbiguousMatchCollection() { }
 
             public AmbiguousMatchCollection(object SyncRoot, bool IsSynchronized)
-                {
+            {
                 this.SyncRoot = SyncRoot;
                 this.IsSynchronized = IsSynchronized;
-                }
+            }
 
             public IEnumerator GetEnumerator()
-                {
+            {
                 return null;
-                }
+            }
 
             public void CopyTo(Array Array, int Index) { }
 
             /// <exception cref="Exception" accessor="get"></exception>
             public int Count
-                {
+            {
                 get { throw new Exception(); }
-                }
+            }
 
             public object SyncRoot { get; }
             public bool IsSynchronized { get; }
 
             public void Add(string Str)
-                {
+            {
 
-                }
+            }
 
             public void Add(string Obj, bool Test = false)
-                {
+            {
 
-                }
+            }
 
             public void Add<T>(string Obj)
-                {
+            {
 
-                }
+            }
             public void Add<T>(string Obj, bool Test = false)
-                {
+            {
 
-                }
+            }
 
             public void Add(object Obj)
-                {
+            {
 
-                }
+            }
             public void Add<T>(object Obj)
+            {
+
+            }
+        }
+
+        [ExcludeFromCodeCoverage]
+        internal class BadCollection : ICollection
+        {
+            public string this[int Index]
+            {
+                get
+                {
+                    return $"{Index}";
+                }
+                // ReSharper disable once ValueParameterNotUsed
+                set
                 {
 
                 }
             }
-
-        [ExcludeFromCodeCoverage]
-        internal class BadCollection : ICollection
-            {
-            public string this[int Index]
-                {
-                get
-                    {
-                    return $"{Index}";
-                    }
-                // ReSharper disable once ValueParameterNotUsed
-                set
-                    {
-
-                    }
-                }
 
             // ReSharper disable once NotNullMemberIsNotInitialized
             public BadCollection() { }
 
             public BadCollection(object SyncRoot, bool IsSynchronized)
-                {
+            {
                 this.SyncRoot = SyncRoot;
                 this.IsSynchronized = IsSynchronized;
-                }
+            }
 
             public IEnumerator GetEnumerator()
-                {
+            {
                 return null;
-                }
+            }
 
             public void CopyTo(Array Array, int Index) { }
 
             /// <exception cref="Exception" accessor="get"></exception>
             public int Count
-                {
+            {
                 get { throw new Exception(); }
-                }
+            }
 
             public object SyncRoot { get; }
             public bool IsSynchronized { get; }
-            }
+        }
 
         [ExcludeFromCodeCoverage]
         internal class CustomIndexer : IEnumerable<char>
-            {
+        {
             public string Str => new string(this.Chars);
             private char[] Chars = "it's just a test".Array();
 
             public char this[int Index]
-                {
+            {
                 get { return this.Str[Index]; }
                 // ReSharper disable once ValueParameterNotUsed
                 set
-                    {
+                {
                     this.Chars.SetAt(Index, value);
-                    }
-                }
-
-            public IEnumerator<char> GetEnumerator()
-                {
-                return (IEnumerator<char>)this.Chars.GetEnumerator();
-                }
-
-            IEnumerator IEnumerable.GetEnumerator()
-                {
-                return this.Chars.GetEnumerator();
                 }
             }
+
+            public IEnumerator<char> GetEnumerator()
+            {
+                return (IEnumerator<char>)this.Chars.GetEnumerator();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return this.Chars.GetEnumerator();
+            }
+        }
         [ExcludeFromCodeCoverage]
         internal class CustomIndexerU : IEnumerable<char>
-            {
+        {
             public string Str => new string(this.Chars);
             private char[] Chars = "it's just a test".Array();
 
             public char this[uint Index]
-                {
+            {
                 get { return this.Str[(int)Index]; }
                 // ReSharper disable once ValueParameterNotUsed
                 set
-                    {
+                {
                     this.Chars.SetAt(Index, value);
-                    }
-                }
-
-            public IEnumerator<char> GetEnumerator()
-                {
-                return (IEnumerator<char>)this.Chars.GetEnumerator();
-                }
-
-            IEnumerator IEnumerable.GetEnumerator()
-                {
-                return this.Chars.GetEnumerator();
                 }
             }
+
+            public IEnumerator<char> GetEnumerator()
+            {
+                return (IEnumerator<char>)this.Chars.GetEnumerator();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return this.Chars.GetEnumerator();
+            }
+        }
 
         [ExcludeFromCodeCoverage]
         internal class NotAnIndexer : IEnumerable<int>
-            {
+        {
             private readonly int[] _Test = { 5, 6, 7 };
 
             IEnumerator<int> IEnumerable<int>.GetEnumerator()
-                {
+            {
                 return this._Test.List().GetEnumerator();
-                }
-
-            public IEnumerator GetEnumerator()
-                {
-                return this._Test.GetEnumerator();
-                }
             }
 
-        #endregion
+            public IEnumerator GetEnumerator()
+            {
+                return this._Test.GetEnumerator();
+            }
         }
+
+        #endregion
     }
+}
 

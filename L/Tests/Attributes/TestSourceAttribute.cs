@@ -29,11 +29,12 @@ namespace LCore.Tests
         ///     array do not match the signature of the method or constructor reflected by this instance. </exception>
         public override void RunTest(MethodInfo Method)
             {
-            Func<object, bool>[] Checks = this.AdditionalSourceChecks.Convert(L.F<MethodInfo, string, Func<object, bool>>(this.GetCheckMethodArg).Supply(Method));
+            Func<object, bool>[] Checks =
+                this.AdditionalSourceChecks.Convert(L.F<MethodInfo, string, Func<object, bool>>(this.GetCheckMethodArg).Supply(Method));
 
             //    Method.MethodAssertSource(Parameters, ExpectedSource);
 
-            var OutMethod = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>)(MethodInfo =>
+            var OutMethod = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>) (MethodInfo =>
                 MethodInfo.Name == nameof(TestExt.MethodAssertSource) && MethodInfo.ContainsGenericParameters));
 
             if (this.ExpectedSource != null)
@@ -49,7 +50,7 @@ namespace LCore.Tests
                 OutMethod = OutMethod?.MakeGenericMethod(typeof(object));
                 }
 
-            OutMethod?.Invoke(null, new[] { Method, this.Parameters, this.ExpectedSource, Checks });
+            OutMethod?.Invoke(null, new[] {Method, null, this.Parameters, this.ExpectedSource, Checks});
             }
 
         /// <summary>
