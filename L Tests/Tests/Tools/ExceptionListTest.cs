@@ -4,7 +4,6 @@ using FluentAssertions;
 using LCore.Extensions;
 using LCore.Extensions.Optional;
 using LCore.Tools;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 using static LCore.Extensions.L.Test.Categories;
 

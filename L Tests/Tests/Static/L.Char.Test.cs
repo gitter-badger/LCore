@@ -1,7 +1,6 @@
 ﻿using LCore.Extensions;
 using System;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 using static LCore.Extensions.L.Test.Categories;
 

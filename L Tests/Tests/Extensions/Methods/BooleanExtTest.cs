@@ -1,7 +1,6 @@
 ﻿using LCore.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using LCore.Tests;
 using Xunit;
