@@ -81,10 +81,11 @@ namespace L_Tests
                 uint Members = (uint)Tests.Keys.Count;
                 uint MembersCovered = Members - (uint)(TestMemberCoverage.ContainsKey(0u) ? (uint)TestMemberCoverage[0u].Count : 0u);
 
-                int TestCount = Tests.TotalCount();
+                uint TestCount = (uint)TestData.TestAttributes.Count;
 
+                uint UnitTestCount = TestData.UnitTestCount;
 
-                int Passed = Test.RunUnitTests();
+                uint Passed = Test.RunUnitTests();
 
                 TestCount.Should().Be(Passed);
 
@@ -98,7 +99,7 @@ namespace L_Tests
 
                 if (Missing.Count > 0)
                     {
-                    this._Output?.WriteLine("");
+                    this._Output?.WriteLine("Missing:");
                     Missing2.Each(Method =>
                         this._Output?.WriteLine($"   {Method.Pad(18)}   ({Missing.Count(Method)})"));
                     this._Output?.WriteLine("");
@@ -110,7 +111,7 @@ namespace L_Tests
                         $"{this.RequireCoveragePercent}% coverage required");
                 }
             }
-        
+
         [Fact]
         [ExcludeFromCodeCoverage]
         [Trait(Category, NullabilityTests)]

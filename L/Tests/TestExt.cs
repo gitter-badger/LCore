@@ -1292,9 +1292,9 @@ namespace LCore.Tests
         /// Runs unit tests that are active for a particular Type <paramref name="Type" />
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public static int RunUnitTests(this Type Type)
+        public static uint RunUnitTests(this Type Type)
             {
-            int TestsRan = 0;
+            uint TestsRan = 0;
 
             Dictionary<MemberInfo, List<ITestAttribute>> Tests = Type.GetTestMembers();
 
@@ -1381,37 +1381,6 @@ namespace LCore.Tests
                 });
 
             return Tests;
-            }
-
-        /// <summary>
-        /// Run all TestAttribute 
-        /// </summary>
-        /// <param name="Type"></param>
-        public static void RunTypeTests(this Type Type)
-            {
-            Dictionary<MemberInfo, List<ITestAttribute>> Tests = Type.GetTestMembers();
-
-            int TestCount = Tests.TotalCount();
-
-#if DEBUG
-            List<string> Missing = Tests.Keys.List().Select(Key => Tests[Key].Count == 0).Convert(Member => Member.Name);
-
-            List<string> Missing2 = Missing.RemoveDuplicates();
-
-            if (Missing.Count > 0)
-                {
-                _Output?.Write("\r\n");
-                Missing2.Each(Method =>
-                    _Output?.Write($"   {Method.Pad(18)}   ({Missing.Count(Method)})\r\n"));
-                _Output?.Write("\r\n");
-                }
-#endif
-
-            int Passed = Type.RunUnitTests();
-
-            Assert.AreEqual(TestCount, Passed);
-
-            //.WriteLine($"Passed {Passed} / {TestCount} ({Passed.PercentageOf(TestCount)}%) Attribute {"Tests".Pluralize(TestCount)}");
             }
         }
     }
