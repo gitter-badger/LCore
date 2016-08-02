@@ -356,7 +356,7 @@ namespace LCore.Extensions
         [DebuggerStepThrough]
         public static T[] Collect<T>([CanBeNull] this T[] In, [CanBeNull] Func<T, T> Func)
             {
-            Func = Func ?? (o => default(T));
+            Func = Func ?? (Obj => Obj);
             return In.List(true).Collect(Func).ToArray();
             }
 
@@ -552,7 +552,7 @@ namespace LCore.Extensions
         [Tested]
         [DebuggerStepThrough]
         [TestMethodGenerics(typeof(string))]
-        [TestResult(new object[] { null, 5 }, new[] { "", "", "", "", "" })]
+        [TestResult(new object[] { null, 5 }, new string[] { null, null, null, null, null })]
         [TestBound(1, 0, 100)]
         public static List<T> Collect<T>([CanBeNull] this Func<T> In, int Count)
             {

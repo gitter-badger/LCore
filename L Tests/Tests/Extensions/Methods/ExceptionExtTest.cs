@@ -17,7 +17,7 @@ namespace L_Tests.Tests.Extensions
         {
         private static readonly string _TestString = Guid.NewGuid().ToString();
 
-        protected override Type[] TestType => new[] {typeof(ExceptionExt)};
+        protected override Type[] TestType => new[] { typeof(ExceptionExt) };
 
         [Fact]
         public void Test_Try_Action_0()
@@ -42,9 +42,9 @@ namespace L_Tests.Tests.Extensions
             var A = new Action<string>(o => { o.Should().Be(_TestString); });
             var B = new Action<string>(o =>
                 {
-                o.Should().Be(_TestString);
+                    o.Should().Be(_TestString);
 
-                throw new Exception();
+                    throw new Exception();
                 });
 
             // Both actions don't fail.
@@ -63,15 +63,15 @@ namespace L_Tests.Tests.Extensions
             {
             var A = new Action<string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
                 });
             var B = new Action<string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
 
-                throw new Exception();
+                    throw new Exception();
                 });
 
             // Both actions don't fail.
@@ -90,17 +90,17 @@ namespace L_Tests.Tests.Extensions
             {
             var A = new Action<string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
                 });
             var B = new Action<string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
 
-                throw new Exception();
+                    throw new Exception();
                 });
 
             // Both actions don't fail.
@@ -119,19 +119,19 @@ namespace L_Tests.Tests.Extensions
             {
             var A = new Action<string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
                 });
             var B = new Action<string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
 
-                throw new Exception();
+                    throw new Exception();
                 });
 
             // Both actions don't fail.
@@ -167,14 +167,14 @@ namespace L_Tests.Tests.Extensions
             {
             var A = new Func<string, int>(o =>
                 {
-                o.Should().Be(_TestString);
-                return 5;
+                    o.Should().Be(_TestString);
+                    return 5;
                 });
             var B = new Func<string, int>(o =>
                 {
-                o.Should().Be(_TestString);
+                    o.Should().Be(_TestString);
 
-                throw new Exception();
+                    throw new Exception();
                 });
 
             // Both actions don't fail.
@@ -193,16 +193,16 @@ namespace L_Tests.Tests.Extensions
             {
             var A = new Func<string, string, int>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                return 5;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    return 5;
                 });
             var B = new Func<string, string, int>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
 
-                throw new Exception();
+                    throw new Exception();
                 });
 
             // Both actions don't fail.
@@ -221,18 +221,18 @@ namespace L_Tests.Tests.Extensions
             {
             var A = new Func<string, string, string, int>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                return 5;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    return 5;
                 });
             var B = new Func<string, string, string, int>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
 
-                throw new Exception();
+                    throw new Exception();
                 });
 
             // Both actions don't fail.
@@ -251,20 +251,20 @@ namespace L_Tests.Tests.Extensions
             {
             var A = new Func<string, string, string, string, int>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
-                return 5;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
+                    return 5;
                 });
             var B = new Func<string, string, string, string, int>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
 
-                throw new Exception();
+                    throw new Exception();
                 });
 
             // Both actions don't fail.
@@ -287,9 +287,9 @@ namespace L_Tests.Tests.Extensions
             int I = 0;
             var Test = new Action(() =>
                 {
-                I++;
-                if (I < 5)
-                    throw new ArgumentException();
+                    I++;
+                    if (I < 5)
+                        throw new ArgumentException();
                 });
 
             Test.Retry(3).ShouldFail<ArgumentException>();
@@ -311,11 +311,11 @@ namespace L_Tests.Tests.Extensions
             int I = 0;
             var Test = new Action<string>(o =>
                 {
-                o.Should().Be(_TestString);
+                    o.Should().Be(_TestString);
 
-                I++;
-                if (I < 5)
-                    throw new ArgumentException();
+                    I++;
+                    if (I < 5)
+                        throw new ArgumentException();
                 });
 
             Test.Retry(3).ShouldFail<string, ArgumentException>(_TestString);
@@ -337,12 +337,12 @@ namespace L_Tests.Tests.Extensions
             int I = 0;
             var Test = new Action<string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
 
-                I++;
-                if (I < 5)
-                    throw new ArgumentException();
+                    I++;
+                    if (I < 5)
+                        throw new ArgumentException();
                 });
 
             Test.Retry(3).ShouldFail<string, string, ArgumentException>(_TestString, _TestString);
@@ -364,13 +364,13 @@ namespace L_Tests.Tests.Extensions
             int I = 0;
             var Test = new Action<string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
 
-                I++;
-                if (I < 5)
-                    throw new ArgumentException();
+                    I++;
+                    if (I < 5)
+                        throw new ArgumentException();
                 });
 
             Test.Retry(3).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
@@ -392,14 +392,14 @@ namespace L_Tests.Tests.Extensions
             int I = 0;
             var Test = new Action<string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
 
-                I++;
-                if (I < 5)
-                    throw new ArgumentException();
+                    I++;
+                    if (I < 5)
+                        throw new ArgumentException();
                 });
 
             Test.Retry(3).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString, _TestString);
@@ -422,11 +422,11 @@ namespace L_Tests.Tests.Extensions
             int I = 0;
             var Test = new Func<string>(() =>
                 {
-                I++;
-                if (I < 5)
-                    throw new ArgumentException();
+                    I++;
+                    if (I < 5)
+                        throw new ArgumentException();
 
-                return _TestString;
+                    return _TestString;
                 });
 
             Test.Retry(3).ShouldFail<string, ArgumentException>();
@@ -448,13 +448,13 @@ namespace L_Tests.Tests.Extensions
             int I = 0;
             var Test = new Func<string, string>(o =>
                 {
-                o.Should().Be(_TestString);
+                    o.Should().Be(_TestString);
 
-                I++;
-                if (I < 5)
-                    throw new ArgumentException();
+                    I++;
+                    if (I < 5)
+                        throw new ArgumentException();
 
-                return _TestString;
+                    return _TestString;
                 });
 
             Test.Retry(3).ShouldFail<string, string, ArgumentException>(_TestString);
@@ -476,14 +476,14 @@ namespace L_Tests.Tests.Extensions
             int I = 0;
             var Test = new Func<string, string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
 
-                I++;
-                if (I < 5)
-                    throw new ArgumentException();
+                    I++;
+                    if (I < 5)
+                        throw new ArgumentException();
 
-                return _TestString;
+                    return _TestString;
                 });
 
             Test.Retry(3).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString);
@@ -505,15 +505,15 @@ namespace L_Tests.Tests.Extensions
             int I = 0;
             var Test = new Func<string, string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
 
-                I++;
-                if (I < 5)
-                    throw new ArgumentException();
+                    I++;
+                    if (I < 5)
+                        throw new ArgumentException();
 
-                return _TestString;
+                    return _TestString;
                 });
 
             Test.Retry(3).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
@@ -535,16 +535,16 @@ namespace L_Tests.Tests.Extensions
             int I = 0;
             var Test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
 
-                I++;
-                if (I < 5)
-                    throw new ArgumentException();
+                    I++;
+                    if (I < 5)
+                        throw new ArgumentException();
 
-                return _TestString;
+                    return _TestString;
                 });
 
             Test.Retry(3)
@@ -569,14 +569,14 @@ namespace L_Tests.Tests.Extensions
             var Test2 = new Action(() => { });
             var Handler = new Action<Exception>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
                 });
             var Rethrow_Handler = new Action<Exception>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)();
@@ -592,20 +592,20 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Action<string>(o =>
                 {
-                o.Should().Be(_TestString);
-                throw new ArgumentException();
+                    o.Should().Be(_TestString);
+                    throw new ArgumentException();
                 });
             var Test2 = new Action<string>(o => { o.Should().Be(_TestString); });
             var Handler = new Action<Exception>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
                 });
             var Rethrow_Handler = new Action<Exception>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)(_TestString);
@@ -621,25 +621,25 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Action<string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                throw new ArgumentException();
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    throw new ArgumentException();
                 });
             var Test2 = new Action<string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
                 });
             var Handler = new Action<Exception>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
                 });
             var Rethrow_Handler = new Action<Exception>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)(_TestString, _TestString);
@@ -655,27 +655,27 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Action<string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                throw new ArgumentException();
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    throw new ArgumentException();
                 });
             var Test2 = new Action<string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
                 });
             var Handler = new Action<Exception>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
                 });
             var Rethrow_Handler = new Action<Exception>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)(_TestString, _TestString, _TestString);
@@ -691,29 +691,29 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Action<string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
-                throw new ArgumentException();
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
+                    throw new ArgumentException();
                 });
             var Test2 = new Action<string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
                 });
             var Handler = new Action<Exception>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
                 });
             var Rethrow_Handler = new Action<Exception>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)(_TestString, _TestString, _TestString, _TestString);
@@ -732,14 +732,14 @@ namespace L_Tests.Tests.Extensions
             var Test2 = new Func<string>(() => { return _TestString; });
             var Handler = new Action<Exception>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
                 });
             var Rethrow_Handler = new Action<Exception>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)();
@@ -755,24 +755,24 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Func<string, string>(o =>
                 {
-                o.Should().Be(_TestString);
-                throw new ArgumentException();
+                    o.Should().Be(_TestString);
+                    throw new ArgumentException();
                 });
             var Test2 = new Func<string, string>(o =>
                 {
-                o.Should().Be(_TestString);
-                return _TestString;
+                    o.Should().Be(_TestString);
+                    return _TestString;
                 });
             var Handler = new Action<Exception>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
                 });
             var Rethrow_Handler = new Action<Exception>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)(_TestString);
@@ -788,26 +788,26 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Func<string, string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                throw new ArgumentException();
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    throw new ArgumentException();
                 });
             var Test2 = new Func<string, string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                return _TestString;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    return _TestString;
                 });
             var Handler = new Action<Exception>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
                 });
             var Rethrow_Handler = new Action<Exception>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)(_TestString, _TestString);
@@ -823,28 +823,28 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Func<string, string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                throw new ArgumentException();
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    throw new ArgumentException();
                 });
             var Test2 = new Func<string, string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                return _TestString;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    return _TestString;
                 });
             var Handler = new Action<Exception>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
                 });
             var Rethrow_Handler = new Action<Exception>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)(_TestString, _TestString, _TestString);
@@ -860,28 +860,28 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                throw new ArgumentException();
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    throw new ArgumentException();
                 });
             var Test2 = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                return _TestString;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    return _TestString;
                 });
             var Handler = new Action<Exception>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
                 });
             var Rethrow_Handler = new Action<Exception>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)(_TestString, _TestString, _TestString, _TestString);
@@ -901,17 +901,17 @@ namespace L_Tests.Tests.Extensions
 
             var Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
                 });
 
             Action<FormatException> Wrong_Handler = L.A<FormatException>();
 
             var Rethrow_Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)();
@@ -928,25 +928,25 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Action<string>(o =>
                 {
-                o.Should().Be(_TestString);
+                    o.Should().Be(_TestString);
 
-                throw new ArgumentException();
+                    throw new ArgumentException();
                 });
             var Test2 = new Action<string>(o => { o.Should().Be(_TestString); });
 
             var Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
                 });
 
             Action<FormatException> Wrong_Handler = L.A<FormatException>();
 
             var Rethrow_Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)(_TestString);
@@ -963,30 +963,30 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Action<string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
 
-                throw new ArgumentException();
+                    throw new ArgumentException();
                 });
             var Test2 = new Action<string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
                 });
 
             var Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
                 });
 
             Action<FormatException> Wrong_Handler = L.A<FormatException>();
 
             var Rethrow_Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)(_TestString, _TestString);
@@ -1003,32 +1003,32 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Action<string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
 
-                throw new ArgumentException();
+                    throw new ArgumentException();
                 });
             var Test2 = new Action<string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
                 });
 
             var Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
                 });
 
             Action<FormatException> Wrong_Handler = L.A<FormatException>();
 
             var Rethrow_Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)(_TestString, _TestString, _TestString);
@@ -1045,32 +1045,32 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Action<string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
 
-                throw new ArgumentException();
+                    throw new ArgumentException();
                 });
             var Test2 = new Action<string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
                 });
 
             var Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
                 });
 
             Action<FormatException> Wrong_Handler = L.A<FormatException>();
 
             var Rethrow_Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)(_TestString, _TestString, _TestString, _TestString);
@@ -1093,17 +1093,17 @@ namespace L_Tests.Tests.Extensions
 
             var Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
                 });
 
             Action<FormatException> Wrong_Handler = L.A<FormatException>();
 
             var Rethrow_Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)();
@@ -1120,30 +1120,30 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Func<string, string>(o =>
                 {
-                o.Should().Be(_TestString);
+                    o.Should().Be(_TestString);
 
-                throw new ArgumentException();
+                    throw new ArgumentException();
                 });
             var Test2 = new Func<string, string>(o =>
                 {
-                o.Should().Be(_TestString);
+                    o.Should().Be(_TestString);
 
-                return _TestString;
+                    return _TestString;
                 });
 
             var Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
                 });
 
             Action<FormatException> Wrong_Handler = L.A<FormatException>();
 
             var Rethrow_Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)(_TestString);
@@ -1160,32 +1160,32 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Func<string, string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
 
-                throw new ArgumentException();
+                    throw new ArgumentException();
                 });
             var Test2 = new Func<string, string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
 
-                return _TestString;
+                    return _TestString;
                 });
 
             var Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
                 });
 
             Action<FormatException> Wrong_Handler = L.A<FormatException>();
 
             var Rethrow_Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)(_TestString, _TestString);
@@ -1202,34 +1202,34 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Func<string, string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
 
-                throw new ArgumentException();
+                    throw new ArgumentException();
                 });
             var Test2 = new Func<string, string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
 
-                return _TestString;
+                    return _TestString;
                 });
 
             var Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
                 });
 
             Action<FormatException> Wrong_Handler = L.A<FormatException>();
 
             var Rethrow_Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)(_TestString, _TestString, _TestString);
@@ -1246,36 +1246,36 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
 
-                throw new ArgumentException();
+                    throw new ArgumentException();
                 });
             var Test2 = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
 
-                return _TestString;
+                    return _TestString;
                 });
 
             var Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
                 });
 
             Action<FormatException> Wrong_Handler = L.A<FormatException>();
 
             var Rethrow_Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)(_TestString, _TestString, _TestString, _TestString);
@@ -1297,18 +1297,18 @@ namespace L_Tests.Tests.Extensions
 
             var Handler = new Func<ArgumentException, string>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                return $"{_TestString}b";
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    return $"{_TestString}b";
                 });
 
             Func<FormatException, string> Wrong_Handler = L.F<FormatException, string>();
 
             var Rethrow_Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)().Should().Be($"{_TestString}b");
@@ -1325,31 +1325,31 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Func<string, string>(o =>
                 {
-                o.Should().Be(_TestString);
+                    o.Should().Be(_TestString);
 
-                throw new ArgumentException();
+                    throw new ArgumentException();
                 });
             var Test2 = new Func<string, string>(o =>
                 {
-                o.Should().Be(_TestString);
+                    o.Should().Be(_TestString);
 
-                return $"{_TestString}a";
+                    return $"{_TestString}a";
                 });
 
             var Handler = new Func<ArgumentException, string>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                return $"{_TestString}b";
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    return $"{_TestString}b";
                 });
 
             Func<FormatException, string> Wrong_Handler = L.F<FormatException, string>();
 
             var Rethrow_Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)(_TestString).Should().Be($"{_TestString}b");
@@ -1366,33 +1366,33 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Func<string, string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
 
-                throw new ArgumentException();
+                    throw new ArgumentException();
                 });
             var Test2 = new Func<string, string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
 
-                return $"{_TestString}a";
+                    return $"{_TestString}a";
                 });
 
             var Handler = new Func<ArgumentException, string>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                return $"{_TestString}b";
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    return $"{_TestString}b";
                 });
 
             Func<FormatException, string> Wrong_Handler = L.F<FormatException, string>();
 
             var Rethrow_Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)(_TestString, _TestString).Should().Be($"{_TestString}b");
@@ -1409,35 +1409,35 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Func<string, string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
 
-                throw new ArgumentException();
+                    throw new ArgumentException();
                 });
             var Test2 = new Func<string, string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
 
-                return $"{_TestString}a";
+                    return $"{_TestString}a";
                 });
 
             var Handler = new Func<ArgumentException, string>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                return $"{_TestString}b";
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    return $"{_TestString}b";
                 });
 
             Func<FormatException, string> Wrong_Handler = L.F<FormatException, string>();
 
             var Rethrow_Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)(_TestString, _TestString, _TestString).Should().Be($"{_TestString}b");
@@ -1454,37 +1454,37 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
 
-                throw new ArgumentException();
+                    throw new ArgumentException();
                 });
             var Test2 = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
 
-                return $"{_TestString}a";
+                    return $"{_TestString}a";
                 });
 
             var Handler = new Func<ArgumentException, string>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                return $"{_TestString}b";
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    return $"{_TestString}b";
                 });
 
             Func<FormatException, string> Wrong_Handler = L.F<FormatException, string>();
 
             var Rethrow_Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Should().NotBeNull()
-                    .And.BeOfType<ArgumentException>();
-                throw Ex;
+                    Ex.Should().NotBeNull()
+                        .And.BeOfType<ArgumentException>();
+                    throw Ex;
                 });
 
             Test.Catch(Handler)(_TestString, _TestString, _TestString, _TestString).Should().Be($"{_TestString}b");
@@ -1517,8 +1517,8 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Action<string>(o =>
                 {
-                o.Should().Be(_TestString);
-                throw new ArgumentException();
+                    o.Should().Be(_TestString);
+                    throw new ArgumentException();
                 });
             var Test2 = new Action<string>(o => { o.Should().Be(_TestString); });
 
@@ -1535,14 +1535,14 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Action<string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                throw new ArgumentException();
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    throw new ArgumentException();
                 });
             var Test2 = new Action<string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
                 });
 
             Test.Catch<string, string, ArgumentException>()(_TestString, _TestString);
@@ -1558,16 +1558,16 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Action<string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                throw new ArgumentException();
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    throw new ArgumentException();
                 });
             var Test2 = new Action<string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
                 });
 
             Test.Catch<string, string, string, ArgumentException>()(_TestString, _TestString, _TestString);
@@ -1584,18 +1584,18 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Action<string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
-                throw new ArgumentException();
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
+                    throw new ArgumentException();
                 });
             var Test2 = new Action<string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
                 });
 
             Test.Catch<string, string, string, string, ArgumentException>()(_TestString, _TestString, _TestString, _TestString);
@@ -1626,13 +1626,13 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Func<string, string>(o =>
                 {
-                o.Should().Be(_TestString);
-                throw new ArgumentException();
+                    o.Should().Be(_TestString);
+                    throw new ArgumentException();
                 });
             var Test2 = new Func<string, string>(o =>
                 {
-                o.Should().Be(_TestString);
-                return $"{_TestString}a";
+                    o.Should().Be(_TestString);
+                    return $"{_TestString}a";
                 });
 
             Test.Catch<string, string, ArgumentException>()(_TestString).Should().Be(default(string));
@@ -1648,15 +1648,15 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Func<string, string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                throw new ArgumentException();
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    throw new ArgumentException();
                 });
             var Test2 = new Func<string, string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                return $"{_TestString}a";
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    return $"{_TestString}a";
                 });
 
             Test.Catch<string, string, string, ArgumentException>()(_TestString, _TestString).Should().Be(default(string));
@@ -1674,17 +1674,17 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Func<string, string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                throw new ArgumentException();
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    throw new ArgumentException();
                 });
             var Test2 = new Func<string, string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                return $"{_TestString}a";
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    return $"{_TestString}a";
                 });
 
             Test.Catch<string, string, string, string, ArgumentException>()(_TestString, _TestString, _TestString)
@@ -1705,19 +1705,19 @@ namespace L_Tests.Tests.Extensions
             {
             var Test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
-                throw new ArgumentException();
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
+                    throw new ArgumentException();
                 });
             var Test2 = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
-                return $"{_TestString}a";
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
+                    return $"{_TestString}a";
                 });
 
             Test.Catch<string, string, string, string, string, ArgumentException>()(_TestString, _TestString, _TestString, _TestString)
@@ -1761,8 +1761,8 @@ namespace L_Tests.Tests.Extensions
             {
             var Act = new Action<string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
                 });
 
             Act(_TestString, _TestString);
@@ -1776,9 +1776,9 @@ namespace L_Tests.Tests.Extensions
             {
             var Act = new Action<string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
                 });
 
             Act(_TestString, _TestString, _TestString);
@@ -1792,10 +1792,10 @@ namespace L_Tests.Tests.Extensions
             {
             var Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
                 });
 
             Act(_TestString, _TestString, _TestString, _TestString);
@@ -1820,8 +1820,8 @@ namespace L_Tests.Tests.Extensions
             {
             var Act = new Func<string, string>(o =>
                 {
-                o.Should().Be(_TestString);
-                return _TestString;
+                    o.Should().Be(_TestString);
+                    return _TestString;
                 });
 
             Act(_TestString);
@@ -1835,9 +1835,9 @@ namespace L_Tests.Tests.Extensions
             {
             var Act = new Func<string, string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                return _TestString;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    return _TestString;
                 });
 
             Act(_TestString, _TestString);
@@ -1851,10 +1851,10 @@ namespace L_Tests.Tests.Extensions
             {
             var Act = new Func<string, string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                return _TestString;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    return _TestString;
                 });
 
             Act(_TestString, _TestString, _TestString);
@@ -1868,11 +1868,11 @@ namespace L_Tests.Tests.Extensions
             {
             var Act = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
-                return _TestString;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
+                    return _TestString;
                 });
 
             Act(_TestString, _TestString, _TestString, _TestString);
@@ -1886,8 +1886,8 @@ namespace L_Tests.Tests.Extensions
             var Act = new Action(() => { });
             var Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
-                Ex.ParamName.Should().Be($"{_TestString}b");
+                    Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                    Ex.ParamName.Should().Be($"{_TestString}b");
                 });
             var Handler2 = new Action<Exception>(Ex => { Ex.Message.Should().Be($"{_TestString}c"); });
 
@@ -1903,8 +1903,8 @@ namespace L_Tests.Tests.Extensions
             var Act = new Action<string>(o => { o.Should().Be(_TestString); });
             var Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
-                Ex.ParamName.Should().Be($"{_TestString}b");
+                    Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                    Ex.ParamName.Should().Be($"{_TestString}b");
                 });
             var Handler2 = new Action<Exception>(Ex => { Ex.Message.Should().Be($"{_TestString}c"); });
 
@@ -1919,13 +1919,13 @@ namespace L_Tests.Tests.Extensions
             {
             var Act = new Action<string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
                 });
             var Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
-                Ex.ParamName.Should().Be($"{_TestString}b");
+                    Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                    Ex.ParamName.Should().Be($"{_TestString}b");
                 });
             var Handler2 = new Action<Exception>(Ex => { Ex.Message.Should().Be($"{_TestString}c"); });
 
@@ -1941,14 +1941,14 @@ namespace L_Tests.Tests.Extensions
             {
             var Act = new Action<string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
                 });
             var Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
-                Ex.ParamName.Should().Be($"{_TestString}b");
+                    Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                    Ex.ParamName.Should().Be($"{_TestString}b");
                 });
             var Handler2 = new Action<Exception>(Ex => { Ex.Message.Should().Be($"{_TestString}c"); });
 
@@ -1964,15 +1964,15 @@ namespace L_Tests.Tests.Extensions
             {
             var Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
                 });
             var Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
-                Ex.ParamName.Should().Be($"{_TestString}b");
+                    Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                    Ex.ParamName.Should().Be($"{_TestString}b");
                 });
             var Handler2 = new Action<Exception>(Ex => { Ex.Message.Should().Be($"{_TestString}c"); });
 
@@ -1991,8 +1991,8 @@ namespace L_Tests.Tests.Extensions
             var Act = new Func<string>(() => { return $"{_TestString}a"; });
             var Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
-                Ex.ParamName.Should().Be($"{_TestString}b");
+                    Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                    Ex.ParamName.Should().Be($"{_TestString}b");
                 });
             var Handler2 = new Action<Exception>(Ex => { Ex.Message.Should().Be($"{_TestString}c"); });
 
@@ -2007,13 +2007,13 @@ namespace L_Tests.Tests.Extensions
             {
             var Act = new Func<string, string>(o =>
                 {
-                o.Should().Be(_TestString);
-                return $"{_TestString}a";
+                    o.Should().Be(_TestString);
+                    return $"{_TestString}a";
                 });
             var Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
-                Ex.ParamName.Should().Be($"{_TestString}b");
+                    Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                    Ex.ParamName.Should().Be($"{_TestString}b");
                 });
             var Handler2 = new Action<Exception>(Ex => { Ex.Message.Should().Be($"{_TestString}c"); });
 
@@ -2028,14 +2028,14 @@ namespace L_Tests.Tests.Extensions
             {
             var Act = new Func<string, string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                return $"{_TestString}a";
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    return $"{_TestString}a";
                 });
             var Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
-                Ex.ParamName.Should().Be($"{_TestString}b");
+                    Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                    Ex.ParamName.Should().Be($"{_TestString}b");
                 });
             var Handler2 = new Action<Exception>(Ex => { Ex.Message.Should().Be($"{_TestString}c"); });
 
@@ -2051,15 +2051,15 @@ namespace L_Tests.Tests.Extensions
             {
             var Act = new Func<string, string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                return $"{_TestString}a";
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    return $"{_TestString}a";
                 });
             var Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
-                Ex.ParamName.Should().Be($"{_TestString}b");
+                    Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                    Ex.ParamName.Should().Be($"{_TestString}b");
                 });
             var Handler2 = new Action<Exception>(Ex => { Ex.Message.Should().Be($"{_TestString}c"); });
 
@@ -2075,16 +2075,16 @@ namespace L_Tests.Tests.Extensions
             {
             var Act = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
-                return $"{_TestString}a";
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
+                    return $"{_TestString}a";
                 });
             var Handler = new Action<ArgumentException>(Ex =>
                 {
-                Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
-                Ex.ParamName.Should().Be($"{_TestString}b");
+                    Ex.Message.Should().Be($"{_TestString}a\r\nParameter name: {_TestString}b");
+                    Ex.ParamName.Should().Be($"{_TestString}b");
                 });
             var Handler2 = new Action<Exception>(Ex => { Ex.Message.Should().Be($"{_TestString}c"); });
 
@@ -2141,8 +2141,8 @@ namespace L_Tests.Tests.Extensions
             {
             var Act = new Action<string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
                 });
             var Handler = new Action<Exception>(Ex => { Ex.Message.Should().Be($"{_TestString}a"); });
 
@@ -2164,9 +2164,9 @@ namespace L_Tests.Tests.Extensions
             {
             var Act = new Action<string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
                 });
             var Handler = new Action<Exception>(Ex => { Ex.Message.Should().Be($"{_TestString}a"); });
 
@@ -2188,10 +2188,10 @@ namespace L_Tests.Tests.Extensions
             {
             var Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
                 });
             var Handler = new Action<Exception>(Ex => { Ex.Message.Should().Be($"{_TestString}a"); });
 
@@ -2216,8 +2216,8 @@ namespace L_Tests.Tests.Extensions
 
                 L.Exc.DefaultExceptionHandler = Ex =>
                     {
-                    Ex.Should().BeOfType<ArgumentException>();
-                    Ex.Message.Should().Be($"{_TestString}a");
+                        Ex.Should().BeOfType<ArgumentException>();
+                        Ex.Message.Should().Be($"{_TestString}a");
                     };
 
                 var Good_Act = new Action(() => { });
@@ -2242,15 +2242,15 @@ namespace L_Tests.Tests.Extensions
 
                 L.Exc.DefaultExceptionHandler = Ex =>
                     {
-                    Ex.Should().BeOfType<ArgumentException>();
-                    Ex.Message.Should().Be($"{_TestString}a");
+                        Ex.Should().BeOfType<ArgumentException>();
+                        Ex.Message.Should().Be($"{_TestString}a");
                     };
 
                 var Good_Act = new Action<string>(o => { o.Should().Be(_TestString); });
                 var Bad_Act = new Action<string>(o =>
                     {
-                    o.Should().Be(_TestString);
-                    throw new ArgumentException($"{_TestString}a");
+                        o.Should().Be(_TestString);
+                        throw new ArgumentException($"{_TestString}a");
                     });
 
                 Good_Act.Handle()(_TestString);
@@ -2272,20 +2272,20 @@ namespace L_Tests.Tests.Extensions
 
                 L.Exc.DefaultExceptionHandler = Ex =>
                     {
-                    Ex.Should().BeOfType<ArgumentException>();
-                    Ex.Message.Should().Be($"{_TestString}a");
+                        Ex.Should().BeOfType<ArgumentException>();
+                        Ex.Message.Should().Be($"{_TestString}a");
                     };
 
                 var Good_Act = new Action<string, string>((o1, o2) =>
                     {
-                    o1.Should().Be(_TestString);
-                    o2.Should().Be(_TestString);
+                        o1.Should().Be(_TestString);
+                        o2.Should().Be(_TestString);
                     });
                 var Bad_Act = new Action<string, string>((o1, o2) =>
                     {
-                    o1.Should().Be(_TestString);
-                    o2.Should().Be(_TestString);
-                    throw new ArgumentException($"{_TestString}a");
+                        o1.Should().Be(_TestString);
+                        o2.Should().Be(_TestString);
+                        throw new ArgumentException($"{_TestString}a");
                     });
 
                 Good_Act.Handle()(_TestString, _TestString);
@@ -2307,22 +2307,22 @@ namespace L_Tests.Tests.Extensions
 
                 L.Exc.DefaultExceptionHandler = Ex =>
                     {
-                    Ex.Should().BeOfType<ArgumentException>();
-                    Ex.Message.Should().Be($"{_TestString}a");
+                        Ex.Should().BeOfType<ArgumentException>();
+                        Ex.Message.Should().Be($"{_TestString}a");
                     };
 
                 var Good_Act = new Action<string, string, string>((o1, o2, o3) =>
                     {
-                    o1.Should().Be(_TestString);
-                    o2.Should().Be(_TestString);
-                    o3.Should().Be(_TestString);
+                        o1.Should().Be(_TestString);
+                        o2.Should().Be(_TestString);
+                        o3.Should().Be(_TestString);
                     });
                 var Bad_Act = new Action<string, string, string>((o1, o2, o3) =>
                     {
-                    o1.Should().Be(_TestString);
-                    o2.Should().Be(_TestString);
-                    o3.Should().Be(_TestString);
-                    throw new ArgumentException($"{_TestString}a");
+                        o1.Should().Be(_TestString);
+                        o2.Should().Be(_TestString);
+                        o3.Should().Be(_TestString);
+                        throw new ArgumentException($"{_TestString}a");
                     });
 
                 Good_Act.Handle()(_TestString, _TestString, _TestString);
@@ -2344,24 +2344,24 @@ namespace L_Tests.Tests.Extensions
 
                 L.Exc.DefaultExceptionHandler = Ex =>
                     {
-                    Ex.Should().BeOfType<ArgumentException>();
-                    Ex.Message.Should().Be($"{_TestString}a");
+                        Ex.Should().BeOfType<ArgumentException>();
+                        Ex.Message.Should().Be($"{_TestString}a");
                     };
 
                 var Good_Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
                     {
-                    o1.Should().Be(_TestString);
-                    o2.Should().Be(_TestString);
-                    o3.Should().Be(_TestString);
-                    o4.Should().Be(_TestString);
+                        o1.Should().Be(_TestString);
+                        o2.Should().Be(_TestString);
+                        o3.Should().Be(_TestString);
+                        o4.Should().Be(_TestString);
                     });
                 var Bad_Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
                     {
-                    o1.Should().Be(_TestString);
-                    o2.Should().Be(_TestString);
-                    o3.Should().Be(_TestString);
-                    o4.Should().Be(_TestString);
-                    throw new ArgumentException($"{_TestString}a");
+                        o1.Should().Be(_TestString);
+                        o2.Should().Be(_TestString);
+                        o3.Should().Be(_TestString);
+                        o4.Should().Be(_TestString);
+                        throw new ArgumentException($"{_TestString}a");
                     });
 
                 Good_Act.Handle()(_TestString, _TestString, _TestString, _TestString);
@@ -2381,8 +2381,8 @@ namespace L_Tests.Tests.Extensions
             var Good_Act = new Action<string>(o => { o.Should().Be(_TestString); });
             var Bad_Act = new Action<string>(o =>
                 {
-                o.Should().Be(_TestString);
-                throw new ArgumentException($"{_TestString}a");
+                    o.Should().Be(_TestString);
+                    throw new ArgumentException($"{_TestString}a");
                 });
 
             var Handler = new Action<Exception>(Ex => { Ex.Message.Should().Be($"System.String:{_TestString}"); });
@@ -2401,14 +2401,14 @@ namespace L_Tests.Tests.Extensions
             {
             var Good_Act = new Action<string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
                 });
             var Bad_Act = new Action<string, string>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                throw new ArgumentException($"{_TestString}a");
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    throw new ArgumentException($"{_TestString}a");
                 });
 
             var Handler =
@@ -2428,23 +2428,23 @@ namespace L_Tests.Tests.Extensions
             {
             var Good_Act = new Action<string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
                 });
             var Bad_Act = new Action<string, string, string>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                throw new ArgumentException($"{_TestString}a");
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    throw new ArgumentException($"{_TestString}a");
                 });
 
             var Handler =
                 new Action<Exception>(
                     Ex =>
                         {
-                        Ex.Message.Should().Be($"System.String:{_TestString}, System.String:{_TestString}, System.String:{_TestString}");
+                            Ex.Message.Should().Be($"System.String:{_TestString}, System.String:{_TestString}, System.String:{_TestString}");
                         });
 
             Good_Act.Debug()(_TestString, _TestString, _TestString);
@@ -2461,27 +2461,27 @@ namespace L_Tests.Tests.Extensions
             {
             var Good_Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
                 });
             var Bad_Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
-                throw new ArgumentException($"{_TestString}a");
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
+                    throw new ArgumentException($"{_TestString}a");
                 });
 
             var Handler =
                 new Action<Exception>(
                     Ex =>
                         {
-                        Ex.Message.Should()
-                            .Be(
-                                $"System.String:{_TestString}, System.String:{_TestString}, System.String:{_TestString}, System.String:{_TestString}");
+                            Ex.Message.Should()
+                                .Be(
+                                    $"System.String:{_TestString}, System.String:{_TestString}, System.String:{_TestString}, System.String:{_TestString}");
                         });
 
             Good_Act.Debug()(_TestString, _TestString, _TestString, _TestString);
@@ -2501,5 +2501,6 @@ namespace L_Tests.Tests.Extensions
                 .Be(default(string));
             }
 
+        public ExceptionExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }

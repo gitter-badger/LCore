@@ -21,11 +21,11 @@ namespace LMVC.Context
         public const string ContextSession = "SingularityContext";
 
         public abstract ManageController[] AllManageControllers([CanBeNull]HttpSessionStateBase Session);
-        
+
         public abstract IMenuController[] AllMenuControllers([CanBeNull]HttpSessionStateBase Session);
 
         public abstract ModelContext GetContext([CanBeNull]HttpSessionStateBase Session);
-        
+
         public abstract Type[] GetContextTypes([CanBeNull]HttpSessionStateBase Session);
 
         [CanBeNull]
@@ -66,8 +66,11 @@ namespace LMVC.Context
             }
 
         [CanBeNull]
-        private ModelPermissions GetModelPermissions([CanBeNull]IModel ProfileRole, [CanBeNull] Type RequestedType)
+        private ModelPermissions GetModelPermissions([CanBeNull] IModel ProfileRole, [CanBeNull] Type RequestedType)
             {
+            if (ProfileRole == null)
+                return null;
+
             var RoleType = ProfileRole.GetType();
 
             RequestedType = RequestedType.WithoutDynamicType();

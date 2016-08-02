@@ -15,6 +15,9 @@ using LCore.Extensions.Optional;
 using LCore.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
+using Xunit.Abstractions;
+using static LCore.Extensions.L.Test.Categories;
+
 //using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 // ReSharper disable ConvertToConstant.Global

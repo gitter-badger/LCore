@@ -26,7 +26,7 @@ namespace LMVC.Context
                 RelationType,
                 RelationProperty,
                 RelationID.ToString(),
-                $"{DateTime.Now} - {File.FileName}".CleanFileName());
+                $"{DateTime.Now} - {File?.FileName}".CleanFileName());
             }
 
         public override CloudBlobDirectory GetFileUploadCloudContainer()
