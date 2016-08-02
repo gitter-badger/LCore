@@ -1147,7 +1147,8 @@ namespace LCore.Extensions
                                     Type.IsType(AttrType) ||
                                     Type.HasInterface(AttrType) ||
                                     Type.HasAttribute(AttrType, true)) > 0)
-                                && Type.Namespace == Namespace);
+                                && Type.Namespace == Namespace 
+                                && !Type.IsNotPublic);
 
                 return Types.Array();
                 }
@@ -1155,11 +1156,10 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns all namespace types, optionally filtering using multiple <paramref name="AttributeTypes" />
             /// </summary>
-            public static Type[] GetNamespaceTypes(Type AssemblyType, string Namespace, params Type[] AttributeTypes)
+            public static Type[] GetNamespaceTypes(Assembly Assembly, string Namespace, params Type[] AttributeTypes)
                 {
                 IEnumerable<Type> Types =
-                    Assembly.GetAssembly(AssemblyType)
-                        .GetTypes()
+                    Assembly.GetTypes()
                         .Select(Type => AttributeTypes.Count(
                             AttrType => Type.IsType(AttrType) ||
                                 Type.HasInterface(AttrType) ||

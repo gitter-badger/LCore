@@ -1,7 +1,9 @@
 ﻿using LCore.Extensions;
 using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using LCore.Extensions.Optional;
+using LCore.Interfaces;
 using Xunit;
 using static LCore.Extensions.L.Test.Categories;
 
@@ -17,6 +19,25 @@ namespace L_Tests.Tests.Extensions
         public void Test_As()
             {
             L.Obj.As<IConvertible>()(1).Should().NotBeNull();
+            }
+
+        [Fact]
+        public void Test_GetNamespaceTypes()
+            {
+            L.Ref.GetNamespaceTypes("L_Tests").ShouldBeEquivalentTo(new List<Type>()
+                {
+                typeof(ExtensionTester),
+                typeof(ExtensionTester),
+                typeof(ExtensionTester),
+                typeof(ExtensionTester),
+                typeof(ExtensionTester),
+                typeof(ExtensionTester),
+                typeof(ExtensionTester),
+                typeof(ExtensionTester),
+                typeof(ExtensionTester),
+                });
+
+            L.Ref.GetNamespaceTypes("L_Tests", typeof(ExtensionTester)).Should().Equal(typeof(void));
             }
         }
     }
