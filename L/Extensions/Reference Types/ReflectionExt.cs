@@ -1148,7 +1148,7 @@ namespace LCore.Extensions
                                     Type.HasInterface(AttrType) ||
                                     Type.HasAttribute(AttrType, true)) > 0)
                                 && Type.Namespace == Namespace 
-                                && !Type.IsNotPublic);
+                                && !Type.HasAttribute<CompilerGeneratedAttribute>());
 
                 return Types.Array();
                 }
