@@ -168,6 +168,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\ExtensionTester.cs" />
     <Compile Include="Tests\Numbers\NumberTest.cs" />
+    <Compile Include="Tests\Static\L.Str.Test.cs" />
+    <Compile Include="Tests\Static\L.Date.Test.cs" />
+    <Compile Include="Tests\Static\L.List.Test.cs" />
+    <Compile Include="Tests\Static\L.Ary.Test.cs" />
+    <Compile Include="Tests\Static\L.Char.Test.cs" />
     <Compile Include="Tests\Tools\ProgressUpdaterTest.cs" />
     <Compile Include="Tests\Tools\CacheDataTest.cs" />
     <Compile Include="Tests\Tools\RegistryHelperTest.cs" />

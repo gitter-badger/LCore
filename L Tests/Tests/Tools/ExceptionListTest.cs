@@ -7,6 +7,9 @@ using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 
+// ReSharper disable RedundantAssignment
+// ReSharper disable RedundantCast
+
 // ReSharper disable NotResolvedInText
 
 namespace L_Tests.Tests.Tools
@@ -36,8 +39,6 @@ namespace L_Tests.Tests.Tools
 
             Ex.Exceptions.ToS().Should().Be(TestImplicit2.Exceptions.ToS());
 
-            // ReSharper disable once SuggestVarOrType_Elsewhere
-            // ReSharper disable once RedundantCast
             List<Exception> TestImplicit3 = Ex;
             TestImplicit3 = (List<Exception>) Ex;
             TestImplicit3 = Ex;

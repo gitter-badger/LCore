@@ -3,16 +3,15 @@ using System;
 using FluentAssertions;
 using LCore.Tests;
 using Xunit;
+// ReSharper disable RedundantCast
 
 // ReSharper disable StringLiteralTypo
 // ReSharper disable UnusedParameter.Global
 
 namespace L_Tests.Tests.Extensions
     {
-    public class TestExtTest : ExtensionTester
+    public class TestExtTest
         {
-        protected override Type[] TestType => new[] {typeof(TestExt)};
-
         #region Test Variables
 
         private readonly Action _TestFail = () => { throw new ArgumentException(); };
