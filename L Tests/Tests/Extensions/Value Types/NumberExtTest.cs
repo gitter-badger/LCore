@@ -75,12 +75,6 @@ namespace L_Tests.Tests.Extensions
             }
 
         [Fact]
-        public void Test_ScientificNotationConversion()
-            {
-            L.Num.ScientificNotationToNumber("1.0e5").Should().Be("100000.0");
-            }
-
-        [Fact]
         public void Test_Wrap()
             {
             5.Wrap().Should().BeOfType<IntNumber>().And.Be((IntNumber)5);

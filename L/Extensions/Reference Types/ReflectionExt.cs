@@ -1621,17 +1621,6 @@ namespace LCore.Extensions
             internal static readonly Func<string, ICustomAttributeProvider, Type, bool, object> GetAttribute = _GetAttribute
                 .Cache("MemberAttributes").Require("Prop").Require2("Attr");
             #endregion
-
-            #region As
-            /// <summary>
-            /// Returns a function that performs the 'as' operation.
-            /// </summary>
-            public static Func<object, T> As<T>()
-                where T : class
-                {
-                return o => o as T;
-                }
-            #endregion
             #endregion
 
             /*

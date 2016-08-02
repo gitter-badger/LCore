@@ -100,6 +100,17 @@ namespace LCore.Extensions
             {
             #region Static Methods +
 
+            #region As
+            /// <summary>
+            /// Returns a function that performs the 'as' operation.
+            /// </summary>
+            public static Func<object, T> As<T>()
+                where T : class
+                {
+                return o => o as T;
+                }
+            #endregion
+
             #region Str
             /// <summary>
             /// Returns a function that converts an Object to a String. Shortcut for Logic.Object_ToString
@@ -208,104 +219,104 @@ namespace LCore.Extensions
                 var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
                 return (o1, o2, o3, o4) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4 });
                 }
-/*
-            /// <summary>
-            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
-            /// </summary>
-            public static Func<T1, T2, T3, T4, T5, U> New<T1, T2, T3, T4, T5, U>()
-                {
-                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-                return (o1, o2, o3, o4, o5) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5 });
-                }
-            /// <summary>
-            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
-            /// </summary>
-            public static Func<T1, T2, T3, T4, T5, T6, U> New<T1, T2, T3, T4, T5, T6, U>()
-                {
-                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-                return (o1, o2, o3, o4, o5, o6) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6 });
-                }
-            /// <summary>
-            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
-            /// </summary>
-            public static Func<T1, T2, T3, T4, T5, T6, T7, U> New<T1, T2, T3, T4, T5, T6, T7, U>()
-                {
-                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-                return (o1, o2, o3, o4, o5, o6, o7) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7 });
-                }
-            /// <summary>
-            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
-            /// </summary>
-            public static Func<T1, T2, T3, T4, T5, T6, T7, T8, U> New<T1, T2, T3, T4, T5, T6, T7, T8, U>()
-                {
-                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-                return (o1, o2, o3, o4, o5, o6, o7, o8) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8 });
-                }
-            /// <summary>
-            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
-            /// </summary>
-            public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>()
-                {
-                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-                return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9 });
-                }
-            /// <summary>
-            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
-            /// </summary>
-            public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>()
-                {
-                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-                return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10 });
-                }
-            /// <summary>
-            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
-            /// </summary>
-            public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>()
-                {
-                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-                return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11 });
-                }
-            /// <summary>
-            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
-            /// </summary>
-            public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>()
-                {
-                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-                return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12 });
-                }
-            /// <summary>
-            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
-            /// </summary>
-            public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>()
-                {
-                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-                return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13 });
-                }
-            /// <summary>
-            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
-            /// </summary>
-            public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>()
-                {
-                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-                return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14 });
-                }
-            /// <summary>
-            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
-            /// </summary>
-            public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>()
-                {
-                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-                return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15 });
-                }
-            /// <summary>
-            /// Retrieves a func that creates an object of type <typeparamref name="U" />.
-            /// </summary>
-            public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>()
-                {
-                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-                return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, o16) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, o16 });
-                }
-           */
+            /*
+                        /// <summary>
+                        /// Retrieves a func that creates an object of type <typeparamref name="U" />.
+                        /// </summary>
+                        public static Func<T1, T2, T3, T4, T5, U> New<T1, T2, T3, T4, T5, U>()
+                            {
+                            var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                            return (o1, o2, o3, o4, o5) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5 });
+                            }
+                        /// <summary>
+                        /// Retrieves a func that creates an object of type <typeparamref name="U" />.
+                        /// </summary>
+                        public static Func<T1, T2, T3, T4, T5, T6, U> New<T1, T2, T3, T4, T5, T6, U>()
+                            {
+                            var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                            return (o1, o2, o3, o4, o5, o6) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6 });
+                            }
+                        /// <summary>
+                        /// Retrieves a func that creates an object of type <typeparamref name="U" />.
+                        /// </summary>
+                        public static Func<T1, T2, T3, T4, T5, T6, T7, U> New<T1, T2, T3, T4, T5, T6, T7, U>()
+                            {
+                            var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                            return (o1, o2, o3, o4, o5, o6, o7) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7 });
+                            }
+                        /// <summary>
+                        /// Retrieves a func that creates an object of type <typeparamref name="U" />.
+                        /// </summary>
+                        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, U> New<T1, T2, T3, T4, T5, T6, T7, T8, U>()
+                            {
+                            var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                            return (o1, o2, o3, o4, o5, o6, o7, o8) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8 });
+                            }
+                        /// <summary>
+                        /// Retrieves a func that creates an object of type <typeparamref name="U" />.
+                        /// </summary>
+                        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>()
+                            {
+                            var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                            return (o1, o2, o3, o4, o5, o6, o7, o8, o9) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9 });
+                            }
+                        /// <summary>
+                        /// Retrieves a func that creates an object of type <typeparamref name="U" />.
+                        /// </summary>
+                        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>()
+                            {
+                            var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10 });
+                            }
+                        /// <summary>
+                        /// Retrieves a func that creates an object of type <typeparamref name="U" />.
+                        /// </summary>
+                        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>()
+                            {
+                            var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11 });
+                            }
+                        /// <summary>
+                        /// Retrieves a func that creates an object of type <typeparamref name="U" />.
+                        /// </summary>
+                        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>()
+                            {
+                            var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12 });
+                            }
+                        /// <summary>
+                        /// Retrieves a func that creates an object of type <typeparamref name="U" />.
+                        /// </summary>
+                        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>()
+                            {
+                            var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13 });
+                            }
+                        /// <summary>
+                        /// Retrieves a func that creates an object of type <typeparamref name="U" />.
+                        /// </summary>
+                        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>()
+                            {
+                            var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14 });
+                            }
+                        /// <summary>
+                        /// Retrieves a func that creates an object of type <typeparamref name="U" />.
+                        /// </summary>
+                        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>()
+                            {
+                            var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15 });
+                            }
+                        /// <summary>
+                        /// Retrieves a func that creates an object of type <typeparamref name="U" />.
+                        /// </summary>
+                        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> New<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>()
+                            {
+                            var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+                            return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, o16) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, o16 });
+                            }
+                       */
             #endregion
 
             #region IsNull
