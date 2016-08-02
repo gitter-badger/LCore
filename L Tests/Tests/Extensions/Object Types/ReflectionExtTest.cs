@@ -9,11 +9,13 @@ using System.Diagnostics.CodeAnalysis;
 using System.Dynamic;
 using System.Reflection;
 using FluentAssertions;
+using JetBrains.Annotations;
 using LCore.Naming;
 using LCore.Tests;
 using LCore.Dynamic;
 using Moq;
 using Xunit;
+using Xunit.Abstractions;
 using static LCore.Extensions.L.Test.Categories;
 // ReSharper disable UnusedParameter.Global
 // ReSharper disable UnassignedGetOnlyAutoProperty
@@ -1176,5 +1178,7 @@ namespace L_Tests.Tests.Extensions
 
         [ExcludeFromCodeCoverage]
         internal class DynamicShim<T> : DynamicObject { }
+
+        public ReflectionExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }

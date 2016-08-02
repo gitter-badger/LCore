@@ -1437,16 +1437,18 @@ namespace LCore.Tests
 
             if (Missing.Count > 0)
                 {
-                Debug.Write("\r\n");
+                _Output?.Write("\r\n");
                 Missing2.Each(Method =>
-                    Debug.Write($"   {Method.Pad(18)}   ({Missing.Count(Method)})\r\n"));
-                Debug.Write("\r\n");
+                    _Output?.Write($"   {Method.Pad(18)}   ({Missing.Count(Method)})\r\n"));
+                _Output?.Write("\r\n");
                 }
 #endif
 
             int Passed = Type.RunUnitTests();
 
             Assert.AreEqual(TestCount, Passed);
+
+            //.WriteLine($"Passed {Passed} / {TestCount} ({Passed.PercentageOf(TestCount)}%) Attribute {"Tests".Pluralize(TestCount)}");
             }
         }
     }

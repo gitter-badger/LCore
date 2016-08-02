@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using FluentAssertions;
+using JetBrains.Annotations;
 using LCore.Extensions;
 using Xunit;
+using Xunit.Abstractions;
 using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
@@ -100,5 +102,7 @@ namespace L_Tests.Tests.Extensions
             Result.Should().Be(2);
             Result2.ShouldAllBeEquivalentTo(new List<int> { 1, 2 });
             }
+
+        public LoopExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }

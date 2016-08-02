@@ -4,13 +4,37 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
 using FluentAssertions;
+using JetBrains.Annotations;
 using Xunit;
+using Xunit.Abstractions;
 using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
     public class FileExtTest : ExtensionTester
         {
+        private const string Str = @"c:\temporary_testEnsurePathExists\test\file.txt";
+        private const string Str2 = @"c:\temporary_testEnsurePathExists\test";
+        private const string Str3 = @"c:\temporary_testEnsurePathExists";
+        private readonly byte[] _TestBytes = { 5, 7, 3, 67, 2, 5, 88, 42, 2, 6, 99, 4, 3, 7 };
+
+
+        public FileExtTest([NotNull] ITestOutputHelper Output) : base(Output)
+            {
+            Str.EnsurePathExists();
+            File.WriteAllBytes(Str, this._TestBytes);
+            }
+        ~FileExtTest()
+            {
+            File.Delete(Str);
+            Directory.Delete(Str2);
+            Directory.Delete(Str3);
+
+            Directory.Exists(Str3).Should().BeFalse();
+            }
+
+
+
         protected override Type[] TestType => new[] { typeof(FileExt) };
 
         /// <exception cref="IOException">A file with the same name and location specified by <paramref>
@@ -30,20 +54,27 @@ namespace L_Tests.Tests.Extensions
         [TestCategory(UnitTests)]
         public void Test_EnsurePathExists()
             {
-            const string Str = @"c:\temporary_testEnsurePathExists\test\file.txt";
-            const string Str2 = @"c:\temporary_testEnsurePathExists\test";
-            const string Str3 = @"c:\temporary_testEnsurePathExists";
+            }
 
-            Str.EnsurePathExists();
 
-            Directory.Exists(Str2).Should().BeTrue();
-            Directory.Exists(Str3).Should().BeTrue();
+        [Fact]
+        public void Test_GetFileHash()
+            {
+            Str.GetFileHash().Should().Equal(111, 162, 116, 34, 129, 211, 2, 8, 193, 143, 255, 155, 154, 182, 221, 107, 27, 107, 59, 157, 211, 90, 242, 94, 8, 153, 212, 59, 149, 171, 160, 119);
 
-            Directory.Delete(Str2);
-            Directory.Delete(Str3);
+            }
 
-            Directory.Exists(Str2).Should().BeFalse();
-            Directory.Exists(Str3).Should().BeFalse();
+        [Fact]
+        public void Test_GetMemoryStream()
+            {
+            var File = Str.GetFileStream();
+
+            var MemStream = File.GetMemoryStream();
+
+            File.Close();
+
+            MemStream.Length.Should().Be(14);
+            MemStream.ReadAllBytes().Should().Equal(5, 7, 3, 67, 2, 5, 88, 42, 2, 6, 99, 4, 3, 7);
             }
 
         }

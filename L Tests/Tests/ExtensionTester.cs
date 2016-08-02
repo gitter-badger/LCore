@@ -15,6 +15,8 @@ using LCore.Extensions.Optional;
 using LCore.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
+using Xunit.Abstractions;
+
 //using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 // ReSharper disable ConvertToConstant.Global
@@ -29,6 +31,14 @@ namespace L_Tests
     /// </summary>
     public abstract class ExtensionTester
         {
+        private readonly ITestOutputHelper _Output;
+
+        protected ExtensionTester(ITestOutputHelper Output)
+            {
+            this._Output = Output;
+            }
+
+
         /// <summary>
         /// Less than this amount of method coverage will result in a test failure.
         /// </summary>
@@ -59,7 +69,38 @@ namespace L_Tests
                 Debug.Write($"Missing: {TestData.TestsMissing} methods                  {TestData.CoveragePercent}% Coverage\r\n");
 #endif
 
-                Test.RunTypeTests();
+                /* Test.RunTypeTests();*/
+
+
+                Dictionary<MemberInfo, List<ITestAttribute>> Tests = Test.GetTestMembers();
+
+                Dictionary<uint, List<MemberInfo>> TestMemberCoverage = Tests.Keys.Group(Member => (uint)Tests[Member].Count);
+
+                uint Members = (uint)Tests.Keys.Count;
+                uint MembersCovered = Members - (uint)(TestMemberCoverage.ContainsKey(0u) ? (uint)TestMemberCoverage[0u].Count : 0u);
+
+                int TestCount = Tests.TotalCount();
+
+
+                int Passed = Test.RunUnitTests();
+
+                TestCount.Should().Be(Passed);
+
+                this._Output?.WriteLine($"Passed {Passed} / {TestCount} ({Passed.PercentageOf(TestCount)}%) Attribute {"Tests".Pluralize(TestCount)}");
+
+                this._Output?.WriteLine($"Members Covered: {MembersCovered} / {Members} ({MembersCovered.PercentageOf(Members)}%)");
+
+                List<string> Missing = Tests.Keys.List().Select(Key => Tests[Key].Count == 0).Convert(Member => Member.Name);
+
+                List<string> Missing2 = Missing.RemoveDuplicates();
+
+                if (Missing.Count > 0)
+                    {
+                    this._Output?.WriteLine("");
+                    Missing2.Each(Method =>
+                        this._Output?.WriteLine($"   {Method.Pad(18)}   ({Missing.Count(Method)})"));
+                    this._Output?.WriteLine("");
+                    }
 
                 if (this.RequireCoveragePercent > 0)
                     TestData.CoveragePercent.Should()
@@ -73,6 +114,8 @@ namespace L_Tests
         [ExcludeFromCodeCoverage]
         public void TestNullability()
             {
+            uint Tested = 0;
+
             foreach (var Test in this.TestType)
                 {
                 MethodInfo[] Methods = Test.GetExtensionMethods();
@@ -212,6 +255,7 @@ namespace L_Tests
                             {
                             throw new InternalTestFailureException($"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1} and failed with {Ex}");
                             }
+                        Tested++;
 
                         if (ParamBound != null && ParamBound.TestWithinBounds > 0u)
                             {
@@ -220,6 +264,9 @@ namespace L_Tests
                         }
                     }
                 }
+
+
+            this._Output.WriteLine($"Ran {Tested} Nullability {"Test".Pluralize(Tested)}");
             }
         }
     }

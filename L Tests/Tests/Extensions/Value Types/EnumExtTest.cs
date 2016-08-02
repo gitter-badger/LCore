@@ -3,8 +3,10 @@ using LCore.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using FluentAssertions;
+using JetBrains.Annotations;
 using LCore.Naming;
 using Xunit;
+using Xunit.Abstractions;
 using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
@@ -62,5 +64,7 @@ namespace L_Tests.Tests.Extensions
             Test3,
             CamelCaseEnumsAreGreat
             }
+
+        public EnumExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }

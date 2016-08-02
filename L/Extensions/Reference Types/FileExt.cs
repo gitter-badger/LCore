@@ -20,24 +20,6 @@ namespace LCore.Extensions
         {
         #region Extensions +
 
-        #region ByteArrayToCharArray
-        /// <summary>
-        /// Safely converts a byte[] to a char[]
-        /// </summary>
-        public static char[] ByteArrayToCharArray([CanBeNull]byte[] In)
-            {
-            if (In == null)
-                return new char[0];
-
-            var Out = new char[In.Length];
-
-            for (int Index = 0; Index < In.Length; Index++)
-                Out[Index] = Convert.ToChar(In[Index]);
-
-            return Out;
-            }
-        #endregion
-
         #region CleanFileName
         /// <summary>
         /// Removes non-supported characters from filenames.
@@ -337,6 +319,8 @@ namespace LCore.Extensions
             using (var Stream = new MemoryStream())
                 {
                 int Read;
+                Input.Seek(0, SeekOrigin.Begin);
+
                 while ((Read = Input.Read(Buffer, 0, Buffer.Length)) > 0)
                     {
                     Stream.Write(Buffer, 0, Read);
@@ -345,36 +329,38 @@ namespace LCore.Extensions
                 }
             }
         #endregion
+        /*
 
-        #region WaitForFileUnlock
-        /// <summary>
-        /// Waits until a FileStream can be opened. Waits at most <paramref name="MaxWaitMS" /> milliseconds.
-        /// </summary>
-        public static bool WaitForFileUnlock(string FullPath, int MaxWaitMS, FileMode FileMode = FileMode.Open, FileAccess FileAccess = FileAccess.ReadWrite)
-            {
-            const int Wait = 100;
-
-            while (MaxWaitMS > 0)
-                {
-                try
+                #region WaitForFileUnlock
+                /// <summary>
+                /// Waits until a FileStream can be opened. Waits at most <paramref name="MaxWaitMS" /> milliseconds.
+                /// </summary>
+                public static bool WaitForFileUnlock(string FullPath, int MaxWaitMS, FileMode FileMode = FileMode.Open, FileAccess FileAccess = FileAccess.ReadWrite)
                     {
-                    var Stream = new FileStream(FullPath, FileMode, FileAccess);
-                    Stream.Close();
-                    return true;
-                    }
-                catch (Exception)
-                    {
-                    if (MaxWaitMS < Wait)
-                        return false;
+                    const int Wait = 100;
 
-                    MaxWaitMS -= Wait;
-                    Thread.Sleep(Wait);
-                    }
-                }
-            return false;
-            }
+                    while (MaxWaitMS > 0)
+                        {
+                        try
+                            {
+                            var Stream = new FileStream(FullPath, FileMode, FileAccess);
+                            Stream.Close();
+                            return true;
+                            }
+                        catch (Exception)
+                            {
+                            if (MaxWaitMS < Wait)
+                                return false;
 
-        #endregion
+                            MaxWaitMS -= Wait;
+                            Thread.Sleep(Wait);
+                            }
+                        }
+                    return false;
+                    }
+
+                #endregion
+        */
 
 
         #endregion

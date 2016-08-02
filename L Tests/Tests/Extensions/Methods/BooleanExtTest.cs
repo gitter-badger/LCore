@@ -4,8 +4,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
+using JetBrains.Annotations;
 using LCore.Tests;
 using Xunit;
+using Xunit.Abstractions;
 using static LCore.Extensions.L.Test.Categories;
 // ReSharper disable ThrowingSystemException
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
@@ -2521,6 +2523,8 @@ namespace L_Tests.Tests.Extensions
             Func<string> Action3 = () => { throw new Exception(); };
             Action3.Unless(False, False, False).ShouldFail(_TestString, _TestString, _TestString, _TestString);
             }
+
+        public BooleanExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }
 

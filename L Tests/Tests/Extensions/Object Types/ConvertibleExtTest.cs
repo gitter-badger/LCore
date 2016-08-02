@@ -6,6 +6,7 @@ using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Tests;
 using Xunit;
+using Xunit.Abstractions;
 using static LCore.Extensions.L.Test.Categories;
 // ReSharper disable ExpressionIsAlwaysNull
 
@@ -576,5 +577,7 @@ namespace L_Tests.Tests.Extensions
                 }
             }
         #endregion
+
+        public ConvertibleExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }

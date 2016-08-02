@@ -3,8 +3,10 @@ using LCore.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using FluentAssertions;
+using JetBrains.Annotations;
 using LCore.Tests;
 using Xunit;
+using Xunit.Abstractions;
 using static LCore.Extensions.L.Test.Categories;
 
 // ReSharper disable ConvertToLambdaExpression
@@ -2606,5 +2608,6 @@ namespace L_Tests.Tests.Extensions
             Bad_Act.Return($"{_TestString}a").Debug().Catch(Handler)(_TestString, _TestString, _TestString, _TestString).Should().Be(default(string));
             }
 
+        public ExceptionExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }

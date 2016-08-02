@@ -2,7 +2,9 @@
 using LCore.Extensions;
 using System;
 using FluentAssertions;
+using JetBrains.Annotations;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace L_Tests.Tests.Extensions
     {
@@ -100,5 +102,7 @@ namespace L_Tests.Tests.Extensions
 
             new TimeSpan[] { }.Average().Should().Be(new TimeSpan(0));
             }
+
+        public DateExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }

@@ -5,8 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using FluentAssertions;
+using JetBrains.Annotations;
 using LCore.Tests;
 using Xunit;
+using Xunit.Abstractions;
 using static LCore.Extensions.L.Test.Categories;
 
 // ReSharper disable RedundantCast
@@ -86,5 +88,7 @@ namespace L_Tests.Tests.Extensions
             ((string)null).Matches(null).Should().HaveCount(0);
             ((string)null).Matches("").Should().HaveCount(0);
             }
+
+        public StringExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }

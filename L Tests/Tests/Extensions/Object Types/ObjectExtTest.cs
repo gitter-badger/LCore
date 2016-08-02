@@ -3,10 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using FluentAssertions;
+using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.Extensions.Optional;
 using LCore.Tests;
 using Xunit;
+using Xunit.Abstractions;
 using ObjectExt = LCore.Extensions.ObjectExt;
 using static LCore.Extensions.L.Test.Categories;
 // ReSharper disable MemberCanBePrivate.Local
@@ -645,5 +647,7 @@ namespace L_Tests.Tests.Extensions
             public int E = 7;
             }
         #endregion
+
+        public ObjectExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }

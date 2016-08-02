@@ -7,6 +7,7 @@ using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Numbers;
 using Xunit;
+using Xunit.Abstractions;
 using static LCore.Extensions.L.Test.Categories;
 // ReSharper disable StringLiteralTypo
 // ReSharper disable UnusedParameter.Global
@@ -284,5 +285,7 @@ namespace L_Tests.Tests.Extensions
             }
 
         #endregion
+
+        public NumberExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }

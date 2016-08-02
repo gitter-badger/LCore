@@ -4,8 +4,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Reflection;
 using FluentAssertions;
+using JetBrains.Annotations;
 using LCore.Tools;
 using Xunit;
+using Xunit.Abstractions;
 using static LCore.Extensions.L.Test.Categories;
 // ReSharper disable ReturnValueOfPureMethodIsNotUsed
 
@@ -104,6 +106,8 @@ namespace L_Tests.Tests.Extensions
             public override Type ReflectedType { get; }
             // ReSharper restore UnassignedGetOnlyAutoProperty
             }
+
+        public CommentExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }
 

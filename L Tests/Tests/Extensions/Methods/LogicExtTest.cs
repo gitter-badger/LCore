@@ -3,8 +3,10 @@ using LCore.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using FluentAssertions;
+using JetBrains.Annotations;
 using LCore.Tests;
 using Xunit;
+using Xunit.Abstractions;
 using static LCore.Extensions.L.Test.Categories;
 // ReSharper disable RedundantCast
 
@@ -2562,6 +2564,6 @@ namespace L_Tests.Tests.Extensions
 
         #endregion
 
-
+        public LogicExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }

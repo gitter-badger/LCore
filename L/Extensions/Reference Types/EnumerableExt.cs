@@ -551,6 +551,8 @@ namespace LCore.Extensions
         /// </summary>
         [Tested]
         [DebuggerStepThrough]
+        [TestMethodGenerics(typeof(string))]
+        [TestResult(new object[] { null, 5 }, new[] { "", "", "", "", "" })]
         [TestBound(1, 0, 100)]
         public static List<T> Collect<T>([CanBeNull] this Func<T> In, int Count)
             {
@@ -2472,7 +2474,7 @@ namespace LCore.Extensions
         /// </summary>
         [Tested]
         [TestMethodGenerics(typeof(int))]
-        [TestResult(new object[] { new[] {1}, "", null }, new int[] { })]
+        [TestResult(new object[] { new[] { 1 }, "", null }, new int[] { })]
         public static T[] Named<T>([CanBeNull] this T[] In, [CanBeNull] string Name, [CanBeNull] Func<T, string> Namer)
             {
             Namer = Namer ?? (o => null);

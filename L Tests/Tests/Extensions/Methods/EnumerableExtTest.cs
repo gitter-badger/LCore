@@ -6,11 +6,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
+using JetBrains.Annotations;
 using LCore.Extensions.Optional;
 using LCore.Interfaces;
 using LCore.Naming;
 using LCore.Tests;
 using Xunit;
+using Xunit.Abstractions;
 using static LCore.Extensions.L.Test.Categories;
 // ReSharper disable RedundantArgumentDefaultValue
 // ReSharper disable SuggestVarOrType_Elsewhere
@@ -1979,6 +1981,8 @@ namespace L_Tests.Tests.Extensions
             }
 
         #endregion
+
+        public EnumerableExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }
 
