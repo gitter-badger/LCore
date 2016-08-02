@@ -12,12 +12,14 @@ using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Win32;
 using Xunit;
+using static LCore.Extensions.L.Test.Categories;
 
 // ReSharper disable ObjectCreationAsStatement
 // ReSharper disable RedundantCast
 
 namespace L_Tests.Tests.Tools
     {
+    [Trait(Category, L.Test.Categories.Tools)]
     public class RegistryHelperTest
         {
         private const string TestRegKey = "TEST_RegistryHandler";
@@ -41,10 +43,8 @@ namespace L_Tests.Tests.Tools
         /// <exception cref="SecurityException">The user does not have the permissions required to read from the registry key. </exception>
         /// <exception cref="SecurityException">The user does not have the permissions required to read from the registry key. </exception>
         [Fact]
-        [TestCategory(L.Test.Categories.Tools)]
         public void Test_RegistryHandler()
             {
-
             /////////////////////////////
 
             L.A(() => new RegistryHelper(null, RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default))).ShouldFail();
@@ -54,8 +54,8 @@ namespace L_Tests.Tests.Tools
             //            L.A(() => new RegistryHelper("#Q*()HY&)R(B)#(*)__~_~+_)JG)+&&**(@!2-09%*@:><?:\"'\r\n",
             //                RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default))).ShouldFail();
 
-            L.A(() => this.Reg.Save(null, (object)5)).ShouldFail();
-            L.A(() => this.Reg.Save("a", (object)null)).ShouldFail();
+            L.A(() => this.Reg.Save(null, (object) 5)).ShouldFail();
+            L.A(() => this.Reg.Save("a", (object) null)).ShouldFail();
 
             // unsupported object type
             L.A(() => this.Reg.Save("a", this.Reg)).ShouldFail();
@@ -72,44 +72,45 @@ namespace L_Tests.Tests.Tools
             this.Reg.LoadInt("a").Should().NotHaveValue();
             this.Reg.LoadLong("a").Should().NotHaveValue();
 
-            this.Reg.Save("a", (object)"abc");
+            this.Reg.Save("a", (object) "abc");
             this.Reg.LoadString("a").Should().Be("abc");
             this.Reg.LoadObject("a").Should().Be("abc");
 
-            this.Reg.Save("b", (object)55);
+            this.Reg.Save("b", (object) 55);
             this.Reg.LoadInt("b").Should().Be(55);
             this.Reg.LoadObject("b").Should().Be("55");
 
-            this.Reg.Save("c", (object)-5.5f);
+            this.Reg.Save("c", (object) -5.5f);
             this.Reg.LoadFloat("c").Should().Be(-5.5f);
             this.Reg.LoadObject("c").Should().Be("-5.5");
 
-            this.Reg.Save("d", (double)-5.5);
-            this.Reg.LoadDouble("d").Should().Be((double)-5.5);
+            this.Reg.Save("d", (double) -5.5);
+            this.Reg.LoadDouble("d").Should().Be((double) -5.5);
             this.Reg.LoadObject("d").Should().Be("-5.5");
 
-            this.Reg.Save("e", (object)new byte[] { 5, 243, 224, 21 });
+            this.Reg.Save("e", (object) new byte[] {5, 243, 224, 21});
             this.Reg.LoadBinary("e").Should().Equal(5, 243, 224, 21);
-            this.Reg.LoadObject("e").ToS().Should().Be(new byte[] { 5, 243, 224, 21 }.ToS());
+            this.Reg.LoadObject("e").ToS().Should().Be(new byte[] {5, 243, 224, 21}.ToS());
 
-            this.Reg.Save("f", (object)'c');
+            this.Reg.Save("f", (object) 'c');
             this.Reg.LoadChar("f").Should().Be('c');
             this.Reg.LoadObject("f").Should().Be("c");
 
-            this.Reg.Save("g", (object)true);
+            this.Reg.Save("g", (object) true);
             this.Reg.LoadBool("g").Should().Be(true);
             this.Reg.LoadObject("g").Should().Be("True");
 
-            this.Reg.Save("h", (object)new object[] { 5, -5.5f, "abc", (double)-55, (double)double.NaN });
+            this.Reg.Save("h", (object) new object[] {5, -5.5f, "abc", (double) -55, (double) double.NaN});
 
-            this.Reg.LoadList("h").ToS().Should().Be(new List<object> { 5, -5.5f, "abc", (double)-55, (double)double.NaN }.ToS());
+            this.Reg.LoadList("h").ToS().Should().Be(new List<object> {5, -5.5f, "abc", (double) -55, (double) double.NaN}.ToS());
 
-            this.Reg.LoadAll().ShouldBeEquivalentTo(new List<Set<string, object>> {
+            this.Reg.LoadAll().ShouldBeEquivalentTo(new List<Set<string, object>>
+                {
                 new Set<string, object>("a", "abc"),
                 new Set<string, object>("b", "55"),
                 new Set<string, object>("c", "-5.5"),
                 new Set<string, object>("d", "-5.5"),
-                new Set<string, object>("e", new byte[] { 5, 243, 224, 21 }),
+                new Set<string, object>("e", new byte[] {5, 243, 224, 21}),
                 new Set<string, object>("f", "c"),
                 new Set<string, object>("g", "True"),
                 new Set<string, object>("h_Count", "5"),
@@ -117,22 +118,24 @@ namespace L_Tests.Tests.Tools
                 new Set<string, object>("h_2", "abc"),
                 new Set<string, object>("h_3", "-55"),
                 new Set<string, object>("h_4", "NaN"),
-                new Set<string, object>("h_0", "5")});
+                new Set<string, object>("h_0", "5")
+                });
 
             this.Reg.Remove("a", "b", "c", "h_4", "BAD NAME");
 
-            this.Reg.LoadAll().ShouldBeEquivalentTo(new List<Set<string, object>> {
+            this.Reg.LoadAll().ShouldBeEquivalentTo(new List<Set<string, object>>
+                {
                 new Set<string, object>("d", "-5.5"),
-                new Set<string, object>("e", new byte[] { 5, 243, 224, 21 }),
+                new Set<string, object>("e", new byte[] {5, 243, 224, 21}),
                 new Set<string, object>("f", "c"),
                 new Set<string, object>("g", "True"),
                 new Set<string, object>("h_Count", "5"),
                 new Set<string, object>("h_1", "-5.5"),
                 new Set<string, object>("h_2", "abc"),
                 new Set<string, object>("h_3", "-55"),
-                new Set<string, object>("h_0", "5")});
+                new Set<string, object>("h_0", "5")
+                });
             /////////////////////////////////////////////////////
-
             }
 
         private RegistryHelper Reg { get; }
@@ -162,9 +165,7 @@ namespace L_Tests.Tests.Tools
                     RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default).DeleteSubKey(TestRegKey);
                     }
                 }
-            catch
-                {
-                }
+            catch {}
 
             RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default)
                 .GetSubKeyNames()

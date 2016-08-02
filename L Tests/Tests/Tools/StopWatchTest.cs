@@ -3,17 +3,17 @@ using System.Threading;
 using FluentAssertions;
 using LCore.Extensions;
 using LCore.Tools;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
+using static LCore.Extensions.L.Test.Categories;
 
 // ReSharper disable ObjectCreationAsStatement
 
 namespace L_Tests.Tests.Tools
     {
+    [Trait(Category, L.Test.Categories.Tools)]
     public class StopWatchTest
         {
         [Fact]
-        [TestCategory(L.Test.Categories.Tools)]
         public void Test_StopWatch()
             {
             var Test = new StopWatch();
@@ -22,6 +22,7 @@ namespace L_Tests.Tests.Tools
                 {
                 Test.Start();
                 Thread.Sleep(200);
+
                 Test.Stop().Should().BeInRange(190, 225);
 
                 Test.Start();

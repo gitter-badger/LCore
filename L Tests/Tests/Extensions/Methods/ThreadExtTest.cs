@@ -1,6 +1,4 @@
-﻿
-using LCore.Extensions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using LCore.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -13,20 +11,21 @@ using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
+    [Trait(Category, UnitTests)]
     public class ThreadExtTest : ExtensionTester
         {
-        protected override Type[] TestType => new[] { typeof(ThreadExt) };
+        protected override Type[] TestType => new[] {typeof(ThreadExt)};
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_Async_Action()
             {
             bool Success = false;
             var TestAction = new Action(() =>
-            {
+                {
                 Thread.Sleep(20);
                 Success = true;
-            });
+                });
 
             lock (TestAction)
                 {
@@ -38,15 +37,16 @@ namespace L_Tests.Tests.Extensions
                 Success.Should().BeTrue();
                 }
             }
+
         [Fact]
         public void Test_Async_Action_TimeLimit()
             {
             bool Success = false;
             var TestAction = new Action(() =>
-            {
+                {
                 Thread.Sleep(30);
                 Success = true;
-            });
+                });
 
             Thread.Sleep(40);
             lock (TestAction)
@@ -151,16 +151,17 @@ namespace L_Tests.Tests.Extensions
                 TestAction();
                 }
             }
+
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_Async_Action_T()
             {
             string Success = "";
             var TestAction = new Action<string>(Str =>
-            {
+                {
                 Thread.Sleep(5);
                 Success = Str;
-            });
+                });
 
             lock (Success)
                 {
@@ -170,10 +171,11 @@ namespace L_Tests.Tests.Extensions
                 Thread.Sleep(30);
 
                 Success.Should().Be("abc");
+                }
+            Success = "";
 
-
-                Success = "";
-
+            lock (Success)
+                {
                 TestAction.Async(ThreadPriority.AboveNormal)("abc");
                 Success.Should().Be("");
 
@@ -182,15 +184,16 @@ namespace L_Tests.Tests.Extensions
                 Success.Should().Be("abc");
                 }
             }
+
         [Fact]
         public void Test_Async_Action_T_TimeLimit()
             {
             string Result = "";
             var TestAction = new Action<string>(Str =>
-            {
+                {
                 Thread.Sleep(30);
                 Result = Str;
-            });
+                });
 
             Thread.Sleep(40);
 
@@ -308,21 +311,16 @@ namespace L_Tests.Tests.Extensions
 
             lock (TestAction)
                 {
-                TestAction.AsyncResult(Result =>
-                    {
-                        Result.Should().Be("yes");
-                    })();
+                TestAction.AsyncResult(Result => { Result.Should().Be("yes"); })();
 
                 Thread.Sleep(20);
 
-                TestAction.AsyncResult(Result =>
-                {
-                    Result.Should().Be("yes");
-                }, ThreadPriority.AboveNormal)();
+                TestAction.AsyncResult(Result => { Result.Should().Be("yes"); }, ThreadPriority.AboveNormal)();
 
                 Thread.Sleep(20);
                 }
             }
+
         [Fact]
         public void Test_Async_Func_T()
             {
@@ -333,8 +331,8 @@ namespace L_Tests.Tests.Extensions
                 bool Success = false;
                 TestAction.AsyncResult(Result =>
                     {
-                        Result.Should().Be("abcyes");
-                        Success = true;
+                    Result.Should().Be("abcyes");
+                    Success = true;
                     })("abc");
 
                 Thread.Sleep(50);
@@ -343,31 +341,29 @@ namespace L_Tests.Tests.Extensions
 
                 Success = false;
                 TestAction.AsyncResult(Result =>
-                {
+                    {
                     Result.Should().Be("abcyes");
                     Success = true;
-                }, ThreadPriority.AboveNormal)("abc");
+                    }, ThreadPriority.AboveNormal)("abc");
 
                 Thread.Sleep(50);
 
                 Success.Should().BeTrue();
                 }
             }
+
         [Fact]
         public void Test_Async_Func_U_TimeLimit()
             {
             bool Success = false;
             var TestAction = new Func<string>(() =>
-            {
+                {
                 Thread.Sleep(30);
                 Success = true;
                 return "abc";
-            });
+                });
 
-            Action<string> TestAction2 = Result =>
-                {
-                    Result.Should().Be("abc");
-                };
+            Action<string> TestAction2 = Result => { Result.Should().Be("abc"); };
 
             Thread.Sleep(40);
             lock (TestAction)
@@ -473,22 +469,20 @@ namespace L_Tests.Tests.Extensions
                 TestAction();
                 }
             }
+
         [Fact]
         public void Test_Async_Func_T_U_TimeLimit()
             {
             bool Success = false;
             var TestAction = new Func<string, string>(Result =>
-                 {
-                     Result.Should().Be("abc");
-                     Thread.Sleep(20);
-                     Success = true;
-                     return "abc";
-                 });
-
-            Action<string> ResultFunction = Result =>
-            {
+                {
                 Result.Should().Be("abc");
-            };
+                Thread.Sleep(20);
+                Success = true;
+                return "abc";
+                });
+
+            Action<string> ResultFunction = Result => { Result.Should().Be("abc"); };
 
             Thread.Sleep(40);
             lock (TestAction)
@@ -596,7 +590,7 @@ namespace L_Tests.Tests.Extensions
             }
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_MethodProfileCache()
             {
             const string ProfileName = "TestProfile";
@@ -606,9 +600,8 @@ namespace L_Tests.Tests.Extensions
 
             var Action = new Action(() =>
                 {
-                    int Wait = new Random().Next(25, 50);
-                    Thread.Sleep(Wait);
-
+                int Wait = new Random().Next(25, 50);
+                Thread.Sleep(Wait);
                 }).Profile(ProfileName).Repeat(5);
 
             lock (Action)
@@ -635,8 +628,8 @@ namespace L_Tests.Tests.Extensions
                 Act.Profile(5).Should().BeCloseTo(new TimeSpan(0, 0, 0, 0, 50), 80);
                 Act.Profile(20).Should().BeCloseTo(new TimeSpan(0, 0, 0, 0, 200), 100);
 
-                ((Action)null).Profile().Should().BeCloseTo(new TimeSpan(0));
-                ((Action)null).Profile(5).Should().BeCloseTo(new TimeSpan(0));
+                ((Action) null).Profile().Should().BeCloseTo(new TimeSpan(0));
+                ((Action) null).Profile(5).Should().BeCloseTo(new TimeSpan(0));
                 }
             }
 
@@ -649,8 +642,8 @@ namespace L_Tests.Tests.Extensions
 
             Action<string> Act = Str =>
                 {
-                    Str.Should().Be("abc");
-                    Thread.Sleep(10);
+                Str.Should().Be("abc");
+                Thread.Sleep(10);
                 };
 
             Act = Act.Profile("TestProfile");
@@ -676,9 +669,9 @@ namespace L_Tests.Tests.Extensions
             {
             Func<int> Func = () =>
                 {
-                    int Rand = new Random().Next(50, 70);
-                    Thread.Sleep(Rand);
-                    return Rand;
+                int Rand = new Random().Next(50, 70);
+                Thread.Sleep(Rand);
+                return Rand;
                 };
 
             Thread.Sleep(50);
@@ -698,6 +691,7 @@ namespace L_Tests.Tests.Extensions
                 Result.Data.Count().Should().Be(6);
                 }
             }
+
         [Fact]
         public void Test_ProfileFuncString()
             {
@@ -706,10 +700,10 @@ namespace L_Tests.Tests.Extensions
             L.Thread.MethodProfileCache.ContainsKey("TestProfile").Should().BeFalse();
 
             Func<string> Func = () =>
-            {
+                {
                 Thread.Sleep(10);
                 return "abc";
-            };
+                };
 
             Func = Func.Profile("TestProfile");
 
@@ -729,6 +723,7 @@ namespace L_Tests.Tests.Extensions
                 Result.Data.Should().Equal("abc", "abc", "abc", "abc", "abc");
                 }
             }
+
         [Fact]
         public void Test_ProfileFuncString_2()
             {
@@ -737,11 +732,11 @@ namespace L_Tests.Tests.Extensions
             L.Thread.MethodProfileCache.ContainsKey("TestProfile").Should().BeFalse();
 
             Func<string, string> Func = Str =>
-            {
+                {
                 Str.Should().Be("abc");
                 Thread.Sleep(10);
                 return "abc";
-            };
+                };
 
             Func = Func.Profile("TestProfile");
 
@@ -765,10 +760,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_CountExecutions()
             {
-            var Act = new Action(() =>
-                {
-                    Thread.Sleep(2);
-                });
+            var Act = new Action(() => { Thread.Sleep(2); });
 
             Act.CountExecutions(100).Should().BeInRange(30, 50);
             }

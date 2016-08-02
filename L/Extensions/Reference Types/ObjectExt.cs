@@ -208,6 +208,7 @@ namespace LCore.Extensions
                 var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
                 return (o1, o2, o3, o4) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4 });
                 }
+/*
             /// <summary>
             /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
@@ -304,6 +305,7 @@ namespace LCore.Extensions
                 var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
                 return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, o16) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, o16 });
                 }
+           */
             #endregion
 
             #region IsNull

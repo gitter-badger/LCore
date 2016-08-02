@@ -12,14 +12,14 @@ namespace LCore.Extensions
     /// </summary>
     [ExtensionProvider]
     [CodeExplodeExtend("Method Extensions", "Logic_Extension", "LCore.Extensions")]
-    [CodeExplodeLogic("Method Explosions", "LX", "LCore", new[] { typeof(bool) })]
+    [CodeExplodeLogic("Method Explosions", "LX", "LCore", new[] {typeof(bool)})]
     public static partial class L
         {
-
         /// <summary>
         /// Empty method. Takes no parameters and performs no actions.
         /// </summary>
         public static readonly Action Empty = () => { };
+
         /// <summary>
         /// Empty method. Takes no parameters and performs no actions.
         /// Alias of L.Empty
@@ -27,9 +27,10 @@ namespace LCore.Extensions
         public static readonly Action E = Empty;
 
 
-        internal static Type[] LUsedGenericOutputTypes = { typeof(bool) };
+        internal static Type[] LUsedGenericOutputTypes = {typeof(bool)};
 
         #region Method Creators - Shorthand
+
         /// <summary>
         /// Creates an empty method using the specified Type Arguments.
         /// </summary>
@@ -38,6 +39,7 @@ namespace LCore.Extensions
             {
             return E;
             }
+
         /// <summary>
         /// Creates an empty method using the specified Type Arguments.
         /// </summary>
@@ -46,6 +48,7 @@ namespace LCore.Extensions
             {
             return Logic.Action<T1>();
             }
+
         /// <summary>
         /// Creates an empty method using the specified Type Arguments.
         /// </summary>
@@ -56,6 +59,7 @@ namespace LCore.Extensions
             {
             return Logic.Action<T1, T2>();
             }
+
         /// <summary>
         /// Creates an empty method using the specified Type Arguments.
         /// </summary>
@@ -67,6 +71,7 @@ namespace LCore.Extensions
             {
             return Logic.Action<T1, T2, T3>();
             }
+
         /// <summary>
         /// Creates an empty method using the specified Type Arguments.
         /// </summary>
@@ -79,99 +84,115 @@ namespace LCore.Extensions
             {
             return Logic.Action<T1, T2, T3, T4>();
             }
+
         /// <summary>
-		/// Creates an empty method using the specified Type Arguments.
-		/// </summary>
-		/// <returns></returns>
+        /// Creates an empty method using the specified Type Arguments.
+        /// </summary>
+        /// <returns></returns>
         public static Action<T1, T2, T3, T4, T5> A<T1, T2, T3, T4, T5>()
             {
             return Logic.Action<T1, T2, T3, T4, T5>();
             }
+
         /// <summary>
-		/// Creates an empty method using the specified Type Arguments.
-		/// </summary>
-		/// <returns></returns>
+        /// Creates an empty method using the specified Type Arguments.
+        /// </summary>
+        /// <returns></returns>
         public static Action<T1, T2, T3, T4, T5, T6> A<T1, T2, T3, T4, T5, T6>()
             {
             return Logic.Action<T1, T2, T3, T4, T5, T6>();
             }
+
         /// <summary>
-		/// Creates an empty method using the specified Type Arguments.
-		/// </summary>
-		/// <returns></returns>
+        /// Creates an empty method using the specified Type Arguments.
+        /// </summary>
+        /// <returns></returns>
         public static Action<T1, T2, T3, T4, T5, T6, T7> A<T1, T2, T3, T4, T5, T6, T7>()
             {
             return Logic.Action<T1, T2, T3, T4, T5, T6, T7>();
             }
+
         /// <summary>
-		/// Creates an empty method using the specified Type Arguments.
-		/// </summary>
-		/// <returns></returns>
+        /// Creates an empty method using the specified Type Arguments.
+        /// </summary>
+        /// <returns></returns>
         public static Action<T1, T2, T3, T4, T5, T6, T7, T8> A<T1, T2, T3, T4, T5, T6, T7, T8>()
             {
             return Logic.Action<T1, T2, T3, T4, T5, T6, T7, T8>();
             }
+
         /// <summary>
-		/// Creates an empty method using the specified Type Arguments.
-		/// </summary>
-		/// <returns></returns>
+        /// Creates an empty method using the specified Type Arguments.
+        /// </summary>
+        /// <returns></returns>
         public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> A<T1, T2, T3, T4, T5, T6, T7, T8, T9>()
             {
             return Logic.Action<T1, T2, T3, T4, T5, T6, T7, T8, T9>();
             }
+
         /// <summary>
-		/// Creates an empty method using the specified Type Arguments.
-		/// </summary>
-		/// <returns></returns>
+        /// Creates an empty method using the specified Type Arguments.
+        /// </summary>
+        /// <returns></returns>
         public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> A<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>()
             {
             return Logic.Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>();
             }
+
         /// <summary>
-		/// Creates an empty method using the specified Type Arguments.
-		/// </summary>
-		/// <returns></returns>
+        /// Creates an empty method using the specified Type Arguments.
+        /// </summary>
+        /// <returns></returns>
         public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> A<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>()
             {
             return Logic.Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>();
             }
+
         /// <summary>
-		/// Creates an empty method using the specified Type Arguments.
-		/// </summary>
-		/// <returns></returns>
+        /// Creates an empty method using the specified Type Arguments.
+        /// </summary>
+        /// <returns></returns>
         public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> A<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>()
             {
             return Logic.Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>();
             }
+
         /// <summary>
-		/// Creates an empty method using the specified Type Arguments.
-		/// </summary>
-		/// <returns></returns>
-        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> A<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>()
+        /// Creates an empty method using the specified Type Arguments.
+        /// </summary>
+        /// <returns></returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> A
+            <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>()
             {
             return Logic.Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>();
             }
+
         /// <summary>
-		/// Creates an empty method using the specified Type Arguments.
-		/// </summary>
-		/// <returns></returns>
-        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> A<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>()
+        /// Creates an empty method using the specified Type Arguments.
+        /// </summary>
+        /// <returns></returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> A
+            <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>()
             {
             return Logic.Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>();
             }
+
         /// <summary>
-		/// Creates an empty method using the specified Type Arguments.
-		/// </summary>
-		/// <returns></returns>
-        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> A<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>()
+        /// Creates an empty method using the specified Type Arguments.
+        /// </summary>
+        /// <returns></returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> A
+            <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>()
             {
             return Logic.Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>();
             }
+
         /// <summary>
-		/// Creates an empty method using the specified Type Arguments.
-		/// </summary>
-		/// <returns></returns>
-        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> A<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>()
+        /// Creates an empty method using the specified Type Arguments.
+        /// </summary>
+        /// <returns></returns>
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> A
+            <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>()
             {
             return Logic.Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>();
             }
@@ -192,6 +213,7 @@ namespace LCore.Extensions
             {
             return Logic.Do<T1, U>();
             }
+
         /// <summary>
         /// Creates an empty method using the specified Type Arguments.
         /// </summary>
@@ -203,6 +225,7 @@ namespace LCore.Extensions
             {
             return Logic.Do<T1, T2, U>();
             }
+
         /// <summary>
         /// Creates an empty method using the specified Type Arguments.
         /// </summary>
@@ -215,6 +238,7 @@ namespace LCore.Extensions
             {
             return Logic.Do<T1, T2, T3, U>();
             }
+
         /// <summary>
         /// Creates an empty method using the specified Type Arguments.
         /// </summary>
@@ -228,6 +252,7 @@ namespace LCore.Extensions
             {
             return Logic.Do<T1, T2, T3, T4, U>();
             }
+
         /// <summary>
         /// Creates an empty method using the specified Type Arguments.
         /// </summary>
@@ -236,6 +261,7 @@ namespace LCore.Extensions
             {
             return Logic.Do<T1, T2, T3, T4, T5, U>();
             }
+
         /// <summary>
         /// Creates an empty method using the specified Type Arguments.
         /// </summary>
@@ -244,6 +270,7 @@ namespace LCore.Extensions
             {
             return Logic.Do<T1, T2, T3, T4, T5, T6, U>();
             }
+
         /// <summary>
         /// Creates an empty method using the specified Type Arguments.
         /// </summary>
@@ -252,6 +279,7 @@ namespace LCore.Extensions
             {
             return Logic.Do<T1, T2, T3, T4, T5, T6, T7, U>();
             }
+
         /// <summary>
         /// Creates an empty method using the specified Type Arguments.
         /// </summary>
@@ -260,6 +288,7 @@ namespace LCore.Extensions
             {
             return Logic.Do<T1, T2, T3, T4, T5, T6, T7, T8, U>();
             }
+
         /// <summary>
         /// Creates an empty method using the specified Type Arguments.
         /// </summary>
@@ -268,6 +297,7 @@ namespace LCore.Extensions
             {
             return Logic.Do<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>();
             }
+
         /// <summary>
         /// Creates an empty method using the specified Type Arguments.
         /// </summary>
@@ -276,6 +306,7 @@ namespace LCore.Extensions
             {
             return Logic.Do<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>();
             }
+
         /// <summary>
         /// Creates an empty method using the specified Type Arguments.
         /// </summary>
@@ -284,6 +315,7 @@ namespace LCore.Extensions
             {
             return Logic.Do<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>();
             }
+
         /// <summary>
         /// Creates an empty method using the specified Type Arguments.
         /// </summary>
@@ -292,35 +324,43 @@ namespace LCore.Extensions
             {
             return Logic.Do<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>();
             }
+
         /// <summary>
         /// Creates an empty method using the specified Type Arguments.
         /// </summary>
         /// <returns></returns>
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> F<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>()
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> F
+            <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>()
             {
             return Logic.Do<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>();
             }
+
         /// <summary>
         /// Creates an empty method using the specified Type Arguments.
         /// </summary>
         /// <returns></returns>
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> F<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>()
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> F
+            <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>()
             {
             return Logic.Do<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>();
             }
+
         /// <summary>
         /// Creates an empty method using the specified Type Arguments.
         /// </summary>
         /// <returns></returns>
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> F<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>()
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> F
+            <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>()
             {
             return Logic.Do<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>();
             }
+
         /// <summary>
         /// Creates an empty method using the specified Type Arguments.
         /// </summary>
         /// <returns></returns>
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> F<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>()
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> F
+            <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>()
             {
             return Logic.Do<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>();
             }
@@ -328,6 +368,7 @@ namespace LCore.Extensions
         #endregion
 
         #region Method Retrievers - Shorthand
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
@@ -337,6 +378,7 @@ namespace LCore.Extensions
             {
             return Logic.Action(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
@@ -347,6 +389,7 @@ namespace LCore.Extensions
             {
             return Logic.Action(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
@@ -358,6 +401,7 @@ namespace LCore.Extensions
             {
             return Logic.Action(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
@@ -370,6 +414,7 @@ namespace LCore.Extensions
             {
             return Logic.Action(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
@@ -383,6 +428,7 @@ namespace LCore.Extensions
             {
             return Logic.Action(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
@@ -391,6 +437,7 @@ namespace LCore.Extensions
             {
             return Logic.Action(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
@@ -399,6 +446,7 @@ namespace LCore.Extensions
             {
             return Logic.Action(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
@@ -407,6 +455,7 @@ namespace LCore.Extensions
             {
             return Logic.Action(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
@@ -415,67 +464,86 @@ namespace LCore.Extensions
             {
             return Logic.Action(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
         /// <returns></returns>
-        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> A<T1, T2, T3, T4, T5, T6, T7, T8, T9>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> In)
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> A<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+            Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> In)
             {
             return Logic.Action(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
         /// <returns></returns>
-        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> A<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> In)
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> A<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+            Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> In)
             {
             return Logic.Action(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
         /// <returns></returns>
-        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> A<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> In)
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> A<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
+            Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> In)
             {
             return Logic.Action(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
         /// <returns></returns>
-        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> A<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> In)
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> A<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
+            Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> In)
             {
             return Logic.Action(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
         /// <returns></returns>
-        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> A<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> In)
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> A
+            <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> In)
             {
             return Logic.Action(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
         /// <returns></returns>
-        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> A<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> In)
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> A
+            <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
+            Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> In)
             {
             return Logic.Action(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
         /// <returns></returns>
-        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> A<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> In)
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> A
+            <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
+            Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> In)
             {
             return Logic.Action(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
         /// <returns></returns>
-        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> A<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> In)
+        public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> A
+            <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
+            Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> In)
             {
             return Logic.Action(In);
             }
@@ -490,6 +558,7 @@ namespace LCore.Extensions
             {
             return Logic.Function(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
@@ -501,6 +570,7 @@ namespace LCore.Extensions
             {
             return Logic.Function(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
@@ -513,6 +583,7 @@ namespace LCore.Extensions
             {
             return Logic.Function(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
@@ -526,6 +597,7 @@ namespace LCore.Extensions
             {
             return Logic.Function(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
@@ -534,6 +606,7 @@ namespace LCore.Extensions
             {
             return Logic.Function(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
@@ -542,6 +615,7 @@ namespace LCore.Extensions
             {
             return Logic.Function(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
@@ -550,6 +624,7 @@ namespace LCore.Extensions
             {
             return Logic.Function(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
@@ -558,78 +633,100 @@ namespace LCore.Extensions
             {
             return Logic.Function(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
         /// <returns></returns>
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, U> F<T1, T2, T3, T4, T5, T6, T7, T8, U>(Func<T1, T2, T3, T4, T5, T6, T7, T8, U> In)
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, U> F<T1, T2, T3, T4, T5, T6, T7, T8, U>(
+            Func<T1, T2, T3, T4, T5, T6, T7, T8, U> In)
             {
             return Logic.Function(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
         /// <returns></returns>
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U> F<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U> In)
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U> F<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>(
+            Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U> In)
             {
             return Logic.Function(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
         /// <returns></returns>
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U> F<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U> In)
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U> F<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>(
+            Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U> In)
             {
             return Logic.Function(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
         /// <returns></returns>
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> F<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> In)
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> F<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>(
+            Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> In)
             {
             return Logic.Function(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
         /// <returns></returns>
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> F<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> In)
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> F<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>(
+            Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> In)
             {
             return Logic.Function(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
         /// <returns></returns>
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> F<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> In)
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> F
+            <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> In)
             {
             return Logic.Function(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
         /// <returns></returns>
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> F<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> In)
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> F
+            <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>(
+            Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> In)
             {
             return Logic.Function(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
         /// <returns></returns>
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> F<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> In)
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> F
+            <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>(
+            Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> In)
             {
             return Logic.Function(In);
             }
+
         /// <summary>
         /// Returns a method from a static or instance reference
         /// </summary>
         /// <returns></returns>
-        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> F<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> In)
+        public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> F
+            <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>(
+            Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> In)
             {
             return Logic.Function(In);
             }
+
         #endregion
 
         /// <summary>
@@ -643,27 +740,39 @@ namespace LCore.Extensions
             public static class Categories
                 {
                 /// <summary>
+                /// Category value name
+                /// </summary>
+                public const string Category = nameof(Category);
+
+                /// <summary>
+                /// Category value name
+                /// </summary>
+                public const string StaticMethods = "Static Methods";
+
+                /// <summary>
                 /// Attribute test category name
                 /// </summary>
-                public const string AttributeTests = nameof(AttributeTests);
+                public const string AttributeTests = "Attribute Tests";
+
                 /// <summary>
                 /// Tools test category name
                 /// </summary>
                 public const string Tools = nameof(Tools);
+
                 /// <summary>
                 /// Unit Tests category name
                 /// </summary>
-                public const string UnitTests = nameof(UnitTests);
+                public const string UnitTests = "Unit Tests";
+
                 /// <summary>
                 /// Internal category name
                 /// </summary>
                 public const string Internal = nameof(Internal);
+
                 /// <summary>
                 /// NullabilityTests category name
                 /// </summary>
-                public const string NullabilityTests = nameof(NullabilityTests);
-
-
+                public const string NullabilityTests = "Nullability Tests";
                 }
             }
         }

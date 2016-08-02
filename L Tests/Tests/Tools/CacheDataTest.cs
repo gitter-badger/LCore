@@ -5,15 +5,15 @@ using System.Threading;
 using FluentAssertions;
 using LCore.Extensions;
 using LCore.Tools;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
+using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Tools
     {
+    [Trait(Category, L.Test.Categories.Tools)]
     public class CacheDataTest
         {
         [Fact]
-        [TestCategory(L.Test.Categories.Tools)]
         public void Test_CacheData()
             {
             const string Key = "testcache";
@@ -25,10 +25,10 @@ namespace L_Tests.Tests.Tools
             bool Executed = false;
             Func<string, string> Test = new Func<string, string>(In =>
                 {
-                    Executed.Should().BeFalse();
-                    Thread.Sleep(100);
-                    Executed = true;
-                    return In + "6";
+                Executed.Should().BeFalse();
+                Thread.Sleep(100);
+                Executed = true;
+                return In + "6";
                 }).Cache(Key);
 
             /////////////////////////////////////////////////

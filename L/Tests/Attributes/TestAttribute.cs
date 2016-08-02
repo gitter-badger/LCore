@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using LCore.Extensions;
 using LCore.Extensions.Optional;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using JetBrains.Annotations;
 
@@ -45,6 +46,7 @@ namespace LCore.Tests
         /// Attempts to resolve a single parameter object.
         /// This corrects parameter types, converts arrays to lists if needed.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         protected virtual void FixObject([CanBeNull]MethodInfo SourceMethod, [CanBeNull]Type ObjectType, ref object Obj)
             {
             // Converts Arrays to Lists when the Method requires it.
@@ -101,6 +103,7 @@ namespace LCore.Tests
             }
 
         [CanBeNull]
+        [ExcludeFromCodeCoverage]
         private static object GetMethodDelegate([CanBeNull]MethodInfo SourceMethod, [CanBeNull]Type ObjectType, [CanBeNull]string MethodName)
             {
             if (SourceMethod == null || MethodName == null)
@@ -197,6 +200,7 @@ namespace LCore.Tests
         /// <summary>
         /// Locates the method to be tested
         /// </summary>
+        [ExcludeFromCodeCoverage]
         protected virtual Func<bool> GetCheckMethod(MethodInfo SourceMethod, string MethodName)
             {
             var Result = GetMethodDelegate(SourceMethod, null, MethodName);
@@ -214,6 +218,7 @@ namespace LCore.Tests
         /// Locates the method to be tested.
         /// Its argument input is set to object.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         protected virtual Func<object, bool> GetCheckMethodArg(MethodInfo SourceMethod, string MethodName)
             {
             var Result = GetMethodDelegate(SourceMethod, null, MethodName);

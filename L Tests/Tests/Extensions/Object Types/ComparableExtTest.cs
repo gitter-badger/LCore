@@ -2,9 +2,8 @@
 using LCore.Extensions;
 using System;
 using FluentAssertions;
-using JetBrains.Annotations;
 using Xunit;
-using Xunit.Abstractions;
+using static LCore.Extensions.L.Test.Categories;
 
 // ReSharper disable ExpressionIsAlwaysNull
 
@@ -13,6 +12,7 @@ using Xunit.Abstractions;
 
 namespace L_Tests.Tests.Extensions
     {
+    [Trait(Category, UnitTests)]
     public class ComparableExtTest : ExtensionTester
         {
         protected override Type[] TestType => new[] { typeof(ComparableExt) };
@@ -196,7 +196,5 @@ namespace L_Tests.Tests.Extensions
             ((short)5).IsLessThanOrEqual((short)6).Should().BeTrue();
             ((ushort)5).IsLessThanOrEqual((ushort)6).Should().BeTrue();
             }
-
-        public ComparableExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }

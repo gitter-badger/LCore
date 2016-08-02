@@ -15,8 +15,6 @@ using LCore.Extensions.Optional;
 using LCore.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
-using Xunit.Abstractions;
-
 //using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 // ReSharper disable ConvertToConstant.Global
@@ -29,6 +27,7 @@ namespace L_Tests
     /// <summary>
     /// Extend this type to test static class members using Attributes
     /// </summary>
+    [Trait(Category, UnitTests)]
     public abstract class ExtensionTester
         {
         private readonly ITestOutputHelper _Output;
@@ -52,8 +51,8 @@ namespace L_Tests
         /// <summary>
         /// Run all Attribute tests on the Type.
         /// </summary>
-        [TestCategory(L.Test.Categories.AttributeTests)]
         [Fact]
+        [Trait(Category, AttributeTests)]
         public virtual void TestAttributeAssertions()
             {
             foreach (var Test in this.TestType)
@@ -108,10 +107,10 @@ namespace L_Tests
                         $"{this.RequireCoveragePercent}% coverage required");
                 }
             }
-
-        [TestCategory(L.Test.Categories.NullabilityTests)]
+        
         [Fact]
         [ExcludeFromCodeCoverage]
+        [Trait(Category, NullabilityTests)]
         public void TestNullability()
             {
             uint Tested = 0;
@@ -259,7 +258,7 @@ namespace L_Tests
 
                         if (ParamBound != null && ParamBound.TestWithinBounds > 0u)
                             {
-
+                            // TODO: Implement Test Within Bounds
                             }
                         }
                     }

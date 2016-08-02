@@ -1,16 +1,15 @@
-﻿
-using LCore.Extensions;
+﻿using LCore.Extensions;
 using System;
 using FluentAssertions;
-using JetBrains.Annotations;
 using Xunit;
-using Xunit.Abstractions;
+using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
+    [Trait(Category, UnitTests)]
     public class DateExtTest : ExtensionTester
         {
-        protected override Type[] TestType => new[] { typeof(DateExt) };
+        protected override Type[] TestType => new[] {typeof(DateExt)};
 
         [Fact]
         public void Test_CleanDateString()
@@ -98,11 +97,9 @@ namespace L_Tests.Tests.Extensions
             var Test4 = new TimeSpan(0, 0, 0, 40);
             var Test5 = new TimeSpan(0, 0, 0, 40);
 
-            new[] { Test, Test2, Test3, Test4, Test5 }.Average().Should().Be(new TimeSpan(2, 20, 3, 4));
+            new[] {Test, Test2, Test3, Test4, Test5}.Average().Should().Be(new TimeSpan(2, 20, 3, 4));
 
-            new TimeSpan[] { }.Average().Should().Be(new TimeSpan(0));
+            new TimeSpan[] {}.Average().Should().Be(new TimeSpan(0));
             }
-
-        public DateExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }

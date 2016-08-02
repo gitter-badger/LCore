@@ -18,21 +18,20 @@ namespace LCore.Tests
         public override void RunTest(MethodInfo Method)
             {
             Func<bool>[] Checks = this.AdditionalChecks.Convert(L.F<MethodInfo, string, Func<bool>>(this.GetCheckMethod).Supply(Method));
-            Method.MethodAssertSucceedes(this.Parameters, Checks);
+            Method.MethodAssertSucceedes(null, this.Parameters, Checks);
             }
 
         /// <summary>
         /// Additional optional checks to perform when running the test.
         /// </summary>
         protected readonly string[] AdditionalChecks;
-        
+
         /// <summary>
         /// Denotes that a particular method succeeds when passed particular parameters.
         /// </summary>
         public TestSucceedesAttribute(object[] Parameters)
-            : base(Parameters)
-            {
-            }
+            : base(Parameters) {}
+
         /// <summary>
         /// Denotes that a particular method succeeds when passed particular parameters.
         /// </summary>
@@ -41,6 +40,5 @@ namespace LCore.Tests
             {
             this.AdditionalChecks = AdditionalChecks;
             }
-
         }
     }

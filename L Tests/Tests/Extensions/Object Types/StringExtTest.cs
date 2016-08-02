@@ -1,6 +1,5 @@
 ﻿
 using LCore.Extensions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -15,13 +14,14 @@ using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
+    [Trait(Category, UnitTests)]
     public class StringExtTest : ExtensionTester
         {
         protected override Type[] TestType => new[] { typeof(StringExt) };
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_ReplaceAll_Dictionary()
             {
             var Replacements = new Dictionary<string, string>
@@ -48,7 +48,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_ToStream()
             {
             // ReSharper disable once StringLiteralTypo
@@ -72,7 +72,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_Matches()
             {
             const string Test = "123 456";

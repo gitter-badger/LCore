@@ -38,7 +38,7 @@ namespace LCore.Tests
 
             Info = Info?.MakeGenericMethod(this.ExpectedResult?.GetType() ?? Method.ReturnType);
 
-            Info?.Invoke(null, new[] { Method, this.Parameters, this.ExpectedResult, Checks });
+            Info?.Invoke(null, new[] { Method, null, this.Parameters, this.ExpectedResult, Checks });
             }
 
         /// <summary>

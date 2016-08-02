@@ -1,6 +1,5 @@
 ﻿
 using LCore.Extensions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
 using FluentAssertions;
@@ -11,6 +10,7 @@ using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
+    [Trait(Category, UnitTests)]
     public class FileExtTest : ExtensionTester
         {
         private const string Str = @"c:\temporary_testEnsurePathExists\test\file.txt";
@@ -51,7 +51,7 @@ namespace L_Tests.Tests.Extensions
         ///         </paramref>
         ///     does not exist or could not be found.-or-The specified path is invalid (for example, it is on an unmapped drive). </exception>
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_EnsurePathExists()
             {
             }

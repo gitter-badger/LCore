@@ -20,6 +20,7 @@ using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
+    [Trait(Category, UnitTests)]
     public class ObjectExtTest : ExtensionTester
         {
         protected override Type[] TestType => new[] { typeof(ObjectExt), typeof(LCore.Extensions.Optional.ObjectExt) };
@@ -27,7 +28,7 @@ namespace L_Tests.Tests.Extensions
         #region LCore.Extensions.ObjectExt
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_HasProperty()
             {
             const string Test = "";
@@ -41,7 +42,7 @@ namespace L_Tests.Tests.Extensions
 
        
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_GetProperty()
             {
             const string Test = "test test test test test test test test test";
@@ -59,7 +60,7 @@ namespace L_Tests.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_SetProperty()
             {
             var Test = new TestClass();
@@ -77,7 +78,7 @@ namespace L_Tests.Tests.Extensions
         #region LCore.Extensions.Optional.ObjectExt
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_CopyFieldsTo_0()
             {
             var Test = new TestClass
@@ -172,7 +173,7 @@ namespace L_Tests.Tests.Extensions
             }
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_CopyFieldsTo_1()
             {
             var Mapper = new Dictionary<string, string>
@@ -256,7 +257,7 @@ namespace L_Tests.Tests.Extensions
         /// <exception cref="TargetException">Throws an exception if the a property setter throws an exception.</exception>
         /// <exception cref="FieldAccessException">Throws an exception if the field cannot be accessed.</exception>
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_InitProperties()
             {
             var Test = new TestMaster();
@@ -284,7 +285,7 @@ namespace L_Tests.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_FN_CreateArray()
             {
             Func<int[]> Test = 5.FN_CreateArray();
@@ -312,7 +313,7 @@ namespace L_Tests.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_FN_CreateList()
             {
             Func<List<int>> Test = 5.FN_CreateList();
@@ -338,7 +339,7 @@ namespace L_Tests.Tests.Extensions
             }
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_Details()
             {
             var Test = new TestClass
@@ -367,7 +368,7 @@ namespace L_Tests.Tests.Extensions
             }
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_FN_If()
             {
             const int Test = 5;
@@ -393,7 +394,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_FN_Func()
             {
             5.FN_Func()().Should().Be(5);
@@ -407,7 +408,7 @@ namespace L_Tests.Tests.Extensions
             }
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_SafeEquals()
             {
             4.SafeEquals(5).Should().BeFalse();
@@ -420,7 +421,7 @@ namespace L_Tests.Tests.Extensions
             }
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_ToS()
             {
             4.ToS().Should().Be("4");
@@ -436,7 +437,7 @@ namespace L_Tests.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_Traverse()
             {
             object Test = new
@@ -533,7 +534,7 @@ namespace L_Tests.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_SupplyTo_Action()
             {
             const int Test = 5;
@@ -564,7 +565,7 @@ namespace L_Tests.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_SupplyTo_Func()
             {
             const int Test = 5;
