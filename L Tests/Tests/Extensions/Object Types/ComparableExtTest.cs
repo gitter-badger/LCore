@@ -3,6 +3,7 @@ using LCore.Extensions;
 using System;
 using FluentAssertions;
 using Xunit;
+using static LCore.Extensions.L.Test.Categories;
 
 // ReSharper disable ExpressionIsAlwaysNull
 
@@ -11,6 +12,7 @@ using Xunit;
 
 namespace L_Tests.Tests.Extensions
     {
+    [Trait(Category, UnitTests)]
     public class ComparableExtTest : ExtensionTester
         {
         protected override Type[] TestType => new[] { typeof(ComparableExt) };

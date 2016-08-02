@@ -5,17 +5,18 @@ using LCore.Tests;
 using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
+using static LCore.Extensions.L.Test.Categories;
 
 // ReSharper disable ObjectCreationAsStatement
 
 namespace L_Tests.Tests.Tools
     {
+    [Trait(Category, L.Test.Categories.Tools)]
     public class StatMonitorTest
         {
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         [Fact]
-        [TestCategory(L.Test.Categories.Tools)]
         public void Test_StatMonitor()
             {
             L.A(() => new StatMonitor(-1)).ShouldFail();

@@ -7,16 +7,18 @@ using LCore.Tests;
 using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
+using static LCore.Extensions.L.Test.Categories;
+
 // ReSharper disable RedundantExplicitParamsArrayCreation
 
 namespace L_Tests.Tests.Tools
     {
+    [Trait(Category, L.Test.Categories.Tools)]
     public class DateTimeConverterTest
         {
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        [TestCategory(L.Test.Categories.Tools)]
         public void Test_DateTimeConverter()
             {
             // ReSharper disable StringLiteralTypo
@@ -24,16 +26,16 @@ namespace L_Tests.Tests.Tools
             DateTimeConverter.Rfc3339DateTimePatterns.Should().Equal(new[]
                 {
                 "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK",
-                    "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffffffK",
-                    "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffK",
-                    "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffffK",
-                    "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffK",
-                    "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffK",
-                    "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fK",
-                    "yyyy'-'MM'-'dd'T'HH':'mm':'ssK",
-                    "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK",
-                    "yyyy'-'MM'-'dd HH':'mm':'ss'Z'",
-                    "yyyy'-'MM'-'dd'T'HH':'mm':'ss"
+                "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffffffK",
+                "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffK",
+                "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffffK",
+                "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffK",
+                "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffK",
+                "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fK",
+                "yyyy'-'MM'-'dd'T'HH':'mm':'ssK",
+                "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK",
+                "yyyy'-'MM'-'dd HH':'mm':'ss'Z'",
+                "yyyy'-'MM'-'dd'T'HH':'mm':'ss"
                 });
             // ReSharper restore StringLiteralTypo
             var Date = DateTime.Now.ToUniversalTime();

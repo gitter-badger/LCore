@@ -13,13 +13,14 @@ using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
+    [Trait(Category, UnitTests)]
     public class NumberExtTest : ExtensionTester
         {
         protected override Type[] TestType => new[] { typeof(NumberExt) };
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_Max()
             {
             ((IComparable)null).Max().Should().Be(null);
@@ -36,7 +37,7 @@ namespace L_Tests.Tests.Extensions
             }
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_Min()
             {
             ((IComparable)null).Min().Should().Be(null);

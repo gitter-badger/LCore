@@ -9,6 +9,7 @@ using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
+    [Trait(Category, UnitTests)]
     public class FileExtTest : ExtensionTester
         {
         protected override Type[] TestType => new[] { typeof(FileExt) };
@@ -27,7 +28,7 @@ namespace L_Tests.Tests.Extensions
         ///         </paramref>
         ///     does not exist or could not be found.-or-The specified path is invalid (for example, it is on an unmapped drive). </exception>
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_EnsurePathExists()
             {
             const string Str = @"c:\temporary_testEnsurePathExists\test\file.txt";

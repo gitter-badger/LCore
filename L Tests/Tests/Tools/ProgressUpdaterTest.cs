@@ -7,13 +7,14 @@ using LCore.Extensions;
 using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
+using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Tools
     {
+    [Trait(Category, L.Test.Categories.Tools)]
     public class ProgressUpdaterTest
         {
         [Fact]
-        [TestCategory(L.Test.Categories.Tools)]
         public void Test_ProgressUpdater()
             {
             string Status = "";
@@ -22,57 +23,45 @@ namespace L_Tests.Tests.Tools
             int Max = 0;
 
             var Updater = new ProgressUpdater(
-                Str =>
-                {
-                    Status = Str;
-                },
-                Str =>
-                {
-                    Log = Str;
-                },
-                NewProgress =>
-                {
-                    Progress = NewProgress;
-                },
-                NewMaximum =>
-                {
-                    Max = NewMaximum;
-                });
+                Str => { Status = Str; },
+                Str => { Log = Str; },
+                NewProgress => { Progress = NewProgress; },
+                NewMaximum => { Max = NewMaximum; });
 
             L.A(() =>
                 {
-                    lock (Updater)
-                        {
-                        Updater.Clear();
+                lock (Updater)
+                    {
+                    Updater.Clear();
 
-                        Status.Should().Be("");
-                        Log.Should().Be("");
-                        Progress.Should().Be(0);
-                        Max.Should().Be(0);
+                    Status.Should().Be("");
+                    Log.Should().Be("");
+                    Progress.Should().Be(0);
+                    Max.Should().Be(0);
 
-                        Updater.Maximum(100);
+                    Updater.Maximum(100);
 
-                        Max.Should().Be(0);
-                        Thread.Sleep(20);
-                        Max.Should().Be(100);
+                    Max.Should().Be(0);
+                    Thread.Sleep(20);
+                    Max.Should().Be(100);
 
-                        Updater.Progress(5);
-                        Thread.Sleep(20);
-                        Progress.Should().Be(5);
+                    Updater.Progress(5);
+                    Thread.Sleep(20);
+                    Progress.Should().Be(5);
 
-                        Updater.Status("hi");
-                        Thread.Sleep(20);
-                        Status.Should().Be("hi");
+                    Updater.Status("hi");
+                    Thread.Sleep(20);
+                    Status.Should().Be("hi");
 
-                        Updater.Log("hi again");
-                        Thread.Sleep(20);
-                        Log.Should().Be("hi again");
+                    Updater.Log("hi again");
+                    Thread.Sleep(20);
+                    Log.Should().Be("hi again");
 
-                        Status.Should().Be("hi");
-                        Log.Should().Be("hi again");
-                        Progress.Should().Be(5);
-                        Max.Should().Be(100);
-                        }
+                    Status.Should().Be("hi");
+                    Log.Should().Be("hi again");
+                    Progress.Should().Be(5);
+                    Max.Should().Be(100);
+                    }
                 })();
             }
         }

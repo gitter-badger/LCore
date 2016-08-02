@@ -28,13 +28,14 @@ using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
+    [Trait(Category, UnitTests)]
     public class ReflectionExtTest : ExtensionTester
         {
         protected override Type[] TestType => new[] { typeof(ReflectionExt) };
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_AlsoBaseTypes()
             {
             typeof(TestClass).AlsoBaseTypes()
@@ -49,7 +50,7 @@ namespace L_Tests.Tests.Extensions
             }
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_BaseTypes()
             {
             typeof(TestClass).BaseTypes().Should().Equal(typeof(TestBaseClass), typeof(TestBaseClass2), typeof(object));
@@ -61,7 +62,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="AmbiguousMatchException">More than one method is found with the specified name and specified parameters. </exception>
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_FindMethod()
             {
             typeof(TestBaseClass2).FindMethod("wrong").Should().BeNull();
@@ -113,7 +114,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_FullyQualifiedName()
             {
             typeof(TestClass).FullyQualifiedName()
@@ -134,7 +135,7 @@ namespace L_Tests.Tests.Extensions
             }
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_TestMember()
             {
             var Member = new TestMember();
@@ -150,7 +151,7 @@ namespace L_Tests.Tests.Extensions
             }
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_GetAttribute()
             {
             var Member = L.Ref.Member<TestClass>(Test => Test.Test2);
@@ -168,7 +169,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_GetAttributes()
             {
             var Member = L.Ref.Method<TestClass>(Test => Test.Test5(""));
@@ -203,7 +204,7 @@ namespace L_Tests.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_GetAttributeTypeName()
             {
             typeof(TestClass).GetAttributeTypeName().Should().Be("L_Tests.Tests.Extensions.ReflectionExtTest+TestClass");
@@ -232,7 +233,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_GetClassHierarchy()
             {
             typeof(TestClass).GetClassHierarchy().Should().Be("ReflectionExtTest.TestClass");
@@ -240,7 +241,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_GetComparer()
             {
             L.Ref.Member<TestClass>(Test => Test.Test2).GetComparer().Should().NotBeNull();
@@ -250,7 +251,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_GetExtensionMethods()
             {
             typeof(DateExt).GetExtensionMethods().Should().Equal(
@@ -270,7 +271,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_GetMemberType()
             {
             L.Ref.Member<TestClass>(Test => Test.Test6).GetMemberType()
@@ -285,7 +286,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_GetSubClass()
             {
             typeof(TestClass).GetSubClass(nameof(TestClass.TestSubClass)).Should().NotBeNull();
@@ -295,7 +296,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_GetSubClasses()
             {
             typeof(TestClass).GetSubClasses().Should().Equal(
@@ -307,7 +308,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_GetFriendlyTypeName()
             {
             typeof(TestClass).GetFriendlyTypeName().Should().Be("Test2");
@@ -322,7 +323,7 @@ namespace L_Tests.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_GetValue()
             {
             var Test = new TestClass { Test = "a", Test6 = "b" };
@@ -342,7 +343,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_GetValues()
             {
             var Test = new TestClass { Test = "a", Test6 = "b" };
@@ -363,7 +364,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_GetTypes()
             {
             var Test = new object[] { 0, "a", (double)-3, -5.5f };
@@ -381,7 +382,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_HasAttribute()
             {
             ((Type)null).HasAttribute<FriendlyNameAttribute>().Should().BeFalse();
@@ -419,7 +420,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_HasInterface()
             {
             ((Type)null).HasInterface<IFriendlyName>().Should().BeFalse();
@@ -449,7 +450,7 @@ namespace L_Tests.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_HasSetter()
             {
             ((MemberInfo)null).HasSetter().Should().BeFalse();
@@ -503,7 +504,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_InstantiateValues()
             {
             var Test = new TestClass { Test = "a", Test6 = "b" };
@@ -536,7 +537,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_IsType()
             {
             ((object)null).IsType<object>().Should().BeFalse();
@@ -564,7 +565,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_Members()
             {
             typeof(TestClass).MembersOfType(typeof(string)).ShouldBeEquivalentTo(new List<MemberInfo>
@@ -601,7 +602,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="ArgumentException">If an unknown MemberInfo type is passed.</exception>
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_MemberType()
             {
 
@@ -649,7 +650,7 @@ namespace L_Tests.Tests.Extensions
 
         /// <exception cref="InvalidOperationException">The object could not be created, constructor was not found.</exception>
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_New()
             {
             typeof(string).New<string>().Should().Be("");
@@ -677,7 +678,7 @@ namespace L_Tests.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_SetValue()
             {
             var Test = new TestClass();
@@ -696,7 +697,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_ToInvocationSignature()
             {
             // ReSharper disable once InvokeAsExtensionMethod
@@ -716,7 +717,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_TypeEquals()
             {
             Type Test1 = null;
@@ -736,7 +737,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_WithAttribute()
             {
 
@@ -764,7 +765,7 @@ namespace L_Tests.Tests.Extensions
             }
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_WithoutAttribute()
             {
             typeof(TestClass).GetMembers()
@@ -1006,7 +1007,7 @@ namespace L_Tests.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_Helpers()
             {
             var Test = new TestClass { Test = "A" };

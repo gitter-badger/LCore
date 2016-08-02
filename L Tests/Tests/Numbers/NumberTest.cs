@@ -1,11 +1,12 @@
-﻿
-using LCore.Extensions;
+﻿using LCore.Extensions;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using LCore.Numbers;
 using LCore.Tests;
 using Xunit;
+using static LCore.Extensions.L.Test.Categories;
+
 // ReSharper disable UnusedVariable
 // ReSharper disable EqualExpressionComparison
 
@@ -17,6 +18,7 @@ using Xunit;
 
 namespace L_Tests.Tests.Extensions
     {
+    [Trait(Category, L.Test.Categories.Tools)]
     public class NumberTest
         {
         /// <exception cref="OverflowException">
@@ -44,18 +46,19 @@ namespace L_Tests.Tests.Extensions
 
             TempNumber.New().Should().Be(TempNumber.DefaultValue);
 
-            TempNumber.GetValuePrecision().Should().Be((DecimalNumber)0.1m);
+            TempNumber.GetValuePrecision().Should().Be((DecimalNumber) 0.1m);
 
-            TempNumber.Add((DecimalNumber)5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)(decimal)10.5);
-            TempNumber.Subtract((DecimalNumber)5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)(decimal)0.5);
-            TempNumber.Multiply((DecimalNumber)5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)(decimal)27.5);
-            TempNumber.Divide((DecimalNumber)5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)(decimal)1.1);
+            TempNumber.Add((DecimalNumber) 5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) (decimal) 10.5);
+            TempNumber.Subtract((DecimalNumber) 5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) (decimal) 0.5);
+            TempNumber.Multiply((DecimalNumber) 5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) (decimal) 27.5);
+            TempNumber.Divide((DecimalNumber) 5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) (decimal) 1.1);
 
-            TempNumber.Add((IConvertible)5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)(decimal)10.5);
-            TempNumber.Subtract((IConvertible)5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)(decimal)0.5);
-            TempNumber.Multiply((IConvertible)5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)(decimal)27.5);
-            TempNumber.Divide((IConvertible)5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)(decimal)1.1);
+            TempNumber.Add((IConvertible) 5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) (decimal) 10.5);
+            TempNumber.Subtract((IConvertible) 5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) (decimal) 0.5);
+            TempNumber.Multiply((IConvertible) 5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) (decimal) 27.5);
+            TempNumber.Divide((IConvertible) 5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) (decimal) 1.1);
             }
+
         [Fact]
         public void Test_DoubleNumber()
             {
@@ -73,18 +76,19 @@ namespace L_Tests.Tests.Extensions
             INumber Temp2 = TempNumber.New(Dec);
             Temp2.GetValue().Should().Be(Dec);
 
-            TempNumber.GetValuePrecision().Should().Be((DoubleNumber)0.1d);
+            TempNumber.GetValuePrecision().Should().Be((DoubleNumber) 0.1d);
 
-            TempNumber.Add((DoubleNumber)5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)(decimal)10.5);
-            TempNumber.Subtract((DoubleNumber)5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)(decimal)0.5);
-            TempNumber.Multiply((DoubleNumber)5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)(decimal)27.5);
-            TempNumber.Divide((DoubleNumber)5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)(decimal)1.1);
+            TempNumber.Add((DoubleNumber) 5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) (decimal) 10.5);
+            TempNumber.Subtract((DoubleNumber) 5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) (decimal) 0.5);
+            TempNumber.Multiply((DoubleNumber) 5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) (decimal) 27.5);
+            TempNumber.Divide((DoubleNumber) 5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) (decimal) 1.1);
 
-            TempNumber.Add((IConvertible)5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)(decimal)10.5);
-            TempNumber.Subtract((IConvertible)5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)(decimal)0.5);
-            TempNumber.Multiply((IConvertible)5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)(decimal)27.5);
-            TempNumber.Divide((IConvertible)5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)(decimal)1.1);
+            TempNumber.Add((IConvertible) 5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) (decimal) 10.5);
+            TempNumber.Subtract((IConvertible) 5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) (decimal) 0.5);
+            TempNumber.Multiply((IConvertible) 5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) (decimal) 27.5);
+            TempNumber.Divide((IConvertible) 5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) (decimal) 1.1);
             }
+
         [Fact]
         public void Test_FloatNumber()
             {
@@ -102,18 +106,19 @@ namespace L_Tests.Tests.Extensions
             INumber Temp2 = TempNumber.New(Dec);
             Temp2.GetValue().Should().Be(Dec);
 
-            TempNumber.GetValuePrecision().Should().Be((FloatNumber)1f);
+            TempNumber.GetValuePrecision().Should().Be((FloatNumber) 1f);
 
-            TempNumber.Add((FloatNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)10);
-            TempNumber.Subtract((FloatNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)0);
-            TempNumber.Multiply((FloatNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)25);
-            TempNumber.Divide((FloatNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)1);
+            TempNumber.Add((FloatNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 10);
+            TempNumber.Subtract((FloatNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 0);
+            TempNumber.Multiply((FloatNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 25);
+            TempNumber.Divide((FloatNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 1);
 
-            TempNumber.Add((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)10);
-            TempNumber.Subtract((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)0);
-            TempNumber.Multiply((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)25);
-            TempNumber.Divide((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)1);
+            TempNumber.Add((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 10);
+            TempNumber.Subtract((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 0);
+            TempNumber.Multiply((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 25);
+            TempNumber.Divide((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 1);
             }
+
         [Fact]
         public void Test_LongNumber()
             {
@@ -131,18 +136,19 @@ namespace L_Tests.Tests.Extensions
             INumber Temp2 = TempNumber.New(Dec);
             Temp2.GetValue().Should().Be(Dec);
 
-            TempNumber.GetValuePrecision().Should().Be((LongNumber)1);
+            TempNumber.GetValuePrecision().Should().Be((LongNumber) 1);
 
-            TempNumber.Add((LongNumber)5).Should().BeOfType<IntNumber>().And.Be((IntNumber)(int)5000005);
-            TempNumber.Subtract((LongNumber)5).Should().BeOfType<IntNumber>().And.Be((IntNumber)(int)4999995);
-            TempNumber.Multiply((LongNumber)5).Should().BeOfType<IntNumber>().And.Be((IntNumber)(int)25000000);
-            TempNumber.Divide((LongNumber)5).Should().BeOfType<IntNumber>().And.Be((IntNumber)(int)1000000);
+            TempNumber.Add((LongNumber) 5).Should().BeOfType<IntNumber>().And.Be((IntNumber) (int) 5000005);
+            TempNumber.Subtract((LongNumber) 5).Should().BeOfType<IntNumber>().And.Be((IntNumber) (int) 4999995);
+            TempNumber.Multiply((LongNumber) 5).Should().BeOfType<IntNumber>().And.Be((IntNumber) (int) 25000000);
+            TempNumber.Divide((LongNumber) 5).Should().BeOfType<IntNumber>().And.Be((IntNumber) (int) 1000000);
 
-            TempNumber.Add((IConvertible)5).Should().BeOfType<IntNumber>().And.Be((IntNumber)(int)5000005);
-            TempNumber.Subtract((IConvertible)5).Should().BeOfType<IntNumber>().And.Be((IntNumber)(int)4999995);
-            TempNumber.Multiply((IConvertible)5).Should().BeOfType<IntNumber>().And.Be((IntNumber)(int)25000000);
-            TempNumber.Divide((IConvertible)5).Should().BeOfType<IntNumber>().And.Be((IntNumber)(int)1000000);
+            TempNumber.Add((IConvertible) 5).Should().BeOfType<IntNumber>().And.Be((IntNumber) (int) 5000005);
+            TempNumber.Subtract((IConvertible) 5).Should().BeOfType<IntNumber>().And.Be((IntNumber) (int) 4999995);
+            TempNumber.Multiply((IConvertible) 5).Should().BeOfType<IntNumber>().And.Be((IntNumber) (int) 25000000);
+            TempNumber.Divide((IConvertible) 5).Should().BeOfType<IntNumber>().And.Be((IntNumber) (int) 1000000);
             }
+
         [Fact]
         public void Test_IntNumber()
             {
@@ -160,18 +166,19 @@ namespace L_Tests.Tests.Extensions
             INumber Temp2 = TempNumber.New(Dec);
             Temp2.GetValue().Should().Be(Dec);
 
-            TempNumber.GetValuePrecision().Should().Be((IntNumber)1);
+            TempNumber.GetValuePrecision().Should().Be((IntNumber) 1);
 
-            TempNumber.Add((IntNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)70);
-            TempNumber.Subtract((IntNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)60);
-            TempNumber.Multiply((IntNumber)5).Should().BeOfType<ShortNumber>().And.Be((ShortNumber)(short)325);
-            TempNumber.Divide((IntNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)13);
+            TempNumber.Add((IntNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 70);
+            TempNumber.Subtract((IntNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 60);
+            TempNumber.Multiply((IntNumber) 5).Should().BeOfType<ShortNumber>().And.Be((ShortNumber) (short) 325);
+            TempNumber.Divide((IntNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 13);
 
-            TempNumber.Add((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)70);
-            TempNumber.Subtract((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)60);
-            TempNumber.Multiply((IConvertible)5).Should().BeOfType<ShortNumber>().And.Be((ShortNumber)(short)325);
-            TempNumber.Divide((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)13);
+            TempNumber.Add((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 70);
+            TempNumber.Subtract((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 60);
+            TempNumber.Multiply((IConvertible) 5).Should().BeOfType<ShortNumber>().And.Be((ShortNumber) (short) 325);
+            TempNumber.Divide((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 13);
             }
+
         [Fact]
         public void Test_UShortNumber()
             {
@@ -189,18 +196,19 @@ namespace L_Tests.Tests.Extensions
             INumber Temp2 = TempNumber.New(Dec);
             Temp2.GetValue().Should().Be(Dec);
 
-            TempNumber.GetValuePrecision().Should().Be((UShortNumber)1);
+            TempNumber.GetValuePrecision().Should().Be((UShortNumber) 1);
 
-            TempNumber.Add((UShortNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)70);
-            TempNumber.Subtract((UShortNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)60);
-            TempNumber.Multiply((UShortNumber)5).Should().BeOfType<ShortNumber>().And.Be((ShortNumber)(short)325);
-            TempNumber.Divide((UShortNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)13);
+            TempNumber.Add((UShortNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 70);
+            TempNumber.Subtract((UShortNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 60);
+            TempNumber.Multiply((UShortNumber) 5).Should().BeOfType<ShortNumber>().And.Be((ShortNumber) (short) 325);
+            TempNumber.Divide((UShortNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 13);
 
-            TempNumber.Add((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)70);
-            TempNumber.Subtract((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)60);
-            TempNumber.Multiply((IConvertible)5).Should().BeOfType<ShortNumber>().And.Be((ShortNumber)(short)325);
-            TempNumber.Divide((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)13);
+            TempNumber.Add((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 70);
+            TempNumber.Subtract((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 60);
+            TempNumber.Multiply((IConvertible) 5).Should().BeOfType<ShortNumber>().And.Be((ShortNumber) (short) 325);
+            TempNumber.Divide((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 13);
             }
+
         [Fact]
         public void Test_ULongNumber()
             {
@@ -218,18 +226,19 @@ namespace L_Tests.Tests.Extensions
             INumber Temp2 = TempNumber.New(Dec);
             Temp2.GetValue().Should().Be(Dec);
 
-            TempNumber.GetValuePrecision().Should().Be((ULongNumber)1);
+            TempNumber.GetValuePrecision().Should().Be((ULongNumber) 1);
 
-            TempNumber.Add((ULongNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)70);
-            TempNumber.Subtract((ULongNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)60);
-            TempNumber.Multiply((ULongNumber)5).Should().BeOfType<ShortNumber>().And.Be((ShortNumber)(short)325);
-            TempNumber.Divide((ULongNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)13);
+            TempNumber.Add((ULongNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 70);
+            TempNumber.Subtract((ULongNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 60);
+            TempNumber.Multiply((ULongNumber) 5).Should().BeOfType<ShortNumber>().And.Be((ShortNumber) (short) 325);
+            TempNumber.Divide((ULongNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 13);
 
-            TempNumber.Add((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)70);
-            TempNumber.Subtract((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)60);
-            TempNumber.Multiply((IConvertible)5).Should().BeOfType<ShortNumber>().And.Be((ShortNumber)(short)325);
-            TempNumber.Divide((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)13);
+            TempNumber.Add((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 70);
+            TempNumber.Subtract((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 60);
+            TempNumber.Multiply((IConvertible) 5).Should().BeOfType<ShortNumber>().And.Be((ShortNumber) (short) 325);
+            TempNumber.Divide((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 13);
             }
+
         [Fact]
         public void Test_UIntNumber()
             {
@@ -247,18 +256,19 @@ namespace L_Tests.Tests.Extensions
             INumber Temp2 = TempNumber.New(Dec);
             Temp2.GetValue().Should().Be(Dec);
 
-            TempNumber.GetValuePrecision().Should().Be((UIntNumber)1);
+            TempNumber.GetValuePrecision().Should().Be((UIntNumber) 1);
 
-            TempNumber.Add((UIntNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)70);
-            TempNumber.Subtract((UIntNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)60);
-            TempNumber.Multiply((UIntNumber)5).Should().BeOfType<ShortNumber>().And.Be((ShortNumber)(short)325);
-            TempNumber.Divide((UIntNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)13);
+            TempNumber.Add((UIntNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 70);
+            TempNumber.Subtract((UIntNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 60);
+            TempNumber.Multiply((UIntNumber) 5).Should().BeOfType<ShortNumber>().And.Be((ShortNumber) (short) 325);
+            TempNumber.Divide((UIntNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 13);
 
-            TempNumber.Add((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)70);
-            TempNumber.Subtract((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)60);
-            TempNumber.Multiply((IConvertible)5).Should().BeOfType<ShortNumber>().And.Be((ShortNumber)(short)325);
-            TempNumber.Divide((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)13);
+            TempNumber.Add((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 70);
+            TempNumber.Subtract((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 60);
+            TempNumber.Multiply((IConvertible) 5).Should().BeOfType<ShortNumber>().And.Be((ShortNumber) (short) 325);
+            TempNumber.Divide((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 13);
             }
+
         [Fact]
         public void Test_ShortNumber()
             {
@@ -276,18 +286,19 @@ namespace L_Tests.Tests.Extensions
             INumber Temp2 = TempNumber.New(Dec);
             Temp2.GetValue().Should().Be(Dec);
 
-            TempNumber.GetValuePrecision().Should().Be((ShortNumber)1);
+            TempNumber.GetValuePrecision().Should().Be((ShortNumber) 1);
 
-            TempNumber.Add((ShortNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)70);
-            TempNumber.Subtract((ShortNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)60);
-            TempNumber.Multiply((ShortNumber)5).Should().BeOfType<ShortNumber>().And.Be((ShortNumber)(short)325);
-            TempNumber.Divide((ShortNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)13);
+            TempNumber.Add((ShortNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 70);
+            TempNumber.Subtract((ShortNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 60);
+            TempNumber.Multiply((ShortNumber) 5).Should().BeOfType<ShortNumber>().And.Be((ShortNumber) (short) 325);
+            TempNumber.Divide((ShortNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 13);
 
-            TempNumber.Add((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)70);
-            TempNumber.Subtract((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)60);
-            TempNumber.Multiply((IConvertible)5).Should().BeOfType<ShortNumber>().And.Be((ShortNumber)(short)325);
-            TempNumber.Divide((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)13);
+            TempNumber.Add((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 70);
+            TempNumber.Subtract((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 60);
+            TempNumber.Multiply((IConvertible) 5).Should().BeOfType<ShortNumber>().And.Be((ShortNumber) (short) 325);
+            TempNumber.Divide((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 13);
             }
+
         [Fact]
         public void Test_ByteNumber()
             {
@@ -305,18 +316,19 @@ namespace L_Tests.Tests.Extensions
             INumber Temp2 = TempNumber.New(Dec);
             Temp2.GetValue().Should().Be(Dec);
 
-            TempNumber.GetValuePrecision().Should().Be((ByteNumber)1);
+            TempNumber.GetValuePrecision().Should().Be((ByteNumber) 1);
 
-            TempNumber.Add((ByteNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)40);
-            TempNumber.Subtract((ByteNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)30);
-            TempNumber.Multiply((ByteNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)175);
-            TempNumber.Divide((ByteNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)7);
+            TempNumber.Add((ByteNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 40);
+            TempNumber.Subtract((ByteNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 30);
+            TempNumber.Multiply((ByteNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 175);
+            TempNumber.Divide((ByteNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 7);
 
-            TempNumber.Add((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)40);
-            TempNumber.Subtract((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)30);
-            TempNumber.Multiply((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)175);
-            TempNumber.Divide((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)7);
+            TempNumber.Add((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 40);
+            TempNumber.Subtract((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 30);
+            TempNumber.Multiply((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 175);
+            TempNumber.Divide((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 7);
             }
+
         [Fact]
         public void Test_SByteNumber()
             {
@@ -334,118 +346,118 @@ namespace L_Tests.Tests.Extensions
             INumber Temp2 = TempNumber.New(Dec);
             Temp2.GetValue().Should().Be(Dec);
 
-            TempNumber.GetValuePrecision().Should().Be((SByteNumber)1);
+            TempNumber.GetValuePrecision().Should().Be((SByteNumber) 1);
 
-            TempNumber.Add((SByteNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)30);
-            TempNumber.Subtract((SByteNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)20);
-            TempNumber.Multiply((SByteNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)125);
-            TempNumber.Divide((SByteNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)5);
+            TempNumber.Add((SByteNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 30);
+            TempNumber.Subtract((SByteNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 20);
+            TempNumber.Multiply((SByteNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 125);
+            TempNumber.Divide((SByteNumber) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 5);
 
-            TempNumber.Add((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)30);
-            TempNumber.Subtract((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)20);
-            TempNumber.Multiply((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)125);
-            TempNumber.Divide((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)5);
+            TempNumber.Add((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 30);
+            TempNumber.Subtract((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 20);
+            TempNumber.Multiply((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 125);
+            TempNumber.Divide((IConvertible) 5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 5);
 
-            ((Number<byte>)(ByteNumber)5 + (byte)3).Should().Be((ByteNumber)8);
-            ((Number<byte>)(ByteNumber)5 - (byte)3).Should().Be((ByteNumber)2);
-            ((Number<byte>)(ByteNumber)5 * (byte)3).Should().Be((ByteNumber)15);
-            ((Number<byte>)(ByteNumber)5 / (byte)5).Should().Be((ByteNumber)1);
+            ((Number<byte>) (ByteNumber) 5 + (byte) 3).Should().Be((ByteNumber) 8);
+            ((Number<byte>) (ByteNumber) 5 - (byte) 3).Should().Be((ByteNumber) 2);
+            ((Number<byte>) (ByteNumber) 5*(byte) 3).Should().Be((ByteNumber) 15);
+            ((Number<byte>) (ByteNumber) 5/(byte) 5).Should().Be((ByteNumber) 1);
 
-            ((Number)(ByteNumber)5 + (byte)3).Should().Be((ByteNumber)8);
-            ((Number)(ByteNumber)5 - (byte)3).Should().Be((ByteNumber)2);
-            ((Number)(ByteNumber)5 * (byte)3).Should().Be((ByteNumber)15);
-            ((Number)(ByteNumber)5 / (byte)5).Should().Be((ByteNumber)1);
+            ((Number) (ByteNumber) 5 + (byte) 3).Should().Be((ByteNumber) 8);
+            ((Number) (ByteNumber) 5 - (byte) 3).Should().Be((ByteNumber) 2);
+            ((Number) (ByteNumber) 5*(byte) 3).Should().Be((ByteNumber) 15);
+            ((Number) (ByteNumber) 5/(byte) 5).Should().Be((ByteNumber) 1);
 
-            ((ByteNumber)5).CompareTo((byte)3).Should().BeGreaterThan(0);
-            ((ByteNumber)5).CompareTo((byte)7).Should().BeLessThan(0);
-            ((ByteNumber)5).CompareTo((byte)5).Should().Be(0);
-            ((ByteNumber)5).CompareTo("5").Should().Be(0);
+            ((ByteNumber) 5).CompareTo((byte) 3).Should().BeGreaterThan(0);
+            ((ByteNumber) 5).CompareTo((byte) 7).Should().BeLessThan(0);
+            ((ByteNumber) 5).CompareTo((byte) 5).Should().Be(0);
+            ((ByteNumber) 5).CompareTo("5").Should().Be(0);
 
-            ((ByteNumber)5 < 3).Should().BeFalse();
-            ((ByteNumber)5 < 5).Should().BeFalse();
-            ((ByteNumber)5 < 7).Should().BeTrue();
+            ((ByteNumber) 5 < 3).Should().BeFalse();
+            ((ByteNumber) 5 < 5).Should().BeFalse();
+            ((ByteNumber) 5 < 7).Should().BeTrue();
 
-            ((ByteNumber)5 <= 3).Should().BeFalse();
-            ((ByteNumber)5 <= 5).Should().BeTrue();
-            ((ByteNumber)5 <= 7).Should().BeTrue();
+            ((ByteNumber) 5 <= 3).Should().BeFalse();
+            ((ByteNumber) 5 <= 5).Should().BeTrue();
+            ((ByteNumber) 5 <= 7).Should().BeTrue();
 
-            ((ByteNumber)5 > 3).Should().BeTrue();
-            ((ByteNumber)5 > 5).Should().BeFalse();
-            ((ByteNumber)5 > 7).Should().BeFalse();
+            ((ByteNumber) 5 > 3).Should().BeTrue();
+            ((ByteNumber) 5 > 5).Should().BeFalse();
+            ((ByteNumber) 5 > 7).Should().BeFalse();
 
-            ((ByteNumber)5 >= 3).Should().BeTrue();
-            ((ByteNumber)5 >= 5).Should().BeTrue();
-            ((ByteNumber)5 >= 7).Should().BeFalse();
+            ((ByteNumber) 5 >= 3).Should().BeTrue();
+            ((ByteNumber) 5 >= 5).Should().BeTrue();
+            ((ByteNumber) 5 >= 7).Should().BeFalse();
 
 
-            ((ByteNumber)5).CompareTo((byte)7).Should().BeLessThan(0);
-            ((ByteNumber)5).CompareTo((byte)5).Should().Be(0);
-            ((ByteNumber)5).CompareTo("5").Should().Be(0);
+            ((ByteNumber) 5).CompareTo((byte) 7).Should().BeLessThan(0);
+            ((ByteNumber) 5).CompareTo((byte) 5).Should().Be(0);
+            ((ByteNumber) 5).CompareTo("5").Should().Be(0);
 
-            ((ByteNumber)5).Equals((Number)(ByteNumber)5).Should().BeTrue();
-            ((ByteNumber)5).Equals(null).Should().BeFalse();
+            ((ByteNumber) 5).Equals((Number) (ByteNumber) 5).Should().BeTrue();
+            ((ByteNumber) 5).Equals(null).Should().BeFalse();
 
             ByteNumber Test = 5;
-            Test.Equals((object)Test).Should().BeTrue();
+            Test.Equals((object) Test).Should().BeTrue();
             Test.Equals(typeof(void)).Should().BeFalse();
 
 
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            L.A(() => ((ByteNumber)5).CompareTo("5.5")).ShouldFail();
+            L.A(() => ((ByteNumber) 5).CompareTo("5.5")).ShouldFail();
 
 
-            ((ByteNumber)5 + "3").Should().Be((ByteNumber)8);
-            ((ByteNumber)5 + "3.5").Should().Be((FloatNumber)8.5f);
+            ((ByteNumber) 5 + "3").Should().Be((ByteNumber) 8);
+            ((ByteNumber) 5 + "3.5").Should().Be((FloatNumber) 8.5f);
 
-            ((ByteNumber)5 + "3" + "2").Should().Be((ByteNumber)10);
-            ((ByteNumber)5 * "5.5" + "3" + "5000.101").Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)5030.601m);
-            ((ByteNumber)5 * "5.5e4" + "3" + "5000.101").Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)280003.101m);
+            ((ByteNumber) 5 + "3" + "2").Should().Be((ByteNumber) 10);
+            ((ByteNumber) 5*"5.5" + "3" + "5000.101").Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) 5030.601m);
+            ((ByteNumber) 5*"5.5e4" + "3" + "5000.101").Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) 280003.101m);
 
             // ((ByteNumber)5 * "4.0443e-2").Should().Be((FloatNumber)5030.601);
             // ((ByteNumber)5 * "5.5e-3" + "3" + "5000.101").Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)5030.601m);
 
-            ((Number)null == (Number)null).Should().BeTrue();
-            ((Number)null == (Number)(ByteNumber)5).Should().BeFalse();
-            ((Number)(ByteNumber)5 == (Number)null).Should().BeFalse();
-            ((Number)(ByteNumber)5 == (Number)(ByteNumber)5).Should().BeTrue();
-            ((Number)null != (Number)null).Should().BeFalse();
-            ((Number)null != (Number)(ByteNumber)5).Should().BeTrue();
-            ((Number)(ByteNumber)5 != (Number)null).Should().BeTrue();
-            ((Number)(ByteNumber)5 != (Number)(ByteNumber)5).Should().BeFalse();
+            ((Number) null == (Number) null).Should().BeTrue();
+            ((Number) null == (Number) (ByteNumber) 5).Should().BeFalse();
+            ((Number) (ByteNumber) 5 == (Number) null).Should().BeFalse();
+            ((Number) (ByteNumber) 5 == (Number) (ByteNumber) 5).Should().BeTrue();
+            ((Number) null != (Number) null).Should().BeFalse();
+            ((Number) null != (Number) (ByteNumber) 5).Should().BeTrue();
+            ((Number) (ByteNumber) 5 != (Number) null).Should().BeTrue();
+            ((Number) (ByteNumber) 5 != (Number) (ByteNumber) 5).Should().BeFalse();
 
 
-            ((Number)(ByteNumber)5 + (IConvertible)3).Should().Be((ByteNumber)8);
-            ((Number)(ByteNumber)5 + (Number)(ByteNumber)3).Should().Be((ByteNumber)8);
-            ((Number)(ByteNumber)5 + (Number)null).Should().Be((ByteNumber)5);
-            ((Number)null + (Number)(ByteNumber)5).Should().Be((ByteNumber)5);
-            ((Number)null + (Number)null).Should().Be((ByteNumber)0);
-            ((Number)null + (IConvertible)5).Should().Be((ByteNumber)5);
-            ((Number)null + (IConvertible)null).Should().Be((ByteNumber)0);
+            ((Number) (ByteNumber) 5 + (IConvertible) 3).Should().Be((ByteNumber) 8);
+            ((Number) (ByteNumber) 5 + (Number) (ByteNumber) 3).Should().Be((ByteNumber) 8);
+            ((Number) (ByteNumber) 5 + (Number) null).Should().Be((ByteNumber) 5);
+            ((Number) null + (Number) (ByteNumber) 5).Should().Be((ByteNumber) 5);
+            ((Number) null + (Number) null).Should().Be((ByteNumber) 0);
+            ((Number) null + (IConvertible) 5).Should().Be((ByteNumber) 5);
+            ((Number) null + (IConvertible) null).Should().Be((ByteNumber) 0);
 
-            ((Number)(ByteNumber)5 * (IConvertible)3).Should().Be((ByteNumber)15);
-            ((Number)(ByteNumber)5 * (Number)(ByteNumber)3).Should().Be((ByteNumber)15);
-            ((Number)(ByteNumber)5 * (Number)null).Should().Be((ByteNumber)0);
-            ((Number)null * (Number)(ByteNumber)5).Should().Be((ByteNumber)0);
-            ((Number)null * (Number)null).Should().Be((ByteNumber)0);
-            ((Number)null * (IConvertible)5).Should().Be((ByteNumber)0);
-            ((Number)null * (IConvertible)null).Should().Be((ByteNumber)0);
+            ((Number) (ByteNumber) 5*(IConvertible) 3).Should().Be((ByteNumber) 15);
+            ((Number) (ByteNumber) 5*(Number) (ByteNumber) 3).Should().Be((ByteNumber) 15);
+            ((Number) (ByteNumber) 5*(Number) null).Should().Be((ByteNumber) 0);
+            ((Number) null*(Number) (ByteNumber) 5).Should().Be((ByteNumber) 0);
+            ((Number) null*(Number) null).Should().Be((ByteNumber) 0);
+            ((Number) null*(IConvertible) 5).Should().Be((ByteNumber) 0);
+            ((Number) null*(IConvertible) null).Should().Be((ByteNumber) 0);
 
-            ((Number)(ByteNumber)5 / (IConvertible)5).Should().Be((ByteNumber)1);
-            ((Number)(ByteNumber)5 / (Number)(ByteNumber)5).Should().Be((ByteNumber)1);
-            ((Number)(ByteNumber)5 / (Number)null).Should().Be((ByteNumber)5);
-            ((Number)null / (Number)(ByteNumber)5).Should().Be((ByteNumber)0);
-            ((Number)null / (Number)null).Should().Be((ByteNumber)0);
-            ((Number)null / (IConvertible)5).Should().Be((ByteNumber)0);
-            ((Number)null / (IConvertible)null).Should().Be((ByteNumber)0);
+            ((Number) (ByteNumber) 5/(IConvertible) 5).Should().Be((ByteNumber) 1);
+            ((Number) (ByteNumber) 5/(Number) (ByteNumber) 5).Should().Be((ByteNumber) 1);
+            ((Number) (ByteNumber) 5/(Number) null).Should().Be((ByteNumber) 5);
+            ((Number) null/(Number) (ByteNumber) 5).Should().Be((ByteNumber) 0);
+            ((Number) null/(Number) null).Should().Be((ByteNumber) 0);
+            ((Number) null/(IConvertible) 5).Should().Be((ByteNumber) 0);
+            ((Number) null/(IConvertible) null).Should().Be((ByteNumber) 0);
 
-            ((Number)(ByteNumber)5 - (IConvertible)3).Should().Be((ByteNumber)2);
-            ((Number)(ByteNumber)5 - (Number)(ByteNumber)3).Should().Be((ByteNumber)2);
-            ((Number)(ByteNumber)5 - (Number)null).Should().Be((ByteNumber)5);
+            ((Number) (ByteNumber) 5 - (IConvertible) 3).Should().Be((ByteNumber) 2);
+            ((Number) (ByteNumber) 5 - (Number) (ByteNumber) 3).Should().Be((ByteNumber) 2);
+            ((Number) (ByteNumber) 5 - (Number) null).Should().Be((ByteNumber) 5);
             // TODO: Enable overflow tests
             //((Number)null - (Number)(ByteNumber)5).Should().Be((SByteNumber)(sbyte)-5);
-            ((Number)null - (Number)null).Should().Be((ByteNumber)0);
+            ((Number) null - (Number) null).Should().Be((ByteNumber) 0);
             //((Number)null - (IConvertible)5).Should().Be((SByteNumber)(sbyte)-5);
-            ((Number)null - (IConvertible)null).Should().Be((ByteNumber)0);
+            ((Number) null - (IConvertible) null).Should().Be((ByteNumber) 0);
             }
 
         [ExcludeFromCodeCoverage]
@@ -458,7 +470,7 @@ namespace L_Tests.Tests.Extensions
                 IEquatable<TNative>,
                 IFormattable
             {
-            var Dec = (TNative)(object)(int)25;
+            var Dec = (TNative) (object) (int) 25;
 
             // Test implicits
             var TempNumber = L.Ref.New<TNumber>(Dec);
@@ -472,7 +484,7 @@ namespace L_Tests.Tests.Extensions
             INumber Temp2 = TempNumber.New(Dec);
             Temp2.GetValue().Should().Be(Dec);
 
-            TempNumber.GetValuePrecision().Should().Be((SByteNumber)1);
+            TempNumber.GetValuePrecision().Should().Be((SByteNumber) 1);
             /*
 
                         TempNumber.Add((SByteNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(TNative)30);
@@ -486,12 +498,12 @@ namespace L_Tests.Tests.Extensions
                         TempNumber.Divide((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(TNative)5);
             */
 
-            ((ByteNumber)5 + "3").Should().Be((ByteNumber)8);
-            ((ByteNumber)5 + "3.5").Should().Be((FloatNumber)8.5f);
+            ((ByteNumber) 5 + "3").Should().Be((ByteNumber) 8);
+            ((ByteNumber) 5 + "3.5").Should().Be((FloatNumber) 8.5f);
 
-            ((ByteNumber)5 + "3" + "2").Should().Be((ByteNumber)10);
-            ((ByteNumber)5 * "5.5" + "3" + "5000.101").Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)5030.601m);
-            ((ByteNumber)5 * "5.5e4" + "3" + "5000.101").Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)280003.101m);
+            ((ByteNumber) 5 + "3" + "2").Should().Be((ByteNumber) 10);
+            ((ByteNumber) 5*"5.5" + "3" + "5000.101").Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) 5030.601m);
+            ((ByteNumber) 5*"5.5e4" + "3" + "5000.101").Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) 280003.101m);
 
             // ((ByteNumber)5 * "4.0443e-2").Should().Be((FloatNumber)5030.601);
             // ((ByteNumber)5 * "5.5e-3" + "3" + "5000.101").Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)5030.601m);
@@ -500,4 +512,3 @@ namespace L_Tests.Tests.Extensions
         // TODO: L: Number: Implement robust overflow tests.
         }
     }
-

@@ -9,13 +9,14 @@ using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
+    [Trait(Category, UnitTests)]
     public class EnumExtTest : ExtensionTester
         {
         protected override Type[] TestType => new[] { typeof(EnumExt) };
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_GetFriendlyName()
             {
             TestEnum.Test2.GetFriendlyName().Should().Be("Test 2");
@@ -27,7 +28,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_ParseEnum_FriendlyName()
             {
             ((string)null).ParseEnum_FriendlyName(typeof(TestEnum)).Should().Be(null);
@@ -41,7 +42,7 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_ParseEnum()
             {
             ((string)null).ParseEnum(typeof(TestEnum)).Should().Be(null);

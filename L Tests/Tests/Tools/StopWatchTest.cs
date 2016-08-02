@@ -5,15 +5,16 @@ using LCore.Extensions;
 using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
+using static LCore.Extensions.L.Test.Categories;
 
 // ReSharper disable ObjectCreationAsStatement
 
 namespace L_Tests.Tests.Tools
     {
+    [Trait(Category, L.Test.Categories.Tools)]
     public class StopWatchTest
         {
         [Fact]
-        [TestCategory(L.Test.Categories.Tools)]
         public void Test_StopWatch()
             {
             var Test = new StopWatch();

@@ -1,5 +1,4 @@
-﻿
-using LCore.Extensions;
+﻿using LCore.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -9,12 +8,12 @@ using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
+    [Trait(Category, UnitTests)]
     public class DictionaryExtTest : ExtensionTester
         {
-        protected override Type[] TestType => new[] { typeof(DictionaryExt) };
+        protected override Type[] TestType => new[] {typeof(DictionaryExt)};
 
         [Fact]
-        [TestCategory(UnitTests)]
         public void Test_Merge()
             {
             var Test = new Dictionary<string, string>
@@ -50,17 +49,16 @@ namespace L_Tests.Tests.Extensions
 
             Test.Keys.Count.Should().Be(9);
 
-            Test.Keys.List().Should().Equal(new List<string> { "a", "b", "c", "d", "e", "f", "g", "h", "i" });
+            Test.Keys.List().Should().Equal(new List<string> {"a", "b", "c", "d", "e", "f", "g", "h", "i"});
 
             Test.Merge(Test3, Value => new KeyValuePair<string, string>($"{Value.Key}a", $"{Value.Value}b"));
 
             Test.Keys.Count.Should().Be(12);
 
-            Test.Keys.List().Should().Equal(new List<string> { "a", "b", "c", "d", "e", "f", "g", "h", "i", "ga", "ha", "ia" });
+            Test.Keys.List().Should().Equal(new List<string> {"a", "b", "c", "d", "e", "f", "g", "h", "i", "ga", "ha", "ia"});
             }
 
         [Fact]
-        [TestCategory(UnitTests)]
         public void Test_AddRange()
             {
             var Test = new Dictionary<string, string>
@@ -81,10 +79,9 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
         public void Test_SafeAdd()
             {
-            ((Dictionary<string, string>)null).SafeAdd("a", "b");
+            ((Dictionary<string, string>) null).SafeAdd("a", "b");
 
             var Test = new Dictionary<string, string>();
 
@@ -107,10 +104,9 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
         public void Test_SafeSet()
             {
-            ((Dictionary<string, string>)null).SafeSet("a", "b");
+            ((Dictionary<string, string>) null).SafeSet("a", "b");
 
             var Test = new Dictionary<string, string>();
 
@@ -131,10 +127,9 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
         public void Test_SafeGet()
             {
-            ((Dictionary<string, string>)null).SafeGet("a").Should().BeNull();
+            ((Dictionary<string, string>) null).SafeGet("a").Should().BeNull();
 
             var Test = new Dictionary<string, string>();
             Test.SafeSet("a", "b");
@@ -145,10 +140,9 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        [TestCategory(UnitTests)]
         public void Test_GetAllValues()
             {
-            ((Dictionary<string, int[]>)null).GetAllValues<string, int, int[]>()
+            ((Dictionary<string, int[]>) null).GetAllValues<string, int, int[]>()
                 .Should().Equal(new List<int>());
 
             var Test = new Dictionary<string, int[]>
@@ -159,7 +153,7 @@ namespace L_Tests.Tests.Extensions
                 };
 
             Test.GetAllValues<string, int, int[]>()
-                .Should().Equal(new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+                .Should().Equal(new List<int> {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 1, 2, 3, 4, 5, 6, 7, 8, 9});
             }
         }
     }

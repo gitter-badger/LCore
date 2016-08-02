@@ -3,6 +3,7 @@ using System;
 using FluentAssertions;
 using LCore.Tests;
 using Xunit;
+using static LCore.Extensions.L.Test.Categories;
 // ReSharper disable RedundantCast
 
 // ReSharper disable StringLiteralTypo
@@ -10,6 +11,7 @@ using Xunit;
 
 namespace L_Tests.Tests.Extensions
     {
+    [Trait(Category, UnitTests)]
     public class TestExtTest
         {
         #region Test Variables

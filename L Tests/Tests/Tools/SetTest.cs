@@ -4,13 +4,14 @@ using LCore.Extensions;
 using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
+using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Tools
     {
+    [Trait(Category, L.Test.Categories.Tools)]
     public class SetTest
         {
         [Fact]
-        [TestCategory(L.Test.Categories.Tools)]
         public void TestSets()
             {
             var Test = new Set<int, string>(5, "4");

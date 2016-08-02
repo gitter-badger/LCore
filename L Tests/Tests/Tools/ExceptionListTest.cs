@@ -6,6 +6,7 @@ using LCore.Extensions.Optional;
 using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
+using static LCore.Extensions.L.Test.Categories;
 
 // ReSharper disable RedundantAssignment
 // ReSharper disable RedundantCast
@@ -14,10 +15,10 @@ using Xunit;
 
 namespace L_Tests.Tests.Tools
     {
+    [Trait(Category, L.Test.Categories.Tools)]
     public class ExceptionListTest
         {
         [Fact]
-        [TestCategory(L.Test.Categories.Tools)]
         public void Test_ExceptionList()
             {
             var Ex = new ExceptionList(new[]

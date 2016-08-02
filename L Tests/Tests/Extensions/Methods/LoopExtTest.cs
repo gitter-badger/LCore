@@ -8,13 +8,13 @@ using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
+    [Trait(Category, UnitTests)]
     public class LoopExtTest : ExtensionTester
         {
         protected override Type[] TestType => new[] { typeof(LoopExt) };
 
 
         [Fact]
-        [TestCategory(UnitTests)]
         public void Test_To_0()
             {
             const int Begin = 0;
@@ -56,7 +56,6 @@ namespace L_Tests.Tests.Extensions
             }
 
         [Fact]
-        [TestCategory(UnitTests)]
         public void Test_To_1()
             {
             const int Begin = 0;

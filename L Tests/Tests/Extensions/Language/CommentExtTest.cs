@@ -14,12 +14,12 @@ using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
+    [Trait(Category, UnitTests)]
     public class CommentExtTest : ExtensionTester
         {
         protected override Type[] TestType => new[] { typeof(CommentExt) };
 
         [Fact]
-        [TestCategory(UnitTests)]
         public void Test_GetComments()
             {
             // ReSharper disable once RedundantAssignment

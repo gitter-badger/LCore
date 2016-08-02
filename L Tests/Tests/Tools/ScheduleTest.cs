@@ -6,27 +6,28 @@ using LCore.Tests;
 using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
+using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Tools
-{
-    public class ScheduleTest
     {
+    [Trait(Category, L.Test.Categories.Tools)]
+    public class ScheduleTest
+        {
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        [TestCategory(L.Test.Categories.Tools)]
         public void TestSchedule()
-        {
+            {
             var Date = DateTime.Now.AddMinutes(20);
             var Date2 = DateTime.Now.AddDays(2);
 
             var Test = new Schedule
-            {
-                TimesOfDay = new List<DateTime> { Date, Date2 },
-                DaysOfMonth = new List<int> { 5, 15, 20 },
-                DaysOfWeek = new List<DayOfWeek> { DayOfWeek.Saturday, DayOfWeek.Thursday },
+                {
+                TimesOfDay = new List<DateTime> {Date, Date2},
+                DaysOfMonth = new List<int> {5, 15, 20},
+                DaysOfWeek = new List<DayOfWeek> {DayOfWeek.Saturday, DayOfWeek.Thursday},
                 Mode = Schedule.ScheduleMode.Daily,
                 OneTimeScheduleDate = Date2
-            };
+                };
 
             Test.DaysOfMonth.Should().Equal(5, 15, 20);
             Test.DaysOfWeek.Should().Equal(DayOfWeek.Saturday, DayOfWeek.Thursday);
@@ -74,6 +75,6 @@ namespace L_Tests.Tests.Tools
 
             L.A(() => Schedule.FromString($"BadEnum|{Date2}")).ShouldFail();
             L.A(() => Schedule.FromString($"Daily|Saturday,Thursday,Blurnsday|{Date},{Date2}")).ShouldFail();
+            }
         }
     }
-}

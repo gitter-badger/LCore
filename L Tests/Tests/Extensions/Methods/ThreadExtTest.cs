@@ -10,12 +10,13 @@ using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
+    [Trait(Category, UnitTests)]
     public class ThreadExtTest : ExtensionTester
         {
         protected override Type[] TestType => new[] {typeof(ThreadExt)};
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_Async_Action()
             {
             bool Success = false;
@@ -151,7 +152,7 @@ namespace L_Tests.Tests.Extensions
             }
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_Async_Action_T()
             {
             string Success = "";
@@ -588,7 +589,7 @@ namespace L_Tests.Tests.Extensions
             }
 
         [Fact]
-        [TestCategory(UnitTests)]
+        
         public void Test_MethodProfileCache()
             {
             const string ProfileName = "TestProfile";
