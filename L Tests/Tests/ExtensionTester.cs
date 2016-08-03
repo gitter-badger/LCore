@@ -1,4 +1,5 @@
 ﻿// This allows for [CanBeNull] annotations to be seen.
+
 #define JETBRAINS_ANNOTATIONS
 
 using System;
@@ -65,7 +66,8 @@ namespace L_Tests
 #if DEBUG
                 Debug.Write("--------------------------------------------------------\r\n");
                 Debug.Write($"Testing {TestData.TestsPresent} {Test.FullName} methods. \r\n");
-                Debug.Write($"      Total attribute tests:  {TestData.TestAttributes.Count - TestData.UnitTestCount} (~{(TestData.TestAttributes.Count / ((double)TestData.TestsPresent - TestData.UnitTestCount)).Round(1).Max(0)} per method) \r\n");
+                Debug.Write(
+                    $"      Total attribute tests:  {TestData.TestAttributes.Count - TestData.UnitTestCount} (~{(TestData.TestAttributes.Count/((double) TestData.TestsPresent - TestData.UnitTestCount)).Round(1).Max(0)} per method) \r\n");
                 Debug.Write($"      Unit tests:             {TestData.UnitTestCount}. \r\n");
                 Debug.Write("\r\n");
                 Debug.Write($"Missing: {TestData.TestsMissing} methods                  {TestData.CoveragePercent}% Coverage\r\n");
@@ -76,20 +78,24 @@ namespace L_Tests
 
                 Dictionary<MemberInfo, List<ITestAttribute>> Tests = Test.GetTestMembers();
 
-                Dictionary<uint, List<MemberInfo>> TestMemberCoverage = Tests.Keys.Group(Member => (uint)Tests[Member].Count);
+                Dictionary<uint, List<MemberInfo>> TestMemberCoverage = Tests.Keys.Group(Member => (uint) Tests[Member].Count);
 
-                uint Members = (uint)Tests.Keys.Count;
-                uint MembersCovered = Members - (uint)(TestMemberCoverage.ContainsKey(0u) ? (uint)TestMemberCoverage[0u].Count : 0u);
+                uint Members = (uint) Tests.Keys.Count;
+                uint MembersCovered = Members - (uint) (TestMemberCoverage.ContainsKey(0u)
+                    ? (uint) TestMemberCoverage[0u].Count
+                    : 0u);
 
-                uint TestCount = (uint)TestData.TestAttributes.Count;
+                uint TestCount = (uint) TestData.TestAttributes.Count;
 
+                // ReSharper disable once UnusedVariable
                 uint UnitTestCount = TestData.UnitTestCount;
 
                 uint Passed = Test.RunUnitTests();
 
                 TestCount.Should().Be(Passed);
 
-                this._Output?.WriteLine($"Passed {Passed} / {TestCount} ({Passed.PercentageOf(TestCount)}%) Attribute {"Tests".Pluralize(TestCount)}");
+                this._Output?.WriteLine(
+                    $"Passed {Passed} / {TestCount} ({Passed.PercentageOf(TestCount)}%) Attribute {"Tests".Pluralize(TestCount)}");
 
                 this._Output?.WriteLine($"Members Covered: {MembersCovered} / {Members} ({MembersCovered.PercentageOf(Members)}%)");
 
@@ -108,7 +114,7 @@ namespace L_Tests
                 if (this.RequireCoveragePercent > 0)
                     TestData.CoveragePercent.Should()
                         .BeGreaterOrEqualTo(this.RequireCoveragePercent,
-                        $"{this.RequireCoveragePercent}% coverage required");
+                            $"{this.RequireCoveragePercent}% coverage required");
                 }
             }
 
@@ -133,22 +139,41 @@ namespace L_Tests
 
                     if (Method.ContainsGenericParameters)
                         {
-                        try { TheMethod = Method.MakeGenericMethod(typeof(int)); }
+                        try
+                            {
+                            TheMethod = Method.MakeGenericMethod(typeof(int));
+                            }
                         catch
                             {
-                            try { TheMethod = Method.MakeGenericMethod(typeof(string)); }
+                            try
+                                {
+                                TheMethod = Method.MakeGenericMethod(typeof(string));
+                                }
                             catch
                                 {
-                                try { TheMethod = Method.MakeGenericMethod(typeof(int), typeof(string)); }
+                                try
+                                    {
+                                    TheMethod = Method.MakeGenericMethod(typeof(int), typeof(string));
+                                    }
                                 catch
                                     {
-                                    try { TheMethod = Method.MakeGenericMethod(typeof(string), typeof(string)); }
+                                    try
+                                        {
+                                        TheMethod = Method.MakeGenericMethod(typeof(string), typeof(string));
+                                        }
                                     catch
                                         {
-                                        try { TheMethod = Method.MakeGenericMethod(typeof(int), typeof(int), typeof(int)); }
+                                        try
+                                            {
+                                            TheMethod = Method.MakeGenericMethod(typeof(int), typeof(int), typeof(int));
+                                            }
                                         catch
                                             {
-                                            try { TheMethod = Method.MakeGenericMethod(typeof(string), typeof(string), typeof(string)); } catch { }
+                                            try
+                                                {
+                                                TheMethod = Method.MakeGenericMethod(typeof(string), typeof(string), typeof(string));
+                                                }
+                                            catch {}
                                             }
                                         }
                                     }
@@ -193,7 +218,9 @@ namespace L_Tests
                                     }
                                 catch (Exception Ex)
                                     {
-                                    throw new InternalTestFailureException($"Method {Method.FullyQualifiedName()} could not generate random parameter #{j + 1} {Parameters[j].ParameterType.FullName}", Ex);
+                                    throw new InternalTestFailureException(
+                                        $"Method {Method.FullyQualifiedName()} could not generate random parameter #{j + 1} {Parameters[j].ParameterType.FullName}",
+                                        Ex);
                                     }
                                 }
                             }
@@ -201,7 +228,7 @@ namespace L_Tests
                             {
                             bool Finished = false;
                             L.A(() =>
-                            {
+                                {
                                 try
                                     {
                                     var Result = TheMethod.Invoke(null, Params);
@@ -209,7 +236,8 @@ namespace L_Tests
                                     if (!NullsAllowedForParameter)
                                         {
                                         Finished = true;
-                                        throw new InternalTestFailureException($"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed, but it passed.");
+                                        throw new InternalTestFailureException(
+                                            $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed, but it passed.");
                                         }
 
                                     if (!MethodCanBeNull
@@ -219,7 +247,7 @@ namespace L_Tests
                                         {
                                         Finished = true;
                                         throw new InternalTestFailureException(
-                                        $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should not have returned null, but it did.");
+                                            $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should not have returned null, but it did.");
                                         }
                                     }
                                 catch (Exception Ex)
@@ -229,7 +257,7 @@ namespace L_Tests
                                         Finished = true;
                                         // Enforces use of ArgumentNullException on any field marked [NotNull]
                                         if (!(Ex is ArgumentNullException) ||
-                                            ((ArgumentNullException)Ex).ParamName != Parameters[i].Name)
+                                            ((ArgumentNullException) Ex).ParamName != Parameters[i].Name)
                                             {
                                             throw new InternalTestFailureException(
                                                 $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed with an ArgumentNullException matching the parameter name, but it threw an {Ex.GetType()}: {Ex.Message}.");
@@ -238,7 +266,7 @@ namespace L_Tests
                                     }
 
                                 Finished = true;
-                            }).Async(300)();
+                                }).Async(300)();
 
                             uint Waited = 0;
 
@@ -252,11 +280,13 @@ namespace L_Tests
                                 }
 
                             if (!Finished)
-                                throw new InternalTestFailureException($"Method {Method.FullyQualifiedName()} timed out. Passed parameters: {Params.ToS()}");
+                                throw new InternalTestFailureException(
+                                    $"Method {Method.FullyQualifiedName()} timed out. Passed parameters: {Params.ToS()}");
                             }
                         catch (Exception Ex)
                             {
-                            throw new InternalTestFailureException($"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1} and failed with {Ex}");
+                            throw new InternalTestFailureException(
+                                $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1} and failed with {Ex}");
                             }
                         Tested++;
 

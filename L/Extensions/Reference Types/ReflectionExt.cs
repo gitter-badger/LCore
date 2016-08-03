@@ -11,6 +11,7 @@ using LCore.Interfaces;
 using LCore.Naming;
 using LCore.Tests;
 using NSort;
+
 // ReSharper disable UnusedMember.Global
 
 namespace LCore.Extensions
@@ -25,24 +26,27 @@ namespace LCore.Extensions
         #region Extensions +
 
         #region AlsoBaseTypes
+
         /// <summary>
         /// Returns a list of the provided type <paramref name="In" /> as well as all of <paramref name="In" />'s base types.
         /// </summary>
         [Tested]
-        public static List<Type> AlsoBaseTypes([CanBeNull]this Type In)
+        public static List<Type> AlsoBaseTypes([CanBeNull] this Type In)
             {
             List<Type> Out = In.BaseTypes();
             Out.Insert(0, In);
             return Out;
             }
+
         #endregion
 
         #region BaseTypes
+
         /// <summary>
         /// Returns a list of all of <paramref name="In" />'s base types.
         /// </summary>
         [Tested]
-        public static List<Type> BaseTypes([CanBeNull]this Type In)
+        public static List<Type> BaseTypes([CanBeNull] this Type In)
             {
             var Out = new List<Type>();
             while (In?.BaseType != null)
@@ -52,6 +56,7 @@ namespace LCore.Extensions
                 }
             return Out;
             }
+
         #endregion
 
         #region FindMethod
@@ -64,11 +69,11 @@ namespace LCore.Extensions
         /// <exception cref="AmbiguousMatchException">More than one method is found with the specified name and specified parameters. </exception>
         [Tested]
         [CanBeNull]
-        public static MethodInfo FindMethod([CanBeNull]this Type In, [CanBeNull]string Name, [CanBeNull]Type[] Arguments = null)
+        public static MethodInfo FindMethod([CanBeNull] this Type In, [CanBeNull] string Name, [CanBeNull] Type[] Arguments = null)
             {
             Name = Name ?? "";
 
-            Arguments = Arguments ?? new Type[] { };
+            Arguments = Arguments ?? new Type[] {};
 
             var Type = In;
 
@@ -94,9 +99,9 @@ namespace LCore.Extensions
         /// <exception cref="AmbiguousMatchException">More than one method is found with the specified name and specified parameters. </exception>
         [Tested]
         [CanBeNull]
-        public static MethodInfo FindMethod<T>([CanBeNull]this Type In, [CanBeNull]string Name)
+        public static MethodInfo FindMethod<T>([CanBeNull] this Type In, [CanBeNull] string Name)
             {
-            return In.FindMethod(Name, new[] { typeof(T) });
+            return In.FindMethod(Name, new[] {typeof(T)});
             }
 
         /// <summary>
@@ -107,9 +112,9 @@ namespace LCore.Extensions
         /// <exception cref="AmbiguousMatchException">More than one method is found with the specified name and specified parameters. </exception>
         [Tested]
         [CanBeNull]
-        public static MethodInfo FindMethod<T1, T2>([CanBeNull]this Type In, [CanBeNull]string Name)
+        public static MethodInfo FindMethod<T1, T2>([CanBeNull] this Type In, [CanBeNull] string Name)
             {
-            return In.FindMethod(Name, new[] { typeof(T1), typeof(T2) });
+            return In.FindMethod(Name, new[] {typeof(T1), typeof(T2)});
             }
 
         /// <summary>
@@ -120,9 +125,9 @@ namespace LCore.Extensions
         /// <exception cref="AmbiguousMatchException">More than one method is found with the specified name and specified parameters. </exception>
         [Tested]
         [CanBeNull]
-        public static MethodInfo FindMethod<T1, T2, T3>([CanBeNull]this Type In, [CanBeNull]string Name)
+        public static MethodInfo FindMethod<T1, T2, T3>([CanBeNull] this Type In, [CanBeNull] string Name)
             {
-            return In.FindMethod(Name, new[] { typeof(T1), typeof(T2), typeof(T3) });
+            return In.FindMethod(Name, new[] {typeof(T1), typeof(T2), typeof(T3)});
             }
 
         /// <summary>
@@ -133,9 +138,9 @@ namespace LCore.Extensions
         /// <exception cref="AmbiguousMatchException">More than one method is found with the specified name and specified parameters. </exception>
         [Tested]
         [CanBeNull]
-        public static MethodInfo FindMethod<T1, T2, T3, T4>([CanBeNull]this Type In, [CanBeNull]string Name)
+        public static MethodInfo FindMethod<T1, T2, T3, T4>([CanBeNull] this Type In, [CanBeNull] string Name)
             {
-            return In.FindMethod(Name, new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
+            return In.FindMethod(Name, new[] {typeof(T1), typeof(T2), typeof(T3), typeof(T4)});
             }
 
         #endregion
@@ -146,11 +151,11 @@ namespace LCore.Extensions
         /// Returns the fully qualified name for a member
         /// </summary>
         [Tested]
-        public static string FullyQualifiedName([CanBeNull]this MemberInfo In)
+        public static string FullyQualifiedName([CanBeNull] this MemberInfo In)
             {
             if (In is TypeInfo)
                 {
-                return ((TypeInfo)In).FullName.ReplaceAll("+", ".");
+                return ((TypeInfo) In).FullName.ReplaceAll("+", ".");
                 }
             if (In is PropertyInfo || In is FieldInfo || In is EventInfo || In is MethodInfo)
                 {
@@ -163,6 +168,7 @@ namespace LCore.Extensions
         #endregion
 
         #region GetAttribute
+
         /// <summary>
         /// Returns an attribute of type <typeparamref name="T" /> if it exists.
         /// </summary>
@@ -170,7 +176,7 @@ namespace LCore.Extensions
         [TestMethodGenerics(typeof(FriendlyNameAttribute))]
         //[TestResult(new object[] { null }, default(IPersistAttribute))]
         [CanBeNull]
-        public static T GetAttribute<T>([CanBeNull]this ICustomAttributeProvider AttributeProvider)
+        public static T GetAttribute<T>([CanBeNull] this ICustomAttributeProvider AttributeProvider)
             where T : IPersistAttribute
             {
             if (AttributeProvider == null)
@@ -185,7 +191,7 @@ namespace LCore.Extensions
         /// </summary>
         [Tested]
         [CanBeNull]
-        public static T GetAttribute<T>([CanBeNull]this ICustomAttributeProvider AttributeProvider, bool IncludeBaseTypes)
+        public static T GetAttribute<T>([CanBeNull] this ICustomAttributeProvider AttributeProvider, bool IncludeBaseTypes)
             {
             if (AttributeProvider == null)
                 return default(T);
@@ -194,18 +200,20 @@ namespace LCore.Extensions
             var Attribute = L.Ref.GetAttribute(AttributeProvider.GetAttributeTypeName(), AttributeProvider, typeof(T), IncludeBaseTypes);
 
             if (Attribute is T)
-                return (T)Attribute;
+                return (T) Attribute;
 
             return default(T);
             }
+
         #endregion
 
         #region GetAttributes
+
         /// <summary>
         /// Returns all attributes of type <typeparamref name="T" />.
         /// </summary>
         [Tested]
-        public static List<T> GetAttributes<T>([CanBeNull]this ICustomAttributeProvider AttributeProvider, bool IncludeBaseTypes)
+        public static List<T> GetAttributes<T>([CanBeNull] this ICustomAttributeProvider AttributeProvider, bool IncludeBaseTypes)
             where T : class
             {
             List<T> Out = AttributeProvider?.GetCustomAttributes(typeof(T), IncludeBaseTypes).Filter<T>() ?? new List<T>();
@@ -215,6 +223,7 @@ namespace LCore.Extensions
 
             return Out;
             }
+
         #endregion
 
         #region GetAttributeTypeName
@@ -245,8 +254,10 @@ namespace LCore.Extensions
             if (ParameterInfo != null)
                 return ParameterInfo.Member.DeclaringType?.FullName;
 
-            throw new ArgumentException($"Could not get attribute type name: {AttributeProvider.GetType().FullName}", nameof(AttributeProvider));
+            throw new ArgumentException($"Could not get attribute type name: {AttributeProvider.GetType().FullName}",
+                nameof(AttributeProvider));
             }
+
         #endregion
 
         #region GetClassHierarchy
@@ -256,7 +267,7 @@ namespace LCore.Extensions
         /// Ex. "L.Comment.Test"
         /// </summary>
         [Tested]
-        public static string GetClassHierarchy([CanBeNull]this Type In)
+        public static string GetClassHierarchy([CanBeNull] this Type In)
             {
             return In?.FullName.AfterLast(".").ReplaceAll("+", ".") ?? "";
             }
@@ -264,46 +275,51 @@ namespace LCore.Extensions
         #endregion
 
         #region GetComparer
+
         /// <summary>
         /// Returns a ComparableComparer to compare comparable types.
         /// </summary>
         [Tested]
         // ReSharper disable once UnusedParameter.Global
-        public static IComparer GetComparer([CanBeNull]this MemberInfo In)
+        public static IComparer GetComparer([CanBeNull] this MemberInfo In)
             {
             return new ComparableComparer();
             }
+
         /// <summary>
         /// Returns a ComparableComparer to compare comparable types.
         /// Returns a strongly typed IComparer<typeparamref name="T" /> if you know the type you're comparing.
         /// </summary>
         [Tested]
         [CanBeNull]
-        public static IComparer<T> GetComparer<T>([CanBeNull]this MemberInfo In)
+        public static IComparer<T> GetComparer<T>([CanBeNull] this MemberInfo In)
             {
             var Type = In.GetMemberType();
 
             if (Type != null && Type.HasInterface<IComparable>() && typeof(T) != typeof(object))
                 {
-                return (IComparer<T>)new ComparableComparer();
+                return (IComparer<T>) new ComparableComparer();
                 }
             return null;
             }
+
         #endregion
 
         #region GetExtensionMethods
+
         /// <summary>
         /// Returns all Extension methods declared on Type <paramref name="In" />
         /// </summary>
         [Tested]
-        public static MethodInfo[] GetExtensionMethods([CanBeNull]this Type In)
+        public static MethodInfo[] GetExtensionMethods([CanBeNull] this Type In)
             {
             return In?.GetMethods()
-                    .Select(Method => Method.IsStatic &&
-                        Method.IsPublic &&
-                        Method.IsDefined(typeof(ExtensionAttribute), true))
-                    .Array();
+                .Select(Method => Method.IsStatic &&
+                                  Method.IsPublic &&
+                                  Method.IsDefined(typeof(ExtensionAttribute), true))
+                .Array();
             }
+
         #endregion
 
         #region GetMemberType
@@ -314,7 +330,7 @@ namespace LCore.Extensions
         /// </summary>
         [Tested]
         [CanBeNull]
-        public static Type GetMemberType([CanBeNull]this MemberInfo In)
+        public static Type GetMemberType([CanBeNull] this MemberInfo In)
             {
             var EventInfo = In as EventInfo;
             if (EventInfo != null)
@@ -339,44 +355,46 @@ namespace LCore.Extensions
         #endregion
 
         #region GetSubClass
+
         /// <summary>
         /// Gets a subclass from a type <paramref name="In" /> or any of its base classes.
         /// Subclass from a descendant will be used before an ancestor subclasses.
         /// </summary>
         [Tested]
-        public static Type GetSubClass([CanBeNull]this Type In, [CanBeNull]string SubClassName)
+        public static Type GetSubClass([CanBeNull] this Type In, [CanBeNull] string SubClassName)
             {
             return In.AlsoBaseTypes().Collect(Type =>
-            {
+                {
                 var Out = Type.GetNestedTypes().First(NestedType => NestedType.Name == SubClassName);
                 return Out;
-            }).First();
+                }).First();
             }
+
         #endregion
 
         #region GetSubClasses
+
         /// <summary>
         /// Gets a subclasses from a type <paramref name="In" /> or any of its base classes.
         /// Subclasses from a descendant will be used before an ancestor subclasses.
         /// </summary>
         [Tested]
-        public static List<Type> GetSubClasses([CanBeNull]this Type In)
+        public static List<Type> GetSubClasses([CanBeNull] this Type In)
             {
             var Out = new List<Type>();
-            In.AlsoBaseTypes().Each(Type =>
-            {
-                Out.AddRange(Type.GetNestedTypes());
-            });
+            In.AlsoBaseTypes().Each(Type => { Out.AddRange(Type.GetNestedTypes()); });
             return Out;
             }
+
         #endregion
 
         #region GetFriendlyTypeName
+
         /// <summary>
         /// Returns a friendly name for a type including generic type arguments.
         /// </summary>
         [Tested]
-        public static string GetFriendlyTypeName([CanBeNull]this Type In)
+        public static string GetFriendlyTypeName([CanBeNull] this Type In)
             {
             if (In == null)
                 return "";
@@ -392,18 +410,19 @@ namespace LCore.Extensions
                 Type[] Arguments = In.GetGenericArguments();
 
                 Arguments.Each((i, Argument) =>
-                {
+                    {
                     Out += Argument.Name;
                     if (i < Arguments.Length - 1)
                         {
                         Out += ", ";
                         }
-                });
+                    });
                 Out += ">";
                 return Out;
                 }
             return In.GetAttribute<IFriendlyName>()?.FriendlyName ?? In?.Name.Humanize();
             }
+
         #endregion
 
         #region GetValue
@@ -415,7 +434,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentException">If the MemberInfo <paramref name="In" /> cannot be found on <paramref name="Obj" />.</exception>
         [Tested]
         [CanBeNull]
-        public static object GetValue([CanBeNull]this MemberInfo In, [CanBeNull]object Obj)
+        public static object GetValue([CanBeNull] this MemberInfo In, [CanBeNull] object Obj)
             {
             try
                 {
@@ -432,14 +451,16 @@ namespace LCore.Extensions
                 throw new ArgumentException(In?.Name, nameof(In), Ex);
                 }
             }
+
         #endregion
 
         #region GetValues
+
         /// <summary>
         /// Returns a list of all member values, optionally include subclasses.
         /// </summary>
         [Tested]
-        public static List<T> GetValues<T>([CanBeNull]this Type In, [CanBeNull]object Obj, bool IncludeBaseClasses = true)
+        public static List<T> GetValues<T>([CanBeNull] this Type In, [CanBeNull] object Obj, bool IncludeBaseClasses = true)
             {
             if (In == null)
                 return new List<T>();
@@ -447,12 +468,13 @@ namespace LCore.Extensions
             List<MemberInfo> Members = In.MembersOfType(typeof(T), IncludeBaseClasses);
             return Members.RemoveDuplicate(Member => Member.Name).GetValues<T>(Obj);
             }
+
         /// <summary>
         /// Returns a list of object values from a list of members.
         /// Optionally, set <paramref name="Instantiate" /> to true to instantiate null members.
         /// </summary>
         [Tested]
-        public static List<T> GetValues<T>([CanBeNull]this IEnumerable<MemberInfo> In, [CanBeNull]object Obj, bool Instantiate = false)
+        public static List<T> GetValues<T>([CanBeNull] this IEnumerable<MemberInfo> In, [CanBeNull] object Obj, bool Instantiate = false)
             {
             var Out = new List<T>();
 
@@ -460,7 +482,7 @@ namespace LCore.Extensions
                 return Out;
 
             Out = In.Convert(o =>
-            {
+                {
                 var Obj2 = o.GetValue(Obj);
                 if (Instantiate && Obj2 == null)
                     {
@@ -469,51 +491,58 @@ namespace LCore.Extensions
                     }
 
                 if (Obj2?.GetType().IsType(typeof(T)) == true &&
-                    !Out.Contains((T)Obj2))
+                    !Out.Contains((T) Obj2))
                     {
-                    return (T)Obj2;
+                    return (T) Obj2;
                     }
                 return default(T);
-            });
+                });
 
             return Out;
             }
+
         #endregion
 
         #region GetTestData
+
         /// <summary>
         /// Creates a new TypeTests object, detailing the test coverage of the provided type.
         /// </summary>
         [Tested]
-        public static TypeTests GetTestData([CanBeNull]this Type In)
+        public static TypeTests GetTestData([CanBeNull] this Type In)
             {
             return new TypeTests(In);
             }
+
         #endregion
 
         #region GetTypes
+
         /// <summary>
         /// Returns a list of the types of all elements within <paramref name="In" />.
         /// </summary>
-        public static List<Type> GetTypes<T>([CanBeNull]this IEnumerable<T> In)
+        public static List<Type> GetTypes<T>([CanBeNull] this IEnumerable<T> In)
             {
             return In.Convert(i => i.GetType());
             }
+
         /// <summary>
         /// Returns an array of the types of all elements within <paramref name="In" />.
         /// </summary>
-        public static Type[] GetTypes<T>([CanBeNull]this T[] In)
+        public static Type[] GetTypes<T>([CanBeNull] this T[] In)
             {
             return In.Convert(i => i.GetType());
             }
+
         #endregion
 
         #region HasAttribute
+
         /// <summary>
         /// Returns whether a member has a certain attribute type <typeparamref name="T" />.
         /// </summary>
         [Tested]
-        public static bool HasAttribute<T>([CanBeNull]this ICustomAttributeProvider AttributeProvider)
+        public static bool HasAttribute<T>([CanBeNull] this ICustomAttributeProvider AttributeProvider)
             where T : IPersistAttribute
             {
             if (AttributeProvider == null)
@@ -522,12 +551,13 @@ namespace LCore.Extensions
             bool Persist = typeof(T).HasInterface<ISubClassPersistentAttribute>();
             return AttributeProvider.HasAttribute<T>(Persist);
             }
+
         /// <summary>
         /// Returns whether a member has a certain attribute type <typeparamref name="T" />.
         /// Optionally, look on base type members for the attribute.
         /// </summary>
         [Tested]
-        public static bool HasAttribute<T>([CanBeNull]this ICustomAttributeProvider AttributeProvider, bool IncludeBaseClasses)
+        public static bool HasAttribute<T>([CanBeNull] this ICustomAttributeProvider AttributeProvider, bool IncludeBaseClasses)
             {
             return AttributeProvider != null && AttributeProvider.HasAttribute(typeof(T), IncludeBaseClasses);
             }
@@ -537,7 +567,8 @@ namespace LCore.Extensions
         /// Optionally, look on base type members for the attribute.
         /// </summary>
         [Tested]
-        public static bool HasAttribute([CanBeNull]this ICustomAttributeProvider AttributeProvider, [CanBeNull]Type Type, bool IncludeBaseClasses)
+        public static bool HasAttribute([CanBeNull] this ICustomAttributeProvider AttributeProvider, [CanBeNull] Type Type,
+            bool IncludeBaseClasses)
             {
             if (AttributeProvider == null)
                 return false;
@@ -545,15 +576,17 @@ namespace LCore.Extensions
             // ReSharper disable once EventExceptionNotDocumented
             return L.Ref.GetAttribute(AttributeProvider.GetAttributeTypeName(), AttributeProvider, Type, IncludeBaseClasses) != null;
             }
+
         #endregion
 
         #region HasInterface
+
         /// <summary>
         /// Returns whether or not a given type <paramref name="In" /> implements an interface.
         /// Optionally, IncludeBaseTypes can be set to false to only look within top-level classes.
         /// </summary>
         [Tested]
-        public static bool HasInterface([CanBeNull]this Type In, [CanBeNull]Type Interface)
+        public static bool HasInterface([CanBeNull] this Type In, [CanBeNull] Type Interface)
             {
             if (In == null || Interface == null)
                 return false;
@@ -566,7 +599,7 @@ namespace LCore.Extensions
         /// Optionally, IncludeBaseTypes can be set to false to only look within top-level classes.
         /// </summary>
         [Tested]
-        public static bool HasInterface<T>([CanBeNull]this Type In)
+        public static bool HasInterface<T>([CanBeNull] this Type In)
             {
             if (In == null)
                 return false;
@@ -575,6 +608,7 @@ namespace LCore.Extensions
 
             return In.GetInterfaces().Has(Interface);
             }
+
         #endregion
 
         #region HasIndexGetter
@@ -632,7 +666,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentException">If an unknown MemberInfo type is passed.</exception>
         [Tested]
-        public static bool HasSetter([CanBeNull]this MemberInfo In)
+        public static bool HasSetter([CanBeNull] this MemberInfo In)
             {
             if (In == null)
                 return false;
@@ -724,12 +758,13 @@ namespace LCore.Extensions
         #endregion
 
         #region InstanciateValues
+
         /// <summary>
         /// Instantiates values of properties for an object.
         /// </summary>
         [Tested]
         // ReSharper disable once UnusedMethodReturnValue.Global
-        public static List<T> InstantiateValues<T>([CanBeNull]this Type In, [CanBeNull]object Obj, bool IncludeBaseClasses)
+        public static List<T> InstantiateValues<T>([CanBeNull] this Type In, [CanBeNull] object Obj, bool IncludeBaseClasses)
             {
             if (In == null || Obj == null)
                 return new List<T>();
@@ -737,28 +772,32 @@ namespace LCore.Extensions
             List<MemberInfo> Members = In.MembersOfType(typeof(T), IncludeBaseClasses);
             return Members.GetValues<T>(Obj, true);
             }
+
         /// <summary>
         /// Instantiates values of specific properties for an object.
         /// </summary>
         [Tested]
         // ReSharper disable once UnusedMethodReturnValue.Global
-        public static List<T> InstantiateValues<T>([CanBeNull]this IEnumerable<MemberInfo> In, [CanBeNull] object Obj)
+        public static List<T> InstantiateValues<T>([CanBeNull] this IEnumerable<MemberInfo> In, [CanBeNull] object Obj)
             {
             if (In == null || Obj == null)
                 return new List<T>();
 
             return In.GetValues<T>(Obj, true);
             }
+
         #endregion
 
         #region IsExtensionMethod
+
         /// <summary>
         /// Returns whether a MethodInfo is an extension method or not.
         /// </summary>
-        public static bool IsExtensionMethod([CanBeNull]this MethodInfo In)
+        public static bool IsExtensionMethod([CanBeNull] this MethodInfo In)
             {
             return In?.IsDefined(typeof(ExtensionAttribute), true) == true;
             }
+
         #endregion
 
         #region IsNullable
@@ -777,11 +816,12 @@ namespace LCore.Extensions
         #endregion
 
         #region IsType
+
         /// <summary>
         /// Returns whether object <paramref name="In" /> is type <typeparamref name="T" /> or a subclass of <typeparamref name="T" />
         /// </summary>
         [Tested]
-        public static bool IsType<T>([CanBeNull]this object In)
+        public static bool IsType<T>([CanBeNull] this object In)
             {
             return In != null && In.GetType().IsType(typeof(T));
             }
@@ -790,18 +830,19 @@ namespace LCore.Extensions
         /// Returns whether object <paramref name="In" /> is type <paramref name="Type" /> or a subclass of <paramref name="Type" />
         /// </summary>
         [Tested]
-        public static bool IsType([CanBeNull]this object In, [CanBeNull]Type Type)
+        public static bool IsType([CanBeNull] this object In, [CanBeNull] Type Type)
             {
             if (In == null || Type == null)
                 return false;
 
             return In.GetType().IsType(Type);
             }
+
         /// <summary>
         /// Returns whether type <paramref name="In" /> is type <paramref name="Type" /> or a subclass of <paramref name="Type" />
         /// </summary>
         [Tested]
-        public static bool IsType([CanBeNull]this Type In, [CanBeNull]Type Type)
+        public static bool IsType([CanBeNull] this Type In, [CanBeNull] Type Type)
             {
             if (In == null || Type == null)
                 return false;
@@ -810,11 +851,12 @@ namespace LCore.Extensions
                    In.IsSubclassOf(Type) ||
                    (Type.IsInterface && In.HasInterface(Type));
             }
+
         /// <summary>
         /// Returns whether type <paramref name="In" /> is type <typeparamref name="T" /> or a subclass of <typeparamref name="T" />
         /// </summary>
         [Tested]
-        public static bool IsType<T>([CanBeNull]this Type In)
+        public static bool IsType<T>([CanBeNull] this Type In)
             {
             return In != null && In.IsType(typeof(T));
             }
@@ -822,12 +864,13 @@ namespace LCore.Extensions
         #endregion
 
         #region MembersOfType
+
         /// <summary>
         /// Return all members of type <paramref name="In" /> who expose type <paramref name="Type" />.
         /// Optionally, scan base classes.
         /// </summary>
         [Tested]
-        public static List<MemberInfo> MembersOfType([CanBeNull]this Type In, [CanBeNull]Type Type, bool IncludeBaseClasses = true)
+        public static List<MemberInfo> MembersOfType([CanBeNull] this Type In, [CanBeNull] Type Type, bool IncludeBaseClasses = true)
             {
             if (In == null || Type == null)
                 return new List<MemberInfo>();
@@ -836,15 +879,17 @@ namespace LCore.Extensions
                 ? In.GetMembers()
                 : In.GetMembers(BindingFlags.DeclaredOnly))
                 .List().Select(Member =>
-                {
+                    {
                     var MemberType = Member.GetMemberType();
                     return MemberType.IsType(Type) &&
-                    (!(Member is MethodInfo) || !((MethodInfo)Member).IsSpecialName);
-                });
+                           (!(Member is MethodInfo) || !((MethodInfo) Member).IsSpecialName);
+                    });
             }
+
         #endregion
 
         #region MemberType
+
         /// <summary>
         /// Returns the type of the member.
         /// Uses the return value if <paramref name="In" /> is a MethodInfo.
@@ -852,7 +897,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentException">If an unknown MemberInfo type is passed.</exception>
         [Tested]
         [CanBeNull]
-        public static Type MemberType([CanBeNull]this MemberInfo In)
+        public static Type MemberType([CanBeNull] this MemberInfo In)
             {
             var Type = In?.GetType();
 
@@ -860,13 +905,13 @@ namespace LCore.Extensions
                 Type = Type.BaseType;
 
             if (Type == typeof(PropertyInfo))
-                return ((PropertyInfo)In).PropertyType;
+                return ((PropertyInfo) In).PropertyType;
             if (Type == typeof(FieldInfo))
-                return ((FieldInfo)In).FieldType;
+                return ((FieldInfo) In).FieldType;
             if (Type == typeof(MethodInfo))
-                return ((MethodInfo)In).ReturnType;
+                return ((MethodInfo) In).ReturnType;
             if (Type == typeof(EventInfo))
-                return ((EventInfo)In).EventHandlerType;
+                return ((EventInfo) In).EventHandlerType;
             // ReSharper disable once ConvertIfStatementToReturnStatement
             if (Type == typeof(ConstructorInfo))
                 return Type.DeclaringType;
@@ -877,14 +922,15 @@ namespace LCore.Extensions
         #endregion
 
         #region New
+
         /// <summary>
         /// Creates a new <typeparamref name="T" /> object. Optionally, pass in <paramref name="Arguments" /> to the constructor.
         /// </summary>
         [Tested]
         [CanBeNull]
-        public static T New<T>([CanBeNull]this Type In, [CanBeNull]object[] Arguments = null)
+        public static T New<T>([CanBeNull] this Type In, [CanBeNull] object[] Arguments = null)
             {
-            return (T)In.New(Arguments, typeof(T));
+            return (T) In.New(Arguments, typeof(T));
             }
 
         /// <summary>
@@ -894,7 +940,7 @@ namespace LCore.Extensions
         /// <exception cref="InvalidOperationException">The object could not be created, constructor was not found.</exception>
         [Tested]
         [CanBeNull]
-        public static object New([CanBeNull]this Type In, [CanBeNull]object[] Arguments = null, [CanBeNull]Type GenericType = null)
+        public static object New([CanBeNull] this Type In, [CanBeNull] object[] Arguments = null, [CanBeNull] Type GenericType = null)
             {
             try
                 {
@@ -907,33 +953,33 @@ namespace LCore.Extensions
                 if (In.IsValueType)
                     return Activator.CreateInstance(In);
 
-                Arguments = Arguments ?? new object[] { };
+                Arguments = Arguments ?? new object[] {};
 
                 if (In.ContainsGenericParameters && GenericType != null)
                     {
                     var TypeArgs_Base = new List<Type[]>();
 
                     GenericType.Traverse(Type =>
-                    {
+                        {
                         if (Type.IsGenericType)
                             TypeArgs_Base.Add(Type.GetGenericArguments());
 
                         return Type.BaseType;
-                    });
+                        });
 
                     TypeArgs_Base.Reverse();
-                    TypeArgs_Base.Add(new[] { GenericType });
+                    TypeArgs_Base.Add(new[] {GenericType});
 
                     int InGenericArgs = In.GetGenericArguments().Length;
 
                     TypeArgs_Base.While(Types =>
                         {
-                            return InGenericArgs != Types.Length ||
-                                L.F(() =>
-                                {
-                                    In = In.MakeGenericType(Types);
-                                    return false;
-                                }).Try()();
+                        return InGenericArgs != Types.Length ||
+                               L.F(() =>
+                                   {
+                                   In = In.MakeGenericType(Types);
+                                   return false;
+                                   }).Try()();
                         });
                     }
 
@@ -953,6 +999,7 @@ namespace LCore.Extensions
                 throw new InvalidOperationException($"Could not instanciate type: {In?.FullName ?? "[null]"}", Ex);
                 }
             }
+
         #endregion
 
         #region NewRandom
@@ -978,14 +1025,14 @@ namespace LCore.Extensions
         /// <param name="Value"></param>
         /// <exception cref="ArgumentException">If the MemberInfo <paramref name="In" /> was not found on Obj.</exception>
         [Tested]
-        public static void SetValue([CanBeNull]this MemberInfo In, [CanBeNull]object Obj, [CanBeNull]object Value)
+        public static void SetValue([CanBeNull] this MemberInfo In, [CanBeNull] object Obj, [CanBeNull] object Value)
             {
             try
                 {
                 var PropertyInfo = In as PropertyInfo;
                 if (PropertyInfo != null && PropertyInfo.CanWrite)
                     {
-                    PropertyInfo.SetValue(Obj, Value, new object[] { });
+                    PropertyInfo.SetValue(Obj, Value, new object[] {});
                     return;
                     }
 
@@ -1001,12 +1048,13 @@ namespace LCore.Extensions
         #endregion
 
         #region ToInvocationSignature
+
         /// <summary>
         /// Returns a friendly invocation signature representing the MethodInfo.
         /// Ex: MethodInfo.ToInvocationSignature() => string
         ///     string.Sub(int, int) => string
         /// </summary>
-        public static string ToInvocationSignature([CanBeNull]this MethodInfo In)
+        public static string ToInvocationSignature([CanBeNull] this MethodInfo In)
             {
             if (In == null)
                 return "";
@@ -1037,60 +1085,71 @@ namespace LCore.Extensions
                 ? $"{Start}{MethodName}({Params.JoinLines(", ")})"
                 : $"{Start}{MethodName}({Params.JoinLines(", ")}) => {Return}";
             }
+
         #endregion
 
         #region TypeEquals
+
         /// <summary>
         /// Returns whether the two types are equal by comparing their Fully Qualified Names.
         /// </summary>
         [Tested]
-        public static bool TypeEquals([CanBeNull]this Type In, [CanBeNull]Type Compare)
+        public static bool TypeEquals([CanBeNull] this Type In, [CanBeNull] Type Compare)
             {
             return In != null &&
                    Compare != null &&
                    In.FullyQualifiedName() == Compare.FullyQualifiedName();
             }
+
         #endregion
 
         #region WithAttribute
+
         /// <summary>
         /// Filters an IEnumerable`MemberInfo, including any members with given 
         /// attribute <typeparamref name="T" />.
         /// </summary>
         [Tested]
-        public static IEnumerable<MemberInfo> WithAttribute<T>([CanBeNull]this IEnumerable<MemberInfo> In, bool IncludeBaseTypes = true)
+        public static IEnumerable<MemberInfo> WithAttribute<T>([CanBeNull] this IEnumerable<MemberInfo> In, bool IncludeBaseTypes = true)
             {
             return In.Select(Member => Member.HasAttribute<T>(IncludeBaseTypes)).List();
             }
+
         /// <summary>
         /// Filters an IEnumerable`MemberInfo, including any members with given <paramref name="AttributeType" />.
         /// </summary>
         [Tested]
-        public static List<MemberInfo> WithAttribute([CanBeNull]this IEnumerable<MemberInfo> In, [CanBeNull]Type AttributeType, bool IncludeBaseTypes = true)
+        public static List<MemberInfo> WithAttribute([CanBeNull] this IEnumerable<MemberInfo> In, [CanBeNull] Type AttributeType,
+            bool IncludeBaseTypes = true)
             {
             return In.Select(Member => Member.HasAttribute(AttributeType, IncludeBaseTypes)).List();
             }
+
         #endregion
 
         #region WithoutAttribute
+
         /// <summary>
         /// Filters an IEnumerable`MemberInfo, excluding any members with given 
         /// attribute <typeparamref name="T" />.
         /// </summary>
         [Tested]
-        public static IEnumerable<MemberInfo> WithoutAttribute<T>([CanBeNull]this IEnumerable<MemberInfo> In, bool IncludeBaseTypes = true)
+        public static IEnumerable<MemberInfo> WithoutAttribute<T>([CanBeNull] this IEnumerable<MemberInfo> In, bool IncludeBaseTypes = true)
             {
             return In.Select(Member => !Member.HasAttribute<T>(IncludeBaseTypes)).List();
             }
+
         /// <summary>
         /// Filters an IEnumerable`MemberInfo, excluding any members with given 
         /// attribute <paramref name="AttributeType" />.
         /// </summary>
         [Tested]
-        public static List<MemberInfo> WithoutAttribute([CanBeNull]this IEnumerable<MemberInfo> In, [CanBeNull]Type AttributeType, bool IncludeBaseTypes = true)
+        public static List<MemberInfo> WithoutAttribute([CanBeNull] this IEnumerable<MemberInfo> In, [CanBeNull] Type AttributeType,
+            bool IncludeBaseTypes = true)
             {
             return In.Select(Member => !Member.HasAttribute(AttributeType, IncludeBaseTypes)).List();
             }
+
         #endregion
 
         #endregion
@@ -1135,20 +1194,20 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns all namespace types, optionally filtering using multiple <paramref name="AttributeTypes" />
             /// </summary>
-            public static Type[] GetNamespaceTypes(string Namespace, [CanBeNull]params Type[] AttributeTypes)
+            public static Type[] GetNamespaceTypes(string Namespace, [CanBeNull] params Type[] AttributeTypes)
                 {
-                AttributeTypes = AttributeTypes ?? new Type[] { };
+                AttributeTypes = AttributeTypes ?? new Type[] {};
 
                 IEnumerable<Type> Types =
                     Assembly.GetCallingAssembly()
                         .GetTypes()
                         .Select(Type => (AttributeTypes.Length == 0 ||
-                                  AttributeTypes.Count(AttrType =>
-                                    Type.IsType(AttrType) ||
-                                    Type.HasInterface(AttrType) ||
-                                    Type.HasAttribute(AttrType, true)) > 0)
-                                && Type.Namespace == Namespace 
-                                && !Type.HasAttribute<CompilerGeneratedAttribute>());
+                                         AttributeTypes.Count(AttrType =>
+                                             Type.IsType(AttrType) ||
+                                             Type.HasInterface(AttrType) ||
+                                             Type.HasAttribute(AttrType, true)) > 0)
+                                        && Type.Namespace == Namespace
+                                        && !Type.HasAttribute<CompilerGeneratedAttribute>(true));
 
                 return Types.Array();
                 }
@@ -1162,9 +1221,9 @@ namespace LCore.Extensions
                     Assembly.GetTypes()
                         .Select(Type => AttributeTypes.Count(
                             AttrType => Type.IsType(AttrType) ||
-                                Type.HasInterface(AttrType) ||
-                                Type.HasAttribute(AttrType, true)) > 0
-                            && Type.Namespace == Namespace);
+                                        Type.HasInterface(AttrType) ||
+                                        Type.HasAttribute(AttrType, true)) > 0
+                                        && Type.Namespace == Namespace);
 
                 return Types.Array();
                 }
@@ -1179,7 +1238,7 @@ namespace LCore.Extensions
             /// </summary>
             public static ConstructorInfo Constructor<T>(Expression<Func<T>> Expr)
                 {
-                return ((NewExpression)Expr.Body).Constructor;
+                return ((NewExpression) Expr.Body).Constructor;
                 }
 
             /// <summary>
@@ -1216,7 +1275,7 @@ namespace LCore.Extensions
             /// </summary>
             public static MethodInfo Method<T>(Expression<Action<T>> Expr)
                 {
-                var Out = ((MethodCallExpression)Expr.Body).Method;
+                var Out = ((MethodCallExpression) Expr.Body).Method;
 
                 var TypeCursor = typeof(T);
                 while (TypeCursor != null)
@@ -1243,7 +1302,7 @@ namespace LCore.Extensions
             /// </summary>
             public static MethodInfo StaticMethod(Expression<Action> Expr)
                 {
-                return ((MethodCallExpression)Expr.Body).Method;
+                return ((MethodCallExpression) Expr.Body).Method;
                 }
 
 
@@ -1264,7 +1323,7 @@ namespace LCore.Extensions
             /// </summary>
             public static EventInfo Event<T>(string EventName)
                 {
-                var Out = (EventInfo)typeof(T).GetMember(EventName).First();
+                var Out = (EventInfo) typeof(T).GetMember(EventName).First();
 
                 if (Out != null)
                     {
@@ -1300,25 +1359,26 @@ namespace LCore.Extensions
             public static T NewRandom<T>(T? Minimum = null, T? Maximum = null)
                 where T : struct
                 {
-                return (T)NewRandom(typeof(T), Minimum, Maximum);
+                return (T) NewRandom(typeof(T), Minimum, Maximum);
                 }
 
-            internal static readonly Dictionary<Type, Func<Type, object[], object>> NewRandom_ArrayTypes = new Dictionary<Type, Func<Type, object[], object>>
+            internal static readonly Dictionary<Type, Func<Type, object[], object>> NewRandom_ArrayTypes = new Dictionary
+                <Type, Func<Type, object[], object>>
                 {
                 [typeof(Array)] = (ItemType, Items) =>
-                     {
-                         var Out = (Array)ItemType.MakeArrayType().New(new object[] { Items.Length });
-                         object Out2 = Out.Collect((i, Item) => Items[i]).Array();
+                    {
+                    var Out = (Array) ItemType.MakeArrayType().New(new object[] {Items.Length});
+                    object Out2 = Out.Collect((i, Item) => Items[i]).Array();
 
-                         return Out2;
-                     },
+                    return Out2;
+                    },
                 [typeof(List)] = (ItemType, Items) =>
                     {
-                        object Out = (IList)typeof(List<>).MakeGenericType(ItemType).New();
+                    object Out = (IList) typeof(List<>).MakeGenericType(ItemType).New();
 
-                        Items.List().Each(Item => ((IList)Out)?.Add(Item));
+                    Items.List().Each(Item => ((IList) Out)?.Add(Item));
 
-                        return Out;
+                    return Out;
                     }
                 };
 
@@ -1327,52 +1387,45 @@ namespace LCore.Extensions
                     {
                     [typeof(IEnumerable)] = (Type, Min, Max) =>
                         {
-                            Func<Type, object[], object> ArrayType = NewRandom_ArrayTypes.Values.Random();
-                            var SelectedType = NewRandom_TypeCreators.Keys.Random();
+                        Func<Type, object[], object> ArrayType = NewRandom_ArrayTypes.Values.Random();
+                        var SelectedType = NewRandom_TypeCreators.Keys.Random();
 
-                            var RandomItems = new List<object>();
+                        var RandomItems = new List<object>();
 
-                            int RandomCount = (int)NewRandom(typeof(int), 1, 50);
+                        int RandomCount = (int) NewRandom(typeof(int), 1, 50);
 
-                            A(() =>
-                                {
-                                    RandomItems.Add(NewRandom(SelectedType, Min, Max));
-                                }).Repeat(RandomCount)();
+                        A(() => { RandomItems.Add(NewRandom(SelectedType, Min, Max)); }).Repeat(RandomCount)();
 
-                            // ReSharper disable once ConvertIfStatementToReturnStatement
-                            // ReSharper disable once UseNullPropagation
-                            if (ArrayType != null)
-                                return ArrayType(SelectedType, RandomItems.Array());
+                        // ReSharper disable once ConvertIfStatementToReturnStatement
+                        // ReSharper disable once UseNullPropagation
+                        if (ArrayType != null)
+                            return ArrayType(SelectedType, RandomItems.Array());
 
-                            return null;
+                        return null;
                         },
                     [typeof(IEnumerable<>)] = (Type, Min, Max) =>
                         {
-                            if (Type.GetGenericArguments().Length == 1)
-                                {
-                                var EnumerableType = !Type.IsGenericTypeDefinition
-                                    ? Type.GetGenericArguments()[0] ?? Type
-                                    : NewRandom_TypeCreators.Keys.Random();
+                        if (Type.GetGenericArguments().Length == 1)
+                            {
+                            var EnumerableType = !Type.IsGenericTypeDefinition
+                                ? Type.GetGenericArguments()[0] ?? Type
+                                : NewRandom_TypeCreators.Keys.Random();
 
-                                Func<Type, object[], object> ArrayTypeCreator = NewRandom_ArrayTypes.Values.Random();
+                            Func<Type, object[], object> ArrayTypeCreator = NewRandom_ArrayTypes.Values.Random();
 
-                                var RandomItems = new List<object>();
+                            var RandomItems = new List<object>();
 
-                                int RandomCount = (int)NewRandom(typeof(int), 1, 50);
+                            int RandomCount = (int) NewRandom(typeof(int), 1, 50);
 
-                                A(() =>
-                                    {
-                                        RandomItems.Add(NewRandom(EnumerableType, Min, Max));
-                                    }).Repeat(RandomCount)();
+                            A(() => { RandomItems.Add(NewRandom(EnumerableType, Min, Max)); }).Repeat(RandomCount)();
 
-                                // ReSharper disable once ConvertIfStatementToReturnStatement
-                                // ReSharper disable once UseNullPropagation
-                                if (ArrayTypeCreator != null)
-                                    return ArrayTypeCreator(EnumerableType, RandomItems.Array());
+                            // ReSharper disable once ConvertIfStatementToReturnStatement
+                            // ReSharper disable once UseNullPropagation
+                            if (ArrayTypeCreator != null)
+                                return ArrayTypeCreator(EnumerableType, RandomItems.Array());
+                            }
 
-                                }
-
-                            return null;
+                        return null;
                         }
                     };
 
@@ -1387,70 +1440,70 @@ namespace LCore.Extensions
                     [typeof(Guid)] = (Min, Max) => new Guid(),
                     [typeof(string)] = (Min, Max) => new Guid().ToString(),
                     [typeof(double)] = (Min, Max) =>
-                    {
-                        double Minimum = (double?)Min ?? (double)int.MinValue;
-                        double Maximum = (double?)Max ?? (double)int.MaxValue;
+                        {
+                        double Minimum = (double?) Min ?? (double) int.MinValue;
+                        double Maximum = (double?) Max ?? (double) int.MaxValue;
 
-                        return new Random().NextDouble() * Minimum - Maximum;
-                    },
+                        return new Random().NextDouble()*Minimum - Maximum;
+                        },
                     [typeof(char)] = (Min, Max) =>
-                    {
-                        char Minimum = (char?)Min ?? char.MinValue;
-                        char Maximum = (char?)Max ?? char.MaxValue;
+                        {
+                        char Minimum = (char?) Min ?? char.MinValue;
+                        char Maximum = (char?) Max ?? char.MaxValue;
 
-                        return (char)new Random().Next(Minimum, Maximum);
-                    },
+                        return (char) new Random().Next(Minimum, Maximum);
+                        },
                     [typeof(byte)] = (Min, Max) =>
-                    {
-                        byte Minimum = (byte?)Min ?? byte.MinValue;
-                        byte Maximum = (byte?)Max ?? byte.MaxValue;
+                        {
+                        byte Minimum = (byte?) Min ?? byte.MinValue;
+                        byte Maximum = (byte?) Max ?? byte.MaxValue;
 
-                        return (byte)new Random().Next(Minimum, Maximum);
-                    },
+                        return (byte) new Random().Next(Minimum, Maximum);
+                        },
                     [typeof(sbyte)] = (Min, Max) =>
-                    {
-                        sbyte Minimum = (sbyte?)Min ?? sbyte.MinValue;
-                        sbyte Maximum = (sbyte?)Max ?? sbyte.MaxValue;
+                        {
+                        sbyte Minimum = (sbyte?) Min ?? sbyte.MinValue;
+                        sbyte Maximum = (sbyte?) Max ?? sbyte.MaxValue;
 
-                        return (sbyte)new Random().Next(Minimum, Maximum);
-                    },
+                        return (sbyte) new Random().Next(Minimum, Maximum);
+                        },
                     [typeof(short)] = (Min, Max) =>
-                    {
-                        short Minimum = (short?)Min ?? short.MinValue;
-                        short Maximum = (short?)Max ?? short.MaxValue;
+                        {
+                        short Minimum = (short?) Min ?? short.MinValue;
+                        short Maximum = (short?) Max ?? short.MaxValue;
 
-                        return (short)new Random().Next(Minimum, Maximum);
-                    },
+                        return (short) new Random().Next(Minimum, Maximum);
+                        },
                     [typeof(ushort)] = (Min, Max) =>
-                    {
-                        ushort Minimum = (ushort?)Min ?? ushort.MinValue;
-                        ushort Maximum = (ushort?)Max ?? ushort.MaxValue;
+                        {
+                        ushort Minimum = (ushort?) Min ?? ushort.MinValue;
+                        ushort Maximum = (ushort?) Max ?? ushort.MaxValue;
 
-                        return (ushort)new Random().Next(Minimum, Maximum);
-                    },
+                        return (ushort) new Random().Next(Minimum, Maximum);
+                        },
                     [typeof(long)] = (Min, Max) =>
                         {
-                            long Minimum = (long?)Min ?? int.MinValue;
-                            long Maximum = (long?)Max ?? int.MaxValue;
-                            int MinimumInt = Minimum.ConvertTo<int>() ?? int.MinValue;
-                            int MaximumInt = Maximum.ConvertTo<int>() ?? int.MaxValue;
+                        long Minimum = (long?) Min ?? int.MinValue;
+                        long Maximum = (long?) Max ?? int.MaxValue;
+                        int MinimumInt = Minimum.ConvertTo<int>() ?? int.MinValue;
+                        int MaximumInt = Maximum.ConvertTo<int>() ?? int.MaxValue;
 
-                            return (long)new Random().Next(MinimumInt, MaximumInt);
+                        return (long) new Random().Next(MinimumInt, MaximumInt);
                         },
                     [typeof(int)] = (Min, Max) =>
-                    {
-                        int Minimum = (int?)Min ?? int.MinValue;
-                        int Maximum = (int?)Max ?? int.MaxValue;
+                        {
+                        int Minimum = (int?) Min ?? int.MinValue;
+                        int Maximum = (int?) Max ?? int.MaxValue;
 
                         return new Random().Next(Minimum, Maximum);
-                    },
+                        },
                     [typeof(uint)] = (Min, Max) =>
-                    {
-                        int Minimum = (int)((uint?)Min ?? uint.MinValue);
-                        int Maximum = (int)((uint?)Max ?? (uint)int.MaxValue);
+                        {
+                        int Minimum = (int) ((uint?) Min ?? uint.MinValue);
+                        int Maximum = (int) ((uint?) Max ?? (uint) int.MaxValue);
 
-                        return (uint)new Random().Next(Minimum, Maximum);
-                    }
+                        return (uint) new Random().Next(Minimum, Maximum);
+                        }
                     };
 
             /// <summary>
@@ -1463,10 +1516,10 @@ namespace LCore.Extensions
                 if (Minimum != null || Maximum != null)
                     {
                     if (Minimum is IConvertible)
-                        Minimum = ((IConvertible)Minimum).ConvertTo(Type) ?? Minimum;
+                        Minimum = ((IConvertible) Minimum).ConvertTo(Type) ?? Minimum;
 
                     if (Maximum is IConvertible)
-                        Maximum = ((IConvertible)Maximum).ConvertTo(Type) ?? Maximum;
+                        Maximum = ((IConvertible) Maximum).ConvertTo(Type) ?? Maximum;
                     /*
                                         if (Minimum.IsType(Type) && Maximum.IsType(Type))
                                             if (Minimum is IConvertible && ((IConvertible)Minimum).CanConvertTo(typeof(int)) &&
@@ -1492,11 +1545,9 @@ namespace LCore.Extensions
                 // TODO: Create dynamic object from Interface and initialize properties.
 
 
-
-
                 if (NewRandom_TypeCreators.ContainsKey(Type) ||
                     (Type.IsGenericType &&
-                    Type.GetGenericTypeDefinition() == Type))
+                     Type.GetGenericTypeDefinition() == Type))
                     return NewRandom_TypeCreators[Type](Minimum, Maximum);
 
                 var InterfaceType = NewRandom_InterfaceCreators.Keys.First(KeyType => KeyType.HasInterface(Type));
@@ -1508,7 +1559,7 @@ namespace LCore.Extensions
                 if (Type.HasInterface<IConvertible>())
                     {
                     var Result =
-                        Rand.Next((int?)Minimum ?? char.MinValue, (int?)Maximum ?? char.MaxValue).ConvertTo(Type);
+                        Rand.Next((int?) Minimum ?? char.MinValue, (int?) Maximum ?? char.MaxValue).ConvertTo(Type);
 
                     if (Result.IsType(Type) || Result != null)
                         return Result;
@@ -1517,8 +1568,8 @@ namespace LCore.Extensions
                 return null;
                 }
 
-
             #region Lambdas +
+
             // ReSharper disable CommentTypo
             /*
             internal static readonly Func<string, string> Language_CleanOperationFunctionName = F<string, string>()
@@ -1548,79 +1599,85 @@ namespace LCore.Extensions
                 .Else(Logic.Pass<string>());
     */
             // ReSharper restore CommentTypo
+
             #region MemberInfo - Get Attribute
-            private static readonly Func<string, ICustomAttributeProvider, Type, bool, object> _GetAttribute = (DeclaringTypeName, Prop, Attr, IncludeBaseTypes) =>
-            {
-                bool HasAttribute;
-                object[] Objs;
-                do
+
+            private static readonly Func<string, ICustomAttributeProvider, Type, bool, object> _GetAttribute =
+                (DeclaringTypeName, Prop, Attr, IncludeBaseTypes) =>
                     {
-                    Objs = Prop.GetCustomAttributes(Attr, false);
-                    HasAttribute = Objs.Length != 0;
-
-                    if (HasAttribute)
-                        return Objs[0];
-
-                    var MemberInfo = Prop as MemberInfo;
-                    if (MemberInfo != null)
+                    bool HasAttribute;
+                    object[] Objs;
+                    do
                         {
-                        if (MemberInfo.DeclaringType?.BaseType == null)
+                        Objs = Prop.GetCustomAttributes(Attr, false);
+                        HasAttribute = Objs.Length != 0;
+
+                        if (HasAttribute)
+                            return Objs[0];
+
+                        var MemberInfo = Prop as MemberInfo;
+                        if (MemberInfo != null)
                             {
-                            Prop = null;
-                            }
-                        else
-                            {
-                            try
-                                {
-                                Prop = ((MemberInfo)Prop).DeclaringType?.BaseType?.GetProperty(((MemberInfo)Prop).Name);
-                                }
-                            catch
+                            if (MemberInfo.DeclaringType?.BaseType == null)
                                 {
                                 Prop = null;
                                 }
-                            }
-                        continue;
-                        }
-                    // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-                    // ReSharper disable once ExpressionIsAlwaysNull
-                    var MethodInfo = Prop as MethodInfo;
-                    // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-                    if (MethodInfo != null)
-                        {
-                        if (MethodInfo.DeclaringType?.BaseType == null)
-                            {
-                            Prop = null;
-                            }
-                        else
-                            {
-                            try
+                            else
                                 {
-                                Prop = ((MethodInfo)Prop).DeclaringType.BaseType.GetProperty(((MethodInfo)Prop).Name);
+                                try
+                                    {
+                                    Prop = ((MemberInfo) Prop).DeclaringType?.BaseType?.GetProperty(((MemberInfo) Prop).Name);
+                                    }
+                                catch
+                                    {
+                                    Prop = null;
+                                    }
                                 }
-                            catch
+                            continue;
+                            }
+                        // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+                        // ReSharper disable once ExpressionIsAlwaysNull
+                        var MethodInfo = Prop as MethodInfo;
+                        // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+                        if (MethodInfo != null)
+                            {
+                            if (MethodInfo.DeclaringType?.BaseType == null)
                                 {
                                 Prop = null;
                                 }
+                            else
+                                {
+                                try
+                                    {
+                                    Prop = ((MethodInfo) Prop).DeclaringType.BaseType.GetProperty(((MethodInfo) Prop).Name);
+                                    }
+                                catch
+                                    {
+                                    Prop = null;
+                                    }
+                                }
+                            }
+                        else
+                            {
+                            Prop = null;
                             }
                         }
-                    else
-                        {
-                        Prop = null;
-                        }
-                    }
-                // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-                while (IncludeBaseTypes && !HasAttribute && Prop != null);
+                        // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+                    while (IncludeBaseTypes && !HasAttribute && Prop != null);
 
-                object Out2 = null;
+                    object Out2 = null;
 
-                if (!Objs.IsEmpty())
-                    Out2 = Objs[0];
+                    if (!Objs.IsEmpty())
+                        Out2 = Objs[0];
 
-                return Out2;
-            };
+                    return Out2;
+                    };
+
             internal static readonly Func<string, ICustomAttributeProvider, Type, bool, object> GetAttribute = _GetAttribute
                 .Cache("MemberAttributes").Require("Prop").Require2("Attr");
+
             #endregion
+
             #endregion
 
             /*

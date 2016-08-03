@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 using LCore.Interfaces;
@@ -1511,6 +1512,7 @@ namespace LCore.Extensions
             /// <summary>
             /// The most precise type for storing numbers based on precision.
             /// </summary>
+            [ExcludeFromCodeCoverage]
             public static Number MostPreciseType
                 {
                 get
