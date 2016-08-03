@@ -501,7 +501,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { 'a', 3 }, "aaa")]
         // ReSharper disable once StringLiteralTypo
         [TestResult(new object[] { 'z', 5 }, "zzzzz")]
-        [TestBound(1,0, 100)]
+        [TestBound(1, 0, 100)]
         public static string Fill(this char In, int Count)
             {
             return Count < 0
@@ -1065,7 +1065,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "blob", 2u }, "blobs")]
         [TestResult(new object[] { "person", 2u }, "people")]
         [TestResult(new object[] { "person", 1u }, "person")]
-        [TestResult(new object[] { "Entry", 2u}, "Entries")]
+        [TestResult(new object[] { "Entry", 2u }, "Entries")]
         public static string Pluralize(this string In, uint Count)
             {
             return L.Str.Pluralize(In, Count);
@@ -1544,7 +1544,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "ablah", 2 }, "ablahablah")]
         [TestResult(new object[] { "ablah", 5 }, "ablahablahablahablahablah")]
         // ReSharper restore StringLiteralTypo
-        [TestBound(1,0,100)]
+        [TestBound(1, 0, 100)]
         public static string Times([CanBeNull]this string In, int Count)
             {
             return Count < 0
@@ -1808,6 +1808,20 @@ namespace LCore.Extensions
 
             #region Lambdas +
 
+            #region Empty
+
+            /// <summary>
+            /// Func that returns an empty string.
+            /// </summary>
+            public static readonly Func<string> Empty = () => "";
+
+            #endregion
+
+
+            #endregion
+
+            #region Static Methods +
+
             #region Char
 
             /// <summary>
@@ -1820,16 +1834,8 @@ namespace LCore.Extensions
 
             #endregion
 
-            #region Empty
-
-            /// <summary>
-            /// Func that returns an empty string.
-            /// </summary>
-            public static readonly Func<string> Empty = () => "";
-
-            #endregion
-
             #region JoinLines
+
             /// <summary>
             /// Function that joins strings from an IEnumerable <paramref name="Line" />.
             /// </summary>
@@ -1851,150 +1857,150 @@ namespace LCore.Extensions
             ///    -2
             ///    -0.00000001
             /// </summary>
-            public static readonly Func<string, string, int> CompareNumberString = (Compare1, Compare2) =>
+            public static int CompareNumberString(string Compare1, string Compare2)
                 {
-                    int DecimalIndex1 = Compare1.IndexOf(".");
-                    int DecimalIndex2 = Compare2.IndexOf(".");
+                int DecimalIndex1 = Compare1.IndexOf(".");
+                int DecimalIndex2 = Compare2.IndexOf(".");
 
-                    if (DecimalIndex1 == -1)
-                        Compare1 = $"{Compare1}.0";
-                    if (DecimalIndex2 == -1)
-                        Compare2 = $"{Compare2}.0";
+                if (DecimalIndex1 == -1)
+                    Compare1 = $"{Compare1}.0";
+                if (DecimalIndex2 == -1)
+                    Compare2 = $"{Compare2}.0";
 
 
-                    while (Compare1.Length < Compare2.Length)
-                        Compare1 = $"{Compare1}0";
+                while (Compare1.Length < Compare2.Length)
+                    Compare1 = $"{Compare1}0";
 
-                    while (Compare2.Length < Compare1.Length)
-                        Compare2 = $"{Compare2}0";
+                while (Compare2.Length < Compare1.Length)
+                    Compare2 = $"{Compare2}0";
 
-                    int Len1 = Compare1.Length;
-                    int Len2 = Compare2.Length;
-                    int Marker1 = 0;
-                    int Marker2 = 0;
+                int Len1 = Compare1.Length;
+                int Len2 = Compare2.Length;
+                int Marker1 = 0;
+                int Marker2 = 0;
 
-                    if (Compare1.StartsWith("-") && !Compare2.StartsWith("-"))
-                        return -1;
-                    if (Compare2.StartsWith("-") && !Compare1.StartsWith("-"))
-                        return 1;
+                if (Compare1.StartsWith("-") && !Compare2.StartsWith("-"))
+                    return -1;
+                if (Compare2.StartsWith("-") && !Compare1.StartsWith("-"))
+                    return 1;
 
-                    bool Negatives = Compare1.StartsWith("-") && Compare2.StartsWith("-");
+                bool Negatives = Compare1.StartsWith("-") && Compare2.StartsWith("-");
 
-                    DecimalIndex1 = Compare1.IndexOf(".");
-                    DecimalIndex2 = Compare2.IndexOf(".");
+                DecimalIndex1 = Compare1.IndexOf(".");
+                DecimalIndex2 = Compare2.IndexOf(".");
 
-                    if (DecimalIndex1 < DecimalIndex2)
-                        return -1 * (Negatives ? -1 : 1);
-                    if (DecimalIndex2 < DecimalIndex1)
-                        return 1 * (Negatives ? -1 : 1);
+                if (DecimalIndex1 < DecimalIndex2)
+                    return -1 * (Negatives ? -1 : 1);
+                if (DecimalIndex2 < DecimalIndex1)
+                    return 1 * (Negatives ? -1 : 1);
 
-                    // Walk through two the strings with two markers.
-                    while (Marker1 < Len1 && Marker2 < Len2)
+                // Walk through two the strings with two markers.
+                while (Marker1 < Len1 && Marker2 < Len2)
+                    {
+                    char Char1 = Compare1[Marker1];
+                    char Char2 = Compare2[Marker2];
+
+                    if (char.IsDigit(Char1) && char.IsDigit(Char2))
                         {
-                        char Char1 = Compare1[Marker1];
-                        char Char2 = Compare2[Marker2];
+                        // ReSharper disable PossibleInvalidOperationException
+                        ushort Digit1 = (ushort)Char1.ToString().ConvertTo<ushort>();
+                        ushort Digit2 = (ushort)Char2.ToString().ConvertTo<ushort>();
+                        // ReSharper restore PossibleInvalidOperationException
 
-                        if (char.IsDigit(Char1) && char.IsDigit(Char2))
-                            {
-                            // ReSharper disable PossibleInvalidOperationException
-                            ushort Digit1 = (ushort)Char1.ToString().ConvertTo<ushort>();
-                            ushort Digit2 = (ushort)Char2.ToString().ConvertTo<ushort>();
-                            // ReSharper restore PossibleInvalidOperationException
-
-                            if (Digit1 != Digit2)
-                                return Digit1.CompareTo(Digit2) * (Negatives ? -1 : 1);
-                            }
-                        else if (Char1.CompareTo(Char2) != 0)
-                            return Char1.CompareTo(Char2) * (Negatives ? -1 : 1);
-
-                        Marker1++;
-                        Marker2++;
+                        if (Digit1 != Digit2)
+                            return Digit1.CompareTo(Digit2) * (Negatives ? -1 : 1);
                         }
-                    return 0;
-                };
+                    else if (Char1.CompareTo(Char2) != 0)
+                        return Char1.CompareTo(Char2) * (Negatives ? -1 : 1);
+
+                    Marker1++;
+                    Marker2++;
+                    }
+                return 0;
+                }
 
 
             /// <summary>
             /// Compares a string numerically, begin mindful of strings with sequences of numbers.
             /// Ex: File0005
             /// </summary>
-            public static readonly Func<string, string, int> NumericalCompare = (Compare1, Compare2) =>
+            public static int NumericalCompare([CanBeNull] string Compare1, [CanBeNull] string Compare2)
                 {
-                    int Len1 = Compare1.Length;
-                    int Len2 = Compare2.Length;
-                    int Marker1 = 0;
-                    int Marker2 = 0;
+                int Len1 = Compare1.Length;
+                int Len2 = Compare2.Length;
+                int Marker1 = 0;
+                int Marker2 = 0;
 
-                    // Walk through two the strings with two markers.
-                    while (Marker1 < Len1 && Marker2 < Len2)
+                // Walk through two the strings with two markers.
+                while (Marker1 < Len1 && Marker2 < Len2)
+                    {
+                    char Ch1 = Compare1[Marker1];
+                    char Ch2 = Compare2[Marker2];
+
+                    // Some buffers we can build up characters in for each chunk.
+                    var Space1 = new char[Len1];
+                    int Loc1 = 0;
+                    var Space2 = new char[Len2];
+                    int Loc2 = 0;
+
+                    // Walk through all following characters that are digits or
+                    // characters in BOTH strings starting at the appropriate marker.
+                    // Collect char arrays.
+                    do
                         {
-                        char Ch1 = Compare1[Marker1];
-                        char Ch2 = Compare2[Marker2];
+                        Space1[Loc1++] = Ch1;
+                        Marker1++;
 
-                        // Some buffers we can build up characters in for each chunk.
-                        var Space1 = new char[Len1];
-                        int Loc1 = 0;
-                        var Space2 = new char[Len2];
-                        int Loc2 = 0;
-
-                        // Walk through all following characters that are digits or
-                        // characters in BOTH strings starting at the appropriate marker.
-                        // Collect char arrays.
-                        do
+                        if (Marker1 < Len1)
                             {
-                            Space1[Loc1++] = Ch1;
-                            Marker1++;
-
-                            if (Marker1 < Len1)
-                                {
-                                Ch1 = Compare1[Marker1];
-                                }
-                            else
-                                {
-                                break;
-                                }
-                            } while (char.IsDigit(Ch1) == char.IsDigit(Space1[0]));
-
-                        do
-                            {
-                            Space2[Loc2++] = Ch2;
-                            Marker2++;
-
-                            if (Marker2 < Len2)
-                                {
-                                Ch2 = Compare2[Marker2];
-                                }
-                            else
-                                {
-                                break;
-                                }
-                            } while (char.IsDigit(Ch2) == char.IsDigit(Space2[0]));
-
-                        // If we have collected numbers, compare them numerically.
-                        // Otherwise, if we have strings, compare them alphabetically.
-                        string Str1 = new string(Space1);
-                        string Str2 = new string(Space2);
-
-                        int Result;
-
-                        if (char.IsDigit(Space1[0]) && char.IsDigit(Space2[0]))
-                            {
-                            long ThisNumericChunk = long.Parse(Str1);
-                            long ThatNumericChunk = long.Parse(Str2);
-                            Result = ThisNumericChunk.CompareTo(ThatNumericChunk);
+                            Ch1 = Compare1[Marker1];
                             }
                         else
                             {
-                            Result = string.Compare(Str1, Str2, StringComparison.Ordinal);
+                            break;
                             }
+                        } while (char.IsDigit(Ch1) == char.IsDigit(Space1[0]));
 
-                        if (Result != 0)
+                    do
+                        {
+                        Space2[Loc2++] = Ch2;
+                        Marker2++;
+
+                        if (Marker2 < Len2)
                             {
-                            return Result;
+                            Ch2 = Compare2[Marker2];
                             }
+                        else
+                            {
+                            break;
+                            }
+                        } while (char.IsDigit(Ch2) == char.IsDigit(Space2[0]));
+
+                    // If we have collected numbers, compare them numerically.
+                    // Otherwise, if we have strings, compare them alphabetically.
+                    string Str1 = new string(Space1);
+                    string Str2 = new string(Space2);
+
+                    int Result;
+
+                    if (char.IsDigit(Space1[0]) && char.IsDigit(Space2[0]))
+                        {
+                        long ThisNumericChunk = long.Parse(Str1);
+                        long ThatNumericChunk = long.Parse(Str2);
+                        Result = ThisNumericChunk.CompareTo(ThatNumericChunk);
                         }
-                    return Len1 - Len2;
-                };
+                    else
+                        {
+                        Result = string.Compare(Str1, Str2, StringComparison.Ordinal);
+                        }
+
+                    if (Result != 0)
+                        {
+                        return Result;
+                        }
+                    }
+                return Len1 - Len2;
+                }
 
             #endregion
 
@@ -2007,10 +2013,10 @@ namespace LCore.Extensions
             /// <paramref name="Count" /> is used as the number of things you're referring to. 
             /// If you pass 1 (or -1), pluralization will not be applied
             /// </summary>
-            public static string Pluralize([CanBeNull]string Str, int Count)
+            public static string Pluralize([CanBeNull] string Str, int Count)
                 {
-                return Count < 0 
-                    ? Str.Pluralize(Count.Abs()) 
+                return Count < 0
+                    ? Str.Pluralize(Count.Abs())
                     : Str.Pluralize((uint)Count);
                 }
 
@@ -2021,7 +2027,7 @@ namespace LCore.Extensions
             /// <paramref name="Count" /> is used as the number of things you're referring to. 
             /// If you pass 1 (or -1), pluralization will not be applied
             /// </summary>
-            public static string Pluralize([CanBeNull]string Str, uint Count)
+            public static string Pluralize([CanBeNull] string Str, uint Count)
                 {
                 if (Str.IsEmpty())
                     return "";
@@ -2042,20 +2048,21 @@ namespace LCore.Extensions
             /// </summary>
             public static string RemoveChars(string Str, char[] Chars)
                 {
-                return Str.CollectStr(Substitute.Supply(Chars).Supply2(' ')).ReplaceAll("  ", " ").Trim();
+                return Str.CollectStr(F<char[],char,char,char>(Substitute).Supply(Chars).Supply2(' ')).ReplaceAll("  ", " ").Trim();
                 }
 
             #endregion
 
             #region ReplaceDouble
+
             /// <summary>
             /// Function that replaces all double occurrences of a string with single occurrences.
             /// </summary>
-            public static readonly Func<string, char, string> ReplaceDouble = (StrIn, Char) =>
+            public static string ReplaceDouble(string StrIn, char Char)
                 {
-                    string Str = Char.ToString();
-                    return StrIn.ReplaceAll(Str + Str, Str);
-                };
+                string Str = Char.ToString();
+                return StrIn.ReplaceAll(Str + Str, Str);
+                }
 
             #endregion
 
@@ -2065,17 +2072,16 @@ namespace LCore.Extensions
             /// Takes a string and returns a singularized version of the word or phrase.
             /// This method will not fail. If the input is empty it will just return "".
             /// </summary>
-            public static readonly Func<string, string> Singularize = Str =>
-                    Str.IsEmpty()
-                        ? ""
-                        : PluralizationService.CreateService(
-                            CultureInfo.CurrentCulture).Singularize(Str);
+            public static string Singularize(string Str) =>
+                Str.IsEmpty()
+                    ? ""
+                    : PluralizationService.CreateService(CultureInfo.CurrentCulture).Singularize(Str);
 
             #endregion
 
             #region Substitute
-            internal static readonly Func<char[], char, char, char> Substitute =
-                (Chars, Char, Substitute) => Chars.Has(Char) ? Substitute : Char;
+
+            internal static char Substitute(char[] Chars, char Char, char Substitute) => Chars.Has(Char) ? Substitute : Char;
 
             #endregion
 
@@ -2095,25 +2101,26 @@ namespace LCore.Extensions
             #endregion
 
             #region ToS
+
             /// <summary>
             /// Converts an object or IEnumerable to a detailed string.
             /// Ex: "System.String[] { a, b, c, d, e }"
             /// </summary>
-            public static readonly Func<object, string> ToS =
-                o =>
+            public static string ToS([CanBeNull]object Obj)
                 {
-                    if (o == null)
-                        return "";
-                    string Str = o as string;
-                    if (Str != null)
-                        {
-                        return Str;
-                        }
-                    var Enumerable = o as IEnumerable;
-                    return Enumerable != null ?
-                        $"{Enumerable.GetType().FullName} {{ {Enumerable.Array().Convert(ToS).Combine(", ")} }}" :
-                        o.ToString();
-                };
+                if (Obj == null)
+                    return "";
+                string Str = Obj as string;
+                if (Str != null)
+                    {
+                    return Str;
+                    }
+                var Enumerable = Obj as IEnumerable;
+                return Enumerable != null
+                    ? $"{Enumerable.GetType().FullName} {{ {Enumerable.Array().Convert(ToS).Combine(", ")} }}"
+                    : Obj.ToString();
+                }
+
             #endregion
 
             #endregion

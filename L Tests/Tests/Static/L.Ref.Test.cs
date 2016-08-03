@@ -30,6 +30,11 @@ namespace L_Tests.Tests.Extensions
 
             L.Ref.GetNamespaceTypes("LCore", typeof(L)).Should().Equal();
 
+            L.Ref.GetNamespaceTypes(typeof(L), "LCore.Extensions", typeof(L)).ShouldBeEquivalentTo(new List<Type>
+                {
+                typeof(L)
+                });
+
             L.Ref.GetNamespaceTypes(Assembly.GetAssembly(typeof(L)), "LCore.Extensions", typeof(L)).ShouldBeEquivalentTo(new List<Type>
                 {
                 typeof(L)
