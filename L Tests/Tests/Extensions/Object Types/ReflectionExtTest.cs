@@ -164,7 +164,7 @@ namespace L_Tests.Tests.Extensions
 
             Member.GetAttribute<KeyAttribute>(true).Should().BeNull();
 
-            Member.GetAttribute<TestedAttribute>().Should().BeNull();
+            Member.GetAttribute<ITestedAttribute>().Should().BeNull();
 
             ((ICustomAttributeProvider)null).GetAttribute<FriendlyNameAttribute>().Should().BeNull();
             }

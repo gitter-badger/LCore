@@ -1325,7 +1325,7 @@ namespace LCore.Tests
                                     {
                                     Member = Member.MakeGenericMethod(Generics.GenericTypes);
                                     }
-                                else if (AttrTest is TestedAttribute) {}
+                                else if (AttrTest is ITestedAttribute) {}
                                 else
                                     {
                                     try

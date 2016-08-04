@@ -111,6 +111,7 @@
     <Compile Include="Statistics\ISampleSet.cs" />
     <Compile Include="Statistics\StatsExt.cs" />
     <Compile Include="Tests\Attributes\ITestAttribute.cs" />
+    <Compile Include="Tests\Attributes\ITestedAttribute.cs" />
     <Compile Include="Tests\Attributes\TestedIndirectlyAttribute.cs" />
     <Compile Include="Tests\Attributes\TestMethodGenerics.cs" />
     <Compile Include="Tests\Attributes\TestedAttribute.cs" />

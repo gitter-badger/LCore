@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
+using LCore.Extensions;
 
 namespace LCore.Tests
     {
@@ -9,14 +9,7 @@ namespace LCore.Tests
     /// Indicate that unit tests have been completed for the method.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
-    public class TestedAttribute : TestAttribute
+    public class TestedAttribute : Attribute, ITestedAttribute
         {
-        /// <summary>
-        /// Implement this method to execute the test.
-        /// Make assertions here.
-        /// </summary>
-        public override void RunTest(MethodInfo Method)
-            {
-            }
         }
     }

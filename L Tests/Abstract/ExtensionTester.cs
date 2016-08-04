@@ -67,7 +67,7 @@ namespace L_Tests
                 Debug.Write("--------------------------------------------------------\r\n");
                 Debug.Write($"Testing {TestData.TestsPresent} {Test.FullName} methods. \r\n");
                 Debug.Write(
-                    $"      Total attribute tests:  {TestData.TestAttributes.Count - TestData.UnitTestCount} (~{(TestData.TestAttributes.Count/((double) TestData.TestsPresent - TestData.UnitTestCount)).Round(1).Max(0)} per method) \r\n");
+                    $"      Total attribute tests:  {TestData.TestAttributes.Count - TestData.UnitTestCount} (~{(TestData.TestAttributes.Count / ((double)TestData.TestsPresent - TestData.UnitTestCount)).Round(1).Max(0)} per method) \r\n");
                 Debug.Write($"      Unit tests:             {TestData.UnitTestCount}. \r\n");
                 Debug.Write("\r\n");
                 Debug.Write($"Missing: {TestData.TestsMissing} methods                  {TestData.CoveragePercent}% Coverage\r\n");
@@ -78,24 +78,23 @@ namespace L_Tests
 
                 Dictionary<MemberInfo, List<ITestAttribute>> Tests = Test.GetTestMembers();
 
-                Dictionary<uint, List<MemberInfo>> TestMemberCoverage = Tests.Keys.Group(Member => (uint) Tests[Member].Count);
+                Dictionary<uint, List<MemberInfo>> TestMemberCoverage = Tests.Keys.Group(Member => (uint)Tests[Member].Count + (Member.HasAttribute<ITestedAttribute>() ? 1u : 0u));
 
-                uint Members = (uint) Tests.Keys.Count;
-                uint MembersCovered = Members - (uint) (TestMemberCoverage.ContainsKey(0u)
-                    ? (uint) TestMemberCoverage[0u].Count
+                uint Members = (uint)Tests.Keys.Count;
+                uint MembersCovered = Members - (uint)(TestMemberCoverage.ContainsKey(0u)
+                    ? (uint)TestMemberCoverage[0u].Count
                     : 0u);
 
-                uint TestCount = (uint) TestData.TestAttributes.Count;
+                uint TestCount = (uint)TestData.TestAttributes.Count;
 
                 // ReSharper disable once UnusedVariable
                 uint UnitTestCount = TestData.UnitTestCount;
 
                 uint Passed = Test.RunUnitTests();
 
-                TestCount.Should().Be(Passed);
-
-                this._Output?.WriteLine(
-                    $"Passed {Passed} / {TestCount} ({Passed.PercentageOf(TestCount)}%) Attribute {"Tests".Pluralize(TestCount)}");
+                if (TestCount > 0)
+                    this._Output?.WriteLine(
+                        $"Passed {Passed} / {TestCount} ({Passed.PercentageOf(TestCount)}%) Attribute {"Tests".Pluralize(TestCount)}");
 
                 this._Output?.WriteLine($"Members Covered: {MembersCovered} / {Members} ({MembersCovered.PercentageOf(Members)}%)");
 
@@ -173,7 +172,7 @@ namespace L_Tests
                                                 {
                                                 TheMethod = Method.MakeGenericMethod(typeof(string), typeof(string), typeof(string));
                                                 }
-                                            catch {}
+                                            catch { }
                                             }
                                         }
                                     }
@@ -229,43 +228,43 @@ namespace L_Tests
                             bool Finished = false;
                             L.A(() =>
                                 {
-                                try
-                                    {
-                                    var Result = TheMethod.Invoke(null, Params);
+                                    try
+                                        {
+                                        var Result = TheMethod.Invoke(null, Params);
 
-                                    if (!NullsAllowedForParameter)
-                                        {
-                                        Finished = true;
-                                        throw new InternalTestFailureException(
-                                            $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed, but it passed.");
-                                        }
-
-                                    if (!MethodCanBeNull
-                                        && TheMethod.ReturnType != typeof(void)
-                                        && !TheMethod.ReturnType.IsNullable()
-                                        && Result.IsNull())
-                                        {
-                                        Finished = true;
-                                        throw new InternalTestFailureException(
-                                            $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should not have returned null, but it did.");
-                                        }
-                                    }
-                                catch (Exception Ex)
-                                    {
-                                    if (!NullsAllowedForParameter)
-                                        {
-                                        Finished = true;
-                                        // Enforces use of ArgumentNullException on any field marked [NotNull]
-                                        if (!(Ex is ArgumentNullException) ||
-                                            ((ArgumentNullException) Ex).ParamName != Parameters[i].Name)
+                                        if (!NullsAllowedForParameter)
                                             {
+                                            Finished = true;
                                             throw new InternalTestFailureException(
-                                                $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed with an ArgumentNullException matching the parameter name, but it threw an {Ex.GetType()}: {Ex.Message}.");
+                                                $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed, but it passed.");
+                                            }
+
+                                        if (!MethodCanBeNull
+                                            && TheMethod.ReturnType != typeof(void)
+                                            && !TheMethod.ReturnType.IsNullable()
+                                            && Result.IsNull())
+                                            {
+                                            Finished = true;
+                                            throw new InternalTestFailureException(
+                                                $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should not have returned null, but it did.");
                                             }
                                         }
-                                    }
+                                    catch (Exception Ex)
+                                        {
+                                        if (!NullsAllowedForParameter)
+                                            {
+                                            Finished = true;
+                                            // Enforces use of ArgumentNullException on any field marked [NotNull]
+                                            if (!(Ex is ArgumentNullException) ||
+                                                ((ArgumentNullException)Ex).ParamName != Parameters[i].Name)
+                                                {
+                                                throw new InternalTestFailureException(
+                                                    $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed with an ArgumentNullException matching the parameter name, but it threw an {Ex.GetType()}: {Ex.Message}.");
+                                                }
+                                            }
+                                        }
 
-                                Finished = true;
+                                    Finished = true;
                                 }).Async(300)();
 
                             uint Waited = 0;

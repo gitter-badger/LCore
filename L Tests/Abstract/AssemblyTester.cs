@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using LCore.Extensions;
 using Xunit;
@@ -31,9 +32,9 @@ namespace L_Tests
             this._Output?.WriteLine($"Testing Assembly: {this.Assembly.GetName().Name}");
             this._Output?.WriteLine("");
 
-            Type[] Types = this.AssemblyTypes;
+            Type[] Types = this.AssemblyTypes.WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>(false).Array();
 
-            Type[] StaticTypes = Types.Select(Type => !Type.IsClass);
+            Type[] StaticTypes = Types.Select(Type => Type.IsStatic());
             Type[] NonStaticTypes = Types.Select(Type => Type.IsClass);
 
             if (StaticTypes.Length > 0)
@@ -41,7 +42,10 @@ namespace L_Tests
                 this._Output?.WriteLine($"Static Classes: ");
                 foreach (var Type in StaticTypes)
                     {
-                    int Coverage = 0;
+                    var TestData = Type.GetTestData();
+
+                    uint Coverage = TestData.CoveragePercent;
+
                     this._Output?.WriteLine($"{Type.FullyQualifiedName().Pad(60)}({$"{Coverage}".AlignRight(3)}%)");
 
                     this.TestTypeDeclarationAttributes(Type);
@@ -58,7 +62,10 @@ namespace L_Tests
                 this._Output?.WriteLine($"Classes: ");
                 foreach (var Type in NonStaticTypes)
                     {
-                    int Coverage = 0;
+                    var TestData = Type.GetTestData();
+
+                    uint Coverage = TestData.CoveragePercent;
+
                     this._Output?.WriteLine($"{Type.FullyQualifiedName()}");
 
                     this.TestTypeDeclarationAttributes(Type);

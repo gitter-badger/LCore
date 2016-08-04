@@ -49,18 +49,22 @@ namespace LCore.Tests
         /// </summary>
         public TypeTests(Type Test)
             {
-            IEnumerable<MemberInfo> TestMembers = Test.GetMembers().Select(Member => Member.DeclaringType == Test);
+            List<MethodInfo> TestMembers = Test.GetMembers().Select(Member => Member.DeclaringType == Test)
+                .Filter<MethodInfo>();
+
             this.MembersPresent = TestMembers.Count();
 
             this.TestsMissing = TestMembers.Select(Member => Member.DeclaringType == Test)
-                .WithoutAttribute<ITestAttribute>().Count();
+                .WithoutAttribute<ITestAttribute>().WithoutAttribute<ITestedAttribute>().Count();
 
-            this.UnitTestCount = TestMembers.WithAttribute<TestedAttribute>().Count();
+            this.UnitTestCount = TestMembers.WithAttribute<ITestedAttribute>().Count();
             this.TestsPresent = this.MembersPresent - this.TestsMissing;
 
             this.CoveragePercent = ((double)this.TestsPresent / this.MembersPresent).AsPercent().Abs();
 
-            IEnumerable<MemberInfo> TestedMembers = TestMembers.WithAttribute<ITestAttribute>();
+            List<MemberInfo> TestedMembers = TestMembers.WithAttribute<ITestAttribute>();
+            TestedMembers.AddRange(TestMembers.WithAttribute<ITestedAttribute>());
+
             this.TestAttributes = new List<ITestAttribute>();
 
             foreach (var Member in TestedMembers)
