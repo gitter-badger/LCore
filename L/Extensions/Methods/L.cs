@@ -773,6 +773,12 @@ namespace LCore.Extensions
                 /// NullabilityTests category name
                 /// </summary>
                 public const string NullabilityTests = "Nullability Tests";
+
+                /// <summary>
+                /// AssemblyTest category name
+                /// </summary>
+                public const string AssemblyTest = "Assembly Test";
+                
                 }
             }
         }

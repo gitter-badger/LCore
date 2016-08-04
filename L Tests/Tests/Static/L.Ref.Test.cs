@@ -25,6 +25,7 @@ namespace L_Tests.Tests.Extensions
             {
             L.Ref.GetNamespaceTypes("L_Tests").ShouldBeEquivalentTo(new List<Type>
                 {
+                typeof(AssemblyTester),
                 typeof(ExtensionTester)
                 });
 
