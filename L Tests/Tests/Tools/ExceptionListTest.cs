@@ -5,7 +5,7 @@ using LCore.Extensions;
 using LCore.Extensions.Optional;
 using LCore.Tools;
 using Xunit;
-using static LCore.Extensions.L.Test.Categories;
+using static LCore.LUnit.LUnit.Categories;
 
 // ReSharper disable RedundantAssignment
 // ReSharper disable RedundantCast
@@ -14,7 +14,7 @@ using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Tools
     {
-    [Trait(Category, L.Test.Categories.Tools)]
+    [Trait(Category, LCore.LUnit.LUnit.Categories.Tools)]
     public class ExceptionListTest
         {
         [Fact]

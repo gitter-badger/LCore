@@ -1,9 +1,9 @@
 ﻿using LCore.Extensions;
 using System;
 using FluentAssertions;
-using LCore.Tests;
+using LCore.LUnit;
 using Xunit;
-using static LCore.Extensions.L.Test.Categories;
+using static LCore.LUnit.LUnit.Categories;
 
 // ReSharper disable StringLiteralTypo
 // ReSharper disable UnusedParameter.Global

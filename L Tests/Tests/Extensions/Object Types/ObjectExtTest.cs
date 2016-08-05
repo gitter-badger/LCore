@@ -6,11 +6,11 @@ using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.Extensions.Optional;
-using LCore.Tests;
+using LCore.LUnit;
 using Xunit;
 using Xunit.Abstractions;
 using ObjectExt = LCore.Extensions.ObjectExt;
-using static LCore.Extensions.L.Test.Categories;
+using static LCore.LUnit.LUnit.Categories;
 // ReSharper disable MemberCanBePrivate.Local
 // ReSharper disable UnusedAutoPropertyAccessor.Local
 // ReSharper disable RedundantArgumentDefaultValue

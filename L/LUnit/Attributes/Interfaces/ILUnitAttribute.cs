@@ -3,10 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using LCore.Extensions;
 
-namespace LCore.Tests
+namespace LCore.LUnit
     {
-    public interface ITestedAttribute : ITopLevelAttribute
-        {
-
-        }
+    public interface ILUnitAttribute {}
     }

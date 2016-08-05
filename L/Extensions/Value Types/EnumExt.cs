@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Reflection;
 using JetBrains.Annotations;
-using LCore.Tests;
+
 using LCore.Naming;
 using LCore.Interfaces;
+using LCore.LUnit;
 
 namespace LCore.Extensions
     {

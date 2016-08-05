@@ -3,17 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using FluentAssertions;
 using LCore.Extensions;
-using LCore.Tests;
+using LCore.LUnit;
 using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
-using static LCore.Extensions.L.Test.Categories;
+using static LCore.LUnit.LUnit.Categories;
 
 // ReSharper disable RedundantExplicitParamsArrayCreation
 
 namespace L_Tests.Tests.Tools
     {
-    [Trait(Category, L.Test.Categories.Tools)]
+    [Trait(Category, LCore.LUnit.LUnit.Categories.Tools)]
     public class DateTimeConverterTest
         {
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>

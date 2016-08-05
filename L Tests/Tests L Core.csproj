@@ -62,12 +62,12 @@
       <HintPath>..\packages\JetBrains.dotMemoryUnit.2.3.20160517.113140\lib\dotMemory.Unit.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FluentAssertions, Version=4.12.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.4.12.0\lib\net45\FluentAssertions.dll</HintPath>
+    <Reference Include="FluentAssertions, Version=4.13.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.13.0\lib\net45\FluentAssertions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FluentAssertions.Core, Version=4.12.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.4.12.0\lib\net45\FluentAssertions.Core.dll</HintPath>
+    <Reference Include="FluentAssertions.Core, Version=4.13.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.13.0\lib\net45\FluentAssertions.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="JetBrains.Annotations">
@@ -105,8 +105,8 @@
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
-    <Reference Include="Moq, Version=4.5.13.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.5.13\lib\net45\Moq.dll</HintPath>
+    <Reference Include="Moq, Version=4.5.16.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.5.16\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -146,7 +146,6 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\AssemblyTester.cs" />
     <Compile Include="Tests\Extensions\Language\CommentExtTest.cs" />
     <Compile Include="Tests\Extensions\TestExtTest.cs" />
     <Compile Include="Tests\Extensions\Object Types\ComparableExtTest.cs" />
@@ -167,7 +166,6 @@
     <Compile Include="Tests\Extensions\Object Types\ReflectionExtTest.cs" />
     <Compile Include="Tests\Extensions\Methods\EnumerableExtTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Abstract\ExtensionTester.cs" />
     <Compile Include="Tests\LCoreAssemblyTester.cs" />
     <Compile Include="Tests\Numbers\NumberTest.cs" />
     <Compile Include="Tests\Static\L.Num.Test.cs" />
@@ -189,6 +187,10 @@
     <Compile Include="Tests\Tools\SetTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LUnit\LUnit.csproj">
+      <Project>{0275fcea-4312-4003-8447-5cad2e333616}</Project>
+      <Name>LUnit</Name>
+    </ProjectReference>
     <ProjectReference Include="..\L\L Core.csproj">
       <Project>{cd24bcec-5a94-4524-b1d3-0537c66b0761}</Project>
       <Name>L Core</Name>

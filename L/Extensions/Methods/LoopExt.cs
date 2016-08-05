@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using LCore.Dynamic;
 using LCore.Interfaces;
-using LCore.Tests;
+using LCore.LUnit;
 
 // ReSharper disable ClassNeverInstantiated.Global
 

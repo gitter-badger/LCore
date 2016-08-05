@@ -6,11 +6,11 @@ using System.Collections;
 using System.Data.Entity.Design.PluralizationServices;
 using System.Globalization;
 using System.IO;
-using LCore.Tests;
 using System.Text.RegularExpressions;
 using LCore.Extensions.Optional;
 using LCore.Interfaces;
 using JetBrains.Annotations;
+using LCore.LUnit;
 
 // ReSharper disable StringCompareIsCultureSpecific.1
 // ReSharper disable StringCompareToIsCultureSpecific

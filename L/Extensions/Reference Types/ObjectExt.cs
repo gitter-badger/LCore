@@ -5,7 +5,8 @@ using System.Collections;
 using System.Reflection;
 using JetBrains.Annotations;
 using LCore.Interfaces;
-using LCore.Tests;
+using LCore.LUnit;
+
 
 namespace LCore.Extensions
     {
@@ -18,53 +19,60 @@ namespace LCore.Extensions
         #region Extensions +
 
         #region HasProperty
+
         /// <summary>
         /// Returns whether a given object has a property with a specific name
         /// </summary>
         /// <returns>Whether a given object has a property with a specific name</returns>
-        [TestResult(new object[] { null, null }, false)]
-        [TestResult(new object[] { null, "" }, false)]
-        [TestResult(new object[] { "", null }, false)]
-        [TestResult(new object[] { "", "" }, false)]
-        [TestResult(new object[] { "", "nope" }, false)]
-        [TestResult(new object[] { "", nameof(string.Length) }, true)]
+        [TestResult(new object[] {null, null}, false)]
+        [TestResult(new object[] {null, ""}, false)]
+        [TestResult(new object[] {"", null}, false)]
+        [TestResult(new object[] {"", ""}, false)]
+        [TestResult(new object[] {"", "nope"}, false)]
+        [TestResult(new object[] {"", nameof(string.Length)}, true)]
         public static bool HasProperty(this object In, string PropertyName)
             {
             return L.Obj.HasProperty()(In, PropertyName);
             }
+
         #endregion
 
         #region Objects To String
+
         /// <summary>
         /// Returns a string representation of a set of objects.
         /// </summary>
         /// <param name="In">The set of objects</param>
         /// <returns></returns>
-        [TestResult(new object[] { null }, "")]
-        [TestResult(new object[] { new object[] { } }, "")]
-        [TestResult(new object[] { new object[] { null } }, "NULL")]
-        [TestResult(new object[] { new object[] { "" } }, "System.String:")]
-        [TestResult(new object[] { new object[] { "a", 1, 2, 3.6f } }, "System.String:a, System.Int32:1, System.Int32:2, System.Single:3.6")]
+        [TestResult(new object[] {null}, "")]
+        [TestResult(new object[] {new object[] {}}, "")]
+        [TestResult(new object[] {new object[] {null}}, "NULL")]
+        [TestResult(new object[] {new object[] {""}}, "System.String:")]
+        [TestResult(new object[] {new object[] {"a", 1, 2, 3.6f}}, "System.String:a, System.Int32:1, System.Int32:2, System.Single:3.6")]
         public static string Objects_ToString(this IEnumerable<object> In)
             {
             return L.Obj.Objects_ToString(In.Array());
             }
+
         #endregion
 
         #region GetProperty
+
         /// <summary>
         /// Returns the value of a specific property, if it exists.
         /// </summary>
         /// <returns>The value of a specific property, if it exists.</returns>
         [Tested]
         [CanBeNull]
-        public static object GetProperty([CanBeNull]this object In, [CanBeNull]string PropertyName)
+        public static object GetProperty([CanBeNull] this object In, [CanBeNull] string PropertyName)
             {
             return L.Obj.GetProperty()(In, PropertyName);
             }
+
         #endregion
 
         #region SetProperty
+
         /// <summary>
         /// Sets the value of a specific property, if it exists.
         /// </summary>
@@ -73,19 +81,22 @@ namespace LCore.Extensions
             {
             L.Obj.SetProperty()(In, PropertyName, PropertyValue);
             }
+
         #endregion
 
         #region Type
+
         /// <summary>
         /// Returns the type of an object.
         /// </summary>
-        [TestResult(new object[] { 0 }, typeof(int), GenericTypes = new[] { typeof(int) })]
-        [TestResult(new object[] { "" }, typeof(string), GenericTypes = new[] { typeof(string) })]
+        [TestResult(new object[] {0}, typeof(int), GenericTypes = new[] {typeof(int)})]
+        [TestResult(new object[] {""}, typeof(string), GenericTypes = new[] {typeof(string)})]
         // ReSharper disable once UnusedParameter.Global
         public static Type Type<T>(this T In)
             {
             return typeof(T);
             }
+
         #endregion
 
         #endregion
@@ -101,6 +112,7 @@ namespace LCore.Extensions
             #region Static Methods +
 
             #region As
+
             /// <summary>
             /// Returns a function that performs the 'as' operation.
             /// </summary>
@@ -109,16 +121,20 @@ namespace LCore.Extensions
                 {
                 return o => o as T;
                 }
+
             #endregion
 
             #region Str
+
             /// <summary>
             /// Returns a function that converts an Object to a String. Shortcut for Logic.Object_ToString
             /// </summary>
             public static Func<object, string> Str = o => o.ToString();
+
             #endregion
 
             #region Swap
+
             /// <summary>
             /// Swaps two objects by reference
             /// </summary>
@@ -128,13 +144,15 @@ namespace LCore.Extensions
                 Obj1 = Obj2;
                 Obj2 = Temp;
                 }
+
             #endregion
 
             #region SafeEquals
+
             /// <summary>
             /// Returns a function that safely compares an object with another, returning whether they are equal.
             /// </summary>
-            public static bool SafeEquals([CanBeNull]object o1, [CanBeNull]object o2)
+            public static bool SafeEquals([CanBeNull] object o1, [CanBeNull] object o2)
                 {
                 // If both are null, or both are same instance, return true.
                 if (ReferenceEquals(o1, o2))
@@ -153,21 +171,28 @@ namespace LCore.Extensions
                 var Enumerable = o1 as IEnumerable;
                 if (Enumerable != null && o2 is IEnumerable)
                     {
-                    return Enumerable.Equivalent((IEnumerable)o2);
+                    return Enumerable.Equivalent((IEnumerable) o2);
                     }
 
                 return o1.Equals(o2);
                 }
+
             #endregion
 
             #region ToString
+
             /// <summary>
             /// Returns a string representation of a set of objects.
             /// </summary>
             public static readonly Func<object[], string> Objects_ToString = In =>
-            {
-                return In.IsEmpty() ? "" : In.Convert(o => o == null ? "NULL" : $"{o.GetType()}:{o.ToString()}").Combine(", ");
-            };
+                {
+                return In.IsEmpty()
+                    ? ""
+                    : In.Convert(o => o == null
+                        ? "NULL"
+                        : $"{o.GetType()}:{o.ToString()}").Combine(", ");
+                };
+
             #endregion
 
             #region New
@@ -178,47 +203,53 @@ namespace LCore.Extensions
             public static Func<U> New<U>(params object[] In)
                 {
                 var Const = typeof(U).GetConstructor(In.GetTypes());
-                return () => (U)Const?.Invoke(In);
+                return () => (U) Const?.Invoke(In);
                 }
+
             /// <summary>
             /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<U> New<U>()
                 {
-                return () => (U)typeof(U).GetConstructor(Ary.Array<Type>()())?.Invoke(Ary.Array<object>()());
+                return () => (U) typeof(U).GetConstructor(Ary.Array<Type>()())?.Invoke(Ary.Array<object>()());
                 }
+
             /// <summary>
             /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<T1, U> New<T1, U>()
                 {
-                var Const = typeof(U).GetConstructor(new[] { typeof(T1) });
-                return o1 => (U)Const?.Invoke(new object[] { o1 });
+                var Const = typeof(U).GetConstructor(new[] {typeof(T1)});
+                return o1 => (U) Const?.Invoke(new object[] {o1});
                 }
+
             /// <summary>
             /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<T1, T2, U> New<T1, T2, U>()
                 {
-                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2) });
-                return (o1, o2) => (U)Const?.Invoke(new object[] { o1, o2 });
+                var Const = typeof(U).GetConstructor(new[] {typeof(T1), typeof(T2)});
+                return (o1, o2) => (U) Const?.Invoke(new object[] {o1, o2});
                 }
+
             /// <summary>
             /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<T1, T2, T3, U> New<T1, T2, T3, U>()
                 {
-                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3) });
-                return (o1, o2, o3) => (U)Const?.Invoke(new object[] { o1, o2, o3 });
+                var Const = typeof(U).GetConstructor(new[] {typeof(T1), typeof(T2), typeof(T3)});
+                return (o1, o2, o3) => (U) Const?.Invoke(new object[] {o1, o2, o3});
                 }
+
             /// <summary>
             /// Retrieves a func that creates an object of type <typeparamref name="U" />.
             /// </summary>
             public static Func<T1, T2, T3, T4, U> New<T1, T2, T3, T4, U>()
                 {
-                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-                return (o1, o2, o3, o4) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4 });
+                var Const = typeof(U).GetConstructor(new[] {typeof(T1), typeof(T2), typeof(T3), typeof(T4)});
+                return (o1, o2, o3, o4) => (U) Const?.Invoke(new object[] {o1, o2, o3, o4});
                 }
+
             /*
                         /// <summary>
                         /// Retrieves a func that creates an object of type <typeparamref name="U" />.
@@ -317,9 +348,11 @@ namespace LCore.Extensions
                             return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, o16) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, o16 });
                             }
                        */
+
             #endregion
 
             #region IsNull
+
             /// <summary>
             /// Retrieves a func that determines if a certain type of object is null.
             /// </summary>
@@ -333,9 +366,11 @@ namespace LCore.Extensions
                     }
                 return o => o.SafeEquals(default(T));
                 }
+
             #endregion
 
             #region IsA
+
             /// <summary>
             /// Retrieves a func that determines if an object matches type <typeparamref name="T" />.
             /// </summary>
@@ -343,15 +378,17 @@ namespace LCore.Extensions
                 {
                 return o => o is T;
                 }
+
             #endregion
 
             #region Method
+
             /// <summary>
             /// Retrieves a func that retrieves a method executor on type <typeparamref name="U" /> using the supplied parameters
             /// </summary>
-            private static Action<U> Method<U>(string MethodName, [CanBeNull]params object[] Params)
+            private static Action<U> Method<U>(string MethodName, [CanBeNull] params object[] Params)
                 {
-                Params = Params ?? new object[] { };
+                Params = Params ?? new object[] {};
 
                 var Method = typeof(U).GetMethod(MethodName, Params.GetTypes());
                 if (Method != null)
@@ -360,6 +397,7 @@ namespace LCore.Extensions
                     }
                 throw new ArgumentException($"{typeof(U).FullName} {MethodName}");
                 }
+
             #endregion
 
             /// <summary>
@@ -368,7 +406,7 @@ namespace LCore.Extensions
             public static Func<object, string, bool> HasProperty()
                 {
                 return (In, PropertyName) =>
-                {
+                    {
                     if (In == null)
                         return false;
                     PropertyName = PropertyName ?? "";
@@ -377,7 +415,7 @@ namespace LCore.Extensions
                     if (Member is PropertyInfo)
                         return true;
                     return Member is FieldInfo;
-                };
+                    };
                 }
 
             /// <summary>
@@ -387,25 +425,25 @@ namespace LCore.Extensions
                 {
                 return (In, PropertyName) =>
                     {
-                        if (In == null || PropertyName == null)
-                            return null;
-
-                        var Member = In.GetType().GetMember(PropertyName).First();
-
-                        if (Member is PropertyInfo)
-                            {
-                            var M2 = (PropertyInfo)Member;
-                            return M2.GetValue(In);
-                            }
-
-                        // ReSharper disable once UseNullPropagation
-                        if (Member is FieldInfo)
-                            {
-                            var M3 = (FieldInfo)Member;
-                            return M3.GetValue(In);
-                            }
-
+                    if (In == null || PropertyName == null)
                         return null;
+
+                    var Member = In.GetType().GetMember(PropertyName).First();
+
+                    if (Member is PropertyInfo)
+                        {
+                        var M2 = (PropertyInfo) Member;
+                        return M2.GetValue(In);
+                        }
+
+                    // ReSharper disable once UseNullPropagation
+                    if (Member is FieldInfo)
+                        {
+                        var M3 = (FieldInfo) Member;
+                        return M3.GetValue(In);
+                        }
+
+                    return null;
                     };
                 }
 
@@ -415,7 +453,7 @@ namespace LCore.Extensions
             public static Action<object, string, object> SetProperty()
                 {
                 return (In, PropertyName, PropertyValue) =>
-                {
+                    {
                     var Member = In.GetType().GetMember(PropertyName).First();
 
                     var PropertyInfo = Member as PropertyInfo;
@@ -426,28 +464,32 @@ namespace LCore.Extensions
                         }
                     else if (Member is FieldInfo)
                         {
-                        var M3 = (FieldInfo)Member;
+                        var M3 = (FieldInfo) Member;
                         M3.SetValue(In, PropertyValue);
                         }
                     else
                         throw new ArgumentException($"{In.GetType().FullName} {PropertyName}");
-
-                };
+                    };
                 }
 
             #endregion
 
             #region Lambdas +
+
             #region Is
+
             /// <summary>
             /// Returns a function that safely Compares an object with another, returning whether they are equal. Shortcut for Logic.Object_SafeEquals
             /// </summary>
             public static Func<object, object, bool> Is = SafeEquals;
+
             #endregion
+
             #endregion
             }
         }
     }
+
 namespace LCore.Extensions.Optional
     {
     /// <summary>
@@ -459,6 +501,7 @@ namespace LCore.Extensions.Optional
         #region Extensions +
 
         #region CopyFieldsTo
+
         /// <summary>
         /// Copies all possible fields from <paramref name="In" /> to <paramref name="Obj" />.
         /// Matching field names are transferred to <paramref name="Obj" /> for fields and properties with public setters.
@@ -479,9 +522,11 @@ namespace LCore.Extensions.Optional
         // ReSharper disable once MethodOverloadWithOptionalParameter
         public static void CopyFieldsTo<T>(this T In, object Obj, Dictionary<string, string> CustomMapper = null)
             {
-            In.CopyFieldsTo(Obj, CustomMapper == null ?
-                (Func<string, string>)(FieldName => FieldName) :
-                (FieldName => CustomMapper.ContainsKey(FieldName) ? CustomMapper[FieldName] : FieldName));
+            In.CopyFieldsTo(Obj, CustomMapper == null
+                ? (Func<string, string>) (FieldName => FieldName)
+                : (FieldName => CustomMapper.ContainsKey(FieldName)
+                    ? CustomMapper[FieldName]
+                    : FieldName));
             }
 
         /// <summary>
@@ -491,8 +536,9 @@ namespace LCore.Extensions.Optional
         /// Optionally you can supply a CustomMapper function to map fields to new field names.
         /// </summary>
         [Tested]
-        // ReSharper disable once MethodOverloadWithOptionalParameter
-        public static void CopyFieldsTo<T>([CanBeNull]this T In, [CanBeNull]object Obj, [CanBeNull]Func<string, string> CustomMapper = null)
+        public static void CopyFieldsTo<T>([CanBeNull] this T In, [CanBeNull] object Obj,
+            // ReSharper disable once MethodOverloadWithOptionalParameter
+            [CanBeNull] Func<string, string> CustomMapper = null)
             {
             var CustomMappedKeys = new List<string>();
             if (Obj != null)
@@ -520,7 +566,7 @@ namespace LCore.Extensions.Optional
 
                     var Member2 = Obj.GetType().GetMember(Name).First();
 
-                    if ((Member2 is PropertyInfo && ((PropertyInfo)Member2).CanWrite) ||
+                    if ((Member2 is PropertyInfo && ((PropertyInfo) Member2).CanWrite) ||
                         Member2 is FieldInfo)
                         Obj.SetProperty(Name, In.GetProperty(Member.Name));
                     }
@@ -530,6 +576,7 @@ namespace LCore.Extensions.Optional
         #endregion
 
         #region Details
+
         /// <summary>
         /// Returns a JSON-formatted string detailing the object and its public properties.
         /// Fields that return an error are hidden by defaults
@@ -545,48 +592,50 @@ namespace LCore.Extensions.Optional
 
             Out += typeof(T).GetMembers().CollectStr((i, Member) =>
                 {
-                    if (!(Member is PropertyInfo || Member is FieldInfo))
+                if (!(Member is PropertyInfo || Member is FieldInfo))
+                    return "";
+
+                string Out2 = Member.Name;
+
+                try
+                    {
+                    var FieldInfo = Member as FieldInfo;
+                    if (FieldInfo != null)
+                        {
+                        Out2 += $": {FieldInfo.GetValue(In)}\r\n";
+                        }
+                    var PropertyInfo = Member as PropertyInfo;
+                    if (PropertyInfo != null)
+                        {
+                        Out2 += $": {PropertyInfo.GetValue(In)}\r\n";
+                        }
+                    }
+                catch (Exception Ex)
+                    {
+                    if (!ShowErrorFields)
                         return "";
 
-                    string Out2 = Member.Name;
-
-                    try
-                        {
-                        var FieldInfo = Member as FieldInfo;
-                        if (FieldInfo != null)
-                            {
-                            Out2 += $": {FieldInfo.GetValue(In)}\r\n";
-                            }
-                        var PropertyInfo = Member as PropertyInfo;
-                        if (PropertyInfo != null)
-                            {
-                            Out2 += $": {PropertyInfo.GetValue(In)}\r\n";
-                            }
-                        }
-                    catch (Exception Ex)
-                        {
-                        if (!ShowErrorFields)
-                            return "";
-
-                        Out2 += $": {Ex.Message}\r\n";
-                        }
-                    return Out2;
+                    Out2 += $": {Ex.Message}\r\n";
+                    }
+                return Out2;
                 });
 
             Out += "}";
 
             return Out;
             }
+
         #endregion
 
         #region FN_CreateArray
+
         /// <summary>
         /// Returns a function that creates a new Array from parameters
         /// </summary>
         [Tested]
         public static Func<T[]> FN_CreateArray<T>(this T In)
             {
-            return () => new[] { In };
+            return () => new[] {In};
             }
 
         /// <summary>
@@ -596,19 +645,21 @@ namespace LCore.Extensions.Optional
         [Tested]
         public static Func<T[]> FN_CreateArray<T>(this T In, int Count)
             {
-            if (Count < 0) throw new ArgumentOutOfRangeException(nameof(Count));
+            if (Count < 0)
+                throw new ArgumentOutOfRangeException(nameof(Count));
 
             return () =>
-            {
+                {
                 var Out = new T[Count];
                 Out = Out.Fill(In);
                 return Out;
-            };
+                };
             }
 
         #endregion
 
         #region FN_CreateList
+
         /// <summary>
         /// Returns a function that creates a new List from parameters
         /// </summary>
@@ -619,10 +670,10 @@ namespace LCore.Extensions.Optional
         public static Func<List<T>> FN_CreateList<T>(this T In)
             {
             return () =>
-            {
-                var Out = new List<T> { In };
+                {
+                var Out = new List<T> {In};
                 return Out;
-            };
+                };
             }
 
         /// <summary>
@@ -633,20 +684,23 @@ namespace LCore.Extensions.Optional
         [Tested]
         public static Func<List<T>> FN_CreateList<T>(this T In, int Count)
             {
-            if (Count < 0) throw new ArgumentOutOfRangeException(nameof(Count));
+            if (Count < 0)
+                throw new ArgumentOutOfRangeException(nameof(Count));
 
             return () =>
-            {
+                {
                 var Out = new List<T>();
                 if (Count == 0)
                     return Out;
-                new Action(() => Out.Add(In)).Repeat((uint)Count - 1)();
+                new Action(() => Out.Add(In)).Repeat((uint) Count - 1)();
                 return Out;
-            };
+                };
             }
+
         #endregion
 
         #region FN_Func
+
         /// <summary>
         /// Retrieves a function that returns the input parameter
         /// </summary>
@@ -658,9 +712,11 @@ namespace LCore.Extensions.Optional
             {
             return L.Logic.Return(In);
             }
+
         #endregion
 
         #region FN_If
+
         /// <summary>
         /// Returns a function that returns true if the object supplied is equal to the Input parameter
         /// </summary>
@@ -672,6 +728,7 @@ namespace LCore.Extensions.Optional
             {
             return Obj => L.Obj.SafeEquals(In, Obj);
             }
+
         #endregion
 
         #region InitProperties
@@ -686,7 +743,7 @@ namespace LCore.Extensions.Optional
         /// <exception cref="TargetException">Throws an exception if the a property setter throws an exception.</exception>
         /// <exception cref="FieldAccessException">Throws an exception if the field cannot be accessed.</exception>
         [Tested]
-        public static void InitProperties<T>([CanBeNull]this object In, [CanBeNull]T InitValue = default(T))
+        public static void InitProperties<T>([CanBeNull] this object In, [CanBeNull] T InitValue = default(T))
             {
             if (In != null)
                 {
@@ -703,35 +760,43 @@ namespace LCore.Extensions.Optional
                     var PropertyInfo = Member as PropertyInfo;
                     if (PropertyInfo != null && PropertyInfo.CanWrite)
                         {
-                        PropertyInfo.SetValue(In, InitValue.SafeEquals(default(T)) ? typeof(T).New<T>() : InitValue);
+                        PropertyInfo.SetValue(In, InitValue.SafeEquals(default(T))
+                            ? typeof(T).New<T>()
+                            : InitValue);
                         }
                     else
                         {
                         var FieldInfo = Member as FieldInfo;
-                        FieldInfo?.SetValue(In, InitValue.SafeEquals(default(T)) ? typeof(T).New<T>() : InitValue);
+                        FieldInfo?.SetValue(In, InitValue.SafeEquals(default(T))
+                            ? typeof(T).New<T>()
+                            : InitValue);
                         }
                     }
                 }
             }
+
         #endregion
 
         #region IsNull
+
         /// <summary>
         /// Returns whether the supplied object is null, or equivalent to the default of its type.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="In"></param>
         /// <returns></returns>
-        [TestResult(new object[] { null }, true)]
-        [TestResult(new object[] { "" }, false)]
+        [TestResult(new object[] {null}, true)]
+        [TestResult(new object[] {""}, false)]
         [TestMethodGenerics(typeof(string))]
         public static bool IsNull<T>(this T In)
             {
             return L.Obj.IsNull<T>()(In);
             }
+
         #endregion
 
         #region SafeEquals
+
         /// <summary>
         /// Safely compare any two Objects whether either is null.
         /// </summary>
@@ -743,10 +808,13 @@ namespace LCore.Extensions.Optional
             {
             return L.Obj.SafeEquals(In, Obj);
             }
+
         #endregion
 
         #region SupplyTo - T
+
         #region SupplyTo - T - Action_T1
+
         /// <summary>
         /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
         /// </summary>
@@ -759,7 +827,9 @@ namespace LCore.Extensions.Optional
             {
             return () => { In(Obj); };
             }
+
         #endregion
+
         /*    #region SupplyTo - T - Action_T2
             /// <summary>
             /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
@@ -2322,7 +2392,9 @@ namespace LCore.Extensions.Optional
             {
             return () => In(Obj);
             }
+
         #endregion
+
         /*        #region SupplyTo - T - Func_T2
                 /// <summary>
                 /// Supplies a parameter <paramref name="Obj" /> so it does not need to be included
@@ -3971,9 +4043,11 @@ namespace LCore.Extensions.Optional
                     return (o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15) => In(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, Obj);
                     }
                 #endregion*/
+
         #endregion
 
         #region ToS
+
         /// <summary>
         /// Shorthand function to convert any object to a string.
         /// </summary>
@@ -3984,9 +4058,11 @@ namespace LCore.Extensions.Optional
             {
             return L.Str.ToS(In);
             }
+
         #endregion
 
         #region Traverse
+
         /// <summary>
         /// Traverses an object structure using a traverser function you supply <paramref name="Traverser" />
         /// </summary>
@@ -4019,6 +4095,7 @@ namespace LCore.Extensions.Optional
                 Cursor = Traverser(Cursor);
                 }
             }
+
         #endregion
 
         #endregion

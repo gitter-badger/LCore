@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using LCore.Interfaces;
-using LCore.Tests;
+using LCore.LUnit;
 
 namespace LCore.Extensions
     {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
-using LCore.Tests;
+using LCore.LUnit;
+
 
 namespace LCore.Tools
     {
@@ -12,21 +13,27 @@ namespace LCore.Tools
         //============================================================
         //  Private members
         //============================================================
+
         #region Private Members
+
         /// <summary>
         /// Private member to hold array of formats that RFC 3339 date-time representations conform to.
         /// </summary>
         private static string[] _Formats = new string[0];
+
         /// <summary>
         /// Private member to hold the DateTime format string for representing a DateTime in the RFC 3339 format.
         /// </summary>
         private const string Format = "yyyy-MM-dd'T'HH:mm:ss.fffK";
+
         #endregion
 
         //============================================================
         //  Public Properties
         //============================================================
+
         #region Rfc3339DateTimeFormat
+
         /// <summary>
         /// Gets the custom format specifier that may be used to represent a <see cref="DateTime"/> in the RFC 3339 format.
         /// </summary>
@@ -44,6 +51,7 @@ namespace LCore.Tools
         #endregion
 
         #region Rfc3339DateTimePatterns
+
         /// <summary>
         /// Gets an array of the expected formats for RFC 3339 date-time string representations.
         /// </summary>
@@ -81,12 +89,15 @@ namespace LCore.Tools
                 return _Formats;
                 }
             }
+
         #endregion
 
         //============================================================
         //  Public Methods
         //============================================================
+
         #region Parse(string s)
+
         /// <summary>
         /// Converts the specified string representation of a date and time to its <see cref="DateTime"/> equivalent.
         /// </summary>
@@ -97,7 +108,6 @@ namespace LCore.Tools
         /// </remarks>
         /// <exception cref="ArgumentNullException"><paramref name="Str"/> is a <b>null</b> reference (Nothing in Visual Basic).</exception>
         /// <exception cref="FormatException"><paramref name="Str"/> does not contain a valid RFC 3339 string representation of a date and time.</exception>
-
         [Tested]
         public static DateTime Parse(string Str)
             {
@@ -116,9 +126,11 @@ namespace LCore.Tools
                 }
             throw new FormatException($"{Str} is not a valid RFC 3339 string representation of a date and time.");
             }
+
         #endregion
 
         #region ToString(DateTime utcDateTime)
+
         /// <summary>
         /// Converts the value of the specified <see cref="DateTime"/> object to its equivalent string representation.
         /// </summary>
@@ -138,7 +150,6 @@ namespace LCore.Tools
         /// </para>
         /// </remarks>
         /// <exception cref="ArgumentException">The specified <paramref name="UtcDateTime"/> object does not represent a <see cref="DateTimeKind.Utc">Coordinated Universal Time (UTC)</see> value.</exception>
-
         [Tested]
         public static string ToString(DateTime UtcDateTime)
             {
@@ -149,9 +160,11 @@ namespace LCore.Tools
 
             return UtcDateTime.ToString(Rfc3339DateTimeFormat, DateTimeFormatInfo.InvariantInfo);
             }
+
         #endregion
 
         #region TryParse(string s, out DateTime result)
+
         /// <summary>
         /// Converts the specified string representation of a date and time to its <see cref="DateTime"/> equivalent.
         /// </summary>
@@ -180,7 +193,8 @@ namespace LCore.Tools
             if (!string.IsNullOrEmpty(Str))
                 {
                 DateTime ParseResult;
-                if (DateTime.TryParseExact(Str, Rfc3339DateTimePatterns, DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AdjustToUniversal, out ParseResult))
+                if (DateTime.TryParseExact(Str, Rfc3339DateTimePatterns, DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AdjustToUniversal,
+                    out ParseResult))
                     {
                     Result = DateTime.SpecifyKind(ParseResult, DateTimeKind.Utc);
                     WasConverted = true;
@@ -189,6 +203,7 @@ namespace LCore.Tools
 
             return WasConverted;
             }
+
         #endregion
         }
     }

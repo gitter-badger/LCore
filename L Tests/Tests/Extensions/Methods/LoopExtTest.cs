@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions;
+using LCore.LUnit;
 using Xunit;
 using Xunit.Abstractions;
-using static LCore.Extensions.L.Test.Categories;
+using static LCore.LUnit.LUnit.Categories;
 
 namespace L_Tests.Tests.Extensions
     {

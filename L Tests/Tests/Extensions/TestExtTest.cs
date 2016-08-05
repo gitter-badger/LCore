@@ -1,9 +1,10 @@
 ﻿using LCore.Extensions;
 using System;
 using FluentAssertions;
-using LCore.Tests;
+using LCore.LUnit;
 using Xunit;
-using static LCore.Extensions.L.Test.Categories;
+using static LCore.LUnit.LUnit.Categories;
+
 // ReSharper disable RedundantCast
 
 // ReSharper disable StringLiteralTypo
@@ -345,23 +346,23 @@ namespace L_Tests.Tests.Extensions
             {
             var Target = new Helper();
 
-            L.Ref.Method<Helper>(o => o.Test()).MethodAssertSucceedes(Target, new object[] { });
-            L.Ref.Method<Helper>(o => o.Test("")).MethodAssertSucceedes(Target, new object[] { "" });
-            L.Ref.Method<Helper>(o => o.Test("", "")).MethodAssertSucceedes(Target, new object[] { "", "" });
-            L.Ref.Method<Helper>(o => o.Test("", "", "")).MethodAssertSucceedes(Target, new object[] { "", "", "" });
-            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).MethodAssertSucceedes(Target, new object[] { "", "", "", "" });
+            L.Ref.Method<Helper>(o => o.Test()).MethodAssertSucceedes(Target, new object[] {});
+            L.Ref.Method<Helper>(o => o.Test("")).MethodAssertSucceedes(Target, new object[] {""});
+            L.Ref.Method<Helper>(o => o.Test("", "")).MethodAssertSucceedes(Target, new object[] {"", ""});
+            L.Ref.Method<Helper>(o => o.Test("", "", "")).MethodAssertSucceedes(Target, new object[] {"", "", ""});
+            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).MethodAssertSucceedes(Target, new object[] {"", "", "", ""});
 
-            L.Ref.Method<Helper>(o => o.Test()).MethodAssertSucceedes(Target, new object[] { }, o => true);
-            L.Ref.Method<Helper>(o => o.Test("")).MethodAssertSucceedes(Target, new object[] { "" }, o => true);
-            L.Ref.Method<Helper>(o => o.Test("", "")).MethodAssertSucceedes(Target, new object[] { "", "" }, o => true);
-            L.Ref.Method<Helper>(o => o.Test("", "", "")).MethodAssertSucceedes(Target, new object[] { "", "", "" }, o => true);
-            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).MethodAssertSucceedes(Target, new object[] { "", "", "", "" }, o => true);
+            L.Ref.Method<Helper>(o => o.Test()).MethodAssertSucceedes(Target, new object[] {}, o => true);
+            L.Ref.Method<Helper>(o => o.Test("")).MethodAssertSucceedes(Target, new object[] {""}, o => true);
+            L.Ref.Method<Helper>(o => o.Test("", "")).MethodAssertSucceedes(Target, new object[] {"", ""}, o => true);
+            L.Ref.Method<Helper>(o => o.Test("", "", "")).MethodAssertSucceedes(Target, new object[] {"", "", ""}, o => true);
+            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).MethodAssertSucceedes(Target, new object[] {"", "", "", ""}, o => true);
 
-            L.Ref.Method<Helper>(o => o.Test()).MethodAssertSucceedes(Target, new object[] { }, () => true);
-            L.Ref.Method<Helper>(o => o.Test("")).MethodAssertSucceedes(Target, new object[] { "" }, () => true);
-            L.Ref.Method<Helper>(o => o.Test("", "")).MethodAssertSucceedes(Target, new object[] { "", "" }, () => true);
-            L.Ref.Method<Helper>(o => o.Test("", "", "")).MethodAssertSucceedes(Target, new object[] { "", "", "" }, () => true);
-            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).MethodAssertSucceedes(Target, new object[] { "", "", "", "" }, () => true);
+            L.Ref.Method<Helper>(o => o.Test()).MethodAssertSucceedes(Target, new object[] {}, () => true);
+            L.Ref.Method<Helper>(o => o.Test("")).MethodAssertSucceedes(Target, new object[] {""}, () => true);
+            L.Ref.Method<Helper>(o => o.Test("", "")).MethodAssertSucceedes(Target, new object[] {"", ""}, () => true);
+            L.Ref.Method<Helper>(o => o.Test("", "", "")).MethodAssertSucceedes(Target, new object[] {"", "", ""}, () => true);
+            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).MethodAssertSucceedes(Target, new object[] {"", "", "", ""}, () => true);
 
             L.Ref.Method<Helper>(o => o.Test()).MethodShouldSucceed(Target, new object[] {});
             L.Ref.Method<Helper>(o => o.Test("")).MethodShouldSucceed(Target, new object[] {""});
@@ -369,17 +370,17 @@ namespace L_Tests.Tests.Extensions
             L.Ref.Method<Helper>(o => o.Test("", "", "")).MethodShouldSucceed(Target, new object[] {"", "", ""});
             L.Ref.Method<Helper>(o => o.Test("", "", "", "")).MethodShouldSucceed(Target, new object[] {"", "", "", ""});
 
-            L.Ref.Method<Helper>(o => o.Test()).MethodShouldSucceed(Target, new object[] { }, o => true);
-            L.Ref.Method<Helper>(o => o.Test("")).MethodShouldSucceed(Target, new object[] { "" }, o => true);
-            L.Ref.Method<Helper>(o => o.Test("", "")).MethodShouldSucceed(Target, new object[] { "", "" }, o => true);
-            L.Ref.Method<Helper>(o => o.Test("", "", "")).MethodShouldSucceed(Target, new object[] { "", "", "" }, o => true);
-            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).MethodShouldSucceed(Target, new object[] { "", "", "", "" }, o => true);
+            L.Ref.Method<Helper>(o => o.Test()).MethodShouldSucceed(Target, new object[] {}, o => true);
+            L.Ref.Method<Helper>(o => o.Test("")).MethodShouldSucceed(Target, new object[] {""}, o => true);
+            L.Ref.Method<Helper>(o => o.Test("", "")).MethodShouldSucceed(Target, new object[] {"", ""}, o => true);
+            L.Ref.Method<Helper>(o => o.Test("", "", "")).MethodShouldSucceed(Target, new object[] {"", "", ""}, o => true);
+            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).MethodShouldSucceed(Target, new object[] {"", "", "", ""}, o => true);
 
-            L.Ref.Method<Helper>(o => o.Test()).MethodShouldSucceed(Target, new object[] { }, () => true);
-            L.Ref.Method<Helper>(o => o.Test("")).MethodShouldSucceed(Target, new object[] { "" }, () => true);
-            L.Ref.Method<Helper>(o => o.Test("", "")).MethodShouldSucceed(Target, new object[] { "", "" }, () => true);
-            L.Ref.Method<Helper>(o => o.Test("", "", "")).MethodShouldSucceed(Target, new object[] { "", "", "" }, () => true);
-            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).MethodShouldSucceed(Target, new object[] { "", "", "", "" }, () => true);
+            L.Ref.Method<Helper>(o => o.Test()).MethodShouldSucceed(Target, new object[] {}, () => true);
+            L.Ref.Method<Helper>(o => o.Test("")).MethodShouldSucceed(Target, new object[] {""}, () => true);
+            L.Ref.Method<Helper>(o => o.Test("", "")).MethodShouldSucceed(Target, new object[] {"", ""}, () => true);
+            L.Ref.Method<Helper>(o => o.Test("", "", "")).MethodShouldSucceed(Target, new object[] {"", "", ""}, () => true);
+            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).MethodShouldSucceed(Target, new object[] {"", "", "", ""}, () => true);
             }
 
         [Fact]
@@ -411,10 +412,6 @@ namespace L_Tests.Tests.Extensions
             Attr.Maximum.Should().Be(2);
             Attr.ValueType.Should().Be(typeof(int));
 
-            Attr.TestWithinBounds = 5u;
-
-            Attr.TestWithinBounds.Should().Be(5u);
-
             //////
 
             Attr = new TestBoundAttribute(0, 1u, 2u);
@@ -424,104 +421,78 @@ namespace L_Tests.Tests.Extensions
             Attr.Maximum.Should().Be(2u);
             Attr.ValueType.Should().Be(typeof(uint));
 
-            Attr.TestWithinBounds = 5u;
-
-            Attr.TestWithinBounds.Should().Be(5u);
-
             //////
 
-            Attr = new TestBoundAttribute(0, (short)1, (short)2);
+            Attr = new TestBoundAttribute(0, (short) 1, (short) 2);
 
             Attr.ParameterIndex.Should().Be(0);
-            Attr.Minimum.Should().Be((short)1);
-            Attr.Maximum.Should().Be((short)2);
+            Attr.Minimum.Should().Be((short) 1);
+            Attr.Maximum.Should().Be((short) 2);
             Attr.ValueType.Should().Be(typeof(short));
-
-            Attr.TestWithinBounds = 5u;
-
-            Attr.TestWithinBounds.Should().Be(5u);
             //////
 
-            Attr = new TestBoundAttribute(0, (ushort)1, (ushort)2);
+            Attr = new TestBoundAttribute(0, (ushort) 1, (ushort) 2);
 
             Attr.ParameterIndex.Should().Be(0);
-            Attr.Minimum.Should().Be((ushort)1);
-            Attr.Maximum.Should().Be((ushort)2);
+            Attr.Minimum.Should().Be((ushort) 1);
+            Attr.Maximum.Should().Be((ushort) 2);
             Attr.ValueType.Should().Be(typeof(ushort));
 
-            Attr.TestWithinBounds = 5u;
-
-            Attr.TestWithinBounds.Should().Be(5u);
 
             //////
 
-            Attr = new TestBoundAttribute(0, (byte)1, (byte)2);
+            Attr = new TestBoundAttribute(0, (byte) 1, (byte) 2);
 
             Attr.ParameterIndex.Should().Be(0);
-            Attr.Minimum.Should().Be((byte)1);
-            Attr.Maximum.Should().Be((byte)2);
+            Attr.Minimum.Should().Be((byte) 1);
+            Attr.Maximum.Should().Be((byte) 2);
             Attr.ValueType.Should().Be(typeof(byte));
 
-            Attr.TestWithinBounds = 5u;
             //////
 
-            Attr = new TestBoundAttribute(0, (sbyte)1, (sbyte)2);
+            Attr = new TestBoundAttribute(0, (sbyte) 1, (sbyte) 2);
 
             Attr.ParameterIndex.Should().Be(0);
-            Attr.Minimum.Should().Be((sbyte)1);
-            Attr.Maximum.Should().Be((sbyte)2);
+            Attr.Minimum.Should().Be((sbyte) 1);
+            Attr.Maximum.Should().Be((sbyte) 2);
             Attr.ValueType.Should().Be(typeof(sbyte));
 
-            Attr.TestWithinBounds = 5u;
             //////
 
-            Attr = new TestBoundAttribute(0, (decimal)1, (decimal)2);
+            Attr = new TestBoundAttribute(0, (decimal) 1, (decimal) 2);
 
             Attr.ParameterIndex.Should().Be(0);
-            Attr.Minimum.Should().Be((decimal)1);
-            Attr.Maximum.Should().Be((decimal)2);
+            Attr.Minimum.Should().Be((decimal) 1);
+            Attr.Maximum.Should().Be((decimal) 2);
             Attr.ValueType.Should().Be(typeof(decimal));
 
-            Attr.TestWithinBounds = 5u;
-
-            Attr.TestWithinBounds.Should().Be(5u);
             //////
 
-            Attr = new TestBoundAttribute(0, (double)1, (double)2);
+            Attr = new TestBoundAttribute(0, (double) 1, (double) 2);
 
             Attr.ParameterIndex.Should().Be(0);
-            Attr.Minimum.Should().Be((double)1);
-            Attr.Maximum.Should().Be((double)2);
+            Attr.Minimum.Should().Be((double) 1);
+            Attr.Maximum.Should().Be((double) 2);
             Attr.ValueType.Should().Be(typeof(double));
 
-            Attr.TestWithinBounds = 5u;
-
-            Attr.TestWithinBounds.Should().Be(5u);
             //////
 
-            Attr = new TestBoundAttribute(0, (float)1, (float)2);
+            Attr = new TestBoundAttribute(0, (float) 1, (float) 2);
 
             Attr.ParameterIndex.Should().Be(0);
-            Attr.Minimum.Should().Be((float)1);
-            Attr.Maximum.Should().Be((float)2);
+            Attr.Minimum.Should().Be((float) 1);
+            Attr.Maximum.Should().Be((float) 2);
             Attr.ValueType.Should().Be(typeof(float));
 
-            Attr.TestWithinBounds = 5u;
-
-            Attr.TestWithinBounds.Should().Be(5u);
 
             //////
 
-            Attr = new TestBoundAttribute(0, (object)1, (object)2);
+            Attr = new TestBoundAttribute(0, (object) 1, (object) 2);
 
             Attr.ParameterIndex.Should().Be(0);
-            Attr.Minimum.Should().Be((object)1);
-            Attr.Maximum.Should().Be((object)2);
+            Attr.Minimum.Should().Be((object) 1);
+            Attr.Maximum.Should().Be((object) 2);
             Attr.ValueType.Should().Be(typeof(int));
-
-            Attr.TestWithinBounds = 5u;
-
-            Attr.TestWithinBounds.Should().Be(5u);
             }
 
         /*

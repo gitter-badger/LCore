@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using JetBrains.Annotations;
 using LCore.Interfaces;
-using LCore.Tests;
+using LCore.LUnit;
 using LCore.Tools;
 
 namespace LCore.Extensions

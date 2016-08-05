@@ -1,13 +1,14 @@
-﻿
-using LCore.Extensions;
+﻿using LCore.Extensions;
 using System;
 using System.Reflection;
 using FluentAssertions;
 using JetBrains.Annotations;
+using LCore.LUnit;
 using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
-using static LCore.Extensions.L.Test.Categories;
+using static LCore.LUnit.LUnit.Categories;
+
 // ReSharper disable ReturnValueOfPureMethodIsNotUsed
 
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
@@ -18,7 +19,7 @@ namespace L_Tests.Tests.Extensions
     [Trait(Category, UnitTests)]
     public class CommentExtTest : ExtensionTester
         {
-        protected override Type[] TestType => new[] { typeof(CommentExt) };
+        protected override Type[] TestType => new[] {typeof(CommentExt)};
 
         [Fact]
         public void Test_GetComments()
@@ -89,10 +90,12 @@ namespace L_Tests.Tests.Extensions
                 {
                 return null;
                 }
+
             public override bool IsDefined(Type AttributeType, bool Inherit)
                 {
                 return false;
                 }
+
             public override object[] GetCustomAttributes(Type AttributeType, bool Inherit)
                 {
                 return null;
@@ -109,4 +112,3 @@ namespace L_Tests.Tests.Extensions
         public CommentExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }
-

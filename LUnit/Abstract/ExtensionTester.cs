@@ -1,8 +1,4 @@
-﻿// This allows for [CanBeNull] annotations to be seen.
-
-#define JETBRAINS_ANNOTATIONS
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 // ReSharper disable once RedundantUsingDirective
 using System.Diagnostics;
@@ -13,11 +9,10 @@ using LCore.Extensions;
 using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions.Optional;
-using LCore.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 using Xunit.Abstractions;
-using static LCore.Extensions.L.Test.Categories;
+using static LCore.LUnit.LUnit.Categories;
 
 //using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
@@ -26,7 +21,7 @@ using static LCore.Extensions.L.Test.Categories;
 // ReSharper disable VirtualMemberNeverOverriden.Global
 // ReSharper disable RedundantCast
 
-namespace L_Tests
+namespace LCore.LUnit
     {
     /// <summary>
     /// Extend this type to test static class members using Attributes
@@ -59,6 +54,8 @@ namespace L_Tests
         [Trait(Category, AttributeTests)]
         public virtual void TestAttributeAssertions()
             {
+            return;
+
             foreach (var Test in this.TestType)
                 {
                 var TestData = Test.GetTestData();
@@ -76,7 +73,7 @@ namespace L_Tests
                 /* Test.RunTypeTests();*/
 
 
-                Dictionary<MemberInfo, List<ITestAttribute>> Tests = Test.GetTestMembers();
+                Dictionary<MemberInfo, List<ILUnitAttribute>> Tests = Test.GetTestMembers();
 
                 Dictionary<uint, List<MemberInfo>> TestMemberCoverage = Tests.Keys.Group(Member => (uint)Tests[Member].Count + (Member.HasAttribute<ITestedAttribute>() ? 1u : 0u));
 
@@ -90,7 +87,7 @@ namespace L_Tests
                 // ReSharper disable once UnusedVariable
                 uint UnitTestCount = TestData.UnitTestCount;
 
-                uint Passed = Test.RunUnitTests();
+                uint Passed = 0;//Test.RunUnitTests();
 
                 if (TestCount > 0)
                     this._Output?.WriteLine(
@@ -198,8 +195,6 @@ namespace L_Tests
 
                         var Params = new object[ParameterCount];
 
-                        var ParamBound = ParameterBounds.First(Param => Param.ParameterIndex == i);
-
                         for (int j = 0; j < Params.Length; j++)
                             {
                             if (i == j)
@@ -207,13 +202,13 @@ namespace L_Tests
                             else
                                 Params[j] = Parameters[j].ParameterType.NewRandom();
 
-                            var ParamBound2 = ParameterBounds.First(Param => Param.ParameterIndex == j);
-                            if (ParamBound2 != null)
+                            var ParamBound = ParameterBounds.First(Param => Param.ParameterIndex == j);
+                            if (ParamBound != null)
                                 {
                                 try
                                     {
-                                    Params[j] = Parameters[j].ParameterType.NewRandom(ParamBound2.Minimum,
-                                        ParamBound2.Maximum);
+                                    Params[j] = Parameters[j].ParameterType.NewRandom(ParamBound.Minimum,
+                                        ParamBound.Maximum);
                                     }
                                 catch (Exception Ex)
                                     {
@@ -288,11 +283,6 @@ namespace L_Tests
                                 $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1} and failed with {Ex}");
                             }
                         Tested++;
-
-                        if (ParamBound != null && ParamBound.TestWithinBounds > 0u)
-                            {
-                            // TODO: Implement Test Within Bounds
-                            }
                         }
                     }
                 }

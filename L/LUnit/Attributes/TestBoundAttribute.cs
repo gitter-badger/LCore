@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using LCore.Extensions;
-using System.Reflection;
 using JetBrains.Annotations;
 
-namespace LCore.Tests
+namespace LCore.LUnit
     {
     /// <summary>
     /// Applies a maximum and/or minimum bound to the parameter at the specified index.
     /// </summary>
-    public class TestBoundAttribute : TestAttribute
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
+    public class TestBoundAttribute : Attribute, ITestBoundAttribute
         {
         /// <summary>
         /// The 0-based index of the parameter you're applying a bound to.
@@ -30,34 +30,6 @@ namespace LCore.Tests
         /// The type of value used for the Minimum and Maximum
         /// </summary>
         public Type ValueType { get; }
-
-
-        /// <summary>
-        /// Tests the method this many times with random data in addition to ensuring 
-        /// the bound values don't fail.
-        /// </summary>
-        public uint TestWithinBounds { get; set; }
-
-        /// <summary>
-        /// Implement this method to execute the test.
-        /// Make assertions here.
-        /// </summary>
-        public override void RunTest(MethodInfo Method)
-            {
-/*
-            var Attributes = new List<TestBoundAttribute>();
-
-            Attributes.Sort(Attr => Attr.ParameterIndex);
-
-            ParameterInfo[] MethodParameters = Method.GetParameters();
-
-            var PassedParameters = new object[MethodParameters.Length];
-
-
-            Attributes.Each(Attr =>
-                PassedParameters[Attr.ParameterIndex] =
-                    L.Ref.NewRandom(MethodParameters[Attr.ParameterIndex].ParameterType, Attr.Minimum, Attr.Maximum));*/
-            }
 
         #region Constructors
 

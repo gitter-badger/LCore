@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using FluentAssertions;
+using LCore.LUnit;
 using JetBrains.Annotations;
-using LCore.Tests;
 using Xunit;
 using Xunit.Abstractions;
-using static LCore.Extensions.L.Test.Categories;
+using static LCore.LUnit.LUnit.Categories;
 
 // ReSharper disable RedundantCast
 

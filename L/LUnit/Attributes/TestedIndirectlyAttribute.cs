@@ -1,15 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 
-namespace LCore.Tests
+namespace LCore.LUnit
     {
     /// <summary>
     /// Indicate that unit tests have been completed for the method.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
-    public class TestedIndirectlyAttribute : TestedAttribute
-        {
-        }
+    public class TestedIndirectlyAttribute : Attribute, ITestedIndirectlyAttribute {}
     }

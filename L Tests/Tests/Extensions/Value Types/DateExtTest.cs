@@ -3,8 +3,9 @@ using System;
 using FluentAssertions;
 using JetBrains.Annotations;
 using Xunit;
+using LCore.LUnit;
 using Xunit.Abstractions;
-using static LCore.Extensions.L.Test.Categories;
+using static LCore.LUnit.LUnit.Categories;
 
 namespace L_Tests.Tests.Extensions
     {

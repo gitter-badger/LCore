@@ -12,7 +12,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 // ReSharper disable UnusedMember.Global
 
-namespace LCore.Tests
+namespace LCore.LUnit
     {
     /// <summary>
     /// Provides extensions to allow for method unit testing.
@@ -34,7 +34,8 @@ namespace LCore.Tests
         /// Assert that a metod succeeds (does not throw an exception)
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        public static void MethodShouldSucceed(this MethodInfo Method, object Target = null, object[] Params = null, params Func<bool>[] AdditionalChecks)
+        public static void MethodShouldSucceed(this MethodInfo Method, object Target = null, object[] Params = null,
+            params Func<bool>[] AdditionalChecks)
             {
             Method.MethodShouldSucceed<object>(Target, Params,
                 AdditionalChecks.Convert<Func<bool>, Func<object, bool>>(Func => { return (o => Func()); }));
@@ -44,7 +45,8 @@ namespace LCore.Tests
         /// Assert that a metod succeeds (does not throw an exception)
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        public static void MethodShouldSucceed(this MethodInfo Method, object Target = null, object[] Params = null, params Func<object, bool>[] AdditionalChecks)
+        public static void MethodShouldSucceed(this MethodInfo Method, object Target = null, object[] Params = null,
+            params Func<object, bool>[] AdditionalChecks)
             {
             Method.MethodShouldSucceed<object>(Target, Params, AdditionalChecks);
             }
@@ -56,7 +58,7 @@ namespace LCore.Tests
         public static void MethodShouldSucceed<U>(this MethodInfo Method, object Target = null, object[] Params = null,
             params Func<U, bool>[] AdditionalResultChecks)
             {
-            Method.MethodAssertSucceedes(Target,Params, AdditionalResultChecks);
+            Method.MethodAssertSucceedes(Target, Params, AdditionalResultChecks);
             }
 
         /// <summary>
@@ -1125,7 +1127,8 @@ namespace LCore.Tests
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [ExcludeFromCodeCoverage]
-        public static void MethodAssertSource(this MethodInfo Method, object Target = null, object[] Params = null, object ExpectedSource = null,
+        public static void MethodAssertSource(this MethodInfo Method, object Target = null, object[] Params = null,
+            object ExpectedSource = null,
             params Func<object, bool>[] AdditionalSourceChecks)
             {
             Method.MethodAssertSource<object>(Target, Params, ExpectedSource, AdditionalSourceChecks);
@@ -1137,9 +1140,9 @@ namespace LCore.Tests
         /// This is used for methods that manipulate the object they were called on, not the result (if any).
         /// </summary>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-
         [ExcludeFromCodeCoverage]
-        public static void MethodAssertSource<U>(this MethodInfo Method, object Target = null, object[] Params = null, U ExpectedSource = default(U),
+        public static void MethodAssertSource<U>(this MethodInfo Method, object Target = null, object[] Params = null,
+            U ExpectedSource = default(U),
             params Func<object, bool>[] AdditionalSourceChecks)
             {
             Params = Params ?? new object[] {};
@@ -1289,83 +1292,11 @@ namespace LCore.Tests
         #endregion
 
         /// <summary>
-        /// Runs unit tests that are active for a particular Type <paramref name="Type" />
-        /// </summary>
-        [ExcludeFromCodeCoverage]
-        public static uint RunUnitTests(this Type Type)
-            {
-            uint TestsRan = 0;
-
-            Dictionary<MemberInfo, List<ITestAttribute>> Tests = Type.GetTestMembers();
-
-            Tests.Each(Test =>
-                {
-                int CurrentTest = 1;
-                try
-                    {
-                    var Key = Test.Key as MethodInfo;
-                    if (Key != null)
-                        {
-                        List<ITestAttribute> ValueList = Test.Value.List();
-                        ValueList.Reverse();
-
-                        ValueList.Each(AttrTest =>
-                            {
-                            var Member = Key;
-
-                            if (Member.ContainsGenericParameters)
-                                {
-                                var Generics = Member.GetAttribute<TestMethodGenerics>();
-
-                                if (!AttrTest.GenericTypes.IsEmpty())
-                                    {
-                                    Member = Member.MakeGenericMethod(AttrTest.GenericTypes);
-                                    }
-                                else if (Generics != null)
-                                    {
-                                    Member = Member.MakeGenericMethod(Generics.GenericTypes);
-                                    }
-                                else if (AttrTest is ITestedAttribute) {}
-                                else
-                                    {
-                                    try
-                                        {
-                                        Member = Member.MakeGenericMethod(
-                                            L.Ref.NewRandom_TypeCreators.Keys.Random(Member.GetGenericArguments().Length).Array());
-                                        }
-                                    catch (Exception Ex)
-                                        {
-                                        throw new InternalTestFailureException("Unable to find generics for Test Attribute", Ex);
-                                        }
-                                    }
-                                }
-
-                            AttrTest.FixParameterTypes(Member);
-                            AttrTest.RunTest(Member);
-
-                            TestsRan++;
-                            CurrentTest++;
-                            });
-                        }
-                    else
-                        throw new Exception($"Member {Test.Key.Name} is not a method.");
-                    }
-                catch (Exception Ex)
-                    {
-                    throw new Exception(
-                        $"\nTesting for Member: {Test.Key.FullyQualifiedName()} \nTest #{CurrentTest} failed.\n{Ex.ToS()}\n", Ex);
-                    }
-                });
-
-            return TestsRan;
-            }
-
-        /// <summary>
         /// Retrieves TestAttributes for type <paramref name="Type" />
         /// </summary>
-        public static Dictionary<MemberInfo, List<ITestAttribute>> GetTestMembers(this Type Type)
+        public static Dictionary<MemberInfo, List<ILUnitAttribute>> GetTestMembers(this Type Type)
             {
-            var Tests = new Dictionary<MemberInfo, List<ITestAttribute>>();
+            var Tests = new Dictionary<MemberInfo, List<ILUnitAttribute>>();
 
             Type.GetMembers().Each(Member =>
                 {
@@ -1375,12 +1306,87 @@ namespace LCore.Tests
                     }
 
                 if (!Tests.ContainsKey(Member))
-                    Tests.Add(Member, new List<ITestAttribute>());
+                    Tests.Add(Member, new List<ILUnitAttribute>());
 
-                Member.GetAttributes<ITestAttribute>(false).Each(Attr => { Tests[Member].Add(Attr); });
+                Member.GetAttributes<ILUnitAttribute>(false).Each(Attr => { Tests[Member].Add(Attr); });
                 });
 
             return Tests;
             }
+
+        public static void RunTest(this ITestResultAttribute Attr, MethodInfo Method)
+            {
+            Func<object, bool>[] Checks = Attr.AdditionalResultChecks.Convert(
+                L.F<MethodInfo, string, Func<object, bool>>(LUnit.GetCheckMethodArg).Supply(Method));
+
+            //            Method.MethodAssertResult(Parameters, ExpectedResult, Checks);
+
+            var Info = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>) (MethodInfo =>
+                MethodInfo.Name == nameof(TestExt.MethodAssertResult) &&
+                MethodInfo.ContainsGenericParameters));
+
+            Info = Info?.MakeGenericMethod(Attr.ExpectedResult?.GetType() ?? Method.ReturnType);
+
+            var ExpectedResult = Attr.ExpectedResult;
+            
+            LUnit.FixObject(Method, Method.ReturnType, ref ExpectedResult);
+
+            Info?.Invoke(null, new[] {Method, null, Attr.Parameters, ExpectedResult, Checks});
+            }
+
+        public static void RunTest(this ITestFailsAttribute Attr, MethodInfo Method)
+            {
+            Func<bool>[] Checks = Attr.AdditionalChecks.Convert(L.F<MethodInfo, string, Func<bool>>(LUnit.GetCheckMethod).Supply(Method));
+            Method.MethodAssertFails(Attr.Parameters, Method.ReflectedType, Attr.ExceptionType, Checks);
+            }
+
+        public static void RunTest(this ITestSucceedsAttribute Attr, MethodInfo Method)
+            {
+            Func<bool>[] Checks = Attr.AdditionalChecks.Convert(L.F<MethodInfo, string, Func<bool>>(LUnit.GetCheckMethod).Supply(Method));
+            Method.MethodAssertSucceedes(null, Attr.Parameters, Checks);
+            }
+
+        public static void RunTest(this ITestSourceAttribute Attr, MethodInfo Method)
+            {
+            Func<object, bool>[] Checks =
+                Attr.AdditionalSourceChecks.Convert(L.F<MethodInfo, string, Func<object, bool>>(LUnit.GetCheckMethodArg).Supply(Method));
+
+            //    Method.MethodAssertSource(Parameters, ExpectedSource);
+
+            var OutMethod = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>) (MethodInfo =>
+                MethodInfo.Name == nameof(TestExt.MethodAssertSource) && MethodInfo.ContainsGenericParameters));
+
+            if (Attr.ExpectedSource != null)
+                {
+                OutMethod = OutMethod?.MakeGenericMethod(Attr.ExpectedSource.GetType());
+                }
+            else if (Attr.Parameters[0] != null)
+                {
+                OutMethod = OutMethod?.MakeGenericMethod(Attr.Parameters[0].GetType());
+                }
+            else
+                {
+                OutMethod = OutMethod?.MakeGenericMethod(typeof(object));
+                }
+
+            var ExpectedSource = Attr.ExpectedSource;
+
+            LUnit.FixObject(Method, Method.GetParameters()[0].ParameterType, ref ExpectedSource);
+
+            OutMethod?.Invoke(null, new[] {Method, null, Attr.Parameters, ExpectedSource, Checks});
+            }
+
+        #region GetTestData
+
+        /// <summary>
+        /// Creates a new TypeTests object, detailing the test coverage of the provided type.
+        /// </summary>
+        [Tested]
+        public static TypeTests GetTestData([CanBeNull] this Type In)
+            {
+            return new TypeTests(In);
+            }
+
+        #endregion
         }
     }

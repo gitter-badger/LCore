@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests L MVC", "L MVC Tests\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SereneTest.Web", "SereneTest\SereneTest.Web\SereneTest.Web.csproj", "{E298DC33-D240-4585-AC47-775575246780}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LUnit", "LUnit\LUnit.csproj", "{0275FCEA-4312-4003-8447-5CAD2E333616}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -207,6 +209,24 @@ Global
 		{E298DC33-D240-4585-AC47-775575246780}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E298DC33-D240-4585-AC47-775575246780}.Release|x86.ActiveCfg = Release|Any CPU
 		{E298DC33-D240-4585-AC47-775575246780}.Release|x86.Build.0 = Release|Any CPU
+		{0275FCEA-4312-4003-8447-5CAD2E333616}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0275FCEA-4312-4003-8447-5CAD2E333616}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0275FCEA-4312-4003-8447-5CAD2E333616}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0275FCEA-4312-4003-8447-5CAD2E333616}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0275FCEA-4312-4003-8447-5CAD2E333616}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0275FCEA-4312-4003-8447-5CAD2E333616}.Debug|x86.Build.0 = Debug|Any CPU
+		{0275FCEA-4312-4003-8447-5CAD2E333616}.Debug-DeployLive|Any CPU.ActiveCfg = Debug|Any CPU
+		{0275FCEA-4312-4003-8447-5CAD2E333616}.Debug-DeployLive|Any CPU.Build.0 = Debug|Any CPU
+		{0275FCEA-4312-4003-8447-5CAD2E333616}.Debug-DeployLive|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0275FCEA-4312-4003-8447-5CAD2E333616}.Debug-DeployLive|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0275FCEA-4312-4003-8447-5CAD2E333616}.Debug-DeployLive|x86.ActiveCfg = Debug|Any CPU
+		{0275FCEA-4312-4003-8447-5CAD2E333616}.Debug-DeployLive|x86.Build.0 = Debug|Any CPU
+		{0275FCEA-4312-4003-8447-5CAD2E333616}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0275FCEA-4312-4003-8447-5CAD2E333616}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0275FCEA-4312-4003-8447-5CAD2E333616}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0275FCEA-4312-4003-8447-5CAD2E333616}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0275FCEA-4312-4003-8447-5CAD2E333616}.Release|x86.ActiveCfg = Release|Any CPU
+		{0275FCEA-4312-4003-8447-5CAD2E333616}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

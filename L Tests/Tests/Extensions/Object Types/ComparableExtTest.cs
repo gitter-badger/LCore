@@ -5,7 +5,8 @@ using FluentAssertions;
 using JetBrains.Annotations;
 using Xunit;
 using Xunit.Abstractions;
-using static LCore.Extensions.L.Test.Categories;
+using static LCore.LUnit.LUnit.Categories;
+using LCore.LUnit;
 
 // ReSharper disable ExpressionIsAlwaysNull
 

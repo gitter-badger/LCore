@@ -1,53 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
 using LCore.Extensions;
-using LCore.Extensions.Optional;
 using System.Collections;
+// ReSharper disable once RedundantUsingDirective
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using JetBrains.Annotations;
+using LCore.Extensions.Optional;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable VirtualMemberNeverOverriden.Global
+// ReSharper disable UnusedMember.Global
 
-namespace LCore.Tests
+namespace LCore.LUnit
     {
-    /// <summary>
-    /// Override this attribute to define a test case for a particular
-    /// method.
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
-    public abstract class TestAttribute : Attribute, ITestAttribute
+    public static partial class LUnit
         {
-        /// <summary>
-        /// Implement this method to execute the test.
-        /// Make assertions here.
-        /// </summary>
-        public abstract void RunTest(MethodInfo Method);
-
         /// <summary>
         /// Attempts to resolve parameter types for a method test.
         /// This corrects parameter types, converts arrays to lists if needed.
         /// </summary>
-        public virtual void FixParameterTypes(MethodInfo Method)
+        public static void FixParameterTypes(MethodInfo Method, object[] Parameters)
             {
             Method.GetParameters().Each((i, Parameter) =>
-            {
-                if (this.Parameters.HasIndex(i))
+                {
+                if (Parameters.HasIndex(i))
                     {
-                    var Param = this.Parameters[i];
-                    this.FixObject(Method, Parameter.ParameterType, ref Param);
-                    this.Parameters[i] = Param;
+                    var Param = Parameters[i];
+                    FixObject(Method, Parameter.ParameterType, ref Param);
+                    Parameters[i] = Param;
                     }
-            });
+                });
             }
 
         /// <summary>
         /// Attempts to resolve a single parameter object.
         /// This corrects parameter types, converts arrays to lists if needed.
         /// </summary>
-        [ExcludeFromCodeCoverage]
-        protected virtual void FixObject([CanBeNull]MethodInfo SourceMethod, [CanBeNull]Type ObjectType, ref object Obj)
+        public static void FixObject([CanBeNull] MethodInfo SourceMethod, [CanBeNull] Type ObjectType, ref object Obj)
             {
             // Converts Arrays to Lists when the Method requires it.
             if (ObjectType != null &&
@@ -58,53 +48,50 @@ namespace LCore.Tests
                     var Array = Obj as Array;
                     if (Array != null)
                         {
-                        Type[] Args = { Array.GetType().GetElementType() };
+                        Type[] Args = {Array.GetType().GetElementType()};
                         if (ObjectType == typeof(List<>).MakeGenericType(Args))
                             {
                             var ListType = typeof(List<>).MakeGenericType(Args);
 
-                            var NewList = (IList)ListType.New();
-                            Array.Each(Item =>
-                                {
-                                    NewList?.Add(Item);
-                                });
+                            var NewList = (IList) ListType.New();
+                            Array.Each(Item => { NewList?.Add(Item); });
 
                             Obj = NewList;
                             }
                         }
                     else if (Obj is string && ObjectType.IsSubclassOf(typeof(Delegate)))
                         {
-                        Obj = GetMethodDelegate(SourceMethod, ObjectType, (string)Obj);
+                        Obj = GetMethodDelegate(SourceMethod, ObjectType, (string) Obj);
                         }
                     // ReSharper disable once ConditionIsAlwaysTrueOrFalse
                     else if (Obj is object[] && !ObjectType.IsType(typeof(object[])))
-                    // ReSharper disable HeuristicUnreachableCode
+                        // ReSharper disable HeuristicUnreachableCode
                         {
-                        Type[] Types = ((object[])Obj).GetTypes();
+                        Type[] Types = ((object[]) Obj).GetTypes();
                         ConstructorInfo[] ObjectConstructors = ObjectType.GetConstructors();
                         var Const = ObjectConstructors.First(Constructor =>
-                        {
+                            {
                             ParameterInfo[] Params = Constructor.GetParameters();
                             return Params.Length == Types.Length && Params.All((i2, Param) => Types[i2].IsType(Param.ParameterType));
-                        });
+                            });
 
                         if (Const != null)
                             {
-                            Obj = Const.Invoke((object[])Obj);
+                            Obj = Const.Invoke((object[]) Obj);
                             }
                         }
                     // ReSharper restore HeuristicUnreachableCode
                     else if (Obj is IConvertible && ObjectType == typeof(decimal))
                         {
-                        Obj = ((IConvertible)Obj).ConvertTo<decimal>();
+                        Obj = ((IConvertible) Obj).ConvertTo<decimal>();
                         }
                     }
                 }
             }
 
         [CanBeNull]
-        [ExcludeFromCodeCoverage]
-        private static object GetMethodDelegate([CanBeNull]MethodInfo SourceMethod, [CanBeNull]Type ObjectType, [CanBeNull]string MethodName)
+        public static object GetMethodDelegate([CanBeNull] MethodInfo SourceMethod, [CanBeNull] Type ObjectType,
+            [CanBeNull] string MethodName)
             {
             if (SourceMethod == null || MethodName == null)
                 return null;
@@ -175,20 +162,20 @@ namespace LCore.Tests
             var Info = ValueLambda as PropertyInfo;
             if (Info != null)
                 {
-                Out = Info.GetGetMethod().Invoke(null, new object[] { });
+                Out = Info.GetGetMethod().Invoke(null, new object[] {});
                 }
             else if (ValueLambda is FieldInfo)
                 {
-                Out = ((FieldInfo)ValueLambda).GetValue(null);
+                Out = ((FieldInfo) ValueLambda).GetValue(null);
                 }
             else if (ValueLambda is MethodInfo)
                 {
-                ParameterInfo[] Params = ((MethodInfo)ValueLambda).GetParameters();
+                ParameterInfo[] Params = ((MethodInfo) ValueLambda).GetParameters();
                 if (Params.Length > 0)
                     {
                     throw new Exception($"Unknown member with arguments: {ValueLambda.GetType().FullName}");
                     }
-                Out = ((MethodInfo)ValueLambda).Invoke(null, new object[] { });
+                Out = ((MethodInfo) ValueLambda).Invoke(null, new object[] {});
                 }
             else
                 {
@@ -200,8 +187,7 @@ namespace LCore.Tests
         /// <summary>
         /// Locates the method to be tested
         /// </summary>
-        [ExcludeFromCodeCoverage]
-        protected virtual Func<bool> GetCheckMethod(MethodInfo SourceMethod, string MethodName)
+        public static Func<bool> GetCheckMethod(MethodInfo SourceMethod, string MethodName)
             {
             var Result = GetMethodDelegate(SourceMethod, null, MethodName);
             if (Result == null)
@@ -209,7 +195,7 @@ namespace LCore.Tests
 
             if (Result.GetType().IsType(typeof(Func<bool>)))
                 {
-                return (Func<bool>)Result;
+                return (Func<bool>) Result;
                 }
             throw new Exception($"Unknown type: {Result.GetType()}");
             }
@@ -218,8 +204,7 @@ namespace LCore.Tests
         /// Locates the method to be tested.
         /// Its argument input is set to object.
         /// </summary>
-        [ExcludeFromCodeCoverage]
-        protected virtual Func<object, bool> GetCheckMethodArg(MethodInfo SourceMethod, string MethodName)
+        public static Func<object, bool> GetCheckMethodArg(MethodInfo SourceMethod, string MethodName)
             {
             var Result = GetMethodDelegate(SourceMethod, null, MethodName);
             if (Result == null)
@@ -228,40 +213,64 @@ namespace LCore.Tests
             if (Result.GetType().IsType(typeof(Func<,>)))
                 {
                 Type[] Args = Result.GetType().GetGenericArguments();
-                Type[] CastArgs = { typeof(object), typeof(bool) };
+                Type[] CastArgs = {typeof(object), typeof(bool)};
 
                 var CastMethod = typeof(LogicExt).GetMethod("Cast", Args.Append(CastArgs));
-                var Out = CastMethod.Invoke(null, new[] { Result });
+                var Out = CastMethod.Invoke(null, new[] {Result});
 
-                return (Func<object, bool>)Out;
+                return (Func<object, bool>) Out;
                 }
             throw new Exception($"Unknown type: {Result.GetType()}");
             }
 
-        /// <summary>
-        /// Parameters for the current test
-        /// </summary>
-        public readonly object[] Parameters;
+        #region Categories
 
         /// <summary>
-        /// Generic types defined on the current method
+        /// Unit test categories
         /// </summary>
-        public Type[] GenericTypes { get; set; }
-
-        /// <summary>
-        /// Create a new Test Attribute with no parameters.
-        /// </summary>
-        protected TestAttribute()
-            : this(new object[] { })
+        public static class Categories
             {
+            /// <summary>
+            /// Category value name
+            /// </summary>
+            public const string Category = nameof(Category);
+
+            /// <summary>
+            /// Category value name
+            /// </summary>
+            public const string StaticMethods = "Static Methods";
+
+            /// <summary>
+            /// Attribute test category name
+            /// </summary>
+            public const string AttributeTests = "Attribute Tests";
+
+            /// <summary>
+            /// Tools test category name
+            /// </summary>
+            public const string Tools = nameof(Tools);
+
+            /// <summary>
+            /// Unit Tests category name
+            /// </summary>
+            public const string UnitTests = "Unit Tests";
+
+            /// <summary>
+            /// Internal category name
+            /// </summary>
+            public const string Internal = nameof(Internal);
+
+            /// <summary>
+            /// NullabilityTests category name
+            /// </summary>
+            public const string NullabilityTests = "Nullability Tests";
+
+            /// <summary>
+            /// AssemblyTest category name
+            /// </summary>
+            public const string AssemblyTest = "Assembly Test";
             }
 
-        /// <summary>
-        /// Create a new Test Attribute with parameters.
-        /// </summary>
-        protected TestAttribute(object[] Parameters)
-            {
-            this.Parameters = Parameters;
-            }
+        #endregion
         }
     }

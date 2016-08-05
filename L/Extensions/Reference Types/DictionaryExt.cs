@@ -4,7 +4,7 @@ using System.Collections;
 using JetBrains.Annotations;
 using LCore.Extensions.Optional;
 using LCore.Interfaces;
-using LCore.Tests;
+using LCore.LUnit;
 
 namespace LCore.Extensions
     {

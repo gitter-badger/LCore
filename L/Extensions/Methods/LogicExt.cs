@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using LCore.Dynamic;
-using LCore.Tests;
+using LCore.LUnit;
 using LCore.Tools;
 
 // ReSharper disable UnusedMember.Global

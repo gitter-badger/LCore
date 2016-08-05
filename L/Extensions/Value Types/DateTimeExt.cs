@@ -2,8 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using LCore.Tests;
 using LCore.Interfaces;
+using LCore.LUnit;
 
 namespace LCore.Extensions
     {

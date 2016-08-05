@@ -3,7 +3,7 @@ using System;
 using FluentAssertions;
 using LCore.Extensions.Optional;
 using Xunit;
-using static LCore.Extensions.L.Test.Categories;
+using static LCore.LUnit.LUnit.Categories;
 
 // ReSharper disable StringLiteralTypo
 // ReSharper disable UnusedParameter.Global

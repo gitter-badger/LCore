@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using LCore.Extensions;
+
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
 // ReSharper disable CollectionNeverQueried.Global
 
-namespace LCore.Tests
+namespace LCore.LUnit
     {
     /// <summary>
     /// TypeTests contains data about a class and its unit test coverage.
@@ -60,7 +61,7 @@ namespace LCore.Tests
             this.UnitTestCount = TestMembers.WithAttribute<ITestedAttribute>().Count();
             this.TestsPresent = this.MembersPresent - this.TestsMissing;
 
-            this.CoveragePercent = ((double)this.TestsPresent / this.MembersPresent).AsPercent().Abs();
+            this.CoveragePercent = ((double) this.TestsPresent/this.MembersPresent).AsPercent().Abs();
 
             List<MemberInfo> TestedMembers = TestMembers.WithAttribute<ITestAttribute>();
             TestedMembers.AddRange(TestMembers.WithAttribute<ITestedAttribute>());

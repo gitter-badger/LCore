@@ -9,11 +9,11 @@ using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions.Optional;
 using LCore.Interfaces;
+using LCore.LUnit;
 using LCore.Naming;
-using LCore.Tests;
 using Xunit;
 using Xunit.Abstractions;
-using static LCore.Extensions.L.Test.Categories;
+using static LCore.LUnit.LUnit.Categories;
 
 // ReSharper disable RedundantArgumentDefaultValue
 // ReSharper disable SuggestVarOrType_Elsewhere

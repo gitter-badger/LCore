@@ -4,10 +4,11 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using JetBrains.Annotations;
+using LCore.LUnit;
 using LCore.Numbers;
 using Xunit;
 using Xunit.Abstractions;
-using static LCore.Extensions.L.Test.Categories;
+using static LCore.LUnit.LUnit.Categories;
 // ReSharper disable StringLiteralTypo
 // ReSharper disable UnusedParameter.Global
 

@@ -6,10 +6,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using JetBrains.Annotations;
 using LCore.Extensions.Optional;
-using LCore.Tests;
 using NSort;
 using LCore.Naming;
 using LCore.Interfaces;
+using LCore.LUnit;
 
 namespace LCore.Extensions
     {

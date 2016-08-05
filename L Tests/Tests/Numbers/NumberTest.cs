@@ -3,9 +3,9 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using LCore.Numbers;
-using LCore.Tests;
+using LCore.LUnit;
 using Xunit;
-using static LCore.Extensions.L.Test.Categories;
+using static LCore.LUnit.LUnit.Categories;
 
 // ReSharper disable UnusedVariable
 // ReSharper disable EqualExpressionComparison
@@ -18,7 +18,7 @@ using static LCore.Extensions.L.Test.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
-    [Trait(Category, L.Test.Categories.Tools)]
+    [Trait(Category, LCore.LUnit.LUnit.Categories.Tools)]
     public class NumberTest
         {
         /// <exception cref="OverflowException">

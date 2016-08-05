@@ -2,8 +2,8 @@
 using JetBrains.Annotations;
 using LCore.Extensions.Optional;
 using LCore.Interfaces;
+using LCore.LUnit;
 using LCore.Numbers;
-using LCore.Tests;
 
 namespace LCore.Extensions
     {

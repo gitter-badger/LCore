@@ -3,11 +3,11 @@ using FluentAssertions;
 using LCore.Extensions;
 using LCore.Tools;
 using Xunit;
-using static LCore.Extensions.L.Test.Categories;
+using static LCore.LUnit.LUnit.Categories;
 
 namespace L_Tests.Tests.Tools
     {
-    [Trait(Category, L.Test.Categories.Tools)]
+    [Trait(Category, LCore.LUnit.LUnit.Categories.Tools)]
     public class SetTest
         {
         [Fact]

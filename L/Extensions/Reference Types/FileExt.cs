@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Threading;
 using JetBrains.Annotations;
 using LCore.Interfaces;
-using LCore.Tests;
+using LCore.LUnit;
 
 // ReSharper disable UnusedMember.Global
 

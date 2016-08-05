@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using LCore.Dynamic;
 using LCore.Extensions.Optional;
 using LCore.Interfaces;
-using LCore.Tests;
+using LCore.LUnit;
 
 // ReSharper disable ClassNeverInstantiated.Global
 
@@ -18,6 +18,7 @@ namespace LCore.Extensions
         #region Extensions +
 
         #region Not
+
         /// <summary>
         /// Inverts the output on a method returning a Boolean.
         /// </summary>
@@ -62,6 +63,7 @@ namespace LCore.Extensions
             {
             return L.Bool.Not.Surround(Condition);
             }
+
         #endregion
 
         #region If
@@ -76,12 +78,12 @@ namespace LCore.Extensions
             {
             return () =>
                 {
-                    if (Condition())
-                        {
-                        In();
-                        return true;
-                        }
-                    return false;
+                if (Condition())
+                    {
+                    In();
+                    return true;
+                    }
+                return false;
                 };
             }
 
@@ -93,12 +95,12 @@ namespace LCore.Extensions
             {
             return o =>
                 {
-                    if (Condition(o))
-                        {
-                        In();
-                        return true;
-                        }
-                    return false;
+                if (Condition(o))
+                    {
+                    In();
+                    return true;
+                    }
+                return false;
                 };
             }
 
@@ -110,12 +112,12 @@ namespace LCore.Extensions
             {
             return (o1, o2) =>
                 {
-                    if (Condition(o1, o2))
-                        {
-                        In();
-                        return true;
-                        }
-                    return false;
+                if (Condition(o1, o2))
+                    {
+                    In();
+                    return true;
+                    }
+                return false;
                 };
             }
 
@@ -127,12 +129,12 @@ namespace LCore.Extensions
             {
             return (o1, o2, o3) =>
                 {
-                    if (Condition(o1, o2, o3))
-                        {
-                        In();
-                        return true;
-                        }
-                    return false;
+                if (Condition(o1, o2, o3))
+                    {
+                    In();
+                    return true;
+                    }
+                return false;
                 };
             }
 
@@ -144,16 +146,17 @@ namespace LCore.Extensions
             {
             return (o1, o2, o3, o4) =>
                 {
-                    if (Condition(o1, o2, o3, o4))
-                        {
-                        In();
-                        return true;
-                        }
-                    return false;
+                if (Condition(o1, o2, o3, o4))
+                    {
+                    In();
+                    return true;
+                    }
+                return false;
                 };
             }
-        
+
         #endregion
+
         #region If - Func_T
 
         /// <summary>
@@ -162,7 +165,9 @@ namespace LCore.Extensions
         [Tested]
         public static Func<T> If<T>(this Func<T> In, Func<bool> Condition)
             {
-            return () => Condition() ? In() : default(T);
+            return () => Condition()
+                ? In()
+                : default(T);
             }
 
         /// <summary>
@@ -171,7 +176,9 @@ namespace LCore.Extensions
         [Tested]
         public static Func<T2, T1> If<T1, T2>(this Func<T1> In, Func<T2, bool> Condition)
             {
-            return o => Condition(o) ? In() : default(T1);
+            return o => Condition(o)
+                ? In()
+                : default(T1);
             }
 
         /// <summary>
@@ -180,7 +187,9 @@ namespace LCore.Extensions
         [Tested]
         public static Func<T2, T3, T1> If<T1, T2, T3>(this Func<T1> In, Func<T2, T3, bool> Condition)
             {
-            return (o1, o2) => Condition(o1, o2) ? In() : default(T1);
+            return (o1, o2) => Condition(o1, o2)
+                ? In()
+                : default(T1);
             }
 
         /// <summary>
@@ -189,7 +198,9 @@ namespace LCore.Extensions
         [Tested]
         public static Func<T2, T3, T4, T1> If<T1, T2, T3, T4>(this Func<T1> In, Func<T2, T3, T4, bool> Condition)
             {
-            return (o1, o2, o3) => Condition(o1, o2, o3) ? In() : default(T1);
+            return (o1, o2, o3) => Condition(o1, o2, o3)
+                ? In()
+                : default(T1);
             }
 
         /// <summary>
@@ -199,8 +210,11 @@ namespace LCore.Extensions
         public static Func<T2, T3, T4, T5, T1> If<T1, T2, T3, T4, T5>(this Func<T1> In,
             Func<T2, T3, T4, T5, bool> Condition)
             {
-            return (o1, o2, o3, o4) => Condition(o1, o2, o3, o4) ? In() : default(T1);
+            return (o1, o2, o3, o4) => Condition(o1, o2, o3, o4)
+                ? In()
+                : default(T1);
             }
+
         #endregion
 
         #endregion
@@ -261,6 +275,7 @@ namespace LCore.Extensions
             }
 
         #endregion
+
         /*
 
                 #region If - Multiple - Action_T
@@ -429,6 +444,7 @@ namespace LCore.Extensions
             }
 
         #endregion
+
         /*
                 #region If - Multiple - Func_T_T
 
@@ -552,16 +568,16 @@ namespace LCore.Extensions
             {
             return () =>
                 {
-                    if (In())
-                        {
-                        return true;
-                        }
-                    if (Condition())
-                        {
-                        Act();
-                        return true;
-                        }
-                    return false;
+                if (In())
+                    {
+                    return true;
+                    }
+                if (Condition())
+                    {
+                    Act();
+                    return true;
+                    }
+                return false;
                 };
             }
 
@@ -573,16 +589,16 @@ namespace LCore.Extensions
             {
             return o =>
                 {
-                    if (In(o))
-                        {
-                        return true;
-                        }
-                    if (Condition(o))
-                        {
-                        Act(o);
-                        return true;
-                        }
-                    return false;
+                if (In(o))
+                    {
+                    return true;
+                    }
+                if (Condition(o))
+                    {
+                    Act(o);
+                    return true;
+                    }
+                return false;
                 };
             }
 
@@ -595,16 +611,16 @@ namespace LCore.Extensions
             {
             return (o1, o2) =>
                 {
-                    if (In(o1, o2))
-                        {
-                        return true;
-                        }
-                    if (Condition(o1, o2))
-                        {
-                        Act(o1, o2);
-                        return true;
-                        }
-                    return false;
+                if (In(o1, o2))
+                    {
+                    return true;
+                    }
+                if (Condition(o1, o2))
+                    {
+                    Act(o1, o2);
+                    return true;
+                    }
+                return false;
                 };
             }
 
@@ -617,16 +633,16 @@ namespace LCore.Extensions
             {
             return (o1, o2, o3) =>
                 {
-                    if (In(o1, o2, o3))
-                        {
-                        return true;
-                        }
-                    if (Condition(o1, o2, o3))
-                        {
-                        Act(o1, o2, o3);
-                        return true;
-                        }
-                    return false;
+                if (In(o1, o2, o3))
+                    {
+                    return true;
+                    }
+                if (Condition(o1, o2, o3))
+                    {
+                    Act(o1, o2, o3);
+                    return true;
+                    }
+                return false;
                 };
             }
 
@@ -639,16 +655,16 @@ namespace LCore.Extensions
             {
             return (o1, o2, o3, o4) =>
                 {
-                    if (In(o1, o2, o3, o4))
-                        {
-                        return true;
-                        }
-                    if (Condition(o1, o2, o3, o4))
-                        {
-                        Act(o1, o2, o3, o4);
-                        return true;
-                        }
-                    return false;
+                if (In(o1, o2, o3, o4))
+                    {
+                    return true;
+                    }
+                if (Condition(o1, o2, o3, o4))
+                    {
+                    Act(o1, o2, o3, o4);
+                    return true;
+                    }
+                return false;
                 };
             }
 
@@ -660,12 +676,14 @@ namespace LCore.Extensions
             {
             return () =>
                 {
-                    var Out = In();
-                    if (Out != null && !Out.SafeEquals(default(U)) && (!(Out is bool) || (bool)(object)Out))
-                        {
-                        return Out;
-                        }
-                    return Condition() ? Act() : default(U);
+                var Out = In();
+                if (Out != null && !Out.SafeEquals(default(U)) && (!(Out is bool) || (bool) (object) Out))
+                    {
+                    return Out;
+                    }
+                return Condition()
+                    ? Act()
+                    : default(U);
                 };
             }
 
@@ -677,12 +695,14 @@ namespace LCore.Extensions
             {
             return o =>
                 {
-                    var Out = In(o);
-                    if (Out != null && !Out.SafeEquals(default(U)) && (!(Out is bool) || (bool)(object)Out))
-                        {
-                        return Out;
-                        }
-                    return Condition(o) ? Act(o) : default(U);
+                var Out = In(o);
+                if (Out != null && !Out.SafeEquals(default(U)) && (!(Out is bool) || (bool) (object) Out))
+                    {
+                    return Out;
+                    }
+                return Condition(o)
+                    ? Act(o)
+                    : default(U);
                 };
             }
 
@@ -695,12 +715,14 @@ namespace LCore.Extensions
             {
             return (o1, o2) =>
                 {
-                    var Out = In(o1, o2);
-                    if (Out != null && !Out.SafeEquals(default(U)) && (!(Out is bool) || (bool)(object)Out))
-                        {
-                        return Out;
-                        }
-                    return Condition(o1, o2) ? Act(o1, o2) : default(U);
+                var Out = In(o1, o2);
+                if (Out != null && !Out.SafeEquals(default(U)) && (!(Out is bool) || (bool) (object) Out))
+                    {
+                    return Out;
+                    }
+                return Condition(o1, o2)
+                    ? Act(o1, o2)
+                    : default(U);
                 };
             }
 
@@ -713,12 +735,14 @@ namespace LCore.Extensions
             {
             return (o1, o2, o3) =>
                 {
-                    var Out = In(o1, o2, o3);
-                    if (Out != null && !Out.SafeEquals(default(U)) && (!(Out is bool) || (bool)(object)Out))
-                        {
-                        return Out;
-                        }
-                    return Condition(o1, o2, o3) ? Act(o1, o2, o3) : default(U);
+                var Out = In(o1, o2, o3);
+                if (Out != null && !Out.SafeEquals(default(U)) && (!(Out is bool) || (bool) (object) Out))
+                    {
+                    return Out;
+                    }
+                return Condition(o1, o2, o3)
+                    ? Act(o1, o2, o3)
+                    : default(U);
                 };
             }
 
@@ -731,12 +755,14 @@ namespace LCore.Extensions
             {
             return (o1, o2, o3, o4) =>
                 {
-                    var Out = In(o1, o2, o3, o4);
-                    if (Out != null && !Out.SafeEquals(default(U)) && (!(Out is bool) || (bool)(object)Out))
-                        {
-                        return Out;
-                        }
-                    return Condition(o1, o2, o3, o4) ? Act(o1, o2, o3, o4) : default(U);
+                var Out = In(o1, o2, o3, o4);
+                if (Out != null && !Out.SafeEquals(default(U)) && (!(Out is bool) || (bool) (object) Out))
+                    {
+                    return Out;
+                    }
+                return Condition(o1, o2, o3, o4)
+                    ? Act(o1, o2, o3, o4)
+                    : default(U);
                 };
             }
 
@@ -753,10 +779,10 @@ namespace LCore.Extensions
         public static Action Else(this Func<bool> In, Action Act)
             {
             return () =>
-            {
+                {
                 if (!In())
                     Act();
-            };
+                };
             }
 
         /// <summary>
@@ -767,8 +793,8 @@ namespace LCore.Extensions
             {
             return o =>
                 {
-                    if (!In(o))
-                        Act(o);
+                if (!In(o))
+                    Act(o);
                 };
             }
 
@@ -779,10 +805,10 @@ namespace LCore.Extensions
         public static Action<T1, T2> Else<T1, T2>(this Func<T1, T2, bool> In, Action<T1, T2> Act)
             {
             return (o1, o2) =>
-            {
+                {
                 if (!In(o1, o2))
                     Act(o1, o2);
-            };
+                };
             }
 
         /// <summary>
@@ -792,10 +818,10 @@ namespace LCore.Extensions
         public static Action<T1, T2, T3> Else<T1, T2, T3>(this Func<T1, T2, T3, bool> In, Action<T1, T2, T3> Act)
             {
             return (o1, o2, o3) =>
-            {
+                {
                 if (!In(o1, o2, o3))
                     Act(o1, o2, o3);
-            };
+                };
             }
 
         /// <summary>
@@ -805,10 +831,10 @@ namespace LCore.Extensions
         public static Action<T1, T2, T3, T4> Else<T1, T2, T3, T4>(this Func<T1, T2, T3, T4, bool> In, Action<T1, T2, T3, T4> Act)
             {
             return (o1, o2, o3, o4) =>
-            {
+                {
                 if (!In(o1, o2, o3, o4))
                     Act(o1, o2, o3, o4);
-            };
+                };
             }
 
         #endregion
@@ -913,7 +939,7 @@ namespace LCore.Extensions
         #endregion
 
         #endregion
-        
+
         #region Unless- Multiple
 
         #region Unless - Multiple - Action
@@ -971,6 +997,7 @@ namespace LCore.Extensions
             }
 
         #endregion
+
         /*
 
                 #region Unless - Multiple - Action_T
@@ -1142,6 +1169,7 @@ namespace LCore.Extensions
             }
 
         #endregion
+
         /*
 
                 #region Unless - Multiple - Func_T_T
@@ -1270,13 +1298,13 @@ namespace LCore.Extensions
             {
             return () =>
                 {
-                    bool Out = true;
-                    Conditions.While(o =>
-                        {
-                            Out = o();
-                            return Out;
-                        });
+                bool Out = true;
+                Conditions.While(o =>
+                    {
+                    Out = o();
                     return Out;
+                    });
+                return Out;
                 };
             }
 
@@ -1288,13 +1316,13 @@ namespace LCore.Extensions
             {
             return o1 =>
                 {
-                    bool Out = true;
-                    Conditions.While(o2 =>
-                        {
-                            Out = o2(o1);
-                            return Out;
-                        });
+                bool Out = true;
+                Conditions.While(o2 =>
+                    {
+                    Out = o2(o1);
                     return Out;
+                    });
+                return Out;
                 };
             }
 
@@ -1306,13 +1334,13 @@ namespace LCore.Extensions
             {
             return (o1, o2) =>
                 {
-                    bool Out = true;
-                    Conditions.While(o3 =>
-                        {
-                            Out = o3(o1, o2);
-                            return Out;
-                        });
+                bool Out = true;
+                Conditions.While(o3 =>
+                    {
+                    Out = o3(o1, o2);
                     return Out;
+                    });
+                return Out;
                 };
             }
 
@@ -1324,13 +1352,13 @@ namespace LCore.Extensions
             {
             return (o1, o2, o3) =>
                 {
-                    bool Out = true;
-                    Conditions.While(o4 =>
-                        {
-                            Out = o4(o1, o2, o3);
-                            return Out;
-                        });
+                bool Out = true;
+                Conditions.While(o4 =>
+                    {
+                    Out = o4(o1, o2, o3);
                     return Out;
+                    });
+                return Out;
                 };
             }
 
@@ -1343,13 +1371,13 @@ namespace LCore.Extensions
             {
             return (o1, o2, o3, o4) =>
                 {
-                    bool Out = true;
-                    Conditions.While(o5 =>
-                        {
-                            Out = o5(o1, o2, o3, o4);
-                            return Out;
-                        });
+                bool Out = true;
+                Conditions.While(o5 =>
+                    {
+                    Out = o5(o1, o2, o3, o4);
                     return Out;
+                    });
+                return Out;
                 };
             }
 
@@ -1365,13 +1393,13 @@ namespace LCore.Extensions
             {
             return () =>
                 {
-                    bool Out = false;
-                    Conditions.While(o =>
-                        {
-                            Out = o();
-                            return !Out;
-                        });
-                    return Out;
+                bool Out = false;
+                Conditions.While(o =>
+                    {
+                    Out = o();
+                    return !Out;
+                    });
+                return Out;
                 };
             }
 
@@ -1383,13 +1411,13 @@ namespace LCore.Extensions
             {
             return o1 =>
                 {
-                    bool Out = false;
-                    Conditions.While(o2 =>
-                        {
-                            Out = o2(o1);
-                            return !Out;
-                        });
-                    return Out;
+                bool Out = false;
+                Conditions.While(o2 =>
+                    {
+                    Out = o2(o1);
+                    return !Out;
+                    });
+                return Out;
                 };
             }
 
@@ -1401,13 +1429,13 @@ namespace LCore.Extensions
             {
             return (o1, o2) =>
                 {
-                    bool Out = false;
-                    Conditions.While(o3 =>
-                        {
-                            Out = o3(o1, o2);
-                            return !Out;
-                        });
-                    return Out;
+                bool Out = false;
+                Conditions.While(o3 =>
+                    {
+                    Out = o3(o1, o2);
+                    return !Out;
+                    });
+                return Out;
                 };
             }
 
@@ -1419,13 +1447,13 @@ namespace LCore.Extensions
             {
             return (o1, o2, o3) =>
                 {
-                    bool Out = false;
-                    Conditions.While(o4 =>
-                        {
-                            Out = o4(o1, o2, o3);
-                            return !Out;
-                        });
-                    return Out;
+                bool Out = false;
+                Conditions.While(o4 =>
+                    {
+                    Out = o4(o1, o2, o3);
+                    return !Out;
+                    });
+                return Out;
                 };
             }
 
@@ -1438,13 +1466,13 @@ namespace LCore.Extensions
             {
             return (o1, o2, o3, o4) =>
                 {
-                    bool Out = false;
-                    Conditions.While(o5 =>
-                        {
-                            Out = o5(o1, o2, o3, o4);
-                            return !Out;
-                        });
-                    return Out;
+                bool Out = false;
+                Conditions.While(o5 =>
+                    {
+                    Out = o5(o1, o2, o3, o4);
+                    return !Out;
+                    });
+                return Out;
                 };
             }
 
@@ -1461,64 +1489,110 @@ namespace LCore.Extensions
         public static class Bool
             {
             #region Boolean Lambdas - Shorthand +
+
             /// <summary>
             /// Returns a function that returns true
             /// </summary>
             public static readonly Func<bool> True = () => true;
+
             /// <summary>
             /// Returns a function that returns false
             /// </summary>
             public static readonly Func<bool> False = () => false;
+
             /// <summary>
             /// Returns a function that inverts the boolean it is sent.
             /// </summary>
             public static readonly Func<bool, bool> Not = o => !o;
+
             /// <summary>
             /// Returns a function that ANDs the booleans that are sent
             /// </summary>
             public static readonly Func<bool, bool, bool> And = (o1, o2) => o1 && o2;
+
             /// <summary>
             /// Returns a function that ORs the booleans that are sent
             /// </summary>
             public static readonly Func<bool, bool, bool> Or = (o1, o2) => o1 || o2;
+
             /// <summary>
             /// Returns a function that XORs the booleans that are sent
             /// </summary>
             public static readonly Func<bool, bool, bool> Xor = (o1, o2) => o1 ^ o2;
+
             #endregion
 
             // Explode
+
             #region Logic Lambdas +
+
             #region If
+
             /// <summary>
             /// Logical If Statement. If the condition passed is true, the action passed is executed.
             /// </summary>
-            [CodeExplodeExtensionMethod("If", new[] { "Condition", "Action" }, Comments.If)]
-            public static Func<Func/*GF*/<bool>, Action, Func/*GF*/<bool>> L_If_A/*MF*/()
+            [CodeExplodeExtensionMethod("If", new[] {"Condition", "Action"}, Comments.If)]
+            public static Func<Func /*GF*/<bool>, Action, Func /*GF*/<bool>> L_If_A /*MF*/()
                 {
-                return (Condition, Action) => { return () => { if (Condition()) { Action(); return true; } return false; }; };
+                return (Condition, Action) =>
+                    {
+                    return () =>
+                        {
+                        if (Condition())
+                            {
+                            Action();
+                            return true;
+                            }
+                        return false;
+                        };
+                    };
                 }
+
             /// <summary>
             /// Logical If Statement. If the condition passed is true, the action passed is executed.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("If", new[] { "Condition", "Action" }, Comments.If)]
+            [CodeExplodeExtensionMethod("If", new[] {"Condition", "Action"}, Comments.If)]
             public static Func<Func<T1, bool>, Action<T1>, Func<T1, bool>> L_If_A<T1>()
                 {
-                return (Condition, Action) => { return o => { if (Condition(o)) { Action(o); return true; } return false; }; };
+                return (Condition, Action) =>
+                    {
+                    return o =>
+                        {
+                        if (Condition(o))
+                            {
+                            Action(o);
+                            return true;
+                            }
+                        return false;
+                        };
+                    };
                 }
+
             /// <summary>
             /// Logical If Statement. If the condition passed is true, the action passed is executed.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("If", new[] { "Condition", "Action" }, Comments.If)]
+            [CodeExplodeExtensionMethod("If", new[] {"Condition", "Action"}, Comments.If)]
             public static Func<Func<T1, T2, bool>, Action<T1, T2>, Func<T1, T2, bool>> L_If_A<T1, T2>()
                 {
-                return (Condition, Action) => { return (o1, o2) => { if (Condition(o1, o2)) { Action(o1, o2); return true; } return false; }; };
+                return (Condition, Action) =>
+                    {
+                    return (o1, o2) =>
+                        {
+                        if (Condition(o1, o2))
+                            {
+                            Action(o1, o2);
+                            return true;
+                            }
+                        return false;
+                        };
+                    };
                 }
+
             /// <summary>
             /// Logical If Statement. If the condition passed is true, the action passed is executed.
             /// </summary>
@@ -1526,11 +1600,23 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("If", new[] { "Condition", "Action" }, Comments.If)]
+            [CodeExplodeExtensionMethod("If", new[] {"Condition", "Action"}, Comments.If)]
             public static Func<Func<T1, T2, T3, bool>, Action<T1, T2, T3>, Func<T1, T2, T3, bool>> L_If_A<T1, T2, T3>()
                 {
-                return (Condition, Action) => { return (o1, o2, o3) => { if (Condition(o1, o2, o3)) { Action(o1, o2, o3); return true; } return false; }; };
+                return (Condition, Action) =>
+                    {
+                    return (o1, o2, o3) =>
+                        {
+                        if (Condition(o1, o2, o3))
+                            {
+                            Action(o1, o2, o3);
+                            return true;
+                            }
+                        return false;
+                        };
+                    };
                 }
+
             /// <summary>
             /// Logical If Statement. If the condition passed is true, the action passed is executed.
             /// </summary>
@@ -1539,32 +1625,56 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("If", new[] { "Condition", "Action" }, Comments.If)]
+            [CodeExplodeExtensionMethod("If", new[] {"Condition", "Action"}, Comments.If)]
             public static Func<Func<T1, T2, T3, T4, bool>, Action<T1, T2, T3, T4>, Func<T1, T2, T3, T4, bool>> L_If_A<T1, T2, T3, T4>()
                 {
-                return (Condition, Action) => { return (o1, o2, o3, o4) => { if (Condition(o1, o2, o3, o4)) { Action(o1, o2, o3, o4); return true; } return false; }; };
+                return (Condition, Action) =>
+                    {
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (Condition(o1, o2, o3, o4))
+                            {
+                            Action(o1, o2, o3, o4);
+                            return true;
+                            }
+                        return false;
+                        };
+                    };
                 }
+
             /// <summary>
             /// Logical If Statement for a Func. If the condition passed is true, the action passed is executed and its result returned. Otherwise, the result will be the default value for U.
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("If", new[] { "Condition", "Action" }, Comments.If)]
+            [CodeExplodeExtensionMethod("If", new[] {"Condition", "Action"}, Comments.If)]
             public static Func<Func<bool>, Func<U>, Func<U>> L_If_F<U>()
                 {
-                return (Condition, Action) => { return () => Condition() ? Action() : default(U); };
+                return (Condition, Action) =>
+                    {
+                    return () => Condition()
+                        ? Action()
+                        : default(U);
+                    };
                 }
+
             /// <summary>
             /// Logical If Statement for a Func. If the condition passed is true, the action passed is executed and its result returned. Otherwise, the result will be the default value for U.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("If", new[] { "Condition", "Action" }, Comments.If)]
+            [CodeExplodeExtensionMethod("If", new[] {"Condition", "Action"}, Comments.If)]
             public static Func<Func<T1, bool>, Func<T1, U>, Func<T1, U>> L_If_F<T1, U>()
                 {
-                return (Condition, Action) => { return o1 => Condition(o1) ? Action(o1) : default(U); };
+                return (Condition, Action) =>
+                    {
+                    return o1 => Condition(o1)
+                        ? Action(o1)
+                        : default(U);
+                    };
                 }
+
             /// <summary>
             /// Logical If Statement for a Func. If the condition passed is true, the action passed is executed and its result returned. Otherwise, the result will be the default value for U.
             /// </summary>
@@ -1572,11 +1682,17 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("If", new[] { "Condition", "Action" }, Comments.If)]
+            [CodeExplodeExtensionMethod("If", new[] {"Condition", "Action"}, Comments.If)]
             public static Func<Func<T1, T2, bool>, Func<T1, T2, U>, Func<T1, T2, U>> L_If_F<T1, T2, U>()
                 {
-                return (Condition, Action) => { return (o1, o2) => Condition(o1, o2) ? Action(o1, o2) : default(U); };
+                return (Condition, Action) =>
+                    {
+                    return (o1, o2) => Condition(o1, o2)
+                        ? Action(o1, o2)
+                        : default(U);
+                    };
                 }
+
             /// <summary>
             /// Logical If Statement for a Func. If the condition passed is true, the action passed is executed and its result returned. Otherwise, the result will be the default value for U.
             /// </summary>
@@ -1585,11 +1701,17 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("If", new[] { "Condition", "Action" }, Comments.If)]
+            [CodeExplodeExtensionMethod("If", new[] {"Condition", "Action"}, Comments.If)]
             public static Func<Func<T1, T2, T3, bool>, Func<T1, T2, T3, U>, Func<T1, T2, T3, U>> L_If_F<T1, T2, T3, U>()
                 {
-                return (Condition, Action) => { return (o1, o2, o3) => Condition(o1, o2, o3) ? Action(o1, o2, o3) : default(U); };
+                return (Condition, Action) =>
+                    {
+                    return (o1, o2, o3) => Condition(o1, o2, o3)
+                        ? Action(o1, o2, o3)
+                        : default(U);
+                    };
                 }
+
             /// <summary>
             /// Logical If Statement for a Func. If the condition passed is true, the action passed is executed and its result returned. Otherwise, the result will be the default value for U.
             /// </summary>
@@ -1599,43 +1721,81 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("If", new[] { "Condition", "Action" }, Comments.If)]
+            [CodeExplodeExtensionMethod("If", new[] {"Condition", "Action"}, Comments.If)]
             public static Func<Func<T1, T2, T3, T4, bool>, Func<T1, T2, T3, T4, U>, Func<T1, T2, T3, T4, U>> L_If_F<T1, T2, T3, T4, U>()
                 {
-                return (Condition, Action) => { return (o1, o2, o3, o4) => Condition(o1, o2, o3, o4) ? Action(o1, o2, o3, o4) : default(U); };
+                return (Condition, Action) =>
+                    {
+                    return (o1, o2, o3, o4) => Condition(o1, o2, o3, o4)
+                        ? Action(o1, o2, o3, o4)
+                        : default(U);
+                    };
                 }
+
             #endregion
+
             #region If Else
+
             /// <summary>
             /// Logical If Else Statement. If the condition passed is true, the first action passed is executed. Otherwise, the second action is executed.
             /// </summary>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("IfElse", new[] { "Condition", "Action", "Else" }, Comments.IfElse)]
+            [CodeExplodeExtensionMethod("IfElse", new[] {"Condition", "Action", "Else"}, Comments.IfElse)]
             public static Func<Func<bool>, Action, Action, Action> L_IfElse()
                 {
-                return (Condition, Action, Else) => { return () => { if (Condition()) Action(); else Else(); }; };
+                return (Condition, Action, Else) =>
+                    {
+                    return () =>
+                        {
+                        if (Condition())
+                            Action();
+                        else
+                            Else();
+                        };
+                    };
                 }
+
             /// <summary>
             /// Logical If Else Statement. If the condition passed is true, the first action passed is executed. Otherwise, the second action is executed.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("IfElse", new[] { "Condition", "Action", "Else" }, Comments.IfElse)]
+            [CodeExplodeExtensionMethod("IfElse", new[] {"Condition", "Action", "Else"}, Comments.IfElse)]
             public static Func<Func<T1, bool>, Action<T1>, Action<T1>, Action<T1>> L_IfElse<T1>()
                 {
-                return (Condition, Action, Else) => { return o1 => { if (Condition(o1)) Action(o1); else Else(o1); }; };
+                return (Condition, Action, Else) =>
+                    {
+                    return o1 =>
+                        {
+                        if (Condition(o1))
+                            Action(o1);
+                        else
+                            Else(o1);
+                        };
+                    };
                 }
+
             /// <summary>
             /// Logical If Else Statement. If the condition passed is true, the first action passed is executed. Otherwise, the second action is executed.
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("IfElse", new[] { "Condition", "Action", "Else" }, Comments.IfElse)]
+            [CodeExplodeExtensionMethod("IfElse", new[] {"Condition", "Action", "Else"}, Comments.IfElse)]
             public static Func<Func<T1, T2, bool>, Action<T1, T2>, Action<T1, T2>, Action<T1, T2>> L_IfElse<T1, T2>()
                 {
-                return (Condition, Action, Else) => { return (o1, o2) => { if (Condition(o1, o2)) Action(o1, o2); else Else(o1, o2); }; };
+                return (Condition, Action, Else) =>
+                    {
+                    return (o1, o2) =>
+                        {
+                        if (Condition(o1, o2))
+                            Action(o1, o2);
+                        else
+                            Else(o1, o2);
+                        };
+                    };
                 }
+
             /// <summary>
             /// Logical If Else Statement. If the condition passed is true, the first action passed is executed. Otherwise, the second action is executed.
             /// </summary>
@@ -1643,11 +1803,21 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("IfElse", new[] { "Condition", "Action", "Else" }, Comments.IfElse)]
+            [CodeExplodeExtensionMethod("IfElse", new[] {"Condition", "Action", "Else"}, Comments.IfElse)]
             public static Func<Func<T1, T2, T3, bool>, Action<T1, T2, T3>, Action<T1, T2, T3>, Action<T1, T2, T3>> L_IfElse<T1, T2, T3>()
                 {
-                return (Condition, Action, Else) => { return (o1, o2, o3) => { if (Condition(o1, o2, o3)) Action(o1, o2, o3); else Else(o1, o2, o3); }; };
+                return (Condition, Action, Else) =>
+                    {
+                    return (o1, o2, o3) =>
+                        {
+                        if (Condition(o1, o2, o3))
+                            Action(o1, o2, o3);
+                        else
+                            Else(o1, o2, o3);
+                        };
+                    };
                 }
+
             /// <summary>
             /// Logical If Else Statement. If the condition passed is true, the first action passed is executed. Otherwise, the second action is executed.
             /// </summary>
@@ -1656,12 +1826,24 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("IfElse", new[] { "Condition", "Action", "Else" }, Comments.IfElse)]
-            public static Func<Func<T1, T2, T3, T4, bool>, Action<T1, T2, T3, T4>, Action<T1, T2, T3, T4>, Action<T1, T2, T3, T4>> L_IfElse<T1, T2, T3, T4>()
+            [CodeExplodeExtensionMethod("IfElse", new[] {"Condition", "Action", "Else"}, Comments.IfElse)]
+            public static Func<Func<T1, T2, T3, T4, bool>, Action<T1, T2, T3, T4>, Action<T1, T2, T3, T4>, Action<T1, T2, T3, T4>> L_IfElse
+                <T1, T2, T3, T4>()
                 {
-                return (Condition, Action, Else) => { return (o1, o2, o3, o4) => { if (Condition(o1, o2, o3, o4)) Action(o1, o2, o3, o4); else Else(o1, o2, o3, o4); }; };
+                return (Condition, Action, Else) =>
+                    {
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (Condition(o1, o2, o3, o4))
+                            Action(o1, o2, o3, o4);
+                        else
+                            Else(o1, o2, o3, o4);
+                        };
+                    };
                 }
+
             #endregion
+
             #endregion
 
             internal class Comments

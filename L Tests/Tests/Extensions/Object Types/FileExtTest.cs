@@ -6,7 +6,8 @@ using FluentAssertions;
 using JetBrains.Annotations;
 using Xunit;
 using Xunit.Abstractions;
-using static LCore.Extensions.L.Test.Categories;
+using LCore.LUnit;
+using static LCore.LUnit.LUnit.Categories;
 
 namespace L_Tests.Tests.Extensions
     {

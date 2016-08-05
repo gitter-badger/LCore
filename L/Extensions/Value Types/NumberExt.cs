@@ -5,8 +5,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 using LCore.Interfaces;
+using LCore.LUnit;
 using LCore.Numbers;
-using LCore.Tests;
+
 
 // ReSharper disable RedundantCast
 // ReSharper disable RedundantExplicitArrayCreation

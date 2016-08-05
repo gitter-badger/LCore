@@ -728,58 +728,5 @@ namespace LCore.Extensions
             }
 
         #endregion
-
-        /// <summary>
-        /// Contains strings and data for unit test purposes.
-        /// </summary>
-        public static class Test
-            {
-            /// <summary>
-            /// Unit test categories
-            /// </summary>
-            public static class Categories
-                {
-                /// <summary>
-                /// Category value name
-                /// </summary>
-                public const string Category = nameof(Category);
-
-                /// <summary>
-                /// Category value name
-                /// </summary>
-                public const string StaticMethods = "Static Methods";
-
-                /// <summary>
-                /// Attribute test category name
-                /// </summary>
-                public const string AttributeTests = "Attribute Tests";
-
-                /// <summary>
-                /// Tools test category name
-                /// </summary>
-                public const string Tools = nameof(Tools);
-
-                /// <summary>
-                /// Unit Tests category name
-                /// </summary>
-                public const string UnitTests = "Unit Tests";
-
-                /// <summary>
-                /// Internal category name
-                /// </summary>
-                public const string Internal = nameof(Internal);
-
-                /// <summary>
-                /// NullabilityTests category name
-                /// </summary>
-                public const string NullabilityTests = "Nullability Tests";
-
-                /// <summary>
-                /// AssemblyTest category name
-                /// </summary>
-                public const string AssemblyTest = "Assembly Test";
-                
-                }
-            }
         }
     }

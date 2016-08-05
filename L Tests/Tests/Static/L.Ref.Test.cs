@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using FluentAssertions;
 using Xunit;
-using static LCore.Extensions.L.Test.Categories;
+using static LCore.LUnit.LUnit.Categories;
 
 // ReSharper disable StringLiteralTypo
 // ReSharper disable UnusedParameter.Global
@@ -23,10 +23,9 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_GetNamespaceTypes()
             {
-            L.Ref.GetNamespaceTypes("L_Tests").ShouldBeEquivalentTo(new List<Type>
+            L.Ref.GetNamespaceTypes("L_Tests.Tests").ShouldBeEquivalentTo(new List<Type>
                 {
-                typeof(AssemblyTester),
-                typeof(ExtensionTester)
+                typeof(LCoreAssemblyTester)
                 });
 
             L.Ref.GetNamespaceTypes("LCore", typeof(L)).Should().Equal();

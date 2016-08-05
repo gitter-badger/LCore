@@ -7,7 +7,7 @@ using System.Xml;
 using LCore.Extensions;
 using LCore.Interfaces;
 using LCore.Tools;
-using LCore.Tests;
+using LCore.LUnit;
 
 namespace LCore.Extensions
     {

@@ -7,7 +7,8 @@ using JetBrains.Annotations;
 using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
-using static LCore.Extensions.L.Test.Categories;
+using static LCore.LUnit.LUnit.Categories;
+using LCore.LUnit;
 
 namespace L_Tests.Tests.Extensions
     {
@@ -17,7 +18,6 @@ namespace L_Tests.Tests.Extensions
         protected override Type[] TestType => new[] {typeof(ThreadExt)};
 
         [Fact]
-        
         public void Test_Async_Action()
             {
             bool Success = false;
@@ -153,7 +153,6 @@ namespace L_Tests.Tests.Extensions
             }
 
         [Fact]
-        
         public void Test_Async_Action_T()
             {
             string Success = "";
@@ -590,7 +589,6 @@ namespace L_Tests.Tests.Extensions
             }
 
         [Fact]
-        
         public void Test_MethodProfileCache()
             {
             const string ProfileName = "TestProfile";
