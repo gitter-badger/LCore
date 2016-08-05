@@ -11,11 +11,8 @@ using static LCore.LUnit.LUnit.Categories;
 namespace L_Tests.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
-    public class LoopExtTest : ExtensionTester
+    public class LoopExtTest : XUnitOutputTester
         {
-        protected override Type[] TestType => new[] { typeof(LoopExt) };
-
-
         [Fact]
         public void Test_To_0()
             {

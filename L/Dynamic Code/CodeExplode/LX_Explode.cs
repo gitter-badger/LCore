@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using LCore.Tools;
+using System.Diagnostics.CodeAnalysis;
 
 // ReSharper disable All
 
@@ -11,6 +12,7 @@ namespace LCore.Extensions
     /// <summary>
     /// Logical function explosion static methods.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class LX_Explode
         {
         #region Method Explosions

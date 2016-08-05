@@ -12,6 +12,7 @@ namespace LCore.Dynamic
     /// Provides internal methods to take a Type or MemberInfo and 
     /// return a string representation of methods, properties, etc.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     internal static class LambdaExt
         {
         #region Extensions +

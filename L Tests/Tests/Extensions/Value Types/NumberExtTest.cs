@@ -1,5 +1,4 @@
-﻿
-using LCore.Extensions;
+﻿using LCore.Extensions;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
@@ -9,23 +8,20 @@ using LCore.Numbers;
 using Xunit;
 using Xunit.Abstractions;
 using static LCore.LUnit.LUnit.Categories;
+
 // ReSharper disable StringLiteralTypo
 // ReSharper disable UnusedParameter.Global
 
 namespace L_Tests.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
-    public class NumberExtTest : ExtensionTester
+    public class NumberExtTest : XUnitOutputTester
         {
-        protected override Type[] TestType => new[] { typeof(NumberExt) };
-
-
         [Fact]
-        
         public void Test_Max()
             {
-            ((IComparable)null).Max().Should().Be(null);
-            ((IComparable)null).Max(1, 2, 3, 14, 5, 6, 7).Should().Be(14);
+            ((IComparable) null).Max().Should().Be(null);
+            ((IComparable) null).Max(1, 2, 3, 14, 5, 6, 7).Should().Be(14);
 
             50.Max(1, 2, 3, 14, 5, 6, 7).Should().Be(50);
             5.Max(1, 2, 3, 14, 5, 6, 7).Should().Be(14);
@@ -38,11 +34,10 @@ namespace L_Tests.Tests.Extensions
             }
 
         [Fact]
-        
         public void Test_Min()
             {
-            ((IComparable)null).Min().Should().Be(null);
-            ((IComparable)null).Min(1, 2, 3, 14, 5, 6, 7).Should().Be(1);
+            ((IComparable) null).Min().Should().Be(null);
+            ((IComparable) null).Min(1, 2, 3, 14, 5, 6, 7).Should().Be(1);
 
             50.Min(1, 2, 3, 14, 5, 6, 7).Should().Be(1);
             (-5).Min(1, 2, 3, 14, 5, 6, 7).Should().Be(-5);
@@ -78,17 +73,17 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_Wrap()
             {
-            5.Wrap().Should().BeOfType<IntNumber>().And.Be((IntNumber)5);
-            5u.Wrap().Should().BeOfType<UIntNumber>().And.Be((UIntNumber)5u);
-            5L.Wrap().Should().BeOfType<LongNumber>().And.Be((LongNumber)5L);
-            ((short)5).Wrap().Should().BeOfType<ShortNumber>().And.Be((ShortNumber)(short)5);
-            ((ushort)5).Wrap().Should().BeOfType<UShortNumber>().And.Be((UShortNumber)(ushort)5);
-            ((byte)5).Wrap().Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)5);
-            ((sbyte)5).Wrap().Should().BeOfType<SByteNumber>().And.Be((SByteNumber)(sbyte)5);
-            5uL.Wrap().Should().BeOfType<ULongNumber>().And.Be((ULongNumber)5uL);
-            5m.Wrap().Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)5m);
-            ((double)5).Wrap().Should().BeOfType<DoubleNumber>().And.Be((DoubleNumber)5d);
-            5f.Wrap().Should().BeOfType<FloatNumber>().And.Be((FloatNumber)5f);
+            5.Wrap().Should().BeOfType<IntNumber>().And.Be((IntNumber) 5);
+            5u.Wrap().Should().BeOfType<UIntNumber>().And.Be((UIntNumber) 5u);
+            5L.Wrap().Should().BeOfType<LongNumber>().And.Be((LongNumber) 5L);
+            ((short) 5).Wrap().Should().BeOfType<ShortNumber>().And.Be((ShortNumber) (short) 5);
+            ((ushort) 5).Wrap().Should().BeOfType<UShortNumber>().And.Be((UShortNumber) (ushort) 5);
+            ((byte) 5).Wrap().Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 5);
+            ((sbyte) 5).Wrap().Should().BeOfType<SByteNumber>().And.Be((SByteNumber) (sbyte) 5);
+            5uL.Wrap().Should().BeOfType<ULongNumber>().And.Be((ULongNumber) 5uL);
+            5m.Wrap().Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) 5m);
+            ((double) 5).Wrap().Should().BeOfType<DoubleNumber>().And.Be((DoubleNumber) 5d);
+            5f.Wrap().Should().BeOfType<FloatNumber>().And.Be((FloatNumber) 5f);
 
             new TestClass().Wrap().Should().Be(null);
             }
@@ -96,27 +91,27 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_WrapString()
             {
-            ((string)null).Wrap().Should().BeNull();
+            ((string) null).Wrap().Should().BeNull();
             "".Wrap().Should().BeNull();
 
-            "0".Wrap().Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)0);
-            "5".Wrap().Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)5);
-            "5.3".Wrap().Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)5.3m);
-            "-5".Wrap().Should().BeOfType<SByteNumber>().And.Be((SByteNumber)(sbyte)-5);
-            "-5.5".Wrap().Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)(-5.5m));
+            "0".Wrap().Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 0);
+            "5".Wrap().Should().BeOfType<ByteNumber>().And.Be((ByteNumber) (byte) 5);
+            "5.3".Wrap().Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) 5.3m);
+            "-5".Wrap().Should().BeOfType<SByteNumber>().And.Be((SByteNumber) (sbyte) -5);
+            "-5.5".Wrap().Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber) (-5.5m));
             }
 
         [Fact]
         public void Test_DecimalPlaces()
             {
             1.DecimalPlaces().Should().Be(0);
-            ((short)1).DecimalPlaces().Should().Be(0);
+            ((short) 1).DecimalPlaces().Should().Be(0);
             1L.DecimalPlaces().Should().Be(0);
             1uL.DecimalPlaces().Should().Be(0);
-            ((char)0).DecimalPlaces().Should().Be(0);
-            ((char)0).DecimalPlaces().Should().Be(0);
-            ((byte)0).DecimalPlaces().Should().Be(0);
-            ((sbyte)0).DecimalPlaces().Should().Be(0);
+            ((char) 0).DecimalPlaces().Should().Be(0);
+            ((char) 0).DecimalPlaces().Should().Be(0);
+            ((byte) 0).DecimalPlaces().Should().Be(0);
+            ((sbyte) 0).DecimalPlaces().Should().Be(0);
 
             5.5m.DecimalPlaces().Should().Be(1);
             5.50032m.DecimalPlaces().Should().Be(5);
@@ -153,12 +148,13 @@ namespace L_Tests.Tests.Extensions
 
             float.Epsilon.DecimalPlaces().Should().Be(51);
             double.Epsilon.DecimalPlaces().Should().Be(338);
-            ((IConvertible)new DecimalNumber().TypePrecision.GetValue()).ConvertTo<decimal>()?.DecimalPlaces().Should().Be(28);
+            ((IConvertible) new DecimalNumber().TypePrecision.GetValue()).ConvertTo<decimal>()?.DecimalPlaces().Should().Be(28);
 
             50d.DecimalPlaces().Should().Be(0);
             50.0m.DecimalPlaces().Should().Be(0);
             50f.DecimalPlaces().Should().Be(0);
             }
+
         #region Helpers
 
         [ExcludeFromCodeCoverage]
@@ -183,92 +179,92 @@ namespace L_Tests.Tests.Extensions
                 return default(TypeCode);
                 }
 
-            public bool ToBoolean([CanBeNull]IFormatProvider Provider)
+            public bool ToBoolean([CanBeNull] IFormatProvider Provider)
                 {
                 return false;
                 }
 
-            public char ToChar([CanBeNull]IFormatProvider Provider)
+            public char ToChar([CanBeNull] IFormatProvider Provider)
                 {
-                return (char)0;
+                return (char) 0;
                 }
 
-            public sbyte ToSByte([CanBeNull]IFormatProvider Provider)
-                {
-                return 0;
-                }
-
-            public byte ToByte([CanBeNull]IFormatProvider Provider)
+            public sbyte ToSByte([CanBeNull] IFormatProvider Provider)
                 {
                 return 0;
                 }
 
-            public short ToInt16([CanBeNull]IFormatProvider Provider)
+            public byte ToByte([CanBeNull] IFormatProvider Provider)
                 {
                 return 0;
                 }
 
-            public ushort ToUInt16([CanBeNull]IFormatProvider Provider)
+            public short ToInt16([CanBeNull] IFormatProvider Provider)
                 {
                 return 0;
                 }
 
-            public int ToInt32([CanBeNull]IFormatProvider Provider)
+            public ushort ToUInt16([CanBeNull] IFormatProvider Provider)
                 {
                 return 0;
                 }
 
-            public uint ToUInt32([CanBeNull]IFormatProvider Provider)
+            public int ToInt32([CanBeNull] IFormatProvider Provider)
+                {
+                return 0;
+                }
+
+            public uint ToUInt32([CanBeNull] IFormatProvider Provider)
                 {
                 return 0u;
                 }
 
-            public long ToInt64([CanBeNull]IFormatProvider Provider)
+            public long ToInt64([CanBeNull] IFormatProvider Provider)
                 {
                 return 0L;
                 }
 
-            public ulong ToUInt64([CanBeNull]IFormatProvider Provider)
+            public ulong ToUInt64([CanBeNull] IFormatProvider Provider)
                 {
                 return 0uL;
                 }
 
-            public float ToSingle([CanBeNull]IFormatProvider Provider)
+            public float ToSingle([CanBeNull] IFormatProvider Provider)
                 {
                 return 0;
                 }
 
-            public double ToDouble([CanBeNull]IFormatProvider Provider)
+            public double ToDouble([CanBeNull] IFormatProvider Provider)
                 {
                 return 0d;
                 }
 
-            public decimal ToDecimal([CanBeNull]IFormatProvider Provider)
+            public decimal ToDecimal([CanBeNull] IFormatProvider Provider)
                 {
                 return 0m;
                 }
 
-            public DateTime ToDateTime([CanBeNull]IFormatProvider Provider)
+            public DateTime ToDateTime([CanBeNull] IFormatProvider Provider)
                 {
                 return DateTime.Now;
                 }
 
-            public string ToString([CanBeNull]IFormatProvider Provider)
+            public string ToString([CanBeNull] IFormatProvider Provider)
                 {
                 return null;
                 }
 
-            public object ToType([CanBeNull]Type ConversionType, [CanBeNull]IFormatProvider Provider)
+            public object ToType([CanBeNull] Type ConversionType, [CanBeNull] IFormatProvider Provider)
                 {
                 return null;
                 }
 
-            public string ToString([CanBeNull]string Format, [CanBeNull] IFormatProvider FormatProvider)
+            public string ToString([CanBeNull] string Format, [CanBeNull] IFormatProvider FormatProvider)
                 {
                 return null;
                 }
 
-            public int CompareTo([CanBeNull]object Obj)
+            public int CompareTo([CanBeNull] object Obj)
                 {
                 return 0;
                 }

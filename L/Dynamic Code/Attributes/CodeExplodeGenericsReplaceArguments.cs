@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using LCore.Extensions;
 
 namespace LCore.Dynamic
     {
+    [ExcludeFromCodeCoverage]
     internal class CodeExplodeGenericsReplaceArguments : CodeExplodeGenerics
         {
         public readonly int[] ArgIndexes;

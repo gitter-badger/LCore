@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 // ReSharper disable once RedundantUsingDirective
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Threading;
 using LCore.Extensions;
@@ -26,8 +25,7 @@ namespace LCore.LUnit
     /// <summary>
     /// Extend this type to test static class members using Attributes
     /// </summary>
-    [Trait(Category, UnitTests)]
-    public abstract class ExtensionTester : XUnitOutputTester
+    public abstract class ExtensionTester2 : XUnitOutputTester
         {
         /// <summary>
         /// Less than this amount of method coverage will result in a test failure.
@@ -286,6 +284,6 @@ namespace LCore.LUnit
             this._Output.WriteLine($"Ran {Tested} Nullability {"Test".Pluralize(Tested)}");
             }
 
-        protected ExtensionTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+        protected ExtensionTester2([NotNull] ITestOutputHelper Output) : base(Output) { }
         }
     }

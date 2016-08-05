@@ -16,11 +16,8 @@ using static LCore.LUnit.LUnit.Categories;
 namespace L_Tests.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
-    public class StringExtTest : ExtensionTester
+    public class StringExtTest : XUnitOutputTester
         {
-        protected override Type[] TestType => new[] { typeof(StringExt) };
-
-
         [Fact]
         
         public void Test_ReplaceAll_Dictionary()

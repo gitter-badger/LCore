@@ -13,10 +13,8 @@ using LCore.LUnit;
 namespace L_Tests.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
-    public class ThreadExtTest : ExtensionTester
+    public class ThreadExtTest : XUnitOutputTester
         {
-        protected override Type[] TestType => new[] {typeof(ThreadExt)};
-
         [Fact]
         public void Test_Async_Action()
             {

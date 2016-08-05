@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using LCore.Extensions;
 
 namespace LCore.Dynamic
     {
+    [ExcludeFromCodeCoverage]
     internal abstract class CodeExplodeMember : Attribute, ISubClassPersistentAttribute
         {
         public readonly string MethodName;

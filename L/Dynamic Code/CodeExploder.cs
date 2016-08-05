@@ -465,6 +465,7 @@ namespace LCore.Extensions
 
 namespace LCore.Dynamic
     {
+    [ExcludeFromCodeCoverage]
     public class CodeExploder
         {
         public static readonly List<string> DeclaredExtensionCache = new List<string>();

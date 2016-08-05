@@ -33,11 +33,8 @@ using static LCore.LUnit.LUnit.Categories;
 namespace L_Tests.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
-    public class EnumerableExtTest : ExtensionTester
+    public class EnumerableExtTest : XUnitOutputTester
         {
-        protected override Type[] TestType => new[] {typeof(EnumerableExt)};
-
-
         [Fact]
         public void Test_All_0()
             {

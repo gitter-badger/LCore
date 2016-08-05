@@ -4,7 +4,6 @@ using LCore.Extensions;
 using System.Collections;
 // ReSharper disable once RedundantUsingDirective
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using JetBrains.Annotations;
 using LCore.Extensions.Optional;
@@ -17,7 +16,6 @@ namespace LCore.LUnit.Assert
     {
     public static class AssertionExt
         {
-
         #region AssertSucceedes
 
         /// <summary>
@@ -26,7 +24,7 @@ namespace LCore.LUnit.Assert
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void AssertSucceedes(this MethodInfo Method, object Target = null, object[] Params = null)
             {
-            Method.AssertSucceedes<object>(Target, Params, (Func<object, bool>[])null);
+            Method.AssertSucceedes<object>(Target, Params, (Func<object, bool>[]) null);
             }
 
         /// <summary>
@@ -57,12 +55,12 @@ namespace LCore.LUnit.Assert
         public static void AssertSucceedes<U>(this MethodInfo Method, object Target = null, object[] Params = null,
             params Func<U, bool>[] AdditionalResultChecks)
             {
-            Params = Params ?? new object[] { };
+            Params = Params ?? new object[] {};
             U Result;
 
             try
                 {
-                Result = (U)Method.Invoke(Target, Params);
+                Result = (U) Method.Invoke(Target, Params);
                 }
             catch (Exception Ex)
                 {
@@ -70,10 +68,10 @@ namespace LCore.LUnit.Assert
                 }
 
             AdditionalResultChecks.Each(Check =>
-            {
+                {
                 if (!Check(Result))
                     throw new InternalTestFailureException($"Result did not pass additional checks.{Result.ToS()}");
-            });
+                });
             }
 
         /// <summary>
@@ -217,7 +215,7 @@ namespace LCore.LUnit.Assert
 
             try
                 {
-                Params = Params ?? new object[] { };
+                Params = Params ?? new object[] {};
                 Method.Invoke(Target, Params);
                 }
             catch (TargetInvocationException Ex)
@@ -237,10 +235,10 @@ namespace LCore.LUnit.Assert
                 }
 
             AdditionalChecks.Each((i, Check) =>
-            {
+                {
                 if (!Check())
                     throw new InternalTestFailureException($"Method did not pass additional check #{i + 1}.");
-            });
+                });
 
             throw new InternalTestFailureException($"Exception type {EType.FullName} did not throw.");
             }
@@ -253,7 +251,7 @@ namespace LCore.LUnit.Assert
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void AssertFails(this Action Act)
             {
-            Act.Method.AssertFails(new object[] { }, Act.Target);
+            Act.Method.AssertFails(new object[] {}, Act.Target);
             }
 
         /// <summary>
@@ -263,7 +261,7 @@ namespace LCore.LUnit.Assert
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void AssertFails<T1>(this Action<T1> Act, T1 o1)
             {
-            Act.Method.AssertFails(new object[] { o1 }, Act.Target);
+            Act.Method.AssertFails(new object[] {o1}, Act.Target);
             }
 
         /// <summary>
@@ -273,7 +271,7 @@ namespace LCore.LUnit.Assert
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void AssertFails<T1, T2>(this Action<T1, T2> Act, T1 o1, T2 o2)
             {
-            Act.Method.AssertFails(new object[] { o1, o2 }, Act.Target);
+            Act.Method.AssertFails(new object[] {o1, o2}, Act.Target);
             }
 
         /// <summary>
@@ -283,7 +281,7 @@ namespace LCore.LUnit.Assert
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void AssertFails<T1, T2, T3>(this Action<T1, T2, T3> Act, T1 o1, T2 o2, T3 o3)
             {
-            Act.Method.AssertFails(new object[] { o1, o2, o3 }, Act.Target);
+            Act.Method.AssertFails(new object[] {o1, o2, o3}, Act.Target);
             }
 
         /// <summary>
@@ -293,7 +291,7 @@ namespace LCore.LUnit.Assert
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void AssertFails<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> Act, T1 o1, T2 o2, T3 o3, T4 o4)
             {
-            Act.Method.AssertFails(new object[] { o1, o2, o3, o4 }, Act.Target);
+            Act.Method.AssertFails(new object[] {o1, o2, o3, o4}, Act.Target);
             }
 
         /// <summary>
@@ -303,7 +301,7 @@ namespace LCore.LUnit.Assert
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void AssertFails<E>(this Action Act) where E : Exception
             {
-            Act.Method.AssertFails<E>(new object[] { }, Act.Target);
+            Act.Method.AssertFails<E>(new object[] {}, Act.Target);
             }
 
         /// <summary>
@@ -313,7 +311,7 @@ namespace LCore.LUnit.Assert
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void AssertFails<T1, E>(this Action<T1> Act, T1 o1) where E : Exception
             {
-            Act.Method.AssertFails<E>(new object[] { o1 }, Act.Target);
+            Act.Method.AssertFails<E>(new object[] {o1}, Act.Target);
             }
 
         /// <summary>
@@ -323,7 +321,7 @@ namespace LCore.LUnit.Assert
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void AssertFails<T1, T2, E>(this Action<T1, T2> Act, T1 o1, T2 o2) where E : Exception
             {
-            Act.Method.AssertFails<E>(new object[] { o1, o2 }, Act.Target);
+            Act.Method.AssertFails<E>(new object[] {o1, o2}, Act.Target);
             }
 
         /// <summary>
@@ -333,7 +331,7 @@ namespace LCore.LUnit.Assert
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void AssertFails<T1, T2, T3, E>(this Action<T1, T2, T3> Act, T1 o1, T2 o2, T3 o3) where E : Exception
             {
-            Act.Method.AssertFails<E>(new object[] { o1, o2, o3 }, Act.Target);
+            Act.Method.AssertFails<E>(new object[] {o1, o2, o3}, Act.Target);
             }
 
         /// <summary>
@@ -343,7 +341,7 @@ namespace LCore.LUnit.Assert
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void AssertFails<T1, T2, T3, T4, E>(this Action<T1, T2, T3, T4> Act, T1 o1, T2 o2, T3 o3, T4 o4) where E : Exception
             {
-            Act.Method.AssertFails<E>(new object[] { o1, o2, o3, o4 }, Act.Target);
+            Act.Method.AssertFails<E>(new object[] {o1, o2, o3, o4}, Act.Target);
             }
 
         /// <summary>
@@ -353,7 +351,7 @@ namespace LCore.LUnit.Assert
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void AssertFails<U>(this Func<U> Func)
             {
-            Func.Method.AssertFails(new object[] { }, Func.Target);
+            Func.Method.AssertFails(new object[] {}, Func.Target);
             }
 
         /// <summary>
@@ -363,7 +361,7 @@ namespace LCore.LUnit.Assert
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void AssertFails<T1, U>(this Func<T1, U> Func, T1 o1)
             {
-            Func.Method.AssertFails(new object[] { o1 }, Func.Target);
+            Func.Method.AssertFails(new object[] {o1}, Func.Target);
             }
 
         /// <summary>
@@ -373,7 +371,7 @@ namespace LCore.LUnit.Assert
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void AssertFails<T1, T2, U>(this Func<T1, T2, U> Func, T1 o1, T2 o2)
             {
-            Func.Method.AssertFails(new object[] { o1, o2 }, Func.Target);
+            Func.Method.AssertFails(new object[] {o1, o2}, Func.Target);
             }
 
         /// <summary>
@@ -383,7 +381,7 @@ namespace LCore.LUnit.Assert
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void AssertFails<T1, T2, T3, U>(this Func<T1, T2, T3, U> Func, T1 o1, T2 o2, T3 o3)
             {
-            Func.Method.AssertFails(new object[] { o1, o2, o3 }, Func.Target);
+            Func.Method.AssertFails(new object[] {o1, o2, o3}, Func.Target);
             }
 
         /// <summary>
@@ -393,7 +391,7 @@ namespace LCore.LUnit.Assert
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void AssertFails<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> Func, T1 o1, T2 o2, T3 o3, T4 o4)
             {
-            Func.Method.AssertFails(new object[] { o1, o2, o3, o4 }, Func.Target);
+            Func.Method.AssertFails(new object[] {o1, o2, o3, o4}, Func.Target);
             }
 
         /// <summary>
@@ -403,7 +401,7 @@ namespace LCore.LUnit.Assert
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void AssertFails<U, E>(this Func<U> Func) where E : Exception
             {
-            Func.Method.AssertFails<E>(new object[] { }, Func.Target);
+            Func.Method.AssertFails<E>(new object[] {}, Func.Target);
             }
 
         /// <summary>
@@ -413,7 +411,7 @@ namespace LCore.LUnit.Assert
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void AssertFails<T1, U, E>(this Func<T1, U> Func, T1 o1) where E : Exception
             {
-            Func.Method.AssertFails<E>(new object[] { o1 }, Func.Target);
+            Func.Method.AssertFails<E>(new object[] {o1}, Func.Target);
             }
 
         /// <summary>
@@ -423,7 +421,7 @@ namespace LCore.LUnit.Assert
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void AssertFails<T1, T2, U, E>(this Func<T1, T2, U> Func, T1 o1, T2 o2) where E : Exception
             {
-            Func.Method.AssertFails<E>(new object[] { o1, o2 }, Func.Target);
+            Func.Method.AssertFails<E>(new object[] {o1, o2}, Func.Target);
             }
 
         /// <summary>
@@ -433,7 +431,7 @@ namespace LCore.LUnit.Assert
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void AssertFails<T1, T2, T3, U, E>(this Func<T1, T2, T3, U> Func, T1 o1, T2 o2, T3 o3) where E : Exception
             {
-            Func.Method.AssertFails<E>(new object[] { o1, o2, o3 }, Func.Target);
+            Func.Method.AssertFails<E>(new object[] {o1, o2, o3}, Func.Target);
             }
 
         /// <summary>
@@ -444,7 +442,7 @@ namespace LCore.LUnit.Assert
         public static void AssertFails<T1, T2, T3, T4, U, E>(this Func<T1, T2, T3, T4, U> Func, T1 o1, T2 o2, T3 o3, T4 o4)
             where E : Exception
             {
-            Func.Method.AssertFails<E>(new object[] { o1, o2, o3, o4 }, Func.Target);
+            Func.Method.AssertFails<E>(new object[] {o1, o2, o3, o4}, Func.Target);
             }
 
         #endregion
@@ -472,7 +470,9 @@ namespace LCore.LUnit.Assert
             U ExpectedResult = default(U),
             params Func<object, bool>[] AdditionalResultChecks)
             {
-            Params = Params ?? new object[] { };
+            var ExpectedType = ExpectedResult?.GetType() ?? typeof(U);
+
+            Params = Params ?? new object[] {};
 
             Exception Error = null;
             var Actual = default(U);
@@ -480,13 +480,13 @@ namespace LCore.LUnit.Assert
                 {
                 var MethodResult = Method.Invoke(Target, Params);
 
-                if (MethodResult is U)
-                    Actual = (U)MethodResult;
-                else if (MethodResult == null && typeof(U).IsNullable())
+                if (MethodResult.IsType(ExpectedType))
+                    Actual = (U) MethodResult;
+                else if (MethodResult == null && (ExpectedType.IsNullable() || !ExpectedType.IsValueType))
                     Actual = default(U);
                 else
                     throw new InternalTestFailureException(
-                        $"Expected object of type {typeof(U).FullName} but received {MethodResult.Type().FullName}: {MethodResult}");
+                        $"Expected object of type {ExpectedType.FullName} but received {MethodResult.Type().FullName}: {MethodResult}");
                 }
             catch (Exception Ex)
                 {
@@ -498,13 +498,13 @@ namespace LCore.LUnit.Assert
 
             if (ExpectedResult is IComparable && Actual is IComparable)
                 {
-                Passed = ((IComparable)ExpectedResult).CompareTo((IComparable)Actual) == 0;
-                if (!Passed) { }
+                Passed = ((IComparable) ExpectedResult).CompareTo((IComparable) Actual) == 0;
+                if (!Passed) {}
                 }
             else if (Result != null && Actual is IEnumerable)
                 {
-                Passed = Result.Equivalent((IEnumerable)Actual);
-                if (!Passed) { }
+                Passed = Result.Equivalent((IEnumerable) Actual);
+                if (!Passed) {}
                 }
             else if (Error != null && !(ExpectedResult is Exception))
                 {
@@ -523,7 +523,7 @@ namespace LCore.LUnit.Assert
             if (Actual != null)
                 {
                 AdditionalResultChecks.Each(Check =>
-                {
+                    {
                     Passed = Passed && Check(Actual);
                     if (!Passed)
                         {
@@ -531,7 +531,7 @@ namespace LCore.LUnit.Assert
                         try
                             {
                             string CollectStr = Params.CollectStr((i, Param) =>
-                            {
+                                {
                                 try
                                     {
                                     return $"{Param.ToS()}\n";
@@ -540,9 +540,9 @@ namespace LCore.LUnit.Assert
                                     {
                                     return "null\n";
                                     }
-                            });
+                                });
                             Str =
-                                $"\nResult did not pass additional checks.\n\n Params:\n {CollectStr}\nExpected: \'{ExpectedResult.ToS()}\'\nActual:   \'{(Error ?? (object)Actual).ToS()}\'\n\n";
+                                $"\nResult did not pass additional checks.\n\n Params:\n {CollectStr}\nExpected: \'{ExpectedResult.ToS()}\'\nActual:   \'{(Error ?? (object) Actual).ToS()}\'\n\n";
                             }
                         catch
                             {
@@ -551,7 +551,7 @@ namespace LCore.LUnit.Assert
 
                         throw new InternalTestFailureException(Str.ReplaceAll("\r", ""));
                         }
-                });
+                    });
                 }
 
 
@@ -561,7 +561,7 @@ namespace LCore.LUnit.Assert
                 try
                     {
                     string CollectStr = Params.CollectStr((i, Param) =>
-                    {
+                        {
                         try
                             {
                             return $"{Param.ToS()}\n";
@@ -570,10 +570,10 @@ namespace LCore.LUnit.Assert
                             {
                             return "null\n";
                             }
-                    });
+                        });
                     Str = $"Result did not match value. \nParams:\n {CollectStr}\nExpected: \'{ExpectedResult.ToS()}\'\n";
                     Str +=
-                        $"Actual: \'{(Error ?? (object)Actual ?? "").ToString().RemoveAll("System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. --->", "System.Exception: ")}\'";
+                        $"Actual: \'{(Error ?? (object) Actual ?? "").ToString().RemoveAll("System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. --->", "System.Exception: ")}\'";
                     }
                 catch
                     {
@@ -663,9 +663,9 @@ namespace LCore.LUnit.Assert
             U ExpectedSource = default(U),
             params Func<object, bool>[] AdditionalSourceChecks)
             {
-            Params = Params ?? new object[] { };
+            Params = Params ?? new object[] {};
 
-            var Source = (U)Params[0];
+            var Source = (U) Params[0];
 
 
             try
@@ -679,11 +679,11 @@ namespace LCore.LUnit.Assert
                 }
 
             bool Passed = true;
-            if (ExpectedSource == null) { }
+            if (ExpectedSource == null) {}
             else if (ExpectedSource is IEnumerable)
-                Passed = ((IEnumerable)ExpectedSource).Equivalent((IEnumerable)Source);
+                Passed = ((IEnumerable) ExpectedSource).Equivalent((IEnumerable) Source);
             else if (ExpectedSource is IComparable)
-                Passed = ((IComparable)ExpectedSource).CompareTo((IComparable)Source) == 0;
+                Passed = ((IComparable) ExpectedSource).CompareTo((IComparable) Source) == 0;
             else
                 {
                 string Details1 = ExpectedSource.Details();
@@ -695,12 +695,12 @@ namespace LCore.LUnit.Assert
                 }
 
             AdditionalSourceChecks.Each(Check =>
-            {
+                {
                 Passed = Passed && Check(Source);
                 if (!Passed)
                     throw new InternalTestFailureException(
                         $"Result did not pass additional checks.\nExpected: {ExpectedSource.ToS()}\nActual: {Source.ToS()}");
-            });
+                });
 
             if (!Passed)
                 throw new InternalTestFailureException(

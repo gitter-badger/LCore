@@ -1,6 +1,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+
 // ReSharper disable All
 
 
@@ -9,6 +11,7 @@ namespace LCore.Extensions
     /// <summary>
     /// Logic method explosion extension methods.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class Logic_Extension_Explode
         {
         #region Method Extensions

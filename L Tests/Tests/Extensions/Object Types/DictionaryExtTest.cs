@@ -11,10 +11,8 @@ using LCore.LUnit;
 namespace L_Tests.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
-    public class DictionaryExtTest : ExtensionTester
+    public class DictionaryExtTest : XUnitOutputTester
         {
-        protected override Type[] TestType => new[] {typeof(DictionaryExt)};
-
         [Fact]
         public void Test_Merge()
             {

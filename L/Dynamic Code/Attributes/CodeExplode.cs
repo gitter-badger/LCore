@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using LCore.Extensions;
 using LCore.Tools;
 
 namespace LCore.Dynamic
     {
+    [ExcludeFromCodeCoverage]
     internal abstract class CodeExplode : Attribute, ISubClassPersistentAttribute
         {
         public const string ExplodeSuffix = "_Explode";

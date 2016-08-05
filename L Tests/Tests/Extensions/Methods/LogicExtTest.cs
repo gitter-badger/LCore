@@ -14,12 +14,10 @@ using static LCore.LUnit.LUnit.Categories;
 namespace L_Tests.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
-    public class LogicExtTest : ExtensionTester
+    public class LogicExtTest : XUnitOutputTester
         {
         private static readonly string _TestString = Guid.NewGuid().ToString();
-
-        protected override Type[] TestType => new[] { typeof(LogicExt) };
-
+        
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using JetBrains.Annotations;
 using LCore.Extensions;
@@ -10,6 +11,7 @@ namespace LCore.Dynamic
     /// <summary>
     /// Internal class used to store multiple Attribute objects.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class AttributeList : ICustomAttributeProvider
         {
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 using LCore.Tools;
@@ -6,6 +7,7 @@ using LCore.Extensions;
 
 namespace LCore.Dynamic
     {
+    [ExcludeFromCodeCoverage]
     internal class CodeExplodeExtend : CodeExplode
         {
         public override string ExplodeCode(Lists<string, MemberInfo> Members)

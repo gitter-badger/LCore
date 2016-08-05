@@ -16,10 +16,8 @@ using LCore.LUnit;
 namespace L_Tests.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
-    public class ComparableExtTest : ExtensionTester
+    public class ComparableExtTest : XUnitOutputTester
         {
-        protected override Type[] TestType => new[] { typeof(ComparableExt) };
-
         [Fact]
         public void Test_IsEqualTo()
             {

@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using LCore.Extensions;
+using LCore.Extensions.Optional;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace LCore.LUnit
     {
+    [Collection("MultiTest")]
     public abstract class MultiTestReporter : XUnitOutputTester
         {
         protected abstract void RunTests();
@@ -84,7 +86,9 @@ namespace LCore.LUnit
 
         private void ThrowException(int Number)
             {
-            var Ex = _AssemblyExceptions.GetAt(Number);
+            var Ex = _AssemblyExceptions.HasIndex(Number)
+                ? _AssemblyExceptions.GetAt(Number)
+                : null;
 
             if (Ex != null)
                 throw Ex;
@@ -92,7 +96,7 @@ namespace LCore.LUnit
 
         protected void AddException(Exception Ex)
             {
-            if (!_AssemblyExceptions.Contains(Ex))
+            if (!_AssemblyExceptions.Has(Ex2 => Ex.ToS() == Ex2.ToS()))
                 {
                 _AssemblyExceptions.Add(Ex);
                 }
@@ -113,6 +117,6 @@ namespace LCore.LUnit
                 }
             }
 
-        protected MultiTestReporter([NotNull] ITestOutputHelper Output) : base(Output) { }
+        protected MultiTestReporter([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }

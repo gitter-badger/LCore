@@ -1193,7 +1193,8 @@ namespace LCore.Extensions
             /// <summary>
             /// Finds a type by name in all current assemblies.
             /// </summary>
-            public static Type FindType(string TypeName)
+            [CanBeNull]
+            public static Type FindType([CanBeNull] string TypeName)
                 {
                 var Out = Type.GetType(TypeName);
 

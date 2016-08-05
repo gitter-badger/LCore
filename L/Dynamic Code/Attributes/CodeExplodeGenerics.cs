@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using LCore.Extensions;
 
 namespace LCore.Dynamic
     {
+    [ExcludeFromCodeCoverage]
     internal class CodeExplodeGenerics : CodeExplodeMember
         {
         public CodeExplodeGenerics(string Name = "", string Comments = "", uint MaximumGeneric = CodeExplodeLogic.ExplodeCount)

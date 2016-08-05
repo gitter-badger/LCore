@@ -14,11 +14,9 @@ using static LCore.LUnit.LUnit.Categories;
 namespace L_Tests.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
-    public class ExceptionExtTest : ExtensionTester
+    public class ExceptionExtTest : XUnitOutputTester
         {
         private static readonly string _TestString = Guid.NewGuid().ToString();
-
-        protected override Type[] TestType => new[] { typeof(ExceptionExt) };
 
         [Fact]
         public void Test_Try_Action_0()

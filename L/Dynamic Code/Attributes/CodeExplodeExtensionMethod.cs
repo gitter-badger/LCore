@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LCore.Dynamic
     {
     /// <summary>
     /// Explodes a Method providing the method as an extension method on its type
     /// </summary>
+    [ExcludeFromCodeCoverage]
     internal class CodeExplodeExtensionMethod : CodeExplodeMember
         {
         public readonly bool ExtendExplosions;

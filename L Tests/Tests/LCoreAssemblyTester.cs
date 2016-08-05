@@ -9,7 +9,7 @@ using static LCore.LUnit.LUnit.Categories;
 
 namespace L_Tests.Tests
     {
-    [Trait(Category, AssemblyTest)]
+    [Trait(Category, AssemblyTests)]
     public class LCoreAssemblyTester : AssemblyTester
         {
         protected override Type AssemblyType => typeof(L);

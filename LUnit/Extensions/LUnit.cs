@@ -109,15 +109,15 @@ namespace LCore.LUnit
                 string TypeName = Parts.Last();
                 Parts.RemoveAt(Parts.Count - 1);
 
-                SourceType = Type.GetType($"{Parts.Combine('.')}+{TypeName}");
+                SourceType = L.Ref.FindType($"{Parts.Combine('.')}+{TypeName}");
 
                 if (SourceType == null && Parts.Count == 1)
                     {
-                    SourceType = Type.GetType($"{SourceMethod.DeclaringType?.Namespace}.{Parts.Combine('.')}+{TypeName}");
+                    SourceType = L.Ref.FindType($"{SourceMethod.DeclaringType?.Namespace}.{Parts.Combine('.')}+{TypeName}");
                     }
 
                 if (SourceType == null)
-                    throw new Exception("Could not find Source Type");
+                    throw new Exception($"Could not find Source Type {MethodName}");
                 }
             else
                 {
@@ -266,7 +266,7 @@ namespace LCore.LUnit
             /// <summary>
             /// AssemblyTest category name
             /// </summary>
-            public const string AssemblyTest = "Assembly Test";
+            public const string AssemblyTests = "Assembly Tests";
             }
 
         #endregion

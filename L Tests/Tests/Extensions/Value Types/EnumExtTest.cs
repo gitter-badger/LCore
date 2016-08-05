@@ -11,11 +11,8 @@ using static LCore.LUnit.LUnit.Categories;
 namespace L_Tests.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
-    public class EnumExtTest : ExtensionTester
+    public class EnumExtTest : XUnitOutputTester
         {
-        protected override Type[] TestType => new[] {typeof(EnumExt)};
-
-
         [Fact]
         public void Test_GetFriendlyName()
             {

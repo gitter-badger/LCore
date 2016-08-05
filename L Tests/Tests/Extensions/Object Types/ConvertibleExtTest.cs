@@ -17,11 +17,8 @@ using static LCore.LUnit.LUnit.Categories;
 namespace L_Tests.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
-    public class ConvertibleExtTest : ExtensionTester
+    public class ConvertibleExtTest : XUnitOutputTester
         {
-        protected override Type[] TestType => new[] {typeof(ConvertibleExt)};
-
-
         [Fact]
         public void Test_ConvertTo()
             {

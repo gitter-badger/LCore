@@ -4,10 +4,8 @@ using LCore.Extensions;
 using System.Collections;
 // ReSharper disable once RedundantUsingDirective
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using JetBrains.Annotations;
-using LCore.Extensions.Optional;
 using LCore.LUnit.Assert;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -20,30 +18,35 @@ namespace LCore.LUnit
     /// </summary>
     public static class TestExt
         {
+        #region GetTestMembers
 
         /// <summary>
         /// Retrieves TestAttributes for type <paramref name="Type" />
         /// </summary>
         [NotNull]
-        public static Dictionary<MemberInfo, List<ILUnitAttribute>> GetTestMembers([CanBeNull]this Type Type)
+        public static Dictionary<MemberInfo, List<ILUnitAttribute>> GetTestMembers([CanBeNull] this Type Type)
             {
             var Tests = new Dictionary<MemberInfo, List<ILUnitAttribute>>();
 
             Type?.GetMembers().Each(Member =>
                 {
-                    if (!(Member is MethodInfo) || !((MethodInfo)Member).IsStatic)
-                        {
-                        return;
-                        }
+                if (!(Member is MethodInfo) || !((MethodInfo) Member).IsStatic)
+                    {
+                    return;
+                    }
 
-                    if (!Tests.ContainsKey(Member))
-                        Tests.Add(Member, new List<ILUnitAttribute>());
+                if (!Tests.ContainsKey(Member))
+                    Tests.Add(Member, new List<ILUnitAttribute>());
 
-                    Member.GetAttributes<ILUnitAttribute>(false).Each(Attr => { Tests[Member].Add(Attr); });
+                Member.GetAttributes<ILUnitAttribute>(false).Each(Attr => { Tests[Member].Add(Attr); });
                 });
 
             return Tests;
             }
+
+        #endregion
+
+        #region RunTest
 
         public static void RunTest(this ITestResultAttribute Attr, MethodInfo Method)
             {
@@ -52,34 +55,43 @@ namespace LCore.LUnit
 
             //            Method.AssertResult(Parameters, ExpectedResult, Checks);
 
-            var Info = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>)(MethodInfo =>
-               MethodInfo.Name == nameof(AssertionExt.AssertResult) &&
-               MethodInfo.ContainsGenericParameters));
+            //var Info = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>) (MethodInfo =>
+            //    MethodInfo.Name == nameof(AssertionExt.AssertResult) &&
+            //    MethodInfo.ContainsGenericParameters));
 
-            if (Info != null)
-                {
-                var ExpectedResult = Attr.ExpectedResult;
-                object[] Parameters = Attr.Parameters;
+            //if (Info != null)
+            //   {
+            var ExpectedResult = Attr.ExpectedResult;
+            object[] Parameters = Attr.Parameters;
 
-                LUnit.FixParameterTypes(Method, Parameters);
-                LUnit.FixObject(Method, Method.ReturnType, ref ExpectedResult);
+            LUnit.FixParameterTypes(Method, Parameters);
+            LUnit.FixObject(Method, Method.ReturnType, ref ExpectedResult);
 
-                Info = Info.MakeGenericMethod(ExpectedResult.GetType());
 
-                Info.Invoke(null, new[] { Method, null, Parameters, ExpectedResult, Checks });
-                }
+            Method.AssertResult(null, Parameters, ExpectedResult, Checks);
+
+            //Info = Info.MakeGenericMethod(ExpectedResult.GetType());
+
+            //Info.Invoke(null, new[] {Method, null, Parameters, ExpectedResult, Checks});
+            //   }
             }
 
         public static void RunTest(this ITestFailsAttribute Attr, MethodInfo Method)
             {
             Func<bool>[] Checks = Attr.AdditionalChecks.Convert(L.F<MethodInfo, string, Func<bool>>(LUnit.GetCheckMethod).Supply(Method));
+
             Method.AssertFails(Attr.Parameters, Method.ReflectedType, Attr.ExceptionType, Checks);
             }
 
         public static void RunTest(this ITestSucceedsAttribute Attr, MethodInfo Method)
             {
             Func<bool>[] Checks = Attr.AdditionalChecks.Convert(L.F<MethodInfo, string, Func<bool>>(LUnit.GetCheckMethod).Supply(Method));
-            Method.AssertSucceedes(null, Attr.Parameters, Checks);
+
+            object[] Parameters = Attr.Parameters;
+
+            LUnit.FixParameterTypes(Method, Parameters);
+
+            Method.AssertSucceedes(null, Parameters, Checks);
             }
 
         public static void RunTest(this ITestSourceAttribute Attr, MethodInfo Method)
@@ -89,8 +101,8 @@ namespace LCore.LUnit
 
             //    Method.AssertSource(Parameters, ExpectedSource);
 
-            var OutMethod = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>)(MethodInfo =>
-               MethodInfo.Name == nameof(AssertionExt.AssertSource) && MethodInfo.ContainsGenericParameters));
+            var OutMethod = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>) (MethodInfo =>
+                MethodInfo.Name == nameof(AssertionExt.AssertSource) && MethodInfo.ContainsGenericParameters));
 
             if (Attr.ExpectedSource != null)
                 {
@@ -106,11 +118,26 @@ namespace LCore.LUnit
                 }
 
             var ExpectedSource = Attr.ExpectedSource;
+            object[] Parameters = Attr.Parameters;
 
+            LUnit.FixParameterTypes(Method, Parameters);
             LUnit.FixObject(Method, Method.GetParameters()[0].ParameterType, ref ExpectedSource);
 
-            OutMethod?.Invoke(null, new[] { Method, null, Attr.Parameters, ExpectedSource, Checks });
+            OutMethod?.Invoke(null, new[] {Method, null, Parameters, ExpectedSource, Checks});
             }
+
+        public static void RunTest(this IValidateAttribute Attr, MemberInfo Member)
+            {
+            string[] Out = Attr.Validate(Member);
+
+            if (Out.IsEmpty())
+                return;
+
+            throw new InternalTestFailureException(
+                $"Attribute validation failed: {Attr.GetType()} {Member.FullyQualifiedName()}\r\n{Out.JoinLines()}");
+            }
+
+        #endregion
 
         #region GetTestData
 

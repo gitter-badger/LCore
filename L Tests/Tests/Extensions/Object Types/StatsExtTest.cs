@@ -7,7 +7,7 @@ using System;
 namespace L_Tests.Tests.Extensions
     {
     /*
-    public class StatsExtTest : ExtensionTester
+    public class StatsExtTest : XUnitOutputTester
         {
         public override Type TestType => typeof(StatsExt);
         }

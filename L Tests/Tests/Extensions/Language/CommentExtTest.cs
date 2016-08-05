@@ -17,10 +17,8 @@ using static LCore.LUnit.LUnit.Categories;
 namespace L_Tests.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
-    public class CommentExtTest : ExtensionTester
+    public class CommentExtTest : XUnitOutputTester
         {
-        protected override Type[] TestType => new[] {typeof(CommentExt)};
-
         [Fact]
         public void Test_GetComments()
             {

@@ -32,11 +32,8 @@ using static LCore.LUnit.LUnit.Categories;
 namespace L_Tests.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
-    public class ReflectionExtTest : ExtensionTester
+    public class ReflectionExtTest : XUnitOutputTester
         {
-        protected override Type[] TestType => new[] {typeof(ReflectionExt)};
-
-
         [Fact]
         public void Test_AlsoBaseTypes()
             {

@@ -10,10 +10,8 @@ using static LCore.LUnit.LUnit.Categories;
 namespace L_Tests.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
-    public class DateExtTest : ExtensionTester
+    public class DateExtTest : XUnitOutputTester
         {
-        protected override Type[] TestType => new[] {typeof(DateExt)};
-
         [Fact]
         public void Test_CleanDateString()
             {
