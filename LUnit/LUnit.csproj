@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\LUnit.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -78,9 +79,12 @@
     <Compile Include="Abstract\AssemblyTester.cs" />
     <Compile Include="Abstract\ExtensionTester.cs" />
     <Compile Include="Abstract\MultiTestReporter.cs" />
+    <Compile Include="Abstract\XUnitOutputTester.cs" />
     <Compile Include="Attributes\ITestAttribute.cs" />
     <Compile Include="Attributes\TestAttribute.cs" />
+    <Compile Include="Extensions\FluentExt.cs" />
     <Compile Include="Extensions\LUnit.cs" />
+    <Compile Include="Extensions\AssertionExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensions\TestExt.cs" />
     <Compile Include="TypeTests.cs" />

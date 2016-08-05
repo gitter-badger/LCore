@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using LCore.Extensions;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace LCore.LUnit
     {
-    public abstract class MultiTestReporter
+    public abstract class MultiTestReporter : XUnitOutputTester
         {
         protected abstract void RunTests();
 
@@ -110,5 +112,7 @@ namespace LCore.LUnit
                 _TestsPerformed = true;
                 }
             }
+
+        protected MultiTestReporter([NotNull] ITestOutputHelper Output) : base(Output) { }
         }
     }

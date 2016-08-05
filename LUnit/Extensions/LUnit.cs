@@ -4,17 +4,15 @@ using LCore.Extensions;
 using System.Collections;
 // ReSharper disable once RedundantUsingDirective
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using JetBrains.Annotations;
 using LCore.Extensions.Optional;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 // ReSharper disable UnusedMember.Global
 
 namespace LCore.LUnit
     {
-    public static partial class LUnit
+    public static class LUnit
         {
         /// <summary>
         /// Attempts to resolve parameter types for a method test.

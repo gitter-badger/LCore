@@ -27,16 +27,8 @@ namespace LCore.LUnit
     /// Extend this type to test static class members using Attributes
     /// </summary>
     [Trait(Category, UnitTests)]
-    public abstract class ExtensionTester
+    public abstract class ExtensionTester : XUnitOutputTester
         {
-        private readonly ITestOutputHelper _Output;
-
-        protected ExtensionTester(ITestOutputHelper Output)
-            {
-            this._Output = Output;
-            }
-
-
         /// <summary>
         /// Less than this amount of method coverage will result in a test failure.
         /// </summary>
@@ -55,7 +47,9 @@ namespace LCore.LUnit
         public virtual void TestAttributeAssertions()
             {
             return;
-
+            
+#pragma warning disable 162
+            // ReSharper disable HeuristicUnreachableCode
             foreach (var Test in this.TestType)
                 {
                 var TestData = Test.GetTestData();
@@ -112,10 +106,11 @@ namespace LCore.LUnit
                         .BeGreaterOrEqualTo(this.RequireCoveragePercent,
                             $"{this.RequireCoveragePercent}% coverage required");
                 }
+            // ReSharper restore HeuristicUnreachableCode
+#pragma warning restore 162
             }
 
         [Fact]
-        [ExcludeFromCodeCoverage]
         [Trait(Category, NullabilityTests)]
         public void TestNullability()
             {
@@ -290,5 +285,7 @@ namespace LCore.LUnit
 
             this._Output.WriteLine($"Ran {Tested} Nullability {"Test".Pluralize(Tested)}");
             }
+
+        protected ExtensionTester([NotNull] ITestOutputHelper Output) : base(Output) { }
         }
     }

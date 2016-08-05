@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using LCore.Numbers;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using Xunit;
 using static LCore.LUnit.LUnit.Categories;
 
@@ -18,7 +19,7 @@ using static LCore.LUnit.LUnit.Categories;
 
 namespace L_Tests.Tests.Extensions
     {
-    [Trait(Category, LCore.LUnit.LUnit.Categories.Tools)]
+    [Trait(Category, LUnit.Categories.Tools)]
     public class NumberTest
         {
         /// <exception cref="OverflowException">

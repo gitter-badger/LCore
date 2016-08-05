@@ -8,6 +8,7 @@ using FluentAssertions;
 using LCore.Extensions;
 using LCore.Extensions.Optional;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Win32;
@@ -19,7 +20,7 @@ using static LCore.LUnit.LUnit.Categories;
 
 namespace L_Tests.Tests.Tools
     {
-    [Trait(Category, LCore.LUnit.LUnit.Categories.Tools)]
+    [Trait(Category, LUnit.Categories.Tools)]
     public class RegistryHelperTest
         {
         private const string TestRegKey = "TEST_RegistryHandler";

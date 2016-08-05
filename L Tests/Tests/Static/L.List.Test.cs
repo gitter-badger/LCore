@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using FluentAssertions;
 using LCore.Extensions.Optional;
-using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using Xunit;
 using static LCore.LUnit.LUnit.Categories;
 

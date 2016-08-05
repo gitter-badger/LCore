@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FluentAssertions;
 using LCore.Extensions;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
@@ -12,7 +13,7 @@ using static LCore.LUnit.LUnit.Categories;
 
 namespace L_Tests.Tests.Tools
     {
-    [Trait(Category, LCore.LUnit.LUnit.Categories.Tools)]
+    [Trait(Category, LUnit.Categories.Tools)]
     public class ListsTest
         {
         [Fact]

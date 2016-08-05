@@ -7,6 +7,7 @@ using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.Extensions.Optional;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using Xunit;
 using Xunit.Abstractions;
 using ObjectExt = LCore.Extensions.ObjectExt;

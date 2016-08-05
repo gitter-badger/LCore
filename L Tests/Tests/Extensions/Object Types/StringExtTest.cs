@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using FluentAssertions;
 using LCore.LUnit;
 using JetBrains.Annotations;
+using LCore.LUnit.Fluent;
 using Xunit;
 using Xunit.Abstractions;
 using static LCore.LUnit.LUnit.Categories;

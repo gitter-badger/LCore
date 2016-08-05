@@ -1,7 +1,7 @@
 ﻿using LCore.Extensions;
 using System;
 using FluentAssertions;
-using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using Xunit;
 using static LCore.LUnit.LUnit.Categories;
 

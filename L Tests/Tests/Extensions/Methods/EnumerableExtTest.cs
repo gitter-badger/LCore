@@ -10,6 +10,7 @@ using JetBrains.Annotations;
 using LCore.Extensions.Optional;
 using LCore.Interfaces;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using LCore.Naming;
 using Xunit;
 using Xunit.Abstractions;

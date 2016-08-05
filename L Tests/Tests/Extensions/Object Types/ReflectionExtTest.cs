@@ -12,6 +12,7 @@ using JetBrains.Annotations;
 using LCore.Naming;
 using LCore.LUnit;
 using LCore.Dynamic;
+using LCore.LUnit.Fluent;
 using Moq;
 using Xunit;
 using Xunit.Abstractions;
