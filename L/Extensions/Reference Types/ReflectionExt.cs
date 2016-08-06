@@ -179,6 +179,16 @@ namespace LCore.Extensions
                 }
             return "";
             }
+        /// <summary>
+        /// Returns the fully qualified name for a ParameterInfo
+        /// </summary>
+        [Tested]
+        public static string FullyQualifiedName([CanBeNull] this ParameterInfo In)
+            {
+            return In == null
+                ? ""
+                : $"{In.Member.FullyQualifiedName()}({In.Name})";
+            }
 
         #endregion
 

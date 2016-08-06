@@ -493,15 +493,38 @@ namespace LCore.LUnit.Fluent
 
         #region HaveAttribute
 
-        public static AndConstraint<TypeAssertions> HaveAttribute<T>(this TypeAssertions Type)
+        /// <summary>
+        /// Asserts that the current System.Type has an attribute of type <typeparamref name="T"/>.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Type"></param>
+        /// <param name="Because">A formatted phrase as is supported by System.String.Format(System.String,System.Object[])
+        ///     explaining why the assertion is needed. If the phrase does not start with the
+        ///     word because, it is prepended automatically.
+        /// </param>
+        /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
+        /// <returns>An FluentAssertions.AndConstraint`1 which can be used to chain assertions.</returns>
+        public static AndConstraint<TypeAssertions> HaveAttribute<T>(this TypeAssertions Type, string Because = "", params object[] BecauseArgs)
             where T : IPersistAttribute
             {
-            Type.Subject.HasAttribute<T>().ShouldBeTrue();
+            Type.Subject.HasAttribute<T>().ShouldBeTrue(Because, BecauseArgs);
             return new AndConstraint<TypeAssertions>(Type);
             }
-        public static AndConstraint<TypeAssertions> HaveAttribute<T>(this TypeAssertions Type, bool IncludeBaseTypes)
+        /// <summary>
+        /// Asserts that the current System.Type has an attribute of type <typeparamref name="T"/>.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Type"></param>
+        /// <param name="IncludeBaseTypes"></param>
+        /// <param name="Because">A formatted phrase as is supported by System.String.Format(System.String,System.Object[])
+        ///     explaining why the assertion is needed. If the phrase does not start with the
+        ///     word because, it is prepended automatically.
+        /// </param>
+        /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
+        /// <returns>An FluentAssertions.AndConstraint`1 which can be used to chain assertions.</returns>
+        public static AndConstraint<TypeAssertions> HaveAttribute<T>(this TypeAssertions Type, bool IncludeBaseTypes, string Because = "", params object[] BecauseArgs)
             {
-            Type.Subject.HasAttribute<T>(IncludeBaseTypes).ShouldBeTrue();
+            Type.Subject.HasAttribute<T>(IncludeBaseTypes).ShouldBeTrue(Because, BecauseArgs);
             return new AndConstraint<TypeAssertions>(Type);
             }
 
@@ -509,16 +532,40 @@ namespace LCore.LUnit.Fluent
 
         #region NotHaveAttribute
 
-
-        public static AndConstraint<TypeAssertions> NotHaveAttribute<T>(this TypeAssertions Type)
+        /// <summary>
+        /// Asserts that the current System.Type does not have an attribute of type <typeparamref name="T"/>.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Type"></param>
+        /// <param name="Because">A formatted phrase as is supported by System.String.Format(System.String,System.Object[])
+        ///     explaining why the assertion is needed. If the phrase does not start with the
+        ///     word because, it is prepended automatically.
+        /// </param>
+        /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
+        /// <returns>An FluentAssertions.AndConstraint`1 which can be used to chain assertions.</returns>
+        public static AndConstraint<TypeAssertions> NotHaveAttribute<T>(this TypeAssertions Type, string Because = "", params object[] BecauseArgs)
             where T : IPersistAttribute
             {
-            Type.Subject.HasAttribute<T>().ShouldBeFalse();
+            Type.Subject.HasAttribute<T>().ShouldBeFalse(Because, BecauseArgs);
             return new AndConstraint<TypeAssertions>(Type);
             }
-        public static AndConstraint<TypeAssertions> NotHaveAttribute<T>(this TypeAssertions Type, bool IncludeBaseTypes)
+
+
+        /// <summary>
+        /// Asserts that the current System.Type does not have an attribute of type <typeparamref name="T"/>.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Type"></param>
+        /// <param name="IncludeBaseTypes"></param>
+        /// <param name="Because">A formatted phrase as is supported by System.String.Format(System.String,System.Object[])
+        ///     explaining why the assertion is needed. If the phrase does not start with the
+        ///     word because, it is prepended automatically.
+        /// </param>
+        /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
+        /// <returns>An FluentAssertions.AndConstraint`1 which can be used to chain assertions.</returns>
+        public static AndConstraint<TypeAssertions> NotHaveAttribute<T>(this TypeAssertions Type, bool IncludeBaseTypes, string Because = "", params object[] BecauseArgs)
             {
-            Type.Subject.HasAttribute<T>(IncludeBaseTypes).ShouldBeFalse();
+            Type.Subject.HasAttribute<T>(IncludeBaseTypes).ShouldBeFalse(Because, BecauseArgs);
             return new AndConstraint<TypeAssertions>(Type);
             }
 
@@ -549,13 +596,32 @@ namespace LCore.LUnit.Fluent
                     }
         */
 
-        public static AndConstraint<BooleanAssertions> ShouldBeTrue(this bool Boolean)
+        /// <summary>
+        /// Asserts that the value is true.
+        /// </summary>
+        /// <param name="Boolean"></param>
+        /// <param name="Because">A formatted phrase as is supported by System.String.Format(System.String,System.Object[])
+        ///     explaining why the assertion is needed. If the phrase does not start with the
+        ///     word because, it is prepended automatically.</param>
+        /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
+        /// <returns></returns>
+        public static AndConstraint<BooleanAssertions> ShouldBeTrue(this bool Boolean, string Because = "", params object[] BecauseArgs)
             {
-            return Boolean.Should().BeTrue();
+            return Boolean.Should().BeTrue(Because, BecauseArgs);
             }
-        public static AndConstraint<BooleanAssertions> ShouldBeFalse(this bool Boolean)
+
+        /// <summary>
+        /// Asserts that the value is false.
+        /// </summary>
+        /// <param name="Boolean"></param>
+        /// <param name="Because">A formatted phrase as is supported by System.String.Format(System.String,System.Object[])
+        ///     explaining why the assertion is needed. If the phrase does not start with the
+        ///     word because, it is prepended automatically.</param>
+        /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
+        /// <returns></returns>
+        public static AndConstraint<BooleanAssertions> ShouldBeFalse(this bool Boolean, string Because = "", params object[] BecauseArgs)
             {
-            return Boolean.Should().BeFalse();
+            return Boolean.Should().BeFalse(Because, BecauseArgs);
             }
 
         #endregion

@@ -15,23 +15,44 @@ using static LCore.LUnit.LUnit.Categories;
 
 namespace LCore.LUnit
     {
+    /// <summary>
+    /// Extend this class to perform Assembly-wide automatic tests and assertions.
+    /// </summary>
     [Trait(Category, AssemblyTests)]
     public abstract class AssemblyTester : XUnitOutputTester
         {
+        /// <summary>
+        /// Return a type in order to target assembly you're testing.
+        /// </summary>
         protected abstract Type AssemblyType { get; }
 
+        /// <summary>
+        /// Set this property to true to enable
+        /// </summary>
         protected virtual bool EnforceNullabilityAttributes => false;
 
+        /// <summary>
+        /// Reference to the assembly being tested.
+        /// </summary>
         protected Assembly Assembly => Assembly.GetAssembly(this.AssemblyType);
 
+        /// <summary>
+        /// All types exposed by the targeted Assembly.
+        /// </summary>
         protected Type[] AssemblyTypes => this.Assembly.GetExportedTypes();
 
         ////////////////////////////////////////////////////////
 
+        /// <summary>
+        /// Create a new AssemblyTester
+        /// </summary>
         protected AssemblyTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
         ////////////////////////////////////////////////////////
 
+        /// <summary>
+        /// Returns a status of test coverage over the targeted assembly.
+        /// </summary>
         [Fact]
         public void AssemblyStatus()
             {
@@ -392,7 +413,8 @@ namespace LCore.LUnit
 
 
             if (Tested > 0)
-                this._Output.WriteLine($"Ran {Tested} Nullability {"Test".Pluralize(Tested)}".Pad(30) + $"{Type.FullyQualifiedName()}");
+                this._Output.WriteLine(
+                    $"{Type.FullyQualifiedName()}".Pad(30) + $"Ran {Tested} Nullability {"Test".Pluralize(Tested)}");
             }
 
         #region Virtual Assertions
@@ -419,7 +441,7 @@ namespace LCore.LUnit
             catch (Exception Ex)
                 {
                 this.AddException(new InternalTestFailureException(
-                    $"\nTesting custom Method assertions failed for Type: {Method.FullyQualifiedName()} failed.", Ex));
+                    $"\nTesting custom Method assertions failed for Method: {Method.FullyQualifiedName()} failed.", Ex));
                 }
             }
 
@@ -432,20 +454,20 @@ namespace LCore.LUnit
             catch (Exception Ex)
                 {
                 this.AddException(new InternalTestFailureException(
-                    $"\nTesting custom Member assertions failed for Type: {Member.FullyQualifiedName()} failed.", Ex));
+                    $"\nTesting custom Member assertions failed for Member: {Member.FullyQualifiedName()} failed.", Ex));
                 }
             }
 
-        private void TestPropertyAssertions(PropertyInfo Prop)
+        private void TestPropertyAssertions(PropertyInfo Property)
             {
             try
                 {
-                this.PropertyAssertions(Prop);
+                this.PropertyAssertions(Property);
                 }
             catch (Exception Ex)
                 {
                 this.AddException(new InternalTestFailureException(
-                    $"\nTesting custom Property assertions failed for Type: {Prop.FullyQualifiedName()} failed.", Ex));
+                    $"\nTesting custom Property assertions failed for Property: {Property.FullyQualifiedName()} failed.", Ex));
                 }
             }
 
@@ -458,7 +480,7 @@ namespace LCore.LUnit
             catch (Exception Ex)
                 {
                 this.AddException(new InternalTestFailureException(
-                    $"\nTesting custom Event assertions failed for Type: {Event.FullyQualifiedName()} failed.", Ex));
+                    $"\nTesting custom Event assertions failed for Event: {Event.FullyQualifiedName()} failed.", Ex));
                 }
             }
 
@@ -471,20 +493,69 @@ namespace LCore.LUnit
             catch (Exception Ex)
                 {
                 this.AddException(new InternalTestFailureException(
-                    $"\nTesting custom Event assertions failed for Type: {Field.FullyQualifiedName()} failed.", Ex));
+                    $"\nTesting custom Event assertions failed for Field: {Field.FullyQualifiedName()} failed.", Ex));
+                }
+            }
+        private void TestParameterAssertions(ParameterInfo Parameter)
+            {
+            try
+                {
+                this.ParameterAssertions(Parameter);
+                }
+            catch (Exception Ex)
+                {
+                this.AddException(new InternalTestFailureException(
+                    $"\nTesting custom Event assertions failed for Parameter: {Parameter.FullyQualifiedName()} failed.", Ex));
                 }
             }
 
+        /// <summary>
+        /// Override this method to make assertions on every exposed Type in the assembly. 
+        /// This method will get called many times and all Exceptions and failed 
+        /// assertions will be added to the list.
+        /// </summary>
         protected virtual void TypeAssertions(Type Type) { }
 
+        /// <summary>
+        /// Override this method to make assertions on every exposed MemberInfo in the assembly. 
+        /// This method will get called many times and all Exceptions and failed 
+        /// assertions will be added to the list.
+        /// </summary>
         protected virtual void AllMemberAssertions(MemberInfo Member) { }
 
+        /// <summary>
+        /// Override this method to make assertions on every exposed MethodInfo in the assembly. 
+        /// This method will get called many times and all Exceptions and failed 
+        /// assertions will be added to the list.
+        /// </summary>
         protected virtual void MethodAssertions(MethodInfo Method) { }
 
+        /// <summary>
+        /// Override this method to make assertions on every exposed ParameterInfo in the assembly. 
+        /// This method will get called many times and all Exceptions and failed 
+        /// assertions will be added to the list.
+        /// </summary>
+        protected virtual void ParameterAssertions(ParameterInfo Parameter) { }
+
+        /// <summary>
+        /// Override this method to make assertions on every exposed PropertyInfo in the assembly. 
+        /// This method will get called many times and all Exceptions and failed 
+        /// assertions will be added to the list.
+        /// </summary>
         protected virtual void PropertyAssertions(PropertyInfo Prop) { }
 
+        /// <summary>
+        /// Override this method to make assertions on every exposed EventInfo in the assembly. 
+        /// This method will get called many times and all Exceptions and failed 
+        /// assertions will be added to the list.
+        /// </summary>
         protected virtual void EventAssertions(EventInfo Event) { }
 
+        /// <summary>
+        /// Override this method to make assertions on every exposed FieldInfo in the assembly. 
+        /// This method will get called many times and all Exceptions and failed 
+        /// assertions will be added to the list.
+        /// </summary>
         protected virtual void FieldAssertions(FieldInfo Field) { }
 
         #endregion
@@ -492,7 +563,9 @@ namespace LCore.LUnit
         ////////////////////////////////////////////////////////
 
         #region Test Failure Methods
-
+        /// <summary>
+        /// Reports Exception #1, if it exists.
+        /// </summary>
         [Fact]
         public void TestFailure01()
             {
@@ -500,6 +573,9 @@ namespace LCore.LUnit
             this.ThrowException(0);
             }
 
+        /// <summary>
+        /// Reports Exception #2, if it exists.
+        /// </summary>
         [Fact]
         public void TestFailure02()
             {
@@ -507,6 +583,9 @@ namespace LCore.LUnit
             this.ThrowException(1);
             }
 
+        /// <summary>
+        /// Reports Exception #3, if it exists.
+        /// </summary>
         [Fact]
         public void TestFailure03()
             {
@@ -514,6 +593,9 @@ namespace LCore.LUnit
             this.ThrowException(2);
             }
 
+        /// <summary>
+        /// Reports Exception #4, if it exists.
+        /// </summary>
         [Fact]
         public void TestFailure04()
             {
@@ -521,6 +603,9 @@ namespace LCore.LUnit
             this.ThrowException(3);
             }
 
+        /// <summary>
+        /// Reports Exception #5, if it exists.
+        /// </summary>
         [Fact]
         public void TestFailure05()
             {
@@ -528,6 +613,9 @@ namespace LCore.LUnit
             this.ThrowException(4);
             }
 
+        /// <summary>
+        /// Reports Exception #6, if it exists.
+        /// </summary>
         [Fact]
         public void TestFailure06()
             {
@@ -535,6 +623,9 @@ namespace LCore.LUnit
             this.ThrowException(5);
             }
 
+        /// <summary>
+        /// Reports Exception #7, if it exists.
+        /// </summary>
         [Fact]
         public void TestFailure07()
             {
@@ -542,6 +633,9 @@ namespace LCore.LUnit
             this.ThrowException(6);
             }
 
+        /// <summary>
+        /// Reports Exception #8, if it exists.
+        /// </summary>
         [Fact]
         public void TestFailure08()
             {
@@ -549,6 +643,9 @@ namespace LCore.LUnit
             this.ThrowException(7);
             }
 
+        /// <summary>
+        /// Reports Exception #9, if it exists.
+        /// </summary>
         [Fact]
         public void TestFailure09()
             {
@@ -556,6 +653,9 @@ namespace LCore.LUnit
             this.ThrowException(8);
             }
 
+        /// <summary>
+        /// Reports Exception #10, if it exists.
+        /// </summary>
         [Fact]
         public void TestFailure10()
             {
@@ -575,6 +675,9 @@ namespace LCore.LUnit
                 throw Ex;
             }
 
+        /// <summary>
+        /// Add an exception to the list, only the first 10 will be reported in the test runner.
+        /// </summary>
         protected void AddException(Exception Ex)
             {
             if (!_AssemblyExceptions.Has(Ex2 => Ex.ToS() == Ex2.ToS()))
