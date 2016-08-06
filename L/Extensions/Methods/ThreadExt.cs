@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using JetBrains.Annotations;
 using LCore.Interfaces;
@@ -585,21 +586,33 @@ namespace LCore.Extensions
         [Tested]
         public static Func<U> Profile<U>([CanBeNull] this Func<U> In, [CanBeNull] string ProfileName)
             {
+            MethodProfileData Cache;
+
+            if (L.Thread.MethodProfileData_Has(ProfileName))
+                {
+                Cache = L.Thread.MethodProfileData_Get(ProfileName);
+                }
+            else
+                {
+                Cache = new MethodProfileData();
+                L.Thread.MethodProfileData_Add(ProfileName, Cache);
+                }
+
+            Debug.Assert(Cache != null, "Cache != null");
+
             return () =>
                 {
-                    L.Thread.MethodProfileCache.SafeAdd(ProfileName, new MethodProfileData());
-
                     MethodProfileData<U> Out = In.Profile();
 
-                    var Cache = L.Thread.MethodProfileCache[ProfileName];
+                    var Result = Out.Data.First();
 
                     Cache.Times.AddRange(Out.Times);
 
                     List<object> TempList = Cache.Data.List();
-                    TempList.AddRange(Out.Data.List<object>());
+                    TempList.Add(Result);
                     Cache.Data = TempList;
 
-                    return Out.Data.First();
+                    return Result;
                 };
             }
 
@@ -627,10 +640,50 @@ namespace LCore.Extensions
             {
             internal const uint DefaultProfileRepeat = 0;
 
+            #region MethodProfileCache
+
+            private static readonly Dictionary<string, MethodProfileData> _MethodProfileCache =
+                new Dictionary<string, MethodProfileData>();
+
             /// <summary>
             /// Access profile data from methods passed through Profile.
             /// </summary>
-            public static readonly Dictionary<string, MethodProfileData> MethodProfileCache = new Dictionary<string, MethodProfileData>();
+            [CanBeNull]
+            public static MethodProfileData MethodProfileData_Get([CanBeNull]string Method)
+                {
+                if (Method != null && _MethodProfileCache.ContainsKey(Method))
+                    return _MethodProfileCache[Method];
+
+                return null;
+                }
+
+            /// <summary>
+            /// Removes a method's profile data from the profile data dictionary.
+            /// </summary>
+            public static void MethodProfileData_Remove([CanBeNull] string Method)
+                {
+                _MethodProfileCache.SafeRemove(Method);
+                }
+
+            /// <summary>
+            /// Adds a method's profile data to the profile data dictionary.
+            /// </summary>
+            public static void MethodProfileData_Add([CanBeNull] string Method, [CanBeNull] MethodProfileData Profile)
+                {
+                if (Profile != null)
+                    _MethodProfileCache.SafeAdd(Method, Profile);
+                }
+
+            /// <summary>
+            /// Determines if a method has any profile data tracked.
+            /// </summary>
+            public static bool MethodProfileData_Has([CanBeNull] string Method)
+                {
+                return _MethodProfileCache.ContainsKey(Method);
+                }
+
+
+            #endregion
 
             #region Profile
 
@@ -649,8 +702,8 @@ namespace LCore.Extensions
                 {
                     return () =>
                         {
-                            MethodProfileCache.SafeAdd(ProfileName, new MethodProfileData());
-                            MethodProfileCache[ProfileName].Times.Add(In.Profile());
+                            _MethodProfileCache.SafeAdd(ProfileName, new MethodProfileData());
+                            _MethodProfileCache[ProfileName].Times.Add(In.Profile());
                         };
                 };
 

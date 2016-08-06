@@ -573,28 +573,8 @@ namespace LCore.LUnit.Fluent
 
 
         #region Abbreviations +
-        /*
 
-                public static AndConstraint<TypeAssertions> ShouldNotHaveAttribute<T>(this Type Type)
-                    where T : IPersistAttribute
-                    {
-                    return Type.Should().NotHaveAttribute<T>();
-                    }
-                public static AndConstraint<TypeAssertions> ShouldNotHaveAttribute<T>(this Type Type, bool IncludeBaseTypes)
-                    {
-                    return Type.Should().NotHaveAttribute<T>(IncludeBaseTypes);
-                    }
-
-                public static AndConstraint<TypeAssertions> ShouldHaveAttribute<T>(this Type Type)
-                    where T : IPersistAttribute
-                    {
-                    return Type.Should().HaveAttribute<T>();
-                    }
-                public static AndConstraint<TypeAssertions> ShouldHaveAttribute<T>(this Type Type, bool IncludeBaseTypes)
-                    {
-                    return Type.Should().HaveAttribute<T>(IncludeBaseTypes);
-                    }
-        */
+        #region ShouldBeTrue
 
         /// <summary>
         /// Asserts that the value is true.
@@ -605,10 +585,15 @@ namespace LCore.LUnit.Fluent
         ///     word because, it is prepended automatically.</param>
         /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
         /// <returns></returns>
-        public static AndConstraint<BooleanAssertions> ShouldBeTrue(this bool Boolean, string Because = "", params object[] BecauseArgs)
+        public static AndConstraint<BooleanAssertions> ShouldBeTrue(this bool Boolean, string Because = "",
+            params object[] BecauseArgs)
             {
             return Boolean.Should().BeTrue(Because, BecauseArgs);
             }
+
+        #endregion
+
+        #region ShouldBeFalse
 
         /// <summary>
         /// Asserts that the value is false.
@@ -619,10 +604,49 @@ namespace LCore.LUnit.Fluent
         ///     word because, it is prepended automatically.</param>
         /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
         /// <returns></returns>
-        public static AndConstraint<BooleanAssertions> ShouldBeFalse(this bool Boolean, string Because = "", params object[] BecauseArgs)
+        public static AndConstraint<BooleanAssertions> ShouldBeFalse(this bool Boolean, string Because = "",
+            params object[] BecauseArgs)
             {
             return Boolean.Should().BeFalse(Because, BecauseArgs);
             }
+
+        #endregion
+
+        #region ShouldBeNull
+
+        /// <summary>
+        /// Asserts that the value is null.
+        /// </summary>
+        /// <param name="Value"></param>
+        /// <param name="Because">A formatted phrase as is supported by System.String.Format(System.String,System.Object[])
+        ///     explaining why the assertion is needed. If the phrase does not start with the
+        ///     word because, it is prepended automatically.</param>
+        /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
+        /// <returns></returns>
+        public static AndConstraint<ObjectAssertions> ShouldBeNull<T>(this T Value, string Because = "",
+            params object[] BecauseArgs)
+            where T : class
+            {
+            return Value.Should().BeNull(Because, BecauseArgs);
+            }
+
+        /// <summary>
+        /// Asserts that the value is null.
+        /// </summary>
+        /// <param name="Value"></param>
+        /// <param name="Because">A formatted phrase as is supported by System.String.Format(System.String,System.Object[])
+        ///     explaining why the assertion is needed. If the phrase does not start with the
+        ///     word because, it is prepended automatically.</param>
+        /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
+        /// <returns></returns>
+        public static AndConstraint<ObjectAssertions> ShouldBeNull<T>(this T? Value, string Because = "",
+            params object[] BecauseArgs)
+            where T : struct
+            {
+            return Value.Should().BeNull(Because, BecauseArgs);
+            }
+
+        #endregion
 
         #endregion
 

@@ -1606,8 +1606,6 @@ namespace LCore.Extensions
 
             #endregion
 
-            // Explode
-
             #region Logic Lambdas +
 
             #region If

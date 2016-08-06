@@ -14,6 +14,9 @@ namespace LCore.LUnit
         /// </summary>
         public string[] AdditionalChecks { get; set; }
 
+        /// <summary>
+        /// Parameters for the current test
+        /// </summary>
         public object[] Parameters { get; set; }
 
 

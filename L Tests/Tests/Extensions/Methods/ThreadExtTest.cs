@@ -9,6 +9,8 @@ using Xunit;
 using Xunit.Abstractions;
 using static LCore.LUnit.LUnit.Categories;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
+// ReSharper disable PossibleNullReferenceException
 
 namespace LCore.Tests.Extensions
     {
@@ -21,8 +23,8 @@ namespace LCore.Tests.Extensions
             bool Success = false;
             var TestAction = new Action(() =>
                 {
-                Thread.Sleep(20);
-                Success = true;
+                    Thread.Sleep(20);
+                    Success = true;
                 });
 
             lock (TestAction)
@@ -42,8 +44,8 @@ namespace LCore.Tests.Extensions
             bool Success = false;
             var TestAction = new Action(() =>
                 {
-                Thread.Sleep(30);
-                Success = true;
+                    Thread.Sleep(30);
+                    Success = true;
                 });
 
             Thread.Sleep(40);
@@ -156,8 +158,8 @@ namespace LCore.Tests.Extensions
             string Success = "";
             var TestAction = new Action<string>(Str =>
                 {
-                Thread.Sleep(5);
-                Success = Str;
+                    Thread.Sleep(5);
+                    Success = Str;
                 });
 
             lock (Success)
@@ -188,8 +190,8 @@ namespace LCore.Tests.Extensions
             string Result = "";
             var TestAction = new Action<string>(Str =>
                 {
-                Thread.Sleep(30);
-                Result = Str;
+                    Thread.Sleep(30);
+                    Result = Str;
                 });
 
             Thread.Sleep(40);
@@ -328,8 +330,8 @@ namespace LCore.Tests.Extensions
                 bool Success = false;
                 TestAction.AsyncResult(Result =>
                     {
-                    Result.Should().Be("abcyes");
-                    Success = true;
+                        Result.Should().Be("abcyes");
+                        Success = true;
                     })("abc");
 
                 Thread.Sleep(50);
@@ -339,8 +341,8 @@ namespace LCore.Tests.Extensions
                 Success = false;
                 TestAction.AsyncResult(Result =>
                     {
-                    Result.Should().Be("abcyes");
-                    Success = true;
+                        Result.Should().Be("abcyes");
+                        Success = true;
                     }, ThreadPriority.AboveNormal)("abc");
 
                 Thread.Sleep(50);
@@ -355,9 +357,9 @@ namespace LCore.Tests.Extensions
             bool Success = false;
             var TestAction = new Func<string>(() =>
                 {
-                Thread.Sleep(30);
-                Success = true;
-                return "abc";
+                    Thread.Sleep(30);
+                    Success = true;
+                    return "abc";
                 });
 
             Action<string> TestAction2 = Result => { Result.Should().Be("abc"); };
@@ -473,10 +475,10 @@ namespace LCore.Tests.Extensions
             bool Success = false;
             var TestAction = new Func<string, string>(Result =>
                 {
-                Result.Should().Be("abc");
-                Thread.Sleep(20);
-                Success = true;
-                return "abc";
+                    Result.Should().Be("abc");
+                    Thread.Sleep(20);
+                    Success = true;
+                    return "abc";
                 });
 
             Action<string> ResultFunction = Result => { Result.Should().Be("abc"); };
@@ -591,26 +593,26 @@ namespace LCore.Tests.Extensions
             {
             const string ProfileName = "TestProfile";
 
-            L.Thread.MethodProfileCache.SafeRemove(ProfileName);
-            L.Thread.MethodProfileCache.ContainsKey(ProfileName).Should().BeFalse();
+            L.Thread.MethodProfileData_Remove(ProfileName);
+            L.Thread.MethodProfileData_Get(ProfileName).ShouldBeNull();
 
             var Action = new Action(() =>
                 {
-                int Wait = new Random().Next(25, 50);
-                Thread.Sleep(Wait);
+                    int Wait = new Random().Next(25, 50);
+                    Thread.Sleep(Wait);
                 }).Profile(ProfileName).Repeat(5);
 
             lock (Action)
                 {
                 Action();
 
-                var Profile = L.Thread.MethodProfileCache[ProfileName];
+                var Profile = L.Thread.MethodProfileData_Get(ProfileName);
 
                 Profile.AverageMS.Should().BeInRange(25, 55);
                 Profile.Times.Count.Should().Be(6);
 
-                L.Thread.MethodProfileCache.SafeRemove(ProfileName);
-                L.Thread.MethodProfileCache.ContainsKey(ProfileName).Should().BeFalse();
+                L.Thread.MethodProfileData_Remove(ProfileName);
+                L.Thread.MethodProfileData_Get(ProfileName).ShouldBeNull();
                 }
             }
 
@@ -624,22 +626,22 @@ namespace LCore.Tests.Extensions
                 Act.Profile(5).Should().BeCloseTo(new TimeSpan(0, 0, 0, 0, 50), 80);
                 Act.Profile(20).Should().BeCloseTo(new TimeSpan(0, 0, 0, 0, 200), 100);
 
-                ((Action) null).Profile().Should().BeCloseTo(new TimeSpan(0));
-                ((Action) null).Profile(5).Should().BeCloseTo(new TimeSpan(0));
+                ((Action)null).Profile().Should().BeCloseTo(new TimeSpan(0));
+                ((Action)null).Profile(5).Should().BeCloseTo(new TimeSpan(0));
                 }
             }
 
         [Fact]
         public void Test_ProfileString()
             {
-            L.Thread.MethodProfileCache.SafeRemove("TestProfile");
+            L.Thread.MethodProfileData_Remove("TestProfile");
 
-            L.Thread.MethodProfileCache.ContainsKey("TestProfile").Should().BeFalse();
+            L.Thread.MethodProfileData_Get("TestProfile").ShouldBeNull();
 
             Action<string> Act = Str =>
                 {
-                Str.Should().Be("abc");
-                Thread.Sleep(10);
+                    Str.Should().Be("abc");
+                    Thread.Sleep(10);
                 };
 
             Act = Act.Profile("TestProfile");
@@ -652,7 +654,7 @@ namespace LCore.Tests.Extensions
                 Act("abc");
                 Act("abc");
 
-                var Result = L.Thread.MethodProfileCache["TestProfile"];
+                var Result = L.Thread.MethodProfileData_Get("TestProfile");
 
                 Result.Times.Count.Should().Be(5);
                 Result.AverageMS.Should().BeInRange(8, 20);
@@ -665,9 +667,9 @@ namespace LCore.Tests.Extensions
             {
             Func<int> Func = () =>
                 {
-                int Rand = new Random().Next(50, 70);
-                Thread.Sleep(Rand);
-                return Rand;
+                    int Rand = new Random().Next(50, 70);
+                    Thread.Sleep(Rand);
+                    return Rand;
                 };
 
             Thread.Sleep(50);
@@ -691,17 +693,19 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_ProfileFuncString()
             {
-            L.Thread.MethodProfileCache.SafeRemove("TestProfile");
+            const string ProfieName = "TestProfile";
 
-            L.Thread.MethodProfileCache.ContainsKey("TestProfile").Should().BeFalse();
+            L.Thread.MethodProfileData_Remove(ProfieName);
+
+            L.Thread.MethodProfileData_Get(ProfieName).ShouldBeNull();
 
             Func<string> Func = () =>
                 {
-                Thread.Sleep(10);
-                return "abc";
+                    Thread.Sleep(10);
+                    return "abc";
                 };
 
-            Func = Func.Profile("TestProfile");
+            Func = Func.Profile(ProfieName);
 
             lock (Func)
                 {
@@ -711,7 +715,7 @@ namespace LCore.Tests.Extensions
                 Func();
                 Func();
 
-                var Result = L.Thread.MethodProfileCache["TestProfile"];
+                var Result = L.Thread.MethodProfileData_Get(ProfieName);
 
                 Result.Times.Count.Should().Be(5);
                 Result.AverageMS.Should().BeInRange(5, 25);
@@ -723,15 +727,15 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_ProfileFuncString_2()
             {
-            L.Thread.MethodProfileCache.SafeRemove("TestProfile");
+            L.Thread.MethodProfileData_Remove("TestProfile");
 
-            L.Thread.MethodProfileCache.ContainsKey("TestProfile").Should().BeFalse();
+            L.Thread.MethodProfileData_Get("TestProfile").ShouldBeNull();
 
             Func<string, string> Func = Str =>
                 {
-                Str.Should().Be("abc");
-                Thread.Sleep(10);
-                return "abc";
+                    Str.Should().Be("abc");
+                    Thread.Sleep(10);
+                    return "abc";
                 };
 
             Func = Func.Profile("TestProfile");
@@ -744,7 +748,7 @@ namespace LCore.Tests.Extensions
                 Func("abc").Should().Be("abc");
                 Func("abc").Should().Be("abc");
 
-                var Result = L.Thread.MethodProfileCache["TestProfile"];
+                var Result = L.Thread.MethodProfileData_Get("TestProfile");
 
                 Result.Times.Count.Should().Be(5);
                 Result.AverageMS.Should().BeInRange(5, 25);
@@ -761,6 +765,6 @@ namespace LCore.Tests.Extensions
             Act.CountExecutions(100).Should().BeInRange(30, 50);
             }
 
-        public ThreadExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
+        public ThreadExtTest([NotNull] ITestOutputHelper Output) : base(Output) { }
         }
     }

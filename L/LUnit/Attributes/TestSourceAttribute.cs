@@ -22,6 +22,9 @@ namespace LCore.LUnit
         /// </summary>
         public string[] AdditionalSourceChecks { get; }
 
+        /// <summary>
+        /// Parameters for the current test
+        /// </summary>
         public object[] Parameters { get; }
 
         /// <summary>

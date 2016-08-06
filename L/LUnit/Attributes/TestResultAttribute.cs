@@ -24,7 +24,10 @@ namespace LCore.LUnit
         /// Fully qualified references to additional checks to perform.
         /// </summary>
         public string[] AdditionalResultChecks { get; }
-        
+
+        /// <summary>
+        /// Generic types defined on the current method
+        /// </summary>
         public Type[] GenericTypes{ get; set; }
 
         /// <summary>
