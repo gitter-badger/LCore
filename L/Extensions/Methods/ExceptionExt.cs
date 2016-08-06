@@ -401,7 +401,7 @@ namespace LCore.Extensions
         /// Catches exceptions of all types, using Exception as the base type.
         /// </summary>
         [Tested]
-        public static Action Catch(this Action In, Action<Exception> Catch)
+        public static Action Catch([CanBeNull]this Action In, [CanBeNull]Action<Exception> Catch)
             {
             return In.Catch<Exception>(Catch);
             }
@@ -410,7 +410,7 @@ namespace LCore.Extensions
         /// Catches exceptions of all types, using Exception as the base type.
         /// </summary>
         [Tested]
-        public static Action<T1> Catch<T1>(this Action<T1> In, Action<Exception> Catch)
+        public static Action<T1> Catch<T1>([CanBeNull]this Action<T1> In, [CanBeNull]Action<Exception> Catch)
             {
             return In.Catch<T1, Exception>(Catch);
             }
@@ -419,7 +419,7 @@ namespace LCore.Extensions
         /// Catches exceptions of all types, using Exception as the base type.
         /// </summary>
         [Tested]
-        public static Action<T1, T2> Catch<T1, T2>(this Action<T1, T2> In, Action<Exception> Catch)
+        public static Action<T1, T2> Catch<T1, T2>([CanBeNull]this Action<T1, T2> In, [CanBeNull]Action<Exception> Catch)
             {
             return In.Catch<T1, T2, Exception>(Catch);
             }
@@ -428,7 +428,7 @@ namespace LCore.Extensions
         /// Catches exceptions of all types, using Exception as the base type.
         /// </summary>
         [Tested]
-        public static Action<T1, T2, T3> Catch<T1, T2, T3>(this Action<T1, T2, T3> In, Action<Exception> Catch)
+        public static Action<T1, T2, T3> Catch<T1, T2, T3>([CanBeNull]this Action<T1, T2, T3> In, [CanBeNull]Action<Exception> Catch)
             {
             return In.Catch<T1, T2, T3, Exception>(Catch);
             }
@@ -437,7 +437,7 @@ namespace LCore.Extensions
         /// Catches exceptions of all types, using Exception as the base type.
         /// </summary>
         [Tested]
-        public static Action<T1, T2, T3, T4> Catch<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In, Action<Exception> Catch)
+        public static Action<T1, T2, T3, T4> Catch<T1, T2, T3, T4>([CanBeNull]this Action<T1, T2, T3, T4> In, [CanBeNull]Action<Exception> Catch)
             {
             return In.Catch<T1, T2, T3, T4, Exception>(Catch);
             }
@@ -531,7 +531,7 @@ namespace LCore.Extensions
         /// Catches exceptions of all types, using Exception as the base type.
         /// </summary>
         [Tested]
-        public static Func<U> Catch<U>(this Func<U> In, Action<Exception> Catch)
+        public static Func<U> Catch<U>([CanBeNull]this Func<U> In, [CanBeNull]Action<Exception> Catch)
             {
             return In.Catch<U, Exception>(Catch);
             }
@@ -540,7 +540,7 @@ namespace LCore.Extensions
         /// Catches exceptions of all types, using Exception as the base type.
         /// </summary>
         [Tested]
-        public static Func<T1, U> Catch<T1, U>(this Func<T1, U> In, Action<Exception> Catch)
+        public static Func<T1, U> Catch<T1, U>([CanBeNull]this Func<T1, U> In, [CanBeNull]Action<Exception> Catch)
             {
             return In.Catch<T1, U, Exception>(Catch);
             }
@@ -549,7 +549,7 @@ namespace LCore.Extensions
         /// Catches exceptions of all types, using Exception as the base type.
         /// </summary>
         [Tested]
-        public static Func<T1, T2, U> Catch<T1, T2, U>(this Func<T1, T2, U> In, Action<Exception> Catch)
+        public static Func<T1, T2, U> Catch<T1, T2, U>([CanBeNull]this Func<T1, T2, U> In, [CanBeNull]Action<Exception> Catch)
             {
             return In.Catch<T1, T2, U, Exception>(Catch);
             }
@@ -558,7 +558,7 @@ namespace LCore.Extensions
         /// Catches exceptions of all types, using Exception as the base type.
         /// </summary>
         [Tested]
-        public static Func<T1, T2, T3, U> Catch<T1, T2, T3, U>(this Func<T1, T2, T3, U> In, Action<Exception> Catch)
+        public static Func<T1, T2, T3, U> Catch<T1, T2, T3, U>([CanBeNull]this Func<T1, T2, T3, U> In, [CanBeNull]Action<Exception> Catch)
             {
             return In.Catch<T1, T2, T3, U, Exception>(Catch);
             }
@@ -567,7 +567,7 @@ namespace LCore.Extensions
         /// Catches exceptions of all types, using Exception as the base type.
         /// </summary>
         [Tested]
-        public static Func<T1, T2, T3, T4, U> Catch<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In, Action<Exception> Catch)
+        public static Func<T1, T2, T3, T4, U> Catch<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, T3, T4, U> In, [CanBeNull]Action<Exception> Catch)
             {
             return In.Catch<T1, T2, T3, T4, U, Exception>(Catch);
             }

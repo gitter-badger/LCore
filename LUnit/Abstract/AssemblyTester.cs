@@ -28,7 +28,7 @@ namespace LCore.LUnit
 
         ////////////////////////////////////////////////////////
 
-        protected AssemblyTester([NotNull] ITestOutputHelper Output) : base(Output) {}
+        protected AssemblyTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
         ////////////////////////////////////////////////////////
 
@@ -99,24 +99,24 @@ namespace LCore.LUnit
 
             Tests.Each(Test =>
                 {
-                var Member = Test.Key;
+                    var Member = Test.Key;
 
-                this.TestAllMemberAssertions(Member);
+                    this.TestAllMemberAssertions(Member);
 
-                if (Member is MethodInfo)
-                    this.TestMethodAssertions((MethodInfo) Member);
-                if (Member is PropertyInfo)
-                    this.TestPropertyAssertions((PropertyInfo) Member);
-                if (Member is FieldInfo)
-                    this.TestFieldAssertions((FieldInfo) Member);
-                if (Member is EventInfo)
-                    this.TestEventAssertions((EventInfo) Member);
+                    if (Member is MethodInfo)
+                        this.TestMethodAssertions((MethodInfo)Member);
+                    if (Member is PropertyInfo)
+                        this.TestPropertyAssertions((PropertyInfo)Member);
+                    if (Member is FieldInfo)
+                        this.TestFieldAssertions((FieldInfo)Member);
+                    if (Member is EventInfo)
+                        this.TestEventAssertions((EventInfo)Member);
 
-                List<ILUnitAttribute> ValueList = Test.Value.Select(Attr => !(Attr is ITestedAttribute));
+                    List<ILUnitAttribute> ValueList = Test.Value.Select(Attr => !(Attr is ITestedAttribute));
 
-                ValueList.Reverse();
+                    ValueList.Reverse();
 
-                ValueList.Each((i, AttrTest) => this.TestAttribute(AttrTest, Member, i + 1));
+                    ValueList.Each((i, AttrTest) => this.TestAttribute(AttrTest, Member, i + 1));
                 });
             }
 
@@ -128,7 +128,7 @@ namespace LCore.LUnit
                 {
                 // ReSharper disable UseNullPropagation
                 if (AttrTest is IValidateAttribute)
-                    ((IValidateAttribute) AttrTest).RunTest(Member);
+                    ((IValidateAttribute)AttrTest).RunTest(Member);
                 // ReSharper restore UseNullPropagation
                 }
             catch (Exception Ex)
@@ -149,9 +149,9 @@ namespace LCore.LUnit
 
                     // Generics from current attribute take 1st priority
                     if (AttrTest is ITestMethodGenericsAttribute &&
-                        !((ITestMethodGenericsAttribute) AttrTest).GenericTypes.IsEmpty())
+                        !((ITestMethodGenericsAttribute)AttrTest).GenericTypes.IsEmpty())
                         {
-                        Method = Method.MakeGenericMethod(((ITestMethodGenericsAttribute) AttrTest).GenericTypes);
+                        Method = Method.MakeGenericMethod(((ITestMethodGenericsAttribute)AttrTest).GenericTypes);
                         }
                     // Then declared generics from other attributes
                     else if (Generics != null)
@@ -159,7 +159,7 @@ namespace LCore.LUnit
                         Method = Method.MakeGenericMethod(Generics.GenericTypes);
                         }
                     // Ignore tested attributes
-                    else if (AttrTest is ITestedAttribute) {}
+                    else if (AttrTest is ITestedAttribute) { }
                     else
                         {
                         try
@@ -178,16 +178,16 @@ namespace LCore.LUnit
                     {
                     // ReSharper disable UseNullPropagation
                     if (AttrTest is ITestResultAttribute)
-                        ((ITestResultAttribute) AttrTest).RunTest(Method);
+                        ((ITestResultAttribute)AttrTest).RunTest(Method);
 
                     if (AttrTest is ITestFailsAttribute)
-                        ((ITestFailsAttribute) AttrTest).RunTest(Method);
+                        ((ITestFailsAttribute)AttrTest).RunTest(Method);
 
                     if (AttrTest is ITestSucceedsAttribute)
-                        ((ITestSucceedsAttribute) AttrTest).RunTest(Method);
+                        ((ITestSucceedsAttribute)AttrTest).RunTest(Method);
 
                     if (AttrTest is ITestSourceAttribute)
-                        ((ITestSourceAttribute) AttrTest).RunTest(Method);
+                        ((ITestSourceAttribute)AttrTest).RunTest(Method);
                     // ReSharper restore UseNullPropagation
                     }
                 catch (Exception Ex)
@@ -263,7 +263,7 @@ namespace LCore.LUnit
                                             {
                                             TheMethod = Method.MakeGenericMethod(typeof(string), typeof(string), typeof(string));
                                             }
-                                        catch {}
+                                        catch { }
                                         }
                                     }
                                 }
@@ -288,6 +288,7 @@ namespace LCore.LUnit
                     bool NullsAllowedForParameter = ParametersCanBeNull[i];
 
                     // For Optional Value Type parameters, do not expect a null value to cause a failure.
+                    // ReSharper disable once ConvertIfToOrExpression
                     if (Parameters[i].IsOptional && Parameters[i].ParameterType.IsValueType && !Parameters[i].ParameterType.IsNullable())
                         NullsAllowedForParameter = true;
 
@@ -323,43 +324,48 @@ namespace LCore.LUnit
                         bool Finished = false;
                         L.A(() =>
                             {
-                            try
-                                {
-                                var Result = TheMethod.Invoke(null, Params);
+                                try
+                                    {
+                                    var Result = TheMethod.Invoke(null, Params);
 
-                                if (!NullsAllowedForParameter && ParameterIsNullable)
-                                    {
-                                    Finished = true;
-                                    this.AddException(new InternalTestFailureException(
-                                        $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed, but it passed."));
-                                    }
-
-                                if (!MethodCanBeNull
-                                    && TheMethod.ReturnType != typeof(void)
-                                    && !TheMethod.ReturnType.IsNullable()
-                                    && Result.IsNull())
-                                    {
-                                    Finished = true;
-                                    this.AddException(new InternalTestFailureException(
-                                        $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should not have returned null, but it did."));
-                                    }
-                                }
-                            catch (Exception Ex)
-                                {
-                                if (!NullsAllowedForParameter && ParameterIsNullable)
-                                    {
-                                    Finished = true;
-                                    // Enforces use of ArgumentNullException on any field marked [NotNull]
-                                    if (!(Ex is ArgumentNullException) ||
-                                        ((ArgumentNullException) Ex).ParamName != Parameters[i].Name)
+                                    if (!NullsAllowedForParameter && ParameterIsNullable)
                                         {
+                                        Finished = true;
                                         this.AddException(new InternalTestFailureException(
-                                            $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed with an ArgumentNullException matching the parameter name, but it threw an {Ex.GetType()}: {Ex.Message}."));
+                                            $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed, but it passed." +
+                                            $"\n\n Resolve this by adding [{typeof(CanBeNullAttribute).FullyQualifiedName().BeforeLast("Attribute")}] to the parameter, " +
+                                            $"\n Or adding: if ({Parameters[i].Name} == null) throw new ArgumentNullException(\"{Parameters[i].Name}\");"));
+                                        }
+
+                                    if (!MethodCanBeNull
+                                        && TheMethod.ReturnType != typeof(void)
+                                        && !TheMethod.ReturnType.IsNullable()
+                                        && Result.IsNull())
+                                        {
+                                        Finished = true;
+                                        this.AddException(new InternalTestFailureException(
+                                            $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should not have returned null, but it did." +
+                                            $"\n\n Resolve this by adding [{typeof(CanBeNullAttribute).FullyQualifiedName().BeforeLast("Attribute")}] to the method, " +
+                                            "\n Or adding a non-null return value."));
                                         }
                                     }
-                                }
+                                catch (Exception Ex)
+                                    {
+                                    if (!NullsAllowedForParameter && ParameterIsNullable)
+                                        {
+                                        Finished = true;
+                                        // Enforces use of ArgumentNullException on any field marked [NotNull]
+                                        if (!(Ex is ArgumentNullException) ||
+                                            ((ArgumentNullException)Ex).ParamName != Parameters[i].Name)
+                                            {
+                                            this.AddException(new InternalTestFailureException(
+                                                $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed with an ArgumentNullException matching the parameter name, but it threw an {Ex.GetType()}: {Ex.Message}. " +
+                                                $"\n\n Resolve this by adding: if ({Parameters[i].Name} == null) throw new ArgumentNullException(\"{Parameters[i].Name}\");"));
+                                            }
+                                        }
+                                    }
 
-                            Finished = true;
+                                Finished = true;
                             }).Async(300)();
 
                         uint Waited = 0;
@@ -387,7 +393,8 @@ namespace LCore.LUnit
                 }
 
 
-            this._Output.WriteLine($"Ran {Tested} Nullability {"Test".Pluralize(Tested)}");
+            if (Tested > 0)
+                this._Output.WriteLine($"Ran {Tested} Nullability {"Test".Pluralize(Tested)}".Pad(30) + $"{Type.FullyQualifiedName()}");
             }
 
         #region Virtual Assertions
@@ -470,17 +477,17 @@ namespace LCore.LUnit
                 }
             }
 
-        protected virtual void TypeAssertions(Type Type) {}
+        protected virtual void TypeAssertions(Type Type) { }
 
-        protected virtual void AllMemberAssertions(MemberInfo Member) {}
+        protected virtual void AllMemberAssertions(MemberInfo Member) { }
 
-        protected virtual void MethodAssertions(MethodInfo Method) {}
+        protected virtual void MethodAssertions(MethodInfo Method) { }
 
-        protected virtual void PropertyAssertions(PropertyInfo Prop) {}
+        protected virtual void PropertyAssertions(PropertyInfo Prop) { }
 
-        protected virtual void EventAssertions(EventInfo Event) {}
+        protected virtual void EventAssertions(EventInfo Event) { }
 
-        protected virtual void FieldAssertions(FieldInfo Field) {}
+        protected virtual void FieldAssertions(FieldInfo Field) { }
 
         #endregion
 

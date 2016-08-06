@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using LCore.Dynamic;
 using LCore.LUnit;
 using LCore.Tools;
@@ -29,7 +30,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action Surround<U>(this Action<U> In, Func<U> Func)
+        public static Action Surround<U>([CanBeNull]this Action<U> In, [CanBeNull]Func<U> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -47,7 +48,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T1> Surround<T1, U>(this Action<U> In, Func<T1, U> Func)
+        public static Action<T1> Surround<T1, U>([CanBeNull]this Action<U> In, [CanBeNull]Func<T1, U> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -65,7 +66,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T1, T2> Surround<T1, T2, U>(this Action<U> In, Func<T1, T2, U> Func)
+        public static Action<T1, T2> Surround<T1, T2, U>([CanBeNull]this Action<U> In, [CanBeNull]Func<T1, T2, U> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -83,7 +84,7 @@ namespace LCore.Extensions
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
-        public static Action<T1, T2, T3> Surround<T1, T2, T3, U>(this Action<U> In, Func<T1, T2, T3, U> Func)
+        public static Action<T1, T2, T3> Surround<T1, T2, T3, U>([CanBeNull]this Action<U> In, [CanBeNull] Func<T1, T2, T3, U> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -103,7 +104,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T1, T2, T3, T4> Surround<T1, T2, T3, T4, U>(this Action<U> In, Func<T1, T2, T3, T4, U> Func)
+        public static Action<T1, T2, T3, T4> Surround<T1, T2, T3, T4, U>([CanBeNull]this Action<U> In, [CanBeNull]Func<T1, T2, T3, T4, U> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -122,7 +123,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T2> Surround<T1, T2>(this Action<T1, T2> In, Func<T1> Func)
+        public static Action<T2> Surround<T1, T2>([CanBeNull]this Action<T1, T2> In, [CanBeNull]Func<T1> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -139,7 +140,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T1> Surround2<T1, T2>(this Action<T1, T2> In, Func<T2> Func)
+        public static Action<T1> Surround2<T1, T2>([CanBeNull]this Action<T1, T2> In, [CanBeNull]Func<T2> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -157,7 +158,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T2, T3> Surround<T1, T2, T3>(this Action<T1, T2> In, Func<T3, T1> Func)
+        public static Action<T2, T3> Surround<T1, T2, T3>([CanBeNull]this Action<T1, T2> In, [CanBeNull]Func<T3, T1> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -175,7 +176,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T1, T3> Surround2<T1, T2, T3>(this Action<T1, T2> In, Func<T3, T2> Func)
+        public static Action<T1, T3> Surround2<T1, T2, T3>([CanBeNull]this Action<T1, T2> In, [CanBeNull]Func<T3, T2> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -194,7 +195,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T2, T3, T4> Surround<T1, T2, T3, T4>(this Action<T1, T2> In, Func<T3, T4, T1> Func)
+        public static Action<T2, T3, T4> Surround<T1, T2, T3, T4>([CanBeNull]this Action<T1, T2> In, [CanBeNull]Func<T3, T4, T1> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -213,7 +214,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T1, T3, T4> Surround2<T1, T2, T3, T4>(this Action<T1, T2> In, Func<T3, T4, T2> Func)
+        public static Action<T1, T3, T4> Surround2<T1, T2, T3, T4>([CanBeNull]this Action<T1, T2> In, [CanBeNull] Func<T3, T4, T2> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -233,7 +234,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T2, T3, T4, T5> Surround<T1, T2, T3, T4, T5>(this Action<T1, T2> In, Func<T3, T4, T5, T1> Func)
+        public static Action<T2, T3, T4, T5> Surround<T1, T2, T3, T4, T5>([CanBeNull]this Action<T1, T2> In, [CanBeNull]Func<T3, T4, T5, T1> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -253,7 +254,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T1, T3, T4, T5> Surround2<T1, T2, T3, T4, T5>(this Action<T1, T2> In, Func<T3, T4, T5, T2> Func)
+        public static Action<T1, T3, T4, T5> Surround2<T1, T2, T3, T4, T5>([CanBeNull]this Action<T1, T2> In, [CanBeNull] Func<T3, T4, T5, T2> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -273,7 +274,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T2, T3> Surround<T1, T2, T3>(this Action<T1, T2, T3> In, Func<T1> Func)
+        public static Action<T2, T3> Surround<T1, T2, T3>([CanBeNull]this Action<T1, T2, T3> In, [CanBeNull] Func<T1> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -291,7 +292,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T1, T3> Surround2<T1, T2, T3>(this Action<T1, T2, T3> In, Func<T2> Func)
+        public static Action<T1, T3> Surround2<T1, T2, T3>([CanBeNull]this Action<T1, T2, T3> In, [CanBeNull]Func<T2> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -309,7 +310,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T1, T2> Surround3<T1, T2, T3>(this Action<T1, T2, T3> In, Func<T3> Func)
+        public static Action<T1, T2> Surround3<T1, T2, T3>([CanBeNull]this Action<T1, T2, T3> In, [CanBeNull] Func<T3> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -328,7 +329,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T2, T3, T4> Surround<T1, T2, T3, T4>(this Action<T1, T2, T3> In, Func<T4, T1> Func)
+        public static Action<T2, T3, T4> Surround<T1, T2, T3, T4>([CanBeNull]this Action<T1, T2, T3> In, [CanBeNull] Func<T4, T1> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -347,7 +348,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T1, T3, T4> Surround2<T1, T2, T3, T4>(this Action<T1, T2, T3> In, Func<T4, T2> Func)
+        public static Action<T1, T3, T4> Surround2<T1, T2, T3, T4>([CanBeNull]this Action<T1, T2, T3> In, [CanBeNull] Func<T4, T2> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -366,7 +367,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T1, T2, T4> Surround3<T1, T2, T3, T4>(this Action<T1, T2, T3> In, Func<T4, T3> Func)
+        public static Action<T1, T2, T4> Surround3<T1, T2, T3, T4>([CanBeNull]this Action<T1, T2, T3> In, [CanBeNull] Func<T4, T3> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -386,7 +387,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T2, T3, T4, T5> Surround<T1, T2, T3, T4, T5>(this Action<T1, T2, T3> In, Func<T4, T5, T1> Func)
+        public static Action<T2, T3, T4, T5> Surround<T1, T2, T3, T4, T5>([CanBeNull]this Action<T1, T2, T3> In, [CanBeNull] Func<T4, T5, T1> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -406,7 +407,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T1, T3, T4, T5> Surround2<T1, T2, T3, T4, T5>(this Action<T1, T2, T3> In, Func<T4, T5, T2> Func)
+        public static Action<T1, T3, T4, T5> Surround2<T1, T2, T3, T4, T5>([CanBeNull]this Action<T1, T2, T3> In, [CanBeNull] Func<T4, T5, T2> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -426,7 +427,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T1, T2, T4, T5> Surround3<T1, T2, T3, T4, T5>(this Action<T1, T2, T3> In, Func<T4, T5, T3> Func)
+        public static Action<T1, T2, T4, T5> Surround3<T1, T2, T3, T4, T5>([CanBeNull]this Action<T1, T2, T3> In, [CanBeNull] Func<T4, T5, T3> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -447,7 +448,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T2, T3, T4> Surround<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In, Func<T1> Func)
+        public static Action<T2, T3, T4> Surround<T1, T2, T3, T4>([CanBeNull]this Action<T1, T2, T3, T4> In, [CanBeNull] Func<T1> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -466,7 +467,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T1, T3, T4> Surround2<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In, Func<T2> Func)
+        public static Action<T1, T3, T4> Surround2<T1, T2, T3, T4>([CanBeNull]this Action<T1, T2, T3, T4> In, [CanBeNull] Func<T2> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -485,7 +486,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T1, T2, T4> Surround3<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In, Func<T3> Func)
+        public static Action<T1, T2, T4> Surround3<T1, T2, T3, T4>([CanBeNull]this Action<T1, T2, T3, T4> In, [CanBeNull] Func<T3> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -504,7 +505,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T1, T2, T3> Surround4<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In, Func<T4> Func)
+        public static Action<T1, T2, T3> Surround4<T1, T2, T3, T4>([CanBeNull]this Action<T1, T2, T3, T4> In, [CanBeNull] Func<T4> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -524,7 +525,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T2, T3, T4, T5> Surround<T1, T2, T3, T4, T5>(this Action<T1, T2, T3, T4> In, Func<T5, T1> Func)
+        public static Action<T2, T3, T4, T5> Surround<T1, T2, T3, T4, T5>([CanBeNull]this Action<T1, T2, T3, T4> In, [CanBeNull] Func<T5, T1> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -544,7 +545,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T1, T3, T4, T5> Surround2<T1, T2, T3, T4, T5>(this Action<T1, T2, T3, T4> In, Func<T5, T2> Func)
+        public static Action<T1, T3, T4, T5> Surround2<T1, T2, T3, T4, T5>([CanBeNull]this Action<T1, T2, T3, T4> In, [CanBeNull] Func<T5, T2> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -564,7 +565,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T1, T2, T4, T5> Surround3<T1, T2, T3, T4, T5>(this Action<T1, T2, T3, T4> In, Func<T5, T3> Func)
+        public static Action<T1, T2, T4, T5> Surround3<T1, T2, T3, T4, T5>([CanBeNull]this Action<T1, T2, T3, T4> In, [CanBeNull] Func<T5, T3> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -584,7 +585,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Action<T1, T2, T3, T5> Surround4<T1, T2, T3, T4, T5>(this Action<T1, T2, T3, T4> In, Func<T5, T4> Func)
+        public static Action<T1, T2, T3, T5> Surround4<T1, T2, T3, T4, T5>([CanBeNull]this Action<T1, T2, T3, T4> In, [CanBeNull] Func<T5, T4> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -598,7 +599,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<U> Surround<T1, U>(this Func<T1, U> In, Func<T1> Func)
+        public static Func<U> Surround<T1, U>([CanBeNull]this Func<T1, U> In, [CanBeNull] Func<T1> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -615,7 +616,7 @@ namespace LCore.Extensions
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"><paramref name="In"/> or <paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T1, U> Surround<T1, T2, U>(this Func<T2, U> In, Func<T1, T2> Func)
+        public static Func<T1, U> Surround<T1, T2, U>([CanBeNull]this Func<T2, U> In, [CanBeNull] Func<T1, T2> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -633,7 +634,7 @@ namespace LCore.Extensions
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"><paramref name="In"/> or is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T1, T2, U> Surround<T1, T2, T3, U>(this Func<T3, U> In, Func<T1, T2, T3> Func)
+        public static Func<T1, T2, U> Surround<T1, T2, T3, U>([CanBeNull]this Func<T3, U> In, [CanBeNull] Func<T1, T2, T3> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -653,7 +654,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T1, T2, T3, U> Surround<T1, T2, T3, T4, U>(this Func<T4, U> In, Func<T1, T2, T3, T4> Func)
+        public static Func<T1, T2, T3, U> Surround<T1, T2, T3, T4, U>([CanBeNull]this Func<T4, U> In, [CanBeNull] Func<T1, T2, T3, T4> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -674,7 +675,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T1, T2, T3, T4, U> Surround<T1, T2, T3, T4, T5, U>(this Func<T5, U> In, Func<T1, T2, T3, T4, T5> Func)
+        public static Func<T1, T2, T3, T4, U> Surround<T1, T2, T3, T4, T5, U>([CanBeNull]this Func<T5, U> In, [CanBeNull] Func<T1, T2, T3, T4, T5> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -694,7 +695,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T2, U> Surround<T1, T2, U>(this Func<T1, T2, U> In, Func<T1> Func)
+        public static Func<T2, U> Surround<T1, T2, U>([CanBeNull]this Func<T1, T2, U> In, [CanBeNull] Func<T1> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -712,7 +713,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T1, U> Surround2<T1, T2, U>(this Func<T1, T2, U> In, Func<T2> Func)
+        public static Func<T1, U> Surround2<T1, T2, U>([CanBeNull]this Func<T1, T2, U> In, [CanBeNull] Func<T2> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -731,7 +732,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T2, T3, U> Surround<T1, T2, T3, U>(this Func<T1, T2, U> In, Func<T3, T1> Func)
+        public static Func<T2, T3, U> Surround<T1, T2, T3, U>([CanBeNull]this Func<T1, T2, U> In, [CanBeNull] Func<T3, T1> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -750,7 +751,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T1, T3, U> Surround2<T1, T2, T3, U>(this Func<T1, T2, U> In, Func<T3, T2> Func)
+        public static Func<T1, T3, U> Surround2<T1, T2, T3, U>([CanBeNull]this Func<T1, T2, U> In, [CanBeNull] Func<T3, T2> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -770,7 +771,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T2, T3, T4, U> Surround<T1, T2, T3, T4, U>(this Func<T1, T2, U> In, Func<T3, T4, T1> Func)
+        public static Func<T2, T3, T4, U> Surround<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, U> In, [CanBeNull] Func<T3, T4, T1> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -790,7 +791,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T1, T3, T4, U> Surround2<T1, T2, T3, T4, U>(this Func<T1, T2, U> In, Func<T3, T4, T2> Func)
+        public static Func<T1, T3, T4, U> Surround2<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, U> In, [CanBeNull] Func<T3, T4, T2> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -811,7 +812,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T2, T3, T4, T5, U> Surround<T1, T2, T3, T4, T5, U>(this Func<T1, T2, U> In, Func<T3, T4, T5, T1> Func)
+        public static Func<T2, T3, T4, T5, U> Surround<T1, T2, T3, T4, T5, U>([CanBeNull]this Func<T1, T2, U> In, [CanBeNull] Func<T3, T4, T5, T1> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -832,7 +833,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T1, T3, T4, T5, U> Surround2<T1, T2, T3, T4, T5, U>(this Func<T1, T2, U> In, Func<T3, T4, T5, T2> Func)
+        public static Func<T1, T3, T4, T5, U> Surround2<T1, T2, T3, T4, T5, U>([CanBeNull]this Func<T1, T2, U> In, [CanBeNull] Func<T3, T4, T5, T2> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -853,7 +854,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T2, T3, U> Surround<T1, T2, T3, U>(this Func<T1, T2, T3, U> In, Func<T1> Func)
+        public static Func<T2, T3, U> Surround<T1, T2, T3, U>([CanBeNull]this Func<T1, T2, T3, U> In, [CanBeNull] Func<T1> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -872,7 +873,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T1, T3, U> Surround2<T1, T2, T3, U>(this Func<T1, T2, T3, U> In, Func<T2> Func)
+        public static Func<T1, T3, U> Surround2<T1, T2, T3, U>([CanBeNull]this Func<T1, T2, T3, U> In, [CanBeNull] Func<T2> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -891,7 +892,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T1, T2, U> Surround3<T1, T2, T3, U>(this Func<T1, T2, T3, U> In, Func<T3> Func)
+        public static Func<T1, T2, U> Surround3<T1, T2, T3, U>([CanBeNull]this Func<T1, T2, T3, U> In, [CanBeNull] Func<T3> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -911,7 +912,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T2, T3, T4, U> Surround<T1, T2, T3, T4, U>(this Func<T1, T2, T3, U> In, Func<T4, T1> Func)
+        public static Func<T2, T3, T4, U> Surround<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, T3, U> In, [CanBeNull] Func<T4, T1> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -931,7 +932,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T1, T3, T4, U> Surround2<T1, T2, T3, T4, U>(this Func<T1, T2, T3, U> In, Func<T4, T2> Func)
+        public static Func<T1, T3, T4, U> Surround2<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, T3, U> In, [CanBeNull] Func<T4, T2> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -951,7 +952,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T1, T2, T4, U> Surround3<T1, T2, T3, T4, U>(this Func<T1, T2, T3, U> In, Func<T4, T3> Func)
+        public static Func<T1, T2, T4, U> Surround3<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, T3, U> In, [CanBeNull] Func<T4, T3> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -972,7 +973,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T2, T3, T4, T5, U> Surround<T1, T2, T3, T4, T5, U>(this Func<T1, T2, T3, U> In, Func<T4, T5, T1> Func)
+        public static Func<T2, T3, T4, T5, U> Surround<T1, T2, T3, T4, T5, U>([CanBeNull]this Func<T1, T2, T3, U> In, [CanBeNull] Func<T4, T5, T1> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -993,7 +994,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T1, T3, T4, T5, U> Surround2<T1, T2, T3, T4, T5, U>(this Func<T1, T2, T3, U> In, Func<T4, T5, T2> Func)
+        public static Func<T1, T3, T4, T5, U> Surround2<T1, T2, T3, T4, T5, U>([CanBeNull]this Func<T1, T2, T3, U> In, [CanBeNull] Func<T4, T5, T2> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -1014,7 +1015,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T1, T2, T4, T5, U> Surround3<T1, T2, T3, T4, T5, U>(this Func<T1, T2, T3, U> In, Func<T4, T5, T3> Func)
+        public static Func<T1, T2, T4, T5, U> Surround3<T1, T2, T3, T4, T5, U>([CanBeNull]this Func<T1, T2, T3, U> In, [CanBeNull] Func<T4, T5, T3> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -1036,7 +1037,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T2, T3, T4, U> Surround<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In, Func<T1> Func)
+        public static Func<T2, T3, T4, U> Surround<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, T3, T4, U> In, [CanBeNull] Func<T1> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -1056,7 +1057,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T1, T3, T4, U> Surround2<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In, Func<T2> Func)
+        public static Func<T1, T3, T4, U> Surround2<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, T3, T4, U> In, [CanBeNull] Func<T2> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -1076,7 +1077,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T1, T2, T4, U> Surround3<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In, Func<T3> Func)
+        public static Func<T1, T2, T4, U> Surround3<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, T3, T4, U> In, [CanBeNull] Func<T3> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -1096,7 +1097,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T1, T2, T3, U> Surround4<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In, Func<T4> Func)
+        public static Func<T1, T2, T3, U> Surround4<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, T3, T4, U> In, [CanBeNull] Func<T4> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -1117,7 +1118,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T2, T3, T4, T5, U> Surround<T1, T2, T3, T4, T5, U>(this Func<T1, T2, T3, T4, U> In, Func<T5, T1> Func)
+        public static Func<T2, T3, T4, T5, U> Surround<T1, T2, T3, T4, T5, U>([CanBeNull]this Func<T1, T2, T3, T4, U> In, [CanBeNull] Func<T5, T1> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -1138,7 +1139,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T1, T3, T4, T5, U> Surround2<T1, T2, T3, T4, T5, U>(this Func<T1, T2, T3, T4, U> In, Func<T5, T2> Func)
+        public static Func<T1, T3, T4, T5, U> Surround2<T1, T2, T3, T4, T5, U>([CanBeNull]this Func<T1, T2, T3, T4, U> In, [CanBeNull] Func<T5, T2> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -1159,7 +1160,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T1, T2, T4, T5, U> Surround3<T1, T2, T3, T4, T5, U>(this Func<T1, T2, T3, T4, U> In, Func<T5, T3> Func)
+        public static Func<T1, T2, T4, T5, U> Surround3<T1, T2, T3, T4, T5, U>([CanBeNull]this Func<T1, T2, T3, T4, U> In, [CanBeNull] Func<T5, T3> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -1180,7 +1181,7 @@ namespace LCore.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="In"/> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="Func"/> is <see langword="null" />.</exception>
         [Tested]
-        public static Func<T1, T2, T3, T5, U> Surround4<T1, T2, T3, T4, T5, U>(this Func<T1, T2, T3, T4, U> In, Func<T5, T4> Func)
+        public static Func<T1, T2, T3, T5, U> Surround4<T1, T2, T3, T4, T5, U>([CanBeNull]this Func<T1, T2, T3, T4, U> In, [CanBeNull] Func<T5, T4> Func)
             {
             if (In == null) throw new ArgumentNullException(nameof(In));
             if (Func == null) throw new ArgumentNullException(nameof(Func));
@@ -1198,7 +1199,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action Enclose<T1>(this Func<T1> Func, Action<T1> Outer)
+        public static Action Enclose<T1>([CanBeNull]this Func<T1> Func, [CanBeNull] Action<T1> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1211,7 +1212,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T2> Enclose<T1, T2>(this Func<T2, T1> Func, Action<T1> Outer)
+        public static Action<T2> Enclose<T1, T2>([CanBeNull]this Func<T2, T1> Func, [CanBeNull] Action<T1> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1225,7 +1226,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T2, T3> Enclose<T1, T2, T3>(this Func<T2, T3, T1> Func, Action<T1> Outer)
+        public static Action<T2, T3> Enclose<T1, T2, T3>([CanBeNull]this Func<T2, T3, T1> Func, [CanBeNull] Action<T1> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1240,7 +1241,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T2, T3, T4> Enclose<T1, T2, T3, T4>(this Func<T2, T3, T4, T1> Func, Action<T1> Outer)
+        public static Action<T2, T3, T4> Enclose<T1, T2, T3, T4>([CanBeNull]this Func<T2, T3, T4, T1> Func, [CanBeNull] Action<T1> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1256,7 +1257,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T2, T3, T4, T5> Enclose<T1, T2, T3, T4, T5>(this Func<T2, T3, T4, T5, T1> Func, Action<T1> Outer)
+        public static Action<T2, T3, T4, T5> Enclose<T1, T2, T3, T4, T5>([CanBeNull]this Func<T2, T3, T4, T5, T1> Func, [CanBeNull] Action<T1> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1271,7 +1272,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T2> Enclose<T1, T2>(this Func<T1> Func, Action<T1, T2> Outer)
+        public static Action<T2> Enclose<T1, T2>([CanBeNull]this Func<T1> Func, [CanBeNull] Action<T1, T2> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1284,7 +1285,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T1> Enclose2<T1, T2>(this Func<T2> Func, Action<T1, T2> Outer)
+        public static Action<T1> Enclose2<T1, T2>([CanBeNull]this Func<T2> Func, [CanBeNull] Action<T1, T2> Outer)
             {
             return Outer.Surround2(Func);
             }
@@ -1298,7 +1299,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T2, T3> Enclose<T1, T2, T3>(this Func<T3, T1> Func, Action<T1, T2> Outer)
+        public static Action<T2, T3> Enclose<T1, T2, T3>([CanBeNull]this Func<T3, T1> Func, [CanBeNull] Action<T1, T2> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1312,7 +1313,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T1, T3> Enclose2<T1, T2, T3>(this Func<T3, T2> Func, Action<T1, T2> Outer)
+        public static Action<T1, T3> Enclose2<T1, T2, T3>([CanBeNull]this Func<T3, T2> Func, [CanBeNull] Action<T1, T2> Outer)
             {
             return Outer.Surround2(Func);
             }
@@ -1327,7 +1328,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T2, T3, T4> Enclose<T1, T2, T3, T4>(this Func<T3, T4, T1> Func, Action<T1, T2> Outer)
+        public static Action<T2, T3, T4> Enclose<T1, T2, T3, T4>([CanBeNull]this Func<T3, T4, T1> Func, [CanBeNull] Action<T1, T2> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1342,7 +1343,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T1, T3, T4> Enclose2<T1, T2, T3, T4>(this Func<T3, T4, T2> Func, Action<T1, T2> Outer)
+        public static Action<T1, T3, T4> Enclose2<T1, T2, T3, T4>([CanBeNull]this Func<T3, T4, T2> Func, [CanBeNull] Action<T1, T2> Outer)
             {
             return Outer.Surround2(Func);
             }
@@ -1358,7 +1359,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T2, T3, T4, T5> Enclose<T1, T2, T3, T4, T5>(this Func<T3, T4, T5, T1> Func, Action<T1, T2> Outer)
+        public static Action<T2, T3, T4, T5> Enclose<T1, T2, T3, T4, T5>([CanBeNull]this Func<T3, T4, T5, T1> Func, [CanBeNull] Action<T1, T2> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1374,7 +1375,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T1, T3, T4, T5> Enclose2<T1, T2, T3, T4, T5>(this Func<T3, T4, T5, T2> Func, Action<T1, T2> Outer)
+        public static Action<T1, T3, T4, T5> Enclose2<T1, T2, T3, T4, T5>([CanBeNull]this Func<T3, T4, T5, T2> Func, [CanBeNull] Action<T1, T2> Outer)
             {
             return Outer.Surround2(Func);
             }
@@ -1390,7 +1391,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T2, T3> Enclose<T1, T2, T3>(this Func<T1> Func, Action<T1, T2, T3> Outer)
+        public static Action<T2, T3> Enclose<T1, T2, T3>([CanBeNull]this Func<T1> Func, [CanBeNull] Action<T1, T2, T3> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1404,7 +1405,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T1, T3> Enclose2<T1, T2, T3>(this Func<T2> Func, Action<T1, T2, T3> Outer)
+        public static Action<T1, T3> Enclose2<T1, T2, T3>([CanBeNull]this Func<T2> Func, [CanBeNull] Action<T1, T2, T3> Outer)
             {
             return Outer.Surround2(Func);
             }
@@ -1418,7 +1419,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T1, T2> Enclose3<T1, T2, T3>(this Func<T3> Func, Action<T1, T2, T3> Outer)
+        public static Action<T1, T2> Enclose3<T1, T2, T3>([CanBeNull]this Func<T3> Func, [CanBeNull] Action<T1, T2, T3> Outer)
             {
             return Outer.Surround3(Func);
             }
@@ -1433,7 +1434,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T2, T3, T4> Enclose<T1, T2, T3, T4>(this Func<T4, T1> Func, Action<T1, T2, T3> Outer)
+        public static Action<T2, T3, T4> Enclose<T1, T2, T3, T4>([CanBeNull]this Func<T4, T1> Func, [CanBeNull] Action<T1, T2, T3> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1448,7 +1449,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T1, T3, T4> Enclose2<T1, T2, T3, T4>(this Func<T4, T2> Func, Action<T1, T2, T3> Outer)
+        public static Action<T1, T3, T4> Enclose2<T1, T2, T3, T4>([CanBeNull]this Func<T4, T2> Func, [CanBeNull] Action<T1, T2, T3> Outer)
             {
             return Outer.Surround2(Func);
             }
@@ -1463,7 +1464,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T1, T2, T4> Enclose3<T1, T2, T3, T4>(this Func<T4, T3> Func, Action<T1, T2, T3> Outer)
+        public static Action<T1, T2, T4> Enclose3<T1, T2, T3, T4>([CanBeNull]this Func<T4, T3> Func, [CanBeNull] Action<T1, T2, T3> Outer)
             {
             return Outer.Surround3(Func);
             }
@@ -1479,7 +1480,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T2, T3, T4, T5> Enclose<T1, T2, T3, T4, T5>(this Func<T4, T5, T1> Func, Action<T1, T2, T3> Outer)
+        public static Action<T2, T3, T4, T5> Enclose<T1, T2, T3, T4, T5>([CanBeNull]this Func<T4, T5, T1> Func, [CanBeNull] Action<T1, T2, T3> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1495,7 +1496,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T1, T3, T4, T5> Enclose2<T1, T2, T3, T4, T5>(this Func<T4, T5, T2> Func, Action<T1, T2, T3> Outer)
+        public static Action<T1, T3, T4, T5> Enclose2<T1, T2, T3, T4, T5>([CanBeNull]this Func<T4, T5, T2> Func, [CanBeNull] Action<T1, T2, T3> Outer)
             {
             return Outer.Surround2(Func);
             }
@@ -1511,7 +1512,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T1, T2, T4, T5> Enclose3<T1, T2, T3, T4, T5>(this Func<T4, T5, T3> Func, Action<T1, T2, T3> Outer)
+        public static Action<T1, T2, T4, T5> Enclose3<T1, T2, T3, T4, T5>([CanBeNull]this Func<T4, T5, T3> Func, [CanBeNull] Action<T1, T2, T3> Outer)
             {
             return Outer.Surround3(Func);
             }
@@ -1528,7 +1529,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T2, T3, T4> Enclose<T1, T2, T3, T4>(this Func<T1> Func, Action<T1, T2, T3, T4> Outer)
+        public static Action<T2, T3, T4> Enclose<T1, T2, T3, T4>([CanBeNull]this Func<T1> Func, [CanBeNull] Action<T1, T2, T3, T4> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1543,7 +1544,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T1, T3, T4> Enclose2<T1, T2, T3, T4>(this Func<T2> Func, Action<T1, T2, T3, T4> Outer)
+        public static Action<T1, T3, T4> Enclose2<T1, T2, T3, T4>([CanBeNull]this Func<T2> Func, [CanBeNull] Action<T1, T2, T3, T4> Outer)
             {
             return Outer.Surround2(Func);
             }
@@ -1558,7 +1559,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T1, T2, T4> Enclose3<T1, T2, T3, T4>(this Func<T3> Func, Action<T1, T2, T3, T4> Outer)
+        public static Action<T1, T2, T4> Enclose3<T1, T2, T3, T4>([CanBeNull]this Func<T3> Func, [CanBeNull] Action<T1, T2, T3, T4> Outer)
             {
             return Outer.Surround3(Func);
             }
@@ -1573,7 +1574,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T1, T2, T3> Enclose4<T1, T2, T3, T4>(this Func<T4> Func, Action<T1, T2, T3, T4> Outer)
+        public static Action<T1, T2, T3> Enclose4<T1, T2, T3, T4>([CanBeNull]this Func<T4> Func, [CanBeNull] Action<T1, T2, T3, T4> Outer)
             {
             return Outer.Surround4(Func);
             }
@@ -1589,7 +1590,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T2, T3, T4, T5> Enclose<T1, T2, T3, T4, T5>(this Func<T5, T1> Func, Action<T1, T2, T3, T4> Outer)
+        public static Action<T2, T3, T4, T5> Enclose<T1, T2, T3, T4, T5>([CanBeNull]this Func<T5, T1> Func, [CanBeNull] Action<T1, T2, T3, T4> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1605,7 +1606,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T1, T3, T4, T5> Enclose2<T1, T2, T3, T4, T5>(this Func<T5, T2> Func, Action<T1, T2, T3, T4> Outer)
+        public static Action<T1, T3, T4, T5> Enclose2<T1, T2, T3, T4, T5>([CanBeNull]this Func<T5, T2> Func, [CanBeNull] Action<T1, T2, T3, T4> Outer)
             {
             return Outer.Surround2(Func);
             }
@@ -1621,7 +1622,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T1, T2, T4, T5> Enclose3<T1, T2, T3, T4, T5>(this Func<T5, T3> Func, Action<T1, T2, T3, T4> Outer)
+        public static Action<T1, T2, T4, T5> Enclose3<T1, T2, T3, T4, T5>([CanBeNull]this Func<T5, T3> Func, [CanBeNull] Action<T1, T2, T3, T4> Outer)
             {
             return Outer.Surround3(Func);
             }
@@ -1637,7 +1638,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Action<T1, T2, T3, T5> Enclose4<T1, T2, T3, T4, T5>(this Func<T5, T4> Func, Action<T1, T2, T3, T4> Outer)
+        public static Action<T1, T2, T3, T5> Enclose4<T1, T2, T3, T4, T5>([CanBeNull]this Func<T5, T4> Func, [CanBeNull] Action<T1, T2, T3, T4> Outer)
             {
             return Outer.Surround4(Func);
             }
@@ -1647,7 +1648,7 @@ namespace LCore.Extensions
         /// Returns a method that uses the Func method as the first parameter to the Outer method. Inverse of Surround.
         /// </summary>
         [Tested]
-        public static Func<U> Enclose<T1, U>(this Func<T1> Func, Func<T1, U> Outer)
+        public static Func<U> Enclose<T1, U>([CanBeNull]this Func<T1> Func, [CanBeNull] Func<T1, U> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1661,7 +1662,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T1, U> Enclose<T1, T2, U>(this Func<T1, T2> Func, Func<T2, U> Outer)
+        public static Func<T1, U> Enclose<T1, T2, U>([CanBeNull]this Func<T1, T2> Func, [CanBeNull] Func<T2, U> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1676,7 +1677,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T1, T2, U> Enclose<T1, T2, T3, U>(this Func<T1, T2, T3> Func, Func<T3, U> Outer)
+        public static Func<T1, T2, U> Enclose<T1, T2, T3, U>([CanBeNull]this Func<T1, T2, T3> Func, [CanBeNull] Func<T3, U> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1692,7 +1693,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T1, T2, T3, U> Enclose<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4> Func, Func<T4, U> Outer)
+        public static Func<T1, T2, T3, U> Enclose<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, T3, T4> Func, [CanBeNull] Func<T4, U> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1709,7 +1710,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T1, T2, T3, T4, U> Enclose<T1, T2, T3, T4, T5, U>(this Func<T1, T2, T3, T4, T5> Func, Func<T5, U> Outer)
+        public static Func<T1, T2, T3, T4, U> Enclose<T1, T2, T3, T4, T5, U>([CanBeNull]this Func<T1, T2, T3, T4, T5> Func, [CanBeNull] Func<T5, U> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1725,7 +1726,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T2, U> Enclose<T1, T2, U>(this Func<T1> Func, Func<T1, T2, U> Outer)
+        public static Func<T2, U> Enclose<T1, T2, U>([CanBeNull]this Func<T1> Func, [CanBeNull] Func<T1, T2, U> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1739,7 +1740,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T1, U> Enclose2<T1, T2, U>(this Func<T2> Func, Func<T1, T2, U> Outer)
+        public static Func<T1, U> Enclose2<T1, T2, U>([CanBeNull]this Func<T2> Func, [CanBeNull] Func<T1, T2, U> Outer)
             {
             return Outer.Surround2(Func);
             }
@@ -1754,7 +1755,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T2, T3, U> Enclose<T1, T2, T3, U>(this Func<T3, T1> Func, Func<T1, T2, U> Outer)
+        public static Func<T2, T3, U> Enclose<T1, T2, T3, U>([CanBeNull]this Func<T3, T1> Func, [CanBeNull] Func<T1, T2, U> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1769,7 +1770,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T1, T3, U> Enclose2<T1, T2, T3, U>(this Func<T3, T2> Func, Func<T1, T2, U> Outer)
+        public static Func<T1, T3, U> Enclose2<T1, T2, T3, U>([CanBeNull]this Func<T3, T2> Func, [CanBeNull] Func<T1, T2, U> Outer)
             {
             return Outer.Surround2(Func);
             }
@@ -1785,7 +1786,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T2, T3, T4, U> Enclose<T1, T2, T3, T4, U>(this Func<T3, T4, T1> Func, Func<T1, T2, U> Outer)
+        public static Func<T2, T3, T4, U> Enclose<T1, T2, T3, T4, U>([CanBeNull]this Func<T3, T4, T1> Func, [CanBeNull] Func<T1, T2, U> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1801,7 +1802,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T1, T3, T4, U> Enclose2<T1, T2, T3, T4, U>(this Func<T3, T4, T2> Func, Func<T1, T2, U> Outer)
+        public static Func<T1, T3, T4, U> Enclose2<T1, T2, T3, T4, U>([CanBeNull]this Func<T3, T4, T2> Func, [CanBeNull] Func<T1, T2, U> Outer)
             {
             return Outer.Surround2(Func);
             }
@@ -1818,7 +1819,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T2, T3, T4, T5, U> Enclose<T1, T2, T3, T4, T5, U>(this Func<T3, T4, T5, T1> Func, Func<T1, T2, U> Outer)
+        public static Func<T2, T3, T4, T5, U> Enclose<T1, T2, T3, T4, T5, U>([CanBeNull]this Func<T3, T4, T5, T1> Func, [CanBeNull] Func<T1, T2, U> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1835,7 +1836,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T1, T3, T4, T5, U> Enclose2<T1, T2, T3, T4, T5, U>(this Func<T3, T4, T5, T2> Func, Func<T1, T2, U> Outer)
+        public static Func<T1, T3, T4, T5, U> Enclose2<T1, T2, T3, T4, T5, U>([CanBeNull]this Func<T3, T4, T5, T2> Func, [CanBeNull] Func<T1, T2, U> Outer)
             {
             return Outer.Surround2(Func);
             }
@@ -1852,7 +1853,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T2, T3, U> Enclose<T1, T2, T3, U>(this Func<T1> Func, Func<T1, T2, T3, U> Outer)
+        public static Func<T2, T3, U> Enclose<T1, T2, T3, U>([CanBeNull]this Func<T1> Func, [CanBeNull] Func<T1, T2, T3, U> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1867,7 +1868,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T1, T3, U> Enclose2<T1, T2, T3, U>(this Func<T2> Func, Func<T1, T2, T3, U> Outer)
+        public static Func<T1, T3, U> Enclose2<T1, T2, T3, U>([CanBeNull]this Func<T2> Func, [CanBeNull] Func<T1, T2, T3, U> Outer)
             {
             return Outer.Surround2(Func);
             }
@@ -1882,7 +1883,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T1, T2, U> Enclose3<T1, T2, T3, U>(this Func<T3> Func, Func<T1, T2, T3, U> Outer)
+        public static Func<T1, T2, U> Enclose3<T1, T2, T3, U>([CanBeNull]this Func<T3> Func, [CanBeNull] Func<T1, T2, T3, U> Outer)
             {
             return Outer.Surround3(Func);
             }
@@ -1898,7 +1899,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T2, T3, T4, U> Enclose<T1, T2, T3, T4, U>(this Func<T4, T1> Func, Func<T1, T2, T3, U> Outer)
+        public static Func<T2, T3, T4, U> Enclose<T1, T2, T3, T4, U>([CanBeNull]this Func<T4, T1> Func, [CanBeNull] Func<T1, T2, T3, U> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1914,7 +1915,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T1, T3, T4, U> Enclose2<T1, T2, T3, T4, U>(this Func<T4, T2> Func, Func<T1, T2, T3, U> Outer)
+        public static Func<T1, T3, T4, U> Enclose2<T1, T2, T3, T4, U>([CanBeNull]this Func<T4, T2> Func, [CanBeNull] Func<T1, T2, T3, U> Outer)
             {
             return Outer.Surround2(Func);
             }
@@ -1930,7 +1931,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T1, T2, T4, U> Enclose3<T1, T2, T3, T4, U>(this Func<T4, T3> Func, Func<T1, T2, T3, U> Outer)
+        public static Func<T1, T2, T4, U> Enclose3<T1, T2, T3, T4, U>([CanBeNull]this Func<T4, T3> Func, [CanBeNull] Func<T1, T2, T3, U> Outer)
             {
             return Outer.Surround3(Func);
             }
@@ -1947,7 +1948,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T2, T3, T4, T5, U> Enclose<T1, T2, T3, T4, T5, U>(this Func<T4, T5, T1> Func, Func<T1, T2, T3, U> Outer)
+        public static Func<T2, T3, T4, T5, U> Enclose<T1, T2, T3, T4, T5, U>([CanBeNull]this Func<T4, T5, T1> Func, [CanBeNull] Func<T1, T2, T3, U> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -1964,7 +1965,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T1, T3, T4, T5, U> Enclose2<T1, T2, T3, T4, T5, U>(this Func<T4, T5, T2> Func, Func<T1, T2, T3, U> Outer)
+        public static Func<T1, T3, T4, T5, U> Enclose2<T1, T2, T3, T4, T5, U>([CanBeNull]this Func<T4, T5, T2> Func, [CanBeNull] Func<T1, T2, T3, U> Outer)
             {
             return Outer.Surround2(Func);
             }
@@ -1981,7 +1982,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T1, T2, T4, T5, U> Enclose3<T1, T2, T3, T4, T5, U>(this Func<T4, T5, T3> Func, Func<T1, T2, T3, U> Outer)
+        public static Func<T1, T2, T4, T5, U> Enclose3<T1, T2, T3, T4, T5, U>([CanBeNull]this Func<T4, T5, T3> Func, [CanBeNull] Func<T1, T2, T3, U> Outer)
             {
             return Outer.Surround3(Func);
             }
@@ -1999,7 +2000,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T2, T3, T4, U> Enclose<T1, T2, T3, T4, U>(this Func<T1> Func, Func<T1, T2, T3, T4, U> Outer)
+        public static Func<T2, T3, T4, U> Enclose<T1, T2, T3, T4, U>([CanBeNull]this Func<T1> Func, [CanBeNull] Func<T1, T2, T3, T4, U> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -2015,7 +2016,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T1, T3, T4, U> Enclose2<T1, T2, T3, T4, U>(this Func<T2> Func, Func<T1, T2, T3, T4, U> Outer)
+        public static Func<T1, T3, T4, U> Enclose2<T1, T2, T3, T4, U>([CanBeNull]this Func<T2> Func, [CanBeNull] Func<T1, T2, T3, T4, U> Outer)
             {
             return Outer.Surround2(Func);
             }
@@ -2031,7 +2032,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T1, T2, T4, U> Enclose3<T1, T2, T3, T4, U>(this Func<T3> Func, Func<T1, T2, T3, T4, U> Outer)
+        public static Func<T1, T2, T4, U> Enclose3<T1, T2, T3, T4, U>([CanBeNull]this Func<T3> Func, [CanBeNull] Func<T1, T2, T3, T4, U> Outer)
             {
             return Outer.Surround3(Func);
             }
@@ -2047,7 +2048,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T1, T2, T3, U> Enclose4<T1, T2, T3, T4, U>(this Func<T4> Func, Func<T1, T2, T3, T4, U> Outer)
+        public static Func<T1, T2, T3, U> Enclose4<T1, T2, T3, T4, U>([CanBeNull]this Func<T4> Func, [CanBeNull] Func<T1, T2, T3, T4, U> Outer)
             {
             return Outer.Surround4(Func);
             }
@@ -2064,7 +2065,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T2, T3, T4, T5, U> Enclose<T1, T2, T3, T4, T5, U>(this Func<T5, T1> Func, Func<T1, T2, T3, T4, U> Outer)
+        public static Func<T2, T3, T4, T5, U> Enclose<T1, T2, T3, T4, T5, U>([CanBeNull]this Func<T5, T1> Func, [CanBeNull] Func<T1, T2, T3, T4, U> Outer)
             {
             return Outer.Surround(Func);
             }
@@ -2081,7 +2082,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T1, T3, T4, T5, U> Enclose2<T1, T2, T3, T4, T5, U>(this Func<T5, T2> Func, Func<T1, T2, T3, T4, U> Outer)
+        public static Func<T1, T3, T4, T5, U> Enclose2<T1, T2, T3, T4, T5, U>([CanBeNull]this Func<T5, T2> Func, [CanBeNull] Func<T1, T2, T3, T4, U> Outer)
             {
             return Outer.Surround2(Func);
             }
@@ -2098,7 +2099,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T1, T2, T4, T5, U> Enclose3<T1, T2, T3, T4, T5, U>(this Func<T5, T3> Func, Func<T1, T2, T3, T4, U> Outer)
+        public static Func<T1, T2, T4, T5, U> Enclose3<T1, T2, T3, T4, T5, U>([CanBeNull]this Func<T5, T3> Func, [CanBeNull] Func<T1, T2, T3, T4, U> Outer)
             {
             return Outer.Surround3(Func);
             }
@@ -2115,7 +2116,7 @@ namespace LCore.Extensions
         /// <param name="Outer"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T1, T2, T3, T5, U> Enclose4<T1, T2, T3, T4, T5, U>(this Func<T5, T4> Func, Func<T1, T2, T3, T4, U> Outer)
+        public static Func<T1, T2, T3, T5, U> Enclose4<T1, T2, T3, T4, T5, U>([CanBeNull]this Func<T5, T4> Func, [CanBeNull] Func<T1, T2, T3, T4, U> Outer)
             {
             return Outer.Surround4(Func);
             }
@@ -2132,7 +2133,7 @@ namespace LCore.Extensions
         /// <returns></returns>
 
         [Tested]
-        public static Action<U1> Cast<T1, U1>(this Action<T1> In) where U1 : T1
+        public static Action<U1> Cast<T1, U1>([CanBeNull]this Action<T1> In) where U1 : T1
             {
             return L.Logic.L_Cast_A<T1, U1>()(In);
             }
@@ -2147,7 +2148,7 @@ namespace LCore.Extensions
         /// <returns></returns>
 
         [Tested]
-        public static Action<U1, U2> Cast<T1, T2, U1, U2>(this Action<T1, T2> In)
+        public static Action<U1, U2> Cast<T1, T2, U1, U2>([CanBeNull]this Action<T1, T2> In)
             where U1 : T1
             where U2 : T2
             {
@@ -2202,7 +2203,7 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<U2> Cast<U1, U2>(this Func<U1> In)
+        public static Func<U2> Cast<U1, U2>([CanBeNull]this Func<U1> In)
             {
             return L.Logic.L_Cast_F<U1, U2>()(In);
             }
@@ -2216,7 +2217,7 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T2, U2> Cast<T1, U1, T2, U2>(this Func<T1, U1> In)
+        public static Func<T2, U2> Cast<T1, U1, T2, U2>([CanBeNull]this Func<T1, U1> In)
             where T2 : T1
             where U2 : U1
             {
@@ -2234,7 +2235,7 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T3, T4, U2> Cast<T1, T2, U1, T3, T4, U2>(this Func<T1, T2, U1> In)
+        public static Func<T3, T4, U2> Cast<T1, T2, U1, T3, T4, U2>([CanBeNull]this Func<T1, T2, U1> In)
             where T3 : T1
             where T4 : T2
             where U2 : U1
@@ -2255,7 +2256,7 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T4, T5, T6, U2> Cast<T1, T2, T3, U1, T4, T5, T6, U2>(this Func<T1, T2, T3, U1> In)
+        public static Func<T4, T5, T6, U2> Cast<T1, T2, T3, U1, T4, T5, T6, U2>([CanBeNull]this Func<T1, T2, T3, U1> In)
             where T4 : T1
             where T5 : T2
             where T6 : T3
@@ -2279,7 +2280,7 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <returns></returns>
         [Tested]
-        public static Func<T5, T6, T7, T8, U2> Cast<T1, T2, T3, T4, U1, T5, T6, T7, T8, U2>(this Func<T1, T2, T3, T4, U1> In)
+        public static Func<T5, T6, T7, T8, U2> Cast<T1, T2, T3, T4, U1, T5, T6, T7, T8, U2>([CanBeNull]this Func<T1, T2, T3, T4, U1> In)
             where T5 : T1
             where T6 : T2
             where T7 : T3
@@ -2389,7 +2390,7 @@ namespace LCore.Extensions
             /// Caches the results of In using a Unique CacheID, combined with the string representation of all parameters.
             /// </summary>
 
-            public static T Cache<T>(ref object CacheStore, Func<T> Default)
+            public static T Cache<T>(ref object CacheStore, [CanBeNull] Func<T> Default)
                 {
                 if (!(CacheStore is T))
                     CacheStore = Default();
@@ -2400,7 +2401,7 @@ namespace LCore.Extensions
             /// Caches the results of In using a Unique CacheID, combined with the string representation of all parameters.
             /// </summary>
 
-            public static T Cache<T>(ref T CacheStore, Func<T> Default)
+            public static T Cache<T>(ref T CacheStore, [CanBeNull] Func<T> Default)
                 {
                 // ReSharper disable once ConvertIfStatementToNullCoalescingExpression
                 if (CacheStore == null)
@@ -2572,7 +2573,7 @@ namespace LCore.Extensions
                         /// </summary>
                         [CodeExplodeGenericsReplaceArguments("Set", new[] { 4 }, new[] { "In()" }, Comments.SetFunc)]
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
-                        public static Func<Action<T1, T2, T3, T4, T5>, Func<T5>, Action<T1, T2, T3, T4, T5>> L_SetFunc_A5
+                        public static Func<Action<T1, T2, T3, T4, T5>,[CanBeNull] Func<T5>,[CanBeNull] Action<T1, T2, T3, T4, T5>> L_SetFunc_A5
                             <T1, T2, T3, T4, T5>()
                             {
                             return (Func, In) =>
@@ -2586,7 +2587,7 @@ namespace LCore.Extensions
                         /// </summary>
                         [CodeExplodeGenericsReplaceArguments("Set", new[] { 4 }, new[] { "In()" }, Comments.SetFunc)]
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
-                        public static Func<Func<T1, T2, T3, T4, T5, U>, Func<T5>, Func<T1, T2, T3, T4, T5, U>> L_SetFunc_F5 /*MF#1#
+                        public static Func<Func<T1, T2, T3, T4, T5, U>,[CanBeNull] Func<T5>,[CanBeNull] Func<T1, T2, T3, T4, T5, U>> L_SetFunc_F5 /*MF#1#
                             <T1, T2, T3, T4, T5, U>()
                             {
                             return (Func, In) =>
@@ -2604,7 +2605,7 @@ namespace LCore.Extensions
                         /// </summary>
                         [CodeExplodeGenericsReplaceArguments("Set", new[] { 5 }, new[] { "In()" }, Comments.SetFunc)]
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
-                        public static Func<Action<T1, T2, T3, T4, T5, T6>, Func<T6>, Action<T1, T2, T3, T4, T5, T6>> L_SetFunc_A6
+                        public static Func<Action<T1, T2, T3, T4, T5, T6>,[CanBeNull] Func<T6>,[CanBeNull] Action<T1, T2, T3, T4, T5, T6>> L_SetFunc_A6
                             <T1, T2, T3, T4, T5, T6>()
                             {
                             return (Func, In) =>
@@ -2618,7 +2619,7 @@ namespace LCore.Extensions
                         /// </summary>
                         [CodeExplodeGenericsReplaceArguments("Set", new[] { 5 }, new[] { "In()" }, Comments.SetFunc)]
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
-                        public static Func<Func<T1, T2, T3, T4, T5, T6, U>, Func<T6>, Func<T1, T2, T3, T4, T5, T6, U>> L_SetFunc_F6
+                        public static Func<Func<T1, T2, T3, T4, T5, T6, U>,[CanBeNull] Func<T6>,[CanBeNull] Func<T1, T2, T3, T4, T5, T6, U>> L_SetFunc_F6
                             /*MF#1#<T1, T2, T3, T4, T5, T6, U>()
                             {
                             return (Func, In) =>
@@ -2636,7 +2637,7 @@ namespace LCore.Extensions
                         /// </summary>
                         [CodeExplodeGenericsReplaceArguments("Set", new[] { 6 }, new[] { "In()" }, Comments.SetFunc)]
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
-                        public static Func<Action<T1, T2, T3, T4, T5, T6, T7>, Func<T7>, Action<T1, T2, T3, T4, T5, T6, T7>>
+                        public static Func<Action<T1, T2, T3, T4, T5, T6, T7>,[CanBeNull] Func<T7>,[CanBeNull] Action<T1, T2, T3, T4, T5, T6, T7>>
                             L_SetFunc_A7<T1, T2, T3, T4, T5, T6, T7>()
                             {
                             return (Func, In) =>
@@ -2650,7 +2651,7 @@ namespace LCore.Extensions
                         /// </summary>
                         [CodeExplodeGenericsReplaceArguments("Set", new[] { 6 }, new[] { "In()" }, Comments.SetFunc)]
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
-                        public static Func<Func<T1, T2, T3, T4, T5, T6, T7, U>, Func<T7>, Func<T1, T2, T3, T4, T5, T6, T7, U>>
+                        public static Func<Func<T1, T2, T3, T4, T5, T6, T7, U>,[CanBeNull] Func<T7>,[CanBeNull] Func<T1, T2, T3, T4, T5, T6, T7, U>>
                             L_SetFunc_F7 /*MF#1#<T1, T2, T3, T4, T5, T6, T7, U>()
                             {
                             return (Func, In) =>
@@ -2668,7 +2669,7 @@ namespace LCore.Extensions
                         /// </summary>
                         [CodeExplodeGenericsReplaceArguments("Set", new[] { 7 }, new[] { "In()" }, Comments.SetFunc)]
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
-                        public static Func<Action<T1, T2, T3, T4, T5, T6, T7, T8>, Func<T8>, Action<T1, T2, T3, T4, T5, T6, T7, T8>>
+                        public static Func<Action<T1, T2, T3, T4, T5, T6, T7, T8>,[CanBeNull] Func<T8>,[CanBeNull] Action<T1, T2, T3, T4, T5, T6, T7, T8>>
                             L_SetFunc_A8<T1, T2, T3, T4, T5, T6, T7, T8>()
                             {
                             return (Func, In) =>
@@ -2683,7 +2684,7 @@ namespace LCore.Extensions
                         [CodeExplodeGenericsReplaceArguments("Set", new[] { 7 }, new[] { "In()" }, Comments.SetFunc)]
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
                         public static
-                        Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, U>, Func<T8>, Func<T1, T2, T3, T4, T5, T6, T7, T8, U>>
+                        Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, U>,[CanBeNull] Func<T8>,[CanBeNull] Func<T1, T2, T3, T4, T5, T6, T7, T8, U>>
                             L_SetFunc_F8 /*MF#1#<T1, T2, T3, T4, T5, T6, T7, T8, U>()
                             {
                             return (Func, In) =>
@@ -2702,7 +2703,7 @@ namespace LCore.Extensions
                         [CodeExplodeGenericsReplaceArguments("Set", new[] { 8 }, new[] { "In()" }, Comments.SetFunc)]
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
                         public static
-                        Func<Action<T1, T2, T3, T4, T5, T6, T7, T8, T9>, Func<T9>, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9>>
+                        Func<Action<T1, T2, T3, T4, T5, T6, T7, T8, T9>,[CanBeNull] Func<T9>,[CanBeNull] Action<T1, T2, T3, T4, T5, T6, T7, T8, T9>>
                             L_SetFunc_A9<T1, T2, T3, T4, T5, T6, T7, T8, T9>()
                             {
                             return (Func, In) =>
@@ -2717,7 +2718,7 @@ namespace LCore.Extensions
                         [CodeExplodeGenericsReplaceArguments("Set", new[] { 8 }, new[] { "In()" }, Comments.SetFunc)]
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
                         public static
-                        Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>, Func<T9>, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>>
+                        Func<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>,[CanBeNull] Func<T9>,[CanBeNull] Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>>
                             L_SetFunc_F9 /*MF#1#<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>()
                             {
                             return (Func, In) =>
@@ -2737,7 +2738,7 @@ namespace LCore.Extensions
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
                         public static
                         Func
-                            <Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>, Func<T10>,
+                            <Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>,[CanBeNull] Func<T10>,
                                 Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>> L_SetFunc_A10
                             <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>()
                             {
@@ -2755,7 +2756,7 @@ namespace LCore.Extensions
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
                         public static
                         Func
-                            <Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>, Func<T10>,
+                            <Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>,[CanBeNull] Func<T10>,
                                 Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>> L_SetFunc_F10 /*MF#1#
                             <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>()
                             {
@@ -2776,7 +2777,7 @@ namespace LCore.Extensions
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
                         public static
                         Func
-                            <Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>, Func<T11>,
+                            <Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>,[CanBeNull] Func<T11>,
                                 Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>> L_SetFunc_A11
                             <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>()
                             {
@@ -2797,7 +2798,7 @@ namespace LCore.Extensions
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
                         public static
                         Func
-                            <Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>, Func<T11>,
+                            <Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>,[CanBeNull] Func<T11>,
                                 Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>> L_SetFunc_F11 /*MF#1#
                             <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>()
                             {
@@ -2820,7 +2821,7 @@ namespace LCore.Extensions
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
                         public static
                         Func
-                            <Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>, Func<T12>,
+                            <Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>,[CanBeNull] Func<T12>,
                                 Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>> L_SetFunc_A12 /*MF#1#
                             <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>()
                             {
@@ -2841,7 +2842,7 @@ namespace LCore.Extensions
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
                         public static
                         Func
-                            <Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>, Func<T12>,
+                            <Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>,[CanBeNull] Func<T12>,
                                 Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>> L_SetFunc_F12 /*MF#1#
                             <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>()
                             {
@@ -2864,7 +2865,7 @@ namespace LCore.Extensions
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
                         public static
                         Func
-                            <Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>, Func<T13>,
+                            <Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>,[CanBeNull] Func<T13>,
                                 Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>> L_SetFunc_A13 /*MF#1#
                             <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>()
                             {
@@ -2885,7 +2886,7 @@ namespace LCore.Extensions
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
                         public static
                         Func
-                            <Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>, Func<T13>,
+                            <Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>,[CanBeNull] Func<T13>,
                                 Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>> L_SetFunc_F13 /*MF#1#
                             <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>()
                             {
@@ -2908,7 +2909,7 @@ namespace LCore.Extensions
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
                         public static
                         Func
-                            <Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>, Func<T14>,
+                            <Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>,[CanBeNull] Func<T14>,
                                 Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>> L_SetFunc_A14 /*MF#1#
                             <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>()
                             {
@@ -2929,7 +2930,7 @@ namespace LCore.Extensions
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
                         public static
                         Func
-                            <Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>, Func<T14>,
+                            <Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>,[CanBeNull] Func<T14>,
                                 Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>> L_SetFunc_F14 /*MF#1#
                             <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>()
                             {
@@ -2952,7 +2953,7 @@ namespace LCore.Extensions
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
                         public static
                         Func
-                            <Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>, Func<T15>,
+                            <Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>,[CanBeNull] Func<T15>,
                                 Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>> L_SetFunc_A15 /*MF#1#
                             <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>()
                             {
@@ -2973,7 +2974,7 @@ namespace LCore.Extensions
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
                         public static
                         Func
-                            <Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>, Func<T15>,
+                            <Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>,[CanBeNull] Func<T15>,
                                 Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>> L_SetFunc_F15 /*MF#1#
                             <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>()
                             {
@@ -2996,7 +2997,7 @@ namespace LCore.Extensions
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
                         public static
                         Func
-                            <Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>, Func<T16>,
+                            <Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>,[CanBeNull] Func<T16>,
                                 Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>> L_SetFunc_A16 /*MF#1#
                             <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>()
                             {
@@ -3017,7 +3018,7 @@ namespace LCore.Extensions
                         [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
                         public static
                         Func
-                            <Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>, Func<T16>,
+                            <Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>,[CanBeNull] Func<T16>,
                                 Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>> L_SetFunc_F16 /*MF#1#
                             <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>()
                             {
@@ -3033,7 +3034,7 @@ namespace LCore.Extensions
             */
 
             #endregion
-                
+
             #region Set
 
             #region Set 1
@@ -6142,8 +6143,7 @@ namespace LCore.Extensions
             /// <returns></returns>
 
             [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
-            public static Func<Func<T1, T2, T3, U>, Func<T1, T2, T3, U>[], Func<T1, T2, T3, U>> L_Then_F_F
-                <T1, T2, T3, U>()
+            public static Func<Func<T1, T2, T3, U>, Func<T1, T2, T3, U>[], Func<T1, T2, T3, U>> L_Then_F_F<T1, T2, T3, U>()
                 {
                 return (In, Acts) =>
                     {
@@ -9045,7 +9045,7 @@ namespace LCore.Extensions
 
             // Do
             //[CodeExplodeExtensionMethod("Cast", new String[] { "In" }, L.Comments.Cast)]
-            /*        public static Func<Action<T1>, Action<U1>> L_Cast<T1, U1>()
+            /*        public static Func<Action<T1>,[CanBeNull] Action<U1>> L_Cast<T1, U1>()
                         where U1 : T1
                         {
                         return In => L_Cast_A<T1, U1>()(In);
@@ -9084,7 +9084,7 @@ namespace LCore.Extensions
                                     }
                             };
                         }
-                    public static Func<U> Failover<T, U>(this Func<T, U> In, IEnumerable<T> Tries)
+                    public static Func<U> Failover<T, U>([CanBeNull]this Func<T, U> In, IEnumerable<T> Tries)
                         {
                         return () =>
                         {

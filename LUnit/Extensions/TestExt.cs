@@ -149,7 +149,7 @@ namespace LCore.LUnit
                 return;
 
             throw new InternalTestFailureException(
-                $"Attribute validation failed: {Attr.GetType()} {Member.FullyQualifiedName()}\r\n{Out.JoinLines()}");
+                $"Attribute validation failed: {Attr.GetType()} {Member.FullyQualifiedName()}\n{Out.JoinLines()}");
             }
 
         #endregion

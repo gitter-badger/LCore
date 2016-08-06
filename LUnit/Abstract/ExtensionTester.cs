@@ -3,12 +3,9 @@ using System.Collections.Generic;
 // ReSharper disable once RedundantUsingDirective
 using System.Diagnostics;
 using System.Reflection;
-using System.Threading;
 using LCore.Extensions;
 using FluentAssertions;
 using JetBrains.Annotations;
-using LCore.Extensions.Optional;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 using Xunit.Abstractions;
 using static LCore.LUnit.LUnit.Categories;
@@ -53,13 +50,13 @@ namespace LCore.LUnit
                 var TestData = Test.GetTestData();
 
 #if DEBUG
-                Debug.Write("--------------------------------------------------------\r\n");
-                Debug.Write($"Testing {TestData.TestsPresent} {Test.FullName} methods. \r\n");
+                Debug.Write("--------------------------------------------------------\n");
+                Debug.Write($"Testing {TestData.TestsPresent} {Test.FullName} methods. \n");
                 Debug.Write(
-                    $"      Total attribute tests:  {TestData.TestAttributes.Count - TestData.UnitTestCount} (~{(TestData.TestAttributes.Count/((double) TestData.TestsPresent - TestData.UnitTestCount)).Round(1).Max(0)} per method) \r\n");
-                Debug.Write($"      Unit tests:             {TestData.UnitTestCount}. \r\n");
-                Debug.Write("\r\n");
-                Debug.Write($"Missing: {TestData.TestsMissing} methods                  {TestData.CoveragePercent}% Coverage\r\n");
+                    $"      Total attribute tests:  {TestData.TestAttributes.Count - TestData.UnitTestCount} (~{(TestData.TestAttributes.Count/((double) TestData.TestsPresent - TestData.UnitTestCount)).Round(1).Max(0)} per method) \n");
+                Debug.Write($"      Unit tests:             {TestData.UnitTestCount}. \n");
+                Debug.Write("\n");
+                Debug.Write($"Missing: {TestData.TestsMissing} methods                  {TestData.CoveragePercent}% Coverage\n");
 #endif
 
                 /* Test.RunTypeTests();*/

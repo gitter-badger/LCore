@@ -690,7 +690,7 @@ namespace LCore.Extensions
         /// Convert a list of IConvertible to strings, then joins them with a separator string.
         /// </summary>
         [Tested]
-        public static string Combine<T>([CanBeNull] this IEnumerable<T> List, string SeparateStr)
+        public static string Combine<T>([CanBeNull] this IEnumerable<T> List, [CanBeNull]string SeparateStr)
             where T : IConvertible
             {
             return List.Convert(i => i.ConvertToString()).Combine(SeparateStr);

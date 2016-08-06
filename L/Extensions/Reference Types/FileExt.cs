@@ -24,7 +24,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Removes non-supported characters from filenames.
         /// </summary>
-        public static string CleanFileName(this string In)
+        public static string CleanFileName([CanBeNull]this string In)
             {
             return L.File.CleanFileName(In);
             }
@@ -35,8 +35,11 @@ namespace LCore.Extensions
         /// Creates a directory path if it doesn't already exist.
         /// </summary>
         [Tested]
-        public static void EnsurePathExists(this string Path)
+        public static void EnsurePathExists([CanBeNull]this string Path)
             {
+            if (Path == null)
+                return;
+
             string DirPath = Path;
 
             if (DirPath.Contains("\\"))
@@ -52,8 +55,11 @@ namespace LCore.Extensions
         /// Returns a byte[] with every other element skipped.
         /// Useful for reading data that has been encoded in Unicode.
         /// </summary>
-        public static byte[] EveryOtherByte(this byte[] In)
+        public static byte[] EveryOtherByte([CanBeNull]this byte[] In)
             {
+            if (In == null)
+                return new byte[] { };
+
             var Out = new byte[In.Length / 2];
             for (int Index = 0; Index < Out.Length; Index++)
                 {
@@ -68,7 +74,7 @@ namespace LCore.Extensions
         /// Reads a chunk of file <paramref name="F" /> using <paramref name="BlockSize" /> and <paramref name="BlockNum" /> as index.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        internal static byte[] GetFileBlock(FileStream F, int BlockSize, int BlockNum)
+        internal static byte[] GetFileBlock([CanBeNull]FileStream F, int BlockSize, int BlockNum)
             {
             if (F == null)
                 throw new ArgumentNullException(nameof(F));
@@ -158,7 +164,8 @@ namespace LCore.Extensions
         /// Returns a new FileStream using the default FileMode, FileAccess, and FileShare settings.
         /// (Open | Read | ReadWrite, Delete)
         /// </summary>
-        public static FileStream GetFileStream(this string FullPath)
+        [CanBeNull]
+        public static FileStream GetFileStream([CanBeNull]this string FullPath)
             {
             try { return new FileStream(FullPath, L.File.DefaultFileMode, L.File.DefaultFileAccess, L.File.DefaultFileShare); }
             catch { return null; }
@@ -183,7 +190,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Reads the entirety of a Stream and returns it as a MemoryStream.
         /// </summary>
-        public static MemoryStream GetMemoryStream(this Stream In)
+        public static MemoryStream GetMemoryStream([CanBeNull]this Stream In)
             {
             var MemStream = new MemoryStream();
 
@@ -209,7 +216,7 @@ namespace LCore.Extensions
         /// Returns the stream's hash, determined by the stream bytes and 
         /// L.HashAlgorithm (default to SHA256)
         /// </summary>
-        public static byte[] GetStreamHash(this Stream InputStream)
+        public static byte[] GetStreamHash([CanBeNull]this Stream InputStream)
             {
             if (InputStream == null)
                 throw new ArgumentNullException(nameof(InputStream));
@@ -225,7 +232,7 @@ namespace LCore.Extensions
         /// Returns the string's hash, determined by the string bytes and 
         /// L.HashAlgorithm (default to SHA256)
         /// </summary>
-        public static byte[] GetStringHash(this string In)
+        public static byte[] GetStringHash([CanBeNull]this string In)
             {
             return GetStreamHash(In.ToStream());
             }
@@ -239,7 +246,7 @@ namespace LCore.Extensions
         /// <param name="WildCard"></param>
         /// <returns></returns>
         [ExcludeFromCodeCoverage]
-        internal static bool MatchesWildCard(string In, string WildCard)
+        internal static bool MatchesWildCard([CanBeNull]string In, [CanBeNull]string WildCard)
             {
             if (In == null)
                 throw new ArgumentNullException(nameof(In));
@@ -263,7 +270,7 @@ namespace LCore.Extensions
 
         #region MatchesWildCardLowerCase
         [ExcludeFromCodeCoverage]
-        internal static bool MatchesWildCardLowerCase(string In, string WildCard)
+        internal static bool MatchesWildCardLowerCase([CanBeNull]string In, [CanBeNull]string WildCard)
             {
             if (WildCard == "*")
                 {
@@ -312,7 +319,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Reads all bytes from the stream and returns a Byte[].
         /// </summary>
-        public static byte[] ReadAllBytes(this Stream Input)
+        public static byte[] ReadAllBytes([CanBeNull]this Stream Input)
             {
             var Buffer = new byte[16 * 1024];
 

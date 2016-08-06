@@ -8,6 +8,7 @@ using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
 using static LCore.LUnit.LUnit.Categories;
+// ReSharper disable PossibleNullReferenceException
 
 // ReSharper disable ReturnValueOfPureMethodIsNotUsed
 

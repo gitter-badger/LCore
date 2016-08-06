@@ -44,7 +44,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "a", new[] { 'b', 'c', 'd', 'e', 'f', 'g' } }, "abcdefg")]
         [TestResult(new object[] { "abc", new[] { 'b', 'c', 'd', 'e', 'f', 'g' } }, "abcbcdefg")]
         // ReSharper restore StringLiteralTypo
-        public static string Add(this string In, params char[] Chars)
+        public static string Add([CanBeNull]this string In, [CanBeNull]params char[] Chars)
             {
             return In.Add((IEnumerable<char>)Chars);
             }
@@ -156,7 +156,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "   abc   ", 5, ' ' }, " abc ")]
         [TestResult(new object[] { "abcdef", 5, ' ' }, "abcde")]
         [TestBound(1, 0, 100)]
-        public static string AlignCenter(this string In, int Length, char PadChar = ' ')
+        public static string AlignCenter([CanBeNull]this string In, int Length, char PadChar = ' ')
             {
             return Length < 0
                 ? ""
@@ -178,7 +178,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "   abc   ", 5u, ' ' }, " abc ")]
         [TestResult(new object[] { "abcdef", 5u, ' ' }, "abcde")]
         [TestBound(1, 0u, 100u)]
-        public static string AlignCenter(this string In, uint Length, char PadChar = ' ')
+        public static string AlignCenter([CanBeNull]this string In, uint Length, char PadChar = ' ')
             {
             return In.Pad(Length, L.Align.Center, PadChar);
             }
@@ -201,7 +201,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "   abc   ", 5, ' ' }, "abc  ")]
         [TestResult(new object[] { "abcdef", 5, ' ' }, "abcde")]
         [TestBound(1, 0, 100)]
-        public static string AlignLeft(this string In, int Length, char PadChar = ' ')
+        public static string AlignLeft([CanBeNull]this string In, int Length, char PadChar = ' ')
             {
             return Length < 0
                 ? ""
@@ -243,7 +243,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "   abc   ", 5, ' ' }, "  abc")]
         [TestResult(new object[] { "abcdef", 5, ' ' }, "abcde")]
         [TestBound(1, 0, 100)]
-        public static string AlignRight(this string In, int Length, char PadChar = ' ')
+        public static string AlignRight([CanBeNull]this string In, int Length, char PadChar = ' ')
             {
             return Length < 0
                 ? ""
@@ -262,7 +262,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "   abc   ", 5u, ' ' }, "  abc")]
         [TestResult(new object[] { "abcdef", 5u, ' ' }, "abcde")]
         [TestBound(1, 0u, 100u)]
-        public static string AlignRight(this string In, uint Length, char PadChar = ' ')
+        public static string AlignRight([CanBeNull]this string In, uint Length, char PadChar = ' ')
             {
             return In.Pad(Length, L.Align.Right, PadChar);
             }
@@ -342,7 +342,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { null }, "")]
         [TestResult(new object[] { new byte[] { } }, "")]
         [TestResult(new object[] { new byte[] { 45, 69, 100, 68, 47, 87, 57, 54, 66 } }, "-EdD/W96B")]
-        public static string ByteArrayToString(this byte[] In)
+        public static string ByteArrayToString([CanBeNull]this byte[] In)
             {
             if (In.IsEmpty())
                 return "";
@@ -409,7 +409,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { new[] { "b", "b", "b" }, "a" }, "babab")]
         [TestResult(new object[] { new[] { "b", "b", "b" }, "_a_" }, "b_a_b_a_b")]
         [TestResult(new object[] { new[] { "b", "b", null, "b" }, "_a_" }, "b_a_b_a_b")]
-        public static string Combine(this IEnumerable<string> In, string CombineStr)
+        public static string Combine([CanBeNull]this IEnumerable<string> In, [CanBeNull]string CombineStr)
             {
             string Out = "";
             uint Count = In.Count();
@@ -475,7 +475,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "blah", new[] { "a" } }, true)]
         [TestResult(new object[] { "BLAH", new[] { "a" } }, false)]
         [TestResult(new object[] { "BLAH", new[] { "a", "A" } }, true)]
-        public static bool ContainsAny(this string In, IEnumerable<string> Find)
+        public static bool ContainsAny([CanBeNull]this string In, [CanBeNull]IEnumerable<string> Find)
             {
             if (In.IsEmpty() || Find.IsEmpty())
                 return false;
@@ -502,7 +502,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "aaabbbccc", "aa" }, 2u)]
         [TestResult(new object[] { "aaabbbccc", "aaa" }, 1u)]
         // ReSharper restore StringLiteralTypo
-        public static uint Count(this string In, string Search)
+        public static uint Count([CanBeNull]this string In, [CanBeNull]string Search)
             {
             if (In.IsEmpty() || Search.IsEmpty())
                 return 0;
@@ -561,7 +561,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "blah" }, "Blah")]
         [TestResult(new object[] { "bLaH" }, "Blah")]
         [TestResult(new object[] { "bLaH bLaH" }, "Blah Blah")]
-        public static string FirstCaps(this string Value)
+        public static string FirstCaps([CanBeNull]this string Value)
             {
             if (Value.IsEmpty())
                 return "";
@@ -754,7 +754,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "123", new string[] { } }, false)]
         [TestResult(new object[] { "123", new[] { @"\d+" } }, true)]
         [TestResult(new object[] { "123", new[] { @"\d\d\d\d" } }, false)]
-        public static bool HasMatch(this string In, params string[] Expressions)
+        public static bool HasMatch([CanBeNull]this string In, [CanBeNull]params string[] Expressions)
             {
             return Expressions.Count(Str =>
                 {
@@ -873,7 +873,7 @@ namespace LCore.Extensions
                 "very very very very very very very very very very close", "very very very very very very very very very close", (double) 1
                 }, false)]
         // ReSharper restore StringLiteralTypo
-        public static bool IsSymmetrical(this string In, string Compare, double Threshhold = 0.95)
+        public static bool IsSymmetrical([CanBeNull]this string In, [CanBeNull]string Compare, double Threshhold = 0.95)
             {
             return In.Symmetry(Compare) >= Threshhold;
             }
@@ -894,7 +894,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { new[] { "a", "a" }, null }, "aa")]
         [TestResult(new object[] { new[] { "a", "a" }, L.Str.NewLineString }, "a\r\na")]
         [TestResult(new object[] { new[] { "a", "a" }, " test " }, "a test a")]
-        public static string JoinLines(this IEnumerable<string> In, string JoinStr = L.Str.NewLineString)
+        public static string JoinLines([CanBeNull]this IEnumerable<string> In, [CanBeNull]string JoinStr = L.Str.NewLineString)
             {
             return L.Str.JoinLines(In, JoinStr);
             }
@@ -916,7 +916,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "  a  ", "a     " }, true)]
         [TestResult(new object[] { "  a  ", "b    " }, false)]
         [TestResult(new object[] { "FuNkYcAsE", "funkyCASE" }, true)]
-        public static bool Like(this string In, string Compare)
+        public static bool Like([CanBeNull]this string In, [CanBeNull]string Compare)
             {
             if (In.IsEmpty())
                 return Compare.IsEmpty();
@@ -974,7 +974,7 @@ namespace LCore.Extensions
         /// <param name="Expression"></param>
         /// <returns>All matches for <paramref name="In" /> nad Regex <paramref name="Expression" />.</returns>
         [Tested]
-        public static List<Match> Matches(this string In, string Expression)
+        public static List<Match> Matches([CanBeNull]this string In, [CanBeNull]string Expression)
             {
             if (string.IsNullOrEmpty(In) || string.IsNullOrEmpty(Expression))
                 return new List<Match>();
@@ -1063,7 +1063,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abcdef", 5u, L.Align.Center, '0' }, "abcde")]
         [TestResult(new object[] { "   abc   ", 6u, L.Align.Center, '0' }, "00abc0")]
         [TestBound(1, 0, 100)]
-        public static string Pad(this string In, uint Length, L.Align Alignment = L.Align.Left, char PadChar = ' ')
+        public static string Pad([CanBeNull]this string In, uint Length, L.Align Alignment = L.Align.Left, char PadChar = ' ')
             {
             if (In.IsEmpty())
                 return PadChar.Fill(Length);
@@ -1111,7 +1111,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "person", 2 }, "people")]
         [TestResult(new object[] { "person", 1 }, "person")]
         [TestResult(new object[] { "Entry", 2 }, "Entries")]
-        public static string Pluralize(this string In, int Count)
+        public static string Pluralize([CanBeNull]this string In, int Count)
             {
             return L.Str.Pluralize(In, Count);
             }
@@ -1131,7 +1131,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "person", 2u }, "people")]
         [TestResult(new object[] { "person", 1u }, "person")]
         [TestResult(new object[] { "Entry", 2u }, "Entries")]
-        public static string Pluralize(this string In, uint Count)
+        public static string Pluralize([CanBeNull]this string In, uint Count)
             {
             return L.Str.Pluralize(In, Count);
             }
@@ -1146,7 +1146,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "person" }, "people")]
         [TestResult(new object[] { "Entry" }, "Entries")]
         [TestResult(new object[] { "Entries" }, "Entries")]
-        public static string Pluralize(this string In)
+        public static string Pluralize([CanBeNull]this string In)
             {
             return L.Str.Pluralize(In, 2);
             }
@@ -1301,7 +1301,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "people" }, "person")]
         [TestResult(new object[] { "Entries" }, "Entry")]
         [TestResult(new object[] { "Entry" }, "Entry")]
-        public static string Singularize(this string In)
+        public static string Singularize([CanBeNull]this string In)
             {
             return L.Str.Singularize(In);
             }
@@ -1328,7 +1328,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "babab", "a" }, new[] { "b", "b", "b" })]
         [TestResult(new object[] { "abababa", "a" }, new[] { "b", "b", "b" })]
         // ReSharper restore StringLiteralTypo
-        public static string[] Split(this string In, string SplitStr)
+        public static string[] Split([CanBeNull]this string In, [CanBeNull] string SplitStr)
             {
             if (string.IsNullOrEmpty(SplitStr))
                 throw new ArgumentNullException(nameof(SplitStr));
@@ -1465,7 +1465,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "aaaa", 4, 4 }, "")]
         [TestResult(new object[] { "aaaa", 3, 3 }, "a")]
         [TestResult(new object[] { "123456789123456789", 5, 8 }, "67891234")]
-        public static string Sub(this string In, int Start, int? Length = null)
+        public static string Sub([CanBeNull]this string In, int Start, [CanBeNull]int? Length = null)
             {
             if (Start < 0)
                 Start = 0;
@@ -1490,7 +1490,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "aaaa", 4u, 4u }, "")]
         [TestResult(new object[] { "aaaa", 3u, 3u }, "a")]
         [TestResult(new object[] { "123456789123456789", 5u, 8u }, "67891234")]
-        public static string Sub([CanBeNull] this string In, uint Start, uint? Length = null)
+        public static string Sub([CanBeNull] this string In, uint Start, [CanBeNull]uint? Length = null)
             {
             In = In ?? "";
 
@@ -1528,7 +1528,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "a", "", "" }, "a")]
         [TestResult(new object[] { "a", "b", "c" }, "bac")]
         [TestResult(new object[] { "_a_", "_b", "c_" }, "_b_a_c_")]
-        public static string Surround(this string In, string Before, string After)
+        public static string Surround([CanBeNull]this string In, [CanBeNull]string Before, [CanBeNull] string After)
             {
             return L.Str.Surround(In, Before, After);
             }
@@ -1582,7 +1582,7 @@ namespace LCore.Extensions
             return 2.0 * Intersection / Union;
             }
 
-        private static List<string> WordLetterPairs(string Str)
+        private static List<string> WordLetterPairs([CanBeNull]string Str)
             {
             var AllPairs = new List<string>();
 
@@ -1603,7 +1603,7 @@ namespace LCore.Extensions
             return AllPairs;
             }
 
-        private static string[] LetterPairs(string Str)
+        private static string[] LetterPairs([CanBeNull]string Str)
             {
             int NumPairs = Str.Length - 1;
 
@@ -1684,7 +1684,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { null }, new byte[] { })]
         [TestResult(new object[] { "" }, new byte[] { })]
         [TestResult(new object[] { "-EdD/W96B" }, new byte[] { 45, 69, 100, 68, 47, 87, 57, 54, 66 })]
-        public static byte[] ToByteArray(this string In)
+        public static byte[] ToByteArray([CanBeNull]this string In)
             {
             return In.IsEmpty()
                 ? new byte[] { }
@@ -1705,7 +1705,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { new byte[] { 0, 0, 0, 0 } }, "0x00000000")]
         [TestResult(new object[] { new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 } }, "0x0000000000000000")]
         [TestResult(new object[] { new byte[] { 10, 50, 80, 120, 150, 200, 250, 250 } }, "0x0A32507896C8FAFA")]
-        public static string ToHexString(this byte[] Bytes)
+        public static string ToHexString([CanBeNull]this byte[] Bytes)
             {
             if (Bytes.IsEmpty())
                 return "";
@@ -1737,7 +1737,7 @@ namespace LCore.Extensions
         /// Converts an input string into a memory stream.
         /// </summary>
         [Tested]
-        public static Stream ToStream(this string Str)
+        public static Stream ToStream([CanBeNull]this string Str)
             {
             var Stream = new MemoryStream();
             var Writer = new StreamWriter(Stream);
@@ -1879,7 +1879,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "a a" }, new[] { "a", "a" })]
         [TestResult(new object[] { "a few words" }, new[] { "a", "few", "words" })]
         [TestResult(new object[] { "a couple lines\r\n to test" }, new[] { "a", "couple", "lines", "to", "test" })]
-        public static string[] Words(this string In)
+        public static string[] Words([CanBeNull]this string In)
             {
             return In.ReplaceAll("\r\n", " ").Split(" ");
             }
