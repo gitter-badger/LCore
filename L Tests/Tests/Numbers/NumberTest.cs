@@ -473,7 +473,7 @@ namespace LCore.Tests.Extensions
             var Dec = (TNative) (object) (int) 25;
 
             // Test implicits
-            var TempNumber = L.Ref.New<TNumber>(Dec);
+            var TempNumber = L.Obj.New<TNumber>(Dec);
             //Dec = TempNumber;
 
             TempNumber.GetHashCode().Should().Be(Dec.GetHashCode());

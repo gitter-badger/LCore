@@ -186,7 +186,7 @@ namespace LCore.LUnit
                         try
                             {
                             Method = Method.MakeGenericMethod(
-                                L.Ref.NewRandom_TypeCreators.Keys.Random(Method.GetGenericArguments().Length).Array());
+                                L.Obj.NewRandom_TypeCreators.Keys.Random(Method.GetGenericArguments().Length).Array());
                             }
                         catch (Exception Ex)
                             {

@@ -624,15 +624,15 @@ namespace LCore.Tests.Extensions
             {
             typeof(string).New<string>().Should().Be("");
 
-            L.Ref.New<TestClass>().ShouldBeEquivalentTo(new TestClass());
-            L.Ref.New<TestBaseClass2>("").ShouldBeEquivalentTo(new TestBaseClass2());
-            L.Ref.New<TestBaseClass2>("", "").ShouldBeEquivalentTo(new TestBaseClass2());
-            L.Ref.New<TestBaseClass2>("", "", "").ShouldBeEquivalentTo(new TestBaseClass2());
-            L.Ref.New<TestBaseClass2>("", "", "", "").ShouldBeEquivalentTo(new TestBaseClass2());
+            L.Obj.New<TestClass>().ShouldBeEquivalentTo(new TestClass());
+            L.Obj.New<TestBaseClass2>("").ShouldBeEquivalentTo(new TestBaseClass2());
+            L.Obj.New<TestBaseClass2>("", "").ShouldBeEquivalentTo(new TestBaseClass2());
+            L.Obj.New<TestBaseClass2>("", "", "").ShouldBeEquivalentTo(new TestBaseClass2());
+            L.Obj.New<TestBaseClass2>("", "", "", "").ShouldBeEquivalentTo(new TestBaseClass2());
 
-            L.Ref.New<TestClassGeneric1<string>>().ShouldBeEquivalentTo(new TestClassGeneric1<string>());
-            L.Ref.New<TestClassGeneric1<int>>().ShouldBeEquivalentTo(new TestClassGeneric1<int>());
-            L.Ref.New<TestClassGeneric2<string, int>>("a").ShouldBeEquivalentTo(new TestClassGeneric2<string, int>("a"));
+            L.Obj.New<TestClassGeneric1<string>>().ShouldBeEquivalentTo(new TestClassGeneric1<string>());
+            L.Obj.New<TestClassGeneric1<int>>().ShouldBeEquivalentTo(new TestClassGeneric1<int>());
+            L.Obj.New<TestClassGeneric2<string, int>>("a").ShouldBeEquivalentTo(new TestClassGeneric2<string, int>("a"));
 
             typeof(TestClassGeneric2<,>).New(new object[] {"a"}, typeof(TestClassGeneric2<string, int>))
                 .ShouldBeEquivalentTo(new TestClassGeneric2<string, int>("a"));

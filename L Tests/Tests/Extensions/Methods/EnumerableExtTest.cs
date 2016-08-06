@@ -1281,7 +1281,7 @@ namespace LCore.Tests.Extensions
                 Results12.All(Test.Has).Should().BeTrue();
                 }
 
-            L.Ref.NewRandom_TypeCreators.Keys.Random().Should().NotBeNull();
+            L.Obj.NewRandom_TypeCreators.Keys.Random().Should().NotBeNull();
             }
 
         [Fact]
@@ -1664,7 +1664,7 @@ namespace LCore.Tests.Extensions
             {
             for (int i = 0; i < 50; i++)
                 {
-                int[] Random = new int[50].Fill(j => (int) L.Ref.NewRandom<int>());
+                int[] Random = new int[50].Fill(j => (int) L.Obj.NewRandom<int>());
 
                 Random.Sort();
                 Random.Should().BeInAscendingOrder();
@@ -1674,7 +1674,7 @@ namespace LCore.Tests.Extensions
                 Random2.Sort();
                 Random2.Should().BeInAscendingOrder();
 
-                char[] Random3 = new char[50].Fill(j => (char) L.Ref.NewRandom<char>());
+                char[] Random3 = new char[50].Fill(j => (char) L.Obj.NewRandom<char>());
 
                 Random3.Sort();
                 Random3.Should().BeInAscendingOrder();

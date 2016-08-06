@@ -1421,6 +1421,23 @@ namespace LCore.Extensions
         /// types.
         /// </summary>
         [CanBeNull]
+        public static Number Wrap<T>(this T? Number)
+            where T : struct,
+                IComparable,
+                IComparable<T>,
+                IConvertible,
+                IEquatable<T>,
+                IFormattable
+            {
+            return Number?.Wrap();
+            }
+
+        /// <summary>
+        /// Wraps a number in a Number subclass, 
+        /// allowing you to perform comparisons and operations across
+        /// types.
+        /// </summary>
+        [CanBeNull]
         public static Number Wrap<T>(this T Number)
             where T : struct,
                 IComparable,
