@@ -12,11 +12,6 @@ namespace LCore.LUnit
     public interface ITestBoundAttribute : ILUnitAttribute, ITopLevelAttribute
         {
         /// <summary>
-        /// The 0-based index of the parameter you're applying a bound to.
-        /// </summary>
-        uint ParameterIndex { get; }
-
-        /// <summary>
         /// The Minimum bound for this parameter (optional)
         /// </summary>
         object Minimum { get; }

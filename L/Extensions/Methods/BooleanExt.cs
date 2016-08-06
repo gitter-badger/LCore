@@ -195,6 +195,9 @@ namespace LCore.Extensions
         [Tested]
         public static Func<T2, T1> If<T1, T2>([CanBeNull]this Func<T1> In, [CanBeNull]Func<T2, bool> Condition)
             {
+            Condition = Condition ?? (o => false);
+            In = In ?? (() => default(T1));
+
             return o => Condition(o)
                 ? In()
                 : default(T1);
@@ -206,6 +209,9 @@ namespace LCore.Extensions
         [Tested]
         public static Func<T2, T3, T1> If<T1, T2, T3>([CanBeNull]this Func<T1> In, [CanBeNull]Func<T2, T3, bool> Condition)
             {
+            Condition = Condition ?? ((o1, o2) => false);
+            In = In ?? (() => default(T1));
+
             return (o1, o2) => Condition(o1, o2)
                 ? In()
                 : default(T1);
@@ -217,6 +223,9 @@ namespace LCore.Extensions
         [Tested]
         public static Func<T2, T3, T4, T1> If<T1, T2, T3, T4>([CanBeNull]this Func<T1> In, [CanBeNull]Func<T2, T3, T4, bool> Condition)
             {
+            Condition = Condition ?? ((o1, o2, o3) => false);
+            In = In ?? (() => default(T1));
+
             return (o1, o2, o3) => Condition(o1, o2, o3)
                 ? In()
                 : default(T1);
@@ -229,6 +238,9 @@ namespace LCore.Extensions
         public static Func<T2, T3, T4, T5, T1> If<T1, T2, T3, T4, T5>([CanBeNull]this Func<T1> In,
             [CanBeNull]Func<T2, T3, T4, T5, bool> Condition)
             {
+            Condition = Condition ?? ((o1, o2, o3, o4) => false);
+            In = In ?? (() => default(T1));
+
             return (o1, o2, o3, o4) => Condition(o1, o2, o3, o4)
                 ? In()
                 : default(T1);
@@ -585,6 +597,10 @@ namespace LCore.Extensions
         [Tested]
         public static Func<bool> ElseIf([CanBeNull]this Func<bool> In, [CanBeNull] Func<bool> Condition, [CanBeNull]Action Act)
             {
+            Condition = Condition ?? (() => false);
+            Act = Act ?? (() => { });
+            In = In ?? (() => false);
+
             return () =>
                 {
                     if (In())
@@ -606,6 +622,10 @@ namespace LCore.Extensions
         [Tested]
         public static Func<T, bool> ElseIf<T>([CanBeNull]this Func<T, bool> In, [CanBeNull]Func<T, bool> Condition, [CanBeNull] Action<T> Act)
             {
+            Condition = Condition ?? (o => false);
+            Act = Act ?? (o => { });
+            In = In ?? (o => false);
+
             return o =>
                 {
                     if (In(o))
@@ -628,6 +648,10 @@ namespace LCore.Extensions
         public static Func<T1, T2, bool> ElseIf<T1, T2>([CanBeNull]this Func<T1, T2, bool> In, [CanBeNull]Func<T1, T2, bool> Condition,
             [CanBeNull]Action<T1, T2> Act)
             {
+            Condition = Condition ?? ((o1, o2) => false);
+            Act = Act ?? ((o1, o2) => { });
+            In = In ?? ((o1, o2) => false);
+
             return (o1, o2) =>
                 {
                     if (In(o1, o2))
@@ -650,6 +674,10 @@ namespace LCore.Extensions
         public static Func<T1, T2, T3, bool> ElseIf<T1, T2, T3>([CanBeNull]this Func<T1, T2, T3, bool> In,
             [CanBeNull]Func<T1, T2, T3, bool> Condition, [CanBeNull]Action<T1, T2, T3> Act)
             {
+            Condition = Condition ?? ((o1, o2, o3) => false);
+            Act = Act ?? ((o1, o2, o3) => { });
+            In = In ?? ((o1, o2, o3) => false);
+
             return (o1, o2, o3) =>
                 {
                     if (In(o1, o2, o3))
@@ -672,6 +700,10 @@ namespace LCore.Extensions
         public static Func<T1, T2, T3, T4, bool> ElseIf<T1, T2, T3, T4>([CanBeNull]this Func<T1, T2, T3, T4, bool> In,
             [CanBeNull]Func<T1, T2, T3, T4, bool> Condition, [CanBeNull]Action<T1, T2, T3, T4> Act)
             {
+            Condition = Condition ?? ((o1, o2, o3, o4) => false);
+            Act = Act ?? ((o1, o2, o3, o4) => { });
+            In = In ?? ((o1, o2, o3, o4) => false);
+
             return (o1, o2, o3, o4) =>
                 {
                     if (In(o1, o2, o3, o4))
@@ -693,6 +725,10 @@ namespace LCore.Extensions
         [Tested]
         public static Func<U> ElseIf<U>([CanBeNull]this Func<U> In, [CanBeNull]Func<bool> Condition, [CanBeNull]Func<U> Act)
             {
+            Condition = Condition ?? (() => false);
+            Act = Act ?? (() => default(U));
+            In = In ?? (() => default(U));
+
             return () =>
                 {
                     var Out = In();
@@ -712,6 +748,10 @@ namespace LCore.Extensions
         [Tested]
         public static Func<T, U> ElseIf<T, U>([CanBeNull]this Func<T, U> In, [CanBeNull]Func<T, bool> Condition, [CanBeNull] Func<T, U> Act)
             {
+            Condition = Condition ?? (o => false);
+            Act = Act ?? (o => default(U));
+            In = In ?? (o => default(U));
+
             return o =>
                 {
                     var Out = In(o);
@@ -732,6 +772,10 @@ namespace LCore.Extensions
         public static Func<T1, T2, U> ElseIf<T1, T2, U>([CanBeNull]this Func<T1, T2, U> In, [CanBeNull]Func<T1, T2, bool> Condition,
             [CanBeNull]Func<T1, T2, U> Act)
             {
+            Condition = Condition ?? ((o1, o2) => false);
+            In = In ?? ((o1, o2) => default(U));
+            Act = Act ?? ((o1, o2) => default(U));
+
             return (o1, o2) =>
                 {
                     var Out = In(o1, o2);
@@ -752,6 +796,10 @@ namespace LCore.Extensions
         public static Func<T1, T2, T3, U> ElseIf<T1, T2, T3, U>([CanBeNull]this Func<T1, T2, T3, U> In,
             [CanBeNull]Func<T1, T2, T3, bool> Condition, [CanBeNull] Func<T1, T2, T3, U> Act)
             {
+            Condition = Condition ?? ((o1, o2, o3) => false);
+            In = In ?? ((o1, o2, o3) => default(U));
+            Act = Act ?? ((o1, o2, o3) => default(U));
+
             return (o1, o2, o3) =>
                 {
                     var Out = In(o1, o2, o3);
@@ -772,6 +820,10 @@ namespace LCore.Extensions
         public static Func<T1, T2, T3, T4, U> ElseIf<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, T3, T4, U> In,
             [CanBeNull]Func<T1, T2, T3, T4, bool> Condition, [CanBeNull]Func<T1, T2, T3, T4, U> Act)
             {
+            Condition = Condition ?? ((o1, o2, o3, o4) => false);
+            In = In ?? ((o1, o2, o3, o4) => default(U));
+            Act = Act ?? ((o1, o2, o3, o4) => default(U));
+
             return (o1, o2, o3, o4) =>
                 {
                     var Out = In(o1, o2, o3, o4);
@@ -797,6 +849,8 @@ namespace LCore.Extensions
         [Tested]
         public static Action Else([CanBeNull]this Func<bool> In, [CanBeNull]Action Act)
             {
+            In = In ?? (() => false);
+            Act = Act ?? (() => { });
             return () =>
                 {
                     if (!In())
@@ -810,6 +864,8 @@ namespace LCore.Extensions
         [Tested]
         public static Action<T1> Else<T1>([CanBeNull]this Func<T1, bool> In, [CanBeNull]Action<T1> Act)
             {
+            In = In ?? (o => false);
+            Act = Act ?? (o => { });
             return o =>
                 {
                     if (!In(o))
@@ -823,6 +879,9 @@ namespace LCore.Extensions
         [Tested]
         public static Action<T1, T2> Else<T1, T2>([CanBeNull]this Func<T1, T2, bool> In, [CanBeNull]Action<T1, T2> Act)
             {
+            In = In ?? ((o1, o2) => false);
+            Act = Act ?? ((o1, o2) => { });
+
             return (o1, o2) =>
                 {
                     if (!In(o1, o2))
@@ -836,6 +895,9 @@ namespace LCore.Extensions
         [Tested]
         public static Action<T1, T2, T3> Else<T1, T2, T3>([CanBeNull]this Func<T1, T2, T3, bool> In, [CanBeNull]Action<T1, T2, T3> Act)
             {
+            In = In ?? ((o1, o2, o3) => false);
+            Act = Act ?? ((o1, o2, o3) => { });
+
             return (o1, o2, o3) =>
                 {
                     if (!In(o1, o2, o3))
@@ -849,6 +911,9 @@ namespace LCore.Extensions
         [Tested]
         public static Action<T1, T2, T3, T4> Else<T1, T2, T3, T4>([CanBeNull]this Func<T1, T2, T3, T4, bool> In, [CanBeNull]Action<T1, T2, T3, T4> Act)
             {
+            In = In ?? ((o1, o2, o3, o4) => false);
+            Act = Act ?? ((o1, o2, o3, o4) => { });
+
             return (o1, o2, o3, o4) =>
                 {
                     if (!In(o1, o2, o3, o4))

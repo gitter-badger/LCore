@@ -155,8 +155,11 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abc", 5, ' ' }, " abc ")]
         [TestResult(new object[] { "   abc   ", 5, ' ' }, " abc ")]
         [TestResult(new object[] { "abcdef", 5, ' ' }, "abcde")]
-        [TestBound(1, 0, 100)]
-        public static string AlignCenter([CanBeNull]this string In, int Length, char PadChar = ' ')
+
+        public static string AlignCenter(
+            [CanBeNull]this string In,
+            [TestBound(0, 100)]int Length,
+            char PadChar = ' ')
             {
             return Length < 0
                 ? ""
@@ -177,8 +180,10 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abc", 5u, ' ' }, " abc ")]
         [TestResult(new object[] { "   abc   ", 5u, ' ' }, " abc ")]
         [TestResult(new object[] { "abcdef", 5u, ' ' }, "abcde")]
-        [TestBound(1, 0u, 100u)]
-        public static string AlignCenter([CanBeNull]this string In, uint Length, char PadChar = ' ')
+        public static string AlignCenter(
+            [CanBeNull]this string In,
+            [TestBound(0u, 100u)]uint Length,
+            char PadChar = ' ')
             {
             return In.Pad(Length, L.Align.Center, PadChar);
             }
@@ -200,8 +205,8 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abc", 5, ' ' }, "abc  ")]
         [TestResult(new object[] { "   abc   ", 5, ' ' }, "abc  ")]
         [TestResult(new object[] { "abcdef", 5, ' ' }, "abcde")]
-        [TestBound(1, 0, 100)]
-        public static string AlignLeft([CanBeNull]this string In, int Length, char PadChar = ' ')
+
+        public static string AlignLeft([CanBeNull]this string In, [TestBound(0, 100)]int Length, char PadChar = ' ')
             {
             return Length < 0
                 ? ""
@@ -219,8 +224,8 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abc", 5u, ' ' }, "abc  ")]
         [TestResult(new object[] { "   abc   ", 5u, ' ' }, "abc  ")]
         [TestResult(new object[] { "abcdef", 5u, ' ' }, "abcde")]
-        [TestBound(1, 0u, 100u)]
-        public static string AlignLeft(this string In, uint Length, char PadChar = ' ')
+
+        public static string AlignLeft(this string In, [TestBound(0u, 100u)] uint Length, char PadChar = ' ')
             {
             return In.Pad(Length, L.Align.Left, PadChar);
             }
@@ -242,8 +247,8 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abc", 5, ' ' }, "  abc")]
         [TestResult(new object[] { "   abc   ", 5, ' ' }, "  abc")]
         [TestResult(new object[] { "abcdef", 5, ' ' }, "abcde")]
-        [TestBound(1, 0, 100)]
-        public static string AlignRight([CanBeNull]this string In, int Length, char PadChar = ' ')
+
+        public static string AlignRight([CanBeNull]this string In, [TestBound(0, 100)]int Length, char PadChar = ' ')
             {
             return Length < 0
                 ? ""
@@ -261,8 +266,8 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abc", 5u, ' ' }, "  abc")]
         [TestResult(new object[] { "   abc   ", 5u, ' ' }, "  abc")]
         [TestResult(new object[] { "abcdef", 5u, ' ' }, "abcde")]
-        [TestBound(1, 0u, 100u)]
-        public static string AlignRight([CanBeNull]this string In, uint Length, char PadChar = ' ')
+
+        public static string AlignRight([CanBeNull]this string In, [TestBound(0u, 100u)]uint Length, char PadChar = ' ')
             {
             return In.Pad(Length, L.Align.Right, PadChar);
             }
@@ -477,6 +482,8 @@ namespace LCore.Extensions
         [TestResult(new object[] { "BLAH", new[] { "a", "A" } }, true)]
         public static bool ContainsAny([CanBeNull]this string In, [CanBeNull]IEnumerable<string> Find)
             {
+            In = In ?? "";
+
             if (In.IsEmpty() || Find.IsEmpty())
                 return false;
 
@@ -504,7 +511,7 @@ namespace LCore.Extensions
         // ReSharper restore StringLiteralTypo
         public static uint Count([CanBeNull]this string In, [CanBeNull]string Search)
             {
-            if (In.IsEmpty() || Search.IsEmpty())
+            if (In == null || In.IsEmpty() || Search == null || Search.IsEmpty())
                 return 0;
 
             int[] Nums = 0.To(In.Length - 1);
@@ -525,8 +532,8 @@ namespace LCore.Extensions
         [TestResult(new object[] { 'a', 3 }, "aaa")]
         // ReSharper disable once StringLiteralTypo
         [TestResult(new object[] { 'z', 5 }, "zzzzz")]
-        [TestBound(1, 0, 100)]
-        public static string Fill(this char In, int Count)
+
+        public static string Fill(this char In, [TestBound(0, 100)]int Count)
             {
             return Count < 0
                 ? ""
@@ -541,8 +548,8 @@ namespace LCore.Extensions
         [TestResult(new object[] { 'a', 3u }, "aaa")]
         // ReSharper disable once StringLiteralTypo
         [TestResult(new object[] { 'z', 5u }, "zzzzz")]
-        [TestBound(1, 0, 100)]
-        public static string Fill(this char In, uint Count)
+
+        public static string Fill(this char In, [TestBound(0u, 100u)]uint Count)
             {
             return new string(new char[Count].Collect(o => In));
             }
@@ -563,7 +570,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "bLaH bLaH" }, "Blah Blah")]
         public static string FirstCaps([CanBeNull]this string Value)
             {
-            if (Value.IsEmpty())
+            if (Value == null || Value.IsEmpty())
                 return "";
 
             var Builder = new StringBuilder(Value.Length);
@@ -918,9 +925,9 @@ namespace LCore.Extensions
         [TestResult(new object[] { "FuNkYcAsE", "funkyCASE" }, true)]
         public static bool Like([CanBeNull]this string In, [CanBeNull]string Compare)
             {
-            if (In.IsEmpty())
+            if (In == null || In.IsEmpty())
                 return Compare.IsEmpty();
-            if (Compare.IsEmpty())
+            if (Compare == null || Compare.IsEmpty())
                 return In.IsEmpty();
 
             In = In.Trim();
@@ -1022,8 +1029,8 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abcdef", 5, L.Align.Right, '0' }, "abcde")]
         [TestResult(new object[] { "abcdef", 5, L.Align.Center, '0' }, "abcde")]
         [TestResult(new object[] { "   abc   ", 6, L.Align.Center, '0' }, "00abc0")]
-        [TestBound(1, 0, 100)]
-        public static string Pad([CanBeNull] this string In, int Length, L.Align Alignment = L.Align.Left, char PadChar = ' ')
+
+        public static string Pad([CanBeNull] this string In, [TestBound(0, 100)]int Length, L.Align Alignment = L.Align.Left, char PadChar = ' ')
             {
             return Length < 0
                 ? In ?? ""
@@ -1062,17 +1069,17 @@ namespace LCore.Extensions
         [TestResult(new object[] { "abcdef", 5u, L.Align.Right, '0' }, "abcde")]
         [TestResult(new object[] { "abcdef", 5u, L.Align.Center, '0' }, "abcde")]
         [TestResult(new object[] { "   abc   ", 6u, L.Align.Center, '0' }, "00abc0")]
-        [TestBound(1, 0, 100)]
-        public static string Pad([CanBeNull]this string In, uint Length, L.Align Alignment = L.Align.Left, char PadChar = ' ')
+
+        public static string Pad([CanBeNull]this string In, [TestBound(0, 100)]uint Length, L.Align Alignment = L.Align.Left, char PadChar = ' ')
             {
-            if (In.IsEmpty())
+            if (In == null || In.IsEmpty())
                 return PadChar.Fill(Length);
 
             In = In.Trim();
 
             if (In.Length > Length)
                 return In.Sub(0, Length);
-            while (In.Length < Length)
+            while (In != null && In.Length < Length)
                 {
                 if (Alignment == L.Align.Left)
                     In += PadChar;
@@ -1333,7 +1340,7 @@ namespace LCore.Extensions
             if (string.IsNullOrEmpty(SplitStr))
                 throw new ArgumentNullException(nameof(SplitStr));
 
-            if (In.IsEmpty())
+            if (In == null || In.IsEmpty())
                 return new string[] { };
 
             int Index = In.IndexOf(SplitStr);
@@ -1605,6 +1612,9 @@ namespace LCore.Extensions
 
         private static string[] LetterPairs([CanBeNull]string Str)
             {
+            if (Str == null)
+                return new string[] { };
+
             int NumPairs = Str.Length - 1;
 
             var Pairs = new string[NumPairs];
@@ -1635,8 +1645,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { "ablah", 2 }, "ablahablah")]
         [TestResult(new object[] { "ablah", 5 }, "ablahablahablahablahablah")]
         // ReSharper restore StringLiteralTypo
-        [TestBound(1, 0, 100)]
-        public static string Times([CanBeNull] this string In, int Count)
+        public static string Times([CanBeNull] this string In, [TestBound(0, 100)]int Count)
             {
             return Count < 0
                 ? ""
@@ -1655,8 +1664,8 @@ namespace LCore.Extensions
         [TestResult(new object[] { "ablah", 2u }, "ablahablah")]
         [TestResult(new object[] { "ablah", 5u }, "ablahablahablahablahablah")]
         // ReSharper restore StringLiteralTypo
-        [TestBound(1, 0u, 100u)]
-        public static string Times([CanBeNull] this string In, uint Count)
+
+        public static string Times([CanBeNull] this string In, [TestBound(0u, 100u)] uint Count)
             {
             if (Count == 0)
                 return "";
@@ -1707,7 +1716,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { new byte[] { 10, 50, 80, 120, 150, 200, 250, 250 } }, "0x0A32507896C8FAFA")]
         public static string ToHexString([CanBeNull]this byte[] Bytes)
             {
-            if (Bytes.IsEmpty())
+            if (Bytes == null || Bytes.IsEmpty())
                 return "";
 
             var Char = new char[Bytes.Length * 2 + 2];

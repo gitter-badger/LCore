@@ -223,8 +223,6 @@ namespace LCore.LUnit
                 {
                 bool MethodCanBeNull = Method.HasAttribute<CanBeNullAttribute>(false);
 
-                List<TestBoundAttribute> ParameterBounds = Method.GetAttributes<TestBoundAttribute>(false);
-
                 var TheMethod = Method;
 
                 if (Method.ContainsGenericParameters)
@@ -303,7 +301,7 @@ namespace LCore.LUnit
                         else
                             Params[j] = Parameters[j].ParameterType.NewRandom();
 
-                        var ParamBound = ParameterBounds.First(Param => Param.ParameterIndex == j);
+                        var ParamBound = Parameters[j].GetAttribute<ITestBoundAttribute>();
                         if (ParamBound != null)
                             {
                             try

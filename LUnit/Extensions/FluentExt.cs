@@ -6,6 +6,8 @@ using System.Collections;
 using System.Diagnostics;
 using System.Reflection;
 using FluentAssertions;
+using FluentAssertions.Primitives;
+using FluentAssertions.Types;
 using LCore.LUnit.Assert;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -484,6 +486,79 @@ namespace LCore.LUnit.Fluent
             {
             Func(o1, o2, o3, o4).Should().Be(ExpectedResult);
             }
+
+        #endregion
+
+        #region FluentAssertions +
+
+        #region HaveAttribute
+
+        public static AndConstraint<TypeAssertions> HaveAttribute<T>(this TypeAssertions Type)
+            where T : IPersistAttribute
+            {
+            Type.Subject.HasAttribute<T>().ShouldBeTrue();
+            return new AndConstraint<TypeAssertions>(Type);
+            }
+        public static AndConstraint<TypeAssertions> HaveAttribute<T>(this TypeAssertions Type, bool IncludeBaseTypes)
+            {
+            Type.Subject.HasAttribute<T>(IncludeBaseTypes).ShouldBeTrue();
+            return new AndConstraint<TypeAssertions>(Type);
+            }
+
+        #endregion
+
+        #region NotHaveAttribute
+
+
+        public static AndConstraint<TypeAssertions> NotHaveAttribute<T>(this TypeAssertions Type)
+            where T : IPersistAttribute
+            {
+            Type.Subject.HasAttribute<T>().ShouldBeFalse();
+            return new AndConstraint<TypeAssertions>(Type);
+            }
+        public static AndConstraint<TypeAssertions> NotHaveAttribute<T>(this TypeAssertions Type, bool IncludeBaseTypes)
+            {
+            Type.Subject.HasAttribute<T>(IncludeBaseTypes).ShouldBeFalse();
+            return new AndConstraint<TypeAssertions>(Type);
+            }
+
+        #endregion
+
+
+        #region Abbreviations +
+        /*
+
+                public static AndConstraint<TypeAssertions> ShouldNotHaveAttribute<T>(this Type Type)
+                    where T : IPersistAttribute
+                    {
+                    return Type.Should().NotHaveAttribute<T>();
+                    }
+                public static AndConstraint<TypeAssertions> ShouldNotHaveAttribute<T>(this Type Type, bool IncludeBaseTypes)
+                    {
+                    return Type.Should().NotHaveAttribute<T>(IncludeBaseTypes);
+                    }
+
+                public static AndConstraint<TypeAssertions> ShouldHaveAttribute<T>(this Type Type)
+                    where T : IPersistAttribute
+                    {
+                    return Type.Should().HaveAttribute<T>();
+                    }
+                public static AndConstraint<TypeAssertions> ShouldHaveAttribute<T>(this Type Type, bool IncludeBaseTypes)
+                    {
+                    return Type.Should().HaveAttribute<T>(IncludeBaseTypes);
+                    }
+        */
+
+        public static AndConstraint<BooleanAssertions> ShouldBeTrue(this bool Boolean)
+            {
+            return Boolean.Should().BeTrue();
+            }
+        public static AndConstraint<BooleanAssertions> ShouldBeFalse(this bool Boolean)
+            {
+            return Boolean.Should().BeFalse();
+            }
+
+        #endregion
 
         #endregion
         }

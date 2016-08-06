@@ -33,8 +33,8 @@ namespace LCore.Extensions
 
             return () =>
                 {
-                var ActionThread = new Thread(() => { In(); }) {Priority = ThreadPriority.Normal};
-                ActionThread.Start();
+                    var ActionThread = new Thread(() => { In(); }) { Priority = ThreadPriority.Normal };
+                    ActionThread.Start();
                 };
             }
 
@@ -68,8 +68,8 @@ namespace LCore.Extensions
 
             return () =>
                 {
-                var ActionThread = new Thread(() => { In(); }) {Priority = Priority};
-                ActionThread.Start();
+                    var ActionThread = new Thread(() => { In(); }) { Priority = Priority };
+                    ActionThread.Start();
                 };
             }
 
@@ -102,31 +102,31 @@ namespace LCore.Extensions
 
             return () =>
                 {
-                var ActionThread = new Thread(() => { In(); }) {Priority = Priority};
-                ActionThread.Start();
-                double TimeLimitMilliseconds = TimeLimit.TotalMilliseconds;
+                    var ActionThread = new Thread(() => { In(); }) { Priority = Priority };
+                    ActionThread.Start();
+                    double TimeLimitMilliseconds = TimeLimit.TotalMilliseconds;
 
-                if (TimeLimitMilliseconds > 0)
-                    {
-                    var WatcherThread = new Thread(() =>
+                    if (TimeLimitMilliseconds > 0)
                         {
-                        int? Wait = (TimeLimitMilliseconds/10).Round().ConvertTo<int>();
-                        while (Wait != null && Wait > 1)
+                        var WatcherThread = new Thread(() =>
                             {
-                            Thread.Sleep((int) Wait);
-                            TimeLimitMilliseconds -= (int) Wait;
-                            Wait = (int) TimeLimitMilliseconds/10;
-                            if (!ActionThread.IsAlive)
-                                return;
-                            }
-                        if (ActionThread.IsAlive)
-                            {
-                            ActionThread.Interrupt();
-                            ActionThread.Abort();
-                            }
-                        });
-                    WatcherThread.Start();
-                    }
+                                int? Wait = (TimeLimitMilliseconds / 10).Round().ConvertTo<int>();
+                                while (Wait != null && Wait > 1)
+                                    {
+                                    Thread.Sleep((int)Wait);
+                                    TimeLimitMilliseconds -= (int)Wait;
+                                    Wait = (int)TimeLimitMilliseconds / 10;
+                                    if (!ActionThread.IsAlive)
+                                        return;
+                                    }
+                                if (ActionThread.IsAlive)
+                                    {
+                                    ActionThread.Interrupt();
+                                    ActionThread.Abort();
+                                    }
+                            });
+                        WatcherThread.Start();
+                        }
                 };
             }
 
@@ -153,8 +153,8 @@ namespace LCore.Extensions
         /// If a time limit is supplied, the thread will be interrupted if it does not 
         /// complete within the time period.
         /// </summary>
-        [TestBound(1, 0, 5000)]
-        public static Action Async([CanBeNull] this Action In, int TimeLimitMilliseconds = 0,
+        public static Action Async([CanBeNull] this Action In,
+            [TestBound(0, 5000)]int TimeLimitMilliseconds = 0,
             ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
@@ -166,8 +166,8 @@ namespace LCore.Extensions
         /// If a time limit is supplied, the thread will be interrupted if it does not 
         /// complete within the time period.
         /// </summary>
-        [TestBound(1, 0, 5000)]
-        public static Action<T> Async<T>([CanBeNull] this Action<T> In, int TimeLimitMilliseconds = 0,
+        public static Action<T> Async<T>([CanBeNull] this Action<T> In,
+            [TestBound(0, 5000)]int TimeLimitMilliseconds = 0,
             ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
@@ -184,8 +184,8 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         [Tested]
-        [TestBound(1, 0u, 5000u)]
-        public static Action Async([CanBeNull] this Action In, uint TimeLimitMilliseconds = 0,
+        public static Action Async([CanBeNull] this Action In,
+            [TestBound(0u, 5000u)] uint TimeLimitMilliseconds = 0,
             ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
@@ -198,8 +198,8 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         [Tested]
-        [TestBound(1, 0u, 5000u)]
-        public static Action<T> Async<T>([CanBeNull] this Action<T> In, uint TimeLimitMilliseconds = 0,
+        public static Action<T> Async<T>([CanBeNull] this Action<T> In,
+            [TestBound(0u, 5000u)]uint TimeLimitMilliseconds = 0,
             ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
@@ -215,8 +215,8 @@ namespace LCore.Extensions
         /// If a time limit is supplied, the thread will be interrupted if it does not 
         /// complete within the time period.
         /// </summary>
-        [TestBound(1, 0L, 5000L)]
-        public static Action Async([CanBeNull] this Action In, long TimeLimitMilliseconds = 0,
+        public static Action Async([CanBeNull] this Action In,
+            [TestBound(0L, 5000L)]long TimeLimitMilliseconds = 0,
             ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
@@ -228,8 +228,8 @@ namespace LCore.Extensions
         /// If a time limit is supplied, the thread will be interrupted if it does not 
         /// complete within the time period.
         /// </summary>
-        [TestBound(1, 0L, 5000L)]
-        public static Action<T> Async<T>([CanBeNull] this Action<T> In, long TimeLimitMilliseconds = 0,
+        public static Action<T> Async<T>([CanBeNull] this Action<T> In,
+            [TestBound(0L, 5000L)]long TimeLimitMilliseconds = 0,
             ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
@@ -375,8 +375,8 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         [Tested]
-        [TestBound(1, -1, 5000)]
-        public static Action AsyncResult<U>([CanBeNull] this Func<U> In, [CanBeNull] Action<U> Callback, int TimeLimitMilliseconds = 0,
+        public static Action AsyncResult<U>([CanBeNull] this Func<U> In, [CanBeNull] Action<U> Callback,
+            [TestBound(-1, 5000)]int TimeLimitMilliseconds = 0,
             ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
@@ -389,9 +389,8 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         [Tested]
-        [TestBound(1, -1, 5000)]
         public static Action<T1> AsyncResult<T1, U>([CanBeNull] this Func<T1, U> In, [CanBeNull] Action<U> Callback,
-            int TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            [TestBound(-1, 5000)]int TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
             }
@@ -406,8 +405,8 @@ namespace LCore.Extensions
         /// If a time limit is supplied, the thread will be interrupted if it does not 
         /// complete within the time period.
         /// </summary>
-        [TestBound(1, 0u, 5000u)]
-        public static Action AsyncResult<U>([CanBeNull] this Func<U> In, [CanBeNull] Action<U> Callback, uint TimeLimitMilliseconds = 0,
+        public static Action AsyncResult<U>([CanBeNull] this Func<U> In, [CanBeNull] Action<U> Callback,
+            [TestBound(0u, 5000u)]uint TimeLimitMilliseconds = 0,
             ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
@@ -419,9 +418,8 @@ namespace LCore.Extensions
         /// If a time limit is supplied, the thread will be interrupted if it does not 
         /// complete within the time period.
         /// </summary>
-        [TestBound(1, 0u, 5000u)]
         public static Action<T1> AsyncResult<T1, U>([CanBeNull] this Func<T1, U> In, [CanBeNull] Action<U> Callback,
-            uint TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            [TestBound(0u, 5000u)] uint TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
             }
@@ -436,8 +434,8 @@ namespace LCore.Extensions
         /// If a time limit is supplied, the thread will be interrupted if it does not 
         /// complete within the time period.
         /// </summary>
-        [TestBound(1, 0L, 5000L)]
-        public static Action AsyncResult<U>([CanBeNull] this Func<U> In, [CanBeNull] Action<U> Callback, long TimeLimitMilliseconds = 0,
+        public static Action AsyncResult<U>([CanBeNull] this Func<U> In, [CanBeNull] Action<U> Callback,
+            [TestBound(0L, 5000L)]long TimeLimitMilliseconds = 0,
             ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
@@ -449,9 +447,8 @@ namespace LCore.Extensions
         /// If a time limit is supplied, the thread will be interrupted if it does not 
         /// complete within the time period.
         /// </summary>
-        [TestBound(1, 0L, 5000L)]
         public static Action<T1> AsyncResult<T1, U>([CanBeNull] this Func<T1, U> In, [CanBeNull] Action<U> Callback,
-            long TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            [TestBound(0L, 5000L)]long TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
             }
@@ -466,9 +463,8 @@ namespace LCore.Extensions
         /// If a time limit is supplied, the thread will be interrupted if it does not 
         /// complete within the time period.
         /// </summary>
-        [TestBound(1, 0uL, 5000uL)]
-        public static Action AsyncResult<U>([CanBeNull] this Func<U> In, [CanBeNull] Action<U> Callback, ulong TimeLimitMilliseconds = 0,
-            ThreadPriority Priority = ThreadPriority.Normal)
+        public static Action AsyncResult<U>([CanBeNull] this Func<U> In, [CanBeNull] Action<U> Callback,
+            [TestBound(0uL, 5000uL)]ulong TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
             }
@@ -479,9 +475,8 @@ namespace LCore.Extensions
         /// If a time limit is supplied, the thread will be interrupted if it does not 
         /// complete within the time period.
         /// </summary>
-        [TestBound(1, 0uL, 5000uL)]
         public static Action<T1> AsyncResult<T1, U>([CanBeNull] this Func<T1, U> In, [CanBeNull] Action<U> Callback,
-            ulong TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            [TestBound(0uL, 5000uL)]ulong TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
             }
@@ -498,8 +493,8 @@ namespace LCore.Extensions
         /// Counts how many times <paramref name="In"/> can be performed in the given number of <paramref name="Milliseconds"/>
         /// </summary>
         [Tested]
-        [TestBound(1, 0u, 100u)]
-        public static uint CountExecutions([CanBeNull] this Action In, uint Milliseconds)
+        public static uint CountExecutions([CanBeNull] this Action In,
+            [TestBound(0u, 100u)]uint Milliseconds)
             {
             if (In == null)
                 In = () => { };
@@ -513,7 +508,7 @@ namespace LCore.Extensions
                 In();
                 Count++;
 
-                Elapsed = (DateTime.Now.Ticks - Start.Ticks)*L.Date.TicksToMilliseconds;
+                Elapsed = (DateTime.Now.Ticks - Start.Ticks) * L.Date.TicksToMilliseconds;
                 }
 
             return Count;
@@ -527,8 +522,8 @@ namespace LCore.Extensions
         /// Performs an action, reporting back the amount of time it took to complete
         /// </summary>
         [Tested]
-        [TestBound(1, 0, 100)]
-        public static TimeSpan Profile([CanBeNull] this Action In, uint Repeat = L.Thread.DefaultProfileRepeat)
+        public static TimeSpan Profile([CanBeNull] this Action In,
+        [TestBound(0, 100)]uint Repeat = L.Thread.DefaultProfileRepeat)
             {
             return L.Thread.ProfileActionRepeat(In, Repeat);
             }
@@ -537,8 +532,8 @@ namespace LCore.Extensions
         /// Performs a function, reporting back the amount of time it took to complete
         /// </summary>
         [Tested]
-        [TestBound(1, 0u, 100u)]
-        public static MethodProfileData<U> Profile<U>([CanBeNull] this Func<U> In, uint Repeat = L.Thread.DefaultProfileRepeat)
+        public static MethodProfileData<U> Profile<U>([CanBeNull] this Func<U> In,
+        [TestBound(0u, 100u)] uint Repeat = L.Thread.DefaultProfileRepeat)
             {
             var Out = new MethodProfileData<U>();
 
@@ -550,10 +545,10 @@ namespace LCore.Extensions
 
             L.A(() =>
                 {
-                var Start = DateTime.Now;
-                OutList.Add(In());
-                var End = DateTime.Now;
-                Out.Times.Add(new TimeSpan(End.Ticks - Start.Ticks));
+                    var Start = DateTime.Now;
+                    OutList.Add(In());
+                    var End = DateTime.Now;
+                    Out.Times.Add(new TimeSpan(End.Ticks - Start.Ticks));
                 }).Repeat(Repeat)();
 
             return Out;
@@ -592,19 +587,19 @@ namespace LCore.Extensions
             {
             return () =>
                 {
-                L.Thread.MethodProfileCache.SafeAdd(ProfileName, new MethodProfileData());
+                    L.Thread.MethodProfileCache.SafeAdd(ProfileName, new MethodProfileData());
 
-                MethodProfileData<U> Out = In.Profile();
+                    MethodProfileData<U> Out = In.Profile();
 
-                var Cache = L.Thread.MethodProfileCache[ProfileName];
+                    var Cache = L.Thread.MethodProfileCache[ProfileName];
 
-                Cache.Times.AddRange(Out.Times);
+                    Cache.Times.AddRange(Out.Times);
 
-                List<object> TempList = Cache.Data.List();
-                TempList.AddRange(Out.Data.List<object>());
-                Cache.Data = TempList;
+                    List<object> TempList = Cache.Data.List();
+                    TempList.AddRange(Out.Data.List<object>());
+                    Cache.Data = TempList;
 
-                return Out.Data.First();
+                    return Out.Data.First();
                 };
             }
 
@@ -641,22 +636,22 @@ namespace LCore.Extensions
 
             internal static readonly Func<Action, uint, TimeSpan> ProfileActionRepeat = (In, Repeat) =>
                 {
-                if (In == null)
-                    return new TimeSpan(0);
+                    if (In == null)
+                        return new TimeSpan(0);
 
-                var Start = DateTime.Now;
-                In.Repeat(Repeat)();
-                var End = DateTime.Now;
-                return End - Start;
+                    var Start = DateTime.Now;
+                    In.Repeat(Repeat)();
+                    var End = DateTime.Now;
+                    return End - Start;
                 };
 
             internal static readonly Func<Action, string, Action> ProfileAction = (In, ProfileName) =>
                 {
-                return () =>
-                    {
-                    MethodProfileCache.SafeAdd(ProfileName, new MethodProfileData());
-                    MethodProfileCache[ProfileName].Times.Add(In.Profile());
-                    };
+                    return () =>
+                        {
+                            MethodProfileCache.SafeAdd(ProfileName, new MethodProfileData());
+                            MethodProfileCache[ProfileName].Times.Add(In.Profile());
+                        };
                 };
 
             internal static Func<Action, TimeSpan> ProfileActionDefault = ProfileActionRepeat.Supply2(DefaultProfileRepeat);

@@ -194,6 +194,9 @@ namespace LCore.Extensions
             {
             var MemStream = new MemoryStream();
 
+            if (In == null)
+                return MemStream;
+
             var RespBuffer = new byte[1024];
             try
                 {
@@ -272,6 +275,9 @@ namespace LCore.Extensions
         [ExcludeFromCodeCoverage]
         internal static bool MatchesWildCardLowerCase([CanBeNull]string In, [CanBeNull]string WildCard)
             {
+            In = In ?? "";
+            WildCard = WildCard ?? "";
+
             if (WildCard == "*")
                 {
                 return true;
@@ -321,6 +327,9 @@ namespace LCore.Extensions
         /// </summary>
         public static byte[] ReadAllBytes([CanBeNull]this Stream Input)
             {
+            if (Input == null)
+                return new byte[] { };
+
             var Buffer = new byte[16 * 1024];
 
             using (var Stream = new MemoryStream())
@@ -533,11 +542,17 @@ namespace LCore.Extensions
             /// <summary>
             /// A function that returns the bytes of a file from a string path.
             /// </summary>
-            public static readonly Func<string, byte[]> GetFileContents = FileName =>
+            public static byte[] GetFileContents([CanBeNull]string FileName)
                 {
-                    var Str = FileName.GetFileStream();
-                    return FileExt.GetFileBlock(Str, (int)Str.Length, 0);
-                };
+                if (FileName == null)
+                    return new byte[] { };
+
+                var Stream = FileName.GetFileStream();
+
+                return Stream == null
+                    ? new byte[] { }
+                    : FileExt.GetFileBlock(Stream, (int)Stream.Length, 0);
+                }
 
             #endregion
 

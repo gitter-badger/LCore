@@ -7,6 +7,7 @@ using Xunit;
 using Xunit.Abstractions;
 using LCore.LUnit;
 using static LCore.LUnit.LUnit.Categories;
+// ReSharper disable PossibleNullReferenceException
 
 namespace LCore.Tests.Extensions
     {
@@ -16,7 +17,7 @@ namespace LCore.Tests.Extensions
         private const string Str = @"c:\temporary_testEnsurePathExists\test\file.txt";
         private const string Str2 = @"c:\temporary_testEnsurePathExists\test";
         private const string Str3 = @"c:\temporary_testEnsurePathExists";
-        private readonly byte[] _TestBytes = {5, 7, 3, 67, 2, 5, 88, 42, 2, 6, 99, 4, 3, 7};
+        private readonly byte[] _TestBytes = { 5, 7, 3, 67, 2, 5, 88, 42, 2, 6, 99, 4, 3, 7 };
 
 
         public FileExtTest([NotNull] ITestOutputHelper Output) : base(Output)
@@ -48,7 +49,7 @@ namespace LCore.Tests.Extensions
         ///         </paramref>
         ///     does not exist or could not be found.-or-The specified path is invalid (for example, it is on an unmapped drive). </exception>
         [Fact]
-        public void Test_EnsurePathExists() {}
+        public void Test_EnsurePathExists() { }
 
 
         [Fact]

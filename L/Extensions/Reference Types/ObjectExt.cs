@@ -825,6 +825,7 @@ namespace LCore.Extensions.Optional
         [Tested]
         public static Action SupplyTo<T>([CanBeNull]this T Obj, [CanBeNull]Action<T> In)
             {
+            In = In ?? (o => { });
             return () => { In(Obj); };
             }
 
@@ -2390,6 +2391,7 @@ namespace LCore.Extensions.Optional
         [Tested]
         public static Func<U> SupplyTo<T, U>([CanBeNull]this T Obj, [CanBeNull]Func<T, U> In)
             {
+            In = In ?? (o => default(U));
             return () => In(Obj);
             }
 
@@ -4071,6 +4073,9 @@ namespace LCore.Extensions.Optional
         [Tested]
         public static void Traverse([CanBeNull]this object In, [CanBeNull] Func<object, object> Traverser)
             {
+            if (Traverser == null)
+                return;
+
             var Cursor = In;
 
             while (Cursor != null)
@@ -4088,6 +4093,9 @@ namespace LCore.Extensions.Optional
         [Tested]
         public static void Traverse<T>([CanBeNull]this T In, [CanBeNull] Func<T, T> Traverser)
             {
+            if (Traverser == null)
+                return;
+
             var Cursor = In;
 
             while (Cursor != null)

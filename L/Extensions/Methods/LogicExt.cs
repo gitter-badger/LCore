@@ -2392,6 +2392,9 @@ namespace LCore.Extensions
 
             public static T Cache<T>(ref object CacheStore, [CanBeNull] Func<T> Default)
                 {
+                if (Default == null)
+                    return default(T);
+
                 if (!(CacheStore is T))
                     CacheStore = Default();
                 return (T)CacheStore;
@@ -2403,6 +2406,9 @@ namespace LCore.Extensions
 
             public static T Cache<T>(ref T CacheStore, [CanBeNull] Func<T> Default)
                 {
+                if (Default == null)
+                    return default(T);
+
                 // ReSharper disable once ConvertIfStatementToNullCoalescingExpression
                 if (CacheStore == null)
                     CacheStore = Default();

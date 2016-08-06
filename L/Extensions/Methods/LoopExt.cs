@@ -28,7 +28,10 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <returns></returns>
         [Tested]
-        public static List<U> To<U>(this int In, int To, [CanBeNull] Func<U> Func)
+        public static List<U> To<U>(
+            [TestBound(-50, 50)]this int In,
+            [TestBound(-50, 50)]int To,
+            [CanBeNull] Func<U> Func)
             {
             Func = Func ?? (() => default(U));
             var Out = new List<U>();
@@ -45,7 +48,10 @@ namespace LCore.Extensions
         /// <param name="Func"></param>
         /// <returns></returns>
         [Tested]
-        public static List<T> To<T>(this int In, int To, [CanBeNull] Func<int, T> Func)
+        public static List<T> To<T>(
+            [TestBound(-50, 50)]this int In,
+            [TestBound(-50, 50)]int To,
+            [CanBeNull] Func<int, T> Func)
             {
             Func = Func ?? (i => default(T));
 
