@@ -5,6 +5,9 @@ using LCore.Extensions;
 
 namespace LCore.LUnit
     {
+    /// <summary>
+    /// Implement this interface to specify an LUnit test attribute that contains method parameters.
+    /// </summary>
     public interface ITestParameters: ILUnitAttribute
         {
         /// <summary>

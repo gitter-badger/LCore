@@ -9,7 +9,7 @@ using static LCore.LUnit.LUnit.Categories;
 // ReSharper disable StringLiteralTypo
 // ReSharper disable UnusedParameter.Global
 
-namespace L_Tests.Tests.Extensions
+namespace LCore.Tests.Extensions
     {
     [Trait(Category, StaticMethods)]
     public class RefTest
@@ -23,7 +23,7 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_GetNamespaceTypes()
             {
-            L.Ref.GetNamespaceTypes("L_Tests.Tests").ShouldBeEquivalentTo(new List<Type>
+            L.Ref.GetNamespaceTypes("LCore.Tests").ShouldBeEquivalentTo(new List<Type>
                 {
                 typeof(LCoreAssemblyTester)
                 });

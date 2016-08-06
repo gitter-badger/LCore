@@ -9,11 +9,20 @@ using Xunit.Abstractions;
 
 namespace LCore.LUnit
     {
+    /// <summary>
+    /// Tracks and reports up to 10 testing errors from a single RunTests method.
+    /// </summary>
     [Collection("MultiTest")]
     public abstract class MultiTestReporter : XUnitOutputTester
         {
+        /// <summary>
+        /// Implement RunTests to perform all testing
+        /// </summary>
         protected abstract void RunTests();
 
+        /// <summary>
+        /// Reports Exception #1, if it exists.
+        /// </summary>
         [Fact]
         public void TestFailure01()
             {
@@ -21,6 +30,10 @@ namespace LCore.LUnit
             this.ThrowException(0);
             }
 
+
+        /// <summary>
+        /// Reports Exception #2, if it exists.
+        /// </summary>
         [Fact]
         public void TestFailure02()
             {
@@ -28,6 +41,10 @@ namespace LCore.LUnit
             this.ThrowException(1);
             }
 
+
+        /// <summary>
+        /// Reports Exception #3, if it exists.
+        /// </summary>
         [Fact]
         public void TestFailure03()
             {
@@ -35,6 +52,10 @@ namespace LCore.LUnit
             this.ThrowException(2);
             }
 
+
+        /// <summary>
+        /// Reports Exception #4, if it exists.
+        /// </summary>
         [Fact]
         public void TestFailure04()
             {
@@ -42,6 +63,10 @@ namespace LCore.LUnit
             this.ThrowException(3);
             }
 
+
+        /// <summary>
+        /// Reports Exception #5, if it exists.
+        /// </summary>
         [Fact]
         public void TestFailure05()
             {
@@ -49,6 +74,10 @@ namespace LCore.LUnit
             this.ThrowException(4);
             }
 
+
+        /// <summary>
+        /// Reports Exception #6, if it exists.
+        /// </summary>
         [Fact]
         public void TestFailure06()
             {
@@ -56,6 +85,10 @@ namespace LCore.LUnit
             this.ThrowException(5);
             }
 
+
+        /// <summary>
+        /// Reports Exception #7, if it exists.
+        /// </summary>
         [Fact]
         public void TestFailure07()
             {
@@ -63,6 +96,10 @@ namespace LCore.LUnit
             this.ThrowException(6);
             }
 
+
+        /// <summary>
+        /// Reports Exception #8, if it exists.
+        /// </summary>
         [Fact]
         public void TestFailure08()
             {
@@ -70,6 +107,10 @@ namespace LCore.LUnit
             this.ThrowException(7);
             }
 
+
+        /// <summary>
+        /// Reports Exception #9, if it exists.
+        /// </summary>
         [Fact]
         public void TestFailure09()
             {
@@ -77,6 +118,10 @@ namespace LCore.LUnit
             this.ThrowException(8);
             }
 
+
+        /// <summary>
+        /// Reports Exception #10, if it exists.
+        /// </summary>
         [Fact]
         public void TestFailure10()
             {
@@ -94,6 +139,9 @@ namespace LCore.LUnit
                 throw Ex;
             }
 
+        /// <summary>
+        /// Add an exception to the list so it can be reported correctly.
+        /// </summary>
         protected void AddException(Exception Ex)
             {
             if (!_AssemblyExceptions.Has(Ex2 => Ex.ToS() == Ex2.ToS()))
@@ -117,6 +165,9 @@ namespace LCore.LUnit
                 }
             }
 
+        /// <summary>
+        /// MultiTestReporter constructor
+        /// </summary>
         protected MultiTestReporter([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }

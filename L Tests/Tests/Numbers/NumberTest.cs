@@ -3,7 +3,6 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using LCore.Numbers;
-using LCore.LUnit;
 using LCore.LUnit.Fluent;
 using Xunit;
 using static LCore.LUnit.LUnit.Categories;
@@ -17,9 +16,9 @@ using static LCore.LUnit.LUnit.Categories;
 // ReSharper disable RedundantAssignment
 // ReSharper disable RedundantCast
 
-namespace L_Tests.Tests.Extensions
+namespace LCore.Tests.Extensions
     {
-    [Trait(Category, LUnit.Categories.Tools)]
+    [Trait(Category, LUnit.LUnit.Categories.Tools)]
     public class NumberTest
         {
         /// <exception cref="OverflowException">

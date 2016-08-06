@@ -30,7 +30,7 @@ using static LCore.LUnit.LUnit.Categories;
 // ReSharper disable RedundantExplicitArrayCreation
 // ReSharper disable UnusedVariable
 
-namespace L_Tests.Tests.Extensions
+namespace LCore.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
     public class EnumerableExtTest : XUnitOutputTester

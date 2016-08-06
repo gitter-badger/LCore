@@ -12,6 +12,9 @@ using LCore.Extensions.Optional;
 
 namespace LCore.LUnit
     {
+    /// <summary>
+    /// Provides static methods used for unit testing.
+    /// </summary>
     public static class LUnit
         {
         /// <summary>
@@ -87,6 +90,9 @@ namespace LCore.LUnit
                 }
             }
 
+        /// <summary>
+        /// Retrieves an instance of a method delegate from a fully qualified string.
+        /// </summary>
         [CanBeNull]
         public static object GetMethodDelegate([CanBeNull] MethodInfo SourceMethod, [CanBeNull] Type ObjectType,
             [CanBeNull] string MethodName)

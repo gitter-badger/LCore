@@ -48,6 +48,9 @@ namespace LCore.LUnit
 
         #region RunTest
 
+        /// <summary>
+        /// Execute an ITestResultAttribute and compare ActualResult with ExpectedResult.
+        /// </summary>
         public static void RunTest(this ITestResultAttribute Attr, MethodInfo Method)
             {
             Func<object, bool>[] Checks = Attr.AdditionalResultChecks.Convert(
@@ -76,6 +79,9 @@ namespace LCore.LUnit
             //   }
             }
 
+        /// <summary>
+        /// Execute an ITestFailsAttribute test and ensure failure matches the conditions defined.
+        /// </summary>
         public static void RunTest(this ITestFailsAttribute Attr, MethodInfo Method)
             {
             Func<bool>[] Checks = Attr.AdditionalChecks.Convert(L.F<MethodInfo, string, Func<bool>>(LUnit.GetCheckMethod).Supply(Method));
@@ -83,6 +89,9 @@ namespace LCore.LUnit
             Method.AssertFails(Attr.Parameters, Method.ReflectedType, Attr.ExceptionType, Checks);
             }
 
+        /// <summary>
+        /// Execute an ITestFailsAttribute test and ensures the method succeeds.
+        /// </summary>
         public static void RunTest(this ITestSucceedsAttribute Attr, MethodInfo Method)
             {
             Func<bool>[] Checks = Attr.AdditionalChecks.Convert(L.F<MethodInfo, string, Func<bool>>(LUnit.GetCheckMethod).Supply(Method));
@@ -94,6 +103,9 @@ namespace LCore.LUnit
             Method.AssertSucceedes(null, Parameters, Checks);
             }
 
+        /// <summary>
+        /// Execute an ITestSourceAttribute test and perform tests on the calling object (for extension methods).
+        /// </summary>
         public static void RunTest(this ITestSourceAttribute Attr, MethodInfo Method)
             {
             Func<object, bool>[] Checks =
@@ -126,6 +138,9 @@ namespace LCore.LUnit
             OutMethod?.Invoke(null, new[] {Method, null, Parameters, ExpectedSource, Checks});
             }
 
+        /// <summary>
+        /// Validates an IValidateAttribute, throwing a testing error if validation has any errors.
+        /// </summary>
         public static void RunTest(this IValidateAttribute Attr, MemberInfo Member)
             {
             string[] Out = Attr.Validate(Member);

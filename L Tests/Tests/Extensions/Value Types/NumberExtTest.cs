@@ -12,7 +12,7 @@ using static LCore.LUnit.LUnit.Categories;
 // ReSharper disable StringLiteralTypo
 // ReSharper disable UnusedParameter.Global
 
-namespace L_Tests.Tests.Extensions
+namespace LCore.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
     public class NumberExtTest : XUnitOutputTester

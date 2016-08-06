@@ -313,7 +313,10 @@ namespace LCore.Extensions
         [Tested]
         public static MethodInfo[] GetExtensionMethods([CanBeNull] this Type In)
             {
-            return In?.GetMethods()
+            if (In == null)
+                return new MethodInfo[] {};
+
+            return In.GetMethods()
                 .Select(Method => Method.IsStatic &&
                                   Method.IsPublic &&
                                   Method.IsDefined(typeof(ExtensionAttribute), true))
@@ -1008,7 +1011,7 @@ namespace LCore.Extensions
         /// Creates a new random object for many simple types.
         /// </summary>
         [CanBeNull]
-        public static object NewRandom(this Type Type, object Minimum = null, object Maximum = null)
+        public static object NewRandom([CanBeNull] this Type Type, [CanBeNull] object Minimum = null, [CanBeNull] object Maximum = null)
             {
             return L.Ref.NewRandom(Type, Minimum, Maximum);
             }
@@ -1177,6 +1180,14 @@ namespace LCore.Extensions
         #endregion
 
         #endregion
+
+        public static bool CanBeNull([CanBeNull] this ParameterInfo Param)
+            {
+            return Param != null &&
+                   (!Param.ParameterType.IsValueType || // Covers all classes
+                    Param.ParameterType.IsNullable() || // Covers all nullable value types
+                    Param.IsOptional); // Covers optional members
+            }
         }
 
     public static partial class L

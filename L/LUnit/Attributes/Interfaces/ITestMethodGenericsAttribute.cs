@@ -5,6 +5,9 @@ using LCore.Extensions;
 
 namespace LCore.LUnit
     {
+    /// <summary>
+    /// Implement this interface to specify generics used on a method for tests.
+    /// </summary>
     public interface ITestMethodGenericsAttribute : ILUnitAttribute, ISubClassPersistentAttribute
         {
         /// <summary>

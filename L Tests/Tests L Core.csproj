@@ -147,7 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tests\Extensions\Language\CommentExtTest.cs" />
-    <Compile Include="Tests\Extensions\TestExtTest.cs" />
     <Compile Include="Tests\Extensions\Object Types\ComparableExtTest.cs" />
     <Compile Include="Tests\Extensions\Object Types\StatsExtTest.cs" />
     <Compile Include="Tests\Extensions\Methods\LogicExtTest.cs" />

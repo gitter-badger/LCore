@@ -7,7 +7,7 @@ using LCore.LUnit;
 using Xunit.Abstractions;
 using static LCore.LUnit.LUnit.Categories;
 
-namespace L_Tests.Tests.Extensions
+namespace LCore.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
     public class DateExtTest : XUnitOutputTester

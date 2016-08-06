@@ -13,6 +13,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace LCore.LUnit.Fluent
     {
+    /// <summary>
+    /// Provides assertions in the fluent 'Should____' style.
+    /// </summary>
     public static class FluentExt
         {
         #region ShouldSucceed

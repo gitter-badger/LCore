@@ -13,7 +13,7 @@ using static LCore.LUnit.LUnit.Categories;
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
 // ReSharper disable ConvertToConstant.Local
 
-namespace L_Tests.Tests.Extensions
+namespace LCore.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
     public class BooleanExtTest : XUnitOutputTester

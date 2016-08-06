@@ -14,6 +14,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace LCore.LUnit.Assert
     {
+    /// <summary>
+    /// Provides assertions in the 'Assert___' style.
+    /// </summary>
     public static class AssertionExt
         {
         #region AssertSucceedes

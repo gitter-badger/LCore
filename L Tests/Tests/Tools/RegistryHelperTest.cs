@@ -7,7 +7,6 @@ using System.Security;
 using FluentAssertions;
 using LCore.Extensions;
 using LCore.Extensions.Optional;
-using LCore.LUnit;
 using LCore.LUnit.Fluent;
 using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -18,9 +17,9 @@ using static LCore.LUnit.LUnit.Categories;
 // ReSharper disable ObjectCreationAsStatement
 // ReSharper disable RedundantCast
 
-namespace L_Tests.Tests.Tools
+namespace LCore.Tests.Tools
     {
-    [Trait(Category, LUnit.Categories.Tools)]
+    [Trait(Category, LUnit.LUnit.Categories.Tools)]
     public class RegistryHelperTest
         {
         private const string TestRegKey = "TEST_RegistryHandler";

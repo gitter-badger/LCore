@@ -8,7 +8,7 @@ using Xunit.Abstractions;
 using static LCore.LUnit.LUnit.Categories;
 using LCore.LUnit;
 
-namespace L_Tests.Tests.Extensions
+namespace LCore.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
     public class DictionaryExtTest : XUnitOutputTester

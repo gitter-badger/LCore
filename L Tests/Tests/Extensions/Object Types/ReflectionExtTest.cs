@@ -29,7 +29,7 @@ using static LCore.LUnit.LUnit.Categories;
 // ReSharper disable ExceptionNotDocumented
 // ReSharper disable ExceptionNotDocumentedOptional
 
-namespace L_Tests.Tests.Extensions
+namespace LCore.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
     public class ReflectionExtTest : XUnitOutputTester
@@ -114,20 +114,20 @@ namespace L_Tests.Tests.Extensions
         public void Test_FullyQualifiedName()
             {
             typeof(TestClass).FullyQualifiedName()
-                .Should().Be("L_Tests.Tests.Extensions.ReflectionExtTest.TestClass");
+                .Should().Be("LCore.Tests.Extensions.ReflectionExtTest.TestClass");
             L.Ref.Member<TestClass>(Test => Test.Test).FullyQualifiedName()
-                .Should().Be("L_Tests.Tests.Extensions.ReflectionExtTest.TestClass.Test");
+                .Should().Be("LCore.Tests.Extensions.ReflectionExtTest.TestClass.Test");
 
             L.Ref.Method<TestClass>(Test => Test.Test5("")).FullyQualifiedName()
-                .Should().Be("L_Tests.Tests.Extensions.ReflectionExtTest.TestClass.Test5");
+                .Should().Be("LCore.Tests.Extensions.ReflectionExtTest.TestClass.Test5");
 
             typeof(TestBaseClass).FullyQualifiedName()
-                .Should().Be("L_Tests.Tests.Extensions.ReflectionExtTest.TestBaseClass");
+                .Should().Be("LCore.Tests.Extensions.ReflectionExtTest.TestBaseClass");
             L.Ref.Member<TestBaseClass>(Test => Test.Test2).FullyQualifiedName()
-                .Should().Be("L_Tests.Tests.Extensions.ReflectionExtTest.TestBaseClass.Test2");
+                .Should().Be("LCore.Tests.Extensions.ReflectionExtTest.TestBaseClass.Test2");
 
             L.Ref.Method<TestBaseClass>(Test => Test.Test5("")).FullyQualifiedName()
-                .Should().Be("L_Tests.Tests.Extensions.ReflectionExtTest.TestBaseClass.Test5");
+                .Should().Be("LCore.Tests.Extensions.ReflectionExtTest.TestBaseClass.Test5");
             }
 
         [Fact]
@@ -198,17 +198,17 @@ namespace L_Tests.Tests.Extensions
         [Fact]
         public void Test_GetAttributeTypeName()
             {
-            typeof(TestClass).GetAttributeTypeName().Should().Be("L_Tests.Tests.Extensions.ReflectionExtTest+TestClass");
+            typeof(TestClass).GetAttributeTypeName().Should().Be("LCore.Tests.Extensions.ReflectionExtTest+TestClass");
             L.Ref.Member<TestClass>(Class => Class.Test2)
                 .GetAttributeTypeName()
                 .Should()
-                .Be("L_Tests.Tests.Extensions.ReflectionExtTest+TestClass");
+                .Be("LCore.Tests.Extensions.ReflectionExtTest+TestClass");
             L.Ref.Member<TestBaseClass>(Class => Class.Test2)
                 .GetAttributeTypeName()
                 .Should()
-                .Be("L_Tests.Tests.Extensions.ReflectionExtTest+TestBaseClass");
+                .Be("LCore.Tests.Extensions.ReflectionExtTest+TestBaseClass");
             L.Ref.Method<TestClass>(Class => Class.Test5("")).GetParameters().First()
-                .GetAttributeTypeName().Should().Be("L_Tests.Tests.Extensions.ReflectionExtTest+TestBaseClass2");
+                .GetAttributeTypeName().Should().Be("LCore.Tests.Extensions.ReflectionExtTest+TestBaseClass2");
 
             new AttributeList("name", new Attribute[] {}).GetAttributeTypeName().Should().Be("name");
 

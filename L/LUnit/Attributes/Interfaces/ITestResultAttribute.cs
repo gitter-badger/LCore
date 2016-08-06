@@ -5,6 +5,9 @@ using LCore.Extensions;
 
 namespace LCore.LUnit
     {
+    /// <summary>
+    /// Implement this interface to specify an LUnit test attribute based on the method's result.
+    /// </summary>
     public interface ITestResultAttribute : ITestMethodGenericsAttribute, ITestParameters, ITopLevelAttribute
         {
         /// <summary>

@@ -10,8 +10,8 @@ using LCore.LUnit;
 using LCore.LUnit.Fluent;
 using Xunit;
 using Xunit.Abstractions;
-using ObjectExt = LCore.Extensions.ObjectExt;
 using static LCore.LUnit.LUnit.Categories;
+
 // ReSharper disable MemberCanBePrivate.Local
 // ReSharper disable UnusedAutoPropertyAccessor.Local
 // ReSharper disable RedundantArgumentDefaultValue
@@ -19,7 +19,7 @@ using static LCore.LUnit.LUnit.Categories;
 // ReSharper disable RedundantCast
 #pragma warning disable 169
 
-namespace L_Tests.Tests.Extensions
+namespace LCore.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
     public class ObjectExtTest : XUnitOutputTester
@@ -27,7 +27,6 @@ namespace L_Tests.Tests.Extensions
         #region LCore.Extensions.ObjectExt
 
         [Fact]
-        
         public void Test_HasProperty()
             {
             const string Test = "";
@@ -36,12 +35,11 @@ namespace L_Tests.Tests.Extensions
             Test.HasProperty("no i dont").Should().BeFalse();
             Test.HasProperty("").Should().BeFalse();
             Test.HasProperty(null).Should().BeFalse();
-            ((string)null).HasProperty(nameof(string.Length)).Should().BeFalse();
+            ((string) null).HasProperty(nameof(string.Length)).Should().BeFalse();
             }
 
-       
+
         [Fact]
-        
         public void Test_GetProperty()
             {
             const string Test = "test test test test test test test test test";
@@ -59,7 +57,6 @@ namespace L_Tests.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        
         public void Test_SetProperty()
             {
             var Test = new TestClass();
@@ -77,7 +74,6 @@ namespace L_Tests.Tests.Extensions
         #region LCore.Extensions.Optional.ObjectExt
 
         [Fact]
-        
         public void Test_CopyFieldsTo_0()
             {
             var Test = new TestClass
@@ -172,7 +168,6 @@ namespace L_Tests.Tests.Extensions
             }
 
         [Fact]
-        
         public void Test_CopyFieldsTo_1()
             {
             var Mapper = new Dictionary<string, string>
@@ -244,7 +239,7 @@ namespace L_Tests.Tests.Extensions
 
             var Test5 = new TestSubclass();
             // copy using null dictionary
-            Test4.CopyFieldsTo(Test5, (Dictionary<string, string>)null);
+            Test4.CopyFieldsTo(Test5, (Dictionary<string, string>) null);
 
             Test5.A.Should().Be(1);
             Test5.B.Should().Be(-2);
@@ -256,7 +251,6 @@ namespace L_Tests.Tests.Extensions
         /// <exception cref="TargetException">Throws an exception if the a property setter throws an exception.</exception>
         /// <exception cref="FieldAccessException">Throws an exception if the field cannot be accessed.</exception>
         [Fact]
-        
         public void Test_InitProperties()
             {
             var Test = new TestMaster();
@@ -284,7 +278,6 @@ namespace L_Tests.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        
         public void Test_FN_CreateArray()
             {
             Func<int[]> Test = 5.FN_CreateArray();
@@ -306,13 +299,11 @@ namespace L_Tests.Tests.Extensions
             string[] Test6 = Test5();
 
             Test6.Should().Equal();
-
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        
         public void Test_FN_CreateList()
             {
             Func<List<int>> Test = 5.FN_CreateList();
@@ -334,11 +325,9 @@ namespace L_Tests.Tests.Extensions
             List<string> Test6 = Test5();
 
             Test6.Should().Equal();
-
             }
 
         [Fact]
-        
         public void Test_Details()
             {
             var Test = new TestClass
@@ -348,7 +337,7 @@ namespace L_Tests.Tests.Extensions
                 C = 3
                 };
 
-            Test.Details().Should().Be("L_Tests.Tests.Extensions.ObjectExtTest+TestClass {\r\nA: 1\r\nB: 2\r\nC: 3\r\n}");
+            Test.Details().Should().Be("LCore.Tests.Extensions.ObjectExtTest+TestClass {\r\nA: 1\r\nB: 2\r\nC: 3\r\n}");
 
 
             var Test2 = new TestClassError
@@ -358,16 +347,15 @@ namespace L_Tests.Tests.Extensions
                 };
 
             Test2.Details()
-                .Should().Be("L_Tests.Tests.Extensions.ObjectExtTest+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
+                .Should().Be("LCore.Tests.Extensions.ObjectExtTest+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
             Test2.Details(false)
-                .Should().Be("L_Tests.Tests.Extensions.ObjectExtTest+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
+                .Should().Be("LCore.Tests.Extensions.ObjectExtTest+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
             Test2.Details(true)
                 .Should().Be(
-                    "L_Tests.Tests.Extensions.ObjectExtTest+TestClassError {\r\nA: 1\r\nB: 2\r\nC: Exception has been thrown by the target of an invocation.\r\nD: 5\r\nE: 7\r\n}");
+                    "LCore.Tests.Extensions.ObjectExtTest+TestClassError {\r\nA: 1\r\nB: 2\r\nC: Exception has been thrown by the target of an invocation.\r\nD: 5\r\nE: 7\r\n}");
             }
 
         [Fact]
-        
         public void Test_FN_If()
             {
             const int Test = 5;
@@ -393,13 +381,12 @@ namespace L_Tests.Tests.Extensions
 
 
         [Fact]
-        
         public void Test_FN_Func()
             {
             5.FN_Func()().Should().Be(5);
             5f.FN_Func()().Should().Be(5f);
             "nice".FN_Func()().Should().Be("nice");
-            ((string)null).FN_Func()().Should().Be((string)null);
+            ((string) null).FN_Func()().Should().Be((string) null);
 
             new TestClass().FN_Func()()
                 .Should().BeOfType<TestClass>()
@@ -407,7 +394,6 @@ namespace L_Tests.Tests.Extensions
             }
 
         [Fact]
-        
         public void Test_SafeEquals()
             {
             4.SafeEquals(5).Should().BeFalse();
@@ -415,12 +401,11 @@ namespace L_Tests.Tests.Extensions
             5f.SafeEquals(5.5f).Should().BeFalse();
             5f.SafeEquals(5f).Should().BeTrue();
             "nice".SafeEquals("nice").Should().BeTrue();
-            ((string)null).SafeEquals("nice").Should().BeFalse();
-            ((string)null).SafeEquals(null).Should().BeTrue();
+            ((string) null).SafeEquals("nice").Should().BeFalse();
+            ((string) null).SafeEquals(null).Should().BeTrue();
             }
 
         [Fact]
-        
         public void Test_ToS()
             {
             4.ToS().Should().Be("4");
@@ -428,15 +413,14 @@ namespace L_Tests.Tests.Extensions
             5f.ToS().Should().Be("5");
             5.5f.ToS().Should().Be("5.5");
             "nice".ToS().Should().Be("nice");
-            ((string)null).ToS().Should().Be("");
-            new[] { 4 }.ToS().Should().Be("System.Int32[] { 4 }");
-            new[] { "a", "b", "c" }.ToS().Should().Be("System.String[] { a, b, c }");
+            ((string) null).ToS().Should().Be("");
+            new[] {4}.ToS().Should().Be("System.Int32[] { 4 }");
+            new[] {"a", "b", "c"}.ToS().Should().Be("System.String[] { a, b, c }");
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        
         public void Test_Traverse()
             {
             object Test = new
@@ -464,11 +448,11 @@ namespace L_Tests.Tests.Extensions
 
             Test.Traverse(o =>
                 {
-                    if (o.HasProperty("link"))
-                        return o.GetProperty("link");
+                if (o.HasProperty("link"))
+                    return o.GetProperty("link");
 
-                    Result = o.GetProperty("data");
-                    return null;
+                Result = o.GetProperty("data");
+                return null;
                 });
 
             Result.Should().Be(1);
@@ -476,10 +460,10 @@ namespace L_Tests.Tests.Extensions
             // Exceptions are not hidden.
             L.A<object, Func<object, object>>(LCore.Extensions.Optional.ObjectExt.Traverse).ShouldFail(Test, o =>
                 {
-                    if (o.HasProperty("link"))
-                        return o.GetProperty("link");
+                if (o.HasProperty("link"))
+                    return o.GetProperty("link");
 
-                    throw new Exception();
+                throw new Exception();
                 });
 
 
@@ -510,11 +494,11 @@ namespace L_Tests.Tests.Extensions
 
             Test2.Traverse(o =>
                 {
-                    if (o.C != null)
-                        return o.C;
+                if (o.C != null)
+                    return o.C;
 
-                    Result2 = o.A.A;
-                    return null;
+                Result2 = o.A.A;
+                return null;
                 });
 
             Result2.Should().Be(5);
@@ -523,17 +507,16 @@ namespace L_Tests.Tests.Extensions
             L.A<TestMaster, Func<TestMaster, TestMaster>>(LCore.Extensions.Optional.ObjectExt.Traverse)
                 .ShouldFail(Test2, o =>
                     {
-                        if (o.C != null)
-                            return o.C;
+                    if (o.C != null)
+                        return o.C;
 
-                        throw new Exception();
+                    throw new Exception();
                     });
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        
         public void Test_SupplyTo_Action()
             {
             const int Test = 5;
@@ -550,10 +533,7 @@ namespace L_Tests.Tests.Extensions
             // value was supplied.
             Result.Should().Be(5);
 
-            var Test4 = new Func<int, int>(i =>
-                {
-                    throw new Exception();
-                });
+            var Test4 = new Func<int, int>(i => { throw new Exception(); });
 
             Func<int> Test5 = Test.SupplyTo(Test4);
 
@@ -564,7 +544,6 @@ namespace L_Tests.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        
         public void Test_SupplyTo_Func()
             {
             const int Test = 5;
@@ -579,10 +558,7 @@ namespace L_Tests.Tests.Extensions
             Result.Should().Be(6);
 
 
-            var Test4 = new Func<int, int>(i =>
-                {
-                    throw new Exception();
-                });
+            var Test4 = new Func<int, int>(i => { throw new Exception(); });
 
             Func<int> Test5 = Test.SupplyTo(Test4);
 
@@ -637,15 +613,13 @@ namespace L_Tests.Tests.Extensions
             /// <exception cref="Exception" accessor="get">oh no</exception>
             public int? C
                 {
-                get
-                    {
-                    throw new Exception("oh no");
-                    }
+                get { throw new Exception("oh no"); }
                 }
 
             public int D = 5;
             public int E = 7;
             }
+
         #endregion
 
         public ObjectExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}

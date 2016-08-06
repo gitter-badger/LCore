@@ -8,9 +8,9 @@ using LCore.Tools;
 using Xunit;
 using static LCore.LUnit.LUnit.Categories;
 
-namespace L_Tests.Tests.Tools
+namespace LCore.Tests.Tools
     {
-    [Trait(Category, LCore.LUnit.LUnit.Categories.Tools)]
+    [Trait(Category, LUnit.LUnit.Categories.Tools)]
     public class CacheDataTest
         {
         [Fact]

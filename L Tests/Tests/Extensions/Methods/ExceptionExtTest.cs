@@ -11,7 +11,7 @@ using static LCore.LUnit.LUnit.Categories;
 
 // ReSharper disable ConvertToLambdaExpression
 
-namespace L_Tests.Tests.Extensions
+namespace LCore.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
     public class ExceptionExtTest : XUnitOutputTester

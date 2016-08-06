@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Threading;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.Extensions.Optional;
@@ -78,6 +79,8 @@ namespace LCore.LUnit
                 foreach (var Type in Types)
                     {
                     this.TestTypeAssertions(Type);
+
+                    this.TestNullability(Type);
 
                     this.TestTypeDeclarationAttributes(Type);
 
@@ -200,10 +203,191 @@ namespace LCore.LUnit
             // TODO: Test type - Type Test Interface
             }
 
+        // ReSharper disable once SuggestBaseTypeForParameter
         private void TestTypeDeclarationAttributes(Type Type)
             {
             Type.GetAttributes<ILUnitAttribute>(true).Each(
                 (i, AttrTest) => this.TestAttribute(AttrTest, Type, i + 1));
+            }
+
+        private void TestNullability(Type Type)
+            {
+            if (!this.EnforceNullabilityAttributes)
+                return;
+
+            uint Tested = 0;
+
+            MethodInfo[] Methods = Type.GetExtensionMethods();
+
+            foreach (var Method in Methods)
+                {
+                bool MethodCanBeNull = Method.HasAttribute<CanBeNullAttribute>(false);
+
+                List<TestBoundAttribute> ParameterBounds = Method.GetAttributes<TestBoundAttribute>(false);
+
+                var TheMethod = Method;
+
+                if (Method.ContainsGenericParameters)
+                    {
+                    try
+                        {
+                        TheMethod = Method.MakeGenericMethod(typeof(int));
+                        }
+                    catch
+                        {
+                        try
+                            {
+                            TheMethod = Method.MakeGenericMethod(typeof(string));
+                            }
+                        catch
+                            {
+                            try
+                                {
+                                TheMethod = Method.MakeGenericMethod(typeof(int), typeof(string));
+                                }
+                            catch
+                                {
+                                try
+                                    {
+                                    TheMethod = Method.MakeGenericMethod(typeof(string), typeof(string));
+                                    }
+                                catch
+                                    {
+                                    try
+                                        {
+                                        TheMethod = Method.MakeGenericMethod(typeof(int), typeof(int), typeof(int));
+                                        }
+                                    catch
+                                        {
+                                        try
+                                            {
+                                            TheMethod = Method.MakeGenericMethod(typeof(string), typeof(string), typeof(string));
+                                            }
+                                        catch {}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                // If we cant find a proper type to use to fill parameters, skip the method.
+                if (TheMethod.ContainsGenericParameters)
+                    continue;
+
+
+                ParameterInfo[] Parameters = TheMethod.GetParameters();
+
+                bool[] ParametersCanBeNull = Parameters.Convert(
+                    Param => Param.HasAttribute<CanBeNullAttribute>(false));
+
+                int ParameterCount = Parameters.Length;
+
+                for (int i = 0; i < ParametersCanBeNull.Length; i++)
+                    {
+                    bool NullsAllowedForParameter = ParametersCanBeNull[i];
+
+                    // For Optional Value Type parameters, do not expect a null value to cause a failure.
+                    if (Parameters[i].IsOptional && Parameters[i].ParameterType.IsValueType && !Parameters[i].ParameterType.IsNullable())
+                        NullsAllowedForParameter = true;
+
+                    bool ParameterIsNullable = Parameters[i].CanBeNull();
+
+                    var Params = new object[ParameterCount];
+
+                    for (int j = 0; j < Params.Length; j++)
+                        {
+                        if (i == j)
+                            Params[j] = null;
+                        else
+                            Params[j] = Parameters[j].ParameterType.NewRandom();
+
+                        var ParamBound = ParameterBounds.First(Param => Param.ParameterIndex == j);
+                        if (ParamBound != null)
+                            {
+                            try
+                                {
+                                Params[j] = Parameters[j].ParameterType.NewRandom(ParamBound.Minimum,
+                                    ParamBound.Maximum);
+                                }
+                            catch (Exception Ex)
+                                {
+                                this.AddException(new InternalTestFailureException(
+                                    $"Method {Method.FullyQualifiedName()} could not generate random parameter #{j + 1} {Parameters[j].ParameterType.FullName}",
+                                    Ex));
+                                }
+                            }
+                        }
+                    try
+                        {
+                        bool Finished = false;
+                        L.A(() =>
+                            {
+                            try
+                                {
+                                var Result = TheMethod.Invoke(null, Params);
+
+                                if (!NullsAllowedForParameter && ParameterIsNullable)
+                                    {
+                                    Finished = true;
+                                    this.AddException(new InternalTestFailureException(
+                                        $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed, but it passed."));
+                                    }
+
+                                if (!MethodCanBeNull
+                                    && TheMethod.ReturnType != typeof(void)
+                                    && !TheMethod.ReturnType.IsNullable()
+                                    && Result.IsNull())
+                                    {
+                                    Finished = true;
+                                    this.AddException(new InternalTestFailureException(
+                                        $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should not have returned null, but it did."));
+                                    }
+                                }
+                            catch (Exception Ex)
+                                {
+                                if (!NullsAllowedForParameter && ParameterIsNullable)
+                                    {
+                                    Finished = true;
+                                    // Enforces use of ArgumentNullException on any field marked [NotNull]
+                                    if (!(Ex is ArgumentNullException) ||
+                                        ((ArgumentNullException) Ex).ParamName != Parameters[i].Name)
+                                        {
+                                        this.AddException(new InternalTestFailureException(
+                                            $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed with an ArgumentNullException matching the parameter name, but it threw an {Ex.GetType()}: {Ex.Message}."));
+                                        }
+                                    }
+                                }
+
+                            Finished = true;
+                            }).Async(300)();
+
+                        uint Waited = 0;
+
+                        while (Waited < 300)
+                            {
+                            Thread.Sleep(1);
+                            Waited += 1;
+
+                            if (Finished)
+                                break;
+                            }
+
+                        if (!Finished)
+                            this.AddException(new InternalTestFailureException(
+                                $"Method {Method.FullyQualifiedName()} timed out. Passed parameters: {Params.ToS()}"));
+                        }
+                    catch (Exception Ex)
+                        {
+                        this.AddException(new InternalTestFailureException(
+                            $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1} and failed with {Ex}"));
+                        }
+                    Tested++;
+                    }
+                }
+
+
+            this._Output.WriteLine($"Ran {Tested} Nullability {"Test".Pluralize(Tested)}");
             }
 
         #region Virtual Assertions

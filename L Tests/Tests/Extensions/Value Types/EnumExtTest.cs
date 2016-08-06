@@ -8,7 +8,7 @@ using Xunit.Abstractions;
 using LCore.LUnit;
 using static LCore.LUnit.LUnit.Categories;
 
-namespace L_Tests.Tests.Extensions
+namespace LCore.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
     public class EnumExtTest : XUnitOutputTester

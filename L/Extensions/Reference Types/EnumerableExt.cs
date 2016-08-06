@@ -3316,6 +3316,7 @@ namespace LCore.Extensions
         #endregion
 
         [ExcludeFromCodeCoverage]
+#pragma warning disable 1591
         public static class Test
             {
             // ReSharper disable InconsistentNaming
@@ -3411,6 +3412,7 @@ namespace LCore.Extensions
 
             // ReSharper restore InconsistentNaming
             }
+#pragma warning restore 1591
         }
 
     public static partial class L

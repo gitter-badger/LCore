@@ -1,7 +1,6 @@
 ﻿using LCore.Extensions;
 using System;
 using FluentAssertions;
-using LCore.LUnit;
 using LCore.LUnit.Assert;
 using LCore.LUnit.Fluent;
 using Xunit;
@@ -12,7 +11,7 @@ using static LCore.LUnit.LUnit.Categories;
 // ReSharper disable StringLiteralTypo
 // ReSharper disable UnusedParameter.Global
 
-namespace L_Tests.Tests.Extensions
+namespace LCore.LUnit.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
     public class TestExtTest
@@ -195,11 +194,8 @@ namespace L_Tests.Tests.Extensions
             L.A(() => this._TestFailFunc3.ShouldFail<object, object, string, InvalidOperationException>("abc", "abc")).ShouldFail();
             L.A(() => this._TestFailFunc4.ShouldFail<object, object, object, string, InvalidOperationException>("abc", "abc", "abc"))
                 .ShouldFail();
-            L.A(
-                () =>
-                    this._TestFailFunc5.ShouldFail<object, object, object, object, string, InvalidOperationException>("abc", "abc", "abc",
-                        "abc"))
-                .ShouldFail();
+            L.A(() => this._TestFailFunc5.ShouldFail<object, object, object, object, string, InvalidOperationException>("abc", "abc", "abc",
+                "abc")).ShouldFail();
 
 
             this._TestFail.AssertFails();
@@ -253,11 +249,8 @@ namespace L_Tests.Tests.Extensions
             L.A(() => this._TestFailFunc3.AssertFails<object, object, string, InvalidOperationException>("abc", "abc")).AssertFails();
             L.A(() => this._TestFailFunc4.AssertFails<object, object, object, string, InvalidOperationException>("abc", "abc", "abc"))
                 .AssertFails();
-            L.A(
-                () =>
-                    this._TestFailFunc5.AssertFails<object, object, object, object, string, InvalidOperationException>("abc", "abc", "abc",
-                        "abc"))
-                .AssertFails();
+            L.A(() => this._TestFailFunc5.AssertFails<object, object, object, object, string, InvalidOperationException>("abc", "abc",
+                "abc", "abc")).AssertFails();
             }
 
         [Fact]

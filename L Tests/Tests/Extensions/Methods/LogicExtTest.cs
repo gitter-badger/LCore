@@ -11,7 +11,7 @@ using static LCore.LUnit.LUnit.Categories;
 
 // ReSharper disable RedundantCast
 
-namespace L_Tests.Tests.Extensions
+namespace LCore.Tests.Extensions
     {
     [Trait(Category, UnitTests)]
     public class LogicExtTest : XUnitOutputTester

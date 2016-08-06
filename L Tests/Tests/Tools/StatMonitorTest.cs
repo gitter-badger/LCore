@@ -1,7 +1,6 @@
 ﻿using System;
 using FluentAssertions;
 using LCore.Extensions;
-using LCore.LUnit;
 using LCore.LUnit.Fluent;
 using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -10,9 +9,9 @@ using static LCore.LUnit.LUnit.Categories;
 
 // ReSharper disable ObjectCreationAsStatement
 
-namespace L_Tests.Tests.Tools
+namespace LCore.Tests.Tools
     {
-    [Trait(Category, LUnit.Categories.Tools)]
+    [Trait(Category, LUnit.LUnit.Categories.Tools)]
     public class StatMonitorTest
         {
         /// <exception cref="InternalTestFailureException">The test fails</exception>

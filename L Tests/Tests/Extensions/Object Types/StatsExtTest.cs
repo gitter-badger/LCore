@@ -4,7 +4,7 @@
 using System;
 
 // ReSharper disable once EmptyNamespace
-namespace L_Tests.Tests.Extensions
+namespace LCore.Tests.Extensions
     {
     /*
     public class StatsExtTest : XUnitOutputTester

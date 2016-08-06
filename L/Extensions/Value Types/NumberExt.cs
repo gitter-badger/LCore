@@ -29,12 +29,12 @@ namespace LCore.Extensions
         /// <summary>
         /// Adds <paramref name="AddNum" /> to each item in the list <paramref name="In" />
         /// </summary>
-        [TestResult(new object[] {null, 0}, new int[] { })]
+        [TestResult(new object[] {null, 0}, new int[] {})]
         [TestResult(new object[] {new int[] {}, 0}, new int[] {})]
         [TestResult(new object[] {new[] {1, 2, 3}, 0}, new[] {1, 2, 3})]
         [TestResult(new object[] {new[] {1, 2, 3}, 5}, new[] {6, 7, 8})]
         [TestResult(new object[] {new[] {1, 2, 3, 55, 55, 5555, 55}, 5}, new[] {6, 7, 8, 60, 60, 5560, 60})]
-        public static List<int> AddEach(this IEnumerable<int> In, int AddNum)
+        public static List<int> AddEach([CanBeNull] this IEnumerable<int> In, int AddNum)
             {
             return In.Collect(i => i + AddNum);
             }
@@ -333,7 +333,8 @@ namespace LCore.Extensions
         /// without losing any precision.
         /// </summary>
         [TestedIndirectly]
-        public static Number ConvertToBestMatch(this Number Number)
+        [CanBeNull]
+        public static Number ConvertToBestMatch([CanBeNull] this Number Number)
             {
             Number Out = null;
             foreach (var Type in L.Num.NumberTypes.Values)
@@ -1265,12 +1266,12 @@ namespace LCore.Extensions
         /// <summary>
         /// Subtracts <paramref name="SubtractNum" /> to each item in the list <paramref name="In" />
         /// </summary>
-        [TestResult(new object[] {null, 0}, new int[] { })]
+        [TestResult(new object[] {null, 0}, new int[] {})]
         [TestResult(new object[] {new int[] {}, 0}, new int[] {})]
         [TestResult(new object[] {new[] {1, 2, 3}, 0}, new[] {1, 2, 3})]
         [TestResult(new object[] {new[] {1, 2, 3}, 5}, new[] {-4, -3, -2})]
         [TestResult(new object[] {new[] {1, 2, 3, 55, 55, 5555, 55}, 5}, new[] {-4, -3, -2, 50, 50, 5550, 50})]
-        public static List<int> SubtractEach(this List<int> In, int SubtractNum)
+        public static List<int> SubtractEach([CanBeNull] this List<int> In, int SubtractNum)
             {
             return In.AddEach(-SubtractNum);
             }
@@ -1287,7 +1288,7 @@ namespace LCore.Extensions
         [TestResult(new object[] {new[] {0}}, 0)]
         [TestResult(new object[] {new[] {1}}, 1)]
         [TestResult(new object[] {new[] {1, 2, 3}}, 6)]
-        public static int Sum(this IEnumerable<int> In)
+        public static int Sum([CanBeNull] this IEnumerable<int> In)
             {
             int Out = 0;
             In.Each(i => { Out += i; });
@@ -1302,7 +1303,7 @@ namespace LCore.Extensions
         [TestResult(new object[] {new long[] {0}}, (long) 0)]
         [TestResult(new object[] {new long[] {1}}, (long) 1)]
         [TestResult(new object[] {new long[] {1, 2, 3}}, (long) 6)]
-        public static long Sum(this IEnumerable<long> In)
+        public static long Sum([CanBeNull] this IEnumerable<long> In)
             {
             long Out = 0;
             In.Each(i => { Out += i; });
@@ -1318,7 +1319,7 @@ namespace LCore.Extensions
         [TestResult(new object[] {new float[] {1}}, 1f)]
         [TestResult(new object[] {new float[] {1, 2, 3}}, 6f)]
         [TestResult(new object[] {new float[] {1, 2.44f, 3.33f}}, 6.77f)]
-        public static float Sum(this IEnumerable<float> In)
+        public static float Sum([CanBeNull] this IEnumerable<float> In)
             {
             float Out = 0;
             In.Each(i => { Out += i; });
@@ -1334,7 +1335,7 @@ namespace LCore.Extensions
         [TestResult(new object[] {new double[] {1}}, (double) 1)]
         [TestResult(new object[] {new double[] {1, 2, 3}}, (double) 6)]
         [TestResult(new object[] {new double[] {1, 2.44, 3.33}}, (double) 6.77)]
-        public static double Sum(this IEnumerable<double> In)
+        public static double Sum([CanBeNull] this IEnumerable<double> In)
             {
             double Out = 0;
             In.Each(i => { Out += i; });
@@ -1417,7 +1418,8 @@ namespace LCore.Extensions
         /// allowing you to perform comparisons and operations across
         /// types.
         /// </summary>
-        public static Number Wrap<T>(this T Number)
+        [CanBeNull]
+        public static Number Wrap<T>([CanBeNull] this T Number)
             where T : struct,
                 IComparable,
                 IComparable<T>,
@@ -1439,7 +1441,8 @@ namespace LCore.Extensions
         /// allowing you to perform comparisons and operations across
         /// types.
         /// </summary>
-        public static Number Wrap(this string Str)
+        [CanBeNull]
+        public static Number Wrap([CanBeNull] this string Str)
             {
             return Str.IsEmpty()
                 ? null
