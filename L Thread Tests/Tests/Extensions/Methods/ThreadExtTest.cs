@@ -51,7 +51,7 @@ namespace LCore.Tests.Extensions
             Thread.Sleep(40);
             lock (TestAction)
                 {
-                TestAction.Async(20)();
+                TestAction.Async(15)();
                 Success.Should().BeFalse();
 
                 Thread.Sleep(40);

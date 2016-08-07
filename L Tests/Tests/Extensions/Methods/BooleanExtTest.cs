@@ -187,6 +187,10 @@ namespace LCore.Tests.Extensions
             // Exceptions are not hidden
             Action Action3 = () => { throw new Exception(); };
             Action3.If(L.Bool.True).ShouldFail();
+
+            // Null Tests
+            ((Action) null).If(L.Bool.True);
+            Action3.If((Func<bool>) null);
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>

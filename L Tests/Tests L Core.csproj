@@ -152,7 +152,6 @@
     <Compile Include="Tests\Extensions\Methods\LogicExtTest.cs" />
     <Compile Include="Tests\Extensions\Methods\BooleanExtTest.cs" />
     <Compile Include="Tests\Extensions\Methods\LoopExtTest.cs" />
-    <Compile Include="Tests\Extensions\Methods\ThreadExtTest.cs" />
     <Compile Include="Tests\Extensions\Object Types\ObjectExtTest.cs" />
     <Compile Include="Tests\Extensions\Object Types\ConvertibleExtTest.cs" />
     <Compile Include="Tests\Extensions\Object Types\FileExtTest.cs" />
