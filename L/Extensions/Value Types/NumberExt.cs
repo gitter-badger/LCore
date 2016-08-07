@@ -1421,7 +1421,7 @@ namespace LCore.Extensions
         /// types.
         /// </summary>
         [CanBeNull]
-        public static Number Wrap<T>(this T? Number)
+        public static Number Wrap<T>([CanBeNull] this T? Number)
             where T : struct,
                 IComparable,
                 IComparable<T>,

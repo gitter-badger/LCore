@@ -21,21 +21,24 @@ namespace LCore.Extensions
         #region Extensions +
 
         #region CleanFileName
+
         /// <summary>
         /// Removes non-supported characters from filenames.
         /// </summary>
-        public static string CleanFileName([CanBeNull]this string In)
+        public static string CleanFileName([CanBeNull] this string In)
             {
             return L.File.CleanFileName(In);
             }
+
         #endregion
 
         #region EnsurePathExists
+
         /// <summary>
         /// Creates a directory path if it doesn't already exist.
         /// </summary>
         [Tested]
-        public static void EnsurePathExists([CanBeNull]this string Path)
+        public static void EnsurePathExists([CanBeNull] this string Path)
             {
             if (Path == null)
                 return;
@@ -48,33 +51,37 @@ namespace LCore.Extensions
             if (!Directory.Exists(DirPath))
                 Directory.CreateDirectory(DirPath);
             }
+
         #endregion
 
         #region EveryOtherByte
+
         /// <summary>
         /// Returns a byte[] with every other element skipped.
         /// Useful for reading data that has been encoded in Unicode.
         /// </summary>
-        public static byte[] EveryOtherByte([CanBeNull]this byte[] In)
+        public static byte[] EveryOtherByte([CanBeNull] this byte[] In)
             {
             if (In == null)
-                return new byte[] { };
+                return new byte[] {};
 
-            var Out = new byte[In.Length / 2];
+            var Out = new byte[In.Length/2];
             for (int Index = 0; Index < Out.Length; Index++)
                 {
-                Out[Index] = In[Index * 2];
+                Out[Index] = In[Index*2];
                 }
             return Out;
             }
+
         #endregion
 
         #region GetFileBlock
+
         /// <summary>
         /// Reads a chunk of file <paramref name="F" /> using <paramref name="BlockSize" /> and <paramref name="BlockNum" /> as index.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        internal static byte[] GetFileBlock([CanBeNull]FileStream F, int BlockSize, int BlockNum)
+        internal static byte[] GetFileBlock([CanBeNull] FileStream F, int BlockSize, int BlockNum)
             {
             if (F == null)
                 throw new ArgumentNullException(nameof(F));
@@ -93,15 +100,15 @@ namespace LCore.Extensions
                 BlockNum = 0;
                 }
 
-            int StartPos = BlockSize * BlockNum;
+            int StartPos = BlockSize*BlockNum;
 
             if (BlockSize <= 0)
                 {
-                BlockSize = (int)F.Length;
+                BlockSize = (int) F.Length;
                 }
-            else if ((BlockNum + 1) * BlockSize > F.Length)
+            else if ((BlockNum + 1)*BlockSize > F.Length)
                 {
-                BlockSize = (int)F.Length - BlockNum * BlockSize;
+                BlockSize = (int) F.Length - BlockNum*BlockSize;
                 }
 
             if (StartPos > F.Length || BlockSize < 0)
@@ -135,10 +142,13 @@ namespace LCore.Extensions
                             if (L.File.LockFiles)
                                 F.Unlock(StartPos, BlockSize);
                             }
-                        catch { }
+                        catch {}
 
-                        try { F.Close(); }
-                        catch { }
+                        try
+                            {
+                            F.Close();
+                            }
+                        catch {}
 
                         throw new Exception("", Ex);
                         }
@@ -151,46 +161,56 @@ namespace LCore.Extensions
                 {
                 F.Close();
                 }
-            catch
-                {
-                }
+            catch {}
 
             return Contents;
             }
+
         #endregion
 
         #region GetFileStream
+
         /// <summary>
         /// Returns a new FileStream using the default FileMode, FileAccess, and FileShare settings.
         /// (Open | Read | ReadWrite, Delete)
         /// </summary>
         [CanBeNull]
-        public static FileStream GetFileStream([CanBeNull]this string FullPath)
+        public static FileStream GetFileStream([CanBeNull] this string FullPath)
             {
-            try { return new FileStream(FullPath, L.File.DefaultFileMode, L.File.DefaultFileAccess, L.File.DefaultFileShare); }
-            catch { return null; }
+            try
+                {
+                return new FileStream(FullPath, L.File.DefaultFileMode, L.File.DefaultFileAccess, L.File.DefaultFileShare);
+                }
+            catch
+                {
+                return null;
+                }
             }
+
         #endregion
 
         #region GetFileHash
+
         /// <summary>
         /// Returns the file's hash, determined by the file bytes and 
         /// L.HashAlgorithm (default to SHA256)
         /// </summary>
-        public static byte[] GetFileHash([CanBeNull]this string FullPath)
+        public static byte[] GetFileHash([CanBeNull] this string FullPath)
             {
             if (FullPath == null || !File.Exists(FullPath))
-                return new byte[] { };
+                return new byte[] {};
 
             return GetStreamHash(FullPath.ToStream());
             }
+
         #endregion
 
         #region GetMemoryStream
+
         /// <summary>
         /// Reads the entirety of a Stream and returns it as a MemoryStream.
         /// </summary>
-        public static MemoryStream GetMemoryStream([CanBeNull]this Stream In)
+        public static MemoryStream GetMemoryStream([CanBeNull] this Stream In)
             {
             var MemStream = new MemoryStream();
 
@@ -198,28 +218,28 @@ namespace LCore.Extensions
                 return MemStream;
 
             var RespBuffer = new byte[1024];
-            try
-                {
-                int BytesRead = In.Read(RespBuffer, 0,
+
+            int BytesRead = In.Read(RespBuffer, 0,
                 RespBuffer.Length);
-                while (BytesRead > 0)
-                    {
-                    MemStream.Write(RespBuffer, 0, BytesRead);
-                    BytesRead = In.Read(RespBuffer, 0,
+            while (BytesRead > 0)
+                {
+                MemStream.Write(RespBuffer, 0, BytesRead);
+                BytesRead = In.Read(RespBuffer, 0,
                     RespBuffer.Length);
-                    }
                 }
-            catch { }
+
             return MemStream;
             }
+
         #endregion
 
         #region GetStreamHash
+
         /// <summary>
         /// Returns the stream's hash, determined by the stream bytes and 
         /// L.HashAlgorithm (default to SHA256)
         /// </summary>
-        public static byte[] GetStreamHash([CanBeNull]this Stream InputStream)
+        public static byte[] GetStreamHash([CanBeNull] this Stream InputStream)
             {
             if (InputStream == null)
                 throw new ArgumentNullException(nameof(InputStream));
@@ -228,20 +248,24 @@ namespace LCore.Extensions
             InputStream.Close();
             return Hash;
             }
+
         #endregion
 
         #region GetStringHash
+
         /// <summary>
         /// Returns the string's hash, determined by the string bytes and 
         /// L.HashAlgorithm (default to SHA256)
         /// </summary>
-        public static byte[] GetStringHash([CanBeNull]this string In)
+        public static byte[] GetStringHash([CanBeNull] this string In)
             {
             return GetStreamHash(In.ToStream());
             }
+
         #endregion
 
         #region MatchesWildCard
+
         /// <summary>
         /// Returns whether a string matches a wildcard 
         /// </summary>
@@ -249,7 +273,7 @@ namespace LCore.Extensions
         /// <param name="WildCard"></param>
         /// <returns></returns>
         [ExcludeFromCodeCoverage]
-        internal static bool MatchesWildCard([CanBeNull]string In, [CanBeNull]string WildCard)
+        internal static bool MatchesWildCard([CanBeNull] string In, [CanBeNull] string WildCard)
             {
             if (In == null)
                 throw new ArgumentNullException(nameof(In));
@@ -269,11 +293,13 @@ namespace LCore.Extensions
 
             return MatchesWildCardLowerCase(In.ToLower(), WildCard.ToLower());
             }
+
         #endregion
 
         #region MatchesWildCardLowerCase
+
         [ExcludeFromCodeCoverage]
-        internal static bool MatchesWildCardLowerCase([CanBeNull]string In, [CanBeNull]string WildCard)
+        internal static bool MatchesWildCardLowerCase([CanBeNull] string In, [CanBeNull] string WildCard)
             {
             In = In ?? "";
             WildCard = WildCard ?? "";
@@ -322,15 +348,16 @@ namespace LCore.Extensions
         #endregion
 
         #region ReadAllBytes
+
         /// <summary>
         /// Reads all bytes from the stream and returns a Byte[].
         /// </summary>
-        public static byte[] ReadAllBytes([CanBeNull]this Stream Input)
+        public static byte[] ReadAllBytes([CanBeNull] this Stream Input)
             {
             if (Input == null)
-                return new byte[] { };
+                return new byte[] {};
 
-            var Buffer = new byte[16 * 1024];
+            var Buffer = new byte[16*1024];
 
             using (var Stream = new MemoryStream())
                 {
@@ -344,7 +371,9 @@ namespace LCore.Extensions
                 return Stream.ToArray();
                 }
             }
+
         #endregion
+
         /*
 
                 #region WaitForFileUnlock
@@ -378,9 +407,9 @@ namespace LCore.Extensions
                 #endregion
         */
 
-
         #endregion
         }
+
     public static partial class L
         {
         /// <summary>
@@ -389,6 +418,7 @@ namespace LCore.Extensions
         public static class File
             {
             #region Static Variables +
+
             // ReSharper disable ConvertToConstant.Global
             // ReSharper disable FieldCanBeMadeReadOnly.Global
             /// <summary>
@@ -396,16 +426,19 @@ namespace LCore.Extensions
             /// Change this value to manually override.
             /// </summary>
             public static FileMode DefaultFileMode = FileMode.Open;
+
             /// <summary>
             /// During file operations, L will use the default file access Read.
             /// Change this value to manually override.
             /// </summary>
             public static FileAccess DefaultFileAccess = FileAccess.Read;
+
             /// <summary>
             /// During file operations, L will use the default file share ReadWrite + Delete.
             /// Change this value to manually override.
             /// </summary>
             public static FileShare DefaultFileShare = FileShare.ReadWrite | FileShare.Delete;
+
             /// <summary>
             /// During file operations, L will lock files if this value is set to true. Default is false.
             /// </summary>
@@ -425,11 +458,13 @@ namespace LCore.Extensions
 
             // ReSharper restore ConvertToConstant.Global
             // ReSharper restore FieldCanBeMadeReadOnly.Global
+
             #endregion
 
             #region Static Methods +
 
             #region BufferedMove
+
             /// <summary>
             /// Subscribe to this EventHandler to be notified of buffered move progress 
             /// during the 
@@ -441,7 +476,7 @@ namespace LCore.Extensions
             /// Moves a file from <paramref name="From" /> to <paramref name="To" /> using a buffer.
             /// The original file is deleted.
             /// </summary>
-            public static void BufferedMove(string From, string To, bool DeleteOriginal, int ChunkSize = 128 * 1024)
+            public static void BufferedMove(string From, string To, bool DeleteOriginal, int ChunkSize = 128*1024)
                 {
                 var Stream1 = new FileStream(From, FileMode.Open, FileAccess.Read, FileShare.Read);
                 var Stream2 = new FileStream(To, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
@@ -461,11 +496,11 @@ namespace LCore.Extensions
                     if (CurrentChunkSize > BufferSize)
                         CurrentChunkSize = BufferSize;
                     var Bytes = new byte[CurrentChunkSize];
-                    Stream1.Read(Bytes, 0, (int)CurrentChunkSize);
-                    Stream2.Write(Bytes, 0, (int)CurrentChunkSize);
+                    Stream1.Read(Bytes, 0, (int) CurrentChunkSize);
+                    Stream2.Write(Bytes, 0, (int) CurrentChunkSize);
                     Stream2.Flush();
                     Index += CurrentChunkSize;
-                    BufferedMoveProgress?.Invoke(new[] { Index, TotalSize }, null);
+                    BufferedMoveProgress?.Invoke(new[] {Index, TotalSize}, null);
                     }
 
                 Stream2.Close();
@@ -474,17 +509,21 @@ namespace LCore.Extensions
                 if (DeleteOriginal)
                     System.IO.File.Delete(From);
                 }
+
             #endregion
 
             #region CleanFileName
+
             /// <summary>
             /// Removes non-supported characters from filenames.
             /// </summary>
             public static readonly Func<string, string> CleanFileName =
                 F<string, char[], string>(Str.RemoveChars).Surround2(Path.GetInvalidFileNameChars);
+
             #endregion
 
             #region CombinePaths
+
             /// <summary>
             /// Combines sections of a file path using the default Windows file path 
             /// separator '\'
@@ -509,7 +548,7 @@ namespace LCore.Extensions
                     }
 
                 string Out = Path.CollectStr<string, string[]>((i, Str) =>
-                {
+                    {
                     if (!Str.IsEmpty())
                         {
                         string StrOut = "";
@@ -521,7 +560,7 @@ namespace LCore.Extensions
                         return StrOut;
                         }
                     return null;
-                });
+                    });
 
                 Out = Out.Replace($"{Separator}{Separator}", Separator.ToString());
                 Out = Out.Replace("http:/", "http://");
@@ -539,24 +578,26 @@ namespace LCore.Extensions
             #endregion
 
             #region GetFileContents
+
             /// <summary>
             /// A function that returns the bytes of a file from a string path.
             /// </summary>
-            public static byte[] GetFileContents([CanBeNull]string FileName)
+            public static byte[] GetFileContents([CanBeNull] string FileName)
                 {
                 if (FileName == null)
-                    return new byte[] { };
+                    return new byte[] {};
 
                 var Stream = FileName.GetFileStream();
 
                 return Stream == null
-                    ? new byte[] { }
-                    : FileExt.GetFileBlock(Stream, (int)Stream.Length, 0);
+                    ? new byte[] {}
+                    : FileExt.GetFileBlock(Stream, (int) Stream.Length, 0);
                 }
 
             #endregion
 
             #region SafeCopyFile
+
             /// <summary>
             /// Tries to copy a file from <paramref name="PathSource" /> to <paramref name="PathDestination" />.
             /// Optionally, retry a number of times, default 0.
@@ -566,16 +607,19 @@ namespace LCore.Extensions
                 {
                 return SafeMoveFile(PathSource, PathDestination, Tries, OverwriteIfExists, false);
                 }
+
             #endregion
 
             #region SafeMoveFile
+
             /// <summary>
             /// Tries to move a file from <paramref name="PathSource" /> to <paramref name="PathDestination" />.
             /// Optionally, retry a number of times, default 0.
             /// Optionally, overwrite the destination file if it exists.
             /// Optionally, delete the original.
             /// </summary>
-            public static bool SafeMoveFile(string PathSource, string PathDestination, int Tries = 0, bool OverwriteIfExists = false, bool DeleteOriginal = true)
+            public static bool SafeMoveFile(string PathSource, string PathDestination, int Tries = 0, bool OverwriteIfExists = false,
+                bool DeleteOriginal = true)
                 {
                 try
                     {
@@ -626,6 +670,7 @@ namespace LCore.Extensions
                     return SafeMoveFile(PathSource, PathDestination, Tries - 1, OverwriteIfExists, DeleteOriginal);
                     }
                 }
+
             #endregion
 
             #endregion
