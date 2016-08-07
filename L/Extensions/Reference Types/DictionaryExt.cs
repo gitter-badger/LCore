@@ -181,7 +181,10 @@ namespace LCore.Extensions
         #endregion
 
         #region ToDictionary
-
+        /// <summary>
+        /// Convert a generic Tuple to a dictionary lookup.
+        /// Lookup is performed in the order of the Tuple items.
+        /// </summary>
         public static Dictionary<TKey, List<TValue>> ToDictionary<TKey, TValue>([CanBeNull]this IEnumerable<Tuple<TKey, TValue>> In)
             {
             var Out = new Dictionary<TKey, List<TValue>>();
@@ -197,6 +200,10 @@ namespace LCore.Extensions
             return Out;
             }
 
+        /// <summary>
+        /// Convert a generic Tuple to a dictionary lookup.
+        /// Lookup is performed in the order of the Tuple items.
+        /// </summary>
         public static Dictionary<TKey, Dictionary<TKey2, List<TValue>>> ToDictionary<TKey, TKey2, TValue>([CanBeNull]this IEnumerable<Tuple<TKey, TKey2, TValue>> In)
             {
             var Out = new Dictionary<TKey, Dictionary<TKey2, List<TValue>>>();
@@ -218,6 +225,10 @@ namespace LCore.Extensions
             return Out;
             }
 
+        /// <summary>
+        /// Convert a generic Tuple to a dictionary lookup.
+        /// Lookup is performed in the order of the Tuple items.
+        /// </summary>
         public static Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, List<TValue>>>> ToDictionary<TKey, TKey2, TKey3, TValue>([CanBeNull]this IEnumerable<Tuple<TKey, TKey2, TKey3, TValue>> In)
             {
             var Out = new Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, List<TValue>>>>();
@@ -245,6 +256,10 @@ namespace LCore.Extensions
             return Out;
             }
 
+        /// <summary>
+        /// Convert a generic Tuple to a dictionary lookup.
+        /// Lookup is performed in the order of the Tuple items.
+        /// </summary>
         public static Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, List<TValue>>>>> ToDictionary<TKey, TKey2, TKey3, TKey4, TValue>([CanBeNull]this IEnumerable<Tuple<TKey, TKey2, TKey3, TKey4, TValue>> In)
             {
             var Out = new Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, List<TValue>>>>>();
@@ -277,6 +292,10 @@ namespace LCore.Extensions
             return Out;
             }
 
+        /// <summary>
+        /// Convert a generic Tuple to a dictionary lookup.
+        /// Lookup is performed in the order of the Tuple items.
+        /// </summary>
         public static Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, List<TValue>>>>>> ToDictionary<TKey, TKey2, TKey3, TKey4, TKey5, TValue>([CanBeNull]this IEnumerable<Tuple<TKey, TKey2, TKey3, TKey4, TKey5, TValue>> In)
             {
             var Out = new Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, List<TValue>>>>>>();
@@ -314,6 +333,10 @@ namespace LCore.Extensions
             return Out;
             }
 
+        /// <summary>
+        /// Convert a generic Tuple to a dictionary lookup.
+        /// Lookup is performed in the order of the Tuple items.
+        /// </summary>
         public static Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, List<TValue>>>>>>> ToDictionary<TKey, TKey2, TKey3, TKey4, TKey5, TKey6, TValue>([CanBeNull]this IEnumerable<Tuple<TKey, TKey2, TKey3, TKey4, TKey5, TKey6, TValue>> In)
             {
             var Out = new Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, List<TValue>>>>>>>();
@@ -356,6 +379,10 @@ namespace LCore.Extensions
             return Out;
             }
 
+        /// <summary>
+        /// Convert a generic Tuple to a dictionary lookup.
+        /// Lookup is performed in the order of the Tuple items.
+        /// </summary>
         public static Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, Dictionary<TKey7, List<TValue>>>>>>>> ToDictionary<TKey, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue>([CanBeNull]this IEnumerable<Tuple<TKey, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue>> In)
             {
             var Out = new Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, Dictionary<TKey7, List<TValue>>>>>>>>();

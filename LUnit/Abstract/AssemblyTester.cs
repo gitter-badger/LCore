@@ -95,6 +95,10 @@ namespace LCore.LUnit
                 }
             }
 
+        /// <summary>
+        /// Includes details about uncovered methods. 
+        /// Use the code provided here to automatically target missing methods.
+        /// </summary>
         [Fact]
         // ReSharper disable FormatStringProblem
         public void AssemblyMissingCoverage()
