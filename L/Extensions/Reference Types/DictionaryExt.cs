@@ -182,7 +182,7 @@ namespace LCore.Extensions
 
         #region ToDictionary
 
-        public static Dictionary<TKey, List<TValue>> ToDictionary<TKey, TValue>(this IEnumerable<Tuple<TKey, TValue>> In)
+        public static Dictionary<TKey, List<TValue>> ToDictionary<TKey, TValue>([CanBeNull]this IEnumerable<Tuple<TKey, TValue>> In)
             {
             var Out = new Dictionary<TKey, List<TValue>>();
 
@@ -197,7 +197,7 @@ namespace LCore.Extensions
             return Out;
             }
 
-        public static Dictionary<TKey, Dictionary<TKey2, List<TValue>>> ToDictionary<TKey, TKey2, TValue>(this IEnumerable<Tuple<TKey, TKey2, TValue>> In)
+        public static Dictionary<TKey, Dictionary<TKey2, List<TValue>>> ToDictionary<TKey, TKey2, TValue>([CanBeNull]this IEnumerable<Tuple<TKey, TKey2, TValue>> In)
             {
             var Out = new Dictionary<TKey, Dictionary<TKey2, List<TValue>>>();
 
@@ -218,7 +218,7 @@ namespace LCore.Extensions
             return Out;
             }
 
-        public static Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, List<TValue>>>> ToDictionary<TKey, TKey2, TKey3, TValue>(this IEnumerable<Tuple<TKey, TKey2, TKey3, TValue>> In)
+        public static Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, List<TValue>>>> ToDictionary<TKey, TKey2, TKey3, TValue>([CanBeNull]this IEnumerable<Tuple<TKey, TKey2, TKey3, TValue>> In)
             {
             var Out = new Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, List<TValue>>>>();
 
@@ -245,7 +245,7 @@ namespace LCore.Extensions
             return Out;
             }
 
-        public static Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, List<TValue>>>>> ToDictionary<TKey, TKey2, TKey3, TKey4, TValue>(this IEnumerable<Tuple<TKey, TKey2, TKey3, TKey4, TValue>> In)
+        public static Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, List<TValue>>>>> ToDictionary<TKey, TKey2, TKey3, TKey4, TValue>([CanBeNull]this IEnumerable<Tuple<TKey, TKey2, TKey3, TKey4, TValue>> In)
             {
             var Out = new Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, List<TValue>>>>>();
 
@@ -277,7 +277,7 @@ namespace LCore.Extensions
             return Out;
             }
 
-        public static Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, List<TValue>>>>>> ToDictionary<TKey, TKey2, TKey3, TKey4, TKey5, TValue>(this IEnumerable<Tuple<TKey, TKey2, TKey3, TKey4, TKey5, TValue>> In)
+        public static Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, List<TValue>>>>>> ToDictionary<TKey, TKey2, TKey3, TKey4, TKey5, TValue>([CanBeNull]this IEnumerable<Tuple<TKey, TKey2, TKey3, TKey4, TKey5, TValue>> In)
             {
             var Out = new Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, List<TValue>>>>>>();
 
@@ -314,7 +314,7 @@ namespace LCore.Extensions
             return Out;
             }
 
-        public static Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, List<TValue>>>>>>> ToDictionary<TKey, TKey2, TKey3, TKey4, TKey5, TKey6, TValue>(this IEnumerable<Tuple<TKey, TKey2, TKey3, TKey4, TKey5, TKey6, TValue>> In)
+        public static Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, List<TValue>>>>>>> ToDictionary<TKey, TKey2, TKey3, TKey4, TKey5, TKey6, TValue>([CanBeNull]this IEnumerable<Tuple<TKey, TKey2, TKey3, TKey4, TKey5, TKey6, TValue>> In)
             {
             var Out = new Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, List<TValue>>>>>>>();
 
@@ -356,7 +356,7 @@ namespace LCore.Extensions
             return Out;
             }
 
-        public static Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, Dictionary<TKey7, List<TValue>>>>>>>> ToDictionary<TKey, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue>(this IEnumerable<Tuple<TKey, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue>> In)
+        public static Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, Dictionary<TKey7, List<TValue>>>>>>>> ToDictionary<TKey, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue>([CanBeNull]this IEnumerable<Tuple<TKey, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue>> In)
             {
             var Out = new Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, Dictionary<TKey7, List<TValue>>>>>>>>();
 

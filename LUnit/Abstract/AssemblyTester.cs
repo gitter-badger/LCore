@@ -96,23 +96,57 @@ namespace LCore.LUnit
             }
 
         [Fact]
+        // ReSharper disable FormatStringProblem
         public void AssemblyMissingCoverage()
             {
-            this._Output.WriteLine($"Testing Assembly: {this.Assembly.GetName().Name}");
+            this._Output.WriteLine($"Covering Assembly: {this.Assembly.GetName().Name}");
             this._Output.WriteLine("");
+            this._Output.WriteLine("Cover application using naming conventions.");
+            this._Output.WriteLine("");
+            this._Output.WriteLine("");
+            this._Output.WriteLine("Missing Methods:");
 
             Type[] Types = this.AssemblyTypes.WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>(false).Array();
 
             foreach (var Type in Types)
                 {
-                MemberInfo[] Members = Type.GetMembers();
+                Dictionary<MemberInfo, List<ILUnitAttribute>> Members = Type.GetTestMembers();
 
-                List<Tuple<string, string, string>> MemberNaming = Members.Convert(Member => Member.GetTargetingName()).List();
+                List<Tuple<string, string, string>> MemberNaming = Members.Keys.Convert(Member => Member.GetTargetingName()).List();
 
+                Dictionary<string, Dictionary<string, List<string>>> MemberTable = MemberNaming.ToDictionary();
 
-                MemberNaming.ToDictionary();
+                MemberTable.Keys.Each(Namespace =>
+                    {
+                        this._Output.WriteLine($"namespace {Namespace}");
+                        this._Output.WriteLine("{");
+
+                        Dictionary<string, List<string>> Classes = MemberTable[Namespace];
+
+                        Classes.Keys.Each(Class =>
+                            {
+                                this._Output.WriteLine($"   public class {Class}");
+                                this._Output.WriteLine("    {");
+
+                                List<string> MemberNames = Classes[Class];
+
+                                MemberNames.Each(MemberName =>
+                                {
+                                    this._Output.WriteLine("        [Fact]");
+                                    this._Output.WriteLine($"       public void {MemberName}()");
+                                    this._Output.WriteLine("        {");
+                                    this._Output.WriteLine($"            // TODO: Implement method Test {Class}.{MemberName}");
+                                    this._Output.WriteLine("        }");
+                                    this._Output.WriteLine("        ");
+                                });
+                                this._Output.WriteLine("    }");
+                            });
+
+                        this._Output.WriteLine("}");
+                    });
                 }
             }
+        // ReSharper restore FormatStringProblem
 
         ////////////////////////////////////////////////////////
 
