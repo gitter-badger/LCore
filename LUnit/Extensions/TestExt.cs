@@ -30,15 +30,15 @@ namespace LCore.LUnit
 
             Type?.GetMembers().Each(Member =>
                 {
-                if (!(Member is MethodInfo) || !((MethodInfo) Member).IsStatic)
-                    {
-                    return;
-                    }
+                    if (!(Member is MethodInfo) || !((MethodInfo)Member).IsStatic)
+                        {
+                        return;
+                        }
 
-                if (!Tests.ContainsKey(Member))
-                    Tests.Add(Member, new List<ILUnitAttribute>());
+                    if (!Tests.ContainsKey(Member))
+                        Tests.Add(Member, new List<ILUnitAttribute>());
 
-                Member.GetAttributes<ILUnitAttribute>(false).Each(Attr => { Tests[Member].Add(Attr); });
+                    Member.GetAttributes<ILUnitAttribute>(false).Each(Attr => { Tests[Member].Add(Attr); });
                 });
 
             return Tests;
@@ -113,8 +113,8 @@ namespace LCore.LUnit
 
             //    Method.AssertSource(Parameters, ExpectedSource);
 
-            var OutMethod = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>) (MethodInfo =>
-                MethodInfo.Name == nameof(AssertionExt.AssertSource) && MethodInfo.ContainsGenericParameters));
+            var OutMethod = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>)(MethodInfo =>
+               MethodInfo.Name == nameof(AssertionExt.AssertSource) && MethodInfo.ContainsGenericParameters));
 
             if (Attr.ExpectedSource != null)
                 {
@@ -135,7 +135,7 @@ namespace LCore.LUnit
             LUnit.FixParameterTypes(Method, Parameters);
             LUnit.FixObject(Method, Method.GetParameters()[0].ParameterType, ref ExpectedSource);
 
-            OutMethod?.Invoke(null, new[] {Method, null, Parameters, ExpectedSource, Checks});
+            OutMethod?.Invoke(null, new[] { Method, null, Parameters, ExpectedSource, Checks });
             }
 
         /// <summary>
@@ -165,6 +165,38 @@ namespace LCore.LUnit
             return new TypeTests(In);
             }
 
+        #endregion
+
+        #region GetTargetingName
+
+        /// <summary>
+        /// Returns a Tuple of strings representing the:
+        /// Namespace, Class Name, Member Name to target the specified MemberInfo.
+        /// Use this to directly target members for testing.
+        /// </summary>
+        /// <param name="Member"></param>
+        /// <param name="TestNamespaceFormat"></param>
+        /// <param name="TestClassFormat"></param>
+        /// <param name="TestMethodFormat"></param>
+        /// <returns></returns>
+        public static Tuple<string, string, string> GetTargetingName([CanBeNull]this MemberInfo Member, string TestNamespaceFormat = "{0}_Tests.{1}", string TestClassFormat = "Test_{0}", string TestMethodFormat = "{0}")
+            {
+            if (Member == null)
+                return null;
+
+            if (Member is Type)
+                return new Tuple<string, string, string>(
+                    string.Format(TestNamespaceFormat, ((Type)Member).GetAssembly()?.GetName().Name, ((Type)Member).Namespace),
+                    string.Format(TestClassFormat, ((Type)Member).GetNestedNames()), "");
+
+            if (Member.DeclaringType == null)
+                return null;
+
+            return new Tuple<string, string, string>(
+                string.Format(TestNamespaceFormat, Member.GetAssembly()?.GetName().Name, Member.GetNamespace()),
+                string.Format(TestClassFormat, Member.DeclaringType?.Name, ""),
+                string.Format(TestMethodFormat, Member.Name));
+            }
         #endregion
         }
     }

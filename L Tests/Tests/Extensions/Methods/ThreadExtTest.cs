@@ -476,7 +476,7 @@ namespace LCore.Tests.Extensions
             var TestAction = new Func<string, string>(Result =>
                 {
                     Result.Should().Be("abc");
-                    Thread.Sleep(20);
+                    Thread.Sleep(30);
                     Success = true;
                     return "abc";
                 });

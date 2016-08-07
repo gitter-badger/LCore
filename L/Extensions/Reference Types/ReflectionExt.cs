@@ -192,6 +192,27 @@ namespace LCore.Extensions
 
         #endregion
 
+        #region GetAssembly
+        /// <summary>
+        /// Returns a reference to the Assembly the given <paramref name="Member"/> was
+        /// defined.
+        /// If Member is null or the Declaring Type can't be determined, null is returned.
+        /// </summary>
+        [CanBeNull]
+        public static Assembly GetAssembly([CanBeNull]this MemberInfo Member)
+            {
+            if (Member == null)
+                return null;
+
+            if (Member is Type)
+                return Assembly.GetAssembly((Type)Member);
+
+            return Member.DeclaringType != null
+                ? Assembly.GetAssembly(Member.DeclaringType)
+                : null;
+            }
+        #endregion
+
         #region GetAttribute
 
         /// <summary>
@@ -380,6 +401,45 @@ namespace LCore.Extensions
             return MethodInfo?.ReturnType;
             }
 
+        #endregion
+
+        #region GetNamespace
+        /// <summary>
+        /// Returns the namespace the given Member is declared, if applicable.
+        /// Otherwise returns an empty string "".
+        /// </summary>
+        public static string GetNamespace([CanBeNull]this MemberInfo Member)
+            {
+            if (Member == null)
+                return "";
+
+            if (Member is Type)
+                return ((Type)Member).Namespace;
+
+            return Member.DeclaringType?.Namespace ?? "";
+            }
+        #endregion
+
+        #region GetNestedNames
+
+        /// <summary>
+        /// Returns a '.'-separated series of class names if <paramref name="Type"/> is a nested type.
+        /// Otherwise just the name of <paramref name="Type"/> will be returned.
+        /// If <paramref name="Type"/> is null, an empty string ("") will be returned .
+        /// </summary>
+        public static string GetNestedNames([CanBeNull]this Type Type)
+            {
+            if (Type == null)
+                return "";
+
+            if (!Type.IsNested)
+                return Type.Name;
+
+            List<Type> Types = Type.AlsoBaseTypes();
+            Types.Reverse();
+
+            return Types.Convert(BaseType => BaseType.Name).Combine(".");
+            }
         #endregion
 
         #region GetSubClass
@@ -948,6 +1008,7 @@ namespace LCore.Extensions
             }
 
         #endregion
+
 
         #region New
 
