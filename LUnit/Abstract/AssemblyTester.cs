@@ -32,6 +32,12 @@ namespace LCore.LUnit
         protected virtual bool EnforceNullabilityAttributes => false;
 
         /// <summary>
+        /// Enables tracking of class / method coverage using test naming convention.
+        /// See the output of AssemblyMissingCoverage.
+        /// </summary>
+        protected virtual bool TrackCoverageByNamingConvention => false;
+
+        /// <summary>
         /// Reference to the assembly being tested.
         /// </summary>
         protected Assembly Assembly => Assembly.GetAssembly(this.AssemblyType);
@@ -86,6 +92,25 @@ namespace LCore.LUnit
                     this._Output.WriteLine($"{Type.FullyQualifiedName()}");
                     }
                 this._Output.WriteLine("");
+                }
+            }
+
+        [Fact]
+        public void AssemblyMissingCoverage()
+            {
+            this._Output.WriteLine($"Testing Assembly: {this.Assembly.GetName().Name}");
+            this._Output.WriteLine("");
+
+            Type[] Types = this.AssemblyTypes.WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>(false).Array();
+
+            foreach (var Type in Types)
+                {
+                MemberInfo[] Members = Type.GetMembers();
+
+                List<Tuple<string, string, string>> MemberNaming = Members.Convert(Member => Member.GetTargetingName()).List();
+
+
+                MemberNaming.ToDictionary();
                 }
             }
 

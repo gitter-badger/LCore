@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 // ReSharper disable once RedundantUsingDirective
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using LCore.Extensions;
 using FluentAssertions;
@@ -21,8 +22,11 @@ namespace LCore.LUnit
     {
     /// <summary>
     /// Extend this type to test static class members using Attributes
+    /// 
+    /// This class is probably being removed in favor of AssemblyTester.
     /// </summary>
-    public abstract class ExtensionTester : XUnitOutputTester
+    [ExcludeFromCodeCoverage]
+    internal abstract class ExtensionTester : XUnitOutputTester
         {
         /// <summary>
         /// Less than this amount of method coverage will result in a test failure.
@@ -53,7 +57,7 @@ namespace LCore.LUnit
                 Debug.Write("--------------------------------------------------------\n");
                 Debug.Write($"Testing {TestData.TestsPresent} {Test.FullName} methods. \n");
                 Debug.Write(
-                    $"      Total attribute tests:  {TestData.TestAttributes.Count - TestData.UnitTestCount} (~{(TestData.TestAttributes.Count/((double) TestData.TestsPresent - TestData.UnitTestCount)).Round(1).Max(0)} per method) \n");
+                    $"      Total attribute tests:  {TestData.TestAttributes.Count - TestData.UnitTestCount} (~{(TestData.TestAttributes.Count / ((double)TestData.TestsPresent - TestData.UnitTestCount)).Round(1).Max(0)} per method) \n");
                 Debug.Write($"      Unit tests:             {TestData.UnitTestCount}. \n");
                 Debug.Write("\n");
                 Debug.Write($"Missing: {TestData.TestsMissing} methods                  {TestData.CoveragePercent}% Coverage\n");
@@ -65,16 +69,16 @@ namespace LCore.LUnit
                 Dictionary<MemberInfo, List<ILUnitAttribute>> Tests = Test.GetTestMembers();
 
                 Dictionary<uint, List<MemberInfo>> TestMemberCoverage =
-                    Tests.Keys.Group(Member => (uint) Tests[Member].Count + (Member.HasAttribute<ITestedAttribute>()
+                    Tests.Keys.Group(Member => (uint)Tests[Member].Count + (Member.HasAttribute<ITestedAttribute>()
                         ? 1u
                         : 0u));
 
-                uint Members = (uint) Tests.Keys.Count;
-                uint MembersCovered = Members - (uint) (TestMemberCoverage.ContainsKey(0u)
-                    ? (uint) TestMemberCoverage[0u].Count
+                uint Members = (uint)Tests.Keys.Count;
+                uint MembersCovered = Members - (uint)(TestMemberCoverage.ContainsKey(0u)
+                    ? (uint)TestMemberCoverage[0u].Count
                     : 0u);
 
-                uint TestCount = (uint) TestData.TestAttributes.Count;
+                uint TestCount = (uint)TestData.TestAttributes.Count;
 
                 // ReSharper disable once UnusedVariable
                 uint UnitTestCount = TestData.UnitTestCount;
@@ -111,6 +115,6 @@ namespace LCore.LUnit
         /// <summary>
         /// ExtensionTester constructor
         /// </summary>
-        protected ExtensionTester([NotNull] ITestOutputHelper Output) : base(Output) {}
+        protected ExtensionTester([NotNull] ITestOutputHelper Output) : base(Output) { }
         }
     }

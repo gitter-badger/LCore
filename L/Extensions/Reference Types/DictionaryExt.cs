@@ -179,5 +179,229 @@ namespace LCore.Extensions
         #endregion
 
         #endregion
+
+        #region ToDictionary
+
+        public static Dictionary<TKey, List<TValue>> ToDictionary<TKey, TValue>(this IEnumerable<Tuple<TKey, TValue>> In)
+            {
+            var Out = new Dictionary<TKey, List<TValue>>();
+
+            In.Each(Tuple =>
+                {
+                    if (!Out.ContainsKey(Tuple.Item1))
+                        Out.Add(Tuple.Item1, new List<TValue>());
+
+                    Out[Tuple.Item1].Add(Tuple.Item2);
+                });
+
+            return Out;
+            }
+
+        public static Dictionary<TKey, Dictionary<TKey2, List<TValue>>> ToDictionary<TKey, TKey2, TValue>(this IEnumerable<Tuple<TKey, TKey2, TValue>> In)
+            {
+            var Out = new Dictionary<TKey, Dictionary<TKey2, List<TValue>>>();
+
+            In.Each(Tuple =>
+            {
+                if (!Out.ContainsKey(Tuple.Item1))
+                    Out.Add(Tuple.Item1, new Dictionary<TKey2, List<TValue>>());
+
+                Dictionary<TKey2, List<TValue>> Level1 = Out[Tuple.Item1];
+
+                if (!Level1.ContainsKey(Tuple.Item2))
+                    Level1.Add(Tuple.Item2, new List<TValue>());
+
+                List<TValue> Level2 = Level1[Tuple.Item2];
+                Level2.Add(Tuple.Item3);
+            });
+
+            return Out;
+            }
+
+        public static Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, List<TValue>>>> ToDictionary<TKey, TKey2, TKey3, TValue>(this IEnumerable<Tuple<TKey, TKey2, TKey3, TValue>> In)
+            {
+            var Out = new Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, List<TValue>>>>();
+
+            In.Each(Tuple =>
+            {
+                if (!Out.ContainsKey(Tuple.Item1))
+                    Out.Add(Tuple.Item1, new Dictionary<TKey2, Dictionary<TKey3, List<TValue>>>());
+
+                Dictionary<TKey2, Dictionary<TKey3, List<TValue>>> Level1 = Out[Tuple.Item1];
+
+                if (!Level1.ContainsKey(Tuple.Item2))
+                    Level1.Add(Tuple.Item2, new Dictionary<TKey3, List<TValue>>());
+
+                Dictionary<TKey3, List<TValue>> Level2 = Level1[Tuple.Item2];
+
+                if (!Level2.ContainsKey(Tuple.Item3))
+                    Level2.Add(Tuple.Item3, new List<TValue>());
+
+                List<TValue> Level3 = Level2[Tuple.Item3];
+
+                Level3.Add(Tuple.Item4);
+            });
+
+            return Out;
+            }
+
+        public static Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, List<TValue>>>>> ToDictionary<TKey, TKey2, TKey3, TKey4, TValue>(this IEnumerable<Tuple<TKey, TKey2, TKey3, TKey4, TValue>> In)
+            {
+            var Out = new Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, List<TValue>>>>>();
+
+            In.Each(Tuple =>
+                {
+                    if (!Out.ContainsKey(Tuple.Item1))
+                        Out.Add(Tuple.Item1, new Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, List<TValue>>>>());
+
+                    Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, List<TValue>>>> Level1 = Out[Tuple.Item1];
+
+                    if (!Level1.ContainsKey(Tuple.Item2))
+                        Level1.Add(Tuple.Item2, new Dictionary<TKey3, Dictionary<TKey4, List<TValue>>>());
+
+                    Dictionary<TKey3, Dictionary<TKey4, List<TValue>>> Level2 = Level1[Tuple.Item2];
+
+                    if (!Level2.ContainsKey(Tuple.Item3))
+                        Level2.Add(Tuple.Item3, new Dictionary<TKey4, List<TValue>>());
+
+                    Dictionary<TKey4, List<TValue>> Level3 = Level2[Tuple.Item3];
+
+                    if (!Level3.ContainsKey(Tuple.Item4))
+                        Level3.Add(Tuple.Item4, new List<TValue>());
+
+                    List<TValue> Level4 = Level3[Tuple.Item4];
+
+                    Level4.Add(Tuple.Item5);
+                });
+
+            return Out;
+            }
+
+        public static Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, List<TValue>>>>>> ToDictionary<TKey, TKey2, TKey3, TKey4, TKey5, TValue>(this IEnumerable<Tuple<TKey, TKey2, TKey3, TKey4, TKey5, TValue>> In)
+            {
+            var Out = new Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, List<TValue>>>>>>();
+
+            In.Each(Tuple =>
+            {
+                if (!Out.ContainsKey(Tuple.Item1))
+                    Out.Add(Tuple.Item1, new Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, List<TValue>>>>>());
+
+                Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, List<TValue>>>>> Level1 = Out[Tuple.Item1];
+
+                if (!Level1.ContainsKey(Tuple.Item2))
+                    Level1.Add(Tuple.Item2, new Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, List<TValue>>>>());
+
+                Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, List<TValue>>>> Level2 = Level1[Tuple.Item2];
+
+                if (!Level2.ContainsKey(Tuple.Item3))
+                    Level2.Add(Tuple.Item3, new Dictionary<TKey4, Dictionary<TKey5, List<TValue>>>());
+
+                Dictionary<TKey4, Dictionary<TKey5, List<TValue>>> Level3 = Level2[Tuple.Item3];
+
+                if (!Level3.ContainsKey(Tuple.Item4))
+                    Level3.Add(Tuple.Item4, new Dictionary<TKey5, List<TValue>>());
+
+                Dictionary<TKey5, List<TValue>> Level4 = Level3[Tuple.Item4];
+
+                if (!Level4.ContainsKey(Tuple.Item5))
+                    Level4.Add(Tuple.Item5, new List<TValue>());
+
+                List<TValue> Level5 = Level4[Tuple.Item5];
+
+                Level5.Add(Tuple.Item6);
+            });
+
+            return Out;
+            }
+
+        public static Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, List<TValue>>>>>>> ToDictionary<TKey, TKey2, TKey3, TKey4, TKey5, TKey6, TValue>(this IEnumerable<Tuple<TKey, TKey2, TKey3, TKey4, TKey5, TKey6, TValue>> In)
+            {
+            var Out = new Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, List<TValue>>>>>>>();
+
+            In.Each(Tuple =>
+            {
+                if (!Out.ContainsKey(Tuple.Item1))
+                    Out.Add(Tuple.Item1, new Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, List<TValue>>>>>>());
+
+                Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, List<TValue>>>>>> Level1 = Out[Tuple.Item1];
+
+                if (!Level1.ContainsKey(Tuple.Item2))
+                    Level1.Add(Tuple.Item2, new Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, List<TValue>>>>>());
+
+                Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, List<TValue>>>>> Level2 = Level1[Tuple.Item2];
+
+                if (!Level2.ContainsKey(Tuple.Item3))
+                    Level2.Add(Tuple.Item3, new Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, List<TValue>>>>());
+
+                Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, List<TValue>>>> Level3 = Level2[Tuple.Item3];
+
+                if (!Level3.ContainsKey(Tuple.Item4))
+                    Level3.Add(Tuple.Item4, new Dictionary<TKey5, Dictionary<TKey6, List<TValue>>>());
+
+                Dictionary<TKey5, Dictionary<TKey6, List<TValue>>> Level4 = Level3[Tuple.Item4];
+
+                if (!Level4.ContainsKey(Tuple.Item5))
+                    Level4.Add(Tuple.Item5, new Dictionary<TKey6, List<TValue>>());
+
+                Dictionary<TKey6, List<TValue>> Level5 = Level4[Tuple.Item5];
+
+                if (!Level5.ContainsKey(Tuple.Item6))
+                    Level5.Add(Tuple.Item6, new List<TValue>());
+
+                List<TValue> Level6 = Level5[Tuple.Item6];
+
+                Level6.Add(Tuple.Item7);
+            });
+
+            return Out;
+            }
+
+        public static Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, Dictionary<TKey7, List<TValue>>>>>>>> ToDictionary<TKey, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue>(this IEnumerable<Tuple<TKey, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue>> In)
+            {
+            var Out = new Dictionary<TKey, Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, Dictionary<TKey7, List<TValue>>>>>>>>();
+
+            In.Each(Tuple =>
+            {
+                if (!Out.ContainsKey(Tuple.Item1))
+                    Out.Add(Tuple.Item1, new Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, Dictionary<TKey7, List<TValue>>>>>>>());
+
+                Dictionary<TKey2, Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, Dictionary<TKey7, List<TValue>>>>>>> Level1 = Out[Tuple.Item1];
+
+                if (!Level1.ContainsKey(Tuple.Item2))
+                    Level1.Add(Tuple.Item2, new Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, Dictionary<TKey7, List<TValue>>>>>>());
+
+                Dictionary<TKey3, Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, Dictionary<TKey7, List<TValue>>>>>> Level2 = Level1[Tuple.Item2];
+
+                if (!Level2.ContainsKey(Tuple.Item3))
+                    Level2.Add(Tuple.Item3, new Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, Dictionary<TKey7, List<TValue>>>>>());
+
+                Dictionary<TKey4, Dictionary<TKey5, Dictionary<TKey6, Dictionary<TKey7, List<TValue>>>>> Level3 = Level2[Tuple.Item3];
+
+                if (!Level3.ContainsKey(Tuple.Item4))
+                    Level3.Add(Tuple.Item4, new Dictionary<TKey5, Dictionary<TKey6, Dictionary<TKey7, List<TValue>>>>());
+
+                Dictionary<TKey5, Dictionary<TKey6, Dictionary<TKey7, List<TValue>>>> Level4 = Level3[Tuple.Item4];
+
+                if (!Level4.ContainsKey(Tuple.Item5))
+                    Level4.Add(Tuple.Item5, new Dictionary<TKey6, Dictionary<TKey7, List<TValue>>>());
+
+                Dictionary<TKey6, Dictionary<TKey7, List<TValue>>> Level5 = Level4[Tuple.Item5];
+
+                if (!Level5.ContainsKey(Tuple.Item6))
+                    Level5.Add(Tuple.Item6, new Dictionary<TKey7, List<TValue>>());
+
+                Dictionary<TKey7, List<TValue>> Level6 = Level5[Tuple.Item6];
+
+                if (!Level6.ContainsKey(Tuple.Item7))
+                    Level6.Add(Tuple.Item7, new List<TValue>());
+
+                List<TValue> Level7 = Level6[Tuple.Item7];
+
+                Level7.Add(Tuple.Rest);
+            });
+
+            return Out;
+            }
+        #endregion
         }
     }
