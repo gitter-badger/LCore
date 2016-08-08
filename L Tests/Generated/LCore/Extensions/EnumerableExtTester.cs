@@ -18,6 +18,828 @@ namespace L_Tests.LCore.Extensions
             }
 
         [Fact]
+        public void RemoveDuplicates_T_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.RemoveDuplicates
+            }
+
+        [Fact]
+        public void RemoveDuplicates_IEnumerable_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.RemoveDuplicates
+            }
+
+        [Fact]
+        public void Mirror_T_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Mirror
+            }
+
+        [Fact]
+        public void Mirror_IEnumerable_1_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Mirror
+            }
+
+        [Fact]
+        public void Mirror_IEnumerable_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Mirror
+            }
+
+        [Fact]
+        public void Select_T_Func_2_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Select
+            }
+
+        [Fact]
+        public void Select_IEnumerable_1_Func_2_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Select
+            }
+
+        [Fact]
+        public void Select_IEnumerable_Func_2_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Select
+            }
+
+        [Fact]
+        public void Select_IEnumerable_Func_3_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Select
+            }
+
+        [Fact]
+        public void Select_T_Func_3_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Select
+            }
+
+        [Fact]
+        public void Select_List_1_Func_3_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Select
+            }
+
+        [Fact]
+        public void Select_IEnumerable_1_Func_3_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Select
+            }
+
+        [Fact]
+        public void SetAt_IEnumerable_Int32_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.SetAt
+            }
+
+        [Fact]
+        public void SetAt_IEnumerable_UInt32_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.SetAt
+            }
+
+        [Fact]
+        public void SetAt_IEnumerable_1_Int32_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.SetAt
+            }
+
+        [Fact]
+        public void SetAt_IEnumerable_1_UInt32_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.SetAt
+            }
+
+        [Fact]
+        public void Shuffle_IEnumerable_1_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Shuffle
+            }
+
+        [Fact]
+        public void Shuffle_T_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Shuffle
+            }
+
+        [Fact]
+        public void Shuffle_IEnumerable_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Shuffle
+            }
+
+        [Fact]
+        public void Sort_IList()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Sort
+            }
+
+        [Fact]
+        public void Sort_IList_1_Func_3()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Sort
+            }
+
+        [Fact]
+        public void Sort_IList_1_Func_2()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Sort
+            }
+
+        [Fact]
+        public void Swap_T_Int32_Int32()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Swap
+            }
+
+        [Fact]
+        public void Swap_IList_Int32_Int32()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Swap
+            }
+
+        [Fact]
+        public void TotalCount()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.TotalCount
+            }
+
+        [Fact]
+        public void First_IEnumerable_1_Int32_Func_2_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.First
+            }
+
+        [Fact]
+        public void First_IEnumerable_1_UInt32_Func_2_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.First
+            }
+
+        [Fact]
+        public void First_T_Int32_Func_2_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.First
+            }
+
+        [Fact]
+        public void First_T_UInt32_Func_2_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.First
+            }
+
+        [Fact]
+        public void First_IEnumerable_T_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.First
+            }
+
+        [Fact]
+        public void Flatten()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Flatten
+            }
+
+        [Fact]
+        public void GetAt_IEnumerable_Int32_Object()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.GetAt
+            }
+
+        [Fact]
+        public void GetAt_IEnumerable_UInt32_Object()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.GetAt
+            }
+
+        [Fact]
+        public void GetAt_IEnumerable_1_Int32_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.GetAt
+            }
+
+        [Fact]
+        public void GetAt_IEnumerable_1_UInt32_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.GetAt
+            }
+
+        [Fact]
+        public void GetAtIndices_T_Int32_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.GetAtIndices
+            }
+
+        [Fact]
+        public void GetAtIndices_IEnumerable_Int32_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.GetAtIndices
+            }
+
+        [Fact]
+        public void GetAtIndices_IEnumerable_1_Int32_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.GetAtIndices
+            }
+
+        [Fact]
+        public void Group_IEnumerable_1_Dictionary_2()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Group
+            }
+
+        [Fact]
+        public void Group_IEnumerable_1_Func_2_Dictionary_2()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Group
+            }
+
+        [Fact]
+        public void GroupTwice()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.GroupTwice
+            }
+
+        [Fact]
+        public void Has_IEnumerable_T_Boolean()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Has
+            }
+
+        [Fact]
+        public void Has_IEnumerable_Int32_T_Boolean()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Has
+            }
+
+        [Fact]
+        public void Has_IEnumerable_UInt32_T_Boolean()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Has
+            }
+
+        [Fact]
+        public void HasAny_IEnumerable_IEnumerable_Boolean()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.HasAny
+            }
+
+        [Fact]
+        public void HasAny_IEnumerable_1_IEnumerable_1_Boolean()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.HasAny
+            }
+
+        [Fact]
+        public void HasAny_IEnumerable_Object_Boolean()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.HasAny
+            }
+
+        [Fact]
+        public void HasAny_IEnumerable_1_T_Boolean()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.HasAny
+            }
+
+        [Fact]
+        public void Has_IEnumerable_Func_2_Boolean()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Has
+            }
+
+        [Fact]
+        public void Has_IEnumerable_1_Func_2_Boolean()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Has
+            }
+
+        [Fact]
+        public void HasIndex_IEnumerable_Int32_Boolean()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.HasIndex
+            }
+
+        [Fact]
+        public void HasIndex_IEnumerable_UInt32_Boolean()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.HasIndex
+            }
+
+        [Fact]
+        public void Index_IEnumerable_Func_2_Dictionary_2()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Index
+            }
+
+        [Fact]
+        public void Index_IEnumerable_1_Func_2_Dictionary_2()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Index
+            }
+
+        [Fact]
+        public void IndexTwice()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.IndexTwice
+            }
+
+        [Fact]
+        public void IndexOf_IEnumerable_Func_2_Nullable_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.IndexOf
+            }
+
+        [Fact]
+        public void IndexOf_IEnumerable_1_Func_2_Nullable_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.IndexOf
+            }
+
+        [Fact]
+        public void IsEmpty()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.IsEmpty
+            }
+
+        [Fact]
+        public void Last_IEnumerable_Func_2_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Last
+            }
+
+        [Fact]
+        public void Last_T_Func_2_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Last
+            }
+
+        [Fact]
+        public void Last_IEnumerable_1_Func_2_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Last
+            }
+
+        [Fact]
+        public void Last_IEnumerable_Int32_Func_2_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Last
+            }
+
+        [Fact]
+        public void Last_IEnumerable_UInt32_Func_2_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Last
+            }
+
+        [Fact]
+        public void Last_IEnumerable_1_Int32_Func_2_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Last
+            }
+
+        [Fact]
+        public void Last_IEnumerable_1_UInt32_Func_2_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Last
+            }
+
+        [Fact]
+        public void Last_T_Int32_Func_2_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Last
+            }
+
+        [Fact]
+        public void Last_T_UInt32_Func_2_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Last
+            }
+
+        [Fact]
+        public void Last_IEnumerable_T_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Last
+            }
+
+        [Fact]
+        public void List_IEnumerable_Boolean_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.List
+            }
+
+        [Fact]
+        public void List_IEnumerable_1_Boolean_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.List
+            }
+
+        [Fact]
+        public void Move_T_Int32_Int32()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Move
+            }
+
+        [Fact]
+        public void Move_IList_Int32_Int32()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Move
+            }
+
+        [Fact]
+        public void Named_IEnumerable_String_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Named
+            }
+
+        [Fact]
+        public void Named_T_String_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Named
+            }
+
+        [Fact]
+        public void Named_IEnumerable_1_String_IEnumerable_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Named
+            }
+
+        [Fact]
+        public void Named_IEnumerable_String_Func_2_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Named
+            }
+
+        [Fact]
+        public void Named_IEnumerable_1_String_Func_2_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Named
+            }
+
+        [Fact]
+        public void Named_T_String_Func_2_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Named
+            }
+
+        [Fact]
+        public void Random_IEnumerable_1_Int32_Boolean_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Random
+            }
+
+        [Fact]
+        public void Random_IEnumerable_1_UInt32_Boolean_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Random
+            }
+
+        [Fact]
+        public void Random_T_Int32_Boolean_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Random
+            }
+
+        [Fact]
+        public void Random_T_UInt32_Boolean_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Random
+            }
+
+        [Fact]
+        public void Random_IEnumerable_1_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Random
+            }
+
+        [Fact]
+        public void Remove_IEnumerable_1_T_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Remove
+            }
+
+        [Fact]
+        public void Remove_IEnumerable_1_Func_2_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Remove
+            }
+
+        [Fact]
+        public void Remove_IEnumerable_1_Func_3_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Remove
+            }
+
+        [Fact]
+        public void RemoveAt_IEnumerable_1_Int32_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.RemoveAt
+            }
+
+        [Fact]
+        public void RemoveAt_T_Int32_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.RemoveAt
+            }
+
+        [Fact]
+        public void RemoveDuplicate_IEnumerable_1_Func_2_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.RemoveDuplicate
+            }
+
+        [Fact]
+        public void RemoveDuplicate_T_Func_2_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.RemoveDuplicate
+            }
+
+        [Fact]
+        public void RemoveDuplicate_IEnumerable_Func_2_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.RemoveDuplicate
+            }
+
+        [Fact]
+        public void RemoveDuplicates_IEnumerable_1_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.RemoveDuplicates
+            }
+
+        [Fact]
+        public void All_IEnumerable_Func_2_Boolean()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.All
+            }
+
+        [Fact]
+        public void All_IEnumerable_1_Func_2_Boolean()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.All
+            }
+
+        [Fact]
+        public void All_IEnumerable_Func_3_Boolean()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.All
+            }
+
+        [Fact]
+        public void All_IEnumerable_1_Func_3_Boolean()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.All
+            }
+
+        [Fact]
+        public void Append()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Append
+            }
+
+        [Fact]
+        public void Array_IEnumerable_Object()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Array
+            }
+
+        [Fact]
+        public void Array_IEnumerable_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Array
+            }
+
+        [Fact]
+        public void Array_IEnumerable_1_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Array
+            }
+
+        [Fact]
+        public void Array_IEnumerable_1_U()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Array
+            }
+
+        [Fact]
+        public void Collect_Func_1_Int32_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Collect
+            }
+
+        [Fact]
+        public void Collect_Func_2_Int32_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Collect
+            }
+
+        [Fact]
+        public void CollectStr_String_Func_2_String()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.CollectStr
+            }
+
+        [Fact]
+        public void CollectStr_List_1_Func_3_String()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.CollectStr
+            }
+
+        [Fact]
+        public void CollectStr_T_Func_3_String()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.CollectStr
+            }
+
+        [Fact]
+        public void CollectStr_U_Func_3_String()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.CollectStr
+            }
+
+        [Fact]
+        public void Combine_IEnumerable_1_String_String()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Combine
+            }
+
+        [Fact]
+        public void Convert_IEnumerable_Func_2_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Convert
+            }
+
+        [Fact]
+        public void Convert_T_Func_2_U()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Convert
+            }
+
+        [Fact]
+        public void Convert_List_1_Func_2_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Convert
+            }
+
+        [Fact]
+        public void Convert_IEnumerable_1_Func_2_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Convert
+            }
+
+        [Fact]
+        public void ConvertAll_IEnumerable_Func_2_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.ConvertAll
+            }
+
+        [Fact]
+        public void ConvertAll_IEnumerable_1_Func_2_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.ConvertAll
+            }
+
+        [Fact]
+        public void ConvertAll_T_Func_2_U()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.ConvertAll
+            }
+
+        [Fact]
+        public void ConvertAll_List_1_Func_2_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.ConvertAll
+            }
+
+        [Fact]
+        public void Convert_IEnumerable_Func_3_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Convert
+            }
+
+        [Fact]
+        public void Convert_T_Func_3_U()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Convert
+            }
+
+        [Fact]
+        public void Convert_List_1_Func_3_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Convert
+            }
+
+        [Fact]
+        public void Convert_IEnumerable_1_Func_3_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Convert
+            }
+
+        [Fact]
+        public void Count_T_UInt32()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Count
+            }
+
+        [Fact]
+        public void Count_IEnumerable_1_T_UInt32()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Count
+            }
+
+        [Fact]
+        public void Count_IEnumerable_1_Func_2_UInt32()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Count
+            }
+
+        [Fact]
+        public void Cycle_IEnumerable_Func_2()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Cycle
+            }
+
+        [Fact]
+        public void Cycle_IEnumerable_1_Func_2()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Cycle
+            }
+
+        [Fact]
+        public void Each_Action_1_IEnumerable_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Each
+            }
+
+        [Fact]
+        public void Equivalent()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Equivalent
+            }
+
+        [Fact]
+        public void Fill_T_T_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Fill
+            }
+
+        [Fact]
+        public void Fill_List_1_T_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Fill
+            }
+
+        [Fact]
+        public void Filter_IEnumerable_Boolean_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Filter
+            }
+
+        [Fact]
+        public void Filter_T_Boolean_U()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Filter
+            }
+
+        [Fact]
+        public void Filter_List_1_Boolean_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.Filter
+            }
+
+        [Fact]
+        public void First_IEnumerable_Func_2_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.First
+            }
+
+        [Fact]
+        public void First_T_Func_2_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.First
+            }
+
+        [Fact]
+        public void First_IEnumerable_1_Func_2_T()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.First
+            }
+
+        [Fact]
+        public void First_IEnumerable_Int32_Func_2_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.First
+            }
+
+        [Fact]
+        public void First_IEnumerable_UInt32_Func_2_List_1()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumerableExt.First
+            }
+
+        [Fact]
         public void While_IEnumerable_Func_2_Boolean()
             {
             // TODO: Implement method Test LCore.Extensions.EnumerableExt.While

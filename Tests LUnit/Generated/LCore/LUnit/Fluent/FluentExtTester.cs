@@ -13,6 +13,66 @@ namespace LUnit_Tests.LCore.LUnit.Fluent
             }
 
         [Fact]
+        public void ShouldFail_Action()
+            {
+            // TODO: Implement method Test LCore.LUnit.Fluent.FluentExt.ShouldFail
+            }
+
+        [Fact]
+        public void ShouldFail_Action_1_T1()
+            {
+            // TODO: Implement method Test LCore.LUnit.Fluent.FluentExt.ShouldFail
+            }
+
+        [Fact]
+        public void ShouldFail_Action_2_T1_T2()
+            {
+            // TODO: Implement method Test LCore.LUnit.Fluent.FluentExt.ShouldFail
+            }
+
+        [Fact]
+        public void ShouldFail_Action_3_T1_T2_T3()
+            {
+            // TODO: Implement method Test LCore.LUnit.Fluent.FluentExt.ShouldFail
+            }
+
+        [Fact]
+        public void ShouldFail_Action_4_T1_T2_T3_T4()
+            {
+            // TODO: Implement method Test LCore.LUnit.Fluent.FluentExt.ShouldFail
+            }
+
+        [Fact]
+        public void ShouldFail_Func_1()
+            {
+            // TODO: Implement method Test LCore.LUnit.Fluent.FluentExt.ShouldFail
+            }
+
+        [Fact]
+        public void ShouldFail_Func_2_T1()
+            {
+            // TODO: Implement method Test LCore.LUnit.Fluent.FluentExt.ShouldFail
+            }
+
+        [Fact]
+        public void ShouldFail_Func_3_T1_T2()
+            {
+            // TODO: Implement method Test LCore.LUnit.Fluent.FluentExt.ShouldFail
+            }
+
+        [Fact]
+        public void ShouldFail_Func_4_T1_T2_T3()
+            {
+            // TODO: Implement method Test LCore.LUnit.Fluent.FluentExt.ShouldFail
+            }
+
+        [Fact]
+        public void ShouldFail_Func_5_T1_T2_T3_T4()
+            {
+            // TODO: Implement method Test LCore.LUnit.Fluent.FluentExt.ShouldFail
+            }
+
+        [Fact]
         public void ShouldSucceed_MethodInfo_Object_Object()
             {
             // TODO: Implement method Test LCore.LUnit.Fluent.FluentExt.ShouldSucceed

@@ -18,6 +18,13 @@ namespace L_Tests.LCore.Extensions
             {
             }
 
+
+        [Fact]
+        public void EnsurePathExists()
+            {
+            // TODO: Implement method Test LCore.Extensions.FileExt.EnsurePathExists
+            }
+
         [Fact]
         public void CleanFileName()
             {

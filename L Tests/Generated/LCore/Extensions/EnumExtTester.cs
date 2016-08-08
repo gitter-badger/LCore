@@ -13,9 +13,26 @@ namespace L_Tests.LCore.Extensions
         public EnumExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
 
-
         ~EnumExtTester()
             {
+            }
+
+        [Fact]
+        public void ParseEnum_String_Type_Enum()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumExt.ParseEnum
+            }
+
+        [Fact]
+        public void ParseEnum_FriendlyName()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumExt.ParseEnum_FriendlyName
+            }
+
+        [Fact]
+        public void GetFriendlyName()
+            {
+            // TODO: Implement method Test LCore.Extensions.EnumExt.GetFriendlyName
             }
 
         [Fact]

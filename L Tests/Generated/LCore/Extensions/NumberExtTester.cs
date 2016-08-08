@@ -16,6 +16,84 @@ namespace L_Tests.LCore.Extensions
         ~NumberExtTester()
             {
             }
+        [Fact]
+        public void ConvertToBestMatch()
+            {
+            // TODO: Implement method Test LCore.Extensions.NumberExt.ConvertToBestMatch
+            }
+
+        [Fact]
+        public void DecimalPlaces_Int32_UInt32()
+            {
+            // TODO: Implement method Test LCore.Extensions.NumberExt.DecimalPlaces
+            }
+
+        [Fact]
+        public void DecimalPlaces_Int16_UInt32()
+            {
+            // TODO: Implement method Test LCore.Extensions.NumberExt.DecimalPlaces
+            }
+
+        [Fact]
+        public void DecimalPlaces_Int64_UInt32()
+            {
+            // TODO: Implement method Test LCore.Extensions.NumberExt.DecimalPlaces
+            }
+
+        [Fact]
+        public void DecimalPlaces_UInt32_UInt32()
+            {
+            // TODO: Implement method Test LCore.Extensions.NumberExt.DecimalPlaces
+            }
+
+        [Fact]
+        public void DecimalPlaces_UInt16_UInt32()
+            {
+            // TODO: Implement method Test LCore.Extensions.NumberExt.DecimalPlaces
+            }
+
+        [Fact]
+        public void DecimalPlaces_UInt64_UInt32()
+            {
+            // TODO: Implement method Test LCore.Extensions.NumberExt.DecimalPlaces
+            }
+
+        [Fact]
+        public void DecimalPlaces_Char_UInt32()
+            {
+            // TODO: Implement method Test LCore.Extensions.NumberExt.DecimalPlaces
+            }
+
+        [Fact]
+        public void DecimalPlaces_Byte_UInt32()
+            {
+            // TODO: Implement method Test LCore.Extensions.NumberExt.DecimalPlaces
+            }
+
+        [Fact]
+        public void DecimalPlaces_SByte_UInt32()
+            {
+            // TODO: Implement method Test LCore.Extensions.NumberExt.DecimalPlaces
+            }
+
+        [Fact]
+        public void DecimalPlaces_Decimal_UInt16()
+            {
+            // TODO: Implement method Test LCore.Extensions.NumberExt.DecimalPlaces
+            }
+
+        [Fact]
+        public void DecimalPlaces_Double_UInt16()
+            {
+            // TODO: Implement method Test LCore.Extensions.NumberExt.DecimalPlaces
+            }
+
+        [Fact]
+        public void DecimalPlaces_Single_UInt16()
+            {
+            // TODO: Implement method Test LCore.Extensions.NumberExt.DecimalPlaces
+            }
+
 
         [Fact]
         public void AddEach()

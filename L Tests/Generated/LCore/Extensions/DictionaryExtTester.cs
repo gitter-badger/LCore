@@ -17,6 +17,42 @@ namespace L_Tests.LCore.Extensions
             {
             }
 
+
+        [Fact]
+        public void Merge()
+            {
+            // TODO: Implement method Test LCore.Extensions.DictionaryExt.Merge
+            }
+
+        [Fact]
+        public void AddRange()
+            {
+            // TODO: Implement method Test LCore.Extensions.DictionaryExt.AddRange
+            }
+
+        [Fact]
+        public void GetAllValues()
+            {
+            // TODO: Implement method Test LCore.Extensions.DictionaryExt.GetAllValues
+            }
+
+        [Fact]
+        public void SafeAdd()
+            {
+            // TODO: Implement method Test LCore.Extensions.DictionaryExt.SafeAdd
+            }
+
+        [Fact]
+        public void SafeSet()
+            {
+            // TODO: Implement method Test LCore.Extensions.DictionaryExt.SafeSet
+            }
+
+        [Fact]
+        public void SafeGet()
+            {
+            // TODO: Implement method Test LCore.Extensions.DictionaryExt.SafeGet
+            }
         [Fact]
         public void Flip()
             {

@@ -17,6 +17,41 @@ namespace L_Tests.LCore.Extensions
             }
 
         [Fact]
+        public void IsEqualTo()
+            {
+            // TODO: Implement method Test LCore.Extensions.ComparableExt.IsEqualTo
+            }
+
+        [Fact]
+        public void IsNotEqualTo()
+            {
+            // TODO: Implement method Test LCore.Extensions.ComparableExt.IsNotEqualTo
+            }
+
+        [Fact]
+        public void IsLessThan()
+            {
+            // TODO: Implement method Test LCore.Extensions.ComparableExt.IsLessThan
+            }
+
+        [Fact]
+        public void IsGreaterThanOrEqual()
+            {
+            // TODO: Implement method Test LCore.Extensions.ComparableExt.IsGreaterThanOrEqual
+            }
+
+        [Fact]
+        public void Max()
+            {
+            // TODO: Implement method Test LCore.Extensions.ComparableExt.Max
+            }
+
+        [Fact]
+        public void Min()
+            {
+            // TODO: Implement method Test LCore.Extensions.ComparableExt.Min
+            }
+        [Fact]
         public void IsLessThanOrEqual()
             {
             // TODO: Implement method Test LCore.Extensions.ComparableExt.IsLessThanOrEqual

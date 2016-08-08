@@ -17,6 +17,17 @@ namespace L_Tests.LCore.Extensions
             }
 
         [Fact]
+        public void ToSpecification()
+            {
+            // TODO: Implement method Test LCore.Extensions.DateExt.ToSpecification
+            }
+
+        [Fact]
+        public void GetMonthName()
+            {
+            // TODO: Implement method Test LCore.Extensions.DateExt.GetMonthName
+            }
+        [Fact]
         public void Average()
             {
             // TODO: Implement method Test LCore.Extensions.DateExt.Average

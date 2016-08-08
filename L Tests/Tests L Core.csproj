@@ -146,6 +146,9 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Generated\BooleanExtTester.cs" />
+    <Compile Include="Generated\CommentExtTester.cs" />
+    <Compile Include="Generated\ConvertibleExtTester.cs" />
     <Compile Include="Generated\LCore\Extensions Static\L_Comment_TestTester.cs" />
     <Compile Include="Generated\LCore\Numbers\ByteNumberTester.cs" />
     <Compile Include="Generated\LCore\Extensions\ComparableExtTester.cs" />
@@ -182,12 +185,14 @@
     <Compile Include="Generated\LCore\Extensions Static\L_StrTester.cs" />
     <Compile Include="Generated\LCore\Extensions\ReflectionExtTester.cs" />
     <Compile Include="Generated\LCore\Numbers\SByteNumberTester.cs" />
+    <Compile Include="Generated\Generated.cs" />
     <Compile Include="Generated\LCore\Tools\ScheduleTester.cs" />
     <Compile Include="Generated\LCore\Numbers\ShortNumberTester.cs" />
     <Compile Include="Generated\LCore\Extensions\StringExtTester.cs" />
     <Compile Include="Generated\LCore\Numbers\UIntNumberTester.cs" />
     <Compile Include="Generated\LCore\Numbers\ULongNumberTester.cs" />
     <Compile Include="Generated\LCore\Numbers\UShortNumberTester.cs" />
+    <Compile Include="Generated\LoopExtTester.cs" />
     <Compile Include="Tests\Extensions\Language\CommentExtTest.cs" />
     <Compile Include="Tests\Extensions\Object Types\ComparableExtTest.cs" />
     <Compile Include="Tests\Extensions\Object Types\StatsExtTest.cs" />

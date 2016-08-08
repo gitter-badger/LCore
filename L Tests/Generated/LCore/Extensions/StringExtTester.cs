@@ -18,6 +18,24 @@ namespace L_Tests.LCore.Extensions
             }
 
         [Fact]
+        public void Matches()
+            {
+            // TODO: Implement method Test LCore.Extensions.StringExt.Matches
+            }
+
+        [Fact]
+        public void ReplaceAll_String_IDictionary_2_String()
+            {
+            // TODO: Implement method Test LCore.Extensions.StringExt.ReplaceAll
+            }
+
+        [Fact]
+        public void ToStream()
+            {
+            // TODO: Implement method Test LCore.Extensions.StringExt.ToStream
+            }
+
+        [Fact]
         public void Add_String_Char_String()
             {
             // TODO: Implement method Test LCore.Extensions.StringExt.Add

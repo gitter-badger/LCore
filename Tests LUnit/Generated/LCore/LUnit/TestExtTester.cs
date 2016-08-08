@@ -16,6 +16,11 @@ namespace LUnit_Tests.LCore.LUnit
             }
 
         [Fact]
+        public void GetTestData()
+            {
+            // TODO: Implement method Test LCore.LUnit.TestExt.GetTestData
+            }
+        [Fact]
         public void GetTestMembers()
             {
             // TODO: Implement method Test LCore.LUnit.TestExt.GetTestMembers

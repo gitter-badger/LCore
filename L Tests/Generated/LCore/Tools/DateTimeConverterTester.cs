@@ -18,6 +18,24 @@ namespace L_Tests.LCore.Tools
             }
 
         [Fact]
+        public void Parse()
+            {
+            // TODO: Implement method Test LCore.Tools.DateTimeConverter.Parse
+            }
+
+        [Fact]
+        public void ToString_DateTime_String()
+            {
+            // TODO: Implement method Test LCore.Tools.DateTimeConverter.ToString
+            }
+
+        [Fact]
+        public void TryParse()
+            {
+            // TODO: Implement method Test LCore.Tools.DateTimeConverter.TryParse
+            }
+
+        [Fact]
         public void get_Rfc3339DateTimeFormat()
             {
             // TODO: Implement method Test LCore.Tools.DateTimeConverter.get_Rfc3339DateTimeFormat
