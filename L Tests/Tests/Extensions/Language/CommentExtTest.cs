@@ -108,6 +108,6 @@ namespace LCore.Tests.Extensions
             // ReSharper restore UnassignedGetOnlyAutoProperty
             }
 
-        public CommentExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
+        public CommentExtTest([NotNull] ITestOutputHelper Output) : base(Output) { }
         }
     }

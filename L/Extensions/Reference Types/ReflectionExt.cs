@@ -435,10 +435,16 @@ namespace LCore.Extensions
             if (!Type.IsNested)
                 return Type.Name;
 
-            List<Type> Types = Type.AlsoBaseTypes();
-            Types.Reverse();
+            string Out = Type.Name;
 
-            return Types.Convert(BaseType => BaseType.Name).Combine(".");
+            while (Type != null)
+                {
+                Type = Type.DeclaringType;
+                if (Type != null)
+                    Out = $"{Type.Name}.{Out}";
+                }
+
+            return Out;
             }
         #endregion
 
