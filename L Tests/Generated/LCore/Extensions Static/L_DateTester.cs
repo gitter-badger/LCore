@@ -19,7 +19,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         public void MonthNumberGetName()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Date.MonthNumberGetName
+            // TODO: Implement method test LCore.Extensions.L.Date.MonthNumberGetName
             }
 
         }

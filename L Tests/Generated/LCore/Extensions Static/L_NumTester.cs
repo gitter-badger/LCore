@@ -20,19 +20,19 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         public void get_MostPreciseType()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Num.get_MostPreciseType
+            // TODO: Implement method test LCore.Extensions.L.Num.get_MostPreciseType
             }
 
         [Fact]
         public void get_NumberTypes()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Num.get_NumberTypes
+            // TODO: Implement method test LCore.Extensions.L.Num.get_NumberTypes
             }
 
         [Fact]
         public void ScientificNotationToNumber()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Num.ScientificNotationToNumber
+            // TODO: Implement method test LCore.Extensions.L.Num.ScientificNotationToNumber
             }
 
         }

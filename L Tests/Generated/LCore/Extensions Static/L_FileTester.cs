@@ -20,49 +20,49 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         public void add_BufferedMoveProgress()
             {
-            // TODO: Implement method Test LCore.Extensions.L.File.add_BufferedMoveProgress
+            // TODO: Implement method test LCore.Extensions.L.File.add_BufferedMoveProgress
             }
 
         [Fact]
         public void remove_BufferedMoveProgress()
             {
-            // TODO: Implement method Test LCore.Extensions.L.File.remove_BufferedMoveProgress
+            // TODO: Implement method test LCore.Extensions.L.File.remove_BufferedMoveProgress
             }
 
         [Fact]
         public void BufferedMove()
             {
-            // TODO: Implement method Test LCore.Extensions.L.File.BufferedMove
+            // TODO: Implement method test LCore.Extensions.L.File.BufferedMove
             }
 
         [Fact]
         public void CombinePaths_String_String()
             {
-            // TODO: Implement method Test LCore.Extensions.L.File.CombinePaths
+            // TODO: Implement method test LCore.Extensions.L.File.CombinePaths
             }
 
         [Fact]
         public void CombinePaths_Char_String_String()
             {
-            // TODO: Implement method Test LCore.Extensions.L.File.CombinePaths
+            // TODO: Implement method test LCore.Extensions.L.File.CombinePaths
             }
 
         [Fact]
         public void GetFileContents()
             {
-            // TODO: Implement method Test LCore.Extensions.L.File.GetFileContents
+            // TODO: Implement method test LCore.Extensions.L.File.GetFileContents
             }
 
         [Fact]
         public void SafeCopyFile()
             {
-            // TODO: Implement method Test LCore.Extensions.L.File.SafeCopyFile
+            // TODO: Implement method test LCore.Extensions.L.File.SafeCopyFile
             }
 
         [Fact]
         public void SafeMoveFile()
             {
-            // TODO: Implement method Test LCore.Extensions.L.File.SafeMoveFile
+            // TODO: Implement method test LCore.Extensions.L.File.SafeMoveFile
             }
 
         }

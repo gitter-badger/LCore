@@ -20,19 +20,19 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         public void NewList()
             {
-            // TODO: Implement method Test LCore.Extensions.L.List.NewList
+            // TODO: Implement method test LCore.Extensions.L.List.NewList
             }
 
         [Fact]
         public void ToList_Func_1()
             {
-            // TODO: Implement method Test LCore.Extensions.L.List.ToList
+            // TODO: Implement method test LCore.Extensions.L.List.ToList
             }
 
         [Fact]
         public void ToList_T_Func_1()
             {
-            // TODO: Implement method Test LCore.Extensions.L.List.ToList
+            // TODO: Implement method test LCore.Extensions.L.List.ToList
             }
 
         }

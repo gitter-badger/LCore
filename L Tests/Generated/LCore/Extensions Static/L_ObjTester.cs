@@ -19,67 +19,67 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         public void As()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Obj.As
+            // TODO: Implement method test LCore.Extensions.L.Obj.As
             }
 
         [Fact]
         public void Swap()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Obj.Swap
+            // TODO: Implement method test LCore.Extensions.L.Obj.Swap
             }
 
         [Fact]
         public void SafeEquals()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Obj.SafeEquals
+            // TODO: Implement method test LCore.Extensions.L.Obj.SafeEquals
             }
 
         [Fact]
         public void New()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Obj.New
+            // TODO: Implement method test LCore.Extensions.L.Obj.New
             }
 
         [Fact]
         public void NewRandom_Nullable_1_Nullable_1_T()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Obj.NewRandom
+            // TODO: Implement method test LCore.Extensions.L.Obj.NewRandom
             }
 
         [Fact]
         public void NewRandom_Type_Object_Object_Object()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Obj.NewRandom
+            // TODO: Implement method test LCore.Extensions.L.Obj.NewRandom
             }
 
         [Fact]
         public void IsNull()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Obj.IsNull
+            // TODO: Implement method test LCore.Extensions.L.Obj.IsNull
             }
 
         [Fact]
         public void IsA()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Obj.IsA
+            // TODO: Implement method test LCore.Extensions.L.Obj.IsA
             }
 
         [Fact]
         public void HasProperty()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Obj.HasProperty
+            // TODO: Implement method test LCore.Extensions.L.Obj.HasProperty
             }
 
         [Fact]
         public void GetProperty()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Obj.GetProperty
+            // TODO: Implement method test LCore.Extensions.L.Obj.GetProperty
             }
 
         [Fact]
         public void SetProperty()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Obj.SetProperty
+            // TODO: Implement method test LCore.Extensions.L.Obj.SetProperty
             }
 
         }

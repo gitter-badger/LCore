@@ -18,31 +18,31 @@ namespace LUnit_Tests.LCore.LUnit
         [Fact]
         public void FixParameterTypes()
             {
-            // TODO: Implement method Test LCore.LUnit.LUnit.FixParameterTypes
+            // TODO: Implement method test LCore.LUnit.LUnit.FixParameterTypes
             }
 
         [Fact]
         public void FixObject()
             {
-            // TODO: Implement method Test LCore.LUnit.LUnit.FixObject
+            // TODO: Implement method test LCore.LUnit.LUnit.FixObject
             }
 
         [Fact]
         public void GetMethodDelegate()
             {
-            // TODO: Implement method Test LCore.LUnit.LUnit.GetMethodDelegate
+            // TODO: Implement method test LCore.LUnit.LUnit.GetMethodDelegate
             }
 
         [Fact]
         public void GetCheckMethod()
             {
-            // TODO: Implement method Test LCore.LUnit.LUnit.GetCheckMethod
+            // TODO: Implement method test LCore.LUnit.LUnit.GetCheckMethod
             }
 
         [Fact]
         public void GetCheckMethodArg()
             {
-            // TODO: Implement method Test LCore.LUnit.LUnit.GetCheckMethodArg
+            // TODO: Implement method test LCore.LUnit.LUnit.GetCheckMethodArg
             }
 
         }

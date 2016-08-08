@@ -20,7 +20,7 @@ namespace L_Tests.LCore.Tools
         [Fact]
         public void FromString()
             {
-            // TODO: Implement method Test LCore.Tools.Schedule.FromString
+            // TODO: Implement method test LCore.Tools.Schedule.FromString
             }
 
         }

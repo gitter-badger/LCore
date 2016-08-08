@@ -17,13 +17,13 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         public void To_Int32_Int32_Func_1_List_1()
             {
-            // TODO: Implement method Test LCore.Extensions.LoopExt.To
+            // TODO: Implement method test LCore.Extensions.LoopExt.To
             }
 
         [Fact]
         public void To_Int32_Int32_Func_2_List_1()
             {
-            // TODO: Implement method Test LCore.Extensions.LoopExt.To
+            // TODO: Implement method test LCore.Extensions.LoopExt.To
             }
 
         }

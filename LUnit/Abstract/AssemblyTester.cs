@@ -216,7 +216,7 @@ namespace LCore.LUnit
                                         WriteStack3.Add($"       public void {MemberName}()");
                                         WriteStack3.Add("        {");
                                         WriteStack3.Add(
-                                        $"            // TODO: Implement method Test {TargetMember.FullyQualifiedName()}");
+                                        $"            // TODO: Implement method test {TargetMember.FullyQualifiedName()}");
                                         WriteStack3.Add("        }");
                                         WriteStack3.Add("        ");
                                         }

@@ -20,25 +20,25 @@ namespace L_Tests.LCore.Tools
         [Fact]
         public void op_Implicit_ExceptionList_Exception()
             {
-            // TODO: Implement method Test LCore.Tools.ExceptionList.op_Implicit
+            // TODO: Implement method test LCore.Tools.ExceptionList.op_Implicit
             }
 
         [Fact]
         public void op_Implicit_Exception_ExceptionList()
             {
-            // TODO: Implement method Test LCore.Tools.ExceptionList.op_Implicit
+            // TODO: Implement method test LCore.Tools.ExceptionList.op_Implicit
             }
 
         [Fact]
         public void op_Implicit_ExceptionList_List_1()
             {
-            // TODO: Implement method Test LCore.Tools.ExceptionList.op_Implicit
+            // TODO: Implement method test LCore.Tools.ExceptionList.op_Implicit
             }
 
         [Fact]
         public void op_Implicit_List_1_ExceptionList()
             {
-            // TODO: Implement method Test LCore.Tools.ExceptionList.op_Implicit
+            // TODO: Implement method test LCore.Tools.ExceptionList.op_Implicit
             }
 
         }

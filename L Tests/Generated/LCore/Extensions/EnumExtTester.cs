@@ -20,31 +20,31 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         public void ParseEnum_String_Type_Enum()
             {
-            // TODO: Implement method Test LCore.Extensions.EnumExt.ParseEnum
+            // TODO: Implement method test LCore.Extensions.EnumExt.ParseEnum
             }
 
         [Fact]
         public void ParseEnum_FriendlyName()
             {
-            // TODO: Implement method Test LCore.Extensions.EnumExt.ParseEnum_FriendlyName
+            // TODO: Implement method test LCore.Extensions.EnumExt.ParseEnum_FriendlyName
             }
 
         [Fact]
         public void GetFriendlyName()
             {
-            // TODO: Implement method Test LCore.Extensions.EnumExt.GetFriendlyName
+            // TODO: Implement method test LCore.Extensions.EnumExt.GetFriendlyName
             }
 
         [Fact]
         public void ParseEnum_String_Nullable_1()
             {
-            // TODO: Implement method Test LCore.Extensions.EnumExt.ParseEnum
+            // TODO: Implement method test LCore.Extensions.EnumExt.ParseEnum
             }
 
         [Fact]
         public void ParseEnum_Enum_Nullable_1()
             {
-            // TODO: Implement method Test LCore.Extensions.EnumExt.ParseEnum
+            // TODO: Implement method test LCore.Extensions.EnumExt.ParseEnum
             }
 
         }

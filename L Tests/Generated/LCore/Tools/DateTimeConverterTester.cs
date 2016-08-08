@@ -20,31 +20,31 @@ namespace L_Tests.LCore.Tools
         [Fact]
         public void Parse()
             {
-            // TODO: Implement method Test LCore.Tools.DateTimeConverter.Parse
+            // TODO: Implement method test LCore.Tools.DateTimeConverter.Parse
             }
 
         [Fact]
         public void ToString_DateTime_String()
             {
-            // TODO: Implement method Test LCore.Tools.DateTimeConverter.ToString
+            // TODO: Implement method test LCore.Tools.DateTimeConverter.ToString
             }
 
         [Fact]
         public void TryParse()
             {
-            // TODO: Implement method Test LCore.Tools.DateTimeConverter.TryParse
+            // TODO: Implement method test LCore.Tools.DateTimeConverter.TryParse
             }
 
         [Fact]
         public void get_Rfc3339DateTimeFormat()
             {
-            // TODO: Implement method Test LCore.Tools.DateTimeConverter.get_Rfc3339DateTimeFormat
+            // TODO: Implement method test LCore.Tools.DateTimeConverter.get_Rfc3339DateTimeFormat
             }
 
         [Fact]
         public void get_Rfc3339DateTimePatterns()
             {
-            // TODO: Implement method Test LCore.Tools.DateTimeConverter.get_Rfc3339DateTimePatterns
+            // TODO: Implement method test LCore.Tools.DateTimeConverter.get_Rfc3339DateTimePatterns
             }
 
         }

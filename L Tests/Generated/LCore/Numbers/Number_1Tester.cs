@@ -19,25 +19,25 @@ namespace L_Tests.LCore.Numbers
         [Fact]
         public void op_Division()
             {
-            // TODO: Implement method Test LCore.Numbers.Number`1.op_Division
+            // TODO: Implement method test LCore.Numbers.Number`1.op_Division
             }
 
         [Fact]
         public void op_Multiply()
             {
-            // TODO: Implement method Test LCore.Numbers.Number`1.op_Multiply
+            // TODO: Implement method test LCore.Numbers.Number`1.op_Multiply
             }
 
         [Fact]
         public void op_Subtraction()
             {
-            // TODO: Implement method Test LCore.Numbers.Number`1.op_Subtraction
+            // TODO: Implement method test LCore.Numbers.Number`1.op_Subtraction
             }
 
         [Fact]
         public void op_Addition()
             {
-            // TODO: Implement method Test LCore.Numbers.Number`1.op_Addition
+            // TODO: Implement method test LCore.Numbers.Number`1.op_Addition
             }
 
         }

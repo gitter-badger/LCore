@@ -21,54 +21,54 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         public void Merge()
             {
-            // TODO: Implement method Test LCore.Extensions.DictionaryExt.Merge
+            // TODO: Implement method test LCore.Extensions.DictionaryExt.Merge
             }
 
         [Fact]
         public void AddRange()
             {
-            // TODO: Implement method Test LCore.Extensions.DictionaryExt.AddRange
+            // TODO: Implement method test LCore.Extensions.DictionaryExt.AddRange
             }
 
         [Fact]
         public void GetAllValues()
             {
-            // TODO: Implement method Test LCore.Extensions.DictionaryExt.GetAllValues
+            // TODO: Implement method test LCore.Extensions.DictionaryExt.GetAllValues
             }
 
         [Fact]
         public void SafeAdd()
             {
-            // TODO: Implement method Test LCore.Extensions.DictionaryExt.SafeAdd
+            // TODO: Implement method test LCore.Extensions.DictionaryExt.SafeAdd
             }
 
         [Fact]
         public void SafeSet()
             {
-            // TODO: Implement method Test LCore.Extensions.DictionaryExt.SafeSet
+            // TODO: Implement method test LCore.Extensions.DictionaryExt.SafeSet
             }
 
         [Fact]
         public void SafeGet()
             {
-            // TODO: Implement method Test LCore.Extensions.DictionaryExt.SafeGet
+            // TODO: Implement method test LCore.Extensions.DictionaryExt.SafeGet
             }
         [Fact]
         public void Flip()
             {
-            // TODO: Implement method Test LCore.Extensions.DictionaryExt.Flip
+            // TODO: Implement method test LCore.Extensions.DictionaryExt.Flip
             }
 
         [Fact]
         public void SafeRemove()
             {
-            // TODO: Implement method Test LCore.Extensions.DictionaryExt.SafeRemove
+            // TODO: Implement method test LCore.Extensions.DictionaryExt.SafeRemove
             }
 
         [Fact]
         public void ToDictionary_IEnumerable_1_Dictionary_2()
             {
-            // TODO: Implement method Test LCore.Extensions.DictionaryExt.ToDictionary
+            // TODO: Implement method test LCore.Extensions.DictionaryExt.ToDictionary
             }
 
         }

@@ -16,25 +16,25 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         public void TestMethod()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Comment.Test.TestMethod
+            // TODO: Implement method test LCore.Extensions.L.Comment.Test.TestMethod
             }
 
         [Fact]
         public void TestMethod2()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Comment.Test.TestMethod2
+            // TODO: Implement method test LCore.Extensions.L.Comment.Test.TestMethod2
             }
 
         [Fact]
         public void get_TestProperty()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Comment.Test.get_TestProperty
+            // TODO: Implement method test LCore.Extensions.L.Comment.Test.get_TestProperty
             }
 
         [Fact]
         public void set_TestProperty()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Comment.Test.set_TestProperty
+            // TODO: Implement method test LCore.Extensions.L.Comment.Test.set_TestProperty
             }
 
         }

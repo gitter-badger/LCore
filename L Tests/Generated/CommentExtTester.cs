@@ -17,7 +17,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         public void GetComments()
             {
-            // TODO: Implement method Test LCore.Extensions.CommentExt.GetComments
+            // TODO: Implement method test LCore.Extensions.CommentExt.GetComments
             }
 
         }

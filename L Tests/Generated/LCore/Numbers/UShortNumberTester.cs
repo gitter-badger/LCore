@@ -20,7 +20,7 @@ namespace L_Tests.LCore.Numbers
         [Fact]
         public void op_Implicit()
             {
-            // TODO: Implement method Test LCore.Numbers.UShortNumber.op_Implicit
+            // TODO: Implement method test LCore.Numbers.UShortNumber.op_Implicit
             }
 
         }

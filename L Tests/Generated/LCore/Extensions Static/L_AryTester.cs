@@ -19,13 +19,13 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         public void Array_Func_1()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Ary.Array
+            // TODO: Implement method test LCore.Extensions.L.Ary.Array
             }
 
         [Fact]
         public void Array_T_Func_1()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Ary.Array
+            // TODO: Implement method test LCore.Extensions.L.Ary.Array
             }
 
         }

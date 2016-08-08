@@ -20,67 +20,67 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         public void Constant()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Ref.Constant
+            // TODO: Implement method test LCore.Extensions.L.Ref.Constant
             }
 
         [Fact]
         public void Constructor()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Ref.Constructor
+            // TODO: Implement method test LCore.Extensions.L.Ref.Constructor
             }
 
         [Fact]
         public void FindType()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Ref.FindType
+            // TODO: Implement method test LCore.Extensions.L.Ref.FindType
             }
 
         [Fact]
         public void FindMember()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Ref.FindMember
+            // TODO: Implement method test LCore.Extensions.L.Ref.FindMember
             }
 
         [Fact]
         public void GetNamespaceTypes_String_Type_Type()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Ref.GetNamespaceTypes
+            // TODO: Implement method test LCore.Extensions.L.Ref.GetNamespaceTypes
             }
 
         [Fact]
         public void GetNamespaceTypes_Type_String_Type_Type()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Ref.GetNamespaceTypes
+            // TODO: Implement method test LCore.Extensions.L.Ref.GetNamespaceTypes
             }
 
         [Fact]
         public void GetNamespaceTypes_Assembly_String_Type_Type()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Ref.GetNamespaceTypes
+            // TODO: Implement method test LCore.Extensions.L.Ref.GetNamespaceTypes
             }
 
         [Fact]
         public void Member()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Ref.Member
+            // TODO: Implement method test LCore.Extensions.L.Ref.Member
             }
 
         [Fact]
         public void Method()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Ref.Method
+            // TODO: Implement method test LCore.Extensions.L.Ref.Method
             }
 
         [Fact]
         public void StaticMethod()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Ref.StaticMethod
+            // TODO: Implement method test LCore.Extensions.L.Ref.StaticMethod
             }
 
         [Fact]
         public void Event()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Ref.Event
+            // TODO: Implement method test LCore.Extensions.L.Ref.Event
             }
 
         }

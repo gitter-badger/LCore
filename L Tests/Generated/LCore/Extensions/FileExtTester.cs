@@ -22,55 +22,55 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         public void EnsurePathExists()
             {
-            // TODO: Implement method Test LCore.Extensions.FileExt.EnsurePathExists
+            // TODO: Implement method test LCore.Extensions.FileExt.EnsurePathExists
             }
 
         [Fact]
         public void CleanFileName()
             {
-            // TODO: Implement method Test LCore.Extensions.FileExt.CleanFileName
+            // TODO: Implement method test LCore.Extensions.FileExt.CleanFileName
             }
 
         [Fact]
         public void EveryOtherByte()
             {
-            // TODO: Implement method Test LCore.Extensions.FileExt.EveryOtherByte
+            // TODO: Implement method test LCore.Extensions.FileExt.EveryOtherByte
             }
 
         [Fact]
         public void GetFileStream()
             {
-            // TODO: Implement method Test LCore.Extensions.FileExt.GetFileStream
+            // TODO: Implement method test LCore.Extensions.FileExt.GetFileStream
             }
 
         [Fact]
         public void GetFileHash()
             {
-            // TODO: Implement method Test LCore.Extensions.FileExt.GetFileHash
+            // TODO: Implement method test LCore.Extensions.FileExt.GetFileHash
             }
 
         [Fact]
         public void GetMemoryStream()
             {
-            // TODO: Implement method Test LCore.Extensions.FileExt.GetMemoryStream
+            // TODO: Implement method test LCore.Extensions.FileExt.GetMemoryStream
             }
 
         [Fact]
         public void GetStreamHash()
             {
-            // TODO: Implement method Test LCore.Extensions.FileExt.GetStreamHash
+            // TODO: Implement method test LCore.Extensions.FileExt.GetStreamHash
             }
 
         [Fact]
         public void GetStringHash()
             {
-            // TODO: Implement method Test LCore.Extensions.FileExt.GetStringHash
+            // TODO: Implement method test LCore.Extensions.FileExt.GetStringHash
             }
 
         [Fact]
         public void ReadAllBytes()
             {
-            // TODO: Implement method Test LCore.Extensions.FileExt.ReadAllBytes
+            // TODO: Implement method test LCore.Extensions.FileExt.ReadAllBytes
             }
 
         }

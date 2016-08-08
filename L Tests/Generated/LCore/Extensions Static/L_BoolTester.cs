@@ -21,19 +21,19 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         public void L_If_A_Func_3()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Bool.L_If_A
+            // TODO: Implement method test LCore.Extensions.L.Bool.L_If_A
             }
 
         [Fact]
         public void L_If_F_Func_3()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Bool.L_If_F
+            // TODO: Implement method test LCore.Extensions.L.Bool.L_If_F
             }
 
         [Fact]
         public void L_IfElse_Func_4()
             {
-            // TODO: Implement method Test LCore.Extensions.L.Bool.L_IfElse
+            // TODO: Implement method test LCore.Extensions.L.Bool.L_IfElse
             }
 
         }
