@@ -187,15 +187,48 @@ namespace LCore.LUnit
             if (Member is Type)
                 return new Tuple<string, string, string>(
                     string.Format(TestNamespaceFormat, ((Type)Member).GetAssembly()?.GetName().Name, ((Type)Member).Namespace),
-                    string.Format(TestClassFormat, ((Type)Member).GetNestedNames()), "");
+                    string.Format(TestClassFormat, ((Type)Member).GetNestedNames()).ReplaceAll(new Dictionary<string, string> { ["`"] = "_" }),
+                    "");
 
             if (Member.DeclaringType == null)
                 return null;
 
-            return new Tuple<string, string, string>(
-                string.Format(TestNamespaceFormat, Member.GetAssembly()?.GetName().Name, Member.GetNamespace()),
-                string.Format(TestClassFormat, Member.DeclaringType?.Name, ""),
-                string.Format(TestMethodFormat, Member.Name));
+            MemberInfo[] DuplicateMembers = Member.DeclaringType.GetMember(Member.Name);
+
+            if (DuplicateMembers.Length == 1)
+                {
+                return new Tuple<string, string, string>(
+                    string.Format(TestNamespaceFormat, Member.GetAssembly()?.GetName().Name, Member.GetNamespace()),
+                    string.Format(TestClassFormat, Member.DeclaringType?.Name, "")
+                        .ReplaceAll(new Dictionary<string, string> { ["`"] = "_" }),
+                    string.Format(TestMethodFormat, Member.Name));
+                }
+
+            if (DuplicateMembers.Length > 1)
+                {
+                // differing parameters
+                if (Member is MethodInfo)
+                    {
+                    return new Tuple<string, string, string>(
+                        string.Format(TestNamespaceFormat, Member.GetAssembly()?.GetName().Name, Member.GetNamespace()),
+                        string.Format(TestClassFormat, Member.DeclaringType?.Name, "")
+                            .ReplaceAll(new Dictionary<string, string>
+                                {
+                                ["`"] = "_"
+                                }),
+                        $"{string.Format(TestMethodFormat, Member.Name)}_{((MethodInfo)Member).GetParameters().Convert(Param => Param.ParameterType.Name).Combine("_")}_{((MethodInfo)Member).ReturnType.Name}"
+                            .ReplaceAll(new Dictionary<string, string>
+                                {
+                                ["`"] = "_",
+                                ["["] = "",
+                                ["]"] = ""
+                                })
+                        );
+                    }
+                }
+
+
+            return null;
             }
         #endregion
         }

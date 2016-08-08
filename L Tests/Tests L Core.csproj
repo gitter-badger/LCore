@@ -164,6 +164,7 @@
     <Compile Include="Tests\Extensions\Object Types\ReflectionExtTest.cs" />
     <Compile Include="Tests\Extensions\Methods\EnumerableExtTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\Test.cs" />
     <Compile Include="Tests\LCoreAssemblyTester.cs" />
     <Compile Include="Tests\Numbers\NumberTest.cs" />
     <Compile Include="Tests\Static\L.Num.Test.cs" />

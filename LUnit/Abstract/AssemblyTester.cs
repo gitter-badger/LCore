@@ -103,12 +103,13 @@ namespace LCore.LUnit
         // ReSharper disable FormatStringProblem
         public void AssemblyMissingCoverage()
             {
+            this._Output.WriteLine("/*");
             this._Output.WriteLine($"Covering Assembly: {this.Assembly.GetName().Name}");
             this._Output.WriteLine("");
             this._Output.WriteLine("Cover application using naming conventions.");
             this._Output.WriteLine("");
             this._Output.WriteLine("");
-            this._Output.WriteLine("Missing Methods:");
+            this._Output.WriteLine("Missing Methods:                    */");
 
             Type[] Types = this.AssemblyTypes.WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>(false).Array();
 
@@ -116,9 +117,9 @@ namespace LCore.LUnit
                 {
                 Dictionary<MemberInfo, List<ILUnitAttribute>> Members = Type.GetTestMembers();
 
-                List<Tuple<string, string, string>> MemberNaming = Members.Keys.Convert(Member => Member.GetTargetingName()).List();
+                Dictionary<MemberInfo, Tuple<string, string, string>> MemberNaming = Members.Keys.Index(Member => Member.GetTargetingName()).Flip();
 
-                Dictionary<string, Dictionary<string, List<string>>> MemberTable = MemberNaming.ToDictionary();
+                Dictionary<string, Dictionary<string, List<string>>> MemberTable = MemberNaming.Values.ToDictionary();
 
                 MemberTable.Keys.Each(Namespace =>
                     {
@@ -135,14 +136,16 @@ namespace LCore.LUnit
                                 List<string> MemberNames = Classes[Class];
 
                                 MemberNames.Each(MemberName =>
-                                {
-                                    this._Output.WriteLine("        [Fact]");
-                                    this._Output.WriteLine($"       public void {MemberName}()");
-                                    this._Output.WriteLine("        {");
-                                    this._Output.WriteLine($"            // TODO: Implement method Test {Class}.{MemberName}");
-                                    this._Output.WriteLine("        }");
-                                    this._Output.WriteLine("        ");
-                                });
+                                    {
+                                        var TargetMember = MemberNaming.First(Member => Member.Value.Item3 == MemberName).Key;
+
+                                        this._Output.WriteLine("        [Fact]");
+                                        this._Output.WriteLine($"       public void {MemberName}()");
+                                        this._Output.WriteLine("        {");
+                                        this._Output.WriteLine($"            // TODO: Implement method Test {TargetMember.FullyQualifiedName()}");
+                                        this._Output.WriteLine("        }");
+                                        this._Output.WriteLine("        ");
+                                    });
                                 this._Output.WriteLine("    }");
                             });
 

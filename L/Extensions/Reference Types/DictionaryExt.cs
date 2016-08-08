@@ -16,6 +16,29 @@ namespace LCore.Extensions
         {
         #region Extensions +
 
+        #region Flip
+        /// <summary>
+        /// Flips the Keys and Values in a Dictionary.
+        /// If duplicate Values are found in the source Dictionary, only the first will 
+        /// be included in the result.
+        /// </summary>
+        public static Dictionary<TValue, TKey> Flip<TKey, TValue>([CanBeNull]this Dictionary<TKey, TValue> In)
+            {
+            var Out = new Dictionary<TValue, TKey>();
+
+            if (In != null)
+                {
+                foreach (KeyValuePair<TKey, TValue> ValueKey in In)
+                    {
+                    if (!Out.ContainsKey(ValueKey.Value))
+                        Out.Add(ValueKey.Value, ValueKey.Key);
+                    }
+                }
+
+            return Out;
+            }
+        #endregion
+
         #region Merge
 
         /// <summary>
