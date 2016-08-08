@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit;
@@ -16,6 +17,12 @@ namespace LCore.Tests
 
         protected override bool EnforceNullabilityAttributes => true;
 
-        public LCoreAssemblyTester([NotNull] ITestOutputHelper Output) : base(Output) {}
+        protected override Assembly[] TestAssemblies => new[]
+            {
+            Assembly.GetAssembly(typeof(L_Tests.LCore.Extensions.LTester)),
+            Assembly.GetAssembly(typeof(L_Tests.LCore.Extensions.ThreadExtTester))
+            };
+
+        public LCoreAssemblyTester([NotNull] ITestOutputHelper Output) : base(Output) { }
         }
     }

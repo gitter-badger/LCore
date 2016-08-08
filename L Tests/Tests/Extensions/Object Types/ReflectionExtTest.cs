@@ -64,24 +64,24 @@ namespace LCore.Tests.Extensions
             {
             typeof(TestBaseClass2).FindMethod("wrong").Should().BeNull();
 
-            typeof(TestBaseClass2).FindMethod(nameof(TestBaseClass2.Test4), new Type[] {})
+            typeof(TestBaseClass2).FindMethod(nameof(TestBaseClass2.Test4), new Type[] { })
                 .Should().NotBeNull();
 
-            typeof(TestBaseClass2).FindMethod(nameof(TestBaseClass2.Test5), new Type[] {})
+            typeof(TestBaseClass2).FindMethod(nameof(TestBaseClass2.Test5), new Type[] { })
                 .Should().BeNull();
 
-            typeof(TestBaseClass2).FindMethod(nameof(TestBaseClass2.Test5), new[] {typeof(string)})
+            typeof(TestBaseClass2).FindMethod(nameof(TestBaseClass2.Test5), new[] { typeof(string) })
                 .Should().NotBeNull();
-            typeof(TestBaseClass2).FindMethod(nameof(TestBaseClass2.Test5), new[] {typeof(string), typeof(string)})
-                .Should().NotBeNull();
-            typeof(TestBaseClass2).FindMethod(nameof(TestBaseClass2.Test5),
-                new[] {typeof(string), typeof(string), typeof(string)})
+            typeof(TestBaseClass2).FindMethod(nameof(TestBaseClass2.Test5), new[] { typeof(string), typeof(string) })
                 .Should().NotBeNull();
             typeof(TestBaseClass2).FindMethod(nameof(TestBaseClass2.Test5),
-                new[] {typeof(string), typeof(string), typeof(string), typeof(string)})
+                new[] { typeof(string), typeof(string), typeof(string) })
                 .Should().NotBeNull();
             typeof(TestBaseClass2).FindMethod(nameof(TestBaseClass2.Test5),
-                new[] {typeof(string), typeof(string), typeof(string), typeof(string), typeof(string)})
+                new[] { typeof(string), typeof(string), typeof(string), typeof(string) })
+                .Should().NotBeNull();
+            typeof(TestBaseClass2).FindMethod(nameof(TestBaseClass2.Test5),
+                new[] { typeof(string), typeof(string), typeof(string), typeof(string), typeof(string) })
                 .Should().BeNull();
 
             typeof(TestBaseClass2).FindMethod<string>(nameof(TestBaseClass2.Test5))
@@ -95,7 +95,7 @@ namespace LCore.Tests.Extensions
             typeof(TestBaseClass2).FindMethod<string, string, string, int>(nameof(TestBaseClass2.Test5))
                 .Should().BeNull();
 
-            typeof(TestBaseClass2).FindMethod(nameof(TestBaseClass2.Test5), new[] {typeof(string)})
+            typeof(TestBaseClass2).FindMethod(nameof(TestBaseClass2.Test5), new[] { typeof(string) })
                 .Should().NotBeNull();
 
             // ReSharper disable once RedundantNameQualifier
@@ -106,7 +106,7 @@ namespace LCore.Tests.Extensions
             typeof(int).FindMethod("ToString").Should().NotBeNull();
 
             // Tests underlying type method finding
-            typeof(int).FindMethod("Equals", new[] {typeof(object), typeof(object)}).Should().NotBeNull();
+            typeof(int).FindMethod("Equals", new[] { typeof(object), typeof(object) }).Should().NotBeNull();
             }
 
 
@@ -158,7 +158,7 @@ namespace LCore.Tests.Extensions
 
             Member.GetAttribute<ITestedAttribute>().Should().BeNull();
 
-            ((ICustomAttributeProvider) null).GetAttribute<FriendlyNameAttribute>().Should().BeNull();
+            ((ICustomAttributeProvider)null).GetAttribute<FriendlyNameAttribute>().Should().BeNull();
             }
 
 
@@ -210,7 +210,7 @@ namespace LCore.Tests.Extensions
             L.Ref.Method<TestClass>(Class => Class.Test5("")).GetParameters().First()
                 .GetAttributeTypeName().Should().Be("LCore.Tests.Extensions.ReflectionExtTest+TestBaseClass2");
 
-            new AttributeList("name", new Attribute[] {}).GetAttributeTypeName().Should().Be("name");
+            new AttributeList("name", new Attribute[] { }).GetAttributeTypeName().Should().Be("name");
 
             L.A(() => new TestClassGeneric1<string>().GetAttributeTypeName()).ShouldFail();
 
@@ -309,7 +309,7 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_GetValue()
             {
-            var Test = new TestClass {Test = "a", Test6 = "b"};
+            var Test = new TestClass { Test = "a", Test6 = "b" };
 
             var Member = L.Ref.Member<TestClass>(Class => Class.Test);
             var Member2 = L.Ref.Member<TestClass>(Class => Class.Test6);
@@ -328,7 +328,7 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_GetValues()
             {
-            var Test = new TestClass {Test = "a", Test6 = "b"};
+            var Test = new TestClass { Test = "a", Test6 = "b" };
 
             typeof(TestClass).GetValues<string>(Test).Should().Equal("a", "6", "b");
 
@@ -348,7 +348,7 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_GetTypes()
             {
-            var Test = new object[] {0, "a", (double) -3, -5.5f};
+            var Test = new object[] { 0, "a", (double)-3, -5.5f };
 
             Test.GetTypes().Should().Equal(typeof(int), typeof(string), typeof(double), typeof(float));
 
@@ -365,9 +365,9 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_HasAttribute()
             {
-            ((Type) null).HasAttribute<FriendlyNameAttribute>().Should().BeFalse();
-            ((Type) null).HasAttribute<FriendlyNameAttribute>(true).Should().BeFalse();
-            ((Type) null).HasAttribute(typeof(FriendlyNameAttribute), true).Should().BeFalse();
+            ((Type)null).HasAttribute<FriendlyNameAttribute>().Should().BeFalse();
+            ((Type)null).HasAttribute<FriendlyNameAttribute>(true).Should().BeFalse();
+            ((Type)null).HasAttribute(typeof(FriendlyNameAttribute), true).Should().BeFalse();
 
             typeof(TestClass).HasAttribute<FriendlyNameAttribute>().Should().BeTrue();
             typeof(TestClass).HasAttribute<FriendlyNameAttribute>(true).Should().BeTrue();
@@ -401,8 +401,8 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_HasInterface()
             {
-            ((Type) null).HasInterface<IFriendlyName>().Should().BeFalse();
-            ((Type) null).HasInterface(typeof(IFriendlyName)).Should().BeFalse();
+            ((Type)null).HasInterface<IFriendlyName>().Should().BeFalse();
+            ((Type)null).HasInterface(typeof(IFriendlyName)).Should().BeFalse();
 
             typeof(TestClass).HasInterface<ITest2>().Should().BeTrue();
             typeof(TestClass).HasInterface(typeof(ITest2)).Should().BeTrue();
@@ -428,7 +428,7 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_HasSetter()
             {
-            ((MemberInfo) null).HasSetter().Should().BeFalse();
+            ((MemberInfo)null).HasSetter().Should().BeFalse();
 
             L.Ref.Member<TestClass>(Test => Test.Test)
                 .Should().NotBeNull().And.Subject.As<MemberInfo>()
@@ -481,7 +481,7 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_InstantiateValues()
             {
-            var Test = new TestClass {Test = "a", Test6 = "b"};
+            var Test = new TestClass { Test = "a", Test6 = "b" };
 
             typeof(TestClass).GetValues<object>(Test).Should().Equal(
                 "a",
@@ -494,27 +494,27 @@ namespace LCore.Tests.Extensions
             typeof(TestClass).GetValues<object>(Test).Should().Equal("a", "6", "b");
 
 
-            Test = new TestClass {Test = "a", Test6 = "b"};
+            Test = new TestClass { Test = "a", Test6 = "b" };
 
             typeof(TestClass).InstantiateValues<string>(Test, true);
             typeof(TestClass).InstantiateValues<TestClass>(Test, true);
             typeof(TestClass).GetValues<object>(Test).ShouldBeEquivalentTo(
-                new List<object> {"a", "6", "b", "", "", "", new TestClass()});
+                new List<object> { "a", "6", "b", "", "", "", new TestClass() });
 
-            Test = new TestClass {Test = "a", Test6 = "b"};
+            Test = new TestClass { Test = "a", Test6 = "b" };
 
             typeof(TestClass).GetMembers().InstantiateValues<string>(Test);
             typeof(TestClass).GetMembers().InstantiateValues<TestClass>(Test);
             typeof(TestClass).GetValues<object>(Test).ShouldBeEquivalentTo(
-                new List<object> {"a", "6", "b", "", "", "", new TestClass()});
+                new List<object> { "a", "6", "b", "", "", "", new TestClass() });
             }
 
 
         [Fact]
         public void Test_IsType()
             {
-            ((object) null).IsType<object>().Should().BeFalse();
-            ((object) null).IsType(typeof(object)).Should().BeFalse();
+            ((object)null).IsType<object>().Should().BeFalse();
+            ((object)null).IsType(typeof(object)).Should().BeFalse();
 
             "".IsType<string>().Should().BeTrue();
             "".IsType(typeof(string)).Should().BeTrue();
@@ -634,10 +634,10 @@ namespace LCore.Tests.Extensions
             L.Obj.New<TestClassGeneric1<int>>().ShouldBeEquivalentTo(new TestClassGeneric1<int>());
             L.Obj.New<TestClassGeneric2<string, int>>("a").ShouldBeEquivalentTo(new TestClassGeneric2<string, int>("a"));
 
-            typeof(TestClassGeneric2<,>).New(new object[] {"a"}, typeof(TestClassGeneric2<string, int>))
+            typeof(TestClassGeneric2<,>).New(new object[] { "a" }, typeof(TestClassGeneric2<string, int>))
                 .ShouldBeEquivalentTo(new TestClassGeneric2<string, int>("a"));
 
-            typeof(TestClassGeneric2<,>).New(new object[] {"a"}, typeof(TestClassGeneric2<int, int>))
+            typeof(TestClassGeneric2<,>).New(new object[] { "a" }, typeof(TestClassGeneric2<int, int>))
                 .ShouldBeEquivalentTo(new TestClassGeneric2<int, int>("a"));
             }
 
@@ -678,7 +678,7 @@ namespace LCore.Tests.Extensions
             L.Ref.StaticMethod(() => L.Ref.FindType(""))
                 .ToInvocationSignature()
                 .Should()
-                .Be("L.Ref.FindType(String) => Type");
+                .Be("L.Ref.FindType(String, Assembly[]) => Type");
             }
 
 
@@ -731,7 +731,7 @@ namespace LCore.Tests.Extensions
         public void Test_WithoutAttribute()
             {
             typeof(TestClass).GetMembers()
-                .Select(Member => !(Member is MethodInfo && ((MethodInfo) Member).IsSpecialName))
+                .Select(Member => !(Member is MethodInfo && ((MethodInfo)Member).IsSpecialName))
                 .WithoutAttribute<NotMappedAttribute>().ShouldBeEquivalentTo(new List<MemberInfo>
                     {
                     L.Ref.Method<TestClass>(Test => Test.Test4()),
@@ -757,7 +757,7 @@ namespace LCore.Tests.Extensions
                     }
                 );
             typeof(TestClass).GetMembers()
-                .Select(Member => !(Member is MethodInfo && ((MethodInfo) Member).IsSpecialName))
+                .Select(Member => !(Member is MethodInfo && ((MethodInfo)Member).IsSpecialName))
                 .WithoutAttribute<ILUnitAttribute>().ShouldBeEquivalentTo(new List<MemberInfo>
                     {
                     L.Ref.Method<TestClass>(Test => Test.Test4()),
@@ -786,7 +786,7 @@ namespace LCore.Tests.Extensions
 
 
             typeof(TestClass).GetMembers()
-                .Select(Member => !(Member is MethodInfo && ((MethodInfo) Member).IsSpecialName))
+                .Select(Member => !(Member is MethodInfo && ((MethodInfo)Member).IsSpecialName))
                 .WithoutAttribute(typeof(NotMappedAttribute)).ShouldBeEquivalentTo(new List<MemberInfo>
                     {
                     L.Ref.Method<TestClass>(Test => Test.Test4()),
@@ -812,7 +812,7 @@ namespace LCore.Tests.Extensions
                     }
                 );
             typeof(TestClass).GetMembers()
-                .Select(Member => !(Member is MethodInfo && ((MethodInfo) Member).IsSpecialName))
+                .Select(Member => !(Member is MethodInfo && ((MethodInfo)Member).IsSpecialName))
                 .WithoutAttribute(typeof(ILUnitAttribute)).ShouldBeEquivalentTo(new List<MemberInfo>
                     {
                     L.Ref.Method<TestClass>(Test => Test.Test4()),
@@ -906,7 +906,7 @@ namespace LCore.Tests.Extensions
 
             (typeof(TestClassIndexer).IndexGetter<int, string>().Should().BeAssignableTo<PropertyInfo>()
                 .And.Should().NotBeNull()
-                .And.Subject as PropertyInfo)?.GetMethod.Invoke(Test, new object[] {5}).Should().Be("5");
+                .And.Subject as PropertyInfo)?.GetMethod.Invoke(Test, new object[] { 5 }).Should().Be("5");
             typeof(TestClassIndexer).IndexGetter<string, int?>().Should().BeAssignableTo<PropertyInfo>()
                 .And.Should().NotBeNull();
             typeof(TestClassIndexer).IndexGetter<string, string>().Should().BeNull();
@@ -937,13 +937,13 @@ namespace LCore.Tests.Extensions
 
             (typeof(TestClassIndexer).IndexSetter<int>().Should().BeAssignableTo<PropertyInfo>()
                 .And.Should().NotBeNull()
-                .And.Subject as PropertyInfo)?.SetMethod.Invoke(Test, new object[] {5, "5"});
+                .And.Subject as PropertyInfo)?.SetMethod.Invoke(Test, new object[] { 5, "5" });
             typeof(TestClassIndexer).IndexSetter<string>().Should().BeNull();
             typeof(TestClassIndexer).IndexSetter<object>().Should().BeNull();
 
             (typeof(TestClassIndexer).IndexSetter<int, string>().Should().BeAssignableTo<PropertyInfo>()
                 .And.Should().NotBeNull()
-                .And.Subject as PropertyInfo)?.SetMethod.Invoke(Test, new object[] {5, "5"});
+                .And.Subject as PropertyInfo)?.SetMethod.Invoke(Test, new object[] { 5, "5" });
             typeof(TestClassIndexer).IndexSetter<string, int?>().Should().BeNull();
             typeof(TestClassIndexer).IndexSetter<string, string>().Should().BeNull();
             typeof(TestClassIndexer).IndexSetter<int, int>().Should().BeNull();
@@ -968,7 +968,7 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_Helpers()
             {
-            var Test = new TestClass {Test = "A"};
+            var Test = new TestClass { Test = "A" };
 
             Test.Test.Should().Be("A");
             Test.Test2 = "A";
@@ -981,7 +981,7 @@ namespace LCore.Tests.Extensions
             Test.Test5("", "", "");
             Test.Test5("", "", "", "");
 
-            var Test2 = new TestBaseClass {Test2 = "A"};
+            var Test2 = new TestBaseClass { Test2 = "A" };
 
             Test2.Test2.Should().Be("A");
             Test2.Test3 = "A";
@@ -1073,15 +1073,15 @@ namespace LCore.Tests.Extensions
                 this.Test13 = this.Test13;
                 }
 
-            [TestResult(new object[] {}, 1)]
-            [TestResult(new object[] {}, 2)]
-            [TestResult(new object[] {}, 3)]
-            [TestResult(new object[] {}, 4)]
-            public void Test5(string Str) {}
+            [TestResult(new object[] { }, 1)]
+            [TestResult(new object[] { }, 2)]
+            [TestResult(new object[] { }, 3)]
+            [TestResult(new object[] { }, 4)]
+            public void Test5(string Str) { }
 
-            public void Test5(string Str, string Str2) {}
-            public void Test5(string Str, string Str2, string Str3) {}
-            public void Test5(string Str, string Str2, string Str3, string Str4) {}
+            public void Test5(string Str, string Str2) { }
+            public void Test5(string Str, string Str2, string Str3) { }
+            public void Test5(string Str, string Str2, string Str3, string Str4) { }
 
             public event EventHandler Test7;
 
@@ -1094,20 +1094,20 @@ namespace LCore.Tests.Extensions
 
             public TestClass Test14 { get; set; }
 
-            public TestBaseClass2() {}
-            public TestBaseClass2(string Str) {}
-            public TestBaseClass2(string Str, string Str2) {}
-            public TestBaseClass2(string Str, string Str2, string Str3) {}
-            public TestBaseClass2(string Str, string Str2, string Str3, string Str4) {}
+            public TestBaseClass2() { }
+            public TestBaseClass2(string Str) { }
+            public TestBaseClass2(string Str, string Str2) { }
+            public TestBaseClass2(string Str, string Str2, string Str3) { }
+            public TestBaseClass2(string Str, string Str2, string Str3, string Str4) { }
 
-            public class TestSubClass {}
+            public class TestSubClass { }
 
-            public class TestSubClass2 {}
+            public class TestSubClass2 { }
             }
 
-        internal interface ITest {}
+        internal interface ITest { }
 
-        internal interface ITest2 {}
+        internal interface ITest2 { }
 
         internal class TestMember : MemberInfo
             {
@@ -1135,8 +1135,8 @@ namespace LCore.Tests.Extensions
         #endregion
 
         [ExcludeFromCodeCoverage]
-        internal class DynamicShim<T> : DynamicObject {}
+        internal class DynamicShim<T> : DynamicObject { }
 
-        public ReflectionExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
+        public ReflectionExtTest([NotNull] ITestOutputHelper Output) : base(Output) { }
         }
     }

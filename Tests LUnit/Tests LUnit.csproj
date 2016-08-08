@@ -80,10 +80,13 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Generated\LCore\LUnit\Assert\AssertionExtTester.cs" />
+    <Compile Include="Generated\LCore\LUnit\LUnitTester.cs" />
+    <Compile Include="Generated\LCore\LUnit\TestExtTester.cs" />
     <Compile Include="Tests\LCoreAssemblyTester.cs" />
     <Compile Include="Tests\Extensions\TestExtTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tests\Test.cs" />
+    <Compile Include="Generated\LCore\LUnit\Fluent\FluentExtTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

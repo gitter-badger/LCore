@@ -340,12 +340,13 @@ namespace LCore.Extensions
         [CanBeNull]
         public static IComparer<T> GetComparer<T>([CanBeNull] this MemberInfo In)
             {
-            var Type = In.GetMemberType();
+            var Type = In?.GetMemberType();
 
-            if (Type != null && Type.HasInterface<IComparable>() && typeof(T) != typeof(object))
+            if (Type != null && typeof(T) != typeof(object))
                 {
                 return (IComparer<T>)new ComparableComparer();
                 }
+
             return null;
             }
 
@@ -381,6 +382,9 @@ namespace LCore.Extensions
         [CanBeNull]
         public static Type GetMemberType([CanBeNull] this MemberInfo In)
             {
+            if (In == null)
+                return null;
+
             var EventInfo = In as EventInfo;
             if (EventInfo != null)
                 {
@@ -1317,14 +1321,17 @@ namespace LCore.Extensions
             /// Finds a type by name in all current assemblies.
             /// </summary>
             [CanBeNull]
-            public static Type FindType([CanBeNull] string TypeName)
+            public static Type FindType([CanBeNull] string TypeName, [CanBeNull]  params Assembly[] Assemblies)
                 {
+                if (Assemblies == null || Assemblies.Length == 0)
+                    Assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
                 var Out = Type.GetType(TypeName);
 
                 if (Out != null)
                     return Out;
 
-                foreach (var Assembly in AppDomain.CurrentDomain.GetAssemblies())
+                foreach (var Assembly in Assemblies)
                     {
                     Out = Assembly.GetType(TypeName);
 
@@ -1344,7 +1351,7 @@ namespace LCore.Extensions
             /// Ex: "LCore.Extensions.L.Ref.FindMember"
             /// </summary>
             [CanBeNull]
-            public static MemberInfo[] FindMember([CanBeNull] string MemberFullName)
+            public static MemberInfo[] FindMember([CanBeNull] string MemberFullName, [CanBeNull] params Assembly[] Assemblies)
                 {
                 if (MemberFullName == null || MemberFullName.Count('.') < 1)
                     return null;
@@ -1352,7 +1359,7 @@ namespace LCore.Extensions
                 string Type = MemberFullName.BeforeLast(".");
                 string MemberName = MemberFullName.AfterLast(".");
 
-                var FindType = Ref.FindType(Type);
+                var FindType = Ref.FindType(Type, Assemblies);
 
                 MemberInfo[] Out = FindType?.GetMember(MemberName);
                 return Out;
@@ -1486,10 +1493,7 @@ namespace LCore.Extensions
             #endregion
 
             #endregion
-
-
-
-
+            
             #region Event
 
             /// <summary>

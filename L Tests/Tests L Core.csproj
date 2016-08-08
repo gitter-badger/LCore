@@ -180,13 +180,11 @@
     <Compile Include="Generated\LCore\Extensions Static\L_ObjTester.cs" />
     <Compile Include="Generated\LCore\Extensions Static\L_RefTester.cs" />
     <Compile Include="Generated\LCore\Extensions Static\L_StrTester.cs" />
-    <Compile Include="Generated\LCore\Extensions Static\L_ThreadTester.cs" />
     <Compile Include="Generated\LCore\Extensions\ReflectionExtTester.cs" />
     <Compile Include="Generated\LCore\Numbers\SByteNumberTester.cs" />
     <Compile Include="Generated\LCore\Tools\ScheduleTester.cs" />
     <Compile Include="Generated\LCore\Numbers\ShortNumberTester.cs" />
     <Compile Include="Generated\LCore\Extensions\StringExtTester.cs" />
-    <Compile Include="Generated\LCore\Extensions\ThreadExtTester.cs" />
     <Compile Include="Generated\LCore\Numbers\UIntNumberTester.cs" />
     <Compile Include="Generated\LCore\Numbers\ULongNumberTester.cs" />
     <Compile Include="Generated\LCore\Numbers\UShortNumberTester.cs" />
@@ -230,6 +228,10 @@
     <Compile Include="Tests\Tools\SetTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\L Thread Tests\Tests L Core Threads.csproj">
+      <Project>{ff977727-0141-4001-a70f-bf3044da035c}</Project>
+      <Name>Tests L Core Threads</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LUnit\LUnit.csproj">
       <Project>{0275fcea-4312-4003-8447-5cad2e333616}</Project>
       <Name>LUnit</Name>

@@ -45,22 +45,33 @@ namespace LCore.LUnit
         protected virtual bool TrackCoverageByNamingConvention_UseXunitOutputBase => true;
 
         /// <summary>
+        /// Enables the use of [CanBeNull], [NotNull] in code generation.
+        /// Defaults to the value of EnforceNullabilityAttributes.
+        /// </summary>
+        protected virtual bool TrackCoverageByNamingConvention_UseNullabilityAttribute => this.EnforceNullabilityAttributes;
+
+        /// <summary>
         /// Override the namespace format.
         /// </summary>
         /// <see cref="LUnit.Format.Namespace"/>
-        public virtual string TrackCoverageByNamingConvention_Format_Namespace => LUnit.Format.Namespace;
+        protected virtual string TrackCoverageByNamingConvention_Format_Namespace => LUnit.Format.Namespace;
 
         /// <summary>
         /// Override the class format.
         /// </summary>
         /// <see cref="LUnit.Format.Class"/>
-        public virtual string TrackCoverageByNamingConvention_Format_Class => LUnit.Format.Class;
+        protected virtual string TrackCoverageByNamingConvention_Format_Class => LUnit.Format.Class;
 
         /// <summary>
         /// Override the member format.
         /// </summary>
         /// <see cref="LUnit.Format.Member"/>
-        public virtual string TrackCoverageByNamingConvention_Format_Member => LUnit.Format.Member;
+        protected virtual string TrackCoverageByNamingConvention_Format_Member => LUnit.Format.Member;
+
+        /// <summary>
+        /// Override TestAssemblies to specify additional Assemblies to search for code coverage. 
+        /// </summary>
+        protected virtual Assembly[] TestAssemblies => AppDomain.CurrentDomain.GetAssemblies();
 
         ////////////////////////////////////////////////////////
 
@@ -198,7 +209,7 @@ namespace LCore.LUnit
                                     TargetMember.DeclaringType.HasAttribute<ExcludeFromCodeCoverageAttribute>(true))
                                         return;
 
-                                    MemberInfo[] TargetMemberTest = L.Ref.FindMember($"{Namespace}.{Class}.{MemberName}");
+                                    MemberInfo[] TargetMemberTest = L.Ref.FindMember($"{Namespace}.{Class}.{MemberName}", this.TestAssemblies);
 
                                     if (TargetMemberTest == null || TargetMemberTest.Length == 0)
                                         {
@@ -256,6 +267,11 @@ namespace LCore.LUnit
                 this._Output.WriteLine("*/");
                 this._Output.WriteLine("using Xunit;");
                 this._Output.WriteLine("using LCore.LUnit;");
+
+                if (this.TrackCoverageByNamingConvention_UseNullabilityAttribute)
+                    this._Output.WriteLine($"using {typeof(CanBeNullAttribute).Namespace};");
+                else
+                    WriteStack = WriteStack.Collect(Line => Line.ReplaceAll("[NotNull]", "").ReplaceAll("[CanBeNull]", ""));
                 }
 
             WriteStack.Each(Str => this._Output.WriteLine(Str));

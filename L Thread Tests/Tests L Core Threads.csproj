@@ -79,6 +79,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Generated\LCore\Extensions Static\L_ThreadTester.cs" />
+    <Compile Include="Generated\LCore\Extensions\ThreadExtTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\Extensions\Methods\ThreadExtTest.cs" />
   </ItemGroup>
