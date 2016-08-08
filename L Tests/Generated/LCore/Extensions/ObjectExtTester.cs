@@ -15,6 +15,52 @@ namespace L_Tests.LCore.Extensions
         ~ObjectExtTester()
             {
             }
+
+        [Fact]
+        public void GetProperty()
+            {
+            // TODO: Implement method test LCore.Extensions.ObjectExt.GetProperty
+            }
+
+        [Fact]
+        public void SetProperty()
+            {
+            // TODO: Implement method test LCore.Extensions.ObjectExt.SetProperty
+            }
+
+        [Fact]
+        public void HasProperty()
+            {
+            // TODO: Implement method test LCore.Extensions.ObjectExt.HasProperty
+            }
+
+        [Fact]
+        public void Objects_ToString()
+            {
+            // TODO: Implement method test LCore.Extensions.ObjectExt.Objects_ToString
+            }
+
+        [Fact]
+        public void Type()
+            {
+            // TODO: Implement method test LCore.Extensions.ObjectExt.Type
+            }
+
+        }
+    }
+
+namespace L_Tests.LCore.Extensions.Optional
+    {
+    public class ObjectExtTester
+        {
+        public ObjectExtTester()
+            {
+            }
+
+        ~ObjectExtTester()
+            {
+            }
+
         [Fact]
         public void CopyFieldsTo_T_Object()
             {
@@ -115,52 +161,6 @@ namespace L_Tests.LCore.Extensions
         public void Traverse_T_Func_2()
             {
             // TODO: Implement method test LCore.Extensions.Optional.ObjectExt.Traverse
-            }
-
-
-        [Fact]
-        public void GetProperty()
-            {
-            // TODO: Implement method test LCore.Extensions.ObjectExt.GetProperty
-            }
-
-        [Fact]
-        public void SetProperty()
-            {
-            // TODO: Implement method test LCore.Extensions.ObjectExt.SetProperty
-            }
-
-        [Fact]
-        public void HasProperty()
-            {
-            // TODO: Implement method test LCore.Extensions.ObjectExt.HasProperty
-            }
-
-        [Fact]
-        public void Objects_ToString()
-            {
-            // TODO: Implement method test LCore.Extensions.ObjectExt.Objects_ToString
-            }
-
-        [Fact]
-        public void Type()
-            {
-            // TODO: Implement method test LCore.Extensions.ObjectExt.Type
-            }
-
-        }
-    }
-
-namespace L_Tests.LCore.Extensions.Optional
-    {
-    public class ObjectExtTester
-        {
-        public ObjectExtTester()
-            {
-            }
-
-        ~ObjectExtTester()
-            {
             }
 
         [Fact]
