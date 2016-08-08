@@ -1214,35 +1214,35 @@ namespace LCore.Tests.Extensions
                 int[] Results = Test.Random(5);
 
                 Results.Length.Should().Be(5);
-                Results.All(Test.Has).Should().BeTrue();
+                Results.All(Item => Test.Has(Item)).Should().BeTrue();
 
 
                 int[] Results2 = Test.Random(50, false);
 
                 Results2.Length.Should().Be(Test.Length);
-                Results2.All(Test.Has).Should().BeTrue();
+                Results2.All(Item => Test.Has(Item)).Should().BeTrue();
 
                 int[] Results3 = Test.Random(50, true);
 
                 Results3.Length.Should().Be(50);
-                Results3.All(Test.Has).Should().BeTrue();
+                Results3.All(Item => Test.Has(Item)).Should().BeTrue();
 
 
                 int[] Results4 = Test.Random(5u);
 
                 Results4.Length.Should().Be(5);
-                Results4.All(Test.Has).Should().BeTrue();
+                Results4.All(Item => Test.Has(Item)).Should().BeTrue();
 
 
                 int[] Results5 = Test.Random(50u, false);
 
                 Results5.Length.Should().Be(Test.Length);
-                Results5.All(Test.Has).Should().BeTrue();
+                Results5.All(Item => Test.Has(Item)).Should().BeTrue();
 
                 int[] Results6 = Test.Random(50u, true);
 
                 Results6.Length.Should().Be(50);
-                Results6.All(Test.Has).Should().BeTrue();
+                Results6.All(Item => Test.Has(Item)).Should().BeTrue();
 
 
                 List<int> Test3 = Test.List();
@@ -1250,35 +1250,35 @@ namespace LCore.Tests.Extensions
                 List<int> Result7 = Test3.Random(5);
 
                 Result7.Count.Should().Be(5);
-                Result7.All(Test.Has).Should().BeTrue();
+                Result7.All(Item => Test.Has(Item)).Should().BeTrue();
 
 
                 List<int> Results8 = Test3.Random(50, false);
 
                 Results8.Count.Should().Be(Test.Length);
-                Results8.All(Test.Has).Should().BeTrue();
+                Results8.All(Item => Test.Has(Item)).Should().BeTrue();
 
                 List<int> Results9 = Test3.Random(50, true);
 
                 Results9.Count.Should().Be(50);
-                Results9.All(Test.Has).Should().BeTrue();
+                Results9.All(Item => Test.Has(Item)).Should().BeTrue();
 
 
                 List<int> Results10 = Test3.Random(5u);
 
                 Results10.Count.Should().Be(5);
-                Results10.All(Test.Has).Should().BeTrue();
+                Results10.All(Item => Test.Has(Item)).Should().BeTrue();
 
 
                 List<int> Results11 = Test3.Random(50u, false);
 
                 Results11.Count.Should().Be(Test.Length);
-                Results11.All(Test.Has).Should().BeTrue();
+                Results11.All(Item => Test.Has(Item)).Should().BeTrue();
 
                 List<int> Results12 = Test3.Random(50u, true);
 
                 Results12.Count.Should().Be(50);
-                Results12.All(Test.Has).Should().BeTrue();
+                Results12.All(Item => Test.Has(Item)).Should().BeTrue();
                 }
 
             L.Obj.NewRandom_TypeCreators.Keys.Random().Should().NotBeNull();

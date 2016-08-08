@@ -1331,6 +1331,29 @@ namespace LCore.Extensions
 
             #endregion
 
+            #region FindMember
+
+            /// <summary>
+            /// Returns members matching fully qualified name.
+            /// Ex: "LCore.Extensions.L.Ref.FindMember"
+            /// </summary>
+            [CanBeNull]
+            public static MemberInfo[] FindMember([CanBeNull] string MemberFullName)
+                {
+                if (MemberFullName == null || MemberFullName.Count('.') < 1)
+                    return null;
+
+                string Type = MemberFullName.BeforeLast(".");
+                string MemberName = MemberFullName.AfterLast(".");
+
+                var FindType = Ref.FindType(Type);
+
+                MemberInfo[] Out = FindType?.GetMember(MemberName);
+                return Out;
+                }
+
+            #endregion
+
             #region GetNamespaceTypes
 
             /// <summary>

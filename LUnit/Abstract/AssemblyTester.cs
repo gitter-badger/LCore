@@ -10,6 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 using Xunit.Abstractions;
 using static LCore.LUnit.LUnit.Categories;
+// ReSharper disable UnusedParameter.Global
 
 // ReSharper disable VirtualMemberNeverOverriden.Global
 
@@ -103,60 +104,132 @@ namespace LCore.LUnit
         // ReSharper disable FormatStringProblem
         public void AssemblyMissingCoverage()
             {
-            this._Output.WriteLine("/*");
-            this._Output.WriteLine($"Covering Assembly: {this.Assembly.GetName().Name}");
-            this._Output.WriteLine("");
-            this._Output.WriteLine("Cover application using naming conventions.");
-            this._Output.WriteLine("");
-            this._Output.WriteLine("");
-            this._Output.WriteLine("Missing Methods:                    */");
+            // ReSharper disable once UseObjectOrCollectionInitializer
+            var WriteStack = new List<string>();
 
             Type[] Types = this.AssemblyTypes.WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>(false).Array();
 
+            uint NamespacesMissing = 0;
+
+            uint TotalClassesMissing = 0;
+            uint TotalMembersMissing = 0;
+
             foreach (var Type in Types)
                 {
-                Dictionary<MemberInfo, List<ILUnitAttribute>> Members = Type.GetTestMembers();
+                Dictionary<MemberInfo, List<ILUnitAttribute>> MemberAttributes = Type.GetTestMembers();
 
-                Dictionary<MemberInfo, Tuple<string, string, string>> MemberNaming = Members.Keys.Index(Member => Member.GetTargetingName()).Flip();
+                Dictionary<MemberInfo, Tuple<string, string, string>> MemberNaming = MemberAttributes.Keys.Index(Member => Member.GetTargetingName()).Flip();
 
                 Dictionary<string, Dictionary<string, List<string>>> MemberTable = MemberNaming.Values.ToDictionary();
 
-                MemberTable.Keys.Each(Namespace =>
+
+                MemberTable.Keys.Each((Index, Namespace) =>
                     {
-                        this._Output.WriteLine($"namespace {Namespace}");
-                        this._Output.WriteLine("{");
+                        var WriteStack2 = new List<string>();
+                        WriteStack2.Add("");
+                        WriteStack2.Add($"namespace {Namespace}");
+                        WriteStack2.Add("{");
 
                         Dictionary<string, List<string>> Classes = MemberTable[Namespace];
 
+                        uint ClassesMissing = 0;
+                        uint MembersMissing = 0;
+
                         Classes.Keys.Each(Class =>
                             {
-                                this._Output.WriteLine($"   public class {Class}");
-                                this._Output.WriteLine("    {");
+
+                                var WriteStack3 = new List<string>();
+
+                                WriteStack3.Add($"   public class {Class}");
+                                WriteStack3.Add("    {");
+
+                                WriteStack3.Add($"       public {Class}()");
+                                WriteStack3.Add("       {");
+                                WriteStack3.Add("       }");
+                                WriteStack3.Add("");
+                                WriteStack3.Add($"       ~{Class}()");
+                                WriteStack3.Add("       {");
+                                WriteStack3.Add("       }");
+                                WriteStack3.Add("");
 
                                 List<string> MemberNames = Classes[Class];
 
-                                MemberNames.Each(MemberName =>
-                                    {
-                                        var TargetMember = MemberNaming.First(Member => Member.Value.Item3 == MemberName).Key;
 
-                                        this._Output.WriteLine("        [Fact]");
-                                        this._Output.WriteLine($"       public void {MemberName}()");
-                                        this._Output.WriteLine("        {");
-                                        this._Output.WriteLine($"            // TODO: Implement method Test {TargetMember.FullyQualifiedName()}");
-                                        this._Output.WriteLine("        }");
-                                        this._Output.WriteLine("        ");
-                                    });
-                                this._Output.WriteLine("    }");
+                                MemberNames.Each(MemberName =>
+                                {
+                                    var TargetMember = MemberNaming.First(Member => Member.Value.Item3 == MemberName).Key;
+
+                                    if (TargetMember.HasAttribute<ITestedAttribute>() ||
+                                    TargetMember.HasAttribute<ExcludeFromCodeCoverageAttribute>(true) ||
+                                    TargetMember.DeclaringType.HasAttribute<ExcludeFromCodeCoverageAttribute>(true))
+                                        return;
+
+                                    MemberInfo[] TargetMemberTest = L.Ref.FindMember($"{Namespace}.{Class}.{MemberName}");
+
+                                    if (TargetMemberTest == null || TargetMemberTest.Length == 0)
+                                        {
+                                        MembersMissing++;
+                                        TotalMembersMissing++;
+
+                                        WriteStack3.Add("        [Fact]");
+                                        WriteStack3.Add($"       public void {MemberName}()");
+                                        WriteStack3.Add("        {");
+                                        WriteStack3.Add(
+                                        $"            // TODO: Implement method Test {TargetMember.FullyQualifiedName()}");
+                                        WriteStack3.Add("        }");
+                                        WriteStack3.Add("        ");
+                                        }
+                                });
+
+                                WriteStack3.Add("    }");
+
+                                if (MembersMissing == 0)
+                                    WriteStack3.Clear();
+                                else
+                                    {
+                                    ClassesMissing++;
+                                    TotalClassesMissing++;
+                                    WriteStack2.AddRange(WriteStack3);
+                                    }
                             });
 
-                        this._Output.WriteLine("}");
+                        WriteStack2.Add("}");
+
+                        if (ClassesMissing == 0)
+                            WriteStack2.Clear();
+                        else
+                            {
+                            NamespacesMissing++;
+                            WriteStack.AddRange(WriteStack2);
+                            }
                     });
                 }
+
+            if (NamespacesMissing == 0u)
+                {
+                WriteStack.Clear();
+
+                WriteStack.Add("No missing test members!");
+                }
+            else
+                {
+                this._Output.WriteLine("/*");
+                this._Output.WriteLine($"Covering Assembly: {this.Assembly.GetName().Name}");
+                this._Output.WriteLine("");
+                this._Output.WriteLine("Cover application using naming conventions.");
+                this._Output.WriteLine("");
+                this._Output.WriteLine($"LUnit has Autogenerated {TotalClassesMissing} Classes and {TotalMembersMissing} Methods:");
+                this._Output.WriteLine("*/");
+                this._Output.WriteLine("using Xunit;");
+                }
+
+            WriteStack.Each(Str => this._Output.WriteLine(Str));
             }
         // ReSharper restore FormatStringProblem
 
-        ////////////////////////////////////////////////////////
 
+        ////////////////////////////////////////////////////////
+        /// 
         private void RunTests()
             {
             Type[] Types = this.AssemblyTypes.WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>(false).Array();

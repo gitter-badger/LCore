@@ -179,7 +179,10 @@ namespace LCore.LUnit
         /// <param name="TestClassFormat"></param>
         /// <param name="TestMethodFormat"></param>
         /// <returns></returns>
-        public static Tuple<string, string, string> GetTargetingName([CanBeNull]this MemberInfo Member, string TestNamespaceFormat = "{0}_Tests.{1}", string TestClassFormat = "Test_{0}", string TestMethodFormat = "{0}")
+        public static Tuple<string, string, string> GetTargetingName([CanBeNull]this MemberInfo Member,
+            string TestNamespaceFormat = LUnit.Format.Namespace,
+            string TestClassFormat = LUnit.Format.Class,
+            string TestMethodFormat = LUnit.Format.Member)
             {
             if (Member == null)
                 return null;
@@ -195,13 +198,25 @@ namespace LCore.LUnit
 
             MemberInfo[] DuplicateMembers = Member.DeclaringType.GetMember(Member.Name);
 
+            var Replacements = new Dictionary<string, string>
+                {
+                ["`"] = "_",
+                ["["] = "",
+                ["]"] = "",
+                ["&"] = "",
+                ["."] = "_",
+                ["__"] = "_"
+                };
+
+
             if (DuplicateMembers.Length == 1)
                 {
                 return new Tuple<string, string, string>(
                     string.Format(TestNamespaceFormat, Member.GetAssembly()?.GetName().Name, Member.GetNamespace()),
-                    string.Format(TestClassFormat, Member.DeclaringType?.Name, "")
-                        .ReplaceAll(new Dictionary<string, string> { ["`"] = "_" }),
-                    string.Format(TestMethodFormat, Member.Name));
+                    string.Format(TestClassFormat, Member.DeclaringType?.GetNestedNames(), "")
+                        .ReplaceAll(Replacements),
+                    string.Format(TestMethodFormat, Member.Name)
+                        .ReplaceAll(Replacements));
                 }
 
             if (DuplicateMembers.Length > 1)
@@ -211,22 +226,15 @@ namespace LCore.LUnit
                     {
                     return new Tuple<string, string, string>(
                         string.Format(TestNamespaceFormat, Member.GetAssembly()?.GetName().Name, Member.GetNamespace()),
-                        string.Format(TestClassFormat, Member.DeclaringType?.Name, "")
-                            .ReplaceAll(new Dictionary<string, string>
-                                {
-                                ["`"] = "_"
-                                }),
-                        $"{string.Format(TestMethodFormat, Member.Name)}_{((MethodInfo)Member).GetParameters().Convert(Param => Param.ParameterType.Name).Combine("_")}_{((MethodInfo)Member).ReturnType.Name}"
-                            .ReplaceAll(new Dictionary<string, string>
-                                {
-                                ["`"] = "_",
-                                ["["] = "",
-                                ["]"] = ""
-                                })
+                        string.Format(TestClassFormat, Member.DeclaringType?.GetNestedNames(), "")
+                            .ReplaceAll(Replacements),
+                        ($"{string.Format(TestMethodFormat, Member.Name)}_" +
+                            $"{((MethodInfo)Member).GetParameters().Convert(Param => Param.ParameterType.Name).Combine("_")}" +
+                            (((MethodInfo)Member).ReturnType == typeof(void) ? "" : $"_{((MethodInfo)Member).ReturnType.Name}"))
+                            .ReplaceAll(Replacements)
                         );
                     }
                 }
-
 
             return null;
             }

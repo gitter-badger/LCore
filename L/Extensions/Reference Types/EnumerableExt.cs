@@ -1892,6 +1892,30 @@ namespace LCore.Extensions
 
         #endregion
 
+        #region Has Object Count
+
+        /// <summary>
+        /// Returns true if <paramref name="In"/> has exactly <paramref name="Count"/>
+        /// instances of <paramref name="Obj"/>.
+        /// </summary>
+        [Tested]
+        public static bool Has<T>([CanBeNull] this IEnumerable In, int Count, [CanBeNull] T Obj)
+            {
+            return In.List<T>().Count(Obj) == Count;
+            }
+
+        /// <summary>
+        /// Returns true if <paramref name="In"/> has exactly <paramref name="Count"/>
+        /// instances of <paramref name="Obj"/>.
+        /// </summary>
+        [Tested]
+        public static bool Has<T>([CanBeNull] this IEnumerable In, uint Count, [CanBeNull] T Obj)
+            {
+            return In.List<T>().Count(Obj) == Count;
+            }
+
+        #endregion
+
         #region HasAny
 
         /// <summary>
@@ -2618,7 +2642,7 @@ namespace LCore.Extensions
             {
             return Objs.IsEmpty()
                 ? In.List()
-                : In.Remove(Objs.Has);
+                : In.Remove(Item => Objs.Has(Item));
             }
 
         /// <summary>
