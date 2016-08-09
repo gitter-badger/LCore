@@ -860,7 +860,7 @@ namespace LCore.Tests.Extensions
 
             Result.Values.TotalCount().Should().Be(24);
 
-            Dictionary<string, object> Result2 = Test.Index(i => i.ToString().Sub(0, 2));
+            Dictionary<string, object> Result2 = Test.Index(i => i?.ToString().Sub(0, 2));
 
             Result.Keys.Should()
                 .Equal("5", "32", "46", "3", "55", "45", "1", "23", "2", "77", "9", "75", "4", "12", "65", "89", "8", "74", "21", "54", "78",

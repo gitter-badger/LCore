@@ -53,6 +53,11 @@ namespace LCore.LUnit
         protected virtual bool TrackCoverageByNamingConvention_IncludeTraitTargetAttributes => true;
 
         /// <summary>
+        /// Enables generation of partial classes.
+        /// </summary>
+        protected virtual bool TrackCoverageByNamingConvention_UsePartialClasses => true;
+
+        /// <summary>
         /// Enables the use of [CanBeNull], [NotNull] in code generation.
         /// Defaults to the value of EnforceNullabilityAttributes.
         /// </summary>
@@ -166,6 +171,10 @@ namespace LCore.LUnit
 
             var MemberNaming = new Dictionary<MemberInfo, Tuple<string, string, string>>();
 
+            string Partial = this.TrackCoverageByNamingConvention_UsePartialClasses
+                ? " partial "
+                : " ";
+
             foreach (var Type in Types)
                 {
                 MemberAttributes.AddRange(Type.GetTestMembers());
@@ -194,29 +203,30 @@ namespace LCore.LUnit
 
                             if (TargetClass != null)
                                 {
-                                bool FullyQualifyWithNamespace = true; // MemberNaming.Values.Count(Naming => Naming.Item2 == Class && Naming.Item1 != Namespace) > 0;
+                                bool FullyQualifyWithNamespace =
+                                MemberNaming.Values.Count(Naming => Naming.Item2 == Class && Naming.Item1 != Namespace) > 0;
 
-                                bool ClassIsGeneric = TargetClass.IsGenericTypeDefinition;
-                                bool StrongTypeTraitAttribute = !ClassIsGeneric;
 
-                                // ReSharper disable once UseObjectOrCollectionInitializer
-                                var WriteStack3 = new List<string>();
+                            // ReSharper disable once UseObjectOrCollectionInitializer
+                            var WriteStack3 = new List<string>();
 
                                 if (this.TrackCoverageByNamingConvention_IncludeTraitTargetAttributes)
                                     {
+                                    bool StrongTypeTraitAttribute = !TargetClass.FullyQualifiedName().HasAny('`', '<', '>');
+
                                     WriteStack3.Add(StrongTypeTraitAttribute
-                                        ? $"[{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},{TargetClass.FullyQualifiedName().NameofParts(TargetClass, TargetClass.Namespace, FullyQualifyWithNamespace)})]"
-                                        : $"[{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetMember)},\"{TargetClass.FullyQualifiedName()}\")]");
+                                    ? $"[{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},{TargetClass.FullyQualifiedName().NameofParts(TargetClass, TargetClass.Namespace, FullyQualifyWithNamespace)})]"
+                                    : $"[{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetMember)},\"{TargetClass.FullyQualifiedName()}\")]");
 
                                     WriteStack3.Add(this.TrackCoverageByNamingConvention_UseXunitOutputBase
-                                        ? $"   public class {Class} : {nameof(XUnitOutputTester)}"
-                                        : $"   public class {Class}");
+                                    ? $"   public{Partial}class {Class} : {nameof(XUnitOutputTester)}"
+                                    : $"   public{Partial}class {Class}");
 
                                     WriteStack3.Add("    {");
 
                                     WriteStack3.Add(this.TrackCoverageByNamingConvention_UseXunitOutputBase
-                                        ? $"       public {Class}([{nameof(NotNullAttribute).Before(Attribute)}] {nameof(ITestOutputHelper)} Output) : base(Output) {{ }}"
-                                        : $"       public {Class}() {{ }}");
+                                    ? $"       public {Class}([{nameof(NotNullAttribute).Before(Attribute)}] {nameof(ITestOutputHelper)} Output) : base(Output) {{ }}"
+                                    : $"       public {Class}() {{ }}");
 
                                     WriteStack3.Add("");
                                     WriteStack3.Add($"       ~{Class}() {{ }}");
@@ -230,7 +240,10 @@ namespace LCore.LUnit
                                     MemberNames.Each(MemberName =>
                                     {
                                         var TargetMember =
-                                        MemberNaming.First(Member => Member.Value.Item1 == Namespace && Member.Value.Item2 == Class && Member.Value.Item3 == MemberName).Key;
+                                        MemberNaming.First(
+                                            Member =>
+                                                Member.Value.Item1 == Namespace && Member.Value.Item2 == Class &&
+                                                Member.Value.Item3 == MemberName).Key;
 
                                         if ( //TargetMember.HasAttribute<ITestedAttribute>() ||
                                         TargetMember?.HasAttribute<ExcludeFromCodeCoverageAttribute>(true) == true ||
@@ -238,16 +251,21 @@ namespace LCore.LUnit
                                             true) == true)
                                             return;
 
-                                        StrongTypeTraitAttribute = StrongTypeTraitAttribute &&
-                                                                   !(TargetMember is MethodInfo &&
-                                                                     (//((MethodInfo)TargetMember).IsGenericMethodDefinition ||
-                                                                     ((MethodInfo)TargetMember).IsOperator()));
+                                        StrongTypeTraitAttribute = !TargetMember.FullyQualifiedName().HasAny('`', '<', '>') &&
+                                                               !(TargetMember is MethodInfo &&((MethodInfo)TargetMember).IsOperator());
 
                                         MemberInfo[] TargetMemberTest = L.Ref.FindMember($"{Namespace}.{Class}.{MemberName}", this.TestAssemblies);
 
                                         if ((TargetMemberTest == null || TargetMemberTest.Length == 0) &&
                                         !string.IsNullOrEmpty(MemberName))
                                             {
+                                        // ReSharper disable RedundantNameQualifier
+                                        string New = MemberName == nameof(object.GetHashCode) ||
+                                                     MemberName == nameof(object.ToString)
+                                            // ReSharper restore RedundantNameQualifier
+                                            ? " new "
+                                            : " ";
+
                                             MembersMissing++;
                                             TotalMembersMissing++;
 
@@ -255,14 +273,14 @@ namespace LCore.LUnit
                                             if (this.TrackCoverageByNamingConvention_IncludeTraitTargetAttributes)
                                                 {
                                                 WriteStack3.Add(StrongTypeTraitAttribute
-                                                    ? $"[{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetMember)},{TargetMember.FullyQualifiedName().NameofParts(TargetMember, TargetClass.Namespace, FullyQualifyWithNamespace)})]"
-                                                    : $"[{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetMember)},\"{TargetMember.FullyQualifiedName()}\")]");
+                                                        ? $"[{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetMember)},{TargetMember.FullyQualifiedName().NameofParts(TargetMember, TargetClass.Namespace, FullyQualifyWithNamespace)})]"
+                                                        : $"[{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetMember)},\"{TargetMember.FullyQualifiedName()}\")]");
 
                                                 if (!Using.Contains(TargetClass.Namespace))
                                                     Using.Add(TargetClass.Namespace);
                                                 }
 
-                                            WriteStack3.Add($"       public void {MemberName}()");
+                                            WriteStack3.Add($"       public{New}void {MemberName}()");
                                             WriteStack3.Add("        {");
                                             WriteStack3.Add(
                                             $"            // TODO: Implement method test {TargetMember.FullyQualifiedName()}");
@@ -317,8 +335,7 @@ namespace LCore.LUnit
                 Using.Add(typeof(Traits).Namespace);
                 Using.Add(typeof(ITestOutputHelper).Namespace);
 
-
-                Using.RemoveDuplicates();
+                Using = Using.RemoveDuplicates();
 
                 Using.Each(Namespace => this._Output.WriteLine($"using {Namespace};"));
 
@@ -957,7 +974,23 @@ namespace LCore.LUnit
             string Path = "";
 
             // When the namespace name is the same as the type name, global:: is needed to explicitally target the method
-            bool GlobalNeeded = Parts.First() == Namespace.Split(".").Last() || UseGlobal;
+            bool GlobalNeeded = Namespace.Split(".").Has(Parts.First()) || UseGlobal;
+
+            foreach (string NamespacePart in Namespace.Split("."))
+                {
+                if (!string.IsNullOrEmpty(Out))
+                    Out += "+ \".\" + ";
+
+                // Root namespaces want no global::, all others do.
+                if (Path == "")
+                    Out += $"nameof({Path}{NamespacePart})";
+                else
+                    Out += $"nameof(global::{Path}{NamespacePart})";
+
+                Path += $"{NamespacePart}.";
+                }
+
+            Path = "";
 
             foreach (string Part in Parts)
                 {
@@ -983,17 +1016,12 @@ namespace LCore.LUnit
                 ["`7"] = "<,,,,,,>",
                 ["`8"] = "<,,,,,,,>",
                 [".get_"] = ".",
-                [".set_"] = "."
+                [".set_"] = ".",
+                [".add_"] = ".",
+                [".remove_"] = "."
                 };
-            if (Member is EventInfo)
-                {
-                Replacements["._add"] = ".";
-                Replacements["._remove"] = ".";
-                }
+
             return Out.ReplaceAll(Replacements);
-
-
-
             }
         }
     }

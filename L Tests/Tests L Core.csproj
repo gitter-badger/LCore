@@ -147,6 +147,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Generated\Generated.cs" />
+    <Compile Include="LCore\Extensions\BooleanExtTester.cs" />
+    <Compile Include="LCore\Extensions\ComparableExtTester.cs" />
     <Compile Include="Tests\Extensions\Language\CommentExtTest.cs" />
     <Compile Include="Tests\Extensions\Object Types\ComparableExtTest.cs" />
     <Compile Include="Tests\Extensions\Object Types\StatsExtTest.cs" />
