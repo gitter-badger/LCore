@@ -203,12 +203,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Generated\LCore\Extensions Static\" />
-    <Folder Include="Generated\LCore\Extensions\" />
-    <Folder Include="Generated\LCore\Numbers\" />
-    <Folder Include="Generated\LCore\Tools\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

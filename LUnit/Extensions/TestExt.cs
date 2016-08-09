@@ -28,17 +28,20 @@ namespace LCore.LUnit
             {
             var Tests = new Dictionary<MemberInfo, List<ILUnitAttribute>>();
 
-            Type?.GetMembers().Each(Member =>
+            if (Type?.IsInterface == false && !Type.IsValueType)
                 {
-                // Base Type members should not be returned. Only type-specific methods included for direct tests.
-                if (Member.DeclaringType != Type || Member is ConstructorInfo)
-                    return;
+                Type.GetMembers().Each(Member =>
+                    {
+                        // Base Type members should not be returned. Only type-specific methods included for direct tests.
+                        if (Member.DeclaringType != Type || Member is ConstructorInfo || Member is FieldInfo)
+                            return;
 
-                if (!Tests.ContainsKey(Member))
-                    Tests.Add(Member, new List<ILUnitAttribute>());
+                        if (!Tests.ContainsKey(Member))
+                            Tests.Add(Member, new List<ILUnitAttribute>());
 
-                Member.GetAttributes<ILUnitAttribute>(false).Each(Attr => { Tests[Member].Add(Attr); });
-                });
+                        Member.GetAttributes<ILUnitAttribute>(false).Each(Attr => { Tests[Member].Add(Attr); });
+                    });
+                }
 
             return Tests;
             }
@@ -112,8 +115,8 @@ namespace LCore.LUnit
 
             //    Method.AssertSource(Parameters, ExpectedSource);
 
-            var OutMethod = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>) (MethodInfo =>
-                MethodInfo.Name == nameof(AssertionExt.AssertSource) && MethodInfo.ContainsGenericParameters));
+            var OutMethod = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>)(MethodInfo =>
+               MethodInfo.Name == nameof(AssertionExt.AssertSource) && MethodInfo.ContainsGenericParameters));
 
             if (Attr.ExpectedSource != null)
                 {
@@ -134,7 +137,7 @@ namespace LCore.LUnit
             LUnit.FixParameterTypes(Method, Parameters);
             LUnit.FixObject(Method, Method.GetParameters()[0].ParameterType, ref ExpectedSource);
 
-            OutMethod?.Invoke(null, new[] {Method, null, Parameters, ExpectedSource, Checks});
+            OutMethod?.Invoke(null, new[] { Method, null, Parameters, ExpectedSource, Checks });
             }
 
         /// <summary>
@@ -198,8 +201,8 @@ namespace LCore.LUnit
 
             if (Member is Type)
                 return new Tuple<string, string, string>(
-                    string.Format(TestNamespaceFormat, ((Type) Member).GetAssembly()?.GetName().Name, ((Type) Member).Namespace),
-                    string.Format(TestClassFormat, ((Type) Member).GetNestedNames())
+                    string.Format(TestNamespaceFormat, ((Type)Member).GetAssembly()?.GetName().Name, ((Type)Member).Namespace),
+                    string.Format(TestClassFormat, ((Type)Member).GetNestedNames())
                         .ReplaceAll(Replacements),
                     "");
 
@@ -230,10 +233,10 @@ namespace LCore.LUnit
                         string.Format(TestClassFormat, Member.DeclaringType?.GetNestedNames(), "")
                             .ReplaceAll(Replacements),
                         ($"{string.Format(TestMethodFormat, Member.Name)}_" +
-                         $"{((MethodInfo) Member).GetParameters().Convert(Param => Param.ParameterType.Name).Combine("_")}" +
-                         (((MethodInfo) Member).ReturnType == typeof(void)
+                         $"{((MethodInfo)Member).GetParameters().Convert(Param => Param.ParameterType.Name).Combine("_")}" +
+                         (((MethodInfo)Member).ReturnType == typeof(void)
                              ? ""
-                             : $"_{((MethodInfo) Member).ReturnType.Name}"))
+                             : $"_{((MethodInfo)Member).ReturnType.Name}"))
                             .ReplaceAll(Replacements)
                         );
                     }

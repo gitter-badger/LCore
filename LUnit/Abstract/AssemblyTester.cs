@@ -153,6 +153,8 @@ namespace LCore.LUnit
             var WriteStack = new List<string>();
             var Using = new List<string>();
 
+            const string Attribute = nameof(Attribute);
+
             Type[] Types = this.AssemblyTypes.WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>(false).Array();
 
             uint NamespacesMissing = 0;
@@ -160,51 +162,61 @@ namespace LCore.LUnit
             uint TotalClassesMissing = 0;
             uint TotalMembersMissing = 0;
 
+            var MemberAttributes = new Dictionary<MemberInfo, List<ILUnitAttribute>>();
+
+            var MemberNaming = new Dictionary<MemberInfo, Tuple<string, string, string>>();
+
             foreach (var Type in Types)
                 {
-                Dictionary<MemberInfo, List<ILUnitAttribute>> MemberAttributes = Type.GetTestMembers();
+                MemberAttributes.AddRange(Type.GetTestMembers());
 
-                Dictionary<MemberInfo, Tuple<string, string, string>> MemberNaming =
-                    MemberAttributes.Keys.Index(Member => Member.GetTargetingName()).Flip();
+                MemberNaming.AddRange(MemberAttributes.Keys.Index(Member => Member.GetTargetingName()).Flip());
+                }
 
-                Dictionary<string, Dictionary<string, List<string>>> MemberTable = MemberNaming.Values.ToDictionary();
+            Dictionary<string, Dictionary<string, List<string>>> MemberTable = MemberNaming.Values.ToDictionary();
 
+            MemberTable.Keys.Each((Index, Namespace) =>
+                {
+                    // ReSharper disable once UseObjectOrCollectionInitializer
+                    var WriteStack2 = new List<string>();
+                    WriteStack2.Add("");
+                    WriteStack2.Add($"namespace {Namespace}");
+                    WriteStack2.Add("{");
 
-                MemberTable.Keys.Each((Index, Namespace) =>
-                    {
-                        // ReSharper disable once UseObjectOrCollectionInitializer
-                        var WriteStack2 = new List<string>();
-                        WriteStack2.Add("");
-                        WriteStack2.Add($"namespace {Namespace}");
-                        WriteStack2.Add("{");
+                    Dictionary<string, List<string>> Classes = MemberTable[Namespace];
 
-                        Dictionary<string, List<string>> Classes = MemberTable[Namespace];
+                    uint ClassesMissing = 0;
 
-                        uint ClassesMissing = 0;
-                        uint MembersMissing = 0;
+                    Classes.Keys.Each(Class =>
+                        {
+                            var TargetClass =
+                            MemberNaming.First(Member => Member.Value.Item1 == Namespace && Member.Value.Item2 == Class).Key.DeclaringType;
 
-                        Classes.Keys.Each(Class =>
-                            {
-                                var TargetClass = MemberNaming.First(Member => Member.Value.Item2 == Class).Key.DeclaringType;
+                            if (TargetClass != null)
+                                {
+                                bool FullyQualifyWithNamespace = true; // MemberNaming.Values.Count(Naming => Naming.Item2 == Class && Naming.Item1 != Namespace) > 0;
 
-                                if (TargetClass != null)
-                                    {
+                                bool ClassIsGeneric = TargetClass.IsGenericTypeDefinition;
+                                bool StrongTypeTraitAttribute = !ClassIsGeneric;
+
                                 // ReSharper disable once UseObjectOrCollectionInitializer
                                 var WriteStack3 = new List<string>();
 
-                                    if (this.TrackCoverageByNamingConvention_IncludeTraitTargetAttributes)
-                                        WriteStack3.Add(
-                                        $"[Trait({nameof(Traits)}.{nameof(Traits.TargetClass)},{TargetClass.FullyQualifiedName().NameofParts(TargetClass.Namespace)})]");
+                                if (this.TrackCoverageByNamingConvention_IncludeTraitTargetAttributes)
+                                    {
+                                    WriteStack3.Add(StrongTypeTraitAttribute
+                                        ? $"[{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},{TargetClass.FullyQualifiedName().NameofParts(TargetClass, TargetClass.Namespace, FullyQualifyWithNamespace)})]"
+                                        : $"[{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetMember)},\"{TargetClass.FullyQualifiedName()}\")]");
 
                                     WriteStack3.Add(this.TrackCoverageByNamingConvention_UseXunitOutputBase
-                                    ? $"   public class {Class} : XUnitOutputTester"
-                                    : $"   public class {Class}");
+                                        ? $"   public class {Class} : {nameof(XUnitOutputTester)}"
+                                        : $"   public class {Class}");
 
                                     WriteStack3.Add("    {");
 
                                     WriteStack3.Add(this.TrackCoverageByNamingConvention_UseXunitOutputBase
-                                    ? $"       public {Class}([NotNull] ITestOutputHelper Output) : base(Output) {{ }}"
-                                    : $"       public {Class}() {{ }}");
+                                        ? $"       public {Class}([{nameof(NotNullAttribute).Before(Attribute)}] {nameof(ITestOutputHelper)} Output) : base(Output) {{ }}"
+                                        : $"       public {Class}() {{ }}");
 
                                     WriteStack3.Add("");
                                     WriteStack3.Add($"       ~{Class}() {{ }}");
@@ -213,27 +225,39 @@ namespace LCore.LUnit
                                     List<string> MemberNames = Classes[Class];
 
 
+                                    uint MembersMissing = 0;
+
                                     MemberNames.Each(MemberName =>
                                     {
-                                        var TargetMember = MemberNaming.First(Member => Member.Value.Item3 == MemberName).Key;
+                                        var TargetMember =
+                                        MemberNaming.First(Member => Member.Value.Item1 == Namespace && Member.Value.Item2 == Class && Member.Value.Item3 == MemberName).Key;
 
                                         if ( //TargetMember.HasAttribute<ITestedAttribute>() ||
                                         TargetMember?.HasAttribute<ExcludeFromCodeCoverageAttribute>(true) == true ||
-                                        TargetMember?.DeclaringType?.HasAttribute<ExcludeFromCodeCoverageAttribute>(true) == true)
+                                        TargetMember?.DeclaringType?.HasAttribute<ExcludeFromCodeCoverageAttribute>(
+                                            true) == true)
                                             return;
+
+                                        StrongTypeTraitAttribute = StrongTypeTraitAttribute &&
+                                                                   !(TargetMember is MethodInfo &&
+                                                                     (//((MethodInfo)TargetMember).IsGenericMethodDefinition ||
+                                                                     ((MethodInfo)TargetMember).IsOperator()));
 
                                         MemberInfo[] TargetMemberTest = L.Ref.FindMember($"{Namespace}.{Class}.{MemberName}", this.TestAssemblies);
 
-                                        if (TargetMemberTest == null || TargetMemberTest.Length == 0)
+                                        if ((TargetMemberTest == null || TargetMemberTest.Length == 0) &&
+                                        !string.IsNullOrEmpty(MemberName))
                                             {
                                             MembersMissing++;
                                             TotalMembersMissing++;
 
-                                            WriteStack3.Add("        [Fact]");
+                                            WriteStack3.Add($"        [{nameof(FactAttribute).Before(Attribute)}]");
                                             if (this.TrackCoverageByNamingConvention_IncludeTraitTargetAttributes)
                                                 {
-                                                WriteStack3.Add(
-                                                $"[Trait({nameof(Traits)}.{nameof(Traits.TargetMember)},{TargetMember.FullyQualifiedName().NameofParts(TargetClass.Namespace)})]");
+                                                WriteStack3.Add(StrongTypeTraitAttribute
+                                                    ? $"[{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetMember)},{TargetMember.FullyQualifiedName().NameofParts(TargetMember, TargetClass.Namespace, FullyQualifyWithNamespace)})]"
+                                                    : $"[{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetMember)},\"{TargetMember.FullyQualifiedName()}\")]");
+
                                                 if (!Using.Contains(TargetClass.Namespace))
                                                     Using.Add(TargetClass.Namespace);
                                                 }
@@ -258,19 +282,19 @@ namespace LCore.LUnit
                                         WriteStack2.AddRange(WriteStack3);
                                         }
                                     }
-                            });
+                                }
+                        });
 
-                        WriteStack2.Add("}");
+                    WriteStack2.Add("}");
 
-                        if (ClassesMissing == 0)
-                            WriteStack2.Clear();
-                        else
-                            {
-                            NamespacesMissing++;
-                            WriteStack.AddRange(WriteStack2);
-                            }
-                    });
-                }
+                    if (ClassesMissing == 0)
+                        WriteStack2.Clear();
+                    else
+                        {
+                        NamespacesMissing++;
+                        WriteStack.AddRange(WriteStack2);
+                        }
+                });
 
             if (NamespacesMissing == 0u)
                 {
@@ -285,12 +309,14 @@ namespace LCore.LUnit
                 this._Output.WriteLine("");
                 this._Output.WriteLine("Cover application using naming conventions.");
                 this._Output.WriteLine("");
-                this._Output.WriteLine($"LUnit has Autogenerated {TotalClassesMissing} Classes and {TotalMembersMissing} Methods:");
+                this._Output.WriteLine($"{nameof(LUnit)} has Autogenerated {TotalClassesMissing} Classes and {TotalMembersMissing} Methods:");
                 this._Output.WriteLine("*/");
 
-                Using.Add("Xunit");
-                Using.Add("Xunit.Abstractions");
-                Using.Add("LCore.LUnit");
+                Using.Add(typeof(TraitAttribute).Namespace);
+                Using.Add(typeof(FactAttribute).Namespace);
+                Using.Add(typeof(Traits).Namespace);
+                Using.Add(typeof(ITestOutputHelper).Namespace);
+
 
                 Using.RemoveDuplicates();
 
@@ -923,23 +949,30 @@ namespace LCore.LUnit
 
     internal static class AssemblyTesterExt
         {
-        internal static string NameofParts(this string In, string Namespace)
+        internal static string NameofParts(this string In, MemberInfo Member, string Namespace, bool UseGlobal)
             {
             string[] Parts = In.After($"{Namespace}.").Split(".");
 
             string Out = "";
             string Path = "";
 
+            // When the namespace name is the same as the type name, global:: is needed to explicitally target the method
+            bool GlobalNeeded = Parts.First() == Namespace.Split(".").Last() || UseGlobal;
+
             foreach (string Part in Parts)
                 {
                 if (!string.IsNullOrEmpty(Out))
                     Out += "+ \".\" + ";
 
-                Out += $"nameof({Path}{Part})";
+                if (GlobalNeeded)
+                    Out += $"nameof(global::{Namespace}.{Path}{Part})";
+                else
+                    Out += $"nameof({Path}{Part})";
+
                 Path += $"{Part}.";
                 }
 
-            return Out.ReplaceAll(new Dictionary<string, string>
+            var Replacements = new Dictionary<string, string>
                 {
                 ["`1"] = "",
                 ["`2"] = "<,>",
@@ -951,7 +984,15 @@ namespace LCore.LUnit
                 ["`8"] = "<,,,,,,,>",
                 [".get_"] = ".",
                 [".set_"] = "."
-                });
+                };
+            if (Member is EventInfo)
+                {
+                Replacements["._add"] = ".";
+                Replacements["._remove"] = ".";
+                }
+            return Out.ReplaceAll(Replacements);
+
+
 
             }
         }
