@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,7 +14,7 @@ namespace LMVC.Models
         [Key]
         public int EmailJobID { get; set; }
 
-        [FieldVisibility(false)]
+        [FieldVisibility(Visible: false)]
         public int SavedSearchID { get; set; }
 
         [Required]
@@ -25,7 +24,7 @@ namespace LMVC.Models
         [FieldLoadFromQueryString]
         public virtual SavedSearch SavedSearch { get; set; }
 
-        [FieldVisibility(false)]
+        [FieldVisibility(Visible: false)]
         public int EmailTemplateID { get; set; }
 
         [FieldLoadFromQueryString]
@@ -49,7 +48,7 @@ namespace LMVC.Models
         public string Attachments { get; set; }
 
         [HideManageViewColumn]
-        [FieldVisibility(false)]
+        [FieldVisibility(Visible: false)]
         public DateTime Created { get; set; }
 
         [HideManageViewColumn]
@@ -57,7 +56,9 @@ namespace LMVC.Models
 
         public override string ToString()
             {
-            return this.EmailTemplate != null ? this.EmailTemplate.Subject : "";
+            return this.EmailTemplate != null
+                ? this.EmailTemplate.Subject
+                : "";
             }
 
         public static EmailJob Find(ModelContext DbContext, int EmailJobID)
@@ -68,16 +69,14 @@ namespace LMVC.Models
         public class FieldTypeDropdownContextModelFieldsSavedSearchEmailType : FieldTypeDropdownContextModelFieldsByDataType
             {
             public FieldTypeDropdownContextModelFieldsSavedSearchEmailType()
-                : base(DataType.EmailAddress, (Type)null, false, true)
-                {
-                }
+                : base(DataType.EmailAddress, (Type) null, MultiSelect: false, RecursiveFields: true) {}
 
             [CanBeNull]
-            public override Type GetModelType([CanBeNull]System.Web.Mvc.ViewContext Context)
+            public override Type GetModelType([CanBeNull] System.Web.Mvc.ViewContext Context)
                 {
                 if (Context?.Controller.ViewBag.EditModel != null)
                     {
-                    var Job = (EmailJob)Context.Controller.ViewBag.EditModel;
+                    var Job = (EmailJob) Context.Controller.ViewBag.EditModel;
 
                     if (Job.SavedSearch != null)
                         {

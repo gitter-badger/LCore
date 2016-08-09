@@ -8,7 +8,7 @@ using LMVC.Annotations;
 namespace LMVC.Models
     {
     [Table("Events")]
-    [DisplayColumn("Date", "Date", true)]
+    [DisplayColumn("Date", "Date", sortDescending: true)]
     public class Event : IModel
         {
         public enum MasterType

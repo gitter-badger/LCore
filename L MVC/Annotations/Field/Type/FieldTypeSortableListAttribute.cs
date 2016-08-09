@@ -8,7 +8,7 @@ namespace LMVC.Annotations
         public const string SortableList = "SortableList";
 
         public FieldTypeSortableListAttribute()
-            : base(SortableList, true)
+            : base(SortableList, ValueData: true)
             {
             }
         }

@@ -7,7 +7,7 @@ namespace LMVC.Annotations
         public const string HideLabel = "HideLabel";
 
         public FieldHideLabelAttribute()
-            : base(HideLabel, true)
+            : base(HideLabel, ValueData: true)
             {
             }
         }
