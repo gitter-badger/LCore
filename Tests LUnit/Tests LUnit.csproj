@@ -80,13 +80,10 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Generated\LCore\LUnit\Assert\AssertionExtTester.cs" />
-    <Compile Include="Generated\LCore\LUnit\LUnitTester.cs" />
-    <Compile Include="Generated\LCore\LUnit\TestExtTester.cs" />
+    <Compile Include="Generated\Class1.cs" />
     <Compile Include="Tests\LCoreAssemblyTester.cs" />
     <Compile Include="Tests\Extensions\TestExtTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Generated\LCore\LUnit\Fluent\FluentExtTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -105,6 +102,10 @@
       <Project>{cd24bcec-5a94-4524-b1d3-0537c66b0761}</Project>
       <Name>L Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Generated\LCore\LUnit\Assert\" />
+    <Folder Include="Generated\LCore\LUnit\Fluent\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

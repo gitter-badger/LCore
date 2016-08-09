@@ -846,19 +846,28 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_Index()
             {
-            int[] Test =
+            object[] Test =
                 {
                 5, 322, 466, 3, 5549, 456, 1, 23, 1, 2, 77, 9, 756475, 4, 123, 655, 8996, 45, 8, 7412, 21, 5, 3, 65, 4,
-                12, 54, 78, 9, 8, 56, 66, 5, 4, 88
+                12, 54, 78, 9, 8, 56, 66, 5, 4, null, 88
                 };
 
-            Dictionary<string, int> Result = Test.Index(i => i.ToString().Sub(0, 2));
+            Dictionary<string, int> Result = Test.List<int>().Index(i => i.ToString().Sub(0, 2));
 
             Result.Keys.Should()
                 .Equal("5", "32", "46", "3", "55", "45", "1", "23", "2", "77", "9", "75", "4", "12", "65", "89", "8", "74", "21", "54", "78",
                     "56", "66", "88");
 
             Result.Values.TotalCount().Should().Be(24);
+
+            Dictionary<string, object> Result2 = Test.Index(i => i.ToString().Sub(0, 2));
+
+            Result.Keys.Should()
+                .Equal("5", "32", "46", "3", "55", "45", "1", "23", "2", "77", "9", "75", "4", "12", "65", "89", "8", "74", "21", "54", "78",
+                    "56", "66", "88");
+
+            Result.Values.TotalCount().Should().Be(24);
+
 
             L.A(() => Test.Index<int>(i => { throw new Exception(); })).ShouldFail();
             }

@@ -30,15 +30,14 @@ namespace LCore.LUnit
 
             Type?.GetMembers().Each(Member =>
                 {
-                    if (!(Member is MethodInfo) || !((MethodInfo)Member).IsStatic)
-                        {
-                        return;
-                        }
+                // Base Type members should not be returned. Only type-specific methods included for direct tests.
+                if (Member.DeclaringType != Type || Member is ConstructorInfo)
+                    return;
 
-                    if (!Tests.ContainsKey(Member))
-                        Tests.Add(Member, new List<ILUnitAttribute>());
+                if (!Tests.ContainsKey(Member))
+                    Tests.Add(Member, new List<ILUnitAttribute>());
 
-                    Member.GetAttributes<ILUnitAttribute>(false).Each(Attr => { Tests[Member].Add(Attr); });
+                Member.GetAttributes<ILUnitAttribute>(false).Each(Attr => { Tests[Member].Add(Attr); });
                 });
 
             return Tests;
@@ -113,8 +112,8 @@ namespace LCore.LUnit
 
             //    Method.AssertSource(Parameters, ExpectedSource);
 
-            var OutMethod = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>)(MethodInfo =>
-               MethodInfo.Name == nameof(AssertionExt.AssertSource) && MethodInfo.ContainsGenericParameters));
+            var OutMethod = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>) (MethodInfo =>
+                MethodInfo.Name == nameof(AssertionExt.AssertSource) && MethodInfo.ContainsGenericParameters));
 
             if (Attr.ExpectedSource != null)
                 {
@@ -135,7 +134,7 @@ namespace LCore.LUnit
             LUnit.FixParameterTypes(Method, Parameters);
             LUnit.FixObject(Method, Method.GetParameters()[0].ParameterType, ref ExpectedSource);
 
-            OutMethod?.Invoke(null, new[] { Method, null, Parameters, ExpectedSource, Checks });
+            OutMethod?.Invoke(null, new[] {Method, null, Parameters, ExpectedSource, Checks});
             }
 
         /// <summary>
@@ -179,24 +178,13 @@ namespace LCore.LUnit
         /// <param name="TestClassFormat"></param>
         /// <param name="TestMethodFormat"></param>
         /// <returns></returns>
-        public static Tuple<string, string, string> GetTargetingName([CanBeNull]this MemberInfo Member,
+        public static Tuple<string, string, string> GetTargetingName([CanBeNull] this MemberInfo Member,
             string TestNamespaceFormat = LUnit.Format.Namespace,
             string TestClassFormat = LUnit.Format.Class,
             string TestMethodFormat = LUnit.Format.Member)
             {
             if (Member == null)
                 return null;
-
-            if (Member is Type)
-                return new Tuple<string, string, string>(
-                    string.Format(TestNamespaceFormat, ((Type)Member).GetAssembly()?.GetName().Name, ((Type)Member).Namespace),
-                    string.Format(TestClassFormat, ((Type)Member).GetNestedNames()).ReplaceAll(new Dictionary<string, string> { ["`"] = "_" }),
-                    "");
-
-            if (Member.DeclaringType == null)
-                return null;
-
-            MemberInfo[] DuplicateMembers = Member.DeclaringType.GetMember(Member.Name);
 
             var Replacements = new Dictionary<string, string>
                 {
@@ -207,6 +195,19 @@ namespace LCore.LUnit
                 ["."] = "_",
                 ["__"] = "_"
                 };
+
+            if (Member is Type)
+                return new Tuple<string, string, string>(
+                    string.Format(TestNamespaceFormat, ((Type) Member).GetAssembly()?.GetName().Name, ((Type) Member).Namespace),
+                    string.Format(TestClassFormat, ((Type) Member).GetNestedNames())
+                        .ReplaceAll(Replacements),
+                    "");
+
+            if (Member.DeclaringType == null)
+                return null;
+
+
+            MemberInfo[] DuplicateMembers = Member.DeclaringType.GetMember(Member.Name);
 
 
             if (DuplicateMembers.Length == 1)
@@ -229,8 +230,10 @@ namespace LCore.LUnit
                         string.Format(TestClassFormat, Member.DeclaringType?.GetNestedNames(), "")
                             .ReplaceAll(Replacements),
                         ($"{string.Format(TestMethodFormat, Member.Name)}_" +
-                            $"{((MethodInfo)Member).GetParameters().Convert(Param => Param.ParameterType.Name).Combine("_")}" +
-                            (((MethodInfo)Member).ReturnType == typeof(void) ? "" : $"_{((MethodInfo)Member).ReturnType.Name}"))
+                         $"{((MethodInfo) Member).GetParameters().Convert(Param => Param.ParameterType.Name).Combine("_")}" +
+                         (((MethodInfo) Member).ReturnType == typeof(void)
+                             ? ""
+                             : $"_{((MethodInfo) Member).ReturnType.Name}"))
                             .ReplaceAll(Replacements)
                         );
                     }
@@ -238,6 +241,7 @@ namespace LCore.LUnit
 
             return null;
             }
+
         #endregion
         }
     }

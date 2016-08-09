@@ -19,10 +19,10 @@ namespace LCore.Tests
 
         protected override Assembly[] TestAssemblies => new[]
             {
-            Assembly.GetAssembly(typeof(L_Tests.LCore.Extensions.LTester)),
+            Assembly.GetAssembly(typeof(LCoreAssemblyTester)),
             Assembly.GetAssembly(typeof(L_Tests.LCore.Extensions.ThreadExtTester))
             };
 
-        public LCoreAssemblyTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+        public LCoreAssemblyTester([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }

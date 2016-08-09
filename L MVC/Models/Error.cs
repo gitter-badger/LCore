@@ -6,7 +6,7 @@ using LCore.Extensions;
 
 namespace LMVC.Models
     {
-    [DisplayColumn("Message", "Created", true)]
+    [DisplayColumn("Message", "Created", sortDescending: true)]
     public class Error : IModel
         {
         [Key]
@@ -38,7 +38,7 @@ namespace LMVC.Models
 
                     string FullFile = this.FullDetails.Sub(InIndex, LineIndex - InIndex);
 
-                    return FullFile.Substring(FullFile.LastIndexOf('\\') + 1);
+                    return FullFile.Substring(FullFile.LastIndexOf(value: '\\') + 1);
                     }
                 catch
                     {
@@ -59,7 +59,7 @@ namespace LMVC.Models
                     int LineIndex = InIndex + this.FullDetails.Substring(InIndex).IndexOf(":line ") + 6;
 
                     string Line = this.FullDetails.Substring(LineIndex);
-                    Line = Line.Sub(0, Line.IndexOf(' '));
+                    Line = Line.Sub(Start: 0, Length: Line.IndexOf(value: ' '));
 
                     int Out;
 
@@ -92,8 +92,8 @@ namespace LMVC.Models
 
                     string Function = this.FullDetails.Sub(AtIndex, InIndex - AtIndex);
 
-                    Function = Function.Sub(Function.LastIndexOf('.') + 1);
-                    Function = Function.Sub(0, Function.IndexOf('('));
+                    Function = Function.Sub(Function.LastIndexOf(value: '.') + 1);
+                    Function = Function.Sub(Start: 0, Length: Function.IndexOf(value: '('));
 
                     return Function;
                     }

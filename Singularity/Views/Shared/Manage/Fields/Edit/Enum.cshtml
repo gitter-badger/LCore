@@ -3,12 +3,13 @@
 @using LCore.Extensions;
 
 @{
-    var EnumType = Model.Meta.ModelType.IsEnum ? Model.Meta.ModelType : Model.Meta.ModelType.GetGenericArguments()[0];
+    var EnumType = Model.Meta.ModelType.IsEnum
+        ? Model.Meta.ModelType
+        : Model.Meta.ModelType.GetGenericArguments()[0];
 
     var Values = Enum.GetValues(EnumType);
 
     IEnumerable<Enum> Enums = Values.List<Enum>();
-
 }
 
 @model IViewField
@@ -26,7 +27,9 @@
                        id="@(Model.Meta.PropertyName)_@(Item.ToString())"
                        name="@Model.Meta.PropertyName"
                        value="@Item.ToString()"
-                       @((Model.PropertyData ?? "").ToString().Contains(Item.ToString()) ? Html.Raw("checked=\"true\"") : Html.Raw(""))>
+                       @((Model.PropertyData ?? "").ToString().Contains(Item.ToString())
+                             ? Html.Raw("checked=\"true\"")
+                             : Html.Raw(""))>
                 <label for="@(Model.Meta.PropertyName)_@(Item.ToString())">
                     @Item.GetFriendlyName()
                 </label>
@@ -43,7 +46,7 @@ else
         Selected = (Model.PropertyData ?? "").ToString() == Enum.ToString()
         });
 
-    Items.Sort(i => (IComparable)i.Text);
+    Items.Sort(i => (IComparable) i.Text);
 
     <select name="@Model.Meta.PropertyName" id="@Model.Meta.PropertyName">
         @foreach (var Item in Items)
@@ -53,7 +56,7 @@ else
             </option>
             }
     </select>
-    /*
-                @Html.DropDownList(Model.Meta.PropertyName, Items, new { @class = "select-list" })
-                */
+/*
+@Html.DropDownList(Model.Meta.PropertyName, Items, new { @class = "select-list" })
+*/
     }

@@ -6,5 +6,5 @@
 @model IViewField
 
 <span>
-    @(((IFormattable)Model.PropertyData).ToString((string)Model.Meta.AdditionalValues[FieldStringFormatAttribute.Key], null))
+    @(((IFormattable)Model.PropertyData).ToString((string)Model.Meta.AdditionalValues[FieldStringFormatAttribute.Key], formatProvider: null))
 </span>

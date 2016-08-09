@@ -3,7 +3,7 @@
 @using LCore.Extensions;
 
 @{
-    var Attr = Model.Meta.GetAttribute<RangeAttribute>(true);
+    var Attr = Model.Meta.GetAttribute<RangeAttribute>(IncludeBaseTypes: true);
 }
 
 @model IViewField
