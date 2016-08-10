@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using LCore.Interfaces;
 
@@ -13,11 +14,11 @@ namespace LCore.Extensions
         #region Extensions +
 
         #region IsEqualTo
+
         /// <summary>
         /// Use this fluent extension method to compare IComparable equality.
         /// </summary>
-        
-        public static bool IsEqualTo([CanBeNull]this IComparable In, [CanBeNull]IComparable Obj)
+        public static bool IsEqualTo([CanBeNull] this IComparable In, [CanBeNull] IComparable Obj)
             {
             if (In == null && Obj != null)
                 return false;
@@ -32,11 +33,11 @@ namespace LCore.Extensions
         #endregion
 
         #region IsNotEqualTo
+
         /// <summary>
         /// Use this fluent extension method to compare IComparable inequality.
         /// </summary>
-        
-        public static bool IsNotEqualTo([CanBeNull]this IComparable In, [CanBeNull]IComparable Obj)
+        public static bool IsNotEqualTo([CanBeNull] this IComparable In, [CanBeNull] IComparable Obj)
             {
             if (In == null && Obj != null)
                 return true;
@@ -51,11 +52,11 @@ namespace LCore.Extensions
         #endregion
 
         #region IsLessThan
+
         /// <summary>
         /// Use this fluent extension method to compare one IComparable to another.
         /// </summary>
-        
-        public static bool IsLessThan([CanBeNull]this IComparable In, [CanBeNull]IComparable Obj)
+        public static bool IsLessThan([CanBeNull] this IComparable In, [CanBeNull] IComparable Obj)
             {
             if (In == null && Obj != null)
                 return true;
@@ -71,10 +72,11 @@ namespace LCore.Extensions
         #endregion
 
         #region IsLessThanOrEqual
+
         /// <summary>
         /// Use this fluent extension method to compare one IComparable to another.
         /// </summary>
-        public static bool IsLessThanOrEqual([CanBeNull]this IComparable In, [CanBeNull] IComparable Obj)
+        public static bool IsLessThanOrEqual([CanBeNull] this IComparable In, [CanBeNull] IComparable Obj)
             {
             if (In == null && Obj != null)
                 return true;
@@ -89,10 +91,11 @@ namespace LCore.Extensions
         #endregion
 
         #region IsGreaterThan
+
         /// <summary>
         /// Use this fluent extension method to compare one IComparable to another.
         /// </summary>
-        public static bool IsGreaterThan([CanBeNull]this IComparable In, [CanBeNull]IComparable Obj)
+        public static bool IsGreaterThan([CanBeNull] this IComparable In, [CanBeNull] IComparable Obj)
             {
             if (In == null && Obj != null)
                 return false;
@@ -108,11 +111,11 @@ namespace LCore.Extensions
         #endregion
 
         #region IsGreaterThanOrEqual
+
         /// <summary>
         /// Use this fluent extension method to compare one IComparable to another.
         /// </summary>
-        
-        public static bool IsGreaterThanOrEqual([CanBeNull]this IComparable In, [CanBeNull]IComparable Obj)
+        public static bool IsGreaterThanOrEqual([CanBeNull] this IComparable In, [CanBeNull] IComparable Obj)
             {
             if (In == null && Obj != null)
                 return false;
@@ -127,11 +130,11 @@ namespace LCore.Extensions
         #endregion
 
         #region Max
+
         /// <summary>
         /// Returns the largest of <paramref name="In" /> and all items in <paramref name="Others" />
         /// </summary>
-        
-        public static T Max<T>([CanBeNull]this T In, [CanBeNull]params T[] Others)
+        public static T Max<T>([CanBeNull] this T In, [CanBeNull] params T[] Others)
             where T : IComparable
             {
             var Out = In;
@@ -147,14 +150,31 @@ namespace LCore.Extensions
                 }
             return Out;
             }
+
+        public static T Max<T>([CanBeNull] this IEnumerable<T> In, Func<T, IComparable> Comparer)
+            {
+            var Out = default(T);
+
+            if (In != null)
+                {
+                foreach (var Item in In)
+                    {
+                    if (Out == null ||
+                        (Item != null && Comparer(Item).CompareTo(Out) > 0))
+                        Out = Item;
+                    }
+                }
+            return Out;
+            }
+
         #endregion
 
         #region Min
+
         /// <summary>
         /// Returns the smallest of <paramref name="In" /> and all items in <paramref name="Others" />
         /// </summary>
-        
-        public static T Min<T>([CanBeNull]this T In, [CanBeNull]params T[] Others)
+        public static T Min<T>([CanBeNull] this T In, [CanBeNull] params T[] Others)
             where T : IComparable
             {
             var Out = In;
@@ -170,6 +190,29 @@ namespace LCore.Extensions
                 }
             return Out;
             }
+
+        public static T Min<T>([CanBeNull] this IEnumerable<T> In, Func<T, IComparable> Comparer)
+            {
+            var Out = default(T);
+            IComparable CompareValue = null;
+
+            if (In != null)
+                {
+                foreach (var Item in In)
+                    {
+                    var CompareValue2 = Comparer(Item);
+
+                    if (CompareValue == null ||
+                        (Item != null && CompareValue.CompareTo(CompareValue2) < 0))
+                        {
+                        CompareValue = CompareValue2;
+                        Out = Item;
+                        }
+                    }
+                }
+            return Out;
+            }
+
         #endregion
 
         #endregion
