@@ -155,7 +155,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         public static Action Async([CanBeNull] this Action In,
-            [TestBound(0, 5000)]int TimeLimitMilliseconds = 0,
+            [TestBound(Minimum: 0, Maximum: 5000)]int TimeLimitMilliseconds = 0,
             ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
@@ -168,7 +168,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         public static Action<T> Async<T>([CanBeNull] this Action<T> In,
-            [TestBound(0, 5000)]int TimeLimitMilliseconds = 0,
+            [TestBound(Minimum: 0, Maximum: 5000)]int TimeLimitMilliseconds = 0,
             ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
@@ -186,7 +186,7 @@ namespace LCore.Extensions
         /// </summary>
         [Tested]
         public static Action Async([CanBeNull] this Action In,
-            [TestBound(0u, 5000u)] uint TimeLimitMilliseconds = 0,
+            [TestBound(Minimum: 0u, Maximum: 5000u)] uint TimeLimitMilliseconds = 0,
             ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
@@ -200,7 +200,7 @@ namespace LCore.Extensions
         /// </summary>
         [Tested]
         public static Action<T> Async<T>([CanBeNull] this Action<T> In,
-            [TestBound(0u, 5000u)]uint TimeLimitMilliseconds = 0,
+            [TestBound(Minimum: 0u, Maximum: 5000u)]uint TimeLimitMilliseconds = 0,
             ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
@@ -217,7 +217,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         public static Action Async([CanBeNull] this Action In,
-            [TestBound(0L, 5000L)]long TimeLimitMilliseconds = 0,
+            [TestBound(Minimum: 0L, Maximum: 5000L)]long TimeLimitMilliseconds = 0,
             ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
@@ -230,7 +230,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         public static Action<T> Async<T>([CanBeNull] this Action<T> In,
-            [TestBound(0L, 5000L)]long TimeLimitMilliseconds = 0,
+            [TestBound(Minimum: 0L, Maximum: 5000L)]long TimeLimitMilliseconds = 0,
             ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.Async(TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
@@ -377,7 +377,7 @@ namespace LCore.Extensions
         /// </summary>
         [Tested]
         public static Action AsyncResult<U>([CanBeNull] this Func<U> In, [CanBeNull] Action<U> Callback,
-            [TestBound(-1, 5000)]int TimeLimitMilliseconds = 0,
+            [TestBound(-1, Maximum: 5000)]int TimeLimitMilliseconds = 0,
             ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
@@ -391,7 +391,7 @@ namespace LCore.Extensions
         /// </summary>
         [Tested]
         public static Action<T1> AsyncResult<T1, U>([CanBeNull] this Func<T1, U> In, [CanBeNull] Action<U> Callback,
-            [TestBound(-1, 5000)]int TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            [TestBound(-1, Maximum: 5000)]int TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
             }
@@ -407,7 +407,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         public static Action AsyncResult<U>([CanBeNull] this Func<U> In, [CanBeNull] Action<U> Callback,
-            [TestBound(0u, 5000u)]uint TimeLimitMilliseconds = 0,
+            [TestBound(Minimum: 0u, Maximum: 5000u)]uint TimeLimitMilliseconds = 0,
             ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
@@ -420,7 +420,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         public static Action<T1> AsyncResult<T1, U>([CanBeNull] this Func<T1, U> In, [CanBeNull] Action<U> Callback,
-            [TestBound(0u, 5000u)] uint TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            [TestBound(Minimum: 0u, Maximum: 5000u)] uint TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
             }
@@ -436,7 +436,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         public static Action AsyncResult<U>([CanBeNull] this Func<U> In, [CanBeNull] Action<U> Callback,
-            [TestBound(0L, 5000L)]long TimeLimitMilliseconds = 0,
+            [TestBound(Minimum: 0L, Maximum: 5000L)]long TimeLimitMilliseconds = 0,
             ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
@@ -449,7 +449,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         public static Action<T1> AsyncResult<T1, U>([CanBeNull] this Func<T1, U> In, [CanBeNull] Action<U> Callback,
-            [TestBound(0L, 5000L)]long TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            [TestBound(Minimum: 0L, Maximum: 5000L)]long TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
             }
@@ -465,7 +465,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         public static Action AsyncResult<U>([CanBeNull] this Func<U> In, [CanBeNull] Action<U> Callback,
-            [TestBound(0uL, 5000uL)]ulong TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            [TestBound(Minimum: 0uL, Maximum: 5000uL)]ulong TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
             }
@@ -477,7 +477,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         public static Action<T1> AsyncResult<T1, U>([CanBeNull] this Func<T1, U> In, [CanBeNull] Action<U> Callback,
-            [TestBound(0uL, 5000uL)]ulong TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            [TestBound(Minimum: 0uL, Maximum: 5000uL)]ulong TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
             }
@@ -495,7 +495,7 @@ namespace LCore.Extensions
         /// </summary>
         [Tested]
         public static uint CountExecutions([CanBeNull] this Action In,
-            [TestBound(0u, 100u)]uint Milliseconds)
+            [TestBound(Minimum: 0u, Maximum: 100u)]uint Milliseconds)
             {
             if (In == null)
                 In = () => { };
@@ -524,7 +524,7 @@ namespace LCore.Extensions
         /// </summary>
         [Tested]
         public static TimeSpan Profile([CanBeNull] this Action In,
-        [TestBound(0, 100)]uint Repeat = L.Thread.DefaultProfileRepeat)
+        [TestBound(Minimum: 0, Maximum: 100)]uint Repeat = L.Thread.DefaultProfileRepeat)
             {
             return L.Thread.ProfileActionRepeat(In, Repeat);
             }
@@ -534,7 +534,7 @@ namespace LCore.Extensions
         /// </summary>
         [Tested]
         public static MethodProfileData<U> Profile<U>([CanBeNull] this Func<U> In,
-        [TestBound(0u, 100u)] uint Repeat = L.Thread.DefaultProfileRepeat)
+        [TestBound(Minimum: 0u, Maximum: 100u)] uint Repeat = L.Thread.DefaultProfileRepeat)
             {
             var Out = new MethodProfileData<U>();
 
@@ -690,7 +690,7 @@ namespace LCore.Extensions
             internal static readonly Func<Action, uint, TimeSpan> ProfileActionRepeat = (In, Repeat) =>
                 {
                     if (In == null)
-                        return new TimeSpan(0);
+                        return new TimeSpan(ticks: 0);
 
                     var Start = DateTime.Now;
                     In.Repeat(Repeat)();

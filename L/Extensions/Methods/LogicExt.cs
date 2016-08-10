@@ -2312,7 +2312,7 @@ namespace LCore.Extensions
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
 
-            [CodeExplodeExtensionMethod("Do", new[] { "In" }, Comments.Do, false, true)]
+            [CodeExplodeExtensionMethod("Do", new[] { "In" }, Comments.Do, ExecuteResult: false, ExtendExplosions: true)]
             [CodeExplodeGenerics("Do", Comments.Do)]
             public static Func<Func /*GF*/<U>, Action> L_Do /*MF*/<U>()
                 {
@@ -2335,7 +2335,7 @@ namespace LCore.Extensions
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
 
-            [CodeExplodeExtensionMethod("Cache", new[] { "In", "CacheID" }, Comments.Cache, false, true)]
+            [CodeExplodeExtensionMethod("Cache", new[] { "In", "CacheID" }, Comments.Cache, ExecuteResult: false, ExtendExplosions: true)]
             [CodeExplodeGenerics("Cache", Comments.Cache)]
             public static Func<Func<U>, string, Func<U>> L_Cache /*MF*/<U>()
                 {
@@ -2448,7 +2448,7 @@ namespace LCore.Extensions
             /// <returns></returns>
 
             [CodeExplodeGenericsReplaceArguments("Set", new[] { 0 }, new[] { "In()" }, Comments.SetFunc)]
-            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
+            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Action<T1>, Func<T1>, Action<T1>> L_SetFunc_A<T1>()
                 {
                 return (Func, In) =>
@@ -2463,7 +2463,7 @@ namespace LCore.Extensions
             /// <returns></returns>
 
             [CodeExplodeGenericsReplaceArguments("Set", new[] { 0 }, new[] { "In()" }, Comments.SetFunc)]
-            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
+            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Func<T1, U>, Func<T1>, Func<T1, U>> L_SetFunc_F /*MF*/<T1, U>()
                 {
                 return (Func, In) =>
@@ -2481,7 +2481,7 @@ namespace LCore.Extensions
             /// </summary>
 
             [CodeExplodeGenericsReplaceArguments("Set", new[] { 1 }, new[] { "In()" }, Comments.SetFunc)]
-            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
+            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Action<T1, T2>, Func<T2>, Action<T1, T2>> L_SetFunc_A2<T1, T2>()
                 {
                 return (Func, In) =>
@@ -2495,7 +2495,7 @@ namespace LCore.Extensions
             /// </summary>
 
             [CodeExplodeGenericsReplaceArguments("Set", new[] { 1 }, new[] { "In()" }, Comments.SetFunc)]
-            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
+            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Func<T1, T2, U>, Func<T2>, Func<T1, T2, U>> L_SetFunc_F2 /*MF*/<T1, T2, U>()
                 {
                 return (Func, In) =>
@@ -2513,7 +2513,7 @@ namespace LCore.Extensions
             /// </summary>
 
             [CodeExplodeGenericsReplaceArguments("Set", new[] { 2 }, new[] { "In()" }, Comments.SetFunc)]
-            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
+            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Action<T1, T2, T3>, Func<T3>, Action<T1, T2, T3>> L_SetFunc_A3<T1, T2, T3>()
                 {
                 return (Func, In) =>
@@ -2527,7 +2527,7 @@ namespace LCore.Extensions
             /// </summary>
 
             [CodeExplodeGenericsReplaceArguments("Set", new[] { 2 }, new[] { "In()" }, Comments.SetFunc)]
-            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
+            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Func<T1, T2, T3, U>, Func<T3>, Func<T1, T2, T3, U>> L_SetFunc_F3 /*MF*/<T1, T2, T3, U>()
                 {
                 return (Func, In) =>
@@ -2545,7 +2545,7 @@ namespace LCore.Extensions
             /// </summary>
 
             [CodeExplodeGenericsReplaceArguments("Set", new[] { 3 }, new[] { "In()" }, Comments.SetFunc)]
-            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
+            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Action<T1, T2, T3, T4>, Func<T4>, Action<T1, T2, T3, T4>> L_SetFunc_A4<T1, T2, T3, T4>()
                 {
                 return (Func, In) =>
@@ -2559,7 +2559,7 @@ namespace LCore.Extensions
             /// </summary>
 
             [CodeExplodeGenericsReplaceArguments("Set", new[] { 3 }, new[] { "In()" }, Comments.SetFunc)]
-            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, false, true)]
+            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<T4>, Func<T1, T2, T3, T4, U>> L_SetFunc_F4 /*MF*/
                 <T1, T2, T3, T4, U>()
                 {
@@ -3052,7 +3052,7 @@ namespace LCore.Extensions
             /// <returns></returns>
 
             [CodeExplodeGenericsReplaceArguments("Set", new[] { 0 }, new[] { "Obj" }, Comments.Set)]
-            [CodeExplodeExtensionMethod("Set", new[] { "Func", "Obj" }, Comments.Set, false, true)]
+            [CodeExplodeExtensionMethod("Set", new[] { "Func", "Obj" }, Comments.Set, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Action<T1>, T1, Action<T1>> L_Set_A<T1>()
                 {
                 return (Func, Obj) =>
@@ -3066,7 +3066,7 @@ namespace LCore.Extensions
             /// </summary>
 
             [CodeExplodeGenericsReplaceArguments("Set", new[] { 0 }, new[] { "Obj" }, Comments.Set)]
-            [CodeExplodeExtensionMethod("Set", new[] { "Func", "Obj" }, Comments.Set, false, true)]
+            [CodeExplodeExtensionMethod("Set", new[] { "Func", "Obj" }, Comments.Set, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Func<T1, U>, T1, Func<T1, U>> L_Set_F /*MF*/<T1, U>()
                 {
                 return (Func, Obj) =>
@@ -3087,7 +3087,7 @@ namespace LCore.Extensions
             /// <returns></returns>
 
             [CodeExplodeGenericsReplaceArguments("Set2", new[] { 1 }, new[] { "Obj" }, Comments.Set2)]
-            [CodeExplodeExtensionMethod("Set2", new[] { "Func", "Obj" }, Comments.Set2, false, true)]
+            [CodeExplodeExtensionMethod("Set2", new[] { "Func", "Obj" }, Comments.Set2, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Action<T1, T2>, T2, Action<T1, T2>> L_Set2_A<T1, T2>()
                 {
                 return (Func, Obj) =>
@@ -3102,7 +3102,7 @@ namespace LCore.Extensions
             /// <returns></returns>
 
             [CodeExplodeGenericsReplaceArguments("Set2", new[] { 1 }, new[] { "Obj" }, Comments.Set2)]
-            [CodeExplodeExtensionMethod("Set2", new[] { "Func", "Obj" }, Comments.Set2, false, true)]
+            [CodeExplodeExtensionMethod("Set2", new[] { "Func", "Obj" }, Comments.Set2, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Func<T1, T2, U>, T2, Func<T1, T2, U>> L_Set2_F /*MF*/<T1, T2, U>()
                 {
                 return (Func, Obj) =>
@@ -3124,7 +3124,7 @@ namespace LCore.Extensions
             /// <returns></returns>
 
             [CodeExplodeGenericsReplaceArguments("Set3", new[] { 2 }, new[] { "Obj" }, Comments.Set3)]
-            [CodeExplodeExtensionMethod("Set3", new[] { "Func", "Obj" }, Comments.Set3, false, true)]
+            [CodeExplodeExtensionMethod("Set3", new[] { "Func", "Obj" }, Comments.Set3, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Action<T1, T2, T3>, T3, Action<T1, T2, T3>> L_Set3_A<T1, T2, T3>()
                 {
                 return (Func, Obj) =>
@@ -3143,7 +3143,7 @@ namespace LCore.Extensions
             /// <returns></returns>
 
             [CodeExplodeGenericsReplaceArguments("Set3", new[] { 2 }, new[] { "Obj" }, Comments.Set3)]
-            [CodeExplodeExtensionMethod("Set3", new[] { "Func", "Obj" }, Comments.Set3, false, true)]
+            [CodeExplodeExtensionMethod("Set3", new[] { "Func", "Obj" }, Comments.Set3, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Func<T1, T2, T3, U>, T3, Func<T1, T2, T3, U>> L_Set3_F /*MF*/<T1, T2, T3, U>()
                 {
                 return (Func, Obj) =>
@@ -3166,7 +3166,7 @@ namespace LCore.Extensions
             /// <returns></returns>
 
             [CodeExplodeGenericsReplaceArguments("Set4", new[] { 3 }, new[] { "Obj" }, Comments.Set4)]
-            [CodeExplodeExtensionMethod("Set4", new[] { "Func", "Obj" }, Comments.Set4, false, true)]
+            [CodeExplodeExtensionMethod("Set4", new[] { "Func", "Obj" }, Comments.Set4, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Action<T1, T2, T3, T4>, T4, Action<T1, T2, T3, T4>> L_Set4_A<T1, T2, T3, T4>()
                 {
                 return (Func, Obj) =>
@@ -3186,7 +3186,7 @@ namespace LCore.Extensions
             /// <returns></returns>
 
             [CodeExplodeGenericsReplaceArguments("Set4", new[] { 3 }, new[] { "Obj" }, Comments.Set4)]
-            [CodeExplodeExtensionMethod("Set4", new[] { "Func", "Obj" }, Comments.Set4, false, true)]
+            [CodeExplodeExtensionMethod("Set4", new[] { "Func", "Obj" }, Comments.Set4, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Func<T1, T2, T3, T4, U>, T4, Func<T1, T2, T3, T4, U>> L_Set4_F /*MF*/<T1, T2, T3, T4, U>()
                 {
                 return (Func, Obj) =>
@@ -7293,7 +7293,7 @@ namespace LCore.Extensions
             /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
 
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge, false, true)]
+            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge, ExecuteResult: false, ExtendExplosions: true)]
             [CodeExplodeGenerics("Merge", Comments.Merge)]
             public static Func<Action /*X2GA*/, Action /*GA*/ /*X2-TI*/, Action> L_Merge /*MA*/()
                 {
@@ -7313,7 +7313,7 @@ namespace LCore.Extensions
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
 
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge, false, true)]
+            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge, ExecuteResult: false, ExtendExplosions: true)]
             [CodeExplodeGenerics("Merge", Comments.Merge)]
             public static Func<Action /*X2GA*/, Func /*GF*/<U> /*X2-TI*/, Func<U>> L_Merge_A_F /*MF*/<U>()
                 {

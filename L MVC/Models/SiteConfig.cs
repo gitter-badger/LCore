@@ -40,11 +40,11 @@ namespace LMVC.Models
 
             // Remove path
             if (URL.Contains("/"))
-                URL = URL.Sub(0, URL.IndexOf('/'));
+                URL = URL.Sub(Start: 0, Length: URL.IndexOf(value: '/'));
 
             // Remove port
             if (URL.Contains(":"))
-                URL = URL.Sub(0, URL.IndexOf(':'));
+                URL = URL.Sub(Start: 0, Length: URL.IndexOf(value: ':'));
 
             return DbContext.GetDBSet<SiteConfig>().FirstOrDefault(Site => Site.SiteRootURL == URL);
             }

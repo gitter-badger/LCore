@@ -29,7 +29,7 @@ namespace LMVC.Models
 
         public DateTime? LastLogin { get; set; }
 
-        [MaxLength(64)]
+        [MaxLength(length: 64)]
         public string PasswordHash { get; set; }
 
         [Required]

@@ -28,7 +28,7 @@ namespace LCore.Statistics
             if (StandardDeviations < 0)
                 throw new ArgumentException(nameof(StandardDeviations));
 
-            return (float)(1 - 1 / Math.Pow(StandardDeviations, 2));
+            return (float)(1 - 1 / Math.Pow(StandardDeviations, y: 2));
             }
 
         /// <summary>

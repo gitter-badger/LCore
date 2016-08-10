@@ -34,10 +34,10 @@ namespace LMVC.Annotations
             Value = Value.Trim();
 
             if (Value.StartsWith(","))
-                Value = Value.Substring(1);
+                Value = Value.Substring(startIndex: 1);
 
             if (Value.EndsWith(","))
-                Value = Value.Sub(0, Value.Length - 1);
+                Value = Value.Sub(Start: 0, Length: Value.Length - 1);
 
             Model.SetProperty(Meta.PropertyName, Value);
 

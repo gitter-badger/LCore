@@ -34,7 +34,7 @@ namespace LCore.Extensions
                 });
 
             if (Count == 0)
-                return new TimeSpan(0);
+                return new TimeSpan(ticks: 0);
 
             long Out = Total/Count;
 
@@ -49,13 +49,13 @@ namespace LCore.Extensions
         /// Takes a DayOfWeek and returns the number of day of the week it is.
         /// Values are from Sunday: 0 to Saturday: 6
         /// </summary>
-        [TestResult(new object[] {DayOfWeek.Monday}, 1)]
-        [TestResult(new object[] {DayOfWeek.Tuesday}, 2)]
-        [TestResult(new object[] {DayOfWeek.Wednesday}, 3)]
-        [TestResult(new object[] {DayOfWeek.Thursday}, 4)]
-        [TestResult(new object[] {DayOfWeek.Friday}, 5)]
-        [TestResult(new object[] {DayOfWeek.Saturday}, 6)]
-        [TestResult(new object[] {DayOfWeek.Sunday}, 0)]
+        [TestResult(new object[] {DayOfWeek.Monday}, ExpectedResult: 1)]
+        [TestResult(new object[] {DayOfWeek.Tuesday}, ExpectedResult: 2)]
+        [TestResult(new object[] {DayOfWeek.Wednesday}, ExpectedResult: 3)]
+        [TestResult(new object[] {DayOfWeek.Thursday}, ExpectedResult: 4)]
+        [TestResult(new object[] {DayOfWeek.Friday}, ExpectedResult: 5)]
+        [TestResult(new object[] {DayOfWeek.Saturday}, ExpectedResult: 6)]
+        [TestResult(new object[] {DayOfWeek.Sunday}, ExpectedResult: 0)]
         public static int DayOfWeekNumber(this DayOfWeek Day)
             {
             return L.Date.GetDayNumber(Day);
@@ -117,8 +117,8 @@ namespace LCore.Extensions
                 MTime += MDate.Second.ToString();
                 }
 
-            string Str = Date.DayOfWeek.ToString().Sub(0, 3);
-            Str += $", {Day} {Month.Sub(0, 3)}";
+            string Str = Date.DayOfWeek.ToString().Sub(Start: 0, Length: 3);
+            Str += $", {Day} {Month.Sub(Start: 0, Length: 3)}";
             Str += $" {Date.Year} {MTime} GMT";
             return Str;
             }

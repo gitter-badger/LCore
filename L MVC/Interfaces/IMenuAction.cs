@@ -37,20 +37,20 @@ namespace LMVC.Models
         public string MethodName { get; set; }
 
         public MenuAction()
-            : this(null, FontAwesomeExt.Icon.question)
+            : this(ParentAction: null, Icon: FontAwesomeExt.Icon.question)
             {
             }
 
         public MenuAction(string ParentAction = null, FontAwesomeExt.Icon Icon = FontAwesomeExt.Icon.question, string ActionFriendlyTitle = null)
             {
             this.ParentAction = ParentAction;
-            this.Icon = FontAwesomeExt.FontAwesome(null, Icon);
+            this.Icon = FontAwesomeExt.FontAwesome(Html: null, Icon: Icon);
             }
 
         public MenuAction(string ParentAction = null, GlyphIconExt.Icon Icon = GlyphIconExt.Icon.question_sign, string ActionFriendlyTitle = null)
             {
             this.ParentAction = ParentAction;
-            this.Icon = GlyphIconExt.Glyph(null, Icon);
+            this.Icon = GlyphIconExt.Glyph(Html: null, Icon: Icon);
             }
         }
     }

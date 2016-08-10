@@ -429,7 +429,7 @@ namespace LCore.Numbers
         /// </summary>
         public override bool Equals([CanBeNull] object Obj)
             {
-            if (ReferenceEquals(null, Obj)) return false;
+            if (ReferenceEquals(objA: null, objB: Obj)) return false;
             if (ReferenceEquals(this, Obj)) return true;
 
             var Comparable = Obj as IComparable;
@@ -484,12 +484,12 @@ namespace LCore.Numbers
         /// </summary>
         public static bool operator ==([CanBeNull]Number Number1, [CanBeNull]IComparable Number2)
             {
-            if (ReferenceEquals(Number1, null) && !ReferenceEquals(Number2, null))
+            if (ReferenceEquals(Number1, objB: null) && !ReferenceEquals(Number2, objB: null))
                 return false;
-            if (!ReferenceEquals(Number1, null) && ReferenceEquals(Number2, null))
+            if (!ReferenceEquals(Number1, objB: null) && ReferenceEquals(Number2, objB: null))
                 return false;
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-            if (ReferenceEquals(Number1, null) && ReferenceEquals(Number2, null))
+            if (ReferenceEquals(Number1, objB: null) && ReferenceEquals(Number2, objB: null))
                 return true;
 
             return Number1.IsEqualTo(Number2);
@@ -499,12 +499,12 @@ namespace LCore.Numbers
         /// </summary>
         public static bool operator !=([CanBeNull]Number Number1, [CanBeNull]IComparable Number2)
             {
-            if (ReferenceEquals(Number1, null) && !ReferenceEquals(Number2, null))
+            if (ReferenceEquals(Number1, objB: null) && !ReferenceEquals(Number2, objB: null))
                 return true;
-            if (!ReferenceEquals(Number1, null) && ReferenceEquals(Number2, null))
+            if (!ReferenceEquals(Number1, objB: null) && ReferenceEquals(Number2, objB: null))
                 return true;
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-            if (ReferenceEquals(Number1, null) && ReferenceEquals(Number2, null))
+            if (ReferenceEquals(Number1, objB: null) && ReferenceEquals(Number2, objB: null))
                 return false;
 
             return Number1.IsNotEqualTo(Number2);

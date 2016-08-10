@@ -38,7 +38,7 @@ namespace LMVC.Controllers
             {
             var ViewModel = new ManageViewModel(this);
 
-            var DefaultSearch = SavedSearch.FindDefault(this.DbContext, this.ModelType.FullName, this.Name, true);
+            var DefaultSearch = SavedSearch.FindDefault(this.DbContext, this.ModelType.FullName, this.Name, Autocreate: true);
 
             if (DefaultManageSearch)
                 {
@@ -311,7 +311,7 @@ namespace LMVC.Controllers
 
                             if (!Meta.HasAttribute<FieldDisableExportAttribute>())
                                 {
-                                var Param = Lambda.Parameters[0];
+                                var Param = Lambda.Parameters[index: 0];
                                 Expression AsObject = Expression.TypeAs(Lambda.Body, typeof(object));
                                 var Lambda2 = Expression.Lambda(AsObject, Param);
 
@@ -432,9 +432,9 @@ namespace LMVC.Controllers
                     return new HttpUnauthorizedResult();
                     }
 
-                IModel Model = this.GetModel(0, true, null);
+                IModel Model = this.GetModel(ID: 0, Create: true, Model: null);
 
-                return this.Edit(Model, ReturnUrl, true);
+                return this.Edit(Model, ReturnUrl, Create: true);
                 }
             else
                 {
@@ -494,7 +494,7 @@ namespace LMVC.Controllers
 
             this.ViewBag.ControllerName = this.Name;
 
-            var Model = this.GetModel(ID, Create, null);
+            var Model = this.GetModel(ID, Create, Model: null);
 
             bool Errors;
 
@@ -605,15 +605,15 @@ namespace LMVC.Controllers
                 return new HttpUnauthorizedResult();
                 }
 
-            IModel Model = this.GetModel(0, true, null);
+            IModel Model = this.GetModel(ID: 0, Create: true, Model: null);
 
-            return this.Edit(Model, ReturnUrl, true);
+            return this.Edit(Model, ReturnUrl, Create: true);
             }
 
         [HttpPost]
         public override ActionResult Create(string ReturnUrl, FormCollection Form)
             {
-            return this.Edit(0, ReturnUrl, Form, true);
+            return this.Edit(ID: 0, ReturnUrl: ReturnUrl, Form: Form, Create: true);
             }
         #endregion
 
@@ -708,7 +708,7 @@ namespace LMVC.Controllers
 
             if (UploadFiles.Count == 1)
                 {
-                var Result = this.UploadSingleFile(Form, RelationType, RelationProperty, RelationID, UploadFiles[0]);
+                var Result = this.UploadSingleFile(Form, RelationType, RelationProperty, RelationID, UploadFiles[index: 0]);
 
                 this.DbContext.SaveChanges();
 
@@ -816,7 +816,7 @@ namespace LMVC.Controllers
 
         private void SetDefaultSort(ManageViewModel ManageModel)
             {
-            var Attr = ManageModel.ModelType.GetAttribute<DisplayColumnAttribute>(false);
+            var Attr = ManageModel.ModelType.GetAttribute<DisplayColumnAttribute>(IncludeBaseTypes: false);
 
             if (!string.IsNullOrEmpty(Attr?.SortColumn))
                 {
@@ -931,7 +931,7 @@ namespace LMVC.Controllers
                     Value = "true";
                     }
 
-                if (Meta.HasAttribute<KeyAttribute>(true))
+                if (Meta.HasAttribute<KeyAttribute>(IncludeSubClasses: true))
                     return false;
 
                 if (Meta.HasAttribute<ISetFormField>())
@@ -948,7 +948,7 @@ namespace LMVC.Controllers
                     {
                     try
                         {
-                        PropertyInfo.SetValue(Model, null);
+                        PropertyInfo.SetValue(Model, value: null);
                         }
                     catch
                         {
@@ -989,7 +989,7 @@ namespace LMVC.Controllers
             return Errors;
             }
 
-        public override bool ArchiveActive => this.GetArchivedCondition(true) != null;
+        public override bool ArchiveActive => this.GetArchivedCondition(Archived: true) != null;
 
         // ReSharper disable once MemberCanBeProtected.Global
         public virtual TimeSpan ArchiveTimeSpan => SingularityControllerHelper.DefaultArchiveTimeSpan;
@@ -1001,9 +1001,9 @@ namespace LMVC.Controllers
                 {
                 Expression<Func<T, bool>> Exp = typeof(T).GetExpression<T, bool>(ControllerHelper.AutomaticFields.Active);
                 Expression Equal = Archived ?
-                    Expression.Equal(Exp.Body, Expression.Constant(true)) :
-                    Expression.Equal(Exp.Body, Expression.Constant(false));
-                Expression Lambda = Expression.Lambda(Equal, Exp.Parameters[0]);
+                    Expression.Equal(Exp.Body, Expression.Constant(value: true)) :
+                    Expression.Equal(Exp.Body, Expression.Constant(value: false));
+                Expression Lambda = Expression.Lambda(Equal, Exp.Parameters[index: 0]);
 
                 return (Expression<Func<T, bool>>)Lambda;
                 }
@@ -1018,7 +1018,7 @@ namespace LMVC.Controllers
                     Expression.LessThan(Exp.Body, Expression.Constant(Cutoff)) :
                     Expression.GreaterThanOrEqual(Exp.Body, Expression.Constant(Cutoff));
 
-                Expression Lambda = Expression.Lambda(LessThan, Exp.Parameters[0]);
+                Expression Lambda = Expression.Lambda(LessThan, Exp.Parameters[index: 0]);
 
                 return (Expression<Func<T, bool>>)Lambda;
                 }

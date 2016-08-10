@@ -57,7 +57,7 @@ namespace LMVC.Models
         [FieldLoadFromQueryString]
         public string FieldSearch { get; set; }
 
-        [ReadOnly(true)]
+        [ReadOnly(isReadOnly: true)]
         public bool? Default { get; set; }
 
         [HideManageViewColumn]

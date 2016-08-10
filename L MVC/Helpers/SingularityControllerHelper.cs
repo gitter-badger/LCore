@@ -41,7 +41,7 @@ namespace LMVC.Controllers
         public const string Session_Role = "ProfileRoleSession";
         public const string Session_User = "ProfileUserSession";
 
-        public static TimeSpan DefaultArchiveTimeSpan = new TimeSpan(180, 0, 0, 0, 0);
+        public static TimeSpan DefaultArchiveTimeSpan = new TimeSpan(days: 180, hours: 0, minutes: 0, seconds: 0, milliseconds: 0);
 
 
         public static readonly bool AllowRegister = false;
@@ -247,8 +247,8 @@ namespace LMVC.Controllers
             if (this.Owner.ArchiveActive)
                 {
                 Set = Set.Where(ViewType == ControllerHelper.ManageViewType.Archive ?
-                    this.Owner.GetArchivedCondition(true) :
-                    this.Owner.GetArchivedCondition(false));
+                    this.Owner.GetArchivedCondition(Archived: true) :
+                    this.Owner.GetArchivedCondition(Archived: false));
                 }
 
             #endregion
@@ -263,16 +263,16 @@ namespace LMVC.Controllers
                 else if (ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive))
                     {
                     Expression<Func<T, bool>> Exp = typeof(T).GetExpression<T, bool>(ControllerHelper.AutomaticFields.Active);
-                    Expression Equal = Expression.NotEqual(Exp.Body, Expression.Constant(true));
-                    Expression Lambda = Expression.Lambda(Equal, Exp.Parameters[0]);
+                    Expression Equal = Expression.NotEqual(Exp.Body, Expression.Constant(value: true));
+                    Expression Lambda = Expression.Lambda(Equal, Exp.Parameters[index: 0]);
 
                     Set = Set.Where((Expression<Func<T, bool>>)Lambda);
                     }
                 else
                     {
                     Expression<Func<T, bool>> Exp = typeof(T).GetExpression<T, bool>(ControllerHelper.AutomaticFields.Active);
-                    Expression Equal = Expression.Equal(Exp.Body, Expression.Constant(true));
-                    Expression Lambda = Expression.Lambda(Equal, Exp.Parameters[0]);
+                    Expression Equal = Expression.Equal(Exp.Body, Expression.Constant(value: true));
+                    Expression Lambda = Expression.Lambda(Equal, Exp.Parameters[index: 0]);
 
                     Set = Set.Where((Expression<Func<T, bool>>)Lambda);
                     }
@@ -292,7 +292,7 @@ namespace LMVC.Controllers
                 if (typeof(T).Meta(SortTerm)?.ModelType.HasInterface<IModel>() == true)
                     {
                     var Type = typeof(T).Meta(SortTerm)?.ModelType;
-                    var Display = Type.GetAttribute<DisplayColumnAttribute>(false);
+                    var Display = Type.GetAttribute<DisplayColumnAttribute>(IncludeBaseTypes: false);
 
                     SortTerm = Display != null
                         ? $"{SortTerm}.{Display.SortColumn}"

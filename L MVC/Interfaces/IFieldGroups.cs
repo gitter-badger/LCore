@@ -38,7 +38,7 @@ namespace LMVC.Annotations
                     {
                     return false;
                     }
-                if (Prop.HasAttribute<KeyAttribute>(true))
+                if (Prop.HasAttribute<KeyAttribute>(IncludeSubClasses: true))
                     {
                     return false;
                     }

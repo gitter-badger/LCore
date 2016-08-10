@@ -33,7 +33,7 @@ namespace LCore.Extensions
                 ((string)In).Length > 1 &&
                 ((string)In).Contains(".") &&
                 (((string)In).EndsWith("0") || ((string)In).EndsWith(".")))
-                In = ((string)In).Sub(0, ((string)In).Length - 1);
+                In = ((string)In).Sub(Start: 0, Length: ((string)In).Length - 1);
 
             T? Out = In.ConvertTo<T>();
 
@@ -57,7 +57,7 @@ namespace LCore.Extensions
                 ((string)In).Length > 1 &&
                 ((string)In).Contains(".") &&
                 (((string)In).EndsWith("0") || ((string)In).EndsWith(".")))
-                In = ((string)In).Sub(0, ((string)In).Length - 1);
+                In = ((string)In).Sub(Start: 0, Length: ((string)In).Length - 1);
 
             var Out = (IConvertible)In.ConvertTo(Type);
 
@@ -110,7 +110,7 @@ namespace LCore.Extensions
                 ((string)In).Length > 1 &&
                 ((string)In).Contains(".") &&
                 (((string)In).EndsWith("0") || ((string)In).EndsWith(".")))
-                In = ((string)In).Sub(0, ((string)In).Length - 1);
+                In = ((string)In).Sub(Start: 0, Length: ((string)In).Length - 1);
 
             try
                 {
@@ -147,7 +147,7 @@ namespace LCore.Extensions
                 ((string)In).Length > 1 &&
                 ((string)In).Contains(".") &&
                 (((string)In).EndsWith("0") || ((string)In).EndsWith(".")))
-                In = ((string)In).Sub(0, ((string)In).Length - 1);
+                In = ((string)In).Sub(Start: 0, Length: ((string)In).Length - 1);
 
             try
                 {

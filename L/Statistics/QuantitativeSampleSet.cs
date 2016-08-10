@@ -271,7 +271,7 @@ namespace LCore.Statistics
                     var Median1 = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2)) - 1];
                     var Median2 = this.DataSetSorted[(int)Math.Ceiling((double)(this.SampleSize / 2))];
 
-                    this._Median = this.Divide(this.Add(Median1, Median2), this.Convert(2));
+                    this._Median = this.Divide(this.Add(Median1, Median2), this.Convert(In: 2));
                     }
                 else
                     {
@@ -357,7 +357,7 @@ namespace LCore.Statistics
                 this._Maximum = Maximum;
                 this._Range = this.Subtract(Maximum, Minimum);
 
-                this._MidRange = this.Divide(this.Add(Maximum, Minimum), this.Convert(2));
+                this._MidRange = this.Divide(this.Add(Maximum, Minimum), this.Convert(In: 2));
 
                 this._Mean = this.Divide(Total, this.Convert(this.SampleSize));
 
@@ -393,7 +393,7 @@ namespace LCore.Statistics
                 #region Frequency
                 if (!this._Frequency.ContainsKey(DataItem))
                     {
-                    this._Frequency.Add(DataItem, 1);
+                    this._Frequency.Add(DataItem, value: 1);
 
                     if (MostFrequentCount == 0 || MostFrequentCount == 1)
                         {
@@ -500,7 +500,7 @@ namespace LCore.Statistics
         public double GetValueVariance(T Value)
             {
             // ReSharper disable once PossibleInvalidOperationException
-            return Math.Pow((double)Value.ConvertTo<double>() - this.Mean(), 2);
+            return Math.Pow((double)Value.ConvertTo<double>() - this.Mean(), y: 2);
             }
 
         public double GetValueZScore(T Value)

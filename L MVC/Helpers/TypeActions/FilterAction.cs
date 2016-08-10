@@ -30,9 +30,9 @@ namespace LMVC.Utilities
             string SearchLower = this.Operation.Search.ToLower();
 
             if (SearchLower == "y" || SearchLower == "yes" || SearchLower == "true")
-                return this.Accessor.GetOperatorExpression<T>(this.Operation.Operator, true);
+                return this.Accessor.GetOperatorExpression<T>(this.Operation.Operator, Value: true);
             if (SearchLower == "n" || SearchLower == "no" || SearchLower == "false")
-                return this.Accessor.GetOperatorExpression<T>(this.Operation.Operator, false);
+                return this.Accessor.GetOperatorExpression<T>(this.Operation.Operator, Value: false);
             throw new ArgumentException($"Invalid value: {SearchLower}");
             }
 
@@ -549,7 +549,7 @@ namespace LMVC.Utilities
                     Expression.Lambda(
                         Expression.Equal(
                             Expression.Convert(this.Accessor.Body, typeof(int?)),
-                            Expression.Convert(Expression.Constant(Value), typeof(int?))), this.Accessor.Parameters[0]));
+                            Expression.Convert(Expression.Constant(Value), typeof(int?))), this.Accessor.Parameters[index: 0]));
 
                 Expression CombinedOrs = Ors.Or();
 
@@ -557,7 +557,7 @@ namespace LMVC.Utilities
                     (Expression<Func<T, bool>>)Expression.Lambda(
                     Expression.Equal(
                         Expression.Convert(this.Accessor.Body, typeof(int?)),
-                        CombinedOrs), this.Accessor.Parameters[0]);
+                        CombinedOrs), this.Accessor.Parameters[index: 0]);
                 /*
                 Expression.Enum
                 return 

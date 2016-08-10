@@ -128,7 +128,7 @@ namespace LMVC.Models
                     string Name = Attachment.FilePath;
 
                     if (Name.Contains("\\"))
-                        Name = Name.Substring(Name.LastIndexOf('\\') + 1);
+                        Name = Name.Substring(Name.LastIndexOf(value: '\\') + 1);
 
                     Mail.Attachments.Add(new Attachment(new MemoryStream(Bytes), Name));
                     }

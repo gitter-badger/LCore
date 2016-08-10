@@ -20,7 +20,7 @@ namespace LMVC.Annotations
     public class FieldPartialBeforeAttribute : FieldPartialAttribute
         {
         public FieldPartialBeforeAttribute(string PartialViewBefore, params ControllerHelper.ViewType[] Type)
-            : base(PartialViewBefore, null, Type)
+            : base(PartialViewBefore, PartialViewAfter: null, Type: Type)
             {
             }
         }
@@ -28,7 +28,7 @@ namespace LMVC.Annotations
     public class FieldPartialAfterAttribute : FieldPartialAttribute
         {
         public FieldPartialAfterAttribute(string PartialViewAfter, params ControllerHelper.ViewType[] Type)
-            : base(null, PartialViewAfter, Type)
+            : base(PartialViewBefore: null, PartialViewAfter: PartialViewAfter, Type: Type)
             {
             }
         }

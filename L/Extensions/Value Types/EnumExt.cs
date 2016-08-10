@@ -22,10 +22,10 @@ namespace LCore.Extensions
         /// This method will fail if the String is null, empty, or does not match a value of the enum.
         /// </summary>
         [TestMethodGenerics(typeof(L.Align))]
-        [TestResult(new object[] { null }, null)]
-        [TestResult(new object[] { "" }, null)]
-        [TestResult(new object[] { "WRONG" }, null)]
-        [TestResult(new object[] { "left" }, null)]
+        [TestResult(new object[] { null }, ExpectedResult: null)]
+        [TestResult(new object[] { "" }, ExpectedResult: null)]
+        [TestResult(new object[] { "WRONG" }, ExpectedResult: null)]
+        [TestResult(new object[] { "left" }, ExpectedResult: null)]
         [TestResult(new object[] { "Left" }, L.Align.Left)]
         [TestResult(new object[] { "Right" }, L.Align.Right)]
         [CanBeNull]
@@ -63,8 +63,8 @@ namespace LCore.Extensions
         /// This method will fail if the source enum is null or the String value of the source enum is not found in type T.
         /// </summary>
         [TestMethodGenerics(typeof(L.Align))]
-        [TestResult(new object[] { null }, null)]
-        [TestResult(new object[] { Test.TestEnum.Top }, null)]
+        [TestResult(new object[] { null }, ExpectedResult: null)]
+        [TestResult(new object[] { Test.TestEnum.Top }, ExpectedResult: null)]
         [TestResult(new object[] { Test.TestEnum.Left }, L.Align.Left)]
         [TestResult(new object[] { Test.TestEnum.Right }, L.Align.Right)]
         [TestResult(new object[] { Test.TestEnum.Top }, L.AlignVertical.Top, GenericTypes = new[] { typeof(L.AlignVertical) })]

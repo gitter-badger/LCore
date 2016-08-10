@@ -58,12 +58,12 @@ namespace LMVC.Utilities
             if (string.IsNullOrEmpty(In))
                 return null;
 
-            if (Type.HasAttribute<FlagsAttribute>(true))
+            if (Type.HasAttribute<FlagsAttribute>(IncludeBaseClasses: true))
                 {
                 if (In.StartsWith(","))
                     {
                     if (In.Length > 1)
-                        In = In.Substring(1);
+                        In = In.Substring(startIndex: 1);
                     else
                         return null;
                     }

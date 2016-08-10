@@ -24,12 +24,12 @@ namespace LCore.Extensions
         /// Returns whether a given object has a property with a specific name
         /// </summary>
         /// <returns>Whether a given object has a property with a specific name</returns>
-        [TestResult(new object[] { null, null }, false)]
-        [TestResult(new object[] { null, "" }, false)]
-        [TestResult(new object[] { "", null }, false)]
-        [TestResult(new object[] { "", "" }, false)]
-        [TestResult(new object[] { "", "nope" }, false)]
-        [TestResult(new object[] { "", nameof(string.Length) }, true)]
+        [TestResult(new object[] { null, null }, ExpectedResult: false)]
+        [TestResult(new object[] { null, "" }, ExpectedResult: false)]
+        [TestResult(new object[] { "", null }, ExpectedResult: false)]
+        [TestResult(new object[] { "", "" }, ExpectedResult: false)]
+        [TestResult(new object[] { "", "nope" }, ExpectedResult: false)]
+        [TestResult(new object[] { "", nameof(string.Length) }, ExpectedResult: true)]
         public static bool HasProperty([CanBeNull]this object In, [CanBeNull]string PropertyName)
             {
             return L.Obj.HasProperty()(In, PropertyName);
@@ -161,8 +161,8 @@ namespace LCore.Extensions
                     }
 
                 // If one is null, but not both, return false.
-                if (ReferenceEquals(o1, null) ||
-                    ReferenceEquals(o2, null))
+                if (ReferenceEquals(o1, objB: null) ||
+                    ReferenceEquals(o2, objB: null))
                     {
                     return false;
                     }
@@ -255,7 +255,7 @@ namespace LCore.Extensions
 
                         var RandomItems = new List<object>();
 
-                        int RandomCount = (int)NewRandom(typeof(int), 1, 50);
+                        int RandomCount = (int)NewRandom(typeof(int), Minimum: 1, Maximum: 50);
 
                         A(() => { RandomItems.Add(NewRandom(SelectedType, Min, Max)); }).Repeat(RandomCount)();
 
@@ -278,7 +278,7 @@ namespace LCore.Extensions
 
                             var RandomItems = new List<object>();
 
-                            int RandomCount = (int)NewRandom(typeof(int), 1, 50);
+                            int RandomCount = (int)NewRandom(typeof(int), Minimum: 1, Maximum: 50);
 
                             A(() => { RandomItems.Add(NewRandom(EnumerableType, Min, Max)); }).Repeat(RandomCount)();
 
@@ -873,8 +873,8 @@ namespace LCore.Extensions.Optional
         /// <typeparam name="T"></typeparam>
         /// <param name="In"></param>
         /// <returns></returns>
-        [TestResult(new object[] { null }, true)]
-        [TestResult(new object[] { "" }, false)]
+        [TestResult(new object[] { null }, ExpectedResult: true)]
+        [TestResult(new object[] { "" }, ExpectedResult: false)]
         [TestMethodGenerics(typeof(string))]
         public static bool IsNull<T>(this T In)
             {

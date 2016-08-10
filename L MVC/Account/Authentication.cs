@@ -11,16 +11,26 @@ namespace LMVC.Account
     public static class Authentication
         {
         // Default length a UserSession will be valid.
-        public static readonly TimeSpan UserSessionLength = new TimeSpan(0, 0, 30, 0);
+        public static readonly TimeSpan UserSessionLength = new TimeSpan(days: 0, hours: 0, minutes: 30, seconds: 0);
 
-        public static readonly TimeSpan UserAccountPasswordExpire = new TimeSpan(90, 0, 0, 0);
+        public static readonly TimeSpan UserAccountPasswordExpire = new TimeSpan(days: 90, hours: 0, minutes: 0, seconds: 0);
 
         // ReSharper disable PossibleNullReferenceException
-        public static readonly char[] Password_UpperChars = Enumerable.Range(65, 26).Convert(Char => (char)Char.TryConvertTo<char>()).Array();
-        public static readonly char[] Password_LowerChars = Enumerable.Range(97, 26).Convert(Char => (char)Char.TryConvertTo<char>()).Array();
-        public static readonly char[] Password_NumberChars = Enumerable.Range(48, 26).Convert(Char => (char)Char.TryConvertTo<char>()).Array();
+        public static readonly char[] Password_UpperChars =
+            Enumerable.Range(start: 65, count: 26).Convert(Char => (char) Char.TryConvertTo<char>()).Array();
+
+        public static readonly char[] Password_LowerChars =
+            Enumerable.Range(start: 97, count: 26).Convert(Char => (char) Char.TryConvertTo<char>()).Array();
+
+        public static readonly char[] Password_NumberChars =
+            Enumerable.Range(start: 48, count: 26).Convert(Char => (char) Char.TryConvertTo<char>()).Array();
+
         // ReSharper restore PossibleNullReferenceException
-        public static readonly char[] Password_SpecialChars = { '!', '#', '$', '%', '&', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '{', '|', '}' };
+        public static readonly char[] Password_SpecialChars =
+            {
+            '!', '#', '$', '%', '&', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';',
+            '<', '=', '>', '?', '@', '[', '\\', ']', '{', '|', '}'
+            };
 
         public const string DateFormat = "yyyy-MM-dd h:mm tt";
 
@@ -28,7 +38,6 @@ namespace LMVC.Account
             {
             LengthMinimum = 8,
             LengthMaximum = null,
-
             LowerCaseMinimum = 1,
             NumberMinimum = 1,
             SpecialMinimum = null,

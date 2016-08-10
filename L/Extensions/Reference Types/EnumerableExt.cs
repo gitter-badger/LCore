@@ -50,7 +50,7 @@ namespace LCore.Extensions
                 return Objs.Array();
 
             var Out = new T[CountTotal];
-            In.CopyTo(Out, 0);
+            In.CopyTo(Out, index: 0);
             Objs.Each((i, o) => { Out[Count + i] = o; });
             return Out;
             }
@@ -81,7 +81,7 @@ namespace LCore.Extensions
                 return Objs;
 
             var Out = new T[CountTotal];
-            In.CopyTo(Out, 0);
+            In.CopyTo(Out, index: 0);
             Objs.CopyTo(Out, Count);
             return Out;
             }
@@ -238,7 +238,7 @@ namespace LCore.Extensions
             int Length2 = Obj.Length;
 
             var Out = new T[Length1 + Length2];
-            In.CopyTo(Out, 0);
+            In.CopyTo(Out, index: 0);
             Obj.CopyTo(Out, Length1);
 
             return Out;
@@ -357,7 +357,7 @@ namespace LCore.Extensions
         public static T[] Collect<T>([CanBeNull] this T[] In, [CanBeNull] Func<T, T> Func)
             {
             Func = Func ?? (Obj => Obj);
-            return In.List(true).Collect(Func).ToArray();
+            return In.List(IncludeNulls: true).Collect(Func).ToArray();
             }
 
         /// <summary>
@@ -553,7 +553,7 @@ namespace LCore.Extensions
         [DebuggerStepThrough]
         [TestMethodGenerics(typeof(string))]
         [TestResult(new object[] {null, 5}, new string[] {null, null, null, null, null})]
-        public static List<T> Collect<T>([CanBeNull] this Func<T> In, [TestBound(0, 100)] int Count)
+        public static List<T> Collect<T>([CanBeNull] this Func<T> In, [TestBound(Minimum: 0, Maximum: 100)] int Count)
             {
             In = In ?? (() => default(T));
 
@@ -577,7 +577,7 @@ namespace LCore.Extensions
         [Tested]
         [DebuggerStepThrough]
         public static List<T> Collect<T>([CanBeNull] this Func<int, T> In,
-            [TestBound(0, 100)] int Count)
+            [TestBound(Minimum: 0, Maximum: 100)] int Count)
             {
             In = In ?? (i => default(T));
 
@@ -1887,7 +1887,7 @@ namespace LCore.Extensions
         [Tested]
         public static bool Has<T>([CanBeNull] this IEnumerable In, [CanBeNull] T Obj)
             {
-            return In.List<T>(true).Has(Obj.FN_If());
+            return In.List<T>(IncludeNulls: true).Has(Obj.FN_If());
             }
 
         #endregion
@@ -2088,7 +2088,7 @@ namespace LCore.Extensions
         [Tested]
         public static int? IndexOf<T>([CanBeNull] this IEnumerable In, [CanBeNull] Func<T, bool> Func)
             {
-            return In.List<T>(true).IndexOf(Func);
+            return In.List<T>(IncludeNulls: true).IndexOf(Func);
             }
 
         /// <summary>
@@ -2224,7 +2224,7 @@ namespace LCore.Extensions
                         Out.Add((T) Item);
 
                     if (Out.Count > Count)
-                        Out.RemoveAt(0);
+                        Out.RemoveAt(index: 0);
                     }
                 }
             return Out;
@@ -2263,7 +2263,7 @@ namespace LCore.Extensions
                         Out.Add(Item);
 
                     if (Out.Count > Count)
-                        Out.RemoveAt(0);
+                        Out.RemoveAt(index: 0);
                     }
                 }
 
@@ -2300,7 +2300,7 @@ namespace LCore.Extensions
                     if (Condition(Item))
                         Out.Add(Item);
                     if (Out.Count > Count)
-                        Out.RemoveAt(0);
+                        Out.RemoveAt(index: 0);
                     }
                 }
 
@@ -2517,7 +2517,8 @@ namespace LCore.Extensions
         /// This method will not include any single index more than once unless AllowDuplicates is set to true.
         /// </summary>
         [Tested]
-        public static List<T> Random<T>([CanBeNull] this IEnumerable<T> In, [TestBound(0, 100)] int Count, bool AllowDuplicates = false)
+        public static List<T> Random<T>([CanBeNull] this IEnumerable<T> In, [TestBound(Minimum: 0, Maximum: 100)] int Count,
+            bool AllowDuplicates = false)
             {
             return Count < 0
                 ? new List<T>()
@@ -2530,7 +2531,8 @@ namespace LCore.Extensions
         /// This method will not include any single index more than once unless AllowDuplicates is set to true.
         /// </summary>
         [Tested]
-        public static List<T> Random<T>([CanBeNull] this IEnumerable<T> In, [TestBound(0u, 100u)] uint Count, bool AllowDuplicates = false)
+        public static List<T> Random<T>([CanBeNull] this IEnumerable<T> In, [TestBound(Minimum: 0u, Maximum: 100u)] uint Count,
+            bool AllowDuplicates = false)
             {
             In = In.List();
 
@@ -2575,7 +2577,7 @@ namespace LCore.Extensions
         /// </summary>
         [Tested]
         public static T[] Random<T>([CanBeNull] this T[] In,
-            [TestBound(0, 100)] int Count, bool AllowDuplicates = false)
+            [TestBound(Minimum: 0, Maximum: 100)] int Count, bool AllowDuplicates = false)
             {
             return Count < 0
                 ? new T[] {}
@@ -2588,7 +2590,7 @@ namespace LCore.Extensions
         /// </summary>
         [Tested]
         public static T[] Random<T>([CanBeNull] this T[] In,
-            [TestBound(0u, 100u)] uint Count, bool AllowDuplicates = false)
+            [TestBound(Minimum: 0u, Maximum: 100u)] uint Count, bool AllowDuplicates = false)
             {
             if (In == null)
                 return new T[] {};
@@ -2626,7 +2628,7 @@ namespace LCore.Extensions
         [CanBeNull]
         public static T Random<T>([CanBeNull] this IEnumerable<T> In)
             {
-            return In.Random(1).First();
+            return In.Random(Count: 1).First();
             }
 
         #endregion
@@ -3410,7 +3412,9 @@ namespace LCore.Extensions
 
             public static Func<bool> HasReceivedObjectsI = () =>
                 {
+                // ReSharper disable ArgumentsStyleLiteral
                 bool Out = TestBox.Count > 0 && TestBox.Equivalent(new List<object> {0, 1, 2});
+                // ReSharper restore ArgumentsStyleLiteral
                 TestBox.Clear();
                 return Out;
                 };

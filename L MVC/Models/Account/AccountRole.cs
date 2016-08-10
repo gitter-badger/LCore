@@ -20,21 +20,21 @@ namespace LMVC.Models
         public int RoleID { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(length: 50)]
         public string RoleName { get; set; }
 
-        [MaxLength(100)]
+        [MaxLength(length: 100)]
         public string RoleDescription { get; set; }
 
         [Required]
         public DateTime CreateDate { get; set; }
 
-        [MaxLength(20)]
+        [MaxLength(length: 20)]
         public string CreatedBy { get; set; }
 
         public DateTime? ModifyDate { get; set; }
 
-        [MaxLength(20)]
+        [MaxLength(length: 20)]
         public string ModifiedBy { get; set; }
 
         public IModelPermissions EventPermissions { get; set; }

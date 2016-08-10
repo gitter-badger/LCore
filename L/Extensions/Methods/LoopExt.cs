@@ -29,8 +29,8 @@ namespace LCore.Extensions
         /// <returns></returns>
         [Tested]
         public static List<U> To<U>(
-            [TestBound(-50, 50)]this int In,
-            [TestBound(-50, 50)]int To,
+            [TestBound(-50, Maximum: 50)]this int In,
+            [TestBound(-50, Maximum: 50)]int To,
             [CanBeNull] Func<U> Func)
             {
             Func = Func ?? (() => default(U));
@@ -49,8 +49,8 @@ namespace LCore.Extensions
         /// <returns></returns>
         [Tested]
         public static List<T> To<T>(
-            [TestBound(-50, 50)]this int In,
-            [TestBound(-50, 50)]int To,
+            [TestBound(-50, Maximum: 50)]this int In,
+            [TestBound(-50, Maximum: 50)]int To,
             [CanBeNull] Func<int, T> Func)
             {
             Func = Func ?? (i => default(T));
@@ -89,7 +89,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Takes action In and returns an action that is performed for as long as Continue evaluates to true.
             /// </summary>
-            [CodeExplodeExtensionMethod("While", new[] { "In", "Continue" }, Comments.While, false, true)]
+            [CodeExplodeExtensionMethod("While", new[] { "In", "Continue" }, Comments.While, ExecuteResult: false, ExtendExplosions: true)]
             [CodeExplodeGenerics("While", Comments.While)]
             public static readonly Func<Action, Func<bool>, Action>
                 While = (In, Continue) =>
@@ -191,7 +191,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Takes action In and returns an action that is performed for as long as Continue evaluates to true.
             /// </summary>
-            [CodeExplodeExtensionMethod("DoWhile", new[] { "In", "Continue" }, Comments.DoWhile, false, true)]
+            [CodeExplodeExtensionMethod("DoWhile", new[] { "In", "Continue" }, Comments.DoWhile, ExecuteResult: false, ExtendExplosions: true)]
             [CodeExplodeGenerics("DoWhile", Comments.DoWhile)]
             public static Func<Action, Func<bool>, Action> L_DoWhile()
                 {
@@ -216,7 +216,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Until", new[] { "In", "Break" }, Comments.Until, false, true)]
+            [CodeExplodeExtensionMethod("Until", new[] { "In", "Break" }, Comments.Until, ExecuteResult: false, ExtendExplosions: true)]
             [CodeExplodeGenerics("Until", Comments.Until)]
             public static Func<Func /*GF*/<U>, Func<bool>, Func /*GF*/<U>> L_Until /*MF*/<U>()
                 {
@@ -243,7 +243,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("DoUntil", new[] { "In", "Break" }, Comments.DoUntil, false, true)]
+            [CodeExplodeExtensionMethod("DoUntil", new[] { "In", "Break" }, Comments.DoUntil, ExecuteResult: false, ExtendExplosions: true)]
             [CodeExplodeGenerics("DoUntil", Comments.DoUntil)]
             public static Func<Func /*GF*/<U>, Func<bool>, Func /*GF*/<U>> L_DoUntil /*MF*/<U>()
                 {
@@ -269,7 +269,7 @@ namespace LCore.Extensions
             /// Returns an action that is repeated a number of times.
             /// </summary>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Repeat", new[] { "Act", "Times" }, Comments.Repeat, false, true)]
+            [CodeExplodeExtensionMethod("Repeat", new[] { "Act", "Times" }, Comments.Repeat, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Action, uint, Action> L_Repeat_uint()
                 {
                 return (Act, Times) =>
@@ -278,14 +278,14 @@ namespace LCore.Extensions
                         if (Times == 0)
                             return Act;
 
-                        return L_To /*IGA*/()(1, (int)Times + 1, Act);
+                        return L_To /*IGA*/()(arg1: 1, arg2: (int)Times + 1, arg3: Act);
                     };
                 }
 
             /// <summary>
             /// Returns an action that is repeated a number of times.
             /// </summary>
-            [CodeExplodeExtensionMethod("Repeat", new[] { "Act", "Times" }, Comments.Repeat, false, true)]
+            [CodeExplodeExtensionMethod("Repeat", new[] { "Act", "Times" }, Comments.Repeat, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Action, int, Action> L_Repeat_int()
                 {
                 return (Act, Times) =>
@@ -296,7 +296,7 @@ namespace LCore.Extensions
                         if (Times == 0)
                             return Act;
 
-                        return L_To /*IGA*/()(1, Times + 1, Act);
+                        return L_To /*IGA*/()(arg1: 1, arg2: Times + 1, arg3: Act);
                     };
                 }
 
@@ -829,7 +829,7 @@ namespace LCore.Extensions
             /// Loop takes an action and returns a loop function, that takes an index and returns true to continue.
             /// </summary>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Loop", new[] { "In" }, Comments.MergeLoop, false, true)]
+            [CodeExplodeExtensionMethod("Loop", new[] { "In" }, Comments.MergeLoop, ExecuteResult: false, ExtendExplosions: true)]
             //  [CodeExplodeGenerics("To", L.Comments.To)]
             public static Func<Action, Func<int, /*GA,*/ bool>> L_MergeLoop /*M*/()
                 {
@@ -880,7 +880,7 @@ namespace LCore.Extensions
             /// Loops an Action from a to b. a and b can be any integers.
             /// </summary>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("To", new[] { "In", "To", "Act" }, Comments.To, false, true)]
+            [CodeExplodeExtensionMethod("To", new[] { "In", "To", "Act" }, Comments.To, ExecuteResult: false, ExtendExplosions: true)]
             [CodeExplodeGenerics("To", Comments.To)]
             public static Func<int, int, Action, Action> L_To /*MA*/()
                 {
@@ -911,7 +911,7 @@ namespace LCore.Extensions
             /// Loops an Action from a to b. a and b can be any integers.
             /// </summary>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("To", new[] { "In", "To", "Act" }, Comments.To, true, true)]
+            [CodeExplodeExtensionMethod("To", new[] { "In", "To", "Act" }, Comments.To, ExecuteResult: true, ExtendExplosions: true)]
             [CodeExplodeGenerics("To", Comments.To, CodeExplodeLogic.ExplodeCount - 1)]
             public static Func<int, int, Action<int /*,GA*/>, Action> L_ToI /*MA*/()
                 {
@@ -941,7 +941,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Loops an Action that takes an index and returns false to break out of the loop. a and b can be any integers.
             /// </summary>
-            [CodeExplodeExtensionMethod("For", new[] { "In", "To", "Loop" }, Comments.For, true, true)]
+            [CodeExplodeExtensionMethod("For", new[] { "In", "To", "Loop" }, Comments.For, ExecuteResult: true, ExtendExplosions: true)]
             [CodeExplodeGenerics("For", Comments.For, CodeExplodeLogic.ExplodeCount - 1)]
             public static Func<int, int, Func<int, /*GA,*/ bool>, Action> L_For /*MA*/()
                 {

@@ -114,7 +114,7 @@ namespace LCore.Numbers
         /// <filterpriority>2</filterpriority>
         public override string ToString()
             {
-            string Out = this.Value.ToString("0." + new string('#', 339));
+            string Out = this.Value.ToString("0." + new string(c: '#', count: 339));
 
             if (Out.Contains("."))
                 Out = Out.TrimEnd("0");

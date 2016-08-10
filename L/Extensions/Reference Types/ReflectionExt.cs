@@ -34,7 +34,7 @@ namespace LCore.Extensions
         public static List<Type> AlsoBaseTypes([CanBeNull] this Type In)
             {
             List<Type> Out = In.BaseTypes();
-            Out.Insert(0, In);
+            Out.Insert(index: 0, item: In);
             return Out;
             }
 
@@ -370,7 +370,7 @@ namespace LCore.Extensions
             return In.GetMethods()
                 .Select(Method => Method.IsStatic &&
                                   Method.IsPublic &&
-                                  Method.IsDefined(typeof(ExtensionAttribute), true))
+                                  Method.IsDefined(typeof(ExtensionAttribute), inherit: true))
                 .Array();
             }
 
@@ -507,10 +507,10 @@ namespace LCore.Extensions
             if (In.Namespace == "System.Data.Entity.DynamicProxies" || In.Name.Contains("Proxy"))
                 In = In.BaseType;
 
-            if (In?.IsGenericType == true && In.Name.Has('`'))
+            if (In?.IsGenericType == true && In.Name.Has(Obj: '`'))
                 {
                 string Out = "";
-                Out += In.Name.Remove(In.Name.IndexOf('`'));
+                Out += In.Name.Remove(In.Name.IndexOf(value: '`'));
                 Out += "<";
                 Type[] Arguments = In.GetGenericArguments();
 
@@ -546,7 +546,7 @@ namespace LCore.Extensions
                 var PropertyInfo = In as PropertyInfo;
                 if (PropertyInfo != null)
                     {
-                    return PropertyInfo.GetValue(Obj, null);
+                    return PropertyInfo.GetValue(Obj, index: null);
                     }
                 var FieldInfo = In as FieldInfo;
                 return FieldInfo?.GetValue(Obj);
@@ -862,7 +862,7 @@ namespace LCore.Extensions
                 return new List<T>();
 
             List<MemberInfo> Members = In.MembersOfType(typeof(T), IncludeBaseClasses);
-            return Members.GetValues<T>(Obj, true);
+            return Members.GetValues<T>(Obj, Instantiate: true);
             }
 
         /// <summary>
@@ -875,7 +875,7 @@ namespace LCore.Extensions
             if (In == null || Obj == null)
                 return new List<T>();
 
-            return In.GetValues<T>(Obj, true);
+            return In.GetValues<T>(Obj, Instantiate: true);
             }
 
         #endregion
@@ -887,7 +887,7 @@ namespace LCore.Extensions
         /// </summary>
         public static bool IsExtensionMethod([CanBeNull] this MethodInfo In)
             {
-            return In?.IsDefined(typeof(ExtensionAttribute), true) == true;
+            return In?.IsDefined(typeof(ExtensionAttribute), inherit: true) == true;
             }
 
         #endregion
@@ -1189,7 +1189,7 @@ namespace LCore.Extensions
                 {
                 Start = $"[{In.GetParameters()[0].ParameterType.GetClassHierarchy()}].";
                 // Remove the first parameter (the /this/ parameter)
-                Params.RemoveAt(0);
+                Params.RemoveAt(index: 0);
                 }
             else if (In.IsStatic)
                 {
@@ -1373,7 +1373,7 @@ namespace LCore.Extensions
             [CanBeNull]
             public static MemberInfo[] FindMember([CanBeNull] string MemberFullName, [CanBeNull] params Assembly[] Assemblies)
                 {
-                if (MemberFullName == null || MemberFullName.Count('.') < 1)
+                if (MemberFullName == null || MemberFullName.Count(Obj: '.') < 1)
                     return null;
 
                 string Type = MemberFullName.BeforeLast(".");
@@ -1403,9 +1403,9 @@ namespace LCore.Extensions
                                          AttributeTypes.Count(AttrType =>
                                              Type.IsType(AttrType) ||
                                              Type.HasInterface(AttrType) ||
-                                             Type.HasAttribute(AttrType, true)) > 0)
+                                             Type.HasAttribute(AttrType, IncludeBaseClasses: true)) > 0)
                                         && Type.Namespace == Namespace
-                                        && !Type.HasAttribute<CompilerGeneratedAttribute>(true));
+                                        && !Type.HasAttribute<CompilerGeneratedAttribute>(IncludeBaseClasses: true));
 
                 return Types.Array();
                 }
@@ -1428,7 +1428,7 @@ namespace LCore.Extensions
                         .Select(Type => AttributeTypes.Count(
                             AttrType => Type.IsType(AttrType) ||
                                         Type.HasInterface(AttrType) ||
-                                        Type.HasAttribute(AttrType, true)) > 0
+                                        Type.HasAttribute(AttrType, IncludeBaseClasses: true)) > 0
                                         && Type.Namespace == Namespace);
 
                 return Types.Array();
@@ -1587,7 +1587,7 @@ namespace LCore.Extensions
                     object[] Objs;
                     do
                         {
-                        Objs = Prop.GetCustomAttributes(Attr, false);
+                        Objs = Prop.GetCustomAttributes(Attr, inherit: false);
                         HasAttribute = Objs.Length != 0;
 
                         if (HasAttribute)

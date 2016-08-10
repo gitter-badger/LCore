@@ -49,11 +49,11 @@ namespace LCore.Extensions
         [TestResult(new object[] { int.MinValue }, (uint)int.MaxValue + 1)]
         [TestResult(new object[] { int.MinValue + (int)1 }, (uint)int.MaxValue)]
         [TestResult(new object[] { int.MaxValue }, (uint)int.MaxValue)]
-        [TestResult(new object[] { 0 }, 0u)]
-        [TestResult(new object[] { 1 }, 1u)]
-        [TestResult(new object[] { -1 }, 1u)]
-        [TestResult(new object[] { -500 }, 500u)]
-        [TestResult(new object[] { 500 }, 500u)]
+        [TestResult(new object[] { 0 }, ExpectedResult: 0u)]
+        [TestResult(new object[] { 1 }, ExpectedResult: 1u)]
+        [TestResult(new object[] { -1 }, ExpectedResult: 1u)]
+        [TestResult(new object[] { -500 }, ExpectedResult: 500u)]
+        [TestResult(new object[] { 500 }, ExpectedResult: 500u)]
         public static uint Abs(this int In)
             {
             try
@@ -71,9 +71,9 @@ namespace LCore.Extensions
         /// </summary>
         [TestResult(new object[] { uint.MinValue }, uint.MinValue)]
         [TestResult(new object[] { uint.MaxValue }, uint.MaxValue)]
-        [TestResult(new object[] { 0u }, 0u)]
-        [TestResult(new object[] { 1u }, 1u)]
-        [TestResult(new object[] { 500u }, 500u)]
+        [TestResult(new object[] { 0u }, ExpectedResult: 0u)]
+        [TestResult(new object[] { 1u }, ExpectedResult: 1u)]
+        [TestResult(new object[] { 500u }, ExpectedResult: 500u)]
         public static uint Abs(this uint In)
             {
             return In;
@@ -222,12 +222,12 @@ namespace LCore.Extensions
         /// </summary>
         [TestResult(new object[] { float.MinValue }, -2147483648)]
         [TestResult(new object[] { float.MaxValue }, -2147483648)]
-        [TestResult(new object[] { (float)0.0011 }, 0)]
-        [TestResult(new object[] { (float)0.011 }, 1)]
-        [TestResult(new object[] { (float)0.444 }, 44)]
-        [TestResult(new object[] { (float)0.555 }, 55)]
-        [TestResult(new object[] { (float)0.555 }, 55)]
-        [TestResult(new object[] { (float)0.999 }, 99)]
+        [TestResult(new object[] { (float)0.0011 }, ExpectedResult: 0)]
+        [TestResult(new object[] { (float)0.011 }, ExpectedResult: 1)]
+        [TestResult(new object[] { (float)0.444 }, ExpectedResult: 44)]
+        [TestResult(new object[] { (float)0.555 }, ExpectedResult: 55)]
+        [TestResult(new object[] { (float)0.555 }, ExpectedResult: 55)]
+        [TestResult(new object[] { (float)0.999 }, ExpectedResult: 99)]
         public static int AsPercent(this float In)
             {
             return (int)(In * 100);
@@ -238,11 +238,11 @@ namespace LCore.Extensions
         /// </summary>
         [TestResult(new object[] { double.MinValue }, -2147483648)]
         [TestResult(new object[] { double.MaxValue }, -2147483648)]
-        [TestResult(new object[] { (double)0.0011 }, 0)]
-        [TestResult(new object[] { (double).011 }, 1)]
-        [TestResult(new object[] { (double).444 }, 44)]
-        [TestResult(new object[] { (double).555 }, 55)]
-        [TestResult(new object[] { (double).999 }, 99)]
+        [TestResult(new object[] { (double)0.0011 }, ExpectedResult: 0)]
+        [TestResult(new object[] { (double).011 }, ExpectedResult: 1)]
+        [TestResult(new object[] { (double).444 }, ExpectedResult: 44)]
+        [TestResult(new object[] { (double).555 }, ExpectedResult: 55)]
+        [TestResult(new object[] { (double).999 }, ExpectedResult: 99)]
         public static int AsPercent(this double In)
             {
             return (int)(In * 100);
@@ -475,7 +475,7 @@ namespace LCore.Extensions
         [Tested]
         public static ushort DecimalPlaces(this decimal Dec)
             {
-            string Out = Dec.ToString("0." + new string('#', 339));
+            string Out = Dec.ToString("0." + new string(c: '#', count: 339));
 
             if (Out.Contains("."))
                 {
@@ -492,7 +492,7 @@ namespace LCore.Extensions
         [Tested]
         public static ushort DecimalPlaces(this double Double)
             {
-            string Out = Double.ToString("0." + new string('#', 339));
+            string Out = Double.ToString("0." + new string(c: '#', count: 339));
 
             if (Out.Contains("."))
                 {
@@ -510,7 +510,7 @@ namespace LCore.Extensions
         [Tested]
         public static ushort DecimalPlaces(this float Float)
             {
-            string Out = Float.ToString("0." + new string('#', 339));
+            string Out = Float.ToString("0." + new string(c: '#', count: 339));
 
             if (Out.Contains("."))
                 {
@@ -528,7 +528,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the floor of the float <paramref name="In" />
         /// </summary>
-        [TestResult(new object[] { null }, 0)]
+        [TestResult(new object[] { null }, ExpectedResult: 0)]
         [TestResult(new object[] { (float)1 }, (int)1)]
         [TestResult(new object[] { (float)1.01 }, (int)1)]
         [TestResult(new object[] { (float)1.9999999 }, (int)1)]
@@ -568,7 +568,7 @@ namespace LCore.Extensions
             if (Decimals < 0)
                 throw new ArgumentOutOfRangeException(nameof(Decimals));
 
-            float Power = (float)Math.Pow(10, Decimals);
+            float Power = (float)Math.Pow(x: 10, y: Decimals);
             float Out = (int)Math.Floor(In * Power);
             float Out2 = Out / Power;
             return Out2;
@@ -617,7 +617,7 @@ namespace LCore.Extensions
             if (Decimals < 0)
                 throw new ArgumentOutOfRangeException(nameof(Decimals));
 
-            double Power = Math.Pow(10, Decimals);
+            double Power = Math.Pow(x: 10, y: Decimals);
             double Out = (int)Math.Floor(In * Power);
             double Out2 = Out / Power;
             return Out2;
@@ -630,17 +630,17 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns whether the supplied number is Even
         /// </summary>
-        [TestResult(new object[] { int.MinValue }, true)]
-        [TestResult(new object[] { int.MinValue }, true)]
-        [TestResult(new object[] { 0 }, true)]
-        [TestResult(new object[] { 1 }, false)]
-        [TestResult(new object[] { -1 }, false)]
-        [TestResult(new object[] { 55 }, false)]
-        [TestResult(new object[] { -55 }, false)]
-        [TestResult(new object[] { 2 }, true)]
-        [TestResult(new object[] { 10 }, true)]
-        [TestResult(new object[] { -2 }, true)]
-        [TestResult(new object[] { -10 }, true)]
+        [TestResult(new object[] { int.MinValue }, ExpectedResult: true)]
+        [TestResult(new object[] { int.MinValue }, ExpectedResult: true)]
+        [TestResult(new object[] { 0 }, ExpectedResult: true)]
+        [TestResult(new object[] { 1 }, ExpectedResult: false)]
+        [TestResult(new object[] { -1 }, ExpectedResult: false)]
+        [TestResult(new object[] { 55 }, ExpectedResult: false)]
+        [TestResult(new object[] { -55 }, ExpectedResult: false)]
+        [TestResult(new object[] { 2 }, ExpectedResult: true)]
+        [TestResult(new object[] { 10 }, ExpectedResult: true)]
+        [TestResult(new object[] { -2 }, ExpectedResult: true)]
+        [TestResult(new object[] { -10 }, ExpectedResult: true)]
         public static bool IsEven(this int In)
             {
             return In % 2 == 0;
@@ -649,17 +649,17 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns whether the supplied number is Even
         /// </summary>
-        [TestResult(new object[] { long.MinValue }, true)]
-        [TestResult(new object[] { long.MinValue }, true)]
-        [TestResult(new object[] { (long)0 }, true)]
-        [TestResult(new object[] { (long)1 }, false)]
-        [TestResult(new object[] { (long)-1 }, false)]
-        [TestResult(new object[] { (long)55 }, false)]
-        [TestResult(new object[] { (long)-55 }, false)]
-        [TestResult(new object[] { (long)2 }, true)]
-        [TestResult(new object[] { (long)10 }, true)]
-        [TestResult(new object[] { (long)-2 }, true)]
-        [TestResult(new object[] { (long)-10 }, true)]
+        [TestResult(new object[] { long.MinValue }, ExpectedResult: true)]
+        [TestResult(new object[] { long.MinValue }, ExpectedResult: true)]
+        [TestResult(new object[] { (long)0 }, ExpectedResult: true)]
+        [TestResult(new object[] { (long)1 }, ExpectedResult: false)]
+        [TestResult(new object[] { (long)-1 }, ExpectedResult: false)]
+        [TestResult(new object[] { (long)55 }, ExpectedResult: false)]
+        [TestResult(new object[] { (long)-55 }, ExpectedResult: false)]
+        [TestResult(new object[] { (long)2 }, ExpectedResult: true)]
+        [TestResult(new object[] { (long)10 }, ExpectedResult: true)]
+        [TestResult(new object[] { (long)-2 }, ExpectedResult: true)]
+        [TestResult(new object[] { (long)-10 }, ExpectedResult: true)]
         public static bool IsEven(this long In)
             {
             return In % 2 == 0;
@@ -668,17 +668,17 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns whether the supplied number is Even
         /// </summary>
-        [TestResult(new object[] { short.MinValue }, true)]
-        [TestResult(new object[] { short.MinValue }, true)]
-        [TestResult(new object[] { (short)0 }, true)]
-        [TestResult(new object[] { (short)1 }, false)]
-        [TestResult(new object[] { (short)-1 }, false)]
-        [TestResult(new object[] { (short)55 }, false)]
-        [TestResult(new object[] { (short)-55 }, false)]
-        [TestResult(new object[] { (short)2 }, true)]
-        [TestResult(new object[] { (short)10 }, true)]
-        [TestResult(new object[] { (short)-2 }, true)]
-        [TestResult(new object[] { (short)-10 }, true)]
+        [TestResult(new object[] { short.MinValue }, ExpectedResult: true)]
+        [TestResult(new object[] { short.MinValue }, ExpectedResult: true)]
+        [TestResult(new object[] { (short)0 }, ExpectedResult: true)]
+        [TestResult(new object[] { (short)1 }, ExpectedResult: false)]
+        [TestResult(new object[] { (short)-1 }, ExpectedResult: false)]
+        [TestResult(new object[] { (short)55 }, ExpectedResult: false)]
+        [TestResult(new object[] { (short)-55 }, ExpectedResult: false)]
+        [TestResult(new object[] { (short)2 }, ExpectedResult: true)]
+        [TestResult(new object[] { (short)10 }, ExpectedResult: true)]
+        [TestResult(new object[] { (short)-2 }, ExpectedResult: true)]
+        [TestResult(new object[] { (short)-10 }, ExpectedResult: true)]
         public static bool IsEven(this short In)
             {
             return In % 2 == 0;
@@ -687,13 +687,13 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns whether the supplied number is Even
         /// </summary>
-        [TestResult(new object[] { uint.MinValue }, true)]
-        [TestResult(new object[] { uint.MinValue }, true)]
-        [TestResult(new object[] { (uint)0 }, true)]
-        [TestResult(new object[] { (uint)1 }, false)]
-        [TestResult(new object[] { (uint)55 }, false)]
-        [TestResult(new object[] { (uint)2 }, true)]
-        [TestResult(new object[] { (uint)10 }, true)]
+        [TestResult(new object[] { uint.MinValue }, ExpectedResult: true)]
+        [TestResult(new object[] { uint.MinValue }, ExpectedResult: true)]
+        [TestResult(new object[] { (uint)0 }, ExpectedResult: true)]
+        [TestResult(new object[] { (uint)1 }, ExpectedResult: false)]
+        [TestResult(new object[] { (uint)55 }, ExpectedResult: false)]
+        [TestResult(new object[] { (uint)2 }, ExpectedResult: true)]
+        [TestResult(new object[] { (uint)10 }, ExpectedResult: true)]
         public static bool IsEven(this uint In)
             {
             return In % 2 == 0;
@@ -702,13 +702,13 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns whether the supplied number is Even
         /// </summary>
-        [TestResult(new object[] { ulong.MinValue }, true)]
-        [TestResult(new object[] { ulong.MinValue }, true)]
-        [TestResult(new object[] { (ulong)0 }, true)]
-        [TestResult(new object[] { (ulong)1 }, false)]
-        [TestResult(new object[] { (ulong)55 }, false)]
-        [TestResult(new object[] { (ulong)2 }, true)]
-        [TestResult(new object[] { (ulong)10 }, true)]
+        [TestResult(new object[] { ulong.MinValue }, ExpectedResult: true)]
+        [TestResult(new object[] { ulong.MinValue }, ExpectedResult: true)]
+        [TestResult(new object[] { (ulong)0 }, ExpectedResult: true)]
+        [TestResult(new object[] { (ulong)1 }, ExpectedResult: false)]
+        [TestResult(new object[] { (ulong)55 }, ExpectedResult: false)]
+        [TestResult(new object[] { (ulong)2 }, ExpectedResult: true)]
+        [TestResult(new object[] { (ulong)10 }, ExpectedResult: true)]
         public static bool IsEven(this ulong In)
             {
             return In % 2 == 0;
@@ -717,13 +717,13 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns whether the supplied number is Even
         /// </summary>
-        [TestResult(new object[] { byte.MinValue }, true)]
-        [TestResult(new object[] { byte.MinValue }, true)]
-        [TestResult(new object[] { (byte)0 }, true)]
-        [TestResult(new object[] { (byte)1 }, false)]
-        [TestResult(new object[] { (byte)55 }, false)]
-        [TestResult(new object[] { (byte)2 }, true)]
-        [TestResult(new object[] { (byte)10 }, true)]
+        [TestResult(new object[] { byte.MinValue }, ExpectedResult: true)]
+        [TestResult(new object[] { byte.MinValue }, ExpectedResult: true)]
+        [TestResult(new object[] { (byte)0 }, ExpectedResult: true)]
+        [TestResult(new object[] { (byte)1 }, ExpectedResult: false)]
+        [TestResult(new object[] { (byte)55 }, ExpectedResult: false)]
+        [TestResult(new object[] { (byte)2 }, ExpectedResult: true)]
+        [TestResult(new object[] { (byte)10 }, ExpectedResult: true)]
         public static bool IsEven(this byte In)
             {
             return In % 2 == 0;
@@ -732,17 +732,17 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns whether the supplied number is Even
         /// </summary>
-        [TestResult(new object[] { sbyte.MinValue }, true)]
-        [TestResult(new object[] { sbyte.MinValue }, true)]
-        [TestResult(new object[] { (sbyte)0 }, true)]
-        [TestResult(new object[] { (sbyte)1 }, false)]
-        [TestResult(new object[] { (sbyte)-1 }, false)]
-        [TestResult(new object[] { (sbyte)55 }, false)]
-        [TestResult(new object[] { (sbyte)-55 }, false)]
-        [TestResult(new object[] { (sbyte)2 }, true)]
-        [TestResult(new object[] { (sbyte)10 }, true)]
-        [TestResult(new object[] { (sbyte)-2 }, true)]
-        [TestResult(new object[] { (sbyte)-10 }, true)]
+        [TestResult(new object[] { sbyte.MinValue }, ExpectedResult: true)]
+        [TestResult(new object[] { sbyte.MinValue }, ExpectedResult: true)]
+        [TestResult(new object[] { (sbyte)0 }, ExpectedResult: true)]
+        [TestResult(new object[] { (sbyte)1 }, ExpectedResult: false)]
+        [TestResult(new object[] { (sbyte)-1 }, ExpectedResult: false)]
+        [TestResult(new object[] { (sbyte)55 }, ExpectedResult: false)]
+        [TestResult(new object[] { (sbyte)-55 }, ExpectedResult: false)]
+        [TestResult(new object[] { (sbyte)2 }, ExpectedResult: true)]
+        [TestResult(new object[] { (sbyte)10 }, ExpectedResult: true)]
+        [TestResult(new object[] { (sbyte)-2 }, ExpectedResult: true)]
+        [TestResult(new object[] { (sbyte)-10 }, ExpectedResult: true)]
         public static bool IsEven(this sbyte In)
             {
             return In % 2 == 0;
@@ -757,9 +757,9 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="Total" /> was equal to 0.</exception>
         [TestFails(new object[] { 5, 0 })]
-        [TestResult(new object[] { 5, 1 }, 500)]
-        [TestResult(new object[] { 5, 100 }, 5)]
-        [TestResult(new object[] { 22, 5 }, 440)]
+        [TestResult(new object[] { 5, 1 }, ExpectedResult: 500)]
+        [TestResult(new object[] { 5, 100 }, ExpectedResult: 5)]
+        [TestResult(new object[] { 22, 5 }, ExpectedResult: 440)]
         [TestResult(new object[] { -22, 5 }, -440)]
         public static int PercentageOf(this float In, float Total)
             {
@@ -774,9 +774,9 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="Total" /> was equal to 0.</exception>
         [TestFails(new object[] { 5d, 0d })]
-        [TestResult(new object[] { 5d, 1d }, 500)]
-        [TestResult(new object[] { 5d, 100d }, 5)]
-        [TestResult(new object[] { 22d, 5d }, 440)]
+        [TestResult(new object[] { 5d, 1d }, ExpectedResult: 500)]
+        [TestResult(new object[] { 5d, 100d }, ExpectedResult: 5)]
+        [TestResult(new object[] { 22d, 5d }, ExpectedResult: 440)]
         [TestResult(new object[] { -22d, 5d }, -440)]
         public static int PercentageOf(this double In, double Total)
             {
@@ -791,9 +791,9 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="Total" /> was equal to than 0.</exception>
         [TestFails(new object[] { 5, 0 })]
-        [TestResult(new object[] { 5, 1 }, 500)]
-        [TestResult(new object[] { 5, 100 }, 5)]
-        [TestResult(new object[] { 22, 5 }, 440)]
+        [TestResult(new object[] { 5, 1 }, ExpectedResult: 500)]
+        [TestResult(new object[] { 5, 100 }, ExpectedResult: 5)]
+        [TestResult(new object[] { 22, 5 }, ExpectedResult: 440)]
         [TestResult(new object[] { -22, 5 }, -440)]
         public static int PercentageOf(this int In, int Total)
             {
@@ -808,9 +808,9 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="Total" /> was equal to than 0.</exception>
         [TestFails(new object[] { (uint)5, (uint)0 })]
-        [TestResult(new object[] { (uint)5, (uint)1 }, 500)]
-        [TestResult(new object[] { (uint)5, (uint)100 }, 5)]
-        [TestResult(new object[] { (uint)22, (uint)5 }, 440)]
+        [TestResult(new object[] { (uint)5, (uint)1 }, ExpectedResult: 500)]
+        [TestResult(new object[] { (uint)5, (uint)100 }, ExpectedResult: 5)]
+        [TestResult(new object[] { (uint)22, (uint)5 }, ExpectedResult: 440)]
         public static int PercentageOf(this uint In, uint Total)
             {
             if (Total == 0)
@@ -824,9 +824,9 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="Total" /> was equal to 0.</exception>
         [TestFails(new object[] { (short)5, (short)0 })]
-        [TestResult(new object[] { (short)5, (short)1 }, 500)]
-        [TestResult(new object[] { (short)5, (short)100 }, 5)]
-        [TestResult(new object[] { (short)22, (short)5 }, 440)]
+        [TestResult(new object[] { (short)5, (short)1 }, ExpectedResult: 500)]
+        [TestResult(new object[] { (short)5, (short)100 }, ExpectedResult: 5)]
+        [TestResult(new object[] { (short)22, (short)5 }, ExpectedResult: 440)]
         [TestResult(new object[] { (short)-22, (short)5 }, -440)]
         public static int PercentageOf(this short In, short Total)
             {
@@ -841,9 +841,9 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="Total" /> was equal to 0.</exception>
         [TestFails(new object[] { 5L, 0L })]
-        [TestResult(new object[] { 5L, 1L }, 500)]
-        [TestResult(new object[] { 5L, 100L }, 5)]
-        [TestResult(new object[] { 22L, 5L }, 440)]
+        [TestResult(new object[] { 5L, 1L }, ExpectedResult: 500)]
+        [TestResult(new object[] { 5L, 100L }, ExpectedResult: 5)]
+        [TestResult(new object[] { 22L, 5L }, ExpectedResult: 440)]
         [TestResult(new object[] { -22L, 5L }, -440)]
         public static int PercentageOf(this long In, long Total)
             {
@@ -860,15 +860,15 @@ namespace LCore.Extensions
         /// <summary>
         /// Raise <paramref name="Double"/> to the power of <paramref name="Power"/>.
         /// </summary>
-        [TestResult(new object[] { 0d, 0d }, 1d)]
-        [TestResult(new object[] { 1d, 0d }, 1d)]
-        [TestResult(new object[] { 2d, 1d }, 2d)]
-        [TestResult(new object[] { 2d, -1d }, 0.5d)]
-        [TestResult(new object[] { 2.32552d, -1.12421d }, 0.38721704119787403d)]
-        [TestResult(new object[] { 2.32552d, 2.12421d }, 6.00572741531699d)]
-        [TestResult(new object[] { 5d, 2d }, 25d)]
-        [TestResult(new object[] { 5d, 5d }, 3125d)]
-        [TestResult(new object[] { -5d, 2d }, 25d)]
+        [TestResult(new object[] { 0d, 0d }, ExpectedResult: 1d)]
+        [TestResult(new object[] { 1d, 0d }, ExpectedResult: 1d)]
+        [TestResult(new object[] { 2d, 1d }, ExpectedResult: 2d)]
+        [TestResult(new object[] { 2d, -1d }, ExpectedResult: 0.5d)]
+        [TestResult(new object[] { 2.32552d, -1.12421d }, ExpectedResult: 0.38721704119787403d)]
+        [TestResult(new object[] { 2.32552d, 2.12421d }, ExpectedResult: 6.00572741531699d)]
+        [TestResult(new object[] { 5d, 2d }, ExpectedResult: 25d)]
+        [TestResult(new object[] { 5d, 5d }, ExpectedResult: 3125d)]
+        [TestResult(new object[] { -5d, 2d }, ExpectedResult: 25d)]
         [TestResult(new object[] { -5d, 5d }, -3125d)]
         [TestResult(new object[] { -2.32552d, 2.12421d }, double.NaN)]
         [TestResult(new object[] { -2.32552d, -1.12421d }, double.NaN)]
@@ -880,13 +880,13 @@ namespace LCore.Extensions
         /// <summary>
         /// Raise <paramref name="Int"/> to the power of <paramref name="Power"/>.
         /// </summary>
-        [TestResult(new object[] { 0, 0 }, 1d)]
-        [TestResult(new object[] { 1, 0 }, 1d)]
-        [TestResult(new object[] { 2, 1 }, 2d)]
-        [TestResult(new object[] { 2, -1 }, 0.5d)]
-        [TestResult(new object[] { 5, 2 }, 25d)]
-        [TestResult(new object[] { 5, 5d }, 3125d)]
-        [TestResult(new object[] { -5, 2d }, 25d)]
+        [TestResult(new object[] { 0, 0 }, ExpectedResult: 1d)]
+        [TestResult(new object[] { 1, 0 }, ExpectedResult: 1d)]
+        [TestResult(new object[] { 2, 1 }, ExpectedResult: 2d)]
+        [TestResult(new object[] { 2, -1 }, ExpectedResult: 0.5d)]
+        [TestResult(new object[] { 5, 2 }, ExpectedResult: 25d)]
+        [TestResult(new object[] { 5, 5d }, ExpectedResult: 3125d)]
+        [TestResult(new object[] { -5, 2d }, ExpectedResult: 25d)]
         [TestResult(new object[] { -5, 5d }, -3125d)]
         public static double Pow(this int Int, double Power)
             {
@@ -896,12 +896,12 @@ namespace LCore.Extensions
         /// <summary>
         /// Raise <paramref name="Int"/> to the power of <paramref name="Power"/>.
         /// </summary>
-        [TestResult(new object[] { 0u, 0d }, 1d)]
-        [TestResult(new object[] { 1u, 0d }, 1d)]
-        [TestResult(new object[] { 2u, 1d }, 2d)]
-        [TestResult(new object[] { 2u, -1d }, 0.5d)]
-        [TestResult(new object[] { 5u, 2d }, 25d)]
-        [TestResult(new object[] { 5u, 5d }, 3125d)]
+        [TestResult(new object[] { 0u, 0d }, ExpectedResult: 1d)]
+        [TestResult(new object[] { 1u, 0d }, ExpectedResult: 1d)]
+        [TestResult(new object[] { 2u, 1d }, ExpectedResult: 2d)]
+        [TestResult(new object[] { 2u, -1d }, ExpectedResult: 0.5d)]
+        [TestResult(new object[] { 5u, 2d }, ExpectedResult: 25d)]
+        [TestResult(new object[] { 5u, 5d }, ExpectedResult: 3125d)]
         public static double Pow(this uint Int, double Power)
             {
             return Math.Pow(Int, Power);
@@ -910,12 +910,12 @@ namespace LCore.Extensions
         /// <summary>
         /// Raise <paramref name="Short"/> to the power of <paramref name="Power"/>.
         /// </summary>
-        [TestResult(new object[] { (short)0, 0d }, 1d)]
-        [TestResult(new object[] { (short)1, 0d }, 1d)]
-        [TestResult(new object[] { (short)2, 1d }, 2d)]
-        [TestResult(new object[] { (short)2, -1d }, 0.5d)]
-        [TestResult(new object[] { (short)5, 2d }, 25d)]
-        [TestResult(new object[] { (short)5, 5d }, 3125d)]
+        [TestResult(new object[] { (short)0, 0d }, ExpectedResult: 1d)]
+        [TestResult(new object[] { (short)1, 0d }, ExpectedResult: 1d)]
+        [TestResult(new object[] { (short)2, 1d }, ExpectedResult: 2d)]
+        [TestResult(new object[] { (short)2, -1d }, ExpectedResult: 0.5d)]
+        [TestResult(new object[] { (short)5, 2d }, ExpectedResult: 25d)]
+        [TestResult(new object[] { (short)5, 5d }, ExpectedResult: 3125d)]
         [TestResult(new object[] { (short)-5, 5d }, -3125d)]
         public static double Pow(this short Short, double Power)
             {
@@ -934,12 +934,12 @@ namespace LCore.Extensions
         /// <summary>
         /// Raise <paramref name="Long"/> to the power of <paramref name="Power"/>.
         /// </summary>
-        [TestResult(new object[] { 0L, 0d }, 1d)]
-        [TestResult(new object[] { 1L, 0d }, 1d)]
-        [TestResult(new object[] { 2L, 1d }, 2d)]
-        [TestResult(new object[] { 2L, -1d }, 0.5d)]
-        [TestResult(new object[] { 5L, 2d }, 25d)]
-        [TestResult(new object[] { 5L, 5d }, 3125d)]
+        [TestResult(new object[] { 0L, 0d }, ExpectedResult: 1d)]
+        [TestResult(new object[] { 1L, 0d }, ExpectedResult: 1d)]
+        [TestResult(new object[] { 2L, 1d }, ExpectedResult: 2d)]
+        [TestResult(new object[] { 2L, -1d }, ExpectedResult: 0.5d)]
+        [TestResult(new object[] { 5L, 2d }, ExpectedResult: 25d)]
+        [TestResult(new object[] { 5L, 5d }, ExpectedResult: 3125d)]
         [TestResult(new object[] { -5L, 5d }, -3125d)]
         public static double Pow(this long Long, double Power)
             {
@@ -949,12 +949,12 @@ namespace LCore.Extensions
         /// <summary>
         /// Raise <paramref name="Long"/> to the power of <paramref name="Power"/>.
         /// </summary>
-        [TestResult(new object[] { 0uL, 0d }, 1d)]
-        [TestResult(new object[] { 1uL, 0d }, 1d)]
-        [TestResult(new object[] { 2uL, 1d }, 2d)]
-        [TestResult(new object[] { 2uL, -1d }, 0.5d)]
-        [TestResult(new object[] { 5uL, 2d }, 25d)]
-        [TestResult(new object[] { 5uL, 5d }, 3125d)]
+        [TestResult(new object[] { 0uL, 0d }, ExpectedResult: 1d)]
+        [TestResult(new object[] { 1uL, 0d }, ExpectedResult: 1d)]
+        [TestResult(new object[] { 2uL, 1d }, ExpectedResult: 2d)]
+        [TestResult(new object[] { 2uL, -1d }, ExpectedResult: 0.5d)]
+        [TestResult(new object[] { 5uL, 2d }, ExpectedResult: 25d)]
+        [TestResult(new object[] { 5uL, 5d }, ExpectedResult: 3125d)]
         // ReSharper disable once UnusedParameter.Global
         public static double Pow(this ulong Long, double Power)
             {
@@ -964,12 +964,12 @@ namespace LCore.Extensions
         /// <summary>
         /// Raise <paramref name="Long"/> to the power of <paramref name="Power"/>.
         /// </summary>
-        [TestResult(new object[] { (sbyte)0, 0d }, 1d)]
-        [TestResult(new object[] { (sbyte)1, 0d }, 1d)]
-        [TestResult(new object[] { (sbyte)2, 1d }, 2d)]
-        [TestResult(new object[] { (sbyte)2, -1d }, 0.5d)]
-        [TestResult(new object[] { (sbyte)5, 2d }, 25d)]
-        [TestResult(new object[] { (sbyte)5, 5d }, 3125d)]
+        [TestResult(new object[] { (sbyte)0, 0d }, ExpectedResult: 1d)]
+        [TestResult(new object[] { (sbyte)1, 0d }, ExpectedResult: 1d)]
+        [TestResult(new object[] { (sbyte)2, 1d }, ExpectedResult: 2d)]
+        [TestResult(new object[] { (sbyte)2, -1d }, ExpectedResult: 0.5d)]
+        [TestResult(new object[] { (sbyte)5, 2d }, ExpectedResult: 25d)]
+        [TestResult(new object[] { (sbyte)5, 5d }, ExpectedResult: 3125d)]
         [TestResult(new object[] { (sbyte)-5, 5d }, -3125d)]
         // ReSharper disable once UnusedParameter.Global
         public static double Pow(this sbyte Long, double Power)
@@ -980,12 +980,12 @@ namespace LCore.Extensions
         /// <summary>
         /// Raise <paramref name="Byte"/> to the power of <paramref name="Power"/>.
         /// </summary>
-        [TestResult(new object[] { (byte)0, 0d }, 1d)]
-        [TestResult(new object[] { (byte)1, 0d }, 1d)]
-        [TestResult(new object[] { (byte)2, 1d }, 2d)]
-        [TestResult(new object[] { (byte)2, -1d }, 0.5d)]
-        [TestResult(new object[] { (byte)5, 2d }, 25d)]
-        [TestResult(new object[] { (byte)5, 5d }, 3125d)]
+        [TestResult(new object[] { (byte)0, 0d }, ExpectedResult: 1d)]
+        [TestResult(new object[] { (byte)1, 0d }, ExpectedResult: 1d)]
+        [TestResult(new object[] { (byte)2, 1d }, ExpectedResult: 2d)]
+        [TestResult(new object[] { (byte)2, -1d }, ExpectedResult: 0.5d)]
+        [TestResult(new object[] { (byte)5, 2d }, ExpectedResult: 25d)]
+        [TestResult(new object[] { (byte)5, 5d }, ExpectedResult: 3125d)]
         public static double Pow(this byte Byte, double Power)
             {
             return Math.Pow(Byte, Power);
@@ -998,7 +998,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the rounded integer of the float <paramref name="In" />
         /// </summary>
-        [TestResult(new object[] { null }, 0)]
+        [TestResult(new object[] { null }, ExpectedResult: 0)]
         [TestResult(new object[] { (float)1 }, (int)1)]
         [TestResult(new object[] { (float)1.01 }, (int)1)]
         [TestResult(new object[] { (float)1.9999999 }, (int)2)]
@@ -1038,7 +1038,7 @@ namespace LCore.Extensions
             if (Decimals < 0)
                 throw new ArgumentOutOfRangeException(nameof(Decimals));
 
-            float Power = (float)Math.Pow(10, Decimals);
+            float Power = (float)Math.Pow(x: 10, y: Decimals);
             float Out = (int)Math.Round(In * Power);
             float Out2 = Out / Power;
             return Out2;
@@ -1087,7 +1087,7 @@ namespace LCore.Extensions
             if (Decimals < 0)
                 throw new ArgumentOutOfRangeException(nameof(Decimals));
 
-            double Power = Math.Pow(10, Decimals);
+            double Power = Math.Pow(x: 10, y: Decimals);
             double Out = (int)Math.Round(In * Power);
             double Out2 = Out / Power;
             return Out2;
@@ -1108,7 +1108,7 @@ namespace LCore.Extensions
         /// </summary>
         public static double Round(this decimal In, int DecimalPlaces)
             {
-            double Power = Math.Pow(10, DecimalPlaces);
+            double Power = Math.Pow(x: 10, y: DecimalPlaces);
             double Out = (int)Math.Round((double)In * Power);
             double Out2 = Out / Power;
             return Out2;
@@ -1286,11 +1286,11 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the sum of all numbers in the source list.
         /// </summary>
-        [TestResult(new object[] { null }, 0)]
-        [TestResult(new object[] { new int[] { } }, 0)]
-        [TestResult(new object[] { new[] { 0 } }, 0)]
-        [TestResult(new object[] { new[] { 1 } }, 1)]
-        [TestResult(new object[] { new[] { 1, 2, 3 } }, 6)]
+        [TestResult(new object[] { null }, ExpectedResult: 0)]
+        [TestResult(new object[] { new int[] { } }, ExpectedResult: 0)]
+        [TestResult(new object[] { new[] { 0 } }, ExpectedResult: 0)]
+        [TestResult(new object[] { new[] { 1 } }, ExpectedResult: 1)]
+        [TestResult(new object[] { new[] { 1, 2, 3 } }, ExpectedResult: 6)]
         public static int Sum([CanBeNull] this IEnumerable<int> In)
             {
             int Out = 0;
@@ -1316,12 +1316,12 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the sum of all numbers in the source list.
         /// </summary>
-        [TestResult(new object[] { null }, 0f)]
-        [TestResult(new object[] { new float[] { } }, 0f)]
-        [TestResult(new object[] { new float[] { 0 } }, 0f)]
-        [TestResult(new object[] { new float[] { 1 } }, 1f)]
-        [TestResult(new object[] { new float[] { 1, 2, 3 } }, 6f)]
-        [TestResult(new object[] { new float[] { 1, 2.44f, 3.33f } }, 6.77f)]
+        [TestResult(new object[] { null }, ExpectedResult: 0f)]
+        [TestResult(new object[] { new float[] { } }, ExpectedResult: 0f)]
+        [TestResult(new object[] { new float[] { 0 } }, ExpectedResult: 0f)]
+        [TestResult(new object[] { new float[] { 1 } }, ExpectedResult: 1f)]
+        [TestResult(new object[] { new float[] { 1, 2, 3 } }, ExpectedResult: 6f)]
+        [TestResult(new object[] { new float[] { 1, 2.44f, 3.33f } }, ExpectedResult: 6.77f)]
         public static float Sum([CanBeNull] this IEnumerable<float> In)
             {
             float Out = 0;
@@ -1359,8 +1359,8 @@ namespace LCore.Extensions
         [TestResult(new object[] { 10, 0 }, new int[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 })]
         [TestResult(new object[] { 10, -5 }, new int[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5 })]
         public static int[] To(
-            [TestBound(-500, 500)]this int From,
-            [TestBound(-500, 500)]int To)
+            [TestBound(-500, Maximum: 500)]this int From,
+            [TestBound(-500, Maximum: 500)]int To)
             {
             var Out = new int[(From - To).Abs() + 1];
 
@@ -1389,8 +1389,8 @@ namespace LCore.Extensions
         [TestResult(new object[] { 0u, 0u }, new uint[] { 0 })]
         [TestResult(new object[] { 0u, 10u }, new uint[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 })]
         [TestResult(new object[] { 10u, 0u }, new uint[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 })]
-        public static uint[] To([TestBound(0u, 500u)]this uint From,
-        [TestBound(0u, 500u)] uint To)
+        public static uint[] To([TestBound(Minimum: 0u, Maximum: 500u)]this uint From,
+        [TestBound(Minimum: 0u, Maximum: 500u)] uint To)
             {
             var Out = new uint[((int)From - (int)To).Abs() + 1];
 
@@ -1616,10 +1616,10 @@ namespace LCore.Extensions
                 {
                 List<Match> Matches = ((string)In).Matches(RegexScientificNotation);
 
-                if (Matches.Count == 0 || Matches[0].Groups.Count != 3)
+                if (Matches.Count == 0 || Matches[index: 0].Groups.Count != 3)
                     return In;
 
-                string Out = Matches[0].Groups[1].Value;
+                string Out = Matches[index: 0].Groups[groupnum: 1].Value;
 
                 if (!Out.Contains("."))
                     Out += ".0";
@@ -1627,12 +1627,12 @@ namespace LCore.Extensions
                 int DotIndex = Out.IndexOf(".");
 
                 // ReSharper disable once PossibleInvalidOperationException
-                int Exponent = (int)Matches[0].Groups[2].Value.ConvertTo<int>();
+                int Exponent = (int)Matches[index: 0].Groups[groupnum: 2].Value.ConvertTo<int>();
 
                 //                if (Exponent == null)
                 //                    return In;
 
-                Out = Out.Sub(0, DotIndex) + Out.Sub(DotIndex + 1);
+                Out = Out.Sub(Start: 0, Length: DotIndex) + Out.Sub(DotIndex + 1);
 
                 DotIndex += (int)Exponent;
 
@@ -1654,12 +1654,12 @@ namespace LCore.Extensions
                     }
                 else
                     {
-                    Out = $"{Out.Sub(0, DotIndex)}.{Out.Sub(DotIndex)}";
+                    Out = $"{Out.Sub(Start: 0, Length: DotIndex)}.{Out.Sub(DotIndex)}";
                     }
 
                 while (Out.Contains(".") &&
                        Out.EndsWith("0") || Out.EndsWith("."))
-                    Out = Out.Sub(0, Out.Length - 1);
+                    Out = Out.Sub(Start: 0, Length: Out.Length - 1);
 
                 return Out;
                 }

@@ -16,13 +16,13 @@ namespace LMVC.Controllers
         {
         public override string PageGroup => SingularityControllerHelper.Menu_Admin;
 
-        [HttpPost, ValidateInput(false)]
+        [HttpPost, ValidateInput(enableValidation: false)]
         public override ActionResult Edit(int ID, string ReturnUrl, FormCollection Form, bool Create = false)
             {
             return base.Edit(ID, ReturnUrl, Form, Create);
             }
 
-        [HttpPost, ValidateInput(false)]
+        [HttpPost, ValidateInput(enableValidation: false)]
         public override ActionResult Create(string ReturnUrl, FormCollection Form)
             {
             return base.Create(ReturnUrl, Form);
