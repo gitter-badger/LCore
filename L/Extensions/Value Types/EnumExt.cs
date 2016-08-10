@@ -46,7 +46,7 @@ namespace LCore.Extensions
         /// This method will fail if the String is null, empty, 
         /// or does not match a value of the enum.
         /// </summary>
-        [Tested]
+        
         [CanBeNull]
         public static Enum ParseEnum([CanBeNull]this string Str, [CanBeNull]Type Type)
             {
@@ -85,7 +85,7 @@ namespace LCore.Extensions
         /// 
         /// If the enum friendly name is not found, null will be returned.
         /// </summary> 
-        [Tested]
+        
         [CanBeNull]
         public static Enum ParseEnum_FriendlyName([CanBeNull]this string Str, [CanBeNull]Type Type)
             {
@@ -106,7 +106,7 @@ namespace LCore.Extensions
         /// Add a friendly name by adding a FriendlyNameAttribute
         /// to the Enum element.
         /// </summary> 
-        [Tested]
+        
         public static string GetFriendlyName([CanBeNull]this Enum In)
             {
             if (In == null)

@@ -31,7 +31,6 @@ namespace LCore.Extensions
         /// </summary>
         /// <param name="In">The MemberInfo to read comments</param>
         /// <returns>An ICodeComment object if comments exist. Null otherwise.</returns>
-        [Tested]
         [CanBeNull]
         public static ICodeComment GetComments([CanBeNull] this MemberInfo In)
             {

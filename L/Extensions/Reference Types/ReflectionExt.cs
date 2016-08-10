@@ -30,7 +30,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns a list of the provided type <paramref name="In" /> as well as all of <paramref name="In" />'s base types.
         /// </summary>
-        [Tested]
+        
         public static List<Type> AlsoBaseTypes([CanBeNull] this Type In)
             {
             List<Type> Out = In.BaseTypes();
@@ -45,7 +45,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns a list of all of <paramref name="In" />'s base types.
         /// </summary>
-        [Tested]
+        
         public static List<Type> BaseTypes([CanBeNull] this Type In)
             {
             var Out = new List<Type>();
@@ -83,7 +83,7 @@ namespace LCore.Extensions
         /// Optionally include a Type[] <paramref name="Arguments" /> to specify the method arguments.
         /// </summary>
         /// <exception cref="AmbiguousMatchException">More than one method is found with the specified name and specified parameters. </exception>
-        [Tested]
+        
         [CanBeNull]
         public static MethodInfo FindMethod([CanBeNull] this Type In, [CanBeNull] string Name, [CanBeNull] Type[] Arguments = null)
             {
@@ -113,7 +113,7 @@ namespace LCore.Extensions
         /// Supply Type parameters to locate a method by its parameter types.
         /// </summary>
         /// <exception cref="AmbiguousMatchException">More than one method is found with the specified name and specified parameters. </exception>
-        [Tested]
+        
         [CanBeNull]
         public static MethodInfo FindMethod<T>([CanBeNull] this Type In, [CanBeNull] string Name)
             {
@@ -126,7 +126,7 @@ namespace LCore.Extensions
         /// Supply Type parameters to locate a method by its parameter types.
         /// </summary>
         /// <exception cref="AmbiguousMatchException">More than one method is found with the specified name and specified parameters. </exception>
-        [Tested]
+        
         [CanBeNull]
         public static MethodInfo FindMethod<T1, T2>([CanBeNull] this Type In, [CanBeNull] string Name)
             {
@@ -139,7 +139,7 @@ namespace LCore.Extensions
         /// Supply Type parameters to locate a method by its parameter types.
         /// </summary>
         /// <exception cref="AmbiguousMatchException">More than one method is found with the specified name and specified parameters. </exception>
-        [Tested]
+        
         [CanBeNull]
         public static MethodInfo FindMethod<T1, T2, T3>([CanBeNull] this Type In, [CanBeNull] string Name)
             {
@@ -152,7 +152,7 @@ namespace LCore.Extensions
         /// Supply Type parameters to locate a method by its parameter types.
         /// </summary>
         /// <exception cref="AmbiguousMatchException">More than one method is found with the specified name and specified parameters. </exception>
-        [Tested]
+        
         [CanBeNull]
         public static MethodInfo FindMethod<T1, T2, T3, T4>([CanBeNull] this Type In, [CanBeNull] string Name)
             {
@@ -166,7 +166,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the fully qualified name for a member
         /// </summary>
-        [Tested]
+        
         public static string FullyQualifiedName([CanBeNull] this MemberInfo In)
             {
             if (In is TypeInfo)
@@ -184,7 +184,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the fully qualified name for a ParameterInfo
         /// </summary>
-        [Tested]
+        
         public static string FullyQualifiedName([CanBeNull] this ParameterInfo In)
             {
             return In == null
@@ -222,7 +222,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns an attribute of type <typeparamref name="T" /> if it exists.
         /// </summary>
-        [Tested]
+        
         [TestMethodGenerics(typeof(FriendlyNameAttribute))]
         //[TestResult(new object[] { null }, default(IPersistAttribute))]
         [CanBeNull]
@@ -239,7 +239,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns an attribute of type <typeparamref name="T" /> if it exists.
         /// </summary>
-        [Tested]
+        
         [CanBeNull]
         public static T GetAttribute<T>([CanBeNull] this ICustomAttributeProvider AttributeProvider, bool IncludeBaseTypes)
             {
@@ -262,7 +262,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns all attributes of type <typeparamref name="T" />.
         /// </summary>
-        [Tested]
+        
         public static List<T> GetAttributes<T>([CanBeNull] this ICustomAttributeProvider AttributeProvider, bool IncludeBaseTypes)
             where T : class
             {
@@ -282,7 +282,7 @@ namespace LCore.Extensions
         /// Returns the name of the attribute type.
         /// </summary>
         /// <exception cref="ArgumentException">Unsupported / unknown attribute provider is passed.</exception>
-        [Tested]
+        
         public static string GetAttributeTypeName([CanBeNull] this ICustomAttributeProvider AttributeProvider)
             {
             if (AttributeProvider == null)
@@ -316,7 +316,7 @@ namespace LCore.Extensions
         /// Returns the full hierarchy of classes if <paramref name="In" /> is a nested class.
         /// Ex. "L.Comment.Test"
         /// </summary>
-        [Tested]
+        
         public static string GetClassHierarchy([CanBeNull] this Type In)
             {
             return In?.FullName.AfterLast(".").ReplaceAll("+", ".") ?? "";
@@ -329,7 +329,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns a ComparableComparer to compare comparable types.
         /// </summary>
-        [Tested]
+        
         // ReSharper disable once UnusedParameter.Global
         public static IComparer GetComparer([CanBeNull] this MemberInfo In)
             {
@@ -340,7 +340,7 @@ namespace LCore.Extensions
         /// Returns a ComparableComparer to compare comparable types.
         /// Returns a strongly typed IComparer<typeparamref name="T" /> if you know the type you're comparing.
         /// </summary>
-        [Tested]
+        
         [CanBeNull]
         public static IComparer<T> GetComparer<T>([CanBeNull] this MemberInfo In)
             {
@@ -361,7 +361,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns all Extension methods declared on Type <paramref name="In" />
         /// </summary>
-        [Tested]
+        
         public static MethodInfo[] GetExtensionMethods([CanBeNull] this Type In)
             {
             if (In == null)
@@ -382,7 +382,7 @@ namespace LCore.Extensions
         /// Returns the FieldType of the field, PropertyType of the property, 
         /// or ReturnType of the method.
         /// </summary>
-        [Tested]
+        
         [CanBeNull]
         public static Type GetMemberType([CanBeNull] this MemberInfo In)
             {
@@ -465,7 +465,7 @@ namespace LCore.Extensions
         /// Gets a subclass from a type <paramref name="In" /> or any of its base classes.
         /// Subclass from a descendant will be used before an ancestor subclasses.
         /// </summary>
-        [Tested]
+        
         public static Type GetSubClass([CanBeNull] this Type In, [CanBeNull] string SubClassName)
             {
             return In.AlsoBaseTypes().Collect(Type =>
@@ -483,7 +483,7 @@ namespace LCore.Extensions
         /// Gets a subclasses from a type <paramref name="In" /> or any of its base classes.
         /// Subclasses from a descendant will be used before an ancestor subclasses.
         /// </summary>
-        [Tested]
+        
         public static List<Type> GetSubClasses([CanBeNull] this Type In)
             {
             var Out = new List<Type>();
@@ -498,7 +498,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns a friendly name for a type including generic type arguments.
         /// </summary>
-        [Tested]
+        
         public static string GetFriendlyTypeName([CanBeNull] this Type In)
             {
             if (In == null)
@@ -537,7 +537,7 @@ namespace LCore.Extensions
         /// If the field is not found an Exception will be thrown.
         /// </summary>
         /// <exception cref="ArgumentException">If the MemberInfo <paramref name="In" /> cannot be found on <paramref name="Obj" />.</exception>
-        [Tested]
+        
         [CanBeNull]
         public static object GetValue([CanBeNull] this MemberInfo In, [CanBeNull] object Obj)
             {
@@ -564,7 +564,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns a list of all member values, optionally include subclasses.
         /// </summary>
-        [Tested]
+        
         public static List<T> GetValues<T>([CanBeNull] this Type In, [CanBeNull] object Obj, bool IncludeBaseClasses = true)
             {
             if (In == null)
@@ -578,7 +578,7 @@ namespace LCore.Extensions
         /// Returns a list of object values from a list of members.
         /// Optionally, set <paramref name="Instantiate" /> to true to instantiate null members.
         /// </summary>
-        [Tested]
+        
         public static List<T> GetValues<T>([CanBeNull] this IEnumerable<MemberInfo> In, [CanBeNull] object Obj, bool Instantiate = false)
             {
             var Out = new List<T>();
@@ -633,7 +633,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns whether a member has a certain attribute type <typeparamref name="T" />.
         /// </summary>
-        [Tested]
+        
         public static bool HasAttribute<T>([CanBeNull] this ICustomAttributeProvider AttributeProvider)
             where T : IPersistAttribute
             {
@@ -648,7 +648,7 @@ namespace LCore.Extensions
         /// Returns whether a member has a certain attribute type <typeparamref name="T" />.
         /// Optionally, look on base type members for the attribute.
         /// </summary>
-        [Tested]
+        
         public static bool HasAttribute<T>([CanBeNull] this ICustomAttributeProvider AttributeProvider, bool IncludeBaseClasses)
             {
             return AttributeProvider != null && AttributeProvider.HasAttribute(typeof(T), IncludeBaseClasses);
@@ -658,7 +658,7 @@ namespace LCore.Extensions
         /// Returns whether a member has a certain attribute type <paramref name="AttributeProvider" />.
         /// Optionally, look on base type members for the attribute.
         /// </summary>
-        [Tested]
+        
         public static bool HasAttribute([CanBeNull] this ICustomAttributeProvider AttributeProvider, [CanBeNull] Type Type,
             bool IncludeBaseClasses)
             {
@@ -677,7 +677,7 @@ namespace LCore.Extensions
         /// Returns whether or not a given type <paramref name="In" /> implements an interface.
         /// Optionally, IncludeBaseTypes can be set to false to only look within top-level classes.
         /// </summary>
-        [Tested]
+        
         public static bool HasInterface([CanBeNull] this Type In, [CanBeNull] Type Interface)
             {
             if (In == null || Interface == null)
@@ -690,7 +690,7 @@ namespace LCore.Extensions
         /// Returns whether or not a given type <paramref name="In" /> implements an interface.
         /// Optionally, IncludeBaseTypes can be set to false to only look within top-level classes.
         /// </summary>
-        [Tested]
+        
         public static bool HasInterface<T>([CanBeNull] this Type In)
             {
             if (In == null)
@@ -709,7 +709,7 @@ namespace LCore.Extensions
         /// Determines if a Type <paramref name="Type"/> has an Indexer
         /// of the specified type: <paramref name="Type"/>[<typeparamref name="TKey"/>] == <typeparamref name="TValue"/>
         /// </summary>
-        [Tested]
+        
         public static bool HasIndexGetter<TKey, TValue>([CanBeNull] this Type Type)
             {
             return Type.IndexGetter<TKey, TValue>() != null;
@@ -719,7 +719,7 @@ namespace LCore.Extensions
         /// Determines if a Type <paramref name="Type"/> has an Indexer
         /// of the specified type: <paramref name="Type"/>[<typeparamref name="TKey"/>] == object
         /// </summary>
-        [Tested]
+        
         public static bool HasIndexGetter<TKey>([CanBeNull] this Type Type)
             {
             return Type.IndexGetter<TKey>() != null;
@@ -733,7 +733,7 @@ namespace LCore.Extensions
         /// Determines if a Type <paramref name="Type"/> has an Indexer
         /// of the specified type: <paramref name="Type"/>[<typeparamref name="TKey"/>] == <typeparamref name="TValue"/>
         /// </summary>
-        [Tested]
+        
         public static bool HasIndexSetter<TKey, TValue>([CanBeNull] this Type Type)
             {
             return Type.IndexSetter<TKey, TValue>() != null;
@@ -743,7 +743,7 @@ namespace LCore.Extensions
         /// Determines if a Type <paramref name="Type"/> has an Indexer
         /// of the specified type: <paramref name="Type"/>[<typeparamref name="TKey"/>] == object
         /// </summary>
-        [Tested]
+        
         public static bool HasIndexSetter<TKey>([CanBeNull] this Type Type)
             {
             return Type.IndexSetter<TKey>() != null;
@@ -757,7 +757,7 @@ namespace LCore.Extensions
         /// Returns whether a MemberInfo has a setter.
         /// </summary>
         /// <exception cref="ArgumentException">If an unknown MemberInfo type is passed.</exception>
-        [Tested]
+        
         public static bool HasSetter([CanBeNull] this MemberInfo In)
             {
             if (In == null)
@@ -788,7 +788,7 @@ namespace LCore.Extensions
         /// <paramref name="Type"/>[<typeparamref name="TKey"/>] == <typeparamref name="TValue"/>
         /// </summary>
         [CanBeNull]
-        [Tested]
+        
         public static PropertyInfo IndexGetter<TKey, TValue>([CanBeNull] this Type Type)
             {
             return Type?.GetMembers().First<PropertyInfo>(
@@ -804,7 +804,7 @@ namespace LCore.Extensions
         /// <paramref name="Type"/>[<typeparamref name="TKey"/>] == object
         /// </summary>
         [CanBeNull]
-        [Tested]
+        
         public static PropertyInfo IndexGetter<TKey>([CanBeNull] this Type Type)
             {
             return Type?.GetMembers().First<PropertyInfo>(
@@ -854,7 +854,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Instantiates values of properties for an object.
         /// </summary>
-        [Tested]
+        
         // ReSharper disable once UnusedMethodReturnValue.Global
         public static List<T> InstantiateValues<T>([CanBeNull] this Type In, [CanBeNull] object Obj, bool IncludeBaseClasses)
             {
@@ -868,7 +868,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Instantiates values of specific properties for an object.
         /// </summary>
-        [Tested]
+        
         // ReSharper disable once UnusedMethodReturnValue.Global
         public static List<T> InstantiateValues<T>([CanBeNull] this IEnumerable<MemberInfo> In, [CanBeNull] object Obj)
             {
@@ -926,7 +926,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns whether object <paramref name="In" /> is type <typeparamref name="T" /> or a subclass of <typeparamref name="T" />
         /// </summary>
-        [Tested]
+        
         public static bool IsType<T>([CanBeNull] this object In)
             {
             return In != null && In.GetType().IsType(typeof(T));
@@ -935,7 +935,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns whether object <paramref name="In" /> is type <paramref name="Type" /> or a subclass of <paramref name="Type" />
         /// </summary>
-        [Tested]
+        
         public static bool IsType([CanBeNull] this object In, [CanBeNull] Type Type)
             {
             if (In == null || Type == null)
@@ -947,7 +947,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns whether type <paramref name="In" /> is type <paramref name="Type" /> or a subclass of <paramref name="Type" />
         /// </summary>
-        [Tested]
+        
         public static bool IsType([CanBeNull] this Type In, [CanBeNull] Type Type)
             {
             if (In == null || Type == null)
@@ -961,7 +961,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns whether type <paramref name="In" /> is type <typeparamref name="T" /> or a subclass of <typeparamref name="T" />
         /// </summary>
-        [Tested]
+        
         public static bool IsType<T>([CanBeNull] this Type In)
             {
             return In != null && In.IsType(typeof(T));
@@ -988,7 +988,7 @@ namespace LCore.Extensions
         /// Return all members of type <paramref name="In" /> who expose type <paramref name="Type" />.
         /// Optionally, scan base classes.
         /// </summary>
-        [Tested]
+        
         public static List<MemberInfo> MembersOfType([CanBeNull] this Type In, [CanBeNull] Type Type, bool IncludeBaseClasses = true)
             {
             if (In == null || Type == null)
@@ -1014,7 +1014,7 @@ namespace LCore.Extensions
         /// Uses the return value if <paramref name="In" /> is a MethodInfo.
         /// </summary>
         /// <exception cref="ArgumentException">If an unknown MemberInfo type is passed.</exception>
-        [Tested]
+        
         [CanBeNull]
         public static Type MemberType([CanBeNull] this MemberInfo In)
             {
@@ -1045,7 +1045,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Creates a new <typeparamref name="T" /> object. Optionally, pass in <paramref name="Arguments" /> to the constructor.
         /// </summary>
-        [Tested]
+        
         [CanBeNull]
         public static T New<T>([CanBeNull] this Type In, [CanBeNull] object[] Arguments = null)
             {
@@ -1057,7 +1057,7 @@ namespace LCore.Extensions
         /// If the object type is uses a generic type, you need to supply it using <paramref name="GenericType" />
         /// </summary>
         /// <exception cref="InvalidOperationException">The object could not be created, constructor was not found.</exception>
-        [Tested]
+        
         [CanBeNull]
         public static object New([CanBeNull] this Type In, [CanBeNull] object[] Arguments = null, [CanBeNull] Type GenericType = null)
             {
@@ -1143,7 +1143,7 @@ namespace LCore.Extensions
         /// <param name="Obj"></param>
         /// <param name="Value"></param>
         /// <exception cref="ArgumentException">If the MemberInfo <paramref name="In" /> was not found on Obj.</exception>
-        [Tested]
+        
         public static void SetValue([CanBeNull] this MemberInfo In, [CanBeNull] object Obj, [CanBeNull] object Value)
             {
             try
@@ -1212,7 +1212,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns whether the two types are equal by comparing their Fully Qualified Names.
         /// </summary>
-        [Tested]
+        
         public static bool TypeEquals([CanBeNull] this Type In, [CanBeNull] Type Compare)
             {
             return In != null &&
@@ -1228,7 +1228,7 @@ namespace LCore.Extensions
         /// Filters an IEnumerable`MemberInfo, excluding any members with given 
         /// attribute <typeparamref name="TAttribute" />.
         /// </summary>
-        [Tested]
+        
         public static List<TMember> WithAttribute<TAttribute, TMember>([CanBeNull] this IEnumerable<TMember> In,
             bool IncludeBaseTypes = true)
             where TMember : MemberInfo
@@ -1240,7 +1240,7 @@ namespace LCore.Extensions
         /// Filters an IEnumerable`MemberInfo, including any members with given 
         /// attribute <typeparamref name="T" />.
         /// </summary>
-        [Tested]
+        
         public static List<MemberInfo> WithAttribute<T>([CanBeNull] this IEnumerable<MemberInfo> In, bool IncludeBaseTypes = true)
             {
             return In.Select(Member => Member.HasAttribute<T>(IncludeBaseTypes)).List();
@@ -1249,7 +1249,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Filters an IEnumerable`MemberInfo, including any members with given <paramref name="AttributeType" />.
         /// </summary>
-        [Tested]
+        
         public static List<MemberInfo> WithAttribute([CanBeNull] this IEnumerable<MemberInfo> In, [CanBeNull] Type AttributeType,
             bool IncludeBaseTypes = true)
             {
@@ -1264,7 +1264,7 @@ namespace LCore.Extensions
         /// Filters an IEnumerable`MemberInfo, excluding any members with given 
         /// attribute <typeparamref name="TAttribute" />.
         /// </summary>
-        [Tested]
+        
         public static List<TMember> WithoutAttribute<TAttribute, TMember>([CanBeNull] this IEnumerable<TMember> In,
             bool IncludeBaseTypes = true)
             where TMember : MemberInfo
@@ -1276,7 +1276,7 @@ namespace LCore.Extensions
         /// Filters an IEnumerable`MemberInfo, excluding any members with given 
         /// attribute <typeparamref name="T" />.
         /// </summary>
-        [Tested]
+        
         public static List<MemberInfo> WithoutAttribute<T>([CanBeNull] this IEnumerable<MemberInfo> In, bool IncludeBaseTypes = true)
             {
             return In.Select(Member => !Member.HasAttribute<T>(IncludeBaseTypes)).List();
@@ -1286,7 +1286,7 @@ namespace LCore.Extensions
         /// Filters an IEnumerable`MemberInfo, excluding any members with given 
         /// attribute <paramref name="AttributeType" />.
         /// </summary>
-        [Tested]
+        
         public static List<MemberInfo> WithoutAttribute([CanBeNull] this IEnumerable<MemberInfo> In, [CanBeNull] Type AttributeType,
             bool IncludeBaseTypes = true)
             {

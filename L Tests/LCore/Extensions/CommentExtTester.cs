@@ -1,27 +1,27 @@
-﻿using LCore.Extensions;
 using System;
 using System.Reflection;
 using FluentAssertions;
 using JetBrains.Annotations;
+using JetBrains.dotMemoryUnit.Util;
+using LCore.Extensions;
 using LCore.LUnit;
+using LCore.Tests.Extensions;
 using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
-using static LCore.LUnit.LUnit.Categories;
-// ReSharper disable PossibleNullReferenceException
 
-// ReSharper disable ReturnValueOfPureMethodIsNotUsed
-
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
-// ReSharper disable ConvertToConstant.Local
-
-namespace LCore.Tests.Extensions
+namespace L_Tests.LCore.Extensions
     {
-    [Trait(Category, UnitTests)]
-    public class CommentExtTest : XUnitOutputTester
+    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(CommentExt))]
+    public partial class CommentExtTester : XUnitOutputTester
         {
+        public CommentExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+
+        ~CommentExtTester() { }
+
         [Fact]
-        public void Test_GetComments()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(CommentExt) + "." + nameof(CommentExt.GetComments))]
+        public void GetComments()
             {
             // ReSharper disable once RedundantAssignment
             var Comments = typeof(L.Comment).GetComments();
@@ -66,7 +66,7 @@ namespace LCore.Tests.Extensions
             TestField
             ");
 
-            typeof(CommentExtTest).GetComments().Should().BeNull();
+            typeof(CommentExtTester).GetComments().Should().BeNull();
 
             var Test = new TestInvalidMemberInfo();
             Test.GetCustomAttributes(Inherit: false).Should().BeNull();
@@ -81,6 +81,7 @@ namespace LCore.Tests.Extensions
 
             var Comments5 = typeof(L.Comment.Test).GetMember(nameof(L.Comment.Test.TestMethod2)).First().GetComments();
             Comments5.Includes.Should().Equal(new Set<string, string>("filepath", "[@name=\"filename\"]"));
+
             }
 
         private class TestInvalidMemberInfo : MemberInfo
@@ -107,7 +108,5 @@ namespace LCore.Tests.Extensions
             public override Type ReflectedType { get; }
             // ReSharper restore UnassignedGetOnlyAutoProperty
             }
-
-        public CommentExtTest([NotNull] ITestOutputHelper Output) : base(Output) { }
         }
     }

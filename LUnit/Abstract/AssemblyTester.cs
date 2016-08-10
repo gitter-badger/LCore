@@ -201,18 +201,23 @@ namespace LCore.LUnit
                             var TargetClass =
                             MemberNaming.First(Member => Member.Value.Item1 == Namespace && Member.Value.Item2 == Class).Key.DeclaringType;
 
+                            var TargetClassTest = L.Ref.FindMember($"{Namespace}.{Class}", this.TestAssemblies).First();
+
                             if (TargetClass != null)
                                 {
                                 bool FullyQualifyWithNamespace =
                                 MemberNaming.Values.Count(Naming => Naming.Item2 == Class && Naming.Item1 != Namespace) > 0;
 
 
-                            // ReSharper disable once UseObjectOrCollectionInitializer
-                            var WriteStack3 = new List<string>();
+                                // ReSharper disable once UseObjectOrCollectionInitializer
+                                var WriteStack3 = new List<string>();
 
                                 if (this.TrackCoverageByNamingConvention_IncludeTraitTargetAttributes)
                                     {
                                     bool StrongTypeTraitAttribute = !TargetClass.FullyQualifiedName().HasAny('`', '<', '>');
+
+                                    if (TargetClassTest != null)
+                                        Partial = " partial ";
 
                                     WriteStack3.Add(StrongTypeTraitAttribute
                                     ? $"[{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},{TargetClass.FullyQualifiedName().NameofParts(TargetClass, TargetClass.Namespace, FullyQualifyWithNamespace)})]"
@@ -224,13 +229,17 @@ namespace LCore.LUnit
 
                                     WriteStack3.Add("    {");
 
-                                    WriteStack3.Add(this.TrackCoverageByNamingConvention_UseXunitOutputBase
-                                    ? $"       public {Class}([{nameof(NotNullAttribute).Before(Attribute)}] {nameof(ITestOutputHelper)} Output) : base(Output) {{ }}"
-                                    : $"       public {Class}() {{ }}");
+                                    // Don't re-declare constructor and destructor if the target class exists
+                                    if (TargetClassTest == null)
+                                        {
+                                        WriteStack3.Add(this.TrackCoverageByNamingConvention_UseXunitOutputBase
+                                        ? $"       public {Class}([{nameof(NotNullAttribute).Before(Attribute)}] {nameof(ITestOutputHelper)} Output) : base(Output) {{ }}"
+                                        : $"       public {Class}() {{ }}");
 
-                                    WriteStack3.Add("");
-                                    WriteStack3.Add($"       ~{Class}() {{ }}");
-                                    WriteStack3.Add("");
+                                        WriteStack3.Add("");
+                                        WriteStack3.Add($"       ~{Class}() {{ }}");
+                                        WriteStack3.Add("");
+                                        }
 
                                     List<string> MemberNames = Classes[Class];
 
@@ -251,19 +260,18 @@ namespace LCore.LUnit
                                             return;
 
                                         StrongTypeTraitAttribute = !TargetMember.FullyQualifiedName().HasAny('`', '<', '>') &&
-                                                               !(TargetMember is MethodInfo &&((MethodInfo)TargetMember).IsOperator());
+                                                               !(TargetMember is MethodInfo && ((MethodInfo)TargetMember).IsOperator());
 
-                                        MemberInfo[] TargetMemberTest = L.Ref.FindMember($"{Namespace}.{Class}.{MemberName}", this.TestAssemblies);
+                                        var TargetMemberTest = L.Ref.FindMember($"{Namespace}.{Class}.{MemberName}", this.TestAssemblies).First();
 
-                                        if ((TargetMemberTest == null || TargetMemberTest.Length == 0) &&
-                                        !string.IsNullOrEmpty(MemberName))
+                                        if ((TargetMemberTest == null) && !string.IsNullOrEmpty(MemberName))
                                             {
-                                        // ReSharper disable RedundantNameQualifier
-                                        string New = MemberName == nameof(object.GetHashCode) ||
-                                                     MemberName == nameof(object.ToString)
-                                            // ReSharper restore RedundantNameQualifier
-                                            ? " new "
-                                            : " ";
+                                            // ReSharper disable RedundantNameQualifier
+                                            string New = MemberName == nameof(object.GetHashCode) ||
+                                                         MemberName == nameof(object.ToString)
+                                                // ReSharper restore RedundantNameQualifier
+                                                ? " new "
+                                                : " ";
 
                                             MembersMissing++;
                                             TotalMembersMissing++;
@@ -281,8 +289,11 @@ namespace LCore.LUnit
 
                                             WriteStack3.Add($"       public{New}void {MemberName}()");
                                             WriteStack3.Add("        {");
-                                            WriteStack3.Add(
-                                            $"            // TODO: Implement method test {TargetMember.FullyQualifiedName()}");
+
+                                            WriteStack3.Add(TargetMember?.HasAttribute<ILUnitAttribute>(IncludeBaseClasses: true) ==true
+                                                    ? $"            // Attribute Tests Implemented"
+                                                    : $"            // TODO: Implement method test {TargetMember.FullyQualifiedName()}");
+
                                             WriteStack3.Add("        }");
                                             WriteStack3.Add("        ");
                                             }

@@ -980,7 +980,7 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Expression"></param>
         /// <returns>All matches for <paramref name="In" /> nad Regex <paramref name="Expression" />.</returns>
-        [Tested]
+        
         public static List<Match> Matches([CanBeNull]this string In, [CanBeNull]string Expression)
             {
             if (string.IsNullOrEmpty(In) || string.IsNullOrEmpty(Expression))
@@ -1218,7 +1218,7 @@ namespace LCore.Extensions
         /// Takes a string and <paramref name="Replacements" /> dictionary. 
         /// All keys are replaced with the corresponding value.
         /// </summary>
-        [Tested]
+        
         public static string ReplaceAll([CanBeNull] this string In, [CanBeNull] IDictionary<string, string> Replacements)
             {
             string Out = In ?? "";
@@ -1745,7 +1745,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Converts an input string into a memory stream.
         /// </summary>
-        [Tested]
+        
         public static Stream ToStream([CanBeNull]this string Str)
             {
             var Stream = new MemoryStream();

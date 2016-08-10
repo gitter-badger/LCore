@@ -371,7 +371,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
-        [Tested]
+        
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this int Int)
             {
@@ -382,7 +382,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
-        [Tested]
+        
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this short Short)
             {
@@ -393,7 +393,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
-        [Tested]
+        
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this long Long)
             {
@@ -404,7 +404,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
-        [Tested]
+        
         // ReSharper disable once InconsistentNaming
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this uint UInt)
@@ -416,7 +416,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
-        [Tested]
+        
         // ReSharper disable once InconsistentNaming
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this ushort UShort)
@@ -428,7 +428,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
-        [Tested]
+        
         // ReSharper disable once InconsistentNaming
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this ulong ULong)
@@ -440,7 +440,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
-        [Tested]
+        
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this char Char)
             {
@@ -451,7 +451,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
-        [Tested]
+        
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this byte Byte)
             {
@@ -462,7 +462,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
-        [Tested]
+        
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this sbyte Int)
             {
@@ -472,7 +472,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the number of decimal places used for the provided number.
         /// </summary>
-        [Tested]
+        
         public static ushort DecimalPlaces(this decimal Dec)
             {
             string Out = Dec.ToString("0." + new string(c: '#', count: 339));
@@ -489,7 +489,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the number of decimal places used for the provided number.
         /// </summary>
-        [Tested]
+        
         public static ushort DecimalPlaces(this double Double)
             {
             string Out = Double.ToString("0." + new string(c: '#', count: 339));
@@ -507,7 +507,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the number of decimal places used for the provided number.
         /// </summary>
-        [Tested]
+        
         public static ushort DecimalPlaces(this float Float)
             {
             string Out = Float.ToString("0." + new string(c: '#', count: 339));

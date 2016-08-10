@@ -37,7 +37,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Creates a directory path if it doesn't already exist.
         /// </summary>
-        [Tested]
+        
         public static void EnsurePathExists([CanBeNull] this string Path)
             {
             if (Path == null)

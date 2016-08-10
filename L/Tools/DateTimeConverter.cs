@@ -108,7 +108,7 @@ namespace LCore.Tools
         /// </remarks>
         /// <exception cref="ArgumentNullException"><paramref name="Str"/> is a <b>null</b> reference (Nothing in Visual Basic).</exception>
         /// <exception cref="FormatException"><paramref name="Str"/> does not contain a valid RFC 3339 string representation of a date and time.</exception>
-        [Tested]
+        
         public static DateTime Parse(string Str)
             {
             //------------------------------------------------------------
@@ -150,7 +150,7 @@ namespace LCore.Tools
         /// </para>
         /// </remarks>
         /// <exception cref="ArgumentException">The specified <paramref name="UtcDateTime"/> object does not represent a <see cref="DateTimeKind.Utc">Coordinated Universal Time (UTC)</see> value.</exception>
-        [Tested]
+        
         public static string ToString(DateTime UtcDateTime)
             {
             if (UtcDateTime.Kind != DateTimeKind.Utc)
@@ -181,7 +181,7 @@ namespace LCore.Tools
         /// <remarks>
         /// The string <paramref name="Str"/> is parsed using formatting information in the <see cref="DateTimeFormatInfo.InvariantInfo"/> object.
         /// </remarks>
-        [Tested]
+        
         public static bool TryParse(string Str, out DateTime Result)
             {
             //------------------------------------------------------------

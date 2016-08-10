@@ -20,7 +20,7 @@ namespace LCore.Extensions
         /// Returns whether or not an IConvertible object <paramref name="In" /> can be, safely and without 
         /// any data loss, converted to type <typeparamref name="T" />
         /// </summary>
-        [Tested]
+        
         public static bool CanConvertTo<T>([CanBeNull]this IConvertible In)
             where T : struct, IConvertible
             {
@@ -45,7 +45,7 @@ namespace LCore.Extensions
         /// Returns whether or not an IConvertible object <paramref name="In" /> can be, safely and without 
         /// any data loss, converted to type <paramref name="Type"/>
         /// </summary>
-        [Tested]
+        
         public static bool CanConvertTo([CanBeNull]this IConvertible In, [CanBeNull]Type Type)
             {
             if (In == null || Type == null)
@@ -73,7 +73,7 @@ namespace LCore.Extensions
         /// Returns whether or not an IConvertible object <paramref name="In" /> can be, safely and without 
         /// any data loss, converted to a string.
         /// </summary>
-        [Tested]
+        
         public static bool CanConvertToString([CanBeNull]this IConvertible In)
             {
             if (In == null)
@@ -93,7 +93,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Converts an IConvertible to type <paramref name="Type"/>, if it is capable.
         /// </summary>
-        [Tested]
+        
         [CanBeNull]
         public static object ConvertTo([CanBeNull]this IConvertible In, [CanBeNull]Type Type)
             {
@@ -126,7 +126,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Converts an IConvertible to type <typeparamref name="T" />, if it is capable.
         /// </summary>
-        [Tested]
+        
         [CanBeNull]
         public static T? ConvertTo<T>([CanBeNull]this IConvertible In)
             where T : struct, IConvertible
@@ -164,7 +164,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Converts an IConvertible to a string, if it is capable.
         /// </summary>
-        [Tested]
+        
         [CanBeNull]
         public static string ConvertToString([CanBeNull]this IConvertible In)
             {
@@ -188,7 +188,7 @@ namespace LCore.Extensions
         /// Converts an IConvertible to type <typeparamref name="T" />, if it is capable.
         /// If <paramref name="In" /> cannot be converted, the source will be returned.
         /// </summary>
-        [Tested]
+        
         [CanBeNull]
         public static IConvertible TryConvertTo<T>([CanBeNull]this IConvertible In)
             where T : struct, IConvertible
@@ -206,7 +206,7 @@ namespace LCore.Extensions
         /// Converts an IConvertible to a string, if it is capable.
         /// If <paramref name="In" /> cannot be converted, the source will be returned.
         /// </summary>
-        [Tested]
+        
         [CanBeNull]
         public static IConvertible TryConvertToString([CanBeNull]this IConvertible In)
             {

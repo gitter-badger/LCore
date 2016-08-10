@@ -23,7 +23,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Inverts the output on a method returning a Boolean.
         /// </summary>
-        [Tested]
         public static Func<bool> Not([CanBeNull]this Func<bool> Condition)
             {
             return L.Bool.Not.Surround(Condition);
@@ -32,7 +31,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Inverts the output on a method returning a Boolean.
         /// </summary>
-        [Tested]
         public static Func<T1, bool> Not<T1>([CanBeNull]this Func<T1, bool> Condition)
             {
             return L.Bool.Not.Surround(Condition);
@@ -41,7 +39,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Inverts the output on a method returning a Boolean.
         /// </summary>
-        [Tested]
         public static Func<T1, T2, bool> Not<T1, T2>([CanBeNull]this Func<T1, T2, bool> Condition)
             {
             return L.Bool.Not.Surround(Condition);
@@ -50,7 +47,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Inverts the output on a method returning a Boolean.
         /// </summary>
-        [Tested]
         public static Func<T1, T2, T3, bool> Not<T1, T2, T3>([CanBeNull]this Func<T1, T2, T3, bool> Condition)
             {
             return L.Bool.Not.Surround(Condition);
@@ -59,7 +55,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Inverts the output on a method returning a Boolean.
         /// </summary>
-        [Tested]
         public static Func<T1, T2, T3, T4, bool> Not<T1, T2, T3, T4>([CanBeNull]this Func<T1, T2, T3, T4, bool> Condition)
             {
             return L.Bool.Not.Surround(Condition);
@@ -74,7 +69,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Logical If Statement. If the <paramref name="Condition" /> passed is true, the action passed is executed.
         /// </summary>
-        [Tested]
         public static Func<bool> If([CanBeNull]this Action In, [CanBeNull]Func<bool> Condition)
             {
             Condition = Condition ?? (() => false);
@@ -94,7 +88,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Logical If Statement. If the <paramref name="Condition" /> passed is true, the action passed is executed.
         /// </summary>
-        [Tested]
         public static Func<T, bool> If<T>([CanBeNull]this Action In, [CanBeNull]Func<T, bool> Condition)
             {
             Condition = Condition ?? (o => false);
@@ -114,7 +107,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Logical If Statement. If the <paramref name="Condition" /> passed is true, the action passed is executed.
         /// </summary>
-        [Tested]
         public static Func<T1, T2, bool> If<T1, T2>([CanBeNull]this Action In, [CanBeNull]Func<T1, T2, bool> Condition)
             {
             Condition = Condition ?? ((o1, o2) => false);
@@ -134,7 +126,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Logical If Statement. If the <paramref name="Condition" /> passed is true, the action passed is executed.
         /// </summary>
-        [Tested]
         public static Func<T1, T2, T3, bool> If<T1, T2, T3>([CanBeNull]this Action In, [CanBeNull]Func<T1, T2, T3, bool> Condition)
             {
             Condition = Condition ?? ((o1, o2, o3) => false);
@@ -154,7 +145,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Logical If Statement. If the <paramref name="Condition" /> passed is true, the action passed is executed.
         /// </summary>
-        [Tested]
         public static Func<T1, T2, T3, T4, bool> If<T1, T2, T3, T4>([CanBeNull]this Action In, [CanBeNull] Func<T1, T2, T3, T4, bool> Condition)
             {
             Condition = Condition ?? ((o1, o2, o3, o4) => false);
@@ -178,7 +168,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Logical If Statement. If the <paramref name="Condition" /> passed is true, the function passed is executed.
         /// </summary>
-        [Tested]
         public static Func<T> If<T>([CanBeNull]this Func<T> In, [CanBeNull]Func<bool> Condition)
             {
             Condition = Condition ?? (() => false);
@@ -192,7 +181,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Logical If Statement. If the <paramref name="Condition" /> passed is true, the function passed is executed.
         /// </summary>
-        [Tested]
         public static Func<T2, T1> If<T1, T2>([CanBeNull]this Func<T1> In, [CanBeNull]Func<T2, bool> Condition)
             {
             Condition = Condition ?? (o => false);
@@ -206,7 +194,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Logical If Statement. If the <paramref name="Condition" /> passed is true, the function passed is executed.
         /// </summary>
-        [Tested]
         public static Func<T2, T3, T1> If<T1, T2, T3>([CanBeNull]this Func<T1> In, [CanBeNull]Func<T2, T3, bool> Condition)
             {
             Condition = Condition ?? ((o1, o2) => false);
@@ -220,7 +207,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Logical If Statement. If the <paramref name="Condition" /> passed is true, the function passed is executed.
         /// </summary>
-        [Tested]
         public static Func<T2, T3, T4, T1> If<T1, T2, T3, T4>([CanBeNull]this Func<T1> In, [CanBeNull]Func<T2, T3, T4, bool> Condition)
             {
             Condition = Condition ?? ((o1, o2, o3) => false);
@@ -234,7 +220,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Logical If Statement. If the <paramref name="Condition" /> passed is true, the function passed is executed.
         /// </summary>
-        [Tested]
         public static Func<T2, T3, T4, T5, T1> If<T1, T2, T3, T4, T5>([CanBeNull]this Func<T1> In,
             [CanBeNull]Func<T2, T3, T4, T5, bool> Condition)
             {
@@ -258,7 +243,6 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// AND operation is applied if multiple conditions are passed.
         /// </summary>
-        [Tested]
         public static Func<bool> If([CanBeNull]this Action In, [CanBeNull]params Func<bool>[] Conditions)
             {
             return In.If(Conditions.And());
@@ -268,7 +252,6 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// AND operation is applied if multiple conditions are passed.
         /// </summary>
-        [Tested]
         public static Func<T, bool> If<T>([CanBeNull]this Action In, [CanBeNull]params Func<T, bool>[] Conditions)
             {
             return In.If(Conditions.And());
@@ -278,7 +261,6 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// AND operation is applied if multiple conditions are passed.
         /// </summary>
-        [Tested]
         public static Func<T1, T2, bool> If<T1, T2>([CanBeNull]this Action In, [CanBeNull]params Func<T1, T2, bool>[] Conditions)
             {
             return In.If(Conditions.And());
@@ -288,7 +270,6 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// AND operation is applied if multiple conditions are passed.
         /// </summary>
-        [Tested]
         public static Func<T1, T2, T3, bool> If<T1, T2, T3>([CanBeNull]this Action In, [CanBeNull]params Func<T1, T2, T3, bool>[] Conditions)
             {
             return In.If(Conditions.And());
@@ -298,7 +279,6 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// AND operation is applied if multiple conditions are passed.
         /// </summary>
-        [Tested]
         public static Func<T1, T2, T3, T4, bool> If<T1, T2, T3, T4>([CanBeNull]this Action In,
             [CanBeNull]params Func<T1, T2, T3, T4, bool>[] Conditions)
             {
@@ -426,7 +406,6 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// AND operation is applied if multiple conditions are passed.
         /// </summary>
-        [Tested]
         public static Func<T> If<T>([CanBeNull]this Func<T> In, [CanBeNull]params Func<bool>[] Conditions)
             {
             return In.If(Conditions.And());
@@ -436,7 +415,6 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// AND operation is applied if multiple conditions are passed.
         /// </summary>
-        [Tested]
         public static Func<T2, T1> If<T1, T2>([CanBeNull]this Func<T1> In, [CanBeNull]params Func<T2, bool>[] Conditions)
             {
             return In.If(Conditions.And());
@@ -446,7 +424,6 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// AND operation is applied if multiple conditions are passed.
         /// </summary>
-        [Tested]
         public static Func<T2, T3, T1> If<T1, T2, T3>([CanBeNull]this Func<T1> In, [CanBeNull] params Func<T2, T3, bool>[] Conditions)
             {
             return In.If(Conditions.And());
@@ -456,7 +433,6 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// AND operation is applied if multiple conditions are passed.
         /// </summary>
-        [Tested]
         public static Func<T2, T3, T4, T1> If<T1, T2, T3, T4>([CanBeNull]this Func<T1> In,
             [CanBeNull]params Func<T2, T3, T4, bool>[] Conditions)
             {
@@ -467,7 +443,6 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// AND operation is applied if multiple conditions are passed.
         /// </summary>
-        [Tested]
         public static Func<T2, T3, T4, T5, T1> If<T1, T2, T3, T4, T5>([CanBeNull]this Func<T1> In,
             [CanBeNull]params Func<T2, T3, T4, T5, bool>[] Conditions)
             {
@@ -594,7 +569,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false and the result of <paramref name="Condition" /> is true.
         /// </summary>
-        [Tested]
         public static Func<bool> ElseIf([CanBeNull]this Func<bool> In, [CanBeNull] Func<bool> Condition, [CanBeNull]Action Act)
             {
             Condition = Condition ?? (() => false);
@@ -619,7 +593,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false and the result of <paramref name="Condition" /> is true.
         /// </summary>
-        [Tested]
         public static Func<T, bool> ElseIf<T>([CanBeNull]this Func<T, bool> In, [CanBeNull]Func<T, bool> Condition, [CanBeNull] Action<T> Act)
             {
             Condition = Condition ?? (o => false);
@@ -644,7 +617,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false and the result of <paramref name="Condition" /> is true.
         /// </summary>
-        [Tested]
         public static Func<T1, T2, bool> ElseIf<T1, T2>([CanBeNull]this Func<T1, T2, bool> In, [CanBeNull]Func<T1, T2, bool> Condition,
             [CanBeNull]Action<T1, T2> Act)
             {
@@ -670,7 +642,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false and the result of <paramref name="Condition" /> is true.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, T2, T3, bool> ElseIf<T1, T2, T3>([CanBeNull]this Func<T1, T2, T3, bool> In,
             [CanBeNull]Func<T1, T2, T3, bool> Condition, [CanBeNull]Action<T1, T2, T3> Act)
             {
@@ -696,7 +668,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false and the result of <paramref name="Condition" /> is true.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, T2, T3, T4, bool> ElseIf<T1, T2, T3, T4>([CanBeNull]this Func<T1, T2, T3, T4, bool> In,
             [CanBeNull]Func<T1, T2, T3, T4, bool> Condition, [CanBeNull]Action<T1, T2, T3, T4> Act)
             {
@@ -722,7 +694,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false and the result of <paramref name="Condition" /> is true.
         /// </summary>
-        [Tested]
+        
         public static Func<U> ElseIf<U>([CanBeNull]this Func<U> In, [CanBeNull]Func<bool> Condition, [CanBeNull]Func<U> Act)
             {
             Condition = Condition ?? (() => false);
@@ -745,7 +717,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false and the result of <paramref name="Condition" /> is true.
         /// </summary>
-        [Tested]
+        
         public static Func<T, U> ElseIf<T, U>([CanBeNull]this Func<T, U> In, [CanBeNull]Func<T, bool> Condition, [CanBeNull] Func<T, U> Act)
             {
             Condition = Condition ?? (o => false);
@@ -768,7 +740,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false and the result of <paramref name="Condition" /> is true.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, T2, U> ElseIf<T1, T2, U>([CanBeNull]this Func<T1, T2, U> In, [CanBeNull]Func<T1, T2, bool> Condition,
             [CanBeNull]Func<T1, T2, U> Act)
             {
@@ -792,7 +764,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false and the result of <paramref name="Condition" /> is true.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, T2, T3, U> ElseIf<T1, T2, T3, U>([CanBeNull]this Func<T1, T2, T3, U> In,
             [CanBeNull]Func<T1, T2, T3, bool> Condition, [CanBeNull] Func<T1, T2, T3, U> Act)
             {
@@ -816,7 +788,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false and the result of <paramref name="Condition" /> is true.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, T2, T3, T4, U> ElseIf<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, T3, T4, U> In,
             [CanBeNull]Func<T1, T2, T3, T4, bool> Condition, [CanBeNull]Func<T1, T2, T3, T4, U> Act)
             {
@@ -846,7 +818,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false.
         /// </summary>
-        [Tested]
+        
         public static Action Else([CanBeNull]this Func<bool> In, [CanBeNull]Action Act)
             {
             In = In ?? (() => false);
@@ -861,7 +833,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false.
         /// </summary>
-        [Tested]
+        
         public static Action<T1> Else<T1>([CanBeNull]this Func<T1, bool> In, [CanBeNull]Action<T1> Act)
             {
             In = In ?? (o => false);
@@ -876,7 +848,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false.
         /// </summary>
-        [Tested]
+        
         public static Action<T1, T2> Else<T1, T2>([CanBeNull]this Func<T1, T2, bool> In, [CanBeNull]Action<T1, T2> Act)
             {
             In = In ?? ((o1, o2) => false);
@@ -892,7 +864,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false.
         /// </summary>
-        [Tested]
+        
         public static Action<T1, T2, T3> Else<T1, T2, T3>([CanBeNull]this Func<T1, T2, T3, bool> In, [CanBeNull]Action<T1, T2, T3> Act)
             {
             In = In ?? ((o1, o2, o3) => false);
@@ -908,7 +880,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false.
         /// </summary>
-        [Tested]
+        
         public static Action<T1, T2, T3, T4> Else<T1, T2, T3, T4>([CanBeNull]this Func<T1, T2, T3, T4, bool> In, [CanBeNull]Action<T1, T2, T3, T4> Act)
             {
             In = In ?? ((o1, o2, o3, o4) => false);
@@ -928,7 +900,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false.
         /// </summary>
-        [Tested]
+        
         public static Func<U> Else<U>([CanBeNull]this Func<U> In, [CanBeNull]Func<U> Act)
             {
             return In.ElseIf(L.Bool.True, Act);
@@ -937,7 +909,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, U> Else<T1, U>([CanBeNull]this Func<T1, U> In, [CanBeNull]Func<T1, U> Act)
             {
             return In.ElseIf(o => true, Act);
@@ -946,7 +918,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, T2, U> Else<T1, T2, U>([CanBeNull]this Func<T1, T2, U> In, [CanBeNull] Func<T1, T2, U> Act)
             {
             return In.ElseIf((o1, o2) => true, Act);
@@ -955,7 +927,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, T2, T3, U> Else<T1, T2, T3, U>([CanBeNull]this Func<T1, T2, T3, U> In, [CanBeNull]Func<T1, T2, T3, U> Act)
             {
             return In.ElseIf((o1, o2, o3) => true, Act);
@@ -964,7 +936,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Executes <paramref name="Act" /> if the result of <paramref name="In" /> is false.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, T2, T3, T4, U> Else<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, T3, T4, U> In,
            [CanBeNull] Func<T1, T2, T3, T4, U> Act)
             {
@@ -978,7 +950,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns <paramref name="Result" /> if the result of <paramref name="In" /> is false.
         /// </summary>
-        [Tested]
+        
         public static Func<U> Else<U>([CanBeNull]this Func<U> In, [CanBeNull]U Result)
             {
             return In.Else(Result.FN_Func());
@@ -987,7 +959,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns <paramref name="Result" /> if the result of <paramref name="In" /> is false.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, U> Else<T1, U>([CanBeNull]this Func<T1, U> In, [CanBeNull]U Result)
             {
             return In.Else(o => Result);
@@ -996,7 +968,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns <paramref name="Result" /> if the result of <paramref name="In" /> is false.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, T2, U> Else<T1, T2, U>([CanBeNull]this Func<T1, T2, U> In, [CanBeNull]U Result)
             {
             return In.Else((o1, o2) => Result);
@@ -1005,7 +977,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns <paramref name="Result" /> if the result of <paramref name="In" /> is false.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, T2, T3, U> Else<T1, T2, T3, U>([CanBeNull]this Func<T1, T2, T3, U> In, [CanBeNull]U Result)
             {
             return In.Else((o1, o2, o3) => Result);
@@ -1014,7 +986,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns <paramref name="Result" /> if the result of <paramref name="In" /> is false.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, T2, T3, T4, U> Else<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, T3, T4, U> In, [CanBeNull]U Result)
             {
             return In.Else((o1, o2, o3, o4) => Result);
@@ -1032,7 +1004,7 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
-        [Tested]
+        
         public static Func<bool> Unless([CanBeNull]this Action In, [CanBeNull]params Func<bool>[] Conditions)
             {
             return In.If(Conditions.Or().Not());
@@ -1042,7 +1014,7 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
-        [Tested]
+        
         public static Func<T, bool> Unless<T>([CanBeNull]this Action In, [CanBeNull]params Func<T, bool>[] Conditions)
             {
             return In.If(Conditions.Or().Not());
@@ -1052,7 +1024,7 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, T2, bool> Unless<T1, T2>([CanBeNull]this Action In, [CanBeNull]params Func<T1, T2, bool>[] Conditions)
             {
             return In.If(Conditions.Or().Not());
@@ -1062,7 +1034,7 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, T2, T3, bool> Unless<T1, T2, T3>([CanBeNull]this Action In,
             [CanBeNull]params Func<T1, T2, T3, bool>[] Conditions)
             {
@@ -1073,7 +1045,7 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, T2, T3, T4, bool> Unless<T1, T2, T3, T4>([CanBeNull]this Action In,
             [CanBeNull]params Func<T1, T2, T3, T4, bool>[] Conditions)
             {
@@ -1204,7 +1176,7 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
-        [Tested]
+        
         public static Func<T> Unless<T>(this Func<T> In, params Func<bool>[] Conditions)
             {
             return In.If(Conditions.Or().Not());
@@ -1214,7 +1186,7 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
-        [Tested]
+        
         public static Func<T2, T1> Unless<T1, T2>(this Func<T1> In, params Func<T2, bool>[] Conditions)
             {
             return In.If(Conditions.Or().Not());
@@ -1224,7 +1196,7 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
-        [Tested]
+        
         public static Func<T2, T3, T1> Unless<T1, T2, T3>(this Func<T1> In, params Func<T2, T3, bool>[] Conditions)
             {
             return In.If(Conditions.Or().Not());
@@ -1234,7 +1206,7 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
-        [Tested]
+        
         public static Func<T2, T3, T4, T1> Unless<T1, T2, T3, T4>(this Func<T1> In,
             params Func<T2, T3, T4, bool>[] Conditions)
             {
@@ -1245,7 +1217,7 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
-        [Tested]
+        
         public static Func<T2, T3, T4, T5, T1> Unless<T1, T2, T3, T4, T5>(this Func<T1> In,
             params Func<T2, T3, T4, T5, bool>[] Conditions)
             {
@@ -1377,7 +1349,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Combines the conditions using the AND operation.
         /// </summary>
-        [Tested]
+        
         public static Func<bool> And([CanBeNull]this IEnumerable<Func<bool>> Conditions)
             {
             return () =>
@@ -1395,7 +1367,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Combines the conditions using the AND operation.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, bool> And<T1>([CanBeNull]this IEnumerable<Func<T1, bool>> Conditions)
             {
             return o1 =>
@@ -1413,7 +1385,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Combines the conditions using the AND operation.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, T2, bool> And<T1, T2>([CanBeNull]this IEnumerable<Func<T1, T2, bool>> Conditions)
             {
             return (o1, o2) =>
@@ -1431,7 +1403,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Combines the conditions using the AND operation.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, T2, T3, bool> And<T1, T2, T3>([CanBeNull]this IEnumerable<Func<T1, T2, T3, bool>> Conditions)
             {
             return (o1, o2, o3) =>
@@ -1449,7 +1421,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Combines the conditions using the AND operation.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, T2, T3, T4, bool> And<T1, T2, T3, T4>(
             [CanBeNull]this IEnumerable<Func<T1, T2, T3, T4, bool>> Conditions)
             {
@@ -1472,7 +1444,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Combines the conditions using the OR operation.
         /// </summary>
-        [Tested]
+        
         public static Func<bool> Or([CanBeNull]this IEnumerable<Func<bool>> Conditions)
             {
             return () =>
@@ -1490,7 +1462,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Combines the conditions using the OR operation.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, bool> Or<T1>([CanBeNull]this IEnumerable<Func<T1, bool>> Conditions)
             {
             return o1 =>
@@ -1508,7 +1480,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Combines the conditions using the OR operation.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, T2, bool> Or<T1, T2>([CanBeNull]this IEnumerable<Func<T1, T2, bool>> Conditions)
             {
             return (o1, o2) =>
@@ -1526,7 +1498,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Combines the conditions using the OR operation.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, T2, T3, bool> Or<T1, T2, T3>([CanBeNull]this IEnumerable<Func<T1, T2, T3, bool>> Conditions)
             {
             return (o1, o2, o3) =>
@@ -1544,7 +1516,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Combines the conditions using the OR operation.
         /// </summary>
-        [Tested]
+        
         public static Func<T1, T2, T3, T4, bool> Or<T1, T2, T3, T4>(
             [CanBeNull]this IEnumerable<Func<T1, T2, T3, T4, bool>> Conditions)
             {

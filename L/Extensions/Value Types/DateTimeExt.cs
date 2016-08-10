@@ -81,7 +81,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Converts a DateTime to string using Date and Time Specification of RFC 822
         /// </summary>
-        [Tested]
+        
         public static string ToSpecification(this DateTime Date)
             {
             string Day = Date.Day.ToString();
@@ -130,7 +130,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Gets the name of the month for the source DateTime <paramref name="Date"/>
         /// </summary>
-        [Tested]
+        
         public static string GetMonthName(this DateTime Date)
             {
             return L.Date.GetMonthName(Date);

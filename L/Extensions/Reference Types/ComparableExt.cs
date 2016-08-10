@@ -17,7 +17,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Use this fluent extension method to compare IComparable equality.
         /// </summary>
-        [Tested]
+        
         public static bool IsEqualTo([CanBeNull]this IComparable In, [CanBeNull]IComparable Obj)
             {
             if (In == null && Obj != null)
@@ -36,7 +36,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Use this fluent extension method to compare IComparable inequality.
         /// </summary>
-        [Tested]
+        
         public static bool IsNotEqualTo([CanBeNull]this IComparable In, [CanBeNull]IComparable Obj)
             {
             if (In == null && Obj != null)
@@ -55,7 +55,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Use this fluent extension method to compare one IComparable to another.
         /// </summary>
-        [Tested]
+        
         public static bool IsLessThan([CanBeNull]this IComparable In, [CanBeNull]IComparable Obj)
             {
             if (In == null && Obj != null)
@@ -112,7 +112,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Use this fluent extension method to compare one IComparable to another.
         /// </summary>
-        [Tested]
+        
         public static bool IsGreaterThanOrEqual([CanBeNull]this IComparable In, [CanBeNull]IComparable Obj)
             {
             if (In == null && Obj != null)
@@ -131,7 +131,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the largest of <paramref name="In" /> and all items in <paramref name="Others" />
         /// </summary>
-        [Tested]
+        
         public static T Max<T>([CanBeNull]this T In, [CanBeNull]params T[] Others)
             where T : IComparable
             {
@@ -154,7 +154,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the smallest of <paramref name="In" /> and all items in <paramref name="Others" />
         /// </summary>
-        [Tested]
+        
         public static T Min<T>([CanBeNull]this T In, [CanBeNull]params T[] Others)
             where T : IComparable
             {

@@ -48,7 +48,7 @@ namespace LCore.Extensions
         /// To leave an item out, return a KeyValuePair with a null key.
         /// </summary>
 
-        [Tested]
+        
         public static void Merge<TKey, TValue>([CanBeNull]this IDictionary<TKey, TValue> In, [CanBeNull]IDictionary<TKey, TValue> Add,
             [CanBeNull]Func<KeyValuePair<TKey, TValue>, KeyValuePair<TKey, TValue>> Conflict = null)
             {
@@ -80,7 +80,7 @@ namespace LCore.Extensions
         /// Safely adds one dictionary to another.
         /// If keys from <paramref name="Add" /> already exist in <paramref name="In" />, they will not be added
         /// </summary>
-        [Tested]
+        
         public static void AddRange<TKey, TValue>([CanBeNull]this IDictionary<TKey, TValue> In, [CanBeNull]IDictionary<TKey, TValue> Add)
             {
             Add?.Keys.Each(o => { In.SafeAdd(o, Add[o]); });
@@ -93,7 +93,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns all values from a dictionary with IEnumerable values.
         /// </summary>
-        [Tested]
+        
         public static List<TValue> GetAllValues<TKey, TValue, TValueList>([CanBeNull]this Dictionary<TKey, TValueList> In)
             where TValueList : IEnumerable<TValue>
             {
@@ -118,7 +118,7 @@ namespace LCore.Extensions
         /// Safely adds an item to a dictionary.
         /// If the dictionary is null or the item exists already, nothing is added.
         /// </summary>
-        [Tested]
+        
         public static void SafeAdd<TKey, TValue>([CanBeNull]this IDictionary<TKey, TValue> In, [CanBeNull]TKey Key, [CanBeNull]TValue Val)
             {
             if (In != null)
@@ -140,7 +140,7 @@ namespace LCore.Extensions
         /// If the item doesn't exist it is added.
         /// If it does exist it gets updated.
         /// </summary>
-        [Tested]
+        
         public static void SafeSet<TKey, TValue>([CanBeNull]this IDictionary<TKey, TValue> In, [CanBeNull]TKey Key, [CanBeNull]TValue Val)
             {
             if (In != null && Key != null)
@@ -162,7 +162,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Safely gets an item from a dictionary if it exists.
         /// </summary>
-        [Tested]
+        
         [CanBeNull]
         public static TValue SafeGet<TKey, TValue>([CanBeNull]this IDictionary<TKey, TValue> In, [CanBeNull]TKey Key)
             {

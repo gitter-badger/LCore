@@ -1,19 +1,39 @@
-﻿using LCore.Extensions;
 using System;
 using FluentAssertions;
 using JetBrains.Annotations;
-using Xunit;
+using JetBrains.dotMemoryUnit.Util;
+using LCore.Extensions;
 using LCore.LUnit;
+using Xunit;
 using Xunit.Abstractions;
-using static LCore.LUnit.LUnit.Categories;
 
-namespace LCore.Tests.Extensions
+namespace L_Tests.LCore.Extensions
     {
-    [Trait(Category, UnitTests)]
-    public class DateExtTest : XUnitOutputTester
+    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DateExt))]
+    public partial class DateExtTester : XUnitOutputTester
         {
+        public DateExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+
+        ~DateExtTester() { }
+
         [Fact]
-        public void Test_CleanDateString()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DateExt) + "." + nameof(DateExt.Average))]
+        public void Average()
+            {
+            var Test = new TimeSpan(days: 1, hours: 0, minutes: 0, seconds: 40);
+            var Test2 = new TimeSpan(days: 5, hours: 2, minutes: 6, seconds: 40);
+            var Test3 = new TimeSpan(days: 8, hours: 2, minutes: 6, seconds: 40);
+            var Test4 = new TimeSpan(days: 0, hours: 0, minutes: 0, seconds: 40);
+            var Test5 = new TimeSpan(days: 0, hours: 0, minutes: 0, seconds: 40);
+
+            new[] { Test, Test2, Test3, Test4, Test5 }.Average().Should().Be(new TimeSpan(days: 2, hours: 20, minutes: 3, seconds: 4));
+
+            new TimeSpan[] { }.Average().Should().Be(new TimeSpan(ticks: 0));
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DateExt) + "." + nameof(DateExt.CleanDateString))]
+        public void CleanDateString()
             {
             new DateTime(year: 2001, month: 5, day: 7, hour: 5, minute: 5, second: 5).CleanDateString().Should().Be("5-7-2001 5.05.05 AM");
             DateTime.MinValue.CleanDateString().Should().Be("1-1-0001 12.00.00 AM");
@@ -21,7 +41,8 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
-        public void Test_ToSpecification()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DateExt) + "." + nameof(DateExt.ToSpecification))]
+        public void ToSpecification()
             {
             new DateTime(year: 2001, month: 5, day: 7, hour: 5, minute: 5, second: 5).ToSpecification().Should().Be("Mon, 07 May 2001 15:05:05 GMT");
             DateTime.MinValue.ToSpecification().Should().Be("Mon, 01 Jan 1 10:00:00 GMT");
@@ -29,7 +50,8 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
-        public void Test_GetMonthName()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DateExt) + "." + nameof(DateExt.GetMonthName))]
+        public void GetMonthName()
             {
             new DateTime(year: 2001, month: 5, day: 7, hour: 5, minute: 5, second: 5).GetMonthName().Should().Be("May");
             DateTime.MinValue.GetMonthName().Should().Be("January");
@@ -37,7 +59,8 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
-        public void Test_ToTimeString()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DateExt) + "." + nameof(DateExt.ToTimeString))]
+        public void ToTimeString()
             {
             new TimeSpan(days: 5, hours: 8, minutes: 10, seconds: 12).ToTimeString().Should().Be("5 days");
             new TimeSpan(days: 100, hours: 2, minutes: 12, seconds: 6).ToTimeString().Should().Be("100 days");
@@ -46,7 +69,8 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
-        public void Test_TimeDifference()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DateExt) + "." + nameof(DateExt.TimeDifference))]
+        public void TimeDifference()
             {
             var Date1 = new DateTime(year: 2005, month: 5, day: 7, hour: 3, minute: 2, second: 4);
             var Date2 = new DateTime(year: 2009, month: 8, day: 13, hour: 4, minute: 12, second: 5);
@@ -71,38 +95,33 @@ namespace LCore.Tests.Extensions
             Date1.TimeDifference(Date1, IncludeAgo: true).Should().Be("Just now");
             DateTime.MinValue.TimeDifference(Date1, IncludeAgo: true).Should().Be("Never");
             Date1.TimeDifference(DateTime.MinValue, IncludeAgo: true).Should().Be("Never");
+
             }
 
         [Fact]
-        public void Test_IsFuture()
-            {
-            new DateTime(year: 2001, month: 5, day: 7, hour: 5, minute: 5, second: 5).IsFuture().Should().BeFalse();
-            DateTime.MinValue.IsFuture().Should().BeFalse();
-            DateTime.MaxValue.IsFuture().Should().BeTrue();
-            }
-
-        [Fact]
-        public void Test_IsPast()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DateExt) + "." + nameof(DateExt.IsPast))]
+        public void IsPast()
             {
             new DateTime(year: 2001, month: 5, day: 7, hour: 5, minute: 5, second: 5).IsPast().Should().BeTrue();
             DateTime.MinValue.IsPast().Should().BeTrue();
             DateTime.MaxValue.IsPast().Should().BeFalse();
+
             }
 
         [Fact]
-        public void Test_Average()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DateExt) + "." + nameof(DateExt.IsFuture))]
+        public void IsFuture()
             {
-            var Test = new TimeSpan(days: 1, hours: 0, minutes: 0, seconds: 40);
-            var Test2 = new TimeSpan(days: 5, hours: 2, minutes: 6, seconds: 40);
-            var Test3 = new TimeSpan(days: 8, hours: 2, minutes: 6, seconds: 40);
-            var Test4 = new TimeSpan(days: 0, hours: 0, minutes: 0, seconds: 40);
-            var Test5 = new TimeSpan(days: 0, hours: 0, minutes: 0, seconds: 40);
+            new DateTime(year: 2001, month: 5, day: 7, hour: 5, minute: 5, second: 5).IsFuture().Should().BeFalse();
+            DateTime.MinValue.IsFuture().Should().BeFalse();
+            DateTime.MaxValue.IsFuture().Should().BeTrue();
 
-            new[] {Test, Test2, Test3, Test4, Test5}.Average().Should().Be(new TimeSpan(days: 2, hours: 20, minutes: 3, seconds: 4));
-
-            new TimeSpan[] {}.Average().Should().Be(new TimeSpan(ticks: 0));
             }
 
-        public DateExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
+
+
+
+
+        
         }
     }

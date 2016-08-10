@@ -62,7 +62,7 @@ namespace LCore.Extensions
         /// Returns the value of a specific property, if it exists.
         /// </summary>
         /// <returns>The value of a specific property, if it exists.</returns>
-        [Tested]
+        
         [CanBeNull]
         public static object GetProperty([CanBeNull] this object In, [CanBeNull] string PropertyName)
             {
@@ -76,7 +76,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Sets the value of a specific property, if it exists.
         /// </summary>
-        [Tested]
+        
         public static void SetProperty([CanBeNull]this object In, [CanBeNull]string PropertyName, [CanBeNull]object PropertyValue)
             {
             L.Obj.SetProperty()(In, PropertyName, PropertyValue);
@@ -594,7 +594,7 @@ namespace LCore.Extensions.Optional
         /// Copies all possible fields from <paramref name="In" /> to <paramref name="Obj" />.
         /// Matching field names are transferred to <paramref name="Obj" /> for fields and properties with public setters.
         /// </summary>
-        [Tested]
+        
         public static void CopyFieldsTo<T>([CanBeNull]this T In, [CanBeNull]object Obj)
             {
             In.CopyFieldsTo(Obj, FieldName => FieldName);
@@ -606,7 +606,7 @@ namespace LCore.Extensions.Optional
         /// 
         /// Optionally you can supply a CustomMapper dictionary to map fields to new field names.
         /// </summary>
-        [Tested]
+        
         // ReSharper disable once MethodOverloadWithOptionalParameter
         public static void CopyFieldsTo<T>([CanBeNull]this T In, [CanBeNull]object Obj, [CanBeNull]Dictionary<string, string> CustomMapper = null)
             {
@@ -623,7 +623,7 @@ namespace LCore.Extensions.Optional
         /// 
         /// Optionally you can supply a CustomMapper function to map fields to new field names.
         /// </summary>
-        [Tested]
+        
         public static void CopyFieldsTo<T>([CanBeNull] this T In, [CanBeNull] object Obj,
             // ReSharper disable once MethodOverloadWithOptionalParameter
             [CanBeNull] Func<string, string> CustomMapper = null)
@@ -673,7 +673,7 @@ namespace LCore.Extensions.Optional
         /// <param name="In">Source object</param>
         /// <param name="ShowErrorFields">Hide fields that throw errors? Default is true.</param>
         /// <returns></returns>
-        [Tested]
+        
         public static string Details<T>(this T In, bool ShowErrorFields = false)
             {
             string Out = $"{typeof(T).FullName} {{\r\n";
@@ -720,7 +720,7 @@ namespace LCore.Extensions.Optional
         /// <summary>
         /// Returns a function that creates a new Array from parameters
         /// </summary>
-        [Tested]
+        
         public static Func<T[]> FN_CreateArray<T>(this T In)
             {
             return () => new[] { In };
@@ -730,7 +730,7 @@ namespace LCore.Extensions.Optional
         /// Returns a function that creates a new Array containing <paramref name="Count" /> instances of <paramref name="In" />
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">If <paramref name="Count" /> is less than 0.</exception>
-        [Tested]
+        
         public static Func<T[]> FN_CreateArray<T>(this T In, int Count)
             {
             if (Count < 0)
@@ -754,7 +754,7 @@ namespace LCore.Extensions.Optional
         /// <typeparam name="T"></typeparam>
         /// <param name="In"></param>
         /// <returns></returns>
-        [Tested]
+        
         public static Func<List<T>> FN_CreateList<T>(this T In)
             {
             return () =>
@@ -769,7 +769,7 @@ namespace LCore.Extensions.Optional
         /// If <paramref name="Count" /> is passed, the List will be filled with <paramref name="Count" /> instances of <paramref name="In" />
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">If <paramref name="Count" /> is less than 0.</exception>
-        [Tested]
+        
         public static Func<List<T>> FN_CreateList<T>(this T In, int Count)
             {
             if (Count < 0)
@@ -795,7 +795,7 @@ namespace LCore.Extensions.Optional
         /// <typeparam name="T"></typeparam>
         /// <param name="In">The parameter will be returned by the function</param>
         /// <returns>A function that returns the input parameter <paramref name="In" /></returns>
-        [Tested]
+        
         public static Func<T> FN_Func<T>(this T In)
             {
             return L.Logic.Return(In);
@@ -811,7 +811,7 @@ namespace LCore.Extensions.Optional
         /// <typeparam name="T"></typeparam>
         /// <param name="In"></param>
         /// <returns>A function that returns true if the object supplied is equal to the Input parameter</returns>
-        [Tested]
+        
         public static Func<T, bool> FN_If<T>(this T In)
             {
             return Obj => L.Obj.SafeEquals(In, Obj);
@@ -830,7 +830,7 @@ namespace LCore.Extensions.Optional
         /// <param name="InitValue"></param>
         /// <exception cref="TargetException">Throws an exception if the a property setter throws an exception.</exception>
         /// <exception cref="FieldAccessException">Throws an exception if the field cannot be accessed.</exception>
-        [Tested]
+        
         public static void InitProperties<T>([CanBeNull] this object In, [CanBeNull] T InitValue = default(T))
             {
             if (In != null)
@@ -891,7 +891,7 @@ namespace LCore.Extensions.Optional
         /// <param name="In"></param>
         /// <param name="Obj"></param>
         /// <returns>True if the objects are equal otherwise false</returns>
-        [Tested]
+        
         public static bool SafeEquals(this object In, object Obj)
             {
             return L.Obj.SafeEquals(In, Obj);
@@ -910,7 +910,7 @@ namespace LCore.Extensions.Optional
         /// <param name="Obj">The parameter supplied</param>
         /// <param name="In">The action</param>
         /// <returns>An action with one less parameter input</returns>
-        [Tested]
+        
         public static Action SupplyTo<T>([CanBeNull]this T Obj, [CanBeNull]Action<T> In)
             {
             In = In ?? (o => { });
@@ -2476,7 +2476,7 @@ namespace LCore.Extensions.Optional
         /// <param name="Obj">The parameter supplied</param>
         /// <param name="In">The action</param>
         /// <returns>A func with one less parameter input</returns>
-        [Tested]
+        
         public static Func<U> SupplyTo<T, U>([CanBeNull]this T Obj, [CanBeNull]Func<T, U> In)
             {
             In = In ?? (o => default(U));
@@ -4143,7 +4143,7 @@ namespace LCore.Extensions.Optional
         /// </summary>
         /// <param name="In">Object to be converted</param>
         /// <returns>A String representation of the object passed.</returns>
-        [Tested]
+        
         public static string ToS(this object In)
             {
             return L.Str.ToS(In);
@@ -4158,7 +4158,7 @@ namespace LCore.Extensions.Optional
         /// </summary>
         /// <param name="In">Source object</param>
         /// <param name="Traverser">Traversing function</param>
-        [Tested]
+        
         public static void Traverse([CanBeNull]this object In, [CanBeNull] Func<object, object> Traverser)
             {
             if (Traverser == null)
@@ -4178,7 +4178,7 @@ namespace LCore.Extensions.Optional
         /// <typeparam name="T"></typeparam>
         /// <param name="In">Source object</param>
         /// <param name="Traverser">Traversing function</param>
-        [Tested]
+        
         public static void Traverse<T>([CanBeNull]this T In, [CanBeNull] Func<T, T> Traverser)
             {
             if (Traverser == null)
