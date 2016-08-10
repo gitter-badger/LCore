@@ -44,23 +44,23 @@ namespace LCore.Tests.Extensions
             bool Success = false;
             var TestAction = new Action(() =>
                 {
-                    Thread.Sleep(20);
+                    Thread.Sleep(millisecondsTimeout: 20);
                     Success = true;
                 });
 
-            Thread.Sleep(40);
+            Thread.Sleep(millisecondsTimeout: 40);
             lock (TestAction)
                 {
-                TestAction.Async(10)();
+                TestAction.Async(TimeLimitMilliseconds: 10)();
                 Success.Should().BeFalse();
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Success.Should().BeFalse();
 
-                TestAction.Async(50)();
+                TestAction.Async(TimeLimitMilliseconds: 50)();
                 Success.Should().BeFalse();
-                Thread.Sleep(50);
+                Thread.Sleep(millisecondsTimeout: 50);
 
                 Success.Should().BeTrue();
 
