@@ -32,11 +32,11 @@ namespace LCore.Tests.Extensions
 
             Test.Merge(Test2);
 
-            Test.Keys.Count.Should().Be(6);
+            Test.Keys.Count.Should().Be(expected: 6);
 
             Test.Merge(Test2);
 
-            Test.Keys.Count.Should().Be(6);
+            Test.Keys.Count.Should().Be(expected: 6);
 
             var Test3 = new Dictionary<string, string>
                 {
@@ -47,13 +47,13 @@ namespace LCore.Tests.Extensions
 
             Test.Merge(Test3);
 
-            Test.Keys.Count.Should().Be(9);
+            Test.Keys.Count.Should().Be(expected: 9);
 
             Test.Keys.List().Should().Equal(new List<string> {"a", "b", "c", "d", "e", "f", "g", "h", "i"});
 
             Test.Merge(Test3, Value => new KeyValuePair<string, string>($"{Value.Key}a", $"{Value.Value}b"));
 
-            Test.Keys.Count.Should().Be(12);
+            Test.Keys.Count.Should().Be(expected: 12);
 
             Test.Keys.List().Should().Equal(new List<string> {"a", "b", "c", "d", "e", "f", "g", "h", "i", "ga", "ha", "ia"});
             }
@@ -88,18 +88,18 @@ namespace LCore.Tests.Extensions
             Test.SafeAdd("a", "b");
             Test.SafeAdd("a", "c");
 
-            Test.Keys.Count.Should().Be(1);
+            Test.Keys.Count.Should().Be(expected: 1);
             Test["a"].Should().Be("b");
 
-            Test.SafeAdd(null, null);
-            Test.Keys.Count.Should().Be(1);
-            Test.SafeAdd(null, "");
-            Test.Keys.Count.Should().Be(1);
-            Test.SafeAdd("", null);
-            Test.Keys.Count.Should().Be(2);
+            Test.SafeAdd(Key: null, Val: null);
+            Test.Keys.Count.Should().Be(expected: 1);
+            Test.SafeAdd(Key: null, Val: "");
+            Test.Keys.Count.Should().Be(expected: 1);
+            Test.SafeAdd("", Val: null);
+            Test.Keys.Count.Should().Be(expected: 2);
             Test.SafeAdd("", "");
-            Test.Keys.Count.Should().Be(2);
-            Test[""].Should().Be(null);
+            Test.Keys.Count.Should().Be(expected: 2);
+            Test[""].Should().Be(expected: null);
             }
 
 
@@ -113,15 +113,15 @@ namespace LCore.Tests.Extensions
             Test.SafeSet("a", "b");
             Test.SafeSet("a", "c");
 
-            Test.Keys.Count.Should().Be(1);
+            Test.Keys.Count.Should().Be(expected: 1);
             Test["a"].Should().Be("c");
 
-            Test.SafeSet(null, null);
-            Test.SafeSet(null, "");
-            Test.SafeSet(null, "c");
+            Test.SafeSet(Key: null, Val: null);
+            Test.SafeSet(Key: null, Val: "");
+            Test.SafeSet(Key: null, Val: "c");
 
             Test.SafeSet("", "c");
-            Test.Keys.Count.Should().Be(2);
+            Test.Keys.Count.Should().Be(expected: 2);
             Test[""].Should().Be("c");
             }
 
@@ -135,7 +135,7 @@ namespace LCore.Tests.Extensions
             Test.SafeSet("a", "b");
 
             Test.SafeGet("a").Should().Be("b");
-            Test.SafeGet("b").Should().Be(null);
+            Test.SafeGet("b").Should().Be(expected: null);
             }
 
 
@@ -153,7 +153,9 @@ namespace LCore.Tests.Extensions
                 };
 
             Test.GetAllValues<string, int, int[]>()
+                // ReSharper disable ArgumentsStyleLiteral
                 .Should().Equal(new List<int> {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 1, 2, 3, 4, 5, 6, 7, 8, 9});
+            // ReSharper restore ArgumentsStyleLiteral
             }
 
         public DictionaryExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}

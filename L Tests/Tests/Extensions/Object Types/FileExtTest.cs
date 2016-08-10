@@ -70,7 +70,7 @@ namespace LCore.Tests.Extensions
 
             File.Close();
 
-            MemStream.Length.Should().Be(14);
+            MemStream.Length.Should().Be(expected: 14);
             MemStream.ReadAllBytes().Should().Equal(5, 7, 3, 67, 2, 5, 88, 42, 2, 6, 99, 4, 3, 7);
             }
         }

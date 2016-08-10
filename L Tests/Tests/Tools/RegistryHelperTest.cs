@@ -47,14 +47,17 @@ namespace LCore.Tests.Tools
             {
             /////////////////////////////
 
-            L.A(() => new RegistryHelper(null, RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default))).ShouldFail();
-            L.A(() => new RegistryHelper("a", null)).ShouldFail();
+            L.A(
+                () =>
+                    new RegistryHelper(RegistrySubKey: null,
+                        RootKey: RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default))).ShouldFail();
+            L.A(() => new RegistryHelper("a", RootKey: null)).ShouldFail();
             L.A(() => new RegistryHelper("", RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default))).ShouldFail();
             //
             //            L.A(() => new RegistryHelper("#Q*()HY&)R(B)#(*)__~_~+_)JG)+&&**(@!2-09%*@:><?:\"'\r\n",
             //                RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default))).ShouldFail();
 
-            L.A(() => this.Reg.Save(null, (object) 5)).ShouldFail();
+            L.A(() => this.Reg.Save(Name: null, Obj: (object) 5)).ShouldFail();
             L.A(() => this.Reg.Save("a", (object) null)).ShouldFail();
 
             // unsupported object type
@@ -77,7 +80,7 @@ namespace LCore.Tests.Tools
             this.Reg.LoadObject("a").Should().Be("abc");
 
             this.Reg.Save("b", (object) 55);
-            this.Reg.LoadInt("b").Should().Be(55);
+            this.Reg.LoadInt("b").Should().Be(expected: 55);
             this.Reg.LoadObject("b").Should().Be("55");
 
             this.Reg.Save("c", (object) -5.5f);
@@ -93,15 +96,16 @@ namespace LCore.Tests.Tools
             this.Reg.LoadObject("e").ToS().Should().Be(new byte[] {5, 243, 224, 21}.ToS());
 
             this.Reg.Save("f", (object) 'c');
-            this.Reg.LoadChar("f").Should().Be('c');
+            this.Reg.LoadChar("f").Should().Be(expected: 'c');
             this.Reg.LoadObject("f").Should().Be("c");
 
             this.Reg.Save("g", (object) true);
-            this.Reg.LoadBool("g").Should().Be(true);
+            this.Reg.LoadBool("g").Should().Be(expected: true);
             this.Reg.LoadObject("g").Should().Be("True");
 
             this.Reg.Save("h", (object) new object[] {5, -5.5f, "abc", (double) -55, (double) double.NaN});
 
+            // ReSharper disable once ArgumentsStyleLiteral
             this.Reg.LoadList("h").ToS().Should().Be(new List<object> {5, -5.5f, "abc", (double) -55, (double) double.NaN}.ToS());
 
             this.Reg.LoadAll().ShouldBeEquivalentTo(new List<Set<string, object>>

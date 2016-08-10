@@ -69,9 +69,9 @@ namespace LCore.Tests.Extensions
             typeof(CommentExtTest).GetComments().Should().BeNull();
 
             var Test = new TestInvalidMemberInfo();
-            Test.GetCustomAttributes(false).Should().BeNull();
-            Test.IsDefined(null, false).Should().BeFalse();
-            Test.GetCustomAttributes(null, false).Should().BeNull();
+            Test.GetCustomAttributes(Inherit: false).Should().BeNull();
+            Test.IsDefined(AttributeType: null, Inherit: false).Should().BeFalse();
+            Test.GetCustomAttributes(AttributeType: null, Inherit: false).Should().BeNull();
             Test.MemberType.Should().Be(default(MemberTypes));
             Test.Name.Should().BeNull();
             Test.DeclaringType.Should().BeNull();

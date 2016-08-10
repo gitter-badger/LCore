@@ -63,7 +63,7 @@ namespace LCore.Tests.Extensions
 
             // Exceptions are not hidden
             Func<object, bool> Func3 = o => { throw new Exception(); };
-            Func3.Not().ShouldFail(null);
+            Func3.Not().ShouldFail(o1: null);
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -93,7 +93,7 @@ namespace LCore.Tests.Extensions
 
             // Exceptions are not hidden
             Func<object, object, bool> Func3 = (o1, o2) => { throw new Exception(); };
-            Func3.Not().ShouldFail(null, null);
+            Func3.Not().ShouldFail(o1: null, o2: null);
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -125,7 +125,7 @@ namespace LCore.Tests.Extensions
 
             // Exceptions are not hidden
             Func<object, object, object, bool> Func3 = (o1, o2, o3) => { throw new Exception(); };
-            Func3.Not().ShouldFail(null, null, null);
+            Func3.Not().ShouldFail(o1: null, o2: null, o3: null);
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -155,11 +155,11 @@ namespace LCore.Tests.Extensions
                 o4.Should().BeSameAs(_TestString);
                 return false;
                 };
-            Func2.Not()(_TestString, _TestString, _TestString, _TestString).Should().Be(true);
+            Func2.Not()(_TestString, _TestString, _TestString, _TestString).Should().Be(expected: true);
 
             // Exceptions are not hidden
             Func<object, object, object, object, bool> Func3 = (o1, o2, o3, o4) => { throw new Exception(); };
-            Func3.Not().ShouldFail(null, null, null, null);
+            Func3.Not().ShouldFail(o1: null, o2: null, o3: null, o4: null);
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -2121,10 +2121,10 @@ namespace LCore.Tests.Extensions
             int Result = 10;
 
 
-            Act.If(True).ElseIf(True, DontExecute).Else(Result)().Should().Be(5);
-            Act.If(False).ElseIf(False, DontExecute).Else(Result)().Should().Be(10);
+            Act.If(True).ElseIf(True, DontExecute).Else(Result)().Should().Be(expected: 5);
+            Act.If(False).ElseIf(False, DontExecute).Else(Result)().Should().Be(expected: 10);
 
-            DontExecute.If(False).ElseIf(False, DontExecute).Else(Result)().Should().Be(10);
+            DontExecute.If(False).ElseIf(False, DontExecute).Else(Result)().Should().Be(expected: 10);
 
             L.A(() => Act.If(False).ElseIf(True, DontExecute).Else(Result)()).ShouldFail();
             }
@@ -2152,8 +2152,8 @@ namespace LCore.Tests.Extensions
 
             int Result = 10;
 
-            True.Else(DontExecute)(_TestString).Should().Be(1);
-            False.Else(Result)(_TestString).Should().Be(10);
+            True.Else(DontExecute)(_TestString).Should().Be(expected: 1);
+            False.Else(Result)(_TestString).Should().Be(expected: 10);
 
             L.A(() => False.Else(DontExecute)(_TestString)).ShouldFail();
             }
@@ -2184,8 +2184,8 @@ namespace LCore.Tests.Extensions
 
             int Result = 10;
 
-            True.Else(DontExecute)(_TestString, _TestString).Should().Be(1);
-            False.Else(Result)(_TestString, _TestString).Should().Be(10);
+            True.Else(DontExecute)(_TestString, _TestString).Should().Be(expected: 1);
+            False.Else(Result)(_TestString, _TestString).Should().Be(expected: 10);
 
             L.A(() => False.Else(DontExecute)(_TestString, _TestString)).ShouldFail();
             }
@@ -2219,8 +2219,8 @@ namespace LCore.Tests.Extensions
 
             int Result = 10;
 
-            True.Else(DontExecute)(_TestString, _TestString, _TestString).Should().Be(1);
-            False.Else(Result)(_TestString, _TestString, _TestString).Should().Be(10);
+            True.Else(DontExecute)(_TestString, _TestString, _TestString).Should().Be(expected: 1);
+            False.Else(Result)(_TestString, _TestString, _TestString).Should().Be(expected: 10);
 
             L.A(() => False.Else(DontExecute)(_TestString, _TestString, _TestString)).ShouldFail();
             }
@@ -2254,8 +2254,8 @@ namespace LCore.Tests.Extensions
 
             int Result = 10;
 
-            True.Else(DontExecute)(_TestString, _TestString, _TestString, _TestString).Should().Be(1);
-            False.Else(Result)(_TestString, _TestString, _TestString, _TestString).Should().Be(10);
+            True.Else(DontExecute)(_TestString, _TestString, _TestString, _TestString).Should().Be(expected: 1);
+            False.Else(Result)(_TestString, _TestString, _TestString, _TestString).Should().Be(expected: 10);
 
             L.A(() => False.Else(DontExecute)(_TestString, _TestString, _TestString, _TestString)).ShouldFail();
             }

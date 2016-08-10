@@ -21,13 +21,13 @@ namespace LCore.Tests.Tools
             lock (Test)
                 {
                 Test.Start();
-                Thread.Sleep(200);
+                Thread.Sleep(millisecondsTimeout: 200);
 
-                Test.Stop().Should().BeInRange(190, 225);
+                Test.Stop().Should().BeInRange(minimumValue: 190, maximumValue: 225);
 
                 Test.Start();
-                Thread.Sleep(20);
-                Test.Stop().Should().BeInRange(15, 25);
+                Thread.Sleep(millisecondsTimeout: 20);
+                Test.Stop().Should().BeInRange(minimumValue: 15, maximumValue: 25);
                 }
             }
         }

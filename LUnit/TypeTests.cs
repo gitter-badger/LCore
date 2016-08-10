@@ -71,7 +71,7 @@ namespace LCore.LUnit
             foreach (var Member in TestedMembers)
                 {
                 this.TestAttributes.AddRange(
-                    Member.GetAttributes<ITestAttribute>(false));
+                    Member.GetAttributes<ITestAttribute>(IncludeBaseTypes: false));
                 }
             }
         }

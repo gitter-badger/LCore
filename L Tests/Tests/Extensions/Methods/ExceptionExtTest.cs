@@ -155,7 +155,7 @@ namespace LCore.Tests.Extensions
             int Result2 = B.Try()();
 
             // Result was true
-            Result.Should().Be(5);
+            Result.Should().Be(expected: 5);
 
             // Result was false
             Result2.Should().Be(default(int));
@@ -181,7 +181,7 @@ namespace LCore.Tests.Extensions
             int Result2 = B.Try()(_TestString);
 
             // Result was true
-            Result.Should().Be(5);
+            Result.Should().Be(expected: 5);
 
             // Result was false
             Result2.Should().Be(default(int));
@@ -209,7 +209,7 @@ namespace LCore.Tests.Extensions
             int Result2 = B.Try()(_TestString, _TestString);
 
             // Result was true
-            Result.Should().Be(5);
+            Result.Should().Be(expected: 5);
 
             // Result was false
             Result2.Should().Be(default(int));
@@ -239,7 +239,7 @@ namespace LCore.Tests.Extensions
             int Result2 = B.Try()(_TestString, _TestString, _TestString);
 
             // Result was true
-            Result.Should().Be(5);
+            Result.Should().Be(expected: 5);
 
             // Result was false
             Result2.Should().Be(default(int));
@@ -271,7 +271,7 @@ namespace LCore.Tests.Extensions
             int Result2 = B.Try()(_TestString, _TestString, _TestString, _TestString);
 
             // Result was true
-            Result.Should().Be(5);
+            Result.Should().Be(expected: 5);
 
             // Result was false
             Result2.Should().Be(default(int));
@@ -291,14 +291,14 @@ namespace LCore.Tests.Extensions
                         throw new ArgumentException();
                 });
 
-            Test.Retry(3).ShouldFail<ArgumentException>();
+            Test.Retry(Tries: 3).ShouldFail<ArgumentException>();
 
             // Reset
             I = 0;
-            Test.Retry(4)();
-            I.Should().Be(5);
+            Test.Retry(Tries: 4)();
+            I.Should().Be(expected: 5);
 
-            L.A(() => Test.Retry(0)).ShouldFail();
+            L.A(() => Test.Retry(Tries: 0)).ShouldFail();
             L.A(() => Test.Retry(-1)).ShouldFail();
             }
 
@@ -317,14 +317,14 @@ namespace LCore.Tests.Extensions
                         throw new ArgumentException();
                 });
 
-            Test.Retry(3).ShouldFail<string, ArgumentException>(_TestString);
+            Test.Retry(Tries: 3).ShouldFail<string, ArgumentException>(_TestString);
 
             // Reset
             I = 0;
-            Test.Retry(4)(_TestString);
-            I.Should().Be(5);
+            Test.Retry(Tries: 4)(_TestString);
+            I.Should().Be(expected: 5);
 
-            L.A(() => Test.Retry(0)).ShouldFail();
+            L.A(() => Test.Retry(Tries: 0)).ShouldFail();
             L.A(() => Test.Retry(-1)).ShouldFail();
             }
 
@@ -344,14 +344,14 @@ namespace LCore.Tests.Extensions
                         throw new ArgumentException();
                 });
 
-            Test.Retry(3).ShouldFail<string, string, ArgumentException>(_TestString, _TestString);
+            Test.Retry(Tries: 3).ShouldFail<string, string, ArgumentException>(_TestString, _TestString);
 
             // Reset
             I = 0;
-            Test.Retry(4)(_TestString, _TestString);
-            I.Should().Be(5);
+            Test.Retry(Tries: 4)(_TestString, _TestString);
+            I.Should().Be(expected: 5);
 
-            L.A(() => Test.Retry(0)).ShouldFail();
+            L.A(() => Test.Retry(Tries: 0)).ShouldFail();
             L.A(() => Test.Retry(-1)).ShouldFail();
             }
 
@@ -372,14 +372,14 @@ namespace LCore.Tests.Extensions
                         throw new ArgumentException();
                 });
 
-            Test.Retry(3).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
+            Test.Retry(Tries: 3).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
 
             // Reset
             I = 0;
-            Test.Retry(4)(_TestString, _TestString, _TestString);
-            I.Should().Be(5);
+            Test.Retry(Tries: 4)(_TestString, _TestString, _TestString);
+            I.Should().Be(expected: 5);
 
-            L.A(() => Test.Retry(0)).ShouldFail();
+            L.A(() => Test.Retry(Tries: 0)).ShouldFail();
             L.A(() => Test.Retry(-1)).ShouldFail();
             }
 
@@ -401,14 +401,14 @@ namespace LCore.Tests.Extensions
                         throw new ArgumentException();
                 });
 
-            Test.Retry(3).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString, _TestString);
+            Test.Retry(Tries: 3).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString, _TestString);
 
             // Reset
             I = 0;
-            Test.Retry(4)(_TestString, _TestString, _TestString, _TestString);
-            I.Should().Be(5);
+            Test.Retry(Tries: 4)(_TestString, _TestString, _TestString, _TestString);
+            I.Should().Be(expected: 5);
 
-            L.A(() => Test.Retry(0)).ShouldFail();
+            L.A(() => Test.Retry(Tries: 0)).ShouldFail();
             L.A(() => Test.Retry(-1)).ShouldFail();
             }
 
@@ -428,14 +428,14 @@ namespace LCore.Tests.Extensions
                     return _TestString;
                 });
 
-            Test.Retry(3).ShouldFail<string, ArgumentException>();
+            Test.Retry(Tries: 3).ShouldFail<string, ArgumentException>();
 
             // Reset
             I = 0;
-            Test.Retry(4)().Should().Be(_TestString);
-            I.Should().Be(5);
+            Test.Retry(Tries: 4)().Should().Be(_TestString);
+            I.Should().Be(expected: 5);
 
-            L.F(() => Test.Retry(0)).ShouldFail();
+            L.F(() => Test.Retry(Tries: 0)).ShouldFail();
             L.F(() => Test.Retry(-1)).ShouldFail();
             }
 
@@ -456,14 +456,14 @@ namespace LCore.Tests.Extensions
                     return _TestString;
                 });
 
-            Test.Retry(3).ShouldFail<string, string, ArgumentException>(_TestString);
+            Test.Retry(Tries: 3).ShouldFail<string, string, ArgumentException>(_TestString);
 
             // Reset
             I = 0;
-            Test.Retry(4)(_TestString);
-            I.Should().Be(5);
+            Test.Retry(Tries: 4)(_TestString);
+            I.Should().Be(expected: 5);
 
-            L.F(() => Test.Retry(0)).ShouldFail();
+            L.F(() => Test.Retry(Tries: 0)).ShouldFail();
             L.F(() => Test.Retry(-1)).ShouldFail();
             }
 
@@ -485,14 +485,14 @@ namespace LCore.Tests.Extensions
                     return _TestString;
                 });
 
-            Test.Retry(3).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString);
+            Test.Retry(Tries: 3).ShouldFail<string, string, string, ArgumentException>(_TestString, _TestString);
 
             // Reset
             I = 0;
-            Test.Retry(4)(_TestString, _TestString);
-            I.Should().Be(5);
+            Test.Retry(Tries: 4)(_TestString, _TestString);
+            I.Should().Be(expected: 5);
 
-            L.F(() => Test.Retry(0)).ShouldFail();
+            L.F(() => Test.Retry(Tries: 0)).ShouldFail();
             L.F(() => Test.Retry(-1)).ShouldFail();
             }
 
@@ -515,14 +515,14 @@ namespace LCore.Tests.Extensions
                     return _TestString;
                 });
 
-            Test.Retry(3).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
+            Test.Retry(Tries: 3).ShouldFail<string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString);
 
             // Reset
             I = 0;
-            Test.Retry(4)(_TestString, _TestString, _TestString);
-            I.Should().Be(5);
+            Test.Retry(Tries: 4)(_TestString, _TestString, _TestString);
+            I.Should().Be(expected: 5);
 
-            L.F(() => Test.Retry(0)).ShouldFail();
+            L.F(() => Test.Retry(Tries: 0)).ShouldFail();
             L.F(() => Test.Retry(-1)).ShouldFail();
             }
 
@@ -546,15 +546,15 @@ namespace LCore.Tests.Extensions
                     return _TestString;
                 });
 
-            Test.Retry(3)
+            Test.Retry(Tries: 3)
                 .ShouldFail<string, string, string, string, string, ArgumentException>(_TestString, _TestString, _TestString, _TestString);
 
             // Reset
             I = 0;
-            Test.Retry(4)(_TestString, _TestString, _TestString, _TestString);
-            I.Should().Be(5);
+            Test.Retry(Tries: 4)(_TestString, _TestString, _TestString, _TestString);
+            I.Should().Be(expected: 5);
 
-            L.F(() => Test.Retry(0)).ShouldFail();
+            L.F(() => Test.Retry(Tries: 0)).ShouldFail();
             L.F(() => Test.Retry(-1)).ShouldFail();
             }
 

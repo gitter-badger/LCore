@@ -46,7 +46,7 @@ namespace LCore.Extensions
             string DirPath = Path;
 
             if (DirPath.Contains("\\"))
-                DirPath = DirPath.Sub(0, DirPath.LastIndexOf("\\", StringComparison.Ordinal));
+                DirPath = DirPath.Sub(Start: 0, Length: DirPath.LastIndexOf("\\", StringComparison.Ordinal));
 
             if (!Directory.Exists(DirPath))
                 Directory.CreateDirectory(DirPath);
@@ -126,7 +126,7 @@ namespace LCore.Extensions
                     if (L.File.LockFiles)
                         F.Lock(StartPos, BlockSize);
 
-                    F.Read(Contents, 0, Contents.Length);
+                    F.Read(Contents, offset: 0, count: Contents.Length);
 
                     if (L.File.LockFiles)
                         F.Unlock(StartPos, BlockSize);
@@ -152,7 +152,7 @@ namespace LCore.Extensions
 
                         throw new Exception("", Ex);
                         }
-                    Thread.Sleep(200);
+                    Thread.Sleep(millisecondsTimeout: 200);
                     }
                 Tries++;
                 }
@@ -219,13 +219,11 @@ namespace LCore.Extensions
 
             var RespBuffer = new byte[1024];
 
-            int BytesRead = In.Read(RespBuffer, 0,
-                RespBuffer.Length);
+            int BytesRead = In.Read(RespBuffer, offset: 0, count: RespBuffer.Length);
             while (BytesRead > 0)
                 {
-                MemStream.Write(RespBuffer, 0, BytesRead);
-                BytesRead = In.Read(RespBuffer, 0,
-                    RespBuffer.Length);
+                MemStream.Write(RespBuffer, offset: 0, count: BytesRead);
+                BytesRead = In.Read(RespBuffer, offset: 0, count: RespBuffer.Length);
                 }
 
             return MemStream;
@@ -320,29 +318,30 @@ namespace LCore.Extensions
                 {
                 return false;
                 }
-            if (WildCard[0] == '*')
+            if (WildCard[index: 0] == '*')
                 {
-                if (In.Length > 1 || (In.Length > 0 && WildCard.Length > 1 && In[0] == WildCard[1]))
+                if (In.Length > 1 || (In.Length > 0 && WildCard.Length > 1 && In[index: 0] == WildCard[index: 1]))
                     {
-                    if (In[0] == WildCard[1])
+                    if (In[index: 0] == WildCard[index: 1])
                         {
-                        return MatchesWildCardLowerCase(In.Substring(1), WildCard.Substring(2)) ||
-                               MatchesWildCardLowerCase(In.Substring(1), WildCard);
+                        return MatchesWildCardLowerCase(In.Substring(startIndex: 1), WildCard.Substring(startIndex: 2)) ||
+                               MatchesWildCardLowerCase(In.Substring(startIndex: 1), WildCard);
                         }
-                    if (In[1] == WildCard[1])
+                    if (In[index: 1] == WildCard[index: 1])
                         {
-                        return MatchesWildCardLowerCase(In.Substring(2), WildCard.Substring(2)) ||
-                               MatchesWildCardLowerCase(In.Substring(2), WildCard);
+                        return MatchesWildCardLowerCase(In.Substring(startIndex: 2), WildCard.Substring(startIndex: 2)) ||
+                               MatchesWildCardLowerCase(In.Substring(startIndex: 2), WildCard);
                         }
-                    return MatchesWildCardLowerCase(In.Substring(1), WildCard);
+                    return MatchesWildCardLowerCase(In.Substring(startIndex: 1), WildCard);
                     }
                 return false;
                 }
-            if (WildCard[0] == '?')
+            if (WildCard[index: 0] == '?')
                 {
-                return MatchesWildCardLowerCase(In.Substring(1), WildCard.Substring(1));
+                return MatchesWildCardLowerCase(In.Substring(startIndex: 1), WildCard.Substring(startIndex: 1));
                 }
-            return In.Length != 0 && WildCard[0] == In[0] && MatchesWildCardLowerCase(In.Substring(1), WildCard.Substring(1));
+            return In.Length != 0 && WildCard[index: 0] == In[index: 0] &&
+                   MatchesWildCardLowerCase(In.Substring(startIndex: 1), WildCard.Substring(startIndex: 1));
             }
 
         #endregion
@@ -362,11 +361,11 @@ namespace LCore.Extensions
             using (var Stream = new MemoryStream())
                 {
                 int Read;
-                Input.Seek(0, SeekOrigin.Begin);
+                Input.Seek(offset: 0, origin: SeekOrigin.Begin);
 
-                while ((Read = Input.Read(Buffer, 0, Buffer.Length)) > 0)
+                while ((Read = Input.Read(Buffer, offset: 0, count: Buffer.Length)) > 0)
                     {
-                    Stream.Write(Buffer, 0, Read);
+                    Stream.Write(Buffer, offset: 0, count: Read);
                     }
                 return Stream.ToArray();
                 }
@@ -481,7 +480,7 @@ namespace LCore.Extensions
                 var Stream1 = new FileStream(From, FileMode.Open, FileAccess.Read, FileShare.Read);
                 var Stream2 = new FileStream(To, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
 
-                Stream2.Seek(0, SeekOrigin.Begin);
+                Stream2.Seek(offset: 0, origin: SeekOrigin.Begin);
                 Stream2.SetLength(Stream1.Length);
 
                 int BufferSize = ChunkSize;
@@ -496,11 +495,11 @@ namespace LCore.Extensions
                     if (CurrentChunkSize > BufferSize)
                         CurrentChunkSize = BufferSize;
                     var Bytes = new byte[CurrentChunkSize];
-                    Stream1.Read(Bytes, 0, (int) CurrentChunkSize);
-                    Stream2.Write(Bytes, 0, (int) CurrentChunkSize);
+                    Stream1.Read(Bytes, offset: 0, count: (int) CurrentChunkSize);
+                    Stream2.Write(Bytes, offset: 0, count: (int) CurrentChunkSize);
                     Stream2.Flush();
                     Index += CurrentChunkSize;
-                    BufferedMoveProgress?.Invoke(new[] {Index, TotalSize}, null);
+                    BufferedMoveProgress?.Invoke(new[] {Index, TotalSize}, e: null);
                     }
 
                 Stream2.Close();
@@ -591,7 +590,7 @@ namespace LCore.Extensions
 
                 return Stream == null
                     ? new byte[] {}
-                    : FileExt.GetFileBlock(Stream, (int) Stream.Length, 0);
+                    : FileExt.GetFileBlock(Stream, (int) Stream.Length, BlockNum: 0);
                 }
 
             #endregion
@@ -605,7 +604,7 @@ namespace LCore.Extensions
             /// </summary>
             public static bool SafeCopyFile(string PathSource, string PathDestination, int Tries = 0, bool OverwriteIfExists = false)
                 {
-                return SafeMoveFile(PathSource, PathDestination, Tries, OverwriteIfExists, false);
+                return SafeMoveFile(PathSource, PathDestination, Tries, OverwriteIfExists, DeleteOriginal: false);
                 }
 
             #endregion
@@ -636,7 +635,7 @@ namespace LCore.Extensions
                     if (PathDestination.StartsWith("\\"))
                         PathDestination = $"\\{PathDestination}";
 
-                    string Dir = PathDestination.Sub(0, PathDestination.LastIndexOf('\\'));
+                    string Dir = PathDestination.Sub(Start: 0, Length: PathDestination.LastIndexOf(value: '\\'));
 
                     if (!Directory.Exists(Dir))
                         Directory.CreateDirectory(Dir);
@@ -666,7 +665,7 @@ namespace LCore.Extensions
                         throw new Exception($"Could not move file \'{PathSource}\' to destination \'{PathDestination}\'", Ex);
                         }
 
-                    System.Threading.Thread.Sleep(1000);
+                    System.Threading.Thread.Sleep(millisecondsTimeout: 1000);
                     return SafeMoveFile(PathSource, PathDestination, Tries - 1, OverwriteIfExists, DeleteOriginal);
                     }
                 }

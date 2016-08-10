@@ -35,31 +35,31 @@ namespace LCore.Tests.Tools
 
                     Status.Should().Be("");
                     Log.Should().Be("");
-                    Progress.Should().Be(0);
-                    Max.Should().Be(0);
+                    Progress.Should().Be(expected: 0);
+                    Max.Should().Be(expected: 0);
 
-                    Updater.Maximum(100);
+                    Updater.Maximum(Maximum: 100);
 
-                    Max.Should().Be(0);
-                    Thread.Sleep(20);
-                    Max.Should().Be(100);
+                    Max.Should().Be(expected: 0);
+                    Thread.Sleep(millisecondsTimeout: 20);
+                    Max.Should().Be(expected: 100);
 
-                    Updater.Progress(5);
-                    Thread.Sleep(20);
-                    Progress.Should().Be(5);
+                    Updater.Progress(Progress: 5);
+                    Thread.Sleep(millisecondsTimeout: 20);
+                    Progress.Should().Be(expected: 5);
 
                     Updater.Status("hi");
-                    Thread.Sleep(20);
+                    Thread.Sleep(millisecondsTimeout: 20);
                     Status.Should().Be("hi");
 
                     Updater.Log("hi again");
-                    Thread.Sleep(20);
+                    Thread.Sleep(millisecondsTimeout: 20);
                     Log.Should().Be("hi again");
 
                     Status.Should().Be("hi");
                     Log.Should().Be("hi again");
-                    Progress.Should().Be(5);
-                    Max.Should().Be(100);
+                    Progress.Should().Be(expected: 5);
+                    Max.Should().Be(expected: 100);
                     }
                 })();
             }

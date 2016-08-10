@@ -26,7 +26,7 @@ namespace LCore.Tests.Tools
             Func<string, string> Test = new Func<string, string>(In =>
                 {
                 Executed.Should().BeFalse();
-                Thread.Sleep(100);
+                Thread.Sleep(millisecondsTimeout: 100);
                 Executed = true;
                 return In + "6";
                 }).Cache(Key);
@@ -46,7 +46,7 @@ namespace LCore.Tests.Tools
 
             Dictionary<string, CacheData> Cache = L.Logic.GetCacheData("testcache");
 
-            Cache.Values.Count.Should().Be(2);
+            Cache.Values.Count.Should().Be(expected: 2);
 
             foreach (var CacheValue in Cache.Values.List())
                 {
@@ -54,9 +54,9 @@ namespace LCore.Tests.Tools
                 Total += CacheValue.TotalTimeSaved;
                 }
 
-            Total.Should().BeInRange(300, 410);
+            Total.Should().BeInRange(minimumValue: 300, maximumValue: 410);
 
-            PercentagesSaved.Sum().Should().BeInRange(70, 80);
+            PercentagesSaved.Sum().Should().BeInRange(minimumValue: 70, maximumValue: 80);
             }
         }
     }

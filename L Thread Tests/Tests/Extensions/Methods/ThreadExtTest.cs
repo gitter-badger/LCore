@@ -23,7 +23,7 @@ namespace LCore.Tests.Extensions
             bool Success = false;
             var TestAction = new Action(() =>
                 {
-                    Thread.Sleep(20);
+                    Thread.Sleep(millisecondsTimeout: 20);
                     Success = true;
                 });
 
@@ -32,7 +32,7 @@ namespace LCore.Tests.Extensions
                 TestAction.Async()();
                 Success.Should().BeFalse();
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Success.Should().BeTrue();
                 }
@@ -44,23 +44,23 @@ namespace LCore.Tests.Extensions
             bool Success = false;
             var TestAction = new Action(() =>
                 {
-                    Thread.Sleep(30);
+                    Thread.Sleep(millisecondsTimeout: 30);
                     Success = true;
                 });
 
-            Thread.Sleep(40);
+            Thread.Sleep(millisecondsTimeout: 40);
             lock (TestAction)
                 {
-                TestAction.Async(15)();
+                TestAction.Async(TimeLimitMilliseconds: 15)();
                 Success.Should().BeFalse();
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Success.Should().BeFalse();
 
-                TestAction.Async(50)();
+                TestAction.Async(TimeLimitMilliseconds: 50)();
                 Success.Should().BeFalse();
-                Thread.Sleep(50);
+                Thread.Sleep(millisecondsTimeout: 50);
 
                 Success.Should().BeTrue();
 
@@ -69,19 +69,19 @@ namespace LCore.Tests.Extensions
 
             // test uint
             Success = false;
-            Thread.Sleep(40);
+            Thread.Sleep(millisecondsTimeout: 40);
             lock (TestAction)
                 {
-                TestAction.Async(20u)();
+                TestAction.Async(TimeLimitMilliseconds: 20u)();
                 Success.Should().BeFalse();
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Success.Should().BeFalse();
 
-                TestAction.Async(50u)();
+                TestAction.Async(TimeLimitMilliseconds: 50u)();
                 Success.Should().BeFalse();
-                Thread.Sleep(50);
+                Thread.Sleep(millisecondsTimeout: 50);
 
                 Success.Should().BeTrue();
 
@@ -90,19 +90,19 @@ namespace LCore.Tests.Extensions
 
             // test long
             Success = false;
-            Thread.Sleep(40);
+            Thread.Sleep(millisecondsTimeout: 40);
             lock (TestAction)
                 {
-                TestAction.Async(20L)();
+                TestAction.Async(TimeLimitMilliseconds: 20L)();
                 Success.Should().BeFalse();
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Success.Should().BeFalse();
 
-                TestAction.Async(50L)();
+                TestAction.Async(TimeLimitMilliseconds: 50L)();
                 Success.Should().BeFalse();
-                Thread.Sleep(50);
+                Thread.Sleep(millisecondsTimeout: 50);
 
                 Success.Should().BeTrue();
 
@@ -111,19 +111,19 @@ namespace LCore.Tests.Extensions
 
             // test ulong
             Success = false;
-            Thread.Sleep(40);
+            Thread.Sleep(millisecondsTimeout: 40);
             lock (TestAction)
                 {
-                TestAction.Async(20uL)();
+                TestAction.Async(TimeLimitMilliseconds: 20uL)();
                 Success.Should().BeFalse();
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Success.Should().BeFalse();
 
-                TestAction.Async(50uL)();
+                TestAction.Async(TimeLimitMilliseconds: 50uL)();
                 Success.Should().BeFalse();
-                Thread.Sleep(50);
+                Thread.Sleep(millisecondsTimeout: 50);
 
                 Success.Should().BeTrue();
 
@@ -132,19 +132,19 @@ namespace LCore.Tests.Extensions
 
             // test TimeSpan
             Success = false;
-            Thread.Sleep(40);
+            Thread.Sleep(millisecondsTimeout: 40);
             lock (TestAction)
                 {
-                TestAction.Async(TimeSpan.FromMilliseconds(20))();
+                TestAction.Async(TimeSpan.FromMilliseconds(value: 20))();
                 Success.Should().BeFalse();
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Success.Should().BeFalse();
 
-                TestAction.Async(TimeSpan.FromMilliseconds(50))();
+                TestAction.Async(TimeSpan.FromMilliseconds(value: 50))();
                 Success.Should().BeFalse();
-                Thread.Sleep(50);
+                Thread.Sleep(millisecondsTimeout: 50);
 
                 Success.Should().BeTrue();
 
@@ -158,7 +158,7 @@ namespace LCore.Tests.Extensions
             string Success = "";
             var TestAction = new Action<string>(Str =>
                 {
-                    Thread.Sleep(5);
+                    Thread.Sleep(millisecondsTimeout: 5);
                     Success = Str;
                 });
 
@@ -167,7 +167,7 @@ namespace LCore.Tests.Extensions
                 TestAction.Async()("abc");
                 Success.Should().Be("");
 
-                Thread.Sleep(30);
+                Thread.Sleep(millisecondsTimeout: 30);
 
                 Success.Should().Be("abc");
                 }
@@ -178,7 +178,7 @@ namespace LCore.Tests.Extensions
                 TestAction.Async(ThreadPriority.AboveNormal)("abc");
                 Success.Should().Be("");
 
-                Thread.Sleep(30);
+                Thread.Sleep(millisecondsTimeout: 30);
 
                 Success.Should().Be("abc");
                 }
@@ -190,24 +190,24 @@ namespace LCore.Tests.Extensions
             string Result = "";
             var TestAction = new Action<string>(Str =>
                 {
-                    Thread.Sleep(30);
+                    Thread.Sleep(millisecondsTimeout: 30);
                     Result = Str;
                 });
 
-            Thread.Sleep(40);
+            Thread.Sleep(millisecondsTimeout: 40);
 
             lock (TestAction)
                 {
-                TestAction.Async(20)("abc");
+                TestAction.Async(TimeLimitMilliseconds: 20)("abc");
                 Result.Should().Be("");
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Result.Should().Be("");
 
-                TestAction.Async(50)("abc");
+                TestAction.Async(TimeLimitMilliseconds: 50)("abc");
                 Result.Should().Be("");
-                Thread.Sleep(50);
+                Thread.Sleep(millisecondsTimeout: 50);
 
                 Result.Should().Be("abc");
 
@@ -216,20 +216,20 @@ namespace LCore.Tests.Extensions
 
             // Test uint
             Result = "";
-            Thread.Sleep(40);
+            Thread.Sleep(millisecondsTimeout: 40);
 
             lock (TestAction)
                 {
-                TestAction.Async(20u)("abc");
+                TestAction.Async(TimeLimitMilliseconds: 20u)("abc");
                 Result.Should().Be("");
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Result.Should().Be("");
 
-                TestAction.Async(50u)("abc");
+                TestAction.Async(TimeLimitMilliseconds: 50u)("abc");
                 Result.Should().Be("");
-                Thread.Sleep(50);
+                Thread.Sleep(millisecondsTimeout: 50);
 
                 Result.Should().Be("abc");
 
@@ -238,20 +238,20 @@ namespace LCore.Tests.Extensions
 
             // Test long
             Result = "";
-            Thread.Sleep(40);
+            Thread.Sleep(millisecondsTimeout: 40);
 
             lock (TestAction)
                 {
-                TestAction.Async(20L)("abc");
+                TestAction.Async(TimeLimitMilliseconds: 20L)("abc");
                 Result.Should().Be("");
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Result.Should().Be("");
 
-                TestAction.Async(50L)("abc");
+                TestAction.Async(TimeLimitMilliseconds: 50L)("abc");
                 Result.Should().Be("");
-                Thread.Sleep(50);
+                Thread.Sleep(millisecondsTimeout: 50);
 
                 Result.Should().Be("abc");
 
@@ -260,20 +260,20 @@ namespace LCore.Tests.Extensions
 
             // Test long
             Result = "";
-            Thread.Sleep(40);
+            Thread.Sleep(millisecondsTimeout: 40);
 
             lock (TestAction)
                 {
-                TestAction.Async(20uL)("abc");
+                TestAction.Async(TimeLimitMilliseconds: 20uL)("abc");
                 Result.Should().Be("");
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Result.Should().Be("");
 
-                TestAction.Async(50uL)("abc");
+                TestAction.Async(TimeLimitMilliseconds: 50uL)("abc");
                 Result.Should().Be("");
-                Thread.Sleep(50);
+                Thread.Sleep(millisecondsTimeout: 50);
 
                 Result.Should().Be("abc");
 
@@ -282,20 +282,20 @@ namespace LCore.Tests.Extensions
 
             // Test TimeSpan
             Result = "";
-            Thread.Sleep(40);
+            Thread.Sleep(millisecondsTimeout: 40);
 
             lock (TestAction)
                 {
-                TestAction.Async(TimeSpan.FromMilliseconds(20))("abc");
+                TestAction.Async(TimeSpan.FromMilliseconds(value: 20))("abc");
                 Result.Should().Be("");
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Result.Should().Be("");
 
-                TestAction.Async(TimeSpan.FromMilliseconds(50))("abc");
+                TestAction.Async(TimeSpan.FromMilliseconds(value: 50))("abc");
                 Result.Should().Be("");
-                Thread.Sleep(50);
+                Thread.Sleep(millisecondsTimeout: 50);
 
                 Result.Should().Be("abc");
 
@@ -312,11 +312,11 @@ namespace LCore.Tests.Extensions
                 {
                 TestAction.AsyncResult(Result => { Result.Should().Be("yes"); })();
 
-                Thread.Sleep(20);
+                Thread.Sleep(millisecondsTimeout: 20);
 
                 TestAction.AsyncResult(Result => { Result.Should().Be("yes"); }, ThreadPriority.AboveNormal)();
 
-                Thread.Sleep(20);
+                Thread.Sleep(millisecondsTimeout: 20);
                 }
             }
 
@@ -334,7 +334,7 @@ namespace LCore.Tests.Extensions
                         Success = true;
                     })("abc");
 
-                Thread.Sleep(50);
+                Thread.Sleep(millisecondsTimeout: 50);
 
                 Success.Should().BeTrue();
 
@@ -345,7 +345,7 @@ namespace LCore.Tests.Extensions
                         Success = true;
                     }, ThreadPriority.AboveNormal)("abc");
 
-                Thread.Sleep(50);
+                Thread.Sleep(millisecondsTimeout: 50);
 
                 Success.Should().BeTrue();
                 }
@@ -357,27 +357,27 @@ namespace LCore.Tests.Extensions
             bool Success = false;
             var TestAction = new Func<string>(() =>
                 {
-                    Thread.Sleep(30);
+                    Thread.Sleep(millisecondsTimeout: 30);
                     Success = true;
                     return "abc";
                 });
 
             Action<string> TestAction2 = Result => { Result.Should().Be("abc"); };
 
-            Thread.Sleep(40);
+            Thread.Sleep(millisecondsTimeout: 40);
             lock (TestAction)
                 {
-                TestAction.AsyncResult(TestAction2, 20)();
+                TestAction.AsyncResult(TestAction2, TimeLimitMilliseconds: 20)();
 
                 Success.Should().BeFalse();
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Success.Should().BeFalse();
 
-                TestAction.AsyncResult(TestAction2, 50)();
+                TestAction.AsyncResult(TestAction2, TimeLimitMilliseconds: 50)();
                 Success.Should().BeFalse();
-                Thread.Sleep(50);
+                Thread.Sleep(millisecondsTimeout: 50);
 
                 Success.Should().BeTrue();
 
@@ -386,19 +386,19 @@ namespace LCore.Tests.Extensions
 
             // test uint
             Success = false;
-            Thread.Sleep(40);
+            Thread.Sleep(millisecondsTimeout: 40);
             lock (TestAction)
                 {
-                TestAction.AsyncResult(TestAction2, 20u)();
+                TestAction.AsyncResult(TestAction2, TimeLimitMilliseconds: 20u)();
                 Success.Should().BeFalse();
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Success.Should().BeFalse();
 
-                TestAction.AsyncResult(TestAction2, 50u)();
+                TestAction.AsyncResult(TestAction2, TimeLimitMilliseconds: 50u)();
                 Success.Should().BeFalse();
-                Thread.Sleep(50);
+                Thread.Sleep(millisecondsTimeout: 50);
 
                 Success.Should().BeTrue();
 
@@ -407,19 +407,19 @@ namespace LCore.Tests.Extensions
 
             // test long
             Success = false;
-            Thread.Sleep(40);
+            Thread.Sleep(millisecondsTimeout: 40);
             lock (TestAction)
                 {
-                TestAction.AsyncResult(TestAction2, 20L)();
+                TestAction.AsyncResult(TestAction2, TimeLimitMilliseconds: 20L)();
                 Success.Should().BeFalse();
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Success.Should().BeFalse();
 
-                TestAction.AsyncResult(TestAction2, 50L)();
+                TestAction.AsyncResult(TestAction2, TimeLimitMilliseconds: 50L)();
                 Success.Should().BeFalse();
-                Thread.Sleep(50);
+                Thread.Sleep(millisecondsTimeout: 50);
 
                 Success.Should().BeTrue();
 
@@ -428,19 +428,19 @@ namespace LCore.Tests.Extensions
 
             // test ulong
             Success = false;
-            Thread.Sleep(40);
+            Thread.Sleep(millisecondsTimeout: 40);
             lock (TestAction)
                 {
-                TestAction.AsyncResult(TestAction2, 20uL)();
+                TestAction.AsyncResult(TestAction2, TimeLimitMilliseconds: 20uL)();
                 Success.Should().BeFalse();
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Success.Should().BeFalse();
 
-                TestAction.AsyncResult(TestAction2, 50uL)();
+                TestAction.AsyncResult(TestAction2, TimeLimitMilliseconds: 50uL)();
                 Success.Should().BeFalse();
-                Thread.Sleep(50);
+                Thread.Sleep(millisecondsTimeout: 50);
 
                 Success.Should().BeTrue();
 
@@ -449,19 +449,19 @@ namespace LCore.Tests.Extensions
 
             // test TimeSpan
             Success = false;
-            Thread.Sleep(40);
+            Thread.Sleep(millisecondsTimeout: 40);
             lock (TestAction)
                 {
-                TestAction.AsyncResult(TestAction2, TimeSpan.FromMilliseconds(20))();
+                TestAction.AsyncResult(TestAction2, TimeSpan.FromMilliseconds(value: 20))();
                 Success.Should().BeFalse();
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Success.Should().BeFalse();
 
-                TestAction.AsyncResult(TestAction2, TimeSpan.FromMilliseconds(50))();
+                TestAction.AsyncResult(TestAction2, TimeSpan.FromMilliseconds(value: 50))();
                 Success.Should().BeFalse();
-                Thread.Sleep(50);
+                Thread.Sleep(millisecondsTimeout: 50);
 
                 Success.Should().BeTrue();
 
@@ -476,27 +476,27 @@ namespace LCore.Tests.Extensions
             var TestAction = new Func<string, string>(Result =>
                 {
                     Result.Should().Be("abc");
-                    Thread.Sleep(30);
+                    Thread.Sleep(millisecondsTimeout: 30);
                     Success = true;
                     return "abc";
                 });
 
             Action<string> ResultFunction = Result => { Result.Should().Be("abc"); };
 
-            Thread.Sleep(40);
+            Thread.Sleep(millisecondsTimeout: 40);
             lock (TestAction)
                 {
-                TestAction.AsyncResult(ResultFunction, 20)("abc");
+                TestAction.AsyncResult(ResultFunction, TimeLimitMilliseconds: 20)("abc");
 
                 Success.Should().BeFalse();
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Success.Should().BeFalse();
 
-                TestAction.AsyncResult(ResultFunction, 50)("abc");
+                TestAction.AsyncResult(ResultFunction, TimeLimitMilliseconds: 50)("abc");
                 Success.Should().BeFalse();
-                Thread.Sleep(60);
+                Thread.Sleep(millisecondsTimeout: 60);
 
                 Success.Should().BeTrue();
 
@@ -505,19 +505,19 @@ namespace LCore.Tests.Extensions
 
             // test uint
             Success = false;
-            Thread.Sleep(40);
+            Thread.Sleep(millisecondsTimeout: 40);
             lock (TestAction)
                 {
-                TestAction.AsyncResult(ResultFunction, 20u)("abc");
+                TestAction.AsyncResult(ResultFunction, TimeLimitMilliseconds: 20u)("abc");
                 Success.Should().BeFalse();
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Success.Should().BeFalse();
 
-                TestAction.AsyncResult(ResultFunction, 50u)("abc");
+                TestAction.AsyncResult(ResultFunction, TimeLimitMilliseconds: 50u)("abc");
                 Success.Should().BeFalse();
-                Thread.Sleep(60);
+                Thread.Sleep(millisecondsTimeout: 60);
 
                 Success.Should().BeTrue();
 
@@ -526,19 +526,19 @@ namespace LCore.Tests.Extensions
 
             // test long
             Success = false;
-            Thread.Sleep(40);
+            Thread.Sleep(millisecondsTimeout: 40);
             lock (TestAction)
                 {
-                TestAction.AsyncResult(ResultFunction, 20L)("abc");
+                TestAction.AsyncResult(ResultFunction, TimeLimitMilliseconds: 20L)("abc");
                 Success.Should().BeFalse();
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Success.Should().BeFalse();
 
-                TestAction.AsyncResult(ResultFunction, 50L)("abc");
+                TestAction.AsyncResult(ResultFunction, TimeLimitMilliseconds: 50L)("abc");
                 Success.Should().BeFalse();
-                Thread.Sleep(50);
+                Thread.Sleep(millisecondsTimeout: 50);
 
                 Success.Should().BeTrue();
 
@@ -547,19 +547,19 @@ namespace LCore.Tests.Extensions
 
             // test ulong
             Success = false;
-            Thread.Sleep(40);
+            Thread.Sleep(millisecondsTimeout: 40);
             lock (TestAction)
                 {
-                TestAction.AsyncResult(ResultFunction, 20uL)("abc");
+                TestAction.AsyncResult(ResultFunction, TimeLimitMilliseconds: 20uL)("abc");
                 Success.Should().BeFalse();
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Success.Should().BeFalse();
 
-                TestAction.AsyncResult(ResultFunction, 50uL)("abc");
+                TestAction.AsyncResult(ResultFunction, TimeLimitMilliseconds: 50uL)("abc");
                 Success.Should().BeFalse();
-                Thread.Sleep(50);
+                Thread.Sleep(millisecondsTimeout: 50);
 
                 Success.Should().BeTrue();
 
@@ -568,19 +568,19 @@ namespace LCore.Tests.Extensions
 
             // test TimeSpan
             Success = false;
-            Thread.Sleep(40);
+            Thread.Sleep(millisecondsTimeout: 40);
             lock (TestAction)
                 {
-                TestAction.AsyncResult(ResultFunction, TimeSpan.FromMilliseconds(20))("abc");
+                TestAction.AsyncResult(ResultFunction, TimeSpan.FromMilliseconds(value: 20))("abc");
                 Success.Should().BeFalse();
 
-                Thread.Sleep(40);
+                Thread.Sleep(millisecondsTimeout: 40);
 
                 Success.Should().BeFalse();
 
-                TestAction.AsyncResult(ResultFunction, TimeSpan.FromMilliseconds(50))("abc");
+                TestAction.AsyncResult(ResultFunction, TimeSpan.FromMilliseconds(value: 50))("abc");
                 Success.Should().BeFalse();
-                Thread.Sleep(50);
+                Thread.Sleep(millisecondsTimeout: 50);
 
                 Success.Should().BeTrue();
 
@@ -598,9 +598,9 @@ namespace LCore.Tests.Extensions
 
             var Action = new Action(() =>
                 {
-                    int Wait = new Random().Next(25, 50);
+                    int Wait = new Random().Next(minValue: 25, maxValue: 50);
                     Thread.Sleep(Wait);
-                }).Profile(ProfileName).Repeat(5);
+                }).Profile(ProfileName).Repeat(Times: 5);
 
             lock (Action)
                 {
@@ -608,8 +608,8 @@ namespace LCore.Tests.Extensions
 
                 var Profile = L.Thread.MethodProfileData_Get(ProfileName);
 
-                Profile.AverageMS.Should().BeInRange(25, 55);
-                Profile.Times.Count.Should().Be(6);
+                Profile.AverageMS.Should().BeInRange(minimumValue: 25, maximumValue: 55);
+                Profile.Times.Count.Should().Be(expected: 6);
 
                 L.Thread.MethodProfileData_Remove(ProfileName);
                 L.Thread.MethodProfileData_Get(ProfileName).ShouldBeNull();
@@ -619,15 +619,15 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_Profile()
             {
-            Action Act = () => Thread.Sleep(10);
+            Action Act = () => Thread.Sleep(millisecondsTimeout: 10);
             lock (Act)
                 {
-                Act.Profile().Should().BeCloseTo(new TimeSpan(0, 0, 0, 0, 10), 40);
-                Act.Profile(5).Should().BeCloseTo(new TimeSpan(0, 0, 0, 0, 50), 80);
-                Act.Profile(20).Should().BeCloseTo(new TimeSpan(0, 0, 0, 0, 200), 100);
+                Act.Profile().Should().BeCloseTo(new TimeSpan(days: 0, hours: 0, minutes: 0, seconds: 0, milliseconds: 10), precision: 40);
+                Act.Profile(Repeat: 5).Should().BeCloseTo(new TimeSpan(days: 0, hours: 0, minutes: 0, seconds: 0, milliseconds: 50), precision: 80);
+                Act.Profile(Repeat: 20).Should().BeCloseTo(new TimeSpan(days: 0, hours: 0, minutes: 0, seconds: 0, milliseconds: 200), precision: 100);
 
-                ((Action)null).Profile().Should().BeCloseTo(new TimeSpan(0));
-                ((Action)null).Profile(5).Should().BeCloseTo(new TimeSpan(0));
+                ((Action)null).Profile().Should().BeCloseTo(new TimeSpan(ticks: 0));
+                ((Action)null).Profile(Repeat: 5).Should().BeCloseTo(new TimeSpan(ticks: 0));
                 }
             }
 
@@ -641,7 +641,7 @@ namespace LCore.Tests.Extensions
             Action<string> Act = Str =>
                 {
                     Str.Should().Be("abc");
-                    Thread.Sleep(10);
+                    Thread.Sleep(millisecondsTimeout: 10);
                 };
 
             Act = Act.Profile("TestProfile");
@@ -656,9 +656,9 @@ namespace LCore.Tests.Extensions
 
                 var Result = L.Thread.MethodProfileData_Get("TestProfile");
 
-                Result.Times.Count.Should().Be(5);
-                Result.AverageMS.Should().BeInRange(8, 20);
-                Result.Data.Count().Should().Be(0);
+                Result.Times.Count.Should().Be(expected: 5);
+                Result.AverageMS.Should().BeInRange(minimumValue: 8, maximumValue: 20);
+                Result.Data.Count().Should().Be(expected: 0);
                 }
             }
 
@@ -667,26 +667,26 @@ namespace LCore.Tests.Extensions
             {
             Func<int> Func = () =>
                 {
-                    int Rand = new Random().Next(50, 70);
+                    int Rand = new Random().Next(minValue: 50, maxValue: 70);
                     Thread.Sleep(Rand);
                     return Rand;
                 };
 
-            Thread.Sleep(50);
+            Thread.Sleep(millisecondsTimeout: 50);
 
             lock (Func)
                 {
                 MethodProfileData<int> Result = Func.Profile();
 
-                Result.AverageMS.Should().BeInRange(45, 75);
-                Result.Data.Count().Should().Be(1);
-                Result.Data.GetAt(0).Should().BeInRange(45, 75);
+                Result.AverageMS.Should().BeInRange(minimumValue: 45, maximumValue: 75);
+                Result.Data.Count().Should().Be(expected: 1);
+                Result.Data.GetAt(Index: 0).Should().BeInRange(minimumValue: 45, maximumValue: 75);
 
 
-                Result = Func.Profile(5);
+                Result = Func.Profile(Repeat: 5);
 
-                Result.AverageMS.Should().BeInRange(45, 95);
-                Result.Data.Count().Should().Be(6);
+                Result.AverageMS.Should().BeInRange(minimumValue: 45, maximumValue: 95);
+                Result.Data.Count().Should().Be(expected: 6);
                 }
             }
 
@@ -701,7 +701,7 @@ namespace LCore.Tests.Extensions
 
             Func<string> Func = () =>
                 {
-                    Thread.Sleep(10);
+                    Thread.Sleep(millisecondsTimeout: 10);
                     return "abc";
                 };
 
@@ -717,9 +717,9 @@ namespace LCore.Tests.Extensions
 
                 var Result = L.Thread.MethodProfileData_Get(ProfieName);
 
-                Result.Times.Count.Should().Be(5);
-                Result.AverageMS.Should().BeInRange(5, 25);
-                Result.Data.Count().Should().Be(5);
+                Result.Times.Count.Should().Be(expected: 5);
+                Result.AverageMS.Should().BeInRange(minimumValue: 5, maximumValue: 25);
+                Result.Data.Count().Should().Be(expected: 5);
                 Result.Data.Should().Equal("abc", "abc", "abc", "abc", "abc");
                 }
             }
@@ -734,7 +734,7 @@ namespace LCore.Tests.Extensions
             Func<string, string> Func = Str =>
                 {
                     Str.Should().Be("abc");
-                    Thread.Sleep(10);
+                    Thread.Sleep(millisecondsTimeout: 10);
                     return "abc";
                 };
 
@@ -750,9 +750,9 @@ namespace LCore.Tests.Extensions
 
                 var Result = L.Thread.MethodProfileData_Get("TestProfile");
 
-                Result.Times.Count.Should().Be(5);
-                Result.AverageMS.Should().BeInRange(5, 25);
-                Result.Data.Count().Should().Be(5);
+                Result.Times.Count.Should().Be(expected: 5);
+                Result.AverageMS.Should().BeInRange(minimumValue: 5, maximumValue: 25);
+                Result.Data.Count().Should().Be(expected: 5);
                 Result.Data.Should().Equal("abc", "abc", "abc", "abc", "abc");
                 }
             }
@@ -760,9 +760,9 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_CountExecutions()
             {
-            var Act = new Action(() => { Thread.Sleep(2); });
+            var Act = new Action(() => { Thread.Sleep(millisecondsTimeout: 2); });
 
-            Act.CountExecutions(100).Should().BeInRange(30, 50);
+            Act.CountExecutions(Milliseconds: 100).Should().BeInRange(minimumValue: 30, maximumValue: 50);
             }
 
         public ThreadExtTest([NotNull] ITestOutputHelper Output) : base(Output) { }

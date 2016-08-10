@@ -27,8 +27,8 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_ParseEnum_FriendlyName()
             {
-            ((string) null).ParseEnum_FriendlyName(typeof(TestEnum)).Should().Be(null);
-            "".ParseEnum_FriendlyName(typeof(TestEnum)).Should().Be(null);
+            ((string) null).ParseEnum_FriendlyName(typeof(TestEnum)).Should().Be(expected: null);
+            "".ParseEnum_FriendlyName(typeof(TestEnum)).Should().Be(expected: null);
 
             "FriendlyName".ParseEnum_FriendlyName(typeof(TestEnum)).Should().Be(TestEnum.Test1);
             "Camel Case Enums Are Great".ParseEnum_FriendlyName(typeof(TestEnum))
@@ -40,10 +40,10 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_ParseEnum()
             {
-            ((string) null).ParseEnum(typeof(TestEnum)).Should().Be(null);
+            ((string) null).ParseEnum(typeof(TestEnum)).Should().Be(expected: null);
 
             "".ParseEnum(typeof(TestEnum)).Should().BeNull();
-            "Test1".ParseEnum(null).Should().BeNull();
+            "Test1".ParseEnum(Type: null).Should().BeNull();
             "FriendlyName".ParseEnum(typeof(TestEnum)).Should().BeNull();
 
             "Test1".ParseEnum(typeof(TestEnum)).Should().Be(TestEnum.Test1);

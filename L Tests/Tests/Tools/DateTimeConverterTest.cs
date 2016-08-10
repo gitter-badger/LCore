@@ -59,7 +59,7 @@ namespace LCore.Tests.Tools
             DateTimeConverter.Parse(Str).Ticks.Should()
                 .BeInRange(Date.ToUniversalTime().Ticks - 150000, Date.ToUniversalTime().Ticks + 150000);
 
-            L.A(() => DateTimeConverter.Parse(null)).ShouldFail();
+            L.A(() => DateTimeConverter.Parse(Str: null)).ShouldFail();
             L.A(() => DateTimeConverter.Parse("nope not a date")).ShouldFail();
             }
         }

@@ -32,7 +32,7 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_DecimalNumber()
             {
-            decimal Dec = new decimal(5.5);
+            decimal Dec = new decimal(value: 5.5);
 
             // Test implicits
             DecimalNumber TempNumber = Dec;
@@ -368,10 +368,10 @@ namespace LCore.Tests.Extensions
             ((Number) (ByteNumber) 5*(byte) 3).Should().Be((ByteNumber) 15);
             ((Number) (ByteNumber) 5/(byte) 5).Should().Be((ByteNumber) 1);
 
-            ((ByteNumber) 5).CompareTo((byte) 3).Should().BeGreaterThan(0);
-            ((ByteNumber) 5).CompareTo((byte) 7).Should().BeLessThan(0);
-            ((ByteNumber) 5).CompareTo((byte) 5).Should().Be(0);
-            ((ByteNumber) 5).CompareTo("5").Should().Be(0);
+            ((ByteNumber) 5).CompareTo((byte) 3).Should().BeGreaterThan(expected: 0);
+            ((ByteNumber) 5).CompareTo((byte) 7).Should().BeLessThan(expected: 0);
+            ((ByteNumber) 5).CompareTo((byte) 5).Should().Be(expected: 0);
+            ((ByteNumber) 5).CompareTo("5").Should().Be(expected: 0);
 
             ((ByteNumber) 5 < 3).Should().BeFalse();
             ((ByteNumber) 5 < 5).Should().BeFalse();
@@ -390,12 +390,12 @@ namespace LCore.Tests.Extensions
             ((ByteNumber) 5 >= 7).Should().BeFalse();
 
 
-            ((ByteNumber) 5).CompareTo((byte) 7).Should().BeLessThan(0);
-            ((ByteNumber) 5).CompareTo((byte) 5).Should().Be(0);
-            ((ByteNumber) 5).CompareTo("5").Should().Be(0);
+            ((ByteNumber) 5).CompareTo((byte) 7).Should().BeLessThan(expected: 0);
+            ((ByteNumber) 5).CompareTo((byte) 5).Should().Be(expected: 0);
+            ((ByteNumber) 5).CompareTo("5").Should().Be(expected: 0);
 
             ((ByteNumber) 5).Equals((Number) (ByteNumber) 5).Should().BeTrue();
-            ((ByteNumber) 5).Equals(null).Should().BeFalse();
+            ((ByteNumber) 5).Equals(Obj: null).Should().BeFalse();
 
             ByteNumber Test = 5;
             Test.Equals((object) Test).Should().BeTrue();

@@ -17,13 +17,15 @@ namespace LCore.Tests.Tools
         [Fact]
         public void TestSchedule()
             {
-            var Date = DateTime.Now.AddMinutes(20);
-            var Date2 = DateTime.Now.AddDays(2);
+            var Date = DateTime.Now.AddMinutes(value: 20);
+            var Date2 = DateTime.Now.AddDays(value: 2);
 
             var Test = new Schedule
                 {
                 TimesOfDay = new List<DateTime> {Date, Date2},
+                // ReSharper disable ArgumentsStyleLiteral
                 DaysOfMonth = new List<int> {5, 15, 20},
+                // ReSharper restore ArgumentsStyleLiteral
                 DaysOfWeek = new List<DayOfWeek> {DayOfWeek.Saturday, DayOfWeek.Thursday},
                 Mode = Schedule.ScheduleMode.Daily,
                 OneTimeScheduleDate = Date2

@@ -20,36 +20,36 @@ namespace LCore.Tests.Tools
             {
             var Test = new Lists<string, int>();
 
-            Test.Add("a", 1);
+            Test.Add("a", o2: 1);
 
-            Test.Count.Should().Be(1);
-            Test.GetAt(0).Should().Be(new Set<string, int>("a", 1));
+            Test.Count.Should().Be(expected: 1);
+            Test.GetAt(Index: 0).Should().Be(new Set<string, int>("a", Obj2: 1));
 
-            Test.Set(0, "b", 2);
+            Test.Set(Index: 0, Value: "b", Value2: 2);
 
-            Test.GetAt(0).Should().Be(new Set<string, int>("b", 2));
+            Test.GetAt(Index: 0).Should().Be(new Set<string, int>("b", Obj2: 2));
 
-            Test.Set1(0, "c");
+            Test.Set1(Index: 0, Value: "c");
 
-            Test.GetAt(0).Should().Be(new Set<string, int>("c", 2));
+            Test.GetAt(Index: 0).Should().Be(new Set<string, int>("c", Obj2: 2));
 
-            Test.Set2(0, 3);
+            Test.Set2(Index: 0, Value: 3);
 
-            Test.GetAt(0).Should().Be(new Set<string, int>("c", 3));
+            Test.GetAt(Index: 0).Should().Be(new Set<string, int>("c", Obj2: 3));
 
             var Rand = new Random();
 
-            L.A(() => Test.Add(Guid.NewGuid().ToString(), Rand.Next())).Repeat(100)();
+            L.A(() => Test.Add(Guid.NewGuid().ToString(), Rand.Next())).Repeat(Times: 100)();
 
-            Test.Count.Should().Be(102);
+            Test.Count.Should().Be(expected: 102);
 
-            Test.RemoveAt(1);
+            Test.RemoveAt(Index: 1);
 
-            Test.Count.Should().Be(101);
-            Test.List1.Count.Should().Be(101);
-            Test.List2.Count.Should().Be(101);
+            Test.Count.Should().Be(expected: 101);
+            Test.List1.Count.Should().Be(expected: 101);
+            Test.List2.Count.Should().Be(expected: 101);
 
-            Test.GetAt(0).Should().Be(new Set<string, int>("c", 3));
+            Test.GetAt(Index: 0).Should().Be(new Set<string, int>("c", Obj2: 3));
 
             }
 
@@ -58,8 +58,8 @@ namespace LCore.Tests.Tools
         [Fact]
         public void Test_ListFailures()
             {
-            L.A(() => new Lists<string, int>(null, new List<int>())).ShouldFail();
-            L.A(() => new Lists<string, int>(new List<string>(), null)).ShouldFail();
+            L.A(() => new Lists<string, int>(List1: null, List2: new List<int>())).ShouldFail();
+            L.A(() => new Lists<string, int>(new List<string>(), List2: null)).ShouldFail();
             L.A(() => new Lists<string, int>(new List<string> { "a" }, new List<int>())).ShouldFail();
             }
         }

@@ -17,7 +17,7 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_As()
             {
-            L.Obj.As<IConvertible>()(1).Should().NotBeNull();
+            L.Obj.As<IConvertible>()(arg: 1).Should().NotBeNull();
             }
 
         [Fact]

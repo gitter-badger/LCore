@@ -15,7 +15,7 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_CleanDateString()
             {
-            new DateTime(2001, 5, 7, 5, 5, 5).CleanDateString().Should().Be("5-7-2001 5.05.05 AM");
+            new DateTime(year: 2001, month: 5, day: 7, hour: 5, minute: 5, second: 5).CleanDateString().Should().Be("5-7-2001 5.05.05 AM");
             DateTime.MinValue.CleanDateString().Should().Be("1-1-0001 12.00.00 AM");
             DateTime.MaxValue.CleanDateString().Should().Be("12-31-9999 11.59.59 PM");
             }
@@ -23,7 +23,7 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_ToSpecification()
             {
-            new DateTime(2001, 5, 7, 5, 5, 5).ToSpecification().Should().Be("Mon, 07 May 2001 15:05:05 GMT");
+            new DateTime(year: 2001, month: 5, day: 7, hour: 5, minute: 5, second: 5).ToSpecification().Should().Be("Mon, 07 May 2001 15:05:05 GMT");
             DateTime.MinValue.ToSpecification().Should().Be("Mon, 01 Jan 1 10:00:00 GMT");
             DateTime.MaxValue.ToSpecification().Should().Be("Fri, 31 Dec 9999 23:59:59 GMT");
             }
@@ -31,7 +31,7 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_GetMonthName()
             {
-            new DateTime(2001, 5, 7, 5, 5, 5).GetMonthName().Should().Be("May");
+            new DateTime(year: 2001, month: 5, day: 7, hour: 5, minute: 5, second: 5).GetMonthName().Should().Be("May");
             DateTime.MinValue.GetMonthName().Should().Be("January");
             DateTime.MaxValue.GetMonthName().Should().Be("December");
             }
@@ -39,8 +39,8 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_ToTimeString()
             {
-            new TimeSpan(5, 8, 10, 12).ToTimeString().Should().Be("5 days");
-            new TimeSpan(100, 2, 12, 6).ToTimeString().Should().Be("100 days");
+            new TimeSpan(days: 5, hours: 8, minutes: 10, seconds: 12).ToTimeString().Should().Be("5 days");
+            new TimeSpan(days: 100, hours: 2, minutes: 12, seconds: 6).ToTimeString().Should().Be("100 days");
             TimeSpan.MinValue.ToTimeString().Should().Be("-80 centuries");
             TimeSpan.MaxValue.ToTimeString().Should().Be("80 centuries");
             }
@@ -48,35 +48,35 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_TimeDifference()
             {
-            var Date1 = new DateTime(2005, 5, 7, 3, 2, 4);
-            var Date2 = new DateTime(2009, 8, 13, 4, 12, 5);
-            var Date3 = new DateTime(2005, 5, 7, 3, 2, 14);
-            var Date4 = new DateTime(2005, 5, 7, 3, 4, 14);
-            var Date5 = new DateTime(2005, 5, 7, 5, 4, 14);
-            var Date6 = new DateTime(2005, 5, 8, 5, 4, 14);
-            var Date7 = new DateTime(2005, 5, 19, 5, 4, 14);
-            var Date8 = new DateTime(2005, 6, 8, 5, 4, 14);
+            var Date1 = new DateTime(year: 2005, month: 5, day: 7, hour: 3, minute: 2, second: 4);
+            var Date2 = new DateTime(year: 2009, month: 8, day: 13, hour: 4, minute: 12, second: 5);
+            var Date3 = new DateTime(year: 2005, month: 5, day: 7, hour: 3, minute: 2, second: 14);
+            var Date4 = new DateTime(year: 2005, month: 5, day: 7, hour: 3, minute: 4, second: 14);
+            var Date5 = new DateTime(year: 2005, month: 5, day: 7, hour: 5, minute: 4, second: 14);
+            var Date6 = new DateTime(year: 2005, month: 5, day: 8, hour: 5, minute: 4, second: 14);
+            var Date7 = new DateTime(year: 2005, month: 5, day: 19, hour: 5, minute: 4, second: 14);
+            var Date8 = new DateTime(year: 2005, month: 6, day: 8, hour: 5, minute: 4, second: 14);
 
-            Date1.TimeDifference(Date2, true).Should().Be("4 years ago");
-            Date1.TimeDifference(Date2, false).Should().Be("4 years");
-            Date2.TimeDifference(Date1, true).Should().Be("4 years from now");
-            Date2.TimeDifference(Date1, false).Should().Be("4 years");
+            Date1.TimeDifference(Date2, IncludeAgo: true).Should().Be("4 years ago");
+            Date1.TimeDifference(Date2, IncludeAgo: false).Should().Be("4 years");
+            Date2.TimeDifference(Date1, IncludeAgo: true).Should().Be("4 years from now");
+            Date2.TimeDifference(Date1, IncludeAgo: false).Should().Be("4 years");
 
-            Date1.TimeDifference(Date3, true).Should().Be("10 seconds ago");
-            Date1.TimeDifference(Date4, true).Should().Be("2 minutes ago");
-            Date1.TimeDifference(Date5, true).Should().Be("2 hours ago");
-            Date1.TimeDifference(Date6, true).Should().Be("1 day ago");
-            Date1.TimeDifference(Date7, true).Should().Be("1 week ago");
-            Date1.TimeDifference(Date8, true).Should().Be("1 month ago");
-            Date1.TimeDifference(Date1, true).Should().Be("Just now");
-            DateTime.MinValue.TimeDifference(Date1, true).Should().Be("Never");
-            Date1.TimeDifference(DateTime.MinValue, true).Should().Be("Never");
+            Date1.TimeDifference(Date3, IncludeAgo: true).Should().Be("10 seconds ago");
+            Date1.TimeDifference(Date4, IncludeAgo: true).Should().Be("2 minutes ago");
+            Date1.TimeDifference(Date5, IncludeAgo: true).Should().Be("2 hours ago");
+            Date1.TimeDifference(Date6, IncludeAgo: true).Should().Be("1 day ago");
+            Date1.TimeDifference(Date7, IncludeAgo: true).Should().Be("1 week ago");
+            Date1.TimeDifference(Date8, IncludeAgo: true).Should().Be("1 month ago");
+            Date1.TimeDifference(Date1, IncludeAgo: true).Should().Be("Just now");
+            DateTime.MinValue.TimeDifference(Date1, IncludeAgo: true).Should().Be("Never");
+            Date1.TimeDifference(DateTime.MinValue, IncludeAgo: true).Should().Be("Never");
             }
 
         [Fact]
         public void Test_IsFuture()
             {
-            new DateTime(2001, 5, 7, 5, 5, 5).IsFuture().Should().BeFalse();
+            new DateTime(year: 2001, month: 5, day: 7, hour: 5, minute: 5, second: 5).IsFuture().Should().BeFalse();
             DateTime.MinValue.IsFuture().Should().BeFalse();
             DateTime.MaxValue.IsFuture().Should().BeTrue();
             }
@@ -84,7 +84,7 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_IsPast()
             {
-            new DateTime(2001, 5, 7, 5, 5, 5).IsPast().Should().BeTrue();
+            new DateTime(year: 2001, month: 5, day: 7, hour: 5, minute: 5, second: 5).IsPast().Should().BeTrue();
             DateTime.MinValue.IsPast().Should().BeTrue();
             DateTime.MaxValue.IsPast().Should().BeFalse();
             }
@@ -92,15 +92,15 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_Average()
             {
-            var Test = new TimeSpan(1, 0, 0, 40);
-            var Test2 = new TimeSpan(5, 2, 6, 40);
-            var Test3 = new TimeSpan(8, 2, 6, 40);
-            var Test4 = new TimeSpan(0, 0, 0, 40);
-            var Test5 = new TimeSpan(0, 0, 0, 40);
+            var Test = new TimeSpan(days: 1, hours: 0, minutes: 0, seconds: 40);
+            var Test2 = new TimeSpan(days: 5, hours: 2, minutes: 6, seconds: 40);
+            var Test3 = new TimeSpan(days: 8, hours: 2, minutes: 6, seconds: 40);
+            var Test4 = new TimeSpan(days: 0, hours: 0, minutes: 0, seconds: 40);
+            var Test5 = new TimeSpan(days: 0, hours: 0, minutes: 0, seconds: 40);
 
-            new[] {Test, Test2, Test3, Test4, Test5}.Average().Should().Be(new TimeSpan(2, 20, 3, 4));
+            new[] {Test, Test2, Test3, Test4, Test5}.Average().Should().Be(new TimeSpan(days: 2, hours: 20, minutes: 3, seconds: 4));
 
-            new TimeSpan[] {}.Average().Should().Be(new TimeSpan(0));
+            new TimeSpan[] {}.Average().Should().Be(new TimeSpan(ticks: 0));
             }
 
         public DateExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}

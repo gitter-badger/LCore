@@ -34,7 +34,7 @@ namespace LCore.Tests.Extensions
             Test.HasProperty(nameof(string.Length)).Should().BeTrue();
             Test.HasProperty("no i dont").Should().BeFalse();
             Test.HasProperty("").Should().BeFalse();
-            Test.HasProperty(null).Should().BeFalse();
+            Test.HasProperty(PropertyName: null).Should().BeFalse();
             ((string) null).HasProperty(nameof(string.Length)).Should().BeFalse();
             }
 
@@ -44,9 +44,9 @@ namespace LCore.Tests.Extensions
             {
             const string Test = "test test test test test test test test test";
 
-            Test.GetProperty(nameof(string.Length)).Should().Be(44);
+            Test.GetProperty(nameof(string.Length)).Should().Be(expected: 44);
 
-            Test.GetProperty(null).Should().BeNull();
+            Test.GetProperty(PropertyName: null).Should().BeNull();
 
             Test.GetProperty("").Should().BeNull();
 
@@ -61,12 +61,12 @@ namespace LCore.Tests.Extensions
             {
             var Test = new TestClass();
 
-            Test.SetProperty(nameof(TestClass.A), 999);
+            Test.SetProperty(nameof(TestClass.A), PropertyValue: 999);
 
-            Test.A.Should().Be(999);
+            Test.A.Should().Be(expected: 999);
 
             L.A(() => Test.SetProperty(nameof(TestClass.A), "nope")).ShouldFail();
-            L.A(() => Test.SetProperty("no prop", 999)).ShouldFail();
+            L.A(() => Test.SetProperty("no prop", PropertyValue: 999)).ShouldFail();
             }
 
         #endregion
@@ -94,9 +94,9 @@ namespace LCore.Tests.Extensions
             // subclass CopyFieldsTo parent class
             Test2.CopyFieldsTo(Test);
 
-            Test.A.Should().Be(1);
-            Test.B.Should().Be(2);
-            Test.C.Should().Be(3);
+            Test.A.Should().Be(expected: 1);
+            Test.B.Should().Be(expected: 2);
+            Test.C.Should().Be(expected: 3);
 
             var Test3 = new TestClass
                 {
@@ -119,8 +119,8 @@ namespace LCore.Tests.Extensions
             Test4.A.Should().Be(-1);
             Test4.B.Should().Be(-2);
             Test4.C.Should().Be(-3);
-            Test4.D.Should().Be(4);
-            Test4.E.Should().Be(null);
+            Test4.D.Should().Be(expected: 4);
+            Test4.E.Should().Be(expected: null);
 
             // subclass CopyFieldsTo subclass 
             Test4.CopyFieldsTo(Test4);
@@ -128,8 +128,8 @@ namespace LCore.Tests.Extensions
             Test4.A.Should().Be(-1);
             Test4.B.Should().Be(-2);
             Test4.C.Should().Be(-3);
-            Test4.D.Should().Be(4);
-            Test4.E.Should().Be(null);
+            Test4.D.Should().Be(expected: 4);
+            Test4.E.Should().Be(expected: null);
 
             // anonymous type CopyFieldsTo subclass 
             var Test5 = new
@@ -194,9 +194,9 @@ namespace LCore.Tests.Extensions
             // subclass CopyFieldsTo parent class
             Test2.CopyFieldsTo(Test, Mapper);
 
-            Test.A.Should().Be(null);
-            Test.B.Should().Be(1);
-            Test.C.Should().Be(3);
+            Test.A.Should().Be(expected: null);
+            Test.B.Should().Be(expected: 1);
+            Test.C.Should().Be(expected: 3);
 
             var Test3 = new TestClass
                 {
@@ -221,31 +221,31 @@ namespace LCore.Tests.Extensions
             // parent CopyFieldsTo subclass 
             Test3.CopyFieldsTo(Test4, Mapper2);
 
-            Test4.A.Should().Be(1);
+            Test4.A.Should().Be(expected: 1);
             Test4.B.Should().Be(-2);
             Test4.C.Should().Be(-3);
-            Test4.D.Should().Be(4);
-            Test4.E.Should().Be(null);
+            Test4.D.Should().Be(expected: 4);
+            Test4.E.Should().Be(expected: null);
 
             // subclass CopyFieldsTo subclass 
             Test4.CopyFieldsTo(Test4, Mapper2);
 
-            Test4.A.Should().Be(1);
+            Test4.A.Should().Be(expected: 1);
             Test4.B.Should().Be(-2);
             Test4.C.Should().Be(-3);
-            Test4.D.Should().Be(4);
-            Test4.E.Should().Be(null);
+            Test4.D.Should().Be(expected: 4);
+            Test4.E.Should().Be(expected: null);
 
 
             var Test5 = new TestSubclass();
             // copy using null dictionary
             Test4.CopyFieldsTo(Test5, (Dictionary<string, string>) null);
 
-            Test5.A.Should().Be(1);
+            Test5.A.Should().Be(expected: 1);
             Test5.B.Should().Be(-2);
             Test5.C.Should().Be(-3);
-            Test4.D.Should().Be(4);
-            Test5.E.Should().Be(null);
+            Test4.D.Should().Be(expected: 4);
+            Test5.E.Should().Be(expected: null);
             }
 
         /// <exception cref="TargetException">Throws an exception if the a property setter throws an exception.</exception>
@@ -286,7 +286,7 @@ namespace LCore.Tests.Extensions
 
             Test2.Should().Equal(5);
 
-            Func<string[]> Test3 = "5".FN_CreateArray(5);
+            Func<string[]> Test3 = "5".FN_CreateArray(Count: 5);
 
             string[] Test4 = Test3();
 
@@ -294,7 +294,7 @@ namespace LCore.Tests.Extensions
 
             L.F<string, int, Func<string[]>>(LCore.Extensions.Optional.ObjectExt.FN_CreateArray).ShouldFail("5", -1);
 
-            Func<string[]> Test5 = "5".FN_CreateArray(0);
+            Func<string[]> Test5 = "5".FN_CreateArray(Count: 0);
 
             string[] Test6 = Test5();
 
@@ -312,7 +312,7 @@ namespace LCore.Tests.Extensions
 
             Test2.Should().Equal(5);
 
-            Func<List<string>> Test3 = "5".FN_CreateList(5);
+            Func<List<string>> Test3 = "5".FN_CreateList(Count: 5);
 
             List<string> Test4 = Test3();
 
@@ -320,7 +320,7 @@ namespace LCore.Tests.Extensions
 
             L.F<string, int, Func<List<string>>>(LCore.Extensions.Optional.ObjectExt.FN_CreateList).ShouldFail("5", -1);
 
-            Func<List<string>> Test5 = "5".FN_CreateList(0);
+            Func<List<string>> Test5 = "5".FN_CreateList(Count: 0);
 
             List<string> Test6 = Test5();
 
@@ -348,9 +348,9 @@ namespace LCore.Tests.Extensions
 
             Test2.Details()
                 .Should().Be("LCore.Tests.Extensions.ObjectExtTest+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
-            Test2.Details(false)
+            Test2.Details(ShowErrorFields: false)
                 .Should().Be("LCore.Tests.Extensions.ObjectExtTest+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
-            Test2.Details(true)
+            Test2.Details(ShowErrorFields: true)
                 .Should().Be(
                     "LCore.Tests.Extensions.ObjectExtTest+TestClassError {\r\nA: 1\r\nB: 2\r\nC: Exception has been thrown by the target of an invocation.\r\nD: 5\r\nE: 7\r\n}");
             }
@@ -362,13 +362,13 @@ namespace LCore.Tests.Extensions
 
             Func<int, bool> Test2 = Test.FN_If();
 
-            Test2(0).Should().BeFalse();
-            Test2(1).Should().BeFalse();
-            Test2(2).Should().BeFalse();
-            Test2(3).Should().BeFalse();
-            Test2(4).Should().BeFalse();
-            Test2(5).Should().BeTrue();
-            Test2(6).Should().BeFalse();
+            Test2(arg: 0).Should().BeFalse();
+            Test2(arg: 1).Should().BeFalse();
+            Test2(arg: 2).Should().BeFalse();
+            Test2(arg: 3).Should().BeFalse();
+            Test2(arg: 4).Should().BeFalse();
+            Test2(arg: 5).Should().BeTrue();
+            Test2(arg: 6).Should().BeFalse();
 
             string Test3 = null;
 
@@ -376,15 +376,15 @@ namespace LCore.Tests.Extensions
 
             Test4("").Should().BeFalse();
             Test4("aaa").Should().BeFalse();
-            Test4(null).Should().BeTrue();
+            Test4(arg: null).Should().BeTrue();
             }
 
 
         [Fact]
         public void Test_FN_Func()
             {
-            5.FN_Func()().Should().Be(5);
-            5f.FN_Func()().Should().Be(5f);
+            5.FN_Func()().Should().Be(expected: 5);
+            5f.FN_Func()().Should().Be(expected: 5f);
             "nice".FN_Func()().Should().Be("nice");
             ((string) null).FN_Func()().Should().Be((string) null);
 
@@ -396,13 +396,13 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_SafeEquals()
             {
-            4.SafeEquals(5).Should().BeFalse();
-            5.SafeEquals(5).Should().BeTrue();
-            5f.SafeEquals(5.5f).Should().BeFalse();
-            5f.SafeEquals(5f).Should().BeTrue();
+            4.SafeEquals(Obj: 5).Should().BeFalse();
+            5.SafeEquals(Obj: 5).Should().BeTrue();
+            5f.SafeEquals(Obj: 5.5f).Should().BeFalse();
+            5f.SafeEquals(Obj: 5f).Should().BeTrue();
             "nice".SafeEquals("nice").Should().BeTrue();
             ((string) null).SafeEquals("nice").Should().BeFalse();
-            ((string) null).SafeEquals(null).Should().BeTrue();
+            ((string) null).SafeEquals(Obj: null).Should().BeTrue();
             }
 
         [Fact]
@@ -455,7 +455,7 @@ namespace LCore.Tests.Extensions
                 return null;
                 });
 
-            Result.Should().Be(1);
+            Result.Should().Be(expected: 1);
 
             // Exceptions are not hidden.
             L.A<object, Func<object, object>>(LCore.Extensions.Optional.ObjectExt.Traverse).ShouldFail(Test, o =>
@@ -501,7 +501,7 @@ namespace LCore.Tests.Extensions
                 return null;
                 });
 
-            Result2.Should().Be(5);
+            Result2.Should().Be(expected: 5);
 
             // Exceptions are not hidden.
             L.A<TestMaster, Func<TestMaster, TestMaster>>(LCore.Extensions.Optional.ObjectExt.Traverse)
@@ -527,11 +527,11 @@ namespace LCore.Tests.Extensions
 
             var Test3 = Test.SupplyTo(Test2);
 
-            Result.Should().Be(0);
+            Result.Should().Be(expected: 0);
             Test3();
 
             // value was supplied.
-            Result.Should().Be(5);
+            Result.Should().Be(expected: 5);
 
             var Test4 = new Func<int, int>(i => { throw new Exception(); });
 
@@ -555,7 +555,7 @@ namespace LCore.Tests.Extensions
             int Result = Test3();
 
             // value was supplied.
-            Result.Should().Be(6);
+            Result.Should().Be(expected: 6);
 
 
             var Test4 = new Func<int, int>(i => { throw new Exception(); });
