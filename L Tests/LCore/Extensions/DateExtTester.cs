@@ -1,7 +1,6 @@
 using System;
 using FluentAssertions;
 using JetBrains.Annotations;
-using JetBrains.dotMemoryUnit.Util;
 using LCore.Extensions;
 using LCore.LUnit;
 using Xunit;

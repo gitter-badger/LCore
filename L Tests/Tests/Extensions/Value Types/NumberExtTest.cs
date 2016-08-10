@@ -1,6 +1,5 @@
 ﻿using LCore.Extensions;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.LUnit;

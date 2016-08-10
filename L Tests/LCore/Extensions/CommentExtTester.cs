@@ -2,13 +2,13 @@ using System;
 using System.Reflection;
 using FluentAssertions;
 using JetBrains.Annotations;
-using JetBrains.dotMemoryUnit.Util;
 using LCore.Extensions;
 using LCore.LUnit;
-using LCore.Tests.Extensions;
 using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
+// ReSharper disable PossibleNullReferenceException
+// ReSharper disable PartialTypeWithSinglePart
 
 namespace L_Tests.LCore.Extensions
     {

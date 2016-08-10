@@ -10,10 +10,11 @@ using LCore.Numbers;
 using LCore.Naming;
 using LCore.LUnit;
 using LCore.Extensions;
-using LCore.Extensions.Optional;
 using Xunit;
 using Xunit.Abstractions;
 using JetBrains.Annotations;
+// ReSharper disable PartialTypeWithSinglePart
+// ReSharper disable InconsistentNaming
 
 namespace L_Tests.LCore.Tools
     {
@@ -5493,7 +5494,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." + nameof(ReflectionExt.GetAttribute))]
         public void GetAttribute_ICustomAttributeProvider_T()
             {
-            // TODO: Implement method test LCore.Extensions.ReflectionExt.GetAttribute
+            // Attribute Tests Implemented
             }
 
         [Fact]
@@ -5858,112 +5859,112 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.AddEach))]
         public void AddEach()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.AddEach
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Abs))]
         public void Abs_Int32_UInt32()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Abs
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Abs))]
         public void Abs_UInt32_UInt32()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Abs
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Abs))]
         public void Abs_Int64_UInt64()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Abs
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Abs))]
         public void Abs_UInt64_UInt64()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Abs
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Abs))]
         public void Abs_Int16_UInt16()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Abs
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Abs))]
         public void Abs_UInt16_UInt16()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Abs
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Abs))]
         public void Abs_Double_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Abs
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Abs))]
         public void Abs_Single_Single()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Abs
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Abs))]
         public void Abs_SByte_Byte()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Abs
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Abs))]
         public void Abs_Byte_Byte()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Abs
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Abs))]
         public void Abs_Decimal_Decimal()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Abs
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.AsPercent))]
         public void AsPercent_Single_Int32()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.AsPercent
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.AsPercent))]
         public void AsPercent_Double_Int32()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.AsPercent
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Average))]
         public void Average_IEnumerable_1_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Average
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.ConvertToBestMatch))]
         public void ConvertToBestMatch()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.ConvertToBestMatch
+            // Attribute Tests Implemented
             }
 
         [Fact]
@@ -6054,147 +6055,147 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Floor))]
         public void Floor_Single_Int32()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Floor
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Floor))]
         public void Floor_Single_Int32_Single()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Floor
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Floor))]
         public void Floor_Double_Int64()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Floor
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Floor))]
         public void Floor_Double_Int32_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Floor
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.IsEven))]
         public void IsEven_Int32_Boolean()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.IsEven
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.IsEven))]
         public void IsEven_Int64_Boolean()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.IsEven
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.IsEven))]
         public void IsEven_Int16_Boolean()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.IsEven
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.IsEven))]
         public void IsEven_UInt32_Boolean()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.IsEven
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.IsEven))]
         public void IsEven_UInt64_Boolean()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.IsEven
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.IsEven))]
         public void IsEven_Byte_Boolean()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.IsEven
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.IsEven))]
         public void IsEven_SByte_Boolean()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.IsEven
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.PercentageOf))]
         public void PercentageOf_Single_Single_Int32()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.PercentageOf
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.PercentageOf))]
         public void PercentageOf_Double_Double_Int32()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.PercentageOf
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.PercentageOf))]
         public void PercentageOf_Int32_Int32_Int32()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.PercentageOf
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.PercentageOf))]
         public void PercentageOf_UInt32_UInt32_Int32()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.PercentageOf
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.PercentageOf))]
         public void PercentageOf_Int16_Int16_Int32()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.PercentageOf
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.PercentageOf))]
         public void PercentageOf_Int64_Int64_Int32()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.PercentageOf
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Pow))]
         public void Pow_Double_Double_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Pow
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Pow))]
         public void Pow_Int32_Double_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Pow
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Pow))]
         public void Pow_UInt32_Double_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Pow
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Pow))]
         public void Pow_Int16_Double_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Pow
+            // Attribute Tests Implemented
             }
 
         [Fact]
@@ -6208,56 +6209,56 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Pow))]
         public void Pow_Int64_Double_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Pow
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Pow))]
         public void Pow_UInt64_Double_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Pow
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Pow))]
         public void Pow_SByte_Double_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Pow
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Pow))]
         public void Pow_Byte_Double_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Pow
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Round))]
         public void Round_Single_Int32()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Round
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Round))]
         public void Round_Single_Int32_Single()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Round
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Round))]
         public void Round_Double_Int64()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Round
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Round))]
         public void Round_Double_Int32_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Round
+            // Attribute Tests Implemented
             }
 
         [Fact]
@@ -6278,126 +6279,126 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sqrt))]
         public void Sqrt_Int32_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Sqrt
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sqrt))]
         public void Sqrt_Int64_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Sqrt
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sqrt))]
         public void Sqrt_Int16_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Sqrt
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sqrt))]
         public void Sqrt_Double_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Sqrt
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sqrt))]
         public void Sqrt_Single_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Sqrt
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sqrt))]
         public void Sqrt_UInt32_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Sqrt
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sqrt))]
         public void Sqrt_UInt64_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Sqrt
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sqrt))]
         public void Sqrt_UInt16_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Sqrt
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sqrt))]
         public void Sqrt_Byte_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Sqrt
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sqrt))]
         public void Sqrt_SByte_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Sqrt
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sqrt))]
         public void Sqrt_Decimal_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Sqrt
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.SubtractEach))]
         public void SubtractEach()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.SubtractEach
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sum))]
         public void Sum_IEnumerable_1_Int32()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Sum
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sum))]
         public void Sum_IEnumerable_1_Int64()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Sum
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sum))]
         public void Sum_IEnumerable_1_Single()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Sum
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sum))]
         public void Sum_IEnumerable_1_Double()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.Sum
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.To))]
         public void To_Int32_Int32_Int32()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.To
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.To))]
         public void To_UInt32_UInt32_UInt32()
             {
-            // TODO: Implement method test LCore.Extensions.NumberExt.To
+            // Attribute Tests Implemented
             }
 
         [Fact]
@@ -6423,20 +6424,20 @@ namespace L_Tests.LCore.Extensions
 
         }
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumExt))]
-    public partial class EnumExtTester : XUnitOutputTester
+    public partial class EnumExtTester
         {
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumExt) + "." + nameof(EnumExt.ParseEnum))]
         public void ParseEnum_String_Nullable_1()
             {
-            // TODO: Implement method test LCore.Extensions.EnumExt.ParseEnum
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumExt) + "." + nameof(EnumExt.ParseEnum))]
         public void ParseEnum_Enum_Nullable_1()
             {
-            // TODO: Implement method test LCore.Extensions.EnumExt.ParseEnum
+            // Attribute Tests Implemented
             }
 
         }
@@ -7266,14 +7267,14 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.ObjectExt) + "." + nameof(global::LCore.Extensions.ObjectExt.HasProperty))]
         public void HasProperty()
             {
-            // TODO: Implement method test LCore.Extensions.ObjectExt.HasProperty
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.ObjectExt) + "." + nameof(global::LCore.Extensions.ObjectExt.Objects_ToString))]
         public void Objects_ToString()
             {
-            // TODO: Implement method test LCore.Extensions.ObjectExt.Objects_ToString
+            // Attribute Tests Implemented
             }
 
         [Fact]
@@ -7294,12 +7295,12 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.ObjectExt) + "." + nameof(global::LCore.Extensions.ObjectExt.Type))]
         public void Type()
             {
-            // TODO: Implement method test LCore.Extensions.ObjectExt.Type
+            // Attribute Tests Implemented
             }
 
         }
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt))]
-    public partial class BooleanExtTester : XUnitOutputTester
+    public partial class BooleanExtTester
         {
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.Else))]
@@ -7514,13 +7515,13 @@ namespace L_Tests.LCore.Extensions
 
         }
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DateExt))]
-    public partial class DateExtTester : XUnitOutputTester
+    public partial class DateExtTester
         {
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DateExt) + "." + nameof(DateExt.DayOfWeekNumber))]
         public void DayOfWeekNumber()
             {
-            // TODO: Implement method test LCore.Extensions.DateExt.DayOfWeekNumber
+            // Attribute Tests Implemented
             }
 
         }
@@ -7606,224 +7607,224 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Add))]
         public void Add_String_CharArray_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Add
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Add))]
         public void Add_String_IEnumerable_1_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Add
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.After))]
         public void After()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.After
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.AfterLast))]
         public void AfterLast()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.AfterLast
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.AlignCenter))]
         public void AlignCenter_String_Int32_Char_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.AlignCenter
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.AlignCenter))]
         public void AlignCenter_String_UInt32_Char_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.AlignCenter
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.AlignLeft))]
         public void AlignLeft_String_Int32_Char_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.AlignLeft
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.AlignLeft))]
         public void AlignLeft_String_UInt32_Char_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.AlignLeft
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.AlignRight))]
         public void AlignRight_String_Int32_Char_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.AlignRight
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.AlignRight))]
         public void AlignRight_String_UInt32_Char_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.AlignRight
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Before))]
         public void Before()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Before
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.BeforeLast))]
         public void BeforeLast()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.BeforeLast
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.ByteArrayToString))]
         public void ByteArrayToString()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.ByteArrayToString
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.CleanCrlf))]
         public void CleanCrlf()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.CleanCrlf
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.UnCleanCrlf))]
         public void UnCleanCrlf()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.UnCleanCrlf
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Combine))]
         public void Combine()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Combine
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Concatenate))]
         public void Concatenate()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Concatenate
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.ContainsAny))]
         public void ContainsAny()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.ContainsAny
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Count))]
         public void Count()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Count
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Fill))]
         public void Fill_Char_Int32_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Fill
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Fill))]
         public void Fill_Char_UInt32_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Fill
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.FirstCaps))]
         public void FirstCaps()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.FirstCaps
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.FormatFileSize))]
         public void FormatFileSize_Int64_Int32_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.FormatFileSize
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.FormatFileSize))]
         public void FormatFileSize_Int32_Int32_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.FormatFileSize
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.HasMatch))]
         public void HasMatch()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.HasMatch
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Humanize))]
         public void Humanize()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Humanize
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.IsEmpty))]
         public void IsEmpty()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.IsEmpty
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.IsNumber))]
         public void IsNumber()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.IsNumber
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.IsSymmetrical))]
         public void IsSymmetrical()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.IsSymmetrical
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.JoinLines))]
         public void JoinLines()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.JoinLines
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Like))]
         public void Like()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Like
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Lines))]
         public void Lines()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Lines
+            // Attribute Tests Implemented
             }
 
         [Fact]
@@ -7837,49 +7838,49 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Pad))]
         public void Pad_String_Int32_Align_Char_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Pad
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Pad))]
         public void Pad_String_UInt32_Align_Char_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Pad
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Pluralize))]
         public void Pluralize_String_Int32_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Pluralize
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Pluralize))]
         public void Pluralize_String_UInt32_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Pluralize
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Pluralize))]
         public void Pluralize_String_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Pluralize
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.RemoveAll))]
         public void RemoveAll()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.RemoveAll
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.ReplaceAll))]
         public void ReplaceAll_String_String_String_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.ReplaceAll
+            // Attribute Tests Implemented
             }
 
         [Fact]
@@ -7893,91 +7894,91 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.ReplaceLineEndings))]
         public void ReplaceLineEndings()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.ReplaceLineEndings
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Reverse))]
         public void Reverse()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Reverse
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Singularize))]
         public void Singularize()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Singularize
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Split))]
         public void Split()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Split
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.SplitWithQuotes))]
         public void SplitWithQuotes()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.SplitWithQuotes
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Sub))]
         public void Sub_String_Int32_Nullable_1_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Sub
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Sub))]
         public void Sub_String_UInt32_Nullable_1_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Sub
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Surround))]
         public void Surround()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Surround
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Symmetry))]
         public void Symmetry()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Symmetry
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Times))]
         public void Times_String_Int32_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Times
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Times))]
         public void Times_String_UInt32_String()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Times
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.ToByteArray))]
         public void ToByteArray()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.ToByteArray
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.ToHexString))]
         public void ToHexString()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.ToHexString
+            // Attribute Tests Implemented
             }
 
         [Fact]
@@ -7991,42 +7992,42 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.ToUrlSlug))]
         public void ToUrlSlug()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.ToUrlSlug
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Trim))]
         public void Trim()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Trim
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.TrimEnd))]
         public void TrimEnd()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.TrimEnd
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.TrimStart))]
         public void TrimStart()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.TrimStart
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.Words))]
         public void Words()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.Words
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." + nameof(StringExt.XmlClean))]
         public void XmlClean()
             {
-            // TODO: Implement method test LCore.Extensions.StringExt.XmlClean
+            // Attribute Tests Implemented
             }
 
         }
@@ -9519,14 +9520,14 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Named))]
         public void Named_IEnumerable_1_String_Func_2_List_1()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.Named
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Named))]
         public void Named_TArray_String_Func_2_T()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.Named
+            // Attribute Tests Implemented
             }
 
         [Fact]
@@ -9631,28 +9632,28 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Add))]
         public void Add_TArray_IEnumerable_1_T()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.Add
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Add))]
         public void Add_TArray_TArray_T()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.Add
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Add))]
         public void Add_List_1_TArray()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.Add
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Add))]
         public void Add_List_1_IEnumerable_1()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.Add
+            // Attribute Tests Implemented
             }
 
         [Fact]
@@ -9729,63 +9730,63 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Collect))]
         public void Collect_IEnumerable_Func_2_List_1()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.Collect
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Collect))]
         public void Collect_IEnumerable_1_Func_2_List_1()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.Collect
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Collect))]
         public void Collect_TArray_Func_2_T()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.Collect
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Collect))]
         public void Collect_List_1_Func_2_List_1()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.Collect
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Collect))]
         public void Collect_IEnumerable_Func_3_List_1()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.Collect
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Collect))]
         public void Collect_IEnumerable_1_Func_3_List_1()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.Collect
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Collect))]
         public void Collect_TArray_Func_3_T()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.Collect
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Collect))]
         public void Collect_List_1_Func_3_List_1()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.Collect
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Collect))]
         public void Collect_Func_1_Int32_List_1()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.Collect
+            // Attribute Tests Implemented
             }
 
         [Fact]
@@ -9820,21 +9821,21 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.CollectStr))]
         public void CollectStr_U_Func_3_String()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.CollectStr
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Combine))]
         public void Combine_IEnumerable_1_String()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.Combine
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Combine))]
         public void Combine_IEnumerable_1_Char_String()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.Combine
+            // Attribute Tests Implemented
             }
 
         [Fact]
@@ -9967,28 +9968,28 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Each))]
         public void Each_IEnumerable_Action_1()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.Each
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Each))]
         public void Each_IEnumerable_1_Action_1()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.Each
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Each))]
         public void Each_IEnumerable_Action_2()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.Each
+            // Attribute Tests Implemented
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Each))]
         public void Each_IEnumerable_1_Action_2()
             {
-            // TODO: Implement method test LCore.Extensions.EnumerableExt.Each
+            // Attribute Tests Implemented
             }
 
         [Fact]
@@ -10218,7 +10219,7 @@ namespace L_Tests.LCore.Extensions.Optional
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.IsNull))]
         public void IsNull()
             {
-            // TODO: Implement method test LCore.Extensions.Optional.ObjectExt.IsNull
+            // Attribute Tests Implemented
             }
 
         [Fact]

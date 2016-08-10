@@ -290,8 +290,8 @@ namespace LCore.LUnit
                                             WriteStack3.Add($"       public{New}void {MemberName}()");
                                             WriteStack3.Add("        {");
 
-                                            WriteStack3.Add(TargetMember?.HasAttribute<ILUnitAttribute>(IncludeBaseClasses: true) ==true
-                                                    ? $"            // Attribute Tests Implemented"
+                                            WriteStack3.Add(TargetMember != null && MemberAttributes[TargetMember].Count > 0
+                                                    ? "            // Attribute Tests Implemented"
                                                     : $"            // TODO: Implement method test {TargetMember.FullyQualifiedName()}");
 
                                             WriteStack3.Add("        }");
