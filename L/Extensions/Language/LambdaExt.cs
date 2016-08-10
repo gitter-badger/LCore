@@ -29,17 +29,17 @@ namespace LCore.Dynamic
 
         internal static string GetLambdas(this FieldInfo In)
             {
-            return L.Lam.FieldInfoGetLambdaStrings(In).Keys.Combine('\n');
+            return L.Lam.FieldInfoGetLambdaStrings(In).Keys.Combine(SeparateChar: '\n');
             }
 
         internal static string GetLambdas(this PropertyInfo In)
             {
-            return L.Lam.PropertyInfoGetLambdaStrings(In).Keys.Combine('\n');
+            return L.Lam.PropertyInfoGetLambdaStrings(In).Keys.Combine(SeparateChar: '\n');
             }
 
         internal static string GetLambdas(this MethodBase In)
             {
-            return L.Lam.MethodBaseGetLambdaString(In, In.DeclaringType).Keys.Combine('\n');
+            return L.Lam.MethodBaseGetLambdaString(In, In.DeclaringType).Keys.Combine(SeparateChar: '\n');
             }
 
         #endregion
@@ -95,7 +95,7 @@ namespace LCore.Extensions
                     .Each(Dict => { Out.Merge(Dict, IncrementFunctionNames); });
 
                 string Out2 =
-                    $"#region {Type.Name}\npublic static class {Type.Name}\n{{\n{Out.Values.Combine('\n').ReplaceAll("\n\n", "\n")}\n}}\n#endregion";
+                    $"#region {Type.Name}\npublic static class {Type.Name}\n{{\n{Out.Values.Combine(SeparateChar: '\n').ReplaceAll("\n\n", "\n")}\n}}\n#endregion";
 
                 //                Type[] Interfaces = t.GetInterfaces();
                 //                Interfaces.Each((t2) => { Out2 += $"\n{t2.GetLambdas(AllLambdaTypes)}"; });
@@ -121,7 +121,7 @@ namespace LCore.Extensions
 
                 string FunctionGetName = $"{MethodType}_Get{FieldName}";
                 string FunctionSetName = $"{MethodType}_Set{FieldName}";
-                string ObjName = MethodType?.ToLower()[0].ToString();
+                string ObjName = MethodType?.ToLower()[index: 0].ToString();
 
                 var Out = new Dictionary<string, string>();
                 try
@@ -143,7 +143,7 @@ namespace LCore.Extensions
                     if (!Setter.IsPublic)
                         throw new Exception();
                     Out.Add(FunctionSetName,
-                        $"public static Action<{(!IsStatic || Index ? $"{MethodType}, " : "")}{(Index ? $"{IndexParameter.ParameterType.Name}, " : "")}{FieldType}> {FunctionSetName} = ({ObjName}{(Index ? ", index" : "")}, {FieldType.ToLower()[0]}) => {{ {(!IsStatic || Index ? ObjName : MethodType)}{(Index ? "[index]" : $".{FieldName}")} = {FieldType.ToLower()[0]}; }};");
+                        $"public static Action<{(!IsStatic || Index ? $"{MethodType}, " : "")}{(Index ? $"{IndexParameter.ParameterType.Name}, " : "")}{FieldType}> {FunctionSetName} = ({ObjName}{(Index ? ", index" : "")}, {FieldType.ToLower()[index: 0]}) => {{ {(!IsStatic || Index ? ObjName : MethodType)}{(Index ? "[index]" : $".{FieldName}")} = {FieldType.ToLower()[index: 0]}; }};");
                     }
                 catch { }
                 return Out;
@@ -158,7 +158,7 @@ namespace LCore.Extensions
                 string FunctionGetName = $"{MethodType}_Get{FieldName}";
                 string FunctionSetName = $"{MethodType}_Set{FieldName}";
                 bool IsConst = Field.IsLiteral || Field.IsInitOnly;
-                string ObjName = MethodType?.ToLower()[0].ToString();
+                string ObjName = MethodType?.ToLower()[index: 0].ToString();
 
                 var Out = new Dictionary<string, string>
                 {
@@ -169,7 +169,7 @@ namespace LCore.Extensions
                 };
                 if (!IsConst)
                     Out.Add(FunctionSetName,
-                        $"public static Action<{MethodType}, {FieldType}> {FunctionSetName} = ({ObjName}, {FieldType.ToLower()[0]}) => {{ {MethodType}.{FieldName} = {FieldType.ToLower()[0]}; }};");
+                        $"public static Action<{MethodType}, {FieldType}> {FunctionSetName} = ({ObjName}, {FieldType.ToLower()[index: 0]}) => {{ {MethodType}.{FieldName} = {FieldType.ToLower()[index: 0]}; }};");
                 return Out;
             };
             #endregion
@@ -195,7 +195,7 @@ namespace LCore.Extensions
                 if (!Method.IsStatic && !IsConstructor)
                     {
                     TypeNames = new[] { DeclaringType }.Add(TypeNames);
-                    DeclaringType = DeclaringType?.ToLower()[0].ToString();
+                    DeclaringType = DeclaringType?.ToLower()[index: 0].ToString();
                     ParamNames = new[] { DeclaringType }.Add(ParamNames);
                     }
 
@@ -250,7 +250,7 @@ namespace LCore.Extensions
 
                 if (ParamNames.Count() > ParameterLimit)
                     Out = $"/* Too Many Parameters :( \n{Out}\n*/";
-                else if (!IsConstructor && !Method.GetGenericArguments().IsEmpty() || Out.Has('`'))
+                else if (!IsConstructor && !Method.GetGenericArguments().IsEmpty() || Out.Has(Obj: '`'))
                     Out = $"/* No Generic Types \n{Out}\n*/";
                 else if (!Method.DeclaringType.TypeEquals(Type))
                     Out = $"/* Method found on base type \n{Out}\n*/";

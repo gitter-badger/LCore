@@ -17,7 +17,7 @@ namespace LCore.Tools
         /// <filterpriority>2</filterpriority>
         public override bool Equals([CanBeNull] object Obj)
             {
-            if (ReferenceEquals(null, Obj))
+            if (ReferenceEquals(objA: null, objB: Obj))
                 return false;
             if (ReferenceEquals(this, Obj))
                 return true;
@@ -61,7 +61,7 @@ namespace LCore.Tools
         /// </summary>
         public bool Equals([CanBeNull] Set<T1, T2> Other)
             {
-            if (ReferenceEquals(null, Other)) return false;
+            if (ReferenceEquals(objA: null, objB: Other)) return false;
             if (ReferenceEquals(this, Other)) return true;
             return EqualityComparer<T1>.Default.Equals(this.Obj1, Other.Obj1) &&
                 EqualityComparer<T2>.Default.Equals(this.Obj2, Other.Obj2);

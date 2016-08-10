@@ -57,7 +57,7 @@ namespace LCore.LUnit
                 Debug.Write("--------------------------------------------------------\n");
                 Debug.Write($"Testing {TestData.TestsPresent} {Test.FullName} methods. \n");
                 Debug.Write(
-                    $"      Total attribute tests:  {TestData.TestAttributes.Count - TestData.UnitTestCount} (~{(TestData.TestAttributes.Count / ((double)TestData.TestsPresent - TestData.UnitTestCount)).Round(1).Max(0)} per method) \n");
+                    $"      Total attribute tests:  {TestData.TestAttributes.Count - TestData.UnitTestCount} (~{(TestData.TestAttributes.Count / ((double)TestData.TestsPresent - TestData.UnitTestCount)).Round(Decimals: 1).Max(0)} per method) \n");
                 Debug.Write($"      Unit tests:             {TestData.UnitTestCount}. \n");
                 Debug.Write("\n");
                 Debug.Write($"Missing: {TestData.TestsMissing} methods                  {TestData.CoveragePercent}% Coverage\n");
@@ -74,8 +74,8 @@ namespace LCore.LUnit
                         : 0u));
 
                 uint Members = (uint)Tests.Keys.Count;
-                uint MembersCovered = Members - (uint)(TestMemberCoverage.ContainsKey(0u)
-                    ? (uint)TestMemberCoverage[0u].Count
+                uint MembersCovered = Members - (uint)(TestMemberCoverage.ContainsKey(key: 0u)
+                    ? (uint)TestMemberCoverage[key: 0u].Count
                     : 0u);
 
                 uint TestCount = (uint)TestData.TestAttributes.Count;
@@ -83,7 +83,7 @@ namespace LCore.LUnit
                 // ReSharper disable once UnusedVariable
                 uint UnitTestCount = TestData.UnitTestCount;
 
-                uint Passed = 0; //Test.RunUnitTests();
+                const uint Passed = 0; //Test.RunUnitTests();
 
                 if (TestCount > 0)
                     this._Output?.WriteLine(
@@ -99,7 +99,7 @@ namespace LCore.LUnit
                     {
                     this._Output?.WriteLine("Missing:");
                     Missing2.Each(Method =>
-                        this._Output?.WriteLine($"   {Method.Pad(18)}   ({Missing.Count(Method)})"));
+                        this._Output?.WriteLine($"   {Method.Pad(Length: 18)}   ({Missing.Count(Method)})"));
                     this._Output?.WriteLine("");
                     }
 

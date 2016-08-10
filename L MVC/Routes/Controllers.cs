@@ -40,6 +40,7 @@ namespace LMVC.Routes
                     {
                     return new Dictionary<string, object>
                         {
+                        // ReSharper disable once ArgumentsStyleLiteral
                         {"Page", 1},
                         {"SortTerm", Search.OverrideSort},
                         {"SortDirection", Search.OverrideSortDirection},
@@ -112,6 +113,7 @@ namespace LMVC.Routes
                     {
                     return new Dictionary<string, object>
                         {
+                        // ReSharper disable once ArgumentsStyleLiteral
                         {"Page", 1},
                         {"SortTerm", ColumnName},
                         {
@@ -155,6 +157,7 @@ namespace LMVC.Routes
                     {
                     return new Dictionary<string, object>
                         {
+                        // ReSharper disable once ArgumentsStyleLiteral
                         {"Page", 1},
                         {"SortTerm", ManageModel.OverrideSort},
                         {"SortDirection", ManageModel.OverrideSortDirection},
@@ -172,6 +175,7 @@ namespace LMVC.Routes
                     {
                     return new Dictionary<string, object>
                         {
+                        // ReSharper disable once ArgumentsStyleLiteral
                         {"Page", 1},
                         {"SortTerm", ManageModel.OverrideSort},
                         {"SortDirection", ManageModel.OverrideSortDirection},

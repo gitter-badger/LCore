@@ -115,11 +115,11 @@ namespace LCore.LUnit
                 string TypeName = Parts.Last();
                 Parts.RemoveAt(Parts.Count - 1);
 
-                SourceType = L.Ref.FindType($"{Parts.Combine('.')}+{TypeName}");
+                SourceType = L.Ref.FindType($"{Parts.Combine(SeparateChar: '.')}+{TypeName}");
 
                 if (SourceType == null && Parts.Count == 1)
                     {
-                    SourceType = L.Ref.FindType($"{SourceMethod.DeclaringType?.Namespace}.{Parts.Combine('.')}+{TypeName}");
+                    SourceType = L.Ref.FindType($"{SourceMethod.DeclaringType?.Namespace}.{Parts.Combine(SeparateChar: '.')}+{TypeName}");
                     }
 
                 if (SourceType == null)
@@ -166,11 +166,11 @@ namespace LCore.LUnit
             var Info = ValueLambda as PropertyInfo;
             if (Info != null)
                 {
-                Out = Info.GetGetMethod().Invoke(null, new object[] { });
+                Out = Info.GetGetMethod().Invoke(obj: null, parameters: new object[] { });
                 }
             else if (ValueLambda is FieldInfo)
                 {
-                Out = ((FieldInfo)ValueLambda).GetValue(null);
+                Out = ((FieldInfo)ValueLambda).GetValue(obj: null);
                 }
             else if (ValueLambda is MethodInfo)
                 {
@@ -179,7 +179,7 @@ namespace LCore.LUnit
                     {
                     throw new Exception($"Unknown member with arguments: {ValueLambda.GetType().FullName}");
                     }
-                Out = ((MethodInfo)ValueLambda).Invoke(null, new object[] { });
+                Out = ((MethodInfo)ValueLambda).Invoke(obj: null, parameters: new object[] { });
                 }
             else
                 {
@@ -193,7 +193,7 @@ namespace LCore.LUnit
         /// </summary>
         public static Func<bool> GetCheckMethod(MethodInfo SourceMethod, string MethodName)
             {
-            var Result = GetMethodDelegate(SourceMethod, null, MethodName);
+            var Result = GetMethodDelegate(SourceMethod, ObjectType: null, MethodName: MethodName);
             if (Result == null)
                 throw new Exception($"Could not find Method: {MethodName}");
 
@@ -210,7 +210,7 @@ namespace LCore.LUnit
         /// </summary>
         public static Func<object, bool> GetCheckMethodArg(MethodInfo SourceMethod, string MethodName)
             {
-            var Result = GetMethodDelegate(SourceMethod, null, MethodName);
+            var Result = GetMethodDelegate(SourceMethod, ObjectType: null, MethodName: MethodName);
             if (Result == null)
                 throw new Exception($"Could not find Method: {MethodName}");
 
@@ -220,7 +220,7 @@ namespace LCore.LUnit
                 Type[] CastArgs = { typeof(object), typeof(bool) };
 
                 var CastMethod = typeof(LogicExt).GetMethod("Cast", Args.Append(CastArgs));
-                var Out = CastMethod.Invoke(null, new[] { Result });
+                var Out = CastMethod.Invoke(obj: null, parameters: new[] { Result });
 
                 return (Func<object, bool>)Out;
                 }

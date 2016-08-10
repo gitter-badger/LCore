@@ -56,7 +56,7 @@ namespace LMVC.Extensions
         private static readonly Func<HtmlHelper, string, string, bool> _ViewExists = (Html, ControllerName, Name) =>
             {
                 var ControllerContext = Html.ViewContext.Controller.ControllerContext;
-                var Result = ViewEngines.Engines.FindView(ControllerContext, Name, null);
+                var Result = ViewEngines.Engines.FindView(ControllerContext, Name, masterName: null);
 
                 return Result?.View != null;
             };

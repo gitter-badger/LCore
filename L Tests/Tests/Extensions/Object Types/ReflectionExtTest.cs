@@ -244,13 +244,15 @@ namespace LCore.Tests.Extensions
             {
             typeof(DateExt).GetExtensionMethods().Should().Equal(
                 // ReSharper disable InvokeAsExtensionMethod
-                L.Ref.StaticMethod(() => DateExt.Average(Times: null)),
+                // ReSharper disable once ArgumentsStyleLiteral
+                L.Ref.StaticMethod(() => DateExt.Average(null)),
                 L.Ref.StaticMethod(() => DateExt.DayOfWeekNumber(default(DayOfWeek))),
                 L.Ref.StaticMethod(() => DateExt.CleanDateString(DateTime.MinValue)),
                 L.Ref.StaticMethod(() => DateExt.ToSpecification(DateTime.MinValue)),
                 L.Ref.StaticMethod(() => DateExt.GetMonthName(DateTime.MinValue)),
                 L.Ref.StaticMethod(() => DateExt.ToTimeString(new TimeSpan())),
-                L.Ref.StaticMethod(() => DateExt.TimeDifference(DateTime.MinValue, DateTime.MinValue, IncludeAgo: false)),
+                // ReSharper disable once ArgumentsStyleLiteral
+                L.Ref.StaticMethod(() => DateExt.TimeDifference(DateTime.MinValue, DateTime.MinValue, false)),
                 L.Ref.StaticMethod(() => DateExt.IsPast(DateTime.MinValue)),
                 L.Ref.StaticMethod(() => DateExt.IsFuture(DateTime.MinValue))
                 // ReSharper restore InvokeAsExtensionMethod
@@ -741,7 +743,8 @@ namespace LCore.Tests.Extensions
                     L.Ref.Method<TestClass>(Test => Test.Test5("", "", "", "")),
                     // ReSharper disable ReturnValueOfPureMethodIsNotUsed
                     L.Ref.Method<TestClass>(Test => Test.ToString()),
-                    L.Ref.Method<TestClass>(Test => Test.Equals(obj: null)),
+                    // ReSharper disable once ArgumentsStyleLiteral
+                    L.Ref.Method<TestClass>(Test => Test.Equals(null)),
                     L.Ref.Method<TestClass>(Test => Test.GetHashCode()),
                     L.Ref.Method<TestClass>(Test => Test.GetType()),
                     // ReSharper restore ReturnValueOfPureMethodIsNotUsed
@@ -766,7 +769,8 @@ namespace LCore.Tests.Extensions
                     L.Ref.Method<TestClass>(Test => Test.Test5("", "", "", "")),
                     // ReSharper disable ReturnValueOfPureMethodIsNotUsed
                     L.Ref.Method<TestClass>(Test => Test.ToString()),
-                    L.Ref.Method<TestClass>(Test => Test.Equals(obj: null)),
+                    // ReSharper disable once ArgumentsStyleLiteral
+                    L.Ref.Method<TestClass>(Test => Test.Equals(null)),
                     L.Ref.Method<TestClass>(Test => Test.GetHashCode()),
                     L.Ref.Method<TestClass>(Test => Test.GetType()),
                     // ReSharper restore ReturnValueOfPureMethodIsNotUsed
@@ -796,7 +800,8 @@ namespace LCore.Tests.Extensions
                     L.Ref.Method<TestClass>(Test => Test.Test5("", "", "", "")),
                     // ReSharper disable ReturnValueOfPureMethodIsNotUsed
                     L.Ref.Method<TestClass>(Test => Test.ToString()),
-                    L.Ref.Method<TestClass>(Test => Test.Equals(obj: null)),
+                    // ReSharper disable once ArgumentsStyleLiteral
+                    L.Ref.Method<TestClass>(Test => Test.Equals(null)),
                     L.Ref.Method<TestClass>(Test => Test.GetHashCode()),
                     L.Ref.Method<TestClass>(Test => Test.GetType()),
                     // ReSharper restore ReturnValueOfPureMethodIsNotUsed
@@ -821,7 +826,8 @@ namespace LCore.Tests.Extensions
                     L.Ref.Method<TestClass>(Test => Test.Test5("", "", "", "")),
                     // ReSharper disable ReturnValueOfPureMethodIsNotUsed
                     L.Ref.Method<TestClass>(Test => Test.ToString()),
-                    L.Ref.Method<TestClass>(Test => Test.Equals(obj: null)),
+                    // ReSharper disable once ArgumentsStyleLiteral
+                    L.Ref.Method<TestClass>(Test => Test.Equals(null)),
                     L.Ref.Method<TestClass>(Test => Test.GetHashCode()),
                     L.Ref.Method<TestClass>(Test => Test.GetType()),
                     // ReSharper restore ReturnValueOfPureMethodIsNotUsed

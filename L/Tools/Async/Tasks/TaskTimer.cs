@@ -17,7 +17,7 @@ namespace LCore.Tasks
             this.Timer_Reset();
             }
 
-        public static TimeSpan DefaultWait { get; } = new TimeSpan(0, 0, 10);
+        public static TimeSpan DefaultWait { get; } = new TimeSpan(hours: 0, minutes: 0, seconds: 10);
 
         private Timer _RunTaskTimer;
         public Task TimerTask { get; }
@@ -26,6 +26,7 @@ namespace LCore.Tasks
             {
             this.Timer_Reset();
             }
+
         private void Timer_Elapsed(object Obj, ElapsedEventArgs Event)
             {
             this.TimerTask?.Run();
@@ -41,7 +42,7 @@ namespace LCore.Tasks
             if (WaitTime < 0)
                 return;
 
-            double Wait = (int)(WaitTime * L.Date.TicksToMilliseconds / 1000) * (double)1000;
+            double Wait = (int) (WaitTime*L.Date.TicksToMilliseconds/1000)*(double) 1000;
 
             if (Wait != 0)
                 {
@@ -50,7 +51,7 @@ namespace LCore.Tasks
                         {
                         this._RunTaskTimer.Stop();
                         }
-                    catch { }
+                    catch {}
 
                 if (Wait > L.Date.MaxTimerInterval)
                     {
@@ -61,7 +62,7 @@ namespace LCore.Tasks
                     }
                 else
                     {
-                    this._RunTaskTimer = new Timer(Wait) { AutoReset = false };
+                    this._RunTaskTimer = new Timer(Wait) {AutoReset = false};
 
 
                     this._RunTaskTimer.Elapsed += this.Timer_Elapsed;

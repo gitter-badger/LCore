@@ -5,8 +5,8 @@ using System.Diagnostics;
 using System.Text;
 using System.IO;
 using System.Threading;
-
 using LCore.Extensions;
+
 // ReSharper disable FieldCanBeMadeReadOnly.Local
 
 namespace LMVC.Web
@@ -27,6 +27,7 @@ namespace LMVC.Web
         /// Form post id is used in finding field separators in the multi-part form post
         /// </summary>
         private string _FormPostID = "";
+
         /// <summary>
         /// Used to find the start of a file
         /// </summary>
@@ -51,6 +52,7 @@ namespace LMVC.Web
         /// Default file name
         /// </summary>
         private string _CurrentFileName = $"{Guid.NewGuid()}.bin";
+
         private string FullPath => L.File.CombinePaths(this._CurrentFilePath, this._CurrentFileName);
 
         /// <summary>
@@ -63,6 +65,7 @@ namespace LMVC.Web
         /// The following fields are used in the byte searching of buffer datas
         /// </summary>
         private long _StartIndexBufferID = -1;
+
         private int _StartLocationInBufferID = -1;
 
         private long _EndIndexBufferID = -1;
@@ -135,7 +138,6 @@ namespace LMVC.Web
                     this._StartLocationInBufferID = ByteLocation;
 
                     this._StartFound = true;
-
                     }
                 }
 
@@ -172,7 +174,8 @@ namespace LMVC.Web
                     if (this._FileStream == null)
                         {
                         // create a new file stream to be used.
-                        this._FileStream = new FileStream(L.File.CombinePaths(this._CurrentFilePath, this._CurrentFileName), FileMode.OpenOrCreate);
+                        this._FileStream = new FileStream(L.File.CombinePaths(this._CurrentFilePath, this._CurrentFileName),
+                            FileMode.OpenOrCreate);
 
                         // this will create a time to live for the file so it will automatically be removed
                         const int FileTimeToLive = 3600;
@@ -180,8 +183,7 @@ namespace LMVC.Web
 
                         // if the form were not to handle the file and remove it, this is an automatic removal of the file
                         // the timer object will execute in x number of seconds
-                        this._Timer = new Timer(DeleteFile, this._CurrentFilePath + this._CurrentFileName, FileTimeToLive * 1000, 0);
-
+                        this._Timer = new Timer(DeleteFile, this._CurrentFilePath + this._CurrentFileName, FileTimeToLive*1000, period: 0);
                         }
                     // Write the datat to the file and flush it.
                     this._FileStream.Write(BufferData, StartLocation, WriteBytes);
@@ -199,7 +201,7 @@ namespace LMVC.Web
                 this._EndFound = false;
 
                 // Research the current buffer for a new start location.  
-                this.ProcessBuffer(ref BufferData, false);
+                this.ProcessBuffer(ref BufferData, AddToBufferHistory: false);
                 }
 
             // Add to buffer history
@@ -268,10 +270,10 @@ namespace LMVC.Web
             {
             try
                 {
-                this._FormPostID = Encoding.UTF8.GetString(BufferData).Sub(29, 13);
+                this._FormPostID = Encoding.UTF8.GetString(BufferData).Sub(Start: 29, Length: 13);
                 this._FieldSeparator = $"-----------------------------{this._FormPostID}";
                 }
-            // ReSharper disable once UnusedVariable
+                // ReSharper disable once UnusedVariable
             catch (Exception Ex)
                 {
 #if DEBUG
@@ -287,7 +289,6 @@ namespace LMVC.Web
         /// <returns>Returns byte location of data to start</returns>
         private int GetStartBytePosition(ref byte[] BufferData)
             {
-
             int ByteOffset = 0;
             // Check to see if the current bufferIndex is the same as any previous index found.
             // If it is, offset the searching by the previous location
@@ -324,7 +325,6 @@ namespace LMVC.Web
                 }
             else if (ByteOffset - SearchString.Length > 0)
                 {
-
                 return -1;
                 }
 
@@ -351,7 +351,8 @@ namespace LMVC.Web
                         SearchString2 = Encoding.UTF8.GetBytes("Content-Type: ");
                         // because we are searching part of the previous buffer, we only need to go back the length of the search 
                         // array.  Any further, and our normal if statement would have picked it up when it first was processed.
-                        int TempSearchStringLocation = FindBytePattern(ref MergedBytes, ref SearchString2, PreviousBuffer.Length - SearchString2.Length);
+                        int TempSearchStringLocation = FindBytePattern(ref MergedBytes, ref SearchString2,
+                            PreviousBuffer.Length - SearchString2.Length);
 
                         if (TempSearchStringLocation != -1)
                             {
@@ -386,7 +387,6 @@ namespace LMVC.Web
         /// <returns>Returns byte location of data to start</returns>
         private int GetEndBytePosition(ref byte[] BufferData)
             {
-
             int ByteOffset = 0;
             // Check to see if the current bufferIndex is the same as any previous index found.
             // If it is, offset the searching by the previous location.  This will allow us to find the next leading
@@ -404,9 +404,7 @@ namespace LMVC.Web
                 {
                 // Found field ending. Depending on where the field separator is located on this, we may have to move back into
                 // the previous buffer to return its offset.
-                if (TempFieldSeparator - 2 < 0)
-                    {
-                    }
+                if (TempFieldSeparator - 2 < 0) {}
                 else
                     {
                     return TempFieldSeparator - 2;
@@ -414,7 +412,6 @@ namespace LMVC.Web
                 }
             else if (ByteOffset - SearchString.Length > 0)
                 {
-
                 return -1;
                 }
             else
@@ -423,14 +420,14 @@ namespace LMVC.Web
                 // Check to see if the buffer index is at the start. 
                 if (this._CurrentBufferIndex > 0)
                     {
-
                     // Get the previous buffer
                     byte[] PreviousBuffer = this._BufferHistory[this._CurrentBufferIndex - 1];
                     byte[] MergedBytes = MergeArrays(ref PreviousBuffer, ref BufferData);
                     // Get the byte array for the text
                     byte[] SearchString2 = Encoding.UTF8.GetBytes(this._FieldSeparator);
                     // Search the bytes for the searchString
-                    TempFieldSeparator = FindBytePattern(ref MergedBytes, ref SearchString2, PreviousBuffer.Length - SearchString2.Length + ByteOffset);
+                    TempFieldSeparator = FindBytePattern(ref MergedBytes, ref SearchString2,
+                        PreviousBuffer.Length - SearchString2.Length + ByteOffset);
 
                     if (TempFieldSeparator != -1)
                         {
@@ -478,7 +475,6 @@ namespace LMVC.Web
             const int ReturnValue = -1;
             for (int ByteIndex = StartAtIndex; ByteIndex < ContainerBytes.Length; ByteIndex++)
                 {
-
                 // Make sure the searchBytes length does not exceed the containerbytes
                 if (ByteIndex + SearchBytes.Length > ContainerBytes.Length)
                     {
@@ -520,7 +516,7 @@ namespace LMVC.Web
         private static byte[] MergeArrays(ref byte[] ArrayOne, ref byte[] ArrayTwo)
             {
             var NewArray = new byte[ArrayOne.Length + ArrayTwo.Length];
-            ArrayOne.CopyTo(NewArray, 0);
+            ArrayOne.CopyTo(NewArray, index: 0);
             ArrayTwo.CopyTo(NewArray, ArrayOne.Length);
 
             return NewArray;
@@ -535,12 +531,12 @@ namespace LMVC.Web
             // File may have already been removed from the main application.
             try
                 {
-                if (File.Exists((string)FilePath))
+                if (File.Exists((string) FilePath))
                     {
-                    File.Delete((string)FilePath);
+                    File.Delete((string) FilePath);
                     }
                 }
-            catch { }
+            catch {}
             }
 
         #endregion

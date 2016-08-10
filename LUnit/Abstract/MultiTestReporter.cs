@@ -27,7 +27,7 @@ namespace LCore.LUnit
         public void TestFailure01()
             {
             this.PerformTestsOnce();
-            this.ThrowException(0);
+            this.ThrowException(Number: 0);
             }
 
 
@@ -38,7 +38,7 @@ namespace LCore.LUnit
         public void TestFailure02()
             {
             this.PerformTestsOnce();
-            this.ThrowException(1);
+            this.ThrowException(Number: 1);
             }
 
 
@@ -49,7 +49,7 @@ namespace LCore.LUnit
         public void TestFailure03()
             {
             this.PerformTestsOnce();
-            this.ThrowException(2);
+            this.ThrowException(Number: 2);
             }
 
 
@@ -60,7 +60,7 @@ namespace LCore.LUnit
         public void TestFailure04()
             {
             this.PerformTestsOnce();
-            this.ThrowException(3);
+            this.ThrowException(Number: 3);
             }
 
 
@@ -71,7 +71,7 @@ namespace LCore.LUnit
         public void TestFailure05()
             {
             this.PerformTestsOnce();
-            this.ThrowException(4);
+            this.ThrowException(Number: 4);
             }
 
 
@@ -82,7 +82,7 @@ namespace LCore.LUnit
         public void TestFailure06()
             {
             this.PerformTestsOnce();
-            this.ThrowException(5);
+            this.ThrowException(Number: 5);
             }
 
 
@@ -93,7 +93,7 @@ namespace LCore.LUnit
         public void TestFailure07()
             {
             this.PerformTestsOnce();
-            this.ThrowException(6);
+            this.ThrowException(Number: 6);
             }
 
 
@@ -104,7 +104,7 @@ namespace LCore.LUnit
         public void TestFailure08()
             {
             this.PerformTestsOnce();
-            this.ThrowException(7);
+            this.ThrowException(Number: 7);
             }
 
 
@@ -115,7 +115,7 @@ namespace LCore.LUnit
         public void TestFailure09()
             {
             this.PerformTestsOnce();
-            this.ThrowException(8);
+            this.ThrowException(Number: 8);
             }
 
 
@@ -126,7 +126,7 @@ namespace LCore.LUnit
         public void TestFailure10()
             {
             this.PerformTestsOnce();
-            this.ThrowException(9);
+            this.ThrowException(Number: 9);
             }
 
         private void ThrowException(int Number)

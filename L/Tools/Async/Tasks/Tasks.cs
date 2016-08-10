@@ -22,7 +22,7 @@ namespace LCore.Tasks
                 {
                 try
                     {
-                    return $"Task {CompletedTasks + 1} of {TotalTasks}: {ToDoTasks[0].StatusMessage}";
+                    return $"Task {CompletedTasks + 1} of {TotalTasks}: {ToDoTasks[index: 0].StatusMessage}";
                     }
                 catch
                     {
@@ -42,26 +42,26 @@ namespace LCore.Tasks
         /// <exception cref="OutOfMemoryException">There is not enough memory available to start this thread. </exception>
         public static void AddPriorityTask(EmptyHandler RunTask, string StatusMessage)
             {
-            var Task = new TaskInfo { Task = RunTask, StatusMessage = StatusMessage };
+            var Task = new TaskInfo {Task = RunTask, StatusMessage = StatusMessage};
 
             if (ToDoTasks.Count <= 1)
                 ToDoTasks.Add(Task);
             else
-                ToDoTasks.Insert(1, Task);
+                ToDoTasks.Insert(index: 1, item: Task);
             if (!Running)
                 {
                 var Thread = new Thread(RunTasks);
                 Thread.Start();
                 }
 
-            ProgressUpdated?.Invoke(null, null);
+            ProgressUpdated?.Invoke(sender: null, e: null);
             }
 
         /// <exception cref="ThreadStateException">The thread has already been started. </exception>
         /// <exception cref="OutOfMemoryException">There is not enough memory available to start this thread. </exception>
         public static void AddTask(EmptyHandler RunTask, string StatusMessage)
             {
-            var Task = new TaskInfo { Task = RunTask, StatusMessage = StatusMessage };
+            var Task = new TaskInfo {Task = RunTask, StatusMessage = StatusMessage};
             ToDoTasks.Add(Task);
             if (!Running)
                 {
@@ -72,7 +72,7 @@ namespace LCore.Tasks
                 Thread.Start();
                 }
 
-            ProgressUpdated?.Invoke(null, null);
+            ProgressUpdated?.Invoke(sender: null, e: null);
             }
 
         /// <exception cref="ThreadStateException">The thread has already been started. </exception>
@@ -80,9 +80,9 @@ namespace LCore.Tasks
         [DebuggerStepThrough]
         public static void AddTask(EventHandler RunTask, string StatusMessage)
             {
-            AddTask(RunTask, StatusMessage, null);
+            AddTask(RunTask, StatusMessage, Sender: null);
 
-            ProgressUpdated?.Invoke(null, null);
+            ProgressUpdated?.Invoke(sender: null, e: null);
             }
 
         /// <exception cref="ThreadStateException">The thread has already been started. </exception>
@@ -91,10 +91,10 @@ namespace LCore.Tasks
         public static void AddTask(EventHandler RunTask, string StatusMessage, object Sender)
             {
             if (TaskManager.NoAsyncTasks)
-                RunTask(Sender, null);
+                RunTask(Sender, e: null);
             else
                 {
-                var Task = new TaskInfo { Task = RunTask, Sender = Sender, StatusMessage = StatusMessage };
+                var Task = new TaskInfo {Task = RunTask, Sender = Sender, StatusMessage = StatusMessage};
                 ToDoTasks.Add(Task);
                 if (!Running)
                     {
@@ -102,7 +102,7 @@ namespace LCore.Tasks
                     Thread.Start();
                     }
 
-                ProgressUpdated?.Invoke(null, null);
+                ProgressUpdated?.Invoke(sender: null, e: null);
                 }
             }
 
@@ -117,10 +117,10 @@ namespace LCore.Tasks
                 if (TriggerStop)
                     break;
 
-                var CurrentTask = ToDoTasks[0];
+                var CurrentTask = ToDoTasks[index: 0];
 
                 UpdateTaskBar();
-                ProgressUpdated?.Invoke(null, null);
+                ProgressUpdated?.Invoke(sender: null, e: null);
 
                 try
                     {
@@ -129,7 +129,7 @@ namespace LCore.Tasks
                     var Task = CurrentTask.Task as EventHandler;
                     if (Task != null)
                         {
-                        Task(ToDoTasks[0].Sender, EventArgs.Empty);
+                        Task(ToDoTasks[index: 0].Sender, EventArgs.Empty);
                         }
                     else
                         {
@@ -158,29 +158,38 @@ namespace LCore.Tasks
             UpdateTaskBar();
 
             UpdateTaskBar();
-            ProgressUpdated?.Invoke(null, null);
+            ProgressUpdated?.Invoke(sender: null, e: null);
 
             FinishedTasks = new List<TaskInfo>();
             }
+
         public static void WaitForFinish()
             {
             while (Running &&
-                !StatusString.Contains("Saving Configuration") &&
-                !StatusString.Contains("Saving and quitting") &&
-                !TriggerStop)
+                   !StatusString.Contains("Saving Configuration") &&
+                   !StatusString.Contains("Saving and quitting") &&
+                   !TriggerStop)
                 {
-                Thread.Sleep(1000);
+                Thread.Sleep(millisecondsTimeout: 1000);
                 }
             }
+
         public static void StopTasks()
             {
             TriggerStop = true;
             }
+
         public static event EventHandler ProgressUpdated;
 
         public class TaskInfo
             {
-            public enum TaskStatus { Undone, InProgress, Finished, Error }
+            public enum TaskStatus
+                {
+                Undone,
+                InProgress,
+                Finished,
+                Error
+                }
 
             public object Sender;
             public Delegate Task;
@@ -194,6 +203,7 @@ namespace LCore.Tasks
                 return this.Status.ToString();
                 }
             }
+
         public static void UpdateTaskBar()
             {
             try
@@ -212,9 +222,7 @@ namespace LCore.Tasks
 					}
 				 */
                 }
-            catch
-                {
-                }
+            catch {}
             }
         }
     }

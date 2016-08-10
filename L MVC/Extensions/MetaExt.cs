@@ -49,7 +49,7 @@ namespace LMVC.Extensions
                     Expression.GreaterThanOrEqual(Member2, Const1),
                     Expression.LessThanOrEqual(Member2, Const2));
 
-                Expression<Func<T, bool>> Condition = Expression.Lambda<Func<T, bool>>(Expr, Member.Parameters[0]);
+                Expression<Func<T, bool>> Condition = Expression.Lambda<Func<T, bool>>(Expr, Member.Parameters[index: 0]);
 
                 return Condition;
                 }
@@ -57,7 +57,7 @@ namespace LMVC.Extensions
                 Expression.GreaterThanOrEqual(Member.Body, Const1),
                 Expression.LessThanOrEqual(Member.Body, Const2));
 
-            Expression<Func<T, bool>> Condition2 = Expression.Lambda<Func<T, bool>>(Expr2, Member.Parameters[0]);
+            Expression<Func<T, bool>> Condition2 = Expression.Lambda<Func<T, bool>>(Expr2, Member.Parameters[index: 0]);
 
             return Condition2;
             }
@@ -92,7 +92,7 @@ namespace LMVC.Extensions
                 Expression.LessThanOrEqual(Member, Const1),
                 Expression.GreaterThanOrEqual(Member, Const2));
 
-            Expression<Func<T, bool>> Condition = Expression.Lambda<Func<T, bool>>(Expr, Member.Parameters[0]);
+            Expression<Func<T, bool>> Condition = Expression.Lambda<Func<T, bool>>(Expr, Member.Parameters[index: 0]);
 
             return Condition;
             }
@@ -115,7 +115,7 @@ namespace LMVC.Extensions
         public static List<T> GetAttributes<T>([CanBeNull]this ModelMetadata Meta)
             where T : class
             {
-            return Meta.GetMember().GetAttributes<T>(false);
+            return Meta.GetMember().GetAttributes<T>(IncludeBaseTypes: false);
             }
 
         #endregion
@@ -276,7 +276,7 @@ namespace LMVC.Extensions
                 }
 
             Expression<Func<T, bool>> Expr = Expression.Lambda<Func<T, bool>>(Operator(Lambda.Body, Compare),
-                Lambda.Parameters[0]);
+                Lambda.Parameters[index: 0]);
 
             return Expr;
             }
@@ -306,16 +306,16 @@ namespace LMVC.Extensions
             Token = Token ?? "";
 
             if (Token.StartsWith("["))
-                Token = Token.Sub(1);
+                Token = Token.Sub(Start: 1);
 
             if (Token.EndsWith("]"))
-                Token = Token.Sub(0, Token.Length - 1);
+                Token = Token.Sub(Start: 0, Length: Token.Length - 1);
 
             string[] FullProperty;
 
             var Lambda = ModelType.FindSubProperty(out Meta, out FullProperty, Token.Split('.'));
 
-            var Param = Lambda.Parameters[0];
+            var Param = Lambda.Parameters[index: 0];
             Expression AsObject = Expression.TypeAs(Lambda.Body, typeof(object));
             var Lambda2 = Expression.Lambda(AsObject, Param);
 
@@ -335,7 +335,7 @@ namespace LMVC.Extensions
         public static bool HasAttribute<T>(this ModelMetadata Meta)
             where T : IPersistAttribute
             {
-            return Meta.GetMember().HasAttribute<T>(false);
+            return Meta.GetMember().HasAttribute<T>(IncludeBaseClasses: false);
             }
         public static bool HasAttribute<T>(this ModelMetadata Meta, bool IncludeSubClasses)
             {
@@ -360,17 +360,17 @@ namespace LMVC.Extensions
             Type = Type.WithoutDynamicType();
 
             return !string.IsNullOrEmpty(PropertyName)
-                ? ModelMetadataProviders.Current.GetMetadataForProperty(null, Type,
-                    PropertyName.Contains(".") ? PropertyName.Split(".")[1] : PropertyName)
-                : ModelMetadataProviders.Current.GetMetadataForType(null, Type);
+                ? ModelMetadataProviders.Current.GetMetadataForProperty(modelAccessor: null, containerType: Type,
+                    propertyName: PropertyName.Contains(".") ? PropertyName.Split(".")[1] : PropertyName)
+                : ModelMetadataProviders.Current.GetMetadataForType(modelAccessor: null, modelType: Type);
             }
         [CanBeNull]
         public static ModelMetadata Meta([CanBeNull]this TypeInfo Type, [CanBeNull]string PropertyName = null)
             {
             return !string.IsNullOrEmpty(PropertyName)
-                ? ModelMetadataProviders.Current.GetMetadataForProperty(null, Type,
-                    PropertyName.Contains(".") ? PropertyName.Split(".")[1] : PropertyName)
-                : ModelMetadataProviders.Current.GetMetadataForType(null, Type);
+                ? ModelMetadataProviders.Current.GetMetadataForProperty(modelAccessor: null, containerType: Type,
+                    propertyName: PropertyName.Contains(".") ? PropertyName.Split(".")[1] : PropertyName)
+                : ModelMetadataProviders.Current.GetMetadataForType(modelAccessor: null, modelType: Type);
             }
         [CanBeNull]
         public static ModelMetadata Meta<T>([CanBeNull]this T Model, [CanBeNull]Expression<Func<T, object>> Expression)
@@ -386,7 +386,7 @@ namespace LMVC.Extensions
             where T : IModel
             {
             return string.IsNullOrEmpty(PropertyName)
-                ? ModelMetadataProviders.Current.GetMetadataForType(null, Model.TrueModelType())
+                ? ModelMetadataProviders.Current.GetMetadataForType(modelAccessor: null, modelType: Model.TrueModelType())
                 : Model.Property(PropertyName);
             }
 
@@ -422,7 +422,7 @@ namespace LMVC.Extensions
         public static ModelMetadata Property<T>(this T Model, string PropertyName)
             where T : IModel
             {
-            return ModelMetadataProviders.Current.GetMetadataForProperty(null, Model.TrueModelType(), PropertyName);
+            return ModelMetadataProviders.Current.GetMetadataForProperty(modelAccessor: null, containerType: Model.TrueModelType(), propertyName: PropertyName);
             }
 
         #endregion

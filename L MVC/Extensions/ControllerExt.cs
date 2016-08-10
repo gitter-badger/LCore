@@ -20,7 +20,7 @@ namespace LMVC.Extensions
 
             string Name = Controller.Name;
             return Name.EndsWith("Controller") ? 
-                Name.Sub(0, Name.Length - "Controller".Length) : 
+                Name.Sub(Start: 0, Length: Name.Length - "Controller".Length) : 
                 Name;
             }
 
@@ -31,7 +31,7 @@ namespace LMVC.Extensions
 
             string Name = Controller.GetType().Name;
             return Name.EndsWith("Controller") 
-                ? Name.Sub(0, Name.Length - "Controller".Length) 
+                ? Name.Sub(Start: 0, Length: Name.Length - "Controller".Length) 
                 : Name;
             }
 

@@ -17,7 +17,7 @@ namespace LCore.Tasks
 
         protected virtual int ErrorRetries => 0;
 
-        public virtual DateTime NextRun => this.LastRun == DateTime.MinValue ? DateTime.Now.AddSeconds(10) : this.LastRun.AddSeconds(this.RunIntervalSeconds);
+        public virtual DateTime NextRun => this.LastRun == DateTime.MinValue ? DateTime.Now.AddSeconds(value: 10) : this.LastRun.AddSeconds(this.RunIntervalSeconds);
         private DateTime _LastRun = DateTime.MinValue;
         public DateTime LastRun
             {
@@ -64,7 +64,7 @@ namespace LCore.Tasks
                 }
             else
                 {
-                this.RunTaskSafe(null);
+                this.RunTaskSafe(o: null);
                 }
             }
 
@@ -75,11 +75,11 @@ namespace LCore.Tasks
                 {
                 try
                     {
-                    this.TaskStarted(null, null);
+                    this.TaskStarted(Sender: null, Event: null);
 
                     this.Run();
 
-                    this.TaskFinished(null, null);
+                    this.TaskFinished(Sender: null, Event: null);
 
                     ErrorTries = 0;
                     }
@@ -87,7 +87,7 @@ namespace LCore.Tasks
                     {
                     ErrorTries--;
 
-                    this.TaskError(null, null);
+                    this.TaskError(Sender: null, Event: null);
                     }
                 }
             while (ErrorTries >= 0);

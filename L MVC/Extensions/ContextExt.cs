@@ -136,7 +136,7 @@ namespace LMVC.Extensions
 
             while (Method != null)
                 {
-                var Attr = Method.GetAttributes<IMenuAction>(true).FirstOrDefault() ?? new MenuAction();
+                var Attr = Method.GetAttributes<IMenuAction>(IncludeBaseTypes: true).FirstOrDefault() ?? new MenuAction();
 
                 Attr.MethodName = Action;
                 Attr.MenuText = Attr.MenuText ?? Attr.MethodName;

@@ -15,10 +15,10 @@ namespace LCore.Extensions
             #region RemoveTypeNamespaces
             internal static readonly Func<string, string> RemoveTypeNamespaces = Str =>
             {
-                while (Str.Has('.'))
+                while (Str.Has(Obj: '.'))
                     {
-                    int Index = Str.IndexOf('.');
-                    string Temp = Str.Sub(0, Index);
+                    int Index = Str.IndexOf(value: '.');
+                    string Temp = Str.Sub(Start: 0, Length: Index);
                     int IndexSpace = Temp.LastIndexOfAny(SeparatorChars);
                     if (IndexSpace < 0)
                         {
@@ -26,7 +26,7 @@ namespace LCore.Extensions
                         }
                     else
                         {
-                        Str = Str.Sub(0, IndexSpace + 1) + Str.Substring(Index + 1);
+                        Str = Str.Sub(Start: 0, Length: IndexSpace + 1) + Str.Substring(Index + 1);
                         }
                     }
                 return Str;
@@ -108,7 +108,7 @@ namespace LCore.Extensions
                         {
                             return Module.GetTypes().Select(Type =>
                             {
-                                return Attr.TypeEquals(typeof(void)) || Type.HasAttribute(Attr, true);
+                                return Attr.TypeEquals(typeof(void)) || Type.HasAttribute(Attr, IncludeBaseClasses: true);
                             });
                         })
                     .Flatten<Type>();
@@ -187,8 +187,8 @@ namespace LCore.Extensions
             #region GetTypeGenerics
             internal static readonly Func<string, List<string>> GetTypeGenerics = TypeStr =>
             {
-                string Out = TypeStr.Has('<') ? TypeStr.Sub(TypeStr.LastIndexOf('<') + 1, TypeStr.LastIndexOf('>') - TypeStr.LastIndexOf('<') - 1) : "";
-                if (Out.Has(','))
+                string Out = TypeStr.Has(Obj: '<') ? TypeStr.Sub(TypeStr.LastIndexOf(value: '<') + 1, TypeStr.LastIndexOf(value: '>') - TypeStr.LastIndexOf(value: '<') - 1) : "";
+                if (Out.Has(Obj: ','))
                     return Out.Split(',').List().Collect(Str =>
                         {
                             if (Str == "T")
@@ -256,7 +256,7 @@ namespace LCore.Extensions
                     Params.List2.Count == 0)
                     throw new ArgumentException("No Parameters found");
                 string FunctionTypeName = CleanGenericTypeName(OutType.ToString());
-                string ExtensionParam = CleanGenericTypeName(Params.List2[0].ToString());
+                string ExtensionParam = CleanGenericTypeName(Params.List2[index: 0].ToString());
                 string Parameters = "";
                 if (Params.Count > 1)
                     Parameters = 1.To(Params.Count - 1, i => { return CleanGenericTypeName(Params.List2[i].ToString()); }).Combine(",  ");
@@ -272,7 +272,7 @@ namespace LCore.Extensions
                     Out += $"<{Generics.Combine(", ")}>";
                     }
 
-                Out += $"(this {ExtensionParam} {Params.List1[0]}";
+                Out += $"(this {ExtensionParam} {Params.List1[index: 0]}";
                 if (Params.Count > 1)
                     {
                     Out += ", ";
@@ -282,7 +282,7 @@ namespace LCore.Extensions
                         if (Params.List1[i].StartsWith("params"))
                             {
                             Out += "params ";
-                            Params.Set1(i, Params.List1[i].Substring(7));
+                            Params.Set1(i, Params.List1[i].Substring(startIndex: 7));
                             }
                         Out += $"{ParamType} {Params.List1[i]}";
                         if (i < Params.Count - 1)
@@ -306,7 +306,7 @@ namespace LCore.Extensions
             internal static readonly Func<Type, string, Lists<string, Type>, Type, MemberTypes, bool, string> GetExtensionMethodBody = (DeclaringType, Name, Params, ReturnType, MemberType, ExecuteResult) =>
             {
 
-                string ExtensionParam = CleanGenericTypeName(Params.List2[0].ToString());
+                string ExtensionParam = CleanGenericTypeName(Params.List2[index: 0].ToString());
                 string Parameters = "";
                 if (Params.Count > 1)
                     Parameters = 1.To(Params.Count - 1, i => { return CleanGenericTypeName(Params.List2[i].ToString()); }).Combine(",  ");
@@ -324,7 +324,7 @@ namespace LCore.Extensions
                     }
 
                 Out +=
-                    $"{(MemberType.HasFlag(MemberTypes.Method) ? "()" : "")}({Params.List1.List().Collect(Str => { if (Str.Contains(" = ")) Str = Str.Sub(0, Str.IndexOf(" = ")); return Str; }).Combine(", ")})";
+                    $"{(MemberType.HasFlag(MemberTypes.Method) ? "()" : "")}({Params.List1.List().Collect(Str => { if (Str.Contains(" = ")) Str = Str.Sub(Start: 0, Length: Str.IndexOf(" = ")); return Str; }).Combine(", ")})";
                 if (ExecuteResult)
                     Out += "()";
                 Out += ";\r\n";

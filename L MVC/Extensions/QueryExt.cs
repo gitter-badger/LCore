@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
 using LCore.Extensions;
 using System.Collections;
 using System.Data.Entity;
@@ -25,20 +24,23 @@ namespace LMVC.Extensions
     [ExtensionProvider]
     public static class QueryExt
         {
-        public static readonly Dictionary<string, Func<Expression, Expression, Expression>> BinaryOps = new Dictionary<string, Func<Expression, Expression, Expression>>
+        public static readonly Dictionary<string, Func<Expression, Expression, Expression>> BinaryOps = new Dictionary
+            <string, Func<Expression, Expression, Expression>>
             {
-                {"~", null}, // LIKE, custom Expression
-                {"><", null}, // WITHIN, custom expression
-                {"<>", null}, // WITHOUT, custom expression
-                {">=", Expression.GreaterThanOrEqual},
-                {"<=", Expression.LessThanOrEqual},
-                {">",  Expression.GreaterThan},
-                {"<", Expression.LessThan},
-                {"!=", Expression.NotEqual},
-                {"!", Expression.NotEqual},
-                {"==", Expression.Equal},
-                {"=", Expression.Equal},
-                {":", Expression.Equal}
+            // ReSharper disable ArgumentsStyleLiteral
+            {"~", null}, // LIKE, custom Expression
+            {"><", null}, // WITHIN, custom expression
+            {"<>", null}, // WITHOUT, custom expression
+            // ReSharper restore ArgumentsStyleLiteral
+            {">=", Expression.GreaterThanOrEqual},
+            {"<=", Expression.LessThanOrEqual},
+            {">", Expression.GreaterThan},
+            {"<", Expression.LessThan},
+            {"!=", Expression.NotEqual},
+            {"!", Expression.NotEqual},
+            {"==", Expression.Equal},
+            {"=", Expression.Equal},
+            {":", Expression.Equal}
             };
 
         public static IQueryable<T> IsNull<T>(this IQueryable<T> Source, string Column)
@@ -51,12 +53,12 @@ namespace LMVC.Extensions
 
             // Non-nullable value types can't contain nulls. No results will be returned.
             if (Member.Type.IsValueType && !Member.Type.IsNullable())
-                return Source.Where((Expression<Func<T, bool>>)Expression.Lambda(Expression.Constant(false), Param));
+                return Source.Where((Expression<Func<T, bool>>) Expression.Lambda(Expression.Constant(value: false), Param));
 
-            var Property = Expression.Equal(Member, Expression.Constant(null));
+            var Property = Expression.Equal(Member, Expression.Constant(value: null));
             var Condition = Expression.Lambda(Property, Param);
 
-            return Source.Where((Expression<Func<T, bool>>)Condition);
+            return Source.Where((Expression<Func<T, bool>>) Condition);
             }
 
         public static IQueryable<T> IsNotNull<T>(this IQueryable<T> Source, string Column)
@@ -71,13 +73,13 @@ namespace LMVC.Extensions
             if (Member.Type.IsValueType && !Member.Type.IsNullable())
                 return Source;
 
-            var Property = Expression.NotEqual(Member, Expression.Constant(null));
+            var Property = Expression.NotEqual(Member, Expression.Constant(value: null));
             var Condition = Expression.Lambda(Property, Param);
 
-            return Source.Where((Expression<Func<T, bool>>)Condition);
+            return Source.Where((Expression<Func<T, bool>>) Condition);
             }
 
-        public static Expression<Func<T, bool>> Or<T>([CanBeNull]this IEnumerable<Expression<Func<T, bool>>> Expressions)
+        public static Expression<Func<T, bool>> Or<T>([CanBeNull] this IEnumerable<Expression<Func<T, bool>>> Expressions)
             {
             Expression<Func<T, bool>> Out = Obj => false;
 
@@ -91,7 +93,7 @@ namespace LMVC.Extensions
             return Out;
             }
 
-        public static Expression<Func<T, bool>> And<T>([CanBeNull]this IEnumerable<Expression<Func<T, bool>>> Expressions)
+        public static Expression<Func<T, bool>> And<T>([CanBeNull] this IEnumerable<Expression<Func<T, bool>>> Expressions)
             {
             Expression<Func<T, bool>> Out = Obj => false;
 
@@ -111,14 +113,14 @@ namespace LMVC.Extensions
         public static Expression<Func<T, bool>> GlobalSearchRecursive<T>(string GlobalSearch,
             string[] ParentProperties = null, Type[] ParentTypes = null)
             {
-            ParentProperties = ParentProperties ?? new string[] { };
-            ParentTypes = ParentTypes ?? new[] { typeof(T) };
+            ParentProperties = ParentProperties ?? new string[] {};
+            ParentTypes = ParentTypes ?? new[] {typeof(T)};
 
             var SearchPartConditions = new List<Expression<Func<T, bool>>>();
 
             var Meta = ParentTypes.Last().Meta();
 
-            string[] GlobalSearchParts = GlobalSearch.SplitWithQuotes(' ').Array();
+            string[] GlobalSearchParts = GlobalSearch.SplitWithQuotes(SplitBy: ' ').Array();
 
             foreach (string GlobalSearchPart in GlobalSearchParts)
                 {
@@ -129,10 +131,10 @@ namespace LMVC.Extensions
                 if (Meta != null)
                     foreach (var Prop in Meta.Properties)
                         {
-                        if (Prop.HasAttribute<KeyAttribute>(true))
+                        if (Prop.HasAttribute<KeyAttribute>(IncludeSubClasses: true))
                             continue;
 
-                        if (Prop.HasAttribute<NotMappedAttribute>(true))
+                        if (Prop.HasAttribute<NotMappedAttribute>(IncludeSubClasses: true))
                             continue;
 
                         if (!Prop.HasAttribute<FieldGlobalSearchAttribute>()
@@ -187,7 +189,7 @@ namespace LMVC.Extensions
                 Expression<Func<T, bool>> FieldCondition = FieldConditions.Or();
 
                 if (FieldCondition.CanReduce)
-                    FieldCondition = (Expression<Func<T, bool>>)FieldCondition.Reduce();
+                    FieldCondition = (Expression<Func<T, bool>>) FieldCondition.Reduce();
 
                 SearchPartConditions.Add(FieldCondition);
                 }
@@ -242,20 +244,24 @@ namespace LMVC.Extensions
                 var Sort = Expression.Lambda(Property2, Param);
 
                 var ConditionGreaterThanZero =
-                    (Expression<Func<T, bool>>)Expression.Lambda(
-                        Expression.GreaterThan(Property2, Expression.Constant(0)),
+                    (Expression<Func<T, bool>>) Expression.Lambda(
+                        Expression.GreaterThan(Property2, Expression.Constant(value: 0)),
                         Param);
 
                 Source = Source.Where(ConditionGreaterThanZero);
 
                 var Call = Expression.Call(
                     typeof(Queryable),
-                    (!AnotherLevel ? "OrderBy" : "ThenBy") + (Desc ? "Descending" : string.Empty),
-                    new[] { Type, Property2.Type },
+                    (!AnotherLevel
+                        ? "OrderBy"
+                        : "ThenBy") + (Desc
+                            ? "Descending"
+                            : string.Empty),
+                    new[] {Type, Property2.Type},
                     Source.Expression,
                     Expression.Quote(Sort));
 
-                return (IOrderedQueryable<T>)Source.Provider.CreateQuery<T>(Call);
+                return (IOrderedQueryable<T>) Source.Provider.CreateQuery<T>(Call);
                 }
 
             Source = Source.IsNotNull(PropertyName);
@@ -272,36 +278,41 @@ namespace LMVC.Extensions
 
             var Call2 = Expression.Call(
                 typeof(Queryable),
-                (!AnotherLevel ? "OrderBy" : "ThenBy") + (Desc ? "Descending" : string.Empty),
-                new[] { Type, Property3.Type },
+                (!AnotherLevel
+                    ? "OrderBy"
+                    : "ThenBy") + (Desc
+                        ? "Descending"
+                        : string.Empty),
+                new[] {Type, Property3.Type},
                 Source.Expression,
                 Expression.Quote(Sort2));
-            return (IOrderedQueryable<T>)Source.Provider.CreateQuery<T>(Call2);
+            return (IOrderedQueryable<T>) Source.Provider.CreateQuery<T>(Call2);
             }
 
-        public static IOrderedQueryable<T> OrderBy<T>([CanBeNull]this IQueryable<T> Source, [CanBeNull]string PropertyName)
+        public static IOrderedQueryable<T> OrderBy<T>([CanBeNull] this IQueryable<T> Source, [CanBeNull] string PropertyName)
             {
-            return OrderingHelper(Source, PropertyName, false, false);
+            return OrderingHelper(Source, PropertyName, Desc: false, AnotherLevel: false);
             }
 
-        public static IOrderedQueryable<T> OrderByDescending<T>([CanBeNull]this IQueryable<T> Source, [CanBeNull]string PropertyName)
+        public static IOrderedQueryable<T> OrderByDescending<T>([CanBeNull] this IQueryable<T> Source, [CanBeNull] string PropertyName)
             {
-            return OrderingHelper(Source, PropertyName, true, false);
+            return OrderingHelper(Source, PropertyName, Desc: true, AnotherLevel: false);
             }
 
-        public static IOrderedQueryable<T> ThenBy<T>([CanBeNull]this IOrderedQueryable<T> Source, [CanBeNull]string PropertyName)
+        public static IOrderedQueryable<T> ThenBy<T>([CanBeNull] this IOrderedQueryable<T> Source, [CanBeNull] string PropertyName)
             {
-            return OrderingHelper(Source, PropertyName, false, true);
+            return OrderingHelper(Source, PropertyName, Desc: false, AnotherLevel: true);
             }
 
-        public static IOrderedQueryable<T> ThenByDescending<T>([CanBeNull]this IOrderedQueryable<T> Source, [CanBeNull]string PropertyName)
+        public static IOrderedQueryable<T> ThenByDescending<T>([CanBeNull] this IOrderedQueryable<T> Source, [CanBeNull] string PropertyName)
             {
-            return OrderingHelper(Source, PropertyName, true, true);
+            return OrderingHelper(Source, PropertyName, Desc: true, AnotherLevel: true);
             }
 
         /// <exception cref="ApplicationException">Used * characters more than 2 times</exception>
         /// <exception cref="ApplicationException">Used ? character, it's not supported</exception>
-        public static Expression<Func<T, bool>> WhereFilter<T>([CanBeNull]this Expression<Func<T, string>> Selector, [CanBeNull]string Filter, [CanBeNull]string FieldName)
+        public static Expression<Func<T, bool>> WhereFilter<T>([CanBeNull] this Expression<Func<T, string>> Selector,
+            [CanBeNull] string Filter, [CanBeNull] string FieldName)
             {
             if (Filter == null)
                 return null;
@@ -309,7 +320,7 @@ namespace LMVC.Extensions
             if (Selector == null)
                 return null;
 
-            uint AsterixCount = EnumerableExt.Count(Filter, Char => Char.Equals('*'));
+            uint AsterixCount = EnumerableExt.Count(Filter, Char => Char.Equals(obj: '*'));
             if (AsterixCount > 2)
                 throw new ApplicationException(
                     $"Invalid filter used{(FieldName == null ? "" : $" for \'{FieldName}\'")}. '*' can maximum occur 2 times.");
@@ -323,8 +334,8 @@ namespace LMVC.Extensions
                 {
                 Filter = Filter.Replace("*", "");
                 return Expression.Lambda<Func<T, bool>>(
-                        Expression.Call(Selector.Body, "Contains", null, Expression.Constant(Filter)),
-                        Selector.Parameters[0]);
+                    Expression.Call(Selector.Body, "Contains", null, Expression.Constant(Filter)),
+                    Selector.Parameters[index: 0]);
                 }
 
             // *XX
@@ -332,8 +343,8 @@ namespace LMVC.Extensions
                 {
                 Filter = Filter.Replace("*", "");
                 return Expression.Lambda<Func<T, bool>>(
-                        Expression.Call(Selector.Body, "EndsWith", null, Expression.Constant(Filter)),
-                        Selector.Parameters[0]
+                    Expression.Call(Selector.Body, "EndsWith", null, Expression.Constant(Filter)),
+                    Selector.Parameters[index: 0]
                     );
                 }
 
@@ -342,23 +353,23 @@ namespace LMVC.Extensions
                 {
                 Filter = Filter.Replace("*", "");
                 return Expression.Lambda<Func<T, bool>>(
-                        Expression.Call(Selector.Body, "StartsWith", null, Expression.Constant(Filter)),
-                        Selector.Parameters[0]
+                    Expression.Call(Selector.Body, "StartsWith", null, Expression.Constant(Filter)),
+                    Selector.Parameters[index: 0]
                     );
                 }
 
             // X*X
             if (AsterixCount == 1 && Filter.Length > 2 && !Filter.StartsWith("*") && !Filter.EndsWith("*"))
                 {
-                string StartsWith = Filter.Sub(0, Filter.IndexOf('*'));
-                string EndsWith = Filter.Sub(Filter.IndexOf('*') + 1);
+                string StartsWith = Filter.Sub(Start: 0, Length: Filter.IndexOf(value: '*'));
+                string EndsWith = Filter.Sub(Filter.IndexOf(value: '*') + 1);
 
                 return
                     Expression.Lambda<Func<T, bool>>(
-                    Expression.And(
-                        Expression.Call(Selector.Body, "StartsWith", null, Expression.Constant(StartsWith)),
-                        Expression.Call(Selector.Body, "EndsWith", null, Expression.Constant(EndsWith))),
-                        Selector.Parameters[0]);
+                        Expression.And(
+                            Expression.Call(Selector.Body, "StartsWith", null, Expression.Constant(StartsWith)),
+                            Expression.Call(Selector.Body, "EndsWith", null, Expression.Constant(EndsWith))),
+                        Selector.Parameters[index: 0]);
                 }
 
             // XX
@@ -367,8 +378,8 @@ namespace LMVC.Extensions
                 return
                     Expression.Lambda<Func<T, bool>>(
                         Expression.Equal(Selector.Body, Expression.Constant(Filter)),
-                        Selector.Parameters[0]
-                    );
+                        Selector.Parameters[index: 0]
+                        );
                 }
 
             // *
@@ -382,11 +393,10 @@ namespace LMVC.Extensions
 
             // Empty string: all results
             return null;
-
             }
 
         /// <exception cref="ArgumentException">Property not found</exception>
-        public static IQueryable<T> FilterBy<T>([CanBeNull]this IQueryable<T> Query, SearchOperation Operation)
+        public static IQueryable<T> FilterBy<T>([CanBeNull] this IQueryable<T> Query, SearchOperation Operation)
             {
             if (string.IsNullOrEmpty(Operation.Property))
                 {
@@ -422,9 +432,9 @@ namespace LMVC.Extensions
 
                     var Attr = Meta.ModelType.GetAttribute<SearchColumnsAttribute>();
 
-                    string SearchColumn = Attr != null ?
-                        Attr.SearchColumns[0] :
-                        Meta.Properties.FirstOrDefault()?.PropertyName;
+                    string SearchColumn = Attr != null
+                        ? Attr.SearchColumns[0]
+                        : Meta.Properties.FirstOrDefault()?.PropertyName;
 
                     string[] FullProperties;
 
@@ -454,13 +464,13 @@ namespace LMVC.Extensions
                 Type.GetMembers().Where(Member => Member.Name.ToLower().StartsWith(Property)).ToList();
 
             if (Fields.Count == 1)
-                return Fields[0].Name;
+                return Fields[index: 0].Name;
             if (Fields.Count > 1)
                 {
                 List<MemberInfo> FieldsEqual = Fields.Where(Field => Field.Name.ToLower() == Property).ToList();
 
                 if (FieldsEqual.Count == 1)
-                    return FieldsEqual[0].Name;
+                    return FieldsEqual[index: 0].Name;
                 }
 
             return null;
@@ -471,9 +481,9 @@ namespace LMVC.Extensions
             var Param = Expression.Parameter(typeof(T), string.Empty);
             var Cast = Expression.TypeAs(Param, typeof(U));
 
-            var Lambda = Expression.Lambda(new SwapVisitor(Expr.Parameters[0], Cast).Visit(Expr.Body), Param);
+            var Lambda = Expression.Lambda(new SwapVisitor(Expr.Parameters[index: 0], Cast).Visit(Expr.Body), Param);
 
-            return (Expression<Func<T, V>>)Lambda;
+            return (Expression<Func<T, V>>) Lambda;
             }
 
         public static object FindByID(this DbSet Set, object ID)
@@ -531,18 +541,18 @@ namespace LMVC.Extensions
                 if (typeof(T).Meta(ControllerHelper.AutomaticFields.Active)?.ModelType == typeof(bool))
                     {
                     Expression<Func<T, bool>> Exp = typeof(T).GetExpression<T, bool>(ControllerHelper.AutomaticFields.Active);
-                    Expression Equal = Expression.Equal(Exp.Body, Expression.Constant(true));
-                    Expression Lambda = Expression.Lambda(Equal, Exp.Parameters[0]);
+                    Expression Equal = Expression.Equal(Exp.Body, Expression.Constant(value: true));
+                    Expression Lambda = Expression.Lambda(Equal, Exp.Parameters[index: 0]);
 
-                    Set = Set.Where((Expression<Func<T, bool>>)Lambda);
+                    Set = Set.Where((Expression<Func<T, bool>>) Lambda);
                     }
                 else if (typeof(T).Meta(ControllerHelper.AutomaticFields.Active)?.ModelType == typeof(bool?))
                     {
                     Expression<Func<T, bool?>> Exp = typeof(T).GetExpression<T, bool?>(ControllerHelper.AutomaticFields.Active);
-                    Expression Equal = Expression.Equal(Exp.Body, Expression.Constant(true));
-                    Expression Lambda = Expression.Lambda(Equal, Exp.Parameters[0]);
+                    Expression Equal = Expression.Equal(Exp.Body, Expression.Constant(value: true));
+                    Expression Lambda = Expression.Lambda(Equal, Exp.Parameters[index: 0]);
 
-                    Set = Set.Where((Expression<Func<T, bool>>)Lambda);
+                    Set = Set.Where((Expression<Func<T, bool>>) Lambda);
                     }
                 }
 

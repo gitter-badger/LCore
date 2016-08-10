@@ -67,8 +67,8 @@ namespace LCore.Tools
         public void Clear()
             {
             this.Status("");
-            this.Progress(0);
-            this.Maximum(0);
+            this.Progress(Progress: 0);
+            this.Maximum(Maximum: 0);
             }
         }
     }

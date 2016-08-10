@@ -261,7 +261,7 @@ namespace LCore.Tools
 
                 RootKey.CreateSubKey(RegistrySubKey, RegistryKeyPermissionCheck.ReadWriteSubTree);
 
-                this.Key = RootKey.OpenSubKey(RegistrySubKey, true);
+                this.Key = RootKey.OpenSubKey(RegistrySubKey, writable: true);
                 }
             }
         /*

@@ -58,7 +58,7 @@ namespace LMVC.Extensions
             if (Model == null)
                 return null;
 
-            var KeyProperty = Model.Properties().First(Prop => Prop.HasAttribute<KeyAttribute>(true));
+            var KeyProperty = Model.Properties().First(Prop => Prop.HasAttribute<KeyAttribute>(IncludeSubClasses: true));
 
             if (KeyProperty != null)
                 {
@@ -77,7 +77,7 @@ namespace LMVC.Extensions
             if (Model == null)
                 return false;
 
-            string KeyField = Model.Properties().First(Prop => Prop.HasAttribute<KeyAttribute>(true))?.PropertyName;
+            string KeyField = Model.Properties().First(Prop => Prop.HasAttribute<KeyAttribute>(IncludeSubClasses: true))?.PropertyName;
 
             var ID = Model.GetProperty(KeyField);
 
@@ -117,7 +117,7 @@ namespace LMVC.Extensions
             {
             string[] Lines = CSVData.Lines();
 
-            List<string[]> CSV = Lines.Convert(Line => Line.SplitWithQuotes(',').Array()).List();
+            List<string[]> CSV = Lines.Convert(Line => Line.SplitWithQuotes(SplitBy: ',').Array()).List();
 
             string[][] CSVArray = CSV.Array();
 
@@ -157,7 +157,7 @@ namespace LMVC.Extensions
         public static T CSVToModel<T>(this string CSVLine)
             where T : IModel
             {
-            string[] LineSplit = CSVLine.SplitWithQuotes(',').Array();
+            string[] LineSplit = CSVLine.SplitWithQuotes(SplitBy: ',').Array();
 
             return LineSplit.CSVToModel<T>();
             }
@@ -209,7 +209,7 @@ namespace LMVC.Extensions
                     continue;
 
                 if (Meta.HasAttribute<FieldDisableImportAttribute>() ||
-                    Meta.HasAttribute<KeyAttribute>(true))
+                    Meta.HasAttribute<KeyAttribute>(IncludeSubClasses: true))
                     continue;
 
                 var Convert = new StringConverter();
@@ -263,7 +263,7 @@ namespace LMVC.Extensions
             if (Model.HasProperty(ControllerHelper.AutomaticFields.Active) &&
                 Model.Meta(ControllerHelper.AutomaticFields.Active)?.ModelType == typeof(bool))
                 {
-                Model.SetProperty(ControllerHelper.AutomaticFields.Active, true);
+                Model.SetProperty(ControllerHelper.AutomaticFields.Active, PropertyValue: true);
                 }
 
             // Created field ////////////////////////////////////////////////////////
@@ -358,7 +358,7 @@ namespace LMVC.Extensions
                 {
                 if (Meta.IsReadOnly ||
                     Meta.HasAttribute<IDontClone>() ||
-                    Meta.HasAttribute<KeyAttribute>(true) ||
+                    Meta.HasAttribute<KeyAttribute>(IncludeSubClasses: true) ||
                     Meta.ModelType.HasInterface<IModel>())
                     continue;
 
@@ -367,7 +367,7 @@ namespace LMVC.Extensions
                 if (MetaT == null ||
                     MetaT.IsReadOnly ||
                     MetaT.HasAttribute<IDontClone>() ||
-                    MetaT.HasAttribute<KeyAttribute>(true))
+                    MetaT.HasAttribute<KeyAttribute>(IncludeSubClasses: true))
                     continue;
 
                 var Value = Model.GetProperty(Meta.PropertyName);

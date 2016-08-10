@@ -23,7 +23,7 @@ namespace LCore.Dynamic
 
         public override bool ExplodeMember(MemberInfo Member)
             {
-            return Member.HasAttribute(typeof(CodeExplodeGenerics), true);
+            return Member.HasAttribute(typeof(CodeExplodeGenerics), IncludeBaseClasses: true);
             }
 
         public Type[] GenericOutputTypes;

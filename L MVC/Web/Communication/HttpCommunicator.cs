@@ -50,7 +50,7 @@ namespace LMVC.Web
                                 }
 
                             byte[] Bytes = Item.Value.ToByteArray();
-                            BodyStream.Write(Bytes, 0, Bytes.Length);
+                            BodyStream.Write(Bytes, offset: 0, count: Bytes.Length);
 
 
                             Client.Headers[$"{Http_Header_Prefix}{Item.Name}_Length"] = Bytes.Length.ToString();

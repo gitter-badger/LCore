@@ -116,7 +116,7 @@ namespace LCore.LUnit
             this._Output.WriteLine($"Testing Assembly: {this.Assembly.GetName().Name}");
             this._Output.WriteLine("");
 
-            Type[] Types = this.AssemblyTypes.WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>(false).Array();
+            Type[] Types = this.AssemblyTypes.WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>(IncludeBaseTypes: false).Array();
 
             Type[] StaticTypes = Types.Select(Type => Type.IsStatic());
             Type[] NonStaticTypes = Types.Select(Type => Type.IsClass);
@@ -130,7 +130,7 @@ namespace LCore.LUnit
 
                     uint Coverage = TestData.CoveragePercent;
 
-                    this._Output.WriteLine($"{Type.FullyQualifiedName().Pad(60)}({$"{Coverage}".AlignRight(3)}%)");
+                    this._Output.WriteLine($"{Type.FullyQualifiedName().Pad(Length: 60)}({$"{Coverage}".AlignRight(Length: 3)}%)");
                     }
                 this._Output.WriteLine("");
                 }
@@ -160,7 +160,7 @@ namespace LCore.LUnit
 
             const string Attribute = nameof(Attribute);
 
-            Type[] Types = this.AssemblyTypes.WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>(false).Array();
+            Type[] Types = this.AssemblyTypes.WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>(IncludeBaseTypes: false).Array();
 
             uint NamespacesMissing = 0;
 
@@ -246,9 +246,8 @@ namespace LCore.LUnit
                                                 Member.Value.Item3 == MemberName).Key;
 
                                         if ( //TargetMember.HasAttribute<ITestedAttribute>() ||
-                                        TargetMember?.HasAttribute<ExcludeFromCodeCoverageAttribute>(true) == true ||
-                                        TargetMember?.DeclaringType?.HasAttribute<ExcludeFromCodeCoverageAttribute>(
-                                            true) == true)
+                                        TargetMember?.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) == true ||
+                                        TargetMember?.DeclaringType?.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) == true)
                                             return;
 
                                         StrongTypeTraitAttribute = !TargetMember.FullyQualifiedName().HasAny('`', '<', '>') &&
@@ -355,7 +354,7 @@ namespace LCore.LUnit
         /// 
         private void RunTests()
             {
-            Type[] Types = this.AssemblyTypes.WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>(false).Array();
+            Type[] Types = this.AssemblyTypes.WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>(IncludeBaseTypes: false).Array();
 
             if (Types.Length > 0)
                 {
@@ -426,7 +425,7 @@ namespace LCore.LUnit
                 if (Method.ContainsGenericParameters)
                     {
                     var Generics =
-                        Member.GetAttributes<ITestMethodGenericsAttribute>(true)
+                        Member.GetAttributes<ITestMethodGenericsAttribute>(IncludeBaseTypes: true)
                             .Select(Attr => !Attr.GenericTypes.IsEmpty())
                             .First();
 
@@ -489,7 +488,7 @@ namespace LCore.LUnit
         // ReSharper disable once SuggestBaseTypeForParameter
         private void TestTypeDeclarationAttributes(Type Type)
             {
-            Type.GetAttributes<ILUnitAttribute>(true).Each(
+            Type.GetAttributes<ILUnitAttribute>(IncludeBaseTypes: true).Each(
                 (i, AttrTest) => this.TestAttribute(AttrTest, Type, i + 1));
             }
 
@@ -504,7 +503,7 @@ namespace LCore.LUnit
 
             foreach (var Method in Methods)
                 {
-                bool MethodCanBeNull = Method.HasAttribute<CanBeNullAttribute>(false);
+                bool MethodCanBeNull = Method.HasAttribute<CanBeNullAttribute>(IncludeBaseClasses: false);
 
                 var TheMethod = Method;
 
@@ -560,7 +559,7 @@ namespace LCore.LUnit
                 ParameterInfo[] Parameters = TheMethod.GetParameters();
 
                 bool[] ParametersCanBeNull = Parameters.Convert(
-                    Param => Param.HasAttribute<CanBeNullAttribute>(false));
+                    Param => Param.HasAttribute<CanBeNullAttribute>(IncludeBaseClasses: false));
 
                 int ParameterCount = Parameters.Length;
 
@@ -607,7 +606,7 @@ namespace LCore.LUnit
                             {
                                 try
                                     {
-                                    var Result = TheMethod.Invoke(null, Params);
+                                    var Result = TheMethod.Invoke(obj: null, parameters: Params);
 
                                     if (!NullsAllowedForParameter && ParameterIsNullable)
                                         {
@@ -647,13 +646,13 @@ namespace LCore.LUnit
                                     }
 
                                 Finished = true;
-                            }).Async(300)();
+                            }).Async(TimeLimitMilliseconds: 300)();
 
                         uint Waited = 0;
 
                         while (Waited < 300)
                             {
-                            Thread.Sleep(1);
+                            Thread.Sleep(millisecondsTimeout: 1);
                             Waited += 1;
 
                             if (Finished)
@@ -676,7 +675,7 @@ namespace LCore.LUnit
 
             if (Tested > 0)
                 this._Output.WriteLine(
-                    $"{Type.FullyQualifiedName()}".Pad(30) + $"Ran {Tested} Nullability {"Test".Pluralize(Tested)}");
+                    $"{Type.FullyQualifiedName()}".Pad(Length: 30) + $"Ran {Tested} Nullability {"Test".Pluralize(Tested)}");
             }
 
         #region Virtual Assertions
@@ -834,7 +833,7 @@ namespace LCore.LUnit
         public void TestFailure01()
             {
             this.PerformTestsOnce();
-            this.ThrowException(0);
+            this.ThrowException(Number: 0);
             }
 
         /// <summary>
@@ -844,7 +843,7 @@ namespace LCore.LUnit
         public void TestFailure02()
             {
             this.PerformTestsOnce();
-            this.ThrowException(1);
+            this.ThrowException(Number: 1);
             }
 
         /// <summary>
@@ -854,7 +853,7 @@ namespace LCore.LUnit
         public void TestFailure03()
             {
             this.PerformTestsOnce();
-            this.ThrowException(2);
+            this.ThrowException(Number: 2);
             }
 
         /// <summary>
@@ -864,7 +863,7 @@ namespace LCore.LUnit
         public void TestFailure04()
             {
             this.PerformTestsOnce();
-            this.ThrowException(3);
+            this.ThrowException(Number: 3);
             }
 
         /// <summary>
@@ -874,7 +873,7 @@ namespace LCore.LUnit
         public void TestFailure05()
             {
             this.PerformTestsOnce();
-            this.ThrowException(4);
+            this.ThrowException(Number: 4);
             }
 
         /// <summary>
@@ -884,7 +883,7 @@ namespace LCore.LUnit
         public void TestFailure06()
             {
             this.PerformTestsOnce();
-            this.ThrowException(5);
+            this.ThrowException(Number: 5);
             }
 
         /// <summary>
@@ -894,7 +893,7 @@ namespace LCore.LUnit
         public void TestFailure07()
             {
             this.PerformTestsOnce();
-            this.ThrowException(6);
+            this.ThrowException(Number: 6);
             }
 
         /// <summary>
@@ -904,7 +903,7 @@ namespace LCore.LUnit
         public void TestFailure08()
             {
             this.PerformTestsOnce();
-            this.ThrowException(7);
+            this.ThrowException(Number: 7);
             }
 
         /// <summary>
@@ -914,7 +913,7 @@ namespace LCore.LUnit
         public void TestFailure09()
             {
             this.PerformTestsOnce();
-            this.ThrowException(8);
+            this.ThrowException(Number: 8);
             }
 
         /// <summary>
@@ -924,7 +923,7 @@ namespace LCore.LUnit
         public void TestFailure10()
             {
             this.PerformTestsOnce();
-            this.ThrowException(9);
+            this.ThrowException(Number: 9);
             }
 
         #endregion

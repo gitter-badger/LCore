@@ -96,7 +96,7 @@ namespace LMVC.Models
                         {
                         Out.Add(Str);
                         }
-                    else if (Meta.HasAttribute<KeyAttribute>(true))
+                    else if (Meta.HasAttribute<KeyAttribute>(IncludeSubClasses: true))
                         {
                         // Hide Column because of Primary Key
                         }

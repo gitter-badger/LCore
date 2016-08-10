@@ -59,7 +59,7 @@ namespace LMVC.Extensions
             {
             var Member = Ex.Body as MemberExpression;
 
-            return Member?.Member.HasAttribute<TAttribute>(false) == true;
+            return Member?.Member.HasAttribute<TAttribute>(IncludeBaseClasses: false) == true;
             }
 
         public static TAttribute GetAttribute<TModel, TProperty, TAttribute>(this HtmlHelper<TModel> HTML, Expression<Func<TModel, TProperty>> Ex)
@@ -67,7 +67,7 @@ namespace LMVC.Extensions
             {
             var Member = Ex.Body as MemberExpression;
             
-            return Member?.Member.GetAttribute<TAttribute>(false);
+            return Member?.Member.GetAttribute<TAttribute>(IncludeBaseTypes: false);
             }
         }
     }
