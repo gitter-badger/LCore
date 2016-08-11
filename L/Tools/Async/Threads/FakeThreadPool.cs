@@ -57,8 +57,10 @@ namespace LCore.Threads
 
                     lock (this.ThreadsWaiting)
                         {
-                        FirstThread = this.ThreadsWaiting.Min(Thread => Thread.TaskId != LastResumedTask ? Thread.ResumeTime : DateTime.MaxValue) ??
-                                this.ThreadsWaiting.Min(Thread => Thread.ResumeTime);
+                        FirstThread = this.ThreadsWaiting.Min(Thread => Thread.TaskId != LastResumedTask
+                            ? Thread.ResumeTime
+                            : DateTime.MaxValue) ??
+                                      this.ThreadsWaiting.Min(Thread => Thread.ResumeTime);
 
                         if (FirstThread != null)
                             {
@@ -85,10 +87,7 @@ namespace LCore.Threads
 
                     bool Continue = false;
 
-                    FirstThread.YieldTask.GetAwaiter().OnCompleted(() =>
-                        {
-                            Continue = true;
-                        });
+                    FirstThread?.YieldTask.GetAwaiter().OnCompleted(() => { Continue = true; });
 
                     int TaskCount = this.ThreadsWaiting.Count;
 
@@ -99,8 +98,10 @@ namespace LCore.Threads
                         }
 
                     this.FinishedThreads++;
+
+                    await Task.Delay(WaitIncrement);
                     }
-                catch (Exception Ex) { }
+                catch (Exception) {}
                 }
             }
 
@@ -118,6 +119,11 @@ namespace LCore.Threads
 
 
         public async Task Delay(int Milliseconds)
+            {
+            await this.Delay(TimeSpan.FromMilliseconds(Milliseconds));
+            }
+
+        public async Task Delay(uint Milliseconds)
             {
             await this.Delay(TimeSpan.FromMilliseconds(Milliseconds));
             }
@@ -170,15 +176,15 @@ namespace LCore.Threads
         public DateTime StartTime { get; }
 
         public YieldAwaitable YieldTask { get; }
-        public System.Threading.Thread TaskThread { get; }
+        public Thread TaskThread { get; }
 
-        public int? TaskId { get; set; }
+        public int? TaskId { get; }
 
         public TimeSpan DurationWaited => this.ResumeTime - this.StartTime;
 
         public ThreadSpinner(FakeThreadPool Pool, DateTime ResumeTime)
             {
-            this.TaskThread = System.Threading.Thread.CurrentThread;
+            this.TaskThread = Thread.CurrentThread;
             this.YieldTask = Task.Yield();
             this.TaskId = Task.CurrentId;
             this.StartTime = Pool.GetCurrentTime();
