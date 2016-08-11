@@ -11,45 +11,17 @@ using Xunit.Abstractions;
 namespace L_Tests.LCore.Numbers
     {
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(LongNumber))]
-    public partial class LongNumberTester : XUnitOutputTester
+    public partial class LongNumberTester : XUnitOutputTester, IDisposable
         {
         public LongNumberTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
-        ~LongNumberTester() { }
+        public void Dispose() { }
 
         [Fact]
         [Trait(Traits.TargetMember, "LCore.Numbers.LongNumber.op_Implicit")]
         public void op_Implicit()
             {
             // TODO: Implement method test LCore.Numbers.LongNumber.op_Implicit
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(LongNumber) + "." + nameof(LongNumber.TypePrecision))]
-        public void get_TypePrecision()
-            {
-            // TODO: Implement method test LCore.Numbers.LongNumber.get_TypePrecision
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(LongNumber) + "." + nameof(LongNumber.TypeMinValue))]
-        public void get_TypeMinValue()
-            {
-            // TODO: Implement method test LCore.Numbers.LongNumber.get_TypeMinValue
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(LongNumber) + "." + nameof(LongNumber.TypeMaxValue))]
-        public void get_TypeMaxValue()
-            {
-            // TODO: Implement method test LCore.Numbers.LongNumber.get_TypeMaxValue
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(LongNumber) + "." + nameof(LongNumber.TypeDefaultValue))]
-        public void get_TypeDefaultValue()
-            {
-            // TODO: Implement method test LCore.Numbers.LongNumber.get_TypeDefaultValue
             }
 
         [Fact]
@@ -92,34 +64,6 @@ namespace L_Tests.LCore.Numbers
         public void New_Int64_Number_1()
             {
             // TODO: Implement method test LCore.Numbers.LongNumber.New
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(LongNumber) + "." + nameof(LongNumber.TypePrecision))]
-        public void TypePrecision()
-            {
-            // TODO: Implement method test LCore.Numbers.LongNumber.TypePrecision
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(LongNumber) + "." + nameof(LongNumber.TypeMinValue))]
-        public void TypeMinValue()
-            {
-            // TODO: Implement method test LCore.Numbers.LongNumber.TypeMinValue
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(LongNumber) + "." + nameof(LongNumber.TypeMaxValue))]
-        public void TypeMaxValue()
-            {
-            // TODO: Implement method test LCore.Numbers.LongNumber.TypeMaxValue
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(LongNumber) + "." + nameof(LongNumber.TypeDefaultValue))]
-        public void TypeDefaultValue()
-            {
-            // TODO: Implement method test LCore.Numbers.LongNumber.TypeDefaultValue
             }
 
         }

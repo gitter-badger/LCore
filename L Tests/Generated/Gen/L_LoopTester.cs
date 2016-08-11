@@ -11,11 +11,11 @@ using Xunit.Abstractions;
 namespace L_Tests.LCore.Extensions
     {
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L))]
-    public partial class L_LoopTester : XUnitOutputTester
+    public partial class L_LoopTester : XUnitOutputTester, IDisposable
         {
         public L_LoopTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
-        ~L_LoopTester() { }
+        public void Dispose() { }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Loop) + "." + nameof(L.Loop.While_T))]

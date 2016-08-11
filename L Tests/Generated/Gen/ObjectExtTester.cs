@@ -7,139 +7,48 @@ using Xunit;
 using Xunit.Abstractions;
 // ReSharper disable PartialTypeWithSinglePart
 
-namespace L_Tests.LCore.Extensions.Optional
+namespace L_Tests.LCore.Extensions
     {
-    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt))]
-    public partial class ObjectExtTester : XUnitOutputTester
+    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.ObjectExt))]
+    public partial class ObjectExtTester : XUnitOutputTester, IDisposable
         {
         public ObjectExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
-        ~ObjectExtTester() { }
+        public void Dispose() { }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.CopyFieldsTo))]
-        public void CopyFieldsTo_T_Object()
-            {
-            // TODO: Implement method test LCore.Extensions.Optional.ObjectExt.CopyFieldsTo
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.CopyFieldsTo))]
-        public void CopyFieldsTo_T_Object_Dictionary_2()
-            {
-            // TODO: Implement method test LCore.Extensions.Optional.ObjectExt.CopyFieldsTo
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.CopyFieldsTo))]
-        public void CopyFieldsTo_T_Object_Func_2()
-            {
-            // TODO: Implement method test LCore.Extensions.Optional.ObjectExt.CopyFieldsTo
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.Details))]
-        public void Details()
-            {
-            // TODO: Implement method test LCore.Extensions.Optional.ObjectExt.Details
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.FN_CreateArray))]
-        public void FN_CreateArray_T_Func_1()
-            {
-            // TODO: Implement method test LCore.Extensions.Optional.ObjectExt.FN_CreateArray
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.FN_CreateArray))]
-        public void FN_CreateArray_T_Int32_Func_1()
-            {
-            // TODO: Implement method test LCore.Extensions.Optional.ObjectExt.FN_CreateArray
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.FN_CreateList))]
-        public void FN_CreateList_T_Func_1()
-            {
-            // TODO: Implement method test LCore.Extensions.Optional.ObjectExt.FN_CreateList
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.FN_CreateList))]
-        public void FN_CreateList_T_Int32_Func_1()
-            {
-            // TODO: Implement method test LCore.Extensions.Optional.ObjectExt.FN_CreateList
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.FN_Func))]
-        public void FN_Func()
-            {
-            // TODO: Implement method test LCore.Extensions.Optional.ObjectExt.FN_Func
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.FN_If))]
-        public void FN_If()
-            {
-            // TODO: Implement method test LCore.Extensions.Optional.ObjectExt.FN_If
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.InitProperties))]
-        public void InitProperties()
-            {
-            // TODO: Implement method test LCore.Extensions.Optional.ObjectExt.InitProperties
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.IsNull))]
-        public void IsNull()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.ObjectExt) + "." + nameof(global::LCore.Extensions.ObjectExt.HasProperty))]
+        public void HasProperty()
             {
             // Attribute Tests Implemented
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.SafeEquals))]
-        public void SafeEquals()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.ObjectExt) + "." + nameof(global::LCore.Extensions.ObjectExt.Objects_ToString))]
+        public void Objects_ToString()
             {
-            // TODO: Implement method test LCore.Extensions.Optional.ObjectExt.SafeEquals
+            // Attribute Tests Implemented
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.SupplyTo))]
-        public void SupplyTo_T_Action_1_Action()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.ObjectExt) + "." + nameof(global::LCore.Extensions.ObjectExt.GetProperty))]
+        public void GetProperty()
             {
-            // TODO: Implement method test LCore.Extensions.Optional.ObjectExt.SupplyTo
+            // TODO: Implement method test LCore.Extensions.ObjectExt.GetProperty
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.SupplyTo))]
-        public void SupplyTo_T_Func_2_Func_1()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.ObjectExt) + "." + nameof(global::LCore.Extensions.ObjectExt.SetProperty))]
+        public void SetProperty()
             {
-            // TODO: Implement method test LCore.Extensions.Optional.ObjectExt.SupplyTo
+            // TODO: Implement method test LCore.Extensions.ObjectExt.SetProperty
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.ToS))]
-        public void ToS()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.ObjectExt) + "." + nameof(global::LCore.Extensions.ObjectExt.Type))]
+        public void Type()
             {
-            // TODO: Implement method test LCore.Extensions.Optional.ObjectExt.ToS
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.Traverse))]
-        public void Traverse_Object_Func_2()
-            {
-            // TODO: Implement method test LCore.Extensions.Optional.ObjectExt.Traverse
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.Traverse))]
-        public void Traverse_T_Func_2()
-            {
-            // TODO: Implement method test LCore.Extensions.Optional.ObjectExt.Traverse
+            // Attribute Tests Implemented
             }
 
         }

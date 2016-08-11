@@ -11,11 +11,11 @@ using Xunit.Abstractions;
 namespace L_Tests.LCore.Extensions
     {
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ComparableExt))]
-    public partial class ComparableExtTester : XUnitOutputTester
+    public partial class ComparableExtTester : XUnitOutputTester, IDisposable
         {
         public ComparableExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
-        ~ComparableExtTester() { }
+        public void Dispose() { }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ComparableExt) + "." + nameof(ComparableExt.IsEqualTo))]
@@ -61,14 +61,28 @@ namespace L_Tests.LCore.Extensions
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ComparableExt) + "." + nameof(ComparableExt.Max))]
-        public void Max()
+        public void Max_T_TArray_T()
+            {
+            // TODO: Implement method test LCore.Extensions.ComparableExt.Max
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ComparableExt) + "." + nameof(ComparableExt.Max))]
+        public void Max_IEnumerable_1_Func_2_T()
             {
             // TODO: Implement method test LCore.Extensions.ComparableExt.Max
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ComparableExt) + "." + nameof(ComparableExt.Min))]
-        public void Min()
+        public void Min_T_TArray_T()
+            {
+            // TODO: Implement method test LCore.Extensions.ComparableExt.Min
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ComparableExt) + "." + nameof(ComparableExt.Min))]
+        public void Min_IEnumerable_1_Func_2_T()
             {
             // TODO: Implement method test LCore.Extensions.ComparableExt.Min
             }

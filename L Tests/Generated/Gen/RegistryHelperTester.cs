@@ -11,11 +11,11 @@ using Xunit.Abstractions;
 namespace L_Tests.LCore.Tools
     {
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper))]
-    public partial class RegistryHelperTester : XUnitOutputTester
+    public partial class RegistryHelperTester : XUnitOutputTester, IDisposable
         {
         public RegistryHelperTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
-        ~RegistryHelperTester() { }
+        public void Dispose() { }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.RemoveAll))]

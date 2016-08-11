@@ -151,10 +151,16 @@ namespace LCore.Extensions
             return Out;
             }
 
-        public static T Max<T>([CanBeNull] this IEnumerable<T> In, Func<T, IComparable> Comparer)
+        /// <summary>
+        /// Returns the Item which causes <paramref name="Comparer"/> to return the greatest IComparable value.
+        /// </summary>
+        public static T Max<T>([CanBeNull] this IEnumerable<T> In, [CanBeNull] Func<T, IComparable> Comparer)
             {
             var Out = default(T);
             IComparable CompareValue = null;
+
+            if (Comparer == null)
+                return Out;
 
             if (In != null)
                 {
@@ -197,11 +203,17 @@ namespace LCore.Extensions
             return Out;
             }
 
+        /// <summary>
+        /// Returns the Item which causes <paramref name="Comparer"/> to return the smallest IComparable value.
+        /// </summary>
         [CanBeNull]
-        public static T Min<T>([CanBeNull] this IEnumerable<T> In, Func<T, IComparable> Comparer)
+        public static T Min<T>([CanBeNull] this IEnumerable<T> In, [CanBeNull] Func<T, IComparable> Comparer)
             {
             var Out = default(T);
             IComparable CompareValue = null;
+
+            if (Comparer == null)
+                return Out;
 
             if (In != null)
                 {

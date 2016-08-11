@@ -11,11 +11,11 @@ using Xunit.Abstractions;
 namespace L_Tests.LCore.Tools
     {
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(ExceptionList))]
-    public partial class ExceptionListTester : XUnitOutputTester
+    public partial class ExceptionListTester : XUnitOutputTester, IDisposable
         {
         public ExceptionListTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
-        ~ExceptionListTester() { }
+        public void Dispose() { }
 
         [Fact]
         [Trait(Traits.TargetMember, "LCore.Tools.ExceptionList.op_Implicit")]
@@ -43,48 +43,6 @@ namespace L_Tests.LCore.Tools
         public void op_Implicit_List_1_ExceptionList()
             {
             // TODO: Implement method test LCore.Tools.ExceptionList.op_Implicit
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(ExceptionList) + "." + nameof(ExceptionList.Exceptions))]
-        public void get_Exceptions()
-            {
-            // TODO: Implement method test LCore.Tools.ExceptionList.get_Exceptions
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(ExceptionList) + "." + nameof(ExceptionList.Message))]
-        public void get_Message()
-            {
-            // TODO: Implement method test LCore.Tools.ExceptionList.get_Message
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(ExceptionList) + "." + nameof(ExceptionList.StackTrace))]
-        public void get_StackTrace()
-            {
-            // TODO: Implement method test LCore.Tools.ExceptionList.get_StackTrace
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(ExceptionList) + "." + nameof(ExceptionList.Exceptions))]
-        public void Exceptions()
-            {
-            // TODO: Implement method test LCore.Tools.ExceptionList.Exceptions
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(ExceptionList) + "." + nameof(ExceptionList.Message))]
-        public void Message()
-            {
-            // TODO: Implement method test LCore.Tools.ExceptionList.Message
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(ExceptionList) + "." + nameof(ExceptionList.StackTrace))]
-        public void StackTrace()
-            {
-            // TODO: Implement method test LCore.Tools.ExceptionList.StackTrace
             }
 
         }

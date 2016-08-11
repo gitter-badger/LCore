@@ -11,25 +11,11 @@ using Xunit.Abstractions;
 namespace L_Tests.LCore.Extensions
     {
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L))]
-    public partial class L_FileTester : XUnitOutputTester
+    public partial class L_FileTester : XUnitOutputTester, IDisposable
         {
         public L_FileTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
-        ~L_FileTester() { }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.File) + "." + nameof(L.File.BufferedMoveProgress))]
-        public void add_BufferedMoveProgress()
-            {
-            // TODO: Implement method test LCore.Extensions.L.File.add_BufferedMoveProgress
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.File) + "." + nameof(L.File.BufferedMoveProgress))]
-        public void remove_BufferedMoveProgress()
-            {
-            // TODO: Implement method test LCore.Extensions.L.File.remove_BufferedMoveProgress
-            }
+        public void Dispose() { }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.File) + "." + nameof(L.File.BufferedMove))]

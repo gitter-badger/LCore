@@ -11,11 +11,11 @@ using Xunit.Abstractions;
 namespace L_Tests.LCore.Extensions
     {
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt))]
-    public partial class EnumerableExtTester : XUnitOutputTester
+    public partial class EnumerableExtTester : XUnitOutputTester, IDisposable
         {
         public EnumerableExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
-        ~EnumerableExtTester() { }
+        public void Dispose() { }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.RemoveDuplicates))]
@@ -169,6 +169,13 @@ namespace L_Tests.LCore.Extensions
         public void Sort_IList_1_Func_2()
             {
             // TODO: Implement method test LCore.Extensions.EnumerableExt.Sort
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Sum))]
+        public void Sum()
+            {
+            // TODO: Implement method test LCore.Extensions.EnumerableExt.Sum
             }
 
         [Fact]

@@ -17,6 +17,7 @@ using Xunit.Abstractions;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.Tools;
+
 // ReSharper disable PartialTypeWithSinglePart
 // ReSharper disable EmptyDestructor
 // ReSharper disable NotAccessedVariable
@@ -24,33 +25,12 @@ using LCore.Tools;
 namespace L_Tests.LCore.Threads
     {
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(FakeThreadPool))]
-    public partial class FakeThreadPoolTester : XUnitOutputTester
+    public partial class FakeThreadPoolTester : XUnitOutputTester, IDisposable
         {
         public FakeThreadPoolTester([NotNull] ITestOutputHelper Output) : base(Output) {}
 
-        ~FakeThreadPoolTester() {}
+        public void Dispose() {}
 
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(FakeThreadPool) + "." + nameof(FakeThreadPool.GetCurrentTime)
-            )]
-        public void GetCurrentTime()
-            {
-            // TODO: Implement method test LCore.Threads.FakeThreadPool.GetCurrentTime
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(FakeThreadPool) + "." + nameof(FakeThreadPool.Delay))]
-        public void Delay_Int32_Task()
-            {
-            // TODO: Implement method test LCore.Threads.FakeThreadPool.Delay
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(FakeThreadPool) + "." + nameof(FakeThreadPool.Delay))]
-        public void Delay_TimeSpan_Task()
-            {
-            // TODO: Implement method test LCore.Threads.FakeThreadPool.Delay
-            }
 
         [Fact]
         public async void SimpleTest()
@@ -163,7 +143,7 @@ namespace L_Tests.LCore.Threads
                 while (Handoff < Target)
                     {
                     while (Handoff%3 != 0)
-                        await Pool.Delay(Milliseconds: SmallDelay);
+                        await Pool.Delay(SmallDelay);
 
                     (Handoff%3).Should().Be(expected: 0);
                     Handoff++;
@@ -175,7 +155,7 @@ namespace L_Tests.LCore.Threads
                 while (Handoff < Target)
                     {
                     while (Handoff%3 != 1)
-                        await Pool.Delay(Milliseconds: SmallDelay);
+                        await Pool.Delay(SmallDelay);
 
                     (Handoff%3).Should().Be(expected: 1);
                     Handoff++;
@@ -187,7 +167,7 @@ namespace L_Tests.LCore.Threads
                 while (Handoff < Target)
                     {
                     while (Handoff%3 != 2)
-                        await Pool.Delay(Milliseconds: SmallDelay);
+                        await Pool.Delay(SmallDelay);
 
                     (Handoff%3).Should().Be(expected: 2);
                     Handoff++;
@@ -216,7 +196,7 @@ namespace L_Tests.LCore.Threads
             List<ThreadSpinner> Results = Pool.GetThreadHistory();
 
             Results.Count.Should().BeGreaterOrEqualTo(expected: 3);
-            Handoff.Should().BeGreaterOrEqualTo(expected: Target);
+            Handoff.Should().BeGreaterOrEqualTo(Target);
 
             History.Should().Equal("Task2", "Task3", "Task4", "Task2", "Task3", "Task4",
                 "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4",
@@ -243,42 +223,6 @@ namespace L_Tests.LCore.Threads
             //TotalFakeWaited.Should().BeGreaterThan(LargeDelay);
 
             this._Output.WriteLine($"Tasks Fake-Waited: {TimeSpan.FromMilliseconds(TotalFakeWaited).ToTimeString()} over {Results.Count} {"Delay".Pluralize(Results.Count)}");
-            }
-        }
-
-    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(ThreadSpinner))]
-    public partial class ThreadSpinnerTester : XUnitOutputTester
-        {
-        public ThreadSpinnerTester([NotNull] ITestOutputHelper Output) : base(Output) {}
-
-        ~ThreadSpinnerTester() {}
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(ThreadSpinner) + "." + nameof(ThreadSpinner.ResumeTime))]
-        public void get_ResumeTime()
-            {
-            // TODO: Implement method test LCore.Threads.ThreadSpinner.get_StartTime
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(ThreadSpinner) + "." + nameof(ThreadSpinner.Wait))]
-        public void Wait()
-            {
-            // TODO: Implement method test LCore.Threads.ThreadSpinner.Wait
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(ThreadSpinner) + "." + nameof(ThreadSpinner.StopWaiting))]
-        public void StopWaiting()
-            {
-            // TODO: Implement method test LCore.Threads.ThreadSpinner.StopWaiting
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(ThreadSpinner) + "." + nameof(ThreadSpinner.ResumeTime))]
-        public void StartTime()
-            {
-            // TODO: Implement method test LCore.Threads.ThreadSpinner.StartTime
             }
         }
     }

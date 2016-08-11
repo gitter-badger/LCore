@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Threading.Tasks;
 using LCore.Extensions;
 
@@ -12,6 +11,7 @@ namespace LCore.Threads
     {
     public class FakeThreadPool
         {
+        // ReSharper disable once UnusedAutoPropertyAccessor.Local
         private Task _WatcherTask { get; }
         private bool CancelWatcher { get; set; }
 
@@ -30,7 +30,7 @@ namespace LCore.Threads
             this.CancelWatcher = true;
             }
 
-        protected DateTime StartTime { get; set; }
+        protected DateTime StartTime { get; }
 
         protected DateTime CurrentTime { get; set; }
 
@@ -49,8 +49,6 @@ namespace LCore.Threads
                     while (this.ThreadsWaiting.Count == 0)
                         await Task.Delay(WaitIncrement);
 
-                    YieldAwaitable.YieldAwaiter Awaiter;
-                    System.Threading.Thread TaskThread = null;
                     ThreadSpinner FirstThread;
 
                     int? LastResumedTask = int.MinValue;
@@ -79,9 +77,6 @@ namespace LCore.Threads
                                 {
                                 this.ThreadHistory.Add(FirstThread);
                                 }
-
-                            Awaiter = FirstThread.YieldTask.GetAwaiter();
-                            TaskThread = FirstThread.TaskThread;
                             }
                         }
 
@@ -176,7 +171,6 @@ namespace LCore.Threads
         public DateTime StartTime { get; }
 
         public YieldAwaitable YieldTask { get; }
-        public Thread TaskThread { get; }
 
         public int? TaskId { get; }
 
@@ -184,7 +178,6 @@ namespace LCore.Threads
 
         public ThreadSpinner(FakeThreadPool Pool, DateTime ResumeTime)
             {
-            this.TaskThread = Thread.CurrentThread;
             this.YieldTask = Task.Yield();
             this.TaskId = Task.CurrentId;
             this.StartTime = Pool.GetCurrentTime();

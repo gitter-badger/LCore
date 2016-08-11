@@ -11,11 +11,11 @@ using Xunit.Abstractions;
 namespace L_Tests.LCore.Extensions
     {
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L))]
-    public partial class L_LogicTester : XUnitOutputTester
+    public partial class L_LogicTester : XUnitOutputTester, IDisposable
         {
         public L_LogicTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
-        ~L_LogicTester() { }
+        public void Dispose() { }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Logic) + "." + nameof(L.Logic.New))]
@@ -1212,13 +1212,6 @@ namespace L_Tests.LCore.Extensions
         public void Cache_T_Func_1_T()
             {
             // TODO: Implement method test LCore.Extensions.L.Logic.Cache
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Logic) + "." + nameof(L.Logic.DataCaches))]
-        public void get_DataCaches()
-            {
-            // TODO: Implement method test LCore.Extensions.L.Logic.get_DataCaches
             }
 
         [Fact]

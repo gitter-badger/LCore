@@ -11,11 +11,11 @@ using Xunit.Abstractions;
 namespace L_Tests.LCore.Tools
     {
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(ProgressUpdater))]
-    public partial class ProgressUpdaterTester : XUnitOutputTester
+    public partial class ProgressUpdaterTester : XUnitOutputTester, IDisposable
         {
         public ProgressUpdaterTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
-        ~ProgressUpdaterTester() { }
+        public void Dispose() { }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(ProgressUpdater) + "." + nameof(ProgressUpdater.Status))]

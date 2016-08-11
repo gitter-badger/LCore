@@ -11,25 +11,11 @@ using Xunit.Abstractions;
 namespace L_Tests.LCore.Tools
     {
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(DateTimeConverter))]
-    public partial class DateTimeConverterTester : XUnitOutputTester
+    public partial class DateTimeConverterTester : XUnitOutputTester, IDisposable
         {
         public DateTimeConverterTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
-        ~DateTimeConverterTester() { }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(DateTimeConverter) + "." + nameof(DateTimeConverter.Rfc3339DateTimeFormat))]
-        public void get_Rfc3339DateTimeFormat()
-            {
-            // TODO: Implement method test LCore.Tools.DateTimeConverter.get_Rfc3339DateTimeFormat
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(DateTimeConverter) + "." + nameof(DateTimeConverter.Rfc3339DateTimePatterns))]
-        public void get_Rfc3339DateTimePatterns()
-            {
-            // TODO: Implement method test LCore.Tools.DateTimeConverter.get_Rfc3339DateTimePatterns
-            }
+        public void Dispose() { }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(DateTimeConverter) + "." + nameof(DateTimeConverter.Parse))]

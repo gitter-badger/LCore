@@ -52,7 +52,7 @@ namespace LCore.Tests.Extensions
             Thread.Sleep(millisecondsTimeout: 40);
             lock (TestAction)
                 {
-                TestAction.Async(TimeLimitMilliseconds: 10)();
+                TestAction.Async(TimeLimitMilliseconds: 20)();
                 Success.Should().BeFalse();
 
                 Thread.Sleep(millisecondsTimeout: 40);

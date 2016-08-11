@@ -10,32 +10,11 @@ using Xunit.Abstractions;
 namespace L_Tests.LCore.Tools
     {
     [Trait(Traits.TargetMember, "LCore.Tools.Lists`2")]
-    public partial class Lists_2Tester : XUnitOutputTester
+    public partial class Lists_2Tester : XUnitOutputTester, IDisposable
         {
         public Lists_2Tester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
-        ~Lists_2Tester() { }
-
-        [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists`2.get_List1")]
-        public void get_List1()
-            {
-            // TODO: Implement method test LCore.Tools.Lists`2.get_List1
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists`2.get_List2")]
-        public void get_List2()
-            {
-            // TODO: Implement method test LCore.Tools.Lists`2.get_List2
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists`2.get_Count")]
-        public void get_Count()
-            {
-            // TODO: Implement method test LCore.Tools.Lists`2.get_Count
-            }
+        public void Dispose() { }
 
         [Fact]
         [Trait(Traits.TargetMember, "LCore.Tools.Lists`2.Add")]
@@ -77,27 +56,6 @@ namespace L_Tests.LCore.Tools
         public void RemoveAt()
             {
             // TODO: Implement method test LCore.Tools.Lists`2.RemoveAt
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists`2.List1")]
-        public void List1()
-            {
-            // TODO: Implement method test LCore.Tools.Lists`2.List1
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists`2.List2")]
-        public void List2()
-            {
-            // TODO: Implement method test LCore.Tools.Lists`2.List2
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists`2.Count")]
-        public void Count()
-            {
-            // TODO: Implement method test LCore.Tools.Lists`2.Count
             }
 
         }

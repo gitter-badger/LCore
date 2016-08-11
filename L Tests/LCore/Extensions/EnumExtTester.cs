@@ -6,6 +6,7 @@ using LCore.LUnit;
 using LCore.Naming;
 using Xunit;
 using Xunit.Abstractions;
+// ReSharper disable RedundantExtendsListEntry
 
 namespace L_Tests.LCore.Extensions
     {
@@ -55,9 +56,23 @@ namespace L_Tests.LCore.Extensions
             }
 
 
-       
 
 
+
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumExt) + "." + nameof(EnumExt.ParseEnum))]
+        public void ParseEnum_String_Nullable_1()
+            {
+            // Attribute Tests Implemented
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumExt) + "." + nameof(EnumExt.ParseEnum))]
+        public void ParseEnum_Enum_Nullable_1()
+            {
+            // Attribute Tests Implemented
+            }
 
 
         public enum TestEnum

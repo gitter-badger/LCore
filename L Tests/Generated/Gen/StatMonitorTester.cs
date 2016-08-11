@@ -11,11 +11,11 @@ using Xunit.Abstractions;
 namespace L_Tests.LCore.Tools
     {
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(StatMonitor))]
-    public partial class StatMonitorTester : XUnitOutputTester
+    public partial class StatMonitorTester : XUnitOutputTester, IDisposable
         {
         public StatMonitorTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
-        ~StatMonitorTester() { }
+        public void Dispose() { }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(StatMonitor) + "." + nameof(StatMonitor.GetCurrentAverageStat))]

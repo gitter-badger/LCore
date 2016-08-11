@@ -11,11 +11,11 @@ using Xunit.Abstractions;
 namespace L_Tests.LCore.Extensions
     {
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Comment))]
-    public partial class L_Comment_TestTester : XUnitOutputTester
+    public partial class L_Comment_TestTester : XUnitOutputTester, IDisposable
         {
         public L_Comment_TestTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
-        ~L_Comment_TestTester() { }
+        public void Dispose() { }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Comment) + "." + nameof(L.Comment.Test) + "." + nameof(L.Comment.Test.TestMethod))]
@@ -29,20 +29,6 @@ namespace L_Tests.LCore.Extensions
         public void TestMethod2()
             {
             // TODO: Implement method test LCore.Extensions.L.Comment.Test.TestMethod2
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Comment) + "." + nameof(L.Comment.Test) + "." + nameof(L.Comment.Test.TestProperty))]
-        public void get_TestProperty()
-            {
-            // TODO: Implement method test LCore.Extensions.L.Comment.Test.get_TestProperty
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Comment) + "." + nameof(L.Comment.Test) + "." + nameof(L.Comment.Test.TestProperty))]
-        public void set_TestProperty()
-            {
-            // TODO: Implement method test LCore.Extensions.L.Comment.Test.set_TestProperty
             }
 
         [Fact]

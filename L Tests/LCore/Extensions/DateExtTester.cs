@@ -5,6 +5,7 @@ using LCore.Extensions;
 using LCore.LUnit;
 using Xunit;
 using Xunit.Abstractions;
+// ReSharper disable RedundantExtendsListEntry
 
 namespace L_Tests.LCore.Extensions
     {
@@ -121,6 +122,13 @@ namespace L_Tests.LCore.Extensions
 
 
 
-        
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DateExt) + "." + nameof(DateExt.DayOfWeekNumber))]
+        public void DayOfWeekNumber()
+            {
+            // Attribute Tests Implemented
+            }
+
+
         }
     }

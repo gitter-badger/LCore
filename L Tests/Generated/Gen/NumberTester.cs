@@ -11,18 +11,11 @@ using Xunit.Abstractions;
 namespace L_Tests.LCore.Numbers
     {
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(Number))]
-    public partial class NumberTester : XUnitOutputTester
+    public partial class NumberTester : XUnitOutputTester, IDisposable
         {
         public NumberTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
-        ~NumberTester() { }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(Number) + "." + nameof(Number.NumberType))]
-        public void get_NumberType()
-            {
-            // TODO: Implement method test LCore.Numbers.Number.get_NumberType
-            }
+        public void Dispose() { }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(Number) + "." + nameof(Number.Equals))]
@@ -158,34 +151,6 @@ namespace L_Tests.LCore.Numbers
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(Number) + "." + nameof(Number.Precision))]
-        public void get_Precision()
-            {
-            // TODO: Implement method test LCore.Numbers.Number.get_Precision
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(Number) + "." + nameof(Number.MinValue))]
-        public void get_MinValue()
-            {
-            // TODO: Implement method test LCore.Numbers.Number.get_MinValue
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(Number) + "." + nameof(Number.MaxValue))]
-        public void get_MaxValue()
-            {
-            // TODO: Implement method test LCore.Numbers.Number.get_MaxValue
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(Number) + "." + nameof(Number.DefaultValue))]
-        public void get_DefaultValue()
-            {
-            // TODO: Implement method test LCore.Numbers.Number.get_DefaultValue
-            }
-
-        [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(Number) + "." + nameof(Number.Divide))]
         public void Divide_Number_Number()
             {
@@ -253,41 +218,6 @@ namespace L_Tests.LCore.Numbers
         public void GetValue()
             {
             // TODO: Implement method test LCore.Numbers.Number.GetValue
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(Number) + "." + nameof(Number.NumberType))]
-        public void NumberType()
-            {
-            // TODO: Implement method test LCore.Numbers.Number.NumberType
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(Number) + "." + nameof(Number.Precision))]
-        public void Precision()
-            {
-            // TODO: Implement method test LCore.Numbers.Number.Precision
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(Number) + "." + nameof(Number.MinValue))]
-        public void MinValue()
-            {
-            // TODO: Implement method test LCore.Numbers.Number.MinValue
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(Number) + "." + nameof(Number.MaxValue))]
-        public void MaxValue()
-            {
-            // TODO: Implement method test LCore.Numbers.Number.MaxValue
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(Number) + "." + nameof(Number.DefaultValue))]
-        public void DefaultValue()
-            {
-            // TODO: Implement method test LCore.Numbers.Number.DefaultValue
             }
 
         }

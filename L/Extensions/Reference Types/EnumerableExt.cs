@@ -3014,14 +3014,21 @@ namespace LCore.Extensions
 
         #region Sum
 
-        public static uint Sum<T, U>(this IEnumerable<T> In, Func<T, U> NumberRetriever)
+        /// <summary>
+        /// Returns the sum of all values returned by <paramref name="NumberRetriever"/>.
+        /// </summary>
+        public static uint Sum<T, U>([CanBeNull] this IEnumerable<T> In, [CanBeNull] Func<T, U> NumberRetriever)
             where U : IConvertible
             {
             uint Out = 0;
 
-            foreach (var Item in In)
+            if (In != null && NumberRetriever != null)
                 {
-                Out += (uint) (NumberRetriever(Item).ConvertTo<int>() ?? 0);
+                // ReSharper disable once LoopCanBeConvertedToQuery
+                foreach (var Item in In)
+                    {
+                    Out += (uint) (NumberRetriever(Item).ConvertTo<int>() ?? 0);
+                    }
                 }
 
             return Out;

@@ -11,11 +11,11 @@ using Xunit.Abstractions;
 namespace L_Tests.LCore.Extensions
     {
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(FileExt))]
-    public partial class FileExtTester : XUnitOutputTester
+    public partial class FileExtTester : XUnitOutputTester, IDisposable
         {
         public FileExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
-        ~FileExtTester() { }
+        public void Dispose() { }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(FileExt) + "." + nameof(FileExt.CleanFileName))]
