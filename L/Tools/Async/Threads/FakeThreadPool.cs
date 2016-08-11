@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using LCore.Extensions;
 
@@ -14,7 +15,7 @@ namespace LCore.Threads
         private Task _WatcherTask { get; }
         private bool CancelWatcher { get; set; }
 
-        public const int WaitIncrement = 1;
+        public const int WaitIncrement = 10;
 
         public FakeThreadPool(DateTime? StartTime = null)
             {
@@ -48,11 +49,13 @@ namespace LCore.Threads
                     while (this.ThreadsWaiting.Count == 0)
                         await Task.Delay(WaitIncrement);
 
+                    YieldAwaitable.YieldAwaiter Awaiter;
+                    System.Threading.Thread TaskThread = null;
+                    ThreadSpinner FirstThread;
+
                     lock (this.ThreadsWaiting)
                         {
-                        var FirstThread = this.ThreadsWaiting.Min(Thread => Thread.ResumeTime);
-
-                        var TimeWaited = FirstThread.ResumeTime - this.CurrentTime;
+                        FirstThread = this.ThreadsWaiting.Min(Thread => Thread.ResumeTime);
 
                         // Advance the current time
                         this.CurrentTime = FirstThread.ResumeTime;
@@ -68,12 +71,28 @@ namespace LCore.Threads
                             this.ThreadHistory.Add(FirstThread);
                             }
 
-                        this.FinishedThreads++;
+                        Awaiter = FirstThread.YieldTask.GetAwaiter();
+                        TaskThread = FirstThread.TaskThread;
                         }
 
-                    await Task.Delay(WaitIncrement);
+                    bool Continue = false;
+
+                    FirstThread.YieldTask.GetAwaiter().OnCompleted(() =>
+                        {
+                            Continue = true;
+                        });
+
+                    int TaskCount = this.ThreadsWaiting.Count;
+
+                    while (!Continue)
+                        {
+                        await Task.Delay(WaitIncrement);
+                        Continue = Continue || this.ThreadsWaiting.Count > TaskCount;
+                        }
+
+                    this.FinishedThreads++;
                     }
-                catch (Exception Ex) {}
+                catch (Exception Ex) { }
                 }
             }
 
@@ -114,9 +133,25 @@ namespace LCore.Threads
         public uint FinishedThreads { get; protected set; }
 
 
-        public List<ThreadSpinner> ThreadsWaiting { get; } = new List<ThreadSpinner>();
+        protected List<ThreadSpinner> ThreadsWaiting { get; } = new List<ThreadSpinner>();
 
-        public List<ThreadSpinner> ThreadHistory { get; } = new List<ThreadSpinner>();
+        protected List<ThreadSpinner> ThreadHistory { get; } = new List<ThreadSpinner>();
+
+        public List<ThreadSpinner> GetThreadHistory()
+            {
+            lock (this.ThreadHistory)
+                {
+                return this.ThreadHistory.List();
+                }
+            }
+
+        public List<ThreadSpinner> GetThreadsWaiting()
+            {
+            lock (this.ThreadsWaiting)
+                {
+                return this.ThreadsWaiting.List();
+                }
+            }
         }
 
     public class ThreadSpinner
@@ -124,12 +159,20 @@ namespace LCore.Threads
         protected bool ResumeThread { get; set; }
 
         public DateTime ResumeTime { get; }
-        public DateTime StartTime { get; protected set; }
+        public DateTime StartTime { get; }
+
+        public YieldAwaitable YieldTask { get; }
+        public System.Threading.Thread TaskThread { get; }
+
+        public int? TaskId { get; set; }
 
         public TimeSpan DurationWaited => this.ResumeTime - this.StartTime;
 
         public ThreadSpinner(FakeThreadPool Pool, DateTime ResumeTime)
             {
+            this.TaskThread = System.Threading.Thread.CurrentThread;
+            this.YieldTask = Task.Yield();
+            this.TaskId = Task.CurrentId;
             this.StartTime = Pool.GetCurrentTime();
             this.ResumeTime = ResumeTime;
             }

@@ -154,14 +154,20 @@ namespace LCore.Extensions
         public static T Max<T>([CanBeNull] this IEnumerable<T> In, Func<T, IComparable> Comparer)
             {
             var Out = default(T);
+            IComparable CompareValue = null;
 
             if (In != null)
                 {
                 foreach (var Item in In)
                     {
-                    if (Out == null ||
-                        (Item != null && Comparer(Item).CompareTo(Out) > 0))
+                    var CompareValue2 = Comparer(Item);
+
+                    if (CompareValue == null ||
+                        (Item != null && CompareValue2.CompareTo(CompareValue) > 0))
+                        {
+                        CompareValue = CompareValue2;
                         Out = Item;
+                        }
                     }
                 }
             return Out;
@@ -203,7 +209,7 @@ namespace LCore.Extensions
                     var CompareValue2 = Comparer(Item);
 
                     if (CompareValue == null ||
-                        (Item != null && CompareValue.CompareTo(CompareValue2) < 0))
+                        (Item != null && CompareValue2.CompareTo(CompareValue) < 0))
                         {
                         CompareValue = CompareValue2;
                         Out = Item;
