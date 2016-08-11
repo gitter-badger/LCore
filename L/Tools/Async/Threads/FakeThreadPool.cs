@@ -43,35 +43,52 @@ namespace LCore.Threads
             {
             while (!this.CancelWatcher)
                 {
-                while (this.ThreadsWaiting.Count == 0)
+                try
+                    {
+                    while (this.ThreadsWaiting.Count == 0)
+                        await Task.Delay(WaitIncrement);
+
+                    lock (this.ThreadsWaiting)
+                        {
+                        var FirstThread = this.ThreadsWaiting.Min(Thread => Thread.ResumeTime);
+
+                        var TimeWaited = FirstThread.ResumeTime - this.CurrentTime;
+
+                        // Advance the current time
+                        this.CurrentTime = FirstThread.ResumeTime;
+
+                        // Resume the thread
+                        FirstThread.StopWaiting();
+
+                        // Remove the thread from the pool
+                        this.ThreadsWaiting.Remove(FirstThread);
+
+                        lock (this.ThreadHistory)
+                            {
+                            this.ThreadHistory.Add(FirstThread);
+                            }
+
+                        this.FinishedThreads++;
+                        }
+
                     await Task.Delay(WaitIncrement);
-
-                var FirstThread = this.ThreadsWaiting.Min(Thread => Thread.ResumeTime);
-
-                var TimeWaited = FirstThread.ResumeTime - this.CurrentTime;
-
-                // Advance the current time
-                this.CurrentTime = FirstThread.ResumeTime;
-
-                // Resume the thread
-                FirstThread.StopWaiting();
-
-                // Remove the thread from the pool
-                this.ThreadsWaiting.Remove(FirstThread);
-
-                this.FinishedThreads++;
-
-                this.ThreadHistory.Add(FirstThread);
-
-                await Task.Delay(WaitIncrement);
+                    }
+                catch (Exception Ex) {}
                 }
             }
 
-        public async Task AwaitAllThreads()
+        public async Task AwaitAllThreadsResumed()
             {
             while (this.FinishedThreads < this.TotalThreads)
                 await Task.Delay(WaitIncrement);
             }
+
+        public async Task AwaitThreadAdded()
+            {
+            while (this.TotalThreads == 0)
+                await Task.Delay(WaitIncrement);
+            }
+
 
         public async Task Delay(int Milliseconds)
             {
@@ -85,13 +102,16 @@ namespace LCore.Threads
 
             this.TotalThreads++;
 
-            this.ThreadsWaiting.Add(Spinner);
+            lock (this.ThreadsWaiting)
+                {
+                this.ThreadsWaiting.Add(Spinner);
+                }
 
             await Spinner.Wait();
             }
 
-        public int TotalThreads { get; protected set; }
-        public int FinishedThreads { get; protected set; }
+        public uint TotalThreads { get; protected set; }
+        public uint FinishedThreads { get; protected set; }
 
 
         public List<ThreadSpinner> ThreadsWaiting { get; } = new List<ThreadSpinner>();

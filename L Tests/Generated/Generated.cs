@@ -83,46 +83,154 @@ namespace L_Tests.LCore.Threads
             {
             var Pool = new FakeThreadPool();
 
-            string TestValue = "";
+            int Handoff = 0;
 
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-            Task.Run(async () =>
+            var Task1 = new Task(async () =>
                 {
                 await Pool.Delay(Milliseconds: 500000);
-                TestValue = "handoff 1";
+                Handoff++;
                 });
-            Task.Run(async () =>
+            var Task2 = new Task(async () =>
                 {
-                while (TestValue != "handoff 1")
+                while (Handoff != 1)
                     await Pool.Delay(Milliseconds: 1);
-                TestValue.Should().Be("handoff 1");
-                TestValue = "handoff 2";
+                Handoff.Should().Be(expected: 1);
+                Handoff++;
                 });
-            Task.Run(async () =>
+            var Task3 = new Task(async () =>
                 {
-                while (TestValue != "handoff 2")
+                while (Handoff != 2)
                     await Pool.Delay(Milliseconds: 1);
-                TestValue.Should().Be("handoff 2");
+                Handoff.Should().Be(expected: 2);
+                Handoff++;
                 });
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+            var Task4 = new Task(async () =>
+                {
+                while (Handoff != 3)
+                    await Pool.Delay(Milliseconds: 1);
+                Handoff.Should().Be(expected: 3);
+                });
 
-            await Task.Delay(millisecondsDelay: 200);
+            Task1.Start();
+            Task2.Start();
+            Task3.Start();
+            Task4.Start();
 
             var Timer = new StopWatch();
+            await Pool.AwaitThreadAdded();
             Timer.Start();
-
-            await Pool.AwaitAllThreads();
-
+            await Pool.AwaitAllThreadsResumed();
             double Duration = Timer.Stop();
+
+            await Task.Delay(millisecondsDelay: 50);
 
             List<ThreadSpinner> Results = Pool.ThreadHistory;
 
             Results.Count.Should().BeGreaterOrEqualTo(expected: 3);
-            TestValue.Should().Be("handoff 2");
+            Handoff.Should().Be(expected: 3);
 
-            Duration.Should().BeLessThan(expected: 15);
+            Duration.Should().BeLessThan(expected: 100);
+            this._Output.WriteLine($"Handoffs: {Handoff}");
+            this._Output.WriteLine($"Actual Task Duration: {Duration.Round()}ms");
 
-            Results.Sum(Thread => Thread.DurationWaited.TotalMilliseconds).Should().BeGreaterThan(expected: 500000);
+            uint TotalFakeWaited = Results.Sum(Thread => Thread.DurationWaited.TotalMilliseconds);
+            TotalFakeWaited.Should().BeGreaterThan(expected: 500000);
+
+            this._Output.WriteLine($"Tasks Fake-Waited: {TimeSpan.FromMilliseconds(TotalFakeWaited).ToTimeString()} over {Results.Count} {"Delay".Pluralize(Results.Count)}");
+            }
+
+        [Fact]
+        public async void HandoffTest()
+            {
+            var Pool = new FakeThreadPool();
+
+            const int Target = 500;
+
+            int Handoff = 0;
+
+            var History = new List<string>();
+
+            var Task1 = new Task(async () =>
+                {
+                while (Handoff < Target)
+                    {
+                    await Pool.Delay(Milliseconds: 500000);
+                    Handoff++;
+                    History.Add("Task1");
+                    }
+                });
+            var Task2 = new Task(async () =>
+                {
+                while (Handoff < Target)
+                    {
+                    while (Handoff%3 != 0)
+                        await Pool.Delay(Milliseconds: 1);
+
+                    (Handoff%3).Should().Be(expected: 0);
+                    Handoff++;
+                    History.Add("Task2");
+                    }
+                });
+            var Task3 = new Task(async () =>
+                {
+                while (Handoff < Target)
+                    {
+                    while (Handoff%3 != 1)
+                        await Pool.Delay(Milliseconds: 1);
+
+                    (Handoff%3).Should().Be(expected: 1);
+                    Handoff++;
+                    History.Add("Task3");
+                    }
+                });
+            var Task4 = new Task(async () =>
+                {
+                while (Handoff < Target)
+                    {
+                    while (Handoff%3 != 2)
+                        await Pool.Delay(Milliseconds: 1);
+
+                    (Handoff%3).Should().Be(expected: 2);
+                    Handoff++;
+                    History.Add("Task4");
+                    }
+                });
+
+            Task1.Start();
+            Task2.Start();
+            Task3.Start();
+            Task4.Start();
+
+            var Timer = new StopWatch();
+            await Pool.AwaitThreadAdded();
+            Timer.Start();
+            while (Handoff < Target)
+                await Task.Delay(millisecondsDelay: 1);
+            //await Pool.AwaitAllThreadsResumed();
+            double Duration = Timer.Stop();
+
+            await Task.Delay(millisecondsDelay: 50);
+
+            List<ThreadSpinner> Results = Pool.ThreadHistory;
+
+            Results.Count.Should().BeGreaterOrEqualTo(expected: 3);
+            Handoff.Should().BeGreaterOrEqualTo(expected: Target);
+
+            this._Output.WriteLine($"Handoffs: {Handoff}");
+            this._Output.WriteLine($"Task Resumes: {Results.Count}");
+            this._Output.WriteLine($"Actual Task Duration: {Duration.Round()}ms");
+            this._Output.WriteLine("");
+            this._Output.WriteLine("");
+            this._Output.WriteLine($"Duration per handoff: {(Duration / Handoff).Round()}ms");
+            this._Output.WriteLine($"Duration per task resume: {(Duration / Results.Count).Round()}ms");
+
+            lock (Results)
+                {
+                uint TotalFakeWaited = Results.Sum(Thread => Thread.DurationWaited.TotalMilliseconds);
+                TotalFakeWaited.Should().BeGreaterThan(expected: 500000);
+
+                this._Output.WriteLine($"Tasks Fake-Waited: {TimeSpan.FromMilliseconds(TotalFakeWaited).ToTimeString()} over {Results.Count} {"Delay".Pluralize(Results.Count)}");
+                }
             }
         }
 
