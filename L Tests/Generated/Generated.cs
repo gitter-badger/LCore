@@ -66,21 +66,21 @@ namespace L_Tests.LCore.Threads
             var Task2 = new Task(async () =>
                 {
                     while (Handoff != 1)
-                        await Pool.Delay(Milliseconds: 1);
+                        await Pool.Delay(L.Obj.NewRandom<int>(1, 15));
                     Handoff.Should().Be(expected: 1);
                     Handoff++;
                 });
             var Task3 = new Task(async () =>
                 {
                     while (Handoff != 2)
-                        await Pool.Delay(Milliseconds: 1);
+                        await Pool.Delay(L.Obj.NewRandom<int>(1, 15));
                     Handoff.Should().Be(expected: 2);
                     Handoff++;
                 });
             var Task4 = new Task(async () =>
                 {
                     while (Handoff != 3)
-                        await Pool.Delay(Milliseconds: 1);
+                        await Pool.Delay(L.Obj.NewRandom<int>(1, 15));
                     Handoff.Should().Be(expected: 3);
                 });
 
@@ -101,13 +101,12 @@ namespace L_Tests.LCore.Threads
             double Duration = Timer.Stop();
 
             await Task.Delay(millisecondsDelay: 50);
-
-            List<ThreadSpinner> Results = Pool.GetThreadHistory();
             
+            List<ThreadSpinner> Results = Pool.GetThreadHistory();
+
             Results.Count.Should().BeGreaterOrEqualTo(Target);
             Handoff.Should().Be(Target);
-
-            Duration.Should().BeLessThan(expected: 100);
+            
             this._Output.WriteLine($"Handoffs: {Handoff}");
             this._Output.WriteLine($"Actual Task Duration: {Duration.Round()}ms");
 
@@ -122,7 +121,7 @@ namespace L_Tests.LCore.Threads
             {
             var Pool = new FakeThreadPool();
 
-            const int Target = 500;
+            const int Target = 100;
 
             int Handoff = 0;
             int LargeDelay = 500000;
@@ -199,63 +198,18 @@ namespace L_Tests.LCore.Threads
             Results.Count.Should().BeGreaterOrEqualTo(expected: 3);
             Handoff.Should().BeGreaterOrEqualTo(expected: Target);
 
-            History.Should().Equal("Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2",
-                "Task1");
+            History.Should().Equal("Task2", "Task3", "Task4", "Task2", "Task3", "Task4", 
+                "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", 
+                "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", 
+                "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", 
+                "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4",
+                "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", 
+                "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", 
+                "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", 
+                "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", 
+                "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", 
+                "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", 
+                "Task2", "Task3", "Task4", "Task2", "Task3", "Task4", "Task1");
 
             this._Output.WriteLine($"Handoffs: {Handoff}");
             this._Output.WriteLine($"Task Resumes: {Results.Count}");

@@ -53,26 +53,34 @@ namespace LCore.Threads
                     System.Threading.Thread TaskThread = null;
                     ThreadSpinner FirstThread;
 
+                    int? LastResumedTask = int.MinValue;
+
                     lock (this.ThreadsWaiting)
                         {
-                        FirstThread = this.ThreadsWaiting.Min(Thread => Thread.ResumeTime);
+                        FirstThread = this.ThreadsWaiting.Min(Thread => Thread.TaskId != LastResumedTask ? Thread.ResumeTime : DateTime.MaxValue) ??
+                                this.ThreadsWaiting.Min(Thread => Thread.ResumeTime);
 
-                        // Advance the current time
-                        this.CurrentTime = FirstThread.ResumeTime;
-
-                        // Resume the thread
-                        FirstThread.StopWaiting();
-
-                        // Remove the thread from the pool
-                        this.ThreadsWaiting.Remove(FirstThread);
-
-                        lock (this.ThreadHistory)
+                        if (FirstThread != null)
                             {
-                            this.ThreadHistory.Add(FirstThread);
-                            }
+                            LastResumedTask = FirstThread.TaskId;
 
-                        Awaiter = FirstThread.YieldTask.GetAwaiter();
-                        TaskThread = FirstThread.TaskThread;
+                            // Advance the current time
+                            this.CurrentTime = FirstThread.ResumeTime;
+
+                            // Resume the thread
+                            FirstThread.StopWaiting();
+
+                            // Remove the thread from the pool
+                            this.ThreadsWaiting.Remove(FirstThread);
+
+                            lock (this.ThreadHistory)
+                                {
+                                this.ThreadHistory.Add(FirstThread);
+                                }
+
+                            Awaiter = FirstThread.YieldTask.GetAwaiter();
+                            TaskThread = FirstThread.TaskThread;
+                            }
                         }
 
                     bool Continue = false;

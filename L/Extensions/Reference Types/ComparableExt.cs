@@ -197,6 +197,7 @@ namespace LCore.Extensions
             return Out;
             }
 
+        [CanBeNull]
         public static T Min<T>([CanBeNull] this IEnumerable<T> In, Func<T, IComparable> Comparer)
             {
             var Out = default(T);
