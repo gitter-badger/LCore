@@ -1241,6 +1241,12 @@ namespace LCore.Extensions
 
         #endregion
 
+        /// <summary>
+        /// Gets a method's parameter signature.
+        /// Ex: (Func`1&lt;String%gt;, Int32) => Action
+        ///     (String, String)
+        ///     (String, String) => Boolean
+        /// </summary>
         public static string ToParameterSignature([CanBeNull] this MethodInfo In)
             {
             if (In == null)
@@ -1262,6 +1268,11 @@ namespace LCore.Extensions
                 : $"({Params.JoinLines(", ")}) => {Return}";
             }
 
+        /// <summary>
+        /// Gets a Type's name formatted properly with generic parameters.
+        /// Ex: List`1&lt;String&gt;
+        ///     Func`2&lt;Action`1&lt;Int32&gt;, IEnumerable`1&lt;Object&gt;&gt;
+        /// </summary>
         public static string GetGenericName([CanBeNull] this Type In)
             {
             if (In == null)

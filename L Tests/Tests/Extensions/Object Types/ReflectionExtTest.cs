@@ -676,7 +676,7 @@ namespace LCore.Tests.Extensions
             L.Ref.Method<TestClass>(Test => Test.Test5(""))
                 .ToInvocationSignature()
                 .Should()
-                .Be("[ReflectionExtTest.TestBaseClass2].Test5(String)");
+                .Be("ReflectionExtTest.TestBaseClass2.Test5(String)");
             L.Ref.StaticMethod(() => L.Ref.FindType(""))
                 .ToInvocationSignature()
                 .Should()

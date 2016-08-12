@@ -6,6 +6,7 @@ using LCore.LUnit;
 using LCore.Numbers;
 using Xunit;
 using Xunit.Abstractions;
+// ReSharper disable InconsistentNaming
 
 namespace L_Tests.LCore.Numbers
     {
