@@ -20,7 +20,7 @@ namespace L_Tests.LCore.Extensions
         ~CommentExtTester() { }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(CommentExt) + "." + nameof(CommentExt.GetComments))]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(CommentExt) + "." + nameof(CommentExt.GetComments) + "(MemberInfo) => ICodeComment")]
         public void GetComments()
             {
             // ReSharper disable once RedundantAssignment

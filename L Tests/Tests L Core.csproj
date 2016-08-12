@@ -146,58 +146,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Generated\Gen\ByteNumberTester.cs" />
-    <Compile Include="Generated\Gen\CacheDataTester.cs" />
-    <Compile Include="Generated\Gen\ComparableExtTester.cs" />
-    <Compile Include="Generated\Gen\ConvertibleExtTester.cs" />
-    <Compile Include="Generated\Gen\DateTimeConverterTester.cs" />
-    <Compile Include="Generated\Gen\DecimalNumberTester.cs" />
-    <Compile Include="Generated\Gen\DictionaryExtTester.cs" />
-    <Compile Include="Generated\Gen\DoubleNumberTester.cs" />
-    <Compile Include="Generated\Gen\EnumerableExtTester.cs" />
-    <Compile Include="Generated\Gen\ExceptionExtTester.cs" />
-    <Compile Include="Generated\Gen\ExceptionListTester.cs" />
-    <Compile Include="Generated\Gen\FakeThreadPoolTester.cs" />
-    <Compile Include="Generated\Gen\FileExtTester.cs" />
-    <Compile Include="Generated\Gen\FloatNumberTester.cs" />
-    <Compile Include="Generated\Gen\ObjectExtTester_Optional.cs" />
-    <Compile Include="Generated\Gen\IntNumberTester.cs" />
-    <Compile Include="Generated\Gen\Lists_2Tester.cs" />
-    <Compile Include="Generated\Gen\LogicExtTester.cs" />
-    <Compile Include="Generated\Gen\LongNumberTester.cs" />
-    <Compile Include="Generated\Gen\LoopExtTester.cs" />
-    <Compile Include="Generated\Gen\LTester.cs" />
-    <Compile Include="Generated\Gen\L_AryTester.cs" />
-    <Compile Include="Generated\Gen\L_BoolTester.cs" />
-    <Compile Include="Generated\Gen\L_Comment_TestTester.cs" />
-    <Compile Include="Generated\Gen\L_DateTester.cs" />
-    <Compile Include="Generated\Gen\L_FileTester.cs" />
-    <Compile Include="Generated\Gen\L_ListTester.cs" />
-    <Compile Include="Generated\Gen\L_LogicTester.cs" />
-    <Compile Include="Generated\Gen\L_LoopTester.cs" />
-    <Compile Include="Generated\Gen\L_NumTester.cs" />
-    <Compile Include="Generated\Gen\L_ObjTester.cs" />
-    <Compile Include="Generated\Gen\L_RefTester.cs" />
-    <Compile Include="Generated\Gen\L_StrTester.cs" />
-    <Compile Include="Generated\Gen\NumberExtTester.cs" />
-    <Compile Include="Generated\Gen\NumberTester.cs" />
-    <Compile Include="Generated\Gen\Number_1Tester.cs" />
-    <Compile Include="Generated\Gen\Number_2Tester.cs" />
-    <Compile Include="Generated\Gen\ObjectExtTester.cs" />
-    <Compile Include="Generated\Gen\ProgressUpdaterTester.cs" />
-    <Compile Include="Generated\Gen\ReflectionExtTester.cs" />
-    <Compile Include="Generated\Gen\RegistryHelperTester.cs" />
-    <Compile Include="Generated\Gen\SByteNumberTester.cs" />
-    <Compile Include="Generated\Gen\ScheduleTester.cs" />
-    <Compile Include="Generated\Gen\Set_2Tester.cs" />
-    <Compile Include="Generated\Gen\ShortNumberTester.cs" />
-    <Compile Include="Generated\Gen\StatMonitorTester.cs" />
-    <Compile Include="Generated\Gen\StopWatchTester.cs" />
-    <Compile Include="Generated\Gen\StringExtTester.cs" />
-    <Compile Include="Generated\Gen\ThreadSpinnerTester.cs" />
-    <Compile Include="Generated\Gen\UIntNumberTester.cs" />
-    <Compile Include="Generated\Gen\ULongNumberTester.cs" />
-    <Compile Include="Generated\Gen\UShortNumberTester.cs" />
+    <Compile Include="Generated\Generated.cs" />
     <Compile Include="LCore\Extensions\BooleanExtTester.cs" />
     <Compile Include="LCore\Extensions\CommentExtTester.cs" />
     <Compile Include="LCore\Extensions\DateExtTester.cs" />
@@ -254,7 +203,9 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Generated\Gen\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

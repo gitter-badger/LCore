@@ -672,7 +672,7 @@ namespace LCore.Tests.Extensions
             L.Ref.StaticMethod(() => DateExt.IsFuture(DateTime.MinValue))
                 .ToInvocationSignature()
                 .Should()
-                .Be("[DateTime].IsFuture() => Boolean");
+                .Be("DateExt.IsFuture(DateTime) => Boolean");
             L.Ref.Method<TestClass>(Test => Test.Test5(""))
                 .ToInvocationSignature()
                 .Should()

@@ -9,6 +9,7 @@ using LCore.Extensions.Optional;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 using Xunit.Abstractions;
+using Xunit.Sdk;
 using static LCore.LUnit.LUnit.Categories;
 
 // ReSharper disable UnusedParameter.Global
@@ -194,11 +195,11 @@ namespace LCore.LUnit
                 var Removals = new List<MemberInfo>();
                 MemberNaming.Keys.Each(Key =>
                     {
-                    if (Key is MethodInfo && 
-                            (((MethodInfo) Key).IsDefined(typeof(System.Runtime.CompilerServices.CompilerGeneratedAttribute), inherit: false) ||
-                            ((MethodInfo) Key).MemberType == MemberTypes.Property ||
-                            (((MethodInfo) Key).IsSpecialName && ((MethodInfo) Key).Name.StartsWith("get_")) ||
-                            (((MethodInfo) Key).IsSpecialName && ((MethodInfo) Key).Name.StartsWith("set_"))))
+                    if (Key is MethodInfo &&
+                        (((MethodInfo) Key).IsDefined(typeof(System.Runtime.CompilerServices.CompilerGeneratedAttribute), inherit: false) ||
+                         ((MethodInfo) Key).MemberType == MemberTypes.Property ||
+                         (((MethodInfo) Key).IsSpecialName && ((MethodInfo) Key).Name.StartsWith("get_")) ||
+                         (((MethodInfo) Key).IsSpecialName && ((MethodInfo) Key).Name.StartsWith("set_"))))
                         Removals.Add(Key);
 
                     if (Key is PropertyInfo
@@ -211,6 +212,27 @@ namespace LCore.LUnit
                 }
 
             Dictionary<string, Dictionary<string, List<string>>> MemberTable = MemberNaming.Values.ToDictionary();
+
+
+            List<string> MemberTraits = this.TestAssemblies.Convert(Assembly =>
+                {
+                return Assembly.GetExportedTypes().Convert<Type, IReadOnlyList<KeyValuePair<string, string>>>(Type =>
+                    {
+                    try
+                        {
+                        return Type.GetMethods().Convert(TraitHelper.GetTraits)
+                            .Flatten<KeyValuePair<string, string>>();
+                        }
+                    catch
+                        {
+                        return null;
+                        }
+                    }).Flatten<KeyValuePair<string, string>>();
+                }).Flatten<KeyValuePair<string, string>>()
+                .Convert(TraitKey => TraitKey.Key == Traits.TargetMember
+                    ? TraitKey.Value
+                    : null);
+
 
             MemberTable.Keys.Each((Index, Namespace) =>
                 {
@@ -229,7 +251,7 @@ namespace LCore.LUnit
                     var TargetClass =
                         MemberNaming.First(Member => Member.Value.Item1 == Namespace && Member.Value.Item2 == Class).Key.DeclaringType;
 
-                    var TargetClassTest = L.Ref.FindMember($"{Namespace}.{Class}", this.TestAssemblies).First();
+                    var TargetClassTest = L.Ref.FindType($"{Namespace}.{Class}", this.TestAssemblies);
 
                     if (TargetClass != null)
                         {
@@ -249,11 +271,18 @@ namespace LCore.LUnit
 
                             WriteStack3.Add(StrongTypeTraitAttribute
                                 ? $"[{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},{TargetClass.FullyQualifiedName().NameofParts(TargetClass, TargetClass.Namespace, FullyQualifyWithNamespace)})]"
-                                : $"[{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetMember)},\"{TargetClass.FullyQualifiedName()}\")]");
+                                : $"[{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},\"{TargetClass.FullyQualifiedName()}\")]");
 
-                            WriteStack3.Add(this.TrackCoverageByNamingConvention_UseXunitOutputBase
-                                ? $"   public{Partial}class {Class} : {nameof(XUnitOutputTester)}, {nameof(IDisposable)}"
-                                : $"   public{Partial}class {Class} : {nameof(IDisposable)}");
+                            if (TargetClassTest == null)
+                                {
+                                WriteStack3.Add(this.TrackCoverageByNamingConvention_UseXunitOutputBase
+                                    ? $"   public{Partial}class {Class} : {nameof(XUnitOutputTester)}, {nameof(IDisposable)}"
+                                    : $"   public{Partial}class {Class} : {nameof(IDisposable)}");
+                                }
+                            else
+                                {
+                                WriteStack3.Add($"   public{Partial}class {Class}");
+                                }
 
                             WriteStack3.Add("    {");
 
@@ -291,9 +320,24 @@ namespace LCore.LUnit
                                 StrongTypeTraitAttribute = !TargetMember.FullyQualifiedName().HasAny('`', '<', '>') &&
                                                            !(TargetMember is MethodInfo && ((MethodInfo) TargetMember).IsOperator());
 
+                                // ReSharper disable once UnusedVariable
                                 var TargetMemberTest = L.Ref.FindMember($"{Namespace}.{Class}.{MemberName}", this.TestAssemblies).First();
 
-                                if ((TargetMemberTest == null) && !string.IsNullOrEmpty(MemberName))
+                                string TraitKeyAttribute = StrongTypeTraitAttribute
+                                    ? (TargetMember is MethodInfo
+                                        ? $"{TargetMember.FullyQualifiedName().NameofParts(TargetMember, TargetClass.Namespace, FullyQualifyWithNamespace)} + \"{((MethodInfo) TargetMember).ToParameterSignature()}\""
+                                        : $"{TargetMember.FullyQualifiedName().NameofParts(TargetMember, TargetClass.Namespace, FullyQualifyWithNamespace)}")
+                                    : (TargetMember is MethodInfo
+                                        ? $"\"{((MethodInfo) TargetMember).ToInvocationSignature(FullyQualify: true)}\""
+                                        : $"\"{TargetMember.FullyQualifiedName()}\"");
+
+                                string TraitKeyLookup = TargetMember is MethodInfo
+                                    ? $"{((MethodInfo) TargetMember).ToInvocationSignature(FullyQualify: true)}"
+                                    : $"{TargetMember.FullyQualifiedName()}";
+
+                                if (!MemberTraits.Has(TraitKeyLookup) &&
+                                    //(TargetMemberTest == null) &&
+                                    !string.IsNullOrEmpty(MemberName))
                                     {
                                     // ReSharper disable RedundantNameQualifier
                                     string New = MemberName == nameof(object.GetHashCode) ||
@@ -308,9 +352,7 @@ namespace LCore.LUnit
                                     WriteStack3.Add($"        [{nameof(FactAttribute).Before(Attribute)}]");
                                     if (this.TrackCoverageByNamingConvention_IncludeTraitTargetAttributes)
                                         {
-                                        WriteStack3.Add(StrongTypeTraitAttribute
-                                            ? $"[{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetMember)},{TargetMember.FullyQualifiedName().NameofParts(TargetMember, TargetClass.Namespace, FullyQualifyWithNamespace)})]"
-                                            : $"[{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetMember)},\"{TargetMember.FullyQualifiedName()}\")]");
+                                        WriteStack3.Add($"[{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetMember)},{TraitKeyAttribute})]");
 
                                         if (!Using.Contains(TargetClass.Namespace))
                                             Using.Add(TargetClass.Namespace);
