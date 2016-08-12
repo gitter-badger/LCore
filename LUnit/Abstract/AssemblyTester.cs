@@ -38,55 +38,49 @@ namespace LCore.LUnit
         /// Enables tracking of class / method coverage using test naming convention.
         /// See the output of AssemblyMissingCoverage.
         /// </summary>
-        protected virtual bool TrackCoverageByNamingConvention => false;
-
-        /// <summary>
-        /// Enables tracking of class / method coverage using test naming convention.
-        /// See the output of AssemblyMissingCoverage.
-        /// </summary>
-        protected virtual bool TrackCoverageByNamingConvention_UseXunitOutputBase => true;
+        protected virtual bool GeneratedCode_UseXunitOutputBase => true;
 
         /// <summary>
         /// Enables tracking of Xunit Trait attributes directly targeting tested members.
         /// This is useful for tying tests directly to tested members, as well as 
         /// being able to jump directly to the tested member from the test.
         /// </summary>
-        protected virtual bool TrackCoverageByNamingConvention_IncludeTraitTargetAttributes => true;
+        protected virtual bool GeneratedCode_IncludeTraitTargetAttributes => true;
 
         /// <summary>
         /// Enables inclusion of Test members for Class instance properties.
         /// Default is false.
         /// </summary>
-        protected virtual bool TrackCoverageByNamingConvention_IncludeInstanceProperties => false;
+        protected virtual bool GeneratedCode_IncludeInstanceProperties => false;
 
         /// <summary>
         /// Enables generation of partial classes.
         /// </summary>
-        protected virtual bool TrackCoverageByNamingConvention_UsePartialClasses => true;
+        protected virtual bool GeneratedCode_UsePartialClasses => true;
 
         /// <summary>
         /// Enables the use of [CanBeNull], [NotNull] in code generation.
         /// Defaults to the value of EnforceNullabilityAttributes.
         /// </summary>
-        protected virtual bool TrackCoverageByNamingConvention_UseNullabilityAttribute => this.EnforceNullabilityAttributes;
+        protected virtual bool GeneratedCode_UseNullabilityAttribute => this.EnforceNullabilityAttributes;
 
         /// <summary>
         /// Override the namespace format.
         /// </summary>
         /// <see cref="LUnit.Format.Namespace"/>
-        protected virtual string TrackCoverageByNamingConvention_Format_Namespace => LUnit.Format.Namespace;
+        protected virtual string NamingConvention_Format_Namespace => LUnit.Format.Namespace;
 
         /// <summary>
         /// Override the class format.
         /// </summary>
         /// <see cref="LUnit.Format.Class"/>
-        protected virtual string TrackCoverageByNamingConvention_Format_Class => LUnit.Format.Class;
+        protected virtual string NamingConvention_Format_Class => LUnit.Format.Class;
 
         /// <summary>
         /// Override the member format.
         /// </summary>
         /// <see cref="LUnit.Format.Member"/>
-        protected virtual string TrackCoverageByNamingConvention_Format_Member => LUnit.Format.Member;
+        protected virtual string NamingConvention_Format_Member => LUnit.Format.Member;
 
         /// <summary>
         /// Override TestAssemblies to specify additional Assemblies to search for code coverage. 
@@ -105,14 +99,39 @@ namespace LCore.LUnit
         /// </summary>
         protected Type[] AssemblyTypes => this.Assembly.GetExportedTypes();
 
+        /// <summary>
+        /// Returns the root directory of the Test Assembly project.
+        /// </summary>
         protected string TestAssemblyCodePath => Environment.CurrentDirectory.BeforeLast("\\bin\\");
 
+        /// <summary>
+        /// Override this property to set the directory generated code will be placed.
+        /// The default is "Generated".
+        /// </summary>
         protected virtual string GeneratedCodeFolder => "Generated";
+
+        /// <summary>
+        /// Override this property to set the file name generated code will be placed.
+        /// The default is "LUnitGenerated.cs".
+        /// </summary>
         protected virtual string GeneratedCodeFile => "LUnitGenerated.cs";
 
+        /// <summary>
+        /// Retrieves the folder path to place generated code.
+        /// </summary>
         protected string GeneratedCodeFolderPath => $"{this.TestAssemblyCodePath}\\{this.GeneratedCodeFolder}";
+
+        /// <summary>
+        /// Retrieves the full file path to place generated code
+        /// </summary>
         protected string GeneratedCodeFullPath => $"{this.TestAssemblyCodePath}\\{this.GeneratedCodeFolder}\\{this.GeneratedCodeFile}";
 
+        /// <summary>
+        /// Enables automatic code generation into the Test Assembly.
+        /// Default is false.
+        /// 
+        /// Override other GeneratedCode properties to customize where generated code is placed.
+        /// </summary>
         protected virtual bool EnableCodeAutoGeneration => false;
 
         ////////////////////////////////////////////////////////
@@ -188,7 +207,7 @@ namespace LCore.LUnit
 
             var MemberNaming = new Dictionary<MemberInfo, Tuple<string, string, string>>();
 
-            string Partial = this.TrackCoverageByNamingConvention_UsePartialClasses
+            string Partial = this.GeneratedCode_UsePartialClasses
                 ? " partial "
                 : " ";
 
@@ -200,7 +219,7 @@ namespace LCore.LUnit
                 }
 
             // Remove non-static properties from being tested.
-            if (!this.TrackCoverageByNamingConvention_IncludeInstanceProperties)
+            if (!this.GeneratedCode_IncludeInstanceProperties)
                 {
                 var Removals = new List<MemberInfo>();
                 MemberNaming.Keys.Each(Key =>
@@ -272,7 +291,7 @@ namespace LCore.LUnit
                                 // ReSharper disable once UseObjectOrCollectionInitializer
                                 var WriteStack3 = new List<string>();
 
-                                if (this.TrackCoverageByNamingConvention_IncludeTraitTargetAttributes)
+                                if (this.GeneratedCode_IncludeTraitTargetAttributes)
                                     {
                                     bool StrongTypeTraitAttribute = !TargetClass.FullyQualifiedName().HasAny('`', '<', '>');
 
@@ -285,7 +304,7 @@ namespace LCore.LUnit
 
                                     if (TargetClassTest == null)
                                         {
-                                        WriteStack3.Add(this.TrackCoverageByNamingConvention_UseXunitOutputBase
+                                        WriteStack3.Add(this.GeneratedCode_UseXunitOutputBase
                                         ? $"    public{Partial}class {Class} : {nameof(XUnitOutputTester)}, {nameof(IDisposable)}"
                                         : $"    public{Partial}class {Class} : {nameof(IDisposable)}");
                                         }
@@ -299,7 +318,7 @@ namespace LCore.LUnit
                                     // Don't re-declare constructor and destructor if the target class exists
                                     if (TargetClassTest == null)
                                         {
-                                        WriteStack3.Add(this.TrackCoverageByNamingConvention_UseXunitOutputBase
+                                        WriteStack3.Add(this.GeneratedCode_UseXunitOutputBase
                                         ? $"        public {Class}([{nameof(NotNullAttribute).Before(Attribute)}] {nameof(ITestOutputHelper)} Output) : base(Output) {{ }}"
                                         : $"        public {Class}() {{ }}");
 
@@ -322,7 +341,7 @@ namespace LCore.LUnit
                                                 Member.Value.Item1 == Namespace && Member.Value.Item2 == Class &&
                                                 Member.Value.Item3 == MemberName).Key;
 
-                                        if ( //TargetMember.HasAttribute<ITestedAttribute>() ||
+                                        if (TargetMember.HasAttribute<ITestedAttribute>() ||
                                         TargetMember?.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) == true ||
                                         TargetMember?.DeclaringType?.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) == true)
                                             return;
@@ -360,7 +379,7 @@ namespace LCore.LUnit
                                             TotalMembersMissing++;
 
                                             WriteStack3.Add($"        [{nameof(FactAttribute).Before(Attribute)}]");
-                                            if (this.TrackCoverageByNamingConvention_IncludeTraitTargetAttributes)
+                                            if (this.GeneratedCode_IncludeTraitTargetAttributes)
                                                 {
                                                 WriteStack3.Add($"        [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetMember)},{TraitKeyAttribute})]");
 
@@ -415,15 +434,17 @@ namespace LCore.LUnit
                 }
             else
                 {
-                List<string> WriteStack4 = new List<string>();
+                var WriteStack4 = new List<string>
+                    {
+                    "/*",
+                    $"Covering Assembly: {this.Assembly.GetName().Name}",
+                    "",
+                    "Cover application using naming conventions.",
+                    "",
+                    $"{nameof(LUnit)} has Autogenerated {TotalClassesMissing} Classes and {TotalMembersMissing} Methods:",
+                    "*/"
+                    };
 
-                WriteStack4.Add("/*");
-                WriteStack4.Add($"Covering Assembly: {this.Assembly.GetName().Name}");
-                WriteStack4.Add("");
-                WriteStack4.Add("Cover application using naming conventions.");
-                WriteStack4.Add("");
-                WriteStack4.Add($"{nameof(LUnit)} has Autogenerated {TotalClassesMissing} Classes and {TotalMembersMissing} Methods:");
-                WriteStack4.Add("*/");
 
                 Using.Add(typeof(IDisposable).Namespace);
                 Using.Add(typeof(TraitAttribute).Namespace);
@@ -433,10 +454,10 @@ namespace LCore.LUnit
 
                 Using = Using.RemoveDuplicates();
 
-                Using.Each(Namespace => WriteStack.Insert(0, $"using {Namespace};"));
+                Using.Each(Namespace => WriteStack.Insert(index: 0, item: $"using {Namespace};"));
 
-                if (this.TrackCoverageByNamingConvention_UseNullabilityAttribute)
-                    WriteStack.Insert(0, $"using {typeof(CanBeNullAttribute).Namespace};");
+                if (this.GeneratedCode_UseNullabilityAttribute)
+                    WriteStack.Insert(index: 0, item: $"using {typeof(CanBeNullAttribute).Namespace};");
                 else
                     WriteStack = WriteStack.Collect(Line => Line.ReplaceAll("[NotNull]", "").ReplaceAll("[CanBeNull]", ""));
 
@@ -446,7 +467,7 @@ namespace LCore.LUnit
 
                     System.IO.File.WriteAllLines(this.GeneratedCodeFullPath, WriteStack4.Array().Add(WriteStack));
 
-                    WriteStack4.Each(Str=> this._Output.WriteLine(Str));
+                    WriteStack4.Each(Str => this._Output.WriteLine(Str));
                     }
                 else
                     {

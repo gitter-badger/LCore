@@ -199,7 +199,7 @@
     <Compile Include="Generated\Gen\UIntNumberTester.cs" />
     <Compile Include="Generated\Gen\ULongNumberTester.cs" />
     <Compile Include="Generated\Gen\UShortNumberTester.cs" />
-    <Compile Include="Generated\LUnitGenerated.cs" />
+    <None Include="Generated\LUnitGenerated.cs" />
     <Compile Include="LCore\Extensions\BooleanExtTester.cs" />
     <Compile Include="LCore\Extensions\CommentExtTester.cs" />
     <Compile Include="LCore\Extensions\DateExtTester.cs" />
