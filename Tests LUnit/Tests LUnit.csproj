@@ -7,7 +7,7 @@
     <ProjectGuid>{6228DEE6-F67B-478D-8292-830CA551AB8B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tests_LUnit</RootNamespace>
+    <RootNamespace>LUnit_Tests</RootNamespace>
     <AssemblyName>Tests LUnit</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -80,7 +80,13 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Generated\Generated.cs" />
+    <Compile Include="Generated\Gen\AssemblyTesterTester.cs" />
+    <Compile Include="Generated\Gen\LUnitTester.cs" />
+    <Compile Include="Generated\Gen\MultiTestReporterTester.cs" />
+    <Compile Include="Generated\Gen\TestAttributeTester.cs" />
+    <Compile Include="Generated\Gen\TestExtTester.cs" />
+    <Compile Include="LCore\LUnit\Assert\AssertionExtTester.cs" />
+    <Compile Include="LCore\LUnit\Fluent\FluentExtTester.cs" />
     <Compile Include="Tests\LUnitAssemblyTester.cs" />
     <Compile Include="Tests\Extensions\TestExtTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -103,9 +109,7 @@
       <Name>L Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Generated\Gen\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

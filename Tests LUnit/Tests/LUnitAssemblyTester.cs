@@ -13,7 +13,8 @@ namespace LCore.LUnit.Tests
         {
         protected override Type AssemblyType => typeof(LUnit);
 
+        protected override bool EnableCodeAutoGeneration => true;
 
-        public LUnitAssemblyTester([NotNull] ITestOutputHelper Output) : base(Output) {}
+        public LUnitAssemblyTester([NotNull] ITestOutputHelper Output) : base(Output) { }
         }
     }

@@ -180,7 +180,6 @@
     <Compile Include="Generated\Gen\L_ObjTester.cs" />
     <Compile Include="Generated\Gen\L_RefTester.cs" />
     <Compile Include="Generated\Gen\L_StrTester.cs" />
-    <Compile Include="Generated\Gen\L_ThreadTester.cs" />
     <Compile Include="Generated\Gen\NumberExtTester.cs" />
     <Compile Include="Generated\Gen\NumberTester.cs" />
     <Compile Include="Generated\Gen\Number_1Tester.cs" />
@@ -196,11 +195,11 @@
     <Compile Include="Generated\Gen\StatMonitorTester.cs" />
     <Compile Include="Generated\Gen\StopWatchTester.cs" />
     <Compile Include="Generated\Gen\StringExtTester.cs" />
-    <Compile Include="Generated\Gen\ThreadExtTester.cs" />
     <Compile Include="Generated\Gen\ThreadSpinnerTester.cs" />
     <Compile Include="Generated\Gen\UIntNumberTester.cs" />
     <Compile Include="Generated\Gen\ULongNumberTester.cs" />
     <Compile Include="Generated\Gen\UShortNumberTester.cs" />
+    <Compile Include="Generated\LUnitGenerated.cs" />
     <Compile Include="LCore\Extensions\BooleanExtTester.cs" />
     <Compile Include="LCore\Extensions\CommentExtTester.cs" />
     <Compile Include="LCore\Extensions\DateExtTester.cs" />

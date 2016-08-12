@@ -20,9 +20,9 @@ namespace L_Tests.LCore.Extensions
         {
         private static readonly string _TestString = Guid.NewGuid().ToString();
 
-        public BooleanExtTester([NotNull] ITestOutputHelper Output) : base(Output) {}
+        public BooleanExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
-        ~BooleanExtTester() {}
+        ~BooleanExtTester() { }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.Or) + "(IEnumerable`1) => Func`1")]
@@ -31,8 +31,8 @@ namespace L_Tests.LCore.Extensions
             var True = new Func<bool>(() => true);
             var False = new Func<bool>(() => false);
 
-            new[] {False, False, False, False}.Or()().Should().BeFalse();
-            new[] {False, False, False, True}.Or()().Should().BeTrue();
+            new[] { False, False, False, False }.Or()().Should().BeFalse();
+            new[] { False, False, False, True }.Or()().Should().BeTrue();
             }
 
         [Fact]
@@ -41,26 +41,26 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, bool>(o =>
                 {
-                o.Should().Be(_TestString);
-                return true;
+                    o.Should().Be(_TestString);
+                    return true;
                 });
             var False = new Func<object, bool>(o =>
                 {
-                o.Should().Be(_TestString);
-                return false;
+                    o.Should().Be(_TestString);
+                    return false;
                 });
             var NotRun = new Func<object, bool>(o =>
                 {
-                o.Should().Be(_TestString);
-                throw new Exception();
+                    o.Should().Be(_TestString);
+                    throw new Exception();
                 });
 
-            new[] {False, False, False, False}.Or()(_TestString).Should().BeFalse();
-            new[] {False, False, False, True}.Or()(_TestString).Should().BeTrue();
+            new[] { False, False, False, False }.Or()(_TestString).Should().BeFalse();
+            new[] { False, False, False, True }.Or()(_TestString).Should().BeTrue();
 
             // True blocks execution of later items
-            new[] {False, False, True, NotRun}.Or()(_TestString).Should().BeTrue();
-            L.A(() => new[] {False, False, False, NotRun}.Or()(_TestString)).ShouldFail();
+            new[] { False, False, True, NotRun }.Or()(_TestString).Should().BeTrue();
+            L.A(() => new[] { False, False, False, NotRun }.Or()(_TestString)).ShouldFail();
             }
 
         [Fact]
@@ -69,29 +69,29 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, object, bool>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                return true;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    return true;
                 });
             var False = new Func<object, object, bool>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                return false;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    return false;
                 });
             var NotRun = new Func<object, object, bool>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                throw new Exception();
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    throw new Exception();
                 });
 
-            new[] {False, False, False, False}.Or()(_TestString, _TestString).Should().BeFalse();
-            new[] {False, False, False, True}.Or()(_TestString, _TestString).Should().BeTrue();
+            new[] { False, False, False, False }.Or()(_TestString, _TestString).Should().BeFalse();
+            new[] { False, False, False, True }.Or()(_TestString, _TestString).Should().BeTrue();
 
             // True blocks execution of later items
-            new[] {False, False, True, NotRun}.Or()(_TestString, _TestString).Should().BeTrue();
-            L.A(() => new[] {False, False, False, NotRun}.Or()(_TestString, _TestString)).ShouldFail();
+            new[] { False, False, True, NotRun }.Or()(_TestString, _TestString).Should().BeTrue();
+            L.A(() => new[] { False, False, False, NotRun }.Or()(_TestString, _TestString)).ShouldFail();
             }
 
         [Fact]
@@ -100,32 +100,32 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, object, object, bool>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                return true;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    return true;
                 });
             var False = new Func<object, object, object, bool>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                return false;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    return false;
                 });
             var NotRun = new Func<object, object, object, bool>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                throw new Exception();
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    throw new Exception();
                 });
 
-            new[] {False, False, False, False}.Or()(_TestString, _TestString, _TestString).Should().BeFalse();
-            new[] {False, False, False, True}.Or()(_TestString, _TestString, _TestString).Should().BeTrue();
+            new[] { False, False, False, False }.Or()(_TestString, _TestString, _TestString).Should().BeFalse();
+            new[] { False, False, False, True }.Or()(_TestString, _TestString, _TestString).Should().BeTrue();
 
             // True blocks execution of later items
-            new[] {False, False, True, NotRun}.Or()(_TestString, _TestString, _TestString).Should().BeTrue();
-            L.A(() => new[] {False, False, False, NotRun}.Or()(_TestString, _TestString, _TestString)).ShouldFail();
+            new[] { False, False, True, NotRun }.Or()(_TestString, _TestString, _TestString).Should().BeTrue();
+            L.A(() => new[] { False, False, False, NotRun }.Or()(_TestString, _TestString, _TestString)).ShouldFail();
             }
 
         [Fact]
@@ -134,35 +134,35 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
-                return true;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
+                    return true;
                 });
             var False = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
-                return false;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
+                    return false;
                 });
             var NotRun = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
-                throw new Exception();
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
+                    throw new Exception();
                 });
 
-            new[] {False, False, False, False}.Or()(_TestString, _TestString, _TestString, _TestString).Should().BeFalse();
-            new[] {False, False, False, True}.Or()(_TestString, _TestString, _TestString, _TestString).Should().BeTrue();
+            new[] { False, False, False, False }.Or()(_TestString, _TestString, _TestString, _TestString).Should().BeFalse();
+            new[] { False, False, False, True }.Or()(_TestString, _TestString, _TestString, _TestString).Should().BeTrue();
 
             // True blocks execution of later items
-            new[] {False, False, True, NotRun}.Or()(_TestString, _TestString, _TestString, _TestString).Should().BeTrue();
-            L.A(() => new[] {False, False, False, NotRun}.Or()(_TestString, _TestString, _TestString, _TestString)).ShouldFail();
+            new[] { False, False, True, NotRun }.Or()(_TestString, _TestString, _TestString, _TestString).Should().BeTrue();
+            L.A(() => new[] { False, False, False, NotRun }.Or()(_TestString, _TestString, _TestString, _TestString)).ShouldFail();
             }
 
         [Fact]
@@ -189,18 +189,18 @@ namespace L_Tests.LCore.Extensions
             // True works 
             Func<object, bool> Func = o =>
                 {
-                // Variables are passed.
-                o.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o.Should().BeSameAs(_TestString);
+                    return true;
                 };
             Func.Not()(_TestString).Should().BeFalse();
 
             // False works
             Func<object, bool> Func2 = o =>
                 {
-                // Variables are passed.
-                o.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o.Should().BeSameAs(_TestString);
+                    return false;
                 };
             Func2.Not()(_TestString).Should().BeTrue();
 
@@ -216,20 +216,20 @@ namespace L_Tests.LCore.Extensions
             // True works 
             Func<object, object, bool> Func = (o1, o2) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    return true;
                 };
             Func.Not()(_TestString, _TestString).Should().BeFalse();
 
             // False works
             Func<object, object, bool> Func2 = (o1, o2) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    return false;
                 };
             Func2.Not()(_TestString, _TestString).Should().BeTrue();
 
@@ -245,22 +245,22 @@ namespace L_Tests.LCore.Extensions
             // True works 
             Func<object, object, object, bool> Func = (o1, o2, o3) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    return true;
                 };
             Func.Not()(_TestString, _TestString, _TestString).Should().BeFalse();
 
             // False works
             Func<object, object, object, bool> Func2 = (o1, o2, o3) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    return false;
                 };
             Func2.Not()(_TestString, _TestString, _TestString).Should().BeTrue();
 
@@ -276,24 +276,24 @@ namespace L_Tests.LCore.Extensions
             // True works 
             Func<object, object, object, object, bool> Func = (o1, o2, o3, o4) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                o4.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    o4.Should().BeSameAs(_TestString);
+                    return true;
                 };
             Func.Not()(_TestString, _TestString, _TestString, _TestString).Should().BeFalse();
 
             // False works
             Func<object, object, object, object, bool> Func2 = (o1, o2, o3, o4) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                o4.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    o4.Should().BeSameAs(_TestString);
+                    return false;
                 };
             Func2.Not()(_TestString, _TestString, _TestString, _TestString).Should().Be(expected: true);
 
@@ -328,8 +328,8 @@ namespace L_Tests.LCore.Extensions
             Action3.If(L.Bool.True).ShouldFail();
 
             // Null Tests
-            ((Action) null).If(L.Bool.True);
-            Action3.If((Func<bool>) null);
+            ((Action)null).If(L.Bool.True);
+            Action3.If((Func<bool>)null);
             }
 
         [Fact]
@@ -338,9 +338,9 @@ namespace L_Tests.LCore.Extensions
             {
             var Condition = new Func<object, bool>(o =>
                 {
-                // Variables are passed.
-                o.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o.Should().BeSameAs(_TestString);
+                    return false;
                 });
             // False works
             bool Result = false;
@@ -355,9 +355,9 @@ namespace L_Tests.LCore.Extensions
             // true works
             var Condition2 = new Func<object, bool>(o =>
                 {
-                // Variables are passed.
-                o.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o.Should().BeSameAs(_TestString);
+                    return true;
                 });
             bool Result2 = false;
             var Action2 = new Action(() => { Result2 = true; });
@@ -376,10 +376,10 @@ namespace L_Tests.LCore.Extensions
             {
             var Condition = new Func<object, object, bool>((o1, o2) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    return false;
                 });
             // False works
             bool Result = false;
@@ -394,10 +394,10 @@ namespace L_Tests.LCore.Extensions
             // true works
             var Condition2 = new Func<object, object, bool>((o1, o2) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    return true;
                 });
             bool Result2 = false;
             var Action2 = new Action(() => { Result2 = true; });
@@ -416,11 +416,11 @@ namespace L_Tests.LCore.Extensions
             {
             var Condition = new Func<object, object, object, bool>((o1, o2, o3) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    return false;
                 });
             // False works
             bool Result = false;
@@ -435,11 +435,11 @@ namespace L_Tests.LCore.Extensions
             // true works
             var Condition2 = new Func<object, object, object, bool>((o1, o2, o3) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    return true;
                 });
             bool Result2 = false;
             var Act2 = new Action(() => { Result2 = true; });
@@ -458,12 +458,12 @@ namespace L_Tests.LCore.Extensions
             {
             var Condition = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                o4.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    o4.Should().BeSameAs(_TestString);
+                    return false;
                 });
             // False works
             bool Result = false;
@@ -478,12 +478,12 @@ namespace L_Tests.LCore.Extensions
             // true works
             var Condition2 = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                o4.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    o4.Should().BeSameAs(_TestString);
+                    return true;
                 });
             bool Result2 = false;
             var Act2 = new Action(() => { Result2 = true; });
@@ -504,8 +504,8 @@ namespace L_Tests.LCore.Extensions
             bool Result = true;
             var Act = new Func<string>(() =>
                 {
-                Result = false;
-                return _TestString;
+                    Result = false;
+                    return _TestString;
                 });
 
             string Result2 = Act.If(L.Bool.False)();
@@ -521,8 +521,8 @@ namespace L_Tests.LCore.Extensions
             bool Result3 = false;
             var Act2 = new Func<string>(() =>
                 {
-                Result3 = true;
-                return _TestString;
+                    Result3 = true;
+                    return _TestString;
                 });
 
             string Result4 = Act2.If(L.Bool.True)();
@@ -543,15 +543,15 @@ namespace L_Tests.LCore.Extensions
             // False works
             var Condition = new Func<object, bool>(o =>
                 {
-                // Variables are passed.
-                o.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o.Should().BeSameAs(_TestString);
+                    return false;
                 });
             bool Result = true;
             var Act = new Func<string>(() =>
                 {
-                Result = false;
-                return _TestString;
+                    Result = false;
+                    return _TestString;
                 });
 
             string Result2 = Act.If(Condition)(_TestString);
@@ -566,15 +566,15 @@ namespace L_Tests.LCore.Extensions
             // true works
             var Condition2 = new Func<object, bool>(o =>
                 {
-                // Variables are passed.
-                o.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o.Should().BeSameAs(_TestString);
+                    return true;
                 });
             bool Result3 = false;
             var Act2 = new Func<string>(() =>
                 {
-                Result3 = true;
-                return _TestString;
+                    Result3 = true;
+                    return _TestString;
                 });
 
             string Result4 = Act2.If(Condition2)(_TestString);
@@ -595,16 +595,16 @@ namespace L_Tests.LCore.Extensions
             // False works
             var Condition = new Func<object, object, bool>((o1, o2) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    return false;
                 });
             bool Result = true;
             var Act = new Func<string>(() =>
                 {
-                Result = false;
-                return _TestString;
+                    Result = false;
+                    return _TestString;
                 });
 
             string Result2 = Act.If(Condition)(_TestString, _TestString);
@@ -619,16 +619,16 @@ namespace L_Tests.LCore.Extensions
             // true works
             var Condition2 = new Func<object, object, bool>((o1, o2) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    return true;
                 });
             bool Result3 = false;
             var Act2 = new Func<string>(() =>
                 {
-                Result3 = true;
-                return _TestString;
+                    Result3 = true;
+                    return _TestString;
                 });
 
             string Result4 = Act2.If(Condition2)(_TestString, _TestString);
@@ -649,17 +649,17 @@ namespace L_Tests.LCore.Extensions
             // False works
             var Condition = new Func<object, object, object, bool>((o1, o2, o3) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    return false;
                 });
             bool Result = true;
             var Act = new Func<string>(() =>
                 {
-                Result = false;
-                return _TestString;
+                    Result = false;
+                    return _TestString;
                 });
 
             string Result2 = Act.If(Condition)(_TestString, _TestString, _TestString);
@@ -674,17 +674,17 @@ namespace L_Tests.LCore.Extensions
             // true works
             var Condition2 = new Func<object, object, object, bool>((o1, o2, o3) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    return true;
                 });
             bool Result3 = false;
             var Act2 = new Func<string>(() =>
                 {
-                Result3 = true;
-                return _TestString;
+                    Result3 = true;
+                    return _TestString;
                 });
 
             string Result4 = Act2.If(Condition2)(_TestString, _TestString, _TestString);
@@ -705,18 +705,18 @@ namespace L_Tests.LCore.Extensions
             // False works
             var Condition = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                o4.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    o4.Should().BeSameAs(_TestString);
+                    return false;
                 });
             bool Result = true;
             var Act = new Func<string>(() =>
                 {
-                Result = false;
-                return _TestString;
+                    Result = false;
+                    return _TestString;
                 });
 
             string Result2 = Act.If(Condition)(_TestString, _TestString, _TestString, _TestString);
@@ -731,18 +731,18 @@ namespace L_Tests.LCore.Extensions
             // true works
             var Condition2 = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                o4.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    o4.Should().BeSameAs(_TestString);
+                    return true;
                 });
             bool Result3 = false;
             var Act2 = new Func<string>(() =>
                 {
-                Result3 = true;
-                return _TestString;
+                    Result3 = true;
+                    return _TestString;
                 });
 
             string Result4 = Act2.If(Condition2)(_TestString, _TestString, _TestString, _TestString);
@@ -766,8 +766,8 @@ namespace L_Tests.LCore.Extensions
             bool Result = true;
             var Act = new Func<string>(() =>
                 {
-                Result = false;
-                return _TestString;
+                    Result = false;
+                    return _TestString;
                 });
 
             string Result2 = Act.Unless(L.Bool.True, L.Bool.False, L.Bool.False)();
@@ -783,8 +783,8 @@ namespace L_Tests.LCore.Extensions
             bool Result3 = false;
             var Act2 = new Func<string>(() =>
                 {
-                Result3 = true;
-                return _TestString;
+                    Result3 = true;
+                    return _TestString;
                 });
 
             string Result4 = Act2.Unless(L.Bool.False, L.Bool.False, L.Bool.False)();
@@ -804,24 +804,24 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, bool>(o =>
                 {
-                // Variables are passed.
-                o.Should().Be(_TestString);
-                return true;
+                    // Variables are passed.
+                    o.Should().Be(_TestString);
+                    return true;
                 });
 
             var False = new Func<object, bool>(o =>
                 {
-                // Variables are passed.
-                o.Should().Be(_TestString);
-                return false;
+                    // Variables are passed.
+                    o.Should().Be(_TestString);
+                    return false;
                 });
 
             // False works - AND is applied
             bool Result = true;
             var Act = new Func<string>(() =>
                 {
-                Result = false;
-                return _TestString;
+                    Result = false;
+                    return _TestString;
                 });
 
             string Result2 = Act.Unless(True, False, False)(_TestString);
@@ -837,8 +837,8 @@ namespace L_Tests.LCore.Extensions
             bool Result3 = false;
             var Act2 = new Func<string>(() =>
                 {
-                Result3 = true;
-                return _TestString;
+                    Result3 = true;
+                    return _TestString;
                 });
 
             string Result4 = Act2.Unless(False, False, False)(_TestString);
@@ -858,26 +858,26 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, object, bool>((o1, o2) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    return true;
                 });
 
             var False = new Func<object, object, bool>((o1, o2) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    return false;
                 });
 
             // False works - AND is applied
             bool Result = true;
             var Act = new Func<string>(() =>
                 {
-                Result = false;
-                return _TestString;
+                    Result = false;
+                    return _TestString;
                 });
 
             string Result2 = Act.Unless(True, False, False)(_TestString, _TestString);
@@ -893,8 +893,8 @@ namespace L_Tests.LCore.Extensions
             bool Result3 = false;
             var Act2 = new Func<string>(() =>
                 {
-                Result3 = true;
-                return _TestString;
+                    Result3 = true;
+                    return _TestString;
                 });
 
             string Result4 = Act2.Unless(False, False, False)(_TestString, _TestString);
@@ -914,28 +914,28 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, object, object, bool>((o1, o2, o3) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    return true;
                 });
 
             var False = new Func<object, object, object, bool>((o1, o2, o3) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    return false;
                 });
 
             // False works - AND is applied
             bool Result = true;
             var Act = new Func<string>(() =>
                 {
-                Result = false;
-                return _TestString;
+                    Result = false;
+                    return _TestString;
                 });
 
             string Result2 = Act.Unless(True, False, False)(_TestString, _TestString, _TestString);
@@ -951,8 +951,8 @@ namespace L_Tests.LCore.Extensions
             bool Result3 = false;
             var Act2 = new Func<string>(() =>
                 {
-                Result3 = true;
-                return _TestString;
+                    Result3 = true;
+                    return _TestString;
                 });
 
             string Result4 = Act2.Unless(False, False, False)(_TestString, _TestString, _TestString);
@@ -972,30 +972,30 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                o4.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    o4.Should().BeSameAs(_TestString);
+                    return true;
                 });
 
             var False = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                o4.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    o4.Should().BeSameAs(_TestString);
+                    return false;
                 });
 
             // False works - AND is applied
             bool Result = true;
             var Act = new Func<string>(() =>
                 {
-                Result = false;
-                return _TestString;
+                    Result = false;
+                    return _TestString;
                 });
 
             string Result2 = Act.Unless(True, False, False)(_TestString, _TestString, _TestString, _TestString);
@@ -1011,8 +1011,8 @@ namespace L_Tests.LCore.Extensions
             bool Result3 = false;
             var Act2 = new Func<string>(() =>
                 {
-                Result3 = true;
-                return _TestString;
+                    Result3 = true;
+                    return _TestString;
                 });
 
             string Result4 = Act2.Unless(False, False, False)(_TestString, _TestString, _TestString, _TestString);
@@ -1035,8 +1035,8 @@ namespace L_Tests.LCore.Extensions
             bool Result = true;
             var Act = new Action(() =>
                 {
-                Result = false;
-                throw new Exception();
+                    Result = false;
+                    throw new Exception();
                 });
 
             Act.Unless(L.Bool.True, L.Bool.False)();
@@ -1061,16 +1061,16 @@ namespace L_Tests.LCore.Extensions
             {
             var Condition = new Func<object, bool>(o =>
                 {
-                // Variables are passed.
-                o.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o.Should().BeSameAs(_TestString);
+                    return true;
                 });
             // False works
             bool Result = false;
             var Act = new Action(() =>
                 {
-                Result = true;
-                throw new Exception();
+                    Result = true;
+                    throw new Exception();
                 });
 
             Act.Unless(Condition, Condition.Not())(_TestString);
@@ -1080,9 +1080,9 @@ namespace L_Tests.LCore.Extensions
             // true works
             var Condition2 = new Func<object, bool>(o =>
                 {
-                // Variables are passed.
-                o.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o.Should().BeSameAs(_TestString);
+                    return false;
                 });
             bool Result2 = false;
             var Act2 = new Action(() => { Result2 = true; });
@@ -1101,17 +1101,17 @@ namespace L_Tests.LCore.Extensions
             {
             var Condition = new Func<object, object, bool>((o1, o2) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    return true;
                 });
             // False works
             bool Result = false;
             var Act = new Action(() =>
                 {
-                Result = true;
-                throw new Exception();
+                    Result = true;
+                    throw new Exception();
                 });
 
             Act.Unless(Condition, Condition.Not())(_TestString, _TestString);
@@ -1121,10 +1121,10 @@ namespace L_Tests.LCore.Extensions
             // true works
             var Condition2 = new Func<object, object, bool>((o1, o2) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    return false;
                 });
             bool Result2 = false;
             var Act2 = new Action(() => { Result2 = true; });
@@ -1144,18 +1144,18 @@ namespace L_Tests.LCore.Extensions
             {
             var Condition = new Func<object, object, object, bool>((o1, o2, o3) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    return true;
                 });
             // False works
             bool Result = false;
             var Act = new Action(() =>
                 {
-                Result = true;
-                throw new Exception();
+                    Result = true;
+                    throw new Exception();
                 });
 
             Act.Unless(Condition, Condition.Not())(_TestString, _TestString, _TestString);
@@ -1165,11 +1165,11 @@ namespace L_Tests.LCore.Extensions
             // true works
             var Condition2 = new Func<object, object, object, bool>((o1, o2, o3) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    return false;
                 });
             bool Result2 = false;
             var Act2 = new Action(() => { Result2 = true; });
@@ -1189,19 +1189,19 @@ namespace L_Tests.LCore.Extensions
             {
             var Condition = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                o4.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    o4.Should().BeSameAs(_TestString);
+                    return true;
                 });
             // False works
             bool Result = false;
             var Act = new Action(() =>
                 {
-                Result = true;
-                throw new Exception();
+                    Result = true;
+                    throw new Exception();
                 });
 
             Act.Unless(Condition, Condition.Not())(_TestString, _TestString, _TestString, _TestString);
@@ -1211,12 +1211,12 @@ namespace L_Tests.LCore.Extensions
             // true works
             var Condition2 = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                o4.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    o4.Should().BeSameAs(_TestString);
+                    return false;
                 });
             bool Result2 = false;
             var Act2 = new Action(() => { Result2 = true; });
@@ -1238,8 +1238,8 @@ namespace L_Tests.LCore.Extensions
             bool Result = true;
             var Act = new Action(() =>
                 {
-                Result = false;
-                throw new Exception();
+                    Result = false;
+                    throw new Exception();
                 });
 
             bool Result2 = Act.If(L.Bool.True, L.Bool.True, L.Bool.False)();
@@ -1270,24 +1270,24 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, bool>(o =>
                 {
-                // Variables are passed.
-                o.Should().Be(_TestString);
-                return true;
+                    // Variables are passed.
+                    o.Should().Be(_TestString);
+                    return true;
                 });
 
             var False = new Func<object, bool>(o =>
                 {
-                // Variables are passed.
-                o.Should().Be(_TestString);
-                return false;
+                    // Variables are passed.
+                    o.Should().Be(_TestString);
+                    return false;
                 });
 
             // False works - AND is applied
             bool Result = true;
             var Act = new Action(() =>
                 {
-                Result = false;
-                throw new Exception();
+                    Result = false;
+                    throw new Exception();
                 });
 
             bool Result2 = Act.If(True, True, False)(_TestString);
@@ -1318,26 +1318,26 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, object, bool>((o1, o2) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    return true;
                 });
 
             var False = new Func<object, object, bool>((o1, o2) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    return false;
                 });
 
             // False works - AND is applied
             bool Result = true;
             var Act = new Action(() =>
                 {
-                Result = false;
-                throw new Exception();
+                    Result = false;
+                    throw new Exception();
                 });
 
             bool Result2 = Act.If(True, True, False)(_TestString, _TestString);
@@ -1368,28 +1368,28 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, object, object, bool>((o1, o2, o3) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    return true;
                 });
 
             var False = new Func<object, object, object, bool>((o1, o2, o3) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    return false;
                 });
 
             // False works - AND is applied
             bool Result = true;
             var Act = new Action(() =>
                 {
-                Result = false;
-                throw new Exception();
+                    Result = false;
+                    throw new Exception();
                 });
 
             bool Result2 = Act.If(True, True, False)(_TestString, _TestString, _TestString);
@@ -1420,30 +1420,30 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                o4.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    o4.Should().BeSameAs(_TestString);
+                    return true;
                 });
 
             var False = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                o4.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    o4.Should().BeSameAs(_TestString);
+                    return false;
                 });
 
             // False works - AND is applied
             bool Result = true;
             var Act = new Action(() =>
                 {
-                Result = false;
-                throw new Exception();
+                    Result = false;
+                    throw new Exception();
                 });
 
             bool Result2 = Act.If(True, True, False)(_TestString, _TestString, _TestString, _TestString);
@@ -1477,8 +1477,8 @@ namespace L_Tests.LCore.Extensions
             bool Result = true;
             var Act = new Func<string>(() =>
                 {
-                Result = false;
-                return _TestString;
+                    Result = false;
+                    return _TestString;
                 });
 
             string Result2 = Act.If(L.Bool.True, L.Bool.True, L.Bool.False)();
@@ -1494,8 +1494,8 @@ namespace L_Tests.LCore.Extensions
             bool Result3 = false;
             var Act2 = new Func<string>(() =>
                 {
-                Result3 = true;
-                return _TestString;
+                    Result3 = true;
+                    return _TestString;
                 });
 
             string Result4 = Act2.If(L.Bool.True, L.Bool.True, L.Bool.True)();
@@ -1515,24 +1515,24 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, bool>(o =>
                 {
-                // Variables are passed.
-                o.Should().Be(_TestString);
-                return true;
+                    // Variables are passed.
+                    o.Should().Be(_TestString);
+                    return true;
                 });
 
             var False = new Func<object, bool>(o =>
                 {
-                // Variables are passed.
-                o.Should().Be(_TestString);
-                return false;
+                    // Variables are passed.
+                    o.Should().Be(_TestString);
+                    return false;
                 });
 
             // False works - AND is applied
             bool Result = true;
             var Act = new Func<string>(() =>
                 {
-                Result = false;
-                return _TestString;
+                    Result = false;
+                    return _TestString;
                 });
 
             string Result2 = Act.If(True, True, False)(_TestString);
@@ -1548,8 +1548,8 @@ namespace L_Tests.LCore.Extensions
             bool Result3 = false;
             var Act2 = new Func<string>(() =>
                 {
-                Result3 = true;
-                return _TestString;
+                    Result3 = true;
+                    return _TestString;
                 });
 
             string Result4 = Act2.If(True, True, True)(_TestString);
@@ -1569,26 +1569,26 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, object, bool>((o1, o2) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    return true;
                 });
 
             var False = new Func<object, object, bool>((o1, o2) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    return false;
                 });
 
             // False works - AND is applied
             bool Result = true;
             var Act = new Func<string>(() =>
                 {
-                Result = false;
-                return _TestString;
+                    Result = false;
+                    return _TestString;
                 });
 
             string Result2 = Act.If(True, True, False)(_TestString, _TestString);
@@ -1604,8 +1604,8 @@ namespace L_Tests.LCore.Extensions
             bool Result3 = false;
             var Act2 = new Func<string>(() =>
                 {
-                Result3 = true;
-                return _TestString;
+                    Result3 = true;
+                    return _TestString;
                 });
 
             string Result4 = Act2.If(True, True, True)(_TestString, _TestString);
@@ -1625,28 +1625,28 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, object, object, bool>((o1, o2, o3) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    return true;
                 });
 
             var False = new Func<object, object, object, bool>((o1, o2, o3) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    return false;
                 });
 
             // False works - AND is applied
             bool Result = true;
             var Act = new Func<string>(() =>
                 {
-                Result = false;
-                return _TestString;
+                    Result = false;
+                    return _TestString;
                 });
 
             string Result2 = Act.If(True, True, False)(_TestString, _TestString, _TestString);
@@ -1662,8 +1662,8 @@ namespace L_Tests.LCore.Extensions
             bool Result3 = false;
             var Act2 = new Func<string>(() =>
                 {
-                Result3 = true;
-                return _TestString;
+                    Result3 = true;
+                    return _TestString;
                 });
 
             string Result4 = Act2.If(True, True, True)(_TestString, _TestString, _TestString);
@@ -1683,30 +1683,30 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                o4.Should().BeSameAs(_TestString);
-                return true;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    o4.Should().BeSameAs(_TestString);
+                    return true;
                 });
 
             var False = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
-                o4.Should().BeSameAs(_TestString);
-                return false;
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
+                    o4.Should().BeSameAs(_TestString);
+                    return false;
                 });
 
             // False works - AND is applied
             bool Result = true;
             var Act = new Func<string>(() =>
                 {
-                Result = false;
-                return _TestString;
+                    Result = false;
+                    return _TestString;
                 });
 
             string Result2 = Act.If(True, True, False)(_TestString, _TestString, _TestString, _TestString);
@@ -1722,8 +1722,8 @@ namespace L_Tests.LCore.Extensions
             bool Result3 = false;
             var Act2 = new Func<string>(() =>
                 {
-                Result3 = true;
-                return _TestString;
+                    Result3 = true;
+                    return _TestString;
                 });
 
             string Result4 = Act2.If(True, True, True)(_TestString, _TestString, _TestString, _TestString);
@@ -1753,8 +1753,8 @@ namespace L_Tests.LCore.Extensions
             var ActionMustRun = new Action(() => { ActionRun = true; });
             var ActionMustRun2 = new Func<bool>(() =>
                 {
-                ActionRun = true;
-                return false;
+                    ActionRun = true;
+                    return false;
                 });
 
             // Action did not run.
@@ -1788,18 +1788,18 @@ namespace L_Tests.LCore.Extensions
 
             var ActionMustRun = new Action<object>(o =>
                 {
-                // Variables are passed.
-                o.Should().Be(_TestString);
+                    // Variables are passed.
+                    o.Should().Be(_TestString);
 
-                ActionRun = true;
+                    ActionRun = true;
                 });
             var ActionMustRun2 = new Func<object, bool>(o =>
                 {
-                // Variables are passed.
-                o.Should().Be(_TestString);
+                    // Variables are passed.
+                    o.Should().Be(_TestString);
 
-                ActionRun = true;
-                return false;
+                    ActionRun = true;
+                    return false;
                 });
 
             // Action did not run.
@@ -1833,20 +1833,20 @@ namespace L_Tests.LCore.Extensions
 
             var ActionMustRun = new Action<object, object>((o1, o2) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
 
-                ActionRun = true;
+                    ActionRun = true;
                 });
             var ActionMustRun2 = new Func<object, object, bool>((o1, o2) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
 
-                ActionRun = true;
-                return false;
+                    ActionRun = true;
+                    return false;
                 });
 
             // Action did not run.
@@ -1880,22 +1880,22 @@ namespace L_Tests.LCore.Extensions
 
             var ActionMustRun = new Action<object, object, object>((o1, o2, o3) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
 
-                ActionRun = true;
+                    ActionRun = true;
                 });
             var ActionMustRun2 = new Func<object, object, object, bool>((o1, o2, o3) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
 
-                ActionRun = true;
-                return false;
+                    ActionRun = true;
+                    return false;
                 });
 
             // Action did not run.
@@ -1929,22 +1929,22 @@ namespace L_Tests.LCore.Extensions
 
             var ActionMustRun = new Action<object, object, object, object>((o1, o2, o3, o4) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
 
-                ActionRun = true;
+                    ActionRun = true;
                 });
             var ActionMustRun2 = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
 
-                ActionRun = true;
-                return false;
+                    ActionRun = true;
+                    return false;
                 });
 
             // Action did not run.
@@ -1978,8 +1978,8 @@ namespace L_Tests.LCore.Extensions
 
             var ActionMustRun = new Func<bool>(() =>
                 {
-                ActionRun = true;
-                return false;
+                    ActionRun = true;
+                    return false;
                 });
 
             // Action did not run.
@@ -2016,11 +2016,11 @@ namespace L_Tests.LCore.Extensions
 
             var ActionMustRun = new Func<object, bool>(o =>
                 {
-                // Variables are passed.
-                o.Should().Be(_TestString);
+                    // Variables are passed.
+                    o.Should().Be(_TestString);
 
-                ActionRun = true;
-                return false;
+                    ActionRun = true;
+                    return false;
                 });
 
             // Action did not run.
@@ -2057,12 +2057,12 @@ namespace L_Tests.LCore.Extensions
 
             var ActionMustRun = new Func<object, object, bool>((o1, o2) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
 
-                ActionRun = true;
-                return false;
+                    ActionRun = true;
+                    return false;
                 });
 
             // Action did not run.
@@ -2099,13 +2099,13 @@ namespace L_Tests.LCore.Extensions
 
             var ActionMustRun = new Func<object, object, object, bool>((o1, o2, o3) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
 
-                ActionRun = true;
-                return false;
+                    ActionRun = true;
+                    return false;
                 });
 
             // Action did not run.
@@ -2142,13 +2142,13 @@ namespace L_Tests.LCore.Extensions
 
             var ActionMustRun = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
                 {
-                // Variables are passed.
-                o1.Should().BeSameAs(_TestString);
-                o2.Should().BeSameAs(_TestString);
-                o3.Should().BeSameAs(_TestString);
+                    // Variables are passed.
+                    o1.Should().BeSameAs(_TestString);
+                    o2.Should().BeSameAs(_TestString);
+                    o3.Should().BeSameAs(_TestString);
 
-                ActionRun = true;
-                return false;
+                    ActionRun = true;
+                    return false;
                 });
 
             // Action did not run.
@@ -2195,19 +2195,19 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, bool>(o =>
                 {
-                o.Should().Be(_TestString);
-                return true;
+                    o.Should().Be(_TestString);
+                    return true;
                 });
             var False = new Func<object, bool>(o =>
                 {
-                o.Should().Be(_TestString);
-                return false;
+                    o.Should().Be(_TestString);
+                    return false;
                 });
             var Act = new Action<object>(o => { o.Should().Be(_TestString); });
             var DontExecute = new Action<object>(o =>
                 {
-                o.Should().Be(_TestString);
-                throw new Exception();
+                    o.Should().Be(_TestString);
+                    throw new Exception();
                 });
 
             True.Else(DontExecute)(_TestString);
@@ -2223,26 +2223,26 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, object, bool>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                return true;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    return true;
                 });
             var False = new Func<object, object, bool>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                return false;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    return false;
                 });
             var Act = new Action<object, object>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
                 });
             var DontExecute = new Action<object, object>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                throw new Exception();
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    throw new Exception();
                 });
 
             True.Else(DontExecute)(_TestString, _TestString);
@@ -2258,30 +2258,30 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, object, object, bool>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                return true;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    return true;
                 });
             var False = new Func<object, object, object, bool>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                return false;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    return false;
                 });
             var Act = new Action<object, object, object>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
                 });
             var DontExecute = new Action<object, object, object>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                throw new Exception();
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    throw new Exception();
                 });
 
             True.Else(DontExecute)(_TestString, _TestString, _TestString);
@@ -2297,34 +2297,34 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
-                return true;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
+                    return true;
                 });
             var False = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
-                return false;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
+                    return false;
                 });
             var Act = new Action<object, object, object, object>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
                 });
             var DontExecute = new Action<object, object, object, object>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                o4.Should().Be(_TestString);
-                throw new Exception();
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    o4.Should().Be(_TestString);
+                    throw new Exception();
                 });
 
             True.Else(DontExecute)(_TestString, _TestString, _TestString, _TestString);
@@ -2359,18 +2359,18 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, int>(o =>
                 {
-                o.Should().Be(_TestString);
-                return 1;
+                    o.Should().Be(_TestString);
+                    return 1;
                 });
             var False = new Func<object, int>(o =>
                 {
-                o.Should().Be(_TestString);
-                return default(int);
+                    o.Should().Be(_TestString);
+                    return default(int);
                 });
             var DontExecute = new Func<object, int>(o =>
                 {
-                o.Should().Be(_TestString);
-                throw new Exception();
+                    o.Should().Be(_TestString);
+                    throw new Exception();
                 });
 
             const int Result = 10;
@@ -2387,21 +2387,21 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, object, int>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                return 1;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    return 1;
                 });
             var False = new Func<object, object, int>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                return default(int);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    return default(int);
                 });
             var DontExecute = new Func<object, object, int>((o1, o2) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                throw new Exception();
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    throw new Exception();
                 });
 
             const int Result = 10;
@@ -2418,24 +2418,24 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, object, object, int>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                return 1;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    return 1;
                 });
             var False = new Func<object, object, object, int>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                return default(int);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    return default(int);
                 });
             var DontExecute = new Func<object, object, object, int>((o1, o2, o3) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                throw new Exception();
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    throw new Exception();
                 });
 
             const int Result = 10;
@@ -2452,24 +2452,24 @@ namespace L_Tests.LCore.Extensions
             {
             var True = new Func<object, object, object, object, int>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                return 1;
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    return 1;
                 });
             var False = new Func<object, object, object, object, int>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                return default(int);
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    return default(int);
                 });
             var DontExecute = new Func<object, object, object, object, int>((o1, o2, o3, o4) =>
                 {
-                o1.Should().Be(_TestString);
-                o2.Should().Be(_TestString);
-                o3.Should().Be(_TestString);
-                throw new Exception();
+                    o1.Should().Be(_TestString);
+                    o2.Should().Be(_TestString);
+                    o3.Should().Be(_TestString);
+                    throw new Exception();
                 });
 
             const int Result = 10;
@@ -2478,77 +2478,6 @@ namespace L_Tests.LCore.Extensions
             False.Else(Result)(_TestString, _TestString, _TestString, _TestString).Should().Be(expected: 10);
 
             L.A(() => False.Else(DontExecute)(_TestString, _TestString, _TestString, _TestString)).ShouldFail();
-            }
-
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.Else) + "(Func`1, U) => Func`1")]
-        public void Else_Func_1_U_Func_1()
-            {
-            // TODO: Implement method test LCore.Extensions.BooleanExt.Else
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.Else) + "(Func`2, U) => Func`2")]
-        public void Else_Func_2_U_Func_2()
-            {
-            // TODO: Implement method test LCore.Extensions.BooleanExt.Else
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.Else) + "(Func`3, U) => Func`3")]
-        public void Else_Func_3_U_Func_3()
-            {
-            // TODO: Implement method test LCore.Extensions.BooleanExt.Else
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.Else) + "(Func`4, U) => Func`4")]
-        public void Else_Func_4_U_Func_4()
-            {
-            // TODO: Implement method test LCore.Extensions.BooleanExt.Else
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.Else) + "(Func`5, U) => Func`5")]
-        public void Else_Func_5_U_Func_5()
-            {
-            // TODO: Implement method test LCore.Extensions.BooleanExt.Else
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.And) + "(IEnumerable`1) => Func`1")]
-        public void And_IEnumerable_1_Func_1()
-            {
-            // TODO: Implement method test LCore.Extensions.BooleanExt.And
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.And) + "(IEnumerable`1) => Func`2")]
-        public void And_IEnumerable_1_Func_2()
-            {
-            // TODO: Implement method test LCore.Extensions.BooleanExt.And
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.And) + "(IEnumerable`1) => Func`3")]
-        public void And_IEnumerable_1_Func_3()
-            {
-            // TODO: Implement method test LCore.Extensions.BooleanExt.And
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.And) + "(IEnumerable`1) => Func`4")]
-        public void And_IEnumerable_1_Func_4()
-            {
-            // TODO: Implement method test LCore.Extensions.BooleanExt.And
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.And) + "(IEnumerable`1) => Func`5")]
-        public void And_IEnumerable_1_Func_5()
-            {
-            // TODO: Implement method test LCore.Extensions.BooleanExt.And
             }
         }
     }

@@ -7,7 +7,7 @@ using LCore.LUnit;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace L_Tests.LCore.Extensions
+namespace L_Thread_Tests.LCore.Extensions
     {
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L))]
     public partial class L_ThreadTester : XUnitOutputTester, IDisposable
