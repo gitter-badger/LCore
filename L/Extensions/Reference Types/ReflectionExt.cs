@@ -1147,7 +1147,7 @@ namespace LCore.Extensions
                 return "";
 
             string MethodName = In.Name;
-            
+
             string Start = $"{In.DeclaringType?.GetClassHierarchy()}";
 
             if (FullyQualify)
@@ -1269,10 +1269,9 @@ namespace LCore.Extensions
 
             Type[] Generics = In.GenericTypeArguments;
 
-            if (Generics.Length == 0)
-                return In.Name;
-
-            return $"{In.Name}<{Generics.Convert(Type => Type.GetGenericName()).JoinLines(", ")}>";
+            return Generics.Length == 0
+                ? In.Name
+                : $"{In.Name}<{Generics.Convert(Type => Type.GetGenericName()).JoinLines(", ")}>";
             }
         }
 
