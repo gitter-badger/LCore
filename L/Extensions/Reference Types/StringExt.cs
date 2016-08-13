@@ -980,7 +980,7 @@ namespace LCore.Extensions
         /// <param name="In"></param>
         /// <param name="Expression"></param>
         /// <returns>All matches for <paramref name="In" /> nad Regex <paramref name="Expression" />.</returns>
-        
+
         public static List<Match> Matches([CanBeNull]this string In, [CanBeNull]string Expression)
             {
             if (string.IsNullOrEmpty(In) || string.IsNullOrEmpty(Expression))
@@ -1218,7 +1218,7 @@ namespace LCore.Extensions
         /// Takes a string and <paramref name="Replacements" /> dictionary. 
         /// All keys are replaced with the corresponding value.
         /// </summary>
-        
+
         public static string ReplaceAll([CanBeNull] this string In, [CanBeNull] IDictionary<string, string> Replacements)
             {
             string Out = In ?? "";
@@ -1682,6 +1682,49 @@ namespace LCore.Extensions
             return Out;
             }
 
+
+        /// <summary>
+        /// Returns input string <paramref name="In"/> repeated <paramref name="Count"/> times.
+        /// </summary>
+        [TestResult(new object[] { ' ', 0 }, "")]
+        [TestResult(new object[] { 'a', 0 }, "")]
+        [TestResult(new object[] { 'a', 1 }, "a")]
+        [TestResult(new object[] { 'a', 5 }, "aaaaa")]
+        // ReSharper disable StringLiteralTypo
+        // ReSharper restore StringLiteralTypo
+        public static string Times(this char In, [TestBound(Minimum: 0, Maximum: 100)]int Count)
+            {
+            return Count < 0
+                ? ""
+                : In.Times((uint)Count);
+            }
+
+        /// <summary>
+        /// Returns input string <paramref name="In"/> repeated <paramref name="Count"/> times.
+        /// </summary>
+        [TestResult(new object[] { ' ', 0u }, "")]
+        [TestResult(new object[] { 'a', 0u }, "")]
+        [TestResult(new object[] { 'a', 1u }, "a")]
+        [TestResult(new object[] { 'a', 5u }, "aaaaa")]
+        // ReSharper disable StringLiteralTypo
+        // ReSharper restore StringLiteralTypo
+
+        public static string Times(this char In, [TestBound(Minimum: 0u, Maximum: 100u)] uint Count)
+            {
+            if (Count == 0)
+                return "";
+            if (Count == 1)
+                return In.ToString();
+
+            string Out = "";
+
+            for (int Index = 0; Index < Count; Index++)
+                {
+                Out += In;
+                }
+
+            return Out;
+            }
         #endregion
 
         #region ToByteArray
@@ -1745,7 +1788,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Converts an input string into a memory stream.
         /// </summary>
-        
+
         public static Stream ToStream([CanBeNull]this string Str)
             {
             var Stream = new MemoryStream();

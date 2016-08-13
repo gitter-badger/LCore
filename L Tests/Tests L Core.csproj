@@ -146,14 +146,15 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Generated\LUnitGenerated.cs" />
     <Compile Include="LCore\Extensions\BooleanExtTester.cs" />
     <Compile Include="LCore\Extensions\CommentExtTester.cs" />
     <Compile Include="LCore\Extensions\DateExtTester.cs" />
     <Compile Include="LCore\Extensions\EnumExtTester.cs" />
     <Compile Include="LCore\Tools\CacheDataTester.cs" />
     <Compile Include="LCore\Tools\ExceptionListTester.cs" />
+    <Compile Include="LCore\Tools\Lists_2Tester.cs" />
     <Compile Include="LCore\Tools\RegistryHelperTester.cs" />
+    <Compile Include="LCore\Tools\Set_2Tester.cs" />
     <Compile Include="Tests\Extensions\Object Types\ComparableExtTest.cs" />
     <Compile Include="Tests\Extensions\Object Types\StatsExtTest.cs" />
     <Compile Include="Tests\Extensions\Methods\LogicExtTest.cs" />

@@ -17,15 +17,50 @@ namespace LCore.Tools
         /// <filterpriority>2</filterpriority>
         public override bool Equals([CanBeNull] object Obj)
             {
-            if (ReferenceEquals(objA: null, objB: Obj))
-                return false;
-            if (ReferenceEquals(this, Obj))
-                return true;
-            if (!(Obj is Set<T1, T2>))
-                return false;
-
-            return this.Equals((Set<T1, T2>)Obj);
+            if (ReferenceEquals(objA: null, objB: Obj)) return false;
+            if (ReferenceEquals(this, Obj)) return true;
+            return Obj.GetType() == this.GetType() && this.Equals((Set<T1, T2>)Obj);
             }
+
+        /// <summary>
+        /// Returns whether <paramref name="Set1"/> is equal to <paramref name="Set2"/>
+        /// </summary>
+        public static bool operator ==([CanBeNull]Set<T1, T2> Set1, [CanBeNull]Set<T1, T2> Set2)
+            {
+            if (ReferenceEquals(Set1, objB: null) && !ReferenceEquals(Set2, objB: null))
+                return false;
+            if (!ReferenceEquals(Set1, objB: null) && ReferenceEquals(Set2, objB: null))
+                return false;
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+            if (ReferenceEquals(Set1, objB: null) && ReferenceEquals(Set2, objB: null))
+                return true;
+
+            return Set1.Equals(Set2);
+            }
+        /// <summary>
+        /// Returns whether <paramref name="Set1"/> is not equal to <paramref name="Set2"/>
+        /// </summary>
+        public static bool operator !=([CanBeNull]Set<T1, T2> Set1, [CanBeNull]Set<T1, T2> Set2)
+            {
+            return !(Set1 == Set2);
+            }
+
+        /// <summary>
+        /// Implicitally convert a Set to a Tuple
+        /// </summary>
+        public static implicit operator Tuple<T1, T2>(Set<T1, T2> Set)
+            {
+            return new Tuple<T1, T2>(Set.Obj1, Set.Obj2);
+            }
+
+        /// <summary>
+        /// Implicitally convert a Tuple to a Set
+        /// </summary>
+        public static implicit operator Set<T1, T2>(Tuple<T1, T2> Tuple)
+            {
+            return new Set<T1, T2>(Tuple.Item1, Tuple.Item2);
+            }
+
 
         /// <summary>Serves as a hash function for a particular type. </summary>
         /// <returns>A hash code for the current object.</returns>
@@ -62,9 +97,7 @@ namespace LCore.Tools
         public bool Equals([CanBeNull] Set<T1, T2> Other)
             {
             if (ReferenceEquals(objA: null, objB: Other)) return false;
-            if (ReferenceEquals(this, Other)) return true;
-            return EqualityComparer<T1>.Default.Equals(this.Obj1, Other.Obj1) &&
-                EqualityComparer<T2>.Default.Equals(this.Obj2, Other.Obj2);
+            return ReferenceEquals(this, Other) || EqualityComparer<T2>.Default.Equals(this.Obj2, Other.Obj2);
             }
 
         /// <summary>Returns a string that represents the current object.</summary>

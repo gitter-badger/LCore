@@ -158,7 +158,8 @@ namespace LCore.LUnit
 
             if (NonStaticTypes.Length > 0)
                 {
-                this._Output.WriteLine("Classes: ");
+                uint TotalCoverage = 0;
+                this._Output.WriteLine($"Classes:                        Total Coverage: {TotalCoverage}");
                 foreach (var Type in NonStaticTypes)
                     {
                     var TestData = Type.GetTestData(this.TestAssemblies);
@@ -289,8 +290,8 @@ namespace LCore.LUnit
                                 Partial = " partial ";
 
                             WriteStack3.Add(StrongTypeTraitAttribute
-                            ? $"    [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},{TargetClass.FullyQualifiedName().NameofParts(TargetClass, TargetClass.Namespace, FullyQualifyWithNamespace)})]"
-                            : $"    [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},\"{TargetClass.FullyQualifiedName()}\")]");
+                                ? $"    [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},{TargetClass.FullyQualifiedName().NameofParts(TargetClass, TargetClass.Namespace, FullyQualifyWithNamespace)})]"
+                                : $"    [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},\"{TargetClass.FullyQualifiedName()}\")]");
 
                             if (TargetClassTest == null)
                                 {
@@ -351,12 +352,12 @@ namespace LCore.LUnit
                                     : $"\"{TargetMember.FullyQualifiedName()}\"");
 
                                 string TraitKeyLookup = TargetMember is MethodInfo
-                                ? $"{((MethodInfo)TargetMember).ToInvocationSignature(FullyQualify: true)}"
-                                : $"{TargetMember.FullyQualifiedName()}";
+                                    ? $"{((MethodInfo)TargetMember).ToInvocationSignature(FullyQualify: true)}"
+                                    : $"{TargetMember.FullyQualifiedName()}";
 
                                 if (!MemberTraits.Has(TraitKeyLookup) &&
-                                //(TargetMemberTest == null) &&
-                                !string.IsNullOrEmpty(MemberName))
+                                    //(TargetMemberTest == null) &&
+                                    !string.IsNullOrEmpty(MemberName))
                                     {
                                     // ReSharper disable RedundantNameQualifier
                                     string New = MemberName == nameof(object.GetHashCode) ||

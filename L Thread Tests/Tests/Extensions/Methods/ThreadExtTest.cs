@@ -373,7 +373,7 @@ namespace LCore.Tests.Extensions
             Thread.Sleep(millisecondsTimeout: 40);
             lock (TestAction)
                 {
-                TestAction.AsyncResult(TestAction2, TimeLimitMilliseconds: 20)();
+                TestAction.AsyncResult(TestAction2, TimeLimitMilliseconds: 10)();
 
                 Success.Should().BeFalse();
 

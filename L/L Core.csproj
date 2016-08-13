@@ -130,6 +130,7 @@
     <Compile Include="Statistics\StatsExt.cs" />
     <Compile Include="LUnit\Attributes\Interfaces\ITestedAttribute.cs" />
     <Compile Include="Tools\Async\Threads\FakeThreadPool.cs" />
+    <Compile Include="Tools\GitHubMarkdown.cs" />
     <Compile Include="Tools\CacheData.cs" />
     <Compile Include="Extensions\Language\CommentExt.cs" />
     <Compile Include="Interfaces\ICodeComment.cs" />
