@@ -170,8 +170,8 @@ namespace Singularity.Models
 
                 if (Manage != null && this.Context.AllowView(this.Meta.ContainerType))
                     {
-                    if (this.ModelData.TrueModelType().HasAttribute<DisplayColumnAttribute>(false) &&
-                        this.ModelData.TrueModelType().GetAttribute<DisplayColumnAttribute>(false)?.DisplayColumn == this.Meta.PropertyName)
+                    if (this.ModelData.TrueModelType().HasAttribute<DisplayColumnAttribute>(IncludeBaseClasses: false) &&
+                        this.ModelData.TrueModelType().GetAttribute<DisplayColumnAttribute>(IncludeBaseTypes: false)?.DisplayColumn == this.Meta.PropertyName)
                         {
                         var ThisModel = this.ModelData.GetProperty(this.PropertyName);
 

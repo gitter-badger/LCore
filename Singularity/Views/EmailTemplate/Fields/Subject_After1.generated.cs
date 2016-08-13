@@ -46,6 +46,7 @@ namespace ASP
     using LMVC.Controllers;
     using LMVC.Extensions;
     using LMVC.Models;
+    using LMVC.Routes;
     using Singularity;
     
     #line 5 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
@@ -99,7 +100,7 @@ WriteLiteral("\r\n");
 
         if (Key.Contains("."))
             {
-            BaseKey = Key.Substring(0, Key.LastIndexOf('.'));
+            BaseKey = Key.Substring(startIndex: 0, length: Key.LastIndexOf(value: '.'));
             }
 
         if (!BasedMeta.ContainsKey(BaseKey))
@@ -164,41 +165,41 @@ WriteLiteral("            <span");
 
 WriteLiteral(" class=\"btn-info btn left method-show-hide\"");
 
-WriteAttribute("click-fade-toggle", Tuple.Create(" click-fade-toggle=\"", 1667), Tuple.Create("\"", 1729)
-, Tuple.Create(Tuple.Create("", 1687), Tuple.Create(".field-group-", 1687), true)
+WriteAttribute("click-fade-toggle", Tuple.Create(" click-fade-toggle=\"", 1694), Tuple.Create("\"", 1756)
+, Tuple.Create(Tuple.Create("", 1714), Tuple.Create(".field-group-", 1714), true)
             
             #line 59 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-             , Tuple.Create(Tuple.Create("", 1700), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "" )
+             , Tuple.Create(Tuple.Create("", 1727), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "" )
             
             #line default
             #line hidden
-, 1700), false)
+, 1727), false)
 );
 
 WriteLiteral(">\r\n                <glyph");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 1755), Tuple.Create("\"", 1804)
-, Tuple.Create(Tuple.Create("", 1763), Tuple.Create("field-group-", 1763), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 1782), Tuple.Create("\"", 1831)
+, Tuple.Create(Tuple.Create("", 1790), Tuple.Create("field-group-", 1790), true)
             
             #line 60 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-, Tuple.Create(Tuple.Create("", 1775), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "" )
+, Tuple.Create(Tuple.Create("", 1802), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "" )
             
             #line default
             #line hidden
-, 1775), false)
+, 1802), false)
 );
 
 WriteLiteral(">&#x2b;</glyph>\r\n                <glyph");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 1844), Tuple.Create("\"", 1893)
-, Tuple.Create(Tuple.Create("", 1852), Tuple.Create("field-group-", 1852), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 1871), Tuple.Create("\"", 1920)
+, Tuple.Create(Tuple.Create("", 1879), Tuple.Create("field-group-", 1879), true)
             
             #line 61 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-, Tuple.Create(Tuple.Create("", 1864), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "" )
+, Tuple.Create(Tuple.Create("", 1891), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "" )
             
             #line default
             #line hidden
-, 1864), false)
+, 1891), false)
 );
 
 WriteLiteral(" style=\" display: none;\"");
@@ -224,15 +225,15 @@ WriteLiteral("            <h4>Global Tokens</h4>\r\n");
             #line hidden
 WriteLiteral("            <div");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 2016), Tuple.Create("\"", 2064)
-, Tuple.Create(Tuple.Create("", 2024), Tuple.Create("field-group-", 2024), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 2043), Tuple.Create("\"", 2091)
+, Tuple.Create(Tuple.Create("", 2051), Tuple.Create("field-group-", 2051), true)
             
             #line 67 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-, Tuple.Create(Tuple.Create("", 2036), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "")
+, Tuple.Create(Tuple.Create("", 2063), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "")
             
             #line default
             #line hidden
-, 2036), false)
+, 2063), false)
 );
 
 WriteLiteral(" style=\"display:none;\"");
@@ -270,14 +271,14 @@ WriteLiteral(" data-field-name=\"");
             #line hidden
 WriteLiteral("\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 2292), Tuple.Create("\"", 2304)
+WriteAttribute("title", Tuple.Create(" title=\"", 2319), Tuple.Create("\"", 2331)
             
             #line 72 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-, Tuple.Create(Tuple.Create("", 2300), Tuple.Create<System.Object, System.Int32>(Key
+, Tuple.Create(Tuple.Create("", 2327), Tuple.Create<System.Object, System.Int32>(Key
             
             #line default
             #line hidden
-, 2300), false)
+, 2327), false)
 );
 
 WriteLiteral(">\r\n                        <div");
@@ -289,14 +290,14 @@ WriteLiteral(">\r\n                            <glyph>&#x2b;</glyph>\r\n        
 
 WriteLiteral(" class=\"field-name\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 2488), Tuple.Create("\"", 2547)
+WriteAttribute("title", Tuple.Create(" title=\"", 2515), Tuple.Create("\"", 2574)
             
             #line 76 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-, Tuple.Create(Tuple.Create("", 2496), Tuple.Create<System.Object, System.Int32>(Html.Raw(Text.Description.Replace("\r\n", "<br>"))
+, Tuple.Create(Tuple.Create("", 2523), Tuple.Create<System.Object, System.Int32>(Html.Raw(Text.Description.Replace("\r\n", "<br>"))
             
             #line default
             #line hidden
-, 2496), false)
+, 2523), false)
 );
 
 WriteLiteral(">\r\n");
@@ -320,16 +321,16 @@ WriteLiteral(" type=\"text\"");
 
 WriteLiteral(" readonly");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 2741), Tuple.Create("\"", 2755)
-, Tuple.Create(Tuple.Create("", 2749), Tuple.Create("[", 2749), true)
+WriteAttribute("value", Tuple.Create(" value=\"", 2768), Tuple.Create("\"", 2782)
+, Tuple.Create(Tuple.Create("", 2776), Tuple.Create("[", 2776), true)
             
             #line 80 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-, Tuple.Create(Tuple.Create("", 2750), Tuple.Create<System.Object, System.Int32>(Key
+, Tuple.Create(Tuple.Create("", 2777), Tuple.Create<System.Object, System.Int32>(Key
             
             #line default
             #line hidden
-, 2750), false)
-, Tuple.Create(Tuple.Create("", 2754), Tuple.Create("]", 2754), true)
+, 2777), false)
+, Tuple.Create(Tuple.Create("", 2781), Tuple.Create("]", 2781), true)
 );
 
 WriteLiteral(" />\r\n                        </div>\r\n                    </div>\r\n");
@@ -368,56 +369,56 @@ WriteLiteral("\r\n");
             #line hidden
 WriteLiteral("            <div");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 2965), Tuple.Create("\"", 3020)
-, Tuple.Create(Tuple.Create("", 2973), Tuple.Create("field-group-header-", 2973), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 2992), Tuple.Create("\"", 3047)
+, Tuple.Create(Tuple.Create("", 3000), Tuple.Create("field-group-header-", 3000), true)
             
             #line 89 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-, Tuple.Create(Tuple.Create("", 2992), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "")
+, Tuple.Create(Tuple.Create("", 3019), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "")
             
             #line default
             #line hidden
-, 2992), false)
+, 3019), false)
 );
 
 WriteLiteral(">\r\n                <span");
 
 WriteLiteral(" class=\"btn-info btn left method-show-hide\"");
 
-WriteAttribute("click-fade-toggle", Tuple.Create(" click-fade-toggle=\"", 3088), Tuple.Create("\"", 3150)
-, Tuple.Create(Tuple.Create("", 3108), Tuple.Create(".field-group-", 3108), true)
+WriteAttribute("click-fade-toggle", Tuple.Create(" click-fade-toggle=\"", 3115), Tuple.Create("\"", 3177)
+, Tuple.Create(Tuple.Create("", 3135), Tuple.Create(".field-group-", 3135), true)
             
             #line 90 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-                 , Tuple.Create(Tuple.Create("", 3121), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "" )
+                 , Tuple.Create(Tuple.Create("", 3148), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "" )
             
             #line default
             #line hidden
-, 3121), false)
+, 3148), false)
 );
 
 WriteLiteral(">\r\n                    <glyph");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 3180), Tuple.Create("\"", 3229)
-, Tuple.Create(Tuple.Create("", 3188), Tuple.Create("field-group-", 3188), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 3207), Tuple.Create("\"", 3256)
+, Tuple.Create(Tuple.Create("", 3215), Tuple.Create("field-group-", 3215), true)
             
             #line 91 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-, Tuple.Create(Tuple.Create("", 3200), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "" )
+, Tuple.Create(Tuple.Create("", 3227), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "" )
             
             #line default
             #line hidden
-, 3200), false)
+, 3227), false)
 );
 
 WriteLiteral(">&#x2b;</glyph>\r\n                    <glyph");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 3273), Tuple.Create("\"", 3322)
-, Tuple.Create(Tuple.Create("", 3281), Tuple.Create("field-group-", 3281), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 3300), Tuple.Create("\"", 3349)
+, Tuple.Create(Tuple.Create("", 3308), Tuple.Create("field-group-", 3308), true)
             
             #line 92 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-, Tuple.Create(Tuple.Create("", 3293), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "" )
+, Tuple.Create(Tuple.Create("", 3320), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "" )
             
             #line default
             #line hidden
-, 3293), false)
+, 3320), false)
 );
 
 WriteLiteral(" style=\" display: none;\"");
@@ -468,15 +469,15 @@ WriteLiteral("                <h4>");
             #line hidden
 WriteLiteral("</h4>\r\n\r\n                <div");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 3670), Tuple.Create("\"", 3718)
-, Tuple.Create(Tuple.Create("", 3678), Tuple.Create("field-group-", 3678), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 3697), Tuple.Create("\"", 3745)
+, Tuple.Create(Tuple.Create("", 3705), Tuple.Create("field-group-", 3705), true)
             
             #line 102 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-, Tuple.Create(Tuple.Create("", 3690), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "")
+, Tuple.Create(Tuple.Create("", 3717), Tuple.Create<System.Object, System.Int32>(BaseKey.ReplaceAll(".", "")
             
             #line default
             #line hidden
-, 3690), false)
+, 3717), false)
 );
 
 WriteLiteral(" style=\"display:none;\"");
@@ -519,14 +520,14 @@ WriteLiteral(" data-field-name=\"");
             #line hidden
 WriteLiteral("\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 4147), Tuple.Create("\"", 4159)
+WriteAttribute("title", Tuple.Create(" title=\"", 4174), Tuple.Create("\"", 4186)
             
             #line 112 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-  , Tuple.Create(Tuple.Create("", 4155), Tuple.Create<System.Object, System.Int32>(Key
+  , Tuple.Create(Tuple.Create("", 4182), Tuple.Create<System.Object, System.Int32>(Key
             
             #line default
             #line hidden
-, 4155), false)
+, 4182), false)
 );
 
 WriteLiteral(">\r\n                            <div");
@@ -559,16 +560,16 @@ WriteLiteral(" type=\"text\"");
 
 WriteLiteral(" readonly");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 4579), Tuple.Create("\"", 4593)
-, Tuple.Create(Tuple.Create("", 4587), Tuple.Create("[", 4587), true)
+WriteAttribute("value", Tuple.Create(" value=\"", 4606), Tuple.Create("\"", 4620)
+, Tuple.Create(Tuple.Create("", 4614), Tuple.Create("[", 4614), true)
             
             #line 120 "..\..\Views\EmailTemplate\Fields\Subject_After.cshtml"
-, Tuple.Create(Tuple.Create("", 4588), Tuple.Create<System.Object, System.Int32>(Key
+, Tuple.Create(Tuple.Create("", 4615), Tuple.Create<System.Object, System.Int32>(Key
             
             #line default
             #line hidden
-, 4588), false)
-, Tuple.Create(Tuple.Create("", 4592), Tuple.Create("]", 4592), true)
+, 4615), false)
+, Tuple.Create(Tuple.Create("", 4619), Tuple.Create("]", 4619), true)
 );
 
 WriteLiteral(" />\r\n                            </div>\r\n                        </div>\r\n");

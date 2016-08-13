@@ -25,7 +25,7 @@ namespace NSort
             if (this.Header && (left == 0 || right == 0))
                 return;
 
-            for (int Index = 0; Index < this.Source.GetLength(0); Index++)
+            for (int Index = 0; Index < this.Source.GetLength(dimension: 0); Index++)
                 {
                 object Temp = this.Source[Index, left];
                 this.Source[Index, left] = this.Source[Index, right];
@@ -48,7 +48,7 @@ namespace NSort
             if (this.Header && (left == 0 || right == 0))
                 return;
 
-            for (int Index = 0; Index < this.Source.GetLength(0); Index++)
+            for (int Index = 0; Index < this.Source.GetLength(dimension: 0); Index++)
                 {
                 object Temp = this.Source[Index, left];
                 this.Source[Index, left] = this.Source[Index, right];

@@ -17,7 +17,7 @@ namespace Singularity
                 UsePhysicalViewsIfNewer = HttpContext.Current.Request.IsLocal
                 };
 
-            ViewEngines.Engines.Insert(0, Engine);
+            ViewEngines.Engines.Insert(index: 0, item: Engine);
 
             // StartPage lookups are done by WebPages. 
             VirtualPathFactoryManager.RegisterVirtualPathFactory(Engine);

@@ -227,9 +227,9 @@ namespace ICSharpCode.SharpZipLib.Zip
                 ed.StartNewEntry();
                 ed.AddLeLong(entry.Size);
                 ed.AddLeLong(entry.CompressedSize);
-                ed.AddNewEntry(1);
+                ed.AddNewEntry(headerID: 1);
 
-                if (!ed.Find(1))
+                if (!ed.Find(headerID: 1))
                     {
                     throw new ZipException("Internal error cant find extra data");
                     }
@@ -241,7 +241,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                 }
             else
                 {
-                ed.Delete(1);
+                ed.Delete(headerID: 1);
                 }
 
             byte[] extra = ed.GetEntryData();
@@ -251,7 +251,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 
             if (name.Length > 0)
                 {
-                this.stream_.Write(name, 0, name.Length);
+                this.stream_.Write(name, offset: 0, count: name.Length);
                 }
 
             if (entry.LocalHeaderRequiresZip64 && patchEntryHeader)
@@ -261,7 +261,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 
             if (extra.Length > 0)
                 {
-                this.stream_.Write(extra, 0, extra.Length);
+                this.stream_.Write(extra, offset: 0, count: extra.Length);
                 }
             }
 
@@ -281,7 +281,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                 return -1;
                 }
 
-            long giveUpMarker = Math.Max(pos - maximumVariableData, 0);
+            long giveUpMarker = Math.Max(pos - maximumVariableData, val2: 0);
 
             do
                 {
@@ -305,11 +305,11 @@ namespace ICSharpCode.SharpZipLib.Zip
             {
             long centralSignatureOffset = this.stream_.Position;
             this.WriteLEInt(ZipConstants.Zip64CentralFileHeaderSignature);
-            this.WriteLELong(44);    // Size of this record (total size of remaining fields in header or full size - 12)
+            this.WriteLELong(value: 44);    // Size of this record (total size of remaining fields in header or full size - 12)
             this.WriteLEShort(ZipConstants.VersionMadeBy);   // Version made by
             this.WriteLEShort(ZipConstants.VersionZip64);   // Version to extract
-            this.WriteLEInt(0);      // Number of this disk
-            this.WriteLEInt(0);      // number of the disk with the start of the central directory
+            this.WriteLEInt(value: 0);      // Number of this disk
+            this.WriteLEInt(value: 0);      // number of the disk with the start of the central directory
             this.WriteLELong(noOfEntries);       // No of entries on this disk
             this.WriteLELong(noOfEntries);       // Total No of entries in central directory
             this.WriteLELong(sizeEntries);       // Size of the central directory
@@ -320,13 +320,13 @@ namespace ICSharpCode.SharpZipLib.Zip
             this.WriteLEInt(ZipConstants.Zip64CentralDirLocatorSignature);
 
             // no of the disk with the start of the zip64 end of central directory
-            this.WriteLEInt(0);
+            this.WriteLEInt(value: 0);
 
             // relative offset of the zip64 end of central directory record
             this.WriteLELong(centralSignatureOffset);
 
             // total number of disks
-            this.WriteLEInt(1);
+            this.WriteLEInt(value: 1);
             }
 
         /// <summary>
@@ -349,15 +349,15 @@ namespace ICSharpCode.SharpZipLib.Zip
 
             this.WriteLEInt(ZipConstants.EndOfCentralDirectorySignature);
 
-            this.WriteLEShort(0);                    // number of this disk
-            this.WriteLEShort(0);                    // no of disk with start of central dir
+            this.WriteLEShort(value: 0);                    // number of this disk
+            this.WriteLEShort(value: 0);                    // no of disk with start of central dir
 
 
             // Number of entries
             if (noOfEntries >= 0xffff)
                 {
-                this.WriteLEUshort(0xffff);  // Zip64 marker
-                this.WriteLEUshort(0xffff);
+                this.WriteLEUshort(value: 0xffff);  // Zip64 marker
+                this.WriteLEUshort(value: 0xffff);
                 }
             else
                 {
@@ -368,7 +368,7 @@ namespace ICSharpCode.SharpZipLib.Zip
             // Size of the central directory
             if (sizeEntries >= 0xffffffff)
                 {
-                this.WriteLEUint(0xffffffff);    // Zip64 marker
+                this.WriteLEUint(value: 0xffffffff);    // Zip64 marker
                 }
             else
                 {
@@ -379,7 +379,7 @@ namespace ICSharpCode.SharpZipLib.Zip
             // offset of start of central directory
             if (startOfCentralDirectory >= 0xffffffff)
                 {
-                this.WriteLEUint(0xffffffff);    // Zip64 marker
+                this.WriteLEUint(value: 0xffffffff);    // Zip64 marker
                 }
             else
                 {
@@ -397,7 +397,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 
             if (commentLength > 0)
                 {
-                if (comment != null) this.Write(comment, 0, comment.Length);
+                if (comment != null) this.Write(comment, offset: 0, count: comment.Length);
                 }
             }
 

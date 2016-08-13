@@ -2254,13 +2254,13 @@ namespace LCore.Extensions
                 if (Obj == null)
                     return "";
                 string Str = Obj as string;
+
                 if (Str != null)
-                    {
                     return Str;
-                    }
+
                 var Enumerable = Obj as IEnumerable;
                 return Enumerable != null
-                    ? $"{Enumerable.GetType().FullName} {{ {Enumerable.Array().Convert(ToS).Combine(", ")} }}"
+                    ? $"{Enumerable.GetType().GetGenericName()} {{ {Enumerable.Array().Convert(ToS).Combine(", ")} }}"
                     : Obj.ToString();
                 }
 

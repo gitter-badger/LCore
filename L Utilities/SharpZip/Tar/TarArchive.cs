@@ -530,7 +530,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                     {
                     break;
                     }
-                this.OnProgressMessageEvent(entry, null);
+                this.OnProgressMessageEvent(entry, message: null);
                 }
             }
 
@@ -572,7 +572,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// </param>
         private void ExtractEntry(string destDir, TarEntry entry)
             {
-            this.OnProgressMessageEvent(entry, null);
+            this.OnProgressMessageEvent(entry, message: null);
 
             string name = entry.Name;
 
@@ -583,7 +583,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                 name = name.Substring(Path.GetPathRoot(name).Length);
                 }
 
-            name = name.Replace('/', Path.DirectorySeparatorChar);
+            name = name.Replace(oldChar: '/', newChar: Path.DirectorySeparatorChar);
 
             string destFile = Path.Combine(destDir, name);
 
@@ -632,7 +632,7 @@ namespace ICSharpCode.SharpZipLib.Tar
 
                     while (true)
                         {
-                        int numRead = this.tarIn.Read(rdbuf, 0, rdbuf.Length);
+                        int numRead = this.tarIn.Read(rdbuf, offset: 0, count: rdbuf.Length);
 
                         if (numRead <= 0)
                             {
@@ -653,7 +653,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                             }
                         else
                             {
-                            outputStream.Write(rdbuf, 0, numRead);
+                            outputStream.Write(rdbuf, offset: 0, count: numRead);
                             }
                         }
 
@@ -740,7 +740,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                 entry.UserName = this.userName;
                 }
 
-            this.OnProgressMessageEvent(entry, null);
+            this.OnProgressMessageEvent(entry, message: null);
 
             if (this.asciiTranslate && !entry.IsDirectory)
                 {
@@ -763,7 +763,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                                     break;
                                     }
                                 byte[] data = Encoding.ASCII.GetBytes(line);
-                                outStream.Write(data, 0, data.Length);
+                                outStream.Write(data, offset: 0, count: data.Length);
                                 outStream.WriteByte((byte)'\n');
                                 }
 
@@ -805,7 +805,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                     TarEntry[] list = entry.GetDirectoryEntries();
                     foreach (var t in list)
                         {
-                        this.WriteEntryCore(t, true);
+                        this.WriteEntryCore(t, recurse: true);
                         }
                     }
                 }
@@ -816,14 +816,14 @@ namespace ICSharpCode.SharpZipLib.Tar
                     var localBuffer = new byte[32 * 1024];
                     while (true)
                         {
-                        int numRead = inputStream.Read(localBuffer, 0, localBuffer.Length);
+                        int numRead = inputStream.Read(localBuffer, offset: 0, count: localBuffer.Length);
 
                         if (numRead <= 0)
                             {
                             break;
                             }
 
-                        this.tarOut.Write(localBuffer, 0, numRead);
+                        this.tarOut.Write(localBuffer, offset: 0, count: numRead);
                         }
                     }
 
@@ -864,7 +864,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// </summary>
         public virtual void Close()
             {
-            this.Dispose(true);
+            this.Dispose(disposing: true);
             GC.SuppressFinalize(this);
             }
 
@@ -874,7 +874,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// </summary>
         ~TarArchive()
             {
-            this.Dispose(false);
+            this.Dispose(disposing: false);
             }
 
         #region IDisposable Members
@@ -908,10 +908,10 @@ namespace ICSharpCode.SharpZipLib.Tar
             {
             using (var fs = File.OpenRead(filename))
                 {
-                int sampleSize = Math.Min(4096, (int)fs.Length);
+                int sampleSize = Math.Min(val1: 4096, val2: (int)fs.Length);
                 var content = new byte[sampleSize];
 
-                int bytesRead = fs.Read(content, 0, sampleSize);
+                int bytesRead = fs.Read(content, offset: 0, count: sampleSize);
 
                 for (int i = 0; i < bytesRead; ++i)
                     {

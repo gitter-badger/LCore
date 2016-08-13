@@ -21,7 +21,7 @@
                         @if (TableData[Index1][Index2].Length > SingularityControllerHelper.DefaultTableTextLength)
                             {
                             <span class="abbreviated" title="@Model.PropertyData">
-                                @TableData[Index1][Index2].Substring(0, SingularityControllerHelper.DefaultTableTextLength) ...
+                                @TableData[Index1][Index2].Substring(startIndex: 0, length: SingularityControllerHelper.DefaultTableTextLength) ...
                             </span>
                             }
                         else

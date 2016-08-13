@@ -52,7 +52,7 @@
     @if (!ViewData.ModelState.IsValid)
         {
         <span class="errors">
-            @Html.ValidationSummary(true)
+            @Html.ValidationSummary(excludePropertyErrors: true)
         </span>
         }
 

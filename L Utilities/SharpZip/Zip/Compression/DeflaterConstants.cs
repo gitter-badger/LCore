@@ -147,7 +147,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
         /// <summary>
         /// Internal compression engine constant
         /// </summary>		
-        public static int MAX_BLOCK_SIZE = Math.Min(65535, PENDING_BUF_SIZE - 5);
+        public static int MAX_BLOCK_SIZE = Math.Min(val1: 65535, val2: PENDING_BUF_SIZE - 5);
 
         /// <summary>
         /// Internal compression engine constant

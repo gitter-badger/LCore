@@ -18,6 +18,11 @@ namespace LCore.Tests.Extensions
     [Trait(Category, UnitTests)]
     public class ThreadExtTest : XUnitOutputTester
         {
+        public ThreadExtTest([NotNull] ITestOutputHelper Output) : base(Output)
+            {
+            Thread.CurrentThread.Priority = ThreadPriority.Highest;
+            }
+
         [Fact]
         public void Test_Async_Action()
             {
@@ -335,7 +340,7 @@ namespace LCore.Tests.Extensions
                     Success = true;
                     })("abc");
 
-                Thread.Sleep(millisecondsTimeout: 50);
+                Thread.Sleep(millisecondsTimeout: 100);
 
                 Success.Should().BeTrue();
 
@@ -683,7 +688,7 @@ namespace LCore.Tests.Extensions
                 {
                 MethodProfileData<int> Result = Func.Profile();
 
-                Result.AverageMS.Should().BeInRange(minimumValue: 45, maximumValue: 75);
+                Result.AverageMS.Should().BeInRange(minimumValue: 45, maximumValue: 95);
                 Result.Data.Count().Should().Be(expected: 1);
                 Result.Data.GetAt(Index: 0).Should().BeInRange(minimumValue: 45, maximumValue: 75);
 
@@ -769,7 +774,5 @@ namespace LCore.Tests.Extensions
 
             Act.CountExecutions(Milliseconds: 100).Should().BeInRange(minimumValue: 30, maximumValue: 50);
             }
-
-        public ThreadExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }

@@ -26,13 +26,13 @@ namespace NSort
         /// <exception cref="NullReferenceException">comparer is null</exception>
         public override void Sort(IList array)
             {
-            this.Sort(array, 0, array.Count - 1);
+            this.Sort(array, lower: 0, upper: array.Count - 1);
             }
 
         /// <exception cref="NullReferenceException">comparer is null</exception>
         public void Sort<T>(IList<T> array)
             {
-            this.Sort(array, 0, array.Count - 1);
+            this.Sort(array, lower: 0, upper: array.Count - 1);
             }
 
         /// <exception cref="NullReferenceException">comparer is null</exception>

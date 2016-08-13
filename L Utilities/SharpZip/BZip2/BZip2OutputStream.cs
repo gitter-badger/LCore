@@ -128,7 +128,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
         /// </summary>
         ~BZip2OutputStream()
             {
-            this.Dispose(false);
+            this.Dispose(disposing: false);
             }
         #endregion
 
@@ -305,7 +305,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
         /// <exception cref="IOException">An I/O error occurs. </exception>
         public override void Close()
             {
-            this.Dispose(true);
+            this.Dispose(disposing: true);
             GC.SuppressFinalize(this);
             }
 
@@ -443,10 +443,10 @@ namespace ICSharpCode.SharpZipLib.BZip2
 			followed by a digit indicating blockSize100k.
 			---*/
 
-            this.BsPutUChar('B');
-            this.BsPutUChar('Z');
+            this.BsPutUChar(c: 'B');
+            this.BsPutUChar(c: 'Z');
 
-            this.BsPutUChar('h');
+            this.BsPutUChar(c: 'h');
             this.BsPutUChar('0' + this.blockSize100k);
 
             this.combinedCRC = 0;
@@ -493,12 +493,12 @@ namespace ICSharpCode.SharpZipLib.BZip2
 			They are only important when trying to recover blocks from
 			damaged files.
 			--*/
-            this.BsPutUChar(0x31);
-            this.BsPutUChar(0x41);
-            this.BsPutUChar(0x59);
-            this.BsPutUChar(0x26);
-            this.BsPutUChar(0x53);
-            this.BsPutUChar(0x59);
+            this.BsPutUChar(c: 0x31);
+            this.BsPutUChar(c: 0x41);
+            this.BsPutUChar(c: 0x59);
+            this.BsPutUChar(c: 0x26);
+            this.BsPutUChar(c: 0x53);
+            this.BsPutUChar(c: 0x59);
 
             /*-- Now the block's CRC, so it is in a known place. --*/
             unchecked
@@ -509,12 +509,12 @@ namespace ICSharpCode.SharpZipLib.BZip2
             /*-- Now a single bit indicating randomisation. --*/
             if (this.blockRandomised)
                 {
-                this.BsW(1, 1);
+                this.BsW(n: 1, v: 1);
                 this.nBlocksRandomised++;
                 }
             else
                 {
-                this.BsW(1, 0);
+                this.BsW(n: 1, v: 0);
                 }
 
             /*-- Finally, block's contents proper. --*/
@@ -530,12 +530,12 @@ namespace ICSharpCode.SharpZipLib.BZip2
 			too much repetition -- 27 18 28 18 28 46 -- for me
 			to feel statistically comfortable.  Call me paranoid.)
 			--*/
-            this.BsPutUChar(0x17);
-            this.BsPutUChar(0x72);
-            this.BsPutUChar(0x45);
-            this.BsPutUChar(0x38);
-            this.BsPutUChar(0x50);
-            this.BsPutUChar(0x90);
+            this.BsPutUChar(c: 0x17);
+            this.BsPutUChar(c: 0x72);
+            this.BsPutUChar(c: 0x45);
+            this.BsPutUChar(c: 0x38);
+            this.BsPutUChar(c: 0x50);
+            this.BsPutUChar(c: 0x90);
 
             unchecked
                 {
@@ -584,15 +584,15 @@ namespace ICSharpCode.SharpZipLib.BZip2
 
         private void BsPutUChar(int c)
             {
-            this.BsW(8, c);
+            this.BsW(n: 8, v: c);
             }
 
         private void BsPutint(int u)
             {
-            this.BsW(8, (u >> 24) & 0xFF);
-            this.BsW(8, (u >> 16) & 0xFF);
-            this.BsW(8, (u >> 8) & 0xFF);
-            this.BsW(8, u & 0xFF);
+            this.BsW(n: 8, v: (u >> 24) & 0xFF);
+            this.BsW(n: 8, v: (u >> 16) & 0xFF);
+            this.BsW(n: 8, v: (u >> 8) & 0xFF);
+            this.BsW(n: 8, v: u & 0xFF);
             }
 
         private void BsPutIntVS(int numBits, int c)
@@ -804,7 +804,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
 				--*/
                 for (int t = 0; t < nGroups; ++t)
                     {
-                    HbMakeCodeLengths(len[t], rfreq[t], alphaSize, 20);
+                    HbMakeCodeLengths(len[t], rfreq[t], alphaSize, maxLen: 20);
                     }
                 }
 
@@ -892,7 +892,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
 
             for (int i = 0; i < 16; ++i)
                 {
-                this.BsW(1, inUse16[i] ? 1 : 0);
+                this.BsW(n: 1, v: inUse16[i] ? 1 : 0);
                 }
 
             for (int i = 0; i < 16; ++i)
@@ -901,41 +901,41 @@ namespace ICSharpCode.SharpZipLib.BZip2
                     {
                     for (int j = 0; j < 16; ++j)
                         {
-                        this.BsW(1, this.inUse[i * 16 + j] ? 1 : 0);
+                        this.BsW(n: 1, v: this.inUse[i * 16 + j] ? 1 : 0);
                         }
                     }
                 }
 
             /*--- Now the selectors. ---*/
-            this.BsW(3, nGroups);
-            this.BsW(15, nSelectors);
+            this.BsW(n: 3, v: nGroups);
+            this.BsW(n: 15, v: nSelectors);
             for (int i = 0; i < nSelectors; ++i)
                 {
                 for (int j = 0; j < this.selectorMtf[i]; ++j)
                     {
-                    this.BsW(1, 1);
+                    this.BsW(n: 1, v: 1);
                     }
-                this.BsW(1, 0);
+                this.BsW(n: 1, v: 0);
                 }
 
             /*--- Now the coding tables. ---*/
             for (int t = 0; t < nGroups; ++t)
                 {
                 int curr = len[t][0];
-                this.BsW(5, curr);
+                this.BsW(n: 5, v: curr);
                 for (int i = 0; i < alphaSize; ++i)
                     {
                     while (curr < len[t][i])
                         {
-                        this.BsW(2, 2);
+                        this.BsW(n: 2, v: 2);
                         curr++; /* 10 */
                         }
                     while (curr > len[t][i])
                         {
-                        this.BsW(2, 3);
+                        this.BsW(n: 2, v: 3);
                         curr--; /* 11 */
                         }
-                    this.BsW(1, 0);
+                    this.BsW(n: 1, v: 0);
                     }
                 }
 
@@ -970,7 +970,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
 
         private void MoveToFrontCodeAndSend()
             {
-            this.BsPutIntVS(24, this.origPtr);
+            this.BsPutIntVS(numBits: 24, c: this.origPtr);
             this.GenerateMTFValues();
             this.SendMTFValues();
             }
@@ -1245,7 +1245,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
                     }
                 this.firstAttempt = false;
                 this.workDone = this.workLimit = 0;
-                this.SimpleSort(0, this.last, 0);
+                this.SimpleSort(lo: 0, hi: this.last, d: 0);
                 }
             else
                 {
@@ -1350,7 +1350,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
                             int hi = (this.ftab[sb + 1] & CLEARMASK) - 1;
                             if (hi > lo)
                                 {
-                                this.QSort3(lo, hi, 2);
+                                this.QSort3(lo, hi, dSt: 2);
                                 if (this.workDone > this.workLimit && this.firstAttempt)
                                     {
                                     return;

@@ -138,7 +138,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
             this.deflater_.Finish();
             while (!this.deflater_.IsFinished)
                 {
-                int len = this.deflater_.Deflate(this.buffer_, 0, this.buffer_.Length);
+                int len = this.deflater_.Deflate(this.buffer_, offset: 0, length: this.buffer_.Length);
                 if (len <= 0)
                     {
                     break;
@@ -150,10 +150,10 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
                 if (this.cryptoTransform_ != null)
                     {
 #endif
-                    this.EncryptBlock(this.buffer_, 0, len);
+                    this.EncryptBlock(this.buffer_, offset: 0, length: len);
                     }
 
-                this.baseOutputStream_.Write(this.buffer_, 0, len);
+                this.baseOutputStream_.Write(this.buffer_, offset: 0, count: len);
                 }
 
             if (!this.deflater_.IsFinished)
@@ -247,7 +247,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
 				UpdateKeys(oldbyte);
 			}
 #else
-            this.cryptoTransform_.TransformBlock(buffer, 0, length, buffer, 0);
+            this.cryptoTransform_.TransformBlock(buffer, inputOffset: 0, inputCount: length, outputBuffer: buffer, outputOffset: 0);
 #endif
             }
 
@@ -273,7 +273,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
 #else
             var pkManaged = new PkzipClassicManaged();
             byte[] key = PkzipClassic.GenerateKeys(ZipConstants.ConvertToArray(password));
-            this.cryptoTransform_ = pkManaged.CreateEncryptor(key, null);
+            this.cryptoTransform_ = pkManaged.CreateEncryptor(key, rgbIV: null);
 #endif
             }
 
@@ -315,7 +315,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
             {
             while (!this.deflater_.IsNeedingInput)
                 {
-                int deflateCount = this.deflater_.Deflate(this.buffer_, 0, this.buffer_.Length);
+                int deflateCount = this.deflater_.Deflate(this.buffer_, offset: 0, length: this.buffer_.Length);
 
                 if (deflateCount <= 0)
                     {
@@ -327,10 +327,10 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
                 if (this.cryptoTransform_ != null)
 #endif
                     {
-                    this.EncryptBlock(this.buffer_, 0, deflateCount);
+                    this.EncryptBlock(this.buffer_, offset: 0, length: deflateCount);
                     }
 
-                this.baseOutputStream_.Write(this.buffer_, 0, deflateCount);
+                this.baseOutputStream_.Write(this.buffer_, offset: 0, count: deflateCount);
                 }
 
             if (!this.deflater_.IsNeedingInput)
@@ -507,7 +507,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
             {
             var b = new byte[1];
             b[0] = value;
-            this.Write(b, 0, 1);
+            this.Write(b, offset: 0, count: 1);
             }
 
         /// <summary>

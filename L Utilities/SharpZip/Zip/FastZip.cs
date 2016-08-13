@@ -93,7 +93,7 @@ namespace ICSharpCode.SharpZipLib.Zip
             {
             try
                 {
-                this.ProgressInterval = TimeSpan.FromSeconds(3);
+                this.ProgressInterval = TimeSpan.FromSeconds(value: 3);
                 }
             catch (OverflowException) { }
             }
@@ -374,7 +374,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <exception cref="IOException">An I/O error occurred while creating the file. </exception>
         public void CreateZip(string zipFileName, string sourceDirectory, bool recurse, string fileFilter)
             {
-            this.CreateZip(File.Create(zipFileName), sourceDirectory, recurse, fileFilter, null);
+            this.CreateZip(File.Create(zipFileName), sourceDirectory, recurse, fileFilter, directoryFilter: null);
             }
 
         /// <summary>
@@ -448,7 +448,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// </exception>
         public void ExtractZip(string zipFileName, string targetDirectory, string fileFilter)
             {
-            this.ExtractZip(zipFileName, targetDirectory, Overwrite.Always, null, fileFilter, null, this.restoreDateTimeOnExtract_);
+            this.ExtractZip(zipFileName, targetDirectory, Overwrite.Always, confirmDelegate: null, fileFilter: fileFilter, directoryFilter: null, restoreDateTime: this.restoreDateTimeOnExtract_);
             }
 
         /// <summary>

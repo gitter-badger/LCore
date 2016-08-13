@@ -72,37 +72,37 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
                 switch (this.mode)
                     {
                     case LNUM:
-                        this.lnum = input.PeekBits(5);
+                        this.lnum = input.PeekBits(bitCount: 5);
                         if (this.lnum < 0)
                             {
                             return false;
                             }
                         this.lnum += 257;
-                        input.DropBits(5);
+                        input.DropBits(bitCount: 5);
                         //  	    System.err.println("LNUM: "+lnum);
                         this.mode = DNUM;
                         goto case DNUM; // fall through
                     case DNUM:
-                        this.dnum = input.PeekBits(5);
+                        this.dnum = input.PeekBits(bitCount: 5);
                         if (this.dnum < 0)
                             {
                             return false;
                             }
                         this.dnum++;
-                        input.DropBits(5);
+                        input.DropBits(bitCount: 5);
                         //  	    System.err.println("DNUM: "+dnum);
                         this.num = this.lnum + this.dnum;
                         this.litdistLens = new byte[this.num];
                         this.mode = BLNUM;
                         goto case BLNUM; // fall through
                     case BLNUM:
-                        this.blnum = input.PeekBits(4);
+                        this.blnum = input.PeekBits(bitCount: 4);
                         if (this.blnum < 0)
                             {
                             return false;
                             }
                         this.blnum += 4;
-                        input.DropBits(4);
+                        input.DropBits(bitCount: 4);
                         this.blLens = new byte[19];
                         this.ptr = 0;
                         //  	    System.err.println("BLNUM: "+blnum);
@@ -111,12 +111,12 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
                     case BLLENS:
                         while (this.ptr < this.blnum)
                             {
-                            int len = input.PeekBits(3);
+                            int len = input.PeekBits(bitCount: 3);
                             if (len < 0)
                                 {
                                 return false;
                                 }
-                            input.DropBits(3);
+                            input.DropBits(bitCount: 3);
                             //  		System.err.println("blLens["+BL_ORDER[ptr]+"]: "+len);
                             byte[] bytes = this.blLens;
                             if (bytes != null) bytes[BL_ORDER[this.ptr]] = (byte)len;
@@ -272,7 +272,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
         public InflaterHuffmanTree BuildLitLenTree()
             {
             var litlenLens = new byte[this.lnum];
-            Array.Copy(this.litdistLens, 0, litlenLens, 0, this.lnum);
+            Array.Copy(this.litdistLens, sourceIndex: 0, destinationArray: litlenLens, destinationIndex: 0, length: this.lnum);
             return new InflaterHuffmanTree(litlenLens);
             }
 
@@ -347,7 +347,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
         public InflaterHuffmanTree BuildDistTree()
             {
             var distLens = new byte[this.dnum];
-            Array.Copy(this.litdistLens, this.lnum, distLens, 0, this.dnum);
+            Array.Copy(this.litdistLens, this.lnum, distLens, destinationIndex: 0, length: this.dnum);
             return new InflaterHuffmanTree(distLens);
             }
 

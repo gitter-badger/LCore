@@ -230,7 +230,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <exception cref="FileNotFoundException">The file does not exist.-or- The Length property is called for a directory. </exception>
         public ZipEntry MakeFileEntry(string fileName)
             {
-            return this.MakeFileEntry(fileName, true);
+            return this.MakeFileEntry(fileName, useFileSystem: true);
             }
 
         /// <summary>
@@ -362,7 +362,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <exception cref="FileNotFoundException">The specified file does not exist. </exception>
         public ZipEntry MakeDirectoryEntry(string directoryName)
             {
-            return this.MakeDirectoryEntry(directoryName, true);
+            return this.MakeDirectoryEntry(directoryName, useFileSystem: true);
             }
 
         /// <summary>

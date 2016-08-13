@@ -24,14 +24,14 @@ namespace LCore.Tests.Extensions
                 .And.Subject.ToS()
                 .Should()
                 .Be(
-                    "System.Collections.Generic.List`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] {  }");
+                    "List`1<Int32> {  }");
             L.List.ToList<string>()()
                 .Should()
                 .BeOfType<List<string>>()
                 .And.Subject.ToS()
                 .Should()
                 .Be(
-                    "System.Collections.Generic.List`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] {  }");
+                    "List`1<String> {  }");
 
 
             L.List.ToList(1, 2, 3)()
@@ -40,7 +40,7 @@ namespace LCore.Tests.Extensions
                 .And.Subject.ToS()
                 .Should()
                 .Be(
-                    "System.Collections.Generic.List`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] { 1, 2, 3 }");
+                    "List`1<Int32> { 1, 2, 3 }");
 
             L.List.ToList("a", "b", "c")()
                 .Should()
@@ -48,7 +48,7 @@ namespace LCore.Tests.Extensions
                 .And.Subject.ToS()
                 .Should()
                 .Be(
-                    "System.Collections.Generic.List`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] { a, b, c }");
+                    "List`1<String> { a, b, c }");
             }
 
         [Fact]

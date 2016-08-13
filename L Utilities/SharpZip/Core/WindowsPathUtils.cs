@@ -63,10 +63,10 @@ namespace ICSharpCode.SharpZipLib.Core
 
             if (!string.IsNullOrEmpty(path))
                 {
-                if ((path[0] == '\\') || (path[0] == '/'))
+                if ((path[index: 0] == '\\') || (path[index: 0] == '/'))
                     {
                     // UNC name ?
-                    if ((path.Length > 1) && ((path[1] == '\\') || (path[1] == '/')))
+                    if ((path.Length > 1) && ((path[index: 1] == '\\') || (path[index: 1] == '/')))
                         {
                         int index = 2;
                         int elements = 2;
@@ -83,14 +83,14 @@ namespace ICSharpCode.SharpZipLib.Core
                         result = index < path.Length ? path.Substring(index) : "";
                         }
                     }
-                else if ((path.Length > 1) && (path[1] == ':'))
+                else if ((path.Length > 1) && (path[index: 1] == ':'))
                     {
                     int dropCount = 2;
-                    if ((path.Length > 2) && ((path[2] == '\\') || (path[2] == '/')))
+                    if ((path.Length > 2) && ((path[index: 2] == '\\') || (path[index: 2] == '/')))
                         {
                         dropCount = 3;
                         }
-                    result = result.Remove(0, dropCount);
+                    result = result.Remove(startIndex: 0, count: dropCount);
                     }
                 }
             return result;

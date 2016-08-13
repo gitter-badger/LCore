@@ -195,7 +195,7 @@ namespace ICSharpCode.SharpZipLib.Encryption
         public byte[] TransformFinalBlock([CanBeNull]byte[] inputBuffer, int inputOffset, int inputCount)
             {
             var result = new byte[inputCount];
-            this.TransformBlock(inputBuffer, inputOffset, inputCount, result, 0);
+            this.TransformBlock(inputBuffer, inputOffset, inputCount, result, outputOffset: 0);
             return result;
             }
 
@@ -282,7 +282,7 @@ namespace ICSharpCode.SharpZipLib.Encryption
         public byte[] TransformFinalBlock([CanBeNull]byte[] inputBuffer, int inputOffset, int inputCount)
             {
             var result = new byte[inputCount];
-            this.TransformBlock(inputBuffer, inputOffset, inputCount, result, 0);
+            this.TransformBlock(inputBuffer, inputOffset, inputCount, result, outputOffset: 0);
             return result;
             }
 
@@ -376,7 +376,7 @@ namespace ICSharpCode.SharpZipLib.Encryption
             get
                 {
                 var keySizes = new KeySizes[1];
-                keySizes[0] = new KeySizes(12 * 8, 12 * 8, 0);
+                keySizes[0] = new KeySizes(12 * 8, 12 * 8, skipSize: 0);
                 return keySizes;
                 }
             }
@@ -397,7 +397,7 @@ namespace ICSharpCode.SharpZipLib.Encryption
             get
                 {
                 var keySizes = new KeySizes[1];
-                keySizes[0] = new KeySizes(1 * 8, 1 * 8, 0);
+                keySizes[0] = new KeySizes(1 * 8, 1 * 8, skipSize: 0);
                 return keySizes;
                 }
             }

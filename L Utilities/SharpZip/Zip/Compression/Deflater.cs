@@ -254,7 +254,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
         /// </exception>
         public void SetInput(byte[] input)
             {
-            this.SetInput(input, 0, input.Length);
+            this.SetInput(input, offset: 0, count: input.Length);
             }
 
         /// <summary>
@@ -346,7 +346,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
         /// </returns>
         public int Deflate(byte[] output)
             {
-            return this.Deflate(output, 0, output.Length);
+            return this.Deflate(output, offset: 0, length: output.Length);
             }
 
         /// <summary>
@@ -442,7 +442,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
                                     /* write a static tree block consisting solely of
 								 * an EOF:
 								 */
-                                    this.pending.WriteBits(2, 10);
+                                    this.pending.WriteBits(b: 2, count: 10);
                                     neededbits -= 10;
                                     }
                                 }
@@ -478,7 +478,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
         /// </exception>
         public void SetDictionary(byte[] dictionary)
             {
-            this.SetDictionary(dictionary, 0, dictionary.Length);
+            this.SetDictionary(dictionary, index: 0, count: dictionary.Length);
             }
 
         /// <summary>

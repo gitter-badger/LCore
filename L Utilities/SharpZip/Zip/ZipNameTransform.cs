@@ -102,13 +102,13 @@ namespace ICSharpCode.SharpZipLib.Zip
             int howMany = invalidPathChars.Length + 2;
 
             InvalidEntryCharsRelaxed = new char[howMany];
-            Array.Copy(invalidPathChars, 0, InvalidEntryCharsRelaxed, 0, invalidPathChars.Length);
+            Array.Copy(invalidPathChars, sourceIndex: 0, destinationArray: InvalidEntryCharsRelaxed, destinationIndex: 0, length: invalidPathChars.Length);
             InvalidEntryCharsRelaxed[howMany - 1] = '*';
             InvalidEntryCharsRelaxed[howMany - 2] = '?';
 
             howMany = invalidPathChars.Length + 4;
             InvalidEntryChars = new char[howMany];
-            Array.Copy(invalidPathChars, 0, InvalidEntryChars, 0, invalidPathChars.Length);
+            Array.Copy(invalidPathChars, sourceIndex: 0, destinationArray: InvalidEntryChars, destinationIndex: 0, length: invalidPathChars.Length);
             InvalidEntryChars[howMany - 1] = ':';
             InvalidEntryChars[howMany - 2] = '\\';
             InvalidEntryChars[howMany - 3] = '*';
@@ -156,26 +156,26 @@ namespace ICSharpCode.SharpZipLib.Zip
                 name = WindowsPathUtils.DropPathRoot(name);
 
                 // Drop any leading slashes.
-                while ((name.Length > 0) && (name[0] == '/'))
+                while ((name.Length > 0) && (name[index: 0] == '/'))
                     {
-                    name = name.Remove(0, 1);
+                    name = name.Remove(startIndex: 0, count: 1);
                     }
 
                 // Drop any trailing slashes.
                 while ((name.Length > 0) && (name[name.Length - 1] == '/'))
                     {
-                    name = name.Remove(name.Length - 1, 1);
+                    name = name.Remove(name.Length - 1, count: 1);
                     }
 
                 // Convert consecutive // characters to /
                 int index = name.IndexOf("//");
                 while (index >= 0)
                     {
-                    name = name.Remove(index, 1);
+                    name = name.Remove(index, count: 1);
                     index = name.IndexOf("//");
                     }
 
-                name = MakeValidName(name, '_');
+                name = MakeValidName(name, replacement: '_');
                 }
             else
                 {
@@ -265,7 +265,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                     {
                     result =
                         (name.IndexOfAny(InvalidEntryChars) < 0) &&
-                        (name.IndexOf('/') != 0);
+                        (name.IndexOf(value: '/') != 0);
                     }
                 }
 
@@ -289,7 +289,7 @@ namespace ICSharpCode.SharpZipLib.Zip
             bool result =
                 (name != null) &&
                 (name.IndexOfAny(InvalidEntryChars) < 0) &&
-                (name.IndexOf('/') != 0)
+                (name.IndexOf(value: '/') != 0)
                 ;
             return result;
             }

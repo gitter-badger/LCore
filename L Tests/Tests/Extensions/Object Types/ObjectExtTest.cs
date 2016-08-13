@@ -414,8 +414,8 @@ namespace LCore.Tests.Extensions
             5.5f.ToS().Should().Be("5.5");
             "nice".ToS().Should().Be("nice");
             ((string) null).ToS().Should().Be("");
-            new[] {4}.ToS().Should().Be("System.Int32[] { 4 }");
-            new[] {"a", "b", "c"}.ToS().Should().Be("System.String[] { a, b, c }");
+            new[] {4}.ToS().Should().Be("Int32[] { 4 }");
+            new[] {"a", "b", "c"}.ToS().Should().Be("String[] { a, b, c }");
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>

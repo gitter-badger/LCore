@@ -18,7 +18,7 @@ namespace L_Tool
             */
 
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            Application.SetCompatibleTextRenderingDefault(defaultValue: false);
             Application.Run(new LTool());
             }
 

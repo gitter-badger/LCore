@@ -41,6 +41,7 @@ namespace ASP
     using LMVC.Controllers;
     using LMVC.Extensions;
     using LMVC.Models;
+    using LMVC.Routes;
     using Singularity;
     
     #line 3 "..\..\Views\Shared\Manage\Row.cshtml"
@@ -73,9 +74,8 @@ WriteLiteral("\r\n");
         new[] { ControllerHelper.ViewType.TableCell };
 
     var Groups = Model as IFieldGroups;
-    IEnumerable<ModelMetadata> Fields = Groups != null ?
-        Groups.GetFieldGroup(Context, ControllerHelper.ViewType.TableCell) :
-        FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ControllerHelper.ViewType.TableCell);
+    IEnumerable<ModelMetadata> Fields = Groups?.GetFieldGroup(Context, ControllerHelper.ViewType.TableCell) 
+        ?? FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ControllerHelper.ViewType.TableCell);
 
             
             #line default
@@ -85,13 +85,13 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("<tr>\r\n");
 
             
-            #line 21 "..\..\Views\Shared\Manage\Row.cshtml"
+            #line 20 "..\..\Views\Shared\Manage\Row.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 21 "..\..\Views\Shared\Manage\Row.cshtml"
+            #line 20 "..\..\Views\Shared\Manage\Row.cshtml"
      if (!InlineEdit &&
                         ViewContext.AllowView(Model.TrueModelType()))
         {
@@ -105,14 +105,14 @@ WriteLiteral(" class=\"view-cell center\"");
 
 WriteLiteral(">\r\n            <div>\r\n                <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 858), Tuple.Create("\"", 989)
+WriteAttribute("href", Tuple.Create(" href=\"", 835), Tuple.Create("\"", 966)
             
-            #line 26 "..\..\Views\Shared\Manage\Row.cshtml"
-, Tuple.Create(Tuple.Create("", 865), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(Controller => Controller.Details, Model.GetID<int>(), Request.Url?.AbsoluteUri)
+            #line 25 "..\..\Views\Shared\Manage\Row.cshtml"
+, Tuple.Create(Tuple.Create("", 842), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(Controller => Controller.Details, Model.GetID<int>(), Request.Url?.AbsoluteUri)
             
             #line default
             #line hidden
-, 865), false)
+, 842), false)
 );
 
 WriteLiteral(">\r\n                    <span");
@@ -123,7 +123,7 @@ WriteLiteral(">\r\n                        &#xe003;\r\n                    </spa
 " </a>\r\n            </div>\r\n        </td>\r\n");
 
             
-            #line 33 "..\..\Views\Shared\Manage\Row.cshtml"
+            #line 32 "..\..\Views\Shared\Manage\Row.cshtml"
         }
 
             
@@ -132,13 +132,13 @@ WriteLiteral(">\r\n                        &#xe003;\r\n                    </spa
 WriteLiteral("\r\n");
 
             
-            #line 35 "..\..\Views\Shared\Manage\Row.cshtml"
+            #line 34 "..\..\Views\Shared\Manage\Row.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 35 "..\..\Views\Shared\Manage\Row.cshtml"
+            #line 34 "..\..\Views\Shared\Manage\Row.cshtml"
      foreach (var Meta in Fields)
         {
         var Field = new ViewField(ViewContext, Model.TrueModelType(), Meta.PropertyName, Model, ViewTypes);
@@ -148,14 +148,14 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 39 "..\..\Views\Shared\Manage\Row.cshtml"
+            #line 38 "..\..\Views\Shared\Manage\Row.cshtml"
    Write(Html.ViewField(Field));
 
             
             #line default
             #line hidden
             
-            #line 39 "..\..\Views\Shared\Manage\Row.cshtml"
+            #line 38 "..\..\Views\Shared\Manage\Row.cshtml"
                               
         }
 
@@ -165,13 +165,13 @@ WriteLiteral("\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 42 "..\..\Views\Shared\Manage\Row.cshtml"
+            #line 41 "..\..\Views\Shared\Manage\Row.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 42 "..\..\Views\Shared\Manage\Row.cshtml"
+            #line 41 "..\..\Views\Shared\Manage\Row.cshtml"
      if (ViewContext.AllowEdit(Model.TrueModelType()))
         {
 
@@ -184,14 +184,14 @@ WriteLiteral(" class=\"edit-cell center\"");
 
 WriteLiteral(">\r\n            <div>\r\n                <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 1541), Tuple.Create("\"", 1676)
+WriteAttribute("href", Tuple.Create(" href=\"", 1518), Tuple.Create("\"", 1661)
             
-            #line 46 "..\..\Views\Shared\Manage\Row.cshtml"
-, Tuple.Create(Tuple.Create("", 1548), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(Controller => Controller.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false)
+            #line 45 "..\..\Views\Shared\Manage\Row.cshtml"
+, Tuple.Create(Tuple.Create("", 1525), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(Controller => Controller.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, Value3: false)
             
             #line default
             #line hidden
-, 1548), false)
+, 1525), false)
 );
 
 WriteLiteral("\r\n                   ");
@@ -204,7 +204,7 @@ WriteLiteral(">\r\n                        &#xe065;\r\n                    </spa
 " </a>\r\n            </div>\r\n        </td>\r\n");
 
             
-            #line 58 "..\..\Views\Shared\Manage\Row.cshtml"
+            #line 57 "..\..\Views\Shared\Manage\Row.cshtml"
         }
 
             
@@ -213,13 +213,13 @@ WriteLiteral(">\r\n                        &#xe065;\r\n                    </spa
 WriteLiteral("\r\n");
 
             
-            #line 60 "..\..\Views\Shared\Manage\Row.cshtml"
+            #line 59 "..\..\Views\Shared\Manage\Row.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 60 "..\..\Views\Shared\Manage\Row.cshtml"
+            #line 59 "..\..\Views\Shared\Manage\Row.cshtml"
      if (ViewContext.AllowDeactivate(Model.TrueModelType()))
         {
 
@@ -232,28 +232,28 @@ WriteLiteral(" class=\"deactivate-cell center\"");
 
 WriteLiteral(">\r\n            <div>\r\n                <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2568), Tuple.Create("\"", 2698)
+WriteAttribute("href", Tuple.Create(" href=\"", 2553), Tuple.Create("\"", 2683)
             
-            #line 64 "..\..\Views\Shared\Manage\Row.cshtml"
-, Tuple.Create(Tuple.Create("", 2575), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(Controller => Controller.Delete, Model.GetID<int>(), Request.Url?.AbsoluteUri)
+            #line 63 "..\..\Views\Shared\Manage\Row.cshtml"
+, Tuple.Create(Tuple.Create("", 2560), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(Controller => Controller.Delete, Model.GetID<int>(), Request.Url?.AbsoluteUri)
             
             #line default
             #line hidden
-, 2575), false)
+, 2560), false)
 );
 
-WriteAttribute("shift-href", Tuple.Create("\r\n                   shift-href=\"", 2699), Tuple.Create("\"", 3154)
+WriteAttribute("shift-href", Tuple.Create("\r\n                   shift-href=\"", 2684), Tuple.Create("\"", 3155)
             
-            #line 65 "..\..\Views\Shared\Manage\Row.cshtml"
-, Tuple.Create(Tuple.Create("", 2732), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
+            #line 64 "..\..\Views\Shared\Manage\Row.cshtml"
+, Tuple.Create(Tuple.Create("", 2717), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
                    .Action<int,string,FormCollection, bool>(
                    (Expression<Func<ManageController, Func<int,string,FormCollection, bool, ActionResult>>>)(Controller => Controller.DeleteConfirm),
-                   Model.GetID<int>(), Request.Url?.AbsoluteUri, null,
-                   ViewBag.ManageModel.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive))
+                   Model.GetID<int>(), Request.Url?.AbsoluteUri, Value3: null,
+                   Value4: ViewBag.ManageModel.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive))
             
             #line default
             #line hidden
-, 2732), false)
+, 2717), false)
 );
 
 WriteLiteral(">\r\n                    <span");
@@ -265,7 +265,7 @@ WriteLiteral(">\r\n\r\n");
 WriteLiteral("                        ");
 
             
-            #line 72 "..\..\Views\Shared\Manage\Row.cshtml"
+            #line 71 "..\..\Views\Shared\Manage\Row.cshtml"
                    Write(Html.Raw(ViewBag.ManageModel.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive) ? "&#xe133;" : "&#xe020;"));
 
             
@@ -275,7 +275,7 @@ WriteLiteral("\r\n\r\n                    </span>\r\n                </a>\r\n   
 "  </td>\r\n");
 
             
-            #line 78 "..\..\Views\Shared\Manage\Row.cshtml"
+            #line 77 "..\..\Views\Shared\Manage\Row.cshtml"
         }
 
             

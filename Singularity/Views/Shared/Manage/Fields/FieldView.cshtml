@@ -25,7 +25,7 @@
     else
         {
         if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell) &&
-            !Model.Meta.HasAttribute<NotMappedAttribute>(true) &&
+            !Model.Meta.HasAttribute<NotMappedAttribute>(IncludeSubClasses: true) &&
             (Model.Meta.ModelType.PreferGeneric().HasInterface<IConvertible>() ||
             Model.Meta.ModelType.HasInterface<IModel>()))
             {
@@ -95,8 +95,8 @@
                 {
                 @Html.Partial(PartialViews.Manage.Fields.View.DateTime, Model)
                 }
-            else if (Model.ModelData.TrueModelType().HasAttribute<DisplayColumnAttribute>(true) &&
-                Model.ModelData.TrueModelType().GetAttribute<DisplayColumnAttribute>(true)?.DisplayColumn == Model.Meta.PropertyName)
+            else if (Model.ModelData.TrueModelType().HasAttribute<DisplayColumnAttribute>(IncludeBaseClasses: true) &&
+                Model.ModelData.TrueModelType().GetAttribute<DisplayColumnAttribute>(IncludeBaseTypes: true)?.DisplayColumn == Model.Meta.PropertyName)
                 {
                 @Html.Partial(PartialViews.Manage.Fields.View.DisplayColumn, Model)
                 }

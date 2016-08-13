@@ -4,7 +4,7 @@ using System.Reflection;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit;
-using L_Tests.LCore.Extensions;
+using LCore.Tests.Extensions;
 using Xunit;
 using Xunit.Abstractions;
 using static LCore.LUnit.LUnit.Categories;
@@ -23,9 +23,9 @@ namespace LCore.Tests
         protected override Assembly[] TestAssemblies => new[]
             {
             Assembly.GetAssembly(typeof(LCoreAssemblyTester)),
-            Assembly.GetAssembly(typeof(ThreadExtTester))
+            Assembly.GetAssembly(typeof(ThreadExtTest))
             };
 
-        public LCoreAssemblyTester([NotNull] ITestOutputHelper Output) : base(Output) {}
+        public LCoreAssemblyTester([NotNull] ITestOutputHelper Output) : base(Output) { }
         }
     }

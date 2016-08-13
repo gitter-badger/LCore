@@ -24,7 +24,7 @@
         if (ViewContext.AllowEdit(Model.TrueModelType()))
             {
             <a class="btn-default right"
-               href="@(Url.Controller<ManageController>().Action(Controller => Controller.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false))">
+               href="@(Url.Controller<ManageController>().Action(Controller => Controller.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, Value3: false))">
                 <glyph>&#xe065;</glyph>
                 Edit
             </a>
@@ -58,7 +58,7 @@
         if (ViewContext.AllowEdit(Model.TrueModelType()))
             {
             <a class="btn-default right"
-               href="@(Url.Controller<ManageController>().Action(Controller => Controller.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false))"
+               href="@(Url.Controller<ManageController>().Action(Controller => Controller.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, Value3: false))"
                key-bind-click="Ctrl+E"
                key-bind-click-name="Edit">
                 <glyph>&#xe065;</glyph>

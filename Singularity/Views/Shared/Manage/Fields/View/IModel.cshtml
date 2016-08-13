@@ -16,7 +16,7 @@
        title="@Model.PropertyData.ToString()"
        href="@Model.Route_FieldRelation(ViewBag.ControllerName)">
         <span>
-            @Model.PropertyData.ToString().Substring(0, SingularityControllerHelper.DefaultTableTextLength)
+            @Model.PropertyData.ToString().Substring(startIndex: 0, length: SingularityControllerHelper.DefaultTableTextLength)
         </span>
     </a>
     }

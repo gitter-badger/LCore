@@ -44,9 +44,9 @@
 
     RangeAttribute Attr = null;
 
-    if (Model.Meta.HasAttribute<RangeAttribute>(true))
+    if (Model.Meta.HasAttribute<RangeAttribute>(IncludeSubClasses: true))
         {
-        Attr = Model.Meta.GetAttribute<RangeAttribute>(true);
+        Attr = Model.Meta.GetAttribute<RangeAttribute>(IncludeBaseTypes: true);
         }
 }
 
@@ -65,7 +65,7 @@
      maximum="@(Attr?.Maximum)"
      minimum="@(Attr?.Minimum)">
 
-    @if (Model.Meta.HasAttribute<HiddenInputAttribute>(true))
+    @if (Model.Meta.HasAttribute<HiddenInputAttribute>(IncludeSubClasses: true))
         {
         @Html.ViewField(Model)
         }
@@ -96,7 +96,7 @@
 
             @Html.Partial(PartialViews.Manage.Fields.Edit.PropertyName(Model.PropertyName), Model)
             }
-        else if (Model.Meta.HasAttribute<KeyAttribute>(true))
+        else if (Model.Meta.HasAttribute<KeyAttribute>(IncludeSubClasses: true))
             {
             @Html.Partial(PartialViews.Manage.Fields.Edit.Key, Model)
             }
@@ -145,7 +145,7 @@
             {
             @Html.Partial(PartialViews.Manage.Fields.Edit.Enum, Model)
             }
-        else if (Model.Meta.ModelType.HasAttribute<ComplexTypeAttribute>(true))
+        else if (Model.Meta.ModelType.HasAttribute<ComplexTypeAttribute>(IncludeBaseClasses: true))
             {
             @Html.Partial(PartialViews.Manage.Fields.Edit.ComplexType, Model)
             }

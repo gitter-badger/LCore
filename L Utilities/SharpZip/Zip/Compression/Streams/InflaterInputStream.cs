@@ -152,7 +152,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
                 toRead -= count;
                 }
 
-            this.clearTextLength = this.cryptoTransform?.TransformBlock(this.rawData, 0, this.rawLength, this.clearText, 0) ?? this.rawLength;
+            this.clearTextLength = this.cryptoTransform?.TransformBlock(this.rawData, inputOffset: 0, inputCount: this.rawLength, outputBuffer: this.clearText, outputOffset: 0) ?? this.rawLength;
 
             this.available = this.clearTextLength;
             }
@@ -164,7 +164,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
         /// <returns>Returns the number of bytes read.</returns>
         public int ReadRawBuffer(byte[] buffer)
             {
-            return this.ReadRawBuffer(buffer, 0, buffer.Length);
+            return this.ReadRawBuffer(buffer, offset: 0, length: buffer.Length);
             }
 
         /// <summary>
@@ -460,7 +460,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
                     length = (int)toSkip;
                     }
 
-                readCount = this.baseInputStream.Read(tmp, 0, length);
+                readCount = this.baseInputStream.Read(tmp, offset: 0, count: length);
                 toSkip -= readCount;
                 }
 

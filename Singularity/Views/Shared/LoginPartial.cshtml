@@ -26,7 +26,7 @@ else
         <li>
             @Html.ActionLink("Log in",
            nameof(AccountController.Login), typeof(AccountController).CName(),
-           null, new { id = "loginLink" })
+           routeValues: null, htmlAttributes: new { id = "loginLink" })
         </li>
     </ul>
     }

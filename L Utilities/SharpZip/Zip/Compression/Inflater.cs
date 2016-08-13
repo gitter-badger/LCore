@@ -199,7 +199,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
         /// Creates a new inflater or RFC1951 decompressor
         /// RFC1950/Zlib headers and footers will be expected in the input data
         /// </summary>
-        public Inflater() : this(false)
+        public Inflater() : this(noHeader: false)
             {
             }
 
@@ -254,12 +254,12 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
         /// </exception>
         private bool DecodeHeader()
             {
-            int header = this.input.PeekBits(16);
+            int header = this.input.PeekBits(bitCount: 16);
             if (header < 0)
                 {
                 return false;
                 }
-            this.input.DropBits(16);
+            this.input.DropBits(bitCount: 16);
 
             // The header is written in "wrong" byte order
             header = ((header << 8) | (header >> 8)) & 0xffff;
@@ -302,12 +302,12 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
             {
             while (this.neededBits > 0)
                 {
-                int dictByte = this.input.PeekBits(8);
+                int dictByte = this.input.PeekBits(bitCount: 8);
                 if (dictByte < 0)
                     {
                     return false;
                     }
-                this.input.DropBits(8);
+                this.input.DropBits(bitCount: 8);
                 this.readAdler = (this.readAdler << 8) | dictByte;
                 this.neededBits -= 8;
                 }
@@ -439,12 +439,12 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
             {
             while (this.neededBits > 0)
                 {
-                int chkByte = this.input.PeekBits(8);
+                int chkByte = this.input.PeekBits(bitCount: 8);
                 if (chkByte < 0)
                     {
                     return false;
                     }
-                this.input.DropBits(8);
+                this.input.DropBits(bitCount: 8);
                 this.readAdler = (this.readAdler << 8) | chkByte;
                 this.neededBits -= 8;
                 }
@@ -495,12 +495,12 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
                         return true;
                         }
 
-                    int type = this.input.PeekBits(3);
+                    int type = this.input.PeekBits(bitCount: 3);
                     if (type < 0)
                         {
                         return false;
                         }
-                    this.input.DropBits(3);
+                    this.input.DropBits(bitCount: 3);
 
                     if ((type & 1) != 0)
                         {
@@ -528,23 +528,23 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
 
                 case DECODE_STORED_LEN1:
                         {
-                        if ((this.uncomprLen = this.input.PeekBits(16)) < 0)
+                        if ((this.uncomprLen = this.input.PeekBits(bitCount: 16)) < 0)
                             {
                             return false;
                             }
-                        this.input.DropBits(16);
+                        this.input.DropBits(bitCount: 16);
                         this.mode = DECODE_STORED_LEN2;
                         }
                     goto case DECODE_STORED_LEN2; // fall through
 
                 case DECODE_STORED_LEN2:
                         {
-                        int nlen = this.input.PeekBits(16);
+                        int nlen = this.input.PeekBits(bitCount: 16);
                         if (nlen < 0)
                             {
                             return false;
                             }
-                        this.input.DropBits(16);
+                        this.input.DropBits(bitCount: 16);
                         if (nlen != (this.uncomprLen ^ 0xffff))
                             {
                             throw new SharpZipBaseException("broken uncompressed block");
@@ -601,7 +601,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
         /// </param>
         public void SetDictionary(byte[] buffer)
             {
-            this.SetDictionary(buffer, 0, buffer.Length);
+            this.SetDictionary(buffer, index: 0, count: buffer.Length);
             }
 
         /// <summary>
@@ -667,7 +667,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
         /// </param>
         public void SetInput(byte[] buffer)
             {
-            this.SetInput(buffer, 0, buffer.Length);
+            this.SetInput(buffer, index: 0, count: buffer.Length);
             }
 
         /// <summary>
@@ -721,7 +721,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
                 throw new ArgumentNullException(nameof(buffer));
                 }
 
-            return this.Inflate(buffer, 0, buffer.Length);
+            return this.Inflate(buffer, offset: 0, count: buffer.Length);
             }
 
         /// <summary>

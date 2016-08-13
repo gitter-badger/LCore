@@ -9,7 +9,6 @@ using LCore.Extensions.Optional;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 using Xunit.Abstractions;
-using Xunit.Sdk;
 using static LCore.LUnit.LUnit.Categories;
 
 // ReSharper disable UnusedParameter.Global
@@ -155,28 +154,42 @@ namespace LCore.LUnit
             Type[] Types = this.AssemblyTypes.WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>(IncludeBaseTypes: false).Array();
 
             Type[] StaticTypes = Types.Select(Type => Type.IsStatic());
-            Type[] NonStaticTypes = Types.Select(Type => Type.IsClass);
-
-            if (StaticTypes.Length > 0)
-                {
-                this._Output.WriteLine("Static Classes: ");
-                foreach (var Type in StaticTypes)
-                    {
-                    var TestData = Type.GetTestData();
-
-                    uint Coverage = TestData.CoveragePercent;
-
-                    this._Output.WriteLine($"{Type.FullyQualifiedName().Pad(Length: 60)}({$"{Coverage}".AlignRight(Length: 3)}%)");
-                    }
-                this._Output.WriteLine("");
-                }
+            Type[] NonStaticTypes = Types.Select(Type => Type.IsClass && !Type.IsStatic());
 
             if (NonStaticTypes.Length > 0)
                 {
                 this._Output.WriteLine("Classes: ");
                 foreach (var Type in NonStaticTypes)
                     {
-                    this._Output.WriteLine($"{Type.FullyQualifiedName()}");
+                    var TestData = Type.GetTestData(this.TestAssemblies);
+
+                    if (TestData.MembersPresent > 0)
+                        {
+                        uint Coverage = TestData.CoveragePercent;
+
+                        this._Output.WriteLine($"{Type.FullyQualifiedName().Pad(Length: 45)}({$"{Coverage}".AlignRight(Length: 3)}%)");
+
+                        TestData.MissingMemberInvocations.Each(Member => this._Output.WriteLine($"-{Member}"));
+                        }
+                    }
+                this._Output.WriteLine("");
+                }
+
+            if (StaticTypes.Length > 0)
+                {
+                this._Output.WriteLine("Static Classes: ");
+                foreach (var Type in StaticTypes)
+                    {
+                    var TestData = Type.GetTestData(this.TestAssemblies);
+
+                    if (TestData.MembersPresent > 0)
+                        {
+                        uint Coverage = TestData.CoveragePercent;
+
+                        this._Output.WriteLine($"{Type.FullyQualifiedName().Pad(Length: 45)}({$"{Coverage}".AlignRight(Length: 3)}%)");
+
+                        TestData.MissingMemberInvocations.Each(Member => this._Output.WriteLine($"-{Member}"));
+                        }
                     }
                 this._Output.WriteLine("");
                 }
@@ -223,206 +236,183 @@ namespace LCore.LUnit
                 {
                 var Removals = new List<MemberInfo>();
                 MemberNaming.Keys.Each(Key =>
-                    {
-                        if (Key is MethodInfo &&
-                            (((MethodInfo)Key).IsDefined(typeof(System.Runtime.CompilerServices.CompilerGeneratedAttribute), inherit: false) ||
-                             ((MethodInfo)Key).MemberType == MemberTypes.Property ||
-                             (((MethodInfo)Key).IsSpecialName && ((MethodInfo)Key).Name.StartsWith("get_")) ||
-                             (((MethodInfo)Key).IsSpecialName && ((MethodInfo)Key).Name.StartsWith("set_"))))
-                            Removals.Add(Key);
+                {
+                    if (Key is MethodInfo && ((MethodInfo)Key).IsPropertyGetterOrSetter())
+                        Removals.Add(Key);
 
-                        if (Key is PropertyInfo
-                            && ((PropertyInfo)Key).GetMethod?.IsStatic != true
-                            && ((PropertyInfo)Key).SetMethod?.IsStatic != true)
-                            Removals.Add(Key);
-                    });
+                    if (Key is PropertyInfo
+                        && ((PropertyInfo)Key).GetMethod?.IsStatic != true
+                        && ((PropertyInfo)Key).SetMethod?.IsStatic != true)
+                        Removals.Add(Key);
+                });
 
                 Removals.Each(Remove => MemberNaming.Remove(Remove));
                 }
 
             Dictionary<string, Dictionary<string, List<string>>> MemberTable = MemberNaming.Values.ToDictionary();
 
-
-            List<string> MemberTraits = this.TestAssemblies.Convert(Assembly =>
-                {
-                    return Assembly.GetExportedTypes().Convert<Type, IReadOnlyList<KeyValuePair<string, string>>>(Type =>
-                        {
-                            try
-                                {
-                                return Type.GetMethods().Convert(TraitHelper.GetTraits)
-                                .Flatten<KeyValuePair<string, string>>();
-                                }
-                            catch
-                                {
-                                return null;
-                                }
-                        }).Flatten<KeyValuePair<string, string>>();
-                }).Flatten<KeyValuePair<string, string>>()
-                .Convert(TraitKey => TraitKey.Key == Traits.TargetMember
-                    ? TraitKey.Value
-                    : null);
-
+            List<string> MemberTraits = this.TestAssemblies.GetAssemblyMemberTraits();
 
             MemberTable.Keys.Each((Index, Namespace) =>
+            {
+                // ReSharper disable once UseObjectOrCollectionInitializer
+                var WriteStack2 = new List<string>();
+                WriteStack2.Add("");
+                WriteStack2.Add($"namespace {Namespace}");
+                WriteStack2.Add("{");
+
+                Dictionary<string, List<string>> Classes = MemberTable[Namespace];
+
+                uint ClassesMissing = 0;
+
+                Classes.Keys.Each(Class =>
                 {
-                    // ReSharper disable once UseObjectOrCollectionInitializer
-                    var WriteStack2 = new List<string>();
-                    WriteStack2.Add("");
-                    WriteStack2.Add($"namespace {Namespace}");
-                    WriteStack2.Add("{");
+                    var TargetClass =
+                    MemberNaming.First(Member => Member.Value.Item1 == Namespace && Member.Value.Item2 == Class).Key.DeclaringType;
 
-                    Dictionary<string, List<string>> Classes = MemberTable[Namespace];
+                    var TargetClassTest = L.Ref.FindType($"{Namespace}.{Class}", this.TestAssemblies);
 
-                    uint ClassesMissing = 0;
-
-                    Classes.Keys.Each(Class =>
+                    if (TargetClass != null)
                         {
-                            var TargetClass =
-                            MemberNaming.First(Member => Member.Value.Item1 == Namespace && Member.Value.Item2 == Class).Key.DeclaringType;
+                        bool FullyQualifyWithNamespace =
+                        MemberNaming.Values.Count(Naming => Naming.Item2 == Class && Naming.Item1 != Namespace) > 0;
 
-                            var TargetClassTest = L.Ref.FindType($"{Namespace}.{Class}", this.TestAssemblies);
 
-                            if (TargetClass != null)
+                        // ReSharper disable once UseObjectOrCollectionInitializer
+                        var WriteStack3 = new List<string>();
+
+                        if (this.GeneratedCode_IncludeTraitTargetAttributes)
+                            {
+                            bool StrongTypeTraitAttribute = !TargetClass.FullyQualifiedName().HasAny('`', '<', '>');
+
+                            if (TargetClassTest != null)
+                                Partial = " partial ";
+
+                            WriteStack3.Add(StrongTypeTraitAttribute
+                            ? $"    [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},{TargetClass.FullyQualifiedName().NameofParts(TargetClass, TargetClass.Namespace, FullyQualifyWithNamespace)})]"
+                            : $"    [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},\"{TargetClass.FullyQualifiedName()}\")]");
+
+                            if (TargetClassTest == null)
                                 {
-                                bool FullyQualifyWithNamespace =
-                                MemberNaming.Values.Count(Naming => Naming.Item2 == Class && Naming.Item1 != Namespace) > 0;
-
-
-                                // ReSharper disable once UseObjectOrCollectionInitializer
-                                var WriteStack3 = new List<string>();
-
-                                if (this.GeneratedCode_IncludeTraitTargetAttributes)
-                                    {
-                                    bool StrongTypeTraitAttribute = !TargetClass.FullyQualifiedName().HasAny('`', '<', '>');
-
-                                    if (TargetClassTest != null)
-                                        Partial = " partial ";
-
-                                    WriteStack3.Add(StrongTypeTraitAttribute
-                                    ? $"    [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},{TargetClass.FullyQualifiedName().NameofParts(TargetClass, TargetClass.Namespace, FullyQualifyWithNamespace)})]"
-                                    : $"    [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},\"{TargetClass.FullyQualifiedName()}\")]");
-
-                                    if (TargetClassTest == null)
-                                        {
-                                        WriteStack3.Add(this.GeneratedCode_UseXunitOutputBase
-                                        ? $"    public{Partial}class {Class} : {nameof(XUnitOutputTester)}, {nameof(IDisposable)}"
-                                        : $"    public{Partial}class {Class} : {nameof(IDisposable)}");
-                                        }
-                                    else
-                                        {
-                                        WriteStack3.Add($"   public{Partial}class {Class}");
-                                        }
-
-                                    WriteStack3.Add("    {");
-
-                                    // Don't re-declare constructor and destructor if the target class exists
-                                    if (TargetClassTest == null)
-                                        {
-                                        WriteStack3.Add(this.GeneratedCode_UseXunitOutputBase
-                                        ? $"        public {Class}([{nameof(NotNullAttribute).Before(Attribute)}] {nameof(ITestOutputHelper)} Output) : base(Output) {{ }}"
-                                        : $"        public {Class}() {{ }}");
-
-                                        WriteStack3.Add("");
-
-                                        WriteStack3.Add("        public void Dispose() { }");
-                                        WriteStack3.Add("");
-                                        }
-
-                                    List<string> MemberNames = Classes[Class];
-
-
-                                    uint MembersMissing = 0;
-
-                                    MemberNames.Each(MemberName =>
-                                    {
-                                        var TargetMember =
-                                        MemberNaming.First(
-                                            Member =>
-                                                Member.Value.Item1 == Namespace && Member.Value.Item2 == Class &&
-                                                Member.Value.Item3 == MemberName).Key;
-
-                                        if (TargetMember.HasAttribute<ITestedAttribute>() ||
-                                        TargetMember?.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) == true ||
-                                        TargetMember?.DeclaringType?.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) == true)
-                                            return;
-
-                                        StrongTypeTraitAttribute = !TargetMember.FullyQualifiedName().HasAny('`', '<', '>') &&
-                                                               !(TargetMember is MethodInfo && ((MethodInfo)TargetMember).IsOperator());
-
-                                        // ReSharper disable once UnusedVariable
-                                        var TargetMemberTest = L.Ref.FindMember($"{Namespace}.{Class}.{MemberName}", this.TestAssemblies).First();
-
-                                        string TraitKeyAttribute = StrongTypeTraitAttribute
-                                        ? (TargetMember is MethodInfo
-                                            ? $"{TargetMember.FullyQualifiedName().NameofParts(TargetMember, TargetClass.Namespace, FullyQualifyWithNamespace)} + \"{((MethodInfo)TargetMember).ToParameterSignature()}\""
-                                            : $"{TargetMember.FullyQualifiedName().NameofParts(TargetMember, TargetClass.Namespace, FullyQualifyWithNamespace)}")
-                                        : (TargetMember is MethodInfo
-                                            ? $"\"{((MethodInfo)TargetMember).ToInvocationSignature(FullyQualify: true)}\""
-                                            : $"\"{TargetMember.FullyQualifiedName()}\"");
-
-                                        string TraitKeyLookup = TargetMember is MethodInfo
-                                        ? $"{((MethodInfo)TargetMember).ToInvocationSignature(FullyQualify: true)}"
-                                        : $"{TargetMember.FullyQualifiedName()}";
-
-                                        if (!MemberTraits.Has(TraitKeyLookup) &&
-                                        //(TargetMemberTest == null) &&
-                                        !string.IsNullOrEmpty(MemberName))
-                                            {
-                                            // ReSharper disable RedundantNameQualifier
-                                            string New = MemberName == nameof(object.GetHashCode) ||
-                                                         MemberName == nameof(object.ToString)
-                                                // ReSharper restore RedundantNameQualifier
-                                                ? " new "
-                                                : " ";
-
-                                            MembersMissing++;
-                                            TotalMembersMissing++;
-
-                                            WriteStack3.Add($"        [{nameof(FactAttribute).Before(Attribute)}]");
-                                            if (this.GeneratedCode_IncludeTraitTargetAttributes)
-                                                {
-                                                WriteStack3.Add($"        [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetMember)},{TraitKeyAttribute})]");
-
-                                                if (!Using.Contains(TargetClass.Namespace))
-                                                    Using.Add(TargetClass.Namespace);
-                                                }
-
-                                            WriteStack3.Add($"        public{New}void {MemberName}()");
-                                            WriteStack3.Add("         {");
-
-                                            WriteStack3.Add(TargetMember != null && MemberAttributes[TargetMember].Count > 0
-                                            ? "            // Attribute Tests Implemented"
-                                            : $"            // TODO: Implement method test {TargetMember.FullyQualifiedName()}");
-
-                                            WriteStack3.Add("         }");
-                                            WriteStack3.Add("         ");
-                                            }
-                                    });
-
-                                    WriteStack3.Add("    }");
-
-                                    if (MembersMissing == 0)
-                                        WriteStack3.Clear();
-                                    else
-                                        {
-                                        ClassesMissing++;
-                                        TotalClassesMissing++;
-                                        WriteStack2.AddRange(WriteStack3);
-                                        }
-                                    }
+                                WriteStack3.Add(this.GeneratedCode_UseXunitOutputBase
+                                ? $"    public{Partial}class {Class} : {nameof(XUnitOutputTester)}, {nameof(IDisposable)}"
+                                : $"    public{Partial}class {Class} : {nameof(IDisposable)}");
                                 }
-                        });
+                            else
+                                {
+                                WriteStack3.Add($"   public{Partial}class {Class}");
+                                }
 
-                    WriteStack2.Add("}");
+                            WriteStack3.Add("    {");
 
-                    if (ClassesMissing == 0)
-                        WriteStack2.Clear();
-                    else
-                        {
-                        NamespacesMissing++;
-                        WriteStack.AddRange(WriteStack2);
+                            // Don't re-declare constructor and destructor if the target class exists
+                            if (TargetClassTest == null)
+                                {
+                                WriteStack3.Add(this.GeneratedCode_UseXunitOutputBase
+                                ? $"        public {Class}([{nameof(NotNullAttribute).Before(Attribute)}] {nameof(ITestOutputHelper)} Output) : base(Output) {{ }}"
+                                : $"        public {Class}() {{ }}");
+
+                                WriteStack3.Add("");
+
+                                WriteStack3.Add("        public void Dispose() { }");
+                                WriteStack3.Add("");
+                                }
+
+                            List<string> MemberNames = Classes[Class];
+
+
+                            uint MembersMissing = 0;
+
+                            MemberNames.Each(MemberName =>
+                            {
+                                var TargetMember =
+                                MemberNaming.First(
+                                    Member =>
+                                        Member.Value.Item1 == Namespace && Member.Value.Item2 == Class &&
+                                        Member.Value.Item3 == MemberName).Key;
+
+                                if (TargetMember.HasAttribute<ITestedAttribute>() ||
+                                TargetMember?.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) == true ||
+                                TargetMember?.DeclaringType?.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) == true)
+                                    return;
+
+                                StrongTypeTraitAttribute = !TargetMember.FullyQualifiedName().HasAny('`', '<', '>') &&
+                                                       !(TargetMember is MethodInfo && ((MethodInfo)TargetMember).IsOperator());
+
+                                // ReSharper disable once UnusedVariable
+                                var TargetMemberTest = L.Ref.FindMember($"{Namespace}.{Class}.{MemberName}", this.TestAssemblies).First();
+
+                                string TraitKeyAttribute = StrongTypeTraitAttribute
+                                ? (TargetMember is MethodInfo
+                                    ? $"{TargetMember.FullyQualifiedName().NameofParts(TargetMember, TargetClass.Namespace, FullyQualifyWithNamespace)} + \"{((MethodInfo)TargetMember).ToParameterSignature()}\""
+                                    : $"{TargetMember.FullyQualifiedName().NameofParts(TargetMember, TargetClass.Namespace, FullyQualifyWithNamespace)}")
+                                : (TargetMember is MethodInfo
+                                    ? $"\"{((MethodInfo)TargetMember).ToInvocationSignature(FullyQualify: true)}\""
+                                    : $"\"{TargetMember.FullyQualifiedName()}\"");
+
+                                string TraitKeyLookup = TargetMember is MethodInfo
+                                ? $"{((MethodInfo)TargetMember).ToInvocationSignature(FullyQualify: true)}"
+                                : $"{TargetMember.FullyQualifiedName()}";
+
+                                if (!MemberTraits.Has(TraitKeyLookup) &&
+                                //(TargetMemberTest == null) &&
+                                !string.IsNullOrEmpty(MemberName))
+                                    {
+                                    // ReSharper disable RedundantNameQualifier
+                                    string New = MemberName == nameof(object.GetHashCode) ||
+                                                 MemberName == nameof(object.ToString)
+                                        // ReSharper restore RedundantNameQualifier
+                                        ? " new "
+                                        : " ";
+
+                                    MembersMissing++;
+                                    TotalMembersMissing++;
+
+                                    WriteStack3.Add($"        [{nameof(FactAttribute).Before(Attribute)}]");
+                                    if (this.GeneratedCode_IncludeTraitTargetAttributes)
+                                        {
+                                        WriteStack3.Add($"        [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetMember)},{TraitKeyAttribute})]");
+
+                                        if (!Using.Contains(TargetClass.Namespace))
+                                            Using.Add(TargetClass.Namespace);
+                                        }
+
+                                    WriteStack3.Add($"        public{New}void {MemberName}()");
+                                    WriteStack3.Add("         {");
+
+                                    WriteStack3.Add(TargetMember != null && MemberAttributes[TargetMember].Count > 0
+                                    ? "            // Attribute Tests Implemented"
+                                    : $"            // TODO: Implement method test {TargetMember.FullyQualifiedName()}");
+
+                                    WriteStack3.Add("         }");
+                                    WriteStack3.Add("         ");
+                                    }
+                            });
+
+                            WriteStack3.Add("    }");
+
+                            if (MembersMissing == 0)
+                                WriteStack3.Clear();
+                            else
+                                {
+                                ClassesMissing++;
+                                TotalClassesMissing++;
+                                WriteStack2.AddRange(WriteStack3);
+                                }
+                            }
                         }
                 });
+
+                WriteStack2.Add("}");
+
+                if (ClassesMissing == 0)
+                    WriteStack2.Clear();
+                else
+                    {
+                    NamespacesMissing++;
+                    WriteStack.AddRange(WriteStack2);
+                    }
+            });
 
             if (NamespacesMissing == 0u)
                 {
@@ -478,6 +468,8 @@ namespace LCore.LUnit
 
             // ReSharper restore FormatStringProblem
             }
+
+
 
         ////////////////////////////////////////////////////////
         /// 

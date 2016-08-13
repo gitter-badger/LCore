@@ -109,7 +109,7 @@ namespace ICSharpCode.SharpZipLib.GZip
         /// Size of the buffer to use
         /// </param>
         public GZipInputStream(Stream baseInputStream, int size = 4096)
-            : base(baseInputStream, new Inflater(true), size)
+            : base(baseInputStream, new Inflater(noHeader: true), size)
             {
             }
         #endregion
@@ -360,7 +360,7 @@ namespace ICSharpCode.SharpZipLib.GZip
                 avail = 8;
                 }
 
-            Array.Copy(this.inputBuffer.RawData, this.inputBuffer.RawLength - this.inf.RemainingInput, footer, 0, avail);
+            Array.Copy(this.inputBuffer.RawData, this.inputBuffer.RawLength - this.inf.RemainingInput, footer, destinationIndex: 0, length: avail);
             int needed = 8 - avail;
 
             while (needed > 0)

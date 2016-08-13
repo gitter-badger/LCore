@@ -80,11 +80,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Generated\Gen\AssemblyTesterTester.cs" />
-    <Compile Include="Generated\Gen\LUnitTester.cs" />
-    <Compile Include="Generated\Gen\MultiTestReporterTester.cs" />
-    <Compile Include="Generated\Gen\TestAttributeTester.cs" />
-    <Compile Include="Generated\Gen\TestExtTester.cs" />
+    <None Include="Generated\LUnitGenerated.cs" />
     <Compile Include="LCore\LUnit\Assert\AssertionExtTester.cs" />
     <Compile Include="LCore\LUnit\Fluent\FluentExtTester.cs" />
     <Compile Include="Tests\LUnitAssemblyTester.cs" />
@@ -109,7 +105,9 @@
       <Name>L Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Generated\Gen\" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

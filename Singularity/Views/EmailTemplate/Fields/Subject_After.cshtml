@@ -33,7 +33,7 @@
 
         if (Key.Contains("."))
             {
-            BaseKey = Key.Substring(0, Key.LastIndexOf('.'));
+            BaseKey = Key.Substring(startIndex: 0, length: Key.LastIndexOf(value: '.'));
             }
 
         if (!BasedMeta.ContainsKey(BaseKey))

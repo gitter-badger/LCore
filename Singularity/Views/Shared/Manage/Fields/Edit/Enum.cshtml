@@ -14,7 +14,7 @@
 
 @model IViewField
 
-@if (EnumType.HasAttribute<FlagsAttribute>(true))
+@if (EnumType.HasAttribute<FlagsAttribute>(IncludeBaseClasses: true))
     {
     <span class="enum-checks">
 

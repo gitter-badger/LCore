@@ -224,7 +224,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
         public int GetSymbol(StreamManipulator input)
             {
             int lookahead, symbol;
-            if ((lookahead = input.PeekBits(9)) >= 0)
+            if ((lookahead = input.PeekBits(bitCount: 9)) >= 0)
                 {
                 if ((symbol = this.tree[lookahead]) >= 0)
                     {

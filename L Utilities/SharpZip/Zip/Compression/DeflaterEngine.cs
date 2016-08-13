@@ -474,7 +474,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
                     case DEFLATE_STORED:
                         if (this.strstart > this.blockStart)
                             {
-                            this.huffman.FlushStoredBlock(this.window, this.blockStart, this.strstart - this.blockStart, false);
+                            this.huffman.FlushStoredBlock(this.window, this.blockStart, this.strstart - this.blockStart, lastBlock: false);
                             this.blockStart = this.strstart;
                             }
                         this.UpdateHash();
@@ -484,7 +484,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
                         if (this.strstart > this.blockStart)
                             {
                             this.huffman.FlushBlock(this.window, this.blockStart, this.strstart - this.blockStart,
-                                false);
+                                lastBlock: false);
                             this.blockStart = this.strstart;
                             }
                         break;
@@ -496,7 +496,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
                             }
                         if (this.strstart > this.blockStart)
                             {
-                            this.huffman.FlushBlock(this.window, this.blockStart, this.strstart - this.blockStart, false);
+                            this.huffman.FlushBlock(this.window, this.blockStart, this.strstart - this.blockStart, lastBlock: false);
                             this.blockStart = this.strstart;
                             }
                         this.prevAvailable = false;
@@ -653,7 +653,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
 
         private void SlideWindow()
             {
-            Array.Copy(this.window, WSIZE, this.window, 0, WSIZE);
+            Array.Copy(this.window, WSIZE, this.window, destinationIndex: 0, length: WSIZE);
             this.matchStart -= WSIZE;
             this.strstart -= WSIZE;
             this.blockStart -= WSIZE;
@@ -693,7 +693,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
             int best_end = this.strstart + this.matchLen;
             int best_len = Math.Max(this.matchLen, MIN_MATCH - 1);
 
-            int limit = Math.Max(this.strstart - MAX_DIST, 0);
+            int limit = Math.Max(this.strstart - MAX_DIST, val2: 0);
 
             int strend = this.strstart + MAX_MATCH - 1;
             byte scan_end1 = this.window[best_end - 1];

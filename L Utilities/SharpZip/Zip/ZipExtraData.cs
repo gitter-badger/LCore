@@ -120,7 +120,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                 }
 
             this.data_ = new byte[count];
-            Array.Copy(data, offset, this.data_, 0, count);
+            Array.Copy(data, offset, this.data_, destinationIndex: 0, length: count);
             }
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <param name="count">The number of bytes available.</param>
         public void SetData(byte[] data, int index, int count)
             {
-            using (var ms = new MemoryStream(data, index, count, false))
+            using (var ms = new MemoryStream(data, index, count, writable: false))
             using (var helperStream = new ZipHelperStream(ms))
                 {
                 // bit 0           if set, modification time is present
@@ -208,24 +208,24 @@ namespace ICSharpCode.SharpZipLib.Zip
                     {
                     int iTime = helperStream.ReadLEInt();
 
-                    this.modificationTime_ = (new DateTime(1970, 1, 1, 0, 0, 0).ToUniversalTime() +
-                        new TimeSpan(0, 0, 0, iTime, 0)).ToLocalTime();
+                    this.modificationTime_ = (new DateTime(year: 1970, month: 1, day: 1, hour: 0, minute: 0, second: 0).ToUniversalTime() +
+                        new TimeSpan(days: 0, hours: 0, minutes: 0, seconds: iTime, milliseconds: 0)).ToLocalTime();
                     }
 
                 if ((this.flags_ & Flags.AccessTime) != 0)
                     {
                     int iTime = helperStream.ReadLEInt();
 
-                    this.lastAccessTime_ = (new DateTime(1970, 1, 1, 0, 0, 0).ToUniversalTime() +
-                        new TimeSpan(0, 0, 0, iTime, 0)).ToLocalTime();
+                    this.lastAccessTime_ = (new DateTime(year: 1970, month: 1, day: 1, hour: 0, minute: 0, second: 0).ToUniversalTime() +
+                        new TimeSpan(days: 0, hours: 0, minutes: 0, seconds: iTime, milliseconds: 0)).ToLocalTime();
                     }
 
                 if ((this.flags_ & Flags.CreateTime) != 0)
                     {
                     int iTime = helperStream.ReadLEInt();
 
-                    this.createTime_ = (new DateTime(1970, 1, 1, 0, 0, 0).ToUniversalTime() +
-                        new TimeSpan(0, 0, 0, iTime, 0)).ToLocalTime();
+                    this.createTime_ = (new DateTime(year: 1970, month: 1, day: 1, hour: 0, minute: 0, second: 0).ToUniversalTime() +
+                        new TimeSpan(days: 0, hours: 0, minutes: 0, seconds: iTime, milliseconds: 0)).ToLocalTime();
                     }
                 }
             }
@@ -243,19 +243,19 @@ namespace ICSharpCode.SharpZipLib.Zip
                 helperStream.WriteByte((byte)this.flags_);     // Flags
                 if ((this.flags_ & Flags.ModificationTime) != 0)
                     {
-                    var span = this.modificationTime_.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0).ToUniversalTime();
+                    var span = this.modificationTime_.ToUniversalTime() - new DateTime(year: 1970, month: 1, day: 1, hour: 0, minute: 0, second: 0).ToUniversalTime();
                     int seconds = (int)span.TotalSeconds;
                     helperStream.WriteLEInt(seconds);
                     }
                 if ((this.flags_ & Flags.AccessTime) != 0)
                     {
-                    var span = this.lastAccessTime_.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0).ToUniversalTime();
+                    var span = this.lastAccessTime_.ToUniversalTime() - new DateTime(year: 1970, month: 1, day: 1, hour: 0, minute: 0, second: 0).ToUniversalTime();
                     int seconds = (int)span.TotalSeconds;
                     helperStream.WriteLEInt(seconds);
                     }
                 if ((this.flags_ & Flags.CreateTime) != 0)
                     {
-                    var span = this.createTime_.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0).ToUniversalTime();
+                    var span = this.createTime_.ToUniversalTime() - new DateTime(year: 1970, month: 1, day: 1, hour: 0, minute: 0, second: 0).ToUniversalTime();
                     int seconds = (int)span.TotalSeconds;
                     helperStream.WriteLEInt(seconds);
                     }
@@ -278,8 +278,8 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// </remarks>
         public static bool IsValidValue(DateTime value)
             {
-            return (value >= new DateTime(1901, 12, 13, 20, 45, 52)) ||
-                   (value <= new DateTime(2038, 1, 19, 03, 14, 07));
+            return (value >= new DateTime(year: 1901, month: 12, day: 13, hour: 20, minute: 45, second: 52)) ||
+                   (value <= new DateTime(year: 2038, month: 1, day: 19, hour: 03, minute: 14, second: 07));
             }
 
         /// <summary>
@@ -354,9 +354,9 @@ namespace ICSharpCode.SharpZipLib.Zip
         #region Instance Fields
 
         private Flags flags_;
-        private DateTime modificationTime_ = new DateTime(1970, 1, 1);
-        private DateTime lastAccessTime_ = new DateTime(1970, 1, 1);
-        private DateTime createTime_ = new DateTime(1970, 1, 1);
+        private DateTime modificationTime_ = new DateTime(year: 1970, month: 1, day: 1);
+        private DateTime lastAccessTime_ = new DateTime(year: 1970, month: 1, day: 1);
+        private DateTime createTime_ = new DateTime(year: 1970, month: 1, day: 1);
         #endregion
         }
 
@@ -378,7 +378,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <param name="count">The number of bytes available.</param>
         public void SetData(byte[] data, int index, int count)
             {
-            using (var ms = new MemoryStream(data, index, count, false))
+            using (var ms = new MemoryStream(data, index, count, writable: false))
             using (var helperStream = new ZipHelperStream(ms))
                 {
                 helperStream.ReadLEInt(); // Reserved
@@ -417,9 +417,9 @@ namespace ICSharpCode.SharpZipLib.Zip
             using (var helperStream = new ZipHelperStream(ms))
                 {
                 helperStream.IsStreamOwner = false;
-                helperStream.WriteLEInt(0);       // Reserved
-                helperStream.WriteLEShort(1);     // Tag
-                helperStream.WriteLEShort(24);    // Length = 3 x 8.
+                helperStream.WriteLEInt(value: 0);       // Reserved
+                helperStream.WriteLEShort(value: 1);     // Tag
+                helperStream.WriteLEShort(value: 24);    // Length = 3 x 8.
                 helperStream.WriteLELong(this.lastModificationTime_.ToFileTime());
                 helperStream.WriteLELong(this.lastAccessTime_.ToFileTime());
                 helperStream.WriteLELong(this.createTime_.ToFileTime());
@@ -503,9 +503,9 @@ namespace ICSharpCode.SharpZipLib.Zip
 
         #region Instance Fields
 
-        private DateTime lastAccessTime_ = DateTime.FromFileTime(0);
-        private DateTime lastModificationTime_ = DateTime.FromFileTime(0);
-        private DateTime createTime_ = DateTime.FromFileTime(0);
+        private DateTime lastAccessTime_ = DateTime.FromFileTime(fileTime: 0);
+        private DateTime lastModificationTime_ = DateTime.FromFileTime(fileTime: 0);
+        private DateTime createTime_ = DateTime.FromFileTime(fileTime: 0);
         #endregion
         }
 
@@ -599,7 +599,7 @@ namespace ICSharpCode.SharpZipLib.Zip
             Stream result = null;
             if (this.Find(tag))
                 {
-                result = new MemoryStream(this.data_, this.index_, this.readValueLength_, false);
+                result = new MemoryStream(this.data_, this.index_, this.readValueLength_, writable: false);
                 }
             return result;
             }
@@ -761,7 +761,7 @@ namespace ICSharpCode.SharpZipLib.Zip
             this.Delete(headerID);
 
             var newData = new byte[newLength];
-            this.data_.CopyTo(newData, 0);
+            this.data_.CopyTo(newData, index: 0);
             int index = this.data_.Length;
             this.data_ = newData;
             this.SetShort(ref index, headerID);
@@ -813,7 +813,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                 throw new ArgumentNullException(nameof(data));
                 }
 
-            this.newEntry_.Write(data, 0, data.Length);
+            this.newEntry_.Write(data, offset: 0, count: data.Length);
             }
 
         /// <summary>
@@ -873,7 +873,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                 int trueStart = this.readValueStart_ - 4;
 
                 var newData = new byte[this.data_.Length - (this.ValueLength + 4)];
-                Array.Copy(this.data_, 0, newData, 0, trueStart);
+                Array.Copy(this.data_, sourceIndex: 0, destinationArray: newData, destinationIndex: 0, length: trueStart);
 
                 int trueEnd = trueStart + this.ValueLength + 4;
                 Array.Copy(this.data_, trueEnd, newData, trueStart, this.data_.Length - trueEnd);
@@ -889,7 +889,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <returns>Returns the long value read.</returns>
         public long ReadLong()
             {
-            this.ReadCheck(8);
+            this.ReadCheck(length: 8);
             return (this.ReadInt() & 0xffffffff) | ((long)this.ReadInt() << 32);
             }
 
@@ -899,7 +899,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <returns>Returns the integer read.</returns>
         public int ReadInt()
             {
-            this.ReadCheck(4);
+            this.ReadCheck(length: 4);
 
             int result = this.data_[this.index_] + (this.data_[this.index_ + 1] << 8) +
                 (this.data_[this.index_ + 2] << 16) + (this.data_[this.index_ + 3] << 24);
@@ -913,7 +913,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// <returns>Returns the short value read.</returns>
         public int ReadShort()
             {
-            this.ReadCheck(2);
+            this.ReadCheck(length: 2);
             int result = this.data_[this.index_] + (this.data_[this.index_ + 1] << 8);
             this.index_ += 2;
             return result;

@@ -500,17 +500,17 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
                     else if (curlen != 0)
                         {
                         blTree.WriteSymbol(REP_3_6);
-                        this.dh.pending.WriteBits(count - 3, 2);
+                        this.dh.pending.WriteBits(count - 3, count: 2);
                         }
                     else if (count <= 10)
                         {
                         blTree.WriteSymbol(REP_3_10);
-                        this.dh.pending.WriteBits(count - 3, 3);
+                        this.dh.pending.WriteBits(count - 3, count: 3);
                         }
                     else
                         {
                         blTree.WriteSymbol(REP_11_138);
-                        this.dh.pending.WriteBits(count - 11, 7);
+                        this.dh.pending.WriteBits(count - 11, count: 7);
                         }
                     }
                 }
@@ -690,9 +690,9 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
             {
             this.pending = pending;
 
-            this.literalTree = new Tree(this, LITERAL_NUM, 257, 15);
-            this.distTree = new Tree(this, DIST_NUM, 1, 15);
-            this.blTree = new Tree(this, BITLEN_NUM, 4, 7);
+            this.literalTree = new Tree(this, LITERAL_NUM, minCodes: 257, maxLength: 15);
+            this.distTree = new Tree(this, DIST_NUM, minCodes: 1, maxLength: 15);
+            this.blTree = new Tree(this, BITLEN_NUM, minCodes: 4, maxLength: 7);
 
             this.d_buf = new short[BUFSIZE];
             this.l_buf = new byte[BUFSIZE];
@@ -719,12 +719,12 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
             this.blTree.BuildCodes();
             this.literalTree.BuildCodes();
             this.distTree.BuildCodes();
-            this.pending.WriteBits(this.literalTree.numCodes - 257, 5);
-            this.pending.WriteBits(this.distTree.numCodes - 1, 5);
-            this.pending.WriteBits(blTreeCodes - 4, 4);
+            this.pending.WriteBits(this.literalTree.numCodes - 257, count: 5);
+            this.pending.WriteBits(this.distTree.numCodes - 1, count: 5);
+            this.pending.WriteBits(blTreeCodes - 4, count: 4);
             for (int rank = 0; rank < blTreeCodes; rank++)
                 {
-                this.pending.WriteBits(this.blTree.length[BL_ORDER[rank]], 3);
+                this.pending.WriteBits(this.blTree.length[BL_ORDER[rank]], count: 3);
                 }
             this.literalTree.WriteTree(this.blTree);
             this.distTree.WriteTree(this.blTree);
@@ -811,7 +811,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
 			//				//Console.WriteLine("Flushing stored block "+ storedLength);
 			//			}
 #endif
-            this.pending.WriteBits((DeflaterConstants.STORED_BLOCK << 1) + (lastBlock ? 1 : 0), 3);
+            this.pending.WriteBits((DeflaterConstants.STORED_BLOCK << 1) + (lastBlock ? 1 : 0), count: 3);
             this.pending.AlignToByte();
             this.pending.WriteShort(storedLength);
             this.pending.WriteShort(~storedLength);
@@ -878,7 +878,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
             else if (opt_len == static_len)
                 {
                 // Encode with static tree
-                this.pending.WriteBits((DeflaterConstants.STATIC_TREES << 1) + (lastBlock ? 1 : 0), 3);
+                this.pending.WriteBits((DeflaterConstants.STATIC_TREES << 1) + (lastBlock ? 1 : 0), count: 3);
                 this.literalTree.SetStaticCodes(staticLCodes, staticLLength);
                 this.distTree.SetStaticCodes(staticDCodes, staticDLength);
                 this.CompressBlock();
@@ -887,7 +887,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
             else
                 {
                 // Encode with dynamic tree
-                this.pending.WriteBits((DeflaterConstants.DYN_TREES << 1) + (lastBlock ? 1 : 0), 3);
+                this.pending.WriteBits((DeflaterConstants.DYN_TREES << 1) + (lastBlock ? 1 : 0), count: 3);
                 this.SendAllTrees(blTreeCodes);
                 this.CompressBlock();
                 this.Reset();

@@ -157,7 +157,7 @@ WriteLiteral("                                ");
 
             
             #line 24 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
-                           Write(TableData[Index1][Index2].Substring(0, SingularityControllerHelper.DefaultTableTextLength));
+                           Write(TableData[Index1][Index2].Substring(startIndex: 0, length: SingularityControllerHelper.DefaultTableTextLength));
 
             
             #line default
@@ -233,14 +233,14 @@ WriteLiteral("\r\n            </tr>\r\n");
             #line hidden
 WriteLiteral("            <tr>\r\n                <td");
 
-WriteAttribute("colspan", Tuple.Create(" colspan=\"", 1372), Tuple.Create("\"", 1407)
+WriteAttribute("colspan", Tuple.Create(" colspan=\"", 1392), Tuple.Create("\"", 1427)
             
             #line 46 "..\..\Views\Shared\Manage\Fields\View\StringMultiArray.cshtml"
-, Tuple.Create(Tuple.Create("", 1382), Tuple.Create<System.Object, System.Int32>(TableData[Index1].Length
+, Tuple.Create(Tuple.Create("", 1402), Tuple.Create<System.Object, System.Int32>(TableData[Index1].Length
             
             #line default
             #line hidden
-, 1382), false)
+, 1402), false)
 );
 
 WriteLiteral(">\r\n                    &nbsp;\r\n                </td>\r\n            </tr>\r\n");

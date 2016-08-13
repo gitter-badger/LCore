@@ -53,7 +53,7 @@ namespace ICSharpCode.SharpZipLib.Core
         /// <seealso cref="ReadFully(Stream,byte[],int,int)"/>
         public static void ReadFully(Stream stream, byte[] buffer)
             {
-            ReadFully(stream, buffer, 0, buffer.Length);
+            ReadFully(stream, buffer, offset: 0, count: buffer.Length);
             }
 
         /// <summary>
@@ -134,10 +134,10 @@ namespace ICSharpCode.SharpZipLib.Core
 
             while (copying)
                 {
-                int bytesRead = source.Read(buffer, 0, buffer.Length);
+                int bytesRead = source.Read(buffer, offset: 0, count: buffer.Length);
                 if (bytesRead > 0)
                     {
-                    destination.Write(buffer, 0, bytesRead);
+                    destination.Write(buffer, offset: 0, count: bytesRead);
                     }
                 else
                     {
@@ -214,12 +214,12 @@ namespace ICSharpCode.SharpZipLib.Core
 
             while (copying)
                 {
-                int bytesRead = source.Read(buffer, 0, buffer.Length);
+                int bytesRead = source.Read(buffer, offset: 0, count: buffer.Length);
                 if (bytesRead > 0)
                     {
                     processed += bytesRead;
                     progressFired = false;
-                    destination.Write(buffer, 0, bytesRead);
+                    destination.Write(buffer, offset: 0, count: bytesRead);
                     }
                 else
                     {

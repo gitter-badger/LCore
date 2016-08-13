@@ -110,7 +110,7 @@ namespace ICSharpCode.SharpZipLib.GZip
         /// <param name="size">
         /// Size of the buffer to use
         /// </param>
-        public GZipOutputStream(Stream baseOutputStream, int size = 4096) : base(baseOutputStream, new Deflater(Deflater.DEFAULT_COMPRESSION, true), size)
+        public GZipOutputStream(Stream baseOutputStream, int size = 4096) : base(baseOutputStream, new Deflater(Deflater.DEFAULT_COMPRESSION, noZlibHeaderOrFooter: true), size)
             {
             }
         #endregion
@@ -224,7 +224,7 @@ namespace ICSharpCode.SharpZipLib.GZip
                 };
                     }
 
-                this.baseOutputStream_.Write(gzipFooter, 0, gzipFooter.Length);
+                this.baseOutputStream_.Write(gzipFooter, offset: 0, count: gzipFooter.Length);
                 }
             }
         #endregion
@@ -237,7 +237,7 @@ namespace ICSharpCode.SharpZipLib.GZip
                 {
                 this.state_ = OutputState.Footer;
 
-                int mod_time = (int)((DateTime.Now.Ticks - new DateTime(1970, 1, 1).Ticks) / 10000000L);  // Ticks give back 100ns intervals
+                int mod_time = (int)((DateTime.Now.Ticks - new DateTime(year: 1970, month: 1, day: 1).Ticks) / 10000000L);  // Ticks give back 100ns intervals
                 byte[] gzipHeader = {
 					// The two magic bytes
 					GZipConstants.GZIP_MAGIC >> 8, GZipConstants.GZIP_MAGIC & 0xff,
@@ -258,7 +258,7 @@ namespace ICSharpCode.SharpZipLib.GZip
 					// The OS type (unknown)
 					255
                 };
-                this.baseOutputStream_.Write(gzipHeader, 0, gzipHeader.Length);
+                this.baseOutputStream_.Write(gzipHeader, offset: 0, count: gzipHeader.Length);
                 }
             }
         #endregion

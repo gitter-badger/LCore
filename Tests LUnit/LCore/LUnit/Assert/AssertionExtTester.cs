@@ -212,20 +212,6 @@ namespace LUnit_Tests.LCore.LUnit.Assert
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(MethodInfo, Object[], Object, Func`1[])")]
-        public void AssertFails_MethodInfo_Object_Object_Func_1()
-            {
-            // TODO: Implement method test LCore.LUnit.Assert.AssertionExt.AssertFails
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(MethodInfo, Object[], Object, Type, Func`1[])")]
-        public void AssertFails_MethodInfo_Object_Object_Type_Func_1()
-            {
-            // TODO: Implement method test LCore.LUnit.Assert.AssertionExt.AssertFails
-            }
-
-        [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Action)")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Action`1<T1>, T1)")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Action`2<T1, T2>, T1, T2)")]
@@ -310,12 +296,6 @@ namespace LUnit_Tests.LCore.LUnit.Assert
             L.Ref.Method<TestExtTest.Helper>(o => o.Test("", "", "", "")).AssertResult(Target, new object[] { "", "", "", "" }, ExpectedResult: 5);
             }
 
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertResult) + "(MethodInfo, Object, Object[], U, Func`2[])")]
-        public void AssertResult_MethodInfo_Object_Object_U_Func_2()
-            {
-            // TODO: Implement method test LCore.LUnit.Assert.AssertionExt.AssertResult
-            }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertResult) + "(Func`1<U>, U)")]
@@ -339,19 +319,6 @@ namespace LUnit_Tests.LCore.LUnit.Assert
 
             }
 
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSource) + "(MethodInfo, Object, Object[], Object, Func`2[])")]
-        public void AssertSource_MethodInfo_Object_Object_Object_Func_2()
-            {
-            // TODO: Implement method test LCore.LUnit.Assert.AssertionExt.AssertSource
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSource) + "(MethodInfo, Object, Object[], U, Func`2[])")]
-        public void AssertSource_MethodInfo_Object_Object_U_Func_2()
-            {
-            // TODO: Implement method test LCore.LUnit.Assert.AssertionExt.AssertSource
-            }
         }
     #region Helpers
 

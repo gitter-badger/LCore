@@ -118,11 +118,11 @@
             </div>
 
             <div class="file-upload-error-too-large-@Model.PropertyName error" style="display:none;">
-                Upload can not be larger than <b>@Attr.SizeMaximum.FormatFileSize(2)</b>
+                Upload can not be larger than <b>@Attr.SizeMaximum.FormatFileSize(Decimals: 2)</b>
             </div>
 
             <div class="file-upload-error-too-small-@Model.PropertyName error" style="display:none;">
-                Upload must be at least <b>@Attr.SizeMinimum.FormatFileSize(2)</b>
+                Upload must be at least <b>@Attr.SizeMinimum.FormatFileSize(Decimals: 2)</b>
             </div>
 
             <div class="file-upload-error-no-file-@Model.PropertyName error" style="display:none;">
@@ -156,7 +156,7 @@ else if (Model.ViewTypes.Has(ControllerHelper.ViewType.Display))
 
         if (Ext != null && Ext.StartsWith("."))
             {
-            Ext = Ext.Substring(1);
+            Ext = Ext.Substring(startIndex: 1);
             }
 
         <div class="display-file border-round">
@@ -175,7 +175,7 @@ else if (Model.ViewTypes.Has(ControllerHelper.ViewType.Display))
 
             <div>
                 Size:
-                @File.FileSize.FormatFileSize(1)
+                @File.FileSize.FormatFileSize(Decimals: 1)
             </div>
 
             @if (Attr?.AllowDeactivate == true)

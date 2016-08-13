@@ -24,7 +24,7 @@ namespace NSort
                     {
                     return 0;
                     }
-                return -y.CompareTo(null);
+                return -y.CompareTo(obj: null);
                 }
             // ReSharper restore HeuristicUnreachableCode
             return x.CompareTo(y);

@@ -278,7 +278,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         public const string GNU_TMAGIC = "ustar  ";
 
         private const long timeConversionFactor = 10000000L;           // 1 tick == 100 nanoseconds
-        private static readonly DateTime dateTime1970 = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+        private static readonly DateTime dateTime1970 = new DateTime(year: 1970, month: 1, day: 1, hour: 0, minute: 0, second: 0, millisecond: 0);
         #endregion
 
         #region Constructors
@@ -323,7 +323,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// Get the name of this entry.
         /// </summary>
         /// <returns>The entry's name.</returns>
-        [Obsolete("Use the Name property instead", true)]
+        [Obsolete("Use the Name property instead", error: true)]
         public string GetName()
             {
             return this.name;
@@ -492,7 +492,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                 {
                 if (value != null)
                     {
-                    this.userName = value.Substring(0, Math.Min(UNAMELEN, value.Length));
+                    this.userName = value.Substring(startIndex: 0, length: Math.Min(UNAMELEN, value.Length));
                     }
                 else
                     {
@@ -503,7 +503,7 @@ namespace ICSharpCode.SharpZipLib.Tar
 #endif
                     if (currentUser.Length > UNAMELEN)
                         {
-                        currentUser = currentUser.Substring(0, UNAMELEN);
+                        currentUser = currentUser.Substring(startIndex: 0, length: UNAMELEN);
                         }
                     this.userName = currentUser;
                     }
@@ -648,7 +648,7 @@ namespace ICSharpCode.SharpZipLib.Tar
             outBuffer[offset++] = this.TypeFlag;
 
             offset = GetNameBytes(this.LinkName, outBuffer, offset, NAMELEN);
-            offset = GetAsciiBytes(this.Magic, 0, outBuffer, offset, MAGICLEN);
+            offset = GetAsciiBytes(this.Magic, nameOffset: 0, buffer: outBuffer, bufferOffset: offset, length: MAGICLEN);
             offset = GetNameBytes(this.Version, outBuffer, offset, VERSIONLEN);
             offset = GetNameBytes(this.UserName, outBuffer, offset, UNAMELEN);
             offset = GetNameBytes(this.GroupName, outBuffer, offset, GNAMELEN);
@@ -938,7 +938,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                 throw new ArgumentNullException(nameof(buffer));
                 }
 
-            return GetNameBytes(name.ToString(), 0, buffer, offset, length);
+            return GetNameBytes(name.ToString(), nameOffset: 0, buffer: buffer, bufferOffset: offset, length: length);
             }
 
         /// <summary>
@@ -964,7 +964,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                 throw new ArgumentNullException(nameof(buffer));
                 }
 
-            return GetNameBytes(name, 0, buffer, offset, length);
+            return GetNameBytes(name, nameOffset: 0, buffer: buffer, bufferOffset: offset, length: length);
             }
 
         /// <summary>

@@ -8,6 +8,7 @@ using System.Reflection;
 using JetBrains.Annotations;
 using LCore.LUnit.Assert;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit.Sdk;
 
 // ReSharper disable UnusedMember.Global
 
@@ -32,14 +33,15 @@ namespace LCore.LUnit
                 {
                 Type.GetMembers().Each(Member =>
                     {
-                    // Base Type members should not be returned. Only type-specific methods included for direct tests.
-                    if (Member.DeclaringType != Type || Member is ConstructorInfo || Member is FieldInfo)
-                        return;
+                        // Base Type members should not be returned. Only type-specific methods included for direct tests.
+                        if (Member.DeclaringType != Type || Member is ConstructorInfo || Member is FieldInfo)
+                            return;
 
-                    if (!Tests.ContainsKey(Member))
-                        Tests.Add(Member, new List<ILUnitAttribute>());
+                        if (!Tests.ContainsKey(Member))
+                            Tests.Add(Member, new List<ILUnitAttribute>());
 
-                    Member.GetAttributes<ILUnitAttribute>(IncludeBaseTypes: false).Each(Attr => { Tests[Member].Add(Attr); });
+                        Member.GetAttributes<ILUnitAttribute>(IncludeBaseTypes: false)
+                            .Each(Attr => { Tests[Member].Add(Attr); });
                     });
                 }
 
@@ -73,7 +75,8 @@ namespace LCore.LUnit
             LUnit.FixObject(Method, Method.ReturnType, ref ExpectedResult);
 
 
-            Method.AssertResult(Target: null, Params: Parameters, ExpectedResult: ExpectedResult, AdditionalResultChecks: Checks);
+            Method.AssertResult(Target: null, Params: Parameters, ExpectedResult: ExpectedResult,
+                AdditionalResultChecks: Checks);
 
             //Info = Info.MakeGenericMethod(ExpectedResult.GetType());
 
@@ -86,7 +89,8 @@ namespace LCore.LUnit
         /// </summary>
         public static void RunTest(this ITestFailsAttribute Attr, MethodInfo Method)
             {
-            Func<bool>[] Checks = Attr.AdditionalChecks.Convert(L.F<MethodInfo, string, Func<bool>>(LUnit.GetCheckMethod).Supply(Method));
+            Func<bool>[] Checks =
+                Attr.AdditionalChecks.Convert(L.F<MethodInfo, string, Func<bool>>(LUnit.GetCheckMethod).Supply(Method));
 
             Method.AssertFails(Attr.Parameters, Method.ReflectedType, Attr.ExceptionType, Checks);
             }
@@ -96,7 +100,8 @@ namespace LCore.LUnit
         /// </summary>
         public static void RunTest(this ITestSucceedsAttribute Attr, MethodInfo Method)
             {
-            Func<bool>[] Checks = Attr.AdditionalChecks.Convert(L.F<MethodInfo, string, Func<bool>>(LUnit.GetCheckMethod).Supply(Method));
+            Func<bool>[] Checks =
+                Attr.AdditionalChecks.Convert(L.F<MethodInfo, string, Func<bool>>(LUnit.GetCheckMethod).Supply(Method));
 
             object[] Parameters = Attr.Parameters;
 
@@ -111,12 +116,13 @@ namespace LCore.LUnit
         public static void RunTest(this ITestSourceAttribute Attr, MethodInfo Method)
             {
             Func<object, bool>[] Checks =
-                Attr.AdditionalSourceChecks.Convert(L.F<MethodInfo, string, Func<object, bool>>(LUnit.GetCheckMethodArg).Supply(Method));
+                Attr.AdditionalSourceChecks.Convert(
+                    L.F<MethodInfo, string, Func<object, bool>>(LUnit.GetCheckMethodArg).Supply(Method));
 
             //    Method.AssertSource(Parameters, ExpectedSource);
 
-            var OutMethod = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>) (MethodInfo =>
-                MethodInfo.Name == nameof(AssertionExt.AssertSource) && MethodInfo.ContainsGenericParameters));
+            var OutMethod = typeof(TestExt).GetMethods().First((Func<MethodInfo, bool>)(MethodInfo =>
+               MethodInfo.Name == nameof(AssertionExt.AssertSource) && MethodInfo.ContainsGenericParameters));
 
             if (Attr.ExpectedSource != null)
                 {
@@ -137,7 +143,7 @@ namespace LCore.LUnit
             LUnit.FixParameterTypes(Method, Parameters);
             LUnit.FixObject(Method, Method.GetParameters()[0].ParameterType, ref ExpectedSource);
 
-            OutMethod?.Invoke(obj: null, parameters: new[] {Method, null, Parameters, ExpectedSource, Checks});
+            OutMethod?.Invoke(obj: null, parameters: new[] { Method, null, Parameters, ExpectedSource, Checks });
             }
 
         /// <summary>
@@ -161,9 +167,9 @@ namespace LCore.LUnit
         /// <summary>
         /// Creates a new TypeTests object, detailing the test coverage of the provided type.
         /// </summary>
-        public static TypeTests GetTestData([CanBeNull] this Type In)
+        public static TypeTests GetTestData([CanBeNull] this Type In, IEnumerable<Assembly> TestAssemblies)
             {
-            return new TypeTests(In);
+            return new TypeTests(In, TestAssemblies);
             }
 
         #endregion
@@ -207,8 +213,9 @@ namespace LCore.LUnit
 
             if (Member is Type)
                 return new Tuple<string, string, string>(
-                    string.Format(TestNamespaceFormat, ((Type) Member).GetAssembly()?.GetName().Name, ((Type) Member).Namespace),
-                    string.Format(TestClassFormat, ((Type) Member).GetNestedNames())
+                    string.Format(TestNamespaceFormat, ((Type)Member).GetAssembly()?.GetName().Name,
+                        ((Type)Member).Namespace),
+                    string.Format(TestClassFormat, ((Type)Member).GetNestedNames())
                         .ReplaceAll(Replacements),
                     "");
 
@@ -239,7 +246,7 @@ namespace LCore.LUnit
                         string.Format(TestClassFormat, Member.DeclaringType?.GetNestedNames(), "")
                             .ReplaceAll(Replacements),
                         ($"{string.Format(TestMethodFormat, Member.Name)}_" +
-                         $"{((MethodInfo) Member).ToParameterSignature()}").ReplaceAll(Replacements).Trim("_")
+                         $"{((MethodInfo)Member).ToParameterSignature()}").ReplaceAll(Replacements).Trim("_")
                         //  $"{((MethodInfo) Member).GetParameters().Convert(Param => $"{Param.ParameterType.Name}{(Param.ParameterType.IsArray ? "Array" : "")}").Combine("_")}" +
                         /* (((MethodInfo) Member).ReturnType == typeof(void)
                              ? ""
@@ -253,5 +260,37 @@ namespace LCore.LUnit
             }
 
         #endregion
+
+        /// <summary>
+        /// Retrieves a list of Trait Values targeting members being tested.
+        /// <see cref="Traits.TargetMember"/>
+        /// </summary>
+        public static List<string> GetAssemblyMemberTraits(this IEnumerable<Assembly> TestAssemblies)
+            {
+            var TraitGetter =
+                new Func<IEnumerable<Assembly>, List<string>>(Assemblies => Assemblies.Convert(Assembly =>
+                    {
+                        return
+                            Assembly.GetExportedTypes().Convert<Type, IReadOnlyList<KeyValuePair<string, string>>>(Type =>
+                                {
+                                    try
+                                        {
+                                        return Type.GetMethods().Convert(TraitHelper.GetTraits)
+                                        .Flatten<KeyValuePair<string, string>>();
+                                        }
+                                    catch
+                                        {
+                                        return null;
+                                        }
+                                }).Flatten<KeyValuePair<string, string>>();
+                    }).Flatten<KeyValuePair<string, string>>()
+                    .Convert(TraitKey => TraitKey.Key == Traits.TargetMember
+                        ? TraitKey.Value
+                        : null));
+
+            TraitGetter = TraitGetter.Cache($"{nameof(TestExt)}.{nameof(GetAssemblyMemberTraits)}");
+
+            return TraitGetter(TestAssemblies);
+            }
         }
     }

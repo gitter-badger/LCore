@@ -12,7 +12,7 @@
 @if (Model.PropertyData.ToString().Length > SingularityControllerHelper.DefaultTableTextLength)
     {
     <span title="@Model.PropertyData.ToString()">
-        @Model.PropertyData.ToString().Substring(0, SingularityControllerHelper.DefaultTableTextLength)
+        @Model.PropertyData.ToString().Substring(startIndex: 0, length: SingularityControllerHelper.DefaultTableTextLength)
     </span>
     }
 else

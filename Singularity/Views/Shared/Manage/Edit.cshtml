@@ -70,7 +70,7 @@
 
         <div class="@(ViewBag.Create ? "create" : "edit")-fields @(IsTabView ? "tab-view" : "")">
 
-            @Html.ValidationSummary(true)
+            @Html.ValidationSummary(excludePropertyErrors: true)
 
             @if (IsTabView)
                 {

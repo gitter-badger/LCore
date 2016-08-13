@@ -250,8 +250,8 @@ namespace ICSharpCode.SharpZipLib.Tar
 
                 while (nameCharIndex < entry.TarHeader.Name.Length)
                     {
-                    Array.Clear(this.blockBuffer, 0, this.blockBuffer.Length);
-                    TarHeader.GetAsciiBytes(entry.TarHeader.Name, nameCharIndex, this.blockBuffer, 0, TarBuffer.BlockSize);
+                    Array.Clear(this.blockBuffer, index: 0, length: this.blockBuffer.Length);
+                    TarHeader.GetAsciiBytes(entry.TarHeader.Name, nameCharIndex, this.blockBuffer, bufferOffset: 0, length: TarBuffer.BlockSize);
                     nameCharIndex += TarBuffer.BlockSize;
                     this.buffer.WriteBlock(this.blockBuffer);
                     }
@@ -303,7 +303,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// </param>
         public override void WriteByte(byte value)
             {
-            this.Write(new[] { value }, 0, 1);
+            this.Write(new[] { value }, offset: 0, count: 1);
             }
 
         /// <summary>
@@ -375,7 +375,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                     {
                     int aLen = this.blockBuffer.Length - this.assemblyBufferLength;
 
-                    Array.Copy(this.assemblyBuffer, 0, this.blockBuffer, 0, this.assemblyBufferLength);
+                    Array.Copy(this.assemblyBuffer, sourceIndex: 0, destinationArray: this.blockBuffer, destinationIndex: 0, length: this.assemblyBufferLength);
                     Array.Copy(buffer, offset, this.blockBuffer, this.assemblyBufferLength, aLen);
 
                     this.buffer.WriteBlock(this.blockBuffer);
@@ -425,7 +425,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         /// </summary>
         private void WriteEofBlock()
             {
-            Array.Clear(this.blockBuffer, 0, this.blockBuffer.Length);
+            Array.Clear(this.blockBuffer, index: 0, length: this.blockBuffer.Length);
             this.buffer.WriteBlock(this.blockBuffer);
             }
 

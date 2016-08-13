@@ -427,14 +427,14 @@ namespace ICSharpCode.SharpZipLib.Tar
                         }
             */
 
-            name = name.Replace(Path.DirectorySeparatorChar, '/');
+            name = name.Replace(Path.DirectorySeparatorChar, newChar: '/');
 
             // No absolute pathnames
             // Windows (and Posix?) paths can start with UNC style "\\NetworkDrive\",
             // so we loop on starting /'s.
             while (name.StartsWith("/"))
                 {
-                name = name.Substring(1);
+                name = name.Substring(startIndex: 1);
                 }
 
             header.LinkName = string.Empty;
@@ -455,10 +455,10 @@ namespace ICSharpCode.SharpZipLib.Tar
                 {
                 header.Mode = 33216; // Magic number for security access for a UNIX filesystem
                 header.TypeFlag = TarHeader.LF_NORMAL;
-                header.Size = new FileInfo(file.Replace('/', Path.DirectorySeparatorChar)).Length;
+                header.Size = new FileInfo(file.Replace(oldChar: '/', newChar: Path.DirectorySeparatorChar)).Length;
                 }
 
-            header.ModTime = System.IO.File.GetLastWriteTime(file.Replace('/', Path.DirectorySeparatorChar)).ToUniversalTime();
+            header.ModTime = System.IO.File.GetLastWriteTime(file.Replace(oldChar: '/', newChar: Path.DirectorySeparatorChar)).ToUniversalTime();
             header.DevMajor = 0;
             header.DevMinor = 0;
             }

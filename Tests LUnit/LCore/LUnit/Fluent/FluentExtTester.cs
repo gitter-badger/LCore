@@ -164,19 +164,6 @@ namespace LUnit_Tests.LCore.LUnit.Fluent
             L.Ref.Method<Helper>(o => o.Test("", "", "", "")).ShouldSucceed(Target, new object[] { "", "", "", "" }, () => true);
             }
 
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldSucceed) + "(MethodInfo, Object, Object[], Func`1[])")]
-        public void ShouldSucceed_MethodInfo_Object_Object_Func_1()
-            {
-            // TODO: Implement method test LCore.LUnit.Fluent.FluentExt.ShouldSucceed
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldSucceed) + "(MethodInfo, Object, Object[], Func`2[])")]
-        public void ShouldSucceed_MethodInfo_Object_Object_Func_2()
-            {
-            // TODO: Implement method test LCore.LUnit.Fluent.FluentExt.ShouldSucceed
-            }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldSucceed) + "(Action)")]
@@ -219,20 +206,6 @@ namespace LUnit_Tests.LCore.LUnit.Fluent
             L.A(() => this._TestFailFunc3.ShouldSucceed<string, string, string>("abc", "abc")).ShouldFail();
             L.A(() => this._TestFailFunc4.ShouldSucceed<string, string, string, string>("abc", "abc", "abc")).ShouldFail();
             L.A(() => this._TestFailFunc5.ShouldSucceed<string, string, string, string, string>("abc", "abc", "abc", "abc")).ShouldFail();
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldFail) + "(MethodInfo, Object[], Object, Func`1[])")]
-        public void ShouldFail_MethodInfo_Object_Object_Func_1()
-            {
-            // TODO: Implement method test LCore.LUnit.Fluent.FluentExt.ShouldFail
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldFail) + "(MethodInfo, Object[], Object, Type, Func`1[])")]
-        public void ShouldFail_MethodInfo_Object_Object_Type_Func_1()
-            {
-            // TODO: Implement method test LCore.LUnit.Fluent.FluentExt.ShouldFail
             }
 
         [Fact]
@@ -322,13 +295,6 @@ namespace LUnit_Tests.LCore.LUnit.Fluent
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldBe) + "(MethodInfo, Object, Object[], U, Func`2[])")]
-        public void ShouldBe_MethodInfo_Object_Object_U_Func_2()
-            {
-            // TODO: Implement method test LCore.LUnit.Fluent.FluentExt.ShouldBe
-            }
-
-        [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldBe) + "(Func`1<U>, U)")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldBe) + "(Func`2<T1, U>, T1, U)")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldBe) + "(Func`3<T1, T2, U>, T1, T2, U)")]
@@ -347,62 +313,6 @@ namespace LUnit_Tests.LCore.LUnit.Fluent
             L.A(() => this._TestFunc3.ShouldBe("abc", "abc", "abcd")).ShouldFail();
             L.A(() => this._TestFunc4.ShouldBe("abc", "abc", "abc", "abcd")).ShouldFail();
             L.A(() => this._TestFunc5.ShouldBe("abc", "abc", "abc", "abc", "abcd")).ShouldFail();
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.HaveAttribute) + "(TypeAssertions, String, Object[]) => AndConstraint`1<TypeAssertions>")]
-        public void HaveAttribute_TypeAssertions_String_Object_AndConstraint_1_TypeAssertions()
-            {
-            // TODO: Implement method test LCore.LUnit.Fluent.FluentExt.HaveAttribute
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.HaveAttribute) + "(TypeAssertions, Boolean, String, Object[]) => AndConstraint`1<TypeAssertions>")]
-        public void HaveAttribute_TypeAssertions_Boolean_String_Object_AndConstraint_1_TypeAssertions()
-            {
-            // TODO: Implement method test LCore.LUnit.Fluent.FluentExt.HaveAttribute
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.NotHaveAttribute) + "(TypeAssertions, String, Object[]) => AndConstraint`1<TypeAssertions>")]
-        public void NotHaveAttribute_TypeAssertions_String_Object_AndConstraint_1_TypeAssertions()
-            {
-            // TODO: Implement method test LCore.LUnit.Fluent.FluentExt.NotHaveAttribute
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.NotHaveAttribute) + "(TypeAssertions, Boolean, String, Object[]) => AndConstraint`1<TypeAssertions>")]
-        public void NotHaveAttribute_TypeAssertions_Boolean_String_Object_AndConstraint_1_TypeAssertions()
-            {
-            // TODO: Implement method test LCore.LUnit.Fluent.FluentExt.NotHaveAttribute
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldBeTrue) + "(Boolean, String, Object[]) => AndConstraint`1<BooleanAssertions>")]
-        public void ShouldBeTrue()
-            {
-            // TODO: Implement method test LCore.LUnit.Fluent.FluentExt.ShouldBeTrue
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldBeFalse) + "(Boolean, String, Object[]) => AndConstraint`1<BooleanAssertions>")]
-        public void ShouldBeFalse()
-            {
-            // TODO: Implement method test LCore.LUnit.Fluent.FluentExt.ShouldBeFalse
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldBeNull) + "(T, String, Object[]) => AndConstraint`1<ObjectAssertions>")]
-        public void ShouldBeNull_T_String_Object_AndConstraint_1_ObjectAssertions()
-            {
-            // TODO: Implement method test LCore.LUnit.Fluent.FluentExt.ShouldBeNull
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldBeNull) + "(Nullable`1<T>, String, Object[]) => AndConstraint`1<ObjectAssertions>")]
-        public void ShouldBeNull_Nullable_1_T_String_Object_AndConstraint_1_ObjectAssertions()
-            {
-            // TODO: Implement method test LCore.LUnit.Fluent.FluentExt.ShouldBeNull
             }
 
         #region Helpers

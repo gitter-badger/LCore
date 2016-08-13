@@ -46,6 +46,7 @@ namespace ASP
     using LMVC.Controllers;
     using LMVC.Extensions;
     using LMVC.Models;
+    using LMVC.Routes;
     using Singularity;
     
     #line 5 "..\..\Views\Shared\Manage\Details.cshtml"
@@ -77,7 +78,8 @@ WriteLiteral("\r\n");
 
     var Groups = Model as IFieldGroups;
 
-    IEnumerable<ModelMetadata> Fields = Groups != null ? Groups.GetFieldGroup(Context, ViewType) : FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ViewType);
+    IEnumerable<ModelMetadata> Fields = Groups?.GetFieldGroup(Context, ViewType) 
+        ?? FieldGroups.GetFieldGroup(Context, Model.TrueModelType(), ViewType);
 
             
             #line default
@@ -91,13 +93,13 @@ WriteLiteral(" class=\"details wide-form\"");
 WriteLiteral(">\r\n\r\n");
 
             
-            #line 21 "..\..\Views\Shared\Manage\Details.cshtml"
+            #line 22 "..\..\Views\Shared\Manage\Details.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 21 "..\..\Views\Shared\Manage\Details.cshtml"
+            #line 22 "..\..\Views\Shared\Manage\Details.cshtml"
      if (!string.IsNullOrEmpty(ViewBag.ReturnURL))
         {
         if (ViewContext.AllowEdit(Model.TrueModelType()))
@@ -110,21 +112,21 @@ WriteLiteral("            <a");
 
 WriteLiteral(" class=\"btn-default right\"");
 
-WriteAttribute("href", Tuple.Create("\r\n               href=\"", 659), Tuple.Create("\"", 810)
+WriteAttribute("href", Tuple.Create("\r\n               href=\"", 654), Tuple.Create("\"", 813)
             
-            #line 26 "..\..\Views\Shared\Manage\Details.cshtml"
-, Tuple.Create(Tuple.Create("", 682), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(Controller => Controller.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false)
+            #line 27 "..\..\Views\Shared\Manage\Details.cshtml"
+, Tuple.Create(Tuple.Create("", 677), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(Controller => Controller.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, Value3: false)
             
             #line default
             #line hidden
-, 682), false)
+, 677), false)
 );
 
 WriteLiteral(">\r\n                <glyph>&#xe065;</glyph>\r\n                Edit\r\n            </a" +
 ">\r\n");
 
             
-            #line 30 "..\..\Views\Shared\Manage\Details.cshtml"
+            #line 31 "..\..\Views\Shared\Manage\Details.cshtml"
             }
 
 
@@ -135,20 +137,20 @@ WriteLiteral("        <a");
 
 WriteLiteral(" class=\"btn-default right\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 948), Tuple.Create("\"", 973)
+WriteAttribute("href", Tuple.Create(" href=\"", 951), Tuple.Create("\"", 976)
             
-            #line 32 "..\..\Views\Shared\Manage\Details.cshtml"
-, Tuple.Create(Tuple.Create("", 955), Tuple.Create<System.Object, System.Int32>(ViewBag.ReturnURL
+            #line 33 "..\..\Views\Shared\Manage\Details.cshtml"
+, Tuple.Create(Tuple.Create("", 958), Tuple.Create<System.Object, System.Int32>(ViewBag.ReturnURL
             
             #line default
             #line hidden
-, 955), false)
+, 958), false)
 );
 
 WriteLiteral(">\r\n            <glyph>&#xe091;</glyph>\r\n            Back\r\n        </a>\r\n");
 
             
-            #line 36 "..\..\Views\Shared\Manage\Details.cshtml"
+            #line 37 "..\..\Views\Shared\Manage\Details.cshtml"
         }
 
             
@@ -159,7 +161,7 @@ WriteLiteral("\r\n    <h1>\r\n");
 WriteLiteral("        ");
 
             
-            #line 39 "..\..\Views\Shared\Manage\Details.cshtml"
+            #line 40 "..\..\Views\Shared\Manage\Details.cshtml"
    Write(Model.GetFriendlyTypeName());
 
             
@@ -170,7 +172,7 @@ WriteLiteral(" Details\r\n    </h1>\r\n\r\n    <h2>\r\n");
 WriteLiteral("        ");
 
             
-            #line 43 "..\..\Views\Shared\Manage\Details.cshtml"
+            #line 44 "..\..\Views\Shared\Manage\Details.cshtml"
    Write(Model.ToString());
 
             
@@ -179,13 +181,13 @@ WriteLiteral("        ");
 WriteLiteral("\r\n    </h2>\r\n\r\n");
 
             
-            #line 46 "..\..\Views\Shared\Manage\Details.cshtml"
+            #line 47 "..\..\Views\Shared\Manage\Details.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 46 "..\..\Views\Shared\Manage\Details.cshtml"
+            #line 47 "..\..\Views\Shared\Manage\Details.cshtml"
      foreach (var Meta in Fields)
         {
         Meta.PropertyName.ToUrlSlug();
@@ -197,14 +199,14 @@ WriteLiteral("\r\n    </h2>\r\n\r\n");
             #line default
             #line hidden
             
-            #line 52 "..\..\Views\Shared\Manage\Details.cshtml"
+            #line 53 "..\..\Views\Shared\Manage\Details.cshtml"
    Write(Html.ViewField(Field));
 
             
             #line default
             #line hidden
             
-            #line 52 "..\..\Views\Shared\Manage\Details.cshtml"
+            #line 53 "..\..\Views\Shared\Manage\Details.cshtml"
                               
         }
 
@@ -214,13 +216,13 @@ WriteLiteral("\r\n    </h2>\r\n\r\n");
 WriteLiteral("\r\n");
 
             
-            #line 55 "..\..\Views\Shared\Manage\Details.cshtml"
+            #line 56 "..\..\Views\Shared\Manage\Details.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 55 "..\..\Views\Shared\Manage\Details.cshtml"
+            #line 56 "..\..\Views\Shared\Manage\Details.cshtml"
      if (!string.IsNullOrEmpty(ViewBag.ReturnURL))
         {
         if (ViewContext.AllowEdit(Model.TrueModelType()))
@@ -233,14 +235,14 @@ WriteLiteral("            <a");
 
 WriteLiteral(" class=\"btn-default right\"");
 
-WriteAttribute("href", Tuple.Create("\r\n               href=\"", 1598), Tuple.Create("\"", 1749)
+WriteAttribute("href", Tuple.Create("\r\n               href=\"", 1601), Tuple.Create("\"", 1760)
             
-            #line 60 "..\..\Views\Shared\Manage\Details.cshtml"
-, Tuple.Create(Tuple.Create("", 1621), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(Controller => Controller.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, false)
+            #line 61 "..\..\Views\Shared\Manage\Details.cshtml"
+, Tuple.Create(Tuple.Create("", 1624), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>().Action(Controller => Controller.Edit, Model.GetID<int>(), Request.Url?.AbsoluteUri, Value3: false)
             
             #line default
             #line hidden
-, 1621), false)
+, 1624), false)
 );
 
 WriteLiteral("\r\n               key-bind-click=\"Ctrl+E\"");
@@ -251,7 +253,7 @@ WriteLiteral(">\r\n                <glyph>&#xe065;</glyph>\r\n                Ed
 ">\r\n");
 
             
-            #line 66 "..\..\Views\Shared\Manage\Details.cshtml"
+            #line 67 "..\..\Views\Shared\Manage\Details.cshtml"
             }
 
 
@@ -262,14 +264,14 @@ WriteLiteral("        <a");
 
 WriteLiteral(" class=\"btn-default right\"");
 
-WriteAttribute("href", Tuple.Create("\r\n           href=\"", 1970), Tuple.Create("\"", 2007)
+WriteAttribute("href", Tuple.Create("\r\n           href=\"", 1981), Tuple.Create("\"", 2018)
             
-            #line 69 "..\..\Views\Shared\Manage\Details.cshtml"
-, Tuple.Create(Tuple.Create("", 1989), Tuple.Create<System.Object, System.Int32>(ViewBag.ReturnURL
+            #line 70 "..\..\Views\Shared\Manage\Details.cshtml"
+, Tuple.Create(Tuple.Create("", 2000), Tuple.Create<System.Object, System.Int32>(ViewBag.ReturnURL
             
             #line default
             #line hidden
-, 1989), false)
+, 2000), false)
 );
 
 WriteLiteral("\r\n           key-bind-click=\"Esc\"");
@@ -279,7 +281,7 @@ WriteLiteral("\r\n           key-bind-click-name=\"Back\"");
 WriteLiteral(">\r\n            <glyph>&#xe091;</glyph>\r\n            Back\r\n        </a>\r\n");
 
             
-            #line 75 "..\..\Views\Shared\Manage\Details.cshtml"
+            #line 76 "..\..\Views\Shared\Manage\Details.cshtml"
         }
 
             

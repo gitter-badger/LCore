@@ -41,6 +41,7 @@ namespace ASP
     using LMVC.Controllers;
     using LMVC.Extensions;
     using LMVC.Models;
+    using LMVC.Routes;
     using Singularity;
     using Singularity.Extensions;
     using Singularity.Models;
@@ -128,14 +129,14 @@ WriteLiteral("                <hr />\r\n");
             #line hidden
             
             #line 18 "..\..\Views\Account\Login.cshtml"
-           Write(Html.ValidationSummary(true, "", new { @class = "text-danger" }));
+           Write(Html.ValidationSummary(excludePropertyErrors: true, message: "", htmlAttributes: new { @class = "text-danger" }));
 
             
             #line default
             #line hidden
             
             #line 18 "..\..\Views\Account\Login.cshtml"
-                                                                                 
+                                                                                                                                 
 
             
             #line default

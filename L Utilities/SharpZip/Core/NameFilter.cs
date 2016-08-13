@@ -122,13 +122,13 @@ namespace ICSharpCode.SharpZipLib.Core
                         {
                         string toCompile;
 
-                        if (t[0] == '+')
+                        if (t[index: 0] == '+')
                             {
-                            toCompile = t.Substring(1, t.Length - 1);
+                            toCompile = t.Substring(startIndex: 1, length: t.Length - 1);
                             }
-                        else if (t[0] == '-')
+                        else if (t[index: 0] == '-')
                             {
-                            toCompile = t.Substring(1, t.Length - 1);
+                            toCompile = t.Substring(startIndex: 1, length: t.Length - 1);
                             }
                         else
                             {
@@ -307,16 +307,16 @@ namespace ICSharpCode.SharpZipLib.Core
                 {
                 if (!string.IsNullOrEmpty(t))
                     {
-                    bool include = t[0] != '-';
+                    bool include = t[index: 0] != '-';
                     string toCompile;
 
-                    if (t[0] == '+')
+                    if (t[index: 0] == '+')
                         {
-                        toCompile = t.Substring(1, t.Length - 1);
+                        toCompile = t.Substring(startIndex: 1, length: t.Length - 1);
                         }
-                    else if (t[0] == '-')
+                    else if (t[index: 0] == '-')
                         {
-                        toCompile = t.Substring(1, t.Length - 1);
+                        toCompile = t.Substring(startIndex: 1, length: t.Length - 1);
                         }
                     else
                         {

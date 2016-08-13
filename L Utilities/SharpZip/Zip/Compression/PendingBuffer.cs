@@ -79,7 +79,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
         /// <summary>
         /// construct instance using default buffer size of 4096
         /// </summary>
-        public PendingBuffer() : this(4096)
+        public PendingBuffer() : this(bufferSize: 4096)
             {
             }
 
@@ -294,7 +294,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
         public byte[] ToByteArray()
             {
             var result = new byte[this.end - this.start];
-            Array.Copy(this.buffer_, this.start, result, 0, result.Length);
+            Array.Copy(this.buffer_, this.start, result, destinationIndex: 0, length: result.Length);
             this.start = 0;
             this.end = 0;
             return result;

@@ -372,7 +372,7 @@ namespace ICSharpCode.SharpZipLib.Tar
 
             var result = new byte[BlockSize];
 
-            Array.Copy(this.recordBuffer, this.currentBlockIndex * BlockSize, result, 0, BlockSize);
+            Array.Copy(this.recordBuffer, this.currentBlockIndex * BlockSize, result, destinationIndex: 0, length: BlockSize);
             this.currentBlockIndex++;
             return result;
             }
@@ -495,7 +495,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                 this.WriteRecord();
                 }
 
-            Array.Copy(block, 0, this.recordBuffer, this.currentBlockIndex * BlockSize, BlockSize);
+            Array.Copy(block, sourceIndex: 0, destinationArray: this.recordBuffer, destinationIndex: this.currentBlockIndex * BlockSize, length: BlockSize);
             this.currentBlockIndex++;
             }
 
@@ -554,7 +554,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                 throw new TarException("TarBuffer.WriteRecord no output stream defined");
                 }
 
-            this.outputStream.Write(this.recordBuffer, 0, this.RecordSize);
+            this.outputStream.Write(this.recordBuffer, offset: 0, count: this.RecordSize);
             this.outputStream.Flush();
 
             this.currentBlockIndex = 0;

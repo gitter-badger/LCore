@@ -332,7 +332,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
 
             this.storedBlockCRC = this.BsGetInt32();
 
-            this.blockRandomised = this.BsR(1) == 1;
+            this.blockRandomised = this.BsR(n: 1) == 1;
 
             this.GetAndMoveToFrontDecode();
 
@@ -409,7 +409,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
 
         private char BsGetUChar()
             {
-            return (char)this.BsR(8);
+            return (char)this.BsR(n: 8);
             }
 
         private int BsGetIntVS(int numBits)
@@ -419,10 +419,10 @@ namespace ICSharpCode.SharpZipLib.BZip2
 
         private int BsGetInt32()
             {
-            int result = this.BsR(8);
-            result = (result << 8) | this.BsR(8);
-            result = (result << 8) | this.BsR(8);
-            result = (result << 8) | this.BsR(8);
+            int result = this.BsR(n: 8);
+            result = (result << 8) | this.BsR(n: 8);
+            result = (result << 8) | this.BsR(n: 8);
+            result = (result << 8) | this.BsR(n: 8);
             return result;
             }
 
@@ -439,7 +439,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
             //--- Receive the mapping table ---
             for (int i = 0; i < 16; i++)
                 {
-                inUse16[i] = this.BsR(1) == 1;
+                inUse16[i] = this.BsR(n: 1) == 1;
                 }
 
             for (int i = 0; i < 16; i++)
@@ -448,7 +448,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
                     {
                     for (int j = 0; j < 16; j++)
                         {
-                        this.inUse[i * 16 + j] = this.BsR(1) == 1;
+                        this.inUse[i * 16 + j] = this.BsR(n: 1) == 1;
                         }
                     }
                 else
@@ -464,13 +464,13 @@ namespace ICSharpCode.SharpZipLib.BZip2
             int alphaSize = this.nInUse + 2;
 
             //--- Now the selectors ---
-            int nGroups = this.BsR(3);
-            int nSelectors = this.BsR(15);
+            int nGroups = this.BsR(n: 3);
+            int nSelectors = this.BsR(n: 15);
 
             for (int i = 0; i < nSelectors; i++)
                 {
                 int j = 0;
-                while (this.BsR(1) == 1)
+                while (this.BsR(n: 1) == 1)
                     {
                     j++;
                     }
@@ -500,12 +500,12 @@ namespace ICSharpCode.SharpZipLib.BZip2
             //--- Now the coding tables ---
             for (int t = 0; t < nGroups; t++)
                 {
-                int curr = this.BsR(5);
+                int curr = this.BsR(n: 5);
                 for (int i = 0; i < alphaSize; i++)
                     {
-                    while (this.BsR(1) == 1)
+                    while (this.BsR(n: 1) == 1)
                         {
-                        if (this.BsR(1) == 0)
+                        if (this.BsR(n: 1) == 0)
                             {
                             curr++;
                             }
@@ -538,7 +538,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
             var yy = new byte[256];
 
             int limitLast = BZip2Constants.BaseBlockSize * this.blockSize100k;
-            this.origPtr = this.BsGetIntVS(24);
+            this.origPtr = this.BsGetIntVS(numBits: 24);
 
             this.RecvDecodingTables();
             int EOB = this.nInUse + 1;
@@ -711,7 +711,7 @@ namespace ICSharpCode.SharpZipLib.BZip2
             var cftab = new int[257];
 
             cftab[0] = 0;
-            Array.Copy(this.unzftab, 0, cftab, 1, 256);
+            Array.Copy(this.unzftab, sourceIndex: 0, destinationArray: cftab, destinationIndex: 1, length: 256);
 
             for (int i = 1; i <= 256; i++)
                 {

@@ -251,7 +251,7 @@ namespace ICSharpCode.SharpZipLib.Zip
             if (entry.extra != null)
                 {
                 this.extra = new byte[entry.extra.Length];
-                Array.Copy(entry.extra, 0, this.extra, 0, entry.extra.Length);
+                Array.Copy(entry.extra, sourceIndex: 0, destinationArray: this.extra, destinationIndex: 0, length: entry.extra.Length);
                 }
             }
 
@@ -555,7 +555,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                     {
                     result = 20;
                     }
-                else if (this.HasDosAttributes(0x08))
+                else if (this.HasDosAttributes(attributes: 0x08))
                     {
                     result = 11;
                     }
@@ -660,12 +660,12 @@ namespace ICSharpCode.SharpZipLib.Zip
             {
             get
                 {
-                uint sec = Math.Min(59, 2 * (this.dosTime & 0x1f));
-                uint min = Math.Min(59, (this.dosTime >> 5) & 0x3f);
-                uint hrs = Math.Min(23, (this.dosTime >> 11) & 0x1f);
-                uint mon = Math.Max(1, Math.Min(12, (this.dosTime >> 21) & 0xf));
+                uint sec = Math.Min(val1: 59, val2: 2 * (this.dosTime & 0x1f));
+                uint min = Math.Min(val1: 59, val2: (this.dosTime >> 5) & 0x3f);
+                uint hrs = Math.Min(val1: 23, val2: (this.dosTime >> 11) & 0x1f);
+                uint mon = Math.Max(val1: 1, val2: Math.Min(val1: 12, val2: (this.dosTime >> 21) & 0xf));
                 uint year = ((this.dosTime >> 25) & 0x7f) + 1980;
-                int day = Math.Max(1, Math.Min(DateTime.DaysInMonth((int)year, (int)mon), (int)((this.dosTime >> 16) & 0x1f)));
+                int day = Math.Max(val1: 1, val2: Math.Min(DateTime.DaysInMonth((int)year, (int)mon), (int)((this.dosTime >> 16) & 0x1f)));
                 return new DateTime((int)year, (int)mon, day, (int)hrs, (int)min, (int)sec);
                 }
 
@@ -839,7 +839,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                         }
 
                     this.extra = new byte[value.Length];
-                    Array.Copy(value, 0, this.extra, 0, value.Length);
+                    Array.Copy(value, sourceIndex: 0, destinationArray: this.extra, destinationIndex: 0, length: value.Length);
                     }
                 }
             }
@@ -854,7 +854,7 @@ namespace ICSharpCode.SharpZipLib.Zip
             {
             var extraData = new ZipExtraData(this.extra);
 
-            if (extraData.Find(0x0001))
+            if (extraData.Find(headerID: 0x0001))
                 {
                 if ((this.versionToExtract & 0xff) < ZipConstants.VersionZip64)
                     {
@@ -895,7 +895,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                     }
                 }
 
-            if (extraData.Find(10))
+            if (extraData.Find(headerID: 10))
                 {
                 // No room for any tags.
                 if (extraData.ValueLength < 8)
@@ -925,7 +925,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                     extraData.Skip(ntfsLength);
                     }
                 }
-            else if (extraData.Find(0x5455))
+            else if (extraData.Find(headerID: 0x5455))
                 {
                 int length = extraData.ValueLength;
                 int flags = extraData.ReadByte();
@@ -936,8 +936,8 @@ namespace ICSharpCode.SharpZipLib.Zip
                     {
                     int iTime = extraData.ReadInt();
 
-                    this.DateTime = (new DateTime(1970, 1, 1, 0, 0, 0).ToUniversalTime() +
-                        new TimeSpan(0, 0, 0, iTime, 0)).ToLocalTime();
+                    this.DateTime = (new DateTime(year: 1970, month: 1, day: 1, hour: 0, minute: 0, second: 0).ToUniversalTime() +
+                        new TimeSpan(days: 0, hours: 0, minutes: 0, seconds: iTime, milliseconds: 0)).ToLocalTime();
                     }
                 }
             }
@@ -1000,7 +1000,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                 int nameLength = this.name.Length;
                 bool result =
                     ((nameLength > 0) &&
-                    ((this.name[nameLength - 1] == '/') || (this.name[nameLength - 1] == '\\'))) || this.HasDosAttributes(16)
+                    ((this.name[nameLength - 1] == '/') || (this.name[nameLength - 1] == '\\'))) || this.HasDosAttributes(attributes: 16)
                     ;
                 return result;
                 }
@@ -1013,7 +1013,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// This only takes account of DOS/Windows attributes.  Other operating systems are ignored.
         /// For linux and others the result may be incorrect.
         /// </remarks>
-        public bool IsFile => !this.IsDirectory && !this.HasDosAttributes(8);
+        public bool IsFile => !this.IsDirectory && !this.HasDosAttributes(attributes: 8);
 
         /// <summary>
         /// Test entry to see if data can be extracted.
@@ -1037,7 +1037,7 @@ namespace ICSharpCode.SharpZipLib.Zip
             if (this.extra != null)
                 {
                 result.extra = new byte[this.extra.Length];
-                Array.Copy(this.extra, 0, result.extra, 0, this.extra.Length);
+                Array.Copy(this.extra, sourceIndex: 0, destinationArray: result.extra, destinationIndex: 0, length: this.extra.Length);
                 }
 
             return result;
@@ -1095,9 +1095,9 @@ namespace ICSharpCode.SharpZipLib.Zip
 
             name = name.Replace(@"\", "/");
 
-            while ((name.Length > 0) && (name[0] == '/'))
+            while ((name.Length > 0) && (name[index: 0] == '/'))
                 {
-                name = name.Remove(0, 1);
+                name = name.Remove(startIndex: 0, count: 1);
                 }
             return name;
             }

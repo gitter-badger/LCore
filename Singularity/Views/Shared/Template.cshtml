@@ -67,7 +67,7 @@
             <span class="text-content-edit">
                 <span onclick="window.location = '@(Url.Controller<TemplateController>()
                     .QS(new Dictionary<string, object> { { "Token", Token }, { "DefaultText", HttpUtility.HtmlEncode(Model.DefaultText) } })
-                    .Action(Controller => Controller.Edit, Content.GetID<int>(), Request.Url?.AbsoluteUri, false))'; return false;" class="btn btn-default">
+                    .Action(Controller => Controller.Edit, Content.GetID<int>(), Request.Url?.AbsoluteUri, Value3: false))'; return false;" class="btn btn-default">
                     <glyph>&#xe065;</glyph>
                 </span>
             </span>

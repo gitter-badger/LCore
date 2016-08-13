@@ -184,7 +184,7 @@ WriteLiteral("\r\n");
             #line hidden
             
             #line 44 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
-                 if (Meta.HasAttribute<NotMappedAttribute>(true))
+                 if (Meta.HasAttribute<NotMappedAttribute>(IncludeSubClasses: true))
                     {
                     // No DB column: no sorting
 
@@ -245,16 +245,16 @@ WriteLiteral("\r\n");
             #line hidden
 WriteLiteral("                    <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2300), Tuple.Create("\"", 2600)
+WriteAttribute("href", Tuple.Create(" href=\"", 2319), Tuple.Create("\"", 2619)
             
             #line 60 "..\..\Views\Shared\Manage\HeaderRow.cshtml"
-, Tuple.Create(Tuple.Create("", 2307), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
+, Tuple.Create(Tuple.Create("", 2326), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
                         .QS(Controllers.Manage.Actions.Route_SortColumn(Model, Meta.PropertyName))
                         .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(Controller=> Controller.Manage)
             
             #line default
             #line hidden
-, 2307), false)
+, 2326), false)
 );
 
 WriteLiteral(">\r\n\r\n");

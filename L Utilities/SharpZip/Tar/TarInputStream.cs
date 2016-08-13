@@ -172,7 +172,7 @@ namespace ICSharpCode.SharpZipLib.Tar
         public override int ReadByte()
             {
             var oneByteBuffer = new byte[1];
-            int num = this.Read(oneByteBuffer, 0, 1);
+            int num = this.Read(oneByteBuffer, offset: 0, count: 1);
             if (num <= 0)
                 { // return -1 to indicate that no byte was read.
                 return -1;
@@ -223,7 +223,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                 {
                 int sz = numToRead > this.readBuffer.Length ? this.readBuffer.Length : (int)numToRead;
 
-                Array.Copy(this.readBuffer, 0, buffer, offset, sz);
+                Array.Copy(this.readBuffer, sourceIndex: 0, destinationArray: buffer, destinationIndex: offset, length: sz);
 
                 if (sz >= this.readBuffer.Length)
                     {
@@ -233,7 +233,7 @@ namespace ICSharpCode.SharpZipLib.Tar
                     {
                     int newLen = this.readBuffer.Length - sz;
                     var newBuf = new byte[newLen];
-                    Array.Copy(this.readBuffer, sz, newBuf, 0, newLen);
+                    Array.Copy(this.readBuffer, sz, newBuf, destinationIndex: 0, length: newLen);
                     this.readBuffer = newBuf;
                     }
 
@@ -256,14 +256,14 @@ namespace ICSharpCode.SharpZipLib.Tar
 
                 if (recLen > sz)
                     {
-                    Array.Copy(rec, 0, buffer, offset, sz);
+                    Array.Copy(rec, sourceIndex: 0, destinationArray: buffer, destinationIndex: offset, length: sz);
                     this.readBuffer = new byte[recLen - sz];
-                    Array.Copy(rec, sz, this.readBuffer, 0, recLen - sz);
+                    Array.Copy(rec, sz, this.readBuffer, destinationIndex: 0, length: recLen - sz);
                     }
                 else
                     {
                     sz = recLen;
-                    Array.Copy(rec, 0, buffer, offset, recLen);
+                    Array.Copy(rec, sourceIndex: 0, destinationArray: buffer, destinationIndex: offset, length: recLen);
                     }
 
                 totalRead += sz;
@@ -341,7 +341,7 @@ namespace ICSharpCode.SharpZipLib.Tar
             for (long num = skipCount; num > 0;)
                 {
                 int toRead = num > skipBuf.Length ? skipBuf.Length : (int)num;
-                int numRead = this.Read(skipBuf, 0, toRead);
+                int numRead = this.Read(skipBuf, offset: 0, count: toRead);
 
                 if (numRead == -1)
                     {
@@ -441,14 +441,14 @@ namespace ICSharpCode.SharpZipLib.Tar
 
                         while (numToRead > 0)
                             {
-                            int numRead = this.Read(nameBuffer, 0, numToRead > nameBuffer.Length ? nameBuffer.Length : (int)numToRead);
+                            int numRead = this.Read(nameBuffer, offset: 0, count: numToRead > nameBuffer.Length ? nameBuffer.Length : (int)numToRead);
 
                             if (numRead == -1)
                                 {
                                 throw new InvalidHeaderException("Failed to read long name entry");
                                 }
 
-                            longName.Append(TarHeader.ParseName(nameBuffer, 0, numRead));
+                            longName.Append(TarHeader.ParseName(nameBuffer, offset: 0, length: numRead));
                             numToRead -= numRead;
                             }
 
@@ -527,12 +527,12 @@ namespace ICSharpCode.SharpZipLib.Tar
 
             while (true)
                 {
-                int numRead = this.Read(tempBuffer, 0, tempBuffer.Length);
+                int numRead = this.Read(tempBuffer, offset: 0, count: tempBuffer.Length);
                 if (numRead <= 0)
                     {
                     break;
                     }
-                outputStream.Write(tempBuffer, 0, numRead);
+                outputStream.Write(tempBuffer, offset: 0, count: numRead);
                 }
             }
 

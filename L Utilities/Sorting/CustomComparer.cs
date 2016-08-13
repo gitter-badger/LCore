@@ -41,7 +41,7 @@ namespace NSort
                         {
                         return 0;
                         }
-                    return -this.FieldRetriever(y).CompareTo(null);
+                    return -this.FieldRetriever(y).CompareTo(obj: null);
                     }
                 return this.FieldRetriever(x).CompareTo(this.FieldRetriever(y));
                 }

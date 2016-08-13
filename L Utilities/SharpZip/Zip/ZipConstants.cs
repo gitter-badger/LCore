@@ -509,7 +509,7 @@ namespace ICSharpCode.SharpZipLib.Zip
             {
             return data == null ?
                 string.Empty :
-                Encoding.GetEncoding(DefaultCodePage).GetString(data, 0, count);
+                Encoding.GetEncoding(DefaultCodePage).GetString(data, index: 0, count: count);
             }
 
         /// <summary>
@@ -544,7 +544,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                 return string.Empty;
                 }
 
-            return (flags & (int)GeneralBitFlags.UnicodeText) != 0 ? Encoding.UTF8.GetString(data, 0, count) : ConvertToString(data, count);
+            return (flags & (int)GeneralBitFlags.UnicodeText) != 0 ? Encoding.UTF8.GetString(data, index: 0, count: count) : ConvertToString(data, count);
             }
 
         /// <summary>
@@ -565,7 +565,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                 }
 
             return (flags & (int)GeneralBitFlags.UnicodeText) != 0 ?
-                Encoding.UTF8.GetString(data, 0, data.Length) :
+                Encoding.UTF8.GetString(data, index: 0, count: data.Length) :
                 ConvertToString(data, data.Length);
             }
 

@@ -36,7 +36,7 @@
     @if (Model.Page != 0)
         {
         <a href="@(Url.Controller<ManageController>()
-            .QS(Controllers.Manage.Actions.Route_Page(Model, 1) )
+            .QS(Controllers.Manage.Actions.Route_Page(Model, Page: 1) )
             .Lambda<int,string,SortDirection,string ,string , ControllerHelper.ManageViewType , string , bool>(Controller=> Controller.Manage))"
            key-bind-click="@(ViewBag.PaginationCount == 1 ? "Ctrl+Home" : null)"
            key-bind-click-name="@(ViewBag.PaginationCount == 1 ? "First Page" : null)">

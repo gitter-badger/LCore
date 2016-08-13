@@ -45,7 +45,7 @@ namespace L_MVC_Tests.Layouts
         [Fact]
         public void Singularity_GetTypeIcon()
             {
-            Singularity.Icons.GetTypeIcon(null).Should().BeNull();
+            Singularity.Icons.GetTypeIcon(Type: null).Should().BeNull();
             Singularity.Icons.GetTypeIcon(typeof(L)).Should().NotBeNull().And.NotBe(FontAwesomeExt.Icon.question);
             Singularity.Icons.GetTypeIcon(typeof(UrlExt)).Should().NotBeNull().And.NotBe(FontAwesomeExt.Icon.question);
             Singularity.Icons.GetTypeIcon(typeof(string)).Should().NotBeNull().And.NotBe(FontAwesomeExt.Icon.question);

@@ -112,7 +112,7 @@ WriteLiteral("\r\n");
 
     if (Lambda == null)
         {
-        Model.ModelData.GetProperty(Meta.PropertyName);
+        Model.ModelData.GetProperty(Meta?.PropertyName);
         }
     else
         {
@@ -127,9 +127,9 @@ WriteLiteral("\r\n");
 
     RangeAttribute Attr = null;
 
-    if (Model.Meta.HasAttribute<RangeAttribute>(true))
+    if (Model.Meta.HasAttribute<RangeAttribute>(IncludeSubClasses: true))
         {
-        Attr = Model.Meta.GetAttribute<RangeAttribute>(true);
+        Attr = Model.Meta.GetAttribute<RangeAttribute>(IncludeBaseTypes: true);
         }
 
             
@@ -151,53 +151,53 @@ WriteLiteral("\r\n");
             #line hidden
 WriteLiteral("\r\n<div");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 1627), Tuple.Create("\"", 1783)
-, Tuple.Create(Tuple.Create("", 1635), Tuple.Create("field", 1635), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 1665), Tuple.Create("\"", 1821)
+, Tuple.Create(Tuple.Create("", 1673), Tuple.Create("field", 1673), true)
             
             #line 61 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
-, Tuple.Create(Tuple.Create(" ", 1640), Tuple.Create<System.Object, System.Int32>(Model.ViewTypes.CollectStr((i, Type) => $"{Type.ToString().ToLower()}-field ")
+, Tuple.Create(Tuple.Create(" ", 1678), Tuple.Create<System.Object, System.Int32>(Model.ViewTypes.CollectStr((i, Type) => $"{Type.ToString().ToLower()}-field ")
             
             #line default
             #line hidden
-, 1641), false)
-, Tuple.Create(Tuple.Create(" ", 1720), Tuple.Create("field-", 1721), true)
+, 1679), false)
+, Tuple.Create(Tuple.Create(" ", 1758), Tuple.Create("field-", 1759), true)
             
             #line 61 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
-                        , Tuple.Create(Tuple.Create("", 1727), Tuple.Create<System.Object, System.Int32>(Model.ColumnClass
+                        , Tuple.Create(Tuple.Create("", 1765), Tuple.Create<System.Object, System.Int32>(Model.ColumnClass
             
             #line default
             #line hidden
-, 1727), false)
+, 1765), false)
             
             #line 61 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
-                                          , Tuple.Create(Tuple.Create(" ", 1745), Tuple.Create<System.Object, System.Int32>(Model.ModelFieldClasses.Combine(" ")
+                                          , Tuple.Create(Tuple.Create(" ", 1783), Tuple.Create<System.Object, System.Int32>(Model.ModelFieldClasses.Combine(" ")
             
             #line default
             #line hidden
-, 1746), false)
+, 1784), false)
 );
 
 WriteLiteral("\r\n     data-object-type=\"");
 
             
             #line 62 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
-                  Write(Meta.ModelType);
+                  Write(Meta);
 
             
             #line default
             #line hidden
-WriteLiteral("\"");
+WriteLiteral("?.ModelType\"");
 
 WriteLiteral("\r\n     data-type-name=\"");
 
             
             #line 63 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
-                Write(Meta.DataTypeName);
+                Write(Meta);
 
             
             #line default
             #line hidden
-WriteLiteral("\"");
+WriteLiteral("?.DataTypeName\"");
 
 WriteLiteral("\r\n     ");
 
@@ -236,7 +236,7 @@ WriteLiteral("\">\r\n\r\n");
             #line hidden
             
             #line 68 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
-     if (Model.Meta.HasAttribute<HiddenInputAttribute>(true))
+     if (Model.Meta.HasAttribute<HiddenInputAttribute>(IncludeSubClasses: true))
         {
         
             
@@ -307,9 +307,9 @@ WriteLiteral(">*</span>\r\n");
             }
 
         if (Meta.HasAttribute<ICustomPartial>() &&
-            Meta.GetAttribute<ICustomPartial>().IsActive(Html, Model, Model.ViewTypes))
+            Meta.GetAttribute<ICustomPartial>()?.IsActive(Html, Model, Model.ViewTypes) == true)
             {
-            Meta.GetAttribute<ICustomPartial>().RenderPartial(Html, Model, Model.ViewTypes);
+            Meta.GetAttribute<ICustomPartial>()?.RenderPartial(Html, Model, Model.ViewTypes);
             }
         else if (Html.ViewExists(PartialViews.Manage.Fields.Edit.PropertyName(Model.PropertyName)))
             {
@@ -330,7 +330,7 @@ WriteLiteral(">*</span>\r\n");
             #line 97 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                                                                                                   
             }
-        else if (Model.Meta.HasAttribute<KeyAttribute>(true))
+        else if (Model.Meta.HasAttribute<KeyAttribute>(IncludeSubClasses: true))
             {
             
             
@@ -496,7 +496,7 @@ WriteLiteral(">*</span>\r\n");
             #line 146 "..\..\Views\Shared\Manage\Fields\FieldEdit.cshtml"
                                                                       
             }
-        else if (Model.Meta.ModelType.HasAttribute<ComplexTypeAttribute>(true))
+        else if (Model.Meta.ModelType.HasAttribute<ComplexTypeAttribute>(IncludeBaseClasses: true))
             {
             
             

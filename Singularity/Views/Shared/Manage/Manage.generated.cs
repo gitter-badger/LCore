@@ -169,7 +169,7 @@ WriteLiteral("\r\n");
             
             #line 36 "..\..\Views\Shared\Manage\Manage.cshtml"
      if (Controller != null &&
-                                        Controller.OverridePermissions.Create == true)
+                                                Controller.OverridePermissions.Create == true)
         {
 
             
@@ -177,27 +177,27 @@ WriteLiteral("\r\n");
             #line hidden
 WriteLiteral("        <div>\r\n            <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 946), Tuple.Create("\"", 1049)
+WriteAttribute("href", Tuple.Create(" href=\"", 954), Tuple.Create("\"", 1057)
             
             #line 40 "..\..\Views\Shared\Manage\Manage.cshtml"
-, Tuple.Create(Tuple.Create("", 953), Tuple.Create<System.Object, System.Int32>(Url.Controller<IManageController>().Action(Controller.CreateAction, Request.Url?.AbsoluteUri)
+, Tuple.Create(Tuple.Create("", 961), Tuple.Create<System.Object, System.Int32>(Url.Controller<IManageController>().Action(Controller.CreateAction, Request.Url?.AbsoluteUri)
             
             #line default
             #line hidden
-, 953), false)
+, 961), false)
 );
 
 WriteLiteral("\r\n               key-bind-click=\"Numpad +\"");
 
-WriteAttribute("key-bind-click-name", Tuple.Create("\r\n               key-bind-click-name=\"", 1092), Tuple.Create("\"", 1162)
-, Tuple.Create(Tuple.Create("", 1130), Tuple.Create("New", 1130), true)
+WriteAttribute("key-bind-click-name", Tuple.Create("\r\n               key-bind-click-name=\"", 1100), Tuple.Create("\"", 1170)
+, Tuple.Create(Tuple.Create("", 1138), Tuple.Create("New", 1138), true)
             
             #line 42 "..\..\Views\Shared\Manage\Manage.cshtml"
-, Tuple.Create(Tuple.Create(" ", 1133), Tuple.Create<System.Object, System.Int32>(Model.FriendlyModelTypeName
+, Tuple.Create(Tuple.Create(" ", 1141), Tuple.Create<System.Object, System.Int32>(Model.FriendlyModelTypeName
             
             #line default
             #line hidden
-, 1134), false)
+, 1142), false)
 );
 
 WriteLiteral(">\r\n                <glyph>&#x2a;</glyph>\r\n");
@@ -268,7 +268,7 @@ WriteLiteral("            ");
 
             
             #line 55 "..\..\Views\Shared\Manage\Manage.cshtml"
-       Write(Html.ValidationSummary(true));
+       Write(Html.ValidationSummary(excludePropertyErrors: true));
 
             
             #line default
@@ -317,14 +317,14 @@ WriteLiteral("\r\n\r\n        <tbody>\r\n");
             #line hidden
 WriteLiteral("                    <tr>\r\n                        <td");
 
-WriteAttribute("colspan", Tuple.Create(" colspan=\"", 1940), Tuple.Create("\"", 1988)
+WriteAttribute("colspan", Tuple.Create(" colspan=\"", 1971), Tuple.Create("\"", 2019)
             
             #line 69 "..\..\Views\Shared\Manage\Manage.cshtml"
-, Tuple.Create(Tuple.Create("", 1950), Tuple.Create<System.Object, System.Int32>(Model.GetVisibleColumns().Count + 3
+, Tuple.Create(Tuple.Create("", 1981), Tuple.Create<System.Object, System.Int32>(Model.GetVisibleColumns().Count + 3
             
             #line default
             #line hidden
-, 1950), false)
+, 1981), false)
 );
 
 WriteLiteral(" class=\"no-results center\"");
@@ -419,8 +419,8 @@ WriteLiteral("\r\n\r\n");
             #line hidden
             
             #line 101 "..\..\Views\Shared\Manage\Manage.cshtml"
-     if (Model.ModelType.Meta().Properties.Has(Meta => Meta.PropertyName == ControllerHelper.AutomaticFields.Active) &&
-                                        ViewContext.AllowViewInactive(Model.ModelType))
+     if (Model.ModelType.Meta()?.Properties.Has(Meta => Meta.PropertyName == ControllerHelper.AutomaticFields.Active) == true &&
+        ViewContext.AllowViewInactive(Model.ModelType))
         {
 
             
@@ -432,41 +432,41 @@ WriteLiteral(" class=\"show-hide-inactive\"");
 
 WriteLiteral(">\r\n            <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 3407), Tuple.Create("\"", 3689)
+WriteAttribute("href", Tuple.Create(" href=\"", 3415), Tuple.Create("\"", 3697)
             
             #line 105 "..\..\Views\Shared\Manage\Manage.cshtml"
-, Tuple.Create(Tuple.Create("", 3414), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
+, Tuple.Create(Tuple.Create("", 3422), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
                 .QS(Controllers.Manage.Actions.Route_ToggleInactive(Model))
                 .Lambda<int, string, SortDirection, string, string, ControllerHelper.ManageViewType, string, bool>(ManageController => ManageController.Manage)
             
             #line default
             #line hidden
-, 3414), false)
+, 3422), false)
 );
 
 WriteLiteral(">\r\n");
 
             
             #line 108 "..\..\Views\Shared\Manage\Manage.cshtml"
-            
+                
             
             #line default
             #line hidden
             
             #line 108 "..\..\Views\Shared\Manage\Manage.cshtml"
-              
-                string ShowInactiveStr = Model.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive) ? "Show Active" : "Show Inactive";
-            
+                  
+                    string ShowInactiveStr = Model.ViewType.HasFlag(ControllerHelper.ManageViewType.Inactive) ? "Show Active" : "Show Inactive";
+                
             
             #line default
             #line hidden
 WriteLiteral("\r\n\r\n");
 
-WriteLiteral("            ");
+WriteLiteral("                ");
 
             
             #line 112 "..\..\Views\Shared\Manage\Manage.cshtml"
-       Write(Html.TextContent($"Manage_{ShowInactiveStr}_{Model.ModelType.GetFriendlyTypeName()}", ShowInactiveStr));
+           Write(Html.TextContent($"Manage_{ShowInactiveStr}_{Model.ModelType.GetFriendlyTypeName()}", ShowInactiveStr));
 
             
             #line default
@@ -475,7 +475,7 @@ WriteLiteral("\r\n            </a>\r\n\r\n        </div>\r\n");
 
             
             #line 116 "..\..\Views\Shared\Manage\Manage.cshtml"
-                    }
+                        }
 
             
             #line default
@@ -504,25 +504,25 @@ WriteLiteral(" class=\"show-hide-archive\"");
 
 WriteLiteral(">\r\n            <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 4289), Tuple.Create("\"", 4570)
+WriteAttribute("href", Tuple.Create(" href=\"", 4317), Tuple.Create("\"", 4598)
             
             #line 123 "..\..\Views\Shared\Manage\Manage.cshtml"
-, Tuple.Create(Tuple.Create("", 4296), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
+, Tuple.Create(Tuple.Create("", 4324), Tuple.Create<System.Object, System.Int32>(Url.Controller<ManageController>()
                 .QS(Controllers.Manage.Actions.Route_ToggleArchive(Model))
                 .Lambda<int, string, SortDirection, string, string, ControllerHelper.ManageViewType, string, bool>(ManageController => ManageController.Manage)
             
             #line default
             #line hidden
-, 4296), false)
+, 4324), false)
 );
 
 WriteLiteral(">\r\n");
 
-WriteLiteral("            ");
+WriteLiteral("                ");
 
             
             #line 126 "..\..\Views\Shared\Manage\Manage.cshtml"
-       Write(Html.TextContent($"Manage_{ShowArchiveStr}_{Model.ModelType.GetFriendlyTypeName()}", ShowArchiveStr));
+           Write(Html.TextContent($"Manage_{ShowArchiveStr}_{Model.ModelType.GetFriendlyTypeName()}", ShowArchiveStr));
 
             
             #line default

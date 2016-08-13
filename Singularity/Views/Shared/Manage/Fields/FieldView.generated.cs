@@ -158,14 +158,14 @@ WriteLiteral("\">\r\n\r\n");
             
             #line 20 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
      if (Model.Meta.HasAttribute<ICustomPartial>() &&
-                        Model.Meta.GetAttribute<ICustomPartial>().IsActive(Html, Model, Model.ViewTypes))
+        Model.Meta.GetAttribute<ICustomPartial>()?.IsActive(Html, Model, Model.ViewTypes) == true)
         {
-        Model.Meta.GetAttribute<ICustomPartial>().RenderPartial(Html, Model, Model.ViewTypes);
+        Model.Meta.GetAttribute<ICustomPartial>()?.RenderPartial(Html, Model, Model.ViewTypes);
         }
     else
         {
         if (Model.ViewTypes.Has(ControllerHelper.ViewType.TableCell) &&
-            !Model.Meta.HasAttribute<NotMappedAttribute>(true) &&
+            !Model.Meta.HasAttribute<NotMappedAttribute>(IncludeSubClasses: true) &&
             (Model.Meta.ModelType.PreferGeneric().HasInterface<IConvertible>() ||
             Model.Meta.ModelType.HasInterface<IModel>()))
             {
@@ -369,8 +369,8 @@ WriteLiteral(">\r\n                    <glyph>&#xe003;</glyph>\r\n              
             #line 96 "..\..\Views\Shared\Manage\Fields\FieldView.cshtml"
                                                                               
                 }
-            else if (Model.ModelData.TrueModelType().HasAttribute<DisplayColumnAttribute>(true) &&
-                Model.ModelData.TrueModelType().GetAttribute<DisplayColumnAttribute>(true).DisplayColumn == Model.Meta.PropertyName)
+            else if (Model.ModelData.TrueModelType().HasAttribute<DisplayColumnAttribute>(IncludeBaseClasses: true) &&
+                Model.ModelData.TrueModelType().GetAttribute<DisplayColumnAttribute>(IncludeBaseTypes: true)?.DisplayColumn == Model.Meta.PropertyName)
                 {
                 
             

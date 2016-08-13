@@ -139,7 +139,7 @@ WriteLiteral("            ");
             #line 27 "..\..\Views\Shared\LoginPartial.cshtml"
        Write(Html.ActionLink("Log in",
            nameof(AccountController.Login), typeof(AccountController).CName(),
-           null, new { id = "loginLink" }));
+           routeValues: null, htmlAttributes: new { id = "loginLink" }));
 
             
             #line default

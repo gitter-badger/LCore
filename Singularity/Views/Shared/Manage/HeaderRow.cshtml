@@ -41,7 +41,7 @@
                     }
                 else
                 *@
-                @if (Meta.HasAttribute<NotMappedAttribute>(true))
+                @if (Meta.HasAttribute<NotMappedAttribute>(IncludeSubClasses: true))
                     {
                     // No DB column: no sorting
 

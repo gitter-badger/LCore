@@ -123,7 +123,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                 {
                 while (name.EndsWith(@"\"))
                     {
-                    name = name.Remove(name.Length - 1, 1);
+                    name = name.Remove(name.Length - 1, count: 1);
                     }
                 }
             else
@@ -174,7 +174,7 @@ namespace ICSharpCode.SharpZipLib.Zip
             bool result =
                 (name != null) &&
                 (name.Length <= MaxPath) &&
-                (string.CompareOrdinal(name, MakeValidName(name, '_')) == 0)
+                (string.CompareOrdinal(name, MakeValidName(name, replacement: '_')) == 0)
                 ;
 
             return result;
@@ -193,7 +193,7 @@ namespace ICSharpCode.SharpZipLib.Zip
             int howMany = invalidPathChars.Length + 3;
 
             InvalidEntryChars = new char[howMany];
-            Array.Copy(invalidPathChars, 0, InvalidEntryChars, 0, invalidPathChars.Length);
+            Array.Copy(invalidPathChars, sourceIndex: 0, destinationArray: InvalidEntryChars, destinationIndex: 0, length: invalidPathChars.Length);
             InvalidEntryChars[howMany - 1] = '*';
             InvalidEntryChars[howMany - 2] = '?';
             InvalidEntryChars[howMany - 2] = ':';
@@ -215,22 +215,22 @@ namespace ICSharpCode.SharpZipLib.Zip
             name = WindowsPathUtils.DropPathRoot(name.Replace("/", @"\"));
 
             // Drop any leading slashes.
-            while ((name.Length > 0) && (name[0] == '\\'))
+            while ((name.Length > 0) && (name[index: 0] == '\\'))
                 {
-                name = name.Remove(0, 1);
+                name = name.Remove(startIndex: 0, count: 1);
                 }
 
             // Drop any trailing slashes.
             while ((name.Length > 0) && (name[name.Length - 1] == '\\'))
                 {
-                name = name.Remove(name.Length - 1, 1);
+                name = name.Remove(name.Length - 1, count: 1);
                 }
 
             // Convert consecutive \\ characters to \
             int index = name.IndexOf(@"\\");
             while (index >= 0)
                 {
-                name = name.Remove(index, 1);
+                name = name.Remove(index, count: 1);
                 index = name.IndexOf(@"\\");
                 }
 

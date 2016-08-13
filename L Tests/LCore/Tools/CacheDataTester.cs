@@ -1,20 +1,26 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using FluentAssertions;
+using JetBrains.Annotations;
 using LCore.Extensions;
+using LCore.LUnit;
 using LCore.Tools;
 using Xunit;
-using static LCore.LUnit.LUnit.Categories;
+using Xunit.Abstractions;
 
-namespace LCore.Tests.Tools
+namespace L_Tests.LCore.Tools
     {
-    [Trait(Category, LUnit.LUnit.Categories.Tools)]
-    public class CacheDataTest
+    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(CacheData))]
+    public partial class CacheDataTester : XUnitOutputTester, IDisposable
         {
+        public CacheDataTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+
+        public void Dispose() { }
+
         [Fact]
-        public void Test_CacheData()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(CacheData) + "." + nameof(CacheData.AddTime) + "(Int64)")]
+        public void CachingDataIsFasterThanNotCaching()
             {
             const string Key = "testcache";
 
@@ -25,10 +31,10 @@ namespace LCore.Tests.Tools
             bool Executed = false;
             Func<string, string> Test = new Func<string, string>(In =>
                 {
-                Executed.Should().BeFalse();
-                Thread.Sleep(millisecondsTimeout: 100);
-                Executed = true;
-                return In + "6";
+                    Executed.Should().BeFalse();
+                    Thread.Sleep(millisecondsTimeout: 100);
+                    Executed = true;
+                    return In + "6";
                 }).Cache(Key);
 
             /////////////////////////////////////////////////

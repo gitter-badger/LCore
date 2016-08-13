@@ -146,7 +146,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// </summary>
         /// <param name="baseInputStream">The underlying <see cref="Stream"/> providing data.</param>
         public ZipInputStream(Stream baseInputStream)
-            : base(baseInputStream, new Inflater(true))
+            : base(baseInputStream, new Inflater(noHeader: true))
             {
             this.internalReader = this.ReadingNotAvailable;
             }
@@ -301,7 +301,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                 this.entry.ExtraData = extra;
                 }
 
-            this.entry.ProcessExtraData(true);
+            this.entry.ProcessExtraData(localHeader: true);
             if (this.entry.CompressedSize >= 0)
                 {
                 this.csize = this.entry.CompressedSize;
@@ -415,7 +415,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                     var tmp = new byte[4096];
 
                     // Read will close this entry
-                    while (this.Read(tmp, 0, tmp.Length) > 0)
+                    while (this.Read(tmp, offset: 0, count: tmp.Length) > 0)
                         {
                         }
                     return;
@@ -446,7 +446,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                     }
                 }
 
-            this.CompleteCloseEntry(false);
+            this.CompleteCloseEntry(testCrc: false);
             }
 
         /// <summary>
@@ -485,7 +485,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         public override int ReadByte()
             {
             var b = new byte[1];
-            if (this.Read(b, 0, 1) <= 0)
+            if (this.Read(b, offset: 0, count: 1) <= 0)
                 {
                 return -1;
                 }
@@ -542,10 +542,10 @@ namespace ICSharpCode.SharpZipLib.Zip
                 var managed = new PkzipClassicManaged();
                 byte[] key = PkzipClassic.GenerateKeys(ZipConstants.ConvertToArray(this.password));
 
-                this.inputBuffer.CryptoTransform = managed.CreateDecryptor(key, null);
+                this.inputBuffer.CryptoTransform = managed.CreateDecryptor(key, rgbIV: null);
 
                 var cryptbuffer = new byte[ZipConstants.CryptoHeaderSize];
-                this.inputBuffer.ReadClearTextBuffer(cryptbuffer, 0, ZipConstants.CryptoHeaderSize);
+                this.inputBuffer.ReadClearTextBuffer(cryptbuffer, offset: 0, length: ZipConstants.CryptoHeaderSize);
 
                 if (cryptbuffer[ZipConstants.CryptoHeaderSize - 1] != this.entry.CryptoCheckValue)
                     {
@@ -717,7 +717,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 
             if (finished)
                 {
-                this.CompleteCloseEntry(true);
+                this.CompleteCloseEntry(testCrc: true);
                 }
 
             return count;

@@ -27,7 +27,7 @@ namespace L_Tool
             var Test = new CodeExploder(this.CodeRoot, this.CodeDynamicFolder);
             Test.BackupAllExplodeFiles();
             string Str = Test.ExplodeAllTypes();
-            MessageBox.Show($"{Str.Count('\n')} Lines Generated");
+            MessageBox.Show($"{Str.Count(Obj: '\n')} Lines Generated");
             Application.Exit();
             }
 
@@ -61,7 +61,7 @@ namespace L_Tool
 
         private void button5_Click(object Sender, EventArgs Event)
             {
-            var Test = new CodeExploder(this.CodeRoot, null);
+            var Test = new CodeExploder(this.CodeRoot, CodeExplodeDir: null);
 
             string Str = !this.textBox4.Text.IsEmpty() ?
                 Test.ExplodeAllTypes(Type => Type.Name.Contains(this.textBox4.Text)) :

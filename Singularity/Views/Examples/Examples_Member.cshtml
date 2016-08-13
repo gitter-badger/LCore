@@ -7,131 +7,133 @@
     var Comments = Model.GetComments();
     var ModelType = Model.MemberType.HasFlag(MemberTypes.TypeInfo) ? (Type)Model : Model.GetMemberType();
 }
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <span class="large-icon">@Html.FontAwesome(Singularity.Icons.GetTypeIcon(ModelType))</span>
-        <strong>Summary</strong>
-    </div>
-    <div class="panel-body">
-        @Comments.Summary
-    </div>
-</div>
-
-@if (!string.IsNullOrEmpty(Comments.Remarks))
+@if (Comments != null)
     {
     <div class="panel panel-default">
         <div class="panel-heading">
-            <span class="large-icon">@Html.FontAwesome(FontAwesomeExt.Icon.comments_o)</span>
-            <strong>Remarks</strong>
+            <span class="large-icon">@Html.FontAwesome(Singularity.Icons.GetTypeIcon(ModelType))</span>
+            <strong>Summary</strong>
         </div>
         <div class="panel-body">
-            @Comments.Remarks
+            @Comments.Summary
         </div>
     </div>
-    }
 
-@if (!Comments.Examples.IsEmpty())
-    {
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <strong>Examples</strong>
-        </div>
-        <div class="panel-body">
-            @foreach (string Comment in Comments.Examples)
-                {
-                <p>
-                    @Comment
-                </p>
-                }
-        </div>
-    </div>
-    }
-
-@if (!Comments.Exceptions.IsEmpty())
-    {
-    foreach (Set<string, string> Comment in Comments.Exceptions)
+    if (!string.IsNullOrEmpty(Comments.Remarks))
         {
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="icon">@Html.FontAwesome(Singularity.Icons.GetTypeIcon(typeof(Exception)))</span>
-                <strong>@Comment.Obj1</strong>
+                <span class="large-icon">@Html.FontAwesome(FontAwesomeExt.Icon.comments_o)</span>
+                <strong>Remarks</strong>
             </div>
             <div class="panel-body">
-                <p>
-                    @Comment.Obj2
-                </p>
+                @Comments.Remarks
             </div>
         </div>
         }
-    }
 
-
-@if (!Comments.Includes.IsEmpty())
-    {
-    foreach (Set<string, string> Include in Comments.Includes)
+    if (!Comments.Examples.IsEmpty())
         {
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="icon">@Html.FontAwesome(Singularity.Icons.GetTypeIcon(typeof(Exception)))</span>
-                <strong>@Include.Obj1</strong>
+                <strong>Examples</strong>
             </div>
             <div class="panel-body">
-                <p>
-                    @Include.Obj2
-                </p>
+                @foreach (string Comment in Comments.Examples)
+                    {
+                    <p>
+                        @Comment
+                    </p>
+                    }
             </div>
         </div>
         }
-    }
 
-@if (!Comments.Parameters.IsEmpty())
-    {
-    foreach (Set<string, string> Parameter in Comments.Parameters)
+    if (!Comments.Exceptions.IsEmpty())
         {
+        foreach (Set<string, string> Comment in Comments.Exceptions)
+            {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="icon">@Html.FontAwesome(Singularity.Icons.GetTypeIcon(typeof(Exception)))</span>
+                    <strong>@Comment.Obj1</strong>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        @Comment.Obj2
+                    </p>
+                </div>
+            </div>
+            }
+        }
+
+
+    if (!Comments.Includes.IsEmpty())
+        {
+        foreach (Set<string, string> Include in Comments.Includes)
+            {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="icon">@Html.FontAwesome(Singularity.Icons.GetTypeIcon(typeof(Exception)))</span>
+                    <strong>@Include.Obj1</strong>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        @Include.Obj2
+                    </p>
+                </div>
+            </div>
+            }
+        }
+
+    if (!Comments.Parameters.IsEmpty())
+        {
+        foreach (Set<string, string> Parameter in Comments.Parameters)
+            {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="icon">@Html.FontAwesome(Singularity.Icons.GetTypeIcon(typeof(Exception)))</span>
+                    <strong>@Parameter.Obj1</strong>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        @Parameter.Obj2
+                    </p>
+                </div>
+            </div>
+            }
+        }
+
+    if (!Comments.Permissions.IsEmpty())
+        {
+        foreach (Set<string, string> Permission in Comments.Permissions)
+            {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="icon">@Html.FontAwesome(Singularity.Icons.GetTypeIcon(typeof(Exception)))</span>
+                    <strong>@Permission.Obj1</strong>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        @Permission.Obj2
+                    </p>
+                </div>
+            </div>
+            }
+        }
+
+    if (!string.IsNullOrEmpty(Comments.Returns))
+        {
+        var ReturnType = ModelType.GetMemberType();
+
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="icon">@Html.FontAwesome(Singularity.Icons.GetTypeIcon(typeof(Exception)))</span>
-                <strong>@Parameter.Obj1</strong>
+                <span class="large-icon">@Html.FontAwesome(Singularity.Icons.GetTypeIcon(ReturnType))</span>
+                <strong>Returns</strong>
             </div>
             <div class="panel-body">
-                <p>
-                    @Parameter.Obj2
-                </p>
+                @Comments.Returns
             </div>
         </div>
         }
-    }
-
-@if (!Comments.Permissions.IsEmpty())
-    {
-    foreach (Set<string, string> Permission in Comments.Permissions)
-        {
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <span class="icon">@Html.FontAwesome(Singularity.Icons.GetTypeIcon(typeof(Exception)))</span>
-                <strong>@Permission.Obj1</strong>
-            </div>
-            <div class="panel-body">
-                <p>
-                    @Permission.Obj2
-                </p>
-            </div>
-        </div>
-        }
-    }
-
-@if (!string.IsNullOrEmpty(Comments.Returns))
-    {
-    var ReturnType = ModelType.GetMemberType();
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <span class="large-icon">@Html.FontAwesome(Singularity.Icons.GetTypeIcon(ReturnType))</span>
-            <strong>Returns</strong>
-        </div>
-        <div class="panel-body">
-            @Comments.Returns
-        </div>
-    </div>
     }

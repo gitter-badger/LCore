@@ -119,7 +119,7 @@ namespace ICSharpCode.SharpZipLib.Zip
         /// The output stream to which the archive contents are written.
         /// </param>
         public ZipOutputStream(Stream baseOutputStream)
-            : base(baseOutputStream, new Deflater(Deflater.DEFAULT_COMPRESSION, true))
+            : base(baseOutputStream, new Deflater(Deflater.DEFAULT_COMPRESSION, noZlibHeaderOrFooter: true))
             {
             }
         #endregion
@@ -373,7 +373,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                     {
                     this.crcPatchPos = this.baseOutputStream_.Position;
                     }
-                this.WriteLeInt(0); // Crc
+                this.WriteLeInt(value: 0); // Crc
 
                 if (this.patchEntryHeader)
                     {
@@ -388,8 +388,8 @@ namespace ICSharpCode.SharpZipLib.Zip
                     }
                 else
                     {
-                    this.WriteLeInt(0); // Compressed size
-                    this.WriteLeInt(0); // Uncompressed size
+                    this.WriteLeInt(value: 0); // Compressed size
+                    this.WriteLeInt(value: 0); // Uncompressed size
                     }
                 }
 
@@ -415,9 +415,9 @@ namespace ICSharpCode.SharpZipLib.Zip
                     ed.AddLeLong(-1);
                     ed.AddLeLong(-1);
                     }
-                ed.AddNewEntry(1);
+                ed.AddNewEntry(headerID: 1);
 
-                if (!ed.Find(1))
+                if (!ed.Find(headerID: 1))
                     {
                     throw new ZipException("Internal error cant find extra data");
                     }
@@ -429,7 +429,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                 }
             else
                 {
-                ed.Delete(1);
+                ed.Delete(headerID: 1);
                 }
 
             byte[] extra = ed.GetEntryData();
@@ -439,7 +439,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 
             if (name.Length > 0)
                 {
-                this.baseOutputStream_.Write(name, 0, name.Length);
+                this.baseOutputStream_.Write(name, offset: 0, count: name.Length);
                 }
 
             if (entry.LocalHeaderRequiresZip64 && this.patchEntryHeader)
@@ -449,7 +449,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 
             if (extra.Length > 0)
                 {
-                this.baseOutputStream_.Write(extra, 0, extra.Length);
+                this.baseOutputStream_.Write(extra, offset: 0, count: extra.Length);
                 }
 
             this.offset += ZipConstants.LocalHeaderBaseSize + name.Length + extra.Length;
@@ -607,8 +607,8 @@ namespace ICSharpCode.SharpZipLib.Zip
             rnd.NextBytes(cryptBuffer);
             cryptBuffer[11] = (byte)(crcValue >> 24);
 
-            this.EncryptBlock(cryptBuffer, 0, cryptBuffer.Length);
-            this.baseOutputStream_.Write(cryptBuffer, 0, cryptBuffer.Length);
+            this.EncryptBlock(cryptBuffer, offset: 0, length: cryptBuffer.Length);
+            this.baseOutputStream_.Write(cryptBuffer, offset: 0, count: cryptBuffer.Length);
             }
 
         /// <summary>
@@ -684,9 +684,9 @@ namespace ICSharpCode.SharpZipLib.Zip
                 {
                 int bufferCount = count < CopyBufferSize ? count : CopyBufferSize;
 
-                Array.Copy(buffer, offset, localBuffer, 0, bufferCount);
-                this.EncryptBlock(localBuffer, 0, bufferCount);
-                this.baseOutputStream_.Write(localBuffer, 0, bufferCount);
+                Array.Copy(buffer, offset, localBuffer, destinationIndex: 0, length: bufferCount);
+                this.EncryptBlock(localBuffer, offset: 0, length: bufferCount);
+                this.baseOutputStream_.Write(localBuffer, offset: 0, count: bufferCount);
                 count -= bufferCount;
                 offset += bufferCount;
                 }
@@ -780,11 +780,11 @@ namespace ICSharpCode.SharpZipLib.Zip
                         ed.AddLeLong(entry.Offset);
                         }
 
-                    ed.AddNewEntry(1);
+                    ed.AddNewEntry(headerID: 1);
                     }
                 else
                     {
-                    ed.Delete(1);
+                    ed.Delete(headerID: 1);
                     }
 
                 byte[] extra = ed.GetEntryData();
@@ -802,8 +802,8 @@ namespace ICSharpCode.SharpZipLib.Zip
                 this.WriteLeShort(name.Length);
                 this.WriteLeShort(extra.Length);
                 this.WriteLeShort(entryComment.Length);
-                this.WriteLeShort(0);   // disk number
-                this.WriteLeShort(0);   // internal file attributes
+                this.WriteLeShort(value: 0);   // disk number
+                this.WriteLeShort(value: 0);   // internal file attributes
                                         // external file attributes
 
                 if (entry.ExternalFileAttributes != -1)
@@ -826,17 +826,17 @@ namespace ICSharpCode.SharpZipLib.Zip
 
                 if (name.Length > 0)
                     {
-                    this.baseOutputStream_.Write(name, 0, name.Length);
+                    this.baseOutputStream_.Write(name, offset: 0, count: name.Length);
                     }
 
                 if (extra.Length > 0)
                     {
-                    this.baseOutputStream_.Write(extra, 0, extra.Length);
+                    this.baseOutputStream_.Write(extra, offset: 0, count: extra.Length);
                     }
 
                 if (entryComment.Length > 0)
                     {
-                    this.baseOutputStream_.Write(entryComment, 0, entryComment.Length);
+                    this.baseOutputStream_.Write(entryComment, offset: 0, count: entryComment.Length);
                     }
 
                 sizeEntries += ZipConstants.CentralHeaderBaseSize + name.Length + extra.Length + entryComment.Length;

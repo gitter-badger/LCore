@@ -185,7 +185,7 @@ namespace ICSharpCode.SharpZipLib.Checksums
                 throw new ArgumentNullException(nameof(buffer));
                 }
 
-            this.Update(buffer, 0, buffer.Length);
+            this.Update(buffer, offset: 0, count: buffer.Length);
             }
 
         /// <summary>

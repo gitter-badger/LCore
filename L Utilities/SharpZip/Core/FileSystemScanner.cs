@@ -488,7 +488,7 @@ namespace ICSharpCode.SharpZipLib.Core
                         {
                         if ((this.directoryFilter_ == null) || this.directoryFilter_.IsMatch(fulldir))
                             {
-                            this.ScanDir(fulldir, true);
+                            this.ScanDir(fulldir, recurse: true);
                             if (!this.alive_)
                                 {
                                 break;

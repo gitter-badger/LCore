@@ -240,7 +240,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
                 copied = input.CopyBytes(this.window, this.windowEnd, tailLen);
                 if (copied == tailLen)
                     {
-                    copied += input.CopyBytes(this.window, 0, length - tailLen);
+                    copied += input.CopyBytes(this.window, offset: 0, length: length - tailLen);
                     }
                 }
             else
@@ -317,7 +317,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
                 offset += length - WindowSize;
                 length = WindowSize;
                 }
-            Array.Copy(dictionary, offset, this.window, 0, length);
+            Array.Copy(dictionary, offset, this.window, destinationIndex: 0, length: length);
             this.windowEnd = length & WindowMask;
             }
 
