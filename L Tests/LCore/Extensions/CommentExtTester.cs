@@ -4,6 +4,7 @@ using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
@@ -70,7 +71,7 @@ namespace L_Tests.LCore.Extensions
 
             var Test = new TestInvalidMemberInfo();
             Test.GetCustomAttributes(Inherit: false).Should().BeNull();
-            Test.IsDefined(AttributeType: null, Inherit: false).Should().BeFalse();
+            Test.IsDefined(AttributeType: null, Inherit: false).ShouldBeFalse();
             Test.GetCustomAttributes(AttributeType: null, Inherit: false).Should().BeNull();
             Test.MemberType.Should().Be(default(MemberTypes));
             Test.Name.Should().BeNull();

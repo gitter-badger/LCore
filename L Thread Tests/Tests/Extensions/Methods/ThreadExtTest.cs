@@ -36,11 +36,11 @@ namespace LCore.Tests.Extensions
             lock (TestAction)
                 {
                 TestAction.Async()();
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 Thread.Sleep(millisecondsTimeout: 40);
 
-                Success.Should().BeTrue();
+                Success.ShouldBeTrue();
                 }
             }
 
@@ -58,17 +58,17 @@ namespace LCore.Tests.Extensions
             lock (TestAction)
                 {
                 TestAction.Async(TimeLimitMilliseconds: 20)();
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 Thread.Sleep(millisecondsTimeout: 40);
 
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 TestAction.Async(TimeLimitMilliseconds: 50)();
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
                 Thread.Sleep(millisecondsTimeout: 50);
 
-                Success.Should().BeTrue();
+                Success.ShouldBeTrue();
 
                 TestAction();
                 }
@@ -79,17 +79,17 @@ namespace LCore.Tests.Extensions
             lock (TestAction)
                 {
                 TestAction.Async(TimeLimitMilliseconds: 20u)();
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 Thread.Sleep(millisecondsTimeout: 40);
 
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 TestAction.Async(TimeLimitMilliseconds: 50u)();
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
                 Thread.Sleep(millisecondsTimeout: 50);
 
-                Success.Should().BeTrue();
+                Success.ShouldBeTrue();
 
                 TestAction();
                 }
@@ -100,17 +100,17 @@ namespace LCore.Tests.Extensions
             lock (TestAction)
                 {
                 TestAction.Async(TimeLimitMilliseconds: 20L)();
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 Thread.Sleep(millisecondsTimeout: 40);
 
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 TestAction.Async(TimeLimitMilliseconds: 50L)();
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
                 Thread.Sleep(millisecondsTimeout: 50);
 
-                Success.Should().BeTrue();
+                Success.ShouldBeTrue();
 
                 TestAction();
                 }
@@ -121,17 +121,17 @@ namespace LCore.Tests.Extensions
             lock (TestAction)
                 {
                 TestAction.Async(TimeLimitMilliseconds: 20uL)();
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 Thread.Sleep(millisecondsTimeout: 40);
 
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 TestAction.Async(TimeLimitMilliseconds: 50uL)();
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
                 Thread.Sleep(millisecondsTimeout: 50);
 
-                Success.Should().BeTrue();
+                Success.ShouldBeTrue();
 
                 TestAction();
                 }
@@ -142,17 +142,17 @@ namespace LCore.Tests.Extensions
             lock (TestAction)
                 {
                 TestAction.Async(TimeSpan.FromMilliseconds(value: 20))();
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 Thread.Sleep(millisecondsTimeout: 40);
 
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 TestAction.Async(TimeSpan.FromMilliseconds(value: 50))();
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
                 Thread.Sleep(millisecondsTimeout: 50);
 
-                Success.Should().BeTrue();
+                Success.ShouldBeTrue();
 
                 TestAction();
                 }
@@ -342,7 +342,7 @@ namespace LCore.Tests.Extensions
 
                 Thread.Sleep(millisecondsTimeout: 100);
 
-                Success.Should().BeTrue();
+                Success.ShouldBeTrue();
 
                 Success = false;
                 TestAction.AsyncResult(Result =>
@@ -353,7 +353,7 @@ namespace LCore.Tests.Extensions
 
                 Thread.Sleep(millisecondsTimeout: 50);
 
-                Success.Should().BeTrue();
+                Success.ShouldBeTrue();
                 }
             }
 
@@ -375,17 +375,17 @@ namespace LCore.Tests.Extensions
                 {
                 TestAction.AsyncResult(TestAction2, TimeLimitMilliseconds: 10)();
 
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 Thread.Sleep(millisecondsTimeout: 40);
 
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 TestAction.AsyncResult(TestAction2, TimeLimitMilliseconds: 50)();
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
                 Thread.Sleep(millisecondsTimeout: 50);
 
-                Success.Should().BeTrue();
+                Success.ShouldBeTrue();
 
                 TestAction();
                 }
@@ -396,17 +396,17 @@ namespace LCore.Tests.Extensions
             lock (TestAction)
                 {
                 TestAction.AsyncResult(TestAction2, TimeLimitMilliseconds: 20u)();
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 Thread.Sleep(millisecondsTimeout: 40);
 
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 TestAction.AsyncResult(TestAction2, TimeLimitMilliseconds: 50u)();
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
                 Thread.Sleep(millisecondsTimeout: 50);
 
-                Success.Should().BeTrue();
+                Success.ShouldBeTrue();
 
                 TestAction();
                 }
@@ -417,17 +417,17 @@ namespace LCore.Tests.Extensions
             lock (TestAction)
                 {
                 TestAction.AsyncResult(TestAction2, TimeLimitMilliseconds: 20L)();
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 Thread.Sleep(millisecondsTimeout: 40);
 
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 TestAction.AsyncResult(TestAction2, TimeLimitMilliseconds: 50L)();
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
                 Thread.Sleep(millisecondsTimeout: 50);
 
-                Success.Should().BeTrue();
+                Success.ShouldBeTrue();
 
                 TestAction();
                 }
@@ -438,17 +438,17 @@ namespace LCore.Tests.Extensions
             lock (TestAction)
                 {
                 TestAction.AsyncResult(TestAction2, TimeLimitMilliseconds: 20uL)();
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 Thread.Sleep(millisecondsTimeout: 40);
 
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 TestAction.AsyncResult(TestAction2, TimeLimitMilliseconds: 50uL)();
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
                 Thread.Sleep(millisecondsTimeout: 50);
 
-                Success.Should().BeTrue();
+                Success.ShouldBeTrue();
 
                 TestAction();
                 }
@@ -459,17 +459,17 @@ namespace LCore.Tests.Extensions
             lock (TestAction)
                 {
                 TestAction.AsyncResult(TestAction2, TimeSpan.FromMilliseconds(value: 20))();
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 Thread.Sleep(millisecondsTimeout: 40);
 
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 TestAction.AsyncResult(TestAction2, TimeSpan.FromMilliseconds(value: 50))();
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
                 Thread.Sleep(millisecondsTimeout: 50);
 
-                Success.Should().BeTrue();
+                Success.ShouldBeTrue();
 
                 TestAction();
                 }
@@ -494,17 +494,17 @@ namespace LCore.Tests.Extensions
                 {
                 TestAction.AsyncResult(ResultFunction, TimeLimitMilliseconds: 20)("abc");
 
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 Thread.Sleep(millisecondsTimeout: 40);
 
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 TestAction.AsyncResult(ResultFunction, TimeLimitMilliseconds: 50)("abc");
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
                 Thread.Sleep(millisecondsTimeout: 60);
 
-                Success.Should().BeTrue();
+                Success.ShouldBeTrue();
 
                 TestAction("abc");
                 }
@@ -515,17 +515,17 @@ namespace LCore.Tests.Extensions
             lock (TestAction)
                 {
                 TestAction.AsyncResult(ResultFunction, TimeLimitMilliseconds: 20u)("abc");
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 Thread.Sleep(millisecondsTimeout: 40);
 
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 TestAction.AsyncResult(ResultFunction, TimeLimitMilliseconds: 50u)("abc");
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
                 Thread.Sleep(millisecondsTimeout: 60);
 
-                Success.Should().BeTrue();
+                Success.ShouldBeTrue();
 
                 TestAction("abc");
                 }
@@ -536,17 +536,17 @@ namespace LCore.Tests.Extensions
             lock (TestAction)
                 {
                 TestAction.AsyncResult(ResultFunction, TimeLimitMilliseconds: 20L)("abc");
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 Thread.Sleep(millisecondsTimeout: 40);
 
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 TestAction.AsyncResult(ResultFunction, TimeLimitMilliseconds: 50L)("abc");
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
                 Thread.Sleep(millisecondsTimeout: 50);
 
-                Success.Should().BeTrue();
+                Success.ShouldBeTrue();
 
                 TestAction("abc");
                 }
@@ -557,17 +557,17 @@ namespace LCore.Tests.Extensions
             lock (TestAction)
                 {
                 TestAction.AsyncResult(ResultFunction, TimeLimitMilliseconds: 20uL)("abc");
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 Thread.Sleep(millisecondsTimeout: 40);
 
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 TestAction.AsyncResult(ResultFunction, TimeLimitMilliseconds: 50uL)("abc");
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
                 Thread.Sleep(millisecondsTimeout: 50);
 
-                Success.Should().BeTrue();
+                Success.ShouldBeTrue();
 
                 TestAction("abc");
                 }
@@ -578,17 +578,17 @@ namespace LCore.Tests.Extensions
             lock (TestAction)
                 {
                 TestAction.AsyncResult(ResultFunction, TimeSpan.FromMilliseconds(value: 20))("abc");
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 Thread.Sleep(millisecondsTimeout: 40);
 
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
 
                 TestAction.AsyncResult(ResultFunction, TimeSpan.FromMilliseconds(value: 50))("abc");
-                Success.Should().BeFalse();
+                Success.ShouldBeFalse();
                 Thread.Sleep(millisecondsTimeout: 50);
 
-                Success.Should().BeTrue();
+                Success.ShouldBeTrue();
 
                 TestAction("abc");
                 }

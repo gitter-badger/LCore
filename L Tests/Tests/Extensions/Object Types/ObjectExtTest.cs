@@ -31,11 +31,11 @@ namespace LCore.Tests.Extensions
             {
             const string Test = "";
 
-            Test.HasProperty(nameof(string.Length)).Should().BeTrue();
-            Test.HasProperty("no i dont").Should().BeFalse();
-            Test.HasProperty("").Should().BeFalse();
-            Test.HasProperty(PropertyName: null).Should().BeFalse();
-            ((string) null).HasProperty(nameof(string.Length)).Should().BeFalse();
+            Test.HasProperty(nameof(string.Length)).ShouldBeTrue();
+            Test.HasProperty("no i dont").ShouldBeFalse();
+            Test.HasProperty("").ShouldBeFalse();
+            Test.HasProperty(PropertyName: null).ShouldBeFalse();
+            ((string) null).HasProperty(nameof(string.Length)).ShouldBeFalse();
             }
 
 
@@ -362,21 +362,21 @@ namespace LCore.Tests.Extensions
 
             Func<int, bool> Test2 = Test.FN_If();
 
-            Test2(arg: 0).Should().BeFalse();
-            Test2(arg: 1).Should().BeFalse();
-            Test2(arg: 2).Should().BeFalse();
-            Test2(arg: 3).Should().BeFalse();
-            Test2(arg: 4).Should().BeFalse();
-            Test2(arg: 5).Should().BeTrue();
-            Test2(arg: 6).Should().BeFalse();
+            Test2(arg: 0).ShouldBeFalse();
+            Test2(arg: 1).ShouldBeFalse();
+            Test2(arg: 2).ShouldBeFalse();
+            Test2(arg: 3).ShouldBeFalse();
+            Test2(arg: 4).ShouldBeFalse();
+            Test2(arg: 5).ShouldBeTrue();
+            Test2(arg: 6).ShouldBeFalse();
 
             string Test3 = null;
 
             Func<string, bool> Test4 = Test3.FN_If();
 
-            Test4("").Should().BeFalse();
-            Test4("aaa").Should().BeFalse();
-            Test4(arg: null).Should().BeTrue();
+            Test4("").ShouldBeFalse();
+            Test4("aaa").ShouldBeFalse();
+            Test4(arg: null).ShouldBeTrue();
             }
 
 
@@ -396,13 +396,13 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_SafeEquals()
             {
-            4.SafeEquals(Obj: 5).Should().BeFalse();
-            5.SafeEquals(Obj: 5).Should().BeTrue();
-            5f.SafeEquals(Obj: 5.5f).Should().BeFalse();
-            5f.SafeEquals(Obj: 5f).Should().BeTrue();
-            "nice".SafeEquals("nice").Should().BeTrue();
-            ((string) null).SafeEquals("nice").Should().BeFalse();
-            ((string) null).SafeEquals(Obj: null).Should().BeTrue();
+            4.SafeEquals(Obj: 5).ShouldBeFalse();
+            5.SafeEquals(Obj: 5).ShouldBeTrue();
+            5f.SafeEquals(Obj: 5.5f).ShouldBeFalse();
+            5f.SafeEquals(Obj: 5f).ShouldBeTrue();
+            "nice".SafeEquals("nice").ShouldBeTrue();
+            ((string) null).SafeEquals("nice").ShouldBeFalse();
+            ((string) null).SafeEquals(Obj: null).ShouldBeTrue();
             }
 
         [Fact]

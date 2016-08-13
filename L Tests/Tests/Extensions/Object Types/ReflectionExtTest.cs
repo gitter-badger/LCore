@@ -142,7 +142,7 @@ namespace LCore.Tests.Extensions
             Member.ReflectedType.Should().BeNull();
             Member.GetCustomAttributes(AttributeType: null, Inherit: false).Should().BeNull();
             Member.GetCustomAttributes(Inherit: false).Should().BeNull();
-            Member.IsDefined(AttributeType: null, Inherit: false).Should().BeFalse();
+            Member.IsDefined(AttributeType: null, Inherit: false).ShouldBeFalse();
             }
 
         [Fact]
@@ -367,60 +367,60 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_HasAttribute()
             {
-            ((Type)null).HasAttribute<FriendlyNameAttribute>().Should().BeFalse();
-            ((Type)null).HasAttribute<FriendlyNameAttribute>(IncludeBaseClasses: true).Should().BeFalse();
-            ((Type)null).HasAttribute(typeof(FriendlyNameAttribute), IncludeBaseClasses: true).Should().BeFalse();
+            ((Type)null).HasAttribute<FriendlyNameAttribute>().ShouldBeFalse();
+            ((Type)null).HasAttribute<FriendlyNameAttribute>(IncludeBaseClasses: true).ShouldBeFalse();
+            ((Type)null).HasAttribute(typeof(FriendlyNameAttribute), IncludeBaseClasses: true).ShouldBeFalse();
 
-            typeof(TestClass).HasAttribute<FriendlyNameAttribute>().Should().BeTrue();
-            typeof(TestClass).HasAttribute<FriendlyNameAttribute>(IncludeBaseClasses: true).Should().BeTrue();
-            typeof(TestClass).HasAttribute<FriendlyNameAttribute>(IncludeBaseClasses: false).Should().BeTrue();
-            typeof(TestClass).HasAttribute<IFriendlyName>().Should().BeTrue();
-            typeof(TestClass).HasAttribute<IFriendlyName>(IncludeBaseClasses: true).Should().BeTrue();
-            typeof(TestClass).HasAttribute<IFriendlyName>(IncludeBaseClasses: false).Should().BeTrue();
-            typeof(TestClass).HasAttribute<TestClassAttribute>(IncludeBaseClasses: true).Should().BeFalse();
-            typeof(TestClass).HasAttribute<TestClassAttribute>(IncludeBaseClasses: false).Should().BeFalse();
+            typeof(TestClass).HasAttribute<FriendlyNameAttribute>().ShouldBeTrue();
+            typeof(TestClass).HasAttribute<FriendlyNameAttribute>(IncludeBaseClasses: true).ShouldBeTrue();
+            typeof(TestClass).HasAttribute<FriendlyNameAttribute>(IncludeBaseClasses: false).ShouldBeTrue();
+            typeof(TestClass).HasAttribute<IFriendlyName>().ShouldBeTrue();
+            typeof(TestClass).HasAttribute<IFriendlyName>(IncludeBaseClasses: true).ShouldBeTrue();
+            typeof(TestClass).HasAttribute<IFriendlyName>(IncludeBaseClasses: false).ShouldBeTrue();
+            typeof(TestClass).HasAttribute<TestClassAttribute>(IncludeBaseClasses: true).ShouldBeFalse();
+            typeof(TestClass).HasAttribute<TestClassAttribute>(IncludeBaseClasses: false).ShouldBeFalse();
 
             L.Ref.Member<TestClass>(Test => Test.Test2).HasAttribute<NotMappedAttribute>(IncludeBaseClasses: false)
-                .Should().BeFalse();
+                .ShouldBeFalse();
             L.Ref.Member<TestClass>(Test => Test.Test2).HasAttribute<NotMappedAttribute>(IncludeBaseClasses: true)
-                .Should().BeTrue();
+                .ShouldBeTrue();
 
 
-            typeof(TestClass).HasAttribute(typeof(FriendlyNameAttribute), IncludeBaseClasses: true).Should().BeTrue();
-            typeof(TestClass).HasAttribute(typeof(FriendlyNameAttribute), IncludeBaseClasses: false).Should().BeTrue();
-            typeof(TestClass).HasAttribute(typeof(IFriendlyName), IncludeBaseClasses: true).Should().BeTrue();
-            typeof(TestClass).HasAttribute(typeof(IFriendlyName), IncludeBaseClasses: false).Should().BeTrue();
-            typeof(TestClass).HasAttribute(typeof(TestClassAttribute), IncludeBaseClasses: true).Should().BeFalse();
-            typeof(TestClass).HasAttribute(typeof(TestClassAttribute), IncludeBaseClasses: false).Should().BeFalse();
+            typeof(TestClass).HasAttribute(typeof(FriendlyNameAttribute), IncludeBaseClasses: true).ShouldBeTrue();
+            typeof(TestClass).HasAttribute(typeof(FriendlyNameAttribute), IncludeBaseClasses: false).ShouldBeTrue();
+            typeof(TestClass).HasAttribute(typeof(IFriendlyName), IncludeBaseClasses: true).ShouldBeTrue();
+            typeof(TestClass).HasAttribute(typeof(IFriendlyName), IncludeBaseClasses: false).ShouldBeTrue();
+            typeof(TestClass).HasAttribute(typeof(TestClassAttribute), IncludeBaseClasses: true).ShouldBeFalse();
+            typeof(TestClass).HasAttribute(typeof(TestClassAttribute), IncludeBaseClasses: false).ShouldBeFalse();
 
             L.Ref.Member<TestClass>(Test => Test.Test2).HasAttribute(typeof(NotMappedAttribute), IncludeBaseClasses: false)
-                .Should().BeFalse();
+                .ShouldBeFalse();
             L.Ref.Member<TestClass>(Test => Test.Test2).HasAttribute(typeof(NotMappedAttribute), IncludeBaseClasses: true)
-                .Should().BeTrue();
+                .ShouldBeTrue();
             }
 
 
         [Fact]
         public void Test_HasInterface()
             {
-            ((Type)null).HasInterface<IFriendlyName>().Should().BeFalse();
-            ((Type)null).HasInterface(typeof(IFriendlyName)).Should().BeFalse();
+            ((Type)null).HasInterface<IFriendlyName>().ShouldBeFalse();
+            ((Type)null).HasInterface(typeof(IFriendlyName)).ShouldBeFalse();
 
-            typeof(TestClass).HasInterface<ITest2>().Should().BeTrue();
-            typeof(TestClass).HasInterface(typeof(ITest2)).Should().BeTrue();
+            typeof(TestClass).HasInterface<ITest2>().ShouldBeTrue();
+            typeof(TestClass).HasInterface(typeof(ITest2)).ShouldBeTrue();
 
-            typeof(TestClass).HasInterface<IFriendlyName>().Should().BeFalse();
-            typeof(TestClass).HasInterface(typeof(IFriendlyName)).Should().BeFalse();
+            typeof(TestClass).HasInterface<IFriendlyName>().ShouldBeFalse();
+            typeof(TestClass).HasInterface(typeof(IFriendlyName)).ShouldBeFalse();
 
-            typeof(TestClass).HasInterface<ITest>().Should().BeTrue();
-            typeof(TestClass).HasInterface(typeof(ITest)).Should().BeTrue();
+            typeof(TestClass).HasInterface<ITest>().ShouldBeTrue();
+            typeof(TestClass).HasInterface(typeof(ITest)).ShouldBeTrue();
 
             // Static types cant have interfaces.
-            typeof(TestExt).HasInterface(typeof(ITest)).Should().BeFalse();
-            typeof(TestExt).HasInterface<ITest>().Should().BeFalse();
+            typeof(TestExt).HasInterface(typeof(ITest)).ShouldBeFalse();
+            typeof(TestExt).HasInterface<ITest>().ShouldBeFalse();
 
-            //            typeof(BadStatic).HasInterface(typeof(ITest)).Should().BeFalse();
-            //            typeof(BadStatic).HasInterface<ITest>().Should().BeFalse();
+            //            typeof(BadStatic).HasInterface(typeof(ITest)).ShouldBeFalse();
+            //            typeof(BadStatic).HasInterface<ITest>().ShouldBeFalse();
             }
 
 
@@ -430,51 +430,51 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_HasSetter()
             {
-            ((MemberInfo)null).HasSetter().Should().BeFalse();
+            ((MemberInfo)null).HasSetter().ShouldBeFalse();
 
             L.Ref.Member<TestClass>(Test => Test.Test)
                 .Should().NotBeNull().And.Subject.As<MemberInfo>()
-                .HasSetter().Should().BeTrue();
+                .HasSetter().ShouldBeTrue();
 
             L.Ref.Member<TestClass>(Test => Test.Test2)
                 .Should().NotBeNull().And.Subject.As<MemberInfo>()
-                .HasSetter().Should().BeTrue();
+                .HasSetter().ShouldBeTrue();
 
             L.Ref.Member<TestClass>(Test => Test.Test6)
                 .Should().NotBeNull().And.Subject.As<MemberInfo>()
-                .HasSetter().Should().BeTrue();
+                .HasSetter().ShouldBeTrue();
 
             L.Ref.Constant<TestClass>(nameof(TestClass.Test8))
                 .Should().NotBeNull().And.Subject.As<MemberInfo>()
-                .HasSetter().Should().BeFalse();
+                .HasSetter().ShouldBeFalse();
 
             L.Ref.Member<TestClass>(Test => TestClass.Test9)
                 .Should().NotBeNull().And.Subject.As<MemberInfo>()
-                .HasSetter().Should().BeTrue();
+                .HasSetter().ShouldBeTrue();
 
             L.Ref.Member<TestClass>(Test => TestClass.Test10)
                 .Should().NotBeNull().And.Subject.As<MemberInfo>()
-                .HasSetter().Should().BeFalse();
+                .HasSetter().ShouldBeFalse();
 
             L.Ref.Member<TestClass>(Test => Test.Test11)
                 .Should().NotBeNull().And.Subject.As<MemberInfo>()
-                .HasSetter().Should().BeFalse();
+                .HasSetter().ShouldBeFalse();
 
             L.Ref.Member<TestClass>(Test => Test.Test12)
                 .Should().NotBeNull().And.Subject.As<MemberInfo>()
-                .HasSetter().Should().BeFalse();
+                .HasSetter().ShouldBeFalse();
 
             L.Ref.Member<TestClass>(Test => Test.Test13)
                 .Should().NotBeNull().And.Subject.As<MemberInfo>()
-                .HasSetter().Should().BeFalse();
+                .HasSetter().ShouldBeFalse();
 
             L.Ref.Method<TestClass>(Test => Test.Test5(""))
                 .Should().NotBeNull().And.Subject.As<MemberInfo>()
-                .HasSetter().Should().BeFalse();
+                .HasSetter().ShouldBeFalse();
 
             L.Ref.Event<TestClass>(nameof(TestClass.Test7))
                 .Should().NotBeNull().And.Subject.As<MemberInfo>()
-                .HasSetter().Should().BeFalse();
+                .HasSetter().ShouldBeFalse();
 
             L.A(() => new TestMember().HasSetter()).ShouldFail();
             }
@@ -515,27 +515,27 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_IsType()
             {
-            ((object)null).IsType<object>().Should().BeFalse();
-            ((object)null).IsType(typeof(object)).Should().BeFalse();
+            ((object)null).IsType<object>().ShouldBeFalse();
+            ((object)null).IsType(typeof(object)).ShouldBeFalse();
 
-            "".IsType<string>().Should().BeTrue();
-            "".IsType(typeof(string)).Should().BeTrue();
-            "".IsType<object>().Should().BeTrue();
-            "".IsType(typeof(object)).Should().BeTrue();
-            "".IsType<IConvertible>().Should().BeTrue();
-            "".IsType(typeof(IConvertible)).Should().BeTrue();
+            "".IsType<string>().ShouldBeTrue();
+            "".IsType(typeof(string)).ShouldBeTrue();
+            "".IsType<object>().ShouldBeTrue();
+            "".IsType(typeof(object)).ShouldBeTrue();
+            "".IsType<IConvertible>().ShouldBeTrue();
+            "".IsType(typeof(IConvertible)).ShouldBeTrue();
 
-            typeof(string).IsType<string>().Should().BeTrue();
-            typeof(string).IsType<IConvertible>().Should().BeTrue();
-            typeof(string).IsType<char>().Should().BeFalse();
-            typeof(string).IsType(typeof(string)).Should().BeTrue();
-            typeof(string).IsType(typeof(IConvertible)).Should().BeTrue();
-            typeof(string).IsType(typeof(char)).Should().BeFalse();
+            typeof(string).IsType<string>().ShouldBeTrue();
+            typeof(string).IsType<IConvertible>().ShouldBeTrue();
+            typeof(string).IsType<char>().ShouldBeFalse();
+            typeof(string).IsType(typeof(string)).ShouldBeTrue();
+            typeof(string).IsType(typeof(IConvertible)).ShouldBeTrue();
+            typeof(string).IsType(typeof(char)).ShouldBeFalse();
 
-            typeof(TestClass).IsType<TestBaseClass>().Should().BeTrue();
-            typeof(TestClass).IsType<TestBaseClass2>().Should().BeTrue();
-            typeof(TestClass).IsType<object>().Should().BeTrue();
-            typeof(TestClass).IsType<string>().Should().BeFalse();
+            typeof(TestClass).IsType<TestBaseClass>().ShouldBeTrue();
+            typeof(TestClass).IsType<TestBaseClass2>().ShouldBeTrue();
+            typeof(TestClass).IsType<object>().ShouldBeTrue();
+            typeof(TestClass).IsType<string>().ShouldBeFalse();
             }
 
 
@@ -693,13 +693,13 @@ namespace LCore.Tests.Extensions
             var Test4 = typeof(TestBaseClass);
 
             // ReSharper disable once ExpressionIsAlwaysNull
-            Test1.TypeEquals(Compare: null).Should().BeFalse();
-            Test2.TypeEquals(Compare: null).Should().BeFalse();
-            Test2.TypeEquals(Test2).Should().BeTrue();
-            Test3.TypeEquals(Test3).Should().BeTrue();
-            Test4.TypeEquals(Test4).Should().BeTrue();
-            Test3.TypeEquals(Test4).Should().BeFalse();
-            Test4.TypeEquals(Test3).Should().BeFalse();
+            Test1.TypeEquals(Compare: null).ShouldBeFalse();
+            Test2.TypeEquals(Compare: null).ShouldBeFalse();
+            Test2.TypeEquals(Test2).ShouldBeTrue();
+            Test3.TypeEquals(Test3).ShouldBeTrue();
+            Test4.TypeEquals(Test4).ShouldBeTrue();
+            Test3.TypeEquals(Test4).ShouldBeFalse();
+            Test4.TypeEquals(Test3).ShouldBeFalse();
             }
 
 
@@ -862,25 +862,25 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_HasIndexGetter()
             {
-            typeof(TestClassIndexer).HasIndexGetter<int>().Should().BeTrue();
-            typeof(TestClassIndexer).HasIndexGetter<string>().Should().BeTrue();
-            typeof(TestClassIndexer).HasIndexGetter<object>().Should().BeFalse();
+            typeof(TestClassIndexer).HasIndexGetter<int>().ShouldBeTrue();
+            typeof(TestClassIndexer).HasIndexGetter<string>().ShouldBeTrue();
+            typeof(TestClassIndexer).HasIndexGetter<object>().ShouldBeFalse();
 
-            typeof(TestClassIndexer).HasIndexGetter<int, string>().Should().BeTrue();
-            typeof(TestClassIndexer).HasIndexGetter<string, int?>().Should().BeTrue();
-            typeof(TestClassIndexer).HasIndexGetter<string, string>().Should().BeFalse();
-            typeof(TestClassIndexer).HasIndexGetter<int, int>().Should().BeFalse();
-            typeof(TestClassIndexer).HasIndexGetter<object, object>().Should().BeFalse();
+            typeof(TestClassIndexer).HasIndexGetter<int, string>().ShouldBeTrue();
+            typeof(TestClassIndexer).HasIndexGetter<string, int?>().ShouldBeTrue();
+            typeof(TestClassIndexer).HasIndexGetter<string, string>().ShouldBeFalse();
+            typeof(TestClassIndexer).HasIndexGetter<int, int>().ShouldBeFalse();
+            typeof(TestClassIndexer).HasIndexGetter<object, object>().ShouldBeFalse();
             }
 
         [Fact]
         public void Test_HasIndexSetter()
             {
-            typeof(TestClassIndexer).HasIndexSetter<int, string>().Should().BeTrue();
-            typeof(TestClassIndexer).HasIndexSetter<string, int?>().Should().BeFalse();
-            typeof(TestClassIndexer).HasIndexSetter<string, string>().Should().BeFalse();
-            typeof(TestClassIndexer).HasIndexSetter<int, int>().Should().BeFalse();
-            typeof(TestClassIndexer).HasIndexSetter<object, object>().Should().BeFalse();
+            typeof(TestClassIndexer).HasIndexSetter<int, string>().ShouldBeTrue();
+            typeof(TestClassIndexer).HasIndexSetter<string, int?>().ShouldBeFalse();
+            typeof(TestClassIndexer).HasIndexSetter<string, string>().ShouldBeFalse();
+            typeof(TestClassIndexer).HasIndexSetter<int, int>().ShouldBeFalse();
+            typeof(TestClassIndexer).HasIndexSetter<object, object>().ShouldBeFalse();
             }
 
         /// <exception cref="TargetException">In the .NET for Windows Store apps or the Portable Class Library, catch <see cref="T:System.Exception" /> instead.The <paramref>

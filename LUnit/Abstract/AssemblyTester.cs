@@ -156,10 +156,12 @@ namespace LCore.LUnit
             Type[] StaticTypes = Types.Select(Type => Type.IsStatic());
             Type[] NonStaticTypes = Types.Select(Type => Type.IsClass && !Type.IsStatic());
 
+            List<string> Out = new List<string>();
+
             if (NonStaticTypes.Length > 0)
                 {
-                uint TotalCoverage = 0;
-                this._Output.WriteLine($"Classes:                        Total Coverage: {TotalCoverage}");
+                var AllCoverage = new List<uint>();
+                // Out.Add($"Classes:                        Total Coverage: {TotalCoverage}");
                 foreach (var Type in NonStaticTypes)
                     {
                     var TestData = Type.GetTestData(this.TestAssemblies);
@@ -167,13 +169,15 @@ namespace LCore.LUnit
                     if (TestData.MembersPresent > 0)
                         {
                         uint Coverage = TestData.CoveragePercent;
-
-                        this._Output.WriteLine($"{Type.FullyQualifiedName().Pad(Length: 45)}({$"{Coverage}".AlignRight(Length: 3)}%)");
+                        AllCoverage.Add(Coverage);
+                        Out.Add($"{Type.FullyQualifiedName().Pad(Length: 45)}({$"{Coverage}".AlignRight(Length: 3)}%)");
 
                         TestData.MissingMemberInvocations.Each(Member => this._Output.WriteLine($"-{Member}"));
                         }
                     }
-                this._Output.WriteLine("");
+
+                Out.Insert(0, $"Classes:                        Total Coverage: {AllCoverage.Average()}");
+                Out.Add("");
                 }
 
             if (StaticTypes.Length > 0)

@@ -373,33 +373,33 @@ namespace LCore.Tests.Extensions
             ((ByteNumber) 5).CompareTo((byte) 5).Should().Be(expected: 0);
             ((ByteNumber) 5).CompareTo("5").Should().Be(expected: 0);
 
-            ((ByteNumber) 5 < 3).Should().BeFalse();
-            ((ByteNumber) 5 < 5).Should().BeFalse();
-            ((ByteNumber) 5 < 7).Should().BeTrue();
+            ((ByteNumber) 5 < 3).ShouldBeFalse();
+            ((ByteNumber) 5 < 5).ShouldBeFalse();
+            ((ByteNumber) 5 < 7).ShouldBeTrue();
 
-            ((ByteNumber) 5 <= 3).Should().BeFalse();
-            ((ByteNumber) 5 <= 5).Should().BeTrue();
-            ((ByteNumber) 5 <= 7).Should().BeTrue();
+            ((ByteNumber) 5 <= 3).ShouldBeFalse();
+            ((ByteNumber) 5 <= 5).ShouldBeTrue();
+            ((ByteNumber) 5 <= 7).ShouldBeTrue();
 
-            ((ByteNumber) 5 > 3).Should().BeTrue();
-            ((ByteNumber) 5 > 5).Should().BeFalse();
-            ((ByteNumber) 5 > 7).Should().BeFalse();
+            ((ByteNumber) 5 > 3).ShouldBeTrue();
+            ((ByteNumber) 5 > 5).ShouldBeFalse();
+            ((ByteNumber) 5 > 7).ShouldBeFalse();
 
-            ((ByteNumber) 5 >= 3).Should().BeTrue();
-            ((ByteNumber) 5 >= 5).Should().BeTrue();
-            ((ByteNumber) 5 >= 7).Should().BeFalse();
+            ((ByteNumber) 5 >= 3).ShouldBeTrue();
+            ((ByteNumber) 5 >= 5).ShouldBeTrue();
+            ((ByteNumber) 5 >= 7).ShouldBeFalse();
 
 
             ((ByteNumber) 5).CompareTo((byte) 7).Should().BeLessThan(expected: 0);
             ((ByteNumber) 5).CompareTo((byte) 5).Should().Be(expected: 0);
             ((ByteNumber) 5).CompareTo("5").Should().Be(expected: 0);
 
-            ((ByteNumber) 5).Equals((Number) (ByteNumber) 5).Should().BeTrue();
-            ((ByteNumber) 5).Equals(Obj: null).Should().BeFalse();
+            ((ByteNumber) 5).Equals((Number) (ByteNumber) 5).ShouldBeTrue();
+            ((ByteNumber) 5).Equals(Obj: null).ShouldBeFalse();
 
             ByteNumber Test = 5;
-            Test.Equals((object) Test).Should().BeTrue();
-            Test.Equals(typeof(void)).Should().BeFalse();
+            Test.Equals((object) Test).ShouldBeTrue();
+            Test.Equals(typeof(void)).ShouldBeFalse();
 
 
             // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
@@ -416,14 +416,14 @@ namespace LCore.Tests.Extensions
             // ((ByteNumber)5 * "4.0443e-2").Should().Be((FloatNumber)5030.601);
             // ((ByteNumber)5 * "5.5e-3" + "3" + "5000.101").Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)5030.601m);
 
-            ((Number) null == (Number) null).Should().BeTrue();
-            ((Number) null == (Number) (ByteNumber) 5).Should().BeFalse();
-            ((Number) (ByteNumber) 5 == (Number) null).Should().BeFalse();
-            ((Number) (ByteNumber) 5 == (Number) (ByteNumber) 5).Should().BeTrue();
-            ((Number) null != (Number) null).Should().BeFalse();
-            ((Number) null != (Number) (ByteNumber) 5).Should().BeTrue();
-            ((Number) (ByteNumber) 5 != (Number) null).Should().BeTrue();
-            ((Number) (ByteNumber) 5 != (Number) (ByteNumber) 5).Should().BeFalse();
+            ((Number) null == (Number) null).ShouldBeTrue();
+            ((Number) null == (Number) (ByteNumber) 5).ShouldBeFalse();
+            ((Number) (ByteNumber) 5 == (Number) null).ShouldBeFalse();
+            ((Number) (ByteNumber) 5 == (Number) (ByteNumber) 5).ShouldBeTrue();
+            ((Number) null != (Number) null).ShouldBeFalse();
+            ((Number) null != (Number) (ByteNumber) 5).ShouldBeTrue();
+            ((Number) (ByteNumber) 5 != (Number) null).ShouldBeTrue();
+            ((Number) (ByteNumber) 5 != (Number) (ByteNumber) 5).ShouldBeFalse();
 
 
             ((Number) (ByteNumber) 5 + (IConvertible) 3).Should().Be((ByteNumber) 8);

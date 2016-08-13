@@ -40,8 +40,8 @@ namespace LCore.Tests.Extensions
             {
             int[] Test = {1, 5, 7, 3, 4, 7, 4, 7, 10};
 
-            ((IEnumerable) Test).All((Func<object, bool>) (o => (int) o < 15)).Should().BeTrue();
-            ((IEnumerable) Test).All((Func<object, bool>) (o => (int) o < 10)).Should().BeFalse();
+            ((IEnumerable) Test).All((Func<object, bool>) (o => (int) o < 15)).ShouldBeTrue();
+            ((IEnumerable) Test).All((Func<object, bool>) (o => (int) o < 10)).ShouldBeFalse();
 
             int Count = 0;
 
@@ -50,29 +50,29 @@ namespace LCore.Tests.Extensions
                 i.Should().Be(Count);
                 Count++;
                 return (int) o < 15;
-                })).Should().BeTrue();
+                })).ShouldBeTrue();
             Count = 0;
             ((IEnumerable) Test).All((Func<int, object, bool>) ((i, o) =>
                 {
                 i.Should().Be(Count);
                 Count++;
                 return (int) o < 10;
-                })).Should().BeFalse();
+                })).ShouldBeFalse();
 
-            Test.All((i1, i2) => i2 < 11).Should().BeTrue();
-            Test.All((i1, i2) => i2 < 10).Should().BeFalse();
+            Test.All((i1, i2) => i2 < 11).ShouldBeTrue();
+            Test.All((i1, i2) => i2 < 10).ShouldBeFalse();
 
-            Test.All((i, i2) => i2 < 15).Should().BeTrue();
-            Test.All((i, i2) => i2 < 10).Should().BeFalse();
+            Test.All((i, i2) => i2 < 15).ShouldBeTrue();
+            Test.All((i, i2) => i2 < 10).ShouldBeFalse();
 
-            ((IEnumerable) Test).All<int>((i, o) => o < 15).Should().BeTrue();
-            ((IEnumerable) Test).All<int>((i, o) => o < 10).Should().BeFalse();
+            ((IEnumerable) Test).All<int>((i, o) => o < 15).ShouldBeTrue();
+            ((IEnumerable) Test).All<int>((i, o) => o < 10).ShouldBeFalse();
 
-            ((IEnumerable<int>) Test).All<int>((i, o) => o < 15).Should().BeTrue();
-            ((IEnumerable<int>) Test).All<int>((i, o) => o < 10).Should().BeFalse();
+            ((IEnumerable<int>) Test).All<int>((i, o) => o < 15).ShouldBeTrue();
+            ((IEnumerable<int>) Test).All<int>((i, o) => o < 10).ShouldBeFalse();
 
-            ((IEnumerable<int>) Test).All<int>(o => o < 15).Should().BeTrue();
-            ((IEnumerable<int>) Test).All<int>(o => o < 10).Should().BeFalse();
+            ((IEnumerable<int>) Test).All<int>(o => o < 15).ShouldBeTrue();
+            ((IEnumerable<int>) Test).All<int>(o => o < 10).ShouldBeFalse();
             }
 
 
@@ -348,18 +348,18 @@ namespace LCore.Tests.Extensions
             int[] Test2 = Test1.Array();
             int[] Test3 = {5, 8, 3, 7, 84, 356, 2};
 
-            Test1.Equivalent(Test2).Should().BeTrue();
-            Test1.Equivalent(Test3).Should().BeFalse();
+            Test1.Equivalent(Test2).ShouldBeTrue();
+            Test1.Equivalent(Test3).ShouldBeFalse();
 
-            ((int[]) null).Equivalent(Test2).Should().BeFalse();
-            Test1.Equivalent((int[]) null).Should().BeFalse();
-            ((int[]) null).Equivalent((int[]) null).Should().BeTrue();
+            ((int[]) null).Equivalent(Test2).ShouldBeFalse();
+            Test1.Equivalent((int[]) null).ShouldBeFalse();
+            ((int[]) null).Equivalent((int[]) null).ShouldBeTrue();
 
 
-            "abc".Equivalent("abc").Should().BeTrue();
-            "abc".Equivalent("abcd").Should().BeFalse();
-            ((string) null).Equivalent("abcd").Should().BeFalse();
-            "abc".Equivalent((string) null).Should().BeFalse();
+            "abc".Equivalent("abc").ShouldBeTrue();
+            "abc".Equivalent("abcd").ShouldBeFalse();
+            ((string) null).Equivalent("abcd").ShouldBeFalse();
+            "abc".Equivalent((string) null).ShouldBeFalse();
             }
 
         [Fact]
@@ -752,10 +752,10 @@ namespace LCore.Tests.Extensions
                 "a", 1, 2, 3, 4, 5, null
                 };
 
-            Test.Has("a").Should().BeTrue();
-            Test.Has(Obj: 1).Should().BeTrue();
-            Test.Has(Obj: 1f).Should().BeFalse();
-            Test.Has((object) null).Should().BeTrue();
+            Test.Has("a").ShouldBeTrue();
+            Test.Has(Obj: 1).ShouldBeTrue();
+            Test.Has(Obj: 1f).ShouldBeFalse();
+            Test.Has((object) null).ShouldBeTrue();
             }
 
         [Fact]
@@ -766,40 +766,40 @@ namespace LCore.Tests.Extensions
                 "a", 1, 2, 3, 4, 5, null
                 };
 
-            Test.HasAny(new List<object> {"a"}).Should().BeTrue();
+            Test.HasAny(new List<object> {"a"}).ShouldBeTrue();
             // ReSharper disable ArgumentsStyleLiteral
-            Test.HasAny(new List<object> {1}).Should().BeTrue();
-            Test.HasAny(new List<object> {1f}).Should().BeFalse();
-            Test.HasAny(new List<object> {1f, 2d, 3.0m}).Should().BeFalse();
-            Test.HasAny(new List<object> {1f, 2d, 3.0m, 5}).Should().BeTrue();
+            Test.HasAny(new List<object> {1}).ShouldBeTrue();
+            Test.HasAny(new List<object> {1f}).ShouldBeFalse();
+            Test.HasAny(new List<object> {1f, 2d, 3.0m}).ShouldBeFalse();
+            Test.HasAny(new List<object> {1f, 2d, 3.0m, 5}).ShouldBeTrue();
             // ReSharper restore ArgumentsStyleLiteral
-            Test.HasAny(new List<object> {(object) null}).Should().BeTrue();
+            Test.HasAny(new List<object> {(object) null}).ShouldBeTrue();
 
-            ((IEnumerable) Test).HasAny(new List<object> {"a"}).Should().BeTrue();
+            ((IEnumerable) Test).HasAny(new List<object> {"a"}).ShouldBeTrue();
             // ReSharper disable ArgumentsStyleLiteral
-            ((IEnumerable) Test).HasAny(new List<object> {1}).Should().BeTrue();
-            ((IEnumerable) Test).HasAny(new List<object> {1f}).Should().BeFalse();
-            ((IEnumerable) Test).HasAny(new List<object> {1f, 2d, 3.0m}).Should().BeFalse();
-            ((IEnumerable) Test).HasAny(new List<object> {1f, 2d, 3.0m, 5}).Should().BeTrue();
+            ((IEnumerable) Test).HasAny(new List<object> {1}).ShouldBeTrue();
+            ((IEnumerable) Test).HasAny(new List<object> {1f}).ShouldBeFalse();
+            ((IEnumerable) Test).HasAny(new List<object> {1f, 2d, 3.0m}).ShouldBeFalse();
+            ((IEnumerable) Test).HasAny(new List<object> {1f, 2d, 3.0m, 5}).ShouldBeTrue();
             // ReSharper restore ArgumentsStyleLiteral
-            ((IEnumerable) Test).HasAny(new List<object> {(object) null}).Should().BeTrue();
+            ((IEnumerable) Test).HasAny(new List<object> {(object) null}).ShouldBeTrue();
 
-            Test.HasAny("b", "a").Should().BeTrue();
-            Test.HasAny(1).Should().BeTrue();
-            Test.HasAny(1f).Should().BeFalse();
-            Test.HasAny(1f, 2d, 3.0m).Should().BeFalse();
-            Test.HasAny(1f, 2d, 3.0m, 5).Should().BeTrue();
-            Test.HasAny((object) null).Should().BeTrue();
+            Test.HasAny("b", "a").ShouldBeTrue();
+            Test.HasAny(1).ShouldBeTrue();
+            Test.HasAny(1f).ShouldBeFalse();
+            Test.HasAny(1f, 2d, 3.0m).ShouldBeFalse();
+            Test.HasAny(1f, 2d, 3.0m, 5).ShouldBeTrue();
+            Test.HasAny((object) null).ShouldBeTrue();
 
-            ((IEnumerable) Test).HasAny("b", "a").Should().BeTrue();
-            ((IEnumerable) Test).HasAny(1).Should().BeTrue();
-            ((IEnumerable) Test).HasAny(1f).Should().BeFalse();
-            ((IEnumerable) Test).HasAny(1f, 2d, 3.0m).Should().BeFalse();
-            ((IEnumerable) Test).HasAny(1f, 2d, 3.0m, 5).Should().BeTrue();
-            ((IEnumerable) Test).HasAny((object) null).Should().BeTrue();
+            ((IEnumerable) Test).HasAny("b", "a").ShouldBeTrue();
+            ((IEnumerable) Test).HasAny(1).ShouldBeTrue();
+            ((IEnumerable) Test).HasAny(1f).ShouldBeFalse();
+            ((IEnumerable) Test).HasAny(1f, 2d, 3.0m).ShouldBeFalse();
+            ((IEnumerable) Test).HasAny(1f, 2d, 3.0m, 5).ShouldBeTrue();
+            ((IEnumerable) Test).HasAny((object) null).ShouldBeTrue();
 
-            ((IEnumerable) null).HasAny(5).Should().BeFalse();
-            ((IEnumerable<int>) null).HasAny(5).Should().BeFalse();
+            ((IEnumerable) null).HasAny(5).ShouldBeFalse();
+            ((IEnumerable<int>) null).HasAny(5).ShouldBeFalse();
             }
 
         /// <exception cref="InternalTestFailureException">The test fails</exception>
@@ -813,18 +813,18 @@ namespace LCore.Tests.Extensions
                 };
 
 
-            Test.Has(o => o is int && (int) o == 1).Should().BeTrue();
-            Test.Has(o => o is string && (string) o == "a").Should().BeTrue();
-            Test.Has(o => o is string && (string) o == "b").Should().BeFalse();
+            Test.Has(o => o is int && (int) o == 1).ShouldBeTrue();
+            Test.Has(o => o is string && (string) o == "a").ShouldBeTrue();
+            Test.Has(o => o is string && (string) o == "b").ShouldBeFalse();
 
-            ((IEnumerable) Test).Has<object>(o => o is int && (int) o == 1).Should().BeTrue();
-            ((IEnumerable) Test).Has<object>(o => o is string && (string) o == "a").Should().BeTrue();
-            ((IEnumerable) Test).Has<object>(o => o is string && (string) o == "b").Should().BeFalse();
+            ((IEnumerable) Test).Has<object>(o => o is int && (int) o == 1).ShouldBeTrue();
+            ((IEnumerable) Test).Has<object>(o => o is string && (string) o == "a").ShouldBeTrue();
+            ((IEnumerable) Test).Has<object>(o => o is string && (string) o == "b").ShouldBeFalse();
 
-            Test.Has((Func<object, bool>) null).Should().BeFalse();
-            ((IEnumerable) Test).Has((Func<object, bool>) null).Should().BeFalse();
-            ((IEnumerable) null).Has((Func<object, bool>) null).Should().BeFalse();
-            ((IEnumerable<int>) null).Has((Func<object, bool>) null).Should().BeFalse();
+            Test.Has((Func<object, bool>) null).ShouldBeFalse();
+            ((IEnumerable) Test).Has((Func<object, bool>) null).ShouldBeFalse();
+            ((IEnumerable) null).Has((Func<object, bool>) null).ShouldBeFalse();
+            ((IEnumerable<int>) null).Has((Func<object, bool>) null).ShouldBeFalse();
 
 
             L.A(() => Test.Has<string>(s => { throw new Exception(); })).ShouldFail();
@@ -839,19 +839,19 @@ namespace LCore.Tests.Extensions
                 };
 
 
-            Test.HasIndex(-1).Should().BeFalse();
-            Test.HasIndex(Index: 0).Should().BeTrue();
-            Test.HasIndex(Index: 1).Should().BeTrue();
-            Test.HasIndex(Index: 6).Should().BeTrue();
-            Test.HasIndex(Index: 7).Should().BeFalse();
+            Test.HasIndex(-1).ShouldBeFalse();
+            Test.HasIndex(Index: 0).ShouldBeTrue();
+            Test.HasIndex(Index: 1).ShouldBeTrue();
+            Test.HasIndex(Index: 6).ShouldBeTrue();
+            Test.HasIndex(Index: 7).ShouldBeFalse();
 
-            Test.HasIndex(Index: 0u).Should().BeTrue();
-            Test.HasIndex(Index: 1u).Should().BeTrue();
-            Test.HasIndex(Index: 6u).Should().BeTrue();
-            Test.HasIndex(Index: 7u).Should().BeFalse();
+            Test.HasIndex(Index: 0u).ShouldBeTrue();
+            Test.HasIndex(Index: 1u).ShouldBeTrue();
+            Test.HasIndex(Index: 6u).ShouldBeTrue();
+            Test.HasIndex(Index: 7u).ShouldBeFalse();
 
-            ((int[]) null).HasIndex(Index: 0).Should().BeFalse();
-            ((IEnumerable) null).HasIndex(Index: 0).Should().BeFalse();
+            ((int[]) null).HasIndex(Index: 0).ShouldBeFalse();
+            ((IEnumerable) null).HasIndex(Index: 0).ShouldBeFalse();
             }
 
 
@@ -947,15 +947,15 @@ namespace LCore.Tests.Extensions
         [Fact]
         public void Test_IsEmpty()
             {
-            ((IEnumerable) "").IsEmpty().Should().BeTrue();
-            ((IEnumerable) "a").IsEmpty().Should().BeFalse();
-            ((IEnumerable) "   a   ").IsEmpty().Should().BeFalse();
-            ((IEnumerable) "       ").IsEmpty().Should().BeFalse();
-            new int[] {}.IsEmpty().Should().BeTrue();
-            new int[] {5}.IsEmpty().Should().BeFalse();
+            ((IEnumerable) "").IsEmpty().ShouldBeTrue();
+            ((IEnumerable) "a").IsEmpty().ShouldBeFalse();
+            ((IEnumerable) "   a   ").IsEmpty().ShouldBeFalse();
+            ((IEnumerable) "       ").IsEmpty().ShouldBeFalse();
+            new int[] {}.IsEmpty().ShouldBeTrue();
+            new int[] {5}.IsEmpty().ShouldBeFalse();
 
-            ((string) null).IsEmpty().Should().BeTrue();
-            ((int[]) null).IsEmpty().Should().BeTrue();
+            ((string) null).IsEmpty().ShouldBeTrue();
+            ((int[]) null).IsEmpty().ShouldBeTrue();
             }
 
         [Fact]
@@ -1222,7 +1222,7 @@ namespace LCore.Tests.Extensions
 
             for (int i = 0; i < 300; i++)
                 {
-                Test.Has(Test.Random()).Should().BeTrue();
+                Test.Has(Test.Random()).ShouldBeTrue();
                 }
 
 
@@ -1237,35 +1237,35 @@ namespace LCore.Tests.Extensions
                 int[] Results = Test.Random(Count: 5);
 
                 Results.Length.Should().Be(expected: 5);
-                Results.All(Item => Test.Has(Item)).Should().BeTrue();
+                Results.All(Item => Test.Has(Item)).ShouldBeTrue();
 
 
                 int[] Results2 = Test.Random(Count: 50, AllowDuplicates: false);
 
                 Results2.Length.Should().Be(Test.Length);
-                Results2.All(Item => Test.Has(Item)).Should().BeTrue();
+                Results2.All(Item => Test.Has(Item)).ShouldBeTrue();
 
                 int[] Results3 = Test.Random(Count: 50, AllowDuplicates: true);
 
                 Results3.Length.Should().Be(expected: 50);
-                Results3.All(Item => Test.Has(Item)).Should().BeTrue();
+                Results3.All(Item => Test.Has(Item)).ShouldBeTrue();
 
 
                 int[] Results4 = Test.Random(Count: 5u);
 
                 Results4.Length.Should().Be(expected: 5);
-                Results4.All(Item => Test.Has(Item)).Should().BeTrue();
+                Results4.All(Item => Test.Has(Item)).ShouldBeTrue();
 
 
                 int[] Results5 = Test.Random(Count: 50u, AllowDuplicates: false);
 
                 Results5.Length.Should().Be(Test.Length);
-                Results5.All(Item => Test.Has(Item)).Should().BeTrue();
+                Results5.All(Item => Test.Has(Item)).ShouldBeTrue();
 
                 int[] Results6 = Test.Random(Count: 50u, AllowDuplicates: true);
 
                 Results6.Length.Should().Be(expected: 50);
-                Results6.All(Item => Test.Has(Item)).Should().BeTrue();
+                Results6.All(Item => Test.Has(Item)).ShouldBeTrue();
 
 
                 List<int> Test3 = Test.List();
@@ -1273,35 +1273,35 @@ namespace LCore.Tests.Extensions
                 List<int> Result7 = Test3.Random(Count: 5);
 
                 Result7.Count.Should().Be(expected: 5);
-                Result7.All(Item => Test.Has(Item)).Should().BeTrue();
+                Result7.All(Item => Test.Has(Item)).ShouldBeTrue();
 
 
                 List<int> Results8 = Test3.Random(Count: 50, AllowDuplicates: false);
 
                 Results8.Count.Should().Be(Test.Length);
-                Results8.All(Item => Test.Has(Item)).Should().BeTrue();
+                Results8.All(Item => Test.Has(Item)).ShouldBeTrue();
 
                 List<int> Results9 = Test3.Random(Count: 50, AllowDuplicates: true);
 
                 Results9.Count.Should().Be(expected: 50);
-                Results9.All(Item => Test.Has(Item)).Should().BeTrue();
+                Results9.All(Item => Test.Has(Item)).ShouldBeTrue();
 
 
                 List<int> Results10 = Test3.Random(Count: 5u);
 
                 Results10.Count.Should().Be(expected: 5);
-                Results10.All(Item => Test.Has(Item)).Should().BeTrue();
+                Results10.All(Item => Test.Has(Item)).ShouldBeTrue();
 
 
                 List<int> Results11 = Test3.Random(Count: 50u, AllowDuplicates: false);
 
                 Results11.Count.Should().Be(Test.Length);
-                Results11.All(Item => Test.Has(Item)).Should().BeTrue();
+                Results11.All(Item => Test.Has(Item)).ShouldBeTrue();
 
                 List<int> Results12 = Test3.Random(Count: 50u, AllowDuplicates: true);
 
                 Results12.Count.Should().Be(expected: 50);
-                Results12.All(Item => Test.Has(Item)).Should().BeTrue();
+                Results12.All(Item => Test.Has(Item)).ShouldBeTrue();
                 }
 
             L.Obj.NewRandom_TypeCreators.Keys.Random().Should().NotBeNull();
@@ -1852,7 +1852,7 @@ namespace LCore.Tests.Extensions
             Test.Str.Should().Be("it's just a test");
 
             Test.Count().Should().Be(expected: 16);
-            Test.HasIndex(Index: 3).Should().BeTrue();
+            Test.HasIndex(Index: 3).ShouldBeTrue();
             Test.GetAt(Index: 0).Should().Be(expected: 'i');
             Test.GetAt(Index: 1).Should().Be(expected: 't');
             Test.GetAt(Index: 2).Should().Be(expected: '\'');

@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 using Xunit;
 using Xunit.Abstractions;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using static LCore.LUnit.LUnit.Categories;
 // ReSharper disable PossibleNullReferenceException
 
@@ -32,7 +33,7 @@ namespace LCore.Tests.Extensions
             Directory.Delete(Str2);
             Directory.Delete(Str3);
 
-            Directory.Exists(Str3).Should().BeFalse();
+            Directory.Exists(Str3).ShouldBeFalse();
             }
 
         /// <exception cref="IOException">A file with the same name and location specified by <paramref>

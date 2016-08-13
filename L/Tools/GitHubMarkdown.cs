@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+// ReSharper disable UnusedMember.Global
 
 namespace LCore.Tools
     {
@@ -146,6 +147,8 @@ namespace LCore.Tools
                 if (IncludeHeader && i == 0)
                     Table.Add(Divider.JoinLines(" | "));
                 }
+
+            Table.Each(this.AddLine);
             }
 
         public void BlockQuote([CanBeNull] params string[] Lines)
@@ -153,15 +156,18 @@ namespace LCore.Tools
             Lines.Each(Line => this.AddLine($"> {Line}"));
             }
 
-
+        public void Lines([CanBeNull] params string[] AddLines)
+            {
+            AddLines?.Each(this.AddLine);
+            }
 
 
         private void AddLine([CanBeNull]string Line = "")
             {
             if (Line != null)
-                this.Lines.Add(Line);
+                this.AllLines.Add(Line);
             }
 
-        protected List<string> Lines { get; } = new List<string>();
+        protected List<string> AllLines { get; } = new List<string>();
         }
     }

@@ -204,65 +204,65 @@ namespace LCore.Tests.Extensions
                 }.ShouldAllBeEquivalentTo(expectation: false);
             // ReSharper restore ExpressionIsAlwaysNull
 
-            DateTime.Now.CanConvertToString().Should().BeFalse();
-            DateTime.Now.Date.CanConvertToString().Should().BeTrue();
+            DateTime.Now.CanConvertToString().ShouldBeFalse();
+            DateTime.Now.Date.CanConvertToString().ShouldBeTrue();
 
-            55.0m.CanConvertTo<int>().Should().BeTrue();
+            55.0m.CanConvertTo<int>().ShouldBeTrue();
 
-            "55000.0".CanConvertTo<double>().Should().BeTrue();
-            "55000.0".CanConvertTo<int>().Should().BeTrue();
-            "55000.5".CanConvertTo<int>().Should().BeFalse();
-            "55000.5".CanConvertTo<double>().Should().BeTrue();
+            "55000.0".CanConvertTo<double>().ShouldBeTrue();
+            "55000.0".CanConvertTo<int>().ShouldBeTrue();
+            "55000.5".CanConvertTo<int>().ShouldBeFalse();
+            "55000.5".CanConvertTo<double>().ShouldBeTrue();
 
-            0.002753.CanConvertTo<decimal>().Should().BeTrue();
-            0.002753.CanConvertTo<float>().Should().BeTrue();
+            0.002753.CanConvertTo<decimal>().ShouldBeTrue();
+            0.002753.CanConvertTo<float>().ShouldBeTrue();
 
-            0.0027503.CanConvertTo<decimal>().Should().BeTrue();
-            0.0027503.CanConvertTo<float>().Should().BeTrue();
+            0.0027503.CanConvertTo<decimal>().ShouldBeTrue();
+            0.0027503.CanConvertTo<float>().ShouldBeTrue();
 
-            0.00275003.CanConvertTo<decimal>().Should().BeTrue();
-            0.00275003.CanConvertTo<float>().Should().BeTrue();
+            0.00275003.CanConvertTo<decimal>().ShouldBeTrue();
+            0.00275003.CanConvertTo<float>().ShouldBeTrue();
 
-            0.002750003.CanConvertTo<decimal>().Should().BeTrue();
-            0.002750003.CanConvertTo<float>().Should().BeTrue();
+            0.002750003.CanConvertTo<decimal>().ShouldBeTrue();
+            0.002750003.CanConvertTo<float>().ShouldBeTrue();
 
-            0.0027500003.CanConvertTo<decimal>().Should().BeTrue();
+            0.0027500003.CanConvertTo<decimal>().ShouldBeTrue();
             // Limitations of floating point conversion set in for float
-            0.0027500003.CanConvertTo<float>().Should().BeFalse();
+            0.0027500003.CanConvertTo<float>().ShouldBeFalse();
 
-            0.00275000003.CanConvertTo<decimal>().Should().BeTrue();
-            0.00275000003.CanConvertTo<float>().Should().BeFalse();
+            0.00275000003.CanConvertTo<decimal>().ShouldBeTrue();
+            0.00275000003.CanConvertTo<float>().ShouldBeFalse();
 
-            0.002750000003.CanConvertTo<decimal>().Should().BeTrue();
-            0.002750000003.CanConvertTo<float>().Should().BeFalse();
+            0.002750000003.CanConvertTo<decimal>().ShouldBeTrue();
+            0.002750000003.CanConvertTo<float>().ShouldBeFalse();
 
-            0.0027500000003.CanConvertTo<decimal>().Should().BeTrue();
-            0.0027500000003.CanConvertTo<float>().Should().BeFalse();
+            0.0027500000003.CanConvertTo<decimal>().ShouldBeTrue();
+            0.0027500000003.CanConvertTo<float>().ShouldBeFalse();
 
-            0.00275000000003.CanConvertTo<decimal>().Should().BeTrue();
-            0.00275000000003.CanConvertTo<float>().Should().BeFalse();
+            0.00275000000003.CanConvertTo<decimal>().ShouldBeTrue();
+            0.00275000000003.CanConvertTo<float>().ShouldBeFalse();
 
-            0.002750000000003.CanConvertTo<decimal>().Should().BeTrue();
-            0.002750000000003.CanConvertTo<float>().Should().BeFalse();
+            0.002750000000003.CanConvertTo<decimal>().ShouldBeTrue();
+            0.002750000000003.CanConvertTo<float>().ShouldBeFalse();
 
-            0.0027500000000003.CanConvertTo<decimal>().Should().BeTrue();
-            0.0027500000000003.CanConvertTo<float>().Should().BeFalse();
+            0.0027500000000003.CanConvertTo<decimal>().ShouldBeTrue();
+            0.0027500000000003.CanConvertTo<float>().ShouldBeFalse();
 
-            0.00275000000000003.CanConvertTo<decimal>().Should().BeTrue();
-            0.00275000000000003.CanConvertTo<float>().Should().BeFalse();
+            0.00275000000000003.CanConvertTo<decimal>().ShouldBeTrue();
+            0.00275000000000003.CanConvertTo<float>().ShouldBeFalse();
 
             // Limitations of floating point conversion set in for double
-            0.002750000000000003.CanConvertTo<decimal>().Should().BeFalse();
-            0.002750000000000003.CanConvertTo<float>().Should().BeFalse();
+            0.002750000000000003.CanConvertTo<decimal>().ShouldBeFalse();
+            0.002750000000000003.CanConvertTo<float>().ShouldBeFalse();
 
-            /*0.0027500000000000003.CanConvertTo<decimal>().Should().BeFalse();
-            0.0027500000000000003.CanConvertTo<float>().Should().BeFalse();
+            /*0.0027500000000000003.CanConvertTo<decimal>().ShouldBeFalse();
+            0.0027500000000000003.CanConvertTo<float>().ShouldBeFalse();
 
-            0.0027500000000000003m.CanConvertTo<double>().Should().BeTrue();
-            0.0027500000000000003m.CanConvertTo<float>().Should().BeTrue();
+            0.0027500000000000003m.CanConvertTo<double>().ShouldBeTrue();
+            0.0027500000000000003m.CanConvertTo<float>().ShouldBeTrue();
 
-            0.0027500000000000003f.CanConvertTo<double>().Should().BeTrue();
-            0.0027500000000000003f.CanConvertTo<decimal>().Should().BeFalse();*/
+            0.0027500000000000003f.CanConvertTo<double>().ShouldBeTrue();
+            0.0027500000000000003f.CanConvertTo<decimal>().ShouldBeFalse();*/
             }
 
         [Fact]
@@ -367,65 +367,65 @@ namespace LCore.Tests.Extensions
                 }.ShouldAllBeEquivalentTo(expectation: false);
             // ReSharper restore ExpressionIsAlwaysNull
 
-            DateTime.Now.CanConvertToString().Should().BeFalse();
-            DateTime.Now.Date.CanConvertToString().Should().BeTrue();
+            DateTime.Now.CanConvertToString().ShouldBeFalse();
+            DateTime.Now.Date.CanConvertToString().ShouldBeTrue();
 
-            55.0m.CanConvertTo(typeof(int)).Should().BeTrue();
+            55.0m.CanConvertTo(typeof(int)).ShouldBeTrue();
 
-            "55000.0".CanConvertTo(typeof(double)).Should().BeTrue();
-            "55000.0".CanConvertTo(typeof(int)).Should().BeTrue();
-            "55000.5".CanConvertTo(typeof(int)).Should().BeFalse();
-            "55000.5".CanConvertTo(typeof(double)).Should().BeTrue();
+            "55000.0".CanConvertTo(typeof(double)).ShouldBeTrue();
+            "55000.0".CanConvertTo(typeof(int)).ShouldBeTrue();
+            "55000.5".CanConvertTo(typeof(int)).ShouldBeFalse();
+            "55000.5".CanConvertTo(typeof(double)).ShouldBeTrue();
 
-            0.002753.CanConvertTo(typeof(decimal)).Should().BeTrue();
-            0.002753.CanConvertTo(typeof(float)).Should().BeTrue();
+            0.002753.CanConvertTo(typeof(decimal)).ShouldBeTrue();
+            0.002753.CanConvertTo(typeof(float)).ShouldBeTrue();
 
-            0.0027503.CanConvertTo(typeof(decimal)).Should().BeTrue();
-            0.0027503.CanConvertTo(typeof(float)).Should().BeTrue();
+            0.0027503.CanConvertTo(typeof(decimal)).ShouldBeTrue();
+            0.0027503.CanConvertTo(typeof(float)).ShouldBeTrue();
 
-            0.00275003.CanConvertTo(typeof(decimal)).Should().BeTrue();
-            0.00275003.CanConvertTo(typeof(float)).Should().BeTrue();
+            0.00275003.CanConvertTo(typeof(decimal)).ShouldBeTrue();
+            0.00275003.CanConvertTo(typeof(float)).ShouldBeTrue();
 
-            0.002750003.CanConvertTo(typeof(decimal)).Should().BeTrue();
-            0.002750003.CanConvertTo(typeof(float)).Should().BeTrue();
+            0.002750003.CanConvertTo(typeof(decimal)).ShouldBeTrue();
+            0.002750003.CanConvertTo(typeof(float)).ShouldBeTrue();
 
-            0.0027500003.CanConvertTo(typeof(decimal)).Should().BeTrue();
+            0.0027500003.CanConvertTo(typeof(decimal)).ShouldBeTrue();
             // Limitations of floating point conversion set in for float
-            0.0027500003.CanConvertTo(typeof(float)).Should().BeFalse();
+            0.0027500003.CanConvertTo(typeof(float)).ShouldBeFalse();
 
-            0.00275000003.CanConvertTo(typeof(decimal)).Should().BeTrue();
-            0.00275000003.CanConvertTo(typeof(float)).Should().BeFalse();
+            0.00275000003.CanConvertTo(typeof(decimal)).ShouldBeTrue();
+            0.00275000003.CanConvertTo(typeof(float)).ShouldBeFalse();
 
-            0.002750000003.CanConvertTo(typeof(decimal)).Should().BeTrue();
-            0.002750000003.CanConvertTo(typeof(float)).Should().BeFalse();
+            0.002750000003.CanConvertTo(typeof(decimal)).ShouldBeTrue();
+            0.002750000003.CanConvertTo(typeof(float)).ShouldBeFalse();
 
-            0.0027500000003.CanConvertTo(typeof(decimal)).Should().BeTrue();
-            0.0027500000003.CanConvertTo(typeof(float)).Should().BeFalse();
+            0.0027500000003.CanConvertTo(typeof(decimal)).ShouldBeTrue();
+            0.0027500000003.CanConvertTo(typeof(float)).ShouldBeFalse();
 
-            0.00275000000003.CanConvertTo(typeof(decimal)).Should().BeTrue();
-            0.00275000000003.CanConvertTo(typeof(float)).Should().BeFalse();
+            0.00275000000003.CanConvertTo(typeof(decimal)).ShouldBeTrue();
+            0.00275000000003.CanConvertTo(typeof(float)).ShouldBeFalse();
 
-            0.002750000000003.CanConvertTo(typeof(decimal)).Should().BeTrue();
-            0.002750000000003.CanConvertTo(typeof(float)).Should().BeFalse();
+            0.002750000000003.CanConvertTo(typeof(decimal)).ShouldBeTrue();
+            0.002750000000003.CanConvertTo(typeof(float)).ShouldBeFalse();
 
-            0.0027500000000003.CanConvertTo(typeof(decimal)).Should().BeTrue();
-            0.0027500000000003.CanConvertTo(typeof(float)).Should().BeFalse();
+            0.0027500000000003.CanConvertTo(typeof(decimal)).ShouldBeTrue();
+            0.0027500000000003.CanConvertTo(typeof(float)).ShouldBeFalse();
 
-            0.00275000000000003.CanConvertTo(typeof(decimal)).Should().BeTrue();
-            0.00275000000000003.CanConvertTo(typeof(float)).Should().BeFalse();
+            0.00275000000000003.CanConvertTo(typeof(decimal)).ShouldBeTrue();
+            0.00275000000000003.CanConvertTo(typeof(float)).ShouldBeFalse();
 
             // Limitations of floating point conversion set in for double
-            0.002750000000000003.CanConvertTo(typeof(decimal)).Should().BeFalse();
-            0.002750000000000003.CanConvertTo(typeof(float)).Should().BeFalse();
+            0.002750000000000003.CanConvertTo(typeof(decimal)).ShouldBeFalse();
+            0.002750000000000003.CanConvertTo(typeof(float)).ShouldBeFalse();
 
-            /*0.0027500000000000003.CanConvertTo<decimal>().Should().BeFalse();
-            0.0027500000000000003.CanConvertTo<float>().Should().BeFalse();
+            /*0.0027500000000000003.CanConvertTo<decimal>().ShouldBeFalse();
+            0.0027500000000000003.CanConvertTo<float>().ShouldBeFalse();
 
-            0.0027500000000000003m.CanConvertTo<double>().Should().BeTrue();
-            0.0027500000000000003m.CanConvertTo<float>().Should().BeTrue();
+            0.0027500000000000003m.CanConvertTo<double>().ShouldBeTrue();
+            0.0027500000000000003m.CanConvertTo<float>().ShouldBeTrue();
 
-            0.0027500000000000003f.CanConvertTo<double>().Should().BeTrue();
-            0.0027500000000000003f.CanConvertTo<decimal>().Should().BeFalse();*/
+            0.0027500000000000003f.CanConvertTo<double>().ShouldBeTrue();
+            0.0027500000000000003f.CanConvertTo<decimal>().ShouldBeFalse();*/
             }
 
         [Fact]

@@ -29,10 +29,10 @@ namespace LCore.Tests.Extensions
             bool Result2 = B.Try()();
 
             // Result was true
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Result was false
-            Result2.Should().BeFalse();
+            Result2.ShouldBeFalse();
             }
 
         [Fact]
@@ -51,10 +51,10 @@ namespace LCore.Tests.Extensions
             bool Result2 = B.Try()(_TestString);
 
             // Result was true
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Result was false
-            Result2.Should().BeFalse();
+            Result2.ShouldBeFalse();
             }
 
         [Fact]
@@ -78,10 +78,10 @@ namespace LCore.Tests.Extensions
             bool Result2 = B.Try()(_TestString, _TestString);
 
             // Result was true
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Result was false
-            Result2.Should().BeFalse();
+            Result2.ShouldBeFalse();
             }
 
         [Fact]
@@ -107,10 +107,10 @@ namespace LCore.Tests.Extensions
             bool Result2 = B.Try()(_TestString, _TestString, _TestString);
 
             // Result was true
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Result was false
-            Result2.Should().BeFalse();
+            Result2.ShouldBeFalse();
             }
 
         [Fact]
@@ -138,10 +138,10 @@ namespace LCore.Tests.Extensions
             bool Result2 = B.Try()(_TestString, _TestString, _TestString, _TestString);
 
             // Result was true
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Result was false
-            Result2.Should().BeFalse();
+            Result2.ShouldBeFalse();
             }
 
         [Fact]

@@ -274,6 +274,24 @@ namespace LCore.Extensions
         /// Returns the average of all numbers in the source.
         /// </summary>
         [TestResult(new object[] { null }, double.NaN)]
+        [TestResult(new object[] { new uint[] { } }, double.NaN)]
+        [TestResult(new object[] { new[] { 0u } }, (double)0)]
+        [TestResult(new object[] { new[] { 1u } }, (double)1)]
+        [TestResult(new object[] { new[] { 1u, 1u } }, (double)1)]
+        [TestResult(new object[] { new[] { 1u, 100u } }, (double)50.5)]
+        [TestResult(new object[] { new[] { 1u, 100u, 55u, 66u } }, (double)55.5)]
+        public static double Average([CanBeNull] this IEnumerable<uint> In)
+            {
+            In = In ?? new uint[] { };
+
+            IEnumerable<uint> Enumerable = In as uint[] ?? In.Array();
+            return Enumerable.Sum() / (double)Enumerable.Count();
+            }
+
+        /// <summary>
+        /// Returns the average of all numbers in the source.
+        /// </summary>
+        [TestResult(new object[] { null }, double.NaN)]
         [TestResult(new object[] { new long[] { } }, double.NaN)]
         [TestResult(new object[] { new long[] { 0 } }, (double)0)]
         [TestResult(new object[] { new long[] { 1 } }, (double)1)]
@@ -285,6 +303,24 @@ namespace LCore.Extensions
             In = In ?? new long[] { };
 
             IEnumerable<long> Enumerable = In as long[] ?? In.Array();
+            return Enumerable.Sum() / (double)Enumerable.Count();
+            }
+
+        /// <summary>
+        /// Returns the average of all numbers in the source.
+        /// </summary>
+        [TestResult(new object[] { null }, double.NaN)]
+        [TestResult(new object[] { new ulong[] { } }, double.NaN)]
+        [TestResult(new object[] { new ulong[] { 0 } }, (double)0)]
+        [TestResult(new object[] { new ulong[] { 1 } }, (double)1)]
+        [TestResult(new object[] { new ulong[] { 1, 1 } }, (double)1)]
+        [TestResult(new object[] { new ulong[] { 1, 100 } }, (double)50.5)]
+        [TestResult(new object[] { new ulong[] { 1, 100, 55, 66 } }, (double)55.5)]
+        public static double Average([CanBeNull] this IEnumerable<ulong> In)
+            {
+            In = In ?? new ulong[] { };
+
+            IEnumerable<ulong> Enumerable = In as ulong[] ?? In.Array();
             return Enumerable.Sum() / (double)Enumerable.Count();
             }
 
@@ -371,7 +407,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
-        
+
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this int Int)
             {
@@ -382,7 +418,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
-        
+
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this short Short)
             {
@@ -393,7 +429,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
-        
+
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this long Long)
             {
@@ -404,7 +440,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
-        
+
         // ReSharper disable once InconsistentNaming
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this uint UInt)
@@ -416,7 +452,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
-        
+
         // ReSharper disable once InconsistentNaming
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this ushort UShort)
@@ -428,7 +464,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
-        
+
         // ReSharper disable once InconsistentNaming
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this ulong ULong)
@@ -440,7 +476,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
-        
+
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this char Char)
             {
@@ -451,7 +487,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
-        
+
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this byte Byte)
             {
@@ -462,7 +498,7 @@ namespace LCore.Extensions
         /// Returns the number of decimal places used for the provided number.
         /// For non-floating point types this value is always 0.
         /// </summary>
-        
+
         // ReSharper disable once UnusedParameter.Global
         public static uint DecimalPlaces(this sbyte Int)
             {
@@ -472,7 +508,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the number of decimal places used for the provided number.
         /// </summary>
-        
+
         public static ushort DecimalPlaces(this decimal Dec)
             {
             string Out = Dec.ToString("0." + new string(c: '#', count: 339));
@@ -489,7 +525,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the number of decimal places used for the provided number.
         /// </summary>
-        
+
         public static ushort DecimalPlaces(this double Double)
             {
             string Out = Double.ToString("0." + new string(c: '#', count: 339));
@@ -507,7 +543,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the number of decimal places used for the provided number.
         /// </summary>
-        
+
         public static ushort DecimalPlaces(this float Float)
             {
             string Out = Float.ToString("0." + new string(c: '#', count: 339));
@@ -1301,6 +1337,21 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the sum of all numbers in the source list.
         /// </summary>
+        [TestResult(new object[] { null }, ExpectedResult: 0u)]
+        [TestResult(new object[] { new uint[] { } }, ExpectedResult: 0u)]
+        [TestResult(new object[] { new uint[] { 0 } }, ExpectedResult: 0u)]
+        [TestResult(new object[] { new uint[] { 1 } }, ExpectedResult: 1u)]
+        [TestResult(new object[] { new uint[] { 1, 2, 3 } }, ExpectedResult: 6u)]
+        public static uint Sum([CanBeNull] this IEnumerable<uint> In)
+            {
+            uint Out = 0;
+            In.Each(i => { Out += i; });
+            return Out;
+            }
+
+        /// <summary>
+        /// Returns the sum of all numbers in the source list.
+        /// </summary>
         [TestResult(new object[] { null }, (long)0)]
         [TestResult(new object[] { new long[] { } }, (long)0)]
         [TestResult(new object[] { new long[] { 0 } }, (long)0)]
@@ -1309,6 +1360,21 @@ namespace LCore.Extensions
         public static long Sum([CanBeNull] this IEnumerable<long> In)
             {
             long Out = 0;
+            In.Each(i => { Out += i; });
+            return Out;
+            }
+
+        /// <summary>
+        /// Returns the sum of all numbers in the source list.
+        /// </summary>
+        [TestResult(new object[] { null }, (ulong)0)]
+        [TestResult(new object[] { new ulong[] { } }, (ulong)0)]
+        [TestResult(new object[] { new ulong[] { 0 } }, (ulong)0)]
+        [TestResult(new object[] { new ulong[] { 1 } }, (ulong)1)]
+        [TestResult(new object[] { new ulong[] { 1, 2, 3 } }, (ulong)6)]
+        public static ulong Sum([CanBeNull] this IEnumerable<ulong> In)
+            {
+            ulong Out = 0;
             In.Each(i => { Out += i; });
             return Out;
             }

@@ -3,6 +3,7 @@ using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -103,18 +104,18 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DateExt) + "." + nameof(DateExt.IsPast) + "(DateTime) => Boolean")]
         public void IsPast()
             {
-            new DateTime(year: 2001, month: 5, day: 7, hour: 5, minute: 5, second: 5).IsPast().Should().BeTrue();
-            DateTime.MinValue.IsPast().Should().BeTrue();
-            DateTime.MaxValue.IsPast().Should().BeFalse();
+            new DateTime(year: 2001, month: 5, day: 7, hour: 5, minute: 5, second: 5).IsPast().ShouldBeTrue();
+            DateTime.MinValue.IsPast().ShouldBeTrue();
+            DateTime.MaxValue.IsPast().ShouldBeFalse();
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DateExt) + "." + nameof(DateExt.IsFuture) + "(DateTime) => Boolean")]
         public void IsFuture()
             {
-            new DateTime(year: 2001, month: 5, day: 7, hour: 5, minute: 5, second: 5).IsFuture().Should().BeFalse();
-            DateTime.MinValue.IsFuture().Should().BeFalse();
-            DateTime.MaxValue.IsFuture().Should().BeTrue();
+            new DateTime(year: 2001, month: 5, day: 7, hour: 5, minute: 5, second: 5).IsFuture().ShouldBeFalse();
+            DateTime.MinValue.IsFuture().ShouldBeFalse();
+            DateTime.MaxValue.IsFuture().ShouldBeTrue();
             }
 
 

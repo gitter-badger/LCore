@@ -150,6 +150,8 @@
     <Compile Include="LCore\Extensions\CommentExtTester.cs" />
     <Compile Include="LCore\Extensions\DateExtTester.cs" />
     <Compile Include="LCore\Extensions\EnumExtTester.cs" />
+    <Compile Include="LCore\Tools\DateTimeConverterTester.cs" />
+    <Compile Include="LCore\Tools\ProgressUpdaterTester.cs" />
     <Compile Include="LCore\Tools\CacheDataTester.cs" />
     <Compile Include="LCore\Tools\ExceptionListTester.cs" />
     <Compile Include="LCore\Tools\Lists_2Tester.cs" />
@@ -178,13 +180,10 @@
     <Compile Include="Tests\Static\L.List.Test.cs" />
     <Compile Include="Tests\Static\L.Ary.Test.cs" />
     <Compile Include="Tests\Static\L.Char.Test.cs" />
-    <Compile Include="Tests\Tools\ProgressUpdaterTest.cs" />
     <Compile Include="Tests\Tools\DateTimeConverterTest.cs" />
-    <Compile Include="Tests\Tools\ListsTest.cs" />
     <Compile Include="Tests\Tools\ScheduleTest.cs" />
     <Compile Include="Tests\Tools\StopWatchTest.cs" />
     <Compile Include="Tests\Tools\StatMonitorTest.cs" />
-    <Compile Include="Tests\Tools\SetTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\L Thread Tests\Tests L Core Threads.csproj">

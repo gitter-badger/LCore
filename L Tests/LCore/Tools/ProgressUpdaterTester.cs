@@ -1,20 +1,30 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using FluentAssertions;
+using JetBrains.Annotations;
 using LCore.Extensions;
+using LCore.LUnit;
 using LCore.Tools;
 using Xunit;
-using static LCore.LUnit.LUnit.Categories;
+using Xunit.Abstractions;
 
-namespace LCore.Tests.Tools
+namespace L_Tests.LCore.Tools
     {
-    [Trait(Category, LUnit.LUnit.Categories.Tools)]
-    public class ProgressUpdaterTest
+    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(ProgressUpdater))]
+    public partial class ProgressUpdaterTester : XUnitOutputTester, IDisposable
         {
+        public ProgressUpdaterTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+
+        public void Dispose() { }
+
         [Fact]
-        public void Test_ProgressUpdater()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(ProgressUpdater) + "." + nameof(ProgressUpdater.Status) + "(String)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(ProgressUpdater) + "." + nameof(ProgressUpdater.Log) + "(String)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(ProgressUpdater) + "." + nameof(ProgressUpdater.Progress) + "(Int32)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(ProgressUpdater) + "." + nameof(ProgressUpdater.Maximum) + "(Int32)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(ProgressUpdater) + "." + nameof(ProgressUpdater.Clear) + "()")]
+        public void TestAll()
             {
             string Status = "";
             string Log = "";
@@ -28,7 +38,7 @@ namespace LCore.Tests.Tools
                 NewMaximum => { Max = NewMaximum; });
 
             L.A(() =>
-                {
+            {
                 lock (Updater)
                     {
                     Updater.Clear();
@@ -61,7 +71,7 @@ namespace LCore.Tests.Tools
                     Progress.Should().Be(expected: 5);
                     Max.Should().Be(expected: 100);
                     }
-                })();
+            })();
             }
         }
     }

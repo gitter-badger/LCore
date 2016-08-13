@@ -36,7 +36,7 @@ namespace LCore.Tests.Extensions
 
             Action2(_TestString);
 
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Exceptions are passed.
             ActionFail.Cast<object, string>().ShouldFail(_TestString);
@@ -61,7 +61,7 @@ namespace LCore.Tests.Extensions
 
             Action2(_TestString, _TestString);
 
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Exceptions are passed.
             ActionFail.Cast<object, object, string, string>().ShouldFail(_TestString, _TestString);
@@ -87,7 +87,7 @@ namespace LCore.Tests.Extensions
 
             Action2(_TestString, _TestString, _TestString);
 
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Exceptions are passed.
             ActionFail.Cast<object, object, object, string, string, string>().ShouldFail(_TestString, _TestString, _TestString);
@@ -114,7 +114,7 @@ namespace LCore.Tests.Extensions
 
             Action2(_TestString, _TestString, _TestString, _TestString);
 
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Exceptions are passed.
             ActionFail.Cast<object, object, object, object, string, string, string, string>()
@@ -131,7 +131,7 @@ namespace LCore.Tests.Extensions
 
             Func<bool> Func2 = Func.Cast<object, bool>();
 
-            Func2().Should().BeTrue();
+            Func2().ShouldBeTrue();
 
             // Exceptions are passed.
             FuncFail.Cast<object, bool>().ShouldFail();
@@ -151,7 +151,7 @@ namespace LCore.Tests.Extensions
 
             Func<string, bool> Func2 = Func.Cast<object, bool, string, bool>();
 
-            Func2(_TestString).Should().BeTrue();
+            Func2(_TestString).ShouldBeTrue();
 
             // Exceptions are passed.
             FuncFail.Cast<object, bool, string, bool>().ShouldFail(_TestString);
@@ -172,7 +172,7 @@ namespace LCore.Tests.Extensions
 
             Func<string, string, bool> Func2 = Func.Cast<object, object, bool, string, string, bool>();
 
-            Func2(_TestString, _TestString).Should().BeTrue();
+            Func2(_TestString, _TestString).ShouldBeTrue();
 
             // Exceptions are passed.
             FuncFail.Cast<object, object, bool, string, string, bool>().ShouldFail(_TestString, _TestString);
@@ -194,7 +194,7 @@ namespace LCore.Tests.Extensions
 
             Func<string, string, string, bool> Func2 = Func.Cast<object, object, object, bool, string, string, string, bool>();
 
-            Func2(_TestString, _TestString, _TestString).Should().BeTrue();
+            Func2(_TestString, _TestString, _TestString).ShouldBeTrue();
 
             // Exceptions are passed.
             FuncFail.Cast<object, object, object, bool, string, string, string, bool>().ShouldFail(_TestString, _TestString, _TestString);
@@ -218,7 +218,7 @@ namespace LCore.Tests.Extensions
             Func<string, string, string, string, bool> Func2 =
                 Func.Cast<object, object, object, object, bool, string, string, string, string, bool>();
 
-            Func2(_TestString, _TestString, _TestString, _TestString).Should().BeTrue();
+            Func2(_TestString, _TestString, _TestString, _TestString).ShouldBeTrue();
 
             // Exceptions are passed.
             FuncFail.Cast<object, object, object, object, bool, string, string, string, string, bool>()

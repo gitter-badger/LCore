@@ -31,8 +31,8 @@ namespace L_Tests.LCore.Extensions
             var True = new Func<bool>(() => true);
             var False = new Func<bool>(() => false);
 
-            new[] { False, False, False, False }.Or()().Should().BeFalse();
-            new[] { False, False, False, True }.Or()().Should().BeTrue();
+            new[] { False, False, False, False }.Or()().ShouldBeFalse();
+            new[] { False, False, False, True }.Or()().ShouldBeTrue();
             }
 
         [Fact]
@@ -55,11 +55,11 @@ namespace L_Tests.LCore.Extensions
                     throw new Exception();
                 });
 
-            new[] { False, False, False, False }.Or()(_TestString).Should().BeFalse();
-            new[] { False, False, False, True }.Or()(_TestString).Should().BeTrue();
+            new[] { False, False, False, False }.Or()(_TestString).ShouldBeFalse();
+            new[] { False, False, False, True }.Or()(_TestString).ShouldBeTrue();
 
             // True blocks execution of later items
-            new[] { False, False, True, NotRun }.Or()(_TestString).Should().BeTrue();
+            new[] { False, False, True, NotRun }.Or()(_TestString).ShouldBeTrue();
             L.A(() => new[] { False, False, False, NotRun }.Or()(_TestString)).ShouldFail();
             }
 
@@ -86,11 +86,11 @@ namespace L_Tests.LCore.Extensions
                     throw new Exception();
                 });
 
-            new[] { False, False, False, False }.Or()(_TestString, _TestString).Should().BeFalse();
-            new[] { False, False, False, True }.Or()(_TestString, _TestString).Should().BeTrue();
+            new[] { False, False, False, False }.Or()(_TestString, _TestString).ShouldBeFalse();
+            new[] { False, False, False, True }.Or()(_TestString, _TestString).ShouldBeTrue();
 
             // True blocks execution of later items
-            new[] { False, False, True, NotRun }.Or()(_TestString, _TestString).Should().BeTrue();
+            new[] { False, False, True, NotRun }.Or()(_TestString, _TestString).ShouldBeTrue();
             L.A(() => new[] { False, False, False, NotRun }.Or()(_TestString, _TestString)).ShouldFail();
             }
 
@@ -120,11 +120,11 @@ namespace L_Tests.LCore.Extensions
                     throw new Exception();
                 });
 
-            new[] { False, False, False, False }.Or()(_TestString, _TestString, _TestString).Should().BeFalse();
-            new[] { False, False, False, True }.Or()(_TestString, _TestString, _TestString).Should().BeTrue();
+            new[] { False, False, False, False }.Or()(_TestString, _TestString, _TestString).ShouldBeFalse();
+            new[] { False, False, False, True }.Or()(_TestString, _TestString, _TestString).ShouldBeTrue();
 
             // True blocks execution of later items
-            new[] { False, False, True, NotRun }.Or()(_TestString, _TestString, _TestString).Should().BeTrue();
+            new[] { False, False, True, NotRun }.Or()(_TestString, _TestString, _TestString).ShouldBeTrue();
             L.A(() => new[] { False, False, False, NotRun }.Or()(_TestString, _TestString, _TestString)).ShouldFail();
             }
 
@@ -157,11 +157,11 @@ namespace L_Tests.LCore.Extensions
                     throw new Exception();
                 });
 
-            new[] { False, False, False, False }.Or()(_TestString, _TestString, _TestString, _TestString).Should().BeFalse();
-            new[] { False, False, False, True }.Or()(_TestString, _TestString, _TestString, _TestString).Should().BeTrue();
+            new[] { False, False, False, False }.Or()(_TestString, _TestString, _TestString, _TestString).ShouldBeFalse();
+            new[] { False, False, False, True }.Or()(_TestString, _TestString, _TestString, _TestString).ShouldBeTrue();
 
             // True blocks execution of later items
-            new[] { False, False, True, NotRun }.Or()(_TestString, _TestString, _TestString, _TestString).Should().BeTrue();
+            new[] { False, False, True, NotRun }.Or()(_TestString, _TestString, _TestString, _TestString).ShouldBeTrue();
             L.A(() => new[] { False, False, False, NotRun }.Or()(_TestString, _TestString, _TestString, _TestString)).ShouldFail();
             }
 
@@ -171,11 +171,11 @@ namespace L_Tests.LCore.Extensions
             {
             // True works 
             Func<bool> Func = L.Bool.True;
-            Func.Not()().Should().BeFalse();
+            Func.Not()().ShouldBeFalse();
 
             // False works
             Func<bool> Func2 = () => false;
-            Func2.Not()().Should().BeTrue();
+            Func2.Not()().ShouldBeTrue();
 
             // Exceptions are not hidden
             Func<bool> Func3 = () => { throw new Exception(); };
@@ -193,7 +193,7 @@ namespace L_Tests.LCore.Extensions
                     o.Should().BeSameAs(_TestString);
                     return true;
                 };
-            Func.Not()(_TestString).Should().BeFalse();
+            Func.Not()(_TestString).ShouldBeFalse();
 
             // False works
             Func<object, bool> Func2 = o =>
@@ -202,7 +202,7 @@ namespace L_Tests.LCore.Extensions
                     o.Should().BeSameAs(_TestString);
                     return false;
                 };
-            Func2.Not()(_TestString).Should().BeTrue();
+            Func2.Not()(_TestString).ShouldBeTrue();
 
             // Exceptions are not hidden
             Func<object, bool> Func3 = o => { throw new Exception(); };
@@ -221,7 +221,7 @@ namespace L_Tests.LCore.Extensions
                     o2.Should().BeSameAs(_TestString);
                     return true;
                 };
-            Func.Not()(_TestString, _TestString).Should().BeFalse();
+            Func.Not()(_TestString, _TestString).ShouldBeFalse();
 
             // False works
             Func<object, object, bool> Func2 = (o1, o2) =>
@@ -231,7 +231,7 @@ namespace L_Tests.LCore.Extensions
                     o2.Should().BeSameAs(_TestString);
                     return false;
                 };
-            Func2.Not()(_TestString, _TestString).Should().BeTrue();
+            Func2.Not()(_TestString, _TestString).ShouldBeTrue();
 
             // Exceptions are not hidden
             Func<object, object, bool> Func3 = (o1, o2) => { throw new Exception(); };
@@ -251,7 +251,7 @@ namespace L_Tests.LCore.Extensions
                     o3.Should().BeSameAs(_TestString);
                     return true;
                 };
-            Func.Not()(_TestString, _TestString, _TestString).Should().BeFalse();
+            Func.Not()(_TestString, _TestString, _TestString).ShouldBeFalse();
 
             // False works
             Func<object, object, object, bool> Func2 = (o1, o2, o3) =>
@@ -262,7 +262,7 @@ namespace L_Tests.LCore.Extensions
                     o3.Should().BeSameAs(_TestString);
                     return false;
                 };
-            Func2.Not()(_TestString, _TestString, _TestString).Should().BeTrue();
+            Func2.Not()(_TestString, _TestString, _TestString).ShouldBeTrue();
 
             // Exceptions are not hidden
             Func<object, object, object, bool> Func3 = (o1, o2, o3) => { throw new Exception(); };
@@ -283,7 +283,7 @@ namespace L_Tests.LCore.Extensions
                     o4.Should().BeSameAs(_TestString);
                     return true;
                 };
-            Func.Not()(_TestString, _TestString, _TestString, _TestString).Should().BeFalse();
+            Func.Not()(_TestString, _TestString, _TestString, _TestString).ShouldBeFalse();
 
             // False works
             Func<object, object, object, object, bool> Func2 = (o1, o2, o3, o4) =>
@@ -311,17 +311,17 @@ namespace L_Tests.LCore.Extensions
             var Action = new Action(() => { Result = false; });
 
             Action.If(L.Bool.False)();
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             Action.If(L.Bool.True)();
-            Result.Should().BeFalse();
+            Result.ShouldBeFalse();
 
             // true works
             bool Result2 = false;
             var Action2 = new Action(() => { Result2 = true; });
 
             Action2.If(L.Bool.True)();
-            Result2.Should().BeTrue();
+            Result2.ShouldBeTrue();
 
             // Exceptions are not hidden
             Action Action3 = () => { throw new Exception(); };
@@ -347,10 +347,10 @@ namespace L_Tests.LCore.Extensions
             var Action = new Action(() => { Result = true; });
 
             Action.If(Condition)(_TestString);
-            Result.Should().BeFalse();
+            Result.ShouldBeFalse();
 
             Action.If(Condition.Not())(_TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // true works
             var Condition2 = new Func<object, bool>(o =>
@@ -363,7 +363,7 @@ namespace L_Tests.LCore.Extensions
             var Action2 = new Action(() => { Result2 = true; });
 
             Action2.If(Condition2)(_TestString);
-            Result2.Should().BeTrue();
+            Result2.ShouldBeTrue();
 
             // Exceptions are not hidden
             Action Action3 = () => { throw new Exception(); };
@@ -386,10 +386,10 @@ namespace L_Tests.LCore.Extensions
             var Action = new Action(() => { Result = true; });
 
             Action.If(Condition)(_TestString, _TestString);
-            Result.Should().BeFalse();
+            Result.ShouldBeFalse();
 
             Action.If(Condition.Not())(_TestString, _TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // true works
             var Condition2 = new Func<object, object, bool>((o1, o2) =>
@@ -403,7 +403,7 @@ namespace L_Tests.LCore.Extensions
             var Action2 = new Action(() => { Result2 = true; });
 
             Action2.If(Condition2)(_TestString, _TestString);
-            Result2.Should().BeTrue();
+            Result2.ShouldBeTrue();
 
             // Exceptions are not hidden
             Action Act3 = () => { throw new Exception(); };
@@ -427,10 +427,10 @@ namespace L_Tests.LCore.Extensions
             var Act = new Action(() => { Result = true; });
 
             Act.If(Condition)(_TestString, _TestString, _TestString);
-            Result.Should().BeFalse();
+            Result.ShouldBeFalse();
 
             Act.If(Condition.Not())(_TestString, _TestString, _TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // true works
             var Condition2 = new Func<object, object, object, bool>((o1, o2, o3) =>
@@ -445,7 +445,7 @@ namespace L_Tests.LCore.Extensions
             var Act2 = new Action(() => { Result2 = true; });
 
             Act2.If(Condition2)(_TestString, _TestString, _TestString);
-            Result2.Should().BeTrue();
+            Result2.ShouldBeTrue();
 
             // Exceptions are not hidden
             Action Act3 = () => { throw new Exception(); };
@@ -470,10 +470,10 @@ namespace L_Tests.LCore.Extensions
             var Act = new Action(() => { Result = true; });
 
             Act.If(Condition)(_TestString, _TestString, _TestString, _TestString);
-            Result.Should().BeFalse();
+            Result.ShouldBeFalse();
 
             Act.If(Condition.Not())(_TestString, _TestString, _TestString, _TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // true works
             var Condition2 = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
@@ -489,7 +489,7 @@ namespace L_Tests.LCore.Extensions
             var Act2 = new Action(() => { Result2 = true; });
 
             Act2.If(Condition2)(_TestString, _TestString, _TestString, _TestString);
-            Result2.Should().BeTrue();
+            Result2.ShouldBeTrue();
 
             // Exceptions are not hidden
             Action Act3 = () => { throw new Exception(); };
@@ -509,7 +509,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result2 = Act.If(L.Bool.False)();
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Result does not pass through
             Result2.Should().BeNull();
@@ -526,7 +526,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result4 = Act2.If(L.Bool.True)();
-            Result3.Should().BeTrue();
+            Result3.ShouldBeTrue();
 
             // Result passes through
             Result4.Should().Be(_TestString);
@@ -555,7 +555,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result2 = Act.If(Condition)(_TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Result does not pass through
             Result2.Should().BeNull();
@@ -578,7 +578,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result4 = Act2.If(Condition2)(_TestString);
-            Result3.Should().BeTrue();
+            Result3.ShouldBeTrue();
 
             // Result passes through
             Result4.Should().Be(_TestString);
@@ -608,7 +608,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result2 = Act.If(Condition)(_TestString, _TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Result does not pass through
             Result2.Should().BeNull();
@@ -632,7 +632,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result4 = Act2.If(Condition2)(_TestString, _TestString);
-            Result3.Should().BeTrue();
+            Result3.ShouldBeTrue();
 
             // Result passes through
             Result4.Should().Be(_TestString);
@@ -663,7 +663,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result2 = Act.If(Condition)(_TestString, _TestString, _TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Result does not pass through
             Result2.Should().BeNull();
@@ -688,7 +688,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result4 = Act2.If(Condition2)(_TestString, _TestString, _TestString);
-            Result3.Should().BeTrue();
+            Result3.ShouldBeTrue();
 
             // Result passes through
             Result4.Should().Be(_TestString);
@@ -720,7 +720,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result2 = Act.If(Condition)(_TestString, _TestString, _TestString, _TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Result does not pass through
             Result2.Should().BeNull();
@@ -746,7 +746,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result4 = Act2.If(Condition2)(_TestString, _TestString, _TestString, _TestString);
-            Result3.Should().BeTrue();
+            Result3.ShouldBeTrue();
 
             // Result passes through
             Result4.Should().Be(_TestString);
@@ -771,7 +771,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result2 = Act.Unless(L.Bool.True, L.Bool.False, L.Bool.False)();
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Result does not pass through
             Result2.Should().BeNull();
@@ -788,7 +788,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result4 = Act2.Unless(L.Bool.False, L.Bool.False, L.Bool.False)();
-            Result3.Should().BeTrue();
+            Result3.ShouldBeTrue();
 
             // Result passes through
             Result4.Should().Be(_TestString);
@@ -825,7 +825,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result2 = Act.Unless(True, False, False)(_TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Result does not pass through
             Result2.Should().BeNull();
@@ -842,7 +842,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result4 = Act2.Unless(False, False, False)(_TestString);
-            Result3.Should().BeTrue();
+            Result3.ShouldBeTrue();
 
             // Result passes through
             Result4.Should().Be(_TestString);
@@ -881,7 +881,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result2 = Act.Unless(True, False, False)(_TestString, _TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Result does not pass through
             Result2.Should().BeNull();
@@ -898,7 +898,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result4 = Act2.Unless(False, False, False)(_TestString, _TestString);
-            Result3.Should().BeTrue();
+            Result3.ShouldBeTrue();
 
             // Result passes through
             Result4.Should().Be(_TestString);
@@ -939,7 +939,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result2 = Act.Unless(True, False, False)(_TestString, _TestString, _TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Result does not pass through
             Result2.Should().BeNull();
@@ -956,7 +956,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result4 = Act2.Unless(False, False, False)(_TestString, _TestString, _TestString);
-            Result3.Should().BeTrue();
+            Result3.ShouldBeTrue();
 
             // Result passes through
             Result4.Should().Be(_TestString);
@@ -999,7 +999,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result2 = Act.Unless(True, False, False)(_TestString, _TestString, _TestString, _TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Result does not pass through
             Result2.Should().BeNull();
@@ -1016,7 +1016,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result4 = Act2.Unless(False, False, False)(_TestString, _TestString, _TestString, _TestString);
-            Result3.Should().BeTrue();
+            Result3.ShouldBeTrue();
 
             // Result passes through
             Result4.Should().Be(_TestString);
@@ -1040,7 +1040,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             Act.Unless(L.Bool.True, L.Bool.False)();
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
             L.A(() => Act.Unless(L.Bool.False)()).ShouldFail();
 
             // true works
@@ -1048,7 +1048,7 @@ namespace L_Tests.LCore.Extensions
             var Act2 = new Action(() => { Result2 = true; });
 
             Act2.Unless(L.Bool.False, L.Bool.False)();
-            Result2.Should().BeTrue();
+            Result2.ShouldBeTrue();
 
             // Exceptions are not hidden
             Action Act3 = () => { throw new Exception(); };
@@ -1074,7 +1074,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             Act.Unless(Condition, Condition.Not())(_TestString);
-            Result.Should().BeFalse();
+            Result.ShouldBeFalse();
             L.A(() => Act.Unless(L.Bool.False, L.Bool.False)()).ShouldFail();
 
             // true works
@@ -1088,7 +1088,7 @@ namespace L_Tests.LCore.Extensions
             var Act2 = new Action(() => { Result2 = true; });
 
             Act2.Unless(Condition2, Condition2)(_TestString);
-            Result2.Should().BeTrue();
+            Result2.ShouldBeTrue();
 
             // Exceptions are not hidden
             Action Act3 = () => { throw new Exception(); };
@@ -1115,7 +1115,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             Act.Unless(Condition, Condition.Not())(_TestString, _TestString);
-            Result.Should().BeFalse();
+            Result.ShouldBeFalse();
             Act.Unless(Condition.Not(), Condition.Not()).ShouldFail(_TestString, _TestString);
 
             // true works
@@ -1130,7 +1130,7 @@ namespace L_Tests.LCore.Extensions
             var Act2 = new Action(() => { Result2 = true; });
 
             Act2.Unless(Condition2, Condition2)(_TestString, _TestString);
-            Result2.Should().BeTrue();
+            Result2.ShouldBeTrue();
 
             // Exceptions are not hidden
             // Exceptions are not hidden
@@ -1159,7 +1159,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             Act.Unless(Condition, Condition.Not())(_TestString, _TestString, _TestString);
-            Result.Should().BeFalse();
+            Result.ShouldBeFalse();
             Act.Unless(Condition.Not(), Condition.Not()).ShouldFail(_TestString, _TestString, _TestString);
 
             // true works
@@ -1175,7 +1175,7 @@ namespace L_Tests.LCore.Extensions
             var Act2 = new Action(() => { Result2 = true; });
 
             Act2.Unless(Condition2, Condition2)(_TestString, _TestString, _TestString);
-            Result2.Should().BeTrue();
+            Result2.ShouldBeTrue();
 
             // Exceptions are not hidden
             // Exceptions are not hidden
@@ -1205,7 +1205,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             Act.Unless(Condition, Condition.Not())(_TestString, _TestString, _TestString, _TestString);
-            Result.Should().BeFalse();
+            Result.ShouldBeFalse();
             Act.Unless(Condition.Not(), Condition.Not()).ShouldFail(_TestString, _TestString, _TestString, _TestString);
 
             // true works
@@ -1222,7 +1222,7 @@ namespace L_Tests.LCore.Extensions
             var Act2 = new Action(() => { Result2 = true; });
 
             Act2.Unless(Condition2, Condition2)(_TestString, _TestString, _TestString, _TestString);
-            Result2.Should().BeTrue();
+            Result2.ShouldBeTrue();
 
             // Exceptions are not hidden
             Action Act3 = () => { throw new Exception(); };
@@ -1243,10 +1243,10 @@ namespace L_Tests.LCore.Extensions
                 });
 
             bool Result2 = Act.If(L.Bool.True, L.Bool.True, L.Bool.False)();
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Result does not pass through
-            Result2.Should().BeFalse();
+            Result2.ShouldBeFalse();
             Act.If(L.Bool.True, L.Bool.True, L.Bool.True).ShouldFail();
 
             // true works - AND is applied
@@ -1254,10 +1254,10 @@ namespace L_Tests.LCore.Extensions
             var Act2 = new Action(() => { Result3 = true; });
 
             bool Result4 = Act2.If(L.Bool.True, L.Bool.True, L.Bool.True)();
-            Result3.Should().BeTrue();
+            Result3.ShouldBeTrue();
 
             // Result passes through
-            Result4.Should().BeTrue();
+            Result4.ShouldBeTrue();
 
             // Exceptions are not hidden
             Func<string> Act3 = () => { throw new Exception(); };
@@ -1291,21 +1291,21 @@ namespace L_Tests.LCore.Extensions
                 });
 
             bool Result2 = Act.If(True, True, False)(_TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
             Act.If(True, True, True).ShouldFail(_TestString);
 
             // Result works
-            Result2.Should().BeFalse();
+            Result2.ShouldBeFalse();
 
             // true works - AND is applied
             bool Result3 = false;
             var Act2 = new Action(() => { Result3 = true; });
 
             bool Result4 = Act2.If(True, True, True)(_TestString);
-            Result3.Should().BeTrue();
+            Result3.ShouldBeTrue();
 
             // Result works
-            Result4.Should().BeTrue();
+            Result4.ShouldBeTrue();
 
             // Exceptions are not hidden
             Func<string> Act3 = () => { throw new Exception(); };
@@ -1341,21 +1341,21 @@ namespace L_Tests.LCore.Extensions
                 });
 
             bool Result2 = Act.If(True, True, False)(_TestString, _TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
             Act.If(True, True, True).ShouldFail(_TestString, _TestString);
 
             // Result works
-            Result2.Should().BeFalse();
+            Result2.ShouldBeFalse();
 
             // true works - AND is applied
             bool Result3 = false;
             var Act2 = new Action(() => { Result3 = true; });
 
             bool Result4 = Act2.If(True, True, True)(_TestString, _TestString);
-            Result3.Should().BeTrue();
+            Result3.ShouldBeTrue();
 
             // Result works
-            Result4.Should().BeTrue();
+            Result4.ShouldBeTrue();
 
             // Exceptions are not hidden
             Func<string> Act3 = () => { throw new Exception(); };
@@ -1393,21 +1393,21 @@ namespace L_Tests.LCore.Extensions
                 });
 
             bool Result2 = Act.If(True, True, False)(_TestString, _TestString, _TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
             Act.If(True, True, True).ShouldFail(_TestString, _TestString, _TestString);
 
             // Result works
-            Result2.Should().BeFalse();
+            Result2.ShouldBeFalse();
 
             // true works - AND is applied
             bool Result3 = false;
             var Act2 = new Action(() => { Result3 = true; });
 
             bool Result4 = Act2.If(True, True, True)(_TestString, _TestString, _TestString);
-            Result3.Should().BeTrue();
+            Result3.ShouldBeTrue();
 
             // Result works
-            Result4.Should().BeTrue();
+            Result4.ShouldBeTrue();
 
             // Exceptions are not hidden
             Func<string> Act3 = () => { throw new Exception(); };
@@ -1447,21 +1447,21 @@ namespace L_Tests.LCore.Extensions
                 });
 
             bool Result2 = Act.If(True, True, False)(_TestString, _TestString, _TestString, _TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
             Act.If(True, True, True).ShouldFail(_TestString, _TestString, _TestString, _TestString);
 
             // Result works
-            Result2.Should().BeFalse();
+            Result2.ShouldBeFalse();
 
             // true works - AND is applied
             bool Result3 = false;
             var Act2 = new Action(() => { Result3 = true; });
 
             bool Result4 = Act2.If(True, True, True)(_TestString, _TestString, _TestString, _TestString);
-            Result3.Should().BeTrue();
+            Result3.ShouldBeTrue();
 
             // Result works
-            Result4.Should().BeTrue();
+            Result4.ShouldBeTrue();
 
             // Exceptions are not hidden
             Func<string> Act3 = () => { throw new Exception(); };
@@ -1482,7 +1482,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result2 = Act.If(L.Bool.True, L.Bool.True, L.Bool.False)();
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Result does not pass through
             Result2.Should().BeNull();
@@ -1499,7 +1499,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result4 = Act2.If(L.Bool.True, L.Bool.True, L.Bool.True)();
-            Result3.Should().BeTrue();
+            Result3.ShouldBeTrue();
 
             // Result passes through
             Result4.Should().Be(_TestString);
@@ -1536,7 +1536,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result2 = Act.If(True, True, False)(_TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Result does not pass through
             Result2.Should().BeNull();
@@ -1553,7 +1553,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result4 = Act2.If(True, True, True)(_TestString);
-            Result3.Should().BeTrue();
+            Result3.ShouldBeTrue();
 
             // Result passes through
             Result4.Should().Be(_TestString);
@@ -1592,7 +1592,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result2 = Act.If(True, True, False)(_TestString, _TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Result does not pass through
             Result2.Should().BeNull();
@@ -1609,7 +1609,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result4 = Act2.If(True, True, True)(_TestString, _TestString);
-            Result3.Should().BeTrue();
+            Result3.ShouldBeTrue();
 
             // Result passes through
             Result4.Should().Be(_TestString);
@@ -1650,7 +1650,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result2 = Act.If(True, True, False)(_TestString, _TestString, _TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Result does not pass through
             Result2.Should().BeNull();
@@ -1667,7 +1667,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result4 = Act2.If(True, True, True)(_TestString, _TestString, _TestString);
-            Result3.Should().BeTrue();
+            Result3.ShouldBeTrue();
 
             // Result passes through
             Result4.Should().Be(_TestString);
@@ -1710,7 +1710,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result2 = Act.If(True, True, False)(_TestString, _TestString, _TestString, _TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
 
             // Result does not pass through
             Result2.Should().BeNull();
@@ -1727,7 +1727,7 @@ namespace L_Tests.LCore.Extensions
                 });
 
             string Result4 = Act2.If(True, True, True)(_TestString, _TestString, _TestString, _TestString);
-            Result3.Should().BeTrue();
+            Result3.ShouldBeTrue();
 
             // Result passes through
             Result4.Should().Be(_TestString);
@@ -1765,13 +1765,13 @@ namespace L_Tests.LCore.Extensions
 
             // Action did run.
             False.ElseIf(True, ActionMustRun)();
-            ActionRun.Should().BeTrue();
+            ActionRun.ShouldBeTrue();
 
             ActionRun = false;
 
             // Action did run.
             False.ElseIf(ActionMustRun2, L.E)();
-            ActionRun.Should().BeTrue();
+            ActionRun.ShouldBeTrue();
             }
 
         [Fact]
@@ -1810,13 +1810,13 @@ namespace L_Tests.LCore.Extensions
 
             // Action did run.
             False.ElseIf(True, ActionMustRun)(_TestString);
-            ActionRun.Should().BeTrue();
+            ActionRun.ShouldBeTrue();
 
             ActionRun = false;
 
             // Action did run.
             False.ElseIf(ActionMustRun2, ActionMustRun)(_TestString);
-            ActionRun.Should().BeTrue();
+            ActionRun.ShouldBeTrue();
             }
 
         [Fact]
@@ -1854,7 +1854,7 @@ namespace L_Tests.LCore.Extensions
 
             // Action did run.
             False.ElseIf(True, ActionMustRun)(_TestString, _TestString);
-            ActionRun.Should().BeTrue();
+            ActionRun.ShouldBeTrue();
 
             False.ElseIf(True, ActionMustNotRun).ShouldFail(_TestString, _TestString);
             False.ElseIf(ActionMustNotRun2, True).ShouldFail(_TestString, _TestString);
@@ -1863,7 +1863,7 @@ namespace L_Tests.LCore.Extensions
 
             // Action did run.
             False.ElseIf(ActionMustRun2, ActionMustRun)(_TestString, _TestString);
-            ActionRun.Should().BeTrue();
+            ActionRun.ShouldBeTrue();
             }
 
         [Fact]
@@ -1903,7 +1903,7 @@ namespace L_Tests.LCore.Extensions
 
             // Action did run.
             False.ElseIf(True, ActionMustRun)(_TestString, _TestString, _TestString);
-            ActionRun.Should().BeTrue();
+            ActionRun.ShouldBeTrue();
 
             False.ElseIf(True, ActionMustNotRun).ShouldFail(_TestString, _TestString, _TestString);
             False.ElseIf(ActionMustNotRun2, True).ShouldFail(_TestString, _TestString, _TestString);
@@ -1912,7 +1912,7 @@ namespace L_Tests.LCore.Extensions
 
             // Action did run.
             False.ElseIf(ActionMustRun2, ActionMustRun)(_TestString, _TestString, _TestString);
-            ActionRun.Should().BeTrue();
+            ActionRun.ShouldBeTrue();
             }
 
         [Fact]
@@ -1952,7 +1952,7 @@ namespace L_Tests.LCore.Extensions
 
             // Action did run.
             False.ElseIf(True, ActionMustRun)(_TestString, _TestString, _TestString, _TestString);
-            ActionRun.Should().BeTrue();
+            ActionRun.ShouldBeTrue();
 
             False.ElseIf(True, ActionMustNotRun).ShouldFail(_TestString, _TestString, _TestString, _TestString);
             False.ElseIf(ActionMustNotRun2, True).ShouldFail(_TestString, _TestString, _TestString, _TestString);
@@ -1961,7 +1961,7 @@ namespace L_Tests.LCore.Extensions
 
             // Action did run.
             False.ElseIf(ActionMustRun2, ActionMustRun)(_TestString, _TestString, _TestString, _TestString);
-            ActionRun.Should().BeTrue();
+            ActionRun.ShouldBeTrue();
             }
 
 
@@ -1990,17 +1990,17 @@ namespace L_Tests.LCore.Extensions
 
             // Action did run.
             False.ElseIf(True, ActionMustRun)();
-            ActionRun.Should().BeTrue();
+            ActionRun.ShouldBeTrue();
 
             ActionRun = false;
 
             // Action did run.
             False.ElseIf(ActionMustRun, L.Bool.True)();
-            ActionRun.Should().BeTrue();
+            ActionRun.ShouldBeTrue();
 
             // Result was passed.
             bool Result = False.ElseIf(True, True)();
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
             }
 
         [Fact]
@@ -2028,7 +2028,7 @@ namespace L_Tests.LCore.Extensions
 
             // Action did run.
             False.ElseIf(True, ActionMustRun)(_TestString);
-            ActionRun.Should().BeTrue();
+            ActionRun.ShouldBeTrue();
 
             False.ElseIf(ActionMustNotRun, True).ShouldFail(_TestString);
             False.ElseIf(True, ActionMustNotRun).ShouldFail(_TestString);
@@ -2037,11 +2037,11 @@ namespace L_Tests.LCore.Extensions
 
             // Action did run.
             False.ElseIf(ActionMustRun, ActionMustRun)(_TestString);
-            ActionRun.Should().BeTrue();
+            ActionRun.ShouldBeTrue();
 
             // Result was passed.
             bool Result = False.ElseIf(True, True)(_TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
             }
 
         [Fact]
@@ -2070,7 +2070,7 @@ namespace L_Tests.LCore.Extensions
 
             // Action did run.
             False.ElseIf(True, ActionMustRun)(_TestString, _TestString);
-            ActionRun.Should().BeTrue();
+            ActionRun.ShouldBeTrue();
 
             False.ElseIf(ActionMustNotRun, True).ShouldFail(_TestString, _TestString);
             False.ElseIf(True, ActionMustNotRun).ShouldFail(_TestString, _TestString);
@@ -2079,11 +2079,11 @@ namespace L_Tests.LCore.Extensions
 
             // Action did run.
             False.ElseIf(ActionMustRun, ActionMustRun)(_TestString, _TestString);
-            ActionRun.Should().BeTrue();
+            ActionRun.ShouldBeTrue();
 
             // Result was passed.
             bool Result = False.ElseIf(True, True)(_TestString, _TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
             }
 
         [Fact]
@@ -2113,7 +2113,7 @@ namespace L_Tests.LCore.Extensions
 
             // Action did run.
             False.ElseIf(True, ActionMustRun)(_TestString, _TestString, _TestString);
-            ActionRun.Should().BeTrue();
+            ActionRun.ShouldBeTrue();
 
             False.ElseIf(ActionMustNotRun, True).ShouldFail(_TestString, _TestString, _TestString);
             False.ElseIf(True, ActionMustNotRun).ShouldFail(_TestString, _TestString, _TestString);
@@ -2122,11 +2122,11 @@ namespace L_Tests.LCore.Extensions
 
             // Action did run.
             False.ElseIf(ActionMustRun, ActionMustRun)(_TestString, _TestString, _TestString);
-            ActionRun.Should().BeTrue();
+            ActionRun.ShouldBeTrue();
 
             // Result was passed.
             bool Result = False.ElseIf(True, True)(_TestString, _TestString, _TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
             }
 
         [Fact]
@@ -2156,7 +2156,7 @@ namespace L_Tests.LCore.Extensions
 
             // Action did run.
             False.ElseIf(True, ActionMustRun)(_TestString, _TestString, _TestString, _TestString);
-            ActionRun.Should().BeTrue();
+            ActionRun.ShouldBeTrue();
 
             False.ElseIf(ActionMustNotRun, True).ShouldFail(_TestString, _TestString, _TestString, _TestString);
             False.ElseIf(True, ActionMustNotRun).ShouldFail(_TestString, _TestString, _TestString, _TestString);
@@ -2165,11 +2165,11 @@ namespace L_Tests.LCore.Extensions
 
             // Action did run.
             False.ElseIf(ActionMustRun, ActionMustRun)(_TestString, _TestString, _TestString, _TestString);
-            ActionRun.Should().BeTrue();
+            ActionRun.ShouldBeTrue();
 
             // Result was passed.
             bool Result = False.ElseIf(True, True)(_TestString, _TestString, _TestString, _TestString);
-            Result.Should().BeTrue();
+            Result.ShouldBeTrue();
             }
 
 

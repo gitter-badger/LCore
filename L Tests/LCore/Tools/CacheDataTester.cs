@@ -5,6 +5,7 @@ using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
@@ -31,7 +32,7 @@ namespace L_Tests.LCore.Tools
             bool Executed = false;
             Func<string, string> Test = new Func<string, string>(In =>
                 {
-                    Executed.Should().BeFalse();
+                    Executed.ShouldBeFalse();
                     Thread.Sleep(millisecondsTimeout: 100);
                     Executed = true;
                     return In + "6";
