@@ -150,6 +150,7 @@
     <Compile Include="LCore\Extensions\CommentExtTester.cs" />
     <Compile Include="LCore\Extensions\DateExtTester.cs" />
     <Compile Include="LCore\Extensions\EnumExtTester.cs" />
+    <Compile Include="LCore\Tests\Tools\ScheduleTester.cs" />
     <Compile Include="LCore\Tools\DateTimeConverterTester.cs" />
     <Compile Include="LCore\Tools\ProgressUpdaterTester.cs" />
     <Compile Include="LCore\Tools\CacheDataTester.cs" />
@@ -157,6 +158,8 @@
     <Compile Include="LCore\Tools\Lists_2Tester.cs" />
     <Compile Include="LCore\Tools\RegistryHelperTester.cs" />
     <Compile Include="LCore\Tools\Set_2Tester.cs" />
+    <Compile Include="LCore\Tools\StatMonitorTest.cs" />
+    <Compile Include="LCore\Tools\StopWatchTest.cs" />
     <Compile Include="Tests\Extensions\Object Types\ComparableExtTest.cs" />
     <Compile Include="Tests\Extensions\Object Types\StatsExtTest.cs" />
     <Compile Include="Tests\Extensions\Methods\LogicExtTest.cs" />
@@ -180,10 +183,6 @@
     <Compile Include="Tests\Static\L.List.Test.cs" />
     <Compile Include="Tests\Static\L.Ary.Test.cs" />
     <Compile Include="Tests\Static\L.Char.Test.cs" />
-    <Compile Include="Tests\Tools\DateTimeConverterTest.cs" />
-    <Compile Include="Tests\Tools\ScheduleTest.cs" />
-    <Compile Include="Tests\Tools\StopWatchTest.cs" />
-    <Compile Include="Tests\Tools\StatMonitorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\L Thread Tests\Tests L Core Threads.csproj">
@@ -205,6 +204,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Generated\Gen\" />
+    <Folder Include="Tests\Tools\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

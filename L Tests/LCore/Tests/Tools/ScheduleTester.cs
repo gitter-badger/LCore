@@ -1,32 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentAssertions;
+using JetBrains.Annotations;
 using LCore.Extensions;
+using LCore.LUnit;
 using LCore.LUnit.Fluent;
 using LCore.Tools;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
-using static LCore.LUnit.LUnit.Categories;
+using Xunit.Abstractions;
 
-namespace LCore.Tests.Tools
+namespace L_Tests.LCore.Tests.Tools
     {
-    [Trait(Category, LUnit.LUnit.Categories.Tools)]
-    public class ScheduleTest
+    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(Schedule))]
+    public partial class ScheduleTester : XUnitOutputTester, IDisposable
         {
-        /// <exception cref="InternalTestFailureException">The test fails</exception>
+        public ScheduleTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+
+        public void Dispose() { }
+
         [Fact]
-        public void TestSchedule()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(Schedule) + "." + nameof(Schedule.ToString) + "() => String")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(Schedule) + "." + nameof(Schedule.FromString) + "(String) => Schedule")]
+        public new void ToString()
             {
             var Date = DateTime.Now.AddMinutes(value: 20);
             var Date2 = DateTime.Now.AddDays(value: 2);
 
             var Test = new Schedule
                 {
-                TimesOfDay = new List<DateTime> {Date, Date2},
+                TimesOfDay = new List<DateTime> { Date, Date2 },
                 // ReSharper disable ArgumentsStyleLiteral
-                DaysOfMonth = new List<int> {5, 15, 20},
+                DaysOfMonth = new List<int> { 5, 15, 20 },
                 // ReSharper restore ArgumentsStyleLiteral
-                DaysOfWeek = new List<DayOfWeek> {DayOfWeek.Saturday, DayOfWeek.Thursday},
+                DaysOfWeek = new List<DayOfWeek> { DayOfWeek.Saturday, DayOfWeek.Thursday },
                 Mode = Schedule.ScheduleMode.Daily,
                 OneTimeScheduleDate = Date2
                 };
@@ -77,6 +83,8 @@ namespace LCore.Tests.Tools
 
             L.A(() => Schedule.FromString($"BadEnum|{Date2}")).ShouldFail();
             L.A(() => Schedule.FromString($"Daily|Saturday,Thursday,Blurnsday|{Date},{Date2}")).ShouldFail();
+
             }
+
         }
     }

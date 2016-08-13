@@ -10,6 +10,7 @@ using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 using Xunit.Abstractions;
+// ReSharper disable PartialTypeWithSinglePart
 
 namespace L_Tests.LCore.Tools
     {
@@ -32,6 +33,7 @@ namespace L_Tests.LCore.Tools
             {
             // ReSharper disable StringLiteralTypo
             DateTimeConverter.Rfc3339DateTimeFormat.Should().Be("yyyy-MM-dd'T'HH:mm:ss.fffK");
+            // ReSharper disable once RedundantExplicitParamsArrayCreation
             DateTimeConverter.Rfc3339DateTimePatterns.Should().Equal(new[]
                 {
                 "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK",

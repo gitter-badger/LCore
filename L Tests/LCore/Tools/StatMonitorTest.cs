@@ -1,23 +1,35 @@
 ﻿using System;
 using FluentAssertions;
+using JetBrains.Annotations;
 using LCore.Extensions;
+using LCore.LUnit;
 using LCore.LUnit.Fluent;
 using LCore.Tools;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
-using static LCore.LUnit.LUnit.Categories;
+using Xunit.Abstractions;
 
 // ReSharper disable ObjectCreationAsStatement
 
-namespace LCore.Tests.Tools
+namespace L_Tests.LCore.Tools
     {
-    [Trait(Category, LUnit.LUnit.Categories.Tools)]
-    public class StatMonitorTest
+    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(StatMonitor))]
+    public partial class StatMonitorTester : XUnitOutputTester, IDisposable
         {
-        /// <exception cref="InternalTestFailureException">The test fails</exception>
-        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
+        public StatMonitorTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+
+        public void Dispose() { }
+
         [Fact]
-        public void Test_StatMonitor()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(StatMonitor) + "." +
+            nameof(StatMonitor.GetCurrentAverageStat) + "() => Double")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(StatMonitor) + "." +
+            nameof(StatMonitor.AddStat) + "(Double)")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(StatMonitor) + "." +
+            nameof(StatMonitor.Clear) + "()")]
+        public void StatisticalGathering()
             {
             L.A(() => new StatMonitor(-1)).ShouldFail();
             L.A(() => new StatMonitor(WalkingAverageSize: 0)).ShouldFail();
@@ -51,6 +63,9 @@ namespace LCore.Tests.Tools
             Test.AddStat(Stat: 20);
 
             Test.GetCurrentAverageStat().Should().Be(expected: 15.5);
+
+            Test.Clear();
+            Test.GetCurrentAverageStat().Should().Be(expected: 0);
             }
         }
     }

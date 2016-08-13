@@ -156,7 +156,8 @@ namespace LCore.LUnit
             Type[] StaticTypes = Types.Select(Type => Type.IsStatic());
             Type[] NonStaticTypes = Types.Select(Type => Type.IsClass && !Type.IsStatic());
 
-            List<string> Out = new List<string>();
+            var Out = new List<string>();
+            var MissingMembers = new List<string>();
 
             if (NonStaticTypes.Length > 0)
                 {
@@ -170,22 +171,29 @@ namespace LCore.LUnit
                         {
                         uint Coverage = TestData.CoveragePercent;
                         AllCoverage.Add(Coverage);
-                        Out.Add($"{Type.FullyQualifiedName().Pad(Length: 45)}({$"{Coverage}".AlignRight(Length: 3)}%)");
+                        Out.Add($"{Type.FullyQualifiedName().Pad(Length: 45)}({$"{Coverage}".AlignRight(Length: 3)}%) {$"({TestData.TestsPresent}/{TestData.MembersPresent})".AlignRight(Length: 7)}");
 
-                        TestData.MissingMemberInvocations.Each(Member => this._Output.WriteLine($"-{Member}"));
+                        TestData.MissingMemberInvocations.Each(Member => MissingMembers.Add($"-{Member}"));
                         }
                     }
 
-                Out.Insert(0, $"Classes:                        Total Coverage: {AllCoverage.Average()}");
+                Out.Insert(index: 0, item: $"Classes:                     Total Coverage: ({$"{AllCoverage.Average()}".AlignRight(Length: 3)}%)");
+                Out.Insert(index: 1, item: "---------------------------------------------------------");
                 Out.Add("");
+                Out.Each(this._Output.WriteLine);
+                Out.Clear();
                 }
 
             if (StaticTypes.Length > 0)
                 {
+                var AllCoverage = new List<uint>();
+
                 this._Output.WriteLine("Static Classes: ");
                 foreach (var Type in StaticTypes)
                     {
                     var TestData = Type.GetTestData(this.TestAssemblies);
+
+                    AllCoverage.Add(TestData.CoveragePercent);
 
                     if (TestData.MembersPresent > 0)
                         {
@@ -193,11 +201,18 @@ namespace LCore.LUnit
 
                         this._Output.WriteLine($"{Type.FullyQualifiedName().Pad(Length: 45)}({$"{Coverage}".AlignRight(Length: 3)}%)");
 
-                        TestData.MissingMemberInvocations.Each(Member => this._Output.WriteLine($"-{Member}"));
+                        TestData.MissingMemberInvocations.Each(Member => MissingMembers.Add($"-{Member}"));
                         }
                     }
-                this._Output.WriteLine("");
+
+                Out.Insert(index: 0, item: $"Static Classes:                     Total Coverage: ({$"{AllCoverage.Average()}".AlignRight(Length: 3)}%)");
+                Out.Insert(index: 1, item: "---------------------------------------------------------");
+                Out.Add("");
+                Out.Each(this._Output.WriteLine);
+                Out.Clear();
                 }
+
+            MissingMembers.Each(this._Output.WriteLine);
             }
 
         /// <summary>

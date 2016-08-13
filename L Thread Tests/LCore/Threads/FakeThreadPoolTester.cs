@@ -23,7 +23,7 @@ using Xunit.Abstractions;
 // ReSharper disable EmptyDestructor
 // ReSharper disable NotAccessedVariable
 
-namespace L_Thread_Tests.LCore.Threads
+namespace L_Tests.LCore.Threads
     {
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(FakeThreadPool))]
     public partial class FakeThreadPoolTester : XUnitOutputTester, IDisposable
@@ -39,6 +39,14 @@ namespace L_Thread_Tests.LCore.Threads
             }
 
         [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(FakeThreadPool) + "." + nameof(FakeThreadPool.AwaitThreadAdded) + "() => Task")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(FakeThreadPool) + "." + nameof(FakeThreadPool.GetThreadHistory) + "() => List`1<ThreadSpinner>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(FakeThreadPool) + "." + nameof(FakeThreadPool.GetThreadsWaiting) + "() => List`1<ThreadSpinner>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(ThreadSpinner) + "." + nameof(ThreadSpinner.Wait) + "() => Task")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(ThreadSpinner) + "." + nameof(ThreadSpinner.StopWaiting) + "()")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(FakeThreadPool) + "." + nameof(FakeThreadPool.Delay) + "(Int32) => Task")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(FakeThreadPool) + "." + nameof(FakeThreadPool.Delay) + "(UInt32) => Task")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(FakeThreadPool) + "." + nameof(FakeThreadPool.Delay) + "(TimeSpan) => Task")]
         public async void SimpleTest()
             {
             var Pool = new FakeThreadPool();
@@ -56,39 +64,39 @@ namespace L_Thread_Tests.LCore.Threads
             int Task4Waited = 0;
 
             var Task1 = new Task(async () =>
-                {
-                    await Pool.Delay(LongWait);
-                    Handoff++;
-                });
+            {
+                await Pool.Delay(LongWait);
+                Handoff++;
+            });
             var Task2 = new Task(async () =>
-                {
-                    while (Handoff != 1)
-                        {
-                        await Pool.Delay(L.Obj.NewRandom<int>(MinWait, MaxWait));
-                        Task2Waited++;
-                        }
-                    Handoff.Should().Be(expected: 1);
-                    Handoff++;
-                });
+            {
+                while (Handoff != 1)
+                    {
+                    await Pool.Delay(L.Obj.NewRandom<int>(MinWait, MaxWait));
+                    Task2Waited++;
+                    }
+                Handoff.Should().Be(expected: 1);
+                Handoff++;
+            });
             var Task3 = new Task(async () =>
-                {
-                    while (Handoff != 2)
-                        {
-                        await Pool.Delay(L.Obj.NewRandom<int>(MinWait, MaxWait));
-                        Task3Waited++;
-                        }
-                    Handoff.Should().Be(expected: 2);
-                    Handoff++;
-                });
+            {
+                while (Handoff != 2)
+                    {
+                    await Pool.Delay(L.Obj.NewRandom<uint>((uint)MinWait, (uint)MaxWait));
+                    Task3Waited++;
+                    }
+                Handoff.Should().Be(expected: 2);
+                Handoff++;
+            });
             var Task4 = new Task(async () =>
-                {
-                    while (Handoff != 3)
-                        {
-                        await Pool.Delay(L.Obj.NewRandom<int>(MinWait, MaxWait));
-                        Task4Waited++;
-                        }
-                    Handoff.Should().Be(expected: 3);
-                });
+            {
+                while (Handoff != 3)
+                    {
+                    await Pool.Delay(TimeSpan.FromMilliseconds(L.Obj.NewRandom<int>(MinWait, MaxWait)));
+                    Task4Waited++;
+                    }
+                Handoff.Should().Be(expected: 3);
+            });
 
             Task1.Start();
             Task2.Start();
@@ -136,50 +144,50 @@ namespace L_Thread_Tests.LCore.Threads
             var History = new List<string>();
 
             var Task1 = new Task(async () =>
-                {
-                    while (Handoff < Target)
-                        {
-                        await Pool.Delay(LargeDelay);
-                        Handoff++;
-                        History.Add("Task1");
-                        }
-                });
+            {
+                while (Handoff < Target)
+                    {
+                    await Pool.Delay(LargeDelay);
+                    Handoff++;
+                    History.Add("Task1");
+                    }
+            });
             var Task2 = new Task(async () =>
-                {
-                    while (Handoff < Target)
-                        {
-                        while (Handoff % 3 != 0)
-                            await Pool.Delay(SmallDelay);
+            {
+                while (Handoff < Target)
+                    {
+                    while (Handoff % 3 != 0)
+                        await Pool.Delay(SmallDelay);
 
-                        (Handoff % 3).Should().Be(expected: 0);
-                        Handoff++;
-                        History.Add("Task2");
-                        }
-                });
+                    (Handoff % 3).Should().Be(expected: 0);
+                    Handoff++;
+                    History.Add("Task2");
+                    }
+            });
             var Task3 = new Task(async () =>
-                {
-                    while (Handoff < Target)
-                        {
-                        while (Handoff % 3 != 1)
-                            await Pool.Delay(SmallDelay);
+            {
+                while (Handoff < Target)
+                    {
+                    while (Handoff % 3 != 1)
+                        await Pool.Delay(SmallDelay);
 
-                        (Handoff % 3).Should().Be(expected: 1);
-                        Handoff++;
-                        History.Add("Task3");
-                        }
-                });
+                    (Handoff % 3).Should().Be(expected: 1);
+                    Handoff++;
+                    History.Add("Task3");
+                    }
+            });
             var Task4 = new Task(async () =>
-                {
-                    while (Handoff < Target)
-                        {
-                        while (Handoff % 3 != 2)
-                            await Pool.Delay(SmallDelay);
+            {
+                while (Handoff < Target)
+                    {
+                    while (Handoff % 3 != 2)
+                        await Pool.Delay(SmallDelay);
 
-                        (Handoff % 3).Should().Be(expected: 2);
-                        Handoff++;
-                        History.Add("Task4");
-                        }
-                });
+                    (Handoff % 3).Should().Be(expected: 2);
+                    Handoff++;
+                    History.Add("Task4");
+                    }
+            });
 
             Task1.Start();
             Task2.Start();
