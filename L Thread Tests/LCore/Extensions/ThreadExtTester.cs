@@ -1,36 +1,44 @@
-﻿using LCore.Extensions;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Threading;
 using FluentAssertions;
 using JetBrains.Annotations;
+using LCore.Extensions;
+using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
-using static LCore.LUnit.LUnit.Categories;
-using LCore.LUnit;
-using LCore.LUnit.Fluent;
+
+// ReSharper disable PartialTypeWithSinglePart
 
 // ReSharper disable PossibleNullReferenceException
 
-namespace LCore.Tests.Extensions
+namespace L_Thread_Tests.LCore.Extensions
     {
-    [Trait(Category, UnitTests)]
-    public class ThreadExtTest : XUnitOutputTester
+    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt))]
+    public partial class ThreadExtTester : XUnitOutputTester, IDisposable
         {
-        public ThreadExtTest([NotNull] ITestOutputHelper Output) : base(Output)
+        public ThreadExtTester([NotNull] ITestOutputHelper Output) : base(Output)
             {
             Thread.CurrentThread.Priority = ThreadPriority.Highest;
             }
 
+        public void Dispose() { }
+
         [Fact]
+        [Trait(Traits.TargetMember,
+             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+             nameof(ThreadExt.Async) + "(Action) => Action")]
+        [Trait(Traits.TargetMember,
+             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+             nameof(ThreadExt.Async) + "(Action, ThreadPriority) => Action")]
         public void Test_Async_Action()
             {
             bool Success = false;
             var TestAction = new Action(() =>
                 {
-                Thread.Sleep(millisecondsTimeout: 20);
-                Success = true;
+                    Thread.Sleep(millisecondsTimeout: 20);
+                    Success = true;
                 });
 
             lock (TestAction)
@@ -45,13 +53,28 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.Async) + "(Action, TimeSpan, ThreadPriority) => Action")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.Async) + "(Action, Int32, ThreadPriority) => Action")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.Async) + "(Action, UInt32, ThreadPriority) => Action")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.Async) + "(Action, Int64, ThreadPriority) => Action")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.Async) + "(Action, UInt64, ThreadPriority) => Action")]
         public void Test_Async_Action_TimeLimit()
             {
             bool Success = false;
             var TestAction = new Action(() =>
                 {
-                Thread.Sleep(millisecondsTimeout: 20);
-                Success = true;
+                    Thread.Sleep(millisecondsTimeout: 20);
+                    Success = true;
                 });
 
             Thread.Sleep(millisecondsTimeout: 40);
@@ -159,13 +182,19 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.Async) + "(Action`1<T>) => Action`1<T>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.Async) + "(Action`1<T>, ThreadPriority) => Action`1<T>")]
         public void Test_Async_Action_T()
             {
             string Success = "";
             var TestAction = new Action<string>(Str =>
                 {
-                Thread.Sleep(millisecondsTimeout: 5);
-                Success = Str;
+                    Thread.Sleep(millisecondsTimeout: 5);
+                    Success = Str;
                 });
 
             lock (Success)
@@ -191,13 +220,28 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.Async) + "(Action`1<T>, TimeSpan, ThreadPriority) => Action`1<T>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.Async) + "(Action`1<T>, Int32, ThreadPriority) => Action`1<T>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.Async) + "(Action`1<T>, UInt32, ThreadPriority) => Action`1<T>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.Async) + "(Action`1<T>, Int64, ThreadPriority) => Action`1<T>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.Async) + "(Action`1<T>, UInt64, ThreadPriority) => Action`1<T>")]
         public void Test_Async_Action_T_TimeLimit()
             {
             string Result = "";
             var TestAction = new Action<string>(Str =>
                 {
-                Thread.Sleep(millisecondsTimeout: 30);
-                Result = Str;
+                    Thread.Sleep(millisecondsTimeout: 30);
+                    Result = Str;
                 });
 
             Thread.Sleep(millisecondsTimeout: 40);
@@ -310,6 +354,12 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.AsyncResult) + "(Func`1<U>, Action`1<U>) => Action")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.AsyncResult) + "(Func`1<U>, Action`1<U>, ThreadPriority) => Action")]
         public void Test_Async_Func()
             {
             var TestAction = new Func<string>(() => "yes");
@@ -327,6 +377,12 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.AsyncResult) + "(Func`2<T1, U>, Action`1<U>) => Action`1<T1>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.AsyncResult) + "(Func`2<T1, U>, Action`1<U>, ThreadPriority) => Action`1<T1>")]
         public void Test_Async_Func_T()
             {
             var TestAction = new Func<string, string>(Str => $"{Str}yes");
@@ -336,19 +392,19 @@ namespace LCore.Tests.Extensions
                 bool Success = false;
                 TestAction.AsyncResult(Result =>
                     {
-                    Result.Should().Be("abcyes");
-                    Success = true;
-                    })("abc");
+                        Result.Should().Be("abcyes");
+                        Success = true;
+                    }, ThreadPriority.Highest)("abc");
 
-                Thread.Sleep(millisecondsTimeout: 100);
+                Thread.Sleep(millisecondsTimeout: 500);
 
                 Success.ShouldBeTrue();
 
                 Success = false;
                 TestAction.AsyncResult(Result =>
                     {
-                    Result.Should().Be("abcyes");
-                    Success = true;
+                        Result.Should().Be("abcyes");
+                        Success = true;
                     }, ThreadPriority.AboveNormal)("abc");
 
                 Thread.Sleep(millisecondsTimeout: 50);
@@ -358,14 +414,29 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.AsyncResult) + "(Func`1<U>, Action`1<U>, TimeSpan, ThreadPriority) => Action")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.AsyncResult) + "(Func`1<U>, Action`1<U>, Int32, ThreadPriority) => Action")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.AsyncResult) + "(Func`1<U>, Action`1<U>, UInt32, ThreadPriority) => Action")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.AsyncResult) + "(Func`1<U>, Action`1<U>, Int64, ThreadPriority) => Action")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.AsyncResult) + "(Func`1<U>, Action`1<U>, UInt64, ThreadPriority) => Action")]
         public void Test_Async_Func_U_TimeLimit()
             {
             bool Success = false;
             var TestAction = new Func<string>(() =>
                 {
-                Thread.Sleep(millisecondsTimeout: 30);
-                Success = true;
-                return "abc";
+                    Thread.Sleep(millisecondsTimeout: 30);
+                    Success = true;
+                    return "abc";
                 });
 
             Action<string> TestAction2 = Result => { Result.Should().Be("abc"); };
@@ -476,15 +547,30 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.AsyncResult) + "(Func`2<T1, U>, Action`1<U>, TimeSpan, ThreadPriority) => Action`1<T1>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.AsyncResult) + "(Func`2<T1, U>, Action`1<U>, Int32, ThreadPriority) => Action`1<T1>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.AsyncResult) + "(Func`2<T1, U>, Action`1<U>, UInt32, ThreadPriority) => Action`1<T1>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.AsyncResult) + "(Func`2<T1, U>, Action`1<U>, Int64, ThreadPriority) => Action`1<T1>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.AsyncResult) + "(Func`2<T1, U>, Action`1<U>, UInt64, ThreadPriority) => Action`1<T1>")]
         public void Test_Async_Func_T_U_TimeLimit()
             {
             bool Success = false;
             var TestAction = new Func<string, string>(Result =>
                 {
-                Result.Should().Be("abc");
-                Thread.Sleep(millisecondsTimeout: 30);
-                Success = true;
-                return "abc";
+                    Result.Should().Be("abc");
+                    Thread.Sleep(millisecondsTimeout: 30);
+                    Success = true;
+                    return "abc";
                 });
 
             Action<string> ResultFunction = Result => { Result.Should().Be("abc"); };
@@ -604,8 +690,8 @@ namespace LCore.Tests.Extensions
 
             var Action = new Action(() =>
                 {
-                int Wait = new Random().Next(minValue: 25, maxValue: 50);
-                Thread.Sleep(Wait);
+                    int Wait = new Random().Next(minValue: 25, maxValue: 50);
+                    Thread.Sleep(Wait);
                 }).Profile(ProfileName).Repeat(Times: 5);
 
             lock (Action)
@@ -623,6 +709,9 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.Profile) + "(Action, UInt32) => TimeSpan")]
         public void Test_Profile()
             {
             Action Act = () => Thread.Sleep(millisecondsTimeout: 10);
@@ -636,12 +725,18 @@ namespace LCore.Tests.Extensions
                     .Should()
                     .BeCloseTo(new TimeSpan(days: 0, hours: 0, minutes: 0, seconds: 0, milliseconds: 200), precision: 100);
 
-                ((Action) null).Profile().Should().BeCloseTo(new TimeSpan(ticks: 0));
-                ((Action) null).Profile(Repeat: 5).Should().BeCloseTo(new TimeSpan(ticks: 0));
+                ((Action)null).Profile().Should().BeCloseTo(new TimeSpan(ticks: 0));
+                ((Action)null).Profile(Repeat: 5).Should().BeCloseTo(new TimeSpan(ticks: 0));
                 }
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.Profile) + "(Action`1<T1>, String) => Action`1<T1>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.Profile) + "(Action, String) => Action")]
         public void Test_ProfileString()
             {
             L.Thread.MethodProfileData_Remove("TestProfile");
@@ -650,8 +745,8 @@ namespace LCore.Tests.Extensions
 
             Action<string> Act = Str =>
                 {
-                Str.Should().Be("abc");
-                Thread.Sleep(millisecondsTimeout: 10);
+                    Str.Should().Be("abc");
+                    Thread.Sleep(millisecondsTimeout: 10);
                 };
 
             Act = Act.Profile("TestProfile");
@@ -673,13 +768,16 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.Profile) + "(Func`1<U>, UInt32) => MethodProfileData`1<U>")]
         public void Test_ProfileFunc()
             {
             Func<int> Func = () =>
                 {
-                int Rand = new Random().Next(minValue: 50, maxValue: 70);
-                Thread.Sleep(Rand);
-                return Rand;
+                    int Rand = new Random().Next(minValue: 50, maxValue: 70);
+                    Thread.Sleep(Rand);
+                    return Rand;
                 };
 
             Thread.Sleep(millisecondsTimeout: 50);
@@ -701,6 +799,9 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.Profile) + "(Func`1<U>, String) => Func`1<U>")]
         public void Test_ProfileFuncString()
             {
             const string ProfieName = "TestProfile";
@@ -711,8 +812,8 @@ namespace LCore.Tests.Extensions
 
             Func<string> Func = () =>
                 {
-                Thread.Sleep(millisecondsTimeout: 10);
-                return "abc";
+                    Thread.Sleep(millisecondsTimeout: 10);
+                    return "abc";
                 };
 
             Func = Func.Profile(ProfieName);
@@ -735,6 +836,9 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.Profile) + "(Func`2<T1, U>, String) => Func`2<T1, U>")]
         public void Test_ProfileFuncString_2()
             {
             L.Thread.MethodProfileData_Remove("TestProfile");
@@ -743,9 +847,9 @@ namespace LCore.Tests.Extensions
 
             Func<string, string> Func = Str =>
                 {
-                Str.Should().Be("abc");
-                Thread.Sleep(millisecondsTimeout: 10);
-                return "abc";
+                    Str.Should().Be("abc");
+                    Thread.Sleep(millisecondsTimeout: 10);
+                    return "abc";
                 };
 
             Func = Func.Profile("TestProfile");
@@ -768,6 +872,9 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
+            nameof(ThreadExt.CountExecutions) + "(Action, UInt32) => UInt32")]
         public void Test_CountExecutions()
             {
             var Act = new Action(() => { Thread.Sleep(millisecondsTimeout: 2); });

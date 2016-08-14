@@ -188,7 +188,7 @@ namespace LCore.LUnit
                     }
 
                 Out.Insert(index: 0, item: $"Classes:                     Total Coverage: ({$"{AllCoverage.Average().Round()}".AlignRight(Length: 3)}%)  ({TotalTests}/{TotalMembers})");
-                Out.Insert(index: 1, item: "---------------------------------------------------------");
+                Out.Insert(index: 1, item: "--------------------------------------------------------------");
                 Out.Add("");
                 Out.Add("");
                 Out.Each(this._Output.WriteLine);
@@ -225,7 +225,7 @@ namespace LCore.LUnit
                     }
 
                 Out.Insert(index: 0, item: $"Static Classes:              Total Coverage: ({$"{AllCoverage.Average().Round()}".AlignRight(Length: 3)}%)  ({TotalTests}/{TotalMembers})");
-                Out.Insert(index: 1, item: "---------------------------------------------------------");
+                Out.Insert(index: 1, item: "--------------------------------------------------------------");
                 Out.Add("");
                 Out.Each(this._Output.WriteLine);
                 Out.Clear();
