@@ -18,6 +18,7 @@ using LCore.Threads;
 using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
+// ReSharper disable RedundantCast
 
 // ReSharper disable PartialTypeWithSinglePart
 // ReSharper disable EmptyDestructor
@@ -237,6 +238,20 @@ namespace L_Tests.LCore.Threads
             //TotalFakeWaited.Should().BeGreaterThan(LargeDelay);
 
             this._Output.WriteLine($"Tasks Fake-Waited: {TimeSpan.FromMilliseconds(TotalFakeWaited).ToTimeString()} over {Results.Count} {"Delay".Pluralize(Results.Count)}");
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(FakeThreadPool) + "." + nameof(FakeThreadPool.GetCurrentTime) + "() => DateTime")]
+        public void GetCurrentTime()
+            {
+            // TODO: Implement method test LCore.Threads.FakeThreadPool.GetCurrentTime
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(FakeThreadPool) + "." + nameof(FakeThreadPool.AwaitAllThreadsResumed) + "() => Task")]
+        public void AwaitAllThreadsResumed()
+            {
+            // TODO: Implement method test LCore.Threads.FakeThreadPool.AwaitAllThreadsResumed
             }
         }
     }

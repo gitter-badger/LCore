@@ -1,41 +1,40 @@
-﻿using LCore.Extensions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
-using System.Dynamic;
 using System.Reflection;
 using FluentAssertions;
 using JetBrains.Annotations;
-using LCore.Naming;
-using LCore.LUnit;
 using LCore.Dynamic;
+using LCore.Extensions;
+using LCore.LUnit;
 using LCore.LUnit.Fluent;
+using LCore.Naming;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Xunit;
 using Xunit.Abstractions;
-using static LCore.LUnit.LUnit.Categories;
 
-// ReSharper disable UnusedParameter.Global
-// ReSharper disable UnassignedGetOnlyAutoProperty
-// ReSharper disable ClassNeverInstantiated.Global
-// ReSharper disable EventNeverSubscribedTo.Global
-// ReSharper disable UnusedTypeParameter
+// ReSharper disable PartialTypeWithSinglePart
 // ReSharper disable RedundantArgumentDefaultValue
-// ReSharper disable FieldCanBeMadeReadOnly.Global
-// ReSharper disable ConvertToConstant.Global
-// ReSharper disable ExceptionNotDocumented
-// ReSharper disable ExceptionNotDocumentedOptional
+// ReSharper disable UnusedTypeParameter
+// ReSharper disable UnassignedGetOnlyAutoProperty
 
-namespace LCore.Tests.Extensions
+namespace L_Tests.LCore.Extensions
     {
-    [Trait(Category, UnitTests)]
-    public class ReflectionExtTest : XUnitOutputTester
+    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt))]
+    public partial class ReflectionExtTester : XUnitOutputTester, IDisposable
         {
+        public ReflectionExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+
+        public void Dispose() { }
+
         [Fact]
-        public void Test_AlsoBaseTypes()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.AlsoBaseTypes) + "(Type) => List`1<Type>")]
+        public void AlsoBaseTypes()
             {
             typeof(TestClass).AlsoBaseTypes()
                 .Should()
@@ -49,7 +48,10 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
-        public void Test_BaseTypes()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.BaseTypes) + "(Type) => List`1<Type>")]
+        public void BaseTypes()
             {
             typeof(TestClass).BaseTypes().Should().Equal(typeof(TestBaseClass), typeof(TestBaseClass2), typeof(object));
 
@@ -58,9 +60,14 @@ namespace LCore.Tests.Extensions
             typeof(TestBaseClass2).BaseTypes().Should().Equal(typeof(object));
             }
 
-        /// <exception cref="AmbiguousMatchException">More than one method is found with the specified name and specified parameters. </exception>
         [Fact]
-        public void Test_FindMethod()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.FindMethod) + "(Type, String, Type[]) => MethodInfo")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.FindMethod) + "(Type, String) => MethodInfo")]
+        public void FindMethod()
             {
             typeof(TestBaseClass2).FindMethod("wrong").Should().BeNull();
 
@@ -111,42 +118,39 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
-        public void Test_FullyQualifiedName()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.FullyQualifiedName) + "(MemberInfo) => String")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.FullyQualifiedName) + "(ParameterInfo) => String")]
+        public void FullyQualifiedName()
             {
             typeof(TestClass).FullyQualifiedName()
-                .Should().Be("LCore.Tests.Extensions.ReflectionExtTest.TestClass");
+                .Should().Be("L_Tests.LCore.Extensions.ReflectionExtTester.TestClass");
             L.Ref.Member<TestClass>(Test => Test.Test).FullyQualifiedName()
-                .Should().Be("LCore.Tests.Extensions.ReflectionExtTest.TestClass.Test");
+                .Should().Be("L_Tests.LCore.Extensions.ReflectionExtTester.TestClass.Test");
 
             L.Ref.Method<TestClass>(Test => Test.Test5("")).FullyQualifiedName()
-                .Should().Be("LCore.Tests.Extensions.ReflectionExtTest.TestClass.Test5");
+                .Should().Be("L_Tests.LCore.Extensions.ReflectionExtTester.TestClass.Test5");
 
             typeof(TestBaseClass).FullyQualifiedName()
-                .Should().Be("LCore.Tests.Extensions.ReflectionExtTest.TestBaseClass");
+                .Should().Be("L_Tests.LCore.Extensions.ReflectionExtTester.TestBaseClass");
             L.Ref.Member<TestBaseClass>(Test => Test.Test2).FullyQualifiedName()
-                .Should().Be("LCore.Tests.Extensions.ReflectionExtTest.TestBaseClass.Test2");
+                .Should().Be("L_Tests.LCore.Extensions.ReflectionExtTester.TestBaseClass.Test2");
 
             L.Ref.Method<TestBaseClass>(Test => Test.Test5("")).FullyQualifiedName()
-                .Should().Be("LCore.Tests.Extensions.ReflectionExtTest.TestBaseClass.Test5");
+                .Should().Be("L_Tests.LCore.Extensions.ReflectionExtTester.TestBaseClass.Test5");
             }
 
         [Fact]
-        public void Test_TestMember()
-            {
-            var Member = new TestMember();
-            Member.FullyQualifiedName().Should().Be("");
-
-            Member.MemberType.Should().Be(default(MemberTypes));
-            Member.Name.Should().BeNull();
-            Member.DeclaringType.Should().BeNull();
-            Member.ReflectedType.Should().BeNull();
-            Member.GetCustomAttributes(AttributeType: null, Inherit: false).Should().BeNull();
-            Member.GetCustomAttributes(Inherit: false).Should().BeNull();
-            Member.IsDefined(AttributeType: null, Inherit: false).ShouldBeFalse();
-            }
-
-        [Fact]
-        public void Test_GetAttribute()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.GetAttribute) + "(ICustomAttributeProvider) => T")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.GetAttribute) + "(ICustomAttributeProvider, Boolean) => T")]
+        public void GetAttribute()
             {
             var Member = L.Ref.Member<TestClass>(Test => Test.Test2);
 
@@ -163,7 +167,10 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
-        public void Test_GetAttributes()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.GetAttributes) + "(ICustomAttributeProvider, Boolean) => List`1<T>")]
+        public void GetAttributes()
             {
             var Member = L.Ref.Method<TestClass>(Test => Test.Test5(""));
 
@@ -192,23 +199,23 @@ namespace LCore.Tests.Extensions
             }
 
 
-        /// <exception cref="ArgumentException">Unsupported / unknown attribute provider is passed.</exception>
-        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
-        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_GetAttributeTypeName()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.GetAttributeTypeName) + "(ICustomAttributeProvider) => String")]
+        public void GetAttributeTypeName()
             {
-            typeof(TestClass).GetAttributeTypeName().Should().Be("LCore.Tests.Extensions.ReflectionExtTest+TestClass");
+            typeof(TestClass).GetAttributeTypeName().Should().Be("L_Tests.LCore.Extensions.ReflectionExtTester+TestClass");
             L.Ref.Member<TestClass>(Class => Class.Test2)
                 .GetAttributeTypeName()
                 .Should()
-                .Be("LCore.Tests.Extensions.ReflectionExtTest+TestClass");
+                .Be("L_Tests.LCore.Extensions.ReflectionExtTester+TestClass");
             L.Ref.Member<TestBaseClass>(Class => Class.Test2)
                 .GetAttributeTypeName()
                 .Should()
-                .Be("LCore.Tests.Extensions.ReflectionExtTest+TestBaseClass");
+                .Be("L_Tests.LCore.Extensions.ReflectionExtTester+TestBaseClass");
             L.Ref.Method<TestClass>(Class => Class.Test5("")).GetParameters().First()
-                .GetAttributeTypeName().Should().Be("LCore.Tests.Extensions.ReflectionExtTest+TestBaseClass2");
+                .GetAttributeTypeName().Should().Be("L_Tests.LCore.Extensions.ReflectionExtTester+TestBaseClass2");
 
             new AttributeList("name", new Attribute[] { }).GetAttributeTypeName().Should().Be("name");
 
@@ -224,14 +231,23 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
-        public void Test_GetClassHierarchy()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.GetClassHierarchy) + "(Type) => String")]
+        public void GetClassHierarchy()
             {
-            typeof(TestClass).GetClassHierarchy().Should().Be("ReflectionExtTest.TestClass");
+            typeof(TestClass).GetClassHierarchy().Should().Be("ReflectionExtTester.TestClass");
             }
 
 
         [Fact]
-        public void Test_GetComparer()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.GetComparer) + "(MemberInfo) => IComparer")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.GetComparer) + "(MemberInfo) => IComparer`1<T>")]
+        public void GetComparer()
             {
             L.Ref.Member<TestClass>(Test => Test.Test2).GetComparer().Should().NotBeNull();
             L.Ref.Member<TestClass>(Test => Test.Test2).GetComparer<string>().Should().NotBeNull();
@@ -240,7 +256,10 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
-        public void Test_GetExtensionMethods()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.GetExtensionMethods) + "(Type) => MethodInfo[]")]
+        public void GetExtensionMethods()
             {
             typeof(DateExt).GetExtensionMethods().Should().Equal(
                 // ReSharper disable InvokeAsExtensionMethod
@@ -261,7 +280,10 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
-        public void Test_GetMemberType()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.GetMemberType) + "(MemberInfo) => Type")]
+        public void GetMemberType()
             {
             L.Ref.Member<TestClass>(Test => Test.Test6).GetMemberType()
                 .Should().Be(typeof(string));
@@ -275,7 +297,10 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
-        public void Test_GetSubClass()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.GetSubClass) + "(Type, String) => Type")]
+        public void GetSubClass()
             {
             typeof(TestClass).GetSubClass(nameof(TestClass.TestSubClass)).Should().NotBeNull();
             typeof(TestClass).GetSubClass(nameof(TestClass.TestSubClass2)).Should().NotBeNull();
@@ -284,7 +309,10 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
-        public void Test_GetSubClasses()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.GetSubClasses) + "(Type) => List`1<Type>")]
+        public void GetSubClasses()
             {
             typeof(TestClass).GetSubClasses().Should().Equal(
                 typeof(TestClass.TestSubClass),
@@ -295,7 +323,10 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
-        public void Test_GetFriendlyTypeName()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.GetFriendlyTypeName) + "(Type) => String")]
+        public void GetFriendlyTypeName()
             {
             typeof(TestClass).GetFriendlyTypeName().Should().Be("Test2");
             typeof(TestBaseClass).GetFriendlyTypeName().Should().Be("Test");
@@ -305,11 +336,11 @@ namespace LCore.Tests.Extensions
             }
 
 
-        /// <exception cref="ArgumentException">If the MemberInfo [In] cannot be found on [Obj].</exception>
-        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
-        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_GetValue()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.GetValue) + "(MemberInfo, Object) => Object")]
+        public void GetValue()
             {
             var Test = new TestClass { Test = "a", Test6 = "b" };
 
@@ -328,7 +359,13 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
-        public void Test_GetValues()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.GetValues) + "(Type, Object, Boolean) => List`1<T>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.GetValues) + "(IEnumerable`1<MemberInfo>, Object, Boolean) => List`1<T>")]
+        public void GetValues()
             {
             var Test = new TestClass { Test = "a", Test6 = "b" };
 
@@ -348,7 +385,13 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
-        public void Test_GetTypes()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.GetTypes) + "(IEnumerable`1<T>) => List`1<Type>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.GetTypes) + "(T[]) => Type[]")]
+        public void GetTypes()
             {
             var Test = new object[] { 0, "a", (double)-3, -5.5f };
 
@@ -365,7 +408,16 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
-        public void Test_HasAttribute()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.HasAttribute) + "(ICustomAttributeProvider) => Boolean")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.HasAttribute) + "(ICustomAttributeProvider, Boolean) => Boolean")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.HasAttribute) + "(ICustomAttributeProvider, Type, Boolean) => Boolean")]
+        public void HasAttribute()
             {
             ((Type)null).HasAttribute<FriendlyNameAttribute>().ShouldBeFalse();
             ((Type)null).HasAttribute<FriendlyNameAttribute>(IncludeBaseClasses: true).ShouldBeFalse();
@@ -393,15 +445,23 @@ namespace LCore.Tests.Extensions
             typeof(TestClass).HasAttribute(typeof(TestClassAttribute), IncludeBaseClasses: true).ShouldBeFalse();
             typeof(TestClass).HasAttribute(typeof(TestClassAttribute), IncludeBaseClasses: false).ShouldBeFalse();
 
-            L.Ref.Member<TestClass>(Test => Test.Test2).HasAttribute(typeof(NotMappedAttribute), IncludeBaseClasses: false)
+            L.Ref.Member<TestClass>(Test => Test.Test2)
+                .HasAttribute(typeof(NotMappedAttribute), IncludeBaseClasses: false)
                 .ShouldBeFalse();
-            L.Ref.Member<TestClass>(Test => Test.Test2).HasAttribute(typeof(NotMappedAttribute), IncludeBaseClasses: true)
+            L.Ref.Member<TestClass>(Test => Test.Test2)
+                .HasAttribute(typeof(NotMappedAttribute), IncludeBaseClasses: true)
                 .ShouldBeTrue();
             }
 
 
         [Fact]
-        public void Test_HasInterface()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.HasInterface) + "(Type, Type) => Boolean")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.HasInterface) + "(Type) => Boolean")]
+        public void HasInterface()
             {
             ((Type)null).HasInterface<IFriendlyName>().ShouldBeFalse();
             ((Type)null).HasInterface(typeof(IFriendlyName)).ShouldBeFalse();
@@ -423,12 +483,42 @@ namespace LCore.Tests.Extensions
             //            typeof(BadStatic).HasInterface<ITest>().ShouldBeFalse();
             }
 
-
-        /// <exception cref="ArgumentException">If an unknown MemberInfo type is passed.</exception>
-        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
-        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_HasSetter()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.HasIndexGetter) + "(Type) => Boolean")]
+        public void HasIndexGetter()
+            {
+            typeof(TestClassIndexer).HasIndexGetter<int>().ShouldBeTrue();
+            typeof(TestClassIndexer).HasIndexGetter<string>().ShouldBeTrue();
+            typeof(TestClassIndexer).HasIndexGetter<object>().ShouldBeFalse();
+
+            typeof(TestClassIndexer).HasIndexGetter<int, string>().ShouldBeTrue();
+            typeof(TestClassIndexer).HasIndexGetter<string, int?>().ShouldBeTrue();
+            typeof(TestClassIndexer).HasIndexGetter<string, string>().ShouldBeFalse();
+            typeof(TestClassIndexer).HasIndexGetter<int, int>().ShouldBeFalse();
+            typeof(TestClassIndexer).HasIndexGetter<object, object>().ShouldBeFalse();
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.HasIndexSetter) + "(Type) => Boolean")]
+        public void HasIndexSetter()
+            {
+            typeof(TestClassIndexer).HasIndexSetter<int, string>().ShouldBeTrue();
+            typeof(TestClassIndexer).HasIndexSetter<string, int?>().ShouldBeFalse();
+            typeof(TestClassIndexer).HasIndexSetter<string, string>().ShouldBeFalse();
+            typeof(TestClassIndexer).HasIndexSetter<int, int>().ShouldBeFalse();
+            typeof(TestClassIndexer).HasIndexSetter<object, object>().ShouldBeFalse();
+            }
+
+
+        [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.HasSetter) + "(MemberInfo) => Boolean")]
+        public void HasSetter()
             {
             ((MemberInfo)null).HasSetter().ShouldBeFalse();
 
@@ -479,9 +569,62 @@ namespace LCore.Tests.Extensions
             L.A(() => new TestMember().HasSetter()).ShouldFail();
             }
 
+        [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.IndexGetter) + "(Type) => PropertyInfo")]
+        public void IndexGetter()
+            {
+            var Test = new TestClassIndexer();
+
+            typeof(TestClassIndexer).IndexGetter<int>().Should().BeAssignableTo<PropertyInfo>()
+                .And.Should().NotBeNull();
+            typeof(TestClassIndexer).IndexGetter<string>().Should().BeAssignableTo<PropertyInfo>()
+                .And.Should().NotBeNull();
+            typeof(TestClassIndexer).IndexGetter<object>().Should().BeNull();
+
+            (typeof(TestClassIndexer).IndexGetter<int, string>().Should().BeAssignableTo<PropertyInfo>()
+                .And.Should().NotBeNull()
+                .And.Subject as PropertyInfo)?.GetMethod.Invoke(Test, new object[] { 5 }).Should().Be("5");
+            typeof(TestClassIndexer).IndexGetter<string, int?>().Should().BeAssignableTo<PropertyInfo>()
+                .And.Should().NotBeNull();
+            typeof(TestClassIndexer).IndexGetter<string, string>().Should().BeNull();
+            typeof(TestClassIndexer).IndexGetter<int, int>().Should().BeNull();
+            typeof(TestClassIndexer).IndexGetter<object, object>().Should().BeNull();
+            }
 
         [Fact]
-        public void Test_InstantiateValues()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.IndexSetter) + "(Type) => PropertyInfo")]
+        public void IndexSetter()
+            {
+            var Test = new TestClassIndexer();
+
+            (typeof(TestClassIndexer).IndexSetter<int>().Should().BeAssignableTo<PropertyInfo>()
+                .And.Should().NotBeNull()
+                .And.Subject as PropertyInfo)?.SetMethod.Invoke(Test, new object[] { 5, "5" });
+            typeof(TestClassIndexer).IndexSetter<string>().Should().BeNull();
+            typeof(TestClassIndexer).IndexSetter<object>().Should().BeNull();
+
+            (typeof(TestClassIndexer).IndexSetter<int, string>().Should().BeAssignableTo<PropertyInfo>()
+                .And.Should().NotBeNull()
+                .And.Subject as PropertyInfo)?.SetMethod.Invoke(Test, new object[] { 5, "5" });
+            typeof(TestClassIndexer).IndexSetter<string, int?>().Should().BeNull();
+            typeof(TestClassIndexer).IndexSetter<string, string>().Should().BeNull();
+            typeof(TestClassIndexer).IndexSetter<int, int>().Should().BeNull();
+            typeof(TestClassIndexer).IndexSetter<object, object>().Should().BeNull();
+            }
+
+
+        [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.InstantiateValues) + "(Type, Object, Boolean) => List`1<T>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.InstantiateValues) + "(IEnumerable`1<MemberInfo>, Object) => List`1<T>")]
+        public void InstantiateValues()
             {
             var Test = new TestClass { Test = "a", Test6 = "b" };
 
@@ -513,7 +656,19 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
-        public void Test_IsType()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.IsType) + "(Object) => Boolean")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.IsType) + "(Object, Type) => Boolean")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.IsType) + "(Type, Type) => Boolean")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.IsType) + "(Type) => Boolean")]
+        public void IsType()
             {
             ((object)null).IsType<object>().ShouldBeFalse();
             ((object)null).IsType(typeof(object)).ShouldBeFalse();
@@ -540,7 +695,10 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
-        public void Test_Members()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.MembersOfType) + "(Type, Type, Boolean) => List`1<MemberInfo>")]
+        public void MembersOfType()
             {
             typeof(TestClass).MembersOfType(typeof(string)).ShouldBeEquivalentTo(new List<MemberInfo>
                 {
@@ -558,25 +716,28 @@ namespace LCore.Tests.Extensions
                 );
 
             typeof(TestClass).MembersOfType(typeof(string), IncludeBaseClasses: false).Should().Equal();
-            typeof(TestClass).MembersOfType(typeof(string), IncludeBaseClasses: true).ShouldBeEquivalentTo(new List<MemberInfo>
-                {
-                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-                L.Ref.Method<TestClass>(Test => Test.ToString()),
-                L.Ref.Member<TestClass>(Test => Test.Test),
-                L.Ref.Member<TestClass>(Test => Test.Test2),
-                L.Ref.Member<TestClass>(Test => Test.Test3),
-                L.Ref.Member<TestClass>(Test => Test.Test11),
-                L.Ref.Member<TestClass>(Test => Test.Test12),
-                L.Ref.Member<TestClass>(Test => Test.Test13),
-                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-                L.Ref.Member<TestClass>(Test => Test.Test6)
-                }
+            typeof(TestClass).MembersOfType(typeof(string), IncludeBaseClasses: true)
+                .ShouldBeEquivalentTo(new List<MemberInfo>
+                    {
+                    // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+                    L.Ref.Method<TestClass>(Test => Test.ToString()),
+                    L.Ref.Member<TestClass>(Test => Test.Test),
+                    L.Ref.Member<TestClass>(Test => Test.Test2),
+                    L.Ref.Member<TestClass>(Test => Test.Test3),
+                    L.Ref.Member<TestClass>(Test => Test.Test11),
+                    L.Ref.Member<TestClass>(Test => Test.Test12),
+                    L.Ref.Member<TestClass>(Test => Test.Test13),
+                    // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+                    L.Ref.Member<TestClass>(Test => Test.Test6)
+                    }
                 );
             }
 
-        /// <exception cref="ArgumentException">If an unknown MemberInfo type is passed.</exception>
         [Fact]
-        public void Test_MemberType()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.MemberType) + "(MemberInfo) => Type")]
+        public void MemberType()
             {
             typeof(TestClass).GetMembers().Convert(Member => Member.MemberType())
                 .ShouldBeEquivalentTo(new[]
@@ -619,10 +780,14 @@ namespace LCore.Tests.Extensions
             new TestMember().MemberType().Should().BeNull();
             }
 
-
-        /// <exception cref="InvalidOperationException">The object could not be created, constructor was not found.</exception>
         [Fact]
-        public void Test_New()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.New) + "(Type, Object[]) => T")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.New) + "(Type, Object[], Type) => Object")]
+        public void New()
             {
             typeof(string).New<string>().Should().Be("");
 
@@ -643,12 +808,11 @@ namespace LCore.Tests.Extensions
                 .ShouldBeEquivalentTo(new TestClassGeneric2<int, int>("a"));
             }
 
-
-        /// <exception cref="ArgumentException">If the MemberInfo [In] was not found on Obj.</exception>
-        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
-        /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_SetValue()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.SetValue) + "(MemberInfo, Object, Object)")]
+        public void SetValue()
             {
             var Test = new TestClass();
 
@@ -666,7 +830,10 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
-        public void Test_ToInvocationSignature()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.ToInvocationSignature) + "(MethodInfo, Boolean) => String")]
+        public void ToInvocationSignature()
             {
             // ReSharper disable once InvokeAsExtensionMethod
             L.Ref.StaticMethod(() => DateExt.IsFuture(DateTime.MinValue))
@@ -676,7 +843,7 @@ namespace LCore.Tests.Extensions
             L.Ref.Method<TestClass>(Test => Test.Test5(""))
                 .ToInvocationSignature()
                 .Should()
-                .Be("ReflectionExtTest.TestBaseClass2.Test5(String)");
+                .Be("ReflectionExtTester.TestBaseClass2.Test5(String)");
             L.Ref.StaticMethod(() => L.Ref.FindType(""))
                 .ToInvocationSignature()
                 .Should()
@@ -685,7 +852,10 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
-        public void Test_TypeEquals()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.TypeEquals) + "(Type, Type) => Boolean")]
+        public void TypeEquals()
             {
             Type Test1 = null;
             var Test2 = typeof(string);
@@ -704,7 +874,16 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
-        public void Test_WithAttribute()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.WithAttribute) + "(IEnumerable`1<TMember>, Boolean) => List`1<TMember>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.WithAttribute) + "(IEnumerable`1<MemberInfo>, Boolean) => List`1<MemberInfo>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.WithAttribute) + "(IEnumerable`1<MemberInfo>, Type, Boolean) => List`1<MemberInfo>")]
+        public void WithAttribute()
             {
             typeof(TestClass).GetMembers().WithAttribute<NotMappedAttribute>().Should().Equal(
                 L.Ref.Member<TestClass>(Test => Test.Test),
@@ -730,7 +909,16 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
-        public void Test_WithoutAttribute()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.WithoutAttribute) + "(IEnumerable`1<TMember>, Boolean) => List`1<TMember>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.WithoutAttribute) + "(IEnumerable`1<MemberInfo>, Boolean) => List`1<MemberInfo>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
+            nameof(ReflectionExt.WithoutAttribute) + "(IEnumerable`1<MemberInfo>, Type, Boolean) => List`1<MemberInfo>")]
+        public void WithoutAttribute()
             {
             typeof(TestClass).GetMembers()
                 .Select(Member => !(Member is MethodInfo && ((MethodInfo)Member).IsSpecialName))
@@ -847,7 +1035,7 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
-        public void Test_Mock_Proxy()
+        public void Mock_Proxy()
             {
             var Mock = new Mock<TestClass>();
 
@@ -859,120 +1047,26 @@ namespace LCore.Tests.Extensions
             Mock.Object.GetType().GetFriendlyTypeName().Should().Be("Test2");
             }
 
-        [Fact]
-        public void Test_HasIndexGetter()
-            {
-            typeof(TestClassIndexer).HasIndexGetter<int>().ShouldBeTrue();
-            typeof(TestClassIndexer).HasIndexGetter<string>().ShouldBeTrue();
-            typeof(TestClassIndexer).HasIndexGetter<object>().ShouldBeFalse();
 
-            typeof(TestClassIndexer).HasIndexGetter<int, string>().ShouldBeTrue();
-            typeof(TestClassIndexer).HasIndexGetter<string, int?>().ShouldBeTrue();
-            typeof(TestClassIndexer).HasIndexGetter<string, string>().ShouldBeFalse();
-            typeof(TestClassIndexer).HasIndexGetter<int, int>().ShouldBeFalse();
-            typeof(TestClassIndexer).HasIndexGetter<object, object>().ShouldBeFalse();
-            }
 
-        [Fact]
-        public void Test_HasIndexSetter()
-            {
-            typeof(TestClassIndexer).HasIndexSetter<int, string>().ShouldBeTrue();
-            typeof(TestClassIndexer).HasIndexSetter<string, int?>().ShouldBeFalse();
-            typeof(TestClassIndexer).HasIndexSetter<string, string>().ShouldBeFalse();
-            typeof(TestClassIndexer).HasIndexSetter<int, int>().ShouldBeFalse();
-            typeof(TestClassIndexer).HasIndexSetter<object, object>().ShouldBeFalse();
-            }
-
-        /// <exception cref="TargetException">In the .NET for Windows Store apps or the Portable Class Library, catch <see cref="T:System.Exception" /> instead.The <paramref>
-        ///         <name>obj</name>
-        ///     </paramref>
-        ///     parameter is null and the method is not static.-or- The method is not declared or inherited by the class of <paramref>
-        ///         <name>obj</name>
-        ///     </paramref>
-        ///     . -or-A static constructor is invoked, and <paramref>
-        ///         <name>obj</name>
-        ///     </paramref>
-        ///     is neither null nor an instance of the class that declared the constructor.</exception>
-        /// <exception cref="TargetInvocationException">The invoked method or constructor throws an exception. -or-The current instance is a <see cref="T:System.Reflection.Emit.DynamicMethod" /> that contains unverifiable code. See the "Verification" section in Remarks for <see cref="T:System.Reflection.Emit.DynamicMethod" />.</exception>
-        /// <exception cref="TargetParameterCountException">The <paramref>
-        ///         <name>parameters</name>
-        ///     </paramref>
-        ///     array does not have the correct number of arguments. </exception>
-        /// <exception cref="MethodAccessException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.MemberAccessException" />, instead.The caller does not have permission to execute the method or constructor that is represented by the current instance. </exception>
-        [Fact]
-        public void Test_IndexGetter()
-            {
-            var Test = new TestClassIndexer();
-
-            typeof(TestClassIndexer).IndexGetter<int>().Should().BeAssignableTo<PropertyInfo>()
-                .And.Should().NotBeNull();
-            typeof(TestClassIndexer).IndexGetter<string>().Should().BeAssignableTo<PropertyInfo>()
-                .And.Should().NotBeNull();
-            typeof(TestClassIndexer).IndexGetter<object>().Should().BeNull();
-
-            (typeof(TestClassIndexer).IndexGetter<int, string>().Should().BeAssignableTo<PropertyInfo>()
-                .And.Should().NotBeNull()
-                .And.Subject as PropertyInfo)?.GetMethod.Invoke(Test, new object[] { 5 }).Should().Be("5");
-            typeof(TestClassIndexer).IndexGetter<string, int?>().Should().BeAssignableTo<PropertyInfo>()
-                .And.Should().NotBeNull();
-            typeof(TestClassIndexer).IndexGetter<string, string>().Should().BeNull();
-            typeof(TestClassIndexer).IndexGetter<int, int>().Should().BeNull();
-            typeof(TestClassIndexer).IndexGetter<object, object>().Should().BeNull();
-            }
-
-        /// <exception cref="TargetException">In the .NET for Windows Store apps or the Portable Class Library, catch <see cref="T:System.Exception" /> instead.The <paramref>
-        ///         <name>obj</name>
-        ///     </paramref>
-        ///     parameter is null and the method is not static.-or- The method is not declared or inherited by the class of <paramref>
-        ///         <name>obj</name>
-        ///     </paramref>
-        ///     . -or-A static constructor is invoked, and <paramref>
-        ///         <name>obj</name>
-        ///     </paramref>
-        ///     is neither null nor an instance of the class that declared the constructor.</exception>
-        /// <exception cref="TargetInvocationException">The invoked method or constructor throws an exception. -or-The current instance is a <see cref="T:System.Reflection.Emit.DynamicMethod" /> that contains unverifiable code. See the "Verification" section in Remarks for <see cref="T:System.Reflection.Emit.DynamicMethod" />.</exception>
-        /// <exception cref="TargetParameterCountException">The <paramref>
-        ///         <name>parameters</name>
-        ///     </paramref>
-        ///     array does not have the correct number of arguments. </exception>
-        /// <exception cref="MethodAccessException">In the .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="T:System.MemberAccessException" />, instead.The caller does not have permission to execute the method or constructor that is represented by the current instance. </exception>
-        [Fact]
-        public void Test_IndexSetter()
-            {
-            var Test = new TestClassIndexer();
-
-            (typeof(TestClassIndexer).IndexSetter<int>().Should().BeAssignableTo<PropertyInfo>()
-                .And.Should().NotBeNull()
-                .And.Subject as PropertyInfo)?.SetMethod.Invoke(Test, new object[] { 5, "5" });
-            typeof(TestClassIndexer).IndexSetter<string>().Should().BeNull();
-            typeof(TestClassIndexer).IndexSetter<object>().Should().BeNull();
-
-            (typeof(TestClassIndexer).IndexSetter<int, string>().Should().BeAssignableTo<PropertyInfo>()
-                .And.Should().NotBeNull()
-                .And.Subject as PropertyInfo)?.SetMethod.Invoke(Test, new object[] { 5, "5" });
-            typeof(TestClassIndexer).IndexSetter<string, int?>().Should().BeNull();
-            typeof(TestClassIndexer).IndexSetter<string, string>().Should().BeNull();
-            typeof(TestClassIndexer).IndexSetter<int, int>().Should().BeNull();
-            typeof(TestClassIndexer).IndexSetter<object, object>().Should().BeNull();
-            }
 
         #region Helpers
 
         /*
-                internal static class BadStatic
+            internal static class BadStatic
+                {
+                /// <exception cref="Exception">Condition.</exception>
+                static BadStatic()
                     {
-                    /// <exception cref="Exception">Condition.</exception>
-                    static BadStatic()
-                        {
-                        throw new Exception();
-                        }
-                    }*/
+                    throw new Exception();
+                    }
+                }*/
 
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Helpers()
+        public void Helpers()
             {
             var Test = new TestClass { Test = "A" };
 
@@ -1139,10 +1233,6 @@ namespace LCore.Tests.Extensions
             }
 
         #endregion
-
-        [ExcludeFromCodeCoverage]
-        internal class DynamicShim<T> : DynamicObject { }
-
-        public ReflectionExtTest([NotNull] ITestOutputHelper Output) : base(Output) { }
         }
+
     }

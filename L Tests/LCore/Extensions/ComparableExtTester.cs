@@ -1,25 +1,32 @@
-﻿
-using LCore.Extensions;
-using System;
+﻿using System;
 using JetBrains.Annotations;
-using Xunit;
-using Xunit.Abstractions;
-using static LCore.LUnit.LUnit.Categories;
+using LCore.Extensions;
 using LCore.LUnit;
 using LCore.LUnit.Fluent;
+using Xunit;
+using Xunit.Abstractions;
+
+// ReSharper disable PartialTypeWithSinglePart
 
 // ReSharper disable ExpressionIsAlwaysNull
 
 // ReSharper disable RedundantAssignment
 // ReSharper disable RedundantCast
 
-namespace LCore.Tests.Extensions
+namespace L_Tests.LCore.Extensions
     {
-    [Trait(Category, UnitTests)]
-    public class ComparableExtTest : XUnitOutputTester
+    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ComparableExt))]
+    public partial class ComparableExtTester : XUnitOutputTester, IDisposable
         {
+        public ComparableExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+
+        public void Dispose() { }
+
         [Fact]
-        public void Test_IsEqualTo()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ComparableExt) + "." +
+            nameof(ComparableExt.IsEqualTo) + "(IComparable, IComparable) => Boolean")]
+        public void IsEqualTo()
             {
             const string Test = "abc";
 
@@ -47,8 +54,12 @@ namespace LCore.Tests.Extensions
             ((short)5).IsEqualTo((short)6).ShouldBeFalse();
             ((ushort)5).IsEqualTo((ushort)6).ShouldBeFalse();
             }
+
         [Fact]
-        public void Test_IsNotEqualTo()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ComparableExt) + "." +
+            nameof(ComparableExt.IsNotEqualTo) + "(IComparable, IComparable) => Boolean")]
+        public void IsNotEqualTo()
             {
             const string Test = "abc";
 
@@ -78,7 +89,10 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
-        public void Test_IsLessThan()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ComparableExt) + "." +
+            nameof(ComparableExt.IsLessThan) + "(IComparable, IComparable) => Boolean")]
+        public void IsLessThan()
             {
             const string Test = "abc";
 
@@ -108,7 +122,10 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
-        public void Test_IsGreaterThanOrEqual()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ComparableExt) + "." +
+            nameof(ComparableExt.IsGreaterThanOrEqual) + "(IComparable, IComparable) => Boolean")]
+        public void IsGreaterThanOrEqual()
             {
             const string Test = "abc";
 
@@ -139,7 +156,10 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
-        public void Test_IsGreaterThan()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ComparableExt) + "." +
+            nameof(ComparableExt.IsGreaterThan) + "(IComparable, IComparable) => Boolean")]
+        public void IsGreaterThan()
             {
             const string Test = "abc";
 
@@ -169,7 +189,10 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
-        public void Test_IsLessThanOrEqual()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ComparableExt) + "." +
+            nameof(ComparableExt.IsLessThanOrEqual) + "(IComparable, IComparable) => Boolean")]
+        public void IsLessThanOrEqual()
             {
             const string Test = "abc";
 
@@ -197,7 +220,5 @@ namespace LCore.Tests.Extensions
             ((short)5).IsLessThanOrEqual((short)6).ShouldBeTrue();
             ((ushort)5).IsLessThanOrEqual((ushort)6).ShouldBeTrue();
             }
-
-        public ComparableExtTest([NotNull] ITestOutputHelper Output) : base(Output) { }
         }
     }

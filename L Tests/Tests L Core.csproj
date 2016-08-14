@@ -148,8 +148,26 @@
   <ItemGroup>
     <Compile Include="LCore\Extensions\BooleanExtTester.cs" />
     <Compile Include="LCore\Extensions\CommentExtTester.cs" />
+    <Compile Include="LCore\Extensions\ComparableExtTester.cs" />
+    <Compile Include="LCore\Extensions\ConvertibleExtTester.cs" />
     <Compile Include="LCore\Extensions\DateExtTester.cs" />
     <Compile Include="LCore\Extensions\EnumExtTester.cs" />
+    <Compile Include="LCore\Extensions\LTester.cs" />
+    <Compile Include="LCore\Extensions\NumberExtTester.cs" />
+    <Compile Include="LCore\Extensions\ObjectExtTester.cs" />
+    <Compile Include="LCore\Extensions\ReflectionExtTester.cs" />
+    <Compile Include="LCore\Numbers\ByteNumberTester.cs" />
+    <Compile Include="LCore\Numbers\DecimalNumberTester.cs" />
+    <Compile Include="LCore\Numbers\DoubleNumberTester.cs" />
+    <Compile Include="LCore\Numbers\FloatNumberTester.cs" />
+    <Compile Include="LCore\Numbers\IntNumberTester.cs" />
+    <Compile Include="LCore\Numbers\LongNumberTester.cs" />
+    <Compile Include="LCore\Numbers\NumberTester.cs" />
+    <Compile Include="LCore\Numbers\SByteNumberTester.cs" />
+    <Compile Include="LCore\Numbers\ShortNumberTester.cs" />
+    <Compile Include="LCore\Numbers\UIntNumberTester.cs" />
+    <Compile Include="LCore\Numbers\ULongNumberTester.cs" />
+    <Compile Include="LCore\Numbers\UShortNumberTester.cs" />
     <Compile Include="LCore\Tests\Tools\ScheduleTester.cs" />
     <Compile Include="LCore\Tools\DateTimeConverterTester.cs" />
     <Compile Include="LCore\Tools\ProgressUpdaterTester.cs" />
@@ -160,18 +178,14 @@
     <Compile Include="LCore\Tools\Set_2Tester.cs" />
     <Compile Include="LCore\Tools\StatMonitorTest.cs" />
     <Compile Include="LCore\Tools\StopWatchTest.cs" />
-    <Compile Include="Tests\Extensions\Object Types\ComparableExtTest.cs" />
-    <Compile Include="Tests\Extensions\Object Types\StatsExtTest.cs" />
     <Compile Include="Tests\Extensions\Methods\LogicExtTest.cs" />
     <Compile Include="Tests\Extensions\Methods\LoopExtTest.cs" />
     <Compile Include="Tests\Extensions\Object Types\ObjectExtTest.cs" />
-    <Compile Include="Tests\Extensions\Object Types\ConvertibleExtTest.cs" />
     <Compile Include="Tests\Extensions\Object Types\FileExtTest.cs" />
     <Compile Include="Tests\Extensions\Methods\ExceptionExtTest.cs" />
     <Compile Include="Tests\Extensions\Object Types\DictionaryExtTest.cs" />
     <Compile Include="Tests\Extensions\Value Types\NumberExtTest.cs" />
     <Compile Include="Tests\Extensions\Object Types\StringExtTest.cs" />
-    <Compile Include="Tests\Extensions\Object Types\ReflectionExtTest.cs" />
     <Compile Include="Tests\Extensions\Methods\EnumerableExtTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\LCoreAssemblyTester.cs" />
@@ -204,7 +218,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Generated\Gen\" />
-    <Folder Include="Tests\Tools\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

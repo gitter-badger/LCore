@@ -1,54 +1,62 @@
-﻿using LCore.Extensions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using FluentAssertions;
 using JetBrains.Annotations;
+using LCore.Extensions;
 using LCore.LUnit;
 using LCore.LUnit.Fluent;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 using Xunit.Abstractions;
-using static LCore.LUnit.LUnit.Categories;
+
+// ReSharper disable PartialTypeWithSinglePart
 
 // ReSharper disable ExpressionIsAlwaysNull
 
 // ReSharper disable RedundantAssignment
 // ReSharper disable RedundantCast
 
-namespace LCore.Tests.Extensions
+namespace L_Tests.LCore.Extensions
     {
-    [Trait(Category, UnitTests)]
-    public class ConvertibleExtTest : XUnitOutputTester
+    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ConvertibleExt))]
+    public partial class ConvertibleExtTester : XUnitOutputTester, IDisposable
         {
+        public ConvertibleExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+
+        public void Dispose() { }
+
         [Fact]
-        public void Test_ConvertTo()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ConvertibleExt) + "." +
+            nameof(ConvertibleExt.ConvertTo) + "(IConvertible, Type) => Object")]
+        public void ConvertTo()
             {
             const string Test = "-5.5555";
 
             Func<Type, object> ConvertTo = L.F<Type, object>(Type => Test.ConvertTo(Type));
 
-            ConvertTo(typeof(int)).Should().Be((int?) null);
-            ConvertTo(typeof(uint)).Should().Be((uint?) null);
-            ConvertTo(typeof(long)).Should().Be((long?) null);
-            ConvertTo(typeof(short)).Should().Be((short?) null);
-            ConvertTo(typeof(ushort)).Should().Be((ushort?) null);
-            ConvertTo(typeof(byte)).Should().Be((byte?) null);
-            ConvertTo(typeof(char)).Should().Be((char?) null);
+            ConvertTo(typeof(int)).Should().Be((int?)null);
+            ConvertTo(typeof(uint)).Should().Be((uint?)null);
+            ConvertTo(typeof(long)).Should().Be((long?)null);
+            ConvertTo(typeof(short)).Should().Be((short?)null);
+            ConvertTo(typeof(ushort)).Should().Be((ushort?)null);
+            ConvertTo(typeof(byte)).Should().Be((byte?)null);
+            ConvertTo(typeof(char)).Should().Be((char?)null);
 
             var Result1 = Test.ConvertTo(typeof(double));
             var Result2 = Test.ConvertTo(typeof(float));
 
-            Result1.Should().Be((double) -5.5555);
-            Result2.Should().Be((float) -5.5555);
+            Result1.Should().Be((double)-5.5555);
+            Result2.Should().Be((float)-5.5555);
 
 
             const string Test2 = "5";
 
             Test2.ConvertTo(typeof(int)).Should().Be(expected: 5);
-            Test2.ConvertTo(typeof(uint)).Should().Be((uint) 5);
-            Test2.ConvertTo(typeof(long)).Should().Be((long) 5);
-            Test2.ConvertTo(typeof(short)).Should().Be((short) 5);
-            Test2.ConvertTo(typeof(ushort)).Should().Be((ushort) 5);
-            Test2.ConvertTo(typeof(byte)).Should().Be((byte) 5);
+            Test2.ConvertTo(typeof(uint)).Should().Be((uint)5);
+            Test2.ConvertTo(typeof(long)).Should().Be((long)5);
+            Test2.ConvertTo(typeof(short)).Should().Be((short)5);
+            Test2.ConvertTo(typeof(ushort)).Should().Be((ushort)5);
+            Test2.ConvertTo(typeof(byte)).Should().Be((byte)5);
             Test2.ConvertTo(typeof(char)).Should().Be(expected: '5');
             Test2.ConvertTo(typeof(string)).Should().Be("5");
 
@@ -60,50 +68,55 @@ namespace LCore.Tests.Extensions
             "5.000".ConvertTo(typeof(int)).Should().Be(expected: 5);
             }
 
-
         [Fact]
-        public void Test_ConvertTo_T()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ConvertibleExt) + "." +
+            nameof(ConvertibleExt.ConvertTo) + "(IConvertible) => Nullable`1<T>")]
+        public void ConvertTo_T()
             {
             const string Test = "-5.5555";
 
-            Test.ConvertTo<int>().Should().Be((int?) null);
-            Test.ConvertTo<uint>().Should().Be((uint?) null);
-            Test.ConvertTo<long>().Should().Be((long?) null);
-            Test.ConvertTo<short>().Should().Be((short?) null);
-            Test.ConvertTo<ushort>().Should().Be((ushort?) null);
-            Test.ConvertTo<byte>().Should().Be((byte?) null);
-            Test.ConvertTo<char>().Should().Be((char?) null);
+            Test.ConvertTo<int>().Should().Be((int?)null);
+            Test.ConvertTo<uint>().Should().Be((uint?)null);
+            Test.ConvertTo<long>().Should().Be((long?)null);
+            Test.ConvertTo<short>().Should().Be((short?)null);
+            Test.ConvertTo<ushort>().Should().Be((ushort?)null);
+            Test.ConvertTo<byte>().Should().Be((byte?)null);
+            Test.ConvertTo<char>().Should().Be((char?)null);
 
             double? Result1 = Test.ConvertTo<double>();
             float? Result2 = Test.ConvertTo<float>();
 
             Result1.Should().Be(-5.5555);
-            Result2.Should().Be((float) -5.5555);
+            Result2.Should().Be((float)-5.5555);
 
 
             const string Test2 = "5";
 
             Test2.ConvertTo<int>().Should().Be(expected: 5);
-            Test2.ConvertTo<uint>().Should().Be((uint) 5);
-            Test2.ConvertTo<long>().Should().Be((long) 5);
-            Test2.ConvertTo<short>().Should().Be((short) 5);
-            Test2.ConvertTo<ushort>().Should().Be((ushort) 5);
-            Test2.ConvertTo<byte>().Should().Be((byte) 5);
+            Test2.ConvertTo<uint>().Should().Be((uint)5);
+            Test2.ConvertTo<long>().Should().Be((long)5);
+            Test2.ConvertTo<short>().Should().Be((short)5);
+            Test2.ConvertTo<ushort>().Should().Be((ushort)5);
+            Test2.ConvertTo<byte>().Should().Be((byte)5);
             Test2.ConvertTo<char>().Should().Be(expected: '5');
             Test2.ConvertToString().Should().Be("5");
 
             ConvertibleExt.ConvertTo<int>(In: null).Should().Be(default(int));
 
-            ConvertibleExt.ConvertToString(In: null).Should().Be((string) null);
+            ConvertibleExt.ConvertToString(In: null).Should().Be((string)null);
 
-            new BadConverter().ConvertToString().Should().Be((string) null);
+            new BadConverter().ConvertToString().Should().Be((string)null);
 
             "5.000".ConvertTo<double>().Should().Be(expected: 5d);
             "5.000".ConvertTo<int>().Should().Be(expected: 5);
             }
 
         [Fact]
-        public void Test_CanConvertTo()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ConvertibleExt) + "." +
+            nameof(ConvertibleExt.CanConvertTo) + "(IConvertible) => Boolean")]
+        public void CanConvertTo()
             {
             IConvertible Test = "5";
 
@@ -266,7 +279,10 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
-        public void Test_CanConvertTo_Type()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ConvertibleExt) + "." +
+            nameof(ConvertibleExt.CanConvertTo) + "(IConvertible, Type) => Boolean")]
+        public void CanConvertTo_Type()
             {
             IConvertible Test = "5";
 
@@ -429,18 +445,21 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
-        public void Test_TryConvertTo()
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ConvertibleExt) + "." +
+            nameof(ConvertibleExt.TryConvertTo) + "(IConvertible) => IConvertible")]
+        public void TryConvertTo()
             {
             IConvertible Test = "5";
 
-            Test.TryConvertTo<short>().Should().Be((short) 5);
-            Test.TryConvertTo<long>().Should().Be((long) 5);
-            Test.TryConvertTo<int>().Should().Be((int) 5);
-            Test.TryConvertTo<ushort>().Should().Be((ushort) 5);
-            Test.TryConvertTo<ulong>().Should().Be((ulong) 5);
-            Test.TryConvertTo<uint>().Should().Be((uint) 5);
-            Test.TryConvertTo<float>().Should().Be((float) 5);
-            Test.TryConvertTo<double>().Should().Be((double) 5);
+            Test.TryConvertTo<short>().Should().Be((short)5);
+            Test.TryConvertTo<long>().Should().Be((long)5);
+            Test.TryConvertTo<int>().Should().Be((int)5);
+            Test.TryConvertTo<ushort>().Should().Be((ushort)5);
+            Test.TryConvertTo<ulong>().Should().Be((ulong)5);
+            Test.TryConvertTo<uint>().Should().Be((uint)5);
+            Test.TryConvertTo<float>().Should().Be((float)5);
+            Test.TryConvertTo<double>().Should().Be((double)5);
             Test.TryConvertTo<char>().Should().Be(expected: '5');
             Test.TryConvertToString().Should().Be("5");
 
@@ -455,15 +474,15 @@ namespace LCore.Tests.Extensions
             Test.TryConvertTo<char>().Should().Be("-5.5");
             Test.TryConvertToString().Should().Be("-5.5");
             Test.TryConvertTo<float>().Should().Be(-5.5f);
-            Test.TryConvertTo<double>().Should().Be((double) -5.5);
+            Test.TryConvertTo<double>().Should().Be((double)-5.5);
 
             Test = null;
 
             Test.TryConvertToString().Should().Be(expected: null);
 
 
-            ((string) null).TryConvertToString().Should().Be(expected: null);
-            ((string) null).TryConvertTo<int>().Should().Be(expected: null);
+            ((string)null).TryConvertToString().Should().Be(expected: null);
+            ((string)null).TryConvertTo<int>().Should().Be(expected: null);
             }
 
         #region Helpers
@@ -472,7 +491,7 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Internal()
+        public void Internal()
             {
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
             var Test = new BadConverter();
@@ -586,7 +605,5 @@ namespace LCore.Tests.Extensions
             }
 
         #endregion
-
-        public ConvertibleExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }

@@ -7,6 +7,7 @@ using LCore.LUnit.Fluent;
 using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
+// ReSharper disable PartialTypeWithSinglePart
 
 // ReSharper disable ObjectCreationAsStatement
 
@@ -65,7 +66,7 @@ namespace L_Tests.LCore.Tools
             Test.GetCurrentAverageStat().Should().Be(expected: 15.5);
 
             Test.Clear();
-            Test.GetCurrentAverageStat().Should().Be(expected: 0);
+            Test.GetCurrentAverageStat().Should().Be(double.NaN);
             }
         }
     }

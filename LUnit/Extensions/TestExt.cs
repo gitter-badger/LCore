@@ -162,18 +162,6 @@ namespace LCore.LUnit
 
         #endregion
 
-        #region GetTestData
-
-        /// <summary>
-        /// Creates a new TypeTests object, detailing the test coverage of the provided type.
-        /// </summary>
-        public static TypeTests GetTestData([CanBeNull] this Type In, IEnumerable<Assembly> TestAssemblies)
-            {
-            return new TypeTests(In, TestAssemblies);
-            }
-
-        #endregion
-
         #region GetTargetingName
 
         /// <summary>

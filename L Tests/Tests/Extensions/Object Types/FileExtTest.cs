@@ -7,27 +7,28 @@ using Xunit;
 using Xunit.Abstractions;
 using LCore.LUnit;
 using LCore.LUnit.Fluent;
-using static LCore.LUnit.LUnit.Categories;
+
 // ReSharper disable PossibleNullReferenceException
 
-namespace LCore.Tests.Extensions
+namespace L_Tests.LCore.Extensions
     {
-    [Trait(Category, UnitTests)]
-    public class FileExtTest : XUnitOutputTester
+    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(FileExt))]
+    public partial class FileExtTester : XUnitOutputTester, IDisposable
         {
         private const string Str = @"c:\temporary_testEnsurePathExists\test\file.txt";
         private const string Str2 = @"c:\temporary_testEnsurePathExists\test";
         private const string Str3 = @"c:\temporary_testEnsurePathExists";
         private readonly byte[] _TestBytes = { 5, 7, 3, 67, 2, 5, 88, 42, 2, 6, 99, 4, 3, 7 };
 
-
-        public FileExtTest([NotNull] ITestOutputHelper Output) : base(Output)
+        public FileExtTester([NotNull] ITestOutputHelper Output) : base(Output)
             {
             Str.EnsurePathExists();
             File.WriteAllBytes(Str, this._TestBytes);
             }
 
-        ~FileExtTest()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(FileExt) + "." +
+            nameof(FileExt.EnsurePathExists) + "(String)")]
+        public void Dispose()
             {
             File.Delete(Str);
             Directory.Delete(Str2);
@@ -36,25 +37,10 @@ namespace LCore.Tests.Extensions
             Directory.Exists(Str3).ShouldBeFalse();
             }
 
-        /// <exception cref="IOException">A file with the same name and location specified by <paramref>
-        ///         <name>path</name>
-        ///     </paramref>
-        ///     exists.-or-The directory is the application's current working directory.-or-The directory specified by <paramref>
-        ///         <name>path</name>
-        ///     </paramref>
-        ///     is not empty.-or-The directory is read-only or contains a read-only file.-or-The directory is being used by another process.</exception>
-        /// <exception cref="UnauthorizedAccessException">The caller does not have the required permission. </exception>
-        /// <exception cref="DirectoryNotFoundException">
-        ///         <paramref>
-        ///             <name>path</name>
-        ///         </paramref>
-        ///     does not exist or could not be found.-or-The specified path is invalid (for example, it is on an unmapped drive). </exception>
         [Fact]
-        public void Test_EnsurePathExists() { }
-
-
-        [Fact]
-        public void Test_GetFileHash()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(FileExt) + "." +
+            nameof(FileExt.GetFileHash) + "(String) => Byte[]")]
+        public void GetFileHash()
             {
             Str.GetFileHash()
                 .Should()
@@ -63,7 +49,11 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
-        public void Test_GetMemoryStream()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(FileExt) + "." +
+            nameof(FileExt.GetMemoryStream) + "(Stream) => MemoryStream")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(FileExt) + "." +
+            nameof(FileExt.ReadAllBytes) + "(Stream) => Byte[]")]
+        public void GetMemoryStream()
             {
             var File = Str.GetFileStream();
 

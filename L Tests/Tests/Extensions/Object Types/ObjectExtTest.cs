@@ -1,7 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions;
@@ -10,7 +8,7 @@ using LCore.LUnit;
 using LCore.LUnit.Fluent;
 using Xunit;
 using Xunit.Abstractions;
-using static LCore.LUnit.LUnit.Categories;
+// ReSharper disable PartialTypeWithSinglePart
 
 // ReSharper disable MemberCanBePrivate.Local
 // ReSharper disable UnusedAutoPropertyAccessor.Local
@@ -19,62 +17,18 @@ using static LCore.LUnit.LUnit.Categories;
 // ReSharper disable RedundantCast
 #pragma warning disable 169
 
-namespace LCore.Tests.Extensions
+namespace L_Tests.LCore.Extensions.Optional
     {
-    [Trait(Category, UnitTests)]
-    public class ObjectExtTest : XUnitOutputTester
+    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt))]
+    public partial class ObjectExtTester : XUnitOutputTester, IDisposable
         {
-        #region LCore.Extensions.ObjectExt
+        public ObjectExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+
+        public void Dispose() { }
 
         [Fact]
-        public void Test_HasProperty()
-            {
-            const string Test = "";
-
-            Test.HasProperty(nameof(string.Length)).ShouldBeTrue();
-            Test.HasProperty("no i dont").ShouldBeFalse();
-            Test.HasProperty("").ShouldBeFalse();
-            Test.HasProperty(PropertyName: null).ShouldBeFalse();
-            ((string) null).HasProperty(nameof(string.Length)).ShouldBeFalse();
-            }
-
-
-        [Fact]
-        public void Test_GetProperty()
-            {
-            const string Test = "test test test test test test test test test";
-
-            Test.GetProperty(nameof(string.Length)).Should().Be(expected: 44);
-
-            Test.GetProperty(PropertyName: null).Should().BeNull();
-
-            Test.GetProperty("").Should().BeNull();
-
-            Test.GetProperty("bad property").Should().BeNull();
-            }
-
-
-        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
-        /// <exception cref="InternalTestFailureException">The test fails</exception>
-        [Fact]
-        public void Test_SetProperty()
-            {
-            var Test = new TestClass();
-
-            Test.SetProperty(nameof(TestClass.A), PropertyValue: 999);
-
-            Test.A.Should().Be(expected: 999);
-
-            L.A(() => Test.SetProperty(nameof(TestClass.A), "nope")).ShouldFail();
-            L.A(() => Test.SetProperty("no prop", PropertyValue: 999)).ShouldFail();
-            }
-
-        #endregion
-
-        #region LCore.Extensions.Optional.ObjectExt
-
-        [Fact]
-        public void Test_CopyFieldsTo_0()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.CopyFieldsTo) + "(T, Object)")]
+        public void CopyFieldsTo_0()
             {
             var Test = new TestClass
                 {
@@ -168,7 +122,9 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
-        public void Test_CopyFieldsTo_1()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.CopyFieldsTo) + "(T, Object, Dictionary`2<String, String>)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.CopyFieldsTo) + "(T, Object, Func`2<String, String>)")]
+        public void CopyFieldsTo_1()
             {
             var Mapper = new Dictionary<string, string>
                 {
@@ -239,7 +195,7 @@ namespace LCore.Tests.Extensions
 
             var Test5 = new TestSubclass();
             // copy using null dictionary
-            Test4.CopyFieldsTo(Test5, (Dictionary<string, string>) null);
+            Test4.CopyFieldsTo(Test5, (Dictionary<string, string>)null);
 
             Test5.A.Should().Be(expected: 1);
             Test5.B.Should().Be(-2);
@@ -248,10 +204,10 @@ namespace LCore.Tests.Extensions
             Test5.E.Should().Be(expected: null);
             }
 
-        /// <exception cref="TargetException">Throws an exception if the a property setter throws an exception.</exception>
-        /// <exception cref="FieldAccessException">Throws an exception if the field cannot be accessed.</exception>
+
         [Fact]
-        public void Test_InitProperties()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.InitProperties) + "(Object, T)")]
+        public void InitProperties()
             {
             var Test = new TestMaster();
 
@@ -275,10 +231,11 @@ namespace LCore.Tests.Extensions
             Test2.B.Should().BeSameAs(Test2.A);
             }
 
-        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
-        /// <exception cref="InternalTestFailureException">The test fails</exception>
+
         [Fact]
-        public void Test_FN_CreateArray()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.FN_CreateArray) + "(T) => Func`1<T[]>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.FN_CreateArray) + "(T, Int32) => Func`1<T[]>")]
+        public void FN_CreateArray()
             {
             Func<int[]> Test = 5.FN_CreateArray();
 
@@ -292,7 +249,7 @@ namespace LCore.Tests.Extensions
 
             Test4.Should().Equal("5", "5", "5", "5", "5");
 
-            L.F<string, int, Func<string[]>>(LCore.Extensions.Optional.ObjectExt.FN_CreateArray).ShouldFail("5", -1);
+            L.F<string, int, Func<string[]>>(global::LCore.Extensions.Optional.ObjectExt.FN_CreateArray).ShouldFail("5", -1);
 
             Func<string[]> Test5 = "5".FN_CreateArray(Count: 0);
 
@@ -301,10 +258,11 @@ namespace LCore.Tests.Extensions
             Test6.Should().Equal();
             }
 
-        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
-        /// <exception cref="InternalTestFailureException">The test fails</exception>
+
         [Fact]
-        public void Test_FN_CreateList()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.FN_CreateList) + "(T) => Func`1<List`1<T>>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.FN_CreateList) + "(T, Int32) => Func`1<List`1<T>>")]
+        public void FN_CreateList()
             {
             Func<List<int>> Test = 5.FN_CreateList();
 
@@ -318,7 +276,7 @@ namespace LCore.Tests.Extensions
 
             Test4.Should().Equal("5", "5", "5", "5", "5");
 
-            L.F<string, int, Func<List<string>>>(LCore.Extensions.Optional.ObjectExt.FN_CreateList).ShouldFail("5", -1);
+            L.F<string, int, Func<List<string>>>(global::LCore.Extensions.Optional.ObjectExt.FN_CreateList).ShouldFail("5", -1);
 
             Func<List<string>> Test5 = "5".FN_CreateList(Count: 0);
 
@@ -328,7 +286,8 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
-        public void Test_Details()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.Details) + "(T, Boolean) => String")]
+        public void Details()
             {
             var Test = new TestClass
                 {
@@ -337,7 +296,7 @@ namespace LCore.Tests.Extensions
                 C = 3
                 };
 
-            Test.Details().Should().Be("LCore.Tests.Extensions.ObjectExtTest+TestClass {\r\nA: 1\r\nB: 2\r\nC: 3\r\n}");
+            Test.Details().Should().Be("L_Tests.LCore.Extensions.ObjectExtTester+TestClass {\r\nA: 1\r\nB: 2\r\nC: 3\r\n}");
 
 
             var Test2 = new TestClassError
@@ -347,16 +306,16 @@ namespace LCore.Tests.Extensions
                 };
 
             Test2.Details()
-                .Should().Be("LCore.Tests.Extensions.ObjectExtTest+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
+                .Should().Be("L_Tests.LCore.Extensions.ObjectExtTester+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
             Test2.Details(ShowErrorFields: false)
-                .Should().Be("LCore.Tests.Extensions.ObjectExtTest+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
+                .Should().Be("L_Tests.LCore.Extensions.ObjectExtTester+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
             Test2.Details(ShowErrorFields: true)
-                .Should().Be(
-                    "LCore.Tests.Extensions.ObjectExtTest+TestClassError {\r\nA: 1\r\nB: 2\r\nC: Exception has been thrown by the target of an invocation.\r\nD: 5\r\nE: 7\r\n}");
+                .Should().Be("L_Tests.LCore.Extensions.ObjectExtTester+TestClassError {\r\nA: 1\r\nB: 2\r\nC: Exception has been thrown by the target of an invocation.\r\nD: 5\r\nE: 7\r\n}");
             }
 
         [Fact]
-        public void Test_FN_If()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.FN_If) + "(T) => Func`2<T, Boolean>")]
+        public void FN_If()
             {
             const int Test = 5;
 
@@ -381,12 +340,13 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
-        public void Test_FN_Func()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.FN_Func) + "(T) => Func`1<T>")]
+        public void FN_Func()
             {
             5.FN_Func()().Should().Be(expected: 5);
             5f.FN_Func()().Should().Be(expected: 5f);
             "nice".FN_Func()().Should().Be("nice");
-            ((string) null).FN_Func()().Should().Be((string) null);
+            ((string)null).FN_Func()().Should().Be((string)null);
 
             new TestClass().FN_Func()()
                 .Should().BeOfType<TestClass>()
@@ -394,34 +354,37 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
-        public void Test_SafeEquals()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.SafeEquals) + "(Object, Object) => Boolean")]
+        public void SafeEquals()
             {
             4.SafeEquals(Obj: 5).ShouldBeFalse();
             5.SafeEquals(Obj: 5).ShouldBeTrue();
             5f.SafeEquals(Obj: 5.5f).ShouldBeFalse();
             5f.SafeEquals(Obj: 5f).ShouldBeTrue();
             "nice".SafeEquals("nice").ShouldBeTrue();
-            ((string) null).SafeEquals("nice").ShouldBeFalse();
-            ((string) null).SafeEquals(Obj: null).ShouldBeTrue();
+            ((string)null).SafeEquals("nice").ShouldBeFalse();
+            ((string)null).SafeEquals(Obj: null).ShouldBeTrue();
             }
 
         [Fact]
-        public void Test_ToS()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.ToS) + "(Object) => String")]
+        public void ToS()
             {
             4.ToS().Should().Be("4");
             5.ToS().Should().Be("5");
             5f.ToS().Should().Be("5");
             5.5f.ToS().Should().Be("5.5");
             "nice".ToS().Should().Be("nice");
-            ((string) null).ToS().Should().Be("");
-            new[] {4}.ToS().Should().Be("Int32[] { 4 }");
-            new[] {"a", "b", "c"}.ToS().Should().Be("String[] { a, b, c }");
+            ((string)null).ToS().Should().Be("");
+            new[] { 4 }.ToS().Should().Be("Int32[] { 4 }");
+            new[] { "a", "b", "c" }.ToS().Should().Be("String[] { a, b, c }");
             }
 
-        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
-        /// <exception cref="InternalTestFailureException">The test fails</exception>
+
         [Fact]
-        public void Test_Traverse()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.Traverse) + "(Object, Func`2<Object, Object>)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.Traverse) + "(T, Func`2<T, T>)")]
+        public void Traverse()
             {
             object Test = new
                 {
@@ -448,22 +411,22 @@ namespace LCore.Tests.Extensions
 
             Test.Traverse(o =>
                 {
-                if (o.HasProperty("link"))
-                    return o.GetProperty("link");
+                    if (o.HasProperty("link"))
+                        return o.GetProperty("link");
 
-                Result = o.GetProperty("data");
-                return null;
+                    Result = o.GetProperty("data");
+                    return null;
                 });
 
             Result.Should().Be(expected: 1);
 
             // Exceptions are not hidden.
-            L.A<object, Func<object, object>>(LCore.Extensions.Optional.ObjectExt.Traverse).ShouldFail(Test, o =>
+            L.A<object, Func<object, object>>(global::LCore.Extensions.Optional.ObjectExt.Traverse).ShouldFail(Test, o =>
                 {
-                if (o.HasProperty("link"))
-                    return o.GetProperty("link");
+                    if (o.HasProperty("link"))
+                        return o.GetProperty("link");
 
-                throw new Exception();
+                    throw new Exception();
                 });
 
 
@@ -494,30 +457,30 @@ namespace LCore.Tests.Extensions
 
             Test2.Traverse(o =>
                 {
-                if (o.C != null)
-                    return o.C;
+                    if (o.C != null)
+                        return o.C;
 
-                Result2 = o.A.A;
-                return null;
+                    Result2 = o.A.A;
+                    return null;
                 });
 
             Result2.Should().Be(expected: 5);
 
             // Exceptions are not hidden.
-            L.A<TestMaster, Func<TestMaster, TestMaster>>(LCore.Extensions.Optional.ObjectExt.Traverse)
+            L.A<TestMaster, Func<TestMaster, TestMaster>>(global::LCore.Extensions.Optional.ObjectExt.Traverse)
                 .ShouldFail(Test2, o =>
                     {
-                    if (o.C != null)
-                        return o.C;
+                        if (o.C != null)
+                            return o.C;
 
-                    throw new Exception();
+                        throw new Exception();
                     });
             }
 
-        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
-        /// <exception cref="InternalTestFailureException">The test fails</exception>
+
         [Fact]
-        public void Test_SupplyTo_Action()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.SupplyTo) + "(T, Action`1<T>) => Action")]
+        public void SupplyTo_Action()
             {
             const int Test = 5;
 
@@ -541,10 +504,10 @@ namespace LCore.Tests.Extensions
             L.A(() => Test5()).ShouldFail();
             }
 
-        /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
-        /// <exception cref="InternalTestFailureException">The test fails</exception>
+
         [Fact]
-        public void Test_SupplyTo_Func()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.SupplyTo) + "(T, Func`2<T, U>) => Func`1<U>")]
+        public void SupplyTo_Func()
             {
             const int Test = 5;
 
@@ -566,7 +529,6 @@ namespace LCore.Tests.Extensions
             L.A(() => Test5()).ShouldFail();
             }
 
-        #endregion
 
         #region Helper classes
 
@@ -621,7 +583,5 @@ namespace LCore.Tests.Extensions
             }
 
         #endregion
-
-        public ObjectExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }
