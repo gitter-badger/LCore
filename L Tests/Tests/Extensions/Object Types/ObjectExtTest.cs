@@ -296,7 +296,7 @@ namespace L_Tests.LCore.Extensions.Optional
                 C = 3
                 };
 
-            Test.Details().Should().Be("L_Tests.LCore.Extensions.ObjectExtTester+TestClass {\r\nA: 1\r\nB: 2\r\nC: 3\r\n}");
+            Test.Details().Should().Be("L_Tests.LCore.Extensions.Optional.ObjectExtTester+TestClass {\r\nA: 1\r\nB: 2\r\nC: 3\r\n}");
 
 
             var Test2 = new TestClassError
@@ -306,11 +306,11 @@ namespace L_Tests.LCore.Extensions.Optional
                 };
 
             Test2.Details()
-                .Should().Be("L_Tests.LCore.Extensions.ObjectExtTester+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
+                .Should().Be("L_Tests.LCore.Extensions.Optional.ObjectExtTester+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
             Test2.Details(ShowErrorFields: false)
-                .Should().Be("L_Tests.LCore.Extensions.ObjectExtTester+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
+                .Should().Be("L_Tests.LCore.Extensions.Optional.ObjectExtTester+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
             Test2.Details(ShowErrorFields: true)
-                .Should().Be("L_Tests.LCore.Extensions.ObjectExtTester+TestClassError {\r\nA: 1\r\nB: 2\r\nC: Exception has been thrown by the target of an invocation.\r\nD: 5\r\nE: 7\r\n}");
+                .Should().Be("L_Tests.LCore.Extensions.Optional.ObjectExtTester+TestClassError {\r\nA: 1\r\nB: 2\r\nC: Exception has been thrown by the target of an invocation.\r\nD: 5\r\nE: 7\r\n}");
             }
 
         [Fact]
