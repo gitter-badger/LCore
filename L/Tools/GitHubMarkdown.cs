@@ -90,6 +90,16 @@ namespace LCore.Tools
             });
             }
 
+        public void Strikethrough([CanBeNull] string Text)
+            {
+            if (!string.IsNullOrEmpty(Text))
+                this.AddLine($"~~{Text}~~");
+            }
+        public void Highlight([CanBeNull] string Text)
+            {
+            if (!string.IsNullOrEmpty(Text))
+                this.AddLine($"=={Text}==");
+            }
 
 
         public void Link([CanBeNull]string Text, [CanBeNull]string Url = "", [CanBeNull]string ReferenceText = "")
