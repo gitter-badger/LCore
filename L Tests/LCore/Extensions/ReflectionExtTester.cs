@@ -1047,7 +1047,16 @@ namespace L_Tests.LCore.Extensions
             Mock.Object.GetType().GetFriendlyTypeName().Should().Be("Test2");
             }
 
-
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." + nameof(ReflectionExt.IsNullable) + "(Type) => Boolean")]
+        public void IsNullable()
+            {
+            typeof(int).IsNullable().ShouldBeFalse();
+            typeof(int?).IsNullable().ShouldBeTrue();
+            typeof(string).IsNullable().ShouldBeFalse();
+            typeof(IConvertible).IsNullable().ShouldBeFalse();
+            ((Type)null).IsNullable().ShouldBeFalse();
+            }
 
 
         #region Helpers

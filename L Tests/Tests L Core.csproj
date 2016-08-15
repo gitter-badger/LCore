@@ -162,7 +162,9 @@
     <Compile Include="LCore\Extensions\L_AryTester.Ary.Test.cs" />
     <Compile Include="LCore\Extensions\L_DateTester.Date.Test.cs" />
     <Compile Include="LCore\Extensions\L_ListTester.List.Test.cs" />
+    <Compile Include="LCore\Extensions\L_NumTester.cs" />
     <Compile Include="LCore\Extensions\L_NumTester.Num.Test.cs" />
+    <Compile Include="LCore\Extensions\L_ObjTester.cs" />
     <Compile Include="LCore\Extensions\L_RefTester.Ref.Test.cs" />
     <Compile Include="LCore\Extensions\L_StrTester.Char.Test.cs" />
     <Compile Include="LCore\Extensions\NumberExtTester.cs" />
