@@ -1,28 +1,36 @@
-﻿using LCore.Extensions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using FluentAssertions;
 using JetBrains.Annotations;
+using LCore.Extensions;
 using LCore.LUnit;
 using LCore.LUnit.Fluent;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 using Xunit.Abstractions;
-using static LCore.LUnit.LUnit.Categories;
+
 // ReSharper disable PartialTypeWithSinglePart
 
 // ReSharper disable RedundantCast
 
-namespace LCore.Tests.Extensions
+namespace L_Tests.LCore.Extensions
     {
-    [Trait(Category, UnitTests)]
-    public class LogicExtTest : XUnitOutputTester
+    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt))]
+    public partial class LogicExtTester : XUnitOutputTester, IDisposable
         {
         private static readonly string _TestString = Guid.NewGuid().ToString();
+
+
+        public LogicExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+
+        public void Dispose() { }
 
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Cast) + "(Action`1<T1>) => Action`1<U1>")]
         public void Test_Cast_Action_0()
             {
             bool Result = false;
@@ -46,6 +54,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Cast) + "(Action`2<T1, T2>) => Action`2<U1, U2>")]
         public void Test_Cast_Action_1()
             {
             bool Result = false;
@@ -71,6 +82,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Cast) + "(Action`3<T1, T2, T3>) => Action`3<U1, U2, U3>")]
         public void Test_Cast_Action_2()
             {
             bool Result = false;
@@ -97,6 +111,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Cast) + "(Action`4<T1, T2, T3, T4>) => Action`4<U1, U2, U3, U4>")]
         public void Test_Cast_Action_3()
             {
             bool Result = false;
@@ -125,6 +142,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Cast) + "(Func`1<U1>) => Func`1<U2>")]
         public void Test_Cast_Func_0()
             {
             Func<object> Func = () => true;
@@ -141,6 +161,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Cast) + "(Func`2<T1, U1>) => Func`2<T2, U2>")]
         public void Test_Cast_Func_1()
             {
             Func<object, bool> Func = o =>
@@ -161,6 +184,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Cast) + "(Func`3<T1, T2, U1>) => Func`3<T3, T4, U2>")]
         public void Test_Cast_Func_2()
             {
             Func<object, object, bool> Func = (o1, o2) =>
@@ -182,6 +208,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Cast) + "(Func`4<T1, T2, T3, U1>) => Func`4<T4, T5, T6, U2>")]
         public void Test_Cast_Func_3()
             {
             Func<object, object, object, bool> Func = (o1, o2, o3) =>
@@ -204,6 +233,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Cast) + "(Func`5<T1, T2, T3, T4, U1>) => Func`5<T5, T6, T7, T8, U2>")]
         public void Test_Cast_Func_4()
             {
             Func<object, object, object, object, bool> Func = (o1, o2, o3, o4) =>
@@ -232,6 +264,187 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Action`1<U>, Func`1<U>) => Action")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Action`1<U>, Func`2<T1, U>) => Action`1<T1>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Action`1<U>, Func`3<T1, T2, U>) => Action`2<T1, T2>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Action`1<U>, Func`4<T1, T2, T3, U>) => Action`3<T1, T2, T3>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Action`1<U>, Func`5<T1, T2, T3, T4, U>) => Action`4<T1, T2, T3, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Action`2<T1, T2>, Func`1<T1>) => Action`1<T2>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround2) + "(Action`2<T1, T2>, Func`1<T2>) => Action`1<T1>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Action`2<T1, T2>, Func`2<T3, T1>) => Action`2<T2, T3>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround2) + "(Action`2<T1, T2>, Func`2<T3, T2>) => Action`2<T1, T3>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Action`2<T1, T2>, Func`3<T3, T4, T1>) => Action`3<T2, T3, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround2) + "(Action`2<T1, T2>, Func`3<T3, T4, T2>) => Action`3<T1, T3, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Action`2<T1, T2>, Func`4<T3, T4, T5, T1>) => Action`4<T2, T3, T4, T5>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround2) + "(Action`2<T1, T2>, Func`4<T3, T4, T5, T2>) => Action`4<T1, T3, T4, T5>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Action`3<T1, T2, T3>, Func`1<T1>) => Action`2<T2, T3>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround2) + "(Action`3<T1, T2, T3>, Func`1<T2>) => Action`2<T1, T3>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround3) + "(Action`3<T1, T2, T3>, Func`1<T3>) => Action`2<T1, T2>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Action`3<T1, T2, T3>, Func`2<T4, T1>) => Action`3<T2, T3, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround2) + "(Action`3<T1, T2, T3>, Func`2<T4, T2>) => Action`3<T1, T3, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround3) + "(Action`3<T1, T2, T3>, Func`2<T4, T3>) => Action`3<T1, T2, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Action`3<T1, T2, T3>, Func`3<T4, T5, T1>) => Action`4<T2, T3, T4, T5>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround2) + "(Action`3<T1, T2, T3>, Func`3<T4, T5, T2>) => Action`4<T1, T3, T4, T5>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround3) + "(Action`3<T1, T2, T3>, Func`3<T4, T5, T3>) => Action`4<T1, T2, T4, T5>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Action`4<T1, T2, T3, T4>, Func`1<T1>) => Action`3<T2, T3, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround2) + "(Action`4<T1, T2, T3, T4>, Func`1<T2>) => Action`3<T1, T3, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround3) + "(Action`4<T1, T2, T3, T4>, Func`1<T3>) => Action`3<T1, T2, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround4) + "(Action`4<T1, T2, T3, T4>, Func`1<T4>) => Action`3<T1, T2, T3>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Action`4<T1, T2, T3, T4>, Func`2<T5, T1>) => Action`4<T2, T3, T4, T5>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround2) + "(Action`4<T1, T2, T3, T4>, Func`2<T5, T2>) => Action`4<T1, T3, T4, T5>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround3) + "(Action`4<T1, T2, T3, T4>, Func`2<T5, T3>) => Action`4<T1, T2, T4, T5>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround4) + "(Action`4<T1, T2, T3, T4>, Func`2<T5, T4>) => Action`4<T1, T2, T3, T5>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Func`2<T1, U>, Func`1<T1>) => Func`1<U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Func`2<T2, U>, Func`2<T1, T2>) => Func`2<T1, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Func`2<T3, U>, Func`3<T1, T2, T3>) => Func`3<T1, T2, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Func`2<T4, U>, Func`4<T1, T2, T3, T4>) => Func`4<T1, T2, T3, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Func`2<T5, U>, Func`5<T1, T2, T3, T4, T5>) => Func`5<T1, T2, T3, T4, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Func`3<T1, T2, U>, Func`1<T1>) => Func`2<T2, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround2) + "(Func`3<T1, T2, U>, Func`1<T2>) => Func`2<T1, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Func`3<T1, T2, U>, Func`2<T3, T1>) => Func`3<T2, T3, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround2) + "(Func`3<T1, T2, U>, Func`2<T3, T2>) => Func`3<T1, T3, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Func`3<T1, T2, U>, Func`3<T3, T4, T1>) => Func`4<T2, T3, T4, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround2) + "(Func`3<T1, T2, U>, Func`3<T3, T4, T2>) => Func`4<T1, T3, T4, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Func`3<T1, T2, U>, Func`4<T3, T4, T5, T1>) => Func`5<T2, T3, T4, T5, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround2) + "(Func`3<T1, T2, U>, Func`4<T3, T4, T5, T2>) => Func`5<T1, T3, T4, T5, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Func`4<T1, T2, T3, U>, Func`1<T1>) => Func`3<T2, T3, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround2) + "(Func`4<T1, T2, T3, U>, Func`1<T2>) => Func`3<T1, T3, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround3) + "(Func`4<T1, T2, T3, U>, Func`1<T3>) => Func`3<T1, T2, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Func`4<T1, T2, T3, U>, Func`2<T4, T1>) => Func`4<T2, T3, T4, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround2) + "(Func`4<T1, T2, T3, U>, Func`2<T4, T2>) => Func`4<T1, T3, T4, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround3) + "(Func`4<T1, T2, T3, U>, Func`2<T4, T3>) => Func`4<T1, T2, T4, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Func`4<T1, T2, T3, U>, Func`3<T4, T5, T1>) => Func`5<T2, T3, T4, T5, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround2) + "(Func`4<T1, T2, T3, U>, Func`3<T4, T5, T2>) => Func`5<T1, T3, T4, T5, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround3) + "(Func`4<T1, T2, T3, U>, Func`3<T4, T5, T3>) => Func`5<T1, T2, T4, T5, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Func`5<T1, T2, T3, T4, U>, Func`1<T1>) => Func`4<T2, T3, T4, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround2) + "(Func`5<T1, T2, T3, T4, U>, Func`1<T2>) => Func`4<T1, T3, T4, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround3) + "(Func`5<T1, T2, T3, T4, U>, Func`1<T3>) => Func`4<T1, T2, T4, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround4) + "(Func`5<T1, T2, T3, T4, U>, Func`1<T4>) => Func`4<T1, T2, T3, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround) + "(Func`5<T1, T2, T3, T4, U>, Func`2<T5, T1>) => Func`5<T2, T3, T4, T5, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround2) + "(Func`5<T1, T2, T3, T4, U>, Func`2<T5, T2>) => Func`5<T1, T3, T4, T5, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround3) + "(Func`5<T1, T2, T3, T4, U>, Func`2<T5, T3>) => Func`5<T1, T2, T4, T5, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Surround4) + "(Func`5<T1, T2, T3, T4, U>, Func`2<T5, T4>) => Func`5<T1, T2, T3, T5, U>")]
+
         public void Test_Surround_Action_0()
             {
             int Result = 0;
@@ -1086,6 +1299,186 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose2) + "(Func`3<T4, T5, T2>, Action`3<T1, T2, T3>) => Action`4<T1, T3, T4, T5>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose3) + "(Func`3<T4, T5, T3>, Action`3<T1, T2, T3>) => Action`4<T1, T2, T4, T5>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`1<T1>, Action`4<T1, T2, T3, T4>) => Action`3<T2, T3, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose2) + "(Func`1<T2>, Action`4<T1, T2, T3, T4>) => Action`3<T1, T3, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose3) + "(Func`1<T3>, Action`4<T1, T2, T3, T4>) => Action`3<T1, T2, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose4) + "(Func`1<T4>, Action`4<T1, T2, T3, T4>) => Action`3<T1, T2, T3>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`2<T5, T1>, Action`4<T1, T2, T3, T4>) => Action`4<T2, T3, T4, T5>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose2) + "(Func`2<T5, T2>, Action`4<T1, T2, T3, T4>) => Action`4<T1, T3, T4, T5>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose3) + "(Func`2<T5, T3>, Action`4<T1, T2, T3, T4>) => Action`4<T1, T2, T4, T5>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose4) + "(Func`2<T5, T4>, Action`4<T1, T2, T3, T4>) => Action`4<T1, T2, T3, T5>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`1<T1>, Func`2<T1, U>) => Func`1<U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`2<T1, T2>, Func`2<T2, U>) => Func`2<T1, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`3<T1, T2, T3>, Func`2<T3, U>) => Func`3<T1, T2, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`4<T1, T2, T3, T4>, Func`2<T4, U>) => Func`4<T1, T2, T3, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`5<T1, T2, T3, T4, T5>, Func`2<T5, U>) => Func`5<T1, T2, T3, T4, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`1<T1>, Func`3<T1, T2, U>) => Func`2<T2, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose2) + "(Func`1<T2>, Func`3<T1, T2, U>) => Func`2<T1, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`2<T3, T1>, Func`3<T1, T2, U>) => Func`3<T2, T3, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose2) + "(Func`2<T3, T2>, Func`3<T1, T2, U>) => Func`3<T1, T3, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`3<T3, T4, T1>, Func`3<T1, T2, U>) => Func`4<T2, T3, T4, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose2) + "(Func`3<T3, T4, T2>, Func`3<T1, T2, U>) => Func`4<T1, T3, T4, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`4<T3, T4, T5, T1>, Func`3<T1, T2, U>) => Func`5<T2, T3, T4, T5, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose2) + "(Func`4<T3, T4, T5, T2>, Func`3<T1, T2, U>) => Func`5<T1, T3, T4, T5, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`1<T1>, Func`4<T1, T2, T3, U>) => Func`3<T2, T3, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose2) + "(Func`1<T2>, Func`4<T1, T2, T3, U>) => Func`3<T1, T3, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose3) + "(Func`1<T3>, Func`4<T1, T2, T3, U>) => Func`3<T1, T2, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`2<T4, T1>, Func`4<T1, T2, T3, U>) => Func`4<T2, T3, T4, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose2) + "(Func`2<T4, T2>, Func`4<T1, T2, T3, U>) => Func`4<T1, T3, T4, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose3) + "(Func`2<T4, T3>, Func`4<T1, T2, T3, U>) => Func`4<T1, T2, T4, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`3<T4, T5, T1>, Func`4<T1, T2, T3, U>) => Func`5<T2, T3, T4, T5, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose2) + "(Func`3<T4, T5, T2>, Func`4<T1, T2, T3, U>) => Func`5<T1, T3, T4, T5, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose3) + "(Func`3<T4, T5, T3>, Func`4<T1, T2, T3, U>) => Func`5<T1, T2, T4, T5, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`1<T1>, Func`5<T1, T2, T3, T4, U>) => Func`4<T2, T3, T4, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose2) + "(Func`1<T2>, Func`5<T1, T2, T3, T4, U>) => Func`4<T1, T3, T4, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose3) + "(Func`1<T3>, Func`5<T1, T2, T3, T4, U>) => Func`4<T1, T2, T4, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose4) + "(Func`1<T4>, Func`5<T1, T2, T3, T4, U>) => Func`4<T1, T2, T3, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`2<T5, T1>, Func`5<T1, T2, T3, T4, U>) => Func`5<T2, T3, T4, T5, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose2) + "(Func`2<T5, T2>, Func`5<T1, T2, T3, T4, U>) => Func`5<T1, T3, T4, T5, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose3) + "(Func`2<T5, T3>, Func`5<T1, T2, T3, T4, U>) => Func`5<T1, T2, T4, T5, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose4) + "(Func`2<T5, T4>, Func`5<T1, T2, T3, T4, U>) => Func`5<T1, T2, T3, T5, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`1<T1>, Action`1<T1>) => Action")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`2<T2, T1>, Action`1<T1>) => Action`1<T2>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`3<T2, T3, T1>, Action`1<T1>) => Action`2<T2, T3>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`4<T2, T3, T4, T1>, Action`1<T1>) => Action`3<T2, T3, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`5<T2, T3, T4, T5, T1>, Action`1<T1>) => Action`4<T2, T3, T4, T5>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`1<T1>, Action`2<T1, T2>) => Action`1<T2>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose2) + "(Func`1<T2>, Action`2<T1, T2>) => Action`1<T1>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`2<T3, T1>, Action`2<T1, T2>) => Action`2<T2, T3>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose2) + "(Func`2<T3, T2>, Action`2<T1, T2>) => Action`2<T1, T3>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`3<T3, T4, T1>, Action`2<T1, T2>) => Action`3<T2, T3, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose2) + "(Func`3<T3, T4, T2>, Action`2<T1, T2>) => Action`3<T1, T3, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`4<T3, T4, T5, T1>, Action`2<T1, T2>) => Action`4<T2, T3, T4, T5>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose2) + "(Func`4<T3, T4, T5, T2>, Action`2<T1, T2>) => Action`4<T1, T3, T4, T5>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`1<T1>, Action`3<T1, T2, T3>) => Action`2<T2, T3>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose2) + "(Func`1<T2>, Action`3<T1, T2, T3>) => Action`2<T1, T3>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose3) + "(Func`1<T3>, Action`3<T1, T2, T3>) => Action`2<T1, T2>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`2<T4, T1>, Action`3<T1, T2, T3>) => Action`3<T2, T3, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose2) + "(Func`2<T4, T2>, Action`3<T1, T2, T3>) => Action`3<T1, T3, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose3) + "(Func`2<T4, T3>, Action`3<T1, T2, T3>) => Action`3<T1, T2, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
+            nameof(LogicExt.Enclose) + "(Func`3<T4, T5, T1>, Action`3<T1, T2, T3>) => Action`4<T2, T3, T4, T5>")]
         public void Test_Enclose_Action_0()
             {
             int Result = 0;
@@ -1933,7 +2326,5 @@ namespace LCore.Tests.Extensions
             }
 
         #endregion
-
-        public LogicExtTest([NotNull] ITestOutputHelper Output) : base(Output) { }
         }
     }

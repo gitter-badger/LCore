@@ -1,32 +1,21 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
-using JetBrains.Annotations;
+using LCore.Extensions;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using LCore.Numbers;
 using Xunit;
-using Xunit.Abstractions;
+// ReSharper disable PartialTypeWithSinglePart
 // ReSharper disable RedundantCast
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+// ReSharper disable EqualExpressionComparison
 
 namespace L_Tests.LCore.Numbers
     {
-    [Trait(Traits.TargetClass, "LCore.Numbers.Number")]
-    [Trait(Traits.TargetClass, "LCore.Numbers.Number`1")]
-    [Trait(Traits.TargetClass, "LCore.Numbers.Number`2")]
-    public partial class NumberTester : XUnitOutputTester, IDisposable
+    public class NumberTester
         {
-        public NumberTester([NotNull] ITestOutputHelper Output) : base(Output) { }
-
-        public void Dispose() { }
-
         [Fact]
-        [Trait(Traits.TargetMember, "LCore.Numbers.Number.op_Division(Number, IConvertible) => Number")]
-        [Trait(Traits.TargetMember, "LCore.Numbers.Number.op_Division(Number, Number) => Number")]
-        [Trait(Traits.TargetMember, "LCore.Numbers.Number.op_Multiply(Number, IConvertible) => Number")]
-        [Trait(Traits.TargetMember, "LCore.Numbers.Number.op_Multiply(Number, Number) => Number")]
-        [Trait(Traits.TargetMember, "LCore.Numbers.Number.op_Subtraction(Number, IConvertible) => Number")]
-        [Trait(Traits.TargetMember, "LCore.Numbers.Number.op_Subtraction(Number, Number) => Number")]
-        [Trait(Traits.TargetMember, "LCore.Numbers.Number.op_Addition(Number, IConvertible) => Number")]
-        [Trait(Traits.TargetMember, "LCore.Numbers.Number.op_Addition(Number, Number) => Number")]
         [Trait(Traits.TargetMember, "LCore.Numbers.Number`2.op_Implicit(Number`2) => T")]
         [Trait(Traits.TargetMember, "LCore.Numbers.Number`1.op_Division(Number`1, T) => Number")]
         [Trait(Traits.TargetMember, "LCore.Numbers.Number`1.op_Multiply(Number`1, T) => Number")]
@@ -58,6 +47,14 @@ namespace L_Tests.LCore.Numbers
         [Trait(Traits.TargetMember, "LCore.Numbers.Number.op_Equality(Number, IComparable) => Boolean")]
         [Trait(Traits.TargetMember, "LCore.Numbers.Number.op_Inequality(Number, IComparable) => Boolean")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(Number) + "." + nameof(Number.GetHashCode) + "() => Int32")]
+        [Trait(Traits.TargetMember, "LCore.Numbers.Number.op_Division(Number, IConvertible) => Number")]
+        [Trait(Traits.TargetMember, "LCore.Numbers.Number.op_Division(Number, Number) => Number")]
+        [Trait(Traits.TargetMember, "LCore.Numbers.Number.op_Multiply(Number, IConvertible) => Number")]
+        [Trait(Traits.TargetMember, "LCore.Numbers.Number.op_Multiply(Number, Number) => Number")]
+        [Trait(Traits.TargetMember, "LCore.Numbers.Number.op_Subtraction(Number, IConvertible) => Number")]
+        [Trait(Traits.TargetMember, "LCore.Numbers.Number.op_Subtraction(Number, Number) => Number")]
+        [Trait(Traits.TargetMember, "LCore.Numbers.Number.op_Addition(Number, IConvertible) => Number")]
+        [Trait(Traits.TargetMember, "LCore.Numbers.Number.op_Addition(Number, Number) => Number")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(Number) + "." + nameof(Number.CompareTo) + "(Object) => Int32")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(Number) + "." + nameof(Number.New) + "(Object) => Number")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(Number) + "." + nameof(Number.Divide) + "(Number) => Number")]
@@ -70,45 +67,132 @@ namespace L_Tests.LCore.Numbers
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(Number) + "." + nameof(Number.Add) + "(IConvertible) => Number")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(Number) + "." + nameof(Number.GetValuePrecision) + "() => Number")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(Number) + "." + nameof(Number.GetValue) + "() => Object")]
-        public void op_Addition_Number_Number_Number()
+
+        public void TestNumberOperations()
             {
-            ((Number<byte>)(ByteNumber)5 + (byte)3).Should().Be((ByteNumber)8);
-            ((Number<byte>)(ByteNumber)5 - (byte)3).Should().Be((ByteNumber)2);
-            ((Number<byte>)(ByteNumber)5 * (byte)3).Should().Be((ByteNumber)15);
-            ((Number<byte>)(ByteNumber)5 / (byte)5).Should().Be((ByteNumber)1);
+            ((Number)(ByteNumber)5 + (byte)3).Should().Be((ByteNumber)8);
+            ((Number)(ByteNumber)5 - (byte)3).Should().Be((ByteNumber)2);
+            ((Number)(ByteNumber)5 * (byte)3).Should().Be((ByteNumber)15);
+            ((Number)(ByteNumber)5 / (byte)5).Should().Be((ByteNumber)1);
 
-            ((Number)(ByteNumber)5 + (IConvertible)3).Should().Be((ByteNumber)8);
-            ((Number)(ByteNumber)5 + (Number)(ByteNumber)3).Should().Be((ByteNumber)8);
-            ((Number)(ByteNumber)5 + (Number)null).Should().Be((ByteNumber)5);
-            ((Number)null + (Number)(ByteNumber)5).Should().Be((ByteNumber)5);
-            ((Number)null + (Number)null).Should().Be((ByteNumber)0);
-            ((Number)null + (IConvertible)5).Should().Be((ByteNumber)5);
-            ((Number)null + (IConvertible)null).Should().Be((ByteNumber)0);
+            ((ByteNumber)5).CompareTo((byte)3).Should().BeGreaterThan(expected: 0);
+            ((ByteNumber)5).CompareTo((byte)7).Should().BeLessThan(expected: 0);
+            ((ByteNumber)5).CompareTo((byte)5).Should().Be(expected: 0);
+            ((ByteNumber)5).CompareTo("5").Should().Be(expected: 0);
 
-            ((Number)(ByteNumber)5 * (IConvertible)3).Should().Be((ByteNumber)15);
-            ((Number)(ByteNumber)5 * (Number)(ByteNumber)3).Should().Be((ByteNumber)15);
-            ((Number)(ByteNumber)5 * (Number)null).Should().Be((ByteNumber)0);
-            ((Number)null * (Number)(ByteNumber)5).Should().Be((ByteNumber)0);
-            ((Number)null * (Number)null).Should().Be((ByteNumber)0);
-            ((Number)null * (IConvertible)5).Should().Be((ByteNumber)0);
-            ((Number)null * (IConvertible)null).Should().Be((ByteNumber)0);
+            ((ByteNumber)5 < 3).ShouldBeFalse();
+            ((ByteNumber)5 < 5).ShouldBeFalse();
+            ((ByteNumber)5 < 7).ShouldBeTrue();
 
-            ((Number)(ByteNumber)5 / (IConvertible)5).Should().Be((ByteNumber)1);
-            ((Number)(ByteNumber)5 / (Number)(ByteNumber)5).Should().Be((ByteNumber)1);
-            ((Number)(ByteNumber)5 / (Number)null).Should().Be((ByteNumber)5);
-            ((Number)null / (Number)(ByteNumber)5).Should().Be((ByteNumber)0);
-            ((Number)null / (Number)null).Should().Be((ByteNumber)0);
-            ((Number)null / (IConvertible)5).Should().Be((ByteNumber)0);
-            ((Number)null / (IConvertible)null).Should().Be((ByteNumber)0);
+            ((ByteNumber)5 <= 3).ShouldBeFalse();
+            ((ByteNumber)5 <= 5).ShouldBeTrue();
+            ((ByteNumber)5 <= 7).ShouldBeTrue();
 
-            ((Number)(ByteNumber)5 - (IConvertible)3).Should().Be((ByteNumber)2);
-            ((Number)(ByteNumber)5 - (Number)(ByteNumber)3).Should().Be((ByteNumber)2);
-            ((Number)(ByteNumber)5 - (Number)null).Should().Be((ByteNumber)5);
-            // TODO: Enable overflow tests
-            //((Number)null - (Number)(ByteNumber)5).Should().Be((SByteNumber)(sbyte)-5);
-            ((Number)null - (Number)null).Should().Be((ByteNumber)0);
-            //((Number)null - (IConvertible)5).Should().Be((SByteNumber)(sbyte)-5);
-            ((Number)null - (IConvertible)null).Should().Be((ByteNumber)0);
+            ((ByteNumber)5 > 3).ShouldBeTrue();
+            ((ByteNumber)5 > 5).ShouldBeFalse();
+            ((ByteNumber)5 > 7).ShouldBeFalse();
+
+            ((ByteNumber)5 >= 3).ShouldBeTrue();
+            ((ByteNumber)5 >= 5).ShouldBeTrue();
+            ((ByteNumber)5 >= 7).ShouldBeFalse();
+
+
+            ((ByteNumber)5).CompareTo((byte)7).Should().BeLessThan(expected: 0);
+            ((ByteNumber)5).CompareTo((byte)5).Should().Be(expected: 0);
+            ((ByteNumber)5).CompareTo("5").Should().Be(expected: 0);
+
+            ((ByteNumber)5).Equals((Number)(ByteNumber)5).ShouldBeTrue();
+            ((ByteNumber)5).Equals(Obj: null).ShouldBeFalse();
+
+            ByteNumber Test = 5;
+            Test.Equals((object)Test).ShouldBeTrue();
+            Test.Equals(typeof(void)).ShouldBeFalse();
+
+
+            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+            L.A(() => ((ByteNumber)5).CompareTo("5.5")).ShouldFail();
+
+
+            ((ByteNumber)5 + "3").Should().Be((ByteNumber)8);
+            ((ByteNumber)5 + "3.5").Should().Be((FloatNumber)8.5f);
+
+            ((ByteNumber)5 + "3" + "2").Should().Be((ByteNumber)10);
+            ((ByteNumber)5 * "5.5" + "3" + "5000.101").Should()
+                .BeOfType<DecimalNumber>()
+                .And.Be((DecimalNumber)5030.601m);
+            ((ByteNumber)5 * "5.5e4" + "3" + "5000.101").Should()
+                .BeOfType<DecimalNumber>()
+                .And.Be((DecimalNumber)280003.101m);
+
+            // ((ByteNumber)5 * "4.0443e-2").Should().Be((FloatNumber)5030.601);
+            // ((ByteNumber)5 * "5.5e-3" + "3" + "5000.101").Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)5030.601m);
+
+            ((Number)null == (Number)null).ShouldBeTrue();
+            ((Number)null == (Number)(ByteNumber)5).ShouldBeFalse();
+            ((Number)(ByteNumber)5 == (Number)null).ShouldBeFalse();
+            ((Number)(ByteNumber)5 == (Number)(ByteNumber)5).ShouldBeTrue();
+            ((Number)null != (Number)null).ShouldBeFalse();
+            ((Number)null != (Number)(ByteNumber)5).ShouldBeTrue();
+            ((Number)(ByteNumber)5 != (Number)null).ShouldBeTrue();
+            ((Number)(ByteNumber)5 != (Number)(ByteNumber)5).ShouldBeFalse();
+
+
+
             }
+
+        [ExcludeFromCodeCoverage]
+        public void Test_NumberType<TNumber, TNative>()
+            where TNumber : Number<TNative>
+            where TNative : struct,
+                IComparable,
+                IComparable<TNative>,
+                IConvertible,
+                IEquatable<TNative>,
+                IFormattable
+            {
+            var Dec = (TNative)(object)(int)25;
+
+            // Test implicits
+            var TempNumber = L.Obj.New<TNumber>(Dec);
+            //Dec = TempNumber;
+
+            TempNumber.GetHashCode().Should().Be(Dec.GetHashCode());
+            TempNumber.NumberType.Should().Be(typeof(TNative));
+
+            TempNumber.New().Should().Be(TempNumber.DefaultValue);
+
+            INumber Temp2 = TempNumber.New(Dec);
+            Temp2.GetValue().Should().Be(Dec);
+
+            TempNumber.GetValuePrecision().Should().Be((SByteNumber)1);
+            /*
+
+                        TempNumber.Add((SByteNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(TNative)30);
+                        TempNumber.Subtract((SByteNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(TNative)20);
+                        TempNumber.Multiply((SByteNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(TNative)125);
+                        TempNumber.Divide((SByteNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(TNative)5);
+
+                        TempNumber.Add((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(TNative)30);
+                        TempNumber.Subtract((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(TNative)20);
+                        TempNumber.Multiply((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(TNative)125);
+                        TempNumber.Divide((IConvertible)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(TNative)5);
+            */
+
+            ((ByteNumber)5 + "3").Should().Be((ByteNumber)8);
+            ((ByteNumber)5 + "3.5").Should().Be((FloatNumber)8.5f);
+
+            ((ByteNumber)5 + "3" + "2").Should().Be((ByteNumber)10);
+            ((ByteNumber)5 * "5.5" + "3" + "5000.101").Should()
+                .BeOfType<DecimalNumber>()
+                .And.Be((DecimalNumber)5030.601m);
+            ((ByteNumber)5 * "5.5e4" + "3" + "5000.101").Should()
+                .BeOfType<DecimalNumber>()
+                .And.Be((DecimalNumber)280003.101m);
+
+            // ((ByteNumber)5 * "4.0443e-2").Should().Be((FloatNumber)5030.601);
+            // ((ByteNumber)5 * "5.5e-3" + "3" + "5000.101").Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)5030.601m);
+            }
+
+        // TODO: L: Number: Implement robust overflow tests.
         }
     }

@@ -1,12 +1,12 @@
-﻿using LCore.Extensions;
-using System;
+﻿using System;
 using System.IO;
 using FluentAssertions;
 using JetBrains.Annotations;
-using Xunit;
-using Xunit.Abstractions;
+using LCore.Extensions;
 using LCore.LUnit;
 using LCore.LUnit.Fluent;
+using Xunit;
+using Xunit.Abstractions;
 
 // ReSharper disable PossibleNullReferenceException
 

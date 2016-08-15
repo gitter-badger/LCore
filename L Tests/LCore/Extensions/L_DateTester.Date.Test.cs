@@ -1,19 +1,28 @@
-﻿using LCore.Extensions;
-using System;
+﻿using System;
 using FluentAssertions;
+using JetBrains.Annotations;
+using LCore.Extensions;
+using LCore.LUnit;
 using LCore.LUnit.Fluent;
 using Xunit;
-using static LCore.LUnit.LUnit.Categories;
+using Xunit.Abstractions;
 
 // ReSharper disable StringLiteralTypo
 // ReSharper disable UnusedParameter.Global
 
-namespace LCore.Tests.Extensions
+namespace L_Tests.LCore.Extensions
     {
-    [Trait(Category, StaticMethods)]
-    public class DateTest
+    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L))]
+    public partial class L_DateTester : XUnitOutputTester, IDisposable
         {
+        public L_DateTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+
+        public void Dispose() { }
+
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Date) + "." +
+            nameof(L.Date.MonthNumberGetName) + "(Int32) => String")]
         public void Test_MonthNumberGetName()
             {
             L.Date.MonthNumberGetName(Month: 1).Should().Be("January");

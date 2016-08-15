@@ -1,18 +1,27 @@
-﻿using LCore.Extensions;
-using System;
+﻿using System;
 using FluentAssertions;
+using JetBrains.Annotations;
+using LCore.Extensions;
+using LCore.LUnit;
 using Xunit;
-using static LCore.LUnit.LUnit.Categories;
+using Xunit.Abstractions;
 
 // ReSharper disable StringLiteralTypo
 // ReSharper disable UnusedParameter.Global
 
-namespace LCore.Tests.Extensions
+namespace L_Tests.LCore.Extensions
     {
-    [Trait(Category, StaticMethods)]
-    public class NumTest
+    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L))]
+    public partial class L_NumTester : XUnitOutputTester, IDisposable
         {
+        public L_NumTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+
+        public void Dispose() { }
+
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Num) + "." +
+            nameof(L.Num.ScientificNotationToNumber) + "(String) => String")]
         public void Test_ScientificNotationToNumber()
             {
             L.Num.ScientificNotationToNumber("nope not a number").Should().Be("nope not a number");
@@ -24,12 +33,6 @@ namespace LCore.Tests.Extensions
             L.Num.ScientificNotationToNumber("1.0e-5").Should().Be("0.00001");
             L.Num.ScientificNotationToNumber("1.0e0").Should().Be("1");
             L.Num.ScientificNotationToNumber("5.0e-1").Should().Be("0.5");
-
-
-
-            //L.Num.ScientificNotationToNumber("1e5").Should().Be("100000");
-            //L.Num.ScientificNotationToNumber("1e0").Should().Be("1");
-            //L.Num.ScientificNotationToNumber("1e").Should().Be("1e");
             }
         }
     }

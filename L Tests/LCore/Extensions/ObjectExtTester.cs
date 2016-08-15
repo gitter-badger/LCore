@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions;
@@ -19,9 +20,9 @@ namespace L_Tests.LCore.Extensions
         nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.ObjectExt))]
     public partial class ObjectExtTester : XUnitOutputTester, IDisposable
         {
-        public ObjectExtTester([NotNull] ITestOutputHelper Output) : base(Output) {}
+        public ObjectExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
-        public void Dispose() {}
+        public void Dispose() { }
 
         #region LCore.Extensions.ObjectExt
 
@@ -82,13 +83,14 @@ namespace L_Tests.LCore.Extensions
 
         #region Helper classes
 
+        [ExcludeFromCodeCoverage]
         private class TestMaster
             {
             public TestClass A { get; set; }
             public TestClass B { get; set; }
             public TestMaster C { get; set; }
             }
-
+        [ExcludeFromCodeCoverage]
         private class TestClass
             {
             public int? A { get; set; }
@@ -96,12 +98,14 @@ namespace L_Tests.LCore.Extensions
             public int? C { get; set; }
             }
 
+        [ExcludeFromCodeCoverage]
         private class TestSubclass : TestClass
             {
             public int? D { get; set; }
             public int? E { get; set; }
             }
 
+        [ExcludeFromCodeCoverage]
         private class TestClassReadOnly
             {
             public int? A { get; private set; }
@@ -117,6 +121,7 @@ namespace L_Tests.LCore.Extensions
             }
 
 
+        [ExcludeFromCodeCoverage]
         private class TestClassError
             {
             public int? A { get; set; }

@@ -181,7 +181,7 @@ namespace LCore.LUnit
                         uint Covered = TestData.MemberCoverage.Count(Member => Member.IsCovered);
                         TotalTests += Covered;
 
-                        Out.Add($"{Type.FullyQualifiedName().Pad(Length: 45)}({$"{Coverage}".AlignRight(Length: 3)}%) {$"({Covered}/{TestData.MemberCoverage.Count})".AlignRight(Length: 8)}");
+                        Out.Add($"{Type.FullyQualifiedName().Pad(Length: 45)}({$"{Coverage}".AlignRight(Length: 3)}%) ({Covered}/{TestData.MemberCoverage.Count})");
 
                         //TestData.MissingMemberInvocations.Each(Member => MissingMembers.Add($"-{Member}"));
                         }
@@ -218,7 +218,7 @@ namespace LCore.LUnit
                         uint Covered = TestData.MemberCoverage.Count(Member => Member.IsCovered);
                         TotalTests += Covered;
 
-                        Out.Add($"{Type.FullyQualifiedName().Pad(Length: 45)}({$"{Coverage}".AlignRight(Length: 3)}%) {$"({Covered}/{TestData.MemberCoverage.Count})".AlignRight(Length: 8)}");
+                        Out.Add($"{Type.FullyQualifiedName().Pad(Length: 45)}({$"{Coverage}".AlignRight(Length: 3)}%) ({Covered}/{TestData.MemberCoverage.Count})");
 
                         //TestData.MissingMemberInvocations.Each(Member => MissingMembers.Add($"-{Member}"));
                         }

@@ -1096,6 +1096,7 @@ namespace L_Tests.LCore.Extensions
             L.A(() => new TestClassGeneric2<int, int>("", "", "")).ShouldFail();
             }
 
+        [ExcludeFromCodeCoverage]
         internal class TestClassGeneric1<T1> : TestClass, ICustomAttributeProvider
             {
             public object[] GetCustomAttributes(Type AttributeType, bool Inherit)
@@ -1114,6 +1115,7 @@ namespace L_Tests.LCore.Extensions
                 }
             }
 
+        [ExcludeFromCodeCoverage]
         internal class TestClassGeneric2<T1, T2> : TestClass
             {
             public TestClassGeneric2(string Test)
@@ -1160,6 +1162,7 @@ namespace L_Tests.LCore.Extensions
             public virtual string Test2 { get; set; }
             }
 
+        [ExcludeFromCodeCoverage]
         public class TestBaseClass2
             {
             public string Test3 { get; set; }
@@ -1209,6 +1212,7 @@ namespace L_Tests.LCore.Extensions
 
         internal interface ITest2 { }
 
+        [ExcludeFromCodeCoverage]
         internal class TestMember : MemberInfo
             {
             public override object[] GetCustomAttributes(bool Inherit)

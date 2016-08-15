@@ -9,7 +9,7 @@ using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace L_Tests.LCore.Tests.Tools
+namespace L_Tests.LCore.Tools
     {
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(Schedule))]
     public partial class ScheduleTester : XUnitOutputTester, IDisposable

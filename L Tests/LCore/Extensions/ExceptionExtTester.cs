@@ -1,13 +1,12 @@
-﻿using LCore.Extensions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using FluentAssertions;
 using JetBrains.Annotations;
+using LCore.Extensions;
 using LCore.LUnit;
 using LCore.LUnit.Fluent;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 using Xunit.Abstractions;
-using static LCore.LUnit.LUnit.Categories;
 
 // ReSharper disable ConvertToLambdaExpression
 

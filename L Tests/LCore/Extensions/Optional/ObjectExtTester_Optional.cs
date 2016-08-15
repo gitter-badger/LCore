@@ -8,6 +8,7 @@ using LCore.LUnit;
 using LCore.LUnit.Fluent;
 using Xunit;
 using Xunit.Abstractions;
+
 // ReSharper disable PartialTypeWithSinglePart
 
 // ReSharper disable MemberCanBePrivate.Local
@@ -20,9 +21,9 @@ using Xunit.Abstractions;
 namespace L_Tests.LCore.Extensions.Optional
     {
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt))]
-    public partial class ObjectExtTester : XUnitOutputTester, IDisposable
+    public partial class ObjectExtTester_Optional : XUnitOutputTester, IDisposable
         {
-        public ObjectExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+        public ObjectExtTester_Optional([NotNull] ITestOutputHelper Output) : base(Output) { }
 
         public void Dispose() { }
 
@@ -296,7 +297,7 @@ namespace L_Tests.LCore.Extensions.Optional
                 C = 3
                 };
 
-            Test.Details().Should().Be("L_Tests.LCore.Extensions.Optional.ObjectExtTester+TestClass {\r\nA: 1\r\nB: 2\r\nC: 3\r\n}");
+            Test.Details().Should().Be("L_Tests.LCore.Extensions.Optional.ObjectExtTester_Optional+TestClass {\r\nA: 1\r\nB: 2\r\nC: 3\r\n}");
 
 
             var Test2 = new TestClassError
@@ -306,11 +307,11 @@ namespace L_Tests.LCore.Extensions.Optional
                 };
 
             Test2.Details()
-                .Should().Be("L_Tests.LCore.Extensions.Optional.ObjectExtTester+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
+                .Should().Be("L_Tests.LCore.Extensions.Optional.ObjectExtTester_Optional+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
             Test2.Details(ShowErrorFields: false)
-                .Should().Be("L_Tests.LCore.Extensions.Optional.ObjectExtTester+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
+                .Should().Be("L_Tests.LCore.Extensions.Optional.ObjectExtTester_Optional+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
             Test2.Details(ShowErrorFields: true)
-                .Should().Be("L_Tests.LCore.Extensions.Optional.ObjectExtTester+TestClassError {\r\nA: 1\r\nB: 2\r\nC: Exception has been thrown by the target of an invocation.\r\nD: 5\r\nE: 7\r\n}");
+                .Should().Be("L_Tests.LCore.Extensions.Optional.ObjectExtTester_Optional+TestClassError {\r\nA: 1\r\nB: 2\r\nC: Exception has been thrown by the target of an invocation.\r\nD: 5\r\nE: 7\r\n}");
             }
 
         [Fact]
@@ -496,9 +497,14 @@ namespace L_Tests.LCore.Extensions.Optional
             // value was supplied.
             Result.Should().Be(expected: 5);
 
+            Test.SupplyTo(In: null)();
+
             var Test4 = new Func<int, int>(i => { throw new Exception(); });
 
             Func<int> Test5 = Test.SupplyTo(Test4);
+
+            Action Test6 = Test.SupplyTo((Action<int>)null);
+            Test6();
 
             // Exceptions are not hidden.
             L.A(() => Test5()).ShouldFail();
@@ -524,6 +530,9 @@ namespace L_Tests.LCore.Extensions.Optional
             var Test4 = new Func<int, int>(i => { throw new Exception(); });
 
             Func<int> Test5 = Test.SupplyTo(Test4);
+
+            Func<int> Test6 = Test.SupplyTo((Func<int, int>)null);
+            Test6();
 
             // Exceptions are not hidden.
             L.A(() => Test5()).ShouldFail();

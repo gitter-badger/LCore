@@ -1,25 +1,30 @@
-﻿
-using LCore.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using FluentAssertions;
-using LCore.LUnit;
 using JetBrains.Annotations;
+using LCore.Extensions;
+using LCore.LUnit;
 using LCore.LUnit.Fluent;
 using Xunit;
 using Xunit.Abstractions;
-using static LCore.LUnit.LUnit.Categories;
 
 // ReSharper disable RedundantCast
 
-namespace LCore.Tests.Extensions
+namespace L_Tests.LCore.Extensions
     {
-    [Trait(Category, UnitTests)]
-    public class StringExtTest : XUnitOutputTester
+    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt))]
+    public partial class StringExtTester : XUnitOutputTester, IDisposable
         {
+        public StringExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+
+        public void Dispose() { }
+
+
         [Fact]
-        
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." +
+            nameof(StringExt.ReplaceAll) + "(String, IDictionary`2<String, String>) => String")]
         public void Test_ReplaceAll_Dictionary()
             {
             var Replacements = new Dictionary<string, string>
@@ -44,9 +49,10 @@ namespace LCore.Tests.Extensions
             L.F<string, Dictionary<string, string>, string>(StringExt.ReplaceAll).ShouldFail(Test, Replacements2);
             }
 
-
         [Fact]
-        
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." +
+            nameof(StringExt.ToStream) + "(String) => Stream")]
         public void Test_ToStream()
             {
             // ReSharper disable once StringLiteralTypo
@@ -68,9 +74,10 @@ namespace LCore.Tests.Extensions
             Result2.Length.Should().Be(expected: 0);
             }
 
-
         [Fact]
-        
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." +
+            nameof(StringExt.Matches) + "(String, String) => List`1<Match>")]
         public void Test_Matches()
             {
             const string Test = "123 456";
@@ -87,6 +94,5 @@ namespace LCore.Tests.Extensions
             ((string)null).Matches("").Should().HaveCount(expected: 0);
             }
 
-        public StringExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }
