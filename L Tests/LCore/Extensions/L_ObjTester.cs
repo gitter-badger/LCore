@@ -87,9 +87,10 @@ namespace L_Tests.LCore.Extensions
             {
             L.Obj.IsA<string>()("").ShouldBeTrue();
             L.Obj.IsA<string>()(arg: null).ShouldBeFalse();
-            L.Obj.IsA<string>()((string)null).ShouldBeTrue();
+            L.Obj.IsA<string>()((string)null).ShouldBeFalse();
             L.Obj.IsA<int>()((string)null).ShouldBeFalse();
-            L.Obj.IsA<object>()(arg: null).ShouldBeTrue();
+            L.Obj.IsA<object>()(arg: "").ShouldBeTrue();
+            L.Obj.IsA<object>()(arg: null).ShouldBeFalse();
             }
 
         [Fact]
@@ -126,7 +127,7 @@ namespace L_Tests.LCore.Extensions
 
             L.Obj.SetProperty()(Test, nameof(Set<string, string>.Obj1), "c");
 
-            L.Obj.SetProperty()(Test, "derp", "d");
+            L.A(() => L.Obj.SetProperty()(Test, "derp", "d")).ShouldFail();
 
             Test.Obj1.Should().Be("c");
             }

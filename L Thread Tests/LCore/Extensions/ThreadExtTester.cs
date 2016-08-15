@@ -251,7 +251,7 @@ namespace L_Thread_Tests.LCore.Extensions
                 TestAction.Async(TimeLimitMilliseconds: 20)("abc");
                 Result.Should().Be("");
 
-                Thread.Sleep(millisecondsTimeout: 40);
+                Thread.Sleep(millisecondsTimeout: 80);
 
                 Result.Should().Be("");
 
