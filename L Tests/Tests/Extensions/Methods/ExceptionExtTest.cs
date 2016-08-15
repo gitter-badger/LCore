@@ -11,14 +11,22 @@ using static LCore.LUnit.LUnit.Categories;
 
 // ReSharper disable ConvertToLambdaExpression
 
-namespace LCore.Tests.Extensions
+namespace L_Tests.LCore.Extensions
     {
-    [Trait(Category, UnitTests)]
-    public class ExceptionExtTest : XUnitOutputTester
+    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt))]
+    public partial class ExceptionExtTester : XUnitOutputTester, IDisposable
         {
         private static readonly string _TestString = Guid.NewGuid().ToString();
 
+        public ExceptionExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+
+        public void Dispose() { }
+
+
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Try) + "(Action) => Func`1<Boolean>")]
         public void Test_Try_Action_0()
             {
             var A = new Action(() => { });
@@ -36,6 +44,9 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Try) + "(Action`1<T1>) => Func`2<T1, Boolean>")]
         public void Test_Try_Action_1()
             {
             var A = new Action<string>(o => { o.Should().Be(_TestString); });
@@ -58,6 +69,9 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Try) + "(Action`2<T1, T2>) => Func`3<T1, T2, Boolean>")]
         public void Test_Try_Action_2()
             {
             var A = new Action<string, string>((o1, o2) =>
@@ -85,6 +99,9 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Try) + "(Action`3<T1, T2, T3>) => Func`4<T1, T2, T3, Boolean>")]
         public void Test_Try_Action_3()
             {
             var A = new Action<string, string, string>((o1, o2, o3) =>
@@ -114,6 +131,9 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Try) + "(Action`4<T1, T2, T3, T4>) => Func`5<T1, T2, T3, T4, Boolean>")]
         public void Test_Try_Action_4()
             {
             var A = new Action<string, string, string, string>((o1, o2, o3, o4) =>
@@ -145,6 +165,9 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Try) + "(Func`1<U>) => Func`1<U>")]
         public void Test_Try_Func_0()
             {
             var A = new Func<int>(() => { return 5; });
@@ -162,6 +185,9 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Try) + "(Func`2<T1, U>) => Func`2<T1, U>")]
         public void Test_Try_Func_1()
             {
             var A = new Func<string, int>(o =>
@@ -188,6 +214,9 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Try) + "(Func`3<T1, T2, U>) => Func`3<T1, T2, U>")]
         public void Test_Try_Func_2()
             {
             var A = new Func<string, string, int>((o1, o2) =>
@@ -216,6 +245,9 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Try) + "(Func`4<T1, T2, T3, U>) => Func`4<T1, T2, T3, U>")]
         public void Test_Try_Func_3()
             {
             var A = new Func<string, string, string, int>((o1, o2, o3) =>
@@ -246,6 +278,9 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Try) + "(Func`5<T1, T2, T3, T4, U>) => Func`5<T1, T2, T3, T4, U>")]
         public void Test_Try_Func_4()
             {
             var A = new Func<string, string, string, string, int>((o1, o2, o3, o4) =>
@@ -281,6 +316,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Retry) + "(Action, Int32) => Action")]
         public void Test_Retry_0()
             {
             int I = 0;
@@ -305,6 +343,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Retry) + "(Action`1<T>, Int32) => Action`1<T>")]
         public void Test_Retry_Action_1()
             {
             int I = 0;
@@ -331,6 +372,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Retry) + "(Action`2<T1, T2>, Int32) => Action`2<T1, T2>")]
         public void Test_Retry_Action_2()
             {
             int I = 0;
@@ -358,6 +402,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Retry) + "(Action`3<T1, T2, T3>, Int32) => Action`3<T1, T2, T3>")]
         public void Test_Retry_Action_3()
             {
             int I = 0;
@@ -386,6 +433,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Retry) + "(Action`4<T1, T2, T3, T4>, Int32) => Action`4<T1, T2, T3, T4>")]
         public void Test_Retry_Action_4()
             {
             int I = 0;
@@ -416,6 +466,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Retry) + "(Func`1<U>, Int32) => Func`1<U>")]
         public void Test_Retry_Func_0()
             {
             int I = 0;
@@ -442,6 +495,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Retry) + "(Func`2<T1, U>, Int32) => Func`2<T1, U>")]
         public void Test_Retry_Func_1()
             {
             int I = 0;
@@ -470,6 +526,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Retry) + "(Func`3<T1, T2, U>, Int32) => Func`3<T1, T2, U>")]
         public void Test_Retry_Func_2()
             {
             int I = 0;
@@ -499,6 +558,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Retry) + "(Func`4<T1, T2, T3, U>, Int32) => Func`4<T1, T2, T3, U>")]
         public void Test_Retry_Func_3()
             {
             int I = 0;
@@ -529,6 +591,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Retry) + "(Func`5<T1, T2, T3, T4, U>, Int32) => Func`5<T1, T2, T3, T4, U>")]
         public void Test_Retry_Func_4()
             {
             int I = 0;
@@ -562,6 +627,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Action, Action`1<E>) => Action")]
         public void Test_Catch_Exception_Action_0()
             {
             var Test = new Action(() => { throw new ArgumentException(); });
@@ -587,6 +655,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Action`1<T1>, Action`1<E>) => Action`1<T1>")]
         public void Test_Catch_Exception_Action_1()
             {
             var Test = new Action<string>(o =>
@@ -616,6 +687,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Action`2<T1, T2>, Action`1<E>) => Action`2<T1, T2>")]
         public void Test_Catch_Exception_Action_2()
             {
             var Test = new Action<string, string>((o1, o2) =>
@@ -650,6 +724,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Action`3<T1, T2, T3>, Action`1<E>) => Action`3<T1, T2, T3>")]
         public void Test_Catch_Exception_Action_3()
             {
             var Test = new Action<string, string, string>((o1, o2, o3) =>
@@ -686,6 +763,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Action`4<T1, T2, T3, T4>, Action`1<E>) => Action`4<T1, T2, T3, T4>")]
         public void Test_Catch_Exception_Action_4()
             {
             var Test = new Action<string, string, string, string>((o1, o2, o3, o4) =>
@@ -725,6 +805,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Func`1<U>, Action`1<Exception>) => Func`1<U>")]
         public void Test_Catch_Exception_Func_0()
             {
             var Test = new Func<string>(() => { throw new ArgumentException(); });
@@ -750,6 +833,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Func`2<T1, U>, Action`1<Exception>) => Func`2<T1, U>")]
         public void Test_Catch_Exception_Func_1()
             {
             var Test = new Func<string, string>(o =>
@@ -783,6 +869,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Func`3<T1, T2, U>, Action`1<Exception>) => Func`3<T1, T2, U>")]
         public void Test_Catch_Exception_Func_2()
             {
             var Test = new Func<string, string, string>((o1, o2) =>
@@ -818,6 +907,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Func`4<T1, T2, T3, U>, Action`1<Exception>) => Func`4<T1, T2, T3, U>")]
         public void Test_Catch_Exception_Func_3()
             {
             var Test = new Func<string, string, string, string>((o1, o2, o3) =>
@@ -855,6 +947,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Func`5<T1, T2, T3, T4, U>, Action`1<Exception>) => Func`5<T1, T2, T3, T4, U>")]
         public void Test_Catch_Exception_Func_4()
             {
             var Test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
@@ -893,6 +988,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Func`1<U>, Action`1<E>) => Func`1<U>")]
         public void Test_Catch_EType_Action_0()
             {
             var Test = new Action(() => { throw new ArgumentException(); });
@@ -923,6 +1021,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Func`2<T1, U>, Action`1<E>) => Func`2<T1, U>")]
         public void Test_Catch_EType_Action_1()
             {
             var Test = new Action<string>(o =>
@@ -958,6 +1059,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Func`3<T1, T2, U>, Action`1<E>) => Func`3<T1, T2, U>")]
         public void Test_Catch_EType_Action_2()
             {
             var Test = new Action<string, string>((o1, o2) =>
@@ -998,6 +1102,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Func`4<T1, T2, T3, U>, Action`1<E>) => Func`4<T1, T2, T3, U>")]
         public void Test_Catch_EType_Action_3()
             {
             var Test = new Action<string, string, string>((o1, o2, o3) =>
@@ -1040,6 +1147,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Func`5<T1, T2, T3, T4, U>, Action`1<E>) => Func`5<T1, T2, T3, T4, U>")]
         public void Test_Catch_EType_Action_4()
             {
             var Test = new Action<string, string, string, string>((o1, o2, o3, o4) =>
@@ -1085,6 +1195,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Func`1<U>, Func`2<E, U>) => Func`1<U>")]
         public void Test_Catch_EType_Func_0()
             {
             var Test = new Func<string>(() => { throw new ArgumentException(); });
@@ -1115,6 +1228,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Func`2<T1, U>, Func`2<E, U>) => Func`2<T1, U>")]
         public void Test_Catch_EType_Func_1()
             {
             var Test = new Func<string, string>(o =>
@@ -1155,6 +1271,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Func`3<T1, T2, U>, Func`2<E, U>) => Func`3<T1, T2, U>")]
         public void Test_Catch_EType_Func_2()
             {
             var Test = new Func<string, string, string>((o1, o2) =>
@@ -1197,6 +1316,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Func`4<T1, T2, T3, U>, Func`2<E, U>) => Func`4<T1, T2, T3, U>")]
         public void Test_Catch_EType_Func_3()
             {
             var Test = new Func<string, string, string, string>((o1, o2, o3) =>
@@ -1241,6 +1363,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Func`5<T1, T2, T3, T4, U>, Func`2<E, U>) => Func`5<T1, T2, T3, T4, U>")]
         public void Test_Catch_EType_Func_4()
             {
             var Test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
@@ -1289,6 +1414,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Action, Action`1<Exception>) => Action")]
         public void Test_Catch_EType_Func_Func_0()
             {
             var Test = new Func<string>(() => { throw new ArgumentException(); });
@@ -1320,6 +1448,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Action`1<T1>, Action`1<Exception>) => Action`1<T1>")]
         public void Test_Catch_EType_Func_Func_1()
             {
             var Test = new Func<string, string>(o =>
@@ -1361,6 +1492,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Action`2<T1, T2>, Action`1<Exception>) => Action`2<T1, T2>")]
         public void Test_Catch_EType_Func_Func_2()
             {
             var Test = new Func<string, string, string>((o1, o2) =>
@@ -1404,6 +1538,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Action`3<T1, T2, T3>, Action`1<Exception>) => Action`3<T1, T2, T3>")]
         public void Test_Catch_EType_Func_Func_3()
             {
             var Test = new Func<string, string, string, string>((o1, o2, o3) =>
@@ -1449,6 +1586,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Action`4<T1, T2, T3, T4>, Action`1<Exception>) => Action`4<T1, T2, T3, T4>")]
         public void Test_Catch_EType_Func_Func_4()
             {
             var Test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
@@ -1498,6 +1638,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Action) => Action")]
         public void Test_Catch_NoArgs_Action_0()
             {
             var Test = new Action(() => { throw new ArgumentException(); });
@@ -1512,6 +1655,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Action`1<T1>) => Action`1<T1>")]
         public void Test_Catch_NoArgs_Action_1()
             {
             var Test = new Action<string>(o =>
@@ -1530,6 +1676,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Action`2<T1, T2>) => Action`2<T1, T2>")]
         public void Test_Catch_NoArgs_Action_2()
             {
             var Test = new Action<string, string>((o1, o2) =>
@@ -1553,6 +1702,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Action`3<T1, T2, T3>) => Action`3<T1, T2, T3>")]
         public void Test_Catch_NoArgs_Action_3()
             {
             var Test = new Action<string, string, string>((o1, o2, o3) =>
@@ -1579,6 +1731,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Action`4<T1, T2, T3, T4>) => Action`4<T1, T2, T3, T4>")]
         public void Test_Catch_NoArgs_Action_4()
             {
             var Test = new Action<string, string, string, string>((o1, o2, o3, o4) =>
@@ -1607,6 +1762,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Func`1<U>) => Func`1<U>")]
         public void Test_Catch_NoArgs_Func_0()
             {
             var Test = new Func<string>(() => { throw new ArgumentException(); });
@@ -1621,6 +1779,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Func`2<T1, U>) => Func`2<T1, U>")]
         public void Test_Catch_NoArgs_Func_1()
             {
             var Test = new Func<string, string>(o =>
@@ -1643,6 +1804,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Func`3<T1, T2, U>) => Func`3<T1, T2, U>")]
         public void Test_Catch_NoArgs_Func_2()
             {
             var Test = new Func<string, string, string>((o1, o2) =>
@@ -1669,6 +1833,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Func`4<T1, T2, T3, U>) => Func`4<T1, T2, T3, U>")]
         public void Test_Catch_NoArgs_Func_3()
             {
             var Test = new Func<string, string, string, string>((o1, o2, o3) =>
@@ -1700,6 +1867,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Catch) + "(Func`5<T1, T2, T3, T4, U>) => Func`5<T1, T2, T3, T4, U>")]
         public void Test_Catch_NoArgs_Func_4()
             {
             var Test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
@@ -1734,6 +1904,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Fail) + "(Action) => Action")]
         public void Test_Fail_Action()
             {
             var Act = new Action(() => { });
@@ -1745,6 +1918,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Fail) + "(Action`1<T>) => Action`1<T>")]
         public void Test_Fail_Action_1()
             {
             var Act = new Action<string>(o => { o.Should().Be(_TestString); });
@@ -1756,6 +1932,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Fail) + "(Action`2<T1, T2>) => Action`2<T1, T2>")]
         public void Test_Fail_Action_2()
             {
             var Act = new Action<string, string>((o1, o2) =>
@@ -1771,6 +1950,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Fail) + "(Action`3<T1, T2, T3>) => Action`3<T1, T2, T3>")]
         public void Test_Fail_Action_3()
             {
             var Act = new Action<string, string, string>((o1, o2, o3) =>
@@ -1787,6 +1969,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Fail) + "(Action`4<T1, T2, T3, T4>) => Action`4<T1, T2, T3, T4>")]
         public void Test_Fail_Action_4()
             {
             var Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
@@ -1804,6 +1989,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Fail) + "(Func`1<U>) => Func`1<U>")]
         public void Test_Fail_Func()
             {
             var Act = new Func<string>(() => { return _TestString; });
@@ -1815,6 +2003,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Fail) + "(Func`2<T, U>) => Func`2<T, U>")]
         public void Test_Fail_Func_1()
             {
             var Act = new Func<string, string>(o =>
@@ -1830,6 +2021,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Fail) + "(Func`3<T1, T2, U>) => Func`3<T1, T2, U>")]
         public void Test_Fail_Func_2()
             {
             var Act = new Func<string, string, string>((o1, o2) =>
@@ -1846,6 +2040,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Fail) + "(Func`4<T1, T2, T3, U>) => Func`4<T1, T2, T3, U>")]
         public void Test_Fail_Func_3()
             {
             var Act = new Func<string, string, string, string>((o1, o2, o3) =>
@@ -1863,6 +2060,9 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Fail) + "(Func`5<T1, T2, T3, T4, U>) => Func`5<T1, T2, T3, T4, U>")]
         public void Test_Fail_Func_4()
             {
             var Act = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
@@ -1880,6 +2080,12 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Report) + "(Action, String, E) => Action")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Report) + "(Action, E) => Action")]
         public void Test_Report_Action_0()
             {
             var Act = new Action(() => { });
@@ -1897,6 +2103,12 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Report) + "(Action`1<T>, String, E) => Action`1<T>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Report) + "(Action`1<T>, E) => Action`1<T>")]
         public void Test_Report_Action_1()
             {
             var Act = new Action<string>(o => { o.Should().Be(_TestString); });
@@ -1914,6 +2126,12 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Report) + "(Action`2<T1, T2>, String, E) => Action`2<T1, T2>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Report) + "(Action`2<T1, T2>, E) => Action`2<T1, T2>")]
         public void Test_Report_Action_2()
             {
             var Act = new Action<string, string>((o1, o2) =>
@@ -1936,6 +2154,12 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Report) + "(Action`3<T1, T2, T3>, String, E) => Action`3<T1, T2, T3>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Report) + "(Action`3<T1, T2, T3>, E) => Action`3<T1, T2, T3>")]
         public void Test_Report_Action_3()
             {
             var Act = new Action<string, string, string>((o1, o2, o3) =>
@@ -1959,6 +2183,12 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Report) + "(Action`4<T1, T2, T3, T4>, String, E) => Action`4<T1, T2, T3, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Report) + "(Action`4<T1, T2, T3, T4>, E) => Action`4<T1, T2, T3, T4>")]
         public void Test_Report_Action_4()
             {
             var Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
@@ -1985,6 +2215,12 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Report) + "(Func`1<U>, E) => Func`1<U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Report) + "(Func`1<U>, String, E) => Func`1<U>")]
         public void Test_Report_Func_0()
             {
             var Act = new Func<string>(() => { return $"{_TestString}a"; });
@@ -2002,6 +2238,12 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Report) + "(Func`2<T, U>, E) => Func`2<T, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Report) + "(Func`2<T, U>, String, E) => Func`2<T, U>")]
         public void Test_Report_Func_1()
             {
             var Act = new Func<string, string>(o =>
@@ -2023,6 +2265,12 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Report) + "(Func`3<T1, T2, U>, E) => Func`3<T1, T2, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Report) + "(Func`3<T1, T2, U>, String, E) => Func`3<T1, T2, U>")]
         public void Test_Report_Func_2()
             {
             var Act = new Func<string, string, string>((o1, o2) =>
@@ -2046,6 +2294,12 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Report) + "(Func`4<T1, T2, T3, U>, E) => Func`4<T1, T2, T3, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Report) + "(Func`4<T1, T2, T3, U>, String, E) => Func`4<T1, T2, T3, U>")]
         public void Test_Report_Func_3()
             {
             var Act = new Func<string, string, string, string>((o1, o2, o3) =>
@@ -2070,6 +2324,12 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Report) + "(Func`5<T1, T2, T3, T4, U>, String, E) => Func`5<T1, T2, T3, T4, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Report) + "(Func`5<T1, T2, T3, T4, U>, E) => Func`5<T1, T2, T3, T4, U>")]
         public void Test_Report_Func_4()
             {
             var Act = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
@@ -2098,6 +2358,12 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Throw) + "(Action, String) => Action")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Throw) + "(Func`1<U>, String) => Func`1<U>")]
         public void Test_Throw_0()
             {
             var Act = new Action(() => { });
@@ -2117,6 +2383,12 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Throw) + "(Func`2<T, U>, String) => Func`2<T, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Throw) + "(Action`1<T>, String) => Action`1<T>")]
         public void Test_Throw_1()
             {
             var Act = new Action<string>(o => { o.Should().Be(_TestString); });
@@ -2136,6 +2408,12 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Throw) + "(Func`3<T1, T2, U>, String) => Func`3<T1, T2, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Throw) + "(Action`2<T1, T2>, String) => Action`2<T1, T2>")]
         public void Test_Throw_2()
             {
             var Act = new Action<string, string>((o1, o2) =>
@@ -2159,6 +2437,12 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Throw) + "(Func`4<T1, T2, T3, U>, String) => Func`4<T1, T2, T3, U>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Throw) + "(Action`3<T1, T2, T3>, String) => Action`3<T1, T2, T3>")]
         public void Test_Throw_3()
             {
             var Act = new Action<string, string, string>((o1, o2, o3) =>
@@ -2183,6 +2467,12 @@ namespace LCore.Tests.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Throw) + "(Action`4<T1, T2, T3, T4>, String) => Action`4<T1, T2, T3, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Throw) + "(Func`5<T1, T2, T3, T4, U>, String) => Func`5<T1, T2, T3, T4, U>")]
         public void Test_Throw_4()
             {
             var Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
@@ -2207,6 +2497,12 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Handle) + "(Action) => Action")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Handle) + "(Func`1<U>) => Func`1<U>")]
         public void Test_Handle_0()
             {
             lock (this)
@@ -2233,6 +2529,12 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Handle) + "(Action`1<T1>) => Action`1<T1>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Handle) + "(Func`2<T1, U>) => Func`2<T1, U>")]
         public void Test_Handle_1()
             {
             lock (this)
@@ -2263,6 +2565,12 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Handle) + "(Action`2<T1, T2>) => Action`2<T1, T2>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Handle) + "(Func`3<T1, T2, U>) => Func`3<T1, T2, U>")]
         public void Test_Handle_2()
             {
             lock (this)
@@ -2298,6 +2606,12 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Handle) + "(Action`3<T1, T2, T3>) => Action`3<T1, T2, T3>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Handle) + "(Func`4<T1, T2, T3, U>) => Func`4<T1, T2, T3, U>")]
         public void Test_Handle_3()
             {
             lock (this)
@@ -2335,6 +2649,12 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Handle) + "(Action`4<T1, T2, T3, T4>) => Action`4<T1, T2, T3, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Handle) + "(Func`5<T1, T2, T3, T4, U>) => Func`5<T1, T2, T3, T4, U>")]
         public void Test_Handle_4()
             {
             lock (this)
@@ -2375,6 +2695,12 @@ namespace LCore.Tests.Extensions
 
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Debug) + "(Action`1<T1>) => Action`1<T1>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Debug) + "(Func`2<T1, U>) => Func`2<T1, U>")]
         public void Test_Debug_1()
             {
             var Good_Act = new Action<string>(o => { o.Should().Be(_TestString); });
@@ -2396,6 +2722,12 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Debug) + "(Action`2<T1, T2>) => Action`2<T1, T2>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Debug) + "(Func`3<T1, T2, U>) => Func`3<T1, T2, U>")]
         public void Test_Debug_2()
             {
             var Good_Act = new Action<string, string>((o1, o2) =>
@@ -2423,6 +2755,12 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Debug) + "(Action`3<T1, T2, T3>) => Action`3<T1, T2, T3>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Debug) + "(Func`4<T1, T2, T3, U>) => Func`4<T1, T2, T3, U>")]
         public void Test_Debug_3()
             {
             var Good_Act = new Action<string, string, string>((o1, o2, o3) =>
@@ -2456,6 +2794,12 @@ namespace LCore.Tests.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Debug) + "(Action`4<T1, T2, T3, T4>) => Action`4<T1, T2, T3, T4>")]
+        [Trait(Traits.TargetMember,
+            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
+            nameof(ExceptionExt.Debug) + "(Func`5<T1, T2, T3, T4, U>) => Func`5<T1, T2, T3, T4, U>")]
         public void Test_Debug_4()
             {
             var Good_Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
@@ -2499,7 +2843,5 @@ namespace LCore.Tests.Extensions
                 .Should()
                 .Be(default(string));
             }
-
-        public ExceptionExtTest([NotNull] ITestOutputHelper Output) : base(Output) {}
         }
     }
