@@ -9,6 +9,9 @@ using LCore.LUnit.Fluent;
 using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
+
+// ReSharper disable ObjectCreationAsStatement
+
 // ReSharper disable PartialTypeWithSinglePart
 // ReSharper disable RedundantCast
 // ReSharper disable RedundantNameQualifier
@@ -18,9 +21,9 @@ namespace L_Tests.LCore.Extensions
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L))]
     public partial class L_ObjTester : XUnitOutputTester, IDisposable
         {
-        public L_ObjTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+        public L_ObjTester([NotNull] ITestOutputHelper Output) : base(Output) {}
 
-        public void Dispose() { }
+        public void Dispose() {}
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.As) + "() => Func`2<Object, T>")]
@@ -78,7 +81,7 @@ namespace L_Tests.LCore.Extensions
             L.Obj.IsNull<object>()("").ShouldBeFalse();
             L.Obj.IsNull<object>()(arg: 1).ShouldBeFalse();
             L.Obj.IsNull<int?>()(arg: 1).ShouldBeFalse();
-            L.Obj.IsNull<int?>()((int?)null).ShouldBeTrue();
+            L.Obj.IsNull<int?>()((int?) null).ShouldBeTrue();
             }
 
         [Fact]
@@ -87,8 +90,8 @@ namespace L_Tests.LCore.Extensions
             {
             L.Obj.IsA<string>()("").ShouldBeTrue();
             L.Obj.IsA<string>()(arg: null).ShouldBeFalse();
-            L.Obj.IsA<string>()((string)null).ShouldBeFalse();
-            L.Obj.IsA<int>()((string)null).ShouldBeFalse();
+            L.Obj.IsA<string>()((string) null).ShouldBeFalse();
+            L.Obj.IsA<int>()((string) null).ShouldBeFalse();
             L.Obj.IsA<object>()("").ShouldBeTrue();
             L.Obj.IsA<object>()(arg: null).ShouldBeFalse();
             }
@@ -130,6 +133,31 @@ namespace L_Tests.LCore.Extensions
             L.A(() => L.Obj.SetProperty()(Test, "derp", "d")).ShouldFail();
 
             Test.Obj1.ShouldBe("c");
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.NewRandom) + "(Nullable`1<T>, Nullable`1<T>) => T")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.NewRandom) + "(Type, Object, Object) => Object")]
+        public void NewRandom()
+            {
+            int Random = (int) L.Obj.NewRandom(typeof(int));
+
+            Random.Should().BeInRange(int.MinValue, int.MaxValue);
+
+            for (int i = 0; i < 50; i++)
+                {
+                int Minimum = L.Obj.NewRandom<int>(int.MinValue, int.MaxValue - 1);
+                int Maximum = L.Obj.NewRandom<int>(Minimum + 1, int.MaxValue);
+
+                Random = (int) L.Obj.NewRandom(typeof(int), Minimum, Maximum);
+                int Random2 = L.Obj.NewRandom<int>(Minimum, Maximum);
+
+                Random.Should().BeInRange(Minimum, Maximum);
+                Random2.Should().BeInRange(Minimum, Maximum);
+                }
+
+
+            new Guid(L.Obj.NewRandom(typeof(string)) as string);
             }
         }
     }

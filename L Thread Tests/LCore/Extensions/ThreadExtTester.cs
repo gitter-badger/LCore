@@ -681,6 +681,10 @@ namespace L_Thread_Tests.LCore.Extensions
             }
 
         [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Thread) + "." + nameof(L.Thread.MethodProfileData_Get) + "(String) => MethodProfileData")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Thread) + "." + nameof(L.Thread.MethodProfileData_Remove) + "(String)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Thread) + "." + nameof(L.Thread.MethodProfileData_Add) + "(String, MethodProfileData)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Thread) + "." + nameof(L.Thread.MethodProfileData_Has) + "(String) => Boolean")]
         public void MethodProfileCache()
             {
             const string ProfileName = "TestProfile";
