@@ -427,8 +427,8 @@ namespace LUnit_Tests.LCore.LUnit.Fluent
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.LUnit)+ "." + nameof(global::LCore.LUnit.Fluent)+ "." + nameof(FluentExt)+ "." + nameof(FluentExt.ShouldBe) + "(Nullable`1<T>, T, String, Object[]) => AndConstraint`1<ObjectAssertions>")]
-        public void ShouldBe_Nullable_1_T_T_String_Object_AndConstraint_1_ObjectAssertions()
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.LUnit)+ "." + nameof(global::LCore.LUnit.Fluent)+ "." + nameof(FluentExt)+ "." + nameof(FluentExt.ShouldBe) + "(Nullable`1<T>, Nullable`1<T>, String, Object[]) => AndConstraint`1<ObjectAssertions>")]
+        public void ShouldBe_Nullable_1_T_Nullable_1_T_String_Object_AndConstraint_1_ObjectAssertions()
          {
             // TODO: Implement method test LCore.LUnit.Fluent.FluentExt.ShouldBe
          }

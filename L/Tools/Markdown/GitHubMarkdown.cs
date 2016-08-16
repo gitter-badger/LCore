@@ -2,8 +2,13 @@ using LCore.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using JetBrains.Annotations;
 // ReSharper disable UnusedMember.Global
+// ReSharper disable CollectionNeverQueried.Global
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable InconsistentNaming
 
 namespace LCore.Tools
     {
@@ -12,13 +17,19 @@ namespace LCore.Tools
     /// </summary>
     public class GitHubMarkdown
         {
+        /// <summary>
+        /// List of all Markdown Lines added.
+        /// </summary>
+        protected List<string> MarkdownLines { get; } = new List<string>();
+
+
         #region Public Methods
         /// <summary>
         /// Add a blank line:
         /// </summary>
         public void BlankLine()
             {
-            this.AddLine();
+            this.Line("");
             }
 
         /// <summary>
@@ -30,7 +41,7 @@ namespace LCore.Tools
         /// </summary>
         public void HorizontalRule()
             {
-            this.AddLine("---");
+            this.Line("---");
             }
 
         /// <summary>
@@ -51,7 +62,7 @@ namespace LCore.Tools
             if (Size > 6)
                 Size = 6;
 
-            this.AddLine($"{"#".Times(Size)}{Line}");
+            this.Line($"{"#".Times(Size)}{Line}");
             }
 
         /// <summary>
@@ -70,8 +81,8 @@ namespace LCore.Tools
             if (Size > 2)
                 Size = 2;
 
-            this.AddLine($"{Line}");
-            this.AddLine(Size == 1 ? "======" : "------");
+            this.Line($"{Line}");
+            this.Line(Size == 1 ? "======" : "------");
             }
 
         /// <summary>
@@ -84,7 +95,7 @@ namespace LCore.Tools
         /// </summary>
         public void OrderedList([CanBeNull] params string[] Lines)
             {
-            Lines.Each((i, Line) => this.AddLine($"{i + 1}. {Line}"));
+            Lines.Each((i, Line) => this.Line($"{i + 1}. {Line}"));
             }
 
         /// <summary>
@@ -124,7 +135,7 @@ namespace LCore.Tools
                     if (LastLevel == null || Line.Obj1 != LastLevel)
                         CurrentNumber = 1;
 
-                    this.AddLine($"{"  ".Times(Line.Obj1)}{CurrentNumber}{Line.Obj2}");
+                    this.Line($"{"  ".Times(Line.Obj1)}{CurrentNumber}{Line.Obj2}");
 
                     LastLevel = Line.Obj1;
                     CurrentNumber++;
@@ -141,7 +152,7 @@ namespace LCore.Tools
         /// </summary>
         public void UnorderedList([CanBeNull] params string[] Lines)
             {
-            Lines.Each(Line => this.AddLine($"- {Line}"));
+            Lines.Each(Line => this.Line($"- {Line}"));
             }
 
         /// <summary>
@@ -175,7 +186,7 @@ namespace LCore.Tools
             {
             DepthLine.Each(Line =>
                 {
-                    this.AddLine($"{"  ".Times(Line.Obj1)}*{Line.Obj2}");
+                    this.Line($"{"  ".Times(Line.Obj1)}*{Line.Obj2}");
                 });
             }
 
@@ -188,7 +199,7 @@ namespace LCore.Tools
         public void Strikethrough([CanBeNull] string Text)
             {
             if (!string.IsNullOrEmpty(Text))
-                this.AddLine($"~~{Text}~~");
+                this.Line($"~~{Text}~~");
             }
 
         /// <summary>
@@ -200,7 +211,7 @@ namespace LCore.Tools
         public void Highlight([CanBeNull] string Text)
             {
             if (!string.IsNullOrEmpty(Text))
-                this.AddLine($"=={Text}==");
+                this.Line($"=={Text}==");
             }
 
         /// <summary>
@@ -223,7 +234,7 @@ namespace LCore.Tools
             if (!string.IsNullOrEmpty(ReferenceText))
                 ReferenceText = $" \"{ReferenceText}\"";
 
-            this.AddLine($"[{Text}]{Url}{ReferenceText}");
+            this.Line($"[{Text}]{Url}{ReferenceText}");
             }
 
         /// <summary>
@@ -238,7 +249,7 @@ namespace LCore.Tools
             if (!string.IsNullOrEmpty(ReferenceText))
                 ReferenceText = $"[{ReferenceText}]";
 
-            this.AddLine($"!{ReferenceText}({Url})");
+            this.Line($"!{ReferenceText}({Url})");
             }
 
         /// <summary>
@@ -248,9 +259,9 @@ namespace LCore.Tools
         /// <param name="Language"></param>
         public void Code([CanBeNull] string[] Lines = null, [CanBeNull] string Language = "")
             {
-            this.AddLine($"```{Language}");
-            Lines.Each(this.AddLine);
-            this.AddLine("```");
+            this.Line($"```{Language}");
+            Lines.Each(this.Line);
+            this.Line("```");
             }
 
         /// <summary>
@@ -296,7 +307,49 @@ namespace LCore.Tools
                     Table.Add(Divider.JoinLines(" | "));
                 }
 
-            Table.Each(this.AddLine);
+            Table.Each(this.Line);
+            }
+
+        /// <summary>
+        /// Add a table of data.
+        /// By default, the first row will be used as the header row, and separator will be added
+        /// 
+        /// Header |  Header | Header
+        /// -------------------------
+        /// Data | Data | Data
+        /// Data | Data | Data
+        /// 
+        /// //////////////////////////////////////////
+        /// 
+        /// Data | Data | Data
+        /// Data | Data | Data
+        /// Data | Data | Data
+        /// 
+        /// </summary>
+        public void Table([CanBeNull] IEnumerable<IEnumerable<string>> Rows, bool IncludeHeader = true)
+            {
+            if (Rows == null)
+                return;
+
+            var Table = new List<string>();
+            var Divider = new List<string>();
+
+            Rows.Each((i, Row) =>
+            {
+                var Cells = new List<string>();
+
+                Row.Each((j, Column) =>
+                {
+                    Cells.Add(Column);
+                    if (IncludeHeader && i == 0)
+                        Divider.Add(" --- ");
+                });
+                Table.Add(Cells.JoinLines(" | "));
+                if (IncludeHeader && i == 0)
+                    Table.Add(Divider.JoinLines(" | "));
+            });
+
+            Table.Each(this.Line);
             }
 
         /// <summary>
@@ -304,15 +357,7 @@ namespace LCore.Tools
         /// </summary>
         public void BlockQuote([CanBeNull] params string[] Lines)
             {
-            Lines.Each(Line => this.AddLine($"> {Line}"));
-            }
-
-        /// <summary>
-        /// Add a single <paramref name="Line"/>
-        /// </summary>
-        public void Line([CanBeNull] string Line)
-            {
-            this.AddLine(Line);
+            Lines.Each(Line => this.Line($"> {Line}"));
             }
 
         /// <summary>
@@ -320,20 +365,136 @@ namespace LCore.Tools
         /// </summary>
         public void Lines([CanBeNull] params string[] Lines)
             {
-            Lines?.Each(this.AddLine);
+            Lines?.Each(this.Line);
             }
 
-        #endregion
-
-        private void AddLine([CanBeNull]string Line = "")
+        /// <summary>
+        /// Add a single <paramref name="Line"/>
+        /// </summary>
+        public void Line([CanBeNull] string Line)
             {
             if (Line != null)
                 this.MarkdownLines.Add(Line);
             }
 
-        /// <summary>
-        /// List of all Markdown Lines added.
-        /// </summary>
-        protected List<string> MarkdownLines { get; } = new List<string>();
+        #endregion
+        }
+
+    internal class MarkdownGenerator
+        {
+        protected Dictionary<Assembly, GitHubMarkdown> AssemblyMarkdown { get; } = new Dictionary<Assembly, GitHubMarkdown>();
+        protected Dictionary<Type, GitHubMarkdown> TypeMarkdown { get; } = new Dictionary<Type, GitHubMarkdown>();
+        protected Dictionary<MemberInfo, GitHubMarkdown> MemberMarkdown { get; } = new Dictionary<MemberInfo, GitHubMarkdown>();
+
+        protected virtual GitHubMarkdown GenerateMarkdown(Assembly Assembly)
+            {
+            return null;
+            }
+
+        protected virtual GitHubMarkdown GenerateMarkdown(Type Type)
+            {
+            return null;
+            }
+
+        protected virtual GitHubMarkdown GenerateMarkdown(MemberInfo Member)
+            {
+            var MD = new GitHubMarkdown();
+
+            MD.Header($"{Member.DeclaringType?.Name}", Size: 3);
+            MD.Header(Member.Name);
+
+            string PathToRoot = "../../..";
+
+            if (Member is MethodInfo)
+                {
+                var Method = (MethodInfo)Member;
+
+                var Comments = Method.GetComments();
+
+                string Static = Method.IsStatic
+                    ? "Static "
+                    : "Instance";
+
+                string ReturnType = Method.ReturnType == typeof(void)
+                    ? "void"
+                    : Method.ReturnType.FullyQualifiedName();
+
+                string Parameters = Method.GetParameters().Convert(Param =>
+                    $"{Param.ParameterType.GetGenericName()} {Param.Name}").Combine(", ");
+
+                MD.Header($"{Static}Method", Size: 4);
+
+                MD.Header($"public static {ReturnType} {Member.Name}({Parameters});", Size: 6);
+
+                MD.Header("Summary", Size: 6);
+                MD.Line(Comments?.Summary);
+
+                if (Method.GetParameters().Length > 0)
+                    {
+                    MD.Header("Parameters", Size: 6);
+
+                    var Table = new List<string[]>
+                        {
+                        new[] {"Parameter", "Optional", "Type", "Description"}
+                        };
+
+                    Method.GetParameters().Each((k, Param) =>
+                        {
+                            Table.Add(new[]
+                                {
+                                Param.Name,
+                                Param.IsOptional ? "Yes" : "No",
+                                Param.ParameterType.GetGenericName(),
+                                Comments?.Parameters[k].Obj2
+                                });
+                        });
+
+                    MD.Table(Table);
+                    }
+
+                MD.Header("Returns", Size: 4);
+
+                MD.Header(Method.ReturnType == typeof(void)
+                    ? "void"
+                    : Method.ReturnType.GetGenericName(), Size: 6);
+
+                MD.Line(Comments?.Returns);
+                }
+
+
+            return MD;
+            }
+
+        protected virtual string GeneratedMarkdownRoot => "/GeneratedMarkdown";
+        protected virtual string AssemblyMarkdownPath(Assembly Assembly) => $"{this.GeneratedMarkdownRoot}/{Assembly.GetName().Name}.md";
+        protected virtual string AssemblyMarkdownPath(Type Type) => $"{this.GeneratedMarkdownRoot}/{Type.GetAssembly()?.GetName().Name}/{Type.Name}.md";
+        protected virtual string AssemblyMarkdownPath(MemberInfo Member) => $"{this.GeneratedMarkdownRoot}/{Member.DeclaringType.GetAssembly()?.GetName().Name}/{Member.DeclaringType.Name}/{Member.Name}.md";
+
+        protected virtual bool IncludeType(Type Type) =>
+            !Type.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) &&
+            !Type.HasAttribute<IExcludeFromMarkdownAttribute>();
+
+        protected virtual bool IncludeMember(MemberInfo Member) =>
+            !Member.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) &&
+            !Member.HasAttribute<IExcludeFromMarkdownAttribute>();
+
+        public void Load(Assembly Assembly)
+            {
+            this.AssemblyMarkdown.Add(Assembly, this.GenerateMarkdown(Assembly));
+
+            Assembly.GetExportedTypes().Select(this.IncludeType).Each(this.Load);
+            }
+
+        public void Load(Type Type)
+            {
+            this.TypeMarkdown.Add(Type, this.GenerateMarkdown(Type));
+
+            Type.GetMembers().Select(this.IncludeMember).Each(this.Load);
+            }
+
+        public void Load(MemberInfo Member)
+            {
+            this.MemberMarkdown.Add(Member, this.GenerateMarkdown(Member));
+            }
         }
     }
